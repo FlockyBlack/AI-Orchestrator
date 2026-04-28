@@ -67,11 +67,11 @@
     },
     "infra_008": {
       "source_path": "docs/PMBOT_INFRA_008_RESULT.json",
-      "present": false,
-      "presence": "absent",
-      "parse_status": "not_applicable",
-      "task_id": null,
-      "status": "absent",
+      "present": true,
+      "presence": "present",
+      "parse_status": "parsed",
+      "task_id": "PMBOT-INFRA-008-ABC-ROUND002-SCOPE-AND-WORKTREE-MATERIALIZATION",
+      "status": "completed_ready_for_review",
       "integration_verdict": null
     },
     "latest_overall_stage": {
@@ -395,10 +395,10 @@
       "path": "docs/PMBOT_INFRA_008_RESULT.json",
       "artifact_type": "docs_result_json",
       "required": false,
-      "present": false,
-      "presence": "absent",
-      "status": "absent",
-      "parse_status": "not_applicable"
+      "present": true,
+      "presence": "present",
+      "status": "completed_ready_for_review",
+      "parse_status": "parsed"
     },
     "dashboard_001_result": {
       "path": "docs/PMBOT_DASHBOARD_001_RESULT.json",
@@ -416,10 +416,10 @@
       "path": "docs/PMBOT_PAPER_018_RESULT.json",
       "artifact_type": "future_optional_docs_result_json",
       "required": false,
-      "present": false,
-      "presence": "absent",
-      "status": "absent",
-      "parse_status": "not_applicable"
+      "present": true,
+      "presence": "present",
+      "status": "completed_ready_for_review",
+      "parse_status": "parsed"
     },
     "future_batch_audit_summary_json": {
       "path": "pm_bot/paper/paper_batch_audit_summary.v1.json",
@@ -459,12 +459,12 @@
   "future_batch_audit_placeholder": {
     "schema_version": "future_batch_audit_placeholder.v1",
     "paper_018_required": false,
-    "paper_018_present": false,
-    "paper_018_presence": "absent",
+    "paper_018_present": true,
+    "paper_018_presence": "present",
     "paper_018_source_path": "docs/PMBOT_PAPER_018_RESULT.json",
-    "paper_018_task_id": null,
-    "paper_018_status": "absent",
-    "paper_018_parse_status": "not_applicable",
+    "paper_018_task_id": "PMBOT-PAPER-018-MULTI-RECORD-PAPER-ACCOUNTING-BATCH-AUDIT",
+    "paper_018_status": "completed_ready_for_review",
+    "paper_018_parse_status": "parsed",
     "source_paths": [
       "docs/PMBOT_PAPER_018_RESULT.json",
       "pm_bot/paper/paper_batch_audit_summary.v1.json",

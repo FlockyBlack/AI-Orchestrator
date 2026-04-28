@@ -12,9 +12,9 @@
 - dashboard_001_status: completed_with_warnings
 - paper_017_status: completed_ready_for_review
 - integration_006_verdict: abc_round001_merged_to_main_with_known_fixture_warning
-- infra_008_present: false
-- infra_008_status: absent
-- infra_008_parse_status: not_applicable
+- infra_008_present: true
+- infra_008_status: completed_ready_for_review
+- infra_008_parse_status: parsed
 - current_known_portfolio_audit_status: paper_017_reconciliation_available_with_dashboard_002_static_export
 
 ## Portfolio Accounting Summary
@@ -43,9 +43,9 @@
 ## Future Batch Audit Placeholder
 
 - paper_018_required: false
-- paper_018_present: false
-- paper_018_status: absent
-- paper_018_parse_status: not_applicable
+- paper_018_present: true
+- paper_018_status: completed_ready_for_review
+- paper_018_parse_status: parsed
 - batch_audit_status: None
 - batch_ids: (none)
 
@@ -56,9 +56,9 @@
 - dashboard_001_preview_markdown: pm_bot/dashboard/dashboard_state_preview.v1.md (present=true)
 - dashboard_001_result: docs/PMBOT_DASHBOARD_001_RESULT.json (present=true)
 - future_batch_audit_summary_json: pm_bot/paper/paper_batch_audit_summary.v1.json (present=false)
-- future_paper_018_result: docs/PMBOT_PAPER_018_RESULT.json (present=false)
+- future_paper_018_result: docs/PMBOT_PAPER_018_RESULT.json (present=true)
 - infra_007_result: docs/PMBOT_INFRA_007_RESULT.json (present=true)
-- infra_008_result: docs/PMBOT_INFRA_008_RESULT.json (present=false)
+- infra_008_result: docs/PMBOT_INFRA_008_RESULT.json (present=true)
 - integration_002_result: docs/PMBOT_INTEGRATION_002_RESULT.json (present=true)
 - integration_003_result: docs/PMBOT_INTEGRATION_003_RESULT.json (present=true)
 - integration_006_result: docs/PMBOT_INTEGRATION_006_RESULT.json (present=true)

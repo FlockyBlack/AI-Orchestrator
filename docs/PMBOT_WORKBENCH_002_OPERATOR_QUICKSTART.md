@@ -169,7 +169,13 @@ Do not use the review pack to do any of the following:
 
 ## Existing Local Commands
 
-There is no single local command that regenerates the entire operator workbench package yet. That gap supports the recommended next task: `PMBOT-WORKBENCH-003-SINGLE-COMMAND-LOCAL-EXPORT`.
+Regenerate the full operator workbench package with one deterministic local command:
+
+```powershell
+python pm_bot\workbench\run_operator_workbench_export.py
+```
+
+The command runs local exporters only, writes `pm_bot/workbench/operator_workbench_export_run.v1.json` and `pm_bot/workbench/operator_workbench_export_run.v1.md`, and does not start automation, daemons, schedulers, Telegram runtime, dashboard runtime, network/API behavior, trading, scoring, or command execution.
 
 Existing local scripts are available for individual artifacts:
 
@@ -195,7 +201,7 @@ If generated artifacts appear stale, rerun only the existing local exporters aft
 
 ## Remaining Gaps
 
-- No single command regenerates the full operator workbench package.
+- The single-command runner now exists; future work should keep its scope manual, local, deterministic, and offline.
 - The quality report is correct but too noisy for first-pass operator use.
 - Warning severity is implicit; operators need a clearer blocking vs non-blocking summary in the pack itself.
 - Optional infrastructure artifact state can appear stale: the tracked review pack reports INFRA-009 optional artifacts as missing, while the files are present in this workspace.
@@ -205,6 +211,6 @@ If generated artifacts appear stale, rerun only the existing local exporters aft
 
 ## Recommended Next Task
 
-Recommend evaluating `PMBOT-WORKBENCH-003-SINGLE-COMMAND-LOCAL-EXPORT`.
+Recommend evaluating `PMBOT-WORKBENCH-004-QUALITY-WARNING-SEVERITY-SUMMARY`.
 
-Purpose: create one local deterministic command/script to regenerate the operator workbench package from existing local artifacts. The command should stay local-only, deterministic, non-trading, non-scoring, and free of runtime wiring.
+Purpose: add a clearer warning severity and category summary before the full quality warning detail, while keeping the workbench local-only, deterministic, non-trading, non-scoring, and free of runtime wiring.

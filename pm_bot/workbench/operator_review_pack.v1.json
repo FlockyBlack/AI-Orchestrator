@@ -57,10 +57,10 @@
   "artifact_inventory": {
     "summary": {
       "total_artifacts": 16,
-      "present_artifacts": 14,
-      "missing_artifacts": 2,
+      "present_artifacts": 16,
+      "missing_artifacts": 0,
       "required_missing_artifacts": 0,
-      "json_artifacts_parsed": 14,
+      "json_artifacts_parsed": 15,
       "json_artifacts_parse_failed": 0
     },
     "artifacts": [
@@ -160,11 +160,11 @@
         "category": "infrastructure_optional",
         "artifact_type": "docs_result_json",
         "required": false,
-        "present": false,
-        "parse_status": "not_applicable",
+        "present": true,
+        "parse_status": "parsed",
         "schema_version": null,
-        "task_id": null,
-        "status": null,
+        "task_id": "PMBOT-INFRA-009-ABC-ROUND003-WORKTREE-MATERIALIZATION",
+        "status": "completed_ready_for_review",
         "audit_status": null,
         "deterministic": null,
         "warning_count": 0
@@ -175,7 +175,7 @@
         "category": "infrastructure_optional",
         "artifact_type": "docs_markdown",
         "required": false,
-        "present": false,
+        "present": true,
         "parse_status": "not_applicable",
         "schema_version": null,
         "task_id": null,
@@ -496,20 +496,7 @@
       "message": "This pack reads local artifacts only and contains no live prices, live fetch results, or API results."
     }
   ],
-  "missing_artifacts": [
-    {
-      "artifact_id": "infra_009_result",
-      "path": "docs/PMBOT_INFRA_009_RESULT.json",
-      "category": "infrastructure_optional",
-      "required": false
-    },
-    {
-      "artifact_id": "infra_009_report",
-      "path": "docs/PMBOT_INFRA_009_ABC_ROUND003_WORKTREE_MATERIALIZATION.md",
-      "category": "infrastructure_optional",
-      "required": false
-    }
-  ],
+  "missing_artifacts": [],
   "safety_flags": {
     "operator_review_only": true,
     "offline_only": true,

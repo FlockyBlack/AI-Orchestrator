@@ -20,26 +20,13 @@
   "tests": [],
   "artifact_inventory_summary": {
     "total_artifacts": 16,
-    "present_artifacts": 14,
-    "missing_artifacts": 2,
+    "present_artifacts": 16,
+    "missing_artifacts": 0,
     "required_missing_artifacts": 0,
-    "json_artifacts_parsed": 14,
+    "json_artifacts_parsed": 15,
     "json_artifacts_parse_failed": 0
   },
-  "missing_artifacts": [
-    {
-      "artifact_id": "infra_009_result",
-      "path": "docs/PMBOT_INFRA_009_RESULT.json",
-      "category": "infrastructure_optional",
-      "required": false
-    },
-    {
-      "artifact_id": "infra_009_report",
-      "path": "docs/PMBOT_INFRA_009_ABC_ROUND003_WORKTREE_MATERIALIZATION.md",
-      "category": "infrastructure_optional",
-      "required": false
-    }
-  ],
+  "missing_artifacts": [],
   "warnings_count": 4,
   "safety_flags": {
     "operator_review_only": true,

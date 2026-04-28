@@ -1,0 +1,102 @@
+{
+  "schema_version": "operator_workbench_export_run.v1",
+  "task_id": "PMBOT-WORKBENCH-003-SINGLE-COMMAND-LOCAL-EXPORT",
+  "generated_by": "pm_bot/workbench/run_operator_workbench_export.py",
+  "run_mode": "manual_local_export",
+  "steps": [
+    {
+      "step_id": "portfolio_audit_state",
+      "script_path": "pm_bot/dashboard/export_portfolio_audit_state.py",
+      "required": false,
+      "status": "ran",
+      "output_artifacts": [
+        "pm_bot/dashboard/portfolio_audit_state_contract.v1.json",
+        "pm_bot/dashboard/portfolio_audit_state_preview.v1.json",
+        "pm_bot/dashboard/portfolio_audit_state_preview.v1.md",
+        "pm_bot/dashboard/expected_portfolio_audit_state_preview.v1.json"
+      ]
+    },
+    {
+      "step_id": "manual_command_inbox_review",
+      "script_path": "pm_bot/operator/review_manual_command_inbox.py",
+      "required": false,
+      "status": "ran",
+      "output_artifacts": [
+        "pm_bot/operator/manual_command_inbox_review.v1.json",
+        "pm_bot/operator/manual_command_inbox_review.v1.md",
+        "pm_bot/operator/expected_manual_command_inbox_review.v1.json"
+      ]
+    },
+    {
+      "step_id": "artifact_health_report",
+      "script_path": "pm_bot/quality/export_artifact_health_report.py",
+      "required": false,
+      "status": "ran",
+      "output_artifacts": [
+        "pm_bot/quality/artifact_health_report.v1.json",
+        "pm_bot/quality/artifact_health_report.v1.md",
+        "pm_bot/quality/expected_artifact_health_report.v1.json",
+        "docs/PMBOT_QUALITY_001_RESULT.json",
+        "docs/PMBOT_CODEX_B_ROUND003_RESULT.json"
+      ]
+    },
+    {
+      "step_id": "operator_review_pack",
+      "script_path": "pm_bot/workbench/export_operator_review_pack.py",
+      "required": true,
+      "status": "ran",
+      "output_artifacts": [
+        "pm_bot/workbench/operator_review_pack.v1.json",
+        "pm_bot/workbench/operator_review_pack.v1.md",
+        "pm_bot/workbench/expected_operator_review_pack.v1.json",
+        "docs/PMBOT_WORKBENCH_001_RESULT.json",
+        "docs/PMBOT_CODEX_A_ROUND003_RESULT.json"
+      ]
+    }
+  ],
+  "required_steps_passed": true,
+  "optional_steps_skipped": [],
+  "artifacts_refreshed": [
+    "pm_bot/dashboard/portfolio_audit_state_contract.v1.json",
+    "pm_bot/dashboard/portfolio_audit_state_preview.v1.json",
+    "pm_bot/dashboard/portfolio_audit_state_preview.v1.md",
+    "pm_bot/dashboard/expected_portfolio_audit_state_preview.v1.json",
+    "pm_bot/operator/manual_command_inbox_review.v1.json",
+    "pm_bot/operator/manual_command_inbox_review.v1.md",
+    "pm_bot/operator/expected_manual_command_inbox_review.v1.json",
+    "pm_bot/quality/artifact_health_report.v1.json",
+    "pm_bot/quality/artifact_health_report.v1.md",
+    "pm_bot/quality/expected_artifact_health_report.v1.json",
+    "docs/PMBOT_QUALITY_001_RESULT.json",
+    "docs/PMBOT_CODEX_B_ROUND003_RESULT.json",
+    "pm_bot/workbench/operator_review_pack.v1.json",
+    "pm_bot/workbench/operator_review_pack.v1.md",
+    "pm_bot/workbench/expected_operator_review_pack.v1.json",
+    "docs/PMBOT_WORKBENCH_001_RESULT.json",
+    "docs/PMBOT_CODEX_A_ROUND003_RESULT.json",
+    "pm_bot/workbench/operator_workbench_export_run.v1.json",
+    "pm_bot/workbench/operator_workbench_export_run.v1.md",
+    "pm_bot/workbench/expected_operator_workbench_export_run.v1.json",
+    "docs/PMBOT_WORKBENCH_003_RESULT.json"
+  ],
+  "warnings": [],
+  "safety_flags": {
+    "manual_cli_only": true,
+    "offline_only": true,
+    "deterministic": true,
+    "local_file_operations_only": true,
+    "runtime_wiring": false,
+    "network_api": false,
+    "wallet": false,
+    "trading": false,
+    "autonomous_paper_orders": false,
+    "scoring_probability_ev_edge": false,
+    "market_decisions": false,
+    "command_execution": false,
+    "automation_daemon": false
+  },
+  "network_calls": 0,
+  "commands_executed": 0,
+  "orders_created": 0,
+  "next_safe_action": "Open pm_bot/workbench/operator_workbench_export_run.v1.md, then pm_bot/workbench/operator_review_pack.v1.md for manual local review."
+}

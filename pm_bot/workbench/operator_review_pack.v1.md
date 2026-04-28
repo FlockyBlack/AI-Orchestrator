@@ -11,8 +11,8 @@
 ## Artifact Inventory
 
 - total_artifacts: 16
-- present_artifacts: 14
-- missing_artifacts: 2
+- present_artifacts: 16
+- missing_artifacts: 0
 - required_missing_artifacts: 0
 
 - product_001_result: docs/PMBOT_PRODUCT_001_RESULT.json (present=true, required=true, parse_status=parsed)
@@ -21,8 +21,8 @@
 - paper_018_result: docs/PMBOT_PAPER_018_RESULT.json (present=true, required=true, parse_status=parsed)
 - dashboard_002_result: docs/PMBOT_DASHBOARD_002_RESULT.json (present=true, required=true, parse_status=parsed)
 - operator_002_result: docs/PMBOT_OPERATOR_002_RESULT.json (present=true, required=true, parse_status=parsed)
-- infra_009_result: docs/PMBOT_INFRA_009_RESULT.json (present=false, required=false, parse_status=not_applicable)
-- infra_009_report: docs/PMBOT_INFRA_009_ABC_ROUND003_WORKTREE_MATERIALIZATION.md (present=false, required=false, parse_status=not_applicable)
+- infra_009_result: docs/PMBOT_INFRA_009_RESULT.json (present=true, required=false, parse_status=parsed)
+- infra_009_report: docs/PMBOT_INFRA_009_ABC_ROUND003_WORKTREE_MATERIALIZATION.md (present=true, required=false, parse_status=not_applicable)
 - paper_accounting_reconciliation_audit: pm_bot/paper/paper_accounting_reconciliation_audit.v1.json (present=true, required=true, parse_status=parsed)
 - paper_accounting_batch_audit: pm_bot/paper/paper_accounting_batch_audit.v1.json (present=true, required=true, parse_status=parsed)
 - paper_accounting_ledger: pm_bot/paper/paper_accounting_ledger.v1.json (present=true, required=true, parse_status=parsed)
@@ -70,8 +70,7 @@
 
 ## Missing Artifacts
 
-- docs/PMBOT_INFRA_009_RESULT.json (required=false)
-- docs/PMBOT_INFRA_009_ABC_ROUND003_WORKTREE_MATERIALIZATION.md (required=false)
+- none
 
 ## Warnings
 

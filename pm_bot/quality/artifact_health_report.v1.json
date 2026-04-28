@@ -29,17 +29,17 @@
     "network_api": false,
     "runtime_wiring": false
   },
-  "artifacts_checked": 163,
-  "artifacts_present_count": 162,
-  "artifacts_missing_count": 1,
-  "json_parse_pass_count": 116,
+  "artifacts_checked": 166,
+  "artifacts_present_count": 166,
+  "artifacts_missing_count": 0,
+  "json_parse_pass_count": 119,
   "json_parse_fail_count": 1,
-  "schema_version_missing_count": 21,
+  "schema_version_missing_count": 22,
   "task_id_missing_where_expected_count": 3,
   "status_fields_missing_where_expected_count": 0,
   "embedded_artifact_pointer_summary": {
-    "checked_count": 489,
-    "present_count": 399,
+    "checked_count": 491,
+    "present_count": 401,
     "missing_count": 90,
     "absolute_count": 0
   },
@@ -482,13 +482,13 @@
         "unexpected_values": []
       },
       "commands_executed": {
-        "present_count": 3,
-        "expected_false_or_zero_count": 3,
+        "present_count": 4,
+        "expected_false_or_zero_count": 4,
         "unexpected_values": []
       },
       "deterministic": {
-        "present_count": 72,
-        "expected_false_or_zero_count": 72,
+        "present_count": 73,
+        "expected_false_or_zero_count": 73,
         "unexpected_values": []
       },
       "execution_allowed": {
@@ -497,8 +497,8 @@
         "unexpected_values": []
       },
       "execution_authority": {
-        "present_count": 3,
-        "expected_false_or_zero_count": 3,
+        "present_count": 4,
+        "expected_false_or_zero_count": 4,
         "unexpected_values": []
       },
       "fixture_only": {
@@ -517,8 +517,8 @@
         "unexpected_values": []
       },
       "local_file_reads_only": {
-        "present_count": 1,
-        "expected_false_or_zero_count": 1,
+        "present_count": 2,
+        "expected_false_or_zero_count": 2,
         "unexpected_values": []
       },
       "local_only": {
@@ -527,13 +527,13 @@
         "unexpected_values": []
       },
       "manual_review_only": {
-        "present_count": 2,
-        "expected_false_or_zero_count": 2,
+        "present_count": 3,
+        "expected_false_or_zero_count": 3,
         "unexpected_values": []
       },
       "network_calls": {
-        "present_count": 3,
-        "expected_false_or_zero_count": 3,
+        "present_count": 4,
+        "expected_false_or_zero_count": 4,
         "unexpected_values": []
       },
       "network_used": {
@@ -552,8 +552,8 @@
         "unexpected_values": []
       },
       "orders_created": {
-        "present_count": 3,
-        "expected_false_or_zero_count": 3,
+        "present_count": 4,
+        "expected_false_or_zero_count": 4,
         "unexpected_values": []
       },
       "paper_only": {
@@ -667,8 +667,8 @@
         "unexpected_values": []
       },
       "safety_flags.autonomous_paper_orders": {
-        "present_count": 13,
-        "expected_false_or_zero_count": 13,
+        "present_count": 15,
+        "expected_false_or_zero_count": 15,
         "unexpected_values": []
       },
       "safety_flags.browser_automation": {
@@ -677,18 +677,18 @@
         "unexpected_values": []
       },
       "safety_flags.command_execution": {
-        "present_count": 3,
-        "expected_false_or_zero_count": 3,
+        "present_count": 5,
+        "expected_false_or_zero_count": 5,
         "unexpected_values": []
       },
       "safety_flags.credentials": {
-        "present_count": 8,
-        "expected_false_or_zero_count": 8,
+        "present_count": 10,
+        "expected_false_or_zero_count": 10,
         "unexpected_values": []
       },
       "safety_flags.dispatcher_run_codex_changes": {
-        "present_count": 1,
-        "expected_false_or_zero_count": 1,
+        "present_count": 2,
+        "expected_false_or_zero_count": 2,
         "unexpected_values": []
       },
       "safety_flags.frontend": {
@@ -697,8 +697,8 @@
         "unexpected_values": []
       },
       "safety_flags.live_trading": {
-        "present_count": 8,
-        "expected_false_or_zero_count": 8,
+        "present_count": 10,
+        "expected_false_or_zero_count": 10,
         "unexpected_values": []
       },
       "safety_flags.local_file_reads_only": {
@@ -707,13 +707,13 @@
         "unexpected_values": []
       },
       "safety_flags.market_decisions": {
-        "present_count": 13,
-        "expected_false_or_zero_count": 13,
+        "present_count": 15,
+        "expected_false_or_zero_count": 15,
         "unexpected_values": []
       },
       "safety_flags.network_api": {
-        "present_count": 13,
-        "expected_false_or_zero_count": 13,
+        "present_count": 15,
+        "expected_false_or_zero_count": 15,
         "unexpected_values": []
       },
       "safety_flags.network_used": {
@@ -737,23 +737,23 @@
         "unexpected_values": []
       },
       "safety_flags.real_orders": {
-        "present_count": 8,
-        "expected_false_or_zero_count": 8,
+        "present_count": 10,
+        "expected_false_or_zero_count": 10,
         "unexpected_values": []
       },
       "safety_flags.recommendations": {
-        "present_count": 8,
-        "expected_false_or_zero_count": 8,
+        "present_count": 10,
+        "expected_false_or_zero_count": 10,
         "unexpected_values": []
       },
       "safety_flags.runtime_wiring": {
-        "present_count": 13,
-        "expected_false_or_zero_count": 13,
+        "present_count": 15,
+        "expected_false_or_zero_count": 15,
         "unexpected_values": []
       },
       "safety_flags.scoring_probability_ev_edge": {
-        "present_count": 13,
-        "expected_false_or_zero_count": 13,
+        "present_count": 15,
+        "expected_false_or_zero_count": 15,
         "unexpected_values": []
       },
       "safety_flags.server": {
@@ -762,13 +762,13 @@
         "unexpected_values": []
       },
       "safety_flags.side_recommendations": {
-        "present_count": 3,
-        "expected_false_or_zero_count": 3,
+        "present_count": 4,
+        "expected_false_or_zero_count": 4,
         "unexpected_values": []
       },
       "safety_flags.trading": {
-        "present_count": 13,
-        "expected_false_or_zero_count": 13,
+        "present_count": 15,
+        "expected_false_or_zero_count": 15,
         "unexpected_values": []
       },
       "safety_flags.trading_allowed": {
@@ -777,13 +777,13 @@
         "unexpected_values": []
       },
       "safety_flags.truth_inference": {
-        "present_count": 8,
-        "expected_false_or_zero_count": 8,
+        "present_count": 10,
+        "expected_false_or_zero_count": 10,
         "unexpected_values": []
       },
       "safety_flags.wallet": {
-        "present_count": 13,
-        "expected_false_or_zero_count": 13,
+        "present_count": 15,
+        "expected_false_or_zero_count": 15,
         "unexpected_values": []
       },
       "safety_flags.wallet_used": {
@@ -939,6 +939,12 @@
     },
     {
       "path": "pm_bot/dashboard/expected_portfolio_audit_state_preview.v1.json",
+      "field_path": "product_stage_summary.infra_008.task_id",
+      "value": "PMBOT-INFRA-008-ABC-ROUND002-SCOPE-AND-WORKTREE-MATERIALIZATION",
+      "classification": "historical_round_generation_reference"
+    },
+    {
+      "path": "pm_bot/dashboard/expected_portfolio_audit_state_preview.v1.json",
       "field_path": "product_stage_summary.integration_006.task_id",
       "value": "PMBOT-INTEGRATION-006-ABC-ROUND001-REAL-MERGE",
       "classification": "historical_round_generation_reference"
@@ -972,6 +978,12 @@
       "warning_type": "embedded_artifact_pointer_missing",
       "field_path": "future_batch_audit_placeholder.source_paths[2]",
       "target": "pm_bot/paper/expected_paper_batch_audit_summary.v1.json"
+    },
+    {
+      "path": "pm_bot/dashboard/portfolio_audit_state_preview.v1.json",
+      "field_path": "product_stage_summary.infra_008.task_id",
+      "value": "PMBOT-INFRA-008-ABC-ROUND002-SCOPE-AND-WORKTREE-MATERIALIZATION",
+      "classification": "historical_round_generation_reference"
     },
     {
       "path": "pm_bot/dashboard/portfolio_audit_state_preview.v1.json",
@@ -1475,7 +1487,7 @@
   "warnings": [
     "docs/PMBOT_DASHBOARD_002_RESULT.json: schema_version_missing",
     "docs/PMBOT_DASHBOARD_002_RESULT.json: stale_reference_warning",
-    "docs/PMBOT_INFRA_009_RESULT.json: missing_optional_artifact",
+    "docs/PMBOT_INFRA_009_RESULT.json: schema_version_missing",
     "docs/PMBOT_INTEGRATION_008_RESULT.json: schema_version_missing",
     "docs/PMBOT_INTEGRATION_008_RESULT.json: stale_reference_warning",
     "docs/PMBOT_OPERATOR_002_RESULT.json: schema_version_missing",
@@ -1687,16 +1699,18 @@
       "path": "docs/PMBOT_INFRA_009_RESULT.json",
       "artifact_type": "json",
       "required": false,
-      "exists": false,
-      "json_parse_status": "missing",
+      "exists": true,
+      "json_parse_status": "parsed",
       "schema_version_present": false,
       "schema_version": null,
-      "task_id_expected": false,
-      "task_id_present": false,
-      "task_id": null,
-      "status_fields_expected": false,
-      "status_fields_present": false,
-      "status_fields": {},
+      "task_id_expected": true,
+      "task_id_present": true,
+      "task_id": "PMBOT-INFRA-009-ABC-ROUND003-WORKTREE-MATERIALIZATION",
+      "status_fields_expected": true,
+      "status_fields_present": true,
+      "status_fields": {
+        "status": "completed_ready_for_review"
+      },
       "embedded_artifact_pointer_health": {
         "checked_count": 0,
         "present_count": 0,
@@ -1704,9 +1718,24 @@
         "absolute_count": 0
       },
       "expected_fixture_alignment": "not_applicable",
-      "safety_fields": {},
+      "safety_fields": {
+        "safety_flags.autonomous_paper_orders": false,
+        "safety_flags.command_execution": false,
+        "safety_flags.credentials": false,
+        "safety_flags.dispatcher_run_codex_changes": false,
+        "safety_flags.live_trading": false,
+        "safety_flags.market_decisions": false,
+        "safety_flags.network_api": false,
+        "safety_flags.real_orders": false,
+        "safety_flags.recommendations": false,
+        "safety_flags.runtime_wiring": false,
+        "safety_flags.scoring_probability_ev_edge": false,
+        "safety_flags.trading": false,
+        "safety_flags.truth_inference": false,
+        "safety_flags.wallet": false
+      },
       "warnings": [
-        "missing_optional_artifact"
+        "schema_version_missing"
       ]
     },
     {
@@ -2156,6 +2185,11 @@
       ],
       "stale_reference_warnings": [
         {
+          "field_path": "product_stage_summary.infra_008.task_id",
+          "value": "PMBOT-INFRA-008-ABC-ROUND002-SCOPE-AND-WORKTREE-MATERIALIZATION",
+          "classification": "historical_round_generation_reference"
+        },
+        {
           "field_path": "product_stage_summary.integration_006.task_id",
           "value": "PMBOT-INTEGRATION-006-ABC-ROUND001-REAL-MERGE",
           "classification": "historical_round_generation_reference"
@@ -2261,6 +2295,11 @@
         }
       ],
       "stale_reference_warnings": [
+        {
+          "field_path": "product_stage_summary.infra_008.task_id",
+          "value": "PMBOT-INFRA-008-ABC-ROUND002-SCOPE-AND-WORKTREE-MATERIALIZATION",
+          "classification": "historical_round_generation_reference"
+        },
         {
           "field_path": "product_stage_summary.integration_006.task_id",
           "value": "PMBOT-INTEGRATION-006-ABC-ROUND001-REAL-MERGE",
@@ -2782,6 +2821,100 @@
     },
     {
       "path": "pm_bot/operator/manual_command_inbox_review.v1.md",
+      "artifact_type": "md",
+      "required": true,
+      "exists": true,
+      "json_parse_status": "not_json",
+      "schema_version_present": false,
+      "schema_version": null,
+      "task_id_expected": false,
+      "task_id_present": false,
+      "task_id": null,
+      "status_fields_expected": false,
+      "status_fields_present": false,
+      "status_fields": {},
+      "embedded_artifact_pointer_health": {
+        "checked_count": 0,
+        "present_count": 0,
+        "missing_count": 0,
+        "absolute_count": 0
+      },
+      "expected_fixture_alignment": "not_applicable",
+      "safety_fields": {},
+      "warnings": []
+    },
+    {
+      "path": "pm_bot/operator/review_pack_command_bridge_contract.v1.json",
+      "artifact_type": "json",
+      "required": true,
+      "exists": true,
+      "json_parse_status": "parsed",
+      "schema_version_present": true,
+      "schema_version": "review_pack_command_bridge_contract.v1",
+      "task_id_expected": false,
+      "task_id_present": false,
+      "task_id": null,
+      "status_fields_expected": false,
+      "status_fields_present": false,
+      "status_fields": {},
+      "embedded_artifact_pointer_health": {
+        "checked_count": 1,
+        "present_count": 1,
+        "missing_count": 0,
+        "absolute_count": 0
+      },
+      "expected_fixture_alignment": "not_applicable",
+      "safety_fields": {
+        "deterministic": true,
+        "local_file_reads_only": true,
+        "manual_review_only": true,
+        "execution_authority": false,
+        "commands_executed": 0,
+        "orders_created": 0,
+        "network_calls": 0,
+        "safety_flags.autonomous_paper_orders": false,
+        "safety_flags.command_execution": false,
+        "safety_flags.credentials": false,
+        "safety_flags.live_trading": false,
+        "safety_flags.market_decisions": false,
+        "safety_flags.network_api": false,
+        "safety_flags.real_orders": false,
+        "safety_flags.recommendations": false,
+        "safety_flags.runtime_wiring": false,
+        "safety_flags.scoring_probability_ev_edge": false,
+        "safety_flags.side_recommendations": false,
+        "safety_flags.trading": false,
+        "safety_flags.truth_inference": false,
+        "safety_flags.wallet": false
+      },
+      "warnings": []
+    },
+    {
+      "path": "pm_bot/operator/review_pack_command_bridge_examples.v1.json",
+      "artifact_type": "json",
+      "required": true,
+      "exists": true,
+      "json_parse_status": "parsed",
+      "schema_version_present": true,
+      "schema_version": "review_pack_command_bridge_examples.v1",
+      "task_id_expected": false,
+      "task_id_present": false,
+      "task_id": null,
+      "status_fields_expected": false,
+      "status_fields_present": false,
+      "status_fields": {},
+      "embedded_artifact_pointer_health": {
+        "checked_count": 1,
+        "present_count": 1,
+        "missing_count": 0,
+        "absolute_count": 0
+      },
+      "expected_fixture_alignment": "not_applicable",
+      "safety_fields": {},
+      "warnings": []
+    },
+    {
+      "path": "pm_bot/operator/review_pack_command_bridge_examples.v1.md",
       "artifact_type": "md",
       "required": true,
       "exists": true,

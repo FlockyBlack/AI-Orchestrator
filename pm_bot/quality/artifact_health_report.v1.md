@@ -4,19 +4,19 @@
 - schema_version: artifact_health_report.v1
 - generated_by: pm_bot/quality/export_artifact_health_report.py
 - report_status: health_passed_with_warnings
-- artifacts_checked: 163
-- artifacts_present_count: 162
-- artifacts_missing_count: 1
-- json_parse_pass_count: 116
+- artifacts_checked: 166
+- artifacts_present_count: 166
+- artifacts_missing_count: 0
+- json_parse_pass_count: 119
 - json_parse_fail_count: 1
-- schema_version_missing_count: 21
+- schema_version_missing_count: 22
 - task_id_missing_where_expected_count: 3
 - status_fields_missing_where_expected_count: 0
 
 ## Embedded Pointer Health
 
-- checked_count: 489
-- present_count: 399
+- checked_count: 491
+- present_count: 401
 - missing_count: 90
 - absolute_count: 0
 
@@ -42,7 +42,7 @@
 
 - docs/PMBOT_DASHBOARD_002_RESULT.json: schema_version_missing
 - docs/PMBOT_DASHBOARD_002_RESULT.json: stale_reference_warning
-- docs/PMBOT_INFRA_009_RESULT.json: missing_optional_artifact
+- docs/PMBOT_INFRA_009_RESULT.json: schema_version_missing
 - docs/PMBOT_INTEGRATION_008_RESULT.json: schema_version_missing
 - docs/PMBOT_INTEGRATION_008_RESULT.json: stale_reference_warning
 - docs/PMBOT_OPERATOR_002_RESULT.json: schema_version_missing
@@ -193,7 +193,7 @@
 ## Artifacts
 
 - docs/PMBOT_DASHBOARD_002_RESULT.json: exists=true, json_parse_status=parsed, schema_version=None, warnings=2
-- docs/PMBOT_INFRA_009_RESULT.json: exists=false, json_parse_status=missing, schema_version=None, warnings=1
+- docs/PMBOT_INFRA_009_RESULT.json: exists=true, json_parse_status=parsed, schema_version=None, warnings=1
 - docs/PMBOT_INTEGRATION_008_RESULT.json: exists=true, json_parse_status=parsed, schema_version=None, warnings=2
 - docs/PMBOT_OPERATOR_002_RESULT.json: exists=true, json_parse_status=parsed, schema_version=None, warnings=2
 - docs/PMBOT_PAPER_018_RESULT.json: exists=true, json_parse_status=parsed, schema_version=None, warnings=1
@@ -223,6 +223,9 @@
 - pm_bot/operator/manual_command_inbox_fixture.v1.json: exists=true, json_parse_status=parsed, schema_version=manual_command_inbox_fixture.v1, warnings=0
 - pm_bot/operator/manual_command_inbox_review.v1.json: exists=true, json_parse_status=parsed, schema_version=manual_command_inbox_review.v1, warnings=0
 - pm_bot/operator/manual_command_inbox_review.v1.md: exists=true, json_parse_status=not_json, schema_version=None, warnings=0
+- pm_bot/operator/review_pack_command_bridge_contract.v1.json: exists=true, json_parse_status=parsed, schema_version=review_pack_command_bridge_contract.v1, warnings=0
+- pm_bot/operator/review_pack_command_bridge_examples.v1.json: exists=true, json_parse_status=parsed, schema_version=review_pack_command_bridge_examples.v1, warnings=0
+- pm_bot/operator/review_pack_command_bridge_examples.v1.md: exists=true, json_parse_status=not_json, schema_version=None, warnings=0
 - pm_bot/paper/crypto_numeric_execution_fixture.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=1
 - pm_bot/paper/crypto_numeric_lifecycle_replay_cases.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=0
 - pm_bot/paper/expected_crypto_numeric_lifecycle_regression_gates.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=1
