@@ -1,0 +1,293 @@
+{
+  "schema_version": "paper_accounting_batch_audit.v1",
+  "markdown_version": "paper_accounting_batch_audit_markdown.v1",
+  "task_id": "PMBOT-PAPER-018-MULTI-RECORD-PAPER-ACCOUNTING-BATCH-AUDIT",
+  "audit_scope": {
+    "mode": "deterministic_offline_multi_record_paper_accounting_batch_audit",
+    "source_artifacts": [
+      "pm_bot/paper/paper_fill_events.v1.json",
+      "pm_bot/paper/paper_settlement_sources_accepted.v1.json",
+      "pm_bot/paper/paper_accounting_pnl_preview.v1.json",
+      "pm_bot/paper/paper_accounting_ledger.v1.json",
+      "pm_bot/paper/paper_portfolio_snapshot.v1.json",
+      "pm_bot/paper/paper_metrics_report.v1.json",
+      "pm_bot/paper/paper_accounting_reconciliation_audit.v1.json"
+    ],
+    "fixture_mode": "existing_local_record_plus_deterministic_synthetic_batch_rows",
+    "local_file_reads_only": true,
+    "runtime_wiring": false
+  },
+  "records_seen": {
+    "source_artifacts_loaded": 7,
+    "source_fill_events": 1,
+    "source_settlement_records": 1,
+    "source_accounting_preview_records": 1,
+    "source_accounting_ledger_entries": 1,
+    "source_portfolio_positions": 1,
+    "source_metrics_report_records": 1,
+    "source_reconciliation_audit_records": 1,
+    "existing_source_records_read": 1,
+    "synthetic_fixture_records": 2,
+    "batch_accounting_records": 3
+  },
+  "records_audited": 3,
+  "market_ids": [
+    "824952",
+    "paper-batch-market-open-003",
+    "paper-batch-market-settled-loss-002"
+  ],
+  "accounting_totals": {
+    "paper_accounting_total_records": 3,
+    "paper_accounting_settled_count": 2,
+    "paper_accounting_open_count": 1,
+    "paper_accounting_win_count": 1,
+    "paper_accounting_loss_count": 1,
+    "paper_accounting_flat_count": 0,
+    "paper_accounting_total_cost_basis": "16.00",
+    "paper_accounting_total_settlement_value": "10.00",
+    "paper_accounting_cumulative_pnl": "-1.00",
+    "paper_accounting_average_pnl": "-0.50",
+    "paper_accounting_gross_profit": "6.00",
+    "paper_accounting_gross_loss": "-7.00",
+    "paper_accounting_max_gain": "6.00",
+    "paper_accounting_max_loss": "-7.00"
+  },
+  "lifecycle_consistency_checks": [
+    {
+      "check_id": "source_artifacts_loaded",
+      "status": "pass",
+      "summary": "Required local paper accounting artifacts were loaded.",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "check_id": "source_artifacts_deterministic",
+      "status": "pass",
+      "summary": "Source paper accounting artifacts declare deterministic output.",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "check_id": "paper_017_reconciliation_anchor",
+      "status": "pass",
+      "summary": "Existing PAPER-017 reconciliation audit is present and passed before batch audit expansion.",
+      "expected": "reconciliation_passed",
+      "actual": "reconciliation_passed"
+    },
+    {
+      "check_id": "record_count_consistency",
+      "status": "pass",
+      "summary": "Batch accounting record counts match the deterministic multi-record audit scope.",
+      "expected": {
+        "existing_source_records_read": 1,
+        "synthetic_fixture_records": 2,
+        "batch_accounting_records": 3
+      },
+      "actual": {
+        "source_artifacts_loaded": 7,
+        "source_fill_events": 1,
+        "source_settlement_records": 1,
+        "source_accounting_preview_records": 1,
+        "source_accounting_ledger_entries": 1,
+        "source_portfolio_positions": 1,
+        "source_metrics_report_records": 1,
+        "source_reconciliation_audit_records": 1,
+        "existing_source_records_read": 1,
+        "synthetic_fixture_records": 2,
+        "batch_accounting_records": 3
+      }
+    },
+    {
+      "check_id": "existing_record_anchor_consistency",
+      "status": "pass",
+      "summary": "The first batch record remains anchored to the existing local PAPER-017 accounting record.",
+      "expected": [],
+      "actual": [],
+      "records": [
+        "paper-accounting-batch-record-001"
+      ]
+    },
+    {
+      "check_id": "market_id_consistency",
+      "status": "pass",
+      "summary": "Each batch record keeps the same market_id across fill, settlement, accounting, ledger, and portfolio fields.",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "check_id": "fill_settlement_accounting_linkage",
+      "status": "pass",
+      "summary": "Fill, settlement, accounting, ledger, and portfolio identifiers link within each batch record.",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "check_id": "open_settled_status_consistency",
+      "status": "pass",
+      "summary": "Open and settled records carry status-compatible settlement and ledger fields.",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "check_id": "per_record_pnl_consistency",
+      "status": "pass",
+      "summary": "Each batch record PnL reconciles from local paper fill and settlement values.",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "check_id": "pnl_aggregation_consistency",
+      "status": "pass",
+      "summary": "Declared batch accounting totals match deterministic aggregation across audited records.",
+      "expected": {
+        "paper_accounting_total_records": 3,
+        "paper_accounting_settled_count": 2,
+        "paper_accounting_open_count": 1,
+        "paper_accounting_win_count": 1,
+        "paper_accounting_loss_count": 1,
+        "paper_accounting_flat_count": 0,
+        "paper_accounting_total_cost_basis": "16.00",
+        "paper_accounting_total_settlement_value": "10.00",
+        "paper_accounting_cumulative_pnl": "-1.00",
+        "paper_accounting_average_pnl": "-0.50",
+        "paper_accounting_gross_profit": "6.00",
+        "paper_accounting_gross_loss": "-7.00",
+        "paper_accounting_max_gain": "6.00",
+        "paper_accounting_max_loss": "-7.00"
+      },
+      "actual": {
+        "paper_accounting_total_records": 3,
+        "paper_accounting_settled_count": 2,
+        "paper_accounting_open_count": 1,
+        "paper_accounting_win_count": 1,
+        "paper_accounting_loss_count": 1,
+        "paper_accounting_flat_count": 0,
+        "paper_accounting_total_cost_basis": "16.00",
+        "paper_accounting_total_settlement_value": "10.00",
+        "paper_accounting_cumulative_pnl": "-1.00",
+        "paper_accounting_average_pnl": "-0.50",
+        "paper_accounting_gross_profit": "6.00",
+        "paper_accounting_gross_loss": "-7.00",
+        "paper_accounting_max_gain": "6.00",
+        "paper_accounting_max_loss": "-7.00"
+      }
+    }
+  ],
+  "artifact_pointer_checks": [
+    {
+      "check_id": "artifact_pointer_consistency",
+      "status": "pass",
+      "summary": "Batch source pointers and record source references point to the expected local paper artifacts.",
+      "expected": [],
+      "actual": []
+    }
+  ],
+  "safety_checks": [
+    {
+      "check_id": "safety_flag_consistency",
+      "status": "pass",
+      "summary": "Batch records and source artifact counts remain paper-only, inert, local, and non-executable.",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "check_id": "no_scoring_probability_ev_edge_or_market_decision_fields",
+      "status": "pass",
+      "summary": "Audited batch and active source artifacts contain no scoring, probability, EV, edge, recommendation, or market-decision fields.",
+      "expected": [],
+      "actual": []
+    }
+  ],
+  "mismatches": [],
+  "warnings": [],
+  "audit_status": "batch_audit_passed",
+  "deterministic": true,
+  "source_artifacts_checked": [
+    {
+      "artifact_id": "paper_fill_events",
+      "path": "pm_bot/paper/paper_fill_events.v1.json",
+      "schema_version": "paper_fill_events.v1",
+      "deterministic": true,
+      "record_count": 1
+    },
+    {
+      "artifact_id": "paper_settlement_sources_accepted",
+      "path": "pm_bot/paper/paper_settlement_sources_accepted.v1.json",
+      "schema_version": "paper_settlement_sources_accepted.v1",
+      "deterministic": true,
+      "record_count": 1
+    },
+    {
+      "artifact_id": "paper_accounting_pnl_preview",
+      "path": "pm_bot/paper/paper_accounting_pnl_preview.v1.json",
+      "schema_version": "paper_accounting_pnl_preview.v1",
+      "deterministic": true,
+      "record_count": 1
+    },
+    {
+      "artifact_id": "paper_accounting_ledger",
+      "path": "pm_bot/paper/paper_accounting_ledger.v1.json",
+      "schema_version": "paper_accounting_ledger.v1",
+      "deterministic": true,
+      "record_count": 1
+    },
+    {
+      "artifact_id": "paper_portfolio_snapshot",
+      "path": "pm_bot/paper/paper_portfolio_snapshot.v1.json",
+      "schema_version": "paper_portfolio_snapshot.v1",
+      "deterministic": true,
+      "record_count": 1
+    },
+    {
+      "artifact_id": "paper_metrics_report",
+      "path": "pm_bot/paper/paper_metrics_report.v1.json",
+      "schema_version": "paper_metrics_report.v1",
+      "deterministic": true,
+      "record_count": 1
+    },
+    {
+      "artifact_id": "paper_accounting_reconciliation_audit",
+      "path": "pm_bot/paper/paper_accounting_reconciliation_audit.v1.json",
+      "schema_version": "paper_accounting_reconciliation_audit.v1",
+      "deterministic": true,
+      "record_count": 1
+    }
+  ],
+  "audited_record_summaries": [
+    {
+      "batch_record_id": "paper-accounting-batch-record-001",
+      "market_id": "824952",
+      "source_origin": "existing_paper_017_record",
+      "paper_position_status": "paper_position_settled",
+      "paper_accounting_pnl": "6.00"
+    },
+    {
+      "batch_record_id": "paper-accounting-batch-record-002",
+      "market_id": "paper-batch-market-settled-loss-002",
+      "source_origin": "synthetic_paper_accounting_batch_fixture",
+      "paper_position_status": "paper_position_settled",
+      "paper_accounting_pnl": "-7.00"
+    },
+    {
+      "batch_record_id": "paper-accounting-batch-record-003",
+      "market_id": "paper-batch-market-open-003",
+      "source_origin": "synthetic_paper_accounting_batch_fixture",
+      "paper_position_status": "paper_position_open",
+      "paper_accounting_pnl": "0.00"
+    }
+  ],
+  "safety_flags": {
+    "offline_only": true,
+    "local_file_reads_only": true,
+    "runtime_wiring": false,
+    "network_api": false,
+    "wallet": false,
+    "trading": false,
+    "autonomous_paper_orders": false,
+    "scoring_probability_ev_edge": false,
+    "market_decisions": false
+  },
+  "paper_orders_created": 0,
+  "autonomous_actions_created": 0,
+  "next_safe_action": "ready_for_integration_review"
+}
