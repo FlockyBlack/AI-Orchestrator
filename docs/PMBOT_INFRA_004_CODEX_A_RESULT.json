@@ -1,0 +1,20 @@
+{
+  "slot": "CODEX_A",
+  "task_id": "PMBOT-INFRA-004-ABC-PARALLEL-WORKTREE-DEMO",
+  "purpose": "core PMBOT feature writer demo",
+  "branch": "codex/a-infra004-demo",
+  "created_from": "origin/main",
+  "created_from_commit": "e5917938aeb3bfdffe31372455ac201518bd0586",
+  "files_created": [
+    "docs/PMBOT_INFRA_004_CODEX_A_DEMO.md",
+    "docs/PMBOT_INFRA_004_CODEX_A_RESULT.json"
+  ],
+  "safety": {
+    "pmbot_source_files_modified": false,
+    "pmbot_tests_modified": false,
+    "runtime_wiring": false,
+    "dispatcher_run_codex_changes": false,
+    "trading_api_wallet_changes": false,
+    "credentials_added": false
+  }
+}
