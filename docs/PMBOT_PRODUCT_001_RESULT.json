@@ -1,0 +1,215 @@
+{
+  "task_id": "PMBOT-PRODUCT-001-ROUND003-DIRECTION-AND-BACKLOG-SELECTION",
+  "status": "completed_ready_for_review",
+  "summary": "Selected Operator Workbench / Review Pack v1 as the safest and most useful PMBOT round003 direction. The plan keeps round003 offline, local, deterministic, inert, and review-only; it proposes disjoint A/B/C scopes for a review-pack export, artifact health/staleness check, and inert review-pack command bridge contract.",
+  "root_confirmed": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator",
+  "base_commit": "bad252594a92cd90f05bf7babb9a6011f1b2ec5e",
+  "origin_main_commit": "bad252594a92cd90f05bf7babb9a6011f1b2ec5e",
+  "files_created": [
+    "docs/PMBOT_PRODUCT_001_ROUND003_DIRECTION_AND_BACKLOG.md",
+    "docs/PMBOT_PRODUCT_001_RESULT.json"
+  ],
+  "files_modified": [],
+  "commands_run": [
+    {
+      "command": "Get-Location",
+      "status": "passed",
+      "summary": "Confirmed canonical root C:\\Users\\OpenC\\Documents\\AI-Orchestrator."
+    },
+    {
+      "command": "git branch --show-current",
+      "status": "passed",
+      "summary": "Confirmed branch main."
+    },
+    {
+      "command": "git status --short --branch",
+      "status": "passed",
+      "summary": "Confirmed clean worktree before changes."
+    },
+    {
+      "command": "git rev-parse HEAD",
+      "status": "passed",
+      "summary": "Confirmed HEAD bad252594a92cd90f05bf7babb9a6011f1b2ec5e."
+    },
+    {
+      "command": "git fetch origin",
+      "status": "passed",
+      "summary": "Fetched origin before comparing local main with origin/main."
+    },
+    {
+      "command": "git rev-parse origin/main",
+      "status": "passed",
+      "summary": "Confirmed origin/main bad252594a92cd90f05bf7babb9a6011f1b2ec5e before PRODUCT-001 docs."
+    },
+    {
+      "command": "git merge-base --is-ancestor bad252594a92cd90f05bf7babb9a6011f1b2ec5e HEAD",
+      "status": "passed",
+      "summary": "Confirmed required round002 merge commit is HEAD/ancestor."
+    },
+    {
+      "command": "Get-Content required PMBOT round002 planning/result docs",
+      "status": "passed",
+      "summary": "Read integration, paper, dashboard, operator, infra, and worktree planning docs. No optional requested docs were missing."
+    },
+    {
+      "command": "Read relevant pm_bot paper/dashboard/operator artifact surfaces",
+      "status": "passed_with_warning",
+      "summary": "A direct rg listing failed due local WindowsApps rg.exe access denial, then PowerShell Get-ChildItem and targeted Get-Content reads succeeded. This was non-blocking."
+    },
+    {
+      "command": "python -m pytest pm_bot\\paper\\tests -q",
+      "status": "passed",
+      "summary": "314 passed, 39 subtests passed in 22.68s."
+    },
+    {
+      "command": "python -m pytest pm_bot\\dashboard\\tests pm_bot\\operator\\tests -q",
+      "status": "passed",
+      "summary": "49 passed, 14 subtests passed in 28.23s."
+    },
+    {
+      "command": "git restore -- docs\\PMBOT_CODEX_A_ROUND002_RESULT.json docs\\PMBOT_PAPER_017_RESULT.json docs\\PMBOT_PAPER_018_RESULT.json pm_bot\\dashboard\\expected_portfolio_audit_state_preview.v1.json pm_bot\\dashboard\\portfolio_audit_state_preview.v1.json pm_bot\\dashboard\\portfolio_audit_state_preview.v1.md",
+      "status": "passed",
+      "summary": "Restored known generated artifact churn from baseline tests before creating PRODUCT-001 docs."
+    },
+    {
+      "command": "Get-Content -Raw docs\\PMBOT_PRODUCT_001_RESULT.json | ConvertFrom-Json",
+      "status": "passed",
+      "summary": "Result JSON parsed successfully before commit."
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed",
+      "summary": "Whitespace check passed before commit."
+    },
+    {
+      "command": "git add docs\\PMBOT_PRODUCT_001_ROUND003_DIRECTION_AND_BACKLOG.md docs\\PMBOT_PRODUCT_001_RESULT.json",
+      "status": "planned_exact_files",
+      "summary": "Stage exact PRODUCT-001 docs only."
+    },
+    {
+      "command": "git commit -m \"PMBOT PRODUCT-001 select round003 direction\"",
+      "status": "reported_in_final_response",
+      "summary": "Commit hash is reported in the executor final response because a commit cannot include its own object id in a tracked file."
+    },
+    {
+      "command": "git push origin main",
+      "status": "reported_in_final_response",
+      "summary": "Push result is reported in the executor final response."
+    }
+  ],
+  "tests_run": [
+    {
+      "command": "python -m pytest pm_bot\\paper\\tests -q",
+      "status": "passed",
+      "summary": "314 passed, 39 subtests passed in 22.68s."
+    },
+    {
+      "command": "python -m pytest pm_bot\\dashboard\\tests pm_bot\\operator\\tests -q",
+      "status": "passed",
+      "summary": "49 passed, 14 subtests passed in 28.23s."
+    },
+    {
+      "command": "Get-Content -Raw docs\\PMBOT_PRODUCT_001_RESULT.json | ConvertFrom-Json",
+      "status": "passed",
+      "summary": "Parsed successfully."
+    }
+  ],
+  "product_options_evaluated": [
+    {
+      "option": "operator_workbench_review_pack",
+      "verdict": "recommended",
+      "reason": "Best addresses the post-round002 operator comprehension and artifact readiness gap while staying offline, local, deterministic, and inert."
+    },
+    {
+      "option": "paper_accounting_expansion",
+      "verdict": "defer",
+      "reason": "More accounting depth is less useful than composing and validating the existing paper/accounting/dashboard/operator artifacts for manual review."
+    },
+    {
+      "option": "dashboard_runtime",
+      "verdict": "reject_for_round003",
+      "reason": "Server/frontend/runtime work changes the risk boundary before the local artifact contract is consolidated."
+    },
+    {
+      "option": "telegram_runtime",
+      "verdict": "reject_for_round003",
+      "reason": "Telegram token/webhook/polling/command execution crosses a high-risk runtime boundary."
+    },
+    {
+      "option": "readonly_live_refresh_loop",
+      "verdict": "reject_for_round003",
+      "reason": "Read-only live refresh still introduces network/API/runtime behavior and is not needed for local review-pack composition."
+    }
+  ],
+  "recommended_direction": "operator_workbench_review_pack_v1",
+  "recommended_round003_tasks": [
+    {
+      "lane": "CODEX_A",
+      "task_id": "PMBOT-WORKBENCH-001-OPERATOR-REVIEW-PACK-EXPORT",
+      "summary": "Create a deterministic local JSON/Markdown operator review pack that composes existing paper audits, dashboard state, portfolio/accounting metrics, and operator inbox review outputs without decisions or recommendations."
+    },
+    {
+      "lane": "CODEX_B",
+      "task_id": "PMBOT-QUALITY-001-ARTIFACT-HEALTH-AND-STALENESS-CHECK",
+      "summary": "Create a deterministic local artifact health/staleness report that checks existence, parse status, schema/version fields, expected fixture alignment, and stale embedded artifact pointers without live fetch or regeneration."
+    },
+    {
+      "lane": "CODEX_C",
+      "task_id": "PMBOT-OPERATOR-003-REVIEW-PACK-COMMAND-BRIDGE-CONTRACT",
+      "summary": "Define an inert static contract mapping manual command inbox command types to review-pack sections while preserving human-review-only and non-execution guarantees."
+    }
+  ],
+  "rejected_or_deferred_options": [
+    {
+      "option": "paper_accounting_expansion",
+      "disposition": "deferred"
+    },
+    {
+      "option": "dashboard_runtime",
+      "disposition": "rejected_for_round003"
+    },
+    {
+      "option": "telegram_runtime",
+      "disposition": "rejected_for_round003"
+    },
+    {
+      "option": "readonly_live_refresh_loop",
+      "disposition": "rejected_for_round003"
+    }
+  ],
+  "safety_flags": {
+    "runtime_wiring": false,
+    "network_api": false,
+    "credentials": false,
+    "wallet": false,
+    "trading": false,
+    "real_orders": false,
+    "live_trading": false,
+    "autonomous_paper_orders": false,
+    "scoring_probability_ev_edge": false,
+    "recommendations": false,
+    "truth_inference": false,
+    "market_decisions": false,
+    "dispatcher_run_codex_changes": false,
+    "prompt_automation": false,
+    "codex_copy_roots": false,
+    "completed_dossiers": false,
+    "feature_implementation": false,
+    "branch_worktree_creation": false
+  },
+  "needs_flocky_now": false,
+  "next_recommended_task": "PMBOT-INFRA-009-ABC-ROUND003-WORKTREE-MATERIALIZATION",
+  "git_operations": {
+    "fetched_origin": true,
+    "main_equal_origin_main_before_changes": true,
+    "branch_created": false,
+    "worktree_created": false,
+    "stage_exact_files_only": true,
+    "commit_message": "PMBOT PRODUCT-001 select round003 direction",
+    "force_push_used": false
+  },
+  "commit_created": "reported_in_final_response",
+  "commit_hash": "reported_in_final_response",
+  "pushed": "reported_in_final_response",
+  "blockers": []
+}
