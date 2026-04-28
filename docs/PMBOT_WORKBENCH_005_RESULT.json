@@ -1,0 +1,107 @@
+{
+  "task_id": "PMBOT-WORKBENCH-005-SURFACE-PAPER-019-IN-OPERATOR-REVIEW-PACK",
+  "status": "completed_ready_for_review",
+  "summary": "Surfaced deterministic PAPER-019 multi-market paper run series in the operator review pack without changing PAPER-019 accounting semantics.",
+  "base_commit": "d00b1337676c575328ab8d2a1ecf031a5b8049a8",
+  "origin_main_commit": "d00b1337676c575328ab8d2a1ecf031a5b8049a8",
+  "files_created": [
+    "docs/PMBOT_WORKBENCH_005_RESULT.json"
+  ],
+  "files_modified": [
+    "docs/PMBOT_CODEX_A_ROUND003_RESULT.json",
+    "docs/PMBOT_WORKBENCH_001_RESULT.json",
+    "pm_bot/workbench/export_operator_review_pack.py",
+    "pm_bot/workbench/operator_review_pack.v1.json",
+    "pm_bot/workbench/operator_review_pack.v1.md",
+    "pm_bot/workbench/expected_operator_review_pack.v1.json",
+    "pm_bot/workbench/tests/test_operator_review_pack_export.py"
+  ],
+  "paper_019_surface_summary": {
+    "artifact_status": "present",
+    "markets_seen": 5,
+    "records_seen": 5,
+    "records_processed": 4,
+    "records_by_status": {
+      "accepted_accounting_record": 3,
+      "blocked_fixture_record": 1,
+      "manual_review_only": 1
+    },
+    "cumulative_pnl": "-1.00",
+    "interpretation_warning_present": true
+  },
+  "tests": [
+    {
+      "command": "python pm_bot\\workbench\\run_operator_workbench_export.py",
+      "status": "passed",
+      "summary": "required_steps_passed=true; network_calls=0; commands_executed=0; orders_created=0"
+    },
+    {
+      "command": "python -m pytest pm_bot\\workbench\\tests -q",
+      "status": "passed",
+      "summary": "20 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\paper\\tests -q",
+      "status": "passed",
+      "summary": "322 passed, 39 subtests passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\dashboard\\tests pm_bot\\operator\\tests pm_bot\\workbench\\tests pm_bot\\quality\\tests -q",
+      "status": "passed",
+      "summary": "96 passed, 48 subtests passed"
+    },
+    {
+      "command": "JSON parse changed/new JSON files",
+      "status": "passed",
+      "summary": "Parsed 5 JSON files"
+    },
+    {
+      "command": "python -m py_compile pm_bot\\workbench\\export_operator_review_pack.py pm_bot\\workbench\\tests\\test_operator_review_pack_export.py",
+      "status": "passed",
+      "summary": "Modified Python files compiled"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed",
+      "summary": "No whitespace errors; Git reported expected CRLF normalization warnings for modified Python files"
+    }
+  ],
+  "workbench_integration_check": {
+    "runner_passed": true,
+    "paper_019_visible_in_review_pack": true,
+    "orders_created": 0,
+    "commands_executed": 0,
+    "network_calls": 0
+  },
+  "generated_artifacts": {
+    "intentional_updates": [
+      "docs/PMBOT_CODEX_A_ROUND003_RESULT.json",
+      "docs/PMBOT_WORKBENCH_001_RESULT.json",
+      "pm_bot/workbench/operator_review_pack.v1.json",
+      "pm_bot/workbench/operator_review_pack.v1.md",
+      "pm_bot/workbench/expected_operator_review_pack.v1.json"
+    ],
+    "restored_unrelated_churn": [
+      "docs/PMBOT_CODEX_A_ROUND002_RESULT.json",
+      "docs/PMBOT_PAPER_017_RESULT.json",
+      "docs/PMBOT_PAPER_018_RESULT.json",
+      "pm_bot/quality/artifact_health_report.v1.json",
+      "pm_bot/quality/artifact_health_report.v1.md",
+      "pm_bot/quality/expected_artifact_health_report.v1.json"
+    ]
+  },
+  "safety": {
+    "runtime_wiring": false,
+    "network_api": false,
+    "wallet": false,
+    "trading": false,
+    "autonomous_paper_orders": false,
+    "scoring_probability_ev_edge": false,
+    "market_decisions": false,
+    "truth_inference": false,
+    "command_execution": false,
+    "automation_daemon": false
+  },
+  "blockers": [],
+  "next_recommended_task": "PMBOT-DASHBOARD-003-STATIC-HTML-OPERATOR-REPORT or PMBOT-PAPER-020-PAPER-RUN-SERIES-POSTMORTEM"
+}

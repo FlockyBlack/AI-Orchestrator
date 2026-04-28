@@ -37,8 +37,8 @@
 
 ## Artifact Inventory
 
-- total_artifacts: 16
-- present_artifacts: 16
+- total_artifacts: 18
+- present_artifacts: 18
 - missing_artifacts: 0
 - required_missing_artifacts: 0
 
@@ -46,6 +46,8 @@
 - integration_008_result: docs/PMBOT_INTEGRATION_008_RESULT.json (present=true, required=true, parse_status=parsed)
 - paper_017_result: docs/PMBOT_PAPER_017_RESULT.json (present=true, required=false, parse_status=parsed)
 - paper_018_result: docs/PMBOT_PAPER_018_RESULT.json (present=true, required=true, parse_status=parsed)
+- paper_019_result: docs/PMBOT_PAPER_019_RESULT.json (present=true, required=false, parse_status=parsed)
+- paper_019_multi_market_run_series: pm_bot/paper/multi_market_paper_run_series.v1.json (present=true, required=false, parse_status=parsed)
 - dashboard_002_result: docs/PMBOT_DASHBOARD_002_RESULT.json (present=true, required=true, parse_status=parsed)
 - operator_002_result: docs/PMBOT_OPERATOR_002_RESULT.json (present=true, required=true, parse_status=parsed)
 - infra_009_result: docs/PMBOT_INFRA_009_RESULT.json (present=true, required=false, parse_status=parsed)
@@ -68,6 +70,63 @@
 - batch_checks_passed: 13
 - audit_warnings_count: 0
 - audit_mismatches_count: 0
+
+## PAPER-019 Multi-Market Run Series
+
+- section_id: paper_019_multi_market_run_series
+- artifact_status: present
+- artifact_pointer: pm_bot/paper/multi_market_paper_run_series.v1.json
+- artifact_parse_status: parsed
+- series_status: series_run_passed
+- markets_seen: 5
+- records_seen: 5
+- records_processed: 4
+
+## PAPER-019 Records By Status
+
+- accepted_accounting_record: 3
+- blocked_fixture_record: 1
+- manual_review_only: 1
+
+## PAPER-019 Accounting-Only Summary
+
+- paper_accounting_total_records: 4
+- paper_accounting_settled_count: 3
+- paper_accounting_open_count: 1
+- paper_accounting_win_count: 1
+- paper_accounting_loss_count: 1
+- paper_accounting_flat_count: 1
+- paper_accounting_total_cost_basis: 24.00
+- paper_accounting_settled_cost_basis: 19.00
+- paper_accounting_open_cost_basis: 5.00
+- paper_accounting_total_settlement_value: 18.00
+- paper_accounting_cumulative_pnl: -1.00
+- paper_accounting_average_settled_pnl: -0.33
+- paper_accounting_gross_profit: 6.00
+- paper_accounting_gross_loss: -7.00
+- paper_accounting_max_gain: 6.00
+- paper_accounting_max_loss: -7.00
+
+## PAPER-019 Blocked Or Manual Review Summary
+
+- blocked_fixture_record_count: 1
+- manual_review_only_count: 1
+- blocked_or_rejected_records: 1
+- manual_review_only_records: 1
+- paper-run-series-record-004: market_id=paper-series-market-open-manual-004, processing_status=manual_review_only, lifecycle_state=open, accounting_included=true
+- paper-run-series-record-005: market_id=paper-series-market-blocked-005, processing_status=blocked_fixture_record, lifecycle_state=blocked, accounting_included=false
+
+## PAPER-019 Interpretation Warning
+
+- PAPER-019 values are deterministic fixture/accounting-only outputs and are not strategy profitability, recommendation, EV, edge, probability, or market decision evidence.
+
+## PAPER-019 Safety Counters
+
+- real_orders_created: 0
+- autonomous_paper_orders: 0
+- network_calls: 0
+- commands_executed: 0
+- autonomous_decisions: 0
 
 ## Portfolio Accounting
 

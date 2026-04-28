@@ -16,6 +16,8 @@ DEFAULT_EXPECTED_PACK_JSON = WORKBENCH_DIR / "expected_operator_review_pack.v1.j
 DEFAULT_RESULT = DOCS_DIR / "PMBOT_WORKBENCH_001_RESULT.json"
 DEFAULT_LANE_RESULT = DOCS_DIR / "PMBOT_CODEX_A_ROUND003_RESULT.json"
 QUALITY_REPORT_PATH = "pm_bot/quality/artifact_health_report.v1.json"
+PAPER_019_SERIES_ARTIFACT_PATH = "pm_bot/paper/multi_market_paper_run_series.v1.json"
+PAPER_019_SECTION_ID = "paper_019_multi_market_run_series"
 
 SCHEMA_VERSION = "operator_review_pack.v1"
 GENERATED_BY = "pm_bot/workbench/export_operator_review_pack.py"
@@ -24,6 +26,10 @@ BASE_COMMIT = "21edc9af372e9d1736afb0eccd3c016f23f2c144"
 
 ACCOUNTING_ONLY_WARNING = (
     "Paper accounting PnL is fixture/manual accounting only and is not strategy profitability."
+)
+PAPER_019_INTERPRETATION_WARNING = (
+    "PAPER-019 values are deterministic fixture/accounting-only outputs and are not strategy "
+    "profitability, recommendation, EV, edge, probability, or market decision evidence."
 )
 NO_RECOMMENDATIONS_OR_DECISIONS_STATEMENT = (
     "This operator review pack does not recommend markets, sides, prices, sizes, orders, trades, "
@@ -96,6 +102,20 @@ SOURCE_ARTIFACTS = (
         "category": "paper_accounting",
         "artifact_type": "docs_result_json",
         "required": True,
+    },
+    {
+        "artifact_id": "paper_019_result",
+        "path": "docs/PMBOT_PAPER_019_RESULT.json",
+        "category": "paper_run_series",
+        "artifact_type": "docs_result_json",
+        "required": False,
+    },
+    {
+        "artifact_id": PAPER_019_SECTION_ID,
+        "path": PAPER_019_SERIES_ARTIFACT_PATH,
+        "category": "paper_run_series",
+        "artifact_type": "paper_run_series_json",
+        "required": False,
     },
     {
         "artifact_id": "dashboard_002_result",
@@ -522,6 +542,89 @@ def _operator_inbox_summary(payloads):
     }
 
 
+def _inventory_item(inventory, artifact_id):
+    for item in inventory["artifacts"]:
+        if item["artifact_id"] == artifact_id:
+            return item
+    return {}
+
+
+def _safe_int(value):
+    if isinstance(value, bool):
+        return 0
+    if isinstance(value, int):
+        return value
+    return 0
+
+
+def _paper_019_record_summary(record):
+    item = {
+        "record_id": record.get("record_id"),
+        "market_id": record.get("market_id"),
+        "processing_status": record.get("processing_status"),
+        "lifecycle_state": record.get("lifecycle_state"),
+        "accounting_included": record.get("accounting_included", False),
+        "paper_orders_created": _safe_int(record.get("paper_orders_created")),
+        "real_orders_created": _safe_int(record.get("real_orders_created")),
+        "network_calls": _safe_int(record.get("network_calls")),
+        "commands_executed": _safe_int(record.get("commands_executed")),
+        "autonomous_decisions": _safe_int(record.get("autonomous_decisions")),
+    }
+    blocked_reason_codes = _safe_list(record.get("blocked_reason_codes"))
+    if blocked_reason_codes:
+        item["blocked_reason_codes"] = blocked_reason_codes
+    return item
+
+
+def _paper_019_blocked_or_manual_review_summary(series):
+    records_by_status = _safe_dict(series.get("records_by_status"))
+    lifecycle = _safe_dict(series.get("lifecycle_summary"))
+    selected_records = []
+    for record in _safe_list(series.get("record_summaries")):
+        if not isinstance(record, dict):
+            continue
+        if record.get("processing_status") in {"blocked_fixture_record", "manual_review_only"}:
+            selected_records.append(_paper_019_record_summary(record))
+    return {
+        "blocked_fixture_record_count": _safe_int(records_by_status.get("blocked_fixture_record")),
+        "manual_review_only_count": _safe_int(records_by_status.get("manual_review_only")),
+        "blocked_or_rejected_records": _safe_int(lifecycle.get("blocked_or_rejected_records")),
+        "manual_review_only_records": _safe_int(lifecycle.get("manual_review_only_records")),
+        "records": selected_records,
+    }
+
+
+def _paper_019_safety_counters(series):
+    return {
+        "real_orders_created": _safe_int(series.get("real_orders_created")),
+        "autonomous_paper_orders": 0,
+        "network_calls": _safe_int(series.get("network_calls")),
+        "commands_executed": _safe_int(series.get("commands_executed")),
+        "autonomous_decisions": _safe_int(series.get("autonomous_decisions")),
+    }
+
+
+def _paper_019_multi_market_run_series_summary(payloads, inventory):
+    artifact = _inventory_item(inventory, PAPER_019_SECTION_ID)
+    series = _safe_dict(payloads.get(PAPER_019_SECTION_ID))
+    artifact_status = "present" if artifact.get("present") else "missing"
+    return {
+        "section_id": PAPER_019_SECTION_ID,
+        "artifact_status": artifact_status,
+        "artifact_pointer": PAPER_019_SERIES_ARTIFACT_PATH,
+        "artifact_parse_status": artifact.get("parse_status"),
+        "series_status": series.get("series_status"),
+        "markets_seen": _safe_int(series.get("markets_seen")),
+        "records_seen": _safe_int(series.get("records_seen")),
+        "records_processed": _safe_int(series.get("records_processed")),
+        "records_by_status": _safe_dict(series.get("records_by_status")),
+        "accounting_summary": _safe_dict(series.get("accounting_summary")),
+        "blocked_or_manual_review_summary": _paper_019_blocked_or_manual_review_summary(series),
+        "interpretation_warning": PAPER_019_INTERPRETATION_WARNING,
+        "safety_counters": _paper_019_safety_counters(series),
+    }
+
+
 def _quality_report_payload(root=ROOT):
     return _load_optional_json(_resolve_path(QUALITY_REPORT_PATH, root=root))
 
@@ -633,6 +736,19 @@ def _warnings(payloads):
     return items
 
 
+def _paper_019_warnings(paper_019_summary):
+    if paper_019_summary["artifact_status"] != "missing":
+        return []
+    return [
+        {
+            "warning_id": "paper_019_multi_market_run_series_missing",
+            "source_path": PAPER_019_SERIES_ARTIFACT_PATH,
+            "category": "optional_artifact_missing",
+            "message": "PAPER-019 multi-market paper run series artifact is missing; review pack generation continued.",
+        }
+    ]
+
+
 def _missing_artifacts(inventory):
     return [
         {
@@ -695,7 +811,8 @@ def _next_safe_manual_actions():
 def build_operator_review_pack(root=ROOT):
     inventory, payloads = _artifact_inventory(root=root)
     quality_report, quality_load_status = _quality_report_payload(root=root)
-    warnings = _warnings(payloads) + _parse_warnings(inventory)
+    paper_019_summary = _paper_019_multi_market_run_series_summary(payloads, inventory)
+    warnings = _warnings(payloads) + _paper_019_warnings(paper_019_summary) + _parse_warnings(inventory)
     return {
         "schema_version": SCHEMA_VERSION,
         "generated_by": GENERATED_BY,
@@ -708,6 +825,7 @@ def build_operator_review_pack(root=ROOT):
         "artifact_inventory": inventory,
         "paper_audit_summary": _paper_audit_summary(payloads),
         "portfolio_accounting_summary": _portfolio_accounting_summary(payloads),
+        "paper_019_multi_market_run_series": paper_019_summary,
         "dashboard_state_summary": _dashboard_state_summary(payloads),
         "operator_inbox_summary": _operator_inbox_summary(payloads),
         "quality_warning_summary": _quality_warning_summary(quality_report, quality_load_status),
@@ -729,6 +847,7 @@ def render_operator_review_pack_markdown(pack):
     quality = pack["quality_warning_summary"]
     paper = pack["paper_audit_summary"]
     portfolio = pack["portfolio_accounting_summary"]
+    paper_019 = pack["paper_019_multi_market_run_series"]
     dashboard = pack["dashboard_state_summary"]
     inbox = pack["operator_inbox_summary"]
     lines = [
@@ -807,6 +926,83 @@ def render_operator_review_pack_markdown(pack):
             f"- batch_checks_passed: {paper['batch_audit']['counts']['checks_passed']}",
             f"- audit_warnings_count: {paper['audit_warnings_count']}",
             f"- audit_mismatches_count: {paper['audit_mismatches_count']}",
+            "",
+            "## PAPER-019 Multi-Market Run Series",
+            "",
+            f"- section_id: {paper_019['section_id']}",
+            f"- artifact_status: {paper_019['artifact_status']}",
+            f"- artifact_pointer: {paper_019['artifact_pointer']}",
+            f"- artifact_parse_status: {paper_019['artifact_parse_status']}",
+            f"- series_status: {paper_019['series_status']}",
+            f"- markets_seen: {paper_019['markets_seen']}",
+            f"- records_seen: {paper_019['records_seen']}",
+            f"- records_processed: {paper_019['records_processed']}",
+            "",
+            "## PAPER-019 Records By Status",
+            "",
+        ]
+    )
+    if paper_019["records_by_status"]:
+        for status, count in paper_019["records_by_status"].items():
+            lines.append(f"- {status}: {count}")
+    else:
+        lines.append("- none")
+    lines.extend(
+        [
+            "",
+            "## PAPER-019 Accounting-Only Summary",
+            "",
+        ]
+    )
+    if paper_019["accounting_summary"]:
+        for key, value in paper_019["accounting_summary"].items():
+            lines.append(f"- {key}: {value}")
+    else:
+        lines.append("- none")
+    blocked_manual = paper_019["blocked_or_manual_review_summary"]
+    lines.extend(
+        [
+            "",
+            "## PAPER-019 Blocked Or Manual Review Summary",
+            "",
+            f"- blocked_fixture_record_count: {blocked_manual['blocked_fixture_record_count']}",
+            f"- manual_review_only_count: {blocked_manual['manual_review_only_count']}",
+            f"- blocked_or_rejected_records: {blocked_manual['blocked_or_rejected_records']}",
+            f"- manual_review_only_records: {blocked_manual['manual_review_only_records']}",
+        ]
+    )
+    if blocked_manual["records"]:
+        for record in blocked_manual["records"]:
+            lines.append(
+                "- "
+                f"{record['record_id']}: market_id={record['market_id']}, "
+                f"processing_status={record['processing_status']}, lifecycle_state={record['lifecycle_state']}, "
+                f"accounting_included={str(record['accounting_included']).lower()}"
+            )
+    else:
+        lines.append("- records: none")
+    lines.extend(
+        [
+            "",
+            "## PAPER-019 Interpretation Warning",
+            "",
+            f"- {paper_019['interpretation_warning']}",
+            "",
+            "## PAPER-019 Safety Counters",
+            "",
+        ]
+    )
+    for key in (
+        "real_orders_created",
+        "autonomous_paper_orders",
+        "network_calls",
+        "commands_executed",
+        "autonomous_decisions",
+    ):
+        lines.append(f"- {key}: {paper_019['safety_counters'][key]}")
+
+    lines.extend(
+        [
             "",
             "## Portfolio Accounting",
             "",

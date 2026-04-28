@@ -3,6 +3,7 @@ import importlib.util
 import json
 import subprocess
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -98,6 +99,7 @@ class OperatorReviewPackExportTests(unittest.TestCase):
             "artifact_inventory",
             "paper_audit_summary",
             "portfolio_accounting_summary",
+            "paper_019_multi_market_run_series",
             "dashboard_state_summary",
             "operator_inbox_summary",
             "quality_warning_summary",
@@ -148,9 +150,17 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertEqual(pack["artifact_inventory"]["summary"]["required_missing_artifacts"], 0)
         self.assertTrue(inventory["paper_accounting_reconciliation_audit"]["present"])
         self.assertTrue(inventory["paper_accounting_batch_audit"]["present"])
+        self.assertTrue(inventory["paper_019_result"]["present"])
+        self.assertTrue(inventory["paper_019_multi_market_run_series"]["present"])
         self.assertTrue(inventory["portfolio_audit_state_preview"]["present"])
         self.assertTrue(inventory["manual_command_inbox_review"]["present"])
+        self.assertEqual(inventory["paper_019_result"]["parse_status"], "parsed")
+        self.assertEqual(inventory["paper_019_multi_market_run_series"]["parse_status"], "parsed")
         self.assertEqual(inventory["paper_accounting_batch_audit"]["parse_status"], "parsed")
+        self.assertEqual(
+            inventory["paper_019_multi_market_run_series"]["path"],
+            "pm_bot/paper/multi_market_paper_run_series.v1.json",
+        )
         self.assertEqual(
             inventory["paper_accounting_batch_audit"]["path"],
             "pm_bot/paper/paper_accounting_batch_audit.v1.json",
@@ -206,6 +216,88 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertFalse(inbox["execution_authority"])
         self.assertEqual(inbox["commands_executed"], 0)
 
+    def test_paper_019_multi_market_run_series_summary_is_visible_and_accounting_only(self):
+        _run_write()
+        pack = _load_json(PACK_JSON)
+        paper_019 = pack["paper_019_multi_market_run_series"]
+
+        self.assertEqual(paper_019["section_id"], "paper_019_multi_market_run_series")
+        self.assertEqual(paper_019["artifact_status"], "present")
+        self.assertEqual(
+            paper_019["artifact_pointer"],
+            "pm_bot/paper/multi_market_paper_run_series.v1.json",
+        )
+        self.assertEqual(paper_019["artifact_parse_status"], "parsed")
+        self.assertEqual(paper_019["series_status"], "series_run_passed")
+        self.assertEqual(paper_019["markets_seen"], 5)
+        self.assertEqual(paper_019["records_seen"], 5)
+        self.assertEqual(paper_019["records_processed"], 4)
+        self.assertEqual(
+            paper_019["records_by_status"],
+            {
+                "accepted_accounting_record": 3,
+                "blocked_fixture_record": 1,
+                "manual_review_only": 1,
+            },
+        )
+        self.assertEqual(
+            paper_019["accounting_summary"]["paper_accounting_cumulative_pnl"],
+            "-1.00",
+        )
+        self.assertEqual(
+            paper_019["accounting_summary"]["paper_accounting_average_settled_pnl"],
+            "-0.33",
+        )
+
+        blocked_manual = paper_019["blocked_or_manual_review_summary"]
+        self.assertEqual(blocked_manual["blocked_fixture_record_count"], 1)
+        self.assertEqual(blocked_manual["manual_review_only_count"], 1)
+        self.assertEqual(blocked_manual["blocked_or_rejected_records"], 1)
+        self.assertEqual(blocked_manual["manual_review_only_records"], 1)
+        self.assertEqual(
+            [record["processing_status"] for record in blocked_manual["records"]],
+            ["manual_review_only", "blocked_fixture_record"],
+        )
+        self.assertIn(
+            "fixture/accounting-only outputs",
+            paper_019["interpretation_warning"],
+        )
+        self.assertIn("not strategy profitability", paper_019["interpretation_warning"])
+        self.assertIn("recommendation, EV, edge, probability", paper_019["interpretation_warning"])
+        self.assertEqual(
+            paper_019["safety_counters"],
+            {
+                "real_orders_created": 0,
+                "autonomous_paper_orders": 0,
+                "network_calls": 0,
+                "commands_executed": 0,
+                "autonomous_decisions": 0,
+            },
+        )
+
+    def test_paper_019_missing_artifact_remains_non_blocking_warning(self):
+        module = _load_module()
+        with tempfile.TemporaryDirectory() as directory:
+            pack = module.build_operator_review_pack(Path(directory))
+
+        paper_019 = pack["paper_019_multi_market_run_series"]
+        warnings = {item["warning_id"]: item for item in pack["warnings"]}
+
+        self.assertEqual(paper_019["artifact_status"], "missing")
+        self.assertEqual(paper_019["artifact_pointer"], "pm_bot/paper/multi_market_paper_run_series.v1.json")
+        self.assertEqual(paper_019["markets_seen"], 0)
+        self.assertEqual(paper_019["records_seen"], 0)
+        self.assertEqual(paper_019["records_processed"], 0)
+        self.assertEqual(paper_019["records_by_status"], {})
+        self.assertEqual(paper_019["accounting_summary"], {})
+        self.assertEqual(paper_019["blocked_or_manual_review_summary"]["records"], [])
+        self.assertEqual(paper_019["safety_counters"]["network_calls"], 0)
+        self.assertIn("paper_019_multi_market_run_series_missing", warnings)
+        self.assertEqual(
+            warnings["paper_019_multi_market_run_series_missing"]["category"],
+            "optional_artifact_missing",
+        )
+
     def test_warnings_safety_flags_and_next_actions_remain_review_only(self):
         _run_write()
         pack = _load_json(PACK_JSON)
@@ -240,6 +332,12 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertIn("network_calls: 0", markdown)
         self.assertIn("Quality Warning Summary", markdown)
         self.assertIn("blocking means stop and repair", markdown)
+        self.assertIn("PAPER-019 Multi-Market Run Series", markdown)
+        self.assertIn("section_id: paper_019_multi_market_run_series", markdown)
+        self.assertIn("markets_seen: 5", markdown)
+        self.assertIn("paper_accounting_cumulative_pnl: -1.00", markdown)
+        self.assertIn("PAPER-019 values are deterministic fixture/accounting-only outputs", markdown)
+        self.assertIn("autonomous_paper_orders: 0", markdown)
         self.assertIn("Paper accounting PnL is fixture/manual accounting only", markdown)
         self.assertIn("does not recommend markets", markdown)
 
