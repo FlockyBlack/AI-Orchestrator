@@ -1,0 +1,82 @@
+{
+  "task_id": "PMBOT-OPERATOR-002-MANUAL-COMMAND-INBOX-REVIEW-QUEUE",
+  "codex_lane": "CODEX_C",
+  "status": "completed_ready_for_review",
+  "summary": "Added an inert local manual command inbox review queue that reads fixture records, validates each record with the OPERATOR-001 manual command validator, classifies records as accepted, rejected, or needs_human_review, and exports deterministic JSON and Markdown queue reports without command execution.",
+  "branch": "codex/c-operator-command-inbox-round002",
+  "worktree_path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator-worktrees\\CODEX_C_round002_operator_command_inbox",
+  "base_commit": "c3962ed19b3e1e3d453f2569762fc7269378bebe",
+  "infra_008_result_doc_present": false,
+  "files_created": [
+    "pm_bot/operator/manual_command_inbox_fixture.v1.json",
+    "pm_bot/operator/manual_command_inbox_review.v1.json",
+    "pm_bot/operator/manual_command_inbox_review.v1.md",
+    "pm_bot/operator/expected_manual_command_inbox_review.v1.json",
+    "pm_bot/operator/review_manual_command_inbox.py",
+    "pm_bot/operator/tests/test_manual_command_inbox_review.py",
+    "docs/PMBOT_OPERATOR_002_RESULT.json",
+    "docs/PMBOT_CODEX_C_ROUND002_RESULT.json"
+  ],
+  "records_seen": 7,
+  "accepted_count": 3,
+  "rejected_count": 3,
+  "needs_human_review_count": 1,
+  "execution_authority": false,
+  "commands_executed": 0,
+  "orders_created": 0,
+  "network_calls": 0,
+  "safety_flags": {
+    "telegram_runtime": false,
+    "telegram_token": false,
+    "command_execution": false,
+    "runtime_wiring": false,
+    "network_api": false,
+    "credentials": false,
+    "wallet": false,
+    "trading": false,
+    "real_orders": false,
+    "live_trading": false,
+    "autonomous_paper_orders": false,
+    "scoring_probability_ev_edge": false,
+    "recommendations": false,
+    "truth_inference": false,
+    "market_decisions": false,
+    "side_recommendations": false
+  },
+  "forbidden_changes_detected": false,
+  "tests": [
+    {
+      "command": "python -m pytest pm_bot\\operator\\tests\\test_manual_command_inbox_review.py -q",
+      "status": "passed",
+      "summary": "7 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\operator\\tests -q",
+      "status": "passed",
+      "summary": "33 passed, 14 subtests passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\paper\\tests -q",
+      "status": "passed",
+      "summary": "309 passed, 1 skipped, 39 subtests passed"
+    },
+    {
+      "command": "python -m json.tool new JSON files",
+      "status": "passed",
+      "summary": "New OPERATOR-002 JSON artifacts parsed successfully"
+    },
+    {
+      "command": "python -m py_compile pm_bot\\operator\\review_manual_command_inbox.py pm_bot\\operator\\tests\\test_manual_command_inbox_review.py",
+      "status": "passed",
+      "summary": "New Python files compiled successfully"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed",
+      "summary": "No whitespace errors detected"
+    }
+  ],
+  "pushed": "reported_in_final_response",
+  "blockers": [],
+  "next_safe_action": "human_review_queue_only"
+}
