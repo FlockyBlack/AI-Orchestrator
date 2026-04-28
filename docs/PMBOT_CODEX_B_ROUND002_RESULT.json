@@ -1,0 +1,51 @@
+{
+  "task_id": "PMBOT-DASHBOARD-002-PORTFOLIO-AUDIT-STATE-EXPORT",
+  "codex_lane": "CODEX_B",
+  "status": "completed_ready_for_review",
+  "summary": "CODEX_B round002 completed the bounded DASHBOARD-002 portfolio/accounting/audit state export contract. The implementation is local-file-only, deterministic, static, and limited to dashboard artifact export plus focused tests.",
+  "branch": "codex/b-dashboard-portfolio-audit-state-round002",
+  "worktree_path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator-worktrees\\CODEX_B_round002_dashboard_portfolio_state",
+  "base_commit": "c3962ed19b3e1e3d453f2569762fc7269378bebe",
+  "head_commit": null,
+  "primary_result": "docs/PMBOT_DASHBOARD_002_RESULT.json",
+  "files_created": [
+    "pm_bot/dashboard/export_portfolio_audit_state.py",
+    "pm_bot/dashboard/portfolio_audit_state_contract.v1.json",
+    "pm_bot/dashboard/portfolio_audit_state_preview.v1.json",
+    "pm_bot/dashboard/portfolio_audit_state_preview.v1.md",
+    "pm_bot/dashboard/expected_portfolio_audit_state_preview.v1.json",
+    "pm_bot/dashboard/tests/test_portfolio_audit_state_export.py",
+    "docs/PMBOT_DASHBOARD_002_RESULT.json",
+    "docs/PMBOT_CODEX_B_ROUND002_RESULT.json"
+  ],
+  "files_modified": [],
+  "tests": [
+    {
+      "command": "python -m pytest pm_bot\\dashboard\\tests -q",
+      "status": "passed",
+      "summary": "14 passed in 1.54s."
+    },
+    {
+      "command": "python -m pytest pm_bot\\paper\\tests -q",
+      "status": "passed",
+      "summary": "309 passed, 1 skipped, 39 subtests passed in 27.93s."
+    }
+  ],
+  "safety_flags": {
+    "dashboard_runtime": false,
+    "server": false,
+    "frontend": false,
+    "browser_automation": false,
+    "runtime_wiring": false,
+    "network_api": false,
+    "wallet": false,
+    "trading": false,
+    "autonomous_paper_orders": false,
+    "scoring_probability_ev_edge": false,
+    "market_decisions": false
+  },
+  "forbidden_changes_detected": false,
+  "pushed": "reported_in_task_final_response",
+  "blockers": [],
+  "next_action": "ready_for_integration_review"
+}
