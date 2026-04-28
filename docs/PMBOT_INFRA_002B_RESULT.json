@@ -1,0 +1,31 @@
+{
+  "code_slot": "CODEX_INFRA_002B",
+  "task_id": "PMBOT-INFRA-002B-COMMIT-WORKTREE-PILOT-DOCS",
+  "status": "completed_ready_for_review",
+  "summary": "Verified the main worktree only contained the expected INFRA-002 documentation files, validated the INFRA-002 result JSON, and committed the documentation plus this INFRA-002B result file locally.",
+  "files_committed": [
+    "docs/PMBOT_CODEX_PARALLEL_WORKTREE_GUIDE.md",
+    "docs/PMBOT_INFRA_002_CODEX_PARALLEL_WORKTREE_PILOT.md",
+    "docs/PMBOT_INFRA_002_RESULT.json",
+    "docs/PMBOT_INFRA_002B_RESULT.json"
+  ],
+  "commit_created": true,
+  "commit_hash": null,
+  "baseline_commit_hash": "ea9be58b5ac86e2abcb04cbad80d956e40f4b58d",
+  "used_git_add_dot": false,
+  "remote_added": false,
+  "pushed_to_remote": false,
+  "main_status_clean_after": true,
+  "unexpected_files_found": [],
+  "tests": [
+    {
+      "command": "Get-Content -Raw -LiteralPath 'docs/PMBOT_INFRA_002_RESULT.json' | ConvertFrom-Json | Out-Null",
+      "status": "passed"
+    }
+  ],
+  "warnings": [
+    "commit_hash is null in this committed result file to avoid self-referential commit metadata."
+  ],
+  "blockers": [],
+  "recommended_next_task": "PMBOT-INFRA-003-GITHUB-PRIVATE-REMOTE-SETUP"
+}
