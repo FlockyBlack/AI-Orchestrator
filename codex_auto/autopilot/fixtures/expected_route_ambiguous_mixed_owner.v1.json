@@ -1,0 +1,34 @@
+{
+  "type": "AUTOPILOT_PROMPT_ROUTING_DECISION",
+  "schema_version": "1.0",
+  "receiver_agent": "Flocky",
+  "detected_target_agent": "Flocky",
+  "detected_task_owner": "Codex",
+  "detected_task_type": "code-changing",
+  "routing_class": "AMBIGUOUS_OR_MISROUTED_TASK",
+  "misroute_detected": true,
+  "safe_for_receiver_to_execute": false,
+  "sessions_spawn_allowed": false,
+  "code_changes_allowed_for_receiver": false,
+  "runtime_mutation_allowed": false,
+  "queue_mutation_allowed": false,
+  "governance_mutation_allowed": false,
+  "requires_human_or_correct_agent": true,
+  "required_behavior": "RETURN_ROUTING_MISMATCH",
+  "detected_signals": [
+    "codex_signal:implement",
+    "codex_signal:modify files",
+    "codex_signal:owner: codex",
+    "codex_signal:task_owner: codex",
+    "codex_signal:task_type: code-changing",
+    "codex_signal:задание codex",
+    "flocky_signal:read-only validation",
+    "flocky_signal:target_agent: flocky",
+    "flocky_signal:задание flocky",
+    "forbidden_context_signal:sessions_spawn"
+  ],
+  "blocking_reasons": [
+    "mixed_or_ambiguous_routing_signals"
+  ],
+  "warnings": []
+}

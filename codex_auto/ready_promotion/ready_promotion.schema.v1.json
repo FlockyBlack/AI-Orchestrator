@@ -1,0 +1,121 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Ready Promotion Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "ready_promotion_id",
+    "source_promotion_decision",
+    "source_candidate_refs",
+    "ready_task_refs",
+    "ready_manifest_ref",
+    "promoted_at",
+    "promoted_by",
+    "promotion_mode",
+    "approved_for_ready_promotion",
+    "approved_for_execution",
+    "execution_allowed_now",
+    "external_codex_cli_allowed_now",
+    "runtime_wiring_allowed",
+    "human_approval_required_before_execution",
+    "flocky_review_required_before_execution",
+    "prompt_pack_ref",
+    "prompt_manifest_ref",
+    "external_codex_plan_ref",
+    "command_preview_ref",
+    "safety_check",
+    "notes"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "ready_promotion.v1"
+    },
+    "ready_promotion_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_promotion_decision": {
+      "type": "string",
+      "pattern": "^codex_auto/tasks/promotion_decisions/[^\\n]+\\.promotion_decision\\.json$"
+    },
+    "source_candidate_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "pattern": "^codex_auto/tasks/candidates/[^\\n]+\\.task\\.json$"
+      }
+    },
+    "ready_task_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "pattern": "^codex_auto/tasks/ready/[^\\n]+\\.task\\.json$"
+      }
+    },
+    "ready_manifest_ref": {
+      "type": "string",
+      "pattern": "^codex_auto/tasks/ready/[^\\n]+\\.ready_manifest\\.json$"
+    },
+    "promoted_at": {
+      "type": "string",
+      "minLength": 1
+    },
+    "promoted_by": {
+      "type": "string",
+      "minLength": 1
+    },
+    "promotion_mode": {
+      "type": "string",
+      "minLength": 1
+    },
+    "approved_for_ready_promotion": {
+      "const": true
+    },
+    "approved_for_execution": {
+      "const": false
+    },
+    "execution_allowed_now": {
+      "const": false
+    },
+    "external_codex_cli_allowed_now": {
+      "const": false
+    },
+    "runtime_wiring_allowed": {
+      "const": false
+    },
+    "human_approval_required_before_execution": {
+      "const": true
+    },
+    "flocky_review_required_before_execution": {
+      "const": true
+    },
+    "prompt_pack_ref": {
+      "type": "string",
+      "pattern": "^codex_auto/prompts/[^\\n]+\\.codex_prompt\\.txt$"
+    },
+    "prompt_manifest_ref": {
+      "type": "string",
+      "pattern": "^codex_auto/prompts/[^\\n]+\\.prompt_manifest\\.json$"
+    },
+    "external_codex_plan_ref": {
+      "type": "string",
+      "pattern": "^codex_auto/external_cli/plans/[^\\n]+\\.external_codex_plan\\.json$"
+    },
+    "command_preview_ref": {
+      "type": "string",
+      "pattern": "^codex_auto/external_cli/plans/[^\\n]+\\.command_preview\\.txt$"
+    },
+    "safety_check": {
+      "type": "object"
+    },
+    "notes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

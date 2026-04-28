@@ -1,0 +1,208 @@
+{
+  "manifest_version": "raw_ingestion_manifest.v1",
+  "source_contract_version": "raw_market_artifact.v1",
+  "fixtures_dir": "pm_bot/raw_artifacts/fixtures",
+  "validation_passed": true,
+  "accepted_artifacts": [
+    {
+      "artifact_id": "fixture-binary-20260420-market-001",
+      "file": "valid/valid_binary_market_snapshot.json",
+      "market_id": "market-001",
+      "source_type": "fixture",
+      "captured_at": "2026-04-20T12:00:00Z",
+      "outcome_count": 2,
+      "handoff_ready_for_normalization": true
+    },
+    {
+      "artifact_id": "manual-minimal-20260425-market-003",
+      "file": "valid/valid_manual_snapshot_minimal.json",
+      "market_id": "market-003",
+      "source_type": "manual_snapshot",
+      "captured_at": "2026-04-25T08:15:00Z",
+      "outcome_count": 2,
+      "handoff_ready_for_normalization": true
+    },
+    {
+      "artifact_id": "fixture-multi-20260418-market-002",
+      "file": "valid/valid_multi_outcome_market_snapshot.json",
+      "market_id": "market-002",
+      "source_type": "fixture",
+      "captured_at": "2026-04-18T09:30:00Z",
+      "outcome_count": 3,
+      "handoff_ready_for_normalization": true
+    }
+  ],
+  "quarantined_artifacts": [
+    {
+      "file": "invalid/invalid_bad_contract_version.json",
+      "artifact_id": "invalid-contract-market-102",
+      "reasons": [
+        {
+          "code": "bad_contract_version",
+          "severity": "blocking",
+          "message": "contract_version must equal 'raw_market_artifact.v1'."
+        }
+      ],
+      "handoff_ready_for_normalization": false
+    },
+    {
+      "file": "invalid/invalid_conflicting_safety_network.json",
+      "artifact_id": "invalid-network-flag-market-107",
+      "reasons": [
+        {
+          "code": "unsafe_safety_flag:network_used",
+          "severity": "blocking",
+          "message": "safety.network_used must equal false."
+        }
+      ],
+      "handoff_ready_for_normalization": false
+    },
+    {
+      "file": "invalid/invalid_empty_ids_and_duplicates.json",
+      "artifact_id": null,
+      "reasons": [
+        {
+          "code": "duplicate_outcome_name",
+          "severity": "blocking",
+          "message": "outcomes[1].name duplicates a prior outcome name."
+        },
+        {
+          "code": "duplicate_outcome_side",
+          "severity": "blocking",
+          "message": "outcomes[1].side duplicates a prior outcome side."
+        },
+        {
+          "code": "empty_artifact_id",
+          "severity": "blocking",
+          "message": "artifact_id must be a non-empty string."
+        },
+        {
+          "code": "invalid_market_field:market_id",
+          "severity": "blocking",
+          "message": "market.market_id must be a non-empty string."
+        }
+      ],
+      "handoff_ready_for_normalization": false
+    },
+    {
+      "file": "invalid/invalid_malformed_outcomes.json",
+      "artifact_id": "invalid-malformed-outcomes-market-104",
+      "reasons": [
+        {
+          "code": "outcomes_not_list",
+          "severity": "blocking",
+          "message": "outcomes must be a list."
+        }
+      ],
+      "handoff_ready_for_normalization": false
+    },
+    {
+      "file": "invalid/invalid_missing_required_field.json",
+      "artifact_id": "invalid-missing-provenance-market-101",
+      "reasons": [
+        {
+          "code": "invalid_provenance_field:collected_by",
+          "severity": "blocking",
+          "message": "provenance.collected_by must be a non-empty string."
+        },
+        {
+          "code": "invalid_provenance_field:collection_method",
+          "severity": "blocking",
+          "message": "provenance.collection_method must be a non-empty string."
+        },
+        {
+          "code": "invalid_provenance_field:source_reference",
+          "severity": "blocking",
+          "message": "provenance.source_reference must be a non-empty string."
+        },
+        {
+          "code": "missing_required_field:provenance",
+          "severity": "blocking",
+          "message": "Missing required top-level field 'provenance'."
+        },
+        {
+          "code": "provenance_not_object",
+          "severity": "blocking",
+          "message": "provenance must be an object."
+        }
+      ],
+      "handoff_ready_for_normalization": false
+    },
+    {
+      "file": "invalid/invalid_price_out_of_range.json",
+      "artifact_id": "invalid-price-market-106",
+      "reasons": [
+        {
+          "code": "price_out_of_range",
+          "severity": "blocking",
+          "message": "outcomes[0].price must be between 0 and 1 inclusive."
+        }
+      ],
+      "handoff_ready_for_normalization": false
+    },
+    {
+      "file": "invalid/invalid_side_value.json",
+      "artifact_id": "invalid-side-market-105",
+      "reasons": [
+        {
+          "code": "invalid_outcome_side:0",
+          "severity": "blocking",
+          "message": "outcomes[0].side must match the lowercase side pattern."
+        }
+      ],
+      "handoff_ready_for_normalization": false
+    },
+    {
+      "file": "invalid/invalid_stale_captured_at.json",
+      "artifact_id": "invalid-stale-market-103",
+      "reasons": [
+        {
+          "code": "stale_captured_at",
+          "severity": "warning",
+          "message": "captured_at is older than the deterministic reference window ending at 2026-04-26T00:00:00Z."
+        }
+      ],
+      "handoff_ready_for_normalization": false
+    },
+    {
+      "file": "invalid/invalid_wallet_order_trading_flags.json",
+      "artifact_id": "invalid-capability-market-108",
+      "reasons": [
+        {
+          "code": "unsafe_safety_flag:order_capable",
+          "severity": "blocking",
+          "message": "safety.order_capable must equal false."
+        },
+        {
+          "code": "unsafe_safety_flag:trading_capable",
+          "severity": "blocking",
+          "message": "safety.trading_capable must equal false."
+        },
+        {
+          "code": "unsafe_safety_flag:wallet_used",
+          "severity": "blocking",
+          "message": "safety.wallet_used must equal false."
+        }
+      ],
+      "handoff_ready_for_normalization": false
+    }
+  ],
+  "counts": {
+    "checked_files": 12,
+    "accepted": 3,
+    "quarantined": 9,
+    "unexpected_failures": 0,
+    "unexpected_passes": 0
+  },
+  "safety_summary": {
+    "network_used_detected": false,
+    "api_credentials_detected": false,
+    "wallet_detected": false,
+    "order_or_trading_capability_detected": false,
+    "runtime_wiring_detected": false
+  },
+  "next_allowed_stage": "design_only_normalization_contract",
+  "live_fetcher_implemented": false,
+  "normalization_implemented": false,
+  "runtime_wiring_added": false
+}

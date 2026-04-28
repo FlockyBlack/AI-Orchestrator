@@ -1,0 +1,58 @@
+{
+  "schema_version": "v7",
+  "artifact_type": "PM_BOT_SAFE_BACKLOG",
+  "fixture_paper_only": true,
+  "runtime_wiring_allowed": false,
+  "real_trading_allowed": false,
+  "network_api_wallet_private_key_trading_allowed": false,
+  "tasks": [
+    {
+      "task_id": "PMBOT-048",
+      "title": "Operator review diff views",
+      "mode": "LOCAL_ONLY",
+      "summary": "Add local-only comparisons between operator bundles across fixture revisions."
+    },
+    {
+      "task_id": "PMBOT-049",
+      "title": "Richer review annotations",
+      "mode": "FIXTURE_ONLY",
+      "summary": "Expand synthetic candidate rationale and operator note slots without adding executable behavior."
+    },
+    {
+      "task_id": "PMBOT-050",
+      "title": "Read-only live fetcher design review",
+      "mode": "DESIGN_ONLY",
+      "summary": "Document a quarantined future design for live market ingestion without implementing it."
+    },
+    {
+      "task_id": "PMBOT-051",
+      "title": "Live fetcher implementation",
+      "mode": "BLOCKED_PENDING_APPROVAL",
+      "summary": "Blocked pending separate future approval."
+    },
+    {
+      "task_id": "PMBOT-052",
+      "title": "Live Polymarket API integration",
+      "mode": "BLOCKED_PENDING_APPROVAL",
+      "summary": "Blocked pending separate future approval."
+    },
+    {
+      "task_id": "PMBOT-053",
+      "title": "Wallet and signing support",
+      "mode": "BLOCKED_PENDING_APPROVAL",
+      "summary": "Blocked pending separate future approval."
+    },
+    {
+      "task_id": "PMBOT-054",
+      "title": "Real order execution",
+      "mode": "BLOCKED_PENDING_APPROVAL",
+      "summary": "Blocked pending separate future approval."
+    },
+    {
+      "task_id": "PMBOT-055",
+      "title": "Autonomous trading and runtime wiring",
+      "mode": "BLOCKED_PENDING_APPROVAL",
+      "summary": "Blocked pending separate future approval."
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "schema_version": "v1",
+  "queue_task_id": "QUEUE-PMBOT-007-FEES-SLIPPAGE",
+  "codex_task_id": "PMBOT-007-FEES-SLIPPAGE",
+  "queue_state": "ready",
+  "mode": "PAPER_ONLY",
+  "executor": "Codex",
+  "title": "Fees and slippage accounting slice",
+  "summary": "Model simulated costs for paper-only outcomes with deterministic fee and slippage accounting.",
+  "source_backlog_task_id": "PMBOT-007-FEES-SLIPPAGE-DERIVED",
+  "source_backlog_path": "docs/PM_BOT_SAFE_BACKLOG_V1.json",
+  "generated_prompt_ref": "codex_auto/prompts/PMBOT-BATCH-001.codex_prompt.txt",
+  "allowed_paths": [
+    "pm_bot/accounting/",
+    "pm_bot/accounting/tests/"
+  ],
+  "forbidden_paths": [
+    "scripts/dispatcher.py",
+    "scripts/run_codex.py",
+    "tasks/",
+    "state/",
+    "runtime/",
+    "results/",
+    "freeze/",
+    "checkpoint/"
+  ],
+  "allowed_scope": [
+    "Fees and slippage accounting slice"
+  ],
+  "forbidden_scope": [
+    "dispatcher modification",
+    "run_codex modification",
+    "active task mutation",
+    "runtime loop modification",
+    "state/result/freeze/checkpoint mutation",
+    "runtime wiring",
+    "external Codex CLI execution",
+    "network usage",
+    "API usage",
+    "wallet usage",
+    "private key usage",
+    "trading behavior",
+    "real orders",
+    "final Flocky/OpenClaw done claim",
+    "second runtime source of truth"
+  ],
+  "done_criteria": [
+    "Paper-only accounting remains deterministic",
+    "No real order execution logic is introduced",
+    "Tests pass without network access"
+  ],
+  "requires_human_approval": true,
+  "approved_for_execution": false,
+  "dry_run_default": true,
+  "flocky_validation_required": true,
+  "runtime_wiring_allowed": false,
+  "external_codex_cli_allowed": false,
+  "execution_allowed_now": false,
+  "human_approval_required_before_execution": true,
+  "flocky_review_required_before_execution": true,
+  "source_candidate_path": "codex_auto/tasks/candidates/PMBOT-007-FEES-SLIPPAGE.task.json",
+  "source_promotion_decision": "codex_auto/tasks/promotion_decisions/PMBOT-BATCH-001.promotion_decision.json"
+}

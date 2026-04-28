@@ -1,0 +1,128 @@
+{
+  "schema_version": "selected_ingest_manual_dossier_drafts_fixture.v1",
+  "task_id": "PMBOT-INGEST-011-SELECTED-INGEST-MANUAL-DOSSIER-DRAFT-QUALITY-GATE",
+  "deterministic": true,
+  "draft_record_format": "selected_ingest_manual_dossier_draft_list",
+  "selected_market_ids": [
+    "692258",
+    "824952",
+    "691547",
+    "597964",
+    "598936"
+  ],
+  "draft_records": [
+    {
+      "market_id": "824952",
+      "draft_status": "draft_ready_for_human_review",
+      "market_context_notes": "Manual context notes summarize the local packet and market question for human review.",
+      "resolution_criteria_notes": "Manual notes restate local resolution criteria boundaries for later human review.",
+      "evidence_summary_by_source": [
+        "Local rule reference was copied into the packet for structural review.",
+        "Official source placeholder was documented as source coverage context.",
+        "Credible news placeholder was documented as source coverage context."
+      ],
+      "uncertainty_register": [
+        "Manual review still needs human judgment on source completeness.",
+        "Artifact validation does not determine the market outcome."
+      ],
+      "missing_information_review": "No structural gaps were flagged by the selected-ingest operator review result.",
+      "operator_review_notes": "Operator review marked the packet ready for dossier drafting; this draft only records structural notes.",
+      "open_questions": [],
+      "next_manual_action": "human_review_required"
+    },
+    {
+      "market_id": "692258",
+      "draft_status": "needs_more_information",
+      "market_context_notes": "This selected market was not exported as a selected-ingest draft skeleton.",
+      "resolution_criteria_notes": "Manual resolution notes remain partial.",
+      "evidence_summary_by_source": [
+        "Additional source coverage is needed before a skeleton-backed draft can be reviewed."
+      ],
+      "uncertainty_register": [
+        "Manual source coverage is incomplete."
+      ],
+      "missing_information_review": "Operator review requested more information.",
+      "operator_review_notes": "The quality gate must reject this selected market because no selected-ingest draft skeleton exists.",
+      "open_questions": [
+        "Add complete source references."
+      ],
+      "next_manual_action": "add_missing_information"
+    },
+    {
+      "market_id": "unknown-market-id",
+      "draft_status": "draft_incomplete",
+      "market_context_notes": "This identifier is not part of the selected-ingest skeleton artifact.",
+      "resolution_criteria_notes": "",
+      "evidence_summary_by_source": [],
+      "uncertainty_register": [],
+      "missing_information_review": "",
+      "operator_review_notes": "",
+      "open_questions": [],
+      "next_manual_action": "fix_draft_structure"
+    },
+    {
+      "market_id": "824952",
+      "draft_status": "draft_incomplete",
+      "title_question": "Operator attempted to override immutable skeleton content.",
+      "market_context_notes": "This record attempts to supply skeleton-owned content.",
+      "resolution_criteria_notes": "",
+      "evidence_summary_by_source": [],
+      "uncertainty_register": [],
+      "missing_information_review": "",
+      "operator_review_notes": "",
+      "open_questions": [],
+      "next_manual_action": "fix_draft_structure"
+    },
+    {
+      "market_id": "824952",
+      "draft_status": "draft_incomplete",
+      "market_context_notes": "This record attempts to include prohibited action fields.",
+      "resolution_criteria_notes": "",
+      "evidence_summary_by_source": [],
+      "uncertainty_register": [],
+      "missing_information_review": "",
+      "operator_review_notes": "",
+      "open_questions": [],
+      "next_manual_action": "reject_draft_quality",
+      "order": "not allowed",
+      "trade": "not allowed",
+      "wallet": "not allowed",
+      "private_key": "not allowed",
+      "execution": "not allowed",
+      "recommendation": "not allowed",
+      "bet": "not allowed",
+      "stake": "not allowed",
+      "size": "not allowed",
+      "entry_price": "not allowed",
+      "limit_price": "not allowed",
+      "price_target": "not allowed"
+    },
+    {
+      "market_id": "824952",
+      "draft_status": "draft_ready_for_human_review",
+      "next_manual_action": "human_review_required"
+    },
+    {
+      "market_id": "824952",
+      "draft_status": "draft_incomplete",
+      "market_context_notes": "This rejected record includes completed_dossier phrase for validation.",
+      "resolution_criteria_notes": "This rejected record includes final_dossier phrase for validation.",
+      "evidence_summary_by_source": [],
+      "uncertainty_register": [],
+      "missing_information_review": "This rejected record includes bet_recommendation phrase for validation.",
+      "operator_review_notes": "This rejected record includes trade_recommendation phrase for validation.",
+      "open_questions": [],
+      "next_manual_action": "reject_draft_quality",
+      "score": "not allowed",
+      "signal": "not allowed",
+      "probability": "not allowed",
+      "expected_value": "not allowed",
+      "ev": "not allowed",
+      "side": "not allowed",
+      "yes_no_decision": "not allowed",
+      "buy": "not allowed",
+      "sell": "not allowed",
+      "market_decision": "not allowed"
+    }
+  ]
+}

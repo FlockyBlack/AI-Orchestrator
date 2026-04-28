@@ -1,0 +1,59 @@
+{
+  "task_id": "PMBOT-BRAIN-027-WORKSPACE-SNAPSHOT-QUARANTINE-HARDENING",
+  "status": "passed",
+  "summary": "Manual paper workspace inbox discovery now classifies valid, already processed, duplicate, malformed, unsupported, ignored non-JSON, and non-file/unreadable local inputs before processing. Valid snapshots are copied to a temporary filtered inbox for existing offline paper processing, while quarantine records are reported in JSON stdout, Markdown stdout, and run ledger artifacts when written.",
+  "files_created": [
+    "pm_bot/paper/expected_manual_paper_workspace_quarantine.v1.json",
+    "docs/PM_BOT_BRAIN_027_RESULT.json",
+    "docs/PM_BOT_STAGE_SUMMARY_V39.md"
+  ],
+  "files_modified": [
+    "pm_bot/paper/run_manual_paper_workspace.py",
+    "pm_bot/paper/expected_manual_paper_workspace.v1.json",
+    "pm_bot/paper/expected_manual_paper_workspace_summary.v1.md",
+    "pm_bot/paper/tests/test_run_manual_paper_workspace.py"
+  ],
+  "tests": [
+    "python -m pytest pm_bot\\scoring\\tests pm_bot\\paper\\tests -q",
+    "python pm_bot\\paper\\run_manual_paper_workspace.py",
+    "python pm_bot\\paper\\run_manual_paper_workspace.py --markdown",
+    "python pm_bot\\paper\\run_manual_paper_inbox_bundle.py",
+    "python pm_bot\\paper\\run_local_snapshot_inbox_paper_portfolio.py",
+    "python pm_bot\\paper\\run_local_snapshot_series_risk_scenarios.py",
+    "python pm_bot\\paper\\run_crypto_numeric_lifecycle_regression_gates.py"
+  ],
+  "quarantine_summary": {
+    "default_read_only_preserved": "verified by default command and fixture mutation tests",
+    "valid_snapshots_processed": "verified: 2 valid unprocessed canonical snapshots process while 1 already processed snapshot is skipped",
+    "quarantined_inputs": "verified for malformed JSON, unsupported shape, duplicate snapshot ID, ignored non-JSON file, non-file inbox entry, and already processed snapshot",
+    "quarantine_reason_counts": {
+      "already_processed_snapshot": 1,
+      "duplicate_snapshot_id_in_inbox": 1,
+      "ignored_non_json_file": 1,
+      "malformed_json": 1,
+      "unreadable_input": 1,
+      "unsupported_snapshot_shape": 1
+    },
+    "write_run_quarantine_records_tested": "verified in run_ledger.json and run_summary.md",
+    "commit_state_with_quarantine_tested": "verified commit-state writes state after valid processing and preserves quarantine records",
+    "canonical_fixture_mutation_avoided": "verified by byte snapshot before/after tests"
+  },
+  "safety": {
+    "offline_only": true,
+    "paper_only": true,
+    "live_fetcher_implemented": false,
+    "api_used": false,
+    "network_used": false,
+    "wallet_used": false,
+    "real_order_created": false,
+    "trading_allowed": false,
+    "runtime_wiring_changed": false,
+    "dispatcher_touched": false,
+    "prompt_automation_added": false
+  },
+  "notes": [
+    "No production dependency was added.",
+    "No files under Codex copy roots were edited.",
+    "The canonical root is not a Git repository in this environment, so git status/diff were unavailable."
+  ]
+}

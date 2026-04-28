@@ -1,0 +1,43 @@
+# PAPER-007 Paper Simulation Plan Draft
+
+- task_id: PMBOT-PAPER-BATCH-006-010-PAPER-WORKBENCH-MVP
+- source_accepted_human_review_path: pm_bot/paper/paper_simulation_gate_human_review_records_accepted.v1.json
+- simulation_plans_written: 1
+
+## Plan Records
+
+### 824952
+- source_gate_status: paper_simulation_gate_passed_for_manual_review
+- source_review_outcome: approved_for_paper_simulation_plan_drafting
+- plan_status: paper_simulation_plan_draft_ready_for_manual_intent
+- required_inputs:
+  - blank_manual_paper_intent_contract
+  - operator_manual_attestation
+  - paper_only_true
+  - inert_only_true
+- constraints:
+  - offline_local_artifacts_only
+  - operator_provided_manual_intent_only
+  - no_strategy_generated_parameters
+  - no_external_network_use
+  - no_credential_use
+  - no_live_execution
+- allowed_next_actions:
+  - prepare_blank_manual_paper_intent_template
+  - validate_operator_provided_manual_paper_intent
+- blocked_actions:
+  - strategy_parameter_generation
+  - automated_quantitative_scoring
+  - live_or_real_execution
+  - credential_or_endpoint_use
+- required_manual_followup:
+  - operator_must_supply_any_manual_paper_intent
+  - operator_must_confirm_paper_only_and_inert_only_flags
+- simulation_notes:
+  - This draft only prepares local paperwork for a possible operator-provided paper intent.
+  - The draft does not select any trade parameters or executable action.
+
+## Limitations
+
+- Plan draft is local and inert.
+- Plan draft requires later operator input before any manual paper intent can be recorded.

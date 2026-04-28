@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "governance/schemas/lifecycle_event_draft.schema.v1.json",
+  "title": "Lifecycle Event Draft Schema v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "draft_id",
+    "task_id",
+    "source_run_id",
+    "created_at",
+    "actor",
+    "event_type",
+    "from_status",
+    "to_status",
+    "reason",
+    "safety_flags",
+    "commit_allowed"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "v1" },
+    "draft_id": { "type": "string", "minLength": 1 },
+    "task_id": { "type": "string", "minLength": 1 },
+    "source_run_id": { "type": "string", "minLength": 1 },
+    "created_at": { "type": "string", "minLength": 1 },
+    "actor": { "type": "string", "enum": ["openclaw"] },
+    "event_type": { "type": "string", "enum": ["status_changed"] },
+    "from_status": { "type": "string", "enum": ["backlog", "in_progress", "review", "blocked", "deferred"] },
+    "to_status": { "type": "string", "enum": ["review", "blocked", "deferred", "done"] },
+    "reason": { "type": "string", "minLength": 1 },
+    "safety_flags": { "$ref": "governance_review_bundle.schema.v1.json#/$defs/safetyFlags" },
+    "commit_allowed": { "type": "boolean" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "to_status": { "const": "done" } }, "required": ["to_status"] },
+      "then": { "properties": { "commit_allowed": { "const": false } } }
+    }
+  ]
+}

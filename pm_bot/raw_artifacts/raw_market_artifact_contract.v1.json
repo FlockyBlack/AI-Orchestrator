@@ -1,0 +1,79 @@
+{
+  "schema_version": "v1",
+  "artifact_type": "raw_market_artifact_contract",
+  "contract_version": "raw_market_artifact.v1",
+  "description": "Deterministic offline contract for local raw market snapshot artifacts.",
+  "allowed_source_types": [
+    "fixture",
+    "manual_snapshot",
+    "future_readonly_fetcher_output"
+  ],
+  "reference_time": "2026-04-26T00:00:00Z",
+  "stale_after_days": 30,
+  "required_top_level_fields": [
+    "contract_version",
+    "artifact_id",
+    "source_type",
+    "source_name",
+    "captured_at",
+    "market",
+    "outcomes",
+    "provenance",
+    "safety"
+  ],
+  "market": {
+    "required_fields": [
+      "market_id",
+      "title",
+      "status"
+    ],
+    "optional_fields": [
+      "condition_id",
+      "slug",
+      "category",
+      "end_date"
+    ]
+  },
+  "outcomes": {
+    "type": "array",
+    "minimum_items": 1,
+    "item_required_fields": [
+      "name",
+      "side",
+      "price"
+    ],
+    "item_optional_fields": [
+      "liquidity",
+      "volume"
+    ],
+    "side_pattern": "^[a-z][a-z0-9_]{1,31}$",
+    "price_range": {
+      "minimum": 0.0,
+      "maximum": 1.0
+    },
+    "unique_by": [
+      "name",
+      "side"
+    ]
+  },
+  "provenance": {
+    "required_fields": [
+      "collected_by",
+      "collection_method",
+      "source_reference"
+    ],
+    "optional_fields": [
+      "notes"
+    ]
+  },
+  "safety": {
+    "required_flags": {
+      "network_used": false,
+      "api_credentials_used": false,
+      "wallet_used": false,
+      "order_capable": false,
+      "trading_capable": false,
+      "readonly_intended": true
+    }
+  }
+}

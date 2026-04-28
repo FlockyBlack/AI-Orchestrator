@@ -1,0 +1,1 @@
+Operator note: this file is intentionally ignored by the manual snapshot importer.

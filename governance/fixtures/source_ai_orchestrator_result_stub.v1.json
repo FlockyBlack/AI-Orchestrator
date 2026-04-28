@@ -1,0 +1,19 @@
+{
+  "task_id": "PM-V1-STABLE-WARNING-20260425",
+  "source_run_id": "pm_v1_stable_warning_accepted_20260425",
+  "runtime_status": "warning_accepted",
+  "runtime_source_path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator\\state\\pm_v1_stable_warning_accepted_20260425.json",
+  "blocking_issues": [],
+  "accepted_warnings": {
+    "network_risk": "mixed",
+    "api_risk": "mixed",
+    "wallet_risk": "mixed",
+    "private_key_risk": "mixed",
+    "execution_risk": "mixed",
+    "live_trading_risk": "mixed",
+    "dependency_risk": "docs_only"
+  },
+  "critic_verdict": "warning",
+  "governance_decision": "accept_with_warnings",
+  "final_status_allowed": true
+}

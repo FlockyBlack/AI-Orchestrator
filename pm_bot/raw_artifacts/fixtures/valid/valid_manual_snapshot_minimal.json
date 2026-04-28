@@ -1,0 +1,37 @@
+{
+  "contract_version": "raw_market_artifact.v1",
+  "artifact_id": "manual-minimal-20260425-market-003",
+  "source_type": "manual_snapshot",
+  "source_name": "operator_notebook_fixture",
+  "captured_at": "2026-04-25T08:15:00Z",
+  "market": {
+    "market_id": "market-003",
+    "title": "Will sample index settle above 100?",
+    "status": "closed"
+  },
+  "outcomes": [
+    {
+      "name": "Above",
+      "side": "above",
+      "price": 0.64
+    },
+    {
+      "name": "At or Below",
+      "side": "below_or_equal",
+      "price": 0.36
+    }
+  ],
+  "provenance": {
+    "collected_by": "human_operator",
+    "collection_method": "manual_transcription",
+    "source_reference": "local://notes/operator_notebook_page_12"
+  },
+  "safety": {
+    "network_used": false,
+    "api_credentials_used": false,
+    "wallet_used": false,
+    "order_capable": false,
+    "trading_capable": false,
+    "readonly_intended": true
+  }
+}

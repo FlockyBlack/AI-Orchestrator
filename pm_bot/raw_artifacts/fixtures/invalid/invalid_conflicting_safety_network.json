@@ -1,0 +1,32 @@
+{
+  "contract_version": "raw_market_artifact.v1",
+  "artifact_id": "invalid-network-flag-market-107",
+  "source_type": "future_readonly_fetcher_output",
+  "source_name": "future_component_name_only",
+  "captured_at": "2026-04-22T10:00:00Z",
+  "market": {
+    "market_id": "market-107",
+    "title": "Network flag fixture",
+    "status": "open"
+  },
+  "outcomes": [
+    {
+      "name": "Yes",
+      "side": "yes",
+      "price": 0.44
+    }
+  ],
+  "provenance": {
+    "collected_by": "fixture_generator",
+    "collection_method": "curated_fixture",
+    "source_reference": "local://fixtures/invalid_conflicting_safety_network"
+  },
+  "safety": {
+    "network_used": true,
+    "api_credentials_used": false,
+    "wallet_used": false,
+    "order_capable": false,
+    "trading_capable": false,
+    "readonly_intended": true
+  }
+}

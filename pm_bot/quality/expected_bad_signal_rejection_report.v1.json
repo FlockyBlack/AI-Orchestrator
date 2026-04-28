@@ -1,0 +1,98 @@
+{
+  "schema_version": "v1",
+  "report_id": "PMBOT-BATCH-004-BAD-SIGNAL-REJECTION-REPORT",
+  "fixture_only": true,
+  "paper_only": true,
+  "local_only": true,
+  "deterministic": true,
+  "rejected_cases_count": 6,
+  "rejection_reasons_grouped": {
+    "conflicting_signals": 1,
+    "insufficient_edge": 2,
+    "low_liquidity": 2,
+    "resolved_or_closed_market": 1,
+    "stale_data": 2,
+    "wide_spread": 1
+  },
+  "examples_of_bad_signals": [
+    {
+      "case_id": "rq_case_weak_edge_reject",
+      "market_id": "pm_fixture_2026_cabinet_exit",
+      "final_decision": "reject",
+      "confidence_score": 54,
+      "rejection_reasons": [
+        "insufficient_edge"
+      ],
+      "improvement_actions": [
+        "Improve the synthetic edge or downgrade the case to no-action."
+      ]
+    },
+    {
+      "case_id": "rq_case_low_liquidity_reject",
+      "market_id": "pm_fixture_2026_championship_upset",
+      "final_decision": "reject",
+      "confidence_score": 56,
+      "rejection_reasons": [
+        "low_liquidity"
+      ],
+      "improvement_actions": [
+        "Use a synthetic case with liquidity above the local floor."
+      ]
+    },
+    {
+      "case_id": "rq_case_wide_spread_caution",
+      "market_id": "pm_fixture_2026_cabinet_exit",
+      "final_decision": "reject",
+      "confidence_score": 57,
+      "rejection_reasons": [
+        "wide_spread"
+      ],
+      "improvement_actions": [
+        "Tighten spread assumptions before promoting the case."
+      ]
+    },
+    {
+      "case_id": "rq_case_stale_data_warning",
+      "market_id": "pm_fixture_2026_ai_regulation_vote",
+      "final_decision": "reject",
+      "confidence_score": 55,
+      "rejection_reasons": [
+        "stale_data"
+      ],
+      "improvement_actions": [
+        "Refresh the local fixture timestamp before reconsidering the case."
+      ]
+    },
+    {
+      "case_id": "rq_case_resolved_market_exclusion",
+      "market_id": "pm_fixture_2026_hurricane_season_closed",
+      "final_decision": "exclude",
+      "confidence_score": 0,
+      "rejection_reasons": [
+        "insufficient_edge",
+        "low_liquidity",
+        "resolved_or_closed_market",
+        "stale_data"
+      ],
+      "improvement_actions": [
+        "Improve the synthetic edge or downgrade the case to no-action.",
+        "Use a synthetic case with liquidity above the local floor.",
+        "Exclude resolved or closed markets from forward research.",
+        "Refresh the local fixture timestamp before reconsidering the case."
+      ]
+    },
+    {
+      "case_id": "rq_case_conflicting_signals_reject",
+      "market_id": "pm_fixture_2026_ai_regulation_vote",
+      "final_decision": "reject",
+      "confidence_score": 54,
+      "rejection_reasons": [
+        "conflicting_signals"
+      ],
+      "improvement_actions": [
+        "Resolve the contradiction between synthetic signals."
+      ]
+    }
+  ],
+  "paper_only_no_action_confirmation": "All rejected cases remain paper-only and produce no real order."
+}

@@ -1,0 +1,133 @@
+{
+  "task_id": "PMBOT-BATCH-003",
+  "status": "implementation_complete_ready_for_flocky_validation",
+  "scope": {
+    "fixture_only": true,
+    "paper_only": true,
+    "local_only": true,
+    "live_api": false,
+    "wallet": false,
+    "real_orders": false,
+    "runtime_wiring": false
+  },
+  "summary": "Added a synthetic multi-market fixture bundle, V3 deterministic scenarios, a portfolio-level paper report, a richer dashboard summary, and a stronger static safety audit baseline while preserving PMBOT as fixture-only, paper-only, local-only, and offline.",
+  "files_created": [
+    "pm_bot/fixtures/multi_market_fixture_bundle.v1.json",
+    "pm_bot/scenarios/scenario_suite.v3.json",
+    "pm_bot/scenarios/run_demo_scenarios_v3.py",
+    "pm_bot/scenarios/expected_demo_scenario_report.v3.json",
+    "pm_bot/scenarios/tests/test_run_demo_scenarios_v3.py",
+    "pm_bot/reports/pmbot_batch_003_support.py",
+    "pm_bot/reports/portfolio_paper_report.py",
+    "pm_bot/reports/expected_portfolio_paper_report.v1.json",
+    "pm_bot/reports/expected_portfolio_paper_report.v1.md",
+    "pm_bot/reports/tests/test_portfolio_paper_report.py",
+    "pm_bot/demo/run_dashboard_summary.py",
+    "pm_bot/demo/expected_dashboard_summary.v1.json",
+    "pm_bot/demo/expected_dashboard_summary.v1.md",
+    "pm_bot/demo/tests/test_dashboard_summary.py",
+    "pm_bot/audit/static_safety_audit_v2.py",
+    "pm_bot/audit/expected_static_safety_audit.v2.json",
+    "pm_bot/audit/tests/test_static_safety_audit_v2.py",
+    "docs/PM_BOT_DEMO_RUNBOOK_V2.md",
+    "docs/PM_BOT_STAGE_SUMMARY_V4.md",
+    "docs/PM_BOT_SAFE_BACKLOG_V4.json",
+    "docs/PM_BOT_BATCH_003_RESULT.json"
+  ],
+  "files_modified": [
+    "pm_bot/audit/run_static_safety_audit.py"
+  ],
+  "tests_run": [
+    {
+      "command": "python -m pytest pm_bot\\scenarios\\tests\\test_run_demo_scenarios_v3.py -q",
+      "status": "pass",
+      "notes": "Targeted V3 scenario test passed."
+    },
+    {
+      "command": "python -m pytest pm_bot\\reports\\tests\\test_portfolio_paper_report.py -q",
+      "status": "pass",
+      "notes": "Targeted portfolio report test passed."
+    },
+    {
+      "command": "python -m pytest pm_bot\\demo\\tests\\test_dashboard_summary.py -q",
+      "status": "pass",
+      "notes": "Targeted dashboard summary test passed."
+    },
+    {
+      "command": "python -m pytest pm_bot\\audit\\tests\\test_static_safety_audit_v2.py -q",
+      "status": "pass",
+      "notes": "Targeted static audit v2 test passed after the final expected audit artifact was refreshed."
+    },
+    {
+      "command": "python -m pytest pm_bot\\demo\\tests\\test_run_paper_research_demo.py -q",
+      "status": "pass",
+      "notes": "Legacy BATCH-002 demo compatibility test passed after the legacy audit scope was isolated from BATCH-003 artifacts."
+    },
+    {
+      "command": "python -m pytest pm_bot\\audit\\tests\\test_run_static_safety_audit.py -q",
+      "status": "pass",
+      "notes": "Legacy BATCH-002 static audit compatibility test passed."
+    },
+    {
+      "command": "python -m pytest pm_bot\\scenarios\\tests pm_bot\\demo\\tests pm_bot\\reports\\tests pm_bot\\audit\\tests",
+      "status": "pass",
+      "notes": "Grouped offline pytest run passed with 36 tests."
+    },
+    {
+      "command": "python pm_bot\\scenarios\\run_demo_scenarios_v3.py",
+      "status": "pass",
+      "notes": "CLI runner executed successfully."
+    },
+    {
+      "command": "python pm_bot\\demo\\run_dashboard_summary.py",
+      "status": "pass",
+      "notes": "CLI dashboard summary executed successfully."
+    },
+    {
+      "command": "python pm_bot\\audit\\static_safety_audit_v2.py",
+      "status": "pass",
+      "notes": "CLI audit executed successfully against the final artifact set."
+    }
+  ],
+  "safety_checks": {
+    "fixture_only": true,
+    "paper_only": true,
+    "local_only": true,
+    "no_network_or_api": true,
+    "no_live_polymarket_api": true,
+    "no_wallet_or_private_key": true,
+    "no_real_orders": true,
+    "no_real_trading": true,
+    "no_autonomous_trading": true,
+    "no_runtime_wiring": true,
+    "no_dispatcher_changes": true,
+    "no_run_codex_changes": true,
+    "no_active_task_mutation": true,
+    "no_state_result_freeze_checkpoint_mutation": true,
+    "no_codex_auto_mutation": true,
+    "no_governance_state_mutation": true,
+    "final_flocky_done_claimed": false,
+    "ready_for_flocky_validation": true
+  },
+  "artifacts": {
+    "multi_market_fixture_bundle": "pm_bot/fixtures/multi_market_fixture_bundle.v1.json",
+    "scenario_suite_v3": "pm_bot/scenarios/scenario_suite.v3.json",
+    "scenario_report_v3": "pm_bot/scenarios/expected_demo_scenario_report.v3.json",
+    "portfolio_report_json": "pm_bot/reports/expected_portfolio_paper_report.v1.json",
+    "portfolio_report_markdown": "pm_bot/reports/expected_portfolio_paper_report.v1.md",
+    "dashboard_summary_json": "pm_bot/demo/expected_dashboard_summary.v1.json",
+    "dashboard_summary_markdown": "pm_bot/demo/expected_dashboard_summary.v1.md",
+    "static_audit_v2": "pm_bot/audit/expected_static_safety_audit.v2.json",
+    "runbook_v2": "docs/PM_BOT_DEMO_RUNBOOK_V2.md",
+    "stage_summary_v4": "docs/PM_BOT_STAGE_SUMMARY_V4.md",
+    "safe_backlog_v4": "docs/PM_BOT_SAFE_BACKLOG_V4.json"
+  },
+  "known_warnings": [
+    "Accepted paper candidates intentionally trigger macro concentration and correlated exposure warnings.",
+    "The static audit reports non-blocking mentions for documentation, tests, and its own safety-definition token list."
+  ],
+  "blocked_items": [
+    "Live/API, wallet, signing, order execution, trading, runtime wiring, dispatcher integration, and run_codex changes remain blocked pending explicit future approval."
+  ],
+  "requires_flocky_validation": true
+}

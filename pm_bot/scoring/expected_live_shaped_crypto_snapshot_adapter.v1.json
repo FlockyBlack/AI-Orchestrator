@@ -1,0 +1,145 @@
+{
+  "schema_version": "v1",
+  "report_id": "PMBOT-BRAIN-015-LIVE-SHAPED-MARKET-SNAPSHOT-ADAPTER",
+  "source_fixture_id": "crypto_numeric_live_shaped_snapshot_fixture_v1",
+  "deterministic": true,
+  "offline_only": true,
+  "paper_only": true,
+  "live_fetcher_implemented": false,
+  "network_used": false,
+  "api_used": false,
+  "credentials_used": false,
+  "wallet_used": false,
+  "real_order_created": false,
+  "trading_allowed": false,
+  "adapter_summary": {
+    "snapshot_markets": 10,
+    "adapted_raw_markets": 3,
+    "adapter_rejections": 7,
+    "rejection_reasons": {
+      "missing_question": 1,
+      "missing_market_id": 1,
+      "missing_price": 1,
+      "missing_liquidity": 1,
+      "missing_expiry": 1,
+      "unsupported_asset": 1,
+      "ambiguous_side": 1
+    },
+    "intake_chain_check_passed": true
+  },
+  "adapted_raw_fixture": {
+    "schema_version": "v1",
+    "fixture_id": "crypto_numeric_live_shaped_adapted_raw_markets_v1",
+    "fixture_only": true,
+    "paper_only": true,
+    "raw_markets": [
+      {
+        "market_id": "live_btc_above_90000_2026_05_31",
+        "category": "crypto",
+        "question": "Will BTC be above $90,000 on 2026-05-31?",
+        "asset": "BTC",
+        "side_candidate": "above",
+        "target_price_candidate": 90000.0,
+        "expiry": "2026-05-31",
+        "market_yes_price": 0.59,
+        "liquidity_usd": 180000.0,
+        "spread": 0.03,
+        "current_price": 93800.0,
+        "risk_level": "low",
+        "thirty_day_change_pct": 8.0,
+        "volatility_30d_pct": 42.0
+      },
+      {
+        "market_id": "live_eth_below_3000_2026_05_31",
+        "category": "crypto",
+        "question": "Will Ethereum be below $3,000 on 2026-05-31?",
+        "asset": "ETH",
+        "side_candidate": "below",
+        "target_price_candidate": 3000.0,
+        "expiry": "2026-05-31",
+        "market_yes_price": 0.36,
+        "liquidity_usd": 125000.0,
+        "spread": 0.04,
+        "current_price": 3120.0,
+        "risk_level": "medium",
+        "thirty_day_change_pct": -6.0,
+        "volatility_30d_pct": 55.0
+      },
+      {
+        "market_id": "live_eth_above_4500_2026_06_30",
+        "category": "crypto",
+        "question": "Will ETH be above $4,500 on 2026-06-30?",
+        "asset": "ETH",
+        "side_candidate": "above",
+        "target_price_candidate": 4500.0,
+        "expiry": "2026-06-30",
+        "market_yes_price": 0.44,
+        "liquidity_usd": 90000.0,
+        "spread": 0.05,
+        "current_price": 4200.0,
+        "risk_level": "medium",
+        "thirty_day_change_pct": 4.0,
+        "volatility_30d_pct": 58.0
+      }
+    ]
+  },
+  "adapter_rejections": [
+    {
+      "market_id": "live_missing_question",
+      "question": "",
+      "reason_code": "missing_question",
+      "reason": "Snapshot does not include a question or title."
+    },
+    {
+      "market_id": "unknown",
+      "question": "Will BTC be above $90,000 on 2026-05-31?",
+      "reason_code": "missing_market_id",
+      "reason": "Snapshot does not include a condition_id or market_id."
+    },
+    {
+      "market_id": "live_missing_price",
+      "question": "Will BTC be above $90,000 on 2026-05-31?",
+      "reason_code": "missing_price",
+      "reason": "Snapshot does not include a Yes outcome price."
+    },
+    {
+      "market_id": "live_missing_liquidity",
+      "question": "Will BTC be above $90,000 on 2026-05-31?",
+      "reason_code": "missing_liquidity",
+      "reason": "Snapshot does not include liquidity."
+    },
+    {
+      "market_id": "live_missing_expiry",
+      "question": "Will BTC be above $90,000 on 2026-05-31?",
+      "reason_code": "missing_expiry",
+      "reason": "Snapshot does not include an expiry date."
+    },
+    {
+      "market_id": "live_unsupported_asset",
+      "question": "Will SOL be above $200 on 2026-05-31?",
+      "reason_code": "unsupported_asset",
+      "reason": "Question does not identify supported BTC or ETH asset."
+    },
+    {
+      "market_id": "live_ambiguous_side",
+      "question": "Will BTC be above $90,000 and below $110,000 on 2026-05-31?",
+      "reason_code": "ambiguous_side",
+      "reason": "Question does not specify exactly one above/below side."
+    }
+  ],
+  "intake_chain_check": {
+    "passed": true,
+    "normalized_supported": 3,
+    "markets_scored": 3,
+    "paper_candidates": 1,
+    "watchlist": 1,
+    "rejected_after_scoring": 1,
+    "paper_limit_orders": 1
+  },
+  "limitations": [
+    "Uses fixture live-shaped snapshots only; no live fetcher, network, or external API is implemented.",
+    "Adapter output targets the existing crypto numeric raw market intake format and does not replace the intake chain.",
+    "Current price, volatility, and momentum are fixture fields, not live market data."
+  ],
+  "review_note": "Offline adapter for future read-only market data shape compatibility only."
+}

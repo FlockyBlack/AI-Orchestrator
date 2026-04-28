@@ -1,0 +1,89 @@
+{
+  "code_slot": "CODEX_INTEGRATION_002",
+  "task_id": "PMBOT-INTEGRATION-002-FILL-SETTLEMENT-PNL-REVIEW",
+  "status": "completed_ready_for_review",
+  "integration_verdict": "accepted_for_next_paper_portfolio_metrics_stage",
+  "summary": "Reviewed PMBOT-PAPER-BATCH-011-013 and accepted it for the next offline paper portfolio metrics stage. The result JSON parsed, all producer-listed files exist, required tests passed, no safety boundary expansion was found, PnL remains paper accounting-only, fill and settlement are operator-manual fixture based only, and real/live/autonomous paper order counts remain 0.",
+  "inputs_reviewed": {
+    "paper_batch_011_013": "present",
+    "integration_001": "present",
+    "paper_batch_006_010": "present"
+  },
+  "market_ids": [
+    "824952"
+  ],
+  "file_verification": {
+    "listed_files_checked": 17,
+    "listed_files_missing": [],
+    "unexpected_source_modifications_required": false
+  },
+  "tests": [
+    {
+      "command": "python -m pytest pm_bot\\paper\\tests -q",
+      "status": "passed",
+      "result": "299 passed, 39 subtests passed in 25.54s"
+    },
+    {
+      "command": "python -m py_compile pm_bot\\paper\\run_paper_fill_settlement_pnl_batch_011_013.py",
+      "status": "passed",
+      "result": "compiled"
+    },
+    {
+      "command": "JSON parse check for docs/PMBOT_PAPER_BATCH_011_013_RESULT.json and all batch-created JSON files",
+      "status": "passed",
+      "result": "12 JSON files parsed successfully"
+    }
+  ],
+  "counts_confirmed": {
+    "fill_source_records_accepted": 1,
+    "fill_source_records_rejected": 2,
+    "paper_fill_events_written": 1,
+    "settlement_records_accepted": 1,
+    "settlement_records_rejected": 2,
+    "paper_accounting_pnl_records": 1,
+    "real_orders_created": 0,
+    "live_orders_created": 0,
+    "autonomous_paper_orders_created": 0
+  },
+  "accounting_boundary": {
+    "paper_accounting_pnl_present": true,
+    "pnl_source_operator_manual_fixtures_only": true,
+    "ev_calculated": false,
+    "probability_calculated": false,
+    "score_calculated": false,
+    "edge_calculated": false,
+    "recommendation_generated": false,
+    "truth_inference": false,
+    "live_resolution": false
+  },
+  "manual_only_boundary": {
+    "operator_manual_fill_fields_only": true,
+    "operator_manual_settlement_fields_only": true,
+    "generated_by_bot_false": true,
+    "paper_only_inert_execution": true
+  },
+  "safety": {
+    "offline_only": true,
+    "network_api_calls": false,
+    "credentials": false,
+    "wallet_private_keys": false,
+    "authenticated_endpoints": false,
+    "trading_endpoints": false,
+    "real_orders": false,
+    "live_trading": false,
+    "autonomous_paper_orders": false,
+    "betting_recommendations": false,
+    "truth_inference": false,
+    "market_scoring": false,
+    "probability_estimates": false,
+    "ev_calculations": false,
+    "edge_calculations": false,
+    "side_recommendations": false,
+    "market_decisions": false,
+    "runtime_wiring": false,
+    "dispatcher_run_codex_changes": false
+  },
+  "recommended_next_task": "PMBOT-PAPER-BATCH-014-016-PAPER-PORTFOLIO-METRICS-MVP",
+  "warnings": [],
+  "blockers": []
+}

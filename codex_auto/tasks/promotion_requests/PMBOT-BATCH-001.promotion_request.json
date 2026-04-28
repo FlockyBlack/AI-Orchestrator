@@ -1,0 +1,39 @@
+{
+  "schema_version": "promotion_request.v1",
+  "promotion_request_id": "PMBOT-BATCH-001",
+  "source_materialization_report": "codex_auto/tasks/candidates/PMBOT-BATCH-001.materialization.json",
+  "candidate_task_refs": [
+    "codex_auto/tasks/candidates/PMBOT-005-PAPER-SIMULATION.task.json",
+    "codex_auto/tasks/candidates/PMBOT-006-RISK-LIMITS.task.json",
+    "codex_auto/tasks/candidates/PMBOT-007-FEES-SLIPPAGE.task.json",
+    "codex_auto/tasks/candidates/PMBOT-008-RESEARCH-DASHBOARD.task.json",
+    "codex_auto/tasks/candidates/PMBOT-009-FIXTURE-POSTMORTEM.task.json",
+    "codex_auto/tasks/candidates/PMBOT-010-STATIC-SAFETY-AUDIT.task.json"
+  ],
+  "prompt_pack_ref": "codex_auto/prompts/PMBOT-BATCH-001.codex_prompt.txt",
+  "prompt_manifest_ref": "codex_auto/prompts/PMBOT-BATCH-001.prompt_manifest.json",
+  "requested_next_state": "promotion_review",
+  "requested_by": "codex_safe_implementation_bundled",
+  "requested_at": "2026-04-25T14:44:21+00:00",
+  "reason": "Bundle the validated PMBOT candidate set for Flocky-local promotion review and later human approval without enabling execution.",
+  "safety_summary": {
+    "runtime_changed": false,
+    "dispatcher_touched": false,
+    "run_codex_touched": false,
+    "active_task_files_touched": false,
+    "freeze_record_modified": false,
+    "result_records_modified": false,
+    "checkpoint_records_modified": false,
+    "network_used": false,
+    "api_used": false,
+    "wallet_used": false,
+    "private_key_used": false,
+    "trading_used": false,
+    "single_runtime_source_rule_preserved": true
+  },
+  "requires_flocky_review": true,
+  "requires_human_approval": true,
+  "execution_allowed_now": false,
+  "runtime_wiring_allowed": false,
+  "external_codex_cli_allowed_now": false
+}

@@ -1,0 +1,193 @@
+{
+  "schema_version": "selected_ingest_dossier_draft_skeletons.v1",
+  "markdown_version": "selected_ingest_dossier_draft_skeletons_markdown.v1",
+  "task_id": "PMBOT-INGEST-010-SELECTED-INGEST-DOSSIER-DRAFT-SKELETON-EXPORT",
+  "deterministic": true,
+  "source_merged_packets_path": "pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json",
+  "source_merged_packets_schema_version": "selected_ingest_merged_manual_research_packets.v1",
+  "source_operator_review_queue_path": "pm_bot/research/selected_ingest_operator_review_queue.v1.json",
+  "source_operator_review_queue_schema_version": "selected_ingest_operator_review_queue.v1",
+  "source_review_records_result_path": "pm_bot/research/selected_ingest_operator_review_records_result.v1.json",
+  "source_review_records_result_schema_version": "selected_ingest_operator_review_records_result.v1",
+  "json_output_path": "pm_bot/research/selected_ingest_dossier_draft_skeletons.v1.json",
+  "markdown_output_path": "pm_bot/research/selected_ingest_dossier_draft_skeletons.v1.md",
+  "expected_json_output_path": "pm_bot/research/expected_selected_ingest_dossier_draft_skeletons.v1.json",
+  "selected_market_ids": [
+    "692258",
+    "824952",
+    "691547",
+    "597964",
+    "598936"
+  ],
+  "skeleton_fields": [
+    "market_id",
+    "title_question",
+    "event_id",
+    "event_title",
+    "category",
+    "packet_type",
+    "current_yes_price",
+    "liquidity",
+    "volume",
+    "deadline",
+    "resolution_criteria_summary",
+    "source_coverage_summary",
+    "evidence_inventory",
+    "missing_information_reviewed",
+    "operator_review_notes",
+    "dossier_sections_to_fill",
+    "open_questions",
+    "draft_status",
+    "source_ingest_artifacts"
+  ],
+  "evidence_inventory_fields": [
+    "source_name",
+    "source_type",
+    "source_url_or_reference",
+    "captured_claim",
+    "relevance_to_resolution",
+    "operator_notes"
+  ],
+  "export_summary": {
+    "ready_review_records_seen": 1,
+    "dossier_draft_skeletons_exported": 1,
+    "records_skipped": 5,
+    "completed_dossiers_created": 0,
+    "skipped_record_counts": {
+      "needs_more_information": 1,
+      "watch_only_manual": 1,
+      "research_quality_rejected": 0,
+      "stub_only": 0,
+      "invalid": 0,
+      "rejected_record": 3
+    }
+  },
+  "exported_market_ids": [
+    "824952"
+  ],
+  "skipped_market_ids_by_reason": {
+    "needs_more_information": [
+      "692258"
+    ],
+    "watch_only_manual": [
+      "598936"
+    ],
+    "research_quality_rejected": [],
+    "stub_only": [],
+    "invalid": [],
+    "rejected_record": [
+      "691547",
+      "597964",
+      "unknown-market-id"
+    ]
+  },
+  "skipped_packet_market_ids_by_reason": {
+    "needs_more_information": [
+      "692258"
+    ],
+    "watch_only_manual": [
+      "598936"
+    ],
+    "research_quality_rejected": [],
+    "stub_only": [
+      "691547",
+      "597964"
+    ],
+    "invalid": [],
+    "rejected_record": []
+  },
+  "dossier_draft_skeletons": [
+    {
+      "market_id": "824952",
+      "title_question": "MicroStrategy sells any Bitcoin by December 31, 2026?",
+      "event_id": "16167",
+      "event_title": "MicroStrategy sells any Bitcoin by ___ ?",
+      "category": "Finance / Economy / Business / 2025 Predictions / Crypto / MicroStrategy / Stocks",
+      "packet_type": "selected_ingest_market_research_stub",
+      "current_yes_price": 0.095,
+      "liquidity": 33862.5213,
+      "volume": 574606.4678400013,
+      "deadline": "2026-07-01T04:00:00Z",
+      "resolution_criteria_summary": "Stub-only local market description excerpt for 'MicroStrategy sells any Bitcoin by December 31, 2026?': This market will resolve to \"Yes\" if MicroStrategy sells any of its Bitcoin by 11:59 PM ET on the date specified in the title. Otherwise, this market will resolve to \"No\". Manual completion must review the full local criteria before use.",
+      "source_coverage_summary": {
+        "official_sources_to_check": [
+          "Manual check template: local Polymarket rules and resolution criteria for market_id 824952",
+          "Manual check template: official primary source named in the local market description for 'MicroStrategy sells any Bitcoin by December 31, 2026?'",
+          "Manual check template: original issuer, government, court, exchange, or company source relevant to 'MicroStrategy sells any Bitcoin by December 31, 2026?'"
+        ],
+        "credible_news_sources_to_check": [
+          "Manual check template: Reuters coverage query for 'MicroStrategy sells any Bitcoin by December 31, 2026?'",
+          "Manual check template: Associated Press coverage query for 'MicroStrategy sells any Bitcoin by December 31, 2026?'",
+          "Manual check template: major credible outlet query for 'Finance / Economy / Business / 2025 Predictions / Crypto / MicroStrategy / Stocks' and 'MicroStrategy sells any Bitcoin by December 31, 2026?'"
+        ],
+        "official_sources_checked": [
+          "offline-check:824952:local-market-rules",
+          "offline-check:824952:official-source-placeholder"
+        ],
+        "credible_news_sources_checked": [
+          "offline-check:824952:credible-news-placeholder"
+        ],
+        "official_sources_checked_count": 2,
+        "credible_news_sources_checked_count": 1,
+        "evidence_inventory_count": 4
+      },
+      "evidence_inventory": [
+        {
+          "source_name": "Manual selected-ingest rule placeholder",
+          "source_type": "official_resolution_criteria",
+          "source_url_or_reference": "offline-reference:824952:rules",
+          "captured_claim": "Manual entry records a copied resolution-rule source for structural validation only.",
+          "relevance_to_resolution": "Provides the rule source category needed before operator review.",
+          "operator_notes": "No outcome truth is inferred by this merge fixture."
+        },
+        {
+          "source_name": "Manual official-source placeholder",
+          "source_type": "official_company_source",
+          "source_url_or_reference": "offline-reference:824952:official-source",
+          "captured_claim": "Manual entry records an operator-copied official source claim for structural validation only.",
+          "relevance_to_resolution": "Maps a manual source claim to the market resolution path without evaluating it.",
+          "operator_notes": "Operator must review the claim manually outside this merge tool."
+        },
+        {
+          "source_name": "Manual credible-news placeholder",
+          "source_type": "credible_news",
+          "source_url_or_reference": "offline-reference:824952:news",
+          "captured_claim": "Manual entry records a credible-news claim for structural validation only.",
+          "relevance_to_resolution": "Adds independent coverage context without scoring the market.",
+          "operator_notes": "Merge tool checks only that the entry is complete."
+        },
+        {
+          "source_name": "Manual reliability note",
+          "source_type": "operator_context",
+          "source_url_or_reference": "offline-reference:824952:reliability",
+          "captured_claim": "Manual entry records source reliability notes for structural validation only.",
+          "relevance_to_resolution": "Confirms that source reliability was documented before operator review.",
+          "operator_notes": "No recommendation is produced."
+        }
+      ],
+      "missing_information_reviewed": {
+        "packet_missing_information": [],
+        "requested_followup_information": []
+      },
+      "operator_review_notes": "Structural review completed. A future draft skeleton may be prepared from this packet only; no conclusion or action is recorded here.",
+      "dossier_sections_to_fill": [
+        "market_overview",
+        "resolution_criteria",
+        "source_coverage",
+        "evidence_inventory",
+        "missing_information_review",
+        "operator_notes",
+        "open_questions"
+      ],
+      "open_questions": [],
+      "draft_status": "dossier_draft_skeleton_only",
+      "source_ingest_artifacts": {
+        "normalized_market_preview": "pm_bot/ingest/normalized_market_preview.v1.json",
+        "normalized_source_snapshot_artifact_id": "polymarket_gamma_events_20260427T231234Z_c6373d103a2e",
+        "normalized_source_snapshot_path": "pm_bot/ingest/raw_snapshots/polymarket_gamma_events_20260427T231234Z_c6373d103a2e.json",
+        "operator_candidate_selection_index": "pm_bot/ingest/operator_candidate_selection_index.v1.json",
+        "operator_candidate_selection_overlay": "pm_bot/ingest/operator_candidate_selection_overlay_selected_first5.v1.json"
+      }
+    }
+  ]
+}

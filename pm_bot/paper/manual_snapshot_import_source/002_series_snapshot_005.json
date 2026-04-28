@@ -1,0 +1,36 @@
+{
+  "snapshot_id": "series_snapshot_005",
+  "observed_at": "2026-06-30T23:59:00Z",
+  "snapshot": {
+    "schema_version": "v1",
+    "fixture_id": "series_snapshot_005_live_shape",
+    "markets": [
+      {
+        "condition_id": "series_btc_below_85000_2026_07_31",
+        "question": "Will Bitcoin be below $85,000 on 2026-07-31?",
+        "category": "crypto",
+        "end_date_iso": "2026-07-31",
+        "outcomes": [
+          {"name": "Yes", "price": 0.27},
+          {"name": "No", "price": 0.73}
+        ],
+        "liquidity_num": 175000.0,
+        "best_bid": 0.26,
+        "best_ask": 0.28,
+        "oracle_context": {
+          "current_price": 97200.0,
+          "thirty_day_change_pct": 6.6,
+          "volatility_30d_pct": 41.0,
+          "risk_level": "medium"
+        }
+      }
+    ]
+  },
+  "observed_prices": {
+    "series_btc_below_85000_2026_07_31": 0.27
+  },
+  "current_prices": {
+    "series_btc_below_85000_2026_07_31": 0.24
+  },
+  "settlements": []
+}

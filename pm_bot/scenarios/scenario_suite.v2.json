@@ -1,0 +1,106 @@
+{
+  "schema_version": "v2",
+  "scenario_suite_id": "PMBOT-BATCH-002-SCENARIOS",
+  "source_type": "fixture",
+  "research_only": true,
+  "execution_allowed": false,
+  "trading_allowed": false,
+  "live_data_allowed": false,
+  "wallet_required": false,
+  "credential_material_required": false,
+  "scenarios": [
+    {
+      "scenario_id": "baseline_research_pipeline",
+      "source_type": "fixture",
+      "market_refs": [
+        "pm_bot/fixtures/market_snapshot_stub.v1.json",
+        "pm_bot/paper/paper_plan_fixture.v1.json",
+        "pm_bot/risk/risk_fixture.v1.json",
+        "pm_bot/accounting/accounting_fixture.v1.json",
+        "pm_bot/reports/dashboard_fixture.v1.json",
+        "pm_bot/postmortem/postmortem_fixture.v1.json"
+      ],
+      "expected_modules": [
+        "validation",
+        "normalization",
+        "signals",
+        "paper",
+        "risk",
+        "accounting",
+        "reports",
+        "postmortem",
+        "audit"
+      ],
+      "expected_safety_flags": {
+        "research_only": true,
+        "execution_allowed": false,
+        "trading_allowed": false,
+        "live_data_allowed": false,
+        "wallet_required": false,
+        "credential_material_required": false
+      },
+      "execution_allowed": false,
+      "trading_allowed": false,
+      "live_data_allowed": false,
+      "wallet_required": false,
+      "credential_material_required": false
+    },
+    {
+      "scenario_id": "high_exposure_risk_warning",
+      "source_type": "fixture",
+      "market_refs": [
+        "pm_bot/risk/risk_fixture.v1.json",
+        "pm_bot/paper/expected_paper_simulation.v1.json",
+        "pm_bot/accounting/expected_accounting_report.v1.json",
+        "pm_bot/reports/expected_dashboard_report.v1.json"
+      ],
+      "expected_modules": [
+        "risk",
+        "paper",
+        "accounting",
+        "reports",
+        "postmortem"
+      ],
+      "expected_safety_flags": {
+        "research_only": true,
+        "execution_allowed": false,
+        "trading_allowed": false,
+        "live_data_allowed": false,
+        "wallet_required": false,
+        "credential_material_required": false
+      },
+      "execution_allowed": false,
+      "trading_allowed": false,
+      "live_data_allowed": false,
+      "wallet_required": false,
+      "credential_material_required": false
+    },
+    {
+      "scenario_id": "related_markets_hedge_research",
+      "source_type": "fixture",
+      "market_refs": [
+        "pm_bot/hedges/fixture_related_markets.v1.json",
+        "pm_bot/hedges/expected_relationship_report.v1.json",
+        "pm_bot/audit/tests/fixtures/safe_sample.py"
+      ],
+      "expected_modules": [
+        "hedges",
+        "audit",
+        "reports"
+      ],
+      "expected_safety_flags": {
+        "research_only": true,
+        "execution_allowed": false,
+        "trading_allowed": false,
+        "live_data_allowed": false,
+        "wallet_required": false,
+        "credential_material_required": false
+      },
+      "execution_allowed": false,
+      "trading_allowed": false,
+      "live_data_allowed": false,
+      "wallet_required": false,
+      "credential_material_required": false
+    }
+  ]
+}

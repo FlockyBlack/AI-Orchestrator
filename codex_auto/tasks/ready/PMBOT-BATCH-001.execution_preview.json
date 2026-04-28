@@ -1,0 +1,25 @@
+{
+  "schema_version": "execution_preview.v1",
+  "preview_id": "PMBOT-BATCH-001-execution-preview",
+  "ready_manifest_ref": "codex_auto/tasks/ready/PMBOT-BATCH-001.ready_manifest.json",
+  "prompt_pack_ref": "codex_auto/prompts/PMBOT-BATCH-001.codex_prompt.txt",
+  "command_preview_ref": "codex_auto/external_cli/plans/PMBOT-BATCH-001.command_preview.txt",
+  "ready_task_refs": [
+    "codex_auto/tasks/ready/PMBOT-005-PAPER-SIMULATION.task.json",
+    "codex_auto/tasks/ready/PMBOT-006-RISK-LIMITS.task.json",
+    "codex_auto/tasks/ready/PMBOT-007-FEES-SLIPPAGE.task.json",
+    "codex_auto/tasks/ready/PMBOT-008-RESEARCH-DASHBOARD.task.json",
+    "codex_auto/tasks/ready/PMBOT-009-FIXTURE-POSTMORTEM.task.json",
+    "codex_auto/tasks/ready/PMBOT-010-STATIC-SAFETY-AUDIT.task.json"
+  ],
+  "execution_allowed_now": false,
+  "external_codex_cli_allowed_now": false,
+  "generated_prompt_executed": false,
+  "runtime_wiring_allowed": false,
+  "notes": [
+    "preview_only",
+    "do_not_execute_now",
+    "requires human approval",
+    "requires Flocky validation"
+  ]
+}

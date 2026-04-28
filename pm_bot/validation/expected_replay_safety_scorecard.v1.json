@@ -1,0 +1,23 @@
+{
+  "schema_version": "v1",
+  "report_id": "PMBOT-BATCH-005-REPLAY-SAFETY-SCORECARD",
+  "fixture_only": true,
+  "paper_only": true,
+  "local_only": true,
+  "deterministic": true,
+  "score_by_section": {
+    "stale_data_rejection": 100,
+    "liquidity_rejection": 100,
+    "spread_rejection": 100,
+    "resolved_market_exclusion": 100,
+    "contradiction_handling": 95,
+    "correlation_risk_handling": 90,
+    "false_positive_control": 100,
+    "replay_determinism": 100,
+    "audit_coverage": 100,
+    "safety_boundary_clarity": 100
+  },
+  "total_score": 98.5,
+  "audit_v4_passed": true,
+  "boundary_summary": "Adversarial replay remains fixture-only, paper-only, local-only, deterministic, and offline-testable."
+}

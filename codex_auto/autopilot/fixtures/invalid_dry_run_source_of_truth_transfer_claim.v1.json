@@ -1,0 +1,169 @@
+{
+  "schema_version": "autopilot_dry_run_report.v1",
+  "dry_run_only": true,
+  "runtime_authority": false,
+  "final_acceptance_authority": false,
+  "source_task_id": "ORCH-AUTOPILOT-SAMPLE",
+  "authoritative_task_path": "codex_auto/autopilot/fixtures/valid_runtime_task.json",
+  "authoritative_run_path_or_ref": "codex_auto/autopilot/fixtures/valid_runtime_result.json",
+  "preview_handoff_ref_or_inline": {
+    "schema_version": "autopilot_preview_handoff.v1",
+    "preview_only": true,
+    "runtime_authority": false,
+    "final_acceptance_authority": false,
+    "source_task_id": "ORCH-AUTOPILOT-SAMPLE",
+    "authoritative_task_path": "codex_auto/autopilot/fixtures/valid_runtime_task.json",
+    "authoritative_run_path_or_ref": "codex_auto/autopilot/fixtures/valid_runtime_result.json",
+    "handoff_owner": "codex_auto",
+    "codex_executor": "Codex",
+    "allowed_paths": [
+      "codex_auto/autopilot/",
+      "codex_auto/autopilot/tests/",
+      "codex_auto/autopilot/fixtures/",
+      "docs/AUTOPILOT_V1_PREVIEW_HANDOFF_ADAPTER.md",
+      "docs/ORCH_AUTOPILOT_V1_CODEX_002_RESULT.json"
+    ],
+    "forbidden_paths": [
+      "tasks/",
+      "runs/",
+      "state/",
+      "runtime/",
+      "results/",
+      "freeze/",
+      "checkpoint/",
+      "scripts/dispatcher.py",
+      "scripts/run_codex.py"
+    ],
+    "approval_required": true,
+    "flocky_validation_required": true,
+    "stop_conditions": [
+      "Stop if any write is requested outside codex_auto/autopilot/ or the documented result artifact path.",
+      "Stop if runtime wiring, dispatcher edits, or run_codex edits are proposed.",
+      "Stop if any step claims final acceptance, runtime completion transfer, or execution authorization now."
+    ],
+    "single_runtime_source_rule_preserved": true,
+    "execution_allowed_now": false,
+    "runtime_wiring_allowed": false,
+    "status_ownership": {
+      "runtime_status": {
+        "owner": "AI-Orchestrator"
+      },
+      "handoff_status": {
+        "owner": "codex_auto"
+      },
+      "codex_execution_status": {
+        "owner": "Codex result envelope"
+      },
+      "flocky_validation_status": {
+        "owner": "Flocky"
+      },
+      "final_acceptance_status": {
+        "owner": "AI-Orchestrator"
+      }
+    },
+    "generated_by": "codex_auto.autopilot.build_preview_handoff",
+    "deterministic_preview": true
+  },
+  "preview_validation_report": {
+    "type": "AUTOPILOT_PREVIEW_HANDOFF_VALIDATION_REPORT",
+    "valid": true,
+    "preview_only": true,
+    "runtime_authority": false,
+    "final_acceptance_authority": false,
+    "execution_allowed_now": false,
+    "runtime_wiring_allowed": false,
+    "single_runtime_source_rule_preserved": true,
+    "errors": [],
+    "warnings": [
+      "example_reference_path:authoritative_run_path_or_ref",
+      "example_reference_path:authoritative_task_path"
+    ]
+  },
+  "flow_steps": [
+    "Resolve authoritative AI-Orchestrator task and run references.",
+    "Build preview-only handoff envelope.",
+    "Validate preview handoff contract.",
+    "Assemble deterministic dry-run-only flow report.",
+    "Recommend the next gated manual action without enabling execution."
+  ],
+  "allowed_paths": [
+    "codex_auto/autopilot/",
+    "codex_auto/autopilot/tests/",
+    "codex_auto/autopilot/fixtures/",
+    "docs/AUTOPILOT_V1_DRY_RUN_FLOW.md",
+    "docs/ORCH_AUTOPILOT_006_RESULT.json"
+  ],
+  "forbidden_paths": [
+    "tasks/",
+    "runs/",
+    "state/",
+    "runtime/",
+    "results/",
+    "freeze/",
+    "checkpoint/",
+    "governance/",
+    "scripts/dispatcher.py",
+    "scripts/run_codex.py",
+    "pm_bot/",
+    "codex_auto/external_cli/",
+    "codex_auto/tasks/",
+    "codex_auto/queue/"
+  ],
+  "stop_conditions": [
+    "Stop if any write is requested outside codex_auto/autopilot/, docs/AUTOPILOT_V1_DRY_RUN_FLOW.md, or docs/ORCH_AUTOPILOT_006_RESULT.json.",
+    "Stop if runtime wiring is proposed or implied.",
+    "Stop if dispatcher changes are proposed or implied.",
+    "Stop if scripts/run_codex.py changes are proposed or implied.",
+    "Stop if any active task mutation is proposed or implied.",
+    "Stop if any task queue mutation is proposed or implied.",
+    "Stop if any codex_auto queue mutation is proposed or implied.",
+    "Stop if any state, result, freeze, or checkpoint mutation is proposed or implied.",
+    "Stop if any governance mutation is proposed or implied.",
+    "Stop if any external Codex execution is proposed or implied.",
+    "Stop if any generated prompt execution is proposed or implied.",
+    "Stop if any network or API access is proposed or implied.",
+    "Stop if credentials, wallets, private keys, orders, or trading actions are requested or implied.",
+    "Stop if any autonomous execution is proposed or implied.",
+    "Stop if any PMBOT or external_cli/one_shot feature work is proposed or implied.",
+    "Stop if final acceptance, execution approval, runtime done, truth transfer, queue bridge activation, or runtime writeback is claimed or implied."
+  ],
+  "approval_required_before_execution": true,
+  "flocky_validation_required": true,
+  "execution_allowed_now": false,
+  "runtime_wiring_allowed": false,
+  "queue_mutation_allowed": false,
+  "final_acceptance_claimed": false,
+  "single_runtime_source_rule_preserved": true,
+  "status_ownership": {
+    "runtime_status": {
+      "owner": "AI-Orchestrator"
+    },
+    "final_acceptance_status": {
+      "owner": "AI-Orchestrator"
+    },
+    "handoff_status": {
+      "owner": "codex_auto"
+    },
+    "preview_validation_status": {
+      "owner": "codex_auto/autopilot validator"
+    },
+    "dry_run_status": {
+      "owner": "codex_auto/autopilot dry-run reporter"
+    },
+    "flocky_validation_status": {
+      "owner": "Flocky"
+    },
+    "codex_execution_status": {
+      "owner": "Codex result envelope only after approved execution"
+    }
+  },
+  "next_action_recommendation": "ready_for_flocky_review",
+  "warnings": [
+    "example_reference_path:authoritative_run_path_or_ref",
+    "example_reference_path:authoritative_task_path"
+  ],
+  "errors": [],
+  "generated_by": "codex_auto.autopilot.run_dry_run_flow",
+  "deterministic_dry_run": true,
+  "source_of_truth": "codex_auto"
+}

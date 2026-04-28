@@ -1,0 +1,301 @@
+{
+  "schema_version": "v1",
+  "report_id": "PMBOT-BATCH-005-ADVERSARIAL-REPLAY",
+  "fixture_only": true,
+  "paper_only": true,
+  "local_only": true,
+  "deterministic": true,
+  "total_cases": 12,
+  "passed_cases": 12,
+  "failed_cases": 0,
+  "false_positive_count": 0,
+  "cases": [
+    {
+      "case_id": "replay_stale_edge_trap",
+      "market_id": "adv-001",
+      "expected_decision": "reject",
+      "actual_decision": "reject",
+      "decision_matches_expected": true,
+      "reject_reasons": [
+        "stale_data"
+      ],
+      "warning_reasons": [],
+      "safety_flags": [
+        "stale_data"
+      ],
+      "missing_expected_reasons": [],
+      "is_false_positive": false,
+      "high_risk_false_positive": false,
+      "risk_level": "medium",
+      "paper_only_no_action_summary": "Paper-only replay validation. No real order, no wallet action, and no runtime execution.",
+      "fixture_only": true,
+      "paper_only": true
+    },
+    {
+      "case_id": "replay_liquidity_collapse",
+      "market_id": "adv-002",
+      "expected_decision": "reject",
+      "actual_decision": "reject",
+      "decision_matches_expected": true,
+      "reject_reasons": [
+        "low_liquidity"
+      ],
+      "warning_reasons": [],
+      "safety_flags": [
+        "low_liquidity"
+      ],
+      "missing_expected_reasons": [],
+      "is_false_positive": false,
+      "high_risk_false_positive": false,
+      "risk_level": "medium",
+      "paper_only_no_action_summary": "Paper-only replay validation. No real order, no wallet action, and no runtime execution.",
+      "fixture_only": true,
+      "paper_only": true
+    },
+    {
+      "case_id": "replay_spread_widening_spike",
+      "market_id": "adv-003",
+      "expected_decision": "reject",
+      "actual_decision": "reject",
+      "decision_matches_expected": true,
+      "reject_reasons": [
+        "wide_spread"
+      ],
+      "warning_reasons": [],
+      "safety_flags": [
+        "wide_spread"
+      ],
+      "missing_expected_reasons": [],
+      "is_false_positive": false,
+      "high_risk_false_positive": false,
+      "risk_level": "medium",
+      "paper_only_no_action_summary": "Paper-only replay validation. No real order, no wallet action, and no runtime execution.",
+      "fixture_only": true,
+      "paper_only": true
+    },
+    {
+      "case_id": "replay_conflicting_inputs",
+      "market_id": "adv-004",
+      "expected_decision": "reject",
+      "actual_decision": "reject",
+      "decision_matches_expected": true,
+      "reject_reasons": [
+        "conflicting_signals"
+      ],
+      "warning_reasons": [],
+      "safety_flags": [
+        "conflicting_signals"
+      ],
+      "missing_expected_reasons": [],
+      "is_false_positive": false,
+      "high_risk_false_positive": false,
+      "risk_level": "medium",
+      "paper_only_no_action_summary": "Paper-only replay validation. No real order, no wallet action, and no runtime execution.",
+      "fixture_only": true,
+      "paper_only": true
+    },
+    {
+      "case_id": "replay_correlated_opposite_markets",
+      "market_id": "adv-005",
+      "expected_decision": "watchlist",
+      "actual_decision": "watchlist",
+      "decision_matches_expected": true,
+      "reject_reasons": [],
+      "warning_reasons": [
+        "correlation_conflict"
+      ],
+      "safety_flags": [
+        "correlation_conflict"
+      ],
+      "missing_expected_reasons": [],
+      "is_false_positive": false,
+      "high_risk_false_positive": false,
+      "risk_level": "low",
+      "paper_only_no_action_summary": "Paper-only replay validation. No real order, no wallet action, and no runtime execution.",
+      "fixture_only": true,
+      "paper_only": true
+    },
+    {
+      "case_id": "replay_resolved_candidate_leak",
+      "market_id": "adv-006",
+      "expected_decision": "exclude",
+      "actual_decision": "exclude",
+      "decision_matches_expected": true,
+      "reject_reasons": [
+        "resolved_market"
+      ],
+      "warning_reasons": [],
+      "safety_flags": [
+        "resolved_market"
+      ],
+      "missing_expected_reasons": [],
+      "is_false_positive": false,
+      "high_risk_false_positive": false,
+      "risk_level": "medium",
+      "paper_only_no_action_summary": "Paper-only replay validation. No real order, no wallet action, and no runtime execution.",
+      "fixture_only": true,
+      "paper_only": true
+    },
+    {
+      "case_id": "replay_missing_market_status",
+      "market_id": "adv-007",
+      "expected_decision": "reject",
+      "actual_decision": "reject",
+      "decision_matches_expected": true,
+      "reject_reasons": [
+        "missing_market_status"
+      ],
+      "warning_reasons": [],
+      "safety_flags": [
+        "missing_market_status"
+      ],
+      "missing_expected_reasons": [],
+      "is_false_positive": false,
+      "high_risk_false_positive": false,
+      "risk_level": "medium",
+      "paper_only_no_action_summary": "Paper-only replay validation. No real order, no wallet action, and no runtime execution.",
+      "fixture_only": true,
+      "paper_only": true
+    },
+    {
+      "case_id": "replay_duplicate_snapshot",
+      "market_id": "adv-008",
+      "expected_decision": "watchlist",
+      "actual_decision": "watchlist",
+      "decision_matches_expected": true,
+      "reject_reasons": [],
+      "warning_reasons": [
+        "duplicate_snapshot"
+      ],
+      "safety_flags": [
+        "duplicate_snapshot"
+      ],
+      "missing_expected_reasons": [],
+      "is_false_positive": false,
+      "high_risk_false_positive": false,
+      "risk_level": "low",
+      "paper_only_no_action_summary": "Paper-only replay validation. No real order, no wallet action, and no runtime execution.",
+      "fixture_only": true,
+      "paper_only": true
+    },
+    {
+      "case_id": "replay_outlier_price_move",
+      "market_id": "adv-009",
+      "expected_decision": "watchlist",
+      "actual_decision": "watchlist",
+      "decision_matches_expected": true,
+      "reject_reasons": [],
+      "warning_reasons": [
+        "outlier_price_move"
+      ],
+      "safety_flags": [
+        "outlier_price_move"
+      ],
+      "missing_expected_reasons": [],
+      "is_false_positive": false,
+      "high_risk_false_positive": false,
+      "risk_level": "low",
+      "paper_only_no_action_summary": "Paper-only replay validation. No real order, no wallet action, and no runtime execution.",
+      "fixture_only": true,
+      "paper_only": true
+    },
+    {
+      "case_id": "replay_overconfident_poor_data",
+      "market_id": "adv-010",
+      "expected_decision": "reject",
+      "actual_decision": "reject",
+      "decision_matches_expected": true,
+      "reject_reasons": [
+        "confidence_vs_data_mismatch"
+      ],
+      "warning_reasons": [
+        "confidence_downgrade"
+      ],
+      "safety_flags": [
+        "confidence_vs_data_mismatch",
+        "confidence_downgrade"
+      ],
+      "missing_expected_reasons": [],
+      "is_false_positive": false,
+      "high_risk_false_positive": false,
+      "risk_level": "medium",
+      "paper_only_no_action_summary": "Paper-only replay validation. No real order, no wallet action, and no runtime execution.",
+      "fixture_only": true,
+      "paper_only": true
+    },
+    {
+      "case_id": "replay_watchlist_escalation_block",
+      "market_id": "adv-011",
+      "expected_decision": "watchlist",
+      "actual_decision": "watchlist",
+      "decision_matches_expected": true,
+      "reject_reasons": [],
+      "warning_reasons": [
+        "watchlist_only"
+      ],
+      "safety_flags": [
+        "watchlist_only"
+      ],
+      "missing_expected_reasons": [],
+      "is_false_positive": false,
+      "high_risk_false_positive": false,
+      "risk_level": "low",
+      "paper_only_no_action_summary": "Paper-only replay validation. No real order, no wallet action, and no runtime execution.",
+      "fixture_only": true,
+      "paper_only": true
+    },
+    {
+      "case_id": "replay_adversarial_false_positive",
+      "market_id": "adv-012",
+      "expected_decision": "reject",
+      "actual_decision": "reject",
+      "decision_matches_expected": true,
+      "reject_reasons": [
+        "stale_data",
+        "low_liquidity",
+        "wide_spread",
+        "conflicting_signals",
+        "confidence_vs_data_mismatch"
+      ],
+      "warning_reasons": [
+        "correlation_conflict",
+        "duplicate_snapshot",
+        "outlier_price_move",
+        "confidence_downgrade",
+        "category_exposure_spike"
+      ],
+      "safety_flags": [
+        "stale_data",
+        "low_liquidity",
+        "wide_spread",
+        "conflicting_signals",
+        "confidence_vs_data_mismatch",
+        "correlation_conflict",
+        "duplicate_snapshot",
+        "outlier_price_move",
+        "confidence_downgrade",
+        "category_exposure_spike"
+      ],
+      "missing_expected_reasons": [],
+      "is_false_positive": false,
+      "high_risk_false_positive": false,
+      "risk_level": "high",
+      "paper_only_no_action_summary": "Paper-only replay validation. No real order, no wallet action, and no runtime execution.",
+      "fixture_only": true,
+      "paper_only": true
+    }
+  ],
+  "decision_counts": {
+    "exclude": 1,
+    "reject": 7,
+    "watchlist": 4,
+    "accept": 0
+  },
+  "strongest_rejection_reasons": [
+    "confidence_vs_data_mismatch",
+    "conflicting_signals",
+    "low_liquidity",
+    "stale_data"
+  ],
+  "paper_only_no_action_summary": "Replay runner validates adversarial fixtures only. No network, no API, no wallet, and no real order path."
+}

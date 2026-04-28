@@ -1,0 +1,52 @@
+{
+  "schema_version": "manual_paper_intent_template.v1",
+  "task_id": "PMBOT-PAPER-BATCH-006-010-PAPER-WORKBENCH-MVP",
+  "deterministic": true,
+  "template_status": "blank_operator_manual_paper_intent_contract",
+  "source_plan_path": "pm_bot/paper/paper_simulation_plan_draft.v1.json",
+  "required_fields": [
+    "market_id",
+    "source_plan_status",
+    "operator_manual_outcome",
+    "operator_manual_side",
+    "operator_manual_limit_price",
+    "operator_manual_size",
+    "operator_manual_rationale",
+    "operator_manual_attestation",
+    "paper_only",
+    "inert_only"
+  ],
+  "field_contract": {
+    "market_id": "required string matching a market in the plan draft",
+    "source_plan_status": "required string copied from the plan draft",
+    "operator_manual_outcome": "required operator-provided string",
+    "operator_manual_side": "required operator-provided string",
+    "operator_manual_limit_price": "required operator-provided local paper value",
+    "operator_manual_size": "required operator-provided local paper value",
+    "operator_manual_rationale": "required operator-provided text",
+    "operator_manual_attestation": "required operator attestation text",
+    "paper_only": "required boolean true",
+    "inert_only": "required boolean true"
+  },
+  "blank_record": {
+    "market_id": "",
+    "source_plan_status": "",
+    "operator_manual_outcome": "",
+    "operator_manual_side": "",
+    "operator_manual_limit_price": null,
+    "operator_manual_size": null,
+    "operator_manual_rationale": "",
+    "operator_manual_attestation": "",
+    "paper_only": true,
+    "inert_only": true
+  },
+  "constraints": [
+    "operator_fields_only",
+    "paper_only_must_be_true",
+    "inert_only_must_be_true",
+    "operator_manual_attestation_required",
+    "no_live_execution",
+    "no_credential_use",
+    "no_external_network_use"
+  ]
+}

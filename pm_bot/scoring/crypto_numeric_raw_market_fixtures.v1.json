@@ -1,0 +1,122 @@
+{
+  "schema_version": "v1",
+  "fixture_id": "crypto_numeric_raw_market_fixtures_v1",
+  "fixture_only": true,
+  "paper_only": true,
+  "raw_markets": [
+    {
+      "market_id": "raw_btc_above_90000_2026_05_31",
+      "category": "crypto",
+      "question": "Will BTC be above $90,000 on 2026-05-31?",
+      "expiry": "2026-05-31",
+      "current_price": 93800.0,
+      "market_yes_price": 0.59,
+      "liquidity_usd": 180000.0,
+      "spread": 0.03,
+      "risk_level": "low",
+      "thirty_day_change_pct": 8.0,
+      "volatility_30d_pct": 42.0
+    },
+    {
+      "market_id": "raw_eth_below_3000_2026_05_31",
+      "category": "crypto",
+      "question": "Will Ethereum be below $3,000 on 2026-05-31?",
+      "expiry": "2026-05-31",
+      "current_price": 3120.0,
+      "market_yes_price": 0.36,
+      "liquidity_usd": 125000.0,
+      "spread": 0.04,
+      "risk_level": "medium",
+      "thirty_day_change_pct": -6.0,
+      "volatility_30d_pct": 55.0
+    },
+    {
+      "market_id": "raw_eth_above_4500_2026_06_30",
+      "category": "crypto",
+      "question": "Will ETH be above $4,500 on 2026-06-30?",
+      "expiry": "2026-06-30",
+      "current_price": 4200.0,
+      "market_yes_price": 0.44,
+      "liquidity_usd": 90000.0,
+      "spread": 0.05,
+      "risk_level": "medium",
+      "thirty_day_change_pct": 4.0,
+      "volatility_30d_pct": 58.0
+    },
+    {
+      "market_id": "raw_btc_below_80000_2026_06_30",
+      "category": "crypto",
+      "question": "Will Bitcoin be below $80,000 on 2026-06-30?",
+      "expiry": "2026-06-30",
+      "current_price": 93800.0,
+      "market_yes_price": 0.22,
+      "liquidity_usd": 110000.0,
+      "spread": 0.04,
+      "risk_level": "medium",
+      "thirty_day_change_pct": 8.0,
+      "volatility_30d_pct": 42.0
+    },
+    {
+      "market_id": "raw_election_non_crypto",
+      "category": "politics",
+      "question": "Will Candidate A win the 2026 election?",
+      "expiry": "2026-11-03",
+      "market_yes_price": 0.51,
+      "liquidity_usd": 500000.0,
+      "spread": 0.02
+    },
+    {
+      "market_id": "raw_weather_non_crypto",
+      "category": "weather",
+      "question": "Will NYC receive more than 5 inches of snow in January 2026?",
+      "expiry": "2026-01-31",
+      "market_yes_price": 0.33,
+      "liquidity_usd": 60000.0,
+      "spread": 0.05
+    },
+    {
+      "market_id": "raw_btc_missing_target",
+      "category": "crypto",
+      "question": "Will BTC close green on 2026-05-31?",
+      "expiry": "2026-05-31",
+      "market_yes_price": 0.55,
+      "liquidity_usd": 70000.0,
+      "spread": 0.04
+    },
+    {
+      "market_id": "raw_eth_missing_expiry",
+      "category": "crypto",
+      "question": "Will ETH be above $4,000?",
+      "market_yes_price": 0.48,
+      "liquidity_usd": 85000.0,
+      "spread": 0.04
+    },
+    {
+      "market_id": "raw_btc_unclear_side",
+      "category": "crypto",
+      "question": "Will BTC finish near $100,000 on 2026-06-30?",
+      "expiry": "2026-06-30",
+      "market_yes_price": 0.50,
+      "liquidity_usd": 90000.0,
+      "spread": 0.04
+    },
+    {
+      "market_id": "raw_eth_ambiguous_intraday",
+      "category": "crypto",
+      "question": "Will ETH touch above $5,000 anytime before 2026-06-30?",
+      "expiry": "2026-06-30",
+      "market_yes_price": 0.29,
+      "liquidity_usd": 120000.0,
+      "spread": 0.04
+    },
+    {
+      "market_id": "raw_btc_missing_data",
+      "category": "crypto",
+      "question": "Will BTC be above $95,000 on 2026-06-30?",
+      "expiry": "2026-06-30",
+      "current_price": 93800.0,
+      "market_yes_price": 0.47,
+      "liquidity_usd": 100000.0
+    }
+  ]
+}

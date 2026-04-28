@@ -1,0 +1,23 @@
+TARGET_AGENT: Flocky
+TASK_OWNER: Flocky
+TASK_TYPE: read-only governance design
+CODE_CHANGES_ALLOWED_FOR_RECEIVER: false
+SESSIONS_SPAWN_ALLOWED: false
+RUNTIME_MUTATION_ALLOWED: false
+QUEUE_MUTATION_ALLOWED: false
+GOVERNANCE_MUTATION_ALLOWED: false
+APPROVAL_REQUIRED: false
+MISROUTE_BEHAVIOR: RETURN_ROUTING_MISMATCH_WITHOUT_TOOL_EXECUTION
+
+Task ID:
+ORCH-AUTOPILOT-EXAMPLE-FLOCKY-GOVERNANCE
+
+Review the prompt-pack policy wording and suggest governance clarifications only.
+
+Allowed read paths:
+- codex_auto/autopilot/prompt_packs/
+- docs/
+
+Allowed write paths:
+- none in project root
+- final JSON only in chat/stdout

@@ -1,0 +1,46 @@
+{
+  "schema_version": "paper_simulation_gate_human_review_records_input.v1",
+  "task_id": "PMBOT-PAPER-BATCH-006-010-PAPER-WORKBENCH-MVP",
+  "deterministic": true,
+  "source_gate_path": "pm_bot/paper/paper_decision_simulation_gate.v1.json",
+  "records": [
+    {
+      "record_id": "human-review-001",
+      "market_id": "824952",
+      "review_outcome": "approved_for_paper_simulation_plan_drafting",
+      "reviewer": "operator_fixture",
+      "review_notes": [
+        "Operator approves the PAPER-005 gate record for a local paper simulation plan draft.",
+        "No executable action is authorized by this review record."
+      ]
+    },
+    {
+      "record_id": "human-review-rejected-unknown-market",
+      "market_id": "000000",
+      "review_outcome": "approved_for_paper_simulation_plan_drafting",
+      "reviewer": "operator_fixture",
+      "review_notes": [
+        "Invalid fixture row: market is absent from the PAPER-005 gate artifact."
+      ]
+    },
+    {
+      "record_id": "human-review-rejected-prohibited-field",
+      "market_id": "824952",
+      "review_outcome": "approved_for_paper_simulation_plan_drafting",
+      "reviewer": "operator_fixture",
+      "review_notes": [
+        "Invalid fixture row: includes a prohibited trading field."
+      ],
+      "decision": "blocked_fixture_value"
+    },
+    {
+      "record_id": "human-review-rejected-unknown-outcome",
+      "market_id": "824952",
+      "review_outcome": "unknown_review_outcome",
+      "reviewer": "operator_fixture",
+      "review_notes": [
+        "Invalid fixture row: review outcome is not in the allowed list."
+      ]
+    }
+  ]
+}

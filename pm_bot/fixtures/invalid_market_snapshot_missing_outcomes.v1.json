@@ -1,0 +1,18 @@
+{
+  "market_id": "pm_fixture_invalid_missing_outcomes",
+  "slug": "invalid-missing-outcomes",
+  "title": "Invalid fixture missing outcomes",
+  "category": "test",
+  "prices": {
+    "Yes": 0.5,
+    "No": 0.5
+  },
+  "liquidity": 1000.0,
+  "volume": 100.0,
+  "close_time": "2026-10-01T00:00:00Z",
+  "source_type": "fixture",
+  "collected_at": "2026-04-25T05:20:00Z",
+  "risk_notes": [
+    "invalid_fixture"
+  ]
+}

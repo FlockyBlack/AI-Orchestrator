@@ -1,0 +1,77 @@
+{
+  "task_id": "PMBOT-RESEARCH-015-DOSSIER-HUMAN-REVIEW-RECORD-GATE",
+  "status": "completed",
+  "summary": "Implemented a deterministic offline validator/exporter for manually written PMBOT dossier human-review records. The gate reads only local dossier human-review packs, manual dossier draft validation, dossier draft skeletons, and a local review-record fixture; accepts only market_ids present in dossier_human_review_pack.v1.json; rejects unknown and non-pack market_ids, immutable review pack overrides, prohibited trading/execution/recommendation/probability/EV/score/side/market-decision fields, missing approval checks, missing revision items, missing research-quality rejection notes, and prohibited completed-dossier language; and emits normalized JSON, Markdown, and expected JSON artifacts without creating completed dossiers, final conclusions, recommendations, scores, probabilities, EV calculations, side recommendations, paper orders, or market decisions.",
+  "files_created": [
+    "pm_bot/research/validate_dossier_human_review_records.py",
+    "pm_bot/research/dossier_human_review_records_fixture.v1.json",
+    "pm_bot/research/dossier_human_review_records_result.v1.json",
+    "pm_bot/research/dossier_human_review_records_report.v1.md",
+    "pm_bot/research/expected_dossier_human_review_records_result.v1.json",
+    "pm_bot/research/tests/test_dossier_human_review_record_gate.py",
+    "docs/PMBOT_RESEARCH_015_RESULT.json"
+  ],
+  "files_modified": [],
+  "tests_run": [
+    {
+      "command": "python pm_bot\\research\\validate_dossier_human_review_records.py",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\research\\tests\\test_dossier_human_review_record_gate.py",
+      "status": "passed",
+      "tests": 18
+    },
+    {
+      "command": "python -m pytest pm_bot\\research\\tests",
+      "status": "passed",
+      "tests": 170
+    },
+    {
+      "command": "Get-Content pm_bot\\research\\dossier_human_review_records_fixture.v1.json -Raw | ConvertFrom-Json | Out-Null",
+      "status": "passed"
+    },
+    {
+      "command": "Get-Content pm_bot\\research\\dossier_human_review_records_result.v1.json -Raw | ConvertFrom-Json | Out-Null",
+      "status": "passed"
+    },
+    {
+      "command": "Get-Content pm_bot\\research\\expected_dossier_human_review_records_result.v1.json -Raw | ConvertFrom-Json | Out-Null",
+      "status": "passed"
+    },
+    {
+      "command": "Get-Content docs\\PMBOT_RESEARCH_015_RESULT.json -Raw | ConvertFrom-Json | Out-Null",
+      "status": "passed"
+    }
+  ],
+  "human_review_summary": {
+    "review_records_read": 10,
+    "review_records_accepted": 1,
+    "review_records_rejected": 9,
+    "approved_for_final_dossier_draft": 1,
+    "needs_draft_revision": 0,
+    "rejected_for_research_quality": 0,
+    "watch_only": 0
+  },
+  "safety": {
+    "live_fetchers": false,
+    "network_api_calls": false,
+    "credentials": false,
+    "wallet_private_keys": false,
+    "real_orders": false,
+    "live_trading": false,
+    "runtime_wiring": false,
+    "dispatcher_run_codex_touched": false,
+    "prompt_automation": false,
+    "codex_copy_roots": false,
+    "completed_dossiers": false,
+    "paper_orders": false,
+    "betting_recommendations": false,
+    "truth_inference": false,
+    "market_scoring": false,
+    "probability_estimates": false,
+    "expected_value_calculations": false,
+    "side_recommendations": false,
+    "market_decisions": false
+  }
+}

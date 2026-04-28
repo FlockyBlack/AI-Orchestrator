@@ -1,0 +1,83 @@
+TARGET_AGENT: Codex
+TASK_OWNER: Codex
+TASK_TYPE: code-changing
+CODE_CHANGES_ALLOWED_FOR_RECEIVER: true
+SESSIONS_SPAWN_ALLOWED: false
+SESSIONS_SPAWN_ALLOWED_FOR_FLOCKY: false
+RUNTIME_MUTATION_ALLOWED: false
+QUEUE_MUTATION_ALLOWED: false
+GOVERNANCE_MUTATION_ALLOWED: false
+APPROVAL_REQUIRED: true
+MISROUTE_BEHAVIOR: IF_RECEIVED_BY_FLOCKY_RETURN_MISROUTED_CODEX_PROMPT_DETECTED_WITHOUT_TOOL_EXECUTION
+
+Prompt Pack:
+Autopilot V1 Codex code-changing template.
+
+Use this template for isolated implementation work that is approved for Codex execution within explicitly bounded write paths.
+
+Allowed read paths:
+- docs/
+- codex_auto/
+- codex_auto/autopilot/
+- codex_auto/README.md
+- codex_auto/queue/README.md
+- governance/ read-only only if needed for boundary awareness
+- scripts/dispatcher.py read-only only if boundary awareness is necessary
+- scripts/run_codex.py read-only only if boundary awareness is necessary
+
+Allowed write paths:
+- <list explicit approved write paths here>
+
+Forbidden write paths:
+- tasks/
+- runs/
+- state/
+- runtime/
+- results/
+- freeze/
+- checkpoint/
+- governance/
+- scripts/dispatcher.py
+- scripts/run_codex.py
+- pm_bot/
+- codex_auto/external_cli/
+- codex_auto/tasks/
+- codex_auto/queue/
+
+Forbidden behavior:
+- no runtime wiring
+- no dispatcher changes
+- no run_codex changes
+- no active task mutation
+- no queue mutation
+- no governance mutation
+- no sessions_spawn
+- no subagent spawn
+- no shell/exec outside normal local validation commands
+- no generated prompt execution
+- no external Codex execution
+- no network/API
+- no credentials
+- no wallet/private key
+- no orders/trading
+- no autonomous execution
+- no final acceptance claim
+- no execution approval claim
+
+Required validation commands:
+- python -m pytest -q <targeted-test-path>
+- <add any additional local deterministic validation command here>
+
+Final response JSON:
+{
+  "task_id": "<placeholder-task-id>",
+  "status": "implementation_complete_ready_for_flocky_validation | blocked",
+  "summary": "<placeholder-summary>",
+  "files_created": [],
+  "files_modified": [],
+  "tests_run": [],
+  "safety": {},
+  "blocking_findings": [],
+  "warnings": [],
+  "next_required_step": "<placeholder-next-step>"
+}

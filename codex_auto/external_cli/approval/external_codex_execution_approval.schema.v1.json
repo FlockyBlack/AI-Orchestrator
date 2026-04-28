@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "external_codex_execution_approval.schema.v1.json",
+  "title": "External Codex Execution Approval Request",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version",
+    "approval_request_id",
+    "target_batch_id",
+    "approval_status",
+    "approved_for_external_codex_cli_execution",
+    "approved_by",
+    "approved_at",
+    "approval_reason",
+    "approved_prompt_path",
+    "approved_command_preview_path",
+    "allowed_output_paths",
+    "forbidden_paths",
+    "expected_tests",
+    "max_files_changed",
+    "rollback_plan",
+    "post_execution_flocky_validation_required",
+    "execution_allowed_now",
+    "external_codex_cli_allowed_now",
+    "runtime_wiring_allowed",
+    "generated_prompt_execution_allowed_now",
+    "safety_check"
+  ],
+  "properties": {
+    "schema_version": {"type": "string"},
+    "approval_request_id": {"type": "string", "minLength": 1},
+    "target_batch_id": {"type": "string", "minLength": 1},
+    "approval_status": {
+      "type": "string",
+      "enum": ["pending_human_approval", "approved_by_human", "rejected"]
+    },
+    "approved_for_external_codex_cli_execution": {"type": "boolean"},
+    "approved_by": {"type": ["string", "null"]},
+    "approved_at": {"type": ["string", "null"]},
+    "approval_reason": {"type": ["string", "null"]},
+    "approved_prompt_path": {"type": "string", "minLength": 1},
+    "approved_command_preview_path": {"type": "string", "minLength": 1},
+    "allowed_output_paths": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "forbidden_paths": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "expected_tests": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "max_files_changed": {"type": "integer", "minimum": 1},
+    "rollback_plan": {"type": "string", "minLength": 1},
+    "post_execution_flocky_validation_required": {"type": "boolean"},
+    "execution_allowed_now": {"type": "boolean"},
+    "external_codex_cli_allowed_now": {"type": "boolean"},
+    "runtime_wiring_allowed": {"type": "boolean"},
+    "generated_prompt_execution_allowed_now": {"type": "boolean"},
+    "safety_check": {
+      "type": "object",
+      "required": [
+        "runtime_wiring_allowed",
+        "network_allowed",
+        "api_allowed",
+        "wallet_allowed",
+        "private_key_allowed",
+        "trading_allowed",
+        "external_codex_cli_allowed_now",
+        "generated_prompt_execution_allowed_now",
+        "single_runtime_source_rule_preserved"
+      ],
+      "properties": {
+        "runtime_wiring_allowed": {"type": "boolean"},
+        "network_allowed": {"type": "boolean"},
+        "api_allowed": {"type": "boolean"},
+        "wallet_allowed": {"type": "boolean"},
+        "private_key_allowed": {"type": "boolean"},
+        "trading_allowed": {"type": "boolean"},
+        "external_codex_cli_allowed_now": {"type": "boolean"},
+        "generated_prompt_execution_allowed_now": {"type": "boolean"},
+        "single_runtime_source_rule_preserved": {"type": "boolean"}
+      }
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "task_id": "PMBOT-BRAIN-024-MANUAL-PAPER-RUN-BUNDLE",
+  "status": "completed",
+  "summary": "Added deterministic offline paper manual run bundle command for the local snapshot inbox portfolio workflow.",
+  "command": "python pm_bot\\paper\\run_manual_paper_inbox_bundle.py --run-id fixture-run-001 --out-dir pm_bot\\paper\\manual_paper_run_fixture_output",
+  "bundle_summary": {
+    "bundle_write_tested": true,
+    "run_id": "fixture-run-001",
+    "output_files": [
+      "state_after.json",
+      "run_ledger.json",
+      "run_summary.md"
+    ],
+    "snapshot_files_discovered": 3,
+    "snapshots_processed": 2,
+    "snapshots_skipped_already_processed": 1,
+    "new_paper_orders_created": 0,
+    "duplicate_orders_blocked": 1,
+    "risk_limit_orders_blocked": 1,
+    "realized_paper_pnl_delta": 72.41,
+    "final_realized_paper_pnl": 72.41
+  },
+  "tests": [
+    "python -m pytest pm_bot\\scoring\\tests pm_bot\\paper\\tests -q",
+    "python pm_bot\\paper\\run_manual_paper_inbox_bundle.py",
+    "python pm_bot\\paper\\run_manual_paper_inbox_bundle.py --markdown",
+    "python pm_bot\\paper\\run_manual_paper_inbox_bundle.py --run-id fixture-run-001 --out-dir pm_bot\\paper\\manual_paper_run_fixture_output",
+    "python pm_bot\\paper\\run_local_snapshot_inbox_paper_portfolio.py",
+    "python pm_bot\\paper\\run_local_snapshot_paper_portfolio_state.py",
+    "python pm_bot\\paper\\run_local_snapshot_series_risk_scenarios.py",
+    "python pm_bot\\paper\\run_crypto_numeric_lifecycle_regression_gates.py"
+  ],
+  "safety": {
+    "offline_only": true,
+    "paper_only": true,
+    "live_fetcher_implemented": false,
+    "api_used": false,
+    "network_used": false,
+    "wallet_used": false,
+    "real_order_created": false,
+    "trading_allowed": false,
+    "runtime_wiring_changed": false,
+    "dispatcher_touched": false,
+    "prompt_automation_added": false
+  }
+}

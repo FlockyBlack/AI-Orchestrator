@@ -1,0 +1,66 @@
+{
+  "task_id": "ORCH-AUTOPILOT-013-PROMPT-PACK-RENDERER",
+  "status": "implementation_complete_ready_for_flocky_validation",
+  "summary": "Implemented an isolated prompt-pack renderer that loads structured render requests, resolves existing prompt-pack templates through the manifest, renders deterministic ready-to-send prompts, runs the existing routing preflight simulator inline, and returns deterministic render reports. The implementation includes request/report schemas, render fixtures, expected render reports, targeted tests, documentation, and safe optional output writing. No runtime wiring, dispatcher/run_codex changes, queue mutation, governance mutation, sessions_spawn, prompt execution, or active Flocky tool integration was performed.",
+  "files_created": [
+    "codex_auto/autopilot/prompt_packs/render_prompt_pack.py",
+    "codex_auto/autopilot/prompt_packs/prompt_pack_render_request.schema.v1.json",
+    "codex_auto/autopilot/prompt_packs/prompt_pack_render_report.schema.v1.json",
+    "codex_auto/autopilot/prompt_packs/fixtures/render_request_flocky_validation.v1.json",
+    "codex_auto/autopilot/prompt_packs/fixtures/render_request_flocky_governance.v1.json",
+    "codex_auto/autopilot/prompt_packs/fixtures/render_request_codex_code_changing.v1.json",
+    "codex_auto/autopilot/prompt_packs/fixtures/render_request_codex_repair.v1.json",
+    "codex_auto/autopilot/prompt_packs/fixtures/render_request_chatgpt_planning.v1.json",
+    "codex_auto/autopilot/prompt_packs/fixtures/expected_render_report_codex_code_changing.v1.json",
+    "codex_auto/autopilot/prompt_packs/fixtures/expected_render_report_flocky_validation.v1.json",
+    "codex_auto/autopilot/prompt_packs/fixtures/invalid_render_request_unknown_template.v1.json",
+    "codex_auto/autopilot/prompt_packs/fixtures/invalid_render_request_target_mismatch.v1.json",
+    "codex_auto/autopilot/prompt_packs/fixtures/invalid_render_request_final_acceptance_claim.v1.json",
+    "codex_auto/autopilot/prompt_packs/fixtures/invalid_render_request_runtime_wiring_allowed.v1.json",
+    "codex_auto/autopilot/tests/test_prompt_pack_renderer.py",
+    "docs/AUTOPILOT_V1_PROMPT_PACK_RENDERER.md",
+    "docs/ORCH_AUTOPILOT_013_RESULT.json"
+  ],
+  "files_modified": [],
+  "tests_run": [
+    "python -m pytest -q codex_auto/autopilot/tests/test_prompt_pack_renderer.py: passed (23 passed, 4 subtests passed)",
+    "python -m pytest -q codex_auto/autopilot/tests: passed (105 passed, 92 subtests passed)",
+    "python codex_auto/autopilot/prompt_packs/render_prompt_pack.py --request-path codex_auto/autopilot/prompt_packs/fixtures/render_request_codex_code_changing.v1.json --out -: passed",
+    "python codex_auto/autopilot/prompt_packs/render_prompt_pack.py --request-path codex_auto/autopilot/prompt_packs/fixtures/render_request_flocky_validation.v1.json --out -: passed",
+    "python -m pytest -q codex_auto: failed with known unrelated existing failures in codex_auto/external_cli/one_shot/tests/test_validate_one_shot_execution_gate.py"
+  ],
+  "safety": {
+    "runtime_wiring": false,
+    "dispatcher_changed": false,
+    "run_codex_changed": false,
+    "active_task_mutation": false,
+    "state_result_freeze_checkpoint_mutation": false,
+    "codex_auto_queue_mutation": false,
+    "governance_mutation": false,
+    "flocky_tool_integration": false,
+    "sessions_spawn": false,
+    "external_codex_execution": false,
+    "generated_prompt_execution": false,
+    "rendered_prompt_execution": false,
+    "network_api": false,
+    "credentials": false,
+    "wallet_private_key": false,
+    "orders_trading": false,
+    "final_acceptance_claimed": false,
+    "execution_approval_claimed": false,
+    "single_runtime_source_rule_preserved": true
+  },
+  "prompt_pack_renderer": {
+    "created": true,
+    "render_only": true,
+    "uses_prompt_pack_templates": true,
+    "uses_routing_preflight_simulator": true,
+    "active_flocky_tool_integration": false,
+    "runtime_wiring_allowed": false,
+    "queue_mutation_allowed": false
+  },
+  "blocking_findings": [],
+  "warnings": [
+    "Broader codex_auto pytest still has the known unrelated external_cli/one_shot failures: test_final_preview_uses_non_interactive_editable_codex_command and test_gate_validates."
+  ]
+}

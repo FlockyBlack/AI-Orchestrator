@@ -1,0 +1,10 @@
+{
+  "task_id": "ORCH-AUTOPILOT-SAMPLE",
+  "run_id": "ORCH-AUTOPILOT-SAMPLE-20260426T000000Z",
+  "status": "preview_reference_only",
+  "summary": "Authoritative runtime reference remains with AI-Orchestrator.",
+  "files_changed": [],
+  "commands_run": [],
+  "needs_human": true,
+  "final_acceptance": false
+}

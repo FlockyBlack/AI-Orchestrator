@@ -1,0 +1,39 @@
+{
+  "schema_version": "v1",
+  "artifact_type": "live_readonly_fetcher_contract",
+  "status": "future_only_design",
+  "implementation_allowed": false,
+  "summary": "Defines the future read-only live market fetcher boundary without implementing any live fetching.",
+  "allowed_inputs": [
+    "public_market_data",
+    "approved_read_only_metadata"
+  ],
+  "allowed_output_artifact": "raw_market_snapshot.v1",
+  "required_output_schema": "pm_bot/contracts/raw_market_snapshot.schema.v1.json",
+  "prohibited_capabilities": [
+    "network_implementation_in_current_task",
+    "order_creation",
+    "order_submission",
+    "wallet_access",
+    "private_key_access",
+    "signing",
+    "execution_module_imports",
+    "runtime_wiring",
+    "dispatcher_integration",
+    "run_codex_integration",
+    "state_mutation",
+    "results_mutation",
+    "freeze_mutation",
+    "checkpoint_mutation"
+  ],
+  "required_processing_rules": [
+    "raw_snapshot_only_output",
+    "normalize_before_replay",
+    "validate_before_replay",
+    "quarantine_invalid_data",
+    "watchlist_cannot_become_action",
+    "live_data_cannot_directly_trigger_execution",
+    "future_implementation_requires_human_approval",
+    "future_implementation_requires_flocky_validation"
+  ]
+}

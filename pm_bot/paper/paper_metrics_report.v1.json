@@ -1,0 +1,44 @@
+{
+  "schema_version": "paper_metrics_report.v1",
+  "markdown_version": "paper_metrics_report_markdown.v1",
+  "task_id": "PMBOT-PAPER-BATCH-014-016-PAPER-PORTFOLIO-METRICS-MVP",
+  "deterministic": true,
+  "source_paper_accounting_ledger_path": "pm_bot/paper/paper_accounting_ledger.v1.json",
+  "source_paper_portfolio_snapshot_path": "pm_bot/paper/paper_portfolio_snapshot.v1.json",
+  "paper_metrics_report_status": "paper_metrics_report_ready",
+  "counts": {
+    "paper_metrics_report_records": 1,
+    "real_orders_created": 0,
+    "live_orders_created": 0,
+    "autonomous_paper_orders_created": 0
+  },
+  "market_ids": [
+    "824952"
+  ],
+  "paper_accounting_metrics": {
+    "paper_accounting_total_records": 1,
+    "paper_accounting_settled_count": 1,
+    "paper_accounting_open_count": 0,
+    "paper_accounting_win_count": 1,
+    "paper_accounting_loss_count": 0,
+    "paper_accounting_flat_count": 0,
+    "paper_accounting_cumulative_pnl": "6.00",
+    "paper_accounting_average_pnl": "6.00",
+    "paper_accounting_gross_profit": "6.00",
+    "paper_accounting_gross_loss": "0.00",
+    "paper_accounting_max_gain": "6.00",
+    "paper_accounting_max_loss": "0.00"
+  },
+  "source_artifacts": [
+    "pm_bot/paper/paper_accounting_ledger.v1.json",
+    "pm_bot/paper/paper_portfolio_snapshot.v1.json"
+  ],
+  "safety_flags": [
+    "paper_only",
+    "inert_only",
+    "paper_accounting_only",
+    "no_live_execution",
+    "no_real_execution",
+    "no_credential_or_endpoint_use"
+  ]
+}

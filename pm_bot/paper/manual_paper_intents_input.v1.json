@@ -1,0 +1,49 @@
+{
+  "schema_version": "manual_paper_intents_input.v1",
+  "task_id": "PMBOT-PAPER-BATCH-006-010-PAPER-WORKBENCH-MVP",
+  "deterministic": true,
+  "source_plan_path": "pm_bot/paper/paper_simulation_plan_draft.v1.json",
+  "source_template_path": "pm_bot/paper/manual_paper_intent_template.v1.json",
+  "records": [
+    {
+      "intent_id": "manual-intent-001",
+      "market_id": "824952",
+      "source_plan_status": "paper_simulation_plan_draft_ready_for_manual_intent",
+      "operator_manual_outcome": "operator_fixture_outcome",
+      "operator_manual_side": "operator_fixture_side",
+      "operator_manual_limit_price": 0.42,
+      "operator_manual_size": 10,
+      "operator_manual_rationale": "Operator-entered offline paper workbench fixture with no bot guidance.",
+      "operator_manual_attestation": "I attest this is operator-provided, paper-only, and inert.",
+      "paper_only": true,
+      "inert_only": true
+    },
+    {
+      "intent_id": "manual-intent-rejected-missing-attestation",
+      "market_id": "824952",
+      "source_plan_status": "paper_simulation_plan_draft_ready_for_manual_intent",
+      "operator_manual_outcome": "operator_fixture_outcome",
+      "operator_manual_side": "operator_fixture_side",
+      "operator_manual_limit_price": 0.41,
+      "operator_manual_size": 3,
+      "operator_manual_rationale": "Invalid fixture row missing operator attestation.",
+      "paper_only": true,
+      "inert_only": true
+    },
+    {
+      "intent_id": "manual-intent-rejected-bot-live",
+      "market_id": "824952",
+      "source_plan_status": "paper_simulation_plan_draft_ready_for_manual_intent",
+      "operator_manual_outcome": "operator_fixture_outcome",
+      "operator_manual_side": "operator_fixture_side",
+      "operator_manual_limit_price": 0.43,
+      "operator_manual_size": 4,
+      "operator_manual_rationale": "Bot-generated recommendation asks for a live order.",
+      "operator_manual_attestation": "I attest this is operator-provided, paper-only, and inert.",
+      "paper_only": true,
+      "inert_only": true,
+      "bot_recommendation": "blocked_fixture_value",
+      "live_order": true
+    }
+  ]
+}

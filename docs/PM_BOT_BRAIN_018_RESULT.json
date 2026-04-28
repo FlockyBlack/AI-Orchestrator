@@ -1,0 +1,59 @@
+{
+  "task_id": "PMBOT-BRAIN-018-LOCAL-SNAPSHOT-SERIES-PAPER-PORTFOLIO",
+  "status": "completed_ready_for_review",
+  "summary": "Implemented a deterministic fixture-only multi-snapshot paper portfolio replay. The new command processes local live-shaped snapshot objects in chronological order, adapts each snapshot, runs intake/scoring/review/paper planning, carries paper positions forward, blocks duplicate paper orders for an existing market/side position, applies fixture settlements, and emits JSON or Markdown with preserved rejection records and safety flags.",
+  "pmbot_root_confirmed": true,
+  "snapshot_series_portfolio_readiness": "ready_for_manual_paper_review",
+  "command": "python pm_bot\\paper\\run_local_snapshot_series_paper_portfolio.py",
+  "files_created": [
+    "pm_bot/paper/local_snapshot_series_fixture.v1.json",
+    "pm_bot/paper/run_local_snapshot_series_paper_portfolio.py",
+    "pm_bot/paper/expected_local_snapshot_series_paper_portfolio.v1.json",
+    "pm_bot/paper/expected_local_snapshot_series_paper_portfolio.v1.md",
+    "pm_bot/paper/tests/test_run_local_snapshot_series_paper_portfolio.py",
+    "docs/PM_BOT_BRAIN_018_RESULT.json",
+    "docs/PM_BOT_STAGE_SUMMARY_V30.md"
+  ],
+  "files_modified": [],
+  "tests_or_checks_run": [
+    "python -m pytest pm_bot\\scoring\\tests pm_bot\\paper\\tests -q",
+    "python pm_bot\\paper\\run_local_snapshot_series_paper_portfolio.py",
+    "python pm_bot\\paper\\run_local_snapshot_series_paper_portfolio.py --markdown",
+    "python pm_bot\\paper\\run_crypto_numeric_lifecycle_regression_gates.py"
+  ],
+  "portfolio_series_summary": {
+    "snapshots_processed": 3,
+    "total_snapshot_markets": 8,
+    "adapted_raw_markets": 6,
+    "adapter_rejections": 2,
+    "paper_orders_created": 2,
+    "duplicate_orders_blocked": 1,
+    "open_positions": 0,
+    "settled_positions": 2,
+    "total_paper_notional": 200.0,
+    "max_exposure": 200.0,
+    "realized_paper_pnl": 294.99,
+    "unrealized_paper_pnl": 0,
+    "bad_entries": 0,
+    "safety_flags_locked": true
+  },
+  "limitations": [
+    "Fixture-only local snapshot series; no live fetcher, network call, external API call, or live market integration is implemented.",
+    "Paper order creation, duplicate blocking, carried positions, settlements, exposure, and PnL are deterministic local calculations only.",
+    "No credentials, wallet/private-key access, real orders, real-money execution, runtime wiring, dispatcher/run_codex changes, prompt automation, or live trading path was added."
+  ],
+  "recommended_next_task": "PMBOT-BRAIN-019: add a focused offline regression gate for the local snapshot series portfolio replay summary and safety locks.",
+  "safety": {
+    "offline_only": true,
+    "paper_only": true,
+    "live_fetcher_implemented": false,
+    "no_network_api": true,
+    "no_credentials": true,
+    "no_wallet": true,
+    "no_real_orders": true,
+    "no_live_trading": true,
+    "no_runtime_wiring": true,
+    "no_prompt_automation": true,
+    "no_unrelated_cleanup": true
+  }
+}

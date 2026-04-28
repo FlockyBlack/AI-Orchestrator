@@ -1,0 +1,33 @@
+{
+  "schema_version": "paper_simulation_gate_human_review_records_accepted.v1",
+  "task_id": "PMBOT-PAPER-BATCH-006-010-PAPER-WORKBENCH-MVP",
+  "deterministic": true,
+  "source_gate_path": "pm_bot/paper/paper_decision_simulation_gate.v1.json",
+  "input_path": "pm_bot/paper/paper_simulation_gate_human_review_records_input.v1.json",
+  "allowed_review_outcomes": [
+    "approved_for_paper_simulation_plan_drafting",
+    "needs_gate_revision",
+    "rejected_by_policy",
+    "watch_only"
+  ],
+  "counts": {
+    "records_read": 4,
+    "records_accepted": 1,
+    "created_action_count": 0
+  },
+  "records": [
+    {
+      "record_id": "human-review-001",
+      "market_id": "824952",
+      "source_gate_status": "paper_simulation_gate_passed_for_manual_review",
+      "review_outcome": "approved_for_paper_simulation_plan_drafting",
+      "review_status": "accepted_for_paper_simulation_plan_processing",
+      "reviewer": "operator_fixture",
+      "review_notes": [
+        "Operator approves the PAPER-005 gate record for a local paper simulation plan draft.",
+        "No executable action is authorized by this review record."
+      ],
+      "created_action_count": 0
+    }
+  ]
+}

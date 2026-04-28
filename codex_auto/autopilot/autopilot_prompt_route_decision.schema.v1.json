@@ -1,0 +1,114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "autopilot_prompt_route_decision.schema.v1.json",
+  "title": "Autopilot Prompt Route Decision",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "type",
+    "schema_version",
+    "receiver_agent",
+    "detected_target_agent",
+    "detected_task_owner",
+    "detected_task_type",
+    "routing_class",
+    "misroute_detected",
+    "safe_for_receiver_to_execute",
+    "sessions_spawn_allowed",
+    "code_changes_allowed_for_receiver",
+    "runtime_mutation_allowed",
+    "queue_mutation_allowed",
+    "governance_mutation_allowed",
+    "requires_human_or_correct_agent",
+    "required_behavior",
+    "detected_signals",
+    "blocking_reasons",
+    "warnings"
+  ],
+  "properties": {
+    "type": {
+      "const": "AUTOPILOT_PROMPT_ROUTING_DECISION"
+    },
+    "schema_version": {
+      "const": "1.0"
+    },
+    "receiver_agent": {
+      "type": "string",
+      "minLength": 1
+    },
+    "detected_target_agent": {
+      "type": "string",
+      "minLength": 1
+    },
+    "detected_task_owner": {
+      "type": "string",
+      "minLength": 1
+    },
+    "detected_task_type": {
+      "type": "string",
+      "minLength": 1
+    },
+    "routing_class": {
+      "enum": [
+        "FLOCKY_VALIDATION_TASK",
+        "FLOCKY_GOVERNANCE_TASK",
+        "CODEX_CODE_CHANGING_TASK",
+        "CODEX_REPAIR_TASK",
+        "CHATGPT_PLANNING_TASK",
+        "AMBIGUOUS_OR_MISROUTED_TASK",
+        "UNSAFE_OR_APPROVAL_REQUIRED_TASK"
+      ]
+    },
+    "misroute_detected": {
+      "type": "boolean"
+    },
+    "safe_for_receiver_to_execute": {
+      "type": "boolean"
+    },
+    "sessions_spawn_allowed": {
+      "type": "boolean"
+    },
+    "code_changes_allowed_for_receiver": {
+      "type": "boolean"
+    },
+    "runtime_mutation_allowed": {
+      "type": "boolean"
+    },
+    "queue_mutation_allowed": {
+      "type": "boolean"
+    },
+    "governance_mutation_allowed": {
+      "type": "boolean"
+    },
+    "requires_human_or_correct_agent": {
+      "type": "boolean"
+    },
+    "required_behavior": {
+      "enum": [
+        "MISROUTED_CODEX_PROMPT_DETECTED",
+        "PROCEED_READ_ONLY_VALIDATION",
+        "PROCEED_GOVERNANCE_DESIGN",
+        "RETURN_ROUTING_MISMATCH",
+        "BLOCK_UNSAFE_OR_APPROVAL_REQUIRED"
+      ]
+    },
+    "detected_signals": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "blocking_reasons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

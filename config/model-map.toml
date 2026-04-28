@@ -1,0 +1,7 @@
+main = "default"
+deep = "default"
+mini = "default"
+
+main_reasoning = "medium"
+deep_reasoning = "high"
+mini_reasoning = "low"

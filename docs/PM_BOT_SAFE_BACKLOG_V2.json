@@ -1,0 +1,45 @@
+{
+  "schema_version": "v2",
+  "artifact_type": "PM_BOT_SAFE_BACKLOG",
+  "fixture_paper_only": true,
+  "runtime_wiring_allowed": false,
+  "real_trading_allowed": false,
+  "network_api_wallet_private_key_trading_allowed": false,
+  "tasks": [
+    {
+      "task_id": "PMBOT-V2-001",
+      "title": "Fixture batch validation expansion",
+      "mode": "READ_ONLY_VALIDATION",
+      "summary": "Add deterministic validation coverage for larger local fixture sets without introducing live data access.",
+      "safety_boundary": "local fixtures only"
+    },
+    {
+      "task_id": "PMBOT-V2-002",
+      "title": "Paper exposure scenario library",
+      "mode": "PAPER_ONLY",
+      "summary": "Expand paper-only scenario inputs for simulated exposure, slippage, and review notes.",
+      "safety_boundary": "simulation outputs remain non-executable"
+    },
+    {
+      "task_id": "PMBOT-V2-003",
+      "title": "Dashboard artifact contract revision",
+      "mode": "DESIGN_ONLY",
+      "summary": "Revise report fields and artifact layouts for local research summaries and paper-mode reviews.",
+      "safety_boundary": "design artifacts only"
+    },
+    {
+      "task_id": "PMBOT-V2-004",
+      "title": "Static safety audit fixture hardening",
+      "mode": "FIXTURE_ONLY",
+      "summary": "Add synthetic local samples that verify the audit still blocks unsafe runtime behaviors while tolerating safe negative assertions.",
+      "safety_boundary": "synthetic fixtures only"
+    },
+    {
+      "task_id": "PMBOT-V2-005",
+      "title": "Post-repair regression check",
+      "mode": "DRY_RUN_ONLY",
+      "summary": "Run local deterministic commands and test suites after each approved paper-only PMBOT change.",
+      "safety_boundary": "verification only"
+    }
+  ]
+}

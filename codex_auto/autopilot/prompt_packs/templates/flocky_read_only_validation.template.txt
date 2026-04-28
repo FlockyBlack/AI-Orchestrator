@@ -1,0 +1,60 @@
+TARGET_AGENT: Flocky
+TASK_OWNER: Flocky
+TASK_TYPE: read-only validation
+CODE_CHANGES_ALLOWED_FOR_RECEIVER: false
+SESSIONS_SPAWN_ALLOWED: false
+RUNTIME_MUTATION_ALLOWED: false
+QUEUE_MUTATION_ALLOWED: false
+GOVERNANCE_MUTATION_ALLOWED: false
+APPROVAL_REQUIRED: false
+MISROUTE_BEHAVIOR: RETURN_ROUTING_MISMATCH_WITHOUT_TOOL_EXECUTION
+
+Prompt Pack:
+Autopilot V1 Flocky read-only validation template.
+
+Use this template when the receiver must validate an already-prepared artifact, plan, simulator output, or documentation package without editing project files.
+
+Allowed read paths:
+- docs/
+- codex_auto/
+- codex_auto/autopilot/
+- governance/ for boundary awareness only if necessary
+- scripts/dispatcher.py read-only only if boundary verification is necessary
+- scripts/run_codex.py read-only only if boundary verification is necessary
+
+Allowed write paths: none in project root
+Final JSON only in chat/stdout.
+
+Forbidden behavior:
+- no code changes
+- no runtime wiring
+- no dispatcher changes
+- no run_codex changes
+- no task queue mutation
+- no state, runtime, result, freeze, or checkpoint mutation
+- no governance mutation
+- no sessions_spawn
+- no subagent spawn
+- no shell/exec
+- no generated prompt execution
+- no external Codex execution
+- no network/API
+- no credentials
+- no wallet/private key
+- no orders/trading
+- no final acceptance claim
+- no execution approval claim
+
+Validation focus:
+- verify requested files match the stated contract
+- identify routing, boundary, safety, and determinism issues
+- report findings first
+
+Expected final JSON:
+{
+  "task_id": "<placeholder-task-id>",
+  "status": "pass_with_warnings | blocked",
+  "findings": [],
+  "warnings": [],
+  "recommended_next_step": "<placeholder-next-step>"
+}

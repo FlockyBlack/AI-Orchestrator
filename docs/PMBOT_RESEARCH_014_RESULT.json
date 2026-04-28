@@ -1,0 +1,62 @@
+{
+  "task_id": "PMBOT-RESEARCH-014-DOSSIER-HUMAN-REVIEW-PACK-EXPORT",
+  "status": "completed",
+  "summary": "Implemented deterministic offline PMBOT dossier human-review pack export. The exporter reads only the local RESEARCH-013 validation result, dossier skeletons, merged manual research packets, and operator review records result; exports only draft_ready_for_human_review accepted draft records; emits JSON, Markdown, and expected JSON artifacts for market_id 563650; and creates no completed dossiers, recommendations, scores, probabilities, EV calculations, side decisions, paper orders, runtime wiring, or live actions.",
+  "files_created": [
+    "pm_bot/research/export_dossier_human_review_pack.py",
+    "pm_bot/research/dossier_human_review_pack.v1.json",
+    "pm_bot/research/dossier_human_review_pack.v1.md",
+    "pm_bot/research/expected_dossier_human_review_pack.v1.json",
+    "pm_bot/research/tests/test_dossier_human_review_pack_export.py",
+    "docs/PMBOT_RESEARCH_014_RESULT.json"
+  ],
+  "files_modified": [],
+  "tests_run": [
+    {
+      "command": "python pm_bot\\research\\export_dossier_human_review_pack.py",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\research\\tests\\test_dossier_human_review_pack_export.py",
+      "status": "passed",
+      "tests": 12
+    },
+    {
+      "command": "python -m pytest pm_bot\\research\\tests",
+      "status": "passed",
+      "tests": 152
+    },
+    {
+      "command": "python -c \"import json, pathlib; paths=['pm_bot/research/dossier_human_review_pack.v1.json','pm_bot/research/expected_dossier_human_review_pack.v1.json','docs/PMBOT_RESEARCH_014_RESULT.json']; [json.load(open(pathlib.Path(p), encoding='utf-8')) for p in paths]; print('parsed', len(paths), 'json artifacts')\"",
+      "status": "passed",
+      "json_artifacts": 3
+    }
+  ],
+  "export_summary": {
+    "accepted_drafts_seen": 1,
+    "human_review_packs_exported": 1,
+    "draft_records_skipped": 7,
+    "completed_dossiers_created": 0
+  },
+  "safety": {
+    "live_fetchers": false,
+    "network_api_calls": false,
+    "credentials": false,
+    "wallet_private_keys": false,
+    "real_orders": false,
+    "live_trading": false,
+    "runtime_wiring": false,
+    "dispatcher_run_codex_touched": false,
+    "prompt_automation": false,
+    "codex_copy_roots": false,
+    "completed_dossiers": false,
+    "paper_orders": false,
+    "betting_recommendations": false,
+    "truth_inference": false,
+    "market_scoring": false,
+    "probability_estimates": false,
+    "expected_value_calculations": false,
+    "side_recommendations": false,
+    "market_decisions": false
+  }
+}

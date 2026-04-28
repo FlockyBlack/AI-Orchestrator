@@ -1,0 +1,73 @@
+{
+  "task_id": "ORCH-AUTOPILOT-015-HANDOFF-RUNBOOK-DOCS",
+  "status": "implementation_complete_ready_for_flocky_validation",
+  "summary": "Created the rendered-prompt handoff runbook, operator quickstart, manual checklists, placeholder-only examples, and validation tests for the current manual Autopilot V1 flow without runtime wiring or active integrations.",
+  "files_created": [
+    "docs/AUTOPILOT_V1_RENDERED_PROMPT_HANDOFF_RUNBOOK.md",
+    "docs/ORCH_AUTOPILOT_015_RESULT.json",
+    "codex_auto/autopilot/prompt_packs/runbooks/OPERATOR_QUICKSTART.md",
+    "codex_auto/autopilot/prompt_packs/runbooks/checklists/render_request_review_checklist.md",
+    "codex_auto/autopilot/prompt_packs/runbooks/checklists/render_report_review_checklist.md",
+    "codex_auto/autopilot/prompt_packs/runbooks/checklists/pre_send_checklist.md",
+    "codex_auto/autopilot/prompt_packs/runbooks/checklists/post_result_checklist.md",
+    "codex_auto/autopilot/prompt_packs/runbooks/checklists/misroute_incident_checklist.md",
+    "codex_auto/autopilot/prompt_packs/runbooks/examples/example_codex_handoff_flow.md",
+    "codex_auto/autopilot/prompt_packs/runbooks/examples/example_flocky_validation_flow.md",
+    "codex_auto/autopilot/prompt_packs/runbooks/examples/example_repair_loop_flow.md",
+    "codex_auto/autopilot/prompt_packs/runbooks/examples/example_misroute_incident_flow.md",
+    "codex_auto/autopilot/tests/test_handoff_runbook_docs.py"
+  ],
+  "files_modified": [],
+  "tests_run": [
+    "python -m pytest -q codex_auto/autopilot/tests/test_handoff_runbook_docs.py",
+    "python -m pytest -q codex_auto/autopilot/tests",
+    "python -m pytest -q codex_auto"
+  ],
+  "safety": {
+    "runtime_wiring": false,
+    "dispatcher_changed": false,
+    "run_codex_changed": false,
+    "active_task_mutation": false,
+    "state_result_freeze_checkpoint_mutation": false,
+    "codex_auto_queue_mutation": false,
+    "governance_mutation": false,
+    "flocky_tool_integration": false,
+    "sessions_spawn": false,
+    "external_codex_execution": false,
+    "generated_prompt_execution": false,
+    "rendered_prompt_execution": false,
+    "prompt_sending": false,
+    "network_api": false,
+    "credentials": false,
+    "wallet_private_key": false,
+    "orders_trading": false,
+    "final_acceptance_claimed": false,
+    "execution_approval_claimed": false,
+    "single_runtime_source_rule_preserved": true
+  },
+  "handoff_runbook_docs": {
+    "created": true,
+    "main_runbook_created": true,
+    "checklists_created": [
+      "codex_auto/autopilot/prompt_packs/runbooks/checklists/render_request_review_checklist.md",
+      "codex_auto/autopilot/prompt_packs/runbooks/checklists/render_report_review_checklist.md",
+      "codex_auto/autopilot/prompt_packs/runbooks/checklists/pre_send_checklist.md",
+      "codex_auto/autopilot/prompt_packs/runbooks/checklists/post_result_checklist.md",
+      "codex_auto/autopilot/prompt_packs/runbooks/checklists/misroute_incident_checklist.md"
+    ],
+    "examples_created": [
+      "codex_auto/autopilot/prompt_packs/runbooks/examples/example_codex_handoff_flow.md",
+      "codex_auto/autopilot/prompt_packs/runbooks/examples/example_flocky_validation_flow.md",
+      "codex_auto/autopilot/prompt_packs/runbooks/examples/example_repair_loop_flow.md",
+      "codex_auto/autopilot/prompt_packs/runbooks/examples/example_misroute_incident_flow.md"
+    ],
+    "quickstart_created": true,
+    "active_flocky_tool_integration": false,
+    "runtime_wiring_allowed": false,
+    "queue_bridge_allowed": false
+  },
+  "blocking_findings": [],
+  "warnings": [
+    "Broader codex_auto test run has pre-existing failures outside the allowed write scope in codex_auto/external_cli/one_shot/tests/test_validate_one_shot_execution_gate.py: expected --full-auto in FINAL_COMMAND_PREVIEW and gate validation returned non-zero."
+  ]
+}

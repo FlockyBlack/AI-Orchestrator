@@ -1,0 +1,100 @@
+{
+  "task_id": "PMBOT-INGEST-013-SELECTED-INGEST-DOSSIER-HUMAN-REVIEW-RECORD-GATE",
+  "status": "passed",
+  "summary": "Implemented deterministic offline validation/export for manually written selected-ingest dossier human review records. The gate reads only local selected-ingest review pack, draft validation, skeleton, and review-record fixture artifacts; accepts only market_ids present in the selected-ingest dossier human review pack; rejects unknown or selected-but-not-exported market_ids, immutable review pack field overrides, prohibited trading/execution/recommendation/scoring/probability/EV/side/decision fields, missing required approval checks, missing revision items, missing rejection notes, and completed/final dossier language in review records. It creates no final dossier drafts, completed dossiers, recommendations, scores, probabilities, expected value calculations, side choices, orders, paper orders, runtime wiring, or downstream automation.",
+  "files_created": [
+    "pm_bot/research/validate_selected_ingest_dossier_human_review_records.py",
+    "pm_bot/research/selected_ingest_dossier_human_review_records_fixture.v1.json",
+    "pm_bot/research/selected_ingest_dossier_human_review_records_result.v1.json",
+    "pm_bot/research/selected_ingest_dossier_human_review_records_report.v1.md",
+    "pm_bot/research/expected_selected_ingest_dossier_human_review_records_result.v1.json",
+    "pm_bot/research/tests/test_selected_ingest_dossier_human_review_record_gate.py",
+    "docs/PMBOT_INGEST_013_RESULT.json"
+  ],
+  "files_modified": [],
+  "tests_run": [
+    {
+      "command": "python pm_bot\\research\\validate_selected_ingest_dossier_human_review_records.py",
+      "status": "passed",
+      "result": "10 human review records read; 1 accepted; 9 rejected"
+    },
+    {
+      "command": "python -m pytest pm_bot\\research\\tests\\test_selected_ingest_dossier_human_review_record_gate.py -q",
+      "status": "passed",
+      "result": "20 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\research\\tests\\test_selected_ingest_dossier_human_review_record_gate.py pm_bot\\research\\tests\\test_selected_ingest_dossier_human_review_pack_export.py pm_bot\\research\\tests\\test_selected_ingest_manual_dossier_draft_quality_gate.py pm_bot\\research\\tests\\test_selected_ingest_dossier_draft_skeleton_export.py pm_bot\\research\\tests\\test_selected_ingest_operator_review_record_gate.py pm_bot\\research\\tests\\test_selected_ingest_operator_review_queue.py pm_bot\\research\\tests\\test_selected_ingest_manual_evidence_overlay_merge.py pm_bot\\research\\tests\\test_selected_ingest_operator_workpack.py pm_bot\\research\\tests\\test_selected_ingest_research_packet_stubs.py -q",
+      "status": "passed",
+      "result": "138 passed"
+    },
+    {
+      "command": "python -m json.tool pm_bot\\research\\selected_ingest_dossier_human_review_records_fixture.v1.json",
+      "status": "passed",
+      "result": "json parse ok"
+    },
+    {
+      "command": "python -m json.tool pm_bot\\research\\selected_ingest_dossier_human_review_records_result.v1.json",
+      "status": "passed",
+      "result": "json parse ok"
+    },
+    {
+      "command": "python -m json.tool pm_bot\\research\\expected_selected_ingest_dossier_human_review_records_result.v1.json",
+      "status": "passed",
+      "result": "json parse ok"
+    },
+    {
+      "command": "python -m json.tool docs\\PMBOT_INGEST_013_RESULT.json",
+      "status": "passed",
+      "result": "json parse ok"
+    },
+    {
+      "command": "python -m py_compile pm_bot\\research\\validate_selected_ingest_dossier_human_review_records.py pm_bot\\research\\tests\\test_selected_ingest_dossier_human_review_record_gate.py",
+      "status": "passed",
+      "result": "compiled"
+    }
+  ],
+  "human_review_summary": {
+    "review_records_read": 10,
+    "review_records_accepted": 1,
+    "review_records_rejected": 9,
+    "approved_for_final_dossier_draft": 1,
+    "needs_draft_revision": 0,
+    "rejected_for_research_quality": 0,
+    "watch_only": 0
+  },
+  "selected_market_ids": [
+    "692258",
+    "824952",
+    "691547",
+    "597964",
+    "598936"
+  ],
+  "review_pack_market_ids": [
+    "824952"
+  ],
+  "safety": {
+    "live_fetchers": false,
+    "network_api_calls": false,
+    "credentials": false,
+    "wallet_private_keys": false,
+    "authenticated_endpoints": false,
+    "trading_endpoints": false,
+    "real_orders": false,
+    "live_trading": false,
+    "paper_orders": false,
+    "betting_recommendations": false,
+    "truth_inference": false,
+    "market_scoring": false,
+    "probability_estimates": false,
+    "expected_value_calculations": false,
+    "side_recommendations": false,
+    "market_decisions": false,
+    "runtime_wiring": false,
+    "dispatcher_run_codex_touched": false,
+    "prompt_automation": false,
+    "codex_copy_roots": false,
+    "final_dossier_drafts": false,
+    "completed_dossiers": false
+  }
+}

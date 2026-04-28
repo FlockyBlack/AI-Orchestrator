@@ -1,0 +1,6 @@
+root = "C:\\Users\\OpenC\\Documents\\AI-Orchestrator"
+max_tasks_per_run = 3
+default_safety_level = "L2"
+network_allowed = false
+one_task_one_session = true
+report_format = "json"

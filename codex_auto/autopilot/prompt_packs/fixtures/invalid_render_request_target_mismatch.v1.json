@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "template_name": "codex_code_changing.template.txt",
+  "task_id": "ORCH-AUTOPILOT-INVALID-TARGET-MISMATCH",
+  "task_title": "Invalid target mismatch request",
+  "target_agent": "Flocky",
+  "task_owner": "Codex",
+  "task_type": "code-changing",
+  "context": "Invalid request.",
+  "goal": "Should fail.",
+  "allowed_read_paths": [],
+  "allowed_write_paths": [],
+  "forbidden_write_paths": [],
+  "forbidden_behavior": [],
+  "validation_commands": [],
+  "expected_final_json": {},
+  "custom_sections": [],
+  "preflight_receiver": "Flocky",
+  "notes": []
+}

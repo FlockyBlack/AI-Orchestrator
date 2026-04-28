@@ -1,0 +1,54 @@
+{
+  "task_id": "PMBOT-BRAIN-020-PORTFOLIO-RISK-SCENARIO-COVERAGE",
+  "status": "completed_ready_for_review",
+  "summary": "Added deterministic offline paper end-to-end scenario coverage for local snapshot series portfolio risk limits. The new scenario runner replays fixture snapshot-series paper plans through the existing portfolio duplicate, risk-limit, fill, carry-forward, settlement, exposure, and PnL behavior.",
+  "files_created": [
+    "pm_bot/paper/local_snapshot_series_risk_scenarios.v1.json",
+    "pm_bot/paper/run_local_snapshot_series_risk_scenarios.py",
+    "pm_bot/paper/expected_local_snapshot_series_risk_scenarios.v1.json",
+    "pm_bot/paper/expected_local_snapshot_series_risk_scenarios.v1.md",
+    "pm_bot/paper/tests/test_run_local_snapshot_series_risk_scenarios.py",
+    "docs/PM_BOT_BRAIN_020_RESULT.json",
+    "docs/PM_BOT_STAGE_SUMMARY_V32.md"
+  ],
+  "files_modified": [],
+  "tests": [
+    "python -m pytest pm_bot\\paper\\tests\\test_run_local_snapshot_series_risk_scenarios.py -q",
+    "python -m pytest pm_bot\\scoring\\tests pm_bot\\paper\\tests -q",
+    "python pm_bot\\paper\\run_local_snapshot_series_risk_scenarios.py",
+    "python pm_bot\\paper\\run_local_snapshot_series_risk_scenarios.py --markdown",
+    "python pm_bot\\paper\\run_local_snapshot_series_paper_portfolio.py",
+    "python pm_bot\\paper\\run_crypto_numeric_lifecycle_regression_gates.py"
+  ],
+  "scenario_summary": {
+    "scenario_count": 7,
+    "allowed_orders": 7,
+    "duplicate_orders_blocked": 2,
+    "risk_limit_orders_blocked": 6,
+    "risk_limit_reason_counts": {
+      "max_total_paper_exposure_exceeded": 3,
+      "max_asset_paper_exposure_exceeded": 1,
+      "max_orders_per_snapshot_exceeded": 2,
+      "max_open_positions_exceeded": 1
+    },
+    "bad_entries": 0
+  },
+  "safety": {
+    "offline_only": true,
+    "paper_only": true,
+    "live_fetcher_implemented": false,
+    "api_used": false,
+    "network_used": false,
+    "wallet_used": false,
+    "real_order_created": false,
+    "trading_allowed": false,
+    "runtime_wiring_changed": false,
+    "dispatcher_touched": false,
+    "prompt_automation_added": false
+  },
+  "notes": [
+    "CWD was confirmed as C:\\Users\\OpenC\\Documents\\AI-Orchestrator and pm_bot/** exists before edits.",
+    "No Codex copy roots under C:\\Users\\OpenC\\Documents\\Codex\\... were edited.",
+    "The aggregate reason count is reason-code occurrences; one mixed blocked order carries both total-exposure and per-snapshot reason codes."
+  ]
+}

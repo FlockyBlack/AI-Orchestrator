@@ -1,0 +1,49 @@
+{
+  "task_id": "PMBOT-RESEARCH-008-OPERATOR-RESEARCH-WORKPACK-EXPORT",
+  "status": "passed",
+  "summary": "Added a deterministic offline operator research workpack exporter for the 10 PMBOT RESEARCH-006 stub candidates. The exporter reads the local packet stubs and RESEARCH-007 validator contract, then writes a human-readable Markdown workpack plus deterministic JSON index with blank evidence capture templates and stub_only completion statuses.",
+  "files_created": [
+    "pm_bot\\research\\export_operator_research_workpack.py",
+    "pm_bot\\research\\operator_research_workpack.v1.md",
+    "pm_bot\\research\\operator_research_workpack_index.v1.json",
+    "pm_bot\\research\\expected_operator_research_workpack_index.v1.json",
+    "pm_bot\\research\\tests\\test_operator_research_workpack_export.py",
+    "docs\\PMBOT_RESEARCH_008_RESULT.json"
+  ],
+  "files_modified": [],
+  "tests_run": [
+    {
+      "command": "python -m pytest pm_bot\\research\\tests\\test_operator_research_workpack_export.py -q",
+      "status": "passed",
+      "summary": "10 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\research\\tests -q",
+      "status": "passed",
+      "summary": "74 passed"
+    }
+  ],
+  "export_summary": {
+    "packets_exported": 10,
+    "markdown_workpack_created": true,
+    "json_index_created": true,
+    "all_completion_statuses_stub_only": true
+  },
+  "safety": {
+    "live_fetchers": false,
+    "network_api_calls": false,
+    "credentials": false,
+    "wallet_private_keys": false,
+    "real_orders": false,
+    "live_trading": false,
+    "runtime_wiring": false,
+    "dispatcher_run_codex_touched": false,
+    "prompt_automation": false,
+    "codex_copy_roots": false,
+    "completed_dossiers": false,
+    "paper_orders": false,
+    "betting_recommendations": false,
+    "truth_inference": false,
+    "market_scoring": false
+  }
+}

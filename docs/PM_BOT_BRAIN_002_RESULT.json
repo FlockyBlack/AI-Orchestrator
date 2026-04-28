@@ -1,0 +1,44 @@
+{
+  "task_id": "PMBOT-BRAIN-002-CRYPTO-NUMERIC-REVIEW-TABLE",
+  "status": "completed_ready_for_review",
+  "summary": "Implemented a deterministic paper-only operator review table for crypto numeric scorer outputs. The report reads the scorer JSON, emits concise per-market review rows in JSON or Markdown, includes grouped decision counts, and preserves locked safety flags.",
+  "pmbot_root_confirmed": true,
+  "review_table_readiness": "ready_for_operator_review",
+  "files_created": [
+    "pm_bot/scoring/crypto_numeric_review_table.py",
+    "pm_bot/scoring/expected_crypto_numeric_review_table.v1.json",
+    "pm_bot/scoring/expected_crypto_numeric_review_table.v1.md",
+    "pm_bot/scoring/tests/test_crypto_numeric_review_table.py",
+    "docs/PM_BOT_BRAIN_002_RESULT.json",
+    "docs/PM_BOT_STAGE_SUMMARY_V14.md"
+  ],
+  "files_modified": [],
+  "tests_or_checks_run": [
+    "python -m pytest pm_bot\\scoring\\tests -q",
+    "python pm_bot\\scoring\\crypto_numeric_review_table.py pm_bot\\scoring\\expected_crypto_numeric_score_report.v1.json",
+    "python pm_bot\\scoring\\crypto_numeric_review_table.py pm_bot\\scoring\\expected_crypto_numeric_score_report.v1.json --markdown"
+  ],
+  "review_summary": {
+    "paper_candidates": 1,
+    "watchlist": 1,
+    "rejected": 2
+  },
+  "limitations": [
+    "Consumes offline scorer output only; it does not fetch live markets or prices.",
+    "Provides operator review rows and grouped counts only; it does not size paper positions or create runtime actions.",
+    "No runtime/demo dispatcher wiring was added."
+  ],
+  "recommended_next_task": "PMBOT-BRAIN-003-CRYPTO-NUMERIC-REASON-CODES: add stable machine-readable reason codes for scorer and review-table outputs while preserving offline-only and no-runtime-wiring boundaries.",
+  "safety": {
+    "offline_only": true,
+    "paper_only": true,
+    "no_network_api": true,
+    "no_credentials": true,
+    "no_wallet": true,
+    "no_real_orders": true,
+    "no_live_trading": true,
+    "no_runtime_wiring": true,
+    "no_prompt_automation": true,
+    "no_unrelated_cleanup": true
+  }
+}

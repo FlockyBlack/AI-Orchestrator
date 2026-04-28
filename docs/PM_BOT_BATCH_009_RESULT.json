@@ -1,0 +1,120 @@
+{
+  "task_id": "PMBOT-BATCH-009",
+  "status": "implementation_complete_ready_for_flocky_validation",
+  "ready_for_flocky_validation": true,
+  "requires_flocky_validation": true,
+  "final_flocky_done_claimed": false,
+  "temp_copy_honesty_fixed": true,
+  "expected_raw_artifact_report_root_independent": true,
+  "pmbot_batch_009e_repair_completed": true,
+  "audit_expected_v2_to_v7_reconciled_after_009d": true,
+  "scope": {
+    "offline_only": true,
+    "fixture_only": true,
+    "paper_only": true,
+    "local_only": true,
+    "deterministic": true,
+    "live_fetcher_implemented": false,
+    "network_api_calls": false,
+    "api_credentials": false,
+    "wallet": false,
+    "real_orders": false,
+    "runtime_wiring": false
+  },
+  "summary": "PMBOT-BATCH-009E reconciled stale audit expected outputs v2-v7 to the current deterministic static audit output after the PMBOT-BATCH-009D temp-copy honesty repair. No executable code, audit logic, tests, raw_artifacts logic, demo logic, or boundary logic changed. Current audit output remains safe with audit_passed=true and no blocking findings, and the repaired raw artifact gate remains root-independent and temp-copy honest.",
+  "files_created": [],
+  "files_modified": [
+    "docs/PM_BOT_BATCH_009_RESULT.json",
+    "pm_bot/audit/expected_static_safety_audit.v2.json",
+    "pm_bot/audit/expected_static_safety_audit.v3.json",
+    "pm_bot/audit/expected_static_safety_audit.v4.json",
+    "pm_bot/audit/expected_static_safety_audit.v5.json",
+    "pm_bot/audit/expected_static_safety_audit.v6.json",
+    "pm_bot/audit/expected_static_safety_audit.v7.json"
+  ],
+  "repair_notes": {
+    "audit_failures_were_stale_expected_output_only": true,
+    "audit_logic_changed": false,
+    "audit_tests_changed": false,
+    "raw_artifacts_changed_in_009e": false,
+    "demo_changed_in_009e": false,
+    "boundary_changed_in_009e": false,
+    "forbidden_area_files_modified": false
+  },
+  "forbidden_area_artifact_review": {
+    "files_reviewed_read_only": [
+      {
+        "path": "tasks\\failed\\PM-AUDIT-009.task.json",
+        "exists": true,
+        "content_task_id": "PM-AUDIT-009",
+        "title": null,
+        "appears_related_to_pmbot_batch_009": true,
+        "appears_created_by_current_task": false,
+        "appears_preexisting_or_governance_artifact": true,
+        "requires_separate_cleanup_approval": false,
+        "safe_to_ignore_for_batch_009_acceptance": true,
+        "reason": "Read-only review from PMBOT-BATCH-009D remains unchanged; this is a pre-existing task/governance artifact for a different repository path."
+      },
+      {
+        "path": "codex_auto\\tasks\\candidates\\PMBOT-009-FIXTURE-POSTMORTEM.task.json",
+        "exists": true,
+        "content_task_id": "PMBOT-009-FIXTURE-POSTMORTEM",
+        "title": "Fixture postmortem slice",
+        "appears_related_to_pmbot_batch_009": true,
+        "appears_created_by_current_task": false,
+        "appears_preexisting_or_governance_artifact": true,
+        "requires_separate_cleanup_approval": false,
+        "safe_to_ignore_for_batch_009_acceptance": true,
+        "reason": "Read-only review from PMBOT-BATCH-009D remains unchanged; this is an approval-gated codex_auto queue artifact outside the repair scope."
+      },
+      {
+        "path": "codex_auto\\tasks\\ready\\PMBOT-009-FIXTURE-POSTMORTEM.task.json",
+        "exists": true,
+        "content_task_id": "PMBOT-009-FIXTURE-POSTMORTEM",
+        "title": "Fixture postmortem slice",
+        "appears_related_to_pmbot_batch_009": true,
+        "appears_created_by_current_task": false,
+        "appears_preexisting_or_governance_artifact": true,
+        "requires_separate_cleanup_approval": false,
+        "safe_to_ignore_for_batch_009_acceptance": true,
+        "reason": "Read-only review from PMBOT-BATCH-009D remains unchanged; this is existing governance/runtime queue state outside the repair scope."
+      }
+    ],
+    "tasks_or_codex_auto_modified": false,
+    "separate_cleanup_approval_needed": false
+  },
+  "batch_009_status": {
+    "raw_artifact_gate_present": true,
+    "raw_artifact_temp_copy_honest": true,
+    "raw_artifact_tests_pass": true,
+    "raw_artifact_validator_pass": true,
+    "audit_tests_pass": true,
+    "demo_tests_pass": true,
+    "grouped_suite_pass": true,
+    "ready_for_flocky_validation": true,
+    "final_flocky_done_claimed": false
+  },
+  "safety_checks": {
+    "offline_only": true,
+    "fixture_only": true,
+    "paper_only": true,
+    "local_only": true,
+    "deterministic": true,
+    "no_live_fetcher_implementation": true,
+    "no_network_or_api": true,
+    "no_live_polymarket_api": true,
+    "no_api_credentials": true,
+    "no_wallet_or_private_key": true,
+    "no_real_orders": true,
+    "no_real_trading": true,
+    "no_autonomous_trading": true,
+    "no_runtime_wiring": true,
+    "no_dispatcher_changes": true,
+    "no_run_codex_changes": true,
+    "no_active_task_mutation": true,
+    "no_state_result_freeze_checkpoint_mutation": true,
+    "no_codex_auto_mutation": true,
+    "no_governance_state_mutation": true,
+    "future_live_work_requires_separate_approval": true
+  }
+}

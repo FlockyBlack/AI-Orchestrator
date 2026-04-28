@@ -1,0 +1,207 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CodexExecutionEnvelopeV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "task_id",
+    "approval_id",
+    "execution_id",
+    "execution_mode",
+    "started_at",
+    "finished_at",
+    "approved_scope",
+    "files_created",
+    "files_modified_existing",
+    "tests_run",
+    "tests_passed",
+    "command_preview",
+    "actual_command",
+    "safety_check",
+    "result_status",
+    "risks",
+    "notes",
+    "openclaw_validation_required"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "codex_execution_envelope.v1"
+    },
+    "task_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "approval_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "execution_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "execution_mode": {
+      "type": "string",
+      "enum": [
+        "controlled_codex_execution",
+        "dry_run"
+      ]
+    },
+    "started_at": {
+      "type": "string",
+      "minLength": 1
+    },
+    "finished_at": {
+      "type": "string",
+      "minLength": 1
+    },
+    "approved_scope": {
+      "type": "string",
+      "minLength": 1
+    },
+    "files_created": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "files_modified_existing": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "tests_run": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "tests_passed": {
+      "type": "boolean"
+    },
+    "command_preview": {
+      "type": "string"
+    },
+    "actual_command": {
+      "type": "string"
+    },
+    "safety_check": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "runtime_changed",
+        "dispatcher_touched",
+        "run_codex_touched",
+        "active_task_files_touched",
+        "freeze_record_modified",
+        "result_records_modified",
+        "checkpoint_records_modified",
+        "network_used",
+        "api_used",
+        "wallet_used",
+        "private_key_used",
+        "trading_used",
+        "single_runtime_source_rule_preserved"
+      ],
+      "properties": {
+        "runtime_changed": {
+          "type": "boolean"
+        },
+        "dispatcher_touched": {
+          "type": "boolean"
+        },
+        "run_codex_touched": {
+          "type": "boolean"
+        },
+        "active_task_files_touched": {
+          "type": "boolean"
+        },
+        "freeze_record_modified": {
+          "type": "boolean"
+        },
+        "result_records_modified": {
+          "type": "boolean"
+        },
+        "checkpoint_records_modified": {
+          "type": "boolean"
+        },
+        "network_used": {
+          "type": "boolean"
+        },
+        "api_used": {
+          "type": "boolean"
+        },
+        "wallet_used": {
+          "type": "boolean"
+        },
+        "private_key_used": {
+          "type": "boolean"
+        },
+        "trading_used": {
+          "type": "boolean"
+        },
+        "single_runtime_source_rule_preserved": {
+          "type": "boolean",
+          "const": true
+        }
+      }
+    },
+    "result_status": {
+      "type": "string",
+      "enum": [
+        "dry_run_ready",
+        "completed",
+        "blocked",
+        "invalid"
+      ]
+    },
+    "risks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "openclaw_validation_required": {
+      "type": "boolean",
+      "const": true
+    }
+  },
+  "allOf": [
+    {
+      "not": {
+        "properties": {
+          "notes": {
+            "contains": {
+              "type": "string",
+              "pattern": "(?i)(final openclaw done|final governance done|runtime source of truth|new source of truth)"
+            }
+          }
+        },
+        "required": [
+          "notes"
+        ]
+      }
+    },
+    {
+      "not": {
+        "properties": {
+          "approved_scope": {
+            "pattern": "(?i)(runtime wiring|dispatcher|run_codex|active task|network|api|wallet|private key|trading|real orders?|live polymarket|source of truth)"
+          }
+        },
+        "required": [
+          "approved_scope"
+        ]
+      }
+    }
+  ],
+  "description": "Future controlled execution result envelope. It may represent dry-run or controlled execution only, must always require OpenClaw validation, must include full safety-check coverage, cannot claim final OpenClaw or governance completion, and cannot become a runtime source of truth."
+}

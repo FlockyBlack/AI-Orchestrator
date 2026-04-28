@@ -1,0 +1,57 @@
+{
+  "task_id": "PMBOT-BRAIN-019-PORTFOLIO-RISK-LIMITS",
+  "status": "completed_ready_for_review",
+  "summary": "Added deterministic offline paper portfolio risk limits to the local snapshot series replay. The replay now loads fixture limits, preserves duplicate market/side blocking, blocks projected risk-limit violations before paper fills, reports blocked-order decisions with reason codes, carries risk-limit reason counts into JSON and Markdown summaries, and keeps all safety flags locked.",
+  "pmbot_root_confirmed": true,
+  "portfolio_risk_readiness": "ready_for_manual_paper_review",
+  "files_created": [
+    "pm_bot/paper/portfolio_risk_limits.v1.json",
+    "docs/PM_BOT_BRAIN_019_RESULT.json",
+    "docs/PM_BOT_STAGE_SUMMARY_V31.md"
+  ],
+  "files_modified": [
+    "pm_bot/paper/run_local_snapshot_series_paper_portfolio.py",
+    "pm_bot/paper/expected_local_snapshot_series_paper_portfolio.v1.json",
+    "pm_bot/paper/expected_local_snapshot_series_paper_portfolio.v1.md",
+    "pm_bot/paper/tests/test_run_local_snapshot_series_paper_portfolio.py"
+  ],
+  "tests_or_checks_run": [
+    "python -m pytest pm_bot\\paper\\tests\\test_run_local_snapshot_series_paper_portfolio.py -q",
+    "python -m pytest pm_bot\\scoring\\tests pm_bot\\paper\\tests -q",
+    "python pm_bot\\paper\\run_local_snapshot_series_paper_portfolio.py",
+    "python pm_bot\\paper\\run_local_snapshot_series_paper_portfolio.py --markdown",
+    "python pm_bot\\paper\\run_crypto_numeric_lifecycle_regression_gates.py"
+  ],
+  "risk_summary": {
+    "paper_orders_created": 1,
+    "duplicate_orders_blocked": 1,
+    "risk_limit_orders_blocked": 1,
+    "risk_limit_reason_counts": {
+      "max_total_paper_exposure_exceeded": 1,
+      "max_open_positions_exceeded": 1
+    },
+    "total_paper_notional": 100.0,
+    "max_exposure": 100.0,
+    "realized_paper_pnl": 72.41,
+    "bad_entries": 0,
+    "safety_flags_locked": true
+  },
+  "limitations": [
+    "Uses local fixtures only; no live fetcher, network, API, credentials, wallet access, real orders, or live trading were added.",
+    "The end-to-end series fixture naturally demonstrates total exposure and max open position blocking; targeted unit tests cover asset exposure and max orders per snapshot predicates."
+  ],
+  "recommended_next_task": "Add a documentation-first manual review checklist for calibrating paper portfolio risk limits against larger offline snapshot fixtures.",
+  "safety": {
+    "offline_only": true,
+    "paper_only": true,
+    "live_fetcher_implemented": false,
+    "no_network_api": true,
+    "no_credentials": true,
+    "no_wallet": true,
+    "no_real_orders": true,
+    "no_live_trading": true,
+    "no_runtime_wiring": true,
+    "no_prompt_automation": true,
+    "no_unrelated_cleanup": true
+  }
+}

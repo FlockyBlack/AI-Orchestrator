@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "one_shot_execution_gate.schema.v1.json",
+  "title": "One Shot Execution Gate",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version",
+    "gate_id",
+    "target_batch_id",
+    "approval_request_ref",
+    "approval_decision_ref",
+    "approved_prompt_path",
+    "command_preview_ref",
+    "final_command_preview_path",
+    "allowed_output_paths",
+    "forbidden_paths",
+    "expected_tests",
+    "max_files_changed",
+    "rollback_plan",
+    "post_execution_flocky_validation_required",
+    "execution_allowed_by_human",
+    "execution_allowed_now",
+    "external_codex_cli_allowed_now",
+    "generated_prompt_execution_allowed_now",
+    "runtime_wiring_allowed",
+    "gate_status",
+    "safety_check"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "one_shot_execution_gate.v1"
+    },
+    "gate_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "target_batch_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "approval_request_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "approval_decision_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "approved_prompt_path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "command_preview_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "final_command_preview_path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "allowed_output_paths": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "forbidden_paths": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "expected_tests": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "max_files_changed": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "rollback_plan": {
+      "type": "string",
+      "minLength": 1
+    },
+    "post_execution_flocky_validation_required": {
+      "type": "boolean"
+    },
+    "execution_allowed_by_human": {
+      "type": "boolean"
+    },
+    "execution_allowed_now": {
+      "type": "boolean"
+    },
+    "external_codex_cli_allowed_now": {
+      "type": "boolean"
+    },
+    "generated_prompt_execution_allowed_now": {
+      "type": "boolean"
+    },
+    "runtime_wiring_allowed": {
+      "type": "boolean"
+    },
+    "gate_status": {
+      "type": "string",
+      "enum": [
+        "prepared_pending_manual_run",
+        "blocked"
+      ]
+    },
+    "safety_check": {
+      "type": "object"
+    }
+  }
+}

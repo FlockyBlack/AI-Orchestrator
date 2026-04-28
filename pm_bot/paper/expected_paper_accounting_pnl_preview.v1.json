@@ -1,0 +1,68 @@
+{
+  "schema_version": "paper_accounting_pnl_preview.v1",
+  "markdown_version": "paper_accounting_pnl_preview_report.v1",
+  "task_id": "PMBOT-PAPER-BATCH-011-013-FILL-SETTLEMENT-PNL-MVP",
+  "deterministic": true,
+  "source_paper_fill_events_path": "pm_bot/paper/paper_fill_events.v1.json",
+  "source_paper_settlement_sources_accepted_path": "pm_bot/paper/paper_settlement_sources_accepted.v1.json",
+  "allowed_paper_accounting_statuses": [
+    "paper_position_open_pending_settlement",
+    "paper_position_settled_from_operator_manual_fixture",
+    "paper_position_blocked_invalid_settlement",
+    "paper_position_watch_only"
+  ],
+  "counts": {
+    "paper_fill_events_read": 1,
+    "settlement_records_accepted": 1,
+    "paper_accounting_pnl_records": 1,
+    "real_orders_created": 0,
+    "live_orders_created": 0,
+    "autonomous_paper_orders_created": 0
+  },
+  "market_ids": [
+    "824952"
+  ],
+  "paper_accounting_totals": {
+    "paper_accounting_total_cost_basis": "4.00",
+    "paper_accounting_total_settlement_value": "10.00",
+    "paper_accounting_total_pnl": "6.00"
+  },
+  "paper_accounting_records": [
+    {
+      "paper_accounting_record_id": "paper-accounting-pnl-001",
+      "market_id": "824952",
+      "source_paper_fill_event_id": "paper-fill-event-001",
+      "source_settlement_id": "paper-settlement-source-operator-manual-001",
+      "source_manual_intent_id": "manual-intent-001",
+      "source_ledger_entry_id": "manual-paper-intent-ledger-001",
+      "paper_accounting_status": "paper_position_settled_from_operator_manual_fixture",
+      "operator_manual_fill_price": 0.4,
+      "operator_manual_fill_size": 10,
+      "operator_manual_settlement_outcome": "operator_fixture_outcome_settled",
+      "operator_manual_settlement_price": 1.0,
+      "paper_accounting_cost_basis": "4.00",
+      "paper_accounting_settlement_value": "10.00",
+      "paper_accounting_pnl": "6.00",
+      "paper_accounting_only": true,
+      "paper_only": true,
+      "inert_only": true,
+      "generated_by_bot": false,
+      "live_order_created": false,
+      "real_order_created": false,
+      "safety_flags": [
+        "paper_only",
+        "inert_only",
+        "operator_manual_fill_fixture",
+        "operator_manual_settlement_fixture",
+        "paper_accounting_only",
+        "no_live_execution",
+        "no_real_execution",
+        "no_credential_or_endpoint_use"
+      ]
+    }
+  ],
+  "limitations": [
+    "Accounting preview uses only local operator manual fixture fill and settlement values.",
+    "Accounting preview is paper-only and inert."
+  ]
+}

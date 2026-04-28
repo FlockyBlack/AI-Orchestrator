@@ -1,0 +1,75 @@
+{
+  "schema_version": "codex_task.v1",
+  "task_id": "AI-ORCH-032-SAFE-FIXTURE",
+  "created_at": "2026-04-25T09:30:00+04:00",
+  "mode": "FIXTURE_ONLY",
+  "executor": "codex",
+  "project_path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator",
+  "prompt": "Create or update a harmless local fixture example under the allowed sandbox only. Keep the task offline and dry-run only.",
+  "allowed_paths": [
+    "pm_bot/fixture_sandbox_example/",
+    "codex_auto/runs/"
+  ],
+  "forbidden_paths": [
+    "scripts/dispatcher.py",
+    "scripts/run_codex.py",
+    "tasks/",
+    "state/",
+    "runs/",
+    "governance/",
+    "pm_bot/validation/"
+  ],
+  "forbidden_behaviors": [
+    "runtime wiring",
+    "dispatcher modification",
+    "run_codex modification",
+    "active task mutation",
+    "network usage",
+    "api usage",
+    "wallet usage",
+    "private key usage",
+    "trading",
+    "real order execution",
+    "live polymarket api",
+    "hidden warning rewrite",
+    "second runtime source of truth"
+  ],
+  "requires_human_approval": true,
+  "approved_for_execution": false,
+  "dry_run_default": true,
+  "expected_result_shape": {
+    "schema_version": "codex_result.v1",
+    "status": "dry_run_ready",
+    "execution_mode": "dry_run",
+    "safety_check": [
+      "runtime_changed",
+      "dispatcher_touched",
+      "run_codex_touched",
+      "active_task_files_touched",
+      "freeze_record_modified",
+      "result_records_modified",
+      "checkpoint_records_modified",
+      "network_used",
+      "api_used",
+      "wallet_used",
+      "private_key_used",
+      "trading_used",
+      "single_runtime_source_rule_preserved"
+    ]
+  },
+  "safety_flags_required": [
+    "runtime_changed",
+    "dispatcher_touched",
+    "run_codex_touched",
+    "active_task_files_touched",
+    "freeze_record_modified",
+    "result_records_modified",
+    "checkpoint_records_modified",
+    "network_used",
+    "api_used",
+    "wallet_used",
+    "private_key_used",
+    "trading_used",
+    "single_runtime_source_rule_preserved"
+  ]
+}

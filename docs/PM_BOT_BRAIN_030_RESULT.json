@@ -1,0 +1,57 @@
+{
+  "task_id": "PMBOT-BRAIN-030-LOCAL-SNAPSHOT-COMPATIBILITY-EXPANSION",
+  "status": "passed",
+  "summary": "Added narrow offline compatibility for saved Polymarket Gamma markets responses shaped as a top-level list of market objects, converting representable markets into the existing canonical manual workspace inbox snapshot envelope while preserving existing fixture import and quarantine behavior.",
+  "files_created": [
+    "pm_bot/paper/manual_snapshot_import_source/008_polymarket_markets_active_minimized.fixture.json",
+    "docs/PM_BOT_BRAIN_030_RESULT.json",
+    "docs/PM_BOT_STAGE_SUMMARY_V42.md"
+  ],
+  "files_modified": [
+    "pm_bot/paper/run_manual_snapshot_workspace_import.py",
+    "pm_bot/paper/tests/test_run_manual_snapshot_workspace_import.py"
+  ],
+  "tests": [
+    "python -m pytest pm_bot\\paper\\tests\\test_run_manual_snapshot_workspace_import.py -q",
+    "python -m pytest pm_bot\\paper\\tests\\test_run_manual_paper_operator_cycle.py -q",
+    "python -m pytest pm_bot\\scoring\\tests pm_bot\\paper\\tests -q",
+    "python pm_bot\\paper\\run_manual_snapshot_workspace_import.py",
+    "python pm_bot\\paper\\run_manual_snapshot_workspace_import.py --markdown",
+    "python pm_bot\\paper\\run_manual_snapshot_workspace_import.py --source C:\\Users\\OpenC\\Documents\\AI-Orchestrator\\local_snapshots\\polymarket_markets_active_001.json --markdown",
+    "python pm_bot\\paper\\run_manual_paper_operator_cycle.py",
+    "python pm_bot\\paper\\run_manual_paper_workspace.py",
+    "python pm_bot\\paper\\run_local_snapshot_series_risk_scenarios.py",
+    "python pm_bot\\paper\\run_crypto_numeric_lifecycle_regression_gates.py"
+  ],
+  "compatibility_summary": {
+    "real_local_snapshot_checked": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator\\local_snapshots\\polymarket_markets_active_001.json; top-level JSON list with 100 market objects",
+    "previous_reason": "unsupported_snapshot_shape",
+    "new_import_status": "importable",
+    "markets_seen": "100",
+    "markets_supported_or_adapted": "100 represented as canonical workspace snapshot markets; existing crypto adapter adapted 0 of these non-crypto/ambiguous markets",
+    "markets_skipped_or_unsupported": "0 skipped during schema conversion; existing crypto adapter rejections remained non-fatal with unsupported_asset=95 and ambiguous_side=5",
+    "write_inbox_tested": "yes; --write-inbox wrote the converted canonical snapshot in a temporary workspace",
+    "manifest_write_tested": "yes; --out-manifest recorded the converted import deterministically"
+  },
+  "safety": {
+    "offline_only": true,
+    "paper_only": true,
+    "live_fetcher_implemented": false,
+    "api_used": false,
+    "network_used": false,
+    "wallet_used": false,
+    "real_order_created": false,
+    "trading_allowed": false,
+    "runtime_wiring_changed": false,
+    "dispatcher_touched": false,
+    "prompt_automation_added": false
+  },
+  "notes": [
+    "No production dependency was added.",
+    "No files under C:\\Users\\OpenC\\Documents\\Codex were edited.",
+    "Default import remains read-only; inbox writes still require --write-inbox.",
+    "The minimized fixture uses a .fixture.json suffix and is opt-in when passed directly with --source, preserving default source-directory import behavior.",
+    "Unsupported individual markets inside a supported Polymarket response are counted and skipped without quarantining the whole input when at least one market is representable.",
+    "The canonical root is not a Git repository in this environment, so git status/diff were unavailable."
+  ]
+}

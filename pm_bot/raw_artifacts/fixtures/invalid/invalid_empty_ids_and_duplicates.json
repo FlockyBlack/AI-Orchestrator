@@ -1,0 +1,37 @@
+{
+  "contract_version": "raw_market_artifact.v1",
+  "artifact_id": "",
+  "source_type": "fixture",
+  "source_name": "offline_fixture_pack",
+  "captured_at": "2026-04-22T10:00:00Z",
+  "market": {
+    "market_id": "",
+    "title": "Empty ids and duplicates fixture",
+    "status": "open"
+  },
+  "outcomes": [
+    {
+      "name": "Yes",
+      "side": "yes",
+      "price": 0.4
+    },
+    {
+      "name": "Yes",
+      "side": "yes",
+      "price": 0.6
+    }
+  ],
+  "provenance": {
+    "collected_by": "fixture_generator",
+    "collection_method": "curated_fixture",
+    "source_reference": "local://fixtures/invalid_empty_ids_and_duplicates"
+  },
+  "safety": {
+    "network_used": false,
+    "api_credentials_used": false,
+    "wallet_used": false,
+    "order_capable": false,
+    "trading_capable": false,
+    "readonly_intended": true
+  }
+}

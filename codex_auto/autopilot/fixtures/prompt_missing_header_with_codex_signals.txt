@@ -1,0 +1,6 @@
+Задание Codex:
+Task type: code-changing
+Implement a deterministic classifier.
+Create module and modify files in codex_auto/autopilot.
+Allowed write paths are limited.
+Run pytest and return implementation JSON with files_created and files_modified.

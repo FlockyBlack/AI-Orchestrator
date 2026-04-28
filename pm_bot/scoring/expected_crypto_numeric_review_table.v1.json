@@ -1,0 +1,72 @@
+{
+  "schema_version": "v1",
+  "report_id": "PMBOT-BRAIN-002-CRYPTO-NUMERIC-REVIEW-TABLE",
+  "source_report_id": "PMBOT-BRAIN-001-CRYPTO-NUMERIC-MARKET-SCORER",
+  "fixture_id": "crypto_numeric_fixture_v1",
+  "deterministic": true,
+  "offline_only": true,
+  "paper_only": true,
+  "execution_allowed": false,
+  "trading_allowed": false,
+  "operator_review_only": true,
+  "group_counts": {
+    "paper_candidate": 1,
+    "watchlist": 1,
+    "reject": 2
+  },
+  "rows": [
+    {
+      "market_id": "crypto_numeric_btc_above_90000_2026_05_31",
+      "asset": "BTC",
+      "side": "above",
+      "market_probability": 0.59,
+      "model_probability": 0.6797,
+      "edge_after_buffer": 0.0647,
+      "liquidity_status": "pass",
+      "spread_status": "pass",
+      "risk_status": "pass",
+      "decision": "paper_candidate",
+      "short_reason": "positive buffered edge clears review gates"
+    },
+    {
+      "market_id": "crypto_numeric_eth_below_3000_2026_05_31",
+      "asset": "ETH",
+      "side": "below",
+      "market_probability": 0.36,
+      "model_probability": 0.3895,
+      "edge_after_buffer": 0.0045,
+      "liquidity_status": "pass",
+      "spread_status": "pass",
+      "risk_status": "watch",
+      "decision": "watchlist",
+      "short_reason": "positive buffered edge needs operator review; risk needs review"
+    },
+    {
+      "market_id": "crypto_numeric_btc_above_90000_low_liquidity_2026_05_31",
+      "asset": "BTC",
+      "side": "above",
+      "market_probability": 0.42,
+      "model_probability": 0.3457,
+      "edge_after_buffer": -0.0993,
+      "liquidity_status": "fail",
+      "spread_status": "watch",
+      "risk_status": "pass",
+      "decision": "reject",
+      "short_reason": "buffered edge is not positive; liquidity gate failed; spread needs review"
+    },
+    {
+      "market_id": "crypto_numeric_eth_below_3000_wide_spread_2026_05_31",
+      "asset": "ETH",
+      "side": "below",
+      "market_probability": 0.6,
+      "model_probability": 0.7425,
+      "edge_after_buffer": 0.1175,
+      "liquidity_status": "pass",
+      "spread_status": "fail",
+      "risk_status": "fail",
+      "decision": "reject",
+      "short_reason": "spread gate failed; risk gate failed"
+    }
+  ],
+  "review_note": "Output is for paper-only operator review. No execution, trading, order placement, or runtime action is allowed."
+}

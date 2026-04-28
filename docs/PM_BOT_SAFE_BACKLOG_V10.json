@@ -1,0 +1,68 @@
+{
+  "schema_version": "v10",
+  "artifact_type": "PM_BOT_SAFE_BACKLOG",
+  "fixture_paper_only": true,
+  "runtime_wiring_allowed": false,
+  "real_trading_allowed": false,
+  "network_api_wallet_private_key_trading_allowed": false,
+  "offline_only": [
+    {
+      "task_id": "PMBOT-067",
+      "title": "Raw artifact fixture coverage expansion",
+      "mode": "SAFE_TO_IMPLEMENT",
+      "summary": "Additional local raw artifact fixtures may expand malformed, stale, conflicting, and provenance edge cases without adding any network or live fetcher code."
+    },
+    {
+      "task_id": "PMBOT-068",
+      "title": "Raw artifact quarantine reporting refinements",
+      "mode": "SAFE_TO_IMPLEMENT",
+      "summary": "Deterministic offline report refinements remain safe if they stay local-only, fixture-only, and standard-library-only."
+    }
+  ],
+  "paper_only": [
+    {
+      "task_id": "PMBOT-069",
+      "title": "Replay fixture compatibility checks",
+      "mode": "SAFE_TO_IMPLEMENT",
+      "summary": "Paper-only replay compatibility checks may consume validated local artifacts without enabling live ingestion."
+    }
+  ],
+  "read_only_implementation_pending_approval": [
+    {
+      "task_id": "PMBOT-070",
+      "title": "Future read-only fetcher implementation",
+      "mode": "BLOCKED_PENDING_APPROVAL",
+      "summary": "A future read-only fetcher remains blocked until separately approved and must emit artifacts that pass the offline ingestion gate."
+    },
+    {
+      "task_id": "PMBOT-071",
+      "title": "Future artifact-to-normalization wiring",
+      "mode": "BLOCKED_PENDING_APPROVAL",
+      "summary": "Runtime wiring from a future fetcher into normalization or replay remains blocked until separate approval."
+    }
+  ],
+  "blocked_live_execution": [
+    {
+      "task_id": "PMBOT-072",
+      "title": "Live execution path",
+      "mode": "BLOCKED",
+      "summary": "Real orders, live trading, and autonomous trading remain blocked."
+    }
+  ],
+  "blocked_wallet_signer": [
+    {
+      "task_id": "PMBOT-073",
+      "title": "Wallet and signer support",
+      "mode": "BLOCKED",
+      "summary": "Wallet, private key, signer, and credential handling remain blocked."
+    }
+  ],
+  "blocked_runtime_wiring": [
+    {
+      "task_id": "PMBOT-074",
+      "title": "Runtime and orchestration wiring",
+      "mode": "BLOCKED",
+      "summary": "Dispatcher integration, run_codex wiring, state mutation, result mutation, checkpoint mutation, freeze mutation, codex_auto mutation, and governance mutation remain blocked."
+    }
+  ]
+}

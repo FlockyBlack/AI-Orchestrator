@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CodexAutoMaterializationReportV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "report_id",
+    "source_backlog_path",
+    "generated_at",
+    "candidates_created",
+    "candidates_skipped",
+    "prompts_created",
+    "validation_summary",
+    "safety_check",
+    "recommended_next_action"
+  ],
+  "properties": {
+    "schema_version": {"type": "string", "const": "v1"},
+    "report_id": {"type": "string", "minLength": 1},
+    "source_backlog_path": {"type": "string", "const": "docs/PM_BOT_SAFE_BACKLOG_V1.json"},
+    "generated_at": {"type": "string", "minLength": 1},
+    "candidates_created": {"type": "array", "items": {"type": "string"}},
+    "candidates_skipped": {"type": "array", "items": {"type": "string"}},
+    "prompts_created": {"type": "array", "items": {"type": "string"}},
+    "validation_summary": {"type": "object"},
+    "safety_check": {"type": "object"},
+    "recommended_next_action": {"type": "string", "minLength": 1}
+  },
+  "description": "Codex_auto materialization bookkeeping only. Candidates remain non-executable, cannot move to done, require later Flocky review before any ready promotion, and do not become runtime truth."
+}

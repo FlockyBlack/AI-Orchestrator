@@ -1,0 +1,204 @@
+{
+  "schema_version": "v1",
+  "fixture_id": "local_snapshot_series_fixture_v1",
+  "fixture_only": true,
+  "paper_only": true,
+  "snapshots": [
+    {
+      "snapshot_id": "series_snapshot_001",
+      "observed_at": "2026-05-01T12:00:00Z",
+      "snapshot": {
+        "schema_version": "v1",
+        "fixture_id": "series_snapshot_001_live_shape",
+        "markets": [
+          {
+            "condition_id": "series_btc_above_90000_2026_05_31",
+            "question": "Will BTC be above $90,000 on 2026-05-31?",
+            "category": "crypto",
+            "end_date_iso": "2026-05-31",
+            "outcomes": [
+              {"name": "Yes", "price": 0.59},
+              {"name": "No", "price": 0.41}
+            ],
+            "liquidity_num": 180000.0,
+            "best_bid": 0.575,
+            "best_ask": 0.605,
+            "oracle_context": {
+              "current_price": 93800.0,
+              "thirty_day_change_pct": 8.0,
+              "volatility_30d_pct": 42.0,
+              "risk_level": "low"
+            }
+          },
+          {
+            "condition_id": "series_eth_below_3000_2026_05_31",
+            "question": "Will Ethereum be below $3,000 on 2026-05-31?",
+            "category": "crypto",
+            "end_date_iso": "2026-05-31",
+            "outcomes": [
+              {"name": "Yes", "price": 0.36},
+              {"name": "No", "price": 0.64}
+            ],
+            "liquidity_num": 125000.0,
+            "best_bid": 0.34,
+            "best_ask": 0.38,
+            "oracle_context": {
+              "current_price": 3120.0,
+              "thirty_day_change_pct": -6.0,
+              "volatility_30d_pct": 55.0,
+              "risk_level": "medium"
+            }
+          },
+          {
+            "condition_id": "series_missing_question",
+            "category": "crypto",
+            "end_date_iso": "2026-05-31",
+            "outcomes": [
+              {"name": "Yes", "price": 0.5}
+            ],
+            "liquidity_num": 100000.0
+          }
+        ]
+      },
+      "observed_prices": {
+        "series_btc_above_90000_2026_05_31": 0.58
+      },
+      "current_prices": {
+        "series_btc_above_90000_2026_05_31": 0.62
+      },
+      "settlements": []
+    },
+    {
+      "snapshot_id": "series_snapshot_002",
+      "observed_at": "2026-05-15T12:00:00Z",
+      "snapshot": {
+        "schema_version": "v1",
+        "fixture_id": "series_snapshot_002_live_shape",
+        "markets": [
+          {
+            "condition_id": "series_btc_above_90000_2026_05_31",
+            "question": "Will BTC be above $90,000 on 2026-05-31?",
+            "category": "crypto",
+            "end_date_iso": "2026-05-31",
+            "outcomes": [
+              {"name": "Yes", "price": 0.57},
+              {"name": "No", "price": 0.43}
+            ],
+            "liquidity_num": 190000.0,
+            "best_bid": 0.56,
+            "best_ask": 0.58,
+            "oracle_context": {
+              "current_price": 94500.0,
+              "thirty_day_change_pct": 9.0,
+              "volatility_30d_pct": 40.0,
+              "risk_level": "low"
+            }
+          },
+          {
+            "condition_id": "series_eth_below_3000_2026_05_31",
+            "question": "Will Ethereum be below $3,000 on 2026-05-31?",
+            "category": "crypto",
+            "end_date_iso": "2026-05-31",
+            "outcomes": [
+              {"name": "Yes", "price": 0.32},
+              {"name": "No", "price": 0.68}
+            ],
+            "liquidity_num": 150000.0,
+            "best_bid": 0.31,
+            "best_ask": 0.33,
+            "oracle_context": {
+              "current_price": 2920.0,
+              "thirty_day_change_pct": -9.0,
+              "volatility_30d_pct": 45.0,
+              "risk_level": "low"
+            }
+          }
+        ]
+      },
+      "observed_prices": {
+        "series_btc_above_90000_2026_05_31": 0.57,
+        "series_eth_below_3000_2026_05_31": 0.31
+      },
+      "current_prices": {
+        "series_btc_above_90000_2026_05_31": 0.74,
+        "series_eth_below_3000_2026_05_31": 0.48
+      },
+      "settlements": []
+    },
+    {
+      "snapshot_id": "series_snapshot_003",
+      "observed_at": "2026-05-31T23:59:00Z",
+      "snapshot": {
+        "schema_version": "v1",
+        "fixture_id": "series_snapshot_003_live_shape",
+        "markets": [
+          {
+            "condition_id": "series_btc_above_90000_2026_05_31",
+            "question": "Will BTC be above $90,000 on 2026-05-31?",
+            "category": "crypto",
+            "end_date_iso": "2026-05-31",
+            "outcomes": [
+              {"name": "Yes", "price": 0.99},
+              {"name": "No", "price": 0.01}
+            ],
+            "liquidity_num": 210000.0,
+            "best_bid": 0.98,
+            "best_ask": 1.0,
+            "oracle_context": {
+              "current_price": 96000.0,
+              "thirty_day_change_pct": 10.0,
+              "volatility_30d_pct": 38.0,
+              "risk_level": "low"
+            }
+          },
+          {
+            "condition_id": "series_eth_below_3000_2026_05_31",
+            "question": "Will Ethereum be below $3,000 on 2026-05-31?",
+            "category": "crypto",
+            "end_date_iso": "2026-05-31",
+            "outcomes": [
+              {"name": "Yes", "price": 0.96},
+              {"name": "No", "price": 0.04}
+            ],
+            "liquidity_num": 160000.0,
+            "best_bid": 0.95,
+            "best_ask": 0.97,
+            "oracle_context": {
+              "current_price": 2850.0,
+              "thirty_day_change_pct": -12.0,
+              "volatility_30d_pct": 42.0,
+              "risk_level": "low"
+            }
+          },
+          {
+            "condition_id": "series_missing_price",
+            "question": "Will BTC be above $100,000 on 2026-06-30?",
+            "category": "crypto",
+            "end_date_iso": "2026-06-30",
+            "outcomes": [
+              {"name": "Yes"}
+            ],
+            "liquidity_num": 100000.0
+          }
+        ]
+      },
+      "observed_prices": {},
+      "current_prices": {
+        "series_btc_above_90000_2026_05_31": 1.0,
+        "series_eth_below_3000_2026_05_31": 1.0
+      },
+      "settlements": [
+        {
+          "market_id": "series_btc_above_90000_2026_05_31",
+          "side": "above",
+          "settlement_outcome": "yes"
+        },
+        {
+          "market_id": "series_eth_below_3000_2026_05_31",
+          "side": "below",
+          "settlement_outcome": "yes"
+        }
+      ]
+    }
+  ]
+}

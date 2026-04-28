@@ -1,0 +1,33 @@
+{
+  "schema_version": "v1",
+  "demo_id": "PMBOT-BATCH-002-DEMO",
+  "source_type": "fixture",
+  "validation_fixture_ref": "pm_bot/fixtures/market_snapshot_stub.v1.json",
+  "normalized_market_ref": "pm_bot/normalization/expected_normalized_market.v1.json",
+  "signal_report_ref": "pm_bot/signals/expected_signal_report.v1.json",
+  "hedge_fixture_ref": "pm_bot/hedges/fixture_related_markets.v1.json",
+  "hedge_relationship_report_ref": "pm_bot/hedges/expected_relationship_report.v1.json",
+  "paper_plan_ref": "pm_bot/paper/paper_plan_fixture.v1.json",
+  "paper_simulation_ref": "pm_bot/paper/expected_paper_simulation.v1.json",
+  "risk_fixture_ref": "pm_bot/risk/risk_fixture.v1.json",
+  "risk_report_ref": "pm_bot/risk/expected_risk_report.v1.json",
+  "accounting_fixture_ref": "pm_bot/accounting/accounting_fixture.v1.json",
+  "accounting_report_ref": "pm_bot/accounting/expected_accounting_report.v1.json",
+  "dashboard_fixture_ref": "pm_bot/reports/dashboard_fixture.v1.json",
+  "dashboard_report_ref": "pm_bot/reports/expected_dashboard_report.v1.json",
+  "postmortem_fixture_ref": "pm_bot/postmortem/postmortem_fixture.v1.json",
+  "postmortem_report_ref": "pm_bot/postmortem/expected_postmortem_report.v1.json",
+  "audit_target_ref": "pm_bot",
+  "module_refs": {
+    "validation": "pm_bot/validation/validate_market_snapshot.py",
+    "normalization": "pm_bot/normalization/normalize_market_snapshot.py",
+    "signals": "pm_bot/signals/score_markets.py",
+    "hedges": "pm_bot/hedges/discover_fixture_relationships.py",
+    "paper": "pm_bot/paper/simulate_paper_plan.py",
+    "risk": "pm_bot/risk/evaluate_risk_limits.py",
+    "accounting": "pm_bot/accounting/calculate_fee_slippage.py",
+    "reports": "pm_bot/reports/build_research_dashboard.py",
+    "postmortem": "pm_bot/postmortem/summarize_postmortem.py",
+    "audit": "pm_bot/audit/run_static_safety_audit.py"
+  }
+}

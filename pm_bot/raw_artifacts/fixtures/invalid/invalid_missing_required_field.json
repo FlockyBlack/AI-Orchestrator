@@ -1,0 +1,27 @@
+{
+  "contract_version": "raw_market_artifact.v1",
+  "artifact_id": "invalid-missing-provenance-market-101",
+  "source_type": "fixture",
+  "source_name": "offline_fixture_pack",
+  "captured_at": "2026-04-20T12:00:00Z",
+  "market": {
+    "market_id": "market-101",
+    "title": "Missing provenance fixture",
+    "status": "open"
+  },
+  "outcomes": [
+    {
+      "name": "Yes",
+      "side": "yes",
+      "price": 0.51
+    }
+  ],
+  "safety": {
+    "network_used": false,
+    "api_credentials_used": false,
+    "wallet_used": false,
+    "order_capable": false,
+    "trading_capable": false,
+    "readonly_intended": true
+  }
+}

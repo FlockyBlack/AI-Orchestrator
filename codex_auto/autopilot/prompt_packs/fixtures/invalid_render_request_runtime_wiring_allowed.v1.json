@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "template_name": "codex_code_changing.template.txt",
+  "task_id": "ORCH-AUTOPILOT-INVALID-RUNTIME-WIRING",
+  "task_title": "Invalid runtime wiring claim request",
+  "target_agent": "Codex",
+  "task_owner": "Codex",
+  "task_type": "code-changing",
+  "context": "runtime_wiring_allowed=true",
+  "goal": "Should fail.",
+  "allowed_read_paths": [],
+  "allowed_write_paths": [],
+  "forbidden_write_paths": [],
+  "forbidden_behavior": [
+    "runtime_wiring_allowed=true"
+  ],
+  "validation_commands": [],
+  "expected_final_json": {},
+  "custom_sections": [],
+  "preflight_receiver": "Flocky",
+  "notes": []
+}

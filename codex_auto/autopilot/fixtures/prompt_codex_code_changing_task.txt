@@ -1,0 +1,16 @@
+TARGET_AGENT: Codex
+TASK_OWNER: Codex
+TASK_TYPE: code-changing
+CODE_CHANGES_ALLOWED_FOR_RECEIVER: true
+SESSIONS_SPAWN_ALLOWED: false
+RUNTIME_MUTATION_ALLOWED: false
+QUEUE_MUTATION_ALLOWED: false
+GOVERNANCE_MUTATION_ALLOWED: false
+APPROVAL_REQUIRED: true
+MISROUTE_BEHAVIOR: IF_RECEIVED_BY_FLOCKY_RETURN_MISROUTED_CODEX_PROMPT_DETECTED_WITHOUT_TOOL_EXECUTION
+
+Задание Codex:
+Implement isolated guardrail logic.
+Create module under codex_auto/autopilot.
+Allowed write paths must be respected.
+Run pytest and return implementation JSON with files_created and files_modified.

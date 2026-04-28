@@ -1,0 +1,22 @@
+{
+  "source_name": "fixture_polymarket_public_markets",
+  "source_mode": "read_only",
+  "captured_at": "2026-04-26T10:15:00Z",
+  "market_id": "fixture-market-001",
+  "title": "Will the fixture candidate remain paper-only?",
+  "outcomes": [
+    "Yes",
+    "No"
+  ],
+  "prices": [
+    0.61,
+    0.39
+  ],
+  "liquidity": 12500.0,
+  "volume": 4800.0,
+  "status": "open",
+  "close_time": "2026-06-30T23:59:59Z",
+  "raw_payload_hash": "fixture-hash-raw-001",
+  "source_url_optional": "fixture://polymarket/public/fixture-market-001",
+  "fixture_or_live_flag": "fixture"
+}

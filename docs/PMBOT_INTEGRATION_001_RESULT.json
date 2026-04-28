@@ -1,0 +1,79 @@
+{
+  "code_slot": "CODEX_INTEGRATION",
+  "task_id": "PMBOT-INTEGRATION-001-ACCEPTED-PARALLEL-RESULTS-REVIEW",
+  "status": "completed_ready_for_review",
+  "integration_verdict": "accepted_for_next_paper_fill_stage",
+  "summary": "Reviewed PMBOT-PAPER-BATCH-006-010 and found the deterministic offline paper workbench batch acceptable for the next paper fill-source contract stage. Required result JSON parsed, listed files exist, tests passed, safety boundaries remain intact, and manual intent remains operator-provided only with zero real/live/autonomous paper orders.",
+  "inputs_reviewed": {
+    "paper_batch_006_010": "present",
+    "dashboard_001": "not_present_for_this_review",
+    "telegram_001": "not_present_for_this_review",
+    "codex_coordination_001": "not_present_for_this_review"
+  },
+  "market_ids": [
+    "824952"
+  ],
+  "file_verification": {
+    "listed_files_checked": 19,
+    "listed_files_missing": [],
+    "unexpected_source_modifications_required": false
+  },
+  "tests": [
+    {
+      "command": "python -m pytest pm_bot\\paper\\tests -q",
+      "status": "passed",
+      "result": "292 passed, 39 subtests passed in 24.43s"
+    },
+    {
+      "command": "python -m py_compile pm_bot\\paper\\run_paper_workbench_mvp_batch_006_010.py",
+      "status": "passed",
+      "result": "compiled"
+    },
+    {
+      "command": "JSON parse check for docs/PMBOT_PAPER_BATCH_006_010_RESULT.json and all batch-created JSON files",
+      "status": "passed",
+      "result": "13 JSON files parsed successfully"
+    }
+  ],
+  "counts_confirmed": {
+    "human_review_records_accepted": 1,
+    "human_review_records_rejected": 3,
+    "simulation_plans_written": 1,
+    "manual_paper_intents_accepted": 1,
+    "manual_paper_intents_rejected": 2,
+    "manual_paper_intent_ledger_entries": 1,
+    "paper_workbench_preview_records": 1,
+    "real_orders_created": 0,
+    "live_orders_created": 0,
+    "autonomous_paper_orders_created": 0
+  },
+  "manual_only_boundary": {
+    "operator_manual_fields_present_only_in_manual_artifacts": true,
+    "bot_generated_side_size_price": false,
+    "generated_by_bot_false_for_manual_intent": true,
+    "paper_only_inert_execution": true
+  },
+  "safety": {
+    "offline_only": true,
+    "network_api_calls": false,
+    "credentials": false,
+    "wallet_private_keys": false,
+    "authenticated_endpoints": false,
+    "trading_endpoints": false,
+    "real_orders": false,
+    "live_trading": false,
+    "autonomous_paper_orders": false,
+    "betting_recommendations": false,
+    "truth_inference": false,
+    "market_scoring": false,
+    "probability_estimates": false,
+    "ev_calculations": false,
+    "side_recommendations": false,
+    "market_decisions": false,
+    "runtime_wiring": false,
+    "dispatcher_run_codex_changes": false
+  },
+  "recommended_next_task": "PMBOT-PAPER-011-FILL-SOURCE-CONTRACT",
+  "warnings": [],
+  "blockers": []
+}

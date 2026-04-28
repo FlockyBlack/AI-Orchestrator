@@ -1,0 +1,53 @@
+{
+  "task_id": "PMBOT-BRAIN-021-LOCAL-PAPER-PORTFOLIO-STATE",
+  "status": "completed_ready_for_review",
+  "summary": "Added deterministic offline paper portfolio state persistence for incremental local snapshot processing. The new command reads a saved local paper state and one deterministic local snapshot, runs the existing adapter/intake/scoring/review/paper-plan/risk-limit flow, preserves duplicate and risk-limit blocking across invocations, and writes state only when --out-state is provided.",
+  "files_created": [
+    "pm_bot/paper/paper_portfolio_state.v1.json",
+    "pm_bot/paper/paper_portfolio_state_after_snapshot.v1.json",
+    "pm_bot/paper/run_local_snapshot_paper_portfolio_state.py",
+    "pm_bot/paper/expected_local_snapshot_paper_portfolio_state.v1.json",
+    "pm_bot/paper/expected_local_snapshot_paper_portfolio_state.v1.md",
+    "pm_bot/paper/tests/test_run_local_snapshot_paper_portfolio_state.py",
+    "docs/PM_BOT_BRAIN_021_RESULT.json",
+    "docs/PM_BOT_STAGE_SUMMARY_V33.md"
+  ],
+  "files_modified": [],
+  "tests": [
+    "python -m pytest pm_bot\\paper\\tests\\test_run_local_snapshot_paper_portfolio_state.py -q",
+    "python -m pytest pm_bot\\scoring\\tests pm_bot\\paper\\tests -q",
+    "python pm_bot\\paper\\run_local_snapshot_paper_portfolio_state.py",
+    "python pm_bot\\paper\\run_local_snapshot_paper_portfolio_state.py --markdown",
+    "python pm_bot\\paper\\run_local_snapshot_series_paper_portfolio.py",
+    "python pm_bot\\paper\\run_local_snapshot_series_risk_scenarios.py",
+    "python pm_bot\\paper\\run_crypto_numeric_lifecycle_regression_gates.py"
+  ],
+  "state_summary": {
+    "new_paper_orders_created": 0,
+    "duplicate_orders_blocked": 1,
+    "risk_limit_orders_blocked": 1,
+    "open_positions_after_run": 1,
+    "settled_positions_after_run": 0,
+    "exposure_after_run": 100.0,
+    "realized_paper_pnl_after_run": 0,
+    "out_state_write_tested": true
+  },
+  "safety": {
+    "offline_only": true,
+    "paper_only": true,
+    "live_fetcher_implemented": false,
+    "api_used": false,
+    "network_used": false,
+    "wallet_used": false,
+    "real_order_created": false,
+    "trading_allowed": false,
+    "runtime_wiring_changed": false,
+    "dispatcher_touched": false,
+    "prompt_automation_added": false
+  },
+  "notes": [
+    "CWD was confirmed as C:\\Users\\OpenC\\Documents\\AI-Orchestrator and pm_bot/** exists before edits.",
+    "No Codex copy roots under C:\\Users\\OpenC\\Documents\\Codex\\... were edited.",
+    "Default command run is read-only; state persistence is only performed when --out-state is provided."
+  ]
+}

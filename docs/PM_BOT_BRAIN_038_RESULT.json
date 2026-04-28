@@ -1,0 +1,92 @@
+{
+  "task_id": "PMBOT-BRAIN-038-OPERATOR-CYCLE-THRESHOLD-HIT-REVIEW-ARTIFACT",
+  "status": "passed",
+  "summary": "Added an opt-in offline threshold-hit review summary and run-directory artifact output to the manual paper operator cycle. Default operator-cycle JSON and Markdown output remain unchanged when --include-threshold-hit-review is omitted; flagged runs reuse the existing threshold-hit review table logic and do not affect paper orders, paper state, risk limits, current_state commits, runtime wiring, dispatcher behavior, or prompt automation.",
+  "files_created": [
+    "pm_bot/paper/expected_manual_paper_operator_cycle_threshold_hit_review.v1.json",
+    "pm_bot/paper/expected_manual_paper_operator_cycle_threshold_hit_review.v1.md",
+    "docs/PM_BOT_BRAIN_038_RESULT.json",
+    "docs/PM_BOT_STAGE_SUMMARY_V50.md"
+  ],
+  "files_modified": [
+    "pm_bot/paper/run_manual_paper_operator_cycle.py",
+    "pm_bot/paper/tests/test_run_manual_paper_operator_cycle.py"
+  ],
+  "tests": [
+    {
+      "command": "python -m pytest pm_bot\\paper\\tests\\test_run_manual_paper_operator_cycle.py -q",
+      "status": "passed",
+      "result": "19 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\scoring\\tests pm_bot\\paper\\tests -q",
+      "status": "passed",
+      "result": "274 passed, 3 subtests passed"
+    },
+    {
+      "command": "python pm_bot\\paper\\run_manual_paper_operator_cycle.py",
+      "status": "passed",
+      "result": "default output unchanged; threshold_hit_review_included absent; new_paper_orders_created=0"
+    },
+    {
+      "command": "python pm_bot\\paper\\run_manual_paper_operator_cycle.py --markdown",
+      "status": "passed",
+      "result": "default Markdown output unchanged; no threshold-hit section"
+    },
+    {
+      "command": "python pm_bot\\paper\\run_manual_paper_operator_cycle.py --include-threshold-hit-review --threshold-reference-context pm_bot\\paper\\threshold_hit_reference_context.v1.json --threshold-decision-policy pm_bot\\paper\\threshold_hit_decision_policy.v1.json",
+      "status": "passed",
+      "result": "threshold_hit_review_included=true; threshold_hit_candidates=3; watchlist=2; policy_blocked=1; paper_candidate=0; threshold_hit_paper_orders_created=0; threshold_hit_artifact_paths={}"
+    },
+    {
+      "command": "python pm_bot\\paper\\run_manual_paper_operator_cycle.py --include-threshold-hit-review --threshold-reference-context pm_bot\\paper\\threshold_hit_reference_context.v1.json --threshold-decision-policy pm_bot\\paper\\threshold_hit_decision_policy.v1.json --markdown",
+      "status": "passed",
+      "result": "deterministic Markdown threshold-hit summary generated"
+    },
+    {
+      "command": "python pm_bot\\paper\\run_crypto_threshold_hit_review_table.py --reference-context pm_bot\\paper\\threshold_hit_reference_context.v1.json --decision-policy pm_bot\\paper\\threshold_hit_decision_policy.v1.json --markdown",
+      "status": "passed",
+      "result": "threshold_hit_candidates=3; watchlist=2; policy_blocked=1; paper_candidate=0; paper_orders_created=0"
+    },
+    {
+      "command": "python pm_bot\\paper\\run_crypto_threshold_hit_policy_scenarios.py",
+      "status": "passed",
+      "result": "scenario_count=12; reviewed_candidates=11; no_action=1; watchlist=2; policy_blocked=8; paper_candidate=0; paper_orders_created=0; all_expected_decisions_passed=true"
+    },
+    {
+      "command": "python pm_bot\\paper\\run_crypto_numeric_lifecycle_regression_gates.py",
+      "status": "passed",
+      "result": "status=passed; gates_checked=6; gates_passed=6"
+    }
+  ],
+  "operator_cycle_threshold_summary": {
+    "default_behavior_unchanged": "passed: unflagged JSON and Markdown match existing expected outputs and write no threshold-hit artifacts",
+    "threshold_hit_review_included": "true when --include-threshold-hit-review is provided",
+    "threshold_hit_candidates": "3",
+    "threshold_hit_watchlist_count": "2",
+    "threshold_hit_policy_blocked_count": "1",
+    "threshold_hit_paper_candidate_count": "0",
+    "threshold_hit_paper_orders_created": "0",
+    "threshold_hit_artifacts_write_tested": "passed: --write-run writes threshold_hit_review.json and threshold_hit_review.md in the temp workspace run folder",
+    "state_mutation_avoided": "passed: read-only threshold review does not mutate state; commit-state output matches normal workspace current_state and contains no threshold-hit decisions"
+  },
+  "safety": {
+    "offline_only": true,
+    "paper_only": true,
+    "live_fetcher_implemented": false,
+    "api_used": false,
+    "network_used": false,
+    "wallet_used": false,
+    "real_order_created": false,
+    "trading_allowed": false,
+    "runtime_wiring_changed": false,
+    "dispatcher_touched": false,
+    "prompt_automation_added": false
+  },
+  "notes": [
+    "Preflight passed in C:\\Users\\OpenC\\Documents\\AI-Orchestrator with pm_bot populated and required threshold-hit/source snapshot fixtures present.",
+    "The canonical fixture workspace was verified as unmutated by tests.",
+    "rg was not executable from the Codex app package in this workspace, so PowerShell file search was used for inspection.",
+    "C:\\Users\\OpenC\\Documents\\AI-Orchestrator is not a git repository in this environment, so git status was unavailable."
+  ]
+}

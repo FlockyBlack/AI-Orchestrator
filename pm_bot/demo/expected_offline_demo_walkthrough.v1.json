@@ -1,0 +1,118 @@
+{
+  "schema_version": "v1",
+  "bundle_id": "PMBOT-BATCH-012-OFFLINE-DEMO-WALKTHROUGH",
+  "offline_only": true,
+  "paper_only": true,
+  "local_only": true,
+  "deterministic": true,
+  "review_only": true,
+  "execution_allowed": false,
+  "trading_allowed": false,
+  "network_used": false,
+  "api_used": false,
+  "wallet_used": false,
+  "commands_run": [
+    {
+      "id": "operator_review_demo",
+      "command": "python pm_bot/demo/run_operator_review_demo.py",
+      "status": "pass"
+    },
+    {
+      "id": "review_export_package",
+      "command": "python pm_bot/export/build_review_export_package.py",
+      "status": "pass"
+    },
+    {
+      "id": "paper_research_demo",
+      "command": "python pm_bot/demo/run_paper_research_demo.py",
+      "status": "pass"
+    },
+    {
+      "id": "adversarial_replay",
+      "command": "python pm_bot/replay/run_adversarial_replay.py",
+      "status": "pass"
+    },
+    {
+      "id": "raw_ingestion_manifest",
+      "command": "python pm_bot/raw_artifacts/build_ingestion_manifest.py",
+      "status": "pass"
+    },
+    {
+      "id": "static_safety_audit_v7",
+      "command": "python pm_bot/audit/static_safety_audit_v7.py",
+      "status": "pass"
+    },
+    {
+      "id": "rejection_summary",
+      "command": "python pm_bot/reports/rejection_summary_report.py",
+      "status": "pass"
+    },
+    {
+      "id": "paper_simulation",
+      "command": "python pm_bot/paper/simulate_paper_plan.py pm_bot/paper/paper_plan_fixture.v1.json",
+      "status": "pass"
+    },
+    {
+      "id": "accounting_report",
+      "command": "python pm_bot/accounting/calculate_fee_slippage.py pm_bot/accounting/accounting_fixture.v1.json",
+      "status": "pass"
+    },
+    {
+      "id": "risk_report",
+      "command": "python pm_bot/risk/evaluate_risk_limits.py pm_bot/risk/risk_fixture.v1.json",
+      "status": "pass"
+    }
+  ],
+  "presentation_summary": {
+    "accepted_paper_candidates": 4,
+    "watchlist_candidates": 5,
+    "review_table_rows": 12,
+    "paper_demo_market": "pm_fixture_2026_us_recession_q3",
+    "paper_demo_recommendation_type": "research_only",
+    "paper_simulation_gross_pnl": 17.45,
+    "accounting_total_cost": 0.2125,
+    "risk_approved": false,
+    "risk_breaches": [
+      "max_total_notional"
+    ],
+    "adversarial_replay_passed": 12,
+    "adversarial_replay_total": 12,
+    "false_positive_count": 0,
+    "raw_artifacts_accepted": 3,
+    "raw_artifacts_quarantined": 9,
+    "rejection_count": 13,
+    "static_audit_passed": true,
+    "static_audit_blocking_findings": 0
+  },
+  "safety_evidence": {
+    "operator_review_only": true,
+    "watchlist_no_action_statement": "Watchlist status is review-only and no-action. It cannot become an accepted, live, order, trade, or execution candidate without separate future approval.",
+    "export_no_execution_statement": "Export package is for human review only. No execution instructions, no live orders, no wallet, and no API path exist.",
+    "paper_demo_execution_allowed": false,
+    "paper_demo_trading_allowed": false,
+    "paper_demo_network_used": false,
+    "paper_demo_api_used": false,
+    "paper_demo_wallet_used": false,
+    "paper_simulation_execution_allowed": false,
+    "paper_simulation_trading_allowed": false,
+    "accounting_execution_allowed": false,
+    "accounting_trading_allowed": false,
+    "risk_execution_allowed": false,
+    "risk_trading_allowed": false,
+    "raw_manifest_validation_passed": true,
+    "raw_manifest_network_detected": false,
+    "raw_manifest_wallet_detected": false,
+    "raw_manifest_order_or_trading_detected": false,
+    "static_audit_passed": true,
+    "static_audit_blocking_finding_count": 0
+  },
+  "limitations": [
+    "No live bot.",
+    "No live fetcher.",
+    "No normalization implementation.",
+    "No wallet, credentials, private keys, or signing.",
+    "No real orders or live trading.",
+    "No runtime wiring."
+  ],
+  "recommended_next_task": "PMBOT-BATCH-013-DEMO-PACKET-POLISH"
+}

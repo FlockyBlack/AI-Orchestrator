@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CodexAutoQueueManifestV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "queue_root",
+    "allowed_states",
+    "state_directories",
+    "runtime_wiring_allowed",
+    "external_codex_cli_allowed",
+    "flocky_validation_required",
+    "safety_rules"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "queue_manifest.v1"
+    },
+    "queue_root": {
+      "type": "string",
+      "const": "codex_auto/tasks"
+    },
+    "allowed_states": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "ready",
+          "running",
+          "done",
+          "failed",
+          "needs_flocky_review",
+          "quarantine"
+        ]
+      }
+    },
+    "state_directories": {
+      "type": "object"
+    },
+    "runtime_wiring_allowed": {
+      "type": "boolean",
+      "const": false
+    },
+    "external_codex_cli_allowed": {
+      "type": "boolean",
+      "const": false
+    },
+    "flocky_validation_required": {
+      "type": "boolean",
+      "const": true
+    },
+    "safety_rules": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

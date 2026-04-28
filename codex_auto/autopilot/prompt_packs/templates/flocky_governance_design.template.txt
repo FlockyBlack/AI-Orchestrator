@@ -1,0 +1,60 @@
+TARGET_AGENT: Flocky
+TASK_OWNER: Flocky
+TASK_TYPE: read-only governance design
+CODE_CHANGES_ALLOWED_FOR_RECEIVER: false
+SESSIONS_SPAWN_ALLOWED: false
+RUNTIME_MUTATION_ALLOWED: false
+QUEUE_MUTATION_ALLOWED: false
+GOVERNANCE_MUTATION_ALLOWED: false
+APPROVAL_REQUIRED: false
+MISROUTE_BEHAVIOR: RETURN_ROUTING_MISMATCH_WITHOUT_TOOL_EXECUTION
+
+Prompt Pack:
+Autopilot V1 Flocky governance-design template.
+
+Use this template when the receiver must critique policy, contracts, safety boundaries, or gate design without changing repository files.
+
+Allowed read paths:
+- docs/
+- codex_auto/
+- codex_auto/autopilot/
+- governance/ read-only for policy comparison only if necessary
+- scripts/dispatcher.py read-only only for boundary awareness
+- scripts/run_codex.py read-only only for boundary awareness
+
+Allowed write paths: none in project root
+Final JSON only in chat/stdout.
+
+Forbidden behavior:
+- no code changes
+- no runtime wiring
+- no dispatcher changes
+- no run_codex changes
+- no task queue mutation
+- no state, runtime, result, freeze, or checkpoint mutation
+- no governance mutation to project files
+- no sessions_spawn
+- no subagent spawn
+- no shell/exec
+- no generated prompt execution
+- no external Codex execution
+- no network/API
+- no credentials
+- no wallet/private key
+- no orders/trading
+- no final acceptance claim
+- no execution approval claim
+
+Governance focus:
+- analyze policy fit, routing boundaries, and approval gates
+- recommend guardrails or wording changes
+- keep output advisory and read-only
+
+Expected final JSON:
+{
+  "task_id": "<placeholder-task-id>",
+  "status": "pass_with_warnings | blocked",
+  "governance_findings": [],
+  "warnings": [],
+  "recommended_next_step": "<placeholder-next-step>"
+}

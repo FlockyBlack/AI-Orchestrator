@@ -1,0 +1,229 @@
+{
+  "schema_version": "v1",
+  "created_from": "NIGHT-SAFE-RUN-EXT-002",
+  "runtime_wiring_allowed": false,
+  "real_trading_allowed": false,
+  "tasks": [
+    {
+      "task_id": "PMBOT-001",
+      "title": "Fixture market model",
+      "mode": "FIXTURE_ONLY",
+      "executor": "Codex",
+      "summary": "Define a fixture-only market snapshot schema, sample fixtures, and offline validator.",
+      "allowed_scope": [
+        "pm_bot/schemas",
+        "pm_bot/fixtures",
+        "pm_bot/validation"
+      ],
+      "forbidden_scope": [
+        "runtime wiring",
+        "network usage",
+        "wallet handling",
+        "live trading"
+      ],
+      "done_criteria": [
+        "Schema and fixtures exist locally",
+        "Validator runs offline",
+        "Tests pass without network access"
+      ]
+    },
+    {
+      "task_id": "PMBOT-002",
+      "title": "Market normalization schema",
+      "mode": "FIXTURE_ONLY",
+      "executor": "Codex",
+      "summary": "Normalize fixture market snapshots into a deterministic internal market object.",
+      "allowed_scope": [
+        "pm_bot/normalization",
+        "pm_bot/fixtures"
+      ],
+      "forbidden_scope": [
+        "runtime imports",
+        "active task reads",
+        "order generation",
+        "stake calculation"
+      ],
+      "done_criteria": [
+        "Normalized output matches expected fixture",
+        "Normalizer is deterministic",
+        "Source fixture remains unchanged"
+      ]
+    },
+    {
+      "task_id": "PMBOT-003",
+      "title": "Signal scoring design",
+      "mode": "PAPER_ONLY",
+      "executor": "Codex",
+      "summary": "Create transparent local scoring rules that produce research-only reports from normalized fixture data.",
+      "allowed_scope": [
+        "pm_bot/signals",
+        "pm_bot/normalization"
+      ],
+      "forbidden_scope": [
+        "live data",
+        "trading recommendations",
+        "execution behavior",
+        "wallet access"
+      ],
+      "done_criteria": [
+        "Signal report is deterministic",
+        "Execution flags remain false",
+        "Reasons and confidence are explicit"
+      ]
+    },
+    {
+      "task_id": "PMBOT-004",
+      "title": "Hedge discovery design",
+      "mode": "FIXTURE_ONLY",
+      "executor": "Codex",
+      "summary": "Discover logical relationships across fixture markets using event keys and mutually exclusive groups.",
+      "allowed_scope": [
+        "pm_bot/hedges"
+      ],
+      "forbidden_scope": [
+        "network usage",
+        "live API access",
+        "execution logic",
+        "wallet handling"
+      ],
+      "done_criteria": [
+        "Relationship report is deterministic",
+        "Research-only flags remain true",
+        "No runtime imports are introduced"
+      ]
+    },
+    {
+      "task_id": "PMBOT-005",
+      "title": "Paper simulation design",
+      "mode": "DESIGN_ONLY",
+      "executor": "ChatGPT",
+      "summary": "Design a paper-only portfolio simulator with exposure tracking, scenario logging, and no execution authority.",
+      "allowed_scope": [
+        "docs",
+        "design artifacts"
+      ],
+      "forbidden_scope": [
+        "real order execution",
+        "wallet integration",
+        "private key handling",
+        "runtime changes"
+      ],
+      "done_criteria": [
+        "State model is documented",
+        "Inputs and outputs are specified",
+        "Execution remains explicitly disabled"
+      ]
+    },
+    {
+      "task_id": "PMBOT-006",
+      "title": "Dashboard design",
+      "mode": "DESIGN_ONLY",
+      "executor": "ChatGPT",
+      "summary": "Design a local dashboard and report contract for paper signals, exposures, and postmortem summaries.",
+      "allowed_scope": [
+        "docs",
+        "report specs"
+      ],
+      "forbidden_scope": [
+        "runtime wiring",
+        "live feeds",
+        "execution controls",
+        "network fetchers"
+      ],
+      "done_criteria": [
+        "Report sections are defined",
+        "Data contracts are documented",
+        "Read-only rendering boundary is clear"
+      ]
+    },
+    {
+      "task_id": "PMBOT-007",
+      "title": "Postmortem design",
+      "mode": "DESIGN_ONLY",
+      "executor": "OpenClaw",
+      "summary": "Define a postmortem artifact for paper-only runs with critic-facing lessons, failures, and follow-up items.",
+      "allowed_scope": [
+        "docs",
+        "governance-facing summaries"
+      ],
+      "forbidden_scope": [
+        "runtime edits",
+        "execution behavior",
+        "network access",
+        "wallet features"
+      ],
+      "done_criteria": [
+        "Template fields are defined",
+        "Critic review inputs are explicit",
+        "No execution path is implied"
+      ]
+    },
+    {
+      "task_id": "PMBOT-008",
+      "title": "Read-only fetcher boundary design",
+      "mode": "DESIGN_ONLY",
+      "executor": "OpenClaw",
+      "summary": "Specify the quarantine boundary and review conditions for a future read-only market fetcher.",
+      "allowed_scope": [
+        "docs",
+        "quarantine boundary specs"
+      ],
+      "forbidden_scope": [
+        "live fetch implementation",
+        "API key handling",
+        "runtime wiring",
+        "trading automation"
+      ],
+      "done_criteria": [
+        "Boundary rules are documented",
+        "Critic gate conditions are defined",
+        "No live integration is implemented"
+      ]
+    },
+    {
+      "task_id": "PMBOT-009",
+      "title": "Dependency audit",
+      "mode": "READ_ONLY_VALIDATION",
+      "executor": "Codex",
+      "summary": "Audit future PM bot slices to confirm standard-library-only behavior and absence of trading dependencies.",
+      "allowed_scope": [
+        "read-only file inspection",
+        "test execution"
+      ],
+      "forbidden_scope": [
+        "dependency installation",
+        "random third-party repos",
+        "wallet packages",
+        "execution libraries"
+      ],
+      "done_criteria": [
+        "Imports are reviewed",
+        "No new dependencies are added",
+        "Findings are recorded read-only"
+      ]
+    },
+    {
+      "task_id": "PMBOT-010",
+      "title": "Validation after each coding slice",
+      "mode": "READ_ONLY_VALIDATION",
+      "executor": "Codex",
+      "summary": "Run targeted validators and tests after each approved PM bot coding slice.",
+      "allowed_scope": [
+        "local test execution",
+        "validator runs",
+        "read-only verification"
+      ],
+      "forbidden_scope": [
+        "runtime wiring",
+        "live trading",
+        "wallet usage",
+        "network access"
+      ],
+      "done_criteria": [
+        "Relevant tests pass",
+        "Safety gates remain intact",
+        "Violations block further progress"
+      ]
+    }
+  ]
+}

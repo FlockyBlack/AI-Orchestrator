@@ -1,0 +1,71 @@
+{
+  "files_created": [
+    "pm_bot/ingest/normalize_polymarket_raw_snapshot_preview.py",
+    "pm_bot/ingest/normalized_market_preview.v1.json",
+    "pm_bot/ingest/normalized_market_preview.v1.md",
+    "pm_bot/ingest/expected_normalized_market_preview.v1.json",
+    "pm_bot/ingest/tests/test_polymarket_raw_snapshot_normalization_preview.py",
+    "docs/PMBOT_INGEST_002_RESULT.json"
+  ],
+  "files_modified": [],
+  "normalization_summary": {
+    "active_open_records": 51,
+    "closed_records": 49,
+    "events_seen": 25,
+    "nested_markets_seen": 101,
+    "normalized_records_written": 101,
+    "parse_warning_count": 0
+  },
+  "safety": {
+    "authenticated_endpoints": false,
+    "betting_recommendations": false,
+    "codex_copy_roots": false,
+    "credentials": false,
+    "dispatcher_run_codex_touched": false,
+    "downstream_feed_enabled": false,
+    "expected_value_calculations": false,
+    "live_fetchers": false,
+    "live_trading": false,
+    "market_decisions": false,
+    "market_scoring": false,
+    "network_api_calls": false,
+    "paper_orders": false,
+    "probability_estimates": false,
+    "prompt_automation": false,
+    "real_orders": false,
+    "runtime_wiring": false,
+    "side_recommendations": false,
+    "trading_endpoints": false,
+    "truth_inference": false,
+    "wallet_private_keys": false
+  },
+  "status": "PASS",
+  "summary": "Added a deterministic offline normalization preview/export layer for validated polymarket_gamma_events raw snapshots. The tool validates raw artifacts first, rejects validation reports and unsupported source shapes, parses JSON-list market fields safely, writes inert JSON/Markdown preview artifacts under pm_bot/ingest, and does not wire outputs into downstream systems.",
+  "task_id": "PMBOT-INGEST-002-RAW-SNAPSHOT-NORMALIZATION-PREVIEW",
+  "tests_run": [
+    {
+      "command": "python -m pytest pm_bot\\ingest\\tests\\test_polymarket_raw_snapshot_normalization_preview.py",
+      "result": "PASS"
+    },
+    {
+      "command": "python -m pytest pm_bot\\ingest\\tests",
+      "result": "PASS"
+    },
+    {
+      "command": "python -m json.tool pm_bot\\ingest\\normalized_market_preview.v1.json",
+      "result": "PASS"
+    },
+    {
+      "command": "python -m json.tool pm_bot\\ingest\\expected_normalized_market_preview.v1.json",
+      "result": "PASS"
+    },
+    {
+      "command": "python -m json.tool docs\\PMBOT_INGEST_002_RESULT.json",
+      "result": "PASS"
+    },
+    {
+      "command": "python -m py_compile pm_bot\\ingest\\normalize_polymarket_raw_snapshot_preview.py",
+      "result": "PASS"
+    }
+  ]
+}

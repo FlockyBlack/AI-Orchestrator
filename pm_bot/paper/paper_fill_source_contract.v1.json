@@ -1,0 +1,108 @@
+{
+  "schema_version": "paper_fill_source_contract.v1",
+  "markdown_version": "paper_fill_source_contract_report.v1",
+  "task_id": "PMBOT-PAPER-BATCH-011-013-FILL-SETTLEMENT-PNL-MVP",
+  "deterministic": true,
+  "source_manual_paper_intent_ledger_path": "pm_bot/paper/manual_paper_intent_ledger.v1.json",
+  "source_paper_workbench_preview_path": "pm_bot/paper/paper_workbench_preview.v1.json",
+  "allowed_fill_source_types": [
+    "operator_manual_fill_fixture",
+    "no_fill_source_available",
+    "blocked_by_policy"
+  ],
+  "allowed_paper_fill_event_statuses": [
+    "paper_fill_recorded_from_operator_manual_fixture",
+    "paper_fill_pending_manual_source",
+    "paper_fill_rejected_by_policy",
+    "paper_fill_blocked_invalid_fixture"
+  ],
+  "required_fields": [
+    "fill_source_id",
+    "market_id",
+    "source_manual_intent_id",
+    "source_ledger_entry_id",
+    "fill_source_type",
+    "operator_manual_fill_status",
+    "operator_manual_fill_price",
+    "operator_manual_fill_size",
+    "operator_manual_fill_notes",
+    "paper_only",
+    "inert_only",
+    "generated_by_bot",
+    "live_order_created",
+    "real_order_created"
+  ],
+  "field_contract": {
+    "market_id": "required string matching a manual paper intent ledger market",
+    "source_manual_intent_id": "required stable link to the source manual paper intent",
+    "source_ledger_entry_id": "required stable link to the source manual paper intent ledger entry",
+    "fill_source_type": "required local source type from the allowed list",
+    "operator_manual_fill_status": "required operator-provided local paper fill status",
+    "operator_manual_fill_price": "required operator-provided local paper fill price for operator_manual_fill_fixture",
+    "operator_manual_fill_size": "required operator-provided local paper fill size for operator_manual_fill_fixture",
+    "operator_manual_fill_notes": "required operator-provided local paper fill notes",
+    "paper_only": "required boolean true",
+    "inert_only": "required boolean true",
+    "generated_by_bot": "required boolean false",
+    "live_order_created": "required boolean false",
+    "real_order_created": "required boolean false"
+  },
+  "blank_record": {
+    "fill_source_id": "",
+    "market_id": "",
+    "source_manual_intent_id": "",
+    "source_ledger_entry_id": "",
+    "fill_source_type": "operator_manual_fill_fixture",
+    "operator_manual_fill_status": "",
+    "operator_manual_fill_price": null,
+    "operator_manual_fill_size": null,
+    "operator_manual_fill_notes": "",
+    "paper_only": true,
+    "inert_only": true,
+    "generated_by_bot": false,
+    "live_order_created": false,
+    "real_order_created": false
+  },
+  "validation_rules": [
+    "accept_only_market_ids_present_in_manual_paper_intent_ledger",
+    "accept_only_operator_manual_fill_fixture_rows_with_valid_local_price_and_size",
+    "paper_only_must_be_true",
+    "inert_only_must_be_true",
+    "generated_by_bot_must_be_false",
+    "live_order_created_must_be_false",
+    "real_order_created_must_be_false",
+    "reject_autonomous_trading_scoring_or_endpoint_fields",
+    "external_data_required_false",
+    "live_data_required_false",
+    "orderbook_data_required_false",
+    "api_data_required_false"
+  ],
+  "blocked_inputs": [
+    "orderbook",
+    "api_price",
+    "live_price",
+    "wallet",
+    "private_key",
+    "api_key",
+    "auth",
+    "trading_endpoint",
+    "generated_side",
+    "generated_price",
+    "generated_size"
+  ],
+  "counts": {
+    "manual_paper_intent_ledger_entries": 1,
+    "paper_workbench_preview_records": 1,
+    "real_orders_created": 0,
+    "live_orders_created": 0,
+    "autonomous_paper_orders_created": 0
+  },
+  "market_ids": [
+    "824952"
+  ],
+  "paper_only": true,
+  "inert_only": true,
+  "generated_by_bot": false,
+  "live_order_created": false,
+  "real_order_created": false
+}

@@ -1,0 +1,610 @@
+{
+  "schema_version": "research_dossier_scenarios_result.v1",
+  "task_id": "PMBOT-RESEARCH-002-RESEARCH-DOSSIER-SCENARIO-COVERAGE",
+  "deterministic": true,
+  "fixture_only": true,
+  "local_only": true,
+  "scenarios_path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator\\pm_bot\\research\\research_dossier_scenarios.v1.json",
+  "scenario_count": 10,
+  "no_action_count": 4,
+  "watchlist_count": 5,
+  "paper_candidate_count": 1,
+  "paper_orders_created": 0,
+  "decision_reason_counts": {
+    "estimated_range_below_market": 1,
+    "missing_resolution_criteria": 1,
+    "one_sided_sources": 1,
+    "paper_candidate_label_only": 1,
+    "positive_edge_range_above_market": 1,
+    "probability_range_overlaps_market": 4,
+    "weak_sources": 2
+  },
+  "all_expected_decisions_passed": true,
+  "all_expected_reason_codes_present": true,
+  "scenario_results": [
+    {
+      "scenario_id": "missing_resolution_criteria",
+      "description": "Market packet has source material but no resolution criteria, so research cannot safely continue.",
+      "expected_decision": "no_action",
+      "actual_decision": "no_action",
+      "expected_decision_passed": true,
+      "expected_reason_codes": [
+        "missing_resolution_criteria"
+      ],
+      "expected_reason_codes_present": true,
+      "reason_codes": [
+        "missing_resolution_criteria"
+      ],
+      "market_id": "research_scenario_missing_resolution_criteria",
+      "sources_count": 3,
+      "yes_evidence_count": 2,
+      "no_evidence_count": 1,
+      "uncertainty_factor_count": 1,
+      "reliable_sources": 3,
+      "missing_information": [
+        "resolution_criteria"
+      ],
+      "probability_estimate_range": {
+        "low": 0.3894,
+        "midpoint": 0.4819,
+        "high": 0.5744,
+        "method": "deterministic_source_weighted_fixture_heuristic"
+      },
+      "edge_estimate_vs_market": {
+        "market_yes_price": 0.36,
+        "range_low_edge": 0.0294,
+        "midpoint_edge": 0.1219,
+        "range_high_edge": 0.2144,
+        "range_overlaps_market": false
+      },
+      "scenario_flags": {
+        "missing_resolution_criteria": true,
+        "stale_source_count": 0,
+        "stale_source_ids": [],
+        "operator_note_requires_manual_review": false
+      },
+      "paper_orders_created": 0,
+      "workspace_state_written": false,
+      "safety_flags": {
+        "offline_only": true,
+        "paper_only": true,
+        "live_fetcher_implemented": false,
+        "api_used": false,
+        "network_used": false,
+        "wallet_used": false,
+        "real_order_created": false,
+        "trading_allowed": false,
+        "runtime_wiring_changed": false,
+        "dispatcher_touched": false,
+        "prompt_automation_added": false
+      }
+    },
+    {
+      "scenario_id": "weak_sources_only",
+      "description": "Only low-reliability sources are available, so the packet cannot support a research candidate.",
+      "expected_decision": "no_action",
+      "actual_decision": "no_action",
+      "expected_decision_passed": true,
+      "expected_reason_codes": [
+        "weak_sources"
+      ],
+      "expected_reason_codes_present": true,
+      "reason_codes": [
+        "weak_sources"
+      ],
+      "market_id": "research_scenario_weak_sources_only",
+      "sources_count": 2,
+      "yes_evidence_count": 1,
+      "no_evidence_count": 1,
+      "uncertainty_factor_count": 0,
+      "reliable_sources": 0,
+      "missing_information": [
+        "strong_or_medium_sources"
+      ],
+      "probability_estimate_range": {
+        "low": 0.2675,
+        "midpoint": 0.4075,
+        "high": 0.5475,
+        "method": "deterministic_source_weighted_fixture_heuristic"
+      },
+      "edge_estimate_vs_market": {
+        "market_yes_price": 0.41,
+        "range_low_edge": -0.1425,
+        "midpoint_edge": -0.0025,
+        "range_high_edge": 0.1375,
+        "range_overlaps_market": true
+      },
+      "scenario_flags": {
+        "missing_resolution_criteria": false,
+        "stale_source_count": 0,
+        "stale_source_ids": [],
+        "operator_note_requires_manual_review": false
+      },
+      "paper_orders_created": 0,
+      "workspace_state_written": false,
+      "safety_flags": {
+        "offline_only": true,
+        "paper_only": true,
+        "live_fetcher_implemented": false,
+        "api_used": false,
+        "network_used": false,
+        "wallet_used": false,
+        "real_order_created": false,
+        "trading_allowed": false,
+        "runtime_wiring_changed": false,
+        "dispatcher_touched": false,
+        "prompt_automation_added": false
+      }
+    },
+    {
+      "scenario_id": "one_sided_low_reliability_sources",
+      "description": "Sources are one-sided and low reliability, so the conservative weak-source gate blocks the packet.",
+      "expected_decision": "no_action",
+      "actual_decision": "no_action",
+      "expected_decision_passed": true,
+      "expected_reason_codes": [
+        "weak_sources"
+      ],
+      "expected_reason_codes_present": true,
+      "reason_codes": [
+        "weak_sources"
+      ],
+      "market_id": "research_scenario_one_sided_low_reliability",
+      "sources_count": 2,
+      "yes_evidence_count": 2,
+      "no_evidence_count": 0,
+      "uncertainty_factor_count": 0,
+      "reliable_sources": 0,
+      "missing_information": [
+        "no_evidence",
+        "strong_or_medium_sources"
+      ],
+      "probability_estimate_range": {
+        "low": 0.1675,
+        "midpoint": 0.3375,
+        "high": 0.5075,
+        "method": "deterministic_source_weighted_fixture_heuristic"
+      },
+      "edge_estimate_vs_market": {
+        "market_yes_price": 0.32,
+        "range_low_edge": -0.1525,
+        "midpoint_edge": 0.0175,
+        "range_high_edge": 0.1875,
+        "range_overlaps_market": true
+      },
+      "scenario_flags": {
+        "missing_resolution_criteria": false,
+        "stale_source_count": 0,
+        "stale_source_ids": [],
+        "operator_note_requires_manual_review": false
+      },
+      "paper_orders_created": 0,
+      "workspace_state_written": false,
+      "safety_flags": {
+        "offline_only": true,
+        "paper_only": true,
+        "live_fetcher_implemented": false,
+        "api_used": false,
+        "network_used": false,
+        "wallet_used": false,
+        "real_order_created": false,
+        "trading_allowed": false,
+        "runtime_wiring_changed": false,
+        "dispatcher_touched": false,
+        "prompt_automation_added": false
+      }
+    },
+    {
+      "scenario_id": "conflicting_evidence",
+      "description": "High-quality Yes and No evidence conflict and the probability range overlaps market price.",
+      "expected_decision": "watchlist",
+      "actual_decision": "watchlist",
+      "expected_decision_passed": true,
+      "expected_reason_codes": [
+        "probability_range_overlaps_market"
+      ],
+      "expected_reason_codes_present": true,
+      "reason_codes": [
+        "probability_range_overlaps_market"
+      ],
+      "market_id": "research_scenario_conflicting_evidence",
+      "sources_count": 4,
+      "yes_evidence_count": 2,
+      "no_evidence_count": 2,
+      "uncertainty_factor_count": 1,
+      "reliable_sources": 4,
+      "missing_information": [],
+      "probability_estimate_range": {
+        "low": 0.4294,
+        "midpoint": 0.5094,
+        "high": 0.5894,
+        "method": "deterministic_source_weighted_fixture_heuristic"
+      },
+      "edge_estimate_vs_market": {
+        "market_yes_price": 0.5,
+        "range_low_edge": -0.0706,
+        "midpoint_edge": 0.0094,
+        "range_high_edge": 0.0894,
+        "range_overlaps_market": true
+      },
+      "scenario_flags": {
+        "missing_resolution_criteria": false,
+        "stale_source_count": 0,
+        "stale_source_ids": [],
+        "operator_note_requires_manual_review": false
+      },
+      "paper_orders_created": 0,
+      "workspace_state_written": false,
+      "safety_flags": {
+        "offline_only": true,
+        "paper_only": true,
+        "live_fetcher_implemented": false,
+        "api_used": false,
+        "network_used": false,
+        "wallet_used": false,
+        "real_order_created": false,
+        "trading_allowed": false,
+        "runtime_wiring_changed": false,
+        "dispatcher_touched": false,
+        "prompt_automation_added": false
+      }
+    },
+    {
+      "scenario_id": "stale_sources",
+      "description": "Source dates are stale and the balanced evidence leaves the packet on watchlist.",
+      "expected_decision": "watchlist",
+      "actual_decision": "watchlist",
+      "expected_decision_passed": true,
+      "expected_reason_codes": [
+        "probability_range_overlaps_market"
+      ],
+      "expected_reason_codes_present": true,
+      "reason_codes": [
+        "probability_range_overlaps_market"
+      ],
+      "market_id": "research_scenario_stale_sources",
+      "sources_count": 4,
+      "yes_evidence_count": 2,
+      "no_evidence_count": 2,
+      "uncertainty_factor_count": 2,
+      "reliable_sources": 4,
+      "missing_information": [],
+      "probability_estimate_range": {
+        "low": 0.4194,
+        "midpoint": 0.5094,
+        "high": 0.5994,
+        "method": "deterministic_source_weighted_fixture_heuristic"
+      },
+      "edge_estimate_vs_market": {
+        "market_yes_price": 0.5,
+        "range_low_edge": -0.0806,
+        "midpoint_edge": 0.0094,
+        "range_high_edge": 0.0994,
+        "range_overlaps_market": true
+      },
+      "scenario_flags": {
+        "missing_resolution_criteria": false,
+        "stale_source_count": 4,
+        "stale_source_ids": [
+          "ss_official_yes_old",
+          "ss_court_no_old",
+          "ss_news_yes_old",
+          "ss_analysis_no_old"
+        ],
+        "operator_note_requires_manual_review": false
+      },
+      "paper_orders_created": 0,
+      "workspace_state_written": false,
+      "safety_flags": {
+        "offline_only": true,
+        "paper_only": true,
+        "live_fetcher_implemented": false,
+        "api_used": false,
+        "network_used": false,
+        "wallet_used": false,
+        "real_order_created": false,
+        "trading_allowed": false,
+        "runtime_wiring_changed": false,
+        "dispatcher_touched": false,
+        "prompt_automation_added": false
+      }
+    },
+    {
+      "scenario_id": "probability_range_overlaps_market_price",
+      "description": "Evidence is useful but the deterministic range still overlaps the current market price.",
+      "expected_decision": "watchlist",
+      "actual_decision": "watchlist",
+      "expected_decision_passed": true,
+      "expected_reason_codes": [
+        "probability_range_overlaps_market"
+      ],
+      "expected_reason_codes_present": true,
+      "reason_codes": [
+        "probability_range_overlaps_market"
+      ],
+      "market_id": "research_scenario_probability_overlap",
+      "sources_count": 3,
+      "yes_evidence_count": 2,
+      "no_evidence_count": 1,
+      "uncertainty_factor_count": 1,
+      "reliable_sources": 3,
+      "missing_information": [],
+      "probability_estimate_range": {
+        "low": 0.4719,
+        "midpoint": 0.5644,
+        "high": 0.6569,
+        "method": "deterministic_source_weighted_fixture_heuristic"
+      },
+      "edge_estimate_vs_market": {
+        "market_yes_price": 0.48,
+        "range_low_edge": -0.0081,
+        "midpoint_edge": 0.0844,
+        "range_high_edge": 0.1769,
+        "range_overlaps_market": true
+      },
+      "scenario_flags": {
+        "missing_resolution_criteria": false,
+        "stale_source_count": 0,
+        "stale_source_ids": [],
+        "operator_note_requires_manual_review": false
+      },
+      "paper_orders_created": 0,
+      "workspace_state_written": false,
+      "safety_flags": {
+        "offline_only": true,
+        "paper_only": true,
+        "live_fetcher_implemented": false,
+        "api_used": false,
+        "network_used": false,
+        "wallet_used": false,
+        "real_order_created": false,
+        "trading_allowed": false,
+        "runtime_wiring_changed": false,
+        "dispatcher_touched": false,
+        "prompt_automation_added": false
+      }
+    },
+    {
+      "scenario_id": "strong_sources_but_missing_key_info",
+      "description": "Strong Yes-side sources exist but missing counterevidence keeps the packet on watchlist.",
+      "expected_decision": "watchlist",
+      "actual_decision": "watchlist",
+      "expected_decision_passed": true,
+      "expected_reason_codes": [
+        "one_sided_sources"
+      ],
+      "expected_reason_codes_present": true,
+      "reason_codes": [
+        "one_sided_sources"
+      ],
+      "market_id": "research_scenario_strong_missing_key_info",
+      "sources_count": 3,
+      "yes_evidence_count": 3,
+      "no_evidence_count": 0,
+      "uncertainty_factor_count": 0,
+      "reliable_sources": 3,
+      "missing_information": [
+        "no_evidence"
+      ],
+      "probability_estimate_range": {
+        "low": 0.415,
+        "midpoint": 0.5275,
+        "high": 0.64,
+        "method": "deterministic_source_weighted_fixture_heuristic"
+      },
+      "edge_estimate_vs_market": {
+        "market_yes_price": 0.34,
+        "range_low_edge": 0.075,
+        "midpoint_edge": 0.1875,
+        "range_high_edge": 0.3,
+        "range_overlaps_market": false
+      },
+      "scenario_flags": {
+        "missing_resolution_criteria": false,
+        "stale_source_count": 0,
+        "stale_source_ids": [],
+        "operator_note_requires_manual_review": false
+      },
+      "paper_orders_created": 0,
+      "workspace_state_written": false,
+      "safety_flags": {
+        "offline_only": true,
+        "paper_only": true,
+        "live_fetcher_implemented": false,
+        "api_used": false,
+        "network_used": false,
+        "wallet_used": false,
+        "real_order_created": false,
+        "trading_allowed": false,
+        "runtime_wiring_changed": false,
+        "dispatcher_touched": false,
+        "prompt_automation_added": false
+      }
+    },
+    {
+      "scenario_id": "strong_sources_clear_edge",
+      "description": "Strong balanced source set clears the conservative range-above-market gate.",
+      "expected_decision": "paper_candidate",
+      "actual_decision": "paper_candidate",
+      "expected_decision_passed": true,
+      "expected_reason_codes": [
+        "positive_edge_range_above_market",
+        "paper_candidate_label_only"
+      ],
+      "expected_reason_codes_present": true,
+      "reason_codes": [
+        "positive_edge_range_above_market",
+        "paper_candidate_label_only"
+      ],
+      "market_id": "research_scenario_strong_clear_edge",
+      "sources_count": 4,
+      "yes_evidence_count": 3,
+      "no_evidence_count": 1,
+      "uncertainty_factor_count": 1,
+      "reliable_sources": 4,
+      "missing_information": [],
+      "probability_estimate_range": {
+        "low": 0.4494,
+        "midpoint": 0.5294,
+        "high": 0.6094,
+        "method": "deterministic_source_weighted_fixture_heuristic"
+      },
+      "edge_estimate_vs_market": {
+        "market_yes_price": 0.37,
+        "range_low_edge": 0.0794,
+        "midpoint_edge": 0.1594,
+        "range_high_edge": 0.2394,
+        "range_overlaps_market": false
+      },
+      "scenario_flags": {
+        "missing_resolution_criteria": false,
+        "stale_source_count": 0,
+        "stale_source_ids": [],
+        "operator_note_requires_manual_review": false
+      },
+      "paper_orders_created": 0,
+      "workspace_state_written": false,
+      "safety_flags": {
+        "offline_only": true,
+        "paper_only": true,
+        "live_fetcher_implemented": false,
+        "api_used": false,
+        "network_used": false,
+        "wallet_used": false,
+        "real_order_created": false,
+        "trading_allowed": false,
+        "runtime_wiring_changed": false,
+        "dispatcher_touched": false,
+        "prompt_automation_added": false
+      }
+    },
+    {
+      "scenario_id": "high_uncertainty_high_market_price",
+      "description": "High market price plus high uncertainty leaves the estimated range below market.",
+      "expected_decision": "no_action",
+      "actual_decision": "no_action",
+      "expected_decision_passed": true,
+      "expected_reason_codes": [
+        "estimated_range_below_market"
+      ],
+      "expected_reason_codes_present": true,
+      "reason_codes": [
+        "estimated_range_below_market"
+      ],
+      "market_id": "research_scenario_high_uncertainty_high_price",
+      "sources_count": 5,
+      "yes_evidence_count": 1,
+      "no_evidence_count": 4,
+      "uncertainty_factor_count": 3,
+      "reliable_sources": 5,
+      "missing_information": [],
+      "probability_estimate_range": {
+        "low": 0.5894,
+        "midpoint": 0.6794,
+        "high": 0.7694,
+        "method": "deterministic_source_weighted_fixture_heuristic"
+      },
+      "edge_estimate_vs_market": {
+        "market_yes_price": 0.82,
+        "range_low_edge": -0.2306,
+        "midpoint_edge": -0.1406,
+        "range_high_edge": -0.0506,
+        "range_overlaps_market": false
+      },
+      "scenario_flags": {
+        "missing_resolution_criteria": false,
+        "stale_source_count": 0,
+        "stale_source_ids": [],
+        "operator_note_requires_manual_review": false
+      },
+      "paper_orders_created": 0,
+      "workspace_state_written": false,
+      "safety_flags": {
+        "offline_only": true,
+        "paper_only": true,
+        "live_fetcher_implemented": false,
+        "api_used": false,
+        "network_used": false,
+        "wallet_used": false,
+        "real_order_created": false,
+        "trading_allowed": false,
+        "runtime_wiring_changed": false,
+        "dispatcher_touched": false,
+        "prompt_automation_added": false
+      }
+    },
+    {
+      "scenario_id": "operator_note_requires_manual_review",
+      "description": "Operator note requires manual review, and overlap keeps the scenario out of paper-candidate.",
+      "expected_decision": "watchlist",
+      "actual_decision": "watchlist",
+      "expected_decision_passed": true,
+      "expected_reason_codes": [
+        "probability_range_overlaps_market"
+      ],
+      "expected_reason_codes_present": true,
+      "reason_codes": [
+        "probability_range_overlaps_market"
+      ],
+      "market_id": "research_scenario_operator_note_manual_review",
+      "sources_count": 4,
+      "yes_evidence_count": 2,
+      "no_evidence_count": 2,
+      "uncertainty_factor_count": 1,
+      "reliable_sources": 4,
+      "missing_information": [],
+      "probability_estimate_range": {
+        "low": 0.4294,
+        "midpoint": 0.5094,
+        "high": 0.5894,
+        "method": "deterministic_source_weighted_fixture_heuristic"
+      },
+      "edge_estimate_vs_market": {
+        "market_yes_price": 0.5,
+        "range_low_edge": -0.0706,
+        "midpoint_edge": 0.0094,
+        "range_high_edge": 0.0894,
+        "range_overlaps_market": true
+      },
+      "scenario_flags": {
+        "missing_resolution_criteria": false,
+        "stale_source_count": 0,
+        "stale_source_ids": [],
+        "operator_note_requires_manual_review": true
+      },
+      "paper_orders_created": 0,
+      "workspace_state_written": false,
+      "safety_flags": {
+        "offline_only": true,
+        "paper_only": true,
+        "live_fetcher_implemented": false,
+        "api_used": false,
+        "network_used": false,
+        "wallet_used": false,
+        "real_order_created": false,
+        "trading_allowed": false,
+        "runtime_wiring_changed": false,
+        "dispatcher_touched": false,
+        "prompt_automation_added": false
+      }
+    }
+  ],
+  "safety_flags": {
+    "offline_only": true,
+    "paper_only": true,
+    "live_fetcher_implemented": false,
+    "api_used": false,
+    "network_used": false,
+    "wallet_used": false,
+    "real_order_created": false,
+    "trading_allowed": false,
+    "runtime_wiring_changed": false,
+    "dispatcher_touched": false,
+    "prompt_automation_added": false
+  },
+  "limitations": [
+    "Uses only local JSON scenario fixtures and deterministic dossier functions.",
+    "Does not fetch live sources, call APIs, use credentials, touch wallets, create orders, trade, or write runtime state.",
+    "Paper-candidate remains a label only and is not connected to paper order planning."
+  ]
+}

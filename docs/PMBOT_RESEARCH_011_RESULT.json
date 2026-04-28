@@ -1,0 +1,62 @@
+{
+  "task_id": "PMBOT-RESEARCH-011-OPERATOR-REVIEW-RECORD-GATE",
+  "status": "completed",
+  "summary": "Implemented a deterministic offline operator review record gate for PMBOT research packets. The gate reads only local operator review queue and merged packet artifacts, validates structural operator review records, accepts or rejects normalized records, writes JSON and Markdown outputs, and does not create dossiers, scores, recommendations, orders, runtime actions, or market conclusions.",
+  "files_created": [
+    "pm_bot/research/validate_operator_review_records.py",
+    "pm_bot/research/operator_review_records_fixture.v1.json",
+    "pm_bot/research/operator_review_records_result.v1.json",
+    "pm_bot/research/operator_review_records_report.v1.md",
+    "pm_bot/research/expected_operator_review_records_result.v1.json",
+    "pm_bot/research/tests/test_operator_review_record_gate.py",
+    "docs/PMBOT_RESEARCH_011_RESULT.json"
+  ],
+  "files_modified": [],
+  "tests_run": [
+    {
+      "command": "python pm_bot\\research\\validate_operator_review_records.py",
+      "status": "passed"
+    },
+    {
+      "command": "python -m unittest pm_bot.research.tests.test_operator_review_record_gate",
+      "status": "passed",
+      "tests": 14
+    },
+    {
+      "command": "python -m pytest pm_bot\\research\\tests\\test_manual_research_packet_validation.py pm_bot\\research\\tests\\test_manual_evidence_overlay_merge.py pm_bot\\research\\tests\\test_operator_research_workpack_export.py pm_bot\\research\\tests\\test_operator_review_queue_export.py pm_bot\\research\\tests\\test_operator_review_record_gate.py -q",
+      "status": "passed",
+      "tests": 60
+    },
+    {
+      "command": "python -c \"import json, pathlib; paths=['pm_bot/research/operator_review_records_fixture.v1.json','pm_bot/research/operator_review_records_result.v1.json','pm_bot/research/expected_operator_review_records_result.v1.json','docs/PMBOT_RESEARCH_011_RESULT.json']; [json.load(open(pathlib.Path(p), encoding='utf-8')) for p in paths]; print('parsed', len(paths), 'json artifacts')\"",
+      "status": "passed",
+      "json_artifacts": 4
+    }
+  ],
+  "review_summary": {
+    "review_records_read": 8,
+    "review_records_accepted": 3,
+    "review_records_rejected": 5,
+    "ready_for_dossier_drafting": 1,
+    "needs_more_information": 1,
+    "research_quality_rejected": 0,
+    "watch_only_manual": 1
+  },
+  "safety": {
+    "live_fetchers": false,
+    "network_api_calls": false,
+    "credentials": false,
+    "wallet_private_keys": false,
+    "real_orders": false,
+    "live_trading": false,
+    "runtime_wiring": false,
+    "dispatcher_run_codex_touched": false,
+    "prompt_automation": false,
+    "codex_copy_roots": false,
+    "completed_dossiers": false,
+    "paper_orders": false,
+    "betting_recommendations": false,
+    "truth_inference": false,
+    "market_scoring": false
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "task_id": "PMBOT-INGEST-011-SELECTED-INGEST-MANUAL-DOSSIER-DRAFT-QUALITY-GATE",
+  "status": "passed",
+  "summary": "Implemented deterministic offline selected-ingest manual dossier draft validation/export. The gate reads only local selected-ingest draft attempts, selected-ingest dossier draft skeletons, selected-ingest operator review results, and selected-ingest merged manual research packets; accepts only market_ids exported as selected-ingest dossier draft skeletons; rejects unknown, non-skeleton, immutable-field override, prohibited field, prohibited language, and incomplete ready-review attempts; and creates no completed dossiers, recommendations, scoring, probabilities, expected value calculations, side choices, orders, runtime wiring, or downstream automation.",
+  "files_created": [
+    "pm_bot/research/validate_selected_ingest_manual_dossier_drafts.py",
+    "pm_bot/research/selected_ingest_manual_dossier_drafts_fixture.v1.json",
+    "pm_bot/research/selected_ingest_manual_dossier_draft_validation_result.v1.json",
+    "pm_bot/research/selected_ingest_manual_dossier_draft_validation_report.v1.md",
+    "pm_bot/research/expected_selected_ingest_manual_dossier_draft_validation_result.v1.json",
+    "pm_bot/research/tests/test_selected_ingest_manual_dossier_draft_quality_gate.py",
+    "docs/PMBOT_INGEST_011_RESULT.json"
+  ],
+  "files_modified": [],
+  "tests_run": [
+    {
+      "command": "python pm_bot\\research\\validate_selected_ingest_manual_dossier_drafts.py",
+      "status": "passed",
+      "result": "7 draft records read; 1 accepted; 6 rejected"
+    },
+    {
+      "command": "python -m pytest pm_bot\\research\\tests\\test_selected_ingest_manual_dossier_draft_quality_gate.py -q",
+      "status": "passed",
+      "result": "18 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\research\\tests\\test_selected_ingest_manual_dossier_draft_quality_gate.py pm_bot\\research\\tests\\test_selected_ingest_dossier_draft_skeleton_export.py pm_bot\\research\\tests\\test_selected_ingest_operator_review_record_gate.py pm_bot\\research\\tests\\test_selected_ingest_operator_review_queue.py pm_bot\\research\\tests\\test_selected_ingest_manual_evidence_overlay_merge.py pm_bot\\research\\tests\\test_selected_ingest_operator_workpack.py pm_bot\\research\\tests\\test_selected_ingest_research_packet_stubs.py pm_bot\\research\\tests\\test_manual_dossier_draft_quality_gate.py -q",
+      "status": "passed",
+      "result": "119 passed"
+    },
+    {
+      "command": "python -m py_compile pm_bot\\research\\validate_selected_ingest_manual_dossier_drafts.py pm_bot\\research\\tests\\test_selected_ingest_manual_dossier_draft_quality_gate.py",
+      "status": "passed",
+      "result": "compiled"
+    },
+    {
+      "command": "python -m json.tool for pm_bot\\research\\selected_ingest_manual_dossier_drafts_fixture.v1.json, pm_bot\\research\\selected_ingest_manual_dossier_draft_validation_result.v1.json, pm_bot\\research\\expected_selected_ingest_manual_dossier_draft_validation_result.v1.json, docs\\PMBOT_INGEST_011_RESULT.json",
+      "status": "passed",
+      "result": "json parse ok"
+    }
+  ],
+  "draft_validation_summary": {
+    "draft_records_read": 7,
+    "draft_records_accepted": 1,
+    "draft_records_rejected": 6,
+    "draft_ready_for_human_review": 1,
+    "needs_more_information": 0,
+    "draft_incomplete": 0,
+    "draft_rejected": 0
+  },
+  "selected_market_ids": [
+    "692258",
+    "824952",
+    "691547",
+    "597964",
+    "598936"
+  ],
+  "safety": {
+    "live_fetchers": false,
+    "network_api_calls": false,
+    "credentials": false,
+    "wallet_private_keys": false,
+    "authenticated_endpoints": false,
+    "trading_endpoints": false,
+    "real_orders": false,
+    "live_trading": false,
+    "paper_orders": false,
+    "betting_recommendations": false,
+    "truth_inference": false,
+    "market_scoring": false,
+    "probability_estimates": false,
+    "expected_value_calculations": false,
+    "side_recommendations": false,
+    "market_decisions": false,
+    "runtime_wiring": false,
+    "dispatcher_run_codex_touched": false,
+    "prompt_automation": false,
+    "codex_copy_roots": false,
+    "completed_dossiers": false
+  }
+}

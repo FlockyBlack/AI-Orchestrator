@@ -1,0 +1,295 @@
+{
+  "schema_version": "threshold_hit_policy_scenarios.v1",
+  "scenario_suite_id": "crypto_threshold_hit_policy_scenarios.v1",
+  "description": "Deterministic offline/paper scenarios for crypto threshold-hit decision policy calibration. Local fixture only; no live fetching, paper order planning, or trading.",
+  "reference_context_path": "pm_bot/paper/threshold_hit_reference_context.v1.json",
+  "decision_policy_path": "pm_bot/paper/threshold_hit_decision_policy.v1.json",
+  "scenarios": [
+    {
+      "scenario_id": "btc_by_date_policy_disabled",
+      "description": "By-date BTC threshold passes conservative liquidity, price, distance, and deadline checks, but paper candidates are disabled.",
+      "expected_decision": "watchlist",
+      "expected_reason_codes": [
+        "paper_candidates_disabled_by_policy"
+      ],
+      "market": {
+        "id": "scenario_btc_by_date_policy_disabled",
+        "conditionId": "0xscenario_btc_by_date_policy_disabled",
+        "question": "Will BTC hit $150k by June 30, 2026?",
+        "slug": "scenario-btc-hit-150k-by-june-30-2026-policy-disabled",
+        "active": true,
+        "closed": false,
+        "outcomes": "[\"Yes\", \"No\"]",
+        "outcomePrices": "[\"0.210\", \"0.790\"]",
+        "liquidity": 12345.0,
+        "liquidityNum": 12345.0,
+        "volumeNum": 50000.0,
+        "bestBid": 0.2,
+        "bestAsk": 0.22
+      }
+    },
+    {
+      "scenario_id": "btc_yes_price_above_limit",
+      "description": "By-date BTC threshold is blocked when Yes price is above the conservative policy limit.",
+      "expected_decision": "policy_blocked",
+      "expected_reason_codes": [
+        "paper_candidates_disabled_by_policy",
+        "yes_price_above_conservative_limit"
+      ],
+      "market": {
+        "id": "scenario_btc_yes_price_above_limit",
+        "conditionId": "0xscenario_btc_yes_price_above_limit",
+        "question": "Will BTC hit $150k by June 30, 2026?",
+        "slug": "scenario-btc-hit-150k-by-june-30-2026-yes-price-above-limit",
+        "active": true,
+        "closed": false,
+        "outcomes": "[\"Yes\", \"No\"]",
+        "outcomePrices": "[\"0.310\", \"0.690\"]",
+        "liquidity": 12345.0,
+        "liquidityNum": 12345.0,
+        "volumeNum": 50000.0,
+        "bestBid": 0.3,
+        "bestAsk": 0.32
+      }
+    },
+    {
+      "scenario_id": "btc_distance_above_watchlist_limit",
+      "description": "By-date BTC threshold is blocked when target distance is above the policy watchlist limit.",
+      "expected_decision": "policy_blocked",
+      "expected_reason_codes": [
+        "paper_candidates_disabled_by_policy",
+        "target_distance_above_watchlist_limit"
+      ],
+      "market": {
+        "id": "scenario_btc_distance_above_watchlist_limit",
+        "conditionId": "0xscenario_btc_distance_above_watchlist_limit",
+        "question": "Will BTC hit $200k by June 30, 2026?",
+        "slug": "scenario-btc-hit-200k-by-june-30-2026-distance-above-limit",
+        "active": true,
+        "closed": false,
+        "outcomes": "[\"Yes\", \"No\"]",
+        "outcomePrices": "[\"0.210\", \"0.790\"]",
+        "liquidity": 12345.0,
+        "liquidityNum": 12345.0,
+        "volumeNum": 50000.0,
+        "bestBid": 0.2,
+        "bestAsk": 0.22
+      }
+    },
+    {
+      "scenario_id": "btc_low_liquidity",
+      "description": "By-date BTC threshold is blocked when liquidity is below the conservative policy minimum.",
+      "expected_decision": "policy_blocked",
+      "expected_reason_codes": [
+        "liquidity_below_conservative_minimum",
+        "paper_candidates_disabled_by_policy"
+      ],
+      "market": {
+        "id": "scenario_btc_low_liquidity",
+        "conditionId": "0xscenario_btc_low_liquidity",
+        "question": "Will BTC hit $150k by June 30, 2026?",
+        "slug": "scenario-btc-hit-150k-by-june-30-2026-low-liquidity",
+        "active": true,
+        "closed": false,
+        "outcomes": "[\"Yes\", \"No\"]",
+        "outcomePrices": "[\"0.210\", \"0.790\"]",
+        "liquidity": 9999.0,
+        "liquidityNum": 9999.0,
+        "volumeNum": 50000.0,
+        "bestBid": 0.2,
+        "bestAsk": 0.22
+      }
+    },
+    {
+      "scenario_id": "btc_deadline_too_near",
+      "description": "By-date BTC threshold is blocked when the deadline is too near for review.",
+      "expected_decision": "policy_blocked",
+      "expected_reason_codes": [
+        "deadline_too_near",
+        "paper_candidates_disabled_by_policy"
+      ],
+      "market": {
+        "id": "scenario_btc_deadline_too_near",
+        "conditionId": "0xscenario_btc_deadline_too_near",
+        "question": "Will BTC hit $150k by May 1, 2026?",
+        "slug": "scenario-btc-hit-150k-by-may-1-2026-deadline-too-near",
+        "active": true,
+        "closed": false,
+        "outcomes": "[\"Yes\", \"No\"]",
+        "outcomePrices": "[\"0.210\", \"0.790\"]",
+        "liquidity": 12345.0,
+        "liquidityNum": 12345.0,
+        "volumeNum": 50000.0,
+        "bestBid": 0.2,
+        "bestAsk": 0.22
+      }
+    },
+    {
+      "scenario_id": "btc_before_event_missing_model",
+      "description": "Before-event BTC threshold is blocked because no offline event model fixture is present.",
+      "expected_decision": "policy_blocked",
+      "expected_reason_codes": [
+        "before_event_requires_event_model",
+        "paper_candidates_disabled_by_policy"
+      ],
+      "market": {
+        "id": "scenario_btc_before_event_missing_model",
+        "conditionId": "0xscenario_btc_before_event_missing_model",
+        "question": "Will BTC hit $150k before GTA VI?",
+        "slug": "scenario-btc-hit-150k-before-gta-vi-missing-event-model",
+        "active": true,
+        "closed": false,
+        "outcomes": "[\"Yes\", \"No\"]",
+        "outcomePrices": "[\"0.210\", \"0.790\"]",
+        "liquidity": 12345.0,
+        "liquidityNum": 12345.0,
+        "volumeNum": 50000.0,
+        "bestBid": 0.2,
+        "bestAsk": 0.22
+      }
+    },
+    {
+      "scenario_id": "eth_missing_reference_price",
+      "description": "ETH by-date threshold is watchlisted when the scenario reference context omits ETH.",
+      "reference_assets": [
+        "BTC"
+      ],
+      "expected_decision": "watchlist",
+      "expected_reason_codes": [
+        "missing_reference_price",
+        "paper_candidates_disabled_by_policy",
+        "target_distance_unavailable"
+      ],
+      "market": {
+        "id": "scenario_eth_missing_reference_price",
+        "conditionId": "0xscenario_eth_missing_reference_price",
+        "question": "Will ETH reach $5,000 by December 31, 2026?",
+        "slug": "scenario-eth-reach-5000-by-december-31-2026-missing-reference",
+        "active": true,
+        "closed": false,
+        "outcomes": "[\"Yes\", \"No\"]",
+        "outcomePrices": "[\"0.210\", \"0.790\"]",
+        "liquidity": 34567.0,
+        "liquidityNum": 34567.0,
+        "volumeNum": 70000.0,
+        "bestBid": 0.2,
+        "bestAsk": 0.22
+      }
+    },
+    {
+      "scenario_id": "btc_missing_yes_price",
+      "description": "By-date BTC threshold is blocked when the Yes price is missing.",
+      "expected_decision": "policy_blocked",
+      "expected_reason_codes": [
+        "missing_yes_price",
+        "paper_candidates_disabled_by_policy"
+      ],
+      "market": {
+        "id": "scenario_btc_missing_yes_price",
+        "conditionId": "0xscenario_btc_missing_yes_price",
+        "question": "Will BTC hit $150k by June 30, 2026?",
+        "slug": "scenario-btc-hit-150k-by-june-30-2026-missing-yes-price",
+        "active": true,
+        "closed": false,
+        "outcomes": "[\"Yes\", \"No\"]",
+        "outcomePrices": "[]",
+        "liquidity": 12345.0,
+        "liquidityNum": 12345.0,
+        "volumeNum": 50000.0
+      }
+    },
+    {
+      "scenario_id": "btc_missing_liquidity",
+      "description": "By-date BTC threshold is blocked when liquidity is missing.",
+      "expected_decision": "policy_blocked",
+      "expected_reason_codes": [
+        "missing_liquidity",
+        "paper_candidates_disabled_by_policy"
+      ],
+      "market": {
+        "id": "scenario_btc_missing_liquidity",
+        "conditionId": "0xscenario_btc_missing_liquidity",
+        "question": "Will BTC hit $150k by June 30, 2026?",
+        "slug": "scenario-btc-hit-150k-by-june-30-2026-missing-liquidity",
+        "active": true,
+        "closed": false,
+        "outcomes": "[\"Yes\", \"No\"]",
+        "outcomePrices": "[\"0.210\", \"0.790\"]",
+        "volumeNum": 50000.0,
+        "bestBid": 0.2,
+        "bestAsk": 0.22
+      }
+    },
+    {
+      "scenario_id": "btc_missing_deadline",
+      "description": "By-date BTC threshold is no-action when the deadline trigger cannot be parsed into a date.",
+      "expected_decision": "no_action",
+      "expected_reason_codes": [
+        "missing_deadline",
+        "paper_candidates_disabled_by_policy"
+      ],
+      "market": {
+        "id": "scenario_btc_missing_deadline",
+        "conditionId": "0xscenario_btc_missing_deadline",
+        "question": "Will BTC hit $150k by Q3 2026?",
+        "slug": "scenario-btc-hit-150k-by-q3-2026-missing-deadline",
+        "active": true,
+        "closed": false,
+        "outcomes": "[\"Yes\", \"No\"]",
+        "outcomePrices": "[\"0.210\", \"0.790\"]",
+        "liquidity": 12345.0,
+        "liquidityNum": 12345.0,
+        "volumeNum": 50000.0,
+        "bestBid": 0.2,
+        "bestAsk": 0.22
+      }
+    },
+    {
+      "scenario_id": "btc_deadline_not_future",
+      "description": "By-date BTC threshold is blocked when the parsed deadline is not in the future as of the offline policy date.",
+      "expected_decision": "policy_blocked",
+      "expected_reason_codes": [
+        "deadline_not_future",
+        "paper_candidates_disabled_by_policy"
+      ],
+      "market": {
+        "id": "scenario_btc_deadline_not_future",
+        "conditionId": "0xscenario_btc_deadline_not_future",
+        "question": "Will BTC hit $150k by April 1, 2026?",
+        "slug": "scenario-btc-hit-150k-by-april-1-2026-deadline-not-future",
+        "active": true,
+        "closed": false,
+        "outcomes": "[\"Yes\", \"No\"]",
+        "outcomePrices": "[\"0.210\", \"0.790\"]",
+        "liquidity": 12345.0,
+        "liquidityNum": 12345.0,
+        "volumeNum": 50000.0,
+        "bestBid": 0.2,
+        "bestAsk": 0.22
+      }
+    },
+    {
+      "scenario_id": "unsupported_gold_threshold_rejected",
+      "description": "Unsupported threshold-hit candidate is rejected by triage before policy review.",
+      "expected_decision": "triage_rejected",
+      "expected_reason_codes": [
+        "unsupported_asset"
+      ],
+      "market": {
+        "id": "scenario_unsupported_gold_threshold_rejected",
+        "conditionId": "0xscenario_unsupported_gold_threshold_rejected",
+        "question": "Will gold hit $5,000 by December 31, 2026?",
+        "slug": "scenario-gold-hit-5000-by-december-31-2026-rejected",
+        "active": true,
+        "closed": false,
+        "outcomes": "[\"Yes\", \"No\"]",
+        "outcomePrices": "[\"0.210\", \"0.790\"]",
+        "liquidity": 34567.0,
+        "liquidityNum": 34567.0,
+        "volumeNum": 70000.0,
+        "bestBid": 0.2,
+        "bestAsk": 0.22
+      }
+    }
+  ]
+}

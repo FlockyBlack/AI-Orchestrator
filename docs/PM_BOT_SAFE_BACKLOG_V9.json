@@ -1,0 +1,76 @@
+{
+  "schema_version": "v9",
+  "artifact_type": "PM_BOT_SAFE_BACKLOG",
+  "fixture_paper_only": true,
+  "runtime_wiring_allowed": false,
+  "real_trading_allowed": false,
+  "network_api_wallet_private_key_trading_allowed": false,
+  "design_only": [
+    {
+      "task_id": "PMBOT-058",
+      "title": "Read-only fetcher implementation planning",
+      "mode": "DESIGN_ONLY_COMPLETE",
+      "summary": "Completed as a design-only implementation plan with approval gates, failure modes, offline validation, and static audit coverage."
+    }
+  ],
+  "fixture_only": [
+    {
+      "task_id": "PMBOT-059",
+      "title": "Additional malformed and stale snapshot fixtures",
+      "mode": "SAFE_TO_IMPLEMENT",
+      "summary": "Future fixture-only coverage may expand invalid, duplicate, stale, and schema-drifted snapshot examples without introducing network code."
+    }
+  ],
+  "paper_only": [
+    {
+      "task_id": "PMBOT-060",
+      "title": "Paper replay import fixture expansion",
+      "mode": "SAFE_TO_IMPLEMENT",
+      "summary": "Paper-only replay fixture coverage may expand as long as imports remain deterministic and no execution path is introduced."
+    }
+  ],
+  "read_only_implementation_pending_approval": [
+    {
+      "task_id": "PMBOT-061",
+      "title": "Live read-only fetcher implementation",
+      "mode": "BLOCKED_PENDING_APPROVAL",
+      "summary": "Blocked until separate human approval and Flocky validation authorize read-only implementation work."
+    },
+    {
+      "task_id": "PMBOT-062",
+      "title": "Raw snapshot capture and normalization implementation",
+      "mode": "BLOCKED_PENDING_APPROVAL",
+      "summary": "Blocked until approved implementation can create a dedicated live_readonly package and pass the pre-network test plan."
+    },
+    {
+      "task_id": "PMBOT-063",
+      "title": "Quarantine and paper replay import implementation",
+      "mode": "BLOCKED_PENDING_APPROVAL",
+      "summary": "Blocked until approved implementation work may consume live snapshots strictly for paper replay."
+    }
+  ],
+  "blocked_live_execution": [
+    {
+      "task_id": "PMBOT-064",
+      "title": "Live execution path",
+      "mode": "BLOCKED",
+      "summary": "Live trade paths, watchlist execution, and autonomous trading remain blocked."
+    }
+  ],
+  "blocked_wallet_signer": [
+    {
+      "task_id": "PMBOT-065",
+      "title": "Wallet and signer support",
+      "mode": "BLOCKED",
+      "summary": "Wallet, private key, seed phrase, signer, and signature handling remain blocked."
+    }
+  ],
+  "blocked_runtime_wiring": [
+    {
+      "task_id": "PMBOT-066",
+      "title": "Runtime and orchestration wiring",
+      "mode": "BLOCKED",
+      "summary": "Dispatcher integration, run_codex wiring, state mutation, result mutation, checkpoint mutation, freeze mutation, and codex_auto or governance mutation remain blocked."
+    }
+  ]
+}

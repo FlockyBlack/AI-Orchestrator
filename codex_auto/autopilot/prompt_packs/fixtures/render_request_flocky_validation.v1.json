@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0",
+  "template_name": "flocky_read_only_validation.template.txt",
+  "task_id": "ORCH-AUTOPILOT-RENDER-EXAMPLE-FLOCKY-VALIDATION",
+  "task_title": "Validate rendered prompt-pack manifest read-only",
+  "target_agent": "Flocky",
+  "task_owner": "Flocky",
+  "task_type": "read-only validation",
+  "context": "Prompt pack renderer output should be reviewed without modifying project files.",
+  "goal": "Validate the rendered prompt-pack artifacts and report routing or contract issues read-only.",
+  "allowed_read_paths": [
+    "docs/",
+    "codex_auto/",
+    "codex_auto/autopilot/",
+    "codex_auto/autopilot/prompt_packs/"
+  ],
+  "allowed_write_paths": [],
+  "forbidden_write_paths": [
+    "tasks/",
+    "runs/",
+    "state/",
+    "runtime/",
+    "results/",
+    "freeze/",
+    "checkpoint/"
+  ],
+  "forbidden_behavior": [
+    "no code changes",
+    "no runtime wiring",
+    "no dispatcher changes",
+    "no run_codex changes",
+    "no queue mutation",
+    "no sessions_spawn",
+    "no generated prompt execution"
+  ],
+  "validation_commands": [],
+  "expected_final_json": {
+    "task_id": "ORCH-AUTOPILOT-RENDER-EXAMPLE-FLOCKY-VALIDATION",
+    "status": "pass_with_warnings | blocked",
+    "findings": [],
+    "warnings": [],
+    "recommended_next_step": "manual_followup"
+  },
+  "custom_sections": [
+    {
+      "title": "Validation scope",
+      "body": "Inspect rendered prompt contract, header integrity, and preflight outcome only."
+    }
+  ],
+  "preflight_receiver": "Flocky",
+  "notes": [
+    "Read-only review only.",
+    "Final JSON must remain in chat or stdout."
+  ]
+}

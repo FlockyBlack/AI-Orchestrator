@@ -1,0 +1,63 @@
+{
+  "schema_version": "paper_simulation_gate_human_review_records_rejected.v1",
+  "task_id": "PMBOT-PAPER-BATCH-006-010-PAPER-WORKBENCH-MVP",
+  "deterministic": true,
+  "source_gate_path": "pm_bot/paper/paper_decision_simulation_gate.v1.json",
+  "input_path": "pm_bot/paper/paper_simulation_gate_human_review_records_input.v1.json",
+  "allowed_review_outcomes": [
+    "approved_for_paper_simulation_plan_drafting",
+    "needs_gate_revision",
+    "rejected_by_policy",
+    "watch_only"
+  ],
+  "counts": {
+    "records_read": 4,
+    "records_rejected": 3,
+    "rejection_reason_counts": {
+      "prohibited_or_execution_field_present": 1,
+      "unexpected_field_present": 1,
+      "unknown_market_id": 1,
+      "unknown_review_outcome": 1
+    }
+  },
+  "records": [
+    {
+      "record_id": "human-review-rejected-prohibited-field",
+      "market_id": "824952",
+      "review_outcome": "approved_for_paper_simulation_plan_drafting",
+      "review_status": "rejected",
+      "rejection_reasons": [
+        "prohibited_or_execution_field_present",
+        "unexpected_field_present"
+      ],
+      "blocked_keys": [
+        "decision"
+      ],
+      "unexpected_keys": [
+        "decision"
+      ]
+    },
+    {
+      "record_id": "human-review-rejected-unknown-market",
+      "market_id": "000000",
+      "review_outcome": "approved_for_paper_simulation_plan_drafting",
+      "review_status": "rejected",
+      "rejection_reasons": [
+        "unknown_market_id"
+      ],
+      "blocked_keys": [],
+      "unexpected_keys": []
+    },
+    {
+      "record_id": "human-review-rejected-unknown-outcome",
+      "market_id": "824952",
+      "review_outcome": "unknown_review_outcome",
+      "review_status": "rejected",
+      "rejection_reasons": [
+        "unknown_review_outcome"
+      ],
+      "blocked_keys": [],
+      "unexpected_keys": []
+    }
+  ]
+}

@@ -1,0 +1,420 @@
+{
+  "schema_version": "v1",
+  "cases": [
+    {
+      "case_id": "replay_stale_edge_trap",
+      "synthetic_market_inputs": {
+        "market_id": "adv-001",
+        "title": "Stale edge trap",
+        "candidate_state": "candidate",
+        "market_status": "open",
+        "data_age_minutes": 190,
+        "liquidity_usd": 240000,
+        "spread_bps": 55,
+        "paper_edge_bps": 210,
+        "confidence_score": 86,
+        "signal_direction_count": 3,
+        "signal_conflict": false,
+        "correlation_conflict": false,
+        "duplicate_snapshot": false,
+        "outlier_move_pct": 4.0,
+        "watchlist_only": false,
+        "data_quality_score": 72,
+        "resolved_candidate_visible": false,
+        "category_exposure_pct": 18
+      },
+      "replay_timeline_steps": [
+        "00:00 snapshot loaded with positive paper edge",
+        "00:05 timestamp check detects stale quote older than acceptance threshold",
+        "00:06 candidate is kept paper-only and rejected"
+      ],
+      "expected_decision": "reject",
+      "expected_rejection_or_warning_reasons": [
+        "stale_data"
+      ],
+      "fixture_only": true,
+      "paper_only": true
+    },
+    {
+      "case_id": "replay_liquidity_collapse",
+      "synthetic_market_inputs": {
+        "market_id": "adv-002",
+        "title": "Liquidity collapse",
+        "candidate_state": "candidate",
+        "market_status": "open",
+        "data_age_minutes": 18,
+        "liquidity_usd": 8500,
+        "spread_bps": 60,
+        "paper_edge_bps": 145,
+        "confidence_score": 78,
+        "signal_direction_count": 3,
+        "signal_conflict": false,
+        "correlation_conflict": false,
+        "duplicate_snapshot": false,
+        "outlier_move_pct": 6.0,
+        "watchlist_only": false,
+        "data_quality_score": 74,
+        "resolved_candidate_visible": false,
+        "category_exposure_pct": 20
+      },
+      "replay_timeline_steps": [
+        "00:00 market starts with acceptable paper edge",
+        "00:03 liquidity evaporates below local floor",
+        "00:04 replay rejects the candidate"
+      ],
+      "expected_decision": "reject",
+      "expected_rejection_or_warning_reasons": [
+        "low_liquidity"
+      ],
+      "fixture_only": true,
+      "paper_only": true
+    },
+    {
+      "case_id": "replay_spread_widening_spike",
+      "synthetic_market_inputs": {
+        "market_id": "adv-003",
+        "title": "Spread widening spike",
+        "candidate_state": "candidate",
+        "market_status": "open",
+        "data_age_minutes": 14,
+        "liquidity_usd": 132000,
+        "spread_bps": 270,
+        "paper_edge_bps": 165,
+        "confidence_score": 79,
+        "signal_direction_count": 4,
+        "signal_conflict": false,
+        "correlation_conflict": false,
+        "duplicate_snapshot": false,
+        "outlier_move_pct": 7.5,
+        "watchlist_only": false,
+        "data_quality_score": 77,
+        "resolved_candidate_visible": false,
+        "category_exposure_pct": 22
+      },
+      "replay_timeline_steps": [
+        "00:00 entry snapshot looks normal",
+        "00:02 synthetic spread explodes during replay",
+        "00:03 candidate is rejected instead of accepted"
+      ],
+      "expected_decision": "reject",
+      "expected_rejection_or_warning_reasons": [
+        "wide_spread"
+      ],
+      "fixture_only": true,
+      "paper_only": true
+    },
+    {
+      "case_id": "replay_conflicting_inputs",
+      "synthetic_market_inputs": {
+        "market_id": "adv-004",
+        "title": "Conflicting inputs",
+        "candidate_state": "candidate",
+        "market_status": "open",
+        "data_age_minutes": 12,
+        "liquidity_usd": 118000,
+        "spread_bps": 65,
+        "paper_edge_bps": 125,
+        "confidence_score": 71,
+        "signal_direction_count": 4,
+        "signal_conflict": true,
+        "correlation_conflict": false,
+        "duplicate_snapshot": false,
+        "outlier_move_pct": 4.2,
+        "watchlist_only": false,
+        "data_quality_score": 69,
+        "resolved_candidate_visible": false,
+        "category_exposure_pct": 17
+      },
+      "replay_timeline_steps": [
+        "00:00 supporting signals disagree on direction",
+        "00:01 contradiction check fires before paper acceptance",
+        "00:02 case is rejected"
+      ],
+      "expected_decision": "reject",
+      "expected_rejection_or_warning_reasons": [
+        "conflicting_signals"
+      ],
+      "fixture_only": true,
+      "paper_only": true
+    },
+    {
+      "case_id": "replay_correlated_opposite_markets",
+      "synthetic_market_inputs": {
+        "market_id": "adv-005",
+        "title": "Correlated opposite markets",
+        "candidate_state": "candidate",
+        "market_status": "open",
+        "data_age_minutes": 11,
+        "liquidity_usd": 126000,
+        "spread_bps": 72,
+        "paper_edge_bps": 118,
+        "confidence_score": 68,
+        "signal_direction_count": 3,
+        "signal_conflict": false,
+        "correlation_conflict": true,
+        "duplicate_snapshot": false,
+        "outlier_move_pct": 5.1,
+        "watchlist_only": false,
+        "data_quality_score": 70,
+        "resolved_candidate_visible": false,
+        "category_exposure_pct": 38
+      },
+      "replay_timeline_steps": [
+        "00:00 correlated cluster points in the opposite direction",
+        "00:01 replay issues a correlation contradiction warning",
+        "00:02 candidate is downgraded to watchlist"
+      ],
+      "expected_decision": "watchlist",
+      "expected_rejection_or_warning_reasons": [
+        "correlation_conflict"
+      ],
+      "fixture_only": true,
+      "paper_only": true
+    },
+    {
+      "case_id": "replay_resolved_candidate_leak",
+      "synthetic_market_inputs": {
+        "market_id": "adv-006",
+        "title": "Resolved candidate leak",
+        "candidate_state": "candidate",
+        "market_status": "resolved",
+        "data_age_minutes": 5,
+        "liquidity_usd": 64000,
+        "spread_bps": 35,
+        "paper_edge_bps": 95,
+        "confidence_score": 58,
+        "signal_direction_count": 2,
+        "signal_conflict": false,
+        "correlation_conflict": false,
+        "duplicate_snapshot": false,
+        "outlier_move_pct": 1.0,
+        "watchlist_only": false,
+        "data_quality_score": 66,
+        "resolved_candidate_visible": true,
+        "category_exposure_pct": 12
+      },
+      "replay_timeline_steps": [
+        "00:00 resolved market enters candidate set by mistake",
+        "00:01 status filter catches the resolved state",
+        "00:02 case is excluded from paper consideration"
+      ],
+      "expected_decision": "exclude",
+      "expected_rejection_or_warning_reasons": [
+        "resolved_market"
+      ],
+      "fixture_only": true,
+      "paper_only": true
+    },
+    {
+      "case_id": "replay_missing_market_status",
+      "synthetic_market_inputs": {
+        "market_id": "adv-007",
+        "title": "Missing market status",
+        "candidate_state": "candidate",
+        "market_status": "unknown",
+        "data_age_minutes": 16,
+        "liquidity_usd": 110000,
+        "spread_bps": 78,
+        "paper_edge_bps": 105,
+        "confidence_score": 67,
+        "signal_direction_count": 3,
+        "signal_conflict": false,
+        "correlation_conflict": false,
+        "duplicate_snapshot": false,
+        "outlier_move_pct": 2.9,
+        "watchlist_only": false,
+        "data_quality_score": 54,
+        "resolved_candidate_visible": false,
+        "category_exposure_pct": 14
+      },
+      "replay_timeline_steps": [
+        "00:00 market snapshot is missing a reliable status",
+        "00:01 replay treats the missing status as unsafe metadata",
+        "00:02 case is rejected"
+      ],
+      "expected_decision": "reject",
+      "expected_rejection_or_warning_reasons": [
+        "missing_market_status"
+      ],
+      "fixture_only": true,
+      "paper_only": true
+    },
+    {
+      "case_id": "replay_duplicate_snapshot",
+      "synthetic_market_inputs": {
+        "market_id": "adv-008",
+        "title": "Duplicate snapshot",
+        "candidate_state": "candidate",
+        "market_status": "open",
+        "data_age_minutes": 9,
+        "liquidity_usd": 98000,
+        "spread_bps": 74,
+        "paper_edge_bps": 88,
+        "confidence_score": 61,
+        "signal_direction_count": 2,
+        "signal_conflict": false,
+        "correlation_conflict": false,
+        "duplicate_snapshot": true,
+        "outlier_move_pct": 2.0,
+        "watchlist_only": false,
+        "data_quality_score": 58,
+        "resolved_candidate_visible": false,
+        "category_exposure_pct": 16
+      },
+      "replay_timeline_steps": [
+        "00:00 replay sees the same market snapshot twice",
+        "00:01 duplicate detection warns but does not hard reject",
+        "00:02 candidate is held on watchlist"
+      ],
+      "expected_decision": "watchlist",
+      "expected_rejection_or_warning_reasons": [
+        "duplicate_snapshot"
+      ],
+      "fixture_only": true,
+      "paper_only": true
+    },
+    {
+      "case_id": "replay_outlier_price_move",
+      "synthetic_market_inputs": {
+        "market_id": "adv-009",
+        "title": "Outlier price move",
+        "candidate_state": "candidate",
+        "market_status": "open",
+        "data_age_minutes": 8,
+        "liquidity_usd": 147000,
+        "spread_bps": 82,
+        "paper_edge_bps": 115,
+        "confidence_score": 73,
+        "signal_direction_count": 3,
+        "signal_conflict": false,
+        "correlation_conflict": false,
+        "duplicate_snapshot": false,
+        "outlier_move_pct": 28.5,
+        "watchlist_only": false,
+        "data_quality_score": 63,
+        "resolved_candidate_visible": false,
+        "category_exposure_pct": 19
+      },
+      "replay_timeline_steps": [
+        "00:00 sudden price jump looks attractive",
+        "00:01 outlier move detection marks the tape as unstable",
+        "00:02 case is reduced to watchlist"
+      ],
+      "expected_decision": "watchlist",
+      "expected_rejection_or_warning_reasons": [
+        "outlier_price_move"
+      ],
+      "fixture_only": true,
+      "paper_only": true
+    },
+    {
+      "case_id": "replay_overconfident_poor_data",
+      "synthetic_market_inputs": {
+        "market_id": "adv-010",
+        "title": "Overconfident poor data",
+        "candidate_state": "candidate",
+        "market_status": "open",
+        "data_age_minutes": 15,
+        "liquidity_usd": 90000,
+        "spread_bps": 88,
+        "paper_edge_bps": 122,
+        "confidence_score": 96,
+        "signal_direction_count": 2,
+        "signal_conflict": false,
+        "correlation_conflict": false,
+        "duplicate_snapshot": false,
+        "outlier_move_pct": 3.0,
+        "watchlist_only": false,
+        "data_quality_score": 28,
+        "resolved_candidate_visible": false,
+        "category_exposure_pct": 15
+      },
+      "replay_timeline_steps": [
+        "00:00 confidence score arrives suspiciously high",
+        "00:01 replay compares confidence against poor data quality",
+        "00:02 case is rejected as an overconfident false positive"
+      ],
+      "expected_decision": "reject",
+      "expected_rejection_or_warning_reasons": [
+        "confidence_vs_data_mismatch"
+      ],
+      "fixture_only": true,
+      "paper_only": true
+    },
+    {
+      "case_id": "replay_watchlist_escalation_block",
+      "synthetic_market_inputs": {
+        "market_id": "adv-011",
+        "title": "Watchlist escalation block",
+        "candidate_state": "watchlist",
+        "market_status": "open",
+        "data_age_minutes": 10,
+        "liquidity_usd": 76000,
+        "spread_bps": 98,
+        "paper_edge_bps": 76,
+        "confidence_score": 57,
+        "signal_direction_count": 2,
+        "signal_conflict": false,
+        "correlation_conflict": false,
+        "duplicate_snapshot": false,
+        "outlier_move_pct": 5.5,
+        "watchlist_only": true,
+        "data_quality_score": 59,
+        "resolved_candidate_visible": false,
+        "category_exposure_pct": 13
+      },
+      "replay_timeline_steps": [
+        "00:00 watchlist candidate is re-evaluated",
+        "00:01 escalation guard keeps it from becoming accepted",
+        "00:02 case remains watchlist-only"
+      ],
+      "expected_decision": "watchlist",
+      "expected_rejection_or_warning_reasons": [
+        "watchlist_only"
+      ],
+      "fixture_only": true,
+      "paper_only": true
+    },
+    {
+      "case_id": "replay_adversarial_false_positive",
+      "synthetic_market_inputs": {
+        "market_id": "adv-012",
+        "title": "Adversarial false positive",
+        "candidate_state": "candidate",
+        "market_status": "open",
+        "data_age_minutes": 220,
+        "liquidity_usd": 6200,
+        "spread_bps": 315,
+        "paper_edge_bps": 255,
+        "confidence_score": 99,
+        "signal_direction_count": 4,
+        "signal_conflict": true,
+        "correlation_conflict": true,
+        "duplicate_snapshot": true,
+        "outlier_move_pct": 34.0,
+        "watchlist_only": false,
+        "data_quality_score": 18,
+        "resolved_candidate_visible": false,
+        "category_exposure_pct": 46
+      },
+      "replay_timeline_steps": [
+        "00:00 multiple attractive but hostile indicators appear at once",
+        "00:01 replay accumulates stale, liquidity, spread, contradiction, and confidence mismatch failures",
+        "00:02 false positive is rejected with high-risk warnings"
+      ],
+      "expected_decision": "reject",
+      "expected_rejection_or_warning_reasons": [
+        "stale_data",
+        "low_liquidity",
+        "wide_spread",
+        "conflicting_signals",
+        "correlation_conflict",
+        "duplicate_snapshot",
+        "outlier_price_move",
+        "confidence_vs_data_mismatch"
+      ],
+      "fixture_only": true,
+      "paper_only": true
+    }
+  ]
+}

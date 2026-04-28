@@ -1,0 +1,32 @@
+{
+  "contract_version": "raw_market_artifact.v9",
+  "artifact_id": "invalid-contract-market-102",
+  "source_type": "fixture",
+  "source_name": "offline_fixture_pack",
+  "captured_at": "2026-04-20T12:00:00Z",
+  "market": {
+    "market_id": "market-102",
+    "title": "Bad contract fixture",
+    "status": "open"
+  },
+  "outcomes": [
+    {
+      "name": "Yes",
+      "side": "yes",
+      "price": 0.4
+    }
+  ],
+  "provenance": {
+    "collected_by": "fixture_generator",
+    "collection_method": "curated_fixture",
+    "source_reference": "local://fixtures/invalid_bad_contract_version"
+  },
+  "safety": {
+    "network_used": false,
+    "api_credentials_used": false,
+    "wallet_used": false,
+    "order_capable": false,
+    "trading_capable": false,
+    "readonly_intended": true
+  }
+}

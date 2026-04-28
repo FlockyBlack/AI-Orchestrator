@@ -1,0 +1,54 @@
+TARGET_AGENT: ChatGPT
+TASK_OWNER: ChatGPT
+TASK_TYPE: planning
+CODE_CHANGES_ALLOWED_FOR_RECEIVER: false
+SESSIONS_SPAWN_ALLOWED: false
+RUNTIME_MUTATION_ALLOWED: false
+QUEUE_MUTATION_ALLOWED: false
+GOVERNANCE_MUTATION_ALLOWED: false
+APPROVAL_REQUIRED: false
+MISROUTE_BEHAVIOR: RETURN_ROUTING_MISMATCH_WITHOUT_EXECUTION
+
+Prompt Pack:
+Autopilot V1 ChatGPT planning template.
+
+Use this template for planning, option comparison, decomposition, or specification drafting only.
+
+Expected structured output:
+- assumptions
+- constraints
+- options
+- recommended plan
+- risks
+- next manual step
+
+Planning boundaries:
+- no code changes
+- no execution
+- no runtime authority
+- no runtime mutation
+- no queue mutation
+- no governance mutation
+- no sessions_spawn
+- no shell/exec
+- no generated prompt execution
+- no external Codex execution
+- no network/API
+- no credentials
+- no wallet/private key
+- no orders/trading
+- no final acceptance authority
+
+Routing behavior:
+- if sent to another agent, return routing mismatch or equivalent non-executable behavior
+
+Expected final JSON:
+{
+  "task_id": "<placeholder-task-id>",
+  "status": "plan_ready | blocked",
+  "assumptions": [],
+  "options": [],
+  "recommended_plan": [],
+  "warnings": [],
+  "next_manual_step": "<placeholder-next-step>"
+}

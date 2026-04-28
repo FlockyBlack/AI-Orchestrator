@@ -1,0 +1,55 @@
+{
+  "task_id": "PMBOT-BATCH-012-OFFLINE-DEMO-COMMAND",
+  "status": "completed_ready_for_review",
+  "summary": "Added one deterministic offline/paper demo runner that executes existing safe PMBOT demo/report/replay/audit commands, captures key summaries, and emits stable JSON or Markdown presentation packets. The runner fails closed through checked child process execution and does not add live fetchers, network/API calls, credentials, wallet handling, real orders, live trading, runtime wiring, dispatcher/run_codex integration, or prompt automation.",
+  "scope": {
+    "offline_only": true,
+    "paper_only": true,
+    "local_only": true,
+    "deterministic": true,
+    "review_only": true,
+    "network_api_calls": false,
+    "credentials": false,
+    "wallet": false,
+    "real_orders": false,
+    "live_trading": false,
+    "runtime_wiring": false,
+    "prompt_automation": false
+  },
+  "files_created": [
+    "pm_bot/demo/run_offline_demo_walkthrough.py",
+    "pm_bot/demo/tests/test_run_offline_demo_walkthrough.py",
+    "pm_bot/demo/expected_offline_demo_walkthrough.v1.json",
+    "pm_bot/demo/expected_offline_demo_walkthrough.v1.md",
+    "docs/PM_BOT_BATCH_012_RESULT.json",
+    "docs/PM_BOT_STAGE_SUMMARY_V12.md"
+  ],
+  "files_modified": [],
+  "tests_run": [
+    {
+      "command": "python -m pytest pm_bot\\demo\\tests -q",
+      "status": "pass",
+      "notes": "27 passed."
+    },
+    {
+      "command": "python pm_bot\\demo\\run_offline_demo_walkthrough.py",
+      "status": "pass",
+      "notes": "Emitted deterministic JSON walkthrough packet with 10 child commands marked pass."
+    }
+  ],
+  "demo_outputs": [
+    "pm_bot/demo/expected_offline_demo_walkthrough.v1.json",
+    "pm_bot/demo/expected_offline_demo_walkthrough.v1.md"
+  ],
+  "limitations": [
+    "No live bot.",
+    "No live fetcher.",
+    "No normalization implementation.",
+    "No wallet, credentials, private keys, or signing.",
+    "No real orders or live trading.",
+    "No runtime wiring."
+  ],
+  "recommended_next_task": "PMBOT-BATCH-013-DEMO-PACKET-POLISH",
+  "requires_flocky_validation": true,
+  "final_flocky_done_claimed": false
+}

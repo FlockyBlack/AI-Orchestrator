@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CodexAutoFlockyReviewV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "review_id",
+    "queue_task_id",
+    "codex_task_id",
+    "reviewed_at",
+    "reviewed_by",
+    "source_result_path",
+    "source_queue_state",
+    "review_status",
+    "validation_findings",
+    "safety_check",
+    "allowed_next_queue_state",
+    "final_flocky_done_claimed",
+    "runtime_wiring_allowed",
+    "notes"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v1"
+    },
+    "review_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "queue_task_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "codex_task_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "reviewed_at": {
+      "type": "string",
+      "minLength": 1
+    },
+    "reviewed_by": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_result_path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_queue_state": {
+      "type": "string",
+      "const": "needs_flocky_review"
+    },
+    "review_status": {
+      "type": "string",
+      "enum": [
+        "pass",
+        "warning",
+        "fail",
+        "quarantine"
+      ]
+    },
+    "validation_findings": {
+      "type": "object"
+    },
+    "safety_check": {
+      "type": "object"
+    },
+    "allowed_next_queue_state": {
+      "type": "string",
+      "enum": [
+        "done",
+        "failed",
+        "quarantine",
+        "needs_flocky_review"
+      ]
+    },
+    "final_flocky_done_claimed": {
+      "type": "boolean",
+      "const": false
+    },
+    "runtime_wiring_allowed": {
+      "type": "boolean",
+      "const": false
+    },
+    "notes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "description": "Local codex_auto Flocky review bookkeeping only. This record is not AI-Orchestrator runtime truth, must not claim final Flocky or OpenClaw done, and cannot authorize runtime wiring, dispatcher, run_codex, trading, API, wallet, or private key behavior."
+}

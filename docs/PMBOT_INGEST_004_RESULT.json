@@ -1,0 +1,79 @@
+{
+  "files_created": [
+    "pm_bot/ingest/export_operator_candidate_selection_pack.py",
+    "pm_bot/ingest/operator_candidate_selection_pack.v1.md",
+    "pm_bot/ingest/operator_candidate_selection_index.v1.json",
+    "pm_bot/ingest/operator_candidate_selection_overlay_template.v1.json",
+    "pm_bot/ingest/expected_operator_candidate_selection_index.v1.json",
+    "pm_bot/ingest/tests/test_operator_candidate_selection_pack.py",
+    "docs/PMBOT_INGEST_004_RESULT.json"
+  ],
+  "files_modified": [],
+  "safety": {
+    "authenticated_endpoints": false,
+    "betting_recommendations": false,
+    "codex_copy_roots": false,
+    "credentials": false,
+    "dispatcher_run_codex_touched": false,
+    "downstream_feed_enabled": false,
+    "expected_value_calculations": false,
+    "live_fetchers": false,
+    "live_trading": false,
+    "market_decisions": false,
+    "market_scoring": false,
+    "network_api_calls": false,
+    "paper_orders": false,
+    "probability_estimates": false,
+    "prompt_automation": false,
+    "real_orders": false,
+    "research_packets_created": false,
+    "runtime_wiring": false,
+    "side_recommendations": false,
+    "trading_endpoints": false,
+    "truth_inference": false,
+    "wallet_private_keys": false
+  },
+  "selection_pack_summary": {
+    "candidates_exported": 50,
+    "research_packets_created": 0,
+    "selection_overlay_template_created": true,
+    "usable_candidates_seen": 50
+  },
+  "status": "PASS",
+  "summary": "Added a standalone deterministic offline operator candidate selection pack exporter that reads only candidate_intake_preview.v1.json, exports only usable_for_research_preview candidates, writes an inert Markdown pack, JSON index, blank manual overlay template, and expected fixture under pm_bot/ingest, and does not create or wire research packets.",
+  "task_id": "PMBOT-INGEST-004-OPERATOR-CANDIDATE-SELECTION-PACK",
+  "tests_run": [
+    {
+      "command": "python -m pytest pm_bot\\ingest\\tests\\test_operator_candidate_selection_pack.py",
+      "result": "PASS"
+    },
+    {
+      "command": "python -m pytest pm_bot\\ingest\\tests",
+      "result": "PASS"
+    },
+    {
+      "command": "python -m json.tool pm_bot\\ingest\\operator_candidate_selection_index.v1.json",
+      "result": "PASS"
+    },
+    {
+      "command": "python -m json.tool pm_bot\\ingest\\operator_candidate_selection_overlay_template.v1.json",
+      "result": "PASS"
+    },
+    {
+      "command": "python -m json.tool pm_bot\\ingest\\expected_operator_candidate_selection_index.v1.json",
+      "result": "PASS"
+    },
+    {
+      "command": "python pm_bot\\ingest\\export_operator_candidate_selection_pack.py --validate-overlay pm_bot\\ingest\\operator_candidate_selection_overlay_template.v1.json --validate-index-json pm_bot\\ingest\\operator_candidate_selection_index.v1.json",
+      "result": "PASS"
+    },
+    {
+      "command": "python -m py_compile pm_bot\\ingest\\export_operator_candidate_selection_pack.py pm_bot\\ingest\\tests\\test_operator_candidate_selection_pack.py",
+      "result": "PASS"
+    },
+    {
+      "command": "python -m json.tool docs\\PMBOT_INGEST_004_RESULT.json",
+      "result": "PASS"
+    }
+  ]
+}

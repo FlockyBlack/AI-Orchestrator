@@ -1,0 +1,146 @@
+{
+  "schema_version": "selected_ingest_manual_evidence_overlay_fixture.v1",
+  "task_id": "PMBOT-INGEST-007-SELECTED-STUBS-MANUAL-EVIDENCE-OVERLAY-MERGE",
+  "deterministic": true,
+  "overlay_format": "selected_ingest_operator_manual_evidence_overlay_list",
+  "selected_market_ids": [
+    "692258",
+    "824952",
+    "691547",
+    "597964",
+    "598936"
+  ],
+  "required_evidence_fields": [
+    "source_name",
+    "source_type",
+    "source_url_or_reference",
+    "captured_claim",
+    "relevance_to_resolution",
+    "operator_notes"
+  ],
+  "overlays": [
+    {
+      "market_id": "692258",
+      "completion_status": "needs_more_information",
+      "official_sources_checked": [
+        "offline-check:692258:local-market-rules",
+        "offline-check:692258:company-source-placeholder"
+      ],
+      "credible_news_sources_checked": [
+        "offline-check:692258:credible-news-query-placeholder"
+      ],
+      "evidence_slots": {
+        "official_resolution_criteria": [
+          {
+            "source_name": "Manual selected-ingest rule note",
+            "source_type": "official_resolution_criteria",
+            "source_url_or_reference": "offline-reference:692258:local-rules",
+            "captured_claim": "Operator copied a local resolution-rule source reference for structural validation only.",
+            "relevance_to_resolution": "Identifies the source category needed for later human review without deciding the market outcome.",
+            "operator_notes": "Partial fixture entry; remaining evidence is intentionally incomplete."
+          }
+        ]
+      },
+      "missing_information": [
+        "full_official_source_reference",
+        "credible_news_source_references",
+        "official_yes_or_no_evidence",
+        "source_reliability_review"
+      ],
+      "operator_notes": "Valid partial selected-ingest overlay used to prove deterministic merge behavior."
+    },
+    {
+      "market_id": "824952",
+      "completion_status": "ready_for_operator_review",
+      "official_sources_checked": [
+        "offline-check:824952:local-market-rules",
+        "offline-check:824952:official-source-placeholder"
+      ],
+      "credible_news_sources_checked": [
+        "offline-check:824952:credible-news-placeholder"
+      ],
+      "evidence_slots": {
+        "official_resolution_criteria": [
+          {
+            "source_name": "Manual selected-ingest rule placeholder",
+            "source_type": "official_resolution_criteria",
+            "source_url_or_reference": "offline-reference:824952:rules",
+            "captured_claim": "Manual entry records a copied resolution-rule source for structural validation only.",
+            "relevance_to_resolution": "Provides the rule source category needed before operator review.",
+            "operator_notes": "No outcome truth is inferred by this merge fixture."
+          }
+        ],
+        "official_yes_evidence": [
+          {
+            "source_name": "Manual official-source placeholder",
+            "source_type": "official_company_source",
+            "source_url_or_reference": "offline-reference:824952:official-source",
+            "captured_claim": "Manual entry records an operator-copied official source claim for structural validation only.",
+            "relevance_to_resolution": "Maps a manual source claim to the market resolution path without evaluating it.",
+            "operator_notes": "Operator must review the claim manually outside this merge tool."
+          }
+        ],
+        "credible_news_yes_evidence": [
+          {
+            "source_name": "Manual credible-news placeholder",
+            "source_type": "credible_news",
+            "source_url_or_reference": "offline-reference:824952:news",
+            "captured_claim": "Manual entry records a credible-news claim for structural validation only.",
+            "relevance_to_resolution": "Adds independent coverage context without scoring the market.",
+            "operator_notes": "Merge tool checks only that the entry is complete."
+          }
+        ],
+        "source_reliability_notes": [
+          {
+            "source_name": "Manual reliability note",
+            "source_type": "operator_context",
+            "source_url_or_reference": "offline-reference:824952:reliability",
+            "captured_claim": "Manual entry records source reliability notes for structural validation only.",
+            "relevance_to_resolution": "Confirms that source reliability was documented before operator review.",
+            "operator_notes": "No recommendation is produced."
+          }
+        ]
+      },
+      "missing_information": [],
+      "operator_notes": "Valid ready-for-review selected-ingest overlay used to prove structural readiness is validator-driven."
+    },
+    {
+      "market_id": "999999",
+      "completion_status": "manual_evidence_added",
+      "operator_notes": "This overlay must be rejected because the market_id is absent from the five selected stubs."
+    },
+    {
+      "market_id": "691547",
+      "title": "Operator attempted to override an immutable title.",
+      "completion_status": "manual_evidence_added",
+      "operator_notes": "This overlay must be rejected because immutable selected-ingest stub fields cannot be changed."
+    },
+    {
+      "market_id": "597964",
+      "completion_status": "manual_evidence_added",
+      "order": "not allowed in offline research overlays",
+      "trade": "not allowed in offline research overlays",
+      "wallet": "not allowed in offline research overlays",
+      "private_key": "not allowed in offline research overlays",
+      "execution": "not allowed in offline research overlays",
+      "recommendation": "not allowed in offline research overlays",
+      "bet": "not allowed in offline research overlays",
+      "stake": "not allowed in offline research overlays",
+      "size": "not allowed in offline research overlays",
+      "entry_price": "not allowed in offline research overlays",
+      "limit_price": "not allowed in offline research overlays",
+      "price_target": "not allowed in offline research overlays",
+      "score": "not allowed in offline research overlays",
+      "signal": "not allowed in offline research overlays",
+      "probability": "not allowed in offline research overlays",
+      "expected_value": "not allowed in offline research overlays",
+      "ev": "not allowed in offline research overlays",
+      "side": "not allowed in offline research overlays",
+      "yes_no_decision": "not allowed in offline research overlays",
+      "buy": "not allowed in offline research overlays",
+      "sell": "not allowed in offline research overlays",
+      "market_decision": "not allowed in offline research overlays",
+      "operator_notes": "This overlay must be rejected because prohibited execution, sizing, scoring, probability, side, and recommendation fields are present."
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+TARGET_AGENT: Codex
+TASK_OWNER: Codex
+TASK_TYPE: repair
+CODE_CHANGES_ALLOWED_FOR_RECEIVER: true
+SESSIONS_SPAWN_ALLOWED: false
+SESSIONS_SPAWN_ALLOWED_FOR_FLOCKY: false
+RUNTIME_MUTATION_ALLOWED: false
+QUEUE_MUTATION_ALLOWED: false
+GOVERNANCE_MUTATION_ALLOWED: false
+APPROVAL_REQUIRED: true
+MISROUTE_BEHAVIOR: IF_RECEIVED_BY_FLOCKY_RETURN_MISROUTED_CODEX_PROMPT_DETECTED_WITHOUT_TOOL_EXECUTION
+
+Prompt Pack:
+Autopilot V1 Codex focused repair template.
+
+Use this template for narrow bugfix or failing-test repair work with a tight scope and no expansion into runtime, dispatcher, queue, or governance surfaces.
+
+Repair scope:
+- identify the failing behavior
+- apply the smallest deterministic fix
+- keep public interfaces unchanged unless the task explicitly allows otherwise
+
+Allowed read paths:
+- docs/
+- codex_auto/
+- codex_auto/autopilot/
+- <add precise repair-scope paths here>
+
+Allowed write paths:
+- <list explicit repair-scope write paths here>
+
+Forbidden behavior:
+- no runtime wiring
+- no dispatcher changes
+- no run_codex changes
+- no task queue mutation
+- no governance mutation
+- no state, runtime, result, freeze, or checkpoint mutation
+- no sessions_spawn
+- no subagent spawn
+- no external Codex execution
+- no generated prompt execution
+- no network/API
+- no credentials
+- no wallet/private key
+- no orders/trading
+- no final acceptance claim
+- no execution approval claim
+
+Required validation commands:
+- python -m pytest -q <failing-test-path>
+- <add a smallest relevant follow-up verification here>
+
+Final response JSON:
+{
+  "task_id": "<placeholder-task-id>",
+  "status": "implementation_complete_ready_for_flocky_validation | blocked",
+  "summary": "<placeholder-summary>",
+  "files_created": [],
+  "files_modified": [],
+  "tests_run": [],
+  "safety": {},
+  "blocking_findings": [],
+  "warnings": [],
+  "next_required_step": "<placeholder-next-step>"
+}

@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0",
+  "template_name": "codex_code_changing.template.txt",
+  "task_id": "ORCH-AUTOPILOT-INVALID-FINAL-ACCEPTANCE",
+  "task_title": "Invalid final acceptance claim request",
+  "target_agent": "Codex",
+  "task_owner": "Codex",
+  "task_type": "code-changing",
+  "context": "Invalid request.",
+  "goal": "Should fail.",
+  "allowed_read_paths": [],
+  "allowed_write_paths": [],
+  "forbidden_write_paths": [],
+  "forbidden_behavior": [
+    "FINAL_ACCEPTED"
+  ],
+  "validation_commands": [],
+  "expected_final_json": {
+    "status": "FINAL_ACCEPTED"
+  },
+  "custom_sections": [],
+  "preflight_receiver": "Flocky",
+  "notes": []
+}

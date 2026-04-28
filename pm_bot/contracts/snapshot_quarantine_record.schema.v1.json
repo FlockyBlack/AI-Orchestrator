@@ -1,0 +1,41 @@
+{
+  "schema_version": "v1",
+  "artifact_type": "snapshot_quarantine_record",
+  "description": "Static schema contract for quarantining unsafe, stale, or malformed snapshot artifacts.",
+  "required_fields": [
+    "quarantine_reason",
+    "source_snapshot_id",
+    "detected_at",
+    "severity",
+    "blocking",
+    "allowed_next_step"
+  ],
+  "enum_fields": {
+    "severity": [
+      "low",
+      "medium",
+      "high",
+      "critical"
+    ],
+    "allowed_next_step": [
+      "reject",
+      "manual_review",
+      "fixture_replay_only"
+    ]
+  },
+  "boolean_fields": [
+    "blocking"
+  ],
+  "prohibited_fields": [
+    "api_key",
+    "api_secret",
+    "wallet",
+    "private_key",
+    "seed_phrase",
+    "signer",
+    "order_instruction",
+    "submit_order",
+    "execute_trade",
+    "runtime_action"
+  ]
+}

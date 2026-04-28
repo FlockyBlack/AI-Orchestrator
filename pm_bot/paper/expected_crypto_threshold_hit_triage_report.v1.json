@@ -1,0 +1,505 @@
+{
+  "schema_version": "v1",
+  "task_id": "PMBOT-BRAIN-033-CRYPTO-THRESHOLD-HIT-TRIAGE",
+  "deterministic": true,
+  "source_path": "embedded_crypto_threshold_hit_fixture",
+  "source_shape": "polymarket_gamma_markets_response",
+  "top_level_shape": "top_level_list",
+  "gamma_market_list_detected": true,
+  "metadata_keys": [],
+  "summary": {
+    "total_markets_seen": 6,
+    "threshold_hit_like_markets_found": 6,
+    "threshold_hit_crypto_candidates_found": 5,
+    "supported_triage_candidates": 3,
+    "rejected_ambiguous_candidates": 3,
+    "market_type_counts": {
+      "threshold_hit_by_date": 4,
+      "threshold_hit_before_event": 1,
+      "ambiguous_threshold_hit": 1
+    },
+    "supported_market_type_counts": {
+      "threshold_hit_by_date": 2,
+      "threshold_hit_before_event": 1,
+      "ambiguous_threshold_hit": 0
+    },
+    "reason_counts": {
+      "ambiguous_asset": 1,
+      "missing_target": 1,
+      "unsupported_asset": 1
+    },
+    "asset_counts": {
+      "BTC": 3,
+      "ETH": 1,
+      "ambiguous": 1,
+      "unsupported": 1
+    },
+    "candidate_table_count": 6
+  },
+  "supported_triage_candidates": [
+    {
+      "source_index": 0,
+      "triage_status": "supported",
+      "market_type": "threshold_hit_by_date",
+      "asset": "BTC",
+      "asset_candidates": [
+        "BTC"
+      ],
+      "target": "150000",
+      "target_display": "$150k",
+      "phrase": "hit",
+      "deadline": "June 30, 2026",
+      "deadline_date": "2026-06-30",
+      "event_trigger": null,
+      "market_id": "fixture_btc_hit_150k_by_date",
+      "condition_id": "0xfixture_btc_hit_150k_by_date",
+      "title": "Will BTC hit $150k by June 30, 2026?",
+      "question": "Will BTC hit $150k by June 30, 2026?",
+      "slug": "will-btc-hit-150k-by-june-30-2026",
+      "outcome_shape": "yes_no",
+      "outcomes": [
+        "Yes",
+        "No"
+      ],
+      "current_prices": {
+        "Yes": 0.21,
+        "No": 0.79
+      },
+      "yes_price": 0.21,
+      "no_price": 0.79,
+      "liquidity": 12345.0,
+      "volume": 50000.0,
+      "best_bid": 0.2,
+      "best_ask": 0.22,
+      "reason_code": null,
+      "reason": null
+    },
+    {
+      "source_index": 1,
+      "triage_status": "supported",
+      "market_type": "threshold_hit_before_event",
+      "asset": "BTC",
+      "asset_candidates": [
+        "BTC"
+      ],
+      "target": "1000000",
+      "target_display": "$1m",
+      "phrase": "hit",
+      "deadline": null,
+      "deadline_date": null,
+      "event_trigger": "GTA VI",
+      "market_id": "fixture_bitcoin_hit_1m_before_event",
+      "condition_id": "0xfixture_bitcoin_hit_1m_before_event",
+      "title": "Will Bitcoin hit $1m before GTA VI?",
+      "question": "Will Bitcoin hit $1m before GTA VI?",
+      "slug": "will-bitcoin-hit-1m-before-gta-vi",
+      "outcome_shape": "yes_no",
+      "outcomes": [
+        "Yes",
+        "No"
+      ],
+      "current_prices": {
+        "Yes": 0.49,
+        "No": 0.51
+      },
+      "yes_price": 0.49,
+      "no_price": 0.51,
+      "liquidity": 23456.0,
+      "volume": 60000.0,
+      "best_bid": 0.48,
+      "best_ask": 0.5,
+      "reason_code": null,
+      "reason": null
+    },
+    {
+      "source_index": 2,
+      "triage_status": "supported",
+      "market_type": "threshold_hit_by_date",
+      "asset": "ETH",
+      "asset_candidates": [
+        "ETH"
+      ],
+      "target": "5000",
+      "target_display": "$5,000",
+      "phrase": "reach",
+      "deadline": "December 31, 2026",
+      "deadline_date": "2026-12-31",
+      "event_trigger": null,
+      "market_id": "fixture_eth_reach_5000_by_date",
+      "condition_id": "0xfixture_eth_reach_5000_by_date",
+      "title": "Will ETH reach $5,000 by December 31, 2026?",
+      "question": "Will ETH reach $5,000 by December 31, 2026?",
+      "slug": "will-eth-reach-5000-by-december-31-2026",
+      "outcome_shape": "yes_no",
+      "outcomes": [
+        "Yes",
+        "No"
+      ],
+      "current_prices": {
+        "Yes": 0.33,
+        "No": 0.67
+      },
+      "yes_price": 0.33,
+      "no_price": 0.67,
+      "liquidity": 34567.0,
+      "volume": 70000.0,
+      "best_bid": 0.32,
+      "best_ask": 0.34,
+      "reason_code": null,
+      "reason": null
+    }
+  ],
+  "rejected_ambiguous_candidates": [
+    {
+      "source_index": 3,
+      "triage_status": "rejected",
+      "market_type": "threshold_hit_by_date",
+      "asset": null,
+      "asset_candidates": [],
+      "target": "5000",
+      "target_display": "$5,000",
+      "phrase": "hit",
+      "deadline": "December 31, 2026",
+      "deadline_date": "2026-12-31",
+      "event_trigger": null,
+      "market_id": "fixture_gold_hit_5000_by_date",
+      "condition_id": "0xfixture_gold_hit_5000_by_date",
+      "title": "Will gold hit $5,000 by December 31, 2026?",
+      "question": "Will gold hit $5,000 by December 31, 2026?",
+      "slug": "will-gold-hit-5000-by-december-31-2026",
+      "outcome_shape": "yes_no",
+      "outcomes": [
+        "Yes",
+        "No"
+      ],
+      "current_prices": {
+        "Yes": 0.25,
+        "No": 0.75
+      },
+      "yes_price": 0.25,
+      "no_price": 0.75,
+      "liquidity": 45678.0,
+      "volume": 80000.0,
+      "best_bid": 0.24,
+      "best_ask": 0.26,
+      "reason_code": "unsupported_asset",
+      "reason": "Question does not identify BTC, Bitcoin, ETH, or Ethereum."
+    },
+    {
+      "source_index": 4,
+      "triage_status": "rejected",
+      "market_type": "ambiguous_threshold_hit",
+      "asset": "BTC",
+      "asset_candidates": [
+        "BTC"
+      ],
+      "target": null,
+      "target_display": null,
+      "phrase": null,
+      "deadline": null,
+      "deadline_date": null,
+      "event_trigger": null,
+      "market_id": "fixture_bitcoin_missing_target",
+      "condition_id": "0xfixture_bitcoin_missing_target",
+      "title": "Will Bitcoin hit a new all time high by December 31, 2026?",
+      "question": "Will Bitcoin hit a new all time high by December 31, 2026?",
+      "slug": "will-bitcoin-hit-new-all-time-high-by-december-31-2026",
+      "outcome_shape": "yes_no",
+      "outcomes": [
+        "Yes",
+        "No"
+      ],
+      "current_prices": {
+        "Yes": 0.5,
+        "No": 0.5
+      },
+      "yes_price": 0.5,
+      "no_price": 0.5,
+      "liquidity": 56789.0,
+      "volume": 90000.0,
+      "best_bid": 0.49,
+      "best_ask": 0.51,
+      "reason_code": "missing_target",
+      "reason": "Threshold-hit phrase does not include a numeric target."
+    },
+    {
+      "source_index": 5,
+      "triage_status": "rejected",
+      "market_type": "threshold_hit_by_date",
+      "asset": null,
+      "asset_candidates": [
+        "BTC",
+        "ETH"
+      ],
+      "target": "100000",
+      "target_display": "$100,000",
+      "phrase": "hit",
+      "deadline": "December 31, 2026",
+      "deadline_date": "2026-12-31",
+      "event_trigger": null,
+      "market_id": "fixture_ambiguous_asset_hit_100000",
+      "condition_id": "0xfixture_ambiguous_asset_hit_100000",
+      "title": "Will Bitcoin or Ethereum hit $100,000 by December 31, 2026?",
+      "question": "Will Bitcoin or Ethereum hit $100,000 by December 31, 2026?",
+      "slug": "will-bitcoin-or-ethereum-hit-100000-by-december-31-2026",
+      "outcome_shape": "yes_no",
+      "outcomes": [
+        "Yes",
+        "No"
+      ],
+      "current_prices": {
+        "Yes": 0.12,
+        "No": 0.88
+      },
+      "yes_price": 0.12,
+      "no_price": 0.88,
+      "liquidity": 67890.0,
+      "volume": 100000.0,
+      "best_bid": 0.11,
+      "best_ask": 0.13,
+      "reason_code": "ambiguous_asset",
+      "reason": "Question identifies more than one supported crypto asset."
+    }
+  ],
+  "candidate_table": [
+    {
+      "source_index": 0,
+      "triage_status": "supported",
+      "market_type": "threshold_hit_by_date",
+      "asset": "BTC",
+      "asset_candidates": [
+        "BTC"
+      ],
+      "target": "150000",
+      "target_display": "$150k",
+      "phrase": "hit",
+      "deadline": "June 30, 2026",
+      "deadline_date": "2026-06-30",
+      "event_trigger": null,
+      "market_id": "fixture_btc_hit_150k_by_date",
+      "condition_id": "0xfixture_btc_hit_150k_by_date",
+      "title": "Will BTC hit $150k by June 30, 2026?",
+      "question": "Will BTC hit $150k by June 30, 2026?",
+      "slug": "will-btc-hit-150k-by-june-30-2026",
+      "outcome_shape": "yes_no",
+      "outcomes": [
+        "Yes",
+        "No"
+      ],
+      "current_prices": {
+        "Yes": 0.21,
+        "No": 0.79
+      },
+      "yes_price": 0.21,
+      "no_price": 0.79,
+      "liquidity": 12345.0,
+      "volume": 50000.0,
+      "best_bid": 0.2,
+      "best_ask": 0.22,
+      "reason_code": null,
+      "reason": null
+    },
+    {
+      "source_index": 1,
+      "triage_status": "supported",
+      "market_type": "threshold_hit_before_event",
+      "asset": "BTC",
+      "asset_candidates": [
+        "BTC"
+      ],
+      "target": "1000000",
+      "target_display": "$1m",
+      "phrase": "hit",
+      "deadline": null,
+      "deadline_date": null,
+      "event_trigger": "GTA VI",
+      "market_id": "fixture_bitcoin_hit_1m_before_event",
+      "condition_id": "0xfixture_bitcoin_hit_1m_before_event",
+      "title": "Will Bitcoin hit $1m before GTA VI?",
+      "question": "Will Bitcoin hit $1m before GTA VI?",
+      "slug": "will-bitcoin-hit-1m-before-gta-vi",
+      "outcome_shape": "yes_no",
+      "outcomes": [
+        "Yes",
+        "No"
+      ],
+      "current_prices": {
+        "Yes": 0.49,
+        "No": 0.51
+      },
+      "yes_price": 0.49,
+      "no_price": 0.51,
+      "liquidity": 23456.0,
+      "volume": 60000.0,
+      "best_bid": 0.48,
+      "best_ask": 0.5,
+      "reason_code": null,
+      "reason": null
+    },
+    {
+      "source_index": 2,
+      "triage_status": "supported",
+      "market_type": "threshold_hit_by_date",
+      "asset": "ETH",
+      "asset_candidates": [
+        "ETH"
+      ],
+      "target": "5000",
+      "target_display": "$5,000",
+      "phrase": "reach",
+      "deadline": "December 31, 2026",
+      "deadline_date": "2026-12-31",
+      "event_trigger": null,
+      "market_id": "fixture_eth_reach_5000_by_date",
+      "condition_id": "0xfixture_eth_reach_5000_by_date",
+      "title": "Will ETH reach $5,000 by December 31, 2026?",
+      "question": "Will ETH reach $5,000 by December 31, 2026?",
+      "slug": "will-eth-reach-5000-by-december-31-2026",
+      "outcome_shape": "yes_no",
+      "outcomes": [
+        "Yes",
+        "No"
+      ],
+      "current_prices": {
+        "Yes": 0.33,
+        "No": 0.67
+      },
+      "yes_price": 0.33,
+      "no_price": 0.67,
+      "liquidity": 34567.0,
+      "volume": 70000.0,
+      "best_bid": 0.32,
+      "best_ask": 0.34,
+      "reason_code": null,
+      "reason": null
+    },
+    {
+      "source_index": 3,
+      "triage_status": "rejected",
+      "market_type": "threshold_hit_by_date",
+      "asset": null,
+      "asset_candidates": [],
+      "target": "5000",
+      "target_display": "$5,000",
+      "phrase": "hit",
+      "deadline": "December 31, 2026",
+      "deadline_date": "2026-12-31",
+      "event_trigger": null,
+      "market_id": "fixture_gold_hit_5000_by_date",
+      "condition_id": "0xfixture_gold_hit_5000_by_date",
+      "title": "Will gold hit $5,000 by December 31, 2026?",
+      "question": "Will gold hit $5,000 by December 31, 2026?",
+      "slug": "will-gold-hit-5000-by-december-31-2026",
+      "outcome_shape": "yes_no",
+      "outcomes": [
+        "Yes",
+        "No"
+      ],
+      "current_prices": {
+        "Yes": 0.25,
+        "No": 0.75
+      },
+      "yes_price": 0.25,
+      "no_price": 0.75,
+      "liquidity": 45678.0,
+      "volume": 80000.0,
+      "best_bid": 0.24,
+      "best_ask": 0.26,
+      "reason_code": "unsupported_asset",
+      "reason": "Question does not identify BTC, Bitcoin, ETH, or Ethereum."
+    },
+    {
+      "source_index": 4,
+      "triage_status": "rejected",
+      "market_type": "ambiguous_threshold_hit",
+      "asset": "BTC",
+      "asset_candidates": [
+        "BTC"
+      ],
+      "target": null,
+      "target_display": null,
+      "phrase": null,
+      "deadline": null,
+      "deadline_date": null,
+      "event_trigger": null,
+      "market_id": "fixture_bitcoin_missing_target",
+      "condition_id": "0xfixture_bitcoin_missing_target",
+      "title": "Will Bitcoin hit a new all time high by December 31, 2026?",
+      "question": "Will Bitcoin hit a new all time high by December 31, 2026?",
+      "slug": "will-bitcoin-hit-new-all-time-high-by-december-31-2026",
+      "outcome_shape": "yes_no",
+      "outcomes": [
+        "Yes",
+        "No"
+      ],
+      "current_prices": {
+        "Yes": 0.5,
+        "No": 0.5
+      },
+      "yes_price": 0.5,
+      "no_price": 0.5,
+      "liquidity": 56789.0,
+      "volume": 90000.0,
+      "best_bid": 0.49,
+      "best_ask": 0.51,
+      "reason_code": "missing_target",
+      "reason": "Threshold-hit phrase does not include a numeric target."
+    },
+    {
+      "source_index": 5,
+      "triage_status": "rejected",
+      "market_type": "threshold_hit_by_date",
+      "asset": null,
+      "asset_candidates": [
+        "BTC",
+        "ETH"
+      ],
+      "target": "100000",
+      "target_display": "$100,000",
+      "phrase": "hit",
+      "deadline": "December 31, 2026",
+      "deadline_date": "2026-12-31",
+      "event_trigger": null,
+      "market_id": "fixture_ambiguous_asset_hit_100000",
+      "condition_id": "0xfixture_ambiguous_asset_hit_100000",
+      "title": "Will Bitcoin or Ethereum hit $100,000 by December 31, 2026?",
+      "question": "Will Bitcoin or Ethereum hit $100,000 by December 31, 2026?",
+      "slug": "will-bitcoin-or-ethereum-hit-100000-by-december-31-2026",
+      "outcome_shape": "yes_no",
+      "outcomes": [
+        "Yes",
+        "No"
+      ],
+      "current_prices": {
+        "Yes": 0.12,
+        "No": 0.88
+      },
+      "yes_price": 0.12,
+      "no_price": 0.88,
+      "liquidity": 67890.0,
+      "volume": 100000.0,
+      "best_bid": 0.11,
+      "best_ask": 0.13,
+      "reason_code": "ambiguous_asset",
+      "reason": "Question identifies more than one supported crypto asset."
+    }
+  ],
+  "safety_flags": {
+    "offline_only": true,
+    "paper_only": true,
+    "live_fetcher_implemented": false,
+    "api_used": false,
+    "network_used": false,
+    "wallet_used": false,
+    "real_order_created": false,
+    "trading_allowed": false,
+    "runtime_wiring_changed": false,
+    "dispatcher_touched": false,
+    "prompt_automation_added": false
+  },
+  "limitations": [
+    "Reads a local saved JSON file only; no live fetcher, network, external API, credentials, wallet access, orders, or trading are included.",
+    "Threshold-hit candidates are triaged only and are not converted into the existing crypto numeric above/below scorer input.",
+    "No paper orders, runtime wiring, dispatcher changes, or prompt automation are included."
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "task_id": "PMBOT-BRAIN-031-REAL-MARKET-TRIAGE-REPORT",
+  "status": "passed",
+  "summary": "Added a deterministic offline triage report for saved Polymarket Gamma markets that explains source shape, category/tag distribution, asset/outcome/numeric phrase shapes, current crypto numeric adapter actionability, adapter rejection reasons, and top candidate support-type suggestions without adding live fetchers, runtime wiring, orders, credentials, or state writes.",
+  "files_created": [
+    "pm_bot/paper/run_real_market_triage_report.py",
+    "pm_bot/paper/expected_real_market_triage_report.v1.json",
+    "pm_bot/paper/expected_real_market_triage_report.v1.md",
+    "pm_bot/paper/tests/test_run_real_market_triage_report.py",
+    "docs/PM_BOT_BRAIN_031_RESULT.json",
+    "docs/PM_BOT_STAGE_SUMMARY_V43.md"
+  ],
+  "files_modified": [],
+  "tests": [
+    "python -m pytest pm_bot\\paper\\tests\\test_run_real_market_triage_report.py -q",
+    "python -m pytest pm_bot\\scoring\\tests pm_bot\\paper\\tests -q",
+    "python pm_bot\\paper\\run_real_market_triage_report.py",
+    "python pm_bot\\paper\\run_real_market_triage_report.py --markdown",
+    "python pm_bot\\paper\\run_manual_snapshot_workspace_import.py --source C:\\Users\\OpenC\\Documents\\AI-Orchestrator\\local_snapshots\\polymarket_markets_active_001.json --markdown",
+    "python pm_bot\\paper\\run_manual_paper_operator_cycle.py",
+    "python pm_bot\\paper\\run_crypto_numeric_lifecycle_regression_gates.py"
+  ],
+  "triage_summary": {
+    "real_local_snapshot_checked": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator\\local_snapshots\\polymarket_markets_active_001.json; top-level JSON list with 100 Gamma market objects",
+    "markets_seen": "100",
+    "current_crypto_numeric_actionable": "0",
+    "adapter_rejection_reason_counts": {
+      "ambiguous_side": 5,
+      "unsupported_asset": 95
+    },
+    "asset_keyword_counts": {
+      "BTC": 0,
+      "ETH": 3,
+      "SOL": 0,
+      "XRP": 0,
+      "crypto": 0,
+      "bitcoin": 1,
+      "ethereum": 0
+    },
+    "outcome_shape_counts": {
+      "yes_no": 100,
+      "up_down": 0,
+      "multi_outcome": 0,
+      "unknown": 0
+    },
+    "numeric_target_detected": "4",
+    "above_below_phrase_detected": "4",
+    "up_down_phrase_detected": "0",
+    "top_candidate_count": "10"
+  },
+  "safety": {
+    "offline_only": true,
+    "paper_only": true,
+    "live_fetcher_implemented": false,
+    "api_used": false,
+    "network_used": false,
+    "wallet_used": false,
+    "real_order_created": false,
+    "trading_allowed": false,
+    "runtime_wiring_changed": false,
+    "dispatcher_touched": false,
+    "prompt_automation_added": false
+  },
+  "notes": [
+    "No production dependency was added.",
+    "No files under C:\\Users\\OpenC\\Documents\\Codex were edited.",
+    "The report reads only the local source JSON and writes nothing to the workspace inbox or PMBOT state.",
+    "The top candidates are triage suggestions only; scoring support was not expanded.",
+    "The canonical root is not a Git repository in this environment, so git status/diff were unavailable."
+  ]
+}

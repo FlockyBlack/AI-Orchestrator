@@ -1,0 +1,97 @@
+{
+  "artifact_id": "polymarket_gamma_events_20260428T000000Z_d80515cae764",
+  "artifact_type": "polymarket_public_market_snapshot",
+  "fetched_at": "2026-04-28T00:00:00Z",
+  "network_boundary": {
+    "authenticated_endpoints_used": false,
+    "credentials_required": false,
+    "public_readonly_polymarket_only": true,
+    "trading_endpoints_used": false,
+    "wallet_required": false
+  },
+  "normalized_summary": {
+    "active_non_closed_filter": {
+      "active": true,
+      "closed": false
+    },
+    "active_open_nested_markets_count": 2,
+    "event_ids": [
+      "2001"
+    ],
+    "events": [
+      {
+        "active": true,
+        "active_open_nested_market_count": 2,
+        "closed": false,
+        "id": "2001",
+        "nested_market_count": 2,
+        "slug": "example-policy-event-2026",
+        "title": "Example policy event for 2026"
+      }
+    ],
+    "events_count": 1,
+    "nested_markets_count": 2,
+    "payload_shape": "events_with_nested_markets"
+  },
+  "query": {
+    "active": "true",
+    "closed": "false",
+    "limit": "2"
+  },
+  "raw_payload": [
+    {
+      "active": true,
+      "closed": false,
+      "id": "2001",
+      "markets": [
+        {
+          "active": true,
+          "archived": false,
+          "closed": false,
+          "conditionId": "0xconditioneventfixture001",
+          "endDate": "2026-05-30T00:00:00Z",
+          "id": "3001",
+          "liquidity": "1234.5",
+          "outcomes": "[\"Yes\", \"No\"]",
+          "question": "Will the example policy pass by May 2026?",
+          "slug": "example-policy-pass-may-2026",
+          "volume": "4567.89"
+        },
+        {
+          "active": true,
+          "archived": false,
+          "closed": false,
+          "conditionId": "0xconditioneventfixture002",
+          "endDate": "2026-06-30T00:00:00Z",
+          "id": "3002",
+          "liquidity": 987.65,
+          "outcomes": [
+            "Above",
+            "Below"
+          ],
+          "question": "Will the example index finish above 50 by June 2026?",
+          "slug": "example-index-above-50-june-2026",
+          "volume": 3210
+        }
+      ],
+      "slug": "example-policy-event-2026",
+      "title": "Example policy event for 2026"
+    }
+  ],
+  "raw_payload_sha256": "d80515cae764785dd889e2ec749ce51f7cf87fe27b90e1d8b636821f02aca436",
+  "schema_version": "polymarket_readonly_raw_snapshot.v1",
+  "source": {
+    "endpoint": "https://gamma-api.polymarket.com/events",
+    "method": "GET",
+    "name": "polymarket_gamma_events",
+    "network_mode": "public_readonly",
+    "source_url": "https://gamma-api.polymarket.com/events?active=true&closed=false&limit=2",
+    "url": "https://gamma-api.polymarket.com/events?active=true&closed=false&limit=2"
+  },
+  "validation": {
+    "finding_count": 0,
+    "findings": [],
+    "passed": true,
+    "validated_at": "2026-04-28T00:00:00Z"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "task_id": "PMBOT-BRAIN-022-LOCAL-SNAPSHOT-INBOX-PROCESSOR",
+  "status": "completed",
+  "summary": "Added deterministic offline paper local snapshot inbox processing for manual paper portfolio workflow.",
+  "command": "python pm_bot\\paper\\run_local_snapshot_inbox_paper_portfolio.py",
+  "inbox_summary": {
+    "snapshot_files_discovered": 3,
+    "snapshots_processed": 2,
+    "snapshots_skipped_already_processed": 1,
+    "new_paper_orders_created": 0,
+    "duplicate_orders_blocked": 1,
+    "risk_limit_orders_blocked": 1,
+    "open_positions_after_run": 0,
+    "settled_positions_after_run": 1,
+    "exposure_after_run": 0,
+    "realized_paper_pnl_after_run": 72.41,
+    "out_state_write_tested": true
+  },
+  "tests": [
+    "python -m pytest pm_bot\\scoring\\tests pm_bot\\paper\\tests -q",
+    "python pm_bot\\paper\\run_local_snapshot_inbox_paper_portfolio.py",
+    "python pm_bot\\paper\\run_local_snapshot_inbox_paper_portfolio.py --markdown",
+    "python pm_bot\\paper\\run_local_snapshot_paper_portfolio_state.py",
+    "python pm_bot\\paper\\run_local_snapshot_series_risk_scenarios.py",
+    "python pm_bot\\paper\\run_crypto_numeric_lifecycle_regression_gates.py"
+  ],
+  "safety": {
+    "offline_only": true,
+    "paper_only": true,
+    "live_fetcher_implemented": false,
+    "api_used": false,
+    "network_used": false,
+    "wallet_used": false,
+    "real_order_created": false,
+    "trading_allowed": false,
+    "runtime_wiring_changed": false,
+    "dispatcher_touched": false,
+    "prompt_automation_added": false
+  }
+}

@@ -1,0 +1,560 @@
+{
+  "schema_version": "dossier_human_review_records_result.v1",
+  "markdown_version": "dossier_human_review_records_report.v1",
+  "task_id": "PMBOT-RESEARCH-015-DOSSIER-HUMAN-REVIEW-RECORD-GATE",
+  "deterministic": true,
+  "source_review_records_path": "pm_bot/research/dossier_human_review_records_fixture.v1.json",
+  "source_review_records_schema_version": "dossier_human_review_records_fixture.v1",
+  "source_review_pack_path": "pm_bot/research/dossier_human_review_pack.v1.json",
+  "source_review_pack_schema_version": "dossier_human_review_pack.v1",
+  "source_validation_result_path": "pm_bot/research/manual_dossier_draft_validation_result.v1.json",
+  "source_validation_result_schema_version": "manual_dossier_draft_validation_result.v1",
+  "source_dossier_skeletons_path": "pm_bot/research/dossier_draft_skeletons.v1.json",
+  "source_dossier_skeletons_schema_version": "dossier_draft_skeletons.v1",
+  "json_result_path": "pm_bot/research/dossier_human_review_records_result.v1.json",
+  "markdown_report_path": "pm_bot/research/dossier_human_review_records_report.v1.md",
+  "expected_json_result_path": "pm_bot/research/expected_dossier_human_review_records_result.v1.json",
+  "allowed_human_review_statuses": [
+    "not_reviewed",
+    "review_completed",
+    "needs_revision",
+    "review_rejected"
+  ],
+  "allowed_human_review_outcomes": [
+    "approved_for_final_dossier_draft",
+    "needs_draft_revision",
+    "rejected_for_research_quality",
+    "watch_only"
+  ],
+  "required_approval_review_checks": [
+    "evidence_matches_resolution_criteria",
+    "uncertainty_register_reviewed",
+    "missing_information_reviewed",
+    "no_trading_recommendation_present",
+    "no_probability_or_ev_present",
+    "no_side_recommendation_present",
+    "no_market_decision_present"
+  ],
+  "allowed_review_record_fields": [
+    "human_review_outcome",
+    "human_review_status",
+    "market_id",
+    "next_manual_action",
+    "quality_flags",
+    "requested_revision_items",
+    "review_checks",
+    "reviewer_notes"
+  ],
+  "immutable_review_pack_fields": [
+    "allowed_review_outcomes",
+    "category",
+    "current_yes_price",
+    "deadline",
+    "evidence_summary_by_source",
+    "human_review_checklist",
+    "liquidity",
+    "market_context_notes",
+    "missing_information_review",
+    "open_questions",
+    "operator_review_notes",
+    "packet_type",
+    "prohibited_review_outputs",
+    "resolution_criteria_notes",
+    "resolution_criteria_summary",
+    "review_pack_status",
+    "title_question",
+    "uncertainty_register"
+  ],
+  "accepted_record_fields": [
+    "record_index",
+    "market_id",
+    "human_review_status",
+    "human_review_outcome",
+    "reviewer_notes",
+    "review_checks",
+    "requested_revision_items",
+    "quality_flags",
+    "next_manual_action",
+    "review_pack_status"
+  ],
+  "rejected_record_fields": [
+    "record_index",
+    "market_id",
+    "human_review_status",
+    "human_review_outcome",
+    "review_pack_status",
+    "errors"
+  ],
+  "review_pack_market_ids": [
+    "563650"
+  ],
+  "review_summary": {
+    "review_records_read": 10,
+    "review_records_accepted": 1,
+    "review_records_rejected": 9,
+    "approved_for_final_dossier_draft": 1,
+    "needs_draft_revision": 0,
+    "rejected_for_research_quality": 0,
+    "watch_only": 0
+  },
+  "errors_by_market_id": {
+    "563650": [
+      {
+        "code": "immutable_review_pack_field_override:title_question",
+        "path": "title_question",
+        "message": "title_question is immutable review pack content and cannot be supplied by a human review record."
+      },
+      {
+        "code": "prohibited_human_review_field:execution",
+        "path": "execution",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy, sell, and market-decision fields are prohibited in dossier human review records."
+      },
+      {
+        "code": "unexpected_human_review_field:execution",
+        "path": "execution",
+        "message": "execution is not an allowed human review record field."
+      },
+      {
+        "code": "prohibited_human_review_field:order",
+        "path": "execution.order",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy, sell, and market-decision fields are prohibited in dossier human review records."
+      },
+      {
+        "code": "prohibited_human_review_field:recommendation",
+        "path": "recommendation",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy, sell, and market-decision fields are prohibited in dossier human review records."
+      },
+      {
+        "code": "unexpected_human_review_field:recommendation",
+        "path": "recommendation",
+        "message": "recommendation is not an allowed human review record field."
+      },
+      {
+        "code": "prohibited_human_review_field:trade",
+        "path": "trade",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy, sell, and market-decision fields are prohibited in dossier human review records."
+      },
+      {
+        "code": "unexpected_human_review_field:trade",
+        "path": "trade",
+        "message": "trade is not an allowed human review record field."
+      },
+      {
+        "code": "prohibited_human_review_field:wallet",
+        "path": "wallet",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy, sell, and market-decision fields are prohibited in dossier human review records."
+      },
+      {
+        "code": "unexpected_human_review_field:wallet",
+        "path": "wallet",
+        "message": "wallet is not an allowed human review record field."
+      },
+      {
+        "code": "prohibited_human_review_field:ev",
+        "path": "ev",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy, sell, and market-decision fields are prohibited in dossier human review records."
+      },
+      {
+        "code": "unexpected_human_review_field:ev",
+        "path": "ev",
+        "message": "ev is not an allowed human review record field."
+      },
+      {
+        "code": "prohibited_human_review_field:expected_value",
+        "path": "expected_value",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy, sell, and market-decision fields are prohibited in dossier human review records."
+      },
+      {
+        "code": "unexpected_human_review_field:expected_value",
+        "path": "expected_value",
+        "message": "expected_value is not an allowed human review record field."
+      },
+      {
+        "code": "prohibited_dossier_language:market_decision",
+        "path": "market_decision",
+        "message": "Completed/final dossier, recommendation, and market-decision language is prohibited in machine-readable human review record fields."
+      },
+      {
+        "code": "prohibited_human_review_field:market_decision",
+        "path": "market_decision",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy, sell, and market-decision fields are prohibited in dossier human review records."
+      },
+      {
+        "code": "unexpected_human_review_field:market_decision",
+        "path": "market_decision",
+        "message": "market_decision is not an allowed human review record field."
+      },
+      {
+        "code": "prohibited_human_review_field:probability",
+        "path": "probability",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy, sell, and market-decision fields are prohibited in dossier human review records."
+      },
+      {
+        "code": "unexpected_human_review_field:probability",
+        "path": "probability",
+        "message": "probability is not an allowed human review record field."
+      },
+      {
+        "code": "prohibited_human_review_field:score",
+        "path": "score",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy, sell, and market-decision fields are prohibited in dossier human review records."
+      },
+      {
+        "code": "unexpected_human_review_field:score",
+        "path": "score",
+        "message": "score is not an allowed human review record field."
+      },
+      {
+        "code": "prohibited_human_review_field:side",
+        "path": "side",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy, sell, and market-decision fields are prohibited in dossier human review records."
+      },
+      {
+        "code": "unexpected_human_review_field:side",
+        "path": "side",
+        "message": "side is not an allowed human review record field."
+      },
+      {
+        "code": "prohibited_human_review_field:yes_no_decision",
+        "path": "yes_no_decision",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy, sell, and market-decision fields are prohibited in dossier human review records."
+      },
+      {
+        "code": "unexpected_human_review_field:yes_no_decision",
+        "path": "yes_no_decision",
+        "message": "yes_no_decision is not an allowed human review record field."
+      },
+      {
+        "code": "required_approval_review_check_not_true:no_market_decision_present",
+        "path": "review_checks.no_market_decision_present",
+        "message": "review_checks.no_market_decision_present must be true before approved_for_final_dossier_draft can be accepted."
+      },
+      {
+        "code": "required_approval_review_check_not_true:no_probability_or_ev_present",
+        "path": "review_checks.no_probability_or_ev_present",
+        "message": "review_checks.no_probability_or_ev_present must be true before approved_for_final_dossier_draft can be accepted."
+      },
+      {
+        "code": "needs_draft_revision_requires_requested_revision_items",
+        "path": "requested_revision_items",
+        "message": "human_review_outcome needs_draft_revision requires non-empty requested_revision_items."
+      },
+      {
+        "code": "rejected_for_research_quality_requires_reviewer_notes",
+        "path": "reviewer_notes",
+        "message": "human_review_outcome rejected_for_research_quality requires non-empty reviewer_notes."
+      },
+      {
+        "code": "prohibited_dossier_language:completed_dossier",
+        "path": "reviewer_notes",
+        "message": "Completed/final dossier, recommendation, and market-decision language is prohibited in machine-readable human review record fields."
+      }
+    ],
+    "569366": [
+      {
+        "code": "non_review_pack_market_id",
+        "path": "market_id",
+        "message": "Human review record market_id is not present in dossier_human_review_pack.v1.json."
+      }
+    ],
+    "999999": [
+      {
+        "code": "unknown_market_id",
+        "path": "market_id",
+        "message": "Human review record market_id is absent from the local dossier review pack, draft validation, and skeleton artifacts."
+      }
+    ]
+  },
+  "accepted_human_review_records": [
+    {
+      "record_index": 0,
+      "market_id": "563650",
+      "human_review_status": "review_completed",
+      "human_review_outcome": "approved_for_final_dossier_draft",
+      "reviewer_notes": "Reviewer verified checklist coverage for the review pack and approved a later draft-preparation step.",
+      "review_checks": {
+        "evidence_matches_resolution_criteria": true,
+        "uncertainty_register_reviewed": true,
+        "missing_information_reviewed": true,
+        "no_trading_recommendation_present": true,
+        "no_probability_or_ev_present": true,
+        "no_side_recommendation_present": true,
+        "no_market_decision_present": true
+      },
+      "requested_revision_items": [],
+      "quality_flags": [],
+      "next_manual_action": "prepare_future_draft_artifact",
+      "review_pack_status": "human_review_pack_only"
+    }
+  ],
+  "rejected_human_review_records": [
+    {
+      "record_index": 3,
+      "market_id": "563650",
+      "human_review_status": "not_reviewed",
+      "human_review_outcome": "watch_only",
+      "review_pack_status": "human_review_pack_only",
+      "errors": [
+        {
+          "code": "immutable_review_pack_field_override:title_question",
+          "path": "title_question",
+          "message": "title_question is immutable review pack content and cannot be supplied by a human review record."
+        }
+      ]
+    },
+    {
+      "record_index": 4,
+      "market_id": "563650",
+      "human_review_status": "needs_revision",
+      "human_review_outcome": "needs_draft_revision",
+      "review_pack_status": "human_review_pack_only",
+      "errors": [
+        {
+          "code": "prohibited_human_review_field:execution",
+          "path": "execution",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy, sell, and market-decision fields are prohibited in dossier human review records."
+        },
+        {
+          "code": "unexpected_human_review_field:execution",
+          "path": "execution",
+          "message": "execution is not an allowed human review record field."
+        },
+        {
+          "code": "prohibited_human_review_field:order",
+          "path": "execution.order",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy, sell, and market-decision fields are prohibited in dossier human review records."
+        },
+        {
+          "code": "prohibited_human_review_field:recommendation",
+          "path": "recommendation",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy, sell, and market-decision fields are prohibited in dossier human review records."
+        },
+        {
+          "code": "unexpected_human_review_field:recommendation",
+          "path": "recommendation",
+          "message": "recommendation is not an allowed human review record field."
+        },
+        {
+          "code": "prohibited_human_review_field:trade",
+          "path": "trade",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy, sell, and market-decision fields are prohibited in dossier human review records."
+        },
+        {
+          "code": "unexpected_human_review_field:trade",
+          "path": "trade",
+          "message": "trade is not an allowed human review record field."
+        },
+        {
+          "code": "prohibited_human_review_field:wallet",
+          "path": "wallet",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy, sell, and market-decision fields are prohibited in dossier human review records."
+        },
+        {
+          "code": "unexpected_human_review_field:wallet",
+          "path": "wallet",
+          "message": "wallet is not an allowed human review record field."
+        }
+      ]
+    },
+    {
+      "record_index": 5,
+      "market_id": "563650",
+      "human_review_status": "review_completed",
+      "human_review_outcome": "watch_only",
+      "review_pack_status": "human_review_pack_only",
+      "errors": [
+        {
+          "code": "prohibited_human_review_field:ev",
+          "path": "ev",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy, sell, and market-decision fields are prohibited in dossier human review records."
+        },
+        {
+          "code": "unexpected_human_review_field:ev",
+          "path": "ev",
+          "message": "ev is not an allowed human review record field."
+        },
+        {
+          "code": "prohibited_human_review_field:expected_value",
+          "path": "expected_value",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy, sell, and market-decision fields are prohibited in dossier human review records."
+        },
+        {
+          "code": "unexpected_human_review_field:expected_value",
+          "path": "expected_value",
+          "message": "expected_value is not an allowed human review record field."
+        },
+        {
+          "code": "prohibited_dossier_language:market_decision",
+          "path": "market_decision",
+          "message": "Completed/final dossier, recommendation, and market-decision language is prohibited in machine-readable human review record fields."
+        },
+        {
+          "code": "prohibited_human_review_field:market_decision",
+          "path": "market_decision",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy, sell, and market-decision fields are prohibited in dossier human review records."
+        },
+        {
+          "code": "unexpected_human_review_field:market_decision",
+          "path": "market_decision",
+          "message": "market_decision is not an allowed human review record field."
+        },
+        {
+          "code": "prohibited_human_review_field:probability",
+          "path": "probability",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy, sell, and market-decision fields are prohibited in dossier human review records."
+        },
+        {
+          "code": "unexpected_human_review_field:probability",
+          "path": "probability",
+          "message": "probability is not an allowed human review record field."
+        },
+        {
+          "code": "prohibited_human_review_field:score",
+          "path": "score",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy, sell, and market-decision fields are prohibited in dossier human review records."
+        },
+        {
+          "code": "unexpected_human_review_field:score",
+          "path": "score",
+          "message": "score is not an allowed human review record field."
+        },
+        {
+          "code": "prohibited_human_review_field:side",
+          "path": "side",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy, sell, and market-decision fields are prohibited in dossier human review records."
+        },
+        {
+          "code": "unexpected_human_review_field:side",
+          "path": "side",
+          "message": "side is not an allowed human review record field."
+        },
+        {
+          "code": "prohibited_human_review_field:yes_no_decision",
+          "path": "yes_no_decision",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy, sell, and market-decision fields are prohibited in dossier human review records."
+        },
+        {
+          "code": "unexpected_human_review_field:yes_no_decision",
+          "path": "yes_no_decision",
+          "message": "yes_no_decision is not an allowed human review record field."
+        }
+      ]
+    },
+    {
+      "record_index": 6,
+      "market_id": "563650",
+      "human_review_status": "review_completed",
+      "human_review_outcome": "approved_for_final_dossier_draft",
+      "review_pack_status": "human_review_pack_only",
+      "errors": [
+        {
+          "code": "required_approval_review_check_not_true:no_market_decision_present",
+          "path": "review_checks.no_market_decision_present",
+          "message": "review_checks.no_market_decision_present must be true before approved_for_final_dossier_draft can be accepted."
+        },
+        {
+          "code": "required_approval_review_check_not_true:no_probability_or_ev_present",
+          "path": "review_checks.no_probability_or_ev_present",
+          "message": "review_checks.no_probability_or_ev_present must be true before approved_for_final_dossier_draft can be accepted."
+        }
+      ]
+    },
+    {
+      "record_index": 7,
+      "market_id": "563650",
+      "human_review_status": "needs_revision",
+      "human_review_outcome": "needs_draft_revision",
+      "review_pack_status": "human_review_pack_only",
+      "errors": [
+        {
+          "code": "needs_draft_revision_requires_requested_revision_items",
+          "path": "requested_revision_items",
+          "message": "human_review_outcome needs_draft_revision requires non-empty requested_revision_items."
+        }
+      ]
+    },
+    {
+      "record_index": 8,
+      "market_id": "563650",
+      "human_review_status": "review_rejected",
+      "human_review_outcome": "rejected_for_research_quality",
+      "review_pack_status": "human_review_pack_only",
+      "errors": [
+        {
+          "code": "rejected_for_research_quality_requires_reviewer_notes",
+          "path": "reviewer_notes",
+          "message": "human_review_outcome rejected_for_research_quality requires non-empty reviewer_notes."
+        }
+      ]
+    },
+    {
+      "record_index": 9,
+      "market_id": "563650",
+      "human_review_status": "review_completed",
+      "human_review_outcome": "watch_only",
+      "review_pack_status": "human_review_pack_only",
+      "errors": [
+        {
+          "code": "prohibited_dossier_language:completed_dossier",
+          "path": "reviewer_notes",
+          "message": "Completed/final dossier, recommendation, and market-decision language is prohibited in machine-readable human review record fields."
+        }
+      ]
+    },
+    {
+      "record_index": 2,
+      "market_id": "569366",
+      "human_review_status": "review_completed",
+      "human_review_outcome": "watch_only",
+      "review_pack_status": "",
+      "errors": [
+        {
+          "code": "non_review_pack_market_id",
+          "path": "market_id",
+          "message": "Human review record market_id is not present in dossier_human_review_pack.v1.json."
+        }
+      ]
+    },
+    {
+      "record_index": 1,
+      "market_id": "999999",
+      "human_review_status": "not_reviewed",
+      "human_review_outcome": "watch_only",
+      "review_pack_status": "",
+      "errors": [
+        {
+          "code": "unknown_market_id",
+          "path": "market_id",
+          "message": "Human review record market_id is absent from the local dossier review pack, draft validation, and skeleton artifacts."
+        }
+      ]
+    }
+  ],
+  "safety_flags": {
+    "offline_only": true,
+    "live_fetchers": false,
+    "network_api_calls": false,
+    "credentials": false,
+    "wallet_private_keys": false,
+    "real_orders": false,
+    "live_trading": false,
+    "runtime_wiring": false,
+    "dispatcher_run_codex_touched": false,
+    "prompt_automation": false,
+    "codex_copy_roots": false,
+    "completed_dossiers": false,
+    "paper_orders": false,
+    "betting_recommendations": false,
+    "truth_inference": false,
+    "market_scoring": false,
+    "probability_estimates": false,
+    "expected_value_calculations": false,
+    "side_recommendations": false,
+    "market_decisions": false
+  },
+  "limitations": [
+    "Reads only local human review records, dossier review packs, draft validation, and skeleton artifacts.",
+    "Validates human review record structure and operational review labels only.",
+    "Does not create final or completed dossiers, infer truth, score markets, estimate probabilities or EV, recommend sides, create orders, or route runtime work."
+  ]
+}

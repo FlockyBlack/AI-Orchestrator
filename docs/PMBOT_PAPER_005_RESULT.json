@@ -1,0 +1,85 @@
+{
+  "task_id": "PMBOT-PAPER-005-PAPER-DECISION-SIMULATION-GATE",
+  "status": "completed_ready_for_review",
+  "summary": "Implemented a deterministic offline paper simulation gate that reads the local PAPER-004 policy spec and its referenced PAPER-003 preview artifact, emits one inert manual-review gate record for market_id 824952, validates allowed gate statuses and prohibited source/output fields, and creates zero paper orders.",
+  "market_ids": [
+    "824952"
+  ],
+  "files_created": [
+    "pm_bot/paper/run_paper_decision_simulation_gate.py",
+    "pm_bot/paper/paper_decision_simulation_gate.v1.json",
+    "pm_bot/paper/paper_decision_simulation_gate.v1.md",
+    "pm_bot/paper/expected_paper_decision_simulation_gate.v1.json",
+    "pm_bot/paper/tests/test_paper_decision_simulation_gate.py",
+    "docs/PMBOT_PAPER_005_RESULT.json"
+  ],
+  "files_modified": [],
+  "tests": [
+    {
+      "command": "python pm_bot\\paper\\run_paper_decision_simulation_gate.py",
+      "status": "passed",
+      "result": "1 policy spec read; 1 gate record written; 1 market covered; 0 paper orders created"
+    },
+    {
+      "command": "python -m pytest pm_bot\\paper\\tests\\test_paper_decision_simulation_gate.py -q",
+      "status": "passed",
+      "result": "12 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\paper\\tests -q",
+      "status": "passed",
+      "result": "282 passed, 39 subtests passed"
+    },
+    {
+      "command": "python -m py_compile pm_bot\\paper\\run_paper_decision_simulation_gate.py",
+      "status": "passed",
+      "result": "compiled"
+    },
+    {
+      "command": "python -m json.tool pm_bot\\paper\\paper_decision_simulation_gate.v1.json",
+      "status": "passed",
+      "result": "json parse ok"
+    },
+    {
+      "command": "python -m json.tool pm_bot\\paper\\expected_paper_decision_simulation_gate.v1.json",
+      "status": "passed",
+      "result": "json parse ok"
+    },
+    {
+      "command": "python -m json.tool docs\\PMBOT_PAPER_005_RESULT.json",
+      "status": "passed",
+      "result": "json parse ok"
+    },
+    {
+      "command": "python -m py_compile pm_bot\\paper\\tests\\test_paper_decision_simulation_gate.py",
+      "status": "passed",
+      "result": "compiled"
+    }
+  ],
+  "paper_orders_created": 0,
+  "safety": {
+    "offline_only": true,
+    "network_api_calls": false,
+    "credentials": false,
+    "wallet_private_keys": false,
+    "authenticated_endpoints": false,
+    "trading_endpoints": false,
+    "real_orders": false,
+    "live_trading": false,
+    "paper_orders": false,
+    "betting_recommendations": false,
+    "truth_inference": false,
+    "market_scoring": false,
+    "probability_estimates": false,
+    "ev_calculations": false,
+    "side_recommendations": false,
+    "market_decisions": false,
+    "runtime_wiring": false,
+    "dispatcher_run_codex_changes": false,
+    "prompt_automation": false,
+    "codex_copy_roots": false,
+    "completed_dossiers": false,
+    "broad_refactor": false
+  },
+  "blockers": []
+}

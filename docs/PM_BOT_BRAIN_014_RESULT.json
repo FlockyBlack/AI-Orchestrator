@@ -1,0 +1,50 @@
+{
+  "task_id": "PMBOT-BRAIN-014-LIFECYCLE-REGRESSION-GATES",
+  "status": "completed_ready_for_review",
+  "summary": "Implemented deterministic offline lifecycle regression gates for crypto numeric paper lifecycle replay. The gate command validates locked aggregate outcomes, ensures the settled-no bad entry remains not-filled, verifies no-action/rejected scenarios do not create paper orders, preserves winning fills, and locks all safety flags.",
+  "pmbot_root_confirmed": true,
+  "regression_gate_readiness": "ready",
+  "command": "python pm_bot\\paper\\run_crypto_numeric_lifecycle_regression_gates.py",
+  "files_created": [
+    "pm_bot/paper/run_crypto_numeric_lifecycle_regression_gates.py",
+    "pm_bot/paper/expected_crypto_numeric_lifecycle_regression_gates.v1.json",
+    "pm_bot/paper/expected_crypto_numeric_lifecycle_regression_gates.v1.md",
+    "pm_bot/paper/tests/test_run_crypto_numeric_lifecycle_regression_gates.py",
+    "docs/PM_BOT_BRAIN_014_RESULT.json",
+    "docs/PM_BOT_STAGE_SUMMARY_V26.md"
+  ],
+  "files_modified": [],
+  "tests_or_checks_run": [
+    "python -m pytest pm_bot\\paper\\tests pm_bot\\scoring\\tests -q",
+    "python pm_bot\\paper\\run_crypto_numeric_lifecycle_regression_gates.py",
+    "python pm_bot\\paper\\run_crypto_numeric_lifecycle_regression_gates.py --markdown",
+    "python pm_bot\\paper\\run_crypto_numeric_lifecycle_replay.py"
+  ],
+  "gates_summary": {
+    "gates_checked": 6,
+    "gates_passed": 6,
+    "gates_failed": 0,
+    "safety_flags_locked": true,
+    "bad_entries_locked_zero": true,
+    "settled_no_fill_guard_locked": true
+  },
+  "limitations": [
+    "Validates deterministic fixture replay output only; no live markets, prices, APIs, or external metadata are fetched.",
+    "Regression gates lock current offline paper lifecycle outcomes and safety flags.",
+    "The command is local review/CI-style validation only and does not add runtime wiring.",
+    "No runtime integration, dispatcher/run_codex, prompt automation, credentials, wallet access, real orders, live trading, unrelated cleanup, or new validation layer was added."
+  ],
+  "recommended_next_task": "PMBOT-BRAIN-015: add an offline paper lifecycle audit report that explains why each regression gate passed or failed for operator review.",
+  "safety": {
+    "offline_only": true,
+    "paper_only": true,
+    "no_network_api": true,
+    "no_credentials": true,
+    "no_wallet": true,
+    "no_real_orders": true,
+    "no_live_trading": true,
+    "no_runtime_wiring": true,
+    "no_prompt_automation": true,
+    "no_unrelated_cleanup": true
+  }
+}

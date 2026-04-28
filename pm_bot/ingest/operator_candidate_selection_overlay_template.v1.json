@@ -1,0 +1,357 @@
+{
+  "artifact_type": "polymarket_operator_candidate_selection_overlay",
+  "schema_version": "operator_candidate_selection_overlay.v1",
+  "selections": [
+    {
+      "market_id": "692258",
+      "operator_notes": "",
+      "operator_priority": "",
+      "operator_reason": "",
+      "selected_for_research_stub": false
+    },
+    {
+      "market_id": "824952",
+      "operator_notes": "",
+      "operator_priority": "",
+      "operator_reason": "",
+      "selected_for_research_stub": false
+    },
+    {
+      "market_id": "691547",
+      "operator_notes": "",
+      "operator_priority": "",
+      "operator_reason": "",
+      "selected_for_research_stub": false
+    },
+    {
+      "market_id": "597964",
+      "operator_notes": "",
+      "operator_priority": "",
+      "operator_reason": "",
+      "selected_for_research_stub": false
+    },
+    {
+      "market_id": "598936",
+      "operator_notes": "",
+      "operator_priority": "",
+      "operator_reason": "",
+      "selected_for_research_stub": false
+    },
+    {
+      "market_id": "677404",
+      "operator_notes": "",
+      "operator_priority": "",
+      "operator_reason": "",
+      "selected_for_research_stub": false
+    },
+    {
+      "market_id": "610236",
+      "operator_notes": "",
+      "operator_priority": "",
+      "operator_reason": "",
+      "selected_for_research_stub": false
+    },
+    {
+      "market_id": "1500922",
+      "operator_notes": "",
+      "operator_priority": "",
+      "operator_reason": "",
+      "selected_for_research_stub": false
+    },
+    {
+      "market_id": "2002685",
+      "operator_notes": "",
+      "operator_priority": "",
+      "operator_reason": "",
+      "selected_for_research_stub": false
+    },
+    {
+      "market_id": "597967",
+      "operator_notes": "",
+      "operator_priority": "",
+      "operator_reason": "",
+      "selected_for_research_stub": false
+    },
+    {
+      "market_id": "666655",
+      "operator_notes": "",
+      "operator_priority": "",
+      "operator_reason": "",
+      "selected_for_research_stub": false
+    },
+    {
+      "market_id": "1323364",
+      "operator_notes": "",
+      "operator_priority": "",
+      "operator_reason": "",
+      "selected_for_research_stub": false
+    },
+    {
+      "market_id": "610379",
+      "operator_notes": "",
+      "operator_priority": "",
+      "operator_reason": "",
+      "selected_for_research_stub": false
+    },
+    {
+      "market_id": "610380",
+      "operator_notes": "",
+      "operator_priority": "",
+      "operator_reason": "",
+      "selected_for_research_stub": false
+    },
+    {
+      "market_id": "1807912",
+      "operator_notes": "",
+      "operator_priority": "",
+      "operator_reason": "",
+      "selected_for_research_stub": false
+    },
+    {
+      "market_id": "629267",
+      "operator_notes": "",
+      "operator_priority": "",
+      "operator_reason": "",
+      "selected_for_research_stub": false
+    },
+    {
+      "market_id": "610381",
+      "operator_notes": "",
+      "operator_priority": "",
+      "operator_reason": "",
+      "selected_for_research_stub": false
+    },
+    {
+      "market_id": "677358",
+      "operator_notes": "",
+      "operator_priority": "",
+      "operator_reason": "",
+      "selected_for_research_stub": false
+    },
+    {
+      "market_id": "1048199",
+      "operator_notes": "",
+      "operator_priority": "",
+      "operator_reason": "",
+      "selected_for_research_stub": false
+    },
+    {
+      "market_id": "813505",
+      "operator_notes": "",
+      "operator_priority": "",
+      "operator_reason": "",
+      "selected_for_research_stub": false
+    },
+    {
+      "market_id": "813506",
+      "operator_notes": "",
+      "operator_priority": "",
+      "operator_reason": "",
+      "selected_for_research_stub": false
+    },
+    {
+      "market_id": "1117522",
+      "operator_notes": "",
+      "operator_priority": "",
+      "operator_reason": "",
+      "selected_for_research_stub": false
+    },
+    {
+      "market_id": "540816",
+      "operator_notes": "",
+      "operator_priority": "",
+      "operator_reason": "",
+      "selected_for_research_stub": false
+    },
+    {
+      "market_id": "540817",
+      "operator_notes": "",
+      "operator_priority": "",
+      "operator_reason": "",
+      "selected_for_research_stub": false
+    },
+    {
+      "market_id": "540818",
+      "operator_notes": "",
+      "operator_priority": "",
+      "operator_reason": "",
+      "selected_for_research_stub": false
+    },
+    {
+      "market_id": "540819",
+      "operator_notes": "",
+      "operator_priority": "",
+      "operator_reason": "",
+      "selected_for_research_stub": false
+    },
+    {
+      "market_id": "540820",
+      "operator_notes": "",
+      "operator_priority": "",
+      "operator_reason": "",
+      "selected_for_research_stub": false
+    },
+    {
+      "market_id": "540843",
+      "operator_notes": "",
+      "operator_priority": "",
+      "operator_reason": "",
+      "selected_for_research_stub": false
+    },
+    {
+      "market_id": "540844",
+      "operator_notes": "",
+      "operator_priority": "",
+      "operator_reason": "",
+      "selected_for_research_stub": false
+    },
+    {
+      "market_id": "573647",
+      "operator_notes": "",
+      "operator_priority": "",
+      "operator_reason": "",
+      "selected_for_research_stub": false
+    },
+    {
+      "market_id": "540881",
+      "operator_notes": "",
+      "operator_priority": "",
+      "operator_reason": "",
+      "selected_for_research_stub": false
+    },
+    {
+      "market_id": "544092",
+      "operator_notes": "",
+      "operator_priority": "",
+      "operator_reason": "",
+      "selected_for_research_stub": false
+    },
+    {
+      "market_id": "544093",
+      "operator_notes": "",
+      "operator_priority": "",
+      "operator_reason": "",
+      "selected_for_research_stub": false
+    },
+    {
+      "market_id": "544094",
+      "operator_notes": "",
+      "operator_priority": "",
+      "operator_reason": "",
+      "selected_for_research_stub": false
+    },
+    {
+      "market_id": "544095",
+      "operator_notes": "",
+      "operator_priority": "",
+      "operator_reason": "",
+      "selected_for_research_stub": false
+    },
+    {
+      "market_id": "544096",
+      "operator_notes": "",
+      "operator_priority": "",
+      "operator_reason": "",
+      "selected_for_research_stub": false
+    },
+    {
+      "market_id": "544097",
+      "operator_notes": "",
+      "operator_priority": "",
+      "operator_reason": "",
+      "selected_for_research_stub": false
+    },
+    {
+      "market_id": "676804",
+      "operator_notes": "",
+      "operator_priority": "",
+      "operator_reason": "",
+      "selected_for_research_stub": false
+    },
+    {
+      "market_id": "1397260",
+      "operator_notes": "",
+      "operator_priority": "",
+      "operator_reason": "",
+      "selected_for_research_stub": false
+    },
+    {
+      "market_id": "1397301",
+      "operator_notes": "",
+      "operator_priority": "",
+      "operator_reason": "",
+      "selected_for_research_stub": false
+    },
+    {
+      "market_id": "2047653",
+      "operator_notes": "",
+      "operator_priority": "",
+      "operator_reason": "",
+      "selected_for_research_stub": false
+    },
+    {
+      "market_id": "677366",
+      "operator_notes": "",
+      "operator_priority": "",
+      "operator_reason": "",
+      "selected_for_research_stub": false
+    },
+    {
+      "market_id": "1124834",
+      "operator_notes": "",
+      "operator_priority": "",
+      "operator_reason": "",
+      "selected_for_research_stub": false
+    },
+    {
+      "market_id": "648872",
+      "operator_notes": "",
+      "operator_priority": "",
+      "operator_reason": "",
+      "selected_for_research_stub": false
+    },
+    {
+      "market_id": "610256",
+      "operator_notes": "",
+      "operator_priority": "",
+      "operator_reason": "",
+      "selected_for_research_stub": false
+    },
+    {
+      "market_id": "1068702",
+      "operator_notes": "",
+      "operator_priority": "",
+      "operator_reason": "",
+      "selected_for_research_stub": false
+    },
+    {
+      "market_id": "677273",
+      "operator_notes": "",
+      "operator_priority": "",
+      "operator_reason": "",
+      "selected_for_research_stub": false
+    },
+    {
+      "market_id": "677274",
+      "operator_notes": "",
+      "operator_priority": "",
+      "operator_reason": "",
+      "selected_for_research_stub": false
+    },
+    {
+      "market_id": "1007579",
+      "operator_notes": "",
+      "operator_priority": "",
+      "operator_reason": "",
+      "selected_for_research_stub": false
+    },
+    {
+      "market_id": "1068327",
+      "operator_notes": "",
+      "operator_priority": "",
+      "operator_reason": "",
+      "selected_for_research_stub": false
+    }
+  ],
+  "source_selection_index_path": "pm_bot/ingest/operator_candidate_selection_index.v1.json"
+}

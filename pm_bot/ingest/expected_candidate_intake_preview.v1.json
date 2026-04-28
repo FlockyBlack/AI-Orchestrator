@@ -1,0 +1,65 @@
+{
+  "artifact_type": "polymarket_candidate_intake_preview",
+  "buckets": {
+    "closed_or_not_accepting": [],
+    "missing_required_fields": [
+      {
+        "accepting_orders": null,
+        "active": true,
+        "bucket": "missing_required_fields",
+        "category_or_tags": [],
+        "closed": false,
+        "end_date": "2026-05-30T00:00:00Z",
+        "event_id": "2001",
+        "event_title": "Example policy event for 2026",
+        "has_description": false,
+        "liquidity": 1234.5,
+        "market_id": "3001",
+        "next_manual_action": "fix_or_inspect_missing_fields",
+        "outcome_prices_count": 0,
+        "outcomes_count": 2,
+        "question": "Will the example policy pass by May 2026?",
+        "structural_findings": [
+          "outcome_prices_count_mismatch",
+          "missing_description_or_resolution_criteria"
+        ],
+        "volume": 4567.89
+      },
+      {
+        "accepting_orders": null,
+        "active": true,
+        "bucket": "missing_required_fields",
+        "category_or_tags": [],
+        "closed": false,
+        "end_date": "2026-06-30T00:00:00Z",
+        "event_id": "2001",
+        "event_title": "Example policy event for 2026",
+        "has_description": false,
+        "liquidity": 987.65,
+        "market_id": "3002",
+        "next_manual_action": "fix_or_inspect_missing_fields",
+        "outcome_prices_count": 0,
+        "outcomes_count": 2,
+        "question": "Will the example index finish above 50 by June 2026?",
+        "structural_findings": [
+          "outcome_prices_count_mismatch",
+          "missing_description_or_resolution_criteria"
+        ],
+        "volume": 3210
+      }
+    ],
+    "unsupported_or_malformed": [],
+    "usable_for_research_preview": [],
+    "watch_only_structure": []
+  },
+  "schema_version": "candidate_intake_preview.v1",
+  "source_normalized_preview_path": "pm_bot/ingest/expected_normalized_market_preview.v1.json",
+  "summary": {
+    "closed_or_not_accepting": 0,
+    "missing_required_fields": 2,
+    "normalized_records_read": 2,
+    "unsupported_or_malformed": 0,
+    "usable_for_research_preview": 0,
+    "watch_only_structure": 0
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "schema_version": "v1",
+  "artifact_type": "raw_market_snapshot",
+  "description": "Static schema contract for a future raw read-only market snapshot artifact.",
+  "required_fields": [
+    "source_name",
+    "source_mode",
+    "captured_at",
+    "market_id",
+    "title",
+    "outcomes",
+    "prices",
+    "liquidity",
+    "volume",
+    "status",
+    "close_time",
+    "raw_payload_hash",
+    "fixture_or_live_flag"
+  ],
+  "optional_fields": [
+    "source_url_optional"
+  ],
+  "enum_fields": {
+    "source_mode": [
+      "read_only"
+    ],
+    "fixture_or_live_flag": [
+      "fixture",
+      "live"
+    ],
+    "status": [
+      "open",
+      "closed",
+      "resolved",
+      "suspended"
+    ]
+  },
+  "array_fields": {
+    "outcomes": {
+      "min_items": 2
+    },
+    "prices": {
+      "min_items": 2
+    }
+  },
+  "numeric_fields": [
+    "liquidity",
+    "volume"
+  ],
+  "prohibited_fields": [
+    "api_key",
+    "api_secret",
+    "authorization_header",
+    "wallet",
+    "wallet_address",
+    "private_key",
+    "seed_phrase",
+    "signer",
+    "signature",
+    "order_instruction",
+    "submit_order",
+    "place_order",
+    "execute_trade",
+    "runtime_action"
+  ]
+}

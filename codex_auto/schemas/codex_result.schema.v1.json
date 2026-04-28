@@ -1,0 +1,157 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CodexTaskResultV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "task_id",
+    "status",
+    "started_at",
+    "finished_at",
+    "command_preview",
+    "execution_mode",
+    "files_created",
+    "files_modified_existing",
+    "tests_run",
+    "tests_passed",
+    "safety_check",
+    "risks",
+    "notes",
+    "recommended_next_action"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "codex_result.v1"
+    },
+    "task_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "dry_run_ready",
+        "invalid",
+        "blocked",
+        "done"
+      ]
+    },
+    "started_at": {
+      "type": "string",
+      "minLength": 1
+    },
+    "finished_at": {
+      "type": "string",
+      "minLength": 1
+    },
+    "command_preview": {
+      "type": "string"
+    },
+    "execution_mode": {
+      "type": "string",
+      "enum": [
+        "dry_run",
+        "execute"
+      ]
+    },
+    "files_created": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "files_modified_existing": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "tests_run": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "tests_passed": {
+      "type": "boolean"
+    },
+    "safety_check": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "runtime_changed",
+        "dispatcher_touched",
+        "run_codex_touched",
+        "active_task_files_touched",
+        "freeze_record_modified",
+        "result_records_modified",
+        "checkpoint_records_modified",
+        "network_used",
+        "api_used",
+        "wallet_used",
+        "private_key_used",
+        "trading_used",
+        "single_runtime_source_rule_preserved"
+      ],
+      "properties": {
+        "runtime_changed": {
+          "type": "boolean"
+        },
+        "dispatcher_touched": {
+          "type": "boolean"
+        },
+        "run_codex_touched": {
+          "type": "boolean"
+        },
+        "active_task_files_touched": {
+          "type": "boolean"
+        },
+        "freeze_record_modified": {
+          "type": "boolean"
+        },
+        "result_records_modified": {
+          "type": "boolean"
+        },
+        "checkpoint_records_modified": {
+          "type": "boolean"
+        },
+        "network_used": {
+          "type": "boolean"
+        },
+        "api_used": {
+          "type": "boolean"
+        },
+        "wallet_used": {
+          "type": "boolean"
+        },
+        "private_key_used": {
+          "type": "boolean"
+        },
+        "trading_used": {
+          "type": "boolean"
+        },
+        "single_runtime_source_rule_preserved": {
+          "type": "boolean"
+        }
+      }
+    },
+    "risks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "recommended_next_action": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

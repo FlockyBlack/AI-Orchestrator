@@ -1,0 +1,16 @@
+{
+  "schema_version": "threshold_hit_reference_context.v1",
+  "captured_at": "2026-04-27T00:00:00Z",
+  "assets": {
+    "BTC": {
+      "reference_price": 100000.0,
+      "source": "manual_offline_fixture",
+      "note": "Fixture-only reference price for deterministic threshold-hit review context; not a live quote."
+    },
+    "ETH": {
+      "reference_price": 2500.0,
+      "source": "manual_offline_fixture",
+      "note": "Fixture-only reference price for deterministic threshold-hit review context; not a live quote."
+    }
+  }
+}

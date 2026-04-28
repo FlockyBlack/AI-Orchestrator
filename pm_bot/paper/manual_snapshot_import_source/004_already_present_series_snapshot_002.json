@@ -1,0 +1,36 @@
+{
+  "snapshot_id": "series_snapshot_002",
+  "observed_at": "2026-05-15T12:00:00Z",
+  "snapshot": {
+    "schema_version": "v1",
+    "fixture_id": "series_snapshot_002_live_shape_saved_copy",
+    "markets": [
+      {
+        "condition_id": "series_btc_above_90000_2026_05_31",
+        "question": "Will BTC be above $90,000 on 2026-05-31?",
+        "category": "crypto",
+        "end_date_iso": "2026-05-31",
+        "outcomes": [
+          {"name": "Yes", "price": 0.57},
+          {"name": "No", "price": 0.43}
+        ],
+        "liquidity_num": 190000.0,
+        "best_bid": 0.56,
+        "best_ask": 0.58,
+        "oracle_context": {
+          "current_price": 94500.0,
+          "thirty_day_change_pct": 9.0,
+          "volatility_30d_pct": 40.0,
+          "risk_level": "low"
+        }
+      }
+    ]
+  },
+  "observed_prices": {
+    "series_btc_above_90000_2026_05_31": 0.57
+  },
+  "current_prices": {
+    "series_btc_above_90000_2026_05_31": 0.74
+  },
+  "settlements": []
+}

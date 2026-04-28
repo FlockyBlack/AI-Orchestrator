@@ -1,0 +1,70 @@
+{
+  "schema_version": "queue_result_record.v1",
+  "queue_task_id": "QUEUE-CODEX-AUTO-TINY-001",
+  "codex_task_id": "CODEX-AUTO-TINY-001",
+  "result_status": "completed",
+  "produced_at": "2026-04-26T07:33:53+00:00",
+  "source_task_path": "codex_auto/tasks/ready/CODEX-AUTO-TINY-001.task.json",
+  "result_envelope": {
+    "schema_version": "codex_execution_envelope.v1",
+    "task_id": "CODEX-AUTO-TINY-001",
+    "approval_id": "APPROVAL-CODEX-AUTO-TINY-001",
+    "execution_id": "CODEX-AUTO-TINY-001-controlled-tiny",
+    "execution_mode": "controlled_tiny_sandbox",
+    "started_at": "2026-04-26T07:33:53+00:00",
+    "finished_at": "2026-04-26T07:33:53+00:00",
+    "approved_scope": "fixture-only local write under codex_auto/runs/CODEX-AUTO-TINY-001/ producing codex_auto/runs/CODEX-AUTO-TINY-001/fixture_output.json with no runtime integration.",
+    "files_created": [],
+    "files_modified_existing": [],
+    "tests_run": [
+      "python codex_auto\\approval\\validate_execution_approval.py codex_auto\\fixtures\\approved_tiny_fixture_task.v1.json"
+    ],
+    "tests_passed": true,
+    "command_preview": "controlled_tiny_sandbox --task-id CODEX-AUTO-TINY-001 --output codex_auto/runs/CODEX-AUTO-TINY-001/fixture_output.json",
+    "actual_command": "controlled_tiny_sandbox:create_or_validate_fixture_output",
+    "safety_check": {
+      "runtime_changed": false,
+      "dispatcher_touched": false,
+      "run_codex_touched": false,
+      "active_task_files_touched": false,
+      "freeze_record_modified": false,
+      "result_records_modified": false,
+      "checkpoint_records_modified": false,
+      "network_used": false,
+      "api_used": false,
+      "wallet_used": false,
+      "private_key_used": false,
+      "trading_used": false,
+      "single_runtime_source_rule_preserved": true
+    },
+    "result_status": "completed",
+    "risks": [],
+    "notes": [
+      "already_exists_valid"
+    ],
+    "openclaw_validation_required": true
+  },
+  "files_created": [],
+  "files_modified_existing": [],
+  "tests_run": [
+    "python codex_auto\\approval\\validate_execution_approval.py codex_auto\\fixtures\\approved_tiny_fixture_task.v1.json"
+  ],
+  "tests_passed": true,
+  "safety_check": {
+    "runtime_changed": false,
+    "dispatcher_touched": false,
+    "run_codex_touched": false,
+    "active_task_files_touched": false,
+    "freeze_record_modified": false,
+    "result_records_modified": false,
+    "checkpoint_records_modified": false,
+    "network_used": false,
+    "api_used": false,
+    "wallet_used": false,
+    "private_key_used": false,
+    "trading_used": false,
+    "single_runtime_source_rule_preserved": true
+  },
+  "next_queue_state": "needs_flocky_review",
+  "flocky_validation_required": true
+}

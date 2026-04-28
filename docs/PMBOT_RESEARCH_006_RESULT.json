@@ -1,0 +1,38 @@
+{
+  "task_id": "PMBOT-RESEARCH-006-RESEARCH-PACKET-STUBS",
+  "status": "passed",
+  "summary": "Added a deterministic offline research packet stub generator that reads the saved PMBOT-RESEARCH-005 candidate queue artifact, selects the 10 lower-risk operator shortlist candidates, and emits stub-only source plans, query templates, empty evidence slots, and missing-information checklists.",
+  "files_created": [
+    "pm_bot\\research\\run_research_packet_stubs.py",
+    "pm_bot\\research\\expected_research_packet_stubs.v1.json",
+    "pm_bot\\research\\tests\\test_research_packet_stubs.py",
+    "docs\\PMBOT_RESEARCH_006_RESULT.json"
+  ],
+  "files_modified": [],
+  "tests_run": [
+    {
+      "command": "python -m pytest pm_bot\\research\\tests\\test_research_packet_stubs.py -q",
+      "status": "passed",
+      "summary": "10 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\scoring\\tests pm_bot\\paper\\tests pm_bot\\research\\tests -q",
+      "status": "passed",
+      "summary": "328 passed, 3 subtests passed"
+    }
+  ],
+  "safety": {
+    "live_fetchers": false,
+    "network_api_calls": false,
+    "credentials": false,
+    "wallet_private_keys": false,
+    "real_orders": false,
+    "live_trading": false,
+    "runtime_wiring": false,
+    "dispatcher_run_codex_touched": false,
+    "prompt_automation": false,
+    "codex_copy_roots": false,
+    "completed_dossiers": false,
+    "paper_orders": false
+  }
+}

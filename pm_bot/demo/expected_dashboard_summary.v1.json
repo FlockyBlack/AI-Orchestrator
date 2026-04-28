@@ -1,0 +1,30 @@
+{
+  "schema_version": "v1",
+  "dashboard_id": "PMBOT-BATCH-003-DASHBOARD",
+  "fixture_only": true,
+  "paper_only": true,
+  "local_only": true,
+  "no_network": true,
+  "no_live_api": true,
+  "no_wallet": true,
+  "no_real_orders": true,
+  "no_runtime_wiring": true,
+  "fixture_count": 8,
+  "scenario_count": 12,
+  "paper_candidate_count": 7,
+  "accepted_paper_candidates": 4,
+  "rejected_paper_candidates": 3,
+  "warning_count": 10,
+  "top_risk_flags": [
+    "category_concentration:macro",
+    "correlated_group:us-macro-2026",
+    "high_concentration_candidate",
+    "low_liquidity",
+    "missing_research_notes"
+  ],
+  "portfolio_summary_headline": "4 accepted paper positions, $760.00 allocated, macro concentration warning active.",
+  "audit_status_headline": "Static audit v2 passed with 0 blocking findings.",
+  "demo_readiness_status": "ready_for_local_demo",
+  "safety_boundary_status": "fixture-only, paper-only, local-only, no network, no live API, no wallet, no real orders, no runtime wiring",
+  "final_recommendation": "run_local_demo_and_queue_flocky_validation"
+}

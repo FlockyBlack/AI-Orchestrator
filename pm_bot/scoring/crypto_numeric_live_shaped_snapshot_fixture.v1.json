@@ -1,0 +1,170 @@
+{
+  "schema_version": "v1",
+  "fixture_id": "crypto_numeric_live_shaped_snapshot_fixture_v1",
+  "fixture_only": true,
+  "paper_only": true,
+  "source_shape": "polymarket_readonly_like_fixture",
+  "markets": [
+    {
+      "condition_id": "live_btc_above_90000_2026_05_31",
+      "question": "Will BTC be above $90,000 on 2026-05-31?",
+      "category": "crypto",
+      "end_date_iso": "2026-05-31",
+      "outcomes": [
+        {
+          "name": "Yes",
+          "price": 0.59
+        },
+        {
+          "name": "No",
+          "price": 0.41
+        }
+      ],
+      "liquidity_num": 180000.0,
+      "best_bid": 0.575,
+      "best_ask": 0.605,
+      "oracle_context": {
+        "current_price": 93800.0,
+        "thirty_day_change_pct": 8.0,
+        "volatility_30d_pct": 42.0,
+        "risk_level": "low"
+      }
+    },
+    {
+      "condition_id": "live_eth_below_3000_2026_05_31",
+      "question": "Will Ethereum be below $3,000 on 2026-05-31?",
+      "category": "crypto",
+      "end_date_iso": "2026-05-31",
+      "outcomes": [
+        {
+          "name": "Yes",
+          "price": 0.36
+        },
+        {
+          "name": "No",
+          "price": 0.64
+        }
+      ],
+      "liquidity_num": 125000.0,
+      "best_bid": 0.34,
+      "best_ask": 0.38,
+      "oracle_context": {
+        "current_price": 3120.0,
+        "thirty_day_change_pct": -6.0,
+        "volatility_30d_pct": 55.0,
+        "risk_level": "medium"
+      }
+    },
+    {
+      "condition_id": "live_eth_above_4500_2026_06_30",
+      "question": "Will ETH be above $4,500 on 2026-06-30?",
+      "category": "crypto",
+      "end_date_iso": "2026-06-30",
+      "outcomes": [
+        {
+          "name": "Yes",
+          "price": 0.44
+        },
+        {
+          "name": "No",
+          "price": 0.56
+        }
+      ],
+      "liquidity_num": 90000.0,
+      "best_bid": 0.415,
+      "best_ask": 0.465,
+      "oracle_context": {
+        "current_price": 4200.0,
+        "thirty_day_change_pct": 4.0,
+        "volatility_30d_pct": 58.0,
+        "risk_level": "medium"
+      }
+    },
+    {
+      "condition_id": "live_missing_question",
+      "category": "crypto",
+      "end_date_iso": "2026-05-31",
+      "outcomes": [
+        {
+          "name": "Yes",
+          "price": 0.50
+        }
+      ],
+      "liquidity_num": 100000.0
+    },
+    {
+      "question": "Will BTC be above $90,000 on 2026-05-31?",
+      "category": "crypto",
+      "end_date_iso": "2026-05-31",
+      "outcomes": [
+        {
+          "name": "Yes",
+          "price": 0.50
+        }
+      ],
+      "liquidity_num": 100000.0
+    },
+    {
+      "condition_id": "live_missing_price",
+      "question": "Will BTC be above $90,000 on 2026-05-31?",
+      "category": "crypto",
+      "end_date_iso": "2026-05-31",
+      "outcomes": [
+        {
+          "name": "Yes"
+        }
+      ],
+      "liquidity_num": 100000.0
+    },
+    {
+      "condition_id": "live_missing_liquidity",
+      "question": "Will BTC be above $90,000 on 2026-05-31?",
+      "category": "crypto",
+      "end_date_iso": "2026-05-31",
+      "outcomes": [
+        {
+          "name": "Yes",
+          "price": 0.50
+        }
+      ]
+    },
+    {
+      "condition_id": "live_missing_expiry",
+      "question": "Will BTC be above $90,000 on 2026-05-31?",
+      "category": "crypto",
+      "outcomes": [
+        {
+          "name": "Yes",
+          "price": 0.50
+        }
+      ],
+      "liquidity_num": 100000.0
+    },
+    {
+      "condition_id": "live_unsupported_asset",
+      "question": "Will SOL be above $200 on 2026-05-31?",
+      "category": "crypto",
+      "end_date_iso": "2026-05-31",
+      "outcomes": [
+        {
+          "name": "Yes",
+          "price": 0.50
+        }
+      ],
+      "liquidity_num": 100000.0
+    },
+    {
+      "condition_id": "live_ambiguous_side",
+      "question": "Will BTC be above $90,000 and below $110,000 on 2026-05-31?",
+      "category": "crypto",
+      "end_date_iso": "2026-05-31",
+      "outcomes": [
+        {
+          "name": "Yes",
+          "price": 0.50
+        }
+      ],
+      "liquidity_num": 100000.0
+    }
+  ]
+}

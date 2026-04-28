@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Autopilot Routing Preflight Report",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "type",
+    "schema_version",
+    "preflight_only",
+    "receiver_agent",
+    "prompt_source",
+    "routing_decision",
+    "preflight_passed",
+    "safe_for_receiver_to_continue",
+    "allowed_tool_scope",
+    "forbidden_before_preflight",
+    "required_behavior",
+    "original_prompt_executed",
+    "sessions_spawn_allowed",
+    "code_changes_allowed_for_receiver",
+    "runtime_mutation_allowed",
+    "queue_mutation_allowed",
+    "governance_mutation_allowed",
+    "active_flocky_tool_integration",
+    "runtime_wiring_allowed",
+    "dispatcher_integration_allowed",
+    "run_codex_integration_allowed",
+    "single_runtime_source_rule_preserved",
+    "next_action",
+    "warnings",
+    "errors",
+    "generated_by",
+    "deterministic_preflight"
+  ],
+  "properties": {
+    "type": {
+      "const": "AUTOPILOT_ROUTING_PREFLIGHT_REPORT"
+    },
+    "schema_version": {
+      "const": "1.0"
+    },
+    "preflight_only": {
+      "const": true
+    },
+    "receiver_agent": {
+      "type": "string",
+      "minLength": 1
+    },
+    "prompt_source": {
+      "type": "string",
+      "minLength": 1
+    },
+    "routing_decision": {
+      "type": "object"
+    },
+    "preflight_passed": {
+      "type": "boolean"
+    },
+    "safe_for_receiver_to_continue": {
+      "type": "boolean"
+    },
+    "allowed_tool_scope": {
+      "type": "string",
+      "minLength": 1
+    },
+    "forbidden_before_preflight": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "required_behavior": {
+      "type": "string",
+      "minLength": 1
+    },
+    "original_prompt_executed": {
+      "const": false
+    },
+    "sessions_spawn_allowed": {
+      "const": false
+    },
+    "code_changes_allowed_for_receiver": {
+      "type": "boolean"
+    },
+    "runtime_mutation_allowed": {
+      "const": false
+    },
+    "queue_mutation_allowed": {
+      "const": false
+    },
+    "governance_mutation_allowed": {
+      "const": false
+    },
+    "active_flocky_tool_integration": {
+      "const": false
+    },
+    "runtime_wiring_allowed": {
+      "const": false
+    },
+    "dispatcher_integration_allowed": {
+      "const": false
+    },
+    "run_codex_integration_allowed": {
+      "const": false
+    },
+    "single_runtime_source_rule_preserved": {
+      "const": true
+    },
+    "next_action": {
+      "type": "string",
+      "minLength": 1
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "errors": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "generated_by": {
+      "const": "codex_auto/autopilot/run_routing_preflight.py"
+    },
+    "deterministic_preflight": {
+      "const": true
+    }
+  }
+}

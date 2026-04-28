@@ -1,0 +1,96 @@
+{
+  "code_slot": "CODEX_INTEGRATION_003",
+  "task_id": "PMBOT-INTEGRATION-003-PORTFOLIO-METRICS-REVIEW",
+  "status": "completed_ready_for_review",
+  "integration_verdict": "accepted_for_git_readiness_stage",
+  "summary": "Reviewed PMBOT-PAPER-BATCH-014-016 and accepted it for the git readiness stage. The result JSON parsed, all producer-listed files exist, required tests passed, batch-created JSON artifacts parsed, expected fixtures match generated artifacts, no safety boundary expansion was found, metrics remain paper accounting-only, and real/live/autonomous paper order counts remain 0.",
+  "inputs_reviewed": {
+    "paper_batch_014_016": "present",
+    "integration_002": "present",
+    "paper_batch_011_013": "present"
+  },
+  "market_ids": [
+    "824952"
+  ],
+  "file_verification": {
+    "listed_files_checked": 12,
+    "listed_files_missing": [],
+    "unexpected_source_modifications_required": false
+  },
+  "tests": [
+    {
+      "command": "python -m pytest pm_bot\\paper\\tests -q",
+      "status": "passed",
+      "result": "306 passed, 39 subtests passed in 26.82s"
+    },
+    {
+      "command": "python -m py_compile pm_bot\\paper\\run_paper_portfolio_metrics_batch_014_016.py",
+      "status": "passed",
+      "result": "compiled"
+    },
+    {
+      "command": "JSON parse check for docs/PMBOT_PAPER_BATCH_014_016_RESULT.json and all batch-created JSON files",
+      "status": "passed",
+      "result": "7 JSON files parsed successfully"
+    }
+  ],
+  "counts_confirmed": {
+    "paper_accounting_ledger_entries": 1,
+    "paper_portfolio_snapshot_records": 1,
+    "paper_metrics_report_records": 1,
+    "real_orders_created": 0,
+    "live_orders_created": 0,
+    "autonomous_paper_orders_created": 0
+  },
+  "accounting_metrics_confirmed": {
+    "paper_accounting_total_records": 1,
+    "paper_accounting_settled_count": 1,
+    "paper_accounting_open_count": 0,
+    "paper_accounting_win_count": 1,
+    "paper_accounting_loss_count": 0,
+    "paper_accounting_flat_count": 0,
+    "paper_accounting_cumulative_pnl": "6.00",
+    "paper_accounting_gross_profit": "6.00",
+    "paper_accounting_gross_loss": "0.00",
+    "paper_accounting_average_pnl": "6.00",
+    "paper_accounting_max_gain": "6.00",
+    "paper_accounting_max_loss": "0.00"
+  },
+  "accounting_boundary": {
+    "metrics_accounting_only": true,
+    "strategy_metrics": false,
+    "ev_calculated": false,
+    "probability_calculated": false,
+    "score_calculated": false,
+    "edge_calculated": false,
+    "recommendation_generated": false,
+    "strategy_ranking": false,
+    "truth_inference": false,
+    "live_resolution": false,
+    "live_data_source": false
+  },
+  "safety": {
+    "offline_only": true,
+    "network_api_calls": false,
+    "credentials": false,
+    "wallet_private_keys": false,
+    "authenticated_endpoints": false,
+    "trading_endpoints": false,
+    "real_orders": false,
+    "live_trading": false,
+    "autonomous_paper_orders": false,
+    "betting_recommendations": false,
+    "truth_inference": false,
+    "market_scoring": false,
+    "probability_estimates": false,
+    "ev_calculations": false,
+    "edge_calculations": false,
+    "side_recommendations": false,
+    "market_decisions": false,
+    "runtime_wiring": false,
+    "dispatcher_run_codex_changes": false
+  },
+  "recommended_next_task": "PMBOT-INFRA-001-GIT-READINESS-FOR-CODEX-WORKTREES",
+  "warnings": [],
+  "blockers": []
+}

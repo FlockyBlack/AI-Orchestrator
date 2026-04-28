@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "governance/schemas/critic_input_draft.schema.v1.json",
+  "title": "Critic Input Draft Schema v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "draft_id",
+    "task_id",
+    "source_run_id",
+    "collected_at",
+    "scope",
+    "summary",
+    "runtime_status",
+    "proposed_governance_status",
+    "safety_flags",
+    "critic_required",
+    "accepted_warnings"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "v1" },
+    "draft_id": { "type": "string", "minLength": 1 },
+    "task_id": { "type": "string", "minLength": 1 },
+    "source_run_id": { "type": "string", "minLength": 1 },
+    "collected_at": { "type": "string", "minLength": 1 },
+    "scope": { "type": "string", "enum": ["design_config_only", "validation_only"] },
+    "summary": { "type": "string", "minLength": 1 },
+    "runtime_status": { "type": "string", "minLength": 1 },
+    "proposed_governance_status": { "type": "string", "enum": ["review", "blocked", "deferred", "done"] },
+    "changed_files": { "type": "array", "items": { "type": "string" } },
+    "created_files": { "type": "array", "items": { "type": "string" } },
+    "deleted_files": { "type": "array", "items": { "type": "string" } },
+    "commands_run": { "type": "array", "items": { "type": "string" } },
+    "tests": { "type": "object" },
+    "safety_flags": { "$ref": "governance_review_bundle.schema.v1.json#/$defs/safetyFlags" },
+    "artifacts": { "type": "array", "items": { "type": "object" } },
+    "critic_required": { "type": "boolean", "const": true },
+    "accepted_warnings": { "$ref": "governance_review_bundle.schema.v1.json#/$defs/acceptedWarnings" },
+    "notes": { "type": ["object", "string"] }
+  }
+}

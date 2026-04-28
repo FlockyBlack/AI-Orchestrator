@@ -1,0 +1,22 @@
+TARGET_AGENT: ChatGPT
+TASK_OWNER: ChatGPT
+TASK_TYPE: planning
+CODE_CHANGES_ALLOWED_FOR_RECEIVER: false
+SESSIONS_SPAWN_ALLOWED: false
+RUNTIME_MUTATION_ALLOWED: false
+QUEUE_MUTATION_ALLOWED: false
+GOVERNANCE_MUTATION_ALLOWED: false
+APPROVAL_REQUIRED: false
+MISROUTE_BEHAVIOR: RETURN_ROUTING_MISMATCH_WITHOUT_EXECUTION
+
+Task ID:
+ORCH-AUTOPILOT-EXAMPLE-CHATGPT-PLANNING
+
+Draft a plan for adding a future prompt-pack linter without implementing it.
+
+Expected structured output:
+- assumptions
+- constraints
+- options
+- recommended plan
+- risks

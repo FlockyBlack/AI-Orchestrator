@@ -1,0 +1,553 @@
+{
+  "schema_version": "research_dossier_scenarios.v1",
+  "task_id": "PMBOT-RESEARCH-002-RESEARCH-DOSSIER-SCENARIO-COVERAGE",
+  "fixture_only": true,
+  "paper_only": true,
+  "local_only": true,
+  "deterministic": true,
+  "safety_flags": {
+    "offline_only": true,
+    "paper_only": true,
+    "live_fetcher_implemented": false,
+    "api_used": false,
+    "network_used": false,
+    "wallet_used": false,
+    "real_order_created": false,
+    "trading_allowed": false,
+    "runtime_wiring_changed": false,
+    "dispatcher_touched": false,
+    "prompt_automation_added": false
+  },
+  "scenarios": [
+    {
+      "scenario_id": "missing_resolution_criteria",
+      "description": "Market packet has source material but no resolution criteria, so research cannot safely continue.",
+      "expected_decision": "no_action",
+      "expected_reason_codes": [
+        "missing_resolution_criteria"
+      ],
+      "packet": {
+        "market_id": "research_scenario_missing_resolution_criteria",
+        "market_title": "Will Example City publish a final transit grant award by June 30, 2026?",
+        "market_question": "Will Example City publish a final transit grant award by June 30, 2026?",
+        "resolution_criteria": "",
+        "yes_price": 0.36,
+        "no_price": 0.64,
+        "current_date": "2026-04-27",
+        "sources": [
+          {
+            "source_id": "mrc_official_calendar",
+            "source_type": "official_statement",
+            "title": "Example City grant award calendar",
+            "url": "https://example.org/manual-fixtures/mrc-official-calendar",
+            "published_at": "2026-04-24",
+            "excerpt_or_note": "[YES] Official calendar lists a final award publication target before the deadline.",
+            "reliability_hint": "high primary official source"
+          },
+          {
+            "source_id": "mrc_court_no_stay",
+            "source_type": "court_record",
+            "title": "Court docket denies emergency stay",
+            "url": "https://example.org/manual-fixtures/mrc-court-no-stay",
+            "published_at": "2026-04-25",
+            "excerpt_or_note": "[YES] Court docket shows the requested stay was denied.",
+            "reliability_hint": "high primary court record"
+          },
+          {
+            "source_id": "mrc_analysis_risk",
+            "source_type": "analysis",
+            "title": "Analyst note on award timing risk",
+            "url": "https://example.org/manual-fixtures/mrc-analysis-risk",
+            "published_at": "2026-04-26",
+            "excerpt_or_note": "[NO] Analysis says the grant office could slip if procurement review is reopened.",
+            "reliability_hint": "medium scenario analysis"
+          }
+        ],
+        "operator_notes": [
+          "Manual fixture only; no URL is fetched."
+        ]
+      }
+    },
+    {
+      "scenario_id": "weak_sources_only",
+      "description": "Only low-reliability sources are available, so the packet cannot support a research candidate.",
+      "expected_decision": "no_action",
+      "expected_reason_codes": [
+        "weak_sources"
+      ],
+      "packet": {
+        "market_id": "research_scenario_weak_sources_only",
+        "market_title": "Will Example County approve the bridge bond by August 15, 2026?",
+        "market_question": "Will Example County approve the bridge bond by August 15, 2026?",
+        "resolution_criteria": "Resolves Yes only if Example County publishes final bridge bond approval on or before 2026-08-15.",
+        "yes_price": 0.41,
+        "no_price": 0.59,
+        "current_date": "2026-04-27",
+        "sources": [
+          {
+            "source_id": "wso_social_yes",
+            "source_type": "social",
+            "title": "Unverified social post says bridge bond is likely",
+            "url": "https://example.org/manual-fixtures/wso-social-yes",
+            "published_at": "2026-04-26",
+            "excerpt_or_note": "[YES] Anonymous social post claims approval is likely.",
+            "reliability_hint": "low unverified social source"
+          },
+          {
+            "source_id": "wso_forum_no",
+            "source_type": "other",
+            "title": "Forum post claims bridge bond schedule could slip",
+            "url": "https://example.org/manual-fixtures/wso-forum-no",
+            "published_at": "2026-04-26",
+            "excerpt_or_note": "[NO] Unverified forum note claims the schedule may slip.",
+            "reliability_hint": "low rumor source"
+          }
+        ],
+        "operator_notes": [
+          "Manual fixture only; weak source case."
+        ]
+      }
+    },
+    {
+      "scenario_id": "one_sided_low_reliability_sources",
+      "description": "Sources are one-sided and low reliability, so the conservative weak-source gate blocks the packet.",
+      "expected_decision": "no_action",
+      "expected_reason_codes": [
+        "weak_sources"
+      ],
+      "packet": {
+        "market_id": "research_scenario_one_sided_low_reliability",
+        "market_title": "Will Example Authority award the airport contract by September 1, 2026?",
+        "market_question": "Will Example Authority award the airport contract by September 1, 2026?",
+        "resolution_criteria": "Resolves Yes only if Example Authority publishes a final airport contract award on or before 2026-09-01.",
+        "yes_price": 0.32,
+        "no_price": 0.68,
+        "current_date": "2026-04-27",
+        "sources": [
+          {
+            "source_id": "osl_social_yes",
+            "source_type": "social",
+            "title": "Contract watcher thread claims award is ready",
+            "url": "https://example.org/manual-fixtures/osl-social-yes",
+            "published_at": "2026-04-26",
+            "excerpt_or_note": "[YES] Social thread claims the award is ready but gives no documents.",
+            "reliability_hint": "low unverified social source"
+          },
+          {
+            "source_id": "osl_other_yes",
+            "source_type": "other",
+            "title": "Anonymous tip says contract vote is locked",
+            "url": "https://example.org/manual-fixtures/osl-other-yes",
+            "published_at": "2026-04-26",
+            "excerpt_or_note": "[YES] Anonymous tip says the contract vote is locked.",
+            "reliability_hint": "low rumor source"
+          }
+        ],
+        "operator_notes": [
+          "Manual fixture only; one-sided low reliability case."
+        ]
+      }
+    },
+    {
+      "scenario_id": "conflicting_evidence",
+      "description": "High-quality Yes and No evidence conflict and the probability range overlaps market price.",
+      "expected_decision": "watchlist",
+      "expected_reason_codes": [
+        "probability_range_overlaps_market"
+      ],
+      "packet": {
+        "market_id": "research_scenario_conflicting_evidence",
+        "market_title": "Will Example State pass the water bill by May 31, 2026?",
+        "market_question": "Will Example State pass the water bill by May 31, 2026?",
+        "resolution_criteria": "Resolves Yes only if Example State publishes final enacted water bill text on or before 2026-05-31.",
+        "yes_price": 0.5,
+        "no_price": 0.5,
+        "current_date": "2026-04-27",
+        "sources": [
+          {
+            "source_id": "ce_official_yes",
+            "source_type": "official_statement",
+            "title": "Governor office says water bill remains on calendar",
+            "url": "https://example.org/manual-fixtures/ce-official-yes",
+            "published_at": "2026-04-24",
+            "excerpt_or_note": "[YES] Official statement keeps the water bill on the May floor calendar.",
+            "reliability_hint": "high primary official source"
+          },
+          {
+            "source_id": "ce_court_no",
+            "source_type": "court_record",
+            "title": "Court docket opens procedural challenge",
+            "url": "https://example.org/manual-fixtures/ce-court-no",
+            "published_at": "2026-04-25",
+            "excerpt_or_note": "[NO] Court docket opens a procedural challenge that could delay enactment.",
+            "reliability_hint": "high primary court record"
+          },
+          {
+            "source_id": "ce_news_yes",
+            "source_type": "news",
+            "title": "Local News reports leadership expects passage",
+            "url": "https://example.org/manual-fixtures/ce-news-yes",
+            "published_at": "2026-04-26",
+            "excerpt_or_note": "[YES] Local reporting quotes leadership saying passage remains expected.",
+            "reliability_hint": "medium corroborated reporting"
+          },
+          {
+            "source_id": "ce_analysis_no",
+            "source_type": "analysis",
+            "title": "Analyst note warns about amendment risk",
+            "url": "https://example.org/manual-fixtures/ce-analysis-no",
+            "published_at": "2026-04-26",
+            "excerpt_or_note": "[NO] Analysis says the amendment process could slip past the deadline.",
+            "reliability_hint": "medium scenario analysis"
+          }
+        ],
+        "operator_notes": [
+          "Manual fixture only; conflicting evidence case."
+        ]
+      }
+    },
+    {
+      "scenario_id": "stale_sources",
+      "description": "Source dates are stale and the balanced evidence leaves the packet on watchlist.",
+      "expected_decision": "watchlist",
+      "expected_reason_codes": [
+        "probability_range_overlaps_market"
+      ],
+      "stale_after_days": 45,
+      "packet": {
+        "market_id": "research_scenario_stale_sources",
+        "market_title": "Will Example Ministry publish the spectrum auction result by July 15, 2026?",
+        "market_question": "Will Example Ministry publish the spectrum auction result by July 15, 2026?",
+        "resolution_criteria": "Resolves Yes only if Example Ministry publishes final spectrum auction results on or before 2026-07-15.",
+        "yes_price": 0.5,
+        "no_price": 0.5,
+        "current_date": "2026-04-27",
+        "sources": [
+          {
+            "source_id": "ss_official_yes_old",
+            "source_type": "official_statement",
+            "title": "Old ministry schedule lists auction publication date",
+            "url": "https://example.org/manual-fixtures/ss-official-yes-old",
+            "published_at": "2026-02-01",
+            "excerpt_or_note": "[YES] Official schedule listed publication before the deadline.",
+            "reliability_hint": "high primary official source"
+          },
+          {
+            "source_id": "ss_court_no_old",
+            "source_type": "court_record",
+            "title": "Old docket showed a pending auction challenge",
+            "url": "https://example.org/manual-fixtures/ss-court-no-old",
+            "published_at": "2026-02-02",
+            "excerpt_or_note": "[NO] Court docket showed a pending challenge that could delay publication.",
+            "reliability_hint": "high primary court record"
+          },
+          {
+            "source_id": "ss_news_yes_old",
+            "source_type": "news",
+            "title": "Old local report expected auction completion",
+            "url": "https://example.org/manual-fixtures/ss-news-yes-old",
+            "published_at": "2026-02-04",
+            "excerpt_or_note": "[YES] Reporting said auction completion was expected before the deadline.",
+            "reliability_hint": "medium corroborated reporting"
+          },
+          {
+            "source_id": "ss_analysis_no_old",
+            "source_type": "analysis",
+            "title": "Old analysis warned about bidder appeal risk",
+            "url": "https://example.org/manual-fixtures/ss-analysis-no-old",
+            "published_at": "2026-02-05",
+            "excerpt_or_note": "[NO] Analysis warned a bidder appeal could slip the result timeline.",
+            "reliability_hint": "medium scenario analysis"
+          }
+        ],
+        "operator_notes": [
+          "Manual fixture only; all sources are stale relative to current_date."
+        ]
+      }
+    },
+    {
+      "scenario_id": "probability_range_overlaps_market_price",
+      "description": "Evidence is useful but the deterministic range still overlaps the current market price.",
+      "expected_decision": "watchlist",
+      "expected_reason_codes": [
+        "probability_range_overlaps_market"
+      ],
+      "packet": {
+        "market_id": "research_scenario_probability_overlap",
+        "market_title": "Will Example Board approve the hospital bond by October 1, 2026?",
+        "market_question": "Will Example Board approve the hospital bond by October 1, 2026?",
+        "resolution_criteria": "Resolves Yes only if Example Board publishes final hospital bond approval on or before 2026-10-01.",
+        "yes_price": 0.48,
+        "no_price": 0.52,
+        "current_date": "2026-04-27",
+        "sources": [
+          {
+            "source_id": "po_official_yes",
+            "source_type": "official_statement",
+            "title": "Board calendar lists final hospital bond vote",
+            "url": "https://example.org/manual-fixtures/po-official-yes",
+            "published_at": "2026-04-23",
+            "excerpt_or_note": "[YES] Official calendar lists the bond approval vote before the deadline.",
+            "reliability_hint": "high primary official source"
+          },
+          {
+            "source_id": "po_news_yes",
+            "source_type": "news",
+            "title": "Local News reports the bond has majority support",
+            "url": "https://example.org/manual-fixtures/po-news-yes",
+            "published_at": "2026-04-24",
+            "excerpt_or_note": "[YES] Reporting says a board majority supports the bond.",
+            "reliability_hint": "medium corroborated reporting"
+          },
+          {
+            "source_id": "po_analysis_no",
+            "source_type": "analysis",
+            "title": "Analyst note flags rate covenant risk",
+            "url": "https://example.org/manual-fixtures/po-analysis-no",
+            "published_at": "2026-04-26",
+            "excerpt_or_note": "[NO] Analysis says rate covenant revisions could slip final approval.",
+            "reliability_hint": "medium scenario analysis"
+          }
+        ],
+        "operator_notes": [
+          "Manual fixture only; overlap case."
+        ]
+      }
+    },
+    {
+      "scenario_id": "strong_sources_but_missing_key_info",
+      "description": "Strong Yes-side sources exist but missing counterevidence keeps the packet on watchlist.",
+      "expected_decision": "watchlist",
+      "expected_reason_codes": [
+        "one_sided_sources"
+      ],
+      "packet": {
+        "market_id": "research_scenario_strong_missing_key_info",
+        "market_title": "Will Example Regulator approve the grid interconnect by November 1, 2026?",
+        "market_question": "Will Example Regulator approve the grid interconnect by November 1, 2026?",
+        "resolution_criteria": "Resolves Yes only if Example Regulator publishes final grid interconnect approval on or before 2026-11-01.",
+        "yes_price": 0.34,
+        "no_price": 0.66,
+        "current_date": "2026-04-27",
+        "sources": [
+          {
+            "source_id": "smi_official_yes",
+            "source_type": "official_statement",
+            "title": "Regulator calendar lists interconnect approval vote",
+            "url": "https://example.org/manual-fixtures/smi-official-yes",
+            "published_at": "2026-04-23",
+            "excerpt_or_note": "[YES] Official calendar lists final approval before the deadline.",
+            "reliability_hint": "high primary official source"
+          },
+          {
+            "source_id": "smi_court_yes",
+            "source_type": "court_record",
+            "title": "Court docket closes interconnect challenge",
+            "url": "https://example.org/manual-fixtures/smi-court-yes",
+            "published_at": "2026-04-24",
+            "excerpt_or_note": "[YES] Court docket closes the main challenge before final approval.",
+            "reliability_hint": "high primary court record"
+          },
+          {
+            "source_id": "smi_news_yes",
+            "source_type": "news",
+            "title": "Local News reports staff recommendation to approve",
+            "url": "https://example.org/manual-fixtures/smi-news-yes",
+            "published_at": "2026-04-25",
+            "excerpt_or_note": "[YES] Reporting says regulator staff recommended approval.",
+            "reliability_hint": "medium corroborated reporting"
+          }
+        ],
+        "operator_notes": [
+          "Manual fixture only; missing counterevidence should keep this out of paper-candidate."
+        ]
+      }
+    },
+    {
+      "scenario_id": "strong_sources_clear_edge",
+      "description": "Strong balanced source set clears the conservative range-above-market gate.",
+      "expected_decision": "paper_candidate",
+      "expected_reason_codes": [
+        "positive_edge_range_above_market",
+        "paper_candidate_label_only"
+      ],
+      "packet": {
+        "market_id": "research_scenario_strong_clear_edge",
+        "market_title": "Will Example State certify the Metro Rail funding package by July 31, 2026?",
+        "market_question": "Will Example State certify the Metro Rail funding package by July 31, 2026?",
+        "resolution_criteria": "Resolves Yes if Example State publishes an official certification or final approval notice for the Metro Rail funding package on or before 2026-07-31.",
+        "yes_price": 0.37,
+        "no_price": 0.63,
+        "current_date": "2026-04-27",
+        "sources": [
+          {
+            "source_id": "sce_official_budget_notice",
+            "source_type": "official_statement",
+            "title": "Example State Budget Office funding certification calendar",
+            "url": "https://example.org/manual-fixtures/sce-official-budget-notice",
+            "published_at": "2026-04-22",
+            "excerpt_or_note": "[YES] Official calendar lists final Metro Rail funding certification vote before the deadline.",
+            "reliability_hint": "high primary official source"
+          },
+          {
+            "source_id": "sce_court_docket_no_stay",
+            "source_type": "court_record",
+            "title": "Example Superior Court docket entry denying emergency stay",
+            "url": "https://example.org/manual-fixtures/sce-court-docket-no-stay",
+            "published_at": "2026-04-24",
+            "excerpt_or_note": "[YES] Court docket says the emergency stay request was denied.",
+            "reliability_hint": "high primary court record"
+          },
+          {
+            "source_id": "sce_local_news_committee",
+            "source_type": "news",
+            "title": "Local News reports committee advances Metro Rail package",
+            "url": "https://example.org/manual-fixtures/sce-local-news-committee",
+            "published_at": "2026-04-25",
+            "excerpt_or_note": "[YES] Reporting says leadership expects floor passage before certification.",
+            "reliability_hint": "medium corroborated local reporting"
+          },
+          {
+            "source_id": "sce_policy_analysis_risk",
+            "source_type": "analysis",
+            "title": "Analyst memo on remaining administrative risk",
+            "url": "https://example.org/manual-fixtures/sce-policy-analysis-risk",
+            "published_at": "2026-04-26",
+            "excerpt_or_note": "[NO] Analysis notes certification could slip if bond counsel requests another revision.",
+            "reliability_hint": "medium scenario analysis"
+          }
+        ],
+        "operator_notes": [
+          "Manual fixture only; source URLs are metadata only.",
+          "Paper candidate is a label only and no order should be created."
+        ]
+      }
+    },
+    {
+      "scenario_id": "high_uncertainty_high_market_price",
+      "description": "High market price plus high uncertainty leaves the estimated range below market.",
+      "expected_decision": "no_action",
+      "expected_reason_codes": [
+        "estimated_range_below_market"
+      ],
+      "packet": {
+        "market_id": "research_scenario_high_uncertainty_high_price",
+        "market_title": "Will Example Cabinet approve the emergency package by May 15, 2026?",
+        "market_question": "Will Example Cabinet approve the emergency package by May 15, 2026?",
+        "resolution_criteria": "Resolves Yes only if Example Cabinet publishes final approval for the emergency package on or before 2026-05-15.",
+        "yes_price": 0.82,
+        "no_price": 0.18,
+        "current_date": "2026-04-27",
+        "sources": [
+          {
+            "source_id": "huhp_official_yes",
+            "source_type": "official_statement",
+            "title": "Cabinet calendar keeps emergency package on agenda",
+            "url": "https://example.org/manual-fixtures/huhp-official-yes",
+            "published_at": "2026-04-23",
+            "excerpt_or_note": "[YES] Official calendar keeps the package on the approval agenda.",
+            "reliability_hint": "high primary official source"
+          },
+          {
+            "source_id": "huhp_court_no",
+            "source_type": "court_record",
+            "title": "Court docket opens emergency package injunction case",
+            "url": "https://example.org/manual-fixtures/huhp-court-no",
+            "published_at": "2026-04-24",
+            "excerpt_or_note": "[NO] Court docket opens an injunction case and outcome is uncertain.",
+            "reliability_hint": "high primary court record"
+          },
+          {
+            "source_id": "huhp_analysis_no",
+            "source_type": "analysis",
+            "title": "Analyst note says cabinet could defer the package",
+            "url": "https://example.org/manual-fixtures/huhp-analysis-no",
+            "published_at": "2026-04-25",
+            "excerpt_or_note": "[NO] Analysis says the package could slip if the injunction hearing is unresolved.",
+            "reliability_hint": "medium scenario analysis"
+          },
+          {
+            "source_id": "huhp_official_no",
+            "source_type": "official_statement",
+            "title": "Cabinet secretariat notice says legal clearance is pending",
+            "url": "https://example.org/manual-fixtures/huhp-official-no",
+            "published_at": "2026-04-25",
+            "excerpt_or_note": "[NO] Official notice says legal clearance remains pending before final approval.",
+            "reliability_hint": "high primary official source"
+          },
+          {
+            "source_id": "huhp_news_no",
+            "source_type": "news",
+            "title": "Local News reports several ministers want a delay",
+            "url": "https://example.org/manual-fixtures/huhp-news-no",
+            "published_at": "2026-04-26",
+            "excerpt_or_note": "[NO] Reporting says several ministers want to delay approval pending legal review.",
+            "reliability_hint": "medium corroborated reporting"
+          }
+        ],
+        "operator_notes": [
+          "Manual fixture only; uncertainty is high relative to market price."
+        ]
+      }
+    },
+    {
+      "scenario_id": "operator_note_requires_manual_review",
+      "description": "Operator note requires manual review, and overlap keeps the scenario out of paper-candidate.",
+      "expected_decision": "watchlist",
+      "expected_reason_codes": [
+        "probability_range_overlaps_market"
+      ],
+      "packet": {
+        "market_id": "research_scenario_operator_note_manual_review",
+        "market_title": "Will Example Port approve the lease extension by December 15, 2026?",
+        "market_question": "Will Example Port approve the lease extension by December 15, 2026?",
+        "resolution_criteria": "Resolves Yes only if Example Port publishes final lease extension approval on or before 2026-12-15.",
+        "yes_price": 0.5,
+        "no_price": 0.5,
+        "current_date": "2026-04-27",
+        "sources": [
+          {
+            "source_id": "onr_official_yes",
+            "source_type": "official_statement",
+            "title": "Port agenda lists lease extension approval",
+            "url": "https://example.org/manual-fixtures/onr-official-yes",
+            "published_at": "2026-04-24",
+            "excerpt_or_note": "[YES] Official agenda lists lease extension approval before the deadline.",
+            "reliability_hint": "high primary official source"
+          },
+          {
+            "source_id": "onr_court_no",
+            "source_type": "court_record",
+            "title": "Court docket lists a lease protest hearing",
+            "url": "https://example.org/manual-fixtures/onr-court-no",
+            "published_at": "2026-04-25",
+            "excerpt_or_note": "[NO] Court docket lists a protest hearing that could delay approval.",
+            "reliability_hint": "high primary court record"
+          },
+          {
+            "source_id": "onr_news_yes",
+            "source_type": "news",
+            "title": "Local News reports port staff support extension",
+            "url": "https://example.org/manual-fixtures/onr-news-yes",
+            "published_at": "2026-04-25",
+            "excerpt_or_note": "[YES] Reporting says staff support the lease extension.",
+            "reliability_hint": "medium corroborated reporting"
+          },
+          {
+            "source_id": "onr_analysis_no",
+            "source_type": "analysis",
+            "title": "Analyst note flags possible protest delay",
+            "url": "https://example.org/manual-fixtures/onr-analysis-no",
+            "published_at": "2026-04-26",
+            "excerpt_or_note": "[NO] Analysis says protest review could slip approval timing.",
+            "reliability_hint": "medium scenario analysis"
+          }
+        ],
+        "operator_notes": [
+          "Manual review required before any further research label escalation.",
+          "Manual fixture only; no runtime action is allowed."
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,233 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "governance/schemas/governance_review_bundle.schema.v1.json",
+  "title": "Governance Review Bundle Schema v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "bundle_id",
+    "task_id",
+    "source_run_id",
+    "created_at",
+    "runtime_source",
+    "adapter_envelope",
+    "lifecycle_event_draft",
+    "critic_input_draft",
+    "critic_output",
+    "governance_decision_record",
+    "final_governance_status"
+  ],
+  "$defs": {
+    "acceptedWarnings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "network_risk",
+        "api_risk",
+        "wallet_risk",
+        "private_key_risk",
+        "execution_risk",
+        "live_trading_risk",
+        "dependency_risk"
+      ],
+      "properties": {
+        "network_risk": { "type": "string", "const": "mixed" },
+        "api_risk": { "type": "string", "const": "mixed" },
+        "wallet_risk": { "type": "string", "const": "mixed" },
+        "private_key_risk": { "type": "string", "const": "mixed" },
+        "execution_risk": { "type": "string", "const": "mixed" },
+        "live_trading_risk": { "type": "string", "const": "mixed" },
+        "dependency_risk": { "type": "string", "const": "docs_only" }
+      }
+    },
+    "safetyFlags": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "dispatcher_touched",
+        "run_codex_touched",
+        "execution_loop_started",
+        "active_task_files_changed",
+        "code_execution_enabled",
+        "network_used",
+        "credentials_touched"
+      ],
+      "properties": {
+        "dispatcher_touched": { "type": "boolean", "const": false },
+        "run_codex_touched": { "type": "boolean", "const": false },
+        "execution_loop_started": { "type": "boolean", "const": false },
+        "active_task_files_changed": { "type": "boolean", "const": false },
+        "code_execution_enabled": { "type": "boolean", "const": false },
+        "network_used": { "type": "boolean", "const": false },
+        "credentials_touched": { "type": "boolean", "const": false }
+      }
+    },
+    "refObject": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ref"],
+      "properties": {
+        "ref": { "type": "string", "minLength": 1 }
+      }
+    }
+  },
+  "properties": {
+    "schema_version": { "type": "string", "const": "v1" },
+    "bundle_id": { "type": "string", "minLength": 1 },
+    "task_id": { "type": "string", "minLength": 1 },
+    "source_run_id": { "type": "string", "minLength": 1 },
+    "created_at": { "type": "string", "minLength": 1 },
+    "runtime_source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "type", "runtime_truth"],
+      "properties": {
+        "path": { "type": "string", "minLength": 1 },
+        "type": { "type": "string", "enum": ["freeze_record", "result_record", "checkpoint_record"] },
+        "runtime_truth": { "type": "boolean", "const": true }
+      }
+    },
+    "adapter_envelope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ref", "task_id", "source_run_id", "status", "openclaw_next_status", "accepted_warnings"],
+      "properties": {
+        "ref": { "type": "string", "minLength": 1 },
+        "task_id": { "type": "string", "minLength": 1 },
+        "source_run_id": { "type": "string", "minLength": 1 },
+        "status": { "type": "string", "minLength": 1 },
+        "openclaw_next_status": { "type": "string", "enum": ["review", "blocked", "deferred"] },
+        "accepted_warnings": { "$ref": "#/$defs/acceptedWarnings" }
+      }
+    },
+    "lifecycle_event_draft": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ref", "task_id", "source_run_id", "to_status", "safety_flags"],
+      "properties": {
+        "ref": { "type": "string", "minLength": 1 },
+        "task_id": { "type": "string", "minLength": 1 },
+        "source_run_id": { "type": "string", "minLength": 1 },
+        "to_status": { "type": "string", "enum": ["review", "blocked", "deferred", "done"] },
+        "safety_flags": { "$ref": "#/$defs/safetyFlags" }
+      }
+    },
+    "critic_input_draft": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ref", "task_id", "source_run_id", "critic_required", "accepted_warnings", "safety_flags"],
+      "properties": {
+        "ref": { "type": "string", "minLength": 1 },
+        "task_id": { "type": "string", "minLength": 1 },
+        "source_run_id": { "type": "string", "minLength": 1 },
+        "critic_required": { "type": "boolean", "const": true },
+        "accepted_warnings": { "$ref": "#/$defs/acceptedWarnings" },
+        "safety_flags": { "$ref": "#/$defs/safetyFlags" }
+      }
+    },
+    "critic_output": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["critic_verdict", "can_mark_done"],
+      "properties": {
+        "critic_verdict": { "type": "string", "enum": ["pass", "warning", "fail", "blocked"] },
+        "can_mark_done": { "type": "boolean" }
+      }
+    },
+    "quarantine_record": {
+      "anyOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["quarantine_present", "resolved"],
+          "properties": {
+            "quarantine_present": { "type": "boolean" },
+            "resolved": { "type": "boolean" }
+          }
+        }
+      ]
+    },
+    "governance_decision_record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["governance_decision", "final_status_allowed", "accepted_warnings", "task_id", "source_run_id"],
+      "properties": {
+        "governance_decision": { "type": "string", "enum": ["accept_final_done", "accept_with_warnings", "blocked", "continue_review"] },
+        "final_status_allowed": { "type": "boolean" },
+        "accepted_warnings": { "$ref": "#/$defs/acceptedWarnings" },
+        "task_id": { "type": "string", "minLength": 1 },
+        "source_run_id": { "type": "string", "minLength": 1 }
+      }
+    },
+    "final_governance_status": { "type": "string", "enum": ["review", "blocked", "deferred", "done"] }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "final_governance_status": { "const": "done" } }, "required": ["final_governance_status"] },
+      "then": {
+        "properties": {
+          "critic_output": {
+            "anyOf": [
+              {
+                "properties": {
+                  "critic_verdict": { "const": "pass" },
+                  "can_mark_done": { "const": true }
+                },
+                "required": ["critic_verdict", "can_mark_done"]
+              },
+              {
+                "properties": {
+                  "critic_verdict": { "const": "warning" },
+                  "can_mark_done": { "const": true }
+                },
+                "required": ["critic_verdict", "can_mark_done"]
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "final_governance_status": { "const": "done" },
+          "critic_output": {
+            "properties": { "critic_verdict": { "const": "warning" } },
+            "required": ["critic_verdict"]
+          }
+        },
+        "required": ["final_governance_status", "critic_output"]
+      },
+      "then": {
+        "properties": {
+          "governance_decision_record": {
+            "properties": {
+              "governance_decision": { "const": "accept_with_warnings" },
+              "final_status_allowed": { "const": true }
+            },
+            "required": ["governance_decision", "final_status_allowed"]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "quarantine_record": {
+            "type": "object",
+            "properties": { "quarantine_present": { "const": true }, "resolved": { "const": false } },
+            "required": ["quarantine_present", "resolved"]
+          }
+        },
+        "required": ["quarantine_record"]
+      },
+      "then": {
+        "properties": {
+          "final_governance_status": { "not": { "const": "done" } }
+        }
+      }
+    }
+  ]
+}

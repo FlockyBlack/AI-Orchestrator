@@ -1,0 +1,56 @@
+{
+  "schema_version": "paper_portfolio_snapshot.v1",
+  "markdown_version": "paper_portfolio_snapshot_report.v1",
+  "task_id": "PMBOT-PAPER-BATCH-014-016-PAPER-PORTFOLIO-METRICS-MVP",
+  "deterministic": true,
+  "source_paper_accounting_ledger_path": "pm_bot/paper/paper_accounting_ledger.v1.json",
+  "paper_portfolio_status": "paper_portfolio_snapshot_ready",
+  "allowed_paper_portfolio_statuses": [
+    "paper_portfolio_snapshot_ready",
+    "paper_portfolio_snapshot_empty",
+    "paper_portfolio_snapshot_blocked_invalid_ledger"
+  ],
+  "counts": {
+    "paper_accounting_ledger_entries_read": 1,
+    "paper_portfolio_snapshot_records": 1,
+    "paper_accounting_position_count": 1,
+    "paper_accounting_blocked_count": 0,
+    "real_orders_created": 0,
+    "live_orders_created": 0,
+    "autonomous_paper_orders_created": 0
+  },
+  "market_ids": [
+    "824952"
+  ],
+  "paper_accounting_settled_count": 1,
+  "paper_accounting_open_count": 0,
+  "paper_accounting_position_count": 1,
+  "paper_accounting_cumulative_pnl": "6.00",
+  "paper_accounting_gross_profit": "6.00",
+  "paper_accounting_gross_loss": "0.00",
+  "positions": [
+    {
+      "market_id": "824952",
+      "paper_position_status": "paper_position_settled",
+      "source_paper_accounting_ledger_entry_id": "paper-accounting-ledger-entry-001",
+      "paper_accounting_cumulative_pnl": "6.00",
+      "paper_accounting_cost_basis": "4.00",
+      "paper_accounting_settlement_value": "10.00",
+      "paper_accounting_pnl": "6.00"
+    }
+  ],
+  "source_artifacts": [
+    "pm_bot/paper/paper_accounting_ledger.v1.json",
+    "pm_bot/paper/paper_accounting_pnl_preview.v1.json",
+    "pm_bot/paper/paper_fill_events.v1.json",
+    "pm_bot/paper/manual_paper_intent_ledger.v1.json"
+  ],
+  "safety_flags": [
+    "paper_only",
+    "inert_only",
+    "paper_accounting_only",
+    "no_live_execution",
+    "no_real_execution",
+    "no_credential_or_endpoint_use"
+  ]
+}

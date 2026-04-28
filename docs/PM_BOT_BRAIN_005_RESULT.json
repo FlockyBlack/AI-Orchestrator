@@ -1,0 +1,51 @@
+{
+  "task_id": "PMBOT-BRAIN-005-CRYPTO-NUMERIC-PAPER-REPLAY",
+  "status": "completed_ready_for_review",
+  "summary": "Implemented deterministic offline/paper replay for crypto numeric scoring, review, and paper-plan decisions across fixture-only historical-style cases. The replay computes paper-only win/loss/no-action results, simulated paper PnL, bad entries, and rejected bad cases.",
+  "pmbot_root_confirmed": true,
+  "paper_replay_readiness": "ready_for_review",
+  "command": "python pm_bot\\scoring\\run_crypto_numeric_paper_replay.py",
+  "files_created": [
+    "pm_bot/scoring/crypto_numeric_replay_cases.v1.json",
+    "pm_bot/scoring/run_crypto_numeric_paper_replay.py",
+    "pm_bot/scoring/expected_crypto_numeric_paper_replay.v1.json",
+    "pm_bot/scoring/expected_crypto_numeric_paper_replay.v1.md",
+    "pm_bot/scoring/tests/test_run_crypto_numeric_paper_replay.py",
+    "docs/PM_BOT_BRAIN_005_RESULT.json",
+    "docs/PM_BOT_STAGE_SUMMARY_V17.md"
+  ],
+  "files_modified": [],
+  "tests_or_checks_run": [
+    "python -m pytest pm_bot\\scoring\\tests -q",
+    "python pm_bot\\scoring\\run_crypto_numeric_paper_replay.py",
+    "python pm_bot\\scoring\\run_crypto_numeric_paper_replay.py --markdown"
+  ],
+  "replay_summary": {
+    "replay_cases": 5,
+    "paper_orders": 2,
+    "wins": 1,
+    "losses": 1,
+    "no_action": 3,
+    "total_paper_pnl": -30.51,
+    "bad_entries": 1,
+    "rejected_bad_cases": 2
+  },
+  "limitations": [
+    "Uses fixture replay cases only; no live markets, prices, or APIs are fetched.",
+    "Paper PnL is simulated from fixture resolution prices and paper plan entries only.",
+    "No runtime integration, prompt automation, credentials, wallet access, or new validation layer was added."
+  ],
+  "recommended_next_task": "PMBOT-BRAIN-006-CRYPTO-NUMERIC-REPLAY-REPORTING: add aggregate replay reporting only if review needs presentation improvements.",
+  "safety": {
+    "offline_only": true,
+    "paper_only": true,
+    "no_network_api": true,
+    "no_credentials": true,
+    "no_wallet": true,
+    "no_real_orders": true,
+    "no_live_trading": true,
+    "no_runtime_wiring": true,
+    "no_prompt_automation": true,
+    "no_unrelated_cleanup": true
+  }
+}

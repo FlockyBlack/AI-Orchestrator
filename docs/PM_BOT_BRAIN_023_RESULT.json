@@ -1,0 +1,40 @@
+{
+  "task_id": "PMBOT-BRAIN-023-LOCAL-INBOX-RUN-LEDGER",
+  "status": "completed",
+  "summary": "Added deterministic offline paper run ledger output for the local snapshot inbox paper portfolio workflow.",
+  "command": "python pm_bot\\paper\\run_local_snapshot_inbox_paper_portfolio.py --run-id fixture-run-001 --out-run-ledger pm_bot\\paper\\expected_local_snapshot_inbox_run_ledger.v1.json",
+  "run_ledger_summary": {
+    "run_ledger_write_tested": true,
+    "run_id": "fixture-run-001",
+    "snapshot_files_discovered": 3,
+    "snapshots_processed": 2,
+    "snapshots_skipped_already_processed": 1,
+    "new_paper_orders_created": 0,
+    "duplicate_orders_blocked": 1,
+    "risk_limit_orders_blocked": 1,
+    "realized_paper_pnl_delta": 72.41,
+    "final_realized_paper_pnl": 72.41
+  },
+  "tests": [
+    "python -m pytest pm_bot\\scoring\\tests pm_bot\\paper\\tests -q",
+    "python pm_bot\\paper\\run_local_snapshot_inbox_paper_portfolio.py",
+    "python pm_bot\\paper\\run_local_snapshot_inbox_paper_portfolio.py --markdown",
+    "python pm_bot\\paper\\run_local_snapshot_inbox_paper_portfolio.py --run-id fixture-run-001 --out-run-ledger pm_bot\\paper\\expected_local_snapshot_inbox_run_ledger.v1.json",
+    "python pm_bot\\paper\\run_local_snapshot_paper_portfolio_state.py",
+    "python pm_bot\\paper\\run_local_snapshot_series_risk_scenarios.py",
+    "python pm_bot\\paper\\run_crypto_numeric_lifecycle_regression_gates.py"
+  ],
+  "safety": {
+    "offline_only": true,
+    "paper_only": true,
+    "live_fetcher_implemented": false,
+    "api_used": false,
+    "network_used": false,
+    "wallet_used": false,
+    "real_order_created": false,
+    "trading_allowed": false,
+    "runtime_wiring_changed": false,
+    "dispatcher_touched": false,
+    "prompt_automation_added": false
+  }
+}

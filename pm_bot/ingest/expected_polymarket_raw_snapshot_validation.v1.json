@@ -1,0 +1,16 @@
+{
+  "downstream_feed_allowed": false,
+  "finding_count": 0,
+  "findings": [],
+  "network_boundary": {
+    "authenticated_endpoints_used": false,
+    "credentials_required": false,
+    "public_readonly_polymarket_only": true,
+    "trading_endpoints_used": false,
+    "wallet_required": false
+  },
+  "quarantine_required": false,
+  "schema_version": "polymarket_raw_snapshot_validation.v1",
+  "validated_file": "pm_bot/ingest/polymarket_raw_snapshot_fixture.v1.json",
+  "validation_passed": true
+}

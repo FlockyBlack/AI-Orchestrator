@@ -1,0 +1,65 @@
+{
+  "schema_version": "selected_ingest_manual_evidence_overlay_template.v1",
+  "task_id": "PMBOT-INGEST-006-SELECTED-STUBS-OPERATOR-WORKPACK",
+  "deterministic": true,
+  "source_workpack_index_path": "pm_bot/research/selected_ingest_operator_workpack_index.v1.json",
+  "selected_market_ids": [
+    "692258",
+    "824952",
+    "691547",
+    "597964",
+    "598936"
+  ],
+  "required_evidence_fields": [
+    "source_name",
+    "source_type",
+    "source_url_or_reference",
+    "captured_claim",
+    "relevance_to_resolution",
+    "operator_notes"
+  ],
+  "blank_evidence_entry_template": {
+    "source_name": "",
+    "source_type": "",
+    "source_url_or_reference": "",
+    "captured_claim": "",
+    "relevance_to_resolution": "",
+    "operator_notes": ""
+  },
+  "manual_entries_by_market_id": {
+    "692258": {
+      "completion_status": "stub_only",
+      "manual_evidence_entries": [],
+      "missing_information": [],
+      "operator_notes": ""
+    },
+    "824952": {
+      "completion_status": "stub_only",
+      "manual_evidence_entries": [],
+      "missing_information": [],
+      "operator_notes": ""
+    },
+    "691547": {
+      "completion_status": "stub_only",
+      "manual_evidence_entries": [],
+      "missing_information": [],
+      "operator_notes": ""
+    },
+    "597964": {
+      "completion_status": "stub_only",
+      "manual_evidence_entries": [],
+      "missing_information": [],
+      "operator_notes": ""
+    },
+    "598936": {
+      "completion_status": "stub_only",
+      "manual_evidence_entries": [],
+      "missing_information": [],
+      "operator_notes": ""
+    }
+  },
+  "notes": [
+    "Blank template for future manual evidence collection.",
+    "Keep evidence entries empty until a human operator adds sourced claims."
+  ]
+}

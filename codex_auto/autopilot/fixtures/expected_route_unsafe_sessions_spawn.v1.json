@@ -1,0 +1,33 @@
+{
+  "type": "AUTOPILOT_PROMPT_ROUTING_DECISION",
+  "schema_version": "1.0",
+  "receiver_agent": "Flocky",
+  "detected_target_agent": "Flocky",
+  "detected_task_owner": "Flocky",
+  "detected_task_type": "read-only validation",
+  "routing_class": "UNSAFE_OR_APPROVAL_REQUIRED_TASK",
+  "misroute_detected": false,
+  "safe_for_receiver_to_execute": false,
+  "sessions_spawn_allowed": false,
+  "code_changes_allowed_for_receiver": false,
+  "runtime_mutation_allowed": false,
+  "queue_mutation_allowed": false,
+  "governance_mutation_allowed": false,
+  "requires_human_or_correct_agent": true,
+  "required_behavior": "BLOCK_UNSAFE_OR_APPROVAL_REQUIRED",
+  "detected_signals": [
+    "flocky_signal:read-only validation",
+    "flocky_signal:target_agent: flocky",
+    "flocky_signal:task_owner: flocky",
+    "flocky_signal:task_type: read-only validation",
+    "flocky_signal:задание flocky",
+    "requested_action_signal:sessions_spawn",
+    "requested_action_signal:spawn subagent"
+  ],
+  "blocking_reasons": [
+    "sessions_spawn_not_allowed_by_guardrail",
+    "unsafe_requested_action:sessions_spawn",
+    "unsafe_requested_action:spawn subagent"
+  ],
+  "warnings": []
+}

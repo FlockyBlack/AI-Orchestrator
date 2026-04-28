@@ -1,0 +1,144 @@
+{
+  "schema_version": "v1",
+  "report_id": "PMBOT-BRAIN-008-CRYPTO-NUMERIC-MARKET-INTAKE",
+  "source_fixture_id": "crypto_numeric_raw_market_fixtures_v1",
+  "deterministic": true,
+  "offline_only": true,
+  "paper_only": true,
+  "execution_allowed": false,
+  "trading_allowed": false,
+  "summary": {
+    "raw_markets": 11,
+    "normalized_supported": 4,
+    "rejected": 7,
+    "rejection_reasons": {
+      "non_crypto_market": 2,
+      "missing_target": 1,
+      "missing_expiry": 1,
+      "unclear_side": 1,
+      "ambiguous_settlement": 1,
+      "missing_market_data": 1
+    }
+  },
+  "normalized_scorer_fixture": {
+    "schema_version": "v1",
+    "fixture_id": "crypto_numeric_intake_normalized_v1",
+    "fixture_only": true,
+    "paper_only": true,
+    "scoring_config": {
+      "edge_buffer": 0.025,
+      "min_candidate_edge": 0.04,
+      "min_liquidity_usd": 50000,
+      "watch_liquidity_usd": 25000,
+      "max_spread": 0.05,
+      "watch_spread": 0.08
+    },
+    "markets": [
+      {
+        "market_id": "raw_btc_above_90000_2026_05_31",
+        "title": "Will BTC be above $90,000 on 2026-05-31?",
+        "asset": "BTC",
+        "side": "above",
+        "target_price": 90000.0,
+        "expiry": "2026-05-31",
+        "current_price": 93800.0,
+        "market_yes_price": 0.59,
+        "liquidity_usd": 180000.0,
+        "spread": 0.03,
+        "risk_level": "low",
+        "thirty_day_change_pct": 8.0,
+        "volatility_30d_pct": 42.0
+      },
+      {
+        "market_id": "raw_eth_below_3000_2026_05_31",
+        "title": "Will Ethereum be below $3,000 on 2026-05-31?",
+        "asset": "ETH",
+        "side": "below",
+        "target_price": 3000.0,
+        "expiry": "2026-05-31",
+        "current_price": 3120.0,
+        "market_yes_price": 0.36,
+        "liquidity_usd": 125000.0,
+        "spread": 0.04,
+        "risk_level": "medium",
+        "thirty_day_change_pct": -6.0,
+        "volatility_30d_pct": 55.0
+      },
+      {
+        "market_id": "raw_eth_above_4500_2026_06_30",
+        "title": "Will ETH be above $4,500 on 2026-06-30?",
+        "asset": "ETH",
+        "side": "above",
+        "target_price": 4500.0,
+        "expiry": "2026-06-30",
+        "current_price": 4200.0,
+        "market_yes_price": 0.44,
+        "liquidity_usd": 90000.0,
+        "spread": 0.05,
+        "risk_level": "medium",
+        "thirty_day_change_pct": 4.0,
+        "volatility_30d_pct": 58.0
+      },
+      {
+        "market_id": "raw_btc_below_80000_2026_06_30",
+        "title": "Will Bitcoin be below $80,000 on 2026-06-30?",
+        "asset": "BTC",
+        "side": "below",
+        "target_price": 80000.0,
+        "expiry": "2026-06-30",
+        "current_price": 93800.0,
+        "market_yes_price": 0.22,
+        "liquidity_usd": 110000.0,
+        "spread": 0.04,
+        "risk_level": "medium",
+        "thirty_day_change_pct": 8.0,
+        "volatility_30d_pct": 42.0
+      }
+    ]
+  },
+  "rejections": [
+    {
+      "market_id": "raw_election_non_crypto",
+      "question": "Will Candidate A win the 2026 election?",
+      "reason_code": "non_crypto_market",
+      "reason": "Record category is not crypto."
+    },
+    {
+      "market_id": "raw_weather_non_crypto",
+      "question": "Will NYC receive more than 5 inches of snow in January 2026?",
+      "reason_code": "non_crypto_market",
+      "reason": "Record category is not crypto."
+    },
+    {
+      "market_id": "raw_btc_missing_target",
+      "question": "Will BTC close green on 2026-05-31?",
+      "reason_code": "missing_target",
+      "reason": "Question does not include a numeric target price."
+    },
+    {
+      "market_id": "raw_eth_missing_expiry",
+      "question": "Will ETH be above $4,000?",
+      "reason_code": "missing_expiry",
+      "reason": "Record does not include an expiry date."
+    },
+    {
+      "market_id": "raw_btc_unclear_side",
+      "question": "Will BTC finish near $100,000 on 2026-06-30?",
+      "reason_code": "unclear_side",
+      "reason": "Question does not clearly specify above or below."
+    },
+    {
+      "market_id": "raw_eth_ambiguous_intraday",
+      "question": "Will ETH touch above $5,000 anytime before 2026-06-30?",
+      "reason_code": "ambiguous_settlement",
+      "reason": "Question uses ambiguous settlement wording."
+    },
+    {
+      "market_id": "raw_btc_missing_data",
+      "question": "Will BTC be above $95,000 on 2026-06-30?",
+      "reason_code": "missing_market_data",
+      "reason": "Record is missing market data: spread."
+    }
+  ],
+  "review_note": "Offline fixture intake only. Output is normalized for paper scoring review."
+}

@@ -1,0 +1,34 @@
+{
+  "schema_version": "v1",
+  "prompt_id": "PMBOT-BATCH-001",
+  "generated_at": "2026-04-25T14:44:21+00:00",
+  "prompt_path": "codex_auto/prompts/PMBOT-BATCH-001.codex_prompt.txt",
+  "candidate_task_refs": [
+    "codex_auto/tasks/candidates/PMBOT-005-PAPER-SIMULATION.task.json",
+    "codex_auto/tasks/candidates/PMBOT-006-RISK-LIMITS.task.json",
+    "codex_auto/tasks/candidates/PMBOT-007-FEES-SLIPPAGE.task.json",
+    "codex_auto/tasks/candidates/PMBOT-008-RESEARCH-DASHBOARD.task.json",
+    "codex_auto/tasks/candidates/PMBOT-009-FIXTURE-POSTMORTEM.task.json",
+    "codex_auto/tasks/candidates/PMBOT-010-STATIC-SAFETY-AUDIT.task.json"
+  ],
+  "execution_allowed_now": false,
+  "requires_flocky_review_before_execution": true,
+  "requires_human_approval_before_execution": true,
+  "runtime_wiring_allowed": false,
+  "external_codex_cli_allowed_now": false,
+  "safety_check": {
+    "runtime_changed": false,
+    "dispatcher_touched": false,
+    "run_codex_touched": false,
+    "active_task_files_touched": false,
+    "freeze_record_modified": false,
+    "result_records_modified": false,
+    "checkpoint_records_modified": false,
+    "network_used": false,
+    "api_used": false,
+    "wallet_used": false,
+    "private_key_used": false,
+    "trading_used": false,
+    "single_runtime_source_rule_preserved": true
+  }
+}

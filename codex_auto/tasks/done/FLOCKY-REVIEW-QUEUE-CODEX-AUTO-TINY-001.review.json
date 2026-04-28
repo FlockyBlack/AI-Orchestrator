@@ -1,0 +1,32 @@
+{
+  "schema_version": "v1",
+  "review_id": "FLOCKY-REVIEW-QUEUE-CODEX-AUTO-TINY-001",
+  "queue_task_id": "QUEUE-CODEX-AUTO-TINY-001",
+  "codex_task_id": "CODEX-AUTO-TINY-001",
+  "reviewed_at": "2026-04-25T14:02:30+00:00",
+  "reviewed_by": "flocky_local_review",
+  "source_result_path": "codex_auto/tasks/needs_flocky_review/QUEUE-CODEX-AUTO-TINY-001.result.json",
+  "source_queue_state": "needs_flocky_review",
+  "review_status": "pass",
+  "validation_findings": {},
+  "safety_check": {
+    "runtime_changed": false,
+    "dispatcher_touched": false,
+    "run_codex_touched": false,
+    "active_task_files_touched": false,
+    "freeze_record_modified": false,
+    "result_records_modified": false,
+    "checkpoint_records_modified": false,
+    "network_used": false,
+    "api_used": false,
+    "wallet_used": false,
+    "private_key_used": false,
+    "trading_used": false,
+    "external_codex_cli_invoked": false,
+    "single_runtime_source_rule_preserved": true
+  },
+  "allowed_next_queue_state": "done",
+  "final_flocky_done_claimed": false,
+  "runtime_wiring_allowed": false,
+  "notes": []
+}

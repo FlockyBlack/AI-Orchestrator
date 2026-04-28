@@ -1,0 +1,32 @@
+{
+  "contract_version": "raw_market_artifact.v1",
+  "artifact_id": "invalid-stale-market-103",
+  "source_type": "fixture",
+  "source_name": "offline_fixture_pack",
+  "captured_at": "2026-02-01T00:00:00Z",
+  "market": {
+    "market_id": "market-103",
+    "title": "Stale capture fixture",
+    "status": "open"
+  },
+  "outcomes": [
+    {
+      "name": "Yes",
+      "side": "yes",
+      "price": 0.49
+    }
+  ],
+  "provenance": {
+    "collected_by": "fixture_generator",
+    "collection_method": "curated_fixture",
+    "source_reference": "local://fixtures/invalid_stale_captured_at"
+  },
+  "safety": {
+    "network_used": false,
+    "api_credentials_used": false,
+    "wallet_used": false,
+    "order_capable": false,
+    "trading_capable": false,
+    "readonly_intended": true
+  }
+}

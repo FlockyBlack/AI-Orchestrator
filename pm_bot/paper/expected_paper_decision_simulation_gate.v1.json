@@ -1,0 +1,76 @@
+{
+  "schema_version": "paper_decision_simulation_gate.v1",
+  "markdown_version": "paper_decision_simulation_gate_report.v1",
+  "task_id": "PMBOT-PAPER-005-PAPER-DECISION-SIMULATION-GATE",
+  "deterministic": true,
+  "source_policy_spec_path": "pm_bot/paper/paper_decision_policy_spec.v1.json",
+  "source_policy_spec_schema_version": "paper_decision_policy_spec.v1",
+  "source_preview_path": "pm_bot/paper/paper_decision_simulation_preview.v1.json",
+  "source_preview_schema_version": "paper_decision_simulation_preview.v1",
+  "json_output_path": "pm_bot/paper/paper_decision_simulation_gate.v1.json",
+  "markdown_output_path": "pm_bot/paper/paper_decision_simulation_gate.v1.md",
+  "expected_json_output_path": "pm_bot/paper/expected_paper_decision_simulation_gate.v1.json",
+  "allowed_simulation_statuses": [
+    "paper_simulation_gate_passed_for_manual_review",
+    "paper_watch_only",
+    "paper_blocked_needs_more_review",
+    "paper_blocked_by_policy"
+  ],
+  "gate_record_fields": [
+    "market_id",
+    "simulation_status",
+    "policy_findings",
+    "blocking_reasons",
+    "watch_only_reasons",
+    "required_manual_followup",
+    "simulation_notes",
+    "safety_flags",
+    "paper_orders_created"
+  ],
+  "gate_summary": {
+    "policy_specs_read": 1,
+    "gate_records_written": 1,
+    "paper_simulation_gate_passed_for_manual_review": 1,
+    "paper_watch_only": 0,
+    "paper_blocked_needs_more_review": 0,
+    "paper_blocked_by_policy": 0,
+    "paper_orders_created": 0
+  },
+  "market_ids": [
+    "824952"
+  ],
+  "gate_records": [
+    {
+      "market_id": "824952",
+      "simulation_status": "paper_simulation_gate_passed_for_manual_review",
+      "policy_findings": [
+        "policy_spec_chain_present",
+        "source_preview_chain_present",
+        "manual_review_inputs_present",
+        "local_artifact_gate_complete"
+      ],
+      "blocking_reasons": [],
+      "watch_only_reasons": [],
+      "required_manual_followup": [
+        "manual_review_required_before_later_paper_process",
+        "confirm_gate_findings_outside_automation"
+      ],
+      "simulation_notes": [
+        "Offline gate only; artifact permits later human review of a paper-only simulation workflow.",
+        "Zero executable actions were produced."
+      ],
+      "safety_flags": [
+        "offline_only",
+        "local_artifacts_only",
+        "inert_review_artifact",
+        "zero_executable_actions"
+      ],
+      "paper_orders_created": 0
+    }
+  ],
+  "limitations": [
+    "Reads local PAPER-004 spec and its local PAPER-003 preview source only.",
+    "Gate status is limited to later manual review of an offline paper workflow.",
+    "Artifact is inert and produces zero executable actions."
+  ]
+}

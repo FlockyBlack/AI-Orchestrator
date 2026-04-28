@@ -1,0 +1,110 @@
+{
+  "schema_version": "1.0",
+  "prompt_pack_templates": [
+    {
+      "template_name": "flocky_read_only_validation.template.txt",
+      "target_agent": "Flocky",
+      "task_type": "read-only validation",
+      "code_changes_allowed": false,
+      "sessions_spawn_allowed": false,
+      "runtime_mutation_allowed": false,
+      "queue_mutation_allowed": false,
+      "governance_mutation_allowed": false,
+      "approval_required": false,
+      "intended_use": "Read-only validation of prepared artifacts and contracts.",
+      "expected_preflight_behavior_when_received_by_flocky": "PROCEED_READ_ONLY_VALIDATION",
+      "misroute_behavior": "RETURN_ROUTING_MISMATCH_WITHOUT_TOOL_EXECUTION",
+      "safe_to_send_to": [
+        "Flocky"
+      ],
+      "unsafe_to_send_to": [
+        "Codex",
+        "ChatGPT"
+      ]
+    },
+    {
+      "template_name": "flocky_governance_design.template.txt",
+      "target_agent": "Flocky",
+      "task_type": "read-only governance design",
+      "code_changes_allowed": false,
+      "sessions_spawn_allowed": false,
+      "runtime_mutation_allowed": false,
+      "queue_mutation_allowed": false,
+      "governance_mutation_allowed": false,
+      "approval_required": false,
+      "intended_use": "Read-only governance and policy design review.",
+      "expected_preflight_behavior_when_received_by_flocky": "PROCEED_GOVERNANCE_DESIGN",
+      "misroute_behavior": "RETURN_ROUTING_MISMATCH_WITHOUT_TOOL_EXECUTION",
+      "safe_to_send_to": [
+        "Flocky"
+      ],
+      "unsafe_to_send_to": [
+        "Codex",
+        "ChatGPT"
+      ]
+    },
+    {
+      "template_name": "codex_code_changing.template.txt",
+      "target_agent": "Codex",
+      "task_type": "code-changing",
+      "code_changes_allowed": true,
+      "sessions_spawn_allowed": false,
+      "runtime_mutation_allowed": false,
+      "queue_mutation_allowed": false,
+      "governance_mutation_allowed": false,
+      "approval_required": true,
+      "intended_use": "Approved isolated implementation work with explicit write scopes.",
+      "expected_preflight_behavior_when_received_by_flocky": "MISROUTED_CODEX_PROMPT_DETECTED",
+      "misroute_behavior": "IF_RECEIVED_BY_FLOCKY_RETURN_MISROUTED_CODEX_PROMPT_DETECTED_WITHOUT_TOOL_EXECUTION",
+      "safe_to_send_to": [
+        "Codex"
+      ],
+      "unsafe_to_send_to": [
+        "Flocky",
+        "ChatGPT"
+      ]
+    },
+    {
+      "template_name": "codex_focused_repair.template.txt",
+      "target_agent": "Codex",
+      "task_type": "repair",
+      "code_changes_allowed": true,
+      "sessions_spawn_allowed": false,
+      "runtime_mutation_allowed": false,
+      "queue_mutation_allowed": false,
+      "governance_mutation_allowed": false,
+      "approval_required": true,
+      "intended_use": "Tightly scoped repair work and failing-test fixes.",
+      "expected_preflight_behavior_when_received_by_flocky": "MISROUTED_CODEX_PROMPT_DETECTED",
+      "misroute_behavior": "IF_RECEIVED_BY_FLOCKY_RETURN_MISROUTED_CODEX_PROMPT_DETECTED_WITHOUT_TOOL_EXECUTION",
+      "safe_to_send_to": [
+        "Codex"
+      ],
+      "unsafe_to_send_to": [
+        "Flocky",
+        "ChatGPT"
+      ]
+    },
+    {
+      "template_name": "chatgpt_planning.template.txt",
+      "target_agent": "ChatGPT",
+      "task_type": "planning",
+      "code_changes_allowed": false,
+      "sessions_spawn_allowed": false,
+      "runtime_mutation_allowed": false,
+      "queue_mutation_allowed": false,
+      "governance_mutation_allowed": false,
+      "approval_required": false,
+      "intended_use": "Planning, decomposition, and option comparison only.",
+      "expected_preflight_behavior_when_received_by_flocky": "RETURN_ROUTING_MISMATCH",
+      "misroute_behavior": "RETURN_ROUTING_MISMATCH_WITHOUT_EXECUTION",
+      "safe_to_send_to": [
+        "ChatGPT"
+      ],
+      "unsafe_to_send_to": [
+        "Flocky",
+        "Codex"
+      ]
+    }
+  ]
+}

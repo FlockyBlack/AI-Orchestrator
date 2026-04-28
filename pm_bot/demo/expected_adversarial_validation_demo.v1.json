@@ -1,0 +1,48 @@
+{
+  "schema_version": "v1",
+  "demo_id": "PMBOT-BATCH-005-ADVERSARIAL-VALIDATION-DEMO",
+  "fixture_only": true,
+  "paper_only": true,
+  "local_only": true,
+  "deterministic": true,
+  "adversarial_replay_report": {
+    "total_cases": 12,
+    "passed_cases": 12,
+    "false_positive_count": 0
+  },
+  "market_shock_report": {
+    "total_scenarios": 8,
+    "passed_scenarios": 8,
+    "rejection_reason_counts": {
+      "low_liquidity": 1,
+      "resolved_market": 1,
+      "stale_data": 1,
+      "wide_spread": 1
+    }
+  },
+  "false_positive_prevention_report": {
+    "false_positives_count": 0,
+    "high_risk_false_positives_count": 0,
+    "missed_warning_count": 0
+  },
+  "replay_safety_scorecard": {
+    "total_score": 98.5,
+    "score_by_section": {
+      "stale_data_rejection": 100,
+      "liquidity_rejection": 100,
+      "spread_rejection": 100,
+      "resolved_market_exclusion": 100,
+      "contradiction_handling": 95,
+      "correlation_risk_handling": 90,
+      "false_positive_control": 100,
+      "replay_determinism": 100,
+      "audit_coverage": 100,
+      "safety_boundary_clarity": 100
+    }
+  },
+  "audit_headline": {
+    "static_audit_v4_passed": true,
+    "blocking_findings": 0
+  },
+  "final_paper_only_safety_boundary_summary": "Fixture-only adversarial replay validation. No network, no API, no wallet, no real orders, and no runtime wiring."
+}

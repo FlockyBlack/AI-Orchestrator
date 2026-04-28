@@ -1,0 +1,10 @@
+{
+  "schema_version": "v1",
+  "fixture_id": "portfolio_risk_limits_v1",
+  "fixture_only": true,
+  "paper_only": true,
+  "max_total_paper_exposure": 100.0,
+  "max_asset_paper_exposure": 100.0,
+  "max_orders_per_snapshot": 1,
+  "max_open_positions": 1
+}

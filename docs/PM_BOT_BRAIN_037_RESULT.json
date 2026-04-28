@@ -1,0 +1,104 @@
+{
+  "task_id": "PMBOT-BRAIN-037-THRESHOLD-HIT-POLICY-SCENARIO-COVERAGE",
+  "status": "passed",
+  "summary": "Added deterministic offline/paper scenario coverage for crypto threshold-hit decision policy boundaries using existing threshold-hit triage, review, reference-context, and decision-policy logic. No paper orders, live fetching, network/API calls, credentials, wallet access, real orders, runtime wiring, dispatcher changes, or prompt automation were added.",
+  "files_created": [
+    "pm_bot/paper/threshold_hit_policy_scenarios.v1.json",
+    "pm_bot/paper/run_crypto_threshold_hit_policy_scenarios.py",
+    "pm_bot/paper/expected_crypto_threshold_hit_policy_scenarios.v1.json",
+    "pm_bot/paper/expected_crypto_threshold_hit_policy_scenarios.v1.md",
+    "pm_bot/paper/tests/test_run_crypto_threshold_hit_policy_scenarios.py",
+    "docs/PM_BOT_BRAIN_037_RESULT.json",
+    "docs/PM_BOT_STAGE_SUMMARY_V49.md"
+  ],
+  "files_modified": [],
+  "tests": [
+    {
+      "command": "python -m pytest pm_bot\\paper\\tests\\test_run_crypto_threshold_hit_policy_scenarios.py -q",
+      "status": "passed",
+      "result": "12 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\scoring\\tests pm_bot\\paper\\tests -q",
+      "status": "passed",
+      "result": "269 passed, 3 subtests passed"
+    },
+    {
+      "command": "python pm_bot\\paper\\run_crypto_threshold_hit_policy_scenarios.py",
+      "status": "passed",
+      "result": "scenario_count=12; reviewed_candidates=11; no_action=1; watchlist=2; policy_blocked=8; paper_candidate=0; paper_orders_created=0"
+    },
+    {
+      "command": "python pm_bot\\paper\\run_crypto_threshold_hit_policy_scenarios.py --markdown",
+      "status": "passed",
+      "result": "deterministic Markdown report generated"
+    },
+    {
+      "command": "python pm_bot\\paper\\run_crypto_threshold_hit_review_table.py --reference-context pm_bot\\paper\\threshold_hit_reference_context.v1.json --decision-policy pm_bot\\paper\\threshold_hit_decision_policy.v1.json --markdown",
+      "status": "passed",
+      "result": "threshold_hit_candidates=3; watchlist=2; policy_blocked=1; paper_candidate=0; paper_orders_created=0"
+    },
+    {
+      "command": "python pm_bot\\paper\\run_crypto_threshold_hit_triage_report.py --source C:\\Users\\OpenC\\Documents\\AI-Orchestrator\\local_snapshots\\polymarket_markets_active_500_001.json --markdown",
+      "status": "passed",
+      "result": "threshold_hit_crypto_candidates_found=3; supported_triage_candidates=3"
+    },
+    {
+      "command": "PYTHONIOENCODING=utf-8 python pm_bot\\paper\\run_real_market_triage_report.py --source C:\\Users\\OpenC\\Documents\\AI-Orchestrator\\local_snapshots\\polymarket_markets_active_500_001.json --markdown",
+      "status": "passed",
+      "result": "real market triage report generated with offline local source"
+    },
+    {
+      "command": "python pm_bot\\paper\\run_manual_paper_operator_cycle.py",
+      "status": "passed",
+      "result": "offline manual operator cycle passed; new_paper_orders_created=0"
+    },
+    {
+      "command": "python pm_bot\\paper\\run_crypto_numeric_lifecycle_regression_gates.py",
+      "status": "passed",
+      "result": "status=passed; gates_checked=6; gates_passed=6"
+    }
+  ],
+  "scenario_summary": {
+    "scenario_count": 12,
+    "reviewed_candidates": 11,
+    "no_action_count": 1,
+    "watchlist_count": 2,
+    "policy_blocked_count": 8,
+    "paper_candidate_count": 0,
+    "paper_orders_created": 0,
+    "policy_reason_counts": {
+      "before_event_requires_event_model": 1,
+      "deadline_not_future": 1,
+      "deadline_too_near": 1,
+      "liquidity_below_conservative_minimum": 1,
+      "missing_deadline": 1,
+      "missing_liquidity": 1,
+      "missing_reference_price": 1,
+      "missing_yes_price": 1,
+      "paper_candidates_disabled_by_policy": 11,
+      "target_distance_above_watchlist_limit": 1,
+      "target_distance_unavailable": 1,
+      "yes_price_above_conservative_limit": 1
+    },
+    "all_expected_decisions_passed": true
+  },
+  "safety": {
+    "offline_only": true,
+    "paper_only": true,
+    "live_fetcher_implemented": false,
+    "api_used": false,
+    "network_used": false,
+    "wallet_used": false,
+    "real_order_created": false,
+    "trading_allowed": false,
+    "runtime_wiring_changed": false,
+    "dispatcher_touched": false,
+    "prompt_automation_added": false
+  },
+  "notes": [
+    "Preflight passed in C:\\Users\\OpenC\\Documents\\AI-Orchestrator.",
+    "rg was not executable from the Codex app package in this workspace, so PowerShell listing/search was used for inspection.",
+    "PowerShell environment syntax was used to provide PYTHONIOENCODING=utf-8 for the real-market triage command."
+  ]
+}

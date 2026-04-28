@@ -1,0 +1,45 @@
+{
+  "schema_version": "codex_execution_approval.v1",
+  "approval_id": "APPROVAL-RUNTIME-WIRING",
+  "task_id": "CODEX-AUTO-TINY-004",
+  "approved_for_execution": true,
+  "approved_by": "human",
+  "approved_at": "2026-04-25T13:10:00+04:00",
+  "approval_reason": "Incorrectly attempts runtime integration.",
+  "allowed_paths": [
+    "codex_auto/runs/CODEX-AUTO-TINY-004/"
+  ],
+  "forbidden_paths": [
+    "scripts/dispatcher.py",
+    "scripts/run_codex.py",
+    "tasks/",
+    "state/",
+    "runs/",
+    "runtime/",
+    "freeze/",
+    "checkpoint/"
+  ],
+  "max_files_changed": 2,
+  "expected_tests": [
+    "python codex_auto\\approval\\validate_execution_approval.py codex_auto\\fixtures\\invalid_approval_runtime_wiring.v1.json"
+  ],
+  "rollback_plan": "Undo any integration changes immediately.",
+  "validation_required_after_execution": true,
+  "execution_scope": "Add runtime wiring to dispatcher and run_codex so execution becomes the new source of truth.",
+  "expires_at": "2026-04-30T13:10:00+04:00",
+  "safety_flags_required": [
+    "runtime_changed",
+    "dispatcher_touched",
+    "run_codex_touched",
+    "active_task_files_touched",
+    "freeze_record_modified",
+    "result_records_modified",
+    "checkpoint_records_modified",
+    "network_used",
+    "api_used",
+    "wallet_used",
+    "private_key_used",
+    "trading_used",
+    "single_runtime_source_rule_preserved"
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "schema_version": "v1",
+  "artifact_type": "normalized_market_snapshot",
+  "description": "Static schema contract for a validated normalized market snapshot eligible for paper replay only.",
+  "required_fields": [
+    "normalized_market_id",
+    "title",
+    "category",
+    "status",
+    "outcomes",
+    "yes_price",
+    "no_price",
+    "liquidity",
+    "spread",
+    "volume",
+    "data_freshness_seconds",
+    "validation_status",
+    "paper_replay_eligible"
+  ],
+  "enum_fields": {
+    "status": [
+      "open",
+      "closed",
+      "resolved",
+      "suspended"
+    ],
+    "validation_status": [
+      "valid",
+      "quarantined",
+      "rejected"
+    ]
+  },
+  "array_fields": {
+    "outcomes": {
+      "min_items": 2
+    }
+  },
+  "numeric_fields": [
+    "yes_price",
+    "no_price",
+    "liquidity",
+    "spread",
+    "volume",
+    "data_freshness_seconds"
+  ],
+  "boolean_fields": [
+    "paper_replay_eligible"
+  ],
+  "cross_field_rules": [
+    "paper_replay_eligible_requires_validation_status_valid"
+  ],
+  "prohibited_fields": [
+    "api_key",
+    "api_secret",
+    "wallet",
+    "wallet_address",
+    "private_key",
+    "seed_phrase",
+    "signer",
+    "signature",
+    "order_instruction",
+    "submit_order",
+    "place_order",
+    "execute_trade",
+    "runtime_action"
+  ]
+}

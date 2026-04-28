@@ -1,0 +1,487 @@
+{
+  "schema_version": "v1",
+  "report_id": "PMBOT-BATCH-004-SIGNAL-EXPLANATIONS",
+  "fixture_only": true,
+  "paper_only": true,
+  "local_only": true,
+  "deterministic": true,
+  "no_network_or_api": true,
+  "explanations": [
+    {
+      "case_id": "rq_case_strong_accept",
+      "market_id": "pm_fixture_2026_us_growth_soft_landing",
+      "final_decision": "accept",
+      "headline": "Accepted paper candidate with inspectable rationale.",
+      "positive_factors": [
+        "positive synthetic edge of 420 bps",
+        "multiple supporting synthetic signals are present",
+        "liquidity is above the local paper research floor",
+        "spread assumptions are manageable for a paper study",
+        "research notes are present for review"
+      ],
+      "negative_factors": [],
+      "risk_factors": [],
+      "data_quality_factors": [],
+      "missing_information": [],
+      "explanation_steps": [
+        "Load the deterministic research case and confirm fixture-only / paper-only scope.",
+        "Score signal strength, freshness, liquidity, spread, research completeness, and risk concentration components.",
+        "Apply hard rejections for resolved markets, stale data, low liquidity, wide spread, insufficient edge, or conflicting signals.",
+        "Translate the component scores and penalties into a confidence band and paper-only decision."
+      ],
+      "confidence_band": "high",
+      "confidence_score": 89,
+      "paper_only_action": "paper_candidate_only",
+      "no_real_order_statement": "Paper/research only. No real order, no wallet action, no runtime execution.",
+      "safety_boundaries": [
+        "fixture_only",
+        "paper_only",
+        "local_only",
+        "no_network",
+        "no_live_api",
+        "no_wallet",
+        "no_real_orders",
+        "no_runtime_wiring"
+      ]
+    },
+    {
+      "case_id": "rq_case_weak_edge_reject",
+      "market_id": "pm_fixture_2026_cabinet_exit",
+      "final_decision": "reject",
+      "headline": "Rejected paper candidate due to deterministic quality failures.",
+      "positive_factors": [
+        "liquidity is above the local paper research floor",
+        "research notes are present for review"
+      ],
+      "negative_factors": [
+        "edge estimate is not positive enough to justify a paper candidate"
+      ],
+      "risk_factors": [],
+      "data_quality_factors": [],
+      "missing_information": [
+        "limited_supporting_signals"
+      ],
+      "explanation_steps": [
+        "Load the deterministic research case and confirm fixture-only / paper-only scope.",
+        "Score signal strength, freshness, liquidity, spread, research completeness, and risk concentration components.",
+        "Apply hard rejections for resolved markets, stale data, low liquidity, wide spread, insufficient edge, or conflicting signals.",
+        "Translate the component scores and penalties into a confidence band and paper-only decision."
+      ],
+      "confidence_band": "reject",
+      "confidence_score": 54,
+      "paper_only_action": "reject_no_action",
+      "no_real_order_statement": "Paper/research only. No real order, no wallet action, no runtime execution.",
+      "safety_boundaries": [
+        "fixture_only",
+        "paper_only",
+        "local_only",
+        "no_network",
+        "no_live_api",
+        "no_wallet",
+        "no_real_orders",
+        "no_runtime_wiring"
+      ]
+    },
+    {
+      "case_id": "rq_case_low_liquidity_reject",
+      "market_id": "pm_fixture_2026_championship_upset",
+      "final_decision": "reject",
+      "headline": "Rejected paper candidate due to deterministic quality failures.",
+      "positive_factors": [
+        "positive synthetic edge of 180 bps",
+        "multiple supporting synthetic signals are present",
+        "research notes are present for review"
+      ],
+      "negative_factors": [],
+      "risk_factors": [
+        "liquidity is below the deterministic floor"
+      ],
+      "data_quality_factors": [],
+      "missing_information": [],
+      "explanation_steps": [
+        "Load the deterministic research case and confirm fixture-only / paper-only scope.",
+        "Score signal strength, freshness, liquidity, spread, research completeness, and risk concentration components.",
+        "Apply hard rejections for resolved markets, stale data, low liquidity, wide spread, insufficient edge, or conflicting signals.",
+        "Translate the component scores and penalties into a confidence band and paper-only decision."
+      ],
+      "confidence_band": "reject",
+      "confidence_score": 56,
+      "paper_only_action": "reject_no_action",
+      "no_real_order_statement": "Paper/research only. No real order, no wallet action, no runtime execution.",
+      "safety_boundaries": [
+        "fixture_only",
+        "paper_only",
+        "local_only",
+        "no_network",
+        "no_live_api",
+        "no_wallet",
+        "no_real_orders",
+        "no_runtime_wiring"
+      ]
+    },
+    {
+      "case_id": "rq_case_wide_spread_caution",
+      "market_id": "pm_fixture_2026_cabinet_exit",
+      "final_decision": "reject",
+      "headline": "Rejected paper candidate due to deterministic quality failures.",
+      "positive_factors": [
+        "positive synthetic edge of 130 bps",
+        "multiple supporting synthetic signals are present",
+        "liquidity is above the local paper research floor",
+        "research notes are present for review"
+      ],
+      "negative_factors": [],
+      "risk_factors": [
+        "spread assumptions are too wide for a clean paper entry"
+      ],
+      "data_quality_factors": [],
+      "missing_information": [],
+      "explanation_steps": [
+        "Load the deterministic research case and confirm fixture-only / paper-only scope.",
+        "Score signal strength, freshness, liquidity, spread, research completeness, and risk concentration components.",
+        "Apply hard rejections for resolved markets, stale data, low liquidity, wide spread, insufficient edge, or conflicting signals.",
+        "Translate the component scores and penalties into a confidence band and paper-only decision."
+      ],
+      "confidence_band": "reject",
+      "confidence_score": 57,
+      "paper_only_action": "reject_no_action",
+      "no_real_order_statement": "Paper/research only. No real order, no wallet action, no runtime execution.",
+      "safety_boundaries": [
+        "fixture_only",
+        "paper_only",
+        "local_only",
+        "no_network",
+        "no_live_api",
+        "no_wallet",
+        "no_real_orders",
+        "no_runtime_wiring"
+      ]
+    },
+    {
+      "case_id": "rq_case_stale_data_warning",
+      "market_id": "pm_fixture_2026_ai_regulation_vote",
+      "final_decision": "reject",
+      "headline": "Rejected paper candidate due to deterministic quality failures.",
+      "positive_factors": [
+        "positive synthetic edge of 250 bps",
+        "multiple supporting synthetic signals are present",
+        "liquidity is above the local paper research floor",
+        "spread assumptions are manageable for a paper study",
+        "research notes are present for review"
+      ],
+      "negative_factors": [],
+      "risk_factors": [],
+      "data_quality_factors": [
+        "fixture timestamp is stale for deterministic review"
+      ],
+      "missing_information": [],
+      "explanation_steps": [
+        "Load the deterministic research case and confirm fixture-only / paper-only scope.",
+        "Score signal strength, freshness, liquidity, spread, research completeness, and risk concentration components.",
+        "Apply hard rejections for resolved markets, stale data, low liquidity, wide spread, insufficient edge, or conflicting signals.",
+        "Translate the component scores and penalties into a confidence band and paper-only decision."
+      ],
+      "confidence_band": "reject",
+      "confidence_score": 55,
+      "paper_only_action": "reject_no_action",
+      "no_real_order_statement": "Paper/research only. No real order, no wallet action, no runtime execution.",
+      "safety_boundaries": [
+        "fixture_only",
+        "paper_only",
+        "local_only",
+        "no_network",
+        "no_live_api",
+        "no_wallet",
+        "no_real_orders",
+        "no_runtime_wiring"
+      ]
+    },
+    {
+      "case_id": "rq_case_resolved_market_exclusion",
+      "market_id": "pm_fixture_2026_hurricane_season_closed",
+      "final_decision": "exclude",
+      "headline": "Excluded case because the synthetic market is resolved or closed.",
+      "positive_factors": [
+        "spread assumptions are manageable for a paper study"
+      ],
+      "negative_factors": [
+        "edge estimate is not positive enough to justify a paper candidate",
+        "research narrative is incomplete"
+      ],
+      "risk_factors": [
+        "liquidity is below the deterministic floor"
+      ],
+      "data_quality_factors": [
+        "fixture timestamp is stale for deterministic review",
+        "research note is missing",
+        "some case fields are incomplete"
+      ],
+      "missing_information": [
+        "research_note",
+        "incomplete_case_fields",
+        "limited_supporting_signals"
+      ],
+      "explanation_steps": [
+        "Load the deterministic research case and confirm fixture-only / paper-only scope.",
+        "Score signal strength, freshness, liquidity, spread, research completeness, and risk concentration components.",
+        "Apply hard rejections for resolved markets, stale data, low liquidity, wide spread, insufficient edge, or conflicting signals.",
+        "Translate the component scores and penalties into a confidence band and paper-only decision."
+      ],
+      "confidence_band": "reject",
+      "confidence_score": 0,
+      "paper_only_action": "exclude_no_action",
+      "no_real_order_statement": "Paper/research only. No real order, no wallet action, no runtime execution.",
+      "safety_boundaries": [
+        "fixture_only",
+        "paper_only",
+        "local_only",
+        "no_network",
+        "no_live_api",
+        "no_wallet",
+        "no_real_orders",
+        "no_runtime_wiring"
+      ]
+    },
+    {
+      "case_id": "rq_case_correlated_watchlist",
+      "market_id": "pm_fixture_2026_cpi_below_target",
+      "final_decision": "watchlist",
+      "headline": "Watchlist paper candidate needs tighter evidence before sizing.",
+      "positive_factors": [
+        "positive synthetic edge of 260 bps",
+        "multiple supporting synthetic signals are present",
+        "liquidity is above the local paper research floor",
+        "spread assumptions are manageable for a paper study",
+        "research notes are present for review"
+      ],
+      "negative_factors": [],
+      "risk_factors": [
+        "correlated exposure is already elevated"
+      ],
+      "data_quality_factors": [],
+      "missing_information": [],
+      "explanation_steps": [
+        "Load the deterministic research case and confirm fixture-only / paper-only scope.",
+        "Score signal strength, freshness, liquidity, spread, research completeness, and risk concentration components.",
+        "Apply hard rejections for resolved markets, stale data, low liquidity, wide spread, insufficient edge, or conflicting signals.",
+        "Translate the component scores and penalties into a confidence band and paper-only decision."
+      ],
+      "confidence_band": "medium",
+      "confidence_score": 67,
+      "paper_only_action": "watchlist_only",
+      "no_real_order_statement": "Paper/research only. No real order, no wallet action, no runtime execution.",
+      "safety_boundaries": [
+        "fixture_only",
+        "paper_only",
+        "local_only",
+        "no_network",
+        "no_live_api",
+        "no_wallet",
+        "no_real_orders",
+        "no_runtime_wiring"
+      ]
+    },
+    {
+      "case_id": "rq_case_missing_note_watchlist",
+      "market_id": "pm_fixture_2026_ceasefire_window",
+      "final_decision": "watchlist",
+      "headline": "Watchlist paper candidate needs tighter evidence before sizing.",
+      "positive_factors": [
+        "positive synthetic edge of 310 bps",
+        "multiple supporting synthetic signals are present",
+        "liquidity is above the local paper research floor",
+        "spread assumptions are manageable for a paper study"
+      ],
+      "negative_factors": [
+        "research narrative is incomplete"
+      ],
+      "risk_factors": [],
+      "data_quality_factors": [
+        "research note is missing",
+        "some case fields are incomplete"
+      ],
+      "missing_information": [
+        "research_note",
+        "incomplete_case_fields"
+      ],
+      "explanation_steps": [
+        "Load the deterministic research case and confirm fixture-only / paper-only scope.",
+        "Score signal strength, freshness, liquidity, spread, research completeness, and risk concentration components.",
+        "Apply hard rejections for resolved markets, stale data, low liquidity, wide spread, insufficient edge, or conflicting signals.",
+        "Translate the component scores and penalties into a confidence band and paper-only decision."
+      ],
+      "confidence_band": "medium",
+      "confidence_score": 66,
+      "paper_only_action": "watchlist_only",
+      "no_real_order_statement": "Paper/research only. No real order, no wallet action, no runtime execution.",
+      "safety_boundaries": [
+        "fixture_only",
+        "paper_only",
+        "local_only",
+        "no_network",
+        "no_live_api",
+        "no_wallet",
+        "no_real_orders",
+        "no_runtime_wiring"
+      ]
+    },
+    {
+      "case_id": "rq_case_conflicting_signals_reject",
+      "market_id": "pm_fixture_2026_ai_regulation_vote",
+      "final_decision": "reject",
+      "headline": "Rejected paper candidate due to deterministic quality failures.",
+      "positive_factors": [
+        "positive synthetic edge of 220 bps",
+        "multiple supporting synthetic signals are present",
+        "liquidity is above the local paper research floor",
+        "spread assumptions are manageable for a paper study",
+        "research notes are present for review"
+      ],
+      "negative_factors": [
+        "signals conflict with each other and reduce directional clarity"
+      ],
+      "risk_factors": [],
+      "data_quality_factors": [],
+      "missing_information": [],
+      "explanation_steps": [
+        "Load the deterministic research case and confirm fixture-only / paper-only scope.",
+        "Score signal strength, freshness, liquidity, spread, research completeness, and risk concentration components.",
+        "Apply hard rejections for resolved markets, stale data, low liquidity, wide spread, insufficient edge, or conflicting signals.",
+        "Translate the component scores and penalties into a confidence band and paper-only decision."
+      ],
+      "confidence_band": "reject",
+      "confidence_score": 54,
+      "paper_only_action": "reject_no_action",
+      "no_real_order_statement": "Paper/research only. No real order, no wallet action, no runtime execution.",
+      "safety_boundaries": [
+        "fixture_only",
+        "paper_only",
+        "local_only",
+        "no_network",
+        "no_live_api",
+        "no_wallet",
+        "no_real_orders",
+        "no_runtime_wiring"
+      ]
+    },
+    {
+      "case_id": "rq_case_high_confidence_high_risk",
+      "market_id": "pm_fixture_2026_rate_cut_december",
+      "final_decision": "watchlist",
+      "headline": "Watchlist paper candidate needs tighter evidence before sizing.",
+      "positive_factors": [
+        "positive synthetic edge of 290 bps",
+        "multiple supporting synthetic signals are present",
+        "liquidity is above the local paper research floor",
+        "spread assumptions are manageable for a paper study",
+        "research notes are present for review"
+      ],
+      "negative_factors": [],
+      "risk_factors": [
+        "correlated exposure is already elevated",
+        "concentration risk is elevated",
+        "overall risk profile is high despite signal strength"
+      ],
+      "data_quality_factors": [],
+      "missing_information": [],
+      "explanation_steps": [
+        "Load the deterministic research case and confirm fixture-only / paper-only scope.",
+        "Score signal strength, freshness, liquidity, spread, research completeness, and risk concentration components.",
+        "Apply hard rejections for resolved markets, stale data, low liquidity, wide spread, insufficient edge, or conflicting signals.",
+        "Translate the component scores and penalties into a confidence band and paper-only decision."
+      ],
+      "confidence_band": "low",
+      "confidence_score": 46,
+      "paper_only_action": "watchlist_only",
+      "no_real_order_statement": "Paper/research only. No real order, no wallet action, no runtime execution.",
+      "safety_boundaries": [
+        "fixture_only",
+        "paper_only",
+        "local_only",
+        "no_network",
+        "no_live_api",
+        "no_wallet",
+        "no_real_orders",
+        "no_runtime_wiring"
+      ]
+    },
+    {
+      "case_id": "rq_case_low_confidence_watchlist",
+      "market_id": "pm_fixture_2026_ceasefire_window",
+      "final_decision": "watchlist",
+      "headline": "Watchlist paper candidate needs tighter evidence before sizing.",
+      "positive_factors": [
+        "positive synthetic edge of 110 bps",
+        "liquidity is above the local paper research floor",
+        "spread assumptions are manageable for a paper study",
+        "research notes are present for review"
+      ],
+      "negative_factors": [],
+      "risk_factors": [],
+      "data_quality_factors": [],
+      "missing_information": [
+        "limited_supporting_signals"
+      ],
+      "explanation_steps": [
+        "Load the deterministic research case and confirm fixture-only / paper-only scope.",
+        "Score signal strength, freshness, liquidity, spread, research completeness, and risk concentration components.",
+        "Apply hard rejections for resolved markets, stale data, low liquidity, wide spread, insufficient edge, or conflicting signals.",
+        "Translate the component scores and penalties into a confidence band and paper-only decision."
+      ],
+      "confidence_band": "medium",
+      "confidence_score": 76,
+      "paper_only_action": "watchlist_only",
+      "no_real_order_statement": "Paper/research only. No real order, no wallet action, no runtime execution.",
+      "safety_boundaries": [
+        "fixture_only",
+        "paper_only",
+        "local_only",
+        "no_network",
+        "no_live_api",
+        "no_wallet",
+        "no_real_orders",
+        "no_runtime_wiring"
+      ]
+    },
+    {
+      "case_id": "rq_case_paper_only_no_action",
+      "market_id": "pm_fixture_2026_ceasefire_window",
+      "final_decision": "no_action",
+      "headline": "No-action monitoring case kept outside paper positioning.",
+      "positive_factors": [
+        "positive synthetic edge of 90 bps",
+        "liquidity is above the local paper research floor",
+        "spread assumptions are manageable for a paper study",
+        "research notes are present for review"
+      ],
+      "negative_factors": [
+        "case is intentionally scoped as monitoring-only"
+      ],
+      "risk_factors": [],
+      "data_quality_factors": [],
+      "missing_information": [
+        "limited_supporting_signals"
+      ],
+      "explanation_steps": [
+        "Load the deterministic research case and confirm fixture-only / paper-only scope.",
+        "Score signal strength, freshness, liquidity, spread, research completeness, and risk concentration components.",
+        "Apply hard rejections for resolved markets, stale data, low liquidity, wide spread, insufficient edge, or conflicting signals.",
+        "Translate the component scores and penalties into a confidence band and paper-only decision."
+      ],
+      "confidence_band": "low",
+      "confidence_score": 60,
+      "paper_only_action": "monitor_only",
+      "no_real_order_statement": "Paper/research only. No real order, no wallet action, no runtime execution.",
+      "safety_boundaries": [
+        "fixture_only",
+        "paper_only",
+        "local_only",
+        "no_network",
+        "no_live_api",
+        "no_wallet",
+        "no_real_orders",
+        "no_runtime_wiring"
+      ]
+    }
+  ]
+}

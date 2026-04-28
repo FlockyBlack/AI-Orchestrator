@@ -1,0 +1,76 @@
+{
+  "task_id": "PMBOT-BRAIN-001-CRYPTO-NUMERIC-MARKET-SCORER",
+  "status": "completed_ready_for_review",
+  "summary": "Implemented a deterministic offline/paper crypto numeric market scorer for fixture BTC-above and ETH-below Polymarket-style markets. The scorer emits model probability, market probability, raw and buffered edge, liquidity/spread/risk gates, decisions, explanations, and locked safety flags.",
+  "pmbot_root_confirmed": true,
+  "scorer_readiness": "ready_for_paper_demo",
+  "files_created": [
+    "pm_bot/scoring/crypto_numeric_market_scorer.py",
+    "pm_bot/scoring/crypto_numeric_fixture.v1.json",
+    "pm_bot/scoring/expected_crypto_numeric_score_report.v1.json",
+    "pm_bot/scoring/tests/test_crypto_numeric_market_scorer.py",
+    "docs/PM_BOT_BRAIN_001_RESULT.json",
+    "docs/PM_BOT_STAGE_SUMMARY_V13.md"
+  ],
+  "files_modified": [],
+  "tests_or_checks_run": [
+    "python -m pytest pm_bot\\scoring\\tests -q",
+    "python pm_bot\\scoring\\crypto_numeric_market_scorer.py pm_bot\\scoring\\crypto_numeric_fixture.v1.json"
+  ],
+  "sample_decisions": [
+    {
+      "market_id": "crypto_numeric_btc_above_90000_2026_05_31",
+      "asset": "BTC",
+      "side": "above",
+      "decision": "paper_candidate",
+      "model_probability": 0.6797,
+      "market_probability": 0.59,
+      "edge_after_buffer": 0.0647
+    },
+    {
+      "market_id": "crypto_numeric_eth_below_3000_2026_05_31",
+      "asset": "ETH",
+      "side": "below",
+      "decision": "watchlist",
+      "model_probability": 0.3895,
+      "market_probability": 0.36,
+      "edge_after_buffer": 0.0045
+    },
+    {
+      "market_id": "crypto_numeric_btc_above_90000_low_liquidity_2026_05_31",
+      "asset": "BTC",
+      "side": "above",
+      "decision": "reject",
+      "model_probability": 0.3457,
+      "market_probability": 0.42,
+      "edge_after_buffer": -0.0993
+    },
+    {
+      "market_id": "crypto_numeric_eth_below_3000_wide_spread_2026_05_31",
+      "asset": "ETH",
+      "side": "below",
+      "decision": "reject",
+      "model_probability": 0.7425,
+      "market_probability": 0.6,
+      "edge_after_buffer": 0.1175
+    }
+  ],
+  "limitations": [
+    "Uses fixture inputs only; no live prices, markets, APIs, credentials, wallets, or orders.",
+    "Model probability is a deterministic first-pass heuristic using distance to target, directional momentum, volatility, and liquidity adjustment.",
+    "No runtime/demo dispatcher wiring was added."
+  ],
+  "recommended_next_task": "PMBOT-BRAIN-002-CRYPTO-NUMERIC-REVIEW-TABLE: add a paper-only operator review table for scorer outputs while preserving offline-only and no-runtime-wiring boundaries.",
+  "safety": {
+    "offline_only": true,
+    "paper_only": true,
+    "no_network_api": true,
+    "no_credentials": true,
+    "no_wallet": true,
+    "no_real_orders": true,
+    "no_live_trading": true,
+    "no_runtime_wiring": true,
+    "no_prompt_automation": true,
+    "no_unrelated_cleanup": true
+  }
+}

@@ -1,0 +1,201 @@
+{
+  "schema_version": "single_market_research_dossier.v1",
+  "task_id": "PMBOT-RESEARCH-001-SINGLE-MARKET-RESEARCH-DOSSIER",
+  "deterministic": true,
+  "packet_path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator\\pm_bot\\research\\single_market_research_packet.v1.json",
+  "market": {
+    "market_id": "pm_fixture_single_market_001",
+    "market_title": "Will Example State certify the Metro Rail funding package by July 31, 2026?",
+    "market_question": "Will Example State certify the Metro Rail funding package by July 31, 2026?",
+    "resolution_criteria": "Resolves Yes if Example State publishes an official certification or final approval notice for the Metro Rail funding package on or before 2026-07-31. Draft notices, committee recommendations, or unofficial social posts do not resolve the market.",
+    "yes_price": 0.37,
+    "no_price": 0.63,
+    "current_date": "2026-04-27"
+  },
+  "implied_probability_from_yes_price": 0.37,
+  "yes_evidence": [
+    {
+      "source_id": "src_official_budget_notice",
+      "source_type": "official_statement",
+      "title": "Example State Budget Office funding certification calendar",
+      "published_at": "2026-04-22",
+      "url": "https://example.org/manual-fixtures/example-state-budget-office-calendar",
+      "excerpt_or_note": "[YES] Official calendar lists final Metro Rail funding certification vote for 2026-06-15 and notes certification package is complete.",
+      "reliability_hint": "high primary official source",
+      "weight": 3.0
+    },
+    {
+      "source_id": "src_court_docket_no_stay",
+      "source_type": "court_record",
+      "title": "Example Superior Court docket entry denying emergency stay",
+      "published_at": "2026-04-24",
+      "url": "https://example.org/manual-fixtures/example-court-docket-metro-rail-stay",
+      "excerpt_or_note": "[YES] Court docket note says the emergency stay request was denied without prejudice, removing the main procedural blocker before the certification deadline.",
+      "reliability_hint": "high primary court record",
+      "weight": 3.0
+    },
+    {
+      "source_id": "src_local_news_committee",
+      "source_type": "news",
+      "title": "Local News: budget committee advances Metro Rail funding package",
+      "published_at": "2026-04-25",
+      "url": "https://example.org/manual-fixtures/local-news-metro-rail-committee",
+      "excerpt_or_note": "[YES] Local reporting says the committee vote was 9-2 and quoted both chamber leaders saying floor passage is expected in May.",
+      "reliability_hint": "medium corroborated local reporting",
+      "weight": 1.5
+    }
+  ],
+  "no_evidence": [
+    {
+      "source_id": "src_policy_analysis_risk",
+      "source_type": "analysis",
+      "title": "Analyst memo: remaining administrative risk for Metro Rail package",
+      "published_at": "2026-04-26",
+      "url": "https://example.org/manual-fixtures/metro-rail-administrative-risk-memo",
+      "excerpt_or_note": "[NO] Analysis notes certification could slip if bond counsel asks for another debt-service revision before publication.",
+      "reliability_hint": "medium scenario analysis",
+      "weight": 1.125
+    }
+  ],
+  "uncertainty_factors": [
+    {
+      "source_id": "src_policy_analysis_risk",
+      "title": "Analyst memo: remaining administrative risk for Metro Rail package",
+      "excerpt_or_note": "[NO] Analysis notes certification could slip if bond counsel asks for another debt-service revision before publication.",
+      "reliability_hint": "medium scenario analysis",
+      "weight": 1.125
+    },
+    {
+      "source_id": "src_social_advocate",
+      "title": "Transit advocacy thread on possible timing delay",
+      "excerpt_or_note": "[UNCERTAINTY] Social thread claims two legislators may ask for amendments, but does not include documents or named sources.",
+      "reliability_hint": "low unverified social source",
+      "weight": 0.3
+    }
+  ],
+  "source_reliability_notes": [
+    {
+      "source_id": "src_official_budget_notice",
+      "source_type": "official_statement",
+      "title": "Example State Budget Office funding certification calendar",
+      "url": "https://example.org/manual-fixtures/example-state-budget-office-calendar",
+      "published_at": "2026-04-22",
+      "evidence_direction": "yes",
+      "reliability_hint": "high primary official source",
+      "reliability_level": "strong",
+      "weight": 3.0
+    },
+    {
+      "source_id": "src_court_docket_no_stay",
+      "source_type": "court_record",
+      "title": "Example Superior Court docket entry denying emergency stay",
+      "url": "https://example.org/manual-fixtures/example-court-docket-metro-rail-stay",
+      "published_at": "2026-04-24",
+      "evidence_direction": "yes",
+      "reliability_hint": "high primary court record",
+      "reliability_level": "strong",
+      "weight": 3.0
+    },
+    {
+      "source_id": "src_local_news_committee",
+      "source_type": "news",
+      "title": "Local News: budget committee advances Metro Rail funding package",
+      "url": "https://example.org/manual-fixtures/local-news-metro-rail-committee",
+      "published_at": "2026-04-25",
+      "evidence_direction": "yes",
+      "reliability_hint": "medium corroborated local reporting",
+      "reliability_level": "medium",
+      "weight": 1.5
+    },
+    {
+      "source_id": "src_policy_analysis_risk",
+      "source_type": "analysis",
+      "title": "Analyst memo: remaining administrative risk for Metro Rail package",
+      "url": "https://example.org/manual-fixtures/metro-rail-administrative-risk-memo",
+      "published_at": "2026-04-26",
+      "evidence_direction": "no",
+      "reliability_hint": "medium scenario analysis",
+      "reliability_level": "medium",
+      "weight": 1.125
+    },
+    {
+      "source_id": "src_social_advocate",
+      "source_type": "social",
+      "title": "Transit advocacy thread on possible timing delay",
+      "url": "https://example.org/manual-fixtures/transit-advocacy-thread",
+      "published_at": "2026-04-26",
+      "evidence_direction": "uncertainty",
+      "reliability_hint": "low unverified social source",
+      "reliability_level": "weak",
+      "weight": 0.3
+    }
+  ],
+  "missing_information": [],
+  "probability_estimate_range": {
+    "low": 0.4394,
+    "midpoint": 0.5294,
+    "high": 0.6194,
+    "method": "deterministic_source_weighted_fixture_heuristic"
+  },
+  "edge_estimate_vs_market": {
+    "market_yes_price": 0.37,
+    "range_low_edge": 0.0694,
+    "midpoint_edge": 0.1594,
+    "range_high_edge": 0.2494,
+    "range_overlaps_market": false
+  },
+  "decision": "paper_candidate",
+  "reason_codes": [
+    "positive_edge_range_above_market",
+    "paper_candidate_label_only"
+  ],
+  "human_review_note": "Paper candidate label only: local evidence clears conservative offline checks; no paper order is created.",
+  "operator_notes": [
+    "Manual packet fixture only; source URLs are not fetched by the dossier runner.",
+    "Resolution depends on official certification or final approval publication, not committee passage alone.",
+    "Use as research decision support only; no orders or state writes are allowed."
+  ],
+  "paper_orders_created": 0,
+  "workspace_state_written": false,
+  "summary": {
+    "market_id": "pm_fixture_single_market_001",
+    "sources_count": 5,
+    "yes_evidence_count": 3,
+    "no_evidence_count": 1,
+    "uncertainty_factor_count": 2,
+    "decision": "paper_candidate",
+    "paper_orders_created": 0,
+    "workspace_state_written": false,
+    "safety_flags": {
+      "offline_only": true,
+      "paper_only": true,
+      "live_fetcher_implemented": false,
+      "api_used": false,
+      "network_used": false,
+      "wallet_used": false,
+      "real_order_created": false,
+      "trading_allowed": false,
+      "runtime_wiring_changed": false,
+      "dispatcher_touched": false,
+      "prompt_automation_added": false
+    }
+  },
+  "safety_flags": {
+    "offline_only": true,
+    "paper_only": true,
+    "live_fetcher_implemented": false,
+    "api_used": false,
+    "network_used": false,
+    "wallet_used": false,
+    "real_order_created": false,
+    "trading_allowed": false,
+    "runtime_wiring_changed": false,
+    "dispatcher_touched": false,
+    "prompt_automation_added": false
+  },
+  "limitations": [
+    "Reads a local manually curated packet only; no live web fetching, network, external API, credentials, wallet access, orders, or trading are included.",
+    "Probability range is a deterministic fixture heuristic for research review only, not a calibrated statistical model.",
+    "Paper-candidate output is a label only and never creates paper orders or writes workspace state."
+  ]
+}

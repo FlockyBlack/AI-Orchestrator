@@ -1,0 +1,281 @@
+{
+  "schema_version": "v3",
+  "scenario_suite_id": "PMBOT-BATCH-003-SCENARIOS",
+  "source_type": "fixture",
+  "fixture_only": true,
+  "paper_only": true,
+  "local_only": true,
+  "execution_allowed": false,
+  "trading_allowed": false,
+  "live_data_allowed": false,
+  "wallet_required": false,
+  "credential_material_required": false,
+  "scenario_count": 12,
+  "passed_scenario_count": 12,
+  "overall_status": "ready",
+  "fixture_market_count": 8,
+  "paper_candidate_count": 7,
+  "accepted_paper_candidates": 4,
+  "rejected_paper_candidates": 3,
+  "excluded_market_count": 1,
+  "warning_count": 10,
+  "portfolio_warning_flags": [
+    "category_concentration:macro",
+    "correlated_group:us-macro-2026",
+    "portfolio_exposure_cap"
+  ],
+  "risk_flags": [
+    "category_concentration:macro",
+    "correlated_group:us-macro-2026",
+    "high_concentration_candidate",
+    "low_liquidity",
+    "missing_research_notes",
+    "negative_edge",
+    "portfolio_exposure_cap",
+    "resolved_or_closed_market",
+    "stale_data",
+    "wide_spread"
+  ],
+  "final_recommendation": "paper_only_monitor_no_action",
+  "scenario_results": [
+    {
+      "scenario_id": "baseline_multi_market_paper_scan",
+      "focus_market_ids": [],
+      "expected_status": "pass",
+      "actual_status": "pass",
+      "paper_action": "scan_only",
+      "triggered_flags": [
+        "multi_market_fixture_loaded"
+      ],
+      "detail": "8 synthetic markets loaded from the fixture bundle.",
+      "research_only": true,
+      "paper_only": true,
+      "execution_allowed": false,
+      "trading_allowed": false,
+      "live_data_allowed": false,
+      "wallet_required": false,
+      "credential_material_required": false
+    },
+    {
+      "scenario_id": "positive_paper_edge_candidate",
+      "focus_market_ids": [
+        "pm_fixture_2026_us_growth_soft_landing"
+      ],
+      "expected_status": "pass",
+      "actual_status": "pass",
+      "paper_action": "accepted",
+      "triggered_flags": [],
+      "detail": "Positive edge candidate remains accepted under deterministic fixture rules.",
+      "research_only": true,
+      "paper_only": true,
+      "execution_allowed": false,
+      "trading_allowed": false,
+      "live_data_allowed": false,
+      "wallet_required": false,
+      "credential_material_required": false
+    },
+    {
+      "scenario_id": "negative_paper_edge_rejection",
+      "focus_market_ids": [
+        "pm_fixture_2026_cabinet_exit"
+      ],
+      "expected_status": "pass",
+      "actual_status": "pass",
+      "paper_action": "rejected",
+      "triggered_flags": [
+        "negative_edge",
+        "wide_spread"
+      ],
+      "detail": "Market evaluation returned rejected with flags ['negative_edge', 'wide_spread'].",
+      "research_only": true,
+      "paper_only": true,
+      "execution_allowed": false,
+      "trading_allowed": false,
+      "live_data_allowed": false,
+      "wallet_required": false,
+      "credential_material_required": false
+    },
+    {
+      "scenario_id": "low_liquidity_rejection",
+      "focus_market_ids": [
+        "pm_fixture_2026_championship_upset"
+      ],
+      "expected_status": "pass",
+      "actual_status": "pass",
+      "paper_action": "rejected",
+      "triggered_flags": [
+        "low_liquidity"
+      ],
+      "detail": "Market evaluation returned rejected with flags ['low_liquidity'].",
+      "research_only": true,
+      "paper_only": true,
+      "execution_allowed": false,
+      "trading_allowed": false,
+      "live_data_allowed": false,
+      "wallet_required": false,
+      "credential_material_required": false
+    },
+    {
+      "scenario_id": "stale_fixture_warning",
+      "focus_market_ids": [
+        "pm_fixture_2026_ai_regulation_vote"
+      ],
+      "expected_status": "pass",
+      "actual_status": "pass",
+      "paper_action": "rejected",
+      "triggered_flags": [
+        "stale_data"
+      ],
+      "detail": "Market evaluation returned rejected with flags ['stale_data'].",
+      "research_only": true,
+      "paper_only": true,
+      "execution_allowed": false,
+      "trading_allowed": false,
+      "live_data_allowed": false,
+      "wallet_required": false,
+      "credential_material_required": false
+    },
+    {
+      "scenario_id": "resolved_closed_market_exclusion",
+      "focus_market_ids": [
+        "pm_fixture_2026_hurricane_season_closed"
+      ],
+      "expected_status": "pass",
+      "actual_status": "pass",
+      "paper_action": "excluded",
+      "triggered_flags": [
+        "low_liquidity",
+        "resolved_or_closed_market",
+        "stale_data"
+      ],
+      "detail": "Resolved fixture is excluded from paper positions.",
+      "research_only": true,
+      "paper_only": true,
+      "execution_allowed": false,
+      "trading_allowed": false,
+      "live_data_allowed": false,
+      "wallet_required": false,
+      "credential_material_required": false
+    },
+    {
+      "scenario_id": "category_concentration_warning",
+      "focus_market_ids": [
+        "pm_fixture_2026_us_growth_soft_landing",
+        "pm_fixture_2026_rate_cut_december",
+        "pm_fixture_2026_cpi_below_target"
+      ],
+      "expected_status": "pass",
+      "actual_status": "pass",
+      "paper_action": "warning_only",
+      "triggered_flags": [
+        "category_concentration:macro"
+      ],
+      "detail": "Accepted macro exposures breach the category cap.",
+      "research_only": true,
+      "paper_only": true,
+      "execution_allowed": false,
+      "trading_allowed": false,
+      "live_data_allowed": false,
+      "wallet_required": false,
+      "credential_material_required": false
+    },
+    {
+      "scenario_id": "portfolio_exposure_cap_warning",
+      "focus_market_ids": [],
+      "expected_status": "pass",
+      "actual_status": "pass",
+      "paper_action": "warning_only",
+      "triggered_flags": [
+        "portfolio_exposure_cap"
+      ],
+      "detail": "Accepted paper allocations exceed the configured total allocation ratio.",
+      "research_only": true,
+      "paper_only": true,
+      "execution_allowed": false,
+      "trading_allowed": false,
+      "live_data_allowed": false,
+      "wallet_required": false,
+      "credential_material_required": false
+    },
+    {
+      "scenario_id": "missing_optional_research_notes_warning",
+      "focus_market_ids": [
+        "pm_fixture_2026_ceasefire_window"
+      ],
+      "expected_status": "pass",
+      "actual_status": "pass",
+      "paper_action": "accepted",
+      "triggered_flags": [
+        "missing_research_notes"
+      ],
+      "detail": "Market evaluation returned accepted with flags ['missing_research_notes'].",
+      "research_only": true,
+      "paper_only": true,
+      "execution_allowed": false,
+      "trading_allowed": false,
+      "live_data_allowed": false,
+      "wallet_required": false,
+      "credential_material_required": false
+    },
+    {
+      "scenario_id": "wide_spread_caution",
+      "focus_market_ids": [
+        "pm_fixture_2026_cabinet_exit"
+      ],
+      "expected_status": "pass",
+      "actual_status": "pass",
+      "paper_action": "rejected",
+      "triggered_flags": [
+        "negative_edge",
+        "wide_spread"
+      ],
+      "detail": "Market evaluation returned rejected with flags ['negative_edge', 'wide_spread'].",
+      "research_only": true,
+      "paper_only": true,
+      "execution_allowed": false,
+      "trading_allowed": false,
+      "live_data_allowed": false,
+      "wallet_required": false,
+      "credential_material_required": false
+    },
+    {
+      "scenario_id": "correlated_market_caution",
+      "focus_market_ids": [
+        "pm_fixture_2026_rate_cut_december",
+        "pm_fixture_2026_cpi_below_target"
+      ],
+      "expected_status": "pass",
+      "actual_status": "pass",
+      "paper_action": "warning_only",
+      "triggered_flags": [
+        "correlated_group:us-macro-2026"
+      ],
+      "detail": "Correlated macro positions trigger grouped exposure caution.",
+      "research_only": true,
+      "paper_only": true,
+      "execution_allowed": false,
+      "trading_allowed": false,
+      "live_data_allowed": false,
+      "wallet_required": false,
+      "credential_material_required": false
+    },
+    {
+      "scenario_id": "paper_only_no_action_confirmation",
+      "focus_market_ids": [],
+      "expected_status": "pass",
+      "actual_status": "pass",
+      "paper_action": "no_action",
+      "triggered_flags": [
+        "paper_only_no_action"
+      ],
+      "detail": "The scenario layer confirms monitor-only paper research with no live action.",
+      "research_only": true,
+      "paper_only": true,
+      "execution_allowed": false,
+      "trading_allowed": false,
+      "live_data_allowed": false,
+      "wallet_required": false,
+      "credential_material_required": false
+    }
+  ]
+}

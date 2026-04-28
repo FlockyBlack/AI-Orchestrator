@@ -1,0 +1,45 @@
+{
+  "task_id": "PMBOT-BRAIN-003-CRYPTO-NUMERIC-PAPER-ORDER-PLAN",
+  "status": "completed_ready_for_review",
+  "summary": "Implemented a deterministic offline/paper order plan generator for crypto numeric review outputs. It creates one paper_limit_order entry for the paper_candidate row, emits no-action entries for watchlist/reject rows, applies fixture risk limits, and preserves locked safety flags.",
+  "pmbot_root_confirmed": true,
+  "paper_order_plan_readiness": "ready_for_paper_review",
+  "files_created": [
+    "pm_bot/scoring/crypto_numeric_paper_order_plan.py",
+    "pm_bot/scoring/expected_crypto_numeric_paper_order_plan.v1.json",
+    "pm_bot/scoring/expected_crypto_numeric_paper_order_plan.v1.md",
+    "pm_bot/scoring/tests/test_crypto_numeric_paper_order_plan.py",
+    "docs/PM_BOT_BRAIN_003_RESULT.json",
+    "docs/PM_BOT_STAGE_SUMMARY_V15.md"
+  ],
+  "files_modified": [],
+  "tests_or_checks_run": [
+    "python -m pytest pm_bot\\scoring\\tests -q",
+    "python pm_bot\\scoring\\crypto_numeric_paper_order_plan.py pm_bot\\scoring\\expected_crypto_numeric_review_table.v1.json",
+    "python pm_bot\\scoring\\crypto_numeric_paper_order_plan.py pm_bot\\scoring\\expected_crypto_numeric_review_table.v1.json --markdown"
+  ],
+  "paper_order_summary": {
+    "paper_limit_orders": 1,
+    "no_action_entries": 3,
+    "total_planned_paper_notional": 100.0,
+    "max_loss": 100.0
+  },
+  "limitations": [
+    "Consumes offline review-table output only; it does not fetch live markets or prices.",
+    "Produces paper review artifacts only; it does not create real orders, wallet actions, or runtime actions.",
+    "Risk limits are deterministic fixture constants scoped to this local paper implementation."
+  ],
+  "recommended_next_task": "PMBOT-BRAIN-004-CRYPTO-NUMERIC-PAPER-PLAN-AUDIT: add a deterministic paper-plan audit that validates generated plan entries against risk limits and safety flags.",
+  "safety": {
+    "offline_only": true,
+    "paper_only": true,
+    "no_network_api": true,
+    "no_credentials": true,
+    "no_wallet": true,
+    "no_real_orders": true,
+    "no_live_trading": true,
+    "no_runtime_wiring": true,
+    "no_prompt_automation": true,
+    "no_unrelated_cleanup": true
+  }
+}

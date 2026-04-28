@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Prompt Pack Render Request",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "template_name",
+    "task_id",
+    "task_title",
+    "target_agent",
+    "task_owner",
+    "task_type",
+    "context",
+    "goal",
+    "allowed_read_paths",
+    "allowed_write_paths",
+    "forbidden_write_paths",
+    "forbidden_behavior",
+    "validation_commands",
+    "expected_final_json",
+    "custom_sections",
+    "preflight_receiver",
+    "notes"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0" },
+    "template_name": { "type": "string", "minLength": 1 },
+    "task_id": { "type": "string", "minLength": 1 },
+    "task_title": { "type": "string", "minLength": 1 },
+    "target_agent": { "type": "string", "minLength": 1 },
+    "task_owner": { "type": "string", "minLength": 1 },
+    "task_type": { "type": "string", "minLength": 1 },
+    "context": { "type": "string", "minLength": 1 },
+    "goal": { "type": "string", "minLength": 1 },
+    "allowed_read_paths": { "type": "array", "items": { "type": "string" } },
+    "allowed_write_paths": { "type": "array", "items": { "type": "string" } },
+    "forbidden_write_paths": { "type": "array", "items": { "type": "string" } },
+    "forbidden_behavior": { "type": "array", "items": { "type": "string" } },
+    "validation_commands": { "type": "array", "items": { "type": "string" } },
+    "expected_final_json": { "type": "object" },
+    "custom_sections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["title", "body"],
+        "properties": {
+          "title": { "type": "string", "minLength": 1 },
+          "body": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "preflight_receiver": { "type": "string", "minLength": 1 },
+    "notes": { "type": "array", "items": { "type": "string" } }
+  }
+}

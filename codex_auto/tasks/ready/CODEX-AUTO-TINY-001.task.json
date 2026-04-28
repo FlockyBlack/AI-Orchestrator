@@ -1,0 +1,32 @@
+{
+  "schema_version": "v1",
+  "queue_task_id": "QUEUE-CODEX-AUTO-TINY-001",
+  "codex_task_id": "CODEX-AUTO-TINY-001",
+  "queue_state": "ready",
+  "mode": "CONTROLLED_TINY_SANDBOX",
+  "approved_for_execution": true,
+  "approval_ref": "codex_auto/fixtures/approved_tiny_fixture_task.v1.json",
+  "allowed_output": "codex_auto/runs/CODEX-AUTO-TINY-001/fixture_output.json",
+  "max_files_changed": 1,
+  "flocky_validation_required": true,
+  "runtime_wiring_allowed": false,
+  "external_codex_cli_allowed": false,
+  "network_allowed": false,
+  "api_allowed": false,
+  "wallet_allowed": false,
+  "private_key_allowed": false,
+  "trading_allowed": false,
+  "allowed_paths": [
+    "codex_auto/runs/CODEX-AUTO-TINY-001/"
+  ],
+  "forbidden_paths": [
+    "scripts/dispatcher.py",
+    "scripts/run_codex.py",
+    "tasks/",
+    "state/",
+    "runtime/",
+    "results/",
+    "freeze/",
+    "checkpoint/"
+  ]
+}

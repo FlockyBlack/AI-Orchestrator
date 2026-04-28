@@ -1,0 +1,138 @@
+{
+  "task_id": "PMBOT-RESEARCH-003-MARKET-RESEARCH-CANDIDATE-QUEUE",
+  "status": "passed",
+  "summary": "Added deterministic offline/local market research candidate queue generation from saved Polymarket Gamma snapshots. The new runner reads a local snapshot, scores research suitability only, emits JSON by default and Markdown with --markdown, supports --source and --top-n, and does not fetch sources, call APIs, write state, create research packets, create paper orders, or connect output to paper order planning.",
+  "files_created": [
+    "pm_bot/research/run_market_research_candidate_queue.py",
+    "pm_bot/research/expected_market_research_candidate_queue.v1.json",
+    "pm_bot/research/expected_market_research_candidate_queue.v1.md",
+    "pm_bot/research/tests/test_run_market_research_candidate_queue.py",
+    "docs/PMBOT_RESEARCH_003_RESULT.json",
+    "docs/PM_BOT_STAGE_SUMMARY_V53.md"
+  ],
+  "files_modified": [],
+  "tests": [
+    {
+      "command": "python -m pytest pm_bot\\research\\tests\\test_run_market_research_candidate_queue.py -q",
+      "status": "passed",
+      "result": "11 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\scoring\\tests pm_bot\\paper\\tests pm_bot\\research\\tests -q",
+      "status": "passed",
+      "result": "308 passed, 3 subtests passed"
+    },
+    {
+      "command": "python pm_bot\\research\\run_market_research_candidate_queue.py",
+      "status": "passed",
+      "result": "markets_seen=500; candidates_ranked=148; high=31; medium=50; low=67; rejected=352; top_n=10"
+    },
+    {
+      "command": "python pm_bot\\research\\run_market_research_candidate_queue.py --markdown",
+      "status": "passed",
+      "result": "deterministic Markdown candidate queue generated"
+    },
+    {
+      "command": "python pm_bot\\research\\run_market_research_candidate_queue.py --top-n 20",
+      "status": "passed",
+      "result": "top_n=20; top_n_candidates=20"
+    },
+    {
+      "command": "python pm_bot\\research\\run_single_market_research_dossier.py",
+      "status": "passed",
+      "result": "market_id=pm_fixture_single_market_001; decision=paper_candidate; paper_orders_created=0"
+    },
+    {
+      "command": "python pm_bot\\research\\run_research_dossier_scenarios.py",
+      "status": "passed",
+      "result": "scenario_count=10; no_action_count=4; watchlist_count=5; paper_candidate_count=1; all_expected_decisions_passed=true"
+    },
+    {
+      "command": "python pm_bot\\paper\\run_manual_paper_operator_cycle.py",
+      "status": "passed",
+      "result": "new_paper_orders_created=0; run_artifacts_written=false; state_committed=false"
+    },
+    {
+      "command": "python pm_bot\\paper\\run_crypto_numeric_lifecycle_regression_gates.py",
+      "status": "passed",
+      "result": "status=passed; gates_checked=6; gates_passed=6"
+    }
+  ],
+  "candidate_queue_summary": {
+    "markets_seen": 500,
+    "candidates_ranked": 148,
+    "high_priority_count": 31,
+    "medium_priority_count": 50,
+    "low_priority_count": 67,
+    "rejected_count": 352,
+    "top_candidate_examples": [
+      {
+        "market_id": "562186",
+        "title": "Will Ken Paxton win the 2026 Texas Republican Primary?",
+        "priority": "high",
+        "score": 0.954,
+        "packet_type": "political_event"
+      },
+      {
+        "market_id": "562187",
+        "title": "Will John Cornyn win the 2026 Texas Republican Primary?",
+        "priority": "high",
+        "score": 0.954,
+        "packet_type": "political_event"
+      },
+      {
+        "market_id": "540844",
+        "title": "Will bitcoin hit $1m before GTA VI?",
+        "priority": "high",
+        "score": 0.952,
+        "packet_type": "crypto_threshold_hit"
+      },
+      {
+        "market_id": "540816",
+        "title": "Russia-Ukraine Ceasefire before GTA VI?",
+        "priority": "high",
+        "score": 0.936,
+        "packet_type": "diplomatic_event"
+      }
+    ],
+    "reason_code_counts": {
+      "clear_resolution_criteria": 342,
+      "clear_yes_no_market": 500,
+      "deadline_in_past": 15,
+      "extreme_price_downranked": 401,
+      "identifiable_official_or_news_sources_likely": 213,
+      "limited_resolution_detail": 158,
+      "long_horizon_deadline": 137,
+      "low_liquidity": 98,
+      "market_price_research_value": 55,
+      "medium_horizon_deadline": 267,
+      "near_term_deadline": 81,
+      "research_queue_candidate": 148,
+      "research_rejected": 352,
+      "sports_future_downranked": 34,
+      "sports_long_horizon_downranked": 94,
+      "sufficient_liquidity": 352,
+      "thin_liquidity": 50,
+      "unclear_meme_or_religious_rejected": 1,
+      "weak_source_availability": 1
+    }
+  },
+  "safety": {
+    "offline_only": true,
+    "paper_only": true,
+    "live_fetcher_implemented": false,
+    "api_used": false,
+    "network_used": false,
+    "wallet_used": false,
+    "real_order_created": false,
+    "trading_allowed": false,
+    "runtime_wiring_changed": false,
+    "dispatcher_touched": false,
+    "prompt_automation_added": false
+  },
+  "notes": [
+    "Preflight passed in C:\\Users\\OpenC\\Documents\\AI-Orchestrator with pm_bot present and the required local snapshot present.",
+    "The runner uses a fixed snapshot review date of 2026-04-27 for deterministic deadline scoring.",
+    "No Codex copy roots were edited."
+  ]
+}

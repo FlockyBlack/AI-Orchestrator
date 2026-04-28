@@ -1,0 +1,101 @@
+{
+  "schema_version": "v2",
+  "scenario_suite_id": "PMBOT-BATCH-002-SCENARIOS",
+  "source_type": "fixture",
+  "research_only": true,
+  "execution_allowed": false,
+  "trading_allowed": false,
+  "live_data_allowed": false,
+  "wallet_required": false,
+  "credential_material_required": false,
+  "scenario_count": 3,
+  "overall_status": "ready",
+  "scenario_results": [
+    {
+      "scenario_id": "baseline_research_pipeline",
+      "source_type": "fixture",
+      "expected_modules": [
+        "validation",
+        "normalization",
+        "signals",
+        "paper",
+        "risk",
+        "accounting",
+        "reports",
+        "postmortem",
+        "audit"
+      ],
+      "market_ref_count": 6,
+      "all_market_refs_present": true,
+      "expected_safety_flags": {
+        "research_only": true,
+        "execution_allowed": false,
+        "trading_allowed": false,
+        "live_data_allowed": false,
+        "wallet_required": false,
+        "credential_material_required": false
+      },
+      "research_only": true,
+      "execution_allowed": false,
+      "trading_allowed": false,
+      "live_data_allowed": false,
+      "wallet_required": false,
+      "credential_material_required": false,
+      "status": "ready"
+    },
+    {
+      "scenario_id": "high_exposure_risk_warning",
+      "source_type": "fixture",
+      "expected_modules": [
+        "risk",
+        "paper",
+        "accounting",
+        "reports",
+        "postmortem"
+      ],
+      "market_ref_count": 4,
+      "all_market_refs_present": true,
+      "expected_safety_flags": {
+        "research_only": true,
+        "execution_allowed": false,
+        "trading_allowed": false,
+        "live_data_allowed": false,
+        "wallet_required": false,
+        "credential_material_required": false
+      },
+      "research_only": true,
+      "execution_allowed": false,
+      "trading_allowed": false,
+      "live_data_allowed": false,
+      "wallet_required": false,
+      "credential_material_required": false,
+      "status": "ready"
+    },
+    {
+      "scenario_id": "related_markets_hedge_research",
+      "source_type": "fixture",
+      "expected_modules": [
+        "hedges",
+        "audit",
+        "reports"
+      ],
+      "market_ref_count": 3,
+      "all_market_refs_present": true,
+      "expected_safety_flags": {
+        "research_only": true,
+        "execution_allowed": false,
+        "trading_allowed": false,
+        "live_data_allowed": false,
+        "wallet_required": false,
+        "credential_material_required": false
+      },
+      "research_only": true,
+      "execution_allowed": false,
+      "trading_allowed": false,
+      "live_data_allowed": false,
+      "wallet_required": false,
+      "credential_material_required": false,
+      "status": "ready"
+    }
+  ]
+}

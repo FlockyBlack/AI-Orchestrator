@@ -1,0 +1,255 @@
+{
+  "schema_version": "v1",
+  "scenarios": [
+    {
+      "scenario_id": "shock_liquidity_collapse",
+      "shock_type": "liquidity_collapse",
+      "base_inputs": {
+        "market_id": "shock-001",
+        "market_status": "open",
+        "data_age_minutes": 18,
+        "liquidity_usd": 120000,
+        "spread_bps": 70,
+        "paper_edge_bps": 120,
+        "confidence_score": 74,
+        "signal_direction_count": 3,
+        "signal_conflict": false,
+        "correlation_conflict": false,
+        "duplicate_snapshot": false,
+        "outlier_move_pct": 4.0,
+        "watchlist_only": false,
+        "data_quality_score": 72,
+        "resolved_candidate_visible": false,
+        "category_exposure_pct": 18
+      },
+      "shock_overrides": {
+        "liquidity_usd": 7500
+      },
+      "expected_decision": "reject",
+      "expected_reasons": [
+        "low_liquidity"
+      ],
+      "fixture_only": true,
+      "paper_only": true
+    },
+    {
+      "scenario_id": "shock_spread_explosion",
+      "shock_type": "spread_explosion",
+      "base_inputs": {
+        "market_id": "shock-002",
+        "market_status": "open",
+        "data_age_minutes": 14,
+        "liquidity_usd": 150000,
+        "spread_bps": 60,
+        "paper_edge_bps": 132,
+        "confidence_score": 76,
+        "signal_direction_count": 4,
+        "signal_conflict": false,
+        "correlation_conflict": false,
+        "duplicate_snapshot": false,
+        "outlier_move_pct": 5.5,
+        "watchlist_only": false,
+        "data_quality_score": 73,
+        "resolved_candidate_visible": false,
+        "category_exposure_pct": 20
+      },
+      "shock_overrides": {
+        "spread_bps": 290
+      },
+      "expected_decision": "reject",
+      "expected_reasons": [
+        "wide_spread"
+      ],
+      "fixture_only": true,
+      "paper_only": true
+    },
+    {
+      "scenario_id": "shock_data_staleness_spike",
+      "shock_type": "data_staleness_spike",
+      "base_inputs": {
+        "market_id": "shock-003",
+        "market_status": "open",
+        "data_age_minutes": 11,
+        "liquidity_usd": 94000,
+        "spread_bps": 88,
+        "paper_edge_bps": 110,
+        "confidence_score": 69,
+        "signal_direction_count": 2,
+        "signal_conflict": false,
+        "correlation_conflict": false,
+        "duplicate_snapshot": false,
+        "outlier_move_pct": 3.8,
+        "watchlist_only": false,
+        "data_quality_score": 67,
+        "resolved_candidate_visible": false,
+        "category_exposure_pct": 15
+      },
+      "shock_overrides": {
+        "data_age_minutes": 205
+      },
+      "expected_decision": "reject",
+      "expected_reasons": [
+        "stale_data"
+      ],
+      "fixture_only": true,
+      "paper_only": true
+    },
+    {
+      "scenario_id": "shock_price_gap",
+      "shock_type": "price_gap",
+      "base_inputs": {
+        "market_id": "shock-004",
+        "market_status": "open",
+        "data_age_minutes": 9,
+        "liquidity_usd": 143000,
+        "spread_bps": 85,
+        "paper_edge_bps": 116,
+        "confidence_score": 73,
+        "signal_direction_count": 3,
+        "signal_conflict": false,
+        "correlation_conflict": false,
+        "duplicate_snapshot": false,
+        "outlier_move_pct": 4.2,
+        "watchlist_only": false,
+        "data_quality_score": 68,
+        "resolved_candidate_visible": false,
+        "category_exposure_pct": 21
+      },
+      "shock_overrides": {
+        "outlier_move_pct": 31.0
+      },
+      "expected_decision": "watchlist",
+      "expected_reasons": [
+        "outlier_price_move"
+      ],
+      "fixture_only": true,
+      "paper_only": true
+    },
+    {
+      "scenario_id": "shock_resolved_status_flip",
+      "shock_type": "resolved_status_flip",
+      "base_inputs": {
+        "market_id": "shock-005",
+        "market_status": "open",
+        "data_age_minutes": 6,
+        "liquidity_usd": 88000,
+        "spread_bps": 52,
+        "paper_edge_bps": 92,
+        "confidence_score": 63,
+        "signal_direction_count": 2,
+        "signal_conflict": false,
+        "correlation_conflict": false,
+        "duplicate_snapshot": false,
+        "outlier_move_pct": 1.2,
+        "watchlist_only": false,
+        "data_quality_score": 70,
+        "resolved_candidate_visible": false,
+        "category_exposure_pct": 10
+      },
+      "shock_overrides": {
+        "market_status": "resolved",
+        "resolved_candidate_visible": true
+      },
+      "expected_decision": "exclude",
+      "expected_reasons": [
+        "resolved_market"
+      ],
+      "fixture_only": true,
+      "paper_only": true
+    },
+    {
+      "scenario_id": "shock_confidence_downgrade",
+      "shock_type": "confidence_downgrade",
+      "base_inputs": {
+        "market_id": "shock-006",
+        "market_status": "open",
+        "data_age_minutes": 12,
+        "liquidity_usd": 125000,
+        "spread_bps": 66,
+        "paper_edge_bps": 124,
+        "confidence_score": 78,
+        "signal_direction_count": 3,
+        "signal_conflict": false,
+        "correlation_conflict": false,
+        "duplicate_snapshot": false,
+        "outlier_move_pct": 4.0,
+        "watchlist_only": false,
+        "data_quality_score": 75,
+        "resolved_candidate_visible": false,
+        "category_exposure_pct": 19
+      },
+      "shock_overrides": {
+        "confidence_score": 51,
+        "data_quality_score": 46
+      },
+      "expected_decision": "watchlist",
+      "expected_reasons": [
+        "confidence_downgrade"
+      ],
+      "fixture_only": true,
+      "paper_only": true
+    },
+    {
+      "scenario_id": "shock_category_exposure_spike",
+      "shock_type": "category_exposure_spike",
+      "base_inputs": {
+        "market_id": "shock-007",
+        "market_status": "open",
+        "data_age_minutes": 13,
+        "liquidity_usd": 101000,
+        "spread_bps": 84,
+        "paper_edge_bps": 106,
+        "confidence_score": 68,
+        "signal_direction_count": 3,
+        "signal_conflict": false,
+        "correlation_conflict": false,
+        "duplicate_snapshot": false,
+        "outlier_move_pct": 5.0,
+        "watchlist_only": false,
+        "data_quality_score": 66,
+        "resolved_candidate_visible": false,
+        "category_exposure_pct": 24
+      },
+      "shock_overrides": {
+        "category_exposure_pct": 44
+      },
+      "expected_decision": "watchlist",
+      "expected_reasons": [
+        "category_exposure_spike"
+      ],
+      "fixture_only": true,
+      "paper_only": true
+    },
+    {
+      "scenario_id": "shock_correlation_cluster_warning",
+      "shock_type": "correlation_cluster_warning",
+      "base_inputs": {
+        "market_id": "shock-008",
+        "market_status": "open",
+        "data_age_minutes": 10,
+        "liquidity_usd": 117000,
+        "spread_bps": 76,
+        "paper_edge_bps": 112,
+        "confidence_score": 70,
+        "signal_direction_count": 3,
+        "signal_conflict": false,
+        "correlation_conflict": false,
+        "duplicate_snapshot": false,
+        "outlier_move_pct": 5.7,
+        "watchlist_only": false,
+        "data_quality_score": 69,
+        "resolved_candidate_visible": false,
+        "category_exposure_pct": 22
+      },
+      "shock_overrides": {
+        "correlation_conflict": true
+      },
+      "expected_decision": "watchlist",
+      "expected_reasons": [
+        "correlation_conflict"
+      ],
+      "fixture_only": true,
+      "paper_only": true
+    }
+  ]
+}

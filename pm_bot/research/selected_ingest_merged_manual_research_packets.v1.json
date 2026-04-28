@@ -1,0 +1,644 @@
+{
+  "schema_version": "selected_ingest_merged_manual_research_packets.v1",
+  "task_id": "PMBOT-INGEST-007-SELECTED-STUBS-MANUAL-EVIDENCE-OVERLAY-MERGE",
+  "deterministic": true,
+  "source_packet_stubs_path": "pm_bot/research/selected_ingest_research_packet_stubs.v1.json",
+  "source_packet_stubs_schema_version": "selected_ingest_research_packet_stubs.v1",
+  "source_overlay_template_path": "pm_bot/research/selected_ingest_manual_evidence_overlay_template.v1.json",
+  "source_overlay_template_schema_version": "selected_ingest_manual_evidence_overlay_template.v1",
+  "source_overlay_path": "pm_bot/research/selected_ingest_manual_evidence_overlay_fixture.v1.json",
+  "selected_market_ids": [
+    "692258",
+    "824952",
+    "691547",
+    "597964",
+    "598936"
+  ],
+  "accepted_overlay_market_ids": [
+    "692258",
+    "824952"
+  ],
+  "rejected_overlay_market_ids": [
+    "597964",
+    "691547",
+    "999999"
+  ],
+  "ready_for_operator_review_market_ids": [
+    "824952"
+  ],
+  "needs_more_information_market_ids": [
+    "692258"
+  ],
+  "merge_summary": {
+    "overlays_read": 5,
+    "overlays_accepted": 2,
+    "overlays_rejected": 3,
+    "packets_written": 5,
+    "ready_for_operator_review": 1,
+    "needs_more_information": 1,
+    "errors_by_market_id": {
+      "597964": [
+        {
+          "code": "prohibited_overlay_field:bet",
+          "path": "bet",
+          "message": "Trading, wallet, execution, recommendation, stake, size, price, scoring, probability, expected value, side, buy/sell, and market decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_overlay_field:bet",
+          "path": "bet",
+          "message": "bet is not an allowed manual evidence overlay field."
+        },
+        {
+          "code": "prohibited_overlay_field:buy",
+          "path": "buy",
+          "message": "Trading, wallet, execution, recommendation, stake, size, price, scoring, probability, expected value, side, buy/sell, and market decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_overlay_field:buy",
+          "path": "buy",
+          "message": "buy is not an allowed manual evidence overlay field."
+        },
+        {
+          "code": "prohibited_overlay_field:entry_price",
+          "path": "entry_price",
+          "message": "Trading, wallet, execution, recommendation, stake, size, price, scoring, probability, expected value, side, buy/sell, and market decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_overlay_field:entry_price",
+          "path": "entry_price",
+          "message": "entry_price is not an allowed manual evidence overlay field."
+        },
+        {
+          "code": "prohibited_overlay_field:ev",
+          "path": "ev",
+          "message": "Trading, wallet, execution, recommendation, stake, size, price, scoring, probability, expected value, side, buy/sell, and market decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_overlay_field:ev",
+          "path": "ev",
+          "message": "ev is not an allowed manual evidence overlay field."
+        },
+        {
+          "code": "prohibited_overlay_field:execution",
+          "path": "execution",
+          "message": "Trading, wallet, execution, recommendation, stake, size, price, scoring, probability, expected value, side, buy/sell, and market decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_overlay_field:execution",
+          "path": "execution",
+          "message": "execution is not an allowed manual evidence overlay field."
+        },
+        {
+          "code": "prohibited_overlay_field:expected_value",
+          "path": "expected_value",
+          "message": "Trading, wallet, execution, recommendation, stake, size, price, scoring, probability, expected value, side, buy/sell, and market decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_overlay_field:expected_value",
+          "path": "expected_value",
+          "message": "expected_value is not an allowed manual evidence overlay field."
+        },
+        {
+          "code": "prohibited_overlay_field:limit_price",
+          "path": "limit_price",
+          "message": "Trading, wallet, execution, recommendation, stake, size, price, scoring, probability, expected value, side, buy/sell, and market decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_overlay_field:limit_price",
+          "path": "limit_price",
+          "message": "limit_price is not an allowed manual evidence overlay field."
+        },
+        {
+          "code": "prohibited_overlay_field:market_decision",
+          "path": "market_decision",
+          "message": "Trading, wallet, execution, recommendation, stake, size, price, scoring, probability, expected value, side, buy/sell, and market decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_overlay_field:market_decision",
+          "path": "market_decision",
+          "message": "market_decision is not an allowed manual evidence overlay field."
+        },
+        {
+          "code": "prohibited_overlay_field:order",
+          "path": "order",
+          "message": "Trading, wallet, execution, recommendation, stake, size, price, scoring, probability, expected value, side, buy/sell, and market decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_overlay_field:order",
+          "path": "order",
+          "message": "order is not an allowed manual evidence overlay field."
+        },
+        {
+          "code": "prohibited_overlay_field:price_target",
+          "path": "price_target",
+          "message": "Trading, wallet, execution, recommendation, stake, size, price, scoring, probability, expected value, side, buy/sell, and market decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_overlay_field:price_target",
+          "path": "price_target",
+          "message": "price_target is not an allowed manual evidence overlay field."
+        },
+        {
+          "code": "prohibited_overlay_field:private_key",
+          "path": "private_key",
+          "message": "Trading, wallet, execution, recommendation, stake, size, price, scoring, probability, expected value, side, buy/sell, and market decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_overlay_field:private_key",
+          "path": "private_key",
+          "message": "private_key is not an allowed manual evidence overlay field."
+        },
+        {
+          "code": "prohibited_overlay_field:probability",
+          "path": "probability",
+          "message": "Trading, wallet, execution, recommendation, stake, size, price, scoring, probability, expected value, side, buy/sell, and market decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_overlay_field:probability",
+          "path": "probability",
+          "message": "probability is not an allowed manual evidence overlay field."
+        },
+        {
+          "code": "prohibited_overlay_field:recommendation",
+          "path": "recommendation",
+          "message": "Trading, wallet, execution, recommendation, stake, size, price, scoring, probability, expected value, side, buy/sell, and market decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_overlay_field:recommendation",
+          "path": "recommendation",
+          "message": "recommendation is not an allowed manual evidence overlay field."
+        },
+        {
+          "code": "prohibited_overlay_field:score",
+          "path": "score",
+          "message": "Trading, wallet, execution, recommendation, stake, size, price, scoring, probability, expected value, side, buy/sell, and market decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_overlay_field:score",
+          "path": "score",
+          "message": "score is not an allowed manual evidence overlay field."
+        },
+        {
+          "code": "prohibited_overlay_field:sell",
+          "path": "sell",
+          "message": "Trading, wallet, execution, recommendation, stake, size, price, scoring, probability, expected value, side, buy/sell, and market decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_overlay_field:sell",
+          "path": "sell",
+          "message": "sell is not an allowed manual evidence overlay field."
+        },
+        {
+          "code": "prohibited_overlay_field:side",
+          "path": "side",
+          "message": "Trading, wallet, execution, recommendation, stake, size, price, scoring, probability, expected value, side, buy/sell, and market decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_overlay_field:side",
+          "path": "side",
+          "message": "side is not an allowed manual evidence overlay field."
+        },
+        {
+          "code": "prohibited_overlay_field:signal",
+          "path": "signal",
+          "message": "Trading, wallet, execution, recommendation, stake, size, price, scoring, probability, expected value, side, buy/sell, and market decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_overlay_field:signal",
+          "path": "signal",
+          "message": "signal is not an allowed manual evidence overlay field."
+        },
+        {
+          "code": "prohibited_overlay_field:size",
+          "path": "size",
+          "message": "Trading, wallet, execution, recommendation, stake, size, price, scoring, probability, expected value, side, buy/sell, and market decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_overlay_field:size",
+          "path": "size",
+          "message": "size is not an allowed manual evidence overlay field."
+        },
+        {
+          "code": "prohibited_overlay_field:stake",
+          "path": "stake",
+          "message": "Trading, wallet, execution, recommendation, stake, size, price, scoring, probability, expected value, side, buy/sell, and market decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_overlay_field:stake",
+          "path": "stake",
+          "message": "stake is not an allowed manual evidence overlay field."
+        },
+        {
+          "code": "prohibited_overlay_field:trade",
+          "path": "trade",
+          "message": "Trading, wallet, execution, recommendation, stake, size, price, scoring, probability, expected value, side, buy/sell, and market decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_overlay_field:trade",
+          "path": "trade",
+          "message": "trade is not an allowed manual evidence overlay field."
+        },
+        {
+          "code": "prohibited_overlay_field:wallet",
+          "path": "wallet",
+          "message": "Trading, wallet, execution, recommendation, stake, size, price, scoring, probability, expected value, side, buy/sell, and market decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_overlay_field:wallet",
+          "path": "wallet",
+          "message": "wallet is not an allowed manual evidence overlay field."
+        },
+        {
+          "code": "prohibited_overlay_field:yes_no_decision",
+          "path": "yes_no_decision",
+          "message": "Trading, wallet, execution, recommendation, stake, size, price, scoring, probability, expected value, side, buy/sell, and market decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_overlay_field:yes_no_decision",
+          "path": "yes_no_decision",
+          "message": "yes_no_decision is not an allowed manual evidence overlay field."
+        }
+      ],
+      "691547": [
+        {
+          "code": "immutable_field_override:title",
+          "path": "title",
+          "message": "title is immutable and must remain sourced from the selected ingest stub."
+        }
+      ],
+      "999999": [
+        {
+          "code": "unknown_market_id",
+          "path": "market_id",
+          "message": "Overlay market_id is not one of the five selected live-ingest market IDs."
+        }
+      ]
+    }
+  },
+  "packets": [
+    {
+      "category": "Finance / Economy / Business / 2025 Predictions / Crypto / MicroStrategy / Stocks",
+      "completion_status": "needs_more_information",
+      "credible_news_sources_to_check": [
+        "Manual check template: Reuters coverage query for 'MicroStrategy sells any Bitcoin by June 30, 2026?'",
+        "Manual check template: Associated Press coverage query for 'MicroStrategy sells any Bitcoin by June 30, 2026?'",
+        "Manual check template: major credible outlet query for 'Finance / Economy / Business / 2025 Predictions / Crypto / MicroStrategy / Stocks' and 'MicroStrategy sells any Bitcoin by June 30, 2026?'"
+      ],
+      "current_yes_price": 0.0285,
+      "deadline": "2026-07-01T04:00:00Z",
+      "event_id": "16167",
+      "event_title": "MicroStrategy sells any Bitcoin by ___ ?",
+      "evidence_slots": {
+        "official_resolution_criteria": [
+          {
+            "source_name": "Manual selected-ingest rule note",
+            "source_type": "official_resolution_criteria",
+            "source_url_or_reference": "offline-reference:692258:local-rules",
+            "captured_claim": "Operator copied a local resolution-rule source reference for structural validation only.",
+            "relevance_to_resolution": "Identifies the source category needed for later human review without deciding the market outcome.",
+            "operator_notes": "Partial fixture entry; remaining evidence is intentionally incomplete."
+          }
+        ],
+        "official_yes_evidence": [],
+        "official_no_evidence": [],
+        "credible_news_yes_evidence": [],
+        "credible_news_no_evidence": [],
+        "uncertainty_factors": [],
+        "source_reliability_notes": []
+      },
+      "liquidity": 74969.19206,
+      "market_id": "692258",
+      "missing_information": [
+        "full_official_source_reference",
+        "credible_news_source_references",
+        "official_yes_or_no_evidence",
+        "source_reliability_review"
+      ],
+      "official_sources_to_check": [
+        "Manual check template: local Polymarket rules and resolution criteria for market_id 692258",
+        "Manual check template: official primary source named in the local market description for 'MicroStrategy sells any Bitcoin by June 30, 2026?'",
+        "Manual check template: original issuer, government, court, exchange, or company source relevant to 'MicroStrategy sells any Bitcoin by June 30, 2026?'"
+      ],
+      "packet_type": "selected_ingest_market_research_stub",
+      "question": "MicroStrategy sells any Bitcoin by June 30, 2026?",
+      "resolution_criteria_summary": "Stub-only local market description excerpt for 'MicroStrategy sells any Bitcoin by June 30, 2026?': This market will resolve to \"Yes\" if MicroStrategy sells any of its Bitcoin by 11:59 PM ET on the date specified in the title. Otherwise, this market will resolve to \"No\". Manual completion must review the full local criteria before use.",
+      "search_queries": [
+        "Template only: \"MicroStrategy sells any Bitcoin by June 30, 2026?\" \"resolution criteria\"",
+        "Template only: \"MicroStrategy sells any Bitcoin by June 30, 2026?\" \"2026-07-01T04:00:00Z\" official source",
+        "Template only: \"Polymarket\" \"692258\" \"MicroStrategy sells any Bitcoin by June 30, 2026?\"",
+        "Template only: \"MicroStrategy sells any Bitcoin by ___ ?\" \"MicroStrategy sells any Bitcoin by June 30, 2026?\" credible reporting",
+        "Template only: \"Finance / Economy / Business / 2025 Predictions / Crypto / MicroStrategy / Stocks\" \"MicroStrategy sells any Bitcoin by June 30, 2026?\" primary source"
+      ],
+      "source_ingest_artifacts": {
+        "normalized_market_preview": "pm_bot/ingest/normalized_market_preview.v1.json",
+        "normalized_source_snapshot_artifact_id": "polymarket_gamma_events_20260427T231234Z_c6373d103a2e",
+        "normalized_source_snapshot_path": "pm_bot/ingest/raw_snapshots/polymarket_gamma_events_20260427T231234Z_c6373d103a2e.json",
+        "operator_candidate_selection_index": "pm_bot/ingest/operator_candidate_selection_index.v1.json",
+        "operator_candidate_selection_overlay": "pm_bot/ingest/operator_candidate_selection_overlay_selected_first5.v1.json"
+      },
+      "source_plan": "Template only: review the local market rules for 'MicroStrategy sells any Bitcoin by June 30, 2026?', then manually check official primary sources and credible news coverage. This stub does not fetch or verify sources.",
+      "title": "MicroStrategy sells any Bitcoin by June 30, 2026?",
+      "volume": 998871.1045009972,
+      "why_not_bet_yet": "Stub only: no source evidence has been gathered, evidence slots are empty, and manual review has not happened.",
+      "why_selected_for_research": "Selected by validated operator overlay for deterministic first-five research-stub bridge testing; operator_priority=medium; operator_notes=Selected only to test the live-captured market research-stub bridge.",
+      "official_sources_checked": [
+        "offline-check:692258:local-market-rules",
+        "offline-check:692258:company-source-placeholder"
+      ],
+      "credible_news_sources_checked": [
+        "offline-check:692258:credible-news-query-placeholder"
+      ],
+      "operator_notes": "Valid partial selected-ingest overlay used to prove deterministic merge behavior."
+    },
+    {
+      "category": "Finance / Economy / Business / 2025 Predictions / Crypto / MicroStrategy / Stocks",
+      "completion_status": "ready_for_operator_review",
+      "credible_news_sources_to_check": [
+        "Manual check template: Reuters coverage query for 'MicroStrategy sells any Bitcoin by December 31, 2026?'",
+        "Manual check template: Associated Press coverage query for 'MicroStrategy sells any Bitcoin by December 31, 2026?'",
+        "Manual check template: major credible outlet query for 'Finance / Economy / Business / 2025 Predictions / Crypto / MicroStrategy / Stocks' and 'MicroStrategy sells any Bitcoin by December 31, 2026?'"
+      ],
+      "current_yes_price": 0.095,
+      "deadline": "2026-07-01T04:00:00Z",
+      "event_id": "16167",
+      "event_title": "MicroStrategy sells any Bitcoin by ___ ?",
+      "evidence_slots": {
+        "official_resolution_criteria": [
+          {
+            "source_name": "Manual selected-ingest rule placeholder",
+            "source_type": "official_resolution_criteria",
+            "source_url_or_reference": "offline-reference:824952:rules",
+            "captured_claim": "Manual entry records a copied resolution-rule source for structural validation only.",
+            "relevance_to_resolution": "Provides the rule source category needed before operator review.",
+            "operator_notes": "No outcome truth is inferred by this merge fixture."
+          }
+        ],
+        "official_yes_evidence": [
+          {
+            "source_name": "Manual official-source placeholder",
+            "source_type": "official_company_source",
+            "source_url_or_reference": "offline-reference:824952:official-source",
+            "captured_claim": "Manual entry records an operator-copied official source claim for structural validation only.",
+            "relevance_to_resolution": "Maps a manual source claim to the market resolution path without evaluating it.",
+            "operator_notes": "Operator must review the claim manually outside this merge tool."
+          }
+        ],
+        "official_no_evidence": [],
+        "credible_news_yes_evidence": [
+          {
+            "source_name": "Manual credible-news placeholder",
+            "source_type": "credible_news",
+            "source_url_or_reference": "offline-reference:824952:news",
+            "captured_claim": "Manual entry records a credible-news claim for structural validation only.",
+            "relevance_to_resolution": "Adds independent coverage context without scoring the market.",
+            "operator_notes": "Merge tool checks only that the entry is complete."
+          }
+        ],
+        "credible_news_no_evidence": [],
+        "uncertainty_factors": [],
+        "source_reliability_notes": [
+          {
+            "source_name": "Manual reliability note",
+            "source_type": "operator_context",
+            "source_url_or_reference": "offline-reference:824952:reliability",
+            "captured_claim": "Manual entry records source reliability notes for structural validation only.",
+            "relevance_to_resolution": "Confirms that source reliability was documented before operator review.",
+            "operator_notes": "No recommendation is produced."
+          }
+        ]
+      },
+      "liquidity": 33862.5213,
+      "market_id": "824952",
+      "missing_information": [],
+      "official_sources_to_check": [
+        "Manual check template: local Polymarket rules and resolution criteria for market_id 824952",
+        "Manual check template: official primary source named in the local market description for 'MicroStrategy sells any Bitcoin by December 31, 2026?'",
+        "Manual check template: original issuer, government, court, exchange, or company source relevant to 'MicroStrategy sells any Bitcoin by December 31, 2026?'"
+      ],
+      "packet_type": "selected_ingest_market_research_stub",
+      "question": "MicroStrategy sells any Bitcoin by December 31, 2026?",
+      "resolution_criteria_summary": "Stub-only local market description excerpt for 'MicroStrategy sells any Bitcoin by December 31, 2026?': This market will resolve to \"Yes\" if MicroStrategy sells any of its Bitcoin by 11:59 PM ET on the date specified in the title. Otherwise, this market will resolve to \"No\". Manual completion must review the full local criteria before use.",
+      "search_queries": [
+        "Template only: \"MicroStrategy sells any Bitcoin by December 31, 2026?\" \"resolution criteria\"",
+        "Template only: \"MicroStrategy sells any Bitcoin by December 31, 2026?\" \"2026-07-01T04:00:00Z\" official source",
+        "Template only: \"Polymarket\" \"824952\" \"MicroStrategy sells any Bitcoin by December 31, 2026?\"",
+        "Template only: \"MicroStrategy sells any Bitcoin by ___ ?\" \"MicroStrategy sells any Bitcoin by December 31, 2026?\" credible reporting",
+        "Template only: \"Finance / Economy / Business / 2025 Predictions / Crypto / MicroStrategy / Stocks\" \"MicroStrategy sells any Bitcoin by December 31, 2026?\" primary source"
+      ],
+      "source_ingest_artifacts": {
+        "normalized_market_preview": "pm_bot/ingest/normalized_market_preview.v1.json",
+        "normalized_source_snapshot_artifact_id": "polymarket_gamma_events_20260427T231234Z_c6373d103a2e",
+        "normalized_source_snapshot_path": "pm_bot/ingest/raw_snapshots/polymarket_gamma_events_20260427T231234Z_c6373d103a2e.json",
+        "operator_candidate_selection_index": "pm_bot/ingest/operator_candidate_selection_index.v1.json",
+        "operator_candidate_selection_overlay": "pm_bot/ingest/operator_candidate_selection_overlay_selected_first5.v1.json"
+      },
+      "source_plan": "Template only: review the local market rules for 'MicroStrategy sells any Bitcoin by December 31, 2026?', then manually check official primary sources and credible news coverage. This stub does not fetch or verify sources.",
+      "title": "MicroStrategy sells any Bitcoin by December 31, 2026?",
+      "volume": 574606.4678400013,
+      "why_not_bet_yet": "Stub only: no source evidence has been gathered, evidence slots are empty, and manual review has not happened.",
+      "why_selected_for_research": "Selected by validated operator overlay for deterministic first-five research-stub bridge testing; operator_priority=medium; operator_notes=Selected only to test the live-captured market research-stub bridge.",
+      "official_sources_checked": [
+        "offline-check:824952:local-market-rules",
+        "offline-check:824952:official-source-placeholder"
+      ],
+      "credible_news_sources_checked": [
+        "offline-check:824952:credible-news-placeholder"
+      ],
+      "operator_notes": "Valid ready-for-review selected-ingest overlay used to prove structural readiness is validator-driven."
+    },
+    {
+      "category": "exchange / Tech / Crypto / Finance / Business / 2025 Predictions / Featured / IPOs",
+      "completion_status": "stub_only",
+      "credible_news_sources_to_check": [
+        "Manual check template: Reuters coverage query for 'Kraken IPO by December 31, 2026?'",
+        "Manual check template: Associated Press coverage query for 'Kraken IPO by December 31, 2026?'",
+        "Manual check template: major credible outlet query for 'exchange / Tech / Crypto / Finance / Business / 2025 Predictions / Featured / IPOs' and 'Kraken IPO by December 31, 2026?'"
+      ],
+      "current_yes_price": 0.74,
+      "deadline": "2027-01-01T05:00:00Z",
+      "event_id": "16183",
+      "event_title": "Kraken IPO by ___ ?",
+      "evidence_slots": {
+        "official_resolution_criteria": [],
+        "official_yes_evidence": [],
+        "official_no_evidence": [],
+        "credible_news_yes_evidence": [],
+        "credible_news_no_evidence": [],
+        "uncertainty_factors": [],
+        "source_reliability_notes": []
+      },
+      "liquidity": 3865.8225,
+      "market_id": "691547",
+      "missing_information": [
+        "manual_research_not_started",
+        "full_market_resolution_criteria_review",
+        "official_source_references",
+        "credible_news_source_references",
+        "empty_evidence_slots",
+        "operator_human_review_required"
+      ],
+      "official_sources_to_check": [
+        "Manual check template: local Polymarket rules and resolution criteria for market_id 691547",
+        "Manual check template: official primary source named in the local market description for 'Kraken IPO by December 31, 2026?'",
+        "Manual check template: original issuer, government, court, exchange, or company source relevant to 'Kraken IPO by December 31, 2026?'"
+      ],
+      "packet_type": "selected_ingest_market_research_stub",
+      "question": "Kraken IPO by December 31, 2026?",
+      "resolution_criteria_summary": "Stub-only local market description excerpt for 'Kraken IPO by December 31, 2026?': This market will resolve to \"Yes\" if Kraken completes an Initial Public Offering (IPO) by the listed date ET, as confirmed by official company announcements and credible news sources. Otherwise, this market will resolve to \"No.\" Manual completion must review the full local criteria before use.",
+      "search_queries": [
+        "Template only: \"Kraken IPO by December 31, 2026?\" \"resolution criteria\"",
+        "Template only: \"Kraken IPO by December 31, 2026?\" \"2027-01-01T05:00:00Z\" official source",
+        "Template only: \"Polymarket\" \"691547\" \"Kraken IPO by December 31, 2026?\"",
+        "Template only: \"Kraken IPO by ___ ?\" \"Kraken IPO by December 31, 2026?\" credible reporting",
+        "Template only: \"exchange / Tech / Crypto / Finance / Business / 2025 Predictions / Featured / IPOs\" \"Kraken IPO by December 31, 2026?\" primary source"
+      ],
+      "source_ingest_artifacts": {
+        "normalized_market_preview": "pm_bot/ingest/normalized_market_preview.v1.json",
+        "normalized_source_snapshot_artifact_id": "polymarket_gamma_events_20260427T231234Z_c6373d103a2e",
+        "normalized_source_snapshot_path": "pm_bot/ingest/raw_snapshots/polymarket_gamma_events_20260427T231234Z_c6373d103a2e.json",
+        "operator_candidate_selection_index": "pm_bot/ingest/operator_candidate_selection_index.v1.json",
+        "operator_candidate_selection_overlay": "pm_bot/ingest/operator_candidate_selection_overlay_selected_first5.v1.json"
+      },
+      "source_plan": "Template only: review the local market rules for 'Kraken IPO by December 31, 2026?', then manually check official primary sources and credible news coverage. This stub does not fetch or verify sources.",
+      "title": "Kraken IPO by December 31, 2026?",
+      "volume": 506317.2901440019,
+      "why_not_bet_yet": "Stub only: no source evidence has been gathered, evidence slots are empty, and manual review has not happened.",
+      "why_selected_for_research": "Selected by validated operator overlay for deterministic first-five research-stub bridge testing; operator_priority=medium; operator_notes=Selected only to test the live-captured market research-stub bridge.",
+      "official_sources_checked": [],
+      "credible_news_sources_checked": [],
+      "operator_notes": ""
+    },
+    {
+      "category": "France / Politics / Macron / World / 2025 Predictions / resign",
+      "completion_status": "stub_only",
+      "credible_news_sources_to_check": [
+        "Manual check template: Reuters coverage query for 'Macron out by June 30, 2026?'",
+        "Manual check template: Associated Press coverage query for 'Macron out by June 30, 2026?'",
+        "Manual check template: major credible outlet query for 'France / Politics / Macron / World / 2025 Predictions / resign' and 'Macron out by June 30, 2026?'"
+      ],
+      "current_yes_price": 0.0155,
+      "deadline": "2026-06-30T12:00:00Z",
+      "event_id": "16263",
+      "event_title": "Macron out by...?",
+      "evidence_slots": {
+        "official_resolution_criteria": [],
+        "official_yes_evidence": [],
+        "official_no_evidence": [],
+        "credible_news_yes_evidence": [],
+        "credible_news_no_evidence": [],
+        "uncertainty_factors": [],
+        "source_reliability_notes": []
+      },
+      "liquidity": 48751.13558,
+      "market_id": "597964",
+      "missing_information": [
+        "manual_research_not_started",
+        "full_market_resolution_criteria_review",
+        "official_source_references",
+        "credible_news_source_references",
+        "empty_evidence_slots",
+        "operator_human_review_required"
+      ],
+      "official_sources_to_check": [
+        "Manual check template: local Polymarket rules and resolution criteria for market_id 597964",
+        "Manual check template: official primary source named in the local market description for 'Macron out by June 30, 2026?'",
+        "Manual check template: original issuer, government, court, exchange, or company source relevant to 'Macron out by June 30, 2026?'"
+      ],
+      "packet_type": "selected_ingest_market_research_stub",
+      "question": "Macron out by June 30, 2026?",
+      "resolution_criteria_summary": "Stub-only local market description excerpt for 'Macron out by June 30, 2026?': This market will resolve to \"Yes\" if Emmanuel Macron ceases to be President of France for any length of time between September 14, 2025, and June 30, 2026, 11:59 PM ET (inclusive). Otherwise, this market will resolve to \"No\". Manual completion must review the full local criteria before use.",
+      "search_queries": [
+        "Template only: \"Macron out by June 30, 2026?\" \"resolution criteria\"",
+        "Template only: \"Macron out by June 30, 2026?\" \"2026-06-30T12:00:00Z\" official source",
+        "Template only: \"Polymarket\" \"597964\" \"Macron out by June 30, 2026?\"",
+        "Template only: \"Macron out by...?\" \"Macron out by June 30, 2026?\" credible reporting",
+        "Template only: \"France / Politics / Macron / World / 2025 Predictions / resign\" \"Macron out by June 30, 2026?\" primary source"
+      ],
+      "source_ingest_artifacts": {
+        "normalized_market_preview": "pm_bot/ingest/normalized_market_preview.v1.json",
+        "normalized_source_snapshot_artifact_id": "polymarket_gamma_events_20260427T231234Z_c6373d103a2e",
+        "normalized_source_snapshot_path": "pm_bot/ingest/raw_snapshots/polymarket_gamma_events_20260427T231234Z_c6373d103a2e.json",
+        "operator_candidate_selection_index": "pm_bot/ingest/operator_candidate_selection_index.v1.json",
+        "operator_candidate_selection_overlay": "pm_bot/ingest/operator_candidate_selection_overlay_selected_first5.v1.json"
+      },
+      "source_plan": "Template only: review the local market rules for 'Macron out by June 30, 2026?', then manually check official primary sources and credible news coverage. This stub does not fetch or verify sources.",
+      "title": "Macron out by June 30, 2026?",
+      "volume": 343942.07421,
+      "why_not_bet_yet": "Stub only: no source evidence has been gathered, evidence slots are empty, and manual review has not happened.",
+      "why_selected_for_research": "Selected by validated operator overlay for deterministic first-five research-stub bridge testing; operator_priority=medium; operator_notes=Selected only to test the live-captured market research-stub bridge.",
+      "official_sources_checked": [],
+      "credible_news_sources_checked": [],
+      "operator_notes": ""
+    },
+    {
+      "category": "Starmer / UK / pedophile / England",
+      "completion_status": "stub_only",
+      "credible_news_sources_to_check": [
+        "Manual check template: Reuters coverage query for 'Will the next UK election be called by June 30, 2026?'",
+        "Manual check template: Associated Press coverage query for 'Will the next UK election be called by June 30, 2026?'",
+        "Manual check template: major credible outlet query for 'Starmer / UK / pedophile / England' and 'Will the next UK election be called by June 30, 2026?'"
+      ],
+      "current_yes_price": 0.0525,
+      "deadline": "2026-06-30T12:00:00Z",
+      "event_id": "16423",
+      "event_title": "UK election called by...?",
+      "evidence_slots": {
+        "official_resolution_criteria": [],
+        "official_yes_evidence": [],
+        "official_no_evidence": [],
+        "credible_news_yes_evidence": [],
+        "credible_news_no_evidence": [],
+        "uncertainty_factors": [],
+        "source_reliability_notes": []
+      },
+      "liquidity": 1241.81341,
+      "market_id": "598936",
+      "missing_information": [
+        "manual_research_not_started",
+        "full_market_resolution_criteria_review",
+        "official_source_references",
+        "credible_news_source_references",
+        "empty_evidence_slots",
+        "operator_human_review_required"
+      ],
+      "official_sources_to_check": [
+        "Manual check template: local Polymarket rules and resolution criteria for market_id 598936",
+        "Manual check template: official primary source named in the local market description for 'Will the next UK election be called by June 30, 2026?'",
+        "Manual check template: original issuer, government, court, exchange, or company source relevant to 'Will the next UK election be called by June 30, 2026?'"
+      ],
+      "packet_type": "selected_ingest_market_research_stub",
+      "question": "Will the next UK election be called by June 30, 2026?",
+      "resolution_criteria_summary": "Stub-only local market description excerpt for 'Will the next UK election be called by June 30, 2026?': This market will resolve to \"Yes\" if the date of the next UK general election is declared by June 30, 2026, 11:59 PM ET. Otherwise, this market will resolve to \"No\". Manual completion must review the full local criteria before use.",
+      "search_queries": [
+        "Template only: \"Will the next UK election be called by June 30, 2026?\" \"resolution criteria\"",
+        "Template only: \"Will the next UK election be called by June 30, 2026?\" \"2026-06-30T12:00:00Z\" official source",
+        "Template only: \"Polymarket\" \"598936\" \"Will the next UK election be called by June 30, 2026?\"",
+        "Template only: \"UK election called by...?\" \"Will the next UK election be called by June 30, 2026?\" credible reporting",
+        "Template only: \"Starmer / UK / pedophile / England\" \"Will the next UK election be called by June 30, 2026?\" primary source"
+      ],
+      "source_ingest_artifacts": {
+        "normalized_market_preview": "pm_bot/ingest/normalized_market_preview.v1.json",
+        "normalized_source_snapshot_artifact_id": "polymarket_gamma_events_20260427T231234Z_c6373d103a2e",
+        "normalized_source_snapshot_path": "pm_bot/ingest/raw_snapshots/polymarket_gamma_events_20260427T231234Z_c6373d103a2e.json",
+        "operator_candidate_selection_index": "pm_bot/ingest/operator_candidate_selection_index.v1.json",
+        "operator_candidate_selection_overlay": "pm_bot/ingest/operator_candidate_selection_overlay_selected_first5.v1.json"
+      },
+      "source_plan": "Template only: review the local market rules for 'Will the next UK election be called by June 30, 2026?', then manually check official primary sources and credible news coverage. This stub does not fetch or verify sources.",
+      "title": "Will the next UK election be called by June 30, 2026?",
+      "volume": 19020.393714000005,
+      "why_not_bet_yet": "Stub only: no source evidence has been gathered, evidence slots are empty, and manual review has not happened.",
+      "why_selected_for_research": "Selected by validated operator overlay for deterministic first-five research-stub bridge testing; operator_priority=medium; operator_notes=Selected only to test the live-captured market research-stub bridge.",
+      "official_sources_checked": [],
+      "credible_news_sources_checked": [],
+      "operator_notes": ""
+    }
+  ],
+  "merged_packets_validation_passed": true,
+  "merged_packet_validation_errors_by_market_id": {},
+  "limitations": [
+    "Reads only local selected-ingest research stubs and manual overlay JSON.",
+    "Copies only operator-provided evidence structures into selected packet stubs.",
+    "Rejected overlays are reported and are not applied.",
+    "Does not fetch sources, infer truth, score markets, recommend actions, create dossiers, create paper orders, or wire runtime automation."
+  ]
+}

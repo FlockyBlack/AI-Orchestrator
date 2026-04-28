@@ -1,0 +1,65 @@
+{
+  "task_id": "ORCH-AUTOPILOT-008-MISROUTE-GUARDRAIL-IMPLEMENTATION",
+  "status": "implementation_complete_ready_for_flocky_validation",
+  "summary": "Implemented an isolated deterministic prompt-routing guardrail under codex_auto/autopilot with receiver-aware classification, prompt header parsing, misroute detection for Flocky-versus-Codex prompts, context-aware unsafe signal handling, routing decision schema, fixtures, tests, and documentation. No runtime wiring, Flocky tool integration, dispatcher/run_codex integration, queue mutation, or prompt execution was performed.",
+  "files_created": [
+    "codex_auto/autopilot/classify_prompt_route.py",
+    "codex_auto/autopilot/autopilot_prompt_route_decision.schema.v1.json",
+    "codex_auto/autopilot/fixtures/prompt_codex_code_changing_task.txt",
+    "codex_auto/autopilot/fixtures/prompt_codex_repair_task.txt",
+    "codex_auto/autopilot/fixtures/prompt_flocky_validation_task.txt",
+    "codex_auto/autopilot/fixtures/prompt_flocky_governance_task.txt",
+    "codex_auto/autopilot/fixtures/prompt_chatgpt_planning_task.txt",
+    "codex_auto/autopilot/fixtures/prompt_ambiguous_mixed_owner_task.txt",
+    "codex_auto/autopilot/fixtures/prompt_unsafe_sessions_spawn_task.txt",
+    "codex_auto/autopilot/fixtures/prompt_missing_header_with_codex_signals.txt",
+    "codex_auto/autopilot/fixtures/expected_route_codex_received_by_flocky.v1.json",
+    "codex_auto/autopilot/fixtures/expected_route_flocky_validation_received_by_flocky.v1.json",
+    "codex_auto/autopilot/fixtures/expected_route_ambiguous_mixed_owner.v1.json",
+    "codex_auto/autopilot/fixtures/expected_route_unsafe_sessions_spawn.v1.json",
+    "codex_auto/autopilot/tests/test_classify_prompt_route.py",
+    "docs/AUTOPILOT_V1_PROMPT_ROUTING_GUARDRAIL.md",
+    "docs/AUTOPILOT_V1_PROMPT_HEADER_CONTRACT.md",
+    "docs/ORCH_AUTOPILOT_008_RESULT.json"
+  ],
+  "files_modified": [],
+  "tests_run": [
+    "python -m pytest -q codex_auto/autopilot/tests: passed (46 passed, 33 subtests passed)",
+    "python codex_auto/autopilot/classify_prompt_route.py --receiver Flocky --prompt-path codex_auto/autopilot/fixtures/prompt_codex_code_changing_task.txt: passed (required_behavior=MISROUTED_CODEX_PROMPT_DETECTED)",
+    "python codex_auto/autopilot/classify_prompt_route.py --receiver Flocky --prompt-path codex_auto/autopilot/fixtures/prompt_flocky_validation_task.txt: passed (required_behavior=PROCEED_READ_ONLY_VALIDATION)",
+    "python -m pytest -q codex_auto: failed with unrelated existing failures in codex_auto/external_cli/one_shot/tests/test_validate_one_shot_execution_gate.py (2 failed, 220 passed, 51 subtests passed)"
+  ],
+  "safety": {
+    "runtime_wiring": false,
+    "dispatcher_changed": false,
+    "run_codex_changed": false,
+    "active_task_mutation": false,
+    "state_result_freeze_checkpoint_mutation": false,
+    "codex_auto_queue_mutation": false,
+    "governance_mutation": false,
+    "flocky_tool_integration": false,
+    "sessions_spawn": false,
+    "external_codex_execution": false,
+    "generated_prompt_execution": false,
+    "network_api": false,
+    "credentials": false,
+    "wallet_private_key": false,
+    "orders_trading": false,
+    "final_acceptance_claimed": false,
+    "execution_approval_claimed": false,
+    "single_runtime_source_rule_preserved": true
+  },
+  "prompt_routing_guardrail": {
+    "created": true,
+    "classifier_created": true,
+    "schema_created": true,
+    "follows_orch_007_design": true,
+    "flocky_codex_misroute_detected": true,
+    "sessions_spawn_allowed_for_flocky": false,
+    "code_changes_allowed_for_flocky": false
+  },
+  "blocking_findings": [],
+  "warnings": [
+    "Broader codex_auto pytest run still has the known pre-existing external_cli/one_shot failures expecting --full-auto in PMBOT-BATCH-001.final_command_preview.txt and a passing one-shot gate validation; these were intentionally not repaired in this task."
+  ]
+}

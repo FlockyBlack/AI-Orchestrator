@@ -1,0 +1,185 @@
+{
+  "task_id": "PMBOT-RESEARCH-005-LOWER-RISK-SHORTLIST-TIERING",
+  "status": "passed",
+  "summary": "Refined the offline market research candidate queue with explicit research_tier, risk_tier, uncertainty reason codes, and stricter lower-risk shortlist eligibility. The broad queue remains at 148 ranked candidates, while GTA VI meta-event, war/invasion/ceasefire, geopolitical tail-risk, and primary uncertainty markets no longer dominate the default lower-risk operator shortlist.",
+  "files_created": [
+    "docs\\PMBOT_RESEARCH_005_RESULT.json",
+    "docs\\PM_BOT_STAGE_SUMMARY_V55.md"
+  ],
+  "files_modified": [
+    "pm_bot\\research\\run_market_research_candidate_queue.py",
+    "pm_bot\\research\\expected_market_research_candidate_queue.v1.json",
+    "pm_bot\\research\\expected_market_research_candidate_queue.v1.md",
+    "pm_bot\\research\\tests\\test_run_market_research_candidate_queue.py"
+  ],
+  "tests": [
+    {
+      "command": "python -m pytest pm_bot\\scoring\\tests pm_bot\\paper\\tests pm_bot\\research\\tests -q",
+      "status": "passed",
+      "summary": "318 passed, 3 subtests passed"
+    },
+    {
+      "command": "python pm_bot\\research\\run_market_research_candidate_queue.py",
+      "status": "passed",
+      "summary": "markets_seen=500; candidates_ranked=148; lower_risk_operator_shortlist_count=10; researchable_high_uncertainty_count=106"
+    },
+    {
+      "command": "python pm_bot\\research\\run_market_research_candidate_queue.py --markdown",
+      "status": "passed"
+    },
+    {
+      "command": "python pm_bot\\research\\run_market_research_candidate_queue.py --top-n 20",
+      "status": "passed"
+    },
+    {
+      "command": "python pm_bot\\research\\run_market_research_candidate_queue.py --shortlist-n 5",
+      "status": "passed",
+      "summary": "lower_risk_operator_shortlist_count=5"
+    },
+    {
+      "command": "python pm_bot\\research\\run_single_market_research_dossier.py",
+      "status": "passed",
+      "summary": "decision=paper_candidate; paper_orders_created=0"
+    },
+    {
+      "command": "python pm_bot\\research\\run_research_dossier_scenarios.py",
+      "status": "passed",
+      "summary": "all_expected_decisions_passed=true; paper_orders_created=0"
+    },
+    {
+      "command": "python pm_bot\\paper\\run_manual_paper_operator_cycle.py",
+      "status": "passed",
+      "summary": "new_paper_orders_created=0; run_artifacts_written=false; state_committed=false"
+    },
+    {
+      "command": "python pm_bot\\paper\\run_crypto_numeric_lifecycle_regression_gates.py",
+      "status": "passed",
+      "summary": "status=passed; gates_passed=6"
+    }
+  ],
+  "tiering_summary": {
+    "markets_seen": 500,
+    "candidates_ranked": 148,
+    "lower_risk_operator_shortlist_count": 10,
+    "researchable_high_uncertainty_count": 106,
+    "watch_only_count": 32,
+    "rejected_count": 352,
+    "lower_risk_shortlist_examples": [
+      {
+        "shortlist_rank": 1,
+        "market_id": "569368",
+        "title": "Will Ivan Cepeda Castro win the 2026 Colombian presidential election?",
+        "risk_tier": "low",
+        "shortlist_score": 0.9372
+      },
+      {
+        "shortlist_rank": 2,
+        "market_id": "569366",
+        "title": "Will Abelardo de la Espriella  win the 2026 Colombian presidential election?",
+        "risk_tier": "low",
+        "shortlist_score": 0.9122
+      },
+      {
+        "shortlist_rank": 3,
+        "market_id": "569343",
+        "title": "Will Ivan Cepeda Castro win the 1st round of the 2026 Colombian presidential election?",
+        "risk_tier": "low",
+        "shortlist_score": 0.9022
+      },
+      {
+        "shortlist_rank": 4,
+        "market_id": "563650",
+        "title": "SCOTUS accepts sports event contract case by July 31, 2026?",
+        "risk_tier": "low",
+        "shortlist_score": 0.8322
+      },
+      {
+        "shortlist_rank": 5,
+        "market_id": "569373",
+        "title": "Will Paloma Valencia win the 2026 Colombian presidential election?",
+        "risk_tier": "medium",
+        "shortlist_score": 0.8002
+      }
+    ],
+    "high_uncertainty_examples": [
+      {
+        "rank": 3,
+        "market_id": "540844",
+        "title": "Will bitcoin hit $1m before GTA VI?",
+        "risk_tier": "high",
+        "uncertainty_reason_codes": [
+          "before_gta_vi_meta_event",
+          "event_dependent_resolution"
+        ]
+      },
+      {
+        "rank": 4,
+        "market_id": "540816",
+        "title": "Russia-Ukraine Ceasefire before GTA VI?",
+        "risk_tier": "extreme",
+        "uncertainty_reason_codes": [
+          "before_gta_vi_meta_event",
+          "event_dependent_resolution",
+          "geopolitical_tail_risk",
+          "war_invasion_or_ceasefire_tail_risk"
+        ]
+      },
+      {
+        "rank": 5,
+        "market_id": "540843",
+        "title": "Will China invades Taiwan before GTA VI?",
+        "risk_tier": "extreme",
+        "uncertainty_reason_codes": [
+          "before_gta_vi_meta_event",
+          "event_dependent_resolution",
+          "geopolitical_tail_risk",
+          "war_invasion_or_ceasefire_tail_risk"
+        ]
+      },
+      {
+        "rank": 6,
+        "market_id": "540820",
+        "title": "Trump out as President before GTA VI?",
+        "risk_tier": "high",
+        "uncertainty_reason_codes": [
+          "before_gta_vi_meta_event",
+          "event_dependent_resolution"
+        ]
+      },
+      {
+        "rank": 9,
+        "market_id": "567688",
+        "title": "Netanyahu out by end of 2026?",
+        "risk_tier": "high",
+        "uncertainty_reason_codes": [
+          "geopolitical_tail_risk",
+          "event_dependent_resolution"
+        ]
+      }
+    ],
+    "reason_code_counts": {
+      "before_gta_vi_meta_event": 9,
+      "election_candidate_field_uncertainty": 166,
+      "event_dependent_resolution": 32,
+      "geopolitical_tail_risk": 9,
+      "long_horizon_election_or_primary": 125,
+      "primary_market_uncertainty": 5,
+      "research_queue_candidate": 148,
+      "research_rejected": 352,
+      "war_invasion_or_ceasefire_tail_risk": 4
+    }
+  },
+  "safety": {
+    "offline_only": true,
+    "paper_only": true,
+    "live_fetcher_implemented": false,
+    "api_used": false,
+    "network_used": false,
+    "wallet_used": false,
+    "real_order_created": false,
+    "trading_allowed": false,
+    "runtime_wiring_changed": false,
+    "dispatcher_touched": false,
+    "prompt_automation_added": false
+  }
+}

@@ -1,0 +1,144 @@
+{
+  "schema_version": "v3",
+  "scenario_suite_id": "PMBOT-BATCH-003-SCENARIOS",
+  "source_type": "fixture",
+  "fixture_bundle_ref": "pm_bot/fixtures/multi_market_fixture_bundle.v1.json",
+  "research_only": true,
+  "paper_only": true,
+  "execution_allowed": false,
+  "trading_allowed": false,
+  "live_data_allowed": false,
+  "wallet_required": false,
+  "credential_material_required": false,
+  "scenarios": [
+    {
+      "scenario_id": "baseline_multi_market_paper_scan",
+      "focus_market_ids": [],
+      "expected_status": "pass",
+      "expected_flags": [
+        "multi_market_fixture_loaded"
+      ],
+      "description": "Confirms the synthetic fixture bundle loads and the V3 scan remains local-only."
+    },
+    {
+      "scenario_id": "positive_paper_edge_candidate",
+      "focus_market_ids": [
+        "pm_fixture_2026_us_growth_soft_landing"
+      ],
+      "expected_status": "pass",
+      "expected_flags": [
+        "accepted_candidate"
+      ],
+      "description": "Baseline liquid market should remain an accepted paper candidate."
+    },
+    {
+      "scenario_id": "negative_paper_edge_rejection",
+      "focus_market_ids": [
+        "pm_fixture_2026_cabinet_exit"
+      ],
+      "expected_status": "pass",
+      "expected_flags": [
+        "negative_edge"
+      ],
+      "description": "Negative expected edge must force rejection."
+    },
+    {
+      "scenario_id": "low_liquidity_rejection",
+      "focus_market_ids": [
+        "pm_fixture_2026_championship_upset"
+      ],
+      "expected_status": "pass",
+      "expected_flags": [
+        "low_liquidity"
+      ],
+      "description": "Low-liquidity fixture must stay rejected."
+    },
+    {
+      "scenario_id": "stale_fixture_warning",
+      "focus_market_ids": [
+        "pm_fixture_2026_ai_regulation_vote"
+      ],
+      "expected_status": "pass",
+      "expected_flags": [
+        "stale_data"
+      ],
+      "description": "Stale fixture data must generate a warning and block acceptance."
+    },
+    {
+      "scenario_id": "resolved_closed_market_exclusion",
+      "focus_market_ids": [
+        "pm_fixture_2026_hurricane_season_closed"
+      ],
+      "expected_status": "pass",
+      "expected_flags": [
+        "resolved_or_closed_market"
+      ],
+      "description": "Resolved markets must be excluded from paper positioning."
+    },
+    {
+      "scenario_id": "category_concentration_warning",
+      "focus_market_ids": [
+        "pm_fixture_2026_us_growth_soft_landing",
+        "pm_fixture_2026_rate_cut_december",
+        "pm_fixture_2026_cpi_below_target"
+      ],
+      "expected_status": "pass",
+      "expected_flags": [
+        "category_concentration:macro"
+      ],
+      "description": "Macro exposure must trigger a category concentration warning."
+    },
+    {
+      "scenario_id": "portfolio_exposure_cap_warning",
+      "focus_market_ids": [],
+      "expected_status": "pass",
+      "expected_flags": [
+        "portfolio_exposure_cap"
+      ],
+      "description": "Total paper allocation should exceed the configured portfolio ratio cap."
+    },
+    {
+      "scenario_id": "missing_optional_research_notes_warning",
+      "focus_market_ids": [
+        "pm_fixture_2026_ceasefire_window"
+      ],
+      "expected_status": "pass",
+      "expected_flags": [
+        "missing_research_notes"
+      ],
+      "description": "Missing optional research notes should warn without breaking paper-only behavior."
+    },
+    {
+      "scenario_id": "wide_spread_caution",
+      "focus_market_ids": [
+        "pm_fixture_2026_cabinet_exit"
+      ],
+      "expected_status": "pass",
+      "expected_flags": [
+        "wide_spread"
+      ],
+      "description": "Wide spread assumptions should remain a caution and rejection signal."
+    },
+    {
+      "scenario_id": "correlated_market_caution",
+      "focus_market_ids": [
+        "pm_fixture_2026_rate_cut_december",
+        "pm_fixture_2026_cpi_below_target"
+      ],
+      "expected_status": "pass",
+      "expected_flags": [
+        "correlated_group:us-macro-2026"
+      ],
+      "description": "Correlated macro fixtures should trigger deterministic caution."
+    },
+    {
+      "scenario_id": "paper_only_no_action_confirmation",
+      "focus_market_ids": [],
+      "expected_status": "pass",
+      "expected_flags": [
+        "paper_only_no_action"
+      ],
+      "description": "The suite must confirm no live action, no orders, and no runtime wiring."
+    }
+  ]
+}

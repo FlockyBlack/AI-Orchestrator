@@ -1,0 +1,60 @@
+{
+  "task_id": "PMBOT-BRAIN-026-MANUAL-WORKSPACE-IDEMPOTENCY-HYGIENE",
+  "status": "passed",
+  "summary": "Manual paper workspace fixture hygiene restored after BRAIN-025: the canonical fixture is baseline-only, generated run artifacts were removed from source state, and write/commit behavior is tested through temporary workspace copies.",
+  "files_created": [
+    "docs/PM_BOT_BRAIN_026_RESULT.json",
+    "docs/PM_BOT_STAGE_SUMMARY_V38.md"
+  ],
+  "files_modified": [
+    "pm_bot/paper/run_manual_paper_workspace.py",
+    "pm_bot/paper/manual_paper_workspace/state/current_state.json",
+    "pm_bot/paper/tests/test_run_manual_paper_workspace.py"
+  ],
+  "files_removed": [
+    "pm_bot/paper/manual_paper_workspace/state/current_state.previous.json",
+    "pm_bot/paper/manual_paper_workspace/runs/fixture-run-001/run_ledger.json",
+    "pm_bot/paper/manual_paper_workspace/runs/fixture-run-001/run_summary.md",
+    "pm_bot/paper/manual_paper_workspace/runs/fixture-run-001/state_after.json",
+    "pm_bot/paper/manual_paper_workspace/runs/fixture-run-001/state_before.json",
+    "pm_bot/paper/manual_paper_workspace/runs/fixture-run-002/run_ledger.json",
+    "pm_bot/paper/manual_paper_workspace/runs/fixture-run-002/run_summary.md",
+    "pm_bot/paper/manual_paper_workspace/runs/fixture-run-002/state_after.json",
+    "pm_bot/paper/manual_paper_workspace/runs/fixture-run-002/state_before.json"
+  ],
+  "tests": [
+    "python -m pytest pm_bot\\paper\\tests\\test_run_manual_paper_workspace.py -q",
+    "python -m pytest pm_bot\\scoring\\tests pm_bot\\paper\\tests -q",
+    "python pm_bot\\paper\\run_manual_paper_workspace.py",
+    "python pm_bot\\paper\\run_manual_paper_workspace.py --markdown",
+    "python pm_bot\\paper\\run_manual_paper_inbox_bundle.py",
+    "python pm_bot\\paper\\run_local_snapshot_inbox_paper_portfolio.py",
+    "python pm_bot\\paper\\run_local_snapshot_series_risk_scenarios.py",
+    "python pm_bot\\paper\\run_crypto_numeric_lifecycle_regression_gates.py"
+  ],
+  "hygiene_summary": {
+    "canonical_fixture_mutation_removed": "current_state.json is restored to baseline input state; generated run files and current_state.previous.json were removed from the canonical fixture.",
+    "write_run_temp_workspace_tested": "--write-run writes expected artifacts only under a copied temporary workspace.",
+    "commit_state_temp_workspace_tested": "--commit-state updates current_state.json and writes current_state.previous.json only under a copied temporary workspace.",
+    "collision_behavior_tested": "Existing run_id collision returns code 2 with a clean FileExistsError-derived message.",
+    "default_read_only_preserved": "Default JSON and --markdown commands write no run folder and do not mutate the canonical fixture file tree."
+  },
+  "safety": {
+    "offline_only": true,
+    "paper_only": true,
+    "live_fetcher_implemented": false,
+    "api_used": false,
+    "network_used": false,
+    "wallet_used": false,
+    "real_order_created": false,
+    "trading_allowed": false,
+    "runtime_wiring_changed": false,
+    "dispatcher_touched": false,
+    "prompt_automation_added": false
+  },
+  "notes": [
+    "No production dependencies were added.",
+    "No dispatcher, runtime wiring, prompt automation, live fetcher, network/API, credential, wallet, real order, or live trading behavior was added.",
+    "The existing --allow-identical-rerun flag was preserved and fixed so identical reruns succeed only when staged artifacts match after deterministic output-path normalization."
+  ]
+}

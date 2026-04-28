@@ -1,0 +1,24 @@
+{
+  "schema_version": "v1",
+  "demo_id": "PMBOT-BATCH-006-OPERATOR-REVIEW-DEMO",
+  "fixture_only": true,
+  "paper_only": true,
+  "local_only": true,
+  "deterministic": true,
+  "operator_review_only": true,
+  "operator_bundle_summary": {
+    "accepted_paper_candidates": 4,
+    "rejected_candidates": 5,
+    "watchlist_candidates": 5
+  },
+  "export_package_summary": {
+    "demo_readiness_headline": "Operator review bundle is ready for deterministic human inspection with 4 paper candidates, 5 watchlist cases, audit status Static safety audit v5 passed with 0 blocking findings and expanded operator/export coverage., and no executable path.",
+    "contains_checklist": true
+  },
+  "checklist_summary": {
+    "required_steps": 12,
+    "pending_steps": 12
+  },
+  "watchlist_no_action_statement": "Watchlist status is review-only and no-action. It cannot become an accepted, live, order, trade, or execution candidate without separate future approval.",
+  "audit_status_headline": "Static safety audit v5 passed with 0 blocking findings and expanded operator/export coverage."
+}

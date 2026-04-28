@@ -1,0 +1,454 @@
+{
+  "schema_version": "v1",
+  "artifact_id": "PMBOT-BATCH-004-RESEARCH-QUALITY-CASES",
+  "fixture_only": true,
+  "paper_only": true,
+  "local_only": true,
+  "deterministic": true,
+  "cases": [
+    {
+      "case_id": "rq_case_strong_accept",
+      "market_id": "pm_fixture_2026_us_growth_soft_landing",
+      "category": "macro",
+      "candidate_type": "strong_paper_candidate",
+      "signal_inputs": {
+        "expected_edge_bps": 420,
+        "supporting_signal_count": 3,
+        "contradiction_level": 10,
+        "thesis_clarity": 92,
+        "scenario_consistency": 90,
+        "conflict_flag": false,
+        "paper_only_no_action": false
+      },
+      "risk_inputs": {
+        "liquidity_usd_24h": 240000.0,
+        "spread_bps": 30,
+        "correlated_exposure_level": "medium",
+        "concentration_level": "medium",
+        "risk_level": "medium",
+        "resolved_or_closed": false
+      },
+      "data_quality_inputs": {
+        "stale_hours": 2,
+        "research_note_present": true,
+        "paper_notes_present": true,
+        "notes_quality": "strong",
+        "missing_fields_count": 0
+      },
+      "expected_decision": "accept",
+      "expected_confidence_band": "high",
+      "expected_rejection_or_warning_reasons": [],
+      "fixture_only": true,
+      "paper_only": true
+    },
+    {
+      "case_id": "rq_case_weak_edge_reject",
+      "market_id": "pm_fixture_2026_cabinet_exit",
+      "category": "politics",
+      "candidate_type": "weak_paper_candidate",
+      "signal_inputs": {
+        "expected_edge_bps": -120,
+        "supporting_signal_count": 1,
+        "contradiction_level": 25,
+        "thesis_clarity": 48,
+        "scenario_consistency": 45,
+        "conflict_flag": false,
+        "paper_only_no_action": false
+      },
+      "risk_inputs": {
+        "liquidity_usd_24h": 92000.0,
+        "spread_bps": 120,
+        "correlated_exposure_level": "low",
+        "concentration_level": "low",
+        "risk_level": "medium",
+        "resolved_or_closed": false
+      },
+      "data_quality_inputs": {
+        "stale_hours": 4,
+        "research_note_present": true,
+        "paper_notes_present": true,
+        "notes_quality": "partial",
+        "missing_fields_count": 0
+      },
+      "expected_decision": "reject",
+      "expected_confidence_band": "reject",
+      "expected_rejection_or_warning_reasons": [
+        "insufficient_edge"
+      ],
+      "fixture_only": true,
+      "paper_only": true
+    },
+    {
+      "case_id": "rq_case_low_liquidity_reject",
+      "market_id": "pm_fixture_2026_championship_upset",
+      "category": "sports",
+      "candidate_type": "weak_paper_candidate",
+      "signal_inputs": {
+        "expected_edge_bps": 180,
+        "supporting_signal_count": 2,
+        "contradiction_level": 20,
+        "thesis_clarity": 70,
+        "scenario_consistency": 68,
+        "conflict_flag": false,
+        "paper_only_no_action": false
+      },
+      "risk_inputs": {
+        "liquidity_usd_24h": 14000.0,
+        "spread_bps": 90,
+        "correlated_exposure_level": "low",
+        "concentration_level": "low",
+        "risk_level": "medium",
+        "resolved_or_closed": false
+      },
+      "data_quality_inputs": {
+        "stale_hours": 3,
+        "research_note_present": true,
+        "paper_notes_present": true,
+        "notes_quality": "partial",
+        "missing_fields_count": 0
+      },
+      "expected_decision": "reject",
+      "expected_confidence_band": "reject",
+      "expected_rejection_or_warning_reasons": [
+        "low_liquidity"
+      ],
+      "fixture_only": true,
+      "paper_only": true
+    },
+    {
+      "case_id": "rq_case_wide_spread_caution",
+      "market_id": "pm_fixture_2026_cabinet_exit",
+      "category": "politics",
+      "candidate_type": "spread_caution_candidate",
+      "signal_inputs": {
+        "expected_edge_bps": 130,
+        "supporting_signal_count": 2,
+        "contradiction_level": 30,
+        "thesis_clarity": 62,
+        "scenario_consistency": 60,
+        "conflict_flag": false,
+        "paper_only_no_action": false
+      },
+      "risk_inputs": {
+        "liquidity_usd_24h": 92000.0,
+        "spread_bps": 210,
+        "correlated_exposure_level": "low",
+        "concentration_level": "low",
+        "risk_level": "medium",
+        "resolved_or_closed": false
+      },
+      "data_quality_inputs": {
+        "stale_hours": 4,
+        "research_note_present": true,
+        "paper_notes_present": true,
+        "notes_quality": "partial",
+        "missing_fields_count": 0
+      },
+      "expected_decision": "reject",
+      "expected_confidence_band": "reject",
+      "expected_rejection_or_warning_reasons": [
+        "wide_spread"
+      ],
+      "fixture_only": true,
+      "paper_only": true
+    },
+    {
+      "case_id": "rq_case_stale_data_warning",
+      "market_id": "pm_fixture_2026_ai_regulation_vote",
+      "category": "technology",
+      "candidate_type": "stale_data_candidate",
+      "signal_inputs": {
+        "expected_edge_bps": 250,
+        "supporting_signal_count": 2,
+        "contradiction_level": 15,
+        "thesis_clarity": 74,
+        "scenario_consistency": 70,
+        "conflict_flag": false,
+        "paper_only_no_action": false
+      },
+      "risk_inputs": {
+        "liquidity_usd_24h": 114000.0,
+        "spread_bps": 60,
+        "correlated_exposure_level": "medium",
+        "concentration_level": "low",
+        "risk_level": "medium",
+        "resolved_or_closed": false
+      },
+      "data_quality_inputs": {
+        "stale_hours": 79,
+        "research_note_present": true,
+        "paper_notes_present": true,
+        "notes_quality": "partial",
+        "missing_fields_count": 0
+      },
+      "expected_decision": "reject",
+      "expected_confidence_band": "reject",
+      "expected_rejection_or_warning_reasons": [
+        "stale_data"
+      ],
+      "fixture_only": true,
+      "paper_only": true
+    },
+    {
+      "case_id": "rq_case_resolved_market_exclusion",
+      "market_id": "pm_fixture_2026_hurricane_season_closed",
+      "category": "climate",
+      "candidate_type": "resolved_market_case",
+      "signal_inputs": {
+        "expected_edge_bps": 0,
+        "supporting_signal_count": 0,
+        "contradiction_level": 0,
+        "thesis_clarity": 10,
+        "scenario_consistency": 20,
+        "conflict_flag": false,
+        "paper_only_no_action": false
+      },
+      "risk_inputs": {
+        "liquidity_usd_24h": 0.0,
+        "spread_bps": 0,
+        "correlated_exposure_level": "low",
+        "concentration_level": "low",
+        "risk_level": "low",
+        "resolved_or_closed": true
+      },
+      "data_quality_inputs": {
+        "stale_hours": 1320,
+        "research_note_present": false,
+        "paper_notes_present": true,
+        "notes_quality": "missing",
+        "missing_fields_count": 1
+      },
+      "expected_decision": "exclude",
+      "expected_confidence_band": "reject",
+      "expected_rejection_or_warning_reasons": [
+        "resolved_or_closed_market"
+      ],
+      "fixture_only": true,
+      "paper_only": true
+    },
+    {
+      "case_id": "rq_case_correlated_watchlist",
+      "market_id": "pm_fixture_2026_cpi_below_target",
+      "category": "macro",
+      "candidate_type": "correlated_exposure_candidate",
+      "signal_inputs": {
+        "expected_edge_bps": 260,
+        "supporting_signal_count": 2,
+        "contradiction_level": 18,
+        "thesis_clarity": 78,
+        "scenario_consistency": 74,
+        "conflict_flag": false,
+        "paper_only_no_action": false
+      },
+      "risk_inputs": {
+        "liquidity_usd_24h": 149000.0,
+        "spread_bps": 50,
+        "correlated_exposure_level": "high",
+        "concentration_level": "medium",
+        "risk_level": "medium",
+        "resolved_or_closed": false
+      },
+      "data_quality_inputs": {
+        "stale_hours": 1,
+        "research_note_present": true,
+        "paper_notes_present": true,
+        "notes_quality": "strong",
+        "missing_fields_count": 0
+      },
+      "expected_decision": "watchlist",
+      "expected_confidence_band": "medium",
+      "expected_rejection_or_warning_reasons": [
+        "correlated_exposure"
+      ],
+      "fixture_only": true,
+      "paper_only": true
+    },
+    {
+      "case_id": "rq_case_missing_note_watchlist",
+      "market_id": "pm_fixture_2026_ceasefire_window",
+      "category": "geopolitics",
+      "candidate_type": "missing_note_candidate",
+      "signal_inputs": {
+        "expected_edge_bps": 310,
+        "supporting_signal_count": 2,
+        "contradiction_level": 20,
+        "thesis_clarity": 72,
+        "scenario_consistency": 72,
+        "conflict_flag": false,
+        "paper_only_no_action": false
+      },
+      "risk_inputs": {
+        "liquidity_usd_24h": 67000.0,
+        "spread_bps": 80,
+        "correlated_exposure_level": "medium",
+        "concentration_level": "medium",
+        "risk_level": "medium",
+        "resolved_or_closed": false
+      },
+      "data_quality_inputs": {
+        "stale_hours": 1,
+        "research_note_present": false,
+        "paper_notes_present": true,
+        "notes_quality": "missing",
+        "missing_fields_count": 1
+      },
+      "expected_decision": "watchlist",
+      "expected_confidence_band": "medium",
+      "expected_rejection_or_warning_reasons": [
+        "missing_research_notes"
+      ],
+      "fixture_only": true,
+      "paper_only": true
+    },
+    {
+      "case_id": "rq_case_conflicting_signals_reject",
+      "market_id": "pm_fixture_2026_ai_regulation_vote",
+      "category": "technology",
+      "candidate_type": "conflicting_signals_candidate",
+      "signal_inputs": {
+        "expected_edge_bps": 220,
+        "supporting_signal_count": 3,
+        "contradiction_level": 85,
+        "thesis_clarity": 58,
+        "scenario_consistency": 40,
+        "conflict_flag": true,
+        "paper_only_no_action": false
+      },
+      "risk_inputs": {
+        "liquidity_usd_24h": 114000.0,
+        "spread_bps": 60,
+        "correlated_exposure_level": "medium",
+        "concentration_level": "low",
+        "risk_level": "medium",
+        "resolved_or_closed": false
+      },
+      "data_quality_inputs": {
+        "stale_hours": 12,
+        "research_note_present": true,
+        "paper_notes_present": true,
+        "notes_quality": "partial",
+        "missing_fields_count": 0
+      },
+      "expected_decision": "reject",
+      "expected_confidence_band": "reject",
+      "expected_rejection_or_warning_reasons": [
+        "conflicting_signals"
+      ],
+      "fixture_only": true,
+      "paper_only": true
+    },
+    {
+      "case_id": "rq_case_high_confidence_high_risk",
+      "market_id": "pm_fixture_2026_rate_cut_december",
+      "category": "macro",
+      "candidate_type": "high_confidence_high_risk_candidate",
+      "signal_inputs": {
+        "expected_edge_bps": 290,
+        "supporting_signal_count": 3,
+        "contradiction_level": 12,
+        "thesis_clarity": 86,
+        "scenario_consistency": 84,
+        "conflict_flag": false,
+        "paper_only_no_action": false
+      },
+      "risk_inputs": {
+        "liquidity_usd_24h": 171000.0,
+        "spread_bps": 40,
+        "correlated_exposure_level": "high",
+        "concentration_level": "high",
+        "risk_level": "high",
+        "resolved_or_closed": false
+      },
+      "data_quality_inputs": {
+        "stale_hours": 2,
+        "research_note_present": true,
+        "paper_notes_present": true,
+        "notes_quality": "strong",
+        "missing_fields_count": 0
+      },
+      "expected_decision": "watchlist",
+      "expected_confidence_band": "medium",
+      "expected_rejection_or_warning_reasons": [
+        "correlated_exposure",
+        "concentration_risk",
+        "high_risk_profile"
+      ],
+      "fixture_only": true,
+      "paper_only": true
+    },
+    {
+      "case_id": "rq_case_low_confidence_watchlist",
+      "market_id": "pm_fixture_2026_ceasefire_window",
+      "category": "geopolitics",
+      "candidate_type": "low_confidence_watchlist_candidate",
+      "signal_inputs": {
+        "expected_edge_bps": 110,
+        "supporting_signal_count": 1,
+        "contradiction_level": 22,
+        "thesis_clarity": 58,
+        "scenario_consistency": 52,
+        "conflict_flag": false,
+        "paper_only_no_action": false
+      },
+      "risk_inputs": {
+        "liquidity_usd_24h": 67000.0,
+        "spread_bps": 80,
+        "correlated_exposure_level": "medium",
+        "concentration_level": "low",
+        "risk_level": "medium",
+        "resolved_or_closed": false
+      },
+      "data_quality_inputs": {
+        "stale_hours": 1,
+        "research_note_present": true,
+        "paper_notes_present": true,
+        "notes_quality": "partial",
+        "missing_fields_count": 0
+      },
+      "expected_decision": "watchlist",
+      "expected_confidence_band": "low",
+      "expected_rejection_or_warning_reasons": [
+        "limited_supporting_signals"
+      ],
+      "fixture_only": true,
+      "paper_only": true
+    },
+    {
+      "case_id": "rq_case_paper_only_no_action",
+      "market_id": "pm_fixture_2026_ceasefire_window",
+      "category": "geopolitics",
+      "candidate_type": "paper_only_no_action_case",
+      "signal_inputs": {
+        "expected_edge_bps": 90,
+        "supporting_signal_count": 1,
+        "contradiction_level": 18,
+        "thesis_clarity": 55,
+        "scenario_consistency": 50,
+        "conflict_flag": false,
+        "paper_only_no_action": true
+      },
+      "risk_inputs": {
+        "liquidity_usd_24h": 67000.0,
+        "spread_bps": 80,
+        "correlated_exposure_level": "medium",
+        "concentration_level": "low",
+        "risk_level": "medium",
+        "resolved_or_closed": false
+      },
+      "data_quality_inputs": {
+        "stale_hours": 1,
+        "research_note_present": true,
+        "paper_notes_present": true,
+        "notes_quality": "partial",
+        "missing_fields_count": 0
+      },
+      "expected_decision": "no_action",
+      "expected_confidence_band": "low",
+      "expected_rejection_or_warning_reasons": [
+        "paper_only_no_action"
+      ],
+      "fixture_only": true,
+      "paper_only": true
+    }
+  ]
+}

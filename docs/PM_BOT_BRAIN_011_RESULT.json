@@ -1,0 +1,57 @@
+{
+  "task_id": "PMBOT-BRAIN-011-CRYPTO-NUMERIC-PAPER-LIFECYCLE-CHAIN",
+  "status": "completed_ready_for_review",
+  "summary": "Implemented one deterministic fixture-only lifecycle command that runs raw market intake, normalization, scoring, review, paper order planning, paper execution ledger generation, and portfolio/exposure summarization in one offline paper chain.",
+  "pmbot_root_confirmed": true,
+  "lifecycle_readiness": "ready_for_demo_and_review",
+  "command": "python pm_bot\\paper\\run_crypto_numeric_paper_lifecycle.py",
+  "files_created": [
+    "pm_bot/paper/run_crypto_numeric_paper_lifecycle.py",
+    "pm_bot/paper/expected_crypto_numeric_paper_lifecycle.v1.json",
+    "pm_bot/paper/expected_crypto_numeric_paper_lifecycle.v1.md",
+    "pm_bot/paper/tests/test_run_crypto_numeric_paper_lifecycle.py",
+    "docs/PM_BOT_BRAIN_011_RESULT.json",
+    "docs/PM_BOT_STAGE_SUMMARY_V23.md"
+  ],
+  "files_modified": [],
+  "tests_or_checks_run": [
+    "python -m pytest pm_bot\\paper\\tests pm_bot\\scoring\\tests -q",
+    "python pm_bot\\paper\\run_crypto_numeric_paper_lifecycle.py",
+    "python pm_bot\\paper\\run_crypto_numeric_paper_lifecycle.py --markdown"
+  ],
+  "lifecycle_summary": {
+    "raw_markets": 11,
+    "normalized_supported": 4,
+    "rejected_raw_markets": 7,
+    "markets_scored": 4,
+    "paper_candidates": 1,
+    "watchlist": 1,
+    "rejected_after_scoring": 2,
+    "paper_orders_submitted": 1,
+    "paper_orders_filled": 1,
+    "open_positions": 0,
+    "settled_positions": 1,
+    "total_paper_notional": 100.0,
+    "total_max_loss": 100.0,
+    "paper_pnl": 72.41
+  },
+  "limitations": [
+    "Fixture-only lifecycle command; no live markets, prices, APIs, or external metadata are fetched.",
+    "Execution fixture prices are aligned deterministically to raw-intake market IDs for this lifecycle command.",
+    "Paper fills, settlement, exposure, and PnL are offline review calculations only.",
+    "No runtime integration, dispatcher/run_codex, prompt automation, credentials, wallet access, real orders, live trading, unrelated cleanup, or new validation layer was added."
+  ],
+  "recommended_next_task": "PMBOT-BRAIN-012: add offline multi-scenario paper lifecycle replay to compare filled, not-filled, open, and settled position outcomes.",
+  "safety": {
+    "offline_only": true,
+    "paper_only": true,
+    "no_network_api": true,
+    "no_credentials": true,
+    "no_wallet": true,
+    "no_real_orders": true,
+    "no_live_trading": true,
+    "no_runtime_wiring": true,
+    "no_prompt_automation": true,
+    "no_unrelated_cleanup": true
+  }
+}

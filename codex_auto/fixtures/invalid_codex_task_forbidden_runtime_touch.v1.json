@@ -1,0 +1,46 @@
+{
+  "schema_version": "codex_task.v1",
+  "task_id": "AI-ORCH-032-INVALID-RUNTIME",
+  "created_at": "2026-04-25T09:31:00+04:00",
+  "mode": "CODEX_SAFE_IMPLEMENTATION",
+  "executor": "codex",
+  "project_path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator",
+  "prompt": "Update dispatcher and run_codex, rewrite the runtime loop, mutate the active task file, and adjust freeze and checkpoint records.",
+  "allowed_paths": [
+    "scripts/dispatcher.py",
+    "scripts/run_codex.py",
+    "tasks/needs_human/",
+    "state/"
+  ],
+  "forbidden_paths": [
+    "scripts/dispatcher.py",
+    "scripts/run_codex.py",
+    "tasks/",
+    "state/"
+  ],
+  "forbidden_behaviors": [
+    "network usage",
+    "wallet usage"
+  ],
+  "requires_human_approval": true,
+  "approved_for_execution": false,
+  "dry_run_default": true,
+  "expected_result_shape": {
+    "schema_version": "codex_result.v1",
+    "status": "blocked",
+    "execution_mode": "dry_run",
+    "safety_check": [
+      "runtime_changed"
+    ]
+  },
+  "safety_flags_required": [
+    "runtime_changed",
+    "dispatcher_touched",
+    "run_codex_touched",
+    "active_task_files_touched",
+    "freeze_record_modified",
+    "result_records_modified",
+    "checkpoint_records_modified",
+    "single_runtime_source_rule_preserved"
+  ]
+}

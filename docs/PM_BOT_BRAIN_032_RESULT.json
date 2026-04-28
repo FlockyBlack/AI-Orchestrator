@@ -1,0 +1,80 @@
+{
+  "task_id": "PMBOT-BRAIN-032-REAL-GAMMA-CRYPTO-NUMERIC-ADAPTER",
+  "status": "passed",
+  "summary": "Added narrow offline adapter support for unambiguous real Gamma-style Yes/No BTC, Bitcoin, ETH, and Ethereum numeric above/below markets. The minimized Gamma fixture now adapts one Bitcoin-above and one Ethereum-below market into the crypto numeric scorer path while preserving deterministic rejection codes for non-crypto, missing-target, and ambiguous-side cases. The real local snapshot remains at zero supported markets under strict parsing.",
+  "files_created": [
+    "docs/PM_BOT_BRAIN_032_RESULT.json",
+    "docs/PM_BOT_STAGE_SUMMARY_V44.md"
+  ],
+  "files_modified": [
+    "pm_bot/scoring/adapt_live_shaped_crypto_snapshot.py",
+    "pm_bot/scoring/crypto_numeric_market_intake.py",
+    "pm_bot/paper/run_real_market_triage_report.py",
+    "pm_bot/paper/expected_real_market_triage_report.v1.json",
+    "pm_bot/paper/expected_real_market_triage_report.v1.md",
+    "pm_bot/paper/manual_snapshot_import_source/008_polymarket_markets_active_minimized.fixture.json",
+    "pm_bot/paper/tests/test_run_real_market_triage_report.py",
+    "pm_bot/paper/tests/test_run_manual_snapshot_workspace_import.py"
+  ],
+  "tests": [
+    "python -m pytest pm_bot\\paper\\tests\\test_run_real_market_triage_report.py pm_bot\\paper\\tests\\test_run_manual_snapshot_workspace_import.py pm_bot\\scoring\\tests\\test_adapt_live_shaped_crypto_snapshot.py -q",
+    "python -m pytest pm_bot\\scoring\\tests pm_bot\\paper\\tests -q",
+    "python pm_bot\\paper\\run_real_market_triage_report.py",
+    "python pm_bot\\paper\\run_real_market_triage_report.py --markdown",
+    "python pm_bot\\paper\\run_real_market_triage_report.py --source C:\\Users\\OpenC\\Documents\\AI-Orchestrator\\local_snapshots\\polymarket_markets_active_001.json --markdown",
+    "python pm_bot\\paper\\run_manual_snapshot_workspace_import.py --source C:\\Users\\OpenC\\Documents\\AI-Orchestrator\\local_snapshots\\polymarket_markets_active_001.json --markdown",
+    "python pm_bot\\paper\\run_manual_paper_operator_cycle.py",
+    "python pm_bot\\paper\\run_crypto_numeric_lifecycle_regression_gates.py"
+  ],
+  "adapter_summary": {
+    "real_local_snapshot_checked": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator\\local_snapshots\\polymarket_markets_active_001.json",
+    "markets_seen": "100",
+    "previous_crypto_numeric_actionable": "0",
+    "new_crypto_numeric_adapted": "0",
+    "new_crypto_numeric_actionable": "0",
+    "rejection_reason_counts": {
+      "ambiguous_side": 1,
+      "unsupported_asset": 99
+    },
+    "supported_candidate_examples": [],
+    "still_rejected_candidate_examples": [
+      {
+        "market_id": "540844",
+        "title": "Will bitcoin hit $1m before GTA VI?",
+        "reason_code": "ambiguous_side",
+        "reason": "Bitcoin numeric target was detected, but the title does not specify above, over, higher than, below, under, or lower than."
+      },
+      {
+        "market_id": "556062",
+        "title": "MegaETH market cap (FDV) >$2B one day after launch?",
+        "reason_code": "unsupported_asset",
+        "reason": "MegaETH is not treated as unambiguous ETH/Ethereum."
+      },
+      {
+        "market_id": "556063",
+        "title": "MegaETH market cap (FDV) >$6B one day after launch?",
+        "reason_code": "unsupported_asset",
+        "reason": "MegaETH is not treated as unambiguous ETH/Ethereum."
+      }
+    ]
+  },
+  "safety": {
+    "offline_only": true,
+    "paper_only": true,
+    "live_fetcher_implemented": false,
+    "api_used": false,
+    "network_used": false,
+    "wallet_used": false,
+    "real_order_created": false,
+    "trading_allowed": false,
+    "runtime_wiring_changed": false,
+    "dispatcher_touched": false,
+    "prompt_automation_added": false
+  },
+  "notes": [
+    "No production dependency was added.",
+    "No live fetcher, network/API call, credential, wallet, real order, trading path, runtime wiring, dispatcher change, or prompt automation was added.",
+    "No files under C:\\Users\\OpenC\\Documents\\Codex were edited.",
+    "The canonical root is not a Git repository in this environment, so git status/diff were unavailable."
+  ]
+}

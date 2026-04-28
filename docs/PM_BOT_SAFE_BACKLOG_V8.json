@@ -1,0 +1,58 @@
+{
+  "schema_version": "v8",
+  "artifact_type": "PM_BOT_SAFE_BACKLOG",
+  "fixture_paper_only": true,
+  "runtime_wiring_allowed": false,
+  "real_trading_allowed": false,
+  "network_api_wallet_private_key_trading_allowed": false,
+  "tasks": [
+    {
+      "task_id": "PMBOT-050",
+      "title": "Read-only live fetcher design review",
+      "mode": "DESIGN_ONLY_COMPLETE",
+      "summary": "Completed as a design-only boundary package with contracts, fixtures, validator, audit, and approval gates."
+    },
+    {
+      "task_id": "PMBOT-051",
+      "title": "Live fetcher implementation",
+      "mode": "BLOCKED_PENDING_APPROVAL",
+      "summary": "Blocked pending explicit future approval."
+    },
+    {
+      "task_id": "PMBOT-052",
+      "title": "Live Polymarket API calls",
+      "mode": "BLOCKED_PENDING_APPROVAL",
+      "summary": "Blocked pending explicit future approval."
+    },
+    {
+      "task_id": "PMBOT-053",
+      "title": "API credentials and secrets",
+      "mode": "BLOCKED_PENDING_APPROVAL",
+      "summary": "Blocked pending explicit future approval."
+    },
+    {
+      "task_id": "PMBOT-054",
+      "title": "Wallet and private key support",
+      "mode": "BLOCKED_PENDING_APPROVAL",
+      "summary": "Blocked pending explicit future approval."
+    },
+    {
+      "task_id": "PMBOT-055",
+      "title": "Order execution",
+      "mode": "BLOCKED_PENDING_APPROVAL",
+      "summary": "Blocked pending explicit future approval."
+    },
+    {
+      "task_id": "PMBOT-056",
+      "title": "Autonomous trading",
+      "mode": "BLOCKED_PENDING_APPROVAL",
+      "summary": "Blocked pending explicit future approval."
+    },
+    {
+      "task_id": "PMBOT-057",
+      "title": "Runtime wiring and dispatcher or run_codex integration",
+      "mode": "BLOCKED_PENDING_APPROVAL",
+      "summary": "Blocked pending explicit future approval."
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TaskInput",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "task_id",
+    "project",
+    "type",
+    "safety_level",
+    "status",
+    "repo_path",
+    "objective",
+    "allowed_paths",
+    "forbidden_paths",
+    "success_criteria",
+    "model_tier",
+    "reasoning",
+    "max_report_chars",
+    "requires_approval"
+  ],
+  "properties": {
+    "task_id": {
+      "type": "string"
+    },
+    "project": {
+      "type": "string"
+    },
+    "task_type": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["audit", "code", "validation", "docs", "smoke"]
+    },
+    "safety_level": {
+      "type": "string",
+      "enum": ["L0", "L1", "L2", "L3", "L4"]
+    },
+    "status": {
+      "type": "string",
+      "enum": ["ready", "running", "done", "failed", "needs_human"]
+    },
+    "repo_path": {
+      "type": "string"
+    },
+    "objective": {
+      "type": "string"
+    },
+    "allowed_paths": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "forbidden_paths": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "success_criteria": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "model_tier": {
+      "type": "string",
+      "enum": ["mini", "main", "deep"]
+    },
+    "reasoning": {
+      "type": "string",
+      "enum": ["low", "medium", "high"]
+    },
+    "max_report_chars": {
+      "type": "integer"
+    },
+    "requires_approval": {
+      "type": "boolean"
+    }
+  }
+}

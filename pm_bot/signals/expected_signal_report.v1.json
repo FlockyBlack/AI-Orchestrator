@@ -1,0 +1,20 @@
+{
+  "schema_version": "v1",
+  "market_id": "pm_fixture_2026_us_recession_q3",
+  "title": "Will the US enter recession by end of Q3 2026?",
+  "lead_outcome": "No",
+  "confidence": 0.82,
+  "reasons": [
+    "lead_outcome:No",
+    "lead_price:0.57",
+    "binary_market:true",
+    "price_sum:1.00",
+    "liquidity_bucket:deep"
+  ],
+  "safety_classification": "bounded_fixture_market",
+  "recommendation_type": "research_only",
+  "execution_allowed": false,
+  "trading_allowed": false,
+  "wallet_required": false,
+  "private_key_required": false
+}

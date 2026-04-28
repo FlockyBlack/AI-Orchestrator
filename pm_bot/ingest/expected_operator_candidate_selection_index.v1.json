@@ -1,0 +1,56 @@
+{
+  "artifact_type": "polymarket_operator_candidate_selection_index",
+  "candidates": [
+    {
+      "accepting_orders": true,
+      "active": true,
+      "bucket": "usable_for_research_preview",
+      "category_or_tags": [
+        "fixture",
+        "policy"
+      ],
+      "closed": false,
+      "end_date": "2026-12-31T00:00:00Z",
+      "event_id": "event-b",
+      "event_title": "Fixture event B",
+      "has_description": true,
+      "liquidity": 100000.0,
+      "market_id": "market-b",
+      "next_manual_action": "eligible_for_manual_research_packet_preview",
+      "outcome_prices_count": 2,
+      "outcomes_count": 2,
+      "question": "Will fixture B resolve?",
+      "structural_findings": [],
+      "volume": 500000.0
+    },
+    {
+      "accepting_orders": true,
+      "active": true,
+      "bucket": "usable_for_research_preview",
+      "category_or_tags": [
+        "fixture"
+      ],
+      "closed": false,
+      "end_date": "2026-11-30T00:00:00Z",
+      "event_id": "event-a",
+      "event_title": "Fixture event A",
+      "has_description": true,
+      "liquidity": 1.0,
+      "market_id": "market-a",
+      "next_manual_action": "eligible_for_manual_research_packet_preview",
+      "outcome_prices_count": 2,
+      "outcomes_count": 2,
+      "question": "Will fixture A resolve?",
+      "structural_findings": [],
+      "volume": 2.0
+    }
+  ],
+  "schema_version": "operator_candidate_selection_index.v1",
+  "source_candidate_intake_preview_path": "pm_bot/ingest/fixture_candidate_intake_preview.v1.json",
+  "summary": {
+    "candidates_exported": 2,
+    "research_packets_created": 0,
+    "selection_overlay_template_created": true,
+    "usable_candidates_seen": 2
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0",
+  "template_name": "codex_code_changing.template.txt",
+  "task_id": "ORCH-AUTOPILOT-RENDER-EXAMPLE-CODEX-IMPLEMENTATION",
+  "task_title": "Render an isolated prompt-pack utility change",
+  "target_agent": "Codex",
+  "task_owner": "Codex",
+  "task_type": "code-changing",
+  "context": "A bounded implementation prompt should be prepared using the Codex code-changing template.",
+  "goal": "Implement a small isolated helper under codex_auto/autopilot/prompt_packs/ with deterministic tests and no runtime wiring.",
+  "allowed_read_paths": [
+    "docs/",
+    "codex_auto/",
+    "codex_auto/autopilot/",
+    "codex_auto/autopilot/prompt_packs/"
+  ],
+  "allowed_write_paths": [
+    "codex_auto/autopilot/prompt_packs/",
+    "codex_auto/autopilot/tests/test_prompt_pack_renderer.py"
+  ],
+  "forbidden_write_paths": [
+    "tasks/",
+    "runs/",
+    "state/",
+    "runtime/",
+    "results/",
+    "freeze/",
+    "checkpoint/",
+    "governance/",
+    "scripts/dispatcher.py",
+    "scripts/run_codex.py",
+    "codex_auto/queue/"
+  ],
+  "forbidden_behavior": [
+    "no runtime wiring",
+    "no dispatcher changes",
+    "no run_codex changes",
+    "no queue mutation",
+    "no governance mutation",
+    "no sessions_spawn",
+    "no generated prompt execution",
+    "no rendered prompt execution"
+  ],
+  "validation_commands": [
+    "python -m pytest -q codex_auto/autopilot/tests/test_prompt_pack_renderer.py",
+    "python -m pytest -q codex_auto/autopilot/tests"
+  ],
+  "expected_final_json": {
+    "task_id": "ORCH-AUTOPILOT-RENDER-EXAMPLE-CODEX-IMPLEMENTATION",
+    "status": "implementation_complete_ready_for_flocky_validation | blocked",
+    "summary": "Placeholder summary",
+    "files_created": [],
+    "files_modified": [],
+    "tests_run": [],
+    "safety": {},
+    "blocking_findings": [],
+    "warnings": [],
+    "next_required_step": "manual_followup"
+  },
+  "custom_sections": [
+    {
+      "title": "Implementation scope",
+      "body": "Limit changes to prompt-pack rendering helpers and tests only."
+    }
+  ],
+  "preflight_receiver": "Flocky",
+  "notes": [
+    "If misrouted to Flocky, preflight must block before tool execution."
+  ]
+}

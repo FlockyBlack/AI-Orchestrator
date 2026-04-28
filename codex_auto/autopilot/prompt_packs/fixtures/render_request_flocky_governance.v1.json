@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0",
+  "template_name": "flocky_governance_design.template.txt",
+  "task_id": "ORCH-AUTOPILOT-RENDER-EXAMPLE-FLOCKY-GOVERNANCE",
+  "task_title": "Review prompt-pack governance wording",
+  "target_agent": "Flocky",
+  "task_owner": "Flocky",
+  "task_type": "read-only governance design",
+  "context": "The governance-design prompt should remain advisory and non-mutating.",
+  "goal": "Review boundary language and recommend governance clarifications without changing repository files.",
+  "allowed_read_paths": [
+    "docs/",
+    "codex_auto/",
+    "codex_auto/autopilot/",
+    "governance/"
+  ],
+  "allowed_write_paths": [],
+  "forbidden_write_paths": [
+    "tasks/",
+    "runs/",
+    "state/",
+    "runtime/",
+    "results/",
+    "freeze/",
+    "checkpoint/",
+    "governance/"
+  ],
+  "forbidden_behavior": [
+    "no code changes",
+    "no runtime wiring",
+    "no dispatcher changes",
+    "no run_codex changes",
+    "no queue mutation",
+    "no sessions_spawn",
+    "no generated prompt execution"
+  ],
+  "validation_commands": [],
+  "expected_final_json": {
+    "task_id": "ORCH-AUTOPILOT-RENDER-EXAMPLE-FLOCKY-GOVERNANCE",
+    "status": "pass_with_warnings | blocked",
+    "governance_findings": [],
+    "warnings": [],
+    "recommended_next_step": "manual_followup"
+  },
+  "custom_sections": [
+    {
+      "title": "Governance review focus",
+      "body": "Check approval-gate language, routing mismatch handling, and read-only policy wording."
+    }
+  ],
+  "preflight_receiver": "Flocky",
+  "notes": [
+    "Advisory output only."
+  ]
+}

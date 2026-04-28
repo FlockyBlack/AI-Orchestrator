@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0",
+  "template_name": "chatgpt_planning.template.txt",
+  "task_id": "ORCH-AUTOPILOT-RENDER-EXAMPLE-CHATGPT-PLANNING",
+  "task_title": "Plan a future prompt-pack linter",
+  "target_agent": "ChatGPT",
+  "task_owner": "ChatGPT",
+  "task_type": "planning",
+  "context": "A planning prompt should remain non-executable and mutation-free.",
+  "goal": "Outline options for a future prompt-pack linter without implementing it.",
+  "allowed_read_paths": [
+    "docs/",
+    "codex_auto/",
+    "codex_auto/autopilot/",
+    "codex_auto/autopilot/prompt_packs/"
+  ],
+  "allowed_write_paths": [],
+  "forbidden_write_paths": [
+    "tasks/",
+    "runs/",
+    "state/",
+    "runtime/",
+    "results/",
+    "freeze/",
+    "checkpoint/"
+  ],
+  "forbidden_behavior": [
+    "no code changes",
+    "no execution",
+    "no runtime mutation",
+    "no queue mutation",
+    "no governance mutation",
+    "no sessions_spawn",
+    "no generated prompt execution"
+  ],
+  "validation_commands": [],
+  "expected_final_json": {
+    "task_id": "ORCH-AUTOPILOT-RENDER-EXAMPLE-CHATGPT-PLANNING",
+    "status": "plan_ready | blocked",
+    "assumptions": [],
+    "options": [],
+    "recommended_plan": [],
+    "warnings": [],
+    "next_manual_step": "manual_followup"
+  },
+  "custom_sections": [
+    {
+      "title": "Planning scope",
+      "body": "Focus on options, constraints, and next steps only."
+    }
+  ],
+  "preflight_receiver": "Flocky",
+  "notes": [
+    "No execution authority is granted."
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": "v1",
+  "accounting_mode": "offline_fixture",
+  "market_id": "pm_fixture_2026_us_recession_q3",
+  "quantity": 125,
+  "gross_notional": 125.0,
+  "fee_bps": 15,
+  "slippage_bps": 2,
+  "fee_cost": 0.1875,
+  "slippage_cost": 0.025,
+  "total_cost": 0.2125,
+  "currency": "USD",
+  "execution_allowed": false,
+  "trading_allowed": false
+}

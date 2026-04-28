@@ -1,0 +1,8 @@
+{
+  "market_id": "pm_fixture_2026_us_recession_q3",
+  "quantity": 125,
+  "entry_price": 0.43,
+  "exit_price": 0.57,
+  "fee_bps": 15,
+  "slippage_bps": 2
+}

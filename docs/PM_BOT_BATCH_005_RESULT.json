@@ -1,0 +1,166 @@
+{
+  "task_id": "PMBOT-BATCH-005",
+  "status": "implementation_complete_ready_for_flocky_validation",
+  "scope": {
+    "fixture_only": true,
+    "paper_only": true,
+    "local_only": true,
+    "deterministic": true,
+    "live_api": false,
+    "wallet": false,
+    "real_orders": false,
+    "runtime_wiring": false
+  },
+  "summary": "Added a deterministic local adversarial replay and hostile-market validation layer for PMBOT with adversarial replay fixtures, market shock scenarios, false-positive prevention reporting, replay safety scorecards, an integrated adversarial validation demo, audit v4 coverage, and updated docs while keeping PMBOT fixture-only, paper-only, local-only, offline, and ready for Flocky validation.",
+  "files_created": [
+    "pm_bot/adversarial/adversarial_replay_cases.v1.json",
+    "pm_bot/adversarial/market_shock_scenarios.v1.json",
+    "pm_bot/adversarial/run_market_shock_scenarios.py",
+    "pm_bot/adversarial/expected_market_shock_report.v1.json",
+    "pm_bot/adversarial/expected_market_shock_report.v1.md",
+    "pm_bot/adversarial/tests/test_adversarial_replay_cases.py",
+    "pm_bot/adversarial/tests/test_market_shock_scenarios.py",
+    "pm_bot/replay/run_adversarial_replay.py",
+    "pm_bot/replay/expected_adversarial_replay_report.v1.json",
+    "pm_bot/replay/expected_adversarial_replay_report.v1.md",
+    "pm_bot/replay/tests/test_run_adversarial_replay.py",
+    "pm_bot/validation/adversarial_support.py",
+    "pm_bot/validation/false_positive_prevention_report.py",
+    "pm_bot/validation/expected_false_positive_prevention_report.v1.json",
+    "pm_bot/validation/expected_false_positive_prevention_report.v1.md",
+    "pm_bot/validation/replay_safety_scorecard.py",
+    "pm_bot/validation/expected_replay_safety_scorecard.v1.json",
+    "pm_bot/validation/expected_replay_safety_scorecard.v1.md",
+    "pm_bot/validation/tests/test_false_positive_prevention_report.py",
+    "pm_bot/validation/tests/test_replay_safety_scorecard.py",
+    "pm_bot/demo/run_adversarial_validation_demo.py",
+    "pm_bot/demo/expected_adversarial_validation_demo.v1.json",
+    "pm_bot/demo/expected_adversarial_validation_demo.v1.md",
+    "pm_bot/demo/tests/test_adversarial_validation_demo.py",
+    "pm_bot/audit/static_safety_audit_v4.py",
+    "pm_bot/audit/expected_static_safety_audit.v4.json",
+    "pm_bot/audit/tests/test_static_safety_audit_v4.py",
+    "docs/PM_BOT_DEMO_RUNBOOK_V4.md",
+    "docs/PM_BOT_STAGE_SUMMARY_V6.md",
+    "docs/PM_BOT_SAFE_BACKLOG_V6.json",
+    "docs/PM_BOT_BATCH_005_RESULT.json"
+  ],
+  "files_modified": [
+    "pm_bot/audit/run_static_safety_audit.py",
+    "pm_bot/audit/expected_static_safety_audit.v2.json",
+    "pm_bot/audit/expected_static_safety_audit.v3.json",
+    "pm_bot/demo/expected_paper_research_demo.v1.json",
+    "pm_bot/demo/expected_paper_research_demo.v1.md"
+  ],
+  "tests_run": [
+    {
+      "command": "python -m pytest pm_bot\\adversarial\\tests -q",
+      "status": "pass",
+      "notes": "Adversarial replay fixture and market shock tests passed."
+    },
+    {
+      "command": "python -m pytest pm_bot\\replay\\tests -q",
+      "status": "pass",
+      "notes": "Adversarial replay runner tests passed."
+    },
+    {
+      "command": "python -m pytest pm_bot\\validation\\tests -q",
+      "status": "pass",
+      "notes": "Validation layer tests passed, including legacy market validation coverage."
+    },
+    {
+      "command": "python -m pytest pm_bot\\demo\\tests -q",
+      "status": "pass",
+      "notes": "Demo suite passed after refreshing legacy paper-demo expected audit output."
+    },
+    {
+      "command": "python -m pytest pm_bot\\audit\\tests -q",
+      "status": "pass",
+      "notes": "Audit v2, v3, v4, and legacy wrapper audit tests passed."
+    },
+    {
+      "command": "python -m pytest pm_bot\\scenarios\\tests pm_bot\\demo\\tests pm_bot\\reports\\tests pm_bot\\audit\\tests pm_bot\\research\\tests pm_bot\\explainability\\tests pm_bot\\quality\\tests pm_bot\\adversarial\\tests pm_bot\\replay\\tests pm_bot\\validation\\tests -q",
+      "status": "pass",
+      "notes": "Grouped PMBOT offline suite passed."
+    },
+    {
+      "command": "python pm_bot\\replay\\run_adversarial_replay.py",
+      "status": "pass",
+      "notes": "Replay report executed successfully with zero false positives."
+    },
+    {
+      "command": "python pm_bot\\adversarial\\run_market_shock_scenarios.py",
+      "status": "pass",
+      "notes": "Market shock report executed successfully."
+    },
+    {
+      "command": "python pm_bot\\demo\\run_adversarial_validation_demo.py",
+      "status": "pass",
+      "notes": "Integrated adversarial validation demo executed successfully."
+    },
+    {
+      "command": "python pm_bot\\demo\\run_research_quality_demo.py",
+      "status": "pass",
+      "notes": "BATCH-004 research quality demo compatibility script executed successfully."
+    },
+    {
+      "command": "python pm_bot\\audit\\static_safety_audit_v3.py",
+      "status": "pass",
+      "notes": "Static safety audit v3 executed successfully."
+    },
+    {
+      "command": "python pm_bot\\audit\\static_safety_audit_v4.py",
+      "status": "pass",
+      "notes": "Static safety audit v4 executed successfully with new path coverage."
+    }
+  ],
+  "safety_checks": {
+    "fixture_only": true,
+    "paper_only": true,
+    "local_only": true,
+    "deterministic": true,
+    "no_network_or_api": true,
+    "no_live_polymarket_api": true,
+    "no_wallet_or_private_key": true,
+    "no_real_orders": true,
+    "no_real_trading": true,
+    "no_autonomous_trading": true,
+    "no_runtime_wiring": true,
+    "no_dispatcher_changes": true,
+    "no_run_codex_changes": true,
+    "no_active_task_mutation": true,
+    "no_state_result_freeze_checkpoint_mutation": true,
+    "no_codex_auto_mutation": true,
+    "no_governance_state_mutation": true,
+    "adversarial_false_positives_detected_or_rejected": true,
+    "replay_outputs_deterministic": true,
+    "final_flocky_done_claimed": false,
+    "ready_for_flocky_validation": true
+  },
+  "artifacts": {
+    "adversarial_cases": "pm_bot/adversarial/adversarial_replay_cases.v1.json",
+    "adversarial_replay_report_json": "pm_bot/replay/expected_adversarial_replay_report.v1.json",
+    "adversarial_replay_report_markdown": "pm_bot/replay/expected_adversarial_replay_report.v1.md",
+    "market_shock_report_json": "pm_bot/adversarial/expected_market_shock_report.v1.json",
+    "market_shock_report_markdown": "pm_bot/adversarial/expected_market_shock_report.v1.md",
+    "false_positive_report_json": "pm_bot/validation/expected_false_positive_prevention_report.v1.json",
+    "false_positive_report_markdown": "pm_bot/validation/expected_false_positive_prevention_report.v1.md",
+    "replay_safety_scorecard_json": "pm_bot/validation/expected_replay_safety_scorecard.v1.json",
+    "replay_safety_scorecard_markdown": "pm_bot/validation/expected_replay_safety_scorecard.v1.md",
+    "adversarial_validation_demo_json": "pm_bot/demo/expected_adversarial_validation_demo.v1.json",
+    "adversarial_validation_demo_markdown": "pm_bot/demo/expected_adversarial_validation_demo.v1.md",
+    "static_audit_v4": "pm_bot/audit/expected_static_safety_audit.v4.json"
+  },
+  "known_warnings": [
+    "Duplicate snapshots, outlier price moves, and correlation contradictions currently downgrade to watchlist rather than universal hard rejection."
+  ],
+  "blocked_items": [
+    "Live fetcher implementation remains blocked pending future approval.",
+    "Live Polymarket API remains blocked pending future approval.",
+    "Wallet/private key handling remains blocked pending future approval.",
+    "Real order execution remains blocked pending future approval.",
+    "Autonomous trading remains blocked pending future approval.",
+    "Runtime wiring and dispatcher/run_codex integration remain blocked pending future approval."
+  ],
+  "requires_flocky_validation": true
+}

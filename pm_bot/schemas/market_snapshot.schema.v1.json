@@ -1,0 +1,77 @@
+{
+  "schema_version": "v1",
+  "title": "fixture_market_snapshot",
+  "type": "object",
+  "required": [
+    "market_id",
+    "slug",
+    "title",
+    "category",
+    "outcomes",
+    "prices",
+    "liquidity",
+    "volume",
+    "close_time",
+    "source_type",
+    "collected_at",
+    "risk_notes"
+  ],
+  "properties": {
+    "market_id": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string"
+    },
+    "outcomes": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "string"
+      }
+    },
+    "prices": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "number"
+      }
+    },
+    "liquidity": {
+      "type": "number"
+    },
+    "volume": {
+      "type": "number"
+    },
+    "close_time": {
+      "type": "string"
+    },
+    "source_type": {
+      "type": "string",
+      "const": "fixture"
+    },
+    "collected_at": {
+      "type": "string"
+    },
+    "risk_notes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "forbidden_fields": [
+    "network",
+    "api_url",
+    "live_market_id",
+    "wallet_address",
+    "private_key",
+    "order_payload",
+    "execution_mode"
+  ]
+}

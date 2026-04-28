@@ -1,0 +1,52 @@
+{
+  "schema_version": "autopilot_preview_handoff.v1",
+  "preview_only": true,
+  "runtime_authority": false,
+  "final_acceptance_authority": false,
+  "source_task_id": "ORCH-AUTOPILOT-SAMPLE",
+  "authoritative_task_path": "codex_auto/autopilot/fixtures/valid_runtime_task.json",
+  "authoritative_run_path_or_ref": "codex_auto/autopilot/fixtures/valid_runtime_result.json",
+  "handoff_owner": "codex_auto",
+  "codex_executor": "Codex",
+  "allowed_paths": [
+    "codex_auto/autopilot/"
+  ],
+  "forbidden_paths": [
+    "tasks/",
+    "runs/",
+    "state/",
+    "runtime/",
+    "results/",
+    "freeze/",
+    "checkpoint/",
+    "scripts/dispatcher.py",
+    "scripts/run_codex.py"
+  ],
+  "approval_required": true,
+  "flocky_validation_required": true,
+  "stop_conditions": [
+    "Stop on boundary violation."
+  ],
+  "single_runtime_source_rule_preserved": true,
+  "execution_allowed_now": true,
+  "runtime_wiring_allowed": false,
+  "status_ownership": {
+    "runtime_status": {
+      "owner": "AI-Orchestrator"
+    },
+    "handoff_status": {
+      "owner": "codex_auto"
+    },
+    "codex_execution_status": {
+      "owner": "Codex result envelope"
+    },
+    "flocky_validation_status": {
+      "owner": "Flocky"
+    },
+    "final_acceptance_status": {
+      "owner": "AI-Orchestrator"
+    }
+  },
+  "generated_by": "codex_auto.autopilot.build_preview_handoff",
+  "deterministic_preview": true
+}

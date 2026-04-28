@@ -1,0 +1,172 @@
+{
+  "schema_version": "paper_policy_review_records_fixture.v1",
+  "task_id": "PMBOT-PAPER-002-PAPER-POLICY-REVIEW-CONTRACT",
+  "deterministic": true,
+  "source_readiness_result_path": "pm_bot/paper/final_dossier_paper_readiness_result.v1.json",
+  "source_final_dossier_drafts_path": "pm_bot/research/selected_ingest_final_dossier_drafts.v1.json",
+  "policy_review_records": [
+    {
+      "record_id": "policy-review-824952-valid",
+      "market_id": "824952",
+      "readiness_status": "eligible_for_future_paper_policy_review",
+      "future_policy_status": "eligible_for_future_paper_decision_simulation",
+      "review_scope": "offline_contract_only",
+      "policy_checks": [
+        {
+          "check_id": "dossier_readiness_confirmed",
+          "passed": true
+        },
+        {
+          "check_id": "no_prohibited_trading_language",
+          "passed": true
+        },
+        {
+          "check_id": "no_probability_or_ev_present",
+          "passed": true
+        },
+        {
+          "check_id": "no_side_recommendation_present",
+          "passed": true
+        },
+        {
+          "check_id": "no_market_decision_present",
+          "passed": true
+        },
+        {
+          "check_id": "unresolved_questions_reviewed",
+          "passed": true
+        },
+        {
+          "check_id": "uncertainty_register_present",
+          "passed": true
+        },
+        {
+          "check_id": "evidence_inventory_present",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "record_id": "policy-review-824952-incomplete",
+      "market_id": "824952",
+      "readiness_status": "eligible_for_future_paper_policy_review",
+      "future_policy_status": "eligible_for_future_paper_decision_simulation",
+      "review_scope": "offline_contract_only",
+      "policy_checks": [
+        {
+          "check_id": "dossier_readiness_confirmed",
+          "passed": true
+        },
+        {
+          "check_id": "no_prohibited_trading_language",
+          "passed": true
+        },
+        {
+          "check_id": "no_probability_or_ev_present",
+          "passed": true
+        },
+        {
+          "check_id": "no_side_recommendation_present",
+          "passed": true
+        },
+        {
+          "check_id": "no_market_decision_present",
+          "passed": true
+        },
+        {
+          "check_id": "unresolved_questions_reviewed",
+          "passed": true
+        },
+        {
+          "check_id": "uncertainty_register_present",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "record_id": "policy-review-824952-prohibited-field",
+      "market_id": "824952",
+      "readiness_status": "eligible_for_future_paper_policy_review",
+      "future_policy_status": "eligible_for_future_paper_decision_simulation",
+      "review_scope": "offline_contract_only",
+      "policy_payload": {
+        "probability": "prohibited-field-attempt"
+      },
+      "policy_checks": [
+        {
+          "check_id": "dossier_readiness_confirmed",
+          "passed": true
+        },
+        {
+          "check_id": "no_prohibited_trading_language",
+          "passed": true
+        },
+        {
+          "check_id": "no_probability_or_ev_present",
+          "passed": true
+        },
+        {
+          "check_id": "no_side_recommendation_present",
+          "passed": true
+        },
+        {
+          "check_id": "no_market_decision_present",
+          "passed": true
+        },
+        {
+          "check_id": "unresolved_questions_reviewed",
+          "passed": true
+        },
+        {
+          "check_id": "uncertainty_register_present",
+          "passed": true
+        },
+        {
+          "check_id": "evidence_inventory_present",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "record_id": "policy-review-unknown-market",
+      "market_id": "999999",
+      "readiness_status": "eligible_for_future_paper_policy_review",
+      "future_policy_status": "watch_only_policy_review",
+      "review_scope": "offline_contract_only",
+      "policy_checks": [
+        {
+          "check_id": "dossier_readiness_confirmed",
+          "passed": true
+        },
+        {
+          "check_id": "no_prohibited_trading_language",
+          "passed": true
+        },
+        {
+          "check_id": "no_probability_or_ev_present",
+          "passed": true
+        },
+        {
+          "check_id": "no_side_recommendation_present",
+          "passed": true
+        },
+        {
+          "check_id": "no_market_decision_present",
+          "passed": true
+        },
+        {
+          "check_id": "unresolved_questions_reviewed",
+          "passed": true
+        },
+        {
+          "check_id": "uncertainty_register_present",
+          "passed": true
+        },
+        {
+          "check_id": "evidence_inventory_present",
+          "passed": true
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,199 @@
+{
+  "schema_version": "v1",
+  "fixture_id": "crypto_numeric_lifecycle_replay_cases_v1",
+  "fixture_only": true,
+  "paper_only": true,
+  "scenarios": [
+    {
+      "scenario_id": "filled_win",
+      "lifecycle_status": "filled_win",
+      "expected_bad_case_rejected": false,
+      "raw_markets": [
+        {
+          "market_id": "replay_btc_above_90000_filled_win",
+          "category": "crypto",
+          "question": "Will BTC be above $90,000 on 2026-05-31?",
+          "expiry": "2026-05-31",
+          "current_price": 93800.0,
+          "market_yes_price": 0.59,
+          "liquidity_usd": 180000.0,
+          "spread": 0.03,
+          "risk_level": "low",
+          "thirty_day_change_pct": 8.0,
+          "volatility_30d_pct": 42.0
+        }
+      ],
+      "market_executions": [
+        {
+          "market_id": "replay_btc_above_90000_filled_win",
+          "observed_yes_price": 0.58,
+          "current_yes_price": 1.0,
+          "settled": true,
+          "settlement_outcome": "yes"
+        }
+      ]
+    },
+    {
+      "scenario_id": "filled_loss",
+      "lifecycle_status": "filled_loss",
+      "expected_bad_case_rejected": false,
+      "raw_markets": [
+        {
+          "market_id": "replay_btc_above_90000_filled_loss",
+          "category": "crypto",
+          "question": "Will BTC be above $90,000 on 2026-05-31?",
+          "expiry": "2026-05-31",
+          "current_price": 93800.0,
+          "market_yes_price": 0.59,
+          "liquidity_usd": 180000.0,
+          "spread": 0.03,
+          "risk_level": "low",
+          "thirty_day_change_pct": 8.0,
+          "volatility_30d_pct": 42.0
+        }
+      ],
+      "market_executions": [
+        {
+          "market_id": "replay_btc_above_90000_filled_loss",
+          "observed_yes_price": 0.58,
+          "current_yes_price": 0.0,
+          "settled": true,
+          "settlement_outcome": "no"
+        }
+      ]
+    },
+    {
+      "scenario_id": "not_filled",
+      "lifecycle_status": "not_filled",
+      "expected_bad_case_rejected": false,
+      "raw_markets": [
+        {
+          "market_id": "replay_btc_above_90000_not_filled",
+          "category": "crypto",
+          "question": "Will BTC be above $90,000 on 2026-05-31?",
+          "expiry": "2026-05-31",
+          "current_price": 93800.0,
+          "market_yes_price": 0.59,
+          "liquidity_usd": 180000.0,
+          "spread": 0.03,
+          "risk_level": "low",
+          "thirty_day_change_pct": 8.0,
+          "volatility_30d_pct": 42.0
+        }
+      ],
+      "market_executions": [
+        {
+          "market_id": "replay_btc_above_90000_not_filled",
+          "observed_yes_price": 0.61,
+          "current_yes_price": 0.66,
+          "settled": false,
+          "settlement_outcome": null
+        }
+      ]
+    },
+    {
+      "scenario_id": "open_position",
+      "lifecycle_status": "open_position",
+      "expected_bad_case_rejected": false,
+      "raw_markets": [
+        {
+          "market_id": "replay_btc_above_90000_open_position",
+          "category": "crypto",
+          "question": "Will BTC be above $90,000 on 2026-05-31?",
+          "expiry": "2026-05-31",
+          "current_price": 93800.0,
+          "market_yes_price": 0.59,
+          "liquidity_usd": 180000.0,
+          "spread": 0.03,
+          "risk_level": "low",
+          "thirty_day_change_pct": 8.0,
+          "volatility_30d_pct": 42.0
+        }
+      ],
+      "market_executions": [
+        {
+          "market_id": "replay_btc_above_90000_open_position",
+          "observed_yes_price": 0.58,
+          "current_yes_price": 0.62,
+          "settled": false,
+          "settlement_outcome": null
+        }
+      ]
+    },
+    {
+      "scenario_id": "settled_position",
+      "lifecycle_status": "settled_position",
+      "expected_bad_case_rejected": false,
+      "raw_markets": [
+        {
+          "market_id": "replay_btc_above_90000_settled_position",
+          "category": "crypto",
+          "question": "Will BTC be above $90,000 on 2026-05-31?",
+          "expiry": "2026-05-31",
+          "current_price": 93800.0,
+          "market_yes_price": 0.59,
+          "liquidity_usd": 180000.0,
+          "spread": 0.03,
+          "risk_level": "low",
+          "thirty_day_change_pct": 8.0,
+          "volatility_30d_pct": 42.0
+        }
+      ],
+      "market_executions": [
+        {
+          "market_id": "replay_btc_above_90000_settled_position",
+          "observed_yes_price": 0.5,
+          "current_yes_price": 1.0,
+          "settled": true,
+          "settlement_outcome": "yes"
+        }
+      ]
+    },
+    {
+      "scenario_id": "rejected_raw_market",
+      "lifecycle_status": "rejected_raw_market",
+      "expected_bad_case_rejected": true,
+      "raw_markets": [
+        {
+          "market_id": "replay_non_crypto_bad_case",
+          "category": "politics",
+          "question": "Will Candidate A win the 2026 election?",
+          "expiry": "2026-11-03",
+          "market_yes_price": 0.51,
+          "liquidity_usd": 500000.0,
+          "spread": 0.02
+        }
+      ],
+      "market_executions": []
+    },
+    {
+      "scenario_id": "no_action_watchlist_or_reject",
+      "lifecycle_status": "no_action_watchlist_or_reject",
+      "expected_bad_case_rejected": false,
+      "raw_markets": [
+        {
+          "market_id": "replay_eth_below_3000_watchlist",
+          "category": "crypto",
+          "question": "Will Ethereum be below $3,000 on 2026-05-31?",
+          "expiry": "2026-05-31",
+          "current_price": 3120.0,
+          "market_yes_price": 0.36,
+          "liquidity_usd": 125000.0,
+          "spread": 0.04,
+          "risk_level": "medium",
+          "thirty_day_change_pct": -6.0,
+          "volatility_30d_pct": 55.0
+        }
+      ],
+      "market_executions": [
+        {
+          "market_id": "replay_eth_below_3000_watchlist",
+          "observed_yes_price": 0.37,
+          "current_yes_price": 0.0,
+          "settled": true,
+          "settlement_outcome": "no"
+        }
+      ]
+    }
+  ]
+}

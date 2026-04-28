@@ -1,0 +1,50 @@
+{
+  "files_created": [
+    "pm_bot/ingest/operator_candidate_selection_overlay_selected_first5.v1.json",
+    "docs/PMBOT_INGEST_004A_RESULT.json"
+  ],
+  "files_modified": [],
+  "safety": {
+    "authenticated_endpoints": false,
+    "betting_recommendations": false,
+    "codex_copy_roots": false,
+    "credentials": false,
+    "dispatcher_run_codex_touched": false,
+    "expected_value_calculations": false,
+    "live_fetchers": false,
+    "live_trading": false,
+    "market_decisions": false,
+    "market_scoring": false,
+    "network_api_calls": false,
+    "paper_orders": false,
+    "probability_estimates": false,
+    "prompt_automation": false,
+    "real_orders": false,
+    "research_packets_created": false,
+    "runtime_wiring": false,
+    "side_recommendations": false,
+    "trading_endpoints": false,
+    "truth_inference": false,
+    "wallet_private_keys": false
+  },
+  "selected_market_ids": [
+    "692258",
+    "824952",
+    "691547",
+    "597964",
+    "598936"
+  ],
+  "selection_summary": {
+    "candidates_selected": 5,
+    "research_packets_created": 0,
+    "selection_rule": "first_5_in_deterministic_index_order"
+  },
+  "status": "passed",
+  "summary": "Created deterministic first-five manual selection overlay for research-stub bridge smoke testing only; no recommendations, scoring, truth inference, or execution artifacts were created.",
+  "task_id": "PMBOT-INGEST-004A-DETERMINISTIC-FIRST-FIVE-SELECTION-OVERLAY",
+  "tests_run": [
+    "python pm_bot\\ingest\\export_operator_candidate_selection_pack.py --validate-overlay pm_bot\\ingest\\operator_candidate_selection_overlay_selected_first5.v1.json --validate-index-json pm_bot\\ingest\\operator_candidate_selection_index.v1.json",
+    "python -m json.tool pm_bot\\ingest\\operator_candidate_selection_overlay_selected_first5.v1.json",
+    "python -m json.tool docs\\PMBOT_INGEST_004A_RESULT.json"
+  ]
+}

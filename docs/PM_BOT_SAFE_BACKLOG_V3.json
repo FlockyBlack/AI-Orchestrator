@@ -1,0 +1,58 @@
+{
+  "schema_version": "v3",
+  "artifact_type": "PM_BOT_SAFE_BACKLOG",
+  "fixture_paper_only": true,
+  "runtime_wiring_allowed": false,
+  "real_trading_allowed": false,
+  "network_api_wallet_private_key_trading_allowed": false,
+  "tasks": [
+    {
+      "task_id": "PMBOT-011",
+      "title": "Multi-market fixture expansion",
+      "mode": "FIXTURE_ONLY",
+      "summary": "Add more local market fixtures and deterministic expected outputs for broader paper-mode research coverage."
+    },
+    {
+      "task_id": "PMBOT-012",
+      "title": "Scenario suite expansion",
+      "mode": "PAPER_ONLY",
+      "summary": "Add more deterministic paper-only scenarios that stress safe research summaries and risk warnings."
+    },
+    {
+      "task_id": "PMBOT-013",
+      "title": "Dashboard UX refinement",
+      "mode": "DESIGN_ONLY",
+      "summary": "Refine the local dashboard presentation contract and report narrative without introducing live data or execution controls."
+    },
+    {
+      "task_id": "PMBOT-014",
+      "title": "Postmortem enrichment",
+      "mode": "PAPER_ONLY",
+      "summary": "Extend paper-only postmortem artifacts with richer deterministic review notes and scenario comparisons."
+    },
+    {
+      "task_id": "PMBOT-015",
+      "title": "Read-only fetcher boundary design",
+      "mode": "DESIGN_ONLY",
+      "summary": "Document the quarantine boundary for a future read-only fetcher without implementing any live API integration."
+    },
+    {
+      "task_id": "PMBOT-016",
+      "title": "Quarantine artifact format",
+      "mode": "DESIGN_ONLY",
+      "summary": "Define a local artifact contract for future quarantined market snapshots and review metadata."
+    },
+    {
+      "task_id": "PMBOT-017",
+      "title": "Dependency audit hardening",
+      "mode": "READ_ONLY_VALIDATION",
+      "summary": "Expand read-only validation for imports and execution surfaces across PMBOT slices."
+    },
+    {
+      "task_id": "PMBOT-018",
+      "title": "Flocky validation adapter for PMBOT reports",
+      "mode": "DRY_RUN_ONLY",
+      "summary": "Design and dry-run a local adapter that packages PMBOT demo outputs for later critic validation."
+    }
+  ]
+}

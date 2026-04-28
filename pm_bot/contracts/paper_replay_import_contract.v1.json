@@ -1,0 +1,28 @@
+{
+  "schema_version": "v1",
+  "artifact_type": "paper_replay_import_contract",
+  "status": "future_only_design",
+  "input_required_artifact": "normalized_market_snapshot.v1",
+  "input_required_schema": "pm_bot/contracts/normalized_market_snapshot.schema.v1.json",
+  "required_preconditions": [
+    "input_must_be_normalized_snapshot",
+    "input_must_pass_validation",
+    "paper_only_mode",
+    "local_only_mode",
+    "deterministic_processing"
+  ],
+  "prohibited_capabilities": [
+    "execution",
+    "wallet_access",
+    "private_key_access",
+    "live_order_submission",
+    "signing",
+    "runtime_wiring",
+    "dispatcher_integration"
+  ],
+  "output_constraints": [
+    "paper_replay_only",
+    "no_execution",
+    "no_live_order"
+  ]
+}

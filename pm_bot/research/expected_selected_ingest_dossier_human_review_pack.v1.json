@@ -1,0 +1,145 @@
+{
+  "schema_version": "selected_ingest_dossier_human_review_pack.v1",
+  "markdown_version": "selected_ingest_dossier_human_review_pack_markdown.v1",
+  "task_id": "PMBOT-INGEST-012-SELECTED-INGEST-DOSSIER-HUMAN-REVIEW-PACK",
+  "deterministic": true,
+  "source_validation_result_path": "pm_bot/research/selected_ingest_manual_dossier_draft_validation_result.v1.json",
+  "source_validation_result_schema_version": "selected_ingest_manual_dossier_draft_validation_result.v1",
+  "source_dossier_skeletons_path": "pm_bot/research/selected_ingest_dossier_draft_skeletons.v1.json",
+  "source_dossier_skeletons_schema_version": "selected_ingest_dossier_draft_skeletons.v1",
+  "source_merged_packets_path": "pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json",
+  "source_merged_packets_schema_version": "selected_ingest_merged_manual_research_packets.v1",
+  "source_review_records_result_path": "pm_bot/research/selected_ingest_operator_review_records_result.v1.json",
+  "source_review_records_result_schema_version": "selected_ingest_operator_review_records_result.v1",
+  "json_output_path": "pm_bot/research/selected_ingest_dossier_human_review_pack.v1.json",
+  "markdown_output_path": "pm_bot/research/selected_ingest_dossier_human_review_pack.v1.md",
+  "expected_json_output_path": "pm_bot/research/expected_selected_ingest_dossier_human_review_pack.v1.json",
+  "selected_market_ids": [
+    "692258",
+    "824952",
+    "691547",
+    "597964",
+    "598936"
+  ],
+  "human_review_pack_item_fields": [
+    "market_id",
+    "title_question",
+    "event_id",
+    "event_title",
+    "category",
+    "packet_type",
+    "deadline",
+    "current_yes_price",
+    "liquidity",
+    "volume",
+    "resolution_criteria_summary",
+    "market_context_notes",
+    "resolution_criteria_notes",
+    "evidence_summary_by_source",
+    "uncertainty_register",
+    "missing_information_review",
+    "operator_review_notes",
+    "open_questions",
+    "human_review_checklist",
+    "allowed_review_outcomes",
+    "prohibited_review_outputs",
+    "review_pack_status",
+    "source_ingest_artifacts"
+  ],
+  "human_review_checklist": [
+    "evidence_matches_resolution_criteria",
+    "uncertainty_register_reviewed",
+    "missing_information_reviewed",
+    "no_trading_recommendation_present",
+    "no_probability_or_ev_present",
+    "no_side_recommendation_present",
+    "no_market_decision_present"
+  ],
+  "allowed_review_outcomes": [
+    "approved_for_final_dossier_draft",
+    "needs_draft_revision",
+    "rejected_for_research_quality",
+    "watch_only"
+  ],
+  "prohibited_review_outputs": [
+    "bet recommendation",
+    "trade recommendation",
+    "YES/NO side selection",
+    "probability estimate",
+    "expected value calculation",
+    "score/signal",
+    "market decision",
+    "order/paper order"
+  ],
+  "export_summary": {
+    "accepted_drafts_seen": 1,
+    "human_review_packs_exported": 1,
+    "draft_records_skipped": 6,
+    "completed_dossiers_created": 0
+  },
+  "exported_market_ids": [
+    "824952"
+  ],
+  "human_review_packs": [
+    {
+      "market_id": "824952",
+      "title_question": "MicroStrategy sells any Bitcoin by December 31, 2026?",
+      "event_id": "16167",
+      "event_title": "MicroStrategy sells any Bitcoin by ___ ?",
+      "category": "Finance / Economy / Business / 2025 Predictions / Crypto / MicroStrategy / Stocks",
+      "packet_type": "selected_ingest_market_research_stub",
+      "deadline": "2026-07-01T04:00:00Z",
+      "current_yes_price": 0.095,
+      "liquidity": 33862.5213,
+      "volume": 574606.4678400013,
+      "resolution_criteria_summary": "Stub-only local market description excerpt for 'MicroStrategy sells any Bitcoin by December 31, 2026?': This market will resolve to \"Yes\" if MicroStrategy sells any of its Bitcoin by 11:59 PM ET on the date specified in the title. Otherwise, this market will resolve to \"No\". Manual completion must review the full local criteria before use.",
+      "market_context_notes": "Manual context notes summarize the local packet and market question for human review.",
+      "resolution_criteria_notes": "Manual notes restate local resolution criteria boundaries for later human review.",
+      "evidence_summary_by_source": [
+        "Local rule reference was copied into the packet for structural review.",
+        "Official source placeholder was documented as source coverage context.",
+        "Credible news placeholder was documented as source coverage context."
+      ],
+      "uncertainty_register": [
+        "Manual review still needs human judgment on source completeness.",
+        "Artifact validation does not determine the market outcome."
+      ],
+      "missing_information_review": "No structural gaps were flagged by the selected-ingest operator review result.",
+      "operator_review_notes": "Operator review marked the packet ready for dossier drafting; this draft only records structural notes.",
+      "open_questions": [],
+      "human_review_checklist": [
+        "evidence_matches_resolution_criteria",
+        "uncertainty_register_reviewed",
+        "missing_information_reviewed",
+        "no_trading_recommendation_present",
+        "no_probability_or_ev_present",
+        "no_side_recommendation_present",
+        "no_market_decision_present"
+      ],
+      "allowed_review_outcomes": [
+        "approved_for_final_dossier_draft",
+        "needs_draft_revision",
+        "rejected_for_research_quality",
+        "watch_only"
+      ],
+      "prohibited_review_outputs": [
+        "bet recommendation",
+        "trade recommendation",
+        "YES/NO side selection",
+        "probability estimate",
+        "expected value calculation",
+        "score/signal",
+        "market decision",
+        "order/paper order"
+      ],
+      "review_pack_status": "human_review_pack_only",
+      "source_ingest_artifacts": {
+        "normalized_market_preview": "pm_bot/ingest/normalized_market_preview.v1.json",
+        "normalized_source_snapshot_artifact_id": "polymarket_gamma_events_20260427T231234Z_c6373d103a2e",
+        "normalized_source_snapshot_path": "pm_bot/ingest/raw_snapshots/polymarket_gamma_events_20260427T231234Z_c6373d103a2e.json",
+        "operator_candidate_selection_index": "pm_bot/ingest/operator_candidate_selection_index.v1.json",
+        "operator_candidate_selection_overlay": "pm_bot/ingest/operator_candidate_selection_overlay_selected_first5.v1.json"
+      }
+    }
+  ]
+}

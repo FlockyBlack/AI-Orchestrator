@@ -1,0 +1,56 @@
+{
+  "schema_version": "v1",
+  "report_id": "PMBOT-BATCH-001",
+  "source_backlog_path": "docs/PM_BOT_SAFE_BACKLOG_V1.json",
+  "generated_at": "2026-04-25T14:44:21+00:00",
+  "candidates_created": [
+    "codex_auto/tasks/candidates/PMBOT-005-PAPER-SIMULATION.task.json",
+    "codex_auto/tasks/candidates/PMBOT-006-RISK-LIMITS.task.json",
+    "codex_auto/tasks/candidates/PMBOT-007-FEES-SLIPPAGE.task.json",
+    "codex_auto/tasks/candidates/PMBOT-008-RESEARCH-DASHBOARD.task.json",
+    "codex_auto/tasks/candidates/PMBOT-009-FIXTURE-POSTMORTEM.task.json",
+    "codex_auto/tasks/candidates/PMBOT-010-STATIC-SAFETY-AUDIT.task.json"
+  ],
+  "candidates_skipped": [
+    "fallback_used:PMBOT-005-PAPER-SIMULATION",
+    "fallback_used:PMBOT-006-RISK-LIMITS",
+    "fallback_used:PMBOT-007-FEES-SLIPPAGE",
+    "fallback_used:PMBOT-008-RESEARCH-DASHBOARD",
+    "fallback_used:PMBOT-009-FIXTURE-POSTMORTEM",
+    "fallback_used:PMBOT-010-STATIC-SAFETY-AUDIT"
+  ],
+  "prompts_created": [
+    "codex_auto/prompts/PMBOT-BATCH-001.codex_prompt.txt",
+    "codex_auto/prompts/PMBOT-BATCH-001.prompt_manifest.json"
+  ],
+  "validation_summary": {
+    "candidate_count": 6,
+    "writes": [
+      "PMBOT-005-PAPER-SIMULATION.task.json:created",
+      "PMBOT-006-RISK-LIMITS.task.json:created",
+      "PMBOT-007-FEES-SLIPPAGE.task.json:created",
+      "PMBOT-008-RESEARCH-DASHBOARD.task.json:created",
+      "PMBOT-009-FIXTURE-POSTMORTEM.task.json:created",
+      "PMBOT-010-STATIC-SAFETY-AUDIT.task.json:created",
+      "PMBOT-BATCH-001.codex_prompt.txt:created",
+      "PMBOT-BATCH-001.prompt_manifest.json:created"
+    ],
+    "generated_prompt_not_executed": true
+  },
+  "safety_check": {
+    "runtime_changed": false,
+    "dispatcher_touched": false,
+    "run_codex_touched": false,
+    "active_task_files_touched": false,
+    "freeze_record_modified": false,
+    "result_records_modified": false,
+    "checkpoint_records_modified": false,
+    "network_used": false,
+    "api_used": false,
+    "wallet_used": false,
+    "private_key_used": false,
+    "trading_used": false,
+    "single_runtime_source_rule_preserved": true
+  },
+  "recommended_next_action": "Run bundled Flocky validation on generated candidates before any promotion to ready."
+}

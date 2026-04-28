@@ -1,0 +1,95 @@
+{
+  "schema_version": "v1",
+  "task_id": "PMBOT-BRAIN-023-LOCAL-INBOX-RUN-LEDGER",
+  "workflow": "local_snapshot_inbox_paper_portfolio",
+  "run_id": "fixture-run-001",
+  "deterministic": true,
+  "input_inbox_path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator\\pm_bot\\paper\\local_snapshot_inbox",
+  "input_state_path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator\\pm_bot\\paper\\paper_portfolio_state.v1.json",
+  "output_state_path": "pm_bot\\paper\\manual_paper_run_fixture_output\\state_after.json",
+  "snapshot_files_discovered": [
+    {
+      "file_name": "001_series_snapshot_001.json",
+      "path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator\\pm_bot\\paper\\local_snapshot_inbox\\001_series_snapshot_001.json",
+      "sha256": "e2c3a44b0892fc71912a6cdd17d6809349ff3e0ede6b3e3dcbb31fa5171070c7",
+      "snapshot_id": "series_snapshot_001",
+      "observed_at": "2026-05-01T12:00:00Z"
+    },
+    {
+      "file_name": "002_series_snapshot_002.json",
+      "path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator\\pm_bot\\paper\\local_snapshot_inbox\\002_series_snapshot_002.json",
+      "sha256": "3aca812e88d3d604a72330e01a14ee6937a594ca4a395bc8dfb3baeff77eabea",
+      "snapshot_id": "series_snapshot_002",
+      "observed_at": "2026-05-15T12:00:00Z"
+    },
+    {
+      "file_name": "003_series_snapshot_003.json",
+      "path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator\\pm_bot\\paper\\local_snapshot_inbox\\003_series_snapshot_003.json",
+      "sha256": "db38e1e689415cc80abda83ad8190b790a69e2715e218c7e8aca202a1bc14937",
+      "snapshot_id": "series_snapshot_003",
+      "observed_at": "2026-05-31T23:59:00Z"
+    }
+  ],
+  "snapshots_skipped_already_processed": [
+    {
+      "file_name": "001_series_snapshot_001.json",
+      "sha256": "e2c3a44b0892fc71912a6cdd17d6809349ff3e0ede6b3e3dcbb31fa5171070c7",
+      "snapshot_id": "series_snapshot_001",
+      "observed_at": "2026-05-01T12:00:00Z",
+      "reason": "already_processed_in_state"
+    }
+  ],
+  "snapshots_processed": [
+    {
+      "file_name": "002_series_snapshot_002.json",
+      "sha256": "3aca812e88d3d604a72330e01a14ee6937a594ca4a395bc8dfb3baeff77eabea",
+      "snapshot_id": "series_snapshot_002",
+      "observed_at": "2026-05-15T12:00:00Z"
+    },
+    {
+      "file_name": "003_series_snapshot_003.json",
+      "sha256": "db38e1e689415cc80abda83ad8190b790a69e2715e218c7e8aca202a1bc14937",
+      "snapshot_id": "series_snapshot_003",
+      "observed_at": "2026-05-31T23:59:00Z"
+    }
+  ],
+  "before_state_summary": {
+    "processed_snapshots": 1,
+    "processed_market_side_keys": 1,
+    "open_positions": 1,
+    "settled_positions": 0,
+    "total_paper_notional": 100.0,
+    "open_paper_notional": 100.0,
+    "realized_paper_pnl": 0,
+    "unrealized_paper_pnl": 6.9
+  },
+  "after_state_summary": {
+    "processed_snapshots": 3,
+    "processed_market_side_keys": 1,
+    "open_positions": 0,
+    "settled_positions": 1,
+    "total_paper_notional": 100.0,
+    "open_paper_notional": 0,
+    "realized_paper_pnl": 72.41,
+    "unrealized_paper_pnl": 0
+  },
+  "new_paper_orders_created": 0,
+  "duplicate_orders_blocked": 1,
+  "risk_limit_orders_blocked": 1,
+  "reason_counts": {
+    "max_total_paper_exposure_exceeded": 1,
+    "max_open_positions_exceeded": 1
+  },
+  "realized_paper_pnl_delta": 72.41,
+  "final_realized_paper_pnl": 72.41,
+  "safety_flags_locked": true,
+  "offline_only": true,
+  "paper_only": true,
+  "live_fetcher_implemented": false,
+  "execution_allowed": false,
+  "trading_allowed": false,
+  "real_order_created": false,
+  "wallet_used": false,
+  "api_used": false,
+  "network_used": false
+}

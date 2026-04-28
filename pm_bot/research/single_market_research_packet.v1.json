@@ -1,0 +1,63 @@
+{
+  "schema_version": "single_market_research_packet.v1",
+  "packet_id": "single_market_research_packet_fixture_v1",
+  "market_id": "pm_fixture_single_market_001",
+  "market_title": "Will Example State certify the Metro Rail funding package by July 31, 2026?",
+  "market_question": "Will Example State certify the Metro Rail funding package by July 31, 2026?",
+  "resolution_criteria": "Resolves Yes if Example State publishes an official certification or final approval notice for the Metro Rail funding package on or before 2026-07-31. Draft notices, committee recommendations, or unofficial social posts do not resolve the market.",
+  "yes_price": 0.37,
+  "no_price": 0.63,
+  "current_date": "2026-04-27",
+  "sources": [
+    {
+      "source_id": "src_official_budget_notice",
+      "source_type": "official_statement",
+      "title": "Example State Budget Office funding certification calendar",
+      "url": "https://example.org/manual-fixtures/example-state-budget-office-calendar",
+      "published_at": "2026-04-22",
+      "excerpt_or_note": "[YES] Official calendar lists final Metro Rail funding certification vote for 2026-06-15 and notes certification package is complete.",
+      "reliability_hint": "high primary official source"
+    },
+    {
+      "source_id": "src_court_docket_no_stay",
+      "source_type": "court_record",
+      "title": "Example Superior Court docket entry denying emergency stay",
+      "url": "https://example.org/manual-fixtures/example-court-docket-metro-rail-stay",
+      "published_at": "2026-04-24",
+      "excerpt_or_note": "[YES] Court docket note says the emergency stay request was denied without prejudice, removing the main procedural blocker before the certification deadline.",
+      "reliability_hint": "high primary court record"
+    },
+    {
+      "source_id": "src_local_news_committee",
+      "source_type": "news",
+      "title": "Local News: budget committee advances Metro Rail funding package",
+      "url": "https://example.org/manual-fixtures/local-news-metro-rail-committee",
+      "published_at": "2026-04-25",
+      "excerpt_or_note": "[YES] Local reporting says the committee vote was 9-2 and quoted both chamber leaders saying floor passage is expected in May.",
+      "reliability_hint": "medium corroborated local reporting"
+    },
+    {
+      "source_id": "src_policy_analysis_risk",
+      "source_type": "analysis",
+      "title": "Analyst memo: remaining administrative risk for Metro Rail package",
+      "url": "https://example.org/manual-fixtures/metro-rail-administrative-risk-memo",
+      "published_at": "2026-04-26",
+      "excerpt_or_note": "[NO] Analysis notes certification could slip if bond counsel asks for another debt-service revision before publication.",
+      "reliability_hint": "medium scenario analysis"
+    },
+    {
+      "source_id": "src_social_advocate",
+      "source_type": "social",
+      "title": "Transit advocacy thread on possible timing delay",
+      "url": "https://example.org/manual-fixtures/transit-advocacy-thread",
+      "published_at": "2026-04-26",
+      "excerpt_or_note": "[UNCERTAINTY] Social thread claims two legislators may ask for amendments, but does not include documents or named sources.",
+      "reliability_hint": "low unverified social source"
+    }
+  ],
+  "operator_notes": [
+    "Manual packet fixture only; source URLs are not fetched by the dossier runner.",
+    "Resolution depends on official certification or final approval publication, not committee passage alone.",
+    "Use as research decision support only; no orders or state writes are allowed."
+  ]
+}

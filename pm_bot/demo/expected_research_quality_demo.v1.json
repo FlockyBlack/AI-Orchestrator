@@ -1,0 +1,2388 @@
+{
+  "schema_version": "v1",
+  "demo_id": "PMBOT-BATCH-004-RESEARCH-QUALITY-DEMO",
+  "fixture_only": true,
+  "paper_only": true,
+  "local_only": true,
+  "deterministic": true,
+  "signal_explanations": [
+    {
+      "case_id": "rq_case_strong_accept",
+      "market_id": "pm_fixture_2026_us_growth_soft_landing",
+      "final_decision": "accept",
+      "headline": "Accepted paper candidate with inspectable rationale.",
+      "positive_factors": [
+        "positive synthetic edge of 420 bps",
+        "multiple supporting synthetic signals are present",
+        "liquidity is above the local paper research floor",
+        "spread assumptions are manageable for a paper study",
+        "research notes are present for review"
+      ],
+      "negative_factors": [],
+      "risk_factors": [],
+      "data_quality_factors": [],
+      "missing_information": [],
+      "explanation_steps": [
+        "Load the deterministic research case and confirm fixture-only / paper-only scope.",
+        "Score signal strength, freshness, liquidity, spread, research completeness, and risk concentration components.",
+        "Apply hard rejections for resolved markets, stale data, low liquidity, wide spread, insufficient edge, or conflicting signals.",
+        "Translate the component scores and penalties into a confidence band and paper-only decision."
+      ],
+      "confidence_band": "high",
+      "confidence_score": 89,
+      "paper_only_action": "paper_candidate_only",
+      "no_real_order_statement": "Paper/research only. No real order, no wallet action, no runtime execution.",
+      "safety_boundaries": [
+        "fixture_only",
+        "paper_only",
+        "local_only",
+        "no_network",
+        "no_live_api",
+        "no_wallet",
+        "no_real_orders",
+        "no_runtime_wiring"
+      ]
+    },
+    {
+      "case_id": "rq_case_weak_edge_reject",
+      "market_id": "pm_fixture_2026_cabinet_exit",
+      "final_decision": "reject",
+      "headline": "Rejected paper candidate due to deterministic quality failures.",
+      "positive_factors": [
+        "liquidity is above the local paper research floor",
+        "research notes are present for review"
+      ],
+      "negative_factors": [
+        "edge estimate is not positive enough to justify a paper candidate"
+      ],
+      "risk_factors": [],
+      "data_quality_factors": [],
+      "missing_information": [
+        "limited_supporting_signals"
+      ],
+      "explanation_steps": [
+        "Load the deterministic research case and confirm fixture-only / paper-only scope.",
+        "Score signal strength, freshness, liquidity, spread, research completeness, and risk concentration components.",
+        "Apply hard rejections for resolved markets, stale data, low liquidity, wide spread, insufficient edge, or conflicting signals.",
+        "Translate the component scores and penalties into a confidence band and paper-only decision."
+      ],
+      "confidence_band": "reject",
+      "confidence_score": 54,
+      "paper_only_action": "reject_no_action",
+      "no_real_order_statement": "Paper/research only. No real order, no wallet action, no runtime execution.",
+      "safety_boundaries": [
+        "fixture_only",
+        "paper_only",
+        "local_only",
+        "no_network",
+        "no_live_api",
+        "no_wallet",
+        "no_real_orders",
+        "no_runtime_wiring"
+      ]
+    },
+    {
+      "case_id": "rq_case_low_liquidity_reject",
+      "market_id": "pm_fixture_2026_championship_upset",
+      "final_decision": "reject",
+      "headline": "Rejected paper candidate due to deterministic quality failures.",
+      "positive_factors": [
+        "positive synthetic edge of 180 bps",
+        "multiple supporting synthetic signals are present",
+        "research notes are present for review"
+      ],
+      "negative_factors": [],
+      "risk_factors": [
+        "liquidity is below the deterministic floor"
+      ],
+      "data_quality_factors": [],
+      "missing_information": [],
+      "explanation_steps": [
+        "Load the deterministic research case and confirm fixture-only / paper-only scope.",
+        "Score signal strength, freshness, liquidity, spread, research completeness, and risk concentration components.",
+        "Apply hard rejections for resolved markets, stale data, low liquidity, wide spread, insufficient edge, or conflicting signals.",
+        "Translate the component scores and penalties into a confidence band and paper-only decision."
+      ],
+      "confidence_band": "reject",
+      "confidence_score": 56,
+      "paper_only_action": "reject_no_action",
+      "no_real_order_statement": "Paper/research only. No real order, no wallet action, no runtime execution.",
+      "safety_boundaries": [
+        "fixture_only",
+        "paper_only",
+        "local_only",
+        "no_network",
+        "no_live_api",
+        "no_wallet",
+        "no_real_orders",
+        "no_runtime_wiring"
+      ]
+    },
+    {
+      "case_id": "rq_case_wide_spread_caution",
+      "market_id": "pm_fixture_2026_cabinet_exit",
+      "final_decision": "reject",
+      "headline": "Rejected paper candidate due to deterministic quality failures.",
+      "positive_factors": [
+        "positive synthetic edge of 130 bps",
+        "multiple supporting synthetic signals are present",
+        "liquidity is above the local paper research floor",
+        "research notes are present for review"
+      ],
+      "negative_factors": [],
+      "risk_factors": [
+        "spread assumptions are too wide for a clean paper entry"
+      ],
+      "data_quality_factors": [],
+      "missing_information": [],
+      "explanation_steps": [
+        "Load the deterministic research case and confirm fixture-only / paper-only scope.",
+        "Score signal strength, freshness, liquidity, spread, research completeness, and risk concentration components.",
+        "Apply hard rejections for resolved markets, stale data, low liquidity, wide spread, insufficient edge, or conflicting signals.",
+        "Translate the component scores and penalties into a confidence band and paper-only decision."
+      ],
+      "confidence_band": "reject",
+      "confidence_score": 57,
+      "paper_only_action": "reject_no_action",
+      "no_real_order_statement": "Paper/research only. No real order, no wallet action, no runtime execution.",
+      "safety_boundaries": [
+        "fixture_only",
+        "paper_only",
+        "local_only",
+        "no_network",
+        "no_live_api",
+        "no_wallet",
+        "no_real_orders",
+        "no_runtime_wiring"
+      ]
+    },
+    {
+      "case_id": "rq_case_stale_data_warning",
+      "market_id": "pm_fixture_2026_ai_regulation_vote",
+      "final_decision": "reject",
+      "headline": "Rejected paper candidate due to deterministic quality failures.",
+      "positive_factors": [
+        "positive synthetic edge of 250 bps",
+        "multiple supporting synthetic signals are present",
+        "liquidity is above the local paper research floor",
+        "spread assumptions are manageable for a paper study",
+        "research notes are present for review"
+      ],
+      "negative_factors": [],
+      "risk_factors": [],
+      "data_quality_factors": [
+        "fixture timestamp is stale for deterministic review"
+      ],
+      "missing_information": [],
+      "explanation_steps": [
+        "Load the deterministic research case and confirm fixture-only / paper-only scope.",
+        "Score signal strength, freshness, liquidity, spread, research completeness, and risk concentration components.",
+        "Apply hard rejections for resolved markets, stale data, low liquidity, wide spread, insufficient edge, or conflicting signals.",
+        "Translate the component scores and penalties into a confidence band and paper-only decision."
+      ],
+      "confidence_band": "reject",
+      "confidence_score": 55,
+      "paper_only_action": "reject_no_action",
+      "no_real_order_statement": "Paper/research only. No real order, no wallet action, no runtime execution.",
+      "safety_boundaries": [
+        "fixture_only",
+        "paper_only",
+        "local_only",
+        "no_network",
+        "no_live_api",
+        "no_wallet",
+        "no_real_orders",
+        "no_runtime_wiring"
+      ]
+    },
+    {
+      "case_id": "rq_case_resolved_market_exclusion",
+      "market_id": "pm_fixture_2026_hurricane_season_closed",
+      "final_decision": "exclude",
+      "headline": "Excluded case because the synthetic market is resolved or closed.",
+      "positive_factors": [
+        "spread assumptions are manageable for a paper study"
+      ],
+      "negative_factors": [
+        "edge estimate is not positive enough to justify a paper candidate",
+        "research narrative is incomplete"
+      ],
+      "risk_factors": [
+        "liquidity is below the deterministic floor"
+      ],
+      "data_quality_factors": [
+        "fixture timestamp is stale for deterministic review",
+        "research note is missing",
+        "some case fields are incomplete"
+      ],
+      "missing_information": [
+        "research_note",
+        "incomplete_case_fields",
+        "limited_supporting_signals"
+      ],
+      "explanation_steps": [
+        "Load the deterministic research case and confirm fixture-only / paper-only scope.",
+        "Score signal strength, freshness, liquidity, spread, research completeness, and risk concentration components.",
+        "Apply hard rejections for resolved markets, stale data, low liquidity, wide spread, insufficient edge, or conflicting signals.",
+        "Translate the component scores and penalties into a confidence band and paper-only decision."
+      ],
+      "confidence_band": "reject",
+      "confidence_score": 0,
+      "paper_only_action": "exclude_no_action",
+      "no_real_order_statement": "Paper/research only. No real order, no wallet action, no runtime execution.",
+      "safety_boundaries": [
+        "fixture_only",
+        "paper_only",
+        "local_only",
+        "no_network",
+        "no_live_api",
+        "no_wallet",
+        "no_real_orders",
+        "no_runtime_wiring"
+      ]
+    },
+    {
+      "case_id": "rq_case_correlated_watchlist",
+      "market_id": "pm_fixture_2026_cpi_below_target",
+      "final_decision": "watchlist",
+      "headline": "Watchlist paper candidate needs tighter evidence before sizing.",
+      "positive_factors": [
+        "positive synthetic edge of 260 bps",
+        "multiple supporting synthetic signals are present",
+        "liquidity is above the local paper research floor",
+        "spread assumptions are manageable for a paper study",
+        "research notes are present for review"
+      ],
+      "negative_factors": [],
+      "risk_factors": [
+        "correlated exposure is already elevated"
+      ],
+      "data_quality_factors": [],
+      "missing_information": [],
+      "explanation_steps": [
+        "Load the deterministic research case and confirm fixture-only / paper-only scope.",
+        "Score signal strength, freshness, liquidity, spread, research completeness, and risk concentration components.",
+        "Apply hard rejections for resolved markets, stale data, low liquidity, wide spread, insufficient edge, or conflicting signals.",
+        "Translate the component scores and penalties into a confidence band and paper-only decision."
+      ],
+      "confidence_band": "medium",
+      "confidence_score": 67,
+      "paper_only_action": "watchlist_only",
+      "no_real_order_statement": "Paper/research only. No real order, no wallet action, no runtime execution.",
+      "safety_boundaries": [
+        "fixture_only",
+        "paper_only",
+        "local_only",
+        "no_network",
+        "no_live_api",
+        "no_wallet",
+        "no_real_orders",
+        "no_runtime_wiring"
+      ]
+    },
+    {
+      "case_id": "rq_case_missing_note_watchlist",
+      "market_id": "pm_fixture_2026_ceasefire_window",
+      "final_decision": "watchlist",
+      "headline": "Watchlist paper candidate needs tighter evidence before sizing.",
+      "positive_factors": [
+        "positive synthetic edge of 310 bps",
+        "multiple supporting synthetic signals are present",
+        "liquidity is above the local paper research floor",
+        "spread assumptions are manageable for a paper study"
+      ],
+      "negative_factors": [
+        "research narrative is incomplete"
+      ],
+      "risk_factors": [],
+      "data_quality_factors": [
+        "research note is missing",
+        "some case fields are incomplete"
+      ],
+      "missing_information": [
+        "research_note",
+        "incomplete_case_fields"
+      ],
+      "explanation_steps": [
+        "Load the deterministic research case and confirm fixture-only / paper-only scope.",
+        "Score signal strength, freshness, liquidity, spread, research completeness, and risk concentration components.",
+        "Apply hard rejections for resolved markets, stale data, low liquidity, wide spread, insufficient edge, or conflicting signals.",
+        "Translate the component scores and penalties into a confidence band and paper-only decision."
+      ],
+      "confidence_band": "medium",
+      "confidence_score": 66,
+      "paper_only_action": "watchlist_only",
+      "no_real_order_statement": "Paper/research only. No real order, no wallet action, no runtime execution.",
+      "safety_boundaries": [
+        "fixture_only",
+        "paper_only",
+        "local_only",
+        "no_network",
+        "no_live_api",
+        "no_wallet",
+        "no_real_orders",
+        "no_runtime_wiring"
+      ]
+    },
+    {
+      "case_id": "rq_case_conflicting_signals_reject",
+      "market_id": "pm_fixture_2026_ai_regulation_vote",
+      "final_decision": "reject",
+      "headline": "Rejected paper candidate due to deterministic quality failures.",
+      "positive_factors": [
+        "positive synthetic edge of 220 bps",
+        "multiple supporting synthetic signals are present",
+        "liquidity is above the local paper research floor",
+        "spread assumptions are manageable for a paper study",
+        "research notes are present for review"
+      ],
+      "negative_factors": [
+        "signals conflict with each other and reduce directional clarity"
+      ],
+      "risk_factors": [],
+      "data_quality_factors": [],
+      "missing_information": [],
+      "explanation_steps": [
+        "Load the deterministic research case and confirm fixture-only / paper-only scope.",
+        "Score signal strength, freshness, liquidity, spread, research completeness, and risk concentration components.",
+        "Apply hard rejections for resolved markets, stale data, low liquidity, wide spread, insufficient edge, or conflicting signals.",
+        "Translate the component scores and penalties into a confidence band and paper-only decision."
+      ],
+      "confidence_band": "reject",
+      "confidence_score": 54,
+      "paper_only_action": "reject_no_action",
+      "no_real_order_statement": "Paper/research only. No real order, no wallet action, no runtime execution.",
+      "safety_boundaries": [
+        "fixture_only",
+        "paper_only",
+        "local_only",
+        "no_network",
+        "no_live_api",
+        "no_wallet",
+        "no_real_orders",
+        "no_runtime_wiring"
+      ]
+    },
+    {
+      "case_id": "rq_case_high_confidence_high_risk",
+      "market_id": "pm_fixture_2026_rate_cut_december",
+      "final_decision": "watchlist",
+      "headline": "Watchlist paper candidate needs tighter evidence before sizing.",
+      "positive_factors": [
+        "positive synthetic edge of 290 bps",
+        "multiple supporting synthetic signals are present",
+        "liquidity is above the local paper research floor",
+        "spread assumptions are manageable for a paper study",
+        "research notes are present for review"
+      ],
+      "negative_factors": [],
+      "risk_factors": [
+        "correlated exposure is already elevated",
+        "concentration risk is elevated",
+        "overall risk profile is high despite signal strength"
+      ],
+      "data_quality_factors": [],
+      "missing_information": [],
+      "explanation_steps": [
+        "Load the deterministic research case and confirm fixture-only / paper-only scope.",
+        "Score signal strength, freshness, liquidity, spread, research completeness, and risk concentration components.",
+        "Apply hard rejections for resolved markets, stale data, low liquidity, wide spread, insufficient edge, or conflicting signals.",
+        "Translate the component scores and penalties into a confidence band and paper-only decision."
+      ],
+      "confidence_band": "low",
+      "confidence_score": 46,
+      "paper_only_action": "watchlist_only",
+      "no_real_order_statement": "Paper/research only. No real order, no wallet action, no runtime execution.",
+      "safety_boundaries": [
+        "fixture_only",
+        "paper_only",
+        "local_only",
+        "no_network",
+        "no_live_api",
+        "no_wallet",
+        "no_real_orders",
+        "no_runtime_wiring"
+      ]
+    },
+    {
+      "case_id": "rq_case_low_confidence_watchlist",
+      "market_id": "pm_fixture_2026_ceasefire_window",
+      "final_decision": "watchlist",
+      "headline": "Watchlist paper candidate needs tighter evidence before sizing.",
+      "positive_factors": [
+        "positive synthetic edge of 110 bps",
+        "liquidity is above the local paper research floor",
+        "spread assumptions are manageable for a paper study",
+        "research notes are present for review"
+      ],
+      "negative_factors": [],
+      "risk_factors": [],
+      "data_quality_factors": [],
+      "missing_information": [
+        "limited_supporting_signals"
+      ],
+      "explanation_steps": [
+        "Load the deterministic research case and confirm fixture-only / paper-only scope.",
+        "Score signal strength, freshness, liquidity, spread, research completeness, and risk concentration components.",
+        "Apply hard rejections for resolved markets, stale data, low liquidity, wide spread, insufficient edge, or conflicting signals.",
+        "Translate the component scores and penalties into a confidence band and paper-only decision."
+      ],
+      "confidence_band": "medium",
+      "confidence_score": 76,
+      "paper_only_action": "watchlist_only",
+      "no_real_order_statement": "Paper/research only. No real order, no wallet action, no runtime execution.",
+      "safety_boundaries": [
+        "fixture_only",
+        "paper_only",
+        "local_only",
+        "no_network",
+        "no_live_api",
+        "no_wallet",
+        "no_real_orders",
+        "no_runtime_wiring"
+      ]
+    },
+    {
+      "case_id": "rq_case_paper_only_no_action",
+      "market_id": "pm_fixture_2026_ceasefire_window",
+      "final_decision": "no_action",
+      "headline": "No-action monitoring case kept outside paper positioning.",
+      "positive_factors": [
+        "positive synthetic edge of 90 bps",
+        "liquidity is above the local paper research floor",
+        "spread assumptions are manageable for a paper study",
+        "research notes are present for review"
+      ],
+      "negative_factors": [
+        "case is intentionally scoped as monitoring-only"
+      ],
+      "risk_factors": [],
+      "data_quality_factors": [],
+      "missing_information": [
+        "limited_supporting_signals"
+      ],
+      "explanation_steps": [
+        "Load the deterministic research case and confirm fixture-only / paper-only scope.",
+        "Score signal strength, freshness, liquidity, spread, research completeness, and risk concentration components.",
+        "Apply hard rejections for resolved markets, stale data, low liquidity, wide spread, insufficient edge, or conflicting signals.",
+        "Translate the component scores and penalties into a confidence band and paper-only decision."
+      ],
+      "confidence_band": "low",
+      "confidence_score": 60,
+      "paper_only_action": "monitor_only",
+      "no_real_order_statement": "Paper/research only. No real order, no wallet action, no runtime execution.",
+      "safety_boundaries": [
+        "fixture_only",
+        "paper_only",
+        "local_only",
+        "no_network",
+        "no_live_api",
+        "no_wallet",
+        "no_real_orders",
+        "no_runtime_wiring"
+      ]
+    }
+  ],
+  "confidence_breakdowns": [
+    {
+      "case_id": "rq_case_strong_accept",
+      "market_id": "pm_fixture_2026_us_growth_soft_landing",
+      "total_confidence_score": 89,
+      "confidence_band": "high",
+      "component_scores": {
+        "signal_strength": 100,
+        "data_freshness": 95,
+        "liquidity_quality": 95,
+        "spread_quality": 95,
+        "research_completeness": 95,
+        "correlation_risk": 65,
+        "concentration_risk": 65,
+        "scenario_consistency": 90,
+        "audit_safety": 100
+      },
+      "penalties": [],
+      "warnings": [],
+      "hard_reject_reasons": [],
+      "missing_information": [],
+      "final_decision": "accept",
+      "decision_support_summary": "Synthetic paper candidate clears deterministic quality gates.",
+      "paper_research_only": true,
+      "no_real_order_statement": "Paper/research only. No real order, no wallet action, no runtime execution."
+    },
+    {
+      "case_id": "rq_case_weak_edge_reject",
+      "market_id": "pm_fixture_2026_cabinet_exit",
+      "total_confidence_score": 54,
+      "confidence_band": "reject",
+      "component_scores": {
+        "signal_strength": 33,
+        "data_freshness": 95,
+        "liquidity_quality": 68,
+        "spread_quality": 60,
+        "research_completeness": 85,
+        "correlation_risk": 90,
+        "concentration_risk": 90,
+        "scenario_consistency": 45,
+        "audit_safety": 100
+      },
+      "penalties": [
+        {
+          "reason": "insufficient_edge",
+          "points": 20
+        }
+      ],
+      "warnings": [],
+      "hard_reject_reasons": [
+        "insufficient_edge"
+      ],
+      "missing_information": [
+        "limited_supporting_signals"
+      ],
+      "final_decision": "reject",
+      "decision_support_summary": "Synthetic paper candidate fails deterministic quality gates and stays no-action.",
+      "paper_research_only": true,
+      "no_real_order_statement": "Paper/research only. No real order, no wallet action, no runtime execution."
+    },
+    {
+      "case_id": "rq_case_low_liquidity_reject",
+      "market_id": "pm_fixture_2026_championship_upset",
+      "total_confidence_score": 56,
+      "confidence_band": "reject",
+      "component_scores": {
+        "signal_strength": 78,
+        "data_freshness": 95,
+        "liquidity_quality": 15,
+        "spread_quality": 60,
+        "research_completeness": 85,
+        "correlation_risk": 90,
+        "concentration_risk": 90,
+        "scenario_consistency": 68,
+        "audit_safety": 100
+      },
+      "penalties": [
+        {
+          "reason": "low_liquidity",
+          "points": 20
+        }
+      ],
+      "warnings": [
+        "low_liquidity"
+      ],
+      "hard_reject_reasons": [
+        "low_liquidity"
+      ],
+      "missing_information": [],
+      "final_decision": "reject",
+      "decision_support_summary": "Synthetic paper candidate fails deterministic quality gates and stays no-action.",
+      "paper_research_only": true,
+      "no_real_order_statement": "Paper/research only. No real order, no wallet action, no runtime execution."
+    },
+    {
+      "case_id": "rq_case_wide_spread_caution",
+      "market_id": "pm_fixture_2026_cabinet_exit",
+      "total_confidence_score": 57,
+      "confidence_band": "reject",
+      "component_scores": {
+        "signal_strength": 67,
+        "data_freshness": 95,
+        "liquidity_quality": 68,
+        "spread_quality": 20,
+        "research_completeness": 85,
+        "correlation_risk": 90,
+        "concentration_risk": 90,
+        "scenario_consistency": 60,
+        "audit_safety": 100
+      },
+      "penalties": [
+        {
+          "reason": "wide_spread",
+          "points": 18
+        }
+      ],
+      "warnings": [
+        "wide_spread"
+      ],
+      "hard_reject_reasons": [
+        "wide_spread"
+      ],
+      "missing_information": [],
+      "final_decision": "reject",
+      "decision_support_summary": "Synthetic paper candidate fails deterministic quality gates and stays no-action.",
+      "paper_research_only": true,
+      "no_real_order_statement": "Paper/research only. No real order, no wallet action, no runtime execution."
+    },
+    {
+      "case_id": "rq_case_stale_data_warning",
+      "market_id": "pm_fixture_2026_ai_regulation_vote",
+      "total_confidence_score": 55,
+      "confidence_band": "reject",
+      "component_scores": {
+        "signal_strength": 88,
+        "data_freshness": 15,
+        "liquidity_quality": 68,
+        "spread_quality": 80,
+        "research_completeness": 85,
+        "correlation_risk": 65,
+        "concentration_risk": 90,
+        "scenario_consistency": 70,
+        "audit_safety": 100
+      },
+      "penalties": [
+        {
+          "reason": "stale_data",
+          "points": 18
+        }
+      ],
+      "warnings": [
+        "stale_data"
+      ],
+      "hard_reject_reasons": [
+        "stale_data"
+      ],
+      "missing_information": [],
+      "final_decision": "reject",
+      "decision_support_summary": "Synthetic paper candidate fails deterministic quality gates and stays no-action.",
+      "paper_research_only": true,
+      "no_real_order_statement": "Paper/research only. No real order, no wallet action, no runtime execution."
+    },
+    {
+      "case_id": "rq_case_resolved_market_exclusion",
+      "market_id": "pm_fixture_2026_hurricane_season_closed",
+      "total_confidence_score": 0,
+      "confidence_band": "reject",
+      "component_scores": {
+        "signal_strength": 38,
+        "data_freshness": 15,
+        "liquidity_quality": 15,
+        "spread_quality": 95,
+        "research_completeness": 40,
+        "correlation_risk": 90,
+        "concentration_risk": 90,
+        "scenario_consistency": 20,
+        "audit_safety": 100
+      },
+      "penalties": [
+        {
+          "reason": "insufficient_edge",
+          "points": 20
+        },
+        {
+          "reason": "low_liquidity",
+          "points": 20
+        },
+        {
+          "reason": "stale_data",
+          "points": 18
+        },
+        {
+          "reason": "missing_research_notes",
+          "points": 8
+        },
+        {
+          "reason": "resolved_or_closed_market",
+          "points": 100
+        }
+      ],
+      "warnings": [
+        "low_liquidity",
+        "missing_research_notes",
+        "stale_data"
+      ],
+      "hard_reject_reasons": [
+        "insufficient_edge",
+        "low_liquidity",
+        "resolved_or_closed_market",
+        "stale_data"
+      ],
+      "missing_information": [
+        "research_note",
+        "incomplete_case_fields",
+        "limited_supporting_signals"
+      ],
+      "final_decision": "exclude",
+      "decision_support_summary": "Resolved or closed synthetic market is excluded from paper research consideration.",
+      "paper_research_only": true,
+      "no_real_order_statement": "Paper/research only. No real order, no wallet action, no runtime execution."
+    },
+    {
+      "case_id": "rq_case_correlated_watchlist",
+      "market_id": "pm_fixture_2026_cpi_below_target",
+      "total_confidence_score": 67,
+      "confidence_band": "medium",
+      "component_scores": {
+        "signal_strength": 89,
+        "data_freshness": 95,
+        "liquidity_quality": 82,
+        "spread_quality": 80,
+        "research_completeness": 95,
+        "correlation_risk": 35,
+        "concentration_risk": 65,
+        "scenario_consistency": 74,
+        "audit_safety": 100
+      },
+      "penalties": [
+        {
+          "reason": "correlated_exposure",
+          "points": 12
+        }
+      ],
+      "warnings": [
+        "correlated_exposure"
+      ],
+      "hard_reject_reasons": [],
+      "missing_information": [],
+      "final_decision": "watchlist",
+      "decision_support_summary": "Synthetic paper candidate remains inspectable but needs more evidence before paper sizing.",
+      "paper_research_only": true,
+      "no_real_order_statement": "Paper/research only. No real order, no wallet action, no runtime execution."
+    },
+    {
+      "case_id": "rq_case_missing_note_watchlist",
+      "market_id": "pm_fixture_2026_ceasefire_window",
+      "total_confidence_score": 66,
+      "confidence_band": "medium",
+      "component_scores": {
+        "signal_strength": 92,
+        "data_freshness": 95,
+        "liquidity_quality": 55,
+        "spread_quality": 80,
+        "research_completeness": 40,
+        "correlation_risk": 65,
+        "concentration_risk": 65,
+        "scenario_consistency": 72,
+        "audit_safety": 100
+      },
+      "penalties": [
+        {
+          "reason": "missing_research_notes",
+          "points": 8
+        }
+      ],
+      "warnings": [
+        "missing_research_notes"
+      ],
+      "hard_reject_reasons": [],
+      "missing_information": [
+        "research_note",
+        "incomplete_case_fields"
+      ],
+      "final_decision": "watchlist",
+      "decision_support_summary": "Synthetic paper candidate remains inspectable but needs more evidence before paper sizing.",
+      "paper_research_only": true,
+      "no_real_order_statement": "Paper/research only. No real order, no wallet action, no runtime execution."
+    },
+    {
+      "case_id": "rq_case_conflicting_signals_reject",
+      "market_id": "pm_fixture_2026_ai_regulation_vote",
+      "total_confidence_score": 54,
+      "confidence_band": "reject",
+      "component_scores": {
+        "signal_strength": 40,
+        "data_freshness": 80,
+        "liquidity_quality": 68,
+        "spread_quality": 80,
+        "research_completeness": 85,
+        "correlation_risk": 65,
+        "concentration_risk": 90,
+        "scenario_consistency": 40,
+        "audit_safety": 100
+      },
+      "penalties": [
+        {
+          "reason": "conflicting_signals",
+          "points": 18
+        }
+      ],
+      "warnings": [
+        "conflicting_signals"
+      ],
+      "hard_reject_reasons": [
+        "conflicting_signals"
+      ],
+      "missing_information": [],
+      "final_decision": "reject",
+      "decision_support_summary": "Synthetic paper candidate fails deterministic quality gates and stays no-action.",
+      "paper_research_only": true,
+      "no_real_order_statement": "Paper/research only. No real order, no wallet action, no runtime execution."
+    },
+    {
+      "case_id": "rq_case_high_confidence_high_risk",
+      "market_id": "pm_fixture_2026_rate_cut_december",
+      "total_confidence_score": 46,
+      "confidence_band": "low",
+      "component_scores": {
+        "signal_strength": 100,
+        "data_freshness": 95,
+        "liquidity_quality": 82,
+        "spread_quality": 95,
+        "research_completeness": 95,
+        "correlation_risk": 35,
+        "concentration_risk": 35,
+        "scenario_consistency": 84,
+        "audit_safety": 100
+      },
+      "penalties": [
+        {
+          "reason": "correlated_exposure",
+          "points": 12
+        },
+        {
+          "reason": "concentration_risk",
+          "points": 12
+        },
+        {
+          "reason": "high_risk_profile",
+          "points": 10
+        }
+      ],
+      "warnings": [
+        "concentration_risk",
+        "correlated_exposure",
+        "high_risk_profile"
+      ],
+      "hard_reject_reasons": [],
+      "missing_information": [],
+      "final_decision": "watchlist",
+      "decision_support_summary": "Synthetic paper candidate remains inspectable but needs more evidence before paper sizing.",
+      "paper_research_only": true,
+      "no_real_order_statement": "Paper/research only. No real order, no wallet action, no runtime execution."
+    },
+    {
+      "case_id": "rq_case_low_confidence_watchlist",
+      "market_id": "pm_fixture_2026_ceasefire_window",
+      "total_confidence_score": 76,
+      "confidence_band": "medium",
+      "component_scores": {
+        "signal_strength": 61,
+        "data_freshness": 95,
+        "liquidity_quality": 55,
+        "spread_quality": 80,
+        "research_completeness": 85,
+        "correlation_risk": 65,
+        "concentration_risk": 90,
+        "scenario_consistency": 52,
+        "audit_safety": 100
+      },
+      "penalties": [],
+      "warnings": [],
+      "hard_reject_reasons": [],
+      "missing_information": [
+        "limited_supporting_signals"
+      ],
+      "final_decision": "watchlist",
+      "decision_support_summary": "Synthetic paper candidate remains inspectable but needs more evidence before paper sizing.",
+      "paper_research_only": true,
+      "no_real_order_statement": "Paper/research only. No real order, no wallet action, no runtime execution."
+    },
+    {
+      "case_id": "rq_case_paper_only_no_action",
+      "market_id": "pm_fixture_2026_ceasefire_window",
+      "total_confidence_score": 60,
+      "confidence_band": "low",
+      "component_scores": {
+        "signal_strength": 59,
+        "data_freshness": 95,
+        "liquidity_quality": 55,
+        "spread_quality": 80,
+        "research_completeness": 85,
+        "correlation_risk": 65,
+        "concentration_risk": 90,
+        "scenario_consistency": 50,
+        "audit_safety": 100
+      },
+      "penalties": [
+        {
+          "reason": "paper_only_no_action",
+          "points": 15
+        }
+      ],
+      "warnings": [
+        "paper_only_no_action"
+      ],
+      "hard_reject_reasons": [],
+      "missing_information": [
+        "limited_supporting_signals"
+      ],
+      "final_decision": "no_action",
+      "decision_support_summary": "Paper-only monitoring case intentionally avoids any paper position proposal.",
+      "paper_research_only": true,
+      "no_real_order_statement": "Paper/research only. No real order, no wallet action, no runtime execution."
+    }
+  ],
+  "bad_signal_rejection_summary": {
+    "rejected_cases_count": 6,
+    "rejection_reasons_grouped": {
+      "conflicting_signals": 1,
+      "insufficient_edge": 2,
+      "low_liquidity": 2,
+      "resolved_or_closed_market": 1,
+      "stale_data": 2,
+      "wide_spread": 1
+    }
+  },
+  "candidate_comparison": [
+    {
+      "case_id": "rq_case_strong_accept",
+      "market_id": "pm_fixture_2026_us_growth_soft_landing",
+      "decision": "accept",
+      "confidence_score": 89,
+      "confidence_band": "high",
+      "risk_score": 65,
+      "data_quality_score": 95,
+      "liquidity_spread_caution": [],
+      "warning_flags": [],
+      "rejection_reasons": [],
+      "watchlist_reasons": []
+    },
+    {
+      "case_id": "rq_case_low_confidence_watchlist",
+      "market_id": "pm_fixture_2026_ceasefire_window",
+      "decision": "watchlist",
+      "confidence_score": 76,
+      "confidence_band": "medium",
+      "risk_score": 65,
+      "data_quality_score": 85,
+      "liquidity_spread_caution": [],
+      "warning_flags": [],
+      "rejection_reasons": [],
+      "watchlist_reasons": []
+    },
+    {
+      "case_id": "rq_case_correlated_watchlist",
+      "market_id": "pm_fixture_2026_cpi_below_target",
+      "decision": "watchlist",
+      "confidence_score": 67,
+      "confidence_band": "medium",
+      "risk_score": 35,
+      "data_quality_score": 95,
+      "liquidity_spread_caution": [],
+      "warning_flags": [
+        "correlated_exposure"
+      ],
+      "rejection_reasons": [],
+      "watchlist_reasons": [
+        "correlated_exposure"
+      ]
+    },
+    {
+      "case_id": "rq_case_missing_note_watchlist",
+      "market_id": "pm_fixture_2026_ceasefire_window",
+      "decision": "watchlist",
+      "confidence_score": 66,
+      "confidence_band": "medium",
+      "risk_score": 65,
+      "data_quality_score": 40,
+      "liquidity_spread_caution": [],
+      "warning_flags": [
+        "missing_research_notes"
+      ],
+      "rejection_reasons": [],
+      "watchlist_reasons": [
+        "missing_research_notes"
+      ]
+    },
+    {
+      "case_id": "rq_case_high_confidence_high_risk",
+      "market_id": "pm_fixture_2026_rate_cut_december",
+      "decision": "watchlist",
+      "confidence_score": 46,
+      "confidence_band": "low",
+      "risk_score": 35,
+      "data_quality_score": 95,
+      "liquidity_spread_caution": [],
+      "warning_flags": [
+        "concentration_risk",
+        "correlated_exposure",
+        "high_risk_profile"
+      ],
+      "rejection_reasons": [],
+      "watchlist_reasons": [
+        "concentration_risk",
+        "correlated_exposure",
+        "high_risk_profile"
+      ]
+    },
+    {
+      "case_id": "rq_case_paper_only_no_action",
+      "market_id": "pm_fixture_2026_ceasefire_window",
+      "decision": "no_action",
+      "confidence_score": 60,
+      "confidence_band": "low",
+      "risk_score": 65,
+      "data_quality_score": 85,
+      "liquidity_spread_caution": [],
+      "warning_flags": [
+        "paper_only_no_action"
+      ],
+      "rejection_reasons": [],
+      "watchlist_reasons": []
+    },
+    {
+      "case_id": "rq_case_wide_spread_caution",
+      "market_id": "pm_fixture_2026_cabinet_exit",
+      "decision": "reject",
+      "confidence_score": 57,
+      "confidence_band": "reject",
+      "risk_score": 90,
+      "data_quality_score": 85,
+      "liquidity_spread_caution": [
+        "wide_spread"
+      ],
+      "warning_flags": [
+        "wide_spread"
+      ],
+      "rejection_reasons": [
+        "wide_spread"
+      ],
+      "watchlist_reasons": []
+    },
+    {
+      "case_id": "rq_case_low_liquidity_reject",
+      "market_id": "pm_fixture_2026_championship_upset",
+      "decision": "reject",
+      "confidence_score": 56,
+      "confidence_band": "reject",
+      "risk_score": 90,
+      "data_quality_score": 85,
+      "liquidity_spread_caution": [
+        "low_liquidity"
+      ],
+      "warning_flags": [
+        "low_liquidity"
+      ],
+      "rejection_reasons": [
+        "low_liquidity"
+      ],
+      "watchlist_reasons": []
+    },
+    {
+      "case_id": "rq_case_stale_data_warning",
+      "market_id": "pm_fixture_2026_ai_regulation_vote",
+      "decision": "reject",
+      "confidence_score": 55,
+      "confidence_band": "reject",
+      "risk_score": 65,
+      "data_quality_score": 15,
+      "liquidity_spread_caution": [],
+      "warning_flags": [
+        "stale_data"
+      ],
+      "rejection_reasons": [
+        "stale_data"
+      ],
+      "watchlist_reasons": []
+    },
+    {
+      "case_id": "rq_case_conflicting_signals_reject",
+      "market_id": "pm_fixture_2026_ai_regulation_vote",
+      "decision": "reject",
+      "confidence_score": 54,
+      "confidence_band": "reject",
+      "risk_score": 65,
+      "data_quality_score": 80,
+      "liquidity_spread_caution": [],
+      "warning_flags": [
+        "conflicting_signals"
+      ],
+      "rejection_reasons": [
+        "conflicting_signals"
+      ],
+      "watchlist_reasons": []
+    },
+    {
+      "case_id": "rq_case_weak_edge_reject",
+      "market_id": "pm_fixture_2026_cabinet_exit",
+      "decision": "reject",
+      "confidence_score": 54,
+      "confidence_band": "reject",
+      "risk_score": 90,
+      "data_quality_score": 85,
+      "liquidity_spread_caution": [],
+      "warning_flags": [],
+      "rejection_reasons": [
+        "insufficient_edge"
+      ],
+      "watchlist_reasons": []
+    },
+    {
+      "case_id": "rq_case_resolved_market_exclusion",
+      "market_id": "pm_fixture_2026_hurricane_season_closed",
+      "decision": "exclude",
+      "confidence_score": 0,
+      "confidence_band": "reject",
+      "risk_score": 90,
+      "data_quality_score": 15,
+      "liquidity_spread_caution": [
+        "low_liquidity"
+      ],
+      "warning_flags": [
+        "low_liquidity",
+        "missing_research_notes",
+        "stale_data"
+      ],
+      "rejection_reasons": [
+        "insufficient_edge",
+        "low_liquidity",
+        "resolved_or_closed_market",
+        "stale_data"
+      ],
+      "watchlist_reasons": []
+    }
+  ],
+  "research_quality_scorecard": {
+    "total_score": 95.0,
+    "score_by_section": {
+      "fixture_coverage": 100,
+      "scenario_coverage": 100,
+      "explainability_completeness": 95,
+      "rejection_coverage": 95,
+      "portfolio_risk_coverage": 90,
+      "dashboard_coverage": 85,
+      "audit_coverage": 90,
+      "determinism": 100,
+      "safety_boundary_clarity": 100
+    }
+  },
+  "reasoning_traces": [
+    {
+      "trace_id": "rq_case_strong_accept_trace",
+      "case_id": "rq_case_strong_accept",
+      "input_fixture": {
+        "case_id": "rq_case_strong_accept",
+        "market_id": "pm_fixture_2026_us_growth_soft_landing",
+        "category": "macro",
+        "candidate_type": "strong_paper_candidate",
+        "signal_inputs": {
+          "expected_edge_bps": 420,
+          "supporting_signal_count": 3,
+          "contradiction_level": 10,
+          "thesis_clarity": 92,
+          "scenario_consistency": 90,
+          "conflict_flag": false,
+          "paper_only_no_action": false
+        },
+        "risk_inputs": {
+          "liquidity_usd_24h": 240000.0,
+          "spread_bps": 30,
+          "correlated_exposure_level": "medium",
+          "concentration_level": "medium",
+          "risk_level": "medium",
+          "resolved_or_closed": false
+        },
+        "data_quality_inputs": {
+          "stale_hours": 2,
+          "research_note_present": true,
+          "paper_notes_present": true,
+          "notes_quality": "strong",
+          "missing_fields_count": 0
+        },
+        "expected_decision": "accept",
+        "expected_confidence_band": "high",
+        "expected_rejection_or_warning_reasons": [],
+        "fixture_only": true,
+        "paper_only": true
+      },
+      "normalized_research_case": {
+        "case_id": "rq_case_strong_accept",
+        "market_id": "pm_fixture_2026_us_growth_soft_landing",
+        "category": "macro",
+        "candidate_type": "strong_paper_candidate",
+        "signal_inputs": {
+          "expected_edge_bps": 420,
+          "supporting_signal_count": 3,
+          "contradiction_level": 10,
+          "thesis_clarity": 92,
+          "scenario_consistency": 90,
+          "conflict_flag": false,
+          "paper_only_no_action": false
+        },
+        "risk_inputs": {
+          "liquidity_usd_24h": 240000.0,
+          "spread_bps": 30,
+          "correlated_exposure_level": "medium",
+          "concentration_level": "medium",
+          "risk_level": "medium",
+          "resolved_or_closed": false
+        },
+        "data_quality_inputs": {
+          "stale_hours": 2,
+          "research_note_present": true,
+          "paper_notes_present": true,
+          "notes_quality": "strong",
+          "missing_fields_count": 0
+        }
+      },
+      "confidence_components": {
+        "signal_strength": 100,
+        "data_freshness": 95,
+        "liquidity_quality": 95,
+        "spread_quality": 95,
+        "research_completeness": 95,
+        "correlation_risk": 65,
+        "concentration_risk": 65,
+        "scenario_consistency": 90,
+        "audit_safety": 100
+      },
+      "penalties": [],
+      "risk_flags": [],
+      "data_quality_flags": [],
+      "explanation_steps": [
+        "Load the deterministic research case and confirm fixture-only / paper-only scope.",
+        "Score signal strength, freshness, liquidity, spread, research completeness, and risk concentration components.",
+        "Apply hard rejections for resolved markets, stale data, low liquidity, wide spread, insufficient edge, or conflicting signals.",
+        "Translate the component scores and penalties into a confidence band and paper-only decision."
+      ],
+      "final_paper_only_decision": "accept",
+      "confidence_band": "high",
+      "confidence_score": 89,
+      "no_action_safety_confirmation": "No live action, no wallet usage, no order placement, and no runtime wiring."
+    },
+    {
+      "trace_id": "rq_case_weak_edge_reject_trace",
+      "case_id": "rq_case_weak_edge_reject",
+      "input_fixture": {
+        "case_id": "rq_case_weak_edge_reject",
+        "market_id": "pm_fixture_2026_cabinet_exit",
+        "category": "politics",
+        "candidate_type": "weak_paper_candidate",
+        "signal_inputs": {
+          "expected_edge_bps": -120,
+          "supporting_signal_count": 1,
+          "contradiction_level": 25,
+          "thesis_clarity": 48,
+          "scenario_consistency": 45,
+          "conflict_flag": false,
+          "paper_only_no_action": false
+        },
+        "risk_inputs": {
+          "liquidity_usd_24h": 92000.0,
+          "spread_bps": 120,
+          "correlated_exposure_level": "low",
+          "concentration_level": "low",
+          "risk_level": "medium",
+          "resolved_or_closed": false
+        },
+        "data_quality_inputs": {
+          "stale_hours": 4,
+          "research_note_present": true,
+          "paper_notes_present": true,
+          "notes_quality": "partial",
+          "missing_fields_count": 0
+        },
+        "expected_decision": "reject",
+        "expected_confidence_band": "reject",
+        "expected_rejection_or_warning_reasons": [
+          "insufficient_edge"
+        ],
+        "fixture_only": true,
+        "paper_only": true
+      },
+      "normalized_research_case": {
+        "case_id": "rq_case_weak_edge_reject",
+        "market_id": "pm_fixture_2026_cabinet_exit",
+        "category": "politics",
+        "candidate_type": "weak_paper_candidate",
+        "signal_inputs": {
+          "expected_edge_bps": -120,
+          "supporting_signal_count": 1,
+          "contradiction_level": 25,
+          "thesis_clarity": 48,
+          "scenario_consistency": 45,
+          "conflict_flag": false,
+          "paper_only_no_action": false
+        },
+        "risk_inputs": {
+          "liquidity_usd_24h": 92000.0,
+          "spread_bps": 120,
+          "correlated_exposure_level": "low",
+          "concentration_level": "low",
+          "risk_level": "medium",
+          "resolved_or_closed": false
+        },
+        "data_quality_inputs": {
+          "stale_hours": 4,
+          "research_note_present": true,
+          "paper_notes_present": true,
+          "notes_quality": "partial",
+          "missing_fields_count": 0
+        }
+      },
+      "confidence_components": {
+        "signal_strength": 33,
+        "data_freshness": 95,
+        "liquidity_quality": 68,
+        "spread_quality": 60,
+        "research_completeness": 85,
+        "correlation_risk": 90,
+        "concentration_risk": 90,
+        "scenario_consistency": 45,
+        "audit_safety": 100
+      },
+      "penalties": [
+        {
+          "reason": "insufficient_edge",
+          "points": 20
+        }
+      ],
+      "risk_flags": [],
+      "data_quality_flags": [],
+      "explanation_steps": [
+        "Load the deterministic research case and confirm fixture-only / paper-only scope.",
+        "Score signal strength, freshness, liquidity, spread, research completeness, and risk concentration components.",
+        "Apply hard rejections for resolved markets, stale data, low liquidity, wide spread, insufficient edge, or conflicting signals.",
+        "Translate the component scores and penalties into a confidence band and paper-only decision."
+      ],
+      "final_paper_only_decision": "reject",
+      "confidence_band": "reject",
+      "confidence_score": 54,
+      "no_action_safety_confirmation": "No live action, no wallet usage, no order placement, and no runtime wiring."
+    },
+    {
+      "trace_id": "rq_case_low_liquidity_reject_trace",
+      "case_id": "rq_case_low_liquidity_reject",
+      "input_fixture": {
+        "case_id": "rq_case_low_liquidity_reject",
+        "market_id": "pm_fixture_2026_championship_upset",
+        "category": "sports",
+        "candidate_type": "weak_paper_candidate",
+        "signal_inputs": {
+          "expected_edge_bps": 180,
+          "supporting_signal_count": 2,
+          "contradiction_level": 20,
+          "thesis_clarity": 70,
+          "scenario_consistency": 68,
+          "conflict_flag": false,
+          "paper_only_no_action": false
+        },
+        "risk_inputs": {
+          "liquidity_usd_24h": 14000.0,
+          "spread_bps": 90,
+          "correlated_exposure_level": "low",
+          "concentration_level": "low",
+          "risk_level": "medium",
+          "resolved_or_closed": false
+        },
+        "data_quality_inputs": {
+          "stale_hours": 3,
+          "research_note_present": true,
+          "paper_notes_present": true,
+          "notes_quality": "partial",
+          "missing_fields_count": 0
+        },
+        "expected_decision": "reject",
+        "expected_confidence_band": "reject",
+        "expected_rejection_or_warning_reasons": [
+          "low_liquidity"
+        ],
+        "fixture_only": true,
+        "paper_only": true
+      },
+      "normalized_research_case": {
+        "case_id": "rq_case_low_liquidity_reject",
+        "market_id": "pm_fixture_2026_championship_upset",
+        "category": "sports",
+        "candidate_type": "weak_paper_candidate",
+        "signal_inputs": {
+          "expected_edge_bps": 180,
+          "supporting_signal_count": 2,
+          "contradiction_level": 20,
+          "thesis_clarity": 70,
+          "scenario_consistency": 68,
+          "conflict_flag": false,
+          "paper_only_no_action": false
+        },
+        "risk_inputs": {
+          "liquidity_usd_24h": 14000.0,
+          "spread_bps": 90,
+          "correlated_exposure_level": "low",
+          "concentration_level": "low",
+          "risk_level": "medium",
+          "resolved_or_closed": false
+        },
+        "data_quality_inputs": {
+          "stale_hours": 3,
+          "research_note_present": true,
+          "paper_notes_present": true,
+          "notes_quality": "partial",
+          "missing_fields_count": 0
+        }
+      },
+      "confidence_components": {
+        "signal_strength": 78,
+        "data_freshness": 95,
+        "liquidity_quality": 15,
+        "spread_quality": 60,
+        "research_completeness": 85,
+        "correlation_risk": 90,
+        "concentration_risk": 90,
+        "scenario_consistency": 68,
+        "audit_safety": 100
+      },
+      "penalties": [
+        {
+          "reason": "low_liquidity",
+          "points": 20
+        }
+      ],
+      "risk_flags": [
+        "liquidity is below the deterministic floor"
+      ],
+      "data_quality_flags": [],
+      "explanation_steps": [
+        "Load the deterministic research case and confirm fixture-only / paper-only scope.",
+        "Score signal strength, freshness, liquidity, spread, research completeness, and risk concentration components.",
+        "Apply hard rejections for resolved markets, stale data, low liquidity, wide spread, insufficient edge, or conflicting signals.",
+        "Translate the component scores and penalties into a confidence band and paper-only decision."
+      ],
+      "final_paper_only_decision": "reject",
+      "confidence_band": "reject",
+      "confidence_score": 56,
+      "no_action_safety_confirmation": "No live action, no wallet usage, no order placement, and no runtime wiring."
+    },
+    {
+      "trace_id": "rq_case_wide_spread_caution_trace",
+      "case_id": "rq_case_wide_spread_caution",
+      "input_fixture": {
+        "case_id": "rq_case_wide_spread_caution",
+        "market_id": "pm_fixture_2026_cabinet_exit",
+        "category": "politics",
+        "candidate_type": "spread_caution_candidate",
+        "signal_inputs": {
+          "expected_edge_bps": 130,
+          "supporting_signal_count": 2,
+          "contradiction_level": 30,
+          "thesis_clarity": 62,
+          "scenario_consistency": 60,
+          "conflict_flag": false,
+          "paper_only_no_action": false
+        },
+        "risk_inputs": {
+          "liquidity_usd_24h": 92000.0,
+          "spread_bps": 210,
+          "correlated_exposure_level": "low",
+          "concentration_level": "low",
+          "risk_level": "medium",
+          "resolved_or_closed": false
+        },
+        "data_quality_inputs": {
+          "stale_hours": 4,
+          "research_note_present": true,
+          "paper_notes_present": true,
+          "notes_quality": "partial",
+          "missing_fields_count": 0
+        },
+        "expected_decision": "reject",
+        "expected_confidence_band": "reject",
+        "expected_rejection_or_warning_reasons": [
+          "wide_spread"
+        ],
+        "fixture_only": true,
+        "paper_only": true
+      },
+      "normalized_research_case": {
+        "case_id": "rq_case_wide_spread_caution",
+        "market_id": "pm_fixture_2026_cabinet_exit",
+        "category": "politics",
+        "candidate_type": "spread_caution_candidate",
+        "signal_inputs": {
+          "expected_edge_bps": 130,
+          "supporting_signal_count": 2,
+          "contradiction_level": 30,
+          "thesis_clarity": 62,
+          "scenario_consistency": 60,
+          "conflict_flag": false,
+          "paper_only_no_action": false
+        },
+        "risk_inputs": {
+          "liquidity_usd_24h": 92000.0,
+          "spread_bps": 210,
+          "correlated_exposure_level": "low",
+          "concentration_level": "low",
+          "risk_level": "medium",
+          "resolved_or_closed": false
+        },
+        "data_quality_inputs": {
+          "stale_hours": 4,
+          "research_note_present": true,
+          "paper_notes_present": true,
+          "notes_quality": "partial",
+          "missing_fields_count": 0
+        }
+      },
+      "confidence_components": {
+        "signal_strength": 67,
+        "data_freshness": 95,
+        "liquidity_quality": 68,
+        "spread_quality": 20,
+        "research_completeness": 85,
+        "correlation_risk": 90,
+        "concentration_risk": 90,
+        "scenario_consistency": 60,
+        "audit_safety": 100
+      },
+      "penalties": [
+        {
+          "reason": "wide_spread",
+          "points": 18
+        }
+      ],
+      "risk_flags": [
+        "spread assumptions are too wide for a clean paper entry"
+      ],
+      "data_quality_flags": [],
+      "explanation_steps": [
+        "Load the deterministic research case and confirm fixture-only / paper-only scope.",
+        "Score signal strength, freshness, liquidity, spread, research completeness, and risk concentration components.",
+        "Apply hard rejections for resolved markets, stale data, low liquidity, wide spread, insufficient edge, or conflicting signals.",
+        "Translate the component scores and penalties into a confidence band and paper-only decision."
+      ],
+      "final_paper_only_decision": "reject",
+      "confidence_band": "reject",
+      "confidence_score": 57,
+      "no_action_safety_confirmation": "No live action, no wallet usage, no order placement, and no runtime wiring."
+    },
+    {
+      "trace_id": "rq_case_stale_data_warning_trace",
+      "case_id": "rq_case_stale_data_warning",
+      "input_fixture": {
+        "case_id": "rq_case_stale_data_warning",
+        "market_id": "pm_fixture_2026_ai_regulation_vote",
+        "category": "technology",
+        "candidate_type": "stale_data_candidate",
+        "signal_inputs": {
+          "expected_edge_bps": 250,
+          "supporting_signal_count": 2,
+          "contradiction_level": 15,
+          "thesis_clarity": 74,
+          "scenario_consistency": 70,
+          "conflict_flag": false,
+          "paper_only_no_action": false
+        },
+        "risk_inputs": {
+          "liquidity_usd_24h": 114000.0,
+          "spread_bps": 60,
+          "correlated_exposure_level": "medium",
+          "concentration_level": "low",
+          "risk_level": "medium",
+          "resolved_or_closed": false
+        },
+        "data_quality_inputs": {
+          "stale_hours": 79,
+          "research_note_present": true,
+          "paper_notes_present": true,
+          "notes_quality": "partial",
+          "missing_fields_count": 0
+        },
+        "expected_decision": "reject",
+        "expected_confidence_band": "reject",
+        "expected_rejection_or_warning_reasons": [
+          "stale_data"
+        ],
+        "fixture_only": true,
+        "paper_only": true
+      },
+      "normalized_research_case": {
+        "case_id": "rq_case_stale_data_warning",
+        "market_id": "pm_fixture_2026_ai_regulation_vote",
+        "category": "technology",
+        "candidate_type": "stale_data_candidate",
+        "signal_inputs": {
+          "expected_edge_bps": 250,
+          "supporting_signal_count": 2,
+          "contradiction_level": 15,
+          "thesis_clarity": 74,
+          "scenario_consistency": 70,
+          "conflict_flag": false,
+          "paper_only_no_action": false
+        },
+        "risk_inputs": {
+          "liquidity_usd_24h": 114000.0,
+          "spread_bps": 60,
+          "correlated_exposure_level": "medium",
+          "concentration_level": "low",
+          "risk_level": "medium",
+          "resolved_or_closed": false
+        },
+        "data_quality_inputs": {
+          "stale_hours": 79,
+          "research_note_present": true,
+          "paper_notes_present": true,
+          "notes_quality": "partial",
+          "missing_fields_count": 0
+        }
+      },
+      "confidence_components": {
+        "signal_strength": 88,
+        "data_freshness": 15,
+        "liquidity_quality": 68,
+        "spread_quality": 80,
+        "research_completeness": 85,
+        "correlation_risk": 65,
+        "concentration_risk": 90,
+        "scenario_consistency": 70,
+        "audit_safety": 100
+      },
+      "penalties": [
+        {
+          "reason": "stale_data",
+          "points": 18
+        }
+      ],
+      "risk_flags": [],
+      "data_quality_flags": [
+        "fixture timestamp is stale for deterministic review"
+      ],
+      "explanation_steps": [
+        "Load the deterministic research case and confirm fixture-only / paper-only scope.",
+        "Score signal strength, freshness, liquidity, spread, research completeness, and risk concentration components.",
+        "Apply hard rejections for resolved markets, stale data, low liquidity, wide spread, insufficient edge, or conflicting signals.",
+        "Translate the component scores and penalties into a confidence band and paper-only decision."
+      ],
+      "final_paper_only_decision": "reject",
+      "confidence_band": "reject",
+      "confidence_score": 55,
+      "no_action_safety_confirmation": "No live action, no wallet usage, no order placement, and no runtime wiring."
+    },
+    {
+      "trace_id": "rq_case_resolved_market_exclusion_trace",
+      "case_id": "rq_case_resolved_market_exclusion",
+      "input_fixture": {
+        "case_id": "rq_case_resolved_market_exclusion",
+        "market_id": "pm_fixture_2026_hurricane_season_closed",
+        "category": "climate",
+        "candidate_type": "resolved_market_case",
+        "signal_inputs": {
+          "expected_edge_bps": 0,
+          "supporting_signal_count": 0,
+          "contradiction_level": 0,
+          "thesis_clarity": 10,
+          "scenario_consistency": 20,
+          "conflict_flag": false,
+          "paper_only_no_action": false
+        },
+        "risk_inputs": {
+          "liquidity_usd_24h": 0.0,
+          "spread_bps": 0,
+          "correlated_exposure_level": "low",
+          "concentration_level": "low",
+          "risk_level": "low",
+          "resolved_or_closed": true
+        },
+        "data_quality_inputs": {
+          "stale_hours": 1320,
+          "research_note_present": false,
+          "paper_notes_present": true,
+          "notes_quality": "missing",
+          "missing_fields_count": 1
+        },
+        "expected_decision": "exclude",
+        "expected_confidence_band": "reject",
+        "expected_rejection_or_warning_reasons": [
+          "resolved_or_closed_market"
+        ],
+        "fixture_only": true,
+        "paper_only": true
+      },
+      "normalized_research_case": {
+        "case_id": "rq_case_resolved_market_exclusion",
+        "market_id": "pm_fixture_2026_hurricane_season_closed",
+        "category": "climate",
+        "candidate_type": "resolved_market_case",
+        "signal_inputs": {
+          "expected_edge_bps": 0,
+          "supporting_signal_count": 0,
+          "contradiction_level": 0,
+          "thesis_clarity": 10,
+          "scenario_consistency": 20,
+          "conflict_flag": false,
+          "paper_only_no_action": false
+        },
+        "risk_inputs": {
+          "liquidity_usd_24h": 0.0,
+          "spread_bps": 0,
+          "correlated_exposure_level": "low",
+          "concentration_level": "low",
+          "risk_level": "low",
+          "resolved_or_closed": true
+        },
+        "data_quality_inputs": {
+          "stale_hours": 1320,
+          "research_note_present": false,
+          "paper_notes_present": true,
+          "notes_quality": "missing",
+          "missing_fields_count": 1
+        }
+      },
+      "confidence_components": {
+        "signal_strength": 38,
+        "data_freshness": 15,
+        "liquidity_quality": 15,
+        "spread_quality": 95,
+        "research_completeness": 40,
+        "correlation_risk": 90,
+        "concentration_risk": 90,
+        "scenario_consistency": 20,
+        "audit_safety": 100
+      },
+      "penalties": [
+        {
+          "reason": "insufficient_edge",
+          "points": 20
+        },
+        {
+          "reason": "low_liquidity",
+          "points": 20
+        },
+        {
+          "reason": "stale_data",
+          "points": 18
+        },
+        {
+          "reason": "missing_research_notes",
+          "points": 8
+        },
+        {
+          "reason": "resolved_or_closed_market",
+          "points": 100
+        }
+      ],
+      "risk_flags": [
+        "liquidity is below the deterministic floor"
+      ],
+      "data_quality_flags": [
+        "fixture timestamp is stale for deterministic review",
+        "research note is missing",
+        "some case fields are incomplete"
+      ],
+      "explanation_steps": [
+        "Load the deterministic research case and confirm fixture-only / paper-only scope.",
+        "Score signal strength, freshness, liquidity, spread, research completeness, and risk concentration components.",
+        "Apply hard rejections for resolved markets, stale data, low liquidity, wide spread, insufficient edge, or conflicting signals.",
+        "Translate the component scores and penalties into a confidence band and paper-only decision."
+      ],
+      "final_paper_only_decision": "exclude",
+      "confidence_band": "reject",
+      "confidence_score": 0,
+      "no_action_safety_confirmation": "No live action, no wallet usage, no order placement, and no runtime wiring."
+    },
+    {
+      "trace_id": "rq_case_correlated_watchlist_trace",
+      "case_id": "rq_case_correlated_watchlist",
+      "input_fixture": {
+        "case_id": "rq_case_correlated_watchlist",
+        "market_id": "pm_fixture_2026_cpi_below_target",
+        "category": "macro",
+        "candidate_type": "correlated_exposure_candidate",
+        "signal_inputs": {
+          "expected_edge_bps": 260,
+          "supporting_signal_count": 2,
+          "contradiction_level": 18,
+          "thesis_clarity": 78,
+          "scenario_consistency": 74,
+          "conflict_flag": false,
+          "paper_only_no_action": false
+        },
+        "risk_inputs": {
+          "liquidity_usd_24h": 149000.0,
+          "spread_bps": 50,
+          "correlated_exposure_level": "high",
+          "concentration_level": "medium",
+          "risk_level": "medium",
+          "resolved_or_closed": false
+        },
+        "data_quality_inputs": {
+          "stale_hours": 1,
+          "research_note_present": true,
+          "paper_notes_present": true,
+          "notes_quality": "strong",
+          "missing_fields_count": 0
+        },
+        "expected_decision": "watchlist",
+        "expected_confidence_band": "medium",
+        "expected_rejection_or_warning_reasons": [
+          "correlated_exposure"
+        ],
+        "fixture_only": true,
+        "paper_only": true
+      },
+      "normalized_research_case": {
+        "case_id": "rq_case_correlated_watchlist",
+        "market_id": "pm_fixture_2026_cpi_below_target",
+        "category": "macro",
+        "candidate_type": "correlated_exposure_candidate",
+        "signal_inputs": {
+          "expected_edge_bps": 260,
+          "supporting_signal_count": 2,
+          "contradiction_level": 18,
+          "thesis_clarity": 78,
+          "scenario_consistency": 74,
+          "conflict_flag": false,
+          "paper_only_no_action": false
+        },
+        "risk_inputs": {
+          "liquidity_usd_24h": 149000.0,
+          "spread_bps": 50,
+          "correlated_exposure_level": "high",
+          "concentration_level": "medium",
+          "risk_level": "medium",
+          "resolved_or_closed": false
+        },
+        "data_quality_inputs": {
+          "stale_hours": 1,
+          "research_note_present": true,
+          "paper_notes_present": true,
+          "notes_quality": "strong",
+          "missing_fields_count": 0
+        }
+      },
+      "confidence_components": {
+        "signal_strength": 89,
+        "data_freshness": 95,
+        "liquidity_quality": 82,
+        "spread_quality": 80,
+        "research_completeness": 95,
+        "correlation_risk": 35,
+        "concentration_risk": 65,
+        "scenario_consistency": 74,
+        "audit_safety": 100
+      },
+      "penalties": [
+        {
+          "reason": "correlated_exposure",
+          "points": 12
+        }
+      ],
+      "risk_flags": [
+        "correlated exposure is already elevated"
+      ],
+      "data_quality_flags": [],
+      "explanation_steps": [
+        "Load the deterministic research case and confirm fixture-only / paper-only scope.",
+        "Score signal strength, freshness, liquidity, spread, research completeness, and risk concentration components.",
+        "Apply hard rejections for resolved markets, stale data, low liquidity, wide spread, insufficient edge, or conflicting signals.",
+        "Translate the component scores and penalties into a confidence band and paper-only decision."
+      ],
+      "final_paper_only_decision": "watchlist",
+      "confidence_band": "medium",
+      "confidence_score": 67,
+      "no_action_safety_confirmation": "No live action, no wallet usage, no order placement, and no runtime wiring."
+    },
+    {
+      "trace_id": "rq_case_missing_note_watchlist_trace",
+      "case_id": "rq_case_missing_note_watchlist",
+      "input_fixture": {
+        "case_id": "rq_case_missing_note_watchlist",
+        "market_id": "pm_fixture_2026_ceasefire_window",
+        "category": "geopolitics",
+        "candidate_type": "missing_note_candidate",
+        "signal_inputs": {
+          "expected_edge_bps": 310,
+          "supporting_signal_count": 2,
+          "contradiction_level": 20,
+          "thesis_clarity": 72,
+          "scenario_consistency": 72,
+          "conflict_flag": false,
+          "paper_only_no_action": false
+        },
+        "risk_inputs": {
+          "liquidity_usd_24h": 67000.0,
+          "spread_bps": 80,
+          "correlated_exposure_level": "medium",
+          "concentration_level": "medium",
+          "risk_level": "medium",
+          "resolved_or_closed": false
+        },
+        "data_quality_inputs": {
+          "stale_hours": 1,
+          "research_note_present": false,
+          "paper_notes_present": true,
+          "notes_quality": "missing",
+          "missing_fields_count": 1
+        },
+        "expected_decision": "watchlist",
+        "expected_confidence_band": "medium",
+        "expected_rejection_or_warning_reasons": [
+          "missing_research_notes"
+        ],
+        "fixture_only": true,
+        "paper_only": true
+      },
+      "normalized_research_case": {
+        "case_id": "rq_case_missing_note_watchlist",
+        "market_id": "pm_fixture_2026_ceasefire_window",
+        "category": "geopolitics",
+        "candidate_type": "missing_note_candidate",
+        "signal_inputs": {
+          "expected_edge_bps": 310,
+          "supporting_signal_count": 2,
+          "contradiction_level": 20,
+          "thesis_clarity": 72,
+          "scenario_consistency": 72,
+          "conflict_flag": false,
+          "paper_only_no_action": false
+        },
+        "risk_inputs": {
+          "liquidity_usd_24h": 67000.0,
+          "spread_bps": 80,
+          "correlated_exposure_level": "medium",
+          "concentration_level": "medium",
+          "risk_level": "medium",
+          "resolved_or_closed": false
+        },
+        "data_quality_inputs": {
+          "stale_hours": 1,
+          "research_note_present": false,
+          "paper_notes_present": true,
+          "notes_quality": "missing",
+          "missing_fields_count": 1
+        }
+      },
+      "confidence_components": {
+        "signal_strength": 92,
+        "data_freshness": 95,
+        "liquidity_quality": 55,
+        "spread_quality": 80,
+        "research_completeness": 40,
+        "correlation_risk": 65,
+        "concentration_risk": 65,
+        "scenario_consistency": 72,
+        "audit_safety": 100
+      },
+      "penalties": [
+        {
+          "reason": "missing_research_notes",
+          "points": 8
+        }
+      ],
+      "risk_flags": [],
+      "data_quality_flags": [
+        "research note is missing",
+        "some case fields are incomplete"
+      ],
+      "explanation_steps": [
+        "Load the deterministic research case and confirm fixture-only / paper-only scope.",
+        "Score signal strength, freshness, liquidity, spread, research completeness, and risk concentration components.",
+        "Apply hard rejections for resolved markets, stale data, low liquidity, wide spread, insufficient edge, or conflicting signals.",
+        "Translate the component scores and penalties into a confidence band and paper-only decision."
+      ],
+      "final_paper_only_decision": "watchlist",
+      "confidence_band": "medium",
+      "confidence_score": 66,
+      "no_action_safety_confirmation": "No live action, no wallet usage, no order placement, and no runtime wiring."
+    },
+    {
+      "trace_id": "rq_case_conflicting_signals_reject_trace",
+      "case_id": "rq_case_conflicting_signals_reject",
+      "input_fixture": {
+        "case_id": "rq_case_conflicting_signals_reject",
+        "market_id": "pm_fixture_2026_ai_regulation_vote",
+        "category": "technology",
+        "candidate_type": "conflicting_signals_candidate",
+        "signal_inputs": {
+          "expected_edge_bps": 220,
+          "supporting_signal_count": 3,
+          "contradiction_level": 85,
+          "thesis_clarity": 58,
+          "scenario_consistency": 40,
+          "conflict_flag": true,
+          "paper_only_no_action": false
+        },
+        "risk_inputs": {
+          "liquidity_usd_24h": 114000.0,
+          "spread_bps": 60,
+          "correlated_exposure_level": "medium",
+          "concentration_level": "low",
+          "risk_level": "medium",
+          "resolved_or_closed": false
+        },
+        "data_quality_inputs": {
+          "stale_hours": 12,
+          "research_note_present": true,
+          "paper_notes_present": true,
+          "notes_quality": "partial",
+          "missing_fields_count": 0
+        },
+        "expected_decision": "reject",
+        "expected_confidence_band": "reject",
+        "expected_rejection_or_warning_reasons": [
+          "conflicting_signals"
+        ],
+        "fixture_only": true,
+        "paper_only": true
+      },
+      "normalized_research_case": {
+        "case_id": "rq_case_conflicting_signals_reject",
+        "market_id": "pm_fixture_2026_ai_regulation_vote",
+        "category": "technology",
+        "candidate_type": "conflicting_signals_candidate",
+        "signal_inputs": {
+          "expected_edge_bps": 220,
+          "supporting_signal_count": 3,
+          "contradiction_level": 85,
+          "thesis_clarity": 58,
+          "scenario_consistency": 40,
+          "conflict_flag": true,
+          "paper_only_no_action": false
+        },
+        "risk_inputs": {
+          "liquidity_usd_24h": 114000.0,
+          "spread_bps": 60,
+          "correlated_exposure_level": "medium",
+          "concentration_level": "low",
+          "risk_level": "medium",
+          "resolved_or_closed": false
+        },
+        "data_quality_inputs": {
+          "stale_hours": 12,
+          "research_note_present": true,
+          "paper_notes_present": true,
+          "notes_quality": "partial",
+          "missing_fields_count": 0
+        }
+      },
+      "confidence_components": {
+        "signal_strength": 40,
+        "data_freshness": 80,
+        "liquidity_quality": 68,
+        "spread_quality": 80,
+        "research_completeness": 85,
+        "correlation_risk": 65,
+        "concentration_risk": 90,
+        "scenario_consistency": 40,
+        "audit_safety": 100
+      },
+      "penalties": [
+        {
+          "reason": "conflicting_signals",
+          "points": 18
+        }
+      ],
+      "risk_flags": [],
+      "data_quality_flags": [],
+      "explanation_steps": [
+        "Load the deterministic research case and confirm fixture-only / paper-only scope.",
+        "Score signal strength, freshness, liquidity, spread, research completeness, and risk concentration components.",
+        "Apply hard rejections for resolved markets, stale data, low liquidity, wide spread, insufficient edge, or conflicting signals.",
+        "Translate the component scores and penalties into a confidence band and paper-only decision."
+      ],
+      "final_paper_only_decision": "reject",
+      "confidence_band": "reject",
+      "confidence_score": 54,
+      "no_action_safety_confirmation": "No live action, no wallet usage, no order placement, and no runtime wiring."
+    },
+    {
+      "trace_id": "rq_case_high_confidence_high_risk_trace",
+      "case_id": "rq_case_high_confidence_high_risk",
+      "input_fixture": {
+        "case_id": "rq_case_high_confidence_high_risk",
+        "market_id": "pm_fixture_2026_rate_cut_december",
+        "category": "macro",
+        "candidate_type": "high_confidence_high_risk_candidate",
+        "signal_inputs": {
+          "expected_edge_bps": 290,
+          "supporting_signal_count": 3,
+          "contradiction_level": 12,
+          "thesis_clarity": 86,
+          "scenario_consistency": 84,
+          "conflict_flag": false,
+          "paper_only_no_action": false
+        },
+        "risk_inputs": {
+          "liquidity_usd_24h": 171000.0,
+          "spread_bps": 40,
+          "correlated_exposure_level": "high",
+          "concentration_level": "high",
+          "risk_level": "high",
+          "resolved_or_closed": false
+        },
+        "data_quality_inputs": {
+          "stale_hours": 2,
+          "research_note_present": true,
+          "paper_notes_present": true,
+          "notes_quality": "strong",
+          "missing_fields_count": 0
+        },
+        "expected_decision": "watchlist",
+        "expected_confidence_band": "medium",
+        "expected_rejection_or_warning_reasons": [
+          "correlated_exposure",
+          "concentration_risk",
+          "high_risk_profile"
+        ],
+        "fixture_only": true,
+        "paper_only": true
+      },
+      "normalized_research_case": {
+        "case_id": "rq_case_high_confidence_high_risk",
+        "market_id": "pm_fixture_2026_rate_cut_december",
+        "category": "macro",
+        "candidate_type": "high_confidence_high_risk_candidate",
+        "signal_inputs": {
+          "expected_edge_bps": 290,
+          "supporting_signal_count": 3,
+          "contradiction_level": 12,
+          "thesis_clarity": 86,
+          "scenario_consistency": 84,
+          "conflict_flag": false,
+          "paper_only_no_action": false
+        },
+        "risk_inputs": {
+          "liquidity_usd_24h": 171000.0,
+          "spread_bps": 40,
+          "correlated_exposure_level": "high",
+          "concentration_level": "high",
+          "risk_level": "high",
+          "resolved_or_closed": false
+        },
+        "data_quality_inputs": {
+          "stale_hours": 2,
+          "research_note_present": true,
+          "paper_notes_present": true,
+          "notes_quality": "strong",
+          "missing_fields_count": 0
+        }
+      },
+      "confidence_components": {
+        "signal_strength": 100,
+        "data_freshness": 95,
+        "liquidity_quality": 82,
+        "spread_quality": 95,
+        "research_completeness": 95,
+        "correlation_risk": 35,
+        "concentration_risk": 35,
+        "scenario_consistency": 84,
+        "audit_safety": 100
+      },
+      "penalties": [
+        {
+          "reason": "correlated_exposure",
+          "points": 12
+        },
+        {
+          "reason": "concentration_risk",
+          "points": 12
+        },
+        {
+          "reason": "high_risk_profile",
+          "points": 10
+        }
+      ],
+      "risk_flags": [
+        "correlated exposure is already elevated",
+        "concentration risk is elevated",
+        "overall risk profile is high despite signal strength"
+      ],
+      "data_quality_flags": [],
+      "explanation_steps": [
+        "Load the deterministic research case and confirm fixture-only / paper-only scope.",
+        "Score signal strength, freshness, liquidity, spread, research completeness, and risk concentration components.",
+        "Apply hard rejections for resolved markets, stale data, low liquidity, wide spread, insufficient edge, or conflicting signals.",
+        "Translate the component scores and penalties into a confidence band and paper-only decision."
+      ],
+      "final_paper_only_decision": "watchlist",
+      "confidence_band": "low",
+      "confidence_score": 46,
+      "no_action_safety_confirmation": "No live action, no wallet usage, no order placement, and no runtime wiring."
+    },
+    {
+      "trace_id": "rq_case_low_confidence_watchlist_trace",
+      "case_id": "rq_case_low_confidence_watchlist",
+      "input_fixture": {
+        "case_id": "rq_case_low_confidence_watchlist",
+        "market_id": "pm_fixture_2026_ceasefire_window",
+        "category": "geopolitics",
+        "candidate_type": "low_confidence_watchlist_candidate",
+        "signal_inputs": {
+          "expected_edge_bps": 110,
+          "supporting_signal_count": 1,
+          "contradiction_level": 22,
+          "thesis_clarity": 58,
+          "scenario_consistency": 52,
+          "conflict_flag": false,
+          "paper_only_no_action": false
+        },
+        "risk_inputs": {
+          "liquidity_usd_24h": 67000.0,
+          "spread_bps": 80,
+          "correlated_exposure_level": "medium",
+          "concentration_level": "low",
+          "risk_level": "medium",
+          "resolved_or_closed": false
+        },
+        "data_quality_inputs": {
+          "stale_hours": 1,
+          "research_note_present": true,
+          "paper_notes_present": true,
+          "notes_quality": "partial",
+          "missing_fields_count": 0
+        },
+        "expected_decision": "watchlist",
+        "expected_confidence_band": "low",
+        "expected_rejection_or_warning_reasons": [
+          "limited_supporting_signals"
+        ],
+        "fixture_only": true,
+        "paper_only": true
+      },
+      "normalized_research_case": {
+        "case_id": "rq_case_low_confidence_watchlist",
+        "market_id": "pm_fixture_2026_ceasefire_window",
+        "category": "geopolitics",
+        "candidate_type": "low_confidence_watchlist_candidate",
+        "signal_inputs": {
+          "expected_edge_bps": 110,
+          "supporting_signal_count": 1,
+          "contradiction_level": 22,
+          "thesis_clarity": 58,
+          "scenario_consistency": 52,
+          "conflict_flag": false,
+          "paper_only_no_action": false
+        },
+        "risk_inputs": {
+          "liquidity_usd_24h": 67000.0,
+          "spread_bps": 80,
+          "correlated_exposure_level": "medium",
+          "concentration_level": "low",
+          "risk_level": "medium",
+          "resolved_or_closed": false
+        },
+        "data_quality_inputs": {
+          "stale_hours": 1,
+          "research_note_present": true,
+          "paper_notes_present": true,
+          "notes_quality": "partial",
+          "missing_fields_count": 0
+        }
+      },
+      "confidence_components": {
+        "signal_strength": 61,
+        "data_freshness": 95,
+        "liquidity_quality": 55,
+        "spread_quality": 80,
+        "research_completeness": 85,
+        "correlation_risk": 65,
+        "concentration_risk": 90,
+        "scenario_consistency": 52,
+        "audit_safety": 100
+      },
+      "penalties": [],
+      "risk_flags": [],
+      "data_quality_flags": [],
+      "explanation_steps": [
+        "Load the deterministic research case and confirm fixture-only / paper-only scope.",
+        "Score signal strength, freshness, liquidity, spread, research completeness, and risk concentration components.",
+        "Apply hard rejections for resolved markets, stale data, low liquidity, wide spread, insufficient edge, or conflicting signals.",
+        "Translate the component scores and penalties into a confidence band and paper-only decision."
+      ],
+      "final_paper_only_decision": "watchlist",
+      "confidence_band": "medium",
+      "confidence_score": 76,
+      "no_action_safety_confirmation": "No live action, no wallet usage, no order placement, and no runtime wiring."
+    },
+    {
+      "trace_id": "rq_case_paper_only_no_action_trace",
+      "case_id": "rq_case_paper_only_no_action",
+      "input_fixture": {
+        "case_id": "rq_case_paper_only_no_action",
+        "market_id": "pm_fixture_2026_ceasefire_window",
+        "category": "geopolitics",
+        "candidate_type": "paper_only_no_action_case",
+        "signal_inputs": {
+          "expected_edge_bps": 90,
+          "supporting_signal_count": 1,
+          "contradiction_level": 18,
+          "thesis_clarity": 55,
+          "scenario_consistency": 50,
+          "conflict_flag": false,
+          "paper_only_no_action": true
+        },
+        "risk_inputs": {
+          "liquidity_usd_24h": 67000.0,
+          "spread_bps": 80,
+          "correlated_exposure_level": "medium",
+          "concentration_level": "low",
+          "risk_level": "medium",
+          "resolved_or_closed": false
+        },
+        "data_quality_inputs": {
+          "stale_hours": 1,
+          "research_note_present": true,
+          "paper_notes_present": true,
+          "notes_quality": "partial",
+          "missing_fields_count": 0
+        },
+        "expected_decision": "no_action",
+        "expected_confidence_band": "low",
+        "expected_rejection_or_warning_reasons": [
+          "paper_only_no_action"
+        ],
+        "fixture_only": true,
+        "paper_only": true
+      },
+      "normalized_research_case": {
+        "case_id": "rq_case_paper_only_no_action",
+        "market_id": "pm_fixture_2026_ceasefire_window",
+        "category": "geopolitics",
+        "candidate_type": "paper_only_no_action_case",
+        "signal_inputs": {
+          "expected_edge_bps": 90,
+          "supporting_signal_count": 1,
+          "contradiction_level": 18,
+          "thesis_clarity": 55,
+          "scenario_consistency": 50,
+          "conflict_flag": false,
+          "paper_only_no_action": true
+        },
+        "risk_inputs": {
+          "liquidity_usd_24h": 67000.0,
+          "spread_bps": 80,
+          "correlated_exposure_level": "medium",
+          "concentration_level": "low",
+          "risk_level": "medium",
+          "resolved_or_closed": false
+        },
+        "data_quality_inputs": {
+          "stale_hours": 1,
+          "research_note_present": true,
+          "paper_notes_present": true,
+          "notes_quality": "partial",
+          "missing_fields_count": 0
+        }
+      },
+      "confidence_components": {
+        "signal_strength": 59,
+        "data_freshness": 95,
+        "liquidity_quality": 55,
+        "spread_quality": 80,
+        "research_completeness": 85,
+        "correlation_risk": 65,
+        "concentration_risk": 90,
+        "scenario_consistency": 50,
+        "audit_safety": 100
+      },
+      "penalties": [
+        {
+          "reason": "paper_only_no_action",
+          "points": 15
+        }
+      ],
+      "risk_flags": [],
+      "data_quality_flags": [],
+      "explanation_steps": [
+        "Load the deterministic research case and confirm fixture-only / paper-only scope.",
+        "Score signal strength, freshness, liquidity, spread, research completeness, and risk concentration components.",
+        "Apply hard rejections for resolved markets, stale data, low liquidity, wide spread, insufficient edge, or conflicting signals.",
+        "Translate the component scores and penalties into a confidence band and paper-only decision."
+      ],
+      "final_paper_only_decision": "no_action",
+      "confidence_band": "low",
+      "confidence_score": 60,
+      "no_action_safety_confirmation": "No live action, no wallet usage, no order placement, and no runtime wiring."
+    }
+  ],
+  "safety_boundary_summary": {
+    "static_audit_v3_passed": true,
+    "blocking_findings": 0,
+    "summary": "Fixture-only, paper-only, local-only, deterministic, and no runtime wiring."
+  }
+}

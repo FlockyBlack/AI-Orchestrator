@@ -1,0 +1,25 @@
+{
+  "limits": {
+    "max_total_notional": 400.0,
+    "max_position_notional": 200.0,
+    "max_open_markets": 3,
+    "max_category_exposure_count": 2
+  },
+  "positions": [
+    {
+      "market_id": "pm_fixture_2026_us_recession_q3",
+      "category": "macro",
+      "notional": 175.0
+    },
+    {
+      "market_id": "pm_fixture_2026_fed_cut_december",
+      "category": "macro",
+      "notional": 160.0
+    },
+    {
+      "market_id": "pm_fixture_2026_cpi_below_3",
+      "category": "inflation",
+      "notional": 120.0
+    }
+  ]
+}

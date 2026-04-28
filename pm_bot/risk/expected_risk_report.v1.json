@@ -1,0 +1,15 @@
+{
+  "schema_version": "v1",
+  "evaluation_mode": "offline_fixture",
+  "position_count": 3,
+  "market_count": 3,
+  "category_count": 2,
+  "total_notional": 455.0,
+  "largest_position_notional": 175.0,
+  "breaches": [
+    "max_total_notional"
+  ],
+  "approved": false,
+  "execution_allowed": false,
+  "trading_allowed": false
+}

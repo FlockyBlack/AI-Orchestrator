@@ -1,0 +1,441 @@
+{
+  "schema_version": "v1",
+  "report_id": "PMBOT-BATCH-004-CONFIDENCE-BREAKDOWN",
+  "fixture_only": true,
+  "paper_only": true,
+  "local_only": true,
+  "deterministic": true,
+  "no_network_or_api": true,
+  "breakdowns": [
+    {
+      "case_id": "rq_case_strong_accept",
+      "market_id": "pm_fixture_2026_us_growth_soft_landing",
+      "total_confidence_score": 89,
+      "confidence_band": "high",
+      "component_scores": {
+        "signal_strength": 100,
+        "data_freshness": 95,
+        "liquidity_quality": 95,
+        "spread_quality": 95,
+        "research_completeness": 95,
+        "correlation_risk": 65,
+        "concentration_risk": 65,
+        "scenario_consistency": 90,
+        "audit_safety": 100
+      },
+      "penalties": [],
+      "warnings": [],
+      "hard_reject_reasons": [],
+      "missing_information": [],
+      "final_decision": "accept",
+      "decision_support_summary": "Synthetic paper candidate clears deterministic quality gates.",
+      "paper_research_only": true,
+      "no_real_order_statement": "Paper/research only. No real order, no wallet action, no runtime execution."
+    },
+    {
+      "case_id": "rq_case_weak_edge_reject",
+      "market_id": "pm_fixture_2026_cabinet_exit",
+      "total_confidence_score": 54,
+      "confidence_band": "reject",
+      "component_scores": {
+        "signal_strength": 33,
+        "data_freshness": 95,
+        "liquidity_quality": 68,
+        "spread_quality": 60,
+        "research_completeness": 85,
+        "correlation_risk": 90,
+        "concentration_risk": 90,
+        "scenario_consistency": 45,
+        "audit_safety": 100
+      },
+      "penalties": [
+        {
+          "reason": "insufficient_edge",
+          "points": 20
+        }
+      ],
+      "warnings": [],
+      "hard_reject_reasons": [
+        "insufficient_edge"
+      ],
+      "missing_information": [
+        "limited_supporting_signals"
+      ],
+      "final_decision": "reject",
+      "decision_support_summary": "Synthetic paper candidate fails deterministic quality gates and stays no-action.",
+      "paper_research_only": true,
+      "no_real_order_statement": "Paper/research only. No real order, no wallet action, no runtime execution."
+    },
+    {
+      "case_id": "rq_case_low_liquidity_reject",
+      "market_id": "pm_fixture_2026_championship_upset",
+      "total_confidence_score": 56,
+      "confidence_band": "reject",
+      "component_scores": {
+        "signal_strength": 78,
+        "data_freshness": 95,
+        "liquidity_quality": 15,
+        "spread_quality": 60,
+        "research_completeness": 85,
+        "correlation_risk": 90,
+        "concentration_risk": 90,
+        "scenario_consistency": 68,
+        "audit_safety": 100
+      },
+      "penalties": [
+        {
+          "reason": "low_liquidity",
+          "points": 20
+        }
+      ],
+      "warnings": [
+        "low_liquidity"
+      ],
+      "hard_reject_reasons": [
+        "low_liquidity"
+      ],
+      "missing_information": [],
+      "final_decision": "reject",
+      "decision_support_summary": "Synthetic paper candidate fails deterministic quality gates and stays no-action.",
+      "paper_research_only": true,
+      "no_real_order_statement": "Paper/research only. No real order, no wallet action, no runtime execution."
+    },
+    {
+      "case_id": "rq_case_wide_spread_caution",
+      "market_id": "pm_fixture_2026_cabinet_exit",
+      "total_confidence_score": 57,
+      "confidence_band": "reject",
+      "component_scores": {
+        "signal_strength": 67,
+        "data_freshness": 95,
+        "liquidity_quality": 68,
+        "spread_quality": 20,
+        "research_completeness": 85,
+        "correlation_risk": 90,
+        "concentration_risk": 90,
+        "scenario_consistency": 60,
+        "audit_safety": 100
+      },
+      "penalties": [
+        {
+          "reason": "wide_spread",
+          "points": 18
+        }
+      ],
+      "warnings": [
+        "wide_spread"
+      ],
+      "hard_reject_reasons": [
+        "wide_spread"
+      ],
+      "missing_information": [],
+      "final_decision": "reject",
+      "decision_support_summary": "Synthetic paper candidate fails deterministic quality gates and stays no-action.",
+      "paper_research_only": true,
+      "no_real_order_statement": "Paper/research only. No real order, no wallet action, no runtime execution."
+    },
+    {
+      "case_id": "rq_case_stale_data_warning",
+      "market_id": "pm_fixture_2026_ai_regulation_vote",
+      "total_confidence_score": 55,
+      "confidence_band": "reject",
+      "component_scores": {
+        "signal_strength": 88,
+        "data_freshness": 15,
+        "liquidity_quality": 68,
+        "spread_quality": 80,
+        "research_completeness": 85,
+        "correlation_risk": 65,
+        "concentration_risk": 90,
+        "scenario_consistency": 70,
+        "audit_safety": 100
+      },
+      "penalties": [
+        {
+          "reason": "stale_data",
+          "points": 18
+        }
+      ],
+      "warnings": [
+        "stale_data"
+      ],
+      "hard_reject_reasons": [
+        "stale_data"
+      ],
+      "missing_information": [],
+      "final_decision": "reject",
+      "decision_support_summary": "Synthetic paper candidate fails deterministic quality gates and stays no-action.",
+      "paper_research_only": true,
+      "no_real_order_statement": "Paper/research only. No real order, no wallet action, no runtime execution."
+    },
+    {
+      "case_id": "rq_case_resolved_market_exclusion",
+      "market_id": "pm_fixture_2026_hurricane_season_closed",
+      "total_confidence_score": 0,
+      "confidence_band": "reject",
+      "component_scores": {
+        "signal_strength": 38,
+        "data_freshness": 15,
+        "liquidity_quality": 15,
+        "spread_quality": 95,
+        "research_completeness": 40,
+        "correlation_risk": 90,
+        "concentration_risk": 90,
+        "scenario_consistency": 20,
+        "audit_safety": 100
+      },
+      "penalties": [
+        {
+          "reason": "insufficient_edge",
+          "points": 20
+        },
+        {
+          "reason": "low_liquidity",
+          "points": 20
+        },
+        {
+          "reason": "stale_data",
+          "points": 18
+        },
+        {
+          "reason": "missing_research_notes",
+          "points": 8
+        },
+        {
+          "reason": "resolved_or_closed_market",
+          "points": 100
+        }
+      ],
+      "warnings": [
+        "low_liquidity",
+        "missing_research_notes",
+        "stale_data"
+      ],
+      "hard_reject_reasons": [
+        "insufficient_edge",
+        "low_liquidity",
+        "resolved_or_closed_market",
+        "stale_data"
+      ],
+      "missing_information": [
+        "research_note",
+        "incomplete_case_fields",
+        "limited_supporting_signals"
+      ],
+      "final_decision": "exclude",
+      "decision_support_summary": "Resolved or closed synthetic market is excluded from paper research consideration.",
+      "paper_research_only": true,
+      "no_real_order_statement": "Paper/research only. No real order, no wallet action, no runtime execution."
+    },
+    {
+      "case_id": "rq_case_correlated_watchlist",
+      "market_id": "pm_fixture_2026_cpi_below_target",
+      "total_confidence_score": 67,
+      "confidence_band": "medium",
+      "component_scores": {
+        "signal_strength": 89,
+        "data_freshness": 95,
+        "liquidity_quality": 82,
+        "spread_quality": 80,
+        "research_completeness": 95,
+        "correlation_risk": 35,
+        "concentration_risk": 65,
+        "scenario_consistency": 74,
+        "audit_safety": 100
+      },
+      "penalties": [
+        {
+          "reason": "correlated_exposure",
+          "points": 12
+        }
+      ],
+      "warnings": [
+        "correlated_exposure"
+      ],
+      "hard_reject_reasons": [],
+      "missing_information": [],
+      "final_decision": "watchlist",
+      "decision_support_summary": "Synthetic paper candidate remains inspectable but needs more evidence before paper sizing.",
+      "paper_research_only": true,
+      "no_real_order_statement": "Paper/research only. No real order, no wallet action, no runtime execution."
+    },
+    {
+      "case_id": "rq_case_missing_note_watchlist",
+      "market_id": "pm_fixture_2026_ceasefire_window",
+      "total_confidence_score": 66,
+      "confidence_band": "medium",
+      "component_scores": {
+        "signal_strength": 92,
+        "data_freshness": 95,
+        "liquidity_quality": 55,
+        "spread_quality": 80,
+        "research_completeness": 40,
+        "correlation_risk": 65,
+        "concentration_risk": 65,
+        "scenario_consistency": 72,
+        "audit_safety": 100
+      },
+      "penalties": [
+        {
+          "reason": "missing_research_notes",
+          "points": 8
+        }
+      ],
+      "warnings": [
+        "missing_research_notes"
+      ],
+      "hard_reject_reasons": [],
+      "missing_information": [
+        "research_note",
+        "incomplete_case_fields"
+      ],
+      "final_decision": "watchlist",
+      "decision_support_summary": "Synthetic paper candidate remains inspectable but needs more evidence before paper sizing.",
+      "paper_research_only": true,
+      "no_real_order_statement": "Paper/research only. No real order, no wallet action, no runtime execution."
+    },
+    {
+      "case_id": "rq_case_conflicting_signals_reject",
+      "market_id": "pm_fixture_2026_ai_regulation_vote",
+      "total_confidence_score": 54,
+      "confidence_band": "reject",
+      "component_scores": {
+        "signal_strength": 40,
+        "data_freshness": 80,
+        "liquidity_quality": 68,
+        "spread_quality": 80,
+        "research_completeness": 85,
+        "correlation_risk": 65,
+        "concentration_risk": 90,
+        "scenario_consistency": 40,
+        "audit_safety": 100
+      },
+      "penalties": [
+        {
+          "reason": "conflicting_signals",
+          "points": 18
+        }
+      ],
+      "warnings": [
+        "conflicting_signals"
+      ],
+      "hard_reject_reasons": [
+        "conflicting_signals"
+      ],
+      "missing_information": [],
+      "final_decision": "reject",
+      "decision_support_summary": "Synthetic paper candidate fails deterministic quality gates and stays no-action.",
+      "paper_research_only": true,
+      "no_real_order_statement": "Paper/research only. No real order, no wallet action, no runtime execution."
+    },
+    {
+      "case_id": "rq_case_high_confidence_high_risk",
+      "market_id": "pm_fixture_2026_rate_cut_december",
+      "total_confidence_score": 46,
+      "confidence_band": "low",
+      "component_scores": {
+        "signal_strength": 100,
+        "data_freshness": 95,
+        "liquidity_quality": 82,
+        "spread_quality": 95,
+        "research_completeness": 95,
+        "correlation_risk": 35,
+        "concentration_risk": 35,
+        "scenario_consistency": 84,
+        "audit_safety": 100
+      },
+      "penalties": [
+        {
+          "reason": "correlated_exposure",
+          "points": 12
+        },
+        {
+          "reason": "concentration_risk",
+          "points": 12
+        },
+        {
+          "reason": "high_risk_profile",
+          "points": 10
+        }
+      ],
+      "warnings": [
+        "concentration_risk",
+        "correlated_exposure",
+        "high_risk_profile"
+      ],
+      "hard_reject_reasons": [],
+      "missing_information": [],
+      "final_decision": "watchlist",
+      "decision_support_summary": "Synthetic paper candidate remains inspectable but needs more evidence before paper sizing.",
+      "paper_research_only": true,
+      "no_real_order_statement": "Paper/research only. No real order, no wallet action, no runtime execution."
+    },
+    {
+      "case_id": "rq_case_low_confidence_watchlist",
+      "market_id": "pm_fixture_2026_ceasefire_window",
+      "total_confidence_score": 76,
+      "confidence_band": "medium",
+      "component_scores": {
+        "signal_strength": 61,
+        "data_freshness": 95,
+        "liquidity_quality": 55,
+        "spread_quality": 80,
+        "research_completeness": 85,
+        "correlation_risk": 65,
+        "concentration_risk": 90,
+        "scenario_consistency": 52,
+        "audit_safety": 100
+      },
+      "penalties": [],
+      "warnings": [],
+      "hard_reject_reasons": [],
+      "missing_information": [
+        "limited_supporting_signals"
+      ],
+      "final_decision": "watchlist",
+      "decision_support_summary": "Synthetic paper candidate remains inspectable but needs more evidence before paper sizing.",
+      "paper_research_only": true,
+      "no_real_order_statement": "Paper/research only. No real order, no wallet action, no runtime execution."
+    },
+    {
+      "case_id": "rq_case_paper_only_no_action",
+      "market_id": "pm_fixture_2026_ceasefire_window",
+      "total_confidence_score": 60,
+      "confidence_band": "low",
+      "component_scores": {
+        "signal_strength": 59,
+        "data_freshness": 95,
+        "liquidity_quality": 55,
+        "spread_quality": 80,
+        "research_completeness": 85,
+        "correlation_risk": 65,
+        "concentration_risk": 90,
+        "scenario_consistency": 50,
+        "audit_safety": 100
+      },
+      "penalties": [
+        {
+          "reason": "paper_only_no_action",
+          "points": 15
+        }
+      ],
+      "warnings": [
+        "paper_only_no_action"
+      ],
+      "hard_reject_reasons": [],
+      "missing_information": [
+        "limited_supporting_signals"
+      ],
+      "final_decision": "no_action",
+      "decision_support_summary": "Paper-only monitoring case intentionally avoids any paper position proposal.",
+      "paper_research_only": true,
+      "no_real_order_statement": "Paper/research only. No real order, no wallet action, no runtime execution."
+    }
+  ],
+  "confidence_band_counts": {
+    "high": 1,
+    "low": 2,
+    "medium": 3,
+    "reject": 6
+  }
+}

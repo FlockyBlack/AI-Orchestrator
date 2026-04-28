@@ -1,0 +1,52 @@
+{
+  "task_id": "ORCH-AUTOPILOT-003-PREVIEW-CONTRACT-VALIDATOR",
+  "status": "implementation_complete_ready_for_flocky_validation",
+  "summary": "Implemented an isolated Autopilot V1 preview contract validator with library and CLI usage, stdin support, deterministic JSON validation reports, authority-drift checks, fixture/example warnings, new invalid fixtures, validator-focused tests, and documentation without changing runtime wiring or external_cli behavior.",
+  "files_created": [
+    "codex_auto/autopilot/validate_preview_handoff.py",
+    "codex_auto/autopilot/fixtures/invalid_codex_auto_runtime_owner.v1.json",
+    "codex_auto/autopilot/fixtures/invalid_final_accepted_claim.v1.json",
+    "codex_auto/autopilot/fixtures/invalid_missing_status_ownership.v1.json",
+    "codex_auto/autopilot/fixtures/invalid_missing_stop_conditions.v1.json",
+    "codex_auto/autopilot/fixtures/invalid_bad_authoritative_path_claim.v1.json",
+    "codex_auto/autopilot/fixtures/invalid_missing_approval_required.v1.json",
+    "codex_auto/autopilot/tests/test_validate_preview_handoff.py",
+    "docs/AUTOPILOT_V1_PREVIEW_CONTRACT_VALIDATOR.md",
+    "docs/ORCH_AUTOPILOT_003_RESULT.json"
+  ],
+  "files_modified": [],
+  "tests_run": [
+    "python -m pytest -q codex_auto/autopilot/tests: passed (19 passed, 20 subtests passed)",
+    "python codex_auto/autopilot/validate_preview_handoff.py --preview-path codex_auto/autopilot/fixtures/expected_preview_handoff.v1.json: passed (valid=true with non-blocking fixture/example warnings)",
+    "python -m pytest -q codex_auto: failed with unrelated existing failures in codex_auto/external_cli/one_shot/tests/test_validate_one_shot_execution_gate.py (2 failed, 193 passed, 38 subtests passed)"
+  ],
+  "safety": {
+    "runtime_wiring": false,
+    "dispatcher_changed": false,
+    "run_codex_changed": false,
+    "active_task_mutation": false,
+    "state_result_freeze_checkpoint_mutation": false,
+    "codex_auto_queue_mutation": false,
+    "governance_mutation": false,
+    "external_codex_execution": false,
+    "network_api": false,
+    "credentials": false,
+    "wallet_private_key": false,
+    "orders_trading": false,
+    "final_acceptance_claimed": false,
+    "single_runtime_source_rule_preserved": true
+  },
+  "preview_contract_validator": {
+    "created": true,
+    "preview_only": true,
+    "runtime_authority": false,
+    "final_acceptance_authority": false,
+    "execution_allowed_now": false,
+    "runtime_wiring_allowed": false,
+    "flocky_validation_required": true
+  },
+  "blocking_findings": [],
+  "warnings": [
+    "Broader codex_auto pytest run still has the known pre-existing external_cli/one_shot failures expecting --full-auto in PMBOT-BATCH-001.final_command_preview.txt and a passing one-shot gate validation; these were intentionally not repaired in this task."
+  ]
+}

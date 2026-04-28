@@ -1,0 +1,628 @@
+{
+  "schema_version": "v1",
+  "package_id": "PMBOT-BATCH-006-REVIEW-EXPORT-PACKAGE",
+  "fixture_only": true,
+  "paper_only": true,
+  "local_only": true,
+  "deterministic": true,
+  "operator_review_only": true,
+  "operator_review_bundle": {
+    "schema_version": "v1",
+    "bundle_id": "PMBOT-BATCH-006-OPERATOR-REVIEW-BUNDLE",
+    "generated_from_local_artifacts": true,
+    "fixture_only": true,
+    "paper_only": true,
+    "local_only": true,
+    "deterministic": true,
+    "operator_review_only": true,
+    "accepted_paper_candidates": [
+      {
+        "market_id": "pm_fixture_2026_us_growth_soft_landing",
+        "category": "macro",
+        "allocation_usd": 220.0,
+        "expected_value_delta": 70.0
+      },
+      {
+        "market_id": "pm_fixture_2026_ceasefire_window",
+        "category": "geopolitics",
+        "allocation_usd": 140.0,
+        "expected_value_delta": 44.0
+      },
+      {
+        "market_id": "pm_fixture_2026_rate_cut_december",
+        "category": "macro",
+        "allocation_usd": 220.0,
+        "expected_value_delta": 36.0
+      },
+      {
+        "market_id": "pm_fixture_2026_cpi_below_target",
+        "category": "macro",
+        "allocation_usd": 180.0,
+        "expected_value_delta": 33.0
+      }
+    ],
+    "rejected_candidates": [
+      {
+        "candidate_id": "rq_case_wide_spread_caution",
+        "market_id": "pm_fixture_2026_cabinet_exit",
+        "reason": "wide_spread"
+      },
+      {
+        "candidate_id": "rq_case_low_liquidity_reject",
+        "market_id": "pm_fixture_2026_championship_upset",
+        "reason": "low_liquidity"
+      },
+      {
+        "candidate_id": "rq_case_stale_data_warning",
+        "market_id": "pm_fixture_2026_ai_regulation_vote",
+        "reason": "stale_data"
+      },
+      {
+        "candidate_id": "rq_case_conflicting_signals_reject",
+        "market_id": "pm_fixture_2026_ai_regulation_vote",
+        "reason": "conflicting_signals"
+      },
+      {
+        "candidate_id": "rq_case_weak_edge_reject",
+        "market_id": "pm_fixture_2026_cabinet_exit",
+        "reason": "insufficient_edge"
+      }
+    ],
+    "watchlist_candidates": [
+      {
+        "candidate_id": "rq_case_low_confidence_watchlist",
+        "market_id": "pm_fixture_2026_ceasefire_window",
+        "reason": "limited_supporting_signals",
+        "operator_action": "watchlist_no_action"
+      },
+      {
+        "candidate_id": "rq_case_correlated_watchlist",
+        "market_id": "pm_fixture_2026_cpi_below_target",
+        "reason": "correlated_exposure",
+        "operator_action": "watchlist_no_action"
+      },
+      {
+        "candidate_id": "rq_case_missing_note_watchlist",
+        "market_id": "pm_fixture_2026_ceasefire_window",
+        "reason": "missing_research_notes",
+        "operator_action": "watchlist_no_action"
+      },
+      {
+        "candidate_id": "rq_case_high_confidence_high_risk",
+        "market_id": "pm_fixture_2026_rate_cut_december",
+        "reason": "concentration_risk, correlated_exposure, high_risk_profile",
+        "operator_action": "watchlist_no_action"
+      },
+      {
+        "candidate_id": "rq_case_paper_only_no_action",
+        "market_id": "pm_fixture_2026_ceasefire_window",
+        "reason": "paper_only_no_action",
+        "operator_action": "review_only"
+      }
+    ],
+    "blocked_or_excluded_cases": [
+      {
+        "candidate_id": "rq_case_resolved_market_exclusion",
+        "market_id": "pm_fixture_2026_hurricane_season_closed",
+        "reason": "insufficient_edge, low_liquidity, resolved_or_closed_market, stale_data"
+      }
+    ],
+    "top_risk_flags": [
+      "category_concentration:macro",
+      "confidence_vs_data_mismatch",
+      "conflicting_signals",
+      "correlated_group:us-macro-2026",
+      "high_concentration_candidate",
+      "low_liquidity",
+      "missing_research_notes",
+      "negative_edge",
+      "portfolio_exposure_cap",
+      "resolved_or_closed_market",
+      "stale_data",
+      "watchlist_no_action",
+      "wide_spread"
+    ],
+    "audit_headline": "audit_v4_passed=true, blocking_findings=0",
+    "adversarial_validation_headline": "replay_passed=12/12, false_positives=0",
+    "watchlist_warning_status": "Watchlist status is review-only and no-action. It cannot become an accepted, live, order, trade, or execution candidate without separate future approval.",
+    "final_paper_only_operator_recommendation": "Maintain paper-monitoring only. Review accepted candidates for research continuity, keep watchlist and no-action cases non-executable, and reject or exclude unsafe cases.",
+    "operator_next_steps": [
+      "Review accepted paper candidates against current fixture assumptions.",
+      "Confirm watchlist and no-action cases remain non-executable.",
+      "Review rejection and exclusion reasons for recurring weak signals.",
+      "Verify audit and adversarial validation status before any future approval discussion."
+    ],
+    "explicit_no_execution_statement": "This bundle is for local operator review only. It does not authorize live APIs, wallets, orders, trades, autonomous execution, or runtime wiring."
+  },
+  "paper_candidate_review_table": {
+    "schema_version": "v1",
+    "table_id": "PMBOT-BATCH-006-PAPER-CANDIDATE-REVIEW",
+    "fixture_only": true,
+    "paper_only": true,
+    "local_only": true,
+    "deterministic": true,
+    "operator_review_only": true,
+    "allowed_operator_actions": [
+      "review_only",
+      "reject_no_action",
+      "watchlist_no_action",
+      "paper_monitor_no_action"
+    ],
+    "rows": [
+      {
+        "candidate_id": "rq_case_strong_accept",
+        "market_id": "pm_fixture_2026_us_growth_soft_landing",
+        "category": "macro",
+        "decision": "accept",
+        "confidence_band": "high",
+        "confidence_score": 89,
+        "risk_flags": [],
+        "explanation_headline": "Accepted paper candidate with inspectable rationale.",
+        "rejection_or_watchlist_reason": "accepted_for_paper_monitoring_only",
+        "operator_action": "paper_monitor_no_action"
+      },
+      {
+        "candidate_id": "rq_case_low_confidence_watchlist",
+        "market_id": "pm_fixture_2026_ceasefire_window",
+        "category": "geopolitics",
+        "decision": "watchlist",
+        "confidence_band": "medium",
+        "confidence_score": 76,
+        "risk_flags": [],
+        "explanation_headline": "Watchlist paper candidate needs tighter evidence before sizing.",
+        "rejection_or_watchlist_reason": "limited_supporting_signals",
+        "operator_action": "watchlist_no_action"
+      },
+      {
+        "candidate_id": "rq_case_correlated_watchlist",
+        "market_id": "pm_fixture_2026_cpi_below_target",
+        "category": "macro",
+        "decision": "watchlist",
+        "confidence_band": "medium",
+        "confidence_score": 67,
+        "risk_flags": [
+          "correlated_exposure"
+        ],
+        "explanation_headline": "Watchlist paper candidate needs tighter evidence before sizing.",
+        "rejection_or_watchlist_reason": "correlated_exposure",
+        "operator_action": "watchlist_no_action"
+      },
+      {
+        "candidate_id": "rq_case_missing_note_watchlist",
+        "market_id": "pm_fixture_2026_ceasefire_window",
+        "category": "geopolitics",
+        "decision": "watchlist",
+        "confidence_band": "medium",
+        "confidence_score": 66,
+        "risk_flags": [
+          "missing_research_notes"
+        ],
+        "explanation_headline": "Watchlist paper candidate needs tighter evidence before sizing.",
+        "rejection_or_watchlist_reason": "missing_research_notes",
+        "operator_action": "watchlist_no_action"
+      },
+      {
+        "candidate_id": "rq_case_high_confidence_high_risk",
+        "market_id": "pm_fixture_2026_rate_cut_december",
+        "category": "macro",
+        "decision": "watchlist",
+        "confidence_band": "low",
+        "confidence_score": 46,
+        "risk_flags": [
+          "concentration_risk",
+          "correlated_exposure",
+          "high_risk_profile"
+        ],
+        "explanation_headline": "Watchlist paper candidate needs tighter evidence before sizing.",
+        "rejection_or_watchlist_reason": "concentration_risk, correlated_exposure, high_risk_profile",
+        "operator_action": "watchlist_no_action"
+      },
+      {
+        "candidate_id": "rq_case_paper_only_no_action",
+        "market_id": "pm_fixture_2026_ceasefire_window",
+        "category": "geopolitics",
+        "decision": "no_action",
+        "confidence_band": "low",
+        "confidence_score": 60,
+        "risk_flags": [
+          "paper_only_no_action"
+        ],
+        "explanation_headline": "No-action monitoring case kept outside paper positioning.",
+        "rejection_or_watchlist_reason": "paper_only_no_action",
+        "operator_action": "review_only"
+      },
+      {
+        "candidate_id": "rq_case_wide_spread_caution",
+        "market_id": "pm_fixture_2026_cabinet_exit",
+        "category": "politics",
+        "decision": "reject",
+        "confidence_band": "reject",
+        "confidence_score": 57,
+        "risk_flags": [
+          "wide_spread"
+        ],
+        "explanation_headline": "Rejected paper candidate due to deterministic quality failures.",
+        "rejection_or_watchlist_reason": "wide_spread",
+        "operator_action": "reject_no_action"
+      },
+      {
+        "candidate_id": "rq_case_low_liquidity_reject",
+        "market_id": "pm_fixture_2026_championship_upset",
+        "category": "sports",
+        "decision": "reject",
+        "confidence_band": "reject",
+        "confidence_score": 56,
+        "risk_flags": [
+          "low_liquidity"
+        ],
+        "explanation_headline": "Rejected paper candidate due to deterministic quality failures.",
+        "rejection_or_watchlist_reason": "low_liquidity",
+        "operator_action": "reject_no_action"
+      },
+      {
+        "candidate_id": "rq_case_stale_data_warning",
+        "market_id": "pm_fixture_2026_ai_regulation_vote",
+        "category": "technology",
+        "decision": "reject",
+        "confidence_band": "reject",
+        "confidence_score": 55,
+        "risk_flags": [
+          "stale_data"
+        ],
+        "explanation_headline": "Rejected paper candidate due to deterministic quality failures.",
+        "rejection_or_watchlist_reason": "stale_data",
+        "operator_action": "reject_no_action"
+      },
+      {
+        "candidate_id": "rq_case_conflicting_signals_reject",
+        "market_id": "pm_fixture_2026_ai_regulation_vote",
+        "category": "technology",
+        "decision": "reject",
+        "confidence_band": "reject",
+        "confidence_score": 54,
+        "risk_flags": [
+          "conflicting_signals"
+        ],
+        "explanation_headline": "Rejected paper candidate due to deterministic quality failures.",
+        "rejection_or_watchlist_reason": "conflicting_signals",
+        "operator_action": "reject_no_action"
+      },
+      {
+        "candidate_id": "rq_case_weak_edge_reject",
+        "market_id": "pm_fixture_2026_cabinet_exit",
+        "category": "politics",
+        "decision": "reject",
+        "confidence_band": "reject",
+        "confidence_score": 54,
+        "risk_flags": [
+          "insufficient_edge"
+        ],
+        "explanation_headline": "Rejected paper candidate due to deterministic quality failures.",
+        "rejection_or_watchlist_reason": "insufficient_edge",
+        "operator_action": "reject_no_action"
+      },
+      {
+        "candidate_id": "rq_case_resolved_market_exclusion",
+        "market_id": "pm_fixture_2026_hurricane_season_closed",
+        "category": "climate",
+        "decision": "exclude",
+        "confidence_band": "reject",
+        "confidence_score": 0,
+        "risk_flags": [
+          "insufficient_edge",
+          "low_liquidity",
+          "missing_research_notes",
+          "resolved_or_closed_market",
+          "stale_data"
+        ],
+        "explanation_headline": "Excluded case because the synthetic market is resolved or closed.",
+        "rejection_or_watchlist_reason": "insufficient_edge, low_liquidity, resolved_or_closed_market, stale_data",
+        "operator_action": "reject_no_action"
+      }
+    ],
+    "explicit_no_execution_statement": "This review table is for paper research and operator review only. No buy, sell, trade, submit_order, execute, live_action, or real_position behavior exists."
+  },
+  "watchlist_policy_report": {
+    "schema_version": "v1",
+    "report_id": "PMBOT-BATCH-006-WATCHLIST-POLICY",
+    "watchlist_policy_version": "PMBOT-BATCH-005-warning-policy",
+    "fixture_only": true,
+    "paper_only": true,
+    "local_only": true,
+    "deterministic": true,
+    "operator_review_only": true,
+    "cases_covered": [
+      {
+        "reason": "duplicate_snapshot",
+        "replay_cases": [
+          "replay_adversarial_false_positive",
+          "replay_duplicate_snapshot"
+        ],
+        "shock_scenarios": [],
+        "allowed_decisions": [
+          "watchlist_no_action",
+          "reject_no_action"
+        ]
+      },
+      {
+        "reason": "outlier_price_move",
+        "replay_cases": [
+          "replay_adversarial_false_positive",
+          "replay_outlier_price_move"
+        ],
+        "shock_scenarios": [
+          "shock_price_gap"
+        ],
+        "allowed_decisions": [
+          "watchlist_no_action",
+          "reject_no_action"
+        ]
+      },
+      {
+        "reason": "correlation_conflict",
+        "replay_cases": [
+          "replay_adversarial_false_positive",
+          "replay_correlated_opposite_markets"
+        ],
+        "shock_scenarios": [
+          "shock_correlation_cluster_warning"
+        ],
+        "allowed_decisions": [
+          "watchlist_no_action",
+          "reject_no_action"
+        ]
+      }
+    ],
+    "watchlist_is_no_action": true,
+    "watchlist_requires_human_review": true,
+    "watchlist_can_execute": false,
+    "future_live_mode_requires_separate_approval": true,
+    "critical_rule": "Watchlist status is review-only and no-action. It cannot become an accepted, live, order, trade, or execution candidate without separate future approval."
+  },
+  "rejection_summary": {
+    "schema_version": "v1",
+    "report_id": "PMBOT-BATCH-006-REJECTION-SUMMARY",
+    "fixture_only": true,
+    "paper_only": true,
+    "local_only": true,
+    "deterministic": true,
+    "operator_review_only": true,
+    "rejection_count": 13,
+    "rejection_reasons": {
+      "conflicting_signals": 1,
+      "insufficient_edge": 2,
+      "low_liquidity": 2,
+      "resolved_or_closed_market": 1,
+      "stale_data": 2,
+      "wide_spread": 1,
+      "replay_decision_exclude": 1,
+      "replay_decision_reject": 7
+    },
+    "excluded_cases": [
+      "pm_fixture_2026_hurricane_season_closed",
+      "adv-006"
+    ],
+    "common_bad_signal_patterns": [
+      {
+        "case_id": "rq_case_weak_edge_reject",
+        "market_id": "pm_fixture_2026_cabinet_exit",
+        "final_decision": "reject",
+        "confidence_score": 54,
+        "rejection_reasons": [
+          "insufficient_edge"
+        ],
+        "improvement_actions": [
+          "Improve the synthetic edge or downgrade the case to no-action."
+        ]
+      },
+      {
+        "case_id": "rq_case_low_liquidity_reject",
+        "market_id": "pm_fixture_2026_championship_upset",
+        "final_decision": "reject",
+        "confidence_score": 56,
+        "rejection_reasons": [
+          "low_liquidity"
+        ],
+        "improvement_actions": [
+          "Use a synthetic case with liquidity above the local floor."
+        ]
+      },
+      {
+        "case_id": "rq_case_wide_spread_caution",
+        "market_id": "pm_fixture_2026_cabinet_exit",
+        "final_decision": "reject",
+        "confidence_score": 57,
+        "rejection_reasons": [
+          "wide_spread"
+        ],
+        "improvement_actions": [
+          "Tighten spread assumptions before promoting the case."
+        ]
+      },
+      {
+        "case_id": "rq_case_stale_data_warning",
+        "market_id": "pm_fixture_2026_ai_regulation_vote",
+        "final_decision": "reject",
+        "confidence_score": 55,
+        "rejection_reasons": [
+          "stale_data"
+        ],
+        "improvement_actions": [
+          "Refresh the local fixture timestamp before reconsidering the case."
+        ]
+      },
+      {
+        "case_id": "rq_case_resolved_market_exclusion",
+        "market_id": "pm_fixture_2026_hurricane_season_closed",
+        "final_decision": "exclude",
+        "confidence_score": 0,
+        "rejection_reasons": [
+          "insufficient_edge",
+          "low_liquidity",
+          "resolved_or_closed_market",
+          "stale_data"
+        ],
+        "improvement_actions": [
+          "Improve the synthetic edge or downgrade the case to no-action.",
+          "Use a synthetic case with liquidity above the local floor.",
+          "Exclude resolved or closed markets from forward research.",
+          "Refresh the local fixture timestamp before reconsidering the case."
+        ]
+      },
+      {
+        "case_id": "rq_case_conflicting_signals_reject",
+        "market_id": "pm_fixture_2026_ai_regulation_vote",
+        "final_decision": "reject",
+        "confidence_score": 54,
+        "rejection_reasons": [
+          "conflicting_signals"
+        ],
+        "improvement_actions": [
+          "Resolve the contradiction between synthetic signals."
+        ]
+      }
+    ],
+    "data_quality_failures": [
+      "stale_data",
+      "missing_market_status",
+      "confidence_vs_data_mismatch"
+    ],
+    "liquidity_spread_failures": [
+      "low_liquidity",
+      "wide_spread"
+    ],
+    "stale_resolved_failures": [
+      "stale_data",
+      "resolved_market",
+      "resolved_or_closed_market"
+    ],
+    "contradiction_correlation_failures": [
+      "conflicting_signals",
+      "correlation_conflict"
+    ],
+    "false_positive_prevention_summary": "False positives remained at 0 while watchlist warnings stayed non-executable and deterministic.",
+    "shock_rejection_reason_counts": {
+      "low_liquidity": 1,
+      "resolved_market": 1,
+      "stale_data": 1,
+      "wide_spread": 1
+    }
+  },
+  "risk_audit_summary": {
+    "schema_version": "v1",
+    "report_id": "PMBOT-BATCH-006-RISK-AUDIT-SUMMARY",
+    "fixture_only": true,
+    "paper_only": true,
+    "local_only": true,
+    "deterministic": true,
+    "operator_review_only": true,
+    "audit_status": {
+      "v2_passed": true,
+      "v3_passed": true,
+      "v4_passed": true,
+      "v5_passed": true
+    },
+    "latest_audit_headline": "Static safety audit v5 passed with 0 blocking findings and expanded operator/export coverage.",
+    "blocking_findings_count": 0,
+    "replay_adversarial_validation_status": {
+      "static_audit_v4_passed": true,
+      "replay_score": 98.5,
+      "false_positives": 0
+    },
+    "watchlist_warning_status": {
+      "watchlist_is_no_action": true,
+      "watchlist_requires_human_review": true,
+      "critical_rule": "Watchlist status is review-only and no-action. It cannot become an accepted, live, order, trade, or execution candidate without separate future approval."
+    },
+    "safety_boundaries": [
+      "fixture_only",
+      "paper_only",
+      "local_only",
+      "deterministic",
+      "offline_testable",
+      "operator_review_only"
+    ],
+    "forbidden_live_behavior_status": {
+      "live_api": false,
+      "wallet": false,
+      "real_orders": false,
+      "real_trading": false,
+      "autonomous_trading": false,
+      "runtime_wiring": false
+    }
+  },
+  "demo_readiness_headline": "Operator review bundle is ready for deterministic human inspection with 4 paper candidates, 5 watchlist cases, audit status Static safety audit v5 passed with 0 blocking findings and expanded operator/export coverage., and no executable path.",
+  "final_operator_checklist": {
+    "schema_version": "v1",
+    "checklist_id": "PMBOT-BATCH-006-OPERATOR-CHECKLIST",
+    "fixture_only": true,
+    "paper_only": true,
+    "local_only": true,
+    "deterministic": true,
+    "operator_review_only": true,
+    "items": [
+      {
+        "step": "verify fixture-only source",
+        "required": true,
+        "status": "pending_human_review"
+      },
+      {
+        "step": "verify paper-only mode",
+        "required": true,
+        "status": "pending_human_review"
+      },
+      {
+        "step": "verify no live API",
+        "required": true,
+        "status": "pending_human_review"
+      },
+      {
+        "step": "verify no wallet/private key",
+        "required": true,
+        "status": "pending_human_review"
+      },
+      {
+        "step": "verify no real order execution",
+        "required": true,
+        "status": "pending_human_review"
+      },
+      {
+        "step": "review accepted paper candidates",
+        "required": true,
+        "status": "pending_human_review"
+      },
+      {
+        "step": "review rejected cases",
+        "required": true,
+        "status": "pending_human_review"
+      },
+      {
+        "step": "review watchlist no-action cases",
+        "required": true,
+        "status": "pending_human_review"
+      },
+      {
+        "step": "review audit status",
+        "required": true,
+        "status": "pending_human_review"
+      },
+      {
+        "step": "review adversarial validation status",
+        "required": true,
+        "status": "pending_human_review"
+      },
+      {
+        "step": "confirm no live execution approval exists",
+        "required": true,
+        "status": "pending_human_review"
+      },
+      {
+        "step": "confirm future live mode requires separate approval",
+        "required": true,
+        "status": "pending_human_review"
+      }
+    ],
+    "explicit_no_execution_statement": "Checklist completion does not authorize live fetchers, wallet use, orders, trades, or runtime wiring."
+  },
+  "explicit_no_execution_statement": "Export package is for human review only. No execution instructions, no live orders, no wallet, and no API path exist."
+}

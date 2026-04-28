@@ -1,0 +1,55 @@
+TASK_ID: PMBOT-BATCH-001
+MODE: CODEX_SAFE_IMPLEMENTATION_BUNDLED
+PROJECT_PATH: C:\Users\OpenC\Documents\AI-Orchestrator
+
+Context:
+- This is a generated future Codex prompt pack for safe PM bot candidate tasks only.
+- It is not executed by the current materializer.
+- External Codex CLI must not be invoked by the current materializer.
+
+Safety rules:
+- No runtime wiring.
+- No dispatcher or run_codex modification.
+- No active task mutation.
+- No runtime/state/result/freeze/checkpoint mutation.
+- No network/API/wallet/private key/trading.
+- No real orders.
+- No second runtime source of truth.
+- Final Flocky/OpenClaw done must not be claimed.
+
+Allowed candidate paths:
+- PMBOT-005-PAPER-SIMULATION: pm_bot/paper/, pm_bot/paper/tests/
+- PMBOT-006-RISK-LIMITS: pm_bot/risk/, pm_bot/risk/tests/
+- PMBOT-007-FEES-SLIPPAGE: pm_bot/accounting/, pm_bot/accounting/tests/
+- PMBOT-008-RESEARCH-DASHBOARD: pm_bot/reports/, pm_bot/reports/tests/
+- PMBOT-009-FIXTURE-POSTMORTEM: pm_bot/postmortem/, pm_bot/postmortem/tests/
+- PMBOT-010-STATIC-SAFETY-AUDIT: pm_bot/audit/, pm_bot/audit/tests/
+
+Forbidden paths:
+- scripts/dispatcher.py
+- scripts/run_codex.py
+- tasks/
+- state/
+- runtime/
+- results/
+- freeze/
+- checkpoint/
+
+Phase plan:
+1. PMBOT-005 paper simulation
+2. PMBOT-006 risk limits
+3. PMBOT-007 fees/slippage accounting
+4. PMBOT-008 research dashboard/report
+5. PMBOT-009 fixture postmortem
+6. PMBOT-010 static safety audit
+
+Tests required:
+- Add or update local offline tests for each allowed path slice only.
+- Validate deterministic outputs and safety gates.
+
+Full validation required:
+- Run the smallest relevant tests first.
+- Confirm no runtime wiring, no network/API/wallet/private key/trading, and no external Codex CLI invocation.
+
+Final output required:
+- Return compact JSON only with status, changed files, tests run, tests passed, safety check, risks, notes, and recommended next action.

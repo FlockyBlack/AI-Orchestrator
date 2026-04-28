@@ -1,0 +1,63 @@
+{
+  "schema_version": "v1",
+  "queue_task_id": "QUEUE-PMBOT-005-PAPER-SIMULATION",
+  "codex_task_id": "PMBOT-005-PAPER-SIMULATION",
+  "queue_state": "ready",
+  "mode": "PAPER_ONLY",
+  "executor": "Codex",
+  "title": "Paper simulation slice",
+  "summary": "Implement a paper-only portfolio simulator slice with deterministic state transitions and no execution authority.",
+  "source_backlog_task_id": "PMBOT-005-PAPER-SIMULATION-DERIVED",
+  "source_backlog_path": "docs/PM_BOT_SAFE_BACKLOG_V1.json",
+  "generated_prompt_ref": "codex_auto/prompts/PMBOT-BATCH-001.codex_prompt.txt",
+  "allowed_paths": [
+    "pm_bot/paper/",
+    "pm_bot/paper/tests/"
+  ],
+  "forbidden_paths": [
+    "scripts/dispatcher.py",
+    "scripts/run_codex.py",
+    "tasks/",
+    "state/",
+    "runtime/",
+    "results/",
+    "freeze/",
+    "checkpoint/"
+  ],
+  "allowed_scope": [
+    "Paper simulation slice"
+  ],
+  "forbidden_scope": [
+    "dispatcher modification",
+    "run_codex modification",
+    "active task mutation",
+    "runtime loop modification",
+    "state/result/freeze/checkpoint mutation",
+    "runtime wiring",
+    "external Codex CLI execution",
+    "network usage",
+    "API usage",
+    "wallet usage",
+    "private key usage",
+    "trading behavior",
+    "real orders",
+    "final Flocky/OpenClaw done claim",
+    "second runtime source of truth"
+  ],
+  "done_criteria": [
+    "Paper simulation inputs and outputs are deterministic",
+    "Execution remains explicitly disabled",
+    "Tests remain local and offline"
+  ],
+  "requires_human_approval": true,
+  "approved_for_execution": false,
+  "dry_run_default": true,
+  "flocky_validation_required": true,
+  "runtime_wiring_allowed": false,
+  "external_codex_cli_allowed": false,
+  "execution_allowed_now": false,
+  "human_approval_required_before_execution": true,
+  "flocky_review_required_before_execution": true,
+  "source_candidate_path": "codex_auto/tasks/candidates/PMBOT-005-PAPER-SIMULATION.task.json",
+  "source_promotion_decision": "codex_auto/tasks/promotion_decisions/PMBOT-BATCH-001.promotion_decision.json"
+}

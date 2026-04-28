@@ -1,0 +1,79 @@
+{
+  "task_id": "PMBOT-INGEST-008-SELECTED-INGEST-OPERATOR-REVIEW-QUEUE",
+  "status": "passed",
+  "summary": "Created a deterministic offline selected-ingest operator review queue for the five merged manual research packets, grouped by structural completion status and validator errors only. The queue exports JSON, Markdown, and expected JSON artifacts without source lookup, dossiers, orders, scoring, recommendations, or runtime wiring.",
+  "files_created": [
+    "pm_bot/research/export_selected_ingest_operator_review_queue.py",
+    "pm_bot/research/selected_ingest_operator_review_queue.v1.json",
+    "pm_bot/research/selected_ingest_operator_review_queue.v1.md",
+    "pm_bot/research/expected_selected_ingest_operator_review_queue.v1.json",
+    "pm_bot/research/tests/test_selected_ingest_operator_review_queue.py",
+    "docs/PMBOT_INGEST_008_RESULT.json"
+  ],
+  "files_modified": [],
+  "tests_run": [
+    {
+      "command": "python pm_bot\\research\\export_selected_ingest_operator_review_queue.py",
+      "status": "passed",
+      "result": "5 packets exported"
+    },
+    {
+      "command": "python -m pytest pm_bot\\research\\tests\\test_selected_ingest_operator_review_queue.py -q",
+      "status": "passed",
+      "result": "13 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\research\\tests\\test_selected_ingest_operator_review_queue.py pm_bot\\research\\tests\\test_selected_ingest_manual_evidence_overlay_merge.py pm_bot\\research\\tests\\test_selected_ingest_operator_workpack.py pm_bot\\research\\tests\\test_selected_ingest_research_packet_stubs.py pm_bot\\research\\tests\\test_manual_research_packet_validation.py pm_bot\\research\\tests\\test_operator_review_queue_export.py -q",
+      "status": "passed",
+      "result": "79 passed"
+    },
+    {
+      "command": "python -m py_compile pm_bot\\research\\export_selected_ingest_operator_review_queue.py pm_bot\\research\\tests\\test_selected_ingest_operator_review_queue.py",
+      "status": "passed",
+      "result": "compiled"
+    },
+    {
+      "command": "PowerShell loop: python -m json.tool for pm_bot\\research\\selected_ingest_operator_review_queue.v1.json, pm_bot\\research\\expected_selected_ingest_operator_review_queue.v1.json, docs\\PMBOT_INGEST_008_RESULT.json",
+      "status": "passed",
+      "result": "json parse ok"
+    }
+  ],
+  "queue_summary": {
+    "packets_total": 5,
+    "ready_for_operator_review": 1,
+    "needs_more_information": 1,
+    "manual_evidence_added": 0,
+    "stub_only": 3,
+    "invalid": 0
+  },
+  "selected_market_ids": [
+    "692258",
+    "824952",
+    "691547",
+    "597964",
+    "598936"
+  ],
+  "safety": {
+    "live_fetchers": false,
+    "network_api_calls": false,
+    "credentials": false,
+    "wallet_private_keys": false,
+    "authenticated_endpoints": false,
+    "trading_endpoints": false,
+    "real_orders": false,
+    "live_trading": false,
+    "paper_orders": false,
+    "betting_recommendations": false,
+    "truth_inference": false,
+    "market_scoring": false,
+    "probability_estimates": false,
+    "expected_value_calculations": false,
+    "side_recommendations": false,
+    "market_decisions": false,
+    "runtime_wiring": false,
+    "dispatcher_run_codex_touched": false,
+    "prompt_automation": false,
+    "codex_copy_roots": false,
+    "completed_dossiers": false
+  }
+}

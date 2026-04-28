@@ -1,0 +1,119 @@
+{
+  "schema_version": "operator_review_records_fixture.v1",
+  "task_id": "PMBOT-RESEARCH-011-OPERATOR-REVIEW-RECORD-GATE",
+  "deterministic": true,
+  "review_record_format": "operator_review_record_list",
+  "review_records": [
+    {
+      "market_id": "563650",
+      "review_status": "review_completed",
+      "review_outcome": "ready_for_dossier_drafting",
+      "reviewer_notes": "Structural review completed. Future dossier drafting may start from this packet; no conclusion or order is recorded here.",
+      "review_checks": {
+        "resolution_criteria_checked": true,
+        "evidence_structure_checked": true,
+        "source_coverage_checked": true,
+        "missing_information_reviewed": true,
+        "no_trading_recommendation_present": true
+      },
+      "requested_followup_information": [],
+      "quality_flags": []
+    },
+    {
+      "market_id": "569366",
+      "review_status": "needs_more_information",
+      "review_outcome": "needs_more_information",
+      "reviewer_notes": "Partial packet remains structurally incomplete for operator review.",
+      "review_checks": {
+        "resolution_criteria_checked": true,
+        "evidence_structure_checked": false,
+        "source_coverage_checked": false,
+        "missing_information_reviewed": true,
+        "no_trading_recommendation_present": true
+      },
+      "requested_followup_information": [
+        "Add credible news source references.",
+        "Add source reliability notes."
+      ],
+      "quality_flags": [
+        "partial_evidence_only"
+      ]
+    },
+    {
+      "market_id": "573656",
+      "review_status": "not_reviewed",
+      "review_outcome": "watch_only_manual",
+      "reviewer_notes": "Keep this stub in manual watch-only status until evidence is supplied.",
+      "review_checks": {
+        "missing_information_reviewed": true,
+        "no_trading_recommendation_present": true
+      },
+      "requested_followup_information": [],
+      "quality_flags": [
+        "stub_packet"
+      ]
+    },
+    {
+      "market_id": "569344",
+      "review_status": "review_completed",
+      "review_outcome": "ready_for_dossier_drafting",
+      "reviewer_notes": "This must be rejected because the source packet is still stub_only.",
+      "review_checks": {
+        "resolution_criteria_checked": true,
+        "evidence_structure_checked": true,
+        "source_coverage_checked": true,
+        "missing_information_reviewed": true,
+        "no_trading_recommendation_present": true
+      },
+      "requested_followup_information": [],
+      "quality_flags": []
+    },
+    {
+      "market_id": "unknown-market-id",
+      "review_status": "review_completed",
+      "review_outcome": "watch_only_manual",
+      "reviewer_notes": "This must be rejected because the market is absent from the queue and merged packets.",
+      "review_checks": {
+        "no_trading_recommendation_present": true
+      },
+      "requested_followup_information": [],
+      "quality_flags": []
+    },
+    {
+      "market_id": "569343",
+      "review_status": "review_completed",
+      "review_outcome": "watch_only_manual",
+      "recommendation": "not allowed in structural operator review records",
+      "reviewer_notes": "This must be rejected because prohibited recommendation content is supplied as a field.",
+      "review_checks": {
+        "probability": true,
+        "no_trading_recommendation_present": true
+      },
+      "requested_followup_information": [],
+      "quality_flags": []
+    },
+    {
+      "market_id": "569332",
+      "title": "Operator attempted to override an immutable title.",
+      "review_status": "review_completed",
+      "review_outcome": "watch_only_manual",
+      "reviewer_notes": "This must be rejected because immutable packet fields cannot be changed by review records.",
+      "review_checks": {
+        "no_trading_recommendation_present": true
+      },
+      "requested_followup_information": [],
+      "quality_flags": []
+    },
+    {
+      "market_id": "569333",
+      "review_status": "needs_more_information",
+      "review_outcome": "needs_more_information",
+      "reviewer_notes": "This must be rejected because no followup request is supplied.",
+      "review_checks": {
+        "no_trading_recommendation_present": true
+      },
+      "requested_followup_information": [],
+      "quality_flags": []
+    }
+  ]
+}

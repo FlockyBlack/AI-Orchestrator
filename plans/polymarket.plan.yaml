@@ -1,0 +1,11 @@
+project: polymarket
+mode: paper_only
+constraints:
+  - no_live_trading
+  - no_wallet
+  - no_real_execution
+stages:
+  - orchestrator_smoke
+  - repo_audit
+  - local_validation
+  - paper_mvp_hardening

@@ -1,0 +1,180 @@
+{
+  "task_id": "PMBOT-BATCH-006",
+  "status": "implementation_complete_ready_for_flocky_validation",
+  "scope": {
+    "fixture_only": true,
+    "paper_only": true,
+    "local_only": true,
+    "deterministic": true,
+    "operator_review_only": true,
+    "live_api": false,
+    "wallet": false,
+    "real_orders": false,
+    "runtime_wiring": false
+  },
+  "summary": "Added a deterministic local-only operator review and export bundle that consolidates paper candidates, watchlist policy, rejection summaries, audit status, and human review checklists without introducing any executable, live, wallet, API, or runtime behavior.",
+  "files_created": [
+    "pm_bot/operator/operator_support.py",
+    "pm_bot/operator/build_operator_review_bundle.py",
+    "pm_bot/operator/expected_operator_review_bundle.v1.json",
+    "pm_bot/operator/expected_operator_review_bundle.v1.md",
+    "pm_bot/operator/paper_candidate_review_table.py",
+    "pm_bot/operator/expected_paper_candidate_review_table.v1.json",
+    "pm_bot/operator/expected_paper_candidate_review_table.v1.md",
+    "pm_bot/operator/watchlist_policy_report.py",
+    "pm_bot/operator/expected_watchlist_policy_report.v1.json",
+    "pm_bot/operator/expected_watchlist_policy_report.v1.md",
+    "pm_bot/operator/risk_audit_summary.py",
+    "pm_bot/operator/expected_risk_audit_summary.v1.json",
+    "pm_bot/operator/expected_risk_audit_summary.v1.md",
+    "pm_bot/operator/operator_review_checklist.py",
+    "pm_bot/operator/expected_operator_review_checklist.v1.json",
+    "pm_bot/operator/expected_operator_review_checklist.v1.md",
+    "pm_bot/operator/tests/test_operator_review_bundle.py",
+    "pm_bot/operator/tests/test_paper_candidate_review_table.py",
+    "pm_bot/operator/tests/test_watchlist_policy_report.py",
+    "pm_bot/operator/tests/test_risk_audit_summary.py",
+    "pm_bot/operator/tests/test_operator_review_checklist.py",
+    "pm_bot/reports/rejection_summary_report.py",
+    "pm_bot/reports/expected_rejection_summary_report.v1.json",
+    "pm_bot/reports/expected_rejection_summary_report.v1.md",
+    "pm_bot/reports/tests/test_rejection_summary_report.py",
+    "pm_bot/export/build_review_export_package.py",
+    "pm_bot/export/expected_review_export_package.v1.json",
+    "pm_bot/export/expected_review_export_package.v1.md",
+    "pm_bot/export/tests/test_review_export_package.py",
+    "pm_bot/demo/run_operator_review_demo.py",
+    "pm_bot/demo/expected_operator_review_demo.v1.json",
+    "pm_bot/demo/expected_operator_review_demo.v1.md",
+    "pm_bot/demo/tests/test_operator_review_demo.py",
+    "pm_bot/audit/static_safety_audit_v5.py",
+    "pm_bot/audit/expected_static_safety_audit.v5.json",
+    "pm_bot/audit/tests/test_static_safety_audit_v5.py",
+    "docs/PM_BOT_DEMO_RUNBOOK_V5.md",
+    "docs/PM_BOT_STAGE_SUMMARY_V7.md",
+    "docs/PM_BOT_SAFE_BACKLOG_V7.json",
+    "docs/PM_BOT_BATCH_006_RESULT.json"
+  ],
+  "files_modified": [
+    "pm_bot/audit/run_static_safety_audit.py",
+    "pm_bot/audit/expected_static_safety_audit.v2.json",
+    "pm_bot/audit/expected_static_safety_audit.v3.json",
+    "pm_bot/audit/expected_static_safety_audit.v4.json",
+    "pm_bot/demo/expected_paper_research_demo.v1.json",
+    "pm_bot/demo/expected_paper_research_demo.v1.md"
+  ],
+  "tests_run": [
+    {
+      "command": "python -m pytest pm_bot\\operator\\tests -q",
+      "status": "pass",
+      "notes": "Operator bundle, review table, watchlist policy, checklist, and risk summary tests passed."
+    },
+    {
+      "command": "python -m pytest pm_bot\\export\\tests -q",
+      "status": "pass",
+      "notes": "Review export package tests passed."
+    },
+    {
+      "command": "python -m pytest pm_bot\\reports\\tests -q",
+      "status": "pass",
+      "notes": "Reports suite passed, including the new rejection summary report."
+    },
+    {
+      "command": "python -m pytest pm_bot\\demo\\tests -q",
+      "status": "pass",
+      "notes": "Demo suite passed after refreshing the legacy paper-research expected artifact for wrapper-audit compatibility."
+    },
+    {
+      "command": "python -m pytest pm_bot\\audit\\tests -q",
+      "status": "pass",
+      "notes": "Audit wrapper tests plus static audits v2 through v5 passed."
+    },
+    {
+      "command": "python -m pytest pm_bot\\scenarios\\tests pm_bot\\demo\\tests pm_bot\\reports\\tests pm_bot\\audit\\tests pm_bot\\research\\tests pm_bot\\explainability\\tests pm_bot\\quality\\tests pm_bot\\adversarial\\tests pm_bot\\replay\\tests pm_bot\\validation\\tests pm_bot\\operator\\tests pm_bot\\export\\tests -q",
+      "status": "pass",
+      "notes": "Grouped offline PMBOT suite passed with 142 tests."
+    },
+    {
+      "command": "python pm_bot\\demo\\run_operator_review_demo.py",
+      "status": "pass",
+      "notes": "Operator review demo executed successfully."
+    },
+    {
+      "command": "python pm_bot\\export\\build_review_export_package.py",
+      "status": "pass",
+      "notes": "Review export package executed successfully."
+    },
+    {
+      "command": "python pm_bot\\demo\\run_adversarial_validation_demo.py",
+      "status": "pass",
+      "notes": "BATCH-005 adversarial validation demo remains compatible."
+    },
+    {
+      "command": "python pm_bot\\demo\\run_research_quality_demo.py",
+      "status": "pass",
+      "notes": "BATCH-004 research quality demo remains compatible."
+    },
+    {
+      "command": "python pm_bot\\audit\\static_safety_audit_v4.py",
+      "status": "pass",
+      "notes": "Static safety audit v4 executed successfully."
+    },
+    {
+      "command": "python pm_bot\\audit\\static_safety_audit_v5.py",
+      "status": "pass",
+      "notes": "Static safety audit v5 executed successfully with operator/export coverage."
+    }
+  ],
+  "safety_checks": {
+    "fixture_only": true,
+    "paper_only": true,
+    "local_only": true,
+    "deterministic": true,
+    "operator_review_only": true,
+    "no_execution_instructions": true,
+    "watchlist_is_no_action": true,
+    "no_network_or_api": true,
+    "no_live_polymarket_api": true,
+    "no_wallet_or_private_key": true,
+    "no_real_orders": true,
+    "no_real_trading": true,
+    "no_autonomous_trading": true,
+    "no_runtime_wiring": true,
+    "no_dispatcher_changes": true,
+    "no_run_codex_changes": true,
+    "no_active_task_mutation": true,
+    "no_state_result_freeze_checkpoint_mutation": true,
+    "no_codex_auto_mutation": true,
+    "no_governance_state_mutation": true,
+    "final_flocky_done_claimed": false,
+    "ready_for_flocky_validation": true
+  },
+  "artifacts": {
+    "operator_review_bundle_json": "pm_bot/operator/expected_operator_review_bundle.v1.json",
+    "operator_review_bundle_markdown": "pm_bot/operator/expected_operator_review_bundle.v1.md",
+    "paper_candidate_review_table_json": "pm_bot/operator/expected_paper_candidate_review_table.v1.json",
+    "paper_candidate_review_table_markdown": "pm_bot/operator/expected_paper_candidate_review_table.v1.md",
+    "watchlist_policy_report_json": "pm_bot/operator/expected_watchlist_policy_report.v1.json",
+    "watchlist_policy_report_markdown": "pm_bot/operator/expected_watchlist_policy_report.v1.md",
+    "rejection_summary_report_json": "pm_bot/reports/expected_rejection_summary_report.v1.json",
+    "rejection_summary_report_markdown": "pm_bot/reports/expected_rejection_summary_report.v1.md",
+    "risk_audit_summary_json": "pm_bot/operator/expected_risk_audit_summary.v1.json",
+    "risk_audit_summary_markdown": "pm_bot/operator/expected_risk_audit_summary.v1.md",
+    "review_export_package_json": "pm_bot/export/expected_review_export_package.v1.json",
+    "review_export_package_markdown": "pm_bot/export/expected_review_export_package.v1.md",
+    "operator_checklist_json": "pm_bot/operator/expected_operator_review_checklist.v1.json",
+    "operator_checklist_markdown": "pm_bot/operator/expected_operator_review_checklist.v1.md",
+    "operator_review_demo_json": "pm_bot/demo/expected_operator_review_demo.v1.json",
+    "operator_review_demo_markdown": "pm_bot/demo/expected_operator_review_demo.v1.md",
+    "static_audit_v5": "pm_bot/audit/expected_static_safety_audit.v5.json"
+  },
+  "known_warnings": [],
+  "blocked_items": [
+    "Live fetcher implementation remains blocked pending separate future approval.",
+    "Live Polymarket API integration remains blocked pending separate future approval.",
+    "Wallet, private key, and signing flows remain blocked pending separate future approval.",
+    "Real order execution and autonomous trading remain blocked pending separate future approval.",
+    "Runtime wiring, dispatcher integration, run_codex changes, and state/result/freeze/checkpoint mutation remain blocked."
+  ],
+  "requires_flocky_validation": true
+}

@@ -1,0 +1,218 @@
+{
+  "schema_version": "v1",
+  "report_id": "PMBOT-BATCH-004-CANDIDATE-COMPARISON",
+  "fixture_only": true,
+  "paper_only": true,
+  "local_only": true,
+  "deterministic": true,
+  "ranked_candidates": [
+    {
+      "case_id": "rq_case_strong_accept",
+      "market_id": "pm_fixture_2026_us_growth_soft_landing",
+      "decision": "accept",
+      "confidence_score": 89,
+      "confidence_band": "high",
+      "risk_score": 65,
+      "data_quality_score": 95,
+      "liquidity_spread_caution": [],
+      "warning_flags": [],
+      "rejection_reasons": [],
+      "watchlist_reasons": []
+    },
+    {
+      "case_id": "rq_case_low_confidence_watchlist",
+      "market_id": "pm_fixture_2026_ceasefire_window",
+      "decision": "watchlist",
+      "confidence_score": 76,
+      "confidence_band": "medium",
+      "risk_score": 65,
+      "data_quality_score": 85,
+      "liquidity_spread_caution": [],
+      "warning_flags": [],
+      "rejection_reasons": [],
+      "watchlist_reasons": []
+    },
+    {
+      "case_id": "rq_case_correlated_watchlist",
+      "market_id": "pm_fixture_2026_cpi_below_target",
+      "decision": "watchlist",
+      "confidence_score": 67,
+      "confidence_band": "medium",
+      "risk_score": 35,
+      "data_quality_score": 95,
+      "liquidity_spread_caution": [],
+      "warning_flags": [
+        "correlated_exposure"
+      ],
+      "rejection_reasons": [],
+      "watchlist_reasons": [
+        "correlated_exposure"
+      ]
+    },
+    {
+      "case_id": "rq_case_missing_note_watchlist",
+      "market_id": "pm_fixture_2026_ceasefire_window",
+      "decision": "watchlist",
+      "confidence_score": 66,
+      "confidence_band": "medium",
+      "risk_score": 65,
+      "data_quality_score": 40,
+      "liquidity_spread_caution": [],
+      "warning_flags": [
+        "missing_research_notes"
+      ],
+      "rejection_reasons": [],
+      "watchlist_reasons": [
+        "missing_research_notes"
+      ]
+    },
+    {
+      "case_id": "rq_case_high_confidence_high_risk",
+      "market_id": "pm_fixture_2026_rate_cut_december",
+      "decision": "watchlist",
+      "confidence_score": 46,
+      "confidence_band": "low",
+      "risk_score": 35,
+      "data_quality_score": 95,
+      "liquidity_spread_caution": [],
+      "warning_flags": [
+        "concentration_risk",
+        "correlated_exposure",
+        "high_risk_profile"
+      ],
+      "rejection_reasons": [],
+      "watchlist_reasons": [
+        "concentration_risk",
+        "correlated_exposure",
+        "high_risk_profile"
+      ]
+    },
+    {
+      "case_id": "rq_case_paper_only_no_action",
+      "market_id": "pm_fixture_2026_ceasefire_window",
+      "decision": "no_action",
+      "confidence_score": 60,
+      "confidence_band": "low",
+      "risk_score": 65,
+      "data_quality_score": 85,
+      "liquidity_spread_caution": [],
+      "warning_flags": [
+        "paper_only_no_action"
+      ],
+      "rejection_reasons": [],
+      "watchlist_reasons": []
+    },
+    {
+      "case_id": "rq_case_wide_spread_caution",
+      "market_id": "pm_fixture_2026_cabinet_exit",
+      "decision": "reject",
+      "confidence_score": 57,
+      "confidence_band": "reject",
+      "risk_score": 90,
+      "data_quality_score": 85,
+      "liquidity_spread_caution": [
+        "wide_spread"
+      ],
+      "warning_flags": [
+        "wide_spread"
+      ],
+      "rejection_reasons": [
+        "wide_spread"
+      ],
+      "watchlist_reasons": []
+    },
+    {
+      "case_id": "rq_case_low_liquidity_reject",
+      "market_id": "pm_fixture_2026_championship_upset",
+      "decision": "reject",
+      "confidence_score": 56,
+      "confidence_band": "reject",
+      "risk_score": 90,
+      "data_quality_score": 85,
+      "liquidity_spread_caution": [
+        "low_liquidity"
+      ],
+      "warning_flags": [
+        "low_liquidity"
+      ],
+      "rejection_reasons": [
+        "low_liquidity"
+      ],
+      "watchlist_reasons": []
+    },
+    {
+      "case_id": "rq_case_stale_data_warning",
+      "market_id": "pm_fixture_2026_ai_regulation_vote",
+      "decision": "reject",
+      "confidence_score": 55,
+      "confidence_band": "reject",
+      "risk_score": 65,
+      "data_quality_score": 15,
+      "liquidity_spread_caution": [],
+      "warning_flags": [
+        "stale_data"
+      ],
+      "rejection_reasons": [
+        "stale_data"
+      ],
+      "watchlist_reasons": []
+    },
+    {
+      "case_id": "rq_case_conflicting_signals_reject",
+      "market_id": "pm_fixture_2026_ai_regulation_vote",
+      "decision": "reject",
+      "confidence_score": 54,
+      "confidence_band": "reject",
+      "risk_score": 65,
+      "data_quality_score": 80,
+      "liquidity_spread_caution": [],
+      "warning_flags": [
+        "conflicting_signals"
+      ],
+      "rejection_reasons": [
+        "conflicting_signals"
+      ],
+      "watchlist_reasons": []
+    },
+    {
+      "case_id": "rq_case_weak_edge_reject",
+      "market_id": "pm_fixture_2026_cabinet_exit",
+      "decision": "reject",
+      "confidence_score": 54,
+      "confidence_band": "reject",
+      "risk_score": 90,
+      "data_quality_score": 85,
+      "liquidity_spread_caution": [],
+      "warning_flags": [],
+      "rejection_reasons": [
+        "insufficient_edge"
+      ],
+      "watchlist_reasons": []
+    },
+    {
+      "case_id": "rq_case_resolved_market_exclusion",
+      "market_id": "pm_fixture_2026_hurricane_season_closed",
+      "decision": "exclude",
+      "confidence_score": 0,
+      "confidence_band": "reject",
+      "risk_score": 90,
+      "data_quality_score": 15,
+      "liquidity_spread_caution": [
+        "low_liquidity"
+      ],
+      "warning_flags": [
+        "low_liquidity",
+        "missing_research_notes",
+        "stale_data"
+      ],
+      "rejection_reasons": [
+        "insufficient_edge",
+        "low_liquidity",
+        "resolved_or_closed_market",
+        "stale_data"
+      ],
+      "watchlist_reasons": []
+    }
+  ],
+  "not_trading_advice": "Synthetic research comparison only. No trading advice and no real order is created."
+}

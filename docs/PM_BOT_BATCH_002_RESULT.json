@@ -1,0 +1,45 @@
+{
+  "schema_version": "v1",
+  "task_id": "PMBOT-BATCH-002",
+  "status": "validated_local_report_only",
+  "files_created": [
+    "pm_bot/scenarios/scenario_suite.v2.json",
+    "pm_bot/scenarios/run_demo_scenarios.py",
+    "pm_bot/scenarios/expected_demo_scenario_report.v2.json",
+    "pm_bot/scenarios/tests/test_run_demo_scenarios.py",
+    "pm_bot/demo/demo_market_bundle.v1.json",
+    "pm_bot/demo/run_paper_research_demo.py",
+    "pm_bot/demo/expected_paper_research_demo.v1.json",
+    "pm_bot/demo/expected_paper_research_demo.v1.md",
+    "pm_bot/demo/tests/test_run_paper_research_demo.py",
+    "pm_bot/demo/README.md",
+    "docs/PM_BOT_DEMO_RUNBOOK_V1.md",
+    "docs/PM_BOT_STAGE_SUMMARY_V3.md",
+    "docs/PM_BOT_SAFE_BACKLOG_V3.json",
+    "docs/PM_BOT_BATCH_002_RESULT.json"
+  ],
+  "tests_run": [
+    "python -m pytest pm_bot\\scenarios\\tests pm_bot\\demo\\tests -q",
+    "python -m pytest pm_bot\\paper\\tests pm_bot\\risk\\tests pm_bot\\accounting\\tests pm_bot\\reports\\tests pm_bot\\postmortem\\tests pm_bot\\audit\\tests -q",
+    "python -m pytest pm_bot\\validation\\tests pm_bot\\normalization\\tests pm_bot\\signals\\tests pm_bot\\hedges\\tests -q",
+    "python pm_bot\\scenarios\\run_demo_scenarios.py",
+    "python pm_bot\\demo\\run_paper_research_demo.py",
+    "python pm_bot\\demo\\run_paper_research_demo.py --markdown",
+    "python pm_bot\\audit\\run_static_safety_audit.py pm_bot"
+  ],
+  "tests_passed": true,
+  "safety_flags": {
+    "fixture_only": true,
+    "paper_only": true,
+    "runtime_wiring_added": false,
+    "real_trading_added": false,
+    "network_used": false,
+    "api_used": false,
+    "wallet_used": false,
+    "private_key_used": false
+  },
+  "runtime_wiring_added": false,
+  "real_trading_added": false,
+  "recommended_next_action": "Run Flocky validation PMBOT-BATCH-002-V.",
+  "note": "This file is a local report only and is not runtime truth."
+}

@@ -1,0 +1,662 @@
+{
+  "schema_version": "selected_ingest_operator_review_records_result.v1",
+  "markdown_version": "selected_ingest_operator_review_records_report.v1",
+  "task_id": "PMBOT-INGEST-009-SELECTED-INGEST-OPERATOR-REVIEW-RECORD-GATE",
+  "deterministic": true,
+  "source_review_records_path": "pm_bot/research/selected_ingest_operator_review_records_fixture.v1.json",
+  "source_review_records_schema_version": "selected_ingest_operator_review_records_fixture.v1",
+  "source_operator_review_queue_path": "pm_bot/research/selected_ingest_operator_review_queue.v1.json",
+  "source_operator_review_queue_schema_version": "selected_ingest_operator_review_queue.v1",
+  "source_merged_packets_path": "pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json",
+  "source_merged_packets_schema_version": "selected_ingest_merged_manual_research_packets.v1",
+  "json_result_path": "pm_bot/research/selected_ingest_operator_review_records_result.v1.json",
+  "markdown_report_path": "pm_bot/research/selected_ingest_operator_review_records_report.v1.md",
+  "selected_market_ids": [
+    "692258",
+    "824952",
+    "691547",
+    "597964",
+    "598936"
+  ],
+  "allowed_review_statuses": [
+    "not_reviewed",
+    "review_completed",
+    "needs_more_information",
+    "review_rejected"
+  ],
+  "allowed_review_outcomes": [
+    "ready_for_dossier_drafting",
+    "needs_more_information",
+    "research_quality_rejected",
+    "watch_only_manual"
+  ],
+  "required_ready_review_checks": [
+    "resolution_criteria_checked",
+    "evidence_structure_checked",
+    "source_coverage_checked",
+    "missing_information_reviewed",
+    "no_trading_recommendation_present",
+    "no_probability_or_ev_present",
+    "no_side_recommendation_present",
+    "no_market_decision_present"
+  ],
+  "accepted_record_fields": [
+    "market_id",
+    "review_status",
+    "review_outcome",
+    "reviewer_notes",
+    "review_checks",
+    "requested_followup_information",
+    "quality_flags",
+    "queue_group",
+    "packet_completion_status"
+  ],
+  "rejected_record_fields": [
+    "market_id",
+    "review_status",
+    "review_outcome",
+    "queue_group",
+    "packet_completion_status",
+    "errors"
+  ],
+  "review_summary": {
+    "review_records_read": 6,
+    "review_records_accepted": 3,
+    "review_records_rejected": 3,
+    "ready_for_dossier_drafting": 1,
+    "needs_more_information": 1,
+    "research_quality_rejected": 0,
+    "watch_only_manual": 1
+  },
+  "errors_by_market_id": {
+    "597964": [
+      {
+        "code": "prohibited_review_field:bet",
+        "path": "bet",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, probability, expected value, side, buy/sell, wallet, private-key, and market decision fields are prohibited."
+      },
+      {
+        "code": "unexpected_review_field:bet",
+        "path": "bet",
+        "message": "bet is not an allowed operator review record field."
+      },
+      {
+        "code": "prohibited_review_field:buy",
+        "path": "buy",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, probability, expected value, side, buy/sell, wallet, private-key, and market decision fields are prohibited."
+      },
+      {
+        "code": "unexpected_review_field:buy",
+        "path": "buy",
+        "message": "buy is not an allowed operator review record field."
+      },
+      {
+        "code": "prohibited_review_field:entry_price",
+        "path": "entry_price",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, probability, expected value, side, buy/sell, wallet, private-key, and market decision fields are prohibited."
+      },
+      {
+        "code": "unexpected_review_field:entry_price",
+        "path": "entry_price",
+        "message": "entry_price is not an allowed operator review record field."
+      },
+      {
+        "code": "prohibited_review_field:ev",
+        "path": "ev",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, probability, expected value, side, buy/sell, wallet, private-key, and market decision fields are prohibited."
+      },
+      {
+        "code": "unexpected_review_field:ev",
+        "path": "ev",
+        "message": "ev is not an allowed operator review record field."
+      },
+      {
+        "code": "prohibited_review_field:execution",
+        "path": "execution",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, probability, expected value, side, buy/sell, wallet, private-key, and market decision fields are prohibited."
+      },
+      {
+        "code": "unexpected_review_field:execution",
+        "path": "execution",
+        "message": "execution is not an allowed operator review record field."
+      },
+      {
+        "code": "prohibited_review_field:expected_value",
+        "path": "expected_value",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, probability, expected value, side, buy/sell, wallet, private-key, and market decision fields are prohibited."
+      },
+      {
+        "code": "unexpected_review_field:expected_value",
+        "path": "expected_value",
+        "message": "expected_value is not an allowed operator review record field."
+      },
+      {
+        "code": "prohibited_review_field:limit_price",
+        "path": "limit_price",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, probability, expected value, side, buy/sell, wallet, private-key, and market decision fields are prohibited."
+      },
+      {
+        "code": "unexpected_review_field:limit_price",
+        "path": "limit_price",
+        "message": "limit_price is not an allowed operator review record field."
+      },
+      {
+        "code": "prohibited_review_field:market_decision",
+        "path": "market_decision",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, probability, expected value, side, buy/sell, wallet, private-key, and market decision fields are prohibited."
+      },
+      {
+        "code": "unexpected_review_field:market_decision",
+        "path": "market_decision",
+        "message": "market_decision is not an allowed operator review record field."
+      },
+      {
+        "code": "prohibited_review_field:order",
+        "path": "order",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, probability, expected value, side, buy/sell, wallet, private-key, and market decision fields are prohibited."
+      },
+      {
+        "code": "unexpected_review_field:order",
+        "path": "order",
+        "message": "order is not an allowed operator review record field."
+      },
+      {
+        "code": "prohibited_review_field:price_target",
+        "path": "price_target",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, probability, expected value, side, buy/sell, wallet, private-key, and market decision fields are prohibited."
+      },
+      {
+        "code": "unexpected_review_field:price_target",
+        "path": "price_target",
+        "message": "price_target is not an allowed operator review record field."
+      },
+      {
+        "code": "prohibited_review_field:private_key",
+        "path": "private_key",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, probability, expected value, side, buy/sell, wallet, private-key, and market decision fields are prohibited."
+      },
+      {
+        "code": "unexpected_review_field:private_key",
+        "path": "private_key",
+        "message": "private_key is not an allowed operator review record field."
+      },
+      {
+        "code": "prohibited_review_field:probability",
+        "path": "probability",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, probability, expected value, side, buy/sell, wallet, private-key, and market decision fields are prohibited."
+      },
+      {
+        "code": "unexpected_review_field:probability",
+        "path": "probability",
+        "message": "probability is not an allowed operator review record field."
+      },
+      {
+        "code": "prohibited_review_field:recommendation",
+        "path": "recommendation",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, probability, expected value, side, buy/sell, wallet, private-key, and market decision fields are prohibited."
+      },
+      {
+        "code": "unexpected_review_field:recommendation",
+        "path": "recommendation",
+        "message": "recommendation is not an allowed operator review record field."
+      },
+      {
+        "code": "prohibited_review_field:score",
+        "path": "score",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, probability, expected value, side, buy/sell, wallet, private-key, and market decision fields are prohibited."
+      },
+      {
+        "code": "unexpected_review_field:score",
+        "path": "score",
+        "message": "score is not an allowed operator review record field."
+      },
+      {
+        "code": "prohibited_review_field:sell",
+        "path": "sell",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, probability, expected value, side, buy/sell, wallet, private-key, and market decision fields are prohibited."
+      },
+      {
+        "code": "unexpected_review_field:sell",
+        "path": "sell",
+        "message": "sell is not an allowed operator review record field."
+      },
+      {
+        "code": "prohibited_review_field:side",
+        "path": "side",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, probability, expected value, side, buy/sell, wallet, private-key, and market decision fields are prohibited."
+      },
+      {
+        "code": "unexpected_review_field:side",
+        "path": "side",
+        "message": "side is not an allowed operator review record field."
+      },
+      {
+        "code": "prohibited_review_field:signal",
+        "path": "signal",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, probability, expected value, side, buy/sell, wallet, private-key, and market decision fields are prohibited."
+      },
+      {
+        "code": "unexpected_review_field:signal",
+        "path": "signal",
+        "message": "signal is not an allowed operator review record field."
+      },
+      {
+        "code": "prohibited_review_field:size",
+        "path": "size",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, probability, expected value, side, buy/sell, wallet, private-key, and market decision fields are prohibited."
+      },
+      {
+        "code": "unexpected_review_field:size",
+        "path": "size",
+        "message": "size is not an allowed operator review record field."
+      },
+      {
+        "code": "prohibited_review_field:stake",
+        "path": "stake",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, probability, expected value, side, buy/sell, wallet, private-key, and market decision fields are prohibited."
+      },
+      {
+        "code": "unexpected_review_field:stake",
+        "path": "stake",
+        "message": "stake is not an allowed operator review record field."
+      },
+      {
+        "code": "prohibited_review_field:trade",
+        "path": "trade",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, probability, expected value, side, buy/sell, wallet, private-key, and market decision fields are prohibited."
+      },
+      {
+        "code": "unexpected_review_field:trade",
+        "path": "trade",
+        "message": "trade is not an allowed operator review record field."
+      },
+      {
+        "code": "prohibited_review_field:wallet",
+        "path": "wallet",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, probability, expected value, side, buy/sell, wallet, private-key, and market decision fields are prohibited."
+      },
+      {
+        "code": "unexpected_review_field:wallet",
+        "path": "wallet",
+        "message": "wallet is not an allowed operator review record field."
+      },
+      {
+        "code": "prohibited_review_field:yes_no_decision",
+        "path": "yes_no_decision",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, probability, expected value, side, buy/sell, wallet, private-key, and market decision fields are prohibited."
+      },
+      {
+        "code": "unexpected_review_field:yes_no_decision",
+        "path": "yes_no_decision",
+        "message": "yes_no_decision is not an allowed operator review record field."
+      }
+    ],
+    "691547": [
+      {
+        "code": "immutable_packet_field_override:title",
+        "path": "title",
+        "message": "title is immutable packet or queue content and cannot be supplied by an operator review record."
+      }
+    ],
+    "unknown-market-id": [
+      {
+        "code": "unknown_market_id",
+        "path": "market_id",
+        "message": "Review record market_id is not present in the selected-ingest operator review queue."
+      }
+    ]
+  },
+  "accepted_review_records": [
+    {
+      "market_id": "692258",
+      "review_status": "needs_more_information",
+      "review_outcome": "needs_more_information",
+      "reviewer_notes": "Partial packet remains structurally incomplete for selected-ingest operator review.",
+      "review_checks": {
+        "resolution_criteria_checked": true,
+        "evidence_structure_checked": false,
+        "source_coverage_checked": false,
+        "missing_information_reviewed": true,
+        "no_trading_recommendation_present": true,
+        "no_probability_or_ev_present": true,
+        "no_side_recommendation_present": true,
+        "no_market_decision_present": true
+      },
+      "requested_followup_information": [
+        "Add complete official source references.",
+        "Add source reliability review notes."
+      ],
+      "quality_flags": [
+        "partial_evidence_only"
+      ],
+      "queue_group": "needs_more_information",
+      "packet_completion_status": "needs_more_information"
+    },
+    {
+      "market_id": "824952",
+      "review_status": "review_completed",
+      "review_outcome": "ready_for_dossier_drafting",
+      "reviewer_notes": "Structural review completed. A future draft skeleton may be prepared from this packet only; no conclusion or action is recorded here.",
+      "review_checks": {
+        "resolution_criteria_checked": true,
+        "evidence_structure_checked": true,
+        "source_coverage_checked": true,
+        "missing_information_reviewed": true,
+        "no_trading_recommendation_present": true,
+        "no_probability_or_ev_present": true,
+        "no_side_recommendation_present": true,
+        "no_market_decision_present": true
+      },
+      "requested_followup_information": [],
+      "quality_flags": [],
+      "queue_group": "ready_for_operator_review",
+      "packet_completion_status": "ready_for_operator_review"
+    },
+    {
+      "market_id": "598936",
+      "review_status": "not_reviewed",
+      "review_outcome": "watch_only_manual",
+      "reviewer_notes": "Keep this selected stub in manual watch-only status until evidence is supplied.",
+      "review_checks": {
+        "missing_information_reviewed": true,
+        "no_trading_recommendation_present": true,
+        "no_probability_or_ev_present": true,
+        "no_side_recommendation_present": true,
+        "no_market_decision_present": true
+      },
+      "requested_followup_information": [],
+      "quality_flags": [
+        "stub_packet"
+      ],
+      "queue_group": "stub_only",
+      "packet_completion_status": "stub_only"
+    }
+  ],
+  "rejected_review_records": [
+    {
+      "market_id": "691547",
+      "review_status": "review_completed",
+      "review_outcome": "watch_only_manual",
+      "queue_group": "stub_only",
+      "packet_completion_status": "stub_only",
+      "errors": [
+        {
+          "code": "immutable_packet_field_override:title",
+          "path": "title",
+          "message": "title is immutable packet or queue content and cannot be supplied by an operator review record."
+        }
+      ]
+    },
+    {
+      "market_id": "597964",
+      "review_status": "review_completed",
+      "review_outcome": "watch_only_manual",
+      "queue_group": "stub_only",
+      "packet_completion_status": "stub_only",
+      "errors": [
+        {
+          "code": "prohibited_review_field:bet",
+          "path": "bet",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, probability, expected value, side, buy/sell, wallet, private-key, and market decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_review_field:bet",
+          "path": "bet",
+          "message": "bet is not an allowed operator review record field."
+        },
+        {
+          "code": "prohibited_review_field:buy",
+          "path": "buy",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, probability, expected value, side, buy/sell, wallet, private-key, and market decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_review_field:buy",
+          "path": "buy",
+          "message": "buy is not an allowed operator review record field."
+        },
+        {
+          "code": "prohibited_review_field:entry_price",
+          "path": "entry_price",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, probability, expected value, side, buy/sell, wallet, private-key, and market decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_review_field:entry_price",
+          "path": "entry_price",
+          "message": "entry_price is not an allowed operator review record field."
+        },
+        {
+          "code": "prohibited_review_field:ev",
+          "path": "ev",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, probability, expected value, side, buy/sell, wallet, private-key, and market decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_review_field:ev",
+          "path": "ev",
+          "message": "ev is not an allowed operator review record field."
+        },
+        {
+          "code": "prohibited_review_field:execution",
+          "path": "execution",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, probability, expected value, side, buy/sell, wallet, private-key, and market decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_review_field:execution",
+          "path": "execution",
+          "message": "execution is not an allowed operator review record field."
+        },
+        {
+          "code": "prohibited_review_field:expected_value",
+          "path": "expected_value",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, probability, expected value, side, buy/sell, wallet, private-key, and market decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_review_field:expected_value",
+          "path": "expected_value",
+          "message": "expected_value is not an allowed operator review record field."
+        },
+        {
+          "code": "prohibited_review_field:limit_price",
+          "path": "limit_price",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, probability, expected value, side, buy/sell, wallet, private-key, and market decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_review_field:limit_price",
+          "path": "limit_price",
+          "message": "limit_price is not an allowed operator review record field."
+        },
+        {
+          "code": "prohibited_review_field:market_decision",
+          "path": "market_decision",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, probability, expected value, side, buy/sell, wallet, private-key, and market decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_review_field:market_decision",
+          "path": "market_decision",
+          "message": "market_decision is not an allowed operator review record field."
+        },
+        {
+          "code": "prohibited_review_field:order",
+          "path": "order",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, probability, expected value, side, buy/sell, wallet, private-key, and market decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_review_field:order",
+          "path": "order",
+          "message": "order is not an allowed operator review record field."
+        },
+        {
+          "code": "prohibited_review_field:price_target",
+          "path": "price_target",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, probability, expected value, side, buy/sell, wallet, private-key, and market decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_review_field:price_target",
+          "path": "price_target",
+          "message": "price_target is not an allowed operator review record field."
+        },
+        {
+          "code": "prohibited_review_field:private_key",
+          "path": "private_key",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, probability, expected value, side, buy/sell, wallet, private-key, and market decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_review_field:private_key",
+          "path": "private_key",
+          "message": "private_key is not an allowed operator review record field."
+        },
+        {
+          "code": "prohibited_review_field:probability",
+          "path": "probability",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, probability, expected value, side, buy/sell, wallet, private-key, and market decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_review_field:probability",
+          "path": "probability",
+          "message": "probability is not an allowed operator review record field."
+        },
+        {
+          "code": "prohibited_review_field:recommendation",
+          "path": "recommendation",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, probability, expected value, side, buy/sell, wallet, private-key, and market decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_review_field:recommendation",
+          "path": "recommendation",
+          "message": "recommendation is not an allowed operator review record field."
+        },
+        {
+          "code": "prohibited_review_field:score",
+          "path": "score",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, probability, expected value, side, buy/sell, wallet, private-key, and market decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_review_field:score",
+          "path": "score",
+          "message": "score is not an allowed operator review record field."
+        },
+        {
+          "code": "prohibited_review_field:sell",
+          "path": "sell",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, probability, expected value, side, buy/sell, wallet, private-key, and market decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_review_field:sell",
+          "path": "sell",
+          "message": "sell is not an allowed operator review record field."
+        },
+        {
+          "code": "prohibited_review_field:side",
+          "path": "side",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, probability, expected value, side, buy/sell, wallet, private-key, and market decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_review_field:side",
+          "path": "side",
+          "message": "side is not an allowed operator review record field."
+        },
+        {
+          "code": "prohibited_review_field:signal",
+          "path": "signal",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, probability, expected value, side, buy/sell, wallet, private-key, and market decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_review_field:signal",
+          "path": "signal",
+          "message": "signal is not an allowed operator review record field."
+        },
+        {
+          "code": "prohibited_review_field:size",
+          "path": "size",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, probability, expected value, side, buy/sell, wallet, private-key, and market decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_review_field:size",
+          "path": "size",
+          "message": "size is not an allowed operator review record field."
+        },
+        {
+          "code": "prohibited_review_field:stake",
+          "path": "stake",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, probability, expected value, side, buy/sell, wallet, private-key, and market decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_review_field:stake",
+          "path": "stake",
+          "message": "stake is not an allowed operator review record field."
+        },
+        {
+          "code": "prohibited_review_field:trade",
+          "path": "trade",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, probability, expected value, side, buy/sell, wallet, private-key, and market decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_review_field:trade",
+          "path": "trade",
+          "message": "trade is not an allowed operator review record field."
+        },
+        {
+          "code": "prohibited_review_field:wallet",
+          "path": "wallet",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, probability, expected value, side, buy/sell, wallet, private-key, and market decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_review_field:wallet",
+          "path": "wallet",
+          "message": "wallet is not an allowed operator review record field."
+        },
+        {
+          "code": "prohibited_review_field:yes_no_decision",
+          "path": "yes_no_decision",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, probability, expected value, side, buy/sell, wallet, private-key, and market decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_review_field:yes_no_decision",
+          "path": "yes_no_decision",
+          "message": "yes_no_decision is not an allowed operator review record field."
+        }
+      ]
+    },
+    {
+      "market_id": "unknown-market-id",
+      "review_status": "review_completed",
+      "review_outcome": "watch_only_manual",
+      "queue_group": "",
+      "packet_completion_status": "",
+      "errors": [
+        {
+          "code": "unknown_market_id",
+          "path": "market_id",
+          "message": "Review record market_id is not present in the selected-ingest operator review queue."
+        }
+      ]
+    }
+  ],
+  "safety_flags": {
+    "live_fetchers": false,
+    "network_api_calls": false,
+    "credentials": false,
+    "wallet_private_keys": false,
+    "authenticated_endpoints": false,
+    "trading_endpoints": false,
+    "real_orders": false,
+    "live_trading": false,
+    "paper_orders": false,
+    "betting_recommendations": false,
+    "truth_inference": false,
+    "market_scoring": false,
+    "probability_estimates": false,
+    "expected_value_calculations": false,
+    "side_recommendations": false,
+    "market_decisions": false,
+    "runtime_wiring": false,
+    "dispatcher_run_codex_touched": false,
+    "prompt_automation": false,
+    "codex_copy_roots": false,
+    "completed_dossiers": false
+  },
+  "limitations": [
+    "Reads only local selected-ingest review records, selected-ingest operator review queue, and selected-ingest merged manual research packets.",
+    "Records structural operator review outcomes only.",
+    "Does not create dossiers, scores, recommendations, orders, runtime actions, truth inference, or market conclusions."
+  ]
+}

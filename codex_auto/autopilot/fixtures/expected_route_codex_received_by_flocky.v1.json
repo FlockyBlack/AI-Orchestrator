@@ -1,0 +1,39 @@
+{
+  "type": "AUTOPILOT_PROMPT_ROUTING_DECISION",
+  "schema_version": "1.0",
+  "receiver_agent": "Flocky",
+  "detected_target_agent": "Codex",
+  "detected_task_owner": "Codex",
+  "detected_task_type": "code-changing",
+  "routing_class": "CODEX_CODE_CHANGING_TASK",
+  "misroute_detected": true,
+  "safe_for_receiver_to_execute": false,
+  "sessions_spawn_allowed": false,
+  "code_changes_allowed_for_receiver": false,
+  "runtime_mutation_allowed": false,
+  "queue_mutation_allowed": false,
+  "governance_mutation_allowed": false,
+  "requires_human_or_correct_agent": true,
+  "required_behavior": "MISROUTED_CODEX_PROMPT_DETECTED",
+  "detected_signals": [
+    "codex_signal:allowed write paths",
+    "codex_signal:create module",
+    "codex_signal:files_created",
+    "codex_signal:files_modified",
+    "codex_signal:implement",
+    "codex_signal:owner: codex",
+    "codex_signal:return implementation json",
+    "codex_signal:run pytest",
+    "codex_signal:target_agent: codex",
+    "codex_signal:task_owner: codex",
+    "codex_signal:task_type: code-changing",
+    "codex_signal:задание codex",
+    "forbidden_context_signal:sessions_spawn"
+  ],
+  "blocking_reasons": [
+    "codex_task_received_by_flocky"
+  ],
+  "warnings": [
+    "original_prompt_not_executed"
+  ]
+}

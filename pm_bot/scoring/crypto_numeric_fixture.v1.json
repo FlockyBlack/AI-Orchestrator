@@ -1,0 +1,72 @@
+{
+  "schema_version": "v1",
+  "fixture_id": "crypto_numeric_fixture_v1",
+  "fixture_only": true,
+  "paper_only": true,
+  "scoring_config": {
+    "edge_buffer": 0.025,
+    "min_candidate_edge": 0.04,
+    "min_liquidity_usd": 50000,
+    "watch_liquidity_usd": 25000,
+    "max_spread": 0.05,
+    "watch_spread": 0.08
+  },
+  "markets": [
+    {
+      "market_id": "crypto_numeric_btc_above_90000_2026_05_31",
+      "asset": "BTC",
+      "side": "above",
+      "target_price": 90000.0,
+      "expiry": "2026-05-31",
+      "current_price": 93800.0,
+      "market_yes_price": 0.59,
+      "liquidity_usd": 180000.0,
+      "spread": 0.03,
+      "risk_level": "low",
+      "thirty_day_change_pct": 8.0,
+      "volatility_30d_pct": 42.0
+    },
+    {
+      "market_id": "crypto_numeric_eth_below_3000_2026_05_31",
+      "asset": "ETH",
+      "side": "below",
+      "target_price": 3000.0,
+      "expiry": "2026-05-31",
+      "current_price": 3120.0,
+      "market_yes_price": 0.36,
+      "liquidity_usd": 125000.0,
+      "spread": 0.04,
+      "risk_level": "medium",
+      "thirty_day_change_pct": -6.0,
+      "volatility_30d_pct": 55.0
+    },
+    {
+      "market_id": "crypto_numeric_btc_above_90000_low_liquidity_2026_05_31",
+      "asset": "BTC",
+      "side": "above",
+      "target_price": 90000.0,
+      "expiry": "2026-05-31",
+      "current_price": 87500.0,
+      "market_yes_price": 0.42,
+      "liquidity_usd": 18000.0,
+      "spread": 0.07,
+      "risk_level": "low",
+      "thirty_day_change_pct": 3.0,
+      "volatility_30d_pct": 38.0
+    },
+    {
+      "market_id": "crypto_numeric_eth_below_3000_wide_spread_2026_05_31",
+      "asset": "ETH",
+      "side": "below",
+      "target_price": 3000.0,
+      "expiry": "2026-05-31",
+      "current_price": 2800.0,
+      "market_yes_price": 0.6,
+      "liquidity_usd": 160000.0,
+      "spread": 0.13,
+      "risk_level": "high",
+      "thirty_day_change_pct": -10.0,
+      "volatility_30d_pct": 65.0
+    }
+  ]
+}

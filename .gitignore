@@ -1,0 +1,51 @@
+# Python caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environments and package caches
+.venv/
+venv/
+env/
+node_modules/
+
+# Local environment and secret-bearing files
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Local databases and transient files
+*.sqlite
+*.db
+*.log
+*.tmp
+*.bak
+.DS_Store
+Thumbs.db
+
+# Local agent/worktree scratch
+.codex/
+.openclaw/
+.git_index_rescue/
+
+# Runtime outputs and task queues
+/runs/
+/local_diagnostics/
+/local_snapshots/
+/paper_workspace_real/
+/state/
+/tasks/running/
+/tasks/failed/
+/tasks/needs_human/
+/tasks/done/
+/tasks/ready/
+codex_auto/runs/
+
+# PMBOT ingest runtime payloads
+pm_bot/ingest/raw_snapshots/
+pm_bot/ingest/quarantine/

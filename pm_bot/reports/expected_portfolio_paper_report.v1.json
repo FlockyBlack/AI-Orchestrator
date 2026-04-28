@@ -1,0 +1,97 @@
+{
+  "schema_version": "v1",
+  "report_id": "PMBOT-BATCH-003-PORTFOLIO-REPORT",
+  "source_type": "fixture",
+  "portfolio_mode": "paper_only",
+  "fixture_only": true,
+  "paper_only": true,
+  "local_only": true,
+  "network_used": false,
+  "api_used": false,
+  "wallet_used": false,
+  "real_orders_used": false,
+  "total_paper_capital_usd": 1000.0,
+  "allocated_paper_capital_usd": 760.0,
+  "unallocated_paper_capital_usd": 240.0,
+  "paper_position_count": 4,
+  "paper_candidate_count": 7,
+  "accepted_positions": [
+    {
+      "market_id": "pm_fixture_2026_us_growth_soft_landing",
+      "category": "macro",
+      "allocation_usd": 220.0,
+      "expected_value_delta": 70.0,
+      "warnings": []
+    },
+    {
+      "market_id": "pm_fixture_2026_ceasefire_window",
+      "category": "geopolitics",
+      "allocation_usd": 140.0,
+      "expected_value_delta": 44.0,
+      "warnings": [
+        "missing_research_notes"
+      ]
+    },
+    {
+      "market_id": "pm_fixture_2026_rate_cut_december",
+      "category": "macro",
+      "allocation_usd": 220.0,
+      "expected_value_delta": 36.0,
+      "warnings": [
+        "high_concentration_candidate"
+      ]
+    },
+    {
+      "market_id": "pm_fixture_2026_cpi_below_target",
+      "category": "macro",
+      "allocation_usd": 180.0,
+      "expected_value_delta": 33.0,
+      "warnings": []
+    }
+  ],
+  "exposure_by_market": {
+    "pm_fixture_2026_ceasefire_window": 140.0,
+    "pm_fixture_2026_cpi_below_target": 180.0,
+    "pm_fixture_2026_rate_cut_december": 220.0,
+    "pm_fixture_2026_us_growth_soft_landing": 220.0
+  },
+  "exposure_by_category": {
+    "geopolitics": 140.0,
+    "macro": 620.0
+  },
+  "largest_paper_position": {
+    "market_id": "pm_fixture_2026_us_growth_soft_landing",
+    "allocation_usd": 220.0,
+    "category": "macro"
+  },
+  "concentration_warnings": [
+    "category_concentration:macro",
+    "correlated_group:us-macro-2026",
+    "portfolio_exposure_cap"
+  ],
+  "liquidity_warnings": [
+    "pm_fixture_2026_championship_upset",
+    "pm_fixture_2026_hurricane_season_closed"
+  ],
+  "stale_data_warnings": [
+    "pm_fixture_2026_ai_regulation_vote",
+    "pm_fixture_2026_hurricane_season_closed"
+  ],
+  "resolved_closed_market_exclusions": [
+    "pm_fixture_2026_hurricane_season_closed"
+  ],
+  "estimated_paper_value_delta": 183.0,
+  "risk_flags": [
+    "category_concentration:macro",
+    "correlated_group:us-macro-2026",
+    "high_concentration_candidate",
+    "low_liquidity",
+    "missing_research_notes",
+    "negative_edge",
+    "portfolio_exposure_cap",
+    "resolved_or_closed_market",
+    "stale_data",
+    "wide_spread"
+  ],
+  "final_paper_only_recommendation_summary": "Four paper candidates pass baseline checks, but macro concentration and correlated exposure keep the portfolio in monitor-only paper mode with no live action."
+}

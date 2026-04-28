@@ -1,0 +1,51 @@
+{
+  "task_id": "PMBOT-BATCH-011-DEMO-WALKTHROUGH-BUNDLE",
+  "status": "completed_ready_for_review",
+  "summary": "Created a practical docs-only Monday demo walkthrough bundle from existing PMBOT offline/paper outputs. No source code was changed. The bundle identifies exact safe commands, expected artifacts, safety evidence, limitations, and the next engineering step.",
+  "scope": {
+    "offline_only": true,
+    "paper_only": true,
+    "local_only": true,
+    "deterministic": true,
+    "review_only": true,
+    "network_api_calls": false,
+    "credentials": false,
+    "wallet": false,
+    "real_orders": false,
+    "live_trading": false,
+    "runtime_wiring": false,
+    "prompt_automation": false
+  },
+  "files_created": [
+    "docs/PM_BOT_BATCH_011_DEMO_WALKTHROUGH_BUNDLE.md",
+    "docs/PM_BOT_BATCH_011_RESULT.json"
+  ],
+  "files_modified": [],
+  "checks_run": [
+    {
+      "command": "JSON parse and existence check for referenced expected artifacts",
+      "status": "pass",
+      "notes": "Referenced operator, export, paper research, replay, raw artifact, audit, paper, accounting, risk, rejection, and readiness snapshot artifacts exist; JSON artifacts parse."
+    }
+  ],
+  "monday_demo_flow": [
+    "State offline/paper/local/review-only boundary.",
+    "Run operator review demo.",
+    "Run review export package.",
+    "Run paper research demo.",
+    "Run adversarial replay.",
+    "Run raw artifact ingestion manifest.",
+    "Run static safety audit v7.",
+    "Close with explicit non-implemented live/API/wallet/order/runtime boundaries."
+  ],
+  "limitations": [
+    "Not a live trading demo.",
+    "No live fetcher implementation.",
+    "No normalization implementation.",
+    "No wallet, credentials, real orders, or runtime wiring.",
+    "No interactive dashboard."
+  ],
+  "recommended_next_task": "PMBOT-BATCH-012-OFFLINE-DEMO-COMMAND",
+  "requires_flocky_validation": true,
+  "final_flocky_done_claimed": false
+}

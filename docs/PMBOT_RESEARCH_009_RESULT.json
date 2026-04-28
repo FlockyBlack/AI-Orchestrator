@@ -1,0 +1,56 @@
+{
+  "task_id": "PMBOT-RESEARCH-009-MANUAL-EVIDENCE-OVERLAY-MERGE",
+  "status": "completed",
+  "summary": "Implemented a deterministic offline manual evidence overlay merge tool that reads RESEARCH-006 stubs, uses the RESEARCH-008 workpack index for source/order consistency, applies only allowed manual evidence/status fields, rejects unknown market IDs, immutable-field overrides, and prohibited execution/trading/recommendation fields, and writes validator-compatible merged manual research packets plus a compact merge report.",
+  "files_created": [
+    "pm_bot/research/merge_manual_evidence_overlay.py",
+    "pm_bot/research/manual_evidence_overlay_fixture.v1.json",
+    "pm_bot/research/merged_manual_research_packets.v1.json",
+    "pm_bot/research/expected_merged_manual_research_packets.v1.json",
+    "pm_bot/research/expected_manual_evidence_overlay_merge_report.v1.json",
+    "pm_bot/research/tests/test_manual_evidence_overlay_merge.py",
+    "docs/PMBOT_RESEARCH_009_RESULT.json"
+  ],
+  "files_modified": [],
+  "tests_run": [
+    {
+      "command": "python pm_bot\\research\\validate_manual_research_packets.py --packets pm_bot\\research\\merged_manual_research_packets.v1.json",
+      "status": "passed"
+    },
+    {
+      "command": "python -m unittest pm_bot.research.tests.test_manual_evidence_overlay_merge",
+      "status": "passed",
+      "tests": 12
+    },
+    {
+      "command": "python -m unittest pm_bot.research.tests.test_research_packet_stubs pm_bot.research.tests.test_manual_research_packet_validation pm_bot.research.tests.test_operator_research_workpack_export pm_bot.research.tests.test_manual_evidence_overlay_merge",
+      "status": "passed",
+      "tests": 44
+    }
+  ],
+  "merge_summary": {
+    "overlays_read": 5,
+    "overlays_accepted": 2,
+    "overlays_rejected": 3,
+    "packets_written": 10,
+    "ready_for_operator_review": 1,
+    "needs_more_information": 1
+  },
+  "safety": {
+    "live_fetchers": false,
+    "network_api_calls": false,
+    "credentials": false,
+    "wallet_private_keys": false,
+    "real_orders": false,
+    "live_trading": false,
+    "runtime_wiring": false,
+    "dispatcher_run_codex_touched": false,
+    "prompt_automation": false,
+    "codex_copy_roots": false,
+    "completed_dossiers": false,
+    "paper_orders": false,
+    "betting_recommendations": false,
+    "truth_inference": false,
+    "market_scoring": false
+  }
+}

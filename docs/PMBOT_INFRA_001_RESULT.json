@@ -1,0 +1,83 @@
+{
+  "code_slot": "CODEX_INFRA_001",
+  "task_id": "PMBOT-INFRA-001-GIT-READINESS-FOR-CODEX-WORKTREES",
+  "status": "completed_ready_for_review",
+  "summary": "AI-Orchestrator was prepared for safe local Git usage with a conservative .gitignore, classified tracking manifest, completed candidate secret scan, local-only Git init, explicit staged baseline, and passing PMBOT paper tests.",
+  "root": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator",
+  "git": {
+    "git_available": true,
+    "git_repo_detected_before": false,
+    "git_repo_initialized": true,
+    "baseline_commit_created": true,
+    "baseline_commit_hash": null,
+    "remote_added": false,
+    "pushed_to_remote": false,
+    "repo_local_user_configured": true,
+    "global_git_config_modified": false
+  },
+  "files_created": [
+    ".gitignore",
+    "docs/PMBOT_INFRA_001_GIT_READINESS_REPORT.md",
+    "docs/PMBOT_INFRA_001_GIT_TRACKING_MANIFEST.v1.json",
+    "docs/PMBOT_INFRA_001_RESULT.json"
+  ],
+  "files_modified": [],
+  "manifest": {
+    "tracked_candidate_count": 1013,
+    "ignored_by_gitignore_count": 288,
+    "needs_operator_review_count": 0,
+    "blocked_secret_or_sensitive_count": 0,
+    "runtime_or_cache_excluded_count": 178
+  },
+  "secret_scan": {
+    "performed": true,
+    "likely_secrets_found": false,
+    "redacted_findings": []
+  },
+  "staging": {
+    "used_git_add_dot": false,
+    "staged_file_count": 1013,
+    "unsafe_paths_staged": false,
+    "staged_paths_summary": [
+      ".gitignore",
+      "README.md",
+      "codex_auto/",
+      "config/",
+      "docs/",
+      "governance/",
+      "plans/",
+      "pm_bot/",
+      "schemas/",
+      "scripts/"
+    ]
+  },
+  "tests": [
+    {
+      "command": "python -m pytest pm_bot\\paper\\tests -q",
+      "status": "passed",
+      "summary": "306 passed, 39 subtests passed in 27.40s"
+    }
+  ],
+  "safety": {
+    "offline_only": true,
+    "network_api_calls": false,
+    "credentials_added": false,
+    "wallet_private_keys_added": false,
+    "authenticated_endpoints_added": false,
+    "trading_endpoints_added": false,
+    "real_orders": false,
+    "live_trading": false,
+    "autonomous_paper_orders": false,
+    "runtime_wiring": false,
+    "dispatcher_run_codex_changes": false,
+    "github_remote_added": false,
+    "github_push_performed": false,
+    "source_files_modified": false
+  },
+  "recommended_next_task": "PMBOT-INFRA-002-CODEX-PARALLEL-WORKTREE-PILOT",
+  "warnings": [
+    "rg was unavailable due executable permission denial; PowerShell enumeration was used for local scans.",
+    "Reviewed private_key field-name safety report matches were false positives and were not treated as secrets."
+  ],
+  "blockers": []
+}

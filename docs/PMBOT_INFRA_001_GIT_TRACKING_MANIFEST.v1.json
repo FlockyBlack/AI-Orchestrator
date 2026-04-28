@@ -1,0 +1,80 @@
+{
+  "task_id": "PMBOT-INFRA-001-GIT-READINESS-FOR-CODEX-WORKTREES",
+  "root": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator",
+  "git_repo_detected_before": false,
+  "git_repo_initialized": true,
+  "baseline_commit_created": true,
+  "tracked_candidate_count": 1013,
+  "ignored_by_gitignore_count": 288,
+  "needs_operator_review_count": 0,
+  "blocked_secret_or_sensitive_count": 0,
+  "runtime_or_cache_excluded_count": 178,
+  "count_basis": "File counts from local scan. Path arrays list staging roots or exclusion roots/patterns used for the baseline.",
+  "tracked_candidates": [
+    ".gitignore",
+    "README.md",
+    "codex_auto/",
+    "config/",
+    "docs/",
+    "governance/",
+    "plans/",
+    "pm_bot/",
+    "schemas/",
+    "scripts/"
+  ],
+  "ignored_by_gitignore": [
+    "__pycache__/",
+    "*.py[cod]",
+    ".pytest_cache/",
+    ".mypy_cache/",
+    ".ruff_cache/",
+    ".venv/",
+    "venv/",
+    "env/",
+    "node_modules/",
+    ".env",
+    ".env.*",
+    "*.pem",
+    "*.key",
+    "*.p12",
+    "*.pfx",
+    "*.sqlite",
+    "*.db",
+    "*.log",
+    "*.tmp",
+    "*.bak",
+    ".DS_Store",
+    "Thumbs.db",
+    ".codex/",
+    ".openclaw/",
+    ".git_index_rescue/"
+  ],
+  "needs_operator_review": [],
+  "blocked_secret_or_sensitive": [],
+  "runtime_or_cache_excluded": [
+    "runs/",
+    "local_diagnostics/",
+    "local_snapshots/",
+    "paper_workspace_real/",
+    "state/",
+    "tasks/running/",
+    "tasks/failed/",
+    "tasks/needs_human/",
+    "tasks/done/",
+    "tasks/ready/",
+    "codex_auto/runs/",
+    "pm_bot/ingest/raw_snapshots/",
+    "pm_bot/ingest/quarantine/"
+  ],
+  "reviewed_false_positive_secret_matches": [
+    {
+      "category": "private_key field-name safety report text",
+      "files": [
+        "pm_bot/research/selected_ingest_dossier_human_review_records_report.v1.md",
+        "pm_bot/research/selected_ingest_manual_dossier_draft_validation_report.v1.md",
+        "pm_bot/research/selected_ingest_operator_review_records_report.v1.md"
+      ],
+      "decision": "not_secret; report text documents prohibited private_key fields and contains no private key material"
+    }
+  ]
+}

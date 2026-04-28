@@ -1,0 +1,72 @@
+{
+  "task_id": "ORCH-AUTOPILOT-012-PREFLIGHT-PROMPT-PACK-TEMPLATES",
+  "status": "implementation_complete_ready_for_flocky_validation",
+  "summary": "Implemented an isolated Autopilot V1 prompt-pack template layer under codex_auto/autopilot/prompt_packs with five reusable templates, five example prompts, a manifest, documentation, and template-focused tests. The templates standardize routing headers, safe receiver behavior, and Flocky misroute handling while reusing the existing routing preflight simulator for validation. No runtime wiring, dispatcher/run_codex changes, queue mutation, governance mutation, sessions_spawn, tool integration, or prompt execution was performed.",
+  "files_created": [
+    "codex_auto/autopilot/prompt_packs/templates/flocky_read_only_validation.template.txt",
+    "codex_auto/autopilot/prompt_packs/templates/flocky_governance_design.template.txt",
+    "codex_auto/autopilot/prompt_packs/templates/codex_code_changing.template.txt",
+    "codex_auto/autopilot/prompt_packs/templates/codex_focused_repair.template.txt",
+    "codex_auto/autopilot/prompt_packs/templates/chatgpt_planning.template.txt",
+    "codex_auto/autopilot/prompt_packs/examples/example_flocky_validation_prompt.txt",
+    "codex_auto/autopilot/prompt_packs/examples/example_flocky_governance_prompt.txt",
+    "codex_auto/autopilot/prompt_packs/examples/example_codex_code_changing_prompt.txt",
+    "codex_auto/autopilot/prompt_packs/examples/example_codex_repair_prompt.txt",
+    "codex_auto/autopilot/prompt_packs/examples/example_chatgpt_planning_prompt.txt",
+    "codex_auto/autopilot/prompt_packs/prompt_pack_manifest.v1.json",
+    "codex_auto/autopilot/tests/test_prompt_pack_templates.py",
+    "docs/AUTOPILOT_V1_PREFLIGHT_PROMPT_PACK_TEMPLATES.md",
+    "docs/ORCH_AUTOPILOT_012_RESULT.json"
+  ],
+  "files_modified": [],
+  "tests_run": [
+    "python -m pytest -q codex_auto/autopilot/tests/test_prompt_pack_templates.py: passed (17 passed, 44 subtests passed)",
+    "python -m pytest -q codex_auto/autopilot/tests: passed (82 passed, 88 subtests passed)",
+    "python -m pytest -q codex_auto: failed with known unrelated existing failures in codex_auto/external_cli/one_shot/tests/test_validate_one_shot_execution_gate.py"
+  ],
+  "safety": {
+    "runtime_wiring": false,
+    "dispatcher_changed": false,
+    "run_codex_changed": false,
+    "active_task_mutation": false,
+    "state_result_freeze_checkpoint_mutation": false,
+    "codex_auto_queue_mutation": false,
+    "governance_mutation": false,
+    "flocky_tool_integration": false,
+    "sessions_spawn": false,
+    "external_codex_execution": false,
+    "generated_prompt_execution": false,
+    "network_api": false,
+    "credentials": false,
+    "wallet_private_key": false,
+    "orders_trading": false,
+    "final_acceptance_claimed": false,
+    "execution_approval_claimed": false,
+    "single_runtime_source_rule_preserved": true
+  },
+  "prompt_pack_templates": {
+    "created": true,
+    "manifest_created": true,
+    "templates_created": [
+      "flocky_read_only_validation.template.txt",
+      "flocky_governance_design.template.txt",
+      "codex_code_changing.template.txt",
+      "codex_focused_repair.template.txt",
+      "chatgpt_planning.template.txt"
+    ],
+    "examples_created": [
+      "example_flocky_validation_prompt.txt",
+      "example_flocky_governance_prompt.txt",
+      "example_codex_code_changing_prompt.txt",
+      "example_codex_repair_prompt.txt",
+      "example_chatgpt_planning_prompt.txt"
+    ],
+    "validated_against_preflight": true,
+    "active_flocky_tool_integration": false,
+    "runtime_wiring_allowed": false
+  },
+  "blocking_findings": [],
+  "warnings": [
+    "Broader codex_auto pytest still has the known unrelated external_cli/one_shot failures: test_final_preview_uses_non_interactive_editable_codex_command and test_gate_validates."
+  ]
+}

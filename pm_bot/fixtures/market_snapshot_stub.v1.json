@@ -1,0 +1,24 @@
+{
+  "market_id": "pm_fixture_2026_us_recession_q3",
+  "slug": "us-recession-q3-2026",
+  "title": "Will the US enter recession by end of Q3 2026?",
+  "category": "macro",
+  "outcomes": [
+    "Yes",
+    "No"
+  ],
+  "prices": {
+    "Yes": 0.43,
+    "No": 0.57
+  },
+  "liquidity": 18250.0,
+  "volume": 9640.0,
+  "close_time": "2026-09-30T23:59:59Z",
+  "source_type": "fixture",
+  "collected_at": "2026-04-25T05:15:00Z",
+  "risk_notes": [
+    "fixture_only",
+    "paper_mode_only",
+    "no_live_api"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "schema_version": "threshold_hit_decision_policy.v1",
+  "decision_policy_version": "threshold_hit_decision_policy.v1",
+  "description": "Deterministic offline/paper conservative review policy for crypto threshold-hit rows. This policy labels review decisions only; it does not create paper orders.",
+  "thresholds": {
+    "min_liquidity_for_review": 10000.0,
+    "max_yes_price_for_watchlist": 0.25,
+    "min_days_to_deadline_for_review": 7,
+    "max_distance_to_target_pct_for_watchlist": 75.0
+  },
+  "allow_paper_candidates": false,
+  "block_before_event_without_event_model": true
+}

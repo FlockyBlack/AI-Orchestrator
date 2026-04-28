@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "governance/schemas/governance_index.schema.v1.json",
+  "title": "Governance Index Schema v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "index_id", "created_at", "updated_at", "entries"],
+  "properties": {
+    "schema_version": { "type": "string", "const": "v1" },
+    "index_id": { "type": "string", "minLength": 1 },
+    "created_at": { "type": "string", "minLength": 1 },
+    "updated_at": { "type": "string", "minLength": 1 },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "bundle_id",
+          "task_id",
+          "source_run_id",
+          "runtime_source_path",
+          "final_governance_status",
+          "critic_verdict",
+          "governance_decision",
+          "quarantine_present",
+          "created_at",
+          "updated_at",
+          "evidence_refs"
+        ],
+        "properties": {
+          "bundle_id": { "type": "string", "minLength": 1 },
+          "task_id": { "type": "string", "minLength": 1 },
+          "source_run_id": { "type": "string", "minLength": 1 },
+          "runtime_source_path": { "type": "string", "minLength": 1 },
+          "final_governance_status": { "type": "string", "enum": ["review", "blocked", "deferred", "done"] },
+          "critic_verdict": { "type": "string", "enum": ["pass", "warning", "fail", "blocked"] },
+          "governance_decision": { "type": "string", "enum": ["accept_final_done", "accept_with_warnings", "blocked", "continue_review"] },
+          "quarantine_present": { "type": "boolean" },
+          "created_at": { "type": "string", "minLength": 1 },
+          "updated_at": { "type": "string", "minLength": 1 },
+          "evidence_refs": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    }
+  }
+}

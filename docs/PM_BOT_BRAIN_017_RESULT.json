@@ -1,0 +1,50 @@
+{
+  "task_id": "PMBOT-BRAIN-017-LOCAL-SNAPSHOT-FILE-LIFECYCLE-INPUT",
+  "status": "completed_ready_for_review",
+  "summary": "Added optional --snapshot local JSON input to the live-shaped snapshot paper lifecycle command. The no-argument default remains fixture-only and unchanged; explicit local snapshot files are validated as JSON objects with a markets list before running adapter, intake, scoring, review, paper plan, ledger, and portfolio summary. Missing or invalid snapshot paths return a clean local error with exit code 2.",
+  "pmbot_root_confirmed": true,
+  "snapshot_file_input_readiness": "ready_for_manual_snapshot_review",
+  "command": "python pm_bot\\paper\\run_live_shaped_snapshot_paper_lifecycle.py --snapshot <path>",
+  "files_created": [
+    "docs/PM_BOT_BRAIN_017_RESULT.json",
+    "docs/PM_BOT_STAGE_SUMMARY_V29.md"
+  ],
+  "files_modified": [
+    "pm_bot/paper/run_live_shaped_snapshot_paper_lifecycle.py",
+    "pm_bot/paper/tests/test_run_live_shaped_snapshot_paper_lifecycle.py"
+  ],
+  "tests_or_checks_run": [
+    "python -m pytest pm_bot\\scoring\\tests pm_bot\\paper\\tests -q",
+    "python pm_bot\\paper\\run_live_shaped_snapshot_paper_lifecycle.py",
+    "python pm_bot\\paper\\run_live_shaped_snapshot_paper_lifecycle.py --markdown",
+    "python pm_bot\\paper\\run_live_shaped_snapshot_paper_lifecycle.py --snapshot pm_bot\\scoring\\crypto_numeric_live_shaped_snapshot_fixture.v1.json",
+    "python pm_bot\\paper\\run_crypto_numeric_lifecycle_regression_gates.py"
+  ],
+  "local_snapshot_summary": {
+    "default_fixture_still_passes": true,
+    "explicit_snapshot_file_passes": true,
+    "markdown_still_passes": true,
+    "invalid_snapshot_path_fails_cleanly": true,
+    "regression_gates_still_pass": true
+  },
+  "limitations": [
+    "Local snapshot input only; no live fetcher, network call, external API call, or live market integration is implemented.",
+    "Validation checks local JSON shape and market list structure, then relies on the existing adapter/intake rejection paths for per-market reasons.",
+    "Execution prices, fills, settlement, exposure, and PnL remain deterministic fixture calculations only.",
+    "No credentials, wallet/private-key access, real orders, real-money execution, runtime wiring, prompt automation, or live trading path was added."
+  ],
+  "recommended_next_task": "PMBOT-BRAIN-018: add small documented examples of acceptable local snapshot JSON shapes and expected rejection behavior for manual operator review.",
+  "safety": {
+    "offline_only": true,
+    "paper_only": true,
+    "live_fetcher_implemented": false,
+    "no_network_api": true,
+    "no_credentials": true,
+    "no_wallet": true,
+    "no_real_orders": true,
+    "no_live_trading": true,
+    "no_runtime_wiring": true,
+    "no_prompt_automation": true,
+    "no_unrelated_cleanup": true
+  }
+}

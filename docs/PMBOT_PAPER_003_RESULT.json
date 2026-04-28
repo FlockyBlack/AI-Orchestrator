@@ -1,0 +1,90 @@
+{
+  "task_id": "PMBOT-PAPER-003-PAPER-DECISION-SIMULATION-PREVIEW",
+  "status": "passed",
+  "summary": "Implemented a deterministic offline paper decision simulation preview exporter for PMBOT paper-policy-approved records. The exporter reads only local PAPER-001/PAPER-002 and selected-ingest final dossier artifacts, writes one structural preview record for market_id 824952, skips non-eligible policy records, creates no paper decision, emits no side recommendation or market decision fields, and creates no paper orders.",
+  "files_created": [
+    "pm_bot/paper/export_paper_decision_simulation_preview.py",
+    "pm_bot/paper/paper_decision_simulation_preview.v1.json",
+    "pm_bot/paper/paper_decision_simulation_preview.v1.md",
+    "pm_bot/paper/expected_paper_decision_simulation_preview.v1.json",
+    "pm_bot/paper/tests/test_paper_decision_simulation_preview.py",
+    "docs/PMBOT_PAPER_003_RESULT.json"
+  ],
+  "files_modified": [],
+  "tests_run": [
+    {
+      "command": "python pm_bot\\paper\\export_paper_decision_simulation_preview.py",
+      "status": "passed",
+      "result": "4 policy records read; 1 preview record written; 1 ready for future paper decision policy design; 0 needs more manual review; 0 blocked by policy; 0 paper orders created"
+    },
+    {
+      "command": "python -m pytest pm_bot\\paper\\tests\\test_paper_decision_simulation_preview.py -q",
+      "status": "passed",
+      "result": "13 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\paper\\tests\\test_final_dossier_paper_readiness_gate.py pm_bot\\paper\\tests\\test_paper_policy_review_contract.py pm_bot\\paper\\tests\\test_paper_decision_simulation_preview.py -q",
+      "status": "passed",
+      "result": "41 passed, 36 subtests passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\paper\\tests -q",
+      "status": "passed",
+      "result": "255 passed, 39 subtests passed"
+    },
+    {
+      "command": "python -m json.tool pm_bot\\paper\\paper_decision_simulation_preview.v1.json",
+      "status": "passed",
+      "result": "json parse ok"
+    },
+    {
+      "command": "python -m json.tool pm_bot\\paper\\expected_paper_decision_simulation_preview.v1.json",
+      "status": "passed",
+      "result": "json parse ok"
+    },
+    {
+      "command": "python -m py_compile pm_bot\\paper\\export_paper_decision_simulation_preview.py pm_bot\\paper\\tests\\test_paper_decision_simulation_preview.py",
+      "status": "passed",
+      "result": "compiled"
+    },
+    {
+      "command": "python -m json.tool docs\\PMBOT_PAPER_003_RESULT.json",
+      "status": "passed",
+      "result": "json parse ok"
+    }
+  ],
+  "preview_summary": {
+    "policy_records_read": 4,
+    "preview_records_written": 1,
+    "ready_for_future_paper_decision_policy_design": 1,
+    "needs_more_manual_review": 0,
+    "blocked_by_policy": 0,
+    "paper_orders_created": 0
+  },
+  "market_ids": [
+    "824952"
+  ],
+  "safety": {
+    "live_fetchers": false,
+    "network_api_calls": false,
+    "credentials": false,
+    "wallet_private_keys": false,
+    "authenticated_endpoints": false,
+    "trading_endpoints": false,
+    "real_orders": false,
+    "live_trading": false,
+    "paper_orders": false,
+    "betting_recommendations": false,
+    "truth_inference": false,
+    "market_scoring": false,
+    "probability_estimates": false,
+    "expected_value_calculations": false,
+    "side_recommendations": false,
+    "market_decisions": false,
+    "runtime_wiring": false,
+    "dispatcher_run_codex_touched": false,
+    "prompt_automation": false,
+    "codex_copy_roots": false,
+    "completed_dossiers": false
+  }
+}

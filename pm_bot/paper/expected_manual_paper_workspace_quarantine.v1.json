@@ -1,0 +1,12 @@
+[
+  {
+    "input_path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator\\pm_bot\\paper\\manual_paper_workspace\\inbox\\001_series_snapshot_001.json",
+    "file_name": "001_series_snapshot_001.json",
+    "status": "skipped",
+    "reason_code": "already_processed_snapshot",
+    "reason": "Snapshot ID is already present in the input paper state.",
+    "digest": "e2c3a44b0892fc71912a6cdd17d6809349ff3e0ede6b3e3dcbb31fa5171070c7",
+    "snapshot_id": "series_snapshot_001",
+    "action_taken": "Left available to the existing processor for already-processed accounting."
+  }
+]

@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CodexAutoMaterializedTaskV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "materialized_task_id",
+    "source_backlog_task_id",
+    "codex_task_id",
+    "queue_state",
+    "mode",
+    "executor",
+    "source_backlog_path",
+    "generated_prompt_ref",
+    "allowed_paths",
+    "forbidden_paths",
+    "allowed_scope",
+    "forbidden_scope",
+    "done_criteria",
+    "requires_human_approval",
+    "approved_for_execution",
+    "dry_run_default",
+    "flocky_validation_required",
+    "runtime_wiring_allowed",
+    "external_codex_cli_allowed",
+    "safety_flags"
+  ],
+  "properties": {
+    "schema_version": {"type": "string", "const": "v1"},
+    "materialized_task_id": {"type": "string", "minLength": 1},
+    "source_backlog_task_id": {"type": "string", "minLength": 1},
+    "codex_task_id": {"type": "string", "minLength": 1},
+    "queue_state": {"type": "string", "const": "candidate"},
+    "mode": {
+      "type": "string",
+      "enum": [
+        "DESIGN_ONLY",
+        "FIXTURE_ONLY",
+        "PAPER_ONLY",
+        "READ_ONLY_VALIDATION",
+        "DRY_RUN_ONLY"
+      ]
+    },
+    "executor": {"type": "string", "const": "Codex"},
+    "source_backlog_path": {"type": "string", "const": "docs/PM_BOT_SAFE_BACKLOG_V1.json"},
+    "generated_prompt_ref": {"type": "string", "minLength": 1},
+    "allowed_paths": {"type": "array", "items": {"type": "string"}},
+    "forbidden_paths": {"type": "array", "items": {"type": "string"}},
+    "allowed_scope": {"type": "array", "items": {"type": "string"}},
+    "forbidden_scope": {"type": "array", "items": {"type": "string"}},
+    "done_criteria": {"type": "array", "items": {"type": "string"}},
+    "requires_human_approval": {"type": "boolean", "const": true},
+    "approved_for_execution": {"type": "boolean", "const": false},
+    "dry_run_default": {"type": "boolean", "const": true},
+    "flocky_validation_required": {"type": "boolean", "const": true},
+    "runtime_wiring_allowed": {"type": "boolean", "const": false},
+    "external_codex_cli_allowed": {"type": "boolean", "const": false},
+    "safety_flags": {"type": "array", "items": {"type": "string"}}
+  },
+  "description": "Candidate-only codex_auto task. It is not ready, cannot execute, requires later Flocky review before promotion, and never becomes runtime truth."
+}

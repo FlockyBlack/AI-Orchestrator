@@ -1,0 +1,90 @@
+{
+  "task_id": "PMBOT-PAPER-001-FINAL-DOSSIER-PAPER-READINESS-GATE",
+  "status": "passed",
+  "summary": "Implemented a deterministic offline paper-readiness gate for selected-ingest final dossier drafts. The gate reads only the local selected-ingest final draft, human review result, and human review pack artifacts; accepts only final_draft_status final_dossier_draft_only; validates structural readiness and prohibited draft fields; emits structural-only readiness records; and creates no completed dossiers, recommendations, scores, probabilities, expected value calculations, side decisions, market decisions, orders, or paper orders.",
+  "files_created": [
+    "pm_bot/paper/validate_final_dossier_paper_readiness.py",
+    "pm_bot/paper/final_dossier_paper_readiness_result.v1.json",
+    "pm_bot/paper/final_dossier_paper_readiness_report.v1.md",
+    "pm_bot/paper/expected_final_dossier_paper_readiness_result.v1.json",
+    "pm_bot/paper/tests/test_final_dossier_paper_readiness_gate.py",
+    "docs/PMBOT_PAPER_001_RESULT.json"
+  ],
+  "files_modified": [],
+  "tests_run": [
+    {
+      "command": "python pm_bot\\paper\\validate_final_dossier_paper_readiness.py",
+      "status": "passed",
+      "result": "1 final dossier draft read; 1 readiness record written; 1 eligible for future paper policy review; 0 manual repairs; 0 prohibited-content blocks; 0 paper orders created"
+    },
+    {
+      "command": "python -m pytest pm_bot\\paper\\tests\\test_final_dossier_paper_readiness_gate.py -q",
+      "status": "passed",
+      "result": "14 passed, 14 subtests passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\paper\\tests -q",
+      "status": "passed",
+      "result": "228 passed, 17 subtests passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\research\\tests -k selected_ingest -q",
+      "status": "passed",
+      "result": "150 passed, 182 deselected"
+    },
+    {
+      "command": "python -m json.tool pm_bot\\paper\\final_dossier_paper_readiness_result.v1.json",
+      "status": "passed",
+      "result": "json parse ok"
+    },
+    {
+      "command": "python -m json.tool pm_bot\\paper\\expected_final_dossier_paper_readiness_result.v1.json",
+      "status": "passed",
+      "result": "json parse ok"
+    },
+    {
+      "command": "python -m json.tool docs\\PMBOT_PAPER_001_RESULT.json",
+      "status": "passed",
+      "result": "json parse ok"
+    },
+    {
+      "command": "python -m py_compile pm_bot\\paper\\validate_final_dossier_paper_readiness.py pm_bot\\paper\\tests\\test_final_dossier_paper_readiness_gate.py",
+      "status": "passed",
+      "result": "compiled"
+    }
+  ],
+  "readiness_summary": {
+    "final_dossier_drafts_read": 1,
+    "readiness_records_written": 1,
+    "eligible_for_future_paper_policy_review": 1,
+    "needs_manual_dossier_repair": 0,
+    "blocked_by_prohibited_content": 0,
+    "paper_orders_created": 0
+  },
+  "exported_market_ids": [
+    "824952"
+  ],
+  "safety": {
+    "live_fetchers": false,
+    "network_api_calls": false,
+    "credentials": false,
+    "wallet_private_keys": false,
+    "authenticated_endpoints": false,
+    "trading_endpoints": false,
+    "real_orders": false,
+    "live_trading": false,
+    "paper_orders": false,
+    "betting_recommendations": false,
+    "truth_inference": false,
+    "market_scoring": false,
+    "probability_estimates": false,
+    "expected_value_calculations": false,
+    "side_recommendations": false,
+    "market_decisions": false,
+    "runtime_wiring": false,
+    "dispatcher_run_codex_touched": false,
+    "prompt_automation": false,
+    "codex_copy_roots": false,
+    "completed_dossiers": false
+  }
+}

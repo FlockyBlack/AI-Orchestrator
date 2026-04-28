@@ -1,0 +1,61 @@
+{
+  "task_id": "PMBOT-BRAIN-036-THRESHOLD-HIT-DECISION-POLICY",
+  "status": "passed",
+  "summary": "Added opt-in deterministic offline/paper conservative decision policy support for the crypto threshold-hit review table. Default BRAIN-035 behavior is preserved when --decision-policy is omitted; policy mode adds explainable checks and keeps paper orders disabled.",
+  "files_created": [
+    "pm_bot/paper/threshold_hit_decision_policy.v1.json",
+    "docs/PM_BOT_BRAIN_036_RESULT.json",
+    "docs/PM_BOT_STAGE_SUMMARY_V48.md"
+  ],
+  "files_modified": [
+    "pm_bot/paper/run_crypto_threshold_hit_review_table.py",
+    "pm_bot/paper/tests/test_run_crypto_threshold_hit_review_table.py"
+  ],
+  "decision_policy_summary": {
+    "reference_context_used": true,
+    "decision_policy_used": true,
+    "threshold_hit_candidates": 3,
+    "no_action_count": 0,
+    "watchlist_count": 2,
+    "policy_blocked_count": 1,
+    "paper_candidate_count": 0,
+    "paper_orders_created": 0,
+    "policy_reason_counts": {
+      "before_event_requires_event_model": 1,
+      "paper_candidates_disabled_by_policy": 3,
+      "target_distance_above_watchlist_limit": 1,
+      "yes_price_above_conservative_limit": 1
+    }
+  },
+  "tests": [
+    "python -m pytest pm_bot\\scoring\\tests pm_bot\\paper\\tests -q",
+    "python pm_bot\\paper\\run_crypto_threshold_hit_review_table.py",
+    "python pm_bot\\paper\\run_crypto_threshold_hit_review_table.py --markdown",
+    "python pm_bot\\paper\\run_crypto_threshold_hit_review_table.py --reference-context pm_bot\\paper\\threshold_hit_reference_context.v1.json --decision-policy pm_bot\\paper\\threshold_hit_decision_policy.v1.json",
+    "python pm_bot\\paper\\run_crypto_threshold_hit_review_table.py --reference-context pm_bot\\paper\\threshold_hit_reference_context.v1.json --decision-policy pm_bot\\paper\\threshold_hit_decision_policy.v1.json --markdown",
+    "python pm_bot\\paper\\run_crypto_threshold_hit_triage_report.py --source C:\\Users\\OpenC\\Documents\\AI-Orchestrator\\local_snapshots\\polymarket_markets_active_500_001.json --markdown",
+    "PYTHONIOENCODING=utf-8 python pm_bot\\paper\\run_real_market_triage_report.py --source C:\\Users\\OpenC\\Documents\\AI-Orchestrator\\local_snapshots\\polymarket_markets_active_500_001.json --markdown",
+    "python pm_bot\\paper\\run_manual_paper_operator_cycle.py",
+    "python pm_bot\\paper\\run_crypto_numeric_lifecycle_regression_gates.py"
+  ],
+  "safety": {
+    "offline_only": true,
+    "paper_only": true,
+    "live_fetcher_implemented": false,
+    "api_used": false,
+    "network_used": false,
+    "wallet_used": false,
+    "real_order_created": false,
+    "trading_allowed": false,
+    "runtime_wiring_changed": false,
+    "dispatcher_touched": false,
+    "prompt_automation_added": false
+  },
+  "notes": [
+    "Decision policy is only applied when --decision-policy is provided.",
+    "Default no-policy JSON and Markdown output keep the existing BRAIN-035 shape.",
+    "The default policy keeps allow_paper_candidates=false.",
+    "A test-only allow_paper_candidates=true policy can label a passing fixture row as paper_candidate without creating paper orders.",
+    "Threshold-hit markets remain separate from the existing above/below crypto numeric scorer."
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Promotion Request",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "promotion_request_id",
+    "source_materialization_report",
+    "candidate_task_refs",
+    "prompt_pack_ref",
+    "prompt_manifest_ref",
+    "requested_next_state",
+    "requested_by",
+    "requested_at",
+    "reason",
+    "safety_summary",
+    "requires_flocky_review",
+    "requires_human_approval",
+    "execution_allowed_now",
+    "runtime_wiring_allowed",
+    "external_codex_cli_allowed_now"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "promotion_request.v1"
+    },
+    "promotion_request_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_materialization_report": {
+      "type": "string",
+      "pattern": "^codex_auto/tasks/candidates/[^\\n]+\\.materialization\\.json$"
+    },
+    "candidate_task_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "pattern": "^codex_auto/tasks/candidates/[^\\n]+\\.task\\.json$"
+      }
+    },
+    "prompt_pack_ref": {
+      "type": "string",
+      "pattern": "^codex_auto/prompts/[^\\n]+\\.codex_prompt\\.txt$"
+    },
+    "prompt_manifest_ref": {
+      "type": "string",
+      "pattern": "^codex_auto/prompts/[^\\n]+\\.prompt_manifest\\.json$"
+    },
+    "requested_next_state": {
+      "const": "promotion_review"
+    },
+    "requested_by": {
+      "type": "string",
+      "minLength": 1
+    },
+    "requested_at": {
+      "type": "string",
+      "minLength": 1
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 1
+    },
+    "safety_summary": {
+      "type": "object",
+      "additionalProperties": {
+        "type": [
+          "boolean",
+          "string",
+          "number",
+          "array",
+          "object",
+          "null"
+        ]
+      }
+    },
+    "requires_flocky_review": {
+      "const": true
+    },
+    "requires_human_approval": {
+      "const": true
+    },
+    "execution_allowed_now": {
+      "const": false
+    },
+    "runtime_wiring_allowed": {
+      "const": false
+    },
+    "external_codex_cli_allowed_now": {
+      "const": false
+    }
+  }
+}

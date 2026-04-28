@@ -1,0 +1,25 @@
+{
+  "schema_version": "codex_execution_approval.v1",
+  "approval_id": "APPROVAL-MISSING-METADATA",
+  "task_id": "CODEX-AUTO-TINY-002",
+  "approved_for_execution": true,
+  "approved_by": "",
+  "approved_at": "",
+  "approval_reason": "",
+  "allowed_paths": [
+    "codex_auto/runs/CODEX-AUTO-TINY-002/"
+  ],
+  "forbidden_paths": [
+    "scripts/dispatcher.py",
+    "scripts/run_codex.py"
+  ],
+  "max_files_changed": 1,
+  "expected_tests": [],
+  "rollback_plan": "",
+  "validation_required_after_execution": false,
+  "execution_scope": "fixture-only local write",
+  "expires_at": "",
+  "safety_flags_required": [
+    "single_runtime_source_rule_preserved"
+  ]
+}

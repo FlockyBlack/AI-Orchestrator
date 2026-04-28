@@ -1,0 +1,60 @@
+{
+  "task_id": "PMBOT-BRAIN-006-CRYPTO-NUMERIC-BAD-ENTRY-GUARDRAILS",
+  "status": "completed_ready_for_review",
+  "summary": "Added a deterministic scorer-side extension guardrail that prevents overextended, already-rich crypto numeric markets from becoming paper candidates. The known replay bad entry is now watchlist/no-action while the legitimate BTC paper candidate remains a paper order.",
+  "pmbot_root_confirmed": true,
+  "guardrail_readiness": "ready_for_replay_review",
+  "bad_entry_analysis": "The bad entry passed because it had low risk, deep liquidity, tight spread, and a large buffered edge. Its replay-specific false-positive shape was an already overextended BTC-above market: current price was 6% above target and market_yes_price was already 0.62. The new guard caps markets at watchlist when directional distance through target is at least 5.5% and yes price is at least 0.60.",
+  "files_created": [
+    "docs/PM_BOT_BRAIN_006_RESULT.json",
+    "docs/PM_BOT_STAGE_SUMMARY_V18.md"
+  ],
+  "files_modified": [
+    "pm_bot/scoring/crypto_numeric_market_scorer.py",
+    "pm_bot/scoring/expected_crypto_numeric_score_report.v1.json",
+    "pm_bot/scoring/expected_crypto_numeric_paper_replay.v1.json",
+    "pm_bot/scoring/expected_crypto_numeric_paper_replay.v1.md",
+    "pm_bot/scoring/tests/test_run_crypto_numeric_paper_replay.py"
+  ],
+  "tests_or_checks_run": [
+    "python -m pytest pm_bot\\scoring\\tests -q",
+    "python pm_bot\\scoring\\run_crypto_numeric_paper_chain.py",
+    "python pm_bot\\scoring\\run_crypto_numeric_paper_replay.py",
+    "python pm_bot\\scoring\\run_crypto_numeric_paper_replay.py --markdown"
+  ],
+  "before_replay_summary": {
+    "paper_orders": 2,
+    "wins": 1,
+    "losses": 1,
+    "total_paper_pnl": -30.51,
+    "bad_entries": 1
+  },
+  "after_replay_summary": {
+    "replay_cases": 5,
+    "paper_orders": 1,
+    "wins": 1,
+    "losses": 0,
+    "no_action": 4,
+    "total_paper_pnl": 69.49,
+    "bad_entries": 0,
+    "rejected_bad_cases": 2
+  },
+  "limitations": [
+    "Guardrail is deterministic and replay-derived from the current fixture set; it is not a live market model.",
+    "The rule is intentionally conservative for overextended, rich yes-price numeric markets and may watchlist some future cases that need operator review.",
+    "No live fetchers, APIs, credentials, wallets, real orders, live trading, runtime integration, prompt automation, or new validation layer was added."
+  ],
+  "recommended_next_task": "PMBOT-BRAIN-007-CRYPTO-NUMERIC-GUARDRAIL-COVERAGE: add more fixture-only replay cases around the extension threshold to characterize false-positive and false-negative tradeoffs.",
+  "safety": {
+    "offline_only": true,
+    "paper_only": true,
+    "no_network_api": true,
+    "no_credentials": true,
+    "no_wallet": true,
+    "no_real_orders": true,
+    "no_live_trading": true,
+    "no_runtime_wiring": true,
+    "no_prompt_automation": true,
+    "no_unrelated_cleanup": true
+  }
+}

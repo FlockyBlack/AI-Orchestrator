@@ -1,0 +1,47 @@
+{
+  "task_id": "PMBOT-RESEARCH-007-MANUAL-RESEARCH-PACKET-COMPLETION-GATE",
+  "status": "passed",
+  "summary": "Added a deterministic offline validator for manually completed PMBOT research packets. The gate validates packet structure, evidence item completeness, missing-information checklists, review-readiness requirements, and forbidden order/trade/wallet/execution fields without fetching sources, scoring markets, inferring truth, or creating dossiers.",
+  "files_created": [
+    "pm_bot\\research\\validate_manual_research_packets.py",
+    "pm_bot\\research\\manual_research_packets_fixture.v1.json",
+    "pm_bot\\research\\expected_manual_research_packet_validation.v1.json",
+    "pm_bot\\research\\tests\\test_manual_research_packet_validation.py",
+    "docs\\PMBOT_RESEARCH_007_RESULT.json"
+  ],
+  "files_modified": [],
+  "tests_run": [
+    {
+      "command": "python -m pytest pm_bot\\research\\tests\\test_manual_research_packet_validation.py -q",
+      "status": "passed",
+      "summary": "12 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\research\\tests -q",
+      "status": "passed",
+      "summary": "64 passed"
+    }
+  ],
+  "validation_summary": {
+    "total_packets_checked": 4,
+    "valid_packets": 3,
+    "invalid_packets": 1,
+    "ready_for_operator_review": 1,
+    "needs_more_information": 1
+  },
+  "safety": {
+    "live_fetchers": false,
+    "network_api_calls": false,
+    "credentials": false,
+    "wallet_private_keys": false,
+    "real_orders": false,
+    "live_trading": false,
+    "runtime_wiring": false,
+    "dispatcher_run_codex_touched": false,
+    "prompt_automation": false,
+    "codex_copy_roots": false,
+    "completed_dossiers": false,
+    "paper_orders": false,
+    "betting_recommendations": false
+  }
+}

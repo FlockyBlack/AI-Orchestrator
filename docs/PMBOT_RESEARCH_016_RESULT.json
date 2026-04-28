@@ -1,0 +1,69 @@
+{
+  "task_id": "PMBOT-RESEARCH-016-FINAL-DOSSIER-DRAFT-EXPORT",
+  "status": "completed",
+  "summary": "Implemented a deterministic offline final dossier draft exporter for PMBOT dossier packs approved by human review. The exporter reads only local review-pack, human-review-record, manual draft validation, dossier skeleton, and merged packet artifacts; exports only accepted records with human_review_outcome approved_for_final_dossier_draft; emits JSON, Markdown, and expected JSON artifacts for market_id 563650; and keeps the artifact as final_dossier_draft_only human-reading material without completed dossiers, runtime actions, orders, recommendations, scoring, probabilities, expected value calculations, side choices, or market decisions.",
+  "files_created": [
+    "pm_bot/research/export_final_dossier_drafts.py",
+    "pm_bot/research/final_dossier_drafts.v1.json",
+    "pm_bot/research/final_dossier_drafts.v1.md",
+    "pm_bot/research/expected_final_dossier_drafts.v1.json",
+    "pm_bot/research/tests/test_final_dossier_draft_export.py",
+    "docs/PMBOT_RESEARCH_016_RESULT.json"
+  ],
+  "files_modified": [],
+  "tests_run": [
+    {
+      "command": "python pm_bot\\research\\export_final_dossier_drafts.py",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\research\\tests\\test_final_dossier_draft_export.py",
+      "status": "passed",
+      "tests": 12
+    },
+    {
+      "command": "python -m pytest pm_bot\\research\\tests",
+      "status": "passed",
+      "tests": 182
+    },
+    {
+      "command": "Get-Content pm_bot\\research\\final_dossier_drafts.v1.json -Raw | ConvertFrom-Json | Out-Null",
+      "status": "passed"
+    },
+    {
+      "command": "Get-Content pm_bot\\research\\expected_final_dossier_drafts.v1.json -Raw | ConvertFrom-Json | Out-Null",
+      "status": "passed"
+    },
+    {
+      "command": "Get-Content docs\\PMBOT_RESEARCH_016_RESULT.json -Raw | ConvertFrom-Json | Out-Null",
+      "status": "passed"
+    }
+  ],
+  "export_summary": {
+    "approved_review_records_seen": 1,
+    "final_dossier_drafts_exported": 1,
+    "review_records_skipped": 9,
+    "completed_dossiers_created": 0
+  },
+  "safety": {
+    "live_fetchers": false,
+    "network_api_calls": false,
+    "credentials": false,
+    "wallet_private_keys": false,
+    "real_orders": false,
+    "live_trading": false,
+    "runtime_wiring": false,
+    "dispatcher_run_codex_touched": false,
+    "prompt_automation": false,
+    "codex_copy_roots": false,
+    "completed_dossiers": false,
+    "paper_orders": false,
+    "betting_recommendations": false,
+    "truth_inference": false,
+    "market_scoring": false,
+    "probability_estimates": false,
+    "expected_value_calculations": false,
+    "side_recommendations": false,
+    "market_decisions": false
+  }
+}

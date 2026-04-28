@@ -1,0 +1,273 @@
+{
+  "schema_version": "operator_review_records_result.v1",
+  "markdown_version": "operator_review_records_report.v1",
+  "task_id": "PMBOT-RESEARCH-011-OPERATOR-REVIEW-RECORD-GATE",
+  "deterministic": true,
+  "source_review_records_path": "pm_bot/research/operator_review_records_fixture.v1.json",
+  "source_review_records_schema_version": "operator_review_records_fixture.v1",
+  "source_operator_review_queue_path": "pm_bot/research/operator_review_queue.v1.json",
+  "source_operator_review_queue_schema_version": "operator_review_queue.v1",
+  "source_merged_packets_path": "pm_bot/research/merged_manual_research_packets.v1.json",
+  "source_merged_packets_schema_version": "merged_manual_research_packets.v1",
+  "validator_contract_path": "pm_bot/research/validate_manual_research_packets.py",
+  "validator_contract_schema_version": "manual_research_packet_validation.v1",
+  "json_result_path": "pm_bot/research/operator_review_records_result.v1.json",
+  "markdown_report_path": "pm_bot/research/operator_review_records_report.v1.md",
+  "allowed_review_statuses": [
+    "not_reviewed",
+    "review_completed",
+    "needs_more_information",
+    "review_rejected"
+  ],
+  "allowed_review_outcomes": [
+    "ready_for_dossier_drafting",
+    "needs_more_information",
+    "research_quality_rejected",
+    "watch_only_manual"
+  ],
+  "required_ready_review_checks": [
+    "resolution_criteria_checked",
+    "evidence_structure_checked",
+    "source_coverage_checked",
+    "missing_information_reviewed",
+    "no_trading_recommendation_present"
+  ],
+  "accepted_record_fields": [
+    "market_id",
+    "review_status",
+    "review_outcome",
+    "reviewer_notes",
+    "review_checks",
+    "requested_followup_information",
+    "quality_flags",
+    "queue_group",
+    "packet_completion_status"
+  ],
+  "rejected_record_fields": [
+    "market_id",
+    "review_status",
+    "review_outcome",
+    "queue_group",
+    "packet_completion_status",
+    "errors"
+  ],
+  "review_summary": {
+    "review_records_read": 8,
+    "review_records_accepted": 3,
+    "review_records_rejected": 5,
+    "ready_for_dossier_drafting": 1,
+    "needs_more_information": 1,
+    "research_quality_rejected": 0,
+    "watch_only_manual": 1
+  },
+  "errors_by_market_id": {
+    "569332": [
+      {
+        "code": "immutable_packet_field_override:title",
+        "path": "title",
+        "message": "title is immutable packet or queue content and cannot be supplied by an operator review record."
+      }
+    ],
+    "569333": [
+      {
+        "code": "needs_more_information_requires_followup",
+        "path": "requested_followup_information",
+        "message": "review_outcome needs_more_information requires non-empty requested_followup_information."
+      }
+    ],
+    "569343": [
+      {
+        "code": "prohibited_review_field:recommendation",
+        "path": "recommendation",
+        "message": "Trading, execution, recommendation, bet, stake, target, scoring, probability, signal, wallet, private-key, and side fields are prohibited in operator review records."
+      },
+      {
+        "code": "unexpected_review_field:recommendation",
+        "path": "recommendation",
+        "message": "recommendation is not an allowed operator review record field."
+      },
+      {
+        "code": "prohibited_review_field:probability",
+        "path": "review_checks.probability",
+        "message": "Trading, execution, recommendation, bet, stake, target, scoring, probability, signal, wallet, private-key, and side fields are prohibited in operator review records."
+      }
+    ],
+    "569344": [
+      {
+        "code": "ready_outcome_requires_ready_queue_group",
+        "path": "review_outcome",
+        "message": "ready_for_dossier_drafting is allowed only for queue group ready_for_operator_review; current group is stub_only."
+      }
+    ],
+    "unknown-market-id": [
+      {
+        "code": "unknown_market_id",
+        "path": "market_id",
+        "message": "Review record market_id is not present in the operator review queue and merged packet set."
+      }
+    ]
+  },
+  "accepted_review_records": [
+    {
+      "market_id": "563650",
+      "review_status": "review_completed",
+      "review_outcome": "ready_for_dossier_drafting",
+      "reviewer_notes": "Structural review completed. Future dossier drafting may start from this packet; no conclusion or order is recorded here.",
+      "review_checks": {
+        "resolution_criteria_checked": true,
+        "evidence_structure_checked": true,
+        "source_coverage_checked": true,
+        "missing_information_reviewed": true,
+        "no_trading_recommendation_present": true
+      },
+      "requested_followup_information": [],
+      "quality_flags": [],
+      "queue_group": "ready_for_operator_review",
+      "packet_completion_status": "ready_for_operator_review"
+    },
+    {
+      "market_id": "569366",
+      "review_status": "needs_more_information",
+      "review_outcome": "needs_more_information",
+      "reviewer_notes": "Partial packet remains structurally incomplete for operator review.",
+      "review_checks": {
+        "resolution_criteria_checked": true,
+        "evidence_structure_checked": false,
+        "source_coverage_checked": false,
+        "missing_information_reviewed": true,
+        "no_trading_recommendation_present": true
+      },
+      "requested_followup_information": [
+        "Add credible news source references.",
+        "Add source reliability notes."
+      ],
+      "quality_flags": [
+        "partial_evidence_only"
+      ],
+      "queue_group": "needs_more_information",
+      "packet_completion_status": "needs_more_information"
+    },
+    {
+      "market_id": "573656",
+      "review_status": "not_reviewed",
+      "review_outcome": "watch_only_manual",
+      "reviewer_notes": "Keep this stub in manual watch-only status until evidence is supplied.",
+      "review_checks": {
+        "missing_information_reviewed": true,
+        "no_trading_recommendation_present": true
+      },
+      "requested_followup_information": [],
+      "quality_flags": [
+        "stub_packet"
+      ],
+      "queue_group": "stub_only",
+      "packet_completion_status": "stub_only"
+    }
+  ],
+  "rejected_review_records": [
+    {
+      "market_id": "569332",
+      "review_status": "review_completed",
+      "review_outcome": "watch_only_manual",
+      "queue_group": "stub_only",
+      "packet_completion_status": "stub_only",
+      "errors": [
+        {
+          "code": "immutable_packet_field_override:title",
+          "path": "title",
+          "message": "title is immutable packet or queue content and cannot be supplied by an operator review record."
+        }
+      ]
+    },
+    {
+      "market_id": "569333",
+      "review_status": "needs_more_information",
+      "review_outcome": "needs_more_information",
+      "queue_group": "stub_only",
+      "packet_completion_status": "stub_only",
+      "errors": [
+        {
+          "code": "needs_more_information_requires_followup",
+          "path": "requested_followup_information",
+          "message": "review_outcome needs_more_information requires non-empty requested_followup_information."
+        }
+      ]
+    },
+    {
+      "market_id": "569343",
+      "review_status": "review_completed",
+      "review_outcome": "watch_only_manual",
+      "queue_group": "stub_only",
+      "packet_completion_status": "stub_only",
+      "errors": [
+        {
+          "code": "prohibited_review_field:recommendation",
+          "path": "recommendation",
+          "message": "Trading, execution, recommendation, bet, stake, target, scoring, probability, signal, wallet, private-key, and side fields are prohibited in operator review records."
+        },
+        {
+          "code": "unexpected_review_field:recommendation",
+          "path": "recommendation",
+          "message": "recommendation is not an allowed operator review record field."
+        },
+        {
+          "code": "prohibited_review_field:probability",
+          "path": "review_checks.probability",
+          "message": "Trading, execution, recommendation, bet, stake, target, scoring, probability, signal, wallet, private-key, and side fields are prohibited in operator review records."
+        }
+      ]
+    },
+    {
+      "market_id": "569344",
+      "review_status": "review_completed",
+      "review_outcome": "ready_for_dossier_drafting",
+      "queue_group": "stub_only",
+      "packet_completion_status": "stub_only",
+      "errors": [
+        {
+          "code": "ready_outcome_requires_ready_queue_group",
+          "path": "review_outcome",
+          "message": "ready_for_dossier_drafting is allowed only for queue group ready_for_operator_review; current group is stub_only."
+        }
+      ]
+    },
+    {
+      "market_id": "unknown-market-id",
+      "review_status": "review_completed",
+      "review_outcome": "watch_only_manual",
+      "queue_group": "",
+      "packet_completion_status": "",
+      "errors": [
+        {
+          "code": "unknown_market_id",
+          "path": "market_id",
+          "message": "Review record market_id is not present in the operator review queue and merged packet set."
+        }
+      ]
+    }
+  ],
+  "merged_packet_validation_errors_by_market_id": {},
+  "safety_flags": {
+    "offline_only": true,
+    "live_fetchers": false,
+    "network_api_calls": false,
+    "credentials": false,
+    "wallet_private_keys": false,
+    "real_orders": false,
+    "live_trading": false,
+    "runtime_wiring": false,
+    "dispatcher_run_codex_touched": false,
+    "prompt_automation": false,
+    "codex_copy_roots": false,
+    "completed_dossiers": false,
+    "paper_orders": false,
+    "betting_recommendations": false,
+    "truth_inference": false,
+    "market_scoring": false
+  },
+  "limitations": [
+    "Reads only local operator review records, operator review queue, and merged manual research packets.",
+    "Records structural operator review outcomes only.",
+    "Does not create dossiers, scores, recommendations, orders, runtime actions, or market conclusions."
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CodexAutoQueueResultRecordV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "queue_task_id",
+    "codex_task_id",
+    "result_status",
+    "produced_at",
+    "source_task_path",
+    "result_envelope",
+    "files_created",
+    "files_modified_existing",
+    "tests_run",
+    "tests_passed",
+    "safety_check",
+    "next_queue_state",
+    "flocky_validation_required"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "queue_result_record.v1"
+    },
+    "queue_task_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "codex_task_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "result_status": {
+      "type": "string",
+      "minLength": 1
+    },
+    "produced_at": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_task_path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "result_envelope": {
+      "type": "object"
+    },
+    "files_created": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "files_modified_existing": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "tests_run": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "tests_passed": {
+      "type": "boolean"
+    },
+    "safety_check": {
+      "type": "object"
+    },
+    "next_queue_state": {
+      "type": "string",
+      "const": "needs_flocky_review"
+    },
+    "flocky_validation_required": {
+      "type": "boolean",
+      "const": true
+    }
+  },
+  "description": "Codex-auto queue result bookkeeping only. It is not runtime truth, cannot mark final OpenClaw or Flocky done, and must require Flocky validation before any later done transition."
+}

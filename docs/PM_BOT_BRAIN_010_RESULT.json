@@ -1,0 +1,53 @@
+{
+  "task_id": "PMBOT-BRAIN-010-CRYPTO-NUMERIC-PAPER-EXECUTION-LEDGER",
+  "status": "completed_ready_for_review",
+  "summary": "Implemented a deterministic offline/paper execution ledger for crypto numeric paper order plans. The ledger reads the existing expected paper order plan, applies fixture execution prices, emits submitted and filled paper events, creates a settled paper position with PnL, and preserves no-action entries with reasons.",
+  "pmbot_root_confirmed": true,
+  "ledger_readiness": "ready_for_paper_lifecycle_review",
+  "command": "python pm_bot\\paper\\crypto_numeric_paper_execution_ledger.py",
+  "files_created": [
+    "pm_bot/paper/crypto_numeric_paper_execution_ledger.py",
+    "pm_bot/paper/crypto_numeric_execution_fixture.v1.json",
+    "pm_bot/paper/expected_crypto_numeric_paper_execution_ledger.v1.json",
+    "pm_bot/paper/expected_crypto_numeric_paper_execution_ledger.v1.md",
+    "pm_bot/paper/tests/test_crypto_numeric_paper_execution_ledger.py",
+    "docs/PM_BOT_BRAIN_010_RESULT.json",
+    "docs/PM_BOT_STAGE_SUMMARY_V22.md"
+  ],
+  "files_modified": [],
+  "tests_or_checks_run": [
+    "python -m pytest pm_bot\\paper\\tests pm_bot\\scoring\\tests -q",
+    "python pm_bot\\paper\\crypto_numeric_paper_execution_ledger.py",
+    "python pm_bot\\paper\\crypto_numeric_paper_execution_ledger.py --markdown"
+  ],
+  "ledger_summary": {
+    "paper_orders_seen": 1,
+    "paper_orders_submitted": 1,
+    "paper_orders_filled": 1,
+    "paper_orders_not_filled": 0,
+    "paper_positions_opened": 1,
+    "paper_positions_closed_or_settled": 1,
+    "no_action_entries": 3,
+    "total_paper_notional": 100.0,
+    "total_max_loss": 100.0,
+    "paper_pnl": 72.41
+  },
+  "limitations": [
+    "Fixture-only ledger; no live markets, prices, APIs, or external metadata are fetched.",
+    "Paper fills, settlement, and PnL are deterministic local calculations only.",
+    "No runtime integration, dispatcher/run_codex, prompt automation, credentials, wallet access, real orders, live trading, unrelated cleanup, or new validation layer was added."
+  ],
+  "recommended_next_task": "PMBOT-BRAIN-011: add an offline paper lifecycle summary that rolls paper execution ledger positions into portfolio-level status and exposure.",
+  "safety": {
+    "offline_only": true,
+    "paper_only": true,
+    "no_network_api": true,
+    "no_credentials": true,
+    "no_wallet": true,
+    "no_real_orders": true,
+    "no_live_trading": true,
+    "no_runtime_wiring": true,
+    "no_prompt_automation": true,
+    "no_unrelated_cleanup": true
+  }
+}

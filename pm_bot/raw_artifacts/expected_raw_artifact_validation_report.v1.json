@@ -1,0 +1,127 @@
+{
+  "validation_passed": true,
+  "contract_version": "raw_market_artifact.v1",
+  "fixtures_dir": "pm_bot/raw_artifacts/fixtures",
+  "checked_files_count": 12,
+  "valid_files_count": 3,
+  "invalid_files_count": 9,
+  "unexpected_failures": [],
+  "unexpected_passes": [],
+  "quarantine_findings": [
+    {
+      "file": "invalid/invalid_bad_contract_version.json",
+      "severity": "blocking",
+      "code": "bad_contract_version",
+      "message": "contract_version must equal 'raw_market_artifact.v1'."
+    },
+    {
+      "file": "invalid/invalid_conflicting_safety_network.json",
+      "severity": "blocking",
+      "code": "unsafe_safety_flag:network_used",
+      "message": "safety.network_used must equal false."
+    },
+    {
+      "file": "invalid/invalid_empty_ids_and_duplicates.json",
+      "severity": "blocking",
+      "code": "duplicate_outcome_name",
+      "message": "outcomes[1].name duplicates a prior outcome name."
+    },
+    {
+      "file": "invalid/invalid_empty_ids_and_duplicates.json",
+      "severity": "blocking",
+      "code": "duplicate_outcome_side",
+      "message": "outcomes[1].side duplicates a prior outcome side."
+    },
+    {
+      "file": "invalid/invalid_empty_ids_and_duplicates.json",
+      "severity": "blocking",
+      "code": "empty_artifact_id",
+      "message": "artifact_id must be a non-empty string."
+    },
+    {
+      "file": "invalid/invalid_empty_ids_and_duplicates.json",
+      "severity": "blocking",
+      "code": "invalid_market_field:market_id",
+      "message": "market.market_id must be a non-empty string."
+    },
+    {
+      "file": "invalid/invalid_malformed_outcomes.json",
+      "severity": "blocking",
+      "code": "outcomes_not_list",
+      "message": "outcomes must be a list."
+    },
+    {
+      "file": "invalid/invalid_missing_required_field.json",
+      "severity": "blocking",
+      "code": "invalid_provenance_field:collected_by",
+      "message": "provenance.collected_by must be a non-empty string."
+    },
+    {
+      "file": "invalid/invalid_missing_required_field.json",
+      "severity": "blocking",
+      "code": "invalid_provenance_field:collection_method",
+      "message": "provenance.collection_method must be a non-empty string."
+    },
+    {
+      "file": "invalid/invalid_missing_required_field.json",
+      "severity": "blocking",
+      "code": "invalid_provenance_field:source_reference",
+      "message": "provenance.source_reference must be a non-empty string."
+    },
+    {
+      "file": "invalid/invalid_missing_required_field.json",
+      "severity": "blocking",
+      "code": "missing_required_field:provenance",
+      "message": "Missing required top-level field 'provenance'."
+    },
+    {
+      "file": "invalid/invalid_missing_required_field.json",
+      "severity": "blocking",
+      "code": "provenance_not_object",
+      "message": "provenance must be an object."
+    },
+    {
+      "file": "invalid/invalid_price_out_of_range.json",
+      "severity": "blocking",
+      "code": "price_out_of_range",
+      "message": "outcomes[0].price must be between 0 and 1 inclusive."
+    },
+    {
+      "file": "invalid/invalid_side_value.json",
+      "severity": "blocking",
+      "code": "invalid_outcome_side:0",
+      "message": "outcomes[0].side must match the lowercase side pattern."
+    },
+    {
+      "file": "invalid/invalid_stale_captured_at.json",
+      "severity": "warning",
+      "code": "stale_captured_at",
+      "message": "captured_at is older than the deterministic reference window ending at 2026-04-26T00:00:00Z."
+    },
+    {
+      "file": "invalid/invalid_wallet_order_trading_flags.json",
+      "severity": "blocking",
+      "code": "unsafe_safety_flag:order_capable",
+      "message": "safety.order_capable must equal false."
+    },
+    {
+      "file": "invalid/invalid_wallet_order_trading_flags.json",
+      "severity": "blocking",
+      "code": "unsafe_safety_flag:trading_capable",
+      "message": "safety.trading_capable must equal false."
+    },
+    {
+      "file": "invalid/invalid_wallet_order_trading_flags.json",
+      "severity": "blocking",
+      "code": "unsafe_safety_flag:wallet_used",
+      "message": "safety.wallet_used must equal false."
+    }
+  ],
+  "safety_summary": {
+    "network_used_detected": false,
+    "api_credentials_detected": false,
+    "wallet_detected": false,
+    "order_or_trading_capability_detected": false,
+    "runtime_wiring_detected": false
+  }
+}

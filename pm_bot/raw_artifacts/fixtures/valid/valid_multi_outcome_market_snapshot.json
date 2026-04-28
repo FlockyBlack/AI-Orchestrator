@@ -1,0 +1,47 @@
+{
+  "contract_version": "raw_market_artifact.v1",
+  "artifact_id": "fixture-multi-20260418-market-002",
+  "source_type": "fixture",
+  "source_name": "offline_fixture_pack",
+  "captured_at": "2026-04-18T09:30:00Z",
+  "market": {
+    "market_id": "market-002",
+    "title": "Which launch window will the mission use?",
+    "slug": "mission-launch-window",
+    "category": "science",
+    "status": "open"
+  },
+  "outcomes": [
+    {
+      "name": "Morning",
+      "side": "morning",
+      "price": 0.31,
+      "liquidity": 4300.0
+    },
+    {
+      "name": "Afternoon",
+      "side": "afternoon",
+      "price": 0.47,
+      "liquidity": 4350.0
+    },
+    {
+      "name": "Evening",
+      "side": "evening",
+      "price": 0.22,
+      "liquidity": 4285.0
+    }
+  ],
+  "provenance": {
+    "collected_by": "fixture_generator",
+    "collection_method": "curated_fixture",
+    "source_reference": "local://fixtures/valid_multi_outcome_market_snapshot"
+  },
+  "safety": {
+    "network_used": false,
+    "api_credentials_used": false,
+    "wallet_used": false,
+    "order_capable": false,
+    "trading_capable": false,
+    "readonly_intended": true
+  }
+}

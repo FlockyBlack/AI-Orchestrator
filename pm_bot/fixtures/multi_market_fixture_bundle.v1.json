@@ -1,0 +1,415 @@
+{
+  "schema_version": "v1",
+  "bundle_id": "PMBOT-BATCH-003-MULTI-MARKET-FIXTURE",
+  "source_type": "fixture",
+  "synthetic_fixture_only": true,
+  "paper_only": true,
+  "local_only": true,
+  "network_used": false,
+  "api_used": false,
+  "wallet_used": false,
+  "real_orders_used": false,
+  "runtime_wiring_added": false,
+  "portfolio_constraints": {
+    "total_paper_capital_usd": 1000.0,
+    "max_market_allocation_usd": 250.0,
+    "max_category_allocation_usd": 450.0,
+    "max_correlated_group_allocation_usd": 400.0,
+    "max_total_allocation_ratio": 0.7,
+    "min_liquidity_usd_24h": 50000.0,
+    "max_spread_bps": 140,
+    "max_stale_hours": 24
+  },
+  "markets": [
+    {
+      "market_id": "pm_fixture_2026_us_growth_soft_landing",
+      "synthetic_fixture_only": true,
+      "title": "Will the US economy avoid recession through Q4 2026?",
+      "category": "macro",
+      "status": "open",
+      "close_time": "2026-12-31T23:00:00Z",
+      "last_updated": "2026-04-26T08:00:00Z",
+      "stale_hours": 2,
+      "outcomes": [
+        {
+          "label": "Yes",
+          "price": 0.44
+        },
+        {
+          "label": "No",
+          "price": 0.56
+        }
+      ],
+      "implied_probabilities": {
+        "Yes": 0.44,
+        "No": 0.56
+      },
+      "liquidity_usd_24h": 240000.0,
+      "volume_usd_24h": 860000.0,
+      "spread_bps_assumption": 30,
+      "slippage_bps_assumption": 4,
+      "paper_notes": "Normal liquid binary fixture used as a baseline positive paper candidate.",
+      "research_notes": "Synthetic thesis assumes soft-landing optimism is underpriced in this paper fixture.",
+      "fixture_source": "PMBOT synthetic research fixture bundle",
+      "tags": [
+        "synthetic",
+        "fixture_only",
+        "paper_only",
+        "baseline"
+      ],
+      "risk_metadata": {
+        "correlated_group": "us-macro-2026",
+        "concentration_candidate": false
+      },
+      "paper_position_plan": {
+        "side": "buy_yes",
+        "allocation_usd": 220.0,
+        "quantity": 500,
+        "entry_price": 0.44,
+        "target_price": 0.58,
+        "expected_edge_bps": 420,
+        "thesis": "Positive paper edge with liquid spread and current fixture data."
+      }
+    },
+    {
+      "market_id": "pm_fixture_2026_championship_upset",
+      "synthetic_fixture_only": true,
+      "title": "Will a seeded underdog win the 2026 championship final?",
+      "category": "sports",
+      "status": "open",
+      "close_time": "2026-11-14T20:00:00Z",
+      "last_updated": "2026-04-26T07:30:00Z",
+      "stale_hours": 3,
+      "outcomes": [
+        {
+          "label": "Yes",
+          "price": 0.33
+        },
+        {
+          "label": "No",
+          "price": 0.67
+        }
+      ],
+      "implied_probabilities": {
+        "Yes": 0.33,
+        "No": 0.67
+      },
+      "liquidity_usd_24h": 14000.0,
+      "volume_usd_24h": 51000.0,
+      "spread_bps_assumption": 90,
+      "slippage_bps_assumption": 12,
+      "paper_notes": "Low-liquidity rejection case.",
+      "research_notes": "Synthetic sports thesis exists but liquidity floor is intentionally too low.",
+      "fixture_source": "PMBOT synthetic research fixture bundle",
+      "tags": [
+        "synthetic",
+        "fixture_only",
+        "paper_only",
+        "low_liquidity"
+      ],
+      "risk_metadata": {
+        "correlated_group": "sports-outrights",
+        "concentration_candidate": false
+      },
+      "paper_position_plan": {
+        "side": "buy_yes",
+        "allocation_usd": 90.0,
+        "quantity": 272,
+        "entry_price": 0.33,
+        "target_price": 0.41,
+        "expected_edge_bps": 180,
+        "thesis": "Would be a speculative paper idea if the market were sufficiently liquid."
+      }
+    },
+    {
+      "market_id": "pm_fixture_2026_cabinet_exit",
+      "synthetic_fixture_only": true,
+      "title": "Will a cabinet member resign before September 2026?",
+      "category": "politics",
+      "status": "open",
+      "close_time": "2026-09-30T21:00:00Z",
+      "last_updated": "2026-04-26T06:30:00Z",
+      "stale_hours": 4,
+      "outcomes": [
+        {
+          "label": "Yes",
+          "price": 0.48
+        },
+        {
+          "label": "No",
+          "price": 0.52
+        }
+      ],
+      "implied_probabilities": {
+        "Yes": 0.48,
+        "No": 0.52
+      },
+      "liquidity_usd_24h": 92000.0,
+      "volume_usd_24h": 190000.0,
+      "spread_bps_assumption": 210,
+      "slippage_bps_assumption": 18,
+      "paper_notes": "Wide-spread and negative-edge rejection case.",
+      "research_notes": "Synthetic political chatter is intentionally inconclusive and expensive to enter.",
+      "fixture_source": "PMBOT synthetic research fixture bundle",
+      "tags": [
+        "synthetic",
+        "fixture_only",
+        "paper_only",
+        "wide_spread"
+      ],
+      "risk_metadata": {
+        "correlated_group": "political-personnel",
+        "concentration_candidate": false
+      },
+      "paper_position_plan": {
+        "side": "buy_yes",
+        "allocation_usd": 120.0,
+        "quantity": 250,
+        "entry_price": 0.48,
+        "target_price": 0.45,
+        "expected_edge_bps": -120,
+        "thesis": "Negative paper edge with expensive spread should force deterministic rejection."
+      }
+    },
+    {
+      "market_id": "pm_fixture_2026_ai_regulation_vote",
+      "synthetic_fixture_only": true,
+      "title": "Will a national AI regulation bill pass in 2026?",
+      "category": "technology",
+      "status": "open",
+      "close_time": "2026-10-31T22:00:00Z",
+      "last_updated": "2026-04-22T01:00:00Z",
+      "stale_hours": 79,
+      "outcomes": [
+        {
+          "label": "Yes",
+          "price": 0.39
+        },
+        {
+          "label": "No",
+          "price": 0.61
+        }
+      ],
+      "implied_probabilities": {
+        "Yes": 0.39,
+        "No": 0.61
+      },
+      "liquidity_usd_24h": 114000.0,
+      "volume_usd_24h": 275000.0,
+      "spread_bps_assumption": 60,
+      "slippage_bps_assumption": 8,
+      "paper_notes": "Stale-data warning case.",
+      "research_notes": "Synthetic thesis is positive but the stale timestamp should block acceptance.",
+      "fixture_source": "PMBOT synthetic research fixture bundle",
+      "tags": [
+        "synthetic",
+        "fixture_only",
+        "paper_only",
+        "stale_data"
+      ],
+      "risk_metadata": {
+        "correlated_group": "policy-tech",
+        "concentration_candidate": false
+      },
+      "paper_position_plan": {
+        "side": "buy_yes",
+        "allocation_usd": 160.0,
+        "quantity": 410,
+        "entry_price": 0.39,
+        "target_price": 0.49,
+        "expected_edge_bps": 250,
+        "thesis": "Positive paper edge invalidated by stale fixture data."
+      }
+    },
+    {
+      "market_id": "pm_fixture_2026_hurricane_season_closed",
+      "synthetic_fixture_only": true,
+      "title": "Will the 2026 hurricane season exceed the five-year average?",
+      "category": "climate",
+      "status": "resolved",
+      "close_time": "2026-03-01T00:00:00Z",
+      "last_updated": "2026-03-02T00:00:00Z",
+      "stale_hours": 1320,
+      "outcomes": [
+        {
+          "label": "Yes",
+          "price": 1.0
+        },
+        {
+          "label": "No",
+          "price": 0.0
+        }
+      ],
+      "implied_probabilities": {
+        "Yes": 1.0,
+        "No": 0.0
+      },
+      "liquidity_usd_24h": 0.0,
+      "volume_usd_24h": 402000.0,
+      "spread_bps_assumption": 0,
+      "slippage_bps_assumption": 0,
+      "paper_notes": "Resolved market exclusion case.",
+      "fixture_source": "PMBOT synthetic research fixture bundle",
+      "tags": [
+        "synthetic",
+        "fixture_only",
+        "paper_only",
+        "resolved"
+      ],
+      "risk_metadata": {
+        "correlated_group": "climate-seasonal",
+        "concentration_candidate": false
+      },
+      "paper_position_plan": null
+    },
+    {
+      "market_id": "pm_fixture_2026_ceasefire_window",
+      "synthetic_fixture_only": true,
+      "title": "Will a ceasefire agreement hold through the next 90 days?",
+      "category": "geopolitics",
+      "status": "open",
+      "close_time": "2026-08-01T20:00:00Z",
+      "last_updated": "2026-04-26T08:10:00Z",
+      "stale_hours": 1,
+      "outcomes": [
+        {
+          "label": "Yes",
+          "price": 0.35
+        },
+        {
+          "label": "No",
+          "price": 0.65
+        }
+      ],
+      "implied_probabilities": {
+        "Yes": 0.35,
+        "No": 0.65
+      },
+      "liquidity_usd_24h": 67000.0,
+      "volume_usd_24h": 188000.0,
+      "spread_bps_assumption": 80,
+      "slippage_bps_assumption": 10,
+      "paper_notes": "Accepted paper candidate with intentionally missing optional research notes.",
+      "fixture_source": "PMBOT synthetic research fixture bundle",
+      "tags": [
+        "synthetic",
+        "fixture_only",
+        "paper_only",
+        "missing_notes"
+      ],
+      "risk_metadata": {
+        "correlated_group": "geopolitics-conflict",
+        "concentration_candidate": false
+      },
+      "paper_position_plan": {
+        "side": "buy_yes",
+        "allocation_usd": 140.0,
+        "quantity": 400,
+        "entry_price": 0.35,
+        "target_price": 0.46,
+        "expected_edge_bps": 310,
+        "thesis": "Accepted paper idea, but optional narrative notes are intentionally absent."
+      }
+    },
+    {
+      "market_id": "pm_fixture_2026_rate_cut_december",
+      "synthetic_fixture_only": true,
+      "title": "Will the central bank cut rates by December 2026?",
+      "category": "macro",
+      "status": "open",
+      "close_time": "2026-12-18T19:00:00Z",
+      "last_updated": "2026-04-26T08:05:00Z",
+      "stale_hours": 2,
+      "outcomes": [
+        {
+          "label": "Yes",
+          "price": 0.55
+        },
+        {
+          "label": "No",
+          "price": 0.45
+        }
+      ],
+      "implied_probabilities": {
+        "Yes": 0.55,
+        "No": 0.45
+      },
+      "liquidity_usd_24h": 171000.0,
+      "volume_usd_24h": 460000.0,
+      "spread_bps_assumption": 40,
+      "slippage_bps_assumption": 5,
+      "paper_notes": "High-concentration risk candidate.",
+      "research_notes": "Synthetic macro view clusters with other accepted macro candidates.",
+      "fixture_source": "PMBOT synthetic research fixture bundle",
+      "tags": [
+        "synthetic",
+        "fixture_only",
+        "paper_only",
+        "concentration_candidate"
+      ],
+      "risk_metadata": {
+        "correlated_group": "us-macro-2026",
+        "concentration_candidate": true
+      },
+      "paper_position_plan": {
+        "side": "buy_yes",
+        "allocation_usd": 220.0,
+        "quantity": 400,
+        "entry_price": 0.55,
+        "target_price": 0.64,
+        "expected_edge_bps": 290,
+        "thesis": "Accepted paper edge that increases macro concentration."
+      }
+    },
+    {
+      "market_id": "pm_fixture_2026_cpi_below_target",
+      "synthetic_fixture_only": true,
+      "title": "Will CPI print below 2.5% in Q4 2026?",
+      "category": "macro",
+      "status": "open",
+      "close_time": "2026-11-20T18:30:00Z",
+      "last_updated": "2026-04-26T08:12:00Z",
+      "stale_hours": 1,
+      "outcomes": [
+        {
+          "label": "Yes",
+          "price": 0.6
+        },
+        {
+          "label": "No",
+          "price": 0.4
+        }
+      ],
+      "implied_probabilities": {
+        "Yes": 0.6,
+        "No": 0.4
+      },
+      "liquidity_usd_24h": 149000.0,
+      "volume_usd_24h": 310000.0,
+      "spread_bps_assumption": 50,
+      "slippage_bps_assumption": 6,
+      "paper_notes": "Correlated category exposure case.",
+      "research_notes": "Synthetic inflation view is intentionally correlated with the macro rate-cut fixture.",
+      "fixture_source": "PMBOT synthetic research fixture bundle",
+      "tags": [
+        "synthetic",
+        "fixture_only",
+        "paper_only",
+        "correlated"
+      ],
+      "risk_metadata": {
+        "correlated_group": "us-macro-2026",
+        "concentration_candidate": false
+      },
+      "paper_position_plan": {
+        "side": "buy_yes",
+        "allocation_usd": 180.0,
+        "quantity": 300,
+        "entry_price": 0.6,
+        "target_price": 0.71,
+        "expected_edge_bps": 260,
+        "thesis": "Accepted paper edge that should trigger correlated macro exposure caution."
+      }
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "contract_version": "raw_market_artifact.v1",
+  "artifact_id": "fixture-binary-20260420-market-001",
+  "source_type": "fixture",
+  "source_name": "offline_fixture_pack",
+  "captured_at": "2026-04-20T12:00:00Z",
+  "market": {
+    "market_id": "market-001",
+    "title": "Will Example City approve the transit plan?",
+    "condition_id": "cond-001",
+    "slug": "example-city-transit-plan",
+    "category": "civics",
+    "end_date": "2026-05-01T00:00:00Z",
+    "status": "open"
+  },
+  "outcomes": [
+    {
+      "name": "Yes",
+      "side": "yes",
+      "price": 0.58,
+      "liquidity": 12500.0,
+      "volume": 9821.0
+    },
+    {
+      "name": "No",
+      "side": "no",
+      "price": 0.42,
+      "liquidity": 12480.0,
+      "volume": 9784.0
+    }
+  ],
+  "provenance": {
+    "collected_by": "fixture_generator",
+    "collection_method": "curated_fixture",
+    "source_reference": "local://fixtures/valid_binary_market_snapshot",
+    "notes": "Binary fixture for offline artifact validation."
+  },
+  "safety": {
+    "network_used": false,
+    "api_credentials_used": false,
+    "wallet_used": false,
+    "order_capable": false,
+    "trading_capable": false,
+    "readonly_intended": true
+  }
+}

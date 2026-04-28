@@ -1,0 +1,89 @@
+{
+  "schema_version": "manual_dossier_drafts_fixture.v1",
+  "task_id": "PMBOT-RESEARCH-013-MANUAL-DOSSIER-DRAFT-QUALITY-GATE",
+  "deterministic": true,
+  "draft_record_format": "operator_manual_dossier_draft_attempts",
+  "draft_records": [
+    {
+      "market_id": "563650",
+      "draft_status": "draft_ready_for_human_review",
+      "market_context_notes": "Manual context note records the market subject and timing for human review only.",
+      "resolution_criteria_notes": "Resolution criteria note records the source categories and unresolved manual review points.",
+      "evidence_summary_by_source": [
+        "offline-reference:563650:rules - records the rule source category used for structural review.",
+        "offline-reference:563650:docket - records a court-source claim without resolving the outcome.",
+        "offline-reference:563650:news - records external context for later human review."
+      ],
+      "uncertainty_register": [
+        "Court docket terminology may require manual interpretation.",
+        "Source timing should be reviewed by a human before any later workflow."
+      ],
+      "missing_information_review": "No missing-information item is closed by this gate; human review remains required.",
+      "operator_review_notes": "Manual draft sections are populated for structural quality review only.",
+      "open_questions": [
+        "Confirm the exact docket identifier before any later human decision."
+      ],
+      "next_manual_action": "human_review_required"
+    },
+    {
+      "market_id": "unknown-market-id",
+      "draft_status": "draft_incomplete",
+      "operator_review_notes": "Unknown market ids must be rejected by the local quality gate.",
+      "next_manual_action": "fix_draft_structure"
+    },
+    {
+      "market_id": "569366",
+      "draft_status": "needs_more_information",
+      "operator_review_notes": "This market exists locally but was not exported as a draft skeleton.",
+      "next_manual_action": "add_missing_information"
+    },
+    {
+      "market_id": "563650",
+      "draft_status": "draft_incomplete",
+      "title_question": "Operator attempted to replace immutable skeleton title content.",
+      "operator_review_notes": "Immutable skeleton fields must remain sourced from the skeleton artifact.",
+      "next_manual_action": "fix_draft_structure"
+    },
+    {
+      "market_id": "563650",
+      "draft_status": "draft_incomplete",
+      "operator_review_notes": "Execution-like draft fields are not allowed.",
+      "trade": "not allowed in offline dossier draft validation",
+      "execution": {
+        "order": "not allowed in offline dossier draft validation"
+      },
+      "wallet": "not allowed in offline dossier draft validation",
+      "recommendation": "not allowed in offline dossier draft validation",
+      "next_manual_action": "fix_draft_structure"
+    },
+    {
+      "market_id": "563650",
+      "draft_status": "draft_incomplete",
+      "operator_review_notes": "Numerical market judgment fields are not allowed.",
+      "probability": 0.5,
+      "expected_value": "not allowed in offline dossier draft validation",
+      "ev": "not allowed in offline dossier draft validation",
+      "score": 10,
+      "side": "not allowed in offline dossier draft validation",
+      "yes_no_decision": "not allowed in offline dossier draft validation",
+      "next_manual_action": "fix_draft_structure"
+    },
+    {
+      "market_id": "563650",
+      "draft_status": "draft_ready_for_human_review",
+      "market_context_notes": "",
+      "resolution_criteria_notes": "",
+      "evidence_summary_by_source": [],
+      "uncertainty_register": [],
+      "missing_information_review": "",
+      "operator_review_notes": "",
+      "next_manual_action": "human_review_required"
+    },
+    {
+      "market_id": "563650",
+      "draft_status": "draft_incomplete",
+      "operator_review_notes": "completed_dossier language is not allowed in machine-readable draft fields.",
+      "next_manual_action": "fix_draft_structure"
+    }
+  ]
+}

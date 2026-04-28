@@ -1,0 +1,64 @@
+{
+  "schema_version": "external_codex_plan.v1",
+  "plan_id": "PMBOT-BATCH-001",
+  "created_at": "2026-04-25T14:44:21+00:00",
+  "prompt_pack_ref": "codex_auto/prompts/PMBOT-BATCH-001.codex_prompt.txt",
+  "prompt_manifest_ref": "codex_auto/prompts/PMBOT-BATCH-001.prompt_manifest.json",
+  "candidate_task_refs": [
+    "codex_auto/tasks/candidates/PMBOT-005-PAPER-SIMULATION.task.json",
+    "codex_auto/tasks/candidates/PMBOT-006-RISK-LIMITS.task.json",
+    "codex_auto/tasks/candidates/PMBOT-007-FEES-SLIPPAGE.task.json",
+    "codex_auto/tasks/candidates/PMBOT-008-RESEARCH-DASHBOARD.task.json",
+    "codex_auto/tasks/candidates/PMBOT-009-FIXTURE-POSTMORTEM.task.json",
+    "codex_auto/tasks/candidates/PMBOT-010-STATIC-SAFETY-AUDIT.task.json"
+  ],
+  "command_preview": "preview_only\ndo_not_execute_now\nrequires_human_approval\nrequires_flocky_validation\nfuture_command:\ncodex exec --cd C:\\Users\\OpenC\\Documents\\AI-Orchestrator -- < codex_auto\\prompts\\PMBOT-BATCH-001.codex_prompt.txt",
+  "execution_allowed_now": false,
+  "external_codex_cli_allowed_now": false,
+  "requires_human_approval_before_execution": true,
+  "requires_flocky_review_before_execution": true,
+  "expected_result_path": "codex_auto/tasks/needs_flocky_review/PMBOT-BATCH-001.external_codex_result.json",
+  "expected_validation_after_execution": [
+    "Promotion to ready must remain a separate approved task.",
+    "Future external execution output must enter Flocky review before any done claim.",
+    "No runtime wiring is authorized by this plan."
+  ],
+  "allowed_paths": [
+    "pm_bot/paper/",
+    "pm_bot/paper/tests/",
+    "pm_bot/risk/",
+    "pm_bot/risk/tests/",
+    "pm_bot/accounting/",
+    "pm_bot/accounting/tests/",
+    "pm_bot/reports/",
+    "pm_bot/reports/tests/",
+    "pm_bot/postmortem/",
+    "pm_bot/postmortem/tests/",
+    "pm_bot/audit/",
+    "pm_bot/audit/tests/"
+  ],
+  "forbidden_paths": [
+    "scripts/dispatcher.py",
+    "scripts/run_codex.py",
+    "tasks/",
+    "state/",
+    "runtime/",
+    "results/",
+    "freeze/",
+    "checkpoint/"
+  ],
+  "safety_check": {
+    "execution_allowed_now": false,
+    "external_codex_cli_allowed_now": false,
+    "runtime_wiring_allowed": false,
+    "preview_only": true,
+    "human_approval_required_before_execution": true,
+    "flocky_review_required_before_execution": true,
+    "network_used": false,
+    "api_used": false,
+    "wallet_used": false,
+    "private_key_used": false,
+    "trading_used": false,
+    "single_runtime_source_rule_preserved": true
+  }
+}

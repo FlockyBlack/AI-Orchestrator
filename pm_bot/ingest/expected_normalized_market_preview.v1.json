@@ -1,0 +1,81 @@
+{
+  "artifact_type": "polymarket_normalized_market_preview",
+  "parse_warnings": [],
+  "records": [
+    {
+      "accepting_orders": null,
+      "active": true,
+      "category_or_tags": [],
+      "clob_token_ids": [],
+      "closed": false,
+      "condition_id": "0xconditioneventfixture001",
+      "description": null,
+      "enable_order_book": null,
+      "end_date": "2026-05-30T00:00:00Z",
+      "event_active": true,
+      "event_closed": false,
+      "event_id": "2001",
+      "event_slug": "example-policy-event-2026",
+      "event_title": "Example policy event for 2026",
+      "liquidity": 1234.5,
+      "market_id": "3001",
+      "market_slug": "example-policy-pass-may-2026",
+      "outcome_prices": [],
+      "outcomes": [
+        "Yes",
+        "No"
+      ],
+      "question": "Will the example policy pass by May 2026?",
+      "raw_market_updated_at": null,
+      "restricted": null,
+      "source_name": "polymarket_gamma_events",
+      "source_snapshot_artifact_id": "polymarket_gamma_events_20260428T000000Z_d80515cae764",
+      "source_snapshot_path": "pm_bot/ingest/polymarket_events_raw_snapshot_fixture.v1.json",
+      "start_date": null,
+      "volume": 4567.89
+    },
+    {
+      "accepting_orders": null,
+      "active": true,
+      "category_or_tags": [],
+      "clob_token_ids": [],
+      "closed": false,
+      "condition_id": "0xconditioneventfixture002",
+      "description": null,
+      "enable_order_book": null,
+      "end_date": "2026-06-30T00:00:00Z",
+      "event_active": true,
+      "event_closed": false,
+      "event_id": "2001",
+      "event_slug": "example-policy-event-2026",
+      "event_title": "Example policy event for 2026",
+      "liquidity": 987.65,
+      "market_id": "3002",
+      "market_slug": "example-index-above-50-june-2026",
+      "outcome_prices": [],
+      "outcomes": [
+        "Above",
+        "Below"
+      ],
+      "question": "Will the example index finish above 50 by June 2026?",
+      "raw_market_updated_at": null,
+      "restricted": null,
+      "source_name": "polymarket_gamma_events",
+      "source_snapshot_artifact_id": "polymarket_gamma_events_20260428T000000Z_d80515cae764",
+      "source_snapshot_path": "pm_bot/ingest/polymarket_events_raw_snapshot_fixture.v1.json",
+      "start_date": null,
+      "volume": 3210
+    }
+  ],
+  "schema_version": "normalized_market_preview.v1",
+  "summary": {
+    "active_open_records": 2,
+    "closed_records": 0,
+    "events_seen": 1,
+    "nested_markets_seen": 2,
+    "normalized_records_written": 2,
+    "parse_warning_count": 0,
+    "source_name": "polymarket_gamma_events",
+    "source_snapshot_path": "pm_bot/ingest/polymarket_events_raw_snapshot_fixture.v1.json"
+  }
+}

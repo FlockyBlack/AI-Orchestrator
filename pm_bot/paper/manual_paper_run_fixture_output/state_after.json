@@ -1,0 +1,58 @@
+{
+  "schema_version": "v1",
+  "state_id": "paper_portfolio_state_after_snapshot_v1",
+  "fixture_only": true,
+  "paper_only": true,
+  "processed_snapshot_ids": [
+    "series_snapshot_001",
+    "series_snapshot_002",
+    "series_snapshot_003"
+  ],
+  "processed_market_side_keys": [
+    "series_btc_above_90000_2026_05_31|above"
+  ],
+  "paper_positions": [
+    {
+      "market_id": "series_btc_above_90000_2026_05_31",
+      "asset": "BTC",
+      "side": "above",
+      "status": "settled",
+      "opened_at": "2026-05-01T12:00:00Z",
+      "settled_at": "2026-05-31T23:59:00Z",
+      "fill_price": 0.58,
+      "shares": 172.4138,
+      "paper_notional": 100.0,
+      "max_loss": 100.0,
+      "current_yes_price": 1.0,
+      "settled": true,
+      "settlement_outcome": "yes",
+      "settlement_value": 1.0,
+      "offline_only": true,
+      "paper_only": true,
+      "live_fetcher_implemented": false,
+      "execution_allowed": false,
+      "trading_allowed": false,
+      "real_order_created": false,
+      "wallet_used": false,
+      "api_used": false,
+      "network_used": false,
+      "paper_pnl": 72.41
+    }
+  ],
+  "exposure_summary": {
+    "open_positions": 0,
+    "settled_positions": 1,
+    "total_paper_notional": 100.0,
+    "open_paper_notional": 0,
+    "realized_paper_pnl": 72.41,
+    "unrealized_paper_pnl": 0
+  },
+  "offline_only": true,
+  "live_fetcher_implemented": false,
+  "execution_allowed": false,
+  "trading_allowed": false,
+  "real_order_created": false,
+  "wallet_used": false,
+  "api_used": false,
+  "network_used": false
+}

@@ -1,0 +1,62 @@
+{
+  "task_id": "ORCH-AUTOPILOT-006-DRY-RUN-REPORTER",
+  "status": "implementation_complete_ready_for_flocky_validation",
+  "summary": "Implemented an isolated Autopilot V1 dry-run reporter with CLI and library support, deterministic JSON output, schema, fixtures, docs, and validation coverage. The reporter chains authoritative task/run references into preview handoff build and validation, emits a dry-run-only flow report, and recommends a gated next action without runtime wiring, queue mutation, execution approval, or final acceptance claims.",
+  "files_created": [
+    "codex_auto/autopilot/run_dry_run_flow.py",
+    "codex_auto/autopilot/autopilot_dry_run_report.schema.v1.json",
+    "codex_auto/autopilot/fixtures/expected_dry_run_report.v1.json",
+    "codex_auto/autopilot/fixtures/invalid_dry_run_runtime_authority_true.v1.json",
+    "codex_auto/autopilot/fixtures/invalid_dry_run_final_acceptance_authority_true.v1.json",
+    "codex_auto/autopilot/fixtures/invalid_dry_run_execution_allowed_now_true.v1.json",
+    "codex_auto/autopilot/fixtures/invalid_dry_run_runtime_wiring_allowed_true.v1.json",
+    "codex_auto/autopilot/fixtures/invalid_dry_run_queue_mutation_allowed_true.v1.json",
+    "codex_auto/autopilot/fixtures/invalid_dry_run_final_acceptance_claimed_true.v1.json",
+    "codex_auto/autopilot/fixtures/invalid_dry_run_bad_next_action_execute_now.v1.json",
+    "codex_auto/autopilot/fixtures/invalid_dry_run_missing_forbidden_paths.v1.json",
+    "codex_auto/autopilot/fixtures/invalid_dry_run_source_of_truth_transfer_claim.v1.json",
+    "codex_auto/autopilot/tests/test_run_dry_run_flow.py",
+    "docs/AUTOPILOT_V1_DRY_RUN_FLOW.md",
+    "docs/ORCH_AUTOPILOT_006_RESULT.json"
+  ],
+  "files_modified": [],
+  "tests_run": [
+    {
+      "command": "python -m pytest -q codex_auto/autopilot/tests",
+      "result": "passed"
+    },
+    {
+      "command": "python codex_auto/autopilot/run_dry_run_flow.py --task-path codex_auto/autopilot/fixtures/valid_runtime_task.json --run-path codex_auto/autopilot/fixtures/valid_runtime_result.json --source-task-id ORCH-AUTOPILOT-SAMPLE --out -",
+      "result": "passed"
+    },
+    {
+      "command": "python -m pytest -q codex_auto",
+      "result": "failed",
+      "details": "Known unrelated external_cli/one_shot failures remained outside allowed edit scope: test_final_preview_uses_non_interactive_editable_codex_command and test_gate_validates."
+    }
+  ],
+  "safety": {
+    "dry_run_only": true,
+    "runtime_authority": false,
+    "final_acceptance_authority": false,
+    "execution_allowed_now": false,
+    "runtime_wiring_allowed": false,
+    "queue_mutation_allowed": false,
+    "final_acceptance_claimed": false,
+    "single_runtime_source_rule_preserved": true,
+    "writes_limited_to_allowed_paths": true,
+    "dispatcher_changed": false,
+    "run_codex_changed": false,
+    "runtime_state_mutated": false,
+    "queue_mutated": false,
+    "governance_mutated": false,
+    "network_api_used": false,
+    "external_codex_executed": false
+  },
+  "blocking_findings": [],
+  "warnings": [
+    "Broader codex_auto pytest still fails in codex_auto/external_cli/one_shot tests outside the allowed modification scope.",
+    "Expected dry-run fixture warnings are example reference path warnings from fixture-based authoritative task/run references, not runtime authority drift."
+  ],
+  "next_required_step": "ORCH-AUTOPILOT-006-DRY-RUN-REPORTER-V Flocky read-only validation"
+}

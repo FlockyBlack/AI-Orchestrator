@@ -1,0 +1,197 @@
+{
+  "schema_version": "v1",
+  "report_id": "PMBOT-BRAIN-004-CRYPTO-NUMERIC-PAPER-CHAIN",
+  "fixture_id": "crypto_numeric_fixture_v1",
+  "deterministic": true,
+  "offline_only": true,
+  "paper_only": true,
+  "execution_allowed": false,
+  "trading_allowed": false,
+  "score_summary": {
+    "markets_scored": 4,
+    "paper_candidates": 1,
+    "watchlist": 1,
+    "rejected": 2
+  },
+  "review_summary": {
+    "paper_candidates": 1,
+    "watchlist": 1,
+    "rejected": 2,
+    "operator_review_only": true
+  },
+  "paper_order_summary": {
+    "paper_limit_orders": 1,
+    "no_action_entries": 3,
+    "total_planned_paper_notional": 100.0,
+    "max_loss": 100.0
+  },
+  "paper_candidate_rows": [
+    {
+      "market_id": "crypto_numeric_btc_above_90000_2026_05_31",
+      "asset": "BTC",
+      "side": "above",
+      "market_probability": 0.59,
+      "model_probability": 0.6797,
+      "edge_after_buffer": 0.0647,
+      "liquidity_status": "pass",
+      "spread_status": "pass",
+      "risk_status": "pass",
+      "decision": "paper_candidate",
+      "short_reason": "positive buffered edge clears review gates"
+    }
+  ],
+  "watchlist_rows": [
+    {
+      "market_id": "crypto_numeric_eth_below_3000_2026_05_31",
+      "asset": "ETH",
+      "side": "below",
+      "market_probability": 0.36,
+      "model_probability": 0.3895,
+      "edge_after_buffer": 0.0045,
+      "liquidity_status": "pass",
+      "spread_status": "pass",
+      "risk_status": "watch",
+      "decision": "watchlist",
+      "short_reason": "positive buffered edge needs operator review; risk needs review"
+    }
+  ],
+  "rejected_rows": [
+    {
+      "market_id": "crypto_numeric_btc_above_90000_low_liquidity_2026_05_31",
+      "asset": "BTC",
+      "side": "above",
+      "market_probability": 0.42,
+      "model_probability": 0.3457,
+      "edge_after_buffer": -0.0993,
+      "liquidity_status": "fail",
+      "spread_status": "watch",
+      "risk_status": "pass",
+      "decision": "reject",
+      "short_reason": "buffered edge is not positive; liquidity gate failed; spread needs review"
+    },
+    {
+      "market_id": "crypto_numeric_eth_below_3000_wide_spread_2026_05_31",
+      "asset": "ETH",
+      "side": "below",
+      "market_probability": 0.6,
+      "model_probability": 0.7425,
+      "edge_after_buffer": 0.1175,
+      "liquidity_status": "pass",
+      "spread_status": "fail",
+      "risk_status": "fail",
+      "decision": "reject",
+      "short_reason": "spread gate failed; risk gate failed"
+    }
+  ],
+  "generated_paper_order_plan": {
+    "schema_version": "v1",
+    "report_id": "PMBOT-BRAIN-003-CRYPTO-NUMERIC-PAPER-ORDER-PLAN",
+    "source_report_id": "PMBOT-BRAIN-002-CRYPTO-NUMERIC-REVIEW-TABLE",
+    "fixture_id": "crypto_numeric_fixture_v1",
+    "deterministic": true,
+    "offline_only": true,
+    "paper_only": true,
+    "execution_allowed": false,
+    "trading_allowed": false,
+    "operator_review_only": true,
+    "risk_limits": {
+      "max_paper_notional_per_market": 100.0,
+      "max_total_paper_notional": 250.0,
+      "minimum_edge_after_buffer": 0.04,
+      "reject_low_liquidity": true,
+      "reject_wide_spread": true,
+      "reject_risk_fail": true
+    },
+    "paper_order_count": 1,
+    "no_action_count": 3,
+    "total_planned_paper_notional": 100.0,
+    "entries": [
+      {
+        "market_id": "crypto_numeric_btc_above_90000_2026_05_31",
+        "asset": "BTC",
+        "side": "above",
+        "action": "paper_limit_order",
+        "limit_price": 0.59,
+        "paper_notional": 100.0,
+        "max_loss": 100.0,
+        "reason": "Paper candidate clears edge, liquidity, spread, and risk limits.",
+        "risk_limits_applied": {
+          "max_paper_notional_per_market": 100.0,
+          "max_total_paper_notional": 250.0,
+          "minimum_edge_after_buffer": 0.04,
+          "reject_low_liquidity": true,
+          "reject_wide_spread": true,
+          "reject_risk_fail": true
+        },
+        "offline_only": true,
+        "paper_only": true,
+        "execution_allowed": false,
+        "trading_allowed": false
+      },
+      {
+        "market_id": "crypto_numeric_eth_below_3000_2026_05_31",
+        "asset": "ETH",
+        "side": "below",
+        "action": "no_action",
+        "reason": "decision is watchlist; edge_after_buffer below minimum; risk needs operator review",
+        "risk_limits_applied": {
+          "max_paper_notional_per_market": 100.0,
+          "max_total_paper_notional": 250.0,
+          "minimum_edge_after_buffer": 0.04,
+          "reject_low_liquidity": true,
+          "reject_wide_spread": true,
+          "reject_risk_fail": true
+        },
+        "offline_only": true,
+        "paper_only": true,
+        "execution_allowed": false,
+        "trading_allowed": false
+      },
+      {
+        "market_id": "crypto_numeric_btc_above_90000_low_liquidity_2026_05_31",
+        "asset": "BTC",
+        "side": "above",
+        "action": "no_action",
+        "reason": "decision is reject; edge_after_buffer below minimum; low liquidity rejected",
+        "risk_limits_applied": {
+          "max_paper_notional_per_market": 100.0,
+          "max_total_paper_notional": 250.0,
+          "minimum_edge_after_buffer": 0.04,
+          "reject_low_liquidity": true,
+          "reject_wide_spread": true,
+          "reject_risk_fail": true
+        },
+        "offline_only": true,
+        "paper_only": true,
+        "execution_allowed": false,
+        "trading_allowed": false
+      },
+      {
+        "market_id": "crypto_numeric_eth_below_3000_wide_spread_2026_05_31",
+        "asset": "ETH",
+        "side": "below",
+        "action": "no_action",
+        "reason": "decision is reject; wide spread rejected; risk fail rejected",
+        "risk_limits_applied": {
+          "max_paper_notional_per_market": 100.0,
+          "max_total_paper_notional": 250.0,
+          "minimum_edge_after_buffer": 0.04,
+          "reject_low_liquidity": true,
+          "reject_wide_spread": true,
+          "reject_risk_fail": true
+        },
+        "offline_only": true,
+        "paper_only": true,
+        "execution_allowed": false,
+        "trading_allowed": false
+      }
+    ],
+    "review_note": "Paper order plans are offline review artifacts only. No execution, trading, order placement, or runtime action is allowed."
+  },
+  "limitations": [
+    "Uses fixture input only; no live markets, prices, or APIs are fetched.",
+    "Generated paper order plan is an offline review artifact only; no real order is created.",
+    "No runtime integration, prompt automation, credentials, or wallet access is included."
+  ],
+  "review_note": "End-to-end crypto numeric paper chain for operator review only."
+}

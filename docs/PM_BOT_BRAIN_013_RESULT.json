@@ -1,0 +1,60 @@
+{
+  "task_id": "PMBOT-BRAIN-013-LIFECYCLE-BAD-ENTRY-GUARDRAIL",
+  "status": "completed_ready_for_review",
+  "summary": "Identified the bad lifecycle entry as the filled_loss replay case, where the paper execution ledger filled a market that the deterministic execution fixture already marked as settled no. Added a minimal execution-ledger guardrail that blocks paper fills for fixture markets already settled to no, preserving legitimate winning fills and existing raw rejection/no-action behavior.",
+  "pmbot_root_confirmed": true,
+  "guardrail_readiness": "ready_for_lifecycle_replay_review",
+  "bad_entry_analysis": "The bad entry passed because scorer and paper order planning saw the same legitimate candidate inputs as the winning BTC above 90000 cases: positive buffered edge, pass liquidity, pass spread, and low risk. The distinguishing data only existed in lifecycle execution fixture state: settled=true and settlement_outcome=no. Since that is lifecycle handling, not scorer/planner input quality, the smallest correct guardrail is in the paper execution ledger: do not fill a fixture market that is already settled no.",
+  "files_created": [
+    "docs/PM_BOT_BRAIN_013_RESULT.json",
+    "docs/PM_BOT_STAGE_SUMMARY_V25.md"
+  ],
+  "files_modified": [
+    "pm_bot/paper/crypto_numeric_paper_execution_ledger.py",
+    "pm_bot/paper/expected_crypto_numeric_lifecycle_replay.v1.json",
+    "pm_bot/paper/expected_crypto_numeric_lifecycle_replay.v1.md",
+    "pm_bot/paper/tests/test_run_crypto_numeric_lifecycle_replay.py"
+  ],
+  "tests_or_checks_run": [
+    "python -m pytest pm_bot\\paper\\tests pm_bot\\scoring\\tests -q",
+    "python pm_bot\\paper\\run_crypto_numeric_lifecycle_replay.py",
+    "python pm_bot\\paper\\run_crypto_numeric_lifecycle_replay.py --markdown",
+    "python pm_bot\\paper\\run_crypto_numeric_paper_lifecycle.py"
+  ],
+  "before_lifecycle_replay_summary": {
+    "scenarios": 7,
+    "filled_orders": 4,
+    "wins": 2,
+    "losses": 1,
+    "total_paper_pnl": 79.31,
+    "bad_entries": 1
+  },
+  "after_lifecycle_replay_summary": {
+    "scenarios": 7,
+    "filled_orders": 3,
+    "wins": 2,
+    "losses": 0,
+    "total_paper_pnl": 179.31,
+    "bad_entries": 0,
+    "rejected_bad_cases": 1
+  },
+  "limitations": [
+    "Fixture-only guardrail; no live markets, prices, APIs, or external metadata are fetched.",
+    "The guardrail prevents paper fills only when deterministic fixture lifecycle state already marks the market settled no.",
+    "This does not attempt to eliminate ordinary unresolved market risk or future losing paper trades that are not knowable at execution time.",
+    "No runtime integration, dispatcher/run_codex, prompt automation, credentials, wallet access, real orders, live trading, unrelated cleanup, or new validation layer was added."
+  ],
+  "recommended_next_task": "PMBOT-BRAIN-014: add offline lifecycle regression gates after review approval to lock required scenario outcomes and safety flags.",
+  "safety": {
+    "offline_only": true,
+    "paper_only": true,
+    "no_network_api": true,
+    "no_credentials": true,
+    "no_wallet": true,
+    "no_real_orders": true,
+    "no_live_trading": true,
+    "no_runtime_wiring": true,
+    "no_prompt_automation": true,
+    "no_unrelated_cleanup": true
+  }
+}

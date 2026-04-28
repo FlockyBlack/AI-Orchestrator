@@ -1,0 +1,74 @@
+{
+  "task_id": "PMBOT-RESEARCH-001-SINGLE-MARKET-RESEARCH-DOSSIER",
+  "status": "passed",
+  "summary": "Added deterministic offline/local single-market research dossier generation for manually selected Polymarket markets. The runner consumes a local research packet fixture, emits JSON by default or Markdown with --markdown, applies conservative decision gates, and never fetches live sources, writes state, or creates paper orders.",
+  "files_created": [
+    "pm_bot/research/single_market_research_packet.v1.json",
+    "pm_bot/research/run_single_market_research_dossier.py",
+    "pm_bot/research/expected_single_market_research_dossier.v1.json",
+    "pm_bot/research/expected_single_market_research_dossier.v1.md",
+    "pm_bot/research/tests/test_run_single_market_research_dossier.py",
+    "docs/PMBOT_RESEARCH_001_RESULT.json",
+    "docs/PM_BOT_STAGE_SUMMARY_V51.md"
+  ],
+  "files_modified": [],
+  "tests": [
+    {
+      "command": "python -m pytest pm_bot\\research\\tests\\test_run_single_market_research_dossier.py -q",
+      "status": "passed",
+      "result": "10 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\scoring\\tests pm_bot\\paper\\tests pm_bot\\research\\tests -q",
+      "status": "passed",
+      "result": "286 passed, 3 subtests passed"
+    },
+    {
+      "command": "python pm_bot\\research\\run_single_market_research_dossier.py",
+      "status": "passed",
+      "result": "market_id=pm_fixture_single_market_001; sources=5; yes_evidence=3; no_evidence=1; decision=paper_candidate; paper_orders_created=0"
+    },
+    {
+      "command": "python pm_bot\\research\\run_single_market_research_dossier.py --markdown",
+      "status": "passed",
+      "result": "deterministic Markdown dossier generated"
+    },
+    {
+      "command": "python pm_bot\\paper\\run_manual_paper_operator_cycle.py",
+      "status": "passed",
+      "result": "offline manual operator cycle passed; new_paper_orders_created=0"
+    },
+    {
+      "command": "python pm_bot\\paper\\run_crypto_numeric_lifecycle_regression_gates.py",
+      "status": "passed",
+      "result": "status=passed; gates_checked=6; gates_passed=6"
+    }
+  ],
+  "research_summary": {
+    "market_id": "pm_fixture_single_market_001",
+    "sources_count": "5",
+    "yes_evidence_count": "3",
+    "no_evidence_count": "1",
+    "decision": "paper_candidate",
+    "paper_orders_created": "0"
+  },
+  "safety": {
+    "offline_only": true,
+    "paper_only": true,
+    "live_fetcher_implemented": false,
+    "api_used": false,
+    "network_used": false,
+    "wallet_used": false,
+    "real_order_created": false,
+    "trading_allowed": false,
+    "runtime_wiring_changed": false,
+    "dispatcher_touched": false,
+    "prompt_automation_added": false
+  },
+  "notes": [
+    "Preflight passed in C:\\Users\\OpenC\\Documents\\AI-Orchestrator with pm_bot populated.",
+    "The packet is a manual fixture; source URLs are metadata only and are not fetched.",
+    "Decision paper_candidate is a research label only; no paper orders or workspace state writes are produced.",
+    "No files under C:\\Users\\OpenC\\Documents\\Codex were touched."
+  ]
+}

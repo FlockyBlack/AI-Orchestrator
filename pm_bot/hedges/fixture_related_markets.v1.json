@@ -1,0 +1,49 @@
+{
+  "markets": [
+    {
+      "market_id": "pm_fixture_election_2026_party_a",
+      "title": "Will Party A win the 2026 special election?",
+      "event_key": "election_2026_special",
+      "mutually_exclusive_group": "election_2026_winner",
+      "outcomes": [
+        "Yes",
+        "No"
+      ],
+      "prices": {
+        "Yes": 0.48,
+        "No": 0.52
+      },
+      "source_type": "fixture"
+    },
+    {
+      "market_id": "pm_fixture_election_2026_party_b",
+      "title": "Will Party B win the 2026 special election?",
+      "event_key": "election_2026_special",
+      "mutually_exclusive_group": "election_2026_winner",
+      "outcomes": [
+        "Yes",
+        "No"
+      ],
+      "prices": {
+        "Yes": 0.31,
+        "No": 0.69
+      },
+      "source_type": "fixture"
+    },
+    {
+      "market_id": "pm_fixture_turnout_2026_special",
+      "title": "Will turnout exceed 60% in the 2026 special election?",
+      "event_key": "election_2026_special",
+      "mutually_exclusive_group": null,
+      "outcomes": [
+        "Yes",
+        "No"
+      ],
+      "prices": {
+        "Yes": 0.44,
+        "No": 0.56
+      },
+      "source_type": "fixture"
+    }
+  ]
+}

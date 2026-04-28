@@ -1,0 +1,121 @@
+{
+  "schema_version": "manual_evidence_overlay_merge_report.v1",
+  "artifact_type": "manual_evidence_overlay_merge_report",
+  "task_id": "PMBOT-RESEARCH-009-MANUAL-EVIDENCE-OVERLAY-MERGE",
+  "deterministic": true,
+  "source_packet_stubs_path": "pm_bot/research/expected_research_packet_stubs.v1.json",
+  "source_workpack_index_path": "pm_bot/research/operator_research_workpack_index.v1.json",
+  "source_overlay_path": "pm_bot/research/manual_evidence_overlay_fixture.v1.json",
+  "output_path": "pm_bot/research/merged_manual_research_packets.v1.json",
+  "validator_contract_path": "pm_bot/research/validate_manual_research_packets.py",
+  "overlays_read": 5,
+  "overlays_accepted": 2,
+  "overlays_rejected": 3,
+  "packets_written": 10,
+  "ready_for_operator_review": 1,
+  "needs_more_information": 1,
+  "accepted_market_ids": [
+    "569366",
+    "563650"
+  ],
+  "rejected_market_ids": [
+    "569343",
+    "569368",
+    "unknown-market-id"
+  ],
+  "ready_for_operator_review_market_ids": [
+    "563650"
+  ],
+  "needs_more_information_market_ids": [
+    "569366"
+  ],
+  "errors_by_market_id": {
+    "569343": [
+      {
+        "code": "prohibited_overlay_field:execution",
+        "path": "execution",
+        "message": "Trading, wallet, execution, recommendation, stake, target, scoring, and signal fields are prohibited in manual evidence overlays."
+      },
+      {
+        "code": "unexpected_overlay_field:execution",
+        "path": "execution",
+        "message": "execution is not an allowed manual evidence overlay field."
+      },
+      {
+        "code": "prohibited_overlay_field:order",
+        "path": "order",
+        "message": "Trading, wallet, execution, recommendation, stake, target, scoring, and signal fields are prohibited in manual evidence overlays."
+      },
+      {
+        "code": "unexpected_overlay_field:order",
+        "path": "order",
+        "message": "order is not an allowed manual evidence overlay field."
+      },
+      {
+        "code": "prohibited_overlay_field:recommendation",
+        "path": "recommendation",
+        "message": "Trading, wallet, execution, recommendation, stake, target, scoring, and signal fields are prohibited in manual evidence overlays."
+      },
+      {
+        "code": "unexpected_overlay_field:recommendation",
+        "path": "recommendation",
+        "message": "recommendation is not an allowed manual evidence overlay field."
+      },
+      {
+        "code": "prohibited_overlay_field:trade",
+        "path": "trade",
+        "message": "Trading, wallet, execution, recommendation, stake, target, scoring, and signal fields are prohibited in manual evidence overlays."
+      },
+      {
+        "code": "unexpected_overlay_field:trade",
+        "path": "trade",
+        "message": "trade is not an allowed manual evidence overlay field."
+      },
+      {
+        "code": "prohibited_overlay_field:wallet",
+        "path": "wallet",
+        "message": "Trading, wallet, execution, recommendation, stake, target, scoring, and signal fields are prohibited in manual evidence overlays."
+      },
+      {
+        "code": "unexpected_overlay_field:wallet",
+        "path": "wallet",
+        "message": "wallet is not an allowed manual evidence overlay field."
+      }
+    ],
+    "569368": [
+      {
+        "code": "immutable_field_override:title",
+        "path": "title",
+        "message": "title is immutable and must remain sourced from the packet stub."
+      }
+    ],
+    "unknown-market-id": [
+      {
+        "code": "unknown_market_id",
+        "path": "market_id",
+        "message": "Overlay market_id is not present in the source packet stubs."
+      }
+    ]
+  },
+  "merged_packet_validation_errors_by_market_id": {},
+  "merged_packets_validation_passed": true,
+  "workpack_index_market_ids_match_stubs": true,
+  "safety_flags": {
+    "offline_only": true,
+    "live_fetchers": false,
+    "network_api_calls": false,
+    "credentials": false,
+    "wallet_private_keys": false,
+    "real_orders": false,
+    "live_trading": false,
+    "runtime_wiring": false,
+    "dispatcher_run_codex_touched": false,
+    "prompt_automation": false,
+    "codex_copy_roots": false,
+    "completed_dossiers": false,
+    "paper_orders": false,
+    "betting_recommendations": false,
+    "truth_inference": false,
+    "market_scoring": false
+  }
+}

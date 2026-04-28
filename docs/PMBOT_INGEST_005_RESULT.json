@@ -1,0 +1,95 @@
+{
+  "task_id": "PMBOT-INGEST-005-SELECTED-CANDIDATE-RESEARCH-STUB-BRIDGE",
+  "status": "passed",
+  "summary": "Created deterministic offline research packet stubs for the five validated selected ingest candidates only. The bridge validates the selected overlay with the existing INGEST-004 validator, joins selected candidates to normalized preview records, emits empty evidence slots and template-only source/search plans, and remains manually invoked with no runtime wiring.",
+  "files_created": [
+    "pm_bot\\research\\build_selected_ingest_research_packet_stubs.py",
+    "pm_bot\\research\\selected_ingest_research_packet_stubs.v1.json",
+    "pm_bot\\research\\selected_ingest_research_packet_stubs.v1.md",
+    "pm_bot\\research\\expected_selected_ingest_research_packet_stubs.v1.json",
+    "pm_bot\\research\\tests\\test_selected_ingest_research_packet_stubs.py",
+    "docs\\PMBOT_INGEST_005_RESULT.json"
+  ],
+  "files_modified": [
+    "pm_bot\\ingest\\tests\\test_operator_candidate_selection_pack.py"
+  ],
+  "tests_run": [
+    {
+      "command": "python -m pytest pm_bot\\research\\tests\\test_selected_ingest_research_packet_stubs.py -q -p no:cacheprovider",
+      "status": "passed",
+      "summary": "16 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\ingest\\tests\\test_operator_candidate_selection_pack.py -q -p no:cacheprovider",
+      "status": "passed",
+      "summary": "11 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\research\\tests\\test_selected_ingest_research_packet_stubs.py pm_bot\\research\\tests\\test_research_packet_stubs.py pm_bot\\research\\tests\\test_manual_research_packet_validation.py -q -p no:cacheprovider",
+      "status": "passed",
+      "summary": "38 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\ingest\\tests\\test_operator_candidate_selection_pack.py pm_bot\\research\\tests\\test_selected_ingest_research_packet_stubs.py pm_bot\\research\\tests\\test_research_packet_stubs.py pm_bot\\research\\tests\\test_manual_research_packet_validation.py -q -p no:cacheprovider",
+      "status": "passed",
+      "summary": "49 passed"
+    },
+    {
+      "command": "python -m json.tool pm_bot\\research\\selected_ingest_research_packet_stubs.v1.json",
+      "status": "passed",
+      "summary": "JSON parsed"
+    },
+    {
+      "command": "python -m json.tool pm_bot\\research\\expected_selected_ingest_research_packet_stubs.v1.json",
+      "status": "passed",
+      "summary": "JSON parsed"
+    },
+    {
+      "command": "python -m json.tool docs\\PMBOT_INGEST_005_RESULT.json",
+      "status": "passed",
+      "summary": "JSON parsed"
+    },
+    {
+      "command": "python -m py_compile pm_bot\\research\\build_selected_ingest_research_packet_stubs.py pm_bot\\research\\tests\\test_selected_ingest_research_packet_stubs.py pm_bot\\ingest\\tests\\test_operator_candidate_selection_pack.py",
+      "status": "passed",
+      "summary": "py_compile passed"
+    }
+  ],
+  "bridge_summary": {
+    "selected_market_ids_read": 5,
+    "research_packet_stubs_created": 5,
+    "completion_status_all_stub_only": true,
+    "completed_dossiers_created": 0,
+    "paper_orders_created": 0
+  },
+  "selected_market_ids": [
+    "692258",
+    "824952",
+    "691547",
+    "597964",
+    "598936"
+  ],
+  "safety": {
+    "live_fetchers": false,
+    "network_api_calls": false,
+    "credentials": false,
+    "wallet_private_keys": false,
+    "authenticated_endpoints": false,
+    "trading_endpoints": false,
+    "real_orders": false,
+    "live_trading": false,
+    "paper_orders": false,
+    "betting_recommendations": false,
+    "truth_inference": false,
+    "market_scoring": false,
+    "probability_estimates": false,
+    "expected_value_calculations": false,
+    "side_recommendations": false,
+    "market_decisions": false,
+    "runtime_wiring": false,
+    "dispatcher_run_codex_touched": false,
+    "prompt_automation": false,
+    "codex_copy_roots": false,
+    "completed_dossiers": false
+  }
+}

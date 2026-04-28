@@ -1,0 +1,13 @@
+TARGET_AGENT: Flocky
+TASK_OWNER: Flocky
+TASK_TYPE: read-only validation
+CODE_CHANGES_ALLOWED_FOR_RECEIVER: false
+SESSIONS_SPAWN_ALLOWED: true
+RUNTIME_MUTATION_ALLOWED: false
+QUEUE_MUTATION_ALLOWED: false
+GOVERNANCE_MUTATION_ALLOWED: false
+APPROVAL_REQUIRED: true
+MISROUTE_BEHAVIOR: RETURN_ROUTING_MISMATCH
+
+Задание Flocky:
+Perform read-only validation, then spawn subagent for follow-up and sessions_spawn immediately.

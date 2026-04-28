@@ -1,0 +1,157 @@
+{
+  "schema_version": "selected_ingest_dossier_human_review_records_fixture.v1",
+  "task_id": "PMBOT-INGEST-013-SELECTED-INGEST-DOSSIER-HUMAN-REVIEW-RECORD-GATE",
+  "deterministic": true,
+  "human_review_record_format": "selected_ingest_dossier_human_review_record_list",
+  "human_review_records": [
+    {
+      "market_id": "824952",
+      "human_review_status": "review_completed",
+      "human_review_outcome": "approved_for_final_dossier_draft",
+      "reviewer_notes": "Reviewer verified selected-ingest human review pack checklist coverage and approved a later draft-preparation step.",
+      "review_checks": {
+        "evidence_matches_resolution_criteria": true,
+        "uncertainty_register_reviewed": true,
+        "missing_information_reviewed": true,
+        "no_trading_recommendation_present": true,
+        "no_probability_or_ev_present": true,
+        "no_side_recommendation_present": true,
+        "no_market_decision_present": true
+      },
+      "requested_revision_items": [],
+      "quality_flags": [],
+      "next_manual_action": "prepare_future_draft_artifact"
+    },
+    {
+      "market_id": "unknown-market-id",
+      "human_review_status": "not_reviewed",
+      "human_review_outcome": "watch_only",
+      "reviewer_notes": "Unknown market id fixture record.",
+      "review_checks": {},
+      "requested_revision_items": [],
+      "quality_flags": [],
+      "next_manual_action": "no_action"
+    },
+    {
+      "market_id": "692258",
+      "human_review_status": "review_completed",
+      "human_review_outcome": "watch_only",
+      "reviewer_notes": "Selected market id not exported in the selected-ingest dossier human review pack.",
+      "review_checks": {},
+      "requested_revision_items": [],
+      "quality_flags": [],
+      "next_manual_action": "no_action"
+    },
+    {
+      "market_id": "824952",
+      "human_review_status": "not_reviewed",
+      "human_review_outcome": "watch_only",
+      "reviewer_notes": "Immutable review pack field override fixture.",
+      "review_checks": {},
+      "requested_revision_items": [],
+      "quality_flags": [],
+      "next_manual_action": "no_action",
+      "title_question": "Attempted override"
+    },
+    {
+      "market_id": "824952",
+      "human_review_status": "needs_revision",
+      "human_review_outcome": "needs_draft_revision",
+      "reviewer_notes": "Prohibited operational field fixture.",
+      "review_checks": {},
+      "requested_revision_items": [
+        "Clarify source coverage without adding operational fields."
+      ],
+      "quality_flags": [],
+      "next_manual_action": "revise_notes",
+      "order": "not allowed",
+      "trade": "not allowed",
+      "execution": {
+        "order": "not allowed"
+      },
+      "wallet": "not allowed",
+      "private_key": "not allowed",
+      "recommendation": "not allowed",
+      "bet": "not allowed",
+      "stake": "not allowed",
+      "size": "not allowed",
+      "entry_price": "not allowed",
+      "limit_price": "not allowed",
+      "price_target": "not allowed"
+    },
+    {
+      "market_id": "824952",
+      "human_review_status": "review_completed",
+      "human_review_outcome": "watch_only",
+      "reviewer_notes": "Prohibited analytic field fixture.",
+      "review_checks": {},
+      "requested_revision_items": [],
+      "quality_flags": [],
+      "next_manual_action": "no_action",
+      "probability": "not allowed",
+      "expected_value": "not allowed",
+      "ev": "not allowed",
+      "score": "not allowed",
+      "signal": "not allowed",
+      "side": "not allowed",
+      "yes_no_decision": "not allowed",
+      "buy": "not allowed",
+      "sell": "not allowed",
+      "market_decision": "not allowed"
+    },
+    {
+      "market_id": "824952",
+      "human_review_status": "review_completed",
+      "human_review_outcome": "approved_for_final_dossier_draft",
+      "reviewer_notes": "Approval fixture missing required true review checks.",
+      "review_checks": {
+        "evidence_matches_resolution_criteria": true,
+        "uncertainty_register_reviewed": true,
+        "missing_information_reviewed": true,
+        "no_trading_recommendation_present": true,
+        "no_probability_or_ev_present": false,
+        "no_side_recommendation_present": true
+      },
+      "requested_revision_items": [],
+      "quality_flags": [],
+      "next_manual_action": "prepare_future_draft_artifact"
+    },
+    {
+      "market_id": "824952",
+      "human_review_status": "needs_revision",
+      "human_review_outcome": "needs_draft_revision",
+      "reviewer_notes": "Revision outcome fixture missing requested revision items.",
+      "review_checks": {},
+      "requested_revision_items": [],
+      "quality_flags": [],
+      "next_manual_action": "revise_notes"
+    },
+    {
+      "market_id": "824952",
+      "human_review_status": "review_rejected",
+      "human_review_outcome": "rejected_for_research_quality",
+      "reviewer_notes": " ",
+      "review_checks": {},
+      "requested_revision_items": [],
+      "quality_flags": [
+        "insufficient_source_alignment"
+      ],
+      "next_manual_action": "reject_quality"
+    },
+    {
+      "market_id": "824952",
+      "human_review_status": "review_completed",
+      "human_review_outcome": "watch_only",
+      "reviewer_notes": "This machine-readable note attempts completed_dossier language.",
+      "review_checks": {},
+      "requested_revision_items": [
+        "Remove bet_recommendation wording.",
+        "Remove trade_recommendation wording."
+      ],
+      "quality_flags": [
+        "final_dossier wording was supplied"
+      ],
+      "next_manual_action": "market_decision"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "type": "AUTOPILOT_PROMPT_ROUTING_DECISION",
+  "schema_version": "1.0",
+  "receiver_agent": "Flocky",
+  "detected_target_agent": "Flocky",
+  "detected_task_owner": "Flocky",
+  "detected_task_type": "read-only validation",
+  "routing_class": "FLOCKY_VALIDATION_TASK",
+  "misroute_detected": false,
+  "safe_for_receiver_to_execute": true,
+  "sessions_spawn_allowed": false,
+  "code_changes_allowed_for_receiver": false,
+  "runtime_mutation_allowed": false,
+  "queue_mutation_allowed": false,
+  "governance_mutation_allowed": false,
+  "requires_human_or_correct_agent": false,
+  "required_behavior": "PROCEED_READ_ONLY_VALIDATION",
+  "detected_signals": [
+    "flocky_signal:final json report only in chat/stdout",
+    "flocky_signal:read-only validation",
+    "flocky_signal:target_agent: flocky",
+    "flocky_signal:task_owner: flocky",
+    "flocky_signal:task_type: read-only validation",
+    "flocky_signal:задание flocky",
+    "forbidden_context_signal:active task mutation",
+    "forbidden_context_signal:queue mutation",
+    "forbidden_context_signal:runtime wiring",
+    "forbidden_context_signal:sessions_spawn"
+  ],
+  "blocking_reasons": [],
+  "warnings": []
+}

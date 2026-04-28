@@ -1,0 +1,17 @@
+{
+  "source_name": "unsafe_fixture_source",
+  "source_mode": "read_only",
+  "captured_at": "2026-04-26T10:20:00Z",
+  "market_id": "fixture-market-unsafe-001",
+  "title": "Malformed fixture missing prices",
+  "outcomes": [
+    "Yes",
+    "No"
+  ],
+  "liquidity": 0.0,
+  "volume": 0.0,
+  "status": "open",
+  "close_time": "2026-06-30T23:59:59Z",
+  "raw_payload_hash": "fixture-hash-raw-unsafe-001",
+  "fixture_or_live_flag": "fixture"
+}

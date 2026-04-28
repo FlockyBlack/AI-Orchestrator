@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "governance/schemas/governance_decision_record.schema.v1.json",
+  "title": "Governance Decision Record Schema v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "decision_id",
+    "task_id",
+    "source_run_id",
+    "decided_at",
+    "decided_by",
+    "critic_verdict",
+    "governance_decision",
+    "final_status_allowed",
+    "accepted_warnings",
+    "blocking_issues",
+    "evidence",
+    "safety_flags",
+    "rationale",
+    "next_action"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "v1" },
+    "decision_id": { "type": "string", "minLength": 1 },
+    "task_id": { "type": "string", "minLength": 1 },
+    "source_run_id": { "type": "string", "minLength": 1 },
+    "decided_at": { "type": "string", "minLength": 1 },
+    "decided_by": { "type": "string", "enum": ["openclaw", "human"] },
+    "critic_verdict": { "type": "string", "enum": ["pass", "warning", "fail", "blocked"] },
+    "governance_decision": { "type": "string", "enum": ["accept_final_done", "accept_with_warnings", "blocked", "continue_review"] },
+    "final_status_allowed": { "type": "boolean" },
+    "accepted_warnings": { "$ref": "governance_review_bundle.schema.v1.json#/$defs/acceptedWarnings" },
+    "blocking_issues": { "type": "array", "items": { "type": "string" } },
+    "evidence": { "type": "array", "items": { "type": "string" } },
+    "safety_flags": { "$ref": "governance_review_bundle.schema.v1.json#/$defs/safetyFlags" },
+    "rationale": { "type": "string", "minLength": 1 },
+    "next_action": { "type": "string", "minLength": 1 }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "critic_verdict": { "enum": ["fail", "blocked"] } }, "required": ["critic_verdict"] },
+      "then": { "properties": { "final_status_allowed": { "const": false } } }
+    },
+    {
+      "if": { "properties": { "governance_decision": { "const": "accept_final_done" } }, "required": ["governance_decision"] },
+      "then": {
+        "properties": {
+          "critic_verdict": { "const": "pass" },
+          "final_status_allowed": { "const": true }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "governance_decision": { "const": "accept_with_warnings" } }, "required": ["governance_decision"] },
+      "then": {
+        "properties": {
+          "critic_verdict": { "const": "warning" },
+          "final_status_allowed": { "const": true }
+        }
+      }
+    }
+  ]
+}

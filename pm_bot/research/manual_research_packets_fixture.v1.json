@@ -1,0 +1,185 @@
+{
+  "schema_version": "manual_research_packets_fixture.v1",
+  "source_stub_artifact": "pm_bot/research/expected_research_packet_stubs.v1.json",
+  "packets": [
+    {
+      "market_id": "569368",
+      "title": "Will Ivan Cepeda Castro win the 2026 Colombian presidential election?",
+      "question": "Will Ivan Cepeda Castro win the 2026 Colombian presidential election?",
+      "packet_type": "political_event",
+      "official_sources_to_check": [
+        "Polymarket market rules and resolution criteria for market_id 569368",
+        "Official election authority results or notices for category 'Colombia Presidential Election'",
+        "Official candidate, party, or government pages named by the market question"
+      ],
+      "credible_news_sources_to_check": [
+        "Reuters coverage query for the market question",
+        "Associated Press coverage query for the market question",
+        "Major local or national outlet query for the market category"
+      ],
+      "evidence_slots": {
+        "official_resolution_criteria": [],
+        "official_yes_evidence": [],
+        "official_no_evidence": [],
+        "credible_news_yes_evidence": [],
+        "credible_news_no_evidence": [],
+        "uncertainty_factors": [],
+        "source_reliability_notes": []
+      },
+      "missing_information": [
+        "full_market_resolution_criteria_text",
+        "official_source_urls",
+        "credible_news_source_urls",
+        "yes_evidence",
+        "no_or_counterevidence",
+        "source_timestamps",
+        "source_reliability_review",
+        "operator_edge_assessment",
+        "operator_risk_review",
+        "official_election_authority_identifier"
+      ],
+      "completion_status": "stub_only"
+    },
+    {
+      "market_id": "569366",
+      "title": "Will Abelardo de la Espriella win the 2026 Colombian presidential election?",
+      "question": "Will Abelardo de la Espriella win the 2026 Colombian presidential election?",
+      "packet_type": "political_event",
+      "official_sources_to_check": [
+        "Polymarket market rules and resolution criteria for market_id 569366",
+        "Official election authority results or notices for category 'Colombia Presidential Election'",
+        "Official candidate, party, or government pages named by the market question"
+      ],
+      "credible_news_sources_to_check": [
+        "Reuters coverage query for the market question",
+        "Associated Press coverage query for the market question",
+        "Major local or national outlet query for the market category"
+      ],
+      "evidence_slots": {
+        "official_resolution_criteria": [
+          {
+            "source_name": "Manual official-source placeholder",
+            "source_type": "official_resolution_criteria",
+            "source_url_or_reference": "offline-reference:569366:official-resolution-criteria",
+            "captured_claim": "Manual entry records that a resolution-criteria source was reviewed for structure only.",
+            "relevance_to_resolution": "Identifies the source category needed to resolve the market, without deciding the outcome.",
+            "operator_notes": "Partial manual entry; more source work remains before operator review."
+          }
+        ],
+        "official_yes_evidence": [],
+        "official_no_evidence": [],
+        "credible_news_yes_evidence": [],
+        "credible_news_no_evidence": [],
+        "uncertainty_factors": [],
+        "source_reliability_notes": []
+      },
+      "missing_information": [
+        "credible_news_source_urls",
+        "yes_evidence",
+        "no_or_counterevidence",
+        "source_reliability_review",
+        "operator_edge_assessment",
+        "operator_risk_review",
+        "official_election_authority_identifier"
+      ],
+      "completion_status": "needs_more_information"
+    },
+    {
+      "market_id": "563650",
+      "title": "SCOTUS accepts sports event contract case by July 31, 2026?",
+      "question": "SCOTUS accepts sports event contract case by July 31, 2026?",
+      "packet_type": "legal_event",
+      "official_sources_to_check": [
+        "Polymarket market rules and resolution criteria for market_id 563650",
+        "Supreme Court docket and order lists relevant to the named case or event",
+        "Official court filings or orders matching the market question"
+      ],
+      "credible_news_sources_to_check": [
+        "Reuters or Associated Press coverage query for the market question",
+        "SCOTUSblog or comparable legal reporting query for the market question",
+        "Major newspaper legal desk query for the market category"
+      ],
+      "evidence_slots": {
+        "official_resolution_criteria": [
+          {
+            "source_name": "Manual market-rules placeholder",
+            "source_type": "official_resolution_criteria",
+            "source_url_or_reference": "offline-reference:563650:rules",
+            "captured_claim": "Manual entry records a copied resolution-rule source for structural validation only.",
+            "relevance_to_resolution": "Provides the rule text source category needed before operator review.",
+            "operator_notes": "No outcome truth is inferred by this validator."
+          }
+        ],
+        "official_yes_evidence": [
+          {
+            "source_name": "Manual docket placeholder",
+            "source_type": "official_court_source",
+            "source_url_or_reference": "offline-reference:563650:docket",
+            "captured_claim": "Manual entry records an official-source claim for structural validation only.",
+            "relevance_to_resolution": "Maps an official source claim to the market resolution path without evaluating it.",
+            "operator_notes": "Operator must review the claim manually outside this validator."
+          }
+        ],
+        "official_no_evidence": [],
+        "credible_news_yes_evidence": [
+          {
+            "source_name": "Manual credible-news placeholder",
+            "source_type": "credible_news",
+            "source_url_or_reference": "offline-reference:563650:news",
+            "captured_claim": "Manual entry records a credible-news claim for structural validation only.",
+            "relevance_to_resolution": "Adds independent coverage context without scoring the market.",
+            "operator_notes": "Validator checks only that the entry is complete."
+          }
+        ],
+        "credible_news_no_evidence": [],
+        "uncertainty_factors": [
+          {
+            "source_name": "Manual uncertainty note",
+            "source_type": "operator_context",
+            "source_url_or_reference": "offline-reference:563650:uncertainty",
+            "captured_claim": "Manual entry records an uncertainty factor for structural validation only.",
+            "relevance_to_resolution": "Captures a review caveat without deciding whether the market resolves yes or no.",
+            "operator_notes": "Included to keep the packet review-focused."
+          }
+        ],
+        "source_reliability_notes": [
+          {
+            "source_name": "Manual reliability note",
+            "source_type": "operator_context",
+            "source_url_or_reference": "offline-reference:563650:reliability",
+            "captured_claim": "Manual entry records source reliability notes for structural validation only.",
+            "relevance_to_resolution": "Confirms that source reliability was documented before operator review.",
+            "operator_notes": "No recommendation is produced."
+          }
+        ]
+      },
+      "missing_information": [],
+      "completion_status": "ready_for_operator_review"
+    },
+    {
+      "market_id": "invalid-manual-packet",
+      "question": "Invalid packet used to prove manual validation fails.",
+      "packet_type": "political_event",
+      "official_sources_to_check": [],
+      "credible_news_sources_to_check": [
+        "Credible news source placeholder"
+      ],
+      "evidence_slots": {
+        "official_resolution_criteria": [
+          {
+            "source_name": "Invalid official-source placeholder",
+            "source_type": "official_resolution_criteria",
+            "source_url_or_reference": "offline-reference:invalid",
+            "captured_claim": "This intentionally malformed entry omits operator notes.",
+            "relevance_to_resolution": "Used only to trigger stable validation errors.",
+            "order": "forbidden field used by the invalid fixture"
+          }
+        ]
+      },
+      "missing_information": [
+        "credible_news_source_urls"
+      ],
+      "completion_status": "ready_for_operator_review"
+    }
+  ]
+}

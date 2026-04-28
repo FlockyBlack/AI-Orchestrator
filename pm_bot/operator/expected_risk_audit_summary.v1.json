@@ -1,0 +1,43 @@
+{
+  "schema_version": "v1",
+  "report_id": "PMBOT-BATCH-006-RISK-AUDIT-SUMMARY",
+  "fixture_only": true,
+  "paper_only": true,
+  "local_only": true,
+  "deterministic": true,
+  "operator_review_only": true,
+  "audit_status": {
+    "v2_passed": true,
+    "v3_passed": true,
+    "v4_passed": true,
+    "v5_passed": true
+  },
+  "latest_audit_headline": "Static safety audit v5 passed with 0 blocking findings and expanded operator/export coverage.",
+  "blocking_findings_count": 0,
+  "replay_adversarial_validation_status": {
+    "static_audit_v4_passed": true,
+    "replay_score": 98.5,
+    "false_positives": 0
+  },
+  "watchlist_warning_status": {
+    "watchlist_is_no_action": true,
+    "watchlist_requires_human_review": true,
+    "critical_rule": "Watchlist status is review-only and no-action. It cannot become an accepted, live, order, trade, or execution candidate without separate future approval."
+  },
+  "safety_boundaries": [
+    "fixture_only",
+    "paper_only",
+    "local_only",
+    "deterministic",
+    "offline_testable",
+    "operator_review_only"
+  ],
+  "forbidden_live_behavior_status": {
+    "live_api": false,
+    "wallet": false,
+    "real_orders": false,
+    "real_trading": false,
+    "autonomous_trading": false,
+    "runtime_wiring": false
+  }
+}

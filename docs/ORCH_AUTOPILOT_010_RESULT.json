@@ -1,0 +1,64 @@
+{
+  "task_id": "ORCH-AUTOPILOT-010-ROUTING-PREFLIGHT-SIMULATOR",
+  "status": "implementation_complete_ready_for_flocky_validation",
+  "summary": "Implemented an isolated routing preflight simulator under codex_auto/autopilot that wraps the existing prompt-routing classifier and emits deterministic preflight-only JSON reports for fixture prompts. The simulator supports library and CLI usage, prompt file and stdin input, safe optional output writes, internal validation against execution and wiring claims, fixture coverage for expected and invalid reports, and documentation describing the preflight boundary. No runtime wiring, dispatcher/run_codex changes, active task mutation, queue mutation, governance mutation, Flocky tool integration, sessions_spawn, or prompt execution was performed.",
+  "files_created": [
+    "codex_auto/autopilot/run_routing_preflight.py",
+    "codex_auto/autopilot/autopilot_routing_preflight_report.schema.v1.json",
+    "codex_auto/autopilot/fixtures/expected_preflight_codex_received_by_flocky.v1.json",
+    "codex_auto/autopilot/fixtures/expected_preflight_flocky_validation_received_by_flocky.v1.json",
+    "codex_auto/autopilot/fixtures/expected_preflight_flocky_governance_received_by_flocky.v1.json",
+    "codex_auto/autopilot/fixtures/expected_preflight_ambiguous_mixed_owner.v1.json",
+    "codex_auto/autopilot/fixtures/expected_preflight_unsafe_sessions_spawn.v1.json",
+    "codex_auto/autopilot/fixtures/invalid_preflight_sessions_spawn_allowed_true.v1.json",
+    "codex_auto/autopilot/fixtures/invalid_preflight_original_prompt_executed_true.v1.json",
+    "codex_auto/autopilot/fixtures/invalid_preflight_active_flocky_tool_integration_true.v1.json",
+    "codex_auto/autopilot/fixtures/invalid_preflight_runtime_wiring_allowed_true.v1.json",
+    "codex_auto/autopilot/fixtures/invalid_preflight_bad_next_action_execute_now.v1.json",
+    "codex_auto/autopilot/fixtures/invalid_preflight_source_of_truth_transfer_claim.v1.json",
+    "codex_auto/autopilot/tests/test_run_routing_preflight.py",
+    "docs/AUTOPILOT_V1_ROUTING_PREFLIGHT.md",
+    "docs/ORCH_AUTOPILOT_010_RESULT.json"
+  ],
+  "files_modified": [],
+  "tests_run": [
+    "python -m pytest -q codex_auto/autopilot/tests/test_run_routing_preflight.py: passed (19 passed, 11 subtests passed)",
+    "python -m pytest -q codex_auto/autopilot/tests: passed (65 passed, 44 subtests passed)",
+    "python codex_auto/autopilot/run_routing_preflight.py --receiver Flocky --prompt-path codex_auto/autopilot/fixtures/prompt_codex_code_changing_task.txt --out -: passed",
+    "python codex_auto/autopilot/run_routing_preflight.py --receiver Flocky --prompt-path codex_auto/autopilot/fixtures/prompt_flocky_validation_task.txt --out -: passed",
+    "python -m pytest -q codex_auto: failed with known unrelated existing failures in codex_auto/external_cli/one_shot/tests/test_validate_one_shot_execution_gate.py"
+  ],
+  "safety": {
+    "runtime_wiring": false,
+    "dispatcher_changed": false,
+    "run_codex_changed": false,
+    "active_task_mutation": false,
+    "state_result_freeze_checkpoint_mutation": false,
+    "codex_auto_queue_mutation": false,
+    "governance_mutation": false,
+    "flocky_tool_integration": false,
+    "sessions_spawn": false,
+    "external_codex_execution": false,
+    "generated_prompt_execution": false,
+    "network_api": false,
+    "credentials": false,
+    "wallet_private_key": false,
+    "orders_trading": false,
+    "final_acceptance_claimed": false,
+    "execution_approval_claimed": false,
+    "single_runtime_source_rule_preserved": true
+  },
+  "routing_preflight_simulator": {
+    "created": true,
+    "preflight_only": true,
+    "active_flocky_tool_integration": false,
+    "sessions_spawn_allowed": false,
+    "runtime_wiring_allowed": false,
+    "queue_mutation_allowed": false,
+    "misrouted_codex_prompt_blocked_for_flocky": true
+  },
+  "blocking_findings": [],
+  "warnings": [
+    "Broader codex_auto pytest still has the known unrelated external_cli/one_shot failures: test_final_preview_uses_non_interactive_editable_codex_command and test_gate_validates."
+  ]
+}

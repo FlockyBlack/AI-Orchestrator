@@ -1,0 +1,52 @@
+{
+  "schema_version": "v4",
+  "artifact_type": "PM_BOT_SAFE_BACKLOG",
+  "fixture_paper_only": true,
+  "runtime_wiring_allowed": false,
+  "real_trading_allowed": false,
+  "network_api_wallet_private_key_trading_allowed": false,
+  "tasks": [
+    {
+      "task_id": "PMBOT-019",
+      "title": "Portfolio markdown narrative refinement",
+      "mode": "PAPER_ONLY",
+      "summary": "Expand local report formatting and commentary without changing runtime or execution boundaries."
+    },
+    {
+      "task_id": "PMBOT-020",
+      "title": "Cross-scenario comparison matrix",
+      "mode": "FIXTURE_ONLY",
+      "summary": "Add deterministic scenario comparison artifacts for fixture coverage and warning clustering."
+    },
+    {
+      "task_id": "PMBOT-021",
+      "title": "Audit rule tuning for false-positive reduction",
+      "mode": "READ_ONLY_VALIDATION",
+      "summary": "Refine static scan pattern classification while preserving the existing local-only safety boundary."
+    },
+    {
+      "task_id": "PMBOT-022",
+      "title": "Read-only quarantine fetch contract",
+      "mode": "DESIGN_ONLY",
+      "summary": "Document a future quarantined read-only fixture ingestion contract without implementing live APIs."
+    },
+    {
+      "task_id": "PMBOT-023",
+      "title": "Human-reviewed fixture refresh workflow",
+      "mode": "PROCESS_ONLY",
+      "summary": "Define how synthetic or manually curated fixtures could be reviewed and replaced offline by a human."
+    },
+    {
+      "task_id": "PMBOT-024",
+      "title": "Flocky validation packaging improvement",
+      "mode": "DRY_RUN_ONLY",
+      "summary": "Package PMBOT reports for critic consumption without mutating runtime or approval state."
+    },
+    {
+      "task_id": "PMBOT-025",
+      "title": "Live/API boundary review",
+      "mode": "BLOCKED_PENDING_APPROVAL",
+      "summary": "Any live API, wallet, signing, order, trading, runtime, dispatcher, or run_codex work remains blocked pending explicit future approval and separate validation."
+    }
+  ]
+}

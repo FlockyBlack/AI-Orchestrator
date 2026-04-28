@@ -1,0 +1,793 @@
+{
+  "schema_version": "selected_ingest_manual_dossier_draft_validation_result.v1",
+  "markdown_version": "selected_ingest_manual_dossier_draft_validation_report.v1",
+  "task_id": "PMBOT-INGEST-011-SELECTED-INGEST-MANUAL-DOSSIER-DRAFT-QUALITY-GATE",
+  "deterministic": true,
+  "source_draft_records_path": "pm_bot/research/selected_ingest_manual_dossier_drafts_fixture.v1.json",
+  "source_draft_records_schema_version": "selected_ingest_manual_dossier_drafts_fixture.v1",
+  "source_dossier_skeletons_path": "pm_bot/research/selected_ingest_dossier_draft_skeletons.v1.json",
+  "source_dossier_skeletons_schema_version": "selected_ingest_dossier_draft_skeletons.v1",
+  "source_review_records_result_path": "pm_bot/research/selected_ingest_operator_review_records_result.v1.json",
+  "source_review_records_result_schema_version": "selected_ingest_operator_review_records_result.v1",
+  "source_merged_packets_path": "pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json",
+  "source_merged_packets_schema_version": "selected_ingest_merged_manual_research_packets.v1",
+  "json_result_path": "pm_bot/research/selected_ingest_manual_dossier_draft_validation_result.v1.json",
+  "markdown_report_path": "pm_bot/research/selected_ingest_manual_dossier_draft_validation_report.v1.md",
+  "expected_json_result_path": "pm_bot/research/expected_selected_ingest_manual_dossier_draft_validation_result.v1.json",
+  "selected_market_ids": [
+    "692258",
+    "824952",
+    "691547",
+    "597964",
+    "598936"
+  ],
+  "exported_skeleton_market_ids": [
+    "824952"
+  ],
+  "allowed_draft_statuses": [
+    "draft_incomplete",
+    "draft_ready_for_human_review",
+    "needs_more_information",
+    "draft_rejected"
+  ],
+  "allowed_next_manual_actions": [
+    "human_review_required",
+    "add_missing_information",
+    "fix_draft_structure",
+    "reject_draft_quality"
+  ],
+  "required_ready_sections": [
+    "market_context_notes",
+    "resolution_criteria_notes",
+    "evidence_summary_by_source",
+    "uncertainty_register",
+    "missing_information_review",
+    "operator_review_notes"
+  ],
+  "allowed_draft_fields": [
+    "draft_status",
+    "evidence_summary_by_source",
+    "market_context_notes",
+    "market_id",
+    "missing_information_review",
+    "next_manual_action",
+    "open_questions",
+    "operator_review_notes",
+    "resolution_criteria_notes",
+    "uncertainty_register"
+  ],
+  "immutable_skeleton_fields": [
+    "category",
+    "current_yes_price",
+    "deadline",
+    "dossier_sections_to_fill",
+    "event_id",
+    "event_title",
+    "evidence_inventory",
+    "liquidity",
+    "missing_information_reviewed",
+    "packet_type",
+    "resolution_criteria_summary",
+    "source_coverage_summary",
+    "source_ingest_artifacts",
+    "title_question",
+    "volume"
+  ],
+  "accepted_record_fields": [
+    "record_index",
+    "market_id",
+    "draft_status",
+    "market_context_notes",
+    "resolution_criteria_notes",
+    "evidence_summary_by_source",
+    "uncertainty_register",
+    "missing_information_review",
+    "operator_review_notes",
+    "open_questions",
+    "next_manual_action"
+  ],
+  "rejected_record_fields": [
+    "record_index",
+    "market_id",
+    "draft_status",
+    "next_manual_action",
+    "errors"
+  ],
+  "draft_validation_summary": {
+    "draft_records_read": 7,
+    "draft_records_accepted": 1,
+    "draft_records_rejected": 6,
+    "draft_ready_for_human_review": 1,
+    "needs_more_information": 0,
+    "draft_incomplete": 0,
+    "draft_rejected": 0
+  },
+  "errors_by_market_id": {
+    "692258": [
+      {
+        "code": "non_skeleton_market_id",
+        "path": "market_id",
+        "message": "Selected-ingest manual dossier draft market_id was selected but was not exported as a dossier draft skeleton."
+      }
+    ],
+    "824952": [
+      {
+        "code": "immutable_skeleton_field_override:title_question",
+        "path": "title_question",
+        "message": "title_question is immutable skeleton content and cannot be supplied by a manual dossier draft."
+      },
+      {
+        "code": "prohibited_draft_field:bet",
+        "path": "bet",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy/sell, and market-decision fields are prohibited."
+      },
+      {
+        "code": "unexpected_draft_field:bet",
+        "path": "bet",
+        "message": "bet is not an allowed selected-ingest manual dossier draft field."
+      },
+      {
+        "code": "prohibited_draft_field:entry_price",
+        "path": "entry_price",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy/sell, and market-decision fields are prohibited."
+      },
+      {
+        "code": "unexpected_draft_field:entry_price",
+        "path": "entry_price",
+        "message": "entry_price is not an allowed selected-ingest manual dossier draft field."
+      },
+      {
+        "code": "prohibited_draft_field:execution",
+        "path": "execution",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy/sell, and market-decision fields are prohibited."
+      },
+      {
+        "code": "unexpected_draft_field:execution",
+        "path": "execution",
+        "message": "execution is not an allowed selected-ingest manual dossier draft field."
+      },
+      {
+        "code": "prohibited_draft_field:limit_price",
+        "path": "limit_price",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy/sell, and market-decision fields are prohibited."
+      },
+      {
+        "code": "unexpected_draft_field:limit_price",
+        "path": "limit_price",
+        "message": "limit_price is not an allowed selected-ingest manual dossier draft field."
+      },
+      {
+        "code": "prohibited_draft_field:order",
+        "path": "order",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy/sell, and market-decision fields are prohibited."
+      },
+      {
+        "code": "unexpected_draft_field:order",
+        "path": "order",
+        "message": "order is not an allowed selected-ingest manual dossier draft field."
+      },
+      {
+        "code": "prohibited_draft_field:price_target",
+        "path": "price_target",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy/sell, and market-decision fields are prohibited."
+      },
+      {
+        "code": "unexpected_draft_field:price_target",
+        "path": "price_target",
+        "message": "price_target is not an allowed selected-ingest manual dossier draft field."
+      },
+      {
+        "code": "prohibited_draft_field:private_key",
+        "path": "private_key",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy/sell, and market-decision fields are prohibited."
+      },
+      {
+        "code": "unexpected_draft_field:private_key",
+        "path": "private_key",
+        "message": "private_key is not an allowed selected-ingest manual dossier draft field."
+      },
+      {
+        "code": "prohibited_draft_field:recommendation",
+        "path": "recommendation",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy/sell, and market-decision fields are prohibited."
+      },
+      {
+        "code": "unexpected_draft_field:recommendation",
+        "path": "recommendation",
+        "message": "recommendation is not an allowed selected-ingest manual dossier draft field."
+      },
+      {
+        "code": "prohibited_draft_field:size",
+        "path": "size",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy/sell, and market-decision fields are prohibited."
+      },
+      {
+        "code": "unexpected_draft_field:size",
+        "path": "size",
+        "message": "size is not an allowed selected-ingest manual dossier draft field."
+      },
+      {
+        "code": "prohibited_draft_field:stake",
+        "path": "stake",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy/sell, and market-decision fields are prohibited."
+      },
+      {
+        "code": "unexpected_draft_field:stake",
+        "path": "stake",
+        "message": "stake is not an allowed selected-ingest manual dossier draft field."
+      },
+      {
+        "code": "prohibited_draft_field:trade",
+        "path": "trade",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy/sell, and market-decision fields are prohibited."
+      },
+      {
+        "code": "unexpected_draft_field:trade",
+        "path": "trade",
+        "message": "trade is not an allowed selected-ingest manual dossier draft field."
+      },
+      {
+        "code": "prohibited_draft_field:wallet",
+        "path": "wallet",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy/sell, and market-decision fields are prohibited."
+      },
+      {
+        "code": "unexpected_draft_field:wallet",
+        "path": "wallet",
+        "message": "wallet is not an allowed selected-ingest manual dossier draft field."
+      },
+      {
+        "code": "required_ready_section_empty:evidence_summary_by_source",
+        "path": "evidence_summary_by_source",
+        "message": "evidence_summary_by_source is required and must be non-empty for draft_ready_for_human_review."
+      },
+      {
+        "code": "required_ready_section_empty:market_context_notes",
+        "path": "market_context_notes",
+        "message": "market_context_notes is required and must be non-empty for draft_ready_for_human_review."
+      },
+      {
+        "code": "required_ready_section_empty:missing_information_review",
+        "path": "missing_information_review",
+        "message": "missing_information_review is required and must be non-empty for draft_ready_for_human_review."
+      },
+      {
+        "code": "required_ready_section_empty:operator_review_notes",
+        "path": "operator_review_notes",
+        "message": "operator_review_notes is required and must be non-empty for draft_ready_for_human_review."
+      },
+      {
+        "code": "required_ready_section_empty:resolution_criteria_notes",
+        "path": "resolution_criteria_notes",
+        "message": "resolution_criteria_notes is required and must be non-empty for draft_ready_for_human_review."
+      },
+      {
+        "code": "required_ready_section_empty:uncertainty_register",
+        "path": "uncertainty_register",
+        "message": "uncertainty_register is required and must be non-empty for draft_ready_for_human_review."
+      },
+      {
+        "code": "prohibited_draft_field:buy",
+        "path": "buy",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy/sell, and market-decision fields are prohibited."
+      },
+      {
+        "code": "unexpected_draft_field:buy",
+        "path": "buy",
+        "message": "buy is not an allowed selected-ingest manual dossier draft field."
+      },
+      {
+        "code": "prohibited_draft_field:ev",
+        "path": "ev",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy/sell, and market-decision fields are prohibited."
+      },
+      {
+        "code": "unexpected_draft_field:ev",
+        "path": "ev",
+        "message": "ev is not an allowed selected-ingest manual dossier draft field."
+      },
+      {
+        "code": "prohibited_draft_field:expected_value",
+        "path": "expected_value",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy/sell, and market-decision fields are prohibited."
+      },
+      {
+        "code": "unexpected_draft_field:expected_value",
+        "path": "expected_value",
+        "message": "expected_value is not an allowed selected-ingest manual dossier draft field."
+      },
+      {
+        "code": "prohibited_dossier_language:completed_dossier",
+        "path": "market_context_notes",
+        "message": "Completed/final dossier, recommendation, and market-decision language is prohibited in machine-readable manual draft fields."
+      },
+      {
+        "code": "prohibited_dossier_language:market_decision",
+        "path": "market_decision",
+        "message": "Completed/final dossier, recommendation, and market-decision language is prohibited in machine-readable manual draft fields."
+      },
+      {
+        "code": "prohibited_draft_field:market_decision",
+        "path": "market_decision",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy/sell, and market-decision fields are prohibited."
+      },
+      {
+        "code": "unexpected_draft_field:market_decision",
+        "path": "market_decision",
+        "message": "market_decision is not an allowed selected-ingest manual dossier draft field."
+      },
+      {
+        "code": "prohibited_dossier_language:bet_recommendation",
+        "path": "missing_information_review",
+        "message": "Completed/final dossier, recommendation, and market-decision language is prohibited in machine-readable manual draft fields."
+      },
+      {
+        "code": "prohibited_dossier_language:trade_recommendation",
+        "path": "operator_review_notes",
+        "message": "Completed/final dossier, recommendation, and market-decision language is prohibited in machine-readable manual draft fields."
+      },
+      {
+        "code": "prohibited_draft_field:probability",
+        "path": "probability",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy/sell, and market-decision fields are prohibited."
+      },
+      {
+        "code": "unexpected_draft_field:probability",
+        "path": "probability",
+        "message": "probability is not an allowed selected-ingest manual dossier draft field."
+      },
+      {
+        "code": "prohibited_dossier_language:final_dossier",
+        "path": "resolution_criteria_notes",
+        "message": "Completed/final dossier, recommendation, and market-decision language is prohibited in machine-readable manual draft fields."
+      },
+      {
+        "code": "prohibited_draft_field:score",
+        "path": "score",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy/sell, and market-decision fields are prohibited."
+      },
+      {
+        "code": "unexpected_draft_field:score",
+        "path": "score",
+        "message": "score is not an allowed selected-ingest manual dossier draft field."
+      },
+      {
+        "code": "prohibited_draft_field:sell",
+        "path": "sell",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy/sell, and market-decision fields are prohibited."
+      },
+      {
+        "code": "unexpected_draft_field:sell",
+        "path": "sell",
+        "message": "sell is not an allowed selected-ingest manual dossier draft field."
+      },
+      {
+        "code": "prohibited_draft_field:side",
+        "path": "side",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy/sell, and market-decision fields are prohibited."
+      },
+      {
+        "code": "unexpected_draft_field:side",
+        "path": "side",
+        "message": "side is not an allowed selected-ingest manual dossier draft field."
+      },
+      {
+        "code": "prohibited_draft_field:signal",
+        "path": "signal",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy/sell, and market-decision fields are prohibited."
+      },
+      {
+        "code": "unexpected_draft_field:signal",
+        "path": "signal",
+        "message": "signal is not an allowed selected-ingest manual dossier draft field."
+      },
+      {
+        "code": "prohibited_draft_field:yes_no_decision",
+        "path": "yes_no_decision",
+        "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy/sell, and market-decision fields are prohibited."
+      },
+      {
+        "code": "unexpected_draft_field:yes_no_decision",
+        "path": "yes_no_decision",
+        "message": "yes_no_decision is not an allowed selected-ingest manual dossier draft field."
+      }
+    ],
+    "unknown-market-id": [
+      {
+        "code": "unknown_market_id",
+        "path": "market_id",
+        "message": "Selected-ingest manual dossier draft market_id is absent from selected_ingest_dossier_draft_skeletons.v1.json selected_market_ids."
+      }
+    ]
+  },
+  "accepted_draft_records": [
+    {
+      "record_index": 0,
+      "market_id": "824952",
+      "draft_status": "draft_ready_for_human_review",
+      "market_context_notes": "Manual context notes summarize the local packet and market question for human review.",
+      "resolution_criteria_notes": "Manual notes restate local resolution criteria boundaries for later human review.",
+      "evidence_summary_by_source": [
+        "Local rule reference was copied into the packet for structural review.",
+        "Official source placeholder was documented as source coverage context.",
+        "Credible news placeholder was documented as source coverage context."
+      ],
+      "uncertainty_register": [
+        "Manual review still needs human judgment on source completeness.",
+        "Artifact validation does not determine the market outcome."
+      ],
+      "missing_information_review": "No structural gaps were flagged by the selected-ingest operator review result.",
+      "operator_review_notes": "Operator review marked the packet ready for dossier drafting; this draft only records structural notes.",
+      "open_questions": [],
+      "next_manual_action": "human_review_required"
+    }
+  ],
+  "rejected_draft_records": [
+    {
+      "record_index": 1,
+      "market_id": "692258",
+      "draft_status": "needs_more_information",
+      "next_manual_action": "add_missing_information",
+      "errors": [
+        {
+          "code": "non_skeleton_market_id",
+          "path": "market_id",
+          "message": "Selected-ingest manual dossier draft market_id was selected but was not exported as a dossier draft skeleton."
+        }
+      ]
+    },
+    {
+      "record_index": 3,
+      "market_id": "824952",
+      "draft_status": "draft_incomplete",
+      "next_manual_action": "fix_draft_structure",
+      "errors": [
+        {
+          "code": "immutable_skeleton_field_override:title_question",
+          "path": "title_question",
+          "message": "title_question is immutable skeleton content and cannot be supplied by a manual dossier draft."
+        }
+      ]
+    },
+    {
+      "record_index": 4,
+      "market_id": "824952",
+      "draft_status": "draft_incomplete",
+      "next_manual_action": "reject_draft_quality",
+      "errors": [
+        {
+          "code": "prohibited_draft_field:bet",
+          "path": "bet",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy/sell, and market-decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_draft_field:bet",
+          "path": "bet",
+          "message": "bet is not an allowed selected-ingest manual dossier draft field."
+        },
+        {
+          "code": "prohibited_draft_field:entry_price",
+          "path": "entry_price",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy/sell, and market-decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_draft_field:entry_price",
+          "path": "entry_price",
+          "message": "entry_price is not an allowed selected-ingest manual dossier draft field."
+        },
+        {
+          "code": "prohibited_draft_field:execution",
+          "path": "execution",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy/sell, and market-decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_draft_field:execution",
+          "path": "execution",
+          "message": "execution is not an allowed selected-ingest manual dossier draft field."
+        },
+        {
+          "code": "prohibited_draft_field:limit_price",
+          "path": "limit_price",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy/sell, and market-decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_draft_field:limit_price",
+          "path": "limit_price",
+          "message": "limit_price is not an allowed selected-ingest manual dossier draft field."
+        },
+        {
+          "code": "prohibited_draft_field:order",
+          "path": "order",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy/sell, and market-decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_draft_field:order",
+          "path": "order",
+          "message": "order is not an allowed selected-ingest manual dossier draft field."
+        },
+        {
+          "code": "prohibited_draft_field:price_target",
+          "path": "price_target",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy/sell, and market-decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_draft_field:price_target",
+          "path": "price_target",
+          "message": "price_target is not an allowed selected-ingest manual dossier draft field."
+        },
+        {
+          "code": "prohibited_draft_field:private_key",
+          "path": "private_key",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy/sell, and market-decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_draft_field:private_key",
+          "path": "private_key",
+          "message": "private_key is not an allowed selected-ingest manual dossier draft field."
+        },
+        {
+          "code": "prohibited_draft_field:recommendation",
+          "path": "recommendation",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy/sell, and market-decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_draft_field:recommendation",
+          "path": "recommendation",
+          "message": "recommendation is not an allowed selected-ingest manual dossier draft field."
+        },
+        {
+          "code": "prohibited_draft_field:size",
+          "path": "size",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy/sell, and market-decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_draft_field:size",
+          "path": "size",
+          "message": "size is not an allowed selected-ingest manual dossier draft field."
+        },
+        {
+          "code": "prohibited_draft_field:stake",
+          "path": "stake",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy/sell, and market-decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_draft_field:stake",
+          "path": "stake",
+          "message": "stake is not an allowed selected-ingest manual dossier draft field."
+        },
+        {
+          "code": "prohibited_draft_field:trade",
+          "path": "trade",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy/sell, and market-decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_draft_field:trade",
+          "path": "trade",
+          "message": "trade is not an allowed selected-ingest manual dossier draft field."
+        },
+        {
+          "code": "prohibited_draft_field:wallet",
+          "path": "wallet",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy/sell, and market-decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_draft_field:wallet",
+          "path": "wallet",
+          "message": "wallet is not an allowed selected-ingest manual dossier draft field."
+        }
+      ]
+    },
+    {
+      "record_index": 5,
+      "market_id": "824952",
+      "draft_status": "draft_ready_for_human_review",
+      "next_manual_action": "human_review_required",
+      "errors": [
+        {
+          "code": "required_ready_section_empty:evidence_summary_by_source",
+          "path": "evidence_summary_by_source",
+          "message": "evidence_summary_by_source is required and must be non-empty for draft_ready_for_human_review."
+        },
+        {
+          "code": "required_ready_section_empty:market_context_notes",
+          "path": "market_context_notes",
+          "message": "market_context_notes is required and must be non-empty for draft_ready_for_human_review."
+        },
+        {
+          "code": "required_ready_section_empty:missing_information_review",
+          "path": "missing_information_review",
+          "message": "missing_information_review is required and must be non-empty for draft_ready_for_human_review."
+        },
+        {
+          "code": "required_ready_section_empty:operator_review_notes",
+          "path": "operator_review_notes",
+          "message": "operator_review_notes is required and must be non-empty for draft_ready_for_human_review."
+        },
+        {
+          "code": "required_ready_section_empty:resolution_criteria_notes",
+          "path": "resolution_criteria_notes",
+          "message": "resolution_criteria_notes is required and must be non-empty for draft_ready_for_human_review."
+        },
+        {
+          "code": "required_ready_section_empty:uncertainty_register",
+          "path": "uncertainty_register",
+          "message": "uncertainty_register is required and must be non-empty for draft_ready_for_human_review."
+        }
+      ]
+    },
+    {
+      "record_index": 6,
+      "market_id": "824952",
+      "draft_status": "draft_incomplete",
+      "next_manual_action": "reject_draft_quality",
+      "errors": [
+        {
+          "code": "prohibited_draft_field:buy",
+          "path": "buy",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy/sell, and market-decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_draft_field:buy",
+          "path": "buy",
+          "message": "buy is not an allowed selected-ingest manual dossier draft field."
+        },
+        {
+          "code": "prohibited_draft_field:ev",
+          "path": "ev",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy/sell, and market-decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_draft_field:ev",
+          "path": "ev",
+          "message": "ev is not an allowed selected-ingest manual dossier draft field."
+        },
+        {
+          "code": "prohibited_draft_field:expected_value",
+          "path": "expected_value",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy/sell, and market-decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_draft_field:expected_value",
+          "path": "expected_value",
+          "message": "expected_value is not an allowed selected-ingest manual dossier draft field."
+        },
+        {
+          "code": "prohibited_dossier_language:completed_dossier",
+          "path": "market_context_notes",
+          "message": "Completed/final dossier, recommendation, and market-decision language is prohibited in machine-readable manual draft fields."
+        },
+        {
+          "code": "prohibited_dossier_language:market_decision",
+          "path": "market_decision",
+          "message": "Completed/final dossier, recommendation, and market-decision language is prohibited in machine-readable manual draft fields."
+        },
+        {
+          "code": "prohibited_draft_field:market_decision",
+          "path": "market_decision",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy/sell, and market-decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_draft_field:market_decision",
+          "path": "market_decision",
+          "message": "market_decision is not an allowed selected-ingest manual dossier draft field."
+        },
+        {
+          "code": "prohibited_dossier_language:bet_recommendation",
+          "path": "missing_information_review",
+          "message": "Completed/final dossier, recommendation, and market-decision language is prohibited in machine-readable manual draft fields."
+        },
+        {
+          "code": "prohibited_dossier_language:trade_recommendation",
+          "path": "operator_review_notes",
+          "message": "Completed/final dossier, recommendation, and market-decision language is prohibited in machine-readable manual draft fields."
+        },
+        {
+          "code": "prohibited_draft_field:probability",
+          "path": "probability",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy/sell, and market-decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_draft_field:probability",
+          "path": "probability",
+          "message": "probability is not an allowed selected-ingest manual dossier draft field."
+        },
+        {
+          "code": "prohibited_dossier_language:final_dossier",
+          "path": "resolution_criteria_notes",
+          "message": "Completed/final dossier, recommendation, and market-decision language is prohibited in machine-readable manual draft fields."
+        },
+        {
+          "code": "prohibited_draft_field:score",
+          "path": "score",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy/sell, and market-decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_draft_field:score",
+          "path": "score",
+          "message": "score is not an allowed selected-ingest manual dossier draft field."
+        },
+        {
+          "code": "prohibited_draft_field:sell",
+          "path": "sell",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy/sell, and market-decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_draft_field:sell",
+          "path": "sell",
+          "message": "sell is not an allowed selected-ingest manual dossier draft field."
+        },
+        {
+          "code": "prohibited_draft_field:side",
+          "path": "side",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy/sell, and market-decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_draft_field:side",
+          "path": "side",
+          "message": "side is not an allowed selected-ingest manual dossier draft field."
+        },
+        {
+          "code": "prohibited_draft_field:signal",
+          "path": "signal",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy/sell, and market-decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_draft_field:signal",
+          "path": "signal",
+          "message": "signal is not an allowed selected-ingest manual dossier draft field."
+        },
+        {
+          "code": "prohibited_draft_field:yes_no_decision",
+          "path": "yes_no_decision",
+          "message": "Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy/sell, and market-decision fields are prohibited."
+        },
+        {
+          "code": "unexpected_draft_field:yes_no_decision",
+          "path": "yes_no_decision",
+          "message": "yes_no_decision is not an allowed selected-ingest manual dossier draft field."
+        }
+      ]
+    },
+    {
+      "record_index": 2,
+      "market_id": "unknown-market-id",
+      "draft_status": "draft_incomplete",
+      "next_manual_action": "fix_draft_structure",
+      "errors": [
+        {
+          "code": "unknown_market_id",
+          "path": "market_id",
+          "message": "Selected-ingest manual dossier draft market_id is absent from selected_ingest_dossier_draft_skeletons.v1.json selected_market_ids."
+        }
+      ]
+    }
+  ],
+  "safety_flags": {
+    "live_fetchers": false,
+    "network_api_calls": false,
+    "credentials": false,
+    "wallet_private_keys": false,
+    "authenticated_endpoints": false,
+    "trading_endpoints": false,
+    "real_orders": false,
+    "live_trading": false,
+    "paper_orders": false,
+    "betting_recommendations": false,
+    "truth_inference": false,
+    "market_scoring": false,
+    "probability_estimates": false,
+    "expected_value_calculations": false,
+    "side_recommendations": false,
+    "market_decisions": false,
+    "runtime_wiring": false,
+    "dispatcher_run_codex_touched": false,
+    "prompt_automation": false,
+    "codex_copy_roots": false,
+    "completed_dossiers": false
+  },
+  "limitations": [
+    "Reads only local selected-ingest manual draft, selected-ingest skeleton, selected-ingest review-result, and selected-ingest merged-packet artifacts.",
+    "Validates manual draft structure and next-action labels only.",
+    "Does not infer outcomes, score markets, estimate probabilities, calculate expected value, choose sides, create dossiers, create orders, or route runtime work."
+  ]
+}

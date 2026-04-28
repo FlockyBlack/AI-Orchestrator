@@ -1,0 +1,43 @@
+{
+  "schema_version": "v1",
+  "market_count": 3,
+  "relationship_count": 4,
+  "relationships": [
+    {
+      "left_market_id": "pm_fixture_election_2026_party_a",
+      "right_market_id": "pm_fixture_election_2026_party_b",
+      "relationship_type": "shared_event_key",
+      "confidence": 0.95,
+      "research_only": true,
+      "execution_allowed": false,
+      "trading_allowed": false
+    },
+    {
+      "left_market_id": "pm_fixture_election_2026_party_a",
+      "right_market_id": "pm_fixture_election_2026_party_b",
+      "relationship_type": "mutually_exclusive_group",
+      "confidence": 0.91,
+      "research_only": true,
+      "execution_allowed": false,
+      "trading_allowed": false
+    },
+    {
+      "left_market_id": "pm_fixture_election_2026_party_a",
+      "right_market_id": "pm_fixture_turnout_2026_special",
+      "relationship_type": "shared_event_key",
+      "confidence": 0.95,
+      "research_only": true,
+      "execution_allowed": false,
+      "trading_allowed": false
+    },
+    {
+      "left_market_id": "pm_fixture_election_2026_party_b",
+      "right_market_id": "pm_fixture_turnout_2026_special",
+      "relationship_type": "shared_event_key",
+      "confidence": 0.95,
+      "research_only": true,
+      "execution_allowed": false,
+      "trading_allowed": false
+    }
+  ]
+}

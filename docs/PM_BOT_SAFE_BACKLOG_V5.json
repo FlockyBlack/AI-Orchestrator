@@ -1,0 +1,82 @@
+{
+  "schema_version": "v5",
+  "artifact_type": "PM_BOT_SAFE_BACKLOG",
+  "fixture_paper_only": true,
+  "runtime_wiring_allowed": false,
+  "real_trading_allowed": false,
+  "network_api_wallet_private_key_trading_allowed": false,
+  "tasks": [
+    {
+      "task_id": "PMBOT-026",
+      "title": "More synthetic edge cases",
+      "mode": "FIXTURE_ONLY",
+      "summary": "Expand deterministic research quality coverage with more synthetic acceptance, rejection, and watchlist fixtures."
+    },
+    {
+      "task_id": "PMBOT-027",
+      "title": "Richer explainability templates",
+      "mode": "PAPER_ONLY",
+      "summary": "Add more local explanation templates and deterministic comparison narratives without touching runtime surfaces."
+    },
+    {
+      "task_id": "PMBOT-028",
+      "title": "Local report export variants",
+      "mode": "LOCAL_ONLY",
+      "summary": "Add additional local export formats for deterministic PMBOT research artifacts."
+    },
+    {
+      "task_id": "PMBOT-029",
+      "title": "Read-only fetcher design review",
+      "mode": "DESIGN_ONLY",
+      "summary": "Document a quarantined read-only fetcher design for future review without implementing any live API path."
+    },
+    {
+      "task_id": "PMBOT-030",
+      "title": "Fixture replay hardening",
+      "mode": "FIXTURE_ONLY",
+      "summary": "Strengthen local replay and regression checks for deterministic fixture-derived demo outputs."
+    },
+    {
+      "task_id": "PMBOT-031",
+      "title": "Adversarial safety fixtures",
+      "mode": "FIXTURE_ONLY",
+      "summary": "Add synthetic adversarial cases that stress rejection, explanation, and audit behavior."
+    },
+    {
+      "task_id": "PMBOT-032",
+      "title": "Live fetcher implementation",
+      "mode": "BLOCKED_PENDING_APPROVAL",
+      "summary": "Blocked pending future approval."
+    },
+    {
+      "task_id": "PMBOT-033",
+      "title": "Live Polymarket API",
+      "mode": "BLOCKED_PENDING_APPROVAL",
+      "summary": "Blocked pending future approval."
+    },
+    {
+      "task_id": "PMBOT-034",
+      "title": "Wallet/private key handling",
+      "mode": "BLOCKED_PENDING_APPROVAL",
+      "summary": "Blocked pending future approval."
+    },
+    {
+      "task_id": "PMBOT-035",
+      "title": "Real order execution",
+      "mode": "BLOCKED_PENDING_APPROVAL",
+      "summary": "Blocked pending future approval."
+    },
+    {
+      "task_id": "PMBOT-036",
+      "title": "Autonomous trading",
+      "mode": "BLOCKED_PENDING_APPROVAL",
+      "summary": "Blocked pending future approval."
+    },
+    {
+      "task_id": "PMBOT-037",
+      "title": "Runtime wiring and dispatcher integration",
+      "mode": "BLOCKED_PENDING_APPROVAL",
+      "summary": "Blocked pending future approval."
+    }
+  ]
+}

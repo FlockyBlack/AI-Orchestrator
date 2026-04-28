@@ -1,0 +1,131 @@
+{
+  "schema_version": "selected_ingest_operator_review_records_fixture.v1",
+  "task_id": "PMBOT-INGEST-009-SELECTED-INGEST-OPERATOR-REVIEW-RECORD-GATE",
+  "deterministic": true,
+  "review_record_format": "operator_review_record_list",
+  "review_records": [
+    {
+      "market_id": "824952",
+      "review_status": "review_completed",
+      "review_outcome": "ready_for_dossier_drafting",
+      "reviewer_notes": "Structural review completed. A future draft skeleton may be prepared from this packet only; no conclusion or action is recorded here.",
+      "review_checks": {
+        "resolution_criteria_checked": true,
+        "evidence_structure_checked": true,
+        "source_coverage_checked": true,
+        "missing_information_reviewed": true,
+        "no_trading_recommendation_present": true,
+        "no_probability_or_ev_present": true,
+        "no_side_recommendation_present": true,
+        "no_market_decision_present": true
+      },
+      "requested_followup_information": [],
+      "quality_flags": []
+    },
+    {
+      "market_id": "692258",
+      "review_status": "needs_more_information",
+      "review_outcome": "needs_more_information",
+      "reviewer_notes": "Partial packet remains structurally incomplete for selected-ingest operator review.",
+      "review_checks": {
+        "resolution_criteria_checked": true,
+        "evidence_structure_checked": false,
+        "source_coverage_checked": false,
+        "missing_information_reviewed": true,
+        "no_trading_recommendation_present": true,
+        "no_probability_or_ev_present": true,
+        "no_side_recommendation_present": true,
+        "no_market_decision_present": true
+      },
+      "requested_followup_information": [
+        "Add complete official source references.",
+        "Add source reliability review notes."
+      ],
+      "quality_flags": [
+        "partial_evidence_only"
+      ]
+    },
+    {
+      "market_id": "598936",
+      "review_status": "not_reviewed",
+      "review_outcome": "watch_only_manual",
+      "reviewer_notes": "Keep this selected stub in manual watch-only status until evidence is supplied.",
+      "review_checks": {
+        "missing_information_reviewed": true,
+        "no_trading_recommendation_present": true,
+        "no_probability_or_ev_present": true,
+        "no_side_recommendation_present": true,
+        "no_market_decision_present": true
+      },
+      "requested_followup_information": [],
+      "quality_flags": [
+        "stub_packet"
+      ]
+    },
+    {
+      "market_id": "691547",
+      "title": "Operator attempted to override an immutable title.",
+      "review_status": "review_completed",
+      "review_outcome": "watch_only_manual",
+      "reviewer_notes": "This must be rejected because immutable packet fields cannot be changed by review records.",
+      "review_checks": {
+        "no_trading_recommendation_present": true,
+        "no_probability_or_ev_present": true,
+        "no_side_recommendation_present": true,
+        "no_market_decision_present": true
+      },
+      "requested_followup_information": [],
+      "quality_flags": []
+    },
+    {
+      "market_id": "597964",
+      "review_status": "review_completed",
+      "review_outcome": "watch_only_manual",
+      "reviewer_notes": "This must be rejected because prohibited action and scoring fields are supplied.",
+      "review_checks": {
+        "no_trading_recommendation_present": true,
+        "no_probability_or_ev_present": true,
+        "no_side_recommendation_present": true,
+        "no_market_decision_present": true
+      },
+      "requested_followup_information": [],
+      "quality_flags": [],
+      "order": "not allowed",
+      "trade": "not allowed",
+      "wallet": "not allowed",
+      "private_key": "not allowed",
+      "execution": "not allowed",
+      "recommendation": "not allowed",
+      "bet": "not allowed",
+      "stake": "not allowed",
+      "size": "not allowed",
+      "entry_price": "not allowed",
+      "limit_price": "not allowed",
+      "price_target": "not allowed",
+      "score": "not allowed",
+      "signal": "not allowed",
+      "probability": "not allowed",
+      "expected_value": "not allowed",
+      "ev": "not allowed",
+      "side": "not allowed",
+      "yes_no_decision": "not allowed",
+      "buy": "not allowed",
+      "sell": "not allowed",
+      "market_decision": "not allowed"
+    },
+    {
+      "market_id": "unknown-market-id",
+      "review_status": "review_completed",
+      "review_outcome": "watch_only_manual",
+      "reviewer_notes": "This must be rejected because the market is absent from the selected-ingest queue.",
+      "review_checks": {
+        "no_trading_recommendation_present": true,
+        "no_probability_or_ev_present": true,
+        "no_side_recommendation_present": true,
+        "no_market_decision_present": true
+      },
+      "requested_followup_information": [],
+      "quality_flags": []
+    }
+  ]
+}

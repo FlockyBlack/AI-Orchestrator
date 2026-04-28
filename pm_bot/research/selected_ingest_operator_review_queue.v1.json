@@ -1,0 +1,203 @@
+{
+  "schema_version": "selected_ingest_operator_review_queue.v1",
+  "markdown_version": "selected_ingest_operator_review_queue_markdown.v1",
+  "task_id": "PMBOT-INGEST-008-SELECTED-INGEST-OPERATOR-REVIEW-QUEUE",
+  "deterministic": true,
+  "source_merged_packets_path": "pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json",
+  "source_merged_packets_schema_version": "selected_ingest_merged_manual_research_packets.v1",
+  "validator_contract_path": "pm_bot/research/validate_manual_research_packets.py",
+  "validator_contract_schema_version": "manual_research_packet_validation.v1",
+  "json_queue_path": "pm_bot/research/selected_ingest_operator_review_queue.v1.json",
+  "markdown_queue_path": "pm_bot/research/selected_ingest_operator_review_queue.v1.md",
+  "selected_market_ids": [
+    "692258",
+    "824952",
+    "691547",
+    "597964",
+    "598936"
+  ],
+  "queue_item_fields": [
+    "market_id",
+    "title_question",
+    "event_id",
+    "event_title",
+    "category",
+    "packet_type",
+    "current_yes_price",
+    "liquidity",
+    "volume",
+    "deadline",
+    "completion_status",
+    "evidence_item_count",
+    "official_sources_checked_count",
+    "credible_news_sources_checked_count",
+    "missing_information_count",
+    "missing_information",
+    "validation_errors",
+    "next_manual_action"
+  ],
+  "queue_summary": {
+    "packets_total": 5,
+    "ready_for_operator_review": 1,
+    "needs_more_information": 1,
+    "manual_evidence_added": 0,
+    "stub_only": 3,
+    "invalid": 0
+  },
+  "market_ids_by_group": {
+    "ready_for_operator_review": [
+      "824952"
+    ],
+    "needs_more_information": [
+      "692258"
+    ],
+    "manual_evidence_added": [],
+    "stub_only": [
+      "691547",
+      "597964",
+      "598936"
+    ],
+    "invalid": []
+  },
+  "groups": {
+    "ready_for_operator_review": [
+      {
+        "market_id": "824952",
+        "title_question": "MicroStrategy sells any Bitcoin by December 31, 2026?",
+        "event_id": "16167",
+        "event_title": "MicroStrategy sells any Bitcoin by ___ ?",
+        "category": "Finance / Economy / Business / 2025 Predictions / Crypto / MicroStrategy / Stocks",
+        "packet_type": "selected_ingest_market_research_stub",
+        "current_yes_price": 0.095,
+        "liquidity": 33862.5213,
+        "volume": 574606.4678400013,
+        "deadline": "2026-07-01T04:00:00Z",
+        "completion_status": "ready_for_operator_review",
+        "evidence_item_count": 4,
+        "official_sources_checked_count": 2,
+        "credible_news_sources_checked_count": 1,
+        "missing_information_count": 0,
+        "missing_information": [],
+        "validation_errors": [],
+        "next_manual_action": "operator_review_required"
+      }
+    ],
+    "needs_more_information": [
+      {
+        "market_id": "692258",
+        "title_question": "MicroStrategy sells any Bitcoin by June 30, 2026?",
+        "event_id": "16167",
+        "event_title": "MicroStrategy sells any Bitcoin by ___ ?",
+        "category": "Finance / Economy / Business / 2025 Predictions / Crypto / MicroStrategy / Stocks",
+        "packet_type": "selected_ingest_market_research_stub",
+        "current_yes_price": 0.0285,
+        "liquidity": 74969.19206,
+        "volume": 998871.1045009972,
+        "deadline": "2026-07-01T04:00:00Z",
+        "completion_status": "needs_more_information",
+        "evidence_item_count": 1,
+        "official_sources_checked_count": 2,
+        "credible_news_sources_checked_count": 1,
+        "missing_information_count": 4,
+        "missing_information": [
+          "full_official_source_reference",
+          "credible_news_source_references",
+          "official_yes_or_no_evidence",
+          "source_reliability_review"
+        ],
+        "validation_errors": [],
+        "next_manual_action": "add_missing_information"
+      }
+    ],
+    "manual_evidence_added": [],
+    "stub_only": [
+      {
+        "market_id": "691547",
+        "title_question": "Kraken IPO by December 31, 2026?",
+        "event_id": "16183",
+        "event_title": "Kraken IPO by ___ ?",
+        "category": "exchange / Tech / Crypto / Finance / Business / 2025 Predictions / Featured / IPOs",
+        "packet_type": "selected_ingest_market_research_stub",
+        "current_yes_price": 0.74,
+        "liquidity": 3865.8225,
+        "volume": 506317.2901440019,
+        "deadline": "2027-01-01T05:00:00Z",
+        "completion_status": "stub_only",
+        "evidence_item_count": 0,
+        "official_sources_checked_count": 0,
+        "credible_news_sources_checked_count": 0,
+        "missing_information_count": 6,
+        "missing_information": [
+          "manual_research_not_started",
+          "full_market_resolution_criteria_review",
+          "official_source_references",
+          "credible_news_source_references",
+          "empty_evidence_slots",
+          "operator_human_review_required"
+        ],
+        "validation_errors": [],
+        "next_manual_action": "fill_stub_evidence"
+      },
+      {
+        "market_id": "597964",
+        "title_question": "Macron out by June 30, 2026?",
+        "event_id": "16263",
+        "event_title": "Macron out by...?",
+        "category": "France / Politics / Macron / World / 2025 Predictions / resign",
+        "packet_type": "selected_ingest_market_research_stub",
+        "current_yes_price": 0.0155,
+        "liquidity": 48751.13558,
+        "volume": 343942.07421,
+        "deadline": "2026-06-30T12:00:00Z",
+        "completion_status": "stub_only",
+        "evidence_item_count": 0,
+        "official_sources_checked_count": 0,
+        "credible_news_sources_checked_count": 0,
+        "missing_information_count": 6,
+        "missing_information": [
+          "manual_research_not_started",
+          "full_market_resolution_criteria_review",
+          "official_source_references",
+          "credible_news_source_references",
+          "empty_evidence_slots",
+          "operator_human_review_required"
+        ],
+        "validation_errors": [],
+        "next_manual_action": "fill_stub_evidence"
+      },
+      {
+        "market_id": "598936",
+        "title_question": "Will the next UK election be called by June 30, 2026?",
+        "event_id": "16423",
+        "event_title": "UK election called by...?",
+        "category": "Starmer / UK / pedophile / England",
+        "packet_type": "selected_ingest_market_research_stub",
+        "current_yes_price": 0.0525,
+        "liquidity": 1241.81341,
+        "volume": 19020.393714000005,
+        "deadline": "2026-06-30T12:00:00Z",
+        "completion_status": "stub_only",
+        "evidence_item_count": 0,
+        "official_sources_checked_count": 0,
+        "credible_news_sources_checked_count": 0,
+        "missing_information_count": 6,
+        "missing_information": [
+          "manual_research_not_started",
+          "full_market_resolution_criteria_review",
+          "official_source_references",
+          "credible_news_source_references",
+          "empty_evidence_slots",
+          "operator_human_review_required"
+        ],
+        "validation_errors": [],
+        "next_manual_action": "fill_stub_evidence"
+      }
+    ],
+    "invalid": []
+  },
+  "limitations": [
+    "Reads only local selected-ingest merged manual research packets.",
+    "Groups packets by structural status and validator errors only.",
+    "No source lookup, outcome inference, market evaluation, or runtime automation is performed."
+  ]
+}

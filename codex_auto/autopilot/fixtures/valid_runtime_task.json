@@ -1,0 +1,24 @@
+{
+  "task_id": "ORCH-AUTOPILOT-SAMPLE",
+  "project": "ai-orchestrator",
+  "type": "autopilot_preview_source",
+  "status": "ready_for_preview_handoff",
+  "repo_path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator",
+  "objective": "Provide an authoritative read-only task reference for Autopilot V1 preview handoff building.",
+  "allowed_paths": [
+    "codex_auto/autopilot/"
+  ],
+  "forbidden_paths": [
+    "tasks/",
+    "runs/",
+    "state/",
+    "runtime/",
+    "results/",
+    "freeze/",
+    "checkpoint/",
+    "scripts/dispatcher.py",
+    "scripts/run_codex.py"
+  ],
+  "requires_approval": true,
+  "flocky_validation_required": true
+}

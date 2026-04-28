@@ -1,0 +1,70 @@
+{
+  "schema_version": "v6",
+  "artifact_type": "PM_BOT_SAFE_BACKLOG",
+  "fixture_paper_only": true,
+  "runtime_wiring_allowed": false,
+  "real_trading_allowed": false,
+  "network_api_wallet_private_key_trading_allowed": false,
+  "tasks": [
+    {
+      "task_id": "PMBOT-038",
+      "title": "Richer adversarial replay orderings",
+      "mode": "FIXTURE_ONLY",
+      "summary": "Add multi-step hostile replay permutations that reorder staleness, liquidity, and spread shocks."
+    },
+    {
+      "task_id": "PMBOT-039",
+      "title": "Category cluster replay fixtures",
+      "mode": "FIXTURE_ONLY",
+      "summary": "Expand deterministic category exposure and correlation-cluster cases across several linked watchlist markets."
+    },
+    {
+      "task_id": "PMBOT-040",
+      "title": "Replay diff visualization",
+      "mode": "LOCAL_ONLY",
+      "summary": "Add local-only summaries that compare baseline versus shocked replay outcomes without touching runtime surfaces."
+    },
+    {
+      "task_id": "PMBOT-041",
+      "title": "Read-only live fetcher design review",
+      "mode": "DESIGN_ONLY",
+      "summary": "Document a quarantined read-only fetcher design for future review without implementing any live API path."
+    },
+    {
+      "task_id": "PMBOT-042",
+      "title": "Live fetcher implementation",
+      "mode": "BLOCKED_PENDING_APPROVAL",
+      "summary": "Blocked pending future approval."
+    },
+    {
+      "task_id": "PMBOT-043",
+      "title": "Live Polymarket API",
+      "mode": "BLOCKED_PENDING_APPROVAL",
+      "summary": "Blocked pending future approval."
+    },
+    {
+      "task_id": "PMBOT-044",
+      "title": "Wallet/private key handling",
+      "mode": "BLOCKED_PENDING_APPROVAL",
+      "summary": "Blocked pending future approval."
+    },
+    {
+      "task_id": "PMBOT-045",
+      "title": "Real order execution",
+      "mode": "BLOCKED_PENDING_APPROVAL",
+      "summary": "Blocked pending future approval."
+    },
+    {
+      "task_id": "PMBOT-046",
+      "title": "Autonomous trading",
+      "mode": "BLOCKED_PENDING_APPROVAL",
+      "summary": "Blocked pending future approval."
+    },
+    {
+      "task_id": "PMBOT-047",
+      "title": "Runtime wiring and dispatcher integration",
+      "mode": "BLOCKED_PENDING_APPROVAL",
+      "summary": "Blocked pending future approval."
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "schema_version": "v1",
+  "report_id": "PMBOT-BATCH-005-FALSE-POSITIVE-PREVENTION",
+  "fixture_only": true,
+  "paper_only": true,
+  "local_only": true,
+  "deterministic": true,
+  "total_adversarial_cases": 12,
+  "cases_correctly_rejected": 8,
+  "false_positives_count": 0,
+  "high_risk_false_positives_count": 0,
+  "missed_warning_count": 0,
+  "strongest_rejection_reasons": [
+    "confidence_vs_data_mismatch",
+    "conflicting_signals",
+    "low_liquidity",
+    "stale_data",
+    "wide_spread"
+  ],
+  "weakest_current_detection_areas": [
+    "Duplicate snapshots are downgraded to watchlist rather than hard rejected.",
+    "Outlier price moves still rely on watchlist downgrades instead of exclusion.",
+    "Correlation contradictions are contained but not treated as universal hard rejects."
+  ],
+  "recommended_future_fixture_additions": [
+    "Add multi-step replay cases where shocks arrive in different orders.",
+    "Add synthetic cases with repeated stale-to-fresh oscillations.",
+    "Add fixture sets for category exposure interactions across several watchlist markets."
+  ],
+  "paper_only_no_real_order_statement": "False-positive prevention remains a local paper-only validation layer. No real order path exists."
+}

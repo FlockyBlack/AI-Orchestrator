@@ -1,0 +1,57 @@
+{
+  "task_id": "PMBOT-BRAIN-029-MANUAL-PAPER-OPERATOR-CYCLE",
+  "status": "passed",
+  "summary": "Added deterministic offline manual paper operator-cycle command that runs manual snapshot import first, then manual paper workspace processing, while preserving explicit controls for inbox writes, import manifest writes, run artifacts, and current_state promotion.",
+  "files_created": [
+    "pm_bot/paper/run_manual_paper_operator_cycle.py",
+    "pm_bot/paper/expected_manual_paper_operator_cycle.v1.json",
+    "pm_bot/paper/expected_manual_paper_operator_cycle.v1.md",
+    "pm_bot/paper/expected_manual_paper_operator_cycle_manifest.v1.json",
+    "pm_bot/paper/tests/test_run_manual_paper_operator_cycle.py",
+    "docs/PM_BOT_BRAIN_029_RESULT.json",
+    "docs/PM_BOT_STAGE_SUMMARY_V41.md"
+  ],
+  "files_modified": [],
+  "tests": [
+    "python -m pytest pm_bot\\paper\\tests\\test_run_manual_paper_operator_cycle.py -q",
+    "python -m pytest pm_bot\\scoring\\tests pm_bot\\paper\\tests -q",
+    "python pm_bot\\paper\\run_manual_paper_operator_cycle.py",
+    "python pm_bot\\paper\\run_manual_paper_operator_cycle.py --markdown",
+    "python pm_bot\\paper\\run_manual_snapshot_workspace_import.py",
+    "python pm_bot\\paper\\run_manual_paper_workspace.py",
+    "python pm_bot\\paper\\run_manual_paper_workspace.py --markdown",
+    "python pm_bot\\paper\\run_local_snapshot_series_risk_scenarios.py",
+    "python pm_bot\\paper\\run_crypto_numeric_lifecycle_regression_gates.py"
+  ],
+  "operator_cycle_summary": {
+    "default_read_only_preserved": "verified: default command writes no inbox files, no import manifest, no run artifacts, and does not promote current_state",
+    "inputs_discovered": "7 deterministic fixture source inputs",
+    "importable_snapshots": "2 snapshots are importable: series_snapshot_004 and series_snapshot_005",
+    "snapshots_imported_to_temp_workspace": "verified: --write-inbox writes 004_series_snapshot_004.json and 005_series_snapshot_005.json only in a copied temp workspace",
+    "skipped_or_quarantined_inputs": "5 fixture inputs; reason counts already_present_in_workspace_inbox=1, duplicate_snapshot_id_in_source_batch=1, ignored_non_json_file=1, malformed_json=1, unsupported_snapshot_shape=1",
+    "workspace_snapshots_processed": "default read-only workspace phase processes 2 existing inbox snapshots; --write-inbox temp run processes 4 snapshots including the two newly imported snapshots",
+    "workspace_snapshots_skipped": "1 already-processed snapshot skipped in the deterministic fixture workspace",
+    "run_artifacts_write_tested": "verified: --write-run writes state_before.json, state_after.json, run_ledger.json, and run_summary.md in a temp workspace run folder without committing state",
+    "state_commit_tested": "verified: --commit-state implies run artifact writing and promotes current_state only in a temp workspace copy",
+    "canonical_fixture_mutation_avoided": "verified by byte snapshot tests and post-checks of canonical inbox, runs, and state files"
+  },
+  "safety": {
+    "offline_only": true,
+    "paper_only": true,
+    "live_fetcher_implemented": false,
+    "api_used": false,
+    "network_used": false,
+    "wallet_used": false,
+    "real_order_created": false,
+    "trading_allowed": false,
+    "runtime_wiring_changed": false,
+    "dispatcher_touched": false,
+    "prompt_automation_added": false
+  },
+  "notes": [
+    "No production dependency was added.",
+    "No files under Codex copy roots were edited.",
+    "Write behavior was tested against temporary workspace copies.",
+    "The canonical root is not a Git repository in this environment, so git status/diff were unavailable."
+  ]
+}

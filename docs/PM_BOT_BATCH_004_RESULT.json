@@ -1,0 +1,191 @@
+{
+  "task_id": "PMBOT-BATCH-004",
+  "status": "implementation_complete_ready_for_flocky_validation",
+  "scope": {
+    "fixture_only": true,
+    "paper_only": true,
+    "local_only": true,
+    "deterministic": true,
+    "live_api": false,
+    "wallet": false,
+    "real_orders": false,
+    "runtime_wiring": false
+  },
+  "summary": "Added a deterministic local research quality and explainability layer for PMBOT with research review cases, signal explanations, confidence breakdowns, rejection reporting, candidate comparison, quality scorecards, reasoning traces, a bundled research quality demo, and an expanded static safety audit while keeping PMBOT fixture-only, paper-only, local-only, offline, and ready for Flocky validation.",
+  "repair_task_id": "PMBOT-BATCH-004-REPAIR-001",
+  "repair_summary": "Audit coverage repaired to remove broad exclusions and preserve executable risky-behavior blocking across BATCH-004 executable paths.",
+  "audit_repair": {
+    "broad_exclusions_removed": true,
+    "batch_004_executable_paths_scanned": true,
+    "docs_tests_expected_contexts_non_blocking_only": true,
+    "executable_risky_behavior_would_be_blocked": true,
+    "audit_coverage_not_weakened": true
+  },
+  "files_created": [
+    "pm_bot/research/research_quality_cases.v1.json",
+    "pm_bot/research/tests/test_research_quality_cases.py",
+    "pm_bot/explainability/signal_explainer.py",
+    "pm_bot/explainability/expected_signal_explanations.v1.json",
+    "pm_bot/explainability/reasoning_trace.py",
+    "pm_bot/explainability/expected_reasoning_trace.v1.json",
+    "pm_bot/explainability/expected_reasoning_trace.v1.md",
+    "pm_bot/explainability/tests/test_signal_explainer.py",
+    "pm_bot/explainability/tests/test_reasoning_trace.py",
+    "pm_bot/quality/research_quality_support.py",
+    "pm_bot/quality/confidence_breakdown.py",
+    "pm_bot/quality/expected_confidence_breakdown.v1.json",
+    "pm_bot/quality/bad_signal_rejection_report.py",
+    "pm_bot/quality/expected_bad_signal_rejection_report.v1.json",
+    "pm_bot/quality/expected_bad_signal_rejection_report.v1.md",
+    "pm_bot/quality/research_quality_scorecard.py",
+    "pm_bot/quality/expected_research_quality_scorecard.v1.json",
+    "pm_bot/quality/expected_research_quality_scorecard.v1.md",
+    "pm_bot/quality/tests/test_confidence_breakdown.py",
+    "pm_bot/quality/tests/test_bad_signal_rejection_report.py",
+    "pm_bot/quality/tests/test_research_quality_scorecard.py",
+    "pm_bot/reports/candidate_comparison_report.py",
+    "pm_bot/reports/expected_candidate_comparison_report.v1.json",
+    "pm_bot/reports/expected_candidate_comparison_report.v1.md",
+    "pm_bot/reports/tests/test_candidate_comparison_report.py",
+    "pm_bot/demo/run_research_quality_demo.py",
+    "pm_bot/demo/expected_research_quality_demo.v1.json",
+    "pm_bot/demo/expected_research_quality_demo.v1.md",
+    "pm_bot/demo/tests/test_research_quality_demo.py",
+    "pm_bot/audit/static_safety_audit_v3.py",
+    "pm_bot/audit/expected_static_safety_audit.v3.json",
+    "pm_bot/audit/tests/test_static_safety_audit_v3.py",
+    "docs/PM_BOT_DEMO_RUNBOOK_V3.md",
+    "docs/PM_BOT_STAGE_SUMMARY_V5.md",
+    "docs/PM_BOT_SAFE_BACKLOG_V5.json",
+    "docs/PM_BOT_BATCH_004_RESULT.json"
+  ],
+  "files_modified": [
+    "pm_bot/audit/run_static_safety_audit.py",
+    "pm_bot/audit/static_safety_audit_v2.py",
+    "pm_bot/audit/static_safety_audit_v3.py",
+    "pm_bot/audit/expected_static_safety_audit.v2.json",
+    "pm_bot/audit/expected_static_safety_audit.v3.json",
+    "pm_bot/audit/tests/test_run_static_safety_audit.py",
+    "pm_bot/audit/tests/test_static_safety_audit_v2.py",
+    "pm_bot/audit/tests/test_static_safety_audit_v3.py",
+    "docs/PM_BOT_STAGE_SUMMARY_V5.md",
+    "docs/PM_BOT_BATCH_004_RESULT.json"
+  ],
+  "tests_run": [
+    {
+      "command": "python -m pytest pm_bot\\research\\tests -q",
+      "status": "pass",
+      "notes": "Research quality fixture tests passed."
+    },
+    {
+      "command": "python -m pytest pm_bot\\explainability\\tests -q",
+      "status": "pass",
+      "notes": "Signal explanation and reasoning trace tests passed."
+    },
+    {
+      "command": "python -m pytest pm_bot\\quality\\tests -q",
+      "status": "pass",
+      "notes": "Confidence, rejection report, and scorecard tests passed."
+    },
+    {
+      "command": "python -m pytest pm_bot\\reports\\tests -q",
+      "status": "pass",
+      "notes": "Report tests including candidate comparison passed."
+    },
+    {
+      "command": "python -m pytest pm_bot\\demo\\tests -q",
+      "status": "pass",
+      "notes": "Legacy and BATCH-004 demo tests passed."
+    },
+    {
+      "command": "python -m pytest pm_bot\\audit\\tests -q",
+      "status": "pass",
+      "notes": "Audit regression tests passed after removing broad exclusions and proving executable risky behavior would be blocked in BATCH-004 paths."
+    },
+    {
+      "command": "python -m pytest pm_bot\\scenarios\\tests pm_bot\\demo\\tests pm_bot\\reports\\tests pm_bot\\audit\\tests pm_bot\\research\\tests pm_bot\\explainability\\tests pm_bot\\quality\\tests -q",
+      "status": "pass",
+      "notes": "Grouped PMBOT offline suite passed."
+    },
+    {
+      "command": "python pm_bot\\demo\\run_research_quality_demo.py",
+      "status": "pass",
+      "notes": "Research quality demo executed successfully."
+    },
+    {
+      "command": "python pm_bot\\audit\\static_safety_audit_v3.py",
+      "status": "pass",
+      "notes": "Static safety audit v3 executed successfully with BATCH-004 executable coverage intact."
+    },
+    {
+      "command": "python pm_bot\\scenarios\\run_demo_scenarios_v3.py",
+      "status": "pass",
+      "notes": "BATCH-003 compatibility scenario runner passed."
+    },
+    {
+      "command": "python pm_bot\\demo\\run_dashboard_summary.py",
+      "status": "pass",
+      "notes": "BATCH-003 compatibility dashboard runner passed."
+    },
+    {
+      "command": "python pm_bot\\audit\\static_safety_audit_v2.py",
+      "status": "pass",
+      "notes": "Static safety audit v2 passed while scanning BATCH-004 executable paths without blanket exclusions."
+    }
+  ],
+  "safety_checks": {
+    "fixture_only": true,
+    "paper_only": true,
+    "local_only": true,
+    "deterministic": true,
+    "no_network_or_api": true,
+    "no_live_polymarket_api": true,
+    "no_wallet_or_private_key": true,
+    "no_real_orders": true,
+    "no_real_trading": true,
+    "no_autonomous_trading": true,
+    "no_runtime_wiring": true,
+    "no_dispatcher_changes": true,
+    "no_run_codex_changes": true,
+    "no_active_task_mutation": true,
+    "no_state_result_freeze_checkpoint_mutation": true,
+    "no_codex_auto_mutation": true,
+    "no_governance_state_mutation": true,
+    "audit_coverage_not_weakened": true,
+    "executable_risky_behavior_would_be_blocked": true,
+    "final_flocky_done_claimed": false,
+    "ready_for_flocky_validation": true
+  },
+  "artifacts": {
+    "research_quality_cases": "pm_bot/research/research_quality_cases.v1.json",
+    "signal_explanations": "pm_bot/explainability/expected_signal_explanations.v1.json",
+    "confidence_breakdown": "pm_bot/quality/expected_confidence_breakdown.v1.json",
+    "bad_signal_rejection_report_json": "pm_bot/quality/expected_bad_signal_rejection_report.v1.json",
+    "bad_signal_rejection_report_markdown": "pm_bot/quality/expected_bad_signal_rejection_report.v1.md",
+    "candidate_comparison_report_json": "pm_bot/reports/expected_candidate_comparison_report.v1.json",
+    "candidate_comparison_report_markdown": "pm_bot/reports/expected_candidate_comparison_report.v1.md",
+    "research_quality_scorecard_json": "pm_bot/quality/expected_research_quality_scorecard.v1.json",
+    "research_quality_scorecard_markdown": "pm_bot/quality/expected_research_quality_scorecard.v1.md",
+    "reasoning_trace_json": "pm_bot/explainability/expected_reasoning_trace.v1.json",
+    "reasoning_trace_markdown": "pm_bot/explainability/expected_reasoning_trace.v1.md",
+    "research_quality_demo_json": "pm_bot/demo/expected_research_quality_demo.v1.json",
+    "research_quality_demo_markdown": "pm_bot/demo/expected_research_quality_demo.v1.md",
+    "static_audit_v3": "pm_bot/audit/expected_static_safety_audit.v3.json",
+    "runbook_v3": "docs/PM_BOT_DEMO_RUNBOOK_V3.md",
+    "stage_summary_v5": "docs/PM_BOT_STAGE_SUMMARY_V5.md",
+    "safe_backlog_v5": "docs/PM_BOT_SAFE_BACKLOG_V5.json"
+  },
+  "known_warnings": [
+    "Static audit outputs include non-blocking mentions for documentation, tests, JSON contracts, and safety-definition token lists.",
+    "Confidence scoring is intentionally conservative and remains synthetic research only."
+  ],
+  "blocked_items": [
+    "Live fetcher implementation remains blocked pending future approval.",
+    "Live Polymarket API remains blocked pending future approval.",
+    "Wallet/private key handling remains blocked pending future approval.",
+    "Real order execution remains blocked pending future approval.",
+    "Autonomous trading remains blocked pending future approval.",
+    "Runtime wiring and dispatcher/run_codex integration remain blocked pending future approval."
+  ],
+  "requires_flocky_validation": true
+}

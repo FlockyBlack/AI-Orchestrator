@@ -1,0 +1,86 @@
+{
+  "schema_version": "promotion_decision.v1",
+  "promotion_decision_id": "PMBOT-BATCH-001-decision",
+  "promotion_request_id": "PMBOT-BATCH-001",
+  "decided_at": "2026-04-25T14:44:21+00:00",
+  "decided_by": "flocky_local_review",
+  "decision": "approve_for_ready_promotion",
+  "candidate_task_refs": [
+    "codex_auto/tasks/candidates/PMBOT-005-PAPER-SIMULATION.task.json",
+    "codex_auto/tasks/candidates/PMBOT-006-RISK-LIMITS.task.json",
+    "codex_auto/tasks/candidates/PMBOT-007-FEES-SLIPPAGE.task.json",
+    "codex_auto/tasks/candidates/PMBOT-008-RESEARCH-DASHBOARD.task.json",
+    "codex_auto/tasks/candidates/PMBOT-009-FIXTURE-POSTMORTEM.task.json",
+    "codex_auto/tasks/candidates/PMBOT-010-STATIC-SAFETY-AUDIT.task.json"
+  ],
+  "prompt_pack_ref": "codex_auto/prompts/PMBOT-BATCH-001.codex_prompt.txt",
+  "validation_findings": {
+    "promotion_request": {
+      "status": "valid",
+      "file": "codex_auto\\tasks\\promotion_requests\\PMBOT-BATCH-001.promotion_request.json",
+      "promotion_request_id": "PMBOT-BATCH-001",
+      "errors": [],
+      "requested_next_state": "promotion_review",
+      "execution_allowed_now": false,
+      "runtime_wiring_allowed": false,
+      "external_codex_cli_allowed_now": false
+    },
+    "codex_auto/tasks/candidates/PMBOT-005-PAPER-SIMULATION.task.json": {
+      "status": "valid",
+      "file": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator\\codex_auto\\tasks\\candidates\\PMBOT-005-PAPER-SIMULATION.task.json",
+      "artifact_type": "materialized_task",
+      "artifact_id": "PMBOT-005-PAPER-SIMULATION",
+      "errors": []
+    },
+    "codex_auto/tasks/candidates/PMBOT-006-RISK-LIMITS.task.json": {
+      "status": "valid",
+      "file": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator\\codex_auto\\tasks\\candidates\\PMBOT-006-RISK-LIMITS.task.json",
+      "artifact_type": "materialized_task",
+      "artifact_id": "PMBOT-006-RISK-LIMITS",
+      "errors": []
+    },
+    "codex_auto/tasks/candidates/PMBOT-007-FEES-SLIPPAGE.task.json": {
+      "status": "valid",
+      "file": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator\\codex_auto\\tasks\\candidates\\PMBOT-007-FEES-SLIPPAGE.task.json",
+      "artifact_type": "materialized_task",
+      "artifact_id": "PMBOT-007-FEES-SLIPPAGE",
+      "errors": []
+    },
+    "codex_auto/tasks/candidates/PMBOT-008-RESEARCH-DASHBOARD.task.json": {
+      "status": "valid",
+      "file": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator\\codex_auto\\tasks\\candidates\\PMBOT-008-RESEARCH-DASHBOARD.task.json",
+      "artifact_type": "materialized_task",
+      "artifact_id": "PMBOT-008-RESEARCH-DASHBOARD",
+      "errors": []
+    },
+    "codex_auto/tasks/candidates/PMBOT-009-FIXTURE-POSTMORTEM.task.json": {
+      "status": "valid",
+      "file": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator\\codex_auto\\tasks\\candidates\\PMBOT-009-FIXTURE-POSTMORTEM.task.json",
+      "artifact_type": "materialized_task",
+      "artifact_id": "PMBOT-009-FIXTURE-POSTMORTEM",
+      "errors": []
+    },
+    "codex_auto/tasks/candidates/PMBOT-010-STATIC-SAFETY-AUDIT.task.json": {
+      "status": "valid",
+      "file": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator\\codex_auto\\tasks\\candidates\\PMBOT-010-STATIC-SAFETY-AUDIT.task.json",
+      "artifact_type": "materialized_task",
+      "artifact_id": "PMBOT-010-STATIC-SAFETY-AUDIT",
+      "errors": []
+    },
+    "prompt_manifest": {},
+    "prompt_pack": {},
+    "materialization_report": {},
+    "candidate_bundle": {},
+    "forbidden_scope": {}
+  },
+  "approved_for_ready_promotion": true,
+  "approved_for_execution": false,
+  "runtime_wiring_allowed": false,
+  "external_codex_cli_allowed_now": false,
+  "human_approval_required_before_execution": true,
+  "notes": [
+    "Review-only decision. No candidate was promoted to ready.",
+    "External Codex CLI remains disallowed in this phase."
+  ],
+  "recommended_next_action": "Human approval and a separate promotion task are still required before any ready promotion."
+}

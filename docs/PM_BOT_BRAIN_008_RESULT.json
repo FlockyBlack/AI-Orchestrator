@@ -1,0 +1,53 @@
+{
+  "task_id": "PMBOT-BRAIN-008-CRYPTO-NUMERIC-MARKET-INTAKE",
+  "status": "completed_ready_for_review",
+  "summary": "Implemented deterministic offline intake for raw fixture Polymarket-style crypto numeric market records. The parser normalizes supported BTC/ETH above/below target markets into scorer fixture format and rejects unsupported or ambiguous records with reason codes and short reasons.",
+  "pmbot_root_confirmed": true,
+  "intake_readiness": "ready_for_scoring_chain",
+  "files_created": [
+    "pm_bot/scoring/crypto_numeric_market_intake.py",
+    "pm_bot/scoring/crypto_numeric_raw_market_fixtures.v1.json",
+    "pm_bot/scoring/expected_crypto_numeric_intake_report.v1.json",
+    "pm_bot/scoring/expected_crypto_numeric_intake_report.v1.md",
+    "pm_bot/scoring/tests/test_crypto_numeric_market_intake.py",
+    "docs/PM_BOT_BRAIN_008_RESULT.json",
+    "docs/PM_BOT_STAGE_SUMMARY_V20.md"
+  ],
+  "files_modified": [],
+  "tests_or_checks_run": [
+    "python -m pytest pm_bot\\scoring\\tests -q",
+    "python pm_bot\\scoring\\crypto_numeric_market_intake.py pm_bot\\scoring\\crypto_numeric_raw_market_fixtures.v1.json",
+    "python pm_bot\\scoring\\crypto_numeric_market_intake.py pm_bot\\scoring\\crypto_numeric_raw_market_fixtures.v1.json --markdown"
+  ],
+  "intake_summary": {
+    "raw_markets": 11,
+    "normalized_supported": 4,
+    "rejected": 7,
+    "rejection_reasons": {
+      "ambiguous_settlement": 1,
+      "missing_expiry": 1,
+      "missing_market_data": 1,
+      "missing_target": 1,
+      "non_crypto_market": 2,
+      "unclear_side": 1
+    }
+  },
+  "limitations": [
+    "Fixture-only parser; it does not fetch live markets, prices, APIs, or external metadata.",
+    "Target extraction intentionally requires dollar-denominated numeric targets in the question text.",
+    "No runtime integration, prompt automation, credentials, wallet access, real orders, live trading, unrelated cleanup, or new validation layer was added."
+  ],
+  "recommended_next_task": "PMBOT-BRAIN-009-CRYPTO-NUMERIC-INTAKE-TO-CHAIN: connect normalized intake output to the existing offline scorer/review/plan chain as a local fixture-only command.",
+  "safety": {
+    "offline_only": true,
+    "paper_only": true,
+    "no_network_api": true,
+    "no_credentials": true,
+    "no_wallet": true,
+    "no_real_orders": true,
+    "no_live_trading": true,
+    "no_runtime_wiring": true,
+    "no_prompt_automation": true,
+    "no_unrelated_cleanup": true
+  }
+}

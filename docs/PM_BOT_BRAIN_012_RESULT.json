@@ -1,0 +1,54 @@
+{
+  "task_id": "PMBOT-BRAIN-012-MULTI-SCENARIO-PAPER-LIFECYCLE-REPLAY",
+  "status": "completed_ready_for_review",
+  "summary": "Implemented deterministic offline multi-scenario paper lifecycle replay. The command runs fixture scenarios through intake, scoring, review, paper order planning, paper execution ledger generation, and per-scenario portfolio/exposure summaries for filled win, filled loss, not-filled, open position, settled position, rejected raw market, and no-action outcomes.",
+  "pmbot_root_confirmed": true,
+  "lifecycle_replay_readiness": "ready_for_review",
+  "command": "python pm_bot\\paper\\run_crypto_numeric_lifecycle_replay.py",
+  "files_created": [
+    "pm_bot/paper/crypto_numeric_lifecycle_replay_cases.v1.json",
+    "pm_bot/paper/run_crypto_numeric_lifecycle_replay.py",
+    "pm_bot/paper/expected_crypto_numeric_lifecycle_replay.v1.json",
+    "pm_bot/paper/expected_crypto_numeric_lifecycle_replay.v1.md",
+    "pm_bot/paper/tests/test_run_crypto_numeric_lifecycle_replay.py",
+    "docs/PM_BOT_BRAIN_012_RESULT.json",
+    "docs/PM_BOT_STAGE_SUMMARY_V24.md"
+  ],
+  "files_modified": [],
+  "tests_or_checks_run": [
+    "python -m pytest pm_bot\\paper\\tests pm_bot\\scoring\\tests -q",
+    "python pm_bot\\paper\\run_crypto_numeric_lifecycle_replay.py",
+    "python pm_bot\\paper\\run_crypto_numeric_lifecycle_replay.py --markdown"
+  ],
+  "replay_summary": {
+    "scenarios": 7,
+    "filled_orders": 4,
+    "not_filled_orders": 1,
+    "open_positions": 1,
+    "settled_positions": 3,
+    "wins": 2,
+    "losses": 1,
+    "total_paper_pnl": 79.31,
+    "bad_entries": 1,
+    "rejected_bad_cases": 1
+  },
+  "limitations": [
+    "Fixture-only replay scenarios; no live markets, prices, APIs, or external metadata are fetched.",
+    "Each scenario composes existing offline lifecycle components without runtime wiring.",
+    "Paper fills, no-fills, open status, settlement, and PnL are deterministic local calculations only.",
+    "No runtime integration, dispatcher/run_codex, prompt automation, credentials, wallet access, real orders, live trading, unrelated cleanup, or new validation layer was added."
+  ],
+  "recommended_next_task": "PMBOT-BRAIN-013: add offline lifecycle regression gates that fail if required replay scenario outcomes or locked safety flags change.",
+  "safety": {
+    "offline_only": true,
+    "paper_only": true,
+    "no_network_api": true,
+    "no_credentials": true,
+    "no_wallet": true,
+    "no_real_orders": true,
+    "no_live_trading": true,
+    "no_runtime_wiring": true,
+    "no_prompt_automation": true,
+    "no_unrelated_cleanup": true
+  }
+}

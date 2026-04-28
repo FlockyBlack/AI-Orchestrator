@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.0",
+  "template_name": "codex_focused_repair.template.txt",
+  "task_id": "ORCH-AUTOPILOT-RENDER-EXAMPLE-CODEX-REPAIR",
+  "task_title": "Repair a narrow prompt-pack renderer defect",
+  "target_agent": "Codex",
+  "task_owner": "Codex",
+  "task_type": "repair",
+  "context": "A focused repair prompt should stay within prompt-pack surfaces and preserve architecture boundaries.",
+  "goal": "Fix a narrow renderer defect and verify with the smallest relevant tests.",
+  "allowed_read_paths": [
+    "docs/",
+    "codex_auto/",
+    "codex_auto/autopilot/",
+    "codex_auto/autopilot/prompt_packs/"
+  ],
+  "allowed_write_paths": [
+    "codex_auto/autopilot/prompt_packs/",
+    "codex_auto/autopilot/tests/test_prompt_pack_renderer.py"
+  ],
+  "forbidden_write_paths": [
+    "tasks/",
+    "runs/",
+    "state/",
+    "runtime/",
+    "results/",
+    "freeze/",
+    "checkpoint/",
+    "governance/",
+    "scripts/dispatcher.py",
+    "scripts/run_codex.py"
+  ],
+  "forbidden_behavior": [
+    "no runtime wiring",
+    "no dispatcher changes",
+    "no run_codex changes",
+    "no queue mutation",
+    "no governance mutation",
+    "no sessions_spawn",
+    "no generated prompt execution",
+    "no rendered prompt execution"
+  ],
+  "validation_commands": [
+    "python -m pytest -q codex_auto/autopilot/tests/test_prompt_pack_renderer.py"
+  ],
+  "expected_final_json": {
+    "task_id": "ORCH-AUTOPILOT-RENDER-EXAMPLE-CODEX-REPAIR",
+    "status": "implementation_complete_ready_for_flocky_validation | blocked",
+    "summary": "Placeholder repair summary",
+    "files_created": [],
+    "files_modified": [],
+    "tests_run": [],
+    "safety": {},
+    "blocking_findings": [],
+    "warnings": [],
+    "next_required_step": "manual_followup"
+  },
+  "custom_sections": [
+    {
+      "title": "Repair scope",
+      "body": "Keep the fix narrow and avoid any runtime, queue, or governance surfaces."
+    }
+  ],
+  "preflight_receiver": "Flocky",
+  "notes": [
+    "Misroute to Flocky must be blocked by preflight."
+  ]
+}

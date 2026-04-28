@@ -1,0 +1,6 @@
+preview_only
+do_not_execute_now
+requires_human_approval
+requires_flocky_validation
+future_command:
+codex exec --cd C:\Users\OpenC\Documents\AI-Orchestrator -- < codex_auto\prompts\PMBOT-BATCH-001.codex_prompt.txt

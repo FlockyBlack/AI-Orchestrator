@@ -1,0 +1,60 @@
+{
+  "schema_version": "v1",
+  "task_id": "PMBOT-BRAIN-025-MANUAL-PAPER-WORKSPACE",
+  "workflow": "manual_paper_workspace",
+  "deterministic": true,
+  "run_id": "manual-paper-workspace-fixture-v1",
+  "workspace_path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator\\pm_bot\\paper\\manual_paper_workspace",
+  "inbox_path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator\\pm_bot\\paper\\manual_paper_workspace\\inbox",
+  "current_state_path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator\\pm_bot\\paper\\manual_paper_workspace\\state\\current_state.json",
+  "run_directory_path": null,
+  "run_artifacts_written": false,
+  "state_committed": false,
+  "output_files": [],
+  "input_files_discovered": 3,
+  "valid_snapshot_files_discovered": 3,
+  "snapshot_files_discovered": 3,
+  "snapshots_processed": 2,
+  "snapshots_skipped_already_processed": 1,
+  "quarantine_count": 1,
+  "quarantine_reason_counts": {
+    "already_processed_snapshot": 1
+  },
+  "quarantine_records": [
+    {
+      "input_path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator\\pm_bot\\paper\\manual_paper_workspace\\inbox\\001_series_snapshot_001.json",
+      "file_name": "001_series_snapshot_001.json",
+      "status": "skipped",
+      "reason_code": "already_processed_snapshot",
+      "reason": "Snapshot ID is already present in the input paper state.",
+      "digest": "e2c3a44b0892fc71912a6cdd17d6809349ff3e0ede6b3e3dcbb31fa5171070c7",
+      "snapshot_id": "series_snapshot_001",
+      "action_taken": "Left available to the existing processor for already-processed accounting."
+    }
+  ],
+  "new_paper_orders_created": 0,
+  "duplicate_orders_blocked": 1,
+  "risk_limit_orders_blocked": 1,
+  "open_positions_after_run": 0,
+  "settled_positions_after_run": 1,
+  "exposure_before": 100.0,
+  "exposure_after_run": 0,
+  "realized_paper_pnl_delta": 72.41,
+  "final_realized_paper_pnl": 72.41,
+  "current_state_after_command": {
+    "processed_snapshots": 1,
+    "open_positions": 1,
+    "settled_positions": 0,
+    "open_paper_notional": 100.0,
+    "realized_paper_pnl": 0
+  },
+  "offline_only": true,
+  "paper_only": true,
+  "live_fetcher_implemented": false,
+  "execution_allowed": false,
+  "trading_allowed": false,
+  "real_order_created": false,
+  "wallet_used": false,
+  "api_used": false,
+  "network_used": false
+}

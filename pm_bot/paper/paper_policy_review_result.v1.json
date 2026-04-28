@@ -1,0 +1,354 @@
+{
+  "schema_version": "paper_policy_review_result.v1",
+  "markdown_version": "paper_policy_review_report.v1",
+  "task_id": "PMBOT-PAPER-002-PAPER-POLICY-REVIEW-CONTRACT",
+  "deterministic": true,
+  "source_readiness_result_path": "pm_bot/paper final dossier paper-readiness result artifact",
+  "source_readiness_result_schema_version": "final_dossier_paper_readiness_result.v1",
+  "source_final_dossier_drafts_path": "pm_bot/research selected-ingest final dossier drafts artifact",
+  "source_final_dossier_drafts_schema_version": "selected_ingest_final_dossier_drafts.v1",
+  "source_policy_records_path": "pm_bot/paper paper-policy-review records fixture",
+  "source_policy_records_schema_version": "paper_policy_review_records_fixture.v1",
+  "json_output_path": "pm_bot/paper/paper_policy_review_result.v1.json",
+  "markdown_output_path": "pm_bot/paper/paper_policy_review_report.v1.md",
+  "expected_json_output_path": "pm_bot/paper/expected_paper_policy_review_result.v1.json",
+  "accepted_readiness_status": "eligible_for_future_paper_policy_review",
+  "allowed_future_policy_statuses": [
+    "eligible_for_future_paper_decision_simulation",
+    "watch_only_policy_review",
+    "needs_more_manual_review",
+    "blocked_by_policy"
+  ],
+  "required_policy_checks": [
+    "dossier_readiness_confirmed",
+    "no_prohibited_trading_language",
+    "no_probability_or_ev_present",
+    "no_side_recommendation_present",
+    "no_market_decision_present",
+    "unresolved_questions_reviewed",
+    "uncertainty_register_present",
+    "evidence_inventory_present"
+  ],
+  "prohibited_field_names": [
+    "order",
+    "trade",
+    "wallet",
+    "private_key",
+    "execution",
+    "recommendation",
+    "bet",
+    "stake",
+    "size",
+    "entry_price",
+    "limit_price",
+    "price_target",
+    "score",
+    "signal",
+    "probability",
+    "expected_value",
+    "ev",
+    "side",
+    "yes_no_decision",
+    "buy",
+    "sell",
+    "market_decision"
+  ],
+  "policy_summary": {
+    "policy_records_read": 4,
+    "policy_records_accepted": 1,
+    "policy_records_rejected": 3,
+    "eligible_for_future_paper_decision_simulation": 1,
+    "watch_only_policy_review": 0,
+    "needs_more_manual_review": 1,
+    "blocked_by_policy": 2,
+    "paper_orders_created": 0
+  },
+  "market_ids": [
+    "824952"
+  ],
+  "policy_records": [
+    {
+      "record_id": "policy-review-824952-valid",
+      "market_id": "824952",
+      "readiness_status": "eligible_for_future_paper_policy_review",
+      "declared_future_policy_status": "eligible_for_future_paper_decision_simulation",
+      "future_policy_status": "eligible_for_future_paper_decision_simulation",
+      "record_validation_status": "accepted",
+      "source_readiness_record_found": true,
+      "source_final_dossier_draft_found": true,
+      "checks": [
+        {
+          "check_id": "dossier_readiness_confirmed",
+          "passed": true,
+          "detail": "record and source readiness status are eligible for future paper policy review"
+        },
+        {
+          "check_id": "no_prohibited_trading_language",
+          "passed": true,
+          "detail": "no prohibited policy-review field found"
+        },
+        {
+          "check_id": "no_probability_or_ev_present",
+          "passed": true,
+          "detail": "no prohibited policy-review field found"
+        },
+        {
+          "check_id": "no_side_recommendation_present",
+          "passed": true,
+          "detail": "no prohibited policy-review field found"
+        },
+        {
+          "check_id": "no_market_decision_present",
+          "passed": true,
+          "detail": "no prohibited policy-review field found"
+        },
+        {
+          "check_id": "unresolved_questions_reviewed",
+          "passed": true,
+          "detail": "source draft has unresolved-question review structure"
+        },
+        {
+          "check_id": "uncertainty_register_present",
+          "passed": true,
+          "detail": "source draft has an uncertainty register"
+        },
+        {
+          "check_id": "evidence_inventory_present",
+          "passed": true,
+          "detail": "source draft has an evidence inventory"
+        }
+      ],
+      "failure_codes": [],
+      "blocking_paths": []
+    },
+    {
+      "record_id": "policy-review-824952-incomplete",
+      "market_id": "824952",
+      "readiness_status": "eligible_for_future_paper_policy_review",
+      "declared_future_policy_status": "eligible_for_future_paper_decision_simulation",
+      "future_policy_status": "needs_more_manual_review",
+      "record_validation_status": "rejected",
+      "source_readiness_record_found": true,
+      "source_final_dossier_draft_found": true,
+      "checks": [
+        {
+          "check_id": "dossier_readiness_confirmed",
+          "passed": true,
+          "detail": "record and source readiness status are eligible for future paper policy review"
+        },
+        {
+          "check_id": "no_prohibited_trading_language",
+          "passed": true,
+          "detail": "no prohibited policy-review field found"
+        },
+        {
+          "check_id": "no_probability_or_ev_present",
+          "passed": true,
+          "detail": "no prohibited policy-review field found"
+        },
+        {
+          "check_id": "no_side_recommendation_present",
+          "passed": true,
+          "detail": "no prohibited policy-review field found"
+        },
+        {
+          "check_id": "no_market_decision_present",
+          "passed": true,
+          "detail": "no prohibited policy-review field found"
+        },
+        {
+          "check_id": "unresolved_questions_reviewed",
+          "passed": true,
+          "detail": "source draft has unresolved-question review structure"
+        },
+        {
+          "check_id": "uncertainty_register_present",
+          "passed": true,
+          "detail": "source draft has an uncertainty register"
+        },
+        {
+          "check_id": "evidence_inventory_present",
+          "passed": false,
+          "detail": "source draft has an evidence inventory",
+          "failure_code": "missing_policy_check:evidence_inventory_present",
+          "paths": [
+            "policy_checks"
+          ]
+        }
+      ],
+      "failure_codes": [
+        "missing_policy_check:evidence_inventory_present"
+      ],
+      "blocking_paths": [
+        "policy_checks"
+      ]
+    },
+    {
+      "record_id": "policy-review-824952-prohibited-field",
+      "market_id": "824952",
+      "readiness_status": "eligible_for_future_paper_policy_review",
+      "declared_future_policy_status": "eligible_for_future_paper_decision_simulation",
+      "future_policy_status": "blocked_by_policy",
+      "record_validation_status": "rejected",
+      "source_readiness_record_found": true,
+      "source_final_dossier_draft_found": true,
+      "checks": [
+        {
+          "check_id": "dossier_readiness_confirmed",
+          "passed": true,
+          "detail": "record and source readiness status are eligible for future paper policy review"
+        },
+        {
+          "check_id": "no_prohibited_trading_language",
+          "passed": true,
+          "detail": "no prohibited policy-review field found"
+        },
+        {
+          "check_id": "no_probability_or_ev_present",
+          "passed": false,
+          "detail": "prohibited policy-review field found",
+          "failure_code": "prohibited_field:no_probability_or_ev_present",
+          "paths": [
+            "policy_payload.probability"
+          ]
+        },
+        {
+          "check_id": "no_side_recommendation_present",
+          "passed": true,
+          "detail": "no prohibited policy-review field found"
+        },
+        {
+          "check_id": "no_market_decision_present",
+          "passed": true,
+          "detail": "no prohibited policy-review field found"
+        },
+        {
+          "check_id": "unresolved_questions_reviewed",
+          "passed": true,
+          "detail": "source draft has unresolved-question review structure"
+        },
+        {
+          "check_id": "uncertainty_register_present",
+          "passed": true,
+          "detail": "source draft has an uncertainty register"
+        },
+        {
+          "check_id": "evidence_inventory_present",
+          "passed": true,
+          "detail": "source draft has an evidence inventory"
+        }
+      ],
+      "failure_codes": [
+        "prohibited_field:no_probability_or_ev_present"
+      ],
+      "blocking_paths": [
+        "policy_payload.probability"
+      ]
+    },
+    {
+      "record_id": "policy-review-unknown-market",
+      "market_id": "999999",
+      "readiness_status": "eligible_for_future_paper_policy_review",
+      "declared_future_policy_status": "watch_only_policy_review",
+      "future_policy_status": "blocked_by_policy",
+      "record_validation_status": "rejected",
+      "source_readiness_record_found": false,
+      "source_final_dossier_draft_found": false,
+      "checks": [
+        {
+          "check_id": "dossier_readiness_confirmed",
+          "passed": false,
+          "detail": "record and source readiness status are eligible for future paper policy review",
+          "failure_code": "unknown_market_id",
+          "paths": [
+            "market_id"
+          ]
+        },
+        {
+          "check_id": "no_prohibited_trading_language",
+          "passed": true,
+          "detail": "no prohibited policy-review field found"
+        },
+        {
+          "check_id": "no_probability_or_ev_present",
+          "passed": true,
+          "detail": "no prohibited policy-review field found"
+        },
+        {
+          "check_id": "no_side_recommendation_present",
+          "passed": true,
+          "detail": "no prohibited policy-review field found"
+        },
+        {
+          "check_id": "no_market_decision_present",
+          "passed": true,
+          "detail": "no prohibited policy-review field found"
+        },
+        {
+          "check_id": "unresolved_questions_reviewed",
+          "passed": false,
+          "detail": "source draft has unresolved-question review structure",
+          "failure_code": "missing_unresolved_questions_review",
+          "paths": [
+            "market_id"
+          ]
+        },
+        {
+          "check_id": "uncertainty_register_present",
+          "passed": false,
+          "detail": "source draft has an uncertainty register",
+          "failure_code": "missing_uncertainty_register",
+          "paths": [
+            "market_id"
+          ]
+        },
+        {
+          "check_id": "evidence_inventory_present",
+          "passed": false,
+          "detail": "source draft has an evidence inventory",
+          "failure_code": "missing_evidence_inventory",
+          "paths": [
+            "market_id"
+          ]
+        }
+      ],
+      "failure_codes": [
+        "missing_evidence_inventory",
+        "missing_uncertainty_register",
+        "missing_unresolved_questions_review",
+        "unknown_market_id"
+      ],
+      "blocking_paths": [
+        "market_id"
+      ]
+    }
+  ],
+  "safety": {
+    "live_fetchers": false,
+    "network_api_calls": false,
+    "credentials": false,
+    "wallet_private_keys": false,
+    "authenticated_endpoints": false,
+    "trading_endpoints": false,
+    "real_orders": false,
+    "live_trading": false,
+    "paper_orders": false,
+    "betting_recommendations": false,
+    "truth_inference": false,
+    "market_scoring": false,
+    "probability_estimates": false,
+    "expected_value_calculations": false,
+    "side_recommendations": false,
+    "market_decisions": false,
+    "runtime_wiring": false,
+    "completed_dossiers": false,
+    "dispatcher_run_codex_touched": false,
+    "prompt_automation": false,
+    "codex_copy_roots": false
+  },
+  "limitations": [
+    "Reads only local paper-readiness, selected-ingest final draft, and paper-policy-review fixture artifacts.",
+    "eligible_for_future_paper_decision_simulation only means a later module may run a paper-only decision review simulation.",
+    "This contract does not approve a paper order, choose a side, infer truth, recommend a trade, score a market, calculate probability, calculate expected value, or create paper orders."
+  ]
+}

@@ -1,0 +1,491 @@
+{
+  "schema_version": "v1",
+  "report_id": "PMBOT-BRAIN-009-CRYPTO-NUMERIC-INTAKE-TO-CHAIN",
+  "source_fixture_id": "crypto_numeric_raw_market_fixtures_v1",
+  "fixture_id": "crypto_numeric_intake_normalized_v1",
+  "deterministic": true,
+  "offline_only": true,
+  "paper_only": true,
+  "execution_allowed": false,
+  "trading_allowed": false,
+  "intake_summary": {
+    "raw_markets": 11,
+    "normalized_supported": 4,
+    "rejected": 7,
+    "rejection_reasons": {
+      "non_crypto_market": 2,
+      "missing_target": 1,
+      "missing_expiry": 1,
+      "unclear_side": 1,
+      "ambiguous_settlement": 1,
+      "missing_market_data": 1
+    }
+  },
+  "score_summary": {
+    "markets_scored": 4,
+    "paper_candidates": 1,
+    "watchlist": 1,
+    "rejected_after_scoring": 2
+  },
+  "review_summary": {
+    "paper_candidates": 1,
+    "watchlist": 1,
+    "rejected_after_scoring": 2,
+    "operator_review_only": true
+  },
+  "paper_order_summary": {
+    "paper_limit_orders": 1,
+    "no_action_entries": 3,
+    "total_planned_paper_notional": 100.0,
+    "max_loss": 100.0
+  },
+  "rejected_raw_markets": [
+    {
+      "market_id": "raw_election_non_crypto",
+      "question": "Will Candidate A win the 2026 election?",
+      "reason_code": "non_crypto_market",
+      "reason": "Record category is not crypto."
+    },
+    {
+      "market_id": "raw_weather_non_crypto",
+      "question": "Will NYC receive more than 5 inches of snow in January 2026?",
+      "reason_code": "non_crypto_market",
+      "reason": "Record category is not crypto."
+    },
+    {
+      "market_id": "raw_btc_missing_target",
+      "question": "Will BTC close green on 2026-05-31?",
+      "reason_code": "missing_target",
+      "reason": "Question does not include a numeric target price."
+    },
+    {
+      "market_id": "raw_eth_missing_expiry",
+      "question": "Will ETH be above $4,000?",
+      "reason_code": "missing_expiry",
+      "reason": "Record does not include an expiry date."
+    },
+    {
+      "market_id": "raw_btc_unclear_side",
+      "question": "Will BTC finish near $100,000 on 2026-06-30?",
+      "reason_code": "unclear_side",
+      "reason": "Question does not clearly specify above or below."
+    },
+    {
+      "market_id": "raw_eth_ambiguous_intraday",
+      "question": "Will ETH touch above $5,000 anytime before 2026-06-30?",
+      "reason_code": "ambiguous_settlement",
+      "reason": "Question uses ambiguous settlement wording."
+    },
+    {
+      "market_id": "raw_btc_missing_data",
+      "question": "Will BTC be above $95,000 on 2026-06-30?",
+      "reason_code": "missing_market_data",
+      "reason": "Record is missing market data: spread."
+    }
+  ],
+  "normalized_supported_markets": [
+    {
+      "market_id": "raw_btc_above_90000_2026_05_31",
+      "title": "Will BTC be above $90,000 on 2026-05-31?",
+      "asset": "BTC",
+      "side": "above",
+      "target_price": 90000.0,
+      "expiry": "2026-05-31",
+      "current_price": 93800.0,
+      "market_yes_price": 0.59,
+      "liquidity_usd": 180000.0,
+      "spread": 0.03,
+      "risk_level": "low",
+      "thirty_day_change_pct": 8.0,
+      "volatility_30d_pct": 42.0
+    },
+    {
+      "market_id": "raw_eth_below_3000_2026_05_31",
+      "title": "Will Ethereum be below $3,000 on 2026-05-31?",
+      "asset": "ETH",
+      "side": "below",
+      "target_price": 3000.0,
+      "expiry": "2026-05-31",
+      "current_price": 3120.0,
+      "market_yes_price": 0.36,
+      "liquidity_usd": 125000.0,
+      "spread": 0.04,
+      "risk_level": "medium",
+      "thirty_day_change_pct": -6.0,
+      "volatility_30d_pct": 55.0
+    },
+    {
+      "market_id": "raw_eth_above_4500_2026_06_30",
+      "title": "Will ETH be above $4,500 on 2026-06-30?",
+      "asset": "ETH",
+      "side": "above",
+      "target_price": 4500.0,
+      "expiry": "2026-06-30",
+      "current_price": 4200.0,
+      "market_yes_price": 0.44,
+      "liquidity_usd": 90000.0,
+      "spread": 0.05,
+      "risk_level": "medium",
+      "thirty_day_change_pct": 4.0,
+      "volatility_30d_pct": 58.0
+    },
+    {
+      "market_id": "raw_btc_below_80000_2026_06_30",
+      "title": "Will Bitcoin be below $80,000 on 2026-06-30?",
+      "asset": "BTC",
+      "side": "below",
+      "target_price": 80000.0,
+      "expiry": "2026-06-30",
+      "current_price": 93800.0,
+      "market_yes_price": 0.22,
+      "liquidity_usd": 110000.0,
+      "spread": 0.04,
+      "risk_level": "medium",
+      "thirty_day_change_pct": 8.0,
+      "volatility_30d_pct": 42.0
+    }
+  ],
+  "score_report": {
+    "schema_version": "v1",
+    "report_id": "PMBOT-BRAIN-001-CRYPTO-NUMERIC-MARKET-SCORER",
+    "fixture_id": "crypto_numeric_intake_normalized_v1",
+    "deterministic": true,
+    "offline_only": true,
+    "paper_only": true,
+    "execution_allowed": false,
+    "trading_allowed": false,
+    "markets_scored": 4,
+    "scores": [
+      {
+        "market_id": "raw_btc_above_90000_2026_05_31",
+        "asset": "BTC",
+        "side": "above",
+        "target_price": 90000.0,
+        "expiry": "2026-05-31",
+        "current_price": 93800.0,
+        "market_yes_price": 0.59,
+        "model_probability": 0.6797,
+        "market_probability": 0.59,
+        "raw_edge": 0.0897,
+        "edge_after_buffer": 0.0647,
+        "liquidity_status": "pass",
+        "spread_status": "pass",
+        "risk_status": "pass",
+        "decision": "paper_candidate",
+        "explanation": "BTC above 90000.0 by 2026-05-31 scores model_probability=0.6797 vs market_probability=0.5900; raw_edge=0.0897, edge_after_buffer=0.0647; liquidity=pass, spread=pass, risk=pass, extension=pass; decision=paper_candidate. Offline fixture paper scoring only.",
+        "offline_only": true,
+        "paper_only": true,
+        "execution_allowed": false,
+        "trading_allowed": false
+      },
+      {
+        "market_id": "raw_eth_below_3000_2026_05_31",
+        "asset": "ETH",
+        "side": "below",
+        "target_price": 3000.0,
+        "expiry": "2026-05-31",
+        "current_price": 3120.0,
+        "market_yes_price": 0.36,
+        "model_probability": 0.3895,
+        "market_probability": 0.36,
+        "raw_edge": 0.0295,
+        "edge_after_buffer": 0.0045,
+        "liquidity_status": "pass",
+        "spread_status": "pass",
+        "risk_status": "watch",
+        "decision": "watchlist",
+        "explanation": "ETH below 3000.0 by 2026-05-31 scores model_probability=0.3895 vs market_probability=0.3600; raw_edge=0.0295, edge_after_buffer=0.0045; liquidity=pass, spread=pass, risk=watch, extension=pass; decision=watchlist. Offline fixture paper scoring only.",
+        "offline_only": true,
+        "paper_only": true,
+        "execution_allowed": false,
+        "trading_allowed": false
+      },
+      {
+        "market_id": "raw_eth_above_4500_2026_06_30",
+        "asset": "ETH",
+        "side": "above",
+        "target_price": 4500.0,
+        "expiry": "2026-06-30",
+        "current_price": 4200.0,
+        "market_yes_price": 0.44,
+        "model_probability": 0.261,
+        "market_probability": 0.44,
+        "raw_edge": -0.179,
+        "edge_after_buffer": -0.204,
+        "liquidity_status": "pass",
+        "spread_status": "pass",
+        "risk_status": "watch",
+        "decision": "reject",
+        "explanation": "ETH above 4500.0 by 2026-06-30 scores model_probability=0.2610 vs market_probability=0.4400; raw_edge=-0.1790, edge_after_buffer=-0.2040; liquidity=pass, spread=pass, risk=watch, extension=pass; decision=reject. Offline fixture paper scoring only.",
+        "offline_only": true,
+        "paper_only": true,
+        "execution_allowed": false,
+        "trading_allowed": false
+      },
+      {
+        "market_id": "raw_btc_below_80000_2026_06_30",
+        "asset": "BTC",
+        "side": "below",
+        "target_price": 80000.0,
+        "expiry": "2026-06-30",
+        "current_price": 93800.0,
+        "market_yes_price": 0.22,
+        "model_probability": 0.05,
+        "market_probability": 0.22,
+        "raw_edge": -0.17,
+        "edge_after_buffer": -0.195,
+        "liquidity_status": "pass",
+        "spread_status": "pass",
+        "risk_status": "watch",
+        "decision": "reject",
+        "explanation": "BTC below 80000.0 by 2026-06-30 scores model_probability=0.0500 vs market_probability=0.2200; raw_edge=-0.1700, edge_after_buffer=-0.1950; liquidity=pass, spread=pass, risk=watch, extension=pass; decision=reject. Offline fixture paper scoring only.",
+        "offline_only": true,
+        "paper_only": true,
+        "execution_allowed": false,
+        "trading_allowed": false
+      }
+    ]
+  },
+  "review_table": {
+    "schema_version": "v1",
+    "report_id": "PMBOT-BRAIN-002-CRYPTO-NUMERIC-REVIEW-TABLE",
+    "source_report_id": "PMBOT-BRAIN-001-CRYPTO-NUMERIC-MARKET-SCORER",
+    "fixture_id": "crypto_numeric_intake_normalized_v1",
+    "deterministic": true,
+    "offline_only": true,
+    "paper_only": true,
+    "execution_allowed": false,
+    "trading_allowed": false,
+    "operator_review_only": true,
+    "group_counts": {
+      "paper_candidate": 1,
+      "watchlist": 1,
+      "reject": 2
+    },
+    "rows": [
+      {
+        "market_id": "raw_btc_above_90000_2026_05_31",
+        "asset": "BTC",
+        "side": "above",
+        "market_probability": 0.59,
+        "model_probability": 0.6797,
+        "edge_after_buffer": 0.0647,
+        "liquidity_status": "pass",
+        "spread_status": "pass",
+        "risk_status": "pass",
+        "decision": "paper_candidate",
+        "short_reason": "positive buffered edge clears review gates"
+      },
+      {
+        "market_id": "raw_eth_below_3000_2026_05_31",
+        "asset": "ETH",
+        "side": "below",
+        "market_probability": 0.36,
+        "model_probability": 0.3895,
+        "edge_after_buffer": 0.0045,
+        "liquidity_status": "pass",
+        "spread_status": "pass",
+        "risk_status": "watch",
+        "decision": "watchlist",
+        "short_reason": "positive buffered edge needs operator review; risk needs review"
+      },
+      {
+        "market_id": "raw_eth_above_4500_2026_06_30",
+        "asset": "ETH",
+        "side": "above",
+        "market_probability": 0.44,
+        "model_probability": 0.261,
+        "edge_after_buffer": -0.204,
+        "liquidity_status": "pass",
+        "spread_status": "pass",
+        "risk_status": "watch",
+        "decision": "reject",
+        "short_reason": "buffered edge is not positive; risk needs review"
+      },
+      {
+        "market_id": "raw_btc_below_80000_2026_06_30",
+        "asset": "BTC",
+        "side": "below",
+        "market_probability": 0.22,
+        "model_probability": 0.05,
+        "edge_after_buffer": -0.195,
+        "liquidity_status": "pass",
+        "spread_status": "pass",
+        "risk_status": "watch",
+        "decision": "reject",
+        "short_reason": "buffered edge is not positive; risk needs review"
+      }
+    ],
+    "review_note": "Output is for paper-only operator review. No execution, trading, order placement, or runtime action is allowed."
+  },
+  "paper_candidate_rows": [
+    {
+      "market_id": "raw_btc_above_90000_2026_05_31",
+      "asset": "BTC",
+      "side": "above",
+      "market_probability": 0.59,
+      "model_probability": 0.6797,
+      "edge_after_buffer": 0.0647,
+      "liquidity_status": "pass",
+      "spread_status": "pass",
+      "risk_status": "pass",
+      "decision": "paper_candidate",
+      "short_reason": "positive buffered edge clears review gates"
+    }
+  ],
+  "watchlist_rows": [
+    {
+      "market_id": "raw_eth_below_3000_2026_05_31",
+      "asset": "ETH",
+      "side": "below",
+      "market_probability": 0.36,
+      "model_probability": 0.3895,
+      "edge_after_buffer": 0.0045,
+      "liquidity_status": "pass",
+      "spread_status": "pass",
+      "risk_status": "watch",
+      "decision": "watchlist",
+      "short_reason": "positive buffered edge needs operator review; risk needs review"
+    }
+  ],
+  "rejected_after_scoring_rows": [
+    {
+      "market_id": "raw_eth_above_4500_2026_06_30",
+      "asset": "ETH",
+      "side": "above",
+      "market_probability": 0.44,
+      "model_probability": 0.261,
+      "edge_after_buffer": -0.204,
+      "liquidity_status": "pass",
+      "spread_status": "pass",
+      "risk_status": "watch",
+      "decision": "reject",
+      "short_reason": "buffered edge is not positive; risk needs review"
+    },
+    {
+      "market_id": "raw_btc_below_80000_2026_06_30",
+      "asset": "BTC",
+      "side": "below",
+      "market_probability": 0.22,
+      "model_probability": 0.05,
+      "edge_after_buffer": -0.195,
+      "liquidity_status": "pass",
+      "spread_status": "pass",
+      "risk_status": "watch",
+      "decision": "reject",
+      "short_reason": "buffered edge is not positive; risk needs review"
+    }
+  ],
+  "generated_paper_order_plan": {
+    "schema_version": "v1",
+    "report_id": "PMBOT-BRAIN-003-CRYPTO-NUMERIC-PAPER-ORDER-PLAN",
+    "source_report_id": "PMBOT-BRAIN-002-CRYPTO-NUMERIC-REVIEW-TABLE",
+    "fixture_id": "crypto_numeric_intake_normalized_v1",
+    "deterministic": true,
+    "offline_only": true,
+    "paper_only": true,
+    "execution_allowed": false,
+    "trading_allowed": false,
+    "operator_review_only": true,
+    "risk_limits": {
+      "max_paper_notional_per_market": 100.0,
+      "max_total_paper_notional": 250.0,
+      "minimum_edge_after_buffer": 0.04,
+      "reject_low_liquidity": true,
+      "reject_wide_spread": true,
+      "reject_risk_fail": true
+    },
+    "paper_order_count": 1,
+    "no_action_count": 3,
+    "total_planned_paper_notional": 100.0,
+    "entries": [
+      {
+        "market_id": "raw_btc_above_90000_2026_05_31",
+        "asset": "BTC",
+        "side": "above",
+        "action": "paper_limit_order",
+        "limit_price": 0.59,
+        "paper_notional": 100.0,
+        "max_loss": 100.0,
+        "reason": "Paper candidate clears edge, liquidity, spread, and risk limits.",
+        "risk_limits_applied": {
+          "max_paper_notional_per_market": 100.0,
+          "max_total_paper_notional": 250.0,
+          "minimum_edge_after_buffer": 0.04,
+          "reject_low_liquidity": true,
+          "reject_wide_spread": true,
+          "reject_risk_fail": true
+        },
+        "offline_only": true,
+        "paper_only": true,
+        "execution_allowed": false,
+        "trading_allowed": false
+      },
+      {
+        "market_id": "raw_eth_below_3000_2026_05_31",
+        "asset": "ETH",
+        "side": "below",
+        "action": "no_action",
+        "reason": "decision is watchlist; edge_after_buffer below minimum; risk needs operator review",
+        "risk_limits_applied": {
+          "max_paper_notional_per_market": 100.0,
+          "max_total_paper_notional": 250.0,
+          "minimum_edge_after_buffer": 0.04,
+          "reject_low_liquidity": true,
+          "reject_wide_spread": true,
+          "reject_risk_fail": true
+        },
+        "offline_only": true,
+        "paper_only": true,
+        "execution_allowed": false,
+        "trading_allowed": false
+      },
+      {
+        "market_id": "raw_eth_above_4500_2026_06_30",
+        "asset": "ETH",
+        "side": "above",
+        "action": "no_action",
+        "reason": "decision is reject; edge_after_buffer below minimum; risk needs operator review",
+        "risk_limits_applied": {
+          "max_paper_notional_per_market": 100.0,
+          "max_total_paper_notional": 250.0,
+          "minimum_edge_after_buffer": 0.04,
+          "reject_low_liquidity": true,
+          "reject_wide_spread": true,
+          "reject_risk_fail": true
+        },
+        "offline_only": true,
+        "paper_only": true,
+        "execution_allowed": false,
+        "trading_allowed": false
+      },
+      {
+        "market_id": "raw_btc_below_80000_2026_06_30",
+        "asset": "BTC",
+        "side": "below",
+        "action": "no_action",
+        "reason": "decision is reject; edge_after_buffer below minimum; risk needs operator review",
+        "risk_limits_applied": {
+          "max_paper_notional_per_market": 100.0,
+          "max_total_paper_notional": 250.0,
+          "minimum_edge_after_buffer": 0.04,
+          "reject_low_liquidity": true,
+          "reject_wide_spread": true,
+          "reject_risk_fail": true
+        },
+        "offline_only": true,
+        "paper_only": true,
+        "execution_allowed": false,
+        "trading_allowed": false
+      }
+    ],
+    "review_note": "Paper order plans are offline review artifacts only. No execution, trading, order placement, or runtime action is allowed."
+  },
+  "limitations": [
+    "Uses raw fixture input only; no live markets, prices, or APIs are fetched.",
+    "Rejected raw markets are retained with deterministic rejection reason codes.",
+    "Generated paper order plan is an offline review artifact only; no real order is created.",
+    "No runtime integration, prompt automation, credentials, or wallet access is included."
+  ],
+  "review_note": "End-to-end raw intake -> scorer -> review table -> paper order plan for operator review only."
+}

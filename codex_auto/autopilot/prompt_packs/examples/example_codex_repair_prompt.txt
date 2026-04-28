@@ -1,0 +1,24 @@
+TARGET_AGENT: Codex
+TASK_OWNER: Codex
+TASK_TYPE: repair
+CODE_CHANGES_ALLOWED_FOR_RECEIVER: true
+SESSIONS_SPAWN_ALLOWED: false
+SESSIONS_SPAWN_ALLOWED_FOR_FLOCKY: false
+RUNTIME_MUTATION_ALLOWED: false
+QUEUE_MUTATION_ALLOWED: false
+GOVERNANCE_MUTATION_ALLOWED: false
+APPROVAL_REQUIRED: true
+MISROUTE_BEHAVIOR: IF_RECEIVED_BY_FLOCKY_RETURN_MISROUTED_CODEX_PROMPT_DETECTED_WITHOUT_TOOL_EXECUTION
+
+Task ID:
+ORCH-AUTOPILOT-EXAMPLE-CODEX-REPAIR
+
+Repair a failing prompt-pack manifest consistency test within codex_auto/autopilot/prompt_packs/.
+
+Allowed read paths:
+- docs/
+- codex_auto/autopilot/
+
+Allowed write paths:
+- codex_auto/autopilot/prompt_packs/
+- codex_auto/autopilot/tests/test_prompt_pack_templates.py

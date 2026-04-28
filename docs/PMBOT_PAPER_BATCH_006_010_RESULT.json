@@ -1,0 +1,81 @@
+{
+  "task_id": "PMBOT-PAPER-BATCH-006-010-PAPER-WORKBENCH-MVP",
+  "status": "completed_ready_for_review",
+  "summary": "Implemented deterministic offline PAPER-006 through PAPER-010 workbench MVP artifacts from the PAPER-005 gate through operator-manual inert paper intent ledger and preview.",
+  "market_ids": [
+    "824952"
+  ],
+  "stages_completed": {
+    "paper_006_human_review_record_gate": true,
+    "paper_007_simulation_plan_draft": true,
+    "paper_008_manual_paper_intent_contract": true,
+    "paper_009_manual_paper_intent_ledger": true,
+    "paper_010_paper_workbench_preview": true
+  },
+  "counts": {
+    "human_review_records_accepted": 1,
+    "human_review_records_rejected": 3,
+    "simulation_plans_written": 1,
+    "manual_paper_intents_accepted": 1,
+    "manual_paper_intents_rejected": 2,
+    "manual_paper_intent_ledger_entries": 1,
+    "paper_workbench_preview_records": 1,
+    "real_orders_created": 0,
+    "live_orders_created": 0,
+    "autonomous_paper_orders_created": 0
+  },
+  "files_created": [
+    "pm_bot/paper/run_paper_workbench_mvp_batch_006_010.py",
+    "pm_bot/paper/paper_simulation_gate_human_review_records_input.v1.json",
+    "pm_bot/paper/paper_simulation_gate_human_review_records_accepted.v1.json",
+    "pm_bot/paper/paper_simulation_gate_human_review_records_rejected.v1.json",
+    "pm_bot/paper/paper_simulation_gate_human_review_records_report.v1.md",
+    "pm_bot/paper/paper_simulation_plan_draft.v1.json",
+    "pm_bot/paper/paper_simulation_plan_draft.v1.md",
+    "pm_bot/paper/expected_paper_simulation_plan_draft.v1.json",
+    "pm_bot/paper/manual_paper_intent_template.v1.json",
+    "pm_bot/paper/manual_paper_intents_input.v1.json",
+    "pm_bot/paper/manual_paper_intents_accepted.v1.json",
+    "pm_bot/paper/manual_paper_intents_rejected.v1.json",
+    "pm_bot/paper/manual_paper_intent_ledger.v1.json",
+    "pm_bot/paper/manual_paper_intent_report.v1.md",
+    "pm_bot/paper/paper_workbench_preview.v1.json",
+    "pm_bot/paper/paper_workbench_preview.v1.md",
+    "pm_bot/paper/expected_paper_workbench_preview.v1.json",
+    "pm_bot/paper/tests/test_paper_workbench_mvp_batch_006_010.py",
+    "docs/PMBOT_PAPER_BATCH_006_010_RESULT.json"
+  ],
+  "files_modified": [],
+  "tests": [],
+  "safety": {
+    "offline_only": true,
+    "network_api_calls": false,
+    "credentials": false,
+    "wallet_private_keys": false,
+    "authenticated_endpoints": false,
+    "trading_endpoints": false,
+    "real_orders": false,
+    "live_trading": false,
+    "autonomous_paper_orders": false,
+    "betting_recommendations": false,
+    "truth_inference": false,
+    "market_scoring": false,
+    "probability_estimates": false,
+    "ev_calculations": false,
+    "side_recommendations": false,
+    "market_decisions": false,
+    "runtime_wiring": false,
+    "dispatcher_run_codex_changes": false,
+    "prompt_automation": false,
+    "codex_copy_roots": false,
+    "completed_dossiers": false,
+    "broad_refactor": false
+  },
+  "scope_expansion": {
+    "manual_operator_paper_intent_fields_introduced": true,
+    "manual_fields_are_operator_provided_only": true,
+    "bot_generated_side_size_price": false,
+    "paper_only_inert_ledger": true
+  },
+  "blockers": []
+}

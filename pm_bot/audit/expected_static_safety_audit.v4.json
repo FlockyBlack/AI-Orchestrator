@@ -1,0 +1,2106 @@
+{
+  "schema_version": "v4",
+  "audit_id": "PMBOT-BATCH-005-STATIC-AUDIT",
+  "audit_passed": true,
+  "scanned_file_count": 157,
+  "scanned_files": [
+    "pm_bot/fixtures/invalid_market_snapshot_missing_outcomes.v1.json",
+    "pm_bot/fixtures/live_boundary/normalized_snapshot.valid.example.v1.json",
+    "pm_bot/fixtures/live_boundary/quarantine_record.example.v1.json",
+    "pm_bot/fixtures/live_boundary/raw_snapshot.invalid.example.v1.json",
+    "pm_bot/fixtures/live_boundary/raw_snapshot.valid.example.v1.json",
+    "pm_bot/fixtures/market_snapshot_stub.v1.json",
+    "pm_bot/fixtures/multi_market_fixture_bundle.v1.json",
+    "pm_bot/scenarios/expected_demo_scenario_report.v2.json",
+    "pm_bot/scenarios/expected_demo_scenario_report.v3.json",
+    "pm_bot/scenarios/run_demo_scenarios.py",
+    "pm_bot/scenarios/run_demo_scenarios_v3.py",
+    "pm_bot/scenarios/scenario_suite.v2.json",
+    "pm_bot/scenarios/scenario_suite.v3.json",
+    "pm_bot/scenarios/tests/test_run_demo_scenarios.py",
+    "pm_bot/scenarios/tests/test_run_demo_scenarios_v3.py",
+    "pm_bot/demo/demo_market_bundle.v1.json",
+    "pm_bot/demo/expected_adversarial_validation_demo.v1.json",
+    "pm_bot/demo/expected_adversarial_validation_demo.v1.md",
+    "pm_bot/demo/expected_dashboard_summary.v1.json",
+    "pm_bot/demo/expected_dashboard_summary.v1.md",
+    "pm_bot/demo/expected_operator_review_demo.v1.json",
+    "pm_bot/demo/expected_operator_review_demo.v1.md",
+    "pm_bot/demo/expected_paper_research_demo.v1.json",
+    "pm_bot/demo/expected_paper_research_demo.v1.md",
+    "pm_bot/demo/expected_research_quality_demo.v1.json",
+    "pm_bot/demo/expected_research_quality_demo.v1.md",
+    "pm_bot/demo/README.md",
+    "pm_bot/demo/run_adversarial_validation_demo.py",
+    "pm_bot/demo/run_dashboard_summary.py",
+    "pm_bot/demo/run_operator_review_demo.py",
+    "pm_bot/demo/run_paper_research_demo.py",
+    "pm_bot/demo/run_research_quality_demo.py",
+    "pm_bot/demo/tests/test_adversarial_validation_demo.py",
+    "pm_bot/demo/tests/test_dashboard_summary.py",
+    "pm_bot/demo/tests/test_operator_review_demo.py",
+    "pm_bot/demo/tests/test_research_quality_demo.py",
+    "pm_bot/demo/tests/test_run_paper_research_demo.py",
+    "pm_bot/reports/build_research_dashboard.py",
+    "pm_bot/reports/candidate_comparison_report.py",
+    "pm_bot/reports/dashboard_fixture.v1.json",
+    "pm_bot/reports/expected_candidate_comparison_report.v1.json",
+    "pm_bot/reports/expected_candidate_comparison_report.v1.md",
+    "pm_bot/reports/expected_dashboard_report.v1.json",
+    "pm_bot/reports/expected_portfolio_paper_report.v1.json",
+    "pm_bot/reports/expected_portfolio_paper_report.v1.md",
+    "pm_bot/reports/expected_rejection_summary_report.v1.json",
+    "pm_bot/reports/expected_rejection_summary_report.v1.md",
+    "pm_bot/reports/pmbot_batch_003_support.py",
+    "pm_bot/reports/portfolio_paper_report.py",
+    "pm_bot/reports/rejection_summary_report.py",
+    "pm_bot/reports/tests/test_build_research_dashboard.py",
+    "pm_bot/reports/tests/test_candidate_comparison_report.py",
+    "pm_bot/reports/tests/test_portfolio_paper_report.py",
+    "pm_bot/reports/tests/test_rejection_summary_report.py",
+    "pm_bot/audit/run_static_safety_audit.py",
+    "pm_bot/audit/static_safety_audit_v2.py",
+    "pm_bot/audit/static_safety_audit_v3.py",
+    "pm_bot/audit/static_safety_audit_v4.py",
+    "pm_bot/audit/static_safety_audit_v5.py",
+    "pm_bot/audit/static_safety_audit_v6.py",
+    "pm_bot/audit/static_safety_audit_v7.py",
+    "pm_bot/audit/tests/fixtures/safe_sample.py",
+    "pm_bot/audit/tests/fixtures/unsafe_sample.py",
+    "pm_bot/audit/tests/test_run_static_safety_audit.py",
+    "pm_bot/audit/tests/test_static_safety_audit_v2.py",
+    "pm_bot/audit/tests/test_static_safety_audit_v3.py",
+    "pm_bot/audit/tests/test_static_safety_audit_v4.py",
+    "pm_bot/audit/tests/test_static_safety_audit_v5.py",
+    "pm_bot/audit/tests/test_static_safety_audit_v6.py",
+    "pm_bot/audit/tests/test_static_safety_audit_v7.py",
+    "pm_bot/research/research_quality_cases.v1.json",
+    "pm_bot/research/tests/test_research_quality_cases.py",
+    "pm_bot/explainability/expected_reasoning_trace.v1.json",
+    "pm_bot/explainability/expected_reasoning_trace.v1.md",
+    "pm_bot/explainability/expected_signal_explanations.v1.json",
+    "pm_bot/explainability/reasoning_trace.py",
+    "pm_bot/explainability/signal_explainer.py",
+    "pm_bot/explainability/tests/test_reasoning_trace.py",
+    "pm_bot/explainability/tests/test_signal_explainer.py",
+    "pm_bot/quality/bad_signal_rejection_report.py",
+    "pm_bot/quality/confidence_breakdown.py",
+    "pm_bot/quality/expected_bad_signal_rejection_report.v1.json",
+    "pm_bot/quality/expected_bad_signal_rejection_report.v1.md",
+    "pm_bot/quality/expected_confidence_breakdown.v1.json",
+    "pm_bot/quality/expected_research_quality_scorecard.v1.json",
+    "pm_bot/quality/expected_research_quality_scorecard.v1.md",
+    "pm_bot/quality/research_quality_scorecard.py",
+    "pm_bot/quality/research_quality_support.py",
+    "pm_bot/quality/tests/test_bad_signal_rejection_report.py",
+    "pm_bot/quality/tests/test_confidence_breakdown.py",
+    "pm_bot/quality/tests/test_research_quality_scorecard.py",
+    "pm_bot/adversarial/adversarial_replay_cases.v1.json",
+    "pm_bot/adversarial/expected_market_shock_report.v1.json",
+    "pm_bot/adversarial/expected_market_shock_report.v1.md",
+    "pm_bot/adversarial/market_shock_scenarios.v1.json",
+    "pm_bot/adversarial/run_market_shock_scenarios.py",
+    "pm_bot/adversarial/tests/test_adversarial_replay_cases.py",
+    "pm_bot/adversarial/tests/test_market_shock_scenarios.py",
+    "pm_bot/replay/expected_adversarial_replay_report.v1.json",
+    "pm_bot/replay/expected_adversarial_replay_report.v1.md",
+    "pm_bot/replay/run_adversarial_replay.py",
+    "pm_bot/replay/tests/test_run_adversarial_replay.py",
+    "pm_bot/validation/adversarial_support.py",
+    "pm_bot/validation/expected_false_positive_prevention_report.v1.json",
+    "pm_bot/validation/expected_false_positive_prevention_report.v1.md",
+    "pm_bot/validation/expected_replay_safety_scorecard.v1.json",
+    "pm_bot/validation/expected_replay_safety_scorecard.v1.md",
+    "pm_bot/validation/false_positive_prevention_report.py",
+    "pm_bot/validation/replay_safety_scorecard.py",
+    "pm_bot/validation/tests/test_false_positive_prevention_report.py",
+    "pm_bot/validation/tests/test_replay_safety_scorecard.py",
+    "pm_bot/validation/tests/test_validate_market_snapshot.py",
+    "pm_bot/validation/validate_market_snapshot.py",
+    "docs/PM_BOT_BATCH_002_RESULT.json",
+    "docs/PM_BOT_BATCH_003_RESULT.json",
+    "docs/PM_BOT_BATCH_004_RESULT.json",
+    "docs/PM_BOT_BATCH_005_RESULT.json",
+    "docs/PM_BOT_BATCH_006_RESULT.json",
+    "docs/PM_BOT_BATCH_007_RESULT.json",
+    "docs/PM_BOT_BATCH_008_RESULT.json",
+    "docs/PM_BOT_BATCH_009_RESULT.json",
+    "docs/PM_BOT_BATCH_010_RESULT.json",
+    "docs/PM_BOT_DEMO_RUNBOOK_V1.md",
+    "docs/PM_BOT_DEMO_RUNBOOK_V2.md",
+    "docs/PM_BOT_DEMO_RUNBOOK_V3.md",
+    "docs/PM_BOT_DEMO_RUNBOOK_V4.md",
+    "docs/PM_BOT_DEMO_RUNBOOK_V5.md",
+    "docs/PM_BOT_LIVE_READONLY_APPROVAL_GATES_V1.md",
+    "docs/PM_BOT_LIVE_READONLY_BOUNDARY_V1.md",
+    "docs/PM_BOT_MASTER_PLAN_V1.md",
+    "docs/PM_BOT_RAW_ARTIFACT_FAILURE_MODES_V1.md",
+    "docs/PM_BOT_RAW_ARTIFACT_INGESTION_CONTRACT_V1.md",
+    "docs/PM_BOT_RAW_ARTIFACT_INGESTION_MANIFEST_V1.md",
+    "docs/PM_BOT_READONLY_FETCHER_APPROVAL_CHECKLIST_V1.md",
+    "docs/PM_BOT_READONLY_FETCHER_FAILURE_MODES_V1.md",
+    "docs/PM_BOT_READONLY_FETCHER_IMPLEMENTATION_PLAN_V1.md",
+    "docs/PM_BOT_SAFE_BACKLOG_V1.json",
+    "docs/PM_BOT_SAFE_BACKLOG_V10.json",
+    "docs/PM_BOT_SAFE_BACKLOG_V11.json",
+    "docs/PM_BOT_SAFE_BACKLOG_V2.json",
+    "docs/PM_BOT_SAFE_BACKLOG_V3.json",
+    "docs/PM_BOT_SAFE_BACKLOG_V4.json",
+    "docs/PM_BOT_SAFE_BACKLOG_V5.json",
+    "docs/PM_BOT_SAFE_BACKLOG_V6.json",
+    "docs/PM_BOT_SAFE_BACKLOG_V7.json",
+    "docs/PM_BOT_SAFE_BACKLOG_V8.json",
+    "docs/PM_BOT_SAFE_BACKLOG_V9.json",
+    "docs/PM_BOT_STAGE_SUMMARY_V10.md",
+    "docs/PM_BOT_STAGE_SUMMARY_V11.md",
+    "docs/PM_BOT_STAGE_SUMMARY_V2.md",
+    "docs/PM_BOT_STAGE_SUMMARY_V3.md",
+    "docs/PM_BOT_STAGE_SUMMARY_V4.md",
+    "docs/PM_BOT_STAGE_SUMMARY_V5.md",
+    "docs/PM_BOT_STAGE_SUMMARY_V6.md",
+    "docs/PM_BOT_STAGE_SUMMARY_V7.md",
+    "docs/PM_BOT_STAGE_SUMMARY_V8.md",
+    "docs/PM_BOT_STAGE_SUMMARY_V9.md"
+  ],
+  "blocking_findings": [],
+  "non_blocking_mentions": [
+    {
+      "file": "pm_bot/scenarios/tests/test_run_demo_scenarios.py",
+      "token": "requests",
+      "category": "network",
+      "line": 62,
+      "reason": "test_context"
+    },
+    {
+      "file": "pm_bot/scenarios/tests/test_run_demo_scenarios.py",
+      "token": "socket",
+      "category": "network",
+      "line": 62,
+      "reason": "test_context"
+    },
+    {
+      "file": "pm_bot/scenarios/tests/test_run_demo_scenarios.py",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 62,
+      "reason": "test_context"
+    },
+    {
+      "file": "pm_bot/scenarios/tests/test_run_demo_scenarios_v3.py",
+      "token": "requests",
+      "category": "network",
+      "line": 56,
+      "reason": "test_context"
+    },
+    {
+      "file": "pm_bot/scenarios/tests/test_run_demo_scenarios_v3.py",
+      "token": "socket",
+      "category": "network",
+      "line": 56,
+      "reason": "test_context"
+    },
+    {
+      "file": "pm_bot/scenarios/tests/test_run_demo_scenarios_v3.py",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 56,
+      "reason": "test_context"
+    },
+    {
+      "file": "pm_bot/demo/tests/test_dashboard_summary.py",
+      "token": "requests",
+      "category": "network",
+      "line": 63,
+      "reason": "test_context"
+    },
+    {
+      "file": "pm_bot/demo/tests/test_dashboard_summary.py",
+      "token": "socket",
+      "category": "network",
+      "line": 63,
+      "reason": "test_context"
+    },
+    {
+      "file": "pm_bot/demo/tests/test_dashboard_summary.py",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 63,
+      "reason": "test_context"
+    },
+    {
+      "file": "pm_bot/demo/tests/test_run_paper_research_demo.py",
+      "token": "requests",
+      "category": "network",
+      "line": 75,
+      "reason": "test_context"
+    },
+    {
+      "file": "pm_bot/demo/tests/test_run_paper_research_demo.py",
+      "token": "socket",
+      "category": "network",
+      "line": 75,
+      "reason": "test_context"
+    },
+    {
+      "file": "pm_bot/demo/tests/test_run_paper_research_demo.py",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 75,
+      "reason": "test_context"
+    },
+    {
+      "file": "pm_bot/reports/tests/test_portfolio_paper_report.py",
+      "token": "requests",
+      "category": "network",
+      "line": 64,
+      "reason": "test_context"
+    },
+    {
+      "file": "pm_bot/reports/tests/test_portfolio_paper_report.py",
+      "token": "socket",
+      "category": "network",
+      "line": 64,
+      "reason": "test_context"
+    },
+    {
+      "file": "pm_bot/reports/tests/test_portfolio_paper_report.py",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 64,
+      "reason": "test_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v2.py",
+      "token": "requests",
+      "category": "network",
+      "line": 10,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v2.py",
+      "token": "urllib.request",
+      "category": "network",
+      "line": 11,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v2.py",
+      "token": "httpx",
+      "category": "network",
+      "line": 12,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v2.py",
+      "token": "socket",
+      "category": "network",
+      "line": 13,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v2.py",
+      "token": "aiohttp",
+      "category": "network",
+      "line": 14,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v2.py",
+      "token": "api.polymarket",
+      "category": "live_api",
+      "line": 15,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v2.py",
+      "token": "clob.polymarket",
+      "category": "live_api",
+      "line": 16,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v2.py",
+      "token": "gamma-api",
+      "category": "live_api",
+      "line": 17,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v2.py",
+      "token": "private_key",
+      "category": "wallet",
+      "line": 18,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v2.py",
+      "token": "seed_phrase",
+      "category": "wallet",
+      "line": 19,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v2.py",
+      "token": "wallet_sign",
+      "category": "wallet",
+      "line": 20,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v2.py",
+      "token": "eth_account",
+      "category": "wallet",
+      "line": 21,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v2.py",
+      "token": "submit_order",
+      "category": "trading",
+      "line": 22,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v2.py",
+      "token": "place_order",
+      "category": "trading",
+      "line": 23,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v2.py",
+      "token": "execute_trade",
+      "category": "trading",
+      "line": 24,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v2.py",
+      "token": "dispatcher/",
+      "category": "runtime",
+      "line": 25,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v2.py",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 26,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v2.py",
+      "token": "codex_auto/",
+      "category": "runtime",
+      "line": 27,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v2.py",
+      "token": "governance/",
+      "category": "runtime",
+      "line": 28,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v2.py",
+      "token": "checkpoints",
+      "category": "runtime",
+      "line": 29,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v2.py",
+      "token": "freezes",
+      "category": "runtime",
+      "line": 30,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v2.py",
+      "token": "results/",
+      "category": "runtime",
+      "line": 31,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v2.py",
+      "token": "state/",
+      "category": "runtime",
+      "line": 32,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v3.py",
+      "token": "requests",
+      "category": "network",
+      "line": 10,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v3.py",
+      "token": "urllib.request",
+      "category": "network",
+      "line": 11,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v3.py",
+      "token": "httpx",
+      "category": "network",
+      "line": 12,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v3.py",
+      "token": "socket",
+      "category": "network",
+      "line": 13,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v3.py",
+      "token": "aiohttp",
+      "category": "network",
+      "line": 14,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v3.py",
+      "token": "api.polymarket",
+      "category": "live_api",
+      "line": 15,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v3.py",
+      "token": "clob.polymarket",
+      "category": "live_api",
+      "line": 16,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v3.py",
+      "token": "gamma-api",
+      "category": "live_api",
+      "line": 17,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v3.py",
+      "token": "private_key",
+      "category": "wallet",
+      "line": 18,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v3.py",
+      "token": "private_key",
+      "category": "wallet",
+      "line": 200,
+      "reason": "string_literal_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v3.py",
+      "token": "seed_phrase",
+      "category": "wallet",
+      "line": 19,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v3.py",
+      "token": "wallet_sign",
+      "category": "wallet",
+      "line": 20,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v3.py",
+      "token": "eth_account",
+      "category": "wallet",
+      "line": 21,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v3.py",
+      "token": "submit_order",
+      "category": "trading",
+      "line": 22,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v3.py",
+      "token": "place_order",
+      "category": "trading",
+      "line": 23,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v3.py",
+      "token": "execute_trade",
+      "category": "trading",
+      "line": 24,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v3.py",
+      "token": "dispatcher/",
+      "category": "runtime",
+      "line": 25,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v3.py",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 26,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v3.py",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 205,
+      "reason": "string_literal_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v3.py",
+      "token": "codex_auto/",
+      "category": "runtime",
+      "line": 27,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v3.py",
+      "token": "governance/",
+      "category": "runtime",
+      "line": 28,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v3.py",
+      "token": "checkpoints",
+      "category": "runtime",
+      "line": 29,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v3.py",
+      "token": "freezes",
+      "category": "runtime",
+      "line": 30,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v3.py",
+      "token": "results/",
+      "category": "runtime",
+      "line": 31,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v3.py",
+      "token": "state/",
+      "category": "runtime",
+      "line": 32,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v4.py",
+      "token": "requests",
+      "category": "network",
+      "line": 10,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v4.py",
+      "token": "urllib.request",
+      "category": "network",
+      "line": 11,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v4.py",
+      "token": "httpx",
+      "category": "network",
+      "line": 12,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v4.py",
+      "token": "socket",
+      "category": "network",
+      "line": 13,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v4.py",
+      "token": "aiohttp",
+      "category": "network",
+      "line": 14,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v4.py",
+      "token": "api.polymarket",
+      "category": "live_api",
+      "line": 15,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v4.py",
+      "token": "clob.polymarket",
+      "category": "live_api",
+      "line": 16,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v4.py",
+      "token": "gamma-api",
+      "category": "live_api",
+      "line": 17,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v4.py",
+      "token": "private_key",
+      "category": "wallet",
+      "line": 18,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v4.py",
+      "token": "private_key",
+      "category": "wallet",
+      "line": 203,
+      "reason": "string_literal_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v4.py",
+      "token": "seed_phrase",
+      "category": "wallet",
+      "line": 19,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v4.py",
+      "token": "wallet_sign",
+      "category": "wallet",
+      "line": 20,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v4.py",
+      "token": "eth_account",
+      "category": "wallet",
+      "line": 21,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v4.py",
+      "token": "submit_order",
+      "category": "trading",
+      "line": 22,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v4.py",
+      "token": "place_order",
+      "category": "trading",
+      "line": 23,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v4.py",
+      "token": "execute_trade",
+      "category": "trading",
+      "line": 24,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v4.py",
+      "token": "dispatcher/",
+      "category": "runtime",
+      "line": 25,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v4.py",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 26,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v4.py",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 208,
+      "reason": "string_literal_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v4.py",
+      "token": "codex_auto/",
+      "category": "runtime",
+      "line": 27,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v4.py",
+      "token": "governance/",
+      "category": "runtime",
+      "line": 28,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v4.py",
+      "token": "checkpoints",
+      "category": "runtime",
+      "line": 29,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v4.py",
+      "token": "freezes",
+      "category": "runtime",
+      "line": 30,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v4.py",
+      "token": "results/",
+      "category": "runtime",
+      "line": 31,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v4.py",
+      "token": "state/",
+      "category": "runtime",
+      "line": 32,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v5.py",
+      "token": "requests",
+      "category": "network",
+      "line": 10,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v5.py",
+      "token": "urllib.request",
+      "category": "network",
+      "line": 11,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v5.py",
+      "token": "httpx",
+      "category": "network",
+      "line": 12,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v5.py",
+      "token": "socket",
+      "category": "network",
+      "line": 13,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v5.py",
+      "token": "aiohttp",
+      "category": "network",
+      "line": 14,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v5.py",
+      "token": "api.polymarket",
+      "category": "live_api",
+      "line": 15,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v5.py",
+      "token": "clob.polymarket",
+      "category": "live_api",
+      "line": 16,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v5.py",
+      "token": "gamma-api",
+      "category": "live_api",
+      "line": 17,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v5.py",
+      "token": "private_key",
+      "category": "wallet",
+      "line": 18,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v5.py",
+      "token": "private_key",
+      "category": "wallet",
+      "line": 200,
+      "reason": "string_literal_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v5.py",
+      "token": "seed_phrase",
+      "category": "wallet",
+      "line": 19,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v5.py",
+      "token": "wallet_sign",
+      "category": "wallet",
+      "line": 20,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v5.py",
+      "token": "eth_account",
+      "category": "wallet",
+      "line": 21,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v5.py",
+      "token": "submit_order",
+      "category": "trading",
+      "line": 22,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v5.py",
+      "token": "place_order",
+      "category": "trading",
+      "line": 23,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v5.py",
+      "token": "execute_trade",
+      "category": "trading",
+      "line": 24,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v5.py",
+      "token": "dispatcher/",
+      "category": "runtime",
+      "line": 25,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v5.py",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 26,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v5.py",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 205,
+      "reason": "string_literal_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v5.py",
+      "token": "codex_auto/",
+      "category": "runtime",
+      "line": 27,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v5.py",
+      "token": "governance/",
+      "category": "runtime",
+      "line": 28,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v5.py",
+      "token": "checkpoints",
+      "category": "runtime",
+      "line": 29,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v5.py",
+      "token": "freezes",
+      "category": "runtime",
+      "line": 30,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v5.py",
+      "token": "results/",
+      "category": "runtime",
+      "line": 31,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v5.py",
+      "token": "state/",
+      "category": "runtime",
+      "line": 32,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v6.py",
+      "token": "requests",
+      "category": "network",
+      "line": 10,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v6.py",
+      "token": "urllib.request",
+      "category": "network",
+      "line": 11,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v6.py",
+      "token": "httpx",
+      "category": "network",
+      "line": 12,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v6.py",
+      "token": "socket",
+      "category": "network",
+      "line": 13,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v6.py",
+      "token": "aiohttp",
+      "category": "network",
+      "line": 14,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v6.py",
+      "token": "api.polymarket",
+      "category": "live_api",
+      "line": 15,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v6.py",
+      "token": "clob.polymarket",
+      "category": "live_api",
+      "line": 16,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v6.py",
+      "token": "gamma-api",
+      "category": "live_api",
+      "line": 17,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v6.py",
+      "token": "private_key",
+      "category": "wallet",
+      "line": 21,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v6.py",
+      "token": "private_key",
+      "category": "wallet",
+      "line": 232,
+      "reason": "string_literal_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v6.py",
+      "token": "private_key",
+      "category": "wallet",
+      "line": 240,
+      "reason": "string_literal_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v6.py",
+      "token": "seed_phrase",
+      "category": "wallet",
+      "line": 22,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v6.py",
+      "token": "wallet_sign",
+      "category": "wallet",
+      "line": 23,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v6.py",
+      "token": "eth_account",
+      "category": "wallet",
+      "line": 24,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v6.py",
+      "token": "submit_order",
+      "category": "trading",
+      "line": 26,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v6.py",
+      "token": "place_order",
+      "category": "trading",
+      "line": 27,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v6.py",
+      "token": "execute_trade",
+      "category": "trading",
+      "line": 28,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v6.py",
+      "token": "dispatcher/",
+      "category": "runtime",
+      "line": 30,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v6.py",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 31,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v6.py",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 246,
+      "reason": "string_literal_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v6.py",
+      "token": "codex_auto/",
+      "category": "runtime",
+      "line": 32,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v6.py",
+      "token": "governance/",
+      "category": "runtime",
+      "line": 33,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v6.py",
+      "token": "checkpoints",
+      "category": "runtime",
+      "line": 34,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v6.py",
+      "token": "freezes",
+      "category": "runtime",
+      "line": 35,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v6.py",
+      "token": "results/",
+      "category": "runtime",
+      "line": 36,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v6.py",
+      "token": "state/",
+      "category": "runtime",
+      "line": 37,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v7.py",
+      "token": "requests",
+      "category": "network",
+      "line": 10,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v7.py",
+      "token": "urllib.request",
+      "category": "network",
+      "line": 11,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v7.py",
+      "token": "httpx",
+      "category": "network",
+      "line": 12,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v7.py",
+      "token": "socket",
+      "category": "network",
+      "line": 13,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v7.py",
+      "token": "aiohttp",
+      "category": "network",
+      "line": 14,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v7.py",
+      "token": "api.polymarket",
+      "category": "live_api",
+      "line": 15,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v7.py",
+      "token": "clob.polymarket",
+      "category": "live_api",
+      "line": 16,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v7.py",
+      "token": "gamma-api",
+      "category": "live_api",
+      "line": 17,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v7.py",
+      "token": "private_key",
+      "category": "wallet",
+      "line": 21,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v7.py",
+      "token": "private_key",
+      "category": "wallet",
+      "line": 259,
+      "reason": "string_literal_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v7.py",
+      "token": "private_key",
+      "category": "wallet",
+      "line": 267,
+      "reason": "string_literal_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v7.py",
+      "token": "seed_phrase",
+      "category": "wallet",
+      "line": 22,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v7.py",
+      "token": "wallet_sign",
+      "category": "wallet",
+      "line": 23,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v7.py",
+      "token": "eth_account",
+      "category": "wallet",
+      "line": 24,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v7.py",
+      "token": "submit_order",
+      "category": "trading",
+      "line": 26,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v7.py",
+      "token": "place_order",
+      "category": "trading",
+      "line": 27,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v7.py",
+      "token": "execute_trade",
+      "category": "trading",
+      "line": 28,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v7.py",
+      "token": "dispatcher/",
+      "category": "runtime",
+      "line": 30,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v7.py",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 31,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v7.py",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 273,
+      "reason": "string_literal_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v7.py",
+      "token": "codex_auto/",
+      "category": "runtime",
+      "line": 32,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v7.py",
+      "token": "governance/",
+      "category": "runtime",
+      "line": 33,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v7.py",
+      "token": "checkpoints",
+      "category": "runtime",
+      "line": 34,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v7.py",
+      "token": "freezes",
+      "category": "runtime",
+      "line": 35,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v7.py",
+      "token": "results/",
+      "category": "runtime",
+      "line": 36,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/static_safety_audit_v7.py",
+      "token": "state/",
+      "category": "runtime",
+      "line": 37,
+      "reason": "safety_definition_context"
+    },
+    {
+      "file": "pm_bot/audit/tests/fixtures/unsafe_sample.py",
+      "token": "socket",
+      "category": "network",
+      "line": 1,
+      "reason": "test_context"
+    },
+    {
+      "file": "pm_bot/audit/tests/fixtures/unsafe_sample.py",
+      "token": "socket",
+      "category": "network",
+      "line": 5,
+      "reason": "test_context"
+    },
+    {
+      "file": "pm_bot/audit/tests/test_static_safety_audit_v2.py",
+      "token": "requests",
+      "category": "network",
+      "line": 59,
+      "reason": "test_context"
+    },
+    {
+      "file": "pm_bot/audit/tests/test_static_safety_audit_v2.py",
+      "token": "requests",
+      "category": "network",
+      "line": 63,
+      "reason": "test_context"
+    },
+    {
+      "file": "pm_bot/audit/tests/test_static_safety_audit_v2.py",
+      "token": "requests",
+      "category": "network",
+      "line": 95,
+      "reason": "test_context"
+    },
+    {
+      "file": "pm_bot/audit/tests/test_static_safety_audit_v2.py",
+      "token": "socket",
+      "category": "network",
+      "line": 95,
+      "reason": "test_context"
+    },
+    {
+      "file": "pm_bot/audit/tests/test_static_safety_audit_v2.py",
+      "token": "private_key",
+      "category": "wallet",
+      "line": 71,
+      "reason": "test_context"
+    },
+    {
+      "file": "pm_bot/audit/tests/test_static_safety_audit_v2.py",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 71,
+      "reason": "test_context"
+    },
+    {
+      "file": "pm_bot/audit/tests/test_static_safety_audit_v2.py",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 95,
+      "reason": "test_context"
+    },
+    {
+      "file": "pm_bot/audit/tests/test_static_safety_audit_v3.py",
+      "token": "urllib.request",
+      "category": "network",
+      "line": 44,
+      "reason": "test_context"
+    },
+    {
+      "file": "pm_bot/audit/tests/test_static_safety_audit_v3.py",
+      "token": "urllib.request",
+      "category": "network",
+      "line": 48,
+      "reason": "test_context"
+    },
+    {
+      "file": "pm_bot/audit/tests/test_static_safety_audit_v3.py",
+      "token": "private_key",
+      "category": "wallet",
+      "line": 56,
+      "reason": "test_context"
+    },
+    {
+      "file": "pm_bot/audit/tests/test_static_safety_audit_v3.py",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 56,
+      "reason": "test_context"
+    },
+    {
+      "file": "pm_bot/audit/tests/test_static_safety_audit_v4.py",
+      "token": "requests",
+      "category": "network",
+      "line": 44,
+      "reason": "test_context"
+    },
+    {
+      "file": "pm_bot/audit/tests/test_static_safety_audit_v4.py",
+      "token": "requests",
+      "category": "network",
+      "line": 48,
+      "reason": "test_context"
+    },
+    {
+      "file": "pm_bot/audit/tests/test_static_safety_audit_v5.py",
+      "token": "requests",
+      "category": "network",
+      "line": 43,
+      "reason": "test_context"
+    },
+    {
+      "file": "pm_bot/audit/tests/test_static_safety_audit_v5.py",
+      "token": "requests",
+      "category": "network",
+      "line": 47,
+      "reason": "test_context"
+    },
+    {
+      "file": "pm_bot/quality/expected_research_quality_scorecard.v1.json",
+      "token": "dispatcher/",
+      "category": "runtime",
+      "line": 36,
+      "reason": "json_contract_context"
+    },
+    {
+      "file": "pm_bot/quality/expected_research_quality_scorecard.v1.json",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 36,
+      "reason": "json_contract_context"
+    },
+    {
+      "file": "pm_bot/quality/expected_research_quality_scorecard.v1.md",
+      "token": "dispatcher/",
+      "category": "runtime",
+      "line": 24,
+      "reason": "documentation_context"
+    },
+    {
+      "file": "pm_bot/quality/expected_research_quality_scorecard.v1.md",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 24,
+      "reason": "documentation_context"
+    },
+    {
+      "file": "pm_bot/quality/research_quality_scorecard.py",
+      "token": "dispatcher/",
+      "category": "runtime",
+      "line": 41,
+      "reason": "string_literal_context"
+    },
+    {
+      "file": "pm_bot/quality/research_quality_scorecard.py",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 41,
+      "reason": "string_literal_context"
+    },
+    {
+      "file": "pm_bot/validation/tests/test_validate_market_snapshot.py",
+      "token": "requests",
+      "category": "network",
+      "line": 41,
+      "reason": "test_context"
+    },
+    {
+      "file": "pm_bot/validation/tests/test_validate_market_snapshot.py",
+      "token": "urllib.request",
+      "category": "network",
+      "line": 42,
+      "reason": "test_context"
+    },
+    {
+      "file": "pm_bot/validation/tests/test_validate_market_snapshot.py",
+      "token": "socket",
+      "category": "network",
+      "line": 43,
+      "reason": "test_context"
+    },
+    {
+      "file": "pm_bot/validation/tests/test_validate_market_snapshot.py",
+      "token": "private_key",
+      "category": "wallet",
+      "line": 50,
+      "reason": "test_context"
+    },
+    {
+      "file": "pm_bot/validation/validate_market_snapshot.py",
+      "token": "private_key",
+      "category": "wallet",
+      "line": 24,
+      "reason": "string_literal_context"
+    },
+    {
+      "file": "docs/PM_BOT_BATCH_002_RESULT.json",
+      "token": "private_key",
+      "category": "wallet",
+      "line": 39,
+      "reason": "json_contract_context"
+    },
+    {
+      "file": "docs/PM_BOT_BATCH_003_RESULT.json",
+      "token": "private_key",
+      "category": "wallet",
+      "line": 98,
+      "reason": "json_contract_context"
+    },
+    {
+      "file": "docs/PM_BOT_BATCH_003_RESULT.json",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 104,
+      "reason": "json_contract_context"
+    },
+    {
+      "file": "docs/PM_BOT_BATCH_003_RESULT.json",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 130,
+      "reason": "json_contract_context"
+    },
+    {
+      "file": "docs/PM_BOT_BATCH_004_RESULT.json",
+      "token": "private_key",
+      "category": "wallet",
+      "line": 143,
+      "reason": "json_contract_context"
+    },
+    {
+      "file": "docs/PM_BOT_BATCH_004_RESULT.json",
+      "token": "dispatcher/",
+      "category": "runtime",
+      "line": 188,
+      "reason": "json_contract_context"
+    },
+    {
+      "file": "docs/PM_BOT_BATCH_004_RESULT.json",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 149,
+      "reason": "json_contract_context"
+    },
+    {
+      "file": "docs/PM_BOT_BATCH_004_RESULT.json",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 188,
+      "reason": "json_contract_context"
+    },
+    {
+      "file": "docs/PM_BOT_BATCH_005_RESULT.json",
+      "token": "private_key",
+      "category": "wallet",
+      "line": 124,
+      "reason": "json_contract_context"
+    },
+    {
+      "file": "docs/PM_BOT_BATCH_005_RESULT.json",
+      "token": "dispatcher/",
+      "category": "runtime",
+      "line": 163,
+      "reason": "json_contract_context"
+    },
+    {
+      "file": "docs/PM_BOT_BATCH_005_RESULT.json",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 130,
+      "reason": "json_contract_context"
+    },
+    {
+      "file": "docs/PM_BOT_BATCH_005_RESULT.json",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 163,
+      "reason": "json_contract_context"
+    },
+    {
+      "file": "docs/PM_BOT_BATCH_006_RESULT.json",
+      "token": "private_key",
+      "category": "wallet",
+      "line": 138,
+      "reason": "json_contract_context"
+    },
+    {
+      "file": "docs/PM_BOT_BATCH_006_RESULT.json",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 144,
+      "reason": "json_contract_context"
+    },
+    {
+      "file": "docs/PM_BOT_BATCH_006_RESULT.json",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 177,
+      "reason": "json_contract_context"
+    },
+    {
+      "file": "docs/PM_BOT_BATCH_006_RESULT.json",
+      "token": "state/",
+      "category": "runtime",
+      "line": 177,
+      "reason": "json_contract_context"
+    },
+    {
+      "file": "docs/PM_BOT_BATCH_007_RESULT.json",
+      "token": "private_key",
+      "category": "wallet",
+      "line": 105,
+      "reason": "json_contract_context"
+    },
+    {
+      "file": "docs/PM_BOT_BATCH_007_RESULT.json",
+      "token": "dispatcher/",
+      "category": "runtime",
+      "line": 140,
+      "reason": "json_contract_context"
+    },
+    {
+      "file": "docs/PM_BOT_BATCH_007_RESULT.json",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 111,
+      "reason": "json_contract_context"
+    },
+    {
+      "file": "docs/PM_BOT_BATCH_007_RESULT.json",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 140,
+      "reason": "json_contract_context"
+    },
+    {
+      "file": "docs/PM_BOT_BATCH_008_RESULT.json",
+      "token": "private_key",
+      "category": "wallet",
+      "line": 94,
+      "reason": "json_contract_context"
+    },
+    {
+      "file": "docs/PM_BOT_BATCH_008_RESULT.json",
+      "token": "dispatcher/",
+      "category": "runtime",
+      "line": 124,
+      "reason": "json_contract_context"
+    },
+    {
+      "file": "docs/PM_BOT_BATCH_008_RESULT.json",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 100,
+      "reason": "json_contract_context"
+    },
+    {
+      "file": "docs/PM_BOT_BATCH_008_RESULT.json",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 124,
+      "reason": "json_contract_context"
+    },
+    {
+      "file": "docs/PM_BOT_BATCH_009_RESULT.json",
+      "token": "private_key",
+      "category": "wallet",
+      "line": 107,
+      "reason": "json_contract_context"
+    },
+    {
+      "file": "docs/PM_BOT_BATCH_009_RESULT.json",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 113,
+      "reason": "json_contract_context"
+    },
+    {
+      "file": "docs/PM_BOT_BATCH_009_RESULT.json",
+      "token": "governance/",
+      "category": "runtime",
+      "line": 80,
+      "reason": "json_contract_context"
+    },
+    {
+      "file": "docs/PM_BOT_BATCH_010_RESULT.json",
+      "token": "private_key",
+      "category": "wallet",
+      "line": 149,
+      "reason": "json_contract_context"
+    },
+    {
+      "file": "docs/PM_BOT_BATCH_010_RESULT.json",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 155,
+      "reason": "json_contract_context"
+    },
+    {
+      "file": "docs/PM_BOT_DEMO_RUNBOOK_V1.md",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 47,
+      "reason": "documentation_context"
+    },
+    {
+      "file": "docs/PM_BOT_DEMO_RUNBOOK_V2.md",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 60,
+      "reason": "documentation_context"
+    },
+    {
+      "file": "docs/PM_BOT_DEMO_RUNBOOK_V2.md",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 70,
+      "reason": "documentation_context"
+    },
+    {
+      "file": "docs/PM_BOT_DEMO_RUNBOOK_V3.md",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 15,
+      "reason": "documentation_context"
+    },
+    {
+      "file": "docs/PM_BOT_DEMO_RUNBOOK_V3.md",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 81,
+      "reason": "documentation_context"
+    },
+    {
+      "file": "docs/PM_BOT_DEMO_RUNBOOK_V3.md",
+      "token": "checkpoints",
+      "category": "runtime",
+      "line": 89,
+      "reason": "documentation_context"
+    },
+    {
+      "file": "docs/PM_BOT_DEMO_RUNBOOK_V3.md",
+      "token": "freezes",
+      "category": "runtime",
+      "line": 89,
+      "reason": "documentation_context"
+    },
+    {
+      "file": "docs/PM_BOT_DEMO_RUNBOOK_V4.md",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 15,
+      "reason": "documentation_context"
+    },
+    {
+      "file": "docs/PM_BOT_DEMO_RUNBOOK_V4.md",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 89,
+      "reason": "documentation_context"
+    },
+    {
+      "file": "docs/PM_BOT_DEMO_RUNBOOK_V4.md",
+      "token": "checkpoints",
+      "category": "runtime",
+      "line": 97,
+      "reason": "documentation_context"
+    },
+    {
+      "file": "docs/PM_BOT_DEMO_RUNBOOK_V4.md",
+      "token": "freezes",
+      "category": "runtime",
+      "line": 97,
+      "reason": "documentation_context"
+    },
+    {
+      "file": "docs/PM_BOT_DEMO_RUNBOOK_V5.md",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 44,
+      "reason": "documentation_context"
+    },
+    {
+      "file": "docs/PM_BOT_LIVE_READONLY_BOUNDARY_V1.md",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 46,
+      "reason": "documentation_context"
+    },
+    {
+      "file": "docs/PM_BOT_LIVE_READONLY_BOUNDARY_V1.md",
+      "token": "checkpoints",
+      "category": "runtime",
+      "line": 13,
+      "reason": "documentation_context"
+    },
+    {
+      "file": "docs/PM_BOT_LIVE_READONLY_BOUNDARY_V1.md",
+      "token": "freezes",
+      "category": "runtime",
+      "line": 13,
+      "reason": "documentation_context"
+    },
+    {
+      "file": "docs/PM_BOT_MASTER_PLAN_V1.md",
+      "token": "private_key",
+      "category": "wallet",
+      "line": 69,
+      "reason": "documentation_context"
+    },
+    {
+      "file": "docs/PM_BOT_RAW_ARTIFACT_INGESTION_CONTRACT_V1.md",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 78,
+      "reason": "documentation_context"
+    },
+    {
+      "file": "docs/PM_BOT_RAW_ARTIFACT_INGESTION_MANIFEST_V1.md",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 74,
+      "reason": "documentation_context"
+    },
+    {
+      "file": "docs/PM_BOT_READONLY_FETCHER_APPROVAL_CHECKLIST_V1.md",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 20,
+      "reason": "documentation_context"
+    },
+    {
+      "file": "docs/PM_BOT_READONLY_FETCHER_IMPLEMENTATION_PLAN_V1.md",
+      "token": "dispatcher/",
+      "category": "runtime",
+      "line": 48,
+      "reason": "documentation_context"
+    },
+    {
+      "file": "docs/PM_BOT_READONLY_FETCHER_IMPLEMENTATION_PLAN_V1.md",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 52,
+      "reason": "documentation_context"
+    },
+    {
+      "file": "docs/PM_BOT_READONLY_FETCHER_IMPLEMENTATION_PLAN_V1.md",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 97,
+      "reason": "documentation_context"
+    },
+    {
+      "file": "docs/PM_BOT_READONLY_FETCHER_IMPLEMENTATION_PLAN_V1.md",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 130,
+      "reason": "documentation_context"
+    },
+    {
+      "file": "docs/PM_BOT_READONLY_FETCHER_IMPLEMENTATION_PLAN_V1.md",
+      "token": "codex_auto/",
+      "category": "runtime",
+      "line": 43,
+      "reason": "documentation_context"
+    },
+    {
+      "file": "docs/PM_BOT_READONLY_FETCHER_IMPLEMENTATION_PLAN_V1.md",
+      "token": "governance/",
+      "category": "runtime",
+      "line": 44,
+      "reason": "documentation_context"
+    },
+    {
+      "file": "docs/PM_BOT_READONLY_FETCHER_IMPLEMENTATION_PLAN_V1.md",
+      "token": "checkpoints",
+      "category": "runtime",
+      "line": 49,
+      "reason": "documentation_context"
+    },
+    {
+      "file": "docs/PM_BOT_READONLY_FETCHER_IMPLEMENTATION_PLAN_V1.md",
+      "token": "freezes",
+      "category": "runtime",
+      "line": 50,
+      "reason": "documentation_context"
+    },
+    {
+      "file": "docs/PM_BOT_READONLY_FETCHER_IMPLEMENTATION_PLAN_V1.md",
+      "token": "results/",
+      "category": "runtime",
+      "line": 46,
+      "reason": "documentation_context"
+    },
+    {
+      "file": "docs/PM_BOT_READONLY_FETCHER_IMPLEMENTATION_PLAN_V1.md",
+      "token": "state/",
+      "category": "runtime",
+      "line": 45,
+      "reason": "documentation_context"
+    },
+    {
+      "file": "docs/PM_BOT_SAFE_BACKLOG_V10.json",
+      "token": "private_key",
+      "category": "wallet",
+      "line": 7,
+      "reason": "json_contract_context"
+    },
+    {
+      "file": "docs/PM_BOT_SAFE_BACKLOG_V10.json",
+      "token": "wallet_sign",
+      "category": "wallet",
+      "line": 52,
+      "reason": "json_contract_context"
+    },
+    {
+      "file": "docs/PM_BOT_SAFE_BACKLOG_V10.json",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 65,
+      "reason": "json_contract_context"
+    },
+    {
+      "file": "docs/PM_BOT_SAFE_BACKLOG_V11.json",
+      "token": "private_key",
+      "category": "wallet",
+      "line": 7,
+      "reason": "json_contract_context"
+    },
+    {
+      "file": "docs/PM_BOT_SAFE_BACKLOG_V11.json",
+      "token": "wallet_sign",
+      "category": "wallet",
+      "line": 52,
+      "reason": "json_contract_context"
+    },
+    {
+      "file": "docs/PM_BOT_SAFE_BACKLOG_V11.json",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 65,
+      "reason": "json_contract_context"
+    },
+    {
+      "file": "docs/PM_BOT_SAFE_BACKLOG_V2.json",
+      "token": "private_key",
+      "category": "wallet",
+      "line": 7,
+      "reason": "json_contract_context"
+    },
+    {
+      "file": "docs/PM_BOT_SAFE_BACKLOG_V3.json",
+      "token": "private_key",
+      "category": "wallet",
+      "line": 7,
+      "reason": "json_contract_context"
+    },
+    {
+      "file": "docs/PM_BOT_SAFE_BACKLOG_V4.json",
+      "token": "private_key",
+      "category": "wallet",
+      "line": 7,
+      "reason": "json_contract_context"
+    },
+    {
+      "file": "docs/PM_BOT_SAFE_BACKLOG_V4.json",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 49,
+      "reason": "json_contract_context"
+    },
+    {
+      "file": "docs/PM_BOT_SAFE_BACKLOG_V5.json",
+      "token": "private_key",
+      "category": "wallet",
+      "line": 7,
+      "reason": "json_contract_context"
+    },
+    {
+      "file": "docs/PM_BOT_SAFE_BACKLOG_V6.json",
+      "token": "private_key",
+      "category": "wallet",
+      "line": 7,
+      "reason": "json_contract_context"
+    },
+    {
+      "file": "docs/PM_BOT_SAFE_BACKLOG_V7.json",
+      "token": "private_key",
+      "category": "wallet",
+      "line": 7,
+      "reason": "json_contract_context"
+    },
+    {
+      "file": "docs/PM_BOT_SAFE_BACKLOG_V8.json",
+      "token": "private_key",
+      "category": "wallet",
+      "line": 7,
+      "reason": "json_contract_context"
+    },
+    {
+      "file": "docs/PM_BOT_SAFE_BACKLOG_V8.json",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 53,
+      "reason": "json_contract_context"
+    },
+    {
+      "file": "docs/PM_BOT_SAFE_BACKLOG_V9.json",
+      "token": "private_key",
+      "category": "wallet",
+      "line": 7,
+      "reason": "json_contract_context"
+    },
+    {
+      "file": "docs/PM_BOT_SAFE_BACKLOG_V9.json",
+      "token": "wallet_sign",
+      "category": "wallet",
+      "line": 60,
+      "reason": "json_contract_context"
+    },
+    {
+      "file": "docs/PM_BOT_SAFE_BACKLOG_V9.json",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 73,
+      "reason": "json_contract_context"
+    },
+    {
+      "file": "docs/PM_BOT_STAGE_SUMMARY_V2.md",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 12,
+      "reason": "documentation_context"
+    },
+    {
+      "file": "docs/PM_BOT_STAGE_SUMMARY_V2.md",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 27,
+      "reason": "documentation_context"
+    },
+    {
+      "file": "docs/PM_BOT_STAGE_SUMMARY_V3.md",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 29,
+      "reason": "documentation_context"
+    },
+    {
+      "file": "docs/PM_BOT_STAGE_SUMMARY_V4.md",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 42,
+      "reason": "documentation_context"
+    },
+    {
+      "file": "docs/PM_BOT_STAGE_SUMMARY_V5.md",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 57,
+      "reason": "documentation_context"
+    },
+    {
+      "file": "docs/PM_BOT_STAGE_SUMMARY_V6.md",
+      "token": "run_codex",
+      "category": "runtime",
+      "line": 48,
+      "reason": "documentation_context"
+    }
+  ],
+  "checks": {
+    "no_network_or_api": true,
+    "no_live_polymarket_api": true,
+    "no_wallet_or_private_key": true,
+    "no_real_orders": true,
+    "no_real_trading": true,
+    "no_runtime_wiring": true,
+    "no_dispatcher_changes": true,
+    "no_run_codex_changes": true,
+    "no_codex_auto_mutation": true,
+    "no_governance_state_mutation": true,
+    "no_state_result_freeze_checkpoint_mutation": true
+  }
+}

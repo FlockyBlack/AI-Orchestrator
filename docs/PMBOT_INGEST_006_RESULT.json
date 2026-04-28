@@ -1,0 +1,79 @@
+{
+  "task_id": "PMBOT-INGEST-006-SELECTED-STUBS-OPERATOR-WORKPACK",
+  "status": "passed",
+  "summary": "Created a deterministic offline operator workpack export for the five selected INGEST-005 research packet stubs, with a Markdown workpack, JSON index, blank manual evidence overlay template, expected index fixture, and focused tests.",
+  "files_created": [
+    "pm_bot/research/export_selected_ingest_operator_workpack.py",
+    "pm_bot/research/selected_ingest_operator_workpack.v1.md",
+    "pm_bot/research/selected_ingest_operator_workpack_index.v1.json",
+    "pm_bot/research/selected_ingest_manual_evidence_overlay_template.v1.json",
+    "pm_bot/research/expected_selected_ingest_operator_workpack_index.v1.json",
+    "pm_bot/research/tests/test_selected_ingest_operator_workpack.py",
+    "docs/PMBOT_INGEST_006_RESULT.json"
+  ],
+  "files_modified": [],
+  "tests_run": [
+    {
+      "command": "python pm_bot\\research\\export_selected_ingest_operator_workpack.py",
+      "status": "passed",
+      "result": "5 workpack items exported"
+    },
+    {
+      "command": "python -m pytest pm_bot\\research\\tests\\test_selected_ingest_operator_workpack.py -q",
+      "status": "passed",
+      "result": "12 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\research\\tests\\test_selected_ingest_research_packet_stubs.py pm_bot\\research\\tests\\test_operator_research_workpack_export.py pm_bot\\research\\tests\\test_manual_research_packet_validation.py pm_bot\\research\\tests\\test_manual_evidence_overlay_merge.py -q",
+      "status": "passed",
+      "result": "50 passed"
+    },
+    {
+      "command": "python -m py_compile pm_bot\\research\\export_selected_ingest_operator_workpack.py pm_bot\\research\\tests\\test_selected_ingest_operator_workpack.py",
+      "status": "passed",
+      "result": "compiled"
+    },
+    {
+      "command": "PowerShell loop: python -m json.tool for pm_bot\\research\\selected_ingest_operator_workpack_index.v1.json, pm_bot\\research\\selected_ingest_manual_evidence_overlay_template.v1.json, pm_bot\\research\\expected_selected_ingest_operator_workpack_index.v1.json, docs\\PMBOT_INGEST_006_RESULT.json",
+      "status": "passed",
+      "result": "json parse ok"
+    }
+  ],
+  "workpack_summary": {
+    "selected_stub_packets_read": 5,
+    "operator_workpack_items_exported": 5,
+    "manual_evidence_overlay_template_created": true,
+    "completed_dossiers_created": 0,
+    "paper_orders_created": 0
+  },
+  "selected_market_ids": [
+    "692258",
+    "824952",
+    "691547",
+    "597964",
+    "598936"
+  ],
+  "safety": {
+    "live_fetchers": false,
+    "network_api_calls": false,
+    "credentials": false,
+    "wallet_private_keys": false,
+    "authenticated_endpoints": false,
+    "trading_endpoints": false,
+    "real_orders": false,
+    "live_trading": false,
+    "paper_orders": false,
+    "betting_recommendations": false,
+    "truth_inference": false,
+    "market_scoring": false,
+    "probability_estimates": false,
+    "expected_value_calculations": false,
+    "side_recommendations": false,
+    "market_decisions": false,
+    "runtime_wiring": false,
+    "dispatcher_run_codex_touched": false,
+    "prompt_automation": false,
+    "codex_copy_roots": false,
+    "completed_dossiers": false
+  }
+}

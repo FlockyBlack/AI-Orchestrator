@@ -1,0 +1,13 @@
+{
+  "market_id": "pm_fixture_2026_us_recession_q3",
+  "side": "buy",
+  "quantity": 125,
+  "entry_price": 0.43,
+  "exit_price": 0.57,
+  "assumed_slippage_bps": 2,
+  "risk_notes": [
+    "fixture_only",
+    "paper_mode_only",
+    "no_live_api"
+  ]
+}

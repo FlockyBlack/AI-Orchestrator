@@ -1,0 +1,117 @@
+{
+  "schema_version": "manual_evidence_overlay_fixture.v1",
+  "task_id": "PMBOT-RESEARCH-009-MANUAL-EVIDENCE-OVERLAY-MERGE",
+  "deterministic": true,
+  "overlay_format": "operator_manual_evidence_overlay_list",
+  "overlays": [
+    {
+      "market_id": "569366",
+      "completion_status": "needs_more_information",
+      "official_sources_checked": [
+        "offline-check:569366:market-rules",
+        "offline-check:569366:election-authority"
+      ],
+      "credible_news_sources_checked": [
+        "offline-check:569366:reuters-query"
+      ],
+      "evidence_slots": {
+        "official_resolution_criteria": [
+          {
+            "source_name": "Manual market-rules note",
+            "source_type": "official_resolution_criteria",
+            "source_url_or_reference": "offline-reference:569366:market-rules",
+            "captured_claim": "Operator recorded the local market-rules source category needed for resolution review.",
+            "relevance_to_resolution": "Identifies the official rule source path without deciding the market outcome.",
+            "operator_notes": "Partial overlay fixture entry; remaining evidence is intentionally incomplete."
+          }
+        ]
+      },
+      "missing_information": [
+        "credible_news_source_urls",
+        "yes_evidence",
+        "no_or_counterevidence",
+        "source_reliability_review",
+        "operator_edge_assessment",
+        "operator_risk_review",
+        "official_election_authority_identifier"
+      ],
+      "operator_notes": "Valid partial evidence overlay used to prove deterministic merge behavior."
+    },
+    {
+      "market_id": "563650",
+      "completion_status": "ready_for_operator_review",
+      "official_sources_checked": [
+        "offline-check:563650:market-rules",
+        "offline-check:563650:official-docket"
+      ],
+      "credible_news_sources_checked": [
+        "offline-check:563650:credible-news"
+      ],
+      "evidence_slots": {
+        "official_resolution_criteria": [
+          {
+            "source_name": "Manual market-rules placeholder",
+            "source_type": "official_resolution_criteria",
+            "source_url_or_reference": "offline-reference:563650:rules",
+            "captured_claim": "Manual entry records a copied resolution-rule source for structural validation only.",
+            "relevance_to_resolution": "Provides the rule text source category needed before operator review.",
+            "operator_notes": "No outcome truth is inferred by this merge fixture."
+          }
+        ],
+        "official_yes_evidence": [
+          {
+            "source_name": "Manual docket placeholder",
+            "source_type": "official_court_source",
+            "source_url_or_reference": "offline-reference:563650:docket",
+            "captured_claim": "Manual entry records an official-source claim for structural validation only.",
+            "relevance_to_resolution": "Maps an official source claim to the market resolution path without evaluating it.",
+            "operator_notes": "Operator must review the claim manually outside this merge tool."
+          }
+        ],
+        "credible_news_yes_evidence": [
+          {
+            "source_name": "Manual credible-news placeholder",
+            "source_type": "credible_news",
+            "source_url_or_reference": "offline-reference:563650:news",
+            "captured_claim": "Manual entry records a credible-news claim for structural validation only.",
+            "relevance_to_resolution": "Adds independent coverage context without scoring the market.",
+            "operator_notes": "Merge tool checks only that the entry is complete."
+          }
+        ],
+        "source_reliability_notes": [
+          {
+            "source_name": "Manual reliability note",
+            "source_type": "operator_context",
+            "source_url_or_reference": "offline-reference:563650:reliability",
+            "captured_claim": "Manual entry records source reliability notes for structural validation only.",
+            "relevance_to_resolution": "Confirms that source reliability was documented before operator review.",
+            "operator_notes": "No recommendation is produced."
+          }
+        ]
+      },
+      "missing_information": [],
+      "operator_notes": "Valid ready-for-review overlay used to prove structural readiness is validator-driven."
+    },
+    {
+      "market_id": "unknown-market-id",
+      "completion_status": "manual_evidence_added",
+      "operator_notes": "This overlay must be rejected because the market_id is absent from the stubs."
+    },
+    {
+      "market_id": "569368",
+      "title": "Operator attempted to override an immutable title.",
+      "completion_status": "manual_evidence_added",
+      "operator_notes": "This overlay must be rejected because immutable stub fields cannot be changed."
+    },
+    {
+      "market_id": "569343",
+      "completion_status": "manual_evidence_added",
+      "order": "not allowed in offline research overlays",
+      "trade": "not allowed in offline research overlays",
+      "wallet": "not allowed in offline research overlays",
+      "execution": "not allowed in offline research overlays",
+      "recommendation": "not allowed in offline research overlays",
+      "operator_notes": "This overlay must be rejected because prohibited execution and recommendation fields are present."
+    }
+  ]
+}

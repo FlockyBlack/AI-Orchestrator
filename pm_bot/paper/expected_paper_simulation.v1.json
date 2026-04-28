@@ -1,0 +1,18 @@
+{
+  "schema_version": "v1",
+  "simulation_mode": "paper_only",
+  "market_id": "pm_fixture_2026_us_recession_q3",
+  "side": "buy",
+  "quantity": 125,
+  "entry_price": 0.43,
+  "exit_price": 0.57,
+  "assumed_slippage_bps": 2,
+  "effective_entry_price": 0.4302,
+  "effective_exit_price": 0.5698,
+  "gross_pnl": 17.45,
+  "currency": "USD",
+  "execution_allowed": false,
+  "trading_allowed": false,
+  "custody_access_required": false,
+  "credential_material_required": false
+}

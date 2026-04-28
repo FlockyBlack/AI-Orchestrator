@@ -1,0 +1,52 @@
+{
+  "task_id": "PMBOT-BRAIN-009-CRYPTO-NUMERIC-INTAKE-TO-CHAIN",
+  "status": "completed_ready_for_review",
+  "summary": "Implemented one deterministic fixture-only command that reads raw crypto numeric market fixtures, runs intake normalization, sends normalized supported markets through scorer -> review table -> paper order plan, and retains rejected raw markets with rejection reasons.",
+  "pmbot_root_confirmed": true,
+  "intake_to_chain_readiness": "ready_for_demo_and_review",
+  "command": "python pm_bot\\scoring\\run_crypto_numeric_intake_to_chain.py",
+  "files_created": [
+    "pm_bot/scoring/run_crypto_numeric_intake_to_chain.py",
+    "pm_bot/scoring/expected_crypto_numeric_intake_to_chain.v1.json",
+    "pm_bot/scoring/expected_crypto_numeric_intake_to_chain.v1.md",
+    "pm_bot/scoring/tests/test_run_crypto_numeric_intake_to_chain.py",
+    "docs/PM_BOT_BRAIN_009_RESULT.json",
+    "docs/PM_BOT_STAGE_SUMMARY_V21.md"
+  ],
+  "files_modified": [],
+  "tests_or_checks_run": [
+    "python -m pytest pm_bot\\scoring\\tests -q",
+    "python pm_bot\\scoring\\run_crypto_numeric_intake_to_chain.py",
+    "python pm_bot\\scoring\\run_crypto_numeric_intake_to_chain.py --markdown"
+  ],
+  "pipeline_summary": {
+    "raw_markets": 11,
+    "normalized_supported": 4,
+    "rejected_raw_markets": 7,
+    "markets_scored": 4,
+    "paper_candidates": 1,
+    "watchlist": 1,
+    "rejected_after_scoring": 2,
+    "paper_limit_orders": 1,
+    "total_planned_paper_notional": 100.0,
+    "max_loss": 100.0
+  },
+  "limitations": [
+    "Fixture-only command; it does not fetch live markets, prices, APIs, or external metadata.",
+    "Generated paper order plan is an offline review artifact only and cannot place orders.",
+    "No runtime integration, dispatcher/run_codex, prompt automation, credentials, wallet access, real orders, live trading, unrelated cleanup, or new validation layer was added."
+  ],
+  "recommended_next_task": "PMBOT-BRAIN-010: add a concise offline demo review bundle that points reviewers to the intake-to-chain JSON and Markdown artifacts.",
+  "safety": {
+    "offline_only": true,
+    "paper_only": true,
+    "no_network_api": true,
+    "no_credentials": true,
+    "no_wallet": true,
+    "no_real_orders": true,
+    "no_live_trading": true,
+    "no_runtime_wiring": true,
+    "no_prompt_automation": true,
+    "no_unrelated_cleanup": true
+  }
+}

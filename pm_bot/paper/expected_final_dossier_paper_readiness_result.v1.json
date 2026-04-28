@@ -1,0 +1,193 @@
+{
+  "schema_version": "final_dossier_paper_readiness_result.v1",
+  "markdown_version": "final_dossier_paper_readiness_report.v1",
+  "task_id": "PMBOT-PAPER-001-FINAL-DOSSIER-PAPER-READINESS-GATE",
+  "deterministic": true,
+  "source_final_dossier_drafts_path": "pm_bot/research/selected-ingest final dossier drafts artifact",
+  "source_final_dossier_drafts_schema_version": "selected-ingest final dossier drafts v1",
+  "source_review_records_result_path": "pm_bot/research/selected-ingest human-review-records result artifact",
+  "source_review_records_result_schema_version": "selected-ingest human-review-records result v1",
+  "source_review_pack_path": "pm_bot/research/selected-ingest human-review-pack artifact",
+  "source_review_pack_schema_version": "selected-ingest human-review-pack v1",
+  "json_output_path": "pm_bot/paper/final_dossier_paper_readiness_result.v1.json",
+  "markdown_output_path": "pm_bot/paper/final_dossier_paper_readiness_report.v1.md",
+  "expected_json_output_path": "pm_bot/paper/expected_final_dossier_paper_readiness_result.v1.json",
+  "accepted_final_draft_status": "final_dossier_draft_only",
+  "allowed_readiness_statuses": [
+    "eligible_for_future_paper_policy_review",
+    "needs_manual_dossier_repair",
+    "blocked_by_prohibited_content"
+  ],
+  "required_readiness_checks": [
+    "has_market_id",
+    "has_question_or_title",
+    "has_resolution_criteria_summary",
+    "has_evidence_summary_by_source",
+    "has_uncertainty_register",
+    "has_missing_information_review",
+    "has_human_review_notes",
+    "has_open_questions_field",
+    "no_recommendation_present",
+    "no_probability_or_ev_present",
+    "no_side_recommendation_present",
+    "no_market_decision_present",
+    "no_order_or_trade_present"
+  ],
+  "prohibited_field_names": [
+    "order",
+    "trade",
+    "wallet",
+    "private_key",
+    "execution",
+    "recommendation",
+    "bet",
+    "stake",
+    "size",
+    "entry_price",
+    "limit_price",
+    "price_target",
+    "score",
+    "signal",
+    "probability",
+    "expected_value",
+    "ev",
+    "side",
+    "yes_no_decision",
+    "buy",
+    "sell",
+    "market_decision"
+  ],
+  "readiness_summary": {
+    "final_dossier_drafts_read": 1,
+    "readiness_records_written": 1,
+    "eligible_for_future_paper_policy_review": 1,
+    "needs_manual_dossier_repair": 0,
+    "blocked_by_prohibited_content": 0,
+    "paper_orders_created": 0
+  },
+  "exported_market_ids": [
+    "824952"
+  ],
+  "readiness_records": [
+    {
+      "market_id": "824952",
+      "final_draft_status": "final_dossier_draft_only",
+      "readiness_status": "eligible_for_future_paper_policy_review",
+      "structural_only": true,
+      "future_paper_policy_review_only": true,
+      "paper_orders_created": 0,
+      "readiness_checks": [
+        {
+          "check_id": "has_required_final_draft_status",
+          "passed": true,
+          "detail": "final_draft_status is final_dossier_draft_only"
+        },
+        {
+          "check_id": "has_market_id",
+          "passed": true,
+          "detail": "market_id is present"
+        },
+        {
+          "check_id": "has_question_or_title",
+          "passed": true,
+          "detail": "title/question field is present"
+        },
+        {
+          "check_id": "has_resolution_criteria_summary",
+          "passed": true,
+          "detail": "resolution criteria summary is present"
+        },
+        {
+          "check_id": "has_evidence_summary_by_source",
+          "passed": true,
+          "detail": "evidence summary by source is a non-empty string list"
+        },
+        {
+          "check_id": "has_uncertainty_register",
+          "passed": true,
+          "detail": "uncertainty register is a non-empty string list"
+        },
+        {
+          "check_id": "has_missing_information_review",
+          "passed": true,
+          "detail": "missing information review is present"
+        },
+        {
+          "check_id": "has_human_review_notes",
+          "passed": true,
+          "detail": "human review notes are present"
+        },
+        {
+          "check_id": "has_open_questions_field",
+          "passed": true,
+          "detail": "open questions field is present as a list"
+        },
+        {
+          "check_id": "has_review_pack_record",
+          "passed": true,
+          "detail": "market_id is present in selected-ingest human review pack"
+        },
+        {
+          "check_id": "has_approved_human_review_record",
+          "passed": true,
+          "detail": "market_id is present in accepted approved human review records"
+        },
+        {
+          "check_id": "no_recommendation_present",
+          "passed": true,
+          "detail": "no prohibited draft field found"
+        },
+        {
+          "check_id": "no_probability_or_ev_present",
+          "passed": true,
+          "detail": "no prohibited draft field found"
+        },
+        {
+          "check_id": "no_side_recommendation_present",
+          "passed": true,
+          "detail": "no prohibited draft field found"
+        },
+        {
+          "check_id": "no_market_decision_present",
+          "passed": true,
+          "detail": "no prohibited draft field found"
+        },
+        {
+          "check_id": "no_order_or_trade_present",
+          "passed": true,
+          "detail": "no prohibited draft field found"
+        }
+      ],
+      "failure_codes": [],
+      "blocking_paths": []
+    }
+  ],
+  "safety": {
+    "live_fetchers": false,
+    "network_api_calls": false,
+    "credentials": false,
+    "wallet_private_keys": false,
+    "authenticated_endpoints": false,
+    "trading_endpoints": false,
+    "real_orders": false,
+    "live_trading": false,
+    "paper_orders": false,
+    "betting_recommendations": false,
+    "truth_inference": false,
+    "market_scoring": false,
+    "probability_estimates": false,
+    "expected_value_calculations": false,
+    "side_recommendations": false,
+    "market_decisions": false,
+    "runtime_wiring": false,
+    "completed_dossiers": false,
+    "dispatcher_run_codex_touched": false,
+    "prompt_automation": false,
+    "codex_copy_roots": false
+  },
+  "limitations": [
+    "Reads only local selected-ingest final dossier draft, human review result, and human review pack artifacts.",
+    "Validates structural paper-readiness only; eligible means only that a later paper-only policy module may inspect the dossier.",
+    "Does not infer truth, choose YES/NO, recommend a trade, score a market, calculate probability or expected value, create completed dossiers, or create paper orders."
+  ]
+}

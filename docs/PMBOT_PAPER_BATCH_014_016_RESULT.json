@@ -1,0 +1,86 @@
+{
+  "task_id": "PMBOT-PAPER-BATCH-014-016-PAPER-PORTFOLIO-METRICS-MVP",
+  "status": "completed_ready_for_review",
+  "summary": "Implemented deterministic offline PAPER-014 through PAPER-016 paper accounting ledger, portfolio snapshot, and metrics report artifacts.",
+  "market_ids": [
+    "824952"
+  ],
+  "stages_completed": {
+    "paper_014_accounting_ledger_history": true,
+    "paper_015_portfolio_snapshot": true,
+    "paper_016_metrics_report": true
+  },
+  "counts": {
+    "paper_accounting_ledger_entries": 1,
+    "paper_portfolio_snapshot_records": 1,
+    "paper_metrics_report_records": 1,
+    "real_orders_created": 0,
+    "live_orders_created": 0,
+    "autonomous_paper_orders_created": 0
+  },
+  "accounting_metrics": {
+    "paper_accounting_total_records": 1,
+    "paper_accounting_settled_count": 1,
+    "paper_accounting_open_count": 0,
+    "paper_accounting_win_count": 1,
+    "paper_accounting_loss_count": 0,
+    "paper_accounting_flat_count": 0,
+    "paper_accounting_cumulative_pnl": "6.00",
+    "paper_accounting_average_pnl": "6.00",
+    "paper_accounting_gross_profit": "6.00",
+    "paper_accounting_gross_loss": "0.00",
+    "paper_accounting_max_gain": "6.00",
+    "paper_accounting_max_loss": "0.00"
+  },
+  "files_created": [
+    "pm_bot/paper/run_paper_portfolio_metrics_batch_014_016.py",
+    "pm_bot/paper/paper_accounting_ledger.v1.json",
+    "pm_bot/paper/paper_accounting_ledger.v1.md",
+    "pm_bot/paper/expected_paper_accounting_ledger.v1.json",
+    "pm_bot/paper/paper_portfolio_snapshot.v1.json",
+    "pm_bot/paper/paper_portfolio_snapshot.v1.md",
+    "pm_bot/paper/expected_paper_portfolio_snapshot.v1.json",
+    "pm_bot/paper/paper_metrics_report.v1.json",
+    "pm_bot/paper/paper_metrics_report.v1.md",
+    "pm_bot/paper/expected_paper_metrics_report.v1.json",
+    "pm_bot/paper/tests/test_paper_portfolio_metrics_batch_014_016.py",
+    "docs/PMBOT_PAPER_BATCH_014_016_RESULT.json"
+  ],
+  "files_modified": [],
+  "tests": [],
+  "safety": {
+    "offline_only": true,
+    "network_api_calls": false,
+    "credentials": false,
+    "wallet_private_keys": false,
+    "authenticated_endpoints": false,
+    "trading_endpoints": false,
+    "real_orders": false,
+    "live_trading": false,
+    "autonomous_paper_orders": false,
+    "betting_recommendations": false,
+    "truth_inference": false,
+    "market_scoring": false,
+    "probability_estimates": false,
+    "ev_calculations": false,
+    "edge_calculations": false,
+    "side_recommendations": false,
+    "market_decisions": false,
+    "strategy_ranking": false,
+    "runtime_wiring": false,
+    "dispatcher_run_codex_changes": false,
+    "prompt_automation": false,
+    "codex_copy_roots": false,
+    "completed_dossiers": false,
+    "broad_refactor": false
+  },
+  "scope_expansion": {
+    "paper_accounting_ledger_introduced": true,
+    "paper_portfolio_snapshot_introduced": true,
+    "paper_metrics_report_introduced": true,
+    "accounting_metrics_only": true,
+    "strategy_metrics": false,
+    "bot_generated_side_size_price": false
+  },
+  "blockers": []
+}

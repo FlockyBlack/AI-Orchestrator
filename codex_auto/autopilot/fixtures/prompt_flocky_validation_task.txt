@@ -1,0 +1,19 @@
+TARGET_AGENT: Flocky
+TASK_OWNER: Flocky
+TASK_TYPE: read-only validation
+CODE_CHANGES_ALLOWED_FOR_RECEIVER: false
+SESSIONS_SPAWN_ALLOWED: false
+RUNTIME_MUTATION_ALLOWED: false
+QUEUE_MUTATION_ALLOWED: false
+GOVERNANCE_MUTATION_ALLOWED: false
+APPROVAL_REQUIRED: true
+MISROUTE_BEHAVIOR: RETURN_ROUTING_MISMATCH
+
+Задание Flocky:
+Perform read-only validation of preview artifacts.
+Forbidden behavior:
+- no runtime wiring
+- no sessions_spawn
+- no queue mutation
+- no active task mutation
+Return final JSON report only in chat/stdout.

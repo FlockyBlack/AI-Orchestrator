@@ -1,0 +1,74 @@
+{
+  "schema_version": "paper_fill_sources_rejected.v1",
+  "task_id": "PMBOT-PAPER-BATCH-011-013-FILL-SETTLEMENT-PNL-MVP",
+  "deterministic": true,
+  "source_manual_paper_intent_ledger_path": "pm_bot/paper/manual_paper_intent_ledger.v1.json",
+  "input_path": "pm_bot/paper/paper_fill_source_fixture.v1.json",
+  "counts": {
+    "records_read": 3,
+    "records_rejected": 2,
+    "rejection_reason_counts": {
+      "blocked_language_present": 1,
+      "generated_by_bot_false_required": 1,
+      "live_order_created_false_required": 1,
+      "prohibited_or_execution_field_present": 1,
+      "unexpected_field_present": 1,
+      "unknown_market_id": 1,
+      "unknown_source_manual_intent_id": 1
+    }
+  },
+  "records": [
+    {
+      "fill_source_id": "paper-fill-source-rejected-live-bot",
+      "market_id": "824952",
+      "source_manual_intent_id": "manual-intent-001",
+      "source_ledger_entry_id": "manual-paper-intent-ledger-001",
+      "fill_source_type": "operator_manual_fill_fixture",
+      "fill_source_status": "rejected",
+      "rejection_reasons": [
+        "generated_by_bot_false_required",
+        "live_order_created_false_required",
+        "prohibited_or_execution_field_present",
+        "unexpected_field_present",
+        "blocked_language_present"
+      ],
+      "blocked_keys": [
+        "api_key",
+        "bot_decision",
+        "recommendation",
+        "trading_endpoint",
+        "wallet"
+      ],
+      "unexpected_keys": [
+        "api_key",
+        "bot_decision",
+        "recommendation",
+        "trading_endpoint",
+        "wallet"
+      ],
+      "blocked_language_markers": [
+        "api key",
+        "bot recommendation",
+        "live order",
+        "recommendation",
+        "trading endpoint",
+        "wallet"
+      ]
+    },
+    {
+      "fill_source_id": "paper-fill-source-rejected-unknown-market",
+      "market_id": "000000",
+      "source_manual_intent_id": "manual-intent-unknown",
+      "source_ledger_entry_id": "manual-paper-intent-ledger-unknown",
+      "fill_source_type": "operator_manual_fill_fixture",
+      "fill_source_status": "rejected",
+      "rejection_reasons": [
+        "unknown_market_id",
+        "unknown_source_manual_intent_id"
+      ],
+      "blocked_keys": [],
+      "unexpected_keys": [],
+      "blocked_language_markers": []
+    }
+  ]
+}

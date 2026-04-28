@@ -1,0 +1,147 @@
+{
+  "task_id": "PMBOT-RESEARCH-004-RESEARCH-SHORTLIST-CALIBRATION",
+  "status": "passed",
+  "summary": "Added deterministic offline operator shortlist calibration on top of the existing local market research candidate queue. The broad queue remains at 148 ranked candidates, while the default operator shortlist is capped at 10.",
+  "files_created": [
+    "docs\\PMBOT_RESEARCH_004_RESULT.json",
+    "docs\\PM_BOT_STAGE_SUMMARY_V54.md"
+  ],
+  "files_modified": [
+    "pm_bot\\research\\run_market_research_candidate_queue.py",
+    "pm_bot\\research\\expected_market_research_candidate_queue.v1.json",
+    "pm_bot\\research\\expected_market_research_candidate_queue.v1.md",
+    "pm_bot\\research\\tests\\test_run_market_research_candidate_queue.py"
+  ],
+  "tests": [
+    {
+      "command": "python -m pytest pm_bot\\scoring\\tests pm_bot\\paper\\tests pm_bot\\research\\tests -q",
+      "status": "passed",
+      "summary": "313 passed, 3 subtests passed"
+    },
+    {
+      "command": "python pm_bot\\research\\run_market_research_candidate_queue.py",
+      "status": "passed"
+    },
+    {
+      "command": "python pm_bot\\research\\run_market_research_candidate_queue.py --markdown",
+      "status": "passed"
+    },
+    {
+      "command": "python pm_bot\\research\\run_market_research_candidate_queue.py --top-n 20",
+      "status": "passed"
+    },
+    {
+      "command": "python pm_bot\\research\\run_market_research_candidate_queue.py --shortlist-n 5",
+      "status": "passed"
+    },
+    {
+      "command": "python pm_bot\\research\\run_single_market_research_dossier.py",
+      "status": "passed",
+      "summary": "decision=paper_candidate; paper_orders_created=0"
+    },
+    {
+      "command": "python pm_bot\\research\\run_research_dossier_scenarios.py",
+      "status": "passed",
+      "summary": "all_expected_decisions_passed=true; paper_orders_created=0"
+    },
+    {
+      "command": "python pm_bot\\paper\\run_manual_paper_operator_cycle.py",
+      "status": "passed",
+      "summary": "new_paper_orders_created=0; run_artifacts_written=false; state_committed=false"
+    },
+    {
+      "command": "python pm_bot\\paper\\run_crypto_numeric_lifecycle_regression_gates.py",
+      "status": "passed",
+      "summary": "status=passed; gates_passed=6"
+    }
+  ],
+  "shortlist_summary": {
+    "markets_seen": 500,
+    "candidates_ranked": 148,
+    "high_priority_count": 31,
+    "medium_priority_count": 50,
+    "low_priority_count": 67,
+    "rejected_count": 352,
+    "operator_shortlist_count": 10,
+    "shortlist_candidate_examples": [
+      {
+        "shortlist_rank": 1,
+        "market_id": "540844",
+        "title": "Will bitcoin hit $1m before GTA VI?",
+        "shortlist_score": 0.992,
+        "suggested_research_packet_type": "crypto_threshold_hit"
+      },
+      {
+        "shortlist_rank": 2,
+        "market_id": "540816",
+        "title": "Russia-Ukraine Ceasefire before GTA VI?",
+        "shortlist_score": 0.9904,
+        "suggested_research_packet_type": "diplomatic_event"
+      },
+      {
+        "shortlist_rank": 3,
+        "market_id": "540843",
+        "title": "Will China invades Taiwan before GTA VI?",
+        "shortlist_score": 0.9904,
+        "suggested_research_packet_type": "diplomatic_event"
+      },
+      {
+        "shortlist_rank": 4,
+        "market_id": "562186",
+        "title": "Will Ken Paxton win the 2026 Texas Republican Primary?",
+        "shortlist_score": 0.9572,
+        "suggested_research_packet_type": "political_event"
+      },
+      {
+        "shortlist_rank": 5,
+        "market_id": "562187",
+        "title": "Will John Cornyn win the 2026 Texas Republican Primary?",
+        "shortlist_score": 0.9572,
+        "suggested_research_packet_type": "political_event"
+      }
+    ],
+    "reason_code_counts": {
+      "clear_resolution_criteria": 342,
+      "clear_yes_no_market": 500,
+      "deadline_in_past": 15,
+      "extreme_price_downranked": 401,
+      "identifiable_official_or_news_sources_likely": 213,
+      "limited_resolution_detail": 158,
+      "long_horizon_deadline": 137,
+      "low_liquidity": 98,
+      "market_price_research_value": 55,
+      "medium_horizon_deadline": 267,
+      "near_term_deadline": 81,
+      "research_queue_candidate": 148,
+      "research_rejected": 352,
+      "sports_future_downranked": 34,
+      "sports_long_horizon_downranked": 94,
+      "sufficient_liquidity": 352,
+      "thin_liquidity": 50,
+      "unclear_meme_or_religious_rejected": 1,
+      "weak_source_availability": 1
+    },
+    "shortlist_reason_code_counts": {
+      "operator_shortlist_candidate": 10,
+      "researchable_not_operator_shortlist": 138,
+      "shortlist_long_horizon_election_downranked": 25,
+      "shortlist_long_horizon_political_downranked": 30,
+      "shortlist_low_liquidity_excluded": 5,
+      "shortlist_sports_future_excluded": 55,
+      "shortlist_sports_long_horizon_excluded": 17
+    }
+  },
+  "safety": {
+    "offline_only": true,
+    "paper_only": true,
+    "live_fetcher_implemented": false,
+    "api_used": false,
+    "network_used": false,
+    "wallet_used": false,
+    "real_order_created": false,
+    "trading_allowed": false,
+    "runtime_wiring_changed": false,
+    "dispatcher_touched": false,
+    "prompt_automation_added": false
+  }
+}

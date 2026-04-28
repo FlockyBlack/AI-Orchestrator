@@ -1,0 +1,198 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CodexResult",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "task_id",
+    "status",
+    "summary",
+    "files_changed",
+    "commands_run",
+    "tests",
+    "risks",
+    "next_tasks",
+    "needs_human",
+    "handoff",
+    "paper_only_confirmed",
+    "local_data_only_confirmed",
+    "forbidden_capabilities_found",
+    "readiness_decision",
+    "next_recommended_task_type",
+    "review_decision",
+    "blocked_reasons",
+    "remaining_warnings"
+  ],
+  "properties": {
+    "task_id": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["done", "failed", "needs_human"]
+    },
+    "summary": {
+      "type": "string",
+      "maxLength": 300
+    },
+    "files_changed": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "commands_run": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "tests": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "commands",
+        "failures"
+      ],
+      "properties": {
+        "status": {
+          "type": "string"
+        },
+        "commands": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "failures": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "risks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "next_tasks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "needs_human": {
+      "type": "boolean"
+    },
+    "handoff": {
+      "type": "string",
+      "maxLength": 1000
+    },
+    "paper_only_confirmed": {
+      "type": "boolean"
+    },
+    "local_data_only_confirmed": {
+      "type": "boolean"
+    },
+    "forbidden_capabilities_found": {
+      "type": "boolean"
+    },
+    "readiness_decision": {
+      "type": "string",
+      "enum": ["pass", "warning", "blocked"]
+    },
+    "next_recommended_task_type": {
+      "type": "string"
+    },
+    "review_decision": {
+      "type": "string",
+      "enum": ["pass", "warning", "blocked"]
+    },
+    "blocked_reasons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "remaining_warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "network_risk": {
+      "$ref": "#/$defs/category"
+    },
+    "api_risk": {
+      "$ref": "#/$defs/category"
+    },
+    "wallet_risk": {
+      "$ref": "#/$defs/category"
+    },
+    "private_key_risk": {
+      "$ref": "#/$defs/category"
+    },
+    "execution_risk": {
+      "$ref": "#/$defs/category"
+    },
+    "live_trading_risk": {
+      "$ref": "#/$defs/category"
+    },
+    "dependency_risk": {
+      "$ref": "#/$defs/category"
+    }
+  },
+  "$defs": {
+    "sample_match": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "line", "term", "snippet", "file_role", "risk_context"],
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "line": {
+          "type": "integer"
+        },
+        "term": {
+          "type": "string"
+        },
+        "snippet": {
+          "type": "string"
+        },
+        "file_role": {
+          "type": "string",
+          "enum": ["source", "test", "docs", "config", "artifact", "unknown"]
+        },
+        "risk_context": {
+          "type": "string",
+          "enum": ["active_code", "test_only", "docs_only", "config_only", "artifact_only", "unknown"]
+        }
+      }
+    },
+    "category": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "matches_count", "sample_matches"],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["clear", "warning", "blocked"]
+        },
+        "matches_count": {
+          "type": "integer"
+        },
+        "sample_matches": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/sample_match"
+          }
+        }
+      }
+    }
+  }
+}

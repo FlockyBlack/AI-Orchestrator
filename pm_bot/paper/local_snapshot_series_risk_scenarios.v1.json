@@ -1,0 +1,451 @@
+{
+  "schema_version": "v1",
+  "fixture_id": "local_snapshot_series_risk_scenarios_v1",
+  "fixture_only": true,
+  "paper_only": true,
+  "scenarios": [
+    {
+      "scenario_id": "baseline_valid_order_allowed",
+      "description": "Single valid paper order fills within all portfolio limits and settles.",
+      "risk_limits": {
+        "schema_version": "v1",
+        "fixture_id": "baseline_limits",
+        "fixture_only": true,
+        "paper_only": true,
+        "max_total_paper_exposure": 300.0,
+        "max_asset_paper_exposure": 200.0,
+        "max_orders_per_snapshot": 2,
+        "max_open_positions": 3
+      },
+      "snapshots": [
+        {
+          "snapshot_id": "baseline_snapshot_001",
+          "observed_at": "2026-06-01T12:00:00Z",
+          "observed_prices": {
+            "baseline_btc_above_90000": 0.5
+          },
+          "current_prices": {
+            "baseline_btc_above_90000": 0.55
+          },
+          "entries": [
+            {
+              "market_id": "baseline_btc_above_90000",
+              "asset": "BTC",
+              "side": "above",
+              "action": "paper_limit_order",
+              "limit_price": 0.5,
+              "paper_notional": 100.0,
+              "max_loss": 100.0,
+              "reason": "Baseline paper candidate."
+            }
+          ],
+          "settlements": []
+        },
+        {
+          "snapshot_id": "baseline_snapshot_002",
+          "observed_at": "2026-06-30T23:59:00Z",
+          "observed_prices": {},
+          "current_prices": {
+            "baseline_btc_above_90000": 1.0
+          },
+          "entries": [],
+          "settlements": [
+            {
+              "market_id": "baseline_btc_above_90000",
+              "side": "above",
+              "settlement_outcome": "yes"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scenario_id": "duplicate_market_side_blocked",
+      "description": "Second order for an already-open market and side is blocked as a duplicate.",
+      "risk_limits": {
+        "schema_version": "v1",
+        "fixture_id": "duplicate_limits",
+        "fixture_only": true,
+        "paper_only": true,
+        "max_total_paper_exposure": 300.0,
+        "max_asset_paper_exposure": 300.0,
+        "max_orders_per_snapshot": 2,
+        "max_open_positions": 3
+      },
+      "snapshots": [
+        {
+          "snapshot_id": "duplicate_snapshot_001",
+          "observed_at": "2026-06-01T12:00:00Z",
+          "observed_prices": {
+            "duplicate_btc_above_90000": 0.5
+          },
+          "current_prices": {
+            "duplicate_btc_above_90000": 0.54
+          },
+          "entries": [
+            {
+              "market_id": "duplicate_btc_above_90000",
+              "asset": "BTC",
+              "side": "above",
+              "action": "paper_limit_order",
+              "limit_price": 0.5,
+              "paper_notional": 100.0,
+              "max_loss": 100.0,
+              "reason": "First duplicate scenario candidate."
+            }
+          ],
+          "settlements": []
+        },
+        {
+          "snapshot_id": "duplicate_snapshot_002",
+          "observed_at": "2026-06-02T12:00:00Z",
+          "observed_prices": {
+            "duplicate_btc_above_90000": 0.49
+          },
+          "current_prices": {
+            "duplicate_btc_above_90000": 0.56
+          },
+          "entries": [
+            {
+              "market_id": "duplicate_btc_above_90000",
+              "asset": "BTC",
+              "side": "above",
+              "action": "paper_limit_order",
+              "limit_price": 0.5,
+              "paper_notional": 100.0,
+              "max_loss": 100.0,
+              "reason": "Duplicate market-side candidate."
+            }
+          ],
+          "settlements": []
+        }
+      ]
+    },
+    {
+      "scenario_id": "total_exposure_breach_blocked",
+      "description": "Second open order would breach total paper exposure.",
+      "risk_limits": {
+        "schema_version": "v1",
+        "fixture_id": "total_exposure_limits",
+        "fixture_only": true,
+        "paper_only": true,
+        "max_total_paper_exposure": 150.0,
+        "max_asset_paper_exposure": 300.0,
+        "max_orders_per_snapshot": 2,
+        "max_open_positions": 3
+      },
+      "snapshots": [
+        {
+          "snapshot_id": "total_exposure_snapshot_001",
+          "observed_at": "2026-06-01T12:00:00Z",
+          "observed_prices": {
+            "total_btc_above_90000": 0.5
+          },
+          "current_prices": {
+            "total_btc_above_90000": 0.51
+          },
+          "entries": [
+            {
+              "market_id": "total_btc_above_90000",
+              "asset": "BTC",
+              "side": "above",
+              "action": "paper_limit_order",
+              "limit_price": 0.5,
+              "paper_notional": 100.0,
+              "max_loss": 100.0,
+              "reason": "First total exposure candidate."
+            }
+          ],
+          "settlements": []
+        },
+        {
+          "snapshot_id": "total_exposure_snapshot_002",
+          "observed_at": "2026-06-02T12:00:00Z",
+          "observed_prices": {
+            "total_eth_below_3000": 0.5
+          },
+          "current_prices": {
+            "total_btc_above_90000": 0.52,
+            "total_eth_below_3000": 0.5
+          },
+          "entries": [
+            {
+              "market_id": "total_eth_below_3000",
+              "asset": "ETH",
+              "side": "below",
+              "action": "paper_limit_order",
+              "limit_price": 0.5,
+              "paper_notional": 100.0,
+              "max_loss": 100.0,
+              "reason": "Total exposure breach candidate."
+            }
+          ],
+          "settlements": []
+        }
+      ]
+    },
+    {
+      "scenario_id": "asset_exposure_breach_blocked",
+      "description": "Second open order in the same asset would breach per-asset paper exposure.",
+      "risk_limits": {
+        "schema_version": "v1",
+        "fixture_id": "asset_exposure_limits",
+        "fixture_only": true,
+        "paper_only": true,
+        "max_total_paper_exposure": 300.0,
+        "max_asset_paper_exposure": 150.0,
+        "max_orders_per_snapshot": 2,
+        "max_open_positions": 3
+      },
+      "snapshots": [
+        {
+          "snapshot_id": "asset_exposure_snapshot_001",
+          "observed_at": "2026-06-01T12:00:00Z",
+          "observed_prices": {
+            "asset_btc_above_90000": 0.5
+          },
+          "current_prices": {
+            "asset_btc_above_90000": 0.51
+          },
+          "entries": [
+            {
+              "market_id": "asset_btc_above_90000",
+              "asset": "BTC",
+              "side": "above",
+              "action": "paper_limit_order",
+              "limit_price": 0.5,
+              "paper_notional": 100.0,
+              "max_loss": 100.0,
+              "reason": "First BTC asset exposure candidate."
+            }
+          ],
+          "settlements": []
+        },
+        {
+          "snapshot_id": "asset_exposure_snapshot_002",
+          "observed_at": "2026-06-02T12:00:00Z",
+          "observed_prices": {
+            "asset_btc_below_85000": 0.5
+          },
+          "current_prices": {
+            "asset_btc_above_90000": 0.52,
+            "asset_btc_below_85000": 0.5
+          },
+          "entries": [
+            {
+              "market_id": "asset_btc_below_85000",
+              "asset": "BTC",
+              "side": "below",
+              "action": "paper_limit_order",
+              "limit_price": 0.5,
+              "paper_notional": 100.0,
+              "max_loss": 100.0,
+              "reason": "BTC asset exposure breach candidate."
+            }
+          ],
+          "settlements": []
+        }
+      ]
+    },
+    {
+      "scenario_id": "max_orders_per_snapshot_breach_blocked",
+      "description": "Second valid order in one snapshot is blocked by the per-snapshot order cap.",
+      "risk_limits": {
+        "schema_version": "v1",
+        "fixture_id": "max_orders_limits",
+        "fixture_only": true,
+        "paper_only": true,
+        "max_total_paper_exposure": 300.0,
+        "max_asset_paper_exposure": 300.0,
+        "max_orders_per_snapshot": 1,
+        "max_open_positions": 3
+      },
+      "snapshots": [
+        {
+          "snapshot_id": "max_orders_snapshot_001",
+          "observed_at": "2026-06-01T12:00:00Z",
+          "observed_prices": {
+            "orders_btc_above_90000": 0.5,
+            "orders_eth_below_3000": 0.5
+          },
+          "current_prices": {
+            "orders_btc_above_90000": 0.51,
+            "orders_eth_below_3000": 0.5
+          },
+          "entries": [
+            {
+              "market_id": "orders_btc_above_90000",
+              "asset": "BTC",
+              "side": "above",
+              "action": "paper_limit_order",
+              "limit_price": 0.5,
+              "paper_notional": 100.0,
+              "max_loss": 100.0,
+              "reason": "First same-snapshot candidate."
+            },
+            {
+              "market_id": "orders_eth_below_3000",
+              "asset": "ETH",
+              "side": "below",
+              "action": "paper_limit_order",
+              "limit_price": 0.5,
+              "paper_notional": 100.0,
+              "max_loss": 100.0,
+              "reason": "Second same-snapshot candidate."
+            }
+          ],
+          "settlements": []
+        }
+      ]
+    },
+    {
+      "scenario_id": "max_open_positions_breach_blocked",
+      "description": "Second open position would exceed the max open positions limit.",
+      "risk_limits": {
+        "schema_version": "v1",
+        "fixture_id": "max_open_positions_limits",
+        "fixture_only": true,
+        "paper_only": true,
+        "max_total_paper_exposure": 300.0,
+        "max_asset_paper_exposure": 300.0,
+        "max_orders_per_snapshot": 2,
+        "max_open_positions": 1
+      },
+      "snapshots": [
+        {
+          "snapshot_id": "open_positions_snapshot_001",
+          "observed_at": "2026-06-01T12:00:00Z",
+          "observed_prices": {
+            "open_btc_above_90000": 0.5
+          },
+          "current_prices": {
+            "open_btc_above_90000": 0.51
+          },
+          "entries": [
+            {
+              "market_id": "open_btc_above_90000",
+              "asset": "BTC",
+              "side": "above",
+              "action": "paper_limit_order",
+              "limit_price": 0.5,
+              "paper_notional": 100.0,
+              "max_loss": 100.0,
+              "reason": "First open-position candidate."
+            }
+          ],
+          "settlements": []
+        },
+        {
+          "snapshot_id": "open_positions_snapshot_002",
+          "observed_at": "2026-06-02T12:00:00Z",
+          "observed_prices": {
+            "open_eth_below_3000": 0.5
+          },
+          "current_prices": {
+            "open_btc_above_90000": 0.52,
+            "open_eth_below_3000": 0.5
+          },
+          "entries": [
+            {
+              "market_id": "open_eth_below_3000",
+              "asset": "ETH",
+              "side": "below",
+              "action": "paper_limit_order",
+              "limit_price": 0.5,
+              "paper_notional": 100.0,
+              "max_loss": 100.0,
+              "reason": "Max open-position breach candidate."
+            }
+          ],
+          "settlements": []
+        }
+      ]
+    },
+    {
+      "scenario_id": "mixed_allowed_and_blocked_orders",
+      "description": "Mixed series with allowed order, per-snapshot cap block, duplicate block, and total exposure block.",
+      "risk_limits": {
+        "schema_version": "v1",
+        "fixture_id": "mixed_limits",
+        "fixture_only": true,
+        "paper_only": true,
+        "max_total_paper_exposure": 150.0,
+        "max_asset_paper_exposure": 300.0,
+        "max_orders_per_snapshot": 1,
+        "max_open_positions": 3
+      },
+      "snapshots": [
+        {
+          "snapshot_id": "mixed_snapshot_001",
+          "observed_at": "2026-06-01T12:00:00Z",
+          "observed_prices": {
+            "mixed_btc_above_90000": 0.5,
+            "mixed_eth_below_3000": 0.5
+          },
+          "current_prices": {
+            "mixed_btc_above_90000": 0.51,
+            "mixed_eth_below_3000": 0.5
+          },
+          "entries": [
+            {
+              "market_id": "mixed_btc_above_90000",
+              "asset": "BTC",
+              "side": "above",
+              "action": "paper_limit_order",
+              "limit_price": 0.5,
+              "paper_notional": 100.0,
+              "max_loss": 100.0,
+              "reason": "Allowed mixed scenario candidate."
+            },
+            {
+              "market_id": "mixed_eth_below_3000",
+              "asset": "ETH",
+              "side": "below",
+              "action": "paper_limit_order",
+              "limit_price": 0.5,
+              "paper_notional": 100.0,
+              "max_loss": 100.0,
+              "reason": "Per-snapshot mixed scenario breach candidate."
+            }
+          ],
+          "settlements": []
+        },
+        {
+          "snapshot_id": "mixed_snapshot_002",
+          "observed_at": "2026-06-02T12:00:00Z",
+          "observed_prices": {
+            "mixed_btc_above_90000": 0.49,
+            "mixed_sol_above_200": 0.5
+          },
+          "current_prices": {
+            "mixed_btc_above_90000": 0.52,
+            "mixed_sol_above_200": 0.5
+          },
+          "entries": [
+            {
+              "market_id": "mixed_btc_above_90000",
+              "asset": "BTC",
+              "side": "above",
+              "action": "paper_limit_order",
+              "limit_price": 0.5,
+              "paper_notional": 100.0,
+              "max_loss": 100.0,
+              "reason": "Duplicate mixed scenario candidate."
+            },
+            {
+              "market_id": "mixed_sol_above_200",
+              "asset": "SOL",
+              "side": "above",
+              "action": "paper_limit_order",
+              "limit_price": 0.5,
+              "paper_notional": 100.0,
+              "max_loss": 100.0,
+              "reason": "Total exposure mixed scenario breach candidate."
+            }
+          ],
+          "settlements": []
+        }
+      ]
+    }
+  ]
+}

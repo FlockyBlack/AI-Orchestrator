@@ -1,0 +1,57 @@
+{
+  "schema_version": "ready_promotion.v1",
+  "ready_promotion_id": "PMBOT-BATCH-001-ready-promotion",
+  "source_promotion_decision": "codex_auto/tasks/promotion_decisions/PMBOT-BATCH-001.promotion_decision.json",
+  "source_candidate_refs": [
+    "codex_auto/tasks/candidates/PMBOT-005-PAPER-SIMULATION.task.json",
+    "codex_auto/tasks/candidates/PMBOT-006-RISK-LIMITS.task.json",
+    "codex_auto/tasks/candidates/PMBOT-007-FEES-SLIPPAGE.task.json",
+    "codex_auto/tasks/candidates/PMBOT-008-RESEARCH-DASHBOARD.task.json",
+    "codex_auto/tasks/candidates/PMBOT-009-FIXTURE-POSTMORTEM.task.json",
+    "codex_auto/tasks/candidates/PMBOT-010-STATIC-SAFETY-AUDIT.task.json"
+  ],
+  "ready_task_refs": [
+    "codex_auto/tasks/ready/PMBOT-005-PAPER-SIMULATION.task.json",
+    "codex_auto/tasks/ready/PMBOT-006-RISK-LIMITS.task.json",
+    "codex_auto/tasks/ready/PMBOT-007-FEES-SLIPPAGE.task.json",
+    "codex_auto/tasks/ready/PMBOT-008-RESEARCH-DASHBOARD.task.json",
+    "codex_auto/tasks/ready/PMBOT-009-FIXTURE-POSTMORTEM.task.json",
+    "codex_auto/tasks/ready/PMBOT-010-STATIC-SAFETY-AUDIT.task.json"
+  ],
+  "ready_manifest_ref": "codex_auto/tasks/ready/PMBOT-BATCH-001.ready_manifest.json",
+  "promoted_at": "2026-04-25T14:44:21+00:00",
+  "promoted_by": "codex_local_ready_promotion",
+  "promotion_mode": "ready_only_no_execution",
+  "approved_for_ready_promotion": true,
+  "approved_for_execution": false,
+  "execution_allowed_now": false,
+  "external_codex_cli_allowed_now": false,
+  "runtime_wiring_allowed": false,
+  "human_approval_required_before_execution": true,
+  "flocky_review_required_before_execution": true,
+  "prompt_pack_ref": "codex_auto/prompts/PMBOT-BATCH-001.codex_prompt.txt",
+  "prompt_manifest_ref": "codex_auto/prompts/PMBOT-BATCH-001.prompt_manifest.json",
+  "external_codex_plan_ref": "codex_auto/external_cli/plans/PMBOT-BATCH-001.external_codex_plan.json",
+  "command_preview_ref": "codex_auto/external_cli/plans/PMBOT-BATCH-001.command_preview.txt",
+  "safety_check": {
+    "runtime_changed": false,
+    "dispatcher_touched": false,
+    "run_codex_touched": false,
+    "active_task_files_touched": false,
+    "freeze_record_modified": false,
+    "result_records_modified": false,
+    "checkpoint_records_modified": false,
+    "network_used": false,
+    "api_used": false,
+    "wallet_used": false,
+    "private_key_used": false,
+    "trading_used": false,
+    "external_codex_cli_invoked": false,
+    "generated_prompt_executed": false,
+    "single_runtime_source_rule_preserved": true
+  },
+  "notes": [
+    "codex_auto-local ready promotion only.",
+    "Ready PMBOT tasks remain non-executable until separate human approval and Flocky validation."
+  ]
+}

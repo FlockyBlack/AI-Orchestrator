@@ -1,0 +1,97 @@
+{
+  "schema_version": "paper_decision_simulation_preview.v1",
+  "markdown_version": "paper_decision_simulation_preview_report.v1",
+  "task_id": "PMBOT-PAPER-003-PAPER-DECISION-SIMULATION-PREVIEW",
+  "deterministic": true,
+  "source_policy_review_result_path": "pm_bot/paper paper-policy-review result artifact",
+  "source_policy_review_result_schema_version": "paper_policy_review_result.v1",
+  "source_readiness_result_path": "pm_bot/paper final dossier paper-readiness result artifact",
+  "source_readiness_result_schema_version": "final_dossier_paper_readiness_result.v1",
+  "source_final_dossier_drafts_path": "pm_bot/research selected-ingest final dossier drafts artifact",
+  "source_final_dossier_drafts_schema_version": "selected_ingest_final_dossier_drafts.v1",
+  "json_output_path": "pm_bot/paper/paper_decision_simulation_preview.v1.json",
+  "markdown_output_path": "pm_bot/paper/paper_decision_simulation_preview.v1.md",
+  "expected_json_output_path": "pm_bot/paper/expected_paper_decision_simulation_preview.v1.json",
+  "accepted_paper_policy_status": "eligible_for_future_paper_decision_simulation",
+  "allowed_simulation_preview_statuses": [
+    "ready_for_future_paper_decision_policy_design",
+    "needs_more_manual_review",
+    "blocked_by_policy"
+  ],
+  "allowed_next_manual_actions": [
+    "design_paper_decision_policy",
+    "add_manual_review",
+    "stop_policy_blocked"
+  ],
+  "preview_item_fields": [
+    "market_id",
+    "title_question",
+    "event_id",
+    "event_title",
+    "category",
+    "packet_type",
+    "deadline",
+    "current_yes_price",
+    "liquidity",
+    "volume",
+    "resolution_criteria_summary",
+    "evidence_inventory_summary",
+    "uncertainty_register_summary",
+    "missing_information_review",
+    "open_questions",
+    "human_review_summary",
+    "paper_readiness_status",
+    "paper_policy_status",
+    "simulation_preview_status",
+    "blocked_reasons",
+    "next_manual_action"
+  ],
+  "preview_summary": {
+    "policy_records_read": 4,
+    "preview_records_written": 1,
+    "ready_for_future_paper_decision_policy_design": 1,
+    "needs_more_manual_review": 0,
+    "blocked_by_policy": 0,
+    "paper_orders_created": 0
+  },
+  "market_ids": [
+    "824952"
+  ],
+  "preview_records": [
+    {
+      "market_id": "824952",
+      "title_question": "MicroStrategy sells any Bitcoin by December 31, 2026?",
+      "event_id": "16167",
+      "event_title": "MicroStrategy sells any Bitcoin by ___ ?",
+      "category": "Finance / Economy / Business / 2025 Predictions / Crypto / MicroStrategy / Stocks",
+      "packet_type": "selected_ingest_market_research_stub",
+      "deadline": "2026-07-01T04:00:00Z",
+      "current_yes_price": 0.095,
+      "liquidity": 33862.5213,
+      "volume": 574606.4678400013,
+      "resolution_criteria_summary": "Stub-only local market description excerpt for 'MicroStrategy sells any Bitcoin by December 31, 2026?': This market will resolve to \"Yes\" if MicroStrategy sells any of its Bitcoin by 11:59 PM ET on the date specified in the title. Otherwise, this market will resolve to \"No\". Manual completion must review the full local criteria before use.",
+      "evidence_inventory_summary": [
+        "Local rule reference was copied into the packet for structural review.",
+        "Official source placeholder was documented as source coverage context.",
+        "Credible news placeholder was documented as source coverage context."
+      ],
+      "uncertainty_register_summary": [
+        "Manual review still needs human judgment on source completeness.",
+        "Artifact validation does not determine the market outcome."
+      ],
+      "missing_information_review": "No structural gaps were flagged by the selected-ingest operator review result.",
+      "open_questions": [],
+      "human_review_summary": "Reviewer verified selected-ingest human review pack checklist coverage and approved a later draft-preparation step.",
+      "paper_readiness_status": "eligible_for_future_paper_policy_review",
+      "paper_policy_status": "eligible_for_future_paper_decision_simulation",
+      "simulation_preview_status": "ready_for_future_paper_decision_policy_design",
+      "blocked_reasons": [],
+      "next_manual_action": "design_paper_decision_policy"
+    }
+  ],
+  "limitations": [
+    "Reads only local paper-policy-review, paper-readiness, and selected-ingest final dossier draft artifacts.",
+    "ready_for_future_paper_decision_policy_design only means a future paper-only policy module may be designed.",
+    "This preview does not create a paper decision, choose YES or NO, recommend any action, score the market, calculate probability, calculate expected value, or create paper orders."
+  ]
+}

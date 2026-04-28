@@ -1,0 +1,68 @@
+{
+  "task_id": "PMBOT-BRAIN-028-MANUAL-SNAPSHOT-WORKSPACE-IMPORT",
+  "status": "passed",
+  "summary": "Added deterministic offline manual snapshot import for the manual paper workspace inbox. The importer discovers source files or directories, classifies importable and bad inputs, computes stable digests, assigns canonical inbox names, remains read-only by default, writes inbox files only with --write-inbox, and writes an import manifest only with --out-manifest.",
+  "files_created": [
+    "pm_bot/paper/manual_snapshot_import_source/001_series_snapshot_004.json",
+    "pm_bot/paper/manual_snapshot_import_source/002_series_snapshot_005.json",
+    "pm_bot/paper/manual_snapshot_import_source/003_duplicate_series_snapshot_004.json",
+    "pm_bot/paper/manual_snapshot_import_source/004_already_present_series_snapshot_002.json",
+    "pm_bot/paper/manual_snapshot_import_source/005_malformed.json",
+    "pm_bot/paper/manual_snapshot_import_source/006_unsupported.json",
+    "pm_bot/paper/manual_snapshot_import_source/007_operator_note.txt",
+    "pm_bot/paper/run_manual_snapshot_workspace_import.py",
+    "pm_bot/paper/expected_manual_snapshot_workspace_import.v1.json",
+    "pm_bot/paper/expected_manual_snapshot_workspace_import.v1.md",
+    "pm_bot/paper/expected_manual_snapshot_import_manifest.v1.json",
+    "pm_bot/paper/tests/test_run_manual_snapshot_workspace_import.py",
+    "docs/PM_BOT_BRAIN_028_RESULT.json",
+    "docs/PM_BOT_STAGE_SUMMARY_V40.md"
+  ],
+  "files_modified": [],
+  "tests": [
+    "python -m pytest pm_bot\\paper\\tests\\test_run_manual_snapshot_workspace_import.py -q",
+    "python -m pytest pm_bot\\scoring\\tests pm_bot\\paper\\tests -q",
+    "python pm_bot\\paper\\run_manual_snapshot_workspace_import.py",
+    "python pm_bot\\paper\\run_manual_snapshot_workspace_import.py --markdown",
+    "python pm_bot\\paper\\run_manual_paper_workspace.py",
+    "python pm_bot\\paper\\run_manual_paper_workspace.py --markdown",
+    "python pm_bot\\paper\\run_manual_paper_inbox_bundle.py",
+    "python pm_bot\\paper\\run_local_snapshot_series_risk_scenarios.py",
+    "python pm_bot\\paper\\run_crypto_numeric_lifecycle_regression_gates.py"
+  ],
+  "import_summary": {
+    "default_read_only_preserved": "verified: default command writes no inbox files and no manifest",
+    "inputs_discovered": "7 deterministic fixture source inputs",
+    "importable_snapshots": "2 snapshots are importable: series_snapshot_004 and series_snapshot_005",
+    "snapshots_imported_to_temp_workspace": "verified: --write-inbox writes 004_series_snapshot_004.json and 005_series_snapshot_005.json only in a copied temp workspace",
+    "skipped_or_quarantined_inputs": "5 fixture inputs",
+    "reason_counts": {
+      "already_present_in_workspace_inbox": 1,
+      "duplicate_snapshot_id_in_source_batch": 1,
+      "ignored_non_json_file": 1,
+      "malformed_json": 1,
+      "unsupported_snapshot_shape": 1
+    },
+    "manifest_write_tested": "verified: --out-manifest writes expected deterministic manifest JSON",
+    "canonical_fixture_mutation_avoided": "verified by byte snapshot tests and post-check of canonical inbox file names"
+  },
+  "safety": {
+    "offline_only": true,
+    "paper_only": true,
+    "live_fetcher_implemented": false,
+    "api_used": false,
+    "network_used": false,
+    "wallet_used": false,
+    "real_order_created": false,
+    "trading_allowed": false,
+    "runtime_wiring_changed": false,
+    "dispatcher_touched": false,
+    "prompt_automation_added": false
+  },
+  "notes": [
+    "No production dependency was added.",
+    "No files under Codex copy roots were edited.",
+    "The canonical fixture workspace remained read-only during import tests; write behavior was tested against temporary workspace copies.",
+    "The canonical root is not a Git repository in this environment, so git status/diff were unavailable."
+  ]
+}

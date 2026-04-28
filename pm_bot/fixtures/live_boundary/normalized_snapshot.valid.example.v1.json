@@ -1,0 +1,18 @@
+{
+  "normalized_market_id": "normalized-fixture-market-001",
+  "title": "Will the fixture candidate remain paper-only?",
+  "category": "governance",
+  "status": "open",
+  "outcomes": [
+    "Yes",
+    "No"
+  ],
+  "yes_price": 0.61,
+  "no_price": 0.39,
+  "liquidity": 12500.0,
+  "spread": 0.02,
+  "volume": 4800.0,
+  "data_freshness_seconds": 90,
+  "validation_status": "valid",
+  "paper_replay_eligible": true
+}

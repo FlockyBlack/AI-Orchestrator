@@ -1,0 +1,337 @@
+{
+  "artifact_type": "polymarket_selected_ingest_research_packet_stubs",
+  "bridge_boundary": {
+    "downstream_wiring_changed": false,
+    "external_fetch_performed": false,
+    "manual_invocation_only": true,
+    "offline_only": true,
+    "stub_only": true
+  },
+  "deterministic": true,
+  "limitations": [
+    "Reads only saved local PMBOT ingest artifacts.",
+    "Creates empty research packet stubs only.",
+    "Does not fetch, verify, conclude, or trigger downstream actions."
+  ],
+  "overlay_validation": {
+    "overlay_valid": true,
+    "selections_checked": 50
+  },
+  "packet_stubs": [
+    {
+      "category": "Finance / Economy / Business / 2025 Predictions / Crypto / MicroStrategy / Stocks",
+      "completion_status": "stub_only",
+      "credible_news_sources_to_check": [
+        "Manual check template: Reuters coverage query for 'MicroStrategy sells any Bitcoin by June 30, 2026?'",
+        "Manual check template: Associated Press coverage query for 'MicroStrategy sells any Bitcoin by June 30, 2026?'",
+        "Manual check template: major credible outlet query for 'Finance / Economy / Business / 2025 Predictions / Crypto / MicroStrategy / Stocks' and 'MicroStrategy sells any Bitcoin by June 30, 2026?'"
+      ],
+      "current_yes_price": 0.0285,
+      "deadline": "2026-07-01T04:00:00Z",
+      "event_id": "16167",
+      "event_title": "MicroStrategy sells any Bitcoin by ___ ?",
+      "evidence_slots": {
+        "credible_news_no_evidence": [],
+        "credible_news_yes_evidence": [],
+        "official_no_evidence": [],
+        "official_resolution_criteria": [],
+        "official_yes_evidence": [],
+        "source_reliability_notes": [],
+        "uncertainty_factors": []
+      },
+      "liquidity": 74969.19206,
+      "market_id": "692258",
+      "missing_information": [
+        "manual_research_not_started",
+        "full_market_resolution_criteria_review",
+        "official_source_references",
+        "credible_news_source_references",
+        "empty_evidence_slots",
+        "operator_human_review_required"
+      ],
+      "official_sources_to_check": [
+        "Manual check template: local Polymarket rules and resolution criteria for market_id 692258",
+        "Manual check template: official primary source named in the local market description for 'MicroStrategy sells any Bitcoin by June 30, 2026?'",
+        "Manual check template: original issuer, government, court, exchange, or company source relevant to 'MicroStrategy sells any Bitcoin by June 30, 2026?'"
+      ],
+      "packet_type": "selected_ingest_market_research_stub",
+      "question": "MicroStrategy sells any Bitcoin by June 30, 2026?",
+      "resolution_criteria_summary": "Stub-only local market description excerpt for 'MicroStrategy sells any Bitcoin by June 30, 2026?': This market will resolve to \"Yes\" if MicroStrategy sells any of its Bitcoin by 11:59 PM ET on the date specified in the title. Otherwise, this market will resolve to \"No\". Manual completion must review the full local criteria before use.",
+      "search_queries": [
+        "Template only: \"MicroStrategy sells any Bitcoin by June 30, 2026?\" \"resolution criteria\"",
+        "Template only: \"MicroStrategy sells any Bitcoin by June 30, 2026?\" \"2026-07-01T04:00:00Z\" official source",
+        "Template only: \"Polymarket\" \"692258\" \"MicroStrategy sells any Bitcoin by June 30, 2026?\"",
+        "Template only: \"MicroStrategy sells any Bitcoin by ___ ?\" \"MicroStrategy sells any Bitcoin by June 30, 2026?\" credible reporting",
+        "Template only: \"Finance / Economy / Business / 2025 Predictions / Crypto / MicroStrategy / Stocks\" \"MicroStrategy sells any Bitcoin by June 30, 2026?\" primary source"
+      ],
+      "source_ingest_artifacts": {
+        "normalized_market_preview": "pm_bot/ingest/normalized_market_preview.v1.json",
+        "normalized_source_snapshot_artifact_id": "polymarket_gamma_events_20260427T231234Z_c6373d103a2e",
+        "normalized_source_snapshot_path": "pm_bot/ingest/raw_snapshots/polymarket_gamma_events_20260427T231234Z_c6373d103a2e.json",
+        "operator_candidate_selection_index": "pm_bot/ingest/operator_candidate_selection_index.v1.json",
+        "operator_candidate_selection_overlay": "pm_bot/ingest/operator_candidate_selection_overlay_selected_first5.v1.json"
+      },
+      "source_plan": "Template only: review the local market rules for 'MicroStrategy sells any Bitcoin by June 30, 2026?', then manually check official primary sources and credible news coverage. This stub does not fetch or verify sources.",
+      "title": "MicroStrategy sells any Bitcoin by June 30, 2026?",
+      "volume": 998871.1045009972,
+      "why_not_bet_yet": "Stub only: no source evidence has been gathered, evidence slots are empty, and manual review has not happened.",
+      "why_selected_for_research": "Selected by validated operator overlay for deterministic first-five research-stub bridge testing; operator_priority=medium; operator_notes=Selected only to test the live-captured market research-stub bridge."
+    },
+    {
+      "category": "Finance / Economy / Business / 2025 Predictions / Crypto / MicroStrategy / Stocks",
+      "completion_status": "stub_only",
+      "credible_news_sources_to_check": [
+        "Manual check template: Reuters coverage query for 'MicroStrategy sells any Bitcoin by December 31, 2026?'",
+        "Manual check template: Associated Press coverage query for 'MicroStrategy sells any Bitcoin by December 31, 2026?'",
+        "Manual check template: major credible outlet query for 'Finance / Economy / Business / 2025 Predictions / Crypto / MicroStrategy / Stocks' and 'MicroStrategy sells any Bitcoin by December 31, 2026?'"
+      ],
+      "current_yes_price": 0.095,
+      "deadline": "2026-07-01T04:00:00Z",
+      "event_id": "16167",
+      "event_title": "MicroStrategy sells any Bitcoin by ___ ?",
+      "evidence_slots": {
+        "credible_news_no_evidence": [],
+        "credible_news_yes_evidence": [],
+        "official_no_evidence": [],
+        "official_resolution_criteria": [],
+        "official_yes_evidence": [],
+        "source_reliability_notes": [],
+        "uncertainty_factors": []
+      },
+      "liquidity": 33862.5213,
+      "market_id": "824952",
+      "missing_information": [
+        "manual_research_not_started",
+        "full_market_resolution_criteria_review",
+        "official_source_references",
+        "credible_news_source_references",
+        "empty_evidence_slots",
+        "operator_human_review_required"
+      ],
+      "official_sources_to_check": [
+        "Manual check template: local Polymarket rules and resolution criteria for market_id 824952",
+        "Manual check template: official primary source named in the local market description for 'MicroStrategy sells any Bitcoin by December 31, 2026?'",
+        "Manual check template: original issuer, government, court, exchange, or company source relevant to 'MicroStrategy sells any Bitcoin by December 31, 2026?'"
+      ],
+      "packet_type": "selected_ingest_market_research_stub",
+      "question": "MicroStrategy sells any Bitcoin by December 31, 2026?",
+      "resolution_criteria_summary": "Stub-only local market description excerpt for 'MicroStrategy sells any Bitcoin by December 31, 2026?': This market will resolve to \"Yes\" if MicroStrategy sells any of its Bitcoin by 11:59 PM ET on the date specified in the title. Otherwise, this market will resolve to \"No\". Manual completion must review the full local criteria before use.",
+      "search_queries": [
+        "Template only: \"MicroStrategy sells any Bitcoin by December 31, 2026?\" \"resolution criteria\"",
+        "Template only: \"MicroStrategy sells any Bitcoin by December 31, 2026?\" \"2026-07-01T04:00:00Z\" official source",
+        "Template only: \"Polymarket\" \"824952\" \"MicroStrategy sells any Bitcoin by December 31, 2026?\"",
+        "Template only: \"MicroStrategy sells any Bitcoin by ___ ?\" \"MicroStrategy sells any Bitcoin by December 31, 2026?\" credible reporting",
+        "Template only: \"Finance / Economy / Business / 2025 Predictions / Crypto / MicroStrategy / Stocks\" \"MicroStrategy sells any Bitcoin by December 31, 2026?\" primary source"
+      ],
+      "source_ingest_artifacts": {
+        "normalized_market_preview": "pm_bot/ingest/normalized_market_preview.v1.json",
+        "normalized_source_snapshot_artifact_id": "polymarket_gamma_events_20260427T231234Z_c6373d103a2e",
+        "normalized_source_snapshot_path": "pm_bot/ingest/raw_snapshots/polymarket_gamma_events_20260427T231234Z_c6373d103a2e.json",
+        "operator_candidate_selection_index": "pm_bot/ingest/operator_candidate_selection_index.v1.json",
+        "operator_candidate_selection_overlay": "pm_bot/ingest/operator_candidate_selection_overlay_selected_first5.v1.json"
+      },
+      "source_plan": "Template only: review the local market rules for 'MicroStrategy sells any Bitcoin by December 31, 2026?', then manually check official primary sources and credible news coverage. This stub does not fetch or verify sources.",
+      "title": "MicroStrategy sells any Bitcoin by December 31, 2026?",
+      "volume": 574606.4678400013,
+      "why_not_bet_yet": "Stub only: no source evidence has been gathered, evidence slots are empty, and manual review has not happened.",
+      "why_selected_for_research": "Selected by validated operator overlay for deterministic first-five research-stub bridge testing; operator_priority=medium; operator_notes=Selected only to test the live-captured market research-stub bridge."
+    },
+    {
+      "category": "exchange / Tech / Crypto / Finance / Business / 2025 Predictions / Featured / IPOs",
+      "completion_status": "stub_only",
+      "credible_news_sources_to_check": [
+        "Manual check template: Reuters coverage query for 'Kraken IPO by December 31, 2026?'",
+        "Manual check template: Associated Press coverage query for 'Kraken IPO by December 31, 2026?'",
+        "Manual check template: major credible outlet query for 'exchange / Tech / Crypto / Finance / Business / 2025 Predictions / Featured / IPOs' and 'Kraken IPO by December 31, 2026?'"
+      ],
+      "current_yes_price": 0.74,
+      "deadline": "2027-01-01T05:00:00Z",
+      "event_id": "16183",
+      "event_title": "Kraken IPO by ___ ?",
+      "evidence_slots": {
+        "credible_news_no_evidence": [],
+        "credible_news_yes_evidence": [],
+        "official_no_evidence": [],
+        "official_resolution_criteria": [],
+        "official_yes_evidence": [],
+        "source_reliability_notes": [],
+        "uncertainty_factors": []
+      },
+      "liquidity": 3865.8225,
+      "market_id": "691547",
+      "missing_information": [
+        "manual_research_not_started",
+        "full_market_resolution_criteria_review",
+        "official_source_references",
+        "credible_news_source_references",
+        "empty_evidence_slots",
+        "operator_human_review_required"
+      ],
+      "official_sources_to_check": [
+        "Manual check template: local Polymarket rules and resolution criteria for market_id 691547",
+        "Manual check template: official primary source named in the local market description for 'Kraken IPO by December 31, 2026?'",
+        "Manual check template: original issuer, government, court, exchange, or company source relevant to 'Kraken IPO by December 31, 2026?'"
+      ],
+      "packet_type": "selected_ingest_market_research_stub",
+      "question": "Kraken IPO by December 31, 2026?",
+      "resolution_criteria_summary": "Stub-only local market description excerpt for 'Kraken IPO by December 31, 2026?': This market will resolve to \"Yes\" if Kraken completes an Initial Public Offering (IPO) by the listed date ET, as confirmed by official company announcements and credible news sources. Otherwise, this market will resolve to \"No.\" Manual completion must review the full local criteria before use.",
+      "search_queries": [
+        "Template only: \"Kraken IPO by December 31, 2026?\" \"resolution criteria\"",
+        "Template only: \"Kraken IPO by December 31, 2026?\" \"2027-01-01T05:00:00Z\" official source",
+        "Template only: \"Polymarket\" \"691547\" \"Kraken IPO by December 31, 2026?\"",
+        "Template only: \"Kraken IPO by ___ ?\" \"Kraken IPO by December 31, 2026?\" credible reporting",
+        "Template only: \"exchange / Tech / Crypto / Finance / Business / 2025 Predictions / Featured / IPOs\" \"Kraken IPO by December 31, 2026?\" primary source"
+      ],
+      "source_ingest_artifacts": {
+        "normalized_market_preview": "pm_bot/ingest/normalized_market_preview.v1.json",
+        "normalized_source_snapshot_artifact_id": "polymarket_gamma_events_20260427T231234Z_c6373d103a2e",
+        "normalized_source_snapshot_path": "pm_bot/ingest/raw_snapshots/polymarket_gamma_events_20260427T231234Z_c6373d103a2e.json",
+        "operator_candidate_selection_index": "pm_bot/ingest/operator_candidate_selection_index.v1.json",
+        "operator_candidate_selection_overlay": "pm_bot/ingest/operator_candidate_selection_overlay_selected_first5.v1.json"
+      },
+      "source_plan": "Template only: review the local market rules for 'Kraken IPO by December 31, 2026?', then manually check official primary sources and credible news coverage. This stub does not fetch or verify sources.",
+      "title": "Kraken IPO by December 31, 2026?",
+      "volume": 506317.2901440019,
+      "why_not_bet_yet": "Stub only: no source evidence has been gathered, evidence slots are empty, and manual review has not happened.",
+      "why_selected_for_research": "Selected by validated operator overlay for deterministic first-five research-stub bridge testing; operator_priority=medium; operator_notes=Selected only to test the live-captured market research-stub bridge."
+    },
+    {
+      "category": "France / Politics / Macron / World / 2025 Predictions / resign",
+      "completion_status": "stub_only",
+      "credible_news_sources_to_check": [
+        "Manual check template: Reuters coverage query for 'Macron out by June 30, 2026?'",
+        "Manual check template: Associated Press coverage query for 'Macron out by June 30, 2026?'",
+        "Manual check template: major credible outlet query for 'France / Politics / Macron / World / 2025 Predictions / resign' and 'Macron out by June 30, 2026?'"
+      ],
+      "current_yes_price": 0.0155,
+      "deadline": "2026-06-30T12:00:00Z",
+      "event_id": "16263",
+      "event_title": "Macron out by...?",
+      "evidence_slots": {
+        "credible_news_no_evidence": [],
+        "credible_news_yes_evidence": [],
+        "official_no_evidence": [],
+        "official_resolution_criteria": [],
+        "official_yes_evidence": [],
+        "source_reliability_notes": [],
+        "uncertainty_factors": []
+      },
+      "liquidity": 48751.13558,
+      "market_id": "597964",
+      "missing_information": [
+        "manual_research_not_started",
+        "full_market_resolution_criteria_review",
+        "official_source_references",
+        "credible_news_source_references",
+        "empty_evidence_slots",
+        "operator_human_review_required"
+      ],
+      "official_sources_to_check": [
+        "Manual check template: local Polymarket rules and resolution criteria for market_id 597964",
+        "Manual check template: official primary source named in the local market description for 'Macron out by June 30, 2026?'",
+        "Manual check template: original issuer, government, court, exchange, or company source relevant to 'Macron out by June 30, 2026?'"
+      ],
+      "packet_type": "selected_ingest_market_research_stub",
+      "question": "Macron out by June 30, 2026?",
+      "resolution_criteria_summary": "Stub-only local market description excerpt for 'Macron out by June 30, 2026?': This market will resolve to \"Yes\" if Emmanuel Macron ceases to be President of France for any length of time between September 14, 2025, and June 30, 2026, 11:59 PM ET (inclusive). Otherwise, this market will resolve to \"No\". Manual completion must review the full local criteria before use.",
+      "search_queries": [
+        "Template only: \"Macron out by June 30, 2026?\" \"resolution criteria\"",
+        "Template only: \"Macron out by June 30, 2026?\" \"2026-06-30T12:00:00Z\" official source",
+        "Template only: \"Polymarket\" \"597964\" \"Macron out by June 30, 2026?\"",
+        "Template only: \"Macron out by...?\" \"Macron out by June 30, 2026?\" credible reporting",
+        "Template only: \"France / Politics / Macron / World / 2025 Predictions / resign\" \"Macron out by June 30, 2026?\" primary source"
+      ],
+      "source_ingest_artifacts": {
+        "normalized_market_preview": "pm_bot/ingest/normalized_market_preview.v1.json",
+        "normalized_source_snapshot_artifact_id": "polymarket_gamma_events_20260427T231234Z_c6373d103a2e",
+        "normalized_source_snapshot_path": "pm_bot/ingest/raw_snapshots/polymarket_gamma_events_20260427T231234Z_c6373d103a2e.json",
+        "operator_candidate_selection_index": "pm_bot/ingest/operator_candidate_selection_index.v1.json",
+        "operator_candidate_selection_overlay": "pm_bot/ingest/operator_candidate_selection_overlay_selected_first5.v1.json"
+      },
+      "source_plan": "Template only: review the local market rules for 'Macron out by June 30, 2026?', then manually check official primary sources and credible news coverage. This stub does not fetch or verify sources.",
+      "title": "Macron out by June 30, 2026?",
+      "volume": 343942.07421,
+      "why_not_bet_yet": "Stub only: no source evidence has been gathered, evidence slots are empty, and manual review has not happened.",
+      "why_selected_for_research": "Selected by validated operator overlay for deterministic first-five research-stub bridge testing; operator_priority=medium; operator_notes=Selected only to test the live-captured market research-stub bridge."
+    },
+    {
+      "category": "Starmer / UK / pedophile / England",
+      "completion_status": "stub_only",
+      "credible_news_sources_to_check": [
+        "Manual check template: Reuters coverage query for 'Will the next UK election be called by June 30, 2026?'",
+        "Manual check template: Associated Press coverage query for 'Will the next UK election be called by June 30, 2026?'",
+        "Manual check template: major credible outlet query for 'Starmer / UK / pedophile / England' and 'Will the next UK election be called by June 30, 2026?'"
+      ],
+      "current_yes_price": 0.0525,
+      "deadline": "2026-06-30T12:00:00Z",
+      "event_id": "16423",
+      "event_title": "UK election called by...?",
+      "evidence_slots": {
+        "credible_news_no_evidence": [],
+        "credible_news_yes_evidence": [],
+        "official_no_evidence": [],
+        "official_resolution_criteria": [],
+        "official_yes_evidence": [],
+        "source_reliability_notes": [],
+        "uncertainty_factors": []
+      },
+      "liquidity": 1241.81341,
+      "market_id": "598936",
+      "missing_information": [
+        "manual_research_not_started",
+        "full_market_resolution_criteria_review",
+        "official_source_references",
+        "credible_news_source_references",
+        "empty_evidence_slots",
+        "operator_human_review_required"
+      ],
+      "official_sources_to_check": [
+        "Manual check template: local Polymarket rules and resolution criteria for market_id 598936",
+        "Manual check template: official primary source named in the local market description for 'Will the next UK election be called by June 30, 2026?'",
+        "Manual check template: original issuer, government, court, exchange, or company source relevant to 'Will the next UK election be called by June 30, 2026?'"
+      ],
+      "packet_type": "selected_ingest_market_research_stub",
+      "question": "Will the next UK election be called by June 30, 2026?",
+      "resolution_criteria_summary": "Stub-only local market description excerpt for 'Will the next UK election be called by June 30, 2026?': This market will resolve to \"Yes\" if the date of the next UK general election is declared by June 30, 2026, 11:59 PM ET. Otherwise, this market will resolve to \"No\". Manual completion must review the full local criteria before use.",
+      "search_queries": [
+        "Template only: \"Will the next UK election be called by June 30, 2026?\" \"resolution criteria\"",
+        "Template only: \"Will the next UK election be called by June 30, 2026?\" \"2026-06-30T12:00:00Z\" official source",
+        "Template only: \"Polymarket\" \"598936\" \"Will the next UK election be called by June 30, 2026?\"",
+        "Template only: \"UK election called by...?\" \"Will the next UK election be called by June 30, 2026?\" credible reporting",
+        "Template only: \"Starmer / UK / pedophile / England\" \"Will the next UK election be called by June 30, 2026?\" primary source"
+      ],
+      "source_ingest_artifacts": {
+        "normalized_market_preview": "pm_bot/ingest/normalized_market_preview.v1.json",
+        "normalized_source_snapshot_artifact_id": "polymarket_gamma_events_20260427T231234Z_c6373d103a2e",
+        "normalized_source_snapshot_path": "pm_bot/ingest/raw_snapshots/polymarket_gamma_events_20260427T231234Z_c6373d103a2e.json",
+        "operator_candidate_selection_index": "pm_bot/ingest/operator_candidate_selection_index.v1.json",
+        "operator_candidate_selection_overlay": "pm_bot/ingest/operator_candidate_selection_overlay_selected_first5.v1.json"
+      },
+      "source_plan": "Template only: review the local market rules for 'Will the next UK election be called by June 30, 2026?', then manually check official primary sources and credible news coverage. This stub does not fetch or verify sources.",
+      "title": "Will the next UK election be called by June 30, 2026?",
+      "volume": 19020.393714000005,
+      "why_not_bet_yet": "Stub only: no source evidence has been gathered, evidence slots are empty, and manual review has not happened.",
+      "why_selected_for_research": "Selected by validated operator overlay for deterministic first-five research-stub bridge testing; operator_priority=medium; operator_notes=Selected only to test the live-captured market research-stub bridge."
+    }
+  ],
+  "schema_version": "selected_ingest_research_packet_stubs.v1",
+  "selected_market_ids": [
+    "692258",
+    "824952",
+    "691547",
+    "597964",
+    "598936"
+  ],
+  "selection_source": "validated_operator_selection_overlay",
+  "source_ingest_artifacts": {
+    "normalized_preview": "pm_bot/ingest/normalized_market_preview.v1.json",
+    "selection_index": "pm_bot/ingest/operator_candidate_selection_index.v1.json",
+    "selection_overlay": "pm_bot/ingest/operator_candidate_selection_overlay_selected_first5.v1.json"
+  },
+  "summary": {
+    "completion_status_all_stub_only": true,
+    "research_packet_stubs_created": 5,
+    "selected_market_ids_read": 5
+  },
+  "task_id": "PMBOT-INGEST-005-SELECTED-CANDIDATE-RESEARCH-STUB-BRIDGE"
+}

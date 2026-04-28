@@ -1,0 +1,149 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "autopilot_preview_handoff.schema.v1.json",
+  "title": "Autopilot Preview Handoff V1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "preview_only",
+    "runtime_authority",
+    "final_acceptance_authority",
+    "source_task_id",
+    "authoritative_task_path",
+    "authoritative_run_path_or_ref",
+    "handoff_owner",
+    "codex_executor",
+    "allowed_paths",
+    "forbidden_paths",
+    "approval_required",
+    "flocky_validation_required",
+    "stop_conditions",
+    "single_runtime_source_rule_preserved",
+    "execution_allowed_now",
+    "runtime_wiring_allowed",
+    "status_ownership",
+    "generated_by",
+    "deterministic_preview"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "autopilot_preview_handoff.v1"
+    },
+    "preview_only": {
+      "const": true
+    },
+    "runtime_authority": {
+      "const": false
+    },
+    "final_acceptance_authority": {
+      "const": false
+    },
+    "source_task_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "authoritative_task_path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "authoritative_run_path_or_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "handoff_owner": {
+      "const": "codex_auto"
+    },
+    "codex_executor": {
+      "const": "Codex"
+    },
+    "allowed_paths": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "forbidden_paths": {
+      "type": "array",
+      "minItems": 9,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "approval_required": {
+      "const": true
+    },
+    "flocky_validation_required": {
+      "const": true
+    },
+    "stop_conditions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "single_runtime_source_rule_preserved": {
+      "const": true
+    },
+    "execution_allowed_now": {
+      "const": false
+    },
+    "runtime_wiring_allowed": {
+      "const": false
+    },
+    "status_ownership": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "runtime_status",
+        "handoff_status",
+        "codex_execution_status",
+        "flocky_validation_status",
+        "final_acceptance_status"
+      ],
+      "properties": {
+        "runtime_status": {
+          "$ref": "#/$defs/ownedStatus"
+        },
+        "handoff_status": {
+          "$ref": "#/$defs/ownedStatus"
+        },
+        "codex_execution_status": {
+          "$ref": "#/$defs/ownedStatus"
+        },
+        "flocky_validation_status": {
+          "$ref": "#/$defs/ownedStatus"
+        },
+        "final_acceptance_status": {
+          "$ref": "#/$defs/ownedStatus"
+        }
+      }
+    },
+    "generated_by": {
+      "const": "codex_auto.autopilot.build_preview_handoff"
+    },
+    "deterministic_preview": {
+      "const": true
+    }
+  },
+  "$defs": {
+    "ownedStatus": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "owner"
+      ],
+      "properties": {
+        "owner": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

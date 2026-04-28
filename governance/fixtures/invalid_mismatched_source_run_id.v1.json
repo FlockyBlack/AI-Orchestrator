@@ -1,0 +1,88 @@
+{
+  "schema_version": "v1",
+  "bundle_id": "gov_bundle_invalid_mismatch",
+  "task_id": "PM-V1-STABLE-WARNING-20260425",
+  "source_run_id": "pm_v1_stable_warning_accepted_20260425",
+  "created_at": "2026-04-25T04:58:20Z",
+  "runtime_source": {
+    "path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator\\state\\pm_v1_stable_warning_accepted_20260425.json",
+    "type": "freeze_record",
+    "runtime_truth": true
+  },
+  "adapter_envelope": {
+    "ref": "openclaw_envelope:invalid_mismatch",
+    "task_id": "PM-V1-STABLE-WARNING-20260425",
+    "source_run_id": "pm_v1_stable_warning_accepted_20260425_X",
+    "status": "warning_accepted",
+    "openclaw_next_status": "review",
+    "accepted_warnings": {
+      "network_risk": "mixed",
+      "api_risk": "mixed",
+      "wallet_risk": "mixed",
+      "private_key_risk": "mixed",
+      "execution_risk": "mixed",
+      "live_trading_risk": "mixed",
+      "dependency_risk": "docs_only"
+    }
+  },
+  "lifecycle_event_draft": {
+    "ref": "lifecycle_event_draft:invalid_mismatch",
+    "task_id": "PM-V1-STABLE-WARNING-20260425",
+    "source_run_id": "pm_v1_stable_warning_accepted_20260425",
+    "to_status": "review",
+    "safety_flags": {
+      "dispatcher_touched": false,
+      "run_codex_touched": false,
+      "execution_loop_started": false,
+      "active_task_files_changed": false,
+      "code_execution_enabled": false,
+      "network_used": false,
+      "credentials_touched": false
+    }
+  },
+  "critic_input_draft": {
+    "ref": "critic_input_draft:invalid_mismatch",
+    "task_id": "PM-V1-STABLE-WARNING-20260425",
+    "source_run_id": "pm_v1_stable_warning_accepted_20260425",
+    "critic_required": true,
+    "accepted_warnings": {
+      "network_risk": "mixed",
+      "api_risk": "mixed",
+      "wallet_risk": "mixed",
+      "private_key_risk": "mixed",
+      "execution_risk": "mixed",
+      "live_trading_risk": "mixed",
+      "dependency_risk": "docs_only"
+    },
+    "safety_flags": {
+      "dispatcher_touched": false,
+      "run_codex_touched": false,
+      "execution_loop_started": false,
+      "active_task_files_changed": false,
+      "code_execution_enabled": false,
+      "network_used": false,
+      "credentials_touched": false
+    }
+  },
+  "critic_output": {
+    "critic_verdict": "warning",
+    "can_mark_done": true
+  },
+  "quarantine_record": null,
+  "governance_decision_record": {
+    "governance_decision": "accept_with_warnings",
+    "final_status_allowed": true,
+    "accepted_warnings": {
+      "network_risk": "mixed",
+      "api_risk": "mixed",
+      "wallet_risk": "mixed",
+      "private_key_risk": "mixed",
+      "execution_risk": "mixed",
+      "live_trading_risk": "mixed",
+      "dependency_risk": "docs_only"
+    },
+    "task_id": "PM-V1-STABLE-WARNING-20260425",
+    "source_run_id": "pm_v1_stable_warning_accepted_20260425"
+  },
+  "final_governance_status": "done"
+}

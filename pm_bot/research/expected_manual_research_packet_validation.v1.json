@@ -1,0 +1,116 @@
+{
+  "schema_version": "manual_research_packet_validation.v1",
+  "artifact_type": "manual_research_packet_validation_report",
+  "deterministic": true,
+  "source_path": "pm_bot/research/manual_research_packets_fixture.v1.json",
+  "total_packets_checked": 4,
+  "valid_packets": 3,
+  "invalid_packets": 1,
+  "ready_for_operator_review": 1,
+  "needs_more_information": 1,
+  "valid_market_ids": [
+    "563650",
+    "569366",
+    "569368"
+  ],
+  "invalid_market_ids": [
+    "invalid-manual-packet"
+  ],
+  "ready_for_operator_review_market_ids": [
+    "563650"
+  ],
+  "needs_more_information_market_ids": [
+    "569366"
+  ],
+  "validation_errors_by_market_id": {
+    "invalid-manual-packet": [
+      {
+        "code": "ready_for_operator_review_insufficient_evidence:credible_news",
+        "path": "evidence_slots",
+        "message": "ready_for_operator_review requires at least one credible news evidence item."
+      },
+      {
+        "code": "ready_for_operator_review_insufficient_evidence:official_evidence",
+        "path": "evidence_slots",
+        "message": "ready_for_operator_review requires at least one official yes/no evidence item."
+      },
+      {
+        "code": "missing_evidence_slot:credible_news_no_evidence",
+        "path": "evidence_slots.credible_news_no_evidence",
+        "message": "evidence_slots.credible_news_no_evidence is required."
+      },
+      {
+        "code": "missing_evidence_slot:credible_news_yes_evidence",
+        "path": "evidence_slots.credible_news_yes_evidence",
+        "message": "evidence_slots.credible_news_yes_evidence is required."
+      },
+      {
+        "code": "missing_evidence_slot:official_no_evidence",
+        "path": "evidence_slots.official_no_evidence",
+        "message": "evidence_slots.official_no_evidence is required."
+      },
+      {
+        "code": "missing_evidence_field:official_resolution_criteria:0:operator_notes",
+        "path": "evidence_slots.official_resolution_criteria[0].operator_notes",
+        "message": "evidence_slots.official_resolution_criteria[0].operator_notes is required."
+      },
+      {
+        "code": "forbidden_field:order",
+        "path": "evidence_slots.official_resolution_criteria[0].order",
+        "message": "Order, trade, wallet, credential, and execution fields are not allowed."
+      },
+      {
+        "code": "unexpected_evidence_field:official_resolution_criteria:0:order",
+        "path": "evidence_slots.official_resolution_criteria[0].order",
+        "message": "evidence_slots.official_resolution_criteria[0].order is not part of the manual evidence item contract."
+      },
+      {
+        "code": "missing_evidence_slot:official_yes_evidence",
+        "path": "evidence_slots.official_yes_evidence",
+        "message": "evidence_slots.official_yes_evidence is required."
+      },
+      {
+        "code": "missing_evidence_slot:source_reliability_notes",
+        "path": "evidence_slots.source_reliability_notes",
+        "message": "evidence_slots.source_reliability_notes is required."
+      },
+      {
+        "code": "ready_for_operator_review_insufficient_evidence:source_reliability_notes",
+        "path": "evidence_slots.source_reliability_notes",
+        "message": "ready_for_operator_review requires at least one source reliability note."
+      },
+      {
+        "code": "missing_evidence_slot:uncertainty_factors",
+        "path": "evidence_slots.uncertainty_factors",
+        "message": "evidence_slots.uncertainty_factors is required."
+      },
+      {
+        "code": "ready_for_operator_review_has_missing_information",
+        "path": "missing_information",
+        "message": "ready_for_operator_review packets must have an empty missing_information list."
+      },
+      {
+        "code": "official_sources_to_check_empty",
+        "path": "official_sources_to_check",
+        "message": "official_sources_to_check must contain at least one item."
+      }
+    ]
+  },
+  "validation_passed": false,
+  "safety_flags": {
+    "offline_only": true,
+    "live_fetchers": false,
+    "network_api_calls": false,
+    "credentials": false,
+    "wallet_private_keys": false,
+    "real_orders": false,
+    "live_trading": false,
+    "runtime_wiring": false,
+    "dispatcher_run_codex_touched": false,
+    "prompt_automation": false,
+    "codex_copy_roots": false,
+    "completed_dossiers": false,
+    "paper_orders": false,
+    "betting_recommendations": false
+  }
+}

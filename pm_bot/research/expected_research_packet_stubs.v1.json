@@ -1,0 +1,593 @@
+{
+  "schema_version": "research_packet_stubs.v1",
+  "task_id": "PMBOT-RESEARCH-006-RESEARCH-PACKET-STUBS",
+  "deterministic": true,
+  "queue_artifact_path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator\\pm_bot\\research\\expected_market_research_candidate_queue.v1.json",
+  "queue_schema_version": "market_research_candidate_queue.v1",
+  "selection_source": "operator_shortlist_candidates",
+  "selected_count": 10,
+  "selected_market_ids": [
+    "569368",
+    "569366",
+    "569343",
+    "563650",
+    "569373",
+    "573656",
+    "569344",
+    "569332",
+    "569333",
+    "569334"
+  ],
+  "packet_stubs": [
+    {
+      "shortlist_rank": 1,
+      "market_id": "569368",
+      "title": "Will Ivan Cepeda Castro win the 2026 Colombian presidential election?",
+      "question": "Will Ivan Cepeda Castro win the 2026 Colombian presidential election?",
+      "category": "Colombia Presidential Election",
+      "packet_type": "political_event",
+      "current_yes_price": 0.405,
+      "liquidity": 90743.1539,
+      "deadline": "2026-06-21",
+      "resolution_criteria_summary": "Stub summary only: determine whether the named political/election outcome in 'Will Ivan Cepeda Castro win the 2026 Colombian presidential election?' occurs by 2026-06-21; the full market rules must be copied from the local market artifact before completion.",
+      "why_selected_for_research": "lower_risk_operator_shortlist candidate with high research priority: yes_no market, political_event packet type, liquidity=90743.1539, deadline=2026-06-21, source_likelihood=0.9, risk_tier=low.",
+      "why_not_bet_yet": "Lower-risk shortlist only: build a local research packet and edge/risk review before any paper-only workflow.",
+      "source_plan": "Template only: confirm the market's own resolution rules, then check official election authority records, candidate or party statements, and credible news coverage for 'Will Ivan Cepeda Castro win the 2026 Colombian presidential election?'. Do not fetch sources in this stub.",
+      "search_queries": [
+        "\"Will Ivan Cepeda Castro win the 2026 Colombian presidential election?\" \"resolution criteria\"",
+        "\"Will Ivan Cepeda Castro win the 2026 Colombian presidential election?\" \"2026-06-21\"",
+        "\"Colombia Presidential Election\" \"Will Ivan Cepeda Castro win the 2026 Colombian presidential election?\"",
+        "\"Polymarket\" \"569368\" \"Will Ivan Cepeda Castro win the 2026 Colombian presidential election?\"",
+        "\"Will Ivan Cepeda Castro win the 2026 Colombian presidential election?\" official election results",
+        "\"Colombia Presidential Election\" election authority official results"
+      ],
+      "official_sources_to_check": [
+        "Polymarket market rules and resolution criteria for market_id 569368",
+        "Official election authority results or notices for category 'Colombia Presidential Election'",
+        "Official candidate, party, or government pages named by 'Will Ivan Cepeda Castro win the 2026 Colombian presidential election?'"
+      ],
+      "credible_news_sources_to_check": [
+        "Reuters coverage query for 'Will Ivan Cepeda Castro win the 2026 Colombian presidential election?'",
+        "Associated Press coverage query for 'Will Ivan Cepeda Castro win the 2026 Colombian presidential election?'",
+        "Major local or national outlet query for 'Colombia Presidential Election'"
+      ],
+      "evidence_slots": {
+        "official_resolution_criteria": [],
+        "official_yes_evidence": [],
+        "official_no_evidence": [],
+        "credible_news_yes_evidence": [],
+        "credible_news_no_evidence": [],
+        "uncertainty_factors": [],
+        "source_reliability_notes": []
+      },
+      "missing_information": [
+        "full_market_resolution_criteria_text",
+        "official_source_urls",
+        "credible_news_source_urls",
+        "yes_evidence",
+        "no_or_counterevidence",
+        "source_timestamps",
+        "source_reliability_review",
+        "operator_edge_assessment",
+        "operator_risk_review",
+        "official_election_authority_identifier"
+      ],
+      "completion_status": "stub_only"
+    },
+    {
+      "shortlist_rank": 2,
+      "market_id": "569366",
+      "title": "Will Abelardo de la Espriella  win the 2026 Colombian presidential election?",
+      "question": "Will Abelardo de la Espriella  win the 2026 Colombian presidential election?",
+      "category": "Colombia Presidential Election",
+      "packet_type": "political_event",
+      "current_yes_price": 0.245,
+      "liquidity": 72161.5961,
+      "deadline": "2026-06-21",
+      "resolution_criteria_summary": "Stub summary only: determine whether the named political/election outcome in 'Will Abelardo de la Espriella  win the 2026 Colombian presidential election?' occurs by 2026-06-21; the full market rules must be copied from the local market artifact before completion.",
+      "why_selected_for_research": "lower_risk_operator_shortlist candidate with high research priority: yes_no market, political_event packet type, liquidity=72161.5961, deadline=2026-06-21, source_likelihood=0.9, risk_tier=low.",
+      "why_not_bet_yet": "Lower-risk shortlist only: build a local research packet and edge/risk review before any paper-only workflow.",
+      "source_plan": "Template only: confirm the market's own resolution rules, then check official election authority records, candidate or party statements, and credible news coverage for 'Will Abelardo de la Espriella  win the 2026 Colombian presidential election?'. Do not fetch sources in this stub.",
+      "search_queries": [
+        "\"Will Abelardo de la Espriella  win the 2026 Colombian presidential election?\" \"resolution criteria\"",
+        "\"Will Abelardo de la Espriella  win the 2026 Colombian presidential election?\" \"2026-06-21\"",
+        "\"Colombia Presidential Election\" \"Will Abelardo de la Espriella  win the 2026 Colombian presidential election?\"",
+        "\"Polymarket\" \"569366\" \"Will Abelardo de la Espriella  win the 2026 Colombian presidential election?\"",
+        "\"Will Abelardo de la Espriella  win the 2026 Colombian presidential election?\" official election results",
+        "\"Colombia Presidential Election\" election authority official results"
+      ],
+      "official_sources_to_check": [
+        "Polymarket market rules and resolution criteria for market_id 569366",
+        "Official election authority results or notices for category 'Colombia Presidential Election'",
+        "Official candidate, party, or government pages named by 'Will Abelardo de la Espriella  win the 2026 Colombian presidential election?'"
+      ],
+      "credible_news_sources_to_check": [
+        "Reuters coverage query for 'Will Abelardo de la Espriella  win the 2026 Colombian presidential election?'",
+        "Associated Press coverage query for 'Will Abelardo de la Espriella  win the 2026 Colombian presidential election?'",
+        "Major local or national outlet query for 'Colombia Presidential Election'"
+      ],
+      "evidence_slots": {
+        "official_resolution_criteria": [],
+        "official_yes_evidence": [],
+        "official_no_evidence": [],
+        "credible_news_yes_evidence": [],
+        "credible_news_no_evidence": [],
+        "uncertainty_factors": [],
+        "source_reliability_notes": []
+      },
+      "missing_information": [
+        "full_market_resolution_criteria_text",
+        "official_source_urls",
+        "credible_news_source_urls",
+        "yes_evidence",
+        "no_or_counterevidence",
+        "source_timestamps",
+        "source_reliability_review",
+        "operator_edge_assessment",
+        "operator_risk_review",
+        "official_election_authority_identifier"
+      ],
+      "completion_status": "stub_only"
+    },
+    {
+      "shortlist_rank": 3,
+      "market_id": "569343",
+      "title": "Will Iv\u00e1n Cepeda Castro win the 1st round of the 2026 Colombian presidential election?",
+      "question": "Will Iv\u00e1n Cepeda Castro win the 1st round of the 2026 Colombian presidential election?",
+      "category": "Colombia Presidential Election 1st round winner?",
+      "packet_type": "political_event",
+      "current_yes_price": 0.9,
+      "liquidity": 58356.1336,
+      "deadline": "2026-05-31",
+      "resolution_criteria_summary": "Stub summary only: determine whether the named political/election outcome in 'Will Iv\u00e1n Cepeda Castro win the 1st round of the 2026 Colombian presidential election?' occurs by 2026-05-31; the full market rules must be copied from the local market artifact before completion.",
+      "why_selected_for_research": "lower_risk_operator_shortlist candidate with high research priority: yes_no market, political_event packet type, liquidity=58356.1336, deadline=2026-05-31, source_likelihood=0.9, risk_tier=low.",
+      "why_not_bet_yet": "Lower-risk shortlist only: build a local research packet and edge/risk review before any paper-only workflow.",
+      "source_plan": "Template only: confirm the market's own resolution rules, then check official election authority records, candidate or party statements, and credible news coverage for 'Will Iv\u00e1n Cepeda Castro win the 1st round of the 2026 Colombian presidential election?'. Do not fetch sources in this stub.",
+      "search_queries": [
+        "\"Will Iv\u00e1n Cepeda Castro win the 1st round of the 2026 Colombian presidential election?\" \"resolution criteria\"",
+        "\"Will Iv\u00e1n Cepeda Castro win the 1st round of the 2026 Colombian presidential election?\" \"2026-05-31\"",
+        "\"Colombia Presidential Election 1st round winner?\" \"Will Iv\u00e1n Cepeda Castro win the 1st round of the 2026 Colombian presidential election?\"",
+        "\"Polymarket\" \"569343\" \"Will Iv\u00e1n Cepeda Castro win the 1st round of the 2026 Colombian presidential election?\"",
+        "\"Will Iv\u00e1n Cepeda Castro win the 1st round of the 2026 Colombian presidential election?\" official election results",
+        "\"Colombia Presidential Election 1st round winner?\" election authority official results"
+      ],
+      "official_sources_to_check": [
+        "Polymarket market rules and resolution criteria for market_id 569343",
+        "Official election authority results or notices for category 'Colombia Presidential Election 1st round winner?'",
+        "Official candidate, party, or government pages named by 'Will Iv\u00e1n Cepeda Castro win the 1st round of the 2026 Colombian presidential election?'"
+      ],
+      "credible_news_sources_to_check": [
+        "Reuters coverage query for 'Will Iv\u00e1n Cepeda Castro win the 1st round of the 2026 Colombian presidential election?'",
+        "Associated Press coverage query for 'Will Iv\u00e1n Cepeda Castro win the 1st round of the 2026 Colombian presidential election?'",
+        "Major local or national outlet query for 'Colombia Presidential Election 1st round winner?'"
+      ],
+      "evidence_slots": {
+        "official_resolution_criteria": [],
+        "official_yes_evidence": [],
+        "official_no_evidence": [],
+        "credible_news_yes_evidence": [],
+        "credible_news_no_evidence": [],
+        "uncertainty_factors": [],
+        "source_reliability_notes": []
+      },
+      "missing_information": [
+        "full_market_resolution_criteria_text",
+        "official_source_urls",
+        "credible_news_source_urls",
+        "yes_evidence",
+        "no_or_counterevidence",
+        "source_timestamps",
+        "source_reliability_review",
+        "operator_edge_assessment",
+        "operator_risk_review",
+        "official_election_authority_identifier"
+      ],
+      "completion_status": "stub_only"
+    },
+    {
+      "shortlist_rank": 4,
+      "market_id": "563650",
+      "title": "SCOTUS accepts sports event contract case by July 31, 2026?",
+      "question": "SCOTUS accepts sports event contract case by July 31, 2026?",
+      "category": "SCOTUS accepts sports event contract case by...?",
+      "packet_type": "legal_event",
+      "current_yes_price": 0.135,
+      "liquidity": 10158.1474,
+      "deadline": "2026-07-31",
+      "resolution_criteria_summary": "Stub summary only: determine whether the legal/court event in 'SCOTUS accepts sports event contract case by July 31, 2026?' occurs by 2026-07-31; the full market rules and official docket criteria must be copied before completion.",
+      "why_selected_for_research": "lower_risk_operator_shortlist candidate with high research priority: yes_no market, legal_event packet type, liquidity=10158.1474, deadline=2026-07-31, source_likelihood=1.0, risk_tier=low.",
+      "why_not_bet_yet": "Lower-risk shortlist only: build a local research packet and edge/risk review before any paper-only workflow.",
+      "source_plan": "Template only: confirm the market's own resolution rules, then check official court dockets, order lists, case filings, and credible legal/news coverage for 'SCOTUS accepts sports event contract case by July 31, 2026?'. Do not fetch sources in this stub.",
+      "search_queries": [
+        "\"SCOTUS accepts sports event contract case by July 31, 2026?\" \"resolution criteria\"",
+        "\"SCOTUS accepts sports event contract case by July 31, 2026?\" \"2026-07-31\"",
+        "\"SCOTUS accepts sports event contract case by...?\" \"SCOTUS accepts sports event contract case by July 31, 2026?\"",
+        "\"Polymarket\" \"563650\" \"SCOTUS accepts sports event contract case by July 31, 2026?\"",
+        "\"SCOTUS accepts sports event contract case by July 31, 2026?\" Supreme Court docket",
+        "\"SCOTUS accepts sports event contract case by July 31, 2026?\" order list filing"
+      ],
+      "official_sources_to_check": [
+        "Polymarket market rules and resolution criteria for market_id 563650",
+        "Supreme Court docket and order lists relevant to the named case or event",
+        "Official court filings or orders matching 'SCOTUS accepts sports event contract case by July 31, 2026?'"
+      ],
+      "credible_news_sources_to_check": [
+        "Reuters or Associated Press coverage query for 'SCOTUS accepts sports event contract case by July 31, 2026?'",
+        "SCOTUSblog or comparable legal reporting query for 'SCOTUS accepts sports event contract case by July 31, 2026?'",
+        "Major newspaper legal desk query for 'SCOTUS accepts sports event contract case by...?'"
+      ],
+      "evidence_slots": {
+        "official_resolution_criteria": [],
+        "official_yes_evidence": [],
+        "official_no_evidence": [],
+        "credible_news_yes_evidence": [],
+        "credible_news_no_evidence": [],
+        "uncertainty_factors": [],
+        "source_reliability_notes": []
+      },
+      "missing_information": [
+        "full_market_resolution_criteria_text",
+        "official_source_urls",
+        "credible_news_source_urls",
+        "yes_evidence",
+        "no_or_counterevidence",
+        "source_timestamps",
+        "source_reliability_review",
+        "operator_edge_assessment",
+        "operator_risk_review",
+        "official_docket_or_order_identifier"
+      ],
+      "completion_status": "stub_only"
+    },
+    {
+      "shortlist_rank": 5,
+      "market_id": "569373",
+      "title": "Will Paloma Valencia win the 2026 Colombian presidential election?",
+      "question": "Will Paloma Valencia win the 2026 Colombian presidential election?",
+      "category": "Colombia Presidential Election",
+      "packet_type": "political_event",
+      "current_yes_price": 0.349,
+      "liquidity": 44072.1424,
+      "deadline": "2026-06-21",
+      "resolution_criteria_summary": "Stub summary only: determine whether the named political/election outcome in 'Will Paloma Valencia win the 2026 Colombian presidential election?' occurs by 2026-06-21; the full market rules must be copied from the local market artifact before completion.",
+      "why_selected_for_research": "lower_risk_operator_shortlist candidate with high research priority: yes_no market, political_event packet type, liquidity=44072.1424, deadline=2026-06-21, source_likelihood=0.9, risk_tier=medium.",
+      "why_not_bet_yet": "Lower-risk shortlist only: build a local research packet and edge/risk review before any paper-only workflow.",
+      "source_plan": "Template only: confirm the market's own resolution rules, then check official election authority records, candidate or party statements, and credible news coverage for 'Will Paloma Valencia win the 2026 Colombian presidential election?'. Do not fetch sources in this stub.",
+      "search_queries": [
+        "\"Will Paloma Valencia win the 2026 Colombian presidential election?\" \"resolution criteria\"",
+        "\"Will Paloma Valencia win the 2026 Colombian presidential election?\" \"2026-06-21\"",
+        "\"Colombia Presidential Election\" \"Will Paloma Valencia win the 2026 Colombian presidential election?\"",
+        "\"Polymarket\" \"569373\" \"Will Paloma Valencia win the 2026 Colombian presidential election?\"",
+        "\"Will Paloma Valencia win the 2026 Colombian presidential election?\" official election results",
+        "\"Colombia Presidential Election\" election authority official results"
+      ],
+      "official_sources_to_check": [
+        "Polymarket market rules and resolution criteria for market_id 569373",
+        "Official election authority results or notices for category 'Colombia Presidential Election'",
+        "Official candidate, party, or government pages named by 'Will Paloma Valencia win the 2026 Colombian presidential election?'"
+      ],
+      "credible_news_sources_to_check": [
+        "Reuters coverage query for 'Will Paloma Valencia win the 2026 Colombian presidential election?'",
+        "Associated Press coverage query for 'Will Paloma Valencia win the 2026 Colombian presidential election?'",
+        "Major local or national outlet query for 'Colombia Presidential Election'"
+      ],
+      "evidence_slots": {
+        "official_resolution_criteria": [],
+        "official_yes_evidence": [],
+        "official_no_evidence": [],
+        "credible_news_yes_evidence": [],
+        "credible_news_no_evidence": [],
+        "uncertainty_factors": [],
+        "source_reliability_notes": []
+      },
+      "missing_information": [
+        "full_market_resolution_criteria_text",
+        "official_source_urls",
+        "credible_news_source_urls",
+        "yes_evidence",
+        "no_or_counterevidence",
+        "source_timestamps",
+        "source_reliability_review",
+        "operator_edge_assessment",
+        "operator_risk_review",
+        "official_election_authority_identifier"
+      ],
+      "completion_status": "stub_only"
+    },
+    {
+      "shortlist_rank": 6,
+      "market_id": "573656",
+      "title": "Will Bitcoin hit $150k by December 31, 2026?",
+      "question": "Will Bitcoin hit $150k by December 31, 2026?",
+      "category": "When will Bitcoin hit $150k?",
+      "packet_type": "crypto_threshold_hit",
+      "current_yes_price": 0.095,
+      "liquidity": 30019.8616,
+      "deadline": "2027-01-01",
+      "resolution_criteria_summary": "Stub summary only: determine whether the crypto threshold in 'Will Bitcoin hit $150k by December 31, 2026?' is hit by 2027-01-01; the benchmark, timezone, and threshold rules must be copied before completion.",
+      "why_selected_for_research": "lower_risk_operator_shortlist candidate with high research priority: yes_no market, crypto_threshold_hit packet type, liquidity=30019.8616, deadline=2027-01-01, source_likelihood=0.94, risk_tier=low.",
+      "why_not_bet_yet": "Lower-risk shortlist only: build a local research packet and edge/risk review before any paper-only workflow.",
+      "source_plan": "Template only: confirm the market's own resolution rules, then check the specified benchmark, exchange or index source, timestamp rules, and credible market coverage for 'Will Bitcoin hit $150k by December 31, 2026?'. Do not fetch sources in this stub.",
+      "search_queries": [
+        "\"Will Bitcoin hit $150k by December 31, 2026?\" \"resolution criteria\"",
+        "\"Will Bitcoin hit $150k by December 31, 2026?\" \"2027-01-01\"",
+        "\"When will Bitcoin hit $150k?\" \"Will Bitcoin hit $150k by December 31, 2026?\"",
+        "\"Polymarket\" \"573656\" \"Will Bitcoin hit $150k by December 31, 2026?\"",
+        "\"Will Bitcoin hit $150k by December 31, 2026?\" price benchmark",
+        "\"Will Bitcoin hit $150k by December 31, 2026?\" exchange price index"
+      ],
+      "official_sources_to_check": [
+        "Polymarket market rules and resolution criteria for market_id 573656",
+        "Official benchmark, exchange, or index source specified by the market rules",
+        "Timestamp and threshold definitions for 'Will Bitcoin hit $150k by December 31, 2026?'"
+      ],
+      "credible_news_sources_to_check": [
+        "Reuters markets coverage query for 'Will Bitcoin hit $150k by December 31, 2026?'",
+        "CoinDesk or The Block market coverage query for 'Will Bitcoin hit $150k by December 31, 2026?'",
+        "Bloomberg or Wall Street Journal markets query for 'When will Bitcoin hit $150k?'"
+      ],
+      "evidence_slots": {
+        "official_resolution_criteria": [],
+        "official_yes_evidence": [],
+        "official_no_evidence": [],
+        "credible_news_yes_evidence": [],
+        "credible_news_no_evidence": [],
+        "uncertainty_factors": [],
+        "source_reliability_notes": []
+      },
+      "missing_information": [
+        "full_market_resolution_criteria_text",
+        "official_source_urls",
+        "credible_news_source_urls",
+        "yes_evidence",
+        "no_or_counterevidence",
+        "source_timestamps",
+        "source_reliability_review",
+        "operator_edge_assessment",
+        "operator_risk_review",
+        "benchmark_and_timezone_rules"
+      ],
+      "completion_status": "stub_only"
+    },
+    {
+      "shortlist_rank": 7,
+      "market_id": "569344",
+      "title": "Will Abelardo de la Espriella win the 1st round of the 2026 Colombian presidential election?",
+      "question": "Will Abelardo de la Espriella win the 1st round of the 2026 Colombian presidential election?",
+      "category": "Colombia Presidential Election 1st round winner?",
+      "packet_type": "political_event",
+      "current_yes_price": 0.075,
+      "liquidity": 56951.7063,
+      "deadline": "2026-05-31",
+      "resolution_criteria_summary": "Stub summary only: determine whether the named political/election outcome in 'Will Abelardo de la Espriella win the 1st round of the 2026 Colombian presidential election?' occurs by 2026-05-31; the full market rules must be copied from the local market artifact before completion.",
+      "why_selected_for_research": "lower_risk_operator_shortlist candidate with medium research priority: yes_no market, political_event packet type, liquidity=56951.7063, deadline=2026-05-31, source_likelihood=0.9, risk_tier=medium.",
+      "why_not_bet_yet": "Lower-risk shortlist only: build a local research packet and edge/risk review before any paper-only workflow.",
+      "source_plan": "Template only: confirm the market's own resolution rules, then check official election authority records, candidate or party statements, and credible news coverage for 'Will Abelardo de la Espriella win the 1st round of the 2026 Colombian presidential election?'. Do not fetch sources in this stub.",
+      "search_queries": [
+        "\"Will Abelardo de la Espriella win the 1st round of the 2026 Colombian presidential election?\" \"resolution criteria\"",
+        "\"Will Abelardo de la Espriella win the 1st round of the 2026 Colombian presidential election?\" \"2026-05-31\"",
+        "\"Colombia Presidential Election 1st round winner?\" \"Will Abelardo de la Espriella win the 1st round of the 2026 Colombian presidential election?\"",
+        "\"Polymarket\" \"569344\" \"Will Abelardo de la Espriella win the 1st round of the 2026 Colombian presidential election?\"",
+        "\"Will Abelardo de la Espriella win the 1st round of the 2026 Colombian presidential election?\" official election results",
+        "\"Colombia Presidential Election 1st round winner?\" election authority official results"
+      ],
+      "official_sources_to_check": [
+        "Polymarket market rules and resolution criteria for market_id 569344",
+        "Official election authority results or notices for category 'Colombia Presidential Election 1st round winner?'",
+        "Official candidate, party, or government pages named by 'Will Abelardo de la Espriella win the 1st round of the 2026 Colombian presidential election?'"
+      ],
+      "credible_news_sources_to_check": [
+        "Reuters coverage query for 'Will Abelardo de la Espriella win the 1st round of the 2026 Colombian presidential election?'",
+        "Associated Press coverage query for 'Will Abelardo de la Espriella win the 1st round of the 2026 Colombian presidential election?'",
+        "Major local or national outlet query for 'Colombia Presidential Election 1st round winner?'"
+      ],
+      "evidence_slots": {
+        "official_resolution_criteria": [],
+        "official_yes_evidence": [],
+        "official_no_evidence": [],
+        "credible_news_yes_evidence": [],
+        "credible_news_no_evidence": [],
+        "uncertainty_factors": [],
+        "source_reliability_notes": []
+      },
+      "missing_information": [
+        "full_market_resolution_criteria_text",
+        "official_source_urls",
+        "credible_news_source_urls",
+        "yes_evidence",
+        "no_or_counterevidence",
+        "source_timestamps",
+        "source_reliability_review",
+        "operator_edge_assessment",
+        "operator_risk_review",
+        "official_election_authority_identifier"
+      ],
+      "completion_status": "stub_only"
+    },
+    {
+      "shortlist_rank": 8,
+      "market_id": "569332",
+      "title": "Will Vicky D\u00e1vila win the 1st round of the 2026 Colombian presidential election?",
+      "question": "Will Vicky D\u00e1vila win the 1st round of the 2026 Colombian presidential election?",
+      "category": "Colombia Presidential Election 1st round winner?",
+      "packet_type": "political_event",
+      "current_yes_price": 0.0005,
+      "liquidity": 55007.7563,
+      "deadline": "2026-05-31",
+      "resolution_criteria_summary": "Stub summary only: determine whether the named political/election outcome in 'Will Vicky D\u00e1vila win the 1st round of the 2026 Colombian presidential election?' occurs by 2026-05-31; the full market rules must be copied from the local market artifact before completion.",
+      "why_selected_for_research": "lower_risk_operator_shortlist candidate with medium research priority: yes_no market, political_event packet type, liquidity=55007.7563, deadline=2026-05-31, source_likelihood=0.9, risk_tier=medium.",
+      "why_not_bet_yet": "Lower-risk shortlist only: build a local research packet and edge/risk review before any paper-only workflow.",
+      "source_plan": "Template only: confirm the market's own resolution rules, then check official election authority records, candidate or party statements, and credible news coverage for 'Will Vicky D\u00e1vila win the 1st round of the 2026 Colombian presidential election?'. Do not fetch sources in this stub.",
+      "search_queries": [
+        "\"Will Vicky D\u00e1vila win the 1st round of the 2026 Colombian presidential election?\" \"resolution criteria\"",
+        "\"Will Vicky D\u00e1vila win the 1st round of the 2026 Colombian presidential election?\" \"2026-05-31\"",
+        "\"Colombia Presidential Election 1st round winner?\" \"Will Vicky D\u00e1vila win the 1st round of the 2026 Colombian presidential election?\"",
+        "\"Polymarket\" \"569332\" \"Will Vicky D\u00e1vila win the 1st round of the 2026 Colombian presidential election?\"",
+        "\"Will Vicky D\u00e1vila win the 1st round of the 2026 Colombian presidential election?\" official election results",
+        "\"Colombia Presidential Election 1st round winner?\" election authority official results"
+      ],
+      "official_sources_to_check": [
+        "Polymarket market rules and resolution criteria for market_id 569332",
+        "Official election authority results or notices for category 'Colombia Presidential Election 1st round winner?'",
+        "Official candidate, party, or government pages named by 'Will Vicky D\u00e1vila win the 1st round of the 2026 Colombian presidential election?'"
+      ],
+      "credible_news_sources_to_check": [
+        "Reuters coverage query for 'Will Vicky D\u00e1vila win the 1st round of the 2026 Colombian presidential election?'",
+        "Associated Press coverage query for 'Will Vicky D\u00e1vila win the 1st round of the 2026 Colombian presidential election?'",
+        "Major local or national outlet query for 'Colombia Presidential Election 1st round winner?'"
+      ],
+      "evidence_slots": {
+        "official_resolution_criteria": [],
+        "official_yes_evidence": [],
+        "official_no_evidence": [],
+        "credible_news_yes_evidence": [],
+        "credible_news_no_evidence": [],
+        "uncertainty_factors": [],
+        "source_reliability_notes": []
+      },
+      "missing_information": [
+        "full_market_resolution_criteria_text",
+        "official_source_urls",
+        "credible_news_source_urls",
+        "yes_evidence",
+        "no_or_counterevidence",
+        "source_timestamps",
+        "source_reliability_review",
+        "operator_edge_assessment",
+        "operator_risk_review",
+        "official_election_authority_identifier"
+      ],
+      "completion_status": "stub_only"
+    },
+    {
+      "shortlist_rank": 9,
+      "market_id": "569333",
+      "title": "Will Luis Gilberto Murillo win the 1st round of the 2026 Colombian presidential election?",
+      "question": "Will Luis Gilberto Murillo win the 1st round of the 2026 Colombian presidential election?",
+      "category": "Colombia Presidential Election 1st round winner?",
+      "packet_type": "political_event",
+      "current_yes_price": 0.0015,
+      "liquidity": 87885.9043,
+      "deadline": "2026-05-31",
+      "resolution_criteria_summary": "Stub summary only: determine whether the named political/election outcome in 'Will Luis Gilberto Murillo win the 1st round of the 2026 Colombian presidential election?' occurs by 2026-05-31; the full market rules must be copied from the local market artifact before completion.",
+      "why_selected_for_research": "lower_risk_operator_shortlist candidate with medium research priority: yes_no market, political_event packet type, liquidity=87885.9043, deadline=2026-05-31, source_likelihood=0.9, risk_tier=medium.",
+      "why_not_bet_yet": "Lower-risk shortlist only: build a local research packet and edge/risk review before any paper-only workflow.",
+      "source_plan": "Template only: confirm the market's own resolution rules, then check official election authority records, candidate or party statements, and credible news coverage for 'Will Luis Gilberto Murillo win the 1st round of the 2026 Colombian presidential election?'. Do not fetch sources in this stub.",
+      "search_queries": [
+        "\"Will Luis Gilberto Murillo win the 1st round of the 2026 Colombian presidential election?\" \"resolution criteria\"",
+        "\"Will Luis Gilberto Murillo win the 1st round of the 2026 Colombian presidential election?\" \"2026-05-31\"",
+        "\"Colombia Presidential Election 1st round winner?\" \"Will Luis Gilberto Murillo win the 1st round of the 2026 Colombian presidential election?\"",
+        "\"Polymarket\" \"569333\" \"Will Luis Gilberto Murillo win the 1st round of the 2026 Colombian presidential election?\"",
+        "\"Will Luis Gilberto Murillo win the 1st round of the 2026 Colombian presidential election?\" official election results",
+        "\"Colombia Presidential Election 1st round winner?\" election authority official results"
+      ],
+      "official_sources_to_check": [
+        "Polymarket market rules and resolution criteria for market_id 569333",
+        "Official election authority results or notices for category 'Colombia Presidential Election 1st round winner?'",
+        "Official candidate, party, or government pages named by 'Will Luis Gilberto Murillo win the 1st round of the 2026 Colombian presidential election?'"
+      ],
+      "credible_news_sources_to_check": [
+        "Reuters coverage query for 'Will Luis Gilberto Murillo win the 1st round of the 2026 Colombian presidential election?'",
+        "Associated Press coverage query for 'Will Luis Gilberto Murillo win the 1st round of the 2026 Colombian presidential election?'",
+        "Major local or national outlet query for 'Colombia Presidential Election 1st round winner?'"
+      ],
+      "evidence_slots": {
+        "official_resolution_criteria": [],
+        "official_yes_evidence": [],
+        "official_no_evidence": [],
+        "credible_news_yes_evidence": [],
+        "credible_news_no_evidence": [],
+        "uncertainty_factors": [],
+        "source_reliability_notes": []
+      },
+      "missing_information": [
+        "full_market_resolution_criteria_text",
+        "official_source_urls",
+        "credible_news_source_urls",
+        "yes_evidence",
+        "no_or_counterevidence",
+        "source_timestamps",
+        "source_reliability_review",
+        "operator_edge_assessment",
+        "operator_risk_review",
+        "official_election_authority_identifier"
+      ],
+      "completion_status": "stub_only"
+    },
+    {
+      "shortlist_rank": 10,
+      "market_id": "569334",
+      "title": "Will Claudia L\u00f3pez win the 1st round of the 2026 Colombian presidential election?",
+      "question": "Will Claudia L\u00f3pez win the 1st round of the 2026 Colombian presidential election?",
+      "category": "Colombia Presidential Election 1st round winner?",
+      "packet_type": "political_event",
+      "current_yes_price": 0.0015,
+      "liquidity": 74255.7389,
+      "deadline": "2026-05-31",
+      "resolution_criteria_summary": "Stub summary only: determine whether the named political/election outcome in 'Will Claudia L\u00f3pez win the 1st round of the 2026 Colombian presidential election?' occurs by 2026-05-31; the full market rules must be copied from the local market artifact before completion.",
+      "why_selected_for_research": "lower_risk_operator_shortlist candidate with medium research priority: yes_no market, political_event packet type, liquidity=74255.7389, deadline=2026-05-31, source_likelihood=0.9, risk_tier=medium.",
+      "why_not_bet_yet": "Lower-risk shortlist only: build a local research packet and edge/risk review before any paper-only workflow.",
+      "source_plan": "Template only: confirm the market's own resolution rules, then check official election authority records, candidate or party statements, and credible news coverage for 'Will Claudia L\u00f3pez win the 1st round of the 2026 Colombian presidential election?'. Do not fetch sources in this stub.",
+      "search_queries": [
+        "\"Will Claudia L\u00f3pez win the 1st round of the 2026 Colombian presidential election?\" \"resolution criteria\"",
+        "\"Will Claudia L\u00f3pez win the 1st round of the 2026 Colombian presidential election?\" \"2026-05-31\"",
+        "\"Colombia Presidential Election 1st round winner?\" \"Will Claudia L\u00f3pez win the 1st round of the 2026 Colombian presidential election?\"",
+        "\"Polymarket\" \"569334\" \"Will Claudia L\u00f3pez win the 1st round of the 2026 Colombian presidential election?\"",
+        "\"Will Claudia L\u00f3pez win the 1st round of the 2026 Colombian presidential election?\" official election results",
+        "\"Colombia Presidential Election 1st round winner?\" election authority official results"
+      ],
+      "official_sources_to_check": [
+        "Polymarket market rules and resolution criteria for market_id 569334",
+        "Official election authority results or notices for category 'Colombia Presidential Election 1st round winner?'",
+        "Official candidate, party, or government pages named by 'Will Claudia L\u00f3pez win the 1st round of the 2026 Colombian presidential election?'"
+      ],
+      "credible_news_sources_to_check": [
+        "Reuters coverage query for 'Will Claudia L\u00f3pez win the 1st round of the 2026 Colombian presidential election?'",
+        "Associated Press coverage query for 'Will Claudia L\u00f3pez win the 1st round of the 2026 Colombian presidential election?'",
+        "Major local or national outlet query for 'Colombia Presidential Election 1st round winner?'"
+      ],
+      "evidence_slots": {
+        "official_resolution_criteria": [],
+        "official_yes_evidence": [],
+        "official_no_evidence": [],
+        "credible_news_yes_evidence": [],
+        "credible_news_no_evidence": [],
+        "uncertainty_factors": [],
+        "source_reliability_notes": []
+      },
+      "missing_information": [
+        "full_market_resolution_criteria_text",
+        "official_source_urls",
+        "credible_news_source_urls",
+        "yes_evidence",
+        "no_or_counterevidence",
+        "source_timestamps",
+        "source_reliability_review",
+        "operator_edge_assessment",
+        "operator_risk_review",
+        "official_election_authority_identifier"
+      ],
+      "completion_status": "stub_only"
+    }
+  ],
+  "safety_flags": {
+    "offline_only": true,
+    "paper_only": true,
+    "live_fetcher_implemented": false,
+    "api_used": false,
+    "network_used": false,
+    "credentials_used": false,
+    "wallet_used": false,
+    "real_order_created": false,
+    "trading_allowed": false,
+    "runtime_wiring_changed": false,
+    "dispatcher_touched": false,
+    "prompt_automation_added": false
+  },
+  "limitations": [
+    "Reads only the saved local PMBOT research candidate queue artifact.",
+    "Emits stub-only query plans; it does not fetch, verify, or conclude anything online.",
+    "Evidence slots are intentionally empty placeholders.",
+    "Does not create completed dossiers, paper orders, real orders, trades, wallet actions, prompt automation, runtime wiring, or dispatcher changes."
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "task_id": "PMBOT-INGEST-001-PATCH-GAMMA-EVENTS-FALLBACK",
+  "status": "passed",
+  "summary": "Patched the standalone read-only Polymarket snapshot capture script to support the public Gamma events endpoint by default, preserve explicit markets capture, validate both raw payload shapes, and keep outputs quarantined or raw-only with no runtime wiring.",
+  "files_created": [
+    "pm_bot/ingest/polymarket_events_raw_snapshot_fixture.v1.json",
+    "pm_bot/ingest/expected_polymarket_events_raw_snapshot_validation.v1.json",
+    "docs/PMBOT_INGEST_001_PATCH_EVENTS_FALLBACK_RESULT.json"
+  ],
+  "files_modified": [
+    "pm_bot/ingest/capture_polymarket_readonly_snapshot.py",
+    "pm_bot/ingest/validate_polymarket_raw_snapshot.py",
+    "pm_bot/ingest/tests/test_polymarket_readonly_snapshot_capture.py",
+    "pm_bot/ingest/tests/test_polymarket_raw_snapshot_validation.py",
+    "pm_bot/ingest/polymarket_raw_snapshot_fixture.v1.json",
+    "docs/PMBOT_INGEST_001_READONLY_POLYMARKET_SNAPSHOT.md"
+  ],
+  "tests_run": [
+    {
+      "command": "python -m pytest pm_bot\\ingest\\tests -q",
+      "result": "passed",
+      "details": "17 passed"
+    },
+    {
+      "command": "python pm_bot\\ingest\\validate_polymarket_raw_snapshot.py pm_bot\\ingest\\polymarket_raw_snapshot_fixture.v1.json",
+      "result": "passed",
+      "details": "validation_passed=true"
+    },
+    {
+      "command": "python pm_bot\\ingest\\validate_polymarket_raw_snapshot.py pm_bot\\ingest\\polymarket_events_raw_snapshot_fixture.v1.json",
+      "result": "passed",
+      "details": "validation_passed=true"
+    },
+    {
+      "command": "JSON parse checks for modified and new JSON artifacts",
+      "result": "passed",
+      "details": "all checked JSON artifacts parsed successfully"
+    }
+  ],
+  "patch_summary": {
+    "events_endpoint_supported": true,
+    "markets_endpoint_preserved": true,
+    "manual_capture_only": true,
+    "runtime_wiring_added": false,
+    "fixture_tests_only": true
+  },
+  "network_boundary": {
+    "public_readonly_polymarket_only": true,
+    "authenticated_endpoints_used": false,
+    "trading_endpoints_used": false,
+    "credentials_required": false,
+    "wallet_required": false
+  },
+  "safety": {
+    "credentials": false,
+    "wallet_private_keys": false,
+    "real_orders": false,
+    "live_trading": false,
+    "runtime_wiring": false,
+    "dispatcher_run_codex_touched": false,
+    "prompt_automation": false,
+    "codex_copy_roots": false,
+    "completed_dossiers": false,
+    "paper_orders": false,
+    "betting_recommendations": false,
+    "truth_inference": false,
+    "market_scoring": false,
+    "probability_estimates": false,
+    "expected_value_calculations": false,
+    "side_recommendations": false,
+    "market_decisions": false
+  }
+}

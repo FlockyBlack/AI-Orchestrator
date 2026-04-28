@@ -1,0 +1,77 @@
+{
+  "task_id": "PMBOT-INGEST-010-SELECTED-INGEST-DOSSIER-DRAFT-SKELETON-EXPORT",
+  "status": "passed",
+  "summary": "Implemented deterministic offline selected-ingest dossier draft skeleton export. The exporter reads only local selected-ingest review records, review queue, and merged manual research packet artifacts; exports only ready_for_dossier_drafting records; writes JSON, Markdown, and expected JSON artifacts; and does not create runtime actions, orders, market decisions, scoring, probability estimates, expected value, side recommendations, or completed dossiers.",
+  "files_created": [
+    "pm_bot/research/export_selected_ingest_dossier_draft_skeletons.py",
+    "pm_bot/research/selected_ingest_dossier_draft_skeletons.v1.json",
+    "pm_bot/research/selected_ingest_dossier_draft_skeletons.v1.md",
+    "pm_bot/research/expected_selected_ingest_dossier_draft_skeletons.v1.json",
+    "pm_bot/research/tests/test_selected_ingest_dossier_draft_skeleton_export.py",
+    "docs/PMBOT_INGEST_010_RESULT.json"
+  ],
+  "files_modified": [],
+  "tests_run": [
+    {
+      "command": "python pm_bot\\research\\export_selected_ingest_dossier_draft_skeletons.py",
+      "status": "passed",
+      "result": "1 selected-ingest dossier draft skeleton exported"
+    },
+    {
+      "command": "python -m pytest pm_bot\\research\\tests\\test_selected_ingest_dossier_draft_skeleton_export.py -q",
+      "status": "passed",
+      "result": "14 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\research\\tests\\test_selected_ingest_dossier_draft_skeleton_export.py pm_bot\\research\\tests\\test_dossier_draft_skeleton_export.py pm_bot\\research\\tests\\test_selected_ingest_operator_review_record_gate.py pm_bot\\research\\tests\\test_selected_ingest_operator_review_queue.py pm_bot\\research\\tests\\test_selected_ingest_manual_evidence_overlay_merge.py pm_bot\\research\\tests\\test_selected_ingest_operator_workpack.py pm_bot\\research\\tests\\test_selected_ingest_research_packet_stubs.py pm_bot\\research\\tests\\test_manual_research_packet_validation.py -q",
+      "status": "passed",
+      "result": "109 passed"
+    },
+    {
+      "command": "python -m py_compile pm_bot\\research\\export_selected_ingest_dossier_draft_skeletons.py pm_bot\\research\\tests\\test_selected_ingest_dossier_draft_skeleton_export.py",
+      "status": "passed",
+      "result": "compiled"
+    },
+    {
+      "command": "python -m json.tool for pm_bot\\research\\selected_ingest_dossier_draft_skeletons.v1.json, pm_bot\\research\\expected_selected_ingest_dossier_draft_skeletons.v1.json, docs\\PMBOT_INGEST_010_RESULT.json",
+      "status": "passed",
+      "result": "json parse ok"
+    }
+  ],
+  "export_summary": {
+    "ready_review_records_seen": 1,
+    "dossier_draft_skeletons_exported": 1,
+    "records_skipped": 5,
+    "completed_dossiers_created": 0
+  },
+  "selected_market_ids": [
+    "692258",
+    "824952",
+    "691547",
+    "597964",
+    "598936"
+  ],
+  "safety": {
+    "live_fetchers": false,
+    "network_api_calls": false,
+    "credentials": false,
+    "wallet_private_keys": false,
+    "authenticated_endpoints": false,
+    "trading_endpoints": false,
+    "real_orders": false,
+    "live_trading": false,
+    "paper_orders": false,
+    "betting_recommendations": false,
+    "truth_inference": false,
+    "market_scoring": false,
+    "probability_estimates": false,
+    "expected_value_calculations": false,
+    "side_recommendations": false,
+    "market_decisions": false,
+    "runtime_wiring": false,
+    "dispatcher_run_codex_touched": false,
+    "prompt_automation": false,
+    "codex_copy_roots": false,
+    "completed_dossiers": false
+  }
+}

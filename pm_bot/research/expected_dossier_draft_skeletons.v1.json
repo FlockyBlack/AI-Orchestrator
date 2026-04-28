@@ -1,0 +1,162 @@
+{
+  "schema_version": "dossier_draft_skeletons.v1",
+  "markdown_version": "dossier_draft_skeletons_markdown.v1",
+  "task_id": "PMBOT-RESEARCH-012-DOSSIER-DRAFT-SKELETON-EXPORT",
+  "deterministic": true,
+  "source_merged_packets_path": "pm_bot/research/merged_manual_research_packets.v1.json",
+  "source_merged_packets_schema_version": "merged_manual_research_packets.v1",
+  "source_operator_review_queue_path": "pm_bot/research/operator_review_queue.v1.json",
+  "source_operator_review_queue_schema_version": "operator_review_queue.v1",
+  "source_review_records_result_path": "pm_bot/research/operator_review_records_result.v1.json",
+  "source_review_records_result_schema_version": "operator_review_records_result.v1",
+  "json_output_path": "pm_bot/research/dossier_draft_skeletons.v1.json",
+  "markdown_output_path": "pm_bot/research/dossier_draft_skeletons.v1.md",
+  "expected_json_output_path": "pm_bot/research/expected_dossier_draft_skeletons.v1.json",
+  "skeleton_fields": [
+    "market_id",
+    "title_question",
+    "category",
+    "packet_type",
+    "current_yes_price",
+    "liquidity",
+    "deadline",
+    "resolution_criteria_summary",
+    "source_coverage_summary",
+    "evidence_inventory",
+    "missing_information_reviewed",
+    "operator_review_notes",
+    "dossier_sections_to_fill",
+    "open_questions",
+    "draft_status"
+  ],
+  "evidence_inventory_fields": [
+    "source_name",
+    "source_type",
+    "source_url_or_reference",
+    "captured_claim",
+    "relevance_to_resolution",
+    "operator_notes"
+  ],
+  "export_summary": {
+    "packets_read": 10,
+    "accepted_review_records_seen": 3,
+    "ready_review_records_seen": 1,
+    "dossier_draft_skeletons_exported": 1,
+    "packets_skipped": 9,
+    "skipped_packet_counts": {
+      "stub_only": 7,
+      "needs_more_information": 1,
+      "manual_evidence_added_without_accepted_ready_review": 0,
+      "watch_only_manual": 1,
+      "research_quality_rejected": 0,
+      "invalid": 0
+    }
+  },
+  "exported_market_ids": [
+    "563650"
+  ],
+  "skipped_market_ids_by_reason": {
+    "stub_only": [
+      "569332",
+      "569333",
+      "569334",
+      "569343",
+      "569344",
+      "569368",
+      "569373"
+    ],
+    "needs_more_information": [
+      "569366"
+    ],
+    "manual_evidence_added_without_accepted_ready_review": [],
+    "watch_only_manual": [
+      "573656"
+    ],
+    "research_quality_rejected": [],
+    "invalid": []
+  },
+  "dossier_draft_skeletons": [
+    {
+      "market_id": "563650",
+      "title_question": "SCOTUS accepts sports event contract case by July 31, 2026?",
+      "category": "SCOTUS accepts sports event contract case by...?",
+      "packet_type": "legal_event",
+      "current_yes_price": 0.135,
+      "liquidity": 10158.1474,
+      "deadline": "2026-07-31",
+      "resolution_criteria_summary": "Stub summary only: determine whether the legal/court event in 'SCOTUS accepts sports event contract case by July 31, 2026?' occurs by 2026-07-31; the full market rules and official docket criteria must be copied before completion.",
+      "source_coverage_summary": {
+        "official_sources_to_check": [
+          "Polymarket market rules and resolution criteria for market_id 563650",
+          "Supreme Court docket and order lists relevant to the named case or event",
+          "Official court filings or orders matching 'SCOTUS accepts sports event contract case by July 31, 2026?'"
+        ],
+        "credible_news_sources_to_check": [
+          "Reuters or Associated Press coverage query for 'SCOTUS accepts sports event contract case by July 31, 2026?'",
+          "SCOTUSblog or comparable legal reporting query for 'SCOTUS accepts sports event contract case by July 31, 2026?'",
+          "Major newspaper legal desk query for 'SCOTUS accepts sports event contract case by...?'"
+        ],
+        "official_sources_checked": [
+          "offline-check:563650:market-rules",
+          "offline-check:563650:official-docket"
+        ],
+        "credible_news_sources_checked": [
+          "offline-check:563650:credible-news"
+        ],
+        "official_sources_checked_count": 2,
+        "credible_news_sources_checked_count": 1,
+        "evidence_inventory_count": 4
+      },
+      "evidence_inventory": [
+        {
+          "source_name": "Manual market-rules placeholder",
+          "source_type": "official_resolution_criteria",
+          "source_url_or_reference": "offline-reference:563650:rules",
+          "captured_claim": "Manual entry records a copied resolution-rule source for structural validation only.",
+          "relevance_to_resolution": "Provides the rule text source category needed before operator review.",
+          "operator_notes": "No outcome truth is inferred by this merge fixture."
+        },
+        {
+          "source_name": "Manual docket placeholder",
+          "source_type": "official_court_source",
+          "source_url_or_reference": "offline-reference:563650:docket",
+          "captured_claim": "Manual entry records an official-source claim for structural validation only.",
+          "relevance_to_resolution": "Maps an official source claim to the market resolution path without evaluating it.",
+          "operator_notes": "Operator must review the claim manually outside this merge tool."
+        },
+        {
+          "source_name": "Manual credible-news placeholder",
+          "source_type": "credible_news",
+          "source_url_or_reference": "offline-reference:563650:news",
+          "captured_claim": "Manual entry records a credible-news claim for structural validation only.",
+          "relevance_to_resolution": "Adds independent coverage context without scoring the market.",
+          "operator_notes": "Merge tool checks only that the entry is complete."
+        },
+        {
+          "source_name": "Manual reliability note",
+          "source_type": "operator_context",
+          "source_url_or_reference": "offline-reference:563650:reliability",
+          "captured_claim": "Manual entry records source reliability notes for structural validation only.",
+          "relevance_to_resolution": "Confirms that source reliability was documented before operator review.",
+          "operator_notes": "No recommendation is produced."
+        }
+      ],
+      "missing_information_reviewed": {
+        "packet_missing_information": [],
+        "requested_followup_information": []
+      },
+      "operator_review_notes": "Structural review completed. Future dossier drafting may start from this packet; no conclusion or order is recorded here.",
+      "dossier_sections_to_fill": [
+        "market_overview",
+        "resolution_criteria",
+        "source_coverage",
+        "evidence_inventory",
+        "missing_information_review",
+        "operator_notes",
+        "open_questions"
+      ],
+      "open_questions": [],
+      "draft_status": "dossier_draft_skeleton_only"
+    }
+  ]
+}

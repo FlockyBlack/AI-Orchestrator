@@ -1,0 +1,72 @@
+{
+  "files_created": [
+    "pm_bot/ingest/build_candidate_intake_preview.py",
+    "pm_bot/ingest/candidate_intake_preview.v1.json",
+    "pm_bot/ingest/candidate_intake_preview.v1.md",
+    "pm_bot/ingest/expected_candidate_intake_preview.v1.json",
+    "pm_bot/ingest/tests/test_candidate_intake_preview.py",
+    "docs/PMBOT_INGEST_003_RESULT.json"
+  ],
+  "files_modified": [],
+  "intake_summary": {
+    "closed_or_not_accepting": 50,
+    "missing_required_fields": 1,
+    "normalized_records_read": 101,
+    "unsupported_or_malformed": 0,
+    "usable_for_research_preview": 50,
+    "watch_only_structure": 0
+  },
+  "safety": {
+    "authenticated_endpoints": false,
+    "betting_recommendations": false,
+    "codex_copy_roots": false,
+    "credentials": false,
+    "dispatcher_run_codex_touched": false,
+    "downstream_feed_enabled": false,
+    "expected_value_calculations": false,
+    "live_fetchers": false,
+    "live_trading": false,
+    "market_decisions": false,
+    "market_scoring": false,
+    "network_api_calls": false,
+    "paper_orders": false,
+    "probability_estimates": false,
+    "prompt_automation": false,
+    "real_orders": false,
+    "research_packets_created": false,
+    "runtime_wiring": false,
+    "side_recommendations": false,
+    "trading_endpoints": false,
+    "truth_inference": false,
+    "wallet_private_keys": false
+  },
+  "status": "PASS",
+  "summary": "Added a standalone deterministic offline candidate-intake preview that reads only normalized_market_preview.v1.json, rejects raw and validation inputs, groups normalized records by structural readiness, writes inert JSON/Markdown artifacts under pm_bot/ingest, and does not wire output to research, scoring, paper, or runtime flows.",
+  "task_id": "PMBOT-INGEST-003-NORMALIZED-MARKET-CANDIDATE-INTAKE-PREVIEW",
+  "tests_run": [
+    {
+      "command": "python -m pytest pm_bot\\ingest\\tests\\test_candidate_intake_preview.py",
+      "result": "PASS"
+    },
+    {
+      "command": "python -m pytest pm_bot\\ingest\\tests",
+      "result": "PASS"
+    },
+    {
+      "command": "python -m json.tool pm_bot\\ingest\\candidate_intake_preview.v1.json",
+      "result": "PASS"
+    },
+    {
+      "command": "python -m json.tool pm_bot\\ingest\\expected_candidate_intake_preview.v1.json",
+      "result": "PASS"
+    },
+    {
+      "command": "python -m json.tool docs\\PMBOT_INGEST_003_RESULT.json",
+      "result": "PASS"
+    },
+    {
+      "command": "python -m py_compile pm_bot\\ingest\\build_candidate_intake_preview.py pm_bot\\ingest\\tests\\test_candidate_intake_preview.py",
+      "result": "PASS"
+    }
+  ]
+}

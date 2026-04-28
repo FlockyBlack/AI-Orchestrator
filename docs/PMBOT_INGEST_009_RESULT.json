@@ -1,0 +1,81 @@
+{
+  "task_id": "PMBOT-INGEST-009-SELECTED-INGEST-OPERATOR-REVIEW-RECORD-GATE",
+  "status": "passed",
+  "summary": "Created a deterministic offline selected-ingest operator review record gate for the five selected live-ingest research packets. The gate validates manually written structural review records against the selected-ingest operator review queue, exports accepted/rejected normalized records, writes a Markdown report, and does not create dossiers, orders, scores, probabilities, expected value, side recommendations, market decisions, runtime wiring, or paper orders.",
+  "files_created": [
+    "pm_bot/research/validate_selected_ingest_operator_review_records.py",
+    "pm_bot/research/selected_ingest_operator_review_records_fixture.v1.json",
+    "pm_bot/research/selected_ingest_operator_review_records_result.v1.json",
+    "pm_bot/research/selected_ingest_operator_review_records_report.v1.md",
+    "pm_bot/research/expected_selected_ingest_operator_review_records_result.v1.json",
+    "pm_bot/research/tests/test_selected_ingest_operator_review_record_gate.py",
+    "docs/PMBOT_INGEST_009_RESULT.json"
+  ],
+  "files_modified": [],
+  "tests_run": [
+    {
+      "command": "python pm_bot\\research\\validate_selected_ingest_operator_review_records.py",
+      "status": "passed",
+      "result": "6 review records read; 3 accepted; 3 rejected"
+    },
+    {
+      "command": "python -m pytest pm_bot\\research\\tests\\test_selected_ingest_operator_review_record_gate.py -q",
+      "status": "passed",
+      "result": "16 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\research\\tests\\test_selected_ingest_operator_review_record_gate.py pm_bot\\research\\tests\\test_selected_ingest_operator_review_queue.py pm_bot\\research\\tests\\test_selected_ingest_manual_evidence_overlay_merge.py pm_bot\\research\\tests\\test_selected_ingest_operator_workpack.py pm_bot\\research\\tests\\test_selected_ingest_research_packet_stubs.py pm_bot\\research\\tests\\test_manual_research_packet_validation.py -q",
+      "status": "passed",
+      "result": "83 passed"
+    },
+    {
+      "command": "python -m py_compile pm_bot\\research\\validate_selected_ingest_operator_review_records.py pm_bot\\research\\tests\\test_selected_ingest_operator_review_record_gate.py",
+      "status": "passed",
+      "result": "compiled"
+    },
+    {
+      "command": "PowerShell loop: python -m json.tool for pm_bot\\research\\selected_ingest_operator_review_records_fixture.v1.json, pm_bot\\research\\selected_ingest_operator_review_records_result.v1.json, pm_bot\\research\\expected_selected_ingest_operator_review_records_result.v1.json, docs\\PMBOT_INGEST_009_RESULT.json",
+      "status": "passed",
+      "result": "json parse ok"
+    }
+  ],
+  "review_summary": {
+    "review_records_read": 6,
+    "review_records_accepted": 3,
+    "review_records_rejected": 3,
+    "ready_for_dossier_drafting": 1,
+    "needs_more_information": 1,
+    "research_quality_rejected": 0,
+    "watch_only_manual": 1
+  },
+  "selected_market_ids": [
+    "692258",
+    "824952",
+    "691547",
+    "597964",
+    "598936"
+  ],
+  "safety": {
+    "live_fetchers": false,
+    "network_api_calls": false,
+    "credentials": false,
+    "wallet_private_keys": false,
+    "authenticated_endpoints": false,
+    "trading_endpoints": false,
+    "real_orders": false,
+    "live_trading": false,
+    "paper_orders": false,
+    "betting_recommendations": false,
+    "truth_inference": false,
+    "market_scoring": false,
+    "probability_estimates": false,
+    "expected_value_calculations": false,
+    "side_recommendations": false,
+    "market_decisions": false,
+    "runtime_wiring": false,
+    "dispatcher_run_codex_touched": false,
+    "prompt_automation": false,
+    "codex_copy_roots": false,
+    "completed_dossiers": false
+  }
+}

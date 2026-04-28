@@ -1,0 +1,74 @@
+{
+  "schema_version": "v1",
+  "demo_id": "PMBOT-BATCH-002-DEMO",
+  "source_type": "fixture",
+  "research_only": true,
+  "paper_only": true,
+  "live_data_used": false,
+  "execution_allowed": false,
+  "trading_allowed": false,
+  "network_used": false,
+  "api_used": false,
+  "wallet_used": false,
+  "credential_material_required": false,
+  "market_summary": {
+    "market_id": "pm_fixture_2026_us_recession_q3",
+    "title": "Will the US enter recession by end of Q3 2026?",
+    "outcome_count": 2,
+    "price_sum": 1.0,
+    "validation_status": "valid",
+    "normalized_matches_expected": true
+  },
+  "signal_summary": {
+    "lead_outcome": "No",
+    "confidence": 0.82,
+    "recommendation_type": "research_only",
+    "matches_expected": true
+  },
+  "hedge_summary": {
+    "relationship_count": 4,
+    "strongest_confidence": 0.95,
+    "matches_expected": true
+  },
+  "paper_simulation_summary": {
+    "gross_pnl": 17.45,
+    "effective_entry_price": 0.4302,
+    "effective_exit_price": 0.5698,
+    "matches_expected": true
+  },
+  "risk_summary": {
+    "approved": false,
+    "breach_count": 1,
+    "breaches": [
+      "max_total_notional"
+    ],
+    "matches_expected": true
+  },
+  "accounting_summary": {
+    "total_cost": 0.2125,
+    "fee_cost": 0.1875,
+    "slippage_cost": 0.025,
+    "matches_expected": true
+  },
+  "dashboard_summary": {
+    "headline": "No leads at 0.82 confidence",
+    "net_pnl_after_costs": 17.2375,
+    "execution_blocked": true,
+    "matches_expected": true
+  },
+  "postmortem_summary": {
+    "grade": "review",
+    "net_pnl": 17.2375,
+    "recommended_action": "tighten_limits_before_any_future_paper_iteration",
+    "matches_expected": true
+  },
+  "static_safety_audit_summary": {
+    "audit_passed": true,
+    "blocking_finding_count": 0,
+    "non_blocking_mention_count": 476,
+    "runtime_wiring_added": false
+  },
+  "recommended_next_action": "Run Flocky validation PMBOT-BATCH-002-V.",
+  "final_flocky_done_claimed": false,
+  "runtime_wiring_added": false
+}

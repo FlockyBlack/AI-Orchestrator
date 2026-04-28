@@ -1,0 +1,60 @@
+{
+  "task_id": "PMBOT-BRAIN-016-LIVE-SHAPED-SNAPSHOT-TO-PAPER-LIFECYCLE",
+  "status": "completed_ready_for_review",
+  "summary": "Implemented one deterministic fixture-only command that runs the offline live-shaped snapshot adapter through the existing raw intake, scoring, review table, paper order plan, paper execution ledger, and portfolio exposure summary. The command preserves adapter rejections and raw/intake rejections with reasons and emits JSON by default or Markdown with --markdown.",
+  "pmbot_root_confirmed": true,
+  "snapshot_lifecycle_readiness": "ready_for_demo_and_review",
+  "command": "python pm_bot\\paper\\run_live_shaped_snapshot_paper_lifecycle.py",
+  "files_created": [
+    "pm_bot/paper/run_live_shaped_snapshot_paper_lifecycle.py",
+    "pm_bot/paper/expected_live_shaped_snapshot_paper_lifecycle.v1.json",
+    "pm_bot/paper/expected_live_shaped_snapshot_paper_lifecycle.v1.md",
+    "pm_bot/paper/tests/test_run_live_shaped_snapshot_paper_lifecycle.py",
+    "docs/PM_BOT_BRAIN_016_RESULT.json",
+    "docs/PM_BOT_STAGE_SUMMARY_V28.md"
+  ],
+  "files_modified": [],
+  "tests_or_checks_run": [
+    "python -m pytest pm_bot\\scoring\\tests pm_bot\\paper\\tests -q",
+    "python pm_bot\\paper\\run_live_shaped_snapshot_paper_lifecycle.py",
+    "python pm_bot\\paper\\run_live_shaped_snapshot_paper_lifecycle.py --markdown",
+    "python pm_bot\\paper\\run_crypto_numeric_lifecycle_regression_gates.py"
+  ],
+  "snapshot_lifecycle_summary": {
+    "snapshot_markets": 10,
+    "adapted_raw_markets": 3,
+    "adapter_rejections": 7,
+    "normalized_supported": 3,
+    "intake_rejections": 0,
+    "markets_scored": 3,
+    "paper_candidates": 1,
+    "watchlist": 1,
+    "rejected_after_scoring": 1,
+    "paper_orders_submitted": 1,
+    "paper_orders_filled": 1,
+    "open_positions": 0,
+    "settled_positions": 1,
+    "total_paper_notional": 100.0,
+    "paper_pnl": 72.41
+  },
+  "limitations": [
+    "Fixture-only lifecycle; no live fetcher, network call, external API call, or live market integration is implemented.",
+    "Current price, volatility, momentum, execution prices, fills, settlement, exposure, and PnL are deterministic fixture fields/calculations only.",
+    "The command reuses existing offline paper lifecycle modules and does not add runtime wiring, dispatcher/run_codex changes, prompt automation, broad refactors, or a new validation layer.",
+    "No credentials, wallet/private-key access, real orders, real-money execution, or live trading path was added."
+  ],
+  "recommended_next_task": "PMBOT-BRAIN-017: add a narrow regression gate for the live-shaped snapshot-to-paper lifecycle command so future changes lock this new offline demo path.",
+  "safety": {
+    "offline_only": true,
+    "paper_only": true,
+    "live_fetcher_implemented": false,
+    "no_network_api": true,
+    "no_credentials": true,
+    "no_wallet": true,
+    "no_real_orders": true,
+    "no_live_trading": true,
+    "no_runtime_wiring": true,
+    "no_prompt_automation": true,
+    "no_unrelated_cleanup": true
+  }
+}

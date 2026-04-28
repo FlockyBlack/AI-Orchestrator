@@ -1,0 +1,88 @@
+{
+  "task_id": "PMBOT-PAPER-BATCH-011-013-FILL-SETTLEMENT-PNL-MVP",
+  "status": "completed_ready_for_review",
+  "summary": "Implemented deterministic offline PAPER-011 through PAPER-013 fill source, paper fill event, settlement, and paper accounting PnL preview artifacts.",
+  "market_ids": [
+    "824952"
+  ],
+  "stages_completed": {
+    "paper_011_fill_source_contract": true,
+    "paper_012_paper_fill_simulation": true,
+    "paper_013_paper_settlement_pnl_accounting_preview": true
+  },
+  "counts": {
+    "fill_source_records_accepted": 1,
+    "fill_source_records_rejected": 2,
+    "paper_fill_events_written": 1,
+    "settlement_records_accepted": 1,
+    "settlement_records_rejected": 2,
+    "paper_accounting_pnl_records": 1,
+    "real_orders_created": 0,
+    "live_orders_created": 0,
+    "autonomous_paper_orders_created": 0
+  },
+  "accounting": {
+    "paper_accounting_pnl_calculated": true,
+    "pnl_source": "operator_manual_fill_and_settlement_fixtures_only",
+    "ev_calculated": false,
+    "probability_calculated": false,
+    "score_calculated": false,
+    "edge_calculated": false,
+    "recommendation_generated": false
+  },
+  "files_created": [
+    "pm_bot/paper/run_paper_fill_settlement_pnl_batch_011_013.py",
+    "pm_bot/paper/paper_fill_source_contract.v1.json",
+    "pm_bot/paper/paper_fill_source_fixture.v1.json",
+    "pm_bot/paper/paper_fill_source_report.v1.md",
+    "pm_bot/paper/paper_fill_sources_accepted.v1.json",
+    "pm_bot/paper/paper_fill_sources_rejected.v1.json",
+    "pm_bot/paper/paper_fill_events.v1.json",
+    "pm_bot/paper/paper_fill_events_report.v1.md",
+    "pm_bot/paper/paper_settlement_source_fixture.v1.json",
+    "pm_bot/paper/paper_settlement_sources_accepted.v1.json",
+    "pm_bot/paper/paper_settlement_sources_rejected.v1.json",
+    "pm_bot/paper/paper_accounting_pnl_preview.v1.json",
+    "pm_bot/paper/paper_accounting_pnl_preview.v1.md",
+    "pm_bot/paper/expected_paper_fill_events.v1.json",
+    "pm_bot/paper/expected_paper_accounting_pnl_preview.v1.json",
+    "pm_bot/paper/tests/test_paper_fill_settlement_pnl_batch_011_013.py",
+    "docs/PMBOT_PAPER_BATCH_011_013_RESULT.json"
+  ],
+  "files_modified": [],
+  "tests": [],
+  "safety": {
+    "offline_only": true,
+    "network_api_calls": false,
+    "credentials": false,
+    "wallet_private_keys": false,
+    "authenticated_endpoints": false,
+    "trading_endpoints": false,
+    "real_orders": false,
+    "live_trading": false,
+    "autonomous_paper_orders": false,
+    "betting_recommendations": false,
+    "truth_inference": false,
+    "market_scoring": false,
+    "probability_estimates": false,
+    "ev_calculations": false,
+    "edge_calculations": false,
+    "side_recommendations": false,
+    "market_decisions": false,
+    "runtime_wiring": false,
+    "dispatcher_run_codex_changes": false,
+    "prompt_automation": false,
+    "codex_copy_roots": false,
+    "completed_dossiers": false,
+    "broad_refactor": false
+  },
+  "scope_expansion": {
+    "manual_operator_fill_fields_introduced": true,
+    "manual_operator_settlement_fields_introduced": true,
+    "manual_fields_are_operator_provided_only": true,
+    "bot_generated_side_size_price": false,
+    "paper_only_inert_fill_events": true,
+    "paper_accounting_only_pnl": true
+  },
+  "blockers": []
+}

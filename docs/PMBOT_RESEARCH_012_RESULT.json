@@ -1,0 +1,61 @@
+{
+  "task_id": "PMBOT-RESEARCH-012-DOSSIER-DRAFT-SKELETON-EXPORT",
+  "status": "completed",
+  "summary": "Implemented a deterministic offline dossier draft skeleton exporter for PMBOT research packets. The exporter reads only local merged packet, operator review queue, and accepted review record result artifacts; exports only accepted ready_for_dossier_drafting packets; writes JSON and Markdown skeleton artifacts for human review; and does not create completed dossiers, market conclusions, scoring, paper orders, or trading actions.",
+  "files_created": [
+    "pm_bot/research/export_dossier_draft_skeletons.py",
+    "pm_bot/research/dossier_draft_skeletons.v1.json",
+    "pm_bot/research/dossier_draft_skeletons.v1.md",
+    "pm_bot/research/expected_dossier_draft_skeletons.v1.json",
+    "pm_bot/research/tests/test_dossier_draft_skeleton_export.py",
+    "docs/PMBOT_RESEARCH_012_RESULT.json"
+  ],
+  "files_modified": [],
+  "tests_run": [
+    {
+      "command": "python pm_bot\\research\\export_dossier_draft_skeletons.py",
+      "status": "passed"
+    },
+    {
+      "command": "python -m unittest pm_bot.research.tests.test_dossier_draft_skeleton_export",
+      "status": "passed",
+      "tests": 12
+    },
+    {
+      "command": "python -m pytest pm_bot\\research\\tests -q",
+      "status": "passed",
+      "tests": 124
+    },
+    {
+      "command": "python -c \"import json, pathlib; paths=['pm_bot/research/dossier_draft_skeletons.v1.json','pm_bot/research/expected_dossier_draft_skeletons.v1.json','docs/PMBOT_RESEARCH_012_RESULT.json']; [json.load(open(pathlib.Path(p), encoding='utf-8')) for p in paths]; print('parsed', len(paths), 'json artifacts')\"",
+      "status": "passed",
+      "json_artifacts": 3
+    }
+  ],
+  "export_summary": {
+    "ready_review_records_seen": 1,
+    "dossier_draft_skeletons_exported": 1,
+    "packets_skipped": 9,
+    "completed_dossiers_created": 0
+  },
+  "safety": {
+    "live_fetchers": false,
+    "network_api_calls": false,
+    "credentials": false,
+    "wallet_private_keys": false,
+    "real_orders": false,
+    "live_trading": false,
+    "runtime_wiring": false,
+    "dispatcher_run_codex_touched": false,
+    "prompt_automation": false,
+    "codex_copy_roots": false,
+    "completed_dossiers": false,
+    "paper_orders": false,
+    "betting_recommendations": false,
+    "truth_inference": false,
+    "market_scoring": false,
+    "probability_estimates": false,
+    "expected_value_calculations": false,
+    "side_recommendations": false
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "task_id": "PMBOT-RESEARCH-013-MANUAL-DOSSIER-DRAFT-QUALITY-GATE",
+  "status": "completed",
+  "summary": "Implemented a deterministic offline quality gate for manually filled PMBOT dossier draft skeleton attempts. The gate reads only local manual draft, dossier skeleton, review-record result, and merged-packet artifacts; accepts only drafts for RESEARCH-012 skeleton market ids; rejects unsafe fields, immutable skeleton overrides, completed/final dossier language, non-skeleton ids, and structurally incomplete ready-for-human-review drafts; and creates no completed dossiers, market conclusions, scores, probabilities, EV calculations, recommendations, paper orders, runtime wiring, or live actions.",
+  "files_created": [
+    "pm_bot/research/validate_manual_dossier_drafts.py",
+    "pm_bot/research/manual_dossier_drafts_fixture.v1.json",
+    "pm_bot/research/manual_dossier_draft_validation_result.v1.json",
+    "pm_bot/research/manual_dossier_draft_validation_report.v1.md",
+    "pm_bot/research/expected_manual_dossier_draft_validation_result.v1.json",
+    "pm_bot/research/tests/test_manual_dossier_draft_quality_gate.py",
+    "docs/PMBOT_RESEARCH_013_RESULT.json"
+  ],
+  "files_modified": [],
+  "tests_run": [
+    {
+      "command": "python pm_bot\\research\\validate_manual_dossier_drafts.py",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\research\\tests\\test_manual_dossier_draft_quality_gate.py -q",
+      "status": "passed",
+      "tests": 16
+    },
+    {
+      "command": "python -m pytest pm_bot\\research\\tests -q",
+      "status": "passed",
+      "tests": 140
+    },
+    {
+      "command": "python -c \"import json, pathlib; paths=['pm_bot/research/manual_dossier_drafts_fixture.v1.json','pm_bot/research/manual_dossier_draft_validation_result.v1.json','pm_bot/research/expected_manual_dossier_draft_validation_result.v1.json','docs/PMBOT_RESEARCH_013_RESULT.json']; [json.load(open(pathlib.Path(p), encoding='utf-8')) for p in paths]; print('parsed', len(paths), 'json artifacts')\"",
+      "status": "passed",
+      "json_artifacts": 4
+    }
+  ],
+  "draft_validation_summary": {
+    "draft_records_read": 8,
+    "draft_records_accepted": 1,
+    "draft_records_rejected": 7,
+    "draft_ready_for_human_review": 1,
+    "needs_more_information": 0,
+    "draft_incomplete": 0,
+    "draft_rejected": 0
+  },
+  "safety": {
+    "live_fetchers": false,
+    "network_api_calls": false,
+    "credentials": false,
+    "wallet_private_keys": false,
+    "real_orders": false,
+    "live_trading": false,
+    "runtime_wiring": false,
+    "dispatcher_run_codex_touched": false,
+    "prompt_automation": false,
+    "codex_copy_roots": false,
+    "completed_dossiers": false,
+    "paper_orders": false,
+    "betting_recommendations": false,
+    "truth_inference": false,
+    "market_scoring": false,
+    "probability_estimates": false,
+    "expected_value_calculations": false,
+    "side_recommendations": false
+  }
+}

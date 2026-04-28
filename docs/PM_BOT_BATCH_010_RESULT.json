@@ -1,0 +1,165 @@
+{
+  "task_id": "PMBOT-BATCH-010",
+  "status": "implementation_complete_ready_for_flocky_validation",
+  "scope": {
+    "offline_only": true,
+    "fixture_only": true,
+    "paper_only": true,
+    "local_only": true,
+    "deterministic": true,
+    "live_fetcher_implemented": false,
+    "normalization_implemented": false,
+    "network_api_calls": false,
+    "api_credentials": false,
+    "wallet": false,
+    "real_orders": false,
+    "runtime_wiring": false
+  },
+  "summary": "PMBOT-BATCH-010 adds a deterministic offline ingestion and quarantine manifest layer on top of the existing raw artifact validator. The new manifest groups accepted artifacts, quarantined artifacts, quarantine reasons, safety summary data, and handoff readiness for a future normalization design stage without adding normalization, live fetching, network/API access, credentials, wallet handling, orders, trading, or runtime wiring.",
+  "files_created": [
+    "pm_bot/raw_artifacts/build_ingestion_manifest.py",
+    "pm_bot/raw_artifacts/expected_ingestion_manifest.v1.json",
+    "pm_bot/raw_artifacts/tests/test_build_ingestion_manifest.py",
+    "docs/PM_BOT_RAW_ARTIFACT_INGESTION_MANIFEST_V1.md",
+    "docs/PM_BOT_STAGE_SUMMARY_V11.md",
+    "docs/PM_BOT_SAFE_BACKLOG_V11.json",
+    "docs/PM_BOT_BATCH_010_RESULT.json"
+  ],
+  "files_modified": [],
+  "files_modified": [
+    "pm_bot/audit/expected_static_safety_audit.v2.json",
+    "pm_bot/audit/expected_static_safety_audit.v3.json",
+    "pm_bot/audit/expected_static_safety_audit.v4.json",
+    "pm_bot/audit/expected_static_safety_audit.v5.json",
+    "pm_bot/audit/expected_static_safety_audit.v6.json",
+    "pm_bot/audit/expected_static_safety_audit.v7.json",
+    "pm_bot/demo/expected_paper_research_demo.v1.json",
+    "pm_bot/demo/expected_paper_research_demo.v1.md"
+  ],
+  "tests_run": [
+    {
+      "command": "python -m pytest pm_bot\\raw_artifacts\\tests -q",
+      "scope": "original_root",
+      "status": "pass",
+      "notes": "21 passed including the new manifest builder tests."
+    },
+    {
+      "command": "python pm_bot\\raw_artifacts\\validate_raw_market_artifacts.py",
+      "scope": "original_root",
+      "status": "pass",
+      "notes": "Validator passed with 3 accepted fixture files and 9 expected quarantined fixtures."
+    },
+    {
+      "command": "python pm_bot\\raw_artifacts\\build_ingestion_manifest.py",
+      "scope": "original_root",
+      "status": "pass",
+      "notes": "Manifest emitted deterministic root-independent default output."
+    },
+    {
+      "command": "python -m pytest pm_bot\\audit\\tests -q",
+      "scope": "original_root",
+      "status": "pass",
+      "notes": "40 passed after refreshing deterministic audit expected outputs v2-v7."
+    },
+    {
+      "command": "python -m pytest pm_bot\\demo\\tests\\test_run_paper_research_demo.py -q",
+      "scope": "original_root",
+      "status": "pass",
+      "notes": "5 passed after refreshing deterministic demo expected outputs."
+    },
+    {
+      "command": "python -m pytest pm_bot\\boundary\\tests pm_bot\\audit\\tests pm_bot\\raw_artifacts\\tests -q",
+      "scope": "original_root",
+      "status": "pass",
+      "notes": "71 passed."
+    },
+    {
+      "command": "python -m pytest pm_bot\\scenarios\\tests pm_bot\\demo\\tests pm_bot\\reports\\tests pm_bot\\audit\\tests pm_bot\\research\\tests pm_bot\\explainability\\tests pm_bot\\quality\\tests pm_bot\\adversarial\\tests pm_bot\\replay\\tests pm_bot\\validation\\tests pm_bot\\operator\\tests pm_bot\\export\\tests pm_bot\\boundary\\tests pm_bot\\raw_artifacts\\tests -q",
+      "scope": "original_root",
+      "status": "pass",
+      "notes": "183 passed."
+    },
+    {
+      "command": "python pm_bot\\boundary\\validate_live_boundary_contracts.py",
+      "scope": "original_root",
+      "status": "pass",
+      "notes": "Boundary contract validation passed."
+    },
+    {
+      "command": "python pm_bot\\boundary\\validate_readonly_fetcher_plan.py",
+      "scope": "original_root",
+      "status": "pass",
+      "notes": "Read-only fetcher plan validation remained design-only and passed."
+    },
+    {
+      "command": "python pm_bot\\audit\\static_safety_audit_v7.py",
+      "scope": "original_root",
+      "status": "pass",
+      "notes": "Static safety audit v7 passed with no blocking findings."
+    },
+    {
+      "command": "python pm_bot\\audit\\run_static_safety_audit.py pm_bot",
+      "scope": "original_root",
+      "status": "pass",
+      "notes": "Repository-wide static safety audit passed with no blocking findings."
+    },
+    {
+      "command": "python -m pytest pm_bot\\raw_artifacts\\tests -q",
+      "scope": "temp_copy",
+      "status": "pass",
+      "notes": "21 passed in temp copy."
+    },
+    {
+      "command": "python pm_bot\\raw_artifacts\\validate_raw_market_artifacts.py",
+      "scope": "temp_copy",
+      "status": "pass",
+      "notes": "Validator remained root-independent in temp copy."
+    },
+    {
+      "command": "python pm_bot\\raw_artifacts\\build_ingestion_manifest.py",
+      "scope": "temp_copy",
+      "status": "pass",
+      "notes": "Manifest remained root-independent in temp copy."
+    },
+    {
+      "command": "python -m pytest pm_bot\\audit\\tests -q",
+      "scope": "temp_copy",
+      "status": "pass",
+      "notes": "40 passed in temp copy."
+    },
+    {
+      "command": "python -m pytest pm_bot\\boundary\\tests pm_bot\\audit\\tests pm_bot\\raw_artifacts\\tests -q",
+      "scope": "temp_copy",
+      "status": "pass",
+      "notes": "71 passed in temp copy."
+    },
+    {
+      "command": "python -m pytest pm_bot\\scenarios\\tests pm_bot\\demo\\tests pm_bot\\reports\\tests pm_bot\\audit\\tests pm_bot\\research\\tests pm_bot\\explainability\\tests pm_bot\\quality\\tests pm_bot\\adversarial\\tests pm_bot\\replay\\tests pm_bot\\validation\\tests pm_bot\\operator\\tests pm_bot\\export\\tests pm_bot\\boundary\\tests pm_bot\\raw_artifacts\\tests -q",
+      "scope": "temp_copy",
+      "status": "pass",
+      "notes": "183 passed in temp copy."
+    }
+  ],
+  "safety_checks": {
+    "no_live_fetcher_implementation": true,
+    "no_normalization_implementation": true,
+    "no_network_or_api": true,
+    "no_live_polymarket_api": true,
+    "no_api_credentials": true,
+    "no_wallet_or_private_key": true,
+    "no_real_orders": true,
+    "no_real_trading": true,
+    "no_autonomous_trading": true,
+    "no_runtime_wiring": true,
+    "no_dispatcher_changes": true,
+    "no_run_codex_changes": true,
+    "no_active_task_mutation": true,
+    "no_state_result_freeze_checkpoint_mutation": true,
+    "no_codex_auto_mutation": true,
+    "no_governance_state_mutation": true,
+    "future_live_work_requires_separate_approval": true,
+    "final_flocky_done_claimed": false,
+    "ready_for_flocky_validation": true
+  },
+  "requires_flocky_validation": true
+}
