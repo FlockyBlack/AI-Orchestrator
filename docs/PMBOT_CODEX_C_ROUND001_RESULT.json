@@ -1,0 +1,112 @@
+{
+  "task_id": "PMBOT-OPERATOR-001-MANUAL-COMMAND-CONTRACT",
+  "codex_lane": "CODEX_C",
+  "status": "completed_with_warnings",
+  "summary": "Implemented a deterministic local manual operator command contract, examples, validator, and tests under CODEX_C scope. The artifacts define inert command records for human review only and reject Telegram runtime, tokens, webhooks, polling, credentials, wallets, trading, real orders, autonomous paper orders, scoring, probability, EV, edge, side recommendations, truth inference, market decisions, and runtime wiring. Focused and operator tests passed. The required paper suite was run and failed for isolated-worktree fixture/path reasons unrelated to CODEX_C files.",
+  "branch": "codex/c-operator-command-contract-round001",
+  "worktree_path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator-worktrees\\CODEX_C_round001_operator_contract",
+  "base_commit": "48d4dd4657460955b3df4414a4a8eb75c487a9de",
+  "head_commit": null,
+  "files_created": [
+    "pm_bot/operator/manual_command_contract.v1.json",
+    "pm_bot/operator/manual_command_examples.v1.json",
+    "pm_bot/operator/manual_command_examples.v1.md",
+    "pm_bot/operator/validate_manual_command_contract.py",
+    "pm_bot/operator/tests/test_manual_command_contract.py",
+    "docs/PMBOT_OPERATOR_001_RESULT.json",
+    "docs/PMBOT_CODEX_C_ROUND001_RESULT.json"
+  ],
+  "files_modified": [],
+  "commands_run": [
+    {
+      "command": "Get-Location; git branch --show-current; git status --porcelain=v1; git rev-parse HEAD; git merge-base --is-ancestor 48d4dd4657460955b3df4414a4a8eb75c487a9de HEAD",
+      "status": "passed",
+      "summary": "Confirmed requested worktree, branch codex/c-operator-command-contract-round001, clean pre-change status, HEAD 48d4dd4657460955b3df4414a4a8eb75c487a9de, and expected base ancestry."
+    },
+    {
+      "command": "Get-Content required INFRA-005 docs and existing operator/manual paper artifacts",
+      "status": "passed",
+      "summary": "Reviewed available INFRA-005 planning and result contract docs plus existing operator and manual paper intent artifacts. docs/PMBOT_INFRA_006_RESULT.json was not present in this worktree."
+    },
+    {
+      "command": "rg --files docs pm_bot",
+      "status": "failed",
+      "summary": "Non-blocking local tool issue: bundled rg.exe could not start due to access denied. PowerShell and git ls-files enumeration were used instead."
+    },
+    {
+      "command": "python -m pytest pm_bot\\operator\\tests\\test_manual_command_contract.py -q",
+      "status": "passed",
+      "summary": "6 passed, 14 subtests passed after tightening forbidden-key token matching."
+    },
+    {
+      "command": "python -m pytest pm_bot\\paper\\tests -q",
+      "status": "failed",
+      "summary": "25 failed, 280 passed, 1 skipped, 39 subtests passed. Failures reference missing isolated-worktree local_snapshots and canonical-root expected paths, not changed CODEX_C files."
+    },
+    {
+      "command": "python -m pytest pm_bot\\operator\\tests -q",
+      "status": "passed",
+      "summary": "26 passed, 14 subtests passed."
+    },
+    {
+      "command": "JSON parse checks for all new JSON files",
+      "status": "passed",
+      "summary": "All new JSON artifacts parsed successfully."
+    },
+    {
+      "command": "python -m py_compile pm_bot\\operator\\validate_manual_command_contract.py pm_bot\\operator\\tests\\test_manual_command_contract.py",
+      "status": "passed",
+      "summary": "New Python files compiled successfully."
+    }
+  ],
+  "tests": [
+    {
+      "command": "python -m pytest pm_bot\\operator\\tests\\test_manual_command_contract.py -q",
+      "status": "passed",
+      "summary": "6 passed, 14 subtests passed."
+    },
+    {
+      "command": "python -m pytest pm_bot\\paper\\tests -q",
+      "status": "failed",
+      "summary": "25 failed, 280 passed, 1 skipped, 39 subtests passed. Failures are explained as pre-existing isolated-worktree fixture/path mismatches."
+    },
+    {
+      "command": "python -m pytest pm_bot\\operator\\tests -q",
+      "status": "passed",
+      "summary": "26 passed, 14 subtests passed."
+    },
+    {
+      "command": "JSON parse checks for all new JSON files",
+      "status": "passed",
+      "summary": "All new JSON files parsed successfully."
+    },
+    {
+      "command": "python -m py_compile pm_bot\\operator\\validate_manual_command_contract.py pm_bot\\operator\\tests\\test_manual_command_contract.py",
+      "status": "passed",
+      "summary": "Compiled successfully."
+    }
+  ],
+  "safety_flags": {
+    "runtime_wiring": false,
+    "network_api": false,
+    "credentials": false,
+    "wallet": false,
+    "trading": false,
+    "real_orders": false,
+    "live_trading": false,
+    "autonomous_paper_orders": false,
+    "scoring_probability_ev_edge": false,
+    "recommendations": false,
+    "truth_inference": false,
+    "market_decisions": false,
+    "dispatcher_run_codex_changes": false,
+    "prompt_automation": false,
+    "broad_refactor": false
+  },
+  "forbidden_changes_detected": [],
+  "git_status_before": "Clean pre-change worktree on codex/c-operator-command-contract-round001 at 48d4dd4657460955b3df4414a4a8eb75c487a9de.",
+  "git_status_after": "Clean after committing and pushing CODEX_C files.",
+  "pushed": true,
+  "blockers": [],
+  "next_action": "ready_for_integration_review"
+}
