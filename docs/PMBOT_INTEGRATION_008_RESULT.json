@@ -1,0 +1,97 @@
+{
+  "task_id": "PMBOT-INTEGRATION-008-ABC-ROUND002-REAL-MERGE",
+  "status": "completed_ready_for_review",
+  "integration_verdict": "abc_round002_merged_to_main",
+  "base_before_merge": "bf64d5c1195e33aa8513052159c7d3d269c99657",
+  "origin_main_before_merge": "bf64d5c1195e33aa8513052159c7d3d269c99657",
+  "required_branch_ancestry_base": "c3962ed19b3e1e3d453f2569762fc7269378bebe",
+  "branches_merged": [
+    {
+      "branch": "codex/a-paper-accounting-batch-audit-round002",
+      "expected_commit": "1000091e2b4f0d8bd055427f2ec10e5a773f24c5",
+      "merged": true,
+      "merge_commit": "366fa57110f56bb1aa74ea20700c82c264782e66"
+    },
+    {
+      "branch": "codex/b-dashboard-portfolio-audit-state-round002",
+      "expected_commit": "9ae6c48632f4148e38ea0262c9b37dd3c2815170",
+      "merged": true,
+      "merge_commit": "32db173fdf1f3877f6260279f325462ab6b41223"
+    },
+    {
+      "branch": "codex/c-operator-command-inbox-round002",
+      "expected_commit": "2a144b716d8f52fea66dc958a4ca39883df085e6",
+      "merged": true,
+      "merge_commit": "bfd274a5768ae964c966b8c0d318a22db19ca935"
+    }
+  ],
+  "merge_conflicts": [],
+  "files_added_total": 25,
+  "files_changed_summary": {
+    "abc_files_added_before_integration_docs": 23,
+    "integration_docs_added": 2,
+    "dispatcher_or_run_codex_touched": false,
+    "runtime_wiring_touched": false,
+    "test_generated_churn_restored": [
+      "docs/PMBOT_CODEX_A_ROUND002_RESULT.json",
+      "docs/PMBOT_PAPER_017_RESULT.json",
+      "docs/PMBOT_PAPER_018_RESULT.json",
+      "pm_bot/dashboard/expected_portfolio_audit_state_preview.v1.json",
+      "pm_bot/dashboard/portfolio_audit_state_preview.v1.json",
+      "pm_bot/dashboard/portfolio_audit_state_preview.v1.md"
+    ]
+  },
+  "focused_tests": [
+    {
+      "command": "python -m pytest pm_bot\\paper\\tests\\test_paper_accounting_batch_audit.py -q",
+      "status": "passed",
+      "summary": "4 passed in 0.53s"
+    },
+    {
+      "command": "python -m pytest pm_bot\\dashboard\\tests -q",
+      "status": "passed",
+      "summary": "16 passed in 1.53s"
+    },
+    {
+      "command": "python -m pytest pm_bot\\operator\\tests -q",
+      "status": "passed",
+      "summary": "33 passed, 14 subtests passed in 29.35s"
+    },
+    {
+      "command": "python -m pytest pm_bot\\paper\\tests\\test_paper_accounting_batch_audit.py pm_bot\\dashboard\\tests pm_bot\\operator\\tests -q",
+      "status": "passed",
+      "summary": "53 passed, 14 subtests passed in 28.88s"
+    }
+  ],
+  "combined_focused_tests_passed": true,
+  "full_paper_suite": {
+    "command": "python -m pytest pm_bot\\paper\\tests -q",
+    "status": "passed",
+    "summary": "314 passed, 39 subtests passed in 25.47s",
+    "expected_equivalence": "Rehearsal expected 313 passed, 1 skipped, 39 subtests passed; observed 314 passed, 39 subtests passed.",
+    "failure_classification": "none"
+  },
+  "dashboard_operator_tests": {
+    "command": "python -m pytest pm_bot\\dashboard\\tests pm_bot\\operator\\tests -q",
+    "status": "passed",
+    "summary": "49 passed, 14 subtests passed in 29.29s"
+  },
+  "py_compile_passed": true,
+  "json_parse_checks_passed": true,
+  "diff_check_passed": true,
+  "safety_scan": {
+    "method": "PowerShell Select-String over six newly merged Python files plus AST scan for forbidden imports/calls and dispatcher/run_codex path scan over merge diff.",
+    "broad_hits_classification": "safety_policy_constants_local_accounting_counters_contract_text_fixture_fields_or_negative_test_deny_list_references_only",
+    "test_subprocess_usage": "local runner test harness invocations with shell_true_not_detected",
+    "dispatcher_run_codex_touched": false,
+    "runtime_network_or_trading_behavior_detected": false
+  },
+  "safety_flags_clean": true,
+  "forbidden_changes_detected": false,
+  "pushed": true,
+  "main_modified": true,
+  "final_main_commit": "final pushed commit is emitted in the integration executor final response",
+  "final_main_commit_note": "A commit cannot embed its own object id in a tracked file without changing that id; the exact pushed HEAD is reported in the task final response.",
+  "blockers": [],
+  "next_safe_action": "Plan PMBOT ABC round003 or define next product feature batch."
+}
