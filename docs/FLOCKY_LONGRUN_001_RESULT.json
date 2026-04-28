@@ -1,0 +1,28 @@
+{
+  "task_id": "FLOCKY-LONGRUN-001-TIMEOUT-AND-STALL-POLICY",
+  "status": "completed_ready_for_review",
+  "summary": "Created a compact reference-only timeout and stall policy for long-running Codex/Flocky/OpenClaw tasks. The policy defines duration classes, progress and stall signals, allowed continuation behavior, retry rules, escalation triggers, status mapping, and a small operator decision record template while keeping AI-Orchestrator as the sole source of truth.",
+  "root": "C:\\Users\\OpenC\\.openclaw\\workspace",
+  "files_created": [
+    "docs/FLOCKY_LONGRUN_001_TIMEOUT_AND_STALL_POLICY.md",
+    "docs/FLOCKY_LONGRUN_001_RESULT.json"
+  ],
+  "files_modified": [],
+  "warnings": [],
+  "blockers": [],
+  "safety": {
+    "pmbot_touched": false,
+    "runtime_changed": false,
+    "dispatcher_touched": false,
+    "run_codex_touched": false,
+    "background_execution_added": false,
+    "autonomous_execution_added": false,
+    "scheduler_or_cron_added": false,
+    "telegram_enabled": false,
+    "wallet_api_trading_touched": false,
+    "external_skills_installed": false,
+    "second_source_of_truth_created": false,
+    "openclaw_executor_role_added": false
+  },
+  "recommended_next_action": "Use the policy as a manual operator decision layer when a task runs long, appears stalled, or asks for clarification, and escalate immediately on any safety or source-of-truth ambiguity."
+}
