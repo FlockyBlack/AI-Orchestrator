@@ -1,0 +1,72 @@
+{
+  "task_id": "PMBOT-PAPER-017-PAPER-ACCOUNTING-RECONCILIATION-LIFECYCLE-AUDIT",
+  "status": "completed_ready_for_review",
+  "summary": "Implemented deterministic offline paper accounting reconciliation lifecycle audit.",
+  "market_id": "824952",
+  "audit_status": "reconciliation_passed",
+  "counts": {
+    "artifacts_checked": 14,
+    "checks_total": 14,
+    "checks_passed": 14,
+    "checks_warning": 0,
+    "checks_failed": 0,
+    "paper_orders_created": 0,
+    "autonomous_actions_created": 0
+  },
+  "accounting_summary": {
+    "paper_accounting_total_records": 1,
+    "settled_count": 1,
+    "open_count": 0,
+    "win_count": 1,
+    "loss_count": 0,
+    "flat_count": 0,
+    "cumulative_pnl": "6.00",
+    "gross_profit": "6.00",
+    "gross_loss": "0.00",
+    "average_pnl": "6.00",
+    "max_gain": "6.00",
+    "max_loss": "0.00"
+  },
+  "files_created": [
+    "pm_bot/paper/run_paper_accounting_reconciliation_audit.py",
+    "pm_bot/paper/paper_accounting_reconciliation_audit.v1.json",
+    "pm_bot/paper/paper_accounting_reconciliation_audit.v1.md",
+    "pm_bot/paper/expected_paper_accounting_reconciliation_audit.v1.json",
+    "pm_bot/paper/tests/test_paper_accounting_reconciliation_audit.py",
+    "docs/PMBOT_PAPER_017_RESULT.json",
+    "docs/PMBOT_CODEX_A_ROUND001_RESULT.json"
+  ],
+  "files_modified": [],
+  "tests": [],
+  "warnings": [],
+  "missing_optional_docs": [
+    "docs/PMBOT_INFRA_006_RESULT.json"
+  ],
+  "safety": {
+    "offline_only": true,
+    "network_api_calls": false,
+    "credentials": false,
+    "wallet_private_keys": false,
+    "authenticated_endpoints": false,
+    "trading_endpoints": false,
+    "real_orders": false,
+    "live_trading": false,
+    "autonomous_paper_orders": false,
+    "betting_recommendations": false,
+    "truth_inference": false,
+    "market_scoring": false,
+    "probability_estimates": false,
+    "ev_calculations": false,
+    "edge_calculations": false,
+    "side_recommendations": false,
+    "market_decisions": false,
+    "runtime_wiring": false,
+    "dispatcher_run_codex_changes": false,
+    "prompt_automation": false,
+    "codex_copy_roots": false,
+    "completed_dossiers": false,
+    "broad_refactor": false
+  },
+  "blockers": [],
+  "next_action": "ready_for_integration_review"
+}
