@@ -1,0 +1,99 @@
+{
+  "code_slot": "CODEX_INFRA_004",
+  "task_id": "PMBOT-INFRA-004-ABC-PARALLEL-WORKTREE-DEMO",
+  "status": "completed_ready_for_review",
+  "summary": "Validated a safe ABC parallel worktree workflow from current origin/main. CODEX_A, CODEX_B, and CODEX_C each made one allowed docs-only commit, pushed its demo branch normally, and left its worktree clean. Main records this INFRA-004 report and result only.",
+  "main": {
+    "branch": "main",
+    "origin_present": true,
+    "origin_url": "https://github.com/FlockyBlack/AI-Orchestrator.git",
+    "main_matched_origin_before": true,
+    "main_status_clean_before": true,
+    "main_status_clean_after": true
+  },
+  "abc_demo": {
+    "created_from": "origin/main",
+    "created_from_commit": "e5917938aeb3bfdffe31372455ac201518bd0586",
+    "branches_pushed": true,
+    "entries": [
+      {
+        "slot": "CODEX_A",
+        "branch": "codex/a-infra004-demo",
+        "path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator-worktrees\\codex-a-infra004-demo",
+        "files_created": [
+          "docs/PMBOT_INFRA_004_CODEX_A_DEMO.md",
+          "docs/PMBOT_INFRA_004_CODEX_A_RESULT.json"
+        ],
+        "commit_hash": "6fe447ca76a9f912e30dbee08303812a46b300ac",
+        "pushed": true,
+        "status_clean": true
+      },
+      {
+        "slot": "CODEX_B",
+        "branch": "codex/b-infra004-demo",
+        "path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator-worktrees\\codex-b-infra004-demo",
+        "files_created": [
+          "docs/PMBOT_INFRA_004_CODEX_B_DEMO.md",
+          "docs/PMBOT_INFRA_004_CODEX_B_RESULT.json"
+        ],
+        "commit_hash": "9f6364a76356b149b94dc7581f97d48229d66845",
+        "pushed": true,
+        "status_clean": true
+      },
+      {
+        "slot": "CODEX_C",
+        "branch": "codex/c-infra004-demo",
+        "path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator-worktrees\\codex-c-infra004-demo",
+        "files_created": [
+          "docs/PMBOT_INFRA_004_CODEX_C_DEMO.md",
+          "docs/PMBOT_INFRA_004_CODEX_C_RESULT.json"
+        ],
+        "commit_hash": "633d2679abbd19fcf6d4b66c1dde1e2619faa42e",
+        "pushed": true,
+        "status_clean": true
+      }
+    ]
+  },
+  "files_created": [
+    "docs/PMBOT_INFRA_004_ABC_PARALLEL_WORKTREE_DEMO.md",
+    "docs/PMBOT_INFRA_004_RESULT.json"
+  ],
+  "files_modified": [],
+  "tests": [
+    {
+      "command": "python -m pytest pm_bot\\paper\\tests -q",
+      "status": "passed",
+      "summary": "306 passed, 39 subtests passed"
+    },
+    {
+      "command": "Parse CODEX_A/CODEX_B/CODEX_C demo result JSON files",
+      "status": "passed"
+    },
+    {
+      "command": "Parse docs/PMBOT_INFRA_*_RESULT.json files",
+      "status": "passed"
+    }
+  ],
+  "safety": {
+    "offline_except_git_remote": true,
+    "network_api_calls": false,
+    "credentials_added": false,
+    "wallet_private_keys_added": false,
+    "authenticated_endpoints_added": false,
+    "trading_endpoints_added": false,
+    "real_orders": false,
+    "live_trading": false,
+    "autonomous_paper_orders": false,
+    "runtime_wiring": false,
+    "dispatcher_run_codex_changes": false,
+    "pmbot_source_files_modified": false,
+    "force_push_used": false,
+    "merged_demo_branches_to_main": false
+  },
+  "recommended_next_task": "PMBOT-INFRA-005-ABC-PARALLEL-FEATURE-ROUND-PLAN",
+  "warnings": [
+    "Older pilot worktrees remain at baseline ea9be58 and were not modified or deleted.",
+    "Git emitted LF-to-CRLF normalization warnings for the new docs files on Windows."
+  ],
+  "blockers": []
+}
