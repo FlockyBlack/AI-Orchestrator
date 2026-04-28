@@ -1,0 +1,207 @@
+{
+  "schema_version": "manual_command_inbox_review.v1",
+  "task_id": "PMBOT-OPERATOR-002-MANUAL-COMMAND-INBOX-REVIEW-QUEUE",
+  "source_inbox_path": "pm_bot/operator/manual_command_inbox_fixture.v1.json",
+  "source_inbox_schema_version": "manual_command_inbox_fixture.v1",
+  "contract_path": "pm_bot/operator/manual_command_contract.v1.json",
+  "validator_path": "pm_bot/operator/validate_manual_command_contract.py",
+  "records_seen": 7,
+  "accepted_count": 3,
+  "rejected_count": 3,
+  "needs_human_review_count": 1,
+  "accepted_records": [
+    {
+      "source_record_index": 0,
+      "command_id": "manual-inbox-status-001",
+      "command_type": "request_status_summary",
+      "source_type": "manual_json",
+      "source_label": "operator inbox fixture",
+      "market_id": null,
+      "artifact_pointer": null,
+      "allowed_next_action": "human_review_only",
+      "execution_authority": false,
+      "requires_human_review": true,
+      "record_safety_flags": {
+        "all_required_flags_false": true,
+        "required_false_flag_count": 16,
+        "triggered_flags": [],
+        "unexpected_flags": []
+      },
+      "operator_next_action_label": "queue_for_human_review_only",
+      "validation_status": "accepted_for_manual_review_only"
+    },
+    {
+      "source_record_index": 1,
+      "command_id": "manual-inbox-artifact-pointer-001",
+      "command_type": "request_artifact_pointer",
+      "source_type": "manual_markdown",
+      "source_label": "operator inbox fixture markdown note",
+      "market_id": null,
+      "artifact_pointer": "pm_bot/operator/expected_operator_review_bundle.v1.json",
+      "allowed_next_action": "artifact_lookup_by_human",
+      "execution_authority": false,
+      "requires_human_review": true,
+      "record_safety_flags": {
+        "all_required_flags_false": true,
+        "required_false_flag_count": 16,
+        "triggered_flags": [],
+        "unexpected_flags": []
+      },
+      "operator_next_action_label": "human_artifact_lookup_only",
+      "validation_status": "accepted_for_manual_review_only"
+    },
+    {
+      "source_record_index": 2,
+      "command_id": "manual-inbox-paper-intent-ref-001",
+      "command_type": "record_manual_paper_intent_reference",
+      "source_type": "manual_json",
+      "source_label": "operator inbox fixture",
+      "market_id": "824952",
+      "artifact_pointer": "pm_bot/paper/manual_paper_intent_ledger.v1.json",
+      "allowed_next_action": "record_only",
+      "execution_authority": false,
+      "requires_human_review": true,
+      "record_safety_flags": {
+        "all_required_flags_false": true,
+        "required_false_flag_count": 16,
+        "triggered_flags": [],
+        "unexpected_flags": []
+      },
+      "operator_next_action_label": "record_for_audit_trail_only",
+      "validation_status": "accepted_for_manual_review_only"
+    }
+  ],
+  "rejected_records": [
+    {
+      "source_record_index": 4,
+      "command_id": "manual-inbox-invalid-live-source",
+      "command_type": "request_status_summary",
+      "source_type": "telegram_live_bot",
+      "source_label": "runtime source",
+      "market_id": null,
+      "artifact_pointer": null,
+      "allowed_next_action": "human_review_only",
+      "execution_authority": false,
+      "requires_human_review": true,
+      "record_safety_flags": {
+        "all_required_flags_false": true,
+        "required_false_flag_count": 16,
+        "triggered_flags": [],
+        "unexpected_flags": []
+      },
+      "operator_next_action_label": "reject_do_not_route",
+      "validation_status": "rejected",
+      "rejection_reasons": [
+        "invalid_source_type:telegram_live_bot",
+        "forbidden_source_type:telegram_live_bot"
+      ]
+    },
+    {
+      "source_record_index": 5,
+      "command_id": "manual-inbox-invalid-authority",
+      "command_type": "request_artifact_pointer",
+      "source_type": "manual_json",
+      "source_label": "operator inbox fixture",
+      "market_id": null,
+      "artifact_pointer": null,
+      "allowed_next_action": "record_only",
+      "execution_authority": true,
+      "requires_human_review": false,
+      "record_safety_flags": {
+        "all_required_flags_false": false,
+        "required_false_flag_count": 16,
+        "triggered_flags": [
+          "command_execution"
+        ],
+        "unexpected_flags": []
+      },
+      "operator_next_action_label": "reject_do_not_route",
+      "validation_status": "rejected",
+      "rejection_reasons": [
+        "execution_authority_must_be_false",
+        "requires_human_review_must_be_true",
+        "safety_flag_must_be_false:command_execution"
+      ]
+    },
+    {
+      "source_record_index": 6,
+      "command_id": "manual-inbox-invalid-scoring",
+      "command_type": "record_manual_review_note",
+      "source_type": "manual_json",
+      "source_label": "operator inbox fixture",
+      "market_id": null,
+      "artifact_pointer": null,
+      "allowed_next_action": "record_only",
+      "execution_authority": false,
+      "requires_human_review": true,
+      "record_safety_flags": {
+        "all_required_flags_false": true,
+        "required_false_flag_count": 16,
+        "triggered_flags": [],
+        "unexpected_flags": []
+      },
+      "operator_next_action_label": "reject_do_not_route",
+      "validation_status": "rejected",
+      "rejection_reasons": [
+        "unexpected_payload_field:edge",
+        "unexpected_payload_field:ev",
+        "unexpected_payload_field:probability",
+        "payload_value_must_be_string_or_string_list:probability",
+        "payload_value_must_be_string_or_string_list:ev",
+        "payload_value_must_be_string_or_string_list:edge",
+        "forbidden_field_name:payload.probability",
+        "forbidden_field_name:payload.ev",
+        "forbidden_field_name:payload.edge"
+      ]
+    }
+  ],
+  "needs_human_review_records": [
+    {
+      "source_record_index": 3,
+      "command_id": "manual-inbox-human-review-001",
+      "command_type": "mark_needs_human_review",
+      "source_type": "telegram_transcript_placeholder",
+      "source_label": "static transcript placeholder copied for local inbox review",
+      "market_id": null,
+      "artifact_pointer": null,
+      "allowed_next_action": "human_review_only",
+      "execution_authority": false,
+      "requires_human_review": true,
+      "record_safety_flags": {
+        "all_required_flags_false": true,
+        "required_false_flag_count": 16,
+        "triggered_flags": [],
+        "unexpected_flags": []
+      },
+      "operator_next_action_label": "needs_human_review_only",
+      "validation_status": "needs_human_review",
+      "human_review_reasons": [
+        "record_explicitly_marked_needs_human_review",
+        "requires_human_review_true"
+      ]
+    }
+  ],
+  "safety_flags": {
+    "telegram_runtime": false,
+    "telegram_token": false,
+    "command_execution": false,
+    "runtime_wiring": false,
+    "network_api": false,
+    "credentials": false,
+    "wallet": false,
+    "trading": false,
+    "real_orders": false,
+    "live_trading": false,
+    "autonomous_paper_orders": false,
+    "scoring_probability_ev_edge": false,
+    "recommendations": false,
+    "truth_inference": false,
+    "market_decisions": false,
+    "side_recommendations": false
+  },
+  "execution_authority": false,
+  "commands_executed": 0,
+  "orders_created": 0,
+  "network_calls": 0,
+  "next_safe_action": "human_review_queue_only"
+}
