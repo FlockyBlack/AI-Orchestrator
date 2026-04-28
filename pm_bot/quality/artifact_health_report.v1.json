@@ -29,23 +29,23 @@
     "network_api": false,
     "runtime_wiring": false
   },
-  "artifacts_checked": 170,
-  "artifacts_present_count": 170,
+  "artifacts_checked": 172,
+  "artifacts_present_count": 172,
   "artifacts_missing_count": 0,
-  "json_parse_pass_count": 122,
+  "json_parse_pass_count": 124,
   "json_parse_fail_count": 1,
   "schema_version_missing_count": 22,
   "task_id_missing_where_expected_count": 3,
   "status_fields_missing_where_expected_count": 0,
   "embedded_artifact_pointer_summary": {
-    "checked_count": 494,
-    "present_count": 404,
+    "checked_count": 532,
+    "present_count": 442,
     "missing_count": 90,
     "absolute_count": 0
   },
   "expected_fixture_alignment_summary": {
-    "checks_total": 69,
-    "aligned_count": 18,
+    "checks_total": 70,
+    "aligned_count": 19,
     "mismatch_count": 1,
     "actual_missing_count": 50,
     "checks": [
@@ -58,6 +58,12 @@
       {
         "expected_path": "pm_bot/dashboard/expected_portfolio_audit_state_preview.v1.json",
         "actual_path": "pm_bot/dashboard/portfolio_audit_state_preview.v1.json",
+        "artifact_type": "json",
+        "alignment_status": "aligned"
+      },
+      {
+        "expected_path": "pm_bot/dashboard/expected_static_operator_report_summary.v1.json",
+        "actual_path": "pm_bot/dashboard/static_operator_report_summary.v1.json",
         "artifact_type": "json",
         "alignment_status": "aligned"
       },
@@ -488,8 +494,8 @@
         "unexpected_values": []
       },
       "commands_executed": {
-        "present_count": 6,
-        "expected_false_or_zero_count": 6,
+        "present_count": 8,
+        "expected_false_or_zero_count": 8,
         "unexpected_values": []
       },
       "deterministic": {
@@ -538,8 +544,8 @@
         "unexpected_values": []
       },
       "network_calls": {
-        "present_count": 6,
-        "expected_false_or_zero_count": 6,
+        "present_count": 8,
+        "expected_false_or_zero_count": 8,
         "unexpected_values": []
       },
       "network_used": {
@@ -558,8 +564,8 @@
         "unexpected_values": []
       },
       "orders_created": {
-        "present_count": 4,
-        "expected_false_or_zero_count": 4,
+        "present_count": 6,
+        "expected_false_or_zero_count": 6,
         "unexpected_values": []
       },
       "paper_accounting_only": {
@@ -683,28 +689,28 @@
         "unexpected_values": []
       },
       "safety_flags.autonomous_paper_orders": {
-        "present_count": 18,
-        "expected_false_or_zero_count": 18,
+        "present_count": 20,
+        "expected_false_or_zero_count": 20,
         "unexpected_values": []
       },
       "safety_flags.browser_automation": {
-        "present_count": 5,
-        "expected_false_or_zero_count": 5,
+        "present_count": 7,
+        "expected_false_or_zero_count": 7,
         "unexpected_values": []
       },
       "safety_flags.command_execution": {
-        "present_count": 8,
-        "expected_false_or_zero_count": 8,
-        "unexpected_values": []
-      },
-      "safety_flags.credentials": {
         "present_count": 10,
         "expected_false_or_zero_count": 10,
         "unexpected_values": []
       },
+      "safety_flags.credentials": {
+        "present_count": 12,
+        "expected_false_or_zero_count": 12,
+        "unexpected_values": []
+      },
       "safety_flags.deterministic": {
-        "present_count": 3,
-        "expected_false_or_zero_count": 3,
+        "present_count": 5,
+        "expected_false_or_zero_count": 5,
         "unexpected_values": []
       },
       "safety_flags.dispatcher_run_codex_changes": {
@@ -723,13 +729,13 @@
         "unexpected_values": []
       },
       "safety_flags.live_trading": {
-        "present_count": 13,
-        "expected_false_or_zero_count": 13,
+        "present_count": 15,
+        "expected_false_or_zero_count": 15,
         "unexpected_values": []
       },
       "safety_flags.local_file_reads_only": {
-        "present_count": 7,
-        "expected_false_or_zero_count": 7,
+        "present_count": 9,
+        "expected_false_or_zero_count": 9,
         "unexpected_values": []
       },
       "safety_flags.manual_review_only": {
@@ -738,13 +744,13 @@
         "unexpected_values": []
       },
       "safety_flags.market_decisions": {
-        "present_count": 18,
-        "expected_false_or_zero_count": 18,
+        "present_count": 20,
+        "expected_false_or_zero_count": 20,
         "unexpected_values": []
       },
       "safety_flags.network_api": {
-        "present_count": 18,
-        "expected_false_or_zero_count": 18,
+        "present_count": 20,
+        "expected_false_or_zero_count": 20,
         "unexpected_values": []
       },
       "safety_flags.network_used": {
@@ -753,18 +759,23 @@
         "unexpected_values": []
       },
       "safety_flags.offline_only": {
-        "present_count": 16,
-        "expected_false_or_zero_count": 16,
+        "present_count": 18,
+        "expected_false_or_zero_count": 18,
+        "unexpected_values": []
+      },
+      "safety_flags.operator_review_only": {
+        "present_count": 2,
+        "expected_false_or_zero_count": 2,
         "unexpected_values": []
       },
       "safety_flags.paper_accounting_only": {
-        "present_count": 3,
-        "expected_false_or_zero_count": 3,
+        "present_count": 5,
+        "expected_false_or_zero_count": 5,
         "unexpected_values": []
       },
       "safety_flags.paper_only": {
-        "present_count": 12,
-        "expected_false_or_zero_count": 12,
+        "present_count": 14,
+        "expected_false_or_zero_count": 14,
         "unexpected_values": []
       },
       "safety_flags.real_order_created": {
@@ -773,23 +784,23 @@
         "unexpected_values": []
       },
       "safety_flags.real_orders": {
-        "present_count": 13,
-        "expected_false_or_zero_count": 13,
+        "present_count": 15,
+        "expected_false_or_zero_count": 15,
         "unexpected_values": []
       },
       "safety_flags.recommendations": {
-        "present_count": 10,
-        "expected_false_or_zero_count": 10,
+        "present_count": 12,
+        "expected_false_or_zero_count": 12,
         "unexpected_values": []
       },
       "safety_flags.runtime_wiring": {
-        "present_count": 18,
-        "expected_false_or_zero_count": 18,
+        "present_count": 20,
+        "expected_false_or_zero_count": 20,
         "unexpected_values": []
       },
       "safety_flags.scoring_probability_ev_edge": {
-        "present_count": 18,
-        "expected_false_or_zero_count": 18,
+        "present_count": 20,
+        "expected_false_or_zero_count": 20,
         "unexpected_values": []
       },
       "safety_flags.server": {
@@ -803,8 +814,8 @@
         "unexpected_values": []
       },
       "safety_flags.trading": {
-        "present_count": 18,
-        "expected_false_or_zero_count": 18,
+        "present_count": 20,
+        "expected_false_or_zero_count": 20,
         "unexpected_values": []
       },
       "safety_flags.trading_allowed": {
@@ -813,13 +824,13 @@
         "unexpected_values": []
       },
       "safety_flags.truth_inference": {
-        "present_count": 13,
-        "expected_false_or_zero_count": 13,
+        "present_count": 15,
+        "expected_false_or_zero_count": 15,
         "unexpected_values": []
       },
       "safety_flags.wallet": {
-        "present_count": 18,
-        "expected_false_or_zero_count": 18,
+        "present_count": 20,
+        "expected_false_or_zero_count": 20,
         "unexpected_values": []
       },
       "safety_flags.wallet_used": {
@@ -2421,6 +2432,57 @@
       ]
     },
     {
+      "path": "pm_bot/dashboard/expected_static_operator_report_summary.v1.json",
+      "artifact_type": "json",
+      "required": true,
+      "exists": true,
+      "json_parse_status": "parsed",
+      "schema_version_present": true,
+      "schema_version": "static_operator_report_summary.v1",
+      "task_id_expected": false,
+      "task_id_present": true,
+      "task_id": "PMBOT-DASHBOARD-003-STATIC-HTML-OPERATOR-REPORT",
+      "status_fields_expected": true,
+      "status_fields_present": true,
+      "status_fields": {
+        "current_operator_status": "dict",
+        "report_status": "static_report_generated"
+      },
+      "embedded_artifact_pointer_health": {
+        "checked_count": 19,
+        "present_count": 19,
+        "missing_count": 0,
+        "absolute_count": 0
+      },
+      "expected_fixture_alignment": "aligned",
+      "safety_fields": {
+        "network_calls": 0,
+        "commands_executed": 0,
+        "orders_created": 0,
+        "safety_flags.autonomous_paper_orders": false,
+        "safety_flags.browser_automation": false,
+        "safety_flags.command_execution": false,
+        "safety_flags.credentials": false,
+        "safety_flags.deterministic": true,
+        "safety_flags.live_trading": false,
+        "safety_flags.local_file_reads_only": true,
+        "safety_flags.market_decisions": false,
+        "safety_flags.network_api": false,
+        "safety_flags.offline_only": true,
+        "safety_flags.operator_review_only": true,
+        "safety_flags.paper_accounting_only": true,
+        "safety_flags.paper_only": true,
+        "safety_flags.real_orders": false,
+        "safety_flags.recommendations": false,
+        "safety_flags.runtime_wiring": false,
+        "safety_flags.scoring_probability_ev_edge": false,
+        "safety_flags.trading": false,
+        "safety_flags.truth_inference": false,
+        "safety_flags.wallet": false
+      },
+      "warnings": []
+    },
+    {
       "path": "pm_bot/dashboard/portfolio_audit_state_contract.v1.json",
       "artifact_type": "json",
       "required": true,
@@ -2553,6 +2615,57 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "warnings": []
+    },
+    {
+      "path": "pm_bot/dashboard/static_operator_report_summary.v1.json",
+      "artifact_type": "json",
+      "required": true,
+      "exists": true,
+      "json_parse_status": "parsed",
+      "schema_version_present": true,
+      "schema_version": "static_operator_report_summary.v1",
+      "task_id_expected": false,
+      "task_id_present": true,
+      "task_id": "PMBOT-DASHBOARD-003-STATIC-HTML-OPERATOR-REPORT",
+      "status_fields_expected": true,
+      "status_fields_present": true,
+      "status_fields": {
+        "current_operator_status": "dict",
+        "report_status": "static_report_generated"
+      },
+      "embedded_artifact_pointer_health": {
+        "checked_count": 19,
+        "present_count": 19,
+        "missing_count": 0,
+        "absolute_count": 0
+      },
+      "expected_fixture_alignment": "not_applicable",
+      "safety_fields": {
+        "network_calls": 0,
+        "commands_executed": 0,
+        "orders_created": 0,
+        "safety_flags.autonomous_paper_orders": false,
+        "safety_flags.browser_automation": false,
+        "safety_flags.command_execution": false,
+        "safety_flags.credentials": false,
+        "safety_flags.deterministic": true,
+        "safety_flags.live_trading": false,
+        "safety_flags.local_file_reads_only": true,
+        "safety_flags.market_decisions": false,
+        "safety_flags.network_api": false,
+        "safety_flags.offline_only": true,
+        "safety_flags.operator_review_only": true,
+        "safety_flags.paper_accounting_only": true,
+        "safety_flags.paper_only": true,
+        "safety_flags.real_orders": false,
+        "safety_flags.recommendations": false,
+        "safety_flags.runtime_wiring": false,
+        "safety_flags.scoring_probability_ev_edge": false,
+        "safety_flags.trading": false,
+        "safety_flags.truth_inference": false,
+        "safety_flags.wallet": false
+      },
       "warnings": []
     },
     {

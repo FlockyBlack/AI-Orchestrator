@@ -4,10 +4,10 @@
 - schema_version: artifact_health_report.v1
 - generated_by: pm_bot/quality/export_artifact_health_report.py
 - report_status: health_passed_with_warnings
-- artifacts_checked: 170
-- artifacts_present_count: 170
+- artifacts_checked: 172
+- artifacts_present_count: 172
 - artifacts_missing_count: 0
-- json_parse_pass_count: 122
+- json_parse_pass_count: 124
 - json_parse_fail_count: 1
 - schema_version_missing_count: 22
 - task_id_missing_where_expected_count: 3
@@ -41,15 +41,15 @@
 
 ## Embedded Pointer Health
 
-- checked_count: 494
-- present_count: 404
+- checked_count: 532
+- present_count: 442
 - missing_count: 90
 - absolute_count: 0
 
 ## Expected Fixture Alignment
 
-- checks_total: 69
-- aligned_count: 18
+- checks_total: 70
+- aligned_count: 19
 - mismatch_count: 1
 - actual_missing_count: 50
 
@@ -229,9 +229,11 @@
 - pm_bot/dashboard/dashboard_state_preview.v1.md: exists=true, json_parse_status=not_json, schema_version=None, warnings=0
 - pm_bot/dashboard/expected_dashboard_state_preview.v1.json: exists=true, json_parse_status=parsed, schema_version=dashboard_state_preview.v1, warnings=0
 - pm_bot/dashboard/expected_portfolio_audit_state_preview.v1.json: exists=true, json_parse_status=parsed, schema_version=portfolio_audit_state_preview.v1, warnings=2
+- pm_bot/dashboard/expected_static_operator_report_summary.v1.json: exists=true, json_parse_status=parsed, schema_version=static_operator_report_summary.v1, warnings=0
 - pm_bot/dashboard/portfolio_audit_state_contract.v1.json: exists=true, json_parse_status=parsed, schema_version=None, warnings=2
 - pm_bot/dashboard/portfolio_audit_state_preview.v1.json: exists=true, json_parse_status=parsed, schema_version=portfolio_audit_state_preview.v1, warnings=2
 - pm_bot/dashboard/portfolio_audit_state_preview.v1.md: exists=true, json_parse_status=not_json, schema_version=None, warnings=0
+- pm_bot/dashboard/static_operator_report_summary.v1.json: exists=true, json_parse_status=parsed, schema_version=static_operator_report_summary.v1, warnings=0
 - pm_bot/operator/expected_manual_command_inbox_review.v1.json: exists=true, json_parse_status=parsed, schema_version=manual_command_inbox_review.v1, warnings=0
 - pm_bot/operator/expected_operator_review_bundle.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=1
 - pm_bot/operator/expected_operator_review_bundle.v1.md: exists=true, json_parse_status=not_json, schema_version=None, warnings=1

@@ -1,0 +1,570 @@
+{
+  "schema_version": "static_operator_report_summary.v1",
+  "task_id": "PMBOT-DASHBOARD-003-STATIC-HTML-OPERATOR-REPORT",
+  "generated_by": "pm_bot/dashboard/export_static_operator_report.py",
+  "generated_at_policy": {
+    "wall_clock_time_used": false,
+    "policy": "deterministic_static_snapshot_no_current_time",
+    "fixed_value": "not_emitted"
+  },
+  "html_report_path": "pm_bot/dashboard/static_operator_report.v1.html",
+  "source_artifacts": [
+    {
+      "artifact_id": "workbench_005_result",
+      "path": "docs/PMBOT_WORKBENCH_005_RESULT.json",
+      "artifact_type": "docs_result_json",
+      "required": false,
+      "present": true,
+      "parse_status": "parsed",
+      "schema_version": null,
+      "task_id": "PMBOT-WORKBENCH-005-SURFACE-PAPER-019-IN-OPERATOR-REVIEW-PACK",
+      "status": "completed_ready_for_review",
+      "warning_count": 0
+    },
+    {
+      "artifact_id": "workbench_004_result",
+      "path": "docs/PMBOT_WORKBENCH_004_RESULT.json",
+      "artifact_type": "docs_result_json",
+      "required": false,
+      "present": true,
+      "parse_status": "parsed",
+      "schema_version": null,
+      "task_id": "PMBOT-WORKBENCH-004-QUALITY-WARNING-SEVERITY-SUMMARY",
+      "status": "completed_ready_for_review",
+      "warning_count": 0
+    },
+    {
+      "artifact_id": "workbench_003_result",
+      "path": "docs/PMBOT_WORKBENCH_003_RESULT.json",
+      "artifact_type": "docs_result_json",
+      "required": false,
+      "present": true,
+      "parse_status": "parsed",
+      "schema_version": null,
+      "task_id": "PMBOT-WORKBENCH-003-SINGLE-COMMAND-LOCAL-EXPORT",
+      "status": "completed_ready_for_review",
+      "warning_count": 0
+    },
+    {
+      "artifact_id": "operator_quickstart",
+      "path": "docs/PMBOT_WORKBENCH_002_OPERATOR_QUICKSTART.md",
+      "artifact_type": "docs_markdown",
+      "required": false,
+      "present": true,
+      "parse_status": "not_applicable",
+      "schema_version": null,
+      "task_id": null,
+      "status": null,
+      "warning_count": 0
+    },
+    {
+      "artifact_id": "operator_review_pack_json",
+      "path": "pm_bot/workbench/operator_review_pack.v1.json",
+      "artifact_type": "operator_review_pack_json",
+      "required": true,
+      "present": true,
+      "parse_status": "parsed",
+      "schema_version": "operator_review_pack.v1",
+      "task_id": null,
+      "status": null,
+      "warning_count": 4
+    },
+    {
+      "artifact_id": "operator_review_pack_markdown",
+      "path": "pm_bot/workbench/operator_review_pack.v1.md",
+      "artifact_type": "operator_review_pack_markdown",
+      "required": false,
+      "present": true,
+      "parse_status": "not_applicable",
+      "schema_version": null,
+      "task_id": null,
+      "status": null,
+      "warning_count": 0
+    },
+    {
+      "artifact_id": "operator_workbench_export_run_json",
+      "path": "pm_bot/workbench/operator_workbench_export_run.v1.json",
+      "artifact_type": "workbench_run_json",
+      "required": true,
+      "present": true,
+      "parse_status": "parsed",
+      "schema_version": "operator_workbench_export_run.v1",
+      "task_id": "PMBOT-WORKBENCH-003-SINGLE-COMMAND-LOCAL-EXPORT",
+      "status": null,
+      "warning_count": 0
+    },
+    {
+      "artifact_id": "artifact_health_report_json",
+      "path": "pm_bot/quality/artifact_health_report.v1.json",
+      "artifact_type": "quality_report_json",
+      "required": true,
+      "present": true,
+      "parse_status": "parsed",
+      "schema_version": "artifact_health_report.v1",
+      "task_id": "PMBOT-QUALITY-001-ARTIFACT-HEALTH-AND-STALENESS-CHECK",
+      "status": "health_passed_with_warnings",
+      "warning_count": 149
+    },
+    {
+      "artifact_id": "artifact_health_report_markdown",
+      "path": "pm_bot/quality/artifact_health_report.v1.md",
+      "artifact_type": "quality_report_markdown",
+      "required": false,
+      "present": true,
+      "parse_status": "not_applicable",
+      "schema_version": null,
+      "task_id": null,
+      "status": null,
+      "warning_count": 0
+    },
+    {
+      "artifact_id": "paper_019_series_json",
+      "path": "pm_bot/paper/multi_market_paper_run_series.v1.json",
+      "artifact_type": "paper_run_series_json",
+      "required": true,
+      "present": true,
+      "parse_status": "parsed",
+      "schema_version": "multi_market_paper_run_series.v1",
+      "task_id": "PMBOT-PAPER-019-MULTI-MARKET-PAPER-RUN-SERIES",
+      "status": "series_run_passed",
+      "warning_count": 1
+    },
+    {
+      "artifact_id": "paper_019_series_markdown",
+      "path": "pm_bot/paper/multi_market_paper_run_series.v1.md",
+      "artifact_type": "paper_run_series_markdown",
+      "required": false,
+      "present": true,
+      "parse_status": "not_applicable",
+      "schema_version": null,
+      "task_id": null,
+      "status": null,
+      "warning_count": 0
+    },
+    {
+      "artifact_id": "portfolio_audit_state_preview_json",
+      "path": "pm_bot/dashboard/portfolio_audit_state_preview.v1.json",
+      "artifact_type": "dashboard_state_json",
+      "required": true,
+      "present": true,
+      "parse_status": "parsed",
+      "schema_version": "portfolio_audit_state_preview.v1",
+      "task_id": null,
+      "status": null,
+      "warning_count": 6
+    },
+    {
+      "artifact_id": "manual_command_inbox_review_json",
+      "path": "pm_bot/operator/manual_command_inbox_review.v1.json",
+      "artifact_type": "operator_inbox_json",
+      "required": true,
+      "present": true,
+      "parse_status": "parsed",
+      "schema_version": "manual_command_inbox_review.v1",
+      "task_id": "PMBOT-OPERATOR-002-MANUAL-COMMAND-INBOX-REVIEW-QUEUE",
+      "status": null,
+      "warning_count": 0
+    }
+  ],
+  "sections_rendered": [
+    "title_and_generation_policy",
+    "open_this_first_operator_summary",
+    "current_pmbot_mode",
+    "workbench_review_pack_summary",
+    "paper_019_multi_market_paper_run_series",
+    "accounting_only_warnings",
+    "quality_warning_severity_summary",
+    "artifact_health_summary",
+    "operator_inbox_review_summary",
+    "safety_and_forbidden_capabilities",
+    "source_artifact_pointers",
+    "next_safe_manual_actions",
+    "not_trading_advice_warning"
+  ],
+  "current_operator_status": {
+    "status": "manual_local_review_ready",
+    "mode": "offline/local/paper/accounting-only",
+    "operator_review_only": true,
+    "required_source_problems": [],
+    "missing_optional_artifacts": [],
+    "workbench_runner_required_steps_passed": true,
+    "paper_019_visible": true
+  },
+  "workbench_review_pack_summary": {
+    "source_path": "pm_bot/workbench/operator_review_pack.v1.json",
+    "schema_version": "operator_review_pack.v1",
+    "generated_by": "pm_bot/workbench/export_operator_review_pack.py",
+    "workbench_runner_required_steps_passed": true,
+    "workbench_runner_warnings": 0,
+    "artifact_inventory_summary": {
+      "total_artifacts": 18,
+      "present_artifacts": 18,
+      "missing_artifacts": 0,
+      "required_missing_artifacts": 0,
+      "json_artifacts_parsed": 17,
+      "json_artifacts_parse_failed": 0
+    },
+    "missing_artifacts_count": 0,
+    "warnings_count": 4,
+    "paper_orders_created": 0,
+    "commands_executed": 0,
+    "network_calls": 0,
+    "no_recommendations_or_decisions_statement": "This operator review pack does not recommend markets, sides, prices, sizes, orders, trades, paper orders, or decisions."
+  },
+  "portfolio_audit_summary": {
+    "source_path": "pm_bot/dashboard/portfolio_audit_state_preview.v1.json",
+    "schema_version": "portfolio_audit_state_preview.v1",
+    "dashboard_state_export_version": "v2",
+    "current_known_portfolio_audit_status": "paper_017_reconciliation_available_with_dashboard_002_static_export",
+    "known_market_ids": [
+      "824952",
+      "series_btc_above_90000_2026_05_31"
+    ],
+    "summary_status": "portfolio_accounting_state_ready",
+    "accounting_boundary": {
+      "paper_accounting_only": true,
+      "operator_manual_fixture_source": true,
+      "strategy_profitability": false,
+      "live_resolution": false,
+      "warning": "Paper accounting PnL is fixture/manual accounting only and is not strategy profitability."
+    }
+  },
+  "paper_019_summary": {
+    "section_id": "paper_019_multi_market_run_series",
+    "artifact_status": "present",
+    "artifact_pointer": "pm_bot/paper/multi_market_paper_run_series.v1.json",
+    "artifact_parse_status": "parsed",
+    "series_status": "series_run_passed",
+    "markets_seen": 5,
+    "records_seen": 5,
+    "records_processed": 4,
+    "records_by_status": {
+      "accepted_accounting_record": 3,
+      "blocked_fixture_record": 1,
+      "manual_review_only": 1
+    },
+    "cumulative_pnl": "-1.00",
+    "accounting_summary": {
+      "paper_accounting_total_records": 4,
+      "paper_accounting_settled_count": 3,
+      "paper_accounting_open_count": 1,
+      "paper_accounting_cumulative_pnl": "-1.00",
+      "paper_accounting_average_settled_pnl": "-0.33",
+      "paper_accounting_gross_profit": "6.00",
+      "paper_accounting_gross_loss": "-7.00"
+    },
+    "blocked_or_manual_review_summary": {
+      "blocked_fixture_record_count": 1,
+      "manual_review_only_count": 1,
+      "blocked_or_rejected_records": 1,
+      "manual_review_only_records": 1
+    },
+    "interpretation_warning": "PAPER-019 values are deterministic fixture/accounting-only outputs and are not strategy profitability, recommendation, EV, edge, probability, or market decision evidence.",
+    "accounting_only_warning": "Paper accounting PnL is fixture/manual accounting only and is not strategy profitability.",
+    "safety_counters": {
+      "real_orders_created": 0,
+      "autonomous_paper_orders": 0,
+      "network_calls": 0,
+      "commands_executed": 0,
+      "autonomous_decisions": 0
+    }
+  },
+  "quality_warning_summary": {
+    "source_path": "pm_bot/quality/artifact_health_report.v1.json",
+    "quality_report_status": "health_passed_with_warnings",
+    "quality_report_load_status": "parsed",
+    "total_warnings": 149,
+    "blocking": 0,
+    "action_required": 123,
+    "review_needed": 25,
+    "informational": 1,
+    "blocking_warning_detected": false,
+    "operator_summary": "No blocking warnings detected; review action_required categories before relying on the package.",
+    "recommended_manual_action": "Review action_required warning categories first, then inspect review_needed and informational categories.",
+    "top_warning_categories": [
+      {
+        "category": "expected_fixture_alignment_warning",
+        "severity": "action_required",
+        "count": 51,
+        "severity_counts": {
+          "blocking": 0,
+          "action_required": 51,
+          "review_needed": 0,
+          "informational": 0
+        },
+        "operator_bucket": "artifact has an expected fixture alignment warning"
+      },
+      {
+        "category": "fixture_alignment_actual_missing",
+        "severity": "action_required",
+        "count": 50,
+        "severity_counts": {
+          "blocking": 0,
+          "action_required": 50,
+          "review_needed": 0,
+          "informational": 0
+        },
+        "operator_bucket": "expected fixture exists but actual artifact is missing"
+      },
+      {
+        "category": "schema_version_missing",
+        "severity": "action_required",
+        "count": 19,
+        "severity_counts": {
+          "blocking": 0,
+          "action_required": 18,
+          "review_needed": 1,
+          "informational": 0
+        },
+        "operator_bucket": "schema version metadata missing"
+      },
+      {
+        "category": "embedded_artifact_pointer_warning",
+        "severity": "review_needed",
+        "count": 15,
+        "severity_counts": {
+          "blocking": 0,
+          "action_required": 0,
+          "review_needed": 15,
+          "informational": 0
+        },
+        "operator_bucket": "embedded artifact pointer needs inspection"
+      },
+      {
+        "category": "stale_reference_warning",
+        "severity": "review_needed",
+        "count": 6,
+        "severity_counts": {
+          "blocking": 0,
+          "action_required": 0,
+          "review_needed": 6,
+          "informational": 0
+        },
+        "operator_bucket": "historical or stale reference needs inspection"
+      }
+    ],
+    "warning_categories": [
+      {
+        "category": "expected_fixture_alignment_warning",
+        "severity": "action_required",
+        "count": 51,
+        "severity_counts": {
+          "blocking": 0,
+          "action_required": 51,
+          "review_needed": 0,
+          "informational": 0
+        },
+        "operator_bucket": "artifact has an expected fixture alignment warning"
+      },
+      {
+        "category": "fixture_alignment_actual_missing",
+        "severity": "action_required",
+        "count": 50,
+        "severity_counts": {
+          "blocking": 0,
+          "action_required": 50,
+          "review_needed": 0,
+          "informational": 0
+        },
+        "operator_bucket": "expected fixture exists but actual artifact is missing"
+      },
+      {
+        "category": "schema_version_missing",
+        "severity": "action_required",
+        "count": 19,
+        "severity_counts": {
+          "blocking": 0,
+          "action_required": 18,
+          "review_needed": 1,
+          "informational": 0
+        },
+        "operator_bucket": "schema version metadata missing"
+      },
+      {
+        "category": "embedded_artifact_pointer_warning",
+        "severity": "review_needed",
+        "count": 15,
+        "severity_counts": {
+          "blocking": 0,
+          "action_required": 0,
+          "review_needed": 15,
+          "informational": 0
+        },
+        "operator_bucket": "embedded artifact pointer needs inspection"
+      },
+      {
+        "category": "stale_reference_warning",
+        "severity": "review_needed",
+        "count": 6,
+        "severity_counts": {
+          "blocking": 0,
+          "action_required": 0,
+          "review_needed": 6,
+          "informational": 0
+        },
+        "operator_bucket": "historical or stale reference needs inspection"
+      },
+      {
+        "category": "task_id_missing",
+        "severity": "action_required",
+        "count": 3,
+        "severity_counts": {
+          "blocking": 0,
+          "action_required": 3,
+          "review_needed": 0,
+          "informational": 0
+        },
+        "operator_bucket": "task_id metadata missing"
+      },
+      {
+        "category": "json_top_level_not_object",
+        "severity": "review_needed",
+        "count": 3,
+        "severity_counts": {
+          "blocking": 0,
+          "action_required": 0,
+          "review_needed": 3,
+          "informational": 0
+        },
+        "operator_bucket": "JSON artifact is intentionally or structurally non-object"
+      },
+      {
+        "category": "fixture_alignment_mismatch",
+        "severity": "action_required",
+        "count": 1,
+        "severity_counts": {
+          "blocking": 0,
+          "action_required": 1,
+          "review_needed": 0,
+          "informational": 0
+        },
+        "operator_bucket": "expected fixture differs from actual artifact"
+      },
+      {
+        "category": "known_intentional_malformed_fixture_parse_failure",
+        "severity": "informational",
+        "count": 1,
+        "severity_counts": {
+          "blocking": 0,
+          "action_required": 0,
+          "review_needed": 0,
+          "informational": 1
+        },
+        "operator_bucket": "known intentional malformed fixture"
+      }
+    ]
+  },
+  "artifact_health_summary": {
+    "source_path": "pm_bot/quality/artifact_health_report.v1.json",
+    "report_status": "health_passed_with_warnings",
+    "artifacts_checked": 172,
+    "artifacts_present_count": 172,
+    "artifacts_missing_count": 0,
+    "json_parse_pass_count": 124,
+    "json_parse_fail_count": 1,
+    "schema_version_missing_count": 22,
+    "embedded_artifact_pointer_summary": {
+      "checked_count": 532,
+      "present_count": 442,
+      "missing_count": 90,
+      "absolute_count": 0
+    },
+    "expected_fixture_alignment_summary": {
+      "checks_total": 70,
+      "aligned_count": 19,
+      "mismatch_count": 1,
+      "actual_missing_count": 50
+    }
+  },
+  "operator_inbox_summary": {
+    "source_path": "pm_bot/operator/manual_command_inbox_review.v1.json",
+    "present": true,
+    "schema_version": "manual_command_inbox_review.v1",
+    "records_seen": 7,
+    "accepted_count": 3,
+    "rejected_count": 3,
+    "needs_human_review_count": 1,
+    "execution_authority": false,
+    "commands_executed": 0,
+    "orders_created": 0,
+    "network_calls": 0,
+    "next_safe_action": "human_review_queue_only"
+  },
+  "safety_flags": {
+    "offline_only": true,
+    "local_file_reads_only": true,
+    "deterministic": true,
+    "paper_only": true,
+    "paper_accounting_only": true,
+    "operator_review_only": true,
+    "runtime_wiring": false,
+    "network_api": false,
+    "credentials": false,
+    "wallet": false,
+    "trading": false,
+    "real_orders": false,
+    "live_trading": false,
+    "autonomous_paper_orders": false,
+    "recommendations": false,
+    "truth_inference": false,
+    "scoring_probability_ev_edge": false,
+    "market_decisions": false,
+    "command_execution": false,
+    "automation_daemon": false,
+    "dashboard_server": false,
+    "frontend_runtime": false,
+    "browser_automation": false
+  },
+  "forbidden_capabilities": [
+    "live fetchers, network/API calls, authenticated endpoints, or live data refresh",
+    "credentials, API keys, wallet access, private keys, or signing",
+    "trading endpoints, real orders, live trading, or autonomous paper orders",
+    "betting recommendations, side recommendations, size recommendations, or market selection",
+    "truth inference, probability estimates, EV calculations, edge calculations, or market scoring",
+    "command execution, prompt automation, dispatcher changes, run_codex changes, or runtime wiring",
+    "dashboard server, frontend runtime, Telegram runtime, token handling, webhooks, or polling"
+  ],
+  "next_safe_manual_actions": [
+    {
+      "action_id": "review_pack_inventory_and_warnings",
+      "description": "Review artifact_inventory, missing_artifacts, and warnings in this local pack.",
+      "non_trading_action": true,
+      "requires_runtime": false,
+      "creates_orders": false
+    },
+    {
+      "action_id": "review_paper_accounting_audit_artifacts",
+      "description": "Inspect the existing paper reconciliation and batch audit artifacts for local consistency status.",
+      "non_trading_action": true,
+      "requires_runtime": false,
+      "creates_orders": false
+    },
+    {
+      "action_id": "review_operator_inbox_queue",
+      "description": "Review accepted, rejected, and needs-human-review inbox records without executing commands.",
+      "non_trading_action": true,
+      "requires_runtime": false,
+      "creates_orders": false
+    },
+    {
+      "action_id": "integration_review_only",
+      "description": "Use this pack as a static input for human integration review only.",
+      "non_trading_action": true,
+      "requires_runtime": false,
+      "creates_orders": false
+    }
+  ],
+  "warnings": {
+    "required_source_problems": [],
+    "missing_optional_artifacts": [],
+    "optional_parse_failed_artifacts": [],
+    "accounting_only_warning": "Paper accounting PnL is fixture/manual accounting only and is not strategy profitability.",
+    "paper_019_interpretation_warning": "PAPER-019 values are deterministic fixture/accounting-only outputs and are not strategy profitability, recommendation, EV, edge, probability, or market decision evidence.",
+    "not_trading_advice_warning": "This static report is not trading advice, not a market recommendation, and not evidence of strategy profitability."
+  },
+  "network_calls": 0,
+  "commands_executed": 0,
+  "orders_created": 0,
+  "autonomous_decisions": 0,
+  "report_status": "static_report_generated"
+}

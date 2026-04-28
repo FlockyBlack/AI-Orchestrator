@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PMBOT Static Operator Report v1</title>
+<style>
+body{font-family:Arial,Helvetica,sans-serif;margin:0;background:#f6f7f9;color:#17202a;line-height:1.45}
+header{background:#17202a;color:white;padding:28px 32px}
+main{max-width:1120px;margin:0 auto;padding:24px 18px 48px}
+section{background:white;border:1px solid #d8dde3;border-radius:6px;margin:0 0 18px;padding:18px}
+h1{font-size:28px;margin:0 0 8px;letter-spacing:0}
+h2{font-size:20px;margin:0 0 12px;letter-spacing:0}
+p{margin:8px 0}
+code{background:#eef1f4;padding:1px 4px;border-radius:3px}
+table{border-collapse:collapse;width:100%;margin-top:8px;font-size:14px}
+th,td{border:1px solid #d8dde3;padding:7px 8px;text-align:left;vertical-align:top}
+th{background:#eef1f4;width:28%}
+.metric-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:10px 0}
+.metric{border:1px solid #d8dde3;border-radius:6px;padding:10px;background:#fbfcfd}
+.metric-label{font-size:12px;color:#57606a;text-transform:uppercase}
+.metric-value{font-size:20px;font-weight:700;margin-top:4px}
+.warning{border-left:4px solid #b42318;background:#fff4f2;padding:10px 12px}
+.notice{border-left:4px solid #1f6feb;background:#f0f6ff;padding:10px 12px}
+.tag{display:inline-block;background:#eef1f4;border-radius:3px;padding:1px 5px;margin-left:5px;font-size:12px}
+ul,ol{padding-left:22px}
+</style>
+</head>
+<body>
+<header>
+<h1>PMBOT Static Operator Report v1</h1>
+<p>generated_by: <code>pm_bot/dashboard/export_static_operator_report.py</code></p>
+<p>generation_policy: deterministic_static_snapshot_no_current_time</p>
+</header>
+<main>
+<section>
+<h2>Open This First</h2>
+<p><strong>Operator status:</strong> manual_local_review_ready</p>
+<p><strong>Mode:</strong> offline/local/paper/accounting-only</p>
+<p><strong>PAPER-019 visible:</strong> true</p>
+<p><strong>Quality blockers detected:</strong> false</p>
+<p class="warning"><strong>Accounting-only warning:</strong> Paper accounting PnL is fixture/manual accounting only and is not strategy profitability. This static report is not trading advice, not a market recommendation, and not evidence of strategy profitability.</p>
+</section>
+<section>
+<h2>Current PMBOT Mode</h2>
+<table><tbody>
+<tr><th>offline_only</th><td>true</td></tr>
+<tr><th>local_file_reads_only</th><td>true</td></tr>
+<tr><th>paper_only</th><td>true</td></tr>
+<tr><th>paper_accounting_only</th><td>true</td></tr>
+<tr><th>operator_review_only</th><td>true</td></tr>
+<tr><th>runtime_wiring</th><td>false</td></tr>
+<tr><th>network_api</th><td>false</td></tr>
+<tr><th>dashboard_server</th><td>false</td></tr>
+<tr><th>frontend_runtime</th><td>false</td></tr>
+<tr><th>browser_automation</th><td>false</td></tr>
+</tbody></table>
+</section>
+<section>
+<h2>Workbench Review Pack Summary</h2>
+<div class="metric-grid">
+<div class="metric"><div class="metric-label">total_artifacts</div><div class="metric-value">18</div></div>
+<div class="metric"><div class="metric-label">present_artifacts</div><div class="metric-value">18</div></div>
+<div class="metric"><div class="metric-label">missing_artifacts</div><div class="metric-value">0</div></div>
+<div class="metric"><div class="metric-label">required_missing</div><div class="metric-value">0</div></div>
+<div class="metric"><div class="metric-label">warnings</div><div class="metric-value">4</div></div>
+<div class="metric"><div class="metric-label">runner_required_steps</div><div class="metric-value">true</div></div>
+</div>
+<table><tbody>
+<tr><th>source_path</th><td>pm_bot/workbench/operator_review_pack.v1.json</td></tr>
+<tr><th>schema_version</th><td>operator_review_pack.v1</td></tr>
+<tr><th>paper_orders_created</th><td>0</td></tr>
+<tr><th>commands_executed</th><td>0</td></tr>
+<tr><th>network_calls</th><td>0</td></tr>
+<tr><th>boundary</th><td>This operator review pack does not recommend markets, sides, prices, sizes, orders, trades, paper orders, or decisions.</td></tr>
+</tbody></table>
+</section>
+<section>
+<h2>PAPER-019 Multi-Market Paper Run Series</h2>
+<div class="metric-grid">
+<div class="metric"><div class="metric-label">markets_seen</div><div class="metric-value">5</div></div>
+<div class="metric"><div class="metric-label">records_seen</div><div class="metric-value">5</div></div>
+<div class="metric"><div class="metric-label">records_processed</div><div class="metric-value">4</div></div>
+<div class="metric"><div class="metric-label">cumulative_pnl</div><div class="metric-value">-1.00</div></div>
+</div>
+<p class="warning"><strong>Accounting-only warning near PnL:</strong> Paper accounting PnL is fixture/manual accounting only and is not strategy profitability. PAPER-019 values are deterministic fixture/accounting-only outputs and are not strategy profitability, recommendation, EV, edge, probability, or market decision evidence.</p>
+<table><tbody>
+<tr><th>series_status</th><td>series_run_passed</td></tr>
+<tr><th>artifact_pointer</th><td>pm_bot/paper/multi_market_paper_run_series.v1.json</td></tr>
+<tr><th>artifact_parse_status</th><td>parsed</td></tr>
+<tr><th>records_by_status</th><td>{&quot;accepted_accounting_record&quot;: 3, &quot;blocked_fixture_record&quot;: 1, &quot;manual_review_only&quot;: 1}</td></tr>
+<tr><th>blocked_or_manual_review</th><td>{&quot;blocked_fixture_record_count&quot;: 1, &quot;blocked_or_rejected_records&quot;: 1, &quot;manual_review_only_count&quot;: 1, &quot;manual_review_only_records&quot;: 1}</td></tr>
+<tr><th>real_orders_created</th><td>0</td></tr>
+<tr><th>autonomous_paper_orders</th><td>0</td></tr>
+<tr><th>network_calls</th><td>0</td></tr>
+<tr><th>commands_executed</th><td>0</td></tr>
+<tr><th>autonomous_decisions</th><td>0</td></tr>
+</tbody></table>
+</section>
+<section>
+<h2>Quality Warning Severity Summary</h2>
+<div class="metric-grid">
+<div class="metric"><div class="metric-label">total_warnings</div><div class="metric-value">149</div></div>
+<div class="metric"><div class="metric-label">blocking</div><div class="metric-value">0</div></div>
+<div class="metric"><div class="metric-label">action_required</div><div class="metric-value">123</div></div>
+<div class="metric"><div class="metric-label">review_needed</div><div class="metric-value">25</div></div>
+<div class="metric"><div class="metric-label">informational</div><div class="metric-value">1</div></div>
+<div class="metric"><div class="metric-label">blocking_warning_detected</div><div class="metric-value">false</div></div>
+</div>
+<p>No blocking warnings detected; review action_required categories before relying on the package.</p>
+<p><strong>Recommended manual action:</strong> Review action_required warning categories first, then inspect review_needed and informational categories.</p>
+<h3>Top Warning Categories</h3>
+<table>
+<thead><tr><th>Category</th><th>Severity</th><th>Count</th><th>Operator Bucket</th></tr></thead>
+<tbody>
+<tr><td>expected_fixture_alignment_warning</td><td>action_required</td><td>51</td><td>artifact has an expected fixture alignment warning</td></tr>
+<tr><td>fixture_alignment_actual_missing</td><td>action_required</td><td>50</td><td>expected fixture exists but actual artifact is missing</td></tr>
+<tr><td>schema_version_missing</td><td>action_required</td><td>19</td><td>schema version metadata missing</td></tr>
+<tr><td>embedded_artifact_pointer_warning</td><td>review_needed</td><td>15</td><td>embedded artifact pointer needs inspection</td></tr>
+<tr><td>stale_reference_warning</td><td>review_needed</td><td>6</td><td>historical or stale reference needs inspection</td></tr>
+</tbody></table>
+</section>
+<section>
+<h2>Artifact Health Summary</h2>
+<div class="metric-grid">
+<div class="metric"><div class="metric-label">artifacts_checked</div><div class="metric-value">172</div></div>
+<div class="metric"><div class="metric-label">present</div><div class="metric-value">172</div></div>
+<div class="metric"><div class="metric-label">missing</div><div class="metric-value">0</div></div>
+<div class="metric"><div class="metric-label">json_parse_fail</div><div class="metric-value">1</div></div>
+<div class="metric"><div class="metric-label">schema_version_missing</div><div class="metric-value">22</div></div>
+<div class="metric"><div class="metric-label">fixture_mismatch</div><div class="metric-value">1</div></div>
+</div>
+<table><tbody>
+<tr><th>report_status</th><td>health_passed_with_warnings</td></tr>
+<tr><th>source_path</th><td>pm_bot/quality/artifact_health_report.v1.json</td></tr>
+<tr><th>embedded_artifact_pointer_summary</th><td>{&quot;absolute_count&quot;: 0, &quot;checked_count&quot;: 532, &quot;missing_count&quot;: 90, &quot;present_count&quot;: 442}</td></tr>
+<tr><th>expected_fixture_alignment_summary</th><td>{&quot;actual_missing_count&quot;: 50, &quot;aligned_count&quot;: 19, &quot;checks_total&quot;: 70, &quot;mismatch_count&quot;: 1}</td></tr>
+</tbody></table>
+</section>
+<section>
+<h2>Operator Inbox Review Summary</h2>
+<div class="metric-grid">
+<div class="metric"><div class="metric-label">records_seen</div><div class="metric-value">7</div></div>
+<div class="metric"><div class="metric-label">accepted</div><div class="metric-value">3</div></div>
+<div class="metric"><div class="metric-label">rejected</div><div class="metric-value">3</div></div>
+<div class="metric"><div class="metric-label">needs_human_review</div><div class="metric-value">1</div></div>
+<div class="metric"><div class="metric-label">commands_executed</div><div class="metric-value">0</div></div>
+<div class="metric"><div class="metric-label">orders_created</div><div class="metric-value">0</div></div>
+</div>
+<table><tbody>
+<tr><th>source_path</th><td>pm_bot/operator/manual_command_inbox_review.v1.json</td></tr>
+<tr><th>execution_authority</th><td>false</td></tr>
+<tr><th>network_calls</th><td>0</td></tr>
+<tr><th>next_safe_action</th><td>human_review_queue_only</td></tr>
+</tbody></table>
+</section>
+<section>
+<h2>Portfolio Audit Context</h2>
+<table><tbody>
+<tr><th>source_path</th><td>pm_bot/dashboard/portfolio_audit_state_preview.v1.json</td></tr>
+<tr><th>schema_version</th><td>portfolio_audit_state_preview.v1</td></tr>
+<tr><th>dashboard_state_export_version</th><td>v2</td></tr>
+<tr><th>current_known_portfolio_audit_status</th><td>paper_017_reconciliation_available_with_dashboard_002_static_export</td></tr>
+<tr><th>known_market_ids</th><td>824952, series_btc_above_90000_2026_05_31</td></tr>
+<tr><th>summary_status</th><td>portfolio_accounting_state_ready</td></tr>
+<tr><th>accounting_boundary_warning</th><td>Paper accounting PnL is fixture/manual accounting only and is not strategy profitability.</td></tr>
+</tbody></table>
+</section>
+<section>
+<h2>Safety And Forbidden Capabilities</h2>
+<table><tbody>
+<tr><th>automation_daemon</th><td>false</td></tr>
+<tr><th>autonomous_paper_orders</th><td>false</td></tr>
+<tr><th>browser_automation</th><td>false</td></tr>
+<tr><th>command_execution</th><td>false</td></tr>
+<tr><th>credentials</th><td>false</td></tr>
+<tr><th>dashboard_server</th><td>false</td></tr>
+<tr><th>deterministic</th><td>true</td></tr>
+<tr><th>frontend_runtime</th><td>false</td></tr>
+<tr><th>live_trading</th><td>false</td></tr>
+<tr><th>local_file_reads_only</th><td>true</td></tr>
+<tr><th>market_decisions</th><td>false</td></tr>
+<tr><th>network_api</th><td>false</td></tr>
+<tr><th>offline_only</th><td>true</td></tr>
+<tr><th>operator_review_only</th><td>true</td></tr>
+<tr><th>paper_accounting_only</th><td>true</td></tr>
+<tr><th>paper_only</th><td>true</td></tr>
+<tr><th>real_orders</th><td>false</td></tr>
+<tr><th>recommendations</th><td>false</td></tr>
+<tr><th>runtime_wiring</th><td>false</td></tr>
+<tr><th>scoring_probability_ev_edge</th><td>false</td></tr>
+<tr><th>trading</th><td>false</td></tr>
+<tr><th>truth_inference</th><td>false</td></tr>
+<tr><th>wallet</th><td>false</td></tr>
+</tbody></table>
+<h3>Forbidden Capabilities</h3>
+<ul>
+<li>live fetchers, network/API calls, authenticated endpoints, or live data refresh</li>
+<li>credentials, API keys, wallet access, private keys, or signing</li>
+<li>trading endpoints, real orders, live trading, or autonomous paper orders</li>
+<li>betting recommendations, side recommendations, size recommendations, or market selection</li>
+<li>truth inference, probability estimates, EV calculations, edge calculations, or market scoring</li>
+<li>command execution, prompt automation, dispatcher changes, run_codex changes, or runtime wiring</li>
+<li>dashboard server, frontend runtime, Telegram runtime, token handling, webhooks, or polling</li>
+</ul>
+</section>
+<section>
+<h2>Source Artifact Pointers</h2>
+<table>
+<thead><tr><th>Artifact</th><th>Path</th><th>Required</th><th>Present</th><th>Parse</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>workbench_005_result</td><td><code>docs/PMBOT_WORKBENCH_005_RESULT.json</code></td><td>false</td><td>true</td><td>parsed</td><td>completed_ready_for_review</td></tr>
+<tr><td>workbench_004_result</td><td><code>docs/PMBOT_WORKBENCH_004_RESULT.json</code></td><td>false</td><td>true</td><td>parsed</td><td>completed_ready_for_review</td></tr>
+<tr><td>workbench_003_result</td><td><code>docs/PMBOT_WORKBENCH_003_RESULT.json</code></td><td>false</td><td>true</td><td>parsed</td><td>completed_ready_for_review</td></tr>
+<tr><td>operator_quickstart</td><td><code>docs/PMBOT_WORKBENCH_002_OPERATOR_QUICKSTART.md</code></td><td>false</td><td>true</td><td>not_applicable</td><td>none</td></tr>
+<tr><td>operator_review_pack_json</td><td><code>pm_bot/workbench/operator_review_pack.v1.json</code></td><td>true</td><td>true</td><td>parsed</td><td>none</td></tr>
+<tr><td>operator_review_pack_markdown</td><td><code>pm_bot/workbench/operator_review_pack.v1.md</code></td><td>false</td><td>true</td><td>not_applicable</td><td>none</td></tr>
+<tr><td>operator_workbench_export_run_json</td><td><code>pm_bot/workbench/operator_workbench_export_run.v1.json</code></td><td>true</td><td>true</td><td>parsed</td><td>none</td></tr>
+<tr><td>artifact_health_report_json</td><td><code>pm_bot/quality/artifact_health_report.v1.json</code></td><td>true</td><td>true</td><td>parsed</td><td>health_passed_with_warnings</td></tr>
+<tr><td>artifact_health_report_markdown</td><td><code>pm_bot/quality/artifact_health_report.v1.md</code></td><td>false</td><td>true</td><td>not_applicable</td><td>none</td></tr>
+<tr><td>paper_019_series_json</td><td><code>pm_bot/paper/multi_market_paper_run_series.v1.json</code></td><td>true</td><td>true</td><td>parsed</td><td>series_run_passed</td></tr>
+<tr><td>paper_019_series_markdown</td><td><code>pm_bot/paper/multi_market_paper_run_series.v1.md</code></td><td>false</td><td>true</td><td>not_applicable</td><td>none</td></tr>
+<tr><td>portfolio_audit_state_preview_json</td><td><code>pm_bot/dashboard/portfolio_audit_state_preview.v1.json</code></td><td>true</td><td>true</td><td>parsed</td><td>none</td></tr>
+<tr><td>manual_command_inbox_review_json</td><td><code>pm_bot/operator/manual_command_inbox_review.v1.json</code></td><td>true</td><td>true</td><td>parsed</td><td>none</td></tr>
+</tbody></table>
+</section>
+<section>
+<h2>Next Safe Manual Actions</h2>
+<ol>
+<li><strong>review_pack_inventory_and_warnings</strong>: Review artifact_inventory, missing_artifacts, and warnings in this local pack. <span class="tag">non_trading=true</span> <span class="tag">runtime=false</span> <span class="tag">creates_orders=false</span></li>
+<li><strong>review_paper_accounting_audit_artifacts</strong>: Inspect the existing paper reconciliation and batch audit artifacts for local consistency status. <span class="tag">non_trading=true</span> <span class="tag">runtime=false</span> <span class="tag">creates_orders=false</span></li>
+<li><strong>review_operator_inbox_queue</strong>: Review accepted, rejected, and needs-human-review inbox records without executing commands. <span class="tag">non_trading=true</span> <span class="tag">runtime=false</span> <span class="tag">creates_orders=false</span></li>
+<li><strong>integration_review_only</strong>: Use this pack as a static input for human integration review only. <span class="tag">non_trading=true</span> <span class="tag">runtime=false</span> <span class="tag">creates_orders=false</span></li>
+</ol>
+</section>
+<section>
+<h2>Report Warnings</h2>
+<table><tbody>
+<tr><th>required_source_problems</th><td>none</td></tr>
+<tr><th>missing_optional_artifacts</th><td>none</td></tr>
+<tr><th>optional_parse_failed_artifacts</th><td>none</td></tr>
+<tr><th>accounting_only_warning</th><td>Paper accounting PnL is fixture/manual accounting only and is not strategy profitability.</td></tr>
+<tr><th>paper_019_interpretation_warning</th><td>PAPER-019 values are deterministic fixture/accounting-only outputs and are not strategy profitability, recommendation, EV, edge, probability, or market decision evidence.</td></tr>
+<tr><th>not_trading_advice_warning</th><td>This static report is not trading advice, not a market recommendation, and not evidence of strategy profitability.</td></tr>
+</tbody></table>
+</section>
+<section class="notice">
+<h2>Not Trading Advice / Not Strategy Profitability</h2>
+<p>This static report is not trading advice, not a market recommendation, and not evidence of strategy profitability.</p>
+<p>Paper accounting PnL is fixture/manual accounting only and is not strategy profitability.</p>
+</section>
+</main>
+</body>
+</html>

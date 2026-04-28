@@ -20,7 +20,7 @@
   "tests": [],
   "artifact_health": {
     "report_status": "health_passed_with_warnings",
-    "artifacts_checked": 170,
+    "artifacts_checked": 172,
     "warnings": 149
   },
   "safety_flags": {

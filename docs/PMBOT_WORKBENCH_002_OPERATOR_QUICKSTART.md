@@ -11,21 +11,23 @@ This workbench is not a trading system. It does not fetch live data, call networ
 ## Open First
 
 1. Open this quickstart first: `docs/PMBOT_WORKBENCH_002_OPERATOR_QUICKSTART.md`.
-2. Then open the operator review pack Markdown: `pm_bot/workbench/operator_review_pack.v1.md`.
-3. Use the JSON pack only when you need exact machine-readable fields: `pm_bot/workbench/operator_review_pack.v1.json`.
+2. Then open the static operator HTML report: `pm_bot/dashboard/static_operator_report.v1.html`.
+3. Then open the operator review pack Markdown: `pm_bot/workbench/operator_review_pack.v1.md`.
+4. Use the JSON pack only when you need exact machine-readable fields: `pm_bot/workbench/operator_review_pack.v1.json`.
 
-The Markdown review pack is the best first operator view because it is short, structured, and already summarizes the most important local artifacts.
+The static HTML report is the best first operator view because it is self-contained and summarizes the most important local artifacts without a dashboard server, frontend runtime, browser automation, live refresh, or network dependency.
 
 ## Reading Order
 
 Read the current package in this order:
 
-1. `pm_bot/workbench/operator_review_pack.v1.md`
-2. `pm_bot/quality/artifact_health_report.v1.md`
-3. `pm_bot/operator/manual_command_inbox_review.v1.md`
-4. `pm_bot/operator/review_pack_command_bridge_examples.v1.md`
-5. `pm_bot/dashboard/portfolio_audit_state_preview.v1.md`
-6. JSON versions of the same files only when you need exact fields for review notes.
+1. `pm_bot/dashboard/static_operator_report.v1.html`
+2. `pm_bot/workbench/operator_review_pack.v1.md`
+3. `pm_bot/quality/artifact_health_report.v1.md`
+4. `pm_bot/operator/manual_command_inbox_review.v1.md`
+5. `pm_bot/operator/review_pack_command_bridge_examples.v1.md`
+6. `pm_bot/dashboard/portfolio_audit_state_preview.v1.md`
+7. JSON versions of the same files only when you need exact fields for review notes.
 
 ## Quickstart Steps
 
@@ -59,6 +61,8 @@ Read the current package in this order:
 ## Major Artifacts
 
 - `pm_bot/workbench/operator_review_pack.v1.md`: primary human-facing review pack. Open this first after the quickstart.
+- `pm_bot/dashboard/static_operator_report.v1.html`: self-contained local static operator report. Open this first after the quickstart when you want one browser-readable view of workbench, PAPER-019, quality, artifact health, inbox, safety, and next manual actions.
+- `pm_bot/dashboard/static_operator_report_summary.v1.json`: exact machine-readable summary used to render the static HTML report.
 - `pm_bot/workbench/operator_review_pack.v1.json`: exact review pack data for deterministic inspection.
 - `pm_bot/quality/artifact_health_report.v1.md`: human-readable health/staleness report. It is noisy but useful for artifact hygiene.
 - `pm_bot/quality/artifact_health_report.v1.json`: exact health report data, including warning counts and safety flag summaries.

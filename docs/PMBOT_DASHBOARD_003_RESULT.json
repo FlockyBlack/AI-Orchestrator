@@ -1,0 +1,134 @@
+{
+  "task_id": "PMBOT-DASHBOARD-003-STATIC-HTML-OPERATOR-REPORT",
+  "status": "completed_ready_for_review",
+  "summary": "Generated deterministic local static HTML PMBOT operator report.",
+  "base_commit": "95f762c8905d2a0cf3c55b2b6d50edde7f35a3e1",
+  "origin_main_commit": "95f762c8905d2a0cf3c55b2b6d50edde7f35a3e1",
+  "files_created": [
+    "pm_bot/dashboard/export_static_operator_report.py",
+    "pm_bot/dashboard/static_operator_report.v1.html",
+    "pm_bot/dashboard/static_operator_report_summary.v1.json",
+    "pm_bot/dashboard/expected_static_operator_report_summary.v1.json",
+    "pm_bot/dashboard/tests/test_static_operator_report.py",
+    "docs/PMBOT_DASHBOARD_003_RESULT.json"
+  ],
+  "files_modified": [
+    "docs/PMBOT_WORKBENCH_002_OPERATOR_QUICKSTART.md",
+    "docs/PMBOT_QUALITY_001_RESULT.json",
+    "docs/PMBOT_CODEX_B_ROUND003_RESULT.json",
+    "pm_bot/quality/artifact_health_report.v1.json",
+    "pm_bot/quality/artifact_health_report.v1.md",
+    "pm_bot/quality/expected_artifact_health_report.v1.json"
+  ],
+  "static_report": {
+    "html_path": "pm_bot/dashboard/static_operator_report.v1.html",
+    "summary_json_path": "pm_bot/dashboard/static_operator_report_summary.v1.json",
+    "sections_rendered": [
+      "title_and_generation_policy",
+      "open_this_first_operator_summary",
+      "current_pmbot_mode",
+      "workbench_review_pack_summary",
+      "paper_019_multi_market_paper_run_series",
+      "accounting_only_warnings",
+      "quality_warning_severity_summary",
+      "artifact_health_summary",
+      "operator_inbox_review_summary",
+      "safety_and_forbidden_capabilities",
+      "source_artifact_pointers",
+      "next_safe_manual_actions",
+      "not_trading_advice_warning"
+    ],
+    "paper_019_visible": true,
+    "quality_severity_visible": true,
+    "accounting_only_warning_visible": true,
+    "external_network_references": 0,
+    "script_tags": 0
+  },
+  "tests": [
+    {
+      "command": "python pm_bot\\workbench\\run_operator_workbench_export.py",
+      "status": "passed",
+      "summary": "required_steps_passed=true; network_calls=0; commands_executed=0; orders_created=0"
+    },
+    {
+      "command": "python pm_bot\\dashboard\\export_static_operator_report.py",
+      "status": "passed",
+      "summary": "static_report_generated; network_calls=0; commands_executed=0; orders_created=0; autonomous_decisions=0"
+    },
+    {
+      "command": "python -m pytest pm_bot\\dashboard\\tests\\test_static_operator_report.py -q",
+      "status": "passed",
+      "summary": "9 passed; rerun after quality refresh also passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\dashboard\\tests -q",
+      "status": "passed",
+      "summary": "25 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\dashboard\\tests pm_bot\\operator\\tests pm_bot\\workbench\\tests pm_bot\\quality\\tests -q",
+      "status": "passed",
+      "summary": "105 passed, 48 subtests passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\paper\\tests -q",
+      "status": "passed",
+      "summary": "322 passed, 39 subtests passed"
+    },
+    {
+      "command": "python -m py_compile pm_bot\\dashboard\\export_static_operator_report.py pm_bot\\dashboard\\tests\\test_static_operator_report.py",
+      "status": "passed",
+      "summary": "New dashboard exporter and test module compiled"
+    },
+    {
+      "command": "JSON parse changed/new JSON files",
+      "status": "passed",
+      "summary": "Parsed 7 changed/new JSON files"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed",
+      "summary": "No whitespace errors; Git reported expected CRLF normalization warnings for modified Markdown/Python files"
+    },
+    {
+      "command": "git diff --cached --check",
+      "status": "passed",
+      "summary": "No staged whitespace errors; Git reported expected CRLF normalization warnings for staged Markdown/Python files"
+    }
+  ],
+  "generated_artifacts": {
+    "intentional_updates": [
+      "docs/PMBOT_DASHBOARD_003_RESULT.json",
+      "pm_bot/dashboard/static_operator_report.v1.html",
+      "pm_bot/dashboard/static_operator_report_summary.v1.json",
+      "pm_bot/dashboard/expected_static_operator_report_summary.v1.json",
+      "docs/PMBOT_QUALITY_001_RESULT.json",
+      "docs/PMBOT_CODEX_B_ROUND003_RESULT.json",
+      "pm_bot/quality/artifact_health_report.v1.json",
+      "pm_bot/quality/artifact_health_report.v1.md",
+      "pm_bot/quality/expected_artifact_health_report.v1.json"
+    ],
+    "restored_unrelated_churn": [
+      "docs/PMBOT_CODEX_A_ROUND002_RESULT.json",
+      "docs/PMBOT_PAPER_017_RESULT.json",
+      "docs/PMBOT_PAPER_018_RESULT.json"
+    ]
+  },
+  "safety": {
+    "runtime_wiring": false,
+    "network_api": false,
+    "wallet": false,
+    "trading": false,
+    "autonomous_paper_orders": false,
+    "scoring_probability_ev_edge": false,
+    "market_decisions": false,
+    "truth_inference": false,
+    "command_execution": false,
+    "automation_daemon": false,
+    "dashboard_server": false,
+    "frontend_runtime": false,
+    "browser_automation": false
+  },
+  "blockers": [],
+  "next_recommended_task": "PMBOT-PAPER-020-PAPER-RUN-SERIES-POSTMORTEM"
+}
