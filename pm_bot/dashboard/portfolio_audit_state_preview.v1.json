@@ -68,8 +68,11 @@
     "infra_008": {
       "source_path": "docs/PMBOT_INFRA_008_RESULT.json",
       "present": false,
+      "presence": "absent",
+      "parse_status": "not_applicable",
       "task_id": null,
-      "status": "not_available"
+      "status": "absent",
+      "integration_verdict": null
     },
     "latest_overall_stage": {
       "source_path": "docs/PM_BOT_STAGE_SUMMARY_V55.md",
@@ -392,7 +395,10 @@
       "path": "docs/PMBOT_INFRA_008_RESULT.json",
       "artifact_type": "docs_result_json",
       "required": false,
-      "present": false
+      "present": false,
+      "presence": "absent",
+      "status": "absent",
+      "parse_status": "not_applicable"
     },
     "dashboard_001_result": {
       "path": "docs/PMBOT_DASHBOARD_001_RESULT.json",
@@ -410,13 +416,19 @@
       "path": "docs/PMBOT_PAPER_018_RESULT.json",
       "artifact_type": "future_optional_docs_result_json",
       "required": false,
-      "present": false
+      "present": false,
+      "presence": "absent",
+      "status": "absent",
+      "parse_status": "not_applicable"
     },
     "future_batch_audit_summary_json": {
       "path": "pm_bot/paper/paper_batch_audit_summary.v1.json",
       "artifact_type": "future_optional_paper_audit_json",
       "required": false,
-      "present": false
+      "present": false,
+      "presence": "absent",
+      "status": "absent",
+      "parse_status": "not_applicable"
     }
   },
   "audit_summary_existing": {
@@ -448,6 +460,11 @@
     "schema_version": "future_batch_audit_placeholder.v1",
     "paper_018_required": false,
     "paper_018_present": false,
+    "paper_018_presence": "absent",
+    "paper_018_source_path": "docs/PMBOT_PAPER_018_RESULT.json",
+    "paper_018_task_id": null,
+    "paper_018_status": "absent",
+    "paper_018_parse_status": "not_applicable",
     "source_paths": [
       "docs/PMBOT_PAPER_018_RESULT.json",
       "pm_bot/paper/paper_batch_audit_summary.v1.json",

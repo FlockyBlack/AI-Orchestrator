@@ -3,6 +3,7 @@ import importlib.util
 import json
 import subprocess
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -87,7 +88,11 @@ class PortfolioAuditStateExportTests(unittest.TestCase):
 
         self.assertEqual(result["status"], "portfolio_audit_state_exported")
         self.assertEqual(result["audit_status"], "reconciliation_passed")
-        self.assertFalse(result["future_batch_audit_present"])
+        self.assertIsInstance(result["future_batch_audit_present"], bool)
+        self.assertEqual(
+            result["future_batch_audit_present"],
+            result["optional_artifacts"]["future_paper_018_result"]["present"],
+        )
         self.assertEqual(result["known_market_ids"], ["824952", "series_btc_above_90000_2026_05_31"])
         for path in NEW_JSON_FILES:
             self.assertIsInstance(_load_json(path), dict)
@@ -173,6 +178,8 @@ class PortfolioAuditStateExportTests(unittest.TestCase):
         _run_write()
         preview = _load_json(PREVIEW_JSON)
         pointers = preview["artifact_pointers"]
+        infra_008 = pointers["infra_008_result"]
+        future_paper_018 = pointers["future_paper_018_result"]
 
         self.assertEqual(
             pointers["paper_017_reconciliation_audit_json"]["path"],
@@ -180,14 +187,43 @@ class PortfolioAuditStateExportTests(unittest.TestCase):
         )
         self.assertEqual(pointers["paper_metrics_report_json"]["path"], "pm_bot/paper/paper_metrics_report.v1.json")
         self.assertEqual(pointers["integration_006_result"]["path"], "docs/PMBOT_INTEGRATION_006_RESULT.json")
-        self.assertEqual(pointers["infra_008_result"]["path"], "docs/PMBOT_INFRA_008_RESULT.json")
-        self.assertFalse(pointers["infra_008_result"]["present"])
-        self.assertFalse(pointers["infra_008_result"]["required"])
+        self.assertEqual(infra_008["path"], "docs/PMBOT_INFRA_008_RESULT.json")
+        self.assertFalse(infra_008["required"])
+        self.assertEqual(infra_008["presence"], "present" if infra_008["present"] else "absent")
+        if infra_008["present"]:
+            self.assertIn(infra_008["parse_status"], {"parsed", "parse_failed"})
+            self.assertIsInstance(infra_008["status"], str)
+            self.assertNotEqual(infra_008["status"], "absent")
+        else:
+            self.assertEqual(infra_008["status"], "absent")
+            self.assertEqual(infra_008["parse_status"], "not_applicable")
+        self.assertEqual(future_paper_018["path"], "docs/PMBOT_PAPER_018_RESULT.json")
+        self.assertFalse(future_paper_018["required"])
+        self.assertEqual(
+            future_paper_018["presence"],
+            "present" if future_paper_018["present"] else "absent",
+        )
+        if future_paper_018["present"]:
+            self.assertIn(future_paper_018["parse_status"], {"parsed", "parse_failed"})
+            self.assertIsInstance(future_paper_018["status"], str)
+            self.assertNotEqual(future_paper_018["status"], "absent")
+        else:
+            self.assertEqual(future_paper_018["status"], "absent")
+            self.assertEqual(future_paper_018["parse_status"], "not_applicable")
         self.assertTrue(all(pointer["present"] for pointer in pointers.values() if pointer["required"]))
 
         placeholder = preview["future_batch_audit_placeholder"]
         self.assertFalse(placeholder["paper_018_required"])
-        self.assertFalse(placeholder["paper_018_present"])
+        self.assertEqual(placeholder["paper_018_source_path"], "docs/PMBOT_PAPER_018_RESULT.json")
+        self.assertEqual(
+            placeholder["paper_018_presence"],
+            "present" if placeholder["paper_018_present"] else "absent",
+        )
+        if placeholder["paper_018_present"]:
+            self.assertIn(placeholder["paper_018_parse_status"], {"parsed", "parse_failed"})
+        else:
+            self.assertEqual(placeholder["paper_018_status"], "absent")
+            self.assertEqual(placeholder["paper_018_parse_status"], "not_applicable")
         self.assertIsNone(placeholder["batch_audit_status"])
         self.assertEqual(placeholder["batch_ids"], [])
         self.assertEqual(placeholder["batch_audit_summary"], {})
@@ -214,7 +250,96 @@ class PortfolioAuditStateExportTests(unittest.TestCase):
         self.assertIn("PMBOT Portfolio Audit State Preview v1", markdown)
         self.assertIn("paper_017_status: completed_ready_for_review", markdown)
         self.assertIn("Paper accounting PnL is fixture/manual accounting only", markdown)
-        self.assertIn("paper_018_present: false", markdown)
+        self.assertIn("paper_018_present:", markdown)
+        self.assertIn("paper_018_status:", markdown)
+
+    def test_optional_artifact_state_supports_absent_temp_root(self):
+        module = _load_module()
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp_root = Path(temp_dir)
+            optional = module._optional_artifact_paths(temp_root)
+
+            infra_008 = module._optional_doc_status(optional["infra_008_result"], root=temp_root)
+            infra_pointer = module._optional_json_artifact_pointer(
+                optional["infra_008_result"], "docs_result_json", root=temp_root
+            )
+            paper_pointer = module._optional_json_artifact_pointer(
+                optional["future_paper_018_result"], "future_optional_docs_result_json", root=temp_root
+            )
+            placeholder = module._future_batch_audit_placeholder(root=temp_root)
+
+        self.assertEqual(infra_008["source_path"], "docs/PMBOT_INFRA_008_RESULT.json")
+        self.assertFalse(infra_008["present"])
+        self.assertEqual(infra_008["presence"], "absent")
+        self.assertEqual(infra_008["status"], "absent")
+        self.assertEqual(infra_008["parse_status"], "not_applicable")
+        self.assertEqual(infra_pointer["path"], "docs/PMBOT_INFRA_008_RESULT.json")
+        self.assertFalse(infra_pointer["present"])
+        self.assertEqual(infra_pointer["status"], "absent")
+        self.assertEqual(paper_pointer["path"], "docs/PMBOT_PAPER_018_RESULT.json")
+        self.assertFalse(paper_pointer["present"])
+        self.assertEqual(paper_pointer["status"], "absent")
+        self.assertFalse(placeholder["paper_018_present"])
+        self.assertEqual(placeholder["paper_018_presence"], "absent")
+        self.assertEqual(placeholder["paper_018_source_path"], "docs/PMBOT_PAPER_018_RESULT.json")
+        self.assertEqual(placeholder["paper_018_status"], "absent")
+        self.assertEqual(placeholder["paper_018_parse_status"], "not_applicable")
+
+    def test_optional_artifact_state_supports_present_temp_root(self):
+        module = _load_module()
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp_root = Path(temp_dir)
+            optional = module._optional_artifact_paths(temp_root)
+            optional["infra_008_result"].parent.mkdir(parents=True, exist_ok=True)
+            optional["infra_008_result"].write_text(
+                json.dumps(
+                    {
+                        "task_id": "PMBOT-INFRA-008-SYNTHETIC",
+                        "status": "completed_ready_for_review",
+                        "integration_verdict": "accepted_for_test",
+                    }
+                ),
+                encoding="utf-8",
+            )
+            optional["future_paper_018_result"].write_text(
+                json.dumps(
+                    {
+                        "task_id": "PMBOT-PAPER-018-SYNTHETIC",
+                        "status": "completed_ready_for_review",
+                        "integration_verdict": "accepted_for_test",
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            infra_008 = module._optional_doc_status(optional["infra_008_result"], root=temp_root)
+            infra_pointer = module._optional_json_artifact_pointer(
+                optional["infra_008_result"], "docs_result_json", root=temp_root
+            )
+            paper_pointer = module._optional_json_artifact_pointer(
+                optional["future_paper_018_result"], "future_optional_docs_result_json", root=temp_root
+            )
+            placeholder = module._future_batch_audit_placeholder(root=temp_root)
+
+        self.assertTrue(infra_008["present"])
+        self.assertEqual(infra_008["presence"], "present")
+        self.assertEqual(infra_008["parse_status"], "parsed")
+        self.assertEqual(infra_008["task_id"], "PMBOT-INFRA-008-SYNTHETIC")
+        self.assertEqual(infra_008["status"], "completed_ready_for_review")
+        self.assertEqual(infra_008["integration_verdict"], "accepted_for_test")
+        self.assertTrue(infra_pointer["present"])
+        self.assertEqual(infra_pointer["presence"], "present")
+        self.assertEqual(infra_pointer["status"], "completed_ready_for_review")
+        self.assertEqual(infra_pointer["parse_status"], "parsed")
+        self.assertTrue(paper_pointer["present"])
+        self.assertEqual(paper_pointer["presence"], "present")
+        self.assertEqual(paper_pointer["status"], "completed_ready_for_review")
+        self.assertEqual(paper_pointer["parse_status"], "parsed")
+        self.assertTrue(placeholder["paper_018_present"])
+        self.assertEqual(placeholder["paper_018_presence"], "present")
+        self.assertEqual(placeholder["paper_018_task_id"], "PMBOT-PAPER-018-SYNTHETIC")
+        self.assertEqual(placeholder["paper_018_status"], "completed_ready_for_review")
+        self.assertEqual(placeholder["paper_018_parse_status"], "parsed")
 
     def test_runner_uses_standard_library_and_no_runtime_network_or_server_imports(self):
         tree = ast.parse(RUNNER.read_text(encoding="utf-8"))

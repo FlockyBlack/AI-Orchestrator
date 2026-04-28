@@ -1,10 +1,11 @@
 {
   "task_id": "PMBOT-DASHBOARD-002-PORTFOLIO-AUDIT-STATE-EXPORT",
+  "compatibility_patch_task_id": "PMBOT-DASHBOARD-002A-OPTIONAL-ARTIFACT-PRESENCE-COMPATIBILITY-PATCH",
   "codex_lane": "CODEX_B",
   "status": "completed_ready_for_review",
-  "summary": "CODEX_B round002 completed the bounded DASHBOARD-002 portfolio/accounting/audit state export contract. The implementation is local-file-only, deterministic, static, and limited to dashboard artifact export plus focused tests.",
+  "summary": "CODEX_B round002 completed the bounded DASHBOARD-002 portfolio/accounting/audit state export contract. The PMBOT-DASHBOARD-002A compatibility patch keeps the implementation local-file-only, deterministic, and static while supporting optional INFRA-008 and PAPER-018 artifacts in both absent and present repository states.",
   "branch": "codex/b-dashboard-portfolio-audit-state-round002",
-  "worktree_path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator-worktrees\\CODEX_B_round002_dashboard_portfolio_state",
+  "worktree_path": "CODEX_B_round002_dashboard_portfolio_state",
   "base_commit": "c3962ed19b3e1e3d453f2569762fc7269378bebe",
   "head_commit": null,
   "primary_result": "docs/PMBOT_DASHBOARD_002_RESULT.json",
@@ -19,6 +20,15 @@
     "docs/PMBOT_CODEX_B_ROUND002_RESULT.json"
   ],
   "files_modified": [],
+  "compatibility_patch_files_modified": [
+    "pm_bot/dashboard/export_portfolio_audit_state.py",
+    "pm_bot/dashboard/portfolio_audit_state_preview.v1.json",
+    "pm_bot/dashboard/portfolio_audit_state_preview.v1.md",
+    "pm_bot/dashboard/expected_portfolio_audit_state_preview.v1.json",
+    "pm_bot/dashboard/tests/test_portfolio_audit_state_export.py",
+    "docs/PMBOT_DASHBOARD_002_RESULT.json",
+    "docs/PMBOT_CODEX_B_ROUND002_RESULT.json"
+  ],
   "tests": [
     {
       "command": "python -m pytest pm_bot\\dashboard\\tests -q",
@@ -31,6 +41,25 @@
       "summary": "309 passed, 1 skipped, 39 subtests passed in 27.93s."
     }
   ],
+  "compatibility_patch": {
+    "blocker": "PMBOT-INTEGRATION-007-ABC-ROUND002-REVIEW-AND-MERGE-REHEARSAL failed focused dashboard tests after optional docs/PMBOT_INFRA_008_RESULT.json and docs/PMBOT_PAPER_018_RESULT.json became present in the integrated repository.",
+    "patch_summary": "Optional artifact summaries now emit repo-relative pointers, explicit presence, stable status, and parse_status for INFRA-008 and PAPER-018. Focused tests cover absent and present states using synthetic temp-root artifacts, so CODEX_B does not depend on A being merged.",
+    "optional_artifacts_supported": {
+      "infra_008_absent": true,
+      "infra_008_present": true,
+      "paper_018_absent": true,
+      "paper_018_present": true
+    },
+    "runtime_wiring": false,
+    "server": false,
+    "frontend": false,
+    "network_api": false,
+    "wallet": false,
+    "trading": false,
+    "autonomous_paper_orders": false,
+    "scoring_probability_ev_edge": false,
+    "market_decisions": false
+  },
   "safety_flags": {
     "dashboard_runtime": false,
     "server": false,

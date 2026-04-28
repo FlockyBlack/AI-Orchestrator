@@ -1,10 +1,11 @@
 {
   "task_id": "PMBOT-DASHBOARD-002-PORTFOLIO-AUDIT-STATE-EXPORT",
+  "compatibility_patch_task_id": "PMBOT-DASHBOARD-002A-OPTIONAL-ARTIFACT-PRESENCE-COMPATIBILITY-PATCH",
   "codex_lane": "CODEX_B",
   "status": "completed_ready_for_review",
-  "summary": "Implemented deterministic local PMBOT dashboard state export v2 focused on portfolio, accounting, and audit state. The export creates a narrow sibling contract under pm_bot/dashboard, summarizes local paper/accounting/portfolio artifacts, includes existing PAPER-017 reconciliation audit pointers and status, reports INFRA-008 absence as optional, and leaves future batch audit fields empty when PAPER-018 artifacts are not present. No dashboard runtime, server, frontend, browser automation, network/API behavior, credentials, wallet access, trading behavior, autonomous paper orders, scoring, probability, EV, edge, truth inference, recommendations, market decisions, dispatcher edits, run_codex edits, prompt automation, or broad refactor were added.",
+  "summary": "Implemented deterministic local PMBOT dashboard state export v2 focused on portfolio, accounting, and audit state. The PMBOT-DASHBOARD-002A compatibility patch makes optional INFRA-008 and PAPER-018 artifacts valid in both absent and present repository states, with repo-relative pointers, explicit presence, stable status, and parse_status fields. No dashboard runtime, server, frontend, browser automation, network/API behavior, credentials, wallet access, trading behavior, autonomous paper orders, scoring, probability, EV, edge, truth inference, recommendations, market decisions, dispatcher edits, run_codex edits, prompt automation, or broad refactor were added.",
   "branch": "codex/b-dashboard-portfolio-audit-state-round002",
-  "worktree_path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator-worktrees\\CODEX_B_round002_dashboard_portfolio_state",
+  "worktree_path": "CODEX_B_round002_dashboard_portfolio_state",
   "base_commit": "c3962ed19b3e1e3d453f2569762fc7269378bebe",
   "head_commit": null,
   "files_created": [
@@ -17,7 +18,15 @@
     "docs/PMBOT_DASHBOARD_002_RESULT.json",
     "docs/PMBOT_CODEX_B_ROUND002_RESULT.json"
   ],
-  "files_modified": [],
+  "files_modified": [
+    "pm_bot/dashboard/export_portfolio_audit_state.py",
+    "pm_bot/dashboard/portfolio_audit_state_preview.v1.json",
+    "pm_bot/dashboard/portfolio_audit_state_preview.v1.md",
+    "pm_bot/dashboard/expected_portfolio_audit_state_preview.v1.json",
+    "pm_bot/dashboard/tests/test_portfolio_audit_state_export.py",
+    "docs/PMBOT_DASHBOARD_002_RESULT.json",
+    "docs/PMBOT_CODEX_B_ROUND002_RESULT.json"
+  ],
   "commands_run": [
     {
       "command": "Get-Location; git branch --show-current; git status --short; git merge-base --is-ancestor c3962ed19b3e1e3d453f2569762fc7269378bebe HEAD; git rev-parse HEAD",
@@ -82,6 +91,37 @@
       "summary": "Parsed successfully."
     }
   ],
+  "compatibility_patch": {
+    "blocker": "PMBOT-INTEGRATION-007-ABC-ROUND002-REVIEW-AND-MERGE-REHEARSAL failed focused dashboard tests because stale DASHBOARD-002 assertions expected optional docs/PMBOT_INFRA_008_RESULT.json and docs/PMBOT_PAPER_018_RESULT.json to be absent after A/B/C integration.",
+    "patch_summary": "Optional artifact handling now treats INFRA-008 and PAPER-018 docs as valid whether absent or present. Absent artifacts report presence=absent, status=absent, parse_status=not_applicable, and the expected repo-relative path. Present artifacts report presence=present and parse_status=parsed or parse_failed without requiring A to be merged into B.",
+    "optional_artifacts_supported": {
+      "infra_008_absent": true,
+      "infra_008_present": true,
+      "paper_018_absent": true,
+      "paper_018_present": true
+    },
+    "standalone_branch_state": {
+      "infra_008_result": {
+        "path": "docs/PMBOT_INFRA_008_RESULT.json",
+        "presence": "absent",
+        "status": "absent",
+        "parse_status": "not_applicable"
+      },
+      "paper_018_result": {
+        "path": "docs/PMBOT_PAPER_018_RESULT.json",
+        "presence": "absent",
+        "status": "absent",
+        "parse_status": "not_applicable"
+      }
+    },
+    "validation": [
+      {
+        "command": "python -m pytest pm_bot\\dashboard\\tests -q",
+        "status": "passed",
+        "summary": "16 passed in 1.57s."
+      }
+    ]
+  },
   "state_export": {
     "schema_version": "portfolio_audit_state_preview.v1",
     "dashboard_state_export_version": "v2",
@@ -92,8 +132,15 @@
     "paper_017_audit_status": "reconciliation_passed",
     "future_batch_audit_present": false,
     "infra_008_result_present": false,
+    "optional_artifact_compatibility": {
+      "infra_008_absent": true,
+      "infra_008_present": true,
+      "paper_018_absent": true,
+      "paper_018_present": true
+    },
     "missing_optional_docs": [
-      "docs/PMBOT_INFRA_008_RESULT.json"
+      "docs/PMBOT_INFRA_008_RESULT.json",
+      "docs/PMBOT_PAPER_018_RESULT.json"
     ]
   },
   "safety_flags": {

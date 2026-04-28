@@ -13,6 +13,8 @@
 - paper_017_status: completed_ready_for_review
 - integration_006_verdict: abc_round001_merged_to_main_with_known_fixture_warning
 - infra_008_present: false
+- infra_008_status: absent
+- infra_008_parse_status: not_applicable
 - current_known_portfolio_audit_status: paper_017_reconciliation_available_with_dashboard_002_static_export
 
 ## Portfolio Accounting Summary
@@ -42,6 +44,8 @@
 
 - paper_018_required: false
 - paper_018_present: false
+- paper_018_status: absent
+- paper_018_parse_status: not_applicable
 - batch_audit_status: None
 - batch_ids: (none)
 

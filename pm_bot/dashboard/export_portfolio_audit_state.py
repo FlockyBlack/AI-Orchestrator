@@ -100,10 +100,10 @@ def _parse_args(argv):
     return parser.parse_args(argv)
 
 
-def _display_path(path):
+def _display_path(path, root=ROOT):
     resolved = Path(path).resolve()
     try:
-        return str(resolved.relative_to(ROOT.resolve())).replace("\\", "/")
+        return str(resolved.relative_to(Path(root).resolve())).replace("\\", "/")
     except ValueError:
         return str(resolved).replace("\\", "/")
 
@@ -129,25 +129,77 @@ def _write_text(path, text):
     path.write_text(text, encoding="utf-8")
 
 
-def _artifact_pointer(path, artifact_type, required=True):
+def _optional_artifact_paths(root=ROOT):
+    root = Path(root)
     return {
-        "path": _display_path(path),
+        "infra_008_result": root / "docs" / "PMBOT_INFRA_008_RESULT.json",
+        "future_paper_018_result": root / "docs" / "PMBOT_PAPER_018_RESULT.json",
+        "future_batch_audit_summary": root / "pm_bot" / "paper" / "paper_batch_audit_summary.v1.json",
+        "future_expected_batch_audit_summary": (
+            root / "pm_bot" / "paper" / "expected_paper_batch_audit_summary.v1.json"
+        ),
+    }
+
+
+def _artifact_pointer(path, artifact_type, required=True, root=ROOT):
+    return {
+        "path": _display_path(path, root=root),
         "artifact_type": artifact_type,
         "required": required,
         "present": Path(path).exists(),
     }
 
 
-def _doc_status(path, payload):
+def _optional_json_artifact_state(path, artifact_type, root=ROOT):
+    base = {
+        "path": _display_path(path, root=root),
+        "artifact_type": artifact_type,
+        "required": False,
+        "present": False,
+        "presence": "absent",
+        "status": "absent",
+        "parse_status": "not_applicable",
+    }
+    if not Path(path).exists():
+        return base, None
+
+    present = {
+        **base,
+        "present": True,
+        "presence": "present",
+    }
+    try:
+        payload = _load_json(path)
+    except (OSError, json.JSONDecodeError):
+        return {
+            **present,
+            "status": "present_parse_failed",
+            "parse_status": "parse_failed",
+        }, None
+
+    status = payload.get("status") if isinstance(payload, dict) else None
+    return {
+        **present,
+        "status": status or "present",
+        "parse_status": "parsed",
+    }, payload
+
+
+def _optional_json_artifact_pointer(path, artifact_type, root=ROOT):
+    state, _payload = _optional_json_artifact_state(path, artifact_type, root=root)
+    return state
+
+
+def _doc_status(path, payload, root=ROOT):
     if payload is None:
         return {
-            "source_path": _display_path(path),
+            "source_path": _display_path(path, root=root),
             "present": False,
             "task_id": None,
             "status": "not_available",
         }
     return {
-        "source_path": _display_path(path),
+        "source_path": _display_path(path, root=root),
         "present": True,
         "task_id": payload.get("task_id"),
         "status": payload.get("status"),
@@ -155,10 +207,32 @@ def _doc_status(path, payload):
     }
 
 
-def _parse_stage_summary(path=LATEST_STAGE_SUMMARY):
+def _optional_doc_status(path, root=ROOT):
+    state, payload = _optional_json_artifact_state(path, "docs_result_json", root=root)
+    status = {
+        "source_path": state["path"],
+        "present": state["present"],
+        "presence": state["presence"],
+        "parse_status": state["parse_status"],
+        "task_id": None,
+        "status": state["status"],
+        "integration_verdict": None,
+    }
+    if state["parse_status"] == "parsed" and isinstance(payload, dict):
+        status.update(
+            {
+                "task_id": payload.get("task_id"),
+                "status": payload.get("status") or state["status"],
+                "integration_verdict": payload.get("integration_verdict"),
+            }
+        )
+    return status
+
+
+def _parse_stage_summary(path=LATEST_STAGE_SUMMARY, root=ROOT):
     if not Path(path).exists():
         return {
-            "source_path": _display_path(path),
+            "source_path": _display_path(path, root=root),
             "present": False,
             "task": None,
             "status": "not_available",
@@ -171,7 +245,7 @@ def _parse_stage_summary(path=LATEST_STAGE_SUMMARY):
         elif line.startswith("Status: "):
             status = line.removeprefix("Status: ").strip()
     return {
-        "source_path": _display_path(path),
+        "source_path": _display_path(path, root=root),
         "present": True,
         "task": task,
         "status": status,
@@ -341,17 +415,24 @@ def _audit_summary_existing(paper_017_result, paper_017_audit):
     }
 
 
-def _future_batch_audit_placeholder():
+def _future_batch_audit_placeholder(root=ROOT):
+    optional = _optional_artifact_paths(root)
     optional_paths = [
-        FUTURE_PAPER_018_RESULT,
-        FUTURE_BATCH_AUDIT_SUMMARY,
-        FUTURE_EXPECTED_BATCH_AUDIT_SUMMARY,
+        optional["future_paper_018_result"],
+        optional["future_batch_audit_summary"],
+        optional["future_expected_batch_audit_summary"],
     ]
+    paper_018 = _optional_doc_status(optional["future_paper_018_result"], root=root)
     return {
         "schema_version": "future_batch_audit_placeholder.v1",
         "paper_018_required": False,
-        "paper_018_present": FUTURE_PAPER_018_RESULT.exists(),
-        "source_paths": [_display_path(path) for path in optional_paths],
+        "paper_018_present": paper_018["present"],
+        "paper_018_presence": paper_018["presence"],
+        "paper_018_source_path": paper_018["source_path"],
+        "paper_018_task_id": paper_018["task_id"],
+        "paper_018_status": paper_018["status"],
+        "paper_018_parse_status": paper_018["parse_status"],
+        "source_paths": [_display_path(path, root=root) for path in optional_paths],
         "batch_audit_status": None,
         "batch_ids": [],
         "batch_audit_summary": {},
@@ -394,12 +475,14 @@ def _artifact_pointers():
         "integration_003_result": _artifact_pointer(INTEGRATION_003_RESULT, "docs_result_json"),
         "integration_006_result": _artifact_pointer(INTEGRATION_006_RESULT, "docs_result_json", required=False),
         "infra_007_result": _artifact_pointer(INFRA_007_RESULT, "docs_result_json", required=False),
-        "infra_008_result": _artifact_pointer(INFRA_008_RESULT, "docs_result_json", required=False),
+        "infra_008_result": _optional_json_artifact_pointer(INFRA_008_RESULT, "docs_result_json"),
         "dashboard_001_result": _artifact_pointer(DASHBOARD_001_RESULT, "docs_result_json", required=False),
         "latest_stage_summary": _artifact_pointer(LATEST_STAGE_SUMMARY, "docs_markdown", required=False),
-        "future_paper_018_result": _artifact_pointer(FUTURE_PAPER_018_RESULT, "future_optional_docs_result_json", required=False),
-        "future_batch_audit_summary_json": _artifact_pointer(
-            FUTURE_BATCH_AUDIT_SUMMARY, "future_optional_paper_audit_json", required=False
+        "future_paper_018_result": _optional_json_artifact_pointer(
+            FUTURE_PAPER_018_RESULT, "future_optional_docs_result_json"
+        ),
+        "future_batch_audit_summary_json": _optional_json_artifact_pointer(
+            FUTURE_BATCH_AUDIT_SUMMARY, "future_optional_paper_audit_json"
         ),
     }
 
@@ -502,7 +585,7 @@ def build_portfolio_audit_state_preview():
     integration_003 = _load_json_if_present(INTEGRATION_003_RESULT)
     integration_006 = _load_json_if_present(INTEGRATION_006_RESULT)
     infra_007 = _load_json_if_present(INFRA_007_RESULT)
-    infra_008 = _load_json_if_present(INFRA_008_RESULT)
+    infra_008 = _optional_doc_status(INFRA_008_RESULT)
 
     paper_portfolio_state = _load_json_if_present(PAPER_PORTFOLIO_STATE)
     paper_portfolio_state_after_inbox = _load_json_if_present(PAPER_PORTFOLIO_STATE_AFTER_INBOX)
@@ -538,7 +621,7 @@ def build_portfolio_audit_state_preview():
             "integration_003": _doc_status(INTEGRATION_003_RESULT, integration_003),
             "integration_006": _doc_status(INTEGRATION_006_RESULT, integration_006),
             "infra_007": _doc_status(INFRA_007_RESULT, infra_007),
-            "infra_008": _doc_status(INFRA_008_RESULT, infra_008),
+            "infra_008": infra_008,
             "latest_overall_stage": _parse_stage_summary(),
             "current_known_portfolio_audit_status": "paper_017_reconciliation_available_with_dashboard_002_static_export",
             "implementation_boundary": {
@@ -666,6 +749,8 @@ def render_portfolio_audit_state_markdown(preview_payload):
         f"- paper_017_status: {product['paper_017']['status']}",
         f"- integration_006_verdict: {product['integration_006']['integration_verdict']}",
         f"- infra_008_present: {str(product['infra_008']['present']).lower()}",
+        f"- infra_008_status: {product['infra_008']['status']}",
+        f"- infra_008_parse_status: {product['infra_008']['parse_status']}",
         f"- current_known_portfolio_audit_status: {product['current_known_portfolio_audit_status']}",
         "",
         "## Portfolio Accounting Summary",
@@ -695,6 +780,8 @@ def render_portfolio_audit_state_markdown(preview_payload):
         "",
         f"- paper_018_required: {str(placeholder['paper_018_required']).lower()}",
         f"- paper_018_present: {str(placeholder['paper_018_present']).lower()}",
+        f"- paper_018_status: {placeholder['paper_018_status']}",
+        f"- paper_018_parse_status: {placeholder['paper_018_parse_status']}",
         f"- batch_audit_status: {placeholder['batch_audit_status']}",
         f"- batch_ids: {', '.join(placeholder['batch_ids']) if placeholder['batch_ids'] else '(none)'}",
         "",
@@ -752,6 +839,10 @@ def write_portfolio_audit_state_artifacts():
         "known_market_ids": preview["known_market_ids"],
         "audit_status": preview["audit_summary_existing"]["audit_status"],
         "future_batch_audit_present": preview["future_batch_audit_placeholder"]["paper_018_present"],
+        "optional_artifacts": {
+            "infra_008_result": preview["artifact_pointers"]["infra_008_result"],
+            "future_paper_018_result": preview["artifact_pointers"]["future_paper_018_result"],
+        },
         "safety_flags": SAFETY_FLAGS,
     }
 
