@@ -29,23 +29,23 @@
     "network_api": false,
     "runtime_wiring": false
   },
-  "artifacts_checked": 172,
-  "artifacts_present_count": 172,
+  "artifacts_checked": 175,
+  "artifacts_present_count": 175,
   "artifacts_missing_count": 0,
-  "json_parse_pass_count": 124,
+  "json_parse_pass_count": 126,
   "json_parse_fail_count": 1,
   "schema_version_missing_count": 22,
   "task_id_missing_where_expected_count": 3,
   "status_fields_missing_where_expected_count": 0,
   "embedded_artifact_pointer_summary": {
-    "checked_count": 532,
-    "present_count": 442,
+    "checked_count": 552,
+    "present_count": 462,
     "missing_count": 90,
     "absolute_count": 0
   },
   "expected_fixture_alignment_summary": {
-    "checks_total": 70,
-    "aligned_count": 19,
+    "checks_total": 71,
+    "aligned_count": 20,
     "mismatch_count": 1,
     "actual_missing_count": 50,
     "checks": [
@@ -440,6 +440,12 @@
         "alignment_status": "aligned"
       },
       {
+        "expected_path": "pm_bot/paper/expected_paper_run_series_postmortem.v1.json",
+        "actual_path": "pm_bot/paper/paper_run_series_postmortem.v1.json",
+        "artifact_type": "json",
+        "alignment_status": "aligned"
+      },
+      {
         "expected_path": "pm_bot/paper/expected_paper_simulation.v1.json",
         "actual_path": "pm_bot/paper/paper_simulation.v1.json",
         "artifact_type": "json",
@@ -689,8 +695,8 @@
         "unexpected_values": []
       },
       "safety_flags.autonomous_paper_orders": {
-        "present_count": 20,
-        "expected_false_or_zero_count": 20,
+        "present_count": 22,
+        "expected_false_or_zero_count": 22,
         "unexpected_values": []
       },
       "safety_flags.browser_automation": {
@@ -699,8 +705,8 @@
         "unexpected_values": []
       },
       "safety_flags.command_execution": {
-        "present_count": 10,
-        "expected_false_or_zero_count": 10,
+        "present_count": 12,
+        "expected_false_or_zero_count": 12,
         "unexpected_values": []
       },
       "safety_flags.credentials": {
@@ -709,8 +715,8 @@
         "unexpected_values": []
       },
       "safety_flags.deterministic": {
-        "present_count": 5,
-        "expected_false_or_zero_count": 5,
+        "present_count": 7,
+        "expected_false_or_zero_count": 7,
         "unexpected_values": []
       },
       "safety_flags.dispatcher_run_codex_changes": {
@@ -719,8 +725,8 @@
         "unexpected_values": []
       },
       "safety_flags.fixture_only": {
-        "present_count": 3,
-        "expected_false_or_zero_count": 3,
+        "present_count": 5,
+        "expected_false_or_zero_count": 5,
         "unexpected_values": []
       },
       "safety_flags.frontend": {
@@ -729,8 +735,8 @@
         "unexpected_values": []
       },
       "safety_flags.live_trading": {
-        "present_count": 15,
-        "expected_false_or_zero_count": 15,
+        "present_count": 17,
+        "expected_false_or_zero_count": 17,
         "unexpected_values": []
       },
       "safety_flags.local_file_reads_only": {
@@ -744,13 +750,13 @@
         "unexpected_values": []
       },
       "safety_flags.market_decisions": {
-        "present_count": 20,
-        "expected_false_or_zero_count": 20,
+        "present_count": 22,
+        "expected_false_or_zero_count": 22,
         "unexpected_values": []
       },
       "safety_flags.network_api": {
-        "present_count": 20,
-        "expected_false_or_zero_count": 20,
+        "present_count": 22,
+        "expected_false_or_zero_count": 22,
         "unexpected_values": []
       },
       "safety_flags.network_used": {
@@ -759,8 +765,8 @@
         "unexpected_values": []
       },
       "safety_flags.offline_only": {
-        "present_count": 18,
-        "expected_false_or_zero_count": 18,
+        "present_count": 20,
+        "expected_false_or_zero_count": 20,
         "unexpected_values": []
       },
       "safety_flags.operator_review_only": {
@@ -769,13 +775,13 @@
         "unexpected_values": []
       },
       "safety_flags.paper_accounting_only": {
-        "present_count": 5,
-        "expected_false_or_zero_count": 5,
+        "present_count": 7,
+        "expected_false_or_zero_count": 7,
         "unexpected_values": []
       },
       "safety_flags.paper_only": {
-        "present_count": 14,
-        "expected_false_or_zero_count": 14,
+        "present_count": 16,
+        "expected_false_or_zero_count": 16,
         "unexpected_values": []
       },
       "safety_flags.real_order_created": {
@@ -784,8 +790,8 @@
         "unexpected_values": []
       },
       "safety_flags.real_orders": {
-        "present_count": 15,
-        "expected_false_or_zero_count": 15,
+        "present_count": 17,
+        "expected_false_or_zero_count": 17,
         "unexpected_values": []
       },
       "safety_flags.recommendations": {
@@ -794,13 +800,13 @@
         "unexpected_values": []
       },
       "safety_flags.runtime_wiring": {
-        "present_count": 20,
-        "expected_false_or_zero_count": 20,
+        "present_count": 22,
+        "expected_false_or_zero_count": 22,
         "unexpected_values": []
       },
       "safety_flags.scoring_probability_ev_edge": {
-        "present_count": 20,
-        "expected_false_or_zero_count": 20,
+        "present_count": 22,
+        "expected_false_or_zero_count": 22,
         "unexpected_values": []
       },
       "safety_flags.server": {
@@ -814,8 +820,8 @@
         "unexpected_values": []
       },
       "safety_flags.trading": {
-        "present_count": 20,
-        "expected_false_or_zero_count": 20,
+        "present_count": 22,
+        "expected_false_or_zero_count": 22,
         "unexpected_values": []
       },
       "safety_flags.trading_allowed": {
@@ -824,13 +830,13 @@
         "unexpected_values": []
       },
       "safety_flags.truth_inference": {
-        "present_count": 15,
-        "expected_false_or_zero_count": 15,
+        "present_count": 17,
+        "expected_false_or_zero_count": 17,
         "unexpected_values": []
       },
       "safety_flags.wallet": {
-        "present_count": 20,
-        "expected_false_or_zero_count": 20,
+        "present_count": 22,
+        "expected_false_or_zero_count": 22,
         "unexpected_values": []
       },
       "safety_flags.wallet_used": {
@@ -2127,8 +2133,8 @@
         "status": "completed_ready_for_review"
       },
       "embedded_artifact_pointer_health": {
-        "checked_count": 7,
-        "present_count": 7,
+        "checked_count": 5,
+        "present_count": 5,
         "missing_count": 0,
         "absolute_count": 0
       },
@@ -5389,6 +5395,51 @@
       "warnings": []
     },
     {
+      "path": "pm_bot/paper/expected_paper_run_series_postmortem.v1.json",
+      "artifact_type": "json",
+      "required": true,
+      "exists": true,
+      "json_parse_status": "parsed",
+      "schema_version_present": true,
+      "schema_version": "paper_run_series_postmortem.v1",
+      "task_id_expected": false,
+      "task_id_present": true,
+      "task_id": "PMBOT-PAPER-020-PAPER-RUN-SERIES-POSTMORTEM",
+      "status_fields_expected": true,
+      "status_fields_present": true,
+      "status_fields": {
+        "postmortem_status": "postmortem_completed",
+        "record_status_notes": "list[3]",
+        "records_by_status": "dict"
+      },
+      "embedded_artifact_pointer_health": {
+        "checked_count": 11,
+        "present_count": 11,
+        "missing_count": 0,
+        "absolute_count": 0
+      },
+      "expected_fixture_alignment": "aligned",
+      "safety_fields": {
+        "safety_flags.autonomous_paper_orders": false,
+        "safety_flags.command_execution": false,
+        "safety_flags.deterministic": true,
+        "safety_flags.fixture_only": true,
+        "safety_flags.live_trading": false,
+        "safety_flags.market_decisions": false,
+        "safety_flags.network_api": false,
+        "safety_flags.offline_only": true,
+        "safety_flags.paper_accounting_only": true,
+        "safety_flags.paper_only": true,
+        "safety_flags.real_orders": false,
+        "safety_flags.runtime_wiring": false,
+        "safety_flags.scoring_probability_ev_edge": false,
+        "safety_flags.trading": false,
+        "safety_flags.truth_inference": false,
+        "safety_flags.wallet": false
+      },
+      "warnings": []
+    },
+    {
       "path": "pm_bot/paper/expected_paper_simulation.v1.json",
       "artifact_type": "json",
       "required": true,
@@ -7364,6 +7415,75 @@
         "safety_flags.truth_inference": false,
         "safety_flags.wallet": false
       },
+      "warnings": []
+    },
+    {
+      "path": "pm_bot/paper/paper_run_series_postmortem.v1.json",
+      "artifact_type": "json",
+      "required": true,
+      "exists": true,
+      "json_parse_status": "parsed",
+      "schema_version_present": true,
+      "schema_version": "paper_run_series_postmortem.v1",
+      "task_id_expected": false,
+      "task_id_present": true,
+      "task_id": "PMBOT-PAPER-020-PAPER-RUN-SERIES-POSTMORTEM",
+      "status_fields_expected": true,
+      "status_fields_present": true,
+      "status_fields": {
+        "postmortem_status": "postmortem_completed",
+        "record_status_notes": "list[3]",
+        "records_by_status": "dict"
+      },
+      "embedded_artifact_pointer_health": {
+        "checked_count": 11,
+        "present_count": 11,
+        "missing_count": 0,
+        "absolute_count": 0
+      },
+      "expected_fixture_alignment": "not_applicable",
+      "safety_fields": {
+        "safety_flags.autonomous_paper_orders": false,
+        "safety_flags.command_execution": false,
+        "safety_flags.deterministic": true,
+        "safety_flags.fixture_only": true,
+        "safety_flags.live_trading": false,
+        "safety_flags.market_decisions": false,
+        "safety_flags.network_api": false,
+        "safety_flags.offline_only": true,
+        "safety_flags.paper_accounting_only": true,
+        "safety_flags.paper_only": true,
+        "safety_flags.real_orders": false,
+        "safety_flags.runtime_wiring": false,
+        "safety_flags.scoring_probability_ev_edge": false,
+        "safety_flags.trading": false,
+        "safety_flags.truth_inference": false,
+        "safety_flags.wallet": false
+      },
+      "warnings": []
+    },
+    {
+      "path": "pm_bot/paper/paper_run_series_postmortem.v1.md",
+      "artifact_type": "md",
+      "required": true,
+      "exists": true,
+      "json_parse_status": "not_json",
+      "schema_version_present": false,
+      "schema_version": null,
+      "task_id_expected": false,
+      "task_id_present": false,
+      "task_id": null,
+      "status_fields_expected": false,
+      "status_fields_present": false,
+      "status_fields": {},
+      "embedded_artifact_pointer_health": {
+        "checked_count": 0,
+        "present_count": 0,
+        "missing_count": 0,
+        "absolute_count": 0
+      },
+      "expected_fixture_alignment": "not_applicable",
+      "safety_fields": {},
       "warnings": []
     },
     {

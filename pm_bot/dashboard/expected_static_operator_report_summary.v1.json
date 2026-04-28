@@ -457,21 +457,21 @@
   "artifact_health_summary": {
     "source_path": "pm_bot/quality/artifact_health_report.v1.json",
     "report_status": "health_passed_with_warnings",
-    "artifacts_checked": 172,
-    "artifacts_present_count": 172,
+    "artifacts_checked": 175,
+    "artifacts_present_count": 175,
     "artifacts_missing_count": 0,
-    "json_parse_pass_count": 124,
+    "json_parse_pass_count": 126,
     "json_parse_fail_count": 1,
     "schema_version_missing_count": 22,
     "embedded_artifact_pointer_summary": {
-      "checked_count": 532,
-      "present_count": 442,
+      "checked_count": 552,
+      "present_count": 462,
       "missing_count": 90,
       "absolute_count": 0
     },
     "expected_fixture_alignment_summary": {
-      "checks_total": 70,
-      "aligned_count": 19,
+      "checks_total": 71,
+      "aligned_count": 20,
       "mismatch_count": 1,
       "actual_missing_count": 50
     }

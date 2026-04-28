@@ -1,0 +1,53 @@
+{
+  "schema_version": "paper_020_result.v1",
+  "task_id": "PMBOT-PAPER-020-PAPER-RUN-SERIES-POSTMORTEM",
+  "status": "completed_ready_for_review",
+  "summary": "Generated deterministic local PAPER-019 paper run series postmortem.",
+  "files_created": [
+    "pm_bot/paper/export_paper_run_series_postmortem.py",
+    "pm_bot/paper/paper_run_series_postmortem.v1.json",
+    "pm_bot/paper/paper_run_series_postmortem.v1.md",
+    "pm_bot/paper/expected_paper_run_series_postmortem.v1.json",
+    "pm_bot/paper/tests/test_paper_run_series_postmortem.py",
+    "docs/PMBOT_PAPER_020_RESULT.json"
+  ],
+  "files_modified": [],
+  "postmortem_summary": {
+    "postmortem_status": "postmortem_completed",
+    "source_paper_019_found": true,
+    "markets_seen": 5,
+    "records_seen": 5,
+    "records_processed": 4,
+    "cumulative_pnl": "-1.00",
+    "accounting_only_warning_present": true,
+    "recommended_next_fixture_expansions": [
+      "Add more settled fixture records covering additional cost and settlement combinations.",
+      "Add more open manual-review fixture records that remain inert until explicit fixture settlement values exist.",
+      "Add blocked fixture variants for malformed accounting values and unsafe lineage flags.",
+      "Add boundary accounting examples for zero cost, zero settlement, and unusually large fixture values."
+    ]
+  },
+  "missing_optional_docs": [],
+  "safety": {
+    "runtime_wiring": false,
+    "network_api": false,
+    "wallet": false,
+    "trading": false,
+    "autonomous_paper_orders": false,
+    "scoring_probability_ev_edge": false,
+    "market_decisions": false,
+    "truth_inference": false,
+    "command_execution": false,
+    "automation_daemon": false,
+    "dashboard_server": false
+  },
+  "safety_counters": {
+    "real_orders_created": 0,
+    "autonomous_paper_orders": 0,
+    "network_calls": 0,
+    "commands_executed": 0,
+    "autonomous_decisions": 0
+  },
+  "blockers": [],
+  "next_action": "PMBOT-WORKBENCH-006-SURFACE-PAPER-020-POSTMORTEM or PMBOT-PRODUCT-002-NEXT-MVP-GATE-REVIEW"
+}

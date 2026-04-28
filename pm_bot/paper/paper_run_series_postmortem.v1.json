@@ -1,0 +1,341 @@
+{
+  "schema_version": "paper_run_series_postmortem.v1",
+  "markdown_version": "paper_run_series_postmortem_markdown.v1",
+  "task_id": "PMBOT-PAPER-020-PAPER-RUN-SERIES-POSTMORTEM",
+  "generated_by": "pm_bot/paper/export_paper_run_series_postmortem.py",
+  "source_artifacts": [
+    {
+      "artifact_id": "dashboard_003_result",
+      "path": "docs/PMBOT_DASHBOARD_003_RESULT.json",
+      "required": false,
+      "present": true,
+      "parse_status": "parsed",
+      "task_id": "PMBOT-DASHBOARD-003-STATIC-HTML-OPERATOR-REPORT",
+      "status": "completed_ready_for_review"
+    },
+    {
+      "artifact_id": "paper_019_result",
+      "path": "docs/PMBOT_PAPER_019_RESULT.json",
+      "required": false,
+      "present": true,
+      "parse_status": "parsed",
+      "schema_version": "paper_019_result.v1",
+      "task_id": "PMBOT-PAPER-019-MULTI-MARKET-PAPER-RUN-SERIES",
+      "status": "completed_ready_for_review",
+      "series_status": "series_run_passed"
+    },
+    {
+      "artifact_id": "paper_019_multi_market_run_series",
+      "path": "pm_bot/paper/multi_market_paper_run_series.v1.json",
+      "required": true,
+      "present": true,
+      "parse_status": "parsed",
+      "schema_version": "multi_market_paper_run_series.v1",
+      "task_id": "PMBOT-PAPER-019-MULTI-MARKET-PAPER-RUN-SERIES",
+      "series_status": "series_run_passed"
+    },
+    {
+      "artifact_id": "paper_019_multi_market_run_series_markdown",
+      "path": "pm_bot/paper/multi_market_paper_run_series.v1.md",
+      "required": false,
+      "present": true,
+      "parse_status": "not_applicable"
+    },
+    {
+      "artifact_id": "paper_019_fixture",
+      "path": "pm_bot/paper/paper_run_series_fixture.v1.json",
+      "required": false,
+      "present": true,
+      "parse_status": "parsed",
+      "schema_version": "paper_run_series_fixture.v1",
+      "task_id": "PMBOT-PAPER-019-MULTI-MARKET-PAPER-RUN-SERIES"
+    },
+    {
+      "artifact_id": "paper_019_exporter",
+      "path": "pm_bot/paper/run_multi_market_paper_run_series.py",
+      "required": false,
+      "present": true,
+      "parse_status": "not_applicable"
+    },
+    {
+      "artifact_id": "operator_review_pack_json",
+      "path": "pm_bot/workbench/operator_review_pack.v1.json",
+      "required": false,
+      "present": true,
+      "parse_status": "parsed",
+      "schema_version": "operator_review_pack.v1"
+    },
+    {
+      "artifact_id": "operator_review_pack_markdown",
+      "path": "pm_bot/workbench/operator_review_pack.v1.md",
+      "required": false,
+      "present": true,
+      "parse_status": "not_applicable"
+    },
+    {
+      "artifact_id": "static_operator_report_summary",
+      "path": "pm_bot/dashboard/static_operator_report_summary.v1.json",
+      "required": false,
+      "present": true,
+      "parse_status": "parsed",
+      "schema_version": "static_operator_report_summary.v1",
+      "task_id": "PMBOT-DASHBOARD-003-STATIC-HTML-OPERATOR-REPORT",
+      "report_status": "static_report_generated"
+    },
+    {
+      "artifact_id": "static_operator_report_html",
+      "path": "pm_bot/dashboard/static_operator_report.v1.html",
+      "required": false,
+      "present": true,
+      "parse_status": "not_applicable"
+    },
+    {
+      "artifact_id": "artifact_health_report",
+      "path": "pm_bot/quality/artifact_health_report.v1.json",
+      "required": false,
+      "present": true,
+      "parse_status": "parsed",
+      "schema_version": "artifact_health_report.v1",
+      "task_id": "PMBOT-QUALITY-001-ARTIFACT-HEALTH-AND-STALENESS-CHECK",
+      "report_status": "health_passed_with_warnings"
+    }
+  ],
+  "missing_optional_docs": [],
+  "paper_019_summary": {
+    "source_artifact": "pm_bot/paper/multi_market_paper_run_series.v1.json",
+    "source_schema_version": "multi_market_paper_run_series.v1",
+    "source_task_id": "PMBOT-PAPER-019-MULTI-MARKET-PAPER-RUN-SERIES",
+    "series_status": "series_run_passed",
+    "run_mode": "deterministic_offline_fixture",
+    "fixture_path": "pm_bot/paper/paper_run_series_fixture.v1.json",
+    "markets_seen": 5,
+    "market_ids": [
+      "paper-series-market-blocked-005",
+      "paper-series-market-open-manual-004",
+      "paper-series-market-settled-flat-003",
+      "paper-series-market-settled-loss-002",
+      "paper-series-market-settled-win-001"
+    ],
+    "records_seen": 5,
+    "records_processed": 4,
+    "records_by_status": {
+      "accepted_accounting_record": 3,
+      "blocked_fixture_record": 1,
+      "manual_review_only": 1
+    },
+    "accounting_summary": {
+      "paper_accounting_total_records": 4,
+      "paper_accounting_settled_count": 3,
+      "paper_accounting_open_count": 1,
+      "paper_accounting_win_count": 1,
+      "paper_accounting_loss_count": 1,
+      "paper_accounting_flat_count": 1,
+      "paper_accounting_total_cost_basis": "24.00",
+      "paper_accounting_settled_cost_basis": "19.00",
+      "paper_accounting_open_cost_basis": "5.00",
+      "paper_accounting_total_settlement_value": "18.00",
+      "paper_accounting_cumulative_pnl": "-1.00",
+      "paper_accounting_average_settled_pnl": "-0.33",
+      "paper_accounting_gross_profit": "6.00",
+      "paper_accounting_gross_loss": "-7.00",
+      "paper_accounting_max_gain": "6.00",
+      "paper_accounting_max_loss": "-7.00"
+    },
+    "portfolio_summary": {
+      "portfolio_summary_status": "deterministic_fixture_accounting_summary_ready",
+      "paper_positions_seen": 4,
+      "open_paper_positions": 1,
+      "settled_paper_positions": 3,
+      "blocked_records_not_in_portfolio": 1,
+      "realized_paper_pnl": "-1.00",
+      "unrealized_paper_pnl": "0.00",
+      "paper_orders_created": 0,
+      "real_orders_created": 0
+    },
+    "checks_passed": 6,
+    "checks_total": 6,
+    "source_warnings": [
+      "Blocked fixture records were retained as inert non-accounting records."
+    ]
+  },
+  "records_by_status": {
+    "accepted_accounting_record": 3,
+    "blocked_fixture_record": 1,
+    "manual_review_only": 1
+  },
+  "record_status_notes": [
+    {
+      "processing_status": "accepted_accounting_record",
+      "count": 3,
+      "operator_meaning": "Record was accepted from the local fixture for accounting summary only."
+    },
+    {
+      "processing_status": "manual_review_only",
+      "count": 1,
+      "operator_meaning": "Record remains an open manual-review fixture item; it is inert and does not create orders."
+    },
+    {
+      "processing_status": "blocked_fixture_record",
+      "count": 1,
+      "operator_meaning": "Record was retained as blocked fixture context and excluded from accounting."
+    }
+  ],
+  "accounting_interpretation": {
+    "accounting_scope": "paper_019_fixture_accounting_only",
+    "cumulative_pnl": "-1.00",
+    "average_settled_pnl": "-0.33",
+    "gross_profit": "6.00",
+    "gross_loss": "-7.00",
+    "warning": "PAPER-019 PnL is accounting-only fixture output, not strategy profitability; it is not a recommendation, edge, EV, probability estimate, market score, or market truth evidence.",
+    "what_it_means": [
+      "The values are arithmetic summaries of explicit local fixture accounting fields.",
+      "The open manual-review record contributes cost basis but has zero settlement and zero PnL in the fixture.",
+      "The blocked record is retained for operator context and excluded from accounting totals."
+    ],
+    "what_it_does_not_mean": [
+      "It does not show strategy profitability.",
+      "It does not infer market truth or settlement truth beyond fixture values.",
+      "It does not justify market selection, side selection, size selection, or execution."
+    ]
+  },
+  "accepted_record_summary": [
+    {
+      "record_id": "paper-run-series-record-001",
+      "market_id": "paper-series-market-settled-win-001",
+      "processing_status": "accepted_accounting_record",
+      "lifecycle_state": "settled",
+      "accounting_outcome": "positive_pnl",
+      "paper_position_status": "paper_position_settled",
+      "accounting_included": true,
+      "paper_orders_created": 0,
+      "real_orders_created": 0,
+      "network_calls": 0,
+      "commands_executed": 0,
+      "autonomous_decisions": 0,
+      "cost_basis": "4.00",
+      "settlement_value": "10.00",
+      "paper_accounting_pnl": "6.00"
+    },
+    {
+      "record_id": "paper-run-series-record-002",
+      "market_id": "paper-series-market-settled-loss-002",
+      "processing_status": "accepted_accounting_record",
+      "lifecycle_state": "settled",
+      "accounting_outcome": "negative_pnl",
+      "paper_position_status": "paper_position_settled",
+      "accounting_included": true,
+      "paper_orders_created": 0,
+      "real_orders_created": 0,
+      "network_calls": 0,
+      "commands_executed": 0,
+      "autonomous_decisions": 0,
+      "cost_basis": "7.00",
+      "settlement_value": "0.00",
+      "paper_accounting_pnl": "-7.00"
+    },
+    {
+      "record_id": "paper-run-series-record-003",
+      "market_id": "paper-series-market-settled-flat-003",
+      "processing_status": "accepted_accounting_record",
+      "lifecycle_state": "settled",
+      "accounting_outcome": "flat_pnl",
+      "paper_position_status": "paper_position_settled",
+      "accounting_included": true,
+      "paper_orders_created": 0,
+      "real_orders_created": 0,
+      "network_calls": 0,
+      "commands_executed": 0,
+      "autonomous_decisions": 0,
+      "cost_basis": "8.00",
+      "settlement_value": "8.00",
+      "paper_accounting_pnl": "0.00"
+    }
+  ],
+  "blocked_record_summary": [
+    {
+      "record_id": "paper-run-series-record-005",
+      "market_id": "paper-series-market-blocked-005",
+      "processing_status": "blocked_fixture_record",
+      "lifecycle_state": "blocked",
+      "accounting_outcome": "not_accounted",
+      "paper_position_status": "paper_position_not_created",
+      "accounting_included": false,
+      "paper_orders_created": 0,
+      "real_orders_created": 0,
+      "network_calls": 0,
+      "commands_executed": 0,
+      "autonomous_decisions": 0,
+      "blocked_reason_codes": [
+        "fixture_record_marked_blocked",
+        "operator_manual_accounting_values_not_accepted"
+      ]
+    }
+  ],
+  "manual_review_record_summary": [
+    {
+      "record_id": "paper-run-series-record-004",
+      "market_id": "paper-series-market-open-manual-004",
+      "processing_status": "manual_review_only",
+      "lifecycle_state": "open",
+      "accounting_outcome": "open_unsettled",
+      "paper_position_status": "paper_position_open",
+      "accounting_included": true,
+      "paper_orders_created": 0,
+      "real_orders_created": 0,
+      "network_calls": 0,
+      "commands_executed": 0,
+      "autonomous_decisions": 0,
+      "cost_basis": "5.00",
+      "settlement_value": "0.00",
+      "paper_accounting_pnl": "0.00"
+    }
+  ],
+  "fixture_limitations": [
+    "The series has five local fixture records and is not statistically representative.",
+    "All accounting values are explicit fixture values; no live settlement truth is inferred.",
+    "Only one open manual-review record and one blocked record are represented.",
+    "No fees, liquidity, orderbook state, slippage, fill uncertainty, or timing variance are modeled.",
+    "The fixture does not validate market discovery, live data handling, wallet access, or execution behavior."
+  ],
+  "safety_flags": {
+    "offline_only": true,
+    "deterministic": true,
+    "fixture_only": true,
+    "paper_only": true,
+    "paper_accounting_only": true,
+    "runtime_wiring": false,
+    "network_api": false,
+    "wallet": false,
+    "trading": false,
+    "real_orders": false,
+    "live_trading": false,
+    "autonomous_paper_orders": false,
+    "scoring_probability_ev_edge": false,
+    "market_decisions": false,
+    "truth_inference": false,
+    "command_execution": false,
+    "automation_daemon": false,
+    "dashboard_server": false
+  },
+  "safety_counters": {
+    "real_orders_created": 0,
+    "autonomous_paper_orders": 0,
+    "network_calls": 0,
+    "commands_executed": 0,
+    "autonomous_decisions": 0
+  },
+  "operator_takeaways": [
+    "PAPER-019 completed deterministic offline fixture accounting over five markets.",
+    "Three records were accepted for settled accounting, one remains open manual review, and one was blocked.",
+    "The cumulative PnL of -1.00 is covered by the accounting-only warning.",
+    "No safety counter indicates live data, order creation, autonomous action, or command execution."
+  ],
+  "recommended_next_fixture_expansions": [
+    "Add more settled fixture records covering additional cost and settlement combinations.",
+    "Add more open manual-review fixture records that remain inert until explicit fixture settlement values exist.",
+    "Add blocked fixture variants for malformed accounting values and unsafe lineage flags.",
+    "Add boundary accounting examples for zero cost, zero settlement, and unusually large fixture values."
+  ],
+  "next_safe_action": "PMBOT-WORKBENCH-006-SURFACE-PAPER-020-POSTMORTEM or PMBOT-PRODUCT-002-NEXT-MVP-GATE-REVIEW",
+  "postmortem_status": "postmortem_completed"
+}
