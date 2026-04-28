@@ -1,0 +1,428 @@
+{
+  "schema_version": "paper_accounting_reconciliation_audit.v1",
+  "markdown_version": "paper_accounting_reconciliation_audit_markdown.v1",
+  "task_id": "PMBOT-PAPER-017-PAPER-ACCOUNTING-RECONCILIATION-LIFECYCLE-AUDIT",
+  "market_id": "824952",
+  "audit_status": "reconciliation_passed",
+  "deterministic": true,
+  "artifacts_checked": [
+    {
+      "artifact_id": "manual_paper_intents_accepted",
+      "path": "pm_bot/paper/manual_paper_intents_accepted.v1.json",
+      "schema_version": "manual_paper_intents_accepted.v1",
+      "deterministic": true,
+      "record_count": 1,
+      "market_ids": [
+        "824952"
+      ]
+    },
+    {
+      "artifact_id": "manual_paper_intent_ledger",
+      "path": "pm_bot/paper/manual_paper_intent_ledger.v1.json",
+      "schema_version": "manual_paper_intent_ledger.v1",
+      "deterministic": true,
+      "record_count": 1,
+      "market_ids": [
+        "824952"
+      ]
+    },
+    {
+      "artifact_id": "paper_workbench_preview",
+      "path": "pm_bot/paper/paper_workbench_preview.v1.json",
+      "schema_version": "paper_workbench_preview.v1",
+      "deterministic": true,
+      "record_count": 1,
+      "market_ids": [
+        "824952"
+      ]
+    },
+    {
+      "artifact_id": "paper_fill_source_fixture",
+      "path": "pm_bot/paper/paper_fill_source_fixture.v1.json",
+      "schema_version": "paper_fill_source_fixture.v1",
+      "deterministic": true,
+      "record_count": 3,
+      "market_ids": [
+        "000000",
+        "824952"
+      ]
+    },
+    {
+      "artifact_id": "paper_fill_sources_accepted",
+      "path": "pm_bot/paper/paper_fill_sources_accepted.v1.json",
+      "schema_version": "paper_fill_sources_accepted.v1",
+      "deterministic": true,
+      "record_count": 1,
+      "market_ids": [
+        "824952"
+      ]
+    },
+    {
+      "artifact_id": "paper_fill_sources_rejected",
+      "path": "pm_bot/paper/paper_fill_sources_rejected.v1.json",
+      "schema_version": "paper_fill_sources_rejected.v1",
+      "deterministic": true,
+      "record_count": 2,
+      "market_ids": [
+        "000000",
+        "824952"
+      ]
+    },
+    {
+      "artifact_id": "paper_fill_events",
+      "path": "pm_bot/paper/paper_fill_events.v1.json",
+      "schema_version": "paper_fill_events.v1",
+      "deterministic": true,
+      "record_count": 1,
+      "market_ids": [
+        "824952"
+      ]
+    },
+    {
+      "artifact_id": "paper_settlement_source_fixture",
+      "path": "pm_bot/paper/paper_settlement_source_fixture.v1.json",
+      "schema_version": "paper_settlement_source_fixture.v1",
+      "deterministic": true,
+      "record_count": 3,
+      "market_ids": [
+        "000000",
+        "824952"
+      ]
+    },
+    {
+      "artifact_id": "paper_settlement_sources_accepted",
+      "path": "pm_bot/paper/paper_settlement_sources_accepted.v1.json",
+      "schema_version": "paper_settlement_sources_accepted.v1",
+      "deterministic": true,
+      "record_count": 1,
+      "market_ids": [
+        "824952"
+      ]
+    },
+    {
+      "artifact_id": "paper_settlement_sources_rejected",
+      "path": "pm_bot/paper/paper_settlement_sources_rejected.v1.json",
+      "schema_version": "paper_settlement_sources_rejected.v1",
+      "deterministic": true,
+      "record_count": 2,
+      "market_ids": [
+        "000000",
+        "824952"
+      ]
+    },
+    {
+      "artifact_id": "paper_accounting_pnl_preview",
+      "path": "pm_bot/paper/paper_accounting_pnl_preview.v1.json",
+      "schema_version": "paper_accounting_pnl_preview.v1",
+      "deterministic": true,
+      "record_count": 1,
+      "market_ids": [
+        "824952"
+      ]
+    },
+    {
+      "artifact_id": "paper_accounting_ledger",
+      "path": "pm_bot/paper/paper_accounting_ledger.v1.json",
+      "schema_version": "paper_accounting_ledger.v1",
+      "deterministic": true,
+      "record_count": 1,
+      "market_ids": [
+        "824952"
+      ]
+    },
+    {
+      "artifact_id": "paper_portfolio_snapshot",
+      "path": "pm_bot/paper/paper_portfolio_snapshot.v1.json",
+      "schema_version": "paper_portfolio_snapshot.v1",
+      "deterministic": true,
+      "record_count": 1,
+      "market_ids": [
+        "824952"
+      ]
+    },
+    {
+      "artifact_id": "paper_metrics_report",
+      "path": "pm_bot/paper/paper_metrics_report.v1.json",
+      "schema_version": "paper_metrics_report.v1",
+      "deterministic": true,
+      "record_count": 1,
+      "market_ids": [
+        "824952"
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "check_id": "required_artifacts_present",
+      "status": "pass",
+      "summary": "All required local paper artifacts were loaded.",
+      "expected": [],
+      "actual": [],
+      "artifacts": [
+        "pm_bot/paper/manual_paper_intents_accepted.v1.json",
+        "pm_bot/paper/manual_paper_intent_ledger.v1.json",
+        "pm_bot/paper/paper_workbench_preview.v1.json",
+        "pm_bot/paper/paper_fill_source_fixture.v1.json",
+        "pm_bot/paper/paper_fill_sources_accepted.v1.json",
+        "pm_bot/paper/paper_fill_sources_rejected.v1.json",
+        "pm_bot/paper/paper_fill_events.v1.json",
+        "pm_bot/paper/paper_settlement_source_fixture.v1.json",
+        "pm_bot/paper/paper_settlement_sources_accepted.v1.json",
+        "pm_bot/paper/paper_settlement_sources_rejected.v1.json",
+        "pm_bot/paper/paper_accounting_pnl_preview.v1.json",
+        "pm_bot/paper/paper_accounting_ledger.v1.json",
+        "pm_bot/paper/paper_portfolio_snapshot.v1.json",
+        "pm_bot/paper/paper_metrics_report.v1.json"
+      ]
+    },
+    {
+      "check_id": "deterministic_flags",
+      "status": "pass",
+      "summary": "All checked artifacts declare deterministic output.",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "check_id": "market_id_consistency",
+      "status": "pass",
+      "summary": "Accepted lifecycle artifacts consistently reference market 824952.",
+      "expected": {
+        "manual_paper_intents_accepted": [
+          "824952"
+        ],
+        "manual_paper_intent_ledger": [
+          "824952"
+        ],
+        "paper_workbench_preview": [
+          "824952"
+        ],
+        "paper_fill_sources_accepted": [
+          "824952"
+        ],
+        "paper_fill_events": [
+          "824952"
+        ],
+        "paper_settlement_sources_accepted": [
+          "824952"
+        ],
+        "paper_accounting_pnl_preview": [
+          "824952"
+        ],
+        "paper_accounting_ledger": [
+          "824952"
+        ],
+        "paper_portfolio_snapshot": [
+          "824952"
+        ],
+        "paper_metrics_report": [
+          "824952"
+        ]
+      },
+      "actual": {
+        "manual_paper_intents_accepted": [
+          "824952"
+        ],
+        "manual_paper_intent_ledger": [
+          "824952"
+        ],
+        "paper_workbench_preview": [
+          "824952"
+        ],
+        "paper_fill_sources_accepted": [
+          "824952"
+        ],
+        "paper_fill_events": [
+          "824952"
+        ],
+        "paper_settlement_sources_accepted": [
+          "824952"
+        ],
+        "paper_accounting_pnl_preview": [
+          "824952"
+        ],
+        "paper_accounting_ledger": [
+          "824952"
+        ],
+        "paper_portfolio_snapshot": [
+          "824952"
+        ],
+        "paper_metrics_report": [
+          "824952"
+        ]
+      }
+    },
+    {
+      "check_id": "manual_intent_ledger_count_consistency",
+      "status": "pass",
+      "summary": "Accepted manual intent count matches inert manual paper ledger entries.",
+      "expected": {
+        "accepted_intents": 1,
+        "ledger_entries": 1
+      },
+      "actual": {
+        "accepted_intents": 1,
+        "ledger_entries": 1
+      }
+    },
+    {
+      "check_id": "fill_fixture_partition_consistency",
+      "status": "pass",
+      "summary": "Manual fill fixture records partition into accepted and rejected fill source artifacts.",
+      "expected": {
+        "partition_total_equals_fixture_records": true
+      },
+      "actual": {
+        "fixture_records": 3,
+        "records_read": 3,
+        "accepted_records": 1,
+        "rejected_records": 2,
+        "accepted_count": 1,
+        "rejected_count": 2,
+        "partition_total": 3
+      }
+    },
+    {
+      "check_id": "settlement_fixture_partition_consistency",
+      "status": "pass",
+      "summary": "Manual settlement fixture records partition into accepted and rejected settlement source artifacts.",
+      "expected": {
+        "partition_total_equals_fixture_records": true
+      },
+      "actual": {
+        "fixture_records": 3,
+        "records_read": 3,
+        "accepted_records": 1,
+        "rejected_records": 2,
+        "accepted_count": 1,
+        "rejected_count": 2,
+        "partition_total": 3
+      }
+    },
+    {
+      "check_id": "accepted_lifecycle_record_count_consistency",
+      "status": "pass",
+      "summary": "Accepted lifecycle artifacts each carry one reconciled accounting record.",
+      "expected": {
+        "all_active_record_counts": 1
+      },
+      "actual": {
+        "manual_intents_accepted": 1,
+        "manual_ledger_entries": 1,
+        "fill_sources_accepted": 1,
+        "fill_events": 1,
+        "settlement_sources_accepted": 1,
+        "pnl_records": 1,
+        "accounting_ledger_entries": 1,
+        "portfolio_positions": 1,
+        "metrics_records": 1
+      }
+    },
+    {
+      "check_id": "artifact_pointer_consistency",
+      "status": "pass",
+      "summary": "Artifact pointer fields reference the expected local paper artifacts.",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "check_id": "fill_settlement_accounting_linkage",
+      "status": "pass",
+      "summary": "Manual intent, fill, settlement, accounting, ledger, and portfolio ids link across artifacts.",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "check_id": "closed_open_status_consistency",
+      "status": "pass",
+      "summary": "Closed and open position counts match accounting ledger, portfolio, and metrics artifacts.",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "check_id": "pnl_value_consistency",
+      "status": "pass",
+      "summary": "Accounting PnL values reconcile from local manual fill and settlement fixture values.",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "check_id": "portfolio_metrics_consistency",
+      "status": "pass",
+      "summary": "Portfolio snapshot and metrics report values match the accounting ledger.",
+      "expected": {
+        "paper_accounting_total_records": 1,
+        "paper_accounting_settled_count": 1,
+        "paper_accounting_open_count": 0,
+        "paper_accounting_win_count": 1,
+        "paper_accounting_loss_count": 0,
+        "paper_accounting_flat_count": 0,
+        "paper_accounting_cumulative_pnl": "6.00",
+        "paper_accounting_average_pnl": "6.00",
+        "paper_accounting_gross_profit": "6.00",
+        "paper_accounting_gross_loss": "0.00",
+        "paper_accounting_max_gain": "6.00",
+        "paper_accounting_max_loss": "0.00"
+      },
+      "actual": {
+        "paper_accounting_total_records": 1,
+        "paper_accounting_settled_count": 1,
+        "paper_accounting_open_count": 0,
+        "paper_accounting_win_count": 1,
+        "paper_accounting_loss_count": 0,
+        "paper_accounting_flat_count": 0,
+        "paper_accounting_cumulative_pnl": "6.00",
+        "paper_accounting_average_pnl": "6.00",
+        "paper_accounting_gross_profit": "6.00",
+        "paper_accounting_gross_loss": "0.00",
+        "paper_accounting_max_gain": "6.00",
+        "paper_accounting_max_loss": "0.00"
+      }
+    },
+    {
+      "check_id": "safety_flag_consistency",
+      "status": "pass",
+      "summary": "Accepted lifecycle artifacts remain paper-only, inert, local, and non-executable.",
+      "expected": [],
+      "actual": []
+    },
+    {
+      "check_id": "no_scoring_probability_ev_edge_or_recommendation_fields",
+      "status": "pass",
+      "summary": "Accepted lifecycle artifacts contain no scoring, probability, EV, edge, recommendation, or market-decision fields.",
+      "expected": [],
+      "actual": []
+    }
+  ],
+  "mismatches": [],
+  "warnings": [],
+  "accounting_summary": {
+    "paper_accounting_total_records": 1,
+    "settled_count": 1,
+    "open_count": 0,
+    "win_count": 1,
+    "loss_count": 0,
+    "flat_count": 0,
+    "cumulative_pnl": "6.00",
+    "gross_profit": "6.00",
+    "gross_loss": "0.00",
+    "average_pnl": "6.00",
+    "max_gain": "6.00",
+    "max_loss": "0.00"
+  },
+  "safety_flags": {
+    "offline_only": true,
+    "local_file_reads_only": true,
+    "runtime_wiring": false,
+    "network_api": false,
+    "wallet": false,
+    "trading": false,
+    "autonomous_paper_orders": false,
+    "scoring_probability_ev_edge": false,
+    "market_decisions": false,
+    "truth_inference": false,
+    "recommendations": false
+  },
+  "paper_orders_created": 0,
+  "autonomous_actions_created": 0,
+  "next_safe_action": "ready_for_integration_review"
+}
