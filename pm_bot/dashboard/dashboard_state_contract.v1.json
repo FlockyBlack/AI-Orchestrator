@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "PMBOT_DASHBOARD_STATE_CONTRACT.v1",
+  "title": "PMBOT Dashboard State Contract v1",
+  "description": "Schema-like local contract for a deterministic PMBOT dashboard state snapshot. This contract describes local artifacts only and does not define any dashboard runtime.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "generated_by",
+    "generated_at_policy",
+    "market_ids",
+    "product_stage_summary",
+    "paper_accounting_summary",
+    "latest_artifact_pointers",
+    "test_status_summary",
+    "safety_flags",
+    "forbidden_capabilities",
+    "operator_next_actions",
+    "interpretation_warnings",
+    "no_autonomous_decision_status"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "dashboard_state_preview.v1"
+    },
+    "generated_by": {
+      "const": "pm_bot/dashboard/export_dashboard_state_contract.py"
+    },
+    "generated_at_policy": {
+      "type": "object",
+      "required": [
+        "wall_clock_time_used",
+        "policy"
+      ],
+      "properties": {
+        "wall_clock_time_used": {
+          "const": false
+        },
+        "policy": {
+          "type": "string"
+        },
+        "fixed_value": {
+          "type": "string"
+        }
+      }
+    },
+    "market_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "product_stage_summary": {
+      "type": "object"
+    },
+    "paper_accounting_summary": {
+      "type": "object"
+    },
+    "latest_artifact_pointers": {
+      "type": "object"
+    },
+    "test_status_summary": {
+      "type": "object"
+    },
+    "safety_flags": {
+      "type": "object"
+    },
+    "forbidden_capabilities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "operator_next_actions": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "interpretation_warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "no_autonomous_decision_status": {
+      "type": "object"
+    }
+  },
+  "contract_boundary": {
+    "local_file_reads_only": true,
+    "deterministic_output": true,
+    "stable_ordering": true,
+    "dashboard_runtime_defined": false,
+    "server_defined": false,
+    "frontend_defined": false,
+    "network_or_api_defined": false,
+    "trading_or_ordering_defined": false,
+    "scoring_probability_ev_edge_defined": false,
+    "market_decision_defined": false
+  },
+  "source_artifact_requirements": [
+    "pm_bot/paper/paper_accounting_ledger.v1.json",
+    "pm_bot/paper/paper_portfolio_snapshot.v1.json",
+    "pm_bot/paper/paper_metrics_report.v1.json",
+    "docs/PMBOT_PAPER_BATCH_014_016_RESULT.json",
+    "docs/PMBOT_INTEGRATION_003_RESULT.json"
+  ]
+}
