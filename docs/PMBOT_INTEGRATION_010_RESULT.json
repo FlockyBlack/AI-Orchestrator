@@ -1,0 +1,95 @@
+{
+  "task_id": "PMBOT-INTEGRATION-010-ABC-ROUND003-REAL-MERGE",
+  "status": "completed_ready_for_review",
+  "integration_verdict": "abc_round003_merged_to_main",
+  "base_before_merge": "4ab06bc10bb92639a38875ed94552260d04c45a9",
+  "origin_main_before_merge": "4ab06bc10bb92639a38875ed94552260d04c45a9",
+  "required_branch_ancestry_base": "21edc9af372e9d1736afb0eccd3c016f23f2c144",
+  "branches_merged": [
+    {
+      "branch": "codex/a-operator-review-pack-round003",
+      "expected_commit": "0c4009b858d5aa24f394efd53abe7b4df92c0a51",
+      "merged": true,
+      "merge_commit": "6b94e1ebf2b654426d2303c115144c43fca171d6"
+    },
+    {
+      "branch": "codex/b-artifact-health-staleness-round003",
+      "expected_commit": "462846e60181ee201e03b84b1d89e54ca996f4ef",
+      "merged": true,
+      "merge_commit": "34d8ee18b9e6a8d448067976eb0d957280c7caaf"
+    },
+    {
+      "branch": "codex/c-review-pack-command-bridge-round003",
+      "expected_commit": "0d95023b0d650e3a3089bafb2d56f9b05a3c39e3",
+      "merged": true,
+      "merge_commit": "f374dcdfeb6e14d36dbd40eeb33c62290098b202"
+    }
+  ],
+  "merge_conflicts": [],
+  "files_added_total": 23,
+  "files_changed_summary": {
+    "abc_files_added_before_integration_docs": 21,
+    "integration_docs_added": 2,
+    "files_modified": 0,
+    "dispatcher_or_run_codex_touched": false,
+    "runtime_wiring_touched": false
+  },
+  "quality_warning_review": {
+    "report_status": "health_passed_with_warnings",
+    "warnings": 149,
+    "blocking_warning_detected": false,
+    "summary": "Inventory, staleness, and metadata quality warnings only; no blockers and no unsafe safety flag values."
+  },
+  "focused_tests": [
+    {
+      "command": "python -m pytest pm_bot\\workbench\\tests -q",
+      "status": "passed",
+      "summary": "9 passed in 0.81s"
+    },
+    {
+      "command": "python -m pytest pm_bot\\quality\\tests -q",
+      "status": "passed",
+      "summary": "18 passed in 4.22s"
+    },
+    {
+      "command": "python -m pytest pm_bot\\operator\\tests\\test_review_pack_command_bridge.py -q",
+      "status": "passed",
+      "summary": "8 passed, 34 subtests passed in 0.14s"
+    }
+  ],
+  "combined_focused_tests": {
+    "command": "python -m pytest pm_bot\\workbench\\tests pm_bot\\quality\\tests pm_bot\\operator\\tests\\test_review_pack_command_bridge.py -q",
+    "status": "passed",
+    "summary": "35 passed, 34 subtests passed in 4.92s"
+  },
+  "combined_focused_tests_passed": true,
+  "full_paper_suite": {
+    "command": "python -m pytest pm_bot\\paper\\tests -q",
+    "status": "passed",
+    "summary": "314 passed, 39 subtests passed in 22.89s",
+    "expected_equivalence": "Rehearsal expected 313 passed, 1 skipped, 39 subtests passed; observed 314 passed, 39 subtests passed.",
+    "failure_classification": "none"
+  },
+  "combined_product_tests": {
+    "command": "python -m pytest pm_bot\\dashboard\\tests pm_bot\\operator\\tests pm_bot\\workbench\\tests pm_bot\\quality\\tests -q",
+    "status": "passed",
+    "summary": "84 passed, 48 subtests passed in 34.83s"
+  },
+  "py_compile_passed": true,
+  "json_parse_checks_passed": true,
+  "diff_check_passed": true,
+  "safety_scan": {
+    "method": "PowerShell Select-String over six newly merged Python files plus AST scan for forbidden imports/calls and dispatcher/run_codex path scan over merge diff.",
+    "broad_hits_classification": "safety_policy_constants_explicit_false_flags_local_artifact_inventory_validator_deny_list_references_or_negative_test_fixtures_only",
+    "dispatcher_run_codex_touched": false,
+    "runtime_network_or_trading_behavior_detected": false
+  },
+  "safety_flags_clean": true,
+  "forbidden_changes_detected": false,
+  "pushed": true,
+  "main_modified": true,
+  "final_main_commit": "final pushed commit is emitted in the integration executor final response",
+  "final_main_commit_note": "A commit cannot embed its own object id in a tracked file without changing that id; the exact pushed HEAD is reported in the task final response.",
+  "blockers": [],
+  "next_safe_action": "Plan PMBOT next product step after Operator Workbench / Review Pack v1 merge."
+}
