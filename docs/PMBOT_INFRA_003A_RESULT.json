@@ -1,0 +1,93 @@
+{
+  "code_slot": "CODEX_INFRA_003A",
+  "task_id": "PMBOT-INFRA-003A-SECRET-SCAN-FINDINGS-REMEDIATION",
+  "status": "completed_ready_for_review",
+  "summary": "Remediated false-positive secret-scan assignment-style wording in three tracked Markdown reports without changing PMBOT source, tests, runtime, remotes, or execution behavior.",
+  "git": {
+    "current_branch": "main",
+    "origin_present": false,
+    "remote_added": false,
+    "push_performed": false,
+    "force_push_used": false,
+    "status_clean_after_commit": false
+  },
+  "findings_reviewed": [
+    {
+      "path": "pm_bot/research/selected_ingest_dossier_human_review_records_report.v1.md",
+      "classification": "false_positive_safety_language",
+      "remediated": true
+    },
+    {
+      "path": "pm_bot/research/selected_ingest_manual_dossier_draft_validation_report.v1.md",
+      "classification": "false_positive_safety_language",
+      "remediated": true
+    },
+    {
+      "path": "pm_bot/research/selected_ingest_operator_review_records_report.v1.md",
+      "classification": "false_positive_safety_language",
+      "remediated": true
+    }
+  ],
+  "remediation": {
+    "performed": true,
+    "files_modified": [
+      "pm_bot/research/selected_ingest_dossier_human_review_records_report.v1.md",
+      "pm_bot/research/selected_ingest_manual_dossier_draft_validation_report.v1.md",
+      "pm_bot/research/selected_ingest_operator_review_records_report.v1.md"
+    ],
+    "secret_values_printed": false,
+    "meaning_preserved": true,
+    "json_fixtures_modified": false,
+    "pmbot_source_modified": false,
+    "tests_modified": false
+  },
+  "rescans": {
+    "targeted_flagged_files_scan_performed": true,
+    "targeted_assignment_patterns_remaining": false,
+    "tracked_files_scan_performed": true,
+    "likely_secrets_found_after_remediation": false,
+    "redacted_findings_after_remediation": []
+  },
+  "files_created": [
+    "docs/PMBOT_INFRA_003A_SECRET_SCAN_FINDINGS_REMEDIATION.md",
+    "docs/PMBOT_INFRA_003A_RESULT.json"
+  ],
+  "files_modified": [
+    "pm_bot/research/selected_ingest_dossier_human_review_records_report.v1.md",
+    "pm_bot/research/selected_ingest_manual_dossier_draft_validation_report.v1.md",
+    "pm_bot/research/selected_ingest_operator_review_records_report.v1.md"
+  ],
+  "tests": [
+    {
+      "command": "python -m pytest pm_bot\\paper\\tests -q",
+      "status": "passed",
+      "summary": "306 passed, 39 subtests passed"
+    }
+  ],
+  "commit": {
+    "created": true,
+    "commit_hash": null,
+    "message": "PMBOT infra: remediate secret scan false positives"
+  },
+  "safety": {
+    "offline_only": true,
+    "github_remote_added": false,
+    "github_push_performed": false,
+    "credentials_added": false,
+    "wallet_private_keys_added": false,
+    "authenticated_endpoints_added": false,
+    "trading_endpoints_added": false,
+    "real_orders": false,
+    "live_trading": false,
+    "autonomous_paper_orders": false,
+    "runtime_wiring": false,
+    "dispatcher_run_codex_changes": false,
+    "source_files_modified": false
+  },
+  "recommended_next_task": "PMBOT-INFRA-003-GITHUB-PRIVATE-REMOTE-SETUP",
+  "warnings": [
+    "Committed result JSON leaves commit.commit_hash null per the self-reference rule.",
+    "Broader tracked scan found existing non-token-shaped assignment-style safety/source strings outside this task scope; no likely secrets were detected and they were left unchanged."
+  ],
+  "blockers": []
+}

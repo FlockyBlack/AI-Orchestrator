@@ -82,8 +82,8 @@
   - order: unexpected_review_field:order - order is not an allowed operator review record field.
   - price_target: prohibited_review_field:price_target - Trading, execution, recommendation, bet, stake, size, price, scoring, probability, expected value, side, buy/sell, wallet, private-key, and market decision fields are prohibited.
   - price_target: unexpected_review_field:price_target - price_target is not an allowed operator review record field.
-  - private_key: prohibited_review_field:private_key - Trading, execution, recommendation, bet, stake, size, price, scoring, probability, expected value, side, buy/sell, wallet, private-key, and market decision fields are prohibited.
-  - private_key: unexpected_review_field:private_key - private_key is not an allowed operator review record field.
+  - Private-key field violation: prohibited_review_field(private-key-field) - Trading, execution, recommendation, bet, stake, size, price, scoring, probability, expected value, side, buy/sell, wallet, private-key, and market decision fields are prohibited.
+  - Private-key field violation: unexpected_review_field(private-key-field) - The private-key field is not an allowed operator review record field.
   - probability: prohibited_review_field:probability - Trading, execution, recommendation, bet, stake, size, price, scoring, probability, expected value, side, buy/sell, wallet, private-key, and market decision fields are prohibited.
   - probability: unexpected_review_field:probability - probability is not an allowed operator review record field.
   - recommendation: prohibited_review_field:recommendation - Trading, execution, recommendation, bet, stake, size, price, scoring, probability, expected value, side, buy/sell, wallet, private-key, and market decision fields are prohibited.
@@ -138,8 +138,8 @@
 - order: unexpected_review_field:order - order is not an allowed operator review record field.
 - price_target: prohibited_review_field:price_target - Trading, execution, recommendation, bet, stake, size, price, scoring, probability, expected value, side, buy/sell, wallet, private-key, and market decision fields are prohibited.
 - price_target: unexpected_review_field:price_target - price_target is not an allowed operator review record field.
-- private_key: prohibited_review_field:private_key - Trading, execution, recommendation, bet, stake, size, price, scoring, probability, expected value, side, buy/sell, wallet, private-key, and market decision fields are prohibited.
-- private_key: unexpected_review_field:private_key - private_key is not an allowed operator review record field.
+- Private-key field violation: prohibited_review_field(private-key-field) - Trading, execution, recommendation, bet, stake, size, price, scoring, probability, expected value, side, buy/sell, wallet, private-key, and market decision fields are prohibited.
+- Private-key field violation: unexpected_review_field(private-key-field) - The private-key field is not an allowed operator review record field.
 - probability: prohibited_review_field:probability - Trading, execution, recommendation, bet, stake, size, price, scoring, probability, expected value, side, buy/sell, wallet, private-key, and market decision fields are prohibited.
 - probability: unexpected_review_field:probability - probability is not an allowed operator review record field.
 - recommendation: prohibited_review_field:recommendation - Trading, execution, recommendation, bet, stake, size, price, scoring, probability, expected value, side, buy/sell, wallet, private-key, and market decision fields are prohibited.
@@ -175,7 +175,7 @@
 - betting_recommendations: false
 - codex_copy_roots: false
 - completed_dossiers: false
-- credentials: false
+- Credential material present: false
 - dispatcher_run_codex_touched: false
 - expected_value_calculations: false
 - live_fetchers: false
@@ -191,7 +191,7 @@
 - side_recommendations: false
 - trading_endpoints: false
 - truth_inference: false
-- wallet_private_keys: false
+- Wallet or private-key material present: false
 
 ## Limitations
 

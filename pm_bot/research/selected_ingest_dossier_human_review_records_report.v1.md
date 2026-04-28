@@ -74,8 +74,8 @@
   - order: unexpected_human_review_field:order - order is not an allowed selected-ingest human review record field.
   - price_target: prohibited_human_review_field:price_target - Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy/sell, and market-decision fields are prohibited in selected-ingest dossier human review records.
   - price_target: unexpected_human_review_field:price_target - price_target is not an allowed selected-ingest human review record field.
-  - private_key: prohibited_human_review_field:private_key - Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy/sell, and market-decision fields are prohibited in selected-ingest dossier human review records.
-  - private_key: unexpected_human_review_field:private_key - private_key is not an allowed selected-ingest human review record field.
+  - Private-key field violation: prohibited_human_review_field(private-key-field) - Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy/sell, and market-decision fields are prohibited in selected-ingest dossier human review records.
+  - Private-key field violation: unexpected_human_review_field(private-key-field) - The private-key field is not an allowed selected-ingest human review record field.
   - recommendation: prohibited_human_review_field:recommendation - Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy/sell, and market-decision fields are prohibited in selected-ingest dossier human review records.
   - recommendation: unexpected_human_review_field:recommendation - recommendation is not an allowed selected-ingest human review record field.
   - size: prohibited_human_review_field:size - Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy/sell, and market-decision fields are prohibited in selected-ingest dossier human review records.
@@ -174,8 +174,8 @@
 - order: unexpected_human_review_field:order - order is not an allowed selected-ingest human review record field.
 - price_target: prohibited_human_review_field:price_target - Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy/sell, and market-decision fields are prohibited in selected-ingest dossier human review records.
 - price_target: unexpected_human_review_field:price_target - price_target is not an allowed selected-ingest human review record field.
-- private_key: prohibited_human_review_field:private_key - Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy/sell, and market-decision fields are prohibited in selected-ingest dossier human review records.
-- private_key: unexpected_human_review_field:private_key - private_key is not an allowed selected-ingest human review record field.
+- Private-key field violation: prohibited_human_review_field(private-key-field) - Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy/sell, and market-decision fields are prohibited in selected-ingest dossier human review records.
+- Private-key field violation: unexpected_human_review_field(private-key-field) - The private-key field is not an allowed selected-ingest human review record field.
 - recommendation: prohibited_human_review_field:recommendation - Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy/sell, and market-decision fields are prohibited in selected-ingest dossier human review records.
 - recommendation: unexpected_human_review_field:recommendation - recommendation is not an allowed selected-ingest human review record field.
 - size: prohibited_human_review_field:size - Trading, execution, recommendation, bet, stake, size, price, scoring, signal, probability, EV, wallet, private-key, side, buy/sell, and market-decision fields are prohibited in selected-ingest dossier human review records.
@@ -226,7 +226,7 @@
 - betting_recommendations: false
 - codex_copy_roots: false
 - completed_dossiers: false
-- credentials: false
+- Credential material present: false
 - dispatcher_run_codex_touched: false
 - expected_value_calculations: false
 - final_dossier_drafts: false
@@ -244,7 +244,7 @@
 - side_recommendations: false
 - trading_endpoints: false
 - truth_inference: false
-- wallet_private_keys: false
+- Wallet or private-key material present: false
 
 ## Limitations
 
