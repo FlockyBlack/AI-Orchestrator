@@ -1,0 +1,539 @@
+{
+  "schema_version": "manual_command_examples.v1",
+  "contract_path": "pm_bot/operator/manual_command_contract.v1.json",
+  "valid_commands": [
+    {
+      "schema_version": "manual_operator_command.v1",
+      "command_id": "manual-command-status-001",
+      "command_type": "request_status_summary",
+      "source_type": "manual_json",
+      "source_label": "operator local json fixture",
+      "created_by_policy": "contract_fixture",
+      "payload": {
+        "summary_scope": "existing_local_artifact_status",
+        "requested_sections": [
+          "latest_operator_artifacts",
+          "paper_accounting_counts"
+        ]
+      },
+      "safety_flags": {
+        "telegram_runtime": false,
+        "telegram_token": false,
+        "command_execution": false,
+        "runtime_wiring": false,
+        "network_api": false,
+        "credentials": false,
+        "wallet": false,
+        "trading": false,
+        "real_orders": false,
+        "live_trading": false,
+        "autonomous_paper_orders": false,
+        "scoring_probability_ev_edge": false,
+        "recommendations": false,
+        "truth_inference": false,
+        "market_decisions": false,
+        "side_recommendations": false
+      },
+      "execution_authority": false,
+      "requires_human_review": true,
+      "allowed_next_action": "human_review_only"
+    },
+    {
+      "schema_version": "manual_operator_command.v1",
+      "command_id": "manual-command-dashboard-export-001",
+      "command_type": "request_dashboard_state_export",
+      "source_type": "manual_markdown",
+      "source_label": "operator local markdown note",
+      "created_by_policy": "human_transcribed_static_record",
+      "artifact_pointer": "pm_bot/operator/expected_operator_review_bundle.v1.json",
+      "payload": {
+        "dashboard_state_scope": "existing_local_artifact_state",
+        "export_format": "json",
+        "artifact_purpose": "operator_review"
+      },
+      "safety_flags": {
+        "telegram_runtime": false,
+        "telegram_token": false,
+        "command_execution": false,
+        "runtime_wiring": false,
+        "network_api": false,
+        "credentials": false,
+        "wallet": false,
+        "trading": false,
+        "real_orders": false,
+        "live_trading": false,
+        "autonomous_paper_orders": false,
+        "scoring_probability_ev_edge": false,
+        "recommendations": false,
+        "truth_inference": false,
+        "market_decisions": false,
+        "side_recommendations": false
+      },
+      "execution_authority": false,
+      "requires_human_review": true,
+      "allowed_next_action": "artifact_lookup_by_human"
+    },
+    {
+      "schema_version": "manual_operator_command.v1",
+      "command_id": "manual-command-review-note-001",
+      "command_type": "record_manual_review_note",
+      "source_type": "telegram_transcript_placeholder",
+      "source_label": "static transcript placeholder copied for local review",
+      "created_by_policy": "human_transcribed_static_record",
+      "market_id": "824952",
+      "payload": {
+        "note_text": "Human will inspect the existing local artifact before any future implementation.",
+        "note_category": "operator_observation"
+      },
+      "safety_flags": {
+        "telegram_runtime": false,
+        "telegram_token": false,
+        "command_execution": false,
+        "runtime_wiring": false,
+        "network_api": false,
+        "credentials": false,
+        "wallet": false,
+        "trading": false,
+        "real_orders": false,
+        "live_trading": false,
+        "autonomous_paper_orders": false,
+        "scoring_probability_ev_edge": false,
+        "recommendations": false,
+        "truth_inference": false,
+        "market_decisions": false,
+        "side_recommendations": false
+      },
+      "execution_authority": false,
+      "requires_human_review": true,
+      "allowed_next_action": "record_only"
+    },
+    {
+      "schema_version": "manual_operator_command.v1",
+      "command_id": "manual-command-paper-intent-ref-001",
+      "command_type": "record_manual_paper_intent_reference",
+      "source_type": "manual_json",
+      "source_label": "operator local json fixture",
+      "created_by_policy": "contract_fixture",
+      "market_id": "824952",
+      "artifact_pointer": "pm_bot/paper/manual_paper_intent_ledger.v1.json",
+      "payload": {
+        "paper_intent_reference_id": "manual-paper-intent-ledger-001",
+        "note_text": "Reference only to an existing inert paper intent artifact."
+      },
+      "safety_flags": {
+        "telegram_runtime": false,
+        "telegram_token": false,
+        "command_execution": false,
+        "runtime_wiring": false,
+        "network_api": false,
+        "credentials": false,
+        "wallet": false,
+        "trading": false,
+        "real_orders": false,
+        "live_trading": false,
+        "autonomous_paper_orders": false,
+        "scoring_probability_ev_edge": false,
+        "recommendations": false,
+        "truth_inference": false,
+        "market_decisions": false,
+        "side_recommendations": false
+      },
+      "execution_authority": false,
+      "requires_human_review": true,
+      "allowed_next_action": "record_only"
+    },
+    {
+      "schema_version": "manual_operator_command.v1",
+      "command_id": "manual-command-artifact-pointer-001",
+      "command_type": "request_artifact_pointer",
+      "source_type": "manual_markdown",
+      "source_label": "operator local markdown note",
+      "created_by_policy": "operator_manual_entry",
+      "payload": {
+        "artifact_kind": "operator_review_bundle",
+        "requested_path_label": "latest_operator_review_bundle"
+      },
+      "safety_flags": {
+        "telegram_runtime": false,
+        "telegram_token": false,
+        "command_execution": false,
+        "runtime_wiring": false,
+        "network_api": false,
+        "credentials": false,
+        "wallet": false,
+        "trading": false,
+        "real_orders": false,
+        "live_trading": false,
+        "autonomous_paper_orders": false,
+        "scoring_probability_ev_edge": false,
+        "recommendations": false,
+        "truth_inference": false,
+        "market_decisions": false,
+        "side_recommendations": false
+      },
+      "execution_authority": false,
+      "requires_human_review": true,
+      "allowed_next_action": "artifact_lookup_by_human"
+    },
+    {
+      "schema_version": "manual_operator_command.v1",
+      "command_id": "manual-command-human-review-001",
+      "command_type": "mark_needs_human_review",
+      "source_type": "telegram_transcript_placeholder",
+      "source_label": "static transcript placeholder copied for local review",
+      "created_by_policy": "human_transcribed_static_record",
+      "payload": {
+        "review_reason": "Operator review required before any future implementation.",
+        "review_priority": "normal"
+      },
+      "safety_flags": {
+        "telegram_runtime": false,
+        "telegram_token": false,
+        "command_execution": false,
+        "runtime_wiring": false,
+        "network_api": false,
+        "credentials": false,
+        "wallet": false,
+        "trading": false,
+        "real_orders": false,
+        "live_trading": false,
+        "autonomous_paper_orders": false,
+        "scoring_probability_ev_edge": false,
+        "recommendations": false,
+        "truth_inference": false,
+        "market_decisions": false,
+        "side_recommendations": false
+      },
+      "execution_authority": false,
+      "requires_human_review": true,
+      "allowed_next_action": "human_review_only"
+    }
+  ],
+  "invalid_commands": [
+    {
+      "case_id": "invalid-telegram-live-source",
+      "expected_reject_reasons": [
+        "invalid_source_type"
+      ],
+      "command": {
+        "schema_version": "manual_operator_command.v1",
+        "command_id": "manual-command-invalid-live-source",
+        "command_type": "request_status_summary",
+        "source_type": "telegram_live_bot",
+        "source_label": "runtime source",
+        "created_by_policy": "operator_manual_entry",
+        "payload": {
+          "summary_scope": "existing_local_artifact_status"
+        },
+        "safety_flags": {
+          "telegram_runtime": false,
+          "telegram_token": false,
+          "command_execution": false,
+          "runtime_wiring": false,
+          "network_api": false,
+          "credentials": false,
+          "wallet": false,
+          "trading": false,
+          "real_orders": false,
+          "live_trading": false,
+          "autonomous_paper_orders": false,
+          "scoring_probability_ev_edge": false,
+          "recommendations": false,
+          "truth_inference": false,
+          "market_decisions": false,
+          "side_recommendations": false
+        },
+        "execution_authority": false,
+        "requires_human_review": true,
+        "allowed_next_action": "human_review_only"
+      }
+    },
+    {
+      "case_id": "invalid-bot-token-field",
+      "expected_reject_reasons": [
+        "unexpected_top_level_field",
+        "forbidden_field_name"
+      ],
+      "command": {
+        "schema_version": "manual_operator_command.v1",
+        "command_id": "manual-command-invalid-bot-token",
+        "command_type": "request_status_summary",
+        "source_type": "manual_json",
+        "source_label": "operator local json fixture",
+        "created_by_policy": "operator_manual_entry",
+        "bot_token": "123456789:ABCDEFGHIJKLMNOPQRSTUVWXYZabc",
+        "payload": {
+          "summary_scope": "existing_local_artifact_status"
+        },
+        "safety_flags": {
+          "telegram_runtime": false,
+          "telegram_token": false,
+          "command_execution": false,
+          "runtime_wiring": false,
+          "network_api": false,
+          "credentials": false,
+          "wallet": false,
+          "trading": false,
+          "real_orders": false,
+          "live_trading": false,
+          "autonomous_paper_orders": false,
+          "scoring_probability_ev_edge": false,
+          "recommendations": false,
+          "truth_inference": false,
+          "market_decisions": false,
+          "side_recommendations": false
+        },
+        "execution_authority": false,
+        "requires_human_review": true,
+        "allowed_next_action": "human_review_only"
+      }
+    },
+    {
+      "case_id": "invalid-webhook-polling-fields",
+      "expected_reject_reasons": [
+        "forbidden_field_name",
+        "forbidden_text_present"
+      ],
+      "command": {
+        "schema_version": "manual_operator_command.v1",
+        "command_id": "manual-command-invalid-webhook",
+        "command_type": "request_status_summary",
+        "source_type": "manual_json",
+        "source_label": "operator local json fixture",
+        "created_by_policy": "operator_manual_entry",
+        "payload": {
+          "summary_scope": "existing_local_artifact_status",
+          "webhook_url": "https://example.invalid/pmbot",
+          "polling": true
+        },
+        "safety_flags": {
+          "telegram_runtime": false,
+          "telegram_token": false,
+          "command_execution": false,
+          "runtime_wiring": false,
+          "network_api": false,
+          "credentials": false,
+          "wallet": false,
+          "trading": false,
+          "real_orders": false,
+          "live_trading": false,
+          "autonomous_paper_orders": false,
+          "scoring_probability_ev_edge": false,
+          "recommendations": false,
+          "truth_inference": false,
+          "market_decisions": false,
+          "side_recommendations": false
+        },
+        "execution_authority": false,
+        "requires_human_review": true,
+        "allowed_next_action": "human_review_only"
+      }
+    },
+    {
+      "case_id": "invalid-order-command-type",
+      "expected_reject_reasons": [
+        "invalid_command_type",
+        "forbidden_text_present"
+      ],
+      "command": {
+        "schema_version": "manual_operator_command.v1",
+        "command_id": "manual-command-invalid-order-type",
+        "command_type": "place_order",
+        "source_type": "manual_json",
+        "source_label": "operator local json fixture",
+        "created_by_policy": "operator_manual_entry",
+        "payload": {
+          "summary_scope": "existing_local_artifact_status"
+        },
+        "safety_flags": {
+          "telegram_runtime": false,
+          "telegram_token": false,
+          "command_execution": false,
+          "runtime_wiring": false,
+          "network_api": false,
+          "credentials": false,
+          "wallet": false,
+          "trading": false,
+          "real_orders": false,
+          "live_trading": false,
+          "autonomous_paper_orders": false,
+          "scoring_probability_ev_edge": false,
+          "recommendations": false,
+          "truth_inference": false,
+          "market_decisions": false,
+          "side_recommendations": false
+        },
+        "execution_authority": false,
+        "requires_human_review": true,
+        "allowed_next_action": "human_review_only"
+      }
+    },
+    {
+      "case_id": "invalid-side-size-price-fields",
+      "expected_reject_reasons": [
+        "unexpected_payload_field",
+        "forbidden_field_name"
+      ],
+      "command": {
+        "schema_version": "manual_operator_command.v1",
+        "command_id": "manual-command-invalid-order-fields",
+        "command_type": "record_manual_paper_intent_reference",
+        "source_type": "manual_json",
+        "source_label": "operator local json fixture",
+        "created_by_policy": "operator_manual_entry",
+        "market_id": "824952",
+        "payload": {
+          "paper_intent_reference_id": "manual-paper-intent-ledger-001",
+          "side": "YES",
+          "size": 10,
+          "limit_price": 0.42
+        },
+        "safety_flags": {
+          "telegram_runtime": false,
+          "telegram_token": false,
+          "command_execution": false,
+          "runtime_wiring": false,
+          "network_api": false,
+          "credentials": false,
+          "wallet": false,
+          "trading": false,
+          "real_orders": false,
+          "live_trading": false,
+          "autonomous_paper_orders": false,
+          "scoring_probability_ev_edge": false,
+          "recommendations": false,
+          "truth_inference": false,
+          "market_decisions": false,
+          "side_recommendations": false
+        },
+        "execution_authority": false,
+        "requires_human_review": true,
+        "allowed_next_action": "record_only"
+      }
+    },
+    {
+      "case_id": "invalid-probability-ev-edge-fields",
+      "expected_reject_reasons": [
+        "unexpected_payload_field",
+        "forbidden_field_name"
+      ],
+      "command": {
+        "schema_version": "manual_operator_command.v1",
+        "command_id": "manual-command-invalid-scoring",
+        "command_type": "record_manual_review_note",
+        "source_type": "manual_json",
+        "source_label": "operator local json fixture",
+        "created_by_policy": "operator_manual_entry",
+        "payload": {
+          "note_text": "Human note",
+          "note_category": "operator_observation",
+          "probability": 0.62,
+          "ev": 0.07,
+          "edge": 0.03
+        },
+        "safety_flags": {
+          "telegram_runtime": false,
+          "telegram_token": false,
+          "command_execution": false,
+          "runtime_wiring": false,
+          "network_api": false,
+          "credentials": false,
+          "wallet": false,
+          "trading": false,
+          "real_orders": false,
+          "live_trading": false,
+          "autonomous_paper_orders": false,
+          "scoring_probability_ev_edge": false,
+          "recommendations": false,
+          "truth_inference": false,
+          "market_decisions": false,
+          "side_recommendations": false
+        },
+        "execution_authority": false,
+        "requires_human_review": true,
+        "allowed_next_action": "record_only"
+      }
+    },
+    {
+      "case_id": "invalid-execution-authority",
+      "expected_reject_reasons": [
+        "execution_authority_must_be_false",
+        "requires_human_review_must_be_true",
+        "safety_flag_must_be_false"
+      ],
+      "command": {
+        "schema_version": "manual_operator_command.v1",
+        "command_id": "manual-command-invalid-authority",
+        "command_type": "request_artifact_pointer",
+        "source_type": "manual_json",
+        "source_label": "operator local json fixture",
+        "created_by_policy": "operator_manual_entry",
+        "payload": {
+          "artifact_kind": "operator_review_bundle"
+        },
+        "safety_flags": {
+          "telegram_runtime": false,
+          "telegram_token": false,
+          "command_execution": true,
+          "runtime_wiring": false,
+          "network_api": false,
+          "credentials": false,
+          "wallet": false,
+          "trading": false,
+          "real_orders": false,
+          "live_trading": false,
+          "autonomous_paper_orders": false,
+          "scoring_probability_ev_edge": false,
+          "recommendations": false,
+          "truth_inference": false,
+          "market_decisions": false,
+          "side_recommendations": false
+        },
+        "execution_authority": true,
+        "requires_human_review": false,
+        "allowed_next_action": "record_only"
+      }
+    },
+    {
+      "case_id": "invalid-private-key-shape",
+      "expected_reject_reasons": [
+        "forbidden_field_name",
+        "credential_shape_present"
+      ],
+      "command": {
+        "schema_version": "manual_operator_command.v1",
+        "command_id": "manual-command-invalid-private-key",
+        "command_type": "record_manual_review_note",
+        "source_type": "manual_json",
+        "source_label": "operator local json fixture",
+        "created_by_policy": "operator_manual_entry",
+        "payload": {
+          "note_text": "Human note",
+          "note_category": "operator_observation",
+          "private_key": "-----BEGIN PRIVATE KEY----- fixture -----END PRIVATE KEY-----"
+        },
+        "safety_flags": {
+          "telegram_runtime": false,
+          "telegram_token": false,
+          "command_execution": false,
+          "runtime_wiring": false,
+          "network_api": false,
+          "credentials": false,
+          "wallet": false,
+          "trading": false,
+          "real_orders": false,
+          "live_trading": false,
+          "autonomous_paper_orders": false,
+          "scoring_probability_ev_edge": false,
+          "recommendations": false,
+          "truth_inference": false,
+          "market_decisions": false,
+          "side_recommendations": false
+        },
+        "execution_authority": false,
+        "requires_human_review": true,
+        "allowed_next_action": "record_only"
+      }
+    }
+  ]
+}

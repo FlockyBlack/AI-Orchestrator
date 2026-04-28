@@ -1,0 +1,77 @@
+{
+  "task_id": "PMBOT-OPERATOR-001-MANUAL-COMMAND-CONTRACT",
+  "status": "completed_with_warnings",
+  "summary": "Created deterministic local manual operator command contract artifacts for inert human-reviewed command records. The contract allows manual JSON, manual Markdown, and static Telegram transcript placeholders only; it does not implement Telegram, runtime dispatch, command execution, APIs, wallet access, trading, recommendations, market decisions, probability, EV, or edge calculations. Focused and operator tests passed; the required paper suite was run and failed for isolated-worktree fixture/path reasons unrelated to CODEX_C files.",
+  "worktree_path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator-worktrees\\CODEX_C_round001_operator_contract",
+  "branch": "codex/c-operator-command-contract-round001",
+  "base_commit": "48d4dd4657460955b3df4414a4a8eb75c487a9de",
+  "artifacts_created": [
+    "pm_bot/operator/manual_command_contract.v1.json",
+    "pm_bot/operator/manual_command_examples.v1.json",
+    "pm_bot/operator/manual_command_examples.v1.md",
+    "pm_bot/operator/validate_manual_command_contract.py",
+    "pm_bot/operator/tests/test_manual_command_contract.py",
+    "docs/PMBOT_OPERATOR_001_RESULT.json",
+    "docs/PMBOT_CODEX_C_ROUND001_RESULT.json"
+  ],
+  "valid_example_count": 6,
+  "invalid_example_count": 8,
+  "test_results": [
+    {
+      "command": "python -m pytest pm_bot\\operator\\tests\\test_manual_command_contract.py -q",
+      "status": "passed",
+      "summary": "6 passed, 14 subtests passed."
+    },
+    {
+      "command": "python -m pytest pm_bot\\operator\\tests -q",
+      "status": "passed",
+      "summary": "26 passed, 14 subtests passed."
+    },
+    {
+      "command": "python -m pytest pm_bot\\paper\\tests -q",
+      "status": "failed",
+      "summary": "25 failed, 280 passed, 1 skipped, 39 subtests passed. Failures reference missing isolated-worktree local_snapshots and canonical-root expected paths, not changed CODEX_C files."
+    }
+  ],
+  "allowed_command_types": [
+    "request_status_summary",
+    "request_dashboard_state_export",
+    "record_manual_review_note",
+    "record_manual_paper_intent_reference",
+    "request_artifact_pointer",
+    "mark_needs_human_review"
+  ],
+  "allowed_source_types": [
+    "manual_json",
+    "manual_markdown",
+    "telegram_transcript_placeholder"
+  ],
+  "forbidden_source_types": [
+    "telegram_live_bot",
+    "webhook",
+    "polling_runtime",
+    "authenticated_api"
+  ],
+  "safety": {
+    "commands_are_inert_records": true,
+    "execution_authority_allowed": false,
+    "requires_human_review": true,
+    "telegram_runtime": false,
+    "telegram_token": false,
+    "command_execution": false,
+    "runtime_wiring": false,
+    "network_api": false,
+    "credentials": false,
+    "wallet": false,
+    "trading": false,
+    "real_orders": false,
+    "live_trading": false,
+    "autonomous_paper_orders": false,
+    "scoring_probability_ev_edge": false,
+    "recommendations": false,
+    "truth_inference": false,
+    "market_decisions": false,
+    "side_recommendations": false
+  },
+  "blockers": []
+}

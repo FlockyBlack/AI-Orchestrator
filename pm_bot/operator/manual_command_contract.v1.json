@@ -1,0 +1,244 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "PMBOT_OPERATOR_001_MANUAL_COMMAND_CONTRACT.v1",
+  "schema_version": "manual_command_contract.v1",
+  "command_schema_version": "manual_operator_command.v1",
+  "contract_id": "PMBOT-OPERATOR-001-MANUAL-COMMAND-CONTRACT",
+  "title": "PMBOT manual operator command record contract",
+  "description": "Deterministic local contract for inert manual operator command records. These records are safe envelopes for future human-reviewed control surfaces, including Telegram-style transcript placeholders, but they do not implement Telegram or any runtime.",
+  "deterministic": true,
+  "local_file_reads_only": true,
+  "manual_review_only": true,
+  "record_is_inert": true,
+  "runtime_integration_required_before_use": true,
+  "explicit_non_authority": {
+    "commands_execute_actions": false,
+    "commands_place_orders": false,
+    "commands_select_sides": false,
+    "commands_calculate_probability": false,
+    "commands_calculate_ev": false,
+    "commands_calculate_edge": false,
+    "commands_call_apis": false,
+    "commands_start_telegram": false,
+    "commands_enable_runtime_dispatch": false
+  },
+  "required_top_level_fields": [
+    "schema_version",
+    "command_id",
+    "command_type",
+    "source_type",
+    "source_label",
+    "created_by_policy",
+    "payload",
+    "safety_flags",
+    "execution_authority",
+    "requires_human_review",
+    "allowed_next_action"
+  ],
+  "optional_top_level_fields": [
+    "market_id",
+    "artifact_pointer"
+  ],
+  "allowed_top_level_fields": [
+    "schema_version",
+    "command_id",
+    "command_type",
+    "source_type",
+    "source_label",
+    "created_by_policy",
+    "market_id",
+    "artifact_pointer",
+    "payload",
+    "safety_flags",
+    "execution_authority",
+    "requires_human_review",
+    "allowed_next_action"
+  ],
+  "allowed_command_types": [
+    "request_status_summary",
+    "request_dashboard_state_export",
+    "record_manual_review_note",
+    "record_manual_paper_intent_reference",
+    "request_artifact_pointer",
+    "mark_needs_human_review"
+  ],
+  "allowed_source_types": [
+    "manual_json",
+    "manual_markdown",
+    "telegram_transcript_placeholder"
+  ],
+  "forbidden_source_types": [
+    "telegram_live_bot",
+    "webhook",
+    "polling_runtime",
+    "authenticated_api"
+  ],
+  "allowed_created_by_policy": [
+    "operator_manual_entry",
+    "human_transcribed_static_record",
+    "contract_fixture"
+  ],
+  "allowed_next_actions": [
+    "human_review_only",
+    "record_only",
+    "artifact_lookup_by_human",
+    "integration_review_only"
+  ],
+  "required_safety_flags_false": [
+    "telegram_runtime",
+    "telegram_token",
+    "command_execution",
+    "runtime_wiring",
+    "network_api",
+    "credentials",
+    "wallet",
+    "trading",
+    "real_orders",
+    "live_trading",
+    "autonomous_paper_orders",
+    "scoring_probability_ev_edge",
+    "recommendations",
+    "truth_inference",
+    "market_decisions",
+    "side_recommendations"
+  ],
+  "payload_contract_by_command_type": {
+    "request_status_summary": {
+      "required_fields": [
+        "summary_scope"
+      ],
+      "allowed_fields": [
+        "summary_scope",
+        "requested_sections"
+      ]
+    },
+    "request_dashboard_state_export": {
+      "required_fields": [
+        "dashboard_state_scope",
+        "export_format"
+      ],
+      "allowed_fields": [
+        "dashboard_state_scope",
+        "export_format",
+        "artifact_purpose"
+      ]
+    },
+    "record_manual_review_note": {
+      "required_fields": [
+        "note_text",
+        "note_category"
+      ],
+      "allowed_fields": [
+        "note_text",
+        "note_category"
+      ]
+    },
+    "record_manual_paper_intent_reference": {
+      "required_fields": [
+        "paper_intent_reference_id"
+      ],
+      "allowed_fields": [
+        "paper_intent_reference_id",
+        "note_text"
+      ]
+    },
+    "request_artifact_pointer": {
+      "required_fields": [
+        "artifact_kind"
+      ],
+      "allowed_fields": [
+        "artifact_kind",
+        "requested_path_label"
+      ]
+    },
+    "mark_needs_human_review": {
+      "required_fields": [
+        "review_reason"
+      ],
+      "allowed_fields": [
+        "review_reason",
+        "review_priority"
+      ]
+    }
+  },
+  "forbidden_field_name_fragments": [
+    "api",
+    "auth",
+    "bearer",
+    "bot_token",
+    "chat_credential",
+    "chat_id",
+    "credential",
+    "edge",
+    "endpoint",
+    "ev",
+    "execute",
+    "execution_endpoint",
+    "key",
+    "limit_price",
+    "mnemonic",
+    "order",
+    "password",
+    "polling",
+    "price",
+    "private",
+    "probability",
+    "recommendation",
+    "score",
+    "secret",
+    "seed",
+    "side",
+    "size",
+    "token",
+    "trade",
+    "trading",
+    "truth",
+    "wallet",
+    "webhook"
+  ],
+  "forbidden_text_fragments": [
+    "api key",
+    "authenticated api",
+    "bearer token",
+    "betting recommendation",
+    "bot token",
+    "buy no",
+    "buy yes",
+    "edge calculation",
+    "ev calculation",
+    "execute order",
+    "execute trade",
+    "expected value",
+    "live order",
+    "live trading",
+    "market decision",
+    "market scoring",
+    "place order",
+    "polling runtime",
+    "private key",
+    "probability estimate",
+    "real order",
+    "recommend a side",
+    "sell no",
+    "sell yes",
+    "side recommendation",
+    "submit order",
+    "telegram bot",
+    "truth inference",
+    "wallet",
+    "webhook"
+  ],
+  "forbidden_value_pattern_labels": [
+    "private_key_block",
+    "telegram_bot_token_shape",
+    "http_or_websocket_url",
+    "bearer_token_shape"
+  ],
+  "validator_contract": {
+    "validator_path": "pm_bot/operator/validate_manual_command_contract.py",
+    "validator_scope": "local JSON command records only",
+    "validator_executes_commands": false,
+    "validator_calls_network": false,
+    "validator_reads_credentials": false
+  }
+}
