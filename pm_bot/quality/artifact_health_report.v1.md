@@ -41,8 +41,8 @@
 
 ## Embedded Pointer Health
 
-- checked_count: 552
-- present_count: 462
+- checked_count: 554
+- present_count: 464
 - missing_count: 90
 - absolute_count: 0
 

@@ -1,0 +1,103 @@
+{
+  "schema_version": "workbench_006_result.v1",
+  "task_id": "PMBOT-WORKBENCH-006-SURFACE-PAPER-020-POSTMORTEM",
+  "status": "completed_ready_for_review",
+  "summary": "Surfaced deterministic local PAPER-020 paper run series postmortem in operator workbench outputs.",
+  "files_created": [
+    "docs/PMBOT_WORKBENCH_006_RESULT.json"
+  ],
+  "files_modified": [
+    "docs/PMBOT_CODEX_A_ROUND003_RESULT.json",
+    "docs/PMBOT_WORKBENCH_001_RESULT.json",
+    "pm_bot/workbench/export_operator_review_pack.py",
+    "pm_bot/workbench/operator_review_pack.v1.json",
+    "pm_bot/workbench/operator_review_pack.v1.md",
+    "pm_bot/workbench/expected_operator_review_pack.v1.json",
+    "pm_bot/workbench/tests/test_operator_review_pack_export.py",
+    "pm_bot/dashboard/static_operator_report.v1.html",
+    "pm_bot/dashboard/static_operator_report_summary.v1.json",
+    "pm_bot/dashboard/expected_static_operator_report_summary.v1.json",
+    "pm_bot/quality/artifact_health_report.v1.json",
+    "pm_bot/quality/artifact_health_report.v1.md",
+    "pm_bot/quality/expected_artifact_health_report.v1.json"
+  ],
+  "paper_020_surface_summary": {
+    "artifact_status": "present",
+    "source_paper_019_found": true,
+    "markets_seen": 5,
+    "records_seen": 5,
+    "records_processed": 4,
+    "cumulative_pnl": "-1.00",
+    "accounting_only_warning_present": true,
+    "postmortem_visible_in_review_pack": true
+  },
+  "tests": [
+    {
+      "command": "python pm_bot\\workbench\\run_operator_workbench_export.py",
+      "status": "passed",
+      "summary": "required_steps_passed=true; network_calls=0; commands_executed=0; orders_created=0"
+    },
+    {
+      "command": "python -m pytest pm_bot\\workbench\\tests -q",
+      "status": "passed",
+      "summary": "21 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\dashboard\\tests pm_bot\\operator\\tests pm_bot\\workbench\\tests pm_bot\\quality\\tests -q",
+      "status": "passed",
+      "summary": "106 passed, 48 subtests passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\paper\\tests -q",
+      "status": "passed",
+      "summary": "331 passed, 39 subtests passed"
+    },
+    {
+      "command": "python pm_bot\\dashboard\\export_static_operator_report.py",
+      "status": "passed",
+      "summary": "static_report_generated; network_calls=0; commands_executed=0; orders_created=0; autonomous_decisions=0"
+    },
+    {
+      "command": "python -m pytest pm_bot\\dashboard\\tests -q",
+      "status": "passed",
+      "summary": "25 passed"
+    }
+  ],
+  "generated_artifacts": {
+    "intentional_updates": [
+      "docs/PMBOT_WORKBENCH_006_RESULT.json",
+      "docs/PMBOT_CODEX_A_ROUND003_RESULT.json",
+      "docs/PMBOT_WORKBENCH_001_RESULT.json",
+      "pm_bot/workbench/operator_review_pack.v1.json",
+      "pm_bot/workbench/operator_review_pack.v1.md",
+      "pm_bot/workbench/expected_operator_review_pack.v1.json",
+      "pm_bot/dashboard/static_operator_report.v1.html",
+      "pm_bot/dashboard/static_operator_report_summary.v1.json",
+      "pm_bot/dashboard/expected_static_operator_report_summary.v1.json",
+      "pm_bot/quality/artifact_health_report.v1.json",
+      "pm_bot/quality/artifact_health_report.v1.md",
+      "pm_bot/quality/expected_artifact_health_report.v1.json"
+    ],
+    "restored_unrelated_churn": [
+      "docs/PMBOT_CODEX_A_ROUND002_RESULT.json",
+      "docs/PMBOT_DASHBOARD_003_RESULT.json",
+      "docs/PMBOT_PAPER_017_RESULT.json",
+      "docs/PMBOT_PAPER_018_RESULT.json"
+    ]
+  },
+  "safety": {
+    "runtime_wiring": false,
+    "network_api": false,
+    "wallet": false,
+    "trading": false,
+    "autonomous_paper_orders": false,
+    "scoring_probability_ev_edge": false,
+    "market_decisions": false,
+    "truth_inference": false,
+    "command_execution": false,
+    "automation_daemon": false,
+    "dashboard_server": false
+  },
+  "blockers": [],
+  "next_recommended_task": "PMBOT-PRODUCT-002-NEXT-MVP-GATE-REVIEW"
+}

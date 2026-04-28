@@ -100,6 +100,7 @@ class OperatorReviewPackExportTests(unittest.TestCase):
             "paper_audit_summary",
             "portfolio_accounting_summary",
             "paper_019_multi_market_run_series",
+            "paper_020_paper_run_series_postmortem",
             "dashboard_state_summary",
             "operator_inbox_summary",
             "quality_warning_summary",
@@ -152,14 +153,22 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertTrue(inventory["paper_accounting_batch_audit"]["present"])
         self.assertTrue(inventory["paper_019_result"]["present"])
         self.assertTrue(inventory["paper_019_multi_market_run_series"]["present"])
+        self.assertTrue(inventory["paper_020_result"]["present"])
+        self.assertTrue(inventory["paper_020_paper_run_series_postmortem"]["present"])
         self.assertTrue(inventory["portfolio_audit_state_preview"]["present"])
         self.assertTrue(inventory["manual_command_inbox_review"]["present"])
         self.assertEqual(inventory["paper_019_result"]["parse_status"], "parsed")
         self.assertEqual(inventory["paper_019_multi_market_run_series"]["parse_status"], "parsed")
+        self.assertEqual(inventory["paper_020_result"]["parse_status"], "parsed")
+        self.assertEqual(inventory["paper_020_paper_run_series_postmortem"]["parse_status"], "parsed")
         self.assertEqual(inventory["paper_accounting_batch_audit"]["parse_status"], "parsed")
         self.assertEqual(
             inventory["paper_019_multi_market_run_series"]["path"],
             "pm_bot/paper/multi_market_paper_run_series.v1.json",
+        )
+        self.assertEqual(
+            inventory["paper_020_paper_run_series_postmortem"]["path"],
+            "pm_bot/paper/paper_run_series_postmortem.v1.json",
         )
         self.assertEqual(
             inventory["paper_accounting_batch_audit"]["path"],
@@ -275,12 +284,64 @@ class OperatorReviewPackExportTests(unittest.TestCase):
             },
         )
 
+    def test_paper_020_postmortem_summary_is_visible_and_accounting_only(self):
+        _run_write()
+        pack = _load_json(PACK_JSON)
+        paper_020 = pack["paper_020_paper_run_series_postmortem"]
+
+        self.assertEqual(paper_020["section_id"], "paper_020_paper_run_series_postmortem")
+        self.assertEqual(paper_020["artifact_status"], "present")
+        self.assertEqual(
+            paper_020["artifact_pointer"],
+            "pm_bot/paper/paper_run_series_postmortem.v1.json",
+        )
+        self.assertEqual(paper_020["artifact_parse_status"], "parsed")
+        self.assertEqual(paper_020["postmortem_status"], "postmortem_completed")
+        self.assertTrue(paper_020["source_paper_019_found"])
+        self.assertEqual(paper_020["source_paper_019"]["series_status"], "series_run_passed")
+        self.assertEqual(paper_020["source_paper_019"]["markets_seen"], 5)
+        self.assertEqual(paper_020["source_paper_019"]["records_seen"], 5)
+        self.assertEqual(paper_020["source_paper_019"]["records_processed"], 4)
+        self.assertEqual(paper_020["cumulative_pnl"], "-1.00")
+        self.assertTrue(paper_020["accounting_only_warning_present"])
+        self.assertIn("not strategy profitability", paper_020["accounting_only_warning"])
+        self.assertIn("EV, probability estimate", paper_020["accounting_only_warning"])
+        self.assertEqual(
+            paper_020["records_by_status"],
+            {
+                "accepted_accounting_record": 3,
+                "blocked_fixture_record": 1,
+                "manual_review_only": 1,
+            },
+        )
+        self.assertEqual(
+            [item["processing_status"] for item in paper_020["record_status_notes"]],
+            ["accepted_accounting_record", "manual_review_only", "blocked_fixture_record"],
+        )
+        self.assertGreaterEqual(len(paper_020["fixture_limitations"]), 5)
+        self.assertGreaterEqual(len(paper_020["recommended_next_fixture_expansions"]), 4)
+        self.assertEqual(
+            paper_020["safety_counters"],
+            {
+                "real_orders_created": 0,
+                "autonomous_paper_orders": 0,
+                "network_calls": 0,
+                "commands_executed": 0,
+                "autonomous_decisions": 0,
+            },
+        )
+        self.assertEqual(
+            paper_020["next_safe_action"],
+            "PMBOT-WORKBENCH-006-SURFACE-PAPER-020-POSTMORTEM or PMBOT-PRODUCT-002-NEXT-MVP-GATE-REVIEW",
+        )
+
     def test_paper_019_missing_artifact_remains_non_blocking_warning(self):
         module = _load_module()
         with tempfile.TemporaryDirectory() as directory:
             pack = module.build_operator_review_pack(Path(directory))
 
         paper_019 = pack["paper_019_multi_market_run_series"]
+        paper_020 = pack["paper_020_paper_run_series_postmortem"]
         warnings = {item["warning_id"]: item for item in pack["warnings"]}
 
         self.assertEqual(paper_019["artifact_status"], "missing")
@@ -295,6 +356,19 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertIn("paper_019_multi_market_run_series_missing", warnings)
         self.assertEqual(
             warnings["paper_019_multi_market_run_series_missing"]["category"],
+            "optional_artifact_missing",
+        )
+        self.assertEqual(paper_020["artifact_status"], "missing")
+        self.assertEqual(paper_020["artifact_pointer"], "pm_bot/paper/paper_run_series_postmortem.v1.json")
+        self.assertFalse(paper_020["source_paper_019_found"])
+        self.assertEqual(paper_020["source_paper_019"]["markets_seen"], 0)
+        self.assertEqual(paper_020["source_paper_019"]["records_seen"], 0)
+        self.assertEqual(paper_020["source_paper_019"]["records_processed"], 0)
+        self.assertEqual(paper_020["records_by_status"], {})
+        self.assertEqual(paper_020["safety_counters"]["network_calls"], 0)
+        self.assertIn("paper_020_paper_run_series_postmortem_missing", warnings)
+        self.assertEqual(
+            warnings["paper_020_paper_run_series_postmortem_missing"]["category"],
             "optional_artifact_missing",
         )
 
@@ -337,6 +411,14 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertIn("markets_seen: 5", markdown)
         self.assertIn("paper_accounting_cumulative_pnl: -1.00", markdown)
         self.assertIn("PAPER-019 values are deterministic fixture/accounting-only outputs", markdown)
+        self.assertIn("PAPER-020 Paper Run Series Postmortem", markdown)
+        self.assertIn("section_id: paper_020_paper_run_series_postmortem", markdown)
+        self.assertIn("postmortem_status: postmortem_completed", markdown)
+        self.assertIn("source_paper_019_found: true", markdown)
+        self.assertIn("cumulative_pnl: -1.00", markdown)
+        self.assertIn("PAPER-019 PnL is accounting-only fixture output", markdown)
+        self.assertIn("PAPER-020 Fixture Limitations", markdown)
+        self.assertIn("PAPER-020 Recommended Next Fixture Expansions", markdown)
         self.assertIn("autonomous_paper_orders: 0", markdown)
         self.assertIn("Paper accounting PnL is fixture/manual accounting only", markdown)
         self.assertIn("does not recommend markets", markdown)

@@ -37,8 +37,8 @@
 
 ## Artifact Inventory
 
-- total_artifacts: 18
-- present_artifacts: 18
+- total_artifacts: 20
+- present_artifacts: 20
 - missing_artifacts: 0
 - required_missing_artifacts: 0
 
@@ -48,6 +48,8 @@
 - paper_018_result: docs/PMBOT_PAPER_018_RESULT.json (present=true, required=true, parse_status=parsed)
 - paper_019_result: docs/PMBOT_PAPER_019_RESULT.json (present=true, required=false, parse_status=parsed)
 - paper_019_multi_market_run_series: pm_bot/paper/multi_market_paper_run_series.v1.json (present=true, required=false, parse_status=parsed)
+- paper_020_result: docs/PMBOT_PAPER_020_RESULT.json (present=true, required=false, parse_status=parsed)
+- paper_020_paper_run_series_postmortem: pm_bot/paper/paper_run_series_postmortem.v1.json (present=true, required=false, parse_status=parsed)
 - dashboard_002_result: docs/PMBOT_DASHBOARD_002_RESULT.json (present=true, required=true, parse_status=parsed)
 - operator_002_result: docs/PMBOT_OPERATOR_002_RESULT.json (present=true, required=true, parse_status=parsed)
 - infra_009_result: docs/PMBOT_INFRA_009_RESULT.json (present=true, required=false, parse_status=parsed)
@@ -127,6 +129,58 @@
 - network_calls: 0
 - commands_executed: 0
 - autonomous_decisions: 0
+
+## PAPER-020 Paper Run Series Postmortem
+
+- section_id: paper_020_paper_run_series_postmortem
+- artifact_status: present
+- artifact_pointer: pm_bot/paper/paper_run_series_postmortem.v1.json
+- artifact_parse_status: parsed
+- postmortem_status: postmortem_completed
+- source_paper_019_found: true
+- source_paper_019_series_status: series_run_passed
+- markets_seen: 5
+- records_seen: 5
+- records_processed: 4
+
+## PAPER-020 Accounting-Only PnL Warning
+
+- cumulative_pnl: -1.00
+- accounting_only_warning_present: true
+- PAPER-019 PnL is accounting-only fixture output, not strategy profitability; it is not a recommendation, edge, EV, probability estimate, market score, or market truth evidence.
+
+## PAPER-020 Record Status Summary
+
+- accepted_accounting_record: count=3, operator_meaning=Record was accepted from the local fixture for accounting summary only.
+- manual_review_only: count=1, operator_meaning=Record remains an open manual-review fixture item; it is inert and does not create orders.
+- blocked_fixture_record: count=1, operator_meaning=Record was retained as blocked fixture context and excluded from accounting.
+
+## PAPER-020 Fixture Limitations
+
+- The series has five local fixture records and is not statistically representative.
+- All accounting values are explicit fixture values; no live settlement truth is inferred.
+- Only one open manual-review record and one blocked record are represented.
+- No fees, liquidity, orderbook state, slippage, fill uncertainty, or timing variance are modeled.
+- The fixture does not validate market discovery, live data handling, wallet access, or execution behavior.
+
+## PAPER-020 Recommended Next Fixture Expansions
+
+- Add more settled fixture records covering additional cost and settlement combinations.
+- Add more open manual-review fixture records that remain inert until explicit fixture settlement values exist.
+- Add blocked fixture variants for malformed accounting values and unsafe lineage flags.
+- Add boundary accounting examples for zero cost, zero settlement, and unusually large fixture values.
+
+## PAPER-020 Safety Counters
+
+- real_orders_created: 0
+- autonomous_paper_orders: 0
+- network_calls: 0
+- commands_executed: 0
+- autonomous_decisions: 0
+
+## PAPER-020 Next Safe Action
+
+- PMBOT-WORKBENCH-006-SURFACE-PAPER-020-POSTMORTEM or PMBOT-PRODUCT-002-NEXT-MVP-GATE-REVIEW
 
 ## Portfolio Accounting
 

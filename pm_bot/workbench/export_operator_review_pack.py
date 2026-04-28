@@ -18,6 +18,9 @@ DEFAULT_LANE_RESULT = DOCS_DIR / "PMBOT_CODEX_A_ROUND003_RESULT.json"
 QUALITY_REPORT_PATH = "pm_bot/quality/artifact_health_report.v1.json"
 PAPER_019_SERIES_ARTIFACT_PATH = "pm_bot/paper/multi_market_paper_run_series.v1.json"
 PAPER_019_SECTION_ID = "paper_019_multi_market_run_series"
+PAPER_020_RESULT_ARTIFACT_PATH = "docs/PMBOT_PAPER_020_RESULT.json"
+PAPER_020_POSTMORTEM_ARTIFACT_PATH = "pm_bot/paper/paper_run_series_postmortem.v1.json"
+PAPER_020_SECTION_ID = "paper_020_paper_run_series_postmortem"
 
 SCHEMA_VERSION = "operator_review_pack.v1"
 GENERATED_BY = "pm_bot/workbench/export_operator_review_pack.py"
@@ -30,6 +33,11 @@ ACCOUNTING_ONLY_WARNING = (
 PAPER_019_INTERPRETATION_WARNING = (
     "PAPER-019 values are deterministic fixture/accounting-only outputs and are not strategy "
     "profitability, recommendation, EV, edge, probability, or market decision evidence."
+)
+PAPER_020_ACCOUNTING_ONLY_WARNING = (
+    "PAPER-019 PnL is accounting-only fixture output, not strategy profitability; "
+    "it is not a recommendation, edge, EV, probability estimate, market score, "
+    "or market truth evidence."
 )
 NO_RECOMMENDATIONS_OR_DECISIONS_STATEMENT = (
     "This operator review pack does not recommend markets, sides, prices, sizes, orders, trades, "
@@ -115,6 +123,20 @@ SOURCE_ARTIFACTS = (
         "path": PAPER_019_SERIES_ARTIFACT_PATH,
         "category": "paper_run_series",
         "artifact_type": "paper_run_series_json",
+        "required": False,
+    },
+    {
+        "artifact_id": "paper_020_result",
+        "path": PAPER_020_RESULT_ARTIFACT_PATH,
+        "category": "paper_run_series_postmortem",
+        "artifact_type": "docs_result_json",
+        "required": False,
+    },
+    {
+        "artifact_id": PAPER_020_SECTION_ID,
+        "path": PAPER_020_POSTMORTEM_ARTIFACT_PATH,
+        "category": "paper_run_series_postmortem",
+        "artifact_type": "paper_run_series_postmortem_json",
         "required": False,
     },
     {
@@ -625,6 +647,66 @@ def _paper_019_multi_market_run_series_summary(payloads, inventory):
     }
 
 
+def _paper_020_status_note_summary(postmortem):
+    notes = []
+    for item in _safe_list(postmortem.get("record_status_notes")):
+        if isinstance(item, dict):
+            notes.append(
+                {
+                    "processing_status": item.get("processing_status"),
+                    "count": _safe_int(item.get("count")),
+                    "operator_meaning": item.get("operator_meaning"),
+                }
+            )
+    return notes
+
+
+def _paper_020_safety_counters(postmortem):
+    counters = _safe_dict(postmortem.get("safety_counters"))
+    return {
+        "real_orders_created": _safe_int(counters.get("real_orders_created")),
+        "autonomous_paper_orders": _safe_int(counters.get("autonomous_paper_orders")),
+        "network_calls": _safe_int(counters.get("network_calls")),
+        "commands_executed": _safe_int(counters.get("commands_executed")),
+        "autonomous_decisions": _safe_int(counters.get("autonomous_decisions")),
+    }
+
+
+def _paper_020_postmortem_summary(payloads, inventory):
+    artifact = _inventory_item(inventory, PAPER_020_SECTION_ID)
+    postmortem = _safe_dict(payloads.get(PAPER_020_SECTION_ID))
+    paper_019 = _safe_dict(postmortem.get("paper_019_summary"))
+    accounting = _safe_dict(postmortem.get("accounting_interpretation"))
+    warning = accounting.get("warning") or PAPER_020_ACCOUNTING_ONLY_WARNING
+    artifact_status = "present" if artifact.get("present") else "missing"
+    return {
+        "section_id": PAPER_020_SECTION_ID,
+        "artifact_status": artifact_status,
+        "artifact_pointer": PAPER_020_POSTMORTEM_ARTIFACT_PATH,
+        "artifact_parse_status": artifact.get("parse_status"),
+        "postmortem_status": postmortem.get("postmortem_status"),
+        "source_paper_019_found": paper_019.get("source_schema_version") == "multi_market_paper_run_series.v1",
+        "source_paper_019": {
+            "source_artifact": paper_019.get("source_artifact"),
+            "series_status": paper_019.get("series_status"),
+            "markets_seen": _safe_int(paper_019.get("markets_seen")),
+            "records_seen": _safe_int(paper_019.get("records_seen")),
+            "records_processed": _safe_int(paper_019.get("records_processed")),
+        },
+        "records_by_status": _safe_dict(postmortem.get("records_by_status")),
+        "record_status_notes": _paper_020_status_note_summary(postmortem),
+        "cumulative_pnl": accounting.get("cumulative_pnl", "0.00"),
+        "accounting_only_warning": warning,
+        "accounting_only_warning_present": warning == PAPER_020_ACCOUNTING_ONLY_WARNING,
+        "fixture_limitations": _safe_list(postmortem.get("fixture_limitations")),
+        "recommended_next_fixture_expansions": _safe_list(
+            postmortem.get("recommended_next_fixture_expansions")
+        ),
+        "safety_counters": _paper_020_safety_counters(postmortem),
+        "next_safe_action": postmortem.get("next_safe_action"),
+    }
+
+
 def _quality_report_payload(root=ROOT):
     return _load_optional_json(_resolve_path(QUALITY_REPORT_PATH, root=root))
 
@@ -749,6 +831,19 @@ def _paper_019_warnings(paper_019_summary):
     ]
 
 
+def _paper_020_warnings(paper_020_summary):
+    if paper_020_summary["artifact_status"] != "missing":
+        return []
+    return [
+        {
+            "warning_id": "paper_020_paper_run_series_postmortem_missing",
+            "source_path": PAPER_020_POSTMORTEM_ARTIFACT_PATH,
+            "category": "optional_artifact_missing",
+            "message": "PAPER-020 paper run series postmortem artifact is missing; review pack generation continued.",
+        }
+    ]
+
+
 def _missing_artifacts(inventory):
     return [
         {
@@ -812,7 +907,13 @@ def build_operator_review_pack(root=ROOT):
     inventory, payloads = _artifact_inventory(root=root)
     quality_report, quality_load_status = _quality_report_payload(root=root)
     paper_019_summary = _paper_019_multi_market_run_series_summary(payloads, inventory)
-    warnings = _warnings(payloads) + _paper_019_warnings(paper_019_summary) + _parse_warnings(inventory)
+    paper_020_summary = _paper_020_postmortem_summary(payloads, inventory)
+    warnings = (
+        _warnings(payloads)
+        + _paper_019_warnings(paper_019_summary)
+        + _paper_020_warnings(paper_020_summary)
+        + _parse_warnings(inventory)
+    )
     return {
         "schema_version": SCHEMA_VERSION,
         "generated_by": GENERATED_BY,
@@ -826,6 +927,7 @@ def build_operator_review_pack(root=ROOT):
         "paper_audit_summary": _paper_audit_summary(payloads),
         "portfolio_accounting_summary": _portfolio_accounting_summary(payloads),
         "paper_019_multi_market_run_series": paper_019_summary,
+        "paper_020_paper_run_series_postmortem": paper_020_summary,
         "dashboard_state_summary": _dashboard_state_summary(payloads),
         "operator_inbox_summary": _operator_inbox_summary(payloads),
         "quality_warning_summary": _quality_warning_summary(quality_report, quality_load_status),
@@ -848,6 +950,7 @@ def render_operator_review_pack_markdown(pack):
     paper = pack["paper_audit_summary"]
     portfolio = pack["portfolio_accounting_summary"]
     paper_019 = pack["paper_019_multi_market_run_series"]
+    paper_020 = pack["paper_020_paper_run_series_postmortem"]
     dashboard = pack["dashboard_state_summary"]
     inbox = pack["operator_inbox_summary"]
     lines = [
@@ -1000,6 +1103,71 @@ def render_operator_review_pack_markdown(pack):
         "autonomous_decisions",
     ):
         lines.append(f"- {key}: {paper_019['safety_counters'][key]}")
+
+    lines.extend(
+        [
+            "",
+            "## PAPER-020 Paper Run Series Postmortem",
+            "",
+            f"- section_id: {paper_020['section_id']}",
+            f"- artifact_status: {paper_020['artifact_status']}",
+            f"- artifact_pointer: {paper_020['artifact_pointer']}",
+            f"- artifact_parse_status: {paper_020['artifact_parse_status']}",
+            f"- postmortem_status: {paper_020['postmortem_status']}",
+            f"- source_paper_019_found: {str(paper_020['source_paper_019_found']).lower()}",
+            f"- source_paper_019_series_status: {paper_020['source_paper_019']['series_status']}",
+            f"- markets_seen: {paper_020['source_paper_019']['markets_seen']}",
+            f"- records_seen: {paper_020['source_paper_019']['records_seen']}",
+            f"- records_processed: {paper_020['source_paper_019']['records_processed']}",
+            "",
+            "## PAPER-020 Accounting-Only PnL Warning",
+            "",
+            f"- cumulative_pnl: {paper_020['cumulative_pnl']}",
+            f"- accounting_only_warning_present: {str(paper_020['accounting_only_warning_present']).lower()}",
+            f"- {paper_020['accounting_only_warning']}",
+            "",
+            "## PAPER-020 Record Status Summary",
+            "",
+        ]
+    )
+    if paper_020["record_status_notes"]:
+        for item in paper_020["record_status_notes"]:
+            lines.append(
+                "- "
+                f"{item['processing_status']}: count={item['count']}, "
+                f"operator_meaning={item['operator_meaning']}"
+            )
+    else:
+        lines.append("- none")
+    lines.extend(["", "## PAPER-020 Fixture Limitations", ""])
+    if paper_020["fixture_limitations"]:
+        for item in paper_020["fixture_limitations"]:
+            lines.append(f"- {item}")
+    else:
+        lines.append("- none")
+    lines.extend(["", "## PAPER-020 Recommended Next Fixture Expansions", ""])
+    if paper_020["recommended_next_fixture_expansions"]:
+        for item in paper_020["recommended_next_fixture_expansions"]:
+            lines.append(f"- {item}")
+    else:
+        lines.append("- none")
+    lines.extend(["", "## PAPER-020 Safety Counters", ""])
+    for key in (
+        "real_orders_created",
+        "autonomous_paper_orders",
+        "network_calls",
+        "commands_executed",
+        "autonomous_decisions",
+    ):
+        lines.append(f"- {key}: {paper_020['safety_counters'][key]}")
+    lines.extend(
+        [
+            "",
+            "## PAPER-020 Next Safe Action",
+            "",
+            f"- {paper_020['next_safe_action']}",
+        ]
+    )
 
     lines.extend(
         [

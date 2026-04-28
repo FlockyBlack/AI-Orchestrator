@@ -197,11 +197,11 @@
     "workbench_runner_required_steps_passed": true,
     "workbench_runner_warnings": 0,
     "artifact_inventory_summary": {
-      "total_artifacts": 18,
-      "present_artifacts": 18,
+      "total_artifacts": 20,
+      "present_artifacts": 20,
       "missing_artifacts": 0,
       "required_missing_artifacts": 0,
-      "json_artifacts_parsed": 17,
+      "json_artifacts_parsed": 19,
       "json_artifacts_parse_failed": 0
     },
     "missing_artifacts_count": 0,
@@ -464,8 +464,8 @@
     "json_parse_fail_count": 1,
     "schema_version_missing_count": 22,
     "embedded_artifact_pointer_summary": {
-      "checked_count": 552,
-      "present_count": 462,
+      "checked_count": 554,
+      "present_count": 464,
       "missing_count": 90,
       "absolute_count": 0
     },

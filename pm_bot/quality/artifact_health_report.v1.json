@@ -38,8 +38,8 @@
   "task_id_missing_where_expected_count": 3,
   "status_fields_missing_where_expected_count": 0,
   "embedded_artifact_pointer_summary": {
-    "checked_count": 552,
-    "present_count": 462,
+    "checked_count": 554,
+    "present_count": 464,
     "missing_count": 90,
     "absolute_count": 0
   },
@@ -2133,8 +2133,8 @@
         "status": "completed_ready_for_review"
       },
       "embedded_artifact_pointer_health": {
-        "checked_count": 5,
-        "present_count": 5,
+        "checked_count": 7,
+        "present_count": 7,
         "missing_count": 0,
         "absolute_count": 0
       },
