@@ -1,0 +1,306 @@
+{
+  "task_id": "PMBOT-INFRA-006-ABC-PARALLEL-FEATURE-WORKTREE-MATERIALIZATION",
+  "status": "completed_ready_for_review",
+  "summary": "Materialized the first real PMBOT ABC parallel feature round infrastructure from current origin/main. Created fresh CODEX_A, CODEX_B, CODEX_C, and integration branches and worktrees from 48d4dd4657460955b3df4414a4a8eb75c487a9de. No feature implementation, runtime wiring, dispatcher/run_codex changes, live/API behavior, wallet/auth/trading behavior, scoring, probability, EV, edge, recommendations, truth inference, or autonomous paper orders were added.",
+  "root_confirmed": true,
+  "canonical_root": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator",
+  "base_commit": "48d4dd4657460955b3df4414a4a8eb75c487a9de",
+  "origin_main_commit": "48d4dd4657460955b3df4414a4a8eb75c487a9de",
+  "branches_created": [
+    {
+      "lane": "CODEX_A",
+      "branch": "codex/a-paper-accounting-reconciliation-round001",
+      "source": "origin/main",
+      "head": "48d4dd4657460955b3df4414a4a8eb75c487a9de"
+    },
+    {
+      "lane": "CODEX_B",
+      "branch": "codex/b-dashboard-state-contract-round001",
+      "source": "origin/main",
+      "head": "48d4dd4657460955b3df4414a4a8eb75c487a9de"
+    },
+    {
+      "lane": "CODEX_C",
+      "branch": "codex/c-operator-command-contract-round001",
+      "source": "origin/main",
+      "head": "48d4dd4657460955b3df4414a4a8eb75c487a9de"
+    },
+    {
+      "lane": "INTEGRATION",
+      "branch": "integration/pmbot-abc-feature-round001",
+      "source": "origin/main",
+      "head": "48d4dd4657460955b3df4414a4a8eb75c487a9de"
+    }
+  ],
+  "worktrees_created": [
+    {
+      "lane": "CODEX_A",
+      "branch": "codex/a-paper-accounting-reconciliation-round001",
+      "path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator-worktrees\\CODEX_A_round001_paper_accounting",
+      "head": "48d4dd4657460955b3df4414a4a8eb75c487a9de",
+      "status": "## codex/a-paper-accounting-reconciliation-round001...origin/main",
+      "clean": true
+    },
+    {
+      "lane": "CODEX_B",
+      "branch": "codex/b-dashboard-state-contract-round001",
+      "path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator-worktrees\\CODEX_B_round001_dashboard_state",
+      "head": "48d4dd4657460955b3df4414a4a8eb75c487a9de",
+      "status": "## codex/b-dashboard-state-contract-round001...origin/main",
+      "clean": true
+    },
+    {
+      "lane": "CODEX_C",
+      "branch": "codex/c-operator-command-contract-round001",
+      "path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator-worktrees\\CODEX_C_round001_operator_contract",
+      "head": "48d4dd4657460955b3df4414a4a8eb75c487a9de",
+      "status": "## codex/c-operator-command-contract-round001...origin/main",
+      "clean": true
+    },
+    {
+      "lane": "INTEGRATION",
+      "branch": "integration/pmbot-abc-feature-round001",
+      "path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator-worktrees\\INTEGRATION_round001_pmbot_abc",
+      "head": "48d4dd4657460955b3df4414a4a8eb75c487a9de",
+      "status": "## integration/pmbot-abc-feature-round001...origin/main",
+      "clean": true
+    }
+  ],
+  "branch_collision_checks": [
+    {
+      "branch": "codex/a-paper-accounting-reconciliation-round001",
+      "local_exists_before_creation": false,
+      "remote_tracking_exists_before_creation": false,
+      "alternative_used": null
+    },
+    {
+      "branch": "codex/b-dashboard-state-contract-round001",
+      "local_exists_before_creation": false,
+      "remote_tracking_exists_before_creation": false,
+      "alternative_used": null
+    },
+    {
+      "branch": "codex/c-operator-command-contract-round001",
+      "local_exists_before_creation": false,
+      "remote_tracking_exists_before_creation": false,
+      "alternative_used": null
+    },
+    {
+      "branch": "integration/pmbot-abc-feature-round001",
+      "local_exists_before_creation": false,
+      "remote_tracking_exists_before_creation": false,
+      "alternative_used": null
+    }
+  ],
+  "path_collision_checks": [
+    {
+      "path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator-worktrees\\CODEX_A_round001_paper_accounting",
+      "exists_before_creation": false,
+      "alternative_used": null
+    },
+    {
+      "path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator-worktrees\\CODEX_B_round001_dashboard_state",
+      "exists_before_creation": false,
+      "alternative_used": null
+    },
+    {
+      "path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator-worktrees\\CODEX_C_round001_operator_contract",
+      "exists_before_creation": false,
+      "alternative_used": null
+    },
+    {
+      "path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator-worktrees\\INTEGRATION_round001_pmbot_abc",
+      "exists_before_creation": false,
+      "alternative_used": null
+    }
+  ],
+  "old_worktrees_left_untouched": [
+    {
+      "path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator-worktrees\\codex-a-core-paper-pilot",
+      "head": "ea9be58",
+      "branch": "codex/a-core-paper-pilot"
+    },
+    {
+      "path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator-worktrees\\codex-b-dashboard-contract-pilot",
+      "head": "ea9be58",
+      "branch": "codex/b-dashboard-contract-pilot"
+    },
+    {
+      "path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator-worktrees\\codex-c-telegram-contract-pilot",
+      "head": "ea9be58",
+      "branch": "codex/c-telegram-contract-pilot"
+    },
+    {
+      "path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator-worktrees\\codex-a-infra004-demo",
+      "head": "6fe447c",
+      "branch": "codex/a-infra004-demo"
+    },
+    {
+      "path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator-worktrees\\codex-b-infra004-demo",
+      "head": "9f6364a",
+      "branch": "codex/b-infra004-demo"
+    },
+    {
+      "path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator-worktrees\\codex-c-infra004-demo",
+      "head": "633d267",
+      "branch": "codex/c-infra004-demo"
+    }
+  ],
+  "demo_branches_not_used": [
+    "codex/a-infra004-demo",
+    "codex/b-infra004-demo",
+    "codex/c-infra004-demo"
+  ],
+  "commands_run": [
+    {
+      "command": "Get-Location",
+      "status": "passed",
+      "summary": "Confirmed canonical root C:\\Users\\OpenC\\Documents\\AI-Orchestrator."
+    },
+    {
+      "command": "git status --short --branch",
+      "status": "passed",
+      "summary": "Confirmed main was clean before materialization."
+    },
+    {
+      "command": "Get-Content required INFRA-005 docs and optional INFRA-004/worktree guide docs",
+      "status": "passed",
+      "summary": "Read the required planning, contract, checklist, result, worktree guide, and INFRA-004 result context."
+    },
+    {
+      "command": "git fetch origin main",
+      "status": "passed",
+      "summary": "Fetched origin/main before creating branches."
+    },
+    {
+      "command": "git rev-parse HEAD; git rev-parse origin/main",
+      "status": "passed",
+      "summary": "Confirmed local HEAD and origin/main both equal 48d4dd4657460955b3df4414a4a8eb75c487a9de."
+    },
+    {
+      "command": "Initial structured branch/path collision script",
+      "status": "failed",
+      "summary": "PowerShell parser formatting issue only; no git or filesystem changes were made by the failed check."
+    },
+    {
+      "command": "Corrected structured branch/path collision checks",
+      "status": "passed",
+      "summary": "Confirmed no local branch, remote-tracking branch, or preferred path collisions."
+    },
+    {
+      "command": "git worktree list",
+      "status": "passed",
+      "summary": "Observed prior pilot and INFRA-004 demo worktrees without modifying them."
+    },
+    {
+      "command": "git branch --list '*infra004-demo*'",
+      "status": "passed",
+      "summary": "Observed INFRA-004 demo branches and did not use them."
+    },
+    {
+      "command": "git worktree add -b codex/a-paper-accounting-reconciliation-round001 C:\\Users\\OpenC\\Documents\\AI-Orchestrator-worktrees\\CODEX_A_round001_paper_accounting origin/main",
+      "status": "passed",
+      "summary": "Created CODEX_A branch and worktree from origin/main."
+    },
+    {
+      "command": "git worktree add -b codex/b-dashboard-state-contract-round001 C:\\Users\\OpenC\\Documents\\AI-Orchestrator-worktrees\\CODEX_B_round001_dashboard_state origin/main",
+      "status": "passed",
+      "summary": "Created CODEX_B branch and worktree from origin/main."
+    },
+    {
+      "command": "git worktree add -b codex/c-operator-command-contract-round001 C:\\Users\\OpenC\\Documents\\AI-Orchestrator-worktrees\\CODEX_C_round001_operator_contract origin/main",
+      "status": "passed",
+      "summary": "Created CODEX_C branch and worktree from origin/main."
+    },
+    {
+      "command": "git worktree add -b integration/pmbot-abc-feature-round001 C:\\Users\\OpenC\\Documents\\AI-Orchestrator-worktrees\\INTEGRATION_round001_pmbot_abc origin/main",
+      "status": "passed",
+      "summary": "Created integration branch and worktree from origin/main."
+    },
+    {
+      "command": "git status --short --branch; git rev-parse HEAD; git branch --show-current in each new worktree",
+      "status": "passed",
+      "summary": "Confirmed all new worktrees are on expected branches, clean, and at 48d4dd4657460955b3df4414a4a8eb75c487a9de."
+    },
+    {
+      "command": "Move-Item INFRA-006 artifacts into C:\\Users\\OpenC\\Documents\\AI-Orchestrator\\docs",
+      "status": "passed",
+      "summary": "Moved initially drafted INFRA-006 artifacts into the canonical repository docs directory; no wrong-location copies remain."
+    },
+    {
+      "command": "ConvertFrom-Json docs\\PMBOT_INFRA_006_RESULT.json",
+      "status": "passed",
+      "summary": "Parsed the INFRA-006 result JSON successfully."
+    },
+    {
+      "command": "python -m pytest pm_bot\\paper\\tests -q",
+      "status": "passed",
+      "summary": "306 passed, 39 subtests passed in 24.27s."
+    }
+  ],
+  "tests_run": [
+    {
+      "command": "ConvertFrom-Json docs\\PMBOT_INFRA_006_RESULT.json",
+      "status": "passed",
+      "summary": "Parsed successfully."
+    },
+    {
+      "command": "python -m pytest pm_bot\\paper\\tests -q",
+      "status": "passed",
+      "summary": "306 passed, 39 subtests passed in 24.27s."
+    }
+  ],
+  "json_parse_checks": [
+    {
+      "path": "docs\\PMBOT_INFRA_006_RESULT.json",
+      "status": "passed",
+      "summary": "Parsed successfully."
+    }
+  ],
+  "git_operations": {
+    "fetch_origin_main": true,
+    "created_feature_branches": true,
+    "created_feature_worktrees": true,
+    "created_integration_branch": true,
+    "created_integration_worktree": true,
+    "feature_branches_pushed": false,
+    "main_commit_created_after_result_write": false,
+    "main_commit_hash": null,
+    "main_pushed_after_result_write": false,
+    "force_push_used": false,
+    "demo_branches_touched": false,
+    "demo_branches_used": false
+  },
+  "commit_created": false,
+  "commit_hash": null,
+  "pushed_main": false,
+  "pushed_feature_branches": false,
+  "post_result_git_note": "This result artifact is written before the final INFRA-006 docs commit can exist, so final main commit and push details are reported in the executor final response.",
+  "safety_flags": {
+    "runtime_wiring": false,
+    "network_api": false,
+    "credentials": false,
+    "wallet": false,
+    "trading": false,
+    "real_orders": false,
+    "live_trading": false,
+    "autonomous_paper_orders": false,
+    "scoring_probability_ev_edge": false,
+    "recommendations": false,
+    "truth_inference": false,
+    "market_decisions": false,
+    "dispatcher_run_codex_changes": false,
+    "prompt_automation": false,
+    "codex_copy_roots": false,
+    "completed_dossiers": false,
+    "feature_implementation": false,
+    "broad_refactor": false
+  },
+  "blockers": [],
+  "next_recommended_tasks": [
+    "PMBOT-PAPER-017-PAPER-ACCOUNTING-RECONCILIATION-OR-LIFECYCLE-AUDIT",
+    "PMBOT-DASHBOARD-001-DASHBOARD-STATE-EXPORT-CONTRACT",
+    "PMBOT-OPERATOR-001-MANUAL-COMMAND-CONTRACT"
+  ],
+  "required_warning": "Do not run feature implementation from the main worktree. Use the CODEX_A, CODEX_B, and CODEX_C lane worktrees for feature tasks."
+}
