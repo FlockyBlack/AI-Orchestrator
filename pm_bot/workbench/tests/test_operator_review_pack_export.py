@@ -100,6 +100,7 @@ class OperatorReviewPackExportTests(unittest.TestCase):
             "portfolio_accounting_summary",
             "dashboard_state_summary",
             "operator_inbox_summary",
+            "quality_warning_summary",
             "warnings",
             "missing_artifacts",
             "safety_flags",
@@ -113,6 +114,31 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertEqual(pack["paper_orders_created"], 0)
         self.assertEqual(pack["commands_executed"], 0)
         self.assertEqual(pack["network_calls"], 0)
+
+    def test_quality_warning_summary_surfaces_artifact_health_severity_counts(self):
+        _run_write()
+        pack = _load_json(PACK_JSON)
+        quality_summary = pack["quality_warning_summary"]
+
+        self.assertEqual(quality_summary["quality_report_status"], "health_passed_with_warnings")
+        self.assertEqual(quality_summary["quality_report_load_status"], "parsed")
+        self.assertEqual(
+            quality_summary["total_warnings"],
+            quality_summary["blocking_warnings"]
+            + quality_summary["action_required_warnings"]
+            + quality_summary["review_needed_warnings"]
+            + quality_summary["informational_warnings"],
+        )
+        self.assertEqual(quality_summary["blocking_warnings"], 0)
+        self.assertFalse(quality_summary["blocking_warning_detected"])
+        self.assertGreater(quality_summary["action_required_warnings"], 0)
+        self.assertGreater(quality_summary["review_needed_warnings"], 0)
+        self.assertGreater(quality_summary["informational_warnings"], 0)
+        self.assertIn("blocking means stop and repair", quality_summary["severity_interpretation"]["blocking"])
+        self.assertIn(
+            "action_required means review before relying",
+            quality_summary["severity_interpretation"]["action_required"],
+        )
 
     def test_inventory_reports_required_sources_and_optional_missing_artifacts(self):
         _run_write()
@@ -212,6 +238,8 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertIn("paper_orders_created: 0", markdown)
         self.assertIn("commands_executed: 0", markdown)
         self.assertIn("network_calls: 0", markdown)
+        self.assertIn("Quality Warning Summary", markdown)
+        self.assertIn("blocking means stop and repair", markdown)
         self.assertIn("Paper accounting PnL is fixture/manual accounting only", markdown)
         self.assertIn("does not recommend markets", markdown)
 

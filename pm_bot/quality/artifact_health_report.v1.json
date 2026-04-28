@@ -1484,6 +1484,194 @@
       "target": "pm_bot/paper/manual_paper_run_fixture_output/<REPO_ROOT>/pm_bot/paper/local_snapshot_inbox/003_series_snapshot_003.json"
     }
   ],
+  "warning_severity_summary": {
+    "total_warnings": 149,
+    "blocking_count": 0,
+    "action_required_count": 123,
+    "review_needed_count": 25,
+    "informational_count": 1,
+    "warning_categories": [
+      {
+        "category": "expected_fixture_alignment_warning",
+        "severity": "action_required",
+        "count": 51,
+        "severity_counts": {
+          "blocking": 0,
+          "action_required": 51,
+          "review_needed": 0,
+          "informational": 0
+        },
+        "operator_bucket": "artifact has an expected fixture alignment warning"
+      },
+      {
+        "category": "fixture_alignment_actual_missing",
+        "severity": "action_required",
+        "count": 50,
+        "severity_counts": {
+          "blocking": 0,
+          "action_required": 50,
+          "review_needed": 0,
+          "informational": 0
+        },
+        "operator_bucket": "expected fixture exists but actual artifact is missing"
+      },
+      {
+        "category": "schema_version_missing",
+        "severity": "action_required",
+        "count": 19,
+        "severity_counts": {
+          "blocking": 0,
+          "action_required": 18,
+          "review_needed": 1,
+          "informational": 0
+        },
+        "operator_bucket": "schema version metadata missing"
+      },
+      {
+        "category": "embedded_artifact_pointer_warning",
+        "severity": "review_needed",
+        "count": 15,
+        "severity_counts": {
+          "blocking": 0,
+          "action_required": 0,
+          "review_needed": 15,
+          "informational": 0
+        },
+        "operator_bucket": "embedded artifact pointer needs inspection"
+      },
+      {
+        "category": "stale_reference_warning",
+        "severity": "review_needed",
+        "count": 6,
+        "severity_counts": {
+          "blocking": 0,
+          "action_required": 0,
+          "review_needed": 6,
+          "informational": 0
+        },
+        "operator_bucket": "historical or stale reference needs inspection"
+      },
+      {
+        "category": "task_id_missing",
+        "severity": "action_required",
+        "count": 3,
+        "severity_counts": {
+          "blocking": 0,
+          "action_required": 3,
+          "review_needed": 0,
+          "informational": 0
+        },
+        "operator_bucket": "task_id metadata missing"
+      },
+      {
+        "category": "json_top_level_not_object",
+        "severity": "review_needed",
+        "count": 3,
+        "severity_counts": {
+          "blocking": 0,
+          "action_required": 0,
+          "review_needed": 3,
+          "informational": 0
+        },
+        "operator_bucket": "JSON artifact is intentionally or structurally non-object"
+      },
+      {
+        "category": "fixture_alignment_mismatch",
+        "severity": "action_required",
+        "count": 1,
+        "severity_counts": {
+          "blocking": 0,
+          "action_required": 1,
+          "review_needed": 0,
+          "informational": 0
+        },
+        "operator_bucket": "expected fixture differs from actual artifact"
+      },
+      {
+        "category": "known_intentional_malformed_fixture_parse_failure",
+        "severity": "informational",
+        "count": 1,
+        "severity_counts": {
+          "blocking": 0,
+          "action_required": 0,
+          "review_needed": 0,
+          "informational": 1
+        },
+        "operator_bucket": "known intentional malformed fixture"
+      }
+    ],
+    "top_warning_categories": [
+      {
+        "category": "expected_fixture_alignment_warning",
+        "severity": "action_required",
+        "count": 51,
+        "severity_counts": {
+          "blocking": 0,
+          "action_required": 51,
+          "review_needed": 0,
+          "informational": 0
+        },
+        "operator_bucket": "artifact has an expected fixture alignment warning"
+      },
+      {
+        "category": "fixture_alignment_actual_missing",
+        "severity": "action_required",
+        "count": 50,
+        "severity_counts": {
+          "blocking": 0,
+          "action_required": 50,
+          "review_needed": 0,
+          "informational": 0
+        },
+        "operator_bucket": "expected fixture exists but actual artifact is missing"
+      },
+      {
+        "category": "schema_version_missing",
+        "severity": "action_required",
+        "count": 19,
+        "severity_counts": {
+          "blocking": 0,
+          "action_required": 18,
+          "review_needed": 1,
+          "informational": 0
+        },
+        "operator_bucket": "schema version metadata missing"
+      },
+      {
+        "category": "embedded_artifact_pointer_warning",
+        "severity": "review_needed",
+        "count": 15,
+        "severity_counts": {
+          "blocking": 0,
+          "action_required": 0,
+          "review_needed": 15,
+          "informational": 0
+        },
+        "operator_bucket": "embedded artifact pointer needs inspection"
+      },
+      {
+        "category": "stale_reference_warning",
+        "severity": "review_needed",
+        "count": 6,
+        "severity_counts": {
+          "blocking": 0,
+          "action_required": 0,
+          "review_needed": 6,
+          "informational": 0
+        },
+        "operator_bucket": "historical or stale reference needs inspection"
+      }
+    ],
+    "blocking_warning_detected": false,
+    "operator_summary": "No blocking warnings detected; review action_required categories before relying on the package.",
+    "recommended_manual_action": "Review action_required warning categories first, then inspect review_needed and informational categories.",
+    "severity_model": {
+      "blocking": "Stop operator review and repair the artifact or safety issue first.",
+      "action_required": "Review and resolve or explicitly accept before relying on the package.",
+      "review_needed": "Inspect as artifact hygiene context; it does not necessarily block review.",
+      "informational": "Low-priority context retained for traceability."
+    }
+  },
   "warnings": [
     "docs/PMBOT_DASHBOARD_002_RESULT.json: schema_version_missing",
     "docs/PMBOT_DASHBOARD_002_RESULT.json: stale_reference_warning",

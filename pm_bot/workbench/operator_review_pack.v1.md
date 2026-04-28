@@ -8,6 +8,33 @@
 - commands_executed: 0
 - network_calls: 0
 
+## Quality Warning Summary
+
+- quality_report_status: health_passed_with_warnings
+- total_warnings: 149
+- blocking_warnings: 0
+- action_required_warnings: 123
+- review_needed_warnings: 25
+- informational_warnings: 1
+- blocking_warning_detected: false
+- operator_summary: No blocking warnings detected; review action_required categories before relying on the package.
+- recommended_manual_action: Review action_required warning categories first, then inspect review_needed and informational categories.
+
+## Quality Warning Interpretation
+
+- blocking: blocking means stop and repair before relying on the package.
+- action_required: action_required means review before relying on the package.
+- review_needed: review_needed means inspect but not necessarily block.
+- informational: informational means low-priority context.
+
+## Top Quality Warning Categories
+
+- expected_fixture_alignment_warning: count=51, severity=action_required, bucket=artifact has an expected fixture alignment warning
+- fixture_alignment_actual_missing: count=50, severity=action_required, bucket=expected fixture exists but actual artifact is missing
+- schema_version_missing: count=19, severity=action_required, bucket=schema version metadata missing
+- embedded_artifact_pointer_warning: count=15, severity=review_needed, bucket=embedded artifact pointer needs inspection
+- stale_reference_warning: count=6, severity=review_needed, bucket=historical or stale reference needs inspection
+
 ## Artifact Inventory
 
 - total_artifacts: 16

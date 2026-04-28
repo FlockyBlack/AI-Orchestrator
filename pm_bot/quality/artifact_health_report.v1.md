@@ -13,6 +13,32 @@
 - task_id_missing_where_expected_count: 3
 - status_fields_missing_where_expected_count: 0
 
+## Warning Severity Summary
+
+- total_warnings: 149
+- blocking_count: 0
+- action_required_count: 123
+- review_needed_count: 25
+- informational_count: 1
+- blocking_warning_detected: false
+- operator_summary: No blocking warnings detected; review action_required categories before relying on the package.
+- recommended_manual_action: Review action_required warning categories first, then inspect review_needed and informational categories.
+
+## Top Warning Categories
+
+- expected_fixture_alignment_warning: count=51, severity=action_required, bucket=artifact has an expected fixture alignment warning
+- fixture_alignment_actual_missing: count=50, severity=action_required, bucket=expected fixture exists but actual artifact is missing
+- schema_version_missing: count=19, severity=action_required, bucket=schema version metadata missing
+- embedded_artifact_pointer_warning: count=15, severity=review_needed, bucket=embedded artifact pointer needs inspection
+- stale_reference_warning: count=6, severity=review_needed, bucket=historical or stale reference needs inspection
+
+## Warning Severity Model
+
+- blocking: Stop operator review and repair the artifact or safety issue first.
+- action_required: Review and resolve or explicitly accept before relying on the package.
+- review_needed: Inspect as artifact hygiene context; it does not necessarily block review.
+- informational: Low-priority context retained for traceability.
+
 ## Embedded Pointer Health
 
 - checked_count: 491

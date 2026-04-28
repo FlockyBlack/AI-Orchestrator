@@ -470,6 +470,197 @@
     "network_calls": 0,
     "next_safe_action": "human_review_queue_only"
   },
+  "quality_warning_summary": {
+    "source_path": "pm_bot/quality/artifact_health_report.v1.json",
+    "quality_report_status": "health_passed_with_warnings",
+    "quality_report_load_status": "parsed",
+    "total_warnings": 149,
+    "blocking_warnings": 0,
+    "action_required_warnings": 123,
+    "review_needed_warnings": 25,
+    "informational_warnings": 1,
+    "blocking_warning_detected": false,
+    "warning_categories": [
+      {
+        "category": "expected_fixture_alignment_warning",
+        "severity": "action_required",
+        "count": 51,
+        "severity_counts": {
+          "blocking": 0,
+          "action_required": 51,
+          "review_needed": 0,
+          "informational": 0
+        },
+        "operator_bucket": "artifact has an expected fixture alignment warning"
+      },
+      {
+        "category": "fixture_alignment_actual_missing",
+        "severity": "action_required",
+        "count": 50,
+        "severity_counts": {
+          "blocking": 0,
+          "action_required": 50,
+          "review_needed": 0,
+          "informational": 0
+        },
+        "operator_bucket": "expected fixture exists but actual artifact is missing"
+      },
+      {
+        "category": "schema_version_missing",
+        "severity": "action_required",
+        "count": 19,
+        "severity_counts": {
+          "blocking": 0,
+          "action_required": 18,
+          "review_needed": 1,
+          "informational": 0
+        },
+        "operator_bucket": "schema version metadata missing"
+      },
+      {
+        "category": "embedded_artifact_pointer_warning",
+        "severity": "review_needed",
+        "count": 15,
+        "severity_counts": {
+          "blocking": 0,
+          "action_required": 0,
+          "review_needed": 15,
+          "informational": 0
+        },
+        "operator_bucket": "embedded artifact pointer needs inspection"
+      },
+      {
+        "category": "stale_reference_warning",
+        "severity": "review_needed",
+        "count": 6,
+        "severity_counts": {
+          "blocking": 0,
+          "action_required": 0,
+          "review_needed": 6,
+          "informational": 0
+        },
+        "operator_bucket": "historical or stale reference needs inspection"
+      },
+      {
+        "category": "task_id_missing",
+        "severity": "action_required",
+        "count": 3,
+        "severity_counts": {
+          "blocking": 0,
+          "action_required": 3,
+          "review_needed": 0,
+          "informational": 0
+        },
+        "operator_bucket": "task_id metadata missing"
+      },
+      {
+        "category": "json_top_level_not_object",
+        "severity": "review_needed",
+        "count": 3,
+        "severity_counts": {
+          "blocking": 0,
+          "action_required": 0,
+          "review_needed": 3,
+          "informational": 0
+        },
+        "operator_bucket": "JSON artifact is intentionally or structurally non-object"
+      },
+      {
+        "category": "fixture_alignment_mismatch",
+        "severity": "action_required",
+        "count": 1,
+        "severity_counts": {
+          "blocking": 0,
+          "action_required": 1,
+          "review_needed": 0,
+          "informational": 0
+        },
+        "operator_bucket": "expected fixture differs from actual artifact"
+      },
+      {
+        "category": "known_intentional_malformed_fixture_parse_failure",
+        "severity": "informational",
+        "count": 1,
+        "severity_counts": {
+          "blocking": 0,
+          "action_required": 0,
+          "review_needed": 0,
+          "informational": 1
+        },
+        "operator_bucket": "known intentional malformed fixture"
+      }
+    ],
+    "top_warning_categories": [
+      {
+        "category": "expected_fixture_alignment_warning",
+        "severity": "action_required",
+        "count": 51,
+        "severity_counts": {
+          "blocking": 0,
+          "action_required": 51,
+          "review_needed": 0,
+          "informational": 0
+        },
+        "operator_bucket": "artifact has an expected fixture alignment warning"
+      },
+      {
+        "category": "fixture_alignment_actual_missing",
+        "severity": "action_required",
+        "count": 50,
+        "severity_counts": {
+          "blocking": 0,
+          "action_required": 50,
+          "review_needed": 0,
+          "informational": 0
+        },
+        "operator_bucket": "expected fixture exists but actual artifact is missing"
+      },
+      {
+        "category": "schema_version_missing",
+        "severity": "action_required",
+        "count": 19,
+        "severity_counts": {
+          "blocking": 0,
+          "action_required": 18,
+          "review_needed": 1,
+          "informational": 0
+        },
+        "operator_bucket": "schema version metadata missing"
+      },
+      {
+        "category": "embedded_artifact_pointer_warning",
+        "severity": "review_needed",
+        "count": 15,
+        "severity_counts": {
+          "blocking": 0,
+          "action_required": 0,
+          "review_needed": 15,
+          "informational": 0
+        },
+        "operator_bucket": "embedded artifact pointer needs inspection"
+      },
+      {
+        "category": "stale_reference_warning",
+        "severity": "review_needed",
+        "count": 6,
+        "severity_counts": {
+          "blocking": 0,
+          "action_required": 0,
+          "review_needed": 6,
+          "informational": 0
+        },
+        "operator_bucket": "historical or stale reference needs inspection"
+      }
+    ],
+    "severity_interpretation": {
+      "blocking": "blocking means stop and repair before relying on the package.",
+      "action_required": "action_required means review before relying on the package.",
+      "review_needed": "review_needed means inspect but not necessarily block.",
+      "informational": "informational means low-priority context."
+    },
+    "operator_summary": "No blocking warnings detected; review action_required categories before relying on the package.",
+    "recommended_manual_action": "Review action_required warning categories first, then inspect review_needed and informational categories."
+  },
   "warnings": [
     {
       "warning_id": "accounting_only_interpretation",

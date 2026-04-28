@@ -54,6 +54,73 @@ SAFETY_FLAGS = {
     "command_execution": False,
 }
 
+WARNING_SEVERITIES = ("blocking", "action_required", "review_needed", "informational")
+WARNING_SEVERITY_RANK = {severity: index for index, severity in enumerate(WARNING_SEVERITIES)}
+WARNING_SEVERITY_MODEL = {
+    "blocking": "Stop operator review and repair the artifact or safety issue first.",
+    "action_required": "Review and resolve or explicitly accept before relying on the package.",
+    "review_needed": "Inspect as artifact hygiene context; it does not necessarily block review.",
+    "informational": "Low-priority context retained for traceability.",
+}
+WARNING_CATEGORY_MODEL = {
+    "missing_required_artifact": {
+        "severity": "blocking",
+        "operator_bucket": "required artifact missing",
+    },
+    "json_parse_failed": {
+        "severity": "blocking",
+        "operator_bucket": "JSON parse failure",
+    },
+    "fixture_alignment_actual_missing": {
+        "severity": "action_required",
+        "operator_bucket": "expected fixture exists but actual artifact is missing",
+    },
+    "fixture_alignment_mismatch": {
+        "severity": "action_required",
+        "operator_bucket": "expected fixture differs from actual artifact",
+    },
+    "expected_fixture_alignment_warning": {
+        "severity": "action_required",
+        "operator_bucket": "artifact has an expected fixture alignment warning",
+    },
+    "schema_version_missing": {
+        "severity": "action_required",
+        "operator_bucket": "schema version metadata missing",
+    },
+    "task_id_missing": {
+        "severity": "action_required",
+        "operator_bucket": "task_id metadata missing",
+    },
+    "status_fields_missing": {
+        "severity": "action_required",
+        "operator_bucket": "expected status field missing",
+    },
+    "embedded_artifact_pointer_warning": {
+        "severity": "review_needed",
+        "operator_bucket": "embedded artifact pointer needs inspection",
+    },
+    "stale_reference_warning": {
+        "severity": "review_needed",
+        "operator_bucket": "historical or stale reference needs inspection",
+    },
+    "json_top_level_not_object": {
+        "severity": "review_needed",
+        "operator_bucket": "JSON artifact is intentionally or structurally non-object",
+    },
+    "missing_optional_artifact": {
+        "severity": "informational",
+        "operator_bucket": "optional artifact missing",
+    },
+    "known_intentional_malformed_fixture_parse_failure": {
+        "severity": "informational",
+        "operator_bucket": "known intentional malformed fixture",
+    },
+    "unclassified_warning": {
+        "severity": "action_required",
+        "operator_bucket": "unclassified warning requires manual review",
+    },
+}
+
 ZERO_OR_FALSE_SAFETY_FIELDS = {
     "api_used",
     "authenticated_endpoints",
@@ -576,6 +643,124 @@ def _report_status(artifact_records, fixture_checks, safety_summary):
     return "health_passed", [], []
 
 
+def _warning_path(warning):
+    if " fixture alignment " in warning:
+        return warning.split(" fixture alignment ", 1)[0]
+    if ": " in warning:
+        return warning.split(": ", 1)[0]
+    return None
+
+
+def _warning_category(warning):
+    if " fixture alignment " in warning:
+        if " actual_missing " in warning:
+            return "fixture_alignment_actual_missing"
+        if " mismatch " in warning:
+            return "fixture_alignment_mismatch"
+        return "expected_fixture_alignment_warning"
+    tag = warning.rsplit(": ", 1)[-1]
+    if tag in WARNING_CATEGORY_MODEL:
+        return tag
+    return "unclassified_warning"
+
+
+def _warning_severity(category, path, required_by_path):
+    model = WARNING_CATEGORY_MODEL.get(category, WARNING_CATEGORY_MODEL["unclassified_warning"])
+    severity = model["severity"]
+    required = bool(path and required_by_path.get(path))
+    if category == "json_parse_failed" and not required:
+        return "action_required"
+    if category in {"schema_version_missing", "task_id_missing", "status_fields_missing"} and not required:
+        return "review_needed"
+    return severity
+
+
+def _highest_severity(severity_counts):
+    for severity in WARNING_SEVERITIES:
+        if severity_counts.get(severity, 0):
+            return severity
+    return "informational"
+
+
+def _warning_operator_summary(severity_counts, blockers):
+    if severity_counts["blocking"] or blockers:
+        return "Blocking quality warning detected; stop and repair blocking artifact or safety issues first."
+    if severity_counts["action_required"]:
+        return "No blocking warnings detected; review action_required categories before relying on the package."
+    if severity_counts["review_needed"]:
+        return "No blocking or action_required warnings detected; inspect review_needed categories as artifact hygiene context."
+    if severity_counts["informational"]:
+        return "Only informational warnings detected; keep details for traceability."
+    return "No quality warnings detected."
+
+
+def _recommended_manual_action(severity_counts, blockers):
+    if severity_counts["blocking"] or blockers:
+        return "Stop operator review and repair blocking warnings or blockers before continuing."
+    if severity_counts["action_required"]:
+        return "Review action_required warning categories first, then inspect review_needed and informational categories."
+    if severity_counts["review_needed"]:
+        return "Inspect review_needed warning categories and keep detailed warnings available for follow-up cleanup."
+    if severity_counts["informational"]:
+        return "Record informational context and continue manual review."
+    return "Continue manual review with no quality warning follow-up required."
+
+
+def _warning_severity_summary(warnings, artifact_records, blockers):
+    required_by_path = {record["path"]: record["required"] for record in artifact_records}
+    severity_counts = {severity: 0 for severity in WARNING_SEVERITIES}
+    category_counts = {}
+    category_severity_counts = {}
+
+    for warning in warnings:
+        path = _warning_path(warning)
+        category = _warning_category(warning)
+        severity = _warning_severity(category, path, required_by_path)
+        severity_counts[severity] += 1
+        category_counts[category] = category_counts.get(category, 0) + 1
+        per_category = category_severity_counts.setdefault(
+            category,
+            {item: 0 for item in WARNING_SEVERITIES},
+        )
+        per_category[severity] += 1
+
+    categories = []
+    for category in sorted(category_counts):
+        model = WARNING_CATEGORY_MODEL.get(category, WARNING_CATEGORY_MODEL["unclassified_warning"])
+        per_category = category_severity_counts[category]
+        categories.append(
+            {
+                "category": category,
+                "severity": _highest_severity(per_category),
+                "count": category_counts[category],
+                "severity_counts": per_category,
+                "operator_bucket": model["operator_bucket"],
+            }
+        )
+    categories.sort(
+        key=lambda item: (
+            -item["count"],
+            WARNING_SEVERITY_RANK[item["severity"]],
+            item["category"],
+        )
+    )
+
+    summary = {
+        "total_warnings": len(warnings),
+        "blocking_count": severity_counts["blocking"],
+        "action_required_count": severity_counts["action_required"],
+        "review_needed_count": severity_counts["review_needed"],
+        "informational_count": severity_counts["informational"],
+        "warning_categories": categories,
+        "top_warning_categories": categories[:5],
+        "blocking_warning_detected": bool(severity_counts["blocking"] or blockers),
+        "operator_summary": _warning_operator_summary(severity_counts, blockers),
+        "recommended_manual_action": _recommended_manual_action(severity_counts, blockers),
+        "severity_model": WARNING_SEVERITY_MODEL,
+    }
+    return summary
+
+
 def build_artifact_health_report(root=ROOT):
     root = Path(root)
     paths = _artifact_inventory_paths(root)
@@ -597,6 +782,7 @@ def build_artifact_health_report(root=ROOT):
 
     safety_summary = _safety_flag_summary(artifact_records)
     status, blockers, warnings = _report_status(artifact_records, fixture_checks, safety_summary)
+    warning_summary = _warning_severity_summary(warnings, artifact_records, blockers)
     parse_pass = sum(1 for record in artifact_records if record["json_parse_status"] == "parsed")
     parse_fail = sum(1 for record in artifact_records if record["json_parse_status"] == "parse_failed")
     stale_pointer_warnings = []
@@ -673,6 +859,7 @@ def build_artifact_health_report(root=ROOT):
         },
         "safety_flag_summary": safety_summary,
         "stale_pointer_warnings": stale_pointer_warnings,
+        "warning_severity_summary": warning_summary,
         "warnings": warnings,
         "blockers": blockers,
         "report_status": status,
@@ -684,6 +871,7 @@ def render_markdown(report):
     pointer_summary = report["embedded_artifact_pointer_summary"]
     fixture_summary = report["expected_fixture_alignment_summary"]
     safety = report["safety_flag_summary"]
+    warning_summary = report["warning_severity_summary"]
     lines = [
         "# PMBOT Artifact Health Report v1",
         "",
@@ -700,23 +888,59 @@ def render_markdown(report):
         f"- task_id_missing_where_expected_count: {report['task_id_missing_where_expected_count']}",
         f"- status_fields_missing_where_expected_count: {report['status_fields_missing_where_expected_count']}",
         "",
-        "## Embedded Pointer Health",
+        "## Warning Severity Summary",
         "",
-        f"- checked_count: {pointer_summary['checked_count']}",
-        f"- present_count: {pointer_summary['present_count']}",
-        f"- missing_count: {pointer_summary['missing_count']}",
-        f"- absolute_count: {pointer_summary['absolute_count']}",
+        f"- total_warnings: {warning_summary['total_warnings']}",
+        f"- blocking_count: {warning_summary['blocking_count']}",
+        f"- action_required_count: {warning_summary['action_required_count']}",
+        f"- review_needed_count: {warning_summary['review_needed_count']}",
+        f"- informational_count: {warning_summary['informational_count']}",
+        f"- blocking_warning_detected: {str(warning_summary['blocking_warning_detected']).lower()}",
+        f"- operator_summary: {warning_summary['operator_summary']}",
+        f"- recommended_manual_action: {warning_summary['recommended_manual_action']}",
         "",
-        "## Expected Fixture Alignment",
-        "",
-        f"- checks_total: {fixture_summary['checks_total']}",
-        f"- aligned_count: {fixture_summary['aligned_count']}",
-        f"- mismatch_count: {fixture_summary['mismatch_count']}",
-        f"- actual_missing_count: {fixture_summary['actual_missing_count']}",
-        "",
-        "## Safety Flags",
+        "## Top Warning Categories",
         "",
     ]
+    if warning_summary["top_warning_categories"]:
+        for item in warning_summary["top_warning_categories"]:
+            lines.append(
+                "- "
+                f"{item['category']}: count={item['count']}, severity={item['severity']}, "
+                f"bucket={item['operator_bucket']}"
+            )
+    else:
+        lines.append("- none")
+    lines.extend(
+        [
+            "",
+            "## Warning Severity Model",
+            "",
+        ]
+    )
+    for severity in WARNING_SEVERITIES:
+        lines.append(f"- {severity}: {warning_summary['severity_model'][severity]}")
+    lines.extend(
+        [
+            "",
+            "## Embedded Pointer Health",
+            "",
+            f"- checked_count: {pointer_summary['checked_count']}",
+            f"- present_count: {pointer_summary['present_count']}",
+            f"- missing_count: {pointer_summary['missing_count']}",
+            f"- absolute_count: {pointer_summary['absolute_count']}",
+            "",
+            "## Expected Fixture Alignment",
+            "",
+            f"- checks_total: {fixture_summary['checks_total']}",
+            f"- aligned_count: {fixture_summary['aligned_count']}",
+            f"- mismatch_count: {fixture_summary['mismatch_count']}",
+            f"- actual_missing_count: {fixture_summary['actual_missing_count']}",
+            "",
+            "## Safety Flags",
+            "",
+        ]
+    )
     for key in sorted(safety["report_safety_flags"]):
         lines.append(f"- {key}: {str(safety['report_safety_flags'][key]).lower()}")
     lines.extend(["", "## Warnings", ""])

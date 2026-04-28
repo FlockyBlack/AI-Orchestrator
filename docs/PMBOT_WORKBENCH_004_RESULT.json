@@ -1,0 +1,96 @@
+{
+  "task_id": "PMBOT-WORKBENCH-004-QUALITY-WARNING-SEVERITY-SUMMARY",
+  "status": "completed_ready_for_review",
+  "summary": "Added deterministic warning severity and category summaries to the artifact health report and operator review pack without changing warning detection semantics.",
+  "base_commit": "07d0feff6146dfb8f17230ea7085f5df46448754",
+  "origin_main_commit": "07d0feff6146dfb8f17230ea7085f5df46448754",
+  "files_created": [
+    "docs/PMBOT_WORKBENCH_004_RESULT.json"
+  ],
+  "files_modified": [
+    "pm_bot/quality/export_artifact_health_report.py",
+    "pm_bot/quality/artifact_health_report.v1.json",
+    "pm_bot/quality/artifact_health_report.v1.md",
+    "pm_bot/quality/expected_artifact_health_report.v1.json",
+    "pm_bot/quality/tests/test_artifact_health_report.py",
+    "pm_bot/workbench/export_operator_review_pack.py",
+    "pm_bot/workbench/operator_review_pack.v1.json",
+    "pm_bot/workbench/operator_review_pack.v1.md",
+    "pm_bot/workbench/expected_operator_review_pack.v1.json",
+    "pm_bot/workbench/tests/test_operator_review_pack_export.py"
+  ],
+  "warning_severity_summary": {
+    "total_warnings": 149,
+    "blocking": 0,
+    "action_required": 123,
+    "review_needed": 25,
+    "informational": 1,
+    "blocking_warning_detected": false
+  },
+  "quality_report_status": "health_passed_with_warnings",
+  "tests": [
+    {
+      "command": "python pm_bot\\workbench\\run_operator_workbench_export.py",
+      "status": "passed",
+      "summary": "required_steps_passed=true; network_calls=0; commands_executed=0; orders_created=0"
+    },
+    {
+      "command": "python -m pytest pm_bot\\quality\\tests pm_bot\\workbench\\tests -q",
+      "status": "passed",
+      "summary": "37 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\dashboard\\tests pm_bot\\operator\\tests pm_bot\\workbench\\tests pm_bot\\quality\\tests -q",
+      "status": "passed",
+      "summary": "94 passed, 48 subtests passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\paper\\tests -q",
+      "status": "passed",
+      "summary": "314 passed, 39 subtests passed"
+    },
+    {
+      "command": "JSON parse changed JSON artifacts",
+      "status": "passed",
+      "summary": "Parsed WORKBENCH-004 result, quality report/fixture, and operator review pack/fixture JSON files"
+    },
+    {
+      "command": "python -m py_compile pm_bot\\quality\\export_artifact_health_report.py pm_bot\\workbench\\export_operator_review_pack.py pm_bot\\quality\\tests\\test_artifact_health_report.py pm_bot\\workbench\\tests\\test_operator_review_pack_export.py",
+      "status": "passed",
+      "summary": "Modified Python files compiled"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed",
+      "summary": "No whitespace errors; Git reported expected CRLF normalization warnings for modified Python files"
+    }
+  ],
+  "generated_artifacts": {
+    "intentional_updates": [
+      "pm_bot/quality/artifact_health_report.v1.json",
+      "pm_bot/quality/artifact_health_report.v1.md",
+      "pm_bot/quality/expected_artifact_health_report.v1.json",
+      "pm_bot/workbench/operator_review_pack.v1.json",
+      "pm_bot/workbench/operator_review_pack.v1.md",
+      "pm_bot/workbench/expected_operator_review_pack.v1.json"
+    ],
+    "restored_unrelated_churn": [
+      "docs/PMBOT_CODEX_A_ROUND002_RESULT.json",
+      "docs/PMBOT_PAPER_017_RESULT.json",
+      "docs/PMBOT_PAPER_018_RESULT.json"
+    ]
+  },
+  "safety": {
+    "runtime_wiring": false,
+    "network_api": false,
+    "wallet": false,
+    "trading": false,
+    "autonomous_paper_orders": false,
+    "scoring_probability_ev_edge": false,
+    "market_decisions": false,
+    "command_execution": false,
+    "automation_daemon": false
+  },
+  "blockers": [],
+  "next_recommended_task": "PMBOT-PAPER-019-MULTI-MARKET-PAPER-RUN-SERIES"
+}

@@ -130,6 +130,36 @@ class ArtifactHealthReportTests(unittest.TestCase):
         self.assertIn("known_intentional_malformed_fixture_parse_failure", malformed["warnings"])
         self.assertNotIn("required JSON parse failed", "\n".join(report["blockers"]))
 
+    def test_warning_severity_summary_classifies_all_warning_detail(self):
+        _run_write()
+        report = _load_json(REPORT_JSON)
+        summary = report["warning_severity_summary"]
+
+        self.assertEqual(summary["total_warnings"], len(report["warnings"]))
+        self.assertEqual(
+            summary["total_warnings"],
+            summary["blocking_count"]
+            + summary["action_required_count"]
+            + summary["review_needed_count"]
+            + summary["informational_count"],
+        )
+        self.assertFalse(summary["blocking_warning_detected"])
+        self.assertEqual(summary["blocking_count"], 0)
+        self.assertGreater(summary["action_required_count"], 0)
+        self.assertGreater(summary["review_needed_count"], 0)
+        self.assertGreater(summary["informational_count"], 0)
+        self.assertIn("No blocking warnings detected", summary["operator_summary"])
+
+        categories = {item["category"]: item for item in summary["warning_categories"]}
+        self.assertIn("expected_fixture_alignment_warning", categories)
+        self.assertIn("fixture_alignment_actual_missing", categories)
+        self.assertEqual(categories["fixture_alignment_actual_missing"]["severity"], "action_required")
+        self.assertEqual(categories["embedded_artifact_pointer_warning"]["severity"], "review_needed")
+        self.assertEqual(
+            categories["known_intentional_malformed_fixture_parse_failure"]["severity"],
+            "informational",
+        )
+
     def test_pointer_fixture_and_safety_sections_are_explicit(self):
         _run_write()
         report = _load_json(REPORT_JSON)
@@ -194,6 +224,8 @@ class ArtifactHealthReportTests(unittest.TestCase):
         self.assertEqual(_run_markdown().stdout, markdown)
         self.assertIn("PMBOT Artifact Health Report v1", markdown)
         self.assertIn("report_status:", markdown)
+        self.assertIn("Warning Severity Summary", markdown)
+        self.assertIn("blocking_count:", markdown)
         self.assertIn("Embedded Pointer Health", markdown)
         self.assertIn("Expected Fixture Alignment", markdown)
 
@@ -220,6 +252,8 @@ class ArtifactHealthReportTests(unittest.TestCase):
         self.assertEqual(report["report_status"], "health_failed")
         self.assertTrue(any("PMBOT_PAPER_018_RESULT.json" in blocker for blocker in report["blockers"]))
         self.assertFalse(any("PMBOT_INFRA_009_RESULT.json" in blocker for blocker in report["blockers"]))
+        self.assertTrue(report["warning_severity_summary"]["blocking_warning_detected"])
+        self.assertGreaterEqual(report["warning_severity_summary"]["blocking_count"], 1)
 
     def test_runner_uses_standard_library_and_no_runtime_network_or_command_execution_imports(self):
         tree = ast.parse(RUNNER.read_text(encoding="utf-8"))

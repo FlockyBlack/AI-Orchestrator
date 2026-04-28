@@ -15,6 +15,7 @@ DEFAULT_PACK_MD = WORKBENCH_DIR / "operator_review_pack.v1.md"
 DEFAULT_EXPECTED_PACK_JSON = WORKBENCH_DIR / "expected_operator_review_pack.v1.json"
 DEFAULT_RESULT = DOCS_DIR / "PMBOT_WORKBENCH_001_RESULT.json"
 DEFAULT_LANE_RESULT = DOCS_DIR / "PMBOT_CODEX_A_ROUND003_RESULT.json"
+QUALITY_REPORT_PATH = "pm_bot/quality/artifact_health_report.v1.json"
 
 SCHEMA_VERSION = "operator_review_pack.v1"
 GENERATED_BY = "pm_bot/workbench/export_operator_review_pack.py"
@@ -59,6 +60,13 @@ FORBIDDEN_CAPABILITIES = [
     "command execution, prompt automation, dispatcher changes, run_codex changes, or runtime wiring",
     "dashboard server, frontend runtime, Telegram runtime, token handling, webhooks, or polling",
 ]
+
+QUALITY_SEVERITY_INTERPRETATION = {
+    "blocking": "blocking means stop and repair before relying on the package.",
+    "action_required": "action_required means review before relying on the package.",
+    "review_needed": "review_needed means inspect but not necessarily block.",
+    "informational": "informational means low-priority context.",
+}
 
 SOURCE_ARTIFACTS = (
     {
@@ -206,6 +214,19 @@ def _is_json_artifact(artifact):
 def _load_json(path):
     with Path(path).open("r", encoding="utf-8") as handle:
         return json.load(handle)
+
+
+def _load_optional_json(path):
+    value = Path(path)
+    if not value.exists():
+        return None, "missing"
+    try:
+        payload = _load_json(value)
+    except (OSError, json.JSONDecodeError) as exc:
+        return None, type(exc).__name__
+    if not isinstance(payload, dict):
+        return None, "top_level_not_object"
+    return payload, "parsed"
 
 
 def _write_json(path, payload):
@@ -501,6 +522,49 @@ def _operator_inbox_summary(payloads):
     }
 
 
+def _quality_report_payload(root=ROOT):
+    return _load_optional_json(_resolve_path(QUALITY_REPORT_PATH, root=root))
+
+
+def _quality_warning_summary(quality_report, load_status):
+    summary = _safe_dict(_safe_dict(quality_report).get("warning_severity_summary"))
+    if summary:
+        return {
+            "source_path": QUALITY_REPORT_PATH,
+            "quality_report_status": _safe_dict(quality_report).get("report_status"),
+            "quality_report_load_status": load_status,
+            "total_warnings": summary.get("total_warnings", 0),
+            "blocking_warnings": summary.get("blocking_count", 0),
+            "action_required_warnings": summary.get("action_required_count", 0),
+            "review_needed_warnings": summary.get("review_needed_count", 0),
+            "informational_warnings": summary.get("informational_count", 0),
+            "blocking_warning_detected": summary.get("blocking_warning_detected", False),
+            "warning_categories": _safe_list(summary.get("warning_categories")),
+            "top_warning_categories": _safe_list(summary.get("top_warning_categories")),
+            "severity_interpretation": dict(QUALITY_SEVERITY_INTERPRETATION),
+            "operator_summary": summary.get("operator_summary"),
+            "recommended_manual_action": summary.get("recommended_manual_action"),
+        }
+
+    warning_count = _warning_count(quality_report)
+    return {
+        "source_path": QUALITY_REPORT_PATH,
+        "quality_report_status": "quality_report_unavailable" if load_status != "parsed" else "summary_missing",
+        "quality_report_load_status": load_status,
+        "total_warnings": warning_count,
+        "blocking_warnings": 0,
+        "action_required_warnings": warning_count,
+        "review_needed_warnings": 0,
+        "informational_warnings": 0,
+        "blocking_warning_detected": False,
+        "warning_categories": [],
+        "top_warning_categories": [],
+        "severity_interpretation": dict(QUALITY_SEVERITY_INTERPRETATION),
+        "operator_summary": "Quality warning severity summary is unavailable; inspect quality report details manually.",
+        "recommended_manual_action": "Regenerate the artifact health report before relying on the operator review pack.",
+    }
+
+
 def _source_warning_items(artifact_id, path, payload):
     warnings = _safe_dict(payload).get("warnings")
     items = []
@@ -630,6 +694,7 @@ def _next_safe_manual_actions():
 
 def build_operator_review_pack(root=ROOT):
     inventory, payloads = _artifact_inventory(root=root)
+    quality_report, quality_load_status = _quality_report_payload(root=root)
     warnings = _warnings(payloads) + _parse_warnings(inventory)
     return {
         "schema_version": SCHEMA_VERSION,
@@ -645,6 +710,7 @@ def build_operator_review_pack(root=ROOT):
         "portfolio_accounting_summary": _portfolio_accounting_summary(payloads),
         "dashboard_state_summary": _dashboard_state_summary(payloads),
         "operator_inbox_summary": _operator_inbox_summary(payloads),
+        "quality_warning_summary": _quality_warning_summary(quality_report, quality_load_status),
         "warnings": warnings,
         "missing_artifacts": _missing_artifacts(inventory),
         "safety_flags": dict(SAFETY_FLAGS),
@@ -660,6 +726,7 @@ def build_operator_review_pack(root=ROOT):
 
 def render_operator_review_pack_markdown(pack):
     inventory = pack["artifact_inventory"]
+    quality = pack["quality_warning_summary"]
     paper = pack["paper_audit_summary"]
     portfolio = pack["portfolio_accounting_summary"]
     dashboard = pack["dashboard_state_summary"]
@@ -675,14 +742,51 @@ def render_operator_review_pack_markdown(pack):
         f"- commands_executed: {pack['commands_executed']}",
         f"- network_calls: {pack['network_calls']}",
         "",
-        "## Artifact Inventory",
+        "## Quality Warning Summary",
         "",
-        f"- total_artifacts: {inventory['summary']['total_artifacts']}",
-        f"- present_artifacts: {inventory['summary']['present_artifacts']}",
-        f"- missing_artifacts: {inventory['summary']['missing_artifacts']}",
-        f"- required_missing_artifacts: {inventory['summary']['required_missing_artifacts']}",
+        f"- quality_report_status: {quality['quality_report_status']}",
+        f"- total_warnings: {quality['total_warnings']}",
+        f"- blocking_warnings: {quality['blocking_warnings']}",
+        f"- action_required_warnings: {quality['action_required_warnings']}",
+        f"- review_needed_warnings: {quality['review_needed_warnings']}",
+        f"- informational_warnings: {quality['informational_warnings']}",
+        f"- blocking_warning_detected: {str(quality['blocking_warning_detected']).lower()}",
+        f"- operator_summary: {quality['operator_summary']}",
+        f"- recommended_manual_action: {quality['recommended_manual_action']}",
+        "",
+        "## Quality Warning Interpretation",
         "",
     ]
+    for severity in ("blocking", "action_required", "review_needed", "informational"):
+        lines.append(f"- {severity}: {quality['severity_interpretation'][severity]}")
+    lines.extend(
+        [
+            "",
+            "## Top Quality Warning Categories",
+            "",
+        ]
+    )
+    if quality["top_warning_categories"]:
+        for item in quality["top_warning_categories"]:
+            lines.append(
+                "- "
+                f"{item['category']}: count={item['count']}, severity={item['severity']}, "
+                f"bucket={item['operator_bucket']}"
+            )
+    else:
+        lines.append("- none")
+    lines.extend(
+        [
+            "",
+            "## Artifact Inventory",
+            "",
+            f"- total_artifacts: {inventory['summary']['total_artifacts']}",
+            f"- present_artifacts: {inventory['summary']['present_artifacts']}",
+            f"- missing_artifacts: {inventory['summary']['missing_artifacts']}",
+            f"- required_missing_artifacts: {inventory['summary']['required_missing_artifacts']}",
+            "",
+        ]
+    )
     for item in inventory["artifacts"]:
         lines.append(
             "- "
