@@ -1,0 +1,70 @@
+{
+  "task_id": "PMBOT-WORKBENCH-001-OPERATOR-REVIEW-PACK-EXPORT",
+  "codex_lane": "CODEX_A",
+  "status": "completed_ready_for_review",
+  "summary": "Implemented deterministic local operator review pack export.",
+  "branch": "codex/a-operator-review-pack-round003",
+  "worktree_path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator-worktrees\\CODEX_A_round003_operator_review_pack",
+  "base_commit": "21edc9af372e9d1736afb0eccd3c016f23f2c144",
+  "product_direction": "operator_workbench_review_pack_v1",
+  "files_created": [
+    "pm_bot/workbench/export_operator_review_pack.py",
+    "pm_bot/workbench/operator_review_pack.v1.json",
+    "pm_bot/workbench/operator_review_pack.v1.md",
+    "pm_bot/workbench/expected_operator_review_pack.v1.json",
+    "pm_bot/workbench/tests/test_operator_review_pack_export.py",
+    "docs/PMBOT_WORKBENCH_001_RESULT.json",
+    "docs/PMBOT_CODEX_A_ROUND003_RESULT.json"
+  ],
+  "files_modified": [],
+  "tests": [],
+  "artifact_inventory_summary": {
+    "total_artifacts": 16,
+    "present_artifacts": 14,
+    "missing_artifacts": 2,
+    "required_missing_artifacts": 0,
+    "json_artifacts_parsed": 14,
+    "json_artifacts_parse_failed": 0
+  },
+  "missing_artifacts": [
+    {
+      "artifact_id": "infra_009_result",
+      "path": "docs/PMBOT_INFRA_009_RESULT.json",
+      "category": "infrastructure_optional",
+      "required": false
+    },
+    {
+      "artifact_id": "infra_009_report",
+      "path": "docs/PMBOT_INFRA_009_ABC_ROUND003_WORKTREE_MATERIALIZATION.md",
+      "category": "infrastructure_optional",
+      "required": false
+    }
+  ],
+  "warnings_count": 4,
+  "safety_flags": {
+    "operator_review_only": true,
+    "offline_only": true,
+    "deterministic_output": true,
+    "local_file_reads_only": true,
+    "runtime_wiring": false,
+    "network_api": false,
+    "credentials": false,
+    "wallet": false,
+    "trading": false,
+    "real_orders": false,
+    "live_trading": false,
+    "autonomous_paper_orders": false,
+    "recommendations": false,
+    "truth_inference": false,
+    "scoring_probability_ev_edge": false,
+    "market_decisions": false,
+    "command_execution": false,
+    "dispatcher_run_codex_changes": false
+  },
+  "paper_orders_created": 0,
+  "commands_executed": 0,
+  "network_calls": 0,
+  "forbidden_changes_detected": false,
+  "blockers": [],
+  "next_action": "ready_for_integration_review"
+}

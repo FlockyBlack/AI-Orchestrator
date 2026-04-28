@@ -1,0 +1,577 @@
+{
+  "schema_version": "operator_review_pack.v1",
+  "generated_by": "pm_bot/workbench/export_operator_review_pack.py",
+  "generated_at_policy": {
+    "wall_clock_time_used": false,
+    "policy": "deterministic_static_snapshot_no_current_time",
+    "fixed_value": "not_emitted"
+  },
+  "product_stage_summary": {
+    "product_direction": "operator_workbench_review_pack_v1",
+    "task_id": "PMBOT-WORKBENCH-001-OPERATOR-REVIEW-PACK-EXPORT",
+    "base_commit": "21edc9af372e9d1736afb0eccd3c016f23f2c144",
+    "product_result": {
+      "source_path": "docs/PMBOT_PRODUCT_001_RESULT.json",
+      "present": true,
+      "task_id": "PMBOT-PRODUCT-001-ROUND003-DIRECTION-AND-BACKLOG-SELECTION",
+      "status": "completed_ready_for_review",
+      "integration_verdict": null
+    },
+    "integration_008_result": {
+      "source_path": "docs/PMBOT_INTEGRATION_008_RESULT.json",
+      "present": true,
+      "task_id": "PMBOT-INTEGRATION-008-ABC-ROUND002-REAL-MERGE",
+      "status": "completed_ready_for_review",
+      "integration_verdict": "abc_round002_merged_to_main"
+    },
+    "paper_018_result": {
+      "source_path": "docs/PMBOT_PAPER_018_RESULT.json",
+      "present": true,
+      "task_id": "PMBOT-PAPER-018-MULTI-RECORD-PAPER-ACCOUNTING-BATCH-AUDIT",
+      "status": "completed_ready_for_review",
+      "integration_verdict": null
+    },
+    "dashboard_002_result": {
+      "source_path": "docs/PMBOT_DASHBOARD_002_RESULT.json",
+      "present": true,
+      "task_id": "PMBOT-DASHBOARD-002-PORTFOLIO-AUDIT-STATE-EXPORT",
+      "status": "completed_ready_for_review",
+      "integration_verdict": null
+    },
+    "operator_002_result": {
+      "source_path": "docs/PMBOT_OPERATOR_002_RESULT.json",
+      "present": true,
+      "task_id": "PMBOT-OPERATOR-002-MANUAL-COMMAND-INBOX-REVIEW-QUEUE",
+      "status": "completed_ready_for_review",
+      "integration_verdict": null
+    },
+    "stage_boundary": {
+      "operator_review_pack_export_only": true,
+      "offline_only": true,
+      "deterministic_only": true,
+      "runtime_wiring": false,
+      "live_data": false,
+      "recommendations_or_decisions": false
+    }
+  },
+  "artifact_inventory": {
+    "summary": {
+      "total_artifacts": 16,
+      "present_artifacts": 14,
+      "missing_artifacts": 2,
+      "required_missing_artifacts": 0,
+      "json_artifacts_parsed": 14,
+      "json_artifacts_parse_failed": 0
+    },
+    "artifacts": [
+      {
+        "artifact_id": "product_001_result",
+        "path": "docs/PMBOT_PRODUCT_001_RESULT.json",
+        "category": "product_direction",
+        "artifact_type": "docs_result_json",
+        "required": true,
+        "present": true,
+        "parse_status": "parsed",
+        "schema_version": null,
+        "task_id": "PMBOT-PRODUCT-001-ROUND003-DIRECTION-AND-BACKLOG-SELECTION",
+        "status": "completed_ready_for_review",
+        "audit_status": null,
+        "deterministic": null,
+        "warning_count": 0
+      },
+      {
+        "artifact_id": "integration_008_result",
+        "path": "docs/PMBOT_INTEGRATION_008_RESULT.json",
+        "category": "integration",
+        "artifact_type": "docs_result_json",
+        "required": true,
+        "present": true,
+        "parse_status": "parsed",
+        "schema_version": null,
+        "task_id": "PMBOT-INTEGRATION-008-ABC-ROUND002-REAL-MERGE",
+        "status": "completed_ready_for_review",
+        "audit_status": null,
+        "deterministic": null,
+        "warning_count": 0
+      },
+      {
+        "artifact_id": "paper_017_result",
+        "path": "docs/PMBOT_PAPER_017_RESULT.json",
+        "category": "paper_accounting",
+        "artifact_type": "docs_result_json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed",
+        "schema_version": null,
+        "task_id": "PMBOT-PAPER-017-PAPER-ACCOUNTING-RECONCILIATION-LIFECYCLE-AUDIT",
+        "status": "completed_ready_for_review",
+        "audit_status": "reconciliation_passed",
+        "deterministic": null,
+        "warning_count": 0
+      },
+      {
+        "artifact_id": "paper_018_result",
+        "path": "docs/PMBOT_PAPER_018_RESULT.json",
+        "category": "paper_accounting",
+        "artifact_type": "docs_result_json",
+        "required": true,
+        "present": true,
+        "parse_status": "parsed",
+        "schema_version": null,
+        "task_id": "PMBOT-PAPER-018-MULTI-RECORD-PAPER-ACCOUNTING-BATCH-AUDIT",
+        "status": "completed_ready_for_review",
+        "audit_status": "batch_audit_passed",
+        "deterministic": null,
+        "warning_count": 0
+      },
+      {
+        "artifact_id": "dashboard_002_result",
+        "path": "docs/PMBOT_DASHBOARD_002_RESULT.json",
+        "category": "dashboard_state",
+        "artifact_type": "docs_result_json",
+        "required": true,
+        "present": true,
+        "parse_status": "parsed",
+        "schema_version": null,
+        "task_id": "PMBOT-DASHBOARD-002-PORTFOLIO-AUDIT-STATE-EXPORT",
+        "status": "completed_ready_for_review",
+        "audit_status": null,
+        "deterministic": null,
+        "warning_count": 0
+      },
+      {
+        "artifact_id": "operator_002_result",
+        "path": "docs/PMBOT_OPERATOR_002_RESULT.json",
+        "category": "operator_inbox",
+        "artifact_type": "docs_result_json",
+        "required": true,
+        "present": true,
+        "parse_status": "parsed",
+        "schema_version": null,
+        "task_id": "PMBOT-OPERATOR-002-MANUAL-COMMAND-INBOX-REVIEW-QUEUE",
+        "status": "completed_ready_for_review",
+        "audit_status": null,
+        "deterministic": null,
+        "warning_count": 0
+      },
+      {
+        "artifact_id": "infra_009_result",
+        "path": "docs/PMBOT_INFRA_009_RESULT.json",
+        "category": "infrastructure_optional",
+        "artifact_type": "docs_result_json",
+        "required": false,
+        "present": false,
+        "parse_status": "not_applicable",
+        "schema_version": null,
+        "task_id": null,
+        "status": null,
+        "audit_status": null,
+        "deterministic": null,
+        "warning_count": 0
+      },
+      {
+        "artifact_id": "infra_009_report",
+        "path": "docs/PMBOT_INFRA_009_ABC_ROUND003_WORKTREE_MATERIALIZATION.md",
+        "category": "infrastructure_optional",
+        "artifact_type": "docs_markdown",
+        "required": false,
+        "present": false,
+        "parse_status": "not_applicable",
+        "schema_version": null,
+        "task_id": null,
+        "status": null,
+        "audit_status": null,
+        "deterministic": null,
+        "warning_count": 0
+      },
+      {
+        "artifact_id": "paper_accounting_reconciliation_audit",
+        "path": "pm_bot/paper/paper_accounting_reconciliation_audit.v1.json",
+        "category": "paper_audit",
+        "artifact_type": "paper_audit_json",
+        "required": true,
+        "present": true,
+        "parse_status": "parsed",
+        "schema_version": "paper_accounting_reconciliation_audit.v1",
+        "task_id": "PMBOT-PAPER-017-PAPER-ACCOUNTING-RECONCILIATION-LIFECYCLE-AUDIT",
+        "status": null,
+        "audit_status": "reconciliation_passed",
+        "deterministic": true,
+        "warning_count": 0
+      },
+      {
+        "artifact_id": "paper_accounting_batch_audit",
+        "path": "pm_bot/paper/paper_accounting_batch_audit.v1.json",
+        "category": "paper_audit",
+        "artifact_type": "paper_audit_json",
+        "required": true,
+        "present": true,
+        "parse_status": "parsed",
+        "schema_version": "paper_accounting_batch_audit.v1",
+        "task_id": "PMBOT-PAPER-018-MULTI-RECORD-PAPER-ACCOUNTING-BATCH-AUDIT",
+        "status": null,
+        "audit_status": "batch_audit_passed",
+        "deterministic": true,
+        "warning_count": 0
+      },
+      {
+        "artifact_id": "paper_accounting_ledger",
+        "path": "pm_bot/paper/paper_accounting_ledger.v1.json",
+        "category": "portfolio_accounting",
+        "artifact_type": "paper_accounting_json",
+        "required": true,
+        "present": true,
+        "parse_status": "parsed",
+        "schema_version": "paper_accounting_ledger.v1",
+        "task_id": "PMBOT-PAPER-BATCH-014-016-PAPER-PORTFOLIO-METRICS-MVP",
+        "status": null,
+        "audit_status": null,
+        "deterministic": true,
+        "warning_count": 0
+      },
+      {
+        "artifact_id": "paper_accounting_pnl_preview",
+        "path": "pm_bot/paper/paper_accounting_pnl_preview.v1.json",
+        "category": "portfolio_accounting",
+        "artifact_type": "paper_accounting_json",
+        "required": true,
+        "present": true,
+        "parse_status": "parsed",
+        "schema_version": "paper_accounting_pnl_preview.v1",
+        "task_id": "PMBOT-PAPER-BATCH-011-013-FILL-SETTLEMENT-PNL-MVP",
+        "status": null,
+        "audit_status": null,
+        "deterministic": true,
+        "warning_count": 0
+      },
+      {
+        "artifact_id": "paper_portfolio_snapshot",
+        "path": "pm_bot/paper/paper_portfolio_snapshot.v1.json",
+        "category": "portfolio_accounting",
+        "artifact_type": "paper_portfolio_json",
+        "required": true,
+        "present": true,
+        "parse_status": "parsed",
+        "schema_version": "paper_portfolio_snapshot.v1",
+        "task_id": "PMBOT-PAPER-BATCH-014-016-PAPER-PORTFOLIO-METRICS-MVP",
+        "status": null,
+        "audit_status": null,
+        "deterministic": true,
+        "warning_count": 0
+      },
+      {
+        "artifact_id": "paper_metrics_report",
+        "path": "pm_bot/paper/paper_metrics_report.v1.json",
+        "category": "portfolio_accounting",
+        "artifact_type": "paper_metrics_json",
+        "required": true,
+        "present": true,
+        "parse_status": "parsed",
+        "schema_version": "paper_metrics_report.v1",
+        "task_id": "PMBOT-PAPER-BATCH-014-016-PAPER-PORTFOLIO-METRICS-MVP",
+        "status": null,
+        "audit_status": null,
+        "deterministic": true,
+        "warning_count": 0
+      },
+      {
+        "artifact_id": "portfolio_audit_state_preview",
+        "path": "pm_bot/dashboard/portfolio_audit_state_preview.v1.json",
+        "category": "dashboard_state",
+        "artifact_type": "dashboard_state_json",
+        "required": true,
+        "present": true,
+        "parse_status": "parsed",
+        "schema_version": "portfolio_audit_state_preview.v1",
+        "task_id": null,
+        "status": null,
+        "audit_status": null,
+        "deterministic": null,
+        "warning_count": 6
+      },
+      {
+        "artifact_id": "manual_command_inbox_review",
+        "path": "pm_bot/operator/manual_command_inbox_review.v1.json",
+        "category": "operator_inbox",
+        "artifact_type": "operator_inbox_json",
+        "required": true,
+        "present": true,
+        "parse_status": "parsed",
+        "schema_version": "manual_command_inbox_review.v1",
+        "task_id": "PMBOT-OPERATOR-002-MANUAL-COMMAND-INBOX-REVIEW-QUEUE",
+        "status": null,
+        "audit_status": null,
+        "deterministic": null,
+        "warning_count": 0
+      }
+    ]
+  },
+  "paper_audit_summary": {
+    "summary_scope": "paper_accounting_audits_only",
+    "reconciliation_audit": {
+      "artifact_id": "paper_accounting_reconciliation_audit",
+      "source_path": "pm_bot/paper/paper_accounting_reconciliation_audit.v1.json",
+      "present": true,
+      "schema_version": "paper_accounting_reconciliation_audit.v1",
+      "task_id": "PMBOT-PAPER-017-PAPER-ACCOUNTING-RECONCILIATION-LIFECYCLE-AUDIT",
+      "audit_status": "reconciliation_passed",
+      "counts": {
+        "checks_total": 14,
+        "checks_passed": 14,
+        "checks_warning": 0,
+        "checks_failed": 0,
+        "artifacts_checked": 14
+      },
+      "warnings_count": 0,
+      "mismatches_count": 0,
+      "paper_orders_created": 0,
+      "autonomous_actions_created": 0,
+      "next_safe_action": "ready_for_integration_review"
+    },
+    "batch_audit": {
+      "artifact_id": "paper_accounting_batch_audit",
+      "source_path": "pm_bot/paper/paper_accounting_batch_audit.v1.json",
+      "present": true,
+      "schema_version": "paper_accounting_batch_audit.v1",
+      "task_id": "PMBOT-PAPER-018-MULTI-RECORD-PAPER-ACCOUNTING-BATCH-AUDIT",
+      "audit_status": "batch_audit_passed",
+      "counts": {
+        "checks_total": 13,
+        "checks_passed": 13,
+        "checks_warning": 0,
+        "checks_failed": 0,
+        "records_audited": 3
+      },
+      "warnings_count": 0,
+      "mismatches_count": 0,
+      "paper_orders_created": 0,
+      "autonomous_actions_created": 0,
+      "next_safe_action": "ready_for_integration_review"
+    },
+    "audits_passed": [
+      {
+        "artifact_id": "paper_accounting_reconciliation_audit",
+        "audit_status": "reconciliation_passed"
+      },
+      {
+        "artifact_id": "paper_accounting_batch_audit",
+        "audit_status": "batch_audit_passed"
+      }
+    ],
+    "audit_warnings_count": 0,
+    "audit_mismatches_count": 0,
+    "accounting_only_interpretation_warning": "Paper accounting PnL is fixture/manual accounting only and is not strategy profitability."
+  },
+  "portfolio_accounting_summary": {
+    "source_path": "pm_bot/dashboard/portfolio_audit_state_preview.v1.json",
+    "summary_status": "portfolio_accounting_state_ready",
+    "accepted_accounting_market_ids": [
+      "824952"
+    ],
+    "counts": {
+      "paper_accounting_preview_records_read": 1,
+      "paper_accounting_ledger_entries": 1,
+      "paper_accounting_settled_count": 1,
+      "paper_accounting_open_count": 0,
+      "paper_accounting_blocked_count": 0,
+      "paper_portfolio_snapshot_records": 1,
+      "paper_metrics_report_records": 1,
+      "real_orders_created": 0,
+      "live_orders_created": 0,
+      "autonomous_paper_orders_created": 0
+    },
+    "paper_accounting_totals": {
+      "paper_accounting_total_cost_basis": "4.00",
+      "paper_accounting_total_settlement_value": "10.00",
+      "paper_accounting_total_pnl": "6.00"
+    },
+    "paper_accounting_metrics": {
+      "paper_accounting_total_records": 1,
+      "paper_accounting_settled_count": 1,
+      "paper_accounting_open_count": 0,
+      "paper_accounting_win_count": 1,
+      "paper_accounting_loss_count": 0,
+      "paper_accounting_flat_count": 0,
+      "paper_accounting_cumulative_pnl": "6.00",
+      "paper_accounting_average_pnl": "6.00",
+      "paper_accounting_gross_profit": "6.00",
+      "paper_accounting_gross_loss": "0.00",
+      "paper_accounting_max_gain": "6.00",
+      "paper_accounting_max_loss": "0.00"
+    },
+    "batch_accounting_totals": {
+      "paper_accounting_total_records": 3,
+      "paper_accounting_settled_count": 2,
+      "paper_accounting_open_count": 1,
+      "paper_accounting_win_count": 1,
+      "paper_accounting_loss_count": 1,
+      "paper_accounting_flat_count": 0,
+      "paper_accounting_total_cost_basis": "16.00",
+      "paper_accounting_total_settlement_value": "10.00",
+      "paper_accounting_cumulative_pnl": "-1.00",
+      "paper_accounting_average_pnl": "-0.50",
+      "paper_accounting_gross_profit": "6.00",
+      "paper_accounting_gross_loss": "-7.00",
+      "paper_accounting_max_gain": "6.00",
+      "paper_accounting_max_loss": "-7.00"
+    },
+    "interpretation_boundary": {
+      "paper_accounting_only": true,
+      "operator_manual_fixture_source": true,
+      "strategy_profitability": false,
+      "live_resolution": false,
+      "warning": "Paper accounting PnL is fixture/manual accounting only and is not strategy profitability."
+    }
+  },
+  "dashboard_state_summary": {
+    "source_path": "pm_bot/dashboard/portfolio_audit_state_preview.v1.json",
+    "present": true,
+    "schema_version": "portfolio_audit_state_preview.v1",
+    "dashboard_state_export_version": "v2",
+    "known_market_ids": [
+      "824952",
+      "series_btc_above_90000_2026_05_31"
+    ],
+    "current_known_portfolio_audit_status": "paper_017_reconciliation_available_with_dashboard_002_static_export",
+    "interpretation_warning_count": 6,
+    "implementation_boundary": {
+      "dashboard_runtime": false,
+      "server": false,
+      "frontend": false,
+      "browser_automation": false,
+      "network_api": false,
+      "runtime_wiring": false
+    }
+  },
+  "operator_inbox_summary": {
+    "source_path": "pm_bot/operator/manual_command_inbox_review.v1.json",
+    "present": true,
+    "schema_version": "manual_command_inbox_review.v1",
+    "records_seen": 7,
+    "accepted_count": 3,
+    "rejected_count": 3,
+    "needs_human_review_count": 1,
+    "accepted_command_ids": [
+      "manual-inbox-status-001",
+      "manual-inbox-artifact-pointer-001",
+      "manual-inbox-paper-intent-ref-001"
+    ],
+    "rejected_command_ids": [
+      "manual-inbox-invalid-live-source",
+      "manual-inbox-invalid-authority",
+      "manual-inbox-invalid-scoring"
+    ],
+    "needs_human_review_command_ids": [
+      "manual-inbox-human-review-001"
+    ],
+    "execution_authority": false,
+    "commands_executed": 0,
+    "orders_created": 0,
+    "network_calls": 0,
+    "next_safe_action": "human_review_queue_only"
+  },
+  "warnings": [
+    {
+      "warning_id": "accounting_only_interpretation",
+      "source_path": null,
+      "category": "interpretation_boundary",
+      "message": "Paper accounting PnL is fixture/manual accounting only and is not strategy profitability."
+    },
+    {
+      "warning_id": "audit_status_not_truth_inference",
+      "source_path": null,
+      "category": "interpretation_boundary",
+      "message": "Audit pass/fail state reflects deterministic local artifact consistency only, not truth inference."
+    },
+    {
+      "warning_id": "no_recommendations_or_decisions",
+      "source_path": null,
+      "category": "operator_boundary",
+      "message": "This operator review pack does not recommend markets, sides, prices, sizes, orders, trades, paper orders, or decisions."
+    },
+    {
+      "warning_id": "local_artifacts_only",
+      "source_path": null,
+      "category": "data_boundary",
+      "message": "This pack reads local artifacts only and contains no live prices, live fetch results, or API results."
+    }
+  ],
+  "missing_artifacts": [
+    {
+      "artifact_id": "infra_009_result",
+      "path": "docs/PMBOT_INFRA_009_RESULT.json",
+      "category": "infrastructure_optional",
+      "required": false
+    },
+    {
+      "artifact_id": "infra_009_report",
+      "path": "docs/PMBOT_INFRA_009_ABC_ROUND003_WORKTREE_MATERIALIZATION.md",
+      "category": "infrastructure_optional",
+      "required": false
+    }
+  ],
+  "safety_flags": {
+    "operator_review_only": true,
+    "offline_only": true,
+    "deterministic_output": true,
+    "local_file_reads_only": true,
+    "runtime_wiring": false,
+    "network_api": false,
+    "credentials": false,
+    "wallet": false,
+    "trading": false,
+    "real_orders": false,
+    "live_trading": false,
+    "autonomous_paper_orders": false,
+    "recommendations": false,
+    "truth_inference": false,
+    "scoring_probability_ev_edge": false,
+    "market_decisions": false,
+    "command_execution": false,
+    "dispatcher_run_codex_changes": false
+  },
+  "forbidden_capabilities": [
+    "live fetchers, network/API calls, authenticated endpoints, or live data refresh",
+    "credentials, API keys, wallet access, private keys, or signing",
+    "trading endpoints, real orders, live trading, or autonomous paper orders",
+    "betting recommendations, side recommendations, size recommendations, or market selection",
+    "truth inference, probability estimates, EV calculations, edge calculations, or market scoring",
+    "command execution, prompt automation, dispatcher changes, run_codex changes, or runtime wiring",
+    "dashboard server, frontend runtime, Telegram runtime, token handling, webhooks, or polling"
+  ],
+  "next_safe_manual_actions": [
+    {
+      "action_id": "review_pack_inventory_and_warnings",
+      "description": "Review artifact_inventory, missing_artifacts, and warnings in this local pack.",
+      "non_trading_action": true,
+      "requires_runtime": false,
+      "creates_orders": false
+    },
+    {
+      "action_id": "review_paper_accounting_audit_artifacts",
+      "description": "Inspect the existing paper reconciliation and batch audit artifacts for local consistency status.",
+      "non_trading_action": true,
+      "requires_runtime": false,
+      "creates_orders": false
+    },
+    {
+      "action_id": "review_operator_inbox_queue",
+      "description": "Review accepted, rejected, and needs-human-review inbox records without executing commands.",
+      "non_trading_action": true,
+      "requires_runtime": false,
+      "creates_orders": false
+    },
+    {
+      "action_id": "integration_review_only",
+      "description": "Use this pack as a static input for human integration review only.",
+      "non_trading_action": true,
+      "requires_runtime": false,
+      "creates_orders": false
+    }
+  ],
+  "accounting_only_interpretation_warning": "Paper accounting PnL is fixture/manual accounting only and is not strategy profitability.",
+  "no_recommendations_or_decisions_statement": "This operator review pack does not recommend markets, sides, prices, sizes, orders, trades, paper orders, or decisions.",
+  "paper_orders_created": 0,
+  "commands_executed": 0,
+  "network_calls": 0
+}
