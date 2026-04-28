@@ -1,0 +1,267 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "PMBOT_INFRA_005_CODEX_PARALLEL_RESULT_CONTRACT.v1",
+  "title": "PMBOT INFRA-005 Codex Parallel Lane Result Contract",
+  "description": "Strict result contract for future PMBOT CODEX_A, CODEX_B, CODEX_C, and integration lane tasks in ABC feature round 001.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "task_id",
+    "codex_lane",
+    "status",
+    "summary",
+    "branch",
+    "worktree_path",
+    "base_commit",
+    "head_commit",
+    "files_created",
+    "files_modified",
+    "commands_run",
+    "tests",
+    "safety_flags",
+    "forbidden_changes_detected",
+    "git_status_before",
+    "git_status_after",
+    "pushed",
+    "blockers",
+    "next_action"
+  ],
+  "properties": {
+    "task_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "codex_lane": {
+      "type": "string",
+      "enum": [
+        "CODEX_A",
+        "CODEX_B",
+        "CODEX_C",
+        "CODEX_INTEGRATION"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "completed_ready_for_integration",
+        "completed_with_warnings",
+        "blocked",
+        "failed"
+      ]
+    },
+    "summary": {
+      "type": "string"
+    },
+    "branch": {
+      "type": "string",
+      "minLength": 1
+    },
+    "worktree_path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "base_commit": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "head_commit": {
+      "oneOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "files_created": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "files_modified": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "commands_run": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/command_result"
+      }
+    },
+    "tests": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/test_result"
+      }
+    },
+    "safety_flags": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "runtime_wiring",
+        "network_api",
+        "credentials",
+        "wallet",
+        "trading",
+        "real_orders",
+        "live_trading",
+        "autonomous_paper_orders",
+        "scoring_probability_ev_edge",
+        "recommendations",
+        "truth_inference",
+        "market_decisions",
+        "dispatcher_run_codex_changes",
+        "prompt_automation",
+        "broad_refactor"
+      ],
+      "properties": {
+        "runtime_wiring": {
+          "type": "boolean"
+        },
+        "network_api": {
+          "type": "boolean"
+        },
+        "credentials": {
+          "type": "boolean"
+        },
+        "wallet": {
+          "type": "boolean"
+        },
+        "trading": {
+          "type": "boolean"
+        },
+        "real_orders": {
+          "type": "boolean"
+        },
+        "live_trading": {
+          "type": "boolean"
+        },
+        "autonomous_paper_orders": {
+          "type": "boolean"
+        },
+        "scoring_probability_ev_edge": {
+          "type": "boolean"
+        },
+        "recommendations": {
+          "type": "boolean"
+        },
+        "truth_inference": {
+          "type": "boolean"
+        },
+        "market_decisions": {
+          "type": "boolean"
+        },
+        "dispatcher_run_codex_changes": {
+          "type": "boolean"
+        },
+        "prompt_automation": {
+          "type": "boolean"
+        },
+        "broad_refactor": {
+          "type": "boolean"
+        }
+      }
+    },
+    "forbidden_changes_detected": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "reason"
+        ],
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "git_status_before": {
+      "type": "string"
+    },
+    "git_status_after": {
+      "type": "string"
+    },
+    "pushed": {
+      "type": "boolean"
+    },
+    "blockers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "next_action": {
+      "type": "string",
+      "enum": [
+        "ready_for_integration_review",
+        "requires_operator_review",
+        "requires_serial_followup",
+        "do_not_integrate"
+      ]
+    }
+  },
+  "$defs": {
+    "command_result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "command",
+        "status"
+      ],
+      "properties": {
+        "command": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "passed",
+            "failed",
+            "skipped",
+            "not_run"
+          ]
+        },
+        "summary": {
+          "type": "string"
+        }
+      }
+    },
+    "test_result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "command",
+        "status"
+      ],
+      "properties": {
+        "command": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "passed",
+            "failed",
+            "skipped",
+            "not_run"
+          ]
+        },
+        "summary": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
+
