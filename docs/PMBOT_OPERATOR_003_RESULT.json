@@ -1,0 +1,118 @@
+{
+  "task_id": "PMBOT-OPERATOR-003-REVIEW-PACK-COMMAND-BRIDGE-CONTRACT",
+  "codex_lane": "CODEX_C",
+  "status": "completed_ready_for_review",
+  "summary": "Added an inert static bridge contract, examples, Markdown notes, validator, and focused tests mapping manual operator command types to future operator review pack sections without execution authority, runtime triggers, Telegram runtime, network/API calls, wallet access, orders, scoring, probability, EV, edge, recommendations, truth inference, or market decisions.",
+  "branch": "codex/c-review-pack-command-bridge-round003",
+  "worktree_path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator-worktrees\\CODEX_C_round003_review_pack_command_bridge",
+  "base_commit": "21edc9af372e9d1736afb0eccd3c016f23f2c144",
+  "infra_009_result_doc_present": false,
+  "files_created": [
+    "pm_bot/operator/review_pack_command_bridge_contract.v1.json",
+    "pm_bot/operator/review_pack_command_bridge_examples.v1.json",
+    "pm_bot/operator/review_pack_command_bridge_examples.v1.md",
+    "pm_bot/operator/validate_review_pack_command_bridge.py",
+    "pm_bot/operator/tests/test_review_pack_command_bridge.py",
+    "docs/PMBOT_OPERATOR_003_RESULT.json",
+    "docs/PMBOT_CODEX_C_ROUND003_RESULT.json"
+  ],
+  "files_modified": [],
+  "bridge_contract": {
+    "schema_version": "review_pack_command_bridge_contract.v1",
+    "bridge_record_schema_version": "review_pack_command_bridge_record.v1",
+    "source_command_schema_version": "manual_operator_command.v1",
+    "valid_bridge_record_count": 7,
+    "invalid_bridge_record_count": 7,
+    "mapped_command_types": [
+      "request_status_summary",
+      "request_dashboard_state_export",
+      "record_manual_review_note",
+      "record_manual_paper_intent_reference",
+      "request_artifact_pointer",
+      "mark_needs_human_review"
+    ],
+    "mapped_review_pack_sections": [
+      "product_status",
+      "artifact_inventory",
+      "paper_audit_summary",
+      "dashboard_state_summary",
+      "operator_inbox_summary",
+      "missing_stale_artifact_warnings",
+      "next_safe_manual_actions"
+    ]
+  },
+  "tests": [
+    {
+      "command": "python -m pytest pm_bot\\operator\\tests\\test_review_pack_command_bridge.py -q",
+      "status": "passed",
+      "summary": "8 passed, 34 subtests passed"
+    },
+    {
+      "command": "python pm_bot\\operator\\validate_review_pack_command_bridge.py pm_bot\\operator\\review_pack_command_bridge_examples.v1.json --examples",
+      "status": "passed",
+      "summary": "7 valid bridge examples and 7 invalid bridge examples checked"
+    },
+    {
+      "command": "python -m pytest pm_bot\\operator\\tests -q",
+      "status": "passed",
+      "summary": "41 passed, 48 subtests passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\paper\\tests -q",
+      "status": "passed",
+      "summary": "313 passed, 1 skipped, 39 subtests passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\dashboard\\tests pm_bot\\operator\\tests -q",
+      "status": "passed",
+      "summary": "57 passed, 48 subtests passed"
+    },
+    {
+      "command": "python -m json.tool new JSON files",
+      "status": "passed",
+      "summary": "New OPERATOR-003 JSON artifacts parsed successfully"
+    },
+    {
+      "command": "python -m py_compile pm_bot\\operator\\validate_review_pack_command_bridge.py pm_bot\\operator\\tests\\test_review_pack_command_bridge.py",
+      "status": "passed",
+      "summary": "New Python files compiled successfully"
+    }
+  ],
+  "generated_artifact_churn_restored": [
+    "docs/PMBOT_CODEX_A_ROUND002_RESULT.json",
+    "docs/PMBOT_PAPER_017_RESULT.json",
+    "docs/PMBOT_PAPER_018_RESULT.json",
+    "pm_bot/dashboard/expected_portfolio_audit_state_preview.v1.json",
+    "pm_bot/dashboard/portfolio_audit_state_preview.v1.json",
+    "pm_bot/dashboard/portfolio_audit_state_preview.v1.md"
+  ],
+  "safety_flags": {
+    "telegram_runtime": false,
+    "telegram_token": false,
+    "command_execution": false,
+    "runtime_wiring": false,
+    "network_api": false,
+    "credentials": false,
+    "wallet": false,
+    "trading": false,
+    "real_orders": false,
+    "live_trading": false,
+    "autonomous_paper_orders": false,
+    "scoring_probability_ev_edge": false,
+    "recommendations": false,
+    "truth_inference": false,
+    "market_decisions": false,
+    "side_recommendations": false
+  },
+  "execution_authority": false,
+  "can_trigger_runtime": false,
+  "commands_executed": 0,
+  "orders_created": 0,
+  "network_calls": 0,
+  "forbidden_changes_detected": false,
+  "dispatcher_run_codex_touched": false,
+  "runtime_wiring_touched": false,
+  "pushed": "reported_in_final_response",
+  "blockers": [],
+  "next_safe_action": "ready_for_integration_review"
+}
