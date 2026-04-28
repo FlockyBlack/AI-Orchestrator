@@ -1,0 +1,302 @@
+{
+  "task_id": "PMBOT-INFRA-009-ABC-ROUND003-WORKTREE-MATERIALIZATION",
+  "status": "completed_ready_for_review",
+  "summary": "Created fresh local PMBOT ABC round003 feature and integration worktrees from current origin/main for operator_workbench_review_pack_v1. No feature implementation, runtime wiring, dispatcher/run_codex changes, automation, network/API behavior, wallet/auth/trading behavior, autonomous paper orders, scoring/probability/EV/edge logic, recommendations, truth inference, market decisions, dashboard runtime, Telegram runtime, or command execution were added. Feature branches were not pushed.",
+  "root_confirmed": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator",
+  "base_commit": "21edc9af372e9d1736afb0eccd3c016f23f2c144",
+  "origin_main_commit": "21edc9af372e9d1736afb0eccd3c016f23f2c144",
+  "selected_round003_direction": "operator_workbench_review_pack_v1",
+  "branches_created": [
+    {
+      "lane": "CODEX_A",
+      "task": "PMBOT-WORKBENCH-001-OPERATOR-REVIEW-PACK-EXPORT",
+      "branch": "codex/a-operator-review-pack-round003",
+      "source": "origin/main",
+      "head": "21edc9af372e9d1736afb0eccd3c016f23f2c144"
+    },
+    {
+      "lane": "CODEX_B",
+      "task": "PMBOT-QUALITY-001-ARTIFACT-HEALTH-AND-STALENESS-CHECK",
+      "branch": "codex/b-artifact-health-staleness-round003",
+      "source": "origin/main",
+      "head": "21edc9af372e9d1736afb0eccd3c016f23f2c144"
+    },
+    {
+      "lane": "CODEX_C",
+      "task": "PMBOT-OPERATOR-003-REVIEW-PACK-COMMAND-BRIDGE-CONTRACT",
+      "branch": "codex/c-review-pack-command-bridge-round003",
+      "source": "origin/main",
+      "head": "21edc9af372e9d1736afb0eccd3c016f23f2c144"
+    },
+    {
+      "lane": "INTEGRATION",
+      "branch": "integration/pmbot-abc-feature-round003",
+      "source": "origin/main",
+      "head": "21edc9af372e9d1736afb0eccd3c016f23f2c144"
+    }
+  ],
+  "worktrees_created": [
+    {
+      "lane": "CODEX_A",
+      "branch": "codex/a-operator-review-pack-round003",
+      "path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator-worktrees\\CODEX_A_round003_operator_review_pack",
+      "head": "21edc9af372e9d1736afb0eccd3c016f23f2c144",
+      "clean": true
+    },
+    {
+      "lane": "CODEX_B",
+      "branch": "codex/b-artifact-health-staleness-round003",
+      "path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator-worktrees\\CODEX_B_round003_artifact_health",
+      "head": "21edc9af372e9d1736afb0eccd3c016f23f2c144",
+      "clean": true
+    },
+    {
+      "lane": "CODEX_C",
+      "branch": "codex/c-review-pack-command-bridge-round003",
+      "path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator-worktrees\\CODEX_C_round003_review_pack_command_bridge",
+      "head": "21edc9af372e9d1736afb0eccd3c016f23f2c144",
+      "clean": true
+    },
+    {
+      "lane": "INTEGRATION",
+      "branch": "integration/pmbot-abc-feature-round003",
+      "path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator-worktrees\\INTEGRATION_round003_pmbot_abc",
+      "head": "21edc9af372e9d1736afb0eccd3c016f23f2c144",
+      "clean": true
+    }
+  ],
+  "collision_checks": {
+    "branches": [
+      {
+        "branch": "codex/a-operator-review-pack-round003",
+        "local_exists_before_creation": false,
+        "remote_tracking_exists_before_creation": false,
+        "alternative_used": null
+      },
+      {
+        "branch": "codex/b-artifact-health-staleness-round003",
+        "local_exists_before_creation": false,
+        "remote_tracking_exists_before_creation": false,
+        "alternative_used": null
+      },
+      {
+        "branch": "codex/c-review-pack-command-bridge-round003",
+        "local_exists_before_creation": false,
+        "remote_tracking_exists_before_creation": false,
+        "alternative_used": null
+      },
+      {
+        "branch": "integration/pmbot-abc-feature-round003",
+        "local_exists_before_creation": false,
+        "remote_tracking_exists_before_creation": false,
+        "alternative_used": null
+      }
+    ],
+    "paths": [
+      {
+        "path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator-worktrees\\CODEX_A_round003_operator_review_pack",
+        "exists_before_creation": false,
+        "alternative_used": null
+      },
+      {
+        "path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator-worktrees\\CODEX_B_round003_artifact_health",
+        "exists_before_creation": false,
+        "alternative_used": null
+      },
+      {
+        "path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator-worktrees\\CODEX_C_round003_review_pack_command_bridge",
+        "exists_before_creation": false,
+        "alternative_used": null
+      },
+      {
+        "path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator-worktrees\\INTEGRATION_round003_pmbot_abc",
+        "exists_before_creation": false,
+        "alternative_used": null
+      }
+    ]
+  },
+  "commands_run": [
+    {
+      "command": "git rev-parse --show-toplevel",
+      "status": "passed",
+      "summary": "Confirmed canonical root C:\\Users\\OpenC\\Documents\\AI-Orchestrator."
+    },
+    {
+      "command": "git branch --show-current",
+      "status": "passed",
+      "summary": "Confirmed branch main."
+    },
+    {
+      "command": "git status --short --branch",
+      "status": "passed",
+      "summary": "Confirmed clean main before changes."
+    },
+    {
+      "command": "Get-Content required PRODUCT-001, INTEGRATION-008, INFRA-008, worktree guide, and INFRA-005 docs",
+      "status": "passed",
+      "summary": "All requested context files were present and read before materialization."
+    },
+    {
+      "command": "git fetch origin",
+      "status": "passed",
+      "summary": "Fetched origin before comparing local main to origin/main."
+    },
+    {
+      "command": "git rev-parse HEAD; git rev-parse origin/main; git rev-list --left-right --count HEAD...origin/main",
+      "status": "passed",
+      "summary": "Confirmed HEAD and origin/main both equal 21edc9af372e9d1736afb0eccd3c016f23f2c144 with no ahead/behind commits."
+    },
+    {
+      "command": "git merge-base --is-ancestor 21edc9af372e9d1736afb0eccd3c016f23f2c144 HEAD",
+      "status": "passed",
+      "summary": "Confirmed expected current main commit is HEAD/ancestor."
+    },
+    {
+      "command": "Structured branch/path collision checks",
+      "status": "passed",
+      "summary": "No preferred round003 branch or worktree path collisions found."
+    },
+    {
+      "command": "git worktree add -b codex/a-operator-review-pack-round003 C:\\Users\\OpenC\\Documents\\AI-Orchestrator-worktrees\\CODEX_A_round003_operator_review_pack origin/main",
+      "status": "passed",
+      "summary": "Created CODEX_A round003 branch and worktree from origin/main."
+    },
+    {
+      "command": "git worktree add -b codex/b-artifact-health-staleness-round003 C:\\Users\\OpenC\\Documents\\AI-Orchestrator-worktrees\\CODEX_B_round003_artifact_health origin/main",
+      "status": "passed",
+      "summary": "Created CODEX_B round003 branch and worktree from origin/main."
+    },
+    {
+      "command": "git worktree add -b codex/c-review-pack-command-bridge-round003 C:\\Users\\OpenC\\Documents\\AI-Orchestrator-worktrees\\CODEX_C_round003_review_pack_command_bridge origin/main",
+      "status": "passed",
+      "summary": "Created CODEX_C round003 branch and worktree from origin/main."
+    },
+    {
+      "command": "git worktree add -b integration/pmbot-abc-feature-round003 C:\\Users\\OpenC\\Documents\\AI-Orchestrator-worktrees\\INTEGRATION_round003_pmbot_abc origin/main",
+      "status": "passed",
+      "summary": "Created integration round003 branch and worktree from origin/main."
+    },
+    {
+      "command": "git branch --show-current; git rev-parse HEAD; git status --short --branch in each new worktree",
+      "status": "passed",
+      "summary": "Confirmed each new worktree is on the expected branch, clean, and based on 21edc9af372e9d1736afb0eccd3c016f23f2c144."
+    },
+    {
+      "command": "python -m pytest pm_bot\\paper\\tests -q",
+      "status": "passed",
+      "summary": "Main paper suite passed: 314 passed, 39 subtests passed."
+    },
+    {
+      "command": "python -m pytest pm_bot\\dashboard\\tests pm_bot\\operator\\tests -q",
+      "status": "passed",
+      "summary": "Main dashboard/operator tests passed: 49 passed, 14 subtests passed."
+    },
+    {
+      "command": "python -m pytest pm_bot\\paper\\tests -q in C:\\Users\\OpenC\\Documents\\AI-Orchestrator-worktrees\\CODEX_A_round003_operator_review_pack",
+      "status": "passed",
+      "summary": "Isolated CODEX_A worktree paper suite passed: 313 passed, 1 skipped, 39 subtests passed."
+    },
+    {
+      "command": "git restore -- generated round002 artifact churn from main and CODEX_A worktree",
+      "status": "passed",
+      "summary": "Restored known generated test churn before creating INFRA-009 docs."
+    },
+    {
+      "command": "Get-Content -Raw docs\\PMBOT_INFRA_009_RESULT.json | ConvertFrom-Json",
+      "status": "passed",
+      "summary": "Result JSON parsed successfully before commit."
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed",
+      "summary": "Whitespace check passed before commit."
+    },
+    {
+      "command": "git add docs\\PMBOT_INFRA_009_ABC_ROUND003_WORKTREE_MATERIALIZATION.md docs\\PMBOT_INFRA_009_RESULT.json",
+      "status": "planned_exact_files",
+      "summary": "Stage exact INFRA-009 files only."
+    },
+    {
+      "command": "git commit -m \"PMBOT INFRA-009 materialize ABC round003 worktrees\"",
+      "status": "reported_in_final_response",
+      "summary": "Commit hash is reported in the executor final response because a commit cannot include its own object id in a tracked file."
+    },
+    {
+      "command": "git push origin main",
+      "status": "reported_in_final_response",
+      "summary": "Push result is reported in the executor final response."
+    }
+  ],
+  "tests_run": [
+    {
+      "command": "python -m pytest pm_bot\\paper\\tests -q",
+      "status": "passed",
+      "summary": "314 passed, 39 subtests passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\dashboard\\tests pm_bot\\operator\\tests -q",
+      "status": "passed",
+      "summary": "49 passed, 14 subtests passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\paper\\tests -q",
+      "status": "passed",
+      "worktree_path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator-worktrees\\CODEX_A_round003_operator_review_pack",
+      "summary": "313 passed, 1 skipped, 39 subtests passed"
+    }
+  ],
+  "main_tests": {
+    "paper_suite": "passed: 314 passed, 39 subtests passed",
+    "dashboard_operator": "passed: 49 passed, 14 subtests passed"
+  },
+  "isolated_worktree_tests": {
+    "paper_suite": "passed: 313 passed, 1 skipped, 39 subtests passed",
+    "worktree_path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator-worktrees\\CODEX_A_round003_operator_review_pack",
+    "skip_note": "Existing optional real local market fixture check skipped because the ignored local snapshot is absent in the clean validation worktree."
+  },
+  "json_parse_checks": {
+    "status": "passed",
+    "command": "Get-Content -Raw docs\\PMBOT_INFRA_009_RESULT.json | ConvertFrom-Json",
+    "summary": "Parsed successfully."
+  },
+  "git_operations": {
+    "fetched_origin": true,
+    "main_equal_origin_main_before_changes": true,
+    "worktrees_created": true,
+    "stage_exact_files_only": true,
+    "commit_message": "PMBOT INFRA-009 materialize ABC round003 worktrees",
+    "force_push_used": false
+  },
+  "commit_created": "reported_in_final_response",
+  "commit_hash": "reported_in_final_response",
+  "pushed": "reported_in_final_response",
+  "feature_branches_pushed": false,
+  "safety_flags": {
+    "runtime_wiring": false,
+    "network_api": false,
+    "credentials": false,
+    "wallet": false,
+    "trading": false,
+    "real_orders": false,
+    "live_trading": false,
+    "autonomous_paper_orders": false,
+    "scoring_probability_ev_edge": false,
+    "recommendations": false,
+    "truth_inference": false,
+    "market_decisions": false,
+    "dispatcher_run_codex_changes": false,
+    "prompt_automation": false,
+    "codex_copy_roots": false,
+    "completed_dossiers": false,
+    "feature_implementation": false,
+    "dashboard_runtime": false,
+    "telegram_runtime": false,
+    "command_execution": false
+  },
+  "blockers": [],
+  "next_recommended_tasks": [
+    "PMBOT-WORKBENCH-001-OPERATOR-REVIEW-PACK-EXPORT",
+    "PMBOT-QUALITY-001-ARTIFACT-HEALTH-AND-STALENESS-CHECK",
+    "PMBOT-OPERATOR-003-REVIEW-PACK-COMMAND-BRIDGE-CONTRACT"
+  ]
+}
