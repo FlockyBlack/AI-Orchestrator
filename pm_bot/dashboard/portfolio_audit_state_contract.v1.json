@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "PMBOT_PORTFOLIO_AUDIT_STATE_CONTRACT.v1",
+  "title": "PMBOT Portfolio Audit Dashboard State Contract v1",
+  "description": "Schema-like local contract for dashboard state export v2 focused on portfolio, accounting, and audit state. The contract defines static local artifacts only and no dashboard runtime.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "dashboard_state_export_version",
+    "generated_by",
+    "generated_at_policy",
+    "product_stage_summary",
+    "portfolio_accounting_summary",
+    "known_market_ids",
+    "artifact_pointers",
+    "audit_summary_existing",
+    "future_batch_audit_placeholder",
+    "safety_flags",
+    "forbidden_capabilities",
+    "interpretation_warnings",
+    "operator_next_actions"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "portfolio_audit_state_preview.v1"
+    },
+    "dashboard_state_export_version": {
+      "const": "v2"
+    },
+    "generated_by": {
+      "const": "pm_bot/dashboard/export_portfolio_audit_state.py"
+    },
+    "generated_at_policy": {
+      "type": "object",
+      "required": [
+        "wall_clock_time_used",
+        "policy",
+        "fixed_value"
+      ],
+      "properties": {
+        "wall_clock_time_used": {
+          "const": false
+        },
+        "policy": {
+          "type": "string"
+        },
+        "fixed_value": {
+          "type": "string"
+        }
+      }
+    },
+    "product_stage_summary": {
+      "type": "object"
+    },
+    "portfolio_accounting_summary": {
+      "type": "object"
+    },
+    "known_market_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "artifact_pointers": {
+      "type": "object"
+    },
+    "audit_summary_existing": {
+      "type": "object"
+    },
+    "future_batch_audit_placeholder": {
+      "type": "object"
+    },
+    "safety_flags": {
+      "type": "object"
+    },
+    "forbidden_capabilities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "interpretation_warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "operator_next_actions": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    }
+  },
+  "contract_boundary": {
+    "local_file_reads_only": true,
+    "deterministic_output": true,
+    "stable_ordering": true,
+    "dashboard_runtime_defined": false,
+    "server_defined": false,
+    "frontend_defined": false,
+    "browser_automation_defined": false,
+    "network_or_api_defined": false,
+    "wallet_or_auth_defined": false,
+    "trading_or_ordering_defined": false,
+    "autonomous_paper_ordering_defined": false,
+    "scoring_probability_ev_edge_defined": false,
+    "truth_inference_or_market_decision_defined": false
+  },
+  "source_artifact_requirements": [
+    "pm_bot/paper/paper_accounting_ledger.v1.json",
+    "pm_bot/paper/paper_accounting_pnl_preview.v1.json",
+    "pm_bot/paper/paper_portfolio_snapshot.v1.json",
+    "pm_bot/paper/paper_metrics_report.v1.json",
+    "pm_bot/paper/paper_accounting_reconciliation_audit.v1.json",
+    "docs/PMBOT_PAPER_017_RESULT.json"
+  ],
+  "optional_future_artifacts": [
+    "docs/PMBOT_PAPER_018_RESULT.json",
+    "pm_bot/paper/paper_batch_audit_summary.v1.json",
+    "pm_bot/paper/expected_paper_batch_audit_summary.v1.json"
+  ]
+}
