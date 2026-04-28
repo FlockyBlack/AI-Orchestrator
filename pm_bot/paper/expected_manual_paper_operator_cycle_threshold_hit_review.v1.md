@@ -1,9 +1,9 @@
 # Manual Paper Operator Cycle
 
 - Run ID: manual-paper-operator-cycle-fixture-v1
-- Source: C:\Users\OpenC\Documents\AI-Orchestrator\pm_bot\paper\manual_snapshot_import_source
-- Workspace: C:\Users\OpenC\Documents\AI-Orchestrator\pm_bot\paper\manual_paper_workspace
-- Inbox: C:\Users\OpenC\Documents\AI-Orchestrator\pm_bot\paper\manual_paper_workspace\inbox
+- Source: <REPO_ROOT>\pm_bot\paper\manual_snapshot_import_source
+- Workspace: <REPO_ROOT>\pm_bot\paper\manual_paper_workspace
+- Inbox: <REPO_ROOT>\pm_bot\paper\manual_paper_workspace\inbox
 - Write inbox: false
 - Manifest written: false
 - Run artifacts written: false
@@ -42,17 +42,17 @@
 ## Threshold-Hit Review
 
 - threshold_hit_review_included: true
-- threshold_hit_source_path: C:\Users\OpenC\Documents\AI-Orchestrator\local_snapshots\polymarket_markets_active_500_001.json
+- threshold_hit_source_path: <REPO_ROOT>\pm_bot\paper\fixtures\polymarket_markets_active_threshold_hit.fixture.json
 - threshold_hit_reference_context_used: true
 - threshold_hit_decision_policy_used: true
 - threshold_hit_decision_policy_version: threshold_hit_decision_policy.v1
 - threshold_hit_candidates: 3
-- threshold_hit_watchlist_count: 2
-- threshold_hit_policy_blocked_count: 1
+- threshold_hit_watchlist_count: 1
+- threshold_hit_policy_blocked_count: 2
 - threshold_hit_paper_candidate_count: 0
 - threshold_hit_paper_orders_created: 0
 - threshold_hit_artifact_paths: {}
-- threshold_hit_candidate_rows: [{"asset": "BTC", "market_id": "540844", "market_type": "threshold_hit_before_event", "reason_codes": ["before_event_requires_event_model", "paper_candidates_disabled_by_policy", "target_distance_above_watchlist_limit", "yes_price_above_conservative_limit"], "review_decision": "policy_blocked", "target": "$1m"}, {"asset": "BTC", "market_id": "573655", "market_type": "threshold_hit_by_date", "reason_codes": ["paper_candidates_disabled_by_policy"], "review_decision": "watchlist", "target": "$150k"}, {"asset": "BTC", "market_id": "573656", "market_type": "threshold_hit_by_date", "reason_codes": ["paper_candidates_disabled_by_policy"], "review_decision": "watchlist", "target": "$150k"}]
+- threshold_hit_candidate_rows: [{"asset": "BTC", "market_id": "fixture_bitcoin_hit_1m_before_event", "market_type": "threshold_hit_before_event", "reason_codes": ["before_event_requires_event_model", "paper_candidates_disabled_by_policy", "target_distance_above_watchlist_limit", "yes_price_above_conservative_limit"], "review_decision": "policy_blocked", "target": "$1m"}, {"asset": "BTC", "market_id": "fixture_btc_hit_150k_by_date", "market_type": "threshold_hit_by_date", "reason_codes": ["paper_candidates_disabled_by_policy"], "review_decision": "watchlist", "target": "$150k"}, {"asset": "ETH", "market_id": "fixture_eth_reach_5000_by_date", "market_type": "threshold_hit_by_date", "reason_codes": ["paper_candidates_disabled_by_policy", "target_distance_above_watchlist_limit", "yes_price_above_conservative_limit"], "review_decision": "policy_blocked", "target": "$5,000"}]
 
 ## Safety
 

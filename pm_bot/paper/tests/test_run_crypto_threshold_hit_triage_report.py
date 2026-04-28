@@ -13,7 +13,8 @@ ROOT = Path(__file__).resolve().parents[3]
 RUNNER = ROOT / "pm_bot" / "paper" / "run_crypto_threshold_hit_triage_report.py"
 EXPECTED_JSON = ROOT / "pm_bot" / "paper" / "expected_crypto_threshold_hit_triage_report.v1.json"
 EXPECTED_MD = ROOT / "pm_bot" / "paper" / "expected_crypto_threshold_hit_triage_report.v1.md"
-REAL_SOURCE = ROOT / "local_snapshots" / "polymarket_markets_active_500_001.json"
+REAL_SOURCE = ROOT / "pm_bot" / "paper" / "fixtures" / "polymarket_markets_active_threshold_hit.fixture.json"
+REAL_MARKET_FIXTURE = ROOT / "pm_bot" / "paper" / "manual_snapshot_import_source" / "008_polymarket_markets_active_minimized.fixture.json"
 REAL_TRIAGE_RUNNER = ROOT / "pm_bot" / "paper" / "run_real_market_triage_report.py"
 MANUAL_IMPORT_RUNNER = ROOT / "pm_bot" / "paper" / "run_manual_snapshot_workspace_import.py"
 OPERATOR_CYCLE_RUNNER = ROOT / "pm_bot" / "paper" / "run_manual_paper_operator_cycle.py"
@@ -195,11 +196,12 @@ class RunCryptoThresholdHitTriageReportTests(unittest.TestCase):
         payload = module.build_crypto_threshold_hit_triage_report(ROOT, SOURCE_SENTINEL, _fixture_rows())
         self.assertEqual(payload, json.loads(EXPECTED_JSON.read_text(encoding="utf-8")))
 
-    def test_real_local_500_snapshot_command_runs(self):
-        payload = json.loads(_run_json().stdout)
+    def test_tracked_threshold_hit_snapshot_command_runs(self):
+        payload = json.loads(_run_json("--source", str(REAL_SOURCE)).stdout)
         summary = payload["summary"]
         self.assertEqual(payload["source_path"], str(REAL_SOURCE))
-        self.assertEqual(summary["total_markets_seen"], 500)
+        self.assertEqual(summary["total_markets_seen"], 3)
+        self.assertEqual(summary["threshold_hit_like_markets_found"], 3)
         self.assertEqual(summary["threshold_hit_crypto_candidates_found"], 3)
         self.assertEqual(summary["supported_triage_candidates"], 3)
         self.assertEqual(summary["supported_market_type_counts"], {
@@ -207,13 +209,17 @@ class RunCryptoThresholdHitTriageReportTests(unittest.TestCase):
             "threshold_hit_before_event": 1,
             "ambiguous_threshold_hit": 0,
         })
-        self.assertEqual([row["market_id"] for row in payload["candidate_table"]], ["540844", "573655", "573656"])
+        self.assertEqual([row["market_id"] for row in payload["candidate_table"]], [
+            "fixture_bitcoin_hit_1m_before_event",
+            "fixture_btc_hit_150k_by_date",
+            "fixture_eth_reach_5000_by_date",
+        ])
         self.assertEqual(payload["summary"]["reason_counts"], {})
 
     def test_no_state_or_workspace_mutation(self):
         before = _fixture_file_snapshot()
-        _run_json()
-        _run_markdown()
+        _run_json("--source", str(REAL_SOURCE))
+        _run_markdown("--source", str(REAL_SOURCE))
         with tempfile.TemporaryDirectory() as temp_dir:
             source = _write_fixture(temp_dir)
             _run_json("--source", str(source))
@@ -222,7 +228,7 @@ class RunCryptoThresholdHitTriageReportTests(unittest.TestCase):
 
     def test_existing_real_import_operator_and_lifecycle_commands_still_pass(self):
         subprocess.run(
-            [sys.executable, str(REAL_TRIAGE_RUNNER), "--source", str(REAL_SOURCE), "--markdown"],
+            [sys.executable, str(REAL_TRIAGE_RUNNER), "--source", str(REAL_MARKET_FIXTURE), "--markdown"],
             cwd=ROOT,
             env=_utf8_env(),
             capture_output=True,
@@ -230,7 +236,7 @@ class RunCryptoThresholdHitTriageReportTests(unittest.TestCase):
             check=True,
         )
         subprocess.run(
-            [sys.executable, str(MANUAL_IMPORT_RUNNER), "--source", str(REAL_SOURCE), "--markdown"],
+            [sys.executable, str(MANUAL_IMPORT_RUNNER), "--source", str(REAL_MARKET_FIXTURE), "--markdown"],
             cwd=ROOT,
             env=_utf8_env(),
             capture_output=True,
@@ -255,7 +261,7 @@ class RunCryptoThresholdHitTriageReportTests(unittest.TestCase):
         self.assertEqual(gates["status"], "passed")
 
     def test_safety_flags_remain_locked_down(self):
-        payload = json.loads(_run_json().stdout)
+        payload = json.loads(_run_json("--source", str(REAL_SOURCE)).stdout)
         flags = payload["safety_flags"]
         self.assertTrue(flags["offline_only"])
         self.assertTrue(flags["paper_only"])

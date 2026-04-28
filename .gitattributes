@@ -1,0 +1,5 @@
+pm_bot/paper/fixtures/*.json text eol=lf
+pm_bot/paper/local_snapshot_inbox/*.json text eol=lf
+pm_bot/paper/manual_paper_workspace/**/*.json text eol=lf
+pm_bot/paper/manual_snapshot_import_source/*.json text eol=lf
+pm_bot/paper/manual_snapshot_import_source/*.txt text eol=lf

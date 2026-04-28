@@ -14,7 +14,8 @@ EXPECTED_JSON = ROOT / "pm_bot" / "paper" / "expected_crypto_threshold_hit_polic
 EXPECTED_MD = ROOT / "pm_bot" / "paper" / "expected_crypto_threshold_hit_policy_scenarios.v1.md"
 REFERENCE_CONTEXT = ROOT / "pm_bot" / "paper" / "threshold_hit_reference_context.v1.json"
 DECISION_POLICY = ROOT / "pm_bot" / "paper" / "threshold_hit_decision_policy.v1.json"
-REAL_SOURCE = ROOT / "local_snapshots" / "polymarket_markets_active_500_001.json"
+REAL_SOURCE = ROOT / "pm_bot" / "paper" / "fixtures" / "polymarket_markets_active_threshold_hit.fixture.json"
+REAL_MARKET_FIXTURE = ROOT / "pm_bot" / "paper" / "manual_snapshot_import_source" / "008_polymarket_markets_active_minimized.fixture.json"
 THRESHOLD_REVIEW_RUNNER = ROOT / "pm_bot" / "paper" / "run_crypto_threshold_hit_review_table.py"
 THRESHOLD_TRIAGE_RUNNER = ROOT / "pm_bot" / "paper" / "run_crypto_threshold_hit_triage_report.py"
 REAL_TRIAGE_RUNNER = ROOT / "pm_bot" / "paper" / "run_real_market_triage_report.py"
@@ -125,6 +126,8 @@ class RunCryptoThresholdHitPolicyScenariosTests(unittest.TestCase):
             [
                 sys.executable,
                 str(THRESHOLD_REVIEW_RUNNER),
+                "--source",
+                str(REAL_SOURCE),
                 "--reference-context",
                 str(REFERENCE_CONTEXT),
                 "--decision-policy",
@@ -137,7 +140,7 @@ class RunCryptoThresholdHitPolicyScenariosTests(unittest.TestCase):
             check=True,
         )
         self.assertIn("- Threshold-hit candidates: 3", result.stdout)
-        self.assertIn("- Policy blocked: 1", result.stdout)
+        self.assertIn("- Policy blocked: 2", result.stdout)
         self.assertIn("- Paper candidates: 0", result.stdout)
 
     def test_threshold_hit_triage_still_passes(self):
@@ -153,7 +156,7 @@ class RunCryptoThresholdHitPolicyScenariosTests(unittest.TestCase):
 
     def test_real_market_triage_operator_and_lifecycle_still_pass(self):
         real_triage = subprocess.run(
-            [sys.executable, str(REAL_TRIAGE_RUNNER), "--source", str(REAL_SOURCE), "--markdown"],
+            [sys.executable, str(REAL_TRIAGE_RUNNER), "--source", str(REAL_MARKET_FIXTURE), "--markdown"],
             cwd=ROOT,
             env=_utf8_env(),
             capture_output=True,

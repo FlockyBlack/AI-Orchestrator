@@ -1,8 +1,8 @@
 # Manual Snapshot Workspace Import
 
-- Source: C:\Users\OpenC\Documents\AI-Orchestrator\pm_bot\paper\manual_snapshot_import_source
-- Workspace: C:\Users\OpenC\Documents\AI-Orchestrator\pm_bot\paper\manual_paper_workspace
-- Inbox: C:\Users\OpenC\Documents\AI-Orchestrator\pm_bot\paper\manual_paper_workspace\inbox
+- Source: <REPO_ROOT>\pm_bot\paper\manual_snapshot_import_source
+- Workspace: <REPO_ROOT>\pm_bot\paper\manual_paper_workspace
+- Inbox: <REPO_ROOT>\pm_bot\paper\manual_paper_workspace\inbox
 - Write inbox: false
 - Manifest path: 
 - Manifest written: false

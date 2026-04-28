@@ -1,0 +1,47 @@
+[
+  {
+    "id": "fixture_bitcoin_hit_1m_before_event",
+    "conditionId": "0xfixture_bitcoin_hit_1m_before_event",
+    "question": "Will Bitcoin hit $1m before GTA VI?",
+    "slug": "will-bitcoin-hit-1m-before-gta-vi",
+    "active": true,
+    "closed": false,
+    "outcomes": "[\"Yes\", \"No\"]",
+    "outcomePrices": "[\"0.490\", \"0.510\"]",
+    "liquidity": 23456.0,
+    "liquidityNum": 23456.0,
+    "volumeNum": 60000.0,
+    "bestBid": 0.48,
+    "bestAsk": 0.5
+  },
+  {
+    "id": "fixture_btc_hit_150k_by_date",
+    "conditionId": "0xfixture_btc_hit_150k_by_date",
+    "question": "Will BTC hit $150k by June 30, 2026?",
+    "slug": "will-btc-hit-150k-by-june-30-2026",
+    "active": true,
+    "closed": false,
+    "outcomes": "[\"Yes\", \"No\"]",
+    "outcomePrices": "[\"0.210\", \"0.790\"]",
+    "liquidity": 12345.0,
+    "liquidityNum": 12345.0,
+    "volumeNum": 50000.0,
+    "bestBid": 0.2,
+    "bestAsk": 0.22
+  },
+  {
+    "id": "fixture_eth_reach_5000_by_date",
+    "conditionId": "0xfixture_eth_reach_5000_by_date",
+    "question": "Will ETH reach $5,000 by December 31, 2026?",
+    "slug": "will-eth-reach-5000-by-december-31-2026",
+    "active": true,
+    "closed": false,
+    "outcomes": "[\"Yes\", \"No\"]",
+    "outcomePrices": "[\"0.330\", \"0.670\"]",
+    "liquidity": 34567.0,
+    "liquidityNum": 34567.0,
+    "volumeNum": 70000.0,
+    "bestBid": 0.32,
+    "bestAsk": 0.34
+  }
+]

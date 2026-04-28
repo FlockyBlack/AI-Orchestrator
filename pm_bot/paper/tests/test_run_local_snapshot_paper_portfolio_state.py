@@ -6,6 +6,8 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from _path_normalization import normalize_repo_root_paths
+
 
 ROOT = Path(__file__).resolve().parents[3]
 RUNNER = ROOT / "pm_bot" / "paper" / "run_local_snapshot_paper_portfolio_state.py"
@@ -31,10 +33,16 @@ def _run_markdown():
 
 class RunLocalSnapshotPaperPortfolioStateTests(unittest.TestCase):
     def test_default_json_output_matches_expected(self):
-        self.assertEqual(json.loads(_run_json().stdout), json.loads(EXPECTED_JSON.read_text(encoding="utf-8")))
+        self.assertEqual(
+            normalize_repo_root_paths(json.loads(_run_json().stdout), ROOT),
+            json.loads(EXPECTED_JSON.read_text(encoding="utf-8")),
+        )
 
     def test_markdown_output_matches_expected(self):
-        self.assertEqual(_run_markdown().stdout, EXPECTED_MD.read_text(encoding="utf-8"))
+        self.assertEqual(
+            normalize_repo_root_paths(_run_markdown().stdout, ROOT),
+            EXPECTED_MD.read_text(encoding="utf-8"),
+        )
 
     def test_out_state_writes_expected_state_json(self):
         with tempfile.TemporaryDirectory() as temp_dir:

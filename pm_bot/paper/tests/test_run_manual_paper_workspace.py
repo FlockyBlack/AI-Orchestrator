@@ -7,6 +7,8 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from _path_normalization import normalize_repo_root_paths
+
 
 ROOT = Path(__file__).resolve().parents[3]
 RUNNER = ROOT / "pm_bot" / "paper" / "run_manual_paper_workspace.py"
@@ -54,7 +56,10 @@ class RunManualPaperWorkspaceTests(unittest.TestCase):
     def test_default_command_is_read_only_and_deterministic(self):
         before = _fixture_file_snapshot()
         payload = json.loads(_run_json().stdout)
-        self.assertEqual(payload, json.loads(EXPECTED_JSON.read_text(encoding="utf-8")))
+        self.assertEqual(
+            normalize_repo_root_paths(payload, ROOT),
+            json.loads(EXPECTED_JSON.read_text(encoding="utf-8")),
+        )
         self.assertFalse(payload["run_artifacts_written"])
         self.assertFalse(payload["state_committed"])
         self.assertIsNone(payload["run_directory_path"])
@@ -63,7 +68,10 @@ class RunManualPaperWorkspaceTests(unittest.TestCase):
 
     def test_markdown_stdout_is_deterministic(self):
         before = _fixture_file_snapshot()
-        self.assertEqual(_run_markdown().stdout, EXPECTED_MD.read_text(encoding="utf-8"))
+        self.assertEqual(
+            normalize_repo_root_paths(_run_markdown().stdout, ROOT),
+            EXPECTED_MD.read_text(encoding="utf-8"),
+        )
         self.assertEqual(_fixture_file_snapshot(), before)
 
     def test_canonical_fixture_workspace_has_no_mutable_run_artifacts(self):
@@ -71,7 +79,7 @@ class RunManualPaperWorkspaceTests(unittest.TestCase):
         run_files = [
             path.relative_to(FIXTURE_WORKSPACE).as_posix()
             for path in (FIXTURE_WORKSPACE / "runs").rglob("*")
-            if path.is_file()
+            if path.is_file() and path.name != ".gitkeep"
         ]
         self.assertEqual(run_files, [])
 

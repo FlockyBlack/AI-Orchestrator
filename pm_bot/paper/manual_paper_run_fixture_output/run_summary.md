@@ -1,8 +1,8 @@
 # Manual Paper Inbox Run Bundle
 
 - Run ID: fixture-run-001
-- Inbox: C:\Users\OpenC\Documents\AI-Orchestrator\pm_bot\paper\local_snapshot_inbox
-- Input state: C:\Users\OpenC\Documents\AI-Orchestrator\pm_bot\paper\paper_portfolio_state.v1.json
+- Inbox: <REPO_ROOT>\pm_bot\paper\local_snapshot_inbox
+- Input state: <REPO_ROOT>\pm_bot\paper\paper_portfolio_state.v1.json
 - Snapshots discovered: 3
 - Snapshots processed: 2
 - Snapshots skipped already processed: 1

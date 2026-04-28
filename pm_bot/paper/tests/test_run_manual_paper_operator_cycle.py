@@ -7,6 +7,8 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from _path_normalization import normalize_repo_root_paths
+
 
 ROOT = Path(__file__).resolve().parents[3]
 RUNNER = ROOT / "pm_bot" / "paper" / "run_manual_paper_operator_cycle.py"
@@ -26,6 +28,7 @@ THRESHOLD_REVIEW_RUNNER = ROOT / "pm_bot" / "paper" / "run_crypto_threshold_hit_
 THRESHOLD_POLICY_SCENARIOS_RUNNER = ROOT / "pm_bot" / "paper" / "run_crypto_threshold_hit_policy_scenarios.py"
 REFERENCE_CONTEXT = ROOT / "pm_bot" / "paper" / "threshold_hit_reference_context.v1.json"
 DECISION_POLICY = ROOT / "pm_bot" / "paper" / "threshold_hit_decision_policy.v1.json"
+THRESHOLD_SOURCE = ROOT / "pm_bot" / "paper" / "fixtures" / "polymarket_markets_active_threshold_hit.fixture.json"
 
 
 def _frag(*parts):
@@ -43,6 +46,8 @@ def _run_markdown(*args):
 def _threshold_review_args():
     return (
         "--include-threshold-hit-review",
+        "--threshold-source",
+        str(THRESHOLD_SOURCE),
         "--threshold-reference-context",
         str(REFERENCE_CONTEXT),
         "--threshold-decision-policy",
@@ -72,7 +77,10 @@ class RunManualPaperOperatorCycleTests(unittest.TestCase):
     def test_default_command_is_read_only_and_deterministic(self):
         before = _fixture_file_snapshot()
         payload = json.loads(_run_json().stdout)
-        self.assertEqual(payload, json.loads(EXPECTED_JSON.read_text(encoding="utf-8")))
+        self.assertEqual(
+            normalize_repo_root_paths(payload, ROOT),
+            json.loads(EXPECTED_JSON.read_text(encoding="utf-8")),
+        )
         self.assertFalse(payload["summary"]["inbox_files_written"])
         self.assertFalse(payload["summary"]["manifest_written"])
         self.assertFalse(payload["summary"]["run_artifacts_written"])
@@ -83,7 +91,10 @@ class RunManualPaperOperatorCycleTests(unittest.TestCase):
 
     def test_markdown_stdout_is_deterministic(self):
         before = _fixture_file_snapshot()
-        self.assertEqual(_run_markdown().stdout, EXPECTED_MD.read_text(encoding="utf-8"))
+        self.assertEqual(
+            normalize_repo_root_paths(_run_markdown().stdout, ROOT),
+            EXPECTED_MD.read_text(encoding="utf-8"),
+        )
         self.assertEqual(_fixture_file_snapshot(), before)
 
     def test_threshold_hit_review_json_stdout_is_deterministic(self):
@@ -92,11 +103,14 @@ class RunManualPaperOperatorCycleTests(unittest.TestCase):
         second = _run_json(*_threshold_review_args()).stdout
         self.assertEqual(first, second)
         payload = json.loads(first)
-        self.assertEqual(payload, json.loads(EXPECTED_THRESHOLD_JSON.read_text(encoding="utf-8")))
+        self.assertEqual(
+            normalize_repo_root_paths(payload, ROOT),
+            json.loads(EXPECTED_THRESHOLD_JSON.read_text(encoding="utf-8")),
+        )
         self.assertTrue(payload["summary"]["threshold_hit_review_included"])
         self.assertEqual(payload["summary"]["threshold_hit_candidates"], 3)
-        self.assertEqual(payload["summary"]["threshold_hit_watchlist_count"], 2)
-        self.assertEqual(payload["summary"]["threshold_hit_policy_blocked_count"], 1)
+        self.assertEqual(payload["summary"]["threshold_hit_watchlist_count"], 1)
+        self.assertEqual(payload["summary"]["threshold_hit_policy_blocked_count"], 2)
         self.assertEqual(payload["summary"]["threshold_hit_paper_candidate_count"], 0)
         self.assertEqual(payload["summary"]["threshold_hit_paper_orders_created"], 0)
         self.assertEqual(payload["summary"]["threshold_hit_artifact_paths"], {})
@@ -109,7 +123,10 @@ class RunManualPaperOperatorCycleTests(unittest.TestCase):
         first = _run_markdown(*_threshold_review_args()).stdout
         second = _run_markdown(*_threshold_review_args()).stdout
         self.assertEqual(first, second)
-        self.assertEqual(first, EXPECTED_THRESHOLD_MD.read_text(encoding="utf-8"))
+        self.assertEqual(
+            normalize_repo_root_paths(first, ROOT),
+            EXPECTED_THRESHOLD_MD.read_text(encoding="utf-8"),
+        )
         self.assertIn("- threshold_hit_review_included: true", first)
         self.assertIn("- threshold_hit_paper_orders_created: 0", first)
         self.assertEqual(_fixture_file_snapshot(), before)
@@ -149,7 +166,10 @@ class RunManualPaperOperatorCycleTests(unittest.TestCase):
             self.assertTrue(payload["summary"]["manifest_written"])
             self.assertTrue(payload["import_phase"]["manifest_written"])
             self.assertEqual(payload["import_phase"]["manifest_path"], str(out_manifest))
-            self.assertEqual(json.loads(out_manifest.read_text(encoding="utf-8")), json.loads(EXPECTED_MANIFEST.read_text(encoding="utf-8")))
+            self.assertEqual(
+                normalize_repo_root_paths(json.loads(out_manifest.read_text(encoding="utf-8")), ROOT),
+                json.loads(EXPECTED_MANIFEST.read_text(encoding="utf-8")),
+            )
         self.assertEqual(_fixture_file_snapshot(), before)
 
     def test_write_run_writes_run_artifacts_without_committing_state(self):
@@ -333,7 +353,10 @@ class RunManualPaperOperatorCycleTests(unittest.TestCase):
         self.assertFalse((FIXTURE_WORKSPACE / "inbox" / "004_series_snapshot_004.json").exists())
         self.assertFalse((FIXTURE_WORKSPACE / "inbox" / "005_series_snapshot_005.json").exists())
         self.assertFalse((FIXTURE_WORKSPACE / "state" / "current_state.previous.json").exists())
-        self.assertEqual([path.name for path in (FIXTURE_WORKSPACE / "runs").iterdir() if path.is_file()], [])
+        self.assertEqual(
+            [path.name for path in (FIXTURE_WORKSPACE / "runs").iterdir() if path.is_file() and path.name != ".gitkeep"],
+            [],
+        )
 
     def test_existing_manual_commands_and_lifecycle_gates_still_pass(self):
         import_payload = json.loads(subprocess.run([sys.executable, str(IMPORT_RUNNER)], cwd=ROOT, capture_output=True, text=True, check=True).stdout)

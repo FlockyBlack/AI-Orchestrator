@@ -6,6 +6,8 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from _path_normalization import normalize_repo_root_paths
+
 
 ROOT = Path(__file__).resolve().parents[3]
 RUNNER = ROOT / "pm_bot" / "paper" / "run_manual_paper_inbox_bundle.py"
@@ -34,7 +36,10 @@ def _run_markdown(*args):
 class RunManualPaperInboxBundleTests(unittest.TestCase):
     def test_default_command_is_read_only_and_deterministic(self):
         payload = json.loads(_run_json().stdout)
-        self.assertEqual(payload, json.loads(EXPECTED_JSON.read_text(encoding="utf-8")))
+        self.assertEqual(
+            normalize_repo_root_paths(payload, ROOT),
+            json.loads(EXPECTED_JSON.read_text(encoding="utf-8")),
+        )
         self.assertFalse(payload["bundle_written"])
         self.assertIsNone(payload["output_directory"])
         self.assertEqual(payload["output_files"], [])
@@ -42,7 +47,10 @@ class RunManualPaperInboxBundleTests(unittest.TestCase):
         self.assertFalse(payload["inbox_report_summary"]["out_run_ledger_written"])
 
     def test_markdown_stdout_is_deterministic(self):
-        self.assertEqual(_run_markdown().stdout, EXPECTED_MD.read_text(encoding="utf-8"))
+        self.assertEqual(
+            normalize_repo_root_paths(_run_markdown().stdout, ROOT),
+            EXPECTED_MD.read_text(encoding="utf-8"),
+        )
 
     def test_out_dir_writes_exactly_expected_three_files(self):
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -67,7 +75,10 @@ class RunManualPaperInboxBundleTests(unittest.TestCase):
             ledger = json.loads((out_dir / "run_ledger.json").read_text(encoding="utf-8"))
             expected = json.loads(EXPECTED_LEDGER.read_text(encoding="utf-8"))
             expected["output_state_path"] = str(out_dir / "state_after.json")
-            self.assertEqual(ledger, expected)
+            self.assertEqual(
+                normalize_repo_root_paths(ledger, ROOT),
+                normalize_repo_root_paths(expected, ROOT),
+            )
 
     def test_run_summary_md_is_deterministic(self):
         with tempfile.TemporaryDirectory() as temp_dir:

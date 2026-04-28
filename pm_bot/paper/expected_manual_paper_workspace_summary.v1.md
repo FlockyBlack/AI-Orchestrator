@@ -1,9 +1,9 @@
 # Manual Paper Workspace
 
 - Run ID: manual-paper-workspace-fixture-v1
-- Workspace: C:\Users\OpenC\Documents\AI-Orchestrator\pm_bot\paper\manual_paper_workspace
-- Inbox: C:\Users\OpenC\Documents\AI-Orchestrator\pm_bot\paper\manual_paper_workspace\inbox
-- Current state: C:\Users\OpenC\Documents\AI-Orchestrator\pm_bot\paper\manual_paper_workspace\state\current_state.json
+- Workspace: <REPO_ROOT>\pm_bot\paper\manual_paper_workspace
+- Inbox: <REPO_ROOT>\pm_bot\paper\manual_paper_workspace\inbox
+- Current state: <REPO_ROOT>\pm_bot\paper\manual_paper_workspace\state\current_state.json
 - Run directory: 
 - Run artifacts written: false
 - State committed: false

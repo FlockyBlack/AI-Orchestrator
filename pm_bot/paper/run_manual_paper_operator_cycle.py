@@ -38,6 +38,7 @@ def _parse_args(argv):
     parser.add_argument("--out-manifest", default=None)
     parser.add_argument("--allow-identical-rerun", action="store_true")
     parser.add_argument("--include-threshold-hit-review", action="store_true")
+    parser.add_argument("--threshold-source", default=None)
     parser.add_argument("--threshold-reference-context", default=None)
     parser.add_argument("--threshold-decision-policy", default=None)
     parser.add_argument("--markdown", action="store_true")
@@ -218,6 +219,7 @@ def _threshold_hit_review_summary(threshold_report, artifact_paths):
 
 def _build_threshold_hit_review(
     root: Path,
+    threshold_source_path=None,
     threshold_reference_context_path=None,
     threshold_decision_policy_path=None,
 ):
@@ -238,7 +240,7 @@ def _build_threshold_hit_review(
     )
     threshold_report = threshold_runner.build_crypto_threshold_hit_review_table(
         root,
-        DEFAULT_THRESHOLD_HIT_REVIEW_SOURCE,
+        Path(threshold_source_path) if threshold_source_path else DEFAULT_THRESHOLD_HIT_REVIEW_SOURCE,
         reference_context=reference_context,
         decision_policy=decision_policy,
     )
@@ -270,6 +272,7 @@ def build_manual_paper_operator_cycle(
     out_manifest_path=None,
     allow_identical_rerun=False,
     include_threshold_hit_review=False,
+    threshold_source_path=None,
     threshold_reference_context_path=None,
     threshold_decision_policy_path=None,
 ):
@@ -337,6 +340,7 @@ def build_manual_paper_operator_cycle(
     if include_threshold_hit_review:
         threshold_report, threshold_runner = _build_threshold_hit_review(
             root,
+            threshold_source_path,
             threshold_reference_context_path,
             threshold_decision_policy_path,
         )
@@ -454,6 +458,7 @@ def main(argv):
             args.out_manifest,
             args.allow_identical_rerun,
             args.include_threshold_hit_review,
+            args.threshold_source,
             args.threshold_reference_context,
             args.threshold_decision_policy,
         )

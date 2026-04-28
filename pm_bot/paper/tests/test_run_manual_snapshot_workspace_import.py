@@ -7,6 +7,8 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from _path_normalization import normalize_repo_root_paths
+
 
 ROOT = Path(__file__).resolve().parents[3]
 RUNNER = ROOT / "pm_bot" / "paper" / "run_manual_snapshot_workspace_import.py"
@@ -52,7 +54,10 @@ class RunManualSnapshotWorkspaceImportTests(unittest.TestCase):
     def test_default_command_is_read_only_and_deterministic(self):
         before = _fixture_file_snapshot()
         payload = json.loads(_run_json().stdout)
-        self.assertEqual(payload, json.loads(EXPECTED_JSON.read_text(encoding="utf-8")))
+        self.assertEqual(
+            normalize_repo_root_paths(payload, ROOT),
+            json.loads(EXPECTED_JSON.read_text(encoding="utf-8")),
+        )
         self.assertFalse(payload["write_inbox"])
         self.assertFalse(payload["manifest_written"])
         self.assertEqual(payload["summary"]["discovered_inputs"], 7)
@@ -64,7 +69,10 @@ class RunManualSnapshotWorkspaceImportTests(unittest.TestCase):
 
     def test_markdown_stdout_is_deterministic(self):
         before = _fixture_file_snapshot()
-        self.assertEqual(_run_markdown().stdout, EXPECTED_MD.read_text(encoding="utf-8"))
+        self.assertEqual(
+            normalize_repo_root_paths(_run_markdown().stdout, ROOT),
+            EXPECTED_MD.read_text(encoding="utf-8"),
+        )
         self.assertEqual(_fixture_file_snapshot(), before)
 
     def test_out_manifest_writes_expected_manifest_json(self):
@@ -74,7 +82,10 @@ class RunManualSnapshotWorkspaceImportTests(unittest.TestCase):
             payload = json.loads(_run_json("--out-manifest", str(out_manifest)).stdout)
             self.assertTrue(payload["manifest_written"])
             self.assertEqual(payload["manifest_path"], str(out_manifest))
-            self.assertEqual(json.loads(out_manifest.read_text(encoding="utf-8")), json.loads(EXPECTED_MANIFEST.read_text(encoding="utf-8")))
+            self.assertEqual(
+                normalize_repo_root_paths(json.loads(out_manifest.read_text(encoding="utf-8")), ROOT),
+                json.loads(EXPECTED_MANIFEST.read_text(encoding="utf-8")),
+            )
         self.assertEqual(_fixture_file_snapshot(), before)
 
     def test_write_inbox_writes_expected_canonical_snapshot_files_in_temp_workspace_copy(self):

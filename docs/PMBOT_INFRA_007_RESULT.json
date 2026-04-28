@@ -1,0 +1,164 @@
+{
+  "task_id": "PMBOT-INFRA-007-FIX-WORKTREE-FIXTURE-PATH-PORTABILITY",
+  "status": "completed_ready_for_review",
+  "summary": "Fixed PMBOT paper test portability for clean isolated worktrees by replacing local_snapshots test dependencies with a tracked synthetic threshold-hit fixture, normalizing repo-root path expectations to <REPO_ROOT>, pinning hashed fixture checkout bytes with .gitattributes, and preserving the empty manual paper runs fixture directory.",
+  "root_confirmed": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator",
+  "base_commit": "5592c5b8be98e79c1f173551212638934cee33d8",
+  "files_created": [
+    ".gitattributes",
+    "docs/PMBOT_INFRA_007_RESULT.json",
+    "docs/PMBOT_INFRA_007_WORKTREE_FIXTURE_PATH_PORTABILITY.md",
+    "pm_bot/paper/fixtures/polymarket_markets_active_threshold_hit.fixture.json",
+    "pm_bot/paper/manual_paper_workspace/runs/.gitkeep",
+    "pm_bot/paper/tests/_path_normalization.py"
+  ],
+  "files_modified": [
+    "pm_bot/paper/expected_local_snapshot_inbox_paper_portfolio.v1.json",
+    "pm_bot/paper/expected_local_snapshot_inbox_paper_portfolio.v1.md",
+    "pm_bot/paper/expected_local_snapshot_inbox_run_ledger.v1.json",
+    "pm_bot/paper/expected_local_snapshot_paper_portfolio_state.v1.json",
+    "pm_bot/paper/expected_manual_paper_inbox_bundle.v1.json",
+    "pm_bot/paper/expected_manual_paper_inbox_bundle_summary.v1.md",
+    "pm_bot/paper/expected_manual_paper_operator_cycle.v1.json",
+    "pm_bot/paper/expected_manual_paper_operator_cycle.v1.md",
+    "pm_bot/paper/expected_manual_paper_operator_cycle_manifest.v1.json",
+    "pm_bot/paper/expected_manual_paper_operator_cycle_threshold_hit_review.v1.json",
+    "pm_bot/paper/expected_manual_paper_operator_cycle_threshold_hit_review.v1.md",
+    "pm_bot/paper/expected_manual_paper_workspace.v1.json",
+    "pm_bot/paper/expected_manual_paper_workspace_quarantine.v1.json",
+    "pm_bot/paper/expected_manual_paper_workspace_summary.v1.md",
+    "pm_bot/paper/expected_manual_snapshot_import_manifest.v1.json",
+    "pm_bot/paper/expected_manual_snapshot_workspace_import.v1.json",
+    "pm_bot/paper/expected_manual_snapshot_workspace_import.v1.md",
+    "pm_bot/paper/manual_paper_run_fixture_output/run_ledger.json",
+    "pm_bot/paper/manual_paper_run_fixture_output/run_summary.md",
+    "pm_bot/paper/run_manual_paper_operator_cycle.py",
+    "pm_bot/paper/tests/test_run_crypto_threshold_hit_policy_scenarios.py",
+    "pm_bot/paper/tests/test_run_crypto_threshold_hit_review_table.py",
+    "pm_bot/paper/tests/test_run_crypto_threshold_hit_triage_report.py",
+    "pm_bot/paper/tests/test_run_local_snapshot_inbox_paper_portfolio.py",
+    "pm_bot/paper/tests/test_run_local_snapshot_paper_portfolio_state.py",
+    "pm_bot/paper/tests/test_run_manual_paper_inbox_bundle.py",
+    "pm_bot/paper/tests/test_run_manual_paper_operator_cycle.py",
+    "pm_bot/paper/tests/test_run_manual_paper_workspace.py",
+    "pm_bot/paper/tests/test_run_manual_snapshot_workspace_import.py"
+  ],
+  "portability_issues_fixed": [
+    {
+      "issue": "untracked_local_snapshots_dependency",
+      "classification": "untracked fixture dependency",
+      "fix": "Added a tracked synthetic threshold-hit fixture under pm_bot/paper/fixtures and updated affected tests to pass it explicitly instead of relying on ignored local_snapshots/polymarket_markets_active_500_001.json."
+    },
+    {
+      "issue": "canonical_absolute_path_expectation",
+      "classification": "absolute path in expected output and test-side comparison problem",
+      "fix": "Replaced canonical root paths in affected expected paper fixtures with <REPO_ROOT> and normalized generated repo-root paths in tests before comparison."
+    },
+    {
+      "issue": "fixture_hash_line_ending_instability",
+      "classification": "generated result path/fixture byte instability",
+      "fix": "Added targeted .gitattributes LF checkout rules for hashed paper fixture inputs so SHA expectations remain stable in clean worktrees with core.autocrlf=true."
+    },
+    {
+      "issue": "empty_fixture_directory_not_tracked",
+      "classification": "untracked fixture dependency",
+      "fix": "Added pm_bot/paper/manual_paper_workspace/runs/.gitkeep and adjusted tests to ignore the placeholder file."
+    }
+  ],
+  "commands_run": [
+    "git status --short --branch",
+    "git fetch origin",
+    "git rev-parse HEAD",
+    "git rev-parse origin/main",
+    "git merge-base --is-ancestor 5592c5b8be98e79c1f173551212638934cee33d8 HEAD",
+    "git grep / git ls-files / Select-String portability inspections",
+    "python -m pytest pm_bot\\paper\\tests\\test_run_crypto_threshold_hit_review_table.py pm_bot\\paper\\tests\\test_run_crypto_threshold_hit_triage_report.py pm_bot\\paper\\tests\\test_run_crypto_threshold_hit_policy_scenarios.py pm_bot\\paper\\tests\\test_run_manual_paper_operator_cycle.py -q",
+    "python -m pytest pm_bot\\paper\\tests\\test_run_local_snapshot_inbox_paper_portfolio.py pm_bot\\paper\\tests\\test_run_local_snapshot_paper_portfolio_state.py pm_bot\\paper\\tests\\test_run_manual_paper_inbox_bundle.py pm_bot\\paper\\tests\\test_run_manual_paper_workspace.py pm_bot\\paper\\tests\\test_run_manual_snapshot_workspace_import.py -q",
+    "python -m pytest pm_bot\\paper\\tests\\test_run_local_snapshot_inbox_paper_portfolio.py pm_bot\\paper\\tests\\test_run_manual_paper_inbox_bundle.py pm_bot\\paper\\tests\\test_run_manual_paper_operator_cycle.py pm_bot\\paper\\tests\\test_run_manual_paper_workspace.py pm_bot\\paper\\tests\\test_run_manual_snapshot_workspace_import.py -q",
+    "python -m pytest pm_bot\\paper\\tests -q",
+    "python -m pytest pm_bot\\dashboard\\tests pm_bot\\operator\\tests -q",
+    "python -m py_compile changed Python files",
+    "python -m json.tool changed/new JSON files",
+    "git diff --check",
+    "git worktree add -b infra/infra007-portability-validate-temp C:\\Users\\OpenC\\Documents\\AI-Orchestrator-worktrees\\INFRA_007_PORTABILITY_VALIDATE HEAD",
+    "python -m pytest pm_bot\\paper\\tests -q in isolated validation worktree",
+    "git worktree remove C:\\Users\\OpenC\\Documents\\AI-Orchestrator-worktrees\\INFRA_007_PORTABILITY_VALIDATE",
+    "git branch -D infra/infra007-portability-validate-temp"
+  ],
+  "tests_run": [
+    {
+      "command": "python -m pytest pm_bot\\paper\\tests\\test_run_crypto_threshold_hit_review_table.py pm_bot\\paper\\tests\\test_run_crypto_threshold_hit_triage_report.py pm_bot\\paper\\tests\\test_run_crypto_threshold_hit_policy_scenarios.py pm_bot\\paper\\tests\\test_run_manual_paper_operator_cycle.py -q",
+      "status": "passed",
+      "summary": "69 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\paper\\tests\\test_run_local_snapshot_inbox_paper_portfolio.py pm_bot\\paper\\tests\\test_run_local_snapshot_paper_portfolio_state.py pm_bot\\paper\\tests\\test_run_manual_paper_inbox_bundle.py pm_bot\\paper\\tests\\test_run_manual_paper_workspace.py pm_bot\\paper\\tests\\test_run_manual_snapshot_workspace_import.py -q",
+      "status": "passed",
+      "summary": "65 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\paper\\tests\\test_run_local_snapshot_inbox_paper_portfolio.py pm_bot\\paper\\tests\\test_run_manual_paper_inbox_bundle.py pm_bot\\paper\\tests\\test_run_manual_paper_operator_cycle.py pm_bot\\paper\\tests\\test_run_manual_paper_workspace.py pm_bot\\paper\\tests\\test_run_manual_snapshot_workspace_import.py -q",
+      "status": "passed",
+      "summary": "75 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\paper\\tests -q",
+      "status": "passed",
+      "summary": "310 passed, 39 subtests passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\dashboard\\tests pm_bot\\operator\\tests -q",
+      "status": "passed",
+      "summary": "33 passed, 14 subtests passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\paper\\tests -q in C:\\Users\\OpenC\\Documents\\AI-Orchestrator-worktrees\\INFRA_007_PORTABILITY_VALIDATE",
+      "status": "passed",
+      "summary": "309 passed, 1 skipped, 39 subtests passed"
+    }
+  ],
+  "canonical_root_tests": {
+    "paper_suite": "passed: 310 passed, 39 subtests passed",
+    "dashboard_operator": "passed: 33 passed, 14 subtests passed",
+    "focused_portability_tests": "passed"
+  },
+  "isolated_worktree_tests": {
+    "paper_suite": "passed: 309 passed, 1 skipped, 39 subtests passed",
+    "worktree_path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator-worktrees\\INFRA_007_PORTABILITY_VALIDATE",
+    "temporary_branch": "infra/infra007-portability-validate-temp",
+    "temporary_commit": "53a09f20003b687e98b038f15d462993c3b67ce6",
+    "cleanup": "temporary worktree removed and temporary branch deleted",
+    "skip_note": "Existing optional real local polymarket_markets_active_001.json check skipped because the ignored local snapshot is absent in the clean validation worktree."
+  },
+  "json_parse_checks": {
+    "status": "passed",
+    "summary": "Changed/new JSON fixtures and result JSON parsed successfully."
+  },
+  "py_compile_checks": {
+    "status": "passed",
+    "summary": "Changed Python files compiled successfully."
+  },
+  "safety_flags": {
+    "runtime_wiring": false,
+    "network_api": false,
+    "wallet": false,
+    "trading": false,
+    "autonomous_paper_orders": false,
+    "scoring_probability_ev_edge": false,
+    "market_decisions": false,
+    "live_fetcher": false
+  },
+  "forbidden_changes_detected": false,
+  "git_operations": {
+    "fetched_origin": true,
+    "temporary_validation_worktree_created": true,
+    "temporary_validation_worktree_removed": true,
+    "temporary_validation_branch_deleted": true,
+    "commit_message": "PMBOT INFRA-007 fix worktree fixture path portability"
+  },
+  "commit_created": true,
+  "commit_hash": "reported_in_task_final_response",
+  "pushed": "reported_in_task_final_response",
+  "blockers": [],
+  "next_safe_action": "Start PMBOT ABC round002 planning or define the next product feature batch after confirming worktree paper tests are portable."
+}

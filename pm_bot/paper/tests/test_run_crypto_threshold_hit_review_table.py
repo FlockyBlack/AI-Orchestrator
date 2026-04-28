@@ -15,7 +15,8 @@ EXPECTED_JSON = ROOT / "pm_bot" / "paper" / "expected_crypto_threshold_hit_revie
 EXPECTED_MD = ROOT / "pm_bot" / "paper" / "expected_crypto_threshold_hit_review_table.v1.md"
 REFERENCE_CONTEXT = ROOT / "pm_bot" / "paper" / "threshold_hit_reference_context.v1.json"
 DECISION_POLICY = ROOT / "pm_bot" / "paper" / "threshold_hit_decision_policy.v1.json"
-REAL_SOURCE = ROOT / "local_snapshots" / "polymarket_markets_active_500_001.json"
+REAL_SOURCE = ROOT / "pm_bot" / "paper" / "fixtures" / "polymarket_markets_active_threshold_hit.fixture.json"
+REAL_MARKET_FIXTURE = ROOT / "pm_bot" / "paper" / "manual_snapshot_import_source" / "008_polymarket_markets_active_minimized.fixture.json"
 THRESHOLD_TRIAGE_RUNNER = ROOT / "pm_bot" / "paper" / "run_crypto_threshold_hit_triage_report.py"
 REAL_TRIAGE_RUNNER = ROOT / "pm_bot" / "paper" / "run_real_market_triage_report.py"
 OPERATOR_CYCLE_RUNNER = ROOT / "pm_bot" / "paper" / "run_manual_paper_operator_cycle.py"
@@ -504,11 +505,11 @@ class RunCryptoThresholdHitReviewTableTests(unittest.TestCase):
         self.assertIn("- Decision policy used: true", first)
         self.assertIn("| market_id | question | asset | target | type | deadline | event | yes | implied_probability | liquidity | reference | reference_captured_at | reference_source | distance_pct | target_multiple | days | assumption_status | decision | policy_version | passed_policy_checks | failed_policy_checks | reason_codes | note |", first)
 
-    def test_real_local_500_snapshot_command_runs(self):
-        payload = json.loads(_run_json().stdout)
+    def test_tracked_threshold_hit_snapshot_command_runs(self):
+        payload = json.loads(_run_json("--source", str(REAL_SOURCE)).stdout)
         summary = payload["summary"]
         self.assertEqual(payload["source_path"], str(REAL_SOURCE))
-        self.assertEqual(summary["markets_seen"], 500)
+        self.assertEqual(summary["markets_seen"], 3)
         self.assertEqual(summary["threshold_hit_candidates"], 3)
         self.assertFalse(summary["reference_context_used"])
         self.assertEqual(summary["assets_with_reference_price"], [])
@@ -516,12 +517,16 @@ class RunCryptoThresholdHitReviewTableTests(unittest.TestCase):
         self.assertEqual(summary["watchlist_count"], 2)
         self.assertEqual(summary["paper_candidate_count"], 0)
         self.assertEqual(summary["paper_orders_created"], 0)
-        self.assertEqual([row["market_id"] for row in payload["rows"]], ["540844", "573655", "573656"])
+        self.assertEqual([row["market_id"] for row in payload["rows"]], [
+            "fixture_bitcoin_hit_1m_before_event",
+            "fixture_btc_hit_150k_by_date",
+            "fixture_eth_reach_5000_by_date",
+        ])
         self.assertEqual([row["review_decision"] for row in payload["rows"]], ["no_action", "watchlist", "watchlist"])
 
-    def test_current_default_produces_no_paper_orders(self):
+    def test_tracked_threshold_source_produces_no_paper_orders(self):
         before = _fixture_file_snapshot()
-        payload = json.loads(_run_json().stdout)
+        payload = json.loads(_run_json("--source", str(REAL_SOURCE)).stdout)
         self.assertNotIn("paper_orders", payload)
         self.assertEqual(payload["summary"]["paper_orders_created"], 0)
         self.assertEqual(payload["summary"]["paper_candidate_count"], 0)
@@ -539,8 +544,8 @@ class RunCryptoThresholdHitReviewTableTests(unittest.TestCase):
             self.assertIn("missing_reference_price", row["reason_codes"])
             self.assertNotEqual(row["review_decision"], "paper_candidate")
 
-    def test_before_event_requires_event_model_by_default(self):
-        payload = json.loads(_run_json().stdout)
+    def test_before_event_requires_event_model_for_tracked_threshold_source(self):
+        payload = json.loads(_run_json("--source", str(REAL_SOURCE)).stdout)
         row = payload["rows"][0]
         self.assertEqual(row["market_type"], "threshold_hit_before_event")
         self.assertEqual(row["model_assumption_status"], "before_event_requires_event_model")
@@ -569,7 +574,7 @@ class RunCryptoThresholdHitReviewTableTests(unittest.TestCase):
 
     def test_real_market_triage_operator_and_lifecycle_still_pass(self):
         subprocess.run(
-            [sys.executable, str(REAL_TRIAGE_RUNNER), "--source", str(REAL_SOURCE), "--markdown"],
+            [sys.executable, str(REAL_TRIAGE_RUNNER), "--source", str(REAL_MARKET_FIXTURE), "--markdown"],
             cwd=ROOT,
             env=_utf8_env(),
             capture_output=True,
@@ -594,7 +599,7 @@ class RunCryptoThresholdHitReviewTableTests(unittest.TestCase):
         self.assertEqual(gates["status"], "passed")
 
     def test_safety_flags_remain_locked_down(self):
-        payload = json.loads(_run_json().stdout)
+        payload = json.loads(_run_json("--source", str(REAL_SOURCE)).stdout)
         flags = payload["safety_flags"]
         self.assertTrue(flags["offline_only"])
         self.assertTrue(flags["paper_only"])

@@ -14,11 +14,11 @@
   "input_snapshot": {
     "snapshot_id": "series_snapshot_002",
     "observed_at": "2026-05-15T12:00:00Z",
-    "source_path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator\\pm_bot\\paper\\local_snapshot_series_fixture.v1.json"
+    "source_path": "<REPO_ROOT>\\pm_bot\\paper\\local_snapshot_series_fixture.v1.json"
   },
   "input_state": {
     "state_id": "paper_portfolio_state_v1",
-    "source_path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator\\pm_bot\\paper\\paper_portfolio_state.v1.json",
+    "source_path": "<REPO_ROOT>\\pm_bot\\paper\\paper_portfolio_state.v1.json",
     "summary": {
       "processed_snapshots": 1,
       "processed_market_side_keys": 1,

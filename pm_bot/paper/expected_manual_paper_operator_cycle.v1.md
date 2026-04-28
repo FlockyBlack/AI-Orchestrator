@@ -1,9 +1,9 @@
 # Manual Paper Operator Cycle
 
 - Run ID: manual-paper-operator-cycle-fixture-v1
-- Source: C:\Users\OpenC\Documents\AI-Orchestrator\pm_bot\paper\manual_snapshot_import_source
-- Workspace: C:\Users\OpenC\Documents\AI-Orchestrator\pm_bot\paper\manual_paper_workspace
-- Inbox: C:\Users\OpenC\Documents\AI-Orchestrator\pm_bot\paper\manual_paper_workspace\inbox
+- Source: <REPO_ROOT>\pm_bot\paper\manual_snapshot_import_source
+- Workspace: <REPO_ROOT>\pm_bot\paper\manual_paper_workspace
+- Inbox: <REPO_ROOT>\pm_bot\paper\manual_paper_workspace\inbox
 - Write inbox: false
 - Manifest written: false
 - Run artifacts written: false

@@ -6,6 +6,8 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from _path_normalization import normalize_repo_root_paths
+
 
 ROOT = Path(__file__).resolve().parents[3]
 RUNNER = ROOT / "pm_bot" / "paper" / "run_local_snapshot_inbox_paper_portfolio.py"
@@ -32,10 +34,16 @@ def _run_markdown(*args):
 
 class RunLocalSnapshotInboxPaperPortfolioTests(unittest.TestCase):
     def test_default_json_output_matches_expected(self):
-        self.assertEqual(json.loads(_run_json().stdout), json.loads(EXPECTED_JSON.read_text(encoding="utf-8")))
+        self.assertEqual(
+            normalize_repo_root_paths(json.loads(_run_json().stdout), ROOT),
+            json.loads(EXPECTED_JSON.read_text(encoding="utf-8")),
+        )
 
     def test_markdown_output_is_deterministic(self):
-        self.assertEqual(_run_markdown().stdout, EXPECTED_MD.read_text(encoding="utf-8"))
+        self.assertEqual(
+            normalize_repo_root_paths(_run_markdown().stdout, ROOT),
+            EXPECTED_MD.read_text(encoding="utf-8"),
+        )
 
     def test_default_command_does_not_write_state_or_run_ledger(self):
         payload = json.loads(_run_json().stdout)
@@ -50,7 +58,10 @@ class RunLocalSnapshotInboxPaperPortfolioTests(unittest.TestCase):
             payload = json.loads(_run_json("--run-id", "fixture-run-001", "--out-run-ledger", str(out_ledger)).stdout)
             self.assertTrue(payload["run_summary"]["out_run_ledger_written"])
             self.assertEqual(payload["run_summary"]["out_run_ledger_path"], str(out_ledger))
-            self.assertEqual(json.loads(out_ledger.read_text(encoding="utf-8")), json.loads(EXPECTED_LEDGER.read_text(encoding="utf-8")))
+            self.assertEqual(
+                normalize_repo_root_paths(json.loads(out_ledger.read_text(encoding="utf-8")), ROOT),
+                json.loads(EXPECTED_LEDGER.read_text(encoding="utf-8")),
+            )
 
     def test_run_id_controls_deterministic_run_id(self):
         with tempfile.TemporaryDirectory() as temp_dir:

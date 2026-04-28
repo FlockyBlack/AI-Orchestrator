@@ -4,9 +4,9 @@
   "workflow": "manual_paper_workspace",
   "deterministic": true,
   "run_id": "manual-paper-workspace-fixture-v1",
-  "workspace_path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator\\pm_bot\\paper\\manual_paper_workspace",
-  "inbox_path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator\\pm_bot\\paper\\manual_paper_workspace\\inbox",
-  "current_state_path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator\\pm_bot\\paper\\manual_paper_workspace\\state\\current_state.json",
+  "workspace_path": "<REPO_ROOT>\\pm_bot\\paper\\manual_paper_workspace",
+  "inbox_path": "<REPO_ROOT>\\pm_bot\\paper\\manual_paper_workspace\\inbox",
+  "current_state_path": "<REPO_ROOT>\\pm_bot\\paper\\manual_paper_workspace\\state\\current_state.json",
   "run_directory_path": null,
   "run_artifacts_written": false,
   "state_committed": false,
@@ -22,7 +22,7 @@
   },
   "quarantine_records": [
     {
-      "input_path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator\\pm_bot\\paper\\manual_paper_workspace\\inbox\\001_series_snapshot_001.json",
+      "input_path": "<REPO_ROOT>\\pm_bot\\paper\\manual_paper_workspace\\inbox\\001_series_snapshot_001.json",
       "file_name": "001_series_snapshot_001.json",
       "status": "skipped",
       "reason_code": "already_processed_snapshot",
