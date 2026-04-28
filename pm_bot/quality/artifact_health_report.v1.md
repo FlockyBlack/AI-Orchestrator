@@ -4,10 +4,10 @@
 - schema_version: artifact_health_report.v1
 - generated_by: pm_bot/quality/export_artifact_health_report.py
 - report_status: health_passed_with_warnings
-- artifacts_checked: 166
-- artifacts_present_count: 166
+- artifacts_checked: 170
+- artifacts_present_count: 170
 - artifacts_missing_count: 0
-- json_parse_pass_count: 119
+- json_parse_pass_count: 122
 - json_parse_fail_count: 1
 - schema_version_missing_count: 22
 - task_id_missing_where_expected_count: 3
@@ -41,15 +41,15 @@
 
 ## Embedded Pointer Health
 
-- checked_count: 491
-- present_count: 401
+- checked_count: 494
+- present_count: 404
 - missing_count: 90
 - absolute_count: 0
 
 ## Expected Fixture Alignment
 
-- checks_total: 68
-- aligned_count: 17
+- checks_total: 69
+- aligned_count: 18
 - mismatch_count: 1
 - actual_missing_count: 50
 
@@ -293,6 +293,7 @@
 - pm_bot/paper/expected_manual_snapshot_import_manifest.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=2
 - pm_bot/paper/expected_manual_snapshot_workspace_import.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=2
 - pm_bot/paper/expected_manual_snapshot_workspace_import.v1.md: exists=true, json_parse_status=not_json, schema_version=None, warnings=1
+- pm_bot/paper/expected_multi_market_paper_run_series.v1.json: exists=true, json_parse_status=parsed, schema_version=multi_market_paper_run_series.v1, warnings=0
 - pm_bot/paper/expected_paper_accounting_batch_audit.v1.json: exists=true, json_parse_status=parsed, schema_version=paper_accounting_batch_audit.v1, warnings=0
 - pm_bot/paper/expected_paper_accounting_ledger.v1.json: exists=true, json_parse_status=parsed, schema_version=paper_accounting_ledger.v1, warnings=0
 - pm_bot/paper/expected_paper_accounting_pnl_preview.v1.json: exists=true, json_parse_status=parsed, schema_version=paper_accounting_pnl_preview.v1, warnings=0
@@ -337,6 +338,8 @@
 - pm_bot/paper/manual_snapshot_import_source/005_malformed.json: exists=true, json_parse_status=parse_failed, schema_version=None, warnings=1
 - pm_bot/paper/manual_snapshot_import_source/006_unsupported.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=0
 - pm_bot/paper/manual_snapshot_import_source/008_polymarket_markets_active_minimized.fixture.json: exists=true, json_parse_status=parsed, schema_version=None, warnings=1
+- pm_bot/paper/multi_market_paper_run_series.v1.json: exists=true, json_parse_status=parsed, schema_version=multi_market_paper_run_series.v1, warnings=0
+- pm_bot/paper/multi_market_paper_run_series.v1.md: exists=true, json_parse_status=not_json, schema_version=None, warnings=0
 - pm_bot/paper/paper_accounting_batch_audit.v1.json: exists=true, json_parse_status=parsed, schema_version=paper_accounting_batch_audit.v1, warnings=0
 - pm_bot/paper/paper_accounting_batch_audit.v1.md: exists=true, json_parse_status=not_json, schema_version=None, warnings=0
 - pm_bot/paper/paper_accounting_ledger.v1.json: exists=true, json_parse_status=parsed, schema_version=paper_accounting_ledger.v1, warnings=0
@@ -369,6 +372,7 @@
 - pm_bot/paper/paper_portfolio_state.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=0
 - pm_bot/paper/paper_portfolio_state_after_inbox.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=0
 - pm_bot/paper/paper_portfolio_state_after_snapshot.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=0
+- pm_bot/paper/paper_run_series_fixture.v1.json: exists=true, json_parse_status=parsed, schema_version=paper_run_series_fixture.v1, warnings=0
 - pm_bot/paper/paper_settlement_source_fixture.v1.json: exists=true, json_parse_status=parsed, schema_version=paper_settlement_source_fixture.v1, warnings=0
 - pm_bot/paper/paper_settlement_sources_accepted.v1.json: exists=true, json_parse_status=parsed, schema_version=paper_settlement_sources_accepted.v1, warnings=0
 - pm_bot/paper/paper_settlement_sources_rejected.v1.json: exists=true, json_parse_status=parsed, schema_version=paper_settlement_sources_rejected.v1, warnings=0

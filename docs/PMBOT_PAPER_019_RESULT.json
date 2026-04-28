@@ -1,0 +1,72 @@
+{
+  "schema_version": "paper_019_result.v1",
+  "task_id": "PMBOT-PAPER-019-MULTI-MARKET-PAPER-RUN-SERIES",
+  "status": "completed_ready_for_review",
+  "summary": "Implemented deterministic offline multi-market paper run series.",
+  "series_status": "series_run_passed",
+  "files_created": [
+    "pm_bot/paper/paper_run_series_fixture.v1.json",
+    "pm_bot/paper/run_multi_market_paper_run_series.py",
+    "pm_bot/paper/multi_market_paper_run_series.v1.json",
+    "pm_bot/paper/multi_market_paper_run_series.v1.md",
+    "pm_bot/paper/expected_multi_market_paper_run_series.v1.json",
+    "pm_bot/paper/tests/test_multi_market_paper_run_series.py",
+    "docs/PMBOT_PAPER_019_RESULT.json"
+  ],
+  "files_modified": [],
+  "series_summary": {
+    "markets_seen": 5,
+    "records_seen": 5,
+    "records_processed": 4,
+    "records_by_status": {
+      "accepted_accounting_record": 3,
+      "blocked_fixture_record": 1,
+      "manual_review_only": 1
+    },
+    "accounting_summary": {
+      "paper_accounting_total_records": 4,
+      "paper_accounting_settled_count": 3,
+      "paper_accounting_open_count": 1,
+      "paper_accounting_win_count": 1,
+      "paper_accounting_loss_count": 1,
+      "paper_accounting_flat_count": 1,
+      "paper_accounting_total_cost_basis": "24.00",
+      "paper_accounting_settled_cost_basis": "19.00",
+      "paper_accounting_open_cost_basis": "5.00",
+      "paper_accounting_total_settlement_value": "18.00",
+      "paper_accounting_cumulative_pnl": "-1.00",
+      "paper_accounting_average_settled_pnl": "-0.33",
+      "paper_accounting_gross_profit": "6.00",
+      "paper_accounting_gross_loss": "-7.00",
+      "paper_accounting_max_gain": "6.00",
+      "paper_accounting_max_loss": "-7.00"
+    }
+  },
+  "tests": [],
+  "warnings": [
+    "Blocked fixture records were retained as inert non-accounting records."
+  ],
+  "missing_optional_docs": [],
+  "safety": {
+    "offline_only": true,
+    "runtime_wiring": false,
+    "network_api": false,
+    "wallet": false,
+    "trading": false,
+    "real_orders": false,
+    "live_trading": false,
+    "autonomous_paper_orders": false,
+    "scoring_probability_ev_edge": false,
+    "market_decisions": false,
+    "truth_inference": false,
+    "command_execution": false,
+    "automation_daemon": false
+  },
+  "paper_orders_created": 0,
+  "real_orders_created": 0,
+  "network_calls": 0,
+  "commands_executed": 0,
+  "autonomous_decisions": 0,
+  "blockers": [],
+  "next_action": "ready_for_operator_workbench_visibility_review"
+}
