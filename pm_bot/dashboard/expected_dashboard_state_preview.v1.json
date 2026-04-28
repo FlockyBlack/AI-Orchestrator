@@ -1,0 +1,293 @@
+{
+  "schema_version": "dashboard_state_preview.v1",
+  "generated_by": "pm_bot/dashboard/export_dashboard_state_contract.py",
+  "generated_at_policy": {
+    "wall_clock_time_used": false,
+    "policy": "deterministic_static_snapshot_no_current_time",
+    "fixed_value": "not_emitted"
+  },
+  "market_ids": [
+    "824952"
+  ],
+  "product_stage_summary": {
+    "dashboard_scope": "PMBOT-DASHBOARD-001-DASHBOARD-STATE-EXPORT-CONTRACT",
+    "abc_round_stage": "CODEX_B dashboard state export contract round 001",
+    "latest_overall_stage": {
+      "source_path": "docs/PM_BOT_STAGE_SUMMARY_V55.md",
+      "present": true,
+      "task": "PMBOT-RESEARCH-005-LOWER-RISK-SHORTLIST-TIERING",
+      "status": "passed"
+    },
+    "paper_accounting_stage": {
+      "paper_batch_011_013_status": "completed_ready_for_review",
+      "integration_002_verdict": "accepted_for_next_paper_portfolio_metrics_stage",
+      "paper_batch_014_016_status": "completed_ready_for_review",
+      "integration_003_verdict": "accepted_for_git_readiness_stage",
+      "current_known_paper_status": "paper_portfolio_metrics_accepted_for_git_readiness_stage"
+    }
+  },
+  "paper_accounting_summary": {
+    "ledger_status": "paper_accounting_ledger_history_ready",
+    "portfolio_status": "paper_portfolio_snapshot_ready",
+    "metrics_report_status": "paper_metrics_report_ready",
+    "market_ids": [
+      "824952"
+    ],
+    "counts": {
+      "paper_accounting_ledger_entries": 1,
+      "paper_accounting_settled_count": 1,
+      "paper_accounting_open_count": 0,
+      "paper_portfolio_snapshot_records": 1,
+      "paper_metrics_report_records": 1,
+      "real_orders_created": 0,
+      "live_orders_created": 0,
+      "autonomous_paper_orders_created": 0
+    },
+    "paper_accounting_metrics": {
+      "paper_accounting_total_records": 1,
+      "paper_accounting_settled_count": 1,
+      "paper_accounting_open_count": 0,
+      "paper_accounting_win_count": 1,
+      "paper_accounting_loss_count": 0,
+      "paper_accounting_flat_count": 0,
+      "paper_accounting_cumulative_pnl": "6.00",
+      "paper_accounting_average_pnl": "6.00",
+      "paper_accounting_gross_profit": "6.00",
+      "paper_accounting_gross_loss": "0.00",
+      "paper_accounting_max_gain": "6.00",
+      "paper_accounting_max_loss": "0.00"
+    },
+    "accounting_boundary": {
+      "paper_accounting_only": true,
+      "operator_manual_fixture_source": true,
+      "strategy_profitability": false,
+      "warning": "Paper accounting PnL is fixture/manual accounting only and is not strategy profitability."
+    }
+  },
+  "latest_artifact_pointers": {
+    "dashboard_contract": {
+      "path": "pm_bot/dashboard/dashboard_state_contract.v1.json",
+      "artifact_type": "json_contract",
+      "required": true,
+      "present": true
+    },
+    "dashboard_preview_json": {
+      "path": "pm_bot/dashboard/dashboard_state_preview.v1.json",
+      "artifact_type": "json_preview",
+      "required": true,
+      "present": true
+    },
+    "dashboard_preview_markdown": {
+      "path": "pm_bot/dashboard/dashboard_state_preview.v1.md",
+      "artifact_type": "markdown_preview",
+      "required": true,
+      "present": true
+    },
+    "dashboard_expected_preview_json": {
+      "path": "pm_bot/dashboard/expected_dashboard_state_preview.v1.json",
+      "artifact_type": "json_expected_fixture",
+      "required": true,
+      "present": true
+    },
+    "paper_accounting_ledger_json": {
+      "path": "pm_bot/paper/paper_accounting_ledger.v1.json",
+      "artifact_type": "paper_accounting_json",
+      "required": true,
+      "present": true
+    },
+    "paper_accounting_pnl_preview_json": {
+      "path": "pm_bot/paper/paper_accounting_pnl_preview.v1.json",
+      "artifact_type": "paper_accounting_json",
+      "required": true,
+      "present": true
+    },
+    "paper_fill_events_json": {
+      "path": "pm_bot/paper/paper_fill_events.v1.json",
+      "artifact_type": "paper_fill_json",
+      "required": true,
+      "present": true
+    },
+    "manual_paper_intent_ledger_json": {
+      "path": "pm_bot/paper/manual_paper_intent_ledger.v1.json",
+      "artifact_type": "paper_manual_fixture_json",
+      "required": true,
+      "present": true
+    },
+    "paper_portfolio_snapshot_json": {
+      "path": "pm_bot/paper/paper_portfolio_snapshot.v1.json",
+      "artifact_type": "paper_portfolio_json",
+      "required": true,
+      "present": true
+    },
+    "paper_metrics_report_json": {
+      "path": "pm_bot/paper/paper_metrics_report.v1.json",
+      "artifact_type": "paper_metrics_json",
+      "required": true,
+      "present": true
+    },
+    "paper_batch_011_013_result": {
+      "path": "docs/PMBOT_PAPER_BATCH_011_013_RESULT.json",
+      "artifact_type": "docs_result_json",
+      "required": true,
+      "present": true
+    },
+    "paper_batch_014_016_result": {
+      "path": "docs/PMBOT_PAPER_BATCH_014_016_RESULT.json",
+      "artifact_type": "docs_result_json",
+      "required": true,
+      "present": true
+    },
+    "integration_002_result": {
+      "path": "docs/PMBOT_INTEGRATION_002_RESULT.json",
+      "artifact_type": "docs_result_json",
+      "required": true,
+      "present": true
+    },
+    "integration_003_result": {
+      "path": "docs/PMBOT_INTEGRATION_003_RESULT.json",
+      "artifact_type": "docs_result_json",
+      "required": true,
+      "present": true
+    },
+    "latest_stage_summary": {
+      "path": "docs/PM_BOT_STAGE_SUMMARY_V55.md",
+      "artifact_type": "docs_markdown",
+      "required": false,
+      "present": true
+    },
+    "abc_round_plan": {
+      "path": "docs/PMBOT_INFRA_005_ABC_PARALLEL_FEATURE_ROUND_PLAN.md",
+      "artifact_type": "docs_markdown",
+      "required": true,
+      "present": true
+    },
+    "abc_round_result_contract": {
+      "path": "docs/PMBOT_INFRA_005_CODEX_PARALLEL_RESULT_CONTRACT.v1.json",
+      "artifact_type": "docs_contract_json",
+      "required": true,
+      "present": true
+    }
+  },
+  "test_status_summary": {
+    "derivation_policy": "copied from local result docs only; this export does not run tests while building state",
+    "source_docs": [
+      {
+        "source_path": "docs/PMBOT_PAPER_BATCH_011_013_RESULT.json",
+        "task_id": "PMBOT-PAPER-BATCH-011-013-FILL-SETTLEMENT-PNL-MVP",
+        "status": "completed_ready_for_review",
+        "tests": []
+      },
+      {
+        "source_path": "docs/PMBOT_INTEGRATION_002_RESULT.json",
+        "task_id": "PMBOT-INTEGRATION-002-FILL-SETTLEMENT-PNL-REVIEW",
+        "status": "completed_ready_for_review",
+        "tests": [
+          {
+            "command": "python -m pytest pm_bot\\paper\\tests -q",
+            "status": "passed",
+            "result": "299 passed, 39 subtests passed in 25.54s"
+          },
+          {
+            "command": "python -m py_compile pm_bot\\paper\\run_paper_fill_settlement_pnl_batch_011_013.py",
+            "status": "passed",
+            "result": "compiled"
+          },
+          {
+            "command": "JSON parse check for docs/PMBOT_PAPER_BATCH_011_013_RESULT.json and all batch-created JSON files",
+            "status": "passed",
+            "result": "12 JSON files parsed successfully"
+          }
+        ]
+      },
+      {
+        "source_path": "docs/PMBOT_PAPER_BATCH_014_016_RESULT.json",
+        "task_id": "PMBOT-PAPER-BATCH-014-016-PAPER-PORTFOLIO-METRICS-MVP",
+        "status": "completed_ready_for_review",
+        "tests": []
+      },
+      {
+        "source_path": "docs/PMBOT_INTEGRATION_003_RESULT.json",
+        "task_id": "PMBOT-INTEGRATION-003-PORTFOLIO-METRICS-REVIEW",
+        "status": "completed_ready_for_review",
+        "tests": [
+          {
+            "command": "python -m pytest pm_bot\\paper\\tests -q",
+            "status": "passed",
+            "result": "306 passed, 39 subtests passed in 26.82s"
+          },
+          {
+            "command": "python -m py_compile pm_bot\\paper\\run_paper_portfolio_metrics_batch_014_016.py",
+            "status": "passed",
+            "result": "compiled"
+          },
+          {
+            "command": "JSON parse check for docs/PMBOT_PAPER_BATCH_014_016_RESULT.json and all batch-created JSON files",
+            "status": "passed",
+            "result": "7 JSON files parsed successfully"
+          }
+        ]
+      }
+    ]
+  },
+  "safety_flags": {
+    "dashboard_runtime": false,
+    "server": false,
+    "frontend": false,
+    "browser_automation": false,
+    "runtime_wiring": false,
+    "network_api": false,
+    "authenticated_data": false,
+    "credentials": false,
+    "wallet": false,
+    "trading": false,
+    "real_orders": false,
+    "live_trading": false,
+    "autonomous_paper_orders": false,
+    "scoring_probability_ev_edge": false,
+    "market_decisions": false
+  },
+  "forbidden_capabilities": [
+    "dashboard server or hosted runtime",
+    "frontend application or browser automation",
+    "network/API calls or live fetch results",
+    "authenticated endpoints or authenticated data",
+    "credentials, API keys, wallet access, private keys, or signing",
+    "trading endpoints, real orders, live trading, or autonomous paper orders",
+    "betting recommendations or market side recommendations",
+    "probability estimates, EV calculations, edge calculations, or market scoring",
+    "truth inference, live resolution, or market decisions",
+    "dispatcher, run_codex, prompt automation, or runtime wiring changes"
+  ],
+  "operator_next_actions": [
+    {
+      "action_id": "review_dashboard_state_contract",
+      "description": "Review static JSON and Markdown dashboard state artifacts.",
+      "non_trading_action": true,
+      "requires_runtime": false
+    },
+    {
+      "action_id": "run_focused_dashboard_contract_tests",
+      "description": "Run local pytest coverage for the dashboard state contract export.",
+      "non_trading_action": true,
+      "requires_runtime": false
+    },
+    {
+      "action_id": "integration_review_only",
+      "description": "Use this snapshot as a stable contract input for a future reviewed dashboard.",
+      "non_trading_action": true,
+      "requires_runtime": false
+    }
+  ],
+  "interpretation_warnings": [
+    "Paper accounting PnL is fixture/manual accounting only and is not strategy profitability.",
+    "This snapshot does not recommend a side, size, price, market, or trade.",
+    "This snapshot does not contain probability estimates, EV, edge, market scoring, truth inference, live prices, or live fetch results.",
+    "This snapshot reads local artifacts only and does not create executable orders or autonomous paper orders."
+  ],
+  "no_autonomous_decision_status": {
+    "autonomous_selection_enabled": false,
+    "paper_order_generation_enabled": false,
+    "operator_manual_review_required": true,
+    "status": "no_autonomous_market_decision_or_order_status_defined"
+  }
+}
