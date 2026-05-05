@@ -1,0 +1,170 @@
+{
+  "schema_version": "v1",
+  "task_id": "PMBOT-BRAIN-035-THRESHOLD-HIT-REFERENCE-CONTEXT",
+  "deterministic": true,
+  "as_of_date": "2026-04-27",
+  "source_path": "embedded_crypto_threshold_hit_review_fixture",
+  "source_task_id": "PMBOT-BRAIN-033-CRYPTO-THRESHOLD-HIT-TRIAGE",
+  "source_shape": "polymarket_gamma_markets_response",
+  "top_level_shape": "top_level_list",
+  "gamma_market_list_detected": true,
+  "triage_summary": {
+    "total_markets_seen": 3,
+    "threshold_hit_like_markets_found": 3,
+    "threshold_hit_crypto_candidates_found": 3,
+    "supported_triage_candidates": 3,
+    "rejected_ambiguous_candidates": 0,
+    "market_type_counts": {
+      "threshold_hit_by_date": 2,
+      "threshold_hit_before_event": 1,
+      "ambiguous_threshold_hit": 0
+    },
+    "supported_market_type_counts": {
+      "threshold_hit_by_date": 2,
+      "threshold_hit_before_event": 1,
+      "ambiguous_threshold_hit": 0
+    },
+    "reason_counts": {},
+    "asset_counts": {
+      "BTC": 2,
+      "ETH": 1,
+      "ambiguous": 0,
+      "unsupported": 0
+    },
+    "candidate_table_count": 3
+  },
+  "summary": {
+    "markets_seen": 3,
+    "threshold_hit_candidates": 3,
+    "reference_context_used": false,
+    "assets_with_reference_price": [],
+    "no_action_count": 1,
+    "watchlist_count": 2,
+    "paper_candidate_count": 0,
+    "paper_orders_created": 0,
+    "missing_assumption_reason_counts": {
+      "before_event_requires_event_model": 1,
+      "missing_reference_price": 3
+    },
+    "safety_flags": {
+      "offline_only": true,
+      "paper_only": true,
+      "live_fetcher_implemented": false,
+      "api_used": false,
+      "network_used": false,
+      "wallet_used": false,
+      "real_order_created": false,
+      "trading_allowed": false,
+      "runtime_wiring_changed": false,
+      "dispatcher_touched": false,
+      "prompt_automation_added": false
+    }
+  },
+  "rows": [
+    {
+      "market_id": "fixture_bitcoin_hit_1m_before_event",
+      "title": "Will Bitcoin hit $1m before GTA VI?",
+      "question": "Will Bitcoin hit $1m before GTA VI?",
+      "asset": "BTC",
+      "target": "1000000",
+      "target_display": "$1m",
+      "market_type": "threshold_hit_before_event",
+      "deadline_date": null,
+      "event_trigger": "GTA VI",
+      "yes_price": 0.49,
+      "implied_probability": 0.49,
+      "liquidity": 23456.0,
+      "current_reference_price": null,
+      "reference_price_captured_at": null,
+      "reference_price_source": null,
+      "distance_to_target_pct": null,
+      "target_multiple": null,
+      "time_to_deadline_days": null,
+      "event_model_fixture_present": false,
+      "model_assumption_status": "before_event_requires_event_model",
+      "review_decision": "no_action",
+      "conservative_thresholds_pass": false,
+      "reason_codes": [
+        "missing_reference_price",
+        "before_event_requires_event_model"
+      ],
+      "human_review_note": "No action: before-event threshold market needs an explicit offline event model fixture before scoring."
+    },
+    {
+      "market_id": "fixture_btc_hit_150k_by_date",
+      "title": "Will BTC hit $150k by June 30, 2026?",
+      "question": "Will BTC hit $150k by June 30, 2026?",
+      "asset": "BTC",
+      "target": "150000",
+      "target_display": "$150k",
+      "market_type": "threshold_hit_by_date",
+      "deadline_date": "2026-06-30",
+      "event_trigger": null,
+      "yes_price": 0.21,
+      "implied_probability": 0.21,
+      "liquidity": 12345.0,
+      "current_reference_price": null,
+      "reference_price_captured_at": null,
+      "reference_price_source": null,
+      "distance_to_target_pct": null,
+      "target_multiple": null,
+      "time_to_deadline_days": 64,
+      "event_model_fixture_present": false,
+      "model_assumption_status": "missing_reference_price",
+      "review_decision": "watchlist",
+      "conservative_thresholds_pass": false,
+      "reason_codes": [
+        "missing_reference_price"
+      ],
+      "human_review_note": "Watchlist only: supply an offline reference price fixture before reviewing distance to target."
+    },
+    {
+      "market_id": "fixture_eth_reach_5000_by_date",
+      "title": "Will ETH reach $5,000 by December 31, 2026?",
+      "question": "Will ETH reach $5,000 by December 31, 2026?",
+      "asset": "ETH",
+      "target": "5000",
+      "target_display": "$5,000",
+      "market_type": "threshold_hit_by_date",
+      "deadline_date": "2026-12-31",
+      "event_trigger": null,
+      "yes_price": 0.33,
+      "implied_probability": 0.33,
+      "liquidity": 34567.0,
+      "current_reference_price": null,
+      "reference_price_captured_at": null,
+      "reference_price_source": null,
+      "distance_to_target_pct": null,
+      "target_multiple": null,
+      "time_to_deadline_days": 248,
+      "event_model_fixture_present": false,
+      "model_assumption_status": "missing_reference_price",
+      "review_decision": "watchlist",
+      "conservative_thresholds_pass": false,
+      "reason_codes": [
+        "missing_reference_price"
+      ],
+      "human_review_note": "Watchlist only: supply an offline reference price fixture before reviewing distance to target."
+    }
+  ],
+  "safety_flags": {
+    "offline_only": true,
+    "paper_only": true,
+    "live_fetcher_implemented": false,
+    "api_used": false,
+    "network_used": false,
+    "wallet_used": false,
+    "real_order_created": false,
+    "trading_allowed": false,
+    "runtime_wiring_changed": false,
+    "dispatcher_touched": false,
+    "prompt_automation_added": false
+  },
+  "limitations": [
+    "Reads a local saved JSON file only; no live fetcher, network, external API, credentials, wallet access, orders, or trading are included.",
+    "Threshold-hit review rows are not merged into the existing above/below crypto numeric scorer.",
+    "No paper orders, runtime wiring, dispatcher changes, prompt automation, or workspace state writes are included.",
+    "Default review uses no live reference price and no before-event timing model; missing assumptions prevent paper_candidate decisions.",
+    "Reference context, when supplied, is read from a local fixture file only and does not enable paper candidates."
+  ]
+}

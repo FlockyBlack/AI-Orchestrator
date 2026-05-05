@@ -11,10 +11,10 @@
 ## Quality Warning Summary
 
 - quality_report_status: health_passed_with_warnings
-- total_warnings: 149
+- total_warnings: 59
 - blocking_warnings: 0
-- action_required_warnings: 123
-- review_needed_warnings: 25
+- action_required_warnings: 21
+- review_needed_warnings: 37
 - informational_warnings: 1
 - blocking_warning_detected: false
 - operator_summary: No blocking warnings detected; review action_required categories before relying on the package.
@@ -29,33 +29,33 @@
 
 ## Top Quality Warning Categories
 
-- expected_fixture_alignment_warning: count=51, severity=action_required, bucket=artifact has an expected fixture alignment warning
-- fixture_alignment_actual_missing: count=50, severity=action_required, bucket=expected fixture exists but actual artifact is missing
+- embedded_artifact_pointer_warning: count=26, severity=review_needed, bucket=embedded artifact pointer needs inspection
 - schema_version_missing: count=19, severity=action_required, bucket=schema version metadata missing
-- embedded_artifact_pointer_warning: count=15, severity=review_needed, bucket=embedded artifact pointer needs inspection
 - stale_reference_warning: count=6, severity=review_needed, bucket=historical or stale reference needs inspection
+- json_top_level_not_object: count=4, severity=review_needed, bucket=JSON artifact is intentionally or structurally non-object
+- task_id_missing: count=3, severity=action_required, bucket=task_id metadata missing
 
 ## Quality Warnings By Owner
 
 - code: 0
-- fixture: 103
-- schema: 25
-- data: 21
+- fixture: 1
+- schema: 26
+- data: 32
 - unknown: 0
 
 ## Quality Warnings By Action Type
 
-- fix_required: 123
-- review_required: 25
+- fix_required: 21
+- review_required: 37
 - ignore_allowed: 1
 
 ## Top Quality Action Items
 
-- align expected fixture: count=51, owner=fixture, action_type=fix_required, severity=action_required
-- create missing actual artifact: count=50, owner=fixture, action_type=fix_required, severity=action_required
+- remove stale embedded pointer: count=26, owner=data, action_type=review_required, severity=review_needed
 - add schema_version to artifact: count=19, owner=schema, action_type=fix_required, severity=action_required
-- remove stale embedded pointer: count=15, owner=data, action_type=review_required, severity=review_needed
 - remove stale embedded reference: count=6, owner=data, action_type=review_required, severity=review_needed
+- review non-object JSON artifact: count=4, owner=schema, action_type=review_required, severity=review_needed
+- add task_id to artifact: count=3, owner=schema, action_type=fix_required, severity=action_required
 
 ## Artifact Inventory
 

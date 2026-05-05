@@ -1,9 +1,33 @@
 {
   "schema_version": "v1",
-  "fixture_id": "local_snapshot_series_risk_scenarios_v1",
-  "fixture_only": true,
+  "report_id": "PMBOT-BRAIN-020-LOCAL-SNAPSHOT-SERIES-RISK-SCENARIOS",
+  "source_fixture_id": "local_snapshot_series_risk_scenarios_v1",
+  "deterministic": true,
+  "offline_only": true,
   "paper_only": true,
-  "scenarios": [
+  "live_fetcher_implemented": false,
+  "execution_allowed": false,
+  "trading_allowed": false,
+  "real_order_created": false,
+  "wallet_used": false,
+  "api_used": false,
+  "network_used": false,
+  "scenario_suite_summary": {
+    "scenario_count": 7,
+    "paper_orders_created": 7,
+    "duplicate_orders_blocked": 2,
+    "risk_limit_orders_blocked": 6,
+    "risk_limit_reason_counts": {
+      "max_total_paper_exposure_exceeded": 3,
+      "max_asset_paper_exposure_exceeded": 1,
+      "max_orders_per_snapshot_exceeded": 2,
+      "max_open_positions_exceeded": 1
+    },
+    "realized_paper_pnl": 100.0,
+    "bad_entries": 0,
+    "safety_flags_locked": true
+  },
+  "scenario_reports": [
     {
       "scenario_id": "baseline_valid_order_allowed",
       "description": "Single valid paper order fills within all portfolio limits and settles.",
@@ -17,47 +41,149 @@
         "max_orders_per_snapshot": 2,
         "max_open_positions": 3
       },
-      "snapshots": [
+      "scenario_summary": {
+        "snapshots_processed": 2,
+        "paper_orders_created": 1,
+        "duplicate_orders_blocked": 0,
+        "risk_limit_orders_blocked": 0,
+        "risk_limit_reason_counts": {},
+        "open_positions": 0,
+        "settled_positions": 1,
+        "total_paper_notional": 100.0,
+        "max_exposure": 100.0,
+        "realized_paper_pnl": 100.0,
+        "unrealized_paper_pnl": 0,
+        "bad_entries": 0,
+        "safety_flags_locked": true
+      },
+      "snapshot_reports": [
         {
           "snapshot_id": "baseline_snapshot_001",
           "observed_at": "2026-06-01T12:00:00Z",
-          "observed_prices": {
-            "baseline_btc_above_90000": 0.5
+          "plan_entries": 1,
+          "paper_orders_created": 1,
+          "duplicate_orders_blocked": 0,
+          "risk_limit_orders_blocked": 0,
+          "exposure_summary": {
+            "open_positions": 1,
+            "settled_positions": 0,
+            "total_paper_notional": 100.0,
+            "open_paper_notional": 100.0,
+            "realized_paper_pnl": 0,
+            "unrealized_paper_pnl": 10.0
           },
-          "current_prices": {
-            "baseline_btc_above_90000": 0.55
-          },
-          "entries": [
-            {
-              "market_id": "baseline_btc_above_90000",
-              "asset": "BTC",
-              "side": "above",
-              "action": "paper_limit_order",
-              "limit_price": 0.5,
-              "paper_notional": 100.0,
-              "max_loss": 100.0,
-              "reason": "Baseline paper candidate."
-            }
-          ],
-          "settlements": []
+          "offline_only": true,
+          "paper_only": true,
+          "live_fetcher_implemented": false,
+          "execution_allowed": false,
+          "trading_allowed": false,
+          "real_order_created": false,
+          "wallet_used": false,
+          "api_used": false,
+          "network_used": false
         },
         {
           "snapshot_id": "baseline_snapshot_002",
           "observed_at": "2026-06-30T23:59:00Z",
-          "observed_prices": {},
-          "current_prices": {
-            "baseline_btc_above_90000": 1.0
+          "plan_entries": 0,
+          "paper_orders_created": 0,
+          "duplicate_orders_blocked": 0,
+          "risk_limit_orders_blocked": 0,
+          "exposure_summary": {
+            "open_positions": 0,
+            "settled_positions": 1,
+            "total_paper_notional": 100.0,
+            "open_paper_notional": 0,
+            "realized_paper_pnl": 100.0,
+            "unrealized_paper_pnl": 0
           },
-          "entries": [],
-          "settlements": [
-            {
-              "market_id": "baseline_btc_above_90000",
-              "side": "above",
-              "settlement_outcome": "yes"
-            }
-          ]
+          "offline_only": true,
+          "paper_only": true,
+          "live_fetcher_implemented": false,
+          "execution_allowed": false,
+          "trading_allowed": false,
+          "real_order_created": false,
+          "wallet_used": false,
+          "api_used": false,
+          "network_used": false
         }
-      ]
+      ],
+      "portfolio_events": [
+        {
+          "event_type": "paper_order_created",
+          "timestamp": "2026-06-01T12:00:00Z",
+          "market_id": "baseline_btc_above_90000",
+          "side": "above",
+          "limit_price": 0.5,
+          "fill_price": 0.5,
+          "paper_notional": 100.0,
+          "shares": 200.0,
+          "reason": "Paper candidate filled from local series fixture observed_yes_price.",
+          "offline_only": true,
+          "paper_only": true,
+          "live_fetcher_implemented": false,
+          "execution_allowed": false,
+          "trading_allowed": false,
+          "real_order_created": false,
+          "wallet_used": false,
+          "api_used": false,
+          "network_used": false
+        },
+        {
+          "event_type": "paper_position_settled",
+          "timestamp": "2026-06-30T23:59:00Z",
+          "market_id": "baseline_btc_above_90000",
+          "side": "above",
+          "settlement_outcome": "yes",
+          "paper_pnl": 100.0,
+          "offline_only": true,
+          "paper_only": true,
+          "live_fetcher_implemented": false,
+          "execution_allowed": false,
+          "trading_allowed": false,
+          "real_order_created": false,
+          "wallet_used": false,
+          "api_used": false,
+          "network_used": false
+        }
+      ],
+      "paper_positions": [
+        {
+          "market_id": "baseline_btc_above_90000",
+          "asset": "BTC",
+          "side": "above",
+          "status": "settled",
+          "opened_at": "2026-06-01T12:00:00Z",
+          "settled_at": "2026-06-30T23:59:00Z",
+          "fill_price": 0.5,
+          "shares": 200.0,
+          "paper_notional": 100.0,
+          "max_loss": 100.0,
+          "current_yes_price": 1.0,
+          "settled": true,
+          "settlement_outcome": "yes",
+          "settlement_value": 1.0,
+          "offline_only": true,
+          "paper_only": true,
+          "live_fetcher_implemented": false,
+          "execution_allowed": false,
+          "trading_allowed": false,
+          "real_order_created": false,
+          "wallet_used": false,
+          "api_used": false,
+          "network_used": false,
+          "paper_pnl": 100.0
+        }
+      ],
+      "offline_only": true,
+      "paper_only": true,
+      "live_fetcher_implemented": false,
+      "execution_allowed": false,
+      "trading_allowed": false,
+      "real_order_created": false,
+      "wallet_used": false,
+      "api_used": false,
+      "network_used": false
     },
     {
       "scenario_id": "duplicate_market_side_blocked",
@@ -72,54 +198,148 @@
         "max_orders_per_snapshot": 2,
         "max_open_positions": 3
       },
-      "snapshots": [
+      "scenario_summary": {
+        "snapshots_processed": 2,
+        "paper_orders_created": 1,
+        "duplicate_orders_blocked": 1,
+        "risk_limit_orders_blocked": 0,
+        "risk_limit_reason_counts": {},
+        "open_positions": 1,
+        "settled_positions": 0,
+        "total_paper_notional": 100.0,
+        "max_exposure": 100.0,
+        "realized_paper_pnl": 0,
+        "unrealized_paper_pnl": 12.0,
+        "bad_entries": 0,
+        "safety_flags_locked": true
+      },
+      "snapshot_reports": [
         {
           "snapshot_id": "duplicate_snapshot_001",
           "observed_at": "2026-06-01T12:00:00Z",
-          "observed_prices": {
-            "duplicate_btc_above_90000": 0.5
+          "plan_entries": 1,
+          "paper_orders_created": 1,
+          "duplicate_orders_blocked": 0,
+          "risk_limit_orders_blocked": 0,
+          "exposure_summary": {
+            "open_positions": 1,
+            "settled_positions": 0,
+            "total_paper_notional": 100.0,
+            "open_paper_notional": 100.0,
+            "realized_paper_pnl": 0,
+            "unrealized_paper_pnl": 8.0
           },
-          "current_prices": {
-            "duplicate_btc_above_90000": 0.54
-          },
-          "entries": [
-            {
-              "market_id": "duplicate_btc_above_90000",
-              "asset": "BTC",
-              "side": "above",
-              "action": "paper_limit_order",
-              "limit_price": 0.5,
-              "paper_notional": 100.0,
-              "max_loss": 100.0,
-              "reason": "First duplicate scenario candidate."
-            }
-          ],
-          "settlements": []
+          "offline_only": true,
+          "paper_only": true,
+          "live_fetcher_implemented": false,
+          "execution_allowed": false,
+          "trading_allowed": false,
+          "real_order_created": false,
+          "wallet_used": false,
+          "api_used": false,
+          "network_used": false
         },
         {
           "snapshot_id": "duplicate_snapshot_002",
           "observed_at": "2026-06-02T12:00:00Z",
-          "observed_prices": {
-            "duplicate_btc_above_90000": 0.49
+          "plan_entries": 1,
+          "paper_orders_created": 0,
+          "duplicate_orders_blocked": 1,
+          "risk_limit_orders_blocked": 0,
+          "exposure_summary": {
+            "open_positions": 1,
+            "settled_positions": 0,
+            "total_paper_notional": 100.0,
+            "open_paper_notional": 100.0,
+            "realized_paper_pnl": 0,
+            "unrealized_paper_pnl": 12.0
           },
-          "current_prices": {
-            "duplicate_btc_above_90000": 0.56
-          },
-          "entries": [
-            {
-              "market_id": "duplicate_btc_above_90000",
-              "asset": "BTC",
-              "side": "above",
-              "action": "paper_limit_order",
-              "limit_price": 0.5,
-              "paper_notional": 100.0,
-              "max_loss": 100.0,
-              "reason": "Duplicate market-side candidate."
-            }
-          ],
-          "settlements": []
+          "offline_only": true,
+          "paper_only": true,
+          "live_fetcher_implemented": false,
+          "execution_allowed": false,
+          "trading_allowed": false,
+          "real_order_created": false,
+          "wallet_used": false,
+          "api_used": false,
+          "network_used": false
         }
-      ]
+      ],
+      "portfolio_events": [
+        {
+          "event_type": "paper_order_created",
+          "timestamp": "2026-06-01T12:00:00Z",
+          "market_id": "duplicate_btc_above_90000",
+          "side": "above",
+          "limit_price": 0.5,
+          "fill_price": 0.5,
+          "paper_notional": 100.0,
+          "shares": 200.0,
+          "reason": "Paper candidate filled from local series fixture observed_yes_price.",
+          "offline_only": true,
+          "paper_only": true,
+          "live_fetcher_implemented": false,
+          "execution_allowed": false,
+          "trading_allowed": false,
+          "real_order_created": false,
+          "wallet_used": false,
+          "api_used": false,
+          "network_used": false
+        },
+        {
+          "event_type": "duplicate_paper_order_blocked",
+          "timestamp": "2026-06-02T12:00:00Z",
+          "market_id": "duplicate_btc_above_90000",
+          "side": "above",
+          "reason": "Paper position already exists for this market and side.",
+          "offline_only": true,
+          "paper_only": true,
+          "live_fetcher_implemented": false,
+          "execution_allowed": false,
+          "trading_allowed": false,
+          "real_order_created": false,
+          "wallet_used": false,
+          "api_used": false,
+          "network_used": false
+        }
+      ],
+      "paper_positions": [
+        {
+          "market_id": "duplicate_btc_above_90000",
+          "asset": "BTC",
+          "side": "above",
+          "status": "open",
+          "opened_at": "2026-06-01T12:00:00Z",
+          "settled_at": null,
+          "fill_price": 0.5,
+          "shares": 200.0,
+          "paper_notional": 100.0,
+          "max_loss": 100.0,
+          "current_yes_price": 0.56,
+          "settled": false,
+          "settlement_outcome": null,
+          "settlement_value": null,
+          "offline_only": true,
+          "paper_only": true,
+          "live_fetcher_implemented": false,
+          "execution_allowed": false,
+          "trading_allowed": false,
+          "real_order_created": false,
+          "wallet_used": false,
+          "api_used": false,
+          "network_used": false,
+          "paper_pnl": 12.0
+        }
+      ],
+      "offline_only": true,
+      "paper_only": true,
+      "live_fetcher_implemented": false,
+      "execution_allowed": false,
+      "trading_allowed": false,
+      "real_order_created": false,
+      "wallet_used": false,
+      "api_used": false,
+      "network_used": false
     },
     {
       "scenario_id": "total_exposure_breach_blocked",
@@ -134,55 +354,173 @@
         "max_orders_per_snapshot": 2,
         "max_open_positions": 3
       },
-      "snapshots": [
+      "scenario_summary": {
+        "snapshots_processed": 2,
+        "paper_orders_created": 1,
+        "duplicate_orders_blocked": 0,
+        "risk_limit_orders_blocked": 1,
+        "risk_limit_reason_counts": {
+          "max_total_paper_exposure_exceeded": 1
+        },
+        "open_positions": 1,
+        "settled_positions": 0,
+        "total_paper_notional": 100.0,
+        "max_exposure": 100.0,
+        "realized_paper_pnl": 0,
+        "unrealized_paper_pnl": 4.0,
+        "bad_entries": 0,
+        "safety_flags_locked": true
+      },
+      "snapshot_reports": [
         {
           "snapshot_id": "total_exposure_snapshot_001",
           "observed_at": "2026-06-01T12:00:00Z",
-          "observed_prices": {
-            "total_btc_above_90000": 0.5
+          "plan_entries": 1,
+          "paper_orders_created": 1,
+          "duplicate_orders_blocked": 0,
+          "risk_limit_orders_blocked": 0,
+          "exposure_summary": {
+            "open_positions": 1,
+            "settled_positions": 0,
+            "total_paper_notional": 100.0,
+            "open_paper_notional": 100.0,
+            "realized_paper_pnl": 0,
+            "unrealized_paper_pnl": 2.0
           },
-          "current_prices": {
-            "total_btc_above_90000": 0.51
-          },
-          "entries": [
-            {
-              "market_id": "total_btc_above_90000",
-              "asset": "BTC",
-              "side": "above",
-              "action": "paper_limit_order",
-              "limit_price": 0.5,
-              "paper_notional": 100.0,
-              "max_loss": 100.0,
-              "reason": "First total exposure candidate."
-            }
-          ],
-          "settlements": []
+          "offline_only": true,
+          "paper_only": true,
+          "live_fetcher_implemented": false,
+          "execution_allowed": false,
+          "trading_allowed": false,
+          "real_order_created": false,
+          "wallet_used": false,
+          "api_used": false,
+          "network_used": false
         },
         {
           "snapshot_id": "total_exposure_snapshot_002",
           "observed_at": "2026-06-02T12:00:00Z",
-          "observed_prices": {
-            "total_eth_below_3000": 0.5
+          "plan_entries": 1,
+          "paper_orders_created": 0,
+          "duplicate_orders_blocked": 0,
+          "risk_limit_orders_blocked": 1,
+          "exposure_summary": {
+            "open_positions": 1,
+            "settled_positions": 0,
+            "total_paper_notional": 100.0,
+            "open_paper_notional": 100.0,
+            "realized_paper_pnl": 0,
+            "unrealized_paper_pnl": 4.0
           },
-          "current_prices": {
-            "total_btc_above_90000": 0.52,
-            "total_eth_below_3000": 0.5
-          },
-          "entries": [
+          "offline_only": true,
+          "paper_only": true,
+          "live_fetcher_implemented": false,
+          "execution_allowed": false,
+          "trading_allowed": false,
+          "real_order_created": false,
+          "wallet_used": false,
+          "api_used": false,
+          "network_used": false
+        }
+      ],
+      "portfolio_events": [
+        {
+          "event_type": "paper_order_created",
+          "timestamp": "2026-06-01T12:00:00Z",
+          "market_id": "total_btc_above_90000",
+          "side": "above",
+          "limit_price": 0.5,
+          "fill_price": 0.5,
+          "paper_notional": 100.0,
+          "shares": 200.0,
+          "reason": "Paper candidate filled from local series fixture observed_yes_price.",
+          "offline_only": true,
+          "paper_only": true,
+          "live_fetcher_implemented": false,
+          "execution_allowed": false,
+          "trading_allowed": false,
+          "real_order_created": false,
+          "wallet_used": false,
+          "api_used": false,
+          "network_used": false
+        },
+        {
+          "event_type": "risk_limit_paper_order_blocked",
+          "timestamp": "2026-06-02T12:00:00Z",
+          "market_id": "total_eth_below_3000",
+          "asset": "ETH",
+          "side": "below",
+          "paper_notional": 100.0,
+          "reason": "Paper order would exceed max_total_paper_exposure.",
+          "reason_codes": [
+            "max_total_paper_exposure_exceeded"
+          ],
+          "risk_limit_reasons": [
             {
-              "market_id": "total_eth_below_3000",
-              "asset": "ETH",
-              "side": "below",
-              "action": "paper_limit_order",
-              "limit_price": 0.5,
-              "paper_notional": 100.0,
-              "max_loss": 100.0,
-              "reason": "Total exposure breach candidate."
+              "reason_code": "max_total_paper_exposure_exceeded",
+              "reason": "Paper order would exceed max_total_paper_exposure.",
+              "projected_value": 200.0,
+              "limit": 150.0
             }
           ],
-          "settlements": []
+          "portfolio_risk_limits": {
+            "schema_version": "v1",
+            "fixture_id": "total_exposure_limits",
+            "fixture_only": true,
+            "paper_only": true,
+            "max_total_paper_exposure": 150.0,
+            "max_asset_paper_exposure": 300.0,
+            "max_orders_per_snapshot": 2,
+            "max_open_positions": 3
+          },
+          "offline_only": true,
+          "paper_only": true,
+          "live_fetcher_implemented": false,
+          "execution_allowed": false,
+          "trading_allowed": false,
+          "real_order_created": false,
+          "wallet_used": false,
+          "api_used": false,
+          "network_used": false
         }
-      ]
+      ],
+      "paper_positions": [
+        {
+          "market_id": "total_btc_above_90000",
+          "asset": "BTC",
+          "side": "above",
+          "status": "open",
+          "opened_at": "2026-06-01T12:00:00Z",
+          "settled_at": null,
+          "fill_price": 0.5,
+          "shares": 200.0,
+          "paper_notional": 100.0,
+          "max_loss": 100.0,
+          "current_yes_price": 0.52,
+          "settled": false,
+          "settlement_outcome": null,
+          "settlement_value": null,
+          "offline_only": true,
+          "paper_only": true,
+          "live_fetcher_implemented": false,
+          "execution_allowed": false,
+          "trading_allowed": false,
+          "real_order_created": false,
+          "wallet_used": false,
+          "api_used": false,
+          "network_used": false,
+          "paper_pnl": 4.0
+        }
+      ],
+      "offline_only": true,
+      "paper_only": true,
+      "live_fetcher_implemented": false,
+      "execution_allowed": false,
+      "trading_allowed": false,
+      "real_order_created": false,
+      "wallet_used": false,
+      "api_used": false,
+      "network_used": false
     },
     {
       "scenario_id": "asset_exposure_breach_blocked",
@@ -197,55 +535,173 @@
         "max_orders_per_snapshot": 2,
         "max_open_positions": 3
       },
-      "snapshots": [
+      "scenario_summary": {
+        "snapshots_processed": 2,
+        "paper_orders_created": 1,
+        "duplicate_orders_blocked": 0,
+        "risk_limit_orders_blocked": 1,
+        "risk_limit_reason_counts": {
+          "max_asset_paper_exposure_exceeded": 1
+        },
+        "open_positions": 1,
+        "settled_positions": 0,
+        "total_paper_notional": 100.0,
+        "max_exposure": 100.0,
+        "realized_paper_pnl": 0,
+        "unrealized_paper_pnl": 4.0,
+        "bad_entries": 0,
+        "safety_flags_locked": true
+      },
+      "snapshot_reports": [
         {
           "snapshot_id": "asset_exposure_snapshot_001",
           "observed_at": "2026-06-01T12:00:00Z",
-          "observed_prices": {
-            "asset_btc_above_90000": 0.5
+          "plan_entries": 1,
+          "paper_orders_created": 1,
+          "duplicate_orders_blocked": 0,
+          "risk_limit_orders_blocked": 0,
+          "exposure_summary": {
+            "open_positions": 1,
+            "settled_positions": 0,
+            "total_paper_notional": 100.0,
+            "open_paper_notional": 100.0,
+            "realized_paper_pnl": 0,
+            "unrealized_paper_pnl": 2.0
           },
-          "current_prices": {
-            "asset_btc_above_90000": 0.51
-          },
-          "entries": [
-            {
-              "market_id": "asset_btc_above_90000",
-              "asset": "BTC",
-              "side": "above",
-              "action": "paper_limit_order",
-              "limit_price": 0.5,
-              "paper_notional": 100.0,
-              "max_loss": 100.0,
-              "reason": "First BTC asset exposure candidate."
-            }
-          ],
-          "settlements": []
+          "offline_only": true,
+          "paper_only": true,
+          "live_fetcher_implemented": false,
+          "execution_allowed": false,
+          "trading_allowed": false,
+          "real_order_created": false,
+          "wallet_used": false,
+          "api_used": false,
+          "network_used": false
         },
         {
           "snapshot_id": "asset_exposure_snapshot_002",
           "observed_at": "2026-06-02T12:00:00Z",
-          "observed_prices": {
-            "asset_btc_below_85000": 0.5
+          "plan_entries": 1,
+          "paper_orders_created": 0,
+          "duplicate_orders_blocked": 0,
+          "risk_limit_orders_blocked": 1,
+          "exposure_summary": {
+            "open_positions": 1,
+            "settled_positions": 0,
+            "total_paper_notional": 100.0,
+            "open_paper_notional": 100.0,
+            "realized_paper_pnl": 0,
+            "unrealized_paper_pnl": 4.0
           },
-          "current_prices": {
-            "asset_btc_above_90000": 0.52,
-            "asset_btc_below_85000": 0.5
-          },
-          "entries": [
+          "offline_only": true,
+          "paper_only": true,
+          "live_fetcher_implemented": false,
+          "execution_allowed": false,
+          "trading_allowed": false,
+          "real_order_created": false,
+          "wallet_used": false,
+          "api_used": false,
+          "network_used": false
+        }
+      ],
+      "portfolio_events": [
+        {
+          "event_type": "paper_order_created",
+          "timestamp": "2026-06-01T12:00:00Z",
+          "market_id": "asset_btc_above_90000",
+          "side": "above",
+          "limit_price": 0.5,
+          "fill_price": 0.5,
+          "paper_notional": 100.0,
+          "shares": 200.0,
+          "reason": "Paper candidate filled from local series fixture observed_yes_price.",
+          "offline_only": true,
+          "paper_only": true,
+          "live_fetcher_implemented": false,
+          "execution_allowed": false,
+          "trading_allowed": false,
+          "real_order_created": false,
+          "wallet_used": false,
+          "api_used": false,
+          "network_used": false
+        },
+        {
+          "event_type": "risk_limit_paper_order_blocked",
+          "timestamp": "2026-06-02T12:00:00Z",
+          "market_id": "asset_btc_below_85000",
+          "asset": "BTC",
+          "side": "below",
+          "paper_notional": 100.0,
+          "reason": "Paper order would exceed max_asset_paper_exposure.",
+          "reason_codes": [
+            "max_asset_paper_exposure_exceeded"
+          ],
+          "risk_limit_reasons": [
             {
-              "market_id": "asset_btc_below_85000",
-              "asset": "BTC",
-              "side": "below",
-              "action": "paper_limit_order",
-              "limit_price": 0.5,
-              "paper_notional": 100.0,
-              "max_loss": 100.0,
-              "reason": "BTC asset exposure breach candidate."
+              "reason_code": "max_asset_paper_exposure_exceeded",
+              "reason": "Paper order would exceed max_asset_paper_exposure.",
+              "projected_value": 200.0,
+              "limit": 150.0
             }
           ],
-          "settlements": []
+          "portfolio_risk_limits": {
+            "schema_version": "v1",
+            "fixture_id": "asset_exposure_limits",
+            "fixture_only": true,
+            "paper_only": true,
+            "max_total_paper_exposure": 300.0,
+            "max_asset_paper_exposure": 150.0,
+            "max_orders_per_snapshot": 2,
+            "max_open_positions": 3
+          },
+          "offline_only": true,
+          "paper_only": true,
+          "live_fetcher_implemented": false,
+          "execution_allowed": false,
+          "trading_allowed": false,
+          "real_order_created": false,
+          "wallet_used": false,
+          "api_used": false,
+          "network_used": false
         }
-      ]
+      ],
+      "paper_positions": [
+        {
+          "market_id": "asset_btc_above_90000",
+          "asset": "BTC",
+          "side": "above",
+          "status": "open",
+          "opened_at": "2026-06-01T12:00:00Z",
+          "settled_at": null,
+          "fill_price": 0.5,
+          "shares": 200.0,
+          "paper_notional": 100.0,
+          "max_loss": 100.0,
+          "current_yes_price": 0.52,
+          "settled": false,
+          "settlement_outcome": null,
+          "settlement_value": null,
+          "offline_only": true,
+          "paper_only": true,
+          "live_fetcher_implemented": false,
+          "execution_allowed": false,
+          "trading_allowed": false,
+          "real_order_created": false,
+          "wallet_used": false,
+          "api_used": false,
+          "network_used": false,
+          "paper_pnl": 4.0
+        }
+      ],
+      "offline_only": true,
+      "paper_only": true,
+      "live_fetcher_implemented": false,
+      "execution_allowed": false,
+      "trading_allowed": false,
+      "real_order_created": false,
+      "wallet_used": false,
+      "api_used": false,
+      "network_used": false
     },
     {
       "scenario_id": "max_orders_per_snapshot_breach_blocked",
@@ -260,43 +716,148 @@
         "max_orders_per_snapshot": 1,
         "max_open_positions": 3
       },
-      "snapshots": [
+      "scenario_summary": {
+        "snapshots_processed": 1,
+        "paper_orders_created": 1,
+        "duplicate_orders_blocked": 0,
+        "risk_limit_orders_blocked": 1,
+        "risk_limit_reason_counts": {
+          "max_orders_per_snapshot_exceeded": 1
+        },
+        "open_positions": 1,
+        "settled_positions": 0,
+        "total_paper_notional": 100.0,
+        "max_exposure": 100.0,
+        "realized_paper_pnl": 0,
+        "unrealized_paper_pnl": 2.0,
+        "bad_entries": 0,
+        "safety_flags_locked": true
+      },
+      "snapshot_reports": [
         {
           "snapshot_id": "max_orders_snapshot_001",
           "observed_at": "2026-06-01T12:00:00Z",
-          "observed_prices": {
-            "orders_btc_above_90000": 0.5,
-            "orders_eth_below_3000": 0.5
+          "plan_entries": 2,
+          "paper_orders_created": 1,
+          "duplicate_orders_blocked": 0,
+          "risk_limit_orders_blocked": 1,
+          "exposure_summary": {
+            "open_positions": 1,
+            "settled_positions": 0,
+            "total_paper_notional": 100.0,
+            "open_paper_notional": 100.0,
+            "realized_paper_pnl": 0,
+            "unrealized_paper_pnl": 2.0
           },
-          "current_prices": {
-            "orders_btc_above_90000": 0.51,
-            "orders_eth_below_3000": 0.5
-          },
-          "entries": [
+          "offline_only": true,
+          "paper_only": true,
+          "live_fetcher_implemented": false,
+          "execution_allowed": false,
+          "trading_allowed": false,
+          "real_order_created": false,
+          "wallet_used": false,
+          "api_used": false,
+          "network_used": false
+        }
+      ],
+      "portfolio_events": [
+        {
+          "event_type": "paper_order_created",
+          "timestamp": "2026-06-01T12:00:00Z",
+          "market_id": "orders_btc_above_90000",
+          "side": "above",
+          "limit_price": 0.5,
+          "fill_price": 0.5,
+          "paper_notional": 100.0,
+          "shares": 200.0,
+          "reason": "Paper candidate filled from local series fixture observed_yes_price.",
+          "offline_only": true,
+          "paper_only": true,
+          "live_fetcher_implemented": false,
+          "execution_allowed": false,
+          "trading_allowed": false,
+          "real_order_created": false,
+          "wallet_used": false,
+          "api_used": false,
+          "network_used": false
+        },
+        {
+          "event_type": "risk_limit_paper_order_blocked",
+          "timestamp": "2026-06-01T12:00:00Z",
+          "market_id": "orders_eth_below_3000",
+          "asset": "ETH",
+          "side": "below",
+          "paper_notional": 100.0,
+          "reason": "Paper order would exceed max_orders_per_snapshot.",
+          "reason_codes": [
+            "max_orders_per_snapshot_exceeded"
+          ],
+          "risk_limit_reasons": [
             {
-              "market_id": "orders_btc_above_90000",
-              "asset": "BTC",
-              "side": "above",
-              "action": "paper_limit_order",
-              "limit_price": 0.5,
-              "paper_notional": 100.0,
-              "max_loss": 100.0,
-              "reason": "First same-snapshot candidate."
-            },
-            {
-              "market_id": "orders_eth_below_3000",
-              "asset": "ETH",
-              "side": "below",
-              "action": "paper_limit_order",
-              "limit_price": 0.5,
-              "paper_notional": 100.0,
-              "max_loss": 100.0,
-              "reason": "Second same-snapshot candidate."
+              "reason_code": "max_orders_per_snapshot_exceeded",
+              "reason": "Paper order would exceed max_orders_per_snapshot.",
+              "projected_value": 2,
+              "limit": 1
             }
           ],
-          "settlements": []
+          "portfolio_risk_limits": {
+            "schema_version": "v1",
+            "fixture_id": "max_orders_limits",
+            "fixture_only": true,
+            "paper_only": true,
+            "max_total_paper_exposure": 300.0,
+            "max_asset_paper_exposure": 300.0,
+            "max_orders_per_snapshot": 1,
+            "max_open_positions": 3
+          },
+          "offline_only": true,
+          "paper_only": true,
+          "live_fetcher_implemented": false,
+          "execution_allowed": false,
+          "trading_allowed": false,
+          "real_order_created": false,
+          "wallet_used": false,
+          "api_used": false,
+          "network_used": false
         }
-      ]
+      ],
+      "paper_positions": [
+        {
+          "market_id": "orders_btc_above_90000",
+          "asset": "BTC",
+          "side": "above",
+          "status": "open",
+          "opened_at": "2026-06-01T12:00:00Z",
+          "settled_at": null,
+          "fill_price": 0.5,
+          "shares": 200.0,
+          "paper_notional": 100.0,
+          "max_loss": 100.0,
+          "current_yes_price": 0.51,
+          "settled": false,
+          "settlement_outcome": null,
+          "settlement_value": null,
+          "offline_only": true,
+          "paper_only": true,
+          "live_fetcher_implemented": false,
+          "execution_allowed": false,
+          "trading_allowed": false,
+          "real_order_created": false,
+          "wallet_used": false,
+          "api_used": false,
+          "network_used": false,
+          "paper_pnl": 2.0
+        }
+      ],
+      "offline_only": true,
+      "paper_only": true,
+      "live_fetcher_implemented": false,
+      "execution_allowed": false,
+      "trading_allowed": false,
+      "real_order_created": false,
+      "wallet_used": false,
+      "api_used": false,
+      "network_used": false
     },
     {
       "scenario_id": "max_open_positions_breach_blocked",
@@ -311,55 +872,173 @@
         "max_orders_per_snapshot": 2,
         "max_open_positions": 1
       },
-      "snapshots": [
+      "scenario_summary": {
+        "snapshots_processed": 2,
+        "paper_orders_created": 1,
+        "duplicate_orders_blocked": 0,
+        "risk_limit_orders_blocked": 1,
+        "risk_limit_reason_counts": {
+          "max_open_positions_exceeded": 1
+        },
+        "open_positions": 1,
+        "settled_positions": 0,
+        "total_paper_notional": 100.0,
+        "max_exposure": 100.0,
+        "realized_paper_pnl": 0,
+        "unrealized_paper_pnl": 4.0,
+        "bad_entries": 0,
+        "safety_flags_locked": true
+      },
+      "snapshot_reports": [
         {
           "snapshot_id": "open_positions_snapshot_001",
           "observed_at": "2026-06-01T12:00:00Z",
-          "observed_prices": {
-            "open_btc_above_90000": 0.5
+          "plan_entries": 1,
+          "paper_orders_created": 1,
+          "duplicate_orders_blocked": 0,
+          "risk_limit_orders_blocked": 0,
+          "exposure_summary": {
+            "open_positions": 1,
+            "settled_positions": 0,
+            "total_paper_notional": 100.0,
+            "open_paper_notional": 100.0,
+            "realized_paper_pnl": 0,
+            "unrealized_paper_pnl": 2.0
           },
-          "current_prices": {
-            "open_btc_above_90000": 0.51
-          },
-          "entries": [
-            {
-              "market_id": "open_btc_above_90000",
-              "asset": "BTC",
-              "side": "above",
-              "action": "paper_limit_order",
-              "limit_price": 0.5,
-              "paper_notional": 100.0,
-              "max_loss": 100.0,
-              "reason": "First open-position candidate."
-            }
-          ],
-          "settlements": []
+          "offline_only": true,
+          "paper_only": true,
+          "live_fetcher_implemented": false,
+          "execution_allowed": false,
+          "trading_allowed": false,
+          "real_order_created": false,
+          "wallet_used": false,
+          "api_used": false,
+          "network_used": false
         },
         {
           "snapshot_id": "open_positions_snapshot_002",
           "observed_at": "2026-06-02T12:00:00Z",
-          "observed_prices": {
-            "open_eth_below_3000": 0.5
+          "plan_entries": 1,
+          "paper_orders_created": 0,
+          "duplicate_orders_blocked": 0,
+          "risk_limit_orders_blocked": 1,
+          "exposure_summary": {
+            "open_positions": 1,
+            "settled_positions": 0,
+            "total_paper_notional": 100.0,
+            "open_paper_notional": 100.0,
+            "realized_paper_pnl": 0,
+            "unrealized_paper_pnl": 4.0
           },
-          "current_prices": {
-            "open_btc_above_90000": 0.52,
-            "open_eth_below_3000": 0.5
-          },
-          "entries": [
+          "offline_only": true,
+          "paper_only": true,
+          "live_fetcher_implemented": false,
+          "execution_allowed": false,
+          "trading_allowed": false,
+          "real_order_created": false,
+          "wallet_used": false,
+          "api_used": false,
+          "network_used": false
+        }
+      ],
+      "portfolio_events": [
+        {
+          "event_type": "paper_order_created",
+          "timestamp": "2026-06-01T12:00:00Z",
+          "market_id": "open_btc_above_90000",
+          "side": "above",
+          "limit_price": 0.5,
+          "fill_price": 0.5,
+          "paper_notional": 100.0,
+          "shares": 200.0,
+          "reason": "Paper candidate filled from local series fixture observed_yes_price.",
+          "offline_only": true,
+          "paper_only": true,
+          "live_fetcher_implemented": false,
+          "execution_allowed": false,
+          "trading_allowed": false,
+          "real_order_created": false,
+          "wallet_used": false,
+          "api_used": false,
+          "network_used": false
+        },
+        {
+          "event_type": "risk_limit_paper_order_blocked",
+          "timestamp": "2026-06-02T12:00:00Z",
+          "market_id": "open_eth_below_3000",
+          "asset": "ETH",
+          "side": "below",
+          "paper_notional": 100.0,
+          "reason": "Paper order would exceed max_open_positions.",
+          "reason_codes": [
+            "max_open_positions_exceeded"
+          ],
+          "risk_limit_reasons": [
             {
-              "market_id": "open_eth_below_3000",
-              "asset": "ETH",
-              "side": "below",
-              "action": "paper_limit_order",
-              "limit_price": 0.5,
-              "paper_notional": 100.0,
-              "max_loss": 100.0,
-              "reason": "Max open-position breach candidate."
+              "reason_code": "max_open_positions_exceeded",
+              "reason": "Paper order would exceed max_open_positions.",
+              "projected_value": 2,
+              "limit": 1
             }
           ],
-          "settlements": []
+          "portfolio_risk_limits": {
+            "schema_version": "v1",
+            "fixture_id": "max_open_positions_limits",
+            "fixture_only": true,
+            "paper_only": true,
+            "max_total_paper_exposure": 300.0,
+            "max_asset_paper_exposure": 300.0,
+            "max_orders_per_snapshot": 2,
+            "max_open_positions": 1
+          },
+          "offline_only": true,
+          "paper_only": true,
+          "live_fetcher_implemented": false,
+          "execution_allowed": false,
+          "trading_allowed": false,
+          "real_order_created": false,
+          "wallet_used": false,
+          "api_used": false,
+          "network_used": false
         }
-      ]
+      ],
+      "paper_positions": [
+        {
+          "market_id": "open_btc_above_90000",
+          "asset": "BTC",
+          "side": "above",
+          "status": "open",
+          "opened_at": "2026-06-01T12:00:00Z",
+          "settled_at": null,
+          "fill_price": 0.5,
+          "shares": 200.0,
+          "paper_notional": 100.0,
+          "max_loss": 100.0,
+          "current_yes_price": 0.52,
+          "settled": false,
+          "settlement_outcome": null,
+          "settlement_value": null,
+          "offline_only": true,
+          "paper_only": true,
+          "live_fetcher_implemented": false,
+          "execution_allowed": false,
+          "trading_allowed": false,
+          "real_order_created": false,
+          "wallet_used": false,
+          "api_used": false,
+          "network_used": false,
+          "paper_pnl": 4.0
+        }
+      ],
+      "offline_only": true,
+      "paper_only": true,
+      "live_fetcher_implemented": false,
+      "execution_allowed": false,
+      "trading_allowed": false,
+      "real_order_created": false,
+      "wallet_used": false,
+      "api_used": false,
+      "network_used": false
     },
     {
       "scenario_id": "mixed_allowed_and_blocked_orders",
@@ -374,78 +1053,242 @@
         "max_orders_per_snapshot": 1,
         "max_open_positions": 3
       },
-      "snapshots": [
+      "scenario_summary": {
+        "snapshots_processed": 2,
+        "paper_orders_created": 1,
+        "duplicate_orders_blocked": 1,
+        "risk_limit_orders_blocked": 2,
+        "risk_limit_reason_counts": {
+          "max_total_paper_exposure_exceeded": 2,
+          "max_orders_per_snapshot_exceeded": 1
+        },
+        "open_positions": 1,
+        "settled_positions": 0,
+        "total_paper_notional": 100.0,
+        "max_exposure": 100.0,
+        "realized_paper_pnl": 0,
+        "unrealized_paper_pnl": 4.0,
+        "bad_entries": 0,
+        "safety_flags_locked": true
+      },
+      "snapshot_reports": [
         {
           "snapshot_id": "mixed_snapshot_001",
           "observed_at": "2026-06-01T12:00:00Z",
-          "observed_prices": {
-            "mixed_btc_above_90000": 0.5,
-            "mixed_eth_below_3000": 0.5
+          "plan_entries": 2,
+          "paper_orders_created": 1,
+          "duplicate_orders_blocked": 0,
+          "risk_limit_orders_blocked": 1,
+          "exposure_summary": {
+            "open_positions": 1,
+            "settled_positions": 0,
+            "total_paper_notional": 100.0,
+            "open_paper_notional": 100.0,
+            "realized_paper_pnl": 0,
+            "unrealized_paper_pnl": 2.0
           },
-          "current_prices": {
-            "mixed_btc_above_90000": 0.51,
-            "mixed_eth_below_3000": 0.5
-          },
-          "entries": [
-            {
-              "market_id": "mixed_btc_above_90000",
-              "asset": "BTC",
-              "side": "above",
-              "action": "paper_limit_order",
-              "limit_price": 0.5,
-              "paper_notional": 100.0,
-              "max_loss": 100.0,
-              "reason": "Allowed mixed scenario candidate."
-            },
-            {
-              "market_id": "mixed_eth_below_3000",
-              "asset": "ETH",
-              "side": "below",
-              "action": "paper_limit_order",
-              "limit_price": 0.5,
-              "paper_notional": 100.0,
-              "max_loss": 100.0,
-              "reason": "Per-snapshot mixed scenario breach candidate."
-            }
-          ],
-          "settlements": []
+          "offline_only": true,
+          "paper_only": true,
+          "live_fetcher_implemented": false,
+          "execution_allowed": false,
+          "trading_allowed": false,
+          "real_order_created": false,
+          "wallet_used": false,
+          "api_used": false,
+          "network_used": false
         },
         {
           "snapshot_id": "mixed_snapshot_002",
           "observed_at": "2026-06-02T12:00:00Z",
-          "observed_prices": {
-            "mixed_btc_above_90000": 0.49,
-            "mixed_sol_above_200": 0.5
+          "plan_entries": 2,
+          "paper_orders_created": 0,
+          "duplicate_orders_blocked": 1,
+          "risk_limit_orders_blocked": 1,
+          "exposure_summary": {
+            "open_positions": 1,
+            "settled_positions": 0,
+            "total_paper_notional": 100.0,
+            "open_paper_notional": 100.0,
+            "realized_paper_pnl": 0,
+            "unrealized_paper_pnl": 4.0
           },
-          "current_prices": {
-            "mixed_btc_above_90000": 0.52,
-            "mixed_sol_above_200": 0.5
-          },
-          "entries": [
+          "offline_only": true,
+          "paper_only": true,
+          "live_fetcher_implemented": false,
+          "execution_allowed": false,
+          "trading_allowed": false,
+          "real_order_created": false,
+          "wallet_used": false,
+          "api_used": false,
+          "network_used": false
+        }
+      ],
+      "portfolio_events": [
+        {
+          "event_type": "paper_order_created",
+          "timestamp": "2026-06-01T12:00:00Z",
+          "market_id": "mixed_btc_above_90000",
+          "side": "above",
+          "limit_price": 0.5,
+          "fill_price": 0.5,
+          "paper_notional": 100.0,
+          "shares": 200.0,
+          "reason": "Paper candidate filled from local series fixture observed_yes_price.",
+          "offline_only": true,
+          "paper_only": true,
+          "live_fetcher_implemented": false,
+          "execution_allowed": false,
+          "trading_allowed": false,
+          "real_order_created": false,
+          "wallet_used": false,
+          "api_used": false,
+          "network_used": false
+        },
+        {
+          "event_type": "risk_limit_paper_order_blocked",
+          "timestamp": "2026-06-01T12:00:00Z",
+          "market_id": "mixed_eth_below_3000",
+          "asset": "ETH",
+          "side": "below",
+          "paper_notional": 100.0,
+          "reason": "Paper order would exceed max_total_paper_exposure.; Paper order would exceed max_orders_per_snapshot.",
+          "reason_codes": [
+            "max_total_paper_exposure_exceeded",
+            "max_orders_per_snapshot_exceeded"
+          ],
+          "risk_limit_reasons": [
             {
-              "market_id": "mixed_btc_above_90000",
-              "asset": "BTC",
-              "side": "above",
-              "action": "paper_limit_order",
-              "limit_price": 0.5,
-              "paper_notional": 100.0,
-              "max_loss": 100.0,
-              "reason": "Duplicate mixed scenario candidate."
+              "reason_code": "max_total_paper_exposure_exceeded",
+              "reason": "Paper order would exceed max_total_paper_exposure.",
+              "projected_value": 200.0,
+              "limit": 150.0
             },
             {
-              "market_id": "mixed_sol_above_200",
-              "asset": "SOL",
-              "side": "above",
-              "action": "paper_limit_order",
-              "limit_price": 0.5,
-              "paper_notional": 100.0,
-              "max_loss": 100.0,
-              "reason": "Total exposure mixed scenario breach candidate."
+              "reason_code": "max_orders_per_snapshot_exceeded",
+              "reason": "Paper order would exceed max_orders_per_snapshot.",
+              "projected_value": 2,
+              "limit": 1
             }
           ],
-          "settlements": []
+          "portfolio_risk_limits": {
+            "schema_version": "v1",
+            "fixture_id": "mixed_limits",
+            "fixture_only": true,
+            "paper_only": true,
+            "max_total_paper_exposure": 150.0,
+            "max_asset_paper_exposure": 300.0,
+            "max_orders_per_snapshot": 1,
+            "max_open_positions": 3
+          },
+          "offline_only": true,
+          "paper_only": true,
+          "live_fetcher_implemented": false,
+          "execution_allowed": false,
+          "trading_allowed": false,
+          "real_order_created": false,
+          "wallet_used": false,
+          "api_used": false,
+          "network_used": false
+        },
+        {
+          "event_type": "duplicate_paper_order_blocked",
+          "timestamp": "2026-06-02T12:00:00Z",
+          "market_id": "mixed_btc_above_90000",
+          "side": "above",
+          "reason": "Paper position already exists for this market and side.",
+          "offline_only": true,
+          "paper_only": true,
+          "live_fetcher_implemented": false,
+          "execution_allowed": false,
+          "trading_allowed": false,
+          "real_order_created": false,
+          "wallet_used": false,
+          "api_used": false,
+          "network_used": false
+        },
+        {
+          "event_type": "risk_limit_paper_order_blocked",
+          "timestamp": "2026-06-02T12:00:00Z",
+          "market_id": "mixed_sol_above_200",
+          "asset": "SOL",
+          "side": "above",
+          "paper_notional": 100.0,
+          "reason": "Paper order would exceed max_total_paper_exposure.",
+          "reason_codes": [
+            "max_total_paper_exposure_exceeded"
+          ],
+          "risk_limit_reasons": [
+            {
+              "reason_code": "max_total_paper_exposure_exceeded",
+              "reason": "Paper order would exceed max_total_paper_exposure.",
+              "projected_value": 200.0,
+              "limit": 150.0
+            }
+          ],
+          "portfolio_risk_limits": {
+            "schema_version": "v1",
+            "fixture_id": "mixed_limits",
+            "fixture_only": true,
+            "paper_only": true,
+            "max_total_paper_exposure": 150.0,
+            "max_asset_paper_exposure": 300.0,
+            "max_orders_per_snapshot": 1,
+            "max_open_positions": 3
+          },
+          "offline_only": true,
+          "paper_only": true,
+          "live_fetcher_implemented": false,
+          "execution_allowed": false,
+          "trading_allowed": false,
+          "real_order_created": false,
+          "wallet_used": false,
+          "api_used": false,
+          "network_used": false
         }
-      ]
+      ],
+      "paper_positions": [
+        {
+          "market_id": "mixed_btc_above_90000",
+          "asset": "BTC",
+          "side": "above",
+          "status": "open",
+          "opened_at": "2026-06-01T12:00:00Z",
+          "settled_at": null,
+          "fill_price": 0.5,
+          "shares": 200.0,
+          "paper_notional": 100.0,
+          "max_loss": 100.0,
+          "current_yes_price": 0.52,
+          "settled": false,
+          "settlement_outcome": null,
+          "settlement_value": null,
+          "offline_only": true,
+          "paper_only": true,
+          "live_fetcher_implemented": false,
+          "execution_allowed": false,
+          "trading_allowed": false,
+          "real_order_created": false,
+          "wallet_used": false,
+          "api_used": false,
+          "network_used": false,
+          "paper_pnl": 4.0
+        }
+      ],
+      "offline_only": true,
+      "paper_only": true,
+      "live_fetcher_implemented": false,
+      "execution_allowed": false,
+      "trading_allowed": false,
+      "real_order_created": false,
+      "wallet_used": false,
+      "api_used": false,
+      "network_used": false
     }
-  ]
+  ],
+  "limitations": [
+    "Uses local fixture scenario series only; no live fetcher, network, external API, credentials, wallet access, real orders, or live trading is included.",
+    "Scenario entries are deterministic paper plan artifacts replayed through the same local portfolio duplicate, risk-limit, fill, carry-forward, settlement, exposure, and PnL behavior.",
+    "No runtime integration, command-routing changes, prompt automation, broad refactor, or new validation layer is included."
+  ],
+  "review_note": "Offline paper portfolio risk scenario coverage for deterministic local review only."
 }

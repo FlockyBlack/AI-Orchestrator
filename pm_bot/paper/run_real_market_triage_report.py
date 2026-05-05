@@ -8,7 +8,8 @@ from pathlib import Path
 
 TASK_ID = "PMBOT-BRAIN-032-REAL-GAMMA-CRYPTO-NUMERIC-ADAPTER"
 SCHEMA_VERSION = "v1"
-DEFAULT_SOURCE = Path(r"C:\Users\OpenC\Documents\AI-Orchestrator\local_snapshots\polymarket_markets_active_001.json")
+REPO_ROOT = Path(__file__).resolve().parents[2]
+DEFAULT_SOURCE = REPO_ROOT / "local_snapshots" / "polymarket_markets_active_001.json"
 TOP_CANDIDATE_LIMIT = 10
 SAFETY_FLAGS = {
     "offline_only": True,

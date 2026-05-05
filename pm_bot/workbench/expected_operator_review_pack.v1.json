@@ -672,64 +672,44 @@
     "source_path": "pm_bot/quality/artifact_health_report.v1.json",
     "quality_report_status": "health_passed_with_warnings",
     "quality_report_load_status": "parsed",
-    "total_warnings": 149,
+    "total_warnings": 59,
     "blocking_warnings": 0,
-    "action_required_warnings": 123,
-    "review_needed_warnings": 25,
+    "action_required_warnings": 21,
+    "review_needed_warnings": 37,
     "informational_warnings": 1,
     "blocking_warning_detected": false,
     "warnings_by_owner": {
       "code": 0,
-      "fixture": 103,
-      "schema": 25,
-      "data": 21,
+      "fixture": 1,
+      "schema": 26,
+      "data": 32,
       "unknown": 0
     },
     "warnings_by_action_type": {
-      "fix_required": 123,
-      "review_required": 25,
+      "fix_required": 21,
+      "review_required": 37,
       "ignore_allowed": 1
     },
     "warning_categories": [
       {
-        "category": "expected_fixture_alignment_warning",
-        "severity": "action_required",
-        "count": 51,
+        "category": "embedded_artifact_pointer_warning",
+        "severity": "review_needed",
+        "count": 26,
         "severity_counts": {
           "blocking": 0,
-          "action_required": 51,
-          "review_needed": 0,
+          "action_required": 0,
+          "review_needed": 26,
           "informational": 0
         },
-        "owner": "fixture",
-        "action_type": "fix_required",
+        "owner": "data",
+        "action_type": "review_required",
         "action_type_counts": {
-          "fix_required": 51,
-          "review_required": 0,
+          "fix_required": 0,
+          "review_required": 26,
           "ignore_allowed": 0
         },
-        "recommended_action": "align expected fixture",
-        "operator_bucket": "artifact has an expected fixture alignment warning"
-      },
-      {
-        "category": "fixture_alignment_actual_missing",
-        "severity": "action_required",
-        "count": 50,
-        "severity_counts": {
-          "blocking": 0,
-          "action_required": 50,
-          "review_needed": 0,
-          "informational": 0
-        },
-        "owner": "fixture",
-        "action_type": "fix_required",
-        "action_type_counts": {
-          "fix_required": 50,
-          "review_required": 0,
-          "ignore_allowed": 0
-        },
-        "recommended_action": "create missing actual artifact",
-        "operator_bucket": "expected fixture exists but actual artifact is missing"
+        "recommended_action": "remove stale embedded pointer",
+        "operator_bucket": "embedded artifact pointer needs inspection"
       },
       {
         "category": "schema_version_missing",
@@ -752,26 +732,6 @@
         "operator_bucket": "schema version metadata missing"
       },
       {
-        "category": "embedded_artifact_pointer_warning",
-        "severity": "review_needed",
-        "count": 15,
-        "severity_counts": {
-          "blocking": 0,
-          "action_required": 0,
-          "review_needed": 15,
-          "informational": 0
-        },
-        "owner": "data",
-        "action_type": "review_required",
-        "action_type_counts": {
-          "fix_required": 0,
-          "review_required": 15,
-          "ignore_allowed": 0
-        },
-        "recommended_action": "remove stale embedded pointer",
-        "operator_bucket": "embedded artifact pointer needs inspection"
-      },
-      {
         "category": "stale_reference_warning",
         "severity": "review_needed",
         "count": 6,
@@ -792,6 +752,26 @@
         "operator_bucket": "historical or stale reference needs inspection"
       },
       {
+        "category": "json_top_level_not_object",
+        "severity": "review_needed",
+        "count": 4,
+        "severity_counts": {
+          "blocking": 0,
+          "action_required": 0,
+          "review_needed": 4,
+          "informational": 0
+        },
+        "owner": "schema",
+        "action_type": "review_required",
+        "action_type_counts": {
+          "fix_required": 0,
+          "review_required": 4,
+          "ignore_allowed": 0
+        },
+        "recommended_action": "review non-object JSON artifact",
+        "operator_bucket": "JSON artifact is intentionally or structurally non-object"
+      },
+      {
         "category": "task_id_missing",
         "severity": "action_required",
         "count": 3,
@@ -810,46 +790,6 @@
         },
         "recommended_action": "add task_id to artifact",
         "operator_bucket": "task_id metadata missing"
-      },
-      {
-        "category": "json_top_level_not_object",
-        "severity": "review_needed",
-        "count": 3,
-        "severity_counts": {
-          "blocking": 0,
-          "action_required": 0,
-          "review_needed": 3,
-          "informational": 0
-        },
-        "owner": "schema",
-        "action_type": "review_required",
-        "action_type_counts": {
-          "fix_required": 0,
-          "review_required": 3,
-          "ignore_allowed": 0
-        },
-        "recommended_action": "review non-object JSON artifact",
-        "operator_bucket": "JSON artifact is intentionally or structurally non-object"
-      },
-      {
-        "category": "fixture_alignment_mismatch",
-        "severity": "action_required",
-        "count": 1,
-        "severity_counts": {
-          "blocking": 0,
-          "action_required": 1,
-          "review_needed": 0,
-          "informational": 0
-        },
-        "owner": "fixture",
-        "action_type": "fix_required",
-        "action_type_counts": {
-          "fix_required": 1,
-          "review_required": 0,
-          "ignore_allowed": 0
-        },
-        "recommended_action": "align expected fixture",
-        "operator_bucket": "expected fixture differs from actual artifact"
       },
       {
         "category": "known_intentional_malformed_fixture_parse_failure",
@@ -874,44 +814,24 @@
     ],
     "top_warning_categories": [
       {
-        "category": "expected_fixture_alignment_warning",
-        "severity": "action_required",
-        "count": 51,
+        "category": "embedded_artifact_pointer_warning",
+        "severity": "review_needed",
+        "count": 26,
         "severity_counts": {
           "blocking": 0,
-          "action_required": 51,
-          "review_needed": 0,
+          "action_required": 0,
+          "review_needed": 26,
           "informational": 0
         },
-        "owner": "fixture",
-        "action_type": "fix_required",
+        "owner": "data",
+        "action_type": "review_required",
         "action_type_counts": {
-          "fix_required": 51,
-          "review_required": 0,
+          "fix_required": 0,
+          "review_required": 26,
           "ignore_allowed": 0
         },
-        "recommended_action": "align expected fixture",
-        "operator_bucket": "artifact has an expected fixture alignment warning"
-      },
-      {
-        "category": "fixture_alignment_actual_missing",
-        "severity": "action_required",
-        "count": 50,
-        "severity_counts": {
-          "blocking": 0,
-          "action_required": 50,
-          "review_needed": 0,
-          "informational": 0
-        },
-        "owner": "fixture",
-        "action_type": "fix_required",
-        "action_type_counts": {
-          "fix_required": 50,
-          "review_required": 0,
-          "ignore_allowed": 0
-        },
-        "recommended_action": "create missing actual artifact",
-        "operator_bucket": "expected fixture exists but actual artifact is missing"
+        "recommended_action": "remove stale embedded pointer",
+        "operator_bucket": "embedded artifact pointer needs inspection"
       },
       {
         "category": "schema_version_missing",
@@ -934,26 +854,6 @@
         "operator_bucket": "schema version metadata missing"
       },
       {
-        "category": "embedded_artifact_pointer_warning",
-        "severity": "review_needed",
-        "count": 15,
-        "severity_counts": {
-          "blocking": 0,
-          "action_required": 0,
-          "review_needed": 15,
-          "informational": 0
-        },
-        "owner": "data",
-        "action_type": "review_required",
-        "action_type_counts": {
-          "fix_required": 0,
-          "review_required": 15,
-          "ignore_allowed": 0
-        },
-        "recommended_action": "remove stale embedded pointer",
-        "operator_bucket": "embedded artifact pointer needs inspection"
-      },
-      {
         "category": "stale_reference_warning",
         "severity": "review_needed",
         "count": 6,
@@ -972,24 +872,56 @@
         },
         "recommended_action": "remove stale embedded reference",
         "operator_bucket": "historical or stale reference needs inspection"
+      },
+      {
+        "category": "json_top_level_not_object",
+        "severity": "review_needed",
+        "count": 4,
+        "severity_counts": {
+          "blocking": 0,
+          "action_required": 0,
+          "review_needed": 4,
+          "informational": 0
+        },
+        "owner": "schema",
+        "action_type": "review_required",
+        "action_type_counts": {
+          "fix_required": 0,
+          "review_required": 4,
+          "ignore_allowed": 0
+        },
+        "recommended_action": "review non-object JSON artifact",
+        "operator_bucket": "JSON artifact is intentionally or structurally non-object"
+      },
+      {
+        "category": "task_id_missing",
+        "severity": "action_required",
+        "count": 3,
+        "severity_counts": {
+          "blocking": 0,
+          "action_required": 3,
+          "review_needed": 0,
+          "informational": 0
+        },
+        "owner": "schema",
+        "action_type": "fix_required",
+        "action_type_counts": {
+          "fix_required": 3,
+          "review_required": 0,
+          "ignore_allowed": 0
+        },
+        "recommended_action": "add task_id to artifact",
+        "operator_bucket": "task_id metadata missing"
       }
     ],
     "top_action_items": [
       {
-        "category": "expected_fixture_alignment_warning",
-        "severity": "action_required",
-        "count": 51,
-        "owner": "fixture",
-        "action_type": "fix_required",
-        "recommended_action": "align expected fixture"
-      },
-      {
-        "category": "fixture_alignment_actual_missing",
-        "severity": "action_required",
-        "count": 50,
-        "owner": "fixture",
-        "action_type": "fix_required",
-        "recommended_action": "create missing actual artifact"
+        "category": "embedded_artifact_pointer_warning",
+        "severity": "review_needed",
+        "count": 26,
+        "owner": "data",
+        "action_type": "review_required",
+        "recommended_action": "remove stale embedded pointer"
       },
       {
         "category": "schema_version_missing",
@@ -1000,20 +932,28 @@
         "recommended_action": "add schema_version to artifact"
       },
       {
-        "category": "embedded_artifact_pointer_warning",
-        "severity": "review_needed",
-        "count": 15,
-        "owner": "data",
-        "action_type": "review_required",
-        "recommended_action": "remove stale embedded pointer"
-      },
-      {
         "category": "stale_reference_warning",
         "severity": "review_needed",
         "count": 6,
         "owner": "data",
         "action_type": "review_required",
         "recommended_action": "remove stale embedded reference"
+      },
+      {
+        "category": "json_top_level_not_object",
+        "severity": "review_needed",
+        "count": 4,
+        "owner": "schema",
+        "action_type": "review_required",
+        "recommended_action": "review non-object JSON artifact"
+      },
+      {
+        "category": "task_id_missing",
+        "severity": "action_required",
+        "count": 3,
+        "owner": "schema",
+        "action_type": "fix_required",
+        "recommended_action": "add task_id to artifact"
       }
     ],
     "severity_interpretation": {

@@ -1,0 +1,188 @@
+{
+  "schema_version": "v1",
+  "table_id": "PMBOT-BATCH-006-PAPER-CANDIDATE-REVIEW",
+  "fixture_only": true,
+  "paper_only": true,
+  "local_only": true,
+  "deterministic": true,
+  "operator_review_only": true,
+  "allowed_operator_actions": [
+    "review_only",
+    "reject_no_action",
+    "watchlist_no_action",
+    "paper_monitor_no_action"
+  ],
+  "rows": [
+    {
+      "candidate_id": "rq_case_strong_accept",
+      "market_id": "pm_fixture_2026_us_growth_soft_landing",
+      "category": "macro",
+      "decision": "accept",
+      "confidence_band": "high",
+      "confidence_score": 89,
+      "risk_flags": [],
+      "explanation_headline": "Accepted paper candidate with inspectable rationale.",
+      "rejection_or_watchlist_reason": "accepted_for_paper_monitoring_only",
+      "operator_action": "paper_monitor_no_action"
+    },
+    {
+      "candidate_id": "rq_case_low_confidence_watchlist",
+      "market_id": "pm_fixture_2026_ceasefire_window",
+      "category": "geopolitics",
+      "decision": "watchlist",
+      "confidence_band": "medium",
+      "confidence_score": 76,
+      "risk_flags": [],
+      "explanation_headline": "Watchlist paper candidate needs tighter evidence before sizing.",
+      "rejection_or_watchlist_reason": "limited_supporting_signals",
+      "operator_action": "watchlist_no_action"
+    },
+    {
+      "candidate_id": "rq_case_correlated_watchlist",
+      "market_id": "pm_fixture_2026_cpi_below_target",
+      "category": "macro",
+      "decision": "watchlist",
+      "confidence_band": "medium",
+      "confidence_score": 67,
+      "risk_flags": [
+        "correlated_exposure"
+      ],
+      "explanation_headline": "Watchlist paper candidate needs tighter evidence before sizing.",
+      "rejection_or_watchlist_reason": "correlated_exposure",
+      "operator_action": "watchlist_no_action"
+    },
+    {
+      "candidate_id": "rq_case_missing_note_watchlist",
+      "market_id": "pm_fixture_2026_ceasefire_window",
+      "category": "geopolitics",
+      "decision": "watchlist",
+      "confidence_band": "medium",
+      "confidence_score": 66,
+      "risk_flags": [
+        "missing_research_notes"
+      ],
+      "explanation_headline": "Watchlist paper candidate needs tighter evidence before sizing.",
+      "rejection_or_watchlist_reason": "missing_research_notes",
+      "operator_action": "watchlist_no_action"
+    },
+    {
+      "candidate_id": "rq_case_high_confidence_high_risk",
+      "market_id": "pm_fixture_2026_rate_cut_december",
+      "category": "macro",
+      "decision": "watchlist",
+      "confidence_band": "low",
+      "confidence_score": 46,
+      "risk_flags": [
+        "concentration_risk",
+        "correlated_exposure",
+        "high_risk_profile"
+      ],
+      "explanation_headline": "Watchlist paper candidate needs tighter evidence before sizing.",
+      "rejection_or_watchlist_reason": "concentration_risk, correlated_exposure, high_risk_profile",
+      "operator_action": "watchlist_no_action"
+    },
+    {
+      "candidate_id": "rq_case_paper_only_no_action",
+      "market_id": "pm_fixture_2026_ceasefire_window",
+      "category": "geopolitics",
+      "decision": "no_action",
+      "confidence_band": "low",
+      "confidence_score": 60,
+      "risk_flags": [
+        "paper_only_no_action"
+      ],
+      "explanation_headline": "No-action monitoring case kept outside paper positioning.",
+      "rejection_or_watchlist_reason": "paper_only_no_action",
+      "operator_action": "review_only"
+    },
+    {
+      "candidate_id": "rq_case_wide_spread_caution",
+      "market_id": "pm_fixture_2026_cabinet_exit",
+      "category": "politics",
+      "decision": "reject",
+      "confidence_band": "reject",
+      "confidence_score": 57,
+      "risk_flags": [
+        "wide_spread"
+      ],
+      "explanation_headline": "Rejected paper candidate due to deterministic quality failures.",
+      "rejection_or_watchlist_reason": "wide_spread",
+      "operator_action": "reject_no_action"
+    },
+    {
+      "candidate_id": "rq_case_low_liquidity_reject",
+      "market_id": "pm_fixture_2026_championship_upset",
+      "category": "sports",
+      "decision": "reject",
+      "confidence_band": "reject",
+      "confidence_score": 56,
+      "risk_flags": [
+        "low_liquidity"
+      ],
+      "explanation_headline": "Rejected paper candidate due to deterministic quality failures.",
+      "rejection_or_watchlist_reason": "low_liquidity",
+      "operator_action": "reject_no_action"
+    },
+    {
+      "candidate_id": "rq_case_stale_data_warning",
+      "market_id": "pm_fixture_2026_ai_regulation_vote",
+      "category": "technology",
+      "decision": "reject",
+      "confidence_band": "reject",
+      "confidence_score": 55,
+      "risk_flags": [
+        "stale_data"
+      ],
+      "explanation_headline": "Rejected paper candidate due to deterministic quality failures.",
+      "rejection_or_watchlist_reason": "stale_data",
+      "operator_action": "reject_no_action"
+    },
+    {
+      "candidate_id": "rq_case_conflicting_signals_reject",
+      "market_id": "pm_fixture_2026_ai_regulation_vote",
+      "category": "technology",
+      "decision": "reject",
+      "confidence_band": "reject",
+      "confidence_score": 54,
+      "risk_flags": [
+        "conflicting_signals"
+      ],
+      "explanation_headline": "Rejected paper candidate due to deterministic quality failures.",
+      "rejection_or_watchlist_reason": "conflicting_signals",
+      "operator_action": "reject_no_action"
+    },
+    {
+      "candidate_id": "rq_case_weak_edge_reject",
+      "market_id": "pm_fixture_2026_cabinet_exit",
+      "category": "politics",
+      "decision": "reject",
+      "confidence_band": "reject",
+      "confidence_score": 54,
+      "risk_flags": [
+        "insufficient_edge"
+      ],
+      "explanation_headline": "Rejected paper candidate due to deterministic quality failures.",
+      "rejection_or_watchlist_reason": "insufficient_edge",
+      "operator_action": "reject_no_action"
+    },
+    {
+      "candidate_id": "rq_case_resolved_market_exclusion",
+      "market_id": "pm_fixture_2026_hurricane_season_closed",
+      "category": "climate",
+      "decision": "exclude",
+      "confidence_band": "reject",
+      "confidence_score": 0,
+      "risk_flags": [
+        "insufficient_edge",
+        "low_liquidity",
+        "missing_research_notes",
+        "resolved_or_closed_market",
+        "stale_data"
+      ],
+      "explanation_headline": "Excluded case because the synthetic market is resolved or closed.",
+      "rejection_or_watchlist_reason": "insufficient_edge, low_liquidity, resolved_or_closed_market, stale_data",
+      "operator_action": "reject_no_action"
+    }
+  ],
+  "explicit_no_execution_statement": "This review table is for paper research and operator review only. No buy, sell, trade, submit_order, execute, live_action, or real_position behavior exists."
+}

@@ -1,0 +1,87 @@
+{
+  "schema_version": "v1",
+  "report_id": "PMBOT-BRAIN-014-LIFECYCLE-REGRESSION-GATES",
+  "source_report_id": "PMBOT-BRAIN-012-MULTI-SCENARIO-PAPER-LIFECYCLE-REPLAY",
+  "deterministic": true,
+  "offline_only": true,
+  "paper_only": true,
+  "execution_allowed": false,
+  "trading_allowed": false,
+  "real_order_created": false,
+  "wallet_used": false,
+  "api_used": false,
+  "network_used": false,
+  "status": "passed",
+  "gates_summary": {
+    "gates_checked": 6,
+    "gates_passed": 6,
+    "gates_failed": 0,
+    "safety_flags_locked": true,
+    "bad_entries_locked_zero": true,
+    "settled_no_fill_guard_locked": true
+  },
+  "locked_replay_summary": {
+    "scenarios": 7,
+    "filled_orders": 3,
+    "wins": 2,
+    "losses": 0,
+    "bad_entries": 0,
+    "rejected_bad_cases": 1,
+    "total_paper_pnl": 179.31
+  },
+  "gates": [
+    {
+      "gate_id": "aggregate_outcomes_locked",
+      "passed": true,
+      "details": {
+        "mismatches": {}
+      }
+    },
+    {
+      "gate_id": "bad_entries_locked_zero",
+      "passed": true,
+      "details": {
+        "bad_entries": 0,
+        "losses": 0
+      }
+    },
+    {
+      "gate_id": "settled_no_fill_guard_locked",
+      "passed": true,
+      "details": {
+        "scenario": "filled_loss",
+        "status": "not_filled"
+      }
+    },
+    {
+      "gate_id": "no_action_and_rejected_do_not_order",
+      "passed": true,
+      "details": {
+        "rejected_raw_market_orders": 0,
+        "no_action_orders": 0
+      }
+    },
+    {
+      "gate_id": "winning_scenarios_still_fill",
+      "passed": true,
+      "details": {
+        "filled_win_pnl": 72.41,
+        "settled_position_pnl": 100.0
+      }
+    },
+    {
+      "gate_id": "safety_flags_locked",
+      "passed": true,
+      "details": {
+        "top_level": true,
+        "scenarios": true
+      }
+    }
+  ],
+  "limitations": [
+    "Validates deterministic fixture replay output only; no live markets, prices, or APIs are fetched.",
+    "Regression gates lock current offline paper lifecycle outcomes and safety flags.",
+    "No runtime integration, prompt automation, credentials, wallet access, real orders, or live trading is included."
+  ],
+  "review_note": "Lifecycle regression gates are offline checks for review and CI-style local validation only."
+}

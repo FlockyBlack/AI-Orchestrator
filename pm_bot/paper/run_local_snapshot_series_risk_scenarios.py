@@ -115,7 +115,7 @@ def _process_scenario(portfolio, scenario):
 def build_local_snapshot_series_risk_scenarios(root: Path):
     paper_dir = root / "pm_bot" / "paper"
     portfolio = _load_portfolio_runner(root)
-    fixture = _load_json(paper_dir / "local_snapshot_series_risk_scenarios.v1.json")
+    fixture = _load_json(paper_dir / "local_snapshot_series_risk_scenarios_source.v1.json")
     scenario_reports = [_process_scenario(portfolio, scenario) for scenario in fixture["scenarios"]]
     reason_counts = {}
     for report in scenario_reports:

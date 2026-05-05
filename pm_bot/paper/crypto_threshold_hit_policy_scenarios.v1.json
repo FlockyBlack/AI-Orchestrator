@@ -1,0 +1,475 @@
+{
+  "schema_version": "threshold_hit_policy_scenario_results.v1",
+  "task_id": "PMBOT-BRAIN-037-THRESHOLD-HIT-POLICY-SCENARIO-COVERAGE",
+  "deterministic": true,
+  "as_of_date": "2026-04-27",
+  "scenario_fixture_path": "pm_bot\\paper\\threshold_hit_policy_scenarios.v1.json",
+  "reference_context_path": "pm_bot\\paper\\threshold_hit_reference_context.v1.json",
+  "decision_policy_path": "pm_bot\\paper\\threshold_hit_decision_policy.v1.json",
+  "decision_policy_version": "threshold_hit_decision_policy.v1",
+  "scenario_suite_id": "crypto_threshold_hit_policy_scenarios.v1",
+  "summary": {
+    "scenario_count": 12,
+    "reviewed_candidates": 11,
+    "no_action_count": 1,
+    "watchlist_count": 2,
+    "policy_blocked_count": 8,
+    "paper_candidate_count": 0,
+    "paper_orders_created": 0,
+    "policy_reason_counts": {
+      "before_event_requires_event_model": 1,
+      "deadline_not_future": 1,
+      "deadline_too_near": 1,
+      "liquidity_below_conservative_minimum": 1,
+      "missing_deadline": 1,
+      "missing_liquidity": 1,
+      "missing_reference_price": 1,
+      "missing_yes_price": 1,
+      "paper_candidates_disabled_by_policy": 11,
+      "target_distance_above_watchlist_limit": 1,
+      "target_distance_unavailable": 1,
+      "yes_price_above_conservative_limit": 1
+    },
+    "all_expected_decisions_passed": true,
+    "all_expected_results_passed": true,
+    "safety_flags": {
+      "offline_only": true,
+      "paper_only": true,
+      "live_fetcher_implemented": false,
+      "api_used": false,
+      "network_used": false,
+      "wallet_used": false,
+      "real_order_created": false,
+      "trading_allowed": false,
+      "runtime_wiring_changed": false,
+      "dispatcher_touched": false,
+      "prompt_automation_added": false
+    }
+  },
+  "scenarios": [
+    {
+      "scenario_id": "btc_by_date_policy_disabled",
+      "market_id": "scenario_btc_by_date_policy_disabled",
+      "candidate_title": "Will BTC hit $150k by June 30, 2026?",
+      "candidate_question": "Will BTC hit $150k by June 30, 2026?",
+      "triage_status": "supported",
+      "expected_decision": "watchlist",
+      "actual_decision": "watchlist",
+      "passed_policy_checks": [
+        "reference_price_present",
+        "deadline_present",
+        "min_days_to_deadline_for_review",
+        "min_liquidity_for_review",
+        "max_yes_price_for_watchlist",
+        "max_distance_to_target_pct_for_watchlist"
+      ],
+      "failed_policy_checks": [
+        "allow_paper_candidates"
+      ],
+      "expected_reason_codes": [
+        "paper_candidates_disabled_by_policy"
+      ],
+      "reason_codes": [
+        "paper_candidates_disabled_by_policy"
+      ],
+      "decision_matches": true,
+      "reason_codes_match": true,
+      "result": "pass",
+      "reference_assets_available": [
+        "BTC",
+        "ETH"
+      ]
+    },
+    {
+      "scenario_id": "btc_yes_price_above_limit",
+      "market_id": "scenario_btc_yes_price_above_limit",
+      "candidate_title": "Will BTC hit $150k by June 30, 2026?",
+      "candidate_question": "Will BTC hit $150k by June 30, 2026?",
+      "triage_status": "supported",
+      "expected_decision": "policy_blocked",
+      "actual_decision": "policy_blocked",
+      "passed_policy_checks": [
+        "reference_price_present",
+        "deadline_present",
+        "min_days_to_deadline_for_review",
+        "min_liquidity_for_review",
+        "max_distance_to_target_pct_for_watchlist"
+      ],
+      "failed_policy_checks": [
+        "max_yes_price_for_watchlist",
+        "allow_paper_candidates"
+      ],
+      "expected_reason_codes": [
+        "paper_candidates_disabled_by_policy",
+        "yes_price_above_conservative_limit"
+      ],
+      "reason_codes": [
+        "paper_candidates_disabled_by_policy",
+        "yes_price_above_conservative_limit"
+      ],
+      "decision_matches": true,
+      "reason_codes_match": true,
+      "result": "pass",
+      "reference_assets_available": [
+        "BTC",
+        "ETH"
+      ]
+    },
+    {
+      "scenario_id": "btc_distance_above_watchlist_limit",
+      "market_id": "scenario_btc_distance_above_watchlist_limit",
+      "candidate_title": "Will BTC hit $200k by June 30, 2026?",
+      "candidate_question": "Will BTC hit $200k by June 30, 2026?",
+      "triage_status": "supported",
+      "expected_decision": "policy_blocked",
+      "actual_decision": "policy_blocked",
+      "passed_policy_checks": [
+        "reference_price_present",
+        "deadline_present",
+        "min_days_to_deadline_for_review",
+        "min_liquidity_for_review",
+        "max_yes_price_for_watchlist"
+      ],
+      "failed_policy_checks": [
+        "max_distance_to_target_pct_for_watchlist",
+        "allow_paper_candidates"
+      ],
+      "expected_reason_codes": [
+        "paper_candidates_disabled_by_policy",
+        "target_distance_above_watchlist_limit"
+      ],
+      "reason_codes": [
+        "paper_candidates_disabled_by_policy",
+        "target_distance_above_watchlist_limit"
+      ],
+      "decision_matches": true,
+      "reason_codes_match": true,
+      "result": "pass",
+      "reference_assets_available": [
+        "BTC",
+        "ETH"
+      ]
+    },
+    {
+      "scenario_id": "btc_low_liquidity",
+      "market_id": "scenario_btc_low_liquidity",
+      "candidate_title": "Will BTC hit $150k by June 30, 2026?",
+      "candidate_question": "Will BTC hit $150k by June 30, 2026?",
+      "triage_status": "supported",
+      "expected_decision": "policy_blocked",
+      "actual_decision": "policy_blocked",
+      "passed_policy_checks": [
+        "reference_price_present",
+        "deadline_present",
+        "min_days_to_deadline_for_review",
+        "max_yes_price_for_watchlist",
+        "max_distance_to_target_pct_for_watchlist"
+      ],
+      "failed_policy_checks": [
+        "min_liquidity_for_review",
+        "allow_paper_candidates"
+      ],
+      "expected_reason_codes": [
+        "liquidity_below_conservative_minimum",
+        "paper_candidates_disabled_by_policy"
+      ],
+      "reason_codes": [
+        "liquidity_below_conservative_minimum",
+        "paper_candidates_disabled_by_policy"
+      ],
+      "decision_matches": true,
+      "reason_codes_match": true,
+      "result": "pass",
+      "reference_assets_available": [
+        "BTC",
+        "ETH"
+      ]
+    },
+    {
+      "scenario_id": "btc_deadline_too_near",
+      "market_id": "scenario_btc_deadline_too_near",
+      "candidate_title": "Will BTC hit $150k by May 1, 2026?",
+      "candidate_question": "Will BTC hit $150k by May 1, 2026?",
+      "triage_status": "supported",
+      "expected_decision": "policy_blocked",
+      "actual_decision": "policy_blocked",
+      "passed_policy_checks": [
+        "reference_price_present",
+        "deadline_present",
+        "min_liquidity_for_review",
+        "max_yes_price_for_watchlist",
+        "max_distance_to_target_pct_for_watchlist"
+      ],
+      "failed_policy_checks": [
+        "min_days_to_deadline_for_review",
+        "allow_paper_candidates"
+      ],
+      "expected_reason_codes": [
+        "deadline_too_near",
+        "paper_candidates_disabled_by_policy"
+      ],
+      "reason_codes": [
+        "deadline_too_near",
+        "paper_candidates_disabled_by_policy"
+      ],
+      "decision_matches": true,
+      "reason_codes_match": true,
+      "result": "pass",
+      "reference_assets_available": [
+        "BTC",
+        "ETH"
+      ]
+    },
+    {
+      "scenario_id": "btc_before_event_missing_model",
+      "market_id": "scenario_btc_before_event_missing_model",
+      "candidate_title": "Will BTC hit $150k before GTA VI?",
+      "candidate_question": "Will BTC hit $150k before GTA VI?",
+      "triage_status": "supported",
+      "expected_decision": "policy_blocked",
+      "actual_decision": "policy_blocked",
+      "passed_policy_checks": [
+        "reference_price_present",
+        "min_liquidity_for_review",
+        "max_yes_price_for_watchlist",
+        "max_distance_to_target_pct_for_watchlist"
+      ],
+      "failed_policy_checks": [
+        "before_event_event_model_present",
+        "allow_paper_candidates"
+      ],
+      "expected_reason_codes": [
+        "before_event_requires_event_model",
+        "paper_candidates_disabled_by_policy"
+      ],
+      "reason_codes": [
+        "before_event_requires_event_model",
+        "paper_candidates_disabled_by_policy"
+      ],
+      "decision_matches": true,
+      "reason_codes_match": true,
+      "result": "pass",
+      "reference_assets_available": [
+        "BTC",
+        "ETH"
+      ]
+    },
+    {
+      "scenario_id": "eth_missing_reference_price",
+      "market_id": "scenario_eth_missing_reference_price",
+      "candidate_title": "Will ETH reach $5,000 by December 31, 2026?",
+      "candidate_question": "Will ETH reach $5,000 by December 31, 2026?",
+      "triage_status": "supported",
+      "expected_decision": "watchlist",
+      "actual_decision": "watchlist",
+      "passed_policy_checks": [
+        "deadline_present",
+        "min_days_to_deadline_for_review",
+        "min_liquidity_for_review",
+        "max_yes_price_for_watchlist"
+      ],
+      "failed_policy_checks": [
+        "reference_price_present",
+        "max_distance_to_target_pct_for_watchlist",
+        "allow_paper_candidates"
+      ],
+      "expected_reason_codes": [
+        "missing_reference_price",
+        "paper_candidates_disabled_by_policy",
+        "target_distance_unavailable"
+      ],
+      "reason_codes": [
+        "missing_reference_price",
+        "paper_candidates_disabled_by_policy",
+        "target_distance_unavailable"
+      ],
+      "decision_matches": true,
+      "reason_codes_match": true,
+      "result": "pass",
+      "reference_assets_available": [
+        "BTC"
+      ]
+    },
+    {
+      "scenario_id": "btc_missing_yes_price",
+      "market_id": "scenario_btc_missing_yes_price",
+      "candidate_title": "Will BTC hit $150k by June 30, 2026?",
+      "candidate_question": "Will BTC hit $150k by June 30, 2026?",
+      "triage_status": "supported",
+      "expected_decision": "policy_blocked",
+      "actual_decision": "policy_blocked",
+      "passed_policy_checks": [
+        "reference_price_present",
+        "deadline_present",
+        "min_days_to_deadline_for_review",
+        "min_liquidity_for_review",
+        "max_distance_to_target_pct_for_watchlist"
+      ],
+      "failed_policy_checks": [
+        "max_yes_price_for_watchlist",
+        "allow_paper_candidates"
+      ],
+      "expected_reason_codes": [
+        "missing_yes_price",
+        "paper_candidates_disabled_by_policy"
+      ],
+      "reason_codes": [
+        "missing_yes_price",
+        "paper_candidates_disabled_by_policy"
+      ],
+      "decision_matches": true,
+      "reason_codes_match": true,
+      "result": "pass",
+      "reference_assets_available": [
+        "BTC",
+        "ETH"
+      ]
+    },
+    {
+      "scenario_id": "btc_missing_liquidity",
+      "market_id": "scenario_btc_missing_liquidity",
+      "candidate_title": "Will BTC hit $150k by June 30, 2026?",
+      "candidate_question": "Will BTC hit $150k by June 30, 2026?",
+      "triage_status": "supported",
+      "expected_decision": "policy_blocked",
+      "actual_decision": "policy_blocked",
+      "passed_policy_checks": [
+        "reference_price_present",
+        "deadline_present",
+        "min_days_to_deadline_for_review",
+        "max_yes_price_for_watchlist",
+        "max_distance_to_target_pct_for_watchlist"
+      ],
+      "failed_policy_checks": [
+        "min_liquidity_for_review",
+        "allow_paper_candidates"
+      ],
+      "expected_reason_codes": [
+        "missing_liquidity",
+        "paper_candidates_disabled_by_policy"
+      ],
+      "reason_codes": [
+        "missing_liquidity",
+        "paper_candidates_disabled_by_policy"
+      ],
+      "decision_matches": true,
+      "reason_codes_match": true,
+      "result": "pass",
+      "reference_assets_available": [
+        "BTC",
+        "ETH"
+      ]
+    },
+    {
+      "scenario_id": "btc_missing_deadline",
+      "market_id": "scenario_btc_missing_deadline",
+      "candidate_title": "Will BTC hit $150k by Q3 2026?",
+      "candidate_question": "Will BTC hit $150k by Q3 2026?",
+      "triage_status": "supported",
+      "expected_decision": "no_action",
+      "actual_decision": "no_action",
+      "passed_policy_checks": [
+        "reference_price_present",
+        "min_liquidity_for_review",
+        "max_yes_price_for_watchlist",
+        "max_distance_to_target_pct_for_watchlist"
+      ],
+      "failed_policy_checks": [
+        "deadline_present",
+        "allow_paper_candidates"
+      ],
+      "expected_reason_codes": [
+        "missing_deadline",
+        "paper_candidates_disabled_by_policy"
+      ],
+      "reason_codes": [
+        "missing_deadline",
+        "paper_candidates_disabled_by_policy"
+      ],
+      "decision_matches": true,
+      "reason_codes_match": true,
+      "result": "pass",
+      "reference_assets_available": [
+        "BTC",
+        "ETH"
+      ]
+    },
+    {
+      "scenario_id": "btc_deadline_not_future",
+      "market_id": "scenario_btc_deadline_not_future",
+      "candidate_title": "Will BTC hit $150k by April 1, 2026?",
+      "candidate_question": "Will BTC hit $150k by April 1, 2026?",
+      "triage_status": "supported",
+      "expected_decision": "policy_blocked",
+      "actual_decision": "policy_blocked",
+      "passed_policy_checks": [
+        "reference_price_present",
+        "deadline_present",
+        "min_liquidity_for_review",
+        "max_yes_price_for_watchlist",
+        "max_distance_to_target_pct_for_watchlist"
+      ],
+      "failed_policy_checks": [
+        "min_days_to_deadline_for_review",
+        "allow_paper_candidates"
+      ],
+      "expected_reason_codes": [
+        "deadline_not_future",
+        "paper_candidates_disabled_by_policy"
+      ],
+      "reason_codes": [
+        "deadline_not_future",
+        "paper_candidates_disabled_by_policy"
+      ],
+      "decision_matches": true,
+      "reason_codes_match": true,
+      "result": "pass",
+      "reference_assets_available": [
+        "BTC",
+        "ETH"
+      ]
+    },
+    {
+      "scenario_id": "unsupported_gold_threshold_rejected",
+      "market_id": "scenario_unsupported_gold_threshold_rejected",
+      "candidate_title": "Will gold hit $5,000 by December 31, 2026?",
+      "candidate_question": "Will gold hit $5,000 by December 31, 2026?",
+      "triage_status": "rejected",
+      "expected_decision": "triage_rejected",
+      "actual_decision": "triage_rejected",
+      "passed_policy_checks": [],
+      "failed_policy_checks": [],
+      "expected_reason_codes": [
+        "unsupported_asset"
+      ],
+      "reason_codes": [
+        "unsupported_asset"
+      ],
+      "decision_matches": true,
+      "reason_codes_match": true,
+      "result": "pass",
+      "reference_assets_available": [
+        "BTC",
+        "ETH"
+      ]
+    }
+  ],
+  "safety_flags": {
+    "offline_only": true,
+    "paper_only": true,
+    "live_fetcher_implemented": false,
+    "api_used": false,
+    "network_used": false,
+    "wallet_used": false,
+    "real_order_created": false,
+    "trading_allowed": false,
+    "runtime_wiring_changed": false,
+    "dispatcher_touched": false,
+    "prompt_automation_added": false
+  },
+  "limitations": [
+    "Reads deterministic local JSON fixtures only; no live fetcher, network, external API, credentials, wallet access, orders, or trading are included.",
+    "Scenarios call the existing threshold-hit triage, review, reference-context, and decision-policy logic.",
+    "No paper orders, runtime wiring, dispatcher changes, prompt automation, or workspace state writes are included."
+  ]
+}

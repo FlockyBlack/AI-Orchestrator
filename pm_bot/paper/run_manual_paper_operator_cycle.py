@@ -9,9 +9,8 @@ TASK_ID = "PMBOT-BRAIN-029-MANUAL-PAPER-OPERATOR-CYCLE"
 WORKFLOW = "manual_paper_operator_cycle"
 SCHEMA_VERSION = "v1"
 DEFAULT_RUN_ID = "manual-paper-operator-cycle-fixture-v1"
-DEFAULT_THRESHOLD_HIT_REVIEW_SOURCE = Path(
-    r"C:\Users\OpenC\Documents\AI-Orchestrator\local_snapshots\polymarket_markets_active_500_001.json"
-)
+REPO_ROOT = Path(__file__).resolve().parents[2]
+DEFAULT_THRESHOLD_HIT_REVIEW_SOURCE = REPO_ROOT / "local_snapshots" / "polymarket_markets_active_500_001.json"
 SAFETY_FLAGS = {
     "offline_only": True,
     "paper_only": True,

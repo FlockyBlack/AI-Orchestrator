@@ -1,0 +1,30 @@
+{
+  "schema_version": "pmbot_infra_011_result.v1",
+  "task_id": "PMBOT-INFRA-011-PAPER-PATH-PORTABILITY-AND-FIXTURE-HYGIENE",
+  "status": "completed_locally",
+  "summary": "Paper path defaults were made repository-relative, Windows-prone test workspace cleanup was removed, deterministic paper/operator artifact counterparts were materialized, and warning hygiene reports were refreshed without hiding warnings.",
+  "path_portability": {
+    "hard_coded_root_failures_fixed": true,
+    "repo_relative_or_placeholder_used": true,
+    "windows_temp_cleanup_fixed_or_isolated": true
+  },
+  "warning_hygiene_after": {
+    "total_warnings_processed": 59,
+    "blocking": 0,
+    "action_required": 21,
+    "review_needed": 37,
+    "informational": 1,
+    "update_fixture_warnings_remaining": 0
+  },
+  "safety_flags": {
+    "network_api_calls": false,
+    "wallet_or_private_key_usage": false,
+    "real_orders": false,
+    "live_trading": false,
+    "autonomous_decisions": false,
+    "scoring_probability_ev_edge": false,
+    "side_recommendations": false,
+    "runtime_wiring": false,
+    "command_execution": false
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "schema_version": "v1",
+  "checklist_id": "PMBOT-BATCH-006-OPERATOR-CHECKLIST",
+  "fixture_only": true,
+  "paper_only": true,
+  "local_only": true,
+  "deterministic": true,
+  "operator_review_only": true,
+  "items": [
+    {
+      "step": "verify fixture-only source",
+      "required": true,
+      "status": "pending_human_review"
+    },
+    {
+      "step": "verify paper-only mode",
+      "required": true,
+      "status": "pending_human_review"
+    },
+    {
+      "step": "verify no live API",
+      "required": true,
+      "status": "pending_human_review"
+    },
+    {
+      "step": "verify no wallet/private key",
+      "required": true,
+      "status": "pending_human_review"
+    },
+    {
+      "step": "verify no real order execution",
+      "required": true,
+      "status": "pending_human_review"
+    },
+    {
+      "step": "review accepted paper candidates",
+      "required": true,
+      "status": "pending_human_review"
+    },
+    {
+      "step": "review rejected cases",
+      "required": true,
+      "status": "pending_human_review"
+    },
+    {
+      "step": "review watchlist no-action cases",
+      "required": true,
+      "status": "pending_human_review"
+    },
+    {
+      "step": "review audit status",
+      "required": true,
+      "status": "pending_human_review"
+    },
+    {
+      "step": "review adversarial validation status",
+      "required": true,
+      "status": "pending_human_review"
+    },
+    {
+      "step": "confirm no live execution approval exists",
+      "required": true,
+      "status": "pending_human_review"
+    },
+    {
+      "step": "confirm future live mode requires separate approval",
+      "required": true,
+      "status": "pending_human_review"
+    }
+  ],
+  "explicit_no_execution_statement": "Checklist completion does not authorize live fetchers, wallet use, orders, trades, or runtime wiring."
+}

@@ -10,7 +10,8 @@ TASK_ID = "PMBOT-BRAIN-035-THRESHOLD-HIT-REFERENCE-CONTEXT"
 POLICY_TASK_ID = "PMBOT-BRAIN-036-THRESHOLD-HIT-DECISION-POLICY"
 SCHEMA_VERSION = "v1"
 AS_OF_DATE = "2026-04-27"
-DEFAULT_SOURCE = Path(r"C:\Users\OpenC\Documents\AI-Orchestrator\local_snapshots\polymarket_markets_active_500_001.json")
+REPO_ROOT = Path(__file__).resolve().parents[2]
+DEFAULT_SOURCE = REPO_ROOT / "local_snapshots" / "polymarket_markets_active_500_001.json"
 SAFETY_FLAGS = {
     "offline_only": True,
     "paper_only": True,

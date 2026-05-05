@@ -1,0 +1,198 @@
+{
+  "schema_version": "v1",
+  "report_id": "PMBOT-BRAIN-021-LOCAL-PAPER-PORTFOLIO-STATE",
+  "deterministic": true,
+  "offline_only": true,
+  "paper_only": true,
+  "live_fetcher_implemented": false,
+  "execution_allowed": false,
+  "trading_allowed": false,
+  "real_order_created": false,
+  "wallet_used": false,
+  "api_used": false,
+  "network_used": false,
+  "input_snapshot": {
+    "snapshot_id": "series_snapshot_002",
+    "observed_at": "2026-05-15T12:00:00Z",
+    "source_path": "<REPO_ROOT>\\pm_bot\\paper\\local_snapshot_series_fixture.v1.json"
+  },
+  "input_state": {
+    "state_id": "paper_portfolio_state_v1",
+    "source_path": "<REPO_ROOT>\\pm_bot\\paper\\paper_portfolio_state.v1.json",
+    "summary": {
+      "processed_snapshots": 1,
+      "processed_market_side_keys": 1,
+      "open_positions": 1,
+      "settled_positions": 0,
+      "total_paper_notional": 100.0,
+      "open_paper_notional": 100.0,
+      "realized_paper_pnl": 0,
+      "unrealized_paper_pnl": 6.9
+    }
+  },
+  "portfolio_risk_limits": {
+    "schema_version": "v1",
+    "fixture_id": "portfolio_risk_limits_v1",
+    "fixture_only": true,
+    "paper_only": true,
+    "max_total_paper_exposure": 100.0,
+    "max_asset_paper_exposure": 100.0,
+    "max_orders_per_snapshot": 1,
+    "max_open_positions": 1
+  },
+  "run_summary": {
+    "new_paper_orders_created": 0,
+    "duplicate_orders_blocked": 1,
+    "risk_limit_orders_blocked": 1,
+    "risk_limit_reason_counts": {
+      "max_total_paper_exposure_exceeded": 1,
+      "max_open_positions_exceeded": 1
+    },
+    "open_positions_after_run": 1,
+    "settled_positions_after_run": 0,
+    "exposure_after_run": 100.0,
+    "total_paper_notional_after_run": 100.0,
+    "realized_paper_pnl_after_run": 0,
+    "unrealized_paper_pnl_after_run": 27.59,
+    "bad_entries": 0,
+    "out_state_path": null,
+    "out_state_written": false,
+    "safety_flags_locked": true
+  },
+  "pipeline_summary": {
+    "adapter_rejections": 0,
+    "intake_rejections": 0,
+    "scoring_rejections": 0,
+    "markets_scored": 2,
+    "paper_candidates": 2,
+    "watchlist": 0,
+    "rejected_after_scoring": 0
+  },
+  "portfolio_events": [
+    {
+      "event_type": "duplicate_paper_order_blocked",
+      "timestamp": "2026-05-15T12:00:00Z",
+      "market_id": "series_btc_above_90000_2026_05_31",
+      "side": "above",
+      "reason": "Paper position already exists for this market and side.",
+      "offline_only": true,
+      "paper_only": true,
+      "live_fetcher_implemented": false,
+      "execution_allowed": false,
+      "trading_allowed": false,
+      "real_order_created": false,
+      "wallet_used": false,
+      "api_used": false,
+      "network_used": false
+    },
+    {
+      "event_type": "risk_limit_paper_order_blocked",
+      "timestamp": "2026-05-15T12:00:00Z",
+      "market_id": "series_eth_below_3000_2026_05_31",
+      "asset": "ETH",
+      "side": "below",
+      "paper_notional": 100.0,
+      "reason": "Paper order would exceed max_total_paper_exposure.; Paper order would exceed max_open_positions.",
+      "reason_codes": [
+        "max_total_paper_exposure_exceeded",
+        "max_open_positions_exceeded"
+      ],
+      "risk_limit_reasons": [
+        {
+          "reason_code": "max_total_paper_exposure_exceeded",
+          "reason": "Paper order would exceed max_total_paper_exposure.",
+          "projected_value": 200.0,
+          "limit": 100.0
+        },
+        {
+          "reason_code": "max_open_positions_exceeded",
+          "reason": "Paper order would exceed max_open_positions.",
+          "projected_value": 2,
+          "limit": 1
+        }
+      ],
+      "portfolio_risk_limits": {
+        "schema_version": "v1",
+        "fixture_id": "portfolio_risk_limits_v1",
+        "fixture_only": true,
+        "paper_only": true,
+        "max_total_paper_exposure": 100.0,
+        "max_asset_paper_exposure": 100.0,
+        "max_orders_per_snapshot": 1,
+        "max_open_positions": 1
+      },
+      "offline_only": true,
+      "paper_only": true,
+      "live_fetcher_implemented": false,
+      "execution_allowed": false,
+      "trading_allowed": false,
+      "real_order_created": false,
+      "wallet_used": false,
+      "api_used": false,
+      "network_used": false
+    }
+  ],
+  "output_state": {
+    "schema_version": "v1",
+    "state_id": "paper_portfolio_state_after_snapshot_v1",
+    "fixture_only": true,
+    "paper_only": true,
+    "processed_snapshot_ids": [
+      "series_snapshot_001",
+      "series_snapshot_002"
+    ],
+    "processed_market_side_keys": [
+      "series_btc_above_90000_2026_05_31|above"
+    ],
+    "paper_positions": [
+      {
+        "market_id": "series_btc_above_90000_2026_05_31",
+        "asset": "BTC",
+        "side": "above",
+        "status": "open",
+        "opened_at": "2026-05-01T12:00:00Z",
+        "settled_at": null,
+        "fill_price": 0.58,
+        "shares": 172.4138,
+        "paper_notional": 100.0,
+        "max_loss": 100.0,
+        "current_yes_price": 0.74,
+        "settled": false,
+        "settlement_outcome": null,
+        "settlement_value": null,
+        "offline_only": true,
+        "paper_only": true,
+        "live_fetcher_implemented": false,
+        "execution_allowed": false,
+        "trading_allowed": false,
+        "real_order_created": false,
+        "wallet_used": false,
+        "api_used": false,
+        "network_used": false,
+        "paper_pnl": 27.59
+      }
+    ],
+    "exposure_summary": {
+      "open_positions": 1,
+      "settled_positions": 0,
+      "total_paper_notional": 100.0,
+      "open_paper_notional": 100.0,
+      "realized_paper_pnl": 0,
+      "unrealized_paper_pnl": 27.59
+    },
+    "offline_only": true,
+    "live_fetcher_implemented": false,
+    "execution_allowed": false,
+    "trading_allowed": false,
+    "real_order_created": false,
+    "wallet_used": false,
+    "api_used": false,
+    "network_used": false
+  },
+  "limitations": [
+    "Uses deterministic local snapshot and paper state fixtures only; no live fetcher, network, external API, credentials, wallet access, real orders, or live trading is included.",
+    "Default run is read-only and writes state only when --out-state is provided.",
+    "No runtime integration, command-routing changes, prompt automation, broad refactor, or new validation layer is included."
+  ],
+  "review_note": "Offline incremental paper portfolio state processing for manual paper review only."
+}

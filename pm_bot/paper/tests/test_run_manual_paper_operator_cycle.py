@@ -57,10 +57,8 @@ def _threshold_review_args():
 
 def _make_workspace(temp_dir):
     workspace = Path(temp_dir) / "workspace"
-    shutil.copytree(FIXTURE_WORKSPACE, workspace)
+    shutil.copytree(FIXTURE_WORKSPACE, workspace, ignore=shutil.ignore_patterns("runs"))
     runs = workspace / "runs"
-    if runs.exists():
-        shutil.rmtree(runs)
     runs.mkdir(parents=True)
     return workspace
 

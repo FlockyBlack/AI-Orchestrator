@@ -1,0 +1,198 @@
+{
+  "schema_version": "v1",
+  "task_id": "PMBOT-BRAIN-032-REAL-GAMMA-CRYPTO-NUMERIC-ADAPTER",
+  "deterministic": true,
+  "source_path": "pm_bot\\paper\\manual_snapshot_import_source\\008_polymarket_markets_active_minimized.fixture.json",
+  "source_shape": "polymarket_gamma_markets_response",
+  "top_level_shape": "top_level_list",
+  "gamma_market_list_detected": true,
+  "metadata_keys": [],
+  "summary": {
+    "total_markets_seen": 5,
+    "active_counts": {
+      "true": 5,
+      "false": 0,
+      "unknown": 0
+    },
+    "closed_counts": {
+      "true": 0,
+      "false": 5,
+      "unknown": 0
+    },
+    "category_counts": {},
+    "tag_counts": {},
+    "asset_keyword_counts": {
+      "BTC": 1,
+      "ETH": 1,
+      "SOL": 0,
+      "XRP": 0,
+      "crypto": 0,
+      "bitcoin": 1,
+      "ethereum": 1
+    },
+    "outcome_shape_counts": {
+      "yes_no": 5,
+      "up_down": 0,
+      "multi_outcome": 0,
+      "unknown": 0
+    },
+    "numeric_target_detected": 4,
+    "above_below_phrase_detected": 5,
+    "up_down_phrase_detected": 0,
+    "real_gamma_crypto_numeric_adapted": 2,
+    "crypto_numeric_actionable_after_adapter_update": 2,
+    "current_crypto_numeric_actionable": 2,
+    "adapter_rejection_reason_counts": {
+      "ambiguous_side": 1,
+      "missing_target": 1,
+      "unsupported_asset": 1
+    },
+    "supported_candidate_count": 2,
+    "still_rejected_candidate_count": 3,
+    "top_candidate_count": 5
+  },
+  "supported_candidates": [
+    {
+      "title": "Will Bitcoin be above $90,000 on June 30, 2026?",
+      "market_id": "gamma_btc_above_90000",
+      "slug": "will-bitcoin-be-above-90000-on-june-30-2026",
+      "detected_asset": "BTC",
+      "detected_side_or_outcome_shape": "above",
+      "outcome_shape": "yes_no",
+      "detected_numeric_target": "90000",
+      "current_adapter_actionable": true,
+      "why_actionable_or_rejected": "actionable: real Gamma crypto numeric adapter accepted",
+      "suggested_next_support_type": "crypto_numeric_above_below"
+    },
+    {
+      "title": "Will Ethereum be below $3,000 on June 30, 2026?",
+      "market_id": "gamma_eth_below_3000",
+      "slug": "will-ethereum-be-below-3000-on-june-30-2026",
+      "detected_asset": "ETH",
+      "detected_side_or_outcome_shape": "below",
+      "outcome_shape": "yes_no",
+      "detected_numeric_target": "3000",
+      "current_adapter_actionable": true,
+      "why_actionable_or_rejected": "actionable: real Gamma crypto numeric adapter accepted",
+      "suggested_next_support_type": "crypto_numeric_above_below"
+    }
+  ],
+  "still_rejected_candidates": [
+    {
+      "title": "Will ETH be above or below $3,000 on June 30, 2026?",
+      "market_id": "gamma_eth_ambiguous_side",
+      "slug": "will-eth-be-above-or-below-3000-on-june-30-2026",
+      "detected_asset": "ETH",
+      "detected_side_or_outcome_shape": "yes_no",
+      "outcome_shape": "yes_no",
+      "detected_numeric_target": "3000",
+      "current_adapter_actionable": false,
+      "why_actionable_or_rejected": "rejected: ambiguous_side - Question does not specify exactly one above/below side.",
+      "suggested_next_support_type": "crypto_numeric_above_below"
+    },
+    {
+      "title": "Will BTC be above its current price on June 30, 2026?",
+      "market_id": "gamma_btc_missing_target",
+      "slug": "will-btc-be-above-its-current-price-on-june-30-2026",
+      "detected_asset": "BTC",
+      "detected_side_or_outcome_shape": "above",
+      "outcome_shape": "yes_no",
+      "detected_numeric_target": null,
+      "current_adapter_actionable": false,
+      "why_actionable_or_rejected": "rejected: missing_target - Question does not include a numeric target price.",
+      "suggested_next_support_type": "unsupported"
+    },
+    {
+      "title": "Will Harvey Weinstein be sentenced to less than 5 years in prison?",
+      "market_id": "gamma_non_crypto_numeric",
+      "slug": "will-harvey-weinstein-be-sentenced-to-less-than-5-years-in-prison",
+      "detected_asset": null,
+      "detected_side_or_outcome_shape": "below",
+      "outcome_shape": "yes_no",
+      "detected_numeric_target": "5",
+      "current_adapter_actionable": false,
+      "why_actionable_or_rejected": "rejected: unsupported_asset - Question does not identify supported BTC or ETH asset.",
+      "suggested_next_support_type": "non_crypto_binary"
+    }
+  ],
+  "top_candidates": [
+    {
+      "title": "Will Bitcoin be above $90,000 on June 30, 2026?",
+      "market_id": "gamma_btc_above_90000",
+      "slug": "will-bitcoin-be-above-90000-on-june-30-2026",
+      "detected_asset": "BTC",
+      "detected_side_or_outcome_shape": "above",
+      "outcome_shape": "yes_no",
+      "detected_numeric_target": "90000",
+      "current_adapter_actionable": true,
+      "why_actionable_or_rejected": "actionable: real Gamma crypto numeric adapter accepted",
+      "suggested_next_support_type": "crypto_numeric_above_below"
+    },
+    {
+      "title": "Will Ethereum be below $3,000 on June 30, 2026?",
+      "market_id": "gamma_eth_below_3000",
+      "slug": "will-ethereum-be-below-3000-on-june-30-2026",
+      "detected_asset": "ETH",
+      "detected_side_or_outcome_shape": "below",
+      "outcome_shape": "yes_no",
+      "detected_numeric_target": "3000",
+      "current_adapter_actionable": true,
+      "why_actionable_or_rejected": "actionable: real Gamma crypto numeric adapter accepted",
+      "suggested_next_support_type": "crypto_numeric_above_below"
+    },
+    {
+      "title": "Will ETH be above or below $3,000 on June 30, 2026?",
+      "market_id": "gamma_eth_ambiguous_side",
+      "slug": "will-eth-be-above-or-below-3000-on-june-30-2026",
+      "detected_asset": "ETH",
+      "detected_side_or_outcome_shape": "yes_no",
+      "outcome_shape": "yes_no",
+      "detected_numeric_target": "3000",
+      "current_adapter_actionable": false,
+      "why_actionable_or_rejected": "rejected: ambiguous_side - Question does not specify exactly one above/below side.",
+      "suggested_next_support_type": "crypto_numeric_above_below"
+    },
+    {
+      "title": "Will Harvey Weinstein be sentenced to less than 5 years in prison?",
+      "market_id": "gamma_non_crypto_numeric",
+      "slug": "will-harvey-weinstein-be-sentenced-to-less-than-5-years-in-prison",
+      "detected_asset": null,
+      "detected_side_or_outcome_shape": "below",
+      "outcome_shape": "yes_no",
+      "detected_numeric_target": "5",
+      "current_adapter_actionable": false,
+      "why_actionable_or_rejected": "rejected: unsupported_asset - Question does not identify supported BTC or ETH asset.",
+      "suggested_next_support_type": "non_crypto_binary"
+    },
+    {
+      "title": "Will BTC be above its current price on June 30, 2026?",
+      "market_id": "gamma_btc_missing_target",
+      "slug": "will-btc-be-above-its-current-price-on-june-30-2026",
+      "detected_asset": "BTC",
+      "detected_side_or_outcome_shape": "above",
+      "outcome_shape": "yes_no",
+      "detected_numeric_target": null,
+      "current_adapter_actionable": false,
+      "why_actionable_or_rejected": "rejected: missing_target - Question does not include a numeric target price.",
+      "suggested_next_support_type": "unsupported"
+    }
+  ],
+  "safety_flags": {
+    "offline_only": true,
+    "paper_only": true,
+    "live_fetcher_implemented": false,
+    "api_used": false,
+    "network_used": false,
+    "wallet_used": false,
+    "real_order_created": false,
+    "trading_allowed": false,
+    "runtime_wiring_changed": false,
+    "dispatcher_touched": false,
+    "prompt_automation_added": false
+  },
+  "limitations": [
+    "Reads a local saved JSON file only; no live fetcher, network, external API, credentials, wallet access, orders, or trading are included.",
+    "Adapter support is limited to unambiguous Yes/No BTC, Bitcoin, ETH, or Ethereum numeric above/below markets.",
+    "Suggested support types are deterministic triage labels for product readiness only, not runtime wiring."
+  ]
+}

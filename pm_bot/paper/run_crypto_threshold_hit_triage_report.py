@@ -7,7 +7,8 @@ from pathlib import Path
 
 TASK_ID = "PMBOT-BRAIN-033-CRYPTO-THRESHOLD-HIT-TRIAGE"
 SCHEMA_VERSION = "v1"
-DEFAULT_SOURCE = Path(r"C:\Users\OpenC\Documents\AI-Orchestrator\local_snapshots\polymarket_markets_active_500_001.json")
+REPO_ROOT = Path(__file__).resolve().parents[2]
+DEFAULT_SOURCE = REPO_ROOT / "local_snapshots" / "polymarket_markets_active_500_001.json"
 SAFETY_FLAGS = {
     "offline_only": True,
     "paper_only": True,

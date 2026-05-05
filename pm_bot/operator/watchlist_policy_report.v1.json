@@ -1,0 +1,57 @@
+{
+  "schema_version": "v1",
+  "report_id": "PMBOT-BATCH-006-WATCHLIST-POLICY",
+  "watchlist_policy_version": "PMBOT-BATCH-005-warning-policy",
+  "fixture_only": true,
+  "paper_only": true,
+  "local_only": true,
+  "deterministic": true,
+  "operator_review_only": true,
+  "cases_covered": [
+    {
+      "reason": "duplicate_snapshot",
+      "replay_cases": [
+        "replay_adversarial_false_positive",
+        "replay_duplicate_snapshot"
+      ],
+      "shock_scenarios": [],
+      "allowed_decisions": [
+        "watchlist_no_action",
+        "reject_no_action"
+      ]
+    },
+    {
+      "reason": "outlier_price_move",
+      "replay_cases": [
+        "replay_adversarial_false_positive",
+        "replay_outlier_price_move"
+      ],
+      "shock_scenarios": [
+        "shock_price_gap"
+      ],
+      "allowed_decisions": [
+        "watchlist_no_action",
+        "reject_no_action"
+      ]
+    },
+    {
+      "reason": "correlation_conflict",
+      "replay_cases": [
+        "replay_adversarial_false_positive",
+        "replay_correlated_opposite_markets"
+      ],
+      "shock_scenarios": [
+        "shock_correlation_cluster_warning"
+      ],
+      "allowed_decisions": [
+        "watchlist_no_action",
+        "reject_no_action"
+      ]
+    }
+  ],
+  "watchlist_is_no_action": true,
+  "watchlist_requires_human_review": true,
+  "watchlist_can_execute": false,
+  "future_live_mode_requires_separate_approval": true,
+  "critical_rule": "Watchlist status is review-only and no-action. It cannot become an accepted, live, order, trade, or execution candidate without separate future approval."
+}

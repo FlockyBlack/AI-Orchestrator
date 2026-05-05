@@ -168,9 +168,8 @@ class ArtifactHealthReportTests(unittest.TestCase):
         self.assertIn("No blocking warnings detected", summary["operator_summary"])
 
         categories = {item["category"]: item for item in summary["warning_categories"]}
-        self.assertIn("expected_fixture_alignment_warning", categories)
-        self.assertIn("fixture_alignment_actual_missing", categories)
-        self.assertEqual(categories["fixture_alignment_actual_missing"]["severity"], "action_required")
+        self.assertNotIn("expected_fixture_alignment_warning", categories)
+        self.assertNotIn("fixture_alignment_actual_missing", categories)
         self.assertEqual(categories["embedded_artifact_pointer_warning"]["severity"], "review_needed")
         self.assertEqual(
             categories["known_intentional_malformed_fixture_parse_failure"]["severity"],
@@ -183,7 +182,7 @@ class ArtifactHealthReportTests(unittest.TestCase):
         self.assertEqual(len(summary["top_action_items"]), 5)
         self.assertEqual(
             summary["top_action_items"][0]["recommended_action"],
-            categories["expected_fixture_alignment_warning"]["recommended_action"],
+            categories["embedded_artifact_pointer_warning"]["recommended_action"],
         )
 
     def test_pointer_fixture_and_safety_sections_are_explicit(self):
