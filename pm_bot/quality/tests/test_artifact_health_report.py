@@ -123,11 +123,17 @@ class ArtifactHealthReportTests(unittest.TestCase):
         optional_infra_009 = artifacts["docs/PMBOT_INFRA_009_RESULT.json"]
         self.assertFalse(optional_infra_009["required"])
         if not optional_infra_009["exists"]:
-            self.assertIn("missing_optional_artifact", optional_infra_009["warnings"])
+            self.assertIn(
+                "missing_optional_artifact",
+                {warning["category"] for warning in optional_infra_009["warnings"]},
+            )
 
         malformed = artifacts["pm_bot/paper/manual_snapshot_import_source/005_malformed.json"]
         self.assertEqual(malformed["json_parse_status"], "parse_failed")
-        self.assertIn("known_intentional_malformed_fixture_parse_failure", malformed["warnings"])
+        self.assertIn(
+            "known_intentional_malformed_fixture_parse_failure",
+            {warning["category"] for warning in malformed["warnings"]},
+        )
         self.assertNotIn("required JSON parse failed", "\n".join(report["blockers"]))
 
     def test_warning_severity_summary_classifies_all_warning_detail(self):
@@ -143,6 +149,17 @@ class ArtifactHealthReportTests(unittest.TestCase):
             + summary["review_needed_count"]
             + summary["informational_count"],
         )
+        for warning in report["warnings"]:
+            self.assertIn(warning["owner"], {"code", "fixture", "schema", "data", "unknown"})
+            self.assertIn(warning["action_type"], {"fix_required", "review_required", "ignore_allowed"})
+            self.assertIsInstance(warning["recommended_action"], str)
+            self.assertTrue(warning["recommended_action"])
+        for artifact in report["artifacts"]:
+            for warning in artifact["warnings"]:
+                self.assertIn(warning["owner"], {"code", "fixture", "schema", "data", "unknown"})
+                self.assertIn(warning["action_type"], {"fix_required", "review_required", "ignore_allowed"})
+                self.assertIsInstance(warning["recommended_action"], str)
+                self.assertTrue(warning["recommended_action"])
         self.assertFalse(summary["blocking_warning_detected"])
         self.assertEqual(summary["blocking_count"], 0)
         self.assertGreater(summary["action_required_count"], 0)
@@ -158,6 +175,15 @@ class ArtifactHealthReportTests(unittest.TestCase):
         self.assertEqual(
             categories["known_intentional_malformed_fixture_parse_failure"]["severity"],
             "informational",
+        )
+        self.assertEqual(sum(summary["warnings_by_owner"].values()), summary["total_warnings"])
+        self.assertEqual(sum(summary["warnings_by_action_type"].values()), summary["total_warnings"])
+        self.assertGreater(summary["warnings_by_owner"]["fixture"], 0)
+        self.assertGreater(summary["warnings_by_action_type"]["fix_required"], 0)
+        self.assertEqual(len(summary["top_action_items"]), 5)
+        self.assertEqual(
+            summary["top_action_items"][0]["recommended_action"],
+            categories["expected_fixture_alignment_warning"]["recommended_action"],
         )
 
     def test_pointer_fixture_and_safety_sections_are_explicit(self):

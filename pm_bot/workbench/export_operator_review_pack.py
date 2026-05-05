@@ -81,6 +81,8 @@ QUALITY_SEVERITY_INTERPRETATION = {
     "review_needed": "review_needed means inspect but not necessarily block.",
     "informational": "informational means low-priority context.",
 }
+QUALITY_WARNING_OWNERS = ("code", "fixture", "schema", "data", "unknown")
+QUALITY_WARNING_ACTION_TYPES = ("fix_required", "review_required", "ignore_allowed")
 
 SOURCE_ARTIFACTS = (
     {
@@ -714,6 +716,8 @@ def _quality_report_payload(root=ROOT):
 def _quality_warning_summary(quality_report, load_status):
     summary = _safe_dict(_safe_dict(quality_report).get("warning_severity_summary"))
     if summary:
+        warnings_by_owner = _safe_dict(summary.get("warnings_by_owner"))
+        warnings_by_action_type = _safe_dict(summary.get("warnings_by_action_type"))
         return {
             "source_path": QUALITY_REPORT_PATH,
             "quality_report_status": _safe_dict(quality_report).get("report_status"),
@@ -724,8 +728,14 @@ def _quality_warning_summary(quality_report, load_status):
             "review_needed_warnings": summary.get("review_needed_count", 0),
             "informational_warnings": summary.get("informational_count", 0),
             "blocking_warning_detected": summary.get("blocking_warning_detected", False),
+            "warnings_by_owner": {owner: warnings_by_owner.get(owner, 0) for owner in QUALITY_WARNING_OWNERS},
+            "warnings_by_action_type": {
+                action_type: warnings_by_action_type.get(action_type, 0)
+                for action_type in QUALITY_WARNING_ACTION_TYPES
+            },
             "warning_categories": _safe_list(summary.get("warning_categories")),
             "top_warning_categories": _safe_list(summary.get("top_warning_categories")),
+            "top_action_items": _safe_list(summary.get("top_action_items")),
             "severity_interpretation": dict(QUALITY_SEVERITY_INTERPRETATION),
             "operator_summary": summary.get("operator_summary"),
             "recommended_manual_action": summary.get("recommended_manual_action"),
@@ -742,8 +752,11 @@ def _quality_warning_summary(quality_report, load_status):
         "review_needed_warnings": 0,
         "informational_warnings": 0,
         "blocking_warning_detected": False,
+        "warnings_by_owner": {owner: 0 for owner in QUALITY_WARNING_OWNERS},
+        "warnings_by_action_type": {action_type: 0 for action_type in QUALITY_WARNING_ACTION_TYPES},
         "warning_categories": [],
         "top_warning_categories": [],
+        "top_action_items": [],
         "severity_interpretation": dict(QUALITY_SEVERITY_INTERPRETATION),
         "operator_summary": "Quality warning severity summary is unavailable; inspect quality report details manually.",
         "recommended_manual_action": "Regenerate the artifact health report before relying on the operator review pack.",
@@ -994,6 +1007,42 @@ def render_operator_review_pack_markdown(pack):
                 "- "
                 f"{item['category']}: count={item['count']}, severity={item['severity']}, "
                 f"bucket={item['operator_bucket']}"
+            )
+    else:
+        lines.append("- none")
+    lines.extend(
+        [
+            "",
+            "## Quality Warnings By Owner",
+            "",
+        ]
+    )
+    by_owner = _safe_dict(quality.get("warnings_by_owner"))
+    for owner in QUALITY_WARNING_OWNERS:
+        lines.append(f"- {owner}: {by_owner.get(owner, 0)}")
+    lines.extend(
+        [
+            "",
+            "## Quality Warnings By Action Type",
+            "",
+        ]
+    )
+    by_action_type = _safe_dict(quality.get("warnings_by_action_type"))
+    for action_type in QUALITY_WARNING_ACTION_TYPES:
+        lines.append(f"- {action_type}: {by_action_type.get(action_type, 0)}")
+    lines.extend(
+        [
+            "",
+            "## Top Quality Action Items",
+            "",
+        ]
+    )
+    if quality["top_action_items"]:
+        for item in quality["top_action_items"]:
+            lines.append(
+                "- "
+                f"{item['recommended_action']}: count={item['count']}, owner={item['owner']}, "
+                f"action_type={item['action_type']}, severity={item['severity']}"
             )
     else:
         lines.append("- none")

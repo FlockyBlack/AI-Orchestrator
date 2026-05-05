@@ -142,6 +142,15 @@ class OperatorReviewPackExportTests(unittest.TestCase):
             "action_required means review before relying",
             quality_summary["severity_interpretation"]["action_required"],
         )
+        self.assertEqual(sum(quality_summary["warnings_by_owner"].values()), quality_summary["total_warnings"])
+        self.assertEqual(
+            sum(quality_summary["warnings_by_action_type"].values()),
+            quality_summary["total_warnings"],
+        )
+        self.assertGreater(quality_summary["warnings_by_owner"]["fixture"], 0)
+        self.assertGreater(quality_summary["warnings_by_action_type"]["fix_required"], 0)
+        self.assertEqual(len(quality_summary["top_action_items"]), 5)
+        self.assertIn("recommended_action", quality_summary["top_action_items"][0])
 
     def test_inventory_reports_required_sources_and_optional_missing_artifacts(self):
         _run_write()

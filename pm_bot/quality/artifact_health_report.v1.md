@@ -32,6 +32,28 @@
 - embedded_artifact_pointer_warning: count=15, severity=review_needed, bucket=embedded artifact pointer needs inspection
 - stale_reference_warning: count=6, severity=review_needed, bucket=historical or stale reference needs inspection
 
+## Warnings By Owner
+
+- code: 0
+- fixture: 103
+- schema: 25
+- data: 21
+- unknown: 0
+
+## Warnings By Action Type
+
+- fix_required: 123
+- review_required: 25
+- ignore_allowed: 1
+
+## Top Action Items
+
+- align expected fixture: count=51, owner=fixture, action_type=fix_required, severity=action_required
+- create missing actual artifact: count=50, owner=fixture, action_type=fix_required, severity=action_required
+- add schema_version to artifact: count=19, owner=schema, action_type=fix_required, severity=action_required
+- remove stale embedded pointer: count=15, owner=data, action_type=review_required, severity=review_needed
+- remove stale embedded reference: count=6, owner=data, action_type=review_required, severity=review_needed
+
 ## Warning Severity Model
 
 - blocking: Stop operator review and repair the artifact or safety issue first.
@@ -66,155 +88,155 @@
 
 ## Warnings
 
-- docs/PMBOT_DASHBOARD_002_RESULT.json: schema_version_missing
-- docs/PMBOT_DASHBOARD_002_RESULT.json: stale_reference_warning
-- docs/PMBOT_INFRA_009_RESULT.json: schema_version_missing
-- docs/PMBOT_INTEGRATION_008_RESULT.json: schema_version_missing
-- docs/PMBOT_INTEGRATION_008_RESULT.json: stale_reference_warning
-- docs/PMBOT_OPERATOR_002_RESULT.json: schema_version_missing
-- docs/PMBOT_OPERATOR_002_RESULT.json: stale_reference_warning
-- docs/PMBOT_PAPER_018_RESULT.json: schema_version_missing
-- docs/PMBOT_PRODUCT_001_RESULT.json: schema_version_missing
-- docs/PMBOT_PRODUCT_001_RESULT.json: stale_reference_warning
-- pm_bot/dashboard/dashboard_state_contract.v1.json: schema_version_missing
-- pm_bot/dashboard/expected_portfolio_audit_state_preview.v1.json: embedded_artifact_pointer_warning
-- pm_bot/dashboard/expected_portfolio_audit_state_preview.v1.json: stale_reference_warning
-- pm_bot/dashboard/portfolio_audit_state_contract.v1.json: schema_version_missing
-- pm_bot/dashboard/portfolio_audit_state_contract.v1.json: embedded_artifact_pointer_warning
-- pm_bot/dashboard/portfolio_audit_state_preview.v1.json: embedded_artifact_pointer_warning
-- pm_bot/dashboard/portfolio_audit_state_preview.v1.json: stale_reference_warning
-- pm_bot/operator/expected_operator_review_bundle.v1.json: expected_fixture_alignment_warning
-- pm_bot/operator/expected_operator_review_bundle.v1.md: expected_fixture_alignment_warning
-- pm_bot/operator/expected_operator_review_checklist.v1.json: expected_fixture_alignment_warning
-- pm_bot/operator/expected_operator_review_checklist.v1.md: expected_fixture_alignment_warning
-- pm_bot/operator/expected_paper_candidate_review_table.v1.json: expected_fixture_alignment_warning
-- pm_bot/operator/expected_paper_candidate_review_table.v1.md: expected_fixture_alignment_warning
-- pm_bot/operator/expected_risk_audit_summary.v1.json: expected_fixture_alignment_warning
-- pm_bot/operator/expected_risk_audit_summary.v1.md: expected_fixture_alignment_warning
-- pm_bot/operator/expected_watchlist_policy_report.v1.json: expected_fixture_alignment_warning
-- pm_bot/operator/expected_watchlist_policy_report.v1.md: expected_fixture_alignment_warning
-- pm_bot/paper/crypto_numeric_execution_fixture.v1.json: task_id_missing
-- pm_bot/paper/expected_crypto_numeric_lifecycle_regression_gates.v1.json: expected_fixture_alignment_warning
-- pm_bot/paper/expected_crypto_numeric_lifecycle_regression_gates.v1.md: expected_fixture_alignment_warning
-- pm_bot/paper/expected_crypto_numeric_lifecycle_replay.v1.json: expected_fixture_alignment_warning
-- pm_bot/paper/expected_crypto_numeric_lifecycle_replay.v1.md: expected_fixture_alignment_warning
-- pm_bot/paper/expected_crypto_numeric_paper_execution_ledger.v1.json: expected_fixture_alignment_warning
-- pm_bot/paper/expected_crypto_numeric_paper_execution_ledger.v1.md: expected_fixture_alignment_warning
-- pm_bot/paper/expected_crypto_numeric_paper_lifecycle.v1.json: expected_fixture_alignment_warning
-- pm_bot/paper/expected_crypto_numeric_paper_lifecycle.v1.md: expected_fixture_alignment_warning
-- pm_bot/paper/expected_crypto_threshold_hit_policy_scenarios.v1.json: expected_fixture_alignment_warning
-- pm_bot/paper/expected_crypto_threshold_hit_policy_scenarios.v1.md: expected_fixture_alignment_warning
-- pm_bot/paper/expected_crypto_threshold_hit_review_table.v1.json: expected_fixture_alignment_warning
-- pm_bot/paper/expected_crypto_threshold_hit_review_table.v1.md: expected_fixture_alignment_warning
-- pm_bot/paper/expected_crypto_threshold_hit_triage_report.v1.json: expected_fixture_alignment_warning
-- pm_bot/paper/expected_crypto_threshold_hit_triage_report.v1.md: expected_fixture_alignment_warning
-- pm_bot/paper/expected_live_shaped_snapshot_paper_lifecycle.v1.json: expected_fixture_alignment_warning
-- pm_bot/paper/expected_live_shaped_snapshot_paper_lifecycle.v1.md: expected_fixture_alignment_warning
-- pm_bot/paper/expected_local_snapshot_inbox_paper_portfolio.v1.json: embedded_artifact_pointer_warning
-- pm_bot/paper/expected_local_snapshot_inbox_paper_portfolio.v1.json: expected_fixture_alignment_warning
-- pm_bot/paper/expected_local_snapshot_inbox_paper_portfolio.v1.md: expected_fixture_alignment_warning
-- pm_bot/paper/expected_local_snapshot_inbox_run_ledger.v1.json: embedded_artifact_pointer_warning
-- pm_bot/paper/expected_local_snapshot_inbox_run_ledger.v1.json: expected_fixture_alignment_warning
-- pm_bot/paper/expected_local_snapshot_paper_portfolio_state.v1.json: embedded_artifact_pointer_warning
-- pm_bot/paper/expected_local_snapshot_paper_portfolio_state.v1.json: expected_fixture_alignment_warning
-- pm_bot/paper/expected_local_snapshot_paper_portfolio_state.v1.md: expected_fixture_alignment_warning
-- pm_bot/paper/expected_local_snapshot_series_paper_portfolio.v1.json: expected_fixture_alignment_warning
-- pm_bot/paper/expected_local_snapshot_series_paper_portfolio.v1.md: expected_fixture_alignment_warning
-- pm_bot/paper/expected_local_snapshot_series_risk_scenarios.v1.json: expected_fixture_alignment_warning
-- pm_bot/paper/expected_local_snapshot_series_risk_scenarios.v1.md: expected_fixture_alignment_warning
-- pm_bot/paper/expected_manual_paper_inbox_bundle.v1.json: embedded_artifact_pointer_warning
-- pm_bot/paper/expected_manual_paper_inbox_bundle.v1.json: expected_fixture_alignment_warning
-- pm_bot/paper/expected_manual_paper_inbox_bundle_summary.v1.md: expected_fixture_alignment_warning
-- pm_bot/paper/expected_manual_paper_operator_cycle.v1.json: embedded_artifact_pointer_warning
-- pm_bot/paper/expected_manual_paper_operator_cycle.v1.json: expected_fixture_alignment_warning
-- pm_bot/paper/expected_manual_paper_operator_cycle.v1.md: expected_fixture_alignment_warning
-- pm_bot/paper/expected_manual_paper_operator_cycle_manifest.v1.json: embedded_artifact_pointer_warning
-- pm_bot/paper/expected_manual_paper_operator_cycle_manifest.v1.json: expected_fixture_alignment_warning
-- pm_bot/paper/expected_manual_paper_operator_cycle_threshold_hit_review.v1.json: embedded_artifact_pointer_warning
-- pm_bot/paper/expected_manual_paper_operator_cycle_threshold_hit_review.v1.json: expected_fixture_alignment_warning
-- pm_bot/paper/expected_manual_paper_operator_cycle_threshold_hit_review.v1.md: expected_fixture_alignment_warning
-- pm_bot/paper/expected_manual_paper_workspace.v1.json: embedded_artifact_pointer_warning
-- pm_bot/paper/expected_manual_paper_workspace.v1.json: expected_fixture_alignment_warning
-- pm_bot/paper/expected_manual_paper_workspace_quarantine.v1.json: json_top_level_not_object
-- pm_bot/paper/expected_manual_paper_workspace_quarantine.v1.json: embedded_artifact_pointer_warning
-- pm_bot/paper/expected_manual_paper_workspace_quarantine.v1.json: expected_fixture_alignment_warning
-- pm_bot/paper/expected_manual_paper_workspace_summary.v1.md: expected_fixture_alignment_warning
-- pm_bot/paper/expected_manual_snapshot_import_manifest.v1.json: embedded_artifact_pointer_warning
-- pm_bot/paper/expected_manual_snapshot_import_manifest.v1.json: expected_fixture_alignment_warning
-- pm_bot/paper/expected_manual_snapshot_workspace_import.v1.json: embedded_artifact_pointer_warning
-- pm_bot/paper/expected_manual_snapshot_workspace_import.v1.json: expected_fixture_alignment_warning
-- pm_bot/paper/expected_manual_snapshot_workspace_import.v1.md: expected_fixture_alignment_warning
-- pm_bot/paper/expected_paper_simulation.v1.json: expected_fixture_alignment_warning
-- pm_bot/paper/expected_real_market_triage_report.v1.json: expected_fixture_alignment_warning
-- pm_bot/paper/expected_real_market_triage_report.v1.md: expected_fixture_alignment_warning
-- pm_bot/paper/fixtures/polymarket_markets_active_threshold_hit.fixture.json: json_top_level_not_object
-- pm_bot/paper/local_snapshot_inbox/001_series_snapshot_001.json: schema_version_missing
-- pm_bot/paper/local_snapshot_inbox/002_series_snapshot_002.json: schema_version_missing
-- pm_bot/paper/local_snapshot_inbox/003_series_snapshot_003.json: schema_version_missing
-- pm_bot/paper/local_snapshot_series_fixture.v1.json: task_id_missing
-- pm_bot/paper/manual_paper_run_fixture_output/run_ledger.json: embedded_artifact_pointer_warning
-- pm_bot/paper/manual_paper_workspace/inbox/001_series_snapshot_001.json: schema_version_missing
-- pm_bot/paper/manual_paper_workspace/inbox/002_series_snapshot_002.json: schema_version_missing
-- pm_bot/paper/manual_paper_workspace/inbox/003_series_snapshot_003.json: schema_version_missing
-- pm_bot/paper/manual_snapshot_import_source/001_series_snapshot_004.json: schema_version_missing
-- pm_bot/paper/manual_snapshot_import_source/002_series_snapshot_005.json: schema_version_missing
-- pm_bot/paper/manual_snapshot_import_source/003_duplicate_series_snapshot_004.json: schema_version_missing
-- pm_bot/paper/manual_snapshot_import_source/004_already_present_series_snapshot_002.json: schema_version_missing
-- pm_bot/paper/manual_snapshot_import_source/005_malformed.json: known_intentional_malformed_fixture_parse_failure
-- pm_bot/paper/manual_snapshot_import_source/008_polymarket_markets_active_minimized.fixture.json: json_top_level_not_object
-- pm_bot/paper/paper_plan_fixture.v1.json: schema_version_missing
-- pm_bot/paper/paper_plan_fixture.v1.json: task_id_missing
-- pm_bot/operator/expected_operator_review_bundle.v1.json fixture alignment actual_missing with pm_bot/operator/operator_review_bundle.v1.json
-- pm_bot/operator/expected_operator_review_bundle.v1.md fixture alignment actual_missing with pm_bot/operator/operator_review_bundle.v1.md
-- pm_bot/operator/expected_operator_review_checklist.v1.json fixture alignment actual_missing with pm_bot/operator/operator_review_checklist.v1.json
-- pm_bot/operator/expected_operator_review_checklist.v1.md fixture alignment actual_missing with pm_bot/operator/operator_review_checklist.v1.md
-- pm_bot/operator/expected_paper_candidate_review_table.v1.json fixture alignment actual_missing with pm_bot/operator/paper_candidate_review_table.v1.json
-- pm_bot/operator/expected_paper_candidate_review_table.v1.md fixture alignment actual_missing with pm_bot/operator/paper_candidate_review_table.v1.md
-- pm_bot/operator/expected_risk_audit_summary.v1.json fixture alignment actual_missing with pm_bot/operator/risk_audit_summary.v1.json
-- pm_bot/operator/expected_risk_audit_summary.v1.md fixture alignment actual_missing with pm_bot/operator/risk_audit_summary.v1.md
-- pm_bot/operator/expected_watchlist_policy_report.v1.json fixture alignment actual_missing with pm_bot/operator/watchlist_policy_report.v1.json
-- pm_bot/operator/expected_watchlist_policy_report.v1.md fixture alignment actual_missing with pm_bot/operator/watchlist_policy_report.v1.md
-- pm_bot/paper/expected_crypto_numeric_lifecycle_regression_gates.v1.json fixture alignment actual_missing with pm_bot/paper/crypto_numeric_lifecycle_regression_gates.v1.json
-- pm_bot/paper/expected_crypto_numeric_lifecycle_regression_gates.v1.md fixture alignment actual_missing with pm_bot/paper/crypto_numeric_lifecycle_regression_gates.v1.md
-- pm_bot/paper/expected_crypto_numeric_lifecycle_replay.v1.json fixture alignment actual_missing with pm_bot/paper/crypto_numeric_lifecycle_replay.v1.json
-- pm_bot/paper/expected_crypto_numeric_lifecycle_replay.v1.md fixture alignment actual_missing with pm_bot/paper/crypto_numeric_lifecycle_replay.v1.md
-- pm_bot/paper/expected_crypto_numeric_paper_execution_ledger.v1.json fixture alignment actual_missing with pm_bot/paper/crypto_numeric_paper_execution_ledger.v1.json
-- pm_bot/paper/expected_crypto_numeric_paper_execution_ledger.v1.md fixture alignment actual_missing with pm_bot/paper/crypto_numeric_paper_execution_ledger.v1.md
-- pm_bot/paper/expected_crypto_numeric_paper_lifecycle.v1.json fixture alignment actual_missing with pm_bot/paper/crypto_numeric_paper_lifecycle.v1.json
-- pm_bot/paper/expected_crypto_numeric_paper_lifecycle.v1.md fixture alignment actual_missing with pm_bot/paper/crypto_numeric_paper_lifecycle.v1.md
-- pm_bot/paper/expected_crypto_threshold_hit_policy_scenarios.v1.json fixture alignment actual_missing with pm_bot/paper/crypto_threshold_hit_policy_scenarios.v1.json
-- pm_bot/paper/expected_crypto_threshold_hit_policy_scenarios.v1.md fixture alignment actual_missing with pm_bot/paper/crypto_threshold_hit_policy_scenarios.v1.md
-- pm_bot/paper/expected_crypto_threshold_hit_review_table.v1.json fixture alignment actual_missing with pm_bot/paper/crypto_threshold_hit_review_table.v1.json
-- pm_bot/paper/expected_crypto_threshold_hit_review_table.v1.md fixture alignment actual_missing with pm_bot/paper/crypto_threshold_hit_review_table.v1.md
-- pm_bot/paper/expected_crypto_threshold_hit_triage_report.v1.json fixture alignment actual_missing with pm_bot/paper/crypto_threshold_hit_triage_report.v1.json
-- pm_bot/paper/expected_crypto_threshold_hit_triage_report.v1.md fixture alignment actual_missing with pm_bot/paper/crypto_threshold_hit_triage_report.v1.md
-- pm_bot/paper/expected_live_shaped_snapshot_paper_lifecycle.v1.json fixture alignment actual_missing with pm_bot/paper/live_shaped_snapshot_paper_lifecycle.v1.json
-- pm_bot/paper/expected_live_shaped_snapshot_paper_lifecycle.v1.md fixture alignment actual_missing with pm_bot/paper/live_shaped_snapshot_paper_lifecycle.v1.md
-- pm_bot/paper/expected_local_snapshot_inbox_paper_portfolio.v1.json fixture alignment actual_missing with pm_bot/paper/local_snapshot_inbox_paper_portfolio.v1.json
-- pm_bot/paper/expected_local_snapshot_inbox_paper_portfolio.v1.md fixture alignment actual_missing with pm_bot/paper/local_snapshot_inbox_paper_portfolio.v1.md
-- pm_bot/paper/expected_local_snapshot_inbox_run_ledger.v1.json fixture alignment actual_missing with pm_bot/paper/local_snapshot_inbox_run_ledger.v1.json
-- pm_bot/paper/expected_local_snapshot_paper_portfolio_state.v1.json fixture alignment actual_missing with pm_bot/paper/local_snapshot_paper_portfolio_state.v1.json
-- pm_bot/paper/expected_local_snapshot_paper_portfolio_state.v1.md fixture alignment actual_missing with pm_bot/paper/local_snapshot_paper_portfolio_state.v1.md
-- pm_bot/paper/expected_local_snapshot_series_paper_portfolio.v1.json fixture alignment actual_missing with pm_bot/paper/local_snapshot_series_paper_portfolio.v1.json
-- pm_bot/paper/expected_local_snapshot_series_paper_portfolio.v1.md fixture alignment actual_missing with pm_bot/paper/local_snapshot_series_paper_portfolio.v1.md
-- pm_bot/paper/expected_local_snapshot_series_risk_scenarios.v1.json fixture alignment mismatch with pm_bot/paper/local_snapshot_series_risk_scenarios.v1.json
-- pm_bot/paper/expected_local_snapshot_series_risk_scenarios.v1.md fixture alignment actual_missing with pm_bot/paper/local_snapshot_series_risk_scenarios.v1.md
-- pm_bot/paper/expected_manual_paper_inbox_bundle.v1.json fixture alignment actual_missing with pm_bot/paper/manual_paper_inbox_bundle.v1.json
-- pm_bot/paper/expected_manual_paper_inbox_bundle_summary.v1.md fixture alignment actual_missing with pm_bot/paper/manual_paper_inbox_bundle_summary.v1.md
-- pm_bot/paper/expected_manual_paper_operator_cycle.v1.json fixture alignment actual_missing with pm_bot/paper/manual_paper_operator_cycle.v1.json
-- pm_bot/paper/expected_manual_paper_operator_cycle.v1.md fixture alignment actual_missing with pm_bot/paper/manual_paper_operator_cycle.v1.md
-- pm_bot/paper/expected_manual_paper_operator_cycle_manifest.v1.json fixture alignment actual_missing with pm_bot/paper/manual_paper_operator_cycle_manifest.v1.json
-- pm_bot/paper/expected_manual_paper_operator_cycle_threshold_hit_review.v1.json fixture alignment actual_missing with pm_bot/paper/manual_paper_operator_cycle_threshold_hit_review.v1.json
-- pm_bot/paper/expected_manual_paper_operator_cycle_threshold_hit_review.v1.md fixture alignment actual_missing with pm_bot/paper/manual_paper_operator_cycle_threshold_hit_review.v1.md
-- pm_bot/paper/expected_manual_paper_workspace.v1.json fixture alignment actual_missing with pm_bot/paper/manual_paper_workspace.v1.json
-- pm_bot/paper/expected_manual_paper_workspace_quarantine.v1.json fixture alignment actual_missing with pm_bot/paper/manual_paper_workspace_quarantine.v1.json
-- pm_bot/paper/expected_manual_paper_workspace_summary.v1.md fixture alignment actual_missing with pm_bot/paper/manual_paper_workspace_summary.v1.md
-- pm_bot/paper/expected_manual_snapshot_import_manifest.v1.json fixture alignment actual_missing with pm_bot/paper/manual_snapshot_import_manifest.v1.json
-- pm_bot/paper/expected_manual_snapshot_workspace_import.v1.json fixture alignment actual_missing with pm_bot/paper/manual_snapshot_workspace_import.v1.json
-- pm_bot/paper/expected_manual_snapshot_workspace_import.v1.md fixture alignment actual_missing with pm_bot/paper/manual_snapshot_workspace_import.v1.md
-- pm_bot/paper/expected_paper_simulation.v1.json fixture alignment actual_missing with pm_bot/paper/paper_simulation.v1.json
-- pm_bot/paper/expected_real_market_triage_report.v1.json fixture alignment actual_missing with pm_bot/paper/real_market_triage_report.v1.json
-- pm_bot/paper/expected_real_market_triage_report.v1.md fixture alignment actual_missing with pm_bot/paper/real_market_triage_report.v1.md
+- docs/PMBOT_DASHBOARD_002_RESULT.json: schema_version_missing: severity=action_required, owner=schema, action_type=fix_required, recommended_action=add schema_version to artifact
+- docs/PMBOT_DASHBOARD_002_RESULT.json: stale_reference_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded reference
+- docs/PMBOT_INFRA_009_RESULT.json: schema_version_missing: severity=review_needed, owner=schema, action_type=review_required, recommended_action=add schema_version to artifact
+- docs/PMBOT_INTEGRATION_008_RESULT.json: schema_version_missing: severity=action_required, owner=schema, action_type=fix_required, recommended_action=add schema_version to artifact
+- docs/PMBOT_INTEGRATION_008_RESULT.json: stale_reference_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded reference
+- docs/PMBOT_OPERATOR_002_RESULT.json: schema_version_missing: severity=action_required, owner=schema, action_type=fix_required, recommended_action=add schema_version to artifact
+- docs/PMBOT_OPERATOR_002_RESULT.json: stale_reference_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded reference
+- docs/PMBOT_PAPER_018_RESULT.json: schema_version_missing: severity=action_required, owner=schema, action_type=fix_required, recommended_action=add schema_version to artifact
+- docs/PMBOT_PRODUCT_001_RESULT.json: schema_version_missing: severity=action_required, owner=schema, action_type=fix_required, recommended_action=add schema_version to artifact
+- docs/PMBOT_PRODUCT_001_RESULT.json: stale_reference_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded reference
+- pm_bot/dashboard/dashboard_state_contract.v1.json: schema_version_missing: severity=action_required, owner=schema, action_type=fix_required, recommended_action=add schema_version to artifact
+- pm_bot/dashboard/expected_portfolio_audit_state_preview.v1.json: embedded_artifact_pointer_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded pointer
+- pm_bot/dashboard/expected_portfolio_audit_state_preview.v1.json: stale_reference_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded reference
+- pm_bot/dashboard/portfolio_audit_state_contract.v1.json: schema_version_missing: severity=action_required, owner=schema, action_type=fix_required, recommended_action=add schema_version to artifact
+- pm_bot/dashboard/portfolio_audit_state_contract.v1.json: embedded_artifact_pointer_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded pointer
+- pm_bot/dashboard/portfolio_audit_state_preview.v1.json: embedded_artifact_pointer_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded pointer
+- pm_bot/dashboard/portfolio_audit_state_preview.v1.json: stale_reference_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded reference
+- pm_bot/operator/expected_operator_review_bundle.v1.json: expected_fixture_alignment_warning: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=align expected fixture
+- pm_bot/operator/expected_operator_review_bundle.v1.md: expected_fixture_alignment_warning: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=align expected fixture
+- pm_bot/operator/expected_operator_review_checklist.v1.json: expected_fixture_alignment_warning: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=align expected fixture
+- pm_bot/operator/expected_operator_review_checklist.v1.md: expected_fixture_alignment_warning: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=align expected fixture
+- pm_bot/operator/expected_paper_candidate_review_table.v1.json: expected_fixture_alignment_warning: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=align expected fixture
+- pm_bot/operator/expected_paper_candidate_review_table.v1.md: expected_fixture_alignment_warning: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=align expected fixture
+- pm_bot/operator/expected_risk_audit_summary.v1.json: expected_fixture_alignment_warning: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=align expected fixture
+- pm_bot/operator/expected_risk_audit_summary.v1.md: expected_fixture_alignment_warning: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=align expected fixture
+- pm_bot/operator/expected_watchlist_policy_report.v1.json: expected_fixture_alignment_warning: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=align expected fixture
+- pm_bot/operator/expected_watchlist_policy_report.v1.md: expected_fixture_alignment_warning: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=align expected fixture
+- pm_bot/paper/crypto_numeric_execution_fixture.v1.json: task_id_missing: severity=action_required, owner=schema, action_type=fix_required, recommended_action=add task_id to artifact
+- pm_bot/paper/expected_crypto_numeric_lifecycle_regression_gates.v1.json: expected_fixture_alignment_warning: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=align expected fixture
+- pm_bot/paper/expected_crypto_numeric_lifecycle_regression_gates.v1.md: expected_fixture_alignment_warning: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=align expected fixture
+- pm_bot/paper/expected_crypto_numeric_lifecycle_replay.v1.json: expected_fixture_alignment_warning: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=align expected fixture
+- pm_bot/paper/expected_crypto_numeric_lifecycle_replay.v1.md: expected_fixture_alignment_warning: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=align expected fixture
+- pm_bot/paper/expected_crypto_numeric_paper_execution_ledger.v1.json: expected_fixture_alignment_warning: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=align expected fixture
+- pm_bot/paper/expected_crypto_numeric_paper_execution_ledger.v1.md: expected_fixture_alignment_warning: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=align expected fixture
+- pm_bot/paper/expected_crypto_numeric_paper_lifecycle.v1.json: expected_fixture_alignment_warning: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=align expected fixture
+- pm_bot/paper/expected_crypto_numeric_paper_lifecycle.v1.md: expected_fixture_alignment_warning: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=align expected fixture
+- pm_bot/paper/expected_crypto_threshold_hit_policy_scenarios.v1.json: expected_fixture_alignment_warning: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=align expected fixture
+- pm_bot/paper/expected_crypto_threshold_hit_policy_scenarios.v1.md: expected_fixture_alignment_warning: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=align expected fixture
+- pm_bot/paper/expected_crypto_threshold_hit_review_table.v1.json: expected_fixture_alignment_warning: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=align expected fixture
+- pm_bot/paper/expected_crypto_threshold_hit_review_table.v1.md: expected_fixture_alignment_warning: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=align expected fixture
+- pm_bot/paper/expected_crypto_threshold_hit_triage_report.v1.json: expected_fixture_alignment_warning: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=align expected fixture
+- pm_bot/paper/expected_crypto_threshold_hit_triage_report.v1.md: expected_fixture_alignment_warning: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=align expected fixture
+- pm_bot/paper/expected_live_shaped_snapshot_paper_lifecycle.v1.json: expected_fixture_alignment_warning: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=align expected fixture
+- pm_bot/paper/expected_live_shaped_snapshot_paper_lifecycle.v1.md: expected_fixture_alignment_warning: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=align expected fixture
+- pm_bot/paper/expected_local_snapshot_inbox_paper_portfolio.v1.json: embedded_artifact_pointer_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded pointer
+- pm_bot/paper/expected_local_snapshot_inbox_paper_portfolio.v1.json: expected_fixture_alignment_warning: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=align expected fixture
+- pm_bot/paper/expected_local_snapshot_inbox_paper_portfolio.v1.md: expected_fixture_alignment_warning: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=align expected fixture
+- pm_bot/paper/expected_local_snapshot_inbox_run_ledger.v1.json: embedded_artifact_pointer_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded pointer
+- pm_bot/paper/expected_local_snapshot_inbox_run_ledger.v1.json: expected_fixture_alignment_warning: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=align expected fixture
+- pm_bot/paper/expected_local_snapshot_paper_portfolio_state.v1.json: embedded_artifact_pointer_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded pointer
+- pm_bot/paper/expected_local_snapshot_paper_portfolio_state.v1.json: expected_fixture_alignment_warning: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=align expected fixture
+- pm_bot/paper/expected_local_snapshot_paper_portfolio_state.v1.md: expected_fixture_alignment_warning: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=align expected fixture
+- pm_bot/paper/expected_local_snapshot_series_paper_portfolio.v1.json: expected_fixture_alignment_warning: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=align expected fixture
+- pm_bot/paper/expected_local_snapshot_series_paper_portfolio.v1.md: expected_fixture_alignment_warning: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=align expected fixture
+- pm_bot/paper/expected_local_snapshot_series_risk_scenarios.v1.json: expected_fixture_alignment_warning: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=align expected fixture
+- pm_bot/paper/expected_local_snapshot_series_risk_scenarios.v1.md: expected_fixture_alignment_warning: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=align expected fixture
+- pm_bot/paper/expected_manual_paper_inbox_bundle.v1.json: embedded_artifact_pointer_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded pointer
+- pm_bot/paper/expected_manual_paper_inbox_bundle.v1.json: expected_fixture_alignment_warning: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=align expected fixture
+- pm_bot/paper/expected_manual_paper_inbox_bundle_summary.v1.md: expected_fixture_alignment_warning: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=align expected fixture
+- pm_bot/paper/expected_manual_paper_operator_cycle.v1.json: embedded_artifact_pointer_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded pointer
+- pm_bot/paper/expected_manual_paper_operator_cycle.v1.json: expected_fixture_alignment_warning: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=align expected fixture
+- pm_bot/paper/expected_manual_paper_operator_cycle.v1.md: expected_fixture_alignment_warning: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=align expected fixture
+- pm_bot/paper/expected_manual_paper_operator_cycle_manifest.v1.json: embedded_artifact_pointer_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded pointer
+- pm_bot/paper/expected_manual_paper_operator_cycle_manifest.v1.json: expected_fixture_alignment_warning: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=align expected fixture
+- pm_bot/paper/expected_manual_paper_operator_cycle_threshold_hit_review.v1.json: embedded_artifact_pointer_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded pointer
+- pm_bot/paper/expected_manual_paper_operator_cycle_threshold_hit_review.v1.json: expected_fixture_alignment_warning: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=align expected fixture
+- pm_bot/paper/expected_manual_paper_operator_cycle_threshold_hit_review.v1.md: expected_fixture_alignment_warning: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=align expected fixture
+- pm_bot/paper/expected_manual_paper_workspace.v1.json: embedded_artifact_pointer_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded pointer
+- pm_bot/paper/expected_manual_paper_workspace.v1.json: expected_fixture_alignment_warning: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=align expected fixture
+- pm_bot/paper/expected_manual_paper_workspace_quarantine.v1.json: json_top_level_not_object: severity=review_needed, owner=schema, action_type=review_required, recommended_action=review non-object JSON artifact
+- pm_bot/paper/expected_manual_paper_workspace_quarantine.v1.json: embedded_artifact_pointer_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded pointer
+- pm_bot/paper/expected_manual_paper_workspace_quarantine.v1.json: expected_fixture_alignment_warning: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=align expected fixture
+- pm_bot/paper/expected_manual_paper_workspace_summary.v1.md: expected_fixture_alignment_warning: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=align expected fixture
+- pm_bot/paper/expected_manual_snapshot_import_manifest.v1.json: embedded_artifact_pointer_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded pointer
+- pm_bot/paper/expected_manual_snapshot_import_manifest.v1.json: expected_fixture_alignment_warning: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=align expected fixture
+- pm_bot/paper/expected_manual_snapshot_workspace_import.v1.json: embedded_artifact_pointer_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded pointer
+- pm_bot/paper/expected_manual_snapshot_workspace_import.v1.json: expected_fixture_alignment_warning: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=align expected fixture
+- pm_bot/paper/expected_manual_snapshot_workspace_import.v1.md: expected_fixture_alignment_warning: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=align expected fixture
+- pm_bot/paper/expected_paper_simulation.v1.json: expected_fixture_alignment_warning: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=align expected fixture
+- pm_bot/paper/expected_real_market_triage_report.v1.json: expected_fixture_alignment_warning: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=align expected fixture
+- pm_bot/paper/expected_real_market_triage_report.v1.md: expected_fixture_alignment_warning: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=align expected fixture
+- pm_bot/paper/fixtures/polymarket_markets_active_threshold_hit.fixture.json: json_top_level_not_object: severity=review_needed, owner=schema, action_type=review_required, recommended_action=review non-object JSON artifact
+- pm_bot/paper/local_snapshot_inbox/001_series_snapshot_001.json: schema_version_missing: severity=action_required, owner=schema, action_type=fix_required, recommended_action=add schema_version to artifact
+- pm_bot/paper/local_snapshot_inbox/002_series_snapshot_002.json: schema_version_missing: severity=action_required, owner=schema, action_type=fix_required, recommended_action=add schema_version to artifact
+- pm_bot/paper/local_snapshot_inbox/003_series_snapshot_003.json: schema_version_missing: severity=action_required, owner=schema, action_type=fix_required, recommended_action=add schema_version to artifact
+- pm_bot/paper/local_snapshot_series_fixture.v1.json: task_id_missing: severity=action_required, owner=schema, action_type=fix_required, recommended_action=add task_id to artifact
+- pm_bot/paper/manual_paper_run_fixture_output/run_ledger.json: embedded_artifact_pointer_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded pointer
+- pm_bot/paper/manual_paper_workspace/inbox/001_series_snapshot_001.json: schema_version_missing: severity=action_required, owner=schema, action_type=fix_required, recommended_action=add schema_version to artifact
+- pm_bot/paper/manual_paper_workspace/inbox/002_series_snapshot_002.json: schema_version_missing: severity=action_required, owner=schema, action_type=fix_required, recommended_action=add schema_version to artifact
+- pm_bot/paper/manual_paper_workspace/inbox/003_series_snapshot_003.json: schema_version_missing: severity=action_required, owner=schema, action_type=fix_required, recommended_action=add schema_version to artifact
+- pm_bot/paper/manual_snapshot_import_source/001_series_snapshot_004.json: schema_version_missing: severity=action_required, owner=schema, action_type=fix_required, recommended_action=add schema_version to artifact
+- pm_bot/paper/manual_snapshot_import_source/002_series_snapshot_005.json: schema_version_missing: severity=action_required, owner=schema, action_type=fix_required, recommended_action=add schema_version to artifact
+- pm_bot/paper/manual_snapshot_import_source/003_duplicate_series_snapshot_004.json: schema_version_missing: severity=action_required, owner=schema, action_type=fix_required, recommended_action=add schema_version to artifact
+- pm_bot/paper/manual_snapshot_import_source/004_already_present_series_snapshot_002.json: schema_version_missing: severity=action_required, owner=schema, action_type=fix_required, recommended_action=add schema_version to artifact
+- pm_bot/paper/manual_snapshot_import_source/005_malformed.json: known_intentional_malformed_fixture_parse_failure: severity=informational, owner=fixture, action_type=ignore_allowed, recommended_action=keep intentional malformed fixture documented
+- pm_bot/paper/manual_snapshot_import_source/008_polymarket_markets_active_minimized.fixture.json: json_top_level_not_object: severity=review_needed, owner=schema, action_type=review_required, recommended_action=review non-object JSON artifact
+- pm_bot/paper/paper_plan_fixture.v1.json: schema_version_missing: severity=action_required, owner=schema, action_type=fix_required, recommended_action=add schema_version to artifact
+- pm_bot/paper/paper_plan_fixture.v1.json: task_id_missing: severity=action_required, owner=schema, action_type=fix_required, recommended_action=add task_id to artifact
+- pm_bot/operator/expected_operator_review_bundle.v1.json fixture alignment actual_missing with pm_bot/operator/operator_review_bundle.v1.json: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=create missing actual artifact
+- pm_bot/operator/expected_operator_review_bundle.v1.md fixture alignment actual_missing with pm_bot/operator/operator_review_bundle.v1.md: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=create missing actual artifact
+- pm_bot/operator/expected_operator_review_checklist.v1.json fixture alignment actual_missing with pm_bot/operator/operator_review_checklist.v1.json: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=create missing actual artifact
+- pm_bot/operator/expected_operator_review_checklist.v1.md fixture alignment actual_missing with pm_bot/operator/operator_review_checklist.v1.md: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=create missing actual artifact
+- pm_bot/operator/expected_paper_candidate_review_table.v1.json fixture alignment actual_missing with pm_bot/operator/paper_candidate_review_table.v1.json: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=create missing actual artifact
+- pm_bot/operator/expected_paper_candidate_review_table.v1.md fixture alignment actual_missing with pm_bot/operator/paper_candidate_review_table.v1.md: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=create missing actual artifact
+- pm_bot/operator/expected_risk_audit_summary.v1.json fixture alignment actual_missing with pm_bot/operator/risk_audit_summary.v1.json: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=create missing actual artifact
+- pm_bot/operator/expected_risk_audit_summary.v1.md fixture alignment actual_missing with pm_bot/operator/risk_audit_summary.v1.md: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=create missing actual artifact
+- pm_bot/operator/expected_watchlist_policy_report.v1.json fixture alignment actual_missing with pm_bot/operator/watchlist_policy_report.v1.json: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=create missing actual artifact
+- pm_bot/operator/expected_watchlist_policy_report.v1.md fixture alignment actual_missing with pm_bot/operator/watchlist_policy_report.v1.md: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=create missing actual artifact
+- pm_bot/paper/expected_crypto_numeric_lifecycle_regression_gates.v1.json fixture alignment actual_missing with pm_bot/paper/crypto_numeric_lifecycle_regression_gates.v1.json: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=create missing actual artifact
+- pm_bot/paper/expected_crypto_numeric_lifecycle_regression_gates.v1.md fixture alignment actual_missing with pm_bot/paper/crypto_numeric_lifecycle_regression_gates.v1.md: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=create missing actual artifact
+- pm_bot/paper/expected_crypto_numeric_lifecycle_replay.v1.json fixture alignment actual_missing with pm_bot/paper/crypto_numeric_lifecycle_replay.v1.json: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=create missing actual artifact
+- pm_bot/paper/expected_crypto_numeric_lifecycle_replay.v1.md fixture alignment actual_missing with pm_bot/paper/crypto_numeric_lifecycle_replay.v1.md: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=create missing actual artifact
+- pm_bot/paper/expected_crypto_numeric_paper_execution_ledger.v1.json fixture alignment actual_missing with pm_bot/paper/crypto_numeric_paper_execution_ledger.v1.json: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=create missing actual artifact
+- pm_bot/paper/expected_crypto_numeric_paper_execution_ledger.v1.md fixture alignment actual_missing with pm_bot/paper/crypto_numeric_paper_execution_ledger.v1.md: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=create missing actual artifact
+- pm_bot/paper/expected_crypto_numeric_paper_lifecycle.v1.json fixture alignment actual_missing with pm_bot/paper/crypto_numeric_paper_lifecycle.v1.json: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=create missing actual artifact
+- pm_bot/paper/expected_crypto_numeric_paper_lifecycle.v1.md fixture alignment actual_missing with pm_bot/paper/crypto_numeric_paper_lifecycle.v1.md: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=create missing actual artifact
+- pm_bot/paper/expected_crypto_threshold_hit_policy_scenarios.v1.json fixture alignment actual_missing with pm_bot/paper/crypto_threshold_hit_policy_scenarios.v1.json: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=create missing actual artifact
+- pm_bot/paper/expected_crypto_threshold_hit_policy_scenarios.v1.md fixture alignment actual_missing with pm_bot/paper/crypto_threshold_hit_policy_scenarios.v1.md: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=create missing actual artifact
+- pm_bot/paper/expected_crypto_threshold_hit_review_table.v1.json fixture alignment actual_missing with pm_bot/paper/crypto_threshold_hit_review_table.v1.json: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=create missing actual artifact
+- pm_bot/paper/expected_crypto_threshold_hit_review_table.v1.md fixture alignment actual_missing with pm_bot/paper/crypto_threshold_hit_review_table.v1.md: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=create missing actual artifact
+- pm_bot/paper/expected_crypto_threshold_hit_triage_report.v1.json fixture alignment actual_missing with pm_bot/paper/crypto_threshold_hit_triage_report.v1.json: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=create missing actual artifact
+- pm_bot/paper/expected_crypto_threshold_hit_triage_report.v1.md fixture alignment actual_missing with pm_bot/paper/crypto_threshold_hit_triage_report.v1.md: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=create missing actual artifact
+- pm_bot/paper/expected_live_shaped_snapshot_paper_lifecycle.v1.json fixture alignment actual_missing with pm_bot/paper/live_shaped_snapshot_paper_lifecycle.v1.json: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=create missing actual artifact
+- pm_bot/paper/expected_live_shaped_snapshot_paper_lifecycle.v1.md fixture alignment actual_missing with pm_bot/paper/live_shaped_snapshot_paper_lifecycle.v1.md: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=create missing actual artifact
+- pm_bot/paper/expected_local_snapshot_inbox_paper_portfolio.v1.json fixture alignment actual_missing with pm_bot/paper/local_snapshot_inbox_paper_portfolio.v1.json: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=create missing actual artifact
+- pm_bot/paper/expected_local_snapshot_inbox_paper_portfolio.v1.md fixture alignment actual_missing with pm_bot/paper/local_snapshot_inbox_paper_portfolio.v1.md: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=create missing actual artifact
+- pm_bot/paper/expected_local_snapshot_inbox_run_ledger.v1.json fixture alignment actual_missing with pm_bot/paper/local_snapshot_inbox_run_ledger.v1.json: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=create missing actual artifact
+- pm_bot/paper/expected_local_snapshot_paper_portfolio_state.v1.json fixture alignment actual_missing with pm_bot/paper/local_snapshot_paper_portfolio_state.v1.json: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=create missing actual artifact
+- pm_bot/paper/expected_local_snapshot_paper_portfolio_state.v1.md fixture alignment actual_missing with pm_bot/paper/local_snapshot_paper_portfolio_state.v1.md: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=create missing actual artifact
+- pm_bot/paper/expected_local_snapshot_series_paper_portfolio.v1.json fixture alignment actual_missing with pm_bot/paper/local_snapshot_series_paper_portfolio.v1.json: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=create missing actual artifact
+- pm_bot/paper/expected_local_snapshot_series_paper_portfolio.v1.md fixture alignment actual_missing with pm_bot/paper/local_snapshot_series_paper_portfolio.v1.md: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=create missing actual artifact
+- pm_bot/paper/expected_local_snapshot_series_risk_scenarios.v1.json fixture alignment mismatch with pm_bot/paper/local_snapshot_series_risk_scenarios.v1.json: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=align expected fixture
+- pm_bot/paper/expected_local_snapshot_series_risk_scenarios.v1.md fixture alignment actual_missing with pm_bot/paper/local_snapshot_series_risk_scenarios.v1.md: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=create missing actual artifact
+- pm_bot/paper/expected_manual_paper_inbox_bundle.v1.json fixture alignment actual_missing with pm_bot/paper/manual_paper_inbox_bundle.v1.json: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=create missing actual artifact
+- pm_bot/paper/expected_manual_paper_inbox_bundle_summary.v1.md fixture alignment actual_missing with pm_bot/paper/manual_paper_inbox_bundle_summary.v1.md: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=create missing actual artifact
+- pm_bot/paper/expected_manual_paper_operator_cycle.v1.json fixture alignment actual_missing with pm_bot/paper/manual_paper_operator_cycle.v1.json: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=create missing actual artifact
+- pm_bot/paper/expected_manual_paper_operator_cycle.v1.md fixture alignment actual_missing with pm_bot/paper/manual_paper_operator_cycle.v1.md: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=create missing actual artifact
+- pm_bot/paper/expected_manual_paper_operator_cycle_manifest.v1.json fixture alignment actual_missing with pm_bot/paper/manual_paper_operator_cycle_manifest.v1.json: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=create missing actual artifact
+- pm_bot/paper/expected_manual_paper_operator_cycle_threshold_hit_review.v1.json fixture alignment actual_missing with pm_bot/paper/manual_paper_operator_cycle_threshold_hit_review.v1.json: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=create missing actual artifact
+- pm_bot/paper/expected_manual_paper_operator_cycle_threshold_hit_review.v1.md fixture alignment actual_missing with pm_bot/paper/manual_paper_operator_cycle_threshold_hit_review.v1.md: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=create missing actual artifact
+- pm_bot/paper/expected_manual_paper_workspace.v1.json fixture alignment actual_missing with pm_bot/paper/manual_paper_workspace.v1.json: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=create missing actual artifact
+- pm_bot/paper/expected_manual_paper_workspace_quarantine.v1.json fixture alignment actual_missing with pm_bot/paper/manual_paper_workspace_quarantine.v1.json: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=create missing actual artifact
+- pm_bot/paper/expected_manual_paper_workspace_summary.v1.md fixture alignment actual_missing with pm_bot/paper/manual_paper_workspace_summary.v1.md: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=create missing actual artifact
+- pm_bot/paper/expected_manual_snapshot_import_manifest.v1.json fixture alignment actual_missing with pm_bot/paper/manual_snapshot_import_manifest.v1.json: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=create missing actual artifact
+- pm_bot/paper/expected_manual_snapshot_workspace_import.v1.json fixture alignment actual_missing with pm_bot/paper/manual_snapshot_workspace_import.v1.json: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=create missing actual artifact
+- pm_bot/paper/expected_manual_snapshot_workspace_import.v1.md fixture alignment actual_missing with pm_bot/paper/manual_snapshot_workspace_import.v1.md: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=create missing actual artifact
+- pm_bot/paper/expected_paper_simulation.v1.json fixture alignment actual_missing with pm_bot/paper/paper_simulation.v1.json: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=create missing actual artifact
+- pm_bot/paper/expected_real_market_triage_report.v1.json fixture alignment actual_missing with pm_bot/paper/real_market_triage_report.v1.json: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=create missing actual artifact
+- pm_bot/paper/expected_real_market_triage_report.v1.md fixture alignment actual_missing with pm_bot/paper/real_market_triage_report.v1.md: severity=action_required, owner=fixture, action_type=fix_required, recommended_action=create missing actual artifact
 
 ## Artifacts
 

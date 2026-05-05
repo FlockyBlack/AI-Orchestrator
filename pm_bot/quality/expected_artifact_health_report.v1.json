@@ -1543,6 +1543,18 @@
     "action_required_count": 123,
     "review_needed_count": 25,
     "informational_count": 1,
+    "warnings_by_owner": {
+      "code": 0,
+      "fixture": 103,
+      "schema": 25,
+      "data": 21,
+      "unknown": 0
+    },
+    "warnings_by_action_type": {
+      "fix_required": 123,
+      "review_required": 25,
+      "ignore_allowed": 1
+    },
     "warning_categories": [
       {
         "category": "expected_fixture_alignment_warning",
@@ -1554,6 +1566,14 @@
           "review_needed": 0,
           "informational": 0
         },
+        "owner": "fixture",
+        "action_type": "fix_required",
+        "action_type_counts": {
+          "fix_required": 51,
+          "review_required": 0,
+          "ignore_allowed": 0
+        },
+        "recommended_action": "align expected fixture",
         "operator_bucket": "artifact has an expected fixture alignment warning"
       },
       {
@@ -1566,6 +1586,14 @@
           "review_needed": 0,
           "informational": 0
         },
+        "owner": "fixture",
+        "action_type": "fix_required",
+        "action_type_counts": {
+          "fix_required": 50,
+          "review_required": 0,
+          "ignore_allowed": 0
+        },
+        "recommended_action": "create missing actual artifact",
         "operator_bucket": "expected fixture exists but actual artifact is missing"
       },
       {
@@ -1578,6 +1606,14 @@
           "review_needed": 1,
           "informational": 0
         },
+        "owner": "schema",
+        "action_type": "fix_required",
+        "action_type_counts": {
+          "fix_required": 18,
+          "review_required": 1,
+          "ignore_allowed": 0
+        },
+        "recommended_action": "add schema_version to artifact",
         "operator_bucket": "schema version metadata missing"
       },
       {
@@ -1590,6 +1626,14 @@
           "review_needed": 15,
           "informational": 0
         },
+        "owner": "data",
+        "action_type": "review_required",
+        "action_type_counts": {
+          "fix_required": 0,
+          "review_required": 15,
+          "ignore_allowed": 0
+        },
+        "recommended_action": "remove stale embedded pointer",
         "operator_bucket": "embedded artifact pointer needs inspection"
       },
       {
@@ -1602,6 +1646,14 @@
           "review_needed": 6,
           "informational": 0
         },
+        "owner": "data",
+        "action_type": "review_required",
+        "action_type_counts": {
+          "fix_required": 0,
+          "review_required": 6,
+          "ignore_allowed": 0
+        },
+        "recommended_action": "remove stale embedded reference",
         "operator_bucket": "historical or stale reference needs inspection"
       },
       {
@@ -1614,6 +1666,14 @@
           "review_needed": 0,
           "informational": 0
         },
+        "owner": "schema",
+        "action_type": "fix_required",
+        "action_type_counts": {
+          "fix_required": 3,
+          "review_required": 0,
+          "ignore_allowed": 0
+        },
+        "recommended_action": "add task_id to artifact",
         "operator_bucket": "task_id metadata missing"
       },
       {
@@ -1626,6 +1686,14 @@
           "review_needed": 3,
           "informational": 0
         },
+        "owner": "schema",
+        "action_type": "review_required",
+        "action_type_counts": {
+          "fix_required": 0,
+          "review_required": 3,
+          "ignore_allowed": 0
+        },
+        "recommended_action": "review non-object JSON artifact",
         "operator_bucket": "JSON artifact is intentionally or structurally non-object"
       },
       {
@@ -1638,6 +1706,14 @@
           "review_needed": 0,
           "informational": 0
         },
+        "owner": "fixture",
+        "action_type": "fix_required",
+        "action_type_counts": {
+          "fix_required": 1,
+          "review_required": 0,
+          "ignore_allowed": 0
+        },
+        "recommended_action": "align expected fixture",
         "operator_bucket": "expected fixture differs from actual artifact"
       },
       {
@@ -1650,6 +1726,14 @@
           "review_needed": 0,
           "informational": 1
         },
+        "owner": "fixture",
+        "action_type": "ignore_allowed",
+        "action_type_counts": {
+          "fix_required": 0,
+          "review_required": 0,
+          "ignore_allowed": 1
+        },
+        "recommended_action": "keep intentional malformed fixture documented",
         "operator_bucket": "known intentional malformed fixture"
       }
     ],
@@ -1664,6 +1748,14 @@
           "review_needed": 0,
           "informational": 0
         },
+        "owner": "fixture",
+        "action_type": "fix_required",
+        "action_type_counts": {
+          "fix_required": 51,
+          "review_required": 0,
+          "ignore_allowed": 0
+        },
+        "recommended_action": "align expected fixture",
         "operator_bucket": "artifact has an expected fixture alignment warning"
       },
       {
@@ -1676,6 +1768,14 @@
           "review_needed": 0,
           "informational": 0
         },
+        "owner": "fixture",
+        "action_type": "fix_required",
+        "action_type_counts": {
+          "fix_required": 50,
+          "review_required": 0,
+          "ignore_allowed": 0
+        },
+        "recommended_action": "create missing actual artifact",
         "operator_bucket": "expected fixture exists but actual artifact is missing"
       },
       {
@@ -1688,6 +1788,14 @@
           "review_needed": 1,
           "informational": 0
         },
+        "owner": "schema",
+        "action_type": "fix_required",
+        "action_type_counts": {
+          "fix_required": 18,
+          "review_required": 1,
+          "ignore_allowed": 0
+        },
+        "recommended_action": "add schema_version to artifact",
         "operator_bucket": "schema version metadata missing"
       },
       {
@@ -1700,6 +1808,14 @@
           "review_needed": 15,
           "informational": 0
         },
+        "owner": "data",
+        "action_type": "review_required",
+        "action_type_counts": {
+          "fix_required": 0,
+          "review_required": 15,
+          "ignore_allowed": 0
+        },
+        "recommended_action": "remove stale embedded pointer",
         "operator_bucket": "embedded artifact pointer needs inspection"
       },
       {
@@ -1712,7 +1828,57 @@
           "review_needed": 6,
           "informational": 0
         },
+        "owner": "data",
+        "action_type": "review_required",
+        "action_type_counts": {
+          "fix_required": 0,
+          "review_required": 6,
+          "ignore_allowed": 0
+        },
+        "recommended_action": "remove stale embedded reference",
         "operator_bucket": "historical or stale reference needs inspection"
+      }
+    ],
+    "top_action_items": [
+      {
+        "category": "expected_fixture_alignment_warning",
+        "severity": "action_required",
+        "count": 51,
+        "owner": "fixture",
+        "action_type": "fix_required",
+        "recommended_action": "align expected fixture"
+      },
+      {
+        "category": "fixture_alignment_actual_missing",
+        "severity": "action_required",
+        "count": 50,
+        "owner": "fixture",
+        "action_type": "fix_required",
+        "recommended_action": "create missing actual artifact"
+      },
+      {
+        "category": "schema_version_missing",
+        "severity": "action_required",
+        "count": 19,
+        "owner": "schema",
+        "action_type": "fix_required",
+        "recommended_action": "add schema_version to artifact"
+      },
+      {
+        "category": "embedded_artifact_pointer_warning",
+        "severity": "review_needed",
+        "count": 15,
+        "owner": "data",
+        "action_type": "review_required",
+        "recommended_action": "remove stale embedded pointer"
+      },
+      {
+        "category": "stale_reference_warning",
+        "severity": "review_needed",
+        "count": 6,
+        "owner": "data",
+        "action_type": "review_required",
+        "recommended_action": "remove stale embedded reference"
       }
     ],
     "blocking_warning_detected": false,
@@ -1725,7 +1891,7 @@
       "informational": "Low-priority context retained for traceability."
     }
   },
-  "warnings": [
+  "warning_messages": [
     "docs/PMBOT_DASHBOARD_002_RESULT.json: schema_version_missing",
     "docs/PMBOT_DASHBOARD_002_RESULT.json: stale_reference_warning",
     "docs/PMBOT_INFRA_009_RESULT.json: schema_version_missing",
@@ -1876,6 +2042,1498 @@
     "pm_bot/paper/expected_real_market_triage_report.v1.json fixture alignment actual_missing with pm_bot/paper/real_market_triage_report.v1.json",
     "pm_bot/paper/expected_real_market_triage_report.v1.md fixture alignment actual_missing with pm_bot/paper/real_market_triage_report.v1.md"
   ],
+  "warnings": [
+    {
+      "warning_id": "warning_001",
+      "message": "docs/PMBOT_DASHBOARD_002_RESULT.json: schema_version_missing",
+      "path": "docs/PMBOT_DASHBOARD_002_RESULT.json",
+      "category": "schema_version_missing",
+      "severity": "action_required",
+      "owner": "schema",
+      "action_type": "fix_required",
+      "recommended_action": "add schema_version to artifact"
+    },
+    {
+      "warning_id": "warning_002",
+      "message": "docs/PMBOT_DASHBOARD_002_RESULT.json: stale_reference_warning",
+      "path": "docs/PMBOT_DASHBOARD_002_RESULT.json",
+      "category": "stale_reference_warning",
+      "severity": "review_needed",
+      "owner": "data",
+      "action_type": "review_required",
+      "recommended_action": "remove stale embedded reference"
+    },
+    {
+      "warning_id": "warning_003",
+      "message": "docs/PMBOT_INFRA_009_RESULT.json: schema_version_missing",
+      "path": "docs/PMBOT_INFRA_009_RESULT.json",
+      "category": "schema_version_missing",
+      "severity": "review_needed",
+      "owner": "schema",
+      "action_type": "review_required",
+      "recommended_action": "add schema_version to artifact"
+    },
+    {
+      "warning_id": "warning_004",
+      "message": "docs/PMBOT_INTEGRATION_008_RESULT.json: schema_version_missing",
+      "path": "docs/PMBOT_INTEGRATION_008_RESULT.json",
+      "category": "schema_version_missing",
+      "severity": "action_required",
+      "owner": "schema",
+      "action_type": "fix_required",
+      "recommended_action": "add schema_version to artifact"
+    },
+    {
+      "warning_id": "warning_005",
+      "message": "docs/PMBOT_INTEGRATION_008_RESULT.json: stale_reference_warning",
+      "path": "docs/PMBOT_INTEGRATION_008_RESULT.json",
+      "category": "stale_reference_warning",
+      "severity": "review_needed",
+      "owner": "data",
+      "action_type": "review_required",
+      "recommended_action": "remove stale embedded reference"
+    },
+    {
+      "warning_id": "warning_006",
+      "message": "docs/PMBOT_OPERATOR_002_RESULT.json: schema_version_missing",
+      "path": "docs/PMBOT_OPERATOR_002_RESULT.json",
+      "category": "schema_version_missing",
+      "severity": "action_required",
+      "owner": "schema",
+      "action_type": "fix_required",
+      "recommended_action": "add schema_version to artifact"
+    },
+    {
+      "warning_id": "warning_007",
+      "message": "docs/PMBOT_OPERATOR_002_RESULT.json: stale_reference_warning",
+      "path": "docs/PMBOT_OPERATOR_002_RESULT.json",
+      "category": "stale_reference_warning",
+      "severity": "review_needed",
+      "owner": "data",
+      "action_type": "review_required",
+      "recommended_action": "remove stale embedded reference"
+    },
+    {
+      "warning_id": "warning_008",
+      "message": "docs/PMBOT_PAPER_018_RESULT.json: schema_version_missing",
+      "path": "docs/PMBOT_PAPER_018_RESULT.json",
+      "category": "schema_version_missing",
+      "severity": "action_required",
+      "owner": "schema",
+      "action_type": "fix_required",
+      "recommended_action": "add schema_version to artifact"
+    },
+    {
+      "warning_id": "warning_009",
+      "message": "docs/PMBOT_PRODUCT_001_RESULT.json: schema_version_missing",
+      "path": "docs/PMBOT_PRODUCT_001_RESULT.json",
+      "category": "schema_version_missing",
+      "severity": "action_required",
+      "owner": "schema",
+      "action_type": "fix_required",
+      "recommended_action": "add schema_version to artifact"
+    },
+    {
+      "warning_id": "warning_010",
+      "message": "docs/PMBOT_PRODUCT_001_RESULT.json: stale_reference_warning",
+      "path": "docs/PMBOT_PRODUCT_001_RESULT.json",
+      "category": "stale_reference_warning",
+      "severity": "review_needed",
+      "owner": "data",
+      "action_type": "review_required",
+      "recommended_action": "remove stale embedded reference"
+    },
+    {
+      "warning_id": "warning_011",
+      "message": "pm_bot/dashboard/dashboard_state_contract.v1.json: schema_version_missing",
+      "path": "pm_bot/dashboard/dashboard_state_contract.v1.json",
+      "category": "schema_version_missing",
+      "severity": "action_required",
+      "owner": "schema",
+      "action_type": "fix_required",
+      "recommended_action": "add schema_version to artifact"
+    },
+    {
+      "warning_id": "warning_012",
+      "message": "pm_bot/dashboard/expected_portfolio_audit_state_preview.v1.json: embedded_artifact_pointer_warning",
+      "path": "pm_bot/dashboard/expected_portfolio_audit_state_preview.v1.json",
+      "category": "embedded_artifact_pointer_warning",
+      "severity": "review_needed",
+      "owner": "data",
+      "action_type": "review_required",
+      "recommended_action": "remove stale embedded pointer"
+    },
+    {
+      "warning_id": "warning_013",
+      "message": "pm_bot/dashboard/expected_portfolio_audit_state_preview.v1.json: stale_reference_warning",
+      "path": "pm_bot/dashboard/expected_portfolio_audit_state_preview.v1.json",
+      "category": "stale_reference_warning",
+      "severity": "review_needed",
+      "owner": "data",
+      "action_type": "review_required",
+      "recommended_action": "remove stale embedded reference"
+    },
+    {
+      "warning_id": "warning_014",
+      "message": "pm_bot/dashboard/portfolio_audit_state_contract.v1.json: schema_version_missing",
+      "path": "pm_bot/dashboard/portfolio_audit_state_contract.v1.json",
+      "category": "schema_version_missing",
+      "severity": "action_required",
+      "owner": "schema",
+      "action_type": "fix_required",
+      "recommended_action": "add schema_version to artifact"
+    },
+    {
+      "warning_id": "warning_015",
+      "message": "pm_bot/dashboard/portfolio_audit_state_contract.v1.json: embedded_artifact_pointer_warning",
+      "path": "pm_bot/dashboard/portfolio_audit_state_contract.v1.json",
+      "category": "embedded_artifact_pointer_warning",
+      "severity": "review_needed",
+      "owner": "data",
+      "action_type": "review_required",
+      "recommended_action": "remove stale embedded pointer"
+    },
+    {
+      "warning_id": "warning_016",
+      "message": "pm_bot/dashboard/portfolio_audit_state_preview.v1.json: embedded_artifact_pointer_warning",
+      "path": "pm_bot/dashboard/portfolio_audit_state_preview.v1.json",
+      "category": "embedded_artifact_pointer_warning",
+      "severity": "review_needed",
+      "owner": "data",
+      "action_type": "review_required",
+      "recommended_action": "remove stale embedded pointer"
+    },
+    {
+      "warning_id": "warning_017",
+      "message": "pm_bot/dashboard/portfolio_audit_state_preview.v1.json: stale_reference_warning",
+      "path": "pm_bot/dashboard/portfolio_audit_state_preview.v1.json",
+      "category": "stale_reference_warning",
+      "severity": "review_needed",
+      "owner": "data",
+      "action_type": "review_required",
+      "recommended_action": "remove stale embedded reference"
+    },
+    {
+      "warning_id": "warning_018",
+      "message": "pm_bot/operator/expected_operator_review_bundle.v1.json: expected_fixture_alignment_warning",
+      "path": "pm_bot/operator/expected_operator_review_bundle.v1.json",
+      "category": "expected_fixture_alignment_warning",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "align expected fixture"
+    },
+    {
+      "warning_id": "warning_019",
+      "message": "pm_bot/operator/expected_operator_review_bundle.v1.md: expected_fixture_alignment_warning",
+      "path": "pm_bot/operator/expected_operator_review_bundle.v1.md",
+      "category": "expected_fixture_alignment_warning",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "align expected fixture"
+    },
+    {
+      "warning_id": "warning_020",
+      "message": "pm_bot/operator/expected_operator_review_checklist.v1.json: expected_fixture_alignment_warning",
+      "path": "pm_bot/operator/expected_operator_review_checklist.v1.json",
+      "category": "expected_fixture_alignment_warning",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "align expected fixture"
+    },
+    {
+      "warning_id": "warning_021",
+      "message": "pm_bot/operator/expected_operator_review_checklist.v1.md: expected_fixture_alignment_warning",
+      "path": "pm_bot/operator/expected_operator_review_checklist.v1.md",
+      "category": "expected_fixture_alignment_warning",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "align expected fixture"
+    },
+    {
+      "warning_id": "warning_022",
+      "message": "pm_bot/operator/expected_paper_candidate_review_table.v1.json: expected_fixture_alignment_warning",
+      "path": "pm_bot/operator/expected_paper_candidate_review_table.v1.json",
+      "category": "expected_fixture_alignment_warning",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "align expected fixture"
+    },
+    {
+      "warning_id": "warning_023",
+      "message": "pm_bot/operator/expected_paper_candidate_review_table.v1.md: expected_fixture_alignment_warning",
+      "path": "pm_bot/operator/expected_paper_candidate_review_table.v1.md",
+      "category": "expected_fixture_alignment_warning",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "align expected fixture"
+    },
+    {
+      "warning_id": "warning_024",
+      "message": "pm_bot/operator/expected_risk_audit_summary.v1.json: expected_fixture_alignment_warning",
+      "path": "pm_bot/operator/expected_risk_audit_summary.v1.json",
+      "category": "expected_fixture_alignment_warning",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "align expected fixture"
+    },
+    {
+      "warning_id": "warning_025",
+      "message": "pm_bot/operator/expected_risk_audit_summary.v1.md: expected_fixture_alignment_warning",
+      "path": "pm_bot/operator/expected_risk_audit_summary.v1.md",
+      "category": "expected_fixture_alignment_warning",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "align expected fixture"
+    },
+    {
+      "warning_id": "warning_026",
+      "message": "pm_bot/operator/expected_watchlist_policy_report.v1.json: expected_fixture_alignment_warning",
+      "path": "pm_bot/operator/expected_watchlist_policy_report.v1.json",
+      "category": "expected_fixture_alignment_warning",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "align expected fixture"
+    },
+    {
+      "warning_id": "warning_027",
+      "message": "pm_bot/operator/expected_watchlist_policy_report.v1.md: expected_fixture_alignment_warning",
+      "path": "pm_bot/operator/expected_watchlist_policy_report.v1.md",
+      "category": "expected_fixture_alignment_warning",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "align expected fixture"
+    },
+    {
+      "warning_id": "warning_028",
+      "message": "pm_bot/paper/crypto_numeric_execution_fixture.v1.json: task_id_missing",
+      "path": "pm_bot/paper/crypto_numeric_execution_fixture.v1.json",
+      "category": "task_id_missing",
+      "severity": "action_required",
+      "owner": "schema",
+      "action_type": "fix_required",
+      "recommended_action": "add task_id to artifact"
+    },
+    {
+      "warning_id": "warning_029",
+      "message": "pm_bot/paper/expected_crypto_numeric_lifecycle_regression_gates.v1.json: expected_fixture_alignment_warning",
+      "path": "pm_bot/paper/expected_crypto_numeric_lifecycle_regression_gates.v1.json",
+      "category": "expected_fixture_alignment_warning",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "align expected fixture"
+    },
+    {
+      "warning_id": "warning_030",
+      "message": "pm_bot/paper/expected_crypto_numeric_lifecycle_regression_gates.v1.md: expected_fixture_alignment_warning",
+      "path": "pm_bot/paper/expected_crypto_numeric_lifecycle_regression_gates.v1.md",
+      "category": "expected_fixture_alignment_warning",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "align expected fixture"
+    },
+    {
+      "warning_id": "warning_031",
+      "message": "pm_bot/paper/expected_crypto_numeric_lifecycle_replay.v1.json: expected_fixture_alignment_warning",
+      "path": "pm_bot/paper/expected_crypto_numeric_lifecycle_replay.v1.json",
+      "category": "expected_fixture_alignment_warning",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "align expected fixture"
+    },
+    {
+      "warning_id": "warning_032",
+      "message": "pm_bot/paper/expected_crypto_numeric_lifecycle_replay.v1.md: expected_fixture_alignment_warning",
+      "path": "pm_bot/paper/expected_crypto_numeric_lifecycle_replay.v1.md",
+      "category": "expected_fixture_alignment_warning",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "align expected fixture"
+    },
+    {
+      "warning_id": "warning_033",
+      "message": "pm_bot/paper/expected_crypto_numeric_paper_execution_ledger.v1.json: expected_fixture_alignment_warning",
+      "path": "pm_bot/paper/expected_crypto_numeric_paper_execution_ledger.v1.json",
+      "category": "expected_fixture_alignment_warning",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "align expected fixture"
+    },
+    {
+      "warning_id": "warning_034",
+      "message": "pm_bot/paper/expected_crypto_numeric_paper_execution_ledger.v1.md: expected_fixture_alignment_warning",
+      "path": "pm_bot/paper/expected_crypto_numeric_paper_execution_ledger.v1.md",
+      "category": "expected_fixture_alignment_warning",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "align expected fixture"
+    },
+    {
+      "warning_id": "warning_035",
+      "message": "pm_bot/paper/expected_crypto_numeric_paper_lifecycle.v1.json: expected_fixture_alignment_warning",
+      "path": "pm_bot/paper/expected_crypto_numeric_paper_lifecycle.v1.json",
+      "category": "expected_fixture_alignment_warning",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "align expected fixture"
+    },
+    {
+      "warning_id": "warning_036",
+      "message": "pm_bot/paper/expected_crypto_numeric_paper_lifecycle.v1.md: expected_fixture_alignment_warning",
+      "path": "pm_bot/paper/expected_crypto_numeric_paper_lifecycle.v1.md",
+      "category": "expected_fixture_alignment_warning",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "align expected fixture"
+    },
+    {
+      "warning_id": "warning_037",
+      "message": "pm_bot/paper/expected_crypto_threshold_hit_policy_scenarios.v1.json: expected_fixture_alignment_warning",
+      "path": "pm_bot/paper/expected_crypto_threshold_hit_policy_scenarios.v1.json",
+      "category": "expected_fixture_alignment_warning",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "align expected fixture"
+    },
+    {
+      "warning_id": "warning_038",
+      "message": "pm_bot/paper/expected_crypto_threshold_hit_policy_scenarios.v1.md: expected_fixture_alignment_warning",
+      "path": "pm_bot/paper/expected_crypto_threshold_hit_policy_scenarios.v1.md",
+      "category": "expected_fixture_alignment_warning",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "align expected fixture"
+    },
+    {
+      "warning_id": "warning_039",
+      "message": "pm_bot/paper/expected_crypto_threshold_hit_review_table.v1.json: expected_fixture_alignment_warning",
+      "path": "pm_bot/paper/expected_crypto_threshold_hit_review_table.v1.json",
+      "category": "expected_fixture_alignment_warning",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "align expected fixture"
+    },
+    {
+      "warning_id": "warning_040",
+      "message": "pm_bot/paper/expected_crypto_threshold_hit_review_table.v1.md: expected_fixture_alignment_warning",
+      "path": "pm_bot/paper/expected_crypto_threshold_hit_review_table.v1.md",
+      "category": "expected_fixture_alignment_warning",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "align expected fixture"
+    },
+    {
+      "warning_id": "warning_041",
+      "message": "pm_bot/paper/expected_crypto_threshold_hit_triage_report.v1.json: expected_fixture_alignment_warning",
+      "path": "pm_bot/paper/expected_crypto_threshold_hit_triage_report.v1.json",
+      "category": "expected_fixture_alignment_warning",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "align expected fixture"
+    },
+    {
+      "warning_id": "warning_042",
+      "message": "pm_bot/paper/expected_crypto_threshold_hit_triage_report.v1.md: expected_fixture_alignment_warning",
+      "path": "pm_bot/paper/expected_crypto_threshold_hit_triage_report.v1.md",
+      "category": "expected_fixture_alignment_warning",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "align expected fixture"
+    },
+    {
+      "warning_id": "warning_043",
+      "message": "pm_bot/paper/expected_live_shaped_snapshot_paper_lifecycle.v1.json: expected_fixture_alignment_warning",
+      "path": "pm_bot/paper/expected_live_shaped_snapshot_paper_lifecycle.v1.json",
+      "category": "expected_fixture_alignment_warning",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "align expected fixture"
+    },
+    {
+      "warning_id": "warning_044",
+      "message": "pm_bot/paper/expected_live_shaped_snapshot_paper_lifecycle.v1.md: expected_fixture_alignment_warning",
+      "path": "pm_bot/paper/expected_live_shaped_snapshot_paper_lifecycle.v1.md",
+      "category": "expected_fixture_alignment_warning",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "align expected fixture"
+    },
+    {
+      "warning_id": "warning_045",
+      "message": "pm_bot/paper/expected_local_snapshot_inbox_paper_portfolio.v1.json: embedded_artifact_pointer_warning",
+      "path": "pm_bot/paper/expected_local_snapshot_inbox_paper_portfolio.v1.json",
+      "category": "embedded_artifact_pointer_warning",
+      "severity": "review_needed",
+      "owner": "data",
+      "action_type": "review_required",
+      "recommended_action": "remove stale embedded pointer"
+    },
+    {
+      "warning_id": "warning_046",
+      "message": "pm_bot/paper/expected_local_snapshot_inbox_paper_portfolio.v1.json: expected_fixture_alignment_warning",
+      "path": "pm_bot/paper/expected_local_snapshot_inbox_paper_portfolio.v1.json",
+      "category": "expected_fixture_alignment_warning",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "align expected fixture"
+    },
+    {
+      "warning_id": "warning_047",
+      "message": "pm_bot/paper/expected_local_snapshot_inbox_paper_portfolio.v1.md: expected_fixture_alignment_warning",
+      "path": "pm_bot/paper/expected_local_snapshot_inbox_paper_portfolio.v1.md",
+      "category": "expected_fixture_alignment_warning",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "align expected fixture"
+    },
+    {
+      "warning_id": "warning_048",
+      "message": "pm_bot/paper/expected_local_snapshot_inbox_run_ledger.v1.json: embedded_artifact_pointer_warning",
+      "path": "pm_bot/paper/expected_local_snapshot_inbox_run_ledger.v1.json",
+      "category": "embedded_artifact_pointer_warning",
+      "severity": "review_needed",
+      "owner": "data",
+      "action_type": "review_required",
+      "recommended_action": "remove stale embedded pointer"
+    },
+    {
+      "warning_id": "warning_049",
+      "message": "pm_bot/paper/expected_local_snapshot_inbox_run_ledger.v1.json: expected_fixture_alignment_warning",
+      "path": "pm_bot/paper/expected_local_snapshot_inbox_run_ledger.v1.json",
+      "category": "expected_fixture_alignment_warning",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "align expected fixture"
+    },
+    {
+      "warning_id": "warning_050",
+      "message": "pm_bot/paper/expected_local_snapshot_paper_portfolio_state.v1.json: embedded_artifact_pointer_warning",
+      "path": "pm_bot/paper/expected_local_snapshot_paper_portfolio_state.v1.json",
+      "category": "embedded_artifact_pointer_warning",
+      "severity": "review_needed",
+      "owner": "data",
+      "action_type": "review_required",
+      "recommended_action": "remove stale embedded pointer"
+    },
+    {
+      "warning_id": "warning_051",
+      "message": "pm_bot/paper/expected_local_snapshot_paper_portfolio_state.v1.json: expected_fixture_alignment_warning",
+      "path": "pm_bot/paper/expected_local_snapshot_paper_portfolio_state.v1.json",
+      "category": "expected_fixture_alignment_warning",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "align expected fixture"
+    },
+    {
+      "warning_id": "warning_052",
+      "message": "pm_bot/paper/expected_local_snapshot_paper_portfolio_state.v1.md: expected_fixture_alignment_warning",
+      "path": "pm_bot/paper/expected_local_snapshot_paper_portfolio_state.v1.md",
+      "category": "expected_fixture_alignment_warning",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "align expected fixture"
+    },
+    {
+      "warning_id": "warning_053",
+      "message": "pm_bot/paper/expected_local_snapshot_series_paper_portfolio.v1.json: expected_fixture_alignment_warning",
+      "path": "pm_bot/paper/expected_local_snapshot_series_paper_portfolio.v1.json",
+      "category": "expected_fixture_alignment_warning",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "align expected fixture"
+    },
+    {
+      "warning_id": "warning_054",
+      "message": "pm_bot/paper/expected_local_snapshot_series_paper_portfolio.v1.md: expected_fixture_alignment_warning",
+      "path": "pm_bot/paper/expected_local_snapshot_series_paper_portfolio.v1.md",
+      "category": "expected_fixture_alignment_warning",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "align expected fixture"
+    },
+    {
+      "warning_id": "warning_055",
+      "message": "pm_bot/paper/expected_local_snapshot_series_risk_scenarios.v1.json: expected_fixture_alignment_warning",
+      "path": "pm_bot/paper/expected_local_snapshot_series_risk_scenarios.v1.json",
+      "category": "expected_fixture_alignment_warning",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "align expected fixture"
+    },
+    {
+      "warning_id": "warning_056",
+      "message": "pm_bot/paper/expected_local_snapshot_series_risk_scenarios.v1.md: expected_fixture_alignment_warning",
+      "path": "pm_bot/paper/expected_local_snapshot_series_risk_scenarios.v1.md",
+      "category": "expected_fixture_alignment_warning",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "align expected fixture"
+    },
+    {
+      "warning_id": "warning_057",
+      "message": "pm_bot/paper/expected_manual_paper_inbox_bundle.v1.json: embedded_artifact_pointer_warning",
+      "path": "pm_bot/paper/expected_manual_paper_inbox_bundle.v1.json",
+      "category": "embedded_artifact_pointer_warning",
+      "severity": "review_needed",
+      "owner": "data",
+      "action_type": "review_required",
+      "recommended_action": "remove stale embedded pointer"
+    },
+    {
+      "warning_id": "warning_058",
+      "message": "pm_bot/paper/expected_manual_paper_inbox_bundle.v1.json: expected_fixture_alignment_warning",
+      "path": "pm_bot/paper/expected_manual_paper_inbox_bundle.v1.json",
+      "category": "expected_fixture_alignment_warning",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "align expected fixture"
+    },
+    {
+      "warning_id": "warning_059",
+      "message": "pm_bot/paper/expected_manual_paper_inbox_bundle_summary.v1.md: expected_fixture_alignment_warning",
+      "path": "pm_bot/paper/expected_manual_paper_inbox_bundle_summary.v1.md",
+      "category": "expected_fixture_alignment_warning",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "align expected fixture"
+    },
+    {
+      "warning_id": "warning_060",
+      "message": "pm_bot/paper/expected_manual_paper_operator_cycle.v1.json: embedded_artifact_pointer_warning",
+      "path": "pm_bot/paper/expected_manual_paper_operator_cycle.v1.json",
+      "category": "embedded_artifact_pointer_warning",
+      "severity": "review_needed",
+      "owner": "data",
+      "action_type": "review_required",
+      "recommended_action": "remove stale embedded pointer"
+    },
+    {
+      "warning_id": "warning_061",
+      "message": "pm_bot/paper/expected_manual_paper_operator_cycle.v1.json: expected_fixture_alignment_warning",
+      "path": "pm_bot/paper/expected_manual_paper_operator_cycle.v1.json",
+      "category": "expected_fixture_alignment_warning",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "align expected fixture"
+    },
+    {
+      "warning_id": "warning_062",
+      "message": "pm_bot/paper/expected_manual_paper_operator_cycle.v1.md: expected_fixture_alignment_warning",
+      "path": "pm_bot/paper/expected_manual_paper_operator_cycle.v1.md",
+      "category": "expected_fixture_alignment_warning",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "align expected fixture"
+    },
+    {
+      "warning_id": "warning_063",
+      "message": "pm_bot/paper/expected_manual_paper_operator_cycle_manifest.v1.json: embedded_artifact_pointer_warning",
+      "path": "pm_bot/paper/expected_manual_paper_operator_cycle_manifest.v1.json",
+      "category": "embedded_artifact_pointer_warning",
+      "severity": "review_needed",
+      "owner": "data",
+      "action_type": "review_required",
+      "recommended_action": "remove stale embedded pointer"
+    },
+    {
+      "warning_id": "warning_064",
+      "message": "pm_bot/paper/expected_manual_paper_operator_cycle_manifest.v1.json: expected_fixture_alignment_warning",
+      "path": "pm_bot/paper/expected_manual_paper_operator_cycle_manifest.v1.json",
+      "category": "expected_fixture_alignment_warning",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "align expected fixture"
+    },
+    {
+      "warning_id": "warning_065",
+      "message": "pm_bot/paper/expected_manual_paper_operator_cycle_threshold_hit_review.v1.json: embedded_artifact_pointer_warning",
+      "path": "pm_bot/paper/expected_manual_paper_operator_cycle_threshold_hit_review.v1.json",
+      "category": "embedded_artifact_pointer_warning",
+      "severity": "review_needed",
+      "owner": "data",
+      "action_type": "review_required",
+      "recommended_action": "remove stale embedded pointer"
+    },
+    {
+      "warning_id": "warning_066",
+      "message": "pm_bot/paper/expected_manual_paper_operator_cycle_threshold_hit_review.v1.json: expected_fixture_alignment_warning",
+      "path": "pm_bot/paper/expected_manual_paper_operator_cycle_threshold_hit_review.v1.json",
+      "category": "expected_fixture_alignment_warning",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "align expected fixture"
+    },
+    {
+      "warning_id": "warning_067",
+      "message": "pm_bot/paper/expected_manual_paper_operator_cycle_threshold_hit_review.v1.md: expected_fixture_alignment_warning",
+      "path": "pm_bot/paper/expected_manual_paper_operator_cycle_threshold_hit_review.v1.md",
+      "category": "expected_fixture_alignment_warning",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "align expected fixture"
+    },
+    {
+      "warning_id": "warning_068",
+      "message": "pm_bot/paper/expected_manual_paper_workspace.v1.json: embedded_artifact_pointer_warning",
+      "path": "pm_bot/paper/expected_manual_paper_workspace.v1.json",
+      "category": "embedded_artifact_pointer_warning",
+      "severity": "review_needed",
+      "owner": "data",
+      "action_type": "review_required",
+      "recommended_action": "remove stale embedded pointer"
+    },
+    {
+      "warning_id": "warning_069",
+      "message": "pm_bot/paper/expected_manual_paper_workspace.v1.json: expected_fixture_alignment_warning",
+      "path": "pm_bot/paper/expected_manual_paper_workspace.v1.json",
+      "category": "expected_fixture_alignment_warning",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "align expected fixture"
+    },
+    {
+      "warning_id": "warning_070",
+      "message": "pm_bot/paper/expected_manual_paper_workspace_quarantine.v1.json: json_top_level_not_object",
+      "path": "pm_bot/paper/expected_manual_paper_workspace_quarantine.v1.json",
+      "category": "json_top_level_not_object",
+      "severity": "review_needed",
+      "owner": "schema",
+      "action_type": "review_required",
+      "recommended_action": "review non-object JSON artifact"
+    },
+    {
+      "warning_id": "warning_071",
+      "message": "pm_bot/paper/expected_manual_paper_workspace_quarantine.v1.json: embedded_artifact_pointer_warning",
+      "path": "pm_bot/paper/expected_manual_paper_workspace_quarantine.v1.json",
+      "category": "embedded_artifact_pointer_warning",
+      "severity": "review_needed",
+      "owner": "data",
+      "action_type": "review_required",
+      "recommended_action": "remove stale embedded pointer"
+    },
+    {
+      "warning_id": "warning_072",
+      "message": "pm_bot/paper/expected_manual_paper_workspace_quarantine.v1.json: expected_fixture_alignment_warning",
+      "path": "pm_bot/paper/expected_manual_paper_workspace_quarantine.v1.json",
+      "category": "expected_fixture_alignment_warning",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "align expected fixture"
+    },
+    {
+      "warning_id": "warning_073",
+      "message": "pm_bot/paper/expected_manual_paper_workspace_summary.v1.md: expected_fixture_alignment_warning",
+      "path": "pm_bot/paper/expected_manual_paper_workspace_summary.v1.md",
+      "category": "expected_fixture_alignment_warning",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "align expected fixture"
+    },
+    {
+      "warning_id": "warning_074",
+      "message": "pm_bot/paper/expected_manual_snapshot_import_manifest.v1.json: embedded_artifact_pointer_warning",
+      "path": "pm_bot/paper/expected_manual_snapshot_import_manifest.v1.json",
+      "category": "embedded_artifact_pointer_warning",
+      "severity": "review_needed",
+      "owner": "data",
+      "action_type": "review_required",
+      "recommended_action": "remove stale embedded pointer"
+    },
+    {
+      "warning_id": "warning_075",
+      "message": "pm_bot/paper/expected_manual_snapshot_import_manifest.v1.json: expected_fixture_alignment_warning",
+      "path": "pm_bot/paper/expected_manual_snapshot_import_manifest.v1.json",
+      "category": "expected_fixture_alignment_warning",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "align expected fixture"
+    },
+    {
+      "warning_id": "warning_076",
+      "message": "pm_bot/paper/expected_manual_snapshot_workspace_import.v1.json: embedded_artifact_pointer_warning",
+      "path": "pm_bot/paper/expected_manual_snapshot_workspace_import.v1.json",
+      "category": "embedded_artifact_pointer_warning",
+      "severity": "review_needed",
+      "owner": "data",
+      "action_type": "review_required",
+      "recommended_action": "remove stale embedded pointer"
+    },
+    {
+      "warning_id": "warning_077",
+      "message": "pm_bot/paper/expected_manual_snapshot_workspace_import.v1.json: expected_fixture_alignment_warning",
+      "path": "pm_bot/paper/expected_manual_snapshot_workspace_import.v1.json",
+      "category": "expected_fixture_alignment_warning",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "align expected fixture"
+    },
+    {
+      "warning_id": "warning_078",
+      "message": "pm_bot/paper/expected_manual_snapshot_workspace_import.v1.md: expected_fixture_alignment_warning",
+      "path": "pm_bot/paper/expected_manual_snapshot_workspace_import.v1.md",
+      "category": "expected_fixture_alignment_warning",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "align expected fixture"
+    },
+    {
+      "warning_id": "warning_079",
+      "message": "pm_bot/paper/expected_paper_simulation.v1.json: expected_fixture_alignment_warning",
+      "path": "pm_bot/paper/expected_paper_simulation.v1.json",
+      "category": "expected_fixture_alignment_warning",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "align expected fixture"
+    },
+    {
+      "warning_id": "warning_080",
+      "message": "pm_bot/paper/expected_real_market_triage_report.v1.json: expected_fixture_alignment_warning",
+      "path": "pm_bot/paper/expected_real_market_triage_report.v1.json",
+      "category": "expected_fixture_alignment_warning",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "align expected fixture"
+    },
+    {
+      "warning_id": "warning_081",
+      "message": "pm_bot/paper/expected_real_market_triage_report.v1.md: expected_fixture_alignment_warning",
+      "path": "pm_bot/paper/expected_real_market_triage_report.v1.md",
+      "category": "expected_fixture_alignment_warning",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "align expected fixture"
+    },
+    {
+      "warning_id": "warning_082",
+      "message": "pm_bot/paper/fixtures/polymarket_markets_active_threshold_hit.fixture.json: json_top_level_not_object",
+      "path": "pm_bot/paper/fixtures/polymarket_markets_active_threshold_hit.fixture.json",
+      "category": "json_top_level_not_object",
+      "severity": "review_needed",
+      "owner": "schema",
+      "action_type": "review_required",
+      "recommended_action": "review non-object JSON artifact"
+    },
+    {
+      "warning_id": "warning_083",
+      "message": "pm_bot/paper/local_snapshot_inbox/001_series_snapshot_001.json: schema_version_missing",
+      "path": "pm_bot/paper/local_snapshot_inbox/001_series_snapshot_001.json",
+      "category": "schema_version_missing",
+      "severity": "action_required",
+      "owner": "schema",
+      "action_type": "fix_required",
+      "recommended_action": "add schema_version to artifact"
+    },
+    {
+      "warning_id": "warning_084",
+      "message": "pm_bot/paper/local_snapshot_inbox/002_series_snapshot_002.json: schema_version_missing",
+      "path": "pm_bot/paper/local_snapshot_inbox/002_series_snapshot_002.json",
+      "category": "schema_version_missing",
+      "severity": "action_required",
+      "owner": "schema",
+      "action_type": "fix_required",
+      "recommended_action": "add schema_version to artifact"
+    },
+    {
+      "warning_id": "warning_085",
+      "message": "pm_bot/paper/local_snapshot_inbox/003_series_snapshot_003.json: schema_version_missing",
+      "path": "pm_bot/paper/local_snapshot_inbox/003_series_snapshot_003.json",
+      "category": "schema_version_missing",
+      "severity": "action_required",
+      "owner": "schema",
+      "action_type": "fix_required",
+      "recommended_action": "add schema_version to artifact"
+    },
+    {
+      "warning_id": "warning_086",
+      "message": "pm_bot/paper/local_snapshot_series_fixture.v1.json: task_id_missing",
+      "path": "pm_bot/paper/local_snapshot_series_fixture.v1.json",
+      "category": "task_id_missing",
+      "severity": "action_required",
+      "owner": "schema",
+      "action_type": "fix_required",
+      "recommended_action": "add task_id to artifact"
+    },
+    {
+      "warning_id": "warning_087",
+      "message": "pm_bot/paper/manual_paper_run_fixture_output/run_ledger.json: embedded_artifact_pointer_warning",
+      "path": "pm_bot/paper/manual_paper_run_fixture_output/run_ledger.json",
+      "category": "embedded_artifact_pointer_warning",
+      "severity": "review_needed",
+      "owner": "data",
+      "action_type": "review_required",
+      "recommended_action": "remove stale embedded pointer"
+    },
+    {
+      "warning_id": "warning_088",
+      "message": "pm_bot/paper/manual_paper_workspace/inbox/001_series_snapshot_001.json: schema_version_missing",
+      "path": "pm_bot/paper/manual_paper_workspace/inbox/001_series_snapshot_001.json",
+      "category": "schema_version_missing",
+      "severity": "action_required",
+      "owner": "schema",
+      "action_type": "fix_required",
+      "recommended_action": "add schema_version to artifact"
+    },
+    {
+      "warning_id": "warning_089",
+      "message": "pm_bot/paper/manual_paper_workspace/inbox/002_series_snapshot_002.json: schema_version_missing",
+      "path": "pm_bot/paper/manual_paper_workspace/inbox/002_series_snapshot_002.json",
+      "category": "schema_version_missing",
+      "severity": "action_required",
+      "owner": "schema",
+      "action_type": "fix_required",
+      "recommended_action": "add schema_version to artifact"
+    },
+    {
+      "warning_id": "warning_090",
+      "message": "pm_bot/paper/manual_paper_workspace/inbox/003_series_snapshot_003.json: schema_version_missing",
+      "path": "pm_bot/paper/manual_paper_workspace/inbox/003_series_snapshot_003.json",
+      "category": "schema_version_missing",
+      "severity": "action_required",
+      "owner": "schema",
+      "action_type": "fix_required",
+      "recommended_action": "add schema_version to artifact"
+    },
+    {
+      "warning_id": "warning_091",
+      "message": "pm_bot/paper/manual_snapshot_import_source/001_series_snapshot_004.json: schema_version_missing",
+      "path": "pm_bot/paper/manual_snapshot_import_source/001_series_snapshot_004.json",
+      "category": "schema_version_missing",
+      "severity": "action_required",
+      "owner": "schema",
+      "action_type": "fix_required",
+      "recommended_action": "add schema_version to artifact"
+    },
+    {
+      "warning_id": "warning_092",
+      "message": "pm_bot/paper/manual_snapshot_import_source/002_series_snapshot_005.json: schema_version_missing",
+      "path": "pm_bot/paper/manual_snapshot_import_source/002_series_snapshot_005.json",
+      "category": "schema_version_missing",
+      "severity": "action_required",
+      "owner": "schema",
+      "action_type": "fix_required",
+      "recommended_action": "add schema_version to artifact"
+    },
+    {
+      "warning_id": "warning_093",
+      "message": "pm_bot/paper/manual_snapshot_import_source/003_duplicate_series_snapshot_004.json: schema_version_missing",
+      "path": "pm_bot/paper/manual_snapshot_import_source/003_duplicate_series_snapshot_004.json",
+      "category": "schema_version_missing",
+      "severity": "action_required",
+      "owner": "schema",
+      "action_type": "fix_required",
+      "recommended_action": "add schema_version to artifact"
+    },
+    {
+      "warning_id": "warning_094",
+      "message": "pm_bot/paper/manual_snapshot_import_source/004_already_present_series_snapshot_002.json: schema_version_missing",
+      "path": "pm_bot/paper/manual_snapshot_import_source/004_already_present_series_snapshot_002.json",
+      "category": "schema_version_missing",
+      "severity": "action_required",
+      "owner": "schema",
+      "action_type": "fix_required",
+      "recommended_action": "add schema_version to artifact"
+    },
+    {
+      "warning_id": "warning_095",
+      "message": "pm_bot/paper/manual_snapshot_import_source/005_malformed.json: known_intentional_malformed_fixture_parse_failure",
+      "path": "pm_bot/paper/manual_snapshot_import_source/005_malformed.json",
+      "category": "known_intentional_malformed_fixture_parse_failure",
+      "severity": "informational",
+      "owner": "fixture",
+      "action_type": "ignore_allowed",
+      "recommended_action": "keep intentional malformed fixture documented"
+    },
+    {
+      "warning_id": "warning_096",
+      "message": "pm_bot/paper/manual_snapshot_import_source/008_polymarket_markets_active_minimized.fixture.json: json_top_level_not_object",
+      "path": "pm_bot/paper/manual_snapshot_import_source/008_polymarket_markets_active_minimized.fixture.json",
+      "category": "json_top_level_not_object",
+      "severity": "review_needed",
+      "owner": "schema",
+      "action_type": "review_required",
+      "recommended_action": "review non-object JSON artifact"
+    },
+    {
+      "warning_id": "warning_097",
+      "message": "pm_bot/paper/paper_plan_fixture.v1.json: schema_version_missing",
+      "path": "pm_bot/paper/paper_plan_fixture.v1.json",
+      "category": "schema_version_missing",
+      "severity": "action_required",
+      "owner": "schema",
+      "action_type": "fix_required",
+      "recommended_action": "add schema_version to artifact"
+    },
+    {
+      "warning_id": "warning_098",
+      "message": "pm_bot/paper/paper_plan_fixture.v1.json: task_id_missing",
+      "path": "pm_bot/paper/paper_plan_fixture.v1.json",
+      "category": "task_id_missing",
+      "severity": "action_required",
+      "owner": "schema",
+      "action_type": "fix_required",
+      "recommended_action": "add task_id to artifact"
+    },
+    {
+      "warning_id": "warning_099",
+      "message": "pm_bot/operator/expected_operator_review_bundle.v1.json fixture alignment actual_missing with pm_bot/operator/operator_review_bundle.v1.json",
+      "path": "pm_bot/operator/expected_operator_review_bundle.v1.json",
+      "category": "fixture_alignment_actual_missing",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "create missing actual artifact"
+    },
+    {
+      "warning_id": "warning_100",
+      "message": "pm_bot/operator/expected_operator_review_bundle.v1.md fixture alignment actual_missing with pm_bot/operator/operator_review_bundle.v1.md",
+      "path": "pm_bot/operator/expected_operator_review_bundle.v1.md",
+      "category": "fixture_alignment_actual_missing",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "create missing actual artifact"
+    },
+    {
+      "warning_id": "warning_101",
+      "message": "pm_bot/operator/expected_operator_review_checklist.v1.json fixture alignment actual_missing with pm_bot/operator/operator_review_checklist.v1.json",
+      "path": "pm_bot/operator/expected_operator_review_checklist.v1.json",
+      "category": "fixture_alignment_actual_missing",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "create missing actual artifact"
+    },
+    {
+      "warning_id": "warning_102",
+      "message": "pm_bot/operator/expected_operator_review_checklist.v1.md fixture alignment actual_missing with pm_bot/operator/operator_review_checklist.v1.md",
+      "path": "pm_bot/operator/expected_operator_review_checklist.v1.md",
+      "category": "fixture_alignment_actual_missing",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "create missing actual artifact"
+    },
+    {
+      "warning_id": "warning_103",
+      "message": "pm_bot/operator/expected_paper_candidate_review_table.v1.json fixture alignment actual_missing with pm_bot/operator/paper_candidate_review_table.v1.json",
+      "path": "pm_bot/operator/expected_paper_candidate_review_table.v1.json",
+      "category": "fixture_alignment_actual_missing",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "create missing actual artifact"
+    },
+    {
+      "warning_id": "warning_104",
+      "message": "pm_bot/operator/expected_paper_candidate_review_table.v1.md fixture alignment actual_missing with pm_bot/operator/paper_candidate_review_table.v1.md",
+      "path": "pm_bot/operator/expected_paper_candidate_review_table.v1.md",
+      "category": "fixture_alignment_actual_missing",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "create missing actual artifact"
+    },
+    {
+      "warning_id": "warning_105",
+      "message": "pm_bot/operator/expected_risk_audit_summary.v1.json fixture alignment actual_missing with pm_bot/operator/risk_audit_summary.v1.json",
+      "path": "pm_bot/operator/expected_risk_audit_summary.v1.json",
+      "category": "fixture_alignment_actual_missing",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "create missing actual artifact"
+    },
+    {
+      "warning_id": "warning_106",
+      "message": "pm_bot/operator/expected_risk_audit_summary.v1.md fixture alignment actual_missing with pm_bot/operator/risk_audit_summary.v1.md",
+      "path": "pm_bot/operator/expected_risk_audit_summary.v1.md",
+      "category": "fixture_alignment_actual_missing",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "create missing actual artifact"
+    },
+    {
+      "warning_id": "warning_107",
+      "message": "pm_bot/operator/expected_watchlist_policy_report.v1.json fixture alignment actual_missing with pm_bot/operator/watchlist_policy_report.v1.json",
+      "path": "pm_bot/operator/expected_watchlist_policy_report.v1.json",
+      "category": "fixture_alignment_actual_missing",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "create missing actual artifact"
+    },
+    {
+      "warning_id": "warning_108",
+      "message": "pm_bot/operator/expected_watchlist_policy_report.v1.md fixture alignment actual_missing with pm_bot/operator/watchlist_policy_report.v1.md",
+      "path": "pm_bot/operator/expected_watchlist_policy_report.v1.md",
+      "category": "fixture_alignment_actual_missing",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "create missing actual artifact"
+    },
+    {
+      "warning_id": "warning_109",
+      "message": "pm_bot/paper/expected_crypto_numeric_lifecycle_regression_gates.v1.json fixture alignment actual_missing with pm_bot/paper/crypto_numeric_lifecycle_regression_gates.v1.json",
+      "path": "pm_bot/paper/expected_crypto_numeric_lifecycle_regression_gates.v1.json",
+      "category": "fixture_alignment_actual_missing",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "create missing actual artifact"
+    },
+    {
+      "warning_id": "warning_110",
+      "message": "pm_bot/paper/expected_crypto_numeric_lifecycle_regression_gates.v1.md fixture alignment actual_missing with pm_bot/paper/crypto_numeric_lifecycle_regression_gates.v1.md",
+      "path": "pm_bot/paper/expected_crypto_numeric_lifecycle_regression_gates.v1.md",
+      "category": "fixture_alignment_actual_missing",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "create missing actual artifact"
+    },
+    {
+      "warning_id": "warning_111",
+      "message": "pm_bot/paper/expected_crypto_numeric_lifecycle_replay.v1.json fixture alignment actual_missing with pm_bot/paper/crypto_numeric_lifecycle_replay.v1.json",
+      "path": "pm_bot/paper/expected_crypto_numeric_lifecycle_replay.v1.json",
+      "category": "fixture_alignment_actual_missing",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "create missing actual artifact"
+    },
+    {
+      "warning_id": "warning_112",
+      "message": "pm_bot/paper/expected_crypto_numeric_lifecycle_replay.v1.md fixture alignment actual_missing with pm_bot/paper/crypto_numeric_lifecycle_replay.v1.md",
+      "path": "pm_bot/paper/expected_crypto_numeric_lifecycle_replay.v1.md",
+      "category": "fixture_alignment_actual_missing",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "create missing actual artifact"
+    },
+    {
+      "warning_id": "warning_113",
+      "message": "pm_bot/paper/expected_crypto_numeric_paper_execution_ledger.v1.json fixture alignment actual_missing with pm_bot/paper/crypto_numeric_paper_execution_ledger.v1.json",
+      "path": "pm_bot/paper/expected_crypto_numeric_paper_execution_ledger.v1.json",
+      "category": "fixture_alignment_actual_missing",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "create missing actual artifact"
+    },
+    {
+      "warning_id": "warning_114",
+      "message": "pm_bot/paper/expected_crypto_numeric_paper_execution_ledger.v1.md fixture alignment actual_missing with pm_bot/paper/crypto_numeric_paper_execution_ledger.v1.md",
+      "path": "pm_bot/paper/expected_crypto_numeric_paper_execution_ledger.v1.md",
+      "category": "fixture_alignment_actual_missing",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "create missing actual artifact"
+    },
+    {
+      "warning_id": "warning_115",
+      "message": "pm_bot/paper/expected_crypto_numeric_paper_lifecycle.v1.json fixture alignment actual_missing with pm_bot/paper/crypto_numeric_paper_lifecycle.v1.json",
+      "path": "pm_bot/paper/expected_crypto_numeric_paper_lifecycle.v1.json",
+      "category": "fixture_alignment_actual_missing",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "create missing actual artifact"
+    },
+    {
+      "warning_id": "warning_116",
+      "message": "pm_bot/paper/expected_crypto_numeric_paper_lifecycle.v1.md fixture alignment actual_missing with pm_bot/paper/crypto_numeric_paper_lifecycle.v1.md",
+      "path": "pm_bot/paper/expected_crypto_numeric_paper_lifecycle.v1.md",
+      "category": "fixture_alignment_actual_missing",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "create missing actual artifact"
+    },
+    {
+      "warning_id": "warning_117",
+      "message": "pm_bot/paper/expected_crypto_threshold_hit_policy_scenarios.v1.json fixture alignment actual_missing with pm_bot/paper/crypto_threshold_hit_policy_scenarios.v1.json",
+      "path": "pm_bot/paper/expected_crypto_threshold_hit_policy_scenarios.v1.json",
+      "category": "fixture_alignment_actual_missing",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "create missing actual artifact"
+    },
+    {
+      "warning_id": "warning_118",
+      "message": "pm_bot/paper/expected_crypto_threshold_hit_policy_scenarios.v1.md fixture alignment actual_missing with pm_bot/paper/crypto_threshold_hit_policy_scenarios.v1.md",
+      "path": "pm_bot/paper/expected_crypto_threshold_hit_policy_scenarios.v1.md",
+      "category": "fixture_alignment_actual_missing",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "create missing actual artifact"
+    },
+    {
+      "warning_id": "warning_119",
+      "message": "pm_bot/paper/expected_crypto_threshold_hit_review_table.v1.json fixture alignment actual_missing with pm_bot/paper/crypto_threshold_hit_review_table.v1.json",
+      "path": "pm_bot/paper/expected_crypto_threshold_hit_review_table.v1.json",
+      "category": "fixture_alignment_actual_missing",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "create missing actual artifact"
+    },
+    {
+      "warning_id": "warning_120",
+      "message": "pm_bot/paper/expected_crypto_threshold_hit_review_table.v1.md fixture alignment actual_missing with pm_bot/paper/crypto_threshold_hit_review_table.v1.md",
+      "path": "pm_bot/paper/expected_crypto_threshold_hit_review_table.v1.md",
+      "category": "fixture_alignment_actual_missing",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "create missing actual artifact"
+    },
+    {
+      "warning_id": "warning_121",
+      "message": "pm_bot/paper/expected_crypto_threshold_hit_triage_report.v1.json fixture alignment actual_missing with pm_bot/paper/crypto_threshold_hit_triage_report.v1.json",
+      "path": "pm_bot/paper/expected_crypto_threshold_hit_triage_report.v1.json",
+      "category": "fixture_alignment_actual_missing",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "create missing actual artifact"
+    },
+    {
+      "warning_id": "warning_122",
+      "message": "pm_bot/paper/expected_crypto_threshold_hit_triage_report.v1.md fixture alignment actual_missing with pm_bot/paper/crypto_threshold_hit_triage_report.v1.md",
+      "path": "pm_bot/paper/expected_crypto_threshold_hit_triage_report.v1.md",
+      "category": "fixture_alignment_actual_missing",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "create missing actual artifact"
+    },
+    {
+      "warning_id": "warning_123",
+      "message": "pm_bot/paper/expected_live_shaped_snapshot_paper_lifecycle.v1.json fixture alignment actual_missing with pm_bot/paper/live_shaped_snapshot_paper_lifecycle.v1.json",
+      "path": "pm_bot/paper/expected_live_shaped_snapshot_paper_lifecycle.v1.json",
+      "category": "fixture_alignment_actual_missing",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "create missing actual artifact"
+    },
+    {
+      "warning_id": "warning_124",
+      "message": "pm_bot/paper/expected_live_shaped_snapshot_paper_lifecycle.v1.md fixture alignment actual_missing with pm_bot/paper/live_shaped_snapshot_paper_lifecycle.v1.md",
+      "path": "pm_bot/paper/expected_live_shaped_snapshot_paper_lifecycle.v1.md",
+      "category": "fixture_alignment_actual_missing",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "create missing actual artifact"
+    },
+    {
+      "warning_id": "warning_125",
+      "message": "pm_bot/paper/expected_local_snapshot_inbox_paper_portfolio.v1.json fixture alignment actual_missing with pm_bot/paper/local_snapshot_inbox_paper_portfolio.v1.json",
+      "path": "pm_bot/paper/expected_local_snapshot_inbox_paper_portfolio.v1.json",
+      "category": "fixture_alignment_actual_missing",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "create missing actual artifact"
+    },
+    {
+      "warning_id": "warning_126",
+      "message": "pm_bot/paper/expected_local_snapshot_inbox_paper_portfolio.v1.md fixture alignment actual_missing with pm_bot/paper/local_snapshot_inbox_paper_portfolio.v1.md",
+      "path": "pm_bot/paper/expected_local_snapshot_inbox_paper_portfolio.v1.md",
+      "category": "fixture_alignment_actual_missing",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "create missing actual artifact"
+    },
+    {
+      "warning_id": "warning_127",
+      "message": "pm_bot/paper/expected_local_snapshot_inbox_run_ledger.v1.json fixture alignment actual_missing with pm_bot/paper/local_snapshot_inbox_run_ledger.v1.json",
+      "path": "pm_bot/paper/expected_local_snapshot_inbox_run_ledger.v1.json",
+      "category": "fixture_alignment_actual_missing",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "create missing actual artifact"
+    },
+    {
+      "warning_id": "warning_128",
+      "message": "pm_bot/paper/expected_local_snapshot_paper_portfolio_state.v1.json fixture alignment actual_missing with pm_bot/paper/local_snapshot_paper_portfolio_state.v1.json",
+      "path": "pm_bot/paper/expected_local_snapshot_paper_portfolio_state.v1.json",
+      "category": "fixture_alignment_actual_missing",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "create missing actual artifact"
+    },
+    {
+      "warning_id": "warning_129",
+      "message": "pm_bot/paper/expected_local_snapshot_paper_portfolio_state.v1.md fixture alignment actual_missing with pm_bot/paper/local_snapshot_paper_portfolio_state.v1.md",
+      "path": "pm_bot/paper/expected_local_snapshot_paper_portfolio_state.v1.md",
+      "category": "fixture_alignment_actual_missing",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "create missing actual artifact"
+    },
+    {
+      "warning_id": "warning_130",
+      "message": "pm_bot/paper/expected_local_snapshot_series_paper_portfolio.v1.json fixture alignment actual_missing with pm_bot/paper/local_snapshot_series_paper_portfolio.v1.json",
+      "path": "pm_bot/paper/expected_local_snapshot_series_paper_portfolio.v1.json",
+      "category": "fixture_alignment_actual_missing",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "create missing actual artifact"
+    },
+    {
+      "warning_id": "warning_131",
+      "message": "pm_bot/paper/expected_local_snapshot_series_paper_portfolio.v1.md fixture alignment actual_missing with pm_bot/paper/local_snapshot_series_paper_portfolio.v1.md",
+      "path": "pm_bot/paper/expected_local_snapshot_series_paper_portfolio.v1.md",
+      "category": "fixture_alignment_actual_missing",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "create missing actual artifact"
+    },
+    {
+      "warning_id": "warning_132",
+      "message": "pm_bot/paper/expected_local_snapshot_series_risk_scenarios.v1.json fixture alignment mismatch with pm_bot/paper/local_snapshot_series_risk_scenarios.v1.json",
+      "path": "pm_bot/paper/expected_local_snapshot_series_risk_scenarios.v1.json",
+      "category": "fixture_alignment_mismatch",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "align expected fixture"
+    },
+    {
+      "warning_id": "warning_133",
+      "message": "pm_bot/paper/expected_local_snapshot_series_risk_scenarios.v1.md fixture alignment actual_missing with pm_bot/paper/local_snapshot_series_risk_scenarios.v1.md",
+      "path": "pm_bot/paper/expected_local_snapshot_series_risk_scenarios.v1.md",
+      "category": "fixture_alignment_actual_missing",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "create missing actual artifact"
+    },
+    {
+      "warning_id": "warning_134",
+      "message": "pm_bot/paper/expected_manual_paper_inbox_bundle.v1.json fixture alignment actual_missing with pm_bot/paper/manual_paper_inbox_bundle.v1.json",
+      "path": "pm_bot/paper/expected_manual_paper_inbox_bundle.v1.json",
+      "category": "fixture_alignment_actual_missing",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "create missing actual artifact"
+    },
+    {
+      "warning_id": "warning_135",
+      "message": "pm_bot/paper/expected_manual_paper_inbox_bundle_summary.v1.md fixture alignment actual_missing with pm_bot/paper/manual_paper_inbox_bundle_summary.v1.md",
+      "path": "pm_bot/paper/expected_manual_paper_inbox_bundle_summary.v1.md",
+      "category": "fixture_alignment_actual_missing",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "create missing actual artifact"
+    },
+    {
+      "warning_id": "warning_136",
+      "message": "pm_bot/paper/expected_manual_paper_operator_cycle.v1.json fixture alignment actual_missing with pm_bot/paper/manual_paper_operator_cycle.v1.json",
+      "path": "pm_bot/paper/expected_manual_paper_operator_cycle.v1.json",
+      "category": "fixture_alignment_actual_missing",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "create missing actual artifact"
+    },
+    {
+      "warning_id": "warning_137",
+      "message": "pm_bot/paper/expected_manual_paper_operator_cycle.v1.md fixture alignment actual_missing with pm_bot/paper/manual_paper_operator_cycle.v1.md",
+      "path": "pm_bot/paper/expected_manual_paper_operator_cycle.v1.md",
+      "category": "fixture_alignment_actual_missing",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "create missing actual artifact"
+    },
+    {
+      "warning_id": "warning_138",
+      "message": "pm_bot/paper/expected_manual_paper_operator_cycle_manifest.v1.json fixture alignment actual_missing with pm_bot/paper/manual_paper_operator_cycle_manifest.v1.json",
+      "path": "pm_bot/paper/expected_manual_paper_operator_cycle_manifest.v1.json",
+      "category": "fixture_alignment_actual_missing",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "create missing actual artifact"
+    },
+    {
+      "warning_id": "warning_139",
+      "message": "pm_bot/paper/expected_manual_paper_operator_cycle_threshold_hit_review.v1.json fixture alignment actual_missing with pm_bot/paper/manual_paper_operator_cycle_threshold_hit_review.v1.json",
+      "path": "pm_bot/paper/expected_manual_paper_operator_cycle_threshold_hit_review.v1.json",
+      "category": "fixture_alignment_actual_missing",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "create missing actual artifact"
+    },
+    {
+      "warning_id": "warning_140",
+      "message": "pm_bot/paper/expected_manual_paper_operator_cycle_threshold_hit_review.v1.md fixture alignment actual_missing with pm_bot/paper/manual_paper_operator_cycle_threshold_hit_review.v1.md",
+      "path": "pm_bot/paper/expected_manual_paper_operator_cycle_threshold_hit_review.v1.md",
+      "category": "fixture_alignment_actual_missing",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "create missing actual artifact"
+    },
+    {
+      "warning_id": "warning_141",
+      "message": "pm_bot/paper/expected_manual_paper_workspace.v1.json fixture alignment actual_missing with pm_bot/paper/manual_paper_workspace.v1.json",
+      "path": "pm_bot/paper/expected_manual_paper_workspace.v1.json",
+      "category": "fixture_alignment_actual_missing",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "create missing actual artifact"
+    },
+    {
+      "warning_id": "warning_142",
+      "message": "pm_bot/paper/expected_manual_paper_workspace_quarantine.v1.json fixture alignment actual_missing with pm_bot/paper/manual_paper_workspace_quarantine.v1.json",
+      "path": "pm_bot/paper/expected_manual_paper_workspace_quarantine.v1.json",
+      "category": "fixture_alignment_actual_missing",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "create missing actual artifact"
+    },
+    {
+      "warning_id": "warning_143",
+      "message": "pm_bot/paper/expected_manual_paper_workspace_summary.v1.md fixture alignment actual_missing with pm_bot/paper/manual_paper_workspace_summary.v1.md",
+      "path": "pm_bot/paper/expected_manual_paper_workspace_summary.v1.md",
+      "category": "fixture_alignment_actual_missing",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "create missing actual artifact"
+    },
+    {
+      "warning_id": "warning_144",
+      "message": "pm_bot/paper/expected_manual_snapshot_import_manifest.v1.json fixture alignment actual_missing with pm_bot/paper/manual_snapshot_import_manifest.v1.json",
+      "path": "pm_bot/paper/expected_manual_snapshot_import_manifest.v1.json",
+      "category": "fixture_alignment_actual_missing",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "create missing actual artifact"
+    },
+    {
+      "warning_id": "warning_145",
+      "message": "pm_bot/paper/expected_manual_snapshot_workspace_import.v1.json fixture alignment actual_missing with pm_bot/paper/manual_snapshot_workspace_import.v1.json",
+      "path": "pm_bot/paper/expected_manual_snapshot_workspace_import.v1.json",
+      "category": "fixture_alignment_actual_missing",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "create missing actual artifact"
+    },
+    {
+      "warning_id": "warning_146",
+      "message": "pm_bot/paper/expected_manual_snapshot_workspace_import.v1.md fixture alignment actual_missing with pm_bot/paper/manual_snapshot_workspace_import.v1.md",
+      "path": "pm_bot/paper/expected_manual_snapshot_workspace_import.v1.md",
+      "category": "fixture_alignment_actual_missing",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "create missing actual artifact"
+    },
+    {
+      "warning_id": "warning_147",
+      "message": "pm_bot/paper/expected_paper_simulation.v1.json fixture alignment actual_missing with pm_bot/paper/paper_simulation.v1.json",
+      "path": "pm_bot/paper/expected_paper_simulation.v1.json",
+      "category": "fixture_alignment_actual_missing",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "create missing actual artifact"
+    },
+    {
+      "warning_id": "warning_148",
+      "message": "pm_bot/paper/expected_real_market_triage_report.v1.json fixture alignment actual_missing with pm_bot/paper/real_market_triage_report.v1.json",
+      "path": "pm_bot/paper/expected_real_market_triage_report.v1.json",
+      "category": "fixture_alignment_actual_missing",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "create missing actual artifact"
+    },
+    {
+      "warning_id": "warning_149",
+      "message": "pm_bot/paper/expected_real_market_triage_report.v1.md fixture alignment actual_missing with pm_bot/paper/real_market_triage_report.v1.md",
+      "path": "pm_bot/paper/expected_real_market_triage_report.v1.md",
+      "category": "fixture_alignment_actual_missing",
+      "severity": "action_required",
+      "owner": "fixture",
+      "action_type": "fix_required",
+      "recommended_action": "create missing actual artifact"
+    }
+  ],
   "blockers": [],
   "report_status": "health_passed_with_warnings",
   "artifacts": [
@@ -1915,8 +3573,26 @@
         "safety_flags.wallet": false
       },
       "warnings": [
-        "schema_version_missing",
-        "stale_reference_warning"
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "docs/PMBOT_DASHBOARD_002_RESULT.json: schema_version_missing",
+          "path": "docs/PMBOT_DASHBOARD_002_RESULT.json",
+          "category": "schema_version_missing",
+          "severity": "action_required",
+          "owner": "schema",
+          "action_type": "fix_required",
+          "recommended_action": "add schema_version to artifact"
+        },
+        {
+          "warning_id": "artifact_warning_002",
+          "message": "docs/PMBOT_DASHBOARD_002_RESULT.json: stale_reference_warning",
+          "path": "docs/PMBOT_DASHBOARD_002_RESULT.json",
+          "category": "stale_reference_warning",
+          "severity": "review_needed",
+          "owner": "data",
+          "action_type": "review_required",
+          "recommended_action": "remove stale embedded reference"
+        }
       ],
       "stale_reference_warnings": [
         {
@@ -1934,6 +3610,10 @@
           "value": "PMBOT-INTEGRATION-007-ABC-ROUND002-REVIEW-AND-MERGE-REHEARSAL failed focused dashboard tests because stale DASHBOARD-002 assertions expected optional docs/PMBOT_INFRA_008_RESULT.json and docs/PMBOT_PAPER_018_RESULT.json to be absent after A/B/C integration.",
           "classification": "historical_round_generation_reference"
         }
+      ],
+      "warning_codes": [
+        "schema_version_missing",
+        "stale_reference_warning"
       ]
     },
     {
@@ -1976,6 +3656,18 @@
         "safety_flags.wallet": false
       },
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "docs/PMBOT_INFRA_009_RESULT.json: schema_version_missing",
+          "path": "docs/PMBOT_INFRA_009_RESULT.json",
+          "category": "schema_version_missing",
+          "severity": "review_needed",
+          "owner": "schema",
+          "action_type": "review_required",
+          "recommended_action": "add schema_version to artifact"
+        }
+      ],
+      "warning_codes": [
         "schema_version_missing"
       ]
     },
@@ -2004,8 +3696,26 @@
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
       "warnings": [
-        "schema_version_missing",
-        "stale_reference_warning"
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "docs/PMBOT_INTEGRATION_008_RESULT.json: schema_version_missing",
+          "path": "docs/PMBOT_INTEGRATION_008_RESULT.json",
+          "category": "schema_version_missing",
+          "severity": "action_required",
+          "owner": "schema",
+          "action_type": "fix_required",
+          "recommended_action": "add schema_version to artifact"
+        },
+        {
+          "warning_id": "artifact_warning_002",
+          "message": "docs/PMBOT_INTEGRATION_008_RESULT.json: stale_reference_warning",
+          "path": "docs/PMBOT_INTEGRATION_008_RESULT.json",
+          "category": "stale_reference_warning",
+          "severity": "review_needed",
+          "owner": "data",
+          "action_type": "review_required",
+          "recommended_action": "remove stale embedded reference"
+        }
       ],
       "stale_reference_warnings": [
         {
@@ -2058,6 +3768,10 @@
           "value": "PMBOT-INTEGRATION-008-ABC-ROUND002-REAL-MERGE",
           "classification": "historical_round_generation_reference"
         }
+      ],
+      "warning_codes": [
+        "schema_version_missing",
+        "stale_reference_warning"
       ]
     },
     {
@@ -2104,8 +3818,26 @@
         "safety_flags.wallet": false
       },
       "warnings": [
-        "schema_version_missing",
-        "stale_reference_warning"
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "docs/PMBOT_OPERATOR_002_RESULT.json: schema_version_missing",
+          "path": "docs/PMBOT_OPERATOR_002_RESULT.json",
+          "category": "schema_version_missing",
+          "severity": "action_required",
+          "owner": "schema",
+          "action_type": "fix_required",
+          "recommended_action": "add schema_version to artifact"
+        },
+        {
+          "warning_id": "artifact_warning_002",
+          "message": "docs/PMBOT_OPERATOR_002_RESULT.json: stale_reference_warning",
+          "path": "docs/PMBOT_OPERATOR_002_RESULT.json",
+          "category": "stale_reference_warning",
+          "severity": "review_needed",
+          "owner": "data",
+          "action_type": "review_required",
+          "recommended_action": "remove stale embedded reference"
+        }
       ],
       "stale_reference_warnings": [
         {
@@ -2113,6 +3845,10 @@
           "value": "c3962ed19b3e1e3d453f2569762fc7269378bebe",
           "classification": "historical_or_non_current_commit_reference"
         }
+      ],
+      "warning_codes": [
+        "schema_version_missing",
+        "stale_reference_warning"
       ]
     },
     {
@@ -2160,6 +3896,18 @@
         "safety.wallet_private_keys": false
       },
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "docs/PMBOT_PAPER_018_RESULT.json: schema_version_missing",
+          "path": "docs/PMBOT_PAPER_018_RESULT.json",
+          "category": "schema_version_missing",
+          "severity": "action_required",
+          "owner": "schema",
+          "action_type": "fix_required",
+          "recommended_action": "add schema_version to artifact"
+        }
+      ],
+      "warning_codes": [
         "schema_version_missing"
       ]
     },
@@ -2202,8 +3950,26 @@
         "safety_flags.wallet": false
       },
       "warnings": [
-        "schema_version_missing",
-        "stale_reference_warning"
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "docs/PMBOT_PRODUCT_001_RESULT.json: schema_version_missing",
+          "path": "docs/PMBOT_PRODUCT_001_RESULT.json",
+          "category": "schema_version_missing",
+          "severity": "action_required",
+          "owner": "schema",
+          "action_type": "fix_required",
+          "recommended_action": "add schema_version to artifact"
+        },
+        {
+          "warning_id": "artifact_warning_002",
+          "message": "docs/PMBOT_PRODUCT_001_RESULT.json: stale_reference_warning",
+          "path": "docs/PMBOT_PRODUCT_001_RESULT.json",
+          "category": "stale_reference_warning",
+          "severity": "review_needed",
+          "owner": "data",
+          "action_type": "review_required",
+          "recommended_action": "remove stale embedded reference"
+        }
       ],
       "stale_reference_warnings": [
         {
@@ -2231,6 +3997,10 @@
           "value": "bad252594a92cd90f05bf7babb9a6011f1b2ec5e",
           "classification": "historical_or_non_current_commit_reference"
         }
+      ],
+      "warning_codes": [
+        "schema_version_missing",
+        "stale_reference_warning"
       ]
     },
     {
@@ -2256,6 +4026,18 @@
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/dashboard/dashboard_state_contract.v1.json: schema_version_missing",
+          "path": "pm_bot/dashboard/dashboard_state_contract.v1.json",
+          "category": "schema_version_missing",
+          "severity": "action_required",
+          "owner": "schema",
+          "action_type": "fix_required",
+          "recommended_action": "add schema_version to artifact"
+        }
+      ],
+      "warning_codes": [
         "schema_version_missing"
       ]
     },
@@ -2298,7 +4080,8 @@
         "safety_flags.trading": false,
         "safety_flags.wallet": false
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/dashboard/dashboard_state_preview.v1.md",
@@ -2322,7 +4105,8 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/dashboard/expected_dashboard_state_preview.v1.json",
@@ -2363,7 +4147,8 @@
         "safety_flags.trading": false,
         "safety_flags.wallet": false
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/dashboard/expected_portfolio_audit_state_preview.v1.json",
@@ -2404,8 +4189,26 @@
         "safety_flags.wallet": false
       },
       "warnings": [
-        "embedded_artifact_pointer_warning",
-        "stale_reference_warning"
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/dashboard/expected_portfolio_audit_state_preview.v1.json: embedded_artifact_pointer_warning",
+          "path": "pm_bot/dashboard/expected_portfolio_audit_state_preview.v1.json",
+          "category": "embedded_artifact_pointer_warning",
+          "severity": "review_needed",
+          "owner": "data",
+          "action_type": "review_required",
+          "recommended_action": "remove stale embedded pointer"
+        },
+        {
+          "warning_id": "artifact_warning_002",
+          "message": "pm_bot/dashboard/expected_portfolio_audit_state_preview.v1.json: stale_reference_warning",
+          "path": "pm_bot/dashboard/expected_portfolio_audit_state_preview.v1.json",
+          "category": "stale_reference_warning",
+          "severity": "review_needed",
+          "owner": "data",
+          "action_type": "review_required",
+          "recommended_action": "remove stale embedded reference"
+        }
       ],
       "pointer_warnings": [
         {
@@ -2435,6 +4238,10 @@
           "value": "PMBOT-INTEGRATION-006-ABC-ROUND001-REAL-MERGE",
           "classification": "historical_round_generation_reference"
         }
+      ],
+      "warning_codes": [
+        "embedded_artifact_pointer_warning",
+        "stale_reference_warning"
       ]
     },
     {
@@ -2486,7 +4293,8 @@
         "safety_flags.truth_inference": false,
         "safety_flags.wallet": false
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/dashboard/portfolio_audit_state_contract.v1.json",
@@ -2511,8 +4319,26 @@
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
       "warnings": [
-        "schema_version_missing",
-        "embedded_artifact_pointer_warning"
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/dashboard/portfolio_audit_state_contract.v1.json: schema_version_missing",
+          "path": "pm_bot/dashboard/portfolio_audit_state_contract.v1.json",
+          "category": "schema_version_missing",
+          "severity": "action_required",
+          "owner": "schema",
+          "action_type": "fix_required",
+          "recommended_action": "add schema_version to artifact"
+        },
+        {
+          "warning_id": "artifact_warning_002",
+          "message": "pm_bot/dashboard/portfolio_audit_state_contract.v1.json: embedded_artifact_pointer_warning",
+          "path": "pm_bot/dashboard/portfolio_audit_state_contract.v1.json",
+          "category": "embedded_artifact_pointer_warning",
+          "severity": "review_needed",
+          "owner": "data",
+          "action_type": "review_required",
+          "recommended_action": "remove stale embedded pointer"
+        }
       ],
       "pointer_warnings": [
         {
@@ -2525,6 +4351,10 @@
           "field_path": "optional_future_artifacts[2]",
           "target": "pm_bot/paper/expected_paper_batch_audit_summary.v1.json"
         }
+      ],
+      "warning_codes": [
+        "schema_version_missing",
+        "embedded_artifact_pointer_warning"
       ]
     },
     {
@@ -2566,8 +4396,26 @@
         "safety_flags.wallet": false
       },
       "warnings": [
-        "embedded_artifact_pointer_warning",
-        "stale_reference_warning"
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/dashboard/portfolio_audit_state_preview.v1.json: embedded_artifact_pointer_warning",
+          "path": "pm_bot/dashboard/portfolio_audit_state_preview.v1.json",
+          "category": "embedded_artifact_pointer_warning",
+          "severity": "review_needed",
+          "owner": "data",
+          "action_type": "review_required",
+          "recommended_action": "remove stale embedded pointer"
+        },
+        {
+          "warning_id": "artifact_warning_002",
+          "message": "pm_bot/dashboard/portfolio_audit_state_preview.v1.json: stale_reference_warning",
+          "path": "pm_bot/dashboard/portfolio_audit_state_preview.v1.json",
+          "category": "stale_reference_warning",
+          "severity": "review_needed",
+          "owner": "data",
+          "action_type": "review_required",
+          "recommended_action": "remove stale embedded reference"
+        }
       ],
       "pointer_warnings": [
         {
@@ -2597,6 +4445,10 @@
           "value": "PMBOT-INTEGRATION-006-ABC-ROUND001-REAL-MERGE",
           "classification": "historical_round_generation_reference"
         }
+      ],
+      "warning_codes": [
+        "embedded_artifact_pointer_warning",
+        "stale_reference_warning"
       ]
     },
     {
@@ -2621,7 +4473,8 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/dashboard/static_operator_report_summary.v1.json",
@@ -2672,7 +4525,8 @@
         "safety_flags.truth_inference": false,
         "safety_flags.wallet": false
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/operator/expected_manual_command_inbox_review.v1.json",
@@ -2715,7 +4569,8 @@
         "safety_flags.truth_inference": false,
         "safety_flags.wallet": false
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/operator/expected_operator_review_bundle.v1.json",
@@ -2748,6 +4603,18 @@
         "operator_review_only": true
       },
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/operator/expected_operator_review_bundle.v1.json: expected_fixture_alignment_warning",
+          "path": "pm_bot/operator/expected_operator_review_bundle.v1.json",
+          "category": "expected_fixture_alignment_warning",
+          "severity": "action_required",
+          "owner": "fixture",
+          "action_type": "fix_required",
+          "recommended_action": "align expected fixture"
+        }
+      ],
+      "warning_codes": [
         "expected_fixture_alignment_warning"
       ]
     },
@@ -2774,6 +4641,18 @@
       "expected_fixture_alignment": "actual_missing",
       "safety_fields": {},
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/operator/expected_operator_review_bundle.v1.md: expected_fixture_alignment_warning",
+          "path": "pm_bot/operator/expected_operator_review_bundle.v1.md",
+          "category": "expected_fixture_alignment_warning",
+          "severity": "action_required",
+          "owner": "fixture",
+          "action_type": "fix_required",
+          "recommended_action": "align expected fixture"
+        }
+      ],
+      "warning_codes": [
         "expected_fixture_alignment_warning"
       ]
     },
@@ -2806,6 +4685,18 @@
         "operator_review_only": true
       },
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/operator/expected_operator_review_checklist.v1.json: expected_fixture_alignment_warning",
+          "path": "pm_bot/operator/expected_operator_review_checklist.v1.json",
+          "category": "expected_fixture_alignment_warning",
+          "severity": "action_required",
+          "owner": "fixture",
+          "action_type": "fix_required",
+          "recommended_action": "align expected fixture"
+        }
+      ],
+      "warning_codes": [
         "expected_fixture_alignment_warning"
       ]
     },
@@ -2832,6 +4723,18 @@
       "expected_fixture_alignment": "actual_missing",
       "safety_fields": {},
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/operator/expected_operator_review_checklist.v1.md: expected_fixture_alignment_warning",
+          "path": "pm_bot/operator/expected_operator_review_checklist.v1.md",
+          "category": "expected_fixture_alignment_warning",
+          "severity": "action_required",
+          "owner": "fixture",
+          "action_type": "fix_required",
+          "recommended_action": "align expected fixture"
+        }
+      ],
+      "warning_codes": [
         "expected_fixture_alignment_warning"
       ]
     },
@@ -2864,6 +4767,18 @@
         "operator_review_only": true
       },
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/operator/expected_paper_candidate_review_table.v1.json: expected_fixture_alignment_warning",
+          "path": "pm_bot/operator/expected_paper_candidate_review_table.v1.json",
+          "category": "expected_fixture_alignment_warning",
+          "severity": "action_required",
+          "owner": "fixture",
+          "action_type": "fix_required",
+          "recommended_action": "align expected fixture"
+        }
+      ],
+      "warning_codes": [
         "expected_fixture_alignment_warning"
       ]
     },
@@ -2890,6 +4805,18 @@
       "expected_fixture_alignment": "actual_missing",
       "safety_fields": {},
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/operator/expected_paper_candidate_review_table.v1.md: expected_fixture_alignment_warning",
+          "path": "pm_bot/operator/expected_paper_candidate_review_table.v1.md",
+          "category": "expected_fixture_alignment_warning",
+          "severity": "action_required",
+          "owner": "fixture",
+          "action_type": "fix_required",
+          "recommended_action": "align expected fixture"
+        }
+      ],
+      "warning_codes": [
         "expected_fixture_alignment_warning"
       ]
     },
@@ -2927,6 +4854,18 @@
         "operator_review_only": true
       },
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/operator/expected_risk_audit_summary.v1.json: expected_fixture_alignment_warning",
+          "path": "pm_bot/operator/expected_risk_audit_summary.v1.json",
+          "category": "expected_fixture_alignment_warning",
+          "severity": "action_required",
+          "owner": "fixture",
+          "action_type": "fix_required",
+          "recommended_action": "align expected fixture"
+        }
+      ],
+      "warning_codes": [
         "expected_fixture_alignment_warning"
       ]
     },
@@ -2953,6 +4892,18 @@
       "expected_fixture_alignment": "actual_missing",
       "safety_fields": {},
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/operator/expected_risk_audit_summary.v1.md: expected_fixture_alignment_warning",
+          "path": "pm_bot/operator/expected_risk_audit_summary.v1.md",
+          "category": "expected_fixture_alignment_warning",
+          "severity": "action_required",
+          "owner": "fixture",
+          "action_type": "fix_required",
+          "recommended_action": "align expected fixture"
+        }
+      ],
+      "warning_codes": [
         "expected_fixture_alignment_warning"
       ]
     },
@@ -2985,6 +4936,18 @@
         "operator_review_only": true
       },
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/operator/expected_watchlist_policy_report.v1.json: expected_fixture_alignment_warning",
+          "path": "pm_bot/operator/expected_watchlist_policy_report.v1.json",
+          "category": "expected_fixture_alignment_warning",
+          "severity": "action_required",
+          "owner": "fixture",
+          "action_type": "fix_required",
+          "recommended_action": "align expected fixture"
+        }
+      ],
+      "warning_codes": [
         "expected_fixture_alignment_warning"
       ]
     },
@@ -3011,6 +4974,18 @@
       "expected_fixture_alignment": "actual_missing",
       "safety_fields": {},
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/operator/expected_watchlist_policy_report.v1.md: expected_fixture_alignment_warning",
+          "path": "pm_bot/operator/expected_watchlist_policy_report.v1.md",
+          "category": "expected_fixture_alignment_warning",
+          "severity": "action_required",
+          "owner": "fixture",
+          "action_type": "fix_required",
+          "recommended_action": "align expected fixture"
+        }
+      ],
+      "warning_codes": [
         "expected_fixture_alignment_warning"
       ]
     },
@@ -3041,7 +5016,8 @@
         "manual_review_only": true,
         "record_is_inert": true
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/operator/manual_command_examples.v1.json",
@@ -3065,7 +5041,8 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/operator/manual_command_examples.v1.md",
@@ -3089,7 +5066,8 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/operator/manual_command_inbox_fixture.v1.json",
@@ -3117,7 +5095,8 @@
         "local_only": true,
         "manual_review_only": true
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/operator/manual_command_inbox_review.v1.json",
@@ -3160,7 +5139,8 @@
         "safety_flags.truth_inference": false,
         "safety_flags.wallet": false
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/operator/manual_command_inbox_review.v1.md",
@@ -3184,7 +5164,8 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/operator/review_pack_command_bridge_contract.v1.json",
@@ -3230,7 +5211,8 @@
         "safety_flags.truth_inference": false,
         "safety_flags.wallet": false
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/operator/review_pack_command_bridge_examples.v1.json",
@@ -3254,7 +5236,8 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/operator/review_pack_command_bridge_examples.v1.md",
@@ -3278,7 +5261,8 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/crypto_numeric_execution_fixture.v1.json",
@@ -3306,6 +5290,18 @@
         "paper_only": true
       },
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/crypto_numeric_execution_fixture.v1.json: task_id_missing",
+          "path": "pm_bot/paper/crypto_numeric_execution_fixture.v1.json",
+          "category": "task_id_missing",
+          "severity": "action_required",
+          "owner": "schema",
+          "action_type": "fix_required",
+          "recommended_action": "add task_id to artifact"
+        }
+      ],
+      "warning_codes": [
         "task_id_missing"
       ]
     },
@@ -3334,7 +5330,8 @@
         "fixture_only": true,
         "paper_only": true
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/expected_crypto_numeric_lifecycle_regression_gates.v1.json",
@@ -3371,6 +5368,18 @@
         "network_used": false
       },
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/expected_crypto_numeric_lifecycle_regression_gates.v1.json: expected_fixture_alignment_warning",
+          "path": "pm_bot/paper/expected_crypto_numeric_lifecycle_regression_gates.v1.json",
+          "category": "expected_fixture_alignment_warning",
+          "severity": "action_required",
+          "owner": "fixture",
+          "action_type": "fix_required",
+          "recommended_action": "align expected fixture"
+        }
+      ],
+      "warning_codes": [
         "expected_fixture_alignment_warning"
       ]
     },
@@ -3397,6 +5406,18 @@
       "expected_fixture_alignment": "actual_missing",
       "safety_fields": {},
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/expected_crypto_numeric_lifecycle_regression_gates.v1.md: expected_fixture_alignment_warning",
+          "path": "pm_bot/paper/expected_crypto_numeric_lifecycle_regression_gates.v1.md",
+          "category": "expected_fixture_alignment_warning",
+          "severity": "action_required",
+          "owner": "fixture",
+          "action_type": "fix_required",
+          "recommended_action": "align expected fixture"
+        }
+      ],
+      "warning_codes": [
         "expected_fixture_alignment_warning"
       ]
     },
@@ -3433,6 +5454,18 @@
         "network_used": false
       },
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/expected_crypto_numeric_lifecycle_replay.v1.json: expected_fixture_alignment_warning",
+          "path": "pm_bot/paper/expected_crypto_numeric_lifecycle_replay.v1.json",
+          "category": "expected_fixture_alignment_warning",
+          "severity": "action_required",
+          "owner": "fixture",
+          "action_type": "fix_required",
+          "recommended_action": "align expected fixture"
+        }
+      ],
+      "warning_codes": [
         "expected_fixture_alignment_warning"
       ]
     },
@@ -3459,6 +5492,18 @@
       "expected_fixture_alignment": "actual_missing",
       "safety_fields": {},
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/expected_crypto_numeric_lifecycle_replay.v1.md: expected_fixture_alignment_warning",
+          "path": "pm_bot/paper/expected_crypto_numeric_lifecycle_replay.v1.md",
+          "category": "expected_fixture_alignment_warning",
+          "severity": "action_required",
+          "owner": "fixture",
+          "action_type": "fix_required",
+          "recommended_action": "align expected fixture"
+        }
+      ],
+      "warning_codes": [
         "expected_fixture_alignment_warning"
       ]
     },
@@ -3495,6 +5540,18 @@
         "network_used": false
       },
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/expected_crypto_numeric_paper_execution_ledger.v1.json: expected_fixture_alignment_warning",
+          "path": "pm_bot/paper/expected_crypto_numeric_paper_execution_ledger.v1.json",
+          "category": "expected_fixture_alignment_warning",
+          "severity": "action_required",
+          "owner": "fixture",
+          "action_type": "fix_required",
+          "recommended_action": "align expected fixture"
+        }
+      ],
+      "warning_codes": [
         "expected_fixture_alignment_warning"
       ]
     },
@@ -3521,6 +5578,18 @@
       "expected_fixture_alignment": "actual_missing",
       "safety_fields": {},
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/expected_crypto_numeric_paper_execution_ledger.v1.md: expected_fixture_alignment_warning",
+          "path": "pm_bot/paper/expected_crypto_numeric_paper_execution_ledger.v1.md",
+          "category": "expected_fixture_alignment_warning",
+          "severity": "action_required",
+          "owner": "fixture",
+          "action_type": "fix_required",
+          "recommended_action": "align expected fixture"
+        }
+      ],
+      "warning_codes": [
         "expected_fixture_alignment_warning"
       ]
     },
@@ -3557,6 +5626,18 @@
         "network_used": false
       },
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/expected_crypto_numeric_paper_lifecycle.v1.json: expected_fixture_alignment_warning",
+          "path": "pm_bot/paper/expected_crypto_numeric_paper_lifecycle.v1.json",
+          "category": "expected_fixture_alignment_warning",
+          "severity": "action_required",
+          "owner": "fixture",
+          "action_type": "fix_required",
+          "recommended_action": "align expected fixture"
+        }
+      ],
+      "warning_codes": [
         "expected_fixture_alignment_warning"
       ]
     },
@@ -3583,6 +5664,18 @@
       "expected_fixture_alignment": "actual_missing",
       "safety_fields": {},
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/expected_crypto_numeric_paper_lifecycle.v1.md: expected_fixture_alignment_warning",
+          "path": "pm_bot/paper/expected_crypto_numeric_paper_lifecycle.v1.md",
+          "category": "expected_fixture_alignment_warning",
+          "severity": "action_required",
+          "owner": "fixture",
+          "action_type": "fix_required",
+          "recommended_action": "align expected fixture"
+        }
+      ],
+      "warning_codes": [
         "expected_fixture_alignment_warning"
       ]
     },
@@ -3618,6 +5711,18 @@
         "safety_flags.wallet_used": false
       },
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/expected_crypto_threshold_hit_policy_scenarios.v1.json: expected_fixture_alignment_warning",
+          "path": "pm_bot/paper/expected_crypto_threshold_hit_policy_scenarios.v1.json",
+          "category": "expected_fixture_alignment_warning",
+          "severity": "action_required",
+          "owner": "fixture",
+          "action_type": "fix_required",
+          "recommended_action": "align expected fixture"
+        }
+      ],
+      "warning_codes": [
         "expected_fixture_alignment_warning"
       ]
     },
@@ -3644,6 +5749,18 @@
       "expected_fixture_alignment": "actual_missing",
       "safety_fields": {},
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/expected_crypto_threshold_hit_policy_scenarios.v1.md: expected_fixture_alignment_warning",
+          "path": "pm_bot/paper/expected_crypto_threshold_hit_policy_scenarios.v1.md",
+          "category": "expected_fixture_alignment_warning",
+          "severity": "action_required",
+          "owner": "fixture",
+          "action_type": "fix_required",
+          "recommended_action": "align expected fixture"
+        }
+      ],
+      "warning_codes": [
         "expected_fixture_alignment_warning"
       ]
     },
@@ -3679,6 +5796,18 @@
         "safety_flags.wallet_used": false
       },
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/expected_crypto_threshold_hit_review_table.v1.json: expected_fixture_alignment_warning",
+          "path": "pm_bot/paper/expected_crypto_threshold_hit_review_table.v1.json",
+          "category": "expected_fixture_alignment_warning",
+          "severity": "action_required",
+          "owner": "fixture",
+          "action_type": "fix_required",
+          "recommended_action": "align expected fixture"
+        }
+      ],
+      "warning_codes": [
         "expected_fixture_alignment_warning"
       ]
     },
@@ -3705,6 +5834,18 @@
       "expected_fixture_alignment": "actual_missing",
       "safety_fields": {},
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/expected_crypto_threshold_hit_review_table.v1.md: expected_fixture_alignment_warning",
+          "path": "pm_bot/paper/expected_crypto_threshold_hit_review_table.v1.md",
+          "category": "expected_fixture_alignment_warning",
+          "severity": "action_required",
+          "owner": "fixture",
+          "action_type": "fix_required",
+          "recommended_action": "align expected fixture"
+        }
+      ],
+      "warning_codes": [
         "expected_fixture_alignment_warning"
       ]
     },
@@ -3740,6 +5881,18 @@
         "safety_flags.wallet_used": false
       },
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/expected_crypto_threshold_hit_triage_report.v1.json: expected_fixture_alignment_warning",
+          "path": "pm_bot/paper/expected_crypto_threshold_hit_triage_report.v1.json",
+          "category": "expected_fixture_alignment_warning",
+          "severity": "action_required",
+          "owner": "fixture",
+          "action_type": "fix_required",
+          "recommended_action": "align expected fixture"
+        }
+      ],
+      "warning_codes": [
         "expected_fixture_alignment_warning"
       ]
     },
@@ -3766,6 +5919,18 @@
       "expected_fixture_alignment": "actual_missing",
       "safety_fields": {},
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/expected_crypto_threshold_hit_triage_report.v1.md: expected_fixture_alignment_warning",
+          "path": "pm_bot/paper/expected_crypto_threshold_hit_triage_report.v1.md",
+          "category": "expected_fixture_alignment_warning",
+          "severity": "action_required",
+          "owner": "fixture",
+          "action_type": "fix_required",
+          "recommended_action": "align expected fixture"
+        }
+      ],
+      "warning_codes": [
         "expected_fixture_alignment_warning"
       ]
     },
@@ -3808,7 +5973,8 @@
         "safety.truth_inference": false,
         "safety.wallet_private_keys": false
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/expected_live_shaped_snapshot_paper_lifecycle.v1.json",
@@ -3842,6 +6008,18 @@
         "trading_allowed": false
       },
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/expected_live_shaped_snapshot_paper_lifecycle.v1.json: expected_fixture_alignment_warning",
+          "path": "pm_bot/paper/expected_live_shaped_snapshot_paper_lifecycle.v1.json",
+          "category": "expected_fixture_alignment_warning",
+          "severity": "action_required",
+          "owner": "fixture",
+          "action_type": "fix_required",
+          "recommended_action": "align expected fixture"
+        }
+      ],
+      "warning_codes": [
         "expected_fixture_alignment_warning"
       ]
     },
@@ -3868,6 +6046,18 @@
       "expected_fixture_alignment": "actual_missing",
       "safety_fields": {},
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/expected_live_shaped_snapshot_paper_lifecycle.v1.md: expected_fixture_alignment_warning",
+          "path": "pm_bot/paper/expected_live_shaped_snapshot_paper_lifecycle.v1.md",
+          "category": "expected_fixture_alignment_warning",
+          "severity": "action_required",
+          "owner": "fixture",
+          "action_type": "fix_required",
+          "recommended_action": "align expected fixture"
+        }
+      ],
+      "warning_codes": [
         "expected_fixture_alignment_warning"
       ]
     },
@@ -3904,8 +6094,26 @@
         "network_used": false
       },
       "warnings": [
-        "embedded_artifact_pointer_warning",
-        "expected_fixture_alignment_warning"
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/expected_local_snapshot_inbox_paper_portfolio.v1.json: embedded_artifact_pointer_warning",
+          "path": "pm_bot/paper/expected_local_snapshot_inbox_paper_portfolio.v1.json",
+          "category": "embedded_artifact_pointer_warning",
+          "severity": "review_needed",
+          "owner": "data",
+          "action_type": "review_required",
+          "recommended_action": "remove stale embedded pointer"
+        },
+        {
+          "warning_id": "artifact_warning_002",
+          "message": "pm_bot/paper/expected_local_snapshot_inbox_paper_portfolio.v1.json: expected_fixture_alignment_warning",
+          "path": "pm_bot/paper/expected_local_snapshot_inbox_paper_portfolio.v1.json",
+          "category": "expected_fixture_alignment_warning",
+          "severity": "action_required",
+          "owner": "fixture",
+          "action_type": "fix_required",
+          "recommended_action": "align expected fixture"
+        }
       ],
       "pointer_warnings": [
         {
@@ -3928,6 +6136,10 @@
           "field_path": "input_state.source_path",
           "target": "pm_bot/paper/<REPO_ROOT>/pm_bot/paper/paper_portfolio_state.v1.json"
         }
+      ],
+      "warning_codes": [
+        "embedded_artifact_pointer_warning",
+        "expected_fixture_alignment_warning"
       ]
     },
     {
@@ -3953,6 +6165,18 @@
       "expected_fixture_alignment": "actual_missing",
       "safety_fields": {},
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/expected_local_snapshot_inbox_paper_portfolio.v1.md: expected_fixture_alignment_warning",
+          "path": "pm_bot/paper/expected_local_snapshot_inbox_paper_portfolio.v1.md",
+          "category": "expected_fixture_alignment_warning",
+          "severity": "action_required",
+          "owner": "fixture",
+          "action_type": "fix_required",
+          "recommended_action": "align expected fixture"
+        }
+      ],
+      "warning_codes": [
         "expected_fixture_alignment_warning"
       ]
     },
@@ -3989,8 +6213,26 @@
         "network_used": false
       },
       "warnings": [
-        "embedded_artifact_pointer_warning",
-        "expected_fixture_alignment_warning"
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/expected_local_snapshot_inbox_run_ledger.v1.json: embedded_artifact_pointer_warning",
+          "path": "pm_bot/paper/expected_local_snapshot_inbox_run_ledger.v1.json",
+          "category": "embedded_artifact_pointer_warning",
+          "severity": "review_needed",
+          "owner": "data",
+          "action_type": "review_required",
+          "recommended_action": "remove stale embedded pointer"
+        },
+        {
+          "warning_id": "artifact_warning_002",
+          "message": "pm_bot/paper/expected_local_snapshot_inbox_run_ledger.v1.json: expected_fixture_alignment_warning",
+          "path": "pm_bot/paper/expected_local_snapshot_inbox_run_ledger.v1.json",
+          "category": "expected_fixture_alignment_warning",
+          "severity": "action_required",
+          "owner": "fixture",
+          "action_type": "fix_required",
+          "recommended_action": "align expected fixture"
+        }
       ],
       "pointer_warnings": [
         {
@@ -4013,6 +6255,10 @@
           "field_path": "snapshot_files_discovered[2].path",
           "target": "pm_bot/paper/<REPO_ROOT>/pm_bot/paper/local_snapshot_inbox/003_series_snapshot_003.json"
         }
+      ],
+      "warning_codes": [
+        "embedded_artifact_pointer_warning",
+        "expected_fixture_alignment_warning"
       ]
     },
     {
@@ -4048,8 +6294,26 @@
         "network_used": false
       },
       "warnings": [
-        "embedded_artifact_pointer_warning",
-        "expected_fixture_alignment_warning"
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/expected_local_snapshot_paper_portfolio_state.v1.json: embedded_artifact_pointer_warning",
+          "path": "pm_bot/paper/expected_local_snapshot_paper_portfolio_state.v1.json",
+          "category": "embedded_artifact_pointer_warning",
+          "severity": "review_needed",
+          "owner": "data",
+          "action_type": "review_required",
+          "recommended_action": "remove stale embedded pointer"
+        },
+        {
+          "warning_id": "artifact_warning_002",
+          "message": "pm_bot/paper/expected_local_snapshot_paper_portfolio_state.v1.json: expected_fixture_alignment_warning",
+          "path": "pm_bot/paper/expected_local_snapshot_paper_portfolio_state.v1.json",
+          "category": "expected_fixture_alignment_warning",
+          "severity": "action_required",
+          "owner": "fixture",
+          "action_type": "fix_required",
+          "recommended_action": "align expected fixture"
+        }
       ],
       "pointer_warnings": [
         {
@@ -4062,6 +6326,10 @@
           "field_path": "input_state.source_path",
           "target": "pm_bot/paper/<REPO_ROOT>/pm_bot/paper/paper_portfolio_state.v1.json"
         }
+      ],
+      "warning_codes": [
+        "embedded_artifact_pointer_warning",
+        "expected_fixture_alignment_warning"
       ]
     },
     {
@@ -4087,6 +6355,18 @@
       "expected_fixture_alignment": "actual_missing",
       "safety_fields": {},
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/expected_local_snapshot_paper_portfolio_state.v1.md: expected_fixture_alignment_warning",
+          "path": "pm_bot/paper/expected_local_snapshot_paper_portfolio_state.v1.md",
+          "category": "expected_fixture_alignment_warning",
+          "severity": "action_required",
+          "owner": "fixture",
+          "action_type": "fix_required",
+          "recommended_action": "align expected fixture"
+        }
+      ],
+      "warning_codes": [
         "expected_fixture_alignment_warning"
       ]
     },
@@ -4123,6 +6403,18 @@
         "network_used": false
       },
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/expected_local_snapshot_series_paper_portfolio.v1.json: expected_fixture_alignment_warning",
+          "path": "pm_bot/paper/expected_local_snapshot_series_paper_portfolio.v1.json",
+          "category": "expected_fixture_alignment_warning",
+          "severity": "action_required",
+          "owner": "fixture",
+          "action_type": "fix_required",
+          "recommended_action": "align expected fixture"
+        }
+      ],
+      "warning_codes": [
         "expected_fixture_alignment_warning"
       ]
     },
@@ -4149,6 +6441,18 @@
       "expected_fixture_alignment": "actual_missing",
       "safety_fields": {},
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/expected_local_snapshot_series_paper_portfolio.v1.md: expected_fixture_alignment_warning",
+          "path": "pm_bot/paper/expected_local_snapshot_series_paper_portfolio.v1.md",
+          "category": "expected_fixture_alignment_warning",
+          "severity": "action_required",
+          "owner": "fixture",
+          "action_type": "fix_required",
+          "recommended_action": "align expected fixture"
+        }
+      ],
+      "warning_codes": [
         "expected_fixture_alignment_warning"
       ]
     },
@@ -4185,6 +6489,18 @@
         "network_used": false
       },
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/expected_local_snapshot_series_risk_scenarios.v1.json: expected_fixture_alignment_warning",
+          "path": "pm_bot/paper/expected_local_snapshot_series_risk_scenarios.v1.json",
+          "category": "expected_fixture_alignment_warning",
+          "severity": "action_required",
+          "owner": "fixture",
+          "action_type": "fix_required",
+          "recommended_action": "align expected fixture"
+        }
+      ],
+      "warning_codes": [
         "expected_fixture_alignment_warning"
       ]
     },
@@ -4211,6 +6527,18 @@
       "expected_fixture_alignment": "actual_missing",
       "safety_fields": {},
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/expected_local_snapshot_series_risk_scenarios.v1.md: expected_fixture_alignment_warning",
+          "path": "pm_bot/paper/expected_local_snapshot_series_risk_scenarios.v1.md",
+          "category": "expected_fixture_alignment_warning",
+          "severity": "action_required",
+          "owner": "fixture",
+          "action_type": "fix_required",
+          "recommended_action": "align expected fixture"
+        }
+      ],
+      "warning_codes": [
         "expected_fixture_alignment_warning"
       ]
     },
@@ -4247,8 +6575,26 @@
         "network_used": false
       },
       "warnings": [
-        "embedded_artifact_pointer_warning",
-        "expected_fixture_alignment_warning"
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/expected_manual_paper_inbox_bundle.v1.json: embedded_artifact_pointer_warning",
+          "path": "pm_bot/paper/expected_manual_paper_inbox_bundle.v1.json",
+          "category": "embedded_artifact_pointer_warning",
+          "severity": "review_needed",
+          "owner": "data",
+          "action_type": "review_required",
+          "recommended_action": "remove stale embedded pointer"
+        },
+        {
+          "warning_id": "artifact_warning_002",
+          "message": "pm_bot/paper/expected_manual_paper_inbox_bundle.v1.json: expected_fixture_alignment_warning",
+          "path": "pm_bot/paper/expected_manual_paper_inbox_bundle.v1.json",
+          "category": "expected_fixture_alignment_warning",
+          "severity": "action_required",
+          "owner": "fixture",
+          "action_type": "fix_required",
+          "recommended_action": "align expected fixture"
+        }
       ],
       "pointer_warnings": [
         {
@@ -4256,6 +6602,10 @@
           "field_path": "input_state_path",
           "target": "pm_bot/paper/<REPO_ROOT>/pm_bot/paper/paper_portfolio_state.v1.json"
         }
+      ],
+      "warning_codes": [
+        "embedded_artifact_pointer_warning",
+        "expected_fixture_alignment_warning"
       ]
     },
     {
@@ -4281,6 +6631,18 @@
       "expected_fixture_alignment": "actual_missing",
       "safety_fields": {},
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/expected_manual_paper_inbox_bundle_summary.v1.md: expected_fixture_alignment_warning",
+          "path": "pm_bot/paper/expected_manual_paper_inbox_bundle_summary.v1.md",
+          "category": "expected_fixture_alignment_warning",
+          "severity": "action_required",
+          "owner": "fixture",
+          "action_type": "fix_required",
+          "recommended_action": "align expected fixture"
+        }
+      ],
+      "warning_codes": [
         "expected_fixture_alignment_warning"
       ]
     },
@@ -4316,8 +6678,26 @@
         "safety_flags.wallet_used": false
       },
       "warnings": [
-        "embedded_artifact_pointer_warning",
-        "expected_fixture_alignment_warning"
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/expected_manual_paper_operator_cycle.v1.json: embedded_artifact_pointer_warning",
+          "path": "pm_bot/paper/expected_manual_paper_operator_cycle.v1.json",
+          "category": "embedded_artifact_pointer_warning",
+          "severity": "review_needed",
+          "owner": "data",
+          "action_type": "review_required",
+          "recommended_action": "remove stale embedded pointer"
+        },
+        {
+          "warning_id": "artifact_warning_002",
+          "message": "pm_bot/paper/expected_manual_paper_operator_cycle.v1.json: expected_fixture_alignment_warning",
+          "path": "pm_bot/paper/expected_manual_paper_operator_cycle.v1.json",
+          "category": "expected_fixture_alignment_warning",
+          "severity": "action_required",
+          "owner": "fixture",
+          "action_type": "fix_required",
+          "recommended_action": "align expected fixture"
+        }
       ],
       "pointer_warnings": [
         {
@@ -4370,6 +6750,10 @@
           "field_path": "workspace_phase.quarantine_records[0].input_path",
           "target": "pm_bot/paper/<REPO_ROOT>/pm_bot/paper/manual_paper_workspace/inbox/001_series_snapshot_001.json"
         }
+      ],
+      "warning_codes": [
+        "embedded_artifact_pointer_warning",
+        "expected_fixture_alignment_warning"
       ]
     },
     {
@@ -4395,6 +6779,18 @@
       "expected_fixture_alignment": "actual_missing",
       "safety_fields": {},
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/expected_manual_paper_operator_cycle.v1.md: expected_fixture_alignment_warning",
+          "path": "pm_bot/paper/expected_manual_paper_operator_cycle.v1.md",
+          "category": "expected_fixture_alignment_warning",
+          "severity": "action_required",
+          "owner": "fixture",
+          "action_type": "fix_required",
+          "recommended_action": "align expected fixture"
+        }
+      ],
+      "warning_codes": [
         "expected_fixture_alignment_warning"
       ]
     },
@@ -4430,8 +6826,26 @@
         "safety_flags.wallet_used": false
       },
       "warnings": [
-        "embedded_artifact_pointer_warning",
-        "expected_fixture_alignment_warning"
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/expected_manual_paper_operator_cycle_manifest.v1.json: embedded_artifact_pointer_warning",
+          "path": "pm_bot/paper/expected_manual_paper_operator_cycle_manifest.v1.json",
+          "category": "embedded_artifact_pointer_warning",
+          "severity": "review_needed",
+          "owner": "data",
+          "action_type": "review_required",
+          "recommended_action": "remove stale embedded pointer"
+        },
+        {
+          "warning_id": "artifact_warning_002",
+          "message": "pm_bot/paper/expected_manual_paper_operator_cycle_manifest.v1.json: expected_fixture_alignment_warning",
+          "path": "pm_bot/paper/expected_manual_paper_operator_cycle_manifest.v1.json",
+          "category": "expected_fixture_alignment_warning",
+          "severity": "action_required",
+          "owner": "fixture",
+          "action_type": "fix_required",
+          "recommended_action": "align expected fixture"
+        }
       ],
       "pointer_warnings": [
         {
@@ -4504,6 +6918,10 @@
           "field_path": "skipped_quarantined_records[3].input_path",
           "target": "pm_bot/paper/<REPO_ROOT>/pm_bot/paper/manual_snapshot_import_source/006_unsupported.json"
         }
+      ],
+      "warning_codes": [
+        "embedded_artifact_pointer_warning",
+        "expected_fixture_alignment_warning"
       ]
     },
     {
@@ -4538,8 +6956,26 @@
         "safety_flags.wallet_used": false
       },
       "warnings": [
-        "embedded_artifact_pointer_warning",
-        "expected_fixture_alignment_warning"
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/expected_manual_paper_operator_cycle_threshold_hit_review.v1.json: embedded_artifact_pointer_warning",
+          "path": "pm_bot/paper/expected_manual_paper_operator_cycle_threshold_hit_review.v1.json",
+          "category": "embedded_artifact_pointer_warning",
+          "severity": "review_needed",
+          "owner": "data",
+          "action_type": "review_required",
+          "recommended_action": "remove stale embedded pointer"
+        },
+        {
+          "warning_id": "artifact_warning_002",
+          "message": "pm_bot/paper/expected_manual_paper_operator_cycle_threshold_hit_review.v1.json: expected_fixture_alignment_warning",
+          "path": "pm_bot/paper/expected_manual_paper_operator_cycle_threshold_hit_review.v1.json",
+          "category": "expected_fixture_alignment_warning",
+          "severity": "action_required",
+          "owner": "fixture",
+          "action_type": "fix_required",
+          "recommended_action": "align expected fixture"
+        }
       ],
       "pointer_warnings": [
         {
@@ -4602,6 +7038,10 @@
           "field_path": "workspace_phase.quarantine_records[0].input_path",
           "target": "pm_bot/paper/<REPO_ROOT>/pm_bot/paper/manual_paper_workspace/inbox/001_series_snapshot_001.json"
         }
+      ],
+      "warning_codes": [
+        "embedded_artifact_pointer_warning",
+        "expected_fixture_alignment_warning"
       ]
     },
     {
@@ -4627,6 +7067,18 @@
       "expected_fixture_alignment": "actual_missing",
       "safety_fields": {},
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/expected_manual_paper_operator_cycle_threshold_hit_review.v1.md: expected_fixture_alignment_warning",
+          "path": "pm_bot/paper/expected_manual_paper_operator_cycle_threshold_hit_review.v1.md",
+          "category": "expected_fixture_alignment_warning",
+          "severity": "action_required",
+          "owner": "fixture",
+          "action_type": "fix_required",
+          "recommended_action": "align expected fixture"
+        }
+      ],
+      "warning_codes": [
         "expected_fixture_alignment_warning"
       ]
     },
@@ -4663,8 +7115,26 @@
         "network_used": false
       },
       "warnings": [
-        "embedded_artifact_pointer_warning",
-        "expected_fixture_alignment_warning"
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/expected_manual_paper_workspace.v1.json: embedded_artifact_pointer_warning",
+          "path": "pm_bot/paper/expected_manual_paper_workspace.v1.json",
+          "category": "embedded_artifact_pointer_warning",
+          "severity": "review_needed",
+          "owner": "data",
+          "action_type": "review_required",
+          "recommended_action": "remove stale embedded pointer"
+        },
+        {
+          "warning_id": "artifact_warning_002",
+          "message": "pm_bot/paper/expected_manual_paper_workspace.v1.json: expected_fixture_alignment_warning",
+          "path": "pm_bot/paper/expected_manual_paper_workspace.v1.json",
+          "category": "expected_fixture_alignment_warning",
+          "severity": "action_required",
+          "owner": "fixture",
+          "action_type": "fix_required",
+          "recommended_action": "align expected fixture"
+        }
       ],
       "pointer_warnings": [
         {
@@ -4677,6 +7147,10 @@
           "field_path": "quarantine_records[0].input_path",
           "target": "pm_bot/paper/<REPO_ROOT>/pm_bot/paper/manual_paper_workspace/inbox/001_series_snapshot_001.json"
         }
+      ],
+      "warning_codes": [
+        "embedded_artifact_pointer_warning",
+        "expected_fixture_alignment_warning"
       ]
     },
     {
@@ -4702,9 +7176,36 @@
       "expected_fixture_alignment": "actual_missing",
       "safety_fields": {},
       "warnings": [
-        "json_top_level_not_object",
-        "embedded_artifact_pointer_warning",
-        "expected_fixture_alignment_warning"
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/expected_manual_paper_workspace_quarantine.v1.json: json_top_level_not_object",
+          "path": "pm_bot/paper/expected_manual_paper_workspace_quarantine.v1.json",
+          "category": "json_top_level_not_object",
+          "severity": "review_needed",
+          "owner": "schema",
+          "action_type": "review_required",
+          "recommended_action": "review non-object JSON artifact"
+        },
+        {
+          "warning_id": "artifact_warning_002",
+          "message": "pm_bot/paper/expected_manual_paper_workspace_quarantine.v1.json: embedded_artifact_pointer_warning",
+          "path": "pm_bot/paper/expected_manual_paper_workspace_quarantine.v1.json",
+          "category": "embedded_artifact_pointer_warning",
+          "severity": "review_needed",
+          "owner": "data",
+          "action_type": "review_required",
+          "recommended_action": "remove stale embedded pointer"
+        },
+        {
+          "warning_id": "artifact_warning_003",
+          "message": "pm_bot/paper/expected_manual_paper_workspace_quarantine.v1.json: expected_fixture_alignment_warning",
+          "path": "pm_bot/paper/expected_manual_paper_workspace_quarantine.v1.json",
+          "category": "expected_fixture_alignment_warning",
+          "severity": "action_required",
+          "owner": "fixture",
+          "action_type": "fix_required",
+          "recommended_action": "align expected fixture"
+        }
       ],
       "pointer_warnings": [
         {
@@ -4712,6 +7213,11 @@
           "field_path": "[0].input_path",
           "target": "pm_bot/paper/<REPO_ROOT>/pm_bot/paper/manual_paper_workspace/inbox/001_series_snapshot_001.json"
         }
+      ],
+      "warning_codes": [
+        "json_top_level_not_object",
+        "embedded_artifact_pointer_warning",
+        "expected_fixture_alignment_warning"
       ]
     },
     {
@@ -4737,6 +7243,18 @@
       "expected_fixture_alignment": "actual_missing",
       "safety_fields": {},
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/expected_manual_paper_workspace_summary.v1.md: expected_fixture_alignment_warning",
+          "path": "pm_bot/paper/expected_manual_paper_workspace_summary.v1.md",
+          "category": "expected_fixture_alignment_warning",
+          "severity": "action_required",
+          "owner": "fixture",
+          "action_type": "fix_required",
+          "recommended_action": "align expected fixture"
+        }
+      ],
+      "warning_codes": [
         "expected_fixture_alignment_warning"
       ]
     },
@@ -4772,8 +7290,26 @@
         "safety_flags.wallet_used": false
       },
       "warnings": [
-        "embedded_artifact_pointer_warning",
-        "expected_fixture_alignment_warning"
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/expected_manual_snapshot_import_manifest.v1.json: embedded_artifact_pointer_warning",
+          "path": "pm_bot/paper/expected_manual_snapshot_import_manifest.v1.json",
+          "category": "embedded_artifact_pointer_warning",
+          "severity": "review_needed",
+          "owner": "data",
+          "action_type": "review_required",
+          "recommended_action": "remove stale embedded pointer"
+        },
+        {
+          "warning_id": "artifact_warning_002",
+          "message": "pm_bot/paper/expected_manual_snapshot_import_manifest.v1.json: expected_fixture_alignment_warning",
+          "path": "pm_bot/paper/expected_manual_snapshot_import_manifest.v1.json",
+          "category": "expected_fixture_alignment_warning",
+          "severity": "action_required",
+          "owner": "fixture",
+          "action_type": "fix_required",
+          "recommended_action": "align expected fixture"
+        }
       ],
       "pointer_warnings": [
         {
@@ -4846,6 +7382,10 @@
           "field_path": "skipped_quarantined_records[3].input_path",
           "target": "pm_bot/paper/<REPO_ROOT>/pm_bot/paper/manual_snapshot_import_source/006_unsupported.json"
         }
+      ],
+      "warning_codes": [
+        "embedded_artifact_pointer_warning",
+        "expected_fixture_alignment_warning"
       ]
     },
     {
@@ -4880,8 +7420,26 @@
         "safety_flags.wallet_used": false
       },
       "warnings": [
-        "embedded_artifact_pointer_warning",
-        "expected_fixture_alignment_warning"
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/expected_manual_snapshot_workspace_import.v1.json: embedded_artifact_pointer_warning",
+          "path": "pm_bot/paper/expected_manual_snapshot_workspace_import.v1.json",
+          "category": "embedded_artifact_pointer_warning",
+          "severity": "review_needed",
+          "owner": "data",
+          "action_type": "review_required",
+          "recommended_action": "remove stale embedded pointer"
+        },
+        {
+          "warning_id": "artifact_warning_002",
+          "message": "pm_bot/paper/expected_manual_snapshot_workspace_import.v1.json: expected_fixture_alignment_warning",
+          "path": "pm_bot/paper/expected_manual_snapshot_workspace_import.v1.json",
+          "category": "expected_fixture_alignment_warning",
+          "severity": "action_required",
+          "owner": "fixture",
+          "action_type": "fix_required",
+          "recommended_action": "align expected fixture"
+        }
       ],
       "pointer_warnings": [
         {
@@ -4954,6 +7512,10 @@
           "field_path": "skipped_quarantined_records[3].input_path",
           "target": "pm_bot/paper/<REPO_ROOT>/pm_bot/paper/manual_snapshot_import_source/006_unsupported.json"
         }
+      ],
+      "warning_codes": [
+        "embedded_artifact_pointer_warning",
+        "expected_fixture_alignment_warning"
       ]
     },
     {
@@ -4979,6 +7541,18 @@
       "expected_fixture_alignment": "actual_missing",
       "safety_fields": {},
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/expected_manual_snapshot_workspace_import.v1.md: expected_fixture_alignment_warning",
+          "path": "pm_bot/paper/expected_manual_snapshot_workspace_import.v1.md",
+          "category": "expected_fixture_alignment_warning",
+          "severity": "action_required",
+          "owner": "fixture",
+          "action_type": "fix_required",
+          "recommended_action": "align expected fixture"
+        }
+      ],
+      "warning_codes": [
         "expected_fixture_alignment_warning"
       ]
     },
@@ -5029,7 +7603,8 @@
         "safety_flags.truth_inference": false,
         "safety_flags.wallet": false
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/expected_paper_accounting_batch_audit.v1.json",
@@ -5067,7 +7642,8 @@
         "safety_flags.trading": false,
         "safety_flags.wallet": false
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/expected_paper_accounting_ledger.v1.json",
@@ -5096,7 +7672,8 @@
       "safety_fields": {
         "deterministic": true
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/expected_paper_accounting_pnl_preview.v1.json",
@@ -5124,7 +7701,8 @@
       "safety_fields": {
         "deterministic": true
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/expected_paper_accounting_reconciliation_audit.v1.json",
@@ -5164,7 +7742,8 @@
         "safety_flags.truth_inference": false,
         "safety_flags.wallet": false
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/expected_paper_decision_policy_spec.v1.json",
@@ -5193,7 +7772,8 @@
       "safety_fields": {
         "deterministic": true
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/expected_paper_decision_simulation_gate.v1.json",
@@ -5221,7 +7801,8 @@
       "safety_fields": {
         "deterministic": true
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/expected_paper_decision_simulation_preview.v1.json",
@@ -5250,7 +7831,8 @@
       "safety_fields": {
         "deterministic": true
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/expected_paper_fill_events.v1.json",
@@ -5278,7 +7860,8 @@
       "safety_fields": {
         "deterministic": true
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/expected_paper_metrics_report.v1.json",
@@ -5314,7 +7897,8 @@
           "no_credential_or_endpoint_use"
         ]
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/expected_paper_policy_review_result.v1.json",
@@ -5355,7 +7939,8 @@
         "safety.truth_inference": false,
         "safety.wallet_private_keys": false
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/expected_paper_portfolio_snapshot.v1.json",
@@ -5392,7 +7977,8 @@
           "no_credential_or_endpoint_use"
         ]
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/expected_paper_run_series_postmortem.v1.json",
@@ -5437,7 +8023,8 @@
         "safety_flags.truth_inference": false,
         "safety_flags.wallet": false
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/expected_paper_simulation.v1.json",
@@ -5465,6 +8052,18 @@
         "trading_allowed": false
       },
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/expected_paper_simulation.v1.json: expected_fixture_alignment_warning",
+          "path": "pm_bot/paper/expected_paper_simulation.v1.json",
+          "category": "expected_fixture_alignment_warning",
+          "severity": "action_required",
+          "owner": "fixture",
+          "action_type": "fix_required",
+          "recommended_action": "align expected fixture"
+        }
+      ],
+      "warning_codes": [
         "expected_fixture_alignment_warning"
       ]
     },
@@ -5494,7 +8093,8 @@
       "safety_fields": {
         "deterministic": true
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/expected_paper_workbench_preview.v1.json",
@@ -5522,7 +8122,8 @@
       "safety_fields": {
         "deterministic": true
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/expected_real_market_triage_report.v1.json",
@@ -5556,6 +8157,18 @@
         "safety_flags.wallet_used": false
       },
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/expected_real_market_triage_report.v1.json: expected_fixture_alignment_warning",
+          "path": "pm_bot/paper/expected_real_market_triage_report.v1.json",
+          "category": "expected_fixture_alignment_warning",
+          "severity": "action_required",
+          "owner": "fixture",
+          "action_type": "fix_required",
+          "recommended_action": "align expected fixture"
+        }
+      ],
+      "warning_codes": [
         "expected_fixture_alignment_warning"
       ]
     },
@@ -5582,6 +8195,18 @@
       "expected_fixture_alignment": "actual_missing",
       "safety_fields": {},
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/expected_real_market_triage_report.v1.md: expected_fixture_alignment_warning",
+          "path": "pm_bot/paper/expected_real_market_triage_report.v1.md",
+          "category": "expected_fixture_alignment_warning",
+          "severity": "action_required",
+          "owner": "fixture",
+          "action_type": "fix_required",
+          "recommended_action": "align expected fixture"
+        }
+      ],
+      "warning_codes": [
         "expected_fixture_alignment_warning"
       ]
     },
@@ -5607,7 +8232,8 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/final_dossier_paper_readiness_result.v1.json",
@@ -5648,7 +8274,8 @@
         "safety.truth_inference": false,
         "safety.wallet_private_keys": false
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/fixtures/polymarket_markets_active_threshold_hit.fixture.json",
@@ -5673,6 +8300,18 @@
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/fixtures/polymarket_markets_active_threshold_hit.fixture.json: json_top_level_not_object",
+          "path": "pm_bot/paper/fixtures/polymarket_markets_active_threshold_hit.fixture.json",
+          "category": "json_top_level_not_object",
+          "severity": "review_needed",
+          "owner": "schema",
+          "action_type": "review_required",
+          "recommended_action": "review non-object JSON artifact"
+        }
+      ],
+      "warning_codes": [
         "json_top_level_not_object"
       ]
     },
@@ -5699,6 +8338,18 @@
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/local_snapshot_inbox/001_series_snapshot_001.json: schema_version_missing",
+          "path": "pm_bot/paper/local_snapshot_inbox/001_series_snapshot_001.json",
+          "category": "schema_version_missing",
+          "severity": "action_required",
+          "owner": "schema",
+          "action_type": "fix_required",
+          "recommended_action": "add schema_version to artifact"
+        }
+      ],
+      "warning_codes": [
         "schema_version_missing"
       ]
     },
@@ -5725,6 +8376,18 @@
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/local_snapshot_inbox/002_series_snapshot_002.json: schema_version_missing",
+          "path": "pm_bot/paper/local_snapshot_inbox/002_series_snapshot_002.json",
+          "category": "schema_version_missing",
+          "severity": "action_required",
+          "owner": "schema",
+          "action_type": "fix_required",
+          "recommended_action": "add schema_version to artifact"
+        }
+      ],
+      "warning_codes": [
         "schema_version_missing"
       ]
     },
@@ -5751,6 +8414,18 @@
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/local_snapshot_inbox/003_series_snapshot_003.json: schema_version_missing",
+          "path": "pm_bot/paper/local_snapshot_inbox/003_series_snapshot_003.json",
+          "category": "schema_version_missing",
+          "severity": "action_required",
+          "owner": "schema",
+          "action_type": "fix_required",
+          "recommended_action": "add schema_version to artifact"
+        }
+      ],
+      "warning_codes": [
         "schema_version_missing"
       ]
     },
@@ -5780,6 +8455,18 @@
         "paper_only": true
       },
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/local_snapshot_series_fixture.v1.json: task_id_missing",
+          "path": "pm_bot/paper/local_snapshot_series_fixture.v1.json",
+          "category": "task_id_missing",
+          "severity": "action_required",
+          "owner": "schema",
+          "action_type": "fix_required",
+          "recommended_action": "add task_id to artifact"
+        }
+      ],
+      "warning_codes": [
         "task_id_missing"
       ]
     },
@@ -5808,7 +8495,8 @@
         "fixture_only": true,
         "paper_only": true
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/manual_paper_intent_ledger.v1.json",
@@ -5836,7 +8524,8 @@
       "safety_fields": {
         "deterministic": true
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/manual_paper_intent_report.v1.md",
@@ -5860,7 +8549,8 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/manual_paper_intent_template.v1.json",
@@ -5888,7 +8578,8 @@
       "safety_fields": {
         "deterministic": true
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/manual_paper_intents_accepted.v1.json",
@@ -5914,7 +8605,8 @@
       "safety_fields": {
         "deterministic": true
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/manual_paper_intents_input.v1.json",
@@ -5940,7 +8632,8 @@
       "safety_fields": {
         "deterministic": true
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/manual_paper_intents_rejected.v1.json",
@@ -5966,7 +8659,8 @@
       "safety_fields": {
         "deterministic": true
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/manual_paper_run_fixture_output/run_ledger.json",
@@ -6001,7 +8695,16 @@
         "network_used": false
       },
       "warnings": [
-        "embedded_artifact_pointer_warning"
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/manual_paper_run_fixture_output/run_ledger.json: embedded_artifact_pointer_warning",
+          "path": "pm_bot/paper/manual_paper_run_fixture_output/run_ledger.json",
+          "category": "embedded_artifact_pointer_warning",
+          "severity": "review_needed",
+          "owner": "data",
+          "action_type": "review_required",
+          "recommended_action": "remove stale embedded pointer"
+        }
       ],
       "pointer_warnings": [
         {
@@ -6024,6 +8727,9 @@
           "field_path": "snapshot_files_discovered[2].path",
           "target": "pm_bot/paper/manual_paper_run_fixture_output/<REPO_ROOT>/pm_bot/paper/local_snapshot_inbox/003_series_snapshot_003.json"
         }
+      ],
+      "warning_codes": [
+        "embedded_artifact_pointer_warning"
       ]
     },
     {
@@ -6048,7 +8754,8 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/manual_paper_run_fixture_output/state_after.json",
@@ -6082,7 +8789,8 @@
         "api_used": false,
         "network_used": false
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/manual_paper_workspace/inbox/001_series_snapshot_001.json",
@@ -6107,6 +8815,18 @@
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/manual_paper_workspace/inbox/001_series_snapshot_001.json: schema_version_missing",
+          "path": "pm_bot/paper/manual_paper_workspace/inbox/001_series_snapshot_001.json",
+          "category": "schema_version_missing",
+          "severity": "action_required",
+          "owner": "schema",
+          "action_type": "fix_required",
+          "recommended_action": "add schema_version to artifact"
+        }
+      ],
+      "warning_codes": [
         "schema_version_missing"
       ]
     },
@@ -6133,6 +8853,18 @@
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/manual_paper_workspace/inbox/002_series_snapshot_002.json: schema_version_missing",
+          "path": "pm_bot/paper/manual_paper_workspace/inbox/002_series_snapshot_002.json",
+          "category": "schema_version_missing",
+          "severity": "action_required",
+          "owner": "schema",
+          "action_type": "fix_required",
+          "recommended_action": "add schema_version to artifact"
+        }
+      ],
+      "warning_codes": [
         "schema_version_missing"
       ]
     },
@@ -6159,6 +8891,18 @@
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/manual_paper_workspace/inbox/003_series_snapshot_003.json: schema_version_missing",
+          "path": "pm_bot/paper/manual_paper_workspace/inbox/003_series_snapshot_003.json",
+          "category": "schema_version_missing",
+          "severity": "action_required",
+          "owner": "schema",
+          "action_type": "fix_required",
+          "recommended_action": "add schema_version to artifact"
+        }
+      ],
+      "warning_codes": [
         "schema_version_missing"
       ]
     },
@@ -6194,7 +8938,8 @@
         "api_used": false,
         "network_used": false
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/manual_snapshot_import_source/001_series_snapshot_004.json",
@@ -6219,6 +8964,18 @@
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/manual_snapshot_import_source/001_series_snapshot_004.json: schema_version_missing",
+          "path": "pm_bot/paper/manual_snapshot_import_source/001_series_snapshot_004.json",
+          "category": "schema_version_missing",
+          "severity": "action_required",
+          "owner": "schema",
+          "action_type": "fix_required",
+          "recommended_action": "add schema_version to artifact"
+        }
+      ],
+      "warning_codes": [
         "schema_version_missing"
       ]
     },
@@ -6245,6 +9002,18 @@
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/manual_snapshot_import_source/002_series_snapshot_005.json: schema_version_missing",
+          "path": "pm_bot/paper/manual_snapshot_import_source/002_series_snapshot_005.json",
+          "category": "schema_version_missing",
+          "severity": "action_required",
+          "owner": "schema",
+          "action_type": "fix_required",
+          "recommended_action": "add schema_version to artifact"
+        }
+      ],
+      "warning_codes": [
         "schema_version_missing"
       ]
     },
@@ -6271,6 +9040,18 @@
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/manual_snapshot_import_source/003_duplicate_series_snapshot_004.json: schema_version_missing",
+          "path": "pm_bot/paper/manual_snapshot_import_source/003_duplicate_series_snapshot_004.json",
+          "category": "schema_version_missing",
+          "severity": "action_required",
+          "owner": "schema",
+          "action_type": "fix_required",
+          "recommended_action": "add schema_version to artifact"
+        }
+      ],
+      "warning_codes": [
         "schema_version_missing"
       ]
     },
@@ -6297,6 +9078,18 @@
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/manual_snapshot_import_source/004_already_present_series_snapshot_002.json: schema_version_missing",
+          "path": "pm_bot/paper/manual_snapshot_import_source/004_already_present_series_snapshot_002.json",
+          "category": "schema_version_missing",
+          "severity": "action_required",
+          "owner": "schema",
+          "action_type": "fix_required",
+          "recommended_action": "add schema_version to artifact"
+        }
+      ],
+      "warning_codes": [
         "schema_version_missing"
       ]
     },
@@ -6323,9 +9116,21 @@
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
       "warnings": [
-        "known_intentional_malformed_fixture_parse_failure"
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/manual_snapshot_import_source/005_malformed.json: known_intentional_malformed_fixture_parse_failure",
+          "path": "pm_bot/paper/manual_snapshot_import_source/005_malformed.json",
+          "category": "known_intentional_malformed_fixture_parse_failure",
+          "severity": "informational",
+          "owner": "fixture",
+          "action_type": "ignore_allowed",
+          "recommended_action": "keep intentional malformed fixture documented"
+        }
       ],
-      "json_parse_error": "Expecting property name enclosed in double quotes at line 2 column 1"
+      "json_parse_error": "Expecting property name enclosed in double quotes at line 2 column 1",
+      "warning_codes": [
+        "known_intentional_malformed_fixture_parse_failure"
+      ]
     },
     {
       "path": "pm_bot/paper/manual_snapshot_import_source/006_unsupported.json",
@@ -6349,7 +9154,8 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/manual_snapshot_import_source/008_polymarket_markets_active_minimized.fixture.json",
@@ -6374,6 +9180,18 @@
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/manual_snapshot_import_source/008_polymarket_markets_active_minimized.fixture.json: json_top_level_not_object",
+          "path": "pm_bot/paper/manual_snapshot_import_source/008_polymarket_markets_active_minimized.fixture.json",
+          "category": "json_top_level_not_object",
+          "severity": "review_needed",
+          "owner": "schema",
+          "action_type": "review_required",
+          "recommended_action": "review non-object JSON artifact"
+        }
+      ],
+      "warning_codes": [
         "json_top_level_not_object"
       ]
     },
@@ -6424,7 +9242,8 @@
         "safety_flags.truth_inference": false,
         "safety_flags.wallet": false
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/multi_market_paper_run_series.v1.md",
@@ -6448,7 +9267,8 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/paper_accounting_batch_audit.v1.json",
@@ -6486,7 +9306,8 @@
         "safety_flags.trading": false,
         "safety_flags.wallet": false
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/paper_accounting_batch_audit.v1.md",
@@ -6510,7 +9331,8 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/paper_accounting_ledger.v1.json",
@@ -6539,7 +9361,8 @@
       "safety_fields": {
         "deterministic": true
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/paper_accounting_ledger.v1.md",
@@ -6563,7 +9386,8 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/paper_accounting_pnl_preview.v1.json",
@@ -6591,7 +9415,8 @@
       "safety_fields": {
         "deterministic": true
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/paper_accounting_pnl_preview.v1.md",
@@ -6615,7 +9440,8 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/paper_accounting_reconciliation_audit.v1.json",
@@ -6655,7 +9481,8 @@
         "safety_flags.truth_inference": false,
         "safety_flags.wallet": false
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/paper_accounting_reconciliation_audit.v1.md",
@@ -6679,7 +9506,8 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/paper_decision_policy_spec.v1.json",
@@ -6708,7 +9536,8 @@
       "safety_fields": {
         "deterministic": true
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/paper_decision_policy_spec.v1.md",
@@ -6732,7 +9561,8 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/paper_decision_simulation_gate.v1.json",
@@ -6760,7 +9590,8 @@
       "safety_fields": {
         "deterministic": true
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/paper_decision_simulation_gate.v1.md",
@@ -6784,7 +9615,8 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/paper_decision_simulation_preview.v1.json",
@@ -6813,7 +9645,8 @@
       "safety_fields": {
         "deterministic": true
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/paper_decision_simulation_preview.v1.md",
@@ -6837,7 +9670,8 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/paper_fill_events.v1.json",
@@ -6865,7 +9699,8 @@
       "safety_fields": {
         "deterministic": true
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/paper_fill_events_report.v1.md",
@@ -6889,7 +9724,8 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/paper_fill_source_contract.v1.json",
@@ -6921,7 +9757,8 @@
         "live_order_created": false,
         "real_order_created": false
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/paper_fill_source_fixture.v1.json",
@@ -6947,7 +9784,8 @@
       "safety_fields": {
         "deterministic": true
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/paper_fill_source_report.v1.md",
@@ -6971,7 +9809,8 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/paper_fill_sources_accepted.v1.json",
@@ -6997,7 +9836,8 @@
       "safety_fields": {
         "deterministic": true
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/paper_fill_sources_rejected.v1.json",
@@ -7023,7 +9863,8 @@
       "safety_fields": {
         "deterministic": true
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/paper_metrics_report.v1.json",
@@ -7059,7 +9900,8 @@
           "no_credential_or_endpoint_use"
         ]
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/paper_metrics_report.v1.md",
@@ -7083,7 +9925,8 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/paper_plan_fixture.v1.json",
@@ -7108,6 +9951,28 @@
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
       "warnings": [
+        {
+          "warning_id": "artifact_warning_001",
+          "message": "pm_bot/paper/paper_plan_fixture.v1.json: schema_version_missing",
+          "path": "pm_bot/paper/paper_plan_fixture.v1.json",
+          "category": "schema_version_missing",
+          "severity": "action_required",
+          "owner": "schema",
+          "action_type": "fix_required",
+          "recommended_action": "add schema_version to artifact"
+        },
+        {
+          "warning_id": "artifact_warning_002",
+          "message": "pm_bot/paper/paper_plan_fixture.v1.json: task_id_missing",
+          "path": "pm_bot/paper/paper_plan_fixture.v1.json",
+          "category": "task_id_missing",
+          "severity": "action_required",
+          "owner": "schema",
+          "action_type": "fix_required",
+          "recommended_action": "add task_id to artifact"
+        }
+      ],
+      "warning_codes": [
         "schema_version_missing",
         "task_id_missing"
       ]
@@ -7136,7 +10001,8 @@
       "safety_fields": {
         "deterministic": true
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/paper_policy_review_report.v1.md",
@@ -7160,7 +10026,8 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/paper_policy_review_result.v1.json",
@@ -7201,7 +10068,8 @@
         "safety.truth_inference": false,
         "safety.wallet_private_keys": false
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/paper_portfolio_snapshot.v1.json",
@@ -7238,7 +10106,8 @@
           "no_credential_or_endpoint_use"
         ]
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/paper_portfolio_snapshot.v1.md",
@@ -7262,7 +10131,8 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/paper_portfolio_state.v1.json",
@@ -7296,7 +10166,8 @@
         "api_used": false,
         "network_used": false
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/paper_portfolio_state_after_inbox.v1.json",
@@ -7330,7 +10201,8 @@
         "api_used": false,
         "network_used": false
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/paper_portfolio_state_after_snapshot.v1.json",
@@ -7364,7 +10236,8 @@
         "api_used": false,
         "network_used": false
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/paper_run_series_fixture.v1.json",
@@ -7415,7 +10288,8 @@
         "safety_flags.truth_inference": false,
         "safety_flags.wallet": false
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/paper_run_series_postmortem.v1.json",
@@ -7460,7 +10334,8 @@
         "safety_flags.truth_inference": false,
         "safety_flags.wallet": false
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/paper_run_series_postmortem.v1.md",
@@ -7484,7 +10359,8 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/paper_settlement_source_fixture.v1.json",
@@ -7510,7 +10386,8 @@
       "safety_fields": {
         "deterministic": true
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/paper_settlement_sources_accepted.v1.json",
@@ -7536,7 +10413,8 @@
       "safety_fields": {
         "deterministic": true
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/paper_settlement_sources_rejected.v1.json",
@@ -7562,7 +10440,8 @@
       "safety_fields": {
         "deterministic": true
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/paper_simulation_gate_human_review_records_accepted.v1.json",
@@ -7588,7 +10467,8 @@
       "safety_fields": {
         "deterministic": true
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/paper_simulation_gate_human_review_records_input.v1.json",
@@ -7614,7 +10494,8 @@
       "safety_fields": {
         "deterministic": true
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/paper_simulation_gate_human_review_records_rejected.v1.json",
@@ -7640,7 +10521,8 @@
       "safety_fields": {
         "deterministic": true
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/paper_simulation_gate_human_review_records_report.v1.md",
@@ -7664,7 +10546,8 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/paper_simulation_plan_draft.v1.json",
@@ -7692,7 +10575,8 @@
       "safety_fields": {
         "deterministic": true
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/paper_simulation_plan_draft.v1.md",
@@ -7716,7 +10600,8 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/paper_workbench_preview.v1.json",
@@ -7744,7 +10629,8 @@
       "safety_fields": {
         "deterministic": true
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/paper_workbench_preview.v1.md",
@@ -7768,7 +10654,8 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/portfolio_risk_limits.v1.json",
@@ -7795,7 +10682,8 @@
         "fixture_only": true,
         "paper_only": true
       },
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/threshold_hit_decision_policy.v1.json",
@@ -7819,7 +10707,8 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/threshold_hit_policy_scenarios.v1.json",
@@ -7843,7 +10732,8 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/threshold_hit_reference_context.v1.json",
@@ -7867,7 +10757,8 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
-      "warnings": []
+      "warnings": [],
+      "warning_codes": []
     }
   ]
 }

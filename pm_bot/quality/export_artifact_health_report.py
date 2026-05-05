@@ -56,6 +56,8 @@ SAFETY_FLAGS = {
 
 WARNING_SEVERITIES = ("blocking", "action_required", "review_needed", "informational")
 WARNING_SEVERITY_RANK = {severity: index for index, severity in enumerate(WARNING_SEVERITIES)}
+WARNING_OWNERS = ("code", "fixture", "schema", "data", "unknown")
+WARNING_ACTION_TYPES = ("fix_required", "review_required", "ignore_allowed")
 WARNING_SEVERITY_MODEL = {
     "blocking": "Stop operator review and repair the artifact or safety issue first.",
     "action_required": "Review and resolve or explicitly accept before relying on the package.",
@@ -65,58 +67,100 @@ WARNING_SEVERITY_MODEL = {
 WARNING_CATEGORY_MODEL = {
     "missing_required_artifact": {
         "severity": "blocking",
+        "owner": "data",
+        "action_type": "fix_required",
+        "recommended_action": "restore required artifact",
         "operator_bucket": "required artifact missing",
     },
     "json_parse_failed": {
         "severity": "blocking",
+        "owner": "data",
+        "action_type": "fix_required",
+        "recommended_action": "investigate malformed JSON artifact",
         "operator_bucket": "JSON parse failure",
     },
     "fixture_alignment_actual_missing": {
         "severity": "action_required",
+        "owner": "fixture",
+        "action_type": "fix_required",
+        "recommended_action": "create missing actual artifact",
         "operator_bucket": "expected fixture exists but actual artifact is missing",
     },
     "fixture_alignment_mismatch": {
         "severity": "action_required",
+        "owner": "fixture",
+        "action_type": "fix_required",
+        "recommended_action": "align expected fixture",
         "operator_bucket": "expected fixture differs from actual artifact",
     },
     "expected_fixture_alignment_warning": {
         "severity": "action_required",
+        "owner": "fixture",
+        "action_type": "fix_required",
+        "recommended_action": "align expected fixture",
         "operator_bucket": "artifact has an expected fixture alignment warning",
     },
     "schema_version_missing": {
         "severity": "action_required",
+        "owner": "schema",
+        "action_type": "fix_required",
+        "recommended_action": "add schema_version to artifact",
         "operator_bucket": "schema version metadata missing",
     },
     "task_id_missing": {
         "severity": "action_required",
+        "owner": "schema",
+        "action_type": "fix_required",
+        "recommended_action": "add task_id to artifact",
         "operator_bucket": "task_id metadata missing",
     },
     "status_fields_missing": {
         "severity": "action_required",
+        "owner": "schema",
+        "action_type": "fix_required",
+        "recommended_action": "add expected status field to artifact",
         "operator_bucket": "expected status field missing",
     },
     "embedded_artifact_pointer_warning": {
         "severity": "review_needed",
+        "owner": "data",
+        "action_type": "review_required",
+        "recommended_action": "remove stale embedded pointer",
         "operator_bucket": "embedded artifact pointer needs inspection",
     },
     "stale_reference_warning": {
         "severity": "review_needed",
+        "owner": "data",
+        "action_type": "review_required",
+        "recommended_action": "remove stale embedded reference",
         "operator_bucket": "historical or stale reference needs inspection",
     },
     "json_top_level_not_object": {
         "severity": "review_needed",
+        "owner": "schema",
+        "action_type": "review_required",
+        "recommended_action": "review non-object JSON artifact",
         "operator_bucket": "JSON artifact is intentionally or structurally non-object",
     },
     "missing_optional_artifact": {
         "severity": "informational",
+        "owner": "data",
+        "action_type": "ignore_allowed",
+        "recommended_action": "ignore optional missing artifact",
         "operator_bucket": "optional artifact missing",
     },
     "known_intentional_malformed_fixture_parse_failure": {
         "severity": "informational",
+        "owner": "fixture",
+        "action_type": "ignore_allowed",
+        "recommended_action": "keep intentional malformed fixture documented",
         "operator_bucket": "known intentional malformed fixture",
     },
     "unclassified_warning": {
         "severity": "action_required",
+        "owner": "unknown",
+        "action_type": "review_required",
+        "recommended_action": "triage unclassified warning",
         "operator_bucket": "unclassified warning requires manual review",
     },
 }
@@ -643,22 +687,34 @@ def _report_status(artifact_records, fixture_checks, safety_summary):
     return "health_passed", [], []
 
 
+def _warning_message(warning):
+    if isinstance(warning, dict):
+        return str(warning.get("message", ""))
+    return str(warning)
+
+
 def _warning_path(warning):
-    if " fixture alignment " in warning:
-        return warning.split(" fixture alignment ", 1)[0]
-    if ": " in warning:
-        return warning.split(": ", 1)[0]
+    if isinstance(warning, dict):
+        return warning.get("path")
+    message = _warning_message(warning)
+    if " fixture alignment " in message:
+        return message.split(" fixture alignment ", 1)[0]
+    if ": " in message:
+        return message.split(": ", 1)[0]
     return None
 
 
 def _warning_category(warning):
-    if " fixture alignment " in warning:
-        if " actual_missing " in warning:
+    if isinstance(warning, dict) and warning.get("category"):
+        return warning["category"]
+    message = _warning_message(warning)
+    if " fixture alignment " in message:
+        if " actual_missing " in message:
             return "fixture_alignment_actual_missing"
-        if " mismatch " in warning:
+        if " mismatch " in message:
             return "fixture_alignment_mismatch"
         return "expected_fixture_alignment_warning"
-    tag = warning.rsplit(": ", 1)[-1]
+    tag = message.rsplit(": ", 1)[-1]
     if tag in WARNING_CATEGORY_MODEL:
         return tag
     return "unclassified_warning"
@@ -673,6 +729,51 @@ def _warning_severity(category, path, required_by_path):
     if category in {"schema_version_missing", "task_id_missing", "status_fields_missing"} and not required:
         return "review_needed"
     return severity
+
+
+def _warning_action_type(category, severity):
+    model = WARNING_CATEGORY_MODEL.get(category, WARNING_CATEGORY_MODEL["unclassified_warning"])
+    action_type = model["action_type"]
+    if severity == "informational":
+        return "ignore_allowed"
+    if severity == "review_needed" and action_type == "fix_required":
+        return "review_required"
+    return action_type
+
+
+def _classified_warning(warning, required_by_path, index, prefix="warning"):
+    path = _warning_path(warning)
+    category = _warning_category(warning)
+    severity = _warning_severity(category, path, required_by_path)
+    model = WARNING_CATEGORY_MODEL.get(category, WARNING_CATEGORY_MODEL["unclassified_warning"])
+    return {
+        "warning_id": f"{prefix}_{index:03d}",
+        "message": _warning_message(warning),
+        "path": path,
+        "category": category,
+        "severity": severity,
+        "owner": model["owner"],
+        "action_type": _warning_action_type(category, severity),
+        "recommended_action": model["recommended_action"],
+    }
+
+
+def _classified_warnings(warnings, required_by_path, prefix="warning"):
+    return [
+        _classified_warning(warning, required_by_path, index, prefix=prefix)
+        for index, warning in enumerate(warnings, start=1)
+    ]
+
+
+def _classify_artifact_record_warnings(artifact_records, required_by_path):
+    for record in artifact_records:
+        warning_codes = list(record["warnings"])
+        record["warning_codes"] = warning_codes
+        record["warnings"] = _classified_warnings(
+            [f"{record['path']}: {warning}" for warning in warning_codes],
+            required_by_path,
+            prefix="artifact_warning",
+        )
 
 
 def _highest_severity(severity_counts):
@@ -709,31 +810,58 @@ def _recommended_manual_action(severity_counts, blockers):
 def _warning_severity_summary(warnings, artifact_records, blockers):
     required_by_path = {record["path"]: record["required"] for record in artifact_records}
     severity_counts = {severity: 0 for severity in WARNING_SEVERITIES}
+    owner_counts = {owner: 0 for owner in WARNING_OWNERS}
+    action_type_counts = {action_type: 0 for action_type in WARNING_ACTION_TYPES}
     category_counts = {}
     category_severity_counts = {}
+    category_action_type_counts = {}
 
     for warning in warnings:
         path = _warning_path(warning)
         category = _warning_category(warning)
-        severity = _warning_severity(category, path, required_by_path)
+        severity = (
+            warning.get("severity")
+            if isinstance(warning, dict)
+            else _warning_severity(category, path, required_by_path)
+        )
+        owner = warning.get("owner") if isinstance(warning, dict) else WARNING_CATEGORY_MODEL.get(
+            category, WARNING_CATEGORY_MODEL["unclassified_warning"]
+        )["owner"]
+        action_type = (
+            warning.get("action_type")
+            if isinstance(warning, dict)
+            else _warning_action_type(category, severity)
+        )
         severity_counts[severity] += 1
+        owner_counts[owner] = owner_counts.get(owner, 0) + 1
+        action_type_counts[action_type] = action_type_counts.get(action_type, 0) + 1
         category_counts[category] = category_counts.get(category, 0) + 1
         per_category = category_severity_counts.setdefault(
             category,
             {item: 0 for item in WARNING_SEVERITIES},
         )
         per_category[severity] += 1
+        per_category_action = category_action_type_counts.setdefault(
+            category,
+            {item: 0 for item in WARNING_ACTION_TYPES},
+        )
+        per_category_action[action_type] += 1
 
     categories = []
     for category in sorted(category_counts):
         model = WARNING_CATEGORY_MODEL.get(category, WARNING_CATEGORY_MODEL["unclassified_warning"])
         per_category = category_severity_counts[category]
+        highest_severity = _highest_severity(per_category)
         categories.append(
             {
                 "category": category,
-                "severity": _highest_severity(per_category),
+                "severity": highest_severity,
                 "count": category_counts[category],
                 "severity_counts": per_category,
+                "owner": model["owner"],
+                "action_type": _warning_action_type(category, highest_severity),
+                "action_type_counts": category_action_type_counts[category],
+                "recommended_action": model["recommended_action"],
                 "operator_bucket": model["operator_bucket"],
             }
         )
@@ -744,6 +872,17 @@ def _warning_severity_summary(warnings, artifact_records, blockers):
             item["category"],
         )
     )
+    top_action_items = [
+        {
+            "category": item["category"],
+            "severity": item["severity"],
+            "count": item["count"],
+            "owner": item["owner"],
+            "action_type": item["action_type"],
+            "recommended_action": item["recommended_action"],
+        }
+        for item in categories[:5]
+    ]
 
     summary = {
         "total_warnings": len(warnings),
@@ -751,8 +890,11 @@ def _warning_severity_summary(warnings, artifact_records, blockers):
         "action_required_count": severity_counts["action_required"],
         "review_needed_count": severity_counts["review_needed"],
         "informational_count": severity_counts["informational"],
+        "warnings_by_owner": owner_counts,
+        "warnings_by_action_type": action_type_counts,
         "warning_categories": categories,
         "top_warning_categories": categories[:5],
+        "top_action_items": top_action_items,
         "blocking_warning_detected": bool(severity_counts["blocking"] or blockers),
         "operator_summary": _warning_operator_summary(severity_counts, blockers),
         "recommended_manual_action": _recommended_manual_action(severity_counts, blockers),
@@ -781,8 +923,11 @@ def build_artifact_health_report(root=ROOT):
                 record["warnings"].append("expected_fixture_alignment_warning")
 
     safety_summary = _safety_flag_summary(artifact_records)
-    status, blockers, warnings = _report_status(artifact_records, fixture_checks, safety_summary)
+    status, blockers, warning_messages = _report_status(artifact_records, fixture_checks, safety_summary)
+    required_by_path = {record["path"]: record["required"] for record in artifact_records}
+    warnings = _classified_warnings(warning_messages, required_by_path)
     warning_summary = _warning_severity_summary(warnings, artifact_records, blockers)
+    _classify_artifact_record_warnings(artifact_records, required_by_path)
     parse_pass = sum(1 for record in artifact_records if record["json_parse_status"] == "parsed")
     parse_fail = sum(1 for record in artifact_records if record["json_parse_status"] == "parse_failed")
     stale_pointer_warnings = []
@@ -860,6 +1005,7 @@ def build_artifact_health_report(root=ROOT):
         "safety_flag_summary": safety_summary,
         "stale_pointer_warnings": stale_pointer_warnings,
         "warning_severity_summary": warning_summary,
+        "warning_messages": warning_messages,
         "warnings": warnings,
         "blockers": blockers,
         "report_status": status,
@@ -914,6 +1060,40 @@ def render_markdown(report):
     lines.extend(
         [
             "",
+            "## Warnings By Owner",
+            "",
+        ]
+    )
+    for owner in WARNING_OWNERS:
+        lines.append(f"- {owner}: {warning_summary['warnings_by_owner'][owner]}")
+    lines.extend(
+        [
+            "",
+            "## Warnings By Action Type",
+            "",
+        ]
+    )
+    for action_type in WARNING_ACTION_TYPES:
+        lines.append(f"- {action_type}: {warning_summary['warnings_by_action_type'][action_type]}")
+    lines.extend(
+        [
+            "",
+            "## Top Action Items",
+            "",
+        ]
+    )
+    if warning_summary["top_action_items"]:
+        for item in warning_summary["top_action_items"]:
+            lines.append(
+                "- "
+                f"{item['recommended_action']}: count={item['count']}, owner={item['owner']}, "
+                f"action_type={item['action_type']}, severity={item['severity']}"
+            )
+    else:
+        lines.append("- none")
+    lines.extend(
+        [
+            "",
             "## Warning Severity Model",
             "",
         ]
@@ -945,7 +1125,12 @@ def render_markdown(report):
         lines.append(f"- {key}: {str(safety['report_safety_flags'][key]).lower()}")
     lines.extend(["", "## Warnings", ""])
     if report["warnings"]:
-        lines.extend(f"- {warning}" for warning in report["warnings"])
+        for warning in report["warnings"]:
+            lines.append(
+                "- "
+                f"{warning['message']}: severity={warning['severity']}, owner={warning['owner']}, "
+                f"action_type={warning['action_type']}, recommended_action={warning['recommended_action']}"
+            )
     else:
         lines.append("- none")
     lines.extend(["", "## Artifacts", ""])

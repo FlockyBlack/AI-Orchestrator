@@ -35,6 +35,28 @@
 - embedded_artifact_pointer_warning: count=15, severity=review_needed, bucket=embedded artifact pointer needs inspection
 - stale_reference_warning: count=6, severity=review_needed, bucket=historical or stale reference needs inspection
 
+## Quality Warnings By Owner
+
+- code: 0
+- fixture: 103
+- schema: 25
+- data: 21
+- unknown: 0
+
+## Quality Warnings By Action Type
+
+- fix_required: 123
+- review_required: 25
+- ignore_allowed: 1
+
+## Top Quality Action Items
+
+- align expected fixture: count=51, owner=fixture, action_type=fix_required, severity=action_required
+- create missing actual artifact: count=50, owner=fixture, action_type=fix_required, severity=action_required
+- add schema_version to artifact: count=19, owner=schema, action_type=fix_required, severity=action_required
+- remove stale embedded pointer: count=15, owner=data, action_type=review_required, severity=review_needed
+- remove stale embedded reference: count=6, owner=data, action_type=review_required, severity=review_needed
+
 ## Artifact Inventory
 
 - total_artifacts: 20
