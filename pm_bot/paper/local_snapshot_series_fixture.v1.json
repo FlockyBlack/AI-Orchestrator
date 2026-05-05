@@ -1,4 +1,5 @@
 {
+  "task_id": "PMBOT-PAPER-021-METADATA-AND-LEGACY-POINTER-CLEANUP",
   "schema_version": "v1",
   "fixture_id": "local_snapshot_series_fixture_v1",
   "fixture_only": true,
@@ -17,8 +18,14 @@
             "category": "crypto",
             "end_date_iso": "2026-05-31",
             "outcomes": [
-              {"name": "Yes", "price": 0.59},
-              {"name": "No", "price": 0.41}
+              {
+                "name": "Yes",
+                "price": 0.59
+              },
+              {
+                "name": "No",
+                "price": 0.41
+              }
             ],
             "liquidity_num": 180000.0,
             "best_bid": 0.575,
@@ -36,8 +43,14 @@
             "category": "crypto",
             "end_date_iso": "2026-05-31",
             "outcomes": [
-              {"name": "Yes", "price": 0.36},
-              {"name": "No", "price": 0.64}
+              {
+                "name": "Yes",
+                "price": 0.36
+              },
+              {
+                "name": "No",
+                "price": 0.64
+              }
             ],
             "liquidity_num": 125000.0,
             "best_bid": 0.34,
@@ -54,7 +67,10 @@
             "category": "crypto",
             "end_date_iso": "2026-05-31",
             "outcomes": [
-              {"name": "Yes", "price": 0.5}
+              {
+                "name": "Yes",
+                "price": 0.5
+              }
             ],
             "liquidity_num": 100000.0
           }
@@ -81,8 +97,14 @@
             "category": "crypto",
             "end_date_iso": "2026-05-31",
             "outcomes": [
-              {"name": "Yes", "price": 0.57},
-              {"name": "No", "price": 0.43}
+              {
+                "name": "Yes",
+                "price": 0.57
+              },
+              {
+                "name": "No",
+                "price": 0.43
+              }
             ],
             "liquidity_num": 190000.0,
             "best_bid": 0.56,
@@ -100,8 +122,14 @@
             "category": "crypto",
             "end_date_iso": "2026-05-31",
             "outcomes": [
-              {"name": "Yes", "price": 0.32},
-              {"name": "No", "price": 0.68}
+              {
+                "name": "Yes",
+                "price": 0.32
+              },
+              {
+                "name": "No",
+                "price": 0.68
+              }
             ],
             "liquidity_num": 150000.0,
             "best_bid": 0.31,
@@ -138,8 +166,14 @@
             "category": "crypto",
             "end_date_iso": "2026-05-31",
             "outcomes": [
-              {"name": "Yes", "price": 0.99},
-              {"name": "No", "price": 0.01}
+              {
+                "name": "Yes",
+                "price": 0.99
+              },
+              {
+                "name": "No",
+                "price": 0.01
+              }
             ],
             "liquidity_num": 210000.0,
             "best_bid": 0.98,
@@ -157,8 +191,14 @@
             "category": "crypto",
             "end_date_iso": "2026-05-31",
             "outcomes": [
-              {"name": "Yes", "price": 0.96},
-              {"name": "No", "price": 0.04}
+              {
+                "name": "Yes",
+                "price": 0.96
+              },
+              {
+                "name": "No",
+                "price": 0.04
+              }
             ],
             "liquidity_num": 160000.0,
             "best_bid": 0.95,
@@ -176,7 +216,9 @@
             "category": "crypto",
             "end_date_iso": "2026-06-30",
             "outcomes": [
-              {"name": "Yes"}
+              {
+                "name": "Yes"
+              }
             ],
             "liquidity_num": 100000.0
           }

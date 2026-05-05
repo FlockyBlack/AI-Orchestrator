@@ -4,8 +4,8 @@ Deterministic offline processing of local snapshot inbox files against a saved p
 
 ## Input
 
-- Inbox path: <REPO_ROOT>\pm_bot\paper\local_snapshot_inbox
-- Input state path: <REPO_ROOT>\pm_bot\paper\paper_portfolio_state.v1.json
+- Inbox path: /pm_bot/paper/local_snapshot_inbox
+- Input state path: /pm_bot/paper/paper_portfolio_state.v1.json
 - Input processed snapshots: 1
 - Input open positions: 1
 - Input settled positions: 0

@@ -1,4 +1,6 @@
 {
+  "schema_version": "paper_plan_fixture.v1",
+  "task_id": "PMBOT-PAPER-021-METADATA-AND-LEGACY-POINTER-CLEANUP",
   "market_id": "pm_fixture_2026_us_recession_q3",
   "side": "buy",
   "quantity": 125,

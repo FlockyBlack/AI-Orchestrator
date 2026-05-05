@@ -425,10 +425,10 @@
       "path": "pm_bot/paper/paper_batch_audit_summary.v1.json",
       "artifact_type": "future_optional_paper_audit_json",
       "required": false,
-      "present": false,
-      "presence": "absent",
-      "status": "absent",
-      "parse_status": "not_applicable"
+      "present": true,
+      "presence": "present",
+      "status": "accepted_placeholder",
+      "parse_status": "parsed"
     }
   },
   "audit_summary_existing": {

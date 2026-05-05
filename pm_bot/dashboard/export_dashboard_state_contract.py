@@ -174,6 +174,7 @@ def build_dashboard_state_contract():
     return {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
         "$id": "PMBOT_DASHBOARD_STATE_CONTRACT.v1",
+        "schema_version": CONTRACT_SCHEMA_VERSION,
         "title": "PMBOT Dashboard State Contract v1",
         "description": (
             "Schema-like local contract for a deterministic PMBOT dashboard state snapshot. "

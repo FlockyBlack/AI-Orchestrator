@@ -4,21 +4,21 @@
 - schema_version: artifact_health_report.v1
 - generated_by: pm_bot/quality/export_artifact_health_report.py
 - report_status: health_passed_with_warnings
-- artifacts_checked: 226
-- artifacts_present_count: 226
+- artifacts_checked: 228
+- artifacts_present_count: 228
 - artifacts_missing_count: 0
-- json_parse_pass_count: 154
+- json_parse_pass_count: 156
 - json_parse_fail_count: 1
-- schema_version_missing_count: 23
-- task_id_missing_where_expected_count: 3
+- schema_version_missing_count: 8
+- task_id_missing_where_expected_count: 0
 - status_fields_missing_where_expected_count: 0
 
 ## Warning Severity Summary
 
-- total_warnings: 59
+- total_warnings: 8
 - blocking_count: 0
-- action_required_count: 21
-- review_needed_count: 37
+- action_required_count: 3
+- review_needed_count: 4
 - informational_count: 1
 - blocking_warning_detected: false
 - operator_summary: No blocking warnings detected; review action_required categories before relying on the package.
@@ -26,33 +26,29 @@
 
 ## Top Warning Categories
 
-- embedded_artifact_pointer_warning: count=26, severity=review_needed, bucket=embedded artifact pointer needs inspection
-- schema_version_missing: count=19, severity=action_required, bucket=schema version metadata missing
-- stale_reference_warning: count=6, severity=review_needed, bucket=historical or stale reference needs inspection
-- json_top_level_not_object: count=4, severity=review_needed, bucket=JSON artifact is intentionally or structurally non-object
-- task_id_missing: count=3, severity=action_required, bucket=task_id metadata missing
+- schema_version_missing: count=4, severity=action_required, bucket=schema version metadata missing
+- stale_reference_warning: count=3, severity=review_needed, bucket=historical or stale reference needs inspection
+- known_intentional_malformed_fixture_parse_failure: count=1, severity=informational, bucket=known intentional malformed fixture
 
 ## Warnings By Owner
 
 - code: 0
 - fixture: 1
-- schema: 26
-- data: 32
+- schema: 4
+- data: 3
 - unknown: 0
 
 ## Warnings By Action Type
 
-- fix_required: 21
-- review_required: 37
+- fix_required: 3
+- review_required: 4
 - ignore_allowed: 1
 
 ## Top Action Items
 
-- remove stale embedded pointer: count=26, owner=data, action_type=review_required, severity=review_needed
-- add schema_version to artifact: count=19, owner=schema, action_type=fix_required, severity=action_required
-- remove stale embedded reference: count=6, owner=data, action_type=review_required, severity=review_needed
-- review non-object JSON artifact: count=4, owner=schema, action_type=review_required, severity=review_needed
-- add task_id to artifact: count=3, owner=schema, action_type=fix_required, severity=action_required
+- add schema_version to artifact: count=4, owner=schema, action_type=fix_required, severity=action_required
+- remove stale embedded reference: count=3, owner=data, action_type=review_required, severity=review_needed
+- keep intentional malformed fixture documented: count=1, owner=fixture, action_type=ignore_allowed, severity=informational
 
 ## Warning Severity Model
 
@@ -64,14 +60,14 @@
 ## Embedded Pointer Health
 
 - checked_count: 634
-- present_count: 466
-- missing_count: 168
+- present_count: 614
+- missing_count: 20
 - absolute_count: 0
 
 ## Expected Fixture Alignment
 
-- checks_total: 71
-- aligned_count: 71
+- checks_total: 72
+- aligned_count: 72
 - mismatch_count: 0
 - actual_missing_count: 0
 
@@ -88,82 +84,31 @@
 
 ## Warnings
 
-- docs/PMBOT_DASHBOARD_002_RESULT.json: schema_version_missing: severity=action_required, owner=schema, action_type=fix_required, recommended_action=add schema_version to artifact
-- docs/PMBOT_DASHBOARD_002_RESULT.json: stale_reference_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded reference
 - docs/PMBOT_INFRA_009_RESULT.json: schema_version_missing: severity=review_needed, owner=schema, action_type=review_required, recommended_action=add schema_version to artifact
 - docs/PMBOT_INTEGRATION_008_RESULT.json: schema_version_missing: severity=action_required, owner=schema, action_type=fix_required, recommended_action=add schema_version to artifact
 - docs/PMBOT_INTEGRATION_008_RESULT.json: stale_reference_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded reference
 - docs/PMBOT_OPERATOR_002_RESULT.json: schema_version_missing: severity=action_required, owner=schema, action_type=fix_required, recommended_action=add schema_version to artifact
 - docs/PMBOT_OPERATOR_002_RESULT.json: stale_reference_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded reference
-- docs/PMBOT_PAPER_018_RESULT.json: schema_version_missing: severity=action_required, owner=schema, action_type=fix_required, recommended_action=add schema_version to artifact
 - docs/PMBOT_PRODUCT_001_RESULT.json: schema_version_missing: severity=action_required, owner=schema, action_type=fix_required, recommended_action=add schema_version to artifact
 - docs/PMBOT_PRODUCT_001_RESULT.json: stale_reference_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded reference
-- pm_bot/dashboard/dashboard_state_contract.v1.json: schema_version_missing: severity=action_required, owner=schema, action_type=fix_required, recommended_action=add schema_version to artifact
-- pm_bot/dashboard/expected_portfolio_audit_state_preview.v1.json: embedded_artifact_pointer_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded pointer
-- pm_bot/dashboard/expected_portfolio_audit_state_preview.v1.json: stale_reference_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded reference
-- pm_bot/dashboard/portfolio_audit_state_contract.v1.json: schema_version_missing: severity=action_required, owner=schema, action_type=fix_required, recommended_action=add schema_version to artifact
-- pm_bot/dashboard/portfolio_audit_state_contract.v1.json: embedded_artifact_pointer_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded pointer
-- pm_bot/dashboard/portfolio_audit_state_preview.v1.json: embedded_artifact_pointer_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded pointer
-- pm_bot/dashboard/portfolio_audit_state_preview.v1.json: stale_reference_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded reference
-- pm_bot/paper/crypto_numeric_execution_fixture.v1.json: task_id_missing: severity=action_required, owner=schema, action_type=fix_required, recommended_action=add task_id to artifact
-- pm_bot/paper/expected_local_snapshot_inbox_paper_portfolio.v1.json: embedded_artifact_pointer_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded pointer
-- pm_bot/paper/expected_local_snapshot_inbox_run_ledger.v1.json: embedded_artifact_pointer_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded pointer
-- pm_bot/paper/expected_local_snapshot_paper_portfolio_state.v1.json: embedded_artifact_pointer_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded pointer
-- pm_bot/paper/expected_manual_paper_inbox_bundle.v1.json: embedded_artifact_pointer_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded pointer
-- pm_bot/paper/expected_manual_paper_operator_cycle.v1.json: embedded_artifact_pointer_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded pointer
-- pm_bot/paper/expected_manual_paper_operator_cycle_manifest.v1.json: embedded_artifact_pointer_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded pointer
-- pm_bot/paper/expected_manual_paper_operator_cycle_threshold_hit_review.v1.json: embedded_artifact_pointer_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded pointer
-- pm_bot/paper/expected_manual_paper_workspace.v1.json: embedded_artifact_pointer_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded pointer
-- pm_bot/paper/expected_manual_paper_workspace_quarantine.v1.json: json_top_level_not_object: severity=review_needed, owner=schema, action_type=review_required, recommended_action=review non-object JSON artifact
-- pm_bot/paper/expected_manual_paper_workspace_quarantine.v1.json: embedded_artifact_pointer_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded pointer
-- pm_bot/paper/expected_manual_snapshot_import_manifest.v1.json: embedded_artifact_pointer_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded pointer
-- pm_bot/paper/expected_manual_snapshot_workspace_import.v1.json: embedded_artifact_pointer_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded pointer
-- pm_bot/paper/fixtures/polymarket_markets_active_threshold_hit.fixture.json: json_top_level_not_object: severity=review_needed, owner=schema, action_type=review_required, recommended_action=review non-object JSON artifact
-- pm_bot/paper/local_snapshot_inbox/001_series_snapshot_001.json: schema_version_missing: severity=action_required, owner=schema, action_type=fix_required, recommended_action=add schema_version to artifact
-- pm_bot/paper/local_snapshot_inbox/002_series_snapshot_002.json: schema_version_missing: severity=action_required, owner=schema, action_type=fix_required, recommended_action=add schema_version to artifact
-- pm_bot/paper/local_snapshot_inbox/003_series_snapshot_003.json: schema_version_missing: severity=action_required, owner=schema, action_type=fix_required, recommended_action=add schema_version to artifact
-- pm_bot/paper/local_snapshot_inbox_paper_portfolio.v1.json: embedded_artifact_pointer_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded pointer
-- pm_bot/paper/local_snapshot_inbox_run_ledger.v1.json: embedded_artifact_pointer_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded pointer
-- pm_bot/paper/local_snapshot_paper_portfolio_state.v1.json: embedded_artifact_pointer_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded pointer
-- pm_bot/paper/local_snapshot_series_fixture.v1.json: task_id_missing: severity=action_required, owner=schema, action_type=fix_required, recommended_action=add task_id to artifact
-- pm_bot/paper/manual_paper_inbox_bundle.v1.json: embedded_artifact_pointer_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded pointer
-- pm_bot/paper/manual_paper_operator_cycle.v1.json: embedded_artifact_pointer_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded pointer
-- pm_bot/paper/manual_paper_operator_cycle_manifest.v1.json: embedded_artifact_pointer_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded pointer
-- pm_bot/paper/manual_paper_operator_cycle_threshold_hit_review.v1.json: embedded_artifact_pointer_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded pointer
-- pm_bot/paper/manual_paper_run_fixture_output/run_ledger.json: embedded_artifact_pointer_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded pointer
-- pm_bot/paper/manual_paper_workspace.v1.json: embedded_artifact_pointer_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded pointer
-- pm_bot/paper/manual_paper_workspace/inbox/001_series_snapshot_001.json: schema_version_missing: severity=action_required, owner=schema, action_type=fix_required, recommended_action=add schema_version to artifact
-- pm_bot/paper/manual_paper_workspace/inbox/002_series_snapshot_002.json: schema_version_missing: severity=action_required, owner=schema, action_type=fix_required, recommended_action=add schema_version to artifact
-- pm_bot/paper/manual_paper_workspace/inbox/003_series_snapshot_003.json: schema_version_missing: severity=action_required, owner=schema, action_type=fix_required, recommended_action=add schema_version to artifact
-- pm_bot/paper/manual_paper_workspace_quarantine.v1.json: json_top_level_not_object: severity=review_needed, owner=schema, action_type=review_required, recommended_action=review non-object JSON artifact
-- pm_bot/paper/manual_paper_workspace_quarantine.v1.json: embedded_artifact_pointer_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded pointer
-- pm_bot/paper/manual_snapshot_import_manifest.v1.json: embedded_artifact_pointer_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded pointer
-- pm_bot/paper/manual_snapshot_import_source/001_series_snapshot_004.json: schema_version_missing: severity=action_required, owner=schema, action_type=fix_required, recommended_action=add schema_version to artifact
-- pm_bot/paper/manual_snapshot_import_source/002_series_snapshot_005.json: schema_version_missing: severity=action_required, owner=schema, action_type=fix_required, recommended_action=add schema_version to artifact
-- pm_bot/paper/manual_snapshot_import_source/003_duplicate_series_snapshot_004.json: schema_version_missing: severity=action_required, owner=schema, action_type=fix_required, recommended_action=add schema_version to artifact
-- pm_bot/paper/manual_snapshot_import_source/004_already_present_series_snapshot_002.json: schema_version_missing: severity=action_required, owner=schema, action_type=fix_required, recommended_action=add schema_version to artifact
 - pm_bot/paper/manual_snapshot_import_source/005_malformed.json: known_intentional_malformed_fixture_parse_failure: severity=informational, owner=fixture, action_type=ignore_allowed, recommended_action=keep intentional malformed fixture documented
-- pm_bot/paper/manual_snapshot_import_source/008_polymarket_markets_active_minimized.fixture.json: json_top_level_not_object: severity=review_needed, owner=schema, action_type=review_required, recommended_action=review non-object JSON artifact
-- pm_bot/paper/manual_snapshot_workspace_import.v1.json: embedded_artifact_pointer_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded pointer
-- pm_bot/paper/paper_plan_fixture.v1.json: schema_version_missing: severity=action_required, owner=schema, action_type=fix_required, recommended_action=add schema_version to artifact
-- pm_bot/paper/paper_plan_fixture.v1.json: task_id_missing: severity=action_required, owner=schema, action_type=fix_required, recommended_action=add task_id to artifact
 
 ## Artifacts
 
-- docs/PMBOT_DASHBOARD_002_RESULT.json: exists=true, json_parse_status=parsed, schema_version=None, warnings=2
+- docs/PMBOT_DASHBOARD_002_RESULT.json: exists=true, json_parse_status=parsed, schema_version=pmbot_dashboard_002_result.v1, warnings=0
 - docs/PMBOT_INFRA_009_RESULT.json: exists=true, json_parse_status=parsed, schema_version=None, warnings=1
 - docs/PMBOT_INTEGRATION_008_RESULT.json: exists=true, json_parse_status=parsed, schema_version=None, warnings=2
 - docs/PMBOT_OPERATOR_002_RESULT.json: exists=true, json_parse_status=parsed, schema_version=None, warnings=2
-- docs/PMBOT_PAPER_018_RESULT.json: exists=true, json_parse_status=parsed, schema_version=None, warnings=1
+- docs/PMBOT_PAPER_018_RESULT.json: exists=true, json_parse_status=parsed, schema_version=pmbot_paper_018_result.v1, warnings=0
 - docs/PMBOT_PRODUCT_001_RESULT.json: exists=true, json_parse_status=parsed, schema_version=None, warnings=2
-- pm_bot/dashboard/dashboard_state_contract.v1.json: exists=true, json_parse_status=parsed, schema_version=None, warnings=1
+- pm_bot/dashboard/dashboard_state_contract.v1.json: exists=true, json_parse_status=parsed, schema_version=dashboard_state_contract.v1, warnings=0
 - pm_bot/dashboard/dashboard_state_preview.v1.json: exists=true, json_parse_status=parsed, schema_version=dashboard_state_preview.v1, warnings=0
 - pm_bot/dashboard/dashboard_state_preview.v1.md: exists=true, json_parse_status=not_json, schema_version=None, warnings=0
 - pm_bot/dashboard/expected_dashboard_state_preview.v1.json: exists=true, json_parse_status=parsed, schema_version=dashboard_state_preview.v1, warnings=0
-- pm_bot/dashboard/expected_portfolio_audit_state_preview.v1.json: exists=true, json_parse_status=parsed, schema_version=portfolio_audit_state_preview.v1, warnings=2
+- pm_bot/dashboard/expected_portfolio_audit_state_preview.v1.json: exists=true, json_parse_status=parsed, schema_version=portfolio_audit_state_preview.v1, warnings=0
 - pm_bot/dashboard/expected_static_operator_report_summary.v1.json: exists=true, json_parse_status=parsed, schema_version=static_operator_report_summary.v1, warnings=0
-- pm_bot/dashboard/portfolio_audit_state_contract.v1.json: exists=true, json_parse_status=parsed, schema_version=None, warnings=2
-- pm_bot/dashboard/portfolio_audit_state_preview.v1.json: exists=true, json_parse_status=parsed, schema_version=portfolio_audit_state_preview.v1, warnings=2
+- pm_bot/dashboard/portfolio_audit_state_contract.v1.json: exists=true, json_parse_status=parsed, schema_version=portfolio_audit_state_contract.v1, warnings=0
+- pm_bot/dashboard/portfolio_audit_state_preview.v1.json: exists=true, json_parse_status=parsed, schema_version=portfolio_audit_state_preview.v1, warnings=0
 - pm_bot/dashboard/portfolio_audit_state_preview.v1.md: exists=true, json_parse_status=not_json, schema_version=None, warnings=0
 - pm_bot/dashboard/static_operator_report_summary.v1.json: exists=true, json_parse_status=parsed, schema_version=static_operator_report_summary.v1, warnings=0
 - pm_bot/operator/expected_manual_command_inbox_review.v1.json: exists=true, json_parse_status=parsed, schema_version=manual_command_inbox_review.v1, warnings=0
@@ -196,7 +141,7 @@
 - pm_bot/operator/risk_audit_summary.v1.md: exists=true, json_parse_status=not_json, schema_version=None, warnings=0
 - pm_bot/operator/watchlist_policy_report.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=0
 - pm_bot/operator/watchlist_policy_report.v1.md: exists=true, json_parse_status=not_json, schema_version=None, warnings=0
-- pm_bot/paper/crypto_numeric_execution_fixture.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=1
+- pm_bot/paper/crypto_numeric_execution_fixture.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=0
 - pm_bot/paper/crypto_numeric_lifecycle_regression_gates.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=0
 - pm_bot/paper/crypto_numeric_lifecycle_regression_gates.v1.md: exists=true, json_parse_status=not_json, schema_version=None, warnings=0
 - pm_bot/paper/crypto_numeric_lifecycle_replay.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=0
@@ -229,33 +174,34 @@
 - pm_bot/paper/expected_final_dossier_paper_readiness_result.v1.json: exists=true, json_parse_status=parsed, schema_version=final_dossier_paper_readiness_result.v1, warnings=0
 - pm_bot/paper/expected_live_shaped_snapshot_paper_lifecycle.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=0
 - pm_bot/paper/expected_live_shaped_snapshot_paper_lifecycle.v1.md: exists=true, json_parse_status=not_json, schema_version=None, warnings=0
-- pm_bot/paper/expected_local_snapshot_inbox_paper_portfolio.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=1
+- pm_bot/paper/expected_local_snapshot_inbox_paper_portfolio.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=0
 - pm_bot/paper/expected_local_snapshot_inbox_paper_portfolio.v1.md: exists=true, json_parse_status=not_json, schema_version=None, warnings=0
-- pm_bot/paper/expected_local_snapshot_inbox_run_ledger.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=1
-- pm_bot/paper/expected_local_snapshot_paper_portfolio_state.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=1
+- pm_bot/paper/expected_local_snapshot_inbox_run_ledger.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=0
+- pm_bot/paper/expected_local_snapshot_paper_portfolio_state.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=0
 - pm_bot/paper/expected_local_snapshot_paper_portfolio_state.v1.md: exists=true, json_parse_status=not_json, schema_version=None, warnings=0
 - pm_bot/paper/expected_local_snapshot_series_paper_portfolio.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=0
 - pm_bot/paper/expected_local_snapshot_series_paper_portfolio.v1.md: exists=true, json_parse_status=not_json, schema_version=None, warnings=0
 - pm_bot/paper/expected_local_snapshot_series_risk_scenarios.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=0
 - pm_bot/paper/expected_local_snapshot_series_risk_scenarios.v1.md: exists=true, json_parse_status=not_json, schema_version=None, warnings=0
-- pm_bot/paper/expected_manual_paper_inbox_bundle.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=1
+- pm_bot/paper/expected_manual_paper_inbox_bundle.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=0
 - pm_bot/paper/expected_manual_paper_inbox_bundle_summary.v1.md: exists=true, json_parse_status=not_json, schema_version=None, warnings=0
-- pm_bot/paper/expected_manual_paper_operator_cycle.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=1
+- pm_bot/paper/expected_manual_paper_operator_cycle.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=0
 - pm_bot/paper/expected_manual_paper_operator_cycle.v1.md: exists=true, json_parse_status=not_json, schema_version=None, warnings=0
-- pm_bot/paper/expected_manual_paper_operator_cycle_manifest.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=1
-- pm_bot/paper/expected_manual_paper_operator_cycle_threshold_hit_review.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=1
+- pm_bot/paper/expected_manual_paper_operator_cycle_manifest.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=0
+- pm_bot/paper/expected_manual_paper_operator_cycle_threshold_hit_review.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=0
 - pm_bot/paper/expected_manual_paper_operator_cycle_threshold_hit_review.v1.md: exists=true, json_parse_status=not_json, schema_version=None, warnings=0
-- pm_bot/paper/expected_manual_paper_workspace.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=1
-- pm_bot/paper/expected_manual_paper_workspace_quarantine.v1.json: exists=true, json_parse_status=parsed, schema_version=None, warnings=2
+- pm_bot/paper/expected_manual_paper_workspace.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=0
+- pm_bot/paper/expected_manual_paper_workspace_quarantine.v1.json: exists=true, json_parse_status=parsed, schema_version=None, warnings=0
 - pm_bot/paper/expected_manual_paper_workspace_summary.v1.md: exists=true, json_parse_status=not_json, schema_version=None, warnings=0
-- pm_bot/paper/expected_manual_snapshot_import_manifest.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=1
-- pm_bot/paper/expected_manual_snapshot_workspace_import.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=1
+- pm_bot/paper/expected_manual_snapshot_import_manifest.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=0
+- pm_bot/paper/expected_manual_snapshot_workspace_import.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=0
 - pm_bot/paper/expected_manual_snapshot_workspace_import.v1.md: exists=true, json_parse_status=not_json, schema_version=None, warnings=0
 - pm_bot/paper/expected_multi_market_paper_run_series.v1.json: exists=true, json_parse_status=parsed, schema_version=multi_market_paper_run_series.v1, warnings=0
 - pm_bot/paper/expected_paper_accounting_batch_audit.v1.json: exists=true, json_parse_status=parsed, schema_version=paper_accounting_batch_audit.v1, warnings=0
 - pm_bot/paper/expected_paper_accounting_ledger.v1.json: exists=true, json_parse_status=parsed, schema_version=paper_accounting_ledger.v1, warnings=0
 - pm_bot/paper/expected_paper_accounting_pnl_preview.v1.json: exists=true, json_parse_status=parsed, schema_version=paper_accounting_pnl_preview.v1, warnings=0
 - pm_bot/paper/expected_paper_accounting_reconciliation_audit.v1.json: exists=true, json_parse_status=parsed, schema_version=paper_accounting_reconciliation_audit.v1, warnings=0
+- pm_bot/paper/expected_paper_batch_audit_summary.v1.json: exists=true, json_parse_status=parsed, schema_version=paper_batch_audit_summary.v1, warnings=0
 - pm_bot/paper/expected_paper_decision_policy_spec.v1.json: exists=true, json_parse_status=parsed, schema_version=paper_decision_policy_spec.v1, warnings=0
 - pm_bot/paper/expected_paper_decision_simulation_gate.v1.json: exists=true, json_parse_status=parsed, schema_version=paper_decision_simulation_gate.v1, warnings=0
 - pm_bot/paper/expected_paper_decision_simulation_preview.v1.json: exists=true, json_parse_status=parsed, schema_version=paper_decision_simulation_preview.v1, warnings=0
@@ -271,24 +217,24 @@
 - pm_bot/paper/expected_real_market_triage_report.v1.md: exists=true, json_parse_status=not_json, schema_version=None, warnings=0
 - pm_bot/paper/final_dossier_paper_readiness_report.v1.md: exists=true, json_parse_status=not_json, schema_version=None, warnings=0
 - pm_bot/paper/final_dossier_paper_readiness_result.v1.json: exists=true, json_parse_status=parsed, schema_version=final_dossier_paper_readiness_result.v1, warnings=0
-- pm_bot/paper/fixtures/polymarket_markets_active_threshold_hit.fixture.json: exists=true, json_parse_status=parsed, schema_version=None, warnings=1
+- pm_bot/paper/fixtures/polymarket_markets_active_threshold_hit.fixture.json: exists=true, json_parse_status=parsed, schema_version=None, warnings=0
 - pm_bot/paper/live_shaped_snapshot_paper_lifecycle.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=0
 - pm_bot/paper/live_shaped_snapshot_paper_lifecycle.v1.md: exists=true, json_parse_status=not_json, schema_version=None, warnings=0
-- pm_bot/paper/local_snapshot_inbox/001_series_snapshot_001.json: exists=true, json_parse_status=parsed, schema_version=None, warnings=1
-- pm_bot/paper/local_snapshot_inbox/002_series_snapshot_002.json: exists=true, json_parse_status=parsed, schema_version=None, warnings=1
-- pm_bot/paper/local_snapshot_inbox/003_series_snapshot_003.json: exists=true, json_parse_status=parsed, schema_version=None, warnings=1
-- pm_bot/paper/local_snapshot_inbox_paper_portfolio.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=1
+- pm_bot/paper/local_snapshot_inbox/001_series_snapshot_001.json: exists=true, json_parse_status=parsed, schema_version=local_snapshot_series_fixture.v1, warnings=0
+- pm_bot/paper/local_snapshot_inbox/002_series_snapshot_002.json: exists=true, json_parse_status=parsed, schema_version=local_snapshot_series_fixture.v1, warnings=0
+- pm_bot/paper/local_snapshot_inbox/003_series_snapshot_003.json: exists=true, json_parse_status=parsed, schema_version=local_snapshot_series_fixture.v1, warnings=0
+- pm_bot/paper/local_snapshot_inbox_paper_portfolio.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=0
 - pm_bot/paper/local_snapshot_inbox_paper_portfolio.v1.md: exists=true, json_parse_status=not_json, schema_version=None, warnings=0
-- pm_bot/paper/local_snapshot_inbox_run_ledger.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=1
-- pm_bot/paper/local_snapshot_paper_portfolio_state.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=1
+- pm_bot/paper/local_snapshot_inbox_run_ledger.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=0
+- pm_bot/paper/local_snapshot_paper_portfolio_state.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=0
 - pm_bot/paper/local_snapshot_paper_portfolio_state.v1.md: exists=true, json_parse_status=not_json, schema_version=None, warnings=0
-- pm_bot/paper/local_snapshot_series_fixture.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=1
+- pm_bot/paper/local_snapshot_series_fixture.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=0
 - pm_bot/paper/local_snapshot_series_paper_portfolio.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=0
 - pm_bot/paper/local_snapshot_series_paper_portfolio.v1.md: exists=true, json_parse_status=not_json, schema_version=None, warnings=0
 - pm_bot/paper/local_snapshot_series_risk_scenarios.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=0
 - pm_bot/paper/local_snapshot_series_risk_scenarios.v1.md: exists=true, json_parse_status=not_json, schema_version=None, warnings=0
 - pm_bot/paper/local_snapshot_series_risk_scenarios_source.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=0
-- pm_bot/paper/manual_paper_inbox_bundle.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=1
+- pm_bot/paper/manual_paper_inbox_bundle.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=0
 - pm_bot/paper/manual_paper_inbox_bundle_summary.v1.md: exists=true, json_parse_status=not_json, schema_version=None, warnings=0
 - pm_bot/paper/manual_paper_intent_ledger.v1.json: exists=true, json_parse_status=parsed, schema_version=manual_paper_intent_ledger.v1, warnings=0
 - pm_bot/paper/manual_paper_intent_report.v1.md: exists=true, json_parse_status=not_json, schema_version=None, warnings=0
@@ -296,30 +242,30 @@
 - pm_bot/paper/manual_paper_intents_accepted.v1.json: exists=true, json_parse_status=parsed, schema_version=manual_paper_intents_accepted.v1, warnings=0
 - pm_bot/paper/manual_paper_intents_input.v1.json: exists=true, json_parse_status=parsed, schema_version=manual_paper_intents_input.v1, warnings=0
 - pm_bot/paper/manual_paper_intents_rejected.v1.json: exists=true, json_parse_status=parsed, schema_version=manual_paper_intents_rejected.v1, warnings=0
-- pm_bot/paper/manual_paper_operator_cycle.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=1
+- pm_bot/paper/manual_paper_operator_cycle.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=0
 - pm_bot/paper/manual_paper_operator_cycle.v1.md: exists=true, json_parse_status=not_json, schema_version=None, warnings=0
-- pm_bot/paper/manual_paper_operator_cycle_manifest.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=1
-- pm_bot/paper/manual_paper_operator_cycle_threshold_hit_review.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=1
+- pm_bot/paper/manual_paper_operator_cycle_manifest.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=0
+- pm_bot/paper/manual_paper_operator_cycle_threshold_hit_review.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=0
 - pm_bot/paper/manual_paper_operator_cycle_threshold_hit_review.v1.md: exists=true, json_parse_status=not_json, schema_version=None, warnings=0
-- pm_bot/paper/manual_paper_run_fixture_output/run_ledger.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=1
+- pm_bot/paper/manual_paper_run_fixture_output/run_ledger.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=0
 - pm_bot/paper/manual_paper_run_fixture_output/run_summary.md: exists=true, json_parse_status=not_json, schema_version=None, warnings=0
 - pm_bot/paper/manual_paper_run_fixture_output/state_after.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=0
-- pm_bot/paper/manual_paper_workspace.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=1
-- pm_bot/paper/manual_paper_workspace/inbox/001_series_snapshot_001.json: exists=true, json_parse_status=parsed, schema_version=None, warnings=1
-- pm_bot/paper/manual_paper_workspace/inbox/002_series_snapshot_002.json: exists=true, json_parse_status=parsed, schema_version=None, warnings=1
-- pm_bot/paper/manual_paper_workspace/inbox/003_series_snapshot_003.json: exists=true, json_parse_status=parsed, schema_version=None, warnings=1
+- pm_bot/paper/manual_paper_workspace.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=0
+- pm_bot/paper/manual_paper_workspace/inbox/001_series_snapshot_001.json: exists=true, json_parse_status=parsed, schema_version=local_snapshot_series_fixture.v1, warnings=0
+- pm_bot/paper/manual_paper_workspace/inbox/002_series_snapshot_002.json: exists=true, json_parse_status=parsed, schema_version=local_snapshot_series_fixture.v1, warnings=0
+- pm_bot/paper/manual_paper_workspace/inbox/003_series_snapshot_003.json: exists=true, json_parse_status=parsed, schema_version=local_snapshot_series_fixture.v1, warnings=0
 - pm_bot/paper/manual_paper_workspace/state/current_state.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=0
-- pm_bot/paper/manual_paper_workspace_quarantine.v1.json: exists=true, json_parse_status=parsed, schema_version=None, warnings=2
+- pm_bot/paper/manual_paper_workspace_quarantine.v1.json: exists=true, json_parse_status=parsed, schema_version=None, warnings=0
 - pm_bot/paper/manual_paper_workspace_summary.v1.md: exists=true, json_parse_status=not_json, schema_version=None, warnings=0
-- pm_bot/paper/manual_snapshot_import_manifest.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=1
-- pm_bot/paper/manual_snapshot_import_source/001_series_snapshot_004.json: exists=true, json_parse_status=parsed, schema_version=None, warnings=1
-- pm_bot/paper/manual_snapshot_import_source/002_series_snapshot_005.json: exists=true, json_parse_status=parsed, schema_version=None, warnings=1
-- pm_bot/paper/manual_snapshot_import_source/003_duplicate_series_snapshot_004.json: exists=true, json_parse_status=parsed, schema_version=None, warnings=1
-- pm_bot/paper/manual_snapshot_import_source/004_already_present_series_snapshot_002.json: exists=true, json_parse_status=parsed, schema_version=None, warnings=1
+- pm_bot/paper/manual_snapshot_import_manifest.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=0
+- pm_bot/paper/manual_snapshot_import_source/001_series_snapshot_004.json: exists=true, json_parse_status=parsed, schema_version=manual_snapshot_import_source.v1, warnings=0
+- pm_bot/paper/manual_snapshot_import_source/002_series_snapshot_005.json: exists=true, json_parse_status=parsed, schema_version=manual_snapshot_import_source.v1, warnings=0
+- pm_bot/paper/manual_snapshot_import_source/003_duplicate_series_snapshot_004.json: exists=true, json_parse_status=parsed, schema_version=manual_snapshot_import_source.v1, warnings=0
+- pm_bot/paper/manual_snapshot_import_source/004_already_present_series_snapshot_002.json: exists=true, json_parse_status=parsed, schema_version=manual_snapshot_import_source.v1, warnings=0
 - pm_bot/paper/manual_snapshot_import_source/005_malformed.json: exists=true, json_parse_status=parse_failed, schema_version=None, warnings=1
 - pm_bot/paper/manual_snapshot_import_source/006_unsupported.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=0
-- pm_bot/paper/manual_snapshot_import_source/008_polymarket_markets_active_minimized.fixture.json: exists=true, json_parse_status=parsed, schema_version=None, warnings=1
-- pm_bot/paper/manual_snapshot_workspace_import.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=1
+- pm_bot/paper/manual_snapshot_import_source/008_polymarket_markets_active_minimized.fixture.json: exists=true, json_parse_status=parsed, schema_version=None, warnings=0
+- pm_bot/paper/manual_snapshot_workspace_import.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=0
 - pm_bot/paper/manual_snapshot_workspace_import.v1.md: exists=true, json_parse_status=not_json, schema_version=None, warnings=0
 - pm_bot/paper/multi_market_paper_run_series.v1.json: exists=true, json_parse_status=parsed, schema_version=multi_market_paper_run_series.v1, warnings=0
 - pm_bot/paper/multi_market_paper_run_series.v1.md: exists=true, json_parse_status=not_json, schema_version=None, warnings=0
@@ -331,6 +277,7 @@
 - pm_bot/paper/paper_accounting_pnl_preview.v1.md: exists=true, json_parse_status=not_json, schema_version=None, warnings=0
 - pm_bot/paper/paper_accounting_reconciliation_audit.v1.json: exists=true, json_parse_status=parsed, schema_version=paper_accounting_reconciliation_audit.v1, warnings=0
 - pm_bot/paper/paper_accounting_reconciliation_audit.v1.md: exists=true, json_parse_status=not_json, schema_version=None, warnings=0
+- pm_bot/paper/paper_batch_audit_summary.v1.json: exists=true, json_parse_status=parsed, schema_version=paper_batch_audit_summary.v1, warnings=0
 - pm_bot/paper/paper_decision_policy_spec.v1.json: exists=true, json_parse_status=parsed, schema_version=paper_decision_policy_spec.v1, warnings=0
 - pm_bot/paper/paper_decision_policy_spec.v1.md: exists=true, json_parse_status=not_json, schema_version=None, warnings=0
 - pm_bot/paper/paper_decision_simulation_gate.v1.json: exists=true, json_parse_status=parsed, schema_version=paper_decision_simulation_gate.v1, warnings=0
@@ -346,7 +293,7 @@
 - pm_bot/paper/paper_fill_sources_rejected.v1.json: exists=true, json_parse_status=parsed, schema_version=paper_fill_sources_rejected.v1, warnings=0
 - pm_bot/paper/paper_metrics_report.v1.json: exists=true, json_parse_status=parsed, schema_version=paper_metrics_report.v1, warnings=0
 - pm_bot/paper/paper_metrics_report.v1.md: exists=true, json_parse_status=not_json, schema_version=None, warnings=0
-- pm_bot/paper/paper_plan_fixture.v1.json: exists=true, json_parse_status=parsed, schema_version=None, warnings=2
+- pm_bot/paper/paper_plan_fixture.v1.json: exists=true, json_parse_status=parsed, schema_version=paper_plan_fixture.v1, warnings=0
 - pm_bot/paper/paper_policy_review_records_fixture.v1.json: exists=true, json_parse_status=parsed, schema_version=paper_policy_review_records_fixture.v1, warnings=0
 - pm_bot/paper/paper_policy_review_report.v1.md: exists=true, json_parse_status=not_json, schema_version=None, warnings=0
 - pm_bot/paper/paper_policy_review_result.v1.json: exists=true, json_parse_status=parsed, schema_version=paper_policy_review_result.v1, warnings=0

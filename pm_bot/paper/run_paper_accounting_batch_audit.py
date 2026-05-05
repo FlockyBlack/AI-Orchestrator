@@ -1187,6 +1187,7 @@ def _result_payload(audit, missing_optional_docs):
         + audit["safety_checks"]
     )
     return {
+        "schema_version": "pmbot_paper_018_result.v1",
         "task_id": TASK_ID,
         "status": "completed_ready_for_review" if completed else "blocked",
         "summary": (
@@ -1270,6 +1271,7 @@ def write_paper_accounting_batch_audit():
 def _blocked_result(exc):
     missing_optional_docs = _missing_optional_docs()
     return {
+        "schema_version": "pmbot_paper_018_result.v1",
         "task_id": TASK_ID,
         "status": "blocked",
         "summary": "Blocked before completing deterministic offline multi-record paper accounting batch audit.",

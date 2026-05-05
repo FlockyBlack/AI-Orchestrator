@@ -1,0 +1,48 @@
+{
+  "schema_version": "pmbot_paper_021_result.v1",
+  "task_id": "PMBOT-PAPER-021-METADATA-AND-LEGACY-POINTER-CLEANUP",
+  "status": "completed_ready_for_review",
+  "summary": "Reduced focused paper/dashboard warning hygiene noise by adding metadata, normalizing legacy pointers, documenting intentional fixture exceptions, and marking accepted placeholder references without suppressing warnings.",
+  "warning_hygiene_before": {
+    "total": 59,
+    "blocking": 0,
+    "action_required": 21,
+    "review_needed": 37,
+    "informational": 1
+  },
+  "warning_hygiene_after": {
+    "total": 8,
+    "blocking": 0,
+    "action_required": 3,
+    "review_needed": 4,
+    "informational": 1
+  },
+  "cleanup_summary": {
+    "metadata_added": 22,
+    "legacy_pointers_normalized": 246,
+    "exceptions_documented": 9,
+    "legacy_refs_archived_or_marked": 3,
+    "warnings_suppressed": 0,
+    "warnings_silently_downgraded": 0
+  },
+  "remaining_warning_scope": [
+    "docs",
+    "infra",
+    "operator",
+    "product",
+    "known_intentional_malformed_fixture"
+  ],
+  "safety_flags": {
+    "network_api_calls": false,
+    "wallet_or_private_key_usage": false,
+    "real_orders": false,
+    "live_trading": false,
+    "autonomous_decisions": false,
+    "scoring_probability_ev_edge": false,
+    "side_recommendations": false,
+    "runtime_wiring": false,
+    "command_execution": false,
+    "warnings_suppressed": false,
+    "warnings_silently_downgraded": false
+  }
+}

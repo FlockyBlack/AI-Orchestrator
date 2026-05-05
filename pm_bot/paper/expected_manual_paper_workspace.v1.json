@@ -4,9 +4,9 @@
   "workflow": "manual_paper_workspace",
   "deterministic": true,
   "run_id": "manual-paper-workspace-fixture-v1",
-  "workspace_path": "<REPO_ROOT>\\pm_bot\\paper\\manual_paper_workspace",
-  "inbox_path": "<REPO_ROOT>\\pm_bot\\paper\\manual_paper_workspace\\inbox",
-  "current_state_path": "<REPO_ROOT>\\pm_bot\\paper\\manual_paper_workspace\\state\\current_state.json",
+  "workspace_path": "pm_bot/paper/manual_paper_workspace",
+  "inbox_path": "pm_bot/paper/manual_paper_workspace/inbox",
+  "current_state_path": "pm_bot/paper/manual_paper_workspace/state/current_state.json",
   "run_directory_path": null,
   "run_artifacts_written": false,
   "state_committed": false,
@@ -22,12 +22,12 @@
   },
   "quarantine_records": [
     {
-      "input_path": "<REPO_ROOT>\\pm_bot\\paper\\manual_paper_workspace\\inbox\\001_series_snapshot_001.json",
+      "input_path": "pm_bot/paper/manual_paper_workspace/inbox/001_series_snapshot_001.json",
       "file_name": "001_series_snapshot_001.json",
       "status": "skipped",
       "reason_code": "already_processed_snapshot",
       "reason": "Snapshot ID is already present in the input paper state.",
-      "digest": "e2c3a44b0892fc71912a6cdd17d6809349ff3e0ede6b3e3dcbb31fa5171070c7",
+      "digest": "1af5c3fbdf7b278ebfe1a314d93982e56dfc92415d91d096abf2eeedfc85b7bb",
       "snapshot_id": "series_snapshot_001",
       "action_taken": "Left available to the existing processor for already-processed accounting."
     }

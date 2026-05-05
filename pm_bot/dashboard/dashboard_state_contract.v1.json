@@ -1,6 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "PMBOT_DASHBOARD_STATE_CONTRACT.v1",
+  "schema_version": "dashboard_state_contract.v1",
   "title": "PMBOT Dashboard State Contract v1",
   "description": "Schema-like local contract for a deterministic PMBOT dashboard state snapshot. This contract describes local artifacts only and does not define any dashboard runtime.",
   "type": "object",

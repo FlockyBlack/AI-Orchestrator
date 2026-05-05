@@ -1,9 +1,9 @@
 # Manual Paper Operator Cycle
 
 - Run ID: manual-paper-operator-cycle-fixture-v1
-- Source: <REPO_ROOT>\pm_bot\paper\manual_snapshot_import_source
-- Workspace: <REPO_ROOT>\pm_bot\paper\manual_paper_workspace
-- Inbox: <REPO_ROOT>\pm_bot\paper\manual_paper_workspace\inbox
+- Source: /pm_bot/paper/manual_snapshot_import_source
+- Workspace: /pm_bot/paper/manual_paper_workspace
+- Inbox: /pm_bot/paper/manual_paper_workspace/inbox
 - Write inbox: false
 - Manifest written: false
 - Run artifacts written: false

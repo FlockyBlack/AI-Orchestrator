@@ -1,4 +1,5 @@
 {
+  "task_id": "PMBOT-PAPER-021-METADATA-AND-LEGACY-POINTER-CLEANUP",
   "schema_version": "v1",
   "fixture_id": "crypto_numeric_execution_fixture_v1",
   "fixture_only": true,

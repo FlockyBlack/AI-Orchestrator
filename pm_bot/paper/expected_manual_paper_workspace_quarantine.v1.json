@@ -1,6 +1,6 @@
 [
   {
-    "input_path": "<REPO_ROOT>\\pm_bot\\paper\\manual_paper_workspace\\inbox\\001_series_snapshot_001.json",
+    "input_path": "pm_bot/paper/manual_paper_workspace/inbox/001_series_snapshot_001.json",
     "file_name": "001_series_snapshot_001.json",
     "status": "skipped",
     "reason_code": "already_processed_snapshot",

@@ -1,9 +1,9 @@
 # Manual Paper Operator Cycle
 
 - Run ID: manual-paper-operator-cycle-fixture-v1
-- Source: <REPO_ROOT>\pm_bot\paper\manual_snapshot_import_source
-- Workspace: <REPO_ROOT>\pm_bot\paper\manual_paper_workspace
-- Inbox: <REPO_ROOT>\pm_bot\paper\manual_paper_workspace\inbox
+- Source: /pm_bot/paper/manual_snapshot_import_source
+- Workspace: /pm_bot/paper/manual_paper_workspace
+- Inbox: /pm_bot/paper/manual_paper_workspace/inbox
 - Write inbox: false
 - Manifest written: false
 - Run artifacts written: false
@@ -42,7 +42,7 @@
 ## Threshold-Hit Review
 
 - threshold_hit_review_included: true
-- threshold_hit_source_path: <REPO_ROOT>\pm_bot\paper\fixtures\polymarket_markets_active_threshold_hit.fixture.json
+- threshold_hit_source_path: /pm_bot/paper/fixtures/polymarket_markets_active_threshold_hit.fixture.json
 - threshold_hit_reference_context_used: true
 - threshold_hit_decision_policy_used: true
 - threshold_hit_decision_policy_version: threshold_hit_decision_policy.v1

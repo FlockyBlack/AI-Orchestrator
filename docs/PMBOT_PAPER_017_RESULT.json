@@ -39,9 +39,7 @@
   "files_modified": [],
   "tests": [],
   "warnings": [],
-  "missing_optional_docs": [
-    "docs/PMBOT_INFRA_006_RESULT.json"
-  ],
+  "missing_optional_docs": [],
   "safety": {
     "offline_only": true,
     "network_api_calls": false,

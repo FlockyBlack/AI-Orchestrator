@@ -20,8 +20,8 @@
   "tests": [],
   "artifact_health": {
     "report_status": "health_passed_with_warnings",
-    "artifacts_checked": 226,
-    "warnings": 59
+    "artifacts_checked": 228,
+    "warnings": 8
   },
   "safety_flags": {
     "runtime_wiring": false,

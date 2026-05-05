@@ -1,8 +1,8 @@
 # Manual Snapshot Workspace Import
 
-- Source: <REPO_ROOT>\pm_bot\paper\manual_snapshot_import_source
-- Workspace: <REPO_ROOT>\pm_bot\paper\manual_paper_workspace
-- Inbox: <REPO_ROOT>\pm_bot\paper\manual_paper_workspace\inbox
+- Source: /pm_bot/paper/manual_snapshot_import_source
+- Workspace: /pm_bot/paper/manual_paper_workspace
+- Inbox: /pm_bot/paper/manual_paper_workspace/inbox
 - Write inbox: false
 - Manifest path: 
 - Manifest written: false

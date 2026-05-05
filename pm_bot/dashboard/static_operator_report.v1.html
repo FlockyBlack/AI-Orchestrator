@@ -100,10 +100,10 @@ ul,ol{padding-left:22px}
 <section>
 <h2>Quality Warning Severity Summary</h2>
 <div class="metric-grid">
-<div class="metric"><div class="metric-label">total_warnings</div><div class="metric-value">149</div></div>
+<div class="metric"><div class="metric-label">total_warnings</div><div class="metric-value">8</div></div>
 <div class="metric"><div class="metric-label">blocking</div><div class="metric-value">0</div></div>
-<div class="metric"><div class="metric-label">action_required</div><div class="metric-value">123</div></div>
-<div class="metric"><div class="metric-label">review_needed</div><div class="metric-value">25</div></div>
+<div class="metric"><div class="metric-label">action_required</div><div class="metric-value">3</div></div>
+<div class="metric"><div class="metric-label">review_needed</div><div class="metric-value">4</div></div>
 <div class="metric"><div class="metric-label">informational</div><div class="metric-value">1</div></div>
 <div class="metric"><div class="metric-label">blocking_warning_detected</div><div class="metric-value">false</div></div>
 </div>
@@ -113,28 +113,26 @@ ul,ol{padding-left:22px}
 <table>
 <thead><tr><th>Category</th><th>Severity</th><th>Count</th><th>Operator Bucket</th></tr></thead>
 <tbody>
-<tr><td>expected_fixture_alignment_warning</td><td>action_required</td><td>51</td><td>artifact has an expected fixture alignment warning</td></tr>
-<tr><td>fixture_alignment_actual_missing</td><td>action_required</td><td>50</td><td>expected fixture exists but actual artifact is missing</td></tr>
-<tr><td>schema_version_missing</td><td>action_required</td><td>19</td><td>schema version metadata missing</td></tr>
-<tr><td>embedded_artifact_pointer_warning</td><td>review_needed</td><td>15</td><td>embedded artifact pointer needs inspection</td></tr>
-<tr><td>stale_reference_warning</td><td>review_needed</td><td>6</td><td>historical or stale reference needs inspection</td></tr>
+<tr><td>schema_version_missing</td><td>action_required</td><td>4</td><td>schema version metadata missing</td></tr>
+<tr><td>stale_reference_warning</td><td>review_needed</td><td>3</td><td>historical or stale reference needs inspection</td></tr>
+<tr><td>known_intentional_malformed_fixture_parse_failure</td><td>informational</td><td>1</td><td>known intentional malformed fixture</td></tr>
 </tbody></table>
 </section>
 <section>
 <h2>Artifact Health Summary</h2>
 <div class="metric-grid">
-<div class="metric"><div class="metric-label">artifacts_checked</div><div class="metric-value">175</div></div>
-<div class="metric"><div class="metric-label">present</div><div class="metric-value">175</div></div>
+<div class="metric"><div class="metric-label">artifacts_checked</div><div class="metric-value">228</div></div>
+<div class="metric"><div class="metric-label">present</div><div class="metric-value">228</div></div>
 <div class="metric"><div class="metric-label">missing</div><div class="metric-value">0</div></div>
 <div class="metric"><div class="metric-label">json_parse_fail</div><div class="metric-value">1</div></div>
-<div class="metric"><div class="metric-label">schema_version_missing</div><div class="metric-value">22</div></div>
-<div class="metric"><div class="metric-label">fixture_mismatch</div><div class="metric-value">1</div></div>
+<div class="metric"><div class="metric-label">schema_version_missing</div><div class="metric-value">8</div></div>
+<div class="metric"><div class="metric-label">fixture_mismatch</div><div class="metric-value">0</div></div>
 </div>
 <table><tbody>
 <tr><th>report_status</th><td>health_passed_with_warnings</td></tr>
 <tr><th>source_path</th><td>pm_bot/quality/artifact_health_report.v1.json</td></tr>
-<tr><th>embedded_artifact_pointer_summary</th><td>{&quot;absolute_count&quot;: 0, &quot;checked_count&quot;: 554, &quot;missing_count&quot;: 90, &quot;present_count&quot;: 464}</td></tr>
-<tr><th>expected_fixture_alignment_summary</th><td>{&quot;actual_missing_count&quot;: 50, &quot;aligned_count&quot;: 20, &quot;checks_total&quot;: 71, &quot;mismatch_count&quot;: 1}</td></tr>
+<tr><th>embedded_artifact_pointer_summary</th><td>{&quot;absolute_count&quot;: 0, &quot;checked_count&quot;: 634, &quot;missing_count&quot;: 20, &quot;present_count&quot;: 614}</td></tr>
+<tr><th>expected_fixture_alignment_summary</th><td>{&quot;actual_missing_count&quot;: 0, &quot;aligned_count&quot;: 72, &quot;checks_total&quot;: 72, &quot;mismatch_count&quot;: 0}</td></tr>
 </tbody></table>
 </section>
 <section>

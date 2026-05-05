@@ -1,9 +1,9 @@
 # Manual Paper Workspace
 
 - Run ID: manual-paper-workspace-fixture-v1
-- Workspace: <REPO_ROOT>\pm_bot\paper\manual_paper_workspace
-- Inbox: <REPO_ROOT>\pm_bot\paper\manual_paper_workspace\inbox
-- Current state: <REPO_ROOT>\pm_bot\paper\manual_paper_workspace\state\current_state.json
+- Workspace: /pm_bot/paper/manual_paper_workspace
+- Inbox: /pm_bot/paper/manual_paper_workspace/inbox
+- Current state: /pm_bot/paper/manual_paper_workspace/state/current_state.json
 - Run directory: 
 - Run artifacts written: false
 - State committed: false

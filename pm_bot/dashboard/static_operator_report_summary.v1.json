@@ -103,7 +103,7 @@
       "schema_version": "artifact_health_report.v1",
       "task_id": "PMBOT-QUALITY-001-ARTIFACT-HEALTH-AND-STALENESS-CHECK",
       "status": "health_passed_with_warnings",
-      "warning_count": 149
+      "warning_count": 8
     },
     {
       "artifact_id": "artifact_health_report_markdown",
@@ -273,151 +273,37 @@
     "source_path": "pm_bot/quality/artifact_health_report.v1.json",
     "quality_report_status": "health_passed_with_warnings",
     "quality_report_load_status": "parsed",
-    "total_warnings": 149,
+    "total_warnings": 8,
     "blocking": 0,
-    "action_required": 123,
-    "review_needed": 25,
+    "action_required": 3,
+    "review_needed": 4,
     "informational": 1,
     "blocking_warning_detected": false,
     "operator_summary": "No blocking warnings detected; review action_required categories before relying on the package.",
     "recommended_manual_action": "Review action_required warning categories first, then inspect review_needed and informational categories.",
     "top_warning_categories": [
       {
-        "category": "expected_fixture_alignment_warning",
-        "severity": "action_required",
-        "count": 51,
-        "severity_counts": {
-          "blocking": 0,
-          "action_required": 51,
-          "review_needed": 0,
-          "informational": 0
-        },
-        "operator_bucket": "artifact has an expected fixture alignment warning"
-      },
-      {
-        "category": "fixture_alignment_actual_missing",
-        "severity": "action_required",
-        "count": 50,
-        "severity_counts": {
-          "blocking": 0,
-          "action_required": 50,
-          "review_needed": 0,
-          "informational": 0
-        },
-        "operator_bucket": "expected fixture exists but actual artifact is missing"
-      },
-      {
         "category": "schema_version_missing",
         "severity": "action_required",
-        "count": 19,
-        "severity_counts": {
-          "blocking": 0,
-          "action_required": 18,
-          "review_needed": 1,
-          "informational": 0
-        },
-        "operator_bucket": "schema version metadata missing"
-      },
-      {
-        "category": "embedded_artifact_pointer_warning",
-        "severity": "review_needed",
-        "count": 15,
-        "severity_counts": {
-          "blocking": 0,
-          "action_required": 0,
-          "review_needed": 15,
-          "informational": 0
-        },
-        "operator_bucket": "embedded artifact pointer needs inspection"
-      },
-      {
-        "category": "stale_reference_warning",
-        "severity": "review_needed",
-        "count": 6,
-        "severity_counts": {
-          "blocking": 0,
-          "action_required": 0,
-          "review_needed": 6,
-          "informational": 0
-        },
-        "operator_bucket": "historical or stale reference needs inspection"
-      }
-    ],
-    "warning_categories": [
-      {
-        "category": "expected_fixture_alignment_warning",
-        "severity": "action_required",
-        "count": 51,
-        "severity_counts": {
-          "blocking": 0,
-          "action_required": 51,
-          "review_needed": 0,
-          "informational": 0
-        },
-        "operator_bucket": "artifact has an expected fixture alignment warning"
-      },
-      {
-        "category": "fixture_alignment_actual_missing",
-        "severity": "action_required",
-        "count": 50,
-        "severity_counts": {
-          "blocking": 0,
-          "action_required": 50,
-          "review_needed": 0,
-          "informational": 0
-        },
-        "operator_bucket": "expected fixture exists but actual artifact is missing"
-      },
-      {
-        "category": "schema_version_missing",
-        "severity": "action_required",
-        "count": 19,
-        "severity_counts": {
-          "blocking": 0,
-          "action_required": 18,
-          "review_needed": 1,
-          "informational": 0
-        },
-        "operator_bucket": "schema version metadata missing"
-      },
-      {
-        "category": "embedded_artifact_pointer_warning",
-        "severity": "review_needed",
-        "count": 15,
-        "severity_counts": {
-          "blocking": 0,
-          "action_required": 0,
-          "review_needed": 15,
-          "informational": 0
-        },
-        "operator_bucket": "embedded artifact pointer needs inspection"
-      },
-      {
-        "category": "stale_reference_warning",
-        "severity": "review_needed",
-        "count": 6,
-        "severity_counts": {
-          "blocking": 0,
-          "action_required": 0,
-          "review_needed": 6,
-          "informational": 0
-        },
-        "operator_bucket": "historical or stale reference needs inspection"
-      },
-      {
-        "category": "task_id_missing",
-        "severity": "action_required",
-        "count": 3,
+        "count": 4,
         "severity_counts": {
           "blocking": 0,
           "action_required": 3,
-          "review_needed": 0,
+          "review_needed": 1,
           "informational": 0
         },
-        "operator_bucket": "task_id metadata missing"
+        "owner": "schema",
+        "action_type": "fix_required",
+        "action_type_counts": {
+          "fix_required": 3,
+          "review_required": 1,
+          "ignore_allowed": 0
+        },
+        "recommended_action": "add schema_version to artifact",
+        "operator_bucket": "schema version metadata missing"
       },
       {
-        "category": "json_top_level_not_object",
+        "category": "stale_reference_warning",
         "severity": "review_needed",
         "count": 3,
         "severity_counts": {
@@ -426,19 +312,15 @@
           "review_needed": 3,
           "informational": 0
         },
-        "operator_bucket": "JSON artifact is intentionally or structurally non-object"
-      },
-      {
-        "category": "fixture_alignment_mismatch",
-        "severity": "action_required",
-        "count": 1,
-        "severity_counts": {
-          "blocking": 0,
-          "action_required": 1,
-          "review_needed": 0,
-          "informational": 0
+        "owner": "data",
+        "action_type": "review_required",
+        "action_type_counts": {
+          "fix_required": 0,
+          "review_required": 3,
+          "ignore_allowed": 0
         },
-        "operator_bucket": "expected fixture differs from actual artifact"
+        "recommended_action": "remove stale embedded reference",
+        "operator_bucket": "historical or stale reference needs inspection"
       },
       {
         "category": "known_intentional_malformed_fixture_parse_failure",
@@ -450,6 +332,76 @@
           "review_needed": 0,
           "informational": 1
         },
+        "owner": "fixture",
+        "action_type": "ignore_allowed",
+        "action_type_counts": {
+          "fix_required": 0,
+          "review_required": 0,
+          "ignore_allowed": 1
+        },
+        "recommended_action": "keep intentional malformed fixture documented",
+        "operator_bucket": "known intentional malformed fixture"
+      }
+    ],
+    "warning_categories": [
+      {
+        "category": "schema_version_missing",
+        "severity": "action_required",
+        "count": 4,
+        "severity_counts": {
+          "blocking": 0,
+          "action_required": 3,
+          "review_needed": 1,
+          "informational": 0
+        },
+        "owner": "schema",
+        "action_type": "fix_required",
+        "action_type_counts": {
+          "fix_required": 3,
+          "review_required": 1,
+          "ignore_allowed": 0
+        },
+        "recommended_action": "add schema_version to artifact",
+        "operator_bucket": "schema version metadata missing"
+      },
+      {
+        "category": "stale_reference_warning",
+        "severity": "review_needed",
+        "count": 3,
+        "severity_counts": {
+          "blocking": 0,
+          "action_required": 0,
+          "review_needed": 3,
+          "informational": 0
+        },
+        "owner": "data",
+        "action_type": "review_required",
+        "action_type_counts": {
+          "fix_required": 0,
+          "review_required": 3,
+          "ignore_allowed": 0
+        },
+        "recommended_action": "remove stale embedded reference",
+        "operator_bucket": "historical or stale reference needs inspection"
+      },
+      {
+        "category": "known_intentional_malformed_fixture_parse_failure",
+        "severity": "informational",
+        "count": 1,
+        "severity_counts": {
+          "blocking": 0,
+          "action_required": 0,
+          "review_needed": 0,
+          "informational": 1
+        },
+        "owner": "fixture",
+        "action_type": "ignore_allowed",
+        "action_type_counts": {
+          "fix_required": 0,
+          "review_required": 0,
+          "ignore_allowed": 1
+        },
+        "recommended_action": "keep intentional malformed fixture documented",
         "operator_bucket": "known intentional malformed fixture"
       }
     ]
@@ -457,23 +409,23 @@
   "artifact_health_summary": {
     "source_path": "pm_bot/quality/artifact_health_report.v1.json",
     "report_status": "health_passed_with_warnings",
-    "artifacts_checked": 175,
-    "artifacts_present_count": 175,
+    "artifacts_checked": 228,
+    "artifacts_present_count": 228,
     "artifacts_missing_count": 0,
-    "json_parse_pass_count": 126,
+    "json_parse_pass_count": 156,
     "json_parse_fail_count": 1,
-    "schema_version_missing_count": 22,
+    "schema_version_missing_count": 8,
     "embedded_artifact_pointer_summary": {
-      "checked_count": 554,
-      "present_count": 464,
-      "missing_count": 90,
+      "checked_count": 634,
+      "present_count": 614,
+      "missing_count": 20,
       "absolute_count": 0
     },
     "expected_fixture_alignment_summary": {
-      "checks_total": 71,
-      "aligned_count": 20,
-      "mismatch_count": 1,
-      "actual_missing_count": 50
+      "checks_total": 72,
+      "aligned_count": 72,
+      "mismatch_count": 0,
+      "actual_missing_count": 0
     }
   },
   "operator_inbox_summary": {

@@ -1,4 +1,5 @@
 {
+  "schema_version": "pmbot_paper_018_result.v1",
   "task_id": "PMBOT-PAPER-018-MULTI-RECORD-PAPER-ACCOUNTING-BATCH-AUDIT",
   "status": "completed_ready_for_review",
   "summary": "Implemented deterministic offline multi-record paper accounting batch audit.",
@@ -59,10 +60,7 @@
   "files_modified": [],
   "tests": [],
   "warnings": [],
-  "missing_optional_docs": [
-    "docs/PMBOT_INFRA_008_RESULT.json",
-    "docs/PMBOT_INFRA_008_ABC_ROUND002_SCOPE_AND_WORKTREE_PLAN.md"
-  ],
+  "missing_optional_docs": [],
   "safety": {
     "offline_only": true,
     "network_api_calls": false,

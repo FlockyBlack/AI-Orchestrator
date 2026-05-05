@@ -1,0 +1,24 @@
+{
+  "schema_version": "paper_batch_audit_summary.v1",
+  "task_id": "PMBOT-PAPER-021-METADATA-AND-LEGACY-POINTER-CLEANUP",
+  "status": "accepted_placeholder",
+  "artifact_status": "future_optional_placeholder",
+  "placeholder_reason": "Dashboard legacy pointer retained as an explicit inert placeholder until a real batch audit summary is introduced.",
+  "batch_ids": [],
+  "batch_audit_summary": {},
+  "safety_flags": {
+    "offline_only": true,
+    "paper_only": true,
+    "fixture_only": true,
+    "manual_review_only": true,
+    "network_api": false,
+    "wallet": false,
+    "real_orders": false,
+    "live_trading": false,
+    "autonomous_paper_orders": false,
+    "runtime_wiring": false,
+    "scoring_probability_ev_edge": false,
+    "market_decisions": false,
+    "command_execution": false
+  }
+}

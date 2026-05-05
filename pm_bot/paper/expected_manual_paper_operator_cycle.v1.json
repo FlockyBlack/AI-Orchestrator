@@ -8,9 +8,9 @@
     "workspace"
   ],
   "run_id": "manual-paper-operator-cycle-fixture-v1",
-  "source_path": "<REPO_ROOT>\\pm_bot\\paper\\manual_snapshot_import_source",
-  "workspace_path": "<REPO_ROOT>\\pm_bot\\paper\\manual_paper_workspace",
-  "inbox_path": "<REPO_ROOT>\\pm_bot\\paper\\manual_paper_workspace\\inbox",
+  "source_path": "pm_bot/paper/manual_snapshot_import_source",
+  "workspace_path": "pm_bot/paper/manual_paper_workspace",
+  "inbox_path": "pm_bot/paper/manual_paper_workspace/inbox",
   "write_controls": {
     "write_inbox": false,
     "write_run": false,
@@ -20,9 +20,9 @@
   },
   "import_phase": {
     "workflow": "manual_snapshot_workspace_import",
-    "source_path": "<REPO_ROOT>\\pm_bot\\paper\\manual_snapshot_import_source",
-    "workspace_path": "<REPO_ROOT>\\pm_bot\\paper\\manual_paper_workspace",
-    "inbox_path": "<REPO_ROOT>\\pm_bot\\paper\\manual_paper_workspace\\inbox",
+    "source_path": "pm_bot/paper/manual_snapshot_import_source",
+    "workspace_path": "pm_bot/paper/manual_paper_workspace",
+    "inbox_path": "pm_bot/paper/manual_paper_workspace/inbox",
     "write_inbox": false,
     "manifest_path": null,
     "manifest_written": false,
@@ -39,10 +39,10 @@
     },
     "imported_records": [
       {
-        "input_path": "<REPO_ROOT>\\pm_bot\\paper\\manual_snapshot_import_source\\001_series_snapshot_004.json",
+        "input_path": "pm_bot/paper/manual_snapshot_import_source/001_series_snapshot_004.json",
         "file_name": "001_series_snapshot_004.json",
         "status": "importable",
-        "sha256": "88d98685265fe28750ee75f2b81182fd81065dc35984f46f471578714b5f8855",
+        "sha256": "e973a247653043a1dd0e3e4566f51dadf159bb7cb9d501999941deb3837c6114",
         "snapshot_id": "series_snapshot_004",
         "observed_at": "2026-06-15T12:00:00Z",
         "snapshot_markets": 2,
@@ -54,15 +54,15 @@
           "rejection_reason_counts": {}
         },
         "canonical_inbox_file_name": "004_series_snapshot_004.json",
-        "canonical_inbox_path": "<REPO_ROOT>\\pm_bot\\paper\\manual_paper_workspace\\inbox\\004_series_snapshot_004.json",
+        "canonical_inbox_path": "pm_bot/paper/manual_paper_workspace/inbox/004_series_snapshot_004.json",
         "write_inbox": false,
         "written": false
       },
       {
-        "input_path": "<REPO_ROOT>\\pm_bot\\paper\\manual_snapshot_import_source\\002_series_snapshot_005.json",
+        "input_path": "pm_bot/paper/manual_snapshot_import_source/002_series_snapshot_005.json",
         "file_name": "002_series_snapshot_005.json",
         "status": "importable",
-        "sha256": "2da68534e41b8aa0a884023fd2e0e284cee76ce758e93abdf4533f52a0f002dc",
+        "sha256": "9c4ba8c05d03b532701820afa35c32f2e16da61308c97a66c6adaa1dff72ef02",
         "snapshot_id": "series_snapshot_005",
         "observed_at": "2026-06-30T23:59:00Z",
         "snapshot_markets": 1,
@@ -74,36 +74,36 @@
           "rejection_reason_counts": {}
         },
         "canonical_inbox_file_name": "005_series_snapshot_005.json",
-        "canonical_inbox_path": "<REPO_ROOT>\\pm_bot\\paper\\manual_paper_workspace\\inbox\\005_series_snapshot_005.json",
+        "canonical_inbox_path": "pm_bot/paper/manual_paper_workspace/inbox/005_series_snapshot_005.json",
         "write_inbox": false,
         "written": false
       }
     ],
     "skipped_quarantined_records": [
       {
-        "input_path": "<REPO_ROOT>\\pm_bot\\paper\\manual_snapshot_import_source\\003_duplicate_series_snapshot_004.json",
+        "input_path": "pm_bot/paper/manual_snapshot_import_source/003_duplicate_series_snapshot_004.json",
         "file_name": "003_duplicate_series_snapshot_004.json",
         "status": "skipped",
         "reason_code": "duplicate_snapshot_id_in_source_batch",
         "reason": "Snapshot ID was already accepted from another source file in this import batch.",
-        "sha256": "7ae97d3e45f032463febd9eb18432ff84fa9bb73204ca8fb4f41d81e65321ad1",
+        "sha256": "5cb9ca5f78c0ad2d8ebc2327c6fadf1618c3f73d357ccb091d9de18b2d17f418",
         "snapshot_id": "series_snapshot_004",
         "observed_at": "2026-06-15T12:00:00Z",
         "action_taken": "No inbox file written."
       },
       {
-        "input_path": "<REPO_ROOT>\\pm_bot\\paper\\manual_snapshot_import_source\\004_already_present_series_snapshot_002.json",
+        "input_path": "pm_bot/paper/manual_snapshot_import_source/004_already_present_series_snapshot_002.json",
         "file_name": "004_already_present_series_snapshot_002.json",
         "status": "skipped",
         "reason_code": "already_present_in_workspace_inbox",
         "reason": "Snapshot ID is already present in the workspace inbox.",
-        "sha256": "81aa4593a7ea3538d99f6a9c4489abd9f0b561254d18a053293ef2dd66cc1345",
+        "sha256": "759bf81f500afd8a9c62c1684a71559493546cd1d609722de630fe5ed2ca4ab7",
         "snapshot_id": "series_snapshot_002",
         "observed_at": "2026-05-15T12:00:00Z",
         "action_taken": "No inbox file written."
       },
       {
-        "input_path": "<REPO_ROOT>\\pm_bot\\paper\\manual_snapshot_import_source\\005_malformed.json",
+        "input_path": "pm_bot/paper/manual_snapshot_import_source/005_malformed.json",
         "file_name": "005_malformed.json",
         "status": "quarantined",
         "reason_code": "malformed_json",
@@ -114,18 +114,18 @@
         "action_taken": "No inbox file written."
       },
       {
-        "input_path": "<REPO_ROOT>\\pm_bot\\paper\\manual_snapshot_import_source\\006_unsupported.json",
+        "input_path": "pm_bot/paper/manual_snapshot_import_source/006_unsupported.json",
         "file_name": "006_unsupported.json",
         "status": "quarantined",
         "reason_code": "unsupported_snapshot_shape",
         "reason": "JSON payload is not a supported single manual snapshot file.",
-        "sha256": "58b833609f772eee356c4168f485203908d470e01bb80c1aeb6a9e584eb8c0fc",
+        "sha256": "84f667cb0ec444eea9d5581fac6fb3717efb1bfdf89c6129f585886a7113f11b",
         "snapshot_id": "unsupported_shape",
         "observed_at": null,
         "action_taken": "No inbox file written."
       },
       {
-        "input_path": "<REPO_ROOT>\\pm_bot\\paper\\manual_snapshot_import_source\\007_operator_note.txt",
+        "input_path": "pm_bot/paper/manual_snapshot_import_source/007_operator_note.txt",
         "file_name": "007_operator_note.txt",
         "status": "skipped",
         "reason_code": "ignored_non_json_file",
@@ -141,9 +141,9 @@
   "workspace_phase": {
     "workflow": "manual_paper_workspace",
     "run_id": "manual-paper-operator-cycle-fixture-v1",
-    "workspace_path": "<REPO_ROOT>\\pm_bot\\paper\\manual_paper_workspace",
-    "inbox_path": "<REPO_ROOT>\\pm_bot\\paper\\manual_paper_workspace\\inbox",
-    "current_state_path": "<REPO_ROOT>\\pm_bot\\paper\\manual_paper_workspace\\state\\current_state.json",
+    "workspace_path": "pm_bot/paper/manual_paper_workspace",
+    "inbox_path": "pm_bot/paper/manual_paper_workspace/inbox",
+    "current_state_path": "pm_bot/paper/manual_paper_workspace/state/current_state.json",
     "run_directory_path": null,
     "workspace_phase_includes_imported_snapshots": false,
     "imported_snapshots_previewed_but_not_added_to_inbox": true,
@@ -162,12 +162,12 @@
     },
     "quarantine_records": [
       {
-        "input_path": "<REPO_ROOT>\\pm_bot\\paper\\manual_paper_workspace\\inbox\\001_series_snapshot_001.json",
+        "input_path": "pm_bot/paper/manual_paper_workspace/inbox/001_series_snapshot_001.json",
         "file_name": "001_series_snapshot_001.json",
         "status": "skipped",
         "reason_code": "already_processed_snapshot",
         "reason": "Snapshot ID is already present in the input paper state.",
-        "digest": "e2c3a44b0892fc71912a6cdd17d6809349ff3e0ede6b3e3dcbb31fa5171070c7",
+        "digest": "1af5c3fbdf7b278ebfe1a314d93982e56dfc92415d91d096abf2eeedfc85b7bb",
         "snapshot_id": "series_snapshot_001",
         "action_taken": "Left available to the existing processor for already-processed accounting."
       }
@@ -191,8 +191,8 @@
   },
   "summary": {
     "run_id": "manual-paper-operator-cycle-fixture-v1",
-    "source_path": "<REPO_ROOT>\\pm_bot\\paper\\manual_snapshot_import_source",
-    "workspace_path": "<REPO_ROOT>\\pm_bot\\paper\\manual_paper_workspace",
+    "source_path": "pm_bot/paper/manual_snapshot_import_source",
+    "workspace_path": "pm_bot/paper/manual_paper_workspace",
     "import_phase_summary": {
       "discovered_inputs": 7,
       "importable_snapshots": 2,

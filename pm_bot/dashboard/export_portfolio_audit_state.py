@@ -489,6 +489,7 @@ def _artifact_pointers():
 
 def build_portfolio_audit_state_contract():
     return {
+        "schema_version": CONTRACT_SCHEMA_VERSION,
         "$schema": "https://json-schema.org/draft/2020-12/schema",
         "$id": "PMBOT_PORTFOLIO_AUDIT_STATE_CONTRACT.v1",
         "title": "PMBOT Portfolio Audit Dashboard State Contract v1",

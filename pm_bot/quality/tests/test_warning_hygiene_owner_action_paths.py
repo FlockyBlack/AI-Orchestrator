@@ -111,7 +111,7 @@ class WarningHygieneOwnerActionPathsTests(unittest.TestCase):
 
         self.assertEqual(result["schema_version"], "warning_hygiene_owner_action_paths.v1")
         self.assertEqual(result["task_id"], "PMBOT-QUALITY-002-WARNING-HYGIENE-OWNER-ACTION-PATHS")
-        self.assertEqual(result["source_report"]["total_warnings"], 59)
+        self.assertEqual(result["source_report"]["total_warnings"], 8)
         for path in NEW_JSON_FILES:
             self.assertIsInstance(_load_json(path), dict)
         self.assertTrue(REPORT_MD.exists())
@@ -130,7 +130,7 @@ class WarningHygieneOwnerActionPathsTests(unittest.TestCase):
         report = _load_json(REPORT_JSON)
         warnings = report["warnings"]
 
-        self.assertEqual(len(warnings), 59)
+        self.assertEqual(len(warnings), 8)
         self.assertFalse(report["warning_detection_policy"]["warnings_hidden"])
         self.assertFalse(report["warning_detection_policy"]["warnings_suppressed"])
         self.assertFalse(report["warning_detection_policy"]["warnings_downgraded_silently"])
@@ -172,12 +172,12 @@ class WarningHygieneOwnerActionPathsTests(unittest.TestCase):
         self.assertEqual(sum(summary["safety_relevance"].values()), total)
         self.assertEqual(summary["deferrable"]["true"] + summary["deferrable"]["false"], total)
         self.assertEqual(summary["severity"]["blocking"], 0)
-        self.assertEqual(summary["severity"]["action_required"], 21)
-        self.assertEqual(summary["severity"]["review_needed"], 37)
+        self.assertEqual(summary["severity"]["action_required"], 3)
+        self.assertEqual(summary["severity"]["review_needed"], 4)
         self.assertEqual(summary["severity"]["informational"], 1)
         self.assertGreater(summary["owner"]["paper"], 0)
         self.assertGreater(summary["owner"]["operator"], 0)
-        self.assertGreater(summary["owner"]["dashboard"], 0)
+        self.assertEqual(summary["owner"].get("dashboard", 0), 0)
         self.assertEqual(summary["action_type"].get("update_fixture", 0), 0)
         self.assertGreater(summary["action_type"]["add_missing_metadata"], 0)
 

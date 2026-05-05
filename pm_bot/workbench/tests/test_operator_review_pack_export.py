@@ -149,7 +149,8 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         )
         self.assertGreater(quality_summary["warnings_by_owner"]["fixture"], 0)
         self.assertGreater(quality_summary["warnings_by_action_type"]["fix_required"], 0)
-        self.assertEqual(len(quality_summary["top_action_items"]), 5)
+        self.assertGreater(len(quality_summary["top_action_items"]), 0)
+        self.assertLessEqual(len(quality_summary["top_action_items"]), 5)
         self.assertIn("recommended_action", quality_summary["top_action_items"][0])
 
     def test_inventory_reports_required_sources_and_optional_missing_artifacts(self):

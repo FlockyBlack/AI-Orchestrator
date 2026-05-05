@@ -11,10 +11,10 @@
 ## Quality Warning Summary
 
 - quality_report_status: health_passed_with_warnings
-- total_warnings: 59
+- total_warnings: 8
 - blocking_warnings: 0
-- action_required_warnings: 21
-- review_needed_warnings: 37
+- action_required_warnings: 3
+- review_needed_warnings: 4
 - informational_warnings: 1
 - blocking_warning_detected: false
 - operator_summary: No blocking warnings detected; review action_required categories before relying on the package.
@@ -29,33 +29,29 @@
 
 ## Top Quality Warning Categories
 
-- embedded_artifact_pointer_warning: count=26, severity=review_needed, bucket=embedded artifact pointer needs inspection
-- schema_version_missing: count=19, severity=action_required, bucket=schema version metadata missing
-- stale_reference_warning: count=6, severity=review_needed, bucket=historical or stale reference needs inspection
-- json_top_level_not_object: count=4, severity=review_needed, bucket=JSON artifact is intentionally or structurally non-object
-- task_id_missing: count=3, severity=action_required, bucket=task_id metadata missing
+- schema_version_missing: count=4, severity=action_required, bucket=schema version metadata missing
+- stale_reference_warning: count=3, severity=review_needed, bucket=historical or stale reference needs inspection
+- known_intentional_malformed_fixture_parse_failure: count=1, severity=informational, bucket=known intentional malformed fixture
 
 ## Quality Warnings By Owner
 
 - code: 0
 - fixture: 1
-- schema: 26
-- data: 32
+- schema: 4
+- data: 3
 - unknown: 0
 
 ## Quality Warnings By Action Type
 
-- fix_required: 21
-- review_required: 37
+- fix_required: 3
+- review_required: 4
 - ignore_allowed: 1
 
 ## Top Quality Action Items
 
-- remove stale embedded pointer: count=26, owner=data, action_type=review_required, severity=review_needed
-- add schema_version to artifact: count=19, owner=schema, action_type=fix_required, severity=action_required
-- remove stale embedded reference: count=6, owner=data, action_type=review_required, severity=review_needed
-- review non-object JSON artifact: count=4, owner=schema, action_type=review_required, severity=review_needed
-- add task_id to artifact: count=3, owner=schema, action_type=fix_required, severity=action_required
+- add schema_version to artifact: count=4, owner=schema, action_type=fix_required, severity=action_required
+- remove stale embedded reference: count=3, owner=data, action_type=review_required, severity=review_needed
+- keep intentional malformed fixture documented: count=1, owner=fixture, action_type=ignore_allowed, severity=informational
 
 ## Artifact Inventory
 

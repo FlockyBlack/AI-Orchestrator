@@ -43,6 +43,46 @@ KNOWN_INTENTIONAL_PARSE_FIXTURE_PATHS = {
     "pm_bot/paper/manual_snapshot_import_source/005_malformed.json",
 }
 
+DOCUMENTED_NON_OBJECT_JSON_ARTIFACTS = {
+    "pm_bot/paper/expected_manual_paper_workspace_quarantine.v1.json": {
+        "shape": "array",
+        "reason": "Expected fixture mirrors the manual paper workspace quarantine record list.",
+    },
+    "pm_bot/paper/fixtures/polymarket_markets_active_threshold_hit.fixture.json": {
+        "shape": "array",
+        "reason": "Fixture intentionally mirrors a minimized Polymarket markets API list without network use.",
+    },
+    "pm_bot/paper/manual_paper_workspace_quarantine.v1.json": {
+        "shape": "array",
+        "reason": "Workspace quarantine artifact is a deterministic record list consumed by manual review tooling.",
+    },
+    "pm_bot/paper/manual_snapshot_import_source/008_polymarket_markets_active_minimized.fixture.json": {
+        "shape": "array",
+        "reason": "Manual import fixture intentionally preserves the source markets list shape.",
+    },
+}
+
+DOCUMENTED_LEGACY_REFERENCE_FIELDS = {
+    ("docs/PMBOT_DASHBOARD_002_RESULT.json", "base_commit"),
+    ("docs/PMBOT_DASHBOARD_002_RESULT.json", "commands_run[0].command"),
+    ("docs/PMBOT_DASHBOARD_002_RESULT.json", "compatibility_patch.blocker"),
+    ("pm_bot/dashboard/expected_portfolio_audit_state_preview.v1.json", "product_stage_summary.infra_008.task_id"),
+    ("pm_bot/dashboard/expected_portfolio_audit_state_preview.v1.json", "product_stage_summary.integration_006.task_id"),
+    ("pm_bot/dashboard/portfolio_audit_state_preview.v1.json", "product_stage_summary.infra_008.task_id"),
+    ("pm_bot/dashboard/portfolio_audit_state_preview.v1.json", "product_stage_summary.integration_006.task_id"),
+}
+
+DOCUMENTED_ACCEPTED_MISSING_POINTER_TARGETS = {
+    "pm_bot/paper/manual_paper_workspace/inbox/004_series_snapshot_004.json": (
+        "Accepted manual import output placeholder; the manifest records the deterministic "
+        "canonical target without materializing the inbox file in the checked-in fixture workspace."
+    ),
+    "pm_bot/paper/manual_paper_workspace/inbox/005_series_snapshot_005.json": (
+        "Accepted manual import output placeholder; the manifest records the deterministic "
+        "canonical target without materializing the inbox file in the checked-in fixture workspace."
+    ),
+}
+
 SAFETY_FLAGS = {
     "runtime_wiring": False,
     "network_api": False,
@@ -453,7 +493,10 @@ def _stale_references(path, payload, root=ROOT):
     references = []
     if payload is None:
         return references
+    repo_path = _display_path(path, root=root)
     for field_path, value in _walk_json(payload):
+        if (repo_path, field_path) in DOCUMENTED_LEGACY_REFERENCE_FIELDS:
+            continue
         if isinstance(value, str):
             for commit in COMMIT_RE.findall(value):
                 if commit not in {BASE_COMMIT, INFRA_009_MAIN_COMMIT}:
@@ -540,7 +583,11 @@ def _artifact_record(path, root=ROOT):
         if record["status_fields_expected"] and not record["status_fields_present"]:
             record["warnings"].append("status_fields_missing")
     else:
-        record["warnings"].append("json_top_level_not_object")
+        documented = DOCUMENTED_NON_OBJECT_JSON_ARTIFACTS.get(repo_path)
+        if documented:
+            record["documented_shape_exception"] = documented
+        else:
+            record["warnings"].append("json_top_level_not_object")
 
     pointer_health = _embedded_pointer_health(path, payload, root=root)
     record["embedded_artifact_pointer_health"] = {
@@ -552,6 +599,16 @@ def _artifact_record(path, root=ROOT):
     pointer_warnings = []
     for pointer in pointer_health["pointers"]:
         if not pointer["exists"]:
+            documented_missing = DOCUMENTED_ACCEPTED_MISSING_POINTER_TARGETS.get(pointer["target"])
+            if documented_missing:
+                record.setdefault("documented_pointer_exceptions", []).append(
+                    {
+                        "field_path": pointer["field_path"],
+                        "target": pointer["target"],
+                        "reason": documented_missing,
+                    }
+                )
+                continue
             pointer_warnings.append(
                 {
                     "warning_type": "embedded_artifact_pointer_missing",
