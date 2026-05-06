@@ -1,0 +1,129 @@
+{
+  "task_id": "PMBOT-LLM-010-ACTUAL-MANUAL-LLM-RESPONSE-TRIAL-RUN",
+  "status": "completed_local_validated_pending_git",
+  "summary": "Created a deterministic offline-only actual manual LLM response trial wrapper for the real local PMBOT market packet. The current run is pending_operator_input because pm_bot/llm/real_local_market_llm_trial_response_operator.v1.json is absent; no fake actual response was created or accepted.",
+  "precheck": {
+    "branch": "main",
+    "worktree_clean_before": true,
+    "local_head_before": "7ccd97bc28186b6ea16597addd0378e93fff799b",
+    "origin_main_before": "7ccd97bc28186b6ea16597addd0378e93fff799b",
+    "remote_conflict_detected": false,
+    "requested_path_missing": "C:/Users/OpenC/Documents/AI-Orchestrator",
+    "actual_repo_path": "C:/Users/OpenC/OneDrive/Документы/AI-Orchestrator"
+  },
+  "trial_run_behavior": {
+    "trial_runner_created": true,
+    "real_local_market_trial_verified": true,
+    "operator_response_path_checked": true,
+    "operator_response_present": false,
+    "missing_response_returns_pending_operator_input": true,
+    "fake_actual_response_created": false,
+    "actual_operator_response_supported": true,
+    "acceptance_gate_reused": true,
+    "json_trial_run_result_created": true,
+    "markdown_trial_run_report_created": true,
+    "operator_required_actions_documented": true,
+    "llm_api_calls_added": false,
+    "browser_automation_added": false,
+    "prompt_automation_added": false,
+    "runtime_integration_added": false
+  },
+  "validation_behavior": {
+    "missing_operator_response_pending": true,
+    "valid_actual_operator_response_accepted_in_tests": true,
+    "forbidden_actual_operator_response_rejected": true,
+    "low_quality_actual_operator_response_not_accepted": true,
+    "malformed_actual_operator_response_handled_safely": true,
+    "non_real_packet_source_blocked": true,
+    "example_packet_fallback_blocked": true,
+    "expected_pending_fixture_matched": true
+  },
+  "operator_required_actions": [
+    "Open pm_bot/llm/real_local_market_llm_trial_prompt.v1.md.",
+    "Paste into ChatGPT/Claude/Gemini manually.",
+    "Request strict JSON only.",
+    "Save the returned JSON to pm_bot/llm/real_local_market_llm_trial_response_operator.v1.json.",
+    "Rerun python pm_bot\\llm\\run_actual_manual_llm_response_trial.py --trial pm_bot\\llm\\real_local_market_llm_trial.v1.json --packet pm_bot\\llm\\real_local_market_llm_trial_packet.v1.json --prompt pm_bot\\llm\\real_local_market_llm_trial_prompt.v1.md --operator-response pm_bot\\llm\\real_local_market_llm_trial_response_operator.v1.json --out-json pm_bot\\llm\\actual_manual_llm_response_trial.v1.json --out-md pm_bot\\llm\\actual_manual_llm_response_trial.v1.md."
+  ],
+  "files_created": [
+    "docs/PMBOT_LLM_010_ACTUAL_MANUAL_LLM_RESPONSE_TRIAL_RUN.md",
+    "docs/PMBOT_LLM_010_RESULT.json",
+    "pm_bot/llm/actual_manual_llm_response_trial.v1.json",
+    "pm_bot/llm/actual_manual_llm_response_trial.v1.md",
+    "pm_bot/llm/expected_actual_manual_llm_response_trial_pending.v1.json",
+    "pm_bot/llm/run_actual_manual_llm_response_trial.py",
+    "pm_bot/llm/tests/test_actual_manual_llm_response_trial.py"
+  ],
+  "files_modified": [],
+  "tests_run": [
+    {
+      "command": "python pm_bot\\llm\\run_actual_manual_llm_response_trial.py --trial pm_bot\\llm\\real_local_market_llm_trial.v1.json --packet pm_bot\\llm\\real_local_market_llm_trial_packet.v1.json --prompt pm_bot\\llm\\real_local_market_llm_trial_prompt.v1.md --operator-response pm_bot\\llm\\real_local_market_llm_trial_response_operator.v1.json --out-json pm_bot\\llm\\actual_manual_llm_response_trial.v1.json --out-md pm_bot\\llm\\actual_manual_llm_response_trial.v1.md",
+      "result": "pending_operator_input"
+    },
+    {
+      "command": "python -m pytest pm_bot\\llm -q",
+      "result": "82 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\workbench -q",
+      "result": "29 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\quality pm_bot\\dashboard pm_bot\\operator -q",
+      "result": "93 passed, 48 subtests passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\paper -q",
+      "result": "331 passed, 39 subtests passed"
+    },
+    {
+      "command": "python pm_bot\\workbench\\run_operator_workbench_export.py",
+      "result": "required_steps_passed true"
+    },
+    {
+      "command": "python -m py_compile pm_bot\\llm\\run_actual_manual_llm_response_trial.py pm_bot\\llm\\tests\\test_actual_manual_llm_response_trial.py",
+      "result": "passed"
+    },
+    {
+      "command": "JSON parse check for all new/changed JSON files",
+      "result": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "result": "passed"
+    },
+    {
+      "command": "git diff --cached --check",
+      "result": "passed"
+    },
+    {
+      "command": "forbidden path/runtime safety scan",
+      "result": "passed"
+    }
+  ],
+  "safety_flags": {
+    "runtime_wiring": false,
+    "network_api": false,
+    "llm_api": false,
+    "browser_automation": false,
+    "prompt_automation": false,
+    "credentials_or_wallet": false,
+    "real_orders_or_live_trading": false,
+    "autonomous_paper_orders": false,
+    "probability_ev_scoring_or_edge": false,
+    "side_recommendations": false,
+    "market_decision_logic": false,
+    "truth_evaluation": false,
+    "dispatcher_or_run_codex_changed": false
+  },
+  "git": {
+    "commit_created": false,
+    "commit_hash": "",
+    "pushed": false,
+    "origin_main_verified": false,
+    "worktree_clean_after": false,
+    "note": "Git commit and push state is reported in the final task response after this result artifact is committed."
+  },
+  "blockers": [],
+  "next_recommended_task": "PMBOT-LLM-011-ACTUAL-MANUAL-LLM-RESPONSE-VALIDATION-AND-WORKBENCH-SURFACE"
+}

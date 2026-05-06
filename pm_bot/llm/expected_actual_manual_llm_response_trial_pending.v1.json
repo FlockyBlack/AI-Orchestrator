@@ -1,0 +1,74 @@
+{
+  "contract_version": "actual_manual_llm_response_trial_contract.v1",
+  "trial_run_version": "actual_manual_llm_response_trial.v1",
+  "trial_run_id": "pmbot-llm-010-actual-manual-llm-response-trial-run",
+  "task_id": "PMBOT-LLM-010-ACTUAL-MANUAL-LLM-RESPONSE-TRIAL-RUN",
+  "generated_at": "deterministic-actual-manual-llm-response-trial.v1",
+  "trial_path": "pm_bot/llm/real_local_market_llm_trial.v1.json",
+  "packet_path": "pm_bot/llm/real_local_market_llm_trial_packet.v1.json",
+  "prompt_path": "pm_bot/llm/real_local_market_llm_trial_prompt.v1.md",
+  "operator_response_path": "pm_bot/llm/real_local_market_llm_trial_response_operator.v1.json",
+  "operator_response_present": false,
+  "response_source_type": "actual_operator_pasted_response",
+  "market_id": "824952",
+  "source_artifact_path": "pm_bot/research/selected_ingest_final_dossier_drafts.v1.json",
+  "trial_packet_source_type": "real_local_market_artifact",
+  "used_example_packet_fallback": false,
+  "run_status": "pending_operator_input",
+  "acceptance_status": "pending_real_manual_response",
+  "packet_validation_status": "accepted",
+  "response_validation_status": "not_run",
+  "manual_review_status": "not_run",
+  "quality_gate_status": "not_run",
+  "errors": [],
+  "warnings": [
+    {
+      "stage": "operator_response_presence",
+      "code": "operator_response_file_missing",
+      "path": "pm_bot/llm/real_local_market_llm_trial_response_operator.v1.json",
+      "message": "Actual operator-pasted response file is missing; no fake response was created."
+    }
+  ],
+  "operator_required_actions": [
+    "Open pm_bot/llm/real_local_market_llm_trial_prompt.v1.md.",
+    "Paste into ChatGPT/Claude/Gemini manually.",
+    "Request strict JSON only.",
+    "Save the returned JSON to pm_bot/llm/real_local_market_llm_trial_response_operator.v1.json.",
+    "Rerun python pm_bot\\llm\\run_actual_manual_llm_response_trial.py --trial pm_bot\\llm\\real_local_market_llm_trial.v1.json --packet pm_bot\\llm\\real_local_market_llm_trial_packet.v1.json --prompt pm_bot\\llm\\real_local_market_llm_trial_prompt.v1.md --operator-response pm_bot\\llm\\real_local_market_llm_trial_response_operator.v1.json --out-json pm_bot\\llm\\actual_manual_llm_response_trial.v1.json --out-md pm_bot\\llm\\actual_manual_llm_response_trial.v1.md."
+  ],
+  "next_safe_operator_action": "save_actual_operator_pasted_response",
+  "safety_flags": {
+    "runtime_wiring": false,
+    "network_api": false,
+    "llm_api": false,
+    "credentials_or_wallet": false,
+    "real_orders_or_live_trading": false,
+    "autonomous_paper_orders": false,
+    "probability_ev_scoring_or_edge": false,
+    "side_recommendations": false,
+    "dispatcher_or_run_codex_changed": false,
+    "prompt_automation": false,
+    "browser_automation": false,
+    "market_decision_logic": false,
+    "truth_evaluation": false
+  },
+  "source_artifacts": {
+    "trial_result": "pm_bot/llm/real_local_market_llm_trial.v1.json",
+    "packet": "pm_bot/llm/real_local_market_llm_trial_packet.v1.json",
+    "prompt": "pm_bot/llm/real_local_market_llm_trial_prompt.v1.md",
+    "operator_response": "pm_bot/llm/real_local_market_llm_trial_response_operator.v1.json",
+    "source_artifact_path": "pm_bot/research/selected_ingest_final_dossier_drafts.v1.json",
+    "market_id": "824952",
+    "contract_artifacts": [
+      "pm_bot/llm/llm_analysis_packet_schema.v1.json",
+      "pm_bot/llm/llm_analysis_response_schema.v1.json"
+    ],
+    "component_artifacts": {
+      "base_validator": "pm_bot/llm/validate_llm_analysis_artifacts.py",
+      "manual_review_flow": "pm_bot/llm/validate_manual_llm_paste_in_review.py",
+      "quality_gate": "pm_bot/llm/evaluate_manual_llm_review_quality_gate.py",
+      "operator_acceptance_gate": "pm_bot/llm/evaluate_real_manual_llm_trial_operator_acceptance.py",
+      "actual_manual_response_trial_runner": "pm_bot/llm/run_actual_manual_llm_response_trial.py"
+    }
+  }
+}
