@@ -77,6 +77,19 @@
 - next_safe_operator_action: Review the accepted local artifacts as offline operator context only; do not execute or automate anything.
 - explicit_warning: This surface is offline review context only. It is not a truth source, not trading advice, and not execution authority.
 
+## Manual LLM Review Queue
+
+- artifact_path: pm_bot/llm/manual_llm_review_queue.v1.json
+- artifact_present: true
+- queue_items_total: 1
+- response_accepted_for_operator_review: 1
+- waiting_for_operator_pasted_response: 0
+- blocked_missing_packet: 0
+- offline_manual_only: true
+- not_truth_source: true
+- not_trading_advice: true
+- not_execution_authority: true
+
 ## Warnings
 
 - none

@@ -1,0 +1,176 @@
+{
+  "schema_version": "manual_llm_review_queue.v1",
+  "task_id": "PMBOT-LLM-013-MULTI-MARKET-MANUAL-LLM-REVIEW-QUEUE",
+  "generated_by": "pm_bot/llm/export_manual_llm_review_queue.py",
+  "generated_at": "deterministic-manual-llm-review-queue.v1",
+  "deterministic": true,
+  "queue_items_total": 1,
+  "queue_status_counts": {
+    "ready_for_manual_prompt_export": 0,
+    "waiting_for_operator_pasted_response": 0,
+    "response_accepted_for_operator_review": 1,
+    "response_rejected_needs_operator_fix": 0,
+    "blocked_missing_packet": 0,
+    "blocked_invalid_artifact": 0
+  },
+  "items": [
+    {
+      "market_id": "824952",
+      "candidate_id": "actual_manual_llm_response_trial_824952",
+      "candidate_source": "actual_manual_llm_response_trial",
+      "source_artifact_path": "pm_bot/research/selected_ingest_final_dossier_drafts.v1.json",
+      "packet_path": "pm_bot/llm/real_local_market_llm_trial_packet.v1.json",
+      "packet_present": true,
+      "packet_parse_status": "parsed",
+      "prompt_path": "pm_bot/llm/real_local_market_llm_trial_prompt.v1.md",
+      "prompt_present": true,
+      "operator_response_path": "pm_bot/llm/real_local_market_llm_trial_response_operator.v1.json",
+      "operator_response_present": true,
+      "response_present": true,
+      "validation_status": "accepted",
+      "packet_validation_status": "accepted",
+      "response_validation_status": "accepted",
+      "quality_gate_status": "quality_passed",
+      "operator_surface_review_status": "operator_surface_review_passed",
+      "acceptance_status": "accepted_for_operator_review",
+      "run_status": "actual_response_accepted",
+      "review_queue_status": "response_accepted_for_operator_review",
+      "next_safe_operator_action": "Review the accepted local response context in the offline operator surface only.",
+      "offline_manual_only": true,
+      "not_truth_source": true,
+      "not_trading_advice": true,
+      "not_execution_authority": true,
+      "artifact_checks": {
+        "source_artifact": {
+          "artifact_id": "source_artifact",
+          "path": "pm_bot/research/selected_ingest_final_dossier_drafts.v1.json",
+          "required": false,
+          "present": true,
+          "parse_status": "parsed"
+        },
+        "packet": {
+          "artifact_id": "packet",
+          "path": "pm_bot/llm/real_local_market_llm_trial_packet.v1.json",
+          "required": true,
+          "present": true,
+          "parse_status": "parsed"
+        },
+        "prompt": {
+          "artifact_id": "prompt",
+          "path": "pm_bot/llm/real_local_market_llm_trial_prompt.v1.md",
+          "required": false,
+          "present": true,
+          "parse_status": "not_applicable"
+        },
+        "operator_response": {
+          "artifact_id": "operator_response",
+          "path": "pm_bot/llm/real_local_market_llm_trial_response_operator.v1.json",
+          "required": false,
+          "present": true,
+          "parse_status": "parsed"
+        },
+        "actual_trial": {
+          "artifact_id": "actual_manual_llm_response_trial",
+          "path": "pm_bot/llm/actual_manual_llm_response_trial.v1.json",
+          "required": false,
+          "present": true,
+          "parse_status": "parsed"
+        },
+        "operator_surface_review": {
+          "artifact_id": "operator_surface_review",
+          "path": "pm_bot/llm/actual_manual_llm_response_surface_operator_review.v1.json",
+          "required": false,
+          "present": true,
+          "parse_status": "parsed"
+        }
+      },
+      "errors_count": 0,
+      "warnings_count": 0,
+      "errors": [],
+      "warnings": []
+    }
+  ],
+  "candidate_discovery": {
+    "source_artifacts_checked": [
+      {
+        "artifact_id": "actual_manual_llm_response_trial",
+        "path": "pm_bot/llm/actual_manual_llm_response_trial.v1.json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed"
+      },
+      {
+        "artifact_id": "selected_ingest_final_dossier_drafts",
+        "path": "pm_bot/research/selected_ingest_final_dossier_drafts.v1.json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed"
+      },
+      {
+        "artifact_id": "actual_manual_llm_response_surface_operator_review",
+        "path": "pm_bot/llm/actual_manual_llm_response_surface_operator_review.v1.json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed"
+      }
+    ],
+    "actual_trial_candidate_found": true,
+    "selected_ingest_markets_seen": 5,
+    "selected_ingest_market_ids": [
+      "597964",
+      "598936",
+      "691547",
+      "692258",
+      "824952"
+    ],
+    "final_dossier_drafts_seen": 1,
+    "final_dossier_draft_market_ids": [
+      "824952"
+    ],
+    "exported_market_ids": [
+      "824952"
+    ],
+    "candidate_policy": "Only markets with an existing local LLM packet or accepted actual manual response artifact become queue items.",
+    "additional_ready_candidates_found": 0,
+    "additional_ready_candidate_market_ids": []
+  },
+  "forbidden_status_action_findings": [],
+  "errors": [],
+  "warnings": [
+    {
+      "code": "no_additional_ready_candidates_found",
+      "path": "pm_bot/research/selected_ingest_final_dossier_drafts.v1.json",
+      "message": "No additional safe local packet candidates were found beyond existing queue items."
+    }
+  ],
+  "safety_flags": {
+    "offline_manual_only": true,
+    "not_truth_source": true,
+    "not_trading_advice": true,
+    "not_execution_authority": true,
+    "deterministic": true,
+    "local_file_reads_only": true,
+    "llm_api": false,
+    "network_api": false,
+    "browser_automation": false,
+    "prompt_automation": false,
+    "runtime_wiring": false,
+    "dispatcher_run_codex_changes": false,
+    "credentials_or_wallet": false,
+    "real_orders_or_live_trading": false,
+    "autonomous_paper_orders": false,
+    "probability_ev_scoring_or_edge": false,
+    "side_recommendations": false,
+    "market_decision_logic": false,
+    "truth_evaluation": false,
+    "execution_authority": false
+  },
+  "network_calls": 0,
+  "llm_api_calls": 0,
+  "browser_automation": false,
+  "prompt_automation": false,
+  "runtime_wiring": false,
+  "orders_created": 0,
+  "truth_inference": false,
+  "next_safe_operator_action": "Add future markets only after an offline local packet exists, then rerun this queue exporter."
+}

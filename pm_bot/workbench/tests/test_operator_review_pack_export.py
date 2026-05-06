@@ -17,6 +17,7 @@ RESULT = ROOT / "docs" / "PMBOT_WORKBENCH_001_RESULT.json"
 LANE_RESULT = ROOT / "docs" / "PMBOT_CODEX_A_ROUND003_RESULT.json"
 MANUAL_LLM_REVIEW = ROOT / "pm_bot" / "llm" / "manual_llm_paste_in_review.v1.json"
 MANUAL_LLM_QUALITY_GATE = ROOT / "pm_bot" / "llm" / "manual_llm_review_quality_gate.v1.json"
+MANUAL_LLM_REVIEW_QUEUE = ROOT / "pm_bot" / "llm" / "manual_llm_review_queue.v1.json"
 ACTUAL_MANUAL_LLM_RESPONSE_TRIAL = ROOT / "pm_bot" / "llm" / "actual_manual_llm_response_trial.v1.json"
 
 NEW_JSON_FILES = [
@@ -120,6 +121,7 @@ class OperatorReviewPackExportTests(unittest.TestCase):
             "operator_inbox_summary",
             "manual_llm_review",
             "manual_llm_review_quality_gate",
+            "manual_llm_review_queue",
             "actual_manual_llm_response_trial",
             "quality_warning_summary",
             "warnings",
@@ -184,6 +186,7 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertTrue(inventory["portfolio_audit_state_preview"]["present"])
         self.assertTrue(inventory["manual_command_inbox_review"]["present"])
         self.assertTrue(inventory["manual_llm_review_quality_gate"]["present"])
+        self.assertTrue(inventory["manual_llm_review_queue"]["present"])
         self.assertTrue(inventory["actual_manual_llm_response_trial"]["present"])
         self.assertEqual(inventory["paper_019_result"]["parse_status"], "parsed")
         self.assertEqual(inventory["paper_019_multi_market_run_series"]["parse_status"], "parsed")
@@ -191,6 +194,7 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertEqual(inventory["paper_020_paper_run_series_postmortem"]["parse_status"], "parsed")
         self.assertEqual(inventory["paper_accounting_batch_audit"]["parse_status"], "parsed")
         self.assertEqual(inventory["manual_llm_review_quality_gate"]["parse_status"], "parsed")
+        self.assertEqual(inventory["manual_llm_review_queue"]["parse_status"], "parsed")
         self.assertEqual(inventory["actual_manual_llm_response_trial"]["parse_status"], "parsed")
         self.assertEqual(
             inventory["paper_019_multi_market_run_series"]["path"],
@@ -203,6 +207,10 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertEqual(
             inventory["paper_accounting_batch_audit"]["path"],
             "pm_bot/paper/paper_accounting_batch_audit.v1.json",
+        )
+        self.assertEqual(
+            inventory["manual_llm_review_queue"]["path"],
+            "pm_bot/llm/manual_llm_review_queue.v1.json",
         )
         self.assertEqual(
             inventory["actual_manual_llm_response_trial"]["path"],
@@ -337,6 +345,36 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertFalse(quality_gate["llm_api_calls_added"])
         self.assertFalse(quality_gate["browser_automation_added"])
         self.assertFalse(quality_gate["runtime_integration_added"])
+
+    def test_manual_llm_review_queue_section_surfaces_passive_queue_status_only(self):
+        _run_write()
+        pack = _load_json(PACK_JSON)
+        source = _load_json(MANUAL_LLM_REVIEW_QUEUE)
+        queue = pack["manual_llm_review_queue"]
+
+        self.assertEqual(queue["section_id"], "manual_llm_review_queue")
+        self.assertEqual(queue["artifact_status"], "present")
+        self.assertEqual(queue["artifact_pointer"], "pm_bot/llm/manual_llm_review_queue.v1.json")
+        self.assertEqual(queue["parse_status"], "parsed")
+        self.assertEqual(queue["queue_items_total"], source["queue_items_total"])
+        self.assertEqual(queue["queue_status_counts"], source["queue_status_counts"])
+        self.assertEqual(queue["additional_ready_candidates_found"], 0)
+        self.assertEqual(queue["errors_count"], len(source["errors"]))
+        self.assertEqual(queue["warnings_count"], len(source["warnings"]))
+        self.assertEqual(queue["items"][0]["market_id"], "824952")
+        self.assertEqual(
+            queue["items"][0]["review_queue_status"],
+            "response_accepted_for_operator_review",
+        )
+        self.assertTrue(queue["items"][0]["response_present"])
+        self.assertTrue(queue["offline_manual_only"])
+        self.assertTrue(queue["not_truth_source"])
+        self.assertTrue(queue["not_trading_advice"])
+        self.assertTrue(queue["not_execution_authority"])
+        self.assertFalse(queue["llm_api_calls_added"])
+        self.assertFalse(queue["browser_automation_added"])
+        self.assertFalse(queue["runtime_integration_added"])
+        self.assertFalse(queue["prompt_automation_added"])
 
     def test_actual_manual_llm_response_trial_section_surfaces_accepted_artifact_status_only(self):
         _run_write()
@@ -517,6 +555,7 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         pack = _load_json(PACK_JSON)
         manual_llm = pack["manual_llm_review"]
         quality_gate = pack["manual_llm_review_quality_gate"]
+        queue = pack["manual_llm_review_queue"]
         actual_trial = pack["actual_manual_llm_response_trial"]
 
         self.assertFalse(manual_llm["llm_api_calls_added"])
@@ -525,6 +564,10 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertFalse(quality_gate["llm_api_calls_added"])
         self.assertFalse(quality_gate["browser_automation_added"])
         self.assertFalse(quality_gate["runtime_integration_added"])
+        self.assertFalse(queue["llm_api_calls_added"])
+        self.assertFalse(queue["browser_automation_added"])
+        self.assertFalse(queue["runtime_integration_added"])
+        self.assertFalse(queue["prompt_automation_added"])
         self.assertFalse(actual_trial["llm_api_calls_added"])
         self.assertFalse(actual_trial["browser_automation_added"])
         self.assertFalse(actual_trial["runtime_integration_added"])
@@ -746,6 +789,11 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertIn("forbidden_content_check: status=passed", markdown)
         self.assertIn("deterministic offline quality gate only", markdown)
         self.assertIn("not truth evaluation, probability, EV, edge, side, or trading advice", markdown)
+        self.assertIn("Manual LLM Review Queue", markdown)
+        self.assertIn("artifact_pointer: pm_bot/llm/manual_llm_review_queue.v1.json", markdown)
+        self.assertIn("queue_items_total: 1", markdown)
+        self.assertIn("response_accepted_for_operator_review: 1", markdown)
+        self.assertIn("offline_manual_only: true", markdown)
         self.assertIn("Actual Manual LLM Response Trial", markdown)
         self.assertIn("artifact_path: pm_bot/llm/actual_manual_llm_response_trial.v1.json", markdown)
         self.assertIn("operator_response_present: true", markdown)
@@ -772,6 +820,12 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertEqual(result["branch"], "codex/a-operator-review-pack-round003")
         self.assertEqual(result["base_commit"], "21edc9af372e9d1736afb0eccd3c016f23f2c144")
         self.assertFalse(result["forbidden_changes_detected"])
+        self.assertEqual(result["manual_llm_review_queue"]["queue_items_total"], 1)
+        self.assertEqual(
+            result["manual_llm_review_queue"]["queue_status_counts"]["response_accepted_for_operator_review"],
+            1,
+        )
+        self.assertTrue(result["manual_llm_review_queue"]["offline_manual_only"])
         self.assertEqual(result["paper_orders_created"], 0)
         self.assertEqual(result["commands_executed"], 0)
         self.assertEqual(result["network_calls"], 0)

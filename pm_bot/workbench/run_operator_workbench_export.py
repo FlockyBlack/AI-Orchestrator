@@ -15,6 +15,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from pm_bot.llm import summarize_actual_manual_llm_response_trial as actual_llm_response_surface  # noqa: E402
+from pm_bot.llm import export_manual_llm_review_queue as manual_llm_review_queue_surface  # noqa: E402
 
 WORKBENCH_DIR = ROOT / "pm_bot" / "workbench"
 DOCS_DIR = ROOT / "docs"
@@ -34,6 +35,7 @@ SUMMARY_OUTPUT_ARTIFACTS = [
 ACTUAL_MANUAL_LLM_RESPONSE_TRIAL_ARTIFACT_PATH = (
     "pm_bot/llm/actual_manual_llm_response_trial.v1.json"
 )
+MANUAL_LLM_REVIEW_QUEUE_ARTIFACT_PATH = "pm_bot/llm/manual_llm_review_queue.v1.json"
 
 SAFETY_FLAGS = {
     "manual_cli_only": True,
@@ -245,6 +247,10 @@ def _actual_manual_llm_response_trial_surface(root=ROOT):
     return actual_llm_response_surface.summarize_actual_manual_llm_response_trial(root=root)
 
 
+def _manual_llm_review_queue_surface(root=ROOT):
+    return manual_llm_review_queue_surface.summarize_manual_llm_review_queue(root=root)
+
+
 def build_run_summary(step_results, root=ROOT):
     required_steps_passed = all(
         step["status"] == "ran" for step in step_results if step["required"]
@@ -266,6 +272,7 @@ def build_run_summary(step_results, root=ROOT):
         ],
         "artifacts_refreshed": _ordered_unique(artifacts),
         "actual_manual_llm_response_trial": _actual_manual_llm_response_trial_surface(root=root),
+        "manual_llm_review_queue": _manual_llm_review_queue_surface(root=root),
         "warnings": _warnings_for_steps(step_results),
         "safety_flags": dict(SAFETY_FLAGS),
         "network_calls": 0,
@@ -280,6 +287,7 @@ def build_run_summary(step_results, root=ROOT):
 
 def render_markdown(summary):
     actual_trial = summary["actual_manual_llm_response_trial"]
+    manual_llm_review_queue = summary["manual_llm_review_queue"]
     lines = [
         "# PMBOT Operator Workbench Export Run v1",
         "",
@@ -332,6 +340,24 @@ def render_markdown(summary):
             f"- warnings_count: {actual_trial['warnings_count']}",
             f"- next_safe_operator_action: {actual_trial['next_safe_operator_action']}",
             f"- explicit_warning: {actual_trial['explicit_operator_warning']}",
+            "",
+            "## Manual LLM Review Queue",
+            "",
+            f"- artifact_path: {manual_llm_review_queue['artifact_path']}",
+            f"- artifact_present: {str(manual_llm_review_queue['artifact_present']).lower()}",
+            f"- queue_items_total: {manual_llm_review_queue['queue_items_total']}",
+            "- response_accepted_for_operator_review: "
+            f"{manual_llm_review_queue['queue_status_counts']['response_accepted_for_operator_review']}",
+            "- waiting_for_operator_pasted_response: "
+            f"{manual_llm_review_queue['queue_status_counts']['waiting_for_operator_pasted_response']}",
+            "- blocked_missing_packet: "
+            f"{manual_llm_review_queue['queue_status_counts']['blocked_missing_packet']}",
+            "- offline_manual_only: "
+            f"{str(manual_llm_review_queue['offline_manual_only']).lower()}",
+            f"- not_truth_source: {str(manual_llm_review_queue['not_truth_source']).lower()}",
+            f"- not_trading_advice: {str(manual_llm_review_queue['not_trading_advice']).lower()}",
+            "- not_execution_authority: "
+            f"{str(manual_llm_review_queue['not_execution_authority']).lower()}",
         ]
     )
 
@@ -408,6 +434,15 @@ def _result_payload(summary):
             "not_execution_authority": summary["actual_manual_llm_response_trial"][
                 "not_execution_authority"
             ],
+        },
+        "manual_llm_review_queue": {
+            "artifact_present": summary["manual_llm_review_queue"]["artifact_present"],
+            "queue_items_total": summary["manual_llm_review_queue"]["queue_items_total"],
+            "queue_status_counts": summary["manual_llm_review_queue"]["queue_status_counts"],
+            "offline_manual_only": summary["manual_llm_review_queue"]["offline_manual_only"],
+            "not_truth_source": summary["manual_llm_review_queue"]["not_truth_source"],
+            "not_trading_advice": summary["manual_llm_review_queue"]["not_trading_advice"],
+            "not_execution_authority": summary["manual_llm_review_queue"]["not_execution_authority"],
         },
         "safety_flags": summary["safety_flags"],
         "network_calls": 0,

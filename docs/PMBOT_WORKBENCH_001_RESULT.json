@@ -19,11 +19,11 @@
   "files_modified": [],
   "tests": [],
   "artifact_inventory_summary": {
-    "total_artifacts": 23,
-    "present_artifacts": 23,
+    "total_artifacts": 24,
+    "present_artifacts": 24,
     "missing_artifacts": 0,
     "required_missing_artifacts": 0,
-    "json_artifacts_parsed": 22,
+    "json_artifacts_parsed": 23,
     "json_artifacts_parse_failed": 0
   },
   "actual_manual_llm_response_trial": {
@@ -32,6 +32,22 @@
     "run_status": "actual_response_accepted",
     "acceptance_status": "accepted_for_operator_review",
     "offline_review_context_only": true,
+    "not_truth_source": true,
+    "not_trading_advice": true,
+    "not_execution_authority": true
+  },
+  "manual_llm_review_queue": {
+    "artifact_present": true,
+    "queue_items_total": 1,
+    "queue_status_counts": {
+      "ready_for_manual_prompt_export": 0,
+      "waiting_for_operator_pasted_response": 0,
+      "response_accepted_for_operator_review": 1,
+      "response_rejected_needs_operator_fix": 0,
+      "blocked_missing_packet": 0,
+      "blocked_invalid_artifact": 0
+    },
+    "offline_manual_only": true,
     "not_truth_source": true,
     "not_trading_advice": true,
     "not_execution_authority": true

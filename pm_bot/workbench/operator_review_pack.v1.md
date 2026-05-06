@@ -51,8 +51,8 @@
 
 ## Artifact Inventory
 
-- total_artifacts: 23
-- present_artifacts: 23
+- total_artifacts: 24
+- present_artifacts: 24
 - missing_artifacts: 0
 - required_missing_artifacts: 0
 
@@ -78,6 +78,7 @@
 - manual_command_inbox_review: pm_bot/operator/manual_command_inbox_review.v1.json (present=true, required=true, parse_status=parsed)
 - manual_llm_review: pm_bot/llm/manual_llm_paste_in_review.v1.json (present=true, required=false, parse_status=parsed)
 - manual_llm_review_quality_gate: pm_bot/llm/manual_llm_review_quality_gate.v1.json (present=true, required=false, parse_status=parsed)
+- manual_llm_review_queue: pm_bot/llm/manual_llm_review_queue.v1.json (present=true, required=false, parse_status=parsed)
 - actual_manual_llm_response_trial: pm_bot/llm/actual_manual_llm_response_trial.v1.json (present=true, required=false, parse_status=parsed)
 
 ## Paper Audits
@@ -295,6 +296,42 @@
 
 - none
 
+## Manual LLM Review Queue
+
+- section_id: manual_llm_review_queue
+- artifact_status: present
+- artifact_pointer: pm_bot/llm/manual_llm_review_queue.v1.json
+- parse_status: parsed
+- queue_items_total: 1
+- additional_ready_candidates_found: 0
+- errors_count: 0
+- warnings_count: 1
+- offline_manual_only: true
+- not_truth_source: true
+- not_trading_advice: true
+- not_execution_authority: true
+- offline_review_warning: Manual LLM review queue is an offline local index only; it is not truth, not trading advice, and not execution authority.
+- llm_api_calls_added: false
+- browser_automation_added: false
+- runtime_integration_added: false
+
+## Manual LLM Review Queue Status Counts
+
+- ready_for_manual_prompt_export: 0
+- waiting_for_operator_pasted_response: 0
+- response_accepted_for_operator_review: 1
+- response_rejected_needs_operator_fix: 0
+- blocked_missing_packet: 0
+- blocked_invalid_artifact: 0
+
+## Manual LLM Review Queue Items
+
+- market_id=824952, status=response_accepted_for_operator_review, response_present=true, validation_status=accepted, quality_gate_status=quality_passed, operator_surface_review_status=operator_surface_review_passed
+
+## Manual LLM Review Queue Safe Error Summary
+
+- none
+
 ## Actual Manual LLM Response Trial
 
 - section_id: actual_manual_llm_response_trial
@@ -382,6 +419,7 @@
 - review_pack_inventory_and_warnings: Review artifact_inventory, missing_artifacts, and warnings in this local pack.
 - review_paper_accounting_audit_artifacts: Inspect the existing paper reconciliation and batch audit artifacts for local consistency status.
 - review_operator_inbox_queue: Review accepted, rejected, and needs-human-review inbox records without executing commands.
+- review_manual_llm_review_queue: Review manual LLM queue status for local packet and response readiness.
 - review_actual_manual_llm_response_trial_surface: Review actual manual LLM response trial status as offline local context only.
 - integration_review_only: Use this pack as a static input for human integration review only.
 

@@ -11,6 +11,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from pm_bot.llm import summarize_actual_manual_llm_response_trial as actual_llm_response_surface  # noqa: E402
+from pm_bot.llm import export_manual_llm_review_queue as manual_llm_review_queue_surface  # noqa: E402
 
 WORKBENCH_DIR = ROOT / "pm_bot" / "workbench"
 DOCS_DIR = ROOT / "docs"
@@ -30,6 +31,8 @@ MANUAL_LLM_REVIEW_ARTIFACT_PATH = "pm_bot/llm/manual_llm_paste_in_review.v1.json
 MANUAL_LLM_REVIEW_SECTION_ID = "manual_llm_review"
 MANUAL_LLM_QUALITY_GATE_ARTIFACT_PATH = "pm_bot/llm/manual_llm_review_quality_gate.v1.json"
 MANUAL_LLM_QUALITY_GATE_SECTION_ID = "manual_llm_review_quality_gate"
+MANUAL_LLM_REVIEW_QUEUE_ARTIFACT_PATH = "pm_bot/llm/manual_llm_review_queue.v1.json"
+MANUAL_LLM_REVIEW_QUEUE_SECTION_ID = "manual_llm_review_queue"
 ACTUAL_MANUAL_LLM_RESPONSE_TRIAL_ARTIFACT_PATH = (
     "pm_bot/llm/actual_manual_llm_response_trial.v1.json"
 )
@@ -63,6 +66,10 @@ MANUAL_LLM_REVIEW_ANALYSIS_ONLY_WARNING = (
 MANUAL_LLM_QUALITY_GATE_WARNING = (
     "Manual LLM review quality gate is a deterministic offline quality gate only; it is not "
     "truth evaluation, probability, EV, edge, side, or trading advice."
+)
+MANUAL_LLM_REVIEW_QUEUE_WARNING = (
+    "Manual LLM review queue is an offline local index only; it is not truth, "
+    "not trading advice, and not execution authority."
 )
 ACTUAL_MANUAL_LLM_RESPONSE_TRIAL_WARNING = (
     "Actual manual LLM response trial surface is offline review context only; it is not truth, "
@@ -267,6 +274,13 @@ SOURCE_ARTIFACTS = (
         "path": MANUAL_LLM_QUALITY_GATE_ARTIFACT_PATH,
         "category": "manual_llm_review_quality_gate",
         "artifact_type": "manual_llm_review_quality_gate_json",
+        "required": False,
+    },
+    {
+        "artifact_id": MANUAL_LLM_REVIEW_QUEUE_SECTION_ID,
+        "path": MANUAL_LLM_REVIEW_QUEUE_ARTIFACT_PATH,
+        "category": "manual_llm_review_queue",
+        "artifact_type": "manual_llm_review_queue_json",
         "required": False,
     },
     {
@@ -905,6 +919,16 @@ def _actual_manual_llm_response_trial_summary(root=ROOT):
     }
 
 
+def _manual_llm_review_queue_summary(root=ROOT):
+    summary = manual_llm_review_queue_surface.summarize_manual_llm_review_queue(root=root)
+    return {
+        **summary,
+        "section_id": MANUAL_LLM_REVIEW_QUEUE_SECTION_ID,
+        "artifact_pointer": MANUAL_LLM_REVIEW_QUEUE_ARTIFACT_PATH,
+        "offline_review_warning": MANUAL_LLM_REVIEW_QUEUE_WARNING,
+    }
+
+
 def _inventory_item(inventory, artifact_id):
     for item in inventory["artifacts"]:
         if item["artifact_id"] == artifact_id:
@@ -1237,6 +1261,42 @@ def _actual_manual_llm_response_trial_warnings(summary):
     return []
 
 
+def _manual_llm_review_queue_warnings(summary):
+    artifact_status = summary.get("artifact_status")
+    errors_count = _safe_int(summary.get("errors_count"))
+    if artifact_status == "missing":
+        return [
+            {
+                "warning_id": "manual_llm_review_queue_missing",
+                "source_path": MANUAL_LLM_REVIEW_QUEUE_ARTIFACT_PATH,
+                "category": "optional_artifact_missing",
+                "message": "Manual LLM review queue artifact is missing; review pack generation continued.",
+            }
+        ]
+    if artifact_status == "invalid":
+        return [
+            {
+                "warning_id": "manual_llm_review_queue_invalid",
+                "source_path": MANUAL_LLM_REVIEW_QUEUE_ARTIFACT_PATH,
+                "category": "optional_artifact_invalid",
+                "message": (
+                    "Manual LLM review queue artifact is present but invalid or unreadable; "
+                    "review pack generation continued."
+                ),
+            }
+        ]
+    if errors_count:
+        return [
+            {
+                "warning_id": "manual_llm_review_queue_has_errors",
+                "source_path": MANUAL_LLM_REVIEW_QUEUE_ARTIFACT_PATH,
+                "category": "optional_artifact_status",
+                "message": "Manual LLM review queue reports local errors; inspect the queue artifact.",
+            }
+        ]
+    return []
+
+
 def _missing_artifacts(inventory):
     return [
         {
@@ -1287,6 +1347,13 @@ def _next_safe_manual_actions():
             "creates_orders": False,
         },
         {
+            "action_id": "review_manual_llm_review_queue",
+            "description": "Review manual LLM queue status for local packet and response readiness.",
+            "non_trading_action": True,
+            "requires_runtime": False,
+            "creates_orders": False,
+        },
+        {
             "action_id": "review_actual_manual_llm_response_trial_surface",
             "description": (
                 "Review actual manual LLM response trial status as offline local context only."
@@ -1312,11 +1379,13 @@ def build_operator_review_pack(root=ROOT):
     paper_020_summary = _paper_020_postmortem_summary(payloads, inventory)
     manual_llm_review = _manual_llm_review_summary(payloads, inventory)
     manual_llm_quality_gate = _manual_llm_quality_gate_summary(payloads, inventory)
+    manual_llm_review_queue = _manual_llm_review_queue_summary(root=root)
     actual_manual_llm_response_trial = _actual_manual_llm_response_trial_summary(root=root)
     warnings = (
         _warnings(payloads)
         + _paper_019_warnings(paper_019_summary)
         + _paper_020_warnings(paper_020_summary)
+        + _manual_llm_review_queue_warnings(manual_llm_review_queue)
         + _actual_manual_llm_response_trial_warnings(actual_manual_llm_response_trial)
         + _parse_warnings(inventory)
     )
@@ -1338,6 +1407,7 @@ def build_operator_review_pack(root=ROOT):
         "operator_inbox_summary": _operator_inbox_summary(payloads),
         "manual_llm_review": manual_llm_review,
         "manual_llm_review_quality_gate": manual_llm_quality_gate,
+        "manual_llm_review_queue": manual_llm_review_queue,
         "actual_manual_llm_response_trial": actual_manual_llm_response_trial,
         "quality_warning_summary": _quality_warning_summary(quality_report, quality_load_status),
         "warnings": warnings,
@@ -1364,6 +1434,7 @@ def render_operator_review_pack_markdown(pack):
     inbox = pack["operator_inbox_summary"]
     manual_llm = pack["manual_llm_review"]
     manual_llm_quality_gate = pack["manual_llm_review_quality_gate"]
+    manual_llm_review_queue = pack["manual_llm_review_queue"]
     actual_manual_llm_response_trial = pack["actual_manual_llm_response_trial"]
     lines = [
         "# PMBOT Operator Review Pack v1",
@@ -1765,6 +1836,60 @@ def render_operator_review_pack_markdown(pack):
     lines.extend(
         [
             "",
+            "## Manual LLM Review Queue",
+            "",
+            f"- section_id: {manual_llm_review_queue['section_id']}",
+            f"- artifact_status: {manual_llm_review_queue['artifact_status']}",
+            f"- artifact_pointer: {manual_llm_review_queue['artifact_pointer']}",
+            f"- parse_status: {manual_llm_review_queue['parse_status']}",
+            f"- queue_items_total: {manual_llm_review_queue['queue_items_total']}",
+            "- additional_ready_candidates_found: "
+            f"{manual_llm_review_queue['additional_ready_candidates_found']}",
+            f"- errors_count: {manual_llm_review_queue['errors_count']}",
+            f"- warnings_count: {manual_llm_review_queue['warnings_count']}",
+            "- offline_manual_only: "
+            f"{str(manual_llm_review_queue['offline_manual_only']).lower()}",
+            f"- not_truth_source: {str(manual_llm_review_queue['not_truth_source']).lower()}",
+            f"- not_trading_advice: {str(manual_llm_review_queue['not_trading_advice']).lower()}",
+            "- not_execution_authority: "
+            f"{str(manual_llm_review_queue['not_execution_authority']).lower()}",
+            f"- offline_review_warning: {manual_llm_review_queue['offline_review_warning']}",
+            f"- llm_api_calls_added: {str(manual_llm_review_queue['llm_api_calls_added']).lower()}",
+            "- browser_automation_added: "
+            f"{str(manual_llm_review_queue['browser_automation_added']).lower()}",
+            "- runtime_integration_added: "
+            f"{str(manual_llm_review_queue['runtime_integration_added']).lower()}",
+            "",
+            "## Manual LLM Review Queue Status Counts",
+            "",
+        ]
+    )
+    for status, count in manual_llm_review_queue["queue_status_counts"].items():
+        lines.append(f"- {status}: {count}")
+    lines.extend(["", "## Manual LLM Review Queue Items", ""])
+    if manual_llm_review_queue["items"]:
+        for item in manual_llm_review_queue["items"]:
+            lines.append(
+                "- "
+                f"market_id={item['market_id']}, "
+                f"status={item['review_queue_status']}, "
+                f"response_present={str(item['response_present']).lower()}, "
+                f"validation_status={item['validation_status']}, "
+                f"quality_gate_status={item['quality_gate_status']}, "
+                f"operator_surface_review_status={item['operator_surface_review_status']}"
+            )
+    else:
+        lines.append("- none")
+    lines.extend(["", "## Manual LLM Review Queue Safe Error Summary", ""])
+    if manual_llm_review_queue["safe_error_summary"]:
+        for item in manual_llm_review_queue["safe_error_summary"]:
+            lines.append(f"- {item}")
+    else:
+        lines.append("- none")
+
+    lines.extend(
+        [
+            "",
             "## Actual Manual LLM Response Trial",
             "",
             f"- section_id: {actual_manual_llm_response_trial['section_id']}",
@@ -1890,6 +2015,15 @@ def _result_payload(pack):
             "not_execution_authority": pack["actual_manual_llm_response_trial"][
                 "not_execution_authority"
             ],
+        },
+        "manual_llm_review_queue": {
+            "artifact_present": pack["manual_llm_review_queue"]["artifact_present"],
+            "queue_items_total": pack["manual_llm_review_queue"]["queue_items_total"],
+            "queue_status_counts": pack["manual_llm_review_queue"]["queue_status_counts"],
+            "offline_manual_only": pack["manual_llm_review_queue"]["offline_manual_only"],
+            "not_truth_source": pack["manual_llm_review_queue"]["not_truth_source"],
+            "not_trading_advice": pack["manual_llm_review_queue"]["not_trading_advice"],
+            "not_execution_authority": pack["manual_llm_review_queue"]["not_execution_authority"],
         },
         "missing_artifacts": pack["missing_artifacts"],
         "warnings_count": len(pack["warnings"]),

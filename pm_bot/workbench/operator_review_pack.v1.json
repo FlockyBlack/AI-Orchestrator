@@ -56,11 +56,11 @@
   },
   "artifact_inventory": {
     "summary": {
-      "total_artifacts": 23,
-      "present_artifacts": 23,
+      "total_artifacts": 24,
+      "present_artifacts": 24,
       "missing_artifacts": 0,
       "required_missing_artifacts": 0,
-      "json_artifacts_parsed": 22,
+      "json_artifacts_parsed": 23,
       "json_artifacts_parse_failed": 0
     },
     "artifacts": [
@@ -393,6 +393,21 @@
         "audit_status": null,
         "deterministic": null,
         "warning_count": 0
+      },
+      {
+        "artifact_id": "manual_llm_review_queue",
+        "path": "pm_bot/llm/manual_llm_review_queue.v1.json",
+        "category": "manual_llm_review_queue",
+        "artifact_type": "manual_llm_review_queue_json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed",
+        "schema_version": "manual_llm_review_queue.v1",
+        "task_id": "PMBOT-LLM-013-MULTI-MARKET-MANUAL-LLM-REVIEW-QUEUE",
+        "status": null,
+        "audit_status": null,
+        "deterministic": true,
+        "warning_count": 1
       },
       {
         "artifact_id": "actual_manual_llm_response_trial",
@@ -819,6 +834,79 @@
     "runtime_integration_added": false,
     "artifact_status": "present"
   },
+  "manual_llm_review_queue": {
+    "contract_version": "manual_llm_review_queue.v1",
+    "generated_by": "pm_bot/llm/export_manual_llm_review_queue.py",
+    "artifact_path": "pm_bot/llm/manual_llm_review_queue.v1.json",
+    "artifact_present": true,
+    "artifact_status": "present",
+    "parse_status": "parsed",
+    "queue_items_total": 1,
+    "queue_status_counts": {
+      "ready_for_manual_prompt_export": 0,
+      "waiting_for_operator_pasted_response": 0,
+      "response_accepted_for_operator_review": 1,
+      "response_rejected_needs_operator_fix": 0,
+      "blocked_missing_packet": 0,
+      "blocked_invalid_artifact": 0
+    },
+    "items": [
+      {
+        "market_id": "824952",
+        "source_artifact_path": "pm_bot/research/selected_ingest_final_dossier_drafts.v1.json",
+        "packet_path": "pm_bot/llm/real_local_market_llm_trial_packet.v1.json",
+        "prompt_path": "pm_bot/llm/real_local_market_llm_trial_prompt.v1.md",
+        "operator_response_path": "pm_bot/llm/real_local_market_llm_trial_response_operator.v1.json",
+        "response_present": true,
+        "validation_status": "accepted",
+        "quality_gate_status": "quality_passed",
+        "operator_surface_review_status": "operator_surface_review_passed",
+        "review_queue_status": "response_accepted_for_operator_review",
+        "next_safe_operator_action": "Review the accepted local response context in the offline operator surface only.",
+        "offline_manual_only": true,
+        "not_truth_source": true,
+        "not_trading_advice": true,
+        "not_execution_authority": true
+      }
+    ],
+    "warnings_count": 1,
+    "errors_count": 0,
+    "additional_ready_candidates_found": 0,
+    "offline_manual_only": true,
+    "not_truth_source": true,
+    "not_trading_advice": true,
+    "not_execution_authority": true,
+    "safety_flags": {
+      "offline_manual_only": true,
+      "not_truth_source": true,
+      "not_trading_advice": true,
+      "not_execution_authority": true,
+      "deterministic": true,
+      "local_file_reads_only": true,
+      "llm_api": false,
+      "network_api": false,
+      "browser_automation": false,
+      "prompt_automation": false,
+      "runtime_wiring": false,
+      "dispatcher_run_codex_changes": false,
+      "credentials_or_wallet": false,
+      "real_orders_or_live_trading": false,
+      "autonomous_paper_orders": false,
+      "probability_ev_scoring_or_edge": false,
+      "side_recommendations": false,
+      "market_decision_logic": false,
+      "truth_evaluation": false,
+      "execution_authority": false
+    },
+    "llm_api_calls_added": false,
+    "browser_automation_added": false,
+    "runtime_integration_added": false,
+    "prompt_automation_added": false,
+    "safe_error_summary": [],
+    "section_id": "manual_llm_review_queue",
+    "artifact_pointer": "pm_bot/llm/manual_llm_review_queue.v1.json",
+    "offline_review_warning": "Manual LLM review queue is an offline local index only; it is not truth, not trading advice, and not execution authority."
+  },
   "actual_manual_llm_response_trial": {
     "contract_version": "actual_manual_llm_response_workbench_surface.v1",
     "generated_by": "pm_bot/llm/summarize_actual_manual_llm_response_trial.py",
@@ -986,6 +1074,13 @@
     {
       "action_id": "review_operator_inbox_queue",
       "description": "Review accepted, rejected, and needs-human-review inbox records without executing commands.",
+      "non_trading_action": true,
+      "requires_runtime": false,
+      "creates_orders": false
+    },
+    {
+      "action_id": "review_manual_llm_review_queue",
+      "description": "Review manual LLM queue status for local packet and response readiness.",
       "non_trading_action": true,
       "requires_runtime": false,
       "creates_orders": false

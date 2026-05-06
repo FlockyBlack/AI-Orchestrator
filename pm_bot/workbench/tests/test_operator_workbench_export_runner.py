@@ -256,6 +256,13 @@ class OperatorWorkbenchExportRunnerTests(unittest.TestCase):
         self.assertEqual(actual_trial["run_status"], "actual_response_accepted")
         self.assertEqual(actual_trial["acceptance_status"], "accepted_for_operator_review")
         self.assertTrue(actual_trial["offline_review_context_only"])
+        self.assertIn("manual_llm_review_queue", summary)
+        queue = summary["manual_llm_review_queue"]
+        self.assertEqual(queue["artifact_path"], "pm_bot/llm/manual_llm_review_queue.v1.json")
+        self.assertTrue(queue["artifact_present"])
+        self.assertEqual(queue["queue_items_total"], 1)
+        self.assertEqual(queue["queue_status_counts"]["response_accepted_for_operator_review"], 1)
+        self.assertTrue(queue["offline_manual_only"])
 
     def test_runner_uses_standard_library_and_no_runtime_network_trading_or_command_execution_imports(self):
         tree = ast.parse(RUNNER.read_text(encoding="utf-8"))
