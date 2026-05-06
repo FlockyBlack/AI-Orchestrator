@@ -48,6 +48,7 @@ codex_auto/runs/
 
 # PMBOT OpenRouter manual test runtime artifacts
 pm_bot/llm/openrouter_test_artifacts/
+pm_bot/llm/openrouter_adapter_dry_runs/
 
 # PMBOT ingest runtime payloads
 pm_bot/ingest/raw_snapshots/

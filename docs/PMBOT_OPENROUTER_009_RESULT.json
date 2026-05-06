@@ -1,0 +1,61 @@
+{
+  "task_id": "PMBOT-OPENROUTER-009-DRY-RUN-ADAPTER-SHELL",
+  "status": "completed",
+  "summary": "Created a dry-run-only OpenRouter adapter shell for PMBOT. It resolves prompt and packet paths, validates the inert 008 model profile reference, writes local ignored dry-run artifacts, and blocks network/manual-confirm behavior in task 009.",
+  "files_created": [
+    "pm_bot/llm/run_openrouter_adapter.py",
+    "tests/test_openrouter_adapter_shell.py",
+    "docs/PMBOT_OPENROUTER_009_DRY_RUN_ADAPTER_SHELL.md",
+    "docs/PMBOT_OPENROUTER_009_RESULT.json"
+  ],
+  "files_modified": [
+    ".gitignore"
+  ],
+  "tests_run": [
+    {
+      "command": "python -m compileall pm_bot",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest tests pm_bot\\llm\\tests -q",
+      "status": "passed",
+      "result": "256 passed"
+    },
+    {
+      "command": "python -m json.tool docs\\PMBOT_OPENROUTER_009_RESULT.json",
+      "status": "passed"
+    },
+    {
+      "command": "python -m json.tool pm_bot\\llm\\openrouter_adapter_contract.v1.json",
+      "status": "passed"
+    },
+    {
+      "command": "python pm_bot\\llm\\run_openrouter_adapter.py --market-id 563650 --dry-run",
+      "status": "passed",
+      "result": "dry_run_ready"
+    },
+    {
+      "command": "Select-String secret scan over docs, pm_bot\\llm, tests, and .gitignore",
+      "status": "passed",
+      "result": "Only pre-existing run_openrouter_prompt_test.py redaction/header construction and its existing test fixture matched; no matches in new adapter shell, new docs, new result JSON, or .gitignore."
+    }
+  ],
+  "safety": {
+    "analysis_only": true,
+    "manual_review_only": true,
+    "operator_gated": true,
+    "validator_gated": true,
+    "dry_run_only": true,
+    "no_network_calls": true,
+    "api_key_not_read": true,
+    "no_runtime_wiring": true,
+    "no_dispatcher_changes": true,
+    "no_wallet_or_orders": true,
+    "no_trading_decision": true,
+    "manual_only": true
+  },
+  "notes": [
+    "pytest emitted an ignored Windows temp cleanup PermissionError after reporting success."
+  ],
+  "next_action": "PMBOT-OPENROUTER-010-MANUAL-NETWORK-ADAPTER-PROPOSAL or PMBOT-OPENROUTER-010-MANUAL-NETWORK-ADAPTER-GATED-IMPLEMENTATION only after explicit operator approval"
+}
