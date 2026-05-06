@@ -358,15 +358,16 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertEqual(queue["parse_status"], "parsed")
         self.assertEqual(queue["queue_items_total"], source["queue_items_total"])
         self.assertEqual(queue["queue_status_counts"], source["queue_status_counts"])
-        self.assertEqual(queue["additional_ready_candidates_found"], 0)
+        self.assertEqual(queue["additional_ready_candidates_found"], 14)
         self.assertEqual(queue["errors_count"], len(source["errors"]))
         self.assertEqual(queue["warnings_count"], len(source["warnings"]))
-        self.assertEqual(queue["items"][0]["market_id"], "824952")
+        accepted_item = next(item for item in queue["items"] if item["market_id"] == "824952")
+        self.assertEqual(accepted_item["market_id"], "824952")
         self.assertEqual(
-            queue["items"][0]["review_queue_status"],
+            accepted_item["review_queue_status"],
             "response_accepted_for_operator_review",
         )
-        self.assertTrue(queue["items"][0]["response_present"])
+        self.assertTrue(accepted_item["response_present"])
         self.assertTrue(queue["offline_manual_only"])
         self.assertTrue(queue["not_truth_source"])
         self.assertTrue(queue["not_trading_advice"])
@@ -791,7 +792,8 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertIn("not truth evaluation, probability, EV, edge, side, or trading advice", markdown)
         self.assertIn("Manual LLM Review Queue", markdown)
         self.assertIn("artifact_pointer: pm_bot/llm/manual_llm_review_queue.v1.json", markdown)
-        self.assertIn("queue_items_total: 1", markdown)
+        self.assertIn("queue_items_total: 15", markdown)
+        self.assertIn("ready_for_manual_packet_export: 14", markdown)
         self.assertIn("response_accepted_for_operator_review: 1", markdown)
         self.assertIn("offline_manual_only: true", markdown)
         self.assertIn("Actual Manual LLM Response Trial", markdown)
@@ -820,7 +822,11 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertEqual(result["branch"], "codex/a-operator-review-pack-round003")
         self.assertEqual(result["base_commit"], "21edc9af372e9d1736afb0eccd3c016f23f2c144")
         self.assertFalse(result["forbidden_changes_detected"])
-        self.assertEqual(result["manual_llm_review_queue"]["queue_items_total"], 1)
+        self.assertEqual(result["manual_llm_review_queue"]["queue_items_total"], 15)
+        self.assertEqual(
+            result["manual_llm_review_queue"]["queue_status_counts"]["ready_for_manual_packet_export"],
+            14,
+        )
         self.assertEqual(
             result["manual_llm_review_queue"]["queue_status_counts"]["response_accepted_for_operator_review"],
             1,

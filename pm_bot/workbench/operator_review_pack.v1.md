@@ -302,10 +302,10 @@
 - artifact_status: present
 - artifact_pointer: pm_bot/llm/manual_llm_review_queue.v1.json
 - parse_status: parsed
-- queue_items_total: 1
-- additional_ready_candidates_found: 0
+- queue_items_total: 15
+- additional_ready_candidates_found: 14
 - errors_count: 0
-- warnings_count: 1
+- warnings_count: 0
 - offline_manual_only: true
 - not_truth_source: true
 - not_trading_advice: true
@@ -317,15 +317,31 @@
 
 ## Manual LLM Review Queue Status Counts
 
+- ready_for_manual_packet_export: 14
 - ready_for_manual_prompt_export: 0
 - waiting_for_operator_pasted_response: 0
 - response_accepted_for_operator_review: 1
 - response_rejected_needs_operator_fix: 0
 - blocked_missing_packet: 0
 - blocked_invalid_artifact: 0
+- blocked_missing_source_artifact: 0
 
 ## Manual LLM Review Queue Items
 
+- market_id=563650, status=ready_for_manual_packet_export, response_present=false, validation_status=not_run, quality_gate_status=not_run, operator_surface_review_status=not_available
+- market_id=569332, status=ready_for_manual_packet_export, response_present=false, validation_status=not_run, quality_gate_status=not_run, operator_surface_review_status=not_available
+- market_id=569333, status=ready_for_manual_packet_export, response_present=false, validation_status=not_run, quality_gate_status=not_run, operator_surface_review_status=not_available
+- market_id=569334, status=ready_for_manual_packet_export, response_present=false, validation_status=not_run, quality_gate_status=not_run, operator_surface_review_status=not_available
+- market_id=569343, status=ready_for_manual_packet_export, response_present=false, validation_status=not_run, quality_gate_status=not_run, operator_surface_review_status=not_available
+- market_id=569344, status=ready_for_manual_packet_export, response_present=false, validation_status=not_run, quality_gate_status=not_run, operator_surface_review_status=not_available
+- market_id=569366, status=ready_for_manual_packet_export, response_present=false, validation_status=not_run, quality_gate_status=not_run, operator_surface_review_status=not_available
+- market_id=569368, status=ready_for_manual_packet_export, response_present=false, validation_status=not_run, quality_gate_status=not_run, operator_surface_review_status=not_available
+- market_id=569373, status=ready_for_manual_packet_export, response_present=false, validation_status=not_run, quality_gate_status=not_run, operator_surface_review_status=not_available
+- market_id=573656, status=ready_for_manual_packet_export, response_present=false, validation_status=not_run, quality_gate_status=not_run, operator_surface_review_status=not_available
+- market_id=597964, status=ready_for_manual_packet_export, response_present=false, validation_status=not_run, quality_gate_status=not_run, operator_surface_review_status=not_available
+- market_id=598936, status=ready_for_manual_packet_export, response_present=false, validation_status=not_run, quality_gate_status=not_run, operator_surface_review_status=not_available
+- market_id=691547, status=ready_for_manual_packet_export, response_present=false, validation_status=not_run, quality_gate_status=not_run, operator_surface_review_status=not_available
+- market_id=692258, status=ready_for_manual_packet_export, response_present=false, validation_status=not_run, quality_gate_status=not_run, operator_surface_review_status=not_available
 - market_id=824952, status=response_accepted_for_operator_review, response_present=true, validation_status=accepted, quality_gate_status=quality_passed, operator_surface_review_status=operator_surface_review_passed
 
 ## Manual LLM Review Queue Safe Error Summary

@@ -81,7 +81,7 @@
 
 - artifact_path: pm_bot/llm/manual_llm_review_queue.v1.json
 - artifact_present: true
-- queue_items_total: 1
+- queue_items_total: 15
 - response_accepted_for_operator_review: 1
 - waiting_for_operator_pasted_response: 0
 - blocked_missing_packet: 0

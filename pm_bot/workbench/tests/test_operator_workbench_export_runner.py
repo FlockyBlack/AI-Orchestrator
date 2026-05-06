@@ -260,7 +260,8 @@ class OperatorWorkbenchExportRunnerTests(unittest.TestCase):
         queue = summary["manual_llm_review_queue"]
         self.assertEqual(queue["artifact_path"], "pm_bot/llm/manual_llm_review_queue.v1.json")
         self.assertTrue(queue["artifact_present"])
-        self.assertEqual(queue["queue_items_total"], 1)
+        self.assertEqual(queue["queue_items_total"], 15)
+        self.assertEqual(queue["queue_status_counts"]["ready_for_manual_packet_export"], 14)
         self.assertEqual(queue["queue_status_counts"]["response_accepted_for_operator_review"], 1)
         self.assertTrue(queue["offline_manual_only"])
 

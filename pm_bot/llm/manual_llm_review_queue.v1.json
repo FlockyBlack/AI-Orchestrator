@@ -1,24 +1,1253 @@
 {
   "schema_version": "manual_llm_review_queue.v1",
-  "task_id": "PMBOT-LLM-013-MULTI-MARKET-MANUAL-LLM-REVIEW-QUEUE",
+  "task_id": "PMBOT-LLM-014-MANUAL-PACKET-QUEUE-EXPANSION",
   "generated_by": "pm_bot/llm/export_manual_llm_review_queue.py",
   "generated_at": "deterministic-manual-llm-review-queue.v1",
   "deterministic": true,
-  "queue_items_total": 1,
+  "queue_items_total": 15,
   "queue_status_counts": {
+    "ready_for_manual_packet_export": 14,
     "ready_for_manual_prompt_export": 0,
     "waiting_for_operator_pasted_response": 0,
     "response_accepted_for_operator_review": 1,
     "response_rejected_needs_operator_fix": 0,
     "blocked_missing_packet": 0,
-    "blocked_invalid_artifact": 0
+    "blocked_invalid_artifact": 0,
+    "blocked_missing_source_artifact": 0
   },
   "items": [
+    {
+      "market_id": "563650",
+      "candidate_id": "final_dossier_draft_563650",
+      "candidate_source": "final_dossier_draft",
+      "candidate_source_type": "final_dossier_draft",
+      "source_artifact_path": "pm_bot/research/final_dossier_drafts.v1.json",
+      "source_artifact_paths": [
+        "pm_bot/research/final_dossier_drafts.v1.json",
+        "pm_bot/research/merged_manual_research_packets.v1.json",
+        "pm_bot/research/operator_review_queue.v1.json"
+      ],
+      "candidate_source_types": [
+        "final_dossier_draft",
+        "final_dossier_exported_market_id",
+        "merged_manual_research_packet",
+        "operator_review_queue_item"
+      ],
+      "source_count": 4,
+      "packet_path": "",
+      "packet_present": false,
+      "packet_parse_status": "not_provided",
+      "prompt_path": "",
+      "prompt_present": false,
+      "operator_response_path": "",
+      "operator_response_present": false,
+      "response_present": false,
+      "validation_status": "not_run",
+      "packet_validation_status": "not_run",
+      "response_validation_status": "not_run",
+      "quality_gate_status": "not_run",
+      "operator_surface_review_status": "not_available",
+      "acceptance_status": "not_available",
+      "run_status": "not_available",
+      "review_queue_status": "ready_for_manual_packet_export",
+      "next_safe_operator_action": "Create the local manual packet from the referenced local artifact, then rebuild the queue.",
+      "offline_manual_only": true,
+      "not_truth_source": true,
+      "not_trading_advice": true,
+      "not_execution_authority": true,
+      "artifact_checks": {
+        "source_artifact": {
+          "artifact_id": "source_artifact",
+          "path": "pm_bot/research/final_dossier_drafts.v1.json",
+          "required": false,
+          "present": true,
+          "parse_status": "parsed"
+        },
+        "packet": {
+          "artifact_id": "packet",
+          "path": "",
+          "required": true,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "prompt": {
+          "artifact_id": "prompt",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "operator_response": {
+          "artifact_id": "operator_response",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "actual_trial": {
+          "artifact_id": "actual_manual_llm_response_trial",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "operator_surface_review": {
+          "artifact_id": "operator_surface_review",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        }
+      },
+      "errors_count": 0,
+      "warnings_count": 0,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "market_id": "569332",
+      "candidate_id": "merged_manual_research_packet_569332",
+      "candidate_source": "merged_manual_research_packet",
+      "candidate_source_type": "merged_manual_research_packet",
+      "source_artifact_path": "pm_bot/research/merged_manual_research_packets.v1.json",
+      "source_artifact_paths": [
+        "pm_bot/research/merged_manual_research_packets.v1.json",
+        "pm_bot/research/operator_review_queue.v1.json"
+      ],
+      "candidate_source_types": [
+        "merged_manual_research_packet",
+        "operator_review_queue_item"
+      ],
+      "source_count": 2,
+      "packet_path": "",
+      "packet_present": false,
+      "packet_parse_status": "not_provided",
+      "prompt_path": "",
+      "prompt_present": false,
+      "operator_response_path": "",
+      "operator_response_present": false,
+      "response_present": false,
+      "validation_status": "not_run",
+      "packet_validation_status": "not_run",
+      "response_validation_status": "not_run",
+      "quality_gate_status": "not_run",
+      "operator_surface_review_status": "not_available",
+      "acceptance_status": "not_available",
+      "run_status": "not_available",
+      "review_queue_status": "ready_for_manual_packet_export",
+      "next_safe_operator_action": "Create the local manual packet from the referenced local artifact, then rebuild the queue.",
+      "offline_manual_only": true,
+      "not_truth_source": true,
+      "not_trading_advice": true,
+      "not_execution_authority": true,
+      "artifact_checks": {
+        "source_artifact": {
+          "artifact_id": "source_artifact",
+          "path": "pm_bot/research/merged_manual_research_packets.v1.json",
+          "required": false,
+          "present": true,
+          "parse_status": "parsed"
+        },
+        "packet": {
+          "artifact_id": "packet",
+          "path": "",
+          "required": true,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "prompt": {
+          "artifact_id": "prompt",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "operator_response": {
+          "artifact_id": "operator_response",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "actual_trial": {
+          "artifact_id": "actual_manual_llm_response_trial",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "operator_surface_review": {
+          "artifact_id": "operator_surface_review",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        }
+      },
+      "errors_count": 0,
+      "warnings_count": 0,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "market_id": "569333",
+      "candidate_id": "merged_manual_research_packet_569333",
+      "candidate_source": "merged_manual_research_packet",
+      "candidate_source_type": "merged_manual_research_packet",
+      "source_artifact_path": "pm_bot/research/merged_manual_research_packets.v1.json",
+      "source_artifact_paths": [
+        "pm_bot/research/merged_manual_research_packets.v1.json",
+        "pm_bot/research/operator_review_queue.v1.json"
+      ],
+      "candidate_source_types": [
+        "merged_manual_research_packet",
+        "operator_review_queue_item"
+      ],
+      "source_count": 2,
+      "packet_path": "",
+      "packet_present": false,
+      "packet_parse_status": "not_provided",
+      "prompt_path": "",
+      "prompt_present": false,
+      "operator_response_path": "",
+      "operator_response_present": false,
+      "response_present": false,
+      "validation_status": "not_run",
+      "packet_validation_status": "not_run",
+      "response_validation_status": "not_run",
+      "quality_gate_status": "not_run",
+      "operator_surface_review_status": "not_available",
+      "acceptance_status": "not_available",
+      "run_status": "not_available",
+      "review_queue_status": "ready_for_manual_packet_export",
+      "next_safe_operator_action": "Create the local manual packet from the referenced local artifact, then rebuild the queue.",
+      "offline_manual_only": true,
+      "not_truth_source": true,
+      "not_trading_advice": true,
+      "not_execution_authority": true,
+      "artifact_checks": {
+        "source_artifact": {
+          "artifact_id": "source_artifact",
+          "path": "pm_bot/research/merged_manual_research_packets.v1.json",
+          "required": false,
+          "present": true,
+          "parse_status": "parsed"
+        },
+        "packet": {
+          "artifact_id": "packet",
+          "path": "",
+          "required": true,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "prompt": {
+          "artifact_id": "prompt",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "operator_response": {
+          "artifact_id": "operator_response",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "actual_trial": {
+          "artifact_id": "actual_manual_llm_response_trial",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "operator_surface_review": {
+          "artifact_id": "operator_surface_review",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        }
+      },
+      "errors_count": 0,
+      "warnings_count": 0,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "market_id": "569334",
+      "candidate_id": "merged_manual_research_packet_569334",
+      "candidate_source": "merged_manual_research_packet",
+      "candidate_source_type": "merged_manual_research_packet",
+      "source_artifact_path": "pm_bot/research/merged_manual_research_packets.v1.json",
+      "source_artifact_paths": [
+        "pm_bot/research/merged_manual_research_packets.v1.json",
+        "pm_bot/research/operator_review_queue.v1.json"
+      ],
+      "candidate_source_types": [
+        "merged_manual_research_packet",
+        "operator_review_queue_item"
+      ],
+      "source_count": 2,
+      "packet_path": "",
+      "packet_present": false,
+      "packet_parse_status": "not_provided",
+      "prompt_path": "",
+      "prompt_present": false,
+      "operator_response_path": "",
+      "operator_response_present": false,
+      "response_present": false,
+      "validation_status": "not_run",
+      "packet_validation_status": "not_run",
+      "response_validation_status": "not_run",
+      "quality_gate_status": "not_run",
+      "operator_surface_review_status": "not_available",
+      "acceptance_status": "not_available",
+      "run_status": "not_available",
+      "review_queue_status": "ready_for_manual_packet_export",
+      "next_safe_operator_action": "Create the local manual packet from the referenced local artifact, then rebuild the queue.",
+      "offline_manual_only": true,
+      "not_truth_source": true,
+      "not_trading_advice": true,
+      "not_execution_authority": true,
+      "artifact_checks": {
+        "source_artifact": {
+          "artifact_id": "source_artifact",
+          "path": "pm_bot/research/merged_manual_research_packets.v1.json",
+          "required": false,
+          "present": true,
+          "parse_status": "parsed"
+        },
+        "packet": {
+          "artifact_id": "packet",
+          "path": "",
+          "required": true,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "prompt": {
+          "artifact_id": "prompt",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "operator_response": {
+          "artifact_id": "operator_response",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "actual_trial": {
+          "artifact_id": "actual_manual_llm_response_trial",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "operator_surface_review": {
+          "artifact_id": "operator_surface_review",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        }
+      },
+      "errors_count": 0,
+      "warnings_count": 0,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "market_id": "569343",
+      "candidate_id": "merged_manual_research_packet_569343",
+      "candidate_source": "merged_manual_research_packet",
+      "candidate_source_type": "merged_manual_research_packet",
+      "source_artifact_path": "pm_bot/research/merged_manual_research_packets.v1.json",
+      "source_artifact_paths": [
+        "pm_bot/research/merged_manual_research_packets.v1.json",
+        "pm_bot/research/operator_review_queue.v1.json"
+      ],
+      "candidate_source_types": [
+        "merged_manual_research_packet",
+        "operator_review_queue_item"
+      ],
+      "source_count": 2,
+      "packet_path": "",
+      "packet_present": false,
+      "packet_parse_status": "not_provided",
+      "prompt_path": "",
+      "prompt_present": false,
+      "operator_response_path": "",
+      "operator_response_present": false,
+      "response_present": false,
+      "validation_status": "not_run",
+      "packet_validation_status": "not_run",
+      "response_validation_status": "not_run",
+      "quality_gate_status": "not_run",
+      "operator_surface_review_status": "not_available",
+      "acceptance_status": "not_available",
+      "run_status": "not_available",
+      "review_queue_status": "ready_for_manual_packet_export",
+      "next_safe_operator_action": "Create the local manual packet from the referenced local artifact, then rebuild the queue.",
+      "offline_manual_only": true,
+      "not_truth_source": true,
+      "not_trading_advice": true,
+      "not_execution_authority": true,
+      "artifact_checks": {
+        "source_artifact": {
+          "artifact_id": "source_artifact",
+          "path": "pm_bot/research/merged_manual_research_packets.v1.json",
+          "required": false,
+          "present": true,
+          "parse_status": "parsed"
+        },
+        "packet": {
+          "artifact_id": "packet",
+          "path": "",
+          "required": true,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "prompt": {
+          "artifact_id": "prompt",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "operator_response": {
+          "artifact_id": "operator_response",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "actual_trial": {
+          "artifact_id": "actual_manual_llm_response_trial",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "operator_surface_review": {
+          "artifact_id": "operator_surface_review",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        }
+      },
+      "errors_count": 0,
+      "warnings_count": 0,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "market_id": "569344",
+      "candidate_id": "merged_manual_research_packet_569344",
+      "candidate_source": "merged_manual_research_packet",
+      "candidate_source_type": "merged_manual_research_packet",
+      "source_artifact_path": "pm_bot/research/merged_manual_research_packets.v1.json",
+      "source_artifact_paths": [
+        "pm_bot/research/merged_manual_research_packets.v1.json",
+        "pm_bot/research/operator_review_queue.v1.json"
+      ],
+      "candidate_source_types": [
+        "merged_manual_research_packet",
+        "operator_review_queue_item"
+      ],
+      "source_count": 2,
+      "packet_path": "",
+      "packet_present": false,
+      "packet_parse_status": "not_provided",
+      "prompt_path": "",
+      "prompt_present": false,
+      "operator_response_path": "",
+      "operator_response_present": false,
+      "response_present": false,
+      "validation_status": "not_run",
+      "packet_validation_status": "not_run",
+      "response_validation_status": "not_run",
+      "quality_gate_status": "not_run",
+      "operator_surface_review_status": "not_available",
+      "acceptance_status": "not_available",
+      "run_status": "not_available",
+      "review_queue_status": "ready_for_manual_packet_export",
+      "next_safe_operator_action": "Create the local manual packet from the referenced local artifact, then rebuild the queue.",
+      "offline_manual_only": true,
+      "not_truth_source": true,
+      "not_trading_advice": true,
+      "not_execution_authority": true,
+      "artifact_checks": {
+        "source_artifact": {
+          "artifact_id": "source_artifact",
+          "path": "pm_bot/research/merged_manual_research_packets.v1.json",
+          "required": false,
+          "present": true,
+          "parse_status": "parsed"
+        },
+        "packet": {
+          "artifact_id": "packet",
+          "path": "",
+          "required": true,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "prompt": {
+          "artifact_id": "prompt",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "operator_response": {
+          "artifact_id": "operator_response",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "actual_trial": {
+          "artifact_id": "actual_manual_llm_response_trial",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "operator_surface_review": {
+          "artifact_id": "operator_surface_review",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        }
+      },
+      "errors_count": 0,
+      "warnings_count": 0,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "market_id": "569366",
+      "candidate_id": "merged_manual_research_packet_569366",
+      "candidate_source": "merged_manual_research_packet",
+      "candidate_source_type": "merged_manual_research_packet",
+      "source_artifact_path": "pm_bot/research/merged_manual_research_packets.v1.json",
+      "source_artifact_paths": [
+        "pm_bot/research/merged_manual_research_packets.v1.json",
+        "pm_bot/research/operator_review_queue.v1.json"
+      ],
+      "candidate_source_types": [
+        "merged_manual_research_packet",
+        "operator_review_queue_item"
+      ],
+      "source_count": 2,
+      "packet_path": "",
+      "packet_present": false,
+      "packet_parse_status": "not_provided",
+      "prompt_path": "",
+      "prompt_present": false,
+      "operator_response_path": "",
+      "operator_response_present": false,
+      "response_present": false,
+      "validation_status": "not_run",
+      "packet_validation_status": "not_run",
+      "response_validation_status": "not_run",
+      "quality_gate_status": "not_run",
+      "operator_surface_review_status": "not_available",
+      "acceptance_status": "not_available",
+      "run_status": "not_available",
+      "review_queue_status": "ready_for_manual_packet_export",
+      "next_safe_operator_action": "Create the local manual packet from the referenced local artifact, then rebuild the queue.",
+      "offline_manual_only": true,
+      "not_truth_source": true,
+      "not_trading_advice": true,
+      "not_execution_authority": true,
+      "artifact_checks": {
+        "source_artifact": {
+          "artifact_id": "source_artifact",
+          "path": "pm_bot/research/merged_manual_research_packets.v1.json",
+          "required": false,
+          "present": true,
+          "parse_status": "parsed"
+        },
+        "packet": {
+          "artifact_id": "packet",
+          "path": "",
+          "required": true,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "prompt": {
+          "artifact_id": "prompt",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "operator_response": {
+          "artifact_id": "operator_response",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "actual_trial": {
+          "artifact_id": "actual_manual_llm_response_trial",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "operator_surface_review": {
+          "artifact_id": "operator_surface_review",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        }
+      },
+      "errors_count": 0,
+      "warnings_count": 0,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "market_id": "569368",
+      "candidate_id": "merged_manual_research_packet_569368",
+      "candidate_source": "merged_manual_research_packet",
+      "candidate_source_type": "merged_manual_research_packet",
+      "source_artifact_path": "pm_bot/research/merged_manual_research_packets.v1.json",
+      "source_artifact_paths": [
+        "pm_bot/research/merged_manual_research_packets.v1.json",
+        "pm_bot/research/operator_review_queue.v1.json"
+      ],
+      "candidate_source_types": [
+        "merged_manual_research_packet",
+        "operator_review_queue_item"
+      ],
+      "source_count": 2,
+      "packet_path": "",
+      "packet_present": false,
+      "packet_parse_status": "not_provided",
+      "prompt_path": "",
+      "prompt_present": false,
+      "operator_response_path": "",
+      "operator_response_present": false,
+      "response_present": false,
+      "validation_status": "not_run",
+      "packet_validation_status": "not_run",
+      "response_validation_status": "not_run",
+      "quality_gate_status": "not_run",
+      "operator_surface_review_status": "not_available",
+      "acceptance_status": "not_available",
+      "run_status": "not_available",
+      "review_queue_status": "ready_for_manual_packet_export",
+      "next_safe_operator_action": "Create the local manual packet from the referenced local artifact, then rebuild the queue.",
+      "offline_manual_only": true,
+      "not_truth_source": true,
+      "not_trading_advice": true,
+      "not_execution_authority": true,
+      "artifact_checks": {
+        "source_artifact": {
+          "artifact_id": "source_artifact",
+          "path": "pm_bot/research/merged_manual_research_packets.v1.json",
+          "required": false,
+          "present": true,
+          "parse_status": "parsed"
+        },
+        "packet": {
+          "artifact_id": "packet",
+          "path": "",
+          "required": true,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "prompt": {
+          "artifact_id": "prompt",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "operator_response": {
+          "artifact_id": "operator_response",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "actual_trial": {
+          "artifact_id": "actual_manual_llm_response_trial",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "operator_surface_review": {
+          "artifact_id": "operator_surface_review",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        }
+      },
+      "errors_count": 0,
+      "warnings_count": 0,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "market_id": "569373",
+      "candidate_id": "merged_manual_research_packet_569373",
+      "candidate_source": "merged_manual_research_packet",
+      "candidate_source_type": "merged_manual_research_packet",
+      "source_artifact_path": "pm_bot/research/merged_manual_research_packets.v1.json",
+      "source_artifact_paths": [
+        "pm_bot/research/merged_manual_research_packets.v1.json",
+        "pm_bot/research/operator_review_queue.v1.json"
+      ],
+      "candidate_source_types": [
+        "merged_manual_research_packet",
+        "operator_review_queue_item"
+      ],
+      "source_count": 2,
+      "packet_path": "",
+      "packet_present": false,
+      "packet_parse_status": "not_provided",
+      "prompt_path": "",
+      "prompt_present": false,
+      "operator_response_path": "",
+      "operator_response_present": false,
+      "response_present": false,
+      "validation_status": "not_run",
+      "packet_validation_status": "not_run",
+      "response_validation_status": "not_run",
+      "quality_gate_status": "not_run",
+      "operator_surface_review_status": "not_available",
+      "acceptance_status": "not_available",
+      "run_status": "not_available",
+      "review_queue_status": "ready_for_manual_packet_export",
+      "next_safe_operator_action": "Create the local manual packet from the referenced local artifact, then rebuild the queue.",
+      "offline_manual_only": true,
+      "not_truth_source": true,
+      "not_trading_advice": true,
+      "not_execution_authority": true,
+      "artifact_checks": {
+        "source_artifact": {
+          "artifact_id": "source_artifact",
+          "path": "pm_bot/research/merged_manual_research_packets.v1.json",
+          "required": false,
+          "present": true,
+          "parse_status": "parsed"
+        },
+        "packet": {
+          "artifact_id": "packet",
+          "path": "",
+          "required": true,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "prompt": {
+          "artifact_id": "prompt",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "operator_response": {
+          "artifact_id": "operator_response",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "actual_trial": {
+          "artifact_id": "actual_manual_llm_response_trial",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "operator_surface_review": {
+          "artifact_id": "operator_surface_review",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        }
+      },
+      "errors_count": 0,
+      "warnings_count": 0,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "market_id": "573656",
+      "candidate_id": "merged_manual_research_packet_573656",
+      "candidate_source": "merged_manual_research_packet",
+      "candidate_source_type": "merged_manual_research_packet",
+      "source_artifact_path": "pm_bot/research/merged_manual_research_packets.v1.json",
+      "source_artifact_paths": [
+        "pm_bot/research/merged_manual_research_packets.v1.json",
+        "pm_bot/research/operator_review_queue.v1.json"
+      ],
+      "candidate_source_types": [
+        "merged_manual_research_packet",
+        "operator_review_queue_item"
+      ],
+      "source_count": 2,
+      "packet_path": "",
+      "packet_present": false,
+      "packet_parse_status": "not_provided",
+      "prompt_path": "",
+      "prompt_present": false,
+      "operator_response_path": "",
+      "operator_response_present": false,
+      "response_present": false,
+      "validation_status": "not_run",
+      "packet_validation_status": "not_run",
+      "response_validation_status": "not_run",
+      "quality_gate_status": "not_run",
+      "operator_surface_review_status": "not_available",
+      "acceptance_status": "not_available",
+      "run_status": "not_available",
+      "review_queue_status": "ready_for_manual_packet_export",
+      "next_safe_operator_action": "Create the local manual packet from the referenced local artifact, then rebuild the queue.",
+      "offline_manual_only": true,
+      "not_truth_source": true,
+      "not_trading_advice": true,
+      "not_execution_authority": true,
+      "artifact_checks": {
+        "source_artifact": {
+          "artifact_id": "source_artifact",
+          "path": "pm_bot/research/merged_manual_research_packets.v1.json",
+          "required": false,
+          "present": true,
+          "parse_status": "parsed"
+        },
+        "packet": {
+          "artifact_id": "packet",
+          "path": "",
+          "required": true,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "prompt": {
+          "artifact_id": "prompt",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "operator_response": {
+          "artifact_id": "operator_response",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "actual_trial": {
+          "artifact_id": "actual_manual_llm_response_trial",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "operator_surface_review": {
+          "artifact_id": "operator_surface_review",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        }
+      },
+      "errors_count": 0,
+      "warnings_count": 0,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "market_id": "597964",
+      "candidate_id": "selected_ingest_merged_manual_research_packet_597964",
+      "candidate_source": "selected_ingest_merged_manual_research_packet",
+      "candidate_source_type": "selected_ingest_merged_manual_research_packet",
+      "source_artifact_path": "pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json",
+      "source_artifact_paths": [
+        "pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json",
+        "pm_bot/research/selected_ingest_operator_review_queue.v1.json",
+        "pm_bot/research/selected_ingest_research_packet_stubs.v1.json",
+        "pm_bot/research/selected_ingest_final_dossier_drafts.v1.json"
+      ],
+      "candidate_source_types": [
+        "selected_ingest_merged_manual_research_packet",
+        "selected_ingest_operator_review_queue_item",
+        "selected_ingest_research_packet_stub",
+        "selected_ingest_selected_market_id"
+      ],
+      "source_count": 4,
+      "packet_path": "",
+      "packet_present": false,
+      "packet_parse_status": "not_provided",
+      "prompt_path": "",
+      "prompt_present": false,
+      "operator_response_path": "",
+      "operator_response_present": false,
+      "response_present": false,
+      "validation_status": "not_run",
+      "packet_validation_status": "not_run",
+      "response_validation_status": "not_run",
+      "quality_gate_status": "not_run",
+      "operator_surface_review_status": "not_available",
+      "acceptance_status": "not_available",
+      "run_status": "not_available",
+      "review_queue_status": "ready_for_manual_packet_export",
+      "next_safe_operator_action": "Create the local manual packet from the referenced local artifact, then rebuild the queue.",
+      "offline_manual_only": true,
+      "not_truth_source": true,
+      "not_trading_advice": true,
+      "not_execution_authority": true,
+      "artifact_checks": {
+        "source_artifact": {
+          "artifact_id": "source_artifact",
+          "path": "pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json",
+          "required": false,
+          "present": true,
+          "parse_status": "parsed"
+        },
+        "packet": {
+          "artifact_id": "packet",
+          "path": "",
+          "required": true,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "prompt": {
+          "artifact_id": "prompt",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "operator_response": {
+          "artifact_id": "operator_response",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "actual_trial": {
+          "artifact_id": "actual_manual_llm_response_trial",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "operator_surface_review": {
+          "artifact_id": "operator_surface_review",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        }
+      },
+      "errors_count": 0,
+      "warnings_count": 0,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "market_id": "598936",
+      "candidate_id": "selected_ingest_merged_manual_research_packet_598936",
+      "candidate_source": "selected_ingest_merged_manual_research_packet",
+      "candidate_source_type": "selected_ingest_merged_manual_research_packet",
+      "source_artifact_path": "pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json",
+      "source_artifact_paths": [
+        "pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json",
+        "pm_bot/research/selected_ingest_operator_review_queue.v1.json",
+        "pm_bot/research/selected_ingest_research_packet_stubs.v1.json",
+        "pm_bot/research/selected_ingest_final_dossier_drafts.v1.json"
+      ],
+      "candidate_source_types": [
+        "selected_ingest_merged_manual_research_packet",
+        "selected_ingest_operator_review_queue_item",
+        "selected_ingest_research_packet_stub",
+        "selected_ingest_selected_market_id"
+      ],
+      "source_count": 4,
+      "packet_path": "",
+      "packet_present": false,
+      "packet_parse_status": "not_provided",
+      "prompt_path": "",
+      "prompt_present": false,
+      "operator_response_path": "",
+      "operator_response_present": false,
+      "response_present": false,
+      "validation_status": "not_run",
+      "packet_validation_status": "not_run",
+      "response_validation_status": "not_run",
+      "quality_gate_status": "not_run",
+      "operator_surface_review_status": "not_available",
+      "acceptance_status": "not_available",
+      "run_status": "not_available",
+      "review_queue_status": "ready_for_manual_packet_export",
+      "next_safe_operator_action": "Create the local manual packet from the referenced local artifact, then rebuild the queue.",
+      "offline_manual_only": true,
+      "not_truth_source": true,
+      "not_trading_advice": true,
+      "not_execution_authority": true,
+      "artifact_checks": {
+        "source_artifact": {
+          "artifact_id": "source_artifact",
+          "path": "pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json",
+          "required": false,
+          "present": true,
+          "parse_status": "parsed"
+        },
+        "packet": {
+          "artifact_id": "packet",
+          "path": "",
+          "required": true,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "prompt": {
+          "artifact_id": "prompt",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "operator_response": {
+          "artifact_id": "operator_response",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "actual_trial": {
+          "artifact_id": "actual_manual_llm_response_trial",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "operator_surface_review": {
+          "artifact_id": "operator_surface_review",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        }
+      },
+      "errors_count": 0,
+      "warnings_count": 0,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "market_id": "691547",
+      "candidate_id": "selected_ingest_merged_manual_research_packet_691547",
+      "candidate_source": "selected_ingest_merged_manual_research_packet",
+      "candidate_source_type": "selected_ingest_merged_manual_research_packet",
+      "source_artifact_path": "pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json",
+      "source_artifact_paths": [
+        "pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json",
+        "pm_bot/research/selected_ingest_operator_review_queue.v1.json",
+        "pm_bot/research/selected_ingest_research_packet_stubs.v1.json",
+        "pm_bot/research/selected_ingest_final_dossier_drafts.v1.json"
+      ],
+      "candidate_source_types": [
+        "selected_ingest_merged_manual_research_packet",
+        "selected_ingest_operator_review_queue_item",
+        "selected_ingest_research_packet_stub",
+        "selected_ingest_selected_market_id"
+      ],
+      "source_count": 4,
+      "packet_path": "",
+      "packet_present": false,
+      "packet_parse_status": "not_provided",
+      "prompt_path": "",
+      "prompt_present": false,
+      "operator_response_path": "",
+      "operator_response_present": false,
+      "response_present": false,
+      "validation_status": "not_run",
+      "packet_validation_status": "not_run",
+      "response_validation_status": "not_run",
+      "quality_gate_status": "not_run",
+      "operator_surface_review_status": "not_available",
+      "acceptance_status": "not_available",
+      "run_status": "not_available",
+      "review_queue_status": "ready_for_manual_packet_export",
+      "next_safe_operator_action": "Create the local manual packet from the referenced local artifact, then rebuild the queue.",
+      "offline_manual_only": true,
+      "not_truth_source": true,
+      "not_trading_advice": true,
+      "not_execution_authority": true,
+      "artifact_checks": {
+        "source_artifact": {
+          "artifact_id": "source_artifact",
+          "path": "pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json",
+          "required": false,
+          "present": true,
+          "parse_status": "parsed"
+        },
+        "packet": {
+          "artifact_id": "packet",
+          "path": "",
+          "required": true,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "prompt": {
+          "artifact_id": "prompt",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "operator_response": {
+          "artifact_id": "operator_response",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "actual_trial": {
+          "artifact_id": "actual_manual_llm_response_trial",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "operator_surface_review": {
+          "artifact_id": "operator_surface_review",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        }
+      },
+      "errors_count": 0,
+      "warnings_count": 0,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "market_id": "692258",
+      "candidate_id": "selected_ingest_merged_manual_research_packet_692258",
+      "candidate_source": "selected_ingest_merged_manual_research_packet",
+      "candidate_source_type": "selected_ingest_merged_manual_research_packet",
+      "source_artifact_path": "pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json",
+      "source_artifact_paths": [
+        "pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json",
+        "pm_bot/research/selected_ingest_operator_review_queue.v1.json",
+        "pm_bot/research/selected_ingest_research_packet_stubs.v1.json",
+        "pm_bot/research/selected_ingest_final_dossier_drafts.v1.json"
+      ],
+      "candidate_source_types": [
+        "selected_ingest_merged_manual_research_packet",
+        "selected_ingest_operator_review_queue_item",
+        "selected_ingest_research_packet_stub",
+        "selected_ingest_selected_market_id"
+      ],
+      "source_count": 4,
+      "packet_path": "",
+      "packet_present": false,
+      "packet_parse_status": "not_provided",
+      "prompt_path": "",
+      "prompt_present": false,
+      "operator_response_path": "",
+      "operator_response_present": false,
+      "response_present": false,
+      "validation_status": "not_run",
+      "packet_validation_status": "not_run",
+      "response_validation_status": "not_run",
+      "quality_gate_status": "not_run",
+      "operator_surface_review_status": "not_available",
+      "acceptance_status": "not_available",
+      "run_status": "not_available",
+      "review_queue_status": "ready_for_manual_packet_export",
+      "next_safe_operator_action": "Create the local manual packet from the referenced local artifact, then rebuild the queue.",
+      "offline_manual_only": true,
+      "not_truth_source": true,
+      "not_trading_advice": true,
+      "not_execution_authority": true,
+      "artifact_checks": {
+        "source_artifact": {
+          "artifact_id": "source_artifact",
+          "path": "pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json",
+          "required": false,
+          "present": true,
+          "parse_status": "parsed"
+        },
+        "packet": {
+          "artifact_id": "packet",
+          "path": "",
+          "required": true,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "prompt": {
+          "artifact_id": "prompt",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "operator_response": {
+          "artifact_id": "operator_response",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "actual_trial": {
+          "artifact_id": "actual_manual_llm_response_trial",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        },
+        "operator_surface_review": {
+          "artifact_id": "operator_surface_review",
+          "path": "",
+          "required": false,
+          "present": false,
+          "parse_status": "not_provided"
+        }
+      },
+      "errors_count": 0,
+      "warnings_count": 0,
+      "errors": [],
+      "warnings": []
+    },
     {
       "market_id": "824952",
       "candidate_id": "actual_manual_llm_response_trial_824952",
       "candidate_source": "actual_manual_llm_response_trial",
+      "candidate_source_type": "actual_manual_llm_response_trial",
       "source_artifact_path": "pm_bot/research/selected_ingest_final_dossier_drafts.v1.json",
+      "source_artifact_paths": [
+        "pm_bot/research/selected_ingest_final_dossier_drafts.v1.json",
+        "pm_bot/llm/real_local_market_llm_trial_packet.v1.json",
+        "pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json",
+        "pm_bot/research/selected_ingest_operator_review_queue.v1.json",
+        "pm_bot/research/selected_ingest_research_packet_stubs.v1.json"
+      ],
+      "candidate_source_types": [
+        "actual_manual_llm_response_trial",
+        "llm_packet_artifact",
+        "selected_ingest_final_dossier_draft",
+        "selected_ingest_merged_manual_research_packet",
+        "selected_ingest_operator_review_queue_item",
+        "selected_ingest_research_packet_stub",
+        "selected_ingest_selected_market_id"
+      ],
+      "source_count": 7,
       "packet_path": "pm_bot/llm/real_local_market_llm_trial_packet.v1.json",
       "packet_present": true,
       "packet_parse_status": "parsed",
@@ -100,6 +1329,20 @@
         "parse_status": "parsed"
       },
       {
+        "artifact_id": "actual_manual_llm_response_surface_operator_review",
+        "path": "pm_bot/llm/actual_manual_llm_response_surface_operator_review.v1.json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed"
+      },
+      {
+        "artifact_id": "operator_review_pack",
+        "path": "pm_bot/workbench/operator_review_pack.v1.json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed"
+      },
+      {
         "artifact_id": "selected_ingest_final_dossier_drafts",
         "path": "pm_bot/research/selected_ingest_final_dossier_drafts.v1.json",
         "required": false,
@@ -107,8 +1350,85 @@
         "parse_status": "parsed"
       },
       {
-        "artifact_id": "actual_manual_llm_response_surface_operator_review",
-        "path": "pm_bot/llm/actual_manual_llm_response_surface_operator_review.v1.json",
+        "artifact_id": "final_dossier_drafts",
+        "path": "pm_bot/research/final_dossier_drafts.v1.json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed"
+      },
+      {
+        "artifact_id": "selected_ingest_merged_manual_research_packets",
+        "path": "pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed"
+      },
+      {
+        "artifact_id": "merged_manual_research_packets",
+        "path": "pm_bot/research/merged_manual_research_packets.v1.json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed"
+      },
+      {
+        "artifact_id": "selected_ingest_research_packet_stubs",
+        "path": "pm_bot/research/selected_ingest_research_packet_stubs.v1.json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed"
+      },
+      {
+        "artifact_id": "operator_review_queue",
+        "path": "pm_bot/research/operator_review_queue.v1.json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed"
+      },
+      {
+        "artifact_id": "selected_ingest_operator_review_queue",
+        "path": "pm_bot/research/selected_ingest_operator_review_queue.v1.json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed"
+      },
+      {
+        "artifact_id": "llm_packet_artifact",
+        "path": "pm_bot/llm/example_llm_analysis_packet.v1.json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed"
+      },
+      {
+        "artifact_id": "llm_packet_artifact",
+        "path": "pm_bot/llm/expected_real_manual_llm_market_packet_trial.v1.json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed"
+      },
+      {
+        "artifact_id": "llm_packet_artifact",
+        "path": "pm_bot/llm/real_local_market_llm_trial_packet.v1.json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed"
+      },
+      {
+        "artifact_id": "llm_packet_artifact",
+        "path": "pm_bot/llm/real_manual_llm_market_packet_trial.v1.json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed"
+      },
+      {
+        "artifact_id": "llm_packet_artifact",
+        "path": "pm_bot/llm/real_manual_llm_market_packet_trial_packet.v1.json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed"
+      },
+      {
+        "artifact_id": "llm_packet_artifact",
+        "path": "pm_bot/llm/real_manual_llm_market_packet_trial_response_example.v1.json",
         "required": false,
         "present": true,
         "parse_status": "parsed"
@@ -130,19 +1450,131 @@
     "exported_market_ids": [
       "824952"
     ],
-    "candidate_policy": "Only markets with an existing local LLM packet or accepted actual manual response artifact become queue items.",
-    "additional_ready_candidates_found": 0,
-    "additional_ready_candidate_market_ids": []
+    "candidate_policy": "Deterministically inventories non-example local PMBOT packet, research, dossier, and operator-review artifacts; no external data, ranking, or outcome inference is used.",
+    "candidate_market_ids": [
+      "563650",
+      "569332",
+      "569333",
+      "569334",
+      "569343",
+      "569344",
+      "569366",
+      "569368",
+      "569373",
+      "573656",
+      "597964",
+      "598936",
+      "691547",
+      "692258",
+      "824952"
+    ],
+    "deduplicated_candidate_market_ids": [
+      "563650",
+      "569332",
+      "569333",
+      "569334",
+      "569343",
+      "569344",
+      "569366",
+      "569368",
+      "569373",
+      "573656",
+      "597964",
+      "598936",
+      "691547",
+      "692258",
+      "824952"
+    ],
+    "deduplicated_candidates_total": 15,
+    "source_count_by_type": {
+      "actual_manual_llm_response_trial": 1,
+      "final_dossier_draft": 1,
+      "final_dossier_exported_market_id": 1,
+      "llm_packet_artifact": 1,
+      "merged_manual_research_packet": 10,
+      "operator_review_queue_item": 10,
+      "selected_ingest_final_dossier_draft": 1,
+      "selected_ingest_merged_manual_research_packet": 5,
+      "selected_ingest_operator_review_queue_item": 5,
+      "selected_ingest_research_packet_stub": 5,
+      "selected_ingest_selected_market_id": 5
+    },
+    "added_candidate_market_ids": [
+      "563650",
+      "569332",
+      "569333",
+      "569334",
+      "569343",
+      "569344",
+      "569366",
+      "569368",
+      "569373",
+      "573656",
+      "597964",
+      "598936",
+      "691547",
+      "692258"
+    ],
+    "additional_ready_candidates_found": 14,
+    "additional_ready_candidate_market_ids": [
+      "563650",
+      "569332",
+      "569333",
+      "569334",
+      "569343",
+      "569344",
+      "569366",
+      "569368",
+      "569373",
+      "573656",
+      "597964",
+      "598936",
+      "691547",
+      "692258"
+    ],
+    "skipped_candidate_count": 6,
+    "skipped_candidates": [
+      {
+        "reason": "example_or_demo_packet_excluded",
+        "source_artifact_path": "pm_bot/llm/example_llm_analysis_packet.v1.json",
+        "market_id": "demo-market-001",
+        "candidate_source_type": "llm_packet_artifact"
+      },
+      {
+        "reason": "non_llm_analysis_packet_excluded",
+        "source_artifact_path": "pm_bot/llm/expected_real_manual_llm_market_packet_trial.v1.json",
+        "market_id": "",
+        "candidate_source_type": "llm_packet_artifact"
+      },
+      {
+        "reason": "schema_packet_artifact_excluded",
+        "source_artifact_path": "pm_bot/llm/llm_analysis_packet_schema.v1.json",
+        "market_id": "",
+        "candidate_source_type": "llm_packet_artifact"
+      },
+      {
+        "reason": "non_llm_analysis_packet_excluded",
+        "source_artifact_path": "pm_bot/llm/real_manual_llm_market_packet_trial.v1.json",
+        "market_id": "",
+        "candidate_source_type": "llm_packet_artifact"
+      },
+      {
+        "reason": "example_or_demo_packet_excluded",
+        "source_artifact_path": "pm_bot/llm/real_manual_llm_market_packet_trial_packet.v1.json",
+        "market_id": "example-pmbot-llm-007-market",
+        "candidate_source_type": "llm_packet_artifact"
+      },
+      {
+        "reason": "non_llm_analysis_packet_excluded",
+        "source_artifact_path": "pm_bot/llm/real_manual_llm_market_packet_trial_response_example.v1.json",
+        "market_id": "",
+        "candidate_source_type": "llm_packet_artifact"
+      }
+    ]
   },
   "forbidden_status_action_findings": [],
   "errors": [],
-  "warnings": [
-    {
-      "code": "no_additional_ready_candidates_found",
-      "path": "pm_bot/research/selected_ingest_final_dossier_drafts.v1.json",
-      "message": "No additional safe local packet candidates were found beyond existing queue items."
-    }
-  ],
+  "warnings": [],
   "safety_flags": {
     "offline_manual_only": true,
     "not_truth_source": true,
@@ -156,12 +1588,11 @@
     "prompt_automation": false,
     "runtime_wiring": false,
     "dispatcher_run_codex_changes": false,
-    "credentials_or_wallet": false,
-    "real_orders_or_live_trading": false,
-    "autonomous_paper_orders": false,
-    "probability_ev_scoring_or_edge": false,
-    "side_recommendations": false,
-    "market_decision_logic": false,
+    "sensitive_access_material": false,
+    "live_market_actions": false,
+    "autonomous_simulated_actions": false,
+    "value_estimate_or_advantage_analysis": false,
+    "outcome_selection": false,
     "truth_evaluation": false,
     "execution_authority": false
   },
@@ -170,7 +1601,6 @@
   "browser_automation": false,
   "prompt_automation": false,
   "runtime_wiring": false,
-  "orders_created": 0,
   "truth_inference": false,
-  "next_safe_operator_action": "Add future markets only after an offline local packet exists, then rerun this queue exporter."
+  "next_safe_operator_action": "Use ready local candidates only for manual packet export, then rerun this queue exporter."
 }

@@ -1,0 +1,319 @@
+{
+  "task_id": "PMBOT-LLM-014-MANUAL-PACKET-QUEUE-EXPANSION",
+  "status": "completed_ready_for_review",
+  "queue_artifact": "pm_bot/llm/manual_llm_review_queue.v1.json",
+  "queue_markdown": "pm_bot/llm/manual_llm_review_queue.v1.md",
+  "expected_queue_fixture": "pm_bot/llm/expected_manual_llm_review_queue.v1.json",
+  "doc_markdown": "docs/PMBOT_LLM_014_MANUAL_PACKET_QUEUE_EXPANSION.md",
+  "queue_items_total": 15,
+  "queue_status_counts": {
+    "ready_for_manual_packet_export": 14,
+    "ready_for_manual_prompt_export": 0,
+    "waiting_for_operator_pasted_response": 0,
+    "response_accepted_for_operator_review": 1,
+    "response_rejected_needs_operator_fix": 0,
+    "blocked_missing_packet": 0,
+    "blocked_invalid_artifact": 0,
+    "blocked_missing_source_artifact": 0
+  },
+  "candidate_discovery": {
+    "source_artifacts_checked": [
+      {
+        "artifact_id": "actual_manual_llm_response_trial",
+        "path": "pm_bot/llm/actual_manual_llm_response_trial.v1.json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed"
+      },
+      {
+        "artifact_id": "actual_manual_llm_response_surface_operator_review",
+        "path": "pm_bot/llm/actual_manual_llm_response_surface_operator_review.v1.json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed"
+      },
+      {
+        "artifact_id": "operator_review_pack",
+        "path": "pm_bot/workbench/operator_review_pack.v1.json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed"
+      },
+      {
+        "artifact_id": "selected_ingest_final_dossier_drafts",
+        "path": "pm_bot/research/selected_ingest_final_dossier_drafts.v1.json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed"
+      },
+      {
+        "artifact_id": "final_dossier_drafts",
+        "path": "pm_bot/research/final_dossier_drafts.v1.json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed"
+      },
+      {
+        "artifact_id": "selected_ingest_merged_manual_research_packets",
+        "path": "pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed"
+      },
+      {
+        "artifact_id": "merged_manual_research_packets",
+        "path": "pm_bot/research/merged_manual_research_packets.v1.json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed"
+      },
+      {
+        "artifact_id": "selected_ingest_research_packet_stubs",
+        "path": "pm_bot/research/selected_ingest_research_packet_stubs.v1.json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed"
+      },
+      {
+        "artifact_id": "operator_review_queue",
+        "path": "pm_bot/research/operator_review_queue.v1.json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed"
+      },
+      {
+        "artifact_id": "selected_ingest_operator_review_queue",
+        "path": "pm_bot/research/selected_ingest_operator_review_queue.v1.json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed"
+      },
+      {
+        "artifact_id": "llm_packet_artifact",
+        "path": "pm_bot/llm/example_llm_analysis_packet.v1.json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed"
+      },
+      {
+        "artifact_id": "llm_packet_artifact",
+        "path": "pm_bot/llm/expected_real_manual_llm_market_packet_trial.v1.json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed"
+      },
+      {
+        "artifact_id": "llm_packet_artifact",
+        "path": "pm_bot/llm/real_local_market_llm_trial_packet.v1.json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed"
+      },
+      {
+        "artifact_id": "llm_packet_artifact",
+        "path": "pm_bot/llm/real_manual_llm_market_packet_trial.v1.json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed"
+      },
+      {
+        "artifact_id": "llm_packet_artifact",
+        "path": "pm_bot/llm/real_manual_llm_market_packet_trial_packet.v1.json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed"
+      },
+      {
+        "artifact_id": "llm_packet_artifact",
+        "path": "pm_bot/llm/real_manual_llm_market_packet_trial_response_example.v1.json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed"
+      }
+    ],
+    "actual_trial_candidate_found": true,
+    "selected_ingest_markets_seen": 5,
+    "selected_ingest_market_ids": [
+      "597964",
+      "598936",
+      "691547",
+      "692258",
+      "824952"
+    ],
+    "final_dossier_drafts_seen": 1,
+    "final_dossier_draft_market_ids": [
+      "824952"
+    ],
+    "exported_market_ids": [
+      "824952"
+    ],
+    "candidate_policy": "Deterministically inventories non-example local PMBOT packet, research, dossier, and operator-review artifacts; no external data, ranking, or outcome inference is used.",
+    "candidate_market_ids": [
+      "563650",
+      "569332",
+      "569333",
+      "569334",
+      "569343",
+      "569344",
+      "569366",
+      "569368",
+      "569373",
+      "573656",
+      "597964",
+      "598936",
+      "691547",
+      "692258",
+      "824952"
+    ],
+    "deduplicated_candidate_market_ids": [
+      "563650",
+      "569332",
+      "569333",
+      "569334",
+      "569343",
+      "569344",
+      "569366",
+      "569368",
+      "569373",
+      "573656",
+      "597964",
+      "598936",
+      "691547",
+      "692258",
+      "824952"
+    ],
+    "deduplicated_candidates_total": 15,
+    "source_count_by_type": {
+      "actual_manual_llm_response_trial": 1,
+      "final_dossier_draft": 1,
+      "final_dossier_exported_market_id": 1,
+      "llm_packet_artifact": 1,
+      "merged_manual_research_packet": 10,
+      "operator_review_queue_item": 10,
+      "selected_ingest_final_dossier_draft": 1,
+      "selected_ingest_merged_manual_research_packet": 5,
+      "selected_ingest_operator_review_queue_item": 5,
+      "selected_ingest_research_packet_stub": 5,
+      "selected_ingest_selected_market_id": 5
+    },
+    "added_candidate_market_ids": [
+      "563650",
+      "569332",
+      "569333",
+      "569334",
+      "569343",
+      "569344",
+      "569366",
+      "569368",
+      "569373",
+      "573656",
+      "597964",
+      "598936",
+      "691547",
+      "692258"
+    ],
+    "additional_ready_candidates_found": 14,
+    "additional_ready_candidate_market_ids": [
+      "563650",
+      "569332",
+      "569333",
+      "569334",
+      "569343",
+      "569344",
+      "569366",
+      "569368",
+      "569373",
+      "573656",
+      "597964",
+      "598936",
+      "691547",
+      "692258"
+    ],
+    "skipped_candidate_count": 6,
+    "skipped_candidates": [
+      {
+        "reason": "example_or_demo_packet_excluded",
+        "source_artifact_path": "pm_bot/llm/example_llm_analysis_packet.v1.json",
+        "market_id": "demo-market-001",
+        "candidate_source_type": "llm_packet_artifact"
+      },
+      {
+        "reason": "non_llm_analysis_packet_excluded",
+        "source_artifact_path": "pm_bot/llm/expected_real_manual_llm_market_packet_trial.v1.json",
+        "market_id": "",
+        "candidate_source_type": "llm_packet_artifact"
+      },
+      {
+        "reason": "schema_packet_artifact_excluded",
+        "source_artifact_path": "pm_bot/llm/llm_analysis_packet_schema.v1.json",
+        "market_id": "",
+        "candidate_source_type": "llm_packet_artifact"
+      },
+      {
+        "reason": "non_llm_analysis_packet_excluded",
+        "source_artifact_path": "pm_bot/llm/real_manual_llm_market_packet_trial.v1.json",
+        "market_id": "",
+        "candidate_source_type": "llm_packet_artifact"
+      },
+      {
+        "reason": "example_or_demo_packet_excluded",
+        "source_artifact_path": "pm_bot/llm/real_manual_llm_market_packet_trial_packet.v1.json",
+        "market_id": "example-pmbot-llm-007-market",
+        "candidate_source_type": "llm_packet_artifact"
+      },
+      {
+        "reason": "non_llm_analysis_packet_excluded",
+        "source_artifact_path": "pm_bot/llm/real_manual_llm_market_packet_trial_response_example.v1.json",
+        "market_id": "",
+        "candidate_source_type": "llm_packet_artifact"
+      }
+    ]
+  },
+  "added_candidate_market_ids": [
+    "563650",
+    "569332",
+    "569333",
+    "569334",
+    "569343",
+    "569344",
+    "569366",
+    "569368",
+    "569373",
+    "573656",
+    "597964",
+    "598936",
+    "691547",
+    "692258"
+  ],
+  "skipped_candidate_count": 6,
+  "warnings": [],
+  "blockers": [],
+  "safety_flags": {
+    "offline_manual_only": true,
+    "not_truth_source": true,
+    "not_trading_advice": true,
+    "not_execution_authority": true,
+    "deterministic": true,
+    "local_file_reads_only": true,
+    "llm_api": false,
+    "network_api": false,
+    "browser_automation": false,
+    "prompt_automation": false,
+    "runtime_wiring": false,
+    "dispatcher_run_codex_changes": false,
+    "sensitive_access_material": false,
+    "live_market_actions": false,
+    "autonomous_simulated_actions": false,
+    "value_estimate_or_advantage_analysis": false,
+    "outcome_selection": false,
+    "truth_evaluation": false,
+    "execution_authority": false
+  },
+  "network_calls": 0,
+  "llm_api_calls": 0,
+  "browser_automation": false,
+  "prompt_automation": false,
+  "runtime_wiring": false,
+  "truth_inference": false,
+  "next_recommended_task": "PMBOT-LLM-015-MANUAL-PACKET-BATCH-EXPORT"
+}

@@ -74,14 +74,16 @@
   },
   "manual_llm_review_queue": {
     "artifact_present": true,
-    "queue_items_total": 1,
+    "queue_items_total": 15,
     "queue_status_counts": {
+      "ready_for_manual_packet_export": 14,
       "ready_for_manual_prompt_export": 0,
       "waiting_for_operator_pasted_response": 0,
       "response_accepted_for_operator_review": 1,
       "response_rejected_needs_operator_fix": 0,
       "blocked_missing_packet": 0,
-      "blocked_invalid_artifact": 0
+      "blocked_invalid_artifact": 0,
+      "blocked_missing_source_artifact": 0
     },
     "offline_manual_only": true,
     "not_truth_source": true,

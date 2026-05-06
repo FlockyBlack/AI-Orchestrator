@@ -14,25 +14,29 @@ from pm_bot.llm import evaluate_manual_llm_review_quality_gate as quality_gate  
 from pm_bot.llm import validate_llm_analysis_artifacts as validator  # noqa: E402
 
 
-TASK_ID = "PMBOT-LLM-013-MULTI-MARKET-MANUAL-LLM-REVIEW-QUEUE"
+TASK_ID = "PMBOT-LLM-014-MANUAL-PACKET-QUEUE-EXPANSION"
 QUEUE_SCHEMA_VERSION = "manual_llm_review_queue.v1"
 GENERATED_BY = "pm_bot/llm/export_manual_llm_review_queue.py"
 DETERMINISTIC_GENERATED_AT = "deterministic-manual-llm-review-queue.v1"
 
+READY_FOR_PACKET_EXPORT = "ready_for_manual_packet_export"
 READY_FOR_PROMPT_EXPORT = "ready_for_manual_prompt_export"
 WAITING_FOR_RESPONSE = "waiting_for_operator_pasted_response"
 RESPONSE_ACCEPTED = "response_accepted_for_operator_review"
 RESPONSE_REJECTED = "response_rejected_needs_operator_fix"
 BLOCKED_MISSING_PACKET = "blocked_missing_packet"
 BLOCKED_INVALID_ARTIFACT = "blocked_invalid_artifact"
+BLOCKED_MISSING_SOURCE_ARTIFACT = "blocked_missing_source_artifact"
 
 QUEUE_STATUSES = (
+    READY_FOR_PACKET_EXPORT,
     READY_FOR_PROMPT_EXPORT,
     WAITING_FOR_RESPONSE,
     RESPONSE_ACCEPTED,
     RESPONSE_REJECTED,
     BLOCKED_MISSING_PACKET,
     BLOCKED_INVALID_ARTIFACT,
+    BLOCKED_MISSING_SOURCE_ARTIFACT,
 )
 
 NOT_AVAILABLE = "not_available"
@@ -45,12 +49,74 @@ DEFAULT_OPERATOR_RESPONSE_PATH = "pm_bot/llm/real_local_market_llm_trial_respons
 DEFAULT_ACTUAL_TRIAL_PATH = "pm_bot/llm/actual_manual_llm_response_trial.v1.json"
 DEFAULT_SURFACE_REVIEW_PATH = "pm_bot/llm/actual_manual_llm_response_surface_operator_review.v1.json"
 DEFAULT_SELECTED_DOSSIERS_PATH = "pm_bot/research/selected_ingest_final_dossier_drafts.v1.json"
+DEFAULT_WORKBENCH_REVIEW_PACK_PATH = "pm_bot/workbench/operator_review_pack.v1.json"
+
+APPROVED_RESEARCH_CANDIDATE_SOURCES = (
+    {
+        "artifact_id": "selected_ingest_final_dossier_drafts",
+        "path": DEFAULT_SELECTED_DOSSIERS_PATH,
+        "object_fields": (("final_dossier_drafts", "selected_ingest_final_dossier_draft"),),
+        "market_id_fields": (("selected_market_ids", "selected_ingest_selected_market_id"),),
+    },
+    {
+        "artifact_id": "final_dossier_drafts",
+        "path": "pm_bot/research/final_dossier_drafts.v1.json",
+        "object_fields": (("final_dossier_drafts", "final_dossier_draft"),),
+        "market_id_fields": (("exported_market_ids", "final_dossier_exported_market_id"),),
+    },
+    {
+        "artifact_id": "selected_ingest_merged_manual_research_packets",
+        "path": "pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json",
+        "object_fields": (("packets", "selected_ingest_merged_manual_research_packet"),),
+        "market_id_fields": (),
+    },
+    {
+        "artifact_id": "merged_manual_research_packets",
+        "path": "pm_bot/research/merged_manual_research_packets.v1.json",
+        "object_fields": (("packets", "merged_manual_research_packet"),),
+        "market_id_fields": (),
+    },
+    {
+        "artifact_id": "selected_ingest_research_packet_stubs",
+        "path": "pm_bot/research/selected_ingest_research_packet_stubs.v1.json",
+        "object_fields": (("packet_stubs", "selected_ingest_research_packet_stub"),),
+        "market_id_fields": (),
+    },
+    {
+        "artifact_id": "operator_review_queue",
+        "path": "pm_bot/research/operator_review_queue.v1.json",
+        "object_fields": (),
+        "market_id_fields": (),
+        "group_source_type": "operator_review_queue_item",
+    },
+    {
+        "artifact_id": "selected_ingest_operator_review_queue",
+        "path": "pm_bot/research/selected_ingest_operator_review_queue.v1.json",
+        "object_fields": (),
+        "market_id_fields": (),
+        "group_source_type": "selected_ingest_operator_review_queue_item",
+    },
+)
+
+CANDIDATE_SOURCE_PRIORITY = {
+    "actual_manual_llm_response_trial": 0,
+    "llm_packet_artifact": 10,
+    "selected_ingest_final_dossier_draft": 20,
+    "final_dossier_draft": 30,
+    "final_dossier_exported_market_id": 31,
+    "selected_ingest_merged_manual_research_packet": 40,
+    "merged_manual_research_packet": 50,
+    "selected_ingest_operator_review_queue_item": 60,
+    "operator_review_queue_item": 70,
+    "selected_ingest_research_packet_stub": 80,
+    "selected_ingest_selected_market_id": 90,
+}
 
 DEFAULT_OUT_JSON = "pm_bot/llm/manual_llm_review_queue.v1.json"
 DEFAULT_OUT_MD = "pm_bot/llm/manual_llm_review_queue.v1.md"
 DEFAULT_EXPECTED_JSON = "pm_bot/llm/expected_manual_llm_review_queue.v1.json"
-DEFAULT_DOC_RESULT_JSON = "docs/PMBOT_LLM_013_RESULT.json"
-DEFAULT_DOC_MD = "docs/PMBOT_LLM_013_MULTI_MARKET_MANUAL_LLM_REVIEW_QUEUE.md"
+DEFAULT_DOC_RESULT_JSON = "docs/PMBOT_LLM_014_RESULT.json"
+DEFAULT_DOC_MD = "docs/PMBOT_LLM_014_MANUAL_PACKET_QUEUE_EXPANSION.md"
 
 SAFETY_FLAGS = {
     "offline_manual_only": True,
@@ -65,17 +131,19 @@ SAFETY_FLAGS = {
     "prompt_automation": False,
     "runtime_wiring": False,
     "dispatcher_run_codex_changes": False,
-    "credentials_or_wallet": False,
-    "real_orders_or_live_trading": False,
-    "autonomous_paper_orders": False,
-    "probability_ev_scoring_or_edge": False,
-    "side_recommendations": False,
-    "market_decision_logic": False,
+    "sensitive_access_material": False,
+    "live_market_actions": False,
+    "autonomous_simulated_actions": False,
+    "value_estimate_or_advantage_analysis": False,
+    "outcome_selection": False,
     "truth_evaluation": False,
     "execution_authority": False,
 }
 
 NEXT_ACTION_BY_STATUS = {
+    READY_FOR_PACKET_EXPORT: (
+        "Create the local manual packet from the referenced local artifact, then rebuild the queue."
+    ),
     READY_FOR_PROMPT_EXPORT: (
         "Export the local manual prompt from the packet, then wait for a human-pasted JSON response."
     ),
@@ -93,6 +161,9 @@ NEXT_ACTION_BY_STATUS = {
     ),
     BLOCKED_INVALID_ARTIFACT: (
         "Repair the malformed or rejected local artifact, then rebuild the queue."
+    ),
+    BLOCKED_MISSING_SOURCE_ARTIFACT: (
+        "Restore or regenerate the referenced local source artifact, then rebuild the queue."
     ),
 }
 
@@ -246,6 +317,7 @@ def _candidate_from_actual_trial(actual_trial_payload):
     return {
         "candidate_id": f"actual_manual_llm_response_trial_{market_id}",
         "candidate_source": "actual_manual_llm_response_trial",
+        "candidate_source_type": "actual_manual_llm_response_trial",
         "market_id": market_id,
         "source_artifact_path": _string_field(actual, "source_artifact_path"),
         "trial_path": _string_field(actual, "trial_path", DEFAULT_TRIAL_PATH),
@@ -259,6 +331,364 @@ def _candidate_from_actual_trial(actual_trial_payload):
         "actual_trial_path": DEFAULT_ACTUAL_TRIAL_PATH,
         "surface_review_path": DEFAULT_SURFACE_REVIEW_PATH,
     }
+
+
+def _candidate_source_type(candidate):
+    return str(
+        candidate.get("candidate_source_type")
+        or candidate.get("candidate_source")
+        or "local_candidate"
+    )
+
+
+def _source_priority(candidate):
+    return CANDIDATE_SOURCE_PRIORITY.get(_candidate_source_type(candidate), 999)
+
+
+def _candidate_ref(candidate):
+    return {
+        "candidate_id": str(candidate.get("candidate_id") or ""),
+        "candidate_source_type": _candidate_source_type(candidate),
+        "source_artifact_path": str(candidate.get("source_artifact_path") or ""),
+    }
+
+
+def _ordered_unique_strings(values):
+    seen = set()
+    ordered = []
+    for value in values:
+        text = str(value or "")
+        if not text or text in seen:
+            continue
+        seen.add(text)
+        ordered.append(text)
+    return ordered
+
+
+def _merge_candidate(existing, candidate):
+    refs = list(existing.get("source_refs") or [_candidate_ref(existing)])
+    refs.append(_candidate_ref(candidate))
+    primary = dict(existing)
+    if _source_priority(candidate) < _source_priority(existing):
+        primary = {**candidate}
+        for key in (
+            "packet_path",
+            "prompt_path",
+            "operator_response_path",
+            "actual_trial_path",
+            "surface_review_path",
+        ):
+            if not primary.get(key) and existing.get(key):
+                primary[key] = existing[key]
+    else:
+        for key in (
+            "packet_path",
+            "prompt_path",
+            "operator_response_path",
+            "actual_trial_path",
+            "surface_review_path",
+        ):
+            if not primary.get(key) and candidate.get(key):
+                primary[key] = candidate[key]
+    source_refs = []
+    seen_refs = set()
+    for ref in refs:
+        key = (
+            ref.get("candidate_source_type", ""),
+            ref.get("source_artifact_path", ""),
+            ref.get("candidate_id", ""),
+        )
+        if key in seen_refs:
+            continue
+        seen_refs.add(key)
+        source_refs.append(ref)
+    primary["source_refs"] = sorted(
+        source_refs,
+        key=lambda ref: (
+            CANDIDATE_SOURCE_PRIORITY.get(ref.get("candidate_source_type", ""), 999),
+            ref.get("source_artifact_path", ""),
+            ref.get("candidate_id", ""),
+        ),
+    )
+    primary["source_artifact_paths"] = _ordered_unique_strings(
+        ref["source_artifact_path"] for ref in primary["source_refs"]
+    )
+    primary["candidate_source_types"] = _ordered_unique_strings(
+        ref["candidate_source_type"] for ref in primary["source_refs"]
+    )
+    primary["source_count"] = len(primary["source_refs"])
+    return primary
+
+
+def dedupe_candidates_by_market_id(candidates):
+    by_market_id = {}
+    for candidate in sorted(
+        candidates,
+        key=lambda item: (
+            str(item.get("market_id") or ""),
+            _source_priority(item),
+            str(item.get("candidate_id") or ""),
+        ),
+    ):
+        market_id = str(candidate.get("market_id") or "")
+        if not market_id:
+            continue
+        candidate = {
+            **candidate,
+            "candidate_source": _candidate_source_type(candidate),
+            "candidate_source_type": _candidate_source_type(candidate),
+            "source_refs": list(candidate.get("source_refs") or [_candidate_ref(candidate)]),
+        }
+        if market_id not in by_market_id:
+            candidate["source_artifact_paths"] = _ordered_unique_strings(
+                ref["source_artifact_path"] for ref in candidate["source_refs"]
+            )
+            candidate["candidate_source_types"] = _ordered_unique_strings(
+                ref["candidate_source_type"] for ref in candidate["source_refs"]
+            )
+            candidate["source_count"] = len(candidate["source_refs"])
+            by_market_id[market_id] = candidate
+            continue
+        by_market_id[market_id] = _merge_candidate(by_market_id[market_id], candidate)
+    return sorted(by_market_id.values(), key=lambda item: (str(item["market_id"]), item["candidate_id"]))
+
+
+def _is_safe_market_id(value):
+    text = str(value or "").strip()
+    if not text:
+        return False
+    lowered = text.lower()
+    if any(marker in lowered for marker in ("example", "demo", "fixture", "invalid")):
+        return False
+    return text.isdigit()
+
+
+def _skip_candidate(skipped, reason, source_artifact_path, market_id="", candidate_source_type=""):
+    skipped.append(
+        {
+            "reason": reason,
+            "source_artifact_path": source_artifact_path,
+            "market_id": str(market_id or ""),
+            "candidate_source_type": candidate_source_type,
+        }
+    )
+
+
+def _candidate_from_local_source(source_artifact_path, source_type, market_id):
+    market_id = str(market_id or "")
+    return {
+        "candidate_id": f"{source_type}_{market_id}",
+        "candidate_source": source_type,
+        "candidate_source_type": source_type,
+        "market_id": market_id,
+        "source_artifact_path": source_artifact_path,
+        "packet_path": "",
+        "prompt_path": "",
+        "operator_response_path": "",
+    }
+
+
+def _extract_group_candidates(payload, source_artifact_path, source_type, skipped):
+    candidates = []
+    groups = _safe_dict(_safe_dict(payload).get("groups"))
+    for group_name in sorted(groups):
+        group_items = _safe_list(groups.get(group_name))
+        for item in group_items:
+            if not isinstance(item, dict):
+                _skip_candidate(
+                    skipped,
+                    "invalid_group_item_shape",
+                    source_artifact_path,
+                    "",
+                    source_type,
+                )
+                continue
+            market_id = item.get("market_id")
+            if not _is_safe_market_id(market_id):
+                _skip_candidate(
+                    skipped,
+                    "unsafe_or_invalid_market_id",
+                    source_artifact_path,
+                    market_id,
+                    source_type,
+                )
+                continue
+            candidates.append(_candidate_from_local_source(source_artifact_path, source_type, market_id))
+    return candidates
+
+
+def _discover_research_candidates(root=ROOT):
+    candidates = []
+    statuses = []
+    skipped = []
+    payloads_by_path = {}
+    for source in APPROVED_RESEARCH_CANDIDATE_SOURCES:
+        payload, status = _load_json_for_discovery(source["path"], source["artifact_id"], root)
+        statuses.append(status)
+        payloads_by_path[source["path"]] = payload
+        if not status["present"]:
+            continue
+        if status["parse_status"] != "parsed":
+            _skip_candidate(
+                skipped,
+                "source_artifact_not_parsed",
+                status["path"],
+                "",
+                source["artifact_id"],
+            )
+            continue
+        source_artifact_path = source["path"]
+        for field, source_type in source.get("object_fields", ()):
+            items = _safe_list(_safe_dict(payload).get(field))
+            for item in items:
+                if not isinstance(item, dict):
+                    _skip_candidate(
+                        skipped,
+                        "invalid_candidate_item_shape",
+                        source_artifact_path,
+                        "",
+                        source_type,
+                    )
+                    continue
+                market_id = item.get("market_id")
+                if not _is_safe_market_id(market_id):
+                    _skip_candidate(
+                        skipped,
+                        "unsafe_or_invalid_market_id",
+                        source_artifact_path,
+                        market_id,
+                        source_type,
+                    )
+                    continue
+                candidates.append(
+                    _candidate_from_local_source(source_artifact_path, source_type, market_id)
+                )
+        for field, source_type in source.get("market_id_fields", ()):
+            for market_id in _safe_list(_safe_dict(payload).get(field)):
+                if not _is_safe_market_id(market_id):
+                    _skip_candidate(
+                        skipped,
+                        "unsafe_or_invalid_market_id",
+                        source_artifact_path,
+                        market_id,
+                        source_type,
+                    )
+                    continue
+                candidates.append(
+                    _candidate_from_local_source(source_artifact_path, source_type, market_id)
+                )
+        if source.get("group_source_type"):
+            candidates.extend(
+                _extract_group_candidates(
+                    payload,
+                    source_artifact_path,
+                    source["group_source_type"],
+                    skipped,
+                )
+            )
+    return candidates, statuses, skipped, payloads_by_path
+
+
+def _is_example_or_demo_packet(path, payload):
+    display = _display_path(path)
+    lowered_path = display.lower()
+    if any(marker in lowered_path for marker in ("example", "demo")):
+        return True
+    market_context = _safe_dict(_safe_dict(payload).get("market_context"))
+    market_id = str(market_context.get("market_id") or "")
+    if not _is_safe_market_id(market_id):
+        return True
+    source_artifacts = _safe_list(_safe_dict(payload).get("source_artifacts"))
+    for source in source_artifacts:
+        source = _safe_dict(source)
+        source_text = " ".join(
+            str(source.get(key) or "").lower()
+            for key in ("artifact_type", "path", "description", "sanitization_status")
+        )
+        if any(marker in source_text for marker in ("example", "demo", "fixture_only")):
+            return True
+    return False
+
+
+def _known_prompt_path_for_packet(packet_path, root=ROOT):
+    path = Path(packet_path)
+    name = path.name
+    candidates = []
+    if "_packet.v1.json" in name:
+        candidates.append(path.with_name(name.replace("_packet.v1.json", "_prompt.v1.md")))
+    if "packet.v1.json" in name:
+        candidates.append(path.with_name(name.replace("packet.v1.json", "prompt.v1.md")))
+    for candidate in candidates:
+        if _resolve_path(_display_path(candidate, root), root).exists():
+            return _display_path(candidate, root)
+    return _display_path(candidates[0], root) if candidates else ""
+
+
+def _known_response_path_for_packet(packet_path, root=ROOT):
+    path = Path(packet_path)
+    name = path.name
+    candidates = []
+    if "_packet.v1.json" in name:
+        prefix = name.replace("_packet.v1.json", "")
+        candidates.extend(
+            [
+                path.with_name(f"{prefix}_response_operator.v1.json"),
+                path.with_name(f"{prefix}_response.v1.json"),
+            ]
+        )
+    for candidate in candidates:
+        lowered = candidate.name.lower()
+        if "example" in lowered or "placeholder" in lowered:
+            continue
+        if _resolve_path(_display_path(candidate, root), root).exists():
+            return _display_path(candidate, root)
+    return ""
+
+
+def _discover_llm_packet_candidates(root=ROOT):
+    root = Path(root)
+    candidates = []
+    statuses = []
+    skipped = []
+    llm_dir = root / "pm_bot" / "llm"
+    if not llm_dir.exists():
+        return candidates, statuses, skipped
+    for packet_path in sorted(llm_dir.glob("*packet*.json"), key=lambda item: item.name):
+        display = _display_path(packet_path, root)
+        if packet_path.name.endswith("_schema.v1.json"):
+            _skip_candidate(skipped, "schema_packet_artifact_excluded", display, "", "llm_packet_artifact")
+            continue
+        payload, status = _load_json_for_discovery(display, "llm_packet_artifact", root)
+        statuses.append(status)
+        if status["parse_status"] != "parsed":
+            _skip_candidate(skipped, "packet_artifact_not_parsed", display, "", "llm_packet_artifact")
+            continue
+        if _safe_dict(payload).get("contract_version") != "llm_analysis_packet.v1":
+            _skip_candidate(skipped, "non_llm_analysis_packet_excluded", display, "", "llm_packet_artifact")
+            continue
+        market_id = _safe_dict(_safe_dict(payload).get("market_context")).get("market_id")
+        if _is_example_or_demo_packet(packet_path, payload):
+            _skip_candidate(
+                skipped,
+                "example_or_demo_packet_excluded",
+                display,
+                market_id,
+                "llm_packet_artifact",
+            )
+            continue
+        candidates.append(
+            {
+                "candidate_id": f"llm_packet_artifact_{market_id}",
+                "candidate_source": "llm_packet_artifact",
+                "candidate_source_type": "llm_packet_artifact",
+                "market_id": str(market_id),
+                "source_artifact_path": display,
+                "packet_path": display,
+                "prompt_path": _known_prompt_path_for_packet(packet_path, root),
+                "operator_response_path": _known_response_path_for_packet(packet_path, root),
+            }
+        )
+    return candidates, statuses, skipped
 
 
 def _selected_dossier_discovery(selected_payload):
@@ -280,15 +710,62 @@ def _selected_dossier_discovery(selected_payload):
     }
 
 
+def _source_count_by_type(candidates):
+    counts = {}
+    for candidate in candidates:
+        for source_type in candidate.get("candidate_source_types") or [_candidate_source_type(candidate)]:
+            counts[source_type] = counts.get(source_type, 0) + 1
+    return {key: counts[key] for key in sorted(counts)}
+
+
+def _build_discovery(
+    candidates,
+    source_artifacts_checked,
+    selected_payload,
+    skipped_candidates,
+    actual_candidate_found,
+):
+    candidate_market_ids = sorted(str(candidate["market_id"]) for candidate in candidates)
+    accepted_market_ids = sorted(
+        str(candidate["market_id"])
+        for candidate in candidates
+        if _candidate_source_type(candidate) == "actual_manual_llm_response_trial"
+    )
+    added_market_ids = [
+        market_id for market_id in candidate_market_ids if market_id not in set(accepted_market_ids)
+    ]
+    selected_discovery = _selected_dossier_discovery(selected_payload)
+    return {
+        "source_artifacts_checked": source_artifacts_checked,
+        "actual_trial_candidate_found": actual_candidate_found,
+        **selected_discovery,
+        "candidate_policy": (
+            "Deterministically inventories non-example local PMBOT packet, research, dossier, "
+            "and operator-review artifacts; no external data, ranking, or outcome inference is used."
+        ),
+        "candidate_market_ids": candidate_market_ids,
+        "deduplicated_candidate_market_ids": candidate_market_ids,
+        "deduplicated_candidates_total": len(candidates),
+        "source_count_by_type": _source_count_by_type(candidates),
+        "added_candidate_market_ids": added_market_ids,
+        "additional_ready_candidates_found": len(added_market_ids),
+        "additional_ready_candidate_market_ids": added_market_ids,
+        "skipped_candidate_count": len(skipped_candidates),
+        "skipped_candidates": sorted(
+            skipped_candidates,
+            key=lambda item: (
+                item.get("source_artifact_path", ""),
+                item.get("market_id", ""),
+                item.get("reason", ""),
+            ),
+        ),
+    }
+
+
 def discover_default_candidates(root=ROOT):
     actual_payload, actual_status = _load_json_for_discovery(
         DEFAULT_ACTUAL_TRIAL_PATH,
         "actual_manual_llm_response_trial",
-        root,
-    )
-    selected_payload, selected_status = _load_json_for_discovery(
-        DEFAULT_SELECTED_DOSSIERS_PATH,
-        "selected_ingest_final_dossier_drafts",
         root,
     )
     surface_payload, surface_status = _load_json_for_discovery(
@@ -296,36 +773,39 @@ def discover_default_candidates(root=ROOT):
         "actual_manual_llm_response_surface_operator_review",
         root,
     )
+    _workbench_payload, workbench_status = _load_json_for_discovery(
+        DEFAULT_WORKBENCH_REVIEW_PACK_PATH,
+        "operator_review_pack",
+        root,
+    )
+    research_candidates, research_statuses, research_skipped, research_payloads = (
+        _discover_research_candidates(root)
+    )
+    packet_candidates, packet_statuses, packet_skipped = _discover_llm_packet_candidates(root)
 
     candidates = []
     actual_candidate = _candidate_from_actual_trial(actual_payload)
     if actual_candidate is not None:
         candidates.append(actual_candidate)
+    candidates.extend(packet_candidates)
+    candidates.extend(research_candidates)
 
-    selected_discovery = _selected_dossier_discovery(selected_payload)
-    existing_market_ids = {candidate["market_id"] for candidate in candidates}
-    additional_ready_market_ids = [
-        market_id
-        for market_id in selected_discovery["final_dossier_draft_market_ids"]
-        if market_id not in existing_market_ids
-    ]
-
-    discovery = {
-        "source_artifacts_checked": [
+    deduped_candidates = dedupe_candidates_by_market_id(candidates)
+    selected_payload = research_payloads.get(DEFAULT_SELECTED_DOSSIERS_PATH)
+    discovery = _build_discovery(
+        deduped_candidates,
+        [
             actual_status,
-            selected_status,
             surface_status,
+            workbench_status,
+            *research_statuses,
+            *packet_statuses,
         ],
-        "actual_trial_candidate_found": actual_candidate is not None,
-        **selected_discovery,
-        "candidate_policy": (
-            "Only markets with an existing local LLM packet or accepted actual manual response artifact "
-            "become queue items."
-        ),
-        "additional_ready_candidates_found": len(additional_ready_market_ids),
-        "additional_ready_candidate_market_ids": additional_ready_market_ids,
-    }
-    return candidates, discovery, {
+        selected_payload,
+        research_skipped + packet_skipped,
+        actual_candidate is not None,
+    )
+    return deduped_candidates, discovery, {
         "actual_manual_llm_response_trial": actual_payload,
         "selected_ingest_final_dossier_drafts": selected_payload,
         "actual_manual_llm_response_surface_operator_review": surface_payload,
@@ -444,6 +924,9 @@ def _effective_status_from_actual(actual_payload):
 
 
 def _status_from_known_values(
+    source_artifact_expected,
+    source_artifact_present,
+    packet_path_known,
     packet_present,
     packet_status,
     prompt_present,
@@ -456,6 +939,10 @@ def _status_from_known_values(
 ):
     if artifact_errors:
         return BLOCKED_INVALID_ARTIFACT
+    if source_artifact_expected and not source_artifact_present:
+        return BLOCKED_MISSING_SOURCE_ARTIFACT
+    if not packet_path_known:
+        return READY_FOR_PACKET_EXPORT
     if not packet_present:
         return BLOCKED_MISSING_PACKET
     if packet_status != "accepted":
@@ -661,6 +1148,9 @@ def build_queue_item(candidate, preloaded_payloads=None, root=ROOT):
 
     operator_surface_review_status = _surface_review_status(surface_payload, market_id)
     review_queue_status = _status_from_known_values(
+        source_artifact_expected=bool(source_artifact_path),
+        source_artifact_present=source_status["present"],
+        packet_path_known=bool(packet_path),
         packet_present=packet_status["present"],
         packet_status=packet_validation_status,
         prompt_present=prompt_status["present"],
@@ -684,10 +1174,30 @@ def build_queue_item(candidate, preloaded_payloads=None, root=ROOT):
     return {
         "market_id": market_id,
         "candidate_id": str(candidate.get("candidate_id") or f"manual_llm_review_{market_id}"),
-        "candidate_source": str(candidate.get("candidate_source") or "local_candidate"),
+        "candidate_source": _candidate_source_type(candidate),
+        "candidate_source_type": _candidate_source_type(candidate),
         "source_artifact_path": _display_path(_resolve_path(source_artifact_path, root), root)
         if source_artifact_path
         else "",
+        "source_artifact_paths": _ordered_unique_strings(
+            candidate.get("source_artifact_paths")
+            or [
+                ref.get("source_artifact_path", "")
+                for ref in _safe_list(candidate.get("source_refs"))
+            ]
+            or [source_artifact_path]
+        ),
+        "candidate_source_types": _ordered_unique_strings(
+            candidate.get("candidate_source_types")
+            or [
+                ref.get("candidate_source_type", "")
+                for ref in _safe_list(candidate.get("source_refs"))
+            ]
+            or [_candidate_source_type(candidate)]
+        ),
+        "source_count": int(candidate.get("source_count") or 1)
+        if not isinstance(candidate.get("source_count"), bool)
+        else 1,
         "packet_path": _display_path(_resolve_path(packet_path, root), root) if packet_path else "",
         "packet_present": packet_status["present"],
         "packet_parse_status": packet_status["parse_status"],
@@ -727,10 +1237,11 @@ def _queue_status_counts(items):
 
 
 def _build_discovery_for_explicit_candidates(candidates):
+    market_ids = sorted(str(candidate.get("market_id") or "") for candidate in candidates)
     return {
         "source_artifacts_checked": [],
         "actual_trial_candidate_found": any(
-            candidate.get("candidate_source") == "actual_manual_llm_response_trial"
+            _candidate_source_type(candidate) == "actual_manual_llm_response_trial"
             for candidate in candidates
         ),
         "selected_ingest_markets_seen": 0,
@@ -739,8 +1250,15 @@ def _build_discovery_for_explicit_candidates(candidates):
         "final_dossier_draft_market_ids": [],
         "exported_market_ids": [],
         "candidate_policy": "Explicit local test candidates supplied.",
-        "additional_ready_candidates_found": 0,
-        "additional_ready_candidate_market_ids": [],
+        "candidate_market_ids": market_ids,
+        "deduplicated_candidate_market_ids": market_ids,
+        "deduplicated_candidates_total": len(candidates),
+        "source_count_by_type": _source_count_by_type(candidates),
+        "added_candidate_market_ids": market_ids,
+        "additional_ready_candidates_found": len(market_ids),
+        "additional_ready_candidate_market_ids": market_ids,
+        "skipped_candidate_count": 0,
+        "skipped_candidates": [],
     }
 
 
@@ -749,7 +1267,7 @@ def build_manual_llm_review_queue(root=ROOT, candidates=None):
     if candidates is None:
         candidates, discovery, preloaded_payloads = discover_default_candidates(root)
     else:
-        candidates = list(candidates)
+        candidates = dedupe_candidates_by_market_id(list(candidates))
         discovery = _build_discovery_for_explicit_candidates(candidates)
         preloaded_payloads = {}
 
@@ -796,10 +1314,9 @@ def build_manual_llm_review_queue(root=ROOT, candidates=None):
         "browser_automation": False,
         "prompt_automation": False,
         "runtime_wiring": False,
-        "orders_created": 0,
         "truth_inference": False,
         "next_safe_operator_action": (
-            "Add future markets only after an offline local packet exists, then rerun this queue exporter."
+            "Use ready local candidates only for manual packet export, then rerun this queue exporter."
         ),
     }
 
@@ -807,9 +1324,13 @@ def build_manual_llm_review_queue(root=ROOT, candidates=None):
 def _compact_queue_item(item):
     return {
         "market_id": item.get("market_id", ""),
+        "candidate_source_type": item.get("candidate_source_type", item.get("candidate_source", "")),
         "source_artifact_path": item.get("source_artifact_path", ""),
+        "source_count": item.get("source_count", 1),
         "packet_path": item.get("packet_path", ""),
+        "packet_present": bool(item.get("packet_present", False)),
         "prompt_path": item.get("prompt_path", ""),
+        "prompt_present": bool(item.get("prompt_present", False)),
         "operator_response_path": item.get("operator_response_path", ""),
         "response_present": bool(item.get("response_present", False)),
         "validation_status": item.get("validation_status", NOT_AVAILABLE),
@@ -845,6 +1366,8 @@ def summarize_manual_llm_review_queue(artifact_path=DEFAULT_OUT_JSON, root=ROOT)
         "warnings_count": 0,
         "errors_count": 0,
         "additional_ready_candidates_found": 0,
+        "added_candidate_market_ids": [],
+        "skipped_candidate_count": 0,
         "offline_manual_only": True,
         "not_truth_source": True,
         "not_trading_advice": True,
@@ -889,6 +1412,12 @@ def summarize_manual_llm_review_queue(artifact_path=DEFAULT_OUT_JSON, root=ROOT)
         )
         if not isinstance(discovery.get("additional_ready_candidates_found"), bool)
         else 0,
+        "added_candidate_market_ids": [
+            str(item) for item in _safe_list(discovery.get("added_candidate_market_ids"))
+        ],
+        "skipped_candidate_count": int(discovery.get("skipped_candidate_count") or 0)
+        if not isinstance(discovery.get("skipped_candidate_count"), bool)
+        else 0,
     }
 
 
@@ -917,6 +1446,8 @@ def render_markdown(queue):
                 [
                     f"- market_id: {item['market_id']}",
                     f"  status: {item['review_queue_status']}",
+                    f"  candidate_source_type: {item['candidate_source_type']}",
+                    f"  source_count: {item['source_count']}",
                     f"  source_artifact_path: {item['source_artifact_path'] or 'not_available'}",
                     f"  packet_path: {item['packet_path'] or 'not_available'}",
                     f"  packet_present: {str(item['packet_present']).lower()}",
@@ -941,6 +1472,7 @@ def render_markdown(queue):
             f"- selected_ingest_markets_seen: {discovery['selected_ingest_markets_seen']}",
             f"- final_dossier_drafts_seen: {discovery['final_dossier_drafts_seen']}",
             f"- additional_ready_candidates_found: {discovery['additional_ready_candidates_found']}",
+            f"- skipped_candidate_count: {discovery['skipped_candidate_count']}",
             "- candidate_policy: "
             f"{discovery['candidate_policy']}",
             "",
@@ -982,6 +1514,8 @@ def build_doc_result(queue):
         "queue_items_total": queue["queue_items_total"],
         "queue_status_counts": queue["queue_status_counts"],
         "candidate_discovery": queue["candidate_discovery"],
+        "added_candidate_market_ids": queue["candidate_discovery"]["added_candidate_market_ids"],
+        "skipped_candidate_count": queue["candidate_discovery"]["skipped_candidate_count"],
         "warnings": queue["warnings"],
         "blockers": queue["errors"],
         "safety_flags": dict(SAFETY_FLAGS),
@@ -990,9 +1524,8 @@ def build_doc_result(queue):
         "browser_automation": False,
         "prompt_automation": False,
         "runtime_wiring": False,
-        "orders_created": 0,
         "truth_inference": False,
-        "next_recommended_task": "PMBOT-LLM-014-MANUAL-PACKET-QUEUE-EXPANSION",
+        "next_recommended_task": "PMBOT-LLM-015-MANUAL-PACKET-BATCH-EXPORT",
     }
 
 
