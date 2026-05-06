@@ -35,10 +35,7 @@ Read the current package in this order:
    Check `Safety Flags` and `Warnings` in `pm_bot/workbench/operator_review_pack.v1.md`. Expected safe values include no runtime wiring, no network/API use, no credentials, no wallet, no trading, no autonomous paper orders, no recommendations, no truth inference, no probability/EV/edge scoring, and no command execution authority.
 
 2. Review artifact inventory.
-   Check `Artifact Inventory` and `Missing Artifacts`. The tracked review pack currently reports 16 tracked artifacts, 14 present, 2 missing, and 0 required artifacts missing. The artifacts reported missing by the tracked pack are optional infrastructure documents:
-   - `docs/PMBOT_INFRA_009_RESULT.json`
-   - `docs/PMBOT_INFRA_009_ABC_ROUND003_WORKTREE_MATERIALIZATION.md`
-   In this workspace those optional INFRA-009 documents are present on disk, which means rerunning local exporters can change generated review artifacts. Treat that as a regeneration/staleness usability issue, not as a trading or safety signal.
+   Check `Artifact Inventory` and `Missing Artifacts`. The tracked review pack currently reports 20 tracked artifacts, 20 present, 0 missing, and 0 required artifacts missing.
 
 3. Review paper audit status.
    Check `Paper Audits`. Current status shows `reconciliation_passed` and `batch_audit_passed`, with 0 audit warnings and 0 audit mismatches. This means the local paper accounting artifacts are internally consistent for the checked fixtures.
@@ -53,7 +50,7 @@ Read the current package in this order:
    Check `Operator Inbox` and then `pm_bot/operator/manual_command_inbox_review.v1.md`. Current inbox review saw 7 records: 3 accepted, 3 rejected, and 1 needing human review. Accepted records are queued for human review or artifact lookup only. Rejected records include live-source, execution-authority, and scoring payload violations.
 
 7. Review quality warnings.
-   Check `pm_bot/quality/artifact_health_report.v1.md`. Current quality status is `health_passed_with_warnings`, with 149 warnings and 0 blockers. Treat these as artifact inventory, staleness, schema metadata, pointer, and fixture alignment quality warnings unless a future report adds blockers or unsafe safety values.
+   Check `pm_bot/quality/artifact_health_report.v1.md`. Current quality status is `health_passed`, with 0 warnings and 0 blockers. Documented exceptions remain visible in the report for intentional malformed fixtures, legacy audit references, accepted placeholder pointers, and intentional non-object JSON fixtures.
 
 8. Record findings manually.
    Any operator note should stay a human review note. Do not turn review observations into commands, orders, recommendations, scoring, or runtime wiring.
@@ -64,7 +61,7 @@ Read the current package in this order:
 - `pm_bot/dashboard/static_operator_report.v1.html`: self-contained local static operator report. Open this first after the quickstart when you want one browser-readable view of workbench, PAPER-019, quality, artifact health, inbox, safety, and next manual actions.
 - `pm_bot/dashboard/static_operator_report_summary.v1.json`: exact machine-readable summary used to render the static HTML report.
 - `pm_bot/workbench/operator_review_pack.v1.json`: exact review pack data for deterministic inspection.
-- `pm_bot/quality/artifact_health_report.v1.md`: human-readable health/staleness report. It is noisy but useful for artifact hygiene.
+- `pm_bot/quality/artifact_health_report.v1.md`: human-readable health/staleness report. The current report is warning-clean and retains documented exception detail for traceability.
 - `pm_bot/quality/artifact_health_report.v1.json`: exact health report data, including warning counts and safety flag summaries.
 - `pm_bot/operator/manual_command_inbox_review.v1.md`: inert manual command inbox review. It classifies records but does not execute them.
 - `pm_bot/operator/review_pack_command_bridge_examples.v1.md`: static examples for how future manual command records may map to review pack sections without execution authority.
@@ -96,29 +93,27 @@ If a future audit reports mismatches, failed checks, unexpected orders, autonomo
 
 Current QUALITY-001 status:
 
-- `report_status`: `health_passed_with_warnings`
-- warnings: 149
+- `report_status`: `health_passed`
+- warnings: 0
 - blockers: 0
 - blocking warning detected by integration review: false
 
-Current warning types are non-blocking for this workbench review because the report has no blockers and no unexpected true or nonzero safety values. The warnings still matter for usability and future cleanup.
+Current warning types are empty. Documented exceptions are not blocker warnings; they are retained for auditability and intentional fixture coverage.
 
 Current warning breakdown:
 
-- 51 `expected_fixture_alignment_warning`
-- 50 `fixture_alignment_actual_missing`
-- 18 `schema_version_missing`
-- 15 `embedded_artifact_pointer_warning`
-- 6 `stale_reference_warning`
-- 3 `json_top_level_not_object`
-- 3 `task_id_missing`
-- 1 `fixture_alignment_mismatch`
+- none
+
+Current documented exception breakdown:
+
+- 20 `accepted_missing_pointer_target`
+- 23 `documented_legacy_reference`
+- 4 `documented_non_object_json_artifact`
 - 1 `known_intentional_malformed_fixture_parse_failure`
-- 1 `missing_optional_artifact`
 
 ### Non-Blocking Warnings
 
-Treat these as non-blocking when the quality report status remains `health_passed_with_warnings`, blockers remain empty, tests pass, and safety summaries show no unexpected true or nonzero values:
+There are no current quality warnings. If future warnings reappear, treat these categories as non-blocking only when the quality report has no blockers, tests pass, and safety summaries show no unexpected true or nonzero values:
 
 - optional artifact missing, such as `docs/PMBOT_INFRA_009_RESULT.json`
 - stale references in older context docs

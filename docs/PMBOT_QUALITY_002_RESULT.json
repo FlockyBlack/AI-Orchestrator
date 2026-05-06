@@ -3,188 +3,42 @@
   "status": "completed_ready_for_review",
   "summary": "Deterministic warning hygiene metadata and owner/action routing were generated from the artifact health warning report without hiding or suppressing warnings.",
   "warning_hygiene_summary": {
-    "total_warnings_processed": 8,
-    "owners": {
-      "infra": 1,
-      "docs": 2,
-      "operator": 2,
-      "product": 2,
-      "paper": 1
-    },
+    "total_warnings_processed": 0,
+    "documented_exceptions": 48,
+    "owners": {},
     "severity": {
       "blocking": 0,
-      "action_required": 3,
-      "review_needed": 4,
-      "informational": 1
+      "action_required": 0,
+      "review_needed": 0,
+      "informational": 0
     },
     "expected_status": {
       "current": 0,
       "legacy": 0,
-      "stale": 3,
-      "expected_gap": 5,
+      "stale": 0,
+      "expected_gap": 0,
       "needs_cleanup": 0,
       "needs_review": 0
     },
-    "action_types": {
-      "add_missing_metadata": 4,
-      "archive_or_mark_legacy": 3,
-      "document_exception": 1
-    },
+    "action_types": {},
     "safety_relevance": {
-      "none": 1,
+      "none": 0,
       "boundary_related": 0,
       "execution_related": 0,
       "data_integrity_related": 0,
-      "operator_usability_related": 7
+      "operator_usability_related": 0
     },
     "deferrable": {
-      "true": 4,
-      "false": 4
+      "true": 0,
+      "false": 0
     }
   },
   "operator_summary": {
     "local_mvp_blocked": false,
-    "non_deferrable_warning_count": 4,
-    "safety_relevant_warning_count": 7,
-    "top_owner_actions": [
-      {
-        "owner": "docs",
-        "action_type": "add_missing_metadata",
-        "warning_count": 1
-      },
-      {
-        "owner": "docs",
-        "action_type": "archive_or_mark_legacy",
-        "warning_count": 1
-      },
-      {
-        "owner": "infra",
-        "action_type": "add_missing_metadata",
-        "warning_count": 1
-      },
-      {
-        "owner": "operator",
-        "action_type": "add_missing_metadata",
-        "warning_count": 1
-      },
-      {
-        "owner": "operator",
-        "action_type": "archive_or_mark_legacy",
-        "warning_count": 1
-      }
-    ],
-    "next_cleanup_actions": [
-      {
-        "bucket_id": "docs|schema_version_missing|action_required|add_missing_metadata|expected_gap|operator_usability_related",
-        "warning_category": "schema_version_missing",
-        "severity": "action_required",
-        "owner": "docs",
-        "owner_type": "artifact_metadata",
-        "action_type": "add_missing_metadata",
-        "deferrable": false,
-        "expected_status": "expected_gap",
-        "safety_relevance": "operator_usability_related",
-        "recommended_operator_action": "Route to the artifact owner; local MVP usage can continue if no blocking warnings exist.",
-        "recommended_maintainer_action": "Add schema_version metadata or document why this artifact predates the convention.",
-        "rationale": "Schema metadata lets operators compare artifacts and expected fixtures deterministically.",
-        "warning_count": 1,
-        "warning_ids": [
-          "warning_002"
-        ],
-        "source_paths": [
-          "docs/PMBOT_INTEGRATION_008_RESULT.json"
-        ],
-        "example_source_path": "docs/PMBOT_INTEGRATION_008_RESULT.json"
-      },
-      {
-        "bucket_id": "infra|schema_version_missing|review_needed|add_missing_metadata|expected_gap|operator_usability_related",
-        "warning_category": "schema_version_missing",
-        "severity": "review_needed",
-        "owner": "infra",
-        "owner_type": "artifact_metadata",
-        "action_type": "add_missing_metadata",
-        "deferrable": false,
-        "expected_status": "expected_gap",
-        "safety_relevance": "operator_usability_related",
-        "recommended_operator_action": "Route to the artifact owner; local MVP usage can continue if no blocking warnings exist.",
-        "recommended_maintainer_action": "Add schema_version metadata or document why this artifact predates the convention.",
-        "rationale": "Schema metadata lets operators compare artifacts and expected fixtures deterministically.",
-        "warning_count": 1,
-        "warning_ids": [
-          "warning_001"
-        ],
-        "source_paths": [
-          "docs/PMBOT_INFRA_009_RESULT.json"
-        ],
-        "example_source_path": "docs/PMBOT_INFRA_009_RESULT.json"
-      },
-      {
-        "bucket_id": "operator|schema_version_missing|action_required|add_missing_metadata|expected_gap|operator_usability_related",
-        "warning_category": "schema_version_missing",
-        "severity": "action_required",
-        "owner": "operator",
-        "owner_type": "artifact_metadata",
-        "action_type": "add_missing_metadata",
-        "deferrable": false,
-        "expected_status": "expected_gap",
-        "safety_relevance": "operator_usability_related",
-        "recommended_operator_action": "Route to the artifact owner; local MVP usage can continue if no blocking warnings exist.",
-        "recommended_maintainer_action": "Add schema_version metadata or document why this artifact predates the convention.",
-        "rationale": "Schema metadata lets operators compare artifacts and expected fixtures deterministically.",
-        "warning_count": 1,
-        "warning_ids": [
-          "warning_004"
-        ],
-        "source_paths": [
-          "docs/PMBOT_OPERATOR_002_RESULT.json"
-        ],
-        "example_source_path": "docs/PMBOT_OPERATOR_002_RESULT.json"
-      },
-      {
-        "bucket_id": "paper|known_intentional_malformed_fixture_parse_failure|informational|document_exception|expected_gap|none",
-        "warning_category": "known_intentional_malformed_fixture_parse_failure",
-        "severity": "informational",
-        "owner": "paper",
-        "owner_type": "fixture_maintenance",
-        "action_type": "document_exception",
-        "deferrable": true,
-        "expected_status": "expected_gap",
-        "safety_relevance": "none",
-        "recommended_operator_action": "No operator action is expected unless the fixture stops being intentional.",
-        "recommended_maintainer_action": "Keep the intentional malformed fixture documented in tests.",
-        "rationale": "The parse failure is a known fixture used to verify error handling.",
-        "warning_count": 1,
-        "warning_ids": [
-          "warning_008"
-        ],
-        "source_paths": [
-          "pm_bot/paper/manual_snapshot_import_source/005_malformed.json"
-        ],
-        "example_source_path": "pm_bot/paper/manual_snapshot_import_source/005_malformed.json"
-      },
-      {
-        "bucket_id": "product|schema_version_missing|action_required|add_missing_metadata|expected_gap|operator_usability_related",
-        "warning_category": "schema_version_missing",
-        "severity": "action_required",
-        "owner": "product",
-        "owner_type": "artifact_metadata",
-        "action_type": "add_missing_metadata",
-        "deferrable": false,
-        "expected_status": "expected_gap",
-        "safety_relevance": "operator_usability_related",
-        "recommended_operator_action": "Route to the artifact owner; local MVP usage can continue if no blocking warnings exist.",
-        "recommended_maintainer_action": "Add schema_version metadata or document why this artifact predates the convention.",
-        "rationale": "Schema metadata lets operators compare artifacts and expected fixtures deterministically.",
-        "warning_count": 1,
-        "warning_ids": [
-          "warning_006"
-        ],
-        "source_paths": [
-          "docs/PMBOT_PRODUCT_001_RESULT.json"
-        ],
-        "example_source_path": "docs/PMBOT_PRODUCT_001_RESULT.json"
-      }
-    ],
+    "non_deferrable_warning_count": 0,
+    "safety_relevant_warning_count": 0,
+    "top_owner_actions": [],
+    "next_cleanup_actions": [],
     "safe_to_defer_statement": "Deferrable warnings may be postponed for local MVP use when blocking_count is zero; non-deferrable warnings remain visible as owner action queues.",
     "not_mvp_blocking_statement": "The current source report has no blocking warnings, so these hygiene warnings should not block local MVP usage."
   },

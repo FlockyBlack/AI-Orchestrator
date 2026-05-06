@@ -3,52 +3,48 @@
 - task_id: PMBOT-QUALITY-001-ARTIFACT-HEALTH-AND-STALENESS-CHECK
 - schema_version: artifact_health_report.v1
 - generated_by: pm_bot/quality/export_artifact_health_report.py
-- report_status: health_passed_with_warnings
+- report_status: health_passed
 - artifacts_checked: 228
 - artifacts_present_count: 228
 - artifacts_missing_count: 0
 - json_parse_pass_count: 156
 - json_parse_fail_count: 1
-- schema_version_missing_count: 8
+- schema_version_missing_count: 4
 - task_id_missing_where_expected_count: 0
 - status_fields_missing_where_expected_count: 0
 
 ## Warning Severity Summary
 
-- total_warnings: 8
+- total_warnings: 0
 - blocking_count: 0
-- action_required_count: 3
-- review_needed_count: 4
-- informational_count: 1
+- action_required_count: 0
+- review_needed_count: 0
+- informational_count: 0
 - blocking_warning_detected: false
-- operator_summary: No blocking warnings detected; review action_required categories before relying on the package.
-- recommended_manual_action: Review action_required warning categories first, then inspect review_needed and informational categories.
+- operator_summary: No quality warnings detected.
+- recommended_manual_action: Continue manual review with no quality warning follow-up required.
 
 ## Top Warning Categories
 
-- schema_version_missing: count=4, severity=action_required, bucket=schema version metadata missing
-- stale_reference_warning: count=3, severity=review_needed, bucket=historical or stale reference needs inspection
-- known_intentional_malformed_fixture_parse_failure: count=1, severity=informational, bucket=known intentional malformed fixture
+- none
 
 ## Warnings By Owner
 
 - code: 0
-- fixture: 1
-- schema: 4
-- data: 3
+- fixture: 0
+- schema: 0
+- data: 0
 - unknown: 0
 
 ## Warnings By Action Type
 
-- fix_required: 3
-- review_required: 4
-- ignore_allowed: 1
+- fix_required: 0
+- review_required: 0
+- ignore_allowed: 0
 
 ## Top Action Items
 
-- add schema_version to artifact: count=4, owner=schema, action_type=fix_required, severity=action_required
-- remove stale embedded reference: count=3, owner=data, action_type=review_required, severity=review_needed
-- keep intentional malformed fixture documented: count=1, owner=fixture, action_type=ignore_allowed, severity=informational
+- none
 
 ## Warning Severity Model
 
@@ -56,6 +52,11 @@
 - action_required: Review and resolve or explicitly accept before relying on the package.
 - review_needed: Inspect as artifact hygiene context; it does not necessarily block review.
 - informational: Low-priority context retained for traceability.
+
+## Documented Exceptions
+
+- total_documented_exceptions: 48
+- exceptions_by_type: {"accepted_missing_pointer_target": 20, "documented_legacy_reference": 23, "documented_non_object_json_artifact": 4, "known_intentional_malformed_fixture_parse_failure": 1}
 
 ## Embedded Pointer Health
 
@@ -84,23 +85,16 @@
 
 ## Warnings
 
-- docs/PMBOT_INFRA_009_RESULT.json: schema_version_missing: severity=review_needed, owner=schema, action_type=review_required, recommended_action=add schema_version to artifact
-- docs/PMBOT_INTEGRATION_008_RESULT.json: schema_version_missing: severity=action_required, owner=schema, action_type=fix_required, recommended_action=add schema_version to artifact
-- docs/PMBOT_INTEGRATION_008_RESULT.json: stale_reference_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded reference
-- docs/PMBOT_OPERATOR_002_RESULT.json: schema_version_missing: severity=action_required, owner=schema, action_type=fix_required, recommended_action=add schema_version to artifact
-- docs/PMBOT_OPERATOR_002_RESULT.json: stale_reference_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded reference
-- docs/PMBOT_PRODUCT_001_RESULT.json: schema_version_missing: severity=action_required, owner=schema, action_type=fix_required, recommended_action=add schema_version to artifact
-- docs/PMBOT_PRODUCT_001_RESULT.json: stale_reference_warning: severity=review_needed, owner=data, action_type=review_required, recommended_action=remove stale embedded reference
-- pm_bot/paper/manual_snapshot_import_source/005_malformed.json: known_intentional_malformed_fixture_parse_failure: severity=informational, owner=fixture, action_type=ignore_allowed, recommended_action=keep intentional malformed fixture documented
+- none
 
 ## Artifacts
 
 - docs/PMBOT_DASHBOARD_002_RESULT.json: exists=true, json_parse_status=parsed, schema_version=pmbot_dashboard_002_result.v1, warnings=0
-- docs/PMBOT_INFRA_009_RESULT.json: exists=true, json_parse_status=parsed, schema_version=None, warnings=1
-- docs/PMBOT_INTEGRATION_008_RESULT.json: exists=true, json_parse_status=parsed, schema_version=None, warnings=2
-- docs/PMBOT_OPERATOR_002_RESULT.json: exists=true, json_parse_status=parsed, schema_version=None, warnings=2
+- docs/PMBOT_INFRA_009_RESULT.json: exists=true, json_parse_status=parsed, schema_version=pmbot_infra_009_result.v1, warnings=0
+- docs/PMBOT_INTEGRATION_008_RESULT.json: exists=true, json_parse_status=parsed, schema_version=pmbot_integration_008_result.v1, warnings=0
+- docs/PMBOT_OPERATOR_002_RESULT.json: exists=true, json_parse_status=parsed, schema_version=pmbot_operator_002_result.v1, warnings=0
 - docs/PMBOT_PAPER_018_RESULT.json: exists=true, json_parse_status=parsed, schema_version=pmbot_paper_018_result.v1, warnings=0
-- docs/PMBOT_PRODUCT_001_RESULT.json: exists=true, json_parse_status=parsed, schema_version=None, warnings=2
+- docs/PMBOT_PRODUCT_001_RESULT.json: exists=true, json_parse_status=parsed, schema_version=pmbot_product_001_result.v1, warnings=0
 - pm_bot/dashboard/dashboard_state_contract.v1.json: exists=true, json_parse_status=parsed, schema_version=dashboard_state_contract.v1, warnings=0
 - pm_bot/dashboard/dashboard_state_preview.v1.json: exists=true, json_parse_status=parsed, schema_version=dashboard_state_preview.v1, warnings=0
 - pm_bot/dashboard/dashboard_state_preview.v1.md: exists=true, json_parse_status=not_json, schema_version=None, warnings=0
@@ -262,7 +256,7 @@
 - pm_bot/paper/manual_snapshot_import_source/002_series_snapshot_005.json: exists=true, json_parse_status=parsed, schema_version=manual_snapshot_import_source.v1, warnings=0
 - pm_bot/paper/manual_snapshot_import_source/003_duplicate_series_snapshot_004.json: exists=true, json_parse_status=parsed, schema_version=manual_snapshot_import_source.v1, warnings=0
 - pm_bot/paper/manual_snapshot_import_source/004_already_present_series_snapshot_002.json: exists=true, json_parse_status=parsed, schema_version=manual_snapshot_import_source.v1, warnings=0
-- pm_bot/paper/manual_snapshot_import_source/005_malformed.json: exists=true, json_parse_status=parse_failed, schema_version=None, warnings=1
+- pm_bot/paper/manual_snapshot_import_source/005_malformed.json: exists=true, json_parse_status=parse_failed, schema_version=None, warnings=0
 - pm_bot/paper/manual_snapshot_import_source/006_unsupported.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=0
 - pm_bot/paper/manual_snapshot_import_source/008_polymarket_markets_active_minimized.fixture.json: exists=true, json_parse_status=parsed, schema_version=None, warnings=0
 - pm_bot/paper/manual_snapshot_workspace_import.v1.json: exists=true, json_parse_status=parsed, schema_version=v1, warnings=0

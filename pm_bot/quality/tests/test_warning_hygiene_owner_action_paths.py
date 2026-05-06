@@ -111,7 +111,8 @@ class WarningHygieneOwnerActionPathsTests(unittest.TestCase):
 
         self.assertEqual(result["schema_version"], "warning_hygiene_owner_action_paths.v1")
         self.assertEqual(result["task_id"], "PMBOT-QUALITY-002-WARNING-HYGIENE-OWNER-ACTION-PATHS")
-        self.assertEqual(result["source_report"]["total_warnings"], 8)
+        self.assertEqual(result["source_report"]["total_warnings"], 0)
+        self.assertGreater(result["source_report"]["documented_exceptions"], 0)
         for path in NEW_JSON_FILES:
             self.assertIsInstance(_load_json(path), dict)
         self.assertTrue(REPORT_MD.exists())
@@ -130,7 +131,7 @@ class WarningHygieneOwnerActionPathsTests(unittest.TestCase):
         report = _load_json(REPORT_JSON)
         warnings = report["warnings"]
 
-        self.assertEqual(len(warnings), 8)
+        self.assertEqual(len(warnings), 0)
         self.assertFalse(report["warning_detection_policy"]["warnings_hidden"])
         self.assertFalse(report["warning_detection_policy"]["warnings_suppressed"])
         self.assertFalse(report["warning_detection_policy"]["warnings_downgraded_silently"])
@@ -172,32 +173,27 @@ class WarningHygieneOwnerActionPathsTests(unittest.TestCase):
         self.assertEqual(sum(summary["safety_relevance"].values()), total)
         self.assertEqual(summary["deferrable"]["true"] + summary["deferrable"]["false"], total)
         self.assertEqual(summary["severity"]["blocking"], 0)
-        self.assertEqual(summary["severity"]["action_required"], 3)
-        self.assertEqual(summary["severity"]["review_needed"], 4)
-        self.assertEqual(summary["severity"]["informational"], 1)
-        self.assertGreater(summary["owner"]["paper"], 0)
-        self.assertGreater(summary["owner"]["operator"], 0)
+        self.assertEqual(summary["severity"]["action_required"], 0)
+        self.assertEqual(summary["severity"]["review_needed"], 0)
+        self.assertEqual(summary["severity"]["informational"], 0)
+        self.assertEqual(summary["owner"].get("paper", 0), 0)
+        self.assertEqual(summary["owner"].get("operator", 0), 0)
         self.assertEqual(summary["owner"].get("dashboard", 0), 0)
         self.assertEqual(summary["action_type"].get("update_fixture", 0), 0)
-        self.assertGreater(summary["action_type"]["add_missing_metadata"], 0)
+        self.assertEqual(summary["action_type"].get("add_missing_metadata", 0), 0)
 
     def test_buckets_and_operator_summary_are_actionable(self):
         _run_write()
         report = _load_json(REPORT_JSON)
 
-        self.assertGreater(len(report["warning_buckets"]), 1)
-        top_bucket = report["warning_buckets"][0]
-        self.assertIn("source_paths", top_bucket)
-        self.assertGreater(top_bucket["warning_count"], 0)
-        self.assertTrue(top_bucket["recommended_operator_action"])
-        self.assertTrue(top_bucket["recommended_maintainer_action"])
+        self.assertEqual(report["warning_buckets"], [])
 
         operator = report["operator_summary"]
         self.assertFalse(operator["local_mvp_blocked"])
-        self.assertGreater(operator["non_deferrable_warning_count"], 0)
-        self.assertGreater(operator["safety_relevant_warning_count"], 0)
-        self.assertGreater(len(operator["top_owner_actions"]), 0)
-        self.assertGreater(len(operator["next_cleanup_actions"]), 0)
+        self.assertEqual(operator["non_deferrable_warning_count"], 0)
+        self.assertEqual(operator["safety_relevant_warning_count"], 0)
+        self.assertEqual(operator["top_owner_actions"], [])
+        self.assertEqual(operator["next_cleanup_actions"], [])
         self.assertIn("should not block local MVP usage", operator["not_mvp_blocking_statement"])
 
     def test_markdown_is_operator_readable_and_matches_cli_output(self):

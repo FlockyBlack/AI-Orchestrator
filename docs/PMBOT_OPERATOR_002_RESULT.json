@@ -1,7 +1,15 @@
 {
+  "schema_version": "pmbot_operator_002_result.v1",
   "task_id": "PMBOT-OPERATOR-002-MANUAL-COMMAND-INBOX-REVIEW-QUEUE",
   "codex_lane": "CODEX_C",
   "status": "completed_ready_for_review",
+  "documented_legacy_references": {
+    "intentional_legacy_artifact": true,
+    "reason": "Historical operator round002 result; base commit is retained for audit lineage.",
+    "fields": [
+      "base_commit"
+    ]
+  },
   "summary": "Added an inert local manual command inbox review queue that reads fixture records, validates each record with the OPERATOR-001 manual command validator, classifies records as accepted, rejected, or needs_human_review, and exports deterministic JSON and Markdown queue reports without command execution.",
   "branch": "codex/c-operator-command-inbox-round002",
   "worktree_path": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator-worktrees\\CODEX_C_round002_operator_command_inbox",

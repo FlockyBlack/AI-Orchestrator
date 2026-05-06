@@ -119,7 +119,7 @@
         "status": "quarantined",
         "reason_code": "unsupported_snapshot_shape",
         "reason": "JSON payload is not a supported single manual snapshot file.",
-        "sha256": "84f667cb0ec444eea9d5581fac6fb3717efb1bfdf89c6129f585886a7113f11b",
+        "sha256": "58b833609f772eee356c4168f485203908d470e01bb80c1aeb6a9e584eb8c0fc",
         "snapshot_id": "unsupported_shape",
         "observed_at": null,
         "action_taken": "No inbox file written."

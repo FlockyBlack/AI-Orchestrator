@@ -1,4 +1,5 @@
 {
+  "schema_version": "pmbot_infra_009_result.v1",
   "task_id": "PMBOT-INFRA-009-ABC-ROUND003-WORKTREE-MATERIALIZATION",
   "status": "completed_ready_for_review",
   "summary": "Created fresh local PMBOT ABC round003 feature and integration worktrees from current origin/main for operator_workbench_review_pack_v1. No feature implementation, runtime wiring, dispatcher/run_codex changes, automation, network/API behavior, wallet/auth/trading behavior, autonomous paper orders, scoring/probability/EV/edge logic, recommendations, truth inference, market decisions, dashboard runtime, Telegram runtime, or command execution were added. Feature branches were not pushed.",

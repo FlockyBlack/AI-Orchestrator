@@ -340,6 +340,14 @@ def _top_owner_actions(warning_records):
     ]
 
 
+def _safe_documented_exception_count(source_report):
+    summary = source_report.get("documented_exception_summary")
+    if not isinstance(summary, dict):
+        return 0
+    value = summary.get("total_documented_exceptions")
+    return value if isinstance(value, int) else 0
+
+
 def build_warning_hygiene_report(source_report=None):
     if source_report is None:
         source_report = _load_source_report()
@@ -370,6 +378,7 @@ def build_warning_hygiene_report(source_report=None):
             "task_id": source_report.get("task_id"),
             "path": "pm_bot/quality/artifact_health_report.v1.json",
             "total_warnings": len(source_report.get("warnings", [])),
+            "documented_exceptions": _safe_documented_exception_count(source_report),
             "report_status": source_report.get("report_status"),
         },
         "warning_detection_policy": {
@@ -425,6 +434,7 @@ def render_markdown(report):
         f"schema_version: {report['schema_version']}",
         f"source_report: {report['source_report']['path']}",
         f"total_warnings_processed: {report['source_report']['total_warnings']}",
+        f"documented_exceptions: {report['source_report']['documented_exceptions']}",
         "",
         "## Warning Policy",
         "",
@@ -464,9 +474,13 @@ def render_markdown(report):
         lines.append(f"  operator_action: {bucket['recommended_operator_action']}")
         lines.append(f"  maintainer_action: {bucket['recommended_maintainer_action']}")
         lines.append(f"  example_path: {bucket['example_source_path']}")
+    if not report["warning_buckets"]:
+        lines.append("- none")
     lines.extend(["", "## Owner Action Queue", ""])
     for item in report["operator_summary"]["top_owner_actions"]:
         lines.append(f"- owner={item['owner']} action={item['action_type']} count={item['warning_count']}")
+    if not report["operator_summary"]["top_owner_actions"]:
+        lines.append("- none")
     lines.extend(["", "## Cleanup Soon", ""])
     for bucket in report["operator_summary"]["next_cleanup_actions"]:
         lines.append(
@@ -474,6 +488,8 @@ def render_markdown(report):
             f"{bucket['warning_category']} owned_by={bucket['owner']} count={bucket['warning_count']} "
             f"maintainer_action={bucket['recommended_maintainer_action']}"
         )
+    if not report["operator_summary"]["next_cleanup_actions"]:
+        lines.append("- none")
     return "\n".join(lines) + "\n"
 
 
@@ -484,6 +500,7 @@ def build_quality_result(report):
         "summary": "Deterministic warning hygiene metadata and owner/action routing were generated from the artifact health warning report without hiding or suppressing warnings.",
         "warning_hygiene_summary": {
             "total_warnings_processed": report["source_report"]["total_warnings"],
+            "documented_exceptions": report["source_report"]["documented_exceptions"],
             "owners": report["summary_counts"]["owner"],
             "severity": report["summary_counts"]["severity"],
             "expected_status": report["summary_counts"]["expected_status"],

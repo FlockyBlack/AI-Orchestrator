@@ -19,9 +19,10 @@
   "files_modified": [],
   "tests": [],
   "artifact_health": {
-    "report_status": "health_passed_with_warnings",
+    "report_status": "health_passed",
     "artifacts_checked": 228,
-    "warnings": 8
+    "warnings": 0,
+    "documented_exceptions": 48
   },
   "safety_flags": {
     "runtime_wiring": false,

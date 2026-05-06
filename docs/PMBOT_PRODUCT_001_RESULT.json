@@ -1,7 +1,19 @@
 {
+  "schema_version": "pmbot_product_001_result.v1",
   "task_id": "PMBOT-PRODUCT-001-ROUND003-DIRECTION-AND-BACKLOG-SELECTION",
   "status": "completed_ready_for_review",
   "summary": "Selected Operator Workbench / Review Pack v1 as the safest and most useful PMBOT round003 direction. The plan keeps round003 offline, local, deterministic, inert, and review-only; it proposes disjoint A/B/C scopes for a review-pack export, artifact health/staleness check, and inert review-pack command bridge contract.",
+  "documented_legacy_references": {
+    "intentional_legacy_artifact": true,
+    "reason": "Historical product planning result; base/origin commit references are retained for audit lineage.",
+    "fields": [
+      "base_commit",
+      "origin_main_commit",
+      "commands_run[3].summary",
+      "commands_run[5].summary",
+      "commands_run[6].command"
+    ]
+  },
   "root_confirmed": "C:\\Users\\OpenC\\Documents\\AI-Orchestrator",
   "base_commit": "bad252594a92cd90f05bf7babb9a6011f1b2ec5e",
   "origin_main_commit": "bad252594a92cd90f05bf7babb9a6011f1b2ec5e",

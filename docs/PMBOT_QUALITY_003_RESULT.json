@@ -1,0 +1,133 @@
+{
+  "task_id": "PMBOT-QUALITY-003-REMAINING-WARNING-CLEANUP",
+  "status": "completed_ready_for_commit",
+  "summary": "Closed the remaining PMBOT warning hygiene warnings by adding missing schema metadata, marking historical audit references as documented legacy references, surfacing documented exceptions, and refreshing dependent local operator/dashboard/product/paper artifacts.",
+  "precheck": {
+    "branch": "main",
+    "worktree_clean_before": true,
+    "local_head_before": "b63c7cc4fccbe0a7c00332a98e016fbe787c8005",
+    "origin_main_before": "b63c7cc4fccbe0a7c00332a98e016fbe787c8005",
+    "remote_conflict_detected": false
+  },
+  "warnings_before": {
+    "total": 8,
+    "blocking": 0,
+    "action_required": 3,
+    "review_needed": 4,
+    "informational": 1
+  },
+  "warnings_after": {
+    "total": 0,
+    "blocking": 0,
+    "action_required": 0,
+    "review_needed": 0,
+    "informational": 0,
+    "documented_exceptions": 48
+  },
+  "files_created": [
+    "docs/PMBOT_QUALITY_003_REMAINING_WARNING_CLEANUP.md",
+    "docs/PMBOT_QUALITY_003_RESULT.json"
+  ],
+  "files_modified": [
+    "docs/PMBOT_CODEX_B_ROUND003_RESULT.json",
+    "docs/PMBOT_INFRA_009_RESULT.json",
+    "docs/PMBOT_INTEGRATION_008_RESULT.json",
+    "docs/PMBOT_OPERATOR_002_RESULT.json",
+    "docs/PMBOT_PRODUCT_001_RESULT.json",
+    "docs/PMBOT_PRODUCT_003_LOCAL_OPERATOR_DRY_RUN_ACCEPTANCE.md",
+    "docs/PMBOT_PRODUCT_003_RESULT.json",
+    "docs/PMBOT_QUALITY_001_RESULT.json",
+    "docs/PMBOT_QUALITY_002_RESULT.json",
+    "docs/PMBOT_WORKBENCH_002_OPERATOR_QUICKSTART.md",
+    "pm_bot/dashboard/expected_static_operator_report_summary.v1.json",
+    "pm_bot/dashboard/static_operator_report.v1.html",
+    "pm_bot/dashboard/static_operator_report_summary.v1.json",
+    "pm_bot/paper/expected_manual_paper_operator_cycle.v1.json",
+    "pm_bot/paper/expected_manual_paper_operator_cycle_manifest.v1.json",
+    "pm_bot/paper/expected_manual_paper_operator_cycle_threshold_hit_review.v1.json",
+    "pm_bot/paper/expected_manual_snapshot_import_manifest.v1.json",
+    "pm_bot/paper/expected_manual_snapshot_workspace_import.v1.json",
+    "pm_bot/paper/expected_paper_run_series_postmortem.v1.json",
+    "pm_bot/paper/manual_paper_operator_cycle.v1.json",
+    "pm_bot/paper/manual_paper_operator_cycle_manifest.v1.json",
+    "pm_bot/paper/manual_paper_operator_cycle_threshold_hit_review.v1.json",
+    "pm_bot/paper/manual_snapshot_import_manifest.v1.json",
+    "pm_bot/paper/manual_snapshot_workspace_import.v1.json",
+    "pm_bot/paper/paper_run_series_postmortem.v1.json",
+    "pm_bot/product/expected_local_operator_dry_run_acceptance.v1.json",
+    "pm_bot/product/local_operator_dry_run_acceptance.v1.json",
+    "pm_bot/product/local_operator_dry_run_acceptance.v1.md",
+    "pm_bot/product/run_local_operator_dry_run_acceptance.py",
+    "pm_bot/quality/artifact_health_report.v1.json",
+    "pm_bot/quality/artifact_health_report.v1.md",
+    "pm_bot/quality/build_warning_hygiene_owner_action_paths.py",
+    "pm_bot/quality/expected_artifact_health_report.v1.json",
+    "pm_bot/quality/expected_warning_hygiene_owner_action_paths.v1.json",
+    "pm_bot/quality/export_artifact_health_report.py",
+    "pm_bot/quality/tests/test_artifact_health_report.py",
+    "pm_bot/quality/tests/test_warning_hygiene_owner_action_paths.py",
+    "pm_bot/quality/warning_hygiene_owner_action_paths.v1.json",
+    "pm_bot/quality/warning_hygiene_owner_action_paths.v1.md",
+    "pm_bot/workbench/expected_operator_review_pack.v1.json",
+    "pm_bot/workbench/operator_review_pack.v1.json",
+    "pm_bot/workbench/operator_review_pack.v1.md",
+    "pm_bot/workbench/tests/test_operator_review_pack_export.py"
+  ],
+  "tests_run": [
+    {
+      "command": "python -m pytest pm_bot\\quality -q",
+      "status": "passed",
+      "summary": "27 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\workbench pm_bot\\dashboard pm_bot\\operator -q",
+      "status": "passed",
+      "summary": "87 passed, 48 subtests passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\paper -q",
+      "status": "passed",
+      "summary": "331 passed, 39 subtests passed"
+    },
+    {
+      "command": "JSON parse check for changed and new JSON files",
+      "status": "passed",
+      "summary": "All changed and new JSON files parsed successfully."
+    },
+    {
+      "command": "python -m py_compile pm_bot\\product\\run_local_operator_dry_run_acceptance.py pm_bot\\quality\\build_warning_hygiene_owner_action_paths.py pm_bot\\quality\\export_artifact_health_report.py pm_bot\\quality\\tests\\test_artifact_health_report.py pm_bot\\quality\\tests\\test_warning_hygiene_owner_action_paths.py pm_bot\\workbench\\tests\\test_operator_review_pack_export.py",
+      "status": "passed",
+      "summary": "Changed Python files compiled successfully."
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed",
+      "summary": "Whitespace check passed."
+    },
+    {
+      "command": "Forbidden path/runtime safety scan over changed paths and Python diff",
+      "status": "passed",
+      "summary": "No dispatcher/run_codex changes, runtime network imports, order execution calls, wallet private-key access, or true unsafe runtime flags detected."
+    }
+  ],
+  "safety_flags": {
+    "runtime_wiring": false,
+    "network_api": false,
+    "credentials_or_wallet": false,
+    "real_orders_or_live_trading": false,
+    "autonomous_paper_orders": false,
+    "probability_ev_scoring_or_edge": false,
+    "side_recommendations": false,
+    "dispatcher_or_run_codex_changed": false,
+    "prompt_automation": false
+  },
+  "git": {
+    "commit_created": "reported_in_final_response",
+    "commit_hash": "reported_in_final_response",
+    "pushed": "reported_in_final_response",
+    "origin_main_verified": "reported_in_final_response",
+    "worktree_clean_after": "reported_in_final_response"
+  },
+  "blockers": [],
+  "next_recommended_task": "PMBOT-LLM-001-ANALYSIS-PACKET-CONTRACT"
+}

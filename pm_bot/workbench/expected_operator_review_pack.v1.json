@@ -72,7 +72,7 @@
         "required": true,
         "present": true,
         "parse_status": "parsed",
-        "schema_version": null,
+        "schema_version": "pmbot_product_001_result.v1",
         "task_id": "PMBOT-PRODUCT-001-ROUND003-DIRECTION-AND-BACKLOG-SELECTION",
         "status": "completed_ready_for_review",
         "audit_status": null,
@@ -87,7 +87,7 @@
         "required": true,
         "present": true,
         "parse_status": "parsed",
-        "schema_version": null,
+        "schema_version": "pmbot_integration_008_result.v1",
         "task_id": "PMBOT-INTEGRATION-008-ABC-ROUND002-REAL-MERGE",
         "status": "completed_ready_for_review",
         "audit_status": null,
@@ -207,7 +207,7 @@
         "required": true,
         "present": true,
         "parse_status": "parsed",
-        "schema_version": null,
+        "schema_version": "pmbot_operator_002_result.v1",
         "task_id": "PMBOT-OPERATOR-002-MANUAL-COMMAND-INBOX-REVIEW-QUEUE",
         "status": "completed_ready_for_review",
         "audit_status": null,
@@ -222,7 +222,7 @@
         "required": false,
         "present": true,
         "parse_status": "parsed",
-        "schema_version": null,
+        "schema_version": "pmbot_infra_009_result.v1",
         "task_id": "PMBOT-INFRA-009-ABC-ROUND003-WORKTREE-MATERIALIZATION",
         "status": "completed_ready_for_review",
         "audit_status": null,
@@ -670,184 +670,37 @@
   },
   "quality_warning_summary": {
     "source_path": "pm_bot/quality/artifact_health_report.v1.json",
-    "quality_report_status": "health_passed_with_warnings",
+    "quality_report_status": "health_passed",
     "quality_report_load_status": "parsed",
-    "total_warnings": 8,
+    "total_warnings": 0,
     "blocking_warnings": 0,
-    "action_required_warnings": 3,
-    "review_needed_warnings": 4,
-    "informational_warnings": 1,
+    "action_required_warnings": 0,
+    "review_needed_warnings": 0,
+    "informational_warnings": 0,
     "blocking_warning_detected": false,
     "warnings_by_owner": {
       "code": 0,
-      "fixture": 1,
-      "schema": 4,
-      "data": 3,
+      "fixture": 0,
+      "schema": 0,
+      "data": 0,
       "unknown": 0
     },
     "warnings_by_action_type": {
-      "fix_required": 3,
-      "review_required": 4,
-      "ignore_allowed": 1
+      "fix_required": 0,
+      "review_required": 0,
+      "ignore_allowed": 0
     },
-    "warning_categories": [
-      {
-        "category": "schema_version_missing",
-        "severity": "action_required",
-        "count": 4,
-        "severity_counts": {
-          "blocking": 0,
-          "action_required": 3,
-          "review_needed": 1,
-          "informational": 0
-        },
-        "owner": "schema",
-        "action_type": "fix_required",
-        "action_type_counts": {
-          "fix_required": 3,
-          "review_required": 1,
-          "ignore_allowed": 0
-        },
-        "recommended_action": "add schema_version to artifact",
-        "operator_bucket": "schema version metadata missing"
-      },
-      {
-        "category": "stale_reference_warning",
-        "severity": "review_needed",
-        "count": 3,
-        "severity_counts": {
-          "blocking": 0,
-          "action_required": 0,
-          "review_needed": 3,
-          "informational": 0
-        },
-        "owner": "data",
-        "action_type": "review_required",
-        "action_type_counts": {
-          "fix_required": 0,
-          "review_required": 3,
-          "ignore_allowed": 0
-        },
-        "recommended_action": "remove stale embedded reference",
-        "operator_bucket": "historical or stale reference needs inspection"
-      },
-      {
-        "category": "known_intentional_malformed_fixture_parse_failure",
-        "severity": "informational",
-        "count": 1,
-        "severity_counts": {
-          "blocking": 0,
-          "action_required": 0,
-          "review_needed": 0,
-          "informational": 1
-        },
-        "owner": "fixture",
-        "action_type": "ignore_allowed",
-        "action_type_counts": {
-          "fix_required": 0,
-          "review_required": 0,
-          "ignore_allowed": 1
-        },
-        "recommended_action": "keep intentional malformed fixture documented",
-        "operator_bucket": "known intentional malformed fixture"
-      }
-    ],
-    "top_warning_categories": [
-      {
-        "category": "schema_version_missing",
-        "severity": "action_required",
-        "count": 4,
-        "severity_counts": {
-          "blocking": 0,
-          "action_required": 3,
-          "review_needed": 1,
-          "informational": 0
-        },
-        "owner": "schema",
-        "action_type": "fix_required",
-        "action_type_counts": {
-          "fix_required": 3,
-          "review_required": 1,
-          "ignore_allowed": 0
-        },
-        "recommended_action": "add schema_version to artifact",
-        "operator_bucket": "schema version metadata missing"
-      },
-      {
-        "category": "stale_reference_warning",
-        "severity": "review_needed",
-        "count": 3,
-        "severity_counts": {
-          "blocking": 0,
-          "action_required": 0,
-          "review_needed": 3,
-          "informational": 0
-        },
-        "owner": "data",
-        "action_type": "review_required",
-        "action_type_counts": {
-          "fix_required": 0,
-          "review_required": 3,
-          "ignore_allowed": 0
-        },
-        "recommended_action": "remove stale embedded reference",
-        "operator_bucket": "historical or stale reference needs inspection"
-      },
-      {
-        "category": "known_intentional_malformed_fixture_parse_failure",
-        "severity": "informational",
-        "count": 1,
-        "severity_counts": {
-          "blocking": 0,
-          "action_required": 0,
-          "review_needed": 0,
-          "informational": 1
-        },
-        "owner": "fixture",
-        "action_type": "ignore_allowed",
-        "action_type_counts": {
-          "fix_required": 0,
-          "review_required": 0,
-          "ignore_allowed": 1
-        },
-        "recommended_action": "keep intentional malformed fixture documented",
-        "operator_bucket": "known intentional malformed fixture"
-      }
-    ],
-    "top_action_items": [
-      {
-        "category": "schema_version_missing",
-        "severity": "action_required",
-        "count": 4,
-        "owner": "schema",
-        "action_type": "fix_required",
-        "recommended_action": "add schema_version to artifact"
-      },
-      {
-        "category": "stale_reference_warning",
-        "severity": "review_needed",
-        "count": 3,
-        "owner": "data",
-        "action_type": "review_required",
-        "recommended_action": "remove stale embedded reference"
-      },
-      {
-        "category": "known_intentional_malformed_fixture_parse_failure",
-        "severity": "informational",
-        "count": 1,
-        "owner": "fixture",
-        "action_type": "ignore_allowed",
-        "recommended_action": "keep intentional malformed fixture documented"
-      }
-    ],
+    "warning_categories": [],
+    "top_warning_categories": [],
+    "top_action_items": [],
     "severity_interpretation": {
       "blocking": "blocking means stop and repair before relying on the package.",
       "action_required": "action_required means review before relying on the package.",
       "review_needed": "review_needed means inspect but not necessarily block.",
       "informational": "informational means low-priority context."
     },
-    "operator_summary": "No blocking warnings detected; review action_required categories before relying on the package.",
-    "recommended_manual_action": "Review action_required warning categories first, then inspect review_needed and informational categories."
+    "operator_summary": "No quality warnings detected.",
+    "recommended_manual_action": "Continue manual review with no quality warning follow-up required."
   },
   "warnings": [
     {

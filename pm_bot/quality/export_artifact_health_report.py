@@ -62,6 +62,8 @@ DOCUMENTED_NON_OBJECT_JSON_ARTIFACTS = {
     },
 }
 
+DOCUMENTED_LEGACY_REFERENCE_FIELD = "documented_legacy_references"
+
 DOCUMENTED_LEGACY_REFERENCE_FIELDS = {
     ("docs/PMBOT_DASHBOARD_002_RESULT.json", "base_commit"),
     ("docs/PMBOT_DASHBOARD_002_RESULT.json", "commands_run[0].command"),
@@ -494,8 +496,13 @@ def _stale_references(path, payload, root=ROOT):
     if payload is None:
         return references
     repo_path = _display_path(path, root=root)
+    documented_fields = _documented_legacy_reference_fields(repo_path, payload)
     for field_path, value in _walk_json(payload):
-        if (repo_path, field_path) in DOCUMENTED_LEGACY_REFERENCE_FIELDS:
+        if field_path == DOCUMENTED_LEGACY_REFERENCE_FIELD or field_path.startswith(
+            f"{DOCUMENTED_LEGACY_REFERENCE_FIELD}."
+        ):
+            continue
+        if field_path in documented_fields:
             continue
         if isinstance(value, str):
             for commit in COMMIT_RE.findall(value):
@@ -517,6 +524,67 @@ def _stale_references(path, payload, root=ROOT):
                 )
     references.sort(key=lambda item: (item["classification"], item["field_path"], item["value"]))
     return references
+
+
+def _documented_legacy_reference_reason(payload):
+    if not isinstance(payload, dict):
+        return "Documented legacy reference retained for artifact lineage."
+    metadata = payload.get(DOCUMENTED_LEGACY_REFERENCE_FIELD)
+    if not isinstance(metadata, dict):
+        return "Documented legacy reference retained for artifact lineage."
+    reason = metadata.get("reason")
+    if isinstance(reason, str) and reason:
+        return reason
+    return "Documented legacy reference retained for artifact lineage."
+
+
+def _documented_legacy_reference_fields(repo_path, payload):
+    fields = {
+        field_path
+        for documented_path, field_path in DOCUMENTED_LEGACY_REFERENCE_FIELDS
+        if documented_path == repo_path
+    }
+    if not isinstance(payload, dict):
+        return fields
+    metadata = payload.get(DOCUMENTED_LEGACY_REFERENCE_FIELD)
+    if not isinstance(metadata, dict) or metadata.get("intentional_legacy_artifact") is not True:
+        return fields
+    raw_fields = metadata.get("fields")
+    if isinstance(raw_fields, list):
+        fields.update(item for item in raw_fields if isinstance(item, str) and item)
+    return fields
+
+
+def _documented_legacy_reference_exceptions(path, payload, root=ROOT):
+    if payload is None:
+        return []
+    repo_path = _display_path(path, root=root)
+    fields = _documented_legacy_reference_fields(repo_path, payload)
+    if not fields:
+        return []
+    reason = _documented_legacy_reference_reason(payload)
+    exceptions = []
+    for field_path, value in _walk_json(payload):
+        if field_path not in fields or not isinstance(value, str):
+            continue
+        commit_values = COMMIT_RE.findall(value)
+        has_round_generation = bool(ROUND_GENERATION_RE.search(value))
+        if not commit_values and not has_round_generation:
+            continue
+        exceptions.append(
+            {
+                "exception_type": "documented_legacy_reference",
+                "field_path": field_path,
+                "classification": (
+                    "historical_or_non_current_commit_reference"
+                    if commit_values
+                    else "historical_round_generation_reference"
+                ),
+                "reason": reason,
+            }
+        )
+    exceptions.sort(key=lambda item: (item["classification"], item["field_path"]))
+    return exceptions
 
 
 def _artifact_record(path, root=ROOT):
@@ -545,6 +613,7 @@ def _artifact_record(path, root=ROOT):
         },
         "expected_fixture_alignment": "not_applicable",
         "safety_fields": {},
+        "documented_exceptions": [],
         "warnings": [],
     }
     payload = None
@@ -561,7 +630,13 @@ def _artifact_record(path, root=ROOT):
         record["json_parse_status"] = "parse_failed"
         record["json_parse_error"] = f"{exc.msg} at line {exc.lineno} column {exc.colno}"
         if repo_path in KNOWN_INTENTIONAL_PARSE_FIXTURE_PATHS:
-            record["warnings"].append("known_intentional_malformed_fixture_parse_failure")
+            record["documented_exceptions"].append(
+                {
+                    "exception_type": "known_intentional_malformed_fixture_parse_failure",
+                    "field_path": None,
+                    "reason": "Malformed JSON fixture intentionally verifies quarantine handling.",
+                }
+            )
         else:
             record["warnings"].append("json_parse_failed")
         return record, None
@@ -586,6 +661,13 @@ def _artifact_record(path, root=ROOT):
         documented = DOCUMENTED_NON_OBJECT_JSON_ARTIFACTS.get(repo_path)
         if documented:
             record["documented_shape_exception"] = documented
+            record["documented_exceptions"].append(
+                {
+                    "exception_type": "documented_non_object_json_artifact",
+                    "field_path": None,
+                    "reason": documented["reason"],
+                }
+            )
         else:
             record["warnings"].append("json_top_level_not_object")
 
@@ -603,6 +685,14 @@ def _artifact_record(path, root=ROOT):
             if documented_missing:
                 record.setdefault("documented_pointer_exceptions", []).append(
                     {
+                        "field_path": pointer["field_path"],
+                        "target": pointer["target"],
+                        "reason": documented_missing,
+                    }
+                )
+                record["documented_exceptions"].append(
+                    {
+                        "exception_type": "accepted_missing_pointer_target",
                         "field_path": pointer["field_path"],
                         "target": pointer["target"],
                         "reason": documented_missing,
@@ -629,6 +719,7 @@ def _artifact_record(path, root=ROOT):
         record["warnings"].append("embedded_artifact_pointer_warning")
 
     stale = _stale_references(path, payload, root=root)
+    record["documented_exceptions"].extend(_documented_legacy_reference_exceptions(path, payload, root=root))
     if stale:
         record["stale_reference_warnings"] = stale
         record["warnings"].append("stale_reference_warning")
@@ -960,6 +1051,23 @@ def _warning_severity_summary(warnings, artifact_records, blockers):
     return summary
 
 
+def _documented_exception_summary(artifact_records):
+    exceptions = []
+    by_type = {}
+    for record in artifact_records:
+        for exception in record.get("documented_exceptions", []):
+            item = {"path": record["path"], **exception}
+            exceptions.append(item)
+            exception_type = item["exception_type"]
+            by_type[exception_type] = by_type.get(exception_type, 0) + 1
+    exceptions.sort(key=lambda item: (item["exception_type"], item["path"], str(item.get("field_path"))))
+    return {
+        "total_documented_exceptions": len(exceptions),
+        "exceptions_by_type": dict(sorted(by_type.items())),
+        "exceptions": exceptions,
+    }
+
+
 def build_artifact_health_report(root=ROOT):
     root = Path(root)
     paths = _artifact_inventory_paths(root)
@@ -985,6 +1093,7 @@ def build_artifact_health_report(root=ROOT):
     warnings = _classified_warnings(warning_messages, required_by_path)
     warning_summary = _warning_severity_summary(warnings, artifact_records, blockers)
     _classify_artifact_record_warnings(artifact_records, required_by_path)
+    documented_exception_summary = _documented_exception_summary(artifact_records)
     parse_pass = sum(1 for record in artifact_records if record["json_parse_status"] == "parsed")
     parse_fail = sum(1 for record in artifact_records if record["json_parse_status"] == "parse_failed")
     stale_pointer_warnings = []
@@ -1060,6 +1169,7 @@ def build_artifact_health_report(root=ROOT):
             "checks": fixture_checks,
         },
         "safety_flag_summary": safety_summary,
+        "documented_exception_summary": documented_exception_summary,
         "stale_pointer_warnings": stale_pointer_warnings,
         "warning_severity_summary": warning_summary,
         "warning_messages": warning_messages,
@@ -1075,6 +1185,7 @@ def render_markdown(report):
     fixture_summary = report["expected_fixture_alignment_summary"]
     safety = report["safety_flag_summary"]
     warning_summary = report["warning_severity_summary"]
+    documented_exceptions = report["documented_exception_summary"]
     lines = [
         "# PMBOT Artifact Health Report v1",
         "",
@@ -1160,6 +1271,11 @@ def render_markdown(report):
     lines.extend(
         [
             "",
+            "## Documented Exceptions",
+            "",
+            f"- total_documented_exceptions: {documented_exceptions['total_documented_exceptions']}",
+            f"- exceptions_by_type: {json.dumps(documented_exceptions['exceptions_by_type'], sort_keys=True)}",
+            "",
             "## Embedded Pointer Health",
             "",
             f"- checked_count: {pointer_summary['checked_count']}",
@@ -1229,6 +1345,7 @@ def _result_payload(report):
             "report_status": report["report_status"],
             "artifacts_checked": report["artifacts_checked"],
             "warnings": len(report["warnings"]),
+            "documented_exceptions": report["documented_exception_summary"]["total_documented_exceptions"],
         },
         "safety_flags": dict(SAFETY_FLAGS),
         "forbidden_changes_detected": False,

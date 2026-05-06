@@ -1,7 +1,24 @@
 {
+  "schema_version": "pmbot_integration_008_result.v1",
   "task_id": "PMBOT-INTEGRATION-008-ABC-ROUND002-REAL-MERGE",
   "status": "completed_ready_for_review",
   "integration_verdict": "abc_round002_merged_to_main",
+  "documented_legacy_references": {
+    "intentional_legacy_artifact": true,
+    "reason": "Historical round002 merge audit record; commit hashes and task lineage are retained for auditability.",
+    "fields": [
+      "task_id",
+      "base_before_merge",
+      "origin_main_before_merge",
+      "required_branch_ancestry_base",
+      "branches_merged[0].expected_commit",
+      "branches_merged[0].merge_commit",
+      "branches_merged[1].expected_commit",
+      "branches_merged[1].merge_commit",
+      "branches_merged[2].expected_commit",
+      "branches_merged[2].merge_commit"
+    ]
+  },
   "base_before_merge": "bf64d5c1195e33aa8513052159c7d3d269c99657",
   "origin_main_before_merge": "bf64d5c1195e33aa8513052159c7d3d269c99657",
   "required_branch_ancestry_base": "c3962ed19b3e1e3d453f2569762fc7269378bebe",

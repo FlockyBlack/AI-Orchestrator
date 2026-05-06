@@ -68,7 +68,7 @@ SAFETY_FLAGS = {
 OPERATOR_NEXT_ACTIONS = [
     "Open pm_bot/dashboard/static_operator_report.v1.html for the first local operator view.",
     "Open pm_bot/workbench/operator_review_pack.v1.md and inspect inventory, warning, paper accounting, and inbox sections.",
-    "Review pm_bot/quality/artifact_health_report.v1.md warning categories and owner/action paths before treating the package as polished.",
+    "Review pm_bot/quality/artifact_health_report.v1.md warning summary and documented exceptions before treating the package as polished.",
     "Inspect pm_bot/operator/manual_command_inbox_review.v1.md only as an inert review queue; do not execute commands from it.",
     "Use accounting and PnL fields only as local fixture accounting checks, not strategy profitability.",
 ]
@@ -76,7 +76,7 @@ OPERATOR_NEXT_ACTIONS = [
 INTERPRETATION_LIMITS = [
     "Accounting/PnL is accounting-only local fixture output and is not strategy profitability.",
     "The acceptance layer makes no recommendations, market decisions, scoring, probability, EV, edge, or side calls.",
-    "Warnings are intentionally preserved and remain separate from blockers.",
+    "Warnings are summarized separately from blockers; documented exceptions remain visible for traceability.",
     "The report is local, deterministic, offline, and operator-review-only.",
     "No live market truth, live settlement truth, wallet state, or trading readiness is inferred.",
 ]

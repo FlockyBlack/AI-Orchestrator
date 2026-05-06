@@ -132,8 +132,9 @@ class ArtifactHealthReportTests(unittest.TestCase):
         self.assertEqual(malformed["json_parse_status"], "parse_failed")
         self.assertIn(
             "known_intentional_malformed_fixture_parse_failure",
-            {warning["category"] for warning in malformed["warnings"]},
+            {exception["exception_type"] for exception in malformed["documented_exceptions"]},
         )
+        self.assertEqual(malformed["warnings"], [])
         self.assertNotIn("required JSON parse failed", "\n".join(report["blockers"]))
 
     def test_warning_severity_summary_classifies_all_warning_detail(self):
@@ -162,26 +163,25 @@ class ArtifactHealthReportTests(unittest.TestCase):
                 self.assertTrue(warning["recommended_action"])
         self.assertFalse(summary["blocking_warning_detected"])
         self.assertEqual(summary["blocking_count"], 0)
-        self.assertGreater(summary["action_required_count"], 0)
-        self.assertGreater(summary["review_needed_count"], 0)
-        self.assertGreater(summary["informational_count"], 0)
-        self.assertIn("No blocking warnings detected", summary["operator_summary"])
+        self.assertEqual(summary["action_required_count"], 0)
+        self.assertEqual(summary["review_needed_count"], 0)
+        self.assertEqual(summary["informational_count"], 0)
+        self.assertEqual(summary["operator_summary"], "No quality warnings detected.")
 
         categories = {item["category"]: item for item in summary["warning_categories"]}
         self.assertNotIn("expected_fixture_alignment_warning", categories)
         self.assertNotIn("fixture_alignment_actual_missing", categories)
         self.assertNotIn("embedded_artifact_pointer_warning", categories)
-        self.assertEqual(
-            categories["known_intentional_malformed_fixture_parse_failure"]["severity"],
-            "informational",
-        )
+        self.assertEqual(categories, {})
         self.assertEqual(sum(summary["warnings_by_owner"].values()), summary["total_warnings"])
         self.assertEqual(sum(summary["warnings_by_action_type"].values()), summary["total_warnings"])
-        self.assertGreater(summary["warnings_by_owner"]["fixture"], 0)
-        self.assertGreater(summary["warnings_by_action_type"]["fix_required"], 0)
-        self.assertGreater(len(summary["top_action_items"]), 0)
-        self.assertLessEqual(len(summary["top_action_items"]), 5)
-        self.assertIn(summary["top_action_items"][0]["category"], categories)
+        self.assertEqual(summary["warnings_by_owner"]["fixture"], 0)
+        self.assertEqual(summary["warnings_by_action_type"]["fix_required"], 0)
+        self.assertEqual(summary["top_action_items"], [])
+
+        exceptions = report["documented_exception_summary"]
+        self.assertGreater(exceptions["total_documented_exceptions"], 0)
+        self.assertEqual(exceptions["exceptions_by_type"]["known_intentional_malformed_fixture_parse_failure"], 1)
 
     def test_pointer_fixture_and_safety_sections_are_explicit(self):
         _run_write()
@@ -249,6 +249,7 @@ class ArtifactHealthReportTests(unittest.TestCase):
         self.assertIn("report_status:", markdown)
         self.assertIn("Warning Severity Summary", markdown)
         self.assertIn("blocking_count:", markdown)
+        self.assertIn("Documented Exceptions", markdown)
         self.assertIn("Embedded Pointer Health", markdown)
         self.assertIn("Expected Fixture Alignment", markdown)
 

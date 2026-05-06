@@ -123,7 +123,7 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         pack = _load_json(PACK_JSON)
         quality_summary = pack["quality_warning_summary"]
 
-        self.assertEqual(quality_summary["quality_report_status"], "health_passed_with_warnings")
+        self.assertEqual(quality_summary["quality_report_status"], "health_passed")
         self.assertEqual(quality_summary["quality_report_load_status"], "parsed")
         self.assertEqual(
             quality_summary["total_warnings"],
@@ -134,9 +134,9 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         )
         self.assertEqual(quality_summary["blocking_warnings"], 0)
         self.assertFalse(quality_summary["blocking_warning_detected"])
-        self.assertGreater(quality_summary["action_required_warnings"], 0)
-        self.assertGreater(quality_summary["review_needed_warnings"], 0)
-        self.assertGreater(quality_summary["informational_warnings"], 0)
+        self.assertEqual(quality_summary["action_required_warnings"], 0)
+        self.assertEqual(quality_summary["review_needed_warnings"], 0)
+        self.assertEqual(quality_summary["informational_warnings"], 0)
         self.assertIn("blocking means stop and repair", quality_summary["severity_interpretation"]["blocking"])
         self.assertIn(
             "action_required means review before relying",
@@ -147,11 +147,9 @@ class OperatorReviewPackExportTests(unittest.TestCase):
             sum(quality_summary["warnings_by_action_type"].values()),
             quality_summary["total_warnings"],
         )
-        self.assertGreater(quality_summary["warnings_by_owner"]["fixture"], 0)
-        self.assertGreater(quality_summary["warnings_by_action_type"]["fix_required"], 0)
-        self.assertGreater(len(quality_summary["top_action_items"]), 0)
-        self.assertLessEqual(len(quality_summary["top_action_items"]), 5)
-        self.assertIn("recommended_action", quality_summary["top_action_items"][0])
+        self.assertEqual(quality_summary["warnings_by_owner"]["fixture"], 0)
+        self.assertEqual(quality_summary["warnings_by_action_type"]["fix_required"], 0)
+        self.assertEqual(quality_summary["top_action_items"], [])
 
     def test_inventory_reports_required_sources_and_optional_missing_artifacts(self):
         _run_write()

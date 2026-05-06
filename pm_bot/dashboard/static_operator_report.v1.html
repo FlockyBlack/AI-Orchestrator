@@ -100,23 +100,17 @@ ul,ol{padding-left:22px}
 <section>
 <h2>Quality Warning Severity Summary</h2>
 <div class="metric-grid">
-<div class="metric"><div class="metric-label">total_warnings</div><div class="metric-value">8</div></div>
+<div class="metric"><div class="metric-label">total_warnings</div><div class="metric-value">0</div></div>
 <div class="metric"><div class="metric-label">blocking</div><div class="metric-value">0</div></div>
-<div class="metric"><div class="metric-label">action_required</div><div class="metric-value">3</div></div>
-<div class="metric"><div class="metric-label">review_needed</div><div class="metric-value">4</div></div>
-<div class="metric"><div class="metric-label">informational</div><div class="metric-value">1</div></div>
+<div class="metric"><div class="metric-label">action_required</div><div class="metric-value">0</div></div>
+<div class="metric"><div class="metric-label">review_needed</div><div class="metric-value">0</div></div>
+<div class="metric"><div class="metric-label">informational</div><div class="metric-value">0</div></div>
 <div class="metric"><div class="metric-label">blocking_warning_detected</div><div class="metric-value">false</div></div>
 </div>
-<p>No blocking warnings detected; review action_required categories before relying on the package.</p>
-<p><strong>Recommended manual action:</strong> Review action_required warning categories first, then inspect review_needed and informational categories.</p>
+<p>No quality warnings detected.</p>
+<p><strong>Recommended manual action:</strong> Continue manual review with no quality warning follow-up required.</p>
 <h3>Top Warning Categories</h3>
-<table>
-<thead><tr><th>Category</th><th>Severity</th><th>Count</th><th>Operator Bucket</th></tr></thead>
-<tbody>
-<tr><td>schema_version_missing</td><td>action_required</td><td>4</td><td>schema version metadata missing</td></tr>
-<tr><td>stale_reference_warning</td><td>review_needed</td><td>3</td><td>historical or stale reference needs inspection</td></tr>
-<tr><td>known_intentional_malformed_fixture_parse_failure</td><td>informational</td><td>1</td><td>known intentional malformed fixture</td></tr>
-</tbody></table>
+<p>none</p>
 </section>
 <section>
 <h2>Artifact Health Summary</h2>
@@ -125,11 +119,11 @@ ul,ol{padding-left:22px}
 <div class="metric"><div class="metric-label">present</div><div class="metric-value">228</div></div>
 <div class="metric"><div class="metric-label">missing</div><div class="metric-value">0</div></div>
 <div class="metric"><div class="metric-label">json_parse_fail</div><div class="metric-value">1</div></div>
-<div class="metric"><div class="metric-label">schema_version_missing</div><div class="metric-value">8</div></div>
+<div class="metric"><div class="metric-label">schema_version_missing</div><div class="metric-value">4</div></div>
 <div class="metric"><div class="metric-label">fixture_mismatch</div><div class="metric-value">0</div></div>
 </div>
 <table><tbody>
-<tr><th>report_status</th><td>health_passed_with_warnings</td></tr>
+<tr><th>report_status</th><td>health_passed</td></tr>
 <tr><th>source_path</th><td>pm_bot/quality/artifact_health_report.v1.json</td></tr>
 <tr><th>embedded_artifact_pointer_summary</th><td>{&quot;absolute_count&quot;: 0, &quot;checked_count&quot;: 634, &quot;missing_count&quot;: 20, &quot;present_count&quot;: 614}</td></tr>
 <tr><th>expected_fixture_alignment_summary</th><td>{&quot;actual_missing_count&quot;: 0, &quot;aligned_count&quot;: 72, &quot;checks_total&quot;: 72, &quot;mismatch_count&quot;: 0}</td></tr>
@@ -214,7 +208,7 @@ ul,ol{padding-left:22px}
 <tr><td>operator_review_pack_json</td><td><code>pm_bot/workbench/operator_review_pack.v1.json</code></td><td>true</td><td>true</td><td>parsed</td><td>none</td></tr>
 <tr><td>operator_review_pack_markdown</td><td><code>pm_bot/workbench/operator_review_pack.v1.md</code></td><td>false</td><td>true</td><td>not_applicable</td><td>none</td></tr>
 <tr><td>operator_workbench_export_run_json</td><td><code>pm_bot/workbench/operator_workbench_export_run.v1.json</code></td><td>true</td><td>true</td><td>parsed</td><td>none</td></tr>
-<tr><td>artifact_health_report_json</td><td><code>pm_bot/quality/artifact_health_report.v1.json</code></td><td>true</td><td>true</td><td>parsed</td><td>health_passed_with_warnings</td></tr>
+<tr><td>artifact_health_report_json</td><td><code>pm_bot/quality/artifact_health_report.v1.json</code></td><td>true</td><td>true</td><td>parsed</td><td>health_passed</td></tr>
 <tr><td>artifact_health_report_markdown</td><td><code>pm_bot/quality/artifact_health_report.v1.md</code></td><td>false</td><td>true</td><td>not_applicable</td><td>none</td></tr>
 <tr><td>paper_019_series_json</td><td><code>pm_bot/paper/multi_market_paper_run_series.v1.json</code></td><td>true</td><td>true</td><td>parsed</td><td>series_run_passed</td></tr>
 <tr><td>paper_019_series_markdown</td><td><code>pm_bot/paper/multi_market_paper_run_series.v1.md</code></td><td>false</td><td>true</td><td>not_applicable</td><td>none</td></tr>

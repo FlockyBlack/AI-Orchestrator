@@ -97,7 +97,7 @@
       "parse_status": "parsed",
       "schema_version": "artifact_health_report.v1",
       "task_id": "PMBOT-QUALITY-001-ARTIFACT-HEALTH-AND-STALENESS-CHECK",
-      "report_status": "health_passed_with_warnings"
+      "report_status": "health_passed"
     }
   ],
   "missing_optional_docs": [],

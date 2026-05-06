@@ -34,7 +34,7 @@
   "artifacts_missing_count": 0,
   "json_parse_pass_count": 156,
   "json_parse_fail_count": 1,
-  "schema_version_missing_count": 8,
+  "schema_version_missing_count": 4,
   "task_id_missing_where_expected_count": 0,
   "status_fields_missing_where_expected_count": 0,
   "embedded_artifact_pointer_summary": {
@@ -863,275 +863,373 @@
     },
     "unexpected_true_or_nonzero_values": []
   },
-  "stale_pointer_warnings": [
-    {
-      "path": "docs/PMBOT_INTEGRATION_008_RESULT.json",
-      "field_path": "base_before_merge",
-      "value": "bf64d5c1195e33aa8513052159c7d3d269c99657",
-      "classification": "historical_or_non_current_commit_reference"
+  "documented_exception_summary": {
+    "total_documented_exceptions": 48,
+    "exceptions_by_type": {
+      "accepted_missing_pointer_target": 20,
+      "documented_legacy_reference": 23,
+      "documented_non_object_json_artifact": 4,
+      "known_intentional_malformed_fixture_parse_failure": 1
     },
-    {
-      "path": "docs/PMBOT_INTEGRATION_008_RESULT.json",
-      "field_path": "branches_merged[0].expected_commit",
-      "value": "1000091e2b4f0d8bd055427f2ec10e5a773f24c5",
-      "classification": "historical_or_non_current_commit_reference"
-    },
-    {
-      "path": "docs/PMBOT_INTEGRATION_008_RESULT.json",
-      "field_path": "branches_merged[0].merge_commit",
-      "value": "366fa57110f56bb1aa74ea20700c82c264782e66",
-      "classification": "historical_or_non_current_commit_reference"
-    },
-    {
-      "path": "docs/PMBOT_INTEGRATION_008_RESULT.json",
-      "field_path": "branches_merged[1].expected_commit",
-      "value": "9ae6c48632f4148e38ea0262c9b37dd3c2815170",
-      "classification": "historical_or_non_current_commit_reference"
-    },
-    {
-      "path": "docs/PMBOT_INTEGRATION_008_RESULT.json",
-      "field_path": "branches_merged[1].merge_commit",
-      "value": "32db173fdf1f3877f6260279f325462ab6b41223",
-      "classification": "historical_or_non_current_commit_reference"
-    },
-    {
-      "path": "docs/PMBOT_INTEGRATION_008_RESULT.json",
-      "field_path": "branches_merged[2].expected_commit",
-      "value": "2a144b716d8f52fea66dc958a4ca39883df085e6",
-      "classification": "historical_or_non_current_commit_reference"
-    },
-    {
-      "path": "docs/PMBOT_INTEGRATION_008_RESULT.json",
-      "field_path": "branches_merged[2].merge_commit",
-      "value": "bfd274a5768ae964c966b8c0d318a22db19ca935",
-      "classification": "historical_or_non_current_commit_reference"
-    },
-    {
-      "path": "docs/PMBOT_INTEGRATION_008_RESULT.json",
-      "field_path": "origin_main_before_merge",
-      "value": "bf64d5c1195e33aa8513052159c7d3d269c99657",
-      "classification": "historical_or_non_current_commit_reference"
-    },
-    {
-      "path": "docs/PMBOT_INTEGRATION_008_RESULT.json",
-      "field_path": "required_branch_ancestry_base",
-      "value": "c3962ed19b3e1e3d453f2569762fc7269378bebe",
-      "classification": "historical_or_non_current_commit_reference"
-    },
-    {
-      "path": "docs/PMBOT_INTEGRATION_008_RESULT.json",
-      "field_path": "task_id",
-      "value": "PMBOT-INTEGRATION-008-ABC-ROUND002-REAL-MERGE",
-      "classification": "historical_round_generation_reference"
-    },
-    {
-      "path": "docs/PMBOT_OPERATOR_002_RESULT.json",
-      "field_path": "base_commit",
-      "value": "c3962ed19b3e1e3d453f2569762fc7269378bebe",
-      "classification": "historical_or_non_current_commit_reference"
-    },
-    {
-      "path": "docs/PMBOT_PRODUCT_001_RESULT.json",
-      "field_path": "base_commit",
-      "value": "bad252594a92cd90f05bf7babb9a6011f1b2ec5e",
-      "classification": "historical_or_non_current_commit_reference"
-    },
-    {
-      "path": "docs/PMBOT_PRODUCT_001_RESULT.json",
-      "field_path": "commands_run[3].summary",
-      "value": "bad252594a92cd90f05bf7babb9a6011f1b2ec5e",
-      "classification": "historical_or_non_current_commit_reference"
-    },
-    {
-      "path": "docs/PMBOT_PRODUCT_001_RESULT.json",
-      "field_path": "commands_run[5].summary",
-      "value": "bad252594a92cd90f05bf7babb9a6011f1b2ec5e",
-      "classification": "historical_or_non_current_commit_reference"
-    },
-    {
-      "path": "docs/PMBOT_PRODUCT_001_RESULT.json",
-      "field_path": "commands_run[6].command",
-      "value": "bad252594a92cd90f05bf7babb9a6011f1b2ec5e",
-      "classification": "historical_or_non_current_commit_reference"
-    },
-    {
-      "path": "docs/PMBOT_PRODUCT_001_RESULT.json",
-      "field_path": "origin_main_commit",
-      "value": "bad252594a92cd90f05bf7babb9a6011f1b2ec5e",
-      "classification": "historical_or_non_current_commit_reference"
-    }
-  ],
+    "exceptions": [
+      {
+        "path": "pm_bot/paper/expected_manual_paper_operator_cycle.v1.json",
+        "exception_type": "accepted_missing_pointer_target",
+        "field_path": "import_phase.imported_records[0].canonical_inbox_path",
+        "target": "pm_bot/paper/manual_paper_workspace/inbox/004_series_snapshot_004.json",
+        "reason": "Accepted manual import output placeholder; the manifest records the deterministic canonical target without materializing the inbox file in the checked-in fixture workspace."
+      },
+      {
+        "path": "pm_bot/paper/expected_manual_paper_operator_cycle.v1.json",
+        "exception_type": "accepted_missing_pointer_target",
+        "field_path": "import_phase.imported_records[1].canonical_inbox_path",
+        "target": "pm_bot/paper/manual_paper_workspace/inbox/005_series_snapshot_005.json",
+        "reason": "Accepted manual import output placeholder; the manifest records the deterministic canonical target without materializing the inbox file in the checked-in fixture workspace."
+      },
+      {
+        "path": "pm_bot/paper/expected_manual_paper_operator_cycle_manifest.v1.json",
+        "exception_type": "accepted_missing_pointer_target",
+        "field_path": "imported_records[0].canonical_inbox_path",
+        "target": "pm_bot/paper/manual_paper_workspace/inbox/004_series_snapshot_004.json",
+        "reason": "Accepted manual import output placeholder; the manifest records the deterministic canonical target without materializing the inbox file in the checked-in fixture workspace."
+      },
+      {
+        "path": "pm_bot/paper/expected_manual_paper_operator_cycle_manifest.v1.json",
+        "exception_type": "accepted_missing_pointer_target",
+        "field_path": "imported_records[1].canonical_inbox_path",
+        "target": "pm_bot/paper/manual_paper_workspace/inbox/005_series_snapshot_005.json",
+        "reason": "Accepted manual import output placeholder; the manifest records the deterministic canonical target without materializing the inbox file in the checked-in fixture workspace."
+      },
+      {
+        "path": "pm_bot/paper/expected_manual_paper_operator_cycle_threshold_hit_review.v1.json",
+        "exception_type": "accepted_missing_pointer_target",
+        "field_path": "import_phase.imported_records[0].canonical_inbox_path",
+        "target": "pm_bot/paper/manual_paper_workspace/inbox/004_series_snapshot_004.json",
+        "reason": "Accepted manual import output placeholder; the manifest records the deterministic canonical target without materializing the inbox file in the checked-in fixture workspace."
+      },
+      {
+        "path": "pm_bot/paper/expected_manual_paper_operator_cycle_threshold_hit_review.v1.json",
+        "exception_type": "accepted_missing_pointer_target",
+        "field_path": "import_phase.imported_records[1].canonical_inbox_path",
+        "target": "pm_bot/paper/manual_paper_workspace/inbox/005_series_snapshot_005.json",
+        "reason": "Accepted manual import output placeholder; the manifest records the deterministic canonical target without materializing the inbox file in the checked-in fixture workspace."
+      },
+      {
+        "path": "pm_bot/paper/expected_manual_snapshot_import_manifest.v1.json",
+        "exception_type": "accepted_missing_pointer_target",
+        "field_path": "imported_records[0].canonical_inbox_path",
+        "target": "pm_bot/paper/manual_paper_workspace/inbox/004_series_snapshot_004.json",
+        "reason": "Accepted manual import output placeholder; the manifest records the deterministic canonical target without materializing the inbox file in the checked-in fixture workspace."
+      },
+      {
+        "path": "pm_bot/paper/expected_manual_snapshot_import_manifest.v1.json",
+        "exception_type": "accepted_missing_pointer_target",
+        "field_path": "imported_records[1].canonical_inbox_path",
+        "target": "pm_bot/paper/manual_paper_workspace/inbox/005_series_snapshot_005.json",
+        "reason": "Accepted manual import output placeholder; the manifest records the deterministic canonical target without materializing the inbox file in the checked-in fixture workspace."
+      },
+      {
+        "path": "pm_bot/paper/expected_manual_snapshot_workspace_import.v1.json",
+        "exception_type": "accepted_missing_pointer_target",
+        "field_path": "imported_records[0].canonical_inbox_path",
+        "target": "pm_bot/paper/manual_paper_workspace/inbox/004_series_snapshot_004.json",
+        "reason": "Accepted manual import output placeholder; the manifest records the deterministic canonical target without materializing the inbox file in the checked-in fixture workspace."
+      },
+      {
+        "path": "pm_bot/paper/expected_manual_snapshot_workspace_import.v1.json",
+        "exception_type": "accepted_missing_pointer_target",
+        "field_path": "imported_records[1].canonical_inbox_path",
+        "target": "pm_bot/paper/manual_paper_workspace/inbox/005_series_snapshot_005.json",
+        "reason": "Accepted manual import output placeholder; the manifest records the deterministic canonical target without materializing the inbox file in the checked-in fixture workspace."
+      },
+      {
+        "path": "pm_bot/paper/manual_paper_operator_cycle.v1.json",
+        "exception_type": "accepted_missing_pointer_target",
+        "field_path": "import_phase.imported_records[0].canonical_inbox_path",
+        "target": "pm_bot/paper/manual_paper_workspace/inbox/004_series_snapshot_004.json",
+        "reason": "Accepted manual import output placeholder; the manifest records the deterministic canonical target without materializing the inbox file in the checked-in fixture workspace."
+      },
+      {
+        "path": "pm_bot/paper/manual_paper_operator_cycle.v1.json",
+        "exception_type": "accepted_missing_pointer_target",
+        "field_path": "import_phase.imported_records[1].canonical_inbox_path",
+        "target": "pm_bot/paper/manual_paper_workspace/inbox/005_series_snapshot_005.json",
+        "reason": "Accepted manual import output placeholder; the manifest records the deterministic canonical target without materializing the inbox file in the checked-in fixture workspace."
+      },
+      {
+        "path": "pm_bot/paper/manual_paper_operator_cycle_manifest.v1.json",
+        "exception_type": "accepted_missing_pointer_target",
+        "field_path": "imported_records[0].canonical_inbox_path",
+        "target": "pm_bot/paper/manual_paper_workspace/inbox/004_series_snapshot_004.json",
+        "reason": "Accepted manual import output placeholder; the manifest records the deterministic canonical target without materializing the inbox file in the checked-in fixture workspace."
+      },
+      {
+        "path": "pm_bot/paper/manual_paper_operator_cycle_manifest.v1.json",
+        "exception_type": "accepted_missing_pointer_target",
+        "field_path": "imported_records[1].canonical_inbox_path",
+        "target": "pm_bot/paper/manual_paper_workspace/inbox/005_series_snapshot_005.json",
+        "reason": "Accepted manual import output placeholder; the manifest records the deterministic canonical target without materializing the inbox file in the checked-in fixture workspace."
+      },
+      {
+        "path": "pm_bot/paper/manual_paper_operator_cycle_threshold_hit_review.v1.json",
+        "exception_type": "accepted_missing_pointer_target",
+        "field_path": "import_phase.imported_records[0].canonical_inbox_path",
+        "target": "pm_bot/paper/manual_paper_workspace/inbox/004_series_snapshot_004.json",
+        "reason": "Accepted manual import output placeholder; the manifest records the deterministic canonical target without materializing the inbox file in the checked-in fixture workspace."
+      },
+      {
+        "path": "pm_bot/paper/manual_paper_operator_cycle_threshold_hit_review.v1.json",
+        "exception_type": "accepted_missing_pointer_target",
+        "field_path": "import_phase.imported_records[1].canonical_inbox_path",
+        "target": "pm_bot/paper/manual_paper_workspace/inbox/005_series_snapshot_005.json",
+        "reason": "Accepted manual import output placeholder; the manifest records the deterministic canonical target without materializing the inbox file in the checked-in fixture workspace."
+      },
+      {
+        "path": "pm_bot/paper/manual_snapshot_import_manifest.v1.json",
+        "exception_type": "accepted_missing_pointer_target",
+        "field_path": "imported_records[0].canonical_inbox_path",
+        "target": "pm_bot/paper/manual_paper_workspace/inbox/004_series_snapshot_004.json",
+        "reason": "Accepted manual import output placeholder; the manifest records the deterministic canonical target without materializing the inbox file in the checked-in fixture workspace."
+      },
+      {
+        "path": "pm_bot/paper/manual_snapshot_import_manifest.v1.json",
+        "exception_type": "accepted_missing_pointer_target",
+        "field_path": "imported_records[1].canonical_inbox_path",
+        "target": "pm_bot/paper/manual_paper_workspace/inbox/005_series_snapshot_005.json",
+        "reason": "Accepted manual import output placeholder; the manifest records the deterministic canonical target without materializing the inbox file in the checked-in fixture workspace."
+      },
+      {
+        "path": "pm_bot/paper/manual_snapshot_workspace_import.v1.json",
+        "exception_type": "accepted_missing_pointer_target",
+        "field_path": "imported_records[0].canonical_inbox_path",
+        "target": "pm_bot/paper/manual_paper_workspace/inbox/004_series_snapshot_004.json",
+        "reason": "Accepted manual import output placeholder; the manifest records the deterministic canonical target without materializing the inbox file in the checked-in fixture workspace."
+      },
+      {
+        "path": "pm_bot/paper/manual_snapshot_workspace_import.v1.json",
+        "exception_type": "accepted_missing_pointer_target",
+        "field_path": "imported_records[1].canonical_inbox_path",
+        "target": "pm_bot/paper/manual_paper_workspace/inbox/005_series_snapshot_005.json",
+        "reason": "Accepted manual import output placeholder; the manifest records the deterministic canonical target without materializing the inbox file in the checked-in fixture workspace."
+      },
+      {
+        "path": "docs/PMBOT_DASHBOARD_002_RESULT.json",
+        "exception_type": "documented_legacy_reference",
+        "field_path": "base_commit",
+        "classification": "historical_or_non_current_commit_reference",
+        "reason": "Documented legacy reference retained for artifact lineage."
+      },
+      {
+        "path": "docs/PMBOT_DASHBOARD_002_RESULT.json",
+        "exception_type": "documented_legacy_reference",
+        "field_path": "commands_run[0].command",
+        "classification": "historical_or_non_current_commit_reference",
+        "reason": "Documented legacy reference retained for artifact lineage."
+      },
+      {
+        "path": "docs/PMBOT_DASHBOARD_002_RESULT.json",
+        "exception_type": "documented_legacy_reference",
+        "field_path": "compatibility_patch.blocker",
+        "classification": "historical_round_generation_reference",
+        "reason": "Documented legacy reference retained for artifact lineage."
+      },
+      {
+        "path": "docs/PMBOT_INTEGRATION_008_RESULT.json",
+        "exception_type": "documented_legacy_reference",
+        "field_path": "base_before_merge",
+        "classification": "historical_or_non_current_commit_reference",
+        "reason": "Historical round002 merge audit record; commit hashes and task lineage are retained for auditability."
+      },
+      {
+        "path": "docs/PMBOT_INTEGRATION_008_RESULT.json",
+        "exception_type": "documented_legacy_reference",
+        "field_path": "branches_merged[0].expected_commit",
+        "classification": "historical_or_non_current_commit_reference",
+        "reason": "Historical round002 merge audit record; commit hashes and task lineage are retained for auditability."
+      },
+      {
+        "path": "docs/PMBOT_INTEGRATION_008_RESULT.json",
+        "exception_type": "documented_legacy_reference",
+        "field_path": "branches_merged[0].merge_commit",
+        "classification": "historical_or_non_current_commit_reference",
+        "reason": "Historical round002 merge audit record; commit hashes and task lineage are retained for auditability."
+      },
+      {
+        "path": "docs/PMBOT_INTEGRATION_008_RESULT.json",
+        "exception_type": "documented_legacy_reference",
+        "field_path": "branches_merged[1].expected_commit",
+        "classification": "historical_or_non_current_commit_reference",
+        "reason": "Historical round002 merge audit record; commit hashes and task lineage are retained for auditability."
+      },
+      {
+        "path": "docs/PMBOT_INTEGRATION_008_RESULT.json",
+        "exception_type": "documented_legacy_reference",
+        "field_path": "branches_merged[1].merge_commit",
+        "classification": "historical_or_non_current_commit_reference",
+        "reason": "Historical round002 merge audit record; commit hashes and task lineage are retained for auditability."
+      },
+      {
+        "path": "docs/PMBOT_INTEGRATION_008_RESULT.json",
+        "exception_type": "documented_legacy_reference",
+        "field_path": "branches_merged[2].expected_commit",
+        "classification": "historical_or_non_current_commit_reference",
+        "reason": "Historical round002 merge audit record; commit hashes and task lineage are retained for auditability."
+      },
+      {
+        "path": "docs/PMBOT_INTEGRATION_008_RESULT.json",
+        "exception_type": "documented_legacy_reference",
+        "field_path": "branches_merged[2].merge_commit",
+        "classification": "historical_or_non_current_commit_reference",
+        "reason": "Historical round002 merge audit record; commit hashes and task lineage are retained for auditability."
+      },
+      {
+        "path": "docs/PMBOT_INTEGRATION_008_RESULT.json",
+        "exception_type": "documented_legacy_reference",
+        "field_path": "origin_main_before_merge",
+        "classification": "historical_or_non_current_commit_reference",
+        "reason": "Historical round002 merge audit record; commit hashes and task lineage are retained for auditability."
+      },
+      {
+        "path": "docs/PMBOT_INTEGRATION_008_RESULT.json",
+        "exception_type": "documented_legacy_reference",
+        "field_path": "required_branch_ancestry_base",
+        "classification": "historical_or_non_current_commit_reference",
+        "reason": "Historical round002 merge audit record; commit hashes and task lineage are retained for auditability."
+      },
+      {
+        "path": "docs/PMBOT_INTEGRATION_008_RESULT.json",
+        "exception_type": "documented_legacy_reference",
+        "field_path": "task_id",
+        "classification": "historical_round_generation_reference",
+        "reason": "Historical round002 merge audit record; commit hashes and task lineage are retained for auditability."
+      },
+      {
+        "path": "docs/PMBOT_OPERATOR_002_RESULT.json",
+        "exception_type": "documented_legacy_reference",
+        "field_path": "base_commit",
+        "classification": "historical_or_non_current_commit_reference",
+        "reason": "Historical operator round002 result; base commit is retained for audit lineage."
+      },
+      {
+        "path": "docs/PMBOT_PRODUCT_001_RESULT.json",
+        "exception_type": "documented_legacy_reference",
+        "field_path": "base_commit",
+        "classification": "historical_or_non_current_commit_reference",
+        "reason": "Historical product planning result; base/origin commit references are retained for audit lineage."
+      },
+      {
+        "path": "docs/PMBOT_PRODUCT_001_RESULT.json",
+        "exception_type": "documented_legacy_reference",
+        "field_path": "commands_run[3].summary",
+        "classification": "historical_or_non_current_commit_reference",
+        "reason": "Historical product planning result; base/origin commit references are retained for audit lineage."
+      },
+      {
+        "path": "docs/PMBOT_PRODUCT_001_RESULT.json",
+        "exception_type": "documented_legacy_reference",
+        "field_path": "commands_run[5].summary",
+        "classification": "historical_or_non_current_commit_reference",
+        "reason": "Historical product planning result; base/origin commit references are retained for audit lineage."
+      },
+      {
+        "path": "docs/PMBOT_PRODUCT_001_RESULT.json",
+        "exception_type": "documented_legacy_reference",
+        "field_path": "commands_run[6].command",
+        "classification": "historical_or_non_current_commit_reference",
+        "reason": "Historical product planning result; base/origin commit references are retained for audit lineage."
+      },
+      {
+        "path": "docs/PMBOT_PRODUCT_001_RESULT.json",
+        "exception_type": "documented_legacy_reference",
+        "field_path": "origin_main_commit",
+        "classification": "historical_or_non_current_commit_reference",
+        "reason": "Historical product planning result; base/origin commit references are retained for audit lineage."
+      },
+      {
+        "path": "pm_bot/dashboard/expected_portfolio_audit_state_preview.v1.json",
+        "exception_type": "documented_legacy_reference",
+        "field_path": "product_stage_summary.infra_008.task_id",
+        "classification": "historical_round_generation_reference",
+        "reason": "Documented legacy reference retained for artifact lineage."
+      },
+      {
+        "path": "pm_bot/dashboard/expected_portfolio_audit_state_preview.v1.json",
+        "exception_type": "documented_legacy_reference",
+        "field_path": "product_stage_summary.integration_006.task_id",
+        "classification": "historical_round_generation_reference",
+        "reason": "Documented legacy reference retained for artifact lineage."
+      },
+      {
+        "path": "pm_bot/dashboard/portfolio_audit_state_preview.v1.json",
+        "exception_type": "documented_legacy_reference",
+        "field_path": "product_stage_summary.infra_008.task_id",
+        "classification": "historical_round_generation_reference",
+        "reason": "Documented legacy reference retained for artifact lineage."
+      },
+      {
+        "path": "pm_bot/dashboard/portfolio_audit_state_preview.v1.json",
+        "exception_type": "documented_legacy_reference",
+        "field_path": "product_stage_summary.integration_006.task_id",
+        "classification": "historical_round_generation_reference",
+        "reason": "Documented legacy reference retained for artifact lineage."
+      },
+      {
+        "path": "pm_bot/paper/expected_manual_paper_workspace_quarantine.v1.json",
+        "exception_type": "documented_non_object_json_artifact",
+        "field_path": null,
+        "reason": "Expected fixture mirrors the manual paper workspace quarantine record list."
+      },
+      {
+        "path": "pm_bot/paper/fixtures/polymarket_markets_active_threshold_hit.fixture.json",
+        "exception_type": "documented_non_object_json_artifact",
+        "field_path": null,
+        "reason": "Fixture intentionally mirrors a minimized Polymarket markets API list without network use."
+      },
+      {
+        "path": "pm_bot/paper/manual_paper_workspace_quarantine.v1.json",
+        "exception_type": "documented_non_object_json_artifact",
+        "field_path": null,
+        "reason": "Workspace quarantine artifact is a deterministic record list consumed by manual review tooling."
+      },
+      {
+        "path": "pm_bot/paper/manual_snapshot_import_source/008_polymarket_markets_active_minimized.fixture.json",
+        "exception_type": "documented_non_object_json_artifact",
+        "field_path": null,
+        "reason": "Manual import fixture intentionally preserves the source markets list shape."
+      },
+      {
+        "path": "pm_bot/paper/manual_snapshot_import_source/005_malformed.json",
+        "exception_type": "known_intentional_malformed_fixture_parse_failure",
+        "field_path": null,
+        "reason": "Malformed JSON fixture intentionally verifies quarantine handling."
+      }
+    ]
+  },
+  "stale_pointer_warnings": [],
   "warning_severity_summary": {
-    "total_warnings": 8,
+    "total_warnings": 0,
     "blocking_count": 0,
-    "action_required_count": 3,
-    "review_needed_count": 4,
-    "informational_count": 1,
+    "action_required_count": 0,
+    "review_needed_count": 0,
+    "informational_count": 0,
     "warnings_by_owner": {
       "code": 0,
-      "fixture": 1,
-      "schema": 4,
-      "data": 3,
+      "fixture": 0,
+      "schema": 0,
+      "data": 0,
       "unknown": 0
     },
     "warnings_by_action_type": {
-      "fix_required": 3,
-      "review_required": 4,
-      "ignore_allowed": 1
+      "fix_required": 0,
+      "review_required": 0,
+      "ignore_allowed": 0
     },
-    "warning_categories": [
-      {
-        "category": "schema_version_missing",
-        "severity": "action_required",
-        "count": 4,
-        "severity_counts": {
-          "blocking": 0,
-          "action_required": 3,
-          "review_needed": 1,
-          "informational": 0
-        },
-        "owner": "schema",
-        "action_type": "fix_required",
-        "action_type_counts": {
-          "fix_required": 3,
-          "review_required": 1,
-          "ignore_allowed": 0
-        },
-        "recommended_action": "add schema_version to artifact",
-        "operator_bucket": "schema version metadata missing"
-      },
-      {
-        "category": "stale_reference_warning",
-        "severity": "review_needed",
-        "count": 3,
-        "severity_counts": {
-          "blocking": 0,
-          "action_required": 0,
-          "review_needed": 3,
-          "informational": 0
-        },
-        "owner": "data",
-        "action_type": "review_required",
-        "action_type_counts": {
-          "fix_required": 0,
-          "review_required": 3,
-          "ignore_allowed": 0
-        },
-        "recommended_action": "remove stale embedded reference",
-        "operator_bucket": "historical or stale reference needs inspection"
-      },
-      {
-        "category": "known_intentional_malformed_fixture_parse_failure",
-        "severity": "informational",
-        "count": 1,
-        "severity_counts": {
-          "blocking": 0,
-          "action_required": 0,
-          "review_needed": 0,
-          "informational": 1
-        },
-        "owner": "fixture",
-        "action_type": "ignore_allowed",
-        "action_type_counts": {
-          "fix_required": 0,
-          "review_required": 0,
-          "ignore_allowed": 1
-        },
-        "recommended_action": "keep intentional malformed fixture documented",
-        "operator_bucket": "known intentional malformed fixture"
-      }
-    ],
-    "top_warning_categories": [
-      {
-        "category": "schema_version_missing",
-        "severity": "action_required",
-        "count": 4,
-        "severity_counts": {
-          "blocking": 0,
-          "action_required": 3,
-          "review_needed": 1,
-          "informational": 0
-        },
-        "owner": "schema",
-        "action_type": "fix_required",
-        "action_type_counts": {
-          "fix_required": 3,
-          "review_required": 1,
-          "ignore_allowed": 0
-        },
-        "recommended_action": "add schema_version to artifact",
-        "operator_bucket": "schema version metadata missing"
-      },
-      {
-        "category": "stale_reference_warning",
-        "severity": "review_needed",
-        "count": 3,
-        "severity_counts": {
-          "blocking": 0,
-          "action_required": 0,
-          "review_needed": 3,
-          "informational": 0
-        },
-        "owner": "data",
-        "action_type": "review_required",
-        "action_type_counts": {
-          "fix_required": 0,
-          "review_required": 3,
-          "ignore_allowed": 0
-        },
-        "recommended_action": "remove stale embedded reference",
-        "operator_bucket": "historical or stale reference needs inspection"
-      },
-      {
-        "category": "known_intentional_malformed_fixture_parse_failure",
-        "severity": "informational",
-        "count": 1,
-        "severity_counts": {
-          "blocking": 0,
-          "action_required": 0,
-          "review_needed": 0,
-          "informational": 1
-        },
-        "owner": "fixture",
-        "action_type": "ignore_allowed",
-        "action_type_counts": {
-          "fix_required": 0,
-          "review_required": 0,
-          "ignore_allowed": 1
-        },
-        "recommended_action": "keep intentional malformed fixture documented",
-        "operator_bucket": "known intentional malformed fixture"
-      }
-    ],
-    "top_action_items": [
-      {
-        "category": "schema_version_missing",
-        "severity": "action_required",
-        "count": 4,
-        "owner": "schema",
-        "action_type": "fix_required",
-        "recommended_action": "add schema_version to artifact"
-      },
-      {
-        "category": "stale_reference_warning",
-        "severity": "review_needed",
-        "count": 3,
-        "owner": "data",
-        "action_type": "review_required",
-        "recommended_action": "remove stale embedded reference"
-      },
-      {
-        "category": "known_intentional_malformed_fixture_parse_failure",
-        "severity": "informational",
-        "count": 1,
-        "owner": "fixture",
-        "action_type": "ignore_allowed",
-        "recommended_action": "keep intentional malformed fixture documented"
-      }
-    ],
+    "warning_categories": [],
+    "top_warning_categories": [],
+    "top_action_items": [],
     "blocking_warning_detected": false,
-    "operator_summary": "No blocking warnings detected; review action_required categories before relying on the package.",
-    "recommended_manual_action": "Review action_required warning categories first, then inspect review_needed and informational categories.",
+    "operator_summary": "No quality warnings detected.",
+    "recommended_manual_action": "Continue manual review with no quality warning follow-up required.",
     "severity_model": {
       "blocking": "Stop operator review and repair the artifact or safety issue first.",
       "action_required": "Review and resolve or explicitly accept before relying on the package.",
@@ -1139,100 +1237,10 @@
       "informational": "Low-priority context retained for traceability."
     }
   },
-  "warning_messages": [
-    "docs/PMBOT_INFRA_009_RESULT.json: schema_version_missing",
-    "docs/PMBOT_INTEGRATION_008_RESULT.json: schema_version_missing",
-    "docs/PMBOT_INTEGRATION_008_RESULT.json: stale_reference_warning",
-    "docs/PMBOT_OPERATOR_002_RESULT.json: schema_version_missing",
-    "docs/PMBOT_OPERATOR_002_RESULT.json: stale_reference_warning",
-    "docs/PMBOT_PRODUCT_001_RESULT.json: schema_version_missing",
-    "docs/PMBOT_PRODUCT_001_RESULT.json: stale_reference_warning",
-    "pm_bot/paper/manual_snapshot_import_source/005_malformed.json: known_intentional_malformed_fixture_parse_failure"
-  ],
-  "warnings": [
-    {
-      "warning_id": "warning_001",
-      "message": "docs/PMBOT_INFRA_009_RESULT.json: schema_version_missing",
-      "path": "docs/PMBOT_INFRA_009_RESULT.json",
-      "category": "schema_version_missing",
-      "severity": "review_needed",
-      "owner": "schema",
-      "action_type": "review_required",
-      "recommended_action": "add schema_version to artifact"
-    },
-    {
-      "warning_id": "warning_002",
-      "message": "docs/PMBOT_INTEGRATION_008_RESULT.json: schema_version_missing",
-      "path": "docs/PMBOT_INTEGRATION_008_RESULT.json",
-      "category": "schema_version_missing",
-      "severity": "action_required",
-      "owner": "schema",
-      "action_type": "fix_required",
-      "recommended_action": "add schema_version to artifact"
-    },
-    {
-      "warning_id": "warning_003",
-      "message": "docs/PMBOT_INTEGRATION_008_RESULT.json: stale_reference_warning",
-      "path": "docs/PMBOT_INTEGRATION_008_RESULT.json",
-      "category": "stale_reference_warning",
-      "severity": "review_needed",
-      "owner": "data",
-      "action_type": "review_required",
-      "recommended_action": "remove stale embedded reference"
-    },
-    {
-      "warning_id": "warning_004",
-      "message": "docs/PMBOT_OPERATOR_002_RESULT.json: schema_version_missing",
-      "path": "docs/PMBOT_OPERATOR_002_RESULT.json",
-      "category": "schema_version_missing",
-      "severity": "action_required",
-      "owner": "schema",
-      "action_type": "fix_required",
-      "recommended_action": "add schema_version to artifact"
-    },
-    {
-      "warning_id": "warning_005",
-      "message": "docs/PMBOT_OPERATOR_002_RESULT.json: stale_reference_warning",
-      "path": "docs/PMBOT_OPERATOR_002_RESULT.json",
-      "category": "stale_reference_warning",
-      "severity": "review_needed",
-      "owner": "data",
-      "action_type": "review_required",
-      "recommended_action": "remove stale embedded reference"
-    },
-    {
-      "warning_id": "warning_006",
-      "message": "docs/PMBOT_PRODUCT_001_RESULT.json: schema_version_missing",
-      "path": "docs/PMBOT_PRODUCT_001_RESULT.json",
-      "category": "schema_version_missing",
-      "severity": "action_required",
-      "owner": "schema",
-      "action_type": "fix_required",
-      "recommended_action": "add schema_version to artifact"
-    },
-    {
-      "warning_id": "warning_007",
-      "message": "docs/PMBOT_PRODUCT_001_RESULT.json: stale_reference_warning",
-      "path": "docs/PMBOT_PRODUCT_001_RESULT.json",
-      "category": "stale_reference_warning",
-      "severity": "review_needed",
-      "owner": "data",
-      "action_type": "review_required",
-      "recommended_action": "remove stale embedded reference"
-    },
-    {
-      "warning_id": "warning_008",
-      "message": "pm_bot/paper/manual_snapshot_import_source/005_malformed.json: known_intentional_malformed_fixture_parse_failure",
-      "path": "pm_bot/paper/manual_snapshot_import_source/005_malformed.json",
-      "category": "known_intentional_malformed_fixture_parse_failure",
-      "severity": "informational",
-      "owner": "fixture",
-      "action_type": "ignore_allowed",
-      "recommended_action": "keep intentional malformed fixture documented"
-    }
-  ],
+  "warning_messages": [],
+  "warnings": [],
   "blockers": [],
-  "report_status": "health_passed_with_warnings",
+  "report_status": "health_passed",
   "artifacts": [
     {
       "path": "docs/PMBOT_DASHBOARD_002_RESULT.json",
@@ -1269,6 +1277,26 @@
         "safety_flags.trading": false,
         "safety_flags.wallet": false
       },
+      "documented_exceptions": [
+        {
+          "exception_type": "documented_legacy_reference",
+          "field_path": "base_commit",
+          "classification": "historical_or_non_current_commit_reference",
+          "reason": "Documented legacy reference retained for artifact lineage."
+        },
+        {
+          "exception_type": "documented_legacy_reference",
+          "field_path": "commands_run[0].command",
+          "classification": "historical_or_non_current_commit_reference",
+          "reason": "Documented legacy reference retained for artifact lineage."
+        },
+        {
+          "exception_type": "documented_legacy_reference",
+          "field_path": "compatibility_patch.blocker",
+          "classification": "historical_round_generation_reference",
+          "reason": "Documented legacy reference retained for artifact lineage."
+        }
+      ],
       "warnings": [],
       "warning_codes": []
     },
@@ -1278,8 +1306,8 @@
       "required": false,
       "exists": true,
       "json_parse_status": "parsed",
-      "schema_version_present": false,
-      "schema_version": null,
+      "schema_version_present": true,
+      "schema_version": "pmbot_infra_009_result.v1",
       "task_id_expected": true,
       "task_id_present": true,
       "task_id": "PMBOT-INFRA-009-ABC-ROUND003-WORKTREE-MATERIALIZATION",
@@ -1311,21 +1339,9 @@
         "safety_flags.truth_inference": false,
         "safety_flags.wallet": false
       },
-      "warnings": [
-        {
-          "warning_id": "artifact_warning_001",
-          "message": "docs/PMBOT_INFRA_009_RESULT.json: schema_version_missing",
-          "path": "docs/PMBOT_INFRA_009_RESULT.json",
-          "category": "schema_version_missing",
-          "severity": "review_needed",
-          "owner": "schema",
-          "action_type": "review_required",
-          "recommended_action": "add schema_version to artifact"
-        }
-      ],
-      "warning_codes": [
-        "schema_version_missing"
-      ]
+      "documented_exceptions": [],
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "docs/PMBOT_INTEGRATION_008_RESULT.json",
@@ -1333,8 +1349,8 @@
       "required": true,
       "exists": true,
       "json_parse_status": "parsed",
-      "schema_version_present": false,
-      "schema_version": null,
+      "schema_version_present": true,
+      "schema_version": "pmbot_integration_008_result.v1",
       "task_id_expected": true,
       "task_id_present": true,
       "task_id": "PMBOT-INTEGRATION-008-ABC-ROUND002-REAL-MERGE",
@@ -1351,84 +1367,70 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
-      "warnings": [
+      "documented_exceptions": [
         {
-          "warning_id": "artifact_warning_001",
-          "message": "docs/PMBOT_INTEGRATION_008_RESULT.json: schema_version_missing",
-          "path": "docs/PMBOT_INTEGRATION_008_RESULT.json",
-          "category": "schema_version_missing",
-          "severity": "action_required",
-          "owner": "schema",
-          "action_type": "fix_required",
-          "recommended_action": "add schema_version to artifact"
-        },
-        {
-          "warning_id": "artifact_warning_002",
-          "message": "docs/PMBOT_INTEGRATION_008_RESULT.json: stale_reference_warning",
-          "path": "docs/PMBOT_INTEGRATION_008_RESULT.json",
-          "category": "stale_reference_warning",
-          "severity": "review_needed",
-          "owner": "data",
-          "action_type": "review_required",
-          "recommended_action": "remove stale embedded reference"
-        }
-      ],
-      "stale_reference_warnings": [
-        {
+          "exception_type": "documented_legacy_reference",
           "field_path": "base_before_merge",
-          "value": "bf64d5c1195e33aa8513052159c7d3d269c99657",
-          "classification": "historical_or_non_current_commit_reference"
+          "classification": "historical_or_non_current_commit_reference",
+          "reason": "Historical round002 merge audit record; commit hashes and task lineage are retained for auditability."
         },
         {
+          "exception_type": "documented_legacy_reference",
           "field_path": "branches_merged[0].expected_commit",
-          "value": "1000091e2b4f0d8bd055427f2ec10e5a773f24c5",
-          "classification": "historical_or_non_current_commit_reference"
+          "classification": "historical_or_non_current_commit_reference",
+          "reason": "Historical round002 merge audit record; commit hashes and task lineage are retained for auditability."
         },
         {
+          "exception_type": "documented_legacy_reference",
           "field_path": "branches_merged[0].merge_commit",
-          "value": "366fa57110f56bb1aa74ea20700c82c264782e66",
-          "classification": "historical_or_non_current_commit_reference"
+          "classification": "historical_or_non_current_commit_reference",
+          "reason": "Historical round002 merge audit record; commit hashes and task lineage are retained for auditability."
         },
         {
+          "exception_type": "documented_legacy_reference",
           "field_path": "branches_merged[1].expected_commit",
-          "value": "9ae6c48632f4148e38ea0262c9b37dd3c2815170",
-          "classification": "historical_or_non_current_commit_reference"
+          "classification": "historical_or_non_current_commit_reference",
+          "reason": "Historical round002 merge audit record; commit hashes and task lineage are retained for auditability."
         },
         {
+          "exception_type": "documented_legacy_reference",
           "field_path": "branches_merged[1].merge_commit",
-          "value": "32db173fdf1f3877f6260279f325462ab6b41223",
-          "classification": "historical_or_non_current_commit_reference"
+          "classification": "historical_or_non_current_commit_reference",
+          "reason": "Historical round002 merge audit record; commit hashes and task lineage are retained for auditability."
         },
         {
+          "exception_type": "documented_legacy_reference",
           "field_path": "branches_merged[2].expected_commit",
-          "value": "2a144b716d8f52fea66dc958a4ca39883df085e6",
-          "classification": "historical_or_non_current_commit_reference"
+          "classification": "historical_or_non_current_commit_reference",
+          "reason": "Historical round002 merge audit record; commit hashes and task lineage are retained for auditability."
         },
         {
+          "exception_type": "documented_legacy_reference",
           "field_path": "branches_merged[2].merge_commit",
-          "value": "bfd274a5768ae964c966b8c0d318a22db19ca935",
-          "classification": "historical_or_non_current_commit_reference"
+          "classification": "historical_or_non_current_commit_reference",
+          "reason": "Historical round002 merge audit record; commit hashes and task lineage are retained for auditability."
         },
         {
+          "exception_type": "documented_legacy_reference",
           "field_path": "origin_main_before_merge",
-          "value": "bf64d5c1195e33aa8513052159c7d3d269c99657",
-          "classification": "historical_or_non_current_commit_reference"
+          "classification": "historical_or_non_current_commit_reference",
+          "reason": "Historical round002 merge audit record; commit hashes and task lineage are retained for auditability."
         },
         {
+          "exception_type": "documented_legacy_reference",
           "field_path": "required_branch_ancestry_base",
-          "value": "c3962ed19b3e1e3d453f2569762fc7269378bebe",
-          "classification": "historical_or_non_current_commit_reference"
+          "classification": "historical_or_non_current_commit_reference",
+          "reason": "Historical round002 merge audit record; commit hashes and task lineage are retained for auditability."
         },
         {
+          "exception_type": "documented_legacy_reference",
           "field_path": "task_id",
-          "value": "PMBOT-INTEGRATION-008-ABC-ROUND002-REAL-MERGE",
-          "classification": "historical_round_generation_reference"
+          "classification": "historical_round_generation_reference",
+          "reason": "Historical round002 merge audit record; commit hashes and task lineage are retained for auditability."
         }
       ],
-      "warning_codes": [
-        "schema_version_missing",
-        "stale_reference_warning"
-      ]
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "docs/PMBOT_OPERATOR_002_RESULT.json",
@@ -1436,8 +1438,8 @@
       "required": true,
       "exists": true,
       "json_parse_status": "parsed",
-      "schema_version_present": false,
-      "schema_version": null,
+      "schema_version_present": true,
+      "schema_version": "pmbot_operator_002_result.v1",
       "task_id_expected": true,
       "task_id_present": true,
       "task_id": "PMBOT-OPERATOR-002-MANUAL-COMMAND-INBOX-REVIEW-QUEUE",
@@ -1473,39 +1475,16 @@
         "safety_flags.truth_inference": false,
         "safety_flags.wallet": false
       },
-      "warnings": [
+      "documented_exceptions": [
         {
-          "warning_id": "artifact_warning_001",
-          "message": "docs/PMBOT_OPERATOR_002_RESULT.json: schema_version_missing",
-          "path": "docs/PMBOT_OPERATOR_002_RESULT.json",
-          "category": "schema_version_missing",
-          "severity": "action_required",
-          "owner": "schema",
-          "action_type": "fix_required",
-          "recommended_action": "add schema_version to artifact"
-        },
-        {
-          "warning_id": "artifact_warning_002",
-          "message": "docs/PMBOT_OPERATOR_002_RESULT.json: stale_reference_warning",
-          "path": "docs/PMBOT_OPERATOR_002_RESULT.json",
-          "category": "stale_reference_warning",
-          "severity": "review_needed",
-          "owner": "data",
-          "action_type": "review_required",
-          "recommended_action": "remove stale embedded reference"
-        }
-      ],
-      "stale_reference_warnings": [
-        {
+          "exception_type": "documented_legacy_reference",
           "field_path": "base_commit",
-          "value": "c3962ed19b3e1e3d453f2569762fc7269378bebe",
-          "classification": "historical_or_non_current_commit_reference"
+          "classification": "historical_or_non_current_commit_reference",
+          "reason": "Historical operator round002 result; base commit is retained for audit lineage."
         }
       ],
-      "warning_codes": [
-        "schema_version_missing",
-        "stale_reference_warning"
-      ]
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "docs/PMBOT_PAPER_018_RESULT.json",
@@ -1551,6 +1530,7 @@
         "safety.truth_inference": false,
         "safety.wallet_private_keys": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -1560,8 +1540,8 @@
       "required": true,
       "exists": true,
       "json_parse_status": "parsed",
-      "schema_version_present": false,
-      "schema_version": null,
+      "schema_version_present": true,
+      "schema_version": "pmbot_product_001_result.v1",
       "task_id_expected": true,
       "task_id_present": true,
       "task_id": "PMBOT-PRODUCT-001-ROUND003-DIRECTION-AND-BACKLOG-SELECTION",
@@ -1592,59 +1572,40 @@
         "safety_flags.truth_inference": false,
         "safety_flags.wallet": false
       },
-      "warnings": [
+      "documented_exceptions": [
         {
-          "warning_id": "artifact_warning_001",
-          "message": "docs/PMBOT_PRODUCT_001_RESULT.json: schema_version_missing",
-          "path": "docs/PMBOT_PRODUCT_001_RESULT.json",
-          "category": "schema_version_missing",
-          "severity": "action_required",
-          "owner": "schema",
-          "action_type": "fix_required",
-          "recommended_action": "add schema_version to artifact"
-        },
-        {
-          "warning_id": "artifact_warning_002",
-          "message": "docs/PMBOT_PRODUCT_001_RESULT.json: stale_reference_warning",
-          "path": "docs/PMBOT_PRODUCT_001_RESULT.json",
-          "category": "stale_reference_warning",
-          "severity": "review_needed",
-          "owner": "data",
-          "action_type": "review_required",
-          "recommended_action": "remove stale embedded reference"
-        }
-      ],
-      "stale_reference_warnings": [
-        {
+          "exception_type": "documented_legacy_reference",
           "field_path": "base_commit",
-          "value": "bad252594a92cd90f05bf7babb9a6011f1b2ec5e",
-          "classification": "historical_or_non_current_commit_reference"
+          "classification": "historical_or_non_current_commit_reference",
+          "reason": "Historical product planning result; base/origin commit references are retained for audit lineage."
         },
         {
+          "exception_type": "documented_legacy_reference",
           "field_path": "commands_run[3].summary",
-          "value": "bad252594a92cd90f05bf7babb9a6011f1b2ec5e",
-          "classification": "historical_or_non_current_commit_reference"
+          "classification": "historical_or_non_current_commit_reference",
+          "reason": "Historical product planning result; base/origin commit references are retained for audit lineage."
         },
         {
+          "exception_type": "documented_legacy_reference",
           "field_path": "commands_run[5].summary",
-          "value": "bad252594a92cd90f05bf7babb9a6011f1b2ec5e",
-          "classification": "historical_or_non_current_commit_reference"
+          "classification": "historical_or_non_current_commit_reference",
+          "reason": "Historical product planning result; base/origin commit references are retained for audit lineage."
         },
         {
+          "exception_type": "documented_legacy_reference",
           "field_path": "commands_run[6].command",
-          "value": "bad252594a92cd90f05bf7babb9a6011f1b2ec5e",
-          "classification": "historical_or_non_current_commit_reference"
+          "classification": "historical_or_non_current_commit_reference",
+          "reason": "Historical product planning result; base/origin commit references are retained for audit lineage."
         },
         {
+          "exception_type": "documented_legacy_reference",
           "field_path": "origin_main_commit",
-          "value": "bad252594a92cd90f05bf7babb9a6011f1b2ec5e",
-          "classification": "historical_or_non_current_commit_reference"
+          "classification": "historical_or_non_current_commit_reference",
+          "reason": "Historical product planning result; base/origin commit references are retained for audit lineage."
         }
       ],
-      "warning_codes": [
-        "schema_version_missing",
-        "stale_reference_warning"
-      ]
+      "warnings": [],
+      "warning_codes": []
     },
     {
       "path": "pm_bot/dashboard/dashboard_state_contract.v1.json",
@@ -1668,6 +1629,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -1710,6 +1672,7 @@
         "safety_flags.trading": false,
         "safety_flags.wallet": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -1735,6 +1698,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -1777,6 +1741,7 @@
         "safety_flags.trading": false,
         "safety_flags.wallet": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -1818,6 +1783,20 @@
         "safety_flags.truth_inference": false,
         "safety_flags.wallet": false
       },
+      "documented_exceptions": [
+        {
+          "exception_type": "documented_legacy_reference",
+          "field_path": "product_stage_summary.infra_008.task_id",
+          "classification": "historical_round_generation_reference",
+          "reason": "Documented legacy reference retained for artifact lineage."
+        },
+        {
+          "exception_type": "documented_legacy_reference",
+          "field_path": "product_stage_summary.integration_006.task_id",
+          "classification": "historical_round_generation_reference",
+          "reason": "Documented legacy reference retained for artifact lineage."
+        }
+      ],
       "warnings": [],
       "warning_codes": []
     },
@@ -1870,6 +1849,7 @@
         "safety_flags.truth_inference": false,
         "safety_flags.wallet": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -1895,6 +1875,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -1936,6 +1917,20 @@
         "safety_flags.truth_inference": false,
         "safety_flags.wallet": false
       },
+      "documented_exceptions": [
+        {
+          "exception_type": "documented_legacy_reference",
+          "field_path": "product_stage_summary.infra_008.task_id",
+          "classification": "historical_round_generation_reference",
+          "reason": "Documented legacy reference retained for artifact lineage."
+        },
+        {
+          "exception_type": "documented_legacy_reference",
+          "field_path": "product_stage_summary.integration_006.task_id",
+          "classification": "historical_round_generation_reference",
+          "reason": "Documented legacy reference retained for artifact lineage."
+        }
+      ],
       "warnings": [],
       "warning_codes": []
     },
@@ -1961,6 +1956,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -2013,6 +2009,7 @@
         "safety_flags.truth_inference": false,
         "safety_flags.wallet": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -2057,6 +2054,7 @@
         "safety_flags.truth_inference": false,
         "safety_flags.wallet": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -2090,6 +2088,7 @@
         "deterministic": true,
         "operator_review_only": true
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -2115,6 +2114,7 @@
       },
       "expected_fixture_alignment": "aligned",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -2146,6 +2146,7 @@
         "deterministic": true,
         "operator_review_only": true
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -2171,6 +2172,7 @@
       },
       "expected_fixture_alignment": "aligned",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -2202,6 +2204,7 @@
         "deterministic": true,
         "operator_review_only": true
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -2227,6 +2230,7 @@
       },
       "expected_fixture_alignment": "aligned",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -2263,6 +2267,7 @@
         "deterministic": true,
         "operator_review_only": true
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -2288,6 +2293,7 @@
       },
       "expected_fixture_alignment": "aligned",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -2319,6 +2325,7 @@
         "deterministic": true,
         "operator_review_only": true
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -2344,6 +2351,7 @@
       },
       "expected_fixture_alignment": "aligned",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -2374,6 +2382,7 @@
         "manual_review_only": true,
         "record_is_inert": true
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -2399,6 +2408,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -2424,6 +2434,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -2453,6 +2464,7 @@
         "local_only": true,
         "manual_review_only": true
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -2497,6 +2509,7 @@
         "safety_flags.truth_inference": false,
         "safety_flags.wallet": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -2522,6 +2535,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -2555,6 +2569,7 @@
         "deterministic": true,
         "operator_review_only": true
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -2580,6 +2595,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -2611,6 +2627,7 @@
         "deterministic": true,
         "operator_review_only": true
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -2636,6 +2653,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -2667,6 +2685,7 @@
         "deterministic": true,
         "operator_review_only": true
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -2692,6 +2711,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -2739,6 +2759,7 @@
         "safety_flags.truth_inference": false,
         "safety_flags.wallet": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -2764,6 +2785,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -2789,6 +2811,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -2825,6 +2848,7 @@
         "deterministic": true,
         "operator_review_only": true
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -2850,6 +2874,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -2881,6 +2906,7 @@
         "deterministic": true,
         "operator_review_only": true
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -2906,6 +2932,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -2934,6 +2961,7 @@
         "fixture_only": true,
         "paper_only": true
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -2971,6 +2999,7 @@
         "api_used": false,
         "network_used": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -2996,6 +3025,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -3031,6 +3061,7 @@
         "api_used": false,
         "network_used": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -3056,6 +3087,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -3084,6 +3116,7 @@
         "fixture_only": true,
         "paper_only": true
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -3119,6 +3152,7 @@
         "api_used": false,
         "network_used": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -3144,6 +3178,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -3179,6 +3214,7 @@
         "api_used": false,
         "network_used": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -3204,6 +3240,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -3238,6 +3275,7 @@
         "safety_flags.trading_allowed": false,
         "safety_flags.wallet_used": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -3263,6 +3301,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -3297,6 +3336,7 @@
         "safety_flags.trading_allowed": false,
         "safety_flags.wallet_used": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -3322,6 +3362,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -3356,6 +3397,7 @@
         "safety_flags.trading_allowed": false,
         "safety_flags.wallet_used": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -3381,6 +3423,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -3418,6 +3461,7 @@
         "api_used": false,
         "network_used": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -3443,6 +3487,7 @@
       },
       "expected_fixture_alignment": "aligned",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -3478,6 +3523,7 @@
         "api_used": false,
         "network_used": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -3503,6 +3549,7 @@
       },
       "expected_fixture_alignment": "aligned",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -3538,6 +3585,7 @@
         "api_used": false,
         "network_used": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -3563,6 +3611,7 @@
       },
       "expected_fixture_alignment": "aligned",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -3598,6 +3647,7 @@
         "api_used": false,
         "network_used": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -3623,6 +3673,7 @@
       },
       "expected_fixture_alignment": "aligned",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -3657,6 +3708,7 @@
         "safety_flags.trading_allowed": false,
         "safety_flags.wallet_used": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -3682,6 +3734,7 @@
       },
       "expected_fixture_alignment": "aligned",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -3716,6 +3769,7 @@
         "safety_flags.trading_allowed": false,
         "safety_flags.wallet_used": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -3741,6 +3795,7 @@
       },
       "expected_fixture_alignment": "aligned",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -3775,6 +3830,7 @@
         "safety_flags.trading_allowed": false,
         "safety_flags.wallet_used": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -3800,6 +3856,7 @@
       },
       "expected_fixture_alignment": "aligned",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -3842,6 +3899,7 @@
         "safety.truth_inference": false,
         "safety.wallet_private_keys": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -3876,6 +3934,7 @@
         "real_order_created": false,
         "trading_allowed": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -3901,6 +3960,7 @@
       },
       "expected_fixture_alignment": "aligned",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -3936,6 +3996,7 @@
         "api_used": false,
         "network_used": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -3961,6 +4022,7 @@
       },
       "expected_fixture_alignment": "aligned",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -3996,6 +4058,7 @@
         "api_used": false,
         "network_used": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -4031,6 +4094,7 @@
         "api_used": false,
         "network_used": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -4056,6 +4120,7 @@
       },
       "expected_fixture_alignment": "aligned",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -4091,6 +4156,7 @@
         "api_used": false,
         "network_used": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -4116,6 +4182,7 @@
       },
       "expected_fixture_alignment": "aligned",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -4151,6 +4218,7 @@
         "api_used": false,
         "network_used": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -4176,6 +4244,7 @@
       },
       "expected_fixture_alignment": "aligned",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -4211,6 +4280,7 @@
         "api_used": false,
         "network_used": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -4236,6 +4306,7 @@
       },
       "expected_fixture_alignment": "aligned",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -4270,6 +4341,20 @@
         "safety_flags.trading_allowed": false,
         "safety_flags.wallet_used": false
       },
+      "documented_exceptions": [
+        {
+          "exception_type": "accepted_missing_pointer_target",
+          "field_path": "import_phase.imported_records[0].canonical_inbox_path",
+          "target": "pm_bot/paper/manual_paper_workspace/inbox/004_series_snapshot_004.json",
+          "reason": "Accepted manual import output placeholder; the manifest records the deterministic canonical target without materializing the inbox file in the checked-in fixture workspace."
+        },
+        {
+          "exception_type": "accepted_missing_pointer_target",
+          "field_path": "import_phase.imported_records[1].canonical_inbox_path",
+          "target": "pm_bot/paper/manual_paper_workspace/inbox/005_series_snapshot_005.json",
+          "reason": "Accepted manual import output placeholder; the manifest records the deterministic canonical target without materializing the inbox file in the checked-in fixture workspace."
+        }
+      ],
       "warnings": [],
       "documented_pointer_exceptions": [
         {
@@ -4307,6 +4392,7 @@
       },
       "expected_fixture_alignment": "aligned",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -4341,6 +4427,20 @@
         "safety_flags.trading_allowed": false,
         "safety_flags.wallet_used": false
       },
+      "documented_exceptions": [
+        {
+          "exception_type": "accepted_missing_pointer_target",
+          "field_path": "imported_records[0].canonical_inbox_path",
+          "target": "pm_bot/paper/manual_paper_workspace/inbox/004_series_snapshot_004.json",
+          "reason": "Accepted manual import output placeholder; the manifest records the deterministic canonical target without materializing the inbox file in the checked-in fixture workspace."
+        },
+        {
+          "exception_type": "accepted_missing_pointer_target",
+          "field_path": "imported_records[1].canonical_inbox_path",
+          "target": "pm_bot/paper/manual_paper_workspace/inbox/005_series_snapshot_005.json",
+          "reason": "Accepted manual import output placeholder; the manifest records the deterministic canonical target without materializing the inbox file in the checked-in fixture workspace."
+        }
+      ],
       "warnings": [],
       "documented_pointer_exceptions": [
         {
@@ -4387,6 +4487,20 @@
         "safety_flags.trading_allowed": false,
         "safety_flags.wallet_used": false
       },
+      "documented_exceptions": [
+        {
+          "exception_type": "accepted_missing_pointer_target",
+          "field_path": "import_phase.imported_records[0].canonical_inbox_path",
+          "target": "pm_bot/paper/manual_paper_workspace/inbox/004_series_snapshot_004.json",
+          "reason": "Accepted manual import output placeholder; the manifest records the deterministic canonical target without materializing the inbox file in the checked-in fixture workspace."
+        },
+        {
+          "exception_type": "accepted_missing_pointer_target",
+          "field_path": "import_phase.imported_records[1].canonical_inbox_path",
+          "target": "pm_bot/paper/manual_paper_workspace/inbox/005_series_snapshot_005.json",
+          "reason": "Accepted manual import output placeholder; the manifest records the deterministic canonical target without materializing the inbox file in the checked-in fixture workspace."
+        }
+      ],
       "warnings": [],
       "documented_pointer_exceptions": [
         {
@@ -4424,6 +4538,7 @@
       },
       "expected_fixture_alignment": "aligned",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -4459,6 +4574,7 @@
         "api_used": false,
         "network_used": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -4484,6 +4600,13 @@
       },
       "expected_fixture_alignment": "aligned",
       "safety_fields": {},
+      "documented_exceptions": [
+        {
+          "exception_type": "documented_non_object_json_artifact",
+          "field_path": null,
+          "reason": "Expected fixture mirrors the manual paper workspace quarantine record list."
+        }
+      ],
       "warnings": [],
       "documented_shape_exception": {
         "shape": "array",
@@ -4513,6 +4636,7 @@
       },
       "expected_fixture_alignment": "aligned",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -4547,6 +4671,20 @@
         "safety_flags.trading_allowed": false,
         "safety_flags.wallet_used": false
       },
+      "documented_exceptions": [
+        {
+          "exception_type": "accepted_missing_pointer_target",
+          "field_path": "imported_records[0].canonical_inbox_path",
+          "target": "pm_bot/paper/manual_paper_workspace/inbox/004_series_snapshot_004.json",
+          "reason": "Accepted manual import output placeholder; the manifest records the deterministic canonical target without materializing the inbox file in the checked-in fixture workspace."
+        },
+        {
+          "exception_type": "accepted_missing_pointer_target",
+          "field_path": "imported_records[1].canonical_inbox_path",
+          "target": "pm_bot/paper/manual_paper_workspace/inbox/005_series_snapshot_005.json",
+          "reason": "Accepted manual import output placeholder; the manifest records the deterministic canonical target without materializing the inbox file in the checked-in fixture workspace."
+        }
+      ],
       "warnings": [],
       "documented_pointer_exceptions": [
         {
@@ -4593,6 +4731,20 @@
         "safety_flags.trading_allowed": false,
         "safety_flags.wallet_used": false
       },
+      "documented_exceptions": [
+        {
+          "exception_type": "accepted_missing_pointer_target",
+          "field_path": "imported_records[0].canonical_inbox_path",
+          "target": "pm_bot/paper/manual_paper_workspace/inbox/004_series_snapshot_004.json",
+          "reason": "Accepted manual import output placeholder; the manifest records the deterministic canonical target without materializing the inbox file in the checked-in fixture workspace."
+        },
+        {
+          "exception_type": "accepted_missing_pointer_target",
+          "field_path": "imported_records[1].canonical_inbox_path",
+          "target": "pm_bot/paper/manual_paper_workspace/inbox/005_series_snapshot_005.json",
+          "reason": "Accepted manual import output placeholder; the manifest records the deterministic canonical target without materializing the inbox file in the checked-in fixture workspace."
+        }
+      ],
       "warnings": [],
       "documented_pointer_exceptions": [
         {
@@ -4630,6 +4782,7 @@
       },
       "expected_fixture_alignment": "aligned",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -4680,6 +4833,7 @@
         "safety_flags.truth_inference": false,
         "safety_flags.wallet": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -4719,6 +4873,7 @@
         "safety_flags.trading": false,
         "safety_flags.wallet": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -4749,6 +4904,7 @@
       "safety_fields": {
         "deterministic": true
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -4778,6 +4934,7 @@
       "safety_fields": {
         "deterministic": true
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -4819,6 +4976,7 @@
         "safety_flags.truth_inference": false,
         "safety_flags.wallet": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -4861,6 +5019,7 @@
         "safety_flags.scoring_probability_ev_edge": false,
         "safety_flags.wallet": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -4891,6 +5050,7 @@
       "safety_fields": {
         "deterministic": true
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -4920,6 +5080,7 @@
       "safety_fields": {
         "deterministic": true
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -4950,6 +5111,7 @@
       "safety_fields": {
         "deterministic": true
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -4979,6 +5141,7 @@
       "safety_fields": {
         "deterministic": true
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -5016,6 +5179,7 @@
           "no_credential_or_endpoint_use"
         ]
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -5058,6 +5222,7 @@
         "safety.truth_inference": false,
         "safety.wallet_private_keys": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -5096,6 +5261,7 @@
           "no_credential_or_endpoint_use"
         ]
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -5142,6 +5308,7 @@
         "safety_flags.truth_inference": false,
         "safety_flags.wallet": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -5170,6 +5337,7 @@
         "execution_allowed": false,
         "trading_allowed": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -5199,6 +5367,7 @@
       "safety_fields": {
         "deterministic": true
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -5228,6 +5397,7 @@
       "safety_fields": {
         "deterministic": true
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -5262,6 +5432,7 @@
         "safety_flags.trading_allowed": false,
         "safety_flags.wallet_used": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -5287,6 +5458,7 @@
       },
       "expected_fixture_alignment": "aligned",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -5312,6 +5484,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -5354,6 +5527,7 @@
         "safety.truth_inference": false,
         "safety.wallet_private_keys": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -5379,6 +5553,13 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [
+        {
+          "exception_type": "documented_non_object_json_artifact",
+          "field_path": null,
+          "reason": "Fixture intentionally mirrors a minimized Polymarket markets API list without network use."
+        }
+      ],
       "warnings": [],
       "documented_shape_exception": {
         "shape": "array",
@@ -5417,6 +5598,7 @@
         "real_order_created": false,
         "trading_allowed": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -5442,6 +5624,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -5467,6 +5650,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -5492,6 +5676,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -5517,6 +5702,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -5552,6 +5738,7 @@
         "api_used": false,
         "network_used": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -5577,6 +5764,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -5612,6 +5800,7 @@
         "api_used": false,
         "network_used": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -5647,6 +5836,7 @@
         "api_used": false,
         "network_used": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -5672,6 +5862,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -5700,6 +5891,7 @@
         "fixture_only": true,
         "paper_only": true
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -5735,6 +5927,7 @@
         "api_used": false,
         "network_used": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -5760,6 +5953,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -5795,6 +5989,7 @@
         "api_used": false,
         "network_used": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -5820,6 +6015,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -5848,6 +6044,7 @@
         "fixture_only": true,
         "paper_only": true
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -5883,6 +6080,7 @@
         "api_used": false,
         "network_used": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -5908,6 +6106,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -5937,6 +6136,7 @@
       "safety_fields": {
         "deterministic": true
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -5962,6 +6162,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -5991,6 +6192,7 @@
       "safety_fields": {
         "deterministic": true
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -6018,6 +6220,7 @@
       "safety_fields": {
         "deterministic": true
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -6045,6 +6248,7 @@
       "safety_fields": {
         "deterministic": true
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -6072,6 +6276,7 @@
       "safety_fields": {
         "deterministic": true
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -6106,6 +6311,20 @@
         "safety_flags.trading_allowed": false,
         "safety_flags.wallet_used": false
       },
+      "documented_exceptions": [
+        {
+          "exception_type": "accepted_missing_pointer_target",
+          "field_path": "import_phase.imported_records[0].canonical_inbox_path",
+          "target": "pm_bot/paper/manual_paper_workspace/inbox/004_series_snapshot_004.json",
+          "reason": "Accepted manual import output placeholder; the manifest records the deterministic canonical target without materializing the inbox file in the checked-in fixture workspace."
+        },
+        {
+          "exception_type": "accepted_missing_pointer_target",
+          "field_path": "import_phase.imported_records[1].canonical_inbox_path",
+          "target": "pm_bot/paper/manual_paper_workspace/inbox/005_series_snapshot_005.json",
+          "reason": "Accepted manual import output placeholder; the manifest records the deterministic canonical target without materializing the inbox file in the checked-in fixture workspace."
+        }
+      ],
       "warnings": [],
       "documented_pointer_exceptions": [
         {
@@ -6143,6 +6362,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -6177,6 +6397,20 @@
         "safety_flags.trading_allowed": false,
         "safety_flags.wallet_used": false
       },
+      "documented_exceptions": [
+        {
+          "exception_type": "accepted_missing_pointer_target",
+          "field_path": "imported_records[0].canonical_inbox_path",
+          "target": "pm_bot/paper/manual_paper_workspace/inbox/004_series_snapshot_004.json",
+          "reason": "Accepted manual import output placeholder; the manifest records the deterministic canonical target without materializing the inbox file in the checked-in fixture workspace."
+        },
+        {
+          "exception_type": "accepted_missing_pointer_target",
+          "field_path": "imported_records[1].canonical_inbox_path",
+          "target": "pm_bot/paper/manual_paper_workspace/inbox/005_series_snapshot_005.json",
+          "reason": "Accepted manual import output placeholder; the manifest records the deterministic canonical target without materializing the inbox file in the checked-in fixture workspace."
+        }
+      ],
       "warnings": [],
       "documented_pointer_exceptions": [
         {
@@ -6223,6 +6457,20 @@
         "safety_flags.trading_allowed": false,
         "safety_flags.wallet_used": false
       },
+      "documented_exceptions": [
+        {
+          "exception_type": "accepted_missing_pointer_target",
+          "field_path": "import_phase.imported_records[0].canonical_inbox_path",
+          "target": "pm_bot/paper/manual_paper_workspace/inbox/004_series_snapshot_004.json",
+          "reason": "Accepted manual import output placeholder; the manifest records the deterministic canonical target without materializing the inbox file in the checked-in fixture workspace."
+        },
+        {
+          "exception_type": "accepted_missing_pointer_target",
+          "field_path": "import_phase.imported_records[1].canonical_inbox_path",
+          "target": "pm_bot/paper/manual_paper_workspace/inbox/005_series_snapshot_005.json",
+          "reason": "Accepted manual import output placeholder; the manifest records the deterministic canonical target without materializing the inbox file in the checked-in fixture workspace."
+        }
+      ],
       "warnings": [],
       "documented_pointer_exceptions": [
         {
@@ -6260,6 +6508,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -6295,6 +6544,7 @@
         "api_used": false,
         "network_used": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -6320,6 +6570,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -6355,6 +6606,7 @@
         "api_used": false,
         "network_used": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -6390,6 +6642,7 @@
         "api_used": false,
         "network_used": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -6415,6 +6668,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -6440,6 +6694,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -6465,6 +6720,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -6500,6 +6756,7 @@
         "api_used": false,
         "network_used": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -6525,6 +6782,13 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [
+        {
+          "exception_type": "documented_non_object_json_artifact",
+          "field_path": null,
+          "reason": "Workspace quarantine artifact is a deterministic record list consumed by manual review tooling."
+        }
+      ],
       "warnings": [],
       "documented_shape_exception": {
         "shape": "array",
@@ -6554,6 +6818,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -6588,6 +6853,20 @@
         "safety_flags.trading_allowed": false,
         "safety_flags.wallet_used": false
       },
+      "documented_exceptions": [
+        {
+          "exception_type": "accepted_missing_pointer_target",
+          "field_path": "imported_records[0].canonical_inbox_path",
+          "target": "pm_bot/paper/manual_paper_workspace/inbox/004_series_snapshot_004.json",
+          "reason": "Accepted manual import output placeholder; the manifest records the deterministic canonical target without materializing the inbox file in the checked-in fixture workspace."
+        },
+        {
+          "exception_type": "accepted_missing_pointer_target",
+          "field_path": "imported_records[1].canonical_inbox_path",
+          "target": "pm_bot/paper/manual_paper_workspace/inbox/005_series_snapshot_005.json",
+          "reason": "Accepted manual import output placeholder; the manifest records the deterministic canonical target without materializing the inbox file in the checked-in fixture workspace."
+        }
+      ],
       "warnings": [],
       "documented_pointer_exceptions": [
         {
@@ -6625,6 +6904,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -6650,6 +6930,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -6675,6 +6956,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -6700,6 +6982,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -6725,22 +7008,16 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
-      "warnings": [
+      "documented_exceptions": [
         {
-          "warning_id": "artifact_warning_001",
-          "message": "pm_bot/paper/manual_snapshot_import_source/005_malformed.json: known_intentional_malformed_fixture_parse_failure",
-          "path": "pm_bot/paper/manual_snapshot_import_source/005_malformed.json",
-          "category": "known_intentional_malformed_fixture_parse_failure",
-          "severity": "informational",
-          "owner": "fixture",
-          "action_type": "ignore_allowed",
-          "recommended_action": "keep intentional malformed fixture documented"
+          "exception_type": "known_intentional_malformed_fixture_parse_failure",
+          "field_path": null,
+          "reason": "Malformed JSON fixture intentionally verifies quarantine handling."
         }
       ],
+      "warnings": [],
       "json_parse_error": "Expecting property name enclosed in double quotes at line 2 column 1",
-      "warning_codes": [
-        "known_intentional_malformed_fixture_parse_failure"
-      ]
+      "warning_codes": []
     },
     {
       "path": "pm_bot/paper/manual_snapshot_import_source/006_unsupported.json",
@@ -6764,6 +7041,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -6789,6 +7067,13 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [
+        {
+          "exception_type": "documented_non_object_json_artifact",
+          "field_path": null,
+          "reason": "Manual import fixture intentionally preserves the source markets list shape."
+        }
+      ],
       "warnings": [],
       "documented_shape_exception": {
         "shape": "array",
@@ -6827,6 +7112,20 @@
         "safety_flags.trading_allowed": false,
         "safety_flags.wallet_used": false
       },
+      "documented_exceptions": [
+        {
+          "exception_type": "accepted_missing_pointer_target",
+          "field_path": "imported_records[0].canonical_inbox_path",
+          "target": "pm_bot/paper/manual_paper_workspace/inbox/004_series_snapshot_004.json",
+          "reason": "Accepted manual import output placeholder; the manifest records the deterministic canonical target without materializing the inbox file in the checked-in fixture workspace."
+        },
+        {
+          "exception_type": "accepted_missing_pointer_target",
+          "field_path": "imported_records[1].canonical_inbox_path",
+          "target": "pm_bot/paper/manual_paper_workspace/inbox/005_series_snapshot_005.json",
+          "reason": "Accepted manual import output placeholder; the manifest records the deterministic canonical target without materializing the inbox file in the checked-in fixture workspace."
+        }
+      ],
       "warnings": [],
       "documented_pointer_exceptions": [
         {
@@ -6864,6 +7163,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -6914,6 +7214,7 @@
         "safety_flags.truth_inference": false,
         "safety_flags.wallet": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -6939,6 +7240,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -6978,6 +7280,7 @@
         "safety_flags.trading": false,
         "safety_flags.wallet": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -7003,6 +7306,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -7033,6 +7337,7 @@
       "safety_fields": {
         "deterministic": true
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -7058,6 +7363,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -7087,6 +7393,7 @@
       "safety_fields": {
         "deterministic": true
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -7112,6 +7419,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -7153,6 +7461,7 @@
         "safety_flags.truth_inference": false,
         "safety_flags.wallet": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -7178,6 +7487,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -7220,6 +7530,7 @@
         "safety_flags.scoring_probability_ev_edge": false,
         "safety_flags.wallet": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -7250,6 +7561,7 @@
       "safety_fields": {
         "deterministic": true
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -7275,6 +7587,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -7304,6 +7617,7 @@
       "safety_fields": {
         "deterministic": true
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -7329,6 +7643,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -7359,6 +7674,7 @@
       "safety_fields": {
         "deterministic": true
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -7384,6 +7700,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -7413,6 +7730,7 @@
       "safety_fields": {
         "deterministic": true
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -7438,6 +7756,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -7471,6 +7790,7 @@
         "live_order_created": false,
         "real_order_created": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -7498,6 +7818,7 @@
       "safety_fields": {
         "deterministic": true
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -7523,6 +7844,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -7550,6 +7872,7 @@
       "safety_fields": {
         "deterministic": true
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -7577,6 +7900,7 @@
       "safety_fields": {
         "deterministic": true
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -7614,6 +7938,7 @@
           "no_credential_or_endpoint_use"
         ]
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -7639,6 +7964,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -7664,6 +7990,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -7691,6 +8018,7 @@
       "safety_fields": {
         "deterministic": true
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -7716,6 +8044,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -7758,6 +8087,7 @@
         "safety.truth_inference": false,
         "safety.wallet_private_keys": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -7796,6 +8126,7 @@
           "no_credential_or_endpoint_use"
         ]
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -7821,6 +8152,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -7856,6 +8188,7 @@
         "api_used": false,
         "network_used": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -7891,6 +8224,7 @@
         "api_used": false,
         "network_used": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -7926,6 +8260,7 @@
         "api_used": false,
         "network_used": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -7978,6 +8313,7 @@
         "safety_flags.truth_inference": false,
         "safety_flags.wallet": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -8024,6 +8360,7 @@
         "safety_flags.truth_inference": false,
         "safety_flags.wallet": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -8049,6 +8386,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -8076,6 +8414,7 @@
       "safety_fields": {
         "deterministic": true
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -8103,6 +8442,7 @@
       "safety_fields": {
         "deterministic": true
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -8130,6 +8470,7 @@
       "safety_fields": {
         "deterministic": true
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -8158,6 +8499,7 @@
         "execution_allowed": false,
         "trading_allowed": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -8185,6 +8527,7 @@
       "safety_fields": {
         "deterministic": true
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -8212,6 +8555,7 @@
       "safety_fields": {
         "deterministic": true
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -8239,6 +8583,7 @@
       "safety_fields": {
         "deterministic": true
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -8264,6 +8609,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -8293,6 +8639,7 @@
       "safety_fields": {
         "deterministic": true
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -8318,6 +8665,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -8347,6 +8695,7 @@
       "safety_fields": {
         "deterministic": true
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -8372,6 +8721,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -8400,6 +8750,7 @@
         "fixture_only": true,
         "paper_only": true
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -8434,6 +8785,7 @@
         "safety_flags.trading_allowed": false,
         "safety_flags.wallet_used": false
       },
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -8459,6 +8811,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -8484,6 +8837,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -8509,6 +8863,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     },
@@ -8534,6 +8889,7 @@
       },
       "expected_fixture_alignment": "not_applicable",
       "safety_fields": {},
+      "documented_exceptions": [],
       "warnings": [],
       "warning_codes": []
     }
