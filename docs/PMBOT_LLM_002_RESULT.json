@@ -1,0 +1,107 @@
+{
+  "task_id": "PMBOT-LLM-002-OFFLINE-LLM-REVIEW-STUB",
+  "status": "completed_local_only",
+  "summary": "Created a deterministic offline-only PMBOT LLM review stub exporter that validates local packet and response JSON artifacts with the PMBOT-LLM-001 validator, writes accepted/rejected JSON and Markdown review artifacts, adds invalid forbidden phrase coverage, and documents the operator boundary. No LLM API, network, runtime integration, workbench entrypoint changes, dispatcher changes, trading behavior, paper orders, probability estimates, scoring, side selection, or market decision logic were added.",
+  "precheck": {
+    "branch": "main",
+    "worktree_clean_before": true,
+    "local_head_before": "db168fe766fc93c7f7c484f8c5f837bbcdad57d1",
+    "origin_main_before": "db168fe766fc93c7f7c484f8c5f837bbcdad57d1",
+    "remote_conflict_detected": false
+  },
+  "stub_behavior": {
+    "offline_stub_exporter_created": true,
+    "uses_llm_001_validator": true,
+    "valid_fixture_accepted": true,
+    "invalid_fixture_rejected": true,
+    "json_review_result_created": true,
+    "markdown_review_summary_created": true,
+    "llm_text_generated": false,
+    "llm_api_calls_added": false,
+    "runtime_integration_added": false,
+    "workbench_entrypoint_modified": false
+  },
+  "validation_behavior": {
+    "valid_packet_response_accepted": true,
+    "forbidden_recommendation_rejected": true,
+    "forbidden_phrase_rejected": true,
+    "malformed_packet_rejected": true,
+    "malformed_response_rejected": true,
+    "expected_fixture_matched": true
+  },
+  "files_created": [
+    "docs/PMBOT_LLM_002_OFFLINE_LLM_REVIEW_STUB.md",
+    "docs/PMBOT_LLM_002_RESULT.json",
+    "pm_bot/llm/export_offline_llm_review_stub.py",
+    "pm_bot/llm/offline_llm_review_stub.v1.json",
+    "pm_bot/llm/offline_llm_review_stub.v1.md",
+    "pm_bot/llm/expected_offline_llm_review_stub.v1.json",
+    "pm_bot/llm/example_llm_analysis_response_invalid_forbidden_phrase.v1.json",
+    "pm_bot/llm/tests/test_export_offline_llm_review_stub.py"
+  ],
+  "files_modified": [],
+  "tests_run": [
+    {
+      "command": "python -m pytest pm_bot\\llm -q",
+      "status": "passed",
+      "summary": "15 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\quality pm_bot\\workbench pm_bot\\dashboard pm_bot\\operator -q",
+      "status": "passed",
+      "summary": "114 passed, 48 subtests passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\paper -q",
+      "status": "passed",
+      "summary": "331 passed, 39 subtests passed"
+    },
+    {
+      "command": "JSON parse check for all new and changed JSON files",
+      "status": "passed",
+      "summary": "Parsed docs/PMBOT_LLM_002_RESULT.json and all new PMBOT-LLM-002 JSON artifacts successfully."
+    },
+    {
+      "command": "python -m py_compile pm_bot\\llm\\export_offline_llm_review_stub.py pm_bot\\llm\\tests\\test_export_offline_llm_review_stub.py",
+      "status": "passed",
+      "summary": "Changed Python files compiled successfully."
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed",
+      "summary": "Whitespace check passed before staging."
+    },
+    {
+      "command": "git diff --cached --check",
+      "status": "passed",
+      "summary": "Cached whitespace check passed after staging only PMBOT-LLM-002 files."
+    },
+    {
+      "command": "Forbidden path/runtime safety scan",
+      "status": "passed",
+      "summary": "No workbench entrypoint, dispatcher/run_codex, network or LLM API imports, credential or wallet access, order execution, autonomous paper orders, prompt automation, or runtime wiring paths were added."
+    }
+  ],
+  "safety_flags": {
+    "runtime_wiring": false,
+    "network_api": false,
+    "llm_api": false,
+    "credentials_or_wallet": false,
+    "real_orders_or_live_trading": false,
+    "autonomous_paper_orders": false,
+    "probability_ev_scoring_or_edge": false,
+    "side_recommendations": false,
+    "market_decision_logic": false,
+    "dispatcher_or_run_codex_changed": false,
+    "prompt_automation": false
+  },
+  "git": {
+    "commit_created": "reported_in_final_response",
+    "commit_hash": "reported_in_final_response",
+    "pushed": "reported_in_final_response",
+    "origin_main_verified": "reported_in_final_response",
+    "worktree_clean_after": "reported_in_final_response"
+  },
+  "blockers": [],
+  "next_recommended_task": "PMBOT-LLM-003-MANUAL-LLM-PASTE-IN-REVIEW"
+}
