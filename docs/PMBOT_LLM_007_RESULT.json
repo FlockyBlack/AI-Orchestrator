@@ -1,0 +1,131 @@
+{
+  "task_id": "PMBOT-LLM-007-REAL-MANUAL-LLM-MARKET-PACKET-TRIAL",
+  "status": "completed_local_only",
+  "summary": "Created a deterministic offline/manual LLM market packet trial scaffold using the existing safe PMBOT-LLM example packet source, exported a manual prompt, validated the example saved response, ran the manual review flow and quality gate, and wrote local trial JSON/Markdown reports.",
+  "precheck": {
+    "branch": "main",
+    "worktree_clean_before": true,
+    "local_head_before": "bd9cc8bb30b5f56b09a41dcf35e4dc53918fda8b",
+    "origin_main_before": "bd9cc8bb30b5f56b09a41dcf35e4dc53918fda8b",
+    "remote_conflict_detected": false
+  },
+  "trial_behavior": {
+    "trial_exporter_created": true,
+    "trial_packet_created": true,
+    "trial_packet_source_type": "example_packet_trial_not_live_market",
+    "trial_prompt_created": true,
+    "example_manual_response_created": true,
+    "trial_result_json_created": true,
+    "trial_markdown_report_created": true,
+    "manual_operator_steps_documented": true,
+    "uses_llm_001_validator": true,
+    "uses_llm_003_manual_review_flow": true,
+    "uses_llm_005_quality_gate": true,
+    "llm_api_calls_added": false,
+    "browser_automation_added": false,
+    "prompt_automation_added": false,
+    "runtime_integration_added": false,
+    "workbench_entrypoint_modified": false
+  },
+  "validation_behavior": {
+    "trial_packet_validated": true,
+    "example_response_validated": true,
+    "manual_review_status_accepted": true,
+    "quality_gate_passed_or_warned": true,
+    "forbidden_recommendation_rejected": true,
+    "low_quality_response_failed_or_warned": true,
+    "missing_or_malformed_response_handled_safely": true,
+    "expected_fixture_matched": true
+  },
+  "manual_operator_steps": [
+    "Open pm_bot/llm/real_manual_llm_market_packet_trial_prompt.v1.md.",
+    "Paste the prompt into ChatGPT, Claude, or Gemini manually.",
+    "Ask for strict JSON only, with no Markdown wrapper or extra prose.",
+    "Save the response to a local JSON file matching llm_analysis_response_schema.v1.json.",
+    "Rerun python pm_bot/llm/export_real_manual_llm_market_packet_trial.py --response path/to/manual_response.json.",
+    "Review accepted/rejected and quality gate status in the JSON and Markdown trial outputs."
+  ],
+  "files_created": [
+    "docs/PMBOT_LLM_007_REAL_MANUAL_LLM_MARKET_PACKET_TRIAL.md",
+    "docs/PMBOT_LLM_007_RESULT.json",
+    "pm_bot/llm/export_real_manual_llm_market_packet_trial.py",
+    "pm_bot/llm/real_manual_llm_market_packet_trial.v1.json",
+    "pm_bot/llm/real_manual_llm_market_packet_trial.v1.md",
+    "pm_bot/llm/real_manual_llm_market_packet_trial_packet.v1.json",
+    "pm_bot/llm/real_manual_llm_market_packet_trial_prompt.v1.md",
+    "pm_bot/llm/real_manual_llm_market_packet_trial_response_example.v1.json",
+    "pm_bot/llm/expected_real_manual_llm_market_packet_trial.v1.json",
+    "pm_bot/llm/tests/test_real_manual_llm_market_packet_trial.py"
+  ],
+  "files_modified": [],
+  "tests_run": [
+    {
+      "command": "python -m py_compile pm_bot\\llm\\export_real_manual_llm_market_packet_trial.py pm_bot\\llm\\tests\\test_real_manual_llm_market_packet_trial.py",
+      "result": "passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\llm\\tests\\test_real_manual_llm_market_packet_trial.py -q",
+      "result": "10 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\llm -q",
+      "result": "48 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\workbench -q",
+      "result": "29 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\quality pm_bot\\dashboard pm_bot\\operator -q",
+      "result": "93 passed, 48 subtests passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\paper -q",
+      "result": "331 passed, 39 subtests passed"
+    },
+    {
+      "command": "python pm_bot\\workbench\\run_operator_workbench_export.py",
+      "result": "required_steps_passed true"
+    },
+    {
+      "command": "JSON parse check for all new/changed JSON files",
+      "result": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "result": "passed"
+    },
+    {
+      "command": "git diff --cached --check",
+      "result": "passed"
+    },
+    {
+      "command": "forbidden path/runtime safety scan",
+      "result": "passed"
+    }
+  ],
+  "safety_flags": {
+    "runtime_wiring": false,
+    "network_api": false,
+    "llm_api": false,
+    "browser_automation": false,
+    "prompt_automation": false,
+    "credentials_or_wallet": false,
+    "real_orders_or_live_trading": false,
+    "autonomous_paper_orders": false,
+    "probability_ev_scoring_or_edge": false,
+    "side_recommendations": false,
+    "market_decision_logic": false,
+    "truth_evaluation": false,
+    "dispatcher_or_run_codex_changed": false
+  },
+  "git": {
+    "commit_created": false,
+    "commit_hash": "",
+    "pushed": false,
+    "origin_main_verified": false,
+    "worktree_clean_after": false
+  },
+  "blockers": [],
+  "next_recommended_task": "PMBOT-LLM-008-REAL-MANUAL-LLM-TRIAL-OPERATOR-ACCEPTANCE"
+}

@@ -1,0 +1,122 @@
+{
+  "contract_version": "llm_analysis_packet.v1",
+  "packet_id": "llm-analysis-packet-real-manual-market-packet-trial-001",
+  "generated_at": "deterministic-real-manual-llm-market-packet-trial-packet.v1",
+  "source_artifacts": [
+    {
+      "artifact_type": "llm_safe_example_packet",
+      "path": "pm_bot/llm/example_llm_analysis_packet.v1.json",
+      "description": "Existing PMBOT-LLM safe example packet used as the deterministic local source for the first manual market packet trial.",
+      "sanitization_status": "fixture_only"
+    }
+  ],
+  "market_context": {
+    "market_id": "example-pmbot-llm-007-market",
+    "market_title": "Example fixture market for PMBOT-LLM-007 manual packet trial",
+    "market_status": "unknown",
+    "public_resolution_context": "Fixture-only resolution context copied from the existing safe PMBOT-LLM example packet; this is not a live market artifact.",
+    "outcome_labels": [
+      "Yes",
+      "No"
+    ]
+  },
+  "normalized_market_summary": {
+    "question_text": "Will the example fixture event satisfy the stated local resolution rule?",
+    "status": "unknown",
+    "outcome_labels": [
+      "Yes",
+      "No"
+    ],
+    "resolution_rules_summary": "The local fixture says the event must be confirmed by the specified public source before the deadline.",
+    "data_freshness_note": "Fixture timestamp is deterministic; no live data is fetched and no current market state is implied.",
+    "excluded_fields_note": "No credentials, wallet data, executable commands, endpoint data, order placement fields, outcome estimates, value scoring, or side selection requests are included."
+  },
+  "research_summary": {
+    "research_status": "partial_manual_review",
+    "summary": "Manual notes identify the local fixture source and unresolved evidence checks for operator review.",
+    "completed_sections": [
+      "safe example packet source selected",
+      "manual trial boundaries recorded"
+    ],
+    "open_questions": [
+      "Confirm which local evidence gaps matter before a real manually saved response is reviewed.",
+      "Check whether any local artifact summaries are ambiguous or stale."
+    ]
+  },
+  "evidence_summary": [
+    {
+      "evidence_id": "evidence-real-manual-trial-001",
+      "claim_summary": "The trial packet is derived from the existing safe PMBOT-LLM example packet.",
+      "source_reference": "pm_bot/llm/example_llm_analysis_packet.v1.json",
+      "source_type": "fixture",
+      "relevance_note": "The source keeps the first manual market packet trial deterministic and local.",
+      "limitation_note": "The source is not a live market packet and must not be treated as current market evidence."
+    },
+    {
+      "evidence_id": "evidence-real-manual-trial-002",
+      "claim_summary": "The operator review pack exists as a passive local workbench surface, but this trial does not transform it into a new decision artifact.",
+      "source_reference": "pm_bot/workbench/operator_review_pack.v1.json",
+      "source_type": "operator_artifact",
+      "relevance_note": "The workbench artifact can show prior manual LLM validation status without adding runtime behavior.",
+      "limitation_note": "This packet does not import workbench runtime code and does not use accounting summaries for market guidance."
+    }
+  ],
+  "operator_questions": [
+    "Which evidence gaps should the operator review first?",
+    "Which local claims need source-date verification?",
+    "Where do local artifact summaries remain ambiguous?"
+  ],
+  "known_limitations": [
+    "This trial is example_packet_trial_not_live_market and does not use live market data.",
+    "The packet does not include executable commands or endpoint data.",
+    "The packet is for manual review support only."
+  ],
+  "forbidden_outputs": [
+    "recommended_side",
+    "bet_yes_or_no",
+    "order_size",
+    "price_target",
+    "probability",
+    "implied_probability",
+    "fair_value",
+    "ev",
+    "edge",
+    "expected_return",
+    "kelly_sizing",
+    "execution_instruction",
+    "auto_trade_instruction",
+    "wallet_instruction",
+    "market_outcome_certainty_claim"
+  ],
+  "required_response_sections": [
+    "concise_market_summary",
+    "key_uncertainties",
+    "missing_evidence",
+    "contradiction_checks",
+    "risk_notes",
+    "operator_review_checklist",
+    "suggested_research_questions",
+    "citation_or_source_gap_notes",
+    "safety_acknowledgement"
+  ],
+  "safety_constraints": {
+    "offline_only": true,
+    "local_files_only": true,
+    "manual_review_only": true,
+    "no_network_calls": true,
+    "no_llm_api_calls": true,
+    "no_credentials": true,
+    "no_wallet_or_key_material": true,
+    "no_trading_endpoints": true,
+    "no_real_orders": true,
+    "no_live_trading": true,
+    "no_autonomous_paper_orders": true,
+    "no_outcome_estimates": true,
+    "no_value_or_advantage_scoring": true,
+    "no_side_selection": true,
+    "no_market_decisions": true,
+    "no_runtime_wiring": true,
+    "no_dispatcher_changes": true,
+    "no_prompt_automation": true
+  }
+}

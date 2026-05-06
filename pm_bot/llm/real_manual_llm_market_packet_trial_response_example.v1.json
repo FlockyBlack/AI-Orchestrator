@@ -1,0 +1,55 @@
+{
+  "contract_version": "llm_analysis_response.v1",
+  "response_id": "llm-analysis-response-real-manual-market-packet-trial-example-001",
+  "packet_id": "llm-analysis-packet-real-manual-market-packet-trial-001",
+  "concise_market_summary": "This deterministic example response fixture treats the packet as local trial context only. The packet describes a fixture market, local source references, and unresolved evidence checks for a human operator.",
+  "key_uncertainties": [
+    "The fixture source has not been manually reconfirmed against any current external context.",
+    "The local evidence notes may be incomplete because this trial intentionally avoids live refresh behavior."
+  ],
+  "missing_evidence": [
+    "A dated operator note confirming which local source should be inspected during the real manual trial.",
+    "A manual comparison between the fixture packet and any later local review notes."
+  ],
+  "contradiction_checks": [
+    {
+      "topic": "fixture source versus current context",
+      "check_result": "needs_more_source_review",
+      "notes": "The packet is fixed and does not establish whether a later local artifact changed the review context."
+    },
+    {
+      "topic": "operator artifact alignment",
+      "check_result": "not_checked",
+      "notes": "The response leaves workbench and packet alignment as a manual operator task."
+    }
+  ],
+  "risk_notes": [
+    "The trial packet is intentionally stale as a deterministic fixture and should remain a review aid only.",
+    "Manual review could overstate support if the operator does not inspect the referenced local artifacts."
+  ],
+  "operator_review_checklist": [
+    "Open the trial prompt file and confirm the packet_id matches this response.",
+    "Compare the packet source artifacts with the saved manual response path.",
+    "Record any unsupported or ambiguous local claim before using the report as review context."
+  ],
+  "suggested_research_questions": [
+    "Which local artifact should be treated as the source to inspect first?",
+    "What timestamp or deterministic marker is attached to each local source?",
+    "Which unresolved evidence gap should remain visible in the operator report?"
+  ],
+  "citation_or_source_gap_notes": [
+    "The trial uses local artifact paths rather than live citations.",
+    "Fresh source confirmation is outside this deterministic example response."
+  ],
+  "safety_acknowledgement": {
+    "offline_only": true,
+    "local_only": true,
+    "manual_review_only": true,
+    "no_recommendations": true,
+    "no_outcome_estimates": true,
+    "no_value_scoring": true,
+    "no_trade_or_wallet_instructions": true,
+    "no_autonomous_actions": true,
+    "uncertain_claims_marked": true
+  }
+}
