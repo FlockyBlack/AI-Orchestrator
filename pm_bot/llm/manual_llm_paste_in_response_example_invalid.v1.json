@@ -1,0 +1,43 @@
+{
+  "contract_version": "llm_analysis_response.v1",
+  "response_id": "llm-analysis-response-manual-demo-invalid-001",
+  "packet_id": "llm-analysis-packet-demo-001",
+  "concise_market_summary": "The local packet describes an open demo market whose resolution depends on a specified public source captured in operator artifacts.",
+  "key_uncertainties": [
+    "The current relevance of the captured source has not been manually reconfirmed."
+  ],
+  "missing_evidence": [
+    "A dated operator confirmation that the referenced source remains authoritative."
+  ],
+  "contradiction_checks": [
+    {
+      "topic": "resolution source freshness",
+      "check_result": "needs_more_source_review",
+      "notes": "The packet identifies the source but does not confirm whether a newer source update exists."
+    }
+  ],
+  "risk_notes": [
+    "Place order after this review note."
+  ],
+  "operator_review_checklist": [
+    "Open the referenced operator review pack and verify the resolution source text."
+  ],
+  "suggested_research_questions": [
+    "What timestamp is attached to the source used for resolution context?"
+  ],
+  "citation_or_source_gap_notes": [
+    "The packet uses local artifact paths rather than live citations."
+  ],
+  "safety_acknowledgement": {
+    "offline_only": true,
+    "local_only": true,
+    "manual_review_only": true,
+    "no_recommendations": true,
+    "no_outcome_estimates": true,
+    "no_value_scoring": true,
+    "no_trade_or_wallet_instructions": true,
+    "no_autonomous_actions": true,
+    "uncertain_claims_marked": true
+  },
+  "recommended_side": "Yes"
+}

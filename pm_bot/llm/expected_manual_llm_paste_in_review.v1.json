@@ -1,0 +1,85 @@
+{
+  "contract_version": "manual_llm_paste_in_review_contract.v1",
+  "manual_review_version": "manual_llm_paste_in_review.v1",
+  "generated_at": "deterministic-manual-llm-paste-in-review.v1",
+  "packet_path": "pm_bot/llm/example_llm_analysis_packet.v1.json",
+  "prompt_path": "pm_bot/llm/manual_llm_prompt.v1.md",
+  "response_path": "pm_bot/llm/manual_llm_paste_in_response_example_valid.v1.json",
+  "validation_status": "accepted",
+  "packet_validation": {
+    "status": "accepted",
+    "errors": [],
+    "warnings": [],
+    "artifact_paths": {
+      "packet": "pm_bot/llm/example_llm_analysis_packet.v1.json",
+      "packet_schema": "pm_bot/llm/llm_analysis_packet_schema.v1.json"
+    }
+  },
+  "response_validation": {
+    "status": "accepted",
+    "errors": [],
+    "warnings": [],
+    "artifact_paths": {
+      "response": "pm_bot/llm/manual_llm_paste_in_response_example_valid.v1.json",
+      "response_schema": "pm_bot/llm/llm_analysis_response_schema.v1.json"
+    }
+  },
+  "errors": [],
+  "warnings": [],
+  "safety_flags": {
+    "runtime_wiring": false,
+    "network_api": false,
+    "llm_api": false,
+    "credentials_or_wallet": false,
+    "real_orders_or_live_trading": false,
+    "autonomous_paper_orders": false,
+    "probability_ev_scoring_or_edge": false,
+    "side_recommendations": false,
+    "dispatcher_or_run_codex_changed": false,
+    "prompt_automation": false
+  },
+  "accepted_sections": [
+    "concise_market_summary",
+    "key_uncertainties",
+    "missing_evidence",
+    "contradiction_checks",
+    "risk_notes",
+    "operator_review_checklist",
+    "suggested_research_questions",
+    "citation_or_source_gap_notes",
+    "safety_acknowledgement"
+  ],
+  "missing_sections": [],
+  "forbidden_content_detected": {
+    "detected": false,
+    "findings": []
+  },
+  "operator_summary": "Accepted: the packet and manually saved LLM response passed PMBOT-LLM-001 offline validation. Use the response only as a manual review aid; this is not trading advice and does not authorize autonomous action.",
+  "next_safe_operator_action": "Compare the accepted sections with local source artifacts and manually record unresolved evidence gaps.",
+  "source_artifacts": {
+    "packet_declared_source_artifacts": [
+      {
+        "artifact_type": "operator_review_pack",
+        "path": "pm_bot/workbench/operator_review_pack.v1.json",
+        "description": "Local operator review pack reference used as a fixture source.",
+        "sanitization_status": "safe_public_or_local_artifact_reference_only"
+      },
+      {
+        "artifact_type": "research_summary",
+        "path": "pm_bot/research/expected_selected_ingest_dossier_human_review_pack.v1.json",
+        "description": "Local research artifact reference used for manual review context.",
+        "sanitization_status": "fixture_only"
+      }
+    ],
+    "manual_artifacts": {
+      "packet": "pm_bot/llm/example_llm_analysis_packet.v1.json",
+      "response": "pm_bot/llm/manual_llm_paste_in_response_example_valid.v1.json",
+      "prompt": "pm_bot/llm/manual_llm_prompt.v1.md"
+    },
+    "contract_artifacts": [
+      "pm_bot/llm/llm_analysis_packet_schema.v1.json",
+      "pm_bot/llm/llm_analysis_response_schema.v1.json",
+      "pm_bot/llm/validate_llm_analysis_artifacts.py"
+    ]
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "contract_version": "llm_analysis_response.v1",
+  "response_id": "llm-analysis-response-manual-demo-001",
+  "packet_id": "llm-analysis-packet-demo-001",
+  "concise_market_summary": "The local packet describes an open demo market whose resolution depends on a specified public source captured in operator artifacts.",
+  "key_uncertainties": [
+    "The current relevance of the captured source has not been manually reconfirmed.",
+    "The local notes may omit later context that affects interpretation of the resolution rule."
+  ],
+  "missing_evidence": [
+    "A dated operator confirmation that the referenced source remains authoritative.",
+    "A manual check of whether any later local notes conflict with the resolution summary."
+  ],
+  "contradiction_checks": [
+    {
+      "topic": "resolution source freshness",
+      "check_result": "needs_more_source_review",
+      "notes": "The packet identifies the source but does not confirm whether a newer source update exists."
+    },
+    {
+      "topic": "local artifact consistency",
+      "check_result": "not_checked",
+      "notes": "The packet asks for comparison across artifacts, but the response should leave that as an operator checklist item."
+    }
+  ],
+  "risk_notes": [
+    "The review pack may be stale because the packet is fixed for offline validation.",
+    "Any summary should be treated as a review aid until the operator checks the referenced artifacts."
+  ],
+  "operator_review_checklist": [
+    "Open the referenced operator review pack and verify the resolution source text.",
+    "Compare the research summary with the normalized market summary.",
+    "Mark any unsupported claim as unresolved before using the review pack downstream."
+  ],
+  "suggested_research_questions": [
+    "What timestamp is attached to the source used for resolution context?",
+    "Which artifact first introduced each unresolved claim?",
+    "Are there local notes that narrow or broaden the stated resolution rule?"
+  ],
+  "citation_or_source_gap_notes": [
+    "The packet uses local artifact paths rather than live citations.",
+    "Fresh source confirmation is intentionally outside this offline response."
+  ],
+  "safety_acknowledgement": {
+    "offline_only": true,
+    "local_only": true,
+    "manual_review_only": true,
+    "no_recommendations": true,
+    "no_outcome_estimates": true,
+    "no_value_scoring": true,
+    "no_trade_or_wallet_instructions": true,
+    "no_autonomous_actions": true,
+    "uncertain_claims_marked": true
+  }
+}

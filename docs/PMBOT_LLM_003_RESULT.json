@@ -1,0 +1,127 @@
+{
+  "task_id": "PMBOT-LLM-003-MANUAL-LLM-PASTE-IN-REVIEW",
+  "status": "completed_local_only",
+  "summary": "Created a deterministic offline-only manual LLM paste-in review flow on top of PMBOT-LLM-001 and PMBOT-LLM-002. The flow validates a safe packet, exports a Markdown prompt for manual paste into an LLM UI, validates a manually saved response JSON with the existing PMBOT-LLM-001 validator, and writes accepted/rejected JSON and Markdown manual review artifacts. No LLM API, browser automation, prompt automation, runtime integration, workbench entrypoint changes, dispatcher changes, trading behavior, paper orders, probability estimates, scoring, side selection, or market decision logic were added.",
+  "precheck": {
+    "branch": "main",
+    "worktree_clean_before": true,
+    "local_head_before": "3e689b343c7ac23a806794be7384af4e8b41dc31",
+    "origin_main_before": "3e689b343c7ac23a806794be7384af4e8b41dc31",
+    "remote_conflict_detected": false
+  },
+  "prompt_export_behavior": {
+    "manual_prompt_exporter_created": true,
+    "packet_schema_validation_used": true,
+    "prompt_markdown_created": true,
+    "strict_json_response_instruction_included": true,
+    "forbidden_output_constraints_included": true,
+    "llm_api_calls_added": false,
+    "browser_automation_added": false,
+    "runtime_integration_added": false
+  },
+  "manual_review_behavior": {
+    "manual_response_validator_created": true,
+    "uses_llm_001_validator": true,
+    "reuses_llm_002_review_style": true,
+    "json_review_result_created": true,
+    "markdown_review_summary_created": true,
+    "workbench_entrypoint_modified": false
+  },
+  "validation_behavior": {
+    "valid_manual_response_accepted": true,
+    "forbidden_recommendation_rejected": true,
+    "forbidden_phrase_rejected": true,
+    "malformed_response_rejected": true,
+    "invalid_packet_rejected_by_prompt_exporter": true,
+    "expected_fixture_matched": true
+  },
+  "files_created": [
+    "docs/PMBOT_LLM_003_MANUAL_LLM_PASTE_IN_REVIEW.md",
+    "docs/PMBOT_LLM_003_RESULT.json",
+    "pm_bot/llm/export_manual_llm_prompt.py",
+    "pm_bot/llm/validate_manual_llm_paste_in_review.py",
+    "pm_bot/llm/manual_llm_prompt.v1.md",
+    "pm_bot/llm/manual_llm_paste_in_response_example_valid.v1.json",
+    "pm_bot/llm/manual_llm_paste_in_response_example_invalid.v1.json",
+    "pm_bot/llm/manual_llm_paste_in_review.v1.json",
+    "pm_bot/llm/manual_llm_paste_in_review.v1.md",
+    "pm_bot/llm/expected_manual_llm_paste_in_review.v1.json",
+    "pm_bot/llm/tests/test_manual_llm_paste_in_review.py"
+  ],
+  "files_modified": [],
+  "tests_run": [
+    {
+      "command": "python -m py_compile pm_bot\\llm\\export_manual_llm_prompt.py pm_bot\\llm\\validate_manual_llm_paste_in_review.py pm_bot\\llm\\tests\\test_manual_llm_paste_in_review.py",
+      "status": "passed",
+      "summary": "Changed Python files compiled successfully."
+    },
+    {
+      "command": "python -m pytest pm_bot\\llm -q",
+      "status": "passed",
+      "summary": "28 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\quality pm_bot\\workbench pm_bot\\dashboard pm_bot\\operator -q",
+      "status": "passed",
+      "summary": "114 passed, 48 subtests passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\paper -q",
+      "status": "passed",
+      "summary": "331 passed, 39 subtests passed"
+    },
+    {
+      "command": "JSON parse check for all new PMBOT-LLM-003 JSON files",
+      "status": "passed",
+      "summary": "Parsed manual response fixtures, manual review artifact, expected fixture, and this result JSON successfully."
+    },
+    {
+      "command": "python pm_bot\\llm\\export_manual_llm_prompt.py --packet pm_bot\\llm\\example_llm_analysis_packet.v1.json --out-md pm_bot\\llm\\manual_llm_prompt.v1.md",
+      "status": "passed",
+      "summary": "Manual prompt exporter accepted the safe packet and wrote deterministic Markdown."
+    },
+    {
+      "command": "python pm_bot\\llm\\validate_manual_llm_paste_in_review.py --packet pm_bot\\llm\\example_llm_analysis_packet.v1.json --response pm_bot\\llm\\manual_llm_paste_in_response_example_valid.v1.json --out-json pm_bot\\llm\\manual_llm_paste_in_review.v1.json --out-md pm_bot\\llm\\manual_llm_paste_in_review.v1.md",
+      "status": "passed",
+      "summary": "Manual paste-in validator accepted the valid response and wrote JSON and Markdown review artifacts."
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed",
+      "summary": "Whitespace check passed before staging."
+    },
+    {
+      "command": "git diff --cached --check",
+      "status": "passed",
+      "summary": "Cached whitespace check passed after staging only PMBOT-LLM-003 files."
+    },
+    {
+      "command": "Forbidden path/runtime safety scan",
+      "status": "passed",
+      "summary": "No workbench entrypoint, dispatcher/run_codex, network or LLM API imports, browser automation imports, credential or wallet access, order execution, autonomous paper orders, prompt automation, or runtime wiring paths were added."
+    }
+  ],
+  "safety_flags": {
+    "runtime_wiring": false,
+    "network_api": false,
+    "llm_api": false,
+    "browser_automation": false,
+    "credentials_or_wallet": false,
+    "real_orders_or_live_trading": false,
+    "autonomous_paper_orders": false,
+    "probability_ev_scoring_or_edge": false,
+    "side_recommendations": false,
+    "market_decision_logic": false,
+    "dispatcher_or_run_codex_changed": false,
+    "prompt_automation": false
+  },
+  "git": {
+    "commit_created": "reported_in_final_response",
+    "commit_hash": "reported_in_final_response",
+    "pushed": "reported_in_final_response",
+    "origin_main_verified": "reported_in_final_response",
+    "worktree_clean_after": "reported_in_final_response"
+  },
+  "blockers": [],
+  "next_recommended_task": "PMBOT-LLM-004-MANUAL-LLM-REVIEW-WORKBENCH-SURFACE"
+}
