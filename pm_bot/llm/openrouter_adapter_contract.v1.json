@@ -1,0 +1,118 @@
+{
+  "contract_version": "pmbot_openrouter_adapter_contract.v1",
+  "status": "design_only_inert_reference",
+  "runtime_import_allowed": false,
+  "network_behavior": "none",
+  "purpose": "Reference-only boundary contract for a future manually invoked PMBOT OpenRouter adapter.",
+  "api_key_source": {
+    "env_var": "OPENROUTER_API_KEY",
+    "other_sources_allowed": false,
+    "artifact_storage_allowed": false,
+    "logging_allowed": false
+  },
+  "model_profiles": {
+    "sonnet_gpt55_critic": {
+      "candidate_model": "anthropic/claude-sonnet-4.5",
+      "critic_model": "openai/gpt-5.5",
+      "critic_contract_version": "pmbot_openrouter_critic_response.v1",
+      "manual_invocation_required": true,
+      "single_prompt_per_invocation": true
+    }
+  },
+  "allowed_responsibilities": [
+    "read_selected_prompt_path",
+    "read_selected_packet_path",
+    "call_explicitly_configured_model_only_after_operator_invocation",
+    "capture_requested_model_returned_model_provider_usage_cost_response_id_timestamp",
+    "validate_raw_json",
+    "validate_repaired_json_when_enabled",
+    "validate_structured_critic_booleans",
+    "write_local_ignored_artifacts",
+    "return_pass_fail_status_to_operator"
+  ],
+  "forbidden_responsibilities": [
+    "market_decision",
+    "trade_recommendation",
+    "side_selection",
+    "probability_estimate",
+    "ev_edge_or_scoring",
+    "order_access",
+    "wallet_access",
+    "credential_access",
+    "dispatcher_integration",
+    "automatic_queue_processing",
+    "hidden_background_loops",
+    "live_market_fetching_without_separate_approval",
+    "auto_writing_accepted_responses_to_review_queue_without_explicit_operator_action"
+  ],
+  "proposed_cli": {
+    "dry_run_market": "python pm_bot/llm/run_openrouter_adapter.py --market-id <id> --dry-run",
+    "manual_network_prompt": "python pm_bot/llm/run_openrouter_adapter.py --prompt-path <path> --model-profile sonnet_gpt55_critic --manual-confirm-network",
+    "implemented": false
+  },
+  "proposed_inputs": [
+    "prompt_path",
+    "packet_path",
+    "market_id",
+    "model_profile",
+    "dry_run",
+    "allow_local_json_fence_repair",
+    "max_prompt_tokens",
+    "max_completion_tokens",
+    "max_cost_usd",
+    "out_dir"
+  ],
+  "proposed_outputs": [
+    "adapter_run_summary.v1.json",
+    "candidate_raw.json",
+    "candidate_content.json",
+    "candidate_validation.json",
+    "critic_raw.json",
+    "critic_content.json",
+    "critic_validation.json",
+    "operator_next_action.md"
+  ],
+  "safety_statuses": [
+    "dry_run_ready",
+    "candidate_call_failed",
+    "candidate_validation_failed",
+    "candidate_valid_critic_skipped",
+    "critic_call_failed",
+    "critic_schema_failed",
+    "critic_safety_failed",
+    "completed_for_operator_review",
+    "blocked_missing_api_key",
+    "blocked_cost_cap",
+    "blocked_secret_scan",
+    "blocked_runtime_boundary"
+  ],
+  "required_gates_before_future_implementation": [
+    "explicit_operator_approval",
+    "tests_passing",
+    "secret_scan_passing",
+    "dry_run_mode_passing",
+    "no_runtime_artifacts_tracked",
+    "no_api_key_in_git_logs_or_artifacts",
+    "clear_cost_cap",
+    "clear_max_token_cap",
+    "single_prompt_per_invocation_unless_separately_approved",
+    "schema_validation_before_downstream_artifact_import",
+    "structured_critic_pass_required",
+    "human_review_required"
+  ],
+  "future_tests": [
+    "dry_run_does_not_require_api_key",
+    "missing_api_key_blocks_network_call",
+    "fake_api_key_not_logged",
+    "model_provider_usage_cost_captured",
+    "raw_json_fence_rejected_without_repair_flag",
+    "repair_flag_writes_repaired_artifacts_separately",
+    "structured_critic_schema_required",
+    "any_has_safety_boolean_true_fails",
+    "ready_for_trading_action_true_fails",
+    "artifact_path_ignored",
+    "no_runtime_dispatcher_imports",
+    "no_wallet_order_imports"
+  ],
+  "next_recommended_task": "PMBOT-OPENROUTER-009-DRY-RUN-ADAPTER-SHELL"
+}

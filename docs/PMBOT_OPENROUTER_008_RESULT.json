@@ -1,0 +1,63 @@
+{
+  "task_id": "PMBOT-OPENROUTER-008-DESIGN-ONLY-GATED-ADAPTER-PLAN",
+  "status": "completed",
+  "summary": "Created a design-only gated adapter plan and inert adapter contract for future PMBOT OpenRouter work. No runtime integration, dispatcher wiring, wallet/order code, trading decision logic, or OpenRouter calls were added.",
+  "files_created": [
+    "docs/PMBOT_OPENROUTER_008_DESIGN_ONLY_GATED_ADAPTER_PLAN.md",
+    "docs/PMBOT_OPENROUTER_008_RESULT.json",
+    "pm_bot/llm/openrouter_adapter_contract.v1.json"
+  ],
+  "files_modified": [],
+  "behavior": {
+    "design_only": true,
+    "adapter_contract_inert_reference_only": true,
+    "manual_service_boundary": true,
+    "future_network_requires_operator_invocation": true,
+    "future_dry_run_next_task_only": true,
+    "recommended_next_task": "PMBOT-OPENROUTER-009-DRY-RUN-ADAPTER-SHELL"
+  },
+  "tests_run": [
+    {
+      "command": "python -m compileall pm_bot",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest tests pm_bot\\llm\\tests -q",
+      "status": "passed",
+      "result": "241 passed"
+    },
+    {
+      "command": "python -m json.tool docs\\PMBOT_OPENROUTER_008_RESULT.json",
+      "status": "passed"
+    },
+    {
+      "command": "Select-String staged secret scan over docs, pm_bot\\llm JSON specs, and .gitignore",
+      "status": "passed",
+      "result": "no disallowed secret patterns found after fragmented pattern assembly"
+    },
+    {
+      "command": "git status --short",
+      "status": "passed",
+      "result": "three untracked deliverables only"
+    }
+  ],
+  "safety": {
+    "analysis_only": true,
+    "manual_review_only": true,
+    "operator_gated": true,
+    "validator_gated": true,
+    "design_only": true,
+    "no_network_calls": true,
+    "no_runtime_wiring": true,
+    "no_dispatcher_changes": true,
+    "no_wallet_or_orders": true,
+    "no_trading_decision": true,
+    "manual_only": true,
+    "no_api_key_committed": true,
+    "openrouter_api_key_env_only": "OPENROUTER_API_KEY"
+  },
+  "notes": [
+    "pytest reported 241 passed and then emitted an ignored Windows temp cleanup PermissionError after completion"
+  ],
+  "next_action": "PMBOT-OPENROUTER-009-DRY-RUN-ADAPTER-SHELL"
+}
