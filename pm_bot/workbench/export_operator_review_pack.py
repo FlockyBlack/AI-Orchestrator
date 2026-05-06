@@ -23,6 +23,8 @@ PAPER_020_POSTMORTEM_ARTIFACT_PATH = "pm_bot/paper/paper_run_series_postmortem.v
 PAPER_020_SECTION_ID = "paper_020_paper_run_series_postmortem"
 MANUAL_LLM_REVIEW_ARTIFACT_PATH = "pm_bot/llm/manual_llm_paste_in_review.v1.json"
 MANUAL_LLM_REVIEW_SECTION_ID = "manual_llm_review"
+MANUAL_LLM_QUALITY_GATE_ARTIFACT_PATH = "pm_bot/llm/manual_llm_review_quality_gate.v1.json"
+MANUAL_LLM_QUALITY_GATE_SECTION_ID = "manual_llm_review_quality_gate"
 
 SCHEMA_VERSION = "operator_review_pack.v1"
 GENERATED_BY = "pm_bot/workbench/export_operator_review_pack.py"
@@ -49,6 +51,15 @@ MANUAL_LLM_REVIEW_ANALYSIS_ONLY_WARNING = (
     "Manual LLM review is analysis-only and not trading advice; it does not authorize orders, "
     "paper orders, market decisions, side selection, probability estimates, EV, edge, or scoring."
 )
+MANUAL_LLM_QUALITY_GATE_WARNING = (
+    "Manual LLM review quality gate is a deterministic offline quality gate only; it is not "
+    "truth evaluation, probability, EV, edge, side, or trading advice."
+)
+MANUAL_LLM_QUALITY_GATE_VALIDATION_STATUSES = {
+    "quality_passed",
+    "quality_passed_with_warnings",
+    "quality_failed",
+}
 
 SAFETY_FLAGS = {
     "operator_review_only": True,
@@ -236,6 +247,13 @@ SOURCE_ARTIFACTS = (
         "path": MANUAL_LLM_REVIEW_ARTIFACT_PATH,
         "category": "manual_llm_review",
         "artifact_type": "manual_llm_review_json",
+        "required": False,
+    },
+    {
+        "artifact_id": MANUAL_LLM_QUALITY_GATE_SECTION_ID,
+        "path": MANUAL_LLM_QUALITY_GATE_ARTIFACT_PATH,
+        "category": "manual_llm_review_quality_gate",
+        "artifact_type": "manual_llm_review_quality_gate_json",
         "required": False,
     },
 )
@@ -674,6 +692,189 @@ def _manual_llm_review_summary(payloads, inventory):
     }
 
 
+def _quality_gate_count_summary(payload):
+    counts = _safe_dict(payload.get("quality_counts"))
+    errors = _safe_list(payload.get("errors"))
+    warnings = _safe_list(payload.get("warnings"))
+    return {
+        "checks_total": _safe_int(counts.get("checks_total")),
+        "checks_passed": _safe_int(counts.get("checks_passed")),
+        "checks_with_warnings": _safe_int(counts.get("checks_with_warnings")),
+        "checks_failed": _safe_int(counts.get("checks_failed")),
+        "errors_count": _safe_int(counts.get("errors_count")) if "errors_count" in counts else len(errors),
+        "warnings_count": _safe_int(counts.get("warnings_count")) if "warnings_count" in counts else len(warnings),
+    }
+
+
+def _quality_gate_required_sections_summary(payload):
+    check = _safe_dict(payload.get("required_sections_check"))
+    return {
+        "status": check.get("status", "not_available"),
+        "required_sections_count": len(_safe_list(check.get("required_sections"))),
+        "present_sections_count": len(_safe_list(check.get("present_sections"))),
+        "missing_sections_count": len(_safe_list(check.get("missing_sections"))),
+        "empty_sections_count": len(_safe_list(check.get("empty_sections"))),
+        "errors_count": len(_safe_list(check.get("errors"))),
+        "warnings_count": len(_safe_list(check.get("warnings"))),
+    }
+
+
+def _quality_gate_minimum_content_summary(payload):
+    check = _safe_dict(payload.get("minimum_content_check"))
+    return {
+        "status": check.get("status", "not_available"),
+        "required_minimum_useful_items": dict(_safe_dict(check.get("required_minimum_useful_items"))),
+        "observed_useful_items": dict(_safe_dict(check.get("observed_useful_items"))),
+        "errors_count": len(_safe_list(check.get("errors"))),
+        "warnings_count": len(_safe_list(check.get("warnings"))),
+    }
+
+
+def _quality_gate_generic_or_placeholder_summary(payload):
+    check = _safe_dict(payload.get("generic_or_placeholder_text_check"))
+    return {
+        "status": check.get("status", "not_available"),
+        "placeholder_findings_count": len(_safe_list(check.get("placeholder_findings"))),
+        "repeated_cannot_determine_paths_count": len(
+            _safe_list(check.get("repeated_cannot_determine_paths"))
+        ),
+        "errors_count": len(_safe_list(check.get("errors"))),
+        "warnings_count": len(_safe_list(check.get("warnings"))),
+    }
+
+
+def _quality_gate_unsafe_certainty_summary(payload):
+    check = _safe_dict(payload.get("unsafe_certainty_check"))
+    return {
+        "status": check.get("status", "not_available"),
+        "unsafe_certainty_detected": bool(check.get("unsafe_certainty_detected", False)),
+        "findings_count": len(_safe_list(check.get("findings"))),
+        "errors_count": len(_safe_list(check.get("errors"))),
+        "warnings_count": len(_safe_list(check.get("warnings"))),
+    }
+
+
+def _quality_gate_forbidden_content_summary(payload):
+    check = _safe_dict(payload.get("forbidden_content_check"))
+    return {
+        "status": check.get("status", "not_available"),
+        "forbidden_content_detected": bool(check.get("forbidden_content_detected", False)),
+        "findings_count": len(_safe_list(check.get("findings"))),
+        "errors_count": len(_safe_list(check.get("errors"))),
+        "warnings_count": len(_safe_list(check.get("warnings"))),
+    }
+
+
+def _manual_llm_quality_gate_base(artifact):
+    empty_payload = {}
+    return {
+        "section_id": MANUAL_LLM_QUALITY_GATE_SECTION_ID,
+        "artifact_pointer": MANUAL_LLM_QUALITY_GATE_ARTIFACT_PATH,
+        "artifact_parse_status": artifact.get("parse_status"),
+        "validation_status": "not_available",
+        "base_validator_status": "not_available",
+        "quality_counts": _quality_gate_count_summary(empty_payload),
+        "required_sections_check": _quality_gate_required_sections_summary(empty_payload),
+        "minimum_content_check": _quality_gate_minimum_content_summary(empty_payload),
+        "generic_or_placeholder_text_check": _quality_gate_generic_or_placeholder_summary(empty_payload),
+        "unsafe_certainty_check": _quality_gate_unsafe_certainty_summary(empty_payload),
+        "forbidden_content_check": _quality_gate_forbidden_content_summary(empty_payload),
+        "next_safe_operator_action": "not_available",
+        "deterministic_quality_gate_warning": MANUAL_LLM_QUALITY_GATE_WARNING,
+        "safe_error_summary": [],
+        "surface_only": True,
+        "llm_text_generated": False,
+        "llm_api_calls_added": False,
+        "browser_automation_added": False,
+        "runtime_integration_added": False,
+    }
+
+
+def _manual_llm_quality_gate_missing_check_names(payload):
+    required_checks = (
+        "required_sections_check",
+        "minimum_content_check",
+        "generic_or_placeholder_text_check",
+        "unsafe_certainty_check",
+        "forbidden_content_check",
+    )
+    return [name for name in required_checks if not isinstance(payload.get(name), dict)]
+
+
+def _manual_llm_quality_gate_summary(payloads, inventory):
+    artifact = _inventory_item(inventory, MANUAL_LLM_QUALITY_GATE_SECTION_ID)
+    base = _manual_llm_quality_gate_base(artifact)
+
+    if not artifact.get("present"):
+        return {
+            **base,
+            "artifact_status": "missing",
+            "validation_status": "not_available",
+            "safe_error_summary": ["Manual LLM review quality gate artifact is not available locally."],
+        }
+
+    raw_gate = payloads.get(MANUAL_LLM_QUALITY_GATE_SECTION_ID)
+    gate = _safe_dict(raw_gate)
+    if artifact.get("parse_status") != "parsed":
+        parse_error = artifact.get("parse_error", artifact.get("parse_status") or "unreadable")
+        return {
+            **base,
+            "artifact_status": "invalid",
+            "validation_status": "rejected_or_unreadable",
+            "safe_error_summary": [
+                f"Manual LLM review quality gate artifact could not be read safely: {parse_error}."
+            ],
+        }
+
+    if not isinstance(raw_gate, dict) or not gate:
+        return {
+            **base,
+            "artifact_status": "invalid",
+            "validation_status": "rejected_or_unreadable",
+            "safe_error_summary": [
+                "Manual LLM review quality gate artifact parsed but is not a non-empty JSON object."
+            ],
+        }
+
+    validation_status = gate.get("validation_status")
+    base_validator_status = gate.get("base_validator_status")
+    missing_checks = _manual_llm_quality_gate_missing_check_names(gate)
+    if (
+        validation_status not in MANUAL_LLM_QUALITY_GATE_VALIDATION_STATUSES
+        or not isinstance(base_validator_status, str)
+        or missing_checks
+    ):
+        error_summary = [
+            "Manual LLM review quality gate artifact parsed but does not match the expected compact surface contract."
+        ]
+        if missing_checks:
+            error_summary.append(f"Missing quality gate check summaries: {', '.join(missing_checks)}.")
+        return {
+            **base,
+            "artifact_status": "invalid",
+            "validation_status": "rejected_or_unreadable",
+            "safe_error_summary": error_summary,
+        }
+
+    next_action = gate.get("next_safe_operator_action")
+    if not isinstance(next_action, str) or not next_action:
+        next_action = "Review the quality gate artifact status and local source artifacts manually."
+
+    return {
+        **base,
+        "artifact_status": "present",
+        "validation_status": validation_status,
+        "base_validator_status": base_validator_status,
+        "quality_counts": _quality_gate_count_summary(gate),
+        "required_sections_check": _quality_gate_required_sections_summary(gate),
+        "minimum_content_check": _quality_gate_minimum_content_summary(gate),
+        "generic_or_placeholder_text_check": _quality_gate_generic_or_placeholder_summary(gate),
+        "unsafe_certainty_check": _quality_gate_unsafe_certainty_summary(gate),
+        "forbidden_content_check": _quality_gate_forbidden_content_summary(gate),
+        "next_safe_operator_action": next_action,
+    }
+
+
 def _inventory_item(inventory, artifact_id):
     for item in inventory["artifacts"]:
         if item["artifact_id"] == artifact_id:
@@ -1030,6 +1231,7 @@ def build_operator_review_pack(root=ROOT):
     paper_019_summary = _paper_019_multi_market_run_series_summary(payloads, inventory)
     paper_020_summary = _paper_020_postmortem_summary(payloads, inventory)
     manual_llm_review = _manual_llm_review_summary(payloads, inventory)
+    manual_llm_quality_gate = _manual_llm_quality_gate_summary(payloads, inventory)
     warnings = (
         _warnings(payloads)
         + _paper_019_warnings(paper_019_summary)
@@ -1053,6 +1255,7 @@ def build_operator_review_pack(root=ROOT):
         "dashboard_state_summary": _dashboard_state_summary(payloads),
         "operator_inbox_summary": _operator_inbox_summary(payloads),
         "manual_llm_review": manual_llm_review,
+        "manual_llm_review_quality_gate": manual_llm_quality_gate,
         "quality_warning_summary": _quality_warning_summary(quality_report, quality_load_status),
         "warnings": warnings,
         "missing_artifacts": _missing_artifacts(inventory),
@@ -1077,6 +1280,7 @@ def render_operator_review_pack_markdown(pack):
     dashboard = pack["dashboard_state_summary"]
     inbox = pack["operator_inbox_summary"]
     manual_llm = pack["manual_llm_review"]
+    manual_llm_quality_gate = pack["manual_llm_review_quality_gate"]
     lines = [
         "# PMBOT Operator Review Pack v1",
         "",
@@ -1395,6 +1599,81 @@ def render_operator_review_pack_markdown(pack):
     lines.extend(["", "## Manual LLM Safe Error Summary", ""])
     if manual_llm["safe_error_summary"]:
         for item in manual_llm["safe_error_summary"]:
+            lines.append(f"- {item}")
+    else:
+        lines.append("- none")
+
+    gate_counts = manual_llm_quality_gate["quality_counts"]
+    required_check = manual_llm_quality_gate["required_sections_check"]
+    minimum_check = manual_llm_quality_gate["minimum_content_check"]
+    placeholder_check = manual_llm_quality_gate["generic_or_placeholder_text_check"]
+    unsafe_certainty_check = manual_llm_quality_gate["unsafe_certainty_check"]
+    forbidden_content_check = manual_llm_quality_gate["forbidden_content_check"]
+    lines.extend(
+        [
+            "",
+            "## Manual LLM Review Quality Gate",
+            "",
+            f"- section_id: {manual_llm_quality_gate['section_id']}",
+            f"- artifact_status: {manual_llm_quality_gate['artifact_status']}",
+            f"- artifact_pointer: {manual_llm_quality_gate['artifact_pointer']}",
+            f"- artifact_parse_status: {manual_llm_quality_gate['artifact_parse_status']}",
+            f"- validation_status: {manual_llm_quality_gate['validation_status']}",
+            f"- base_validator_status: {manual_llm_quality_gate['base_validator_status']}",
+            f"- checks_total: {gate_counts['checks_total']}",
+            f"- checks_passed: {gate_counts['checks_passed']}",
+            f"- checks_with_warnings: {gate_counts['checks_with_warnings']}",
+            f"- checks_failed: {gate_counts['checks_failed']}",
+            f"- errors_count: {gate_counts['errors_count']}",
+            f"- warnings_count: {gate_counts['warnings_count']}",
+            f"- next_safe_operator_action: {manual_llm_quality_gate['next_safe_operator_action']}",
+            f"- deterministic_quality_gate_warning: {manual_llm_quality_gate['deterministic_quality_gate_warning']}",
+            f"- llm_text_generated: {str(manual_llm_quality_gate['llm_text_generated']).lower()}",
+            f"- llm_api_calls_added: {str(manual_llm_quality_gate['llm_api_calls_added']).lower()}",
+            f"- browser_automation_added: {str(manual_llm_quality_gate['browser_automation_added']).lower()}",
+            f"- runtime_integration_added: {str(manual_llm_quality_gate['runtime_integration_added']).lower()}",
+            "",
+            "## Manual LLM Quality Gate Check Summaries",
+            "",
+            "- required_sections_check: "
+            f"status={required_check['status']}, "
+            f"required_sections_count={required_check['required_sections_count']}, "
+            f"present_sections_count={required_check['present_sections_count']}, "
+            f"missing_sections_count={required_check['missing_sections_count']}, "
+            f"empty_sections_count={required_check['empty_sections_count']}, "
+            f"errors_count={required_check['errors_count']}, "
+            f"warnings_count={required_check['warnings_count']}",
+            "- minimum_content_check: "
+            f"status={minimum_check['status']}, "
+            f"errors_count={minimum_check['errors_count']}, "
+            f"warnings_count={minimum_check['warnings_count']}",
+            "- generic_or_placeholder_text_check: "
+            f"status={placeholder_check['status']}, "
+            f"placeholder_findings_count={placeholder_check['placeholder_findings_count']}, "
+            "repeated_cannot_determine_paths_count="
+            f"{placeholder_check['repeated_cannot_determine_paths_count']}, "
+            f"errors_count={placeholder_check['errors_count']}, "
+            f"warnings_count={placeholder_check['warnings_count']}",
+            "- unsafe_certainty_check: "
+            f"status={unsafe_certainty_check['status']}, "
+            f"unsafe_certainty_detected={str(unsafe_certainty_check['unsafe_certainty_detected']).lower()}, "
+            f"findings_count={unsafe_certainty_check['findings_count']}, "
+            f"errors_count={unsafe_certainty_check['errors_count']}, "
+            f"warnings_count={unsafe_certainty_check['warnings_count']}",
+            "- forbidden_content_check: "
+            f"status={forbidden_content_check['status']}, "
+            "forbidden_content_detected="
+            f"{str(forbidden_content_check['forbidden_content_detected']).lower()}, "
+            f"findings_count={forbidden_content_check['findings_count']}, "
+            f"errors_count={forbidden_content_check['errors_count']}, "
+            f"warnings_count={forbidden_content_check['warnings_count']}",
+            "",
+            "## Manual LLM Quality Gate Safe Error Summary",
+            "",
+        ]
+    )
+    if manual_llm_quality_gate["safe_error_summary"]:
+        for item in manual_llm_quality_gate["safe_error_summary"]:
             lines.append(f"- {item}")
     else:
         lines.append("- none")

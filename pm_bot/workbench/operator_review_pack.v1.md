@@ -51,8 +51,8 @@
 
 ## Artifact Inventory
 
-- total_artifacts: 21
-- present_artifacts: 21
+- total_artifacts: 22
+- present_artifacts: 22
 - missing_artifacts: 0
 - required_missing_artifacts: 0
 
@@ -77,6 +77,7 @@
 - portfolio_audit_state_preview: pm_bot/dashboard/portfolio_audit_state_preview.v1.json (present=true, required=true, parse_status=parsed)
 - manual_command_inbox_review: pm_bot/operator/manual_command_inbox_review.v1.json (present=true, required=true, parse_status=parsed)
 - manual_llm_review: pm_bot/llm/manual_llm_paste_in_review.v1.json (present=true, required=false, parse_status=parsed)
+- manual_llm_review_quality_gate: pm_bot/llm/manual_llm_review_quality_gate.v1.json (present=true, required=false, parse_status=parsed)
 
 ## Paper Audits
 
@@ -257,6 +258,39 @@
 - none
 
 ## Manual LLM Safe Error Summary
+
+- none
+
+## Manual LLM Review Quality Gate
+
+- section_id: manual_llm_review_quality_gate
+- artifact_status: present
+- artifact_pointer: pm_bot/llm/manual_llm_review_quality_gate.v1.json
+- artifact_parse_status: parsed
+- validation_status: quality_passed
+- base_validator_status: accepted
+- checks_total: 11
+- checks_passed: 11
+- checks_with_warnings: 0
+- checks_failed: 0
+- errors_count: 0
+- warnings_count: 0
+- next_safe_operator_action: Use the response only as manual review context and verify unresolved source gaps against local artifacts.
+- deterministic_quality_gate_warning: Manual LLM review quality gate is a deterministic offline quality gate only; it is not truth evaluation, probability, EV, edge, side, or trading advice.
+- llm_text_generated: false
+- llm_api_calls_added: false
+- browser_automation_added: false
+- runtime_integration_added: false
+
+## Manual LLM Quality Gate Check Summaries
+
+- required_sections_check: status=passed, required_sections_count=9, present_sections_count=9, missing_sections_count=0, empty_sections_count=0, errors_count=0, warnings_count=0
+- minimum_content_check: status=passed, errors_count=0, warnings_count=0
+- generic_or_placeholder_text_check: status=passed, placeholder_findings_count=0, repeated_cannot_determine_paths_count=0, errors_count=0, warnings_count=0
+- unsafe_certainty_check: status=passed, unsafe_certainty_detected=false, findings_count=0, errors_count=0, warnings_count=0
+- forbidden_content_check: status=passed, forbidden_content_detected=false, findings_count=0, errors_count=0, warnings_count=0
+
+## Manual LLM Quality Gate Safe Error Summary
 
 - none
 

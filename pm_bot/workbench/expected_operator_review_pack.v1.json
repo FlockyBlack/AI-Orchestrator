@@ -56,11 +56,11 @@
   },
   "artifact_inventory": {
     "summary": {
-      "total_artifacts": 21,
-      "present_artifacts": 21,
+      "total_artifacts": 22,
+      "present_artifacts": 22,
       "missing_artifacts": 0,
       "required_missing_artifacts": 0,
-      "json_artifacts_parsed": 20,
+      "json_artifacts_parsed": 21,
       "json_artifacts_parse_failed": 0
     },
     "artifacts": [
@@ -369,6 +369,21 @@
         "path": "pm_bot/llm/manual_llm_paste_in_review.v1.json",
         "category": "manual_llm_review",
         "artifact_type": "manual_llm_review_json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed",
+        "schema_version": null,
+        "task_id": null,
+        "status": null,
+        "audit_status": null,
+        "deterministic": null,
+        "warning_count": 0
+      },
+      {
+        "artifact_id": "manual_llm_review_quality_gate",
+        "path": "pm_bot/llm/manual_llm_review_quality_gate.v1.json",
+        "category": "manual_llm_review_quality_gate",
+        "artifact_type": "manual_llm_review_quality_gate_json",
         "required": false,
         "present": true,
         "parse_status": "parsed",
@@ -715,6 +730,79 @@
     "runtime_integration_added": false,
     "artifact_status": "present",
     "validation_status": "accepted"
+  },
+  "manual_llm_review_quality_gate": {
+    "section_id": "manual_llm_review_quality_gate",
+    "artifact_pointer": "pm_bot/llm/manual_llm_review_quality_gate.v1.json",
+    "artifact_parse_status": "parsed",
+    "validation_status": "quality_passed",
+    "base_validator_status": "accepted",
+    "quality_counts": {
+      "checks_total": 11,
+      "checks_passed": 11,
+      "checks_with_warnings": 0,
+      "checks_failed": 0,
+      "errors_count": 0,
+      "warnings_count": 0
+    },
+    "required_sections_check": {
+      "status": "passed",
+      "required_sections_count": 9,
+      "present_sections_count": 9,
+      "missing_sections_count": 0,
+      "empty_sections_count": 0,
+      "errors_count": 0,
+      "warnings_count": 0
+    },
+    "minimum_content_check": {
+      "status": "passed",
+      "required_minimum_useful_items": {
+        "key_uncertainties": 2,
+        "missing_evidence": 1,
+        "risk_notes": 2,
+        "operator_review_checklist": 3,
+        "suggested_research_questions": 2
+      },
+      "observed_useful_items": {
+        "key_uncertainties": 2,
+        "missing_evidence": 2,
+        "risk_notes": 2,
+        "operator_review_checklist": 3,
+        "suggested_research_questions": 3
+      },
+      "errors_count": 0,
+      "warnings_count": 0
+    },
+    "generic_or_placeholder_text_check": {
+      "status": "passed",
+      "placeholder_findings_count": 0,
+      "repeated_cannot_determine_paths_count": 0,
+      "errors_count": 0,
+      "warnings_count": 0
+    },
+    "unsafe_certainty_check": {
+      "status": "passed",
+      "unsafe_certainty_detected": false,
+      "findings_count": 0,
+      "errors_count": 0,
+      "warnings_count": 0
+    },
+    "forbidden_content_check": {
+      "status": "passed",
+      "forbidden_content_detected": false,
+      "findings_count": 0,
+      "errors_count": 0,
+      "warnings_count": 0
+    },
+    "next_safe_operator_action": "Use the response only as manual review context and verify unresolved source gaps against local artifacts.",
+    "deterministic_quality_gate_warning": "Manual LLM review quality gate is a deterministic offline quality gate only; it is not truth evaluation, probability, EV, edge, side, or trading advice.",
+    "safe_error_summary": [],
+    "surface_only": true,
+    "llm_text_generated": false,
+    "llm_api_calls_added": false,
+    "browser_automation_added": false,
+    "runtime_integration_added": false,
+    "artifact_status": "present"
   },
   "quality_warning_summary": {
     "source_path": "pm_bot/quality/artifact_health_report.v1.json",

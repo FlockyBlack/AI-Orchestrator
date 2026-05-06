@@ -16,6 +16,7 @@ EXPECTED_JSON = ROOT / "pm_bot" / "workbench" / "expected_operator_review_pack.v
 RESULT = ROOT / "docs" / "PMBOT_WORKBENCH_001_RESULT.json"
 LANE_RESULT = ROOT / "docs" / "PMBOT_CODEX_A_ROUND003_RESULT.json"
 MANUAL_LLM_REVIEW = ROOT / "pm_bot" / "llm" / "manual_llm_paste_in_review.v1.json"
+MANUAL_LLM_QUALITY_GATE = ROOT / "pm_bot" / "llm" / "manual_llm_review_quality_gate.v1.json"
 
 NEW_JSON_FILES = [
     PACK_JSON,
@@ -117,6 +118,7 @@ class OperatorReviewPackExportTests(unittest.TestCase):
             "dashboard_state_summary",
             "operator_inbox_summary",
             "manual_llm_review",
+            "manual_llm_review_quality_gate",
             "quality_warning_summary",
             "warnings",
             "missing_artifacts",
@@ -179,11 +181,13 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertTrue(inventory["paper_020_paper_run_series_postmortem"]["present"])
         self.assertTrue(inventory["portfolio_audit_state_preview"]["present"])
         self.assertTrue(inventory["manual_command_inbox_review"]["present"])
+        self.assertTrue(inventory["manual_llm_review_quality_gate"]["present"])
         self.assertEqual(inventory["paper_019_result"]["parse_status"], "parsed")
         self.assertEqual(inventory["paper_019_multi_market_run_series"]["parse_status"], "parsed")
         self.assertEqual(inventory["paper_020_result"]["parse_status"], "parsed")
         self.assertEqual(inventory["paper_020_paper_run_series_postmortem"]["parse_status"], "parsed")
         self.assertEqual(inventory["paper_accounting_batch_audit"]["parse_status"], "parsed")
+        self.assertEqual(inventory["manual_llm_review_quality_gate"]["parse_status"], "parsed")
         self.assertEqual(
             inventory["paper_019_multi_market_run_series"]["path"],
             "pm_bot/paper/multi_market_paper_run_series.v1.json",
@@ -279,6 +283,53 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertFalse(manual_llm["browser_automation_added"])
         self.assertFalse(manual_llm["runtime_integration_added"])
 
+    def test_manual_llm_quality_gate_section_surfaces_present_artifact_status_only(self):
+        _run_write()
+        pack = _load_json(PACK_JSON)
+        source = _load_json(MANUAL_LLM_QUALITY_GATE)
+        quality_gate = pack["manual_llm_review_quality_gate"]
+
+        self.assertEqual(quality_gate["section_id"], "manual_llm_review_quality_gate")
+        self.assertEqual(quality_gate["artifact_status"], "present")
+        self.assertEqual(
+            quality_gate["artifact_pointer"],
+            "pm_bot/llm/manual_llm_review_quality_gate.v1.json",
+        )
+        self.assertEqual(quality_gate["artifact_parse_status"], "parsed")
+        self.assertEqual(quality_gate["validation_status"], source["validation_status"])
+        self.assertEqual(quality_gate["base_validator_status"], source["base_validator_status"])
+        self.assertEqual(quality_gate["quality_counts"]["checks_total"], source["quality_counts"]["checks_total"])
+        self.assertEqual(quality_gate["quality_counts"]["errors_count"], source["quality_counts"]["errors_count"])
+        self.assertEqual(quality_gate["quality_counts"]["warnings_count"], source["quality_counts"]["warnings_count"])
+        self.assertEqual(
+            quality_gate["required_sections_check"]["status"],
+            source["required_sections_check"]["status"],
+        )
+        self.assertEqual(
+            quality_gate["minimum_content_check"]["status"],
+            source["minimum_content_check"]["status"],
+        )
+        self.assertEqual(
+            quality_gate["generic_or_placeholder_text_check"]["status"],
+            source["generic_or_placeholder_text_check"]["status"],
+        )
+        self.assertEqual(
+            quality_gate["unsafe_certainty_check"]["status"],
+            source["unsafe_certainty_check"]["status"],
+        )
+        self.assertEqual(
+            quality_gate["forbidden_content_check"]["status"],
+            source["forbidden_content_check"]["status"],
+        )
+        self.assertEqual(quality_gate["next_safe_operator_action"], source["next_safe_operator_action"])
+        self.assertIn("deterministic offline quality gate only", quality_gate["deterministic_quality_gate_warning"])
+        self.assertIn("not truth evaluation", quality_gate["deterministic_quality_gate_warning"])
+        self.assertIn("probability, EV, edge, side, or trading advice", quality_gate["deterministic_quality_gate_warning"])
+        self.assertFalse(quality_gate["llm_text_generated"])
+        self.assertFalse(quality_gate["llm_api_calls_added"])
+        self.assertFalse(quality_gate["browser_automation_added"])
+        self.assertFalse(quality_gate["runtime_integration_added"])
+
     def test_manual_llm_review_missing_artifact_is_not_available_and_non_blocking(self):
         module = _load_module()
         with tempfile.TemporaryDirectory() as directory:
@@ -312,17 +363,57 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertIn("could not be read safely", manual_llm["safe_error_summary"][0])
         self.assertFalse(manual_llm["llm_text_generated"])
 
+    def test_manual_llm_quality_gate_missing_artifact_is_not_available_and_non_blocking(self):
+        module = _load_module()
+        with tempfile.TemporaryDirectory() as directory:
+            pack = module.build_operator_review_pack(Path(directory))
+
+        quality_gate = pack["manual_llm_review_quality_gate"]
+        self.assertEqual(quality_gate["artifact_status"], "missing")
+        self.assertEqual(quality_gate["validation_status"], "not_available")
+        self.assertEqual(quality_gate["base_validator_status"], "not_available")
+        self.assertEqual(quality_gate["quality_counts"]["checks_total"], 0)
+        self.assertEqual(quality_gate["required_sections_check"]["status"], "not_available")
+        self.assertIn("not available locally", quality_gate["safe_error_summary"][0])
+        self.assertFalse(quality_gate["llm_text_generated"])
+
+    def test_manual_llm_quality_gate_malformed_artifact_is_invalid_and_non_blocking(self):
+        module = _load_module()
+        with tempfile.TemporaryDirectory() as directory:
+            temp_root = Path(directory)
+            quality_gate_path = temp_root / "pm_bot" / "llm" / "manual_llm_review_quality_gate.v1.json"
+            quality_gate_path.parent.mkdir(parents=True, exist_ok=True)
+            quality_gate_path.write_text("{", encoding="utf-8")
+
+            pack = module.build_operator_review_pack(temp_root)
+
+        quality_gate = pack["manual_llm_review_quality_gate"]
+        self.assertEqual(quality_gate["artifact_status"], "invalid")
+        self.assertEqual(quality_gate["validation_status"], "rejected_or_unreadable")
+        self.assertEqual(quality_gate["artifact_parse_status"], "parse_failed")
+        self.assertEqual(quality_gate["base_validator_status"], "not_available")
+        self.assertEqual(quality_gate["quality_counts"]["checks_total"], 0)
+        self.assertIn("could not be read safely", quality_gate["safe_error_summary"][0])
+        self.assertFalse(quality_gate["llm_text_generated"])
+
     def test_manual_llm_review_surface_does_not_generate_llm_text_or_forbidden_fields(self):
         _run_write()
         pack = _load_json(PACK_JSON)
         manual_llm = pack["manual_llm_review"]
+        quality_gate = pack["manual_llm_review_quality_gate"]
         keys = _collect_keys(manual_llm)
+        quality_gate_keys = _collect_keys(quality_gate)
 
         self.assertNotIn("operator_summary", manual_llm)
         self.assertNotIn("packet_validation", manual_llm)
         self.assertNotIn("response_validation", manual_llm)
         self.assertNotIn("source_artifacts", manual_llm)
+        self.assertNotIn("operator_summary", quality_gate)
+        self.assertNotIn("packet_validation", quality_gate)
+        self.assertNotIn("response_validation", quality_gate)
+        self.assertNotIn("source_artifacts", quality_gate)
         self.assertFalse(manual_llm["llm_text_generated"])
+        self.assertFalse(quality_gate["llm_text_generated"])
         for forbidden_field in (
             "probability",
             "ev",
@@ -332,17 +423,23 @@ class OperatorReviewPackExportTests(unittest.TestCase):
             "recommended_side",
             "side_recommendation",
             "side_recommendations",
+            "truth_evaluation",
         ):
             self.assertNotIn(forbidden_field, keys)
+            self.assertNotIn(forbidden_field, quality_gate_keys)
 
     def test_manual_llm_review_surface_adds_no_network_llm_browser_or_runtime_calls(self):
         _run_write()
         pack = _load_json(PACK_JSON)
         manual_llm = pack["manual_llm_review"]
+        quality_gate = pack["manual_llm_review_quality_gate"]
 
         self.assertFalse(manual_llm["llm_api_calls_added"])
         self.assertFalse(manual_llm["browser_automation_added"])
         self.assertFalse(manual_llm["runtime_integration_added"])
+        self.assertFalse(quality_gate["llm_api_calls_added"])
+        self.assertFalse(quality_gate["browser_automation_added"])
+        self.assertFalse(quality_gate["runtime_integration_added"])
         self.assertEqual(pack["network_calls"], 0)
         self.assertEqual(pack["commands_executed"], 0)
         self.assertEqual(pack["paper_orders_created"], 0)
@@ -549,6 +646,18 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertIn("validation_status: accepted", markdown)
         self.assertIn("analysis-only and not trading advice", markdown)
         self.assertIn("llm_text_generated: false", markdown)
+        self.assertIn("Manual LLM Review Quality Gate", markdown)
+        self.assertIn("artifact_pointer: pm_bot/llm/manual_llm_review_quality_gate.v1.json", markdown)
+        self.assertIn("validation_status: quality_passed", markdown)
+        self.assertIn("base_validator_status: accepted", markdown)
+        self.assertIn("Manual LLM Quality Gate Check Summaries", markdown)
+        self.assertIn("required_sections_check: status=passed", markdown)
+        self.assertIn("minimum_content_check: status=passed", markdown)
+        self.assertIn("generic_or_placeholder_text_check: status=passed", markdown)
+        self.assertIn("unsafe_certainty_check: status=passed", markdown)
+        self.assertIn("forbidden_content_check: status=passed", markdown)
+        self.assertIn("deterministic offline quality gate only", markdown)
+        self.assertIn("not truth evaluation, probability, EV, edge, side, or trading advice", markdown)
 
     def test_result_docs_match_and_report_no_forbidden_changes(self):
         _run_write()
@@ -585,10 +694,15 @@ class OperatorReviewPackExportTests(unittest.TestCase):
             _frag("requests", "."),
             _frag("import", "httpx"),
             _frag("httpx", "."),
+            _frag("import", "openai"),
+            _frag("openai", "."),
+            _frag("import", "anthropic"),
+            _frag("anthropic", "."),
             _frag("urllib", ".", "request"),
             _frag("socket", "."),
             _frag("webbrowser", "."),
             _frag("selenium", "."),
+            _frag("playwright", "."),
             _frag("submit", "_", "order", "("),
             _frag("execute", "_", "trade", "("),
             _frag("place", "_", "order", "("),

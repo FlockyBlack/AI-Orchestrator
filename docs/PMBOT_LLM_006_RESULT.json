@@ -1,0 +1,127 @@
+{
+  "task_id": "PMBOT-LLM-006-MANUAL-LLM-QUALITY-GATE-WORKBENCH-SURFACE",
+  "status": "completed_local_only",
+  "summary": "Passively surfaced the existing manual LLM review quality gate artifact in the local operator review pack and refreshed workbench-facing artifacts without runtime, LLM API, browser, prompt, order, strategy, or truth-evaluation integration.",
+  "precheck": {
+    "branch": "main",
+    "worktree_clean_before": true,
+    "local_head_before": "d8549ee1dd655318951283d8b61df195d94920f0",
+    "origin_main_before": "d8549ee1dd655318951283d8b61df195d94920f0",
+    "remote_conflict_detected": false
+  },
+  "workbench_surface_behavior": {
+    "operator_review_pack_modified": true,
+    "manual_llm_quality_gate_section_added": true,
+    "reads_existing_local_quality_gate_artifact": true,
+    "missing_artifact_handled_as_not_available": true,
+    "malformed_artifact_handled_safely": true,
+    "llm_text_generated": false,
+    "llm_api_calls_added": false,
+    "browser_automation_added": false,
+    "runtime_integration_added": false
+  },
+  "quality_gate_surface": {
+    "artifact_status_present_supported": true,
+    "artifact_status_missing_supported": true,
+    "artifact_status_invalid_supported": true,
+    "validation_status_surfaced": true,
+    "base_validator_status_surfaced": true,
+    "quality_check_summaries_surfaced": true,
+    "warnings_errors_counts_surfaced": true,
+    "deterministic_quality_gate_warning_surfaced": true,
+    "not_truth_probability_ev_edge_side_warning_surfaced": true,
+    "probability_ev_edge_scoring_fields_added": false,
+    "side_recommendation_fields_added": false,
+    "truth_evaluation_fields_added": false
+  },
+  "files_created": [
+    "docs/PMBOT_LLM_006_MANUAL_LLM_QUALITY_GATE_WORKBENCH_SURFACE.md",
+    "docs/PMBOT_LLM_006_RESULT.json"
+  ],
+  "files_modified": [
+    "docs/PMBOT_CODEX_A_ROUND003_RESULT.json",
+    "docs/PMBOT_WORKBENCH_001_RESULT.json",
+    "pm_bot/dashboard/expected_static_operator_report_summary.v1.json",
+    "pm_bot/dashboard/static_operator_report.v1.html",
+    "pm_bot/dashboard/static_operator_report_summary.v1.json",
+    "pm_bot/workbench/expected_operator_review_pack.v1.json",
+    "pm_bot/workbench/export_operator_review_pack.py",
+    "pm_bot/workbench/operator_review_pack.v1.json",
+    "pm_bot/workbench/operator_review_pack.v1.md",
+    "pm_bot/workbench/tests/test_operator_review_pack_export.py"
+  ],
+  "tests_run": [
+    {
+      "command": "python -m py_compile pm_bot\\workbench\\export_operator_review_pack.py pm_bot\\workbench\\tests\\test_operator_review_pack_export.py",
+      "result": "passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\workbench\\tests\\test_operator_review_pack_export.py -q",
+      "result": "21 passed"
+    },
+    {
+      "command": "python pm_bot\\workbench\\export_operator_review_pack.py --write",
+      "result": "completed_ready_for_review"
+    },
+    {
+      "command": "python -m pytest pm_bot\\llm -q",
+      "result": "38 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\workbench -q",
+      "result": "29 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\quality pm_bot\\dashboard pm_bot\\operator -q",
+      "result": "93 passed, 48 subtests passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\paper -q",
+      "result": "331 passed, 39 subtests passed"
+    },
+    {
+      "command": "python pm_bot\\workbench\\run_operator_workbench_export.py",
+      "result": "required_steps_passed true"
+    },
+    {
+      "command": "JSON parse check for all new/changed JSON files",
+      "result": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "result": "passed"
+    },
+    {
+      "command": "git diff --cached --check",
+      "result": "passed"
+    },
+    {
+      "command": "forbidden path/runtime safety scan",
+      "result": "passed"
+    }
+  ],
+  "safety_flags": {
+    "runtime_wiring": false,
+    "network_api": false,
+    "llm_api": false,
+    "browser_automation": false,
+    "prompt_automation": false,
+    "credentials_or_wallet": false,
+    "real_orders_or_live_trading": false,
+    "autonomous_paper_orders": false,
+    "probability_ev_scoring_or_edge": false,
+    "side_recommendations": false,
+    "market_decision_logic": false,
+    "truth_evaluation": false,
+    "dispatcher_or_run_codex_changed": false
+  },
+  "git": {
+    "commit_created": false,
+    "commit_hash": "",
+    "pushed": false,
+    "origin_main_verified": false,
+    "worktree_clean_after": false
+  },
+  "blockers": [],
+  "next_recommended_task": "PMBOT-LLM-007-REAL-MANUAL-LLM-MARKET-PACKET-TRIAL"
+}
