@@ -1,0 +1,251 @@
+{
+  "contract_version": "manual_llm_review_quality_gate_contract.v1",
+  "quality_gate_version": "manual_llm_review_quality_gate.v1",
+  "generated_at": "deterministic-manual-llm-review-quality-gate.v1",
+  "packet_path": "pm_bot/llm/example_llm_analysis_packet.v1.json",
+  "response_path": "pm_bot/llm/manual_llm_paste_in_response_example_valid.v1.json",
+  "manual_review_path": "pm_bot/llm/manual_llm_paste_in_review.v1.json",
+  "validation_status": "quality_passed",
+  "base_validator_status": "accepted",
+  "base_validator": {
+    "packet_validation": {
+      "status": "accepted",
+      "errors": [],
+      "warnings": [],
+      "artifact_paths": {
+        "packet": "pm_bot/llm/example_llm_analysis_packet.v1.json",
+        "packet_schema": "pm_bot/llm/llm_analysis_packet_schema.v1.json"
+      }
+    },
+    "response_validation": {
+      "status": "accepted",
+      "errors": [],
+      "warnings": [],
+      "artifact_paths": {
+        "response": "pm_bot/llm/manual_llm_paste_in_response_example_valid.v1.json",
+        "response_schema": "pm_bot/llm/llm_analysis_response_schema.v1.json"
+      }
+    },
+    "errors": [],
+    "warnings": []
+  },
+  "quality_counts": {
+    "checks_total": 11,
+    "checks_passed": 11,
+    "checks_with_warnings": 0,
+    "checks_failed": 0,
+    "errors_count": 0,
+    "warnings_count": 0
+  },
+  "required_sections_check": {
+    "check_name": "required_sections_check",
+    "status": "passed",
+    "required_sections": [
+      "concise_market_summary",
+      "key_uncertainties",
+      "missing_evidence",
+      "contradiction_checks",
+      "risk_notes",
+      "operator_review_checklist",
+      "suggested_research_questions",
+      "citation_or_source_gap_notes",
+      "safety_acknowledgement"
+    ],
+    "present_sections": [
+      "concise_market_summary",
+      "key_uncertainties",
+      "missing_evidence",
+      "contradiction_checks",
+      "risk_notes",
+      "operator_review_checklist",
+      "suggested_research_questions",
+      "citation_or_source_gap_notes",
+      "safety_acknowledgement"
+    ],
+    "missing_sections": [],
+    "empty_sections": [],
+    "errors": [],
+    "warnings": []
+  },
+  "minimum_content_check": {
+    "check_name": "minimum_content_check",
+    "status": "passed",
+    "required_minimum_useful_items": {
+      "key_uncertainties": 2,
+      "missing_evidence": 1,
+      "risk_notes": 2,
+      "operator_review_checklist": 3,
+      "suggested_research_questions": 2
+    },
+    "observed_useful_items": {
+      "key_uncertainties": 2,
+      "missing_evidence": 2,
+      "risk_notes": 2,
+      "operator_review_checklist": 3,
+      "suggested_research_questions": 3
+    },
+    "errors": [],
+    "warnings": []
+  },
+  "generic_or_placeholder_text_check": {
+    "check_name": "generic_or_placeholder_text_check",
+    "status": "passed",
+    "placeholder_findings": [],
+    "repeated_cannot_determine_paths": [],
+    "errors": [],
+    "warnings": []
+  },
+  "uncertainty_check": {
+    "check_name": "uncertainty_check",
+    "status": "passed",
+    "useful_items_count": 2,
+    "unmarked_uncertainty_paths": [],
+    "errors": [],
+    "warnings": []
+  },
+  "missing_evidence_check": {
+    "check_name": "missing_evidence_check",
+    "status": "passed",
+    "useful_items_count": 2,
+    "evidence_gap_marker_paths": [
+      "missing_evidence[0]"
+    ],
+    "errors": [],
+    "warnings": []
+  },
+  "risk_notes_check": {
+    "check_name": "risk_notes_check",
+    "status": "passed",
+    "useful_items_count": 2,
+    "risk_marker_paths": [
+      "risk_notes[0]",
+      "risk_notes[1]"
+    ],
+    "errors": [],
+    "warnings": []
+  },
+  "operator_checklist_check": {
+    "check_name": "operator_checklist_check",
+    "status": "passed",
+    "useful_items_count": 3,
+    "action_marker_paths": [
+      "operator_review_checklist[0]",
+      "operator_review_checklist[1]",
+      "operator_review_checklist[2]"
+    ],
+    "errors": [],
+    "warnings": []
+  },
+  "source_gap_notes_check": {
+    "check_name": "source_gap_notes_check",
+    "status": "passed",
+    "useful_items_count": 2,
+    "source_gap_marker_paths": [
+      "citation_or_source_gap_notes[0]",
+      "citation_or_source_gap_notes[1]"
+    ],
+    "errors": [],
+    "warnings": []
+  },
+  "safety_acknowledgement_check": {
+    "check_name": "safety_acknowledgement_check",
+    "status": "passed",
+    "required_true_fields": [
+      "offline_only",
+      "local_only",
+      "manual_review_only",
+      "no_recommendations",
+      "no_outcome_estimates",
+      "no_value_scoring",
+      "no_trade_or_wallet_instructions",
+      "no_autonomous_actions",
+      "uncertain_claims_marked"
+    ],
+    "field_status": {
+      "offline_only": true,
+      "local_only": true,
+      "manual_review_only": true,
+      "no_recommendations": true,
+      "no_outcome_estimates": true,
+      "no_value_scoring": true,
+      "no_trade_or_wallet_instructions": true,
+      "no_autonomous_actions": true,
+      "uncertain_claims_marked": true
+    },
+    "concept_status": {
+      "analysis_only": true,
+      "not_trading_advice": true,
+      "no_estimates_value_metrics_or_directional_guidance": true
+    },
+    "errors": [],
+    "warnings": []
+  },
+  "unsafe_certainty_check": {
+    "check_name": "unsafe_certainty_check",
+    "status": "passed",
+    "unsafe_certainty_detected": false,
+    "findings": [],
+    "errors": [],
+    "warnings": []
+  },
+  "forbidden_content_check": {
+    "check_name": "forbidden_content_check",
+    "status": "passed",
+    "forbidden_content_detected": false,
+    "findings": [],
+    "errors": [],
+    "warnings": []
+  },
+  "manual_review_input_check": {
+    "status": "loaded",
+    "path": "pm_bot/llm/manual_llm_paste_in_review.v1.json",
+    "validation_status": "accepted",
+    "warnings": []
+  },
+  "warnings": [],
+  "errors": [],
+  "safety_flags": {
+    "runtime_wiring": false,
+    "network_api": false,
+    "llm_api": false,
+    "credentials_or_wallet": false,
+    "real_orders_or_live_trading": false,
+    "autonomous_paper_orders": false,
+    "probability_ev_scoring_or_edge": false,
+    "side_recommendations": false,
+    "dispatcher_or_run_codex_changed": false,
+    "prompt_automation": false,
+    "browser_automation": false,
+    "market_decision_logic": false,
+    "truth_evaluation": false
+  },
+  "operator_summary": "Quality passed: the response passed PMBOT-LLM-001 validation and deterministic operator-usefulness checks. Treat it only as offline manual review context.",
+  "next_safe_operator_action": "Use the response only as manual review context and verify unresolved source gaps against local artifacts.",
+  "source_artifacts": {
+    "packet_declared_source_artifacts": [
+      {
+        "artifact_type": "operator_review_pack",
+        "path": "pm_bot/workbench/operator_review_pack.v1.json",
+        "description": "Local operator review pack reference used as a fixture source.",
+        "sanitization_status": "safe_public_or_local_artifact_reference_only"
+      },
+      {
+        "artifact_type": "research_summary",
+        "path": "pm_bot/research/expected_selected_ingest_dossier_human_review_pack.v1.json",
+        "description": "Local research artifact reference used for manual review context.",
+        "sanitization_status": "fixture_only"
+      }
+    ],
+    "manual_artifacts": {
+      "packet": "pm_bot/llm/example_llm_analysis_packet.v1.json",
+      "response": "pm_bot/llm/manual_llm_paste_in_response_example_valid.v1.json",
+      "manual_review": "pm_bot/llm/manual_llm_paste_in_review.v1.json"
+    },
+    "contract_artifacts": [
+      "pm_bot/llm/llm_analysis_packet_schema.v1.json",
+      "pm_bot/llm/llm_analysis_response_schema.v1.json",
+      "pm_bot/llm/validate_llm_analysis_artifacts.py",
+      "pm_bot/llm/evaluate_manual_llm_review_quality_gate.py"
+    ]
+  }
+}

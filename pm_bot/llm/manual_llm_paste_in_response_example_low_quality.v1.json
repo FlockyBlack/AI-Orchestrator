@@ -1,0 +1,43 @@
+{
+  "contract_version": "llm_analysis_response.v1",
+  "response_id": "llm-analysis-response-manual-demo-low-quality-001",
+  "packet_id": "llm-analysis-packet-demo-001",
+  "concise_market_summary": "Looks good.",
+  "key_uncertainties": [
+    "Cannot determine.",
+    "None"
+  ],
+  "missing_evidence": [
+    "N/A"
+  ],
+  "contradiction_checks": [
+    {
+      "topic": "overall review",
+      "check_result": "not_checked",
+      "notes": "none"
+    }
+  ],
+  "risk_notes": [
+    "No issues"
+  ],
+  "operator_review_checklist": [
+    "Looks good"
+  ],
+  "suggested_research_questions": [
+    "N/A"
+  ],
+  "citation_or_source_gap_notes": [
+    "None"
+  ],
+  "safety_acknowledgement": {
+    "offline_only": true,
+    "local_only": true,
+    "manual_review_only": true,
+    "no_recommendations": true,
+    "no_outcome_estimates": true,
+    "no_value_scoring": true,
+    "no_trade_or_wallet_instructions": true,
+    "no_autonomous_actions": true,
+    "uncertain_claims_marked": true
+  }
+}

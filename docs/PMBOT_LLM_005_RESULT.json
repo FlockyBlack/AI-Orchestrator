@@ -1,0 +1,110 @@
+{
+  "task_id": "PMBOT-LLM-005-MANUAL-LLM-REVIEW-QUALITY-GATE",
+  "status": "completed_local_only",
+  "summary": "Added a standalone deterministic offline manual LLM review quality gate that reuses PMBOT-LLM-001 validation, checks operator-usefulness structure/content, rejects generic placeholders and unsafe certainty, and exports JSON plus Markdown summaries.",
+  "precheck": {
+    "branch": "main",
+    "worktree_clean_before": true,
+    "local_head_before": "0de7cd372f1177c04f8eb7f28aeda68b77e4f51c",
+    "origin_main_before": "0de7cd372f1177c04f8eb7f28aeda68b77e4f51c",
+    "remote_conflict_detected": false
+  },
+  "quality_gate_behavior": {
+    "quality_gate_created": true,
+    "uses_llm_001_validator": true,
+    "manual_review_input_supported": true,
+    "json_quality_result_created": true,
+    "markdown_quality_summary_created": true,
+    "required_sections_checked": true,
+    "minimum_content_checked": true,
+    "generic_placeholder_checked": true,
+    "unsafe_certainty_checked": true,
+    "safety_acknowledgement_checked": true,
+    "truth_probability_ev_side_evaluation_added": false,
+    "llm_api_calls_added": false,
+    "runtime_integration_added": false,
+    "workbench_entrypoint_modified": false
+  },
+  "validation_behavior": {
+    "high_quality_response_passed": true,
+    "low_quality_response_warned_or_failed": true,
+    "unsafe_certainty_failed": true,
+    "forbidden_recommendation_failed": true,
+    "missing_required_section_failed": true,
+    "expected_fixture_matched": true
+  },
+  "files_created": [
+    "docs/PMBOT_LLM_005_MANUAL_LLM_REVIEW_QUALITY_GATE.md",
+    "docs/PMBOT_LLM_005_RESULT.json",
+    "pm_bot/llm/evaluate_manual_llm_review_quality_gate.py",
+    "pm_bot/llm/expected_manual_llm_review_quality_gate.v1.json",
+    "pm_bot/llm/manual_llm_paste_in_response_example_low_quality.v1.json",
+    "pm_bot/llm/manual_llm_paste_in_response_example_unsafe_certainty.v1.json",
+    "pm_bot/llm/manual_llm_review_quality_gate.v1.json",
+    "pm_bot/llm/manual_llm_review_quality_gate.v1.md",
+    "pm_bot/llm/tests/test_manual_llm_review_quality_gate.py"
+  ],
+  "files_modified": [],
+  "tests_run": [
+    {
+      "command": "python -m pytest pm_bot\\llm\\tests\\test_manual_llm_review_quality_gate.py -q",
+      "result": "10 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\llm -q",
+      "result": "38 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\workbench -q",
+      "result": "26 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\quality pm_bot\\dashboard pm_bot\\operator -q",
+      "result": "93 passed, 48 subtests passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\paper -q",
+      "result": "331 passed, 39 subtests passed"
+    },
+    {
+      "command": "JSON parse check for new JSON files",
+      "result": "passed"
+    },
+    {
+      "command": "python -m py_compile pm_bot\\llm\\evaluate_manual_llm_review_quality_gate.py pm_bot\\llm\\tests\\test_manual_llm_review_quality_gate.py",
+      "result": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "result": "passed"
+    },
+    {
+      "command": "forbidden path/runtime safety scan",
+      "result": "passed"
+    }
+  ],
+  "safety_flags": {
+    "runtime_wiring": false,
+    "network_api": false,
+    "llm_api": false,
+    "browser_automation": false,
+    "prompt_automation": false,
+    "credentials_or_wallet": false,
+    "real_orders_or_live_trading": false,
+    "autonomous_paper_orders": false,
+    "probability_ev_scoring_or_edge": false,
+    "side_recommendations": false,
+    "market_decision_logic": false,
+    "truth_evaluation": false,
+    "dispatcher_or_run_codex_changed": false
+  },
+  "git": {
+    "commit_created": false,
+    "commit_hash": "",
+    "pushed": false,
+    "origin_main_verified": false,
+    "worktree_clean_after": false
+  },
+  "blockers": [],
+  "next_recommended_task": "PMBOT-LLM-006-MANUAL-LLM-QUALITY-GATE-WORKBENCH-SURFACE"
+}

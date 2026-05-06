@@ -1,0 +1,48 @@
+{
+  "contract_version": "llm_analysis_response.v1",
+  "response_id": "llm-analysis-response-manual-demo-unsafe-certainty-001",
+  "packet_id": "llm-analysis-packet-demo-001",
+  "concise_market_summary": "The local packet is guaranteed to describe the relevant market context, though the operator still needs source review.",
+  "key_uncertainties": [
+    "The source freshness has not been manually reconfirmed in this offline packet.",
+    "Later local notes may change how the operator interprets the resolution rule."
+  ],
+  "missing_evidence": [
+    "A dated source confirmation is still missing from the reviewed local artifacts."
+  ],
+  "contradiction_checks": [
+    {
+      "topic": "resolution source freshness",
+      "check_result": "needs_more_source_review",
+      "notes": "The packet identifies the source but does not prove whether a newer update exists."
+    }
+  ],
+  "risk_notes": [
+    "The review pack may be stale because this is an offline fixture.",
+    "The local packet may look risk-free if the operator ignores unresolved source gaps."
+  ],
+  "operator_review_checklist": [
+    "Open the referenced operator review pack and verify source text.",
+    "Compare local summary notes against the resolution source.",
+    "Record unresolved source gaps before using the review as context."
+  ],
+  "suggested_research_questions": [
+    "Which timestamp is attached to the source used for resolution context?",
+    "Which local artifact first introduced the unresolved source freshness claim?"
+  ],
+  "citation_or_source_gap_notes": [
+    "The packet uses local artifact paths rather than live citations.",
+    "Fresh source confirmation remains outside this deterministic offline response."
+  ],
+  "safety_acknowledgement": {
+    "offline_only": true,
+    "local_only": true,
+    "manual_review_only": true,
+    "no_recommendations": true,
+    "no_outcome_estimates": true,
+    "no_value_scoring": true,
+    "no_trade_or_wallet_instructions": true,
+    "no_autonomous_actions": true,
+    "uncertain_claims_marked": true
+  }
+}
