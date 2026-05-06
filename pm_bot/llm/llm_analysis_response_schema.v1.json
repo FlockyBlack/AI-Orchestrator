@@ -1,0 +1,177 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "PMBOT_LLM_ANALYSIS_RESPONSE.v1",
+  "schema_version": "llm_analysis_response_schema.v1",
+  "title": "PMBOT LLM Analysis Response v1",
+  "description": "Offline-only local contract for a manually supplied LLM analysis response. The response is limited to review-supporting notes and must not include side selection, outcome estimates, value scoring, execution instructions, wallet instructions, autonomous actions, or certainty claims.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "response_id",
+    "packet_id",
+    "concise_market_summary",
+    "key_uncertainties",
+    "missing_evidence",
+    "contradiction_checks",
+    "risk_notes",
+    "operator_review_checklist",
+    "suggested_research_questions",
+    "citation_or_source_gap_notes",
+    "safety_acknowledgement"
+  ],
+  "properties": {
+    "contract_version": {
+      "const": "llm_analysis_response.v1"
+    },
+    "response_id": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "llm-analysis-response-[a-z0-9-]+"
+    },
+    "packet_id": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "llm-analysis-packet-[a-z0-9-]+"
+    },
+    "concise_market_summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "key_uncertainties": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "missing_evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "contradiction_checks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "topic",
+          "check_result",
+          "notes"
+        ],
+        "properties": {
+          "topic": {
+            "type": "string",
+            "minLength": 1
+          },
+          "check_result": {
+            "enum": [
+              "no_conflict_seen",
+              "possible_conflict",
+              "needs_more_source_review",
+              "not_checked"
+            ]
+          },
+          "notes": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "risk_notes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "operator_review_checklist": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "suggested_research_questions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "citation_or_source_gap_notes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "safety_acknowledgement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "offline_only",
+        "local_only",
+        "manual_review_only",
+        "no_recommendations",
+        "no_outcome_estimates",
+        "no_value_scoring",
+        "no_trade_or_wallet_instructions",
+        "no_autonomous_actions",
+        "uncertain_claims_marked"
+      ],
+      "properties": {
+        "offline_only": {
+          "const": true
+        },
+        "local_only": {
+          "const": true
+        },
+        "manual_review_only": {
+          "const": true
+        },
+        "no_recommendations": {
+          "const": true
+        },
+        "no_outcome_estimates": {
+          "const": true
+        },
+        "no_value_scoring": {
+          "const": true
+        },
+        "no_trade_or_wallet_instructions": {
+          "const": true
+        },
+        "no_autonomous_actions": {
+          "const": true
+        },
+        "uncertain_claims_marked": {
+          "const": true
+        }
+      }
+    }
+  },
+  "contract_boundary": {
+    "local_only": true,
+    "deterministic_validation": true,
+    "operator_review_only": true,
+    "llm_api_defined": false,
+    "runtime_integration_defined": false,
+    "trading_or_ordering_defined": false,
+    "strategy_defined": false,
+    "side_selection_defined": false,
+    "outcome_estimation_defined": false,
+    "value_scoring_defined": false
+  }
+}

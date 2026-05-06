@@ -1,0 +1,105 @@
+{
+  "task_id": "PMBOT-LLM-001-ANALYSIS-PACKET-CONTRACT",
+  "status": "completed_local_only",
+  "summary": "Created an offline-only PMBOT LLM analysis packet and response contract with schemas, examples, a standard-library-only local validator, documentation, and focused tests. No runtime wiring, LLM API calls, network calls, dispatcher changes, prompt automation, or trading behavior were added.",
+  "precheck": {
+    "branch": "main",
+    "worktree_clean_before": true,
+    "local_head_before": "95a4290f3c277fef0241adb28bacce30c3051532",
+    "origin_main_before": "95a4290f3c277fef0241adb28bacce30c3051532",
+    "remote_conflict_detected": false
+  },
+  "contract": {
+    "packet_schema_created": true,
+    "response_schema_created": true,
+    "validator_created": true,
+    "examples_created": 3,
+    "forbidden_outputs_enforced": true,
+    "llm_api_calls_added": false,
+    "runtime_integration_added": false
+  },
+  "validation_behavior": {
+    "valid_packet_passes": true,
+    "valid_response_passes": true,
+    "forbidden_field_rejected": true,
+    "forbidden_phrase_rejected": true,
+    "forbidden_packet_request_rejected": true
+  },
+  "files_created": [
+    "docs/PMBOT_LLM_001_ANALYSIS_PACKET_CONTRACT.md",
+    "docs/PMBOT_LLM_001_RESULT.json",
+    "pm_bot/llm/__init__.py",
+    "pm_bot/llm/llm_analysis_packet_schema.v1.json",
+    "pm_bot/llm/llm_analysis_response_schema.v1.json",
+    "pm_bot/llm/example_llm_analysis_packet.v1.json",
+    "pm_bot/llm/example_llm_analysis_response_valid.v1.json",
+    "pm_bot/llm/example_llm_analysis_response_invalid_forbidden_recommendation.v1.json",
+    "pm_bot/llm/validate_llm_analysis_artifacts.py",
+    "pm_bot/llm/llm_analysis_contract.v1.md",
+    "pm_bot/llm/tests/test_validate_llm_analysis_artifacts.py"
+  ],
+  "files_modified": [],
+  "tests_run": [
+    {
+      "command": "python -m pytest pm_bot\\llm -q",
+      "status": "passed",
+      "summary": "7 passed"
+    },
+    {
+      "command": "python pm_bot\\llm\\validate_llm_analysis_artifacts.py",
+      "status": "passed",
+      "summary": "Default packet and response accepted with no errors."
+    },
+    {
+      "command": "python -m pytest pm_bot\\quality pm_bot\\workbench pm_bot\\dashboard pm_bot\\operator -q",
+      "status": "passed",
+      "summary": "114 passed, 48 subtests passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\paper -q",
+      "status": "passed",
+      "summary": "331 passed, 39 subtests passed"
+    },
+    {
+      "command": "JSON parse check for all new JSON files",
+      "status": "passed",
+      "summary": "All new JSON files parsed successfully."
+    },
+    {
+      "command": "python -m py_compile pm_bot\\llm\\__init__.py pm_bot\\llm\\validate_llm_analysis_artifacts.py pm_bot\\llm\\tests\\test_validate_llm_analysis_artifacts.py",
+      "status": "passed",
+      "summary": "Changed Python files compiled successfully."
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed",
+      "summary": "Whitespace check passed."
+    },
+    {
+      "command": "Forbidden path/runtime safety scan over changed paths and Python diff",
+      "status": "passed",
+      "summary": "No runtime wiring, dispatcher/run_codex changes, network or LLM API imports, wallet/private-key access, order execution calls, autonomous paper orders, prompt automation, or side-selection outputs were added."
+    }
+  ],
+  "safety_flags": {
+    "runtime_wiring": false,
+    "network_api": false,
+    "llm_api": false,
+    "credentials_or_wallet": false,
+    "real_orders_or_live_trading": false,
+    "autonomous_paper_orders": false,
+    "probability_ev_scoring_or_edge": false,
+    "side_recommendations": false,
+    "dispatcher_or_run_codex_changed": false,
+    "prompt_automation": false
+  },
+  "git": {
+    "commit_created": "reported_in_final_response",
+    "commit_hash": "reported_in_final_response",
+    "pushed": "reported_in_final_response",
+    "origin_main_verified": "reported_in_final_response",
+    "worktree_clean_after": "reported_in_final_response"
+  },
+  "blockers": [],
+  "next_recommended_task": "PMBOT-LLM-002-OFFLINE-LLM-REVIEW-STUB"
+}
