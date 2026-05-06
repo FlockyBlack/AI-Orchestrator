@@ -1,0 +1,147 @@
+{
+  "contract_version": "actual_manual_llm_response_surface_operator_review_contract.v1",
+  "review_version": "actual_manual_llm_response_surface_operator_review.v1",
+  "task_id": "PMBOT-LLM-012-OPERATOR-REVIEW-ACTUAL-MANUAL-LLM-RESPONSE-SURFACE",
+  "generated_at": "deterministic-actual-manual-llm-response-surface-operator-review.v1",
+  "generated_by": "pm_bot/llm/evaluate_actual_manual_llm_response_surface_operator_review.py",
+  "operator_surface_review_status": "operator_surface_review_passed",
+  "review_counts": {
+    "checks_total": 7,
+    "checks_passed": 7,
+    "checks_with_warnings": 0,
+    "checks_failed": 0,
+    "errors_count": 0,
+    "warnings_count": 0
+  },
+  "source_artifacts": {
+    "operator_review_pack_json": "pm_bot/workbench/operator_review_pack.v1.json",
+    "operator_review_pack_markdown": "pm_bot/workbench/operator_review_pack.v1.md",
+    "operator_workbench_export_json": "pm_bot/workbench/operator_workbench_export_run.v1.json",
+    "operator_workbench_export_markdown": "pm_bot/workbench/operator_workbench_export_run.v1.md"
+  },
+  "surface_snapshots": {
+    "operator_review_pack": {
+      "artifact_present": true,
+      "run_status": "actual_response_accepted",
+      "acceptance_status": "accepted_for_operator_review",
+      "response_validation_status": "accepted",
+      "manual_review_status": "accepted",
+      "quality_gate_status": "quality_passed",
+      "market_id": "824952",
+      "response_source_type": "actual_operator_pasted_response",
+      "source_artifact_path": "pm_bot/research/selected_ingest_final_dossier_drafts.v1.json",
+      "artifact_path": "pm_bot/llm/actual_manual_llm_response_trial.v1.json",
+      "artifact_pointer": "pm_bot/llm/actual_manual_llm_response_trial.v1.json",
+      "errors_count": 0,
+      "warnings_count": 0
+    },
+    "operator_workbench_export": {
+      "artifact_present": true,
+      "run_status": "actual_response_accepted",
+      "acceptance_status": "accepted_for_operator_review",
+      "response_validation_status": "accepted",
+      "manual_review_status": "accepted",
+      "quality_gate_status": "quality_passed",
+      "market_id": "824952",
+      "response_source_type": "actual_operator_pasted_response",
+      "source_artifact_path": "pm_bot/research/selected_ingest_final_dossier_drafts.v1.json",
+      "artifact_path": "pm_bot/llm/actual_manual_llm_response_trial.v1.json",
+      "errors_count": 0,
+      "warnings_count": 0
+    }
+  },
+  "checks": {
+    "artifact_load_check": {
+      "check_name": "artifact_load_check",
+      "status": "passed",
+      "observed_artifacts": [
+        {
+          "artifact_id": "operator_review_pack_json",
+          "path": "pm_bot/workbench/operator_review_pack.v1.json",
+          "artifact_present": true,
+          "parse_status": "parsed"
+        },
+        {
+          "artifact_id": "operator_workbench_export_json",
+          "path": "pm_bot/workbench/operator_workbench_export_run.v1.json",
+          "artifact_present": true,
+          "parse_status": "parsed"
+        },
+        {
+          "artifact_id": "operator_review_pack_markdown",
+          "path": "pm_bot/workbench/operator_review_pack.v1.md",
+          "artifact_present": true,
+          "parse_status": "read"
+        },
+        {
+          "artifact_id": "operator_workbench_export_markdown",
+          "path": "pm_bot/workbench/operator_workbench_export_run.v1.md",
+          "artifact_present": true,
+          "parse_status": "read"
+        }
+      ],
+      "errors": [],
+      "warnings": []
+    },
+    "surface_presence_check": {
+      "check_name": "surface_presence_check",
+      "status": "passed",
+      "errors": [],
+      "warnings": []
+    },
+    "accepted_status_check": {
+      "check_name": "accepted_status_check",
+      "status": "passed",
+      "errors": [],
+      "warnings": []
+    },
+    "market_source_check": {
+      "check_name": "market_source_check",
+      "status": "passed",
+      "errors": [],
+      "warnings": []
+    },
+    "safety_language_check": {
+      "check_name": "safety_language_check",
+      "status": "passed",
+      "errors": [],
+      "warnings": []
+    },
+    "markdown_readability_check": {
+      "check_name": "markdown_readability_check",
+      "status": "passed",
+      "errors": [],
+      "warnings": []
+    },
+    "forbidden_behavior_check": {
+      "check_name": "forbidden_behavior_check",
+      "status": "passed",
+      "forbidden_findings": [],
+      "errors": [],
+      "warnings": []
+    }
+  },
+  "errors": [],
+  "warnings": [],
+  "safety_flags": {
+    "offline_local_manual_only": true,
+    "local_file_reads_only": true,
+    "deterministic": true,
+    "llm_api": false,
+    "network_api": false,
+    "browser_automation": false,
+    "prompt_automation": false,
+    "runtime_wiring": false,
+    "dispatcher_run_codex_changes": false,
+    "credentials_or_wallet": false,
+    "real_orders_or_live_trading": false,
+    "autonomous_paper_orders": false,
+    "probability_ev_scoring_or_edge": false,
+    "side_recommendations": false,
+    "market_decision_logic": false,
+    "truth_evaluation": false,
+    "execution_authority": false
+  },
+  "operator_summary": "Operator surface review passed: the generated workbench artifacts expose the accepted actual operator-pasted response with clear offline-only safety boundaries.",
+  "next_safe_operator_action": "Review the generated Markdown acceptance result and source workbench Markdown as offline local context only; do not execute or automate anything."
+}

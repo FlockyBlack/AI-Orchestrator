@@ -1,0 +1,50 @@
+{
+  "task_id": "PMBOT-LLM-012-OPERATOR-REVIEW-ACTUAL-MANUAL-LLM-RESPONSE-SURFACE",
+  "status": "completed_ready_for_review",
+  "operator_surface_review_status": "operator_surface_review_passed",
+  "surface_review_artifact": "pm_bot/llm/actual_manual_llm_response_surface_operator_review.v1.json",
+  "surface_review_markdown": "pm_bot/llm/actual_manual_llm_response_surface_operator_review.v1.md",
+  "doc_markdown": "docs/PMBOT_LLM_012_OPERATOR_REVIEW_ACTUAL_MANUAL_LLM_RESPONSE_SURFACE.md",
+  "source_artifacts": {
+    "operator_review_pack_json": "pm_bot/workbench/operator_review_pack.v1.json",
+    "operator_review_pack_markdown": "pm_bot/workbench/operator_review_pack.v1.md",
+    "operator_workbench_export_json": "pm_bot/workbench/operator_workbench_export_run.v1.json",
+    "operator_workbench_export_markdown": "pm_bot/workbench/operator_workbench_export_run.v1.md"
+  },
+  "review_counts": {
+    "checks_total": 7,
+    "checks_passed": 7,
+    "checks_with_warnings": 0,
+    "checks_failed": 0,
+    "errors_count": 0,
+    "warnings_count": 0
+  },
+  "safety_flags": {
+    "offline_local_manual_only": true,
+    "local_file_reads_only": true,
+    "deterministic": true,
+    "llm_api": false,
+    "network_api": false,
+    "browser_automation": false,
+    "prompt_automation": false,
+    "runtime_wiring": false,
+    "dispatcher_run_codex_changes": false,
+    "credentials_or_wallet": false,
+    "real_orders_or_live_trading": false,
+    "autonomous_paper_orders": false,
+    "probability_ev_scoring_or_edge": false,
+    "side_recommendations": false,
+    "market_decision_logic": false,
+    "truth_evaluation": false,
+    "execution_authority": false
+  },
+  "warnings": [],
+  "blockers": [],
+  "network_calls": 0,
+  "llm_api_calls": 0,
+  "browser_automation": false,
+  "runtime_wiring": false,
+  "orders_created": 0,
+  "truth_inference": false,
+  "next_recommended_task": "PMBOT-LLM-013-NEXT-MANUAL-ONLY-OPERATOR-REVIEW-STEP"
+}
