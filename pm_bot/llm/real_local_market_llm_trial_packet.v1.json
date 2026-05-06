@@ -1,0 +1,148 @@
+{
+  "contract_version": "llm_analysis_packet.v1",
+  "packet_id": "llm-analysis-packet-real-local-market-824952",
+  "generated_at": "deterministic-real-local-market-llm-trial-packet.v1",
+  "source_artifacts": [
+    {
+      "artifact_type": "selected_ingest_final_dossier_draft",
+      "path": "pm_bot/research/selected_ingest_final_dossier_drafts.v1.json",
+      "description": "Existing local PMBOT market/research artifact selected for the real-local-market manual LLM trial; safe summary fields only are copied into this packet.",
+      "sanitization_status": "safe_public_or_local_artifact_reference_only"
+    }
+  ],
+  "market_context": {
+    "market_id": "824952",
+    "market_title": "MicroStrategy sells any Bitcoin by December 31, 2026?",
+    "market_status": "unknown",
+    "public_resolution_context": "Stub-only local market description excerpt for 'MicroStrategy sells any Bitcoin by December 31, 2026?': This market will resolve to \"Yes\" if MicroStrategy sells any of its Bitcoin by 11:59 PM ET on the date specified in the title. Otherwise, this market will resolve to \"No\". Manual completion must review the full local criteria before use.",
+    "outcome_labels": [
+      "Yes",
+      "No"
+    ]
+  },
+  "normalized_market_summary": {
+    "question_text": "MicroStrategy sells any Bitcoin by December 31, 2026?",
+    "status": "unknown",
+    "outcome_labels": [
+      "Yes",
+      "No"
+    ],
+    "resolution_rules_summary": "Stub-only local market description excerpt for 'MicroStrategy sells any Bitcoin by December 31, 2026?': This market will resolve to \"Yes\" if MicroStrategy sells any of its Bitcoin by 11:59 PM ET on the date specified in the title. Otherwise, this market will resolve to \"No\". Manual completion must review the full local criteria before use.",
+    "data_freshness_note": "Derived only from an existing local PMBOT artifact; no live data, API, or network refresh is used.",
+    "excluded_fields_note": "Source numeric market fields and accounting fields are intentionally omitted. No credentials, wallet data, executable commands, endpoint data, order placement fields, outcome estimates, value metrics, or side selection requests are included."
+  },
+  "research_summary": {
+    "research_status": "manual_review_ready",
+    "summary": "Local selected_ingest_final_dossier_draft artifact records market context, resolution notes, source coverage placeholders, uncertainty notes, and human-review notes for manual review only.",
+    "completed_sections": [
+      "evidence_inventory",
+      "human_review_summary",
+      "market_overview",
+      "resolution_rules",
+      "source_coverage_notes",
+      "uncertainty_notes",
+      "unresolved_questions"
+    ],
+    "open_questions": []
+  },
+  "evidence_summary": [
+    {
+      "evidence_id": "evidence-real-local-market-824952-001",
+      "claim_summary": "Local rule reference was copied into the packet for structural review.",
+      "source_reference": "pm_bot/research/selected_ingest_final_dossier_drafts.v1.json",
+      "source_type": "official_source_reference",
+      "relevance_note": "This local dossier field gives the operator source-coverage context for manual review.",
+      "limitation_note": "The trial does not fetch, refresh, resolve, or verify the referenced source."
+    },
+    {
+      "evidence_id": "evidence-real-local-market-824952-002",
+      "claim_summary": "Official source placeholder was documented as source coverage context.",
+      "source_reference": "pm_bot/research/selected_ingest_final_dossier_drafts.v1.json",
+      "source_type": "official_source_reference",
+      "relevance_note": "This local dossier field gives the operator source-coverage context for manual review.",
+      "limitation_note": "The trial does not fetch, refresh, resolve, or verify the referenced source."
+    },
+    {
+      "evidence_id": "evidence-real-local-market-824952-003",
+      "claim_summary": "Credible news placeholder was documented as source coverage context.",
+      "source_reference": "pm_bot/research/selected_ingest_final_dossier_drafts.v1.json",
+      "source_type": "news_source_reference",
+      "relevance_note": "This local dossier field gives the operator source-coverage context for manual review.",
+      "limitation_note": "The trial does not fetch, refresh, resolve, or verify the referenced source."
+    },
+    {
+      "evidence_id": "evidence-real-local-market-824952-004",
+      "claim_summary": "Manual review still needs human judgment on source completeness.",
+      "source_reference": "pm_bot/research/selected_ingest_final_dossier_drafts.v1.json",
+      "source_type": "manual_note",
+      "relevance_note": "This local uncertainty note keeps unresolved review context visible.",
+      "limitation_note": "The note is not a source check, truth check, estimate, score, or decision."
+    },
+    {
+      "evidence_id": "evidence-real-local-market-824952-005",
+      "claim_summary": "Artifact validation does not determine the market outcome.",
+      "source_reference": "pm_bot/research/selected_ingest_final_dossier_drafts.v1.json",
+      "source_type": "manual_note",
+      "relevance_note": "This local uncertainty note keeps unresolved review context visible.",
+      "limitation_note": "The note is not a source check, truth check, estimate, score, or decision."
+    }
+  ],
+  "operator_questions": [
+    "Which source gaps should the operator review first?",
+    "Which local claims need source-date verification?",
+    "Where do local artifact summaries remain ambiguous or incomplete?"
+  ],
+  "known_limitations": [
+    "The packet is derived from a local artifact only and does not fetch or refresh external data.",
+    "The packet omits numeric market fields and accounting values to stay within manual review boundaries.",
+    "The packet is a review aid only and does not evaluate truth, select outcomes, or authorize action."
+  ],
+  "forbidden_outputs": [
+    "recommended_side",
+    "bet_yes_or_no",
+    "order_size",
+    "price_target",
+    "probability",
+    "implied_probability",
+    "fair_value",
+    "ev",
+    "edge",
+    "expected_return",
+    "kelly_sizing",
+    "execution_instruction",
+    "auto_trade_instruction",
+    "wallet_instruction",
+    "market_outcome_certainty_claim"
+  ],
+  "required_response_sections": [
+    "concise_market_summary",
+    "key_uncertainties",
+    "missing_evidence",
+    "contradiction_checks",
+    "risk_notes",
+    "operator_review_checklist",
+    "suggested_research_questions",
+    "citation_or_source_gap_notes",
+    "safety_acknowledgement"
+  ],
+  "safety_constraints": {
+    "offline_only": true,
+    "local_files_only": true,
+    "manual_review_only": true,
+    "no_network_calls": true,
+    "no_llm_api_calls": true,
+    "no_credentials": true,
+    "no_wallet_or_key_material": true,
+    "no_trading_endpoints": true,
+    "no_real_orders": true,
+    "no_live_trading": true,
+    "no_autonomous_paper_orders": true,
+    "no_outcome_estimates": true,
+    "no_value_or_advantage_scoring": true,
+    "no_side_selection": true,
+    "no_market_decisions": true,
+    "no_runtime_wiring": true,
+    "no_dispatcher_changes": true,
+    "no_prompt_automation": true
+  }
+}

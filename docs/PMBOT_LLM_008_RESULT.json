@@ -1,0 +1,143 @@
+{
+  "task_id": "PMBOT-LLM-008-REAL-LOCAL-MARKET-PACKET-TRIAL",
+  "status": "completed_local_validated_pending_git",
+  "summary": "Created a deterministic offline/manual LLM trial from an existing local PMBOT selected-ingest final dossier draft for market 824952, exported a schema-valid LLM-safe packet and manual prompt, validated the example saved response, ran the manual review flow and quality gate, and documented manual operator steps.",
+  "precheck": {
+    "branch": "main",
+    "worktree_clean_before": true,
+    "local_head_before": "d09666850b7ee50735ec4f0d704d334a97964ca3",
+    "origin_main_before": "d09666850b7ee50735ec4f0d704d334a97964ca3",
+    "remote_conflict_detected": false
+  },
+  "source_selection": {
+    "real_local_market_artifact_found": true,
+    "source_artifact_path": "pm_bot/research/selected_ingest_final_dossier_drafts.v1.json",
+    "source_artifact_type": "selected_ingest_final_dossier_draft",
+    "market_id": "824952",
+    "trial_packet_source_type": "real_local_market_artifact",
+    "used_example_packet_fallback": false,
+    "fallback_reason": "",
+    "operator_review_pack_inspected_first": true,
+    "operator_review_pack_rejection_reason": "The operator review pack contains local market IDs but not enough standalone title/question and resolution context for the LLM packet schema."
+  },
+  "trial_behavior": {
+    "trial_exporter_created": true,
+    "trial_packet_created": true,
+    "trial_prompt_created": true,
+    "example_manual_response_created": true,
+    "trial_result_json_created": true,
+    "trial_markdown_report_created": true,
+    "manual_operator_steps_documented": true,
+    "uses_llm_001_validator": true,
+    "uses_llm_003_manual_review_flow": true,
+    "uses_llm_005_quality_gate": true,
+    "llm_api_calls_added": false,
+    "browser_automation_added": false,
+    "prompt_automation_added": false,
+    "runtime_integration_added": false,
+    "workbench_entrypoint_modified": false
+  },
+  "validation_behavior": {
+    "trial_packet_validated": true,
+    "example_response_validated": true,
+    "manual_review_status_accepted": true,
+    "quality_gate_passed_or_warned": true,
+    "forbidden_recommendation_rejected": true,
+    "low_quality_response_failed_or_warned": true,
+    "missing_or_malformed_response_handled_safely": true,
+    "expected_fixture_matched": true,
+    "no_example_packet_fallback": true
+  },
+  "manual_operator_steps": [
+    "Open pm_bot/llm/real_local_market_llm_trial_prompt.v1.md.",
+    "Paste into ChatGPT, Claude, or Gemini manually.",
+    "Ask for strict JSON only, with no Markdown wrapper or extra prose.",
+    "Save the response to a local JSON file matching llm_analysis_response_schema.v1.json.",
+    "Rerun python pm_bot/llm/export_real_local_market_llm_trial.py --response path/to/manual_response.json.",
+    "Review accepted/rejected and quality gate status in the JSON, Markdown, or workbench surface."
+  ],
+  "files_created": [
+    "docs/PMBOT_LLM_008_REAL_LOCAL_MARKET_PACKET_TRIAL.md",
+    "docs/PMBOT_LLM_008_RESULT.json",
+    "pm_bot/llm/export_real_local_market_llm_trial.py",
+    "pm_bot/llm/real_local_market_llm_trial.v1.json",
+    "pm_bot/llm/real_local_market_llm_trial.v1.md",
+    "pm_bot/llm/real_local_market_llm_trial_packet.v1.json",
+    "pm_bot/llm/real_local_market_llm_trial_prompt.v1.md",
+    "pm_bot/llm/real_local_market_llm_trial_response_example.v1.json",
+    "pm_bot/llm/expected_real_local_market_llm_trial.v1.json",
+    "pm_bot/llm/tests/test_real_local_market_llm_trial.py"
+  ],
+  "files_modified": [],
+  "tests_run": [
+    {
+      "command": "python -m py_compile pm_bot\\llm\\export_real_local_market_llm_trial.py pm_bot\\llm\\tests\\test_real_local_market_llm_trial.py",
+      "result": "passed"
+    },
+    {
+      "command": "python pm_bot\\llm\\export_real_local_market_llm_trial.py --out-packet pm_bot\\llm\\real_local_market_llm_trial_packet.v1.json --out-prompt pm_bot\\llm\\real_local_market_llm_trial_prompt.v1.md --response pm_bot\\llm\\real_local_market_llm_trial_response_example.v1.json --out-json pm_bot\\llm\\real_local_market_llm_trial.v1.json --out-md pm_bot\\llm\\real_local_market_llm_trial.v1.md",
+      "result": "accepted"
+    },
+    {
+      "command": "python -m pytest pm_bot\\llm\\tests\\test_real_local_market_llm_trial.py -q",
+      "result": "11 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\llm -q",
+      "result": "59 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\workbench -q",
+      "result": "29 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\quality pm_bot\\dashboard pm_bot\\operator -q",
+      "result": "93 passed, 48 subtests passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\paper -q",
+      "result": "331 passed, 39 subtests passed"
+    },
+    {
+      "command": "python pm_bot\\workbench\\run_operator_workbench_export.py",
+      "result": "required_steps_passed true"
+    },
+    {
+      "command": "JSON parse check for all new JSON files",
+      "result": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "result": "passed"
+    },
+    {
+      "command": "forbidden path/runtime safety scan",
+      "result": "passed"
+    }
+  ],
+  "safety_flags": {
+    "runtime_wiring": false,
+    "network_api": false,
+    "llm_api": false,
+    "browser_automation": false,
+    "prompt_automation": false,
+    "credentials_or_wallet": false,
+    "real_orders_or_live_trading": false,
+    "autonomous_paper_orders": false,
+    "probability_ev_scoring_or_edge": false,
+    "side_recommendations": false,
+    "market_decision_logic": false,
+    "truth_evaluation": false,
+    "dispatcher_or_run_codex_changed": false
+  },
+  "git": {
+    "commit_created": false,
+    "commit_hash": "",
+    "pushed": false,
+    "origin_main_verified": false,
+    "worktree_clean_after": false,
+    "note": "Git commit and push state is reported in the final task response after this result artifact is committed."
+  },
+  "blockers": [],
+  "next_recommended_task": "PMBOT-LLM-009-REAL-MANUAL-LLM-TRIAL-OPERATOR-ACCEPTANCE"
+}

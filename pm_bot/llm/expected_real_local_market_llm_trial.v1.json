@@ -1,0 +1,187 @@
+{
+  "contract_version": "real_local_market_llm_trial_contract.v1",
+  "trial_version": "real_local_market_llm_trial.v1",
+  "trial_id": "pmbot-llm-008-real-local-market-packet-trial",
+  "task_id": "PMBOT-LLM-008-REAL-LOCAL-MARKET-PACKET-TRIAL",
+  "generated_at": "deterministic-real-local-market-llm-trial.v1",
+  "trial_packet_source_type": "real_local_market_artifact",
+  "source_artifact_path": "pm_bot/research/selected_ingest_final_dossier_drafts.v1.json",
+  "market_id": "824952",
+  "packet_path": "pm_bot/llm/real_local_market_llm_trial_packet.v1.json",
+  "prompt_path": "pm_bot/llm/real_local_market_llm_trial_prompt.v1.md",
+  "response_path": "pm_bot/llm/real_local_market_llm_trial_response_example.v1.json",
+  "manual_review_status": "accepted",
+  "quality_gate_status": "quality_passed",
+  "validation_status": "accepted",
+  "quality_status": "quality_passed",
+  "errors": [],
+  "warnings": [],
+  "safety_flags": {
+    "runtime_wiring": false,
+    "network_api": false,
+    "llm_api": false,
+    "credentials_or_wallet": false,
+    "real_orders_or_live_trading": false,
+    "autonomous_paper_orders": false,
+    "probability_ev_scoring_or_edge": false,
+    "side_recommendations": false,
+    "dispatcher_or_run_codex_changed": false,
+    "prompt_automation": false,
+    "browser_automation": false,
+    "market_decision_logic": false,
+    "truth_evaluation": false
+  },
+  "operator_trial_steps": [
+    "Open pm_bot/llm/real_local_market_llm_trial_prompt.v1.md.",
+    "Paste into ChatGPT, Claude, or Gemini manually.",
+    "Ask for strict JSON only, with no Markdown wrapper or extra prose.",
+    "Save the response to a local JSON file matching llm_analysis_response_schema.v1.json.",
+    "Rerun python pm_bot/llm/export_real_local_market_llm_trial.py --response path/to/manual_response.json.",
+    "Review accepted/rejected and quality gate status in the JSON, Markdown, or workbench surface."
+  ],
+  "next_safe_operator_action": "Replace only the response path with a real manually saved JSON response when ready, then rerun the exporter and inspect the local result artifacts.",
+  "source_artifacts": {
+    "trial_packet_source_type": "real_local_market_artifact",
+    "source_artifact_path": "pm_bot/research/selected_ingest_final_dossier_drafts.v1.json",
+    "market_id": "824952",
+    "packet_declared_source_artifacts": [
+      {
+        "artifact_type": "selected_ingest_final_dossier_draft",
+        "path": "pm_bot/research/selected_ingest_final_dossier_drafts.v1.json",
+        "description": "Existing local PMBOT market/research artifact selected for the real-local-market manual LLM trial; safe summary fields only are copied into this packet.",
+        "sanitization_status": "safe_public_or_local_artifact_reference_only"
+      }
+    ],
+    "manual_artifacts": {
+      "packet": "pm_bot/llm/real_local_market_llm_trial_packet.v1.json",
+      "prompt": "pm_bot/llm/real_local_market_llm_trial_prompt.v1.md",
+      "response": "pm_bot/llm/real_local_market_llm_trial_response_example.v1.json"
+    },
+    "component_artifacts": {
+      "manual_review_flow": "pm_bot/llm/validate_manual_llm_paste_in_review.py",
+      "quality_gate": "pm_bot/llm/evaluate_manual_llm_review_quality_gate.py"
+    },
+    "contract_artifacts": [
+      "pm_bot/llm/llm_analysis_packet_schema.v1.json",
+      "pm_bot/llm/llm_analysis_response_schema.v1.json",
+      "pm_bot/llm/validate_llm_analysis_artifacts.py"
+    ],
+    "quality_gate_source_artifacts": {
+      "packet_declared_source_artifacts": [
+        {
+          "artifact_type": "selected_ingest_final_dossier_draft",
+          "path": "pm_bot/research/selected_ingest_final_dossier_drafts.v1.json",
+          "description": "Existing local PMBOT market/research artifact selected for the real-local-market manual LLM trial; safe summary fields only are copied into this packet.",
+          "sanitization_status": "safe_public_or_local_artifact_reference_only"
+        }
+      ],
+      "manual_artifacts": {
+        "packet": "pm_bot/llm/real_local_market_llm_trial_packet.v1.json",
+        "response": "pm_bot/llm/real_local_market_llm_trial_response_example.v1.json"
+      },
+      "contract_artifacts": [
+        "pm_bot/llm/llm_analysis_packet_schema.v1.json",
+        "pm_bot/llm/llm_analysis_response_schema.v1.json",
+        "pm_bot/llm/validate_llm_analysis_artifacts.py",
+        "pm_bot/llm/evaluate_manual_llm_review_quality_gate.py"
+      ]
+    }
+  },
+  "source_selection": {
+    "selection_status": "selected",
+    "trial_packet_source_type": "real_local_market_artifact",
+    "used_example_packet_fallback": false,
+    "fallback_reason": "",
+    "source_artifact_path": "pm_bot/research/selected_ingest_final_dossier_drafts.v1.json",
+    "source_artifact_type": "selected_ingest_final_dossier_draft",
+    "source_preference_rank": 2,
+    "market_id": "824952",
+    "market_title": "MicroStrategy sells any Bitcoin by December 31, 2026?",
+    "inspected_artifacts": [
+      {
+        "path": "pm_bot/workbench/operator_review_pack.v1.json",
+        "artifact_type": "operator_review_pack",
+        "preference_rank": 1,
+        "present": true,
+        "parse_status": "parsed",
+        "suitable": false,
+        "reason": "operator review pack has local market ids but not enough standalone title/question and resolution context for the LLM packet schema"
+      },
+      {
+        "path": "pm_bot/research/selected_ingest_final_dossier_drafts.v1.json",
+        "artifact_type": "selected_ingest_final_dossier_draft",
+        "preference_rank": 2,
+        "present": true,
+        "parse_status": "parsed",
+        "suitable": true,
+        "reason": "Selected because it is an existing local final dossier draft with market_id, title/question text, resolution context, evidence notes, and safety-friendly manual review notes."
+      }
+    ],
+    "warnings": [],
+    "errors": []
+  },
+  "prompt_export": {
+    "status": "accepted",
+    "manual_prompt_version": "manual_llm_prompt.v1",
+    "generated_at": "deterministic-manual-llm-prompt.v1",
+    "out_md_path": "pm_bot/llm/real_local_market_llm_trial_prompt.v1.md"
+  },
+  "packet_validation": {
+    "status": "accepted",
+    "errors": [],
+    "warnings": [],
+    "artifact_paths": {
+      "packet": "pm_bot/llm/real_local_market_llm_trial_packet.v1.json",
+      "packet_schema": "pm_bot/llm/llm_analysis_packet_schema.v1.json"
+    }
+  },
+  "response_validation": {
+    "status": "accepted",
+    "errors": [],
+    "warnings": [],
+    "artifact_paths": {
+      "response": "pm_bot/llm/real_local_market_llm_trial_response_example.v1.json",
+      "response_schema": "pm_bot/llm/llm_analysis_response_schema.v1.json"
+    }
+  },
+  "manual_review": {
+    "validation_status": "accepted",
+    "accepted_sections": [
+      "concise_market_summary",
+      "key_uncertainties",
+      "missing_evidence",
+      "contradiction_checks",
+      "risk_notes",
+      "operator_review_checklist",
+      "suggested_research_questions",
+      "citation_or_source_gap_notes",
+      "safety_acknowledgement"
+    ],
+    "missing_sections": [],
+    "forbidden_content_detected": {
+      "detected": false,
+      "findings": []
+    },
+    "next_safe_operator_action": "Compare the accepted sections with local source artifacts and manually record unresolved evidence gaps."
+  },
+  "quality_gate": {
+    "validation_status": "quality_passed",
+    "base_validator_status": "accepted",
+    "quality_counts": {
+      "checks_total": 11,
+      "checks_passed": 11,
+      "checks_with_warnings": 0,
+      "checks_failed": 0,
+      "errors_count": 0,
+      "warnings_count": 0
+    },
+    "required_sections_status": "passed",
+    "minimum_content_status": "passed",
+    "generic_or_placeholder_text_status": "passed",
+    "unsafe_certainty_status": "passed",
+    "forbidden_content_status": "passed",
+    "manual_review_input_status": "not_provided",
+    "next_safe_operator_action": "Use the response only as manual review context and verify unresolved source gaps against local artifacts."
+  },
+  "safety_boundary": "No API calls, LLM API calls, browser automation, prompt automation, runtime integration, live trading, real orders, autonomous paper orders, trading advice, truth evaluation, outcome estimates, value scoring, advantage claims, side selection, or market decisions."
+}

@@ -1,0 +1,55 @@
+{
+  "contract_version": "llm_analysis_response.v1",
+  "response_id": "llm-analysis-response-real-local-market-trial-example-001",
+  "packet_id": "llm-analysis-packet-real-local-market-824952",
+  "concise_market_summary": "The local packet summarizes market 824952 from an existing selected-ingest final dossier draft. It records the market question, copied local resolution context, source-coverage notes, and unresolved manual-review gaps without evaluating the market.",
+  "key_uncertainties": [
+    "It is uncertain whether the copied local description includes every resolution-rule detail from the full market page.",
+    "The source artifact does not confirm any later updates after the local snapshot and dossier draft context."
+  ],
+  "missing_evidence": [
+    "Full local market rules and source timestamps are missing from the packet and should be checked in the source artifact.",
+    "A dated operator note confirming source completeness is still missing before this can be treated as reviewed context."
+  ],
+  "contradiction_checks": [
+    {
+      "topic": "local resolution context coverage",
+      "check_result": "needs_more_source_review",
+      "notes": "The packet includes a copied local excerpt, but the operator still needs to compare it with the full source artifact."
+    },
+    {
+      "topic": "source coverage placeholders",
+      "check_result": "not_checked",
+      "notes": "The dossier draft names source-coverage placeholders; this response leaves confirmation as a manual operator task."
+    }
+  ],
+  "risk_notes": [
+    "Risk: stale local context could omit later source updates because this trial does not fetch live data.",
+    "Manual review risk remains if structural dossier notes are treated as completed research instead of review prompts."
+  ],
+  "operator_review_checklist": [
+    "Open pm_bot/research/selected_ingest_final_dossier_drafts.v1.json and confirm market_id 824952 matches the packet.",
+    "Compare the packet resolution summary with the source artifact's final_draft_sections.resolution_rules field.",
+    "Record any unsupported source placeholder or unresolved question before using the response as review context."
+  ],
+  "suggested_research_questions": [
+    "Which local source path contains the fullest resolution criteria for market 824952?",
+    "What timestamp or artifact identifier anchors the selected-ingest snapshot used by the dossier draft?",
+    "Which source-coverage placeholders require a human note before downstream review?"
+  ],
+  "citation_or_source_gap_notes": [
+    "The packet cites local artifact paths rather than live citations.",
+    "Source gap remains for full market rules outside the sanitized packet summary."
+  ],
+  "safety_acknowledgement": {
+    "offline_only": true,
+    "local_only": true,
+    "manual_review_only": true,
+    "no_recommendations": true,
+    "no_outcome_estimates": true,
+    "no_value_scoring": true,
+    "no_trade_or_wallet_instructions": true,
+    "no_autonomous_actions": true,
+    "uncertain_claims_marked": true
+  }
+}
