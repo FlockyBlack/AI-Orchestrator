@@ -1,0 +1,118 @@
+{
+  "contract_version": "real_manual_llm_trial_operator_acceptance_contract.v1",
+  "acceptance_version": "real_manual_llm_trial_operator_acceptance.v1",
+  "acceptance_id": "pmbot-llm-009-real-manual-llm-trial-operator-acceptance",
+  "generated_at": "deterministic-real-manual-llm-trial-operator-acceptance.v1",
+  "source_trial_path": "pm_bot/llm/real_local_market_llm_trial.v1.json",
+  "packet_path": "pm_bot/llm/real_local_market_llm_trial_packet.v1.json",
+  "prompt_path": "pm_bot/llm/real_local_market_llm_trial_prompt.v1.md",
+  "response_path": "pm_bot/llm/real_local_market_llm_trial_response_example.v1.json",
+  "response_source_type": "example_fixture_response",
+  "market_id": "824952",
+  "source_artifact_path": "pm_bot/research/selected_ingest_final_dossier_drafts.v1.json",
+  "trial_packet_source_type": "real_local_market_artifact",
+  "used_example_packet_fallback": false,
+  "packet_validation_status": "accepted",
+  "response_validation_status": "accepted",
+  "manual_review_status": "accepted",
+  "quality_gate_status": "quality_passed",
+  "acceptance_status": "pending_real_manual_response",
+  "acceptance_reasons": [
+    "The packet is a verified real local market artifact.",
+    "The response validates, but response_source_type is example_fixture_response.",
+    "The example fixture response cannot be accepted as real operator acceptance.",
+    "A manually pasted operator response is required before acceptance."
+  ],
+  "errors": [],
+  "warnings": [
+    {
+      "stage": "response_source_verification",
+      "code": "example_fixture_response_pending_real_manual_response",
+      "path": "pm_bot/llm/real_local_market_llm_trial_response_example.v1.json",
+      "message": "The example fixture response validates but cannot be accepted as a real operator-pasted response."
+    }
+  ],
+  "safety_flags": {
+    "runtime_wiring": false,
+    "network_api": false,
+    "llm_api": false,
+    "credentials_or_wallet": false,
+    "real_orders_or_live_trading": false,
+    "autonomous_paper_orders": false,
+    "probability_ev_scoring_or_edge": false,
+    "side_recommendations": false,
+    "dispatcher_or_run_codex_changed": false,
+    "prompt_automation": false,
+    "browser_automation": false,
+    "market_decision_logic": false,
+    "truth_evaluation": false
+  },
+  "operator_required_actions": [
+    "Open pm_bot/llm/real_local_market_llm_trial_prompt.v1.md.",
+    "Paste manually into ChatGPT/Claude/Gemini.",
+    "Request strict JSON only.",
+    "Save the returned JSON to pm_bot/llm/real_local_market_llm_trial_response_operator.v1.json.",
+    "Rerun this acceptance script with --response pm_bot\\llm\\real_local_market_llm_trial_response_operator.v1.json --response-source-type actual_operator_pasted_response.",
+    "Review the acceptance JSON and Markdown outputs."
+  ],
+  "next_safe_operator_action": "Manually paste pm_bot/llm/real_local_market_llm_trial_prompt.v1.md into an LLM UI, save the strict JSON response locally, and rerun with --response-source-type actual_operator_pasted_response.",
+  "source_artifacts": {
+    "trial_result": "pm_bot/llm/real_local_market_llm_trial.v1.json",
+    "packet": "pm_bot/llm/real_local_market_llm_trial_packet.v1.json",
+    "prompt": "pm_bot/llm/real_local_market_llm_trial_prompt.v1.md",
+    "response": "pm_bot/llm/real_local_market_llm_trial_response_example.v1.json",
+    "known_example_response_fixture": "pm_bot/llm/real_local_market_llm_trial_response_example.v1.json",
+    "source_artifact_path": "pm_bot/research/selected_ingest_final_dossier_drafts.v1.json",
+    "market_id": "824952",
+    "contract_artifacts": [
+      "pm_bot/llm/llm_analysis_packet_schema.v1.json",
+      "pm_bot/llm/llm_analysis_response_schema.v1.json"
+    ],
+    "component_artifacts": {
+      "base_validator": "pm_bot/llm/validate_llm_analysis_artifacts.py",
+      "manual_review_flow": "pm_bot/llm/validate_manual_llm_paste_in_review.py",
+      "quality_gate": "pm_bot/llm/evaluate_manual_llm_review_quality_gate.py",
+      "operator_acceptance_gate": "pm_bot/llm/evaluate_real_manual_llm_trial_operator_acceptance.py"
+    },
+    "manual_review_source_artifacts": {
+      "packet_declared_source_artifacts": [
+        {
+          "artifact_type": "selected_ingest_final_dossier_draft",
+          "path": "pm_bot/research/selected_ingest_final_dossier_drafts.v1.json",
+          "description": "Existing local PMBOT market/research artifact selected for the real-local-market manual LLM trial; safe summary fields only are copied into this packet.",
+          "sanitization_status": "safe_public_or_local_artifact_reference_only"
+        }
+      ],
+      "manual_artifacts": {
+        "packet": "pm_bot/llm/real_local_market_llm_trial_packet.v1.json",
+        "response": "pm_bot/llm/real_local_market_llm_trial_response_example.v1.json",
+        "prompt": "pm_bot/llm/real_local_market_llm_trial_prompt.v1.md"
+      },
+      "contract_artifacts": [
+        "pm_bot/llm/llm_analysis_packet_schema.v1.json",
+        "pm_bot/llm/llm_analysis_response_schema.v1.json",
+        "pm_bot/llm/validate_llm_analysis_artifacts.py"
+      ]
+    },
+    "quality_gate_source_artifacts": {
+      "packet_declared_source_artifacts": [
+        {
+          "artifact_type": "selected_ingest_final_dossier_draft",
+          "path": "pm_bot/research/selected_ingest_final_dossier_drafts.v1.json",
+          "description": "Existing local PMBOT market/research artifact selected for the real-local-market manual LLM trial; safe summary fields only are copied into this packet.",
+          "sanitization_status": "safe_public_or_local_artifact_reference_only"
+        }
+      ],
+      "manual_artifacts": {
+        "packet": "pm_bot/llm/real_local_market_llm_trial_packet.v1.json",
+        "response": "pm_bot/llm/real_local_market_llm_trial_response_example.v1.json"
+      },
+      "contract_artifacts": [
+        "pm_bot/llm/llm_analysis_packet_schema.v1.json",
+        "pm_bot/llm/llm_analysis_response_schema.v1.json",
+        "pm_bot/llm/validate_llm_analysis_artifacts.py",
+        "pm_bot/llm/evaluate_manual_llm_review_quality_gate.py"
+      ]
+    }
+  }
+}

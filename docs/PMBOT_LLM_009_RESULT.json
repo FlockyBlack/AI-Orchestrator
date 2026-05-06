@@ -1,0 +1,126 @@
+{
+  "task_id": "PMBOT-LLM-009-REAL-MANUAL-LLM-TRIAL-OPERATOR-ACCEPTANCE",
+  "status": "completed_local_validated_pending_git",
+  "summary": "Created a deterministic offline-only operator acceptance gate for the PMBOT-LLM-008 real local manual LLM market packet trial. The gate requires a real local market artifact, rejects example packet fallback, keeps the example response fixture pending instead of accepted, supports actual_operator_pasted_response acceptance, and writes JSON/Markdown operator acceptance artifacts.",
+  "precheck": {
+    "branch": "main",
+    "worktree_clean_before": true,
+    "local_head_before": "0224947cf6e0c0820d44627fcf6f6e0768e3874d",
+    "origin_main_before": "0224947cf6e0c0820d44627fcf6f6e0768e3874d",
+    "remote_conflict_detected": false
+  },
+  "acceptance_behavior": {
+    "acceptance_gate_created": true,
+    "real_local_market_packet_required": true,
+    "example_fixture_response_prevents_acceptance": true,
+    "actual_operator_pasted_response_supported": true,
+    "pending_real_manual_response_status_supported": true,
+    "accepted_for_operator_review_status_supported": true,
+    "rejected_status_supported": true,
+    "blocked_status_supported": true,
+    "json_acceptance_result_created": true,
+    "markdown_acceptance_report_created": true,
+    "operator_required_actions_documented": true,
+    "llm_api_calls_added": false,
+    "browser_automation_added": false,
+    "prompt_automation_added": false,
+    "runtime_integration_added": false
+  },
+  "validation_behavior": {
+    "example_fixture_response_pending_not_accepted": true,
+    "valid_actual_operator_response_accepted": true,
+    "unknown_response_source_type_rejected": true,
+    "non_real_packet_source_rejected": true,
+    "example_packet_fallback_rejected": true,
+    "forbidden_recommendation_rejected": true,
+    "low_quality_response_not_accepted": true,
+    "missing_or_malformed_artifacts_blocked_safely": true,
+    "expected_fixture_matched": true
+  },
+  "files_created": [
+    "docs/PMBOT_LLM_009_REAL_MANUAL_LLM_TRIAL_OPERATOR_ACCEPTANCE.md",
+    "docs/PMBOT_LLM_009_RESULT.json",
+    "pm_bot/llm/evaluate_real_manual_llm_trial_operator_acceptance.py",
+    "pm_bot/llm/expected_real_manual_llm_trial_operator_acceptance.v1.json",
+    "pm_bot/llm/real_local_market_llm_trial_response_operator_placeholder.v1.json",
+    "pm_bot/llm/real_manual_llm_trial_operator_acceptance.v1.json",
+    "pm_bot/llm/real_manual_llm_trial_operator_acceptance.v1.md",
+    "pm_bot/llm/tests/test_real_manual_llm_trial_operator_acceptance.py"
+  ],
+  "files_modified": [],
+  "tests_run": [
+    {
+      "command": "python -m py_compile pm_bot\\llm\\evaluate_real_manual_llm_trial_operator_acceptance.py pm_bot\\llm\\tests\\test_real_manual_llm_trial_operator_acceptance.py",
+      "result": "passed"
+    },
+    {
+      "command": "python pm_bot\\llm\\evaluate_real_manual_llm_trial_operator_acceptance.py --trial pm_bot\\llm\\real_local_market_llm_trial.v1.json --packet pm_bot\\llm\\real_local_market_llm_trial_packet.v1.json --prompt pm_bot\\llm\\real_local_market_llm_trial_prompt.v1.md --response pm_bot\\llm\\real_local_market_llm_trial_response_example.v1.json --response-source-type example_fixture_response --out-json pm_bot\\llm\\real_manual_llm_trial_operator_acceptance.v1.json --out-md pm_bot\\llm\\real_manual_llm_trial_operator_acceptance.v1.md",
+      "result": "pending_real_manual_response"
+    },
+    {
+      "command": "python -m pytest pm_bot\\llm\\tests\\test_real_manual_llm_trial_operator_acceptance.py -q",
+      "result": "11 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\llm -q",
+      "result": "70 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\workbench -q",
+      "result": "29 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\quality pm_bot\\dashboard pm_bot\\operator -q",
+      "result": "93 passed, 48 subtests passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\paper -q",
+      "result": "331 passed, 39 subtests passed"
+    },
+    {
+      "command": "python pm_bot\\workbench\\run_operator_workbench_export.py",
+      "result": "required_steps_passed true"
+    },
+    {
+      "command": "JSON parse check for all new JSON files",
+      "result": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "result": "passed"
+    },
+    {
+      "command": "git diff --cached --check",
+      "result": "passed"
+    },
+    {
+      "command": "forbidden path/runtime safety scan",
+      "result": "passed"
+    }
+  ],
+  "safety_flags": {
+    "runtime_wiring": false,
+    "network_api": false,
+    "llm_api": false,
+    "browser_automation": false,
+    "prompt_automation": false,
+    "credentials_or_wallet": false,
+    "real_orders_or_live_trading": false,
+    "autonomous_paper_orders": false,
+    "probability_ev_scoring_or_edge": false,
+    "side_recommendations": false,
+    "market_decision_logic": false,
+    "truth_evaluation": false,
+    "dispatcher_or_run_codex_changed": false
+  },
+  "git": {
+    "commit_created": false,
+    "commit_hash": "",
+    "pushed": false,
+    "origin_main_verified": false,
+    "worktree_clean_after": false,
+    "note": "Git commit and push state is reported in the final task response after this result artifact is committed."
+  },
+  "blockers": [],
+  "next_recommended_task": "PMBOT-LLM-010-ACTUAL-MANUAL-LLM-RESPONSE-TRIAL-RUN"
+}

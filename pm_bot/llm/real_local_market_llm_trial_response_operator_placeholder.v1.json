@@ -1,0 +1,24 @@
+{
+  "contract_version": "llm_analysis_response.v1",
+  "response_id": "llm-analysis-response-real-local-market-operator-placeholder-001",
+  "packet_id": "llm-analysis-packet-real-local-market-824952",
+  "concise_market_summary": "",
+  "key_uncertainties": [],
+  "missing_evidence": [],
+  "contradiction_checks": [],
+  "risk_notes": [],
+  "operator_review_checklist": [],
+  "suggested_research_questions": [],
+  "citation_or_source_gap_notes": [],
+  "safety_acknowledgement": {
+    "offline_only": false,
+    "local_only": false,
+    "manual_review_only": false,
+    "no_recommendations": false,
+    "no_outcome_estimates": false,
+    "no_value_scoring": false,
+    "no_trade_or_wallet_instructions": false,
+    "no_autonomous_actions": false,
+    "uncertain_claims_marked": false
+  }
+}
