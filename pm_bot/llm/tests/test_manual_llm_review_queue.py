@@ -77,7 +77,7 @@ class ManualLlmReviewQueueTests(unittest.TestCase):
         self.assertTrue(item["not_trading_advice"])
         self.assertTrue(item["not_execution_authority"])
 
-    def test_additional_safe_local_candidates_are_included_from_approved_artifacts(self):
+    def test_additional_safe_local_candidates_wait_for_operator_response_after_batch_export(self):
         module = _load_module()
 
         queue = module.build_manual_llm_review_queue(ROOT)
@@ -88,11 +88,15 @@ class ManualLlmReviewQueueTests(unittest.TestCase):
         self.assertIn("692258", market_ids)
         self.assertIn("563650", added_market_ids)
         self.assertIn("692258", added_market_ids)
-        self.assertEqual(queue["queue_status_counts"]["ready_for_manual_packet_export"], 14)
+        self.assertEqual(queue["queue_status_counts"]["ready_for_manual_packet_export"], 0)
+        self.assertEqual(queue["queue_status_counts"]["waiting_for_operator_pasted_response"], 14)
         self.assertEqual(queue["candidate_discovery"]["additional_ready_candidates_found"], 14)
         self.assertTrue(
             all(
-                item["review_queue_status"] == "ready_for_manual_packet_export"
+                item["review_queue_status"] == "waiting_for_operator_pasted_response"
+                and item["packet_present"]
+                and item["prompt_present"]
+                and item["packet_path"].startswith("pm_bot/llm/manual_packet_batch/")
                 for item in queue["items"]
                 if item["market_id"] != "824952"
             )
@@ -273,7 +277,8 @@ class ManualLlmReviewQueueTests(unittest.TestCase):
         self.assertIn("Queue Status Counts", markdown)
         self.assertIn("response_accepted_for_operator_review: 1", markdown)
         self.assertIn("market_id: 824952", markdown)
-        self.assertIn("ready_for_manual_packet_export: 14", markdown)
+        self.assertIn("ready_for_manual_packet_export: 0", markdown)
+        self.assertIn("waiting_for_operator_pasted_response: 14", markdown)
         self.assertIn("Safety Boundary", markdown)
         self.assertIn("offline_manual_only: true", markdown)
         self.assertIn("not_truth_source: true", markdown)

@@ -41,6 +41,8 @@ QUEUE_STATUSES = (
 
 NOT_AVAILABLE = "not_available"
 NOT_RUN = "not_run"
+BATCH_PACKET_CONTRACT_VERSION = "manual_llm_packet_batch_packet.v1"
+BATCH_PACKET_SOURCE_TYPE = "manual_llm_packet_batch_artifact"
 
 DEFAULT_TRIAL_PATH = "pm_bot/llm/real_local_market_llm_trial.v1.json"
 DEFAULT_PACKET_PATH = "pm_bot/llm/real_local_market_llm_trial_packet.v1.json"
@@ -101,6 +103,7 @@ APPROVED_RESEARCH_CANDIDATE_SOURCES = (
 CANDIDATE_SOURCE_PRIORITY = {
     "actual_manual_llm_response_trial": 0,
     "llm_packet_artifact": 10,
+    BATCH_PACKET_SOURCE_TYPE: 10,
     "selected_ingest_final_dossier_draft": 20,
     "final_dossier_draft": 30,
     "final_dossier_exported_market_id": 31,
@@ -645,6 +648,14 @@ def _known_response_path_for_packet(packet_path, root=ROOT):
     return ""
 
 
+def _iter_llm_packet_paths(llm_dir):
+    packet_paths = list(llm_dir.glob("*packet*.json"))
+    batch_dir = llm_dir / "manual_packet_batch"
+    if batch_dir.exists():
+        packet_paths.extend(batch_dir.glob("*_packet.v1.json"))
+    return sorted(set(packet_paths), key=lambda item: _display_path(item))
+
+
 def _discover_llm_packet_candidates(root=ROOT):
     root = Path(root)
     candidates = []
@@ -653,7 +664,10 @@ def _discover_llm_packet_candidates(root=ROOT):
     llm_dir = root / "pm_bot" / "llm"
     if not llm_dir.exists():
         return candidates, statuses, skipped
-    for packet_path in sorted(llm_dir.glob("*packet*.json"), key=lambda item: item.name):
+    allowed_contracts = {"llm_analysis_packet.v1", BATCH_PACKET_CONTRACT_VERSION}
+    for packet_path in _iter_llm_packet_paths(llm_dir):
+        if "manifest" in packet_path.name:
+            continue
         display = _display_path(packet_path, root)
         if packet_path.name.endswith("_schema.v1.json"):
             _skip_candidate(skipped, "schema_packet_artifact_excluded", display, "", "llm_packet_artifact")
@@ -663,7 +677,8 @@ def _discover_llm_packet_candidates(root=ROOT):
         if status["parse_status"] != "parsed":
             _skip_candidate(skipped, "packet_artifact_not_parsed", display, "", "llm_packet_artifact")
             continue
-        if _safe_dict(payload).get("contract_version") != "llm_analysis_packet.v1":
+        contract_version = _safe_dict(payload).get("contract_version")
+        if contract_version not in allowed_contracts:
             _skip_candidate(skipped, "non_llm_analysis_packet_excluded", display, "", "llm_packet_artifact")
             continue
         market_id = _safe_dict(_safe_dict(payload).get("market_context")).get("market_id")
@@ -676,11 +691,16 @@ def _discover_llm_packet_candidates(root=ROOT):
                 "llm_packet_artifact",
             )
             continue
+        candidate_source_type = (
+            BATCH_PACKET_SOURCE_TYPE
+            if contract_version == BATCH_PACKET_CONTRACT_VERSION
+            else "llm_packet_artifact"
+        )
         candidates.append(
             {
-                "candidate_id": f"llm_packet_artifact_{market_id}",
-                "candidate_source": "llm_packet_artifact",
-                "candidate_source_type": "llm_packet_artifact",
+                "candidate_id": f"{candidate_source_type}_{market_id}",
+                "candidate_source": candidate_source_type,
+                "candidate_source_type": candidate_source_type,
                 "market_id": str(market_id),
                 "source_artifact_path": display,
                 "packet_path": display,
@@ -823,6 +843,10 @@ def _packet_validation_status(packet_payload, packet_artifact_status, root=ROOT)
                 "Packet JSON could not be parsed safely.",
             )
         ], []
+
+    if _safe_dict(packet_payload).get("contract_version") == BATCH_PACKET_CONTRACT_VERSION:
+        errors = _batch_packet_validation_errors(packet_payload, packet_artifact_status)
+        return ("accepted" if not errors else "rejected"), errors, []
 
     packet_schema, schema_status = _artifact_check(
         validator.PACKET_SCHEMA_PATH,
@@ -1260,6 +1284,63 @@ def _build_discovery_for_explicit_candidates(candidates):
         "skipped_candidate_count": 0,
         "skipped_candidates": [],
     }
+
+
+def _batch_packet_validation_errors(packet_payload, packet_artifact_status):
+    packet = _safe_dict(packet_payload)
+    errors = []
+    required_fields = (
+        "contract_version",
+        "packet_id",
+        "market_id",
+        "source_artifact_path",
+        "candidate_source_type",
+        "market_context",
+        "local_review_context",
+        "safety_boundaries",
+        "expected_response_path",
+    )
+    for field in required_fields:
+        value = packet.get(field)
+        if value in ("", None, [], {}):
+            errors.append(
+                _queue_issue(
+                    f"batch_packet_missing_{field}",
+                    packet_artifact_status["path"],
+                    f"Batch packet is missing required field {field}.",
+                )
+            )
+    market_context = _safe_dict(packet.get("market_context"))
+    if str(market_context.get("market_id") or "") != str(packet.get("market_id") or ""):
+        errors.append(
+            _queue_issue(
+                "batch_packet_market_id_mismatch",
+                packet_artifact_status["path"],
+                "Batch packet market_context.market_id must match top-level market_id.",
+            )
+        )
+    safety = _safe_dict(packet.get("safety_boundaries"))
+    for field in (
+        "offline_only",
+        "local_only",
+        "manual_review_only",
+        "not_truth_source",
+        "not_trading_advice",
+        "not_execution_authority",
+        "no_recommendations",
+        "no_outcome_estimates",
+        "no_value_scoring",
+        "no_trade_or_wallet_instructions",
+    ):
+        if safety.get(field) is not True:
+            errors.append(
+                _queue_issue(
+                    f"batch_packet_safety_boundary_not_true:{field}",
+                    packet_artifact_status["path"],
+                    f"Batch packet safety boundary {field} must be true.",
+                )
+            )
+    return sorted(errors, key=lambda item: (item["path"], item["code"], item["message"]))
 
 
 def build_manual_llm_review_queue(root=ROOT, candidates=None):

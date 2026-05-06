@@ -11,9 +11,9 @@
 
 ## Queue Status Counts
 
-- ready_for_manual_packet_export: 14
+- ready_for_manual_packet_export: 0
 - ready_for_manual_prompt_export: 0
-- waiting_for_operator_pasted_response: 0
+- waiting_for_operator_pasted_response: 14
 - response_accepted_for_operator_review: 1
 - response_rejected_needs_operator_fix: 0
 - blocked_missing_packet: 0
@@ -23,215 +23,215 @@
 ## Queue Items
 
 - market_id: 563650
-  status: ready_for_manual_packet_export
-  candidate_source_type: final_dossier_draft
-  source_count: 4
-  source_artifact_path: pm_bot/research/final_dossier_drafts.v1.json
-  packet_path: not_available
-  packet_present: false
-  prompt_path: not_available
-  prompt_present: false
+  status: waiting_for_operator_pasted_response
+  candidate_source_type: manual_llm_packet_batch_artifact
+  source_count: 5
+  source_artifact_path: pm_bot/llm/manual_packet_batch/563650_packet.v1.json
+  packet_path: pm_bot/llm/manual_packet_batch/563650_packet.v1.json
+  packet_present: true
+  prompt_path: pm_bot/llm/manual_packet_batch/563650_prompt.v1.md
+  prompt_present: true
   operator_response_path: not_available
   response_present: false
   validation_status: not_run
   quality_gate_status: not_run
   operator_surface_review_status: not_available
-  next_safe_operator_action: Create the local manual packet from the referenced local artifact, then rebuild the queue.
+  next_safe_operator_action: Save the human-pasted JSON response locally, then rerun the deterministic local checks.
 - market_id: 569332
-  status: ready_for_manual_packet_export
-  candidate_source_type: merged_manual_research_packet
-  source_count: 2
-  source_artifact_path: pm_bot/research/merged_manual_research_packets.v1.json
-  packet_path: not_available
-  packet_present: false
-  prompt_path: not_available
-  prompt_present: false
+  status: waiting_for_operator_pasted_response
+  candidate_source_type: manual_llm_packet_batch_artifact
+  source_count: 3
+  source_artifact_path: pm_bot/llm/manual_packet_batch/569332_packet.v1.json
+  packet_path: pm_bot/llm/manual_packet_batch/569332_packet.v1.json
+  packet_present: true
+  prompt_path: pm_bot/llm/manual_packet_batch/569332_prompt.v1.md
+  prompt_present: true
   operator_response_path: not_available
   response_present: false
   validation_status: not_run
   quality_gate_status: not_run
   operator_surface_review_status: not_available
-  next_safe_operator_action: Create the local manual packet from the referenced local artifact, then rebuild the queue.
+  next_safe_operator_action: Save the human-pasted JSON response locally, then rerun the deterministic local checks.
 - market_id: 569333
-  status: ready_for_manual_packet_export
-  candidate_source_type: merged_manual_research_packet
-  source_count: 2
-  source_artifact_path: pm_bot/research/merged_manual_research_packets.v1.json
-  packet_path: not_available
-  packet_present: false
-  prompt_path: not_available
-  prompt_present: false
+  status: waiting_for_operator_pasted_response
+  candidate_source_type: manual_llm_packet_batch_artifact
+  source_count: 3
+  source_artifact_path: pm_bot/llm/manual_packet_batch/569333_packet.v1.json
+  packet_path: pm_bot/llm/manual_packet_batch/569333_packet.v1.json
+  packet_present: true
+  prompt_path: pm_bot/llm/manual_packet_batch/569333_prompt.v1.md
+  prompt_present: true
   operator_response_path: not_available
   response_present: false
   validation_status: not_run
   quality_gate_status: not_run
   operator_surface_review_status: not_available
-  next_safe_operator_action: Create the local manual packet from the referenced local artifact, then rebuild the queue.
+  next_safe_operator_action: Save the human-pasted JSON response locally, then rerun the deterministic local checks.
 - market_id: 569334
-  status: ready_for_manual_packet_export
-  candidate_source_type: merged_manual_research_packet
-  source_count: 2
-  source_artifact_path: pm_bot/research/merged_manual_research_packets.v1.json
-  packet_path: not_available
-  packet_present: false
-  prompt_path: not_available
-  prompt_present: false
+  status: waiting_for_operator_pasted_response
+  candidate_source_type: manual_llm_packet_batch_artifact
+  source_count: 3
+  source_artifact_path: pm_bot/llm/manual_packet_batch/569334_packet.v1.json
+  packet_path: pm_bot/llm/manual_packet_batch/569334_packet.v1.json
+  packet_present: true
+  prompt_path: pm_bot/llm/manual_packet_batch/569334_prompt.v1.md
+  prompt_present: true
   operator_response_path: not_available
   response_present: false
   validation_status: not_run
   quality_gate_status: not_run
   operator_surface_review_status: not_available
-  next_safe_operator_action: Create the local manual packet from the referenced local artifact, then rebuild the queue.
+  next_safe_operator_action: Save the human-pasted JSON response locally, then rerun the deterministic local checks.
 - market_id: 569343
-  status: ready_for_manual_packet_export
-  candidate_source_type: merged_manual_research_packet
-  source_count: 2
-  source_artifact_path: pm_bot/research/merged_manual_research_packets.v1.json
-  packet_path: not_available
-  packet_present: false
-  prompt_path: not_available
-  prompt_present: false
+  status: waiting_for_operator_pasted_response
+  candidate_source_type: manual_llm_packet_batch_artifact
+  source_count: 3
+  source_artifact_path: pm_bot/llm/manual_packet_batch/569343_packet.v1.json
+  packet_path: pm_bot/llm/manual_packet_batch/569343_packet.v1.json
+  packet_present: true
+  prompt_path: pm_bot/llm/manual_packet_batch/569343_prompt.v1.md
+  prompt_present: true
   operator_response_path: not_available
   response_present: false
   validation_status: not_run
   quality_gate_status: not_run
   operator_surface_review_status: not_available
-  next_safe_operator_action: Create the local manual packet from the referenced local artifact, then rebuild the queue.
+  next_safe_operator_action: Save the human-pasted JSON response locally, then rerun the deterministic local checks.
 - market_id: 569344
-  status: ready_for_manual_packet_export
-  candidate_source_type: merged_manual_research_packet
-  source_count: 2
-  source_artifact_path: pm_bot/research/merged_manual_research_packets.v1.json
-  packet_path: not_available
-  packet_present: false
-  prompt_path: not_available
-  prompt_present: false
+  status: waiting_for_operator_pasted_response
+  candidate_source_type: manual_llm_packet_batch_artifact
+  source_count: 3
+  source_artifact_path: pm_bot/llm/manual_packet_batch/569344_packet.v1.json
+  packet_path: pm_bot/llm/manual_packet_batch/569344_packet.v1.json
+  packet_present: true
+  prompt_path: pm_bot/llm/manual_packet_batch/569344_prompt.v1.md
+  prompt_present: true
   operator_response_path: not_available
   response_present: false
   validation_status: not_run
   quality_gate_status: not_run
   operator_surface_review_status: not_available
-  next_safe_operator_action: Create the local manual packet from the referenced local artifact, then rebuild the queue.
+  next_safe_operator_action: Save the human-pasted JSON response locally, then rerun the deterministic local checks.
 - market_id: 569366
-  status: ready_for_manual_packet_export
-  candidate_source_type: merged_manual_research_packet
-  source_count: 2
-  source_artifact_path: pm_bot/research/merged_manual_research_packets.v1.json
-  packet_path: not_available
-  packet_present: false
-  prompt_path: not_available
-  prompt_present: false
+  status: waiting_for_operator_pasted_response
+  candidate_source_type: manual_llm_packet_batch_artifact
+  source_count: 3
+  source_artifact_path: pm_bot/llm/manual_packet_batch/569366_packet.v1.json
+  packet_path: pm_bot/llm/manual_packet_batch/569366_packet.v1.json
+  packet_present: true
+  prompt_path: pm_bot/llm/manual_packet_batch/569366_prompt.v1.md
+  prompt_present: true
   operator_response_path: not_available
   response_present: false
   validation_status: not_run
   quality_gate_status: not_run
   operator_surface_review_status: not_available
-  next_safe_operator_action: Create the local manual packet from the referenced local artifact, then rebuild the queue.
+  next_safe_operator_action: Save the human-pasted JSON response locally, then rerun the deterministic local checks.
 - market_id: 569368
-  status: ready_for_manual_packet_export
-  candidate_source_type: merged_manual_research_packet
-  source_count: 2
-  source_artifact_path: pm_bot/research/merged_manual_research_packets.v1.json
-  packet_path: not_available
-  packet_present: false
-  prompt_path: not_available
-  prompt_present: false
+  status: waiting_for_operator_pasted_response
+  candidate_source_type: manual_llm_packet_batch_artifact
+  source_count: 3
+  source_artifact_path: pm_bot/llm/manual_packet_batch/569368_packet.v1.json
+  packet_path: pm_bot/llm/manual_packet_batch/569368_packet.v1.json
+  packet_present: true
+  prompt_path: pm_bot/llm/manual_packet_batch/569368_prompt.v1.md
+  prompt_present: true
   operator_response_path: not_available
   response_present: false
   validation_status: not_run
   quality_gate_status: not_run
   operator_surface_review_status: not_available
-  next_safe_operator_action: Create the local manual packet from the referenced local artifact, then rebuild the queue.
+  next_safe_operator_action: Save the human-pasted JSON response locally, then rerun the deterministic local checks.
 - market_id: 569373
-  status: ready_for_manual_packet_export
-  candidate_source_type: merged_manual_research_packet
-  source_count: 2
-  source_artifact_path: pm_bot/research/merged_manual_research_packets.v1.json
-  packet_path: not_available
-  packet_present: false
-  prompt_path: not_available
-  prompt_present: false
+  status: waiting_for_operator_pasted_response
+  candidate_source_type: manual_llm_packet_batch_artifact
+  source_count: 3
+  source_artifact_path: pm_bot/llm/manual_packet_batch/569373_packet.v1.json
+  packet_path: pm_bot/llm/manual_packet_batch/569373_packet.v1.json
+  packet_present: true
+  prompt_path: pm_bot/llm/manual_packet_batch/569373_prompt.v1.md
+  prompt_present: true
   operator_response_path: not_available
   response_present: false
   validation_status: not_run
   quality_gate_status: not_run
   operator_surface_review_status: not_available
-  next_safe_operator_action: Create the local manual packet from the referenced local artifact, then rebuild the queue.
+  next_safe_operator_action: Save the human-pasted JSON response locally, then rerun the deterministic local checks.
 - market_id: 573656
-  status: ready_for_manual_packet_export
-  candidate_source_type: merged_manual_research_packet
-  source_count: 2
-  source_artifact_path: pm_bot/research/merged_manual_research_packets.v1.json
-  packet_path: not_available
-  packet_present: false
-  prompt_path: not_available
-  prompt_present: false
+  status: waiting_for_operator_pasted_response
+  candidate_source_type: manual_llm_packet_batch_artifact
+  source_count: 3
+  source_artifact_path: pm_bot/llm/manual_packet_batch/573656_packet.v1.json
+  packet_path: pm_bot/llm/manual_packet_batch/573656_packet.v1.json
+  packet_present: true
+  prompt_path: pm_bot/llm/manual_packet_batch/573656_prompt.v1.md
+  prompt_present: true
   operator_response_path: not_available
   response_present: false
   validation_status: not_run
   quality_gate_status: not_run
   operator_surface_review_status: not_available
-  next_safe_operator_action: Create the local manual packet from the referenced local artifact, then rebuild the queue.
+  next_safe_operator_action: Save the human-pasted JSON response locally, then rerun the deterministic local checks.
 - market_id: 597964
-  status: ready_for_manual_packet_export
-  candidate_source_type: selected_ingest_merged_manual_research_packet
-  source_count: 4
-  source_artifact_path: pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json
-  packet_path: not_available
-  packet_present: false
-  prompt_path: not_available
-  prompt_present: false
+  status: waiting_for_operator_pasted_response
+  candidate_source_type: manual_llm_packet_batch_artifact
+  source_count: 5
+  source_artifact_path: pm_bot/llm/manual_packet_batch/597964_packet.v1.json
+  packet_path: pm_bot/llm/manual_packet_batch/597964_packet.v1.json
+  packet_present: true
+  prompt_path: pm_bot/llm/manual_packet_batch/597964_prompt.v1.md
+  prompt_present: true
   operator_response_path: not_available
   response_present: false
   validation_status: not_run
   quality_gate_status: not_run
   operator_surface_review_status: not_available
-  next_safe_operator_action: Create the local manual packet from the referenced local artifact, then rebuild the queue.
+  next_safe_operator_action: Save the human-pasted JSON response locally, then rerun the deterministic local checks.
 - market_id: 598936
-  status: ready_for_manual_packet_export
-  candidate_source_type: selected_ingest_merged_manual_research_packet
-  source_count: 4
-  source_artifact_path: pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json
-  packet_path: not_available
-  packet_present: false
-  prompt_path: not_available
-  prompt_present: false
+  status: waiting_for_operator_pasted_response
+  candidate_source_type: manual_llm_packet_batch_artifact
+  source_count: 5
+  source_artifact_path: pm_bot/llm/manual_packet_batch/598936_packet.v1.json
+  packet_path: pm_bot/llm/manual_packet_batch/598936_packet.v1.json
+  packet_present: true
+  prompt_path: pm_bot/llm/manual_packet_batch/598936_prompt.v1.md
+  prompt_present: true
   operator_response_path: not_available
   response_present: false
   validation_status: not_run
   quality_gate_status: not_run
   operator_surface_review_status: not_available
-  next_safe_operator_action: Create the local manual packet from the referenced local artifact, then rebuild the queue.
+  next_safe_operator_action: Save the human-pasted JSON response locally, then rerun the deterministic local checks.
 - market_id: 691547
-  status: ready_for_manual_packet_export
-  candidate_source_type: selected_ingest_merged_manual_research_packet
-  source_count: 4
-  source_artifact_path: pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json
-  packet_path: not_available
-  packet_present: false
-  prompt_path: not_available
-  prompt_present: false
+  status: waiting_for_operator_pasted_response
+  candidate_source_type: manual_llm_packet_batch_artifact
+  source_count: 5
+  source_artifact_path: pm_bot/llm/manual_packet_batch/691547_packet.v1.json
+  packet_path: pm_bot/llm/manual_packet_batch/691547_packet.v1.json
+  packet_present: true
+  prompt_path: pm_bot/llm/manual_packet_batch/691547_prompt.v1.md
+  prompt_present: true
   operator_response_path: not_available
   response_present: false
   validation_status: not_run
   quality_gate_status: not_run
   operator_surface_review_status: not_available
-  next_safe_operator_action: Create the local manual packet from the referenced local artifact, then rebuild the queue.
+  next_safe_operator_action: Save the human-pasted JSON response locally, then rerun the deterministic local checks.
 - market_id: 692258
-  status: ready_for_manual_packet_export
-  candidate_source_type: selected_ingest_merged_manual_research_packet
-  source_count: 4
-  source_artifact_path: pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json
-  packet_path: not_available
-  packet_present: false
-  prompt_path: not_available
-  prompt_present: false
+  status: waiting_for_operator_pasted_response
+  candidate_source_type: manual_llm_packet_batch_artifact
+  source_count: 5
+  source_artifact_path: pm_bot/llm/manual_packet_batch/692258_packet.v1.json
+  packet_path: pm_bot/llm/manual_packet_batch/692258_packet.v1.json
+  packet_present: true
+  prompt_path: pm_bot/llm/manual_packet_batch/692258_prompt.v1.md
+  prompt_present: true
   operator_response_path: not_available
   response_present: false
   validation_status: not_run
   quality_gate_status: not_run
   operator_surface_review_status: not_available
-  next_safe_operator_action: Create the local manual packet from the referenced local artifact, then rebuild the queue.
+  next_safe_operator_action: Save the human-pasted JSON response locally, then rerun the deterministic local checks.
 - market_id: 824952
   status: response_accepted_for_operator_review
   candidate_source_type: actual_manual_llm_response_trial

@@ -1,0 +1,128 @@
+{
+  "contract_version": "manual_llm_packet_batch_packet.v1",
+  "packet_id": "llm-analysis-packet-manual-batch-598936",
+  "generated_at": "deterministic-manual-llm-packet-batch.v1",
+  "market_id": "598936",
+  "source_artifact_path": "pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json",
+  "candidate_source_type": "selected_ingest_merged_manual_research_packet",
+  "source_artifacts": [
+    {
+      "artifact_type": "selected_ingest_merged_manual_research_packet",
+      "path": "pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json",
+      "description": "Existing local PMBOT artifact copied into a manual review packet.",
+      "sanitization_status": "safe_public_or_local_artifact_reference_only"
+    }
+  ],
+  "market_context": {
+    "market_id": "598936",
+    "market_title": "Will the next UK election be called by June 30, 2026?",
+    "market_status": "unknown",
+    "public_resolution_context": "Stub-only local market description excerpt for 'Will the next UK election be called by June 30, 2026?': This market will resolve to \"Yes\" if the date of the next UK general election is declared by June 30, 2026, 11:59 PM ET. Otherwise, this market will resolve to \"No\". Manual completion must review the full local criteria before use.",
+    "outcome_labels": [
+      "Yes",
+      "No"
+    ]
+  },
+  "local_review_context": {
+    "market_id": "598936",
+    "local_title_or_question": "Will the next UK election be called by June 30, 2026?",
+    "local_question": "Will the next UK election be called by June 30, 2026?",
+    "local_resolution_or_description_snippet": "Stub-only local market description excerpt for 'Will the next UK election be called by June 30, 2026?': This market will resolve to \"Yes\" if the date of the next UK general election is declared by June 30, 2026, 11:59 PM ET. Otherwise, this market will resolve to \"No\". Manual completion must review the full local criteria before use.",
+    "market_status": "unknown",
+    "outcome_labels": [
+      "Yes",
+      "No"
+    ]
+  },
+  "evidence_source_placeholders": [
+    {
+      "source_note_id": "official_source_placeholder_001",
+      "source_note_type": "official_source_placeholder",
+      "source_note": "Manual check template: local Polymarket rules and resolution criteria for market_id 598936",
+      "local_only": true
+    },
+    {
+      "source_note_id": "official_source_placeholder_002",
+      "source_note_type": "official_source_placeholder",
+      "source_note": "Manual check template: official primary source named in the local market description for 'Will the next UK election be called by June 30, 2026?'",
+      "local_only": true
+    },
+    {
+      "source_note_id": "official_source_placeholder_003",
+      "source_note_type": "official_source_placeholder",
+      "source_note": "Manual check template: original issuer, government, court, exchange, or company source relevant to 'Will the next UK election be called by June 30, 2026?'",
+      "local_only": true
+    },
+    {
+      "source_note_id": "news_source_placeholder_004",
+      "source_note_type": "news_source_placeholder",
+      "source_note": "Manual check template: Reuters coverage query for 'Will the next UK election be called by June 30, 2026?'",
+      "local_only": true
+    },
+    {
+      "source_note_id": "news_source_placeholder_005",
+      "source_note_type": "news_source_placeholder",
+      "source_note": "Manual check template: Associated Press coverage query for 'Will the next UK election be called by June 30, 2026?'",
+      "local_only": true
+    },
+    {
+      "source_note_id": "news_source_placeholder_006",
+      "source_note_type": "news_source_placeholder",
+      "source_note": "Manual check template: major credible outlet query for 'Starmer / UK / pedophile / England' and 'Will the next UK election be called by June 30, 2026?'",
+      "local_only": true
+    },
+    {
+      "source_note_id": "source_plan_007",
+      "source_note_type": "source_plan",
+      "source_note": "Template only: review the local market rules for 'Will the next UK election be called by June 30, 2026?', then manually check official primary sources and credible news coverage. This stub does not fetch or verify sources.",
+      "local_only": true
+    }
+  ],
+  "missing_evidence": [
+    "manual_research_not_started",
+    "full_market_resolution_criteria_review",
+    "official_source_references",
+    "credible_news_source_references",
+    "empty_evidence_slots",
+    "operator_human_review_required"
+  ],
+  "source_gap_notes": [
+    "Manual check template: local Polymarket rules and resolution criteria for market_id 598936",
+    "Manual check template: official primary source named in the local market description for 'Will the next UK election be called by June 30, 2026?'",
+    "Manual check template: original issuer, government, court, exchange, or company source relevant to 'Will the next UK election be called by June 30, 2026?'",
+    "Manual check template: Reuters coverage query for 'Will the next UK election be called by June 30, 2026?'",
+    "Manual check template: Associated Press coverage query for 'Will the next UK election be called by June 30, 2026?'",
+    "Manual check template: major credible outlet query for 'Starmer / UK / pedophile / England' and 'Will the next UK election be called by June 30, 2026?'",
+    "Template only: \"Will the next UK election be called by June 30, 2026?\" \"resolution criteria\"",
+    "Template only: \"Will the next UK election be called by June 30, 2026?\" \"2026-06-30T12:00:00Z\" official source",
+    "Template only: \"Polymarket\" \"598936\" \"Will the next UK election be called by June 30, 2026?\"",
+    "Template only: \"UK election called by...?\" \"Will the next UK election be called by June 30, 2026?\" credible reporting",
+    "Template only: \"Starmer / UK / pedophile / England\" \"Will the next UK election be called by June 30, 2026?\" primary source"
+  ],
+  "response_schema_path": "pm_bot/llm/llm_analysis_response_schema.v1.json",
+  "expected_response_path": "pm_bot/llm/manual_packet_batch/598936_response_operator.v1.json",
+  "safety_boundaries": {
+    "offline_only": true,
+    "local_only": true,
+    "manual_review_only": true,
+    "not_truth_source": true,
+    "not_trading_advice": true,
+    "not_execution_authority": true,
+    "no_recommendations": true,
+    "no_outcome_estimates": true,
+    "no_value_scoring": true,
+    "no_trade_or_wallet_instructions": true,
+    "no_side_selection": true,
+    "no_market_decision": true,
+    "no_external_data": true,
+    "no_internet_news_api": true,
+    "no_prompt_automation": true,
+    "no_browser_automation": true,
+    "no_llm_api_calls": true,
+    "no_network_calls": true,
+    "no_runtime_wiring": true,
+    "no_credentials": true,
+    "no_wallet_private_key_access": true,
+    "deterministic": true
+  }
+}

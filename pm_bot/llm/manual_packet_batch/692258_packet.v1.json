@@ -1,0 +1,145 @@
+{
+  "contract_version": "manual_llm_packet_batch_packet.v1",
+  "packet_id": "llm-analysis-packet-manual-batch-692258",
+  "generated_at": "deterministic-manual-llm-packet-batch.v1",
+  "market_id": "692258",
+  "source_artifact_path": "pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json",
+  "candidate_source_type": "selected_ingest_merged_manual_research_packet",
+  "source_artifacts": [
+    {
+      "artifact_type": "selected_ingest_merged_manual_research_packet",
+      "path": "pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json",
+      "description": "Existing local PMBOT artifact copied into a manual review packet.",
+      "sanitization_status": "safe_public_or_local_artifact_reference_only"
+    }
+  ],
+  "market_context": {
+    "market_id": "692258",
+    "market_title": "MicroStrategy sells any Bitcoin by June 30, 2026?",
+    "market_status": "unknown",
+    "public_resolution_context": "Stub-only local market description excerpt for 'MicroStrategy sells any Bitcoin by June 30, 2026?': This market will resolve to \"Yes\" if MicroStrategy sells any of its Bitcoin by 11:59 PM ET on the date specified in the title. Otherwise, this market will resolve to \"No\". Manual completion must review the full local criteria before use.",
+    "outcome_labels": [
+      "Yes",
+      "No"
+    ]
+  },
+  "local_review_context": {
+    "market_id": "692258",
+    "local_title_or_question": "MicroStrategy sells any Bitcoin by June 30, 2026?",
+    "local_question": "MicroStrategy sells any Bitcoin by June 30, 2026?",
+    "local_resolution_or_description_snippet": "Stub-only local market description excerpt for 'MicroStrategy sells any Bitcoin by June 30, 2026?': This market will resolve to \"Yes\" if MicroStrategy sells any of its Bitcoin by 11:59 PM ET on the date specified in the title. Otherwise, this market will resolve to \"No\". Manual completion must review the full local criteria before use.",
+    "market_status": "unknown",
+    "outcome_labels": [
+      "Yes",
+      "No"
+    ]
+  },
+  "evidence_source_placeholders": [
+    {
+      "source_note_id": "official_source_checked_001",
+      "source_note_type": "official_source_checked",
+      "source_note": "offline-check:692258:local-market-rules",
+      "local_only": true
+    },
+    {
+      "source_note_id": "official_source_checked_002",
+      "source_note_type": "official_source_checked",
+      "source_note": "offline-check:692258:company-source-placeholder",
+      "local_only": true
+    },
+    {
+      "source_note_id": "official_source_placeholder_003",
+      "source_note_type": "official_source_placeholder",
+      "source_note": "Manual check template: local Polymarket rules and resolution criteria for market_id 692258",
+      "local_only": true
+    },
+    {
+      "source_note_id": "official_source_placeholder_004",
+      "source_note_type": "official_source_placeholder",
+      "source_note": "Manual check template: official primary source named in the local market description for 'MicroStrategy sells any Bitcoin by June 30, 2026?'",
+      "local_only": true
+    },
+    {
+      "source_note_id": "official_source_placeholder_005",
+      "source_note_type": "official_source_placeholder",
+      "source_note": "Manual check template: original issuer, government, court, exchange, or company source relevant to 'MicroStrategy sells any Bitcoin by June 30, 2026?'",
+      "local_only": true
+    },
+    {
+      "source_note_id": "news_source_checked_006",
+      "source_note_type": "news_source_checked",
+      "source_note": "offline-check:692258:credible-news-query-placeholder",
+      "local_only": true
+    },
+    {
+      "source_note_id": "news_source_placeholder_007",
+      "source_note_type": "news_source_placeholder",
+      "source_note": "Manual check template: Reuters coverage query for 'MicroStrategy sells any Bitcoin by June 30, 2026?'",
+      "local_only": true
+    },
+    {
+      "source_note_id": "news_source_placeholder_008",
+      "source_note_type": "news_source_placeholder",
+      "source_note": "Manual check template: Associated Press coverage query for 'MicroStrategy sells any Bitcoin by June 30, 2026?'",
+      "local_only": true
+    },
+    {
+      "source_note_id": "news_source_placeholder_009",
+      "source_note_type": "news_source_placeholder",
+      "source_note": "Manual check template: major credible outlet query for 'Finance / Economy / Business / 2025 Predictions / Crypto / MicroStrategy / Stocks' and 'MicroStrategy sells any Bitcoin by June 30, 2026?'",
+      "local_only": true
+    },
+    {
+      "source_note_id": "source_plan_010",
+      "source_note_type": "source_plan",
+      "source_note": "Template only: review the local market rules for 'MicroStrategy sells any Bitcoin by June 30, 2026?', then manually check official primary sources and credible news coverage. This stub does not fetch or verify sources.",
+      "local_only": true
+    }
+  ],
+  "missing_evidence": [
+    "full_official_source_reference",
+    "credible_news_source_references",
+    "official_yes_or_no_evidence",
+    "source_reliability_review",
+    "Valid partial selected-ingest overlay used to prove deterministic merge behavior."
+  ],
+  "source_gap_notes": [
+    "Manual check template: local Polymarket rules and resolution criteria for market_id 692258",
+    "Manual check template: official primary source named in the local market description for 'MicroStrategy sells any Bitcoin by June 30, 2026?'",
+    "Manual check template: original issuer, government, court, exchange, or company source relevant to 'MicroStrategy sells any Bitcoin by June 30, 2026?'",
+    "Manual check template: Reuters coverage query for 'MicroStrategy sells any Bitcoin by June 30, 2026?'",
+    "Manual check template: Associated Press coverage query for 'MicroStrategy sells any Bitcoin by June 30, 2026?'",
+    "Manual check template: major credible outlet query for 'Finance / Economy / Business / 2025 Predictions / Crypto / MicroStrategy / Stocks' and 'MicroStrategy sells any Bitcoin by June 30, 2026?'",
+    "Template only: \"MicroStrategy sells any Bitcoin by June 30, 2026?\" \"resolution criteria\"",
+    "Template only: \"MicroStrategy sells any Bitcoin by June 30, 2026?\" \"2026-07-01T04:00:00Z\" official source",
+    "Template only: \"Polymarket\" \"692258\" \"MicroStrategy sells any Bitcoin by June 30, 2026?\"",
+    "Template only: \"MicroStrategy sells any Bitcoin by ___ ?\" \"MicroStrategy sells any Bitcoin by June 30, 2026?\" credible reporting",
+    "Template only: \"Finance / Economy / Business / 2025 Predictions / Crypto / MicroStrategy / Stocks\" \"MicroStrategy sells any Bitcoin by June 30, 2026?\" primary source"
+  ],
+  "response_schema_path": "pm_bot/llm/llm_analysis_response_schema.v1.json",
+  "expected_response_path": "pm_bot/llm/manual_packet_batch/692258_response_operator.v1.json",
+  "safety_boundaries": {
+    "offline_only": true,
+    "local_only": true,
+    "manual_review_only": true,
+    "not_truth_source": true,
+    "not_trading_advice": true,
+    "not_execution_authority": true,
+    "no_recommendations": true,
+    "no_outcome_estimates": true,
+    "no_value_scoring": true,
+    "no_trade_or_wallet_instructions": true,
+    "no_side_selection": true,
+    "no_market_decision": true,
+    "no_external_data": true,
+    "no_internet_news_api": true,
+    "no_prompt_automation": true,
+    "no_browser_automation": true,
+    "no_llm_api_calls": true,
+    "no_network_calls": true,
+    "no_runtime_wiring": true,
+    "no_credentials": true,
+    "no_wallet_private_key_access": true,
+    "deterministic": true
+  }
+}

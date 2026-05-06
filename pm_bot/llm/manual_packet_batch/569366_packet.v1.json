@@ -1,0 +1,149 @@
+{
+  "contract_version": "manual_llm_packet_batch_packet.v1",
+  "packet_id": "llm-analysis-packet-manual-batch-569366",
+  "generated_at": "deterministic-manual-llm-packet-batch.v1",
+  "market_id": "569366",
+  "source_artifact_path": "pm_bot/research/merged_manual_research_packets.v1.json",
+  "candidate_source_type": "merged_manual_research_packet",
+  "source_artifacts": [
+    {
+      "artifact_type": "merged_manual_research_packet",
+      "path": "pm_bot/research/merged_manual_research_packets.v1.json",
+      "description": "Existing local PMBOT artifact copied into a manual review packet.",
+      "sanitization_status": "safe_public_or_local_artifact_reference_only"
+    }
+  ],
+  "market_context": {
+    "market_id": "569366",
+    "market_title": "Will Abelardo de la Espriella win the 2026 Colombian presidential election?",
+    "market_status": "unknown",
+    "public_resolution_context": "Stub summary only: determine whether the named political/election outcome in 'Will Abelardo de la Espriella win the 2026 Colombian presidential election?' occurs by 2026-06-21; the full market rules must be copied from the local market artifact before completion.",
+    "outcome_labels": [
+      "Yes",
+      "No"
+    ]
+  },
+  "local_review_context": {
+    "market_id": "569366",
+    "local_title_or_question": "Will Abelardo de la Espriella win the 2026 Colombian presidential election?",
+    "local_question": "Will Abelardo de la Espriella win the 2026 Colombian presidential election?",
+    "local_resolution_or_description_snippet": "Stub summary only: determine whether the named political/election outcome in 'Will Abelardo de la Espriella win the 2026 Colombian presidential election?' occurs by 2026-06-21; the full market rules must be copied from the local market artifact before completion.",
+    "market_status": "unknown",
+    "outcome_labels": [
+      "Yes",
+      "No"
+    ]
+  },
+  "evidence_source_placeholders": [
+    {
+      "source_note_id": "official_source_checked_001",
+      "source_note_type": "official_source_checked",
+      "source_note": "offline-check:569366:market-rules",
+      "local_only": true
+    },
+    {
+      "source_note_id": "official_source_checked_002",
+      "source_note_type": "official_source_checked",
+      "source_note": "offline-check:569366:election-authority",
+      "local_only": true
+    },
+    {
+      "source_note_id": "official_source_placeholder_003",
+      "source_note_type": "official_source_placeholder",
+      "source_note": "Polymarket market rules and resolution criteria for market_id 569366",
+      "local_only": true
+    },
+    {
+      "source_note_id": "official_source_placeholder_004",
+      "source_note_type": "official_source_placeholder",
+      "source_note": "Official election authority results or notices for category 'Colombia Presidential Election'",
+      "local_only": true
+    },
+    {
+      "source_note_id": "official_source_placeholder_005",
+      "source_note_type": "official_source_placeholder",
+      "source_note": "Official candidate, party, or government pages named by 'Will Abelardo de la Espriella win the 2026 Colombian presidential election?'",
+      "local_only": true
+    },
+    {
+      "source_note_id": "news_source_checked_006",
+      "source_note_type": "news_source_checked",
+      "source_note": "offline-check:569366:reuters-query",
+      "local_only": true
+    },
+    {
+      "source_note_id": "news_source_placeholder_007",
+      "source_note_type": "news_source_placeholder",
+      "source_note": "Reuters coverage query for 'Will Abelardo de la Espriella win the 2026 Colombian presidential election?'",
+      "local_only": true
+    },
+    {
+      "source_note_id": "news_source_placeholder_008",
+      "source_note_type": "news_source_placeholder",
+      "source_note": "Associated Press coverage query for 'Will Abelardo de la Espriella win the 2026 Colombian presidential election?'",
+      "local_only": true
+    },
+    {
+      "source_note_id": "news_source_placeholder_009",
+      "source_note_type": "news_source_placeholder",
+      "source_note": "Major local or national outlet query for 'Colombia Presidential Election'",
+      "local_only": true
+    },
+    {
+      "source_note_id": "source_plan_010",
+      "source_note_type": "source_plan",
+      "source_note": "Template only: confirm the market's own resolution rules, then check official election authority records, candidate or party statements, and credible news coverage for 'Will Abelardo de la Espriella win the 2026 Colombian presidential election?'. Do not fetch sources in this stub.",
+      "local_only": true
+    }
+  ],
+  "missing_evidence": [
+    "credible_news_source_urls",
+    "yes_evidence",
+    "no_or_counterevidence",
+    "source_reliability_review",
+    "operator_edge_assessment",
+    "operator_risk_review",
+    "official_election_authority_identifier",
+    "Valid partial evidence overlay used to prove deterministic merge behavior."
+  ],
+  "source_gap_notes": [
+    "Polymarket market rules and resolution criteria for market_id 569366",
+    "Official election authority results or notices for category 'Colombia Presidential Election'",
+    "Official candidate, party, or government pages named by 'Will Abelardo de la Espriella win the 2026 Colombian presidential election?'",
+    "Reuters coverage query for 'Will Abelardo de la Espriella win the 2026 Colombian presidential election?'",
+    "Associated Press coverage query for 'Will Abelardo de la Espriella win the 2026 Colombian presidential election?'",
+    "Major local or national outlet query for 'Colombia Presidential Election'",
+    "\"Will Abelardo de la Espriella win the 2026 Colombian presidential election?\" \"resolution criteria\"",
+    "\"Will Abelardo de la Espriella win the 2026 Colombian presidential election?\" \"2026-06-21\"",
+    "\"Colombia Presidential Election\" \"Will Abelardo de la Espriella win the 2026 Colombian presidential election?\"",
+    "\"Polymarket\" \"569366\" \"Will Abelardo de la Espriella win the 2026 Colombian presidential election?\"",
+    "\"Will Abelardo de la Espriella win the 2026 Colombian presidential election?\" official election results",
+    "\"Colombia Presidential Election\" election authority official results"
+  ],
+  "response_schema_path": "pm_bot/llm/llm_analysis_response_schema.v1.json",
+  "expected_response_path": "pm_bot/llm/manual_packet_batch/569366_response_operator.v1.json",
+  "safety_boundaries": {
+    "offline_only": true,
+    "local_only": true,
+    "manual_review_only": true,
+    "not_truth_source": true,
+    "not_trading_advice": true,
+    "not_execution_authority": true,
+    "no_recommendations": true,
+    "no_outcome_estimates": true,
+    "no_value_scoring": true,
+    "no_trade_or_wallet_instructions": true,
+    "no_side_selection": true,
+    "no_market_decision": true,
+    "no_external_data": true,
+    "no_internet_news_api": true,
+    "no_prompt_automation": true,
+    "no_browser_automation": true,
+    "no_llm_api_calls": true,
+    "no_network_calls": true,
+    "no_runtime_wiring": true,
+    "no_credentials": true,
+    "no_wallet_private_key_access": true,
+    "deterministic": true
+  }
+}

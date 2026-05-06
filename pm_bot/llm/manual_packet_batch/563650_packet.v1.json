@@ -1,0 +1,95 @@
+{
+  "contract_version": "manual_llm_packet_batch_packet.v1",
+  "packet_id": "llm-analysis-packet-manual-batch-563650",
+  "generated_at": "deterministic-manual-llm-packet-batch.v1",
+  "market_id": "563650",
+  "source_artifact_path": "pm_bot/research/final_dossier_drafts.v1.json",
+  "candidate_source_type": "final_dossier_draft",
+  "source_artifacts": [
+    {
+      "artifact_type": "final_dossier_draft",
+      "path": "pm_bot/research/final_dossier_drafts.v1.json",
+      "description": "Existing local PMBOT artifact copied into a manual review packet.",
+      "sanitization_status": "safe_public_or_local_artifact_reference_only"
+    }
+  ],
+  "market_context": {
+    "market_id": "563650",
+    "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?",
+    "market_status": "unknown",
+    "public_resolution_context": "Stub summary only: determine whether the legal/court event in 'SCOTUS accepts sports event contract case by July 31, 2026?' occurs by 2026-07-31; the full market rules and official docket criteria must be copied before completion.",
+    "outcome_labels": [
+      "Yes",
+      "No"
+    ]
+  },
+  "local_review_context": {
+    "market_id": "563650",
+    "local_title_or_question": "SCOTUS accepts sports event contract case by July 31, 2026?",
+    "local_question": "SCOTUS accepts sports event contract case by July 31, 2026?",
+    "local_resolution_or_description_snippet": "Stub summary only: determine whether the legal/court event in 'SCOTUS accepts sports event contract case by July 31, 2026?' occurs by 2026-07-31; the full market rules and official docket criteria must be copied before completion.",
+    "market_status": "unknown",
+    "outcome_labels": [
+      "Yes",
+      "No"
+    ]
+  },
+  "evidence_source_placeholders": [
+    {
+      "source_note_id": "local_evidence_summary_001",
+      "source_note_type": "local_evidence_summary",
+      "source_note": "offline-reference:563650:rules - records the rule source category used for structural review.",
+      "local_only": true
+    },
+    {
+      "source_note_id": "local_evidence_summary_002",
+      "source_note_type": "local_evidence_summary",
+      "source_note": "offline-reference:563650:docket - records a court-source claim without resolving the outcome.",
+      "local_only": true
+    },
+    {
+      "source_note_id": "local_evidence_summary_003",
+      "source_note_type": "local_evidence_summary",
+      "source_note": "offline-reference:563650:news - records external context for later human review.",
+      "local_only": true
+    }
+  ],
+  "missing_evidence": [
+    "No missing-information item is closed by this gate; human review remains required.",
+    "Confirm the exact docket identifier before any later human decision.",
+    "Court docket terminology may require manual interpretation.",
+    "Source timing should be reviewed by a human before any later workflow.",
+    "Manual draft sections are populated for structural quality review only.",
+    "Reviewer verified checklist coverage for the review pack and approved a later draft-preparation step."
+  ],
+  "source_gap_notes": [
+    "Resolution criteria note records the source categories and unresolved manual review points.",
+    "Manual context note records the market subject and timing for human review only."
+  ],
+  "response_schema_path": "pm_bot/llm/llm_analysis_response_schema.v1.json",
+  "expected_response_path": "pm_bot/llm/manual_packet_batch/563650_response_operator.v1.json",
+  "safety_boundaries": {
+    "offline_only": true,
+    "local_only": true,
+    "manual_review_only": true,
+    "not_truth_source": true,
+    "not_trading_advice": true,
+    "not_execution_authority": true,
+    "no_recommendations": true,
+    "no_outcome_estimates": true,
+    "no_value_scoring": true,
+    "no_trade_or_wallet_instructions": true,
+    "no_side_selection": true,
+    "no_market_decision": true,
+    "no_external_data": true,
+    "no_internet_news_api": true,
+    "no_prompt_automation": true,
+    "no_browser_automation": true,
+    "no_llm_api_calls": true,
+    "no_network_calls": true,
+    "no_runtime_wiring": true,
+    "no_credentials": true,
+    "no_wallet_private_key_access": true,
+    "deterministic": true
+  }
+}

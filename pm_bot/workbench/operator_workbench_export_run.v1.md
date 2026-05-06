@@ -83,7 +83,7 @@
 - artifact_present: true
 - queue_items_total: 15
 - response_accepted_for_operator_review: 1
-- waiting_for_operator_pasted_response: 0
+- waiting_for_operator_pasted_response: 14
 - blocked_missing_packet: 0
 - offline_manual_only: true
 - not_truth_source: true

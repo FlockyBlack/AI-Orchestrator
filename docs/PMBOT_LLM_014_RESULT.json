@@ -7,9 +7,9 @@
   "doc_markdown": "docs/PMBOT_LLM_014_MANUAL_PACKET_QUEUE_EXPANSION.md",
   "queue_items_total": 15,
   "queue_status_counts": {
-    "ready_for_manual_packet_export": 14,
+    "ready_for_manual_packet_export": 0,
     "ready_for_manual_prompt_export": 0,
-    "waiting_for_operator_pasted_response": 0,
+    "waiting_for_operator_pasted_response": 14,
     "response_accepted_for_operator_review": 1,
     "response_rejected_needs_operator_fix": 0,
     "blocked_missing_packet": 0,
@@ -104,6 +104,104 @@
       },
       {
         "artifact_id": "llm_packet_artifact",
+        "path": "pm_bot/llm/manual_packet_batch/563650_packet.v1.json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed"
+      },
+      {
+        "artifact_id": "llm_packet_artifact",
+        "path": "pm_bot/llm/manual_packet_batch/569332_packet.v1.json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed"
+      },
+      {
+        "artifact_id": "llm_packet_artifact",
+        "path": "pm_bot/llm/manual_packet_batch/569333_packet.v1.json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed"
+      },
+      {
+        "artifact_id": "llm_packet_artifact",
+        "path": "pm_bot/llm/manual_packet_batch/569334_packet.v1.json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed"
+      },
+      {
+        "artifact_id": "llm_packet_artifact",
+        "path": "pm_bot/llm/manual_packet_batch/569343_packet.v1.json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed"
+      },
+      {
+        "artifact_id": "llm_packet_artifact",
+        "path": "pm_bot/llm/manual_packet_batch/569344_packet.v1.json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed"
+      },
+      {
+        "artifact_id": "llm_packet_artifact",
+        "path": "pm_bot/llm/manual_packet_batch/569366_packet.v1.json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed"
+      },
+      {
+        "artifact_id": "llm_packet_artifact",
+        "path": "pm_bot/llm/manual_packet_batch/569368_packet.v1.json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed"
+      },
+      {
+        "artifact_id": "llm_packet_artifact",
+        "path": "pm_bot/llm/manual_packet_batch/569373_packet.v1.json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed"
+      },
+      {
+        "artifact_id": "llm_packet_artifact",
+        "path": "pm_bot/llm/manual_packet_batch/573656_packet.v1.json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed"
+      },
+      {
+        "artifact_id": "llm_packet_artifact",
+        "path": "pm_bot/llm/manual_packet_batch/597964_packet.v1.json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed"
+      },
+      {
+        "artifact_id": "llm_packet_artifact",
+        "path": "pm_bot/llm/manual_packet_batch/598936_packet.v1.json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed"
+      },
+      {
+        "artifact_id": "llm_packet_artifact",
+        "path": "pm_bot/llm/manual_packet_batch/691547_packet.v1.json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed"
+      },
+      {
+        "artifact_id": "llm_packet_artifact",
+        "path": "pm_bot/llm/manual_packet_batch/692258_packet.v1.json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed"
+      },
+      {
+        "artifact_id": "llm_packet_artifact",
         "path": "pm_bot/llm/real_local_market_llm_trial_packet.v1.json",
         "required": false,
         "present": true,
@@ -188,6 +286,7 @@
       "final_dossier_draft": 1,
       "final_dossier_exported_market_id": 1,
       "llm_packet_artifact": 1,
+      "manual_llm_packet_batch_artifact": 14,
       "merged_manual_research_packet": 10,
       "operator_review_queue_item": 10,
       "selected_ingest_final_dossier_draft": 1,

@@ -793,7 +793,8 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertIn("Manual LLM Review Queue", markdown)
         self.assertIn("artifact_pointer: pm_bot/llm/manual_llm_review_queue.v1.json", markdown)
         self.assertIn("queue_items_total: 15", markdown)
-        self.assertIn("ready_for_manual_packet_export: 14", markdown)
+        self.assertIn("ready_for_manual_packet_export: 0", markdown)
+        self.assertIn("waiting_for_operator_pasted_response: 14", markdown)
         self.assertIn("response_accepted_for_operator_review: 1", markdown)
         self.assertIn("offline_manual_only: true", markdown)
         self.assertIn("Actual Manual LLM Response Trial", markdown)
@@ -825,6 +826,10 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertEqual(result["manual_llm_review_queue"]["queue_items_total"], 15)
         self.assertEqual(
             result["manual_llm_review_queue"]["queue_status_counts"]["ready_for_manual_packet_export"],
+            0,
+        )
+        self.assertEqual(
+            result["manual_llm_review_queue"]["queue_status_counts"]["waiting_for_operator_pasted_response"],
             14,
         )
         self.assertEqual(
