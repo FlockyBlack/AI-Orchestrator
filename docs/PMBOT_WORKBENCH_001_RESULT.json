@@ -19,11 +19,11 @@
   "files_modified": [],
   "tests": [],
   "artifact_inventory_summary": {
-    "total_artifacts": 20,
-    "present_artifacts": 20,
+    "total_artifacts": 21,
+    "present_artifacts": 21,
     "missing_artifacts": 0,
     "required_missing_artifacts": 0,
-    "json_artifacts_parsed": 19,
+    "json_artifacts_parsed": 20,
     "json_artifacts_parse_failed": 0
   },
   "missing_artifacts": [],

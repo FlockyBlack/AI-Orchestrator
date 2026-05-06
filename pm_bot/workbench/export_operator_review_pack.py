@@ -21,6 +21,8 @@ PAPER_019_SECTION_ID = "paper_019_multi_market_run_series"
 PAPER_020_RESULT_ARTIFACT_PATH = "docs/PMBOT_PAPER_020_RESULT.json"
 PAPER_020_POSTMORTEM_ARTIFACT_PATH = "pm_bot/paper/paper_run_series_postmortem.v1.json"
 PAPER_020_SECTION_ID = "paper_020_paper_run_series_postmortem"
+MANUAL_LLM_REVIEW_ARTIFACT_PATH = "pm_bot/llm/manual_llm_paste_in_review.v1.json"
+MANUAL_LLM_REVIEW_SECTION_ID = "manual_llm_review"
 
 SCHEMA_VERSION = "operator_review_pack.v1"
 GENERATED_BY = "pm_bot/workbench/export_operator_review_pack.py"
@@ -42,6 +44,10 @@ PAPER_020_ACCOUNTING_ONLY_WARNING = (
 NO_RECOMMENDATIONS_OR_DECISIONS_STATEMENT = (
     "This operator review pack does not recommend markets, sides, prices, sizes, orders, trades, "
     "paper orders, or decisions."
+)
+MANUAL_LLM_REVIEW_ANALYSIS_ONLY_WARNING = (
+    "Manual LLM review is analysis-only and not trading advice; it does not authorize orders, "
+    "paper orders, market decisions, side selection, probability estimates, EV, edge, or scoring."
 )
 
 SAFETY_FLAGS = {
@@ -224,6 +230,13 @@ SOURCE_ARTIFACTS = (
         "category": "operator_inbox",
         "artifact_type": "operator_inbox_json",
         "required": True,
+    },
+    {
+        "artifact_id": MANUAL_LLM_REVIEW_SECTION_ID,
+        "path": MANUAL_LLM_REVIEW_ARTIFACT_PATH,
+        "category": "manual_llm_review",
+        "artifact_type": "manual_llm_review_json",
+        "required": False,
     },
 )
 
@@ -563,6 +576,101 @@ def _operator_inbox_summary(payloads):
         "orders_created": inbox.get("orders_created", 0),
         "network_calls": inbox.get("network_calls", 0),
         "next_safe_action": inbox.get("next_safe_action"),
+    }
+
+
+def _manual_llm_review_forbidden_content_summary(review):
+    forbidden = _safe_dict(review.get("forbidden_content_detected"))
+    return {
+        "detected": bool(forbidden.get("detected", False)),
+        "findings_count": len(_safe_list(forbidden.get("findings"))),
+    }
+
+
+def _manual_llm_review_base(artifact):
+    return {
+        "section_id": MANUAL_LLM_REVIEW_SECTION_ID,
+        "artifact_pointer": MANUAL_LLM_REVIEW_ARTIFACT_PATH,
+        "artifact_parse_status": artifact.get("parse_status"),
+        "errors_count": 0,
+        "warnings_count": 0,
+        "accepted_sections": [],
+        "missing_sections": [],
+        "forbidden_content_detected": {
+            "detected": False,
+            "findings_count": 0,
+        },
+        "next_safe_operator_action": "not_available",
+        "analysis_only_warning": MANUAL_LLM_REVIEW_ANALYSIS_ONLY_WARNING,
+        "safe_error_summary": [],
+        "surface_only": True,
+        "llm_text_generated": False,
+        "llm_api_calls_added": False,
+        "browser_automation_added": False,
+        "runtime_integration_added": False,
+    }
+
+
+def _manual_llm_review_summary(payloads, inventory):
+    artifact = _inventory_item(inventory, MANUAL_LLM_REVIEW_SECTION_ID)
+    base = _manual_llm_review_base(artifact)
+
+    if not artifact.get("present"):
+        return {
+            **base,
+            "artifact_status": "missing",
+            "validation_status": "not_available",
+            "safe_error_summary": ["Manual LLM paste-in review artifact is not available locally."],
+        }
+
+    raw_review = payloads.get(MANUAL_LLM_REVIEW_SECTION_ID)
+    review = _safe_dict(raw_review)
+    if artifact.get("parse_status") != "parsed":
+        parse_error = artifact.get("parse_error", artifact.get("parse_status") or "unreadable")
+        return {
+            **base,
+            "artifact_status": "invalid",
+            "validation_status": "rejected_or_unreadable",
+            "safe_error_summary": [
+                f"Manual LLM paste-in review artifact could not be read safely: {parse_error}."
+            ],
+        }
+
+    if not isinstance(raw_review, dict) or not review:
+        return {
+            **base,
+            "artifact_status": "invalid",
+            "validation_status": "rejected_or_unreadable",
+            "safe_error_summary": [
+                "Manual LLM paste-in review artifact parsed but is not a non-empty JSON object."
+            ],
+        }
+
+    validation_status = review.get("validation_status")
+    if validation_status not in {"accepted", "rejected"}:
+        return {
+            **base,
+            "artifact_status": "invalid",
+            "validation_status": "rejected_or_unreadable",
+            "safe_error_summary": [
+                "Manual LLM paste-in review artifact parsed but does not expose accepted/rejected validation_status."
+            ],
+        }
+
+    next_action = review.get("next_safe_operator_action")
+    if not isinstance(next_action, str) or not next_action:
+        next_action = "Review the manual LLM artifact status and local source artifacts manually."
+
+    return {
+        **base,
+        "artifact_status": "present",
+        "validation_status": validation_status,
+        "errors_count": len(_safe_list(review.get("errors"))),
+        "warnings_count": len(_safe_list(review.get("warnings"))),
+        "accepted_sections": list(_safe_list(review.get("accepted_sections"))),
+        "missing_sections": list(_safe_list(review.get("missing_sections"))),
+        "forbidden_content_detected": _manual_llm_review_forbidden_content_summary(review),
+        "next_safe_operator_action": next_action,
     }
 
 
@@ -921,6 +1029,7 @@ def build_operator_review_pack(root=ROOT):
     quality_report, quality_load_status = _quality_report_payload(root=root)
     paper_019_summary = _paper_019_multi_market_run_series_summary(payloads, inventory)
     paper_020_summary = _paper_020_postmortem_summary(payloads, inventory)
+    manual_llm_review = _manual_llm_review_summary(payloads, inventory)
     warnings = (
         _warnings(payloads)
         + _paper_019_warnings(paper_019_summary)
@@ -943,6 +1052,7 @@ def build_operator_review_pack(root=ROOT):
         "paper_020_paper_run_series_postmortem": paper_020_summary,
         "dashboard_state_summary": _dashboard_state_summary(payloads),
         "operator_inbox_summary": _operator_inbox_summary(payloads),
+        "manual_llm_review": manual_llm_review,
         "quality_warning_summary": _quality_warning_summary(quality_report, quality_load_status),
         "warnings": warnings,
         "missing_artifacts": _missing_artifacts(inventory),
@@ -966,6 +1076,7 @@ def render_operator_review_pack_markdown(pack):
     paper_020 = pack["paper_020_paper_run_series_postmortem"]
     dashboard = pack["dashboard_state_summary"]
     inbox = pack["operator_inbox_summary"]
+    manual_llm = pack["manual_llm_review"]
     lines = [
         "# PMBOT Operator Review Pack v1",
         "",
@@ -1246,6 +1357,50 @@ def render_operator_review_pack_markdown(pack):
             f"- execution_authority: {str(inbox['execution_authority']).lower()}",
             f"- commands_executed: {inbox['commands_executed']}",
             f"- network_calls: {inbox['network_calls']}",
+            "",
+            "## Manual LLM Review",
+            "",
+            f"- section_id: {manual_llm['section_id']}",
+            f"- artifact_status: {manual_llm['artifact_status']}",
+            f"- artifact_pointer: {manual_llm['artifact_pointer']}",
+            f"- artifact_parse_status: {manual_llm['artifact_parse_status']}",
+            f"- validation_status: {manual_llm['validation_status']}",
+            f"- errors_count: {manual_llm['errors_count']}",
+            f"- warnings_count: {manual_llm['warnings_count']}",
+            "- forbidden_content_detected: "
+            f"detected={str(manual_llm['forbidden_content_detected']['detected']).lower()}, "
+            f"findings_count={manual_llm['forbidden_content_detected']['findings_count']}",
+            f"- next_safe_operator_action: {manual_llm['next_safe_operator_action']}",
+            f"- analysis_only_warning: {manual_llm['analysis_only_warning']}",
+            f"- llm_text_generated: {str(manual_llm['llm_text_generated']).lower()}",
+            f"- llm_api_calls_added: {str(manual_llm['llm_api_calls_added']).lower()}",
+            f"- browser_automation_added: {str(manual_llm['browser_automation_added']).lower()}",
+            f"- runtime_integration_added: {str(manual_llm['runtime_integration_added']).lower()}",
+            "",
+            "## Manual LLM Accepted Sections",
+            "",
+        ]
+    )
+    if manual_llm["accepted_sections"]:
+        for section in manual_llm["accepted_sections"]:
+            lines.append(f"- {section}")
+    else:
+        lines.append("- none")
+    lines.extend(["", "## Manual LLM Missing Sections", ""])
+    if manual_llm["missing_sections"]:
+        for section in manual_llm["missing_sections"]:
+            lines.append(f"- {section}")
+    else:
+        lines.append("- none")
+    lines.extend(["", "## Manual LLM Safe Error Summary", ""])
+    if manual_llm["safe_error_summary"]:
+        for item in manual_llm["safe_error_summary"]:
+            lines.append(f"- {item}")
+    else:
+        lines.append("- none")
+
+    lines.extend(
+        [
             "",
             "## Missing Artifacts",
             "",

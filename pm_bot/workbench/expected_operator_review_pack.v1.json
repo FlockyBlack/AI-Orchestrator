@@ -56,11 +56,11 @@
   },
   "artifact_inventory": {
     "summary": {
-      "total_artifacts": 20,
-      "present_artifacts": 20,
+      "total_artifacts": 21,
+      "present_artifacts": 21,
       "missing_artifacts": 0,
       "required_missing_artifacts": 0,
-      "json_artifacts_parsed": 19,
+      "json_artifacts_parsed": 20,
       "json_artifacts_parse_failed": 0
     },
     "artifacts": [
@@ -359,6 +359,21 @@
         "parse_status": "parsed",
         "schema_version": "manual_command_inbox_review.v1",
         "task_id": "PMBOT-OPERATOR-002-MANUAL-COMMAND-INBOX-REVIEW-QUEUE",
+        "status": null,
+        "audit_status": null,
+        "deterministic": null,
+        "warning_count": 0
+      },
+      {
+        "artifact_id": "manual_llm_review",
+        "path": "pm_bot/llm/manual_llm_paste_in_review.v1.json",
+        "category": "manual_llm_review",
+        "artifact_type": "manual_llm_review_json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed",
+        "schema_version": null,
+        "task_id": null,
         "status": null,
         "audit_status": null,
         "deterministic": null,
@@ -667,6 +682,39 @@
     "orders_created": 0,
     "network_calls": 0,
     "next_safe_action": "human_review_queue_only"
+  },
+  "manual_llm_review": {
+    "section_id": "manual_llm_review",
+    "artifact_pointer": "pm_bot/llm/manual_llm_paste_in_review.v1.json",
+    "artifact_parse_status": "parsed",
+    "errors_count": 0,
+    "warnings_count": 0,
+    "accepted_sections": [
+      "concise_market_summary",
+      "key_uncertainties",
+      "missing_evidence",
+      "contradiction_checks",
+      "risk_notes",
+      "operator_review_checklist",
+      "suggested_research_questions",
+      "citation_or_source_gap_notes",
+      "safety_acknowledgement"
+    ],
+    "missing_sections": [],
+    "forbidden_content_detected": {
+      "detected": false,
+      "findings_count": 0
+    },
+    "next_safe_operator_action": "Compare the accepted sections with local source artifacts and manually record unresolved evidence gaps.",
+    "analysis_only_warning": "Manual LLM review is analysis-only and not trading advice; it does not authorize orders, paper orders, market decisions, side selection, probability estimates, EV, edge, or scoring.",
+    "safe_error_summary": [],
+    "surface_only": true,
+    "llm_text_generated": false,
+    "llm_api_calls_added": false,
+    "browser_automation_added": false,
+    "runtime_integration_added": false,
+    "artifact_status": "present",
+    "validation_status": "accepted"
   },
   "quality_warning_summary": {
     "source_path": "pm_bot/quality/artifact_health_report.v1.json",

@@ -51,8 +51,8 @@
 
 ## Artifact Inventory
 
-- total_artifacts: 20
-- present_artifacts: 20
+- total_artifacts: 21
+- present_artifacts: 21
 - missing_artifacts: 0
 - required_missing_artifacts: 0
 
@@ -76,6 +76,7 @@
 - paper_metrics_report: pm_bot/paper/paper_metrics_report.v1.json (present=true, required=true, parse_status=parsed)
 - portfolio_audit_state_preview: pm_bot/dashboard/portfolio_audit_state_preview.v1.json (present=true, required=true, parse_status=parsed)
 - manual_command_inbox_review: pm_bot/operator/manual_command_inbox_review.v1.json (present=true, required=true, parse_status=parsed)
+- manual_llm_review: pm_bot/llm/manual_llm_paste_in_review.v1.json (present=true, required=false, parse_status=parsed)
 
 ## Paper Audits
 
@@ -221,6 +222,43 @@
 - execution_authority: false
 - commands_executed: 0
 - network_calls: 0
+
+## Manual LLM Review
+
+- section_id: manual_llm_review
+- artifact_status: present
+- artifact_pointer: pm_bot/llm/manual_llm_paste_in_review.v1.json
+- artifact_parse_status: parsed
+- validation_status: accepted
+- errors_count: 0
+- warnings_count: 0
+- forbidden_content_detected: detected=false, findings_count=0
+- next_safe_operator_action: Compare the accepted sections with local source artifacts and manually record unresolved evidence gaps.
+- analysis_only_warning: Manual LLM review is analysis-only and not trading advice; it does not authorize orders, paper orders, market decisions, side selection, probability estimates, EV, edge, or scoring.
+- llm_text_generated: false
+- llm_api_calls_added: false
+- browser_automation_added: false
+- runtime_integration_added: false
+
+## Manual LLM Accepted Sections
+
+- concise_market_summary
+- key_uncertainties
+- missing_evidence
+- contradiction_checks
+- risk_notes
+- operator_review_checklist
+- suggested_research_questions
+- citation_or_source_gap_notes
+- safety_acknowledgement
+
+## Manual LLM Missing Sections
+
+- none
+
+## Manual LLM Safe Error Summary
+
+- none
 
 ## Missing Artifacts
 

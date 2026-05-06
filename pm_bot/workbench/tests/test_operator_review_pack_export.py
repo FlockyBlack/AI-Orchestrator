@@ -15,6 +15,7 @@ PACK_MD = ROOT / "pm_bot" / "workbench" / "operator_review_pack.v1.md"
 EXPECTED_JSON = ROOT / "pm_bot" / "workbench" / "expected_operator_review_pack.v1.json"
 RESULT = ROOT / "docs" / "PMBOT_WORKBENCH_001_RESULT.json"
 LANE_RESULT = ROOT / "docs" / "PMBOT_CODEX_A_ROUND003_RESULT.json"
+MANUAL_LLM_REVIEW = ROOT / "pm_bot" / "llm" / "manual_llm_paste_in_review.v1.json"
 
 NEW_JSON_FILES = [
     PACK_JSON,
@@ -64,6 +65,18 @@ def _load_module():
     return module
 
 
+def _collect_keys(value):
+    keys = set()
+    if isinstance(value, dict):
+        for key, item in value.items():
+            keys.add(key)
+            keys.update(_collect_keys(item))
+    elif isinstance(value, list):
+        for item in value:
+            keys.update(_collect_keys(item))
+    return keys
+
+
 class OperatorReviewPackExportTests(unittest.TestCase):
     def test_write_exports_pack_markdown_expected_and_result_docs(self):
         result = json.loads(_run_write().stdout)
@@ -103,6 +116,7 @@ class OperatorReviewPackExportTests(unittest.TestCase):
             "paper_020_paper_run_series_postmortem",
             "dashboard_state_summary",
             "operator_inbox_summary",
+            "manual_llm_review",
             "quality_warning_summary",
             "warnings",
             "missing_artifacts",
@@ -232,6 +246,106 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertEqual(inbox["needs_human_review_count"], 1)
         self.assertFalse(inbox["execution_authority"])
         self.assertEqual(inbox["commands_executed"], 0)
+
+    def test_manual_llm_review_section_surfaces_present_artifact_status_only(self):
+        _run_write()
+        pack = _load_json(PACK_JSON)
+        source = _load_json(MANUAL_LLM_REVIEW)
+        manual_llm = pack["manual_llm_review"]
+
+        self.assertEqual(manual_llm["section_id"], "manual_llm_review")
+        self.assertEqual(manual_llm["artifact_status"], "present")
+        self.assertEqual(
+            manual_llm["artifact_pointer"],
+            "pm_bot/llm/manual_llm_paste_in_review.v1.json",
+        )
+        self.assertEqual(manual_llm["artifact_parse_status"], "parsed")
+        self.assertEqual(manual_llm["validation_status"], source["validation_status"])
+        self.assertEqual(manual_llm["errors_count"], len(source["errors"]))
+        self.assertEqual(manual_llm["warnings_count"], len(source["warnings"]))
+        self.assertEqual(manual_llm["accepted_sections"], source["accepted_sections"])
+        self.assertEqual(manual_llm["missing_sections"], source["missing_sections"])
+        self.assertEqual(
+            manual_llm["forbidden_content_detected"],
+            {
+                "detected": source["forbidden_content_detected"]["detected"],
+                "findings_count": len(source["forbidden_content_detected"]["findings"]),
+            },
+        )
+        self.assertEqual(manual_llm["next_safe_operator_action"], source["next_safe_operator_action"])
+        self.assertIn("analysis-only and not trading advice", manual_llm["analysis_only_warning"])
+        self.assertFalse(manual_llm["llm_text_generated"])
+        self.assertFalse(manual_llm["llm_api_calls_added"])
+        self.assertFalse(manual_llm["browser_automation_added"])
+        self.assertFalse(manual_llm["runtime_integration_added"])
+
+    def test_manual_llm_review_missing_artifact_is_not_available_and_non_blocking(self):
+        module = _load_module()
+        with tempfile.TemporaryDirectory() as directory:
+            pack = module.build_operator_review_pack(Path(directory))
+
+        manual_llm = pack["manual_llm_review"]
+        self.assertEqual(manual_llm["artifact_status"], "missing")
+        self.assertEqual(manual_llm["validation_status"], "not_available")
+        self.assertEqual(manual_llm["accepted_sections"], [])
+        self.assertEqual(manual_llm["missing_sections"], [])
+        self.assertFalse(manual_llm["forbidden_content_detected"]["detected"])
+        self.assertIn("not available locally", manual_llm["safe_error_summary"][0])
+        self.assertFalse(manual_llm["llm_text_generated"])
+
+    def test_manual_llm_review_malformed_artifact_is_invalid_and_non_blocking(self):
+        module = _load_module()
+        with tempfile.TemporaryDirectory() as directory:
+            temp_root = Path(directory)
+            review_path = temp_root / "pm_bot" / "llm" / "manual_llm_paste_in_review.v1.json"
+            review_path.parent.mkdir(parents=True, exist_ok=True)
+            review_path.write_text("{", encoding="utf-8")
+
+            pack = module.build_operator_review_pack(temp_root)
+
+        manual_llm = pack["manual_llm_review"]
+        self.assertEqual(manual_llm["artifact_status"], "invalid")
+        self.assertEqual(manual_llm["validation_status"], "rejected_or_unreadable")
+        self.assertEqual(manual_llm["artifact_parse_status"], "parse_failed")
+        self.assertEqual(manual_llm["accepted_sections"], [])
+        self.assertEqual(manual_llm["missing_sections"], [])
+        self.assertIn("could not be read safely", manual_llm["safe_error_summary"][0])
+        self.assertFalse(manual_llm["llm_text_generated"])
+
+    def test_manual_llm_review_surface_does_not_generate_llm_text_or_forbidden_fields(self):
+        _run_write()
+        pack = _load_json(PACK_JSON)
+        manual_llm = pack["manual_llm_review"]
+        keys = _collect_keys(manual_llm)
+
+        self.assertNotIn("operator_summary", manual_llm)
+        self.assertNotIn("packet_validation", manual_llm)
+        self.assertNotIn("response_validation", manual_llm)
+        self.assertNotIn("source_artifacts", manual_llm)
+        self.assertFalse(manual_llm["llm_text_generated"])
+        for forbidden_field in (
+            "probability",
+            "ev",
+            "edge",
+            "score",
+            "scoring",
+            "recommended_side",
+            "side_recommendation",
+            "side_recommendations",
+        ):
+            self.assertNotIn(forbidden_field, keys)
+
+    def test_manual_llm_review_surface_adds_no_network_llm_browser_or_runtime_calls(self):
+        _run_write()
+        pack = _load_json(PACK_JSON)
+        manual_llm = pack["manual_llm_review"]
+
+        self.assertFalse(manual_llm["llm_api_calls_added"])
+        self.assertFalse(manual_llm["browser_automation_added"])
+        self.assertFalse(manual_llm["runtime_integration_added"])
+        self.assertEqual(pack["network_calls"], 0)
+        self.assertEqual(pack["commands_executed"], 0)
+        self.assertEqual(pack["paper_orders_created"], 0)
 
     def test_paper_019_multi_market_run_series_summary_is_visible_and_accounting_only(self):
         _run_write()
@@ -430,6 +544,11 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertIn("autonomous_paper_orders: 0", markdown)
         self.assertIn("Paper accounting PnL is fixture/manual accounting only", markdown)
         self.assertIn("does not recommend markets", markdown)
+        self.assertIn("Manual LLM Review", markdown)
+        self.assertIn("artifact_status: present", markdown)
+        self.assertIn("validation_status: accepted", markdown)
+        self.assertIn("analysis-only and not trading advice", markdown)
+        self.assertIn("llm_text_generated: false", markdown)
 
     def test_result_docs_match_and_report_no_forbidden_changes(self):
         _run_write()
