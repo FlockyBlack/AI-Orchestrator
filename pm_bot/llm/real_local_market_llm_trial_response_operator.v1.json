@@ -1,0 +1,82 @@
+{
+  "contract_version": "llm_analysis_response.v1",
+  "response_id": "llm-analysis-response-real-local-market-824952-manual-review",
+  "packet_id": "llm-analysis-packet-real-local-market-824952",
+  "concise_market_summary": "The packet describes a local offline PMBOT review context for market_id 824952, titled \"MicroStrategy sells any Bitcoin by December 31, 2026?\". The local summary says the market resolution depends on whether MicroStrategy sells any Bitcoin by the specified deadline, but the packet explicitly states that the copied description is stub-only, the market status is unknown, and the full local criteria still require manual review.",
+  "key_uncertainties": [
+    "Uncertain: the full resolution criteria were not included in the packet, so the local excerpt may omit important qualification details.",
+    "Uncertain: the packet does not verify whether the referenced source artifact is current, complete, or aligned with the original market source.",
+    "Uncertain: the market status is listed as unknown, so the operator cannot rely on the packet to determine whether the market is active, closed, resolved, or otherwise changed.",
+    "Uncertain: the evidence entries are mostly source-coverage placeholders and manual notes rather than verified source checks.",
+    "Uncertain: the packet intentionally omits numeric market fields, accounting values, and external source refreshes, limiting the analysis to structure and review readiness."
+  ],
+  "missing_evidence": [
+    "Full local resolution criteria for the market are not included in the packet.",
+    "No refreshed official source or original market page verification is included.",
+    "No source-date verification is provided for the local artifact or referenced dossier fields.",
+    "No external factual verification is included for whether any relevant Bitcoin sale occurred or how such an event would be recognized under the market rules.",
+    "No completed source-completeness review is included; the packet only notes that human judgment is still needed."
+  ],
+  "contradiction_checks": [
+    {
+      "topic": "Market title versus resolution summary",
+      "check_result": "no_conflict_seen",
+      "notes": "The title and the stub-only resolution summary both refer to whether MicroStrategy sells any Bitcoin by December 31, 2026."
+    },
+    {
+      "topic": "Evidence strength versus research status",
+      "check_result": "possible_conflict",
+      "notes": "The research status is marked manual_review_ready, but the evidence entries repeatedly state that sources were not fetched, refreshed, resolved, or verified. This is not necessarily invalid, but it requires operator review so manual_review_ready is not mistaken for source-complete."
+    },
+    {
+      "topic": "Source coverage placeholders versus verified citations",
+      "check_result": "needs_more_source_review",
+      "notes": "The packet includes official and news source placeholders as coverage context, but does not provide verified citations or source contents."
+    },
+    {
+      "topic": "Market status field",
+      "check_result": "needs_more_source_review",
+      "notes": "The packet lists market_status and normalized status as unknown, so any workflow depending on active, closed, or resolved state needs separate local verification."
+    }
+  ],
+  "risk_notes": [
+    "A human operator could overread the stub-only description as the full rule text, which would be unsafe for review quality.",
+    "Source placeholders may look like evidence even though the packet says they were not fetched, refreshed, resolved, or verified.",
+    "The local artifact may be stale because the packet is derived only from an existing local PMBOT artifact with no live refresh.",
+    "The packet is suitable for review-supporting notes only and does not establish truth, completeness, outcome, or action readiness.",
+    "Ambiguity around what qualifies as a Bitcoin sale under the full criteria remains unresolved in the supplied packet."
+  ],
+  "operator_review_checklist": [
+    "Open the referenced local artifact at pm_bot/research/selected_ingest_final_dossier_drafts.v1.json and confirm the full market criteria are present.",
+    "Verify whether the local artifact contains the complete resolution rules rather than only the stub-only excerpt.",
+    "Check source dates and source references for the official source placeholder and credible news placeholder fields.",
+    "Confirm the current local market status through approved local artifacts before treating the review packet as current.",
+    "Mark each placeholder source as either verified, still missing, stale, or not applicable in the operator review record.",
+    "Confirm that no numeric outcome estimate, side selection, value scoring, order instruction, credential field, or wallet material is introduced during manual review."
+  ],
+  "suggested_research_questions": [
+    "What is the exact full local resolution criterion for market_id 824952, including any boundary conditions around what counts as selling Bitcoin?",
+    "Which official source should be used to verify whether the relevant company action occurred, and what date should that source be checked against?",
+    "Which credible news or filing sources are already represented in local artifacts, and which are still only placeholders?",
+    "Does the local dossier distinguish between direct Bitcoin sales, transfers, accounting treatment, collateral movement, or other non-sale events?",
+    "What local artifact should be treated as the operator-facing source of truth for this review stage?"
+  ],
+  "citation_or_source_gap_notes": [
+    "The only source artifact named in the packet is pm_bot/research/selected_ingest_final_dossier_drafts.v1.json.",
+    "The packet does not include direct source contents from an official source or news source, only placeholder coverage notes.",
+    "The trial explicitly states that it does not fetch, refresh, resolve, or verify referenced sources.",
+    "Source gap review should focus first on full resolution rules, source dates, and whether the local artifact is complete enough for human review.",
+    "Any claim beyond the supplied local packet should remain marked as unverified until checked through approved local evidence."
+  ],
+  "safety_acknowledgement": {
+    "offline_only": true,
+    "local_only": true,
+    "manual_review_only": true,
+    "no_recommendations": true,
+    "no_outcome_estimates": true,
+    "no_value_scoring": true,
+    "no_trade_or_wallet_instructions": true,
+    "no_autonomous_actions": true,
+    "uncertain_claims_marked": true
+  }
+}

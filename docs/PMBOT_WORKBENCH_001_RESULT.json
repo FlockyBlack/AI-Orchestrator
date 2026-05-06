@@ -19,12 +19,22 @@
   "files_modified": [],
   "tests": [],
   "artifact_inventory_summary": {
-    "total_artifacts": 22,
-    "present_artifacts": 22,
+    "total_artifacts": 23,
+    "present_artifacts": 23,
     "missing_artifacts": 0,
     "required_missing_artifacts": 0,
-    "json_artifacts_parsed": 21,
+    "json_artifacts_parsed": 22,
     "json_artifacts_parse_failed": 0
+  },
+  "actual_manual_llm_response_trial": {
+    "artifact_present": true,
+    "operator_response_present": true,
+    "run_status": "actual_response_accepted",
+    "acceptance_status": "accepted_for_operator_review",
+    "offline_review_context_only": true,
+    "not_truth_source": true,
+    "not_trading_advice": true,
+    "not_execution_authority": true
   },
   "missing_artifacts": [],
   "warnings_count": 4,

@@ -17,6 +17,7 @@ RESULT = ROOT / "docs" / "PMBOT_WORKBENCH_001_RESULT.json"
 LANE_RESULT = ROOT / "docs" / "PMBOT_CODEX_A_ROUND003_RESULT.json"
 MANUAL_LLM_REVIEW = ROOT / "pm_bot" / "llm" / "manual_llm_paste_in_review.v1.json"
 MANUAL_LLM_QUALITY_GATE = ROOT / "pm_bot" / "llm" / "manual_llm_review_quality_gate.v1.json"
+ACTUAL_MANUAL_LLM_RESPONSE_TRIAL = ROOT / "pm_bot" / "llm" / "actual_manual_llm_response_trial.v1.json"
 
 NEW_JSON_FILES = [
     PACK_JSON,
@@ -119,6 +120,7 @@ class OperatorReviewPackExportTests(unittest.TestCase):
             "operator_inbox_summary",
             "manual_llm_review",
             "manual_llm_review_quality_gate",
+            "actual_manual_llm_response_trial",
             "quality_warning_summary",
             "warnings",
             "missing_artifacts",
@@ -182,12 +184,14 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertTrue(inventory["portfolio_audit_state_preview"]["present"])
         self.assertTrue(inventory["manual_command_inbox_review"]["present"])
         self.assertTrue(inventory["manual_llm_review_quality_gate"]["present"])
+        self.assertTrue(inventory["actual_manual_llm_response_trial"]["present"])
         self.assertEqual(inventory["paper_019_result"]["parse_status"], "parsed")
         self.assertEqual(inventory["paper_019_multi_market_run_series"]["parse_status"], "parsed")
         self.assertEqual(inventory["paper_020_result"]["parse_status"], "parsed")
         self.assertEqual(inventory["paper_020_paper_run_series_postmortem"]["parse_status"], "parsed")
         self.assertEqual(inventory["paper_accounting_batch_audit"]["parse_status"], "parsed")
         self.assertEqual(inventory["manual_llm_review_quality_gate"]["parse_status"], "parsed")
+        self.assertEqual(inventory["actual_manual_llm_response_trial"]["parse_status"], "parsed")
         self.assertEqual(
             inventory["paper_019_multi_market_run_series"]["path"],
             "pm_bot/paper/multi_market_paper_run_series.v1.json",
@@ -199,6 +203,10 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertEqual(
             inventory["paper_accounting_batch_audit"]["path"],
             "pm_bot/paper/paper_accounting_batch_audit.v1.json",
+        )
+        self.assertEqual(
+            inventory["actual_manual_llm_response_trial"]["path"],
+            "pm_bot/llm/actual_manual_llm_response_trial.v1.json",
         )
 
         missing = {item["path"]: item for item in pack["missing_artifacts"]}
@@ -330,6 +338,46 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertFalse(quality_gate["browser_automation_added"])
         self.assertFalse(quality_gate["runtime_integration_added"])
 
+    def test_actual_manual_llm_response_trial_section_surfaces_accepted_artifact_status_only(self):
+        _run_write()
+        pack = _load_json(PACK_JSON)
+        source = _load_json(ACTUAL_MANUAL_LLM_RESPONSE_TRIAL)
+        trial = pack["actual_manual_llm_response_trial"]
+
+        self.assertEqual(trial["section_id"], "actual_manual_llm_response_trial")
+        self.assertEqual(trial["contract_version"], "actual_manual_llm_response_workbench_surface.v1")
+        self.assertEqual(trial["artifact_status"], "present")
+        self.assertEqual(trial["artifact_path"], "pm_bot/llm/actual_manual_llm_response_trial.v1.json")
+        self.assertTrue(trial["artifact_present"])
+        self.assertEqual(trial["parse_status"], "parsed")
+        self.assertEqual(
+            trial["operator_response_path"],
+            "pm_bot/llm/real_local_market_llm_trial_response_operator.v1.json",
+        )
+        self.assertTrue(trial["operator_response_present"])
+        self.assertTrue(trial["trial_artifact_operator_response_present"])
+        self.assertEqual(trial["market_id"], source["market_id"])
+        self.assertEqual(trial["source_artifact_path"], source["source_artifact_path"])
+        self.assertEqual(trial["response_source_type"], source["response_source_type"])
+        self.assertEqual(trial["trial_packet_source_type"], source["trial_packet_source_type"])
+        self.assertEqual(trial["run_status"], source["run_status"])
+        self.assertEqual(trial["acceptance_status"], source["acceptance_status"])
+        self.assertEqual(trial["response_validation_status"], source["response_validation_status"])
+        self.assertEqual(trial["manual_review_status"], source["manual_review_status"])
+        self.assertEqual(trial["quality_gate_status"], source["quality_gate_status"])
+        self.assertEqual(trial["errors_count"], len(source["errors"]))
+        self.assertEqual(trial["warnings_count"], len(source["warnings"]))
+        self.assertEqual(trial["next_safe_operator_action"], source["next_safe_operator_action"])
+        self.assertTrue(trial["offline_review_context_only"])
+        self.assertTrue(trial["not_truth_source"])
+        self.assertTrue(trial["not_trading_advice"])
+        self.assertTrue(trial["not_execution_authority"])
+        self.assertFalse(trial["llm_text_generated"])
+        self.assertFalse(trial["llm_api_calls_added"])
+        self.assertFalse(trial["browser_automation_added"])
+        self.assertFalse(trial["runtime_integration_added"])
+        self.assertIn("offline review context only", trial["explicit_operator_warning"])
+
     def test_manual_llm_review_missing_artifact_is_not_available_and_non_blocking(self):
         module = _load_module()
         with tempfile.TemporaryDirectory() as directory:
@@ -396,6 +444,42 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertIn("could not be read safely", quality_gate["safe_error_summary"][0])
         self.assertFalse(quality_gate["llm_text_generated"])
 
+    def test_actual_manual_llm_response_trial_missing_artifact_is_not_available_and_non_blocking(self):
+        module = _load_module()
+        with tempfile.TemporaryDirectory() as directory:
+            pack = module.build_operator_review_pack(Path(directory))
+
+        trial = pack["actual_manual_llm_response_trial"]
+        warnings = {item["warning_id"]: item for item in pack["warnings"]}
+        self.assertEqual(trial["artifact_status"], "missing")
+        self.assertFalse(trial["artifact_present"])
+        self.assertEqual(trial["parse_status"], "missing")
+        self.assertEqual(trial["run_status"], "not_available")
+        self.assertEqual(trial["acceptance_status"], "not_available")
+        self.assertIn("not available locally", trial["safe_error_summary"][0])
+        self.assertIn("actual_manual_llm_response_trial_missing", warnings)
+        self.assertTrue(trial["offline_review_context_only"])
+
+    def test_actual_manual_llm_response_trial_malformed_artifact_is_invalid_and_non_blocking(self):
+        module = _load_module()
+        with tempfile.TemporaryDirectory() as directory:
+            temp_root = Path(directory)
+            trial_path = temp_root / "pm_bot" / "llm" / "actual_manual_llm_response_trial.v1.json"
+            trial_path.parent.mkdir(parents=True, exist_ok=True)
+            trial_path.write_text("{", encoding="utf-8")
+
+            pack = module.build_operator_review_pack(temp_root)
+
+        trial = pack["actual_manual_llm_response_trial"]
+        warnings = {item["warning_id"]: item for item in pack["warnings"]}
+        self.assertEqual(trial["artifact_status"], "invalid")
+        self.assertTrue(trial["artifact_present"])
+        self.assertEqual(trial["parse_status"], "parse_failed")
+        self.assertEqual(trial["run_status"], "not_available")
+        self.assertIn("could not be read safely", trial["safe_error_summary"][0])
+        self.assertIn("actual_manual_llm_response_trial_invalid", warnings)
+        self.assertFalse(trial["llm_text_generated"])
+
     def test_manual_llm_review_surface_does_not_generate_llm_text_or_forbidden_fields(self):
         _run_write()
         pack = _load_json(PACK_JSON)
@@ -433,6 +517,7 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         pack = _load_json(PACK_JSON)
         manual_llm = pack["manual_llm_review"]
         quality_gate = pack["manual_llm_review_quality_gate"]
+        actual_trial = pack["actual_manual_llm_response_trial"]
 
         self.assertFalse(manual_llm["llm_api_calls_added"])
         self.assertFalse(manual_llm["browser_automation_added"])
@@ -440,6 +525,9 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertFalse(quality_gate["llm_api_calls_added"])
         self.assertFalse(quality_gate["browser_automation_added"])
         self.assertFalse(quality_gate["runtime_integration_added"])
+        self.assertFalse(actual_trial["llm_api_calls_added"])
+        self.assertFalse(actual_trial["browser_automation_added"])
+        self.assertFalse(actual_trial["runtime_integration_added"])
         self.assertEqual(pack["network_calls"], 0)
         self.assertEqual(pack["commands_executed"], 0)
         self.assertEqual(pack["paper_orders_created"], 0)
@@ -658,6 +746,21 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertIn("forbidden_content_check: status=passed", markdown)
         self.assertIn("deterministic offline quality gate only", markdown)
         self.assertIn("not truth evaluation, probability, EV, edge, side, or trading advice", markdown)
+        self.assertIn("Actual Manual LLM Response Trial", markdown)
+        self.assertIn("artifact_path: pm_bot/llm/actual_manual_llm_response_trial.v1.json", markdown)
+        self.assertIn("operator_response_present: true", markdown)
+        self.assertIn("response_source_type: actual_operator_pasted_response", markdown)
+        self.assertIn("market_id: 824952", markdown)
+        self.assertIn("run_status: actual_response_accepted", markdown)
+        self.assertIn("acceptance_status: accepted_for_operator_review", markdown)
+        self.assertIn("response_validation_status: accepted", markdown)
+        self.assertIn("manual_review_status: accepted", markdown)
+        self.assertIn("quality_gate_status: quality_passed", markdown)
+        self.assertIn("offline_review_context_only: true", markdown)
+        self.assertIn("not_truth_source: true", markdown)
+        self.assertIn("not_trading_advice: true", markdown)
+        self.assertIn("not_execution_authority: true", markdown)
+        self.assertIn("not a truth source, not trading advice, and not execution authority", markdown)
 
     def test_result_docs_match_and_report_no_forbidden_changes(self):
         _run_write()
@@ -686,7 +789,7 @@ class OperatorReviewPackExportTests(unittest.TestCase):
                 imports.update(alias.name.split(".")[0] for alias in node.names)
             elif isinstance(node, ast.ImportFrom) and node.module:
                 imports.add(node.module.split(".")[0])
-        self.assertLessEqual(imports, {"argparse", "json", "pathlib", "sys"})
+        self.assertLessEqual(imports, {"argparse", "json", "pathlib", "pm_bot", "sys"})
 
         source_no_spaces = RUNNER.read_text(encoding="utf-8").lower().replace(" ", "")
         forbidden_call_terms = [

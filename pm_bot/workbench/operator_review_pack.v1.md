@@ -51,8 +51,8 @@
 
 ## Artifact Inventory
 
-- total_artifacts: 22
-- present_artifacts: 22
+- total_artifacts: 23
+- present_artifacts: 23
 - missing_artifacts: 0
 - required_missing_artifacts: 0
 
@@ -78,6 +78,7 @@
 - manual_command_inbox_review: pm_bot/operator/manual_command_inbox_review.v1.json (present=true, required=true, parse_status=parsed)
 - manual_llm_review: pm_bot/llm/manual_llm_paste_in_review.v1.json (present=true, required=false, parse_status=parsed)
 - manual_llm_review_quality_gate: pm_bot/llm/manual_llm_review_quality_gate.v1.json (present=true, required=false, parse_status=parsed)
+- actual_manual_llm_response_trial: pm_bot/llm/actual_manual_llm_response_trial.v1.json (present=true, required=false, parse_status=parsed)
 
 ## Paper Audits
 
@@ -294,6 +295,56 @@
 
 - none
 
+## Actual Manual LLM Response Trial
+
+- section_id: actual_manual_llm_response_trial
+- artifact_status: present
+- artifact_path: pm_bot/llm/actual_manual_llm_response_trial.v1.json
+- artifact_present: true
+- parse_status: parsed
+- operator_response_path: pm_bot/llm/real_local_market_llm_trial_response_operator.v1.json
+- operator_response_present: true
+- trial_artifact_operator_response_present: true
+- response_source_type: actual_operator_pasted_response
+- market_id: 824952
+- source_artifact_path: pm_bot/research/selected_ingest_final_dossier_drafts.v1.json
+- trial_packet_source_type: real_local_market_artifact
+- run_status: actual_response_accepted
+- acceptance_status: accepted_for_operator_review
+- response_validation_status: accepted
+- manual_review_status: accepted
+- quality_gate_status: quality_passed
+- errors_count: 0
+- warnings_count: 0
+- next_safe_operator_action: Review the accepted local artifacts as offline operator context only; do not execute or automate anything.
+- offline_review_context_only: true
+- not_truth_source: true
+- not_trading_advice: true
+- not_execution_authority: true
+- explicit_warning: This surface is offline review context only. It is not a truth source, not trading advice, and not execution authority.
+
+## Actual Manual LLM Response Trial Safety Flags
+
+- autonomous_paper_orders: false
+- browser_automation: false
+- credentials_or_wallet: false
+- deterministic: true
+- llm_api: false
+- local_file_reads_only: true
+- market_decision_logic: false
+- network_api: false
+- not_execution_authority: true
+- not_trading_advice: true
+- not_truth_source: true
+- offline_review_context_only: true
+- probability_ev_scoring_or_edge: false
+- prompt_automation: false
+- real_orders_or_live_trading: false
+- runtime_wiring: false
+- side_recommendations: false
+- surface_only: true
+- truth_evaluation: false
+
 ## Missing Artifacts
 
 - none
@@ -331,6 +382,7 @@
 - review_pack_inventory_and_warnings: Review artifact_inventory, missing_artifacts, and warnings in this local pack.
 - review_paper_accounting_audit_artifacts: Inspect the existing paper reconciliation and batch audit artifacts for local consistency status.
 - review_operator_inbox_queue: Review accepted, rejected, and needs-human-review inbox records without executing commands.
+- review_actual_manual_llm_response_trial_surface: Review actual manual LLM response trial status as offline local context only.
 - integration_review_only: Use this pack as a static input for human integration review only.
 
 - This operator review pack does not recommend markets, sides, prices, sizes, orders, trades, paper orders, or decisions.

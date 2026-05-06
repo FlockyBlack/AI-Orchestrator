@@ -58,6 +58,25 @@
 - pm_bot/workbench/expected_operator_workbench_export_run.v1.json
 - docs/PMBOT_WORKBENCH_003_RESULT.json
 
+## Actual Manual LLM Response Trial
+
+- artifact_path: pm_bot/llm/actual_manual_llm_response_trial.v1.json
+- artifact_present: true
+- operator_response_path: pm_bot/llm/real_local_market_llm_trial_response_operator.v1.json
+- operator_response_present: true
+- response_source_type: actual_operator_pasted_response
+- market_id: 824952
+- source_artifact_path: pm_bot/research/selected_ingest_final_dossier_drafts.v1.json
+- run_status: actual_response_accepted
+- acceptance_status: accepted_for_operator_review
+- response_validation_status: accepted
+- manual_review_status: accepted
+- quality_gate_status: quality_passed
+- errors_count: 0
+- warnings_count: 0
+- next_safe_operator_action: Review the accepted local artifacts as offline operator context only; do not execute or automate anything.
+- explicit_warning: This surface is offline review context only. It is not a truth source, not trading advice, and not execution authority.
+
 ## Warnings
 
 - none

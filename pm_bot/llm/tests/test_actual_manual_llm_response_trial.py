@@ -16,6 +16,7 @@ PROMPT = LLM_DIR / "real_local_market_llm_trial_prompt.v1.md"
 EXAMPLE_RESPONSE = LLM_DIR / "real_local_market_llm_trial_response_example.v1.json"
 LOW_QUALITY_RESPONSE = LLM_DIR / "manual_llm_paste_in_response_example_low_quality.v1.json"
 EXPECTED_PENDING = LLM_DIR / "expected_actual_manual_llm_response_trial_pending.v1.json"
+EXPECTED_ACCEPTED = LLM_DIR / "expected_actual_manual_llm_response_trial_accepted.v1.json"
 
 
 def _load_module():
@@ -201,12 +202,20 @@ class ActualManualLlmResponseTrialTests(unittest.TestCase):
             self.assertIn("Actual operator response file exists: False", markdown)
             self.assertIn("no API, no automation", markdown)
 
-    def test_expected_pending_fixture_matches(self):
+    def test_expected_accepted_fixture_matches_default_when_operator_response_present(self):
         module = _load_module()
 
         result = module.build_actual_manual_llm_response_trial()
 
-        self.assertEqual(result, _load_json(EXPECTED_PENDING))
+        self.assertEqual(result, _load_json(EXPECTED_ACCEPTED))
+
+    def test_expected_pending_fixture_remains_documented_for_missing_operator_response(self):
+        pending = _load_json(EXPECTED_PENDING)
+
+        self.assertEqual(pending["run_status"], "pending_operator_input")
+        self.assertFalse(pending["operator_response_present"])
+        self.assertEqual(pending["acceptance_status"], "pending_real_manual_response")
+        self.assertEqual(pending["response_validation_status"], "not_run")
 
     def test_no_network_llm_browser_prompt_runtime_or_order_calls_are_added(self):
         module = _load_module()

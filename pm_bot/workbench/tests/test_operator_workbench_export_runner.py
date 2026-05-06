@@ -239,8 +239,8 @@ class OperatorWorkbenchExportRunnerTests(unittest.TestCase):
             directory.cleanup()
 
     def test_current_run_summary_artifacts_parse_when_present(self):
-        if not RUN_JSON.exists():
-            self.skipTest("run summary not generated yet")
+        module = _load_module()
+        module.run_operator_workbench_export(ROOT)
 
         summary = json.loads(RUN_JSON.read_text(encoding="utf-8"))
         self.assertEqual(summary, json.loads(EXPECTED_RUN_JSON.read_text(encoding="utf-8")))
@@ -248,6 +248,14 @@ class OperatorWorkbenchExportRunnerTests(unittest.TestCase):
         self.assertTrue(RESULT.exists())
         self.assertEqual(summary["schema_version"], "operator_workbench_export_run.v1")
         self.assertEqual(summary["run_mode"], "manual_local_export")
+        self.assertIn("actual_manual_llm_response_trial", summary)
+        actual_trial = summary["actual_manual_llm_response_trial"]
+        self.assertEqual(actual_trial["artifact_path"], "pm_bot/llm/actual_manual_llm_response_trial.v1.json")
+        self.assertTrue(actual_trial["artifact_present"])
+        self.assertTrue(actual_trial["operator_response_present"])
+        self.assertEqual(actual_trial["run_status"], "actual_response_accepted")
+        self.assertEqual(actual_trial["acceptance_status"], "accepted_for_operator_review")
+        self.assertTrue(actual_trial["offline_review_context_only"])
 
     def test_runner_uses_standard_library_and_no_runtime_network_trading_or_command_execution_imports(self):
         tree = ast.parse(RUNNER.read_text(encoding="utf-8"))
@@ -258,7 +266,7 @@ class OperatorWorkbenchExportRunnerTests(unittest.TestCase):
             elif isinstance(node, ast.ImportFrom) and node.module:
                 imports.add(node.module.split(".")[0])
 
-        self.assertLessEqual(imports, {"argparse", "importlib", "json", "pathlib", "sys"})
+        self.assertLessEqual(imports, {"argparse", "importlib", "json", "pathlib", "pm_bot", "sys"})
         self.assertNotIn("subprocess", imports)
         self.assertTrue(
             imports.isdisjoint(

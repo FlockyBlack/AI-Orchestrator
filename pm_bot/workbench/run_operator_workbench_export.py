@@ -11,6 +11,11 @@ GENERATED_BY = "pm_bot/workbench/run_operator_workbench_export.py"
 RUN_MODE = "manual_local_export"
 
 ROOT = Path(__file__).resolve().parents[2]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from pm_bot.llm import summarize_actual_manual_llm_response_trial as actual_llm_response_surface  # noqa: E402
+
 WORKBENCH_DIR = ROOT / "pm_bot" / "workbench"
 DOCS_DIR = ROOT / "docs"
 
@@ -25,6 +30,10 @@ SUMMARY_OUTPUT_ARTIFACTS = [
     "pm_bot/workbench/expected_operator_workbench_export_run.v1.json",
     "docs/PMBOT_WORKBENCH_003_RESULT.json",
 ]
+
+ACTUAL_MANUAL_LLM_RESPONSE_TRIAL_ARTIFACT_PATH = (
+    "pm_bot/llm/actual_manual_llm_response_trial.v1.json"
+)
 
 SAFETY_FLAGS = {
     "manual_cli_only": True,
@@ -232,7 +241,11 @@ def _warnings_for_steps(steps):
     return warnings
 
 
-def build_run_summary(step_results):
+def _actual_manual_llm_response_trial_surface(root=ROOT):
+    return actual_llm_response_surface.summarize_actual_manual_llm_response_trial(root=root)
+
+
+def build_run_summary(step_results, root=ROOT):
     required_steps_passed = all(
         step["status"] == "ran" for step in step_results if step["required"]
     )
@@ -252,6 +265,7 @@ def build_run_summary(step_results):
             step["step_id"] for step in step_results if step["status"] == "skipped_optional"
         ],
         "artifacts_refreshed": _ordered_unique(artifacts),
+        "actual_manual_llm_response_trial": _actual_manual_llm_response_trial_surface(root=root),
         "warnings": _warnings_for_steps(step_results),
         "safety_flags": dict(SAFETY_FLAGS),
         "network_calls": 0,
@@ -265,6 +279,7 @@ def build_run_summary(step_results):
 
 
 def render_markdown(summary):
+    actual_trial = summary["actual_manual_llm_response_trial"]
     lines = [
         "# PMBOT Operator Workbench Export Run v1",
         "",
@@ -295,6 +310,30 @@ def render_markdown(summary):
     lines.extend(["", "## Artifacts Refreshed", ""])
     for artifact in summary["artifacts_refreshed"]:
         lines.append(f"- {artifact}")
+
+    lines.extend(
+        [
+            "",
+            "## Actual Manual LLM Response Trial",
+            "",
+            f"- artifact_path: {actual_trial['artifact_path']}",
+            f"- artifact_present: {str(actual_trial['artifact_present']).lower()}",
+            f"- operator_response_path: {actual_trial['operator_response_path']}",
+            f"- operator_response_present: {str(actual_trial['operator_response_present']).lower()}",
+            f"- response_source_type: {actual_trial['response_source_type'] or 'not_available'}",
+            f"- market_id: {actual_trial['market_id'] or 'not_available'}",
+            f"- source_artifact_path: {actual_trial['source_artifact_path'] or 'not_available'}",
+            f"- run_status: {actual_trial['run_status']}",
+            f"- acceptance_status: {actual_trial['acceptance_status']}",
+            f"- response_validation_status: {actual_trial['response_validation_status']}",
+            f"- manual_review_status: {actual_trial['manual_review_status']}",
+            f"- quality_gate_status: {actual_trial['quality_gate_status']}",
+            f"- errors_count: {actual_trial['errors_count']}",
+            f"- warnings_count: {actual_trial['warnings_count']}",
+            f"- next_safe_operator_action: {actual_trial['next_safe_operator_action']}",
+            f"- explicit_warning: {actual_trial['explicit_operator_warning']}",
+        ]
+    )
 
     lines.extend(["", "## Warnings", ""])
     if summary["warnings"]:
@@ -354,6 +393,22 @@ def _result_payload(summary):
         ],
         "artifacts_refreshed": summary["artifacts_refreshed"],
         "run_summary_artifact": "pm_bot/workbench/operator_workbench_export_run.v1.json",
+        "actual_manual_llm_response_trial": {
+            "artifact_present": summary["actual_manual_llm_response_trial"]["artifact_present"],
+            "operator_response_present": summary["actual_manual_llm_response_trial"][
+                "operator_response_present"
+            ],
+            "run_status": summary["actual_manual_llm_response_trial"]["run_status"],
+            "acceptance_status": summary["actual_manual_llm_response_trial"]["acceptance_status"],
+            "offline_review_context_only": summary["actual_manual_llm_response_trial"][
+                "offline_review_context_only"
+            ],
+            "not_truth_source": summary["actual_manual_llm_response_trial"]["not_truth_source"],
+            "not_trading_advice": summary["actual_manual_llm_response_trial"]["not_trading_advice"],
+            "not_execution_authority": summary["actual_manual_llm_response_trial"][
+                "not_execution_authority"
+            ],
+        },
         "safety_flags": summary["safety_flags"],
         "network_calls": 0,
         "commands_executed": 0,
@@ -377,7 +432,7 @@ def write_run_artifacts(summary, root=ROOT):
 
 def run_operator_workbench_export(root=ROOT):
     step_results = [_run_step(step, root=root) for step in build_export_steps(root)]
-    summary = build_run_summary(step_results)
+    summary = build_run_summary(step_results, root=root)
     write_run_artifacts(summary, root=root)
     return summary
 

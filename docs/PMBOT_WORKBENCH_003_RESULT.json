@@ -62,6 +62,16 @@
     "docs/PMBOT_WORKBENCH_003_RESULT.json"
   ],
   "run_summary_artifact": "pm_bot/workbench/operator_workbench_export_run.v1.json",
+  "actual_manual_llm_response_trial": {
+    "artifact_present": true,
+    "operator_response_present": true,
+    "run_status": "actual_response_accepted",
+    "acceptance_status": "accepted_for_operator_review",
+    "offline_review_context_only": true,
+    "not_truth_source": true,
+    "not_trading_advice": true,
+    "not_execution_authority": true
+  },
   "safety_flags": {
     "manual_cli_only": true,
     "offline_only": true,

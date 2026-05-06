@@ -1,0 +1,117 @@
+{
+  "task_id": "PMBOT-LLM-011-ACTUAL-MANUAL-LLM-RESPONSE-WORKBENCH-SURFACE",
+  "status": "completed_ready_for_review",
+  "summary": "Added deterministic offline operator/workbench surfaces for the accepted actual manual LLM response trial artifact. The surface reads only local artifacts, reports artifact and operator response presence, exposes accepted status fields and safety flags, and repeats that the LLM response is offline review context only.",
+  "surface_status": {
+    "artifact_present": true,
+    "operator_response_present": true,
+    "response_source_type": "actual_operator_pasted_response",
+    "market_id": "824952",
+    "source_artifact_path": "pm_bot/research/selected_ingest_final_dossier_drafts.v1.json",
+    "run_status": "actual_response_accepted",
+    "acceptance_status": "accepted_for_operator_review",
+    "response_validation_status": "accepted",
+    "manual_review_status": "accepted",
+    "quality_gate_status": "quality_passed",
+    "errors_count": 0,
+    "warnings_count": 0
+  },
+  "files_created": [
+    "docs/PMBOT_LLM_011_RESULT.json",
+    "pm_bot/llm/expected_actual_manual_llm_response_trial_accepted.v1.json",
+    "pm_bot/llm/real_local_market_llm_trial_response_operator.v1.json",
+    "pm_bot/llm/summarize_actual_manual_llm_response_trial.py",
+    "pm_bot/llm/tests/test_actual_manual_llm_response_workbench_surface.py"
+  ],
+  "files_modified": [
+    "docs/PMBOT_CODEX_A_ROUND003_RESULT.json",
+    "docs/PMBOT_WORKBENCH_001_RESULT.json",
+    "docs/PMBOT_WORKBENCH_003_RESULT.json",
+    "pm_bot/llm/actual_manual_llm_response_trial.v1.json",
+    "pm_bot/llm/actual_manual_llm_response_trial.v1.md",
+    "pm_bot/llm/tests/test_actual_manual_llm_response_trial.py",
+    "pm_bot/workbench/expected_operator_review_pack.v1.json",
+    "pm_bot/workbench/expected_operator_workbench_export_run.v1.json",
+    "pm_bot/workbench/export_operator_review_pack.py",
+    "pm_bot/workbench/operator_review_pack.v1.json",
+    "pm_bot/workbench/operator_review_pack.v1.md",
+    "pm_bot/workbench/operator_workbench_export_run.v1.json",
+    "pm_bot/workbench/operator_workbench_export_run.v1.md",
+    "pm_bot/workbench/run_operator_workbench_export.py",
+    "pm_bot/workbench/tests/test_operator_review_pack_export.py",
+    "pm_bot/workbench/tests/test_operator_workbench_export_runner.py"
+  ],
+  "tests_run": [
+    {
+      "command": "python -m py_compile pm_bot\\llm\\summarize_actual_manual_llm_response_trial.py pm_bot\\workbench\\export_operator_review_pack.py pm_bot\\workbench\\run_operator_workbench_export.py pm_bot\\llm\\tests\\test_actual_manual_llm_response_workbench_surface.py pm_bot\\workbench\\tests\\test_operator_review_pack_export.py pm_bot\\workbench\\tests\\test_operator_workbench_export_runner.py",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\llm\\tests\\test_actual_manual_llm_response_workbench_surface.py -q",
+      "status": "passed",
+      "result": "5 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\workbench\\tests\\test_operator_review_pack_export.py pm_bot\\workbench\\tests\\test_operator_workbench_export_runner.py -q",
+      "status": "passed",
+      "result": "32 passed"
+    },
+    {
+      "command": "python .\\pm_bot\\llm\\run_actual_manual_llm_response_trial.py",
+      "status": "passed"
+    },
+    {
+      "command": "python .\\pm_bot\\workbench\\run_operator_workbench_export.py",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest .\\pm_bot\\llm\\tests -q",
+      "status": "passed",
+      "result": "88 passed"
+    },
+    {
+      "command": "python -m pytest .\\pm_bot\\workbench\\tests -q",
+      "status": "passed",
+      "result": "32 passed"
+    },
+    {
+      "command": "python -m pytest .\\pm_bot\\product\\tests -q",
+      "status": "passed",
+      "result": "7 passed"
+    },
+    {
+      "command": "python -m compileall .\\pm_bot",
+      "status": "passed"
+    },
+    {
+      "command": "python -m json.tool docs/PMBOT_LLM_011_RESULT.json",
+      "status": "passed"
+    }
+  ],
+  "tests_passed": true,
+  "warnings": [],
+  "blockers": [],
+  "safety_flags": {
+    "offline_local_manual_only": true,
+    "local_file_reads_only": true,
+    "llm_api": false,
+    "network_api": false,
+    "browser_automation": false,
+    "prompt_automation": false,
+    "runtime_wiring": false,
+    "dispatcher_run_codex_changes": false,
+    "credentials": false,
+    "wallet_private_keys": false,
+    "real_orders": false,
+    "paper_orders": false,
+    "trading": false,
+    "recommendations": false,
+    "probability_ev_edge_scoring": false,
+    "side_selection": false,
+    "truth_inference": false,
+    "execution_authority": false
+  },
+  "commit_hash": "reported_in_final_response_after_commit",
+  "pushed": false,
+  "next_recommended_task": "PMBOT-LLM-012-OPERATOR-REVIEW-ACTUAL-MANUAL-LLM-RESPONSE-SURFACE"
+}
