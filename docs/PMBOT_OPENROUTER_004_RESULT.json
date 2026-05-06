@@ -1,0 +1,75 @@
+{
+  "task_id": "PMBOT-OPENROUTER-004-NEGATIVE-SAFETY-ATTESTATION-FALSE-POSITIVE-FIX",
+  "status": "completed",
+  "summary": "Patched the PMBOT OpenRouter harness safety validator so clear negative safety attestations and avoidance/non-actionability statements can mention prohibited categories without failing validation. Actual market-action, side-selection, EV/edge/probability/scoring, order, wallet, and bypass language remains blocked. The saved critic artifact raw_content now validates without requiring network calls.",
+  "files_created": [
+    "docs/PMBOT_OPENROUTER_004_NEGATIVE_SAFETY_ATTESTATION_FALSE_POSITIVE_FIX.md",
+    "docs/PMBOT_OPENROUTER_004_RESULT.json"
+  ],
+  "files_modified": [
+    "docs/PMBOT_OPENROUTER_001_GATED_API_TEST_HARNESS.md",
+    "docs/PMBOT_OPENROUTER_003_CRITIC_RECOMMENDATION_FALSE_POSITIVE_FIX.md",
+    "pm_bot/llm/openrouter_test_artifacts/openrouter_test_summary_563650.json",
+    "pm_bot/llm/run_openrouter_prompt_test.py",
+    "tests/test_openrouter_prompt_test.py"
+  ],
+  "behavior": {
+    "negative_safety_attestations_allowed": true,
+    "compact_negative_attestation_allowed": true,
+    "avoidance_statement_allowed": true,
+    "not_actionable_allowed": true,
+    "ready_for_resolution_or_action_false_allowed": true,
+    "bypass_no_reason_not_to_buy_blocked": true,
+    "bypass_no_downside_to_selecting_yes_blocked": true,
+    "bypass_no_problem_using_wallet_credentials_blocked": true,
+    "bypass_no_issue_placing_order_blocked": true,
+    "ev_edge_probability_scoring_assertions_blocked": true,
+    "side_selection_and_buy_sell_language_blocked": true,
+    "saved_critic_artifact_no_network_regression_passed": true
+  },
+  "tests_run": [
+    {
+      "command": "python -m pytest tests\\test_openrouter_prompt_test.py -q",
+      "status": "passed",
+      "result": "75 passed"
+    },
+    {
+      "command": "python -m compileall pm_bot",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest tests pm_bot\\llm\\tests -q",
+      "status": "passed",
+      "result": "193 passed"
+    },
+    {
+      "command": "python .\\pm_bot\\llm\\run_openrouter_prompt_test.py --dry-run --market-id 563650 --allow-local-json-fence-repair",
+      "status": "passed",
+      "result": "dry_run_ready; sonnet_called=false; critic_called=false; safety_boundary_passed=true"
+    },
+    {
+      "command": "python -m json.tool .\\docs\\PMBOT_OPENROUTER_004_RESULT.json",
+      "status": "passed"
+    }
+  ],
+  "notes": [
+    "No real OpenRouter API calls were made.",
+    "Pytest returned success, but Windows emitted a post-run temp cleanup PermissionError for pytest-current after test completion."
+  ],
+  "safety": {
+    "analysis_only": true,
+    "manual_review_only": true,
+    "operator_gated": true,
+    "validator_gated": true,
+    "negative_safety_attestations_allowed": true,
+    "actual_trading_language_still_blocked": true,
+    "no_secret_logged": true,
+    "no_runtime_wiring": true,
+    "no_trading_decision": true,
+    "manual_only": true,
+    "no_wallet_private_keys_credentials": true,
+    "no_orders": true,
+    "no_automatic_llm_loops": true
+  },
+  "next_action": "Operator may rerun the non-dry OpenRouter Sonnet plus critic smoke test manually; the saved false-positive critic attestation now validates locally."
+}

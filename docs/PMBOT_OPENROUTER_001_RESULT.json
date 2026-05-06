@@ -1,0 +1,51 @@
+{
+  "task_id": "PMBOT-OPENROUTER-001-GATED-API-TEST-HARNESS",
+  "status": "completed",
+  "summary": "Created a local operator-triggered OpenRouter harness for the PMBOT manual LLM packet batch with dry-run prompt selection, env-only API key handling, Sonnet/critic artifact capture, JSON and safety validation, and no runtime or dispatcher wiring.",
+  "files_created": [
+    "docs/PMBOT_OPENROUTER_001_GATED_API_TEST_HARNESS.md",
+    "docs/PMBOT_OPENROUTER_001_RESULT.json",
+    "pm_bot/llm/openrouter_test_artifacts/openrouter_test_summary_563650.json",
+    "pm_bot/llm/run_openrouter_prompt_test.py",
+    "tests/test_openrouter_prompt_test.py"
+  ],
+  "files_modified": [],
+  "tests_run": [
+    {
+      "command": "python -m compileall pm_bot",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest tests -q",
+      "status": "passed",
+      "result": "8 passed"
+    },
+    {
+      "command": "python pm_bot/llm/run_openrouter_prompt_test.py --dry-run --market-id 563650",
+      "status": "passed"
+    }
+  ],
+  "dry_run_result": {
+    "status": "dry_run_ready",
+    "market_id": "563650",
+    "selected_prompt_path": "pm_bot/llm/manual_packet_batch/563650_prompt.v1.md",
+    "selected_packet_path": "pm_bot/llm/manual_packet_batch/563650_packet.v1.json",
+    "summary_artifact": "pm_bot/llm/openrouter_test_artifacts/openrouter_test_summary_563650.json",
+    "sonnet_called": false,
+    "critic_called": false,
+    "safety_boundary_passed": true
+  },
+  "safety": {
+    "analysis_only": true,
+    "operator_gated": true,
+    "validator_gated": true,
+    "no_secret_logged": true,
+    "no_runtime_wiring": true,
+    "no_trading_decision": true,
+    "manual_only": true,
+    "no_wallet_private_keys_credentials": true,
+    "no_orders": true,
+    "no_automatic_llm_loops": true
+  },
+  "next_action": "Operator may run a non-dry OpenRouter smoke test manually after setting OPENROUTER_API_KEY, optionally with --skip-critic for a Sonnet-only pass."
+}

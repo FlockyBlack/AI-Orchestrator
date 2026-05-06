@@ -1,0 +1,64 @@
+{
+  "task_id": "PMBOT-OPENROUTER-002-STRICT-JSON-RECOVERY-PATCH",
+  "status": "completed",
+  "summary": "Patched the PMBOT OpenRouter prompt test harness to recover a safe JSON object when the entire model response is a single Markdown json fence, while preserving raw artifacts and keeping existing safety validation before critic handoff. Also narrowed the edge-language rule so benign edge case(s) text is not treated as trading edge language.",
+  "files_created": [
+    "docs/PMBOT_OPENROUTER_002_STRICT_JSON_RECOVERY_PATCH.md",
+    "docs/PMBOT_OPENROUTER_002_RESULT.json"
+  ],
+  "files_modified": [
+    "docs/PMBOT_OPENROUTER_001_GATED_API_TEST_HARNESS.md",
+    "pm_bot/llm/run_openrouter_prompt_test.py",
+    "tests/test_openrouter_prompt_test.py"
+  ],
+  "behavior": {
+    "recovers_single_full_response_json_fence": true,
+    "rejects_prose_wrapped_fences": true,
+    "rejects_unsupported_fence_languages": true,
+    "allows_benign_edge_cases_phrase": true,
+    "rejects_trading_edge_phrase": true,
+    "raw_artifact_preserves_original_model_content": true,
+    "critic_handoff_uses_parsed_json_object": true,
+    "runtime_wiring_added": false,
+    "wallet_or_order_logic_added": false,
+    "automatic_llm_loop_added": false
+  },
+  "tests_run": [
+    {
+      "command": "python -m pytest tests\\test_openrouter_prompt_test.py -q",
+      "status": "passed",
+      "result": "13 passed"
+    },
+    {
+      "command": "python -m compileall pm_bot\\llm\\run_openrouter_prompt_test.py",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest tests pm_bot\\llm\\tests -q",
+      "status": "passed",
+      "result": "131 passed"
+    },
+    {
+      "command": "python -c \"import json; from pathlib import Path; from pm_bot.llm import run_openrouter_prompt_test as h; raw=json.loads(Path('pm_bot/llm/openrouter_test_artifacts/openrouter_sonnet_563650_raw.json').read_text(encoding='utf-8'))['raw_content']; validation, parsed=h.validate_raw_json_content(raw); print(json.dumps({'valid': validation['valid'], 'recovered': validation['recovery']['applied'], 'method': validation['recovery']['method'], 'error_codes': [error['code'] for error in validation['errors']], 'top_level_object': isinstance(parsed, dict)}, sort_keys=True))\"",
+      "status": "passed",
+      "result": "{\"error_codes\": [], \"method\": \"single_json_markdown_fence\", \"recovered\": true, \"top_level_object\": true, \"valid\": true}"
+    },
+    {
+      "command": "python -m compileall pm_bot",
+      "status": "passed"
+    }
+  ],
+  "safety": {
+    "analysis_only": true,
+    "manual_review_only": true,
+    "operator_gated": true,
+    "validator_gated": true,
+    "no_secret_logged": true,
+    "no_runtime_wiring": true,
+    "no_trading_decision": true,
+    "no_wallet_private_keys_credentials": true,
+    "no_orders": true,
+    "no_automatic_llm_loops": true
+  },
+  "next_action": "Operator may rerun the non-dry OpenRouter smoke test manually; a single fenced JSON object from Sonnet should now recover and proceed to critic validation."
+}

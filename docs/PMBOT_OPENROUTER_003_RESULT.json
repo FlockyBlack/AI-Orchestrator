@@ -1,0 +1,73 @@
+{
+  "task_id": "PMBOT-OPENROUTER-003-CRITIC-RECOMMENDATION-FALSE-POSITIVE-FIX",
+  "status": "completed",
+  "summary": "Patched the PMBOT OpenRouter harness safety validator so recommendation language is rejected only when tied to trading, markets, sides, outcomes, positions, entries, exits, orders, or market decisions. Safe critic schema/edit/review wording such as candidate_json_edits, suggested_fix, and operator review is recommended now passes. Parsed JSON objects rejected by safety validation are written as rejected parsed content rather than mislabeled as not_valid_json_object.",
+  "files_created": [
+    "docs/PMBOT_OPENROUTER_003_CRITIC_RECOMMENDATION_FALSE_POSITIVE_FIX.md",
+    "docs/PMBOT_OPENROUTER_003_RESULT.json"
+  ],
+  "files_modified": [
+    "docs/PMBOT_OPENROUTER_001_GATED_API_TEST_HARNESS.md",
+    "docs/PMBOT_OPENROUTER_002_STRICT_JSON_RECOVERY_PATCH.md",
+    "pm_bot/llm/run_openrouter_prompt_test.py",
+    "tests/test_openrouter_prompt_test.py"
+  ],
+  "behavior": {
+    "trading_recommendations_still_blocked": true,
+    "market_recommendations_still_blocked": true,
+    "recommended_side_trade_entry_exit_still_blocked": true,
+    "recommend_order_still_blocked": true,
+    "safe_schema_edit_recommendations_allowed": true,
+    "recommended_candidate_json_edits_allowed": true,
+    "edge_cases_phrase_still_allowed": true,
+    "trading_edge_phrase_still_blocked": true,
+    "parsed_rejected_json_content_artifact_not_mislabeled_non_json": true,
+    "critic_prompt_prefers_candidate_json_edits": true
+  },
+  "tests_run": [
+    {
+      "command": "python -m pytest tests\\test_openrouter_prompt_test.py -q",
+      "status": "passed",
+      "result": "41 passed"
+    },
+    {
+      "command": "python -m compileall pm_bot",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest tests pm_bot\\llm\\tests -q",
+      "status": "passed",
+      "result": "159 passed"
+    },
+    {
+      "command": "python .\\pm_bot\\llm\\run_openrouter_prompt_test.py --dry-run --market-id 563650 --allow-local-json-fence-repair",
+      "status": "passed",
+      "result": "dry_run_ready; sonnet_called=false; critic_called=false; safety_boundary_passed=true"
+    },
+    {
+      "command": "python -c \"validate saved openrouter_critic_563650_raw.json raw_content\"",
+      "status": "passed",
+      "result": "valid=true; status=accepted; forbidden_language_absent=true; has_recommended_candidate_json_edits=true"
+    }
+  ],
+  "notes": [
+    "No real OpenRouter API calls were made.",
+    "Pytest returned success, but Windows emitted a post-run temp cleanup PermissionError for pytest-current after test completion."
+  ],
+  "safety": {
+    "analysis_only": true,
+    "manual_review_only": true,
+    "operator_gated": true,
+    "validator_gated": true,
+    "trading_recommendations_still_blocked": true,
+    "safe_edit_recommendations_allowed": true,
+    "no_secret_logged": true,
+    "no_runtime_wiring": true,
+    "no_trading_decision": true,
+    "manual_only": true,
+    "no_wallet_private_keys_credentials": true,
+    "no_orders": true,
+    "no_automatic_llm_loops": true
+  },
+  "next_action": "Operator may rerun the non-dry OpenRouter Sonnet plus critic smoke test manually; safe edit recommendations should no longer fail critic validation."
+}

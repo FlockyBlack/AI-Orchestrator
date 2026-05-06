@@ -1,0 +1,10 @@
+{
+  "critic_text": "{\n  \"overall_assessment\": \"Synthetic legacy critic response with prose-only review fields.\",\n  \"schema_notes\": [\n    \"Uses an old non-structured shape.\"\n  ],\n  \"operator_note\": \"Manual review boundary remains local.\"\n}",
+  "expected_parsed_content": {
+    "overall_assessment": "Synthetic legacy critic response with prose-only review fields.",
+    "schema_notes": [
+      "Uses an old non-structured shape."
+    ],
+    "operator_note": "Manual review boundary remains local."
+  }
+}
