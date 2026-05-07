@@ -51,8 +51,8 @@
 
 ## Artifact Inventory
 
-- total_artifacts: 25
-- present_artifacts: 25
+- total_artifacts: 26
+- present_artifacts: 26
 - missing_artifacts: 0
 - required_missing_artifacts: 0
 
@@ -81,6 +81,7 @@
 - manual_llm_review_queue: pm_bot/llm/manual_llm_review_queue.v1.json (present=true, required=false, parse_status=parsed)
 - actual_manual_llm_response_trial: pm_bot/llm/actual_manual_llm_response_trial.v1.json (present=true, required=false, parse_status=parsed)
 - openrouter_passive_surface: pm_bot/workbench/openrouter_passive_surface_pointer.v1.json (present=true, required=false, parse_status=parsed)
+- openrouter_review_dashboard: pm_bot/workbench/operator_openrouter_review_dashboard.v1.json (present=true, required=false, parse_status=parsed)
 
 ## Paper Audits
 
@@ -406,24 +407,40 @@
 - artifact_pointer: pm_bot/workbench/openrouter_passive_surface_pointer.v1.json
 - artifact_markdown_pointer: pm_bot/workbench/openrouter_passive_surface_pointer.v1.md
 - artifact_parse_status: parsed
-- source_batch_task: PMBOT-OPENROUTER-046
-- source_baseline_task: PMBOT-OPENROUTER-047
-- source_surface_task: PMBOT-OPENROUTER-048
+- latest_surface_source_batch_task: PMBOT-OPENROUTER-051-CONTROLLED-N5-BATCH-LIVE-CALL
+- latest_surface_task: PMBOT-OPENROUTER-053-PASSIVE-OPERATOR-SURFACE-AND-WORKBENCH-N5-INTEGRATION
+- source_batch_task: PMBOT-OPENROUTER-051-CONTROLLED-N5-BATCH-LIVE-CALL
+- source_baseline_task: PMBOT-OPENROUTER-052-N5-BATCH-BASELINE-QUALITY-AND-OPERATOR-SUMMARY
+- source_surface_task: PMBOT-OPENROUTER-053-PASSIVE-OPERATOR-SURFACE-AND-WORKBENCH-N5-INTEGRATION
 - source_048_status: completed_pushed
-- surfaced_market_ids: 569333, 569334, 569343
+- source_052_status: completed_pushed
+- surfaced_market_ids: 569344, 569366, 569368, 569373, 573656
 - model: anthropic/claude-sonnet-4.5
-- total_calls: 3
-- prompt_tokens: 12859
-- completion_tokens: 5827
-- total_tokens: 18686
-- total_cost: 0.125982
-- average_cost_per_market: 0.041994
-- fenced_response_count: 3
-- normalized_response_count: 3
+- total_calls: 5
+- prompt_tokens: 20768
+- completion_tokens: 9119
+- total_tokens: 29887
+- total_cost: 0.199089
+- average_cost_per_market: 0.0398178
+- fenced_response_count: 5
+- normalized_response_count: 5
 - clean_raw_json_response_count: 0
-- accepted_for_operator_review_count: 3
+- accepted_for_operator_review_count: 5
 - blocked_count: 0
 - offline_review_warning: OpenRouter passive surface is read-only operator context; it creates no queue item, runtime hook, API call, wallet/order access, or authority.
+
+## OpenRouter Passive Surface History
+
+- N=3: calls=3, markets=569333, 569334, 569343, tokens=18686, cost=0.125982
+- N=5: calls=5, markets=569344, 569366, 569368, 569373, 573656, tokens=29887, cost=0.199089
+
+## OpenRouter Combined Review Contour
+
+- total_markets_successfully_reviewed: 8
+- total_openrouter_calls_in_successful_batches: 8
+- combined_cost: 0.325071
+- combined_tokens: 48573
+- total_blocked_in_successful_batches: 0
 
 ## OpenRouter Passive Surface Safety Flags
 
@@ -442,10 +459,28 @@
 
 - workbench_pointer_json: pm_bot/workbench/openrouter_passive_surface_pointer.v1.json (generated_workbench_pointer)
 - workbench_pointer_markdown: pm_bot/workbench/openrouter_passive_surface_pointer.v1.md (generated_workbench_pointer)
-- source_surface_json: pm_bot/llm/operator_openrouter_batch_surface_046.v1.json (read_only_passive_source)
-- source_surface_markdown: pm_bot/llm/operator_openrouter_batch_surface_046.v1.md (read_only_passive_source)
+- operator_openrouter_review_dashboard_json: pm_bot/workbench/operator_openrouter_review_dashboard.v1.json (generated_static_dashboard)
+- operator_openrouter_review_dashboard_markdown: pm_bot/workbench/operator_openrouter_review_dashboard.v1.md (generated_static_dashboard)
+- n3_surface_json: pm_bot/llm/operator_openrouter_batch_surface_046.v1.json (read_only_passive_source)
+- n3_surface_markdown: pm_bot/llm/operator_openrouter_batch_surface_046.v1.md (read_only_passive_source)
+- n5_surface_json: pm_bot/llm/operator_openrouter_batch_surface_051.v1.json (read_only_passive_source)
+- n5_surface_markdown: pm_bot/llm/operator_openrouter_batch_surface_051.v1.md (read_only_passive_source)
 - source_048_result: docs/PMBOT_OPENROUTER_048_RESULT.json (read_only_source_result)
-- source_048_report: docs/PMBOT_OPENROUTER_048_PASSIVE_OPERATOR_SURFACE_046_BATCH.md (read_only_source_report)
+- source_052_result: docs/PMBOT_OPENROUTER_052_RESULT.json (read_only_source_result)
+
+## OpenRouter Review Dashboard
+
+- section_id: openrouter_review_dashboard
+- artifact_status: present
+- artifact_pointer: pm_bot/workbench/operator_openrouter_review_dashboard.v1.json
+- artifact_markdown_pointer: pm_bot/workbench/operator_openrouter_review_dashboard.v1.md
+- latest_surface: PMBOT-OPENROUTER-053-PASSIVE-OPERATOR-SURFACE-AND-WORKBENCH-N5-INTEGRATION
+- latest_baseline: PMBOT-OPENROUTER-052-N5-BATCH-BASELINE-QUALITY-AND-OPERATOR-SUMMARY
+- latest_workbench_integration_status: multi_batch_passive_surface_pointer_ready
+- combined_cost: 0.325071
+- combined_tokens: 48573
+- total_markets_found: 14
+- total_reviewed_by_openrouter: 10
 
 ## Missing Artifacts
 

@@ -16,6 +16,7 @@ if str(ROOT) not in sys.path:
 
 from pm_bot.llm import summarize_actual_manual_llm_response_trial as actual_llm_response_surface  # noqa: E402
 from pm_bot.llm import export_manual_llm_review_queue as manual_llm_review_queue_surface  # noqa: E402
+from pm_bot.workbench import operator_openrouter_review_dashboard  # noqa: E402
 from pm_bot.workbench import openrouter_passive_surface_pointer  # noqa: E402
 
 WORKBENCH_DIR = ROOT / "pm_bot" / "workbench"
@@ -32,6 +33,8 @@ SUMMARY_OUTPUT_ARTIFACTS = [
     "pm_bot/workbench/expected_operator_workbench_export_run.v1.json",
     "pm_bot/workbench/openrouter_passive_surface_pointer.v1.json",
     "pm_bot/workbench/openrouter_passive_surface_pointer.v1.md",
+    "pm_bot/workbench/operator_openrouter_review_dashboard.v1.json",
+    "pm_bot/workbench/operator_openrouter_review_dashboard.v1.md",
     "docs/PMBOT_WORKBENCH_003_RESULT.json",
 ]
 
@@ -143,6 +146,17 @@ def build_export_steps(root=ROOT):
             "output_artifacts": [
                 "pm_bot/workbench/openrouter_passive_surface_pointer.v1.json",
                 "pm_bot/workbench/openrouter_passive_surface_pointer.v1.md",
+            ],
+        },
+        {
+            "step_id": "operator_openrouter_review_dashboard",
+            "script_path": "pm_bot/workbench/operator_openrouter_review_dashboard.py",
+            "required": False,
+            "runner": "module_function",
+            "function_name": "write_operator_openrouter_review_dashboard_artifacts",
+            "output_artifacts": [
+                "pm_bot/workbench/operator_openrouter_review_dashboard.v1.json",
+                "pm_bot/workbench/operator_openrouter_review_dashboard.v1.md",
             ],
         },
         {
@@ -279,6 +293,10 @@ def _openrouter_passive_surface(root=ROOT):
     return openrouter_passive_surface_pointer.build_openrouter_passive_surface_pointer(root=root)
 
 
+def _openrouter_review_dashboard(root=ROOT):
+    return operator_openrouter_review_dashboard.build_operator_openrouter_review_dashboard(root=root)
+
+
 def build_run_summary(step_results, root=ROOT):
     required_steps_passed = all(
         step["status"] == "ran" for step in step_results if step["required"]
@@ -302,6 +320,7 @@ def build_run_summary(step_results, root=ROOT):
         "actual_manual_llm_response_trial": _actual_manual_llm_response_trial_surface(root=root),
         "manual_llm_review_queue": _manual_llm_review_queue_surface(root=root),
         "openrouter_passive_surface": _openrouter_passive_surface(root=root),
+        "openrouter_review_dashboard": _openrouter_review_dashboard(root=root),
         "warnings": _warnings_for_steps(step_results),
         "safety_flags": dict(SAFETY_FLAGS),
         "network_calls": 0,
@@ -318,6 +337,7 @@ def render_markdown(summary):
     actual_trial = summary["actual_manual_llm_response_trial"]
     manual_llm_review_queue = summary["manual_llm_review_queue"]
     openrouter_surface = summary["openrouter_passive_surface"]
+    openrouter_dashboard = summary["openrouter_review_dashboard"]
     lines = [
         "# PMBOT Operator Workbench Export Run v1",
         "",
@@ -397,6 +417,7 @@ def render_markdown(summary):
             f"- source_baseline_task: {openrouter_surface['source_baseline_task']}",
             f"- source_surface_task: {openrouter_surface['source_surface_task']}",
             f"- source_048_status: {openrouter_surface['source_048_status']}",
+            f"- source_052_status: {openrouter_surface['source_052_status']}",
             f"- surfaced_market_ids: {', '.join(openrouter_surface['surfaced_market_ids'])}",
             f"- model: {openrouter_surface['model']}",
             f"- total_calls: {openrouter_surface['total_calls']}",
@@ -421,6 +442,21 @@ def render_markdown(summary):
             f"{str(openrouter_surface['acceptance_is_not_trading_approval']).lower()}",
             f"- analysis_only: {str(openrouter_surface['analysis_only']).lower()}",
             f"- manual_review_only: {str(openrouter_surface['manual_review_only']).lower()}",
+            "",
+            "## OpenRouter Review Dashboard",
+            "",
+            f"- artifact_path: pm_bot/workbench/operator_openrouter_review_dashboard.v1.json",
+            f"- status: {openrouter_dashboard['status']}",
+            f"- latest_surface: {openrouter_dashboard['latest_surface']}",
+            f"- latest_baseline: {openrouter_dashboard['latest_baseline']}",
+            "- latest_workbench_integration_status: "
+            f"{openrouter_dashboard['latest_workbench_integration_status']}",
+            "- combined_cost: "
+            f"{openrouter_dashboard['cost_summary'].get('combined_cost', 0)}",
+            "- combined_tokens: "
+            f"{openrouter_dashboard['usage_summary'].get('combined_tokens', 0)}",
+            "- total_markets_found: "
+            f"{openrouter_dashboard['inventory_summary'].get('total_markets_found', 0)}",
         ]
     )
 
@@ -461,6 +497,9 @@ def _result_payload(summary):
             "pm_bot/workbench/operator_workbench_export_run.v1.json",
             "pm_bot/workbench/operator_workbench_export_run.v1.md",
             "pm_bot/workbench/expected_operator_workbench_export_run.v1.json",
+            "pm_bot/workbench/operator_openrouter_review_dashboard.py",
+            "pm_bot/workbench/operator_openrouter_review_dashboard.v1.json",
+            "pm_bot/workbench/operator_openrouter_review_dashboard.v1.md",
             "pm_bot/workbench/tests/test_operator_workbench_export_runner.py",
             "docs/PMBOT_WORKBENCH_003_RESULT.json",
         ],
@@ -476,6 +515,8 @@ def _result_payload(summary):
             "pm_bot/quality/artifact_health_report.v1.json",
             "pm_bot/quality/artifact_health_report.v1.md",
             "pm_bot/quality/expected_artifact_health_report.v1.json",
+            "pm_bot/workbench/openrouter_passive_surface_pointer.v1.json",
+            "pm_bot/workbench/openrouter_passive_surface_pointer.v1.md",
             "pm_bot/workbench/operator_review_pack.v1.json",
             "pm_bot/workbench/operator_review_pack.v1.md",
             "pm_bot/workbench/expected_operator_review_pack.v1.json",
@@ -510,6 +551,7 @@ def _result_payload(summary):
         "openrouter_passive_surface": {
             "status": summary["openrouter_passive_surface"]["status"],
             "source_048_status": summary["openrouter_passive_surface"]["source_048_status"],
+            "source_052_status": summary["openrouter_passive_surface"]["source_052_status"],
             "surfaced_market_ids": summary["openrouter_passive_surface"]["surfaced_market_ids"],
             "model": summary["openrouter_passive_surface"]["model"],
             "total_calls": summary["openrouter_passive_surface"]["total_calls"],
@@ -517,8 +559,21 @@ def _result_payload(summary):
             "aggregate_cost": summary["openrouter_passive_surface"]["aggregate_cost"],
             "normalization_summary": summary["openrouter_passive_surface"]["normalization_summary"],
             "quality_summary": summary["openrouter_passive_surface"]["quality_summary"],
+            "combined_openrouter_review_contour_summary": summary["openrouter_passive_surface"][
+                "combined_openrouter_review_contour_summary"
+            ],
             "safety_summary": summary["openrouter_passive_surface"]["safety_summary"],
             "artifact_pointers": summary["openrouter_passive_surface"]["artifact_pointers"],
+        },
+        "openrouter_review_dashboard": {
+            "status": summary["openrouter_review_dashboard"]["status"],
+            "latest_surface": summary["openrouter_review_dashboard"]["latest_surface"],
+            "latest_baseline": summary["openrouter_review_dashboard"]["latest_baseline"],
+            "combined_openrouter_review_contour_summary": summary["openrouter_review_dashboard"][
+                "combined_openrouter_review_contour_summary"
+            ],
+            "inventory_summary": summary["openrouter_review_dashboard"]["inventory_summary"],
+            "artifact_pointers": summary["openrouter_review_dashboard"]["artifact_pointers"],
         },
         "safety_flags": summary["safety_flags"],
         "network_calls": 0,

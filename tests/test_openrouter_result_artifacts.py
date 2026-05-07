@@ -26,7 +26,6 @@ def test_openrouter_037_status_is_reconciled_before_retry_artifacts():
         result_038["fail_fast_reason"]
         == "precheck_failed:037_result_status_expected_completed_pushed_actual_completed_local_checks_passed_pending_commit_push"
     )
-
     assert result_039["source_037_status_before"] == "completed_local_checks_passed_pending_commit_push"
     assert result_039["source_037_status_after"] == "completed_pushed"
     assert result_039["source_037_reconciled"] is True
@@ -175,6 +174,7 @@ def test_openrouter_049_records_workbench_passive_surface_integration():
             encoding="utf-8"
         )
     )
+    n3_pointer = pointer["surface_history"][0]
 
     assert result_049["task_id"] == "PMBOT-OPENROUTER-049-WORKBENCH-PASSIVE-SURFACE-INTEGRATION"
     assert result_049["status"] == "completed_pushed"
@@ -185,11 +185,15 @@ def test_openrouter_049_records_workbench_passive_surface_integration():
     assert result_049["source_048_status"] == result_048["status"]
     assert result_049["workbench_passive_surface_integrated"] is True
     assert result_049["surfaced_market_ids"] == ["569333", "569334", "569343"]
-    assert result_049["surfaced_market_ids"] == pointer["surfaced_market_ids"]
-    assert result_049["aggregate_usage"] == pointer["aggregate_usage"]
-    assert result_049["aggregate_cost"] == pointer["aggregate_cost"]
-    assert result_049["normalization_summary"] == pointer["normalization_summary"]
-    assert result_049["quality_summary"] == pointer["quality_summary"]
+    assert result_049["surfaced_market_ids"] == n3_pointer["surfaced_market_ids"]
+    assert result_049["aggregate_usage"] == n3_pointer["aggregate_usage"]
+    assert result_049["aggregate_cost"] == n3_pointer["aggregate_cost"]
+    assert result_049["normalization_summary"] == n3_pointer["normalization_summary"]
+    assert result_049["quality_summary"] == n3_pointer["quality_summary"]
+    assert pointer["latest_surface_source_batch_task"] == (
+        "PMBOT-OPENROUTER-051-CONTROLLED-N5-BATCH-LIVE-CALL"
+    )
+    assert pointer["combined_openrouter_review_contour_summary"]["combined_tokens"] == 48573
 
     safety = result_049["safety_summary"]
     for flag in (
@@ -301,3 +305,60 @@ def test_openrouter_052_records_local_only_n5_batch_quality_baseline():
     assert all(item["quality_warnings"] for item in baseline["per_market"])
     assert baseline["future_readiness_note"]["option_a"]["run_or_approved_by_052"] is False
     assert baseline["future_readiness_note"]["option_b"]["run_or_approved_by_052"] is False
+
+
+def test_openrouter_053_records_n5_surface_workbench_inventory_ux_and_contour_audit():
+    result_053 = _load_result("PMBOT_OPENROUTER_053_RESULT.json")
+
+    assert result_053["task_id"] == (
+        "PMBOT-OPENROUTER-053-N5-SURFACE-WORKBENCH-INVENTORY-UX-AND-CONTOUR-AUDIT"
+    )
+    assert result_053["status"] in {
+        "completed_local_validation_pending_commit_push",
+        "completed_pushed",
+    }
+    assert result_053["head_before"] == "bb46543c7ffb0efa66c76229f8c58951850376b1"
+    assert result_053["openrouter_calls_performed"] == 0
+    assert result_053["polymarket_api_calls_performed"] == 0
+    assert result_053["source_051_status"] == "completed_pushed"
+    assert result_053["source_052_status"] == "completed_pushed"
+    assert result_053["n5_passive_operator_surface_created"] is True
+    assert result_053["n5_workbench_integration_completed"] is True
+    assert result_053["contour_audit_created"] is True
+    assert result_053["market_packet_inventory_created"] is True
+    assert result_053["source_evidence_audit_created"] is True
+    assert result_053["operator_dashboard_created"] is True
+    assert result_053["operator_runbook_created"] is True
+    assert result_053["next_step_decision_matrix_created"] is True
+    assert result_053["surfaced_market_ids"] == ["569344", "569366", "569368", "569373", "573656"]
+    for market_id in [
+        "563650",
+        "569332",
+        "569333",
+        "569334",
+        "569343",
+        "569344",
+        "569366",
+        "569368",
+        "569373",
+        "573656",
+    ]:
+        assert market_id in result_053["inventory_market_ids"]
+
+    combined = result_053["combined_openrouter_contour_summary"]
+    assert combined["total_markets_successfully_reviewed"] == 8
+    assert combined["total_openrouter_calls_in_successful_batches"] == 8
+    assert combined["combined_cost"] == 0.325071
+    assert combined["combined_tokens"] == 48573
+    assert combined["total_blocked_in_successful_batches"] == 0
+
+    assert result_053["normalization_summary"]["successful_batch_responses_requiring_fenced_normalization"] == "8/8"
+    assert result_053["normalization_summary"]["clean_raw_json_response_count"] == 0
+    assert result_053["quality_summary"]["accepted_for_operator_review_count"] == 8
+    assert result_053["quality_summary"]["blocked_count"] == 0
+    assert result_053["inventory_summary"]["total_markets_found"] == 14
+    assert result_053["inventory_summary"]["total_reviewed_by_openrouter"] == 10
+    assert result_053["evidence_completeness_summary"]["reviewed_market_count"] == 10
+    assert result_053["safety_summary"]["openrouter_calls_performed_by_this_task"] == 0
+    assert result_053["safety_summary"]["polymarket_api_calls_performed_by_this_task"] == 0
+    assert result_053["safety_summary"]["api_key_accessed"] is False

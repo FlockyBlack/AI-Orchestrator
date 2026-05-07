@@ -56,11 +56,11 @@
   },
   "artifact_inventory": {
     "summary": {
-      "total_artifacts": 25,
-      "present_artifacts": 25,
+      "total_artifacts": 26,
+      "present_artifacts": 26,
       "missing_artifacts": 0,
       "required_missing_artifacts": 0,
-      "json_artifacts_parsed": 24,
+      "json_artifacts_parsed": 25,
       "json_artifacts_parse_failed": 0
     },
     "artifacts": [
@@ -433,11 +433,26 @@
         "present": true,
         "parse_status": "parsed",
         "schema_version": "openrouter_passive_surface_pointer.v1",
-        "task_id": "PMBOT-OPENROUTER-049-WORKBENCH-PASSIVE-SURFACE-INTEGRATION",
+        "task_id": "PMBOT-OPENROUTER-053-WORKBENCH-PASSIVE-SURFACE-MULTI-BATCH-INTEGRATION",
         "status": "passive_surface_pointer_ready",
         "audit_status": null,
         "deterministic": null,
         "warning_count": 2
+      },
+      {
+        "artifact_id": "openrouter_review_dashboard",
+        "path": "pm_bot/workbench/operator_openrouter_review_dashboard.v1.json",
+        "category": "openrouter_review_dashboard",
+        "artifact_type": "openrouter_review_dashboard_json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed",
+        "schema_version": "operator_openrouter_review_dashboard.v1",
+        "task_id": "PMBOT-OPENROUTER-053-N5-SURFACE-WORKBENCH-INVENTORY-UX-AND-CONTOUR-AUDIT",
+        "status": "operator_openrouter_review_dashboard_created",
+        "audit_status": null,
+        "deterministic": null,
+        "warning_count": 0
       }
     ]
   },
@@ -1303,42 +1318,376 @@
     "artifact_pointer": "pm_bot/workbench/openrouter_passive_surface_pointer.v1.json",
     "artifact_markdown_pointer": "pm_bot/workbench/openrouter_passive_surface_pointer.v1.md",
     "artifact_parse_status": "parsed",
-    "source_batch_task": "PMBOT-OPENROUTER-046",
-    "source_baseline_task": "PMBOT-OPENROUTER-047",
-    "source_surface_task": "PMBOT-OPENROUTER-048",
+    "latest_surface_source_batch_task": "PMBOT-OPENROUTER-051-CONTROLLED-N5-BATCH-LIVE-CALL",
+    "latest_surface_task": "PMBOT-OPENROUTER-053-PASSIVE-OPERATOR-SURFACE-AND-WORKBENCH-N5-INTEGRATION",
+    "source_batch_task": "PMBOT-OPENROUTER-051-CONTROLLED-N5-BATCH-LIVE-CALL",
+    "source_baseline_task": "PMBOT-OPENROUTER-052-N5-BATCH-BASELINE-QUALITY-AND-OPERATOR-SUMMARY",
+    "source_surface_task": "PMBOT-OPENROUTER-053-PASSIVE-OPERATOR-SURFACE-AND-WORKBENCH-N5-INTEGRATION",
     "source_048_status": "completed_pushed",
+    "source_052_status": "completed_pushed",
     "surfaced_market_ids": [
-      "569333",
-      "569334",
-      "569343"
+      "569344",
+      "569366",
+      "569368",
+      "569373",
+      "573656"
     ],
     "model": "anthropic/claude-sonnet-4.5",
-    "total_calls": 3,
+    "total_calls": 5,
     "aggregate_usage": {
-      "prompt_tokens": 12859,
-      "completion_tokens": 5827,
-      "total_tokens": 18686
+      "prompt_tokens": 20768,
+      "completion_tokens": 9119,
+      "total_tokens": 29887,
+      "average_tokens_per_market": 5977.4
     },
     "aggregate_cost": {
-      "total_cost": 0.125982,
-      "average_cost_per_market": 0.041994
+      "total_cost": 0.199089,
+      "average_cost_per_market": 0.0398178,
+      "max_total_cost_allowed": 0.35,
+      "cost_cap_exceeded": false
     },
     "normalization_summary": {
-      "fenced_response_count": 3,
-      "normalized_response_count": 3,
+      "fenced_response_count": 5,
+      "normalized_response_count": 5,
       "clean_raw_json_response_count": 0,
       "policy": "fenced_json_normalization.v1",
       "raw_response_preserved": true,
       "semantic_repair_allowed": false
     },
     "quality_summary": {
-      "accepted_for_operator_review_count": 3,
+      "accepted_for_operator_review_count": 5,
       "blocked_count": 0,
-      "schema_validation_accepted_count": 3,
-      "acceptance_gate_passed_count": 3,
-      "all_required_artifacts_present": true,
-      "all_json_artifacts_parse": true,
+      "schema_validation_accepted_count": 5,
+      "acceptance_gate_passed_count": 5,
+      "prohibited_content_detected_count": 0,
+      "forbidden_phrase_detected_count": 0,
       "baseline_suitable_for_future_controlled_expansion": true
+    },
+    "surface_history": [
+      {
+        "batch_label": "N=3",
+        "surface_load_status": "parsed",
+        "surface_status": "passive_operator_surface_created",
+        "source_protocol_task": null,
+        "source_batch_task": "PMBOT-OPENROUTER-046",
+        "source_baseline_task": "PMBOT-OPENROUTER-047",
+        "source_surface_task": "PMBOT-OPENROUTER-048-PASSIVE-OPERATOR-SURFACE-046-BATCH",
+        "model": "anthropic/claude-sonnet-4.5",
+        "surfaced_market_ids": [
+          "569333",
+          "569334",
+          "569343"
+        ],
+        "total_calls": 3,
+        "aggregate_usage": {
+          "prompt_tokens": 12859,
+          "completion_tokens": 5827,
+          "total_tokens": 18686
+        },
+        "aggregate_cost": {
+          "total_cost": 0.125982,
+          "average_cost_per_market": 0.041994
+        },
+        "normalization_summary": {
+          "fenced_response_count": 3,
+          "normalized_response_count": 3,
+          "clean_raw_json_response_count": 0,
+          "policy": "fenced_json_normalization.v1",
+          "raw_response_preserved": true,
+          "semantic_repair_allowed": false
+        },
+        "quality_summary": {
+          "accepted_for_operator_review_count": 3,
+          "blocked_count": 0,
+          "schema_validation_accepted_count": 3,
+          "acceptance_gate_passed_count": 3,
+          "all_required_artifacts_present": true,
+          "all_json_artifacts_parse": true,
+          "baseline_suitable_for_future_controlled_expansion": true
+        },
+        "required_flag_status": {
+          "operator_review_only": true,
+          "passive_context_only": true,
+          "no_trading_authority": true,
+          "no_queue_authority": true,
+          "no_runtime_authority": true,
+          "no_dispatcher_authority": true,
+          "no_wallet_or_order_authority": true,
+          "acceptance_is_not_trading_approval": true,
+          "analysis_only": true,
+          "manual_review_only": true
+        },
+        "artifact_paths": {
+          "surface_json": "pm_bot/llm/operator_openrouter_batch_surface_046.v1.json",
+          "surface_markdown": "pm_bot/llm/operator_openrouter_batch_surface_046.v1.md"
+        }
+      },
+      {
+        "batch_label": "N=5",
+        "surface_load_status": "parsed",
+        "surface_status": "passive_operator_surface_created",
+        "source_protocol_task": "PMBOT-OPENROUTER-050-CONTROLLED-N5-BATCH-READINESS-PROTOCOL",
+        "source_batch_task": "PMBOT-OPENROUTER-051-CONTROLLED-N5-BATCH-LIVE-CALL",
+        "source_baseline_task": "PMBOT-OPENROUTER-052-N5-BATCH-BASELINE-QUALITY-AND-OPERATOR-SUMMARY",
+        "source_surface_task": "PMBOT-OPENROUTER-053-PASSIVE-OPERATOR-SURFACE-AND-WORKBENCH-N5-INTEGRATION",
+        "model": "anthropic/claude-sonnet-4.5",
+        "surfaced_market_ids": [
+          "569344",
+          "569366",
+          "569368",
+          "569373",
+          "573656"
+        ],
+        "total_calls": 5,
+        "aggregate_usage": {
+          "prompt_tokens": 20768,
+          "completion_tokens": 9119,
+          "total_tokens": 29887,
+          "average_tokens_per_market": 5977.4
+        },
+        "aggregate_cost": {
+          "total_cost": 0.199089,
+          "average_cost_per_market": 0.0398178,
+          "max_total_cost_allowed": 0.35,
+          "cost_cap_exceeded": false
+        },
+        "normalization_summary": {
+          "fenced_response_count": 5,
+          "normalized_response_count": 5,
+          "clean_raw_json_response_count": 0,
+          "policy": "fenced_json_normalization.v1",
+          "raw_response_preserved": true,
+          "semantic_repair_allowed": false
+        },
+        "quality_summary": {
+          "accepted_for_operator_review_count": 5,
+          "blocked_count": 0,
+          "schema_validation_accepted_count": 5,
+          "acceptance_gate_passed_count": 5,
+          "prohibited_content_detected_count": 0,
+          "forbidden_phrase_detected_count": 0,
+          "baseline_suitable_for_future_controlled_expansion": true
+        },
+        "required_flag_status": {
+          "operator_review_only": true,
+          "passive_context_only": true,
+          "no_trading_authority": true,
+          "no_queue_authority": true,
+          "no_runtime_authority": true,
+          "no_dispatcher_authority": true,
+          "no_wallet_or_order_authority": true,
+          "acceptance_is_not_trading_approval": true,
+          "analysis_only": true,
+          "manual_review_only": true
+        },
+        "artifact_paths": {
+          "surface_json": "pm_bot/llm/operator_openrouter_batch_surface_051.v1.json",
+          "surface_markdown": "pm_bot/llm/operator_openrouter_batch_surface_051.v1.md"
+        }
+      }
+    ],
+    "n3_summary": {
+      "batch_label": "N=3",
+      "surface_load_status": "parsed",
+      "surface_status": "passive_operator_surface_created",
+      "source_protocol_task": null,
+      "source_batch_task": "PMBOT-OPENROUTER-046",
+      "source_baseline_task": "PMBOT-OPENROUTER-047",
+      "source_surface_task": "PMBOT-OPENROUTER-048-PASSIVE-OPERATOR-SURFACE-046-BATCH",
+      "model": "anthropic/claude-sonnet-4.5",
+      "surfaced_market_ids": [
+        "569333",
+        "569334",
+        "569343"
+      ],
+      "total_calls": 3,
+      "aggregate_usage": {
+        "prompt_tokens": 12859,
+        "completion_tokens": 5827,
+        "total_tokens": 18686
+      },
+      "aggregate_cost": {
+        "total_cost": 0.125982,
+        "average_cost_per_market": 0.041994
+      },
+      "normalization_summary": {
+        "fenced_response_count": 3,
+        "normalized_response_count": 3,
+        "clean_raw_json_response_count": 0,
+        "policy": "fenced_json_normalization.v1",
+        "raw_response_preserved": true,
+        "semantic_repair_allowed": false
+      },
+      "quality_summary": {
+        "accepted_for_operator_review_count": 3,
+        "blocked_count": 0,
+        "schema_validation_accepted_count": 3,
+        "acceptance_gate_passed_count": 3,
+        "all_required_artifacts_present": true,
+        "all_json_artifacts_parse": true,
+        "baseline_suitable_for_future_controlled_expansion": true
+      },
+      "required_flag_status": {
+        "operator_review_only": true,
+        "passive_context_only": true,
+        "no_trading_authority": true,
+        "no_queue_authority": true,
+        "no_runtime_authority": true,
+        "no_dispatcher_authority": true,
+        "no_wallet_or_order_authority": true,
+        "acceptance_is_not_trading_approval": true,
+        "analysis_only": true,
+        "manual_review_only": true
+      },
+      "artifact_paths": {
+        "surface_json": "pm_bot/llm/operator_openrouter_batch_surface_046.v1.json",
+        "surface_markdown": "pm_bot/llm/operator_openrouter_batch_surface_046.v1.md"
+      }
+    },
+    "n5_summary": {
+      "batch_label": "N=5",
+      "surface_load_status": "parsed",
+      "surface_status": "passive_operator_surface_created",
+      "source_protocol_task": "PMBOT-OPENROUTER-050-CONTROLLED-N5-BATCH-READINESS-PROTOCOL",
+      "source_batch_task": "PMBOT-OPENROUTER-051-CONTROLLED-N5-BATCH-LIVE-CALL",
+      "source_baseline_task": "PMBOT-OPENROUTER-052-N5-BATCH-BASELINE-QUALITY-AND-OPERATOR-SUMMARY",
+      "source_surface_task": "PMBOT-OPENROUTER-053-PASSIVE-OPERATOR-SURFACE-AND-WORKBENCH-N5-INTEGRATION",
+      "model": "anthropic/claude-sonnet-4.5",
+      "surfaced_market_ids": [
+        "569344",
+        "569366",
+        "569368",
+        "569373",
+        "573656"
+      ],
+      "total_calls": 5,
+      "aggregate_usage": {
+        "prompt_tokens": 20768,
+        "completion_tokens": 9119,
+        "total_tokens": 29887,
+        "average_tokens_per_market": 5977.4
+      },
+      "aggregate_cost": {
+        "total_cost": 0.199089,
+        "average_cost_per_market": 0.0398178,
+        "max_total_cost_allowed": 0.35,
+        "cost_cap_exceeded": false
+      },
+      "normalization_summary": {
+        "fenced_response_count": 5,
+        "normalized_response_count": 5,
+        "clean_raw_json_response_count": 0,
+        "policy": "fenced_json_normalization.v1",
+        "raw_response_preserved": true,
+        "semantic_repair_allowed": false
+      },
+      "quality_summary": {
+        "accepted_for_operator_review_count": 5,
+        "blocked_count": 0,
+        "schema_validation_accepted_count": 5,
+        "acceptance_gate_passed_count": 5,
+        "prohibited_content_detected_count": 0,
+        "forbidden_phrase_detected_count": 0,
+        "baseline_suitable_for_future_controlled_expansion": true
+      },
+      "required_flag_status": {
+        "operator_review_only": true,
+        "passive_context_only": true,
+        "no_trading_authority": true,
+        "no_queue_authority": true,
+        "no_runtime_authority": true,
+        "no_dispatcher_authority": true,
+        "no_wallet_or_order_authority": true,
+        "acceptance_is_not_trading_approval": true,
+        "analysis_only": true,
+        "manual_review_only": true
+      },
+      "artifact_paths": {
+        "surface_json": "pm_bot/llm/operator_openrouter_batch_surface_051.v1.json",
+        "surface_markdown": "pm_bot/llm/operator_openrouter_batch_surface_051.v1.md"
+      }
+    },
+    "latest_n5_summary": {
+      "batch_label": "N=5",
+      "surface_load_status": "parsed",
+      "surface_status": "passive_operator_surface_created",
+      "source_protocol_task": "PMBOT-OPENROUTER-050-CONTROLLED-N5-BATCH-READINESS-PROTOCOL",
+      "source_batch_task": "PMBOT-OPENROUTER-051-CONTROLLED-N5-BATCH-LIVE-CALL",
+      "source_baseline_task": "PMBOT-OPENROUTER-052-N5-BATCH-BASELINE-QUALITY-AND-OPERATOR-SUMMARY",
+      "source_surface_task": "PMBOT-OPENROUTER-053-PASSIVE-OPERATOR-SURFACE-AND-WORKBENCH-N5-INTEGRATION",
+      "model": "anthropic/claude-sonnet-4.5",
+      "surfaced_market_ids": [
+        "569344",
+        "569366",
+        "569368",
+        "569373",
+        "573656"
+      ],
+      "total_calls": 5,
+      "aggregate_usage": {
+        "prompt_tokens": 20768,
+        "completion_tokens": 9119,
+        "total_tokens": 29887,
+        "average_tokens_per_market": 5977.4
+      },
+      "aggregate_cost": {
+        "total_cost": 0.199089,
+        "average_cost_per_market": 0.0398178,
+        "max_total_cost_allowed": 0.35,
+        "cost_cap_exceeded": false
+      },
+      "normalization_summary": {
+        "fenced_response_count": 5,
+        "normalized_response_count": 5,
+        "clean_raw_json_response_count": 0,
+        "policy": "fenced_json_normalization.v1",
+        "raw_response_preserved": true,
+        "semantic_repair_allowed": false
+      },
+      "quality_summary": {
+        "accepted_for_operator_review_count": 5,
+        "blocked_count": 0,
+        "schema_validation_accepted_count": 5,
+        "acceptance_gate_passed_count": 5,
+        "prohibited_content_detected_count": 0,
+        "forbidden_phrase_detected_count": 0,
+        "baseline_suitable_for_future_controlled_expansion": true
+      },
+      "required_flag_status": {
+        "operator_review_only": true,
+        "passive_context_only": true,
+        "no_trading_authority": true,
+        "no_queue_authority": true,
+        "no_runtime_authority": true,
+        "no_dispatcher_authority": true,
+        "no_wallet_or_order_authority": true,
+        "acceptance_is_not_trading_approval": true,
+        "analysis_only": true,
+        "manual_review_only": true
+      },
+      "artifact_paths": {
+        "surface_json": "pm_bot/llm/operator_openrouter_batch_surface_051.v1.json",
+        "surface_markdown": "pm_bot/llm/operator_openrouter_batch_surface_051.v1.md"
+      }
+    },
+    "combined_openrouter_review_contour_summary": {
+      "total_markets_successfully_reviewed": 8,
+      "total_openrouter_calls_in_successful_batches": 8,
+      "combined_cost": 0.325071,
+      "combined_tokens": 48573,
+      "total_blocked_in_successful_batches": 0,
+      "average_cost_per_market_combined": 0.040633875,
+      "average_tokens_per_market_combined": 6071.625
+    },
+    "combined_aggregate_usage": {
+      "total_openrouter_calls": 8,
+      "prompt_tokens": 33627,
+      "completion_tokens": 14946,
+      "total_tokens": 48573
+    },
+    "combined_aggregate_cost": {
+      "total_cost": 0.325071,
+      "average_cost_per_market": 0.040633875
     },
     "required_flag_status": {
       "operator_review_only": true,
@@ -1377,7 +1726,8 @@
       "openrouter_calls_performed": 0,
       "polymarket_api_calls_performed": 0,
       "network_calls": 0,
-      "orders_created": 0
+      "orders_created": 0,
+      "combined_source_openrouter_calls": 8
     },
     "artifact_pointers": {
       "workbench_pointer_json": {
@@ -1388,76 +1738,345 @@
         "path": "pm_bot/workbench/openrouter_passive_surface_pointer.v1.md",
         "role": "generated_workbench_pointer"
       },
-      "source_surface_json": {
+      "operator_openrouter_review_dashboard_json": {
+        "path": "pm_bot/workbench/operator_openrouter_review_dashboard.v1.json",
+        "role": "generated_static_dashboard"
+      },
+      "operator_openrouter_review_dashboard_markdown": {
+        "path": "pm_bot/workbench/operator_openrouter_review_dashboard.v1.md",
+        "role": "generated_static_dashboard"
+      },
+      "n3_surface_json": {
         "path": "pm_bot/llm/operator_openrouter_batch_surface_046.v1.json",
         "role": "read_only_passive_source"
       },
-      "source_surface_markdown": {
+      "n3_surface_markdown": {
         "path": "pm_bot/llm/operator_openrouter_batch_surface_046.v1.md",
+        "role": "read_only_passive_source"
+      },
+      "n5_surface_json": {
+        "path": "pm_bot/llm/operator_openrouter_batch_surface_051.v1.json",
+        "role": "read_only_passive_source"
+      },
+      "n5_surface_markdown": {
+        "path": "pm_bot/llm/operator_openrouter_batch_surface_051.v1.md",
         "role": "read_only_passive_source"
       },
       "source_048_result": {
         "path": "docs/PMBOT_OPENROUTER_048_RESULT.json",
         "role": "read_only_source_result"
       },
-      "source_048_report": {
-        "path": "docs/PMBOT_OPENROUTER_048_PASSIVE_OPERATOR_SURFACE_046_BATCH.md",
-        "role": "read_only_source_report"
+      "source_052_result": {
+        "path": "docs/PMBOT_OPENROUTER_052_RESULT.json",
+        "role": "read_only_source_result"
       }
     },
     "source_artifact_pointers": {
-      "source_046_result": {
+      "n3_source_046_result": {
         "path": "docs/PMBOT_OPENROUTER_046_RESULT.json",
         "role": "read_only_source_summary"
       },
-      "source_046_report": {
+      "n3_source_046_report": {
         "path": "docs/PMBOT_OPENROUTER_046_RETRY_SMALL_MANUAL_BATCH_AFTER_ACCEPTANCE_PHRASE_HARDENING.md",
         "role": "read_only_source_summary"
       },
-      "source_047_result": {
+      "n3_source_047_result": {
         "path": "docs/PMBOT_OPENROUTER_047_RESULT.json",
         "role": "read_only_source_summary"
       },
-      "source_047_report": {
+      "n3_source_047_report": {
         "path": "docs/PMBOT_OPENROUTER_047_SMALL_BATCH_BASELINE_QUALITY_AND_OPERATOR_SUMMARY.md",
         "role": "read_only_source_summary"
       },
-      "source_047_baseline_json": {
+      "n3_source_047_baseline_json": {
         "path": "pm_bot/llm/openrouter_046_small_batch_quality_baseline.v1.json",
         "role": "read_only_source_summary"
       },
-      "source_047_baseline_markdown": {
+      "n3_source_047_baseline_markdown": {
         "path": "pm_bot/llm/openrouter_046_small_batch_quality_baseline.v1.md",
         "role": "read_only_source_summary"
       },
-      "source_047_operator_summary": {
+      "n3_source_047_operator_summary": {
         "path": "pm_bot/llm/openrouter_046_small_batch_operator_summary.v1.md",
         "role": "read_only_source_summary"
       },
-      "source_046_batch_summary": {
+      "n3_source_046_batch_summary": {
         "path": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_046_retry_small_manual_batch_after_acceptance_phrase_hardening/openrouter_batch_summary.v1.json",
         "role": "read_only_source_summary"
       },
-      "source_046_batch_cost_report_json": {
+      "n3_source_046_batch_cost_report_json": {
         "path": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_046_retry_small_manual_batch_after_acceptance_phrase_hardening/openrouter_batch_cost_report.v1.json",
         "role": "read_only_source_summary"
       },
-      "source_046_batch_cost_report_markdown": {
+      "n3_source_046_batch_cost_report_markdown": {
         "path": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_046_retry_small_manual_batch_after_acceptance_phrase_hardening/openrouter_batch_cost_report.v1.md",
+        "role": "read_only_source_summary"
+      },
+      "n5_source_050_result": {
+        "path": "docs/PMBOT_OPENROUTER_050_RESULT.json",
+        "role": "read_only_source_summary"
+      },
+      "n5_source_051_result": {
+        "path": "docs/PMBOT_OPENROUTER_051_RESULT.json",
+        "role": "read_only_source_summary"
+      },
+      "n5_source_052_result": {
+        "path": "docs/PMBOT_OPENROUTER_052_RESULT.json",
+        "role": "read_only_source_summary"
+      },
+      "n5_source_052_baseline_json": {
+        "path": "pm_bot/llm/openrouter_051_n5_batch_quality_baseline.v1.json",
+        "role": "read_only_source_summary"
+      },
+      "n5_source_052_baseline_markdown": {
+        "path": "pm_bot/llm/openrouter_051_n5_batch_quality_baseline.v1.md",
+        "role": "read_only_source_summary"
+      },
+      "n5_source_052_operator_summary": {
+        "path": "pm_bot/llm/openrouter_051_n5_batch_operator_summary.v1.md",
+        "role": "read_only_source_summary"
+      },
+      "n5_surface_json": {
+        "path": "pm_bot/llm/operator_openrouter_batch_surface_051.v1.json",
+        "role": "read_only_source_summary"
+      },
+      "n5_surface_markdown": {
+        "path": "pm_bot/llm/operator_openrouter_batch_surface_051.v1.md",
         "role": "read_only_source_summary"
       }
     },
     "warnings_count": 2,
     "known_warnings": [
-      "all_3_source_responses_required_fenced_json_normalization",
-      "no_clean_raw_json_responses_observed_in_046"
+      "all successful batch responses required fenced JSON normalization",
+      "no clean raw JSON responses observed"
     ],
+    "dashboard_pointer": "pm_bot/workbench/operator_openrouter_review_dashboard.v1.json",
+    "dashboard_markdown_pointer": "pm_bot/workbench/operator_openrouter_review_dashboard.v1.md",
     "offline_review_warning": "OpenRouter passive surface is read-only operator context; it creates no queue item, runtime hook, API call, wallet/order access, or authority.",
     "openrouter_calls_performed": 0,
     "polymarket_api_calls_performed": 0,
     "network_calls": 0,
     "orders_created": 0,
     "queue_items_created": 0
+  },
+  "openrouter_review_dashboard": {
+    "section_id": "openrouter_review_dashboard",
+    "artifact_status": "present",
+    "artifact_pointer": "pm_bot/workbench/operator_openrouter_review_dashboard.v1.json",
+    "artifact_markdown_pointer": "pm_bot/workbench/operator_openrouter_review_dashboard.v1.md",
+    "artifact_parse_status": "parsed",
+    "latest_batch": {
+      "batch_label": "N=5",
+      "source_task": "PMBOT-OPENROUTER-051",
+      "source_task_id": "PMBOT-OPENROUTER-051-CONTROLLED-N5-BATCH-LIVE-CALL"
+    },
+    "latest_surface": "PMBOT-OPENROUTER-053-PASSIVE-OPERATOR-SURFACE-AND-WORKBENCH-N5-INTEGRATION",
+    "latest_baseline": "PMBOT-OPENROUTER-052-N5-BATCH-BASELINE-QUALITY-AND-OPERATOR-SUMMARY",
+    "latest_workbench_integration_status": "multi_batch_passive_surface_pointer_ready",
+    "n3_summary": {
+      "batch_label": "N=3",
+      "market_ids": [
+        "569333",
+        "569334",
+        "569343"
+      ],
+      "calls": 3,
+      "cost": 0.125982,
+      "total_tokens": 18686,
+      "accepted_for_operator_review_count": 3,
+      "blocked_count": 0,
+      "prompt_tokens": 12859,
+      "completion_tokens": 5827,
+      "average_cost_per_market": 0.041994,
+      "average_tokens_per_market": 6228.666667,
+      "fenced_response_count": 3,
+      "normalized_response_count": 3,
+      "clean_raw_json_response_count": 0,
+      "source_batch_task": "PMBOT-OPENROUTER-046-RETRY-SMALL-MANUAL-BATCH-AFTER-ACCEPTANCE-PHRASE-HARDENING",
+      "source_baseline_task": "PMBOT-OPENROUTER-047-SMALL-BATCH-BASELINE-QUALITY-AND-OPERATOR-SUMMARY",
+      "source_surface_task": "PMBOT-OPENROUTER-048-PASSIVE-OPERATOR-SURFACE-046-BATCH",
+      "surface_json_path": "pm_bot/llm/operator_openrouter_batch_surface_046.v1.json",
+      "surface_md_path": "pm_bot/llm/operator_openrouter_batch_surface_046.v1.md"
+    },
+    "n5_summary": {
+      "batch_label": "N=5",
+      "market_ids": [
+        "569344",
+        "569366",
+        "569368",
+        "569373",
+        "573656"
+      ],
+      "calls": 5,
+      "cost": 0.199089,
+      "total_tokens": 29887,
+      "accepted_for_operator_review_count": 5,
+      "blocked_count": 0,
+      "prompt_tokens": 20768,
+      "completion_tokens": 9119,
+      "average_cost_per_market": 0.0398178,
+      "average_tokens_per_market": 5977.4,
+      "fenced_response_count": 5,
+      "normalized_response_count": 5,
+      "clean_raw_json_response_count": 0,
+      "source_protocol_task": "PMBOT-OPENROUTER-050-CONTROLLED-N5-BATCH-READINESS-PROTOCOL",
+      "source_batch_task": "PMBOT-OPENROUTER-051-CONTROLLED-N5-BATCH-LIVE-CALL",
+      "source_baseline_task": "PMBOT-OPENROUTER-052-N5-BATCH-BASELINE-QUALITY-AND-OPERATOR-SUMMARY",
+      "source_surface_task": "PMBOT-OPENROUTER-053-PASSIVE-OPERATOR-SURFACE-AND-WORKBENCH-N5-INTEGRATION",
+      "surface_json_path": "pm_bot/llm/operator_openrouter_batch_surface_051.v1.json",
+      "surface_md_path": "pm_bot/llm/operator_openrouter_batch_surface_051.v1.md"
+    },
+    "combined_openrouter_review_contour_summary": {
+      "total_markets_successfully_reviewed": 8,
+      "total_openrouter_calls_in_successful_batches": 8,
+      "combined_cost": 0.325071,
+      "combined_tokens": 48573,
+      "total_blocked_in_successful_batches": 0,
+      "average_cost_per_market_combined": 0.040633875,
+      "average_tokens_per_market_combined": 6071.625
+    },
+    "cost_summary": {
+      "n3_cost": 0.125982,
+      "n5_cost": 0.199089,
+      "combined_cost": 0.325071
+    },
+    "usage_summary": {
+      "n3_tokens": 18686,
+      "n5_tokens": 29887,
+      "combined_tokens": 48573
+    },
+    "normalization_summary": {
+      "successful_batch_responses_requiring_fenced_normalization": "8/8",
+      "clean_raw_json_responses": 0,
+      "policy": "fenced_json_normalization.v1"
+    },
+    "inventory_summary": {
+      "total_markets_found": 14,
+      "total_reviewed_by_openrouter": 10,
+      "category_counts": {
+        "legal/courts": 1,
+        "elections": 9,
+        "crypto": 1,
+        "politics": 1,
+        "company/business": 2
+      },
+      "unknown_category_count": 0,
+      "markets_with_low_packet_completeness": [
+        "563650",
+        "569332",
+        "569333",
+        "569334",
+        "569343",
+        "569344",
+        "569366",
+        "569368",
+        "569373",
+        "573656",
+        "597964",
+        "598936",
+        "691547",
+        "692258"
+      ]
+    },
+    "evidence_completeness_summary": {
+      "reviewed_market_count": 10,
+      "evidence_completeness_counts": {
+        "medium": 10
+      },
+      "common_missing_fields": [
+        "full_market_resolution_criteria_text",
+        "official_source_urls",
+        "credible_news_source_urls",
+        "source_timestamps",
+        "source_reliability_review",
+        "local_packet_completeness_score"
+      ],
+      "category_specific_gaps": {
+        "crypto": [
+          "benchmark_and_timezone_rules",
+          "full_resolution_rules",
+          "official_source_references",
+          "source_timestamps"
+        ],
+        "elections": [
+          "full_resolution_rules",
+          "official_election_authority_identifier",
+          "official_source_references",
+          "source_timestamps"
+        ],
+        "legal/courts": [
+          "docket_identifier",
+          "full_resolution_rules",
+          "official_source_references",
+          "source_timestamps"
+        ]
+      },
+      "top_local_enrichment_priorities": [
+        "resolution source extraction",
+        "category labeling",
+        "source gap normalization",
+        "operator checklist standardization",
+        "local packet completeness score"
+      ]
+    },
+    "operator_next_engineering_actions": [
+      "category/source inventory review",
+      "source/evidence enrichment design",
+      "repeat N=5 or protocol-only N=10 only after review",
+      "model comparison and cost optimization later"
+    ],
+    "artifact_pointers": {
+      "n3_surface_json": "pm_bot/llm/operator_openrouter_batch_surface_046.v1.json",
+      "n3_surface_md": "pm_bot/llm/operator_openrouter_batch_surface_046.v1.md",
+      "n5_surface_json": "pm_bot/llm/operator_openrouter_batch_surface_051.v1.json",
+      "n5_surface_md": "pm_bot/llm/operator_openrouter_batch_surface_051.v1.md",
+      "contour_audit_json": "pm_bot/llm/openrouter_operator_review_contour_046_053_audit.v1.json",
+      "contour_audit_md": "pm_bot/llm/openrouter_operator_review_contour_046_053_audit.v1.md",
+      "inventory_json": "pm_bot/llm/current_llm_market_packet_inventory.v1.json",
+      "inventory_md": "pm_bot/llm/current_llm_market_packet_inventory.v1.md",
+      "evidence_audit_json": "pm_bot/llm/current_llm_source_evidence_completeness_audit.v1.json",
+      "evidence_audit_md": "pm_bot/llm/current_llm_source_evidence_completeness_audit.v1.md",
+      "operator_review_pack_json": "pm_bot/workbench/operator_review_pack.v1.json",
+      "operator_review_pack_md": "pm_bot/workbench/operator_review_pack.v1.md",
+      "workbench_export_run_json": "pm_bot/workbench/operator_workbench_export_run.v1.json",
+      "workbench_export_run_md": "pm_bot/workbench/operator_workbench_export_run.v1.md",
+      "runbook": "docs/PMBOT_OPENROUTER_OPERATOR_REVIEW_RUNBOOK.md",
+      "decision_matrix_json": "pm_bot/llm/openrouter_next_step_decision_matrix.v1.json",
+      "decision_matrix_md": "docs/PMBOT_OPENROUTER_NEXT_STEP_DECISION_MATRIX.md"
+    },
+    "safety_summary": {
+      "operator_review_only": true,
+      "passive_context_only": true,
+      "no_trading_authority": true,
+      "no_queue_authority": true,
+      "no_runtime_authority": true,
+      "no_dispatcher_authority": true,
+      "no_wallet_or_order_authority": true,
+      "acceptance_is_not_trading_approval": true,
+      "analysis_only": true,
+      "manual_review_only": true,
+      "no_market_action_guidance": true,
+      "no_probability_ev_edge_confidence_side_selection": true,
+      "no_buy_sell_hold_enter_exit": true,
+      "openrouter_calls_performed_by_this_task": 0,
+      "polymarket_api_calls_performed_by_this_task": 0,
+      "network_calls_performed_by_this_task": 0,
+      "api_key_accessed": false,
+      "api_key_value_printed": false,
+      "api_key_value_written": false,
+      "api_key_leaked": false,
+      "wallet_or_private_key_accessed": false,
+      "orders_created": 0,
+      "queue_items_created": 0,
+      "queue_state_mutated": false,
+      "runtime_wiring_added": false,
+      "dispatcher_changed": false,
+      "background_workers_added": false,
+      "browser_automation_used": false
+    },
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "network_calls_performed": 0
   },
   "quality_warning_summary": {
     "source_path": "pm_bot/quality/artifact_health_report.v1.json",

@@ -1,0 +1,216 @@
+{
+  "schema_version": "openrouter_next_step_decision_matrix.v1",
+  "task_id": "PMBOT-OPENROUTER-053-N5-SURFACE-WORKBENCH-INVENTORY-UX-AND-CONTOUR-AUDIT",
+  "generated_by": "pm_bot/llm/openrouter_operator_review_artifacts_053.py",
+  "status": "next_step_decision_matrix_created",
+  "recommended_priority_order": [
+    "C. Market inventory/source evidence review",
+    "D. Source/evidence enrichment design",
+    "E. Operator UX/dashboard refinement",
+    "A/B. Repeat N=5 or N=10 readiness protocol after review",
+    "F/G. Model comparison and cost optimization later",
+    "H. Manual operator review lifecycle statuses"
+  ],
+  "possible_next_steps": [
+    {
+      "id": "A",
+      "name": "Repeat N=5 controlled batch protocol/live cycle",
+      "purpose": "Confirm stability across another same-size controlled batch.",
+      "expected_benefit": "Strengthens baseline before larger expansion.",
+      "risk": "Consumes live-call budget and repeats current fenced-normalization issue.",
+      "prerequisites": [
+        "review inventory",
+        "review source/evidence audit",
+        "fresh readiness protocol"
+      ],
+      "live_calls_required": true,
+      "recommended_priority": 3,
+      "safety_constraints": {
+        "operator_review_only": true,
+        "no_queue_mutation": true,
+        "no_runtime_wiring": true,
+        "no_wallet_or_order_access": true,
+        "future_live_calls_require_separate_approval": true
+      },
+      "approved_by_this_task": false
+    },
+    {
+      "id": "B",
+      "name": "N=10 readiness protocol",
+      "purpose": "Design a protocol-only larger batch gate.",
+      "expected_benefit": "Surfaces scale constraints before live calls.",
+      "risk": "Can create false readiness if inventory/source gaps are not reviewed first.",
+      "prerequisites": [
+        "inventory review",
+        "operator UX review",
+        "cost cap design"
+      ],
+      "live_calls_required": false,
+      "recommended_priority": 3,
+      "safety_constraints": {
+        "operator_review_only": true,
+        "no_queue_mutation": true,
+        "no_runtime_wiring": true,
+        "no_wallet_or_order_access": true,
+        "future_live_calls_require_separate_approval": true
+      },
+      "approved_by_this_task": false
+    },
+    {
+      "id": "C",
+      "name": "Market packet category/source inventory refinement",
+      "purpose": "Improve local market classification and packet completeness fields.",
+      "expected_benefit": "Makes the operator workflow easier to inspect and safer to expand.",
+      "risk": "Low risk; local static artifact work only.",
+      "prerequisites": [
+        "current inventory artifact"
+      ],
+      "live_calls_required": false,
+      "recommended_priority": 1,
+      "safety_constraints": {
+        "operator_review_only": true,
+        "no_queue_mutation": true,
+        "no_runtime_wiring": true,
+        "no_wallet_or_order_access": true,
+        "future_live_calls_require_separate_approval": true
+      },
+      "approved_by_this_task": false
+    },
+    {
+      "id": "D",
+      "name": "Source/evidence enrichment design",
+      "purpose": "Define how local packets should capture rules, source gaps, and checklists.",
+      "expected_benefit": "Reduces missing-source ambiguity before future LLM review.",
+      "risk": "Must remain design/local-artifact work until separately approved.",
+      "prerequisites": [
+        "inventory review",
+        "evidence completeness audit"
+      ],
+      "live_calls_required": false,
+      "recommended_priority": 1,
+      "safety_constraints": {
+        "operator_review_only": true,
+        "no_queue_mutation": true,
+        "no_runtime_wiring": true,
+        "no_wallet_or_order_access": true,
+        "future_live_calls_require_separate_approval": true
+      },
+      "approved_by_this_task": false
+    },
+    {
+      "id": "E",
+      "name": "Workbench UX refinement",
+      "purpose": "Improve static operator surfaces and dashboard readability.",
+      "expected_benefit": "Reduces artifact spelunking and clarifies status at a glance.",
+      "risk": "Low risk if kept static and local.",
+      "prerequisites": [
+        "dashboard artifact",
+        "review pack pointer"
+      ],
+      "live_calls_required": false,
+      "recommended_priority": 2,
+      "safety_constraints": {
+        "operator_review_only": true,
+        "no_queue_mutation": true,
+        "no_runtime_wiring": true,
+        "no_wallet_or_order_access": true,
+        "future_live_calls_require_separate_approval": true
+      },
+      "approved_by_this_task": false
+    },
+    {
+      "id": "F",
+      "name": "Model comparison protocol",
+      "purpose": "Design a controlled comparison between analysis-only routes.",
+      "expected_benefit": "May improve output format and cost profile.",
+      "risk": "Can increase live-call cost if run before protocol approval.",
+      "prerequisites": [
+        "repeat N=5 or protocol-only design",
+        "cost cap"
+      ],
+      "live_calls_required": false,
+      "recommended_priority": 4,
+      "safety_constraints": {
+        "operator_review_only": true,
+        "no_queue_mutation": true,
+        "no_runtime_wiring": true,
+        "no_wallet_or_order_access": true,
+        "future_live_calls_require_separate_approval": true
+      },
+      "approved_by_this_task": false
+    },
+    {
+      "id": "G",
+      "name": "Cost optimization protocol",
+      "purpose": "Design lower-cost analysis-only trial constraints.",
+      "expected_benefit": "Can reduce per-market cost after quality baseline is stable.",
+      "risk": "Premature optimization may obscure source-quality issues.",
+      "prerequisites": [
+        "stable inventory",
+        "baseline review"
+      ],
+      "live_calls_required": false,
+      "recommended_priority": 4,
+      "safety_constraints": {
+        "operator_review_only": true,
+        "no_queue_mutation": true,
+        "no_runtime_wiring": true,
+        "no_wallet_or_order_access": true,
+        "future_live_calls_require_separate_approval": true
+      },
+      "approved_by_this_task": false
+    },
+    {
+      "id": "H",
+      "name": "Manual operator review lifecycle statuses",
+      "purpose": "Define local statuses after operator review.",
+      "expected_benefit": "Clarifies accepted, blocked, needs-local-enrichment, and archived states.",
+      "risk": "Must not mutate queue or runtime state in this task.",
+      "prerequisites": [
+        "static status vocabulary",
+        "runbook review"
+      ],
+      "live_calls_required": false,
+      "recommended_priority": 2,
+      "safety_constraints": {
+        "operator_review_only": true,
+        "no_queue_mutation": true,
+        "no_runtime_wiring": true,
+        "no_wallet_or_order_access": true,
+        "future_live_calls_require_separate_approval": true
+      },
+      "approved_by_this_task": false
+    }
+  ],
+  "future_live_calls_approved": false,
+  "safety_summary": {
+    "operator_review_only": true,
+    "passive_context_only": true,
+    "no_trading_authority": true,
+    "no_queue_authority": true,
+    "no_runtime_authority": true,
+    "no_dispatcher_authority": true,
+    "no_wallet_or_order_authority": true,
+    "acceptance_is_not_trading_approval": true,
+    "analysis_only": true,
+    "manual_review_only": true,
+    "no_market_action_guidance": true,
+    "no_probability_ev_edge_confidence_side_selection": true,
+    "no_buy_sell_hold_enter_exit": true,
+    "openrouter_calls_performed_by_this_task": 0,
+    "polymarket_api_calls_performed_by_this_task": 0,
+    "network_calls_performed_by_this_task": 0,
+    "api_key_accessed": false,
+    "api_key_value_printed": false,
+    "api_key_value_written": false,
+    "api_key_leaked": false,
+    "wallet_or_private_key_accessed": false,
+    "orders_created": 0,
+    "queue_items_created": 0,
+    "queue_state_mutated": false,
+    "runtime_wiring_added": false,
+    "dispatcher_changed": false,
+    "background_workers_added": false,
+    "browser_automation_used": false
+  }
+}

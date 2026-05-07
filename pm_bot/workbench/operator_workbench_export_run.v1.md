@@ -30,6 +30,9 @@
 - openrouter_passive_surface_pointer: status=ran, required=false, script=pm_bot/workbench/openrouter_passive_surface_pointer.py
   output: pm_bot/workbench/openrouter_passive_surface_pointer.v1.json
   output: pm_bot/workbench/openrouter_passive_surface_pointer.v1.md
+- operator_openrouter_review_dashboard: status=ran, required=false, script=pm_bot/workbench/operator_openrouter_review_dashboard.py
+  output: pm_bot/workbench/operator_openrouter_review_dashboard.v1.json
+  output: pm_bot/workbench/operator_openrouter_review_dashboard.v1.md
 - operator_review_pack: status=ran, required=true, script=pm_bot/workbench/export_operator_review_pack.py
   output: pm_bot/workbench/operator_review_pack.v1.json
   output: pm_bot/workbench/operator_review_pack.v1.md
@@ -53,6 +56,8 @@
 - docs/PMBOT_CODEX_B_ROUND003_RESULT.json
 - pm_bot/workbench/openrouter_passive_surface_pointer.v1.json
 - pm_bot/workbench/openrouter_passive_surface_pointer.v1.md
+- pm_bot/workbench/operator_openrouter_review_dashboard.v1.json
+- pm_bot/workbench/operator_openrouter_review_dashboard.v1.md
 - pm_bot/workbench/operator_review_pack.v1.json
 - pm_bot/workbench/operator_review_pack.v1.md
 - pm_bot/workbench/expected_operator_review_pack.v1.json
@@ -99,17 +104,18 @@
 
 - artifact_path: pm_bot/workbench/openrouter_passive_surface_pointer.v1.json
 - status: passive_surface_pointer_ready
-- source_batch_task: PMBOT-OPENROUTER-046
-- source_baseline_task: PMBOT-OPENROUTER-047
-- source_surface_task: PMBOT-OPENROUTER-048
+- source_batch_task: PMBOT-OPENROUTER-051-CONTROLLED-N5-BATCH-LIVE-CALL
+- source_baseline_task: PMBOT-OPENROUTER-052-N5-BATCH-BASELINE-QUALITY-AND-OPERATOR-SUMMARY
+- source_surface_task: PMBOT-OPENROUTER-053-PASSIVE-OPERATOR-SURFACE-AND-WORKBENCH-N5-INTEGRATION
 - source_048_status: completed_pushed
-- surfaced_market_ids: 569333, 569334, 569343
+- source_052_status: completed_pushed
+- surfaced_market_ids: 569344, 569366, 569368, 569373, 573656
 - model: anthropic/claude-sonnet-4.5
-- total_calls: 3
-- accepted_for_operator_review_count: 3
+- total_calls: 5
+- accepted_for_operator_review_count: 5
 - blocked_count: 0
-- fenced_response_count: 3
-- normalized_response_count: 3
+- fenced_response_count: 5
+- normalized_response_count: 5
 - clean_raw_json_response_count: 0
 - operator_review_only: true
 - passive_context_only: true
@@ -121,6 +127,17 @@
 - acceptance_is_not_trading_approval: true
 - analysis_only: true
 - manual_review_only: true
+
+## OpenRouter Review Dashboard
+
+- artifact_path: pm_bot/workbench/operator_openrouter_review_dashboard.v1.json
+- status: operator_openrouter_review_dashboard_created
+- latest_surface: PMBOT-OPENROUTER-053-PASSIVE-OPERATOR-SURFACE-AND-WORKBENCH-N5-INTEGRATION
+- latest_baseline: PMBOT-OPENROUTER-052-N5-BATCH-BASELINE-QUALITY-AND-OPERATOR-SUMMARY
+- latest_workbench_integration_status: multi_batch_passive_surface_pointer_ready
+- combined_cost: 0.325071
+- combined_tokens: 48573
+- total_markets_found: 14
 
 ## Warnings
 

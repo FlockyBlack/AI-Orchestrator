@@ -1,47 +1,48 @@
 # PMBOT OpenRouter Passive Surface Pointer v1
 
 - schema_version: openrouter_passive_surface_pointer.v1
-- task_id: PMBOT-OPENROUTER-049-WORKBENCH-PASSIVE-SURFACE-INTEGRATION
+- task_id: PMBOT-OPENROUTER-053-WORKBENCH-PASSIVE-SURFACE-MULTI-BATCH-INTEGRATION
 - generated_by: pm_bot/workbench/openrouter_passive_surface_pointer.py
 - status: passive_surface_pointer_ready
-- workbench_integration_mode: read_only_passive_context
-- source_batch_task: PMBOT-OPENROUTER-046
-- source_baseline_task: PMBOT-OPENROUTER-047
-- source_surface_task: PMBOT-OPENROUTER-048
-- source_048_status: completed_pushed
-- surfaced_market_ids: 569333, 569334, 569343
-- model: anthropic/claude-sonnet-4.5
-- total_calls: 3
+- workbench_integration_mode: read_only_passive_context_multi_batch
+- latest_surface_source_batch_task: PMBOT-OPENROUTER-051-CONTROLLED-N5-BATCH-LIVE-CALL
+- latest_surface_task: PMBOT-OPENROUTER-053-PASSIVE-OPERATOR-SURFACE-AND-WORKBENCH-N5-INTEGRATION
 
-## Aggregate Usage
+## Surface History
 
-- prompt_tokens: 12859
-- completion_tokens: 5827
-- total_tokens: 18686
+- N=3
+  source_batch_task: PMBOT-OPENROUTER-046
+  source_baseline_task: PMBOT-OPENROUTER-047
+  source_surface_task: PMBOT-OPENROUTER-048-PASSIVE-OPERATOR-SURFACE-046-BATCH
+  surfaced_market_ids: 569333, 569334, 569343
+  calls: 3
+  total_tokens: 18686
+  total_cost: 0.125982
+  accepted_for_operator_review_count: 3
+  blocked_count: 0
+- N=5
+  source_batch_task: PMBOT-OPENROUTER-051-CONTROLLED-N5-BATCH-LIVE-CALL
+  source_baseline_task: PMBOT-OPENROUTER-052-N5-BATCH-BASELINE-QUALITY-AND-OPERATOR-SUMMARY
+  source_surface_task: PMBOT-OPENROUTER-053-PASSIVE-OPERATOR-SURFACE-AND-WORKBENCH-N5-INTEGRATION
+  surfaced_market_ids: 569344, 569366, 569368, 569373, 573656
+  calls: 5
+  total_tokens: 29887
+  total_cost: 0.199089
+  accepted_for_operator_review_count: 5
+  blocked_count: 0
 
-## Aggregate Cost
+## Combined Summary
 
-- total_cost: 0.125982
-- average_cost_per_market: 0.041994
+- total_markets_successfully_reviewed: 8
+- total_openrouter_calls_in_successful_batches: 8
+- combined_cost: 0.325071
+- combined_tokens: 48573
+- total_blocked_in_successful_batches: 0
 
-## Normalization Summary
+## Normalization Warnings
 
-- fenced_response_count: 3
-- normalized_response_count: 3
-- clean_raw_json_response_count: 0
-- policy: fenced_json_normalization.v1
-- raw_response_preserved: true
-- semantic_repair_allowed: false
-
-## Quality Summary
-
-- accepted_for_operator_review_count: 3
-- blocked_count: 0
-- schema_validation_accepted_count: 3
-- acceptance_gate_passed_count: 3
-- all_required_artifacts_present: true
-- all_json_artifacts_parse: true
-- baseline_suitable_for_future_controlled_expansion: true
+- all successful batch responses required fenced JSON normalization
+- no clean raw JSON responses observed
 
 ## Safety No-Authority Flags
 
@@ -64,31 +65,11 @@
 
 - workbench_pointer_json: pm_bot/workbench/openrouter_passive_surface_pointer.v1.json (generated_workbench_pointer)
 - workbench_pointer_markdown: pm_bot/workbench/openrouter_passive_surface_pointer.v1.md (generated_workbench_pointer)
-- source_surface_json: pm_bot/llm/operator_openrouter_batch_surface_046.v1.json (read_only_passive_source)
-- source_surface_markdown: pm_bot/llm/operator_openrouter_batch_surface_046.v1.md (read_only_passive_source)
+- operator_openrouter_review_dashboard_json: pm_bot/workbench/operator_openrouter_review_dashboard.v1.json (generated_static_dashboard)
+- operator_openrouter_review_dashboard_markdown: pm_bot/workbench/operator_openrouter_review_dashboard.v1.md (generated_static_dashboard)
+- n3_surface_json: pm_bot/llm/operator_openrouter_batch_surface_046.v1.json (read_only_passive_source)
+- n3_surface_markdown: pm_bot/llm/operator_openrouter_batch_surface_046.v1.md (read_only_passive_source)
+- n5_surface_json: pm_bot/llm/operator_openrouter_batch_surface_051.v1.json (read_only_passive_source)
+- n5_surface_markdown: pm_bot/llm/operator_openrouter_batch_surface_051.v1.md (read_only_passive_source)
 - source_048_result: docs/PMBOT_OPENROUTER_048_RESULT.json (read_only_source_result)
-- source_048_report: docs/PMBOT_OPENROUTER_048_PASSIVE_OPERATOR_SURFACE_046_BATCH.md (read_only_source_report)
-
-## Source Artifact Pointers
-
-- source_046_result: docs/PMBOT_OPENROUTER_046_RESULT.json (read_only_source_summary)
-- source_046_report: docs/PMBOT_OPENROUTER_046_RETRY_SMALL_MANUAL_BATCH_AFTER_ACCEPTANCE_PHRASE_HARDENING.md (read_only_source_summary)
-- source_047_result: docs/PMBOT_OPENROUTER_047_RESULT.json (read_only_source_summary)
-- source_047_report: docs/PMBOT_OPENROUTER_047_SMALL_BATCH_BASELINE_QUALITY_AND_OPERATOR_SUMMARY.md (read_only_source_summary)
-- source_047_baseline_json: pm_bot/llm/openrouter_046_small_batch_quality_baseline.v1.json (read_only_source_summary)
-- source_047_baseline_markdown: pm_bot/llm/openrouter_046_small_batch_quality_baseline.v1.md (read_only_source_summary)
-- source_047_operator_summary: pm_bot/llm/openrouter_046_small_batch_operator_summary.v1.md (read_only_source_summary)
-- source_046_batch_summary: pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_046_retry_small_manual_batch_after_acceptance_phrase_hardening/openrouter_batch_summary.v1.json (read_only_source_summary)
-- source_046_batch_cost_report_json: pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_046_retry_small_manual_batch_after_acceptance_phrase_hardening/openrouter_batch_cost_report.v1.json (read_only_source_summary)
-- source_046_batch_cost_report_markdown: pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_046_retry_small_manual_batch_after_acceptance_phrase_hardening/openrouter_batch_cost_report.v1.md (read_only_source_summary)
-
-## Known Warnings
-
-- all_3_source_responses_required_fenced_json_normalization
-- no_clean_raw_json_responses_observed_in_046
-
-## Future Readiness Note
-
-- options_documented_only: true
-- option_a: PMBOT-OPENROUTER-050-CONTROLLED-N5-BATCH-READINESS-PROTOCOL - Protocol-only readiness for a future 5-market controlled batch, no live calls.
-- option_b: PMBOT-OPENROUTER-050-OPERATOR-WORKBENCH-OPENROUTER-UX-REFINEMENT - Improve local presentation of passive OpenRouter review data in workbench artifacts, no live calls.
+- source_052_result: docs/PMBOT_OPENROUTER_052_RESULT.json (read_only_source_result)

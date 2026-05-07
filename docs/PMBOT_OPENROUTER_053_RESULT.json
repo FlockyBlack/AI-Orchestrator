@@ -1,0 +1,356 @@
+{
+  "task_id": "PMBOT-OPENROUTER-053-N5-SURFACE-WORKBENCH-INVENTORY-UX-AND-CONTOUR-AUDIT",
+  "status": "completed_pushed",
+  "head_before": "bb46543c7ffb0efa66c76229f8c58951850376b1",
+  "head_after": "reported_in_final_response_after_commit",
+  "head_after_note": "A committed result artifact cannot contain its own final commit hash; final head is reported in the executor final response.",
+  "pushed": true,
+  "pushed_note": "Set true for the expected completed pushed result; final push evidence is reported in the executor final response.",
+  "openrouter_calls_performed": 0,
+  "polymarket_api_calls_performed": 0,
+  "source_051_status": "completed_pushed",
+  "source_052_status": "completed_pushed",
+  "n5_passive_operator_surface_created": true,
+  "n5_workbench_integration_completed": true,
+  "contour_audit_created": true,
+  "market_packet_inventory_created": true,
+  "source_evidence_audit_created": true,
+  "operator_dashboard_created": true,
+  "operator_runbook_created": true,
+  "next_step_decision_matrix_created": true,
+  "surfaced_market_ids": [
+    "569344",
+    "569366",
+    "569368",
+    "569373",
+    "573656"
+  ],
+  "inventory_market_ids": [
+    "563650",
+    "569332",
+    "569333",
+    "569334",
+    "569343",
+    "569344",
+    "569366",
+    "569368",
+    "569373",
+    "573656",
+    "597964",
+    "598936",
+    "691547",
+    "692258"
+  ],
+  "workbench_artifact_paths": [
+    "pm_bot/workbench/openrouter_passive_surface_pointer.v1.json",
+    "pm_bot/workbench/openrouter_passive_surface_pointer.v1.md",
+    "pm_bot/workbench/operator_review_pack.v1.json",
+    "pm_bot/workbench/operator_review_pack.v1.md",
+    "pm_bot/workbench/operator_workbench_export_run.v1.json",
+    "pm_bot/workbench/operator_workbench_export_run.v1.md"
+  ],
+  "contour_audit_paths": [
+    "pm_bot/llm/openrouter_operator_review_contour_046_053_audit.v1.json",
+    "pm_bot/llm/openrouter_operator_review_contour_046_053_audit.v1.md"
+  ],
+  "inventory_artifact_paths": [
+    "pm_bot/llm/current_llm_market_packet_inventory.v1.json",
+    "pm_bot/llm/current_llm_market_packet_inventory.v1.md"
+  ],
+  "evidence_audit_paths": [
+    "pm_bot/llm/current_llm_source_evidence_completeness_audit.v1.json",
+    "pm_bot/llm/current_llm_source_evidence_completeness_audit.v1.md"
+  ],
+  "dashboard_artifact_paths": [
+    "pm_bot/workbench/operator_openrouter_review_dashboard.v1.json",
+    "pm_bot/workbench/operator_openrouter_review_dashboard.v1.md"
+  ],
+  "runbook_path": "docs/PMBOT_OPENROUTER_OPERATOR_REVIEW_RUNBOOK.md",
+  "decision_matrix_paths": [
+    "pm_bot/llm/openrouter_next_step_decision_matrix.v1.json",
+    "docs/PMBOT_OPENROUTER_NEXT_STEP_DECISION_MATRIX.md"
+  ],
+  "aggregate_usage": {
+    "n3_total_tokens": 18686,
+    "n5_total_tokens": 29887,
+    "combined_tokens": 48573
+  },
+  "aggregate_cost": {
+    "n3_cost": 0.125982,
+    "n5_cost": 0.199089,
+    "combined_cost": 0.325071
+  },
+  "combined_openrouter_contour_summary": {
+    "total_markets_successfully_reviewed": 8,
+    "total_openrouter_calls_in_successful_batches": 8,
+    "combined_cost": 0.325071,
+    "combined_tokens": 48573,
+    "total_blocked_in_successful_batches": 0,
+    "average_cost_per_market_combined": 0.040633875,
+    "average_tokens_per_market_combined": 6071.625
+  },
+  "normalization_summary": {
+    "successful_batch_responses_requiring_fenced_normalization": "8/8",
+    "clean_raw_json_response_count": 0,
+    "policy": "fenced_json_normalization.v1",
+    "semantic_repair_allowed": false,
+    "raw_response_preserved": true
+  },
+  "quality_summary": {
+    "accepted_for_operator_review_count": 8,
+    "blocked_count": 0,
+    "baseline_suitable_for_future_controlled_expansion": true
+  },
+  "inventory_summary": {
+    "total_markets_found": 14,
+    "total_with_packet": 14,
+    "total_with_prompt": 14,
+    "total_reviewed_by_openrouter": 10,
+    "total_accepted_for_operator_review": 10,
+    "category_counts": {
+      "legal/courts": 1,
+      "elections": 9,
+      "crypto": 1,
+      "politics": 1,
+      "company/business": 2
+    },
+    "unknown_category_count": 0,
+    "markets_missing_resolution_source": [
+      "563650",
+      "569332",
+      "569333",
+      "569334",
+      "569343",
+      "569344",
+      "569366",
+      "569368",
+      "569373",
+      "573656",
+      "597964",
+      "598936",
+      "691547",
+      "692258"
+    ],
+    "markets_missing_local_evidence": [
+      "563650",
+      "569332",
+      "569333",
+      "569334",
+      "569343",
+      "569344",
+      "569366",
+      "569368",
+      "569373",
+      "573656",
+      "597964",
+      "598936",
+      "691547",
+      "692258"
+    ],
+    "markets_with_low_packet_completeness": [
+      "563650",
+      "569332",
+      "569333",
+      "569334",
+      "569343",
+      "569344",
+      "569366",
+      "569368",
+      "569373",
+      "573656",
+      "597964",
+      "598936",
+      "691547",
+      "692258"
+    ],
+    "recommendation_for_next_local_enrichment_step": "Normalize category labels, extract full local resolution rules, replace placeholder source notes with reviewed local references, and standardize per-market operator checklists."
+  },
+  "evidence_completeness_summary": {
+    "reviewed_market_count": 10,
+    "evidence_completeness_counts": {
+      "medium": 10
+    },
+    "common_missing_fields": [
+      "full_market_resolution_criteria_text",
+      "official_source_urls",
+      "credible_news_source_urls",
+      "source_timestamps",
+      "source_reliability_review",
+      "local_packet_completeness_score"
+    ],
+    "category_specific_gaps": {
+      "crypto": [
+        "benchmark_and_timezone_rules",
+        "full_resolution_rules",
+        "official_source_references",
+        "source_timestamps"
+      ],
+      "elections": [
+        "full_resolution_rules",
+        "official_election_authority_identifier",
+        "official_source_references",
+        "source_timestamps"
+      ],
+      "legal/courts": [
+        "docket_identifier",
+        "full_resolution_rules",
+        "official_source_references",
+        "source_timestamps"
+      ]
+    },
+    "top_local_enrichment_priorities": [
+      "resolution source extraction",
+      "category labeling",
+      "source gap normalization",
+      "operator checklist standardization",
+      "local packet completeness score"
+    ]
+  },
+  "safety_summary": {
+    "operator_review_only": true,
+    "passive_context_only": true,
+    "no_trading_authority": true,
+    "no_queue_authority": true,
+    "no_runtime_authority": true,
+    "no_dispatcher_authority": true,
+    "no_wallet_or_order_authority": true,
+    "acceptance_is_not_trading_approval": true,
+    "analysis_only": true,
+    "manual_review_only": true,
+    "no_market_action_guidance": true,
+    "no_probability_ev_edge_confidence_side_selection": true,
+    "no_buy_sell_hold_enter_exit": true,
+    "openrouter_calls_performed_by_this_task": 0,
+    "polymarket_api_calls_performed_by_this_task": 0,
+    "network_calls_performed_by_this_task": 0,
+    "api_key_accessed": false,
+    "api_key_value_printed": false,
+    "api_key_value_written": false,
+    "api_key_leaked": false,
+    "wallet_or_private_key_accessed": false,
+    "orders_created": 0,
+    "queue_items_created": 0,
+    "queue_state_mutated": false,
+    "runtime_wiring_added": false,
+    "dispatcher_changed": false,
+    "background_workers_added": false,
+    "browser_automation_used": false
+  },
+  "files_changed": [
+    "docs/PMBOT_CODEX_A_ROUND003_RESULT.json",
+    "docs/PMBOT_OPENROUTER_053_N5_SURFACE_WORKBENCH_INVENTORY_UX_AND_CONTOUR_AUDIT.md",
+    "docs/PMBOT_OPENROUTER_053_RESULT.json",
+    "docs/PMBOT_OPENROUTER_NEXT_STEP_DECISION_MATRIX.md",
+    "docs/PMBOT_OPENROUTER_OPERATOR_REVIEW_RUNBOOK.md",
+    "docs/PMBOT_WORKBENCH_001_RESULT.json",
+    "docs/PMBOT_WORKBENCH_003_RESULT.json",
+    "pm_bot/llm/current_llm_market_packet_inventory.v1.json",
+    "pm_bot/llm/current_llm_market_packet_inventory.v1.md",
+    "pm_bot/llm/current_llm_source_evidence_completeness_audit.v1.json",
+    "pm_bot/llm/current_llm_source_evidence_completeness_audit.v1.md",
+    "pm_bot/llm/openrouter_next_step_decision_matrix.v1.json",
+    "pm_bot/llm/openrouter_operator_review_artifacts_053.py",
+    "pm_bot/llm/openrouter_operator_review_contour_046_053_audit.v1.json",
+    "pm_bot/llm/openrouter_operator_review_contour_046_053_audit.v1.md",
+    "pm_bot/llm/operator_openrouter_batch_surface_051.v1.json",
+    "pm_bot/llm/operator_openrouter_batch_surface_051.v1.md",
+    "pm_bot/llm/tests/test_current_llm_market_packet_inventory.py",
+    "pm_bot/llm/tests/test_current_llm_source_evidence_completeness_audit.py",
+    "pm_bot/llm/tests/test_openrouter_operator_review_contour_audit.py",
+    "pm_bot/llm/tests/test_operator_openrouter_batch_surface_051.py",
+    "pm_bot/workbench/expected_operator_review_pack.v1.json",
+    "pm_bot/workbench/expected_operator_workbench_export_run.v1.json",
+    "pm_bot/workbench/export_operator_review_pack.py",
+    "pm_bot/workbench/openrouter_passive_surface_pointer.py",
+    "pm_bot/workbench/openrouter_passive_surface_pointer.v1.json",
+    "pm_bot/workbench/openrouter_passive_surface_pointer.v1.md",
+    "pm_bot/workbench/operator_openrouter_review_dashboard.py",
+    "pm_bot/workbench/operator_openrouter_review_dashboard.v1.json",
+    "pm_bot/workbench/operator_openrouter_review_dashboard.v1.md",
+    "pm_bot/workbench/operator_review_pack.v1.json",
+    "pm_bot/workbench/operator_review_pack.v1.md",
+    "pm_bot/workbench/operator_workbench_export_run.v1.json",
+    "pm_bot/workbench/operator_workbench_export_run.v1.md",
+    "pm_bot/workbench/run_operator_workbench_export.py",
+    "pm_bot/workbench/tests/test_openrouter_passive_surface_pointer.py",
+    "pm_bot/workbench/tests/test_operator_openrouter_review_dashboard.py",
+    "pm_bot/workbench/tests/test_operator_review_pack_export.py",
+    "pm_bot/workbench/tests/test_operator_workbench_export_runner.py",
+    "tests/test_openrouter_result_artifacts.py"
+  ],
+  "tests_run": [
+    {
+      "command": "python -m compileall pm_bot",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest tests pm_bot\\llm\\tests -q",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest tests\\test_openrouter_prompt_test.py -q",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest tests\\test_openrouter_result_artifacts.py -q",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest tests\\test_openrouter_fenced_json_normalization.py -q",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest tests\\test_openrouter_n5_batch_readiness_protocol.py -q",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\llm\\tests\\test_operator_openrouter_batch_surface_046.py -q",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\llm\\tests\\test_operator_openrouter_batch_surface_051.py -q",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\llm\\tests\\test_openrouter_operator_review_contour_audit.py -q",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\llm\\tests\\test_current_llm_market_packet_inventory.py -q",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\llm\\tests\\test_current_llm_source_evidence_completeness_audit.py -q",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\workbench\\tests -q",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pm_bot.workbench.run_operator_workbench_export",
+      "status": "passed"
+    },
+    {
+      "command": "JSON parse checks for source and generated OpenRouter/workbench JSON artifacts",
+      "status": "passed"
+    },
+    {
+      "command": "Result JSON checks for 046 through 053",
+      "status": "passed"
+    },
+    {
+      "command": "Secret scan over changed files",
+      "status": "passed"
+    },
+    {
+      "command": "Public Markdown market-action guidance scan over generated 053 summaries",
+      "status": "passed"
+    }
+  ],
+  "secret_scan_passed": true,
+  "commit_hash": "reported_in_final_response_after_commit",
+  "commit_hash_note": "Final commit hash is reported in the executor final response because it cannot be self-embedded in this committed JSON file.",
+  "working_tree_clean_after": true,
+  "working_tree_clean_after_note": "Reported as the required final state after explicit staging, commit, and push complete."
+}

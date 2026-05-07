@@ -21,11 +21,13 @@ MANUAL_LLM_REVIEW_QUEUE = ROOT / "pm_bot" / "llm" / "manual_llm_review_queue.v1.
 ACTUAL_MANUAL_LLM_RESPONSE_TRIAL = ROOT / "pm_bot" / "llm" / "actual_manual_llm_response_trial.v1.json"
 OPENROUTER_PASSIVE_SURFACE_POINTER = ROOT / "pm_bot" / "workbench" / "openrouter_passive_surface_pointer.v1.json"
 OPENROUTER_PASSIVE_SURFACE_POINTER_MD = ROOT / "pm_bot" / "workbench" / "openrouter_passive_surface_pointer.v1.md"
+OPENROUTER_REVIEW_DASHBOARD = ROOT / "pm_bot" / "workbench" / "operator_openrouter_review_dashboard.v1.json"
 
 NEW_JSON_FILES = [
     PACK_JSON,
     EXPECTED_JSON,
     OPENROUTER_PASSIVE_SURFACE_POINTER,
+    OPENROUTER_REVIEW_DASHBOARD,
     RESULT,
     LANE_RESULT,
 ]
@@ -441,17 +443,28 @@ class OperatorReviewPackExportTests(unittest.TestCase):
             "pm_bot/workbench/openrouter_passive_surface_pointer.v1.json",
         )
         self.assertEqual(section["artifact_parse_status"], "parsed")
-        self.assertEqual(section["source_batch_task"], "PMBOT-OPENROUTER-046")
-        self.assertEqual(section["source_baseline_task"], "PMBOT-OPENROUTER-047")
-        self.assertEqual(section["source_surface_task"], "PMBOT-OPENROUTER-048")
+        self.assertEqual(section["source_batch_task"], "PMBOT-OPENROUTER-051-CONTROLLED-N5-BATCH-LIVE-CALL")
+        self.assertEqual(
+            section["source_baseline_task"],
+            "PMBOT-OPENROUTER-052-N5-BATCH-BASELINE-QUALITY-AND-OPERATOR-SUMMARY",
+        )
+        self.assertEqual(
+            section["source_surface_task"],
+            "PMBOT-OPENROUTER-053-PASSIVE-OPERATOR-SURFACE-AND-WORKBENCH-N5-INTEGRATION",
+        )
         self.assertEqual(section["source_048_status"], "completed_pushed")
-        self.assertEqual(section["surfaced_market_ids"], ["569333", "569334", "569343"])
+        self.assertEqual(section["source_052_status"], "completed_pushed")
+        self.assertEqual(section["surfaced_market_ids"], ["569344", "569366", "569368", "569373", "573656"])
         self.assertEqual(section["model"], "anthropic/claude-sonnet-4.5")
-        self.assertEqual(section["total_calls"], 3)
+        self.assertEqual(section["total_calls"], 5)
         self.assertEqual(section["aggregate_usage"], pointer["aggregate_usage"])
         self.assertEqual(section["aggregate_cost"], pointer["aggregate_cost"])
         self.assertEqual(section["normalization_summary"], pointer["normalization_summary"])
         self.assertEqual(section["quality_summary"], pointer["quality_summary"])
+        self.assertEqual(len(section["surface_history"]), 2)
+        self.assertEqual(section["combined_openrouter_review_contour_summary"]["combined_tokens"], 48573)
+        self.assertEqual(pack["openrouter_review_dashboard"]["artifact_status"], "present")
+        self.assertEqual(pack["openrouter_review_dashboard"]["inventory_summary"]["total_markets_found"], 14)
         for flag in (
             "operator_review_only",
             "passive_context_only",
@@ -495,9 +508,15 @@ class OperatorReviewPackExportTests(unittest.TestCase):
             section["artifact_pointer"],
             "pm_bot/workbench/openrouter_passive_surface_pointer.v1.json",
         )
-        self.assertEqual(section["source_batch_task"], "PMBOT-OPENROUTER-046")
-        self.assertEqual(section["source_baseline_task"], "PMBOT-OPENROUTER-047")
-        self.assertEqual(section["source_surface_task"], "PMBOT-OPENROUTER-048")
+        self.assertEqual(section["source_batch_task"], "PMBOT-OPENROUTER-051-CONTROLLED-N5-BATCH-LIVE-CALL")
+        self.assertEqual(
+            section["source_baseline_task"],
+            "PMBOT-OPENROUTER-052-N5-BATCH-BASELINE-QUALITY-AND-OPERATOR-SUMMARY",
+        )
+        self.assertEqual(
+            section["source_surface_task"],
+            "PMBOT-OPENROUTER-053-PASSIVE-OPERATOR-SURFACE-AND-WORKBENCH-N5-INTEGRATION",
+        )
         self.assertEqual(section["surfaced_market_ids"], [])
         self.assertEqual(section["total_calls"], 0)
         self.assertIn("openrouter_passive_surface_pointer_missing", warnings)
@@ -911,18 +930,32 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertIn("OpenRouter Passive Surface", markdown)
         self.assertIn("section_id: openrouter_passive_surface", markdown)
         self.assertIn("artifact_pointer: pm_bot/workbench/openrouter_passive_surface_pointer.v1.json", markdown)
-        self.assertIn("source_batch_task: PMBOT-OPENROUTER-046", markdown)
-        self.assertIn("source_baseline_task: PMBOT-OPENROUTER-047", markdown)
-        self.assertIn("source_surface_task: PMBOT-OPENROUTER-048", markdown)
+        self.assertIn("source_batch_task: PMBOT-OPENROUTER-051-CONTROLLED-N5-BATCH-LIVE-CALL", markdown)
+        self.assertIn(
+            "source_baseline_task: PMBOT-OPENROUTER-052-N5-BATCH-BASELINE-QUALITY-AND-OPERATOR-SUMMARY",
+            markdown,
+        )
+        self.assertIn(
+            "source_surface_task: PMBOT-OPENROUTER-053-PASSIVE-OPERATOR-SURFACE-AND-WORKBENCH-N5-INTEGRATION",
+            markdown,
+        )
         self.assertIn("source_048_status: completed_pushed", markdown)
-        self.assertIn("surfaced_market_ids: 569333, 569334, 569343", markdown)
+        self.assertIn("source_052_status: completed_pushed", markdown)
+        self.assertIn("surfaced_market_ids: 569344, 569366, 569368, 569373, 573656", markdown)
         self.assertIn("model: anthropic/claude-sonnet-4.5", markdown)
-        self.assertIn("total_calls: 3", markdown)
-        self.assertIn("prompt_tokens: 12859", markdown)
-        self.assertIn("completion_tokens: 5827", markdown)
-        self.assertIn("total_tokens: 18686", markdown)
-        self.assertIn("fenced_response_count: 3", markdown)
+        self.assertIn("total_calls: 5", markdown)
+        self.assertIn("prompt_tokens: 20768", markdown)
+        self.assertIn("completion_tokens: 9119", markdown)
+        self.assertIn("total_tokens: 29887", markdown)
+        self.assertIn("fenced_response_count: 5", markdown)
         self.assertIn("clean_raw_json_response_count: 0", markdown)
+        self.assertIn("OpenRouter Passive Surface History", markdown)
+        self.assertIn("N=3: calls=3", markdown)
+        self.assertIn("N=5: calls=5", markdown)
+        self.assertIn("OpenRouter Combined Review Contour", markdown)
+        self.assertIn("combined_cost: 0.325071", markdown)
+        self.assertIn("OpenRouter Review Dashboard", markdown)
+        self.assertIn("total_markets_found: 14", markdown)
         self.assertIn("OpenRouter Passive Surface Safety Flags", markdown)
         self.assertIn("no_runtime_authority: true", markdown)
         self.assertIn("manual_review_only: true", markdown)
@@ -953,16 +986,23 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertTrue(result["manual_llm_review_queue"]["offline_manual_only"])
         self.assertEqual(result["openrouter_passive_surface"]["artifact_status"], "present")
         self.assertEqual(result["openrouter_passive_surface"]["source_048_status"], "completed_pushed")
+        self.assertEqual(result["openrouter_passive_surface"]["source_052_status"], "completed_pushed")
         self.assertEqual(
             result["openrouter_passive_surface"]["surfaced_market_ids"],
-            ["569333", "569334", "569343"],
+            ["569344", "569366", "569368", "569373", "573656"],
         )
         self.assertEqual(result["openrouter_passive_surface"]["model"], "anthropic/claude-sonnet-4.5")
-        self.assertEqual(result["openrouter_passive_surface"]["total_calls"], 3)
+        self.assertEqual(result["openrouter_passive_surface"]["total_calls"], 5)
         self.assertEqual(
             result["openrouter_passive_surface"]["quality_summary"]["accepted_for_operator_review_count"],
-            3,
+            5,
         )
+        self.assertEqual(
+            result["openrouter_passive_surface"]["combined_openrouter_review_contour_summary"]["combined_tokens"],
+            48573,
+        )
+        self.assertEqual(result["openrouter_review_dashboard"]["artifact_status"], "present")
+        self.assertEqual(result["openrouter_review_dashboard"]["inventory_summary"]["total_markets_found"], 14)
         self.assertTrue(result["openrouter_passive_surface"]["safety_summary"]["operator_review_only"])
         self.assertTrue(result["openrouter_passive_surface"]["safety_summary"]["passive_context_only"])
         self.assertEqual(

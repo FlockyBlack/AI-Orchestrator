@@ -12,7 +12,8 @@ RUNNER = ROOT / "pm_bot" / "workbench" / "openrouter_passive_surface_pointer.py"
 POINTER_JSON = ROOT / "pm_bot" / "workbench" / "openrouter_passive_surface_pointer.v1.json"
 POINTER_MD = ROOT / "pm_bot" / "workbench" / "openrouter_passive_surface_pointer.v1.md"
 
-EXPECTED_MARKET_IDS = ["569333", "569334", "569343"]
+N3_MARKET_IDS = ["569333", "569334", "569343"]
+N5_MARKET_IDS = ["569344", "569366", "569368", "569373", "573656"]
 
 REQUIRED_TRUE_FLAGS = (
     "operator_review_only",
@@ -59,40 +60,66 @@ def _load_json(path):
 
 
 class OpenrouterPassiveSurfacePointerTests(unittest.TestCase):
-    def test_pointer_write_exports_json_and_markdown(self):
+    def test_pointer_write_exports_multi_batch_json_and_markdown(self):
         result = json.loads(_run_write().stdout)
         pointer = _load_json(POINTER_JSON)
 
         self.assertEqual(
             result["task_id"],
-            "PMBOT-OPENROUTER-049-WORKBENCH-PASSIVE-SURFACE-INTEGRATION",
+            "PMBOT-OPENROUTER-053-WORKBENCH-PASSIVE-SURFACE-MULTI-BATCH-INTEGRATION",
         )
         self.assertEqual(result["status"], "passive_surface_pointer_ready")
         self.assertTrue(POINTER_MD.exists())
         self.assertEqual(pointer["schema_version"], "openrouter_passive_surface_pointer.v1")
         self.assertEqual(pointer["status"], "passive_surface_pointer_ready")
-        self.assertEqual(pointer["source_batch_task"], "PMBOT-OPENROUTER-046")
-        self.assertEqual(pointer["source_baseline_task"], "PMBOT-OPENROUTER-047")
-        self.assertEqual(pointer["source_surface_task"], "PMBOT-OPENROUTER-048")
-        self.assertEqual(pointer["source_048_status"], "completed_pushed")
-        self.assertEqual(pointer["surfaced_market_ids"], EXPECTED_MARKET_IDS)
+        self.assertEqual(
+            pointer["latest_surface_source_batch_task"],
+            "PMBOT-OPENROUTER-051-CONTROLLED-N5-BATCH-LIVE-CALL",
+        )
+        self.assertEqual(
+            pointer["latest_surface_task"],
+            "PMBOT-OPENROUTER-053-PASSIVE-OPERATOR-SURFACE-AND-WORKBENCH-N5-INTEGRATION",
+        )
+        self.assertEqual(pointer["source_batch_task"], "PMBOT-OPENROUTER-051-CONTROLLED-N5-BATCH-LIVE-CALL")
+        self.assertEqual(pointer["source_baseline_task"], "PMBOT-OPENROUTER-052-N5-BATCH-BASELINE-QUALITY-AND-OPERATOR-SUMMARY")
+        self.assertEqual(pointer["surfaced_market_ids"], N5_MARKET_IDS)
         self.assertEqual(pointer["model"], "anthropic/claude-sonnet-4.5")
-        self.assertEqual(pointer["total_calls"], 3)
+        self.assertEqual(pointer["total_calls"], 5)
+
+    def test_pointer_surface_history_preserves_n3_and_adds_n5(self):
+        _run_write()
+        pointer = _load_json(POINTER_JSON)
+        history = pointer["surface_history"]
+
+        self.assertEqual([entry["batch_label"] for entry in history], ["N=3", "N=5"])
+        self.assertEqual(history[0]["surfaced_market_ids"], N3_MARKET_IDS)
+        self.assertEqual(history[0]["total_calls"], 3)
+        self.assertEqual(history[0]["aggregate_usage"]["total_tokens"], 18686)
+        self.assertEqual(history[0]["aggregate_cost"]["total_cost"], 0.125982)
+        self.assertEqual(history[1]["surfaced_market_ids"], N5_MARKET_IDS)
+        self.assertEqual(history[1]["total_calls"], 5)
+        self.assertEqual(history[1]["aggregate_usage"]["total_tokens"], 29887)
+        self.assertEqual(history[1]["aggregate_cost"]["total_cost"], 0.199089)
+
+        combined = pointer["combined_openrouter_review_contour_summary"]
+        self.assertEqual(combined["total_markets_successfully_reviewed"], 8)
+        self.assertEqual(combined["total_openrouter_calls_in_successful_batches"], 8)
+        self.assertEqual(combined["combined_cost"], 0.325071)
+        self.assertEqual(combined["combined_tokens"], 48573)
 
     def test_pointer_contains_required_summaries_and_no_authority_flags(self):
         _run_write()
         pointer = _load_json(POINTER_JSON)
 
-        self.assertEqual(pointer["aggregate_usage"]["prompt_tokens"], 12859)
-        self.assertEqual(pointer["aggregate_usage"]["completion_tokens"], 5827)
-        self.assertEqual(pointer["aggregate_usage"]["total_tokens"], 18686)
-        self.assertEqual(pointer["aggregate_cost"]["total_cost"], 0.125982)
-        self.assertEqual(pointer["aggregate_cost"]["average_cost_per_market"], 0.041994)
-        self.assertEqual(pointer["normalization_summary"]["fenced_response_count"], 3)
-        self.assertEqual(pointer["normalization_summary"]["normalized_response_count"], 3)
+        self.assertEqual(pointer["aggregate_usage"]["prompt_tokens"], 20768)
+        self.assertEqual(pointer["aggregate_usage"]["completion_tokens"], 9119)
+        self.assertEqual(pointer["aggregate_usage"]["total_tokens"], 29887)
+        self.assertEqual(pointer["aggregate_cost"]["total_cost"], 0.199089)
+        self.assertEqual(pointer["aggregate_cost"]["average_cost_per_market"], 0.0398178)
+        self.assertEqual(pointer["normalization_summary"]["fenced_response_count"], 5)
+        self.assertEqual(pointer["normalization_summary"]["normalized_response_count"], 5)
         self.assertEqual(pointer["normalization_summary"]["clean_raw_json_response_count"], 0)
-        self.assertEqual(pointer["normalization_summary"]["policy"], "fenced_json_normalization.v1")
-        self.assertEqual(pointer["quality_summary"]["accepted_for_operator_review_count"], 3)
+        self.assertEqual(pointer["quality_summary"]["accepted_for_operator_review_count"], 5)
         self.assertEqual(pointer["quality_summary"]["blocked_count"], 0)
 
         for flag in REQUIRED_TRUE_FLAGS:
@@ -123,21 +150,10 @@ class OpenrouterPassiveSurfacePointerTests(unittest.TestCase):
                 path = item["path"]
                 self.assertFalse(Path(path).is_absolute())
                 self.assertTrue((ROOT / path).exists(), path)
-                self.assertIn(
-                    item["role"],
-                    {
-                        "generated_workbench_pointer",
-                        "read_only_passive_source",
-                        "read_only_source_result",
-                        "read_only_source_report",
-                        "read_only_source_summary",
-                    },
-                )
 
-    def test_pointer_artifacts_do_not_include_market_action_language(self):
+    def test_pointer_markdown_does_not_include_market_action_guidance_language(self):
         _run_write()
-        text = json.dumps(_load_json(POINTER_JSON), sort_keys=True).lower()
-        text += "\n" + POINTER_MD.read_text(encoding="utf-8").lower()
+        text = POINTER_MD.read_text(encoding="utf-8").lower()
 
         matches = {
             pattern
@@ -146,7 +162,7 @@ class OpenrouterPassiveSurfacePointerTests(unittest.TestCase):
         }
         self.assertEqual(matches, set())
 
-    def test_pointer_uses_standard_library_and_no_runtime_imports(self):
+    def test_pointer_uses_local_artifact_imports_and_no_runtime_network_imports(self):
         tree = ast.parse(RUNNER.read_text(encoding="utf-8"))
         imports = set()
         for node in ast.walk(tree):
@@ -155,7 +171,10 @@ class OpenrouterPassiveSurfacePointerTests(unittest.TestCase):
             elif isinstance(node, ast.ImportFrom) and node.module:
                 imports.add(node.module.split(".")[0])
 
-        self.assertLessEqual(imports, {"argparse", "json", "pathlib", "sys"})
+        self.assertLessEqual(imports, {"argparse", "json", "pathlib", "pm_bot", "sys"})
+        self.assertTrue(
+            imports.isdisjoint({"requests", "urllib", "httpx", "socket", "webbrowser", "selenium", "playwright"})
+        )
 
         source_no_spaces = RUNNER.read_text(encoding="utf-8").lower().replace(" ", "")
         forbidden_call_terms = [

@@ -116,6 +116,11 @@ def _make_fake_root(all_exporters=True, required_failure=False):
             "write_openrouter_passive_surface_pointer_artifacts",
             "openrouter",
         )
+        _write_fake_exporter(
+            temp_root / "pm_bot" / "workbench" / "operator_openrouter_review_dashboard.py",
+            "write_operator_openrouter_review_dashboard_artifacts",
+            "openrouter_dashboard",
+        )
     if required_failure:
         _write_fake_required_failure(temp_root / "pm_bot" / "workbench" / "export_operator_review_pack.py")
     else:
@@ -139,6 +144,7 @@ class OperatorWorkbenchExportRunnerTests(unittest.TestCase):
                 "manual_command_inbox_review",
                 "artifact_health_report",
                 "openrouter_passive_surface_pointer",
+                "operator_openrouter_review_dashboard",
                 "operator_review_pack",
             ],
         )
@@ -149,6 +155,7 @@ class OperatorWorkbenchExportRunnerTests(unittest.TestCase):
                 "pm_bot/operator/review_manual_command_inbox.py",
                 "pm_bot/quality/export_artifact_health_report.py",
                 "pm_bot/workbench/openrouter_passive_surface_pointer.py",
+                "pm_bot/workbench/operator_openrouter_review_dashboard.py",
                 "pm_bot/workbench/export_operator_review_pack.py",
             ],
         )
@@ -156,7 +163,8 @@ class OperatorWorkbenchExportRunnerTests(unittest.TestCase):
         self.assertFalse(steps[1]["required"])
         self.assertFalse(steps[2]["required"])
         self.assertFalse(steps[3]["required"])
-        self.assertTrue(steps[4]["required"])
+        self.assertFalse(steps[4]["required"])
+        self.assertTrue(steps[5]["required"])
 
     def test_runner_produces_deterministic_summary(self):
         module = _load_module()
@@ -182,8 +190,14 @@ class OperatorWorkbenchExportRunnerTests(unittest.TestCase):
             summary = module.run_operator_workbench_export(temp_root)
             order = json.loads((temp_root / "order.json").read_text(encoding="utf-8"))
 
-            self.assertEqual(order, ["dashboard", "inbox", "quality", "openrouter", "workbench"])
-            self.assertEqual([step["status"] for step in summary["steps"]], ["ran", "ran", "ran", "ran", "ran"])
+            self.assertEqual(
+                order,
+                ["dashboard", "inbox", "quality", "openrouter", "openrouter_dashboard", "workbench"],
+            )
+            self.assertEqual(
+                [step["status"] for step in summary["steps"]],
+                ["ran", "ran", "ran", "ran", "ran", "ran"],
+            )
             self.assertTrue(summary["required_steps_passed"])
         finally:
             directory.cleanup()
@@ -201,10 +215,11 @@ class OperatorWorkbenchExportRunnerTests(unittest.TestCase):
                     "manual_command_inbox_review",
                     "artifact_health_report",
                     "openrouter_passive_surface_pointer",
+                    "operator_openrouter_review_dashboard",
                 ],
             )
-            self.assertEqual([step["status"] for step in summary["steps"][:4]], ["skipped_optional"] * 4)
-            self.assertEqual(summary["steps"][4]["status"], "ran")
+            self.assertEqual([step["status"] for step in summary["steps"][:5]], ["skipped_optional"] * 5)
+            self.assertEqual(summary["steps"][5]["status"], "ran")
             self.assertTrue(summary["required_steps_passed"])
             self.assertEqual(module.exit_code_for_summary(summary), 0)
         finally:
@@ -217,8 +232,8 @@ class OperatorWorkbenchExportRunnerTests(unittest.TestCase):
             summary = module.run_operator_workbench_export(temp_root)
 
             self.assertFalse(summary["required_steps_passed"])
-            self.assertEqual(summary["steps"][4]["status"], "failed")
-            self.assertEqual(summary["steps"][4]["failure_type"], "RuntimeError")
+            self.assertEqual(summary["steps"][5]["status"], "failed")
+            self.assertEqual(summary["steps"][5]["failure_type"], "RuntimeError")
             self.assertEqual(module.exit_code_for_summary(summary), 2)
             result = json.loads((temp_root / "docs" / "PMBOT_WORKBENCH_003_RESULT.json").read_text(encoding="utf-8"))
             self.assertEqual(result["status"], "blocked")
@@ -291,13 +306,27 @@ class OperatorWorkbenchExportRunnerTests(unittest.TestCase):
         self.assertIn("openrouter_passive_surface", summary)
         openrouter = summary["openrouter_passive_surface"]
         self.assertEqual(openrouter["status"], "passive_surface_pointer_ready")
-        self.assertEqual(openrouter["source_batch_task"], "PMBOT-OPENROUTER-046")
-        self.assertEqual(openrouter["source_baseline_task"], "PMBOT-OPENROUTER-047")
-        self.assertEqual(openrouter["source_surface_task"], "PMBOT-OPENROUTER-048")
+        self.assertEqual(openrouter["source_batch_task"], "PMBOT-OPENROUTER-051-CONTROLLED-N5-BATCH-LIVE-CALL")
+        self.assertEqual(
+            openrouter["source_baseline_task"],
+            "PMBOT-OPENROUTER-052-N5-BATCH-BASELINE-QUALITY-AND-OPERATOR-SUMMARY",
+        )
+        self.assertEqual(
+            openrouter["source_surface_task"],
+            "PMBOT-OPENROUTER-053-PASSIVE-OPERATOR-SURFACE-AND-WORKBENCH-N5-INTEGRATION",
+        )
         self.assertEqual(openrouter["source_048_status"], "completed_pushed")
-        self.assertEqual(openrouter["surfaced_market_ids"], ["569333", "569334", "569343"])
+        self.assertEqual(openrouter["source_052_status"], "completed_pushed")
+        self.assertEqual(openrouter["surfaced_market_ids"], ["569344", "569366", "569368", "569373", "573656"])
         self.assertEqual(openrouter["model"], "anthropic/claude-sonnet-4.5")
-        self.assertEqual(openrouter["total_calls"], 3)
+        self.assertEqual(openrouter["total_calls"], 5)
+        self.assertEqual(openrouter["combined_openrouter_review_contour_summary"]["combined_tokens"], 48573)
+        self.assertIn("openrouter_review_dashboard", summary)
+        self.assertEqual(summary["openrouter_review_dashboard"]["status"], "operator_openrouter_review_dashboard_created")
+        self.assertEqual(
+            summary["openrouter_review_dashboard"]["combined_openrouter_review_contour_summary"]["combined_cost"],
+            0.325071,
+        )
         self.assertTrue(openrouter["operator_review_only"])
         self.assertTrue(openrouter["passive_context_only"])
         self.assertTrue(openrouter["no_trading_authority"])
