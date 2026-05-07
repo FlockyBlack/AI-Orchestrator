@@ -357,6 +357,39 @@ class OperatorWorkbenchExportRunnerTests(unittest.TestCase):
         )
         self.assertFalse(packet_gate["future_openrouter_batch_approved"])
         self.assertTrue(packet_gate["no_market_action_guidance"])
+        self.assertIn("resolution_source_normalization", summary)
+        source_norm = summary["resolution_source_normalization"]
+        self.assertEqual(
+            source_norm["artifact_pointer"],
+            "pm_bot/llm/current_llm_resolution_source_normalization_audit.v1.json",
+        )
+        self.assertEqual(source_norm["total_markets_audited"], 14)
+        self.assertEqual(source_norm["markets_missing_resolution_criteria_text"], 14)
+        self.assertEqual(source_norm["markets_missing_full_resolution_rules"], 14)
+        self.assertEqual(source_norm["markets_missing_official_source_references"], 14)
+        self.assertIn("readiness_after_source_normalization", summary)
+        after_source = summary["readiness_after_source_normalization"]
+        self.assertEqual(after_source["previous_medium_count"], 10)
+        self.assertEqual(after_source["updated_medium_count"], 10)
+        self.assertEqual(after_source["updated_low_count"], 4)
+        self.assertEqual(after_source["score_delta_average"], 0.0)
+        self.assertIn("batch_readiness_gate_after_source_normalization", summary)
+        after_gate = summary["batch_readiness_gate_after_source_normalization"]
+        self.assertEqual(after_gate["total_markets"], 14)
+        self.assertEqual(after_gate["medium_count"], 10)
+        self.assertEqual(after_gate["low_count"], 4)
+        self.assertEqual(after_gate["eligible_for_future_openrouter_batch_count"], 10)
+        self.assertFalse(after_gate["future_openrouter_batch_approved"])
+        self.assertTrue(after_gate["no_market_action_guidance"])
+        self.assertIn("local_source_enrichment_action_plan", summary)
+        action_plan = summary["local_source_enrichment_action_plan"]
+        self.assertEqual(action_plan["total_actions"], 14)
+        self.assertEqual(action_plan["high_priority_local_actions"], 4)
+        self.assertTrue(action_plan["passive_only"])
+        self.assertEqual(action_plan["queue_items_created"], 0)
+        self.assertFalse(action_plan["queue_state_mutated"])
+        self.assertFalse(action_plan["runtime_objects_created"])
+        self.assertTrue(action_plan["no_market_action_guidance"])
         self.assertTrue(openrouter["operator_review_only"])
         self.assertTrue(openrouter["passive_context_only"])
         self.assertTrue(openrouter["no_trading_authority"])

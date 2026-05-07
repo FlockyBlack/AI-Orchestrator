@@ -60,6 +60,38 @@ PACKET_COMPLETENESS_GATE_MARKDOWN_PATH = (
     "pm_bot/llm/current_llm_batch_readiness_gate.v1.md"
 )
 PACKET_COMPLETENESS_GATE_SECTION_ID = "packet_completeness_readiness_gate"
+RESOLUTION_SOURCE_AUDIT_ARTIFACT_PATH = (
+    "pm_bot/llm/current_llm_resolution_source_normalization_audit.v1.json"
+)
+RESOLUTION_SOURCE_AUDIT_MARKDOWN_PATH = (
+    "pm_bot/llm/current_llm_resolution_source_normalization_audit.v1.md"
+)
+RESOLUTION_SOURCE_AUDIT_SECTION_ID = "resolution_source_normalization_audit"
+READINESS_AFTER_SOURCE_NORMALIZATION_ARTIFACT_PATH = (
+    "pm_bot/llm/"
+    "current_llm_packet_evidence_readiness_scores_after_source_normalization.v1.json"
+)
+READINESS_AFTER_SOURCE_NORMALIZATION_MARKDOWN_PATH = (
+    "pm_bot/llm/"
+    "current_llm_packet_evidence_readiness_scores_after_source_normalization.v1.md"
+)
+READINESS_AFTER_SOURCE_NORMALIZATION_SECTION_ID = "readiness_after_source_normalization"
+BATCH_GATE_AFTER_SOURCE_NORMALIZATION_ARTIFACT_PATH = (
+    "pm_bot/llm/current_llm_batch_readiness_gate_after_source_normalization.v1.json"
+)
+BATCH_GATE_AFTER_SOURCE_NORMALIZATION_MARKDOWN_PATH = (
+    "pm_bot/llm/current_llm_batch_readiness_gate_after_source_normalization.v1.md"
+)
+BATCH_GATE_AFTER_SOURCE_NORMALIZATION_SECTION_ID = (
+    "batch_readiness_gate_after_source_normalization"
+)
+LOCAL_SOURCE_ENRICHMENT_ACTION_PLAN_ARTIFACT_PATH = (
+    "pm_bot/llm/local_source_enrichment_action_plan.v1.json"
+)
+LOCAL_SOURCE_ENRICHMENT_ACTION_PLAN_MARKDOWN_PATH = (
+    "pm_bot/llm/local_source_enrichment_action_plan.v1.md"
+)
+LOCAL_SOURCE_ENRICHMENT_ACTION_PLAN_SECTION_ID = "local_source_enrichment_action_plan"
 
 SCHEMA_VERSION = "operator_review_pack.v1"
 GENERATED_BY = "pm_bot/workbench/export_operator_review_pack.py"
@@ -346,6 +378,34 @@ SOURCE_ARTIFACTS = (
         "path": PACKET_COMPLETENESS_GATE_ARTIFACT_PATH,
         "category": "packet_completeness_readiness",
         "artifact_type": "packet_completeness_readiness_gate_json",
+        "required": False,
+    },
+    {
+        "artifact_id": RESOLUTION_SOURCE_AUDIT_SECTION_ID,
+        "path": RESOLUTION_SOURCE_AUDIT_ARTIFACT_PATH,
+        "category": "resolution_source_normalization",
+        "artifact_type": "resolution_source_normalization_audit_json",
+        "required": False,
+    },
+    {
+        "artifact_id": READINESS_AFTER_SOURCE_NORMALIZATION_SECTION_ID,
+        "path": READINESS_AFTER_SOURCE_NORMALIZATION_ARTIFACT_PATH,
+        "category": "resolution_source_normalization",
+        "artifact_type": "readiness_after_source_normalization_json",
+        "required": False,
+    },
+    {
+        "artifact_id": BATCH_GATE_AFTER_SOURCE_NORMALIZATION_SECTION_ID,
+        "path": BATCH_GATE_AFTER_SOURCE_NORMALIZATION_ARTIFACT_PATH,
+        "category": "resolution_source_normalization",
+        "artifact_type": "batch_gate_after_source_normalization_json",
+        "required": False,
+    },
+    {
+        "artifact_id": LOCAL_SOURCE_ENRICHMENT_ACTION_PLAN_SECTION_ID,
+        "path": LOCAL_SOURCE_ENRICHMENT_ACTION_PLAN_ARTIFACT_PATH,
+        "category": "resolution_source_normalization",
+        "artifact_type": "local_source_enrichment_action_plan_json",
         "required": False,
     },
 )
@@ -1600,6 +1660,128 @@ def _packet_completeness_gate_summary(payloads, inventory):
     }
 
 
+def _resolution_source_normalization_summary(payloads, inventory):
+    audit_item = _inventory_item(inventory, RESOLUTION_SOURCE_AUDIT_SECTION_ID)
+    scores_item = _inventory_item(inventory, READINESS_AFTER_SOURCE_NORMALIZATION_SECTION_ID)
+    gate_item = _inventory_item(inventory, BATCH_GATE_AFTER_SOURCE_NORMALIZATION_SECTION_ID)
+    plan_item = _inventory_item(inventory, LOCAL_SOURCE_ENRICHMENT_ACTION_PLAN_SECTION_ID)
+    audit = _safe_dict(payloads.get(RESOLUTION_SOURCE_AUDIT_SECTION_ID))
+    scores = _safe_dict(payloads.get(READINESS_AFTER_SOURCE_NORMALIZATION_SECTION_ID))
+    gate = _safe_dict(payloads.get(BATCH_GATE_AFTER_SOURCE_NORMALIZATION_SECTION_ID))
+    plan = _safe_dict(payloads.get(LOCAL_SOURCE_ENRICHMENT_ACTION_PLAN_SECTION_ID))
+
+    def _status(item, payload, expected_status):
+        if item.get("parse_status") == "parsed" and payload.get("status") == expected_status:
+            return "present"
+        return "missing" if not item.get("present") else "invalid"
+
+    audit_aggregate = _safe_dict(audit.get("aggregate"))
+    score_aggregate = _safe_dict(scores.get("aggregate"))
+    plan_aggregate = _safe_dict(plan.get("aggregate"))
+    return {
+        "section_id": "resolution_source_normalization",
+        "audit_artifact_status": _status(
+            audit_item, audit, "resolution_source_normalization_audit_created"
+        ),
+        "audit_artifact_pointer": RESOLUTION_SOURCE_AUDIT_ARTIFACT_PATH,
+        "audit_artifact_markdown_pointer": RESOLUTION_SOURCE_AUDIT_MARKDOWN_PATH,
+        "audit_artifact_parse_status": audit_item.get("parse_status", "not_available"),
+        "readiness_artifact_status": _status(
+            scores_item,
+            scores,
+            "after_source_normalization_readiness_scores_created",
+        ),
+        "readiness_artifact_pointer": READINESS_AFTER_SOURCE_NORMALIZATION_ARTIFACT_PATH,
+        "readiness_artifact_markdown_pointer": (
+            READINESS_AFTER_SOURCE_NORMALIZATION_MARKDOWN_PATH
+        ),
+        "batch_gate_artifact_status": _status(
+            gate_item, gate, "batch_readiness_gate_after_source_normalization_created"
+        ),
+        "batch_gate_artifact_pointer": BATCH_GATE_AFTER_SOURCE_NORMALIZATION_ARTIFACT_PATH,
+        "batch_gate_artifact_markdown_pointer": (
+            BATCH_GATE_AFTER_SOURCE_NORMALIZATION_MARKDOWN_PATH
+        ),
+        "action_plan_artifact_status": _status(
+            plan_item, plan, "local_source_enrichment_action_plan_created"
+        ),
+        "action_plan_artifact_pointer": LOCAL_SOURCE_ENRICHMENT_ACTION_PLAN_ARTIFACT_PATH,
+        "action_plan_artifact_markdown_pointer": (
+            LOCAL_SOURCE_ENRICHMENT_ACTION_PLAN_MARKDOWN_PATH
+        ),
+        "total_markets_audited": audit_aggregate.get("total_markets_audited", 0),
+        "markets_missing_resolution_criteria_text": audit_aggregate.get(
+            "markets_missing_resolution_criteria_text", 0
+        ),
+        "markets_missing_full_resolution_rules": audit_aggregate.get(
+            "markets_missing_full_resolution_rules", 0
+        ),
+        "markets_missing_official_source_references": audit_aggregate.get(
+            "markets_missing_official_source_references", 0
+        ),
+        "markets_needing_manual_resolution_source_review": audit_aggregate.get(
+            "markets_needing_manual_resolution_source_review", 0
+        ),
+        "top_resolution_source_gaps": _safe_list(
+            audit_aggregate.get("top_resolution_source_gaps")
+        )[:10],
+        "markets_missing_full_resolution_criteria_ids": _safe_list(
+            audit_aggregate.get("markets_missing_full_resolution_criteria_ids")
+        ),
+        "markets_missing_full_resolution_rules_ids": _safe_list(
+            audit_aggregate.get("markets_missing_full_resolution_rules_ids")
+        ),
+        "markets_missing_official_source_references_ids": _safe_list(
+            audit_aggregate.get("markets_missing_official_source_references_ids")
+        ),
+        "markets_needing_manual_resolution_source_review_ids": _safe_list(
+            audit_aggregate.get("markets_needing_manual_resolution_source_review_ids")
+        ),
+        "previous_readiness_summary": {
+            "high_count": score_aggregate.get("previous_high_count", 0),
+            "medium_count": score_aggregate.get("previous_medium_count", 0),
+            "low_count": score_aggregate.get("previous_low_count", 0),
+            "blocked_count": score_aggregate.get("previous_blocked_count", 0),
+            "average_score": score_aggregate.get("previous_average_score", 0),
+        },
+        "updated_readiness_summary": {
+            "high_count": score_aggregate.get("updated_high_count", 0),
+            "medium_count": score_aggregate.get("updated_medium_count", 0),
+            "low_count": score_aggregate.get("updated_low_count", 0),
+            "blocked_count": score_aggregate.get("updated_blocked_count", 0),
+            "average_score": score_aggregate.get("updated_average_score", 0),
+            "score_delta_average": score_aggregate.get("score_delta_average", 0),
+        },
+        "markets_improved_by_source_normalization": _safe_list(
+            score_aggregate.get("markets_with_source_fields_improved")
+        ),
+        "remaining_top_missing_fields": _safe_list(
+            score_aggregate.get("remaining_top_missing_fields")
+        )[:10],
+        "batch_gate_total_markets": gate.get("total_markets", 0),
+        "batch_gate_low_count": gate.get("low_count", 0),
+        "batch_gate_medium_count": gate.get("medium_count", 0),
+        "batch_gate_eligible_for_future_openrouter_batch_count": gate.get(
+            "eligible_for_future_openrouter_batch_count", 0
+        ),
+        "markets_still_missing_resolution_sources": _safe_list(
+            gate.get("markets_still_missing_resolution_sources")
+        ),
+        "manual_review_needed_markets": _safe_list(gate.get("manual_review_needed_markets")),
+        "future_openrouter_batch_approved": gate.get(
+            "future_openrouter_batch_approved", False
+        ),
+        "fields_to_fix_first": _safe_list(plan_aggregate.get("fields_to_fix_first")),
+        "high_priority_local_actions": plan_aggregate.get("high_priority_local_actions", 0),
+        "medium_priority_local_actions": plan_aggregate.get("medium_priority_local_actions", 0),
+        "low_priority_local_actions": plan_aggregate.get("low_priority_local_actions", 0),
+        "passive_only": plan.get("plan_type") == "passive_local_proposal_not_runtime_queue",
+        "queue_items_created": 0,
+        "queue_state_mutated": plan.get("queue_mutation_performed", False),
+        "no_market_action_guidance": True,
+    }
+
+
 def _openrouter_review_dashboard_warnings(summary):
     if summary.get("artifact_status") == "missing":
         return [
@@ -1716,6 +1898,9 @@ def build_operator_review_pack(root=ROOT):
     openrouter_passive_surface = _openrouter_passive_surface_summary(payloads, inventory)
     openrouter_review_dashboard = _openrouter_review_dashboard_summary(payloads, inventory)
     packet_completeness_gate = _packet_completeness_gate_summary(payloads, inventory)
+    resolution_source_normalization = _resolution_source_normalization_summary(
+        payloads, inventory
+    )
     warnings = (
         _warnings(payloads)
         + _paper_019_warnings(paper_019_summary)
@@ -1749,6 +1934,7 @@ def build_operator_review_pack(root=ROOT):
         "openrouter_passive_surface": openrouter_passive_surface,
         "openrouter_review_dashboard": openrouter_review_dashboard,
         "packet_completeness_readiness_gate": packet_completeness_gate,
+        "resolution_source_normalization": resolution_source_normalization,
         "quality_warning_summary": _quality_warning_summary(quality_report, quality_load_status),
         "warnings": warnings,
         "missing_artifacts": _missing_artifacts(inventory),
@@ -1779,6 +1965,7 @@ def render_operator_review_pack_markdown(pack):
     openrouter_passive_surface = pack["openrouter_passive_surface"]
     openrouter_review_dashboard = pack["openrouter_review_dashboard"]
     packet_completeness_gate = pack["packet_completeness_readiness_gate"]
+    resolution_source_normalization = pack["resolution_source_normalization"]
     lines = [
         "# PMBOT Operator Review Pack v1",
         "",
@@ -2411,6 +2598,66 @@ def render_operator_review_pack_markdown(pack):
     lines.extend(
         [
             "",
+            "## Resolution Source Normalization",
+            "",
+            f"- section_id: {resolution_source_normalization['section_id']}",
+            "- audit_artifact_status: "
+            f"{resolution_source_normalization['audit_artifact_status']}",
+            "- audit_artifact_pointer: "
+            f"{resolution_source_normalization['audit_artifact_pointer']}",
+            "- audit_artifact_markdown_pointer: "
+            f"{resolution_source_normalization['audit_artifact_markdown_pointer']}",
+            "- readiness_artifact_pointer: "
+            f"{resolution_source_normalization['readiness_artifact_pointer']}",
+            "- batch_gate_artifact_pointer: "
+            f"{resolution_source_normalization['batch_gate_artifact_pointer']}",
+            "- action_plan_artifact_pointer: "
+            f"{resolution_source_normalization['action_plan_artifact_pointer']}",
+            "- total_markets_audited: "
+            f"{resolution_source_normalization['total_markets_audited']}",
+            "- markets_missing_resolution_criteria_text: "
+            f"{resolution_source_normalization['markets_missing_resolution_criteria_text']}",
+            "- markets_missing_full_resolution_rules: "
+            f"{resolution_source_normalization['markets_missing_full_resolution_rules']}",
+            "- markets_missing_official_source_references: "
+            f"{resolution_source_normalization['markets_missing_official_source_references']}",
+            "- markets_needing_manual_resolution_source_review: "
+            f"{resolution_source_normalization['markets_needing_manual_resolution_source_review']}",
+            "- previous_average_score: "
+            f"{resolution_source_normalization['previous_readiness_summary']['average_score']}",
+            "- updated_average_score: "
+            f"{resolution_source_normalization['updated_readiness_summary']['average_score']}",
+            "- score_delta_average: "
+            f"{resolution_source_normalization['updated_readiness_summary']['score_delta_average']}",
+            "- markets_improved_by_source_normalization: "
+            + ", ".join(
+                resolution_source_normalization["markets_improved_by_source_normalization"]
+            ),
+            "- markets_still_missing_resolution_sources: "
+            + ", ".join(
+                resolution_source_normalization["markets_still_missing_resolution_sources"]
+            ),
+            "- future_openrouter_batch_approved: "
+            f"{str(resolution_source_normalization['future_openrouter_batch_approved']).lower()}",
+            "- passive_only: "
+            f"{str(resolution_source_normalization['passive_only']).lower()}",
+            "- queue_items_created: "
+            f"{resolution_source_normalization['queue_items_created']}",
+            "- queue_state_mutated: "
+            f"{str(resolution_source_normalization['queue_state_mutated']).lower()}",
+            "- no_market_action_guidance: "
+            f"{str(resolution_source_normalization['no_market_action_guidance']).lower()}",
+            "",
+            "## Resolution Source Top Gaps",
+            "",
+        ]
+    )
+    for item in resolution_source_normalization["top_resolution_source_gaps"]:
+        lines.append(f"- {item['field']}: {item['market_count']}")
+
+    lines.extend(
+        [
+            "",
             "## OpenRouter Review Dashboard",
             "",
             f"- section_id: {openrouter_review_dashboard['section_id']}",
@@ -2626,6 +2873,57 @@ def _result_payload(pack):
                 "packet_completeness_readiness_gate"
             ]["future_openrouter_batch_approved"],
             "no_market_action_guidance": pack["packet_completeness_readiness_gate"][
+                "no_market_action_guidance"
+            ],
+        },
+        "resolution_source_normalization": {
+            "audit_artifact_status": pack["resolution_source_normalization"][
+                "audit_artifact_status"
+            ],
+            "audit_artifact_pointer": pack["resolution_source_normalization"][
+                "audit_artifact_pointer"
+            ],
+            "readiness_artifact_pointer": pack["resolution_source_normalization"][
+                "readiness_artifact_pointer"
+            ],
+            "batch_gate_artifact_pointer": pack["resolution_source_normalization"][
+                "batch_gate_artifact_pointer"
+            ],
+            "action_plan_artifact_pointer": pack["resolution_source_normalization"][
+                "action_plan_artifact_pointer"
+            ],
+            "total_markets_audited": pack["resolution_source_normalization"][
+                "total_markets_audited"
+            ],
+            "markets_missing_resolution_criteria_text": pack[
+                "resolution_source_normalization"
+            ]["markets_missing_resolution_criteria_text"],
+            "markets_missing_full_resolution_rules": pack["resolution_source_normalization"][
+                "markets_missing_full_resolution_rules"
+            ],
+            "markets_missing_official_source_references": pack[
+                "resolution_source_normalization"
+            ]["markets_missing_official_source_references"],
+            "previous_readiness_summary": pack["resolution_source_normalization"][
+                "previous_readiness_summary"
+            ],
+            "updated_readiness_summary": pack["resolution_source_normalization"][
+                "updated_readiness_summary"
+            ],
+            "markets_improved_by_source_normalization": pack[
+                "resolution_source_normalization"
+            ]["markets_improved_by_source_normalization"],
+            "future_openrouter_batch_approved": pack["resolution_source_normalization"][
+                "future_openrouter_batch_approved"
+            ],
+            "passive_only": pack["resolution_source_normalization"]["passive_only"],
+            "queue_items_created": pack["resolution_source_normalization"][
+                "queue_items_created"
+            ],
+            "queue_state_mutated": pack["resolution_source_normalization"][
+                "queue_state_mutated"
+            ],
+            "no_market_action_guidance": pack["resolution_source_normalization"][
                 "no_market_action_guidance"
             ],
         },

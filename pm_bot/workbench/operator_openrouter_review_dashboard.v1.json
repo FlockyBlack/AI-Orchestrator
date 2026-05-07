@@ -1614,6 +1614,1145 @@
     "external_network_calls_performed": 0,
     "network_calls_performed": 0
   },
+  "resolution_source_normalization_integration_status": "source_003_context_ready",
+  "source_003_resolution_source_normalization_context": {
+    "integration_status": "source_003_resolution_source_normalization_ready",
+    "resolution_source_normalization_summary": {
+      "total_markets_audited": 14,
+      "markets_with_resolution_criteria_text": 0,
+      "markets_missing_resolution_criteria_text": 14,
+      "markets_with_full_resolution_rules": 0,
+      "markets_missing_full_resolution_rules": 14,
+      "markets_with_official_source_references": 0,
+      "markets_missing_official_source_references": 14,
+      "markets_with_official_source_urls_or_rule_references": 0,
+      "markets_missing_official_source_urls_or_rule_references": 14,
+      "markets_with_source_timestamps": 0,
+      "markets_missing_source_timestamps": 14,
+      "markets_with_source_reliability_review": 0,
+      "markets_missing_source_reliability_review": 14,
+      "markets_needing_manual_resolution_source_review": 14,
+      "markets_missing_full_resolution_criteria_ids": [
+        "563650",
+        "569332",
+        "569333",
+        "569334",
+        "569343",
+        "569344",
+        "569366",
+        "569368",
+        "569373",
+        "573656",
+        "597964",
+        "598936",
+        "691547",
+        "692258"
+      ],
+      "markets_missing_full_resolution_rules_ids": [
+        "563650",
+        "569332",
+        "569333",
+        "569334",
+        "569343",
+        "569344",
+        "569366",
+        "569368",
+        "569373",
+        "573656",
+        "597964",
+        "598936",
+        "691547",
+        "692258"
+      ],
+      "markets_missing_official_source_references_ids": [
+        "563650",
+        "569332",
+        "569333",
+        "569334",
+        "569343",
+        "569344",
+        "569366",
+        "569368",
+        "569373",
+        "573656",
+        "597964",
+        "598936",
+        "691547",
+        "692258"
+      ],
+      "markets_needing_manual_resolution_source_review_ids": [
+        "563650",
+        "569332",
+        "569333",
+        "569334",
+        "569343",
+        "569344",
+        "569366",
+        "569368",
+        "569373",
+        "573656",
+        "597964",
+        "598936",
+        "691547",
+        "692258"
+      ],
+      "category_breakdown": {
+        "company/business": {
+          "market_count": 2,
+          "market_ids": [
+            "691547",
+            "692258"
+          ],
+          "missing_field_counts": {
+            "full_market_resolution_criteria_text": 2,
+            "full_resolution_rules": 2,
+            "official_source_references": 2,
+            "official_source_urls_or_rule_references": 2,
+            "source_reliability_review": 2,
+            "source_timestamps": 2
+          },
+          "manual_review_needed_count": 2
+        },
+        "crypto": {
+          "market_count": 1,
+          "market_ids": [
+            "573656"
+          ],
+          "missing_field_counts": {
+            "full_market_resolution_criteria_text": 1,
+            "full_resolution_rules": 1,
+            "official_source_references": 1,
+            "official_source_urls_or_rule_references": 1,
+            "source_reliability_review": 1,
+            "source_timestamps": 1
+          },
+          "manual_review_needed_count": 1
+        },
+        "elections": {
+          "market_count": 9,
+          "market_ids": [
+            "569332",
+            "569333",
+            "569334",
+            "569343",
+            "569344",
+            "569366",
+            "569368",
+            "569373",
+            "598936"
+          ],
+          "missing_field_counts": {
+            "full_market_resolution_criteria_text": 9,
+            "full_resolution_rules": 9,
+            "official_source_references": 9,
+            "official_source_urls_or_rule_references": 9,
+            "source_reliability_review": 9,
+            "source_timestamps": 9
+          },
+          "manual_review_needed_count": 9
+        },
+        "legal/courts": {
+          "market_count": 1,
+          "market_ids": [
+            "563650"
+          ],
+          "missing_field_counts": {
+            "full_market_resolution_criteria_text": 1,
+            "full_resolution_rules": 1,
+            "official_source_references": 1,
+            "official_source_urls_or_rule_references": 1,
+            "source_reliability_review": 1,
+            "source_timestamps": 1
+          },
+          "manual_review_needed_count": 1
+        },
+        "politics": {
+          "market_count": 1,
+          "market_ids": [
+            "597964"
+          ],
+          "missing_field_counts": {
+            "full_market_resolution_criteria_text": 1,
+            "full_resolution_rules": 1,
+            "official_source_references": 1,
+            "official_source_urls_or_rule_references": 1,
+            "source_reliability_review": 1,
+            "source_timestamps": 1
+          },
+          "manual_review_needed_count": 1
+        }
+      },
+      "top_resolution_source_gaps": [
+        {
+          "field": "full_market_resolution_criteria_text",
+          "market_count": 14
+        },
+        {
+          "field": "full_resolution_rules",
+          "market_count": 14
+        },
+        {
+          "field": "official_source_references",
+          "market_count": 14
+        },
+        {
+          "field": "official_source_urls_or_rule_references",
+          "market_count": 14
+        },
+        {
+          "field": "source_timestamps",
+          "market_count": 14
+        },
+        {
+          "field": "source_reliability_review",
+          "market_count": 14
+        }
+      ],
+      "recommended_next_local_actions": [
+        "local manual resolution source capture",
+        "normalize source gap notes after manual capture",
+        "rerun packet completeness scorer after local capture",
+        "repeat readiness protocol only after source gate review"
+      ],
+      "artifact_pointer": "pm_bot/llm/current_llm_resolution_source_normalization_audit.v1.json",
+      "artifact_markdown_pointer": "pm_bot/llm/current_llm_resolution_source_normalization_audit.v1.md"
+    },
+    "after_source_normalization_readiness_summary": {
+      "previous_high_count": 0,
+      "updated_high_count": 0,
+      "previous_medium_count": 10,
+      "updated_medium_count": 10,
+      "previous_low_count": 4,
+      "updated_low_count": 4,
+      "previous_blocked_count": 0,
+      "updated_blocked_count": 0,
+      "previous_average_score": 75.43,
+      "updated_average_score": 75.43,
+      "score_delta_average": 0.0,
+      "markets_improved": [],
+      "markets_unchanged": [
+        "563650",
+        "569332",
+        "569333",
+        "569334",
+        "569343",
+        "569344",
+        "569366",
+        "569368",
+        "569373",
+        "573656",
+        "597964",
+        "598936",
+        "691547",
+        "692258"
+      ],
+      "markets_worsened": [],
+      "markets_with_source_fields_improved": [
+        "569332",
+        "569333",
+        "569334",
+        "569343",
+        "569344",
+        "569366",
+        "569368",
+        "569373",
+        "597964",
+        "598936"
+      ],
+      "remaining_top_missing_fields": [
+        {
+          "field": "full_market_resolution_criteria_text",
+          "market_count": 14
+        },
+        {
+          "field": "full_resolution_rules",
+          "market_count": 14
+        },
+        {
+          "field": "non_placeholder_evidence_notes",
+          "market_count": 14
+        },
+        {
+          "field": "official_source_references",
+          "market_count": 14
+        },
+        {
+          "field": "official_source_urls_or_rule_references",
+          "market_count": 14
+        },
+        {
+          "field": "reviewed_local_evidence_references",
+          "market_count": 14
+        },
+        {
+          "field": "source_reliability_review",
+          "market_count": 14
+        },
+        {
+          "field": "source_timestamps",
+          "market_count": 14
+        },
+        {
+          "field": "office_or_election_event",
+          "market_count": 9
+        },
+        {
+          "field": "official_election_authority_identifier",
+          "market_count": 9
+        },
+        {
+          "field": "contradiction_checks",
+          "market_count": 4
+        },
+        {
+          "field": "evidence_completeness_audit_status",
+          "market_count": 4
+        },
+        {
+          "field": "operator_checklist",
+          "market_count": 4
+        },
+        {
+          "field": "risk_notes",
+          "market_count": 4
+        },
+        {
+          "field": "event_definition",
+          "market_count": 3
+        },
+        {
+          "field": "entity",
+          "market_count": 2
+        },
+        {
+          "field": "instrument_or_business_action_if_applicable",
+          "market_count": 2
+        },
+        {
+          "field": "case_or_event_definition",
+          "market_count": 1
+        },
+        {
+          "field": "court_or_legal_body",
+          "market_count": 1
+        },
+        {
+          "field": "docket_identifier",
+          "market_count": 1
+        },
+        {
+          "field": "asset_or_ticker",
+          "market_count": 1
+        },
+        {
+          "field": "benchmark_and_timezone_rules",
+          "market_count": 1
+        },
+        {
+          "field": "threshold",
+          "market_count": 1
+        },
+        {
+          "field": "named_person_or_institution",
+          "market_count": 1
+        },
+        {
+          "field": "office_or_public_role",
+          "market_count": 1
+        }
+      ],
+      "recommended_next_enrichment_focus": [
+        "full_market_resolution_criteria_text",
+        "full_resolution_rules",
+        "official_source_references",
+        "official_source_urls_or_rule_references",
+        "source_timestamps",
+        "source_reliability_review"
+      ],
+      "artifact_pointer": "pm_bot/llm/current_llm_packet_evidence_readiness_scores_after_source_normalization.v1.json",
+      "artifact_markdown_pointer": "pm_bot/llm/current_llm_packet_evidence_readiness_scores_after_source_normalization.v1.md"
+    },
+    "readiness_after_source_normalization_summary": {
+      "previous_high_count": 0,
+      "updated_high_count": 0,
+      "previous_medium_count": 10,
+      "updated_medium_count": 10,
+      "previous_low_count": 4,
+      "updated_low_count": 4,
+      "previous_blocked_count": 0,
+      "updated_blocked_count": 0,
+      "previous_average_score": 75.43,
+      "updated_average_score": 75.43,
+      "score_delta_average": 0.0,
+      "markets_improved": [],
+      "markets_unchanged": [
+        "563650",
+        "569332",
+        "569333",
+        "569334",
+        "569343",
+        "569344",
+        "569366",
+        "569368",
+        "569373",
+        "573656",
+        "597964",
+        "598936",
+        "691547",
+        "692258"
+      ],
+      "markets_worsened": [],
+      "markets_with_source_fields_improved": [
+        "569332",
+        "569333",
+        "569334",
+        "569343",
+        "569344",
+        "569366",
+        "569368",
+        "569373",
+        "597964",
+        "598936"
+      ],
+      "remaining_top_missing_fields": [
+        {
+          "field": "full_market_resolution_criteria_text",
+          "market_count": 14
+        },
+        {
+          "field": "full_resolution_rules",
+          "market_count": 14
+        },
+        {
+          "field": "non_placeholder_evidence_notes",
+          "market_count": 14
+        },
+        {
+          "field": "official_source_references",
+          "market_count": 14
+        },
+        {
+          "field": "official_source_urls_or_rule_references",
+          "market_count": 14
+        },
+        {
+          "field": "reviewed_local_evidence_references",
+          "market_count": 14
+        },
+        {
+          "field": "source_reliability_review",
+          "market_count": 14
+        },
+        {
+          "field": "source_timestamps",
+          "market_count": 14
+        },
+        {
+          "field": "office_or_election_event",
+          "market_count": 9
+        },
+        {
+          "field": "official_election_authority_identifier",
+          "market_count": 9
+        },
+        {
+          "field": "contradiction_checks",
+          "market_count": 4
+        },
+        {
+          "field": "evidence_completeness_audit_status",
+          "market_count": 4
+        },
+        {
+          "field": "operator_checklist",
+          "market_count": 4
+        },
+        {
+          "field": "risk_notes",
+          "market_count": 4
+        },
+        {
+          "field": "event_definition",
+          "market_count": 3
+        },
+        {
+          "field": "entity",
+          "market_count": 2
+        },
+        {
+          "field": "instrument_or_business_action_if_applicable",
+          "market_count": 2
+        },
+        {
+          "field": "case_or_event_definition",
+          "market_count": 1
+        },
+        {
+          "field": "court_or_legal_body",
+          "market_count": 1
+        },
+        {
+          "field": "docket_identifier",
+          "market_count": 1
+        },
+        {
+          "field": "asset_or_ticker",
+          "market_count": 1
+        },
+        {
+          "field": "benchmark_and_timezone_rules",
+          "market_count": 1
+        },
+        {
+          "field": "threshold",
+          "market_count": 1
+        },
+        {
+          "field": "named_person_or_institution",
+          "market_count": 1
+        },
+        {
+          "field": "office_or_public_role",
+          "market_count": 1
+        }
+      ],
+      "recommended_next_enrichment_focus": [
+        "full_market_resolution_criteria_text",
+        "full_resolution_rules",
+        "official_source_references",
+        "official_source_urls_or_rule_references",
+        "source_timestamps",
+        "source_reliability_review"
+      ],
+      "artifact_pointer": "pm_bot/llm/current_llm_packet_evidence_readiness_scores_after_source_normalization.v1.json",
+      "artifact_markdown_pointer": "pm_bot/llm/current_llm_packet_evidence_readiness_scores_after_source_normalization.v1.md"
+    },
+    "batch_readiness_gate_after_source_normalization_summary": {
+      "artifact_pointer": "pm_bot/llm/current_llm_batch_readiness_gate_after_source_normalization.v1.json",
+      "artifact_markdown_pointer": "pm_bot/llm/current_llm_batch_readiness_gate_after_source_normalization.v1.md",
+      "total_markets": 14,
+      "high_count": 0,
+      "medium_count": 10,
+      "low_count": 4,
+      "blocked_count": 0,
+      "eligible_for_future_llm_review_count": 10,
+      "eligible_for_future_openrouter_batch_count": 10,
+      "needs_local_enrichment_count": 14,
+      "markets_improved_by_source_normalization": [
+        "569332",
+        "569333",
+        "569334",
+        "569343",
+        "569344",
+        "569366",
+        "569368",
+        "569373",
+        "597964",
+        "598936"
+      ],
+      "markets_still_missing_resolution_sources": [
+        "563650",
+        "569332",
+        "569333",
+        "569334",
+        "569343",
+        "569344",
+        "569366",
+        "569368",
+        "569373",
+        "573656",
+        "597964",
+        "598936",
+        "691547",
+        "692258"
+      ],
+      "blocked_or_low_readiness_markets": [
+        "597964",
+        "598936",
+        "691547",
+        "692258"
+      ],
+      "manual_review_needed_markets": [
+        "563650",
+        "569332",
+        "569333",
+        "569334",
+        "569343",
+        "569344",
+        "569366",
+        "569368",
+        "569373",
+        "573656",
+        "597964",
+        "598936",
+        "691547",
+        "692258"
+      ],
+      "future_openrouter_batch_approved": false,
+      "no_market_action_guidance": true
+    },
+    "local_source_enrichment_action_plan_summary": {
+      "artifact_pointer": "pm_bot/llm/local_source_enrichment_action_plan.v1.json",
+      "artifact_markdown_pointer": "pm_bot/llm/local_source_enrichment_action_plan.v1.md",
+      "total_actions": 14,
+      "high_priority_local_actions": 4,
+      "medium_priority_local_actions": 10,
+      "low_priority_local_actions": 0,
+      "high_priority_local_action_market_ids": [
+        "597964",
+        "598936",
+        "691547",
+        "692258"
+      ],
+      "fields_to_fix_first": [
+        "full_market_resolution_criteria_text",
+        "full_resolution_rules",
+        "official_source_references",
+        "official_source_urls_or_rule_references",
+        "source_timestamps",
+        "source_reliability_review"
+      ],
+      "passive_only": true,
+      "queue_items_created": 0,
+      "queue_state_mutated": false,
+      "queue_mutation_performed": false,
+      "runtime_objects_created": false,
+      "no_market_action_guidance": true
+    },
+    "readiness_before_after_source_normalization": {
+      "previous_high_count": 0,
+      "updated_high_count": 0,
+      "previous_medium_count": 10,
+      "updated_medium_count": 10,
+      "previous_low_count": 4,
+      "updated_low_count": 4,
+      "previous_average_score": 75.43,
+      "updated_average_score": 75.43,
+      "score_delta_average": 0.0
+    },
+    "markets_missing_full_resolution_criteria": [
+      "563650",
+      "569332",
+      "569333",
+      "569334",
+      "569343",
+      "569344",
+      "569366",
+      "569368",
+      "569373",
+      "573656",
+      "597964",
+      "598936",
+      "691547",
+      "692258"
+    ],
+    "markets_missing_full_resolution_rules": [
+      "563650",
+      "569332",
+      "569333",
+      "569334",
+      "569343",
+      "569344",
+      "569366",
+      "569368",
+      "569373",
+      "573656",
+      "597964",
+      "598936",
+      "691547",
+      "692258"
+    ],
+    "markets_missing_official_source_references": [
+      "563650",
+      "569332",
+      "569333",
+      "569334",
+      "569343",
+      "569344",
+      "569366",
+      "569368",
+      "569373",
+      "573656",
+      "597964",
+      "598936",
+      "691547",
+      "692258"
+    ],
+    "markets_needing_manual_resolution_source_review": [
+      "563650",
+      "569332",
+      "569333",
+      "569334",
+      "569343",
+      "569344",
+      "569366",
+      "569368",
+      "569373",
+      "573656",
+      "597964",
+      "598936",
+      "691547",
+      "692258"
+    ],
+    "artifact_pointers": {
+      "resolution_source_audit_json": "pm_bot/llm/current_llm_resolution_source_normalization_audit.v1.json",
+      "resolution_source_audit_md": "pm_bot/llm/current_llm_resolution_source_normalization_audit.v1.md",
+      "after_source_normalization_readiness_scores_json": "pm_bot/llm/current_llm_packet_evidence_readiness_scores_after_source_normalization.v1.json",
+      "after_source_normalization_readiness_scores_md": "pm_bot/llm/current_llm_packet_evidence_readiness_scores_after_source_normalization.v1.md",
+      "batch_readiness_gate_after_source_normalization_json": "pm_bot/llm/current_llm_batch_readiness_gate_after_source_normalization.v1.json",
+      "batch_readiness_gate_after_source_normalization_md": "pm_bot/llm/current_llm_batch_readiness_gate_after_source_normalization.v1.md",
+      "local_source_enrichment_action_plan_json": "pm_bot/llm/local_source_enrichment_action_plan.v1.json",
+      "local_source_enrichment_action_plan_md": "pm_bot/llm/local_source_enrichment_action_plan.v1.md"
+    },
+    "no_market_action_guidance": true
+  },
+  "resolution_source_normalization_summary": {
+    "total_markets_audited": 14,
+    "markets_with_resolution_criteria_text": 0,
+    "markets_missing_resolution_criteria_text": 14,
+    "markets_with_full_resolution_rules": 0,
+    "markets_missing_full_resolution_rules": 14,
+    "markets_with_official_source_references": 0,
+    "markets_missing_official_source_references": 14,
+    "markets_with_official_source_urls_or_rule_references": 0,
+    "markets_missing_official_source_urls_or_rule_references": 14,
+    "markets_with_source_timestamps": 0,
+    "markets_missing_source_timestamps": 14,
+    "markets_with_source_reliability_review": 0,
+    "markets_missing_source_reliability_review": 14,
+    "markets_needing_manual_resolution_source_review": 14,
+    "markets_missing_full_resolution_criteria_ids": [
+      "563650",
+      "569332",
+      "569333",
+      "569334",
+      "569343",
+      "569344",
+      "569366",
+      "569368",
+      "569373",
+      "573656",
+      "597964",
+      "598936",
+      "691547",
+      "692258"
+    ],
+    "markets_missing_full_resolution_rules_ids": [
+      "563650",
+      "569332",
+      "569333",
+      "569334",
+      "569343",
+      "569344",
+      "569366",
+      "569368",
+      "569373",
+      "573656",
+      "597964",
+      "598936",
+      "691547",
+      "692258"
+    ],
+    "markets_missing_official_source_references_ids": [
+      "563650",
+      "569332",
+      "569333",
+      "569334",
+      "569343",
+      "569344",
+      "569366",
+      "569368",
+      "569373",
+      "573656",
+      "597964",
+      "598936",
+      "691547",
+      "692258"
+    ],
+    "markets_needing_manual_resolution_source_review_ids": [
+      "563650",
+      "569332",
+      "569333",
+      "569334",
+      "569343",
+      "569344",
+      "569366",
+      "569368",
+      "569373",
+      "573656",
+      "597964",
+      "598936",
+      "691547",
+      "692258"
+    ],
+    "category_breakdown": {
+      "company/business": {
+        "market_count": 2,
+        "market_ids": [
+          "691547",
+          "692258"
+        ],
+        "missing_field_counts": {
+          "full_market_resolution_criteria_text": 2,
+          "full_resolution_rules": 2,
+          "official_source_references": 2,
+          "official_source_urls_or_rule_references": 2,
+          "source_reliability_review": 2,
+          "source_timestamps": 2
+        },
+        "manual_review_needed_count": 2
+      },
+      "crypto": {
+        "market_count": 1,
+        "market_ids": [
+          "573656"
+        ],
+        "missing_field_counts": {
+          "full_market_resolution_criteria_text": 1,
+          "full_resolution_rules": 1,
+          "official_source_references": 1,
+          "official_source_urls_or_rule_references": 1,
+          "source_reliability_review": 1,
+          "source_timestamps": 1
+        },
+        "manual_review_needed_count": 1
+      },
+      "elections": {
+        "market_count": 9,
+        "market_ids": [
+          "569332",
+          "569333",
+          "569334",
+          "569343",
+          "569344",
+          "569366",
+          "569368",
+          "569373",
+          "598936"
+        ],
+        "missing_field_counts": {
+          "full_market_resolution_criteria_text": 9,
+          "full_resolution_rules": 9,
+          "official_source_references": 9,
+          "official_source_urls_or_rule_references": 9,
+          "source_reliability_review": 9,
+          "source_timestamps": 9
+        },
+        "manual_review_needed_count": 9
+      },
+      "legal/courts": {
+        "market_count": 1,
+        "market_ids": [
+          "563650"
+        ],
+        "missing_field_counts": {
+          "full_market_resolution_criteria_text": 1,
+          "full_resolution_rules": 1,
+          "official_source_references": 1,
+          "official_source_urls_or_rule_references": 1,
+          "source_reliability_review": 1,
+          "source_timestamps": 1
+        },
+        "manual_review_needed_count": 1
+      },
+      "politics": {
+        "market_count": 1,
+        "market_ids": [
+          "597964"
+        ],
+        "missing_field_counts": {
+          "full_market_resolution_criteria_text": 1,
+          "full_resolution_rules": 1,
+          "official_source_references": 1,
+          "official_source_urls_or_rule_references": 1,
+          "source_reliability_review": 1,
+          "source_timestamps": 1
+        },
+        "manual_review_needed_count": 1
+      }
+    },
+    "top_resolution_source_gaps": [
+      {
+        "field": "full_market_resolution_criteria_text",
+        "market_count": 14
+      },
+      {
+        "field": "full_resolution_rules",
+        "market_count": 14
+      },
+      {
+        "field": "official_source_references",
+        "market_count": 14
+      },
+      {
+        "field": "official_source_urls_or_rule_references",
+        "market_count": 14
+      },
+      {
+        "field": "source_timestamps",
+        "market_count": 14
+      },
+      {
+        "field": "source_reliability_review",
+        "market_count": 14
+      }
+    ],
+    "recommended_next_local_actions": [
+      "local manual resolution source capture",
+      "normalize source gap notes after manual capture",
+      "rerun packet completeness scorer after local capture",
+      "repeat readiness protocol only after source gate review"
+    ],
+    "artifact_pointer": "pm_bot/llm/current_llm_resolution_source_normalization_audit.v1.json",
+    "artifact_markdown_pointer": "pm_bot/llm/current_llm_resolution_source_normalization_audit.v1.md"
+  },
+  "readiness_after_source_normalization_summary": {
+    "previous_high_count": 0,
+    "updated_high_count": 0,
+    "previous_medium_count": 10,
+    "updated_medium_count": 10,
+    "previous_low_count": 4,
+    "updated_low_count": 4,
+    "previous_blocked_count": 0,
+    "updated_blocked_count": 0,
+    "previous_average_score": 75.43,
+    "updated_average_score": 75.43,
+    "score_delta_average": 0.0,
+    "markets_improved": [],
+    "markets_unchanged": [
+      "563650",
+      "569332",
+      "569333",
+      "569334",
+      "569343",
+      "569344",
+      "569366",
+      "569368",
+      "569373",
+      "573656",
+      "597964",
+      "598936",
+      "691547",
+      "692258"
+    ],
+    "markets_worsened": [],
+    "markets_with_source_fields_improved": [
+      "569332",
+      "569333",
+      "569334",
+      "569343",
+      "569344",
+      "569366",
+      "569368",
+      "569373",
+      "597964",
+      "598936"
+    ],
+    "remaining_top_missing_fields": [
+      {
+        "field": "full_market_resolution_criteria_text",
+        "market_count": 14
+      },
+      {
+        "field": "full_resolution_rules",
+        "market_count": 14
+      },
+      {
+        "field": "non_placeholder_evidence_notes",
+        "market_count": 14
+      },
+      {
+        "field": "official_source_references",
+        "market_count": 14
+      },
+      {
+        "field": "official_source_urls_or_rule_references",
+        "market_count": 14
+      },
+      {
+        "field": "reviewed_local_evidence_references",
+        "market_count": 14
+      },
+      {
+        "field": "source_reliability_review",
+        "market_count": 14
+      },
+      {
+        "field": "source_timestamps",
+        "market_count": 14
+      },
+      {
+        "field": "office_or_election_event",
+        "market_count": 9
+      },
+      {
+        "field": "official_election_authority_identifier",
+        "market_count": 9
+      },
+      {
+        "field": "contradiction_checks",
+        "market_count": 4
+      },
+      {
+        "field": "evidence_completeness_audit_status",
+        "market_count": 4
+      },
+      {
+        "field": "operator_checklist",
+        "market_count": 4
+      },
+      {
+        "field": "risk_notes",
+        "market_count": 4
+      },
+      {
+        "field": "event_definition",
+        "market_count": 3
+      },
+      {
+        "field": "entity",
+        "market_count": 2
+      },
+      {
+        "field": "instrument_or_business_action_if_applicable",
+        "market_count": 2
+      },
+      {
+        "field": "case_or_event_definition",
+        "market_count": 1
+      },
+      {
+        "field": "court_or_legal_body",
+        "market_count": 1
+      },
+      {
+        "field": "docket_identifier",
+        "market_count": 1
+      },
+      {
+        "field": "asset_or_ticker",
+        "market_count": 1
+      },
+      {
+        "field": "benchmark_and_timezone_rules",
+        "market_count": 1
+      },
+      {
+        "field": "threshold",
+        "market_count": 1
+      },
+      {
+        "field": "named_person_or_institution",
+        "market_count": 1
+      },
+      {
+        "field": "office_or_public_role",
+        "market_count": 1
+      }
+    ],
+    "recommended_next_enrichment_focus": [
+      "full_market_resolution_criteria_text",
+      "full_resolution_rules",
+      "official_source_references",
+      "official_source_urls_or_rule_references",
+      "source_timestamps",
+      "source_reliability_review"
+    ],
+    "artifact_pointer": "pm_bot/llm/current_llm_packet_evidence_readiness_scores_after_source_normalization.v1.json",
+    "artifact_markdown_pointer": "pm_bot/llm/current_llm_packet_evidence_readiness_scores_after_source_normalization.v1.md"
+  },
+  "batch_readiness_gate_after_source_normalization_summary": {
+    "artifact_pointer": "pm_bot/llm/current_llm_batch_readiness_gate_after_source_normalization.v1.json",
+    "artifact_markdown_pointer": "pm_bot/llm/current_llm_batch_readiness_gate_after_source_normalization.v1.md",
+    "total_markets": 14,
+    "high_count": 0,
+    "medium_count": 10,
+    "low_count": 4,
+    "blocked_count": 0,
+    "eligible_for_future_llm_review_count": 10,
+    "eligible_for_future_openrouter_batch_count": 10,
+    "needs_local_enrichment_count": 14,
+    "markets_improved_by_source_normalization": [
+      "569332",
+      "569333",
+      "569334",
+      "569343",
+      "569344",
+      "569366",
+      "569368",
+      "569373",
+      "597964",
+      "598936"
+    ],
+    "markets_still_missing_resolution_sources": [
+      "563650",
+      "569332",
+      "569333",
+      "569334",
+      "569343",
+      "569344",
+      "569366",
+      "569368",
+      "569373",
+      "573656",
+      "597964",
+      "598936",
+      "691547",
+      "692258"
+    ],
+    "blocked_or_low_readiness_markets": [
+      "597964",
+      "598936",
+      "691547",
+      "692258"
+    ],
+    "manual_review_needed_markets": [
+      "563650",
+      "569332",
+      "569333",
+      "569334",
+      "569343",
+      "569344",
+      "569366",
+      "569368",
+      "569373",
+      "573656",
+      "597964",
+      "598936",
+      "691547",
+      "692258"
+    ],
+    "future_openrouter_batch_approved": false,
+    "no_market_action_guidance": true
+  },
+  "local_source_enrichment_action_plan_summary": {
+    "artifact_pointer": "pm_bot/llm/local_source_enrichment_action_plan.v1.json",
+    "artifact_markdown_pointer": "pm_bot/llm/local_source_enrichment_action_plan.v1.md",
+    "total_actions": 14,
+    "high_priority_local_actions": 4,
+    "medium_priority_local_actions": 10,
+    "low_priority_local_actions": 0,
+    "high_priority_local_action_market_ids": [
+      "597964",
+      "598936",
+      "691547",
+      "692258"
+    ],
+    "fields_to_fix_first": [
+      "full_market_resolution_criteria_text",
+      "full_resolution_rules",
+      "official_source_references",
+      "official_source_urls_or_rule_references",
+      "source_timestamps",
+      "source_reliability_review"
+    ],
+    "passive_only": true,
+    "queue_items_created": 0,
+    "queue_state_mutated": false,
+    "queue_mutation_performed": false,
+    "runtime_objects_created": false,
+    "no_market_action_guidance": true
+  },
   "evidence_readiness_score_summary": {
     "high_count": 0,
     "medium_count": 10,
@@ -1976,6 +3115,14 @@
     "evidence_audit_md": "pm_bot/llm/current_llm_source_evidence_completeness_audit.v1.md",
     "batch_readiness_gate_json": "pm_bot/llm/current_llm_batch_readiness_gate.v1.json",
     "batch_readiness_gate_md": "pm_bot/llm/current_llm_batch_readiness_gate.v1.md",
+    "resolution_source_audit_json": "pm_bot/llm/current_llm_resolution_source_normalization_audit.v1.json",
+    "resolution_source_audit_md": "pm_bot/llm/current_llm_resolution_source_normalization_audit.v1.md",
+    "readiness_after_source_normalization_json": "pm_bot/llm/current_llm_packet_evidence_readiness_scores_after_source_normalization.v1.json",
+    "readiness_after_source_normalization_md": "pm_bot/llm/current_llm_packet_evidence_readiness_scores_after_source_normalization.v1.md",
+    "batch_gate_after_source_normalization_json": "pm_bot/llm/current_llm_batch_readiness_gate_after_source_normalization.v1.json",
+    "batch_gate_after_source_normalization_md": "pm_bot/llm/current_llm_batch_readiness_gate_after_source_normalization.v1.md",
+    "local_source_enrichment_action_plan_json": "pm_bot/llm/local_source_enrichment_action_plan.v1.json",
+    "local_source_enrichment_action_plan_md": "pm_bot/llm/local_source_enrichment_action_plan.v1.md",
     "operator_review_pack_json": "pm_bot/workbench/operator_review_pack.v1.json",
     "operator_review_pack_md": "pm_bot/workbench/operator_review_pack.v1.md",
     "workbench_export_run_json": "pm_bot/workbench/operator_workbench_export_run.v1.json",
@@ -1992,7 +3139,11 @@
     "completeness_contract_json": "pm_bot/llm/llm_market_packet_completeness_contract.v1.json",
     "completeness_contract_md": "pm_bot/llm/llm_market_packet_completeness_contract.v1.md",
     "enrichment_design_json": "pm_bot/llm/source_evidence_enrichment_design.v1.json",
-    "enrichment_design_md": "docs/PMBOT_SOURCE_EVIDENCE_ENRICHMENT_DESIGN.md"
+    "enrichment_design_md": "docs/PMBOT_SOURCE_EVIDENCE_ENRICHMENT_DESIGN.md",
+    "after_source_normalization_readiness_scores_json": "pm_bot/llm/current_llm_packet_evidence_readiness_scores_after_source_normalization.v1.json",
+    "after_source_normalization_readiness_scores_md": "pm_bot/llm/current_llm_packet_evidence_readiness_scores_after_source_normalization.v1.md",
+    "batch_readiness_gate_after_source_normalization_json": "pm_bot/llm/current_llm_batch_readiness_gate_after_source_normalization.v1.json",
+    "batch_readiness_gate_after_source_normalization_md": "pm_bot/llm/current_llm_batch_readiness_gate_after_source_normalization.v1.md"
   },
   "network_calls_performed": 0,
   "polymarket_api_calls_performed": 0,

@@ -23,6 +23,21 @@ OPENROUTER_PASSIVE_SURFACE_POINTER = ROOT / "pm_bot" / "workbench" / "openrouter
 OPENROUTER_PASSIVE_SURFACE_POINTER_MD = ROOT / "pm_bot" / "workbench" / "openrouter_passive_surface_pointer.v1.md"
 OPENROUTER_REVIEW_DASHBOARD = ROOT / "pm_bot" / "workbench" / "operator_openrouter_review_dashboard.v1.json"
 PACKET_COMPLETENESS_GATE = ROOT / "pm_bot" / "llm" / "current_llm_batch_readiness_gate.v1.json"
+RESOLUTION_SOURCE_AUDIT = (
+    ROOT / "pm_bot" / "llm" / "current_llm_resolution_source_normalization_audit.v1.json"
+)
+READINESS_AFTER_SOURCE_NORMALIZATION = (
+    ROOT
+    / "pm_bot"
+    / "llm"
+    / "current_llm_packet_evidence_readiness_scores_after_source_normalization.v1.json"
+)
+BATCH_GATE_AFTER_SOURCE_NORMALIZATION = (
+    ROOT / "pm_bot" / "llm" / "current_llm_batch_readiness_gate_after_source_normalization.v1.json"
+)
+LOCAL_SOURCE_ENRICHMENT_ACTION_PLAN = (
+    ROOT / "pm_bot" / "llm" / "local_source_enrichment_action_plan.v1.json"
+)
 
 NEW_JSON_FILES = [
     PACK_JSON,
@@ -30,6 +45,10 @@ NEW_JSON_FILES = [
     OPENROUTER_PASSIVE_SURFACE_POINTER,
     OPENROUTER_REVIEW_DASHBOARD,
     PACKET_COMPLETENESS_GATE,
+    RESOLUTION_SOURCE_AUDIT,
+    READINESS_AFTER_SOURCE_NORMALIZATION,
+    BATCH_GATE_AFTER_SOURCE_NORMALIZATION,
+    LOCAL_SOURCE_ENRICHMENT_ACTION_PLAN,
     RESULT,
     LANE_RESULT,
 ]
@@ -133,6 +152,7 @@ class OperatorReviewPackExportTests(unittest.TestCase):
             "openrouter_passive_surface",
             "openrouter_review_dashboard",
             "packet_completeness_readiness_gate",
+            "resolution_source_normalization",
             "quality_warning_summary",
             "warnings",
             "missing_artifacts",
@@ -200,6 +220,10 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertTrue(inventory["actual_manual_llm_response_trial"]["present"])
         self.assertTrue(inventory["openrouter_passive_surface"]["present"])
         self.assertTrue(inventory["packet_completeness_readiness_gate"]["present"])
+        self.assertTrue(inventory["resolution_source_normalization_audit"]["present"])
+        self.assertTrue(inventory["readiness_after_source_normalization"]["present"])
+        self.assertTrue(inventory["batch_readiness_gate_after_source_normalization"]["present"])
+        self.assertTrue(inventory["local_source_enrichment_action_plan"]["present"])
         self.assertEqual(inventory["paper_019_result"]["parse_status"], "parsed")
         self.assertEqual(inventory["paper_019_multi_market_run_series"]["parse_status"], "parsed")
         self.assertEqual(inventory["paper_020_result"]["parse_status"], "parsed")
@@ -210,6 +234,13 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertEqual(inventory["actual_manual_llm_response_trial"]["parse_status"], "parsed")
         self.assertEqual(inventory["openrouter_passive_surface"]["parse_status"], "parsed")
         self.assertEqual(inventory["packet_completeness_readiness_gate"]["parse_status"], "parsed")
+        self.assertEqual(inventory["resolution_source_normalization_audit"]["parse_status"], "parsed")
+        self.assertEqual(inventory["readiness_after_source_normalization"]["parse_status"], "parsed")
+        self.assertEqual(
+            inventory["batch_readiness_gate_after_source_normalization"]["parse_status"],
+            "parsed",
+        )
+        self.assertEqual(inventory["local_source_enrichment_action_plan"]["parse_status"], "parsed")
         self.assertEqual(
             inventory["paper_019_multi_market_run_series"]["path"],
             "pm_bot/paper/multi_market_paper_run_series.v1.json",
@@ -1051,6 +1082,17 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertFalse(gate["future_live_batch_scheduled"])
         self.assertFalse(gate["future_openrouter_batch_approved"])
         self.assertTrue(gate["no_market_action_guidance"])
+        source_norm = result["resolution_source_normalization"]
+        self.assertEqual(source_norm["audit_artifact_status"], "present")
+        self.assertEqual(source_norm["total_markets_audited"], 14)
+        self.assertEqual(source_norm["markets_missing_resolution_criteria_text"], 14)
+        self.assertEqual(source_norm["markets_missing_full_resolution_rules"], 14)
+        self.assertEqual(source_norm["markets_missing_official_source_references"], 14)
+        self.assertFalse(source_norm["future_openrouter_batch_approved"])
+        self.assertTrue(source_norm["passive_only"])
+        self.assertEqual(source_norm["queue_items_created"], 0)
+        self.assertFalse(source_norm["queue_state_mutated"])
+        self.assertTrue(source_norm["no_market_action_guidance"])
         self.assertTrue(result["openrouter_passive_surface"]["safety_summary"]["operator_review_only"])
         self.assertTrue(result["openrouter_passive_surface"]["safety_summary"]["passive_context_only"])
         self.assertEqual(

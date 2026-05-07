@@ -35,6 +35,14 @@ SUMMARY_OUTPUT_ARTIFACTS = [
     "pm_bot/workbench/openrouter_passive_surface_pointer.v1.md",
     "pm_bot/llm/current_llm_batch_readiness_gate.v1.json",
     "pm_bot/llm/current_llm_batch_readiness_gate.v1.md",
+    "pm_bot/llm/current_llm_resolution_source_normalization_audit.v1.json",
+    "pm_bot/llm/current_llm_resolution_source_normalization_audit.v1.md",
+    "pm_bot/llm/current_llm_packet_evidence_readiness_scores_after_source_normalization.v1.json",
+    "pm_bot/llm/current_llm_packet_evidence_readiness_scores_after_source_normalization.v1.md",
+    "pm_bot/llm/current_llm_batch_readiness_gate_after_source_normalization.v1.json",
+    "pm_bot/llm/current_llm_batch_readiness_gate_after_source_normalization.v1.md",
+    "pm_bot/llm/local_source_enrichment_action_plan.v1.json",
+    "pm_bot/llm/local_source_enrichment_action_plan.v1.md",
     "pm_bot/workbench/operator_openrouter_review_dashboard.v1.json",
     "pm_bot/workbench/operator_openrouter_review_dashboard.v1.md",
     "docs/PMBOT_WORKBENCH_003_RESULT.json",
@@ -164,6 +172,14 @@ def build_export_steps(root=ROOT):
             "output_artifacts": [
                 "pm_bot/llm/current_llm_batch_readiness_gate.v1.json",
                 "pm_bot/llm/current_llm_batch_readiness_gate.v1.md",
+                "pm_bot/llm/current_llm_resolution_source_normalization_audit.v1.json",
+                "pm_bot/llm/current_llm_resolution_source_normalization_audit.v1.md",
+                "pm_bot/llm/current_llm_packet_evidence_readiness_scores_after_source_normalization.v1.json",
+                "pm_bot/llm/current_llm_packet_evidence_readiness_scores_after_source_normalization.v1.md",
+                "pm_bot/llm/current_llm_batch_readiness_gate_after_source_normalization.v1.json",
+                "pm_bot/llm/current_llm_batch_readiness_gate_after_source_normalization.v1.md",
+                "pm_bot/llm/local_source_enrichment_action_plan.v1.json",
+                "pm_bot/llm/local_source_enrichment_action_plan.v1.md",
                 "pm_bot/workbench/operator_openrouter_review_dashboard.v1.json",
                 "pm_bot/workbench/operator_openrouter_review_dashboard.v1.md",
             ],
@@ -334,6 +350,20 @@ def build_run_summary(step_results, root=ROOT):
         "packet_completeness_readiness_gate": _safe_dict(
             openrouter_dashboard.get("batch_readiness_gate_summary")
         ),
+        "resolution_source_normalization": _safe_dict(
+            openrouter_dashboard.get("resolution_source_normalization_summary")
+        ),
+        "readiness_after_source_normalization": _safe_dict(
+            openrouter_dashboard.get("readiness_after_source_normalization_summary")
+        ),
+        "batch_readiness_gate_after_source_normalization": _safe_dict(
+            openrouter_dashboard.get(
+                "batch_readiness_gate_after_source_normalization_summary"
+            )
+        ),
+        "local_source_enrichment_action_plan": _safe_dict(
+            openrouter_dashboard.get("local_source_enrichment_action_plan_summary")
+        ),
         "warnings": _warnings_for_steps(step_results),
         "safety_flags": dict(SAFETY_FLAGS),
         "network_calls": 0,
@@ -352,6 +382,10 @@ def render_markdown(summary):
     openrouter_surface = summary["openrouter_passive_surface"]
     openrouter_dashboard = summary["openrouter_review_dashboard"]
     packet_gate = summary.get("packet_completeness_readiness_gate", {})
+    source_norm = summary.get("resolution_source_normalization", {})
+    readiness_after_source = summary.get("readiness_after_source_normalization", {})
+    source_gate = summary.get("batch_readiness_gate_after_source_normalization", {})
+    action_plan = summary.get("local_source_enrichment_action_plan", {})
     lines = [
         "# PMBOT Operator Workbench Export Run v1",
         "",
@@ -515,6 +549,65 @@ def render_markdown(summary):
             ]
         )
 
+    if source_norm:
+        lines.extend(
+            [
+                "",
+                "## Resolution Source Normalization",
+                "",
+                f"- audit_artifact_path: {source_norm['artifact_pointer']}",
+                f"- audit_markdown_path: {source_norm['artifact_markdown_pointer']}",
+                f"- total_markets_audited: {source_norm['total_markets_audited']}",
+                "- markets_missing_resolution_criteria_text: "
+                f"{source_norm['markets_missing_resolution_criteria_text']}",
+                "- markets_missing_full_resolution_rules: "
+                f"{source_norm['markets_missing_full_resolution_rules']}",
+                "- markets_missing_official_source_references: "
+                f"{source_norm['markets_missing_official_source_references']}",
+                "- markets_needing_manual_resolution_source_review: "
+                f"{source_norm['markets_needing_manual_resolution_source_review']}",
+                "",
+                "## Readiness After Source Normalization",
+                "",
+                f"- artifact_path: {readiness_after_source['artifact_pointer']}",
+                "- previous_average_score: "
+                f"{readiness_after_source['previous_average_score']}",
+                f"- updated_average_score: {readiness_after_source['updated_average_score']}",
+                f"- score_delta_average: {readiness_after_source['score_delta_average']}",
+                "- markets_improved: "
+                f"{', '.join(readiness_after_source.get('markets_improved', [])) or 'none'}",
+                "",
+                "## Batch Gate After Source Normalization",
+                "",
+                f"- artifact_path: {source_gate['artifact_pointer']}",
+                f"- total_markets: {source_gate['total_markets']}",
+                f"- medium_count: {source_gate['medium_count']}",
+                f"- low_count: {source_gate['low_count']}",
+                "- eligible_for_future_openrouter_batch_count: "
+                f"{source_gate['eligible_for_future_openrouter_batch_count']}",
+                "- markets_still_missing_resolution_sources: "
+                f"{', '.join(source_gate.get('markets_still_missing_resolution_sources', []))}",
+                "- future_openrouter_batch_approved: "
+                f"{str(source_gate['future_openrouter_batch_approved']).lower()}",
+                "- no_market_action_guidance: "
+                f"{str(source_gate['no_market_action_guidance']).lower()}",
+                "",
+                "## Local Source Enrichment Action Plan",
+                "",
+                f"- artifact_path: {action_plan['artifact_pointer']}",
+                "- high_priority_local_actions: "
+                f"{action_plan.get('high_priority_local_actions', 0)}",
+                "- high_priority_local_action_market_ids: "
+                f"{', '.join(action_plan.get('high_priority_local_action_market_ids', []))}",
+                "- fields_to_fix_first: "
+                f"{', '.join(action_plan.get('fields_to_fix_first', []))}",
+                f"- passive_only: {str(action_plan.get('passive_only', True)).lower()}",
+                f"- queue_items_created: {action_plan.get('queue_items_created', 0)}",
+                "- queue_state_mutated: "
+                f"{str(action_plan.get('queue_state_mutated', False)).lower()}",
+            ]
+        )
+
     lines.extend(["", "## Warnings", ""])
     if summary["warnings"]:
         lines.extend(f"- {warning}" for warning in summary["warnings"])
@@ -554,6 +647,14 @@ def _result_payload(summary):
             "pm_bot/workbench/expected_operator_workbench_export_run.v1.json",
             "pm_bot/llm/current_llm_batch_readiness_gate.v1.json",
             "pm_bot/llm/current_llm_batch_readiness_gate.v1.md",
+            "pm_bot/llm/current_llm_resolution_source_normalization_audit.v1.json",
+            "pm_bot/llm/current_llm_resolution_source_normalization_audit.v1.md",
+            "pm_bot/llm/current_llm_packet_evidence_readiness_scores_after_source_normalization.v1.json",
+            "pm_bot/llm/current_llm_packet_evidence_readiness_scores_after_source_normalization.v1.md",
+            "pm_bot/llm/current_llm_batch_readiness_gate_after_source_normalization.v1.json",
+            "pm_bot/llm/current_llm_batch_readiness_gate_after_source_normalization.v1.md",
+            "pm_bot/llm/local_source_enrichment_action_plan.v1.json",
+            "pm_bot/llm/local_source_enrichment_action_plan.v1.md",
             "pm_bot/workbench/operator_openrouter_review_dashboard.py",
             "pm_bot/workbench/operator_openrouter_review_dashboard.v1.json",
             "pm_bot/workbench/operator_openrouter_review_dashboard.v1.md",
@@ -650,6 +751,16 @@ def _result_payload(summary):
         },
         "packet_completeness_readiness_gate": summary[
             "packet_completeness_readiness_gate"
+        ],
+        "resolution_source_normalization": summary["resolution_source_normalization"],
+        "readiness_after_source_normalization": summary[
+            "readiness_after_source_normalization"
+        ],
+        "batch_readiness_gate_after_source_normalization": summary[
+            "batch_readiness_gate_after_source_normalization"
+        ],
+        "local_source_enrichment_action_plan": summary[
+            "local_source_enrichment_action_plan"
         ],
         "safety_flags": summary["safety_flags"],
         "network_calls": 0,

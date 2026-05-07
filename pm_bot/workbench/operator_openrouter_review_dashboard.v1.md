@@ -124,6 +124,53 @@
 - contradiction and risk context builder for unreviewed packets
 - packet completeness readiness gate review before future LLM batches
 
+## Resolution Source Normalization
+
+- integration_status: source_003_context_ready
+- artifact_pointer: pm_bot/llm/current_llm_resolution_source_normalization_audit.v1.json
+- artifact_markdown_pointer: pm_bot/llm/current_llm_resolution_source_normalization_audit.v1.md
+- total_markets_audited: 14
+- markets_missing_resolution_criteria_text: 14
+- markets_missing_full_resolution_rules: 14
+- markets_missing_official_source_references: 14
+- markets_needing_manual_resolution_source_review: 14
+
+## Readiness After Source Normalization
+
+- artifact_pointer: pm_bot/llm/current_llm_packet_evidence_readiness_scores_after_source_normalization.v1.json
+- artifact_markdown_pointer: pm_bot/llm/current_llm_packet_evidence_readiness_scores_after_source_normalization.v1.md
+- previous_average_score: 75.43
+- updated_average_score: 75.43
+- score_delta_average: 0.0
+- markets_improved: none
+- remaining_top_missing_fields: full_market_resolution_criteria_text, full_resolution_rules, non_placeholder_evidence_notes, official_source_references, official_source_urls_or_rule_references, reviewed_local_evidence_references
+
+## Batch Gate After Source Normalization
+
+- artifact_pointer: pm_bot/llm/current_llm_batch_readiness_gate_after_source_normalization.v1.json
+- artifact_markdown_pointer: pm_bot/llm/current_llm_batch_readiness_gate_after_source_normalization.v1.md
+- total_markets: 14
+- high_count: 0
+- medium_count: 10
+- low_count: 4
+- blocked_count: 0
+- eligible_for_future_openrouter_batch_count: 10
+- markets_still_missing_resolution_sources: 563650, 569332, 569333, 569334, 569343, 569344, 569366, 569368, 569373, 573656, 597964, 598936, 691547, 692258
+- manual_review_needed_markets: 563650, 569332, 569333, 569334, 569343, 569344, 569366, 569368, 569373, 573656, 597964, 598936, 691547, 692258
+- future_openrouter_batch_approved: false
+- no_market_action_guidance: true
+
+## Local Source Enrichment Action Plan
+
+- artifact_pointer: pm_bot/llm/local_source_enrichment_action_plan.v1.json
+- artifact_markdown_pointer: pm_bot/llm/local_source_enrichment_action_plan.v1.md
+- high_priority_local_actions: 4
+- high_priority_local_action_market_ids: 597964, 598936, 691547, 692258
+- fields_to_fix_first: full_market_resolution_criteria_text, full_resolution_rules, official_source_references, official_source_urls_or_rule_references, source_timestamps, source_reliability_review
+- passive_only: true
+- queue_items_created: 0
+- queue_state_mutated: false
+
 ## Operator Next Engineering Actions
 
 - category/source inventory review
@@ -145,6 +192,14 @@
 - evidence_audit_md: pm_bot/llm/current_llm_source_evidence_completeness_audit.v1.md
 - batch_readiness_gate_json: pm_bot/llm/current_llm_batch_readiness_gate.v1.json
 - batch_readiness_gate_md: pm_bot/llm/current_llm_batch_readiness_gate.v1.md
+- resolution_source_audit_json: pm_bot/llm/current_llm_resolution_source_normalization_audit.v1.json
+- resolution_source_audit_md: pm_bot/llm/current_llm_resolution_source_normalization_audit.v1.md
+- readiness_after_source_normalization_json: pm_bot/llm/current_llm_packet_evidence_readiness_scores_after_source_normalization.v1.json
+- readiness_after_source_normalization_md: pm_bot/llm/current_llm_packet_evidence_readiness_scores_after_source_normalization.v1.md
+- batch_gate_after_source_normalization_json: pm_bot/llm/current_llm_batch_readiness_gate_after_source_normalization.v1.json
+- batch_gate_after_source_normalization_md: pm_bot/llm/current_llm_batch_readiness_gate_after_source_normalization.v1.md
+- local_source_enrichment_action_plan_json: pm_bot/llm/local_source_enrichment_action_plan.v1.json
+- local_source_enrichment_action_plan_md: pm_bot/llm/local_source_enrichment_action_plan.v1.md
 - operator_review_pack_json: pm_bot/workbench/operator_review_pack.v1.json
 - operator_review_pack_md: pm_bot/workbench/operator_review_pack.v1.md
 - workbench_export_run_json: pm_bot/workbench/operator_workbench_export_run.v1.json
@@ -162,3 +217,7 @@
 - completeness_contract_md: pm_bot/llm/llm_market_packet_completeness_contract.v1.md
 - enrichment_design_json: pm_bot/llm/source_evidence_enrichment_design.v1.json
 - enrichment_design_md: docs/PMBOT_SOURCE_EVIDENCE_ENRICHMENT_DESIGN.md
+- after_source_normalization_readiness_scores_json: pm_bot/llm/current_llm_packet_evidence_readiness_scores_after_source_normalization.v1.json
+- after_source_normalization_readiness_scores_md: pm_bot/llm/current_llm_packet_evidence_readiness_scores_after_source_normalization.v1.md
+- batch_readiness_gate_after_source_normalization_json: pm_bot/llm/current_llm_batch_readiness_gate_after_source_normalization.v1.json
+- batch_readiness_gate_after_source_normalization_md: pm_bot/llm/current_llm_batch_readiness_gate_after_source_normalization.v1.md

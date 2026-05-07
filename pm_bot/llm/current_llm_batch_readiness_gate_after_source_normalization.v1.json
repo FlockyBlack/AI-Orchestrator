@@ -1,0 +1,241 @@
+{
+  "schema_version": "current_llm_batch_readiness_gate_after_source_normalization.v1",
+  "gate_version": "current_llm_batch_readiness_gate_after_source_normalization.v1",
+  "task_id": "PMBOT-SOURCE-003-RESOLUTION-SOURCE-FIELD-NORMALIZATION",
+  "generated_by": "pm_bot/llm/resolution_source_normalizer.py",
+  "generated_at_marker": "deterministic-source-003-local-resolution-source-normalization.v1",
+  "status": "batch_readiness_gate_after_source_normalization_created",
+  "source_normalization_audit_path": "pm_bot/llm/current_llm_resolution_source_normalization_audit.v1.json",
+  "updated_readiness_scores_path": "pm_bot/llm/current_llm_packet_evidence_readiness_scores_after_source_normalization.v1.json",
+  "total_markets": 14,
+  "high_count": 0,
+  "medium_count": 10,
+  "low_count": 4,
+  "blocked_count": 0,
+  "eligible_for_future_llm_review_count": 10,
+  "eligible_for_future_openrouter_batch_count": 10,
+  "needs_local_enrichment_count": 14,
+  "markets_improved_by_source_normalization": [
+    "569332",
+    "569333",
+    "569334",
+    "569343",
+    "569344",
+    "569366",
+    "569368",
+    "569373",
+    "597964",
+    "598936"
+  ],
+  "markets_still_missing_resolution_sources": [
+    "563650",
+    "569332",
+    "569333",
+    "569334",
+    "569343",
+    "569344",
+    "569366",
+    "569368",
+    "569373",
+    "573656",
+    "597964",
+    "598936",
+    "691547",
+    "692258"
+  ],
+  "safe_future_batch_candidates": [
+    "563650",
+    "569332",
+    "569333",
+    "569334",
+    "569343",
+    "569344",
+    "569366",
+    "569368",
+    "569373",
+    "573656"
+  ],
+  "blocked_or_low_readiness_markets": [
+    "597964",
+    "598936",
+    "691547",
+    "692258"
+  ],
+  "manual_review_needed_markets": [
+    "563650",
+    "569332",
+    "569333",
+    "569334",
+    "569343",
+    "569344",
+    "569366",
+    "569368",
+    "569373",
+    "573656",
+    "597964",
+    "598936",
+    "691547",
+    "692258"
+  ],
+  "remaining_top_missing_fields": [
+    {
+      "field": "full_market_resolution_criteria_text",
+      "market_count": 14
+    },
+    {
+      "field": "full_resolution_rules",
+      "market_count": 14
+    },
+    {
+      "field": "non_placeholder_evidence_notes",
+      "market_count": 14
+    },
+    {
+      "field": "official_source_references",
+      "market_count": 14
+    },
+    {
+      "field": "official_source_urls_or_rule_references",
+      "market_count": 14
+    },
+    {
+      "field": "reviewed_local_evidence_references",
+      "market_count": 14
+    },
+    {
+      "field": "source_reliability_review",
+      "market_count": 14
+    },
+    {
+      "field": "source_timestamps",
+      "market_count": 14
+    },
+    {
+      "field": "office_or_election_event",
+      "market_count": 9
+    },
+    {
+      "field": "official_election_authority_identifier",
+      "market_count": 9
+    },
+    {
+      "field": "contradiction_checks",
+      "market_count": 4
+    },
+    {
+      "field": "evidence_completeness_audit_status",
+      "market_count": 4
+    },
+    {
+      "field": "operator_checklist",
+      "market_count": 4
+    },
+    {
+      "field": "risk_notes",
+      "market_count": 4
+    },
+    {
+      "field": "event_definition",
+      "market_count": 3
+    },
+    {
+      "field": "entity",
+      "market_count": 2
+    },
+    {
+      "field": "instrument_or_business_action_if_applicable",
+      "market_count": 2
+    },
+    {
+      "field": "case_or_event_definition",
+      "market_count": 1
+    },
+    {
+      "field": "court_or_legal_body",
+      "market_count": 1
+    },
+    {
+      "field": "docket_identifier",
+      "market_count": 1
+    },
+    {
+      "field": "asset_or_ticker",
+      "market_count": 1
+    },
+    {
+      "field": "benchmark_and_timezone_rules",
+      "market_count": 1
+    },
+    {
+      "field": "threshold",
+      "market_count": 1
+    },
+    {
+      "field": "named_person_or_institution",
+      "market_count": 1
+    },
+    {
+      "field": "office_or_public_role",
+      "market_count": 1
+    }
+  ],
+  "recommended_next_enrichment_focus": [
+    "full_market_resolution_criteria_text",
+    "full_resolution_rules",
+    "official_source_references",
+    "official_source_urls_or_rule_references",
+    "source_timestamps",
+    "source_reliability_review"
+  ],
+  "future_live_batch_scheduled": false,
+  "future_openrouter_batch_approved": false,
+  "future_llm_review_approved": false,
+  "local_only": true,
+  "no_live_calls": true,
+  "no_trading_authority": true,
+  "no_queue_authority": true,
+  "no_runtime_authority": true,
+  "no_wallet_or_order_authority": true,
+  "operator_review_only": true,
+  "safety_flags": {
+    "local_only": true,
+    "operator_review_only": true,
+    "passive_context_only": true,
+    "manual_review_only": true,
+    "analysis_only": true,
+    "no_live_calls": true,
+    "no_trading_authority": true,
+    "no_queue_authority": true,
+    "no_runtime_authority": true,
+    "no_dispatcher_authority": true,
+    "no_wallet_or_order_authority": true,
+    "acceptance_is_not_trading_approval": true,
+    "no_market_action_guidance": true,
+    "no_probability_ev_edge_confidence_side_selection": true,
+    "openrouter_calls_performed_by_this_task": 0,
+    "polymarket_api_calls_performed_by_this_task": 0,
+    "external_network_calls_performed_by_this_task": 0,
+    "network_calls_performed_by_this_task": 0,
+    "api_key_accessed": false,
+    "api_key_value_printed": false,
+    "api_key_value_written": false,
+    "api_key_leaked": false,
+    "wallet_or_private_key_accessed": false,
+    "orders_created": 0,
+    "queue_items_created": 0,
+    "queue_state_mutated": false,
+    "runtime_wiring_added": false,
+    "dispatcher_changed": false,
+    "background_workers_added": false,
+    "browser_automation_used": false,
+    "live_enrichment_performed": false,
+    "market_decisions_made": false,
+    "future_live_batch_scheduled": false,
+    "future_openrouter_batch_approved": false,
+    "future_llm_review_approved": false
+  },
+  "openrouter_calls_performed": 0,
+  "polymarket_api_calls_performed": 0,
+  "external_network_calls_performed": 0,
+  "network_calls_performed": 0
+}

@@ -51,8 +51,8 @@
 
 ## Artifact Inventory
 
-- total_artifacts: 27
-- present_artifacts: 27
+- total_artifacts: 31
+- present_artifacts: 31
 - missing_artifacts: 0
 - required_missing_artifacts: 0
 
@@ -83,6 +83,10 @@
 - openrouter_passive_surface: pm_bot/workbench/openrouter_passive_surface_pointer.v1.json (present=true, required=false, parse_status=parsed)
 - openrouter_review_dashboard: pm_bot/workbench/operator_openrouter_review_dashboard.v1.json (present=true, required=false, parse_status=parsed)
 - packet_completeness_readiness_gate: pm_bot/llm/current_llm_batch_readiness_gate.v1.json (present=true, required=false, parse_status=parsed)
+- resolution_source_normalization_audit: pm_bot/llm/current_llm_resolution_source_normalization_audit.v1.json (present=true, required=false, parse_status=parsed)
+- readiness_after_source_normalization: pm_bot/llm/current_llm_packet_evidence_readiness_scores_after_source_normalization.v1.json (present=true, required=false, parse_status=parsed)
+- batch_readiness_gate_after_source_normalization: pm_bot/llm/current_llm_batch_readiness_gate_after_source_normalization.v1.json (present=true, required=false, parse_status=parsed)
+- local_source_enrichment_action_plan: pm_bot/llm/local_source_enrichment_action_plan.v1.json (present=true, required=false, parse_status=parsed)
 
 ## Paper Audits
 
@@ -512,6 +516,40 @@
 - operator checklist standardization for unreviewed packets
 - contradiction and risk context builder for unreviewed packets
 - packet completeness readiness gate review before future LLM batches
+
+## Resolution Source Normalization
+
+- section_id: resolution_source_normalization
+- audit_artifact_status: present
+- audit_artifact_pointer: pm_bot/llm/current_llm_resolution_source_normalization_audit.v1.json
+- audit_artifact_markdown_pointer: pm_bot/llm/current_llm_resolution_source_normalization_audit.v1.md
+- readiness_artifact_pointer: pm_bot/llm/current_llm_packet_evidence_readiness_scores_after_source_normalization.v1.json
+- batch_gate_artifact_pointer: pm_bot/llm/current_llm_batch_readiness_gate_after_source_normalization.v1.json
+- action_plan_artifact_pointer: pm_bot/llm/local_source_enrichment_action_plan.v1.json
+- total_markets_audited: 14
+- markets_missing_resolution_criteria_text: 14
+- markets_missing_full_resolution_rules: 14
+- markets_missing_official_source_references: 14
+- markets_needing_manual_resolution_source_review: 14
+- previous_average_score: 75.43
+- updated_average_score: 75.43
+- score_delta_average: 0.0
+- markets_improved_by_source_normalization: 569332, 569333, 569334, 569343, 569344, 569366, 569368, 569373, 597964, 598936
+- markets_still_missing_resolution_sources: 563650, 569332, 569333, 569334, 569343, 569344, 569366, 569368, 569373, 573656, 597964, 598936, 691547, 692258
+- future_openrouter_batch_approved: false
+- passive_only: true
+- queue_items_created: 0
+- queue_state_mutated: false
+- no_market_action_guidance: true
+
+## Resolution Source Top Gaps
+
+- full_market_resolution_criteria_text: 14
+- full_resolution_rules: 14
+- official_source_references: 14
+- official_source_urls_or_rule_references: 14
+- source_timestamps: 14
+- source_reliability_review: 14
 
 ## OpenRouter Review Dashboard
 

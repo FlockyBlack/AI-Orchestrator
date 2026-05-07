@@ -33,6 +33,14 @@
 - operator_openrouter_review_dashboard: status=ran, required=false, script=pm_bot/workbench/operator_openrouter_review_dashboard.py
   output: pm_bot/llm/current_llm_batch_readiness_gate.v1.json
   output: pm_bot/llm/current_llm_batch_readiness_gate.v1.md
+  output: pm_bot/llm/current_llm_resolution_source_normalization_audit.v1.json
+  output: pm_bot/llm/current_llm_resolution_source_normalization_audit.v1.md
+  output: pm_bot/llm/current_llm_packet_evidence_readiness_scores_after_source_normalization.v1.json
+  output: pm_bot/llm/current_llm_packet_evidence_readiness_scores_after_source_normalization.v1.md
+  output: pm_bot/llm/current_llm_batch_readiness_gate_after_source_normalization.v1.json
+  output: pm_bot/llm/current_llm_batch_readiness_gate_after_source_normalization.v1.md
+  output: pm_bot/llm/local_source_enrichment_action_plan.v1.json
+  output: pm_bot/llm/local_source_enrichment_action_plan.v1.md
   output: pm_bot/workbench/operator_openrouter_review_dashboard.v1.json
   output: pm_bot/workbench/operator_openrouter_review_dashboard.v1.md
 - operator_review_pack: status=ran, required=true, script=pm_bot/workbench/export_operator_review_pack.py
@@ -60,6 +68,14 @@
 - pm_bot/workbench/openrouter_passive_surface_pointer.v1.md
 - pm_bot/llm/current_llm_batch_readiness_gate.v1.json
 - pm_bot/llm/current_llm_batch_readiness_gate.v1.md
+- pm_bot/llm/current_llm_resolution_source_normalization_audit.v1.json
+- pm_bot/llm/current_llm_resolution_source_normalization_audit.v1.md
+- pm_bot/llm/current_llm_packet_evidence_readiness_scores_after_source_normalization.v1.json
+- pm_bot/llm/current_llm_packet_evidence_readiness_scores_after_source_normalization.v1.md
+- pm_bot/llm/current_llm_batch_readiness_gate_after_source_normalization.v1.json
+- pm_bot/llm/current_llm_batch_readiness_gate_after_source_normalization.v1.md
+- pm_bot/llm/local_source_enrichment_action_plan.v1.json
+- pm_bot/llm/local_source_enrichment_action_plan.v1.md
 - pm_bot/workbench/operator_openrouter_review_dashboard.v1.json
 - pm_bot/workbench/operator_openrouter_review_dashboard.v1.md
 - pm_bot/workbench/operator_review_pack.v1.json
@@ -165,6 +181,45 @@
 - unreviewed_market_ids: 597964, 598936, 691547, 692258
 - future_openrouter_batch_approved: false
 - no_market_action_guidance: true
+
+## Resolution Source Normalization
+
+- audit_artifact_path: pm_bot/llm/current_llm_resolution_source_normalization_audit.v1.json
+- audit_markdown_path: pm_bot/llm/current_llm_resolution_source_normalization_audit.v1.md
+- total_markets_audited: 14
+- markets_missing_resolution_criteria_text: 14
+- markets_missing_full_resolution_rules: 14
+- markets_missing_official_source_references: 14
+- markets_needing_manual_resolution_source_review: 14
+
+## Readiness After Source Normalization
+
+- artifact_path: pm_bot/llm/current_llm_packet_evidence_readiness_scores_after_source_normalization.v1.json
+- previous_average_score: 75.43
+- updated_average_score: 75.43
+- score_delta_average: 0.0
+- markets_improved: none
+
+## Batch Gate After Source Normalization
+
+- artifact_path: pm_bot/llm/current_llm_batch_readiness_gate_after_source_normalization.v1.json
+- total_markets: 14
+- medium_count: 10
+- low_count: 4
+- eligible_for_future_openrouter_batch_count: 10
+- markets_still_missing_resolution_sources: 563650, 569332, 569333, 569334, 569343, 569344, 569366, 569368, 569373, 573656, 597964, 598936, 691547, 692258
+- future_openrouter_batch_approved: false
+- no_market_action_guidance: true
+
+## Local Source Enrichment Action Plan
+
+- artifact_path: pm_bot/llm/local_source_enrichment_action_plan.v1.json
+- high_priority_local_actions: 4
+- high_priority_local_action_market_ids: 597964, 598936, 691547, 692258
+- fields_to_fix_first: full_market_resolution_criteria_text, full_resolution_rules, official_source_references, official_source_urls_or_rule_references, source_timestamps, source_reliability_review
+- passive_only: true
+- queue_items_created: 0
+- queue_state_mutated: false
 
 ## Warnings
 

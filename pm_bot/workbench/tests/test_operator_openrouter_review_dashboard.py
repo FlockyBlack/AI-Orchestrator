@@ -119,6 +119,23 @@ class OperatorOpenrouterReviewDashboardTests(unittest.TestCase):
         self.assertFalse(gate["future_openrouter_batch_approved"])
         self.assertTrue(gate["no_market_action_guidance"])
 
+        self.assertEqual(
+            dashboard["resolution_source_normalization_integration_status"],
+            "source_003_context_ready",
+        )
+        source_summary = dashboard["resolution_source_normalization_summary"]
+        self.assertEqual(source_summary["total_markets_audited"], 14)
+        self.assertEqual(source_summary["markets_missing_resolution_criteria_text"], 14)
+        self.assertEqual(source_summary["markets_missing_full_resolution_rules"], 14)
+        self.assertEqual(source_summary["markets_missing_official_source_references"], 14)
+        after_source = dashboard["readiness_after_source_normalization_summary"]
+        self.assertEqual(after_source["previous_medium_count"], 10)
+        self.assertEqual(after_source["updated_medium_count"], 10)
+        self.assertEqual(after_source["score_delta_average"], 0.0)
+        source_gate = dashboard["batch_readiness_gate_after_source_normalization_summary"]
+        self.assertFalse(source_gate["future_openrouter_batch_approved"])
+        self.assertTrue(source_gate["no_market_action_guidance"])
+
         safety = dashboard["safety_summary"]
         self.assertTrue(safety["operator_review_only"])
         self.assertTrue(safety["passive_context_only"])

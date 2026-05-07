@@ -56,11 +56,11 @@
   },
   "artifact_inventory": {
     "summary": {
-      "total_artifacts": 27,
-      "present_artifacts": 27,
+      "total_artifacts": 31,
+      "present_artifacts": 31,
       "missing_artifacts": 0,
       "required_missing_artifacts": 0,
-      "json_artifacts_parsed": 26,
+      "json_artifacts_parsed": 30,
       "json_artifacts_parse_failed": 0
     },
     "artifacts": [
@@ -465,6 +465,66 @@
         "schema_version": "current_llm_batch_readiness_gate.v1",
         "task_id": "PMBOT-SOURCE-002-LOCAL-PACKET-COMPLETENESS-SCORER-INTEGRATION",
         "status": "batch_readiness_gate_created",
+        "audit_status": null,
+        "deterministic": null,
+        "warning_count": 0
+      },
+      {
+        "artifact_id": "resolution_source_normalization_audit",
+        "path": "pm_bot/llm/current_llm_resolution_source_normalization_audit.v1.json",
+        "category": "resolution_source_normalization",
+        "artifact_type": "resolution_source_normalization_audit_json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed",
+        "schema_version": "current_llm_resolution_source_normalization_audit.v1",
+        "task_id": "PMBOT-SOURCE-003-RESOLUTION-SOURCE-FIELD-NORMALIZATION",
+        "status": "resolution_source_normalization_audit_created",
+        "audit_status": null,
+        "deterministic": null,
+        "warning_count": 0
+      },
+      {
+        "artifact_id": "readiness_after_source_normalization",
+        "path": "pm_bot/llm/current_llm_packet_evidence_readiness_scores_after_source_normalization.v1.json",
+        "category": "resolution_source_normalization",
+        "artifact_type": "readiness_after_source_normalization_json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed",
+        "schema_version": "current_llm_packet_evidence_readiness_scores_after_source_normalization.v1",
+        "task_id": "PMBOT-SOURCE-003-RESOLUTION-SOURCE-FIELD-NORMALIZATION",
+        "status": "after_source_normalization_readiness_scores_created",
+        "audit_status": null,
+        "deterministic": null,
+        "warning_count": 0
+      },
+      {
+        "artifact_id": "batch_readiness_gate_after_source_normalization",
+        "path": "pm_bot/llm/current_llm_batch_readiness_gate_after_source_normalization.v1.json",
+        "category": "resolution_source_normalization",
+        "artifact_type": "batch_gate_after_source_normalization_json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed",
+        "schema_version": "current_llm_batch_readiness_gate_after_source_normalization.v1",
+        "task_id": "PMBOT-SOURCE-003-RESOLUTION-SOURCE-FIELD-NORMALIZATION",
+        "status": "batch_readiness_gate_after_source_normalization_created",
+        "audit_status": null,
+        "deterministic": null,
+        "warning_count": 0
+      },
+      {
+        "artifact_id": "local_source_enrichment_action_plan",
+        "path": "pm_bot/llm/local_source_enrichment_action_plan.v1.json",
+        "category": "resolution_source_normalization",
+        "artifact_type": "local_source_enrichment_action_plan_json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed",
+        "schema_version": "local_source_enrichment_action_plan.v1",
+        "task_id": "PMBOT-SOURCE-003-RESOLUTION-SOURCE-FIELD-NORMALIZATION",
+        "status": "local_source_enrichment_action_plan_created",
         "audit_status": null,
         "deterministic": null,
         "warning_count": 0
@@ -1233,7 +1293,7 @@
       "691547",
       "692258"
     ],
-    "skipped_candidate_count": 6,
+    "skipped_candidate_count": 10,
     "offline_manual_only": true,
     "not_truth_source": true,
     "not_trading_advice": true,
@@ -2385,6 +2445,14 @@
       "evidence_audit_md": "pm_bot/llm/current_llm_source_evidence_completeness_audit.v1.md",
       "batch_readiness_gate_json": "pm_bot/llm/current_llm_batch_readiness_gate.v1.json",
       "batch_readiness_gate_md": "pm_bot/llm/current_llm_batch_readiness_gate.v1.md",
+      "resolution_source_audit_json": "pm_bot/llm/current_llm_resolution_source_normalization_audit.v1.json",
+      "resolution_source_audit_md": "pm_bot/llm/current_llm_resolution_source_normalization_audit.v1.md",
+      "readiness_after_source_normalization_json": "pm_bot/llm/current_llm_packet_evidence_readiness_scores_after_source_normalization.v1.json",
+      "readiness_after_source_normalization_md": "pm_bot/llm/current_llm_packet_evidence_readiness_scores_after_source_normalization.v1.md",
+      "batch_gate_after_source_normalization_json": "pm_bot/llm/current_llm_batch_readiness_gate_after_source_normalization.v1.json",
+      "batch_gate_after_source_normalization_md": "pm_bot/llm/current_llm_batch_readiness_gate_after_source_normalization.v1.md",
+      "local_source_enrichment_action_plan_json": "pm_bot/llm/local_source_enrichment_action_plan.v1.json",
+      "local_source_enrichment_action_plan_md": "pm_bot/llm/local_source_enrichment_action_plan.v1.md",
       "operator_review_pack_json": "pm_bot/workbench/operator_review_pack.v1.json",
       "operator_review_pack_md": "pm_bot/workbench/operator_review_pack.v1.md",
       "workbench_export_run_json": "pm_bot/workbench/operator_workbench_export_run.v1.json",
@@ -2401,7 +2469,11 @@
       "completeness_contract_json": "pm_bot/llm/llm_market_packet_completeness_contract.v1.json",
       "completeness_contract_md": "pm_bot/llm/llm_market_packet_completeness_contract.v1.md",
       "enrichment_design_json": "pm_bot/llm/source_evidence_enrichment_design.v1.json",
-      "enrichment_design_md": "docs/PMBOT_SOURCE_EVIDENCE_ENRICHMENT_DESIGN.md"
+      "enrichment_design_md": "docs/PMBOT_SOURCE_EVIDENCE_ENRICHMENT_DESIGN.md",
+      "after_source_normalization_readiness_scores_json": "pm_bot/llm/current_llm_packet_evidence_readiness_scores_after_source_normalization.v1.json",
+      "after_source_normalization_readiness_scores_md": "pm_bot/llm/current_llm_packet_evidence_readiness_scores_after_source_normalization.v1.md",
+      "batch_readiness_gate_after_source_normalization_json": "pm_bot/llm/current_llm_batch_readiness_gate_after_source_normalization.v1.json",
+      "batch_readiness_gate_after_source_normalization_md": "pm_bot/llm/current_llm_batch_readiness_gate_after_source_normalization.v1.md"
     },
     "safety_summary": {
       "operator_review_only": true,
@@ -2542,6 +2614,238 @@
     "openrouter_calls_performed": 0,
     "polymarket_api_calls_performed": 0,
     "network_calls_performed": 0,
+    "no_market_action_guidance": true
+  },
+  "resolution_source_normalization": {
+    "section_id": "resolution_source_normalization",
+    "audit_artifact_status": "present",
+    "audit_artifact_pointer": "pm_bot/llm/current_llm_resolution_source_normalization_audit.v1.json",
+    "audit_artifact_markdown_pointer": "pm_bot/llm/current_llm_resolution_source_normalization_audit.v1.md",
+    "audit_artifact_parse_status": "parsed",
+    "readiness_artifact_status": "present",
+    "readiness_artifact_pointer": "pm_bot/llm/current_llm_packet_evidence_readiness_scores_after_source_normalization.v1.json",
+    "readiness_artifact_markdown_pointer": "pm_bot/llm/current_llm_packet_evidence_readiness_scores_after_source_normalization.v1.md",
+    "batch_gate_artifact_status": "present",
+    "batch_gate_artifact_pointer": "pm_bot/llm/current_llm_batch_readiness_gate_after_source_normalization.v1.json",
+    "batch_gate_artifact_markdown_pointer": "pm_bot/llm/current_llm_batch_readiness_gate_after_source_normalization.v1.md",
+    "action_plan_artifact_status": "present",
+    "action_plan_artifact_pointer": "pm_bot/llm/local_source_enrichment_action_plan.v1.json",
+    "action_plan_artifact_markdown_pointer": "pm_bot/llm/local_source_enrichment_action_plan.v1.md",
+    "total_markets_audited": 14,
+    "markets_missing_resolution_criteria_text": 14,
+    "markets_missing_full_resolution_rules": 14,
+    "markets_missing_official_source_references": 14,
+    "markets_needing_manual_resolution_source_review": 14,
+    "top_resolution_source_gaps": [
+      {
+        "field": "full_market_resolution_criteria_text",
+        "market_count": 14
+      },
+      {
+        "field": "full_resolution_rules",
+        "market_count": 14
+      },
+      {
+        "field": "official_source_references",
+        "market_count": 14
+      },
+      {
+        "field": "official_source_urls_or_rule_references",
+        "market_count": 14
+      },
+      {
+        "field": "source_timestamps",
+        "market_count": 14
+      },
+      {
+        "field": "source_reliability_review",
+        "market_count": 14
+      }
+    ],
+    "markets_missing_full_resolution_criteria_ids": [
+      "563650",
+      "569332",
+      "569333",
+      "569334",
+      "569343",
+      "569344",
+      "569366",
+      "569368",
+      "569373",
+      "573656",
+      "597964",
+      "598936",
+      "691547",
+      "692258"
+    ],
+    "markets_missing_full_resolution_rules_ids": [
+      "563650",
+      "569332",
+      "569333",
+      "569334",
+      "569343",
+      "569344",
+      "569366",
+      "569368",
+      "569373",
+      "573656",
+      "597964",
+      "598936",
+      "691547",
+      "692258"
+    ],
+    "markets_missing_official_source_references_ids": [
+      "563650",
+      "569332",
+      "569333",
+      "569334",
+      "569343",
+      "569344",
+      "569366",
+      "569368",
+      "569373",
+      "573656",
+      "597964",
+      "598936",
+      "691547",
+      "692258"
+    ],
+    "markets_needing_manual_resolution_source_review_ids": [
+      "563650",
+      "569332",
+      "569333",
+      "569334",
+      "569343",
+      "569344",
+      "569366",
+      "569368",
+      "569373",
+      "573656",
+      "597964",
+      "598936",
+      "691547",
+      "692258"
+    ],
+    "previous_readiness_summary": {
+      "high_count": 0,
+      "medium_count": 10,
+      "low_count": 4,
+      "blocked_count": 0,
+      "average_score": 75.43
+    },
+    "updated_readiness_summary": {
+      "high_count": 0,
+      "medium_count": 10,
+      "low_count": 4,
+      "blocked_count": 0,
+      "average_score": 75.43,
+      "score_delta_average": 0.0
+    },
+    "markets_improved_by_source_normalization": [
+      "569332",
+      "569333",
+      "569334",
+      "569343",
+      "569344",
+      "569366",
+      "569368",
+      "569373",
+      "597964",
+      "598936"
+    ],
+    "remaining_top_missing_fields": [
+      {
+        "field": "full_market_resolution_criteria_text",
+        "market_count": 14
+      },
+      {
+        "field": "full_resolution_rules",
+        "market_count": 14
+      },
+      {
+        "field": "non_placeholder_evidence_notes",
+        "market_count": 14
+      },
+      {
+        "field": "official_source_references",
+        "market_count": 14
+      },
+      {
+        "field": "official_source_urls_or_rule_references",
+        "market_count": 14
+      },
+      {
+        "field": "reviewed_local_evidence_references",
+        "market_count": 14
+      },
+      {
+        "field": "source_reliability_review",
+        "market_count": 14
+      },
+      {
+        "field": "source_timestamps",
+        "market_count": 14
+      },
+      {
+        "field": "office_or_election_event",
+        "market_count": 9
+      },
+      {
+        "field": "official_election_authority_identifier",
+        "market_count": 9
+      }
+    ],
+    "batch_gate_total_markets": 14,
+    "batch_gate_low_count": 4,
+    "batch_gate_medium_count": 10,
+    "batch_gate_eligible_for_future_openrouter_batch_count": 10,
+    "markets_still_missing_resolution_sources": [
+      "563650",
+      "569332",
+      "569333",
+      "569334",
+      "569343",
+      "569344",
+      "569366",
+      "569368",
+      "569373",
+      "573656",
+      "597964",
+      "598936",
+      "691547",
+      "692258"
+    ],
+    "manual_review_needed_markets": [
+      "563650",
+      "569332",
+      "569333",
+      "569334",
+      "569343",
+      "569344",
+      "569366",
+      "569368",
+      "569373",
+      "573656",
+      "597964",
+      "598936",
+      "691547",
+      "692258"
+    ],
+    "future_openrouter_batch_approved": false,
+    "fields_to_fix_first": [
+      "full_market_resolution_criteria_text",
+      "full_resolution_rules",
+      "official_source_references",
+      "official_source_urls_or_rule_references",
+      "source_timestamps",
+      "source_reliability_review"
+    ],
+    "high_priority_local_actions": 4,
+    "medium_priority_local_actions": 10,
+    "low_priority_local_actions": 0,
+    "passive_only": true,
+    "queue_items_created": 0,
+    "queue_state_mutated": false,
     "no_market_action_guidance": true
   },
   "quality_warning_summary": {

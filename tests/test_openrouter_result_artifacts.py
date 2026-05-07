@@ -50,6 +50,50 @@ SOURCE_002_PUBLIC_MARKDOWN_ARTIFACTS = [
     "pm_bot/workbench/operator_workbench_export_run.v1.md",
 ]
 
+SOURCE_003_JSON_ARTIFACTS = [
+    "docs/PMBOT_SOURCE_003_RESULT.json",
+    "pm_bot/llm/current_llm_resolution_source_normalization_audit.v1.json",
+    "pm_bot/llm/current_llm_packet_evidence_readiness_scores_after_source_normalization.v1.json",
+    "pm_bot/llm/current_llm_batch_readiness_gate_after_source_normalization.v1.json",
+    "pm_bot/llm/local_source_enrichment_action_plan.v1.json",
+    "pm_bot/workbench/operator_openrouter_review_dashboard.v1.json",
+    "pm_bot/workbench/operator_review_pack.v1.json",
+    "pm_bot/workbench/operator_workbench_export_run.v1.json",
+]
+
+SOURCE_003_PUBLIC_MARKDOWN_ARTIFACTS = [
+    "docs/PMBOT_SOURCE_003_RESOLUTION_SOURCE_FIELD_NORMALIZATION.md",
+    "pm_bot/llm/current_llm_resolution_source_normalization_audit.v1.md",
+    "pm_bot/llm/current_llm_packet_evidence_readiness_scores_after_source_normalization.v1.md",
+    "pm_bot/llm/current_llm_batch_readiness_gate_after_source_normalization.v1.md",
+    "pm_bot/llm/local_source_enrichment_action_plan.v1.md",
+    "pm_bot/workbench/operator_openrouter_review_dashboard.v1.md",
+    "pm_bot/workbench/operator_review_pack.v1.md",
+    "pm_bot/workbench/operator_workbench_export_run.v1.md",
+]
+
+SOURCE_003_JSON_ARTIFACTS = [
+    "docs/PMBOT_SOURCE_003_RESULT.json",
+    "pm_bot/llm/current_llm_resolution_source_normalization_audit.v1.json",
+    "pm_bot/llm/current_llm_packet_evidence_readiness_scores_after_source_normalization.v1.json",
+    "pm_bot/llm/current_llm_batch_readiness_gate_after_source_normalization.v1.json",
+    "pm_bot/llm/local_source_enrichment_action_plan.v1.json",
+    "pm_bot/workbench/operator_openrouter_review_dashboard.v1.json",
+    "pm_bot/workbench/operator_review_pack.v1.json",
+    "pm_bot/workbench/operator_workbench_export_run.v1.json",
+]
+
+SOURCE_003_PUBLIC_MARKDOWN_ARTIFACTS = [
+    "docs/PMBOT_SOURCE_003_RESOLUTION_SOURCE_FIELD_NORMALIZATION.md",
+    "pm_bot/llm/current_llm_resolution_source_normalization_audit.v1.md",
+    "pm_bot/llm/current_llm_packet_evidence_readiness_scores_after_source_normalization.v1.md",
+    "pm_bot/llm/current_llm_batch_readiness_gate_after_source_normalization.v1.md",
+    "pm_bot/llm/local_source_enrichment_action_plan.v1.md",
+    "pm_bot/workbench/operator_openrouter_review_dashboard.v1.md",
+    "pm_bot/workbench/operator_review_pack.v1.md",
+    "pm_bot/workbench/operator_workbench_export_run.v1.md",
+]
+
 
 def _load_result(name: str) -> dict:
     path = ROOT / "docs" / name
@@ -587,6 +631,354 @@ def test_source_002_public_markdown_and_changed_files_pass_safety_scans():
 
     secret_name = _frag("OPENROUTER", "_API", "_KEY")
     result = _load_result("PMBOT_SOURCE_002_RESULT.json")
+    for path in result["files_changed"]:
+        text = (ROOT / path).read_text(encoding="utf-8", errors="ignore")
+        assert secret_name not in text, path
+
+
+def test_source_003_result_records_local_resolution_source_normalization():
+    result = _load_result("PMBOT_SOURCE_003_RESULT.json")
+
+    assert result["task_id"] == "PMBOT-SOURCE-003-RESOLUTION-SOURCE-FIELD-NORMALIZATION"
+    assert result["status"] == "completed_pushed"
+    assert result["head_before"] == "303048bf4a734ebd44f32990055cc30931e180a2"
+    assert result["pushed"] is True
+    assert result["openrouter_calls_performed"] == 0
+    assert result["polymarket_api_calls_performed"] == 0
+    assert result["external_network_calls_performed"] == 0
+    assert result["source_001_status"] == "completed_pushed"
+    assert result["source_002_status"] == "completed_pushed"
+    assert result["normalizer_module_created"] is True
+    assert result["resolution_source_audit_created"] is True
+    assert result["after_normalization_readiness_scores_created"] is True
+    assert result["after_normalization_batch_readiness_gate_created"] is True
+    assert result["workbench_dashboard_updated"] is True
+    assert result["local_enrichment_action_plan_created"] is True
+    assert result["markets_audited_count"] == 14
+    assert result["markets_with_resolution_criteria_text"] == 0
+    assert result["markets_missing_resolution_criteria_text"] == 14
+    assert result["markets_with_full_resolution_rules"] == 0
+    assert result["markets_missing_full_resolution_rules"] == 14
+    assert result["markets_with_official_source_references"] == 0
+    assert result["markets_missing_official_source_references"] == 14
+    assert result["previous_readiness_summary"]["medium_count"] == 10
+    assert result["updated_readiness_summary"]["medium_count"] == 10
+    assert result["updated_readiness_summary"]["low_count"] == 4
+    assert result["secret_scan_passed"] is True
+
+    safety = result["safety_summary"]
+    assert safety["operator_review_only"] is True
+    assert safety["passive_context_only"] is True
+    assert safety["no_trading_authority"] is True
+    assert safety["no_queue_authority"] is True
+    assert safety["no_runtime_authority"] is True
+    assert safety["no_dispatcher_authority"] is True
+    assert safety["no_wallet_or_order_authority"] is True
+    assert safety["no_market_action_guidance"] is True
+    assert safety["openrouter_calls_performed_by_this_task"] == 0
+    assert safety["polymarket_api_calls_performed_by_this_task"] == 0
+    assert safety["external_network_calls_performed_by_this_task"] == 0
+    assert safety["api_key_accessed"] is False
+    assert safety["queue_state_mutated"] is False
+    assert safety["runtime_wiring_added"] is False
+    assert safety["browser_automation_used"] is False
+
+
+def test_source_003_json_artifacts_parse_and_cover_inventory_markets():
+    for path in SOURCE_003_JSON_ARTIFACTS:
+        payload = json.loads((ROOT / path).read_text(encoding="utf-8"))
+        assert isinstance(payload, dict), path
+
+    expected_market_ids = [
+        "563650",
+        "569332",
+        "569333",
+        "569334",
+        "569343",
+        "569344",
+        "569366",
+        "569368",
+        "569373",
+        "573656",
+        "597964",
+        "598936",
+        "691547",
+        "692258",
+    ]
+    audit = json.loads(
+        (
+            ROOT
+            / "pm_bot"
+            / "llm"
+            / "current_llm_resolution_source_normalization_audit.v1.json"
+        ).read_text(encoding="utf-8")
+    )
+    assert [item["market_id"] for item in audit["markets"]] == expected_market_ids
+    assert audit["aggregate"]["total_markets_audited"] == 14
+    assert audit["aggregate"]["markets_missing_resolution_criteria_text"] == 14
+    assert audit["aggregate"]["markets_missing_full_resolution_rules"] == 14
+    assert audit["aggregate"]["markets_missing_official_source_references"] == 14
+
+    required_missing_keys = {
+        "full_market_resolution_criteria_text",
+        "full_resolution_rules",
+        "official_source_references",
+        "official_source_urls_or_rule_references",
+        "source_timestamps",
+        "source_reliability_review",
+    }
+    for item in audit["markets"]:
+        assert required_missing_keys.issubset(set(item["missing_resolution_source_fields"]))
+        assert item["full_market_resolution_criteria_text"] is None
+        assert item["full_resolution_rules"] is None
+        assert item["official_source_references"] == []
+        assert item["official_source_urls_or_rule_references"] == []
+        assert item["no_market_action_guidance"] is True
+
+
+def test_source_003_after_readiness_gate_and_action_plan_are_passive_only():
+    readiness = json.loads(
+        (
+            ROOT
+            / "pm_bot"
+            / "llm"
+            / "current_llm_packet_evidence_readiness_scores_after_source_normalization.v1.json"
+        ).read_text(encoding="utf-8")
+    )
+    gate = json.loads(
+        (
+            ROOT
+            / "pm_bot"
+            / "llm"
+            / "current_llm_batch_readiness_gate_after_source_normalization.v1.json"
+        ).read_text(encoding="utf-8")
+    )
+    action_plan = json.loads(
+        (ROOT / "pm_bot" / "llm" / "local_source_enrichment_action_plan.v1.json").read_text(
+            encoding="utf-8"
+        )
+    )
+
+    assert len(readiness["markets"]) == 14
+    assert readiness["aggregate"]["previous_medium_count"] == 10
+    assert readiness["aggregate"]["updated_medium_count"] == 10
+    assert readiness["aggregate"]["updated_low_count"] == 4
+    assert readiness["aggregate"]["score_delta_average"] == 0.0
+    assert readiness["aggregate"]["markets_improved"] == []
+    for item in readiness["markets"]:
+        assert 0 <= item["updated_score"] <= 100
+        assert item["updated_readiness_band"] in {"high", "medium", "low", "blocked"}
+        assert item["delta"] == item["updated_score"] - item["previous_score"]
+        assert item["no_market_action_guidance"] is True
+
+    assert gate["total_markets"] == 14
+    assert gate["future_live_batch_scheduled"] is False
+    assert gate["future_openrouter_batch_approved"] is False
+    assert gate["future_llm_review_approved"] is False
+    assert gate["safety_flags"]["no_trading_authority"] is True
+    assert gate["safety_flags"]["no_queue_authority"] is True
+    assert gate["safety_flags"]["no_runtime_authority"] is True
+    assert gate["safety_flags"]["no_wallet_or_order_authority"] is True
+    assert gate["safety_flags"]["operator_review_only"] is True
+    assert gate["safety_flags"]["no_market_action_guidance"] is True
+
+    assert action_plan["aggregate"]["total_actions"] == 14
+    assert action_plan["aggregate"]["high_priority_local_actions"] == 4
+    assert action_plan["aggregate"]["queue_items_created"] == 0
+    assert action_plan["aggregate"]["queue_state_mutated"] is False
+    assert action_plan["aggregate"]["runtime_objects_created"] is False
+    assert action_plan["aggregate"]["passive_only"] is True
+    for item in action_plan["actions"]:
+        assert item["requires_external_network"] is False
+        assert item["operator_manual_input_needed"] is True
+        assert item["no_market_action_guidance"] is True
+
+
+def test_source_003_workbench_artifacts_surface_resolution_source_status():
+    dashboard = json.loads(
+        (ROOT / "pm_bot" / "workbench" / "operator_openrouter_review_dashboard.v1.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    review_pack = json.loads(
+        (ROOT / "pm_bot" / "workbench" / "operator_review_pack.v1.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    run = json.loads(
+        (
+            ROOT
+            / "pm_bot"
+            / "workbench"
+            / "operator_workbench_export_run.v1.json"
+        ).read_text(encoding="utf-8")
+    )
+
+    assert dashboard["resolution_source_normalization_summary"]["total_markets_audited"] == 14
+    assert dashboard["resolution_source_normalization_summary"][
+        "markets_missing_resolution_criteria_text"
+    ] == 14
+    assert (
+        dashboard["artifact_pointers"]["resolution_source_audit_json"]
+        == "pm_bot/llm/current_llm_resolution_source_normalization_audit.v1.json"
+    )
+    assert review_pack["resolution_source_normalization"]["total_markets_audited"] == 14
+    assert (
+        review_pack["resolution_source_normalization"]["audit_artifact_pointer"]
+        == "pm_bot/llm/current_llm_resolution_source_normalization_audit.v1.json"
+    )
+    assert review_pack["resolution_source_normalization"]["passive_only"] is True
+    assert run["resolution_source_normalization"]["total_markets_audited"] == 14
+    assert run["batch_readiness_gate_after_source_normalization"][
+        "future_openrouter_batch_approved"
+    ] is False
+    assert run["local_source_enrichment_action_plan"]["queue_state_mutated"] is False
+
+
+def test_source_003_public_markdown_and_changed_files_pass_safety_scans():
+    forbidden_markdown_phrases = [
+        "buy recommendation",
+        "sell recommendation",
+        "hold recommendation",
+        "enter position",
+        "exit position",
+        "recommended side",
+        "place an order",
+        "submit an order",
+        "market action recommendation",
+    ]
+    for path in SOURCE_003_PUBLIC_MARKDOWN_ARTIFACTS:
+        text = (ROOT / path).read_text(encoding="utf-8").lower()
+        for phrase in forbidden_markdown_phrases:
+            assert phrase not in text, path
+
+    secret_name = _frag("OPENROUTER", "_API", "_KEY")
+    result = _load_result("PMBOT_SOURCE_003_RESULT.json")
+    for path in result["files_changed"]:
+        text = (ROOT / path).read_text(encoding="utf-8", errors="ignore")
+        assert secret_name not in text, path
+
+
+def test_source_003_result_records_resolution_source_normalization():
+    result = _load_result("PMBOT_SOURCE_003_RESULT.json")
+
+    assert result["task_id"] == "PMBOT-SOURCE-003-RESOLUTION-SOURCE-FIELD-NORMALIZATION"
+    assert result["status"] == "completed_pushed"
+    assert result["head_before"] == "303048bf4a734ebd44f32990055cc30931e180a2"
+    assert result["pushed"] is True
+    assert result["openrouter_calls_performed"] == 0
+    assert result["polymarket_api_calls_performed"] == 0
+    assert result["external_network_calls_performed"] == 0
+    assert result["source_001_status"] == "completed_pushed"
+    assert result["source_002_status"] == "completed_pushed"
+    assert result["normalizer_module_created"] is True
+    assert result["resolution_source_audit_created"] is True
+    assert result["after_normalization_readiness_scores_created"] is True
+    assert result["after_normalization_batch_readiness_gate_created"] is True
+    assert result["workbench_dashboard_updated"] is True
+    assert result["local_enrichment_action_plan_created"] is True
+    assert result["markets_audited_count"] == 14
+    assert result["markets_missing_resolution_criteria_text"] == 14
+    assert result["markets_missing_full_resolution_rules"] == 14
+    assert result["markets_missing_official_source_references"] == 14
+    assert result["previous_readiness_summary"]["medium_count"] == 10
+    assert result["updated_readiness_summary"]["medium_count"] == 10
+    assert result["previous_readiness_summary"]["low_count"] == 4
+    assert result["updated_readiness_summary"]["low_count"] == 4
+    assert result["secret_scan_passed"] is True
+    assert result["safety_summary"]["operator_review_only"] is True
+    assert result["safety_summary"]["no_queue_authority"] is True
+    assert result["safety_summary"]["no_runtime_authority"] is True
+    assert result["safety_summary"]["no_trading_authority"] is True
+    assert result["safety_summary"]["no_market_action_guidance"] is True
+
+
+def test_source_003_json_artifacts_parse_and_workbench_pointers_are_present():
+    for path in SOURCE_003_JSON_ARTIFACTS:
+        payload = json.loads((ROOT / path).read_text(encoding="utf-8"))
+        assert isinstance(payload, dict), path
+
+    audit = json.loads(
+        (
+            ROOT
+            / "pm_bot"
+            / "llm"
+            / "current_llm_resolution_source_normalization_audit.v1.json"
+        ).read_text(encoding="utf-8")
+    )
+    assert audit["total_markets_audited"] == 14
+    assert len(audit["per_market_audit"]) == 14
+    for record in audit["per_market_audit"]:
+        assert "missing_resolution_source_fields" in record
+        assert record["official_source_urls_or_rule_references"] == []
+        assert record["full_resolution_rules"] is None
+
+    gate = json.loads(
+        (
+            ROOT
+            / "pm_bot"
+            / "llm"
+            / "current_llm_batch_readiness_gate_after_source_normalization.v1.json"
+        ).read_text(encoding="utf-8")
+    )
+    assert gate["total_markets"] == 14
+    assert gate["future_live_batch_scheduled"] is False
+    assert gate["future_openrouter_batch_approved"] is False
+    assert gate["safety_flags"]["no_queue_authority"] is True
+    assert gate["safety_flags"]["no_runtime_authority"] is True
+    assert gate["safety_flags"]["no_market_action_guidance"] is True
+
+    plan = json.loads(
+        (ROOT / "pm_bot" / "llm" / "local_source_enrichment_action_plan.v1.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    assert plan["queue_mutation_performed"] is False
+    assert plan["runtime_objects_created"] is False
+    assert plan["dispatcher_integration_added"] is False
+    assert all(item["requires_external_network"] is False for item in plan["actions"])
+
+    dashboard = json.loads(
+        (ROOT / "pm_bot" / "workbench" / "operator_openrouter_review_dashboard.v1.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    assert dashboard["resolution_source_normalization_summary"]["total_markets_audited"] == 14
+    assert (
+        dashboard["artifact_pointers"]["resolution_source_audit_json"]
+        == "pm_bot/llm/current_llm_resolution_source_normalization_audit.v1.json"
+    )
+
+    review_pack = json.loads(
+        (ROOT / "pm_bot" / "workbench" / "operator_review_pack.v1.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    assert (
+        review_pack["resolution_source_normalization"]["audit_artifact_pointer"]
+        == "pm_bot/llm/current_llm_resolution_source_normalization_audit.v1.json"
+    )
+
+
+def test_source_003_public_markdown_and_changed_files_pass_safety_scans():
+    forbidden_markdown_phrases = [
+        "buy recommendation",
+        "sell recommendation",
+        "hold recommendation",
+        "enter position",
+        "exit position",
+        "recommended side",
+        "place an order",
+        "submit an order",
+        "market action recommendation",
+    ]
+    for path in SOURCE_003_PUBLIC_MARKDOWN_ARTIFACTS:
+        text = (ROOT / path).read_text(encoding="utf-8").lower()
+        for phrase in forbidden_markdown_phrases:
+            assert phrase not in text, path
+
+    secret_name = _frag("OPENROUTER", "_API", "_KEY")
+    result = _load_result("PMBOT_SOURCE_003_RESULT.json")
     for path in result["files_changed"]:
         text = (ROOT / path).read_text(encoding="utf-8", errors="ignore")
         assert secret_name not in text, path

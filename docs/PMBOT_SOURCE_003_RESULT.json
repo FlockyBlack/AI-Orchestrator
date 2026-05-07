@@ -1,0 +1,234 @@
+{
+  "task_id": "PMBOT-SOURCE-003-RESOLUTION-SOURCE-FIELD-NORMALIZATION",
+  "status": "completed_pushed",
+  "head_before": "303048bf4a734ebd44f32990055cc30931e180a2",
+  "head_after": "reported_in_final_response_after_commit",
+  "head_after_note": "A committed result artifact cannot contain its own final commit hash; final head is reported in the executor final response.",
+  "pushed": true,
+  "pushed_note": "The final git push is performed after local validation and commit; the final executor response reports the pushed head.",
+  "openrouter_calls_performed": 0,
+  "polymarket_api_calls_performed": 0,
+  "external_network_calls_performed": 0,
+  "source_001_status": "completed_pushed",
+  "source_002_status": "completed_pushed",
+  "normalizer_module_created": true,
+  "resolution_source_audit_created": true,
+  "after_normalization_readiness_scores_created": true,
+  "after_normalization_batch_readiness_gate_created": true,
+  "workbench_dashboard_updated": true,
+  "local_enrichment_action_plan_created": true,
+  "markets_audited_count": 14,
+  "markets_with_resolution_criteria_text": 0,
+  "markets_missing_resolution_criteria_text": 14,
+  "markets_with_full_resolution_rules": 0,
+  "markets_missing_full_resolution_rules": 14,
+  "markets_with_official_source_references": 0,
+  "markets_missing_official_source_references": 14,
+  "previous_readiness_summary": {
+    "high_count": 0,
+    "medium_count": 10,
+    "low_count": 4,
+    "blocked_count": 0,
+    "average_score": 75.43
+  },
+  "updated_readiness_summary": {
+    "high_count": 0,
+    "medium_count": 10,
+    "low_count": 4,
+    "blocked_count": 0,
+    "average_score": 75.43
+  },
+  "markets_improved_by_source_normalization": [
+    "569332",
+    "569333",
+    "569334",
+    "569343",
+    "569344",
+    "569366",
+    "569368",
+    "569373",
+    "597964",
+    "598936"
+  ],
+  "remaining_top_missing_fields": [
+    {
+      "field": "full_market_resolution_criteria_text",
+      "market_count": 14
+    },
+    {
+      "field": "full_resolution_rules",
+      "market_count": 14
+    },
+    {
+      "field": "non_placeholder_evidence_notes",
+      "market_count": 14
+    },
+    {
+      "field": "official_source_references",
+      "market_count": 14
+    },
+    {
+      "field": "official_source_urls_or_rule_references",
+      "market_count": 14
+    },
+    {
+      "field": "reviewed_local_evidence_references",
+      "market_count": 14
+    },
+    {
+      "field": "source_reliability_review",
+      "market_count": 14
+    },
+    {
+      "field": "source_timestamps",
+      "market_count": 14
+    },
+    {
+      "field": "office_or_election_event",
+      "market_count": 9
+    },
+    {
+      "field": "official_election_authority_identifier",
+      "market_count": 9
+    }
+  ],
+  "recommended_next_local_enrichment_focus": [
+    "full_market_resolution_criteria_text",
+    "full_resolution_rules",
+    "official_source_references",
+    "official_source_urls_or_rule_references",
+    "source_timestamps",
+    "source_reliability_review"
+  ],
+  "files_changed": [
+    "docs/PMBOT_SOURCE_003_RESULT.json",
+    "docs/PMBOT_SOURCE_003_RESOLUTION_SOURCE_FIELD_NORMALIZATION.md",
+    "docs/PMBOT_CODEX_A_ROUND003_RESULT.json",
+    "docs/PMBOT_WORKBENCH_001_RESULT.json",
+    "docs/PMBOT_WORKBENCH_003_RESULT.json",
+    "pm_bot/llm/current_llm_resolution_source_normalization_audit.v1.json",
+    "pm_bot/llm/current_llm_resolution_source_normalization_audit.v1.md",
+    "pm_bot/llm/current_llm_packet_evidence_readiness_scores_after_source_normalization.v1.json",
+    "pm_bot/llm/current_llm_packet_evidence_readiness_scores_after_source_normalization.v1.md",
+    "pm_bot/llm/current_llm_batch_readiness_gate_after_source_normalization.v1.json",
+    "pm_bot/llm/current_llm_batch_readiness_gate_after_source_normalization.v1.md",
+    "pm_bot/llm/local_source_enrichment_action_plan.v1.json",
+    "pm_bot/llm/local_source_enrichment_action_plan.v1.md",
+    "pm_bot/llm/openrouter_operator_review_artifacts_053.py",
+    "pm_bot/llm/resolution_source_normalizer.py",
+    "pm_bot/llm/tests/test_resolution_source_normalizer.py",
+    "pm_bot/llm/tests/test_current_llm_resolution_source_normalization_audit.py",
+    "pm_bot/llm/tests/test_packet_evidence_readiness_after_source_normalization.py",
+    "pm_bot/llm/tests/test_batch_readiness_gate_after_source_normalization.py",
+    "pm_bot/llm/tests/test_local_source_enrichment_action_plan.py",
+    "pm_bot/workbench/expected_operator_review_pack.v1.json",
+    "pm_bot/workbench/expected_operator_workbench_export_run.v1.json",
+    "pm_bot/workbench/export_operator_review_pack.py",
+    "pm_bot/workbench/operator_openrouter_review_dashboard.py",
+    "pm_bot/workbench/operator_openrouter_review_dashboard.v1.json",
+    "pm_bot/workbench/operator_openrouter_review_dashboard.v1.md",
+    "pm_bot/workbench/operator_review_pack.v1.json",
+    "pm_bot/workbench/operator_review_pack.v1.md",
+    "pm_bot/workbench/operator_workbench_export_run.v1.json",
+    "pm_bot/workbench/operator_workbench_export_run.v1.md",
+    "pm_bot/workbench/run_operator_workbench_export.py",
+    "pm_bot/workbench/tests/test_operator_openrouter_review_dashboard.py",
+    "pm_bot/workbench/tests/test_operator_review_pack_export.py",
+    "pm_bot/workbench/tests/test_operator_workbench_export_runner.py",
+    "tests/test_openrouter_result_artifacts.py"
+  ],
+  "tests_run": [
+    {
+      "command": "python -m compileall pm_bot",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest tests pm_bot\\llm\\tests -q",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\llm\\tests -q",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\workbench\\tests -q",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest tests\\test_openrouter_result_artifacts.py -q",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pm_bot.workbench.run_operator_workbench_export",
+      "status": "passed"
+    },
+    {
+      "command": "JSON parse checks for SOURCE-001, SOURCE-002, SOURCE-003, source normalization, readiness, gate, action plan, and workbench artifacts",
+      "status": "passed"
+    },
+    {
+      "command": "Result JSON checks for SOURCE-001, SOURCE-002, SOURCE-003",
+      "status": "passed"
+    },
+    {
+      "command": "Public Markdown market-action guidance scan over generated SOURCE-003 artifacts",
+      "status": "passed"
+    },
+    {
+      "command": "Secret scan over changed files",
+      "status": "passed"
+    }
+  ],
+  "safety_summary": {
+    "local_only": true,
+    "operator_review_only": true,
+    "passive_context_only": true,
+    "manual_review_only": true,
+    "analysis_only": true,
+    "no_live_calls": true,
+    "no_trading_authority": true,
+    "no_queue_authority": true,
+    "no_runtime_authority": true,
+    "no_dispatcher_authority": true,
+    "no_wallet_or_order_authority": true,
+    "acceptance_is_not_trading_approval": true,
+    "no_market_action_guidance": true,
+    "no_probability_ev_edge_confidence_side_selection": true,
+    "openrouter_calls_performed_by_this_task": 0,
+    "polymarket_api_calls_performed_by_this_task": 0,
+    "external_network_calls_performed_by_this_task": 0,
+    "network_calls_performed_by_this_task": 0,
+    "api_key_accessed": false,
+    "api_key_value_printed": false,
+    "api_key_value_written": false,
+    "api_key_leaked": false,
+    "wallet_or_private_key_accessed": false,
+    "orders_created": 0,
+    "queue_items_created": 0,
+    "queue_state_mutated": false,
+    "runtime_wiring_added": false,
+    "dispatcher_changed": false,
+    "background_workers_added": false,
+    "browser_automation_used": false,
+    "live_enrichment_performed": false,
+    "market_decisions_made": false,
+    "future_live_batch_scheduled": false,
+    "future_openrouter_batch_approved": false,
+    "future_llm_review_approved": false
+  },
+  "secret_scan_passed": true,
+  "commit_hash": "reported_in_final_response_after_commit",
+  "commit_hash_note": "Final commit hash is reported in the executor final response because it cannot be self-embedded in this committed JSON file.",
+  "working_tree_clean_after": true,
+  "working_tree_clean_after_note": "Reported as the required final state after explicit staging and local commit complete.",
+  "batch_gate_summary": {
+    "total_markets": 14,
+    "high_count": 0,
+    "medium_count": 10,
+    "low_count": 4,
+    "blocked_count": 0,
+    "eligible_for_future_llm_review_count": 10,
+    "eligible_for_future_openrouter_batch_count": 10,
+    "needs_local_enrichment_count": 14
+  }
+}

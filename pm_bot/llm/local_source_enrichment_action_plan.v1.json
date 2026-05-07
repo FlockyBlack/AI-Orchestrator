@@ -1,0 +1,349 @@
+{
+  "schema_version": "local_source_enrichment_action_plan.v1",
+  "task_id": "PMBOT-SOURCE-003-RESOLUTION-SOURCE-FIELD-NORMALIZATION",
+  "generated_by": "pm_bot/llm/resolution_source_normalizer.py",
+  "generated_at_marker": "deterministic-source-003-local-resolution-source-normalization.v1",
+  "status": "local_source_enrichment_action_plan_created",
+  "plan_type": "passive_local_proposal_not_runtime_queue",
+  "source_normalization_audit_path": "pm_bot/llm/current_llm_resolution_source_normalization_audit.v1.json",
+  "actions": [
+    {
+      "market_id": "563650",
+      "category": "legal/courts",
+      "missing_fields": [
+        "full_market_resolution_criteria_text",
+        "full_resolution_rules",
+        "official_source_references",
+        "official_source_urls_or_rule_references",
+        "source_timestamps",
+        "source_reliability_review"
+      ],
+      "suggested_local_action": "Manually capture full resolution criteria, full rules, official source references, timestamps, and reliability notes from approved local inputs in a future local-only task.",
+      "suggested_artifact_to_update_or_create": "pm_bot/llm/manual_packet_batch/563650_packet.v1.json or a future local manual resolution source capture artifact",
+      "priority": "medium",
+      "requires_external_network": false,
+      "future_read_only_network_possible_with_approval": true,
+      "operator_manual_input_needed": true,
+      "no_market_action_guidance": true
+    },
+    {
+      "market_id": "569332",
+      "category": "elections",
+      "missing_fields": [
+        "full_market_resolution_criteria_text",
+        "full_resolution_rules",
+        "official_source_references",
+        "official_source_urls_or_rule_references",
+        "source_timestamps",
+        "source_reliability_review"
+      ],
+      "suggested_local_action": "Manually capture full resolution criteria, full rules, official source references, timestamps, and reliability notes from approved local inputs in a future local-only task.",
+      "suggested_artifact_to_update_or_create": "pm_bot/llm/manual_packet_batch/569332_packet.v1.json or a future local manual resolution source capture artifact",
+      "priority": "medium",
+      "requires_external_network": false,
+      "future_read_only_network_possible_with_approval": true,
+      "operator_manual_input_needed": true,
+      "no_market_action_guidance": true
+    },
+    {
+      "market_id": "569333",
+      "category": "elections",
+      "missing_fields": [
+        "full_market_resolution_criteria_text",
+        "full_resolution_rules",
+        "official_source_references",
+        "official_source_urls_or_rule_references",
+        "source_timestamps",
+        "source_reliability_review"
+      ],
+      "suggested_local_action": "Manually capture full resolution criteria, full rules, official source references, timestamps, and reliability notes from approved local inputs in a future local-only task.",
+      "suggested_artifact_to_update_or_create": "pm_bot/llm/manual_packet_batch/569333_packet.v1.json or a future local manual resolution source capture artifact",
+      "priority": "medium",
+      "requires_external_network": false,
+      "future_read_only_network_possible_with_approval": true,
+      "operator_manual_input_needed": true,
+      "no_market_action_guidance": true
+    },
+    {
+      "market_id": "569334",
+      "category": "elections",
+      "missing_fields": [
+        "full_market_resolution_criteria_text",
+        "full_resolution_rules",
+        "official_source_references",
+        "official_source_urls_or_rule_references",
+        "source_timestamps",
+        "source_reliability_review"
+      ],
+      "suggested_local_action": "Manually capture full resolution criteria, full rules, official source references, timestamps, and reliability notes from approved local inputs in a future local-only task.",
+      "suggested_artifact_to_update_or_create": "pm_bot/llm/manual_packet_batch/569334_packet.v1.json or a future local manual resolution source capture artifact",
+      "priority": "medium",
+      "requires_external_network": false,
+      "future_read_only_network_possible_with_approval": true,
+      "operator_manual_input_needed": true,
+      "no_market_action_guidance": true
+    },
+    {
+      "market_id": "569343",
+      "category": "elections",
+      "missing_fields": [
+        "full_market_resolution_criteria_text",
+        "full_resolution_rules",
+        "official_source_references",
+        "official_source_urls_or_rule_references",
+        "source_timestamps",
+        "source_reliability_review"
+      ],
+      "suggested_local_action": "Manually capture full resolution criteria, full rules, official source references, timestamps, and reliability notes from approved local inputs in a future local-only task.",
+      "suggested_artifact_to_update_or_create": "pm_bot/llm/manual_packet_batch/569343_packet.v1.json or a future local manual resolution source capture artifact",
+      "priority": "medium",
+      "requires_external_network": false,
+      "future_read_only_network_possible_with_approval": true,
+      "operator_manual_input_needed": true,
+      "no_market_action_guidance": true
+    },
+    {
+      "market_id": "569344",
+      "category": "elections",
+      "missing_fields": [
+        "full_market_resolution_criteria_text",
+        "full_resolution_rules",
+        "official_source_references",
+        "official_source_urls_or_rule_references",
+        "source_timestamps",
+        "source_reliability_review"
+      ],
+      "suggested_local_action": "Manually capture full resolution criteria, full rules, official source references, timestamps, and reliability notes from approved local inputs in a future local-only task.",
+      "suggested_artifact_to_update_or_create": "pm_bot/llm/manual_packet_batch/569344_packet.v1.json or a future local manual resolution source capture artifact",
+      "priority": "medium",
+      "requires_external_network": false,
+      "future_read_only_network_possible_with_approval": true,
+      "operator_manual_input_needed": true,
+      "no_market_action_guidance": true
+    },
+    {
+      "market_id": "569366",
+      "category": "elections",
+      "missing_fields": [
+        "full_market_resolution_criteria_text",
+        "full_resolution_rules",
+        "official_source_references",
+        "official_source_urls_or_rule_references",
+        "source_timestamps",
+        "source_reliability_review"
+      ],
+      "suggested_local_action": "Manually capture full resolution criteria, full rules, official source references, timestamps, and reliability notes from approved local inputs in a future local-only task.",
+      "suggested_artifact_to_update_or_create": "pm_bot/llm/manual_packet_batch/569366_packet.v1.json or a future local manual resolution source capture artifact",
+      "priority": "medium",
+      "requires_external_network": false,
+      "future_read_only_network_possible_with_approval": true,
+      "operator_manual_input_needed": true,
+      "no_market_action_guidance": true
+    },
+    {
+      "market_id": "569368",
+      "category": "elections",
+      "missing_fields": [
+        "full_market_resolution_criteria_text",
+        "full_resolution_rules",
+        "official_source_references",
+        "official_source_urls_or_rule_references",
+        "source_timestamps",
+        "source_reliability_review"
+      ],
+      "suggested_local_action": "Manually capture full resolution criteria, full rules, official source references, timestamps, and reliability notes from approved local inputs in a future local-only task.",
+      "suggested_artifact_to_update_or_create": "pm_bot/llm/manual_packet_batch/569368_packet.v1.json or a future local manual resolution source capture artifact",
+      "priority": "medium",
+      "requires_external_network": false,
+      "future_read_only_network_possible_with_approval": true,
+      "operator_manual_input_needed": true,
+      "no_market_action_guidance": true
+    },
+    {
+      "market_id": "569373",
+      "category": "elections",
+      "missing_fields": [
+        "full_market_resolution_criteria_text",
+        "full_resolution_rules",
+        "official_source_references",
+        "official_source_urls_or_rule_references",
+        "source_timestamps",
+        "source_reliability_review"
+      ],
+      "suggested_local_action": "Manually capture full resolution criteria, full rules, official source references, timestamps, and reliability notes from approved local inputs in a future local-only task.",
+      "suggested_artifact_to_update_or_create": "pm_bot/llm/manual_packet_batch/569373_packet.v1.json or a future local manual resolution source capture artifact",
+      "priority": "medium",
+      "requires_external_network": false,
+      "future_read_only_network_possible_with_approval": true,
+      "operator_manual_input_needed": true,
+      "no_market_action_guidance": true
+    },
+    {
+      "market_id": "573656",
+      "category": "crypto",
+      "missing_fields": [
+        "full_market_resolution_criteria_text",
+        "full_resolution_rules",
+        "official_source_references",
+        "official_source_urls_or_rule_references",
+        "source_timestamps",
+        "source_reliability_review"
+      ],
+      "suggested_local_action": "Manually capture full resolution criteria, full rules, official source references, timestamps, and reliability notes from approved local inputs in a future local-only task.",
+      "suggested_artifact_to_update_or_create": "pm_bot/llm/manual_packet_batch/573656_packet.v1.json or a future local manual resolution source capture artifact",
+      "priority": "medium",
+      "requires_external_network": false,
+      "future_read_only_network_possible_with_approval": true,
+      "operator_manual_input_needed": true,
+      "no_market_action_guidance": true
+    },
+    {
+      "market_id": "597964",
+      "category": "politics",
+      "missing_fields": [
+        "full_market_resolution_criteria_text",
+        "full_resolution_rules",
+        "official_source_references",
+        "official_source_urls_or_rule_references",
+        "source_timestamps",
+        "source_reliability_review"
+      ],
+      "suggested_local_action": "Manually capture full resolution criteria, full rules, official source references, timestamps, and reliability notes from approved local inputs in a future local-only task.",
+      "suggested_artifact_to_update_or_create": "pm_bot/llm/manual_packet_batch/597964_packet.v1.json or a future local manual resolution source capture artifact",
+      "priority": "high",
+      "requires_external_network": false,
+      "future_read_only_network_possible_with_approval": true,
+      "operator_manual_input_needed": true,
+      "no_market_action_guidance": true
+    },
+    {
+      "market_id": "598936",
+      "category": "elections",
+      "missing_fields": [
+        "full_market_resolution_criteria_text",
+        "full_resolution_rules",
+        "official_source_references",
+        "official_source_urls_or_rule_references",
+        "source_timestamps",
+        "source_reliability_review"
+      ],
+      "suggested_local_action": "Manually capture full resolution criteria, full rules, official source references, timestamps, and reliability notes from approved local inputs in a future local-only task.",
+      "suggested_artifact_to_update_or_create": "pm_bot/llm/manual_packet_batch/598936_packet.v1.json or a future local manual resolution source capture artifact",
+      "priority": "high",
+      "requires_external_network": false,
+      "future_read_only_network_possible_with_approval": true,
+      "operator_manual_input_needed": true,
+      "no_market_action_guidance": true
+    },
+    {
+      "market_id": "691547",
+      "category": "company/business",
+      "missing_fields": [
+        "full_market_resolution_criteria_text",
+        "full_resolution_rules",
+        "official_source_references",
+        "official_source_urls_or_rule_references",
+        "source_timestamps",
+        "source_reliability_review"
+      ],
+      "suggested_local_action": "Manually capture full resolution criteria, full rules, official source references, timestamps, and reliability notes from approved local inputs in a future local-only task.",
+      "suggested_artifact_to_update_or_create": "pm_bot/llm/manual_packet_batch/691547_packet.v1.json or a future local manual resolution source capture artifact",
+      "priority": "high",
+      "requires_external_network": false,
+      "future_read_only_network_possible_with_approval": true,
+      "operator_manual_input_needed": true,
+      "no_market_action_guidance": true
+    },
+    {
+      "market_id": "692258",
+      "category": "company/business",
+      "missing_fields": [
+        "full_market_resolution_criteria_text",
+        "full_resolution_rules",
+        "official_source_references",
+        "official_source_urls_or_rule_references",
+        "source_timestamps",
+        "source_reliability_review"
+      ],
+      "suggested_local_action": "Manually capture full resolution criteria, full rules, official source references, timestamps, and reliability notes from approved local inputs in a future local-only task.",
+      "suggested_artifact_to_update_or_create": "pm_bot/llm/manual_packet_batch/692258_packet.v1.json or a future local manual resolution source capture artifact",
+      "priority": "high",
+      "requires_external_network": false,
+      "future_read_only_network_possible_with_approval": true,
+      "operator_manual_input_needed": true,
+      "no_market_action_guidance": true
+    }
+  ],
+  "aggregate": {
+    "total_actions": 14,
+    "high_priority_local_actions": 4,
+    "medium_priority_local_actions": 10,
+    "low_priority_local_actions": 0,
+    "fields_to_fix_first": [
+      "full_market_resolution_criteria_text",
+      "full_resolution_rules",
+      "official_source_references",
+      "official_source_urls_or_rule_references",
+      "source_timestamps",
+      "source_reliability_review"
+    ],
+    "proposed_future_task_order": [
+      "local manual resolution source capture",
+      "source gap normalization",
+      "packet completeness scorer rerun",
+      "repeat N=5 readiness protocol only after readiness review"
+    ],
+    "passive_only": true,
+    "queue_items_created": 0,
+    "queue_state_mutated": false,
+    "runtime_objects_created": false
+  },
+  "passive_only": true,
+  "queue_items_created": 0,
+  "queue_state_mutated": false,
+  "queue_mutation_performed": false,
+  "runtime_objects_created": false,
+  "dispatcher_integration_added": false,
+  "no_market_action_guidance": true,
+  "safety_flags": {
+    "local_only": true,
+    "operator_review_only": true,
+    "passive_context_only": true,
+    "manual_review_only": true,
+    "analysis_only": true,
+    "no_live_calls": true,
+    "no_trading_authority": true,
+    "no_queue_authority": true,
+    "no_runtime_authority": true,
+    "no_dispatcher_authority": true,
+    "no_wallet_or_order_authority": true,
+    "acceptance_is_not_trading_approval": true,
+    "no_market_action_guidance": true,
+    "no_probability_ev_edge_confidence_side_selection": true,
+    "openrouter_calls_performed_by_this_task": 0,
+    "polymarket_api_calls_performed_by_this_task": 0,
+    "external_network_calls_performed_by_this_task": 0,
+    "network_calls_performed_by_this_task": 0,
+    "api_key_accessed": false,
+    "api_key_value_printed": false,
+    "api_key_value_written": false,
+    "api_key_leaked": false,
+    "wallet_or_private_key_accessed": false,
+    "orders_created": 0,
+    "queue_items_created": 0,
+    "queue_state_mutated": false,
+    "runtime_wiring_added": false,
+    "dispatcher_changed": false,
+    "background_workers_added": false,
+    "browser_automation_used": false,
+    "live_enrichment_performed": false,
+    "market_decisions_made": false,
+    "future_live_batch_scheduled": false,
+    "future_openrouter_batch_approved": false,
+    "future_llm_review_approved": false
+  },
+  "openrouter_calls_performed": 0,
+  "polymarket_api_calls_performed": 0,
+  "external_network_calls_performed": 0,
+  "network_calls_performed": 0
+}
