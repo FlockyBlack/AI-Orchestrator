@@ -1,0 +1,662 @@
+{
+  "schema_version": "source_evidence_enrichment_requirements.v1",
+  "task_id": "PMBOT-SOURCE-001-EVIDENCE-ENRICHMENT-DESIGN-FROM-INVENTORY",
+  "generated_by": "pm_bot/llm/source_evidence_enrichment_artifacts.py",
+  "generated_at_marker": "deterministic-source-001-local-artifact-generation.v1",
+  "status": "requirements_created",
+  "source_inventory_path": "pm_bot/llm/current_llm_market_packet_inventory.v1.json",
+  "category_source": "categories_observed_in_053_inventory_only",
+  "category_count": 5,
+  "categories": [
+    {
+      "category": "company/business",
+      "required_core_fields": [
+        "market_id",
+        "title_or_question",
+        "category",
+        "settlement_or_resolution_description_if_available",
+        "resolution_source_or_rules_if_available",
+        "event_deadline_or_end_date_if_available",
+        "local_evidence_notes",
+        "source_gap_notes",
+        "contradiction_checks",
+        "risk_notes",
+        "operator_checklist",
+        "llm_packet_provenance",
+        "artifact_generation_marker",
+        "operator_review_only_safety_contract",
+        "entity",
+        "event_definition",
+        "instrument_or_business_action_if_applicable",
+        "date_or_resolution_window",
+        "source_or_resolution_rules_if_available"
+      ],
+      "recommended_context_fields": [
+        "source_artifact_path",
+        "candidate_source_type",
+        "outcome_labels",
+        "source_timestamps_when_present_locally",
+        "source_reliability_review_when_present_locally",
+        "local_packet_completeness_score",
+        "fields_marked_unknown_with_reason"
+      ],
+      "resolution_source_requirements": [
+        "entity and event definition",
+        "date/window and qualifying business action",
+        "primary company, regulator, exchange, filing, or market-rule source if present locally",
+        "treatment of rumors, announcements, filings, and completed events if present locally"
+      ],
+      "local_evidence_requirements": [
+        "use local packet text and local source artifact pointers only",
+        "record whether evidence is placeholder, stub, manually exported, or reviewed local file content",
+        "retain source gap notes when local evidence is absent",
+        "record local provenance for every evidence note"
+      ],
+      "contradiction_check_requirements": [
+        "record local context that could conflict with the title/question",
+        "record ambiguity in resolution rules, date windows, entity identity, or source authority",
+        "separate contradiction context from market outcome assessment"
+      ],
+      "risk_note_requirements": [
+        "record source/rule ambiguity risks",
+        "record stale or stub-only packet risks",
+        "record category-specific missing-field risks",
+        "record operator-review limitations without suggesting market action"
+      ],
+      "operator_checklist_requirements": [
+        "confirm packet and prompt provenance",
+        "confirm resolution/rule text is copied or explicitly marked unavailable locally",
+        "confirm source gaps are explicit",
+        "confirm contradiction context and risk notes are present",
+        "confirm no trading, queue, wallet, or runtime authority is granted"
+      ],
+      "minimum_packet_fields_for_llm_review": [
+        "market_id",
+        "market_title_or_question",
+        "category",
+        "local_packet_provenance",
+        "operator_review_only_safety_contract",
+        "local_context_for_missing_evidence_risk_and_checklist_sections",
+        "no_runtime_trading_or_queue_authority"
+      ],
+      "fields_required_for_high_completeness": [
+        "full_market_resolution_criteria_text",
+        "official_source_or_rule_reference_notes",
+        "explicit_source_gap_notes",
+        "contradiction_check_context",
+        "risk_notes_context",
+        "operator_checklist",
+        "category_specific_key_fields",
+        "entity",
+        "event_definition",
+        "instrument_or_business_action_if_applicable",
+        "date_or_resolution_window",
+        "source_timestamps_when_present_locally"
+      ],
+      "fields_allowed_to_be_unknown": [
+        "live_external_source_url_when_absent_from_local_artifacts",
+        "source_timestamp_when_absent_from_local_artifacts",
+        "market_status_when_not_recorded_locally",
+        "nonessential_background_context"
+      ],
+      "local_only_enrichment_notes": [
+        "Enrichment may only read local packets, prompts, local snapshots, and manually exported source files.",
+        "Unknown fields must remain unknown with a source gap note instead of triggering live fetching.",
+        "A future network-capable adapter would require a separate explicit approval task."
+      ],
+      "prohibited_enrichment_behavior": [
+        "do_not_fetch_external_data",
+        "do_not_call_polymarket_api",
+        "do_not_call_openrouter_or_other_llm_api",
+        "do_not_use_browser_automation",
+        "do_not_read_or_print_api_keys",
+        "do_not_touch_wallets_orders_or_private_keys",
+        "do_not_mutate_queue_state",
+        "do_not_add_runtime_dispatcher_or_background_wiring",
+        "do_not_produce_market_action_guidance",
+        "do_not_score_probability_ev_edge_confidence_or_side_selection"
+      ]
+    },
+    {
+      "category": "crypto",
+      "required_core_fields": [
+        "market_id",
+        "title_or_question",
+        "category",
+        "settlement_or_resolution_description_if_available",
+        "resolution_source_or_rules_if_available",
+        "event_deadline_or_end_date_if_available",
+        "local_evidence_notes",
+        "source_gap_notes",
+        "contradiction_checks",
+        "risk_notes",
+        "operator_checklist",
+        "llm_packet_provenance",
+        "artifact_generation_marker",
+        "operator_review_only_safety_contract",
+        "asset_or_ticker",
+        "threshold",
+        "date_or_resolution_window",
+        "settlement_condition",
+        "benchmark_or_price_source_rule_if_available"
+      ],
+      "recommended_context_fields": [
+        "source_artifact_path",
+        "candidate_source_type",
+        "outcome_labels",
+        "source_timestamps_when_present_locally",
+        "source_reliability_review_when_present_locally",
+        "local_packet_completeness_score",
+        "fields_marked_unknown_with_reason"
+      ],
+      "resolution_source_requirements": [
+        "full threshold and hit-condition rules",
+        "asset/ticker normalization",
+        "benchmark, exchange, index, or price-source rule if present locally",
+        "timezone and date-window rule if present locally"
+      ],
+      "local_evidence_requirements": [
+        "use local packet text and local source artifact pointers only",
+        "record whether evidence is placeholder, stub, manually exported, or reviewed local file content",
+        "retain source gap notes when local evidence is absent",
+        "record local provenance for every evidence note"
+      ],
+      "contradiction_check_requirements": [
+        "record local context that could conflict with the title/question",
+        "record ambiguity in resolution rules, date windows, entity identity, or source authority",
+        "separate contradiction context from market outcome assessment"
+      ],
+      "risk_note_requirements": [
+        "record source/rule ambiguity risks",
+        "record stale or stub-only packet risks",
+        "record category-specific missing-field risks",
+        "record operator-review limitations without suggesting market action"
+      ],
+      "operator_checklist_requirements": [
+        "confirm packet and prompt provenance",
+        "confirm resolution/rule text is copied or explicitly marked unavailable locally",
+        "confirm source gaps are explicit",
+        "confirm contradiction context and risk notes are present",
+        "confirm no trading, queue, wallet, or runtime authority is granted"
+      ],
+      "minimum_packet_fields_for_llm_review": [
+        "market_id",
+        "market_title_or_question",
+        "category",
+        "local_packet_provenance",
+        "operator_review_only_safety_contract",
+        "local_context_for_missing_evidence_risk_and_checklist_sections",
+        "no_runtime_trading_or_queue_authority"
+      ],
+      "fields_required_for_high_completeness": [
+        "full_market_resolution_criteria_text",
+        "official_source_or_rule_reference_notes",
+        "explicit_source_gap_notes",
+        "contradiction_check_context",
+        "risk_notes_context",
+        "operator_checklist",
+        "category_specific_key_fields",
+        "asset_or_ticker",
+        "threshold",
+        "date_or_resolution_window",
+        "settlement_condition",
+        "benchmark_and_timezone_rules",
+        "source_timestamps_when_present_locally"
+      ],
+      "fields_allowed_to_be_unknown": [
+        "live_external_source_url_when_absent_from_local_artifacts",
+        "source_timestamp_when_absent_from_local_artifacts",
+        "market_status_when_not_recorded_locally",
+        "nonessential_background_context"
+      ],
+      "local_only_enrichment_notes": [
+        "Enrichment may only read local packets, prompts, local snapshots, and manually exported source files.",
+        "Unknown fields must remain unknown with a source gap note instead of triggering live fetching.",
+        "A future network-capable adapter would require a separate explicit approval task."
+      ],
+      "prohibited_enrichment_behavior": [
+        "do_not_fetch_external_data",
+        "do_not_call_polymarket_api",
+        "do_not_call_openrouter_or_other_llm_api",
+        "do_not_use_browser_automation",
+        "do_not_read_or_print_api_keys",
+        "do_not_touch_wallets_orders_or_private_keys",
+        "do_not_mutate_queue_state",
+        "do_not_add_runtime_dispatcher_or_background_wiring",
+        "do_not_produce_market_action_guidance",
+        "do_not_score_probability_ev_edge_confidence_or_side_selection"
+      ]
+    },
+    {
+      "category": "elections",
+      "required_core_fields": [
+        "market_id",
+        "title_or_question",
+        "category",
+        "settlement_or_resolution_description_if_available",
+        "resolution_source_or_rules_if_available",
+        "event_deadline_or_end_date_if_available",
+        "local_evidence_notes",
+        "source_gap_notes",
+        "contradiction_checks",
+        "risk_notes",
+        "operator_checklist",
+        "llm_packet_provenance",
+        "artifact_generation_marker",
+        "operator_review_only_safety_contract",
+        "jurisdiction",
+        "office_or_election_event",
+        "candidate_or_party_if_applicable",
+        "round_or_stage_if_applicable",
+        "date_or_resolution_window",
+        "official_election_authority_identifier_if_available"
+      ],
+      "recommended_context_fields": [
+        "source_artifact_path",
+        "candidate_source_type",
+        "outcome_labels",
+        "source_timestamps_when_present_locally",
+        "source_reliability_review_when_present_locally",
+        "local_packet_completeness_score",
+        "fields_marked_unknown_with_reason"
+      ],
+      "resolution_source_requirements": [
+        "jurisdiction and election event definition",
+        "office, candidate, round, or stage named by the market",
+        "official election authority or resolution-rule reference if present locally",
+        "date/window and recount/runoff treatment if present locally"
+      ],
+      "local_evidence_requirements": [
+        "use local packet text and local source artifact pointers only",
+        "record whether evidence is placeholder, stub, manually exported, or reviewed local file content",
+        "retain source gap notes when local evidence is absent",
+        "record local provenance for every evidence note"
+      ],
+      "contradiction_check_requirements": [
+        "record local context that could conflict with the title/question",
+        "record ambiguity in resolution rules, date windows, entity identity, or source authority",
+        "separate contradiction context from market outcome assessment"
+      ],
+      "risk_note_requirements": [
+        "record source/rule ambiguity risks",
+        "record stale or stub-only packet risks",
+        "record category-specific missing-field risks",
+        "record operator-review limitations without suggesting market action"
+      ],
+      "operator_checklist_requirements": [
+        "confirm packet and prompt provenance",
+        "confirm resolution/rule text is copied or explicitly marked unavailable locally",
+        "confirm source gaps are explicit",
+        "confirm contradiction context and risk notes are present",
+        "confirm no trading, queue, wallet, or runtime authority is granted"
+      ],
+      "minimum_packet_fields_for_llm_review": [
+        "market_id",
+        "market_title_or_question",
+        "category",
+        "local_packet_provenance",
+        "operator_review_only_safety_contract",
+        "local_context_for_missing_evidence_risk_and_checklist_sections",
+        "no_runtime_trading_or_queue_authority"
+      ],
+      "fields_required_for_high_completeness": [
+        "full_market_resolution_criteria_text",
+        "official_source_or_rule_reference_notes",
+        "explicit_source_gap_notes",
+        "contradiction_check_context",
+        "risk_notes_context",
+        "operator_checklist",
+        "category_specific_key_fields",
+        "jurisdiction",
+        "office_or_election_event",
+        "candidate_or_party_if_applicable",
+        "date_or_resolution_window",
+        "official_election_authority_identifier_if_available",
+        "source_timestamps_when_present_locally"
+      ],
+      "fields_allowed_to_be_unknown": [
+        "live_external_source_url_when_absent_from_local_artifacts",
+        "source_timestamp_when_absent_from_local_artifacts",
+        "market_status_when_not_recorded_locally",
+        "nonessential_background_context"
+      ],
+      "local_only_enrichment_notes": [
+        "Enrichment may only read local packets, prompts, local snapshots, and manually exported source files.",
+        "Unknown fields must remain unknown with a source gap note instead of triggering live fetching.",
+        "A future network-capable adapter would require a separate explicit approval task."
+      ],
+      "prohibited_enrichment_behavior": [
+        "do_not_fetch_external_data",
+        "do_not_call_polymarket_api",
+        "do_not_call_openrouter_or_other_llm_api",
+        "do_not_use_browser_automation",
+        "do_not_read_or_print_api_keys",
+        "do_not_touch_wallets_orders_or_private_keys",
+        "do_not_mutate_queue_state",
+        "do_not_add_runtime_dispatcher_or_background_wiring",
+        "do_not_produce_market_action_guidance",
+        "do_not_score_probability_ev_edge_confidence_or_side_selection"
+      ]
+    },
+    {
+      "category": "legal/courts",
+      "required_core_fields": [
+        "market_id",
+        "title_or_question",
+        "category",
+        "settlement_or_resolution_description_if_available",
+        "resolution_source_or_rules_if_available",
+        "event_deadline_or_end_date_if_available",
+        "local_evidence_notes",
+        "source_gap_notes",
+        "contradiction_checks",
+        "risk_notes",
+        "operator_checklist",
+        "llm_packet_provenance",
+        "artifact_generation_marker",
+        "operator_review_only_safety_contract",
+        "court_or_legal_body",
+        "case_or_event_definition",
+        "docket_identifier_if_available",
+        "decision_or_acceptance_condition",
+        "date_or_resolution_window"
+      ],
+      "recommended_context_fields": [
+        "source_artifact_path",
+        "candidate_source_type",
+        "outcome_labels",
+        "source_timestamps_when_present_locally",
+        "source_reliability_review_when_present_locally",
+        "local_packet_completeness_score",
+        "fields_marked_unknown_with_reason"
+      ],
+      "resolution_source_requirements": [
+        "legal event definition and required action",
+        "court, agency, or docket identifier if present locally",
+        "deadline/window and settlement rule text",
+        "official docket, order, or court-source reference if present locally"
+      ],
+      "local_evidence_requirements": [
+        "use local packet text and local source artifact pointers only",
+        "record whether evidence is placeholder, stub, manually exported, or reviewed local file content",
+        "retain source gap notes when local evidence is absent",
+        "record local provenance for every evidence note"
+      ],
+      "contradiction_check_requirements": [
+        "record local context that could conflict with the title/question",
+        "record ambiguity in resolution rules, date windows, entity identity, or source authority",
+        "separate contradiction context from market outcome assessment"
+      ],
+      "risk_note_requirements": [
+        "record source/rule ambiguity risks",
+        "record stale or stub-only packet risks",
+        "record category-specific missing-field risks",
+        "record operator-review limitations without suggesting market action"
+      ],
+      "operator_checklist_requirements": [
+        "confirm packet and prompt provenance",
+        "confirm resolution/rule text is copied or explicitly marked unavailable locally",
+        "confirm source gaps are explicit",
+        "confirm contradiction context and risk notes are present",
+        "confirm no trading, queue, wallet, or runtime authority is granted"
+      ],
+      "minimum_packet_fields_for_llm_review": [
+        "market_id",
+        "market_title_or_question",
+        "category",
+        "local_packet_provenance",
+        "operator_review_only_safety_contract",
+        "local_context_for_missing_evidence_risk_and_checklist_sections",
+        "no_runtime_trading_or_queue_authority"
+      ],
+      "fields_required_for_high_completeness": [
+        "full_market_resolution_criteria_text",
+        "official_source_or_rule_reference_notes",
+        "explicit_source_gap_notes",
+        "contradiction_check_context",
+        "risk_notes_context",
+        "operator_checklist",
+        "category_specific_key_fields",
+        "court_or_legal_body",
+        "case_or_event_definition",
+        "docket_identifier_if_available",
+        "decision_or_acceptance_condition",
+        "date_or_resolution_window",
+        "source_timestamps_when_present_locally"
+      ],
+      "fields_allowed_to_be_unknown": [
+        "live_external_source_url_when_absent_from_local_artifacts",
+        "source_timestamp_when_absent_from_local_artifacts",
+        "market_status_when_not_recorded_locally",
+        "nonessential_background_context"
+      ],
+      "local_only_enrichment_notes": [
+        "Enrichment may only read local packets, prompts, local snapshots, and manually exported source files.",
+        "Unknown fields must remain unknown with a source gap note instead of triggering live fetching.",
+        "A future network-capable adapter would require a separate explicit approval task."
+      ],
+      "prohibited_enrichment_behavior": [
+        "do_not_fetch_external_data",
+        "do_not_call_polymarket_api",
+        "do_not_call_openrouter_or_other_llm_api",
+        "do_not_use_browser_automation",
+        "do_not_read_or_print_api_keys",
+        "do_not_touch_wallets_orders_or_private_keys",
+        "do_not_mutate_queue_state",
+        "do_not_add_runtime_dispatcher_or_background_wiring",
+        "do_not_produce_market_action_guidance",
+        "do_not_score_probability_ev_edge_confidence_or_side_selection"
+      ]
+    },
+    {
+      "category": "politics",
+      "required_core_fields": [
+        "market_id",
+        "title_or_question",
+        "category",
+        "settlement_or_resolution_description_if_available",
+        "resolution_source_or_rules_if_available",
+        "event_deadline_or_end_date_if_available",
+        "local_evidence_notes",
+        "source_gap_notes",
+        "contradiction_checks",
+        "risk_notes",
+        "operator_checklist",
+        "llm_packet_provenance",
+        "artifact_generation_marker",
+        "operator_review_only_safety_contract",
+        "jurisdiction",
+        "office_or_public_role",
+        "named_person_or_institution",
+        "event_definition",
+        "date_or_resolution_window",
+        "official_source_or_resolution_rule_if_available"
+      ],
+      "recommended_context_fields": [
+        "source_artifact_path",
+        "candidate_source_type",
+        "outcome_labels",
+        "source_timestamps_when_present_locally",
+        "source_reliability_review_when_present_locally",
+        "local_packet_completeness_score",
+        "fields_marked_unknown_with_reason"
+      ],
+      "resolution_source_requirements": [
+        "political event definition and named office/person",
+        "jurisdiction and deadline/window",
+        "official government or market rule source if present locally",
+        "clear treatment of resignation, removal, vacancy, or role-change ambiguity"
+      ],
+      "local_evidence_requirements": [
+        "use local packet text and local source artifact pointers only",
+        "record whether evidence is placeholder, stub, manually exported, or reviewed local file content",
+        "retain source gap notes when local evidence is absent",
+        "record local provenance for every evidence note"
+      ],
+      "contradiction_check_requirements": [
+        "record local context that could conflict with the title/question",
+        "record ambiguity in resolution rules, date windows, entity identity, or source authority",
+        "separate contradiction context from market outcome assessment"
+      ],
+      "risk_note_requirements": [
+        "record source/rule ambiguity risks",
+        "record stale or stub-only packet risks",
+        "record category-specific missing-field risks",
+        "record operator-review limitations without suggesting market action"
+      ],
+      "operator_checklist_requirements": [
+        "confirm packet and prompt provenance",
+        "confirm resolution/rule text is copied or explicitly marked unavailable locally",
+        "confirm source gaps are explicit",
+        "confirm contradiction context and risk notes are present",
+        "confirm no trading, queue, wallet, or runtime authority is granted"
+      ],
+      "minimum_packet_fields_for_llm_review": [
+        "market_id",
+        "market_title_or_question",
+        "category",
+        "local_packet_provenance",
+        "operator_review_only_safety_contract",
+        "local_context_for_missing_evidence_risk_and_checklist_sections",
+        "no_runtime_trading_or_queue_authority"
+      ],
+      "fields_required_for_high_completeness": [
+        "full_market_resolution_criteria_text",
+        "official_source_or_rule_reference_notes",
+        "explicit_source_gap_notes",
+        "contradiction_check_context",
+        "risk_notes_context",
+        "operator_checklist",
+        "category_specific_key_fields",
+        "jurisdiction",
+        "office_or_public_role",
+        "named_person_or_institution",
+        "event_definition",
+        "date_or_resolution_window",
+        "source_timestamps_when_present_locally"
+      ],
+      "fields_allowed_to_be_unknown": [
+        "live_external_source_url_when_absent_from_local_artifacts",
+        "source_timestamp_when_absent_from_local_artifacts",
+        "market_status_when_not_recorded_locally",
+        "nonessential_background_context"
+      ],
+      "local_only_enrichment_notes": [
+        "Enrichment may only read local packets, prompts, local snapshots, and manually exported source files.",
+        "Unknown fields must remain unknown with a source gap note instead of triggering live fetching.",
+        "A future network-capable adapter would require a separate explicit approval task."
+      ],
+      "prohibited_enrichment_behavior": [
+        "do_not_fetch_external_data",
+        "do_not_call_polymarket_api",
+        "do_not_call_openrouter_or_other_llm_api",
+        "do_not_use_browser_automation",
+        "do_not_read_or_print_api_keys",
+        "do_not_touch_wallets_orders_or_private_keys",
+        "do_not_mutate_queue_state",
+        "do_not_add_runtime_dispatcher_or_background_wiring",
+        "do_not_produce_market_action_guidance",
+        "do_not_score_probability_ev_edge_confidence_or_side_selection"
+      ]
+    }
+  ],
+  "common_requirements": {
+    "required_core_fields": [
+      "market_id",
+      "title_or_question",
+      "category",
+      "settlement_or_resolution_description_if_available",
+      "resolution_source_or_rules_if_available",
+      "event_deadline_or_end_date_if_available",
+      "local_evidence_notes",
+      "source_gap_notes",
+      "contradiction_checks",
+      "risk_notes",
+      "operator_checklist",
+      "llm_packet_provenance",
+      "artifact_generation_marker",
+      "operator_review_only_safety_contract"
+    ],
+    "recommended_context_fields": [
+      "source_artifact_path",
+      "candidate_source_type",
+      "outcome_labels",
+      "source_timestamps_when_present_locally",
+      "source_reliability_review_when_present_locally",
+      "local_packet_completeness_score",
+      "fields_marked_unknown_with_reason"
+    ],
+    "minimum_packet_fields_for_llm_review": [
+      "market_id",
+      "market_title_or_question",
+      "category",
+      "local_packet_provenance",
+      "operator_review_only_safety_contract",
+      "local_context_for_missing_evidence_risk_and_checklist_sections",
+      "no_runtime_trading_or_queue_authority"
+    ],
+    "fields_required_for_high_completeness": [
+      "full_market_resolution_criteria_text",
+      "official_source_or_rule_reference_notes",
+      "explicit_source_gap_notes",
+      "contradiction_check_context",
+      "risk_notes_context",
+      "operator_checklist",
+      "category_specific_key_fields"
+    ],
+    "fields_allowed_to_be_unknown": [
+      "live_external_source_url_when_absent_from_local_artifacts",
+      "source_timestamp_when_absent_from_local_artifacts",
+      "market_status_when_not_recorded_locally",
+      "nonessential_background_context"
+    ],
+    "prohibited_enrichment_behavior": [
+      "do_not_fetch_external_data",
+      "do_not_call_polymarket_api",
+      "do_not_call_openrouter_or_other_llm_api",
+      "do_not_use_browser_automation",
+      "do_not_read_or_print_api_keys",
+      "do_not_touch_wallets_orders_or_private_keys",
+      "do_not_mutate_queue_state",
+      "do_not_add_runtime_dispatcher_or_background_wiring",
+      "do_not_produce_market_action_guidance",
+      "do_not_score_probability_ev_edge_confidence_or_side_selection"
+    ]
+  },
+  "network_calls_performed": 0,
+  "polymarket_api_calls_performed": 0,
+  "openrouter_calls_performed": 0,
+  "safety_summary": {
+    "operator_review_only": true,
+    "passive_context_only": true,
+    "no_trading_authority": true,
+    "no_queue_authority": true,
+    "no_runtime_authority": true,
+    "no_dispatcher_authority": true,
+    "no_wallet_or_order_authority": true,
+    "acceptance_is_not_trading_approval": true,
+    "analysis_only": true,
+    "manual_review_only": true,
+    "no_market_action_guidance": true,
+    "no_probability_ev_edge_confidence_side_selection": true,
+    "no_buy_sell_hold_enter_exit": true,
+    "openrouter_calls_performed_by_this_task": 0,
+    "polymarket_api_calls_performed_by_this_task": 0,
+    "external_network_calls_performed_by_this_task": 0,
+    "network_calls_performed_by_this_task": 0,
+    "api_key_accessed": false,
+    "api_key_value_printed": false,
+    "api_key_value_written": false,
+    "api_key_leaked": false,
+    "wallet_or_private_key_accessed": false,
+    "orders_created": 0,
+    "queue_items_created": 0,
+    "queue_state_mutated": false,
+    "runtime_wiring_added": false,
+    "dispatcher_changed": false,
+    "background_workers_added": false,
+    "browser_automation_used": false,
+    "live_enrichment_performed": false,
+    "market_decisions_made": false
+  }
+}

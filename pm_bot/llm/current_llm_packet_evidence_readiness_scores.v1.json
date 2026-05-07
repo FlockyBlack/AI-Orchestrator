@@ -1,0 +1,957 @@
+{
+  "schema_version": "current_llm_packet_evidence_readiness_scores.v1",
+  "task_id": "PMBOT-SOURCE-001-EVIDENCE-ENRICHMENT-DESIGN-FROM-INVENTORY",
+  "generated_by": "pm_bot/llm/source_evidence_enrichment_artifacts.py",
+  "generated_at_marker": "deterministic-source-001-local-artifact-generation.v1",
+  "status": "readiness_scores_created",
+  "source_inventory_path": "pm_bot/llm/current_llm_market_packet_inventory.v1.json",
+  "source_evidence_audit_path": "pm_bot/llm/current_llm_source_evidence_completeness_audit.v1.json",
+  "scoring_model": {
+    "model_version": "evidence_readiness_score.v1",
+    "score_scope": "evidence_and_packet_readiness_only",
+    "weights": {
+      "identity/title completeness": 15,
+      "category completeness": 10,
+      "resolution/source completeness": 15,
+      "local evidence completeness": 15,
+      "missing evidence notes completeness": 10,
+      "contradiction checks completeness": 10,
+      "risk notes completeness": 10,
+      "operator checklist completeness": 10,
+      "provenance/artifact completeness": 5
+    },
+    "readiness_bands": {
+      "high": "90-100 and not blocked",
+      "medium": "60-89",
+      "low": "30-59",
+      "blocked": "0-29 or missing packet/prompt/title"
+    },
+    "not_market_attractiveness_score": true,
+    "not_probability_score": true,
+    "not_expected_value_score": true,
+    "not_side_selection_score": true
+  },
+  "markets": [
+    {
+      "market_id": "563650",
+      "title_or_question": "SCOTUS accepts sports event contract case by July 31, 2026?",
+      "category": "legal/courts",
+      "packet_exists": true,
+      "prompt_exists": true,
+      "reviewed_by_openrouter": true,
+      "accepted_for_operator_review": true,
+      "current_evidence_completeness_level": "medium",
+      "evidence_readiness_score": 84,
+      "score_breakdown": {
+        "identity/title completeness": 15,
+        "category completeness": 10,
+        "resolution/source completeness": 6,
+        "local evidence completeness": 8,
+        "missing evidence notes completeness": 10,
+        "contradiction checks completeness": 10,
+        "risk notes completeness": 10,
+        "operator checklist completeness": 10,
+        "provenance/artifact completeness": 5
+      },
+      "readiness_band": "medium",
+      "suitable_for_future_llm_review": true,
+      "suitable_for_future_openrouter_batch": true,
+      "needs_local_enrichment_before_review": true,
+      "missing_or_weak_fields": [
+        "case_or_event_definition",
+        "court_or_legal_body",
+        "docket_identifier",
+        "full_market_resolution_criteria_text",
+        "full_resolution_rules",
+        "non_placeholder_evidence_notes",
+        "official_source_references",
+        "official_source_urls_or_rule_references",
+        "reviewed_local_evidence_references",
+        "source_reliability_review",
+        "source_timestamps"
+      ],
+      "recommended_local_enrichment_actions": [
+        "Copy full local market resolution/rule text into packet source notes when present locally.",
+        "Replace placeholder source notes with reviewed local artifact references or manually exported source references.",
+        "Record source gap notes and local timestamps when present in local artifacts."
+      ],
+      "no_market_action_guidance": true
+    },
+    {
+      "market_id": "569332",
+      "title_or_question": "Will Vicky D\u00e1vila win the 1st round of the 2026 Colombian presidential election?",
+      "category": "elections",
+      "packet_exists": true,
+      "prompt_exists": true,
+      "reviewed_by_openrouter": true,
+      "accepted_for_operator_review": true,
+      "current_evidence_completeness_level": "medium",
+      "evidence_readiness_score": 84,
+      "score_breakdown": {
+        "identity/title completeness": 15,
+        "category completeness": 10,
+        "resolution/source completeness": 6,
+        "local evidence completeness": 8,
+        "missing evidence notes completeness": 10,
+        "contradiction checks completeness": 10,
+        "risk notes completeness": 10,
+        "operator checklist completeness": 10,
+        "provenance/artifact completeness": 5
+      },
+      "readiness_band": "medium",
+      "suitable_for_future_llm_review": true,
+      "suitable_for_future_openrouter_batch": true,
+      "needs_local_enrichment_before_review": true,
+      "missing_or_weak_fields": [
+        "candidate_or_party_if_applicable",
+        "full_market_resolution_criteria_text",
+        "full_resolution_rules",
+        "jurisdiction",
+        "non_placeholder_evidence_notes",
+        "office_or_election_event",
+        "official_election_authority_identifier",
+        "official_source_references",
+        "official_source_urls_or_rule_references",
+        "reviewed_local_evidence_references",
+        "source_reliability_review",
+        "source_timestamps"
+      ],
+      "recommended_local_enrichment_actions": [
+        "Copy full local market resolution/rule text into packet source notes when present locally.",
+        "Replace placeholder source notes with reviewed local artifact references or manually exported source references.",
+        "Record source gap notes and local timestamps when present in local artifacts."
+      ],
+      "no_market_action_guidance": true
+    },
+    {
+      "market_id": "569333",
+      "title_or_question": "Will Luis Gilberto Murillo win the 1st round of the 2026 Colombian presidential election?",
+      "category": "elections",
+      "packet_exists": true,
+      "prompt_exists": true,
+      "reviewed_by_openrouter": true,
+      "accepted_for_operator_review": true,
+      "current_evidence_completeness_level": "medium",
+      "evidence_readiness_score": 84,
+      "score_breakdown": {
+        "identity/title completeness": 15,
+        "category completeness": 10,
+        "resolution/source completeness": 6,
+        "local evidence completeness": 8,
+        "missing evidence notes completeness": 10,
+        "contradiction checks completeness": 10,
+        "risk notes completeness": 10,
+        "operator checklist completeness": 10,
+        "provenance/artifact completeness": 5
+      },
+      "readiness_band": "medium",
+      "suitable_for_future_llm_review": true,
+      "suitable_for_future_openrouter_batch": true,
+      "needs_local_enrichment_before_review": true,
+      "missing_or_weak_fields": [
+        "candidate_or_party_if_applicable",
+        "full_market_resolution_criteria_text",
+        "full_resolution_rules",
+        "jurisdiction",
+        "non_placeholder_evidence_notes",
+        "office_or_election_event",
+        "official_election_authority_identifier",
+        "official_source_references",
+        "official_source_urls_or_rule_references",
+        "reviewed_local_evidence_references",
+        "source_reliability_review",
+        "source_timestamps"
+      ],
+      "recommended_local_enrichment_actions": [
+        "Copy full local market resolution/rule text into packet source notes when present locally.",
+        "Replace placeholder source notes with reviewed local artifact references or manually exported source references.",
+        "Record source gap notes and local timestamps when present in local artifacts."
+      ],
+      "no_market_action_guidance": true
+    },
+    {
+      "market_id": "569334",
+      "title_or_question": "Will Claudia L\u00f3pez win the 1st round of the 2026 Colombian presidential election?",
+      "category": "elections",
+      "packet_exists": true,
+      "prompt_exists": true,
+      "reviewed_by_openrouter": true,
+      "accepted_for_operator_review": true,
+      "current_evidence_completeness_level": "medium",
+      "evidence_readiness_score": 84,
+      "score_breakdown": {
+        "identity/title completeness": 15,
+        "category completeness": 10,
+        "resolution/source completeness": 6,
+        "local evidence completeness": 8,
+        "missing evidence notes completeness": 10,
+        "contradiction checks completeness": 10,
+        "risk notes completeness": 10,
+        "operator checklist completeness": 10,
+        "provenance/artifact completeness": 5
+      },
+      "readiness_band": "medium",
+      "suitable_for_future_llm_review": true,
+      "suitable_for_future_openrouter_batch": true,
+      "needs_local_enrichment_before_review": true,
+      "missing_or_weak_fields": [
+        "candidate_or_party_if_applicable",
+        "full_market_resolution_criteria_text",
+        "full_resolution_rules",
+        "jurisdiction",
+        "non_placeholder_evidence_notes",
+        "office_or_election_event",
+        "official_election_authority_identifier",
+        "official_source_references",
+        "official_source_urls_or_rule_references",
+        "reviewed_local_evidence_references",
+        "source_reliability_review",
+        "source_timestamps"
+      ],
+      "recommended_local_enrichment_actions": [
+        "Copy full local market resolution/rule text into packet source notes when present locally.",
+        "Replace placeholder source notes with reviewed local artifact references or manually exported source references.",
+        "Record source gap notes and local timestamps when present in local artifacts."
+      ],
+      "no_market_action_guidance": true
+    },
+    {
+      "market_id": "569343",
+      "title_or_question": "Will Iv\u00e1n Cepeda Castro win the 1st round of the 2026 Colombian presidential election?",
+      "category": "elections",
+      "packet_exists": true,
+      "prompt_exists": true,
+      "reviewed_by_openrouter": true,
+      "accepted_for_operator_review": true,
+      "current_evidence_completeness_level": "medium",
+      "evidence_readiness_score": 84,
+      "score_breakdown": {
+        "identity/title completeness": 15,
+        "category completeness": 10,
+        "resolution/source completeness": 6,
+        "local evidence completeness": 8,
+        "missing evidence notes completeness": 10,
+        "contradiction checks completeness": 10,
+        "risk notes completeness": 10,
+        "operator checklist completeness": 10,
+        "provenance/artifact completeness": 5
+      },
+      "readiness_band": "medium",
+      "suitable_for_future_llm_review": true,
+      "suitable_for_future_openrouter_batch": true,
+      "needs_local_enrichment_before_review": true,
+      "missing_or_weak_fields": [
+        "candidate_or_party_if_applicable",
+        "full_market_resolution_criteria_text",
+        "full_resolution_rules",
+        "jurisdiction",
+        "non_placeholder_evidence_notes",
+        "office_or_election_event",
+        "official_election_authority_identifier",
+        "official_source_references",
+        "official_source_urls_or_rule_references",
+        "reviewed_local_evidence_references",
+        "source_reliability_review",
+        "source_timestamps"
+      ],
+      "recommended_local_enrichment_actions": [
+        "Copy full local market resolution/rule text into packet source notes when present locally.",
+        "Replace placeholder source notes with reviewed local artifact references or manually exported source references.",
+        "Record source gap notes and local timestamps when present in local artifacts."
+      ],
+      "no_market_action_guidance": true
+    },
+    {
+      "market_id": "569344",
+      "title_or_question": "Will Abelardo de la Espriella win the 1st round of the 2026 Colombian presidential election?",
+      "category": "elections",
+      "packet_exists": true,
+      "prompt_exists": true,
+      "reviewed_by_openrouter": true,
+      "accepted_for_operator_review": true,
+      "current_evidence_completeness_level": "medium",
+      "evidence_readiness_score": 84,
+      "score_breakdown": {
+        "identity/title completeness": 15,
+        "category completeness": 10,
+        "resolution/source completeness": 6,
+        "local evidence completeness": 8,
+        "missing evidence notes completeness": 10,
+        "contradiction checks completeness": 10,
+        "risk notes completeness": 10,
+        "operator checklist completeness": 10,
+        "provenance/artifact completeness": 5
+      },
+      "readiness_band": "medium",
+      "suitable_for_future_llm_review": true,
+      "suitable_for_future_openrouter_batch": true,
+      "needs_local_enrichment_before_review": true,
+      "missing_or_weak_fields": [
+        "candidate_or_party_if_applicable",
+        "full_market_resolution_criteria_text",
+        "full_resolution_rules",
+        "jurisdiction",
+        "non_placeholder_evidence_notes",
+        "office_or_election_event",
+        "official_election_authority_identifier",
+        "official_source_references",
+        "official_source_urls_or_rule_references",
+        "reviewed_local_evidence_references",
+        "source_reliability_review",
+        "source_timestamps"
+      ],
+      "recommended_local_enrichment_actions": [
+        "Copy full local market resolution/rule text into packet source notes when present locally.",
+        "Replace placeholder source notes with reviewed local artifact references or manually exported source references.",
+        "Record source gap notes and local timestamps when present in local artifacts."
+      ],
+      "no_market_action_guidance": true
+    },
+    {
+      "market_id": "569366",
+      "title_or_question": "Will Abelardo de la Espriella win the 2026 Colombian presidential election?",
+      "category": "elections",
+      "packet_exists": true,
+      "prompt_exists": true,
+      "reviewed_by_openrouter": true,
+      "accepted_for_operator_review": true,
+      "current_evidence_completeness_level": "medium",
+      "evidence_readiness_score": 84,
+      "score_breakdown": {
+        "identity/title completeness": 15,
+        "category completeness": 10,
+        "resolution/source completeness": 6,
+        "local evidence completeness": 8,
+        "missing evidence notes completeness": 10,
+        "contradiction checks completeness": 10,
+        "risk notes completeness": 10,
+        "operator checklist completeness": 10,
+        "provenance/artifact completeness": 5
+      },
+      "readiness_band": "medium",
+      "suitable_for_future_llm_review": true,
+      "suitable_for_future_openrouter_batch": true,
+      "needs_local_enrichment_before_review": true,
+      "missing_or_weak_fields": [
+        "candidate_or_party_if_applicable",
+        "full_market_resolution_criteria_text",
+        "full_resolution_rules",
+        "jurisdiction",
+        "non_placeholder_evidence_notes",
+        "office_or_election_event",
+        "official_election_authority_identifier",
+        "official_source_references",
+        "official_source_urls_or_rule_references",
+        "reviewed_local_evidence_references",
+        "source_reliability_review",
+        "source_timestamps"
+      ],
+      "recommended_local_enrichment_actions": [
+        "Copy full local market resolution/rule text into packet source notes when present locally.",
+        "Replace placeholder source notes with reviewed local artifact references or manually exported source references.",
+        "Record source gap notes and local timestamps when present in local artifacts."
+      ],
+      "no_market_action_guidance": true
+    },
+    {
+      "market_id": "569368",
+      "title_or_question": "Will Ivan Cepeda Castro win the 2026 Colombian presidential election?",
+      "category": "elections",
+      "packet_exists": true,
+      "prompt_exists": true,
+      "reviewed_by_openrouter": true,
+      "accepted_for_operator_review": true,
+      "current_evidence_completeness_level": "medium",
+      "evidence_readiness_score": 84,
+      "score_breakdown": {
+        "identity/title completeness": 15,
+        "category completeness": 10,
+        "resolution/source completeness": 6,
+        "local evidence completeness": 8,
+        "missing evidence notes completeness": 10,
+        "contradiction checks completeness": 10,
+        "risk notes completeness": 10,
+        "operator checklist completeness": 10,
+        "provenance/artifact completeness": 5
+      },
+      "readiness_band": "medium",
+      "suitable_for_future_llm_review": true,
+      "suitable_for_future_openrouter_batch": true,
+      "needs_local_enrichment_before_review": true,
+      "missing_or_weak_fields": [
+        "candidate_or_party_if_applicable",
+        "full_market_resolution_criteria_text",
+        "full_resolution_rules",
+        "jurisdiction",
+        "non_placeholder_evidence_notes",
+        "office_or_election_event",
+        "official_election_authority_identifier",
+        "official_source_references",
+        "official_source_urls_or_rule_references",
+        "reviewed_local_evidence_references",
+        "source_reliability_review",
+        "source_timestamps"
+      ],
+      "recommended_local_enrichment_actions": [
+        "Copy full local market resolution/rule text into packet source notes when present locally.",
+        "Replace placeholder source notes with reviewed local artifact references or manually exported source references.",
+        "Record source gap notes and local timestamps when present in local artifacts."
+      ],
+      "no_market_action_guidance": true
+    },
+    {
+      "market_id": "569373",
+      "title_or_question": "Will Paloma Valencia win the 2026 Colombian presidential election?",
+      "category": "elections",
+      "packet_exists": true,
+      "prompt_exists": true,
+      "reviewed_by_openrouter": true,
+      "accepted_for_operator_review": true,
+      "current_evidence_completeness_level": "medium",
+      "evidence_readiness_score": 84,
+      "score_breakdown": {
+        "identity/title completeness": 15,
+        "category completeness": 10,
+        "resolution/source completeness": 6,
+        "local evidence completeness": 8,
+        "missing evidence notes completeness": 10,
+        "contradiction checks completeness": 10,
+        "risk notes completeness": 10,
+        "operator checklist completeness": 10,
+        "provenance/artifact completeness": 5
+      },
+      "readiness_band": "medium",
+      "suitable_for_future_llm_review": true,
+      "suitable_for_future_openrouter_batch": true,
+      "needs_local_enrichment_before_review": true,
+      "missing_or_weak_fields": [
+        "candidate_or_party_if_applicable",
+        "full_market_resolution_criteria_text",
+        "full_resolution_rules",
+        "jurisdiction",
+        "non_placeholder_evidence_notes",
+        "office_or_election_event",
+        "official_election_authority_identifier",
+        "official_source_references",
+        "official_source_urls_or_rule_references",
+        "reviewed_local_evidence_references",
+        "source_reliability_review",
+        "source_timestamps"
+      ],
+      "recommended_local_enrichment_actions": [
+        "Copy full local market resolution/rule text into packet source notes when present locally.",
+        "Replace placeholder source notes with reviewed local artifact references or manually exported source references.",
+        "Record source gap notes and local timestamps when present in local artifacts."
+      ],
+      "no_market_action_guidance": true
+    },
+    {
+      "market_id": "573656",
+      "title_or_question": "Will Bitcoin hit $150k by December 31, 2026?",
+      "category": "crypto",
+      "packet_exists": true,
+      "prompt_exists": true,
+      "reviewed_by_openrouter": true,
+      "accepted_for_operator_review": true,
+      "current_evidence_completeness_level": "medium",
+      "evidence_readiness_score": 84,
+      "score_breakdown": {
+        "identity/title completeness": 15,
+        "category completeness": 10,
+        "resolution/source completeness": 6,
+        "local evidence completeness": 8,
+        "missing evidence notes completeness": 10,
+        "contradiction checks completeness": 10,
+        "risk notes completeness": 10,
+        "operator checklist completeness": 10,
+        "provenance/artifact completeness": 5
+      },
+      "readiness_band": "medium",
+      "suitable_for_future_llm_review": true,
+      "suitable_for_future_openrouter_batch": true,
+      "needs_local_enrichment_before_review": true,
+      "missing_or_weak_fields": [
+        "asset_or_ticker",
+        "benchmark_and_timezone_rules",
+        "full_market_resolution_criteria_text",
+        "full_resolution_rules",
+        "non_placeholder_evidence_notes",
+        "official_source_references",
+        "official_source_urls_or_rule_references",
+        "reviewed_local_evidence_references",
+        "source_reliability_review",
+        "source_timestamps",
+        "threshold"
+      ],
+      "recommended_local_enrichment_actions": [
+        "Copy full local market resolution/rule text into packet source notes when present locally.",
+        "Replace placeholder source notes with reviewed local artifact references or manually exported source references.",
+        "Record source gap notes and local timestamps when present in local artifacts."
+      ],
+      "no_market_action_guidance": true
+    },
+    {
+      "market_id": "597964",
+      "title_or_question": "Macron out by June 30, 2026?",
+      "category": "politics",
+      "packet_exists": true,
+      "prompt_exists": true,
+      "reviewed_by_openrouter": false,
+      "accepted_for_operator_review": null,
+      "current_evidence_completeness_level": "unknown",
+      "evidence_readiness_score": 54,
+      "score_breakdown": {
+        "identity/title completeness": 15,
+        "category completeness": 10,
+        "resolution/source completeness": 6,
+        "local evidence completeness": 8,
+        "missing evidence notes completeness": 10,
+        "contradiction checks completeness": 0,
+        "risk notes completeness": 0,
+        "operator checklist completeness": 0,
+        "provenance/artifact completeness": 5
+      },
+      "readiness_band": "low",
+      "suitable_for_future_llm_review": false,
+      "suitable_for_future_openrouter_batch": false,
+      "needs_local_enrichment_before_review": true,
+      "missing_or_weak_fields": [
+        "contradiction_checks",
+        "event_definition",
+        "evidence_completeness_audit_status",
+        "full_market_resolution_criteria_text",
+        "full_resolution_rules",
+        "jurisdiction",
+        "named_person_or_institution",
+        "non_placeholder_evidence_notes",
+        "office_or_public_role",
+        "official_source_references",
+        "official_source_urls_or_rule_references",
+        "operator_checklist",
+        "reviewed_local_evidence_references",
+        "risk_notes",
+        "source_reliability_review",
+        "source_timestamps"
+      ],
+      "recommended_local_enrichment_actions": [
+        "Copy full local market resolution/rule text into packet source notes when present locally.",
+        "Replace placeholder source notes with reviewed local artifact references or manually exported source references.",
+        "Record source gap notes and local timestamps when present in local artifacts.",
+        "Add contradiction context from local packet text only.",
+        "Add risk note context from local packet text only.",
+        "Add a standardized operator checklist section.",
+        "Normalize source gap counts from packet source_gap_notes."
+      ],
+      "no_market_action_guidance": true
+    },
+    {
+      "market_id": "598936",
+      "title_or_question": "Will the next UK election be called by June 30, 2026?",
+      "category": "elections",
+      "packet_exists": true,
+      "prompt_exists": true,
+      "reviewed_by_openrouter": false,
+      "accepted_for_operator_review": null,
+      "current_evidence_completeness_level": "unknown",
+      "evidence_readiness_score": 54,
+      "score_breakdown": {
+        "identity/title completeness": 15,
+        "category completeness": 10,
+        "resolution/source completeness": 6,
+        "local evidence completeness": 8,
+        "missing evidence notes completeness": 10,
+        "contradiction checks completeness": 0,
+        "risk notes completeness": 0,
+        "operator checklist completeness": 0,
+        "provenance/artifact completeness": 5
+      },
+      "readiness_band": "low",
+      "suitable_for_future_llm_review": false,
+      "suitable_for_future_openrouter_batch": false,
+      "needs_local_enrichment_before_review": true,
+      "missing_or_weak_fields": [
+        "candidate_or_party_if_applicable",
+        "contradiction_checks",
+        "evidence_completeness_audit_status",
+        "full_market_resolution_criteria_text",
+        "full_resolution_rules",
+        "jurisdiction",
+        "non_placeholder_evidence_notes",
+        "office_or_election_event",
+        "official_election_authority_identifier",
+        "official_source_references",
+        "official_source_urls_or_rule_references",
+        "operator_checklist",
+        "reviewed_local_evidence_references",
+        "risk_notes",
+        "source_reliability_review",
+        "source_timestamps"
+      ],
+      "recommended_local_enrichment_actions": [
+        "Copy full local market resolution/rule text into packet source notes when present locally.",
+        "Replace placeholder source notes with reviewed local artifact references or manually exported source references.",
+        "Record source gap notes and local timestamps when present in local artifacts.",
+        "Add contradiction context from local packet text only.",
+        "Add risk note context from local packet text only.",
+        "Add a standardized operator checklist section.",
+        "Normalize source gap counts from packet source_gap_notes."
+      ],
+      "no_market_action_guidance": true
+    },
+    {
+      "market_id": "691547",
+      "title_or_question": "Kraken IPO by December 31, 2026?",
+      "category": "company/business",
+      "packet_exists": true,
+      "prompt_exists": true,
+      "reviewed_by_openrouter": false,
+      "accepted_for_operator_review": null,
+      "current_evidence_completeness_level": "unknown",
+      "evidence_readiness_score": 54,
+      "score_breakdown": {
+        "identity/title completeness": 15,
+        "category completeness": 10,
+        "resolution/source completeness": 6,
+        "local evidence completeness": 8,
+        "missing evidence notes completeness": 10,
+        "contradiction checks completeness": 0,
+        "risk notes completeness": 0,
+        "operator checklist completeness": 0,
+        "provenance/artifact completeness": 5
+      },
+      "readiness_band": "low",
+      "suitable_for_future_llm_review": false,
+      "suitable_for_future_openrouter_batch": false,
+      "needs_local_enrichment_before_review": true,
+      "missing_or_weak_fields": [
+        "contradiction_checks",
+        "entity",
+        "event_definition",
+        "evidence_completeness_audit_status",
+        "full_market_resolution_criteria_text",
+        "full_resolution_rules",
+        "instrument_or_business_action_if_applicable",
+        "non_placeholder_evidence_notes",
+        "official_source_references",
+        "official_source_urls_or_rule_references",
+        "operator_checklist",
+        "reviewed_local_evidence_references",
+        "risk_notes",
+        "source_reliability_review",
+        "source_timestamps"
+      ],
+      "recommended_local_enrichment_actions": [
+        "Copy full local market resolution/rule text into packet source notes when present locally.",
+        "Replace placeholder source notes with reviewed local artifact references or manually exported source references.",
+        "Record source gap notes and local timestamps when present in local artifacts.",
+        "Add contradiction context from local packet text only.",
+        "Add risk note context from local packet text only.",
+        "Add a standardized operator checklist section.",
+        "Normalize source gap counts from packet source_gap_notes."
+      ],
+      "no_market_action_guidance": true
+    },
+    {
+      "market_id": "692258",
+      "title_or_question": "MicroStrategy sells any Bitcoin by June 30, 2026?",
+      "category": "company/business",
+      "packet_exists": true,
+      "prompt_exists": true,
+      "reviewed_by_openrouter": false,
+      "accepted_for_operator_review": null,
+      "current_evidence_completeness_level": "unknown",
+      "evidence_readiness_score": 54,
+      "score_breakdown": {
+        "identity/title completeness": 15,
+        "category completeness": 10,
+        "resolution/source completeness": 6,
+        "local evidence completeness": 8,
+        "missing evidence notes completeness": 10,
+        "contradiction checks completeness": 0,
+        "risk notes completeness": 0,
+        "operator checklist completeness": 0,
+        "provenance/artifact completeness": 5
+      },
+      "readiness_band": "low",
+      "suitable_for_future_llm_review": false,
+      "suitable_for_future_openrouter_batch": false,
+      "needs_local_enrichment_before_review": true,
+      "missing_or_weak_fields": [
+        "contradiction_checks",
+        "entity",
+        "event_definition",
+        "evidence_completeness_audit_status",
+        "full_market_resolution_criteria_text",
+        "full_resolution_rules",
+        "instrument_or_business_action_if_applicable",
+        "non_placeholder_evidence_notes",
+        "official_source_references",
+        "official_source_urls_or_rule_references",
+        "operator_checklist",
+        "reviewed_local_evidence_references",
+        "risk_notes",
+        "source_reliability_review",
+        "source_timestamps"
+      ],
+      "recommended_local_enrichment_actions": [
+        "Copy full local market resolution/rule text into packet source notes when present locally.",
+        "Replace placeholder source notes with reviewed local artifact references or manually exported source references.",
+        "Record source gap notes and local timestamps when present in local artifacts.",
+        "Add contradiction context from local packet text only.",
+        "Add risk note context from local packet text only.",
+        "Add a standardized operator checklist section.",
+        "Normalize source gap counts from packet source_gap_notes."
+      ],
+      "no_market_action_guidance": true
+    }
+  ],
+  "aggregate": {
+    "total_markets_scored": 14,
+    "high_count": 0,
+    "medium_count": 10,
+    "low_count": 4,
+    "blocked_count": 0,
+    "reviewed_count": 10,
+    "unreviewed_count": 4,
+    "average_evidence_readiness_score": 75.43,
+    "category_score_summary": {
+      "company/business": {
+        "market_count": 2,
+        "reviewed_count": 0,
+        "unreviewed_count": 2,
+        "average_evidence_readiness_score": 54.0,
+        "readiness_band_counts": {
+          "high": 0,
+          "medium": 0,
+          "low": 2,
+          "blocked": 0
+        },
+        "market_ids": [
+          "691547",
+          "692258"
+        ]
+      },
+      "crypto": {
+        "market_count": 1,
+        "reviewed_count": 1,
+        "unreviewed_count": 0,
+        "average_evidence_readiness_score": 84.0,
+        "readiness_band_counts": {
+          "high": 0,
+          "medium": 1,
+          "low": 0,
+          "blocked": 0
+        },
+        "market_ids": [
+          "573656"
+        ]
+      },
+      "elections": {
+        "market_count": 9,
+        "reviewed_count": 8,
+        "unreviewed_count": 1,
+        "average_evidence_readiness_score": 80.67,
+        "readiness_band_counts": {
+          "high": 0,
+          "medium": 8,
+          "low": 1,
+          "blocked": 0
+        },
+        "market_ids": [
+          "569332",
+          "569333",
+          "569334",
+          "569343",
+          "569344",
+          "569366",
+          "569368",
+          "569373",
+          "598936"
+        ]
+      },
+      "legal/courts": {
+        "market_count": 1,
+        "reviewed_count": 1,
+        "unreviewed_count": 0,
+        "average_evidence_readiness_score": 84.0,
+        "readiness_band_counts": {
+          "high": 0,
+          "medium": 1,
+          "low": 0,
+          "blocked": 0
+        },
+        "market_ids": [
+          "563650"
+        ]
+      },
+      "politics": {
+        "market_count": 1,
+        "reviewed_count": 0,
+        "unreviewed_count": 1,
+        "average_evidence_readiness_score": 54.0,
+        "readiness_band_counts": {
+          "high": 0,
+          "medium": 0,
+          "low": 1,
+          "blocked": 0
+        },
+        "market_ids": [
+          "597964"
+        ]
+      }
+    },
+    "top_missing_fields": [
+      {
+        "field": "full_market_resolution_criteria_text",
+        "market_count": 14
+      },
+      {
+        "field": "full_resolution_rules",
+        "market_count": 14
+      },
+      {
+        "field": "non_placeholder_evidence_notes",
+        "market_count": 14
+      },
+      {
+        "field": "official_source_references",
+        "market_count": 14
+      },
+      {
+        "field": "official_source_urls_or_rule_references",
+        "market_count": 14
+      },
+      {
+        "field": "reviewed_local_evidence_references",
+        "market_count": 14
+      },
+      {
+        "field": "source_reliability_review",
+        "market_count": 14
+      },
+      {
+        "field": "source_timestamps",
+        "market_count": 14
+      },
+      {
+        "field": "jurisdiction",
+        "market_count": 10
+      },
+      {
+        "field": "candidate_or_party_if_applicable",
+        "market_count": 9
+      },
+      {
+        "field": "office_or_election_event",
+        "market_count": 9
+      },
+      {
+        "field": "official_election_authority_identifier",
+        "market_count": 9
+      },
+      {
+        "field": "contradiction_checks",
+        "market_count": 4
+      },
+      {
+        "field": "evidence_completeness_audit_status",
+        "market_count": 4
+      },
+      {
+        "field": "operator_checklist",
+        "market_count": 4
+      },
+      {
+        "field": "risk_notes",
+        "market_count": 4
+      },
+      {
+        "field": "event_definition",
+        "market_count": 3
+      },
+      {
+        "field": "entity",
+        "market_count": 2
+      },
+      {
+        "field": "instrument_or_business_action_if_applicable",
+        "market_count": 2
+      },
+      {
+        "field": "case_or_event_definition",
+        "market_count": 1
+      },
+      {
+        "field": "court_or_legal_body",
+        "market_count": 1
+      },
+      {
+        "field": "docket_identifier",
+        "market_count": 1
+      },
+      {
+        "field": "asset_or_ticker",
+        "market_count": 1
+      },
+      {
+        "field": "benchmark_and_timezone_rules",
+        "market_count": 1
+      },
+      {
+        "field": "threshold",
+        "market_count": 1
+      },
+      {
+        "field": "named_person_or_institution",
+        "market_count": 1
+      },
+      {
+        "field": "office_or_public_role",
+        "market_count": 1
+      }
+    ],
+    "recommended_next_local_enrichment_focus": [
+      "resolution source extraction",
+      "source gap normalization",
+      "operator checklist standardization for unreviewed packets",
+      "contradiction and risk context builder for unreviewed packets",
+      "local packet completeness scorer integration"
+    ]
+  },
+  "network_calls_performed": 0,
+  "polymarket_api_calls_performed": 0,
+  "openrouter_calls_performed": 0,
+  "safety_summary": {
+    "operator_review_only": true,
+    "passive_context_only": true,
+    "no_trading_authority": true,
+    "no_queue_authority": true,
+    "no_runtime_authority": true,
+    "no_dispatcher_authority": true,
+    "no_wallet_or_order_authority": true,
+    "acceptance_is_not_trading_approval": true,
+    "analysis_only": true,
+    "manual_review_only": true,
+    "no_market_action_guidance": true,
+    "no_probability_ev_edge_confidence_side_selection": true,
+    "no_buy_sell_hold_enter_exit": true,
+    "openrouter_calls_performed_by_this_task": 0,
+    "polymarket_api_calls_performed_by_this_task": 0,
+    "external_network_calls_performed_by_this_task": 0,
+    "network_calls_performed_by_this_task": 0,
+    "api_key_accessed": false,
+    "api_key_value_printed": false,
+    "api_key_value_written": false,
+    "api_key_leaked": false,
+    "wallet_or_private_key_accessed": false,
+    "orders_created": 0,
+    "queue_items_created": 0,
+    "queue_state_mutated": false,
+    "runtime_wiring_added": false,
+    "dispatcher_changed": false,
+    "background_workers_added": false,
+    "browser_automation_used": false,
+    "live_enrichment_performed": false,
+    "market_decisions_made": false
+  }
+}

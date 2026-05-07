@@ -80,13 +80,31 @@ class OperatorOpenrouterReviewDashboardTests(unittest.TestCase):
         self.assertEqual(evidence["reviewed_market_count"], 10)
         self.assertEqual(evidence["evidence_completeness_counts"]["medium"], 10)
 
+        self.assertEqual(
+            dashboard["evidence_readiness_integration_status"],
+            "source_001_context_ready",
+        )
+        readiness = dashboard["evidence_readiness_score_summary"]
+        self.assertEqual(readiness["medium_count"], 10)
+        self.assertEqual(readiness["low_count"], 4)
+        self.assertEqual(readiness["blocked_count"], 0)
+        self.assertEqual(
+            dashboard["markets_reviewed_vs_unreviewed"]["unreviewed_market_ids"],
+            ["597964", "598936", "691547", "692258"],
+        )
+        self.assertEqual(len(dashboard["markets_with_medium_evidence_completeness"]), 10)
+        self.assertIn("elections", dashboard["category_gap_summary"])
+        self.assertTrue(dashboard["no_market_action_guidance"])
+
         safety = dashboard["safety_summary"]
         self.assertTrue(safety["operator_review_only"])
         self.assertTrue(safety["passive_context_only"])
         self.assertTrue(safety["no_trading_authority"])
         self.assertTrue(safety["no_queue_authority"])
         self.assertTrue(safety["no_runtime_authority"])
+        self.assertTrue(safety["no_dispatcher_authority"])
         self.assertTrue(safety["no_wallet_or_order_authority"])
+        self.assertTrue(safety["acceptance_is_not_trading_approval"])
         self.assertEqual(dashboard["openrouter_calls_performed"], 0)
         self.assertEqual(dashboard["polymarket_api_calls_performed"], 0)
         self.assertEqual(dashboard["network_calls_performed"], 0)

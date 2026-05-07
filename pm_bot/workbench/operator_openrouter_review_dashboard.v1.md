@@ -39,7 +39,10 @@
 - no_trading_authority: true
 - no_queue_authority: true
 - no_runtime_authority: true
+- no_dispatcher_authority: true
 - no_wallet_or_order_authority: true
+- acceptance_is_not_trading_approval: true
+- no_market_action_guidance: true
 
 ## Inventory Summary
 
@@ -59,6 +62,34 @@
 ## Evidence Completeness
 
 - medium: 10
+
+## Evidence Readiness
+
+- integration_status: source_001_context_ready
+- high_count: 0
+- medium_count: 10
+- low_count: 4
+- blocked_count: 0
+- average_evidence_readiness_score: 75.43
+- reviewed_market_ids: 563650, 569332, 569333, 569334, 569343, 569344, 569366, 569368, 569373, 573656
+- unreviewed_market_ids: 597964, 598936, 691547, 692258
+- markets_with_medium_evidence_completeness: 563650, 569332, 569333, 569334, 569343, 569344, 569366, 569368, 569373, 573656
+
+## Category Gap Summary
+
+- company/business: priority=high, effort=medium, markets=691547, 692258
+- crypto: priority=high, effort=small, markets=573656
+- elections: priority=high, effort=large, markets=569332, 569333, 569334, 569343, 569344, 569366, 569368, 569373, 598936
+- legal/courts: priority=high, effort=small, markets=563650
+- politics: priority=high, effort=small, markets=597964
+
+## Recommended Next Local Enrichment Focus
+
+- resolution source extraction
+- source gap normalization
+- operator checklist standardization for unreviewed packets
+- contradiction and risk context builder for unreviewed packets
+- local packet completeness scorer integration
 
 ## Operator Next Engineering Actions
 
@@ -86,3 +117,13 @@
 - runbook: docs/PMBOT_OPENROUTER_OPERATOR_REVIEW_RUNBOOK.md
 - decision_matrix_json: pm_bot/llm/openrouter_next_step_decision_matrix.v1.json
 - decision_matrix_md: docs/PMBOT_OPENROUTER_NEXT_STEP_DECISION_MATRIX.md
+- requirements_json: pm_bot/llm/source_evidence_enrichment_requirements.v1.json
+- requirements_md: pm_bot/llm/source_evidence_enrichment_requirements.v1.md
+- readiness_scores_json: pm_bot/llm/current_llm_packet_evidence_readiness_scores.v1.json
+- readiness_scores_md: pm_bot/llm/current_llm_packet_evidence_readiness_scores.v1.md
+- gap_plan_json: pm_bot/llm/source_evidence_gap_plan_by_category.v1.json
+- gap_plan_md: pm_bot/llm/source_evidence_gap_plan_by_category.v1.md
+- completeness_contract_json: pm_bot/llm/llm_market_packet_completeness_contract.v1.json
+- completeness_contract_md: pm_bot/llm/llm_market_packet_completeness_contract.v1.md
+- enrichment_design_json: pm_bot/llm/source_evidence_enrichment_design.v1.json
+- enrichment_design_md: docs/PMBOT_SOURCE_EVIDENCE_ENRICHMENT_DESIGN.md

@@ -342,7 +342,296 @@
         "operator checklist standardization",
         "local packet completeness score"
       ]
-    }
+    },
+    "evidence_readiness_score_summary": {
+      "high_count": 0,
+      "medium_count": 10,
+      "low_count": 4,
+      "blocked_count": 0,
+      "average_evidence_readiness_score": 75.43,
+      "category_score_summary": {
+        "company/business": {
+          "market_count": 2,
+          "reviewed_count": 0,
+          "unreviewed_count": 2,
+          "average_evidence_readiness_score": 54.0,
+          "readiness_band_counts": {
+            "high": 0,
+            "medium": 0,
+            "low": 2,
+            "blocked": 0
+          },
+          "market_ids": [
+            "691547",
+            "692258"
+          ]
+        },
+        "crypto": {
+          "market_count": 1,
+          "reviewed_count": 1,
+          "unreviewed_count": 0,
+          "average_evidence_readiness_score": 84.0,
+          "readiness_band_counts": {
+            "high": 0,
+            "medium": 1,
+            "low": 0,
+            "blocked": 0
+          },
+          "market_ids": [
+            "573656"
+          ]
+        },
+        "elections": {
+          "market_count": 9,
+          "reviewed_count": 8,
+          "unreviewed_count": 1,
+          "average_evidence_readiness_score": 80.67,
+          "readiness_band_counts": {
+            "high": 0,
+            "medium": 8,
+            "low": 1,
+            "blocked": 0
+          },
+          "market_ids": [
+            "569332",
+            "569333",
+            "569334",
+            "569343",
+            "569344",
+            "569366",
+            "569368",
+            "569373",
+            "598936"
+          ]
+        },
+        "legal/courts": {
+          "market_count": 1,
+          "reviewed_count": 1,
+          "unreviewed_count": 0,
+          "average_evidence_readiness_score": 84.0,
+          "readiness_band_counts": {
+            "high": 0,
+            "medium": 1,
+            "low": 0,
+            "blocked": 0
+          },
+          "market_ids": [
+            "563650"
+          ]
+        },
+        "politics": {
+          "market_count": 1,
+          "reviewed_count": 0,
+          "unreviewed_count": 1,
+          "average_evidence_readiness_score": 54.0,
+          "readiness_band_counts": {
+            "high": 0,
+            "medium": 0,
+            "low": 1,
+            "blocked": 0
+          },
+          "market_ids": [
+            "597964"
+          ]
+        }
+      }
+    },
+    "category_gap_summary": {
+      "company/business": {
+        "market_ids_in_category": [
+          "691547",
+          "692258"
+        ],
+        "recommended_priority": "high",
+        "estimated_effort": "medium",
+        "top_missing_fields": [
+          {
+            "field": "contradiction_checks",
+            "market_count": 2
+          },
+          {
+            "field": "entity",
+            "market_count": 2
+          },
+          {
+            "field": "event_definition",
+            "market_count": 2
+          },
+          {
+            "field": "evidence_completeness_audit_status",
+            "market_count": 2
+          },
+          {
+            "field": "full_market_resolution_criteria_text",
+            "market_count": 2
+          }
+        ]
+      },
+      "crypto": {
+        "market_ids_in_category": [
+          "573656"
+        ],
+        "recommended_priority": "high",
+        "estimated_effort": "small",
+        "top_missing_fields": [
+          {
+            "field": "asset_or_ticker",
+            "market_count": 1
+          },
+          {
+            "field": "benchmark_and_timezone_rules",
+            "market_count": 1
+          },
+          {
+            "field": "full_market_resolution_criteria_text",
+            "market_count": 1
+          },
+          {
+            "field": "full_resolution_rules",
+            "market_count": 1
+          },
+          {
+            "field": "non_placeholder_evidence_notes",
+            "market_count": 1
+          }
+        ]
+      },
+      "elections": {
+        "market_ids_in_category": [
+          "569332",
+          "569333",
+          "569334",
+          "569343",
+          "569344",
+          "569366",
+          "569368",
+          "569373",
+          "598936"
+        ],
+        "recommended_priority": "high",
+        "estimated_effort": "large",
+        "top_missing_fields": [
+          {
+            "field": "candidate_or_party_if_applicable",
+            "market_count": 9
+          },
+          {
+            "field": "full_market_resolution_criteria_text",
+            "market_count": 9
+          },
+          {
+            "field": "full_resolution_rules",
+            "market_count": 9
+          },
+          {
+            "field": "jurisdiction",
+            "market_count": 9
+          },
+          {
+            "field": "non_placeholder_evidence_notes",
+            "market_count": 9
+          }
+        ]
+      },
+      "legal/courts": {
+        "market_ids_in_category": [
+          "563650"
+        ],
+        "recommended_priority": "high",
+        "estimated_effort": "small",
+        "top_missing_fields": [
+          {
+            "field": "case_or_event_definition",
+            "market_count": 1
+          },
+          {
+            "field": "court_or_legal_body",
+            "market_count": 1
+          },
+          {
+            "field": "docket_identifier",
+            "market_count": 1
+          },
+          {
+            "field": "full_market_resolution_criteria_text",
+            "market_count": 1
+          },
+          {
+            "field": "full_resolution_rules",
+            "market_count": 1
+          }
+        ]
+      },
+      "politics": {
+        "market_ids_in_category": [
+          "597964"
+        ],
+        "recommended_priority": "high",
+        "estimated_effort": "small",
+        "top_missing_fields": [
+          {
+            "field": "contradiction_checks",
+            "market_count": 1
+          },
+          {
+            "field": "event_definition",
+            "market_count": 1
+          },
+          {
+            "field": "evidence_completeness_audit_status",
+            "market_count": 1
+          },
+          {
+            "field": "full_market_resolution_criteria_text",
+            "market_count": 1
+          },
+          {
+            "field": "full_resolution_rules",
+            "market_count": 1
+          }
+        ]
+      }
+    },
+    "markets_reviewed_vs_unreviewed": {
+      "reviewed_market_ids": [
+        "563650",
+        "569332",
+        "569333",
+        "569334",
+        "569343",
+        "569344",
+        "569366",
+        "569368",
+        "569373",
+        "573656"
+      ],
+      "unreviewed_market_ids": [
+        "597964",
+        "598936",
+        "691547",
+        "692258"
+      ]
+    },
+    "markets_with_medium_evidence_completeness": [
+      "563650",
+      "569332",
+      "569333",
+      "569334",
+      "569343",
+      "569344",
+      "569366",
+      "569368",
+      "569373",
+      "573656"
+    ],
+    "recommended_next_local_enrichment_focus": [
+      "resolution source extraction",
+      "source gap normalization",
+      "operator checklist standardization for unreviewed packets",
+      "contradiction and risk context builder for unreviewed packets",
+      "local packet completeness scorer integration"
+    ],
+    "no_market_action_guidance": true
   },
   "missing_artifacts": [],
   "warnings_count": 4,

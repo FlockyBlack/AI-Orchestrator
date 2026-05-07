@@ -327,6 +327,21 @@ class OperatorWorkbenchExportRunnerTests(unittest.TestCase):
             summary["openrouter_review_dashboard"]["combined_openrouter_review_contour_summary"]["combined_cost"],
             0.325071,
         )
+        self.assertEqual(
+            summary["openrouter_review_dashboard"]["evidence_readiness_score_summary"]["medium_count"],
+            10,
+        )
+        self.assertEqual(
+            summary["openrouter_review_dashboard"]["evidence_readiness_score_summary"]["low_count"],
+            4,
+        )
+        self.assertEqual(
+            summary["openrouter_review_dashboard"]["markets_reviewed_vs_unreviewed"][
+                "unreviewed_market_ids"
+            ],
+            ["597964", "598936", "691547", "692258"],
+        )
+        self.assertTrue(summary["openrouter_review_dashboard"]["no_market_action_guidance"])
         self.assertTrue(openrouter["operator_review_only"])
         self.assertTrue(openrouter["passive_context_only"])
         self.assertTrue(openrouter["no_trading_authority"])

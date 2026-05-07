@@ -457,6 +457,18 @@ def render_markdown(summary):
             f"{openrouter_dashboard['usage_summary'].get('combined_tokens', 0)}",
             "- total_markets_found: "
             f"{openrouter_dashboard['inventory_summary'].get('total_markets_found', 0)}",
+            "- evidence_readiness_integration_status: "
+            f"{openrouter_dashboard.get('evidence_readiness_integration_status')}",
+            "- evidence_readiness_low_count: "
+            f"{openrouter_dashboard.get('evidence_readiness_score_summary', {}).get('low_count', 0)}",
+            "- average_evidence_readiness_score: "
+            f"{openrouter_dashboard.get('evidence_readiness_score_summary', {}).get('average_evidence_readiness_score', 0)}",
+            "- markets_with_medium_evidence_completeness: "
+            f"{', '.join(openrouter_dashboard.get('markets_with_medium_evidence_completeness', []))}",
+            "- recommended_next_local_enrichment_focus: "
+            f"{', '.join(openrouter_dashboard.get('recommended_next_local_enrichment_focus', []))}",
+            "- no_market_action_guidance: "
+            f"{str(openrouter_dashboard.get('no_market_action_guidance', True)).lower()}",
         ]
     )
 
@@ -573,6 +585,22 @@ def _result_payload(summary):
                 "combined_openrouter_review_contour_summary"
             ],
             "inventory_summary": summary["openrouter_review_dashboard"]["inventory_summary"],
+            "evidence_readiness_score_summary": summary["openrouter_review_dashboard"][
+                "evidence_readiness_score_summary"
+            ],
+            "category_gap_summary": summary["openrouter_review_dashboard"]["category_gap_summary"],
+            "markets_reviewed_vs_unreviewed": summary["openrouter_review_dashboard"][
+                "markets_reviewed_vs_unreviewed"
+            ],
+            "markets_with_medium_evidence_completeness": summary["openrouter_review_dashboard"][
+                "markets_with_medium_evidence_completeness"
+            ],
+            "recommended_next_local_enrichment_focus": summary["openrouter_review_dashboard"][
+                "recommended_next_local_enrichment_focus"
+            ],
+            "no_market_action_guidance": summary["openrouter_review_dashboard"][
+                "no_market_action_guidance"
+            ],
             "artifact_pointers": summary["openrouter_review_dashboard"]["artifact_pointers"],
         },
         "safety_flags": summary["safety_flags"],

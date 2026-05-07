@@ -956,6 +956,10 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertIn("combined_cost: 0.325071", markdown)
         self.assertIn("OpenRouter Review Dashboard", markdown)
         self.assertIn("total_markets_found: 14", markdown)
+        self.assertIn("evidence_readiness_integration_status: source_001_context_ready", markdown)
+        self.assertIn("evidence_readiness_low_count: 4", markdown)
+        self.assertIn("average_evidence_readiness_score: 75.43", markdown)
+        self.assertIn("no_market_action_guidance: true", markdown)
         self.assertIn("OpenRouter Passive Surface Safety Flags", markdown)
         self.assertIn("no_runtime_authority: true", markdown)
         self.assertIn("manual_review_only: true", markdown)
@@ -1003,6 +1007,21 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         )
         self.assertEqual(result["openrouter_review_dashboard"]["artifact_status"], "present")
         self.assertEqual(result["openrouter_review_dashboard"]["inventory_summary"]["total_markets_found"], 14)
+        self.assertEqual(
+            result["openrouter_review_dashboard"]["evidence_readiness_score_summary"]["medium_count"],
+            10,
+        )
+        self.assertEqual(
+            result["openrouter_review_dashboard"]["evidence_readiness_score_summary"]["low_count"],
+            4,
+        )
+        self.assertEqual(
+            result["openrouter_review_dashboard"]["markets_reviewed_vs_unreviewed"][
+                "unreviewed_market_ids"
+            ],
+            ["597964", "598936", "691547", "692258"],
+        )
+        self.assertTrue(result["openrouter_review_dashboard"]["no_market_action_guidance"])
         self.assertTrue(result["openrouter_passive_surface"]["safety_summary"]["operator_review_only"])
         self.assertTrue(result["openrouter_passive_surface"]["safety_summary"]["passive_context_only"])
         self.assertEqual(

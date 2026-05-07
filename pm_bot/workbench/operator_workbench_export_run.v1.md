@@ -138,6 +138,12 @@
 - combined_cost: 0.325071
 - combined_tokens: 48573
 - total_markets_found: 14
+- evidence_readiness_integration_status: source_001_context_ready
+- evidence_readiness_low_count: 4
+- average_evidence_readiness_score: 75.43
+- markets_with_medium_evidence_completeness: 563650, 569332, 569333, 569334, 569343, 569344, 569366, 569368, 569373, 573656
+- recommended_next_local_enrichment_focus: resolution source extraction, source gap normalization, operator checklist standardization for unreviewed packets, contradiction and risk context builder for unreviewed packets, local packet completeness scorer integration
+- no_market_action_guidance: true
 
 ## Warnings
 

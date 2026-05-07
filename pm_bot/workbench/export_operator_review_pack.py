@@ -1500,6 +1500,24 @@ def _openrouter_review_dashboard_summary(payloads, inventory):
         "normalization_summary": _safe_dict(dashboard.get("normalization_summary")),
         "inventory_summary": _safe_dict(dashboard.get("inventory_summary")),
         "evidence_completeness_summary": _safe_dict(dashboard.get("evidence_completeness_summary")),
+        "evidence_readiness_integration_status": dashboard.get(
+            "evidence_readiness_integration_status"
+        ),
+        "evidence_readiness_score_summary": _safe_dict(
+            dashboard.get("evidence_readiness_score_summary")
+        ),
+        "category_gap_summary": _safe_dict(dashboard.get("category_gap_summary")),
+        "markets_reviewed_vs_unreviewed": _safe_dict(
+            dashboard.get("markets_reviewed_vs_unreviewed")
+        ),
+        "markets_with_medium_evidence_completeness": _safe_list(
+            dashboard.get("markets_with_medium_evidence_completeness")
+        ),
+        "recommended_next_local_enrichment_focus": _safe_list(
+            dashboard.get("recommended_next_local_enrichment_focus")
+        ),
+        "top_missing_fields": _safe_list(dashboard.get("top_missing_fields")),
+        "no_market_action_guidance": dashboard.get("no_market_action_guidance", True),
         "operator_next_engineering_actions": _safe_list(
             dashboard.get("operator_next_engineering_actions")
         ),
@@ -2292,6 +2310,18 @@ def render_operator_review_pack_markdown(pack):
             f"{openrouter_review_dashboard['inventory_summary'].get('total_markets_found', 0)}",
             "- total_reviewed_by_openrouter: "
             f"{openrouter_review_dashboard['inventory_summary'].get('total_reviewed_by_openrouter', 0)}",
+            "- evidence_readiness_integration_status: "
+            f"{openrouter_review_dashboard['evidence_readiness_integration_status']}",
+            "- evidence_readiness_low_count: "
+            f"{openrouter_review_dashboard['evidence_readiness_score_summary'].get('low_count', 0)}",
+            "- average_evidence_readiness_score: "
+            f"{openrouter_review_dashboard['evidence_readiness_score_summary'].get('average_evidence_readiness_score', 0)}",
+            "- markets_with_medium_evidence_completeness: "
+            f"{', '.join(openrouter_review_dashboard['markets_with_medium_evidence_completeness'])}",
+            "- recommended_next_local_enrichment_focus: "
+            f"{', '.join(openrouter_review_dashboard['recommended_next_local_enrichment_focus'])}",
+            "- no_market_action_guidance: "
+            f"{str(openrouter_review_dashboard['no_market_action_guidance']).lower()}",
         ]
     )
 
@@ -2419,6 +2449,22 @@ def _result_payload(pack):
             "inventory_summary": pack["openrouter_review_dashboard"]["inventory_summary"],
             "evidence_completeness_summary": pack["openrouter_review_dashboard"][
                 "evidence_completeness_summary"
+            ],
+            "evidence_readiness_score_summary": pack["openrouter_review_dashboard"][
+                "evidence_readiness_score_summary"
+            ],
+            "category_gap_summary": pack["openrouter_review_dashboard"]["category_gap_summary"],
+            "markets_reviewed_vs_unreviewed": pack["openrouter_review_dashboard"][
+                "markets_reviewed_vs_unreviewed"
+            ],
+            "markets_with_medium_evidence_completeness": pack["openrouter_review_dashboard"][
+                "markets_with_medium_evidence_completeness"
+            ],
+            "recommended_next_local_enrichment_focus": pack["openrouter_review_dashboard"][
+                "recommended_next_local_enrichment_focus"
+            ],
+            "no_market_action_guidance": pack["openrouter_review_dashboard"][
+                "no_market_action_guidance"
             ],
         },
         "missing_artifacts": pack["missing_artifacts"],

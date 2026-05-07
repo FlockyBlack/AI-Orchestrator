@@ -1,0 +1,675 @@
+{
+  "schema_version": "source_evidence_enrichment_design.v1",
+  "task_id": "PMBOT-SOURCE-001-EVIDENCE-ENRICHMENT-DESIGN-FROM-INVENTORY",
+  "generated_by": "pm_bot/llm/source_evidence_enrichment_artifacts.py",
+  "generated_at_marker": "deterministic-source-001-local-artifact-generation.v1",
+  "status": "enrichment_design_created",
+  "implementation_status": "design_only",
+  "live_adapters_implemented": false,
+  "runtime_wiring_added": false,
+  "network_code_added": false,
+  "source_inventory_path": "pm_bot/llm/current_llm_market_packet_inventory.v1.json",
+  "adapters": [
+    {
+      "name": "resolution_source_extractor_local",
+      "purpose": "Extract resolution/rule snippets from local packet fields and mark gaps explicitly.",
+      "input": [
+        "local packet JSON",
+        "market_context",
+        "local_review_context",
+        "source_gap_notes"
+      ],
+      "output": [
+        "resolution_rule_notes",
+        "source_gap_notes",
+        "unknown_fields"
+      ],
+      "allowed_data_source_type": "local_file",
+      "current_implementation_status": "design_only",
+      "requires_network": false,
+      "future_network_possible": false,
+      "future_network_requires_separate_approval": false,
+      "safety_constraints": {
+        "operator_review_only": true,
+        "passive_context_only": true,
+        "no_trading_authority": true,
+        "no_queue_authority": true,
+        "no_runtime_authority": true,
+        "no_dispatcher_authority": true,
+        "no_wallet_or_order_authority": true,
+        "acceptance_is_not_trading_approval": true,
+        "analysis_only": true,
+        "manual_review_only": true,
+        "no_market_action_guidance": true,
+        "no_probability_ev_edge_confidence_side_selection": true,
+        "no_buy_sell_hold_enter_exit": true,
+        "openrouter_calls_performed_by_this_task": 0,
+        "polymarket_api_calls_performed_by_this_task": 0,
+        "external_network_calls_performed_by_this_task": 0,
+        "network_calls_performed_by_this_task": 0,
+        "api_key_accessed": false,
+        "api_key_value_printed": false,
+        "api_key_value_written": false,
+        "api_key_leaked": false,
+        "wallet_or_private_key_accessed": false,
+        "orders_created": 0,
+        "queue_items_created": 0,
+        "queue_state_mutated": false,
+        "runtime_wiring_added": false,
+        "dispatcher_changed": false,
+        "background_workers_added": false,
+        "browser_automation_used": false,
+        "live_enrichment_performed": false,
+        "market_decisions_made": false
+      },
+      "artifact_paths_it_would_produce": [
+        "pm_bot/llm/future_resolution_source_extractor_output.v1.json"
+      ],
+      "how_it_would_improve_packet_completeness": "It would replace placeholder or missing packet evidence fields with reviewed local structure, explicit unknowns, and operator-review-only completeness metadata.",
+      "category_applicability": [
+        "company/business",
+        "crypto",
+        "elections",
+        "legal/courts",
+        "politics"
+      ],
+      "validation_requirements": [
+        "all outputs parse as JSON",
+        "no live network/API/browser/LLM calls",
+        "no credential or wallet access",
+        "no queue/runtime/dispatcher mutation",
+        "no market action guidance"
+      ]
+    },
+    {
+      "name": "category_field_normalizer",
+      "purpose": "Normalize category-specific fields from title/question and local packet snippets.",
+      "input": [
+        "inventory category",
+        "title_or_question",
+        "local packet JSON"
+      ],
+      "output": [
+        "category_specific_fields",
+        "unknown_category_fields"
+      ],
+      "allowed_data_source_type": "local_file",
+      "current_implementation_status": "design_only",
+      "requires_network": false,
+      "future_network_possible": false,
+      "future_network_requires_separate_approval": false,
+      "safety_constraints": {
+        "operator_review_only": true,
+        "passive_context_only": true,
+        "no_trading_authority": true,
+        "no_queue_authority": true,
+        "no_runtime_authority": true,
+        "no_dispatcher_authority": true,
+        "no_wallet_or_order_authority": true,
+        "acceptance_is_not_trading_approval": true,
+        "analysis_only": true,
+        "manual_review_only": true,
+        "no_market_action_guidance": true,
+        "no_probability_ev_edge_confidence_side_selection": true,
+        "no_buy_sell_hold_enter_exit": true,
+        "openrouter_calls_performed_by_this_task": 0,
+        "polymarket_api_calls_performed_by_this_task": 0,
+        "external_network_calls_performed_by_this_task": 0,
+        "network_calls_performed_by_this_task": 0,
+        "api_key_accessed": false,
+        "api_key_value_printed": false,
+        "api_key_value_written": false,
+        "api_key_leaked": false,
+        "wallet_or_private_key_accessed": false,
+        "orders_created": 0,
+        "queue_items_created": 0,
+        "queue_state_mutated": false,
+        "runtime_wiring_added": false,
+        "dispatcher_changed": false,
+        "background_workers_added": false,
+        "browser_automation_used": false,
+        "live_enrichment_performed": false,
+        "market_decisions_made": false
+      },
+      "artifact_paths_it_would_produce": [
+        "pm_bot/llm/future_category_field_normalizer_output.v1.json"
+      ],
+      "how_it_would_improve_packet_completeness": "It would replace placeholder or missing packet evidence fields with reviewed local structure, explicit unknowns, and operator-review-only completeness metadata.",
+      "category_applicability": [
+        "company/business",
+        "crypto",
+        "elections",
+        "legal/courts",
+        "politics"
+      ],
+      "validation_requirements": [
+        "all outputs parse as JSON",
+        "no live network/API/browser/LLM calls",
+        "no credential or wallet access",
+        "no queue/runtime/dispatcher mutation",
+        "no market action guidance"
+      ]
+    },
+    {
+      "name": "packet_completeness_scorer",
+      "purpose": "Compute deterministic evidence readiness scores for local packet artifacts.",
+      "input": [
+        "inventory JSON",
+        "evidence audit JSON",
+        "local packet/prompt artifacts"
+      ],
+      "output": [
+        "per_market_scores",
+        "aggregate_readiness_summary"
+      ],
+      "allowed_data_source_type": "local_file",
+      "current_implementation_status": "design_only",
+      "requires_network": false,
+      "future_network_possible": false,
+      "future_network_requires_separate_approval": false,
+      "safety_constraints": {
+        "operator_review_only": true,
+        "passive_context_only": true,
+        "no_trading_authority": true,
+        "no_queue_authority": true,
+        "no_runtime_authority": true,
+        "no_dispatcher_authority": true,
+        "no_wallet_or_order_authority": true,
+        "acceptance_is_not_trading_approval": true,
+        "analysis_only": true,
+        "manual_review_only": true,
+        "no_market_action_guidance": true,
+        "no_probability_ev_edge_confidence_side_selection": true,
+        "no_buy_sell_hold_enter_exit": true,
+        "openrouter_calls_performed_by_this_task": 0,
+        "polymarket_api_calls_performed_by_this_task": 0,
+        "external_network_calls_performed_by_this_task": 0,
+        "network_calls_performed_by_this_task": 0,
+        "api_key_accessed": false,
+        "api_key_value_printed": false,
+        "api_key_value_written": false,
+        "api_key_leaked": false,
+        "wallet_or_private_key_accessed": false,
+        "orders_created": 0,
+        "queue_items_created": 0,
+        "queue_state_mutated": false,
+        "runtime_wiring_added": false,
+        "dispatcher_changed": false,
+        "background_workers_added": false,
+        "browser_automation_used": false,
+        "live_enrichment_performed": false,
+        "market_decisions_made": false
+      },
+      "artifact_paths_it_would_produce": [
+        "pm_bot/llm/current_llm_packet_evidence_readiness_scores.v1.json"
+      ],
+      "how_it_would_improve_packet_completeness": "It would replace placeholder or missing packet evidence fields with reviewed local structure, explicit unknowns, and operator-review-only completeness metadata.",
+      "category_applicability": [
+        "company/business",
+        "crypto",
+        "elections",
+        "legal/courts",
+        "politics"
+      ],
+      "validation_requirements": [
+        "all outputs parse as JSON",
+        "no live network/API/browser/LLM calls",
+        "no credential or wallet access",
+        "no queue/runtime/dispatcher mutation",
+        "no market action guidance"
+      ]
+    },
+    {
+      "name": "source_gap_normalizer",
+      "purpose": "Standardize missing evidence and source gap notes from local packet JSON.",
+      "input": [
+        "missing_evidence",
+        "source_gap_notes",
+        "evidence_source_placeholders"
+      ],
+      "output": [
+        "normalized_source_gaps",
+        "gap_counts"
+      ],
+      "allowed_data_source_type": "local_file",
+      "current_implementation_status": "design_only",
+      "requires_network": false,
+      "future_network_possible": false,
+      "future_network_requires_separate_approval": false,
+      "safety_constraints": {
+        "operator_review_only": true,
+        "passive_context_only": true,
+        "no_trading_authority": true,
+        "no_queue_authority": true,
+        "no_runtime_authority": true,
+        "no_dispatcher_authority": true,
+        "no_wallet_or_order_authority": true,
+        "acceptance_is_not_trading_approval": true,
+        "analysis_only": true,
+        "manual_review_only": true,
+        "no_market_action_guidance": true,
+        "no_probability_ev_edge_confidence_side_selection": true,
+        "no_buy_sell_hold_enter_exit": true,
+        "openrouter_calls_performed_by_this_task": 0,
+        "polymarket_api_calls_performed_by_this_task": 0,
+        "external_network_calls_performed_by_this_task": 0,
+        "network_calls_performed_by_this_task": 0,
+        "api_key_accessed": false,
+        "api_key_value_printed": false,
+        "api_key_value_written": false,
+        "api_key_leaked": false,
+        "wallet_or_private_key_accessed": false,
+        "orders_created": 0,
+        "queue_items_created": 0,
+        "queue_state_mutated": false,
+        "runtime_wiring_added": false,
+        "dispatcher_changed": false,
+        "background_workers_added": false,
+        "browser_automation_used": false,
+        "live_enrichment_performed": false,
+        "market_decisions_made": false
+      },
+      "artifact_paths_it_would_produce": [
+        "pm_bot/llm/future_source_gap_normalizer_output.v1.json"
+      ],
+      "how_it_would_improve_packet_completeness": "It would replace placeholder or missing packet evidence fields with reviewed local structure, explicit unknowns, and operator-review-only completeness metadata.",
+      "category_applicability": [
+        "company/business",
+        "crypto",
+        "elections",
+        "legal/courts",
+        "politics"
+      ],
+      "validation_requirements": [
+        "all outputs parse as JSON",
+        "no live network/API/browser/LLM calls",
+        "no credential or wallet access",
+        "no queue/runtime/dispatcher mutation",
+        "no market action guidance"
+      ]
+    },
+    {
+      "name": "contradiction_context_builder",
+      "purpose": "Build local contradiction context sections from packet text only.",
+      "input": [
+        "title_or_question",
+        "resolution snippets",
+        "source gap notes"
+      ],
+      "output": [
+        "contradiction_check_context"
+      ],
+      "allowed_data_source_type": "local_file",
+      "current_implementation_status": "design_only",
+      "requires_network": false,
+      "future_network_possible": false,
+      "future_network_requires_separate_approval": false,
+      "safety_constraints": {
+        "operator_review_only": true,
+        "passive_context_only": true,
+        "no_trading_authority": true,
+        "no_queue_authority": true,
+        "no_runtime_authority": true,
+        "no_dispatcher_authority": true,
+        "no_wallet_or_order_authority": true,
+        "acceptance_is_not_trading_approval": true,
+        "analysis_only": true,
+        "manual_review_only": true,
+        "no_market_action_guidance": true,
+        "no_probability_ev_edge_confidence_side_selection": true,
+        "no_buy_sell_hold_enter_exit": true,
+        "openrouter_calls_performed_by_this_task": 0,
+        "polymarket_api_calls_performed_by_this_task": 0,
+        "external_network_calls_performed_by_this_task": 0,
+        "network_calls_performed_by_this_task": 0,
+        "api_key_accessed": false,
+        "api_key_value_printed": false,
+        "api_key_value_written": false,
+        "api_key_leaked": false,
+        "wallet_or_private_key_accessed": false,
+        "orders_created": 0,
+        "queue_items_created": 0,
+        "queue_state_mutated": false,
+        "runtime_wiring_added": false,
+        "dispatcher_changed": false,
+        "background_workers_added": false,
+        "browser_automation_used": false,
+        "live_enrichment_performed": false,
+        "market_decisions_made": false
+      },
+      "artifact_paths_it_would_produce": [
+        "pm_bot/llm/future_contradiction_context_builder_output.v1.json"
+      ],
+      "how_it_would_improve_packet_completeness": "It would replace placeholder or missing packet evidence fields with reviewed local structure, explicit unknowns, and operator-review-only completeness metadata.",
+      "category_applicability": [
+        "company/business",
+        "crypto",
+        "elections",
+        "legal/courts",
+        "politics"
+      ],
+      "validation_requirements": [
+        "all outputs parse as JSON",
+        "no live network/API/browser/LLM calls",
+        "no credential or wallet access",
+        "no queue/runtime/dispatcher mutation",
+        "no market action guidance"
+      ]
+    },
+    {
+      "name": "operator_checklist_standardizer",
+      "purpose": "Create standardized operator checklist sections for local packet review.",
+      "input": [
+        "requirements artifact",
+        "readiness scores",
+        "category gap plan"
+      ],
+      "output": [
+        "operator_checklist"
+      ],
+      "allowed_data_source_type": "local_file",
+      "current_implementation_status": "design_only",
+      "requires_network": false,
+      "future_network_possible": false,
+      "future_network_requires_separate_approval": false,
+      "safety_constraints": {
+        "operator_review_only": true,
+        "passive_context_only": true,
+        "no_trading_authority": true,
+        "no_queue_authority": true,
+        "no_runtime_authority": true,
+        "no_dispatcher_authority": true,
+        "no_wallet_or_order_authority": true,
+        "acceptance_is_not_trading_approval": true,
+        "analysis_only": true,
+        "manual_review_only": true,
+        "no_market_action_guidance": true,
+        "no_probability_ev_edge_confidence_side_selection": true,
+        "no_buy_sell_hold_enter_exit": true,
+        "openrouter_calls_performed_by_this_task": 0,
+        "polymarket_api_calls_performed_by_this_task": 0,
+        "external_network_calls_performed_by_this_task": 0,
+        "network_calls_performed_by_this_task": 0,
+        "api_key_accessed": false,
+        "api_key_value_printed": false,
+        "api_key_value_written": false,
+        "api_key_leaked": false,
+        "wallet_or_private_key_accessed": false,
+        "orders_created": 0,
+        "queue_items_created": 0,
+        "queue_state_mutated": false,
+        "runtime_wiring_added": false,
+        "dispatcher_changed": false,
+        "background_workers_added": false,
+        "browser_automation_used": false,
+        "live_enrichment_performed": false,
+        "market_decisions_made": false
+      },
+      "artifact_paths_it_would_produce": [
+        "pm_bot/llm/future_operator_checklist_standardizer_output.v1.json"
+      ],
+      "how_it_would_improve_packet_completeness": "It would replace placeholder or missing packet evidence fields with reviewed local structure, explicit unknowns, and operator-review-only completeness metadata.",
+      "category_applicability": [
+        "company/business",
+        "crypto",
+        "elections",
+        "legal/courts",
+        "politics"
+      ],
+      "validation_requirements": [
+        "all outputs parse as JSON",
+        "no live network/API/browser/LLM calls",
+        "no credential or wallet access",
+        "no queue/runtime/dispatcher mutation",
+        "no market action guidance"
+      ]
+    },
+    {
+      "name": "local_snapshot_evidence_reader",
+      "purpose": "Read manually exported local snapshots and attach provenance-only evidence notes.",
+      "input": [
+        "local snapshot JSON/Markdown",
+        "packet market_id",
+        "category requirements"
+      ],
+      "output": [
+        "local_snapshot_evidence_notes",
+        "snapshot_provenance"
+      ],
+      "allowed_data_source_type": "local_snapshot",
+      "current_implementation_status": "design_only",
+      "requires_network": false,
+      "future_network_possible": false,
+      "future_network_requires_separate_approval": false,
+      "safety_constraints": {
+        "operator_review_only": true,
+        "passive_context_only": true,
+        "no_trading_authority": true,
+        "no_queue_authority": true,
+        "no_runtime_authority": true,
+        "no_dispatcher_authority": true,
+        "no_wallet_or_order_authority": true,
+        "acceptance_is_not_trading_approval": true,
+        "analysis_only": true,
+        "manual_review_only": true,
+        "no_market_action_guidance": true,
+        "no_probability_ev_edge_confidence_side_selection": true,
+        "no_buy_sell_hold_enter_exit": true,
+        "openrouter_calls_performed_by_this_task": 0,
+        "polymarket_api_calls_performed_by_this_task": 0,
+        "external_network_calls_performed_by_this_task": 0,
+        "network_calls_performed_by_this_task": 0,
+        "api_key_accessed": false,
+        "api_key_value_printed": false,
+        "api_key_value_written": false,
+        "api_key_leaked": false,
+        "wallet_or_private_key_accessed": false,
+        "orders_created": 0,
+        "queue_items_created": 0,
+        "queue_state_mutated": false,
+        "runtime_wiring_added": false,
+        "dispatcher_changed": false,
+        "background_workers_added": false,
+        "browser_automation_used": false,
+        "live_enrichment_performed": false,
+        "market_decisions_made": false
+      },
+      "artifact_paths_it_would_produce": [
+        "pm_bot/llm/future_local_snapshot_evidence_reader_output.v1.json"
+      ],
+      "how_it_would_improve_packet_completeness": "It would replace placeholder or missing packet evidence fields with reviewed local structure, explicit unknowns, and operator-review-only completeness metadata.",
+      "category_applicability": [
+        "company/business",
+        "crypto",
+        "elections",
+        "legal/courts",
+        "politics"
+      ],
+      "validation_requirements": [
+        "all outputs parse as JSON",
+        "no live network/API/browser/LLM calls",
+        "no credential or wallet access",
+        "no queue/runtime/dispatcher mutation",
+        "no market action guidance"
+      ]
+    },
+    {
+      "name": "future_read_only_polymarket_gamma_snapshot_importer",
+      "purpose": "Design-only importer for a future approved read-only Polymarket Gamma snapshot.",
+      "input": [
+        "approved read-only snapshot source",
+        "market_id list"
+      ],
+      "output": [
+        "local_snapshot_file",
+        "snapshot_import_manifest"
+      ],
+      "allowed_data_source_type": "future_read_only_api",
+      "current_implementation_status": "design_only",
+      "requires_network": false,
+      "future_network_possible": true,
+      "future_network_requires_separate_approval": true,
+      "safety_constraints": {
+        "operator_review_only": true,
+        "passive_context_only": true,
+        "no_trading_authority": true,
+        "no_queue_authority": true,
+        "no_runtime_authority": true,
+        "no_dispatcher_authority": true,
+        "no_wallet_or_order_authority": true,
+        "acceptance_is_not_trading_approval": true,
+        "analysis_only": true,
+        "manual_review_only": true,
+        "no_market_action_guidance": true,
+        "no_probability_ev_edge_confidence_side_selection": true,
+        "no_buy_sell_hold_enter_exit": true,
+        "openrouter_calls_performed_by_this_task": 0,
+        "polymarket_api_calls_performed_by_this_task": 0,
+        "external_network_calls_performed_by_this_task": 0,
+        "network_calls_performed_by_this_task": 0,
+        "api_key_accessed": false,
+        "api_key_value_printed": false,
+        "api_key_value_written": false,
+        "api_key_leaked": false,
+        "wallet_or_private_key_accessed": false,
+        "orders_created": 0,
+        "queue_items_created": 0,
+        "queue_state_mutated": false,
+        "runtime_wiring_added": false,
+        "dispatcher_changed": false,
+        "background_workers_added": false,
+        "browser_automation_used": false,
+        "live_enrichment_performed": false,
+        "market_decisions_made": false
+      },
+      "artifact_paths_it_would_produce": [
+        "pm_bot/llm/future_polymarket_gamma_snapshot_import_manifest.v1.json"
+      ],
+      "how_it_would_improve_packet_completeness": "It would replace placeholder or missing packet evidence fields with reviewed local structure, explicit unknowns, and operator-review-only completeness metadata.",
+      "category_applicability": [
+        "company/business",
+        "crypto",
+        "elections",
+        "legal/courts",
+        "politics"
+      ],
+      "validation_requirements": [
+        "all outputs parse as JSON",
+        "no live network/API/browser/LLM calls",
+        "no credential or wallet access",
+        "no queue/runtime/dispatcher mutation",
+        "no market action guidance"
+      ]
+    },
+    {
+      "name": "future_category_specific_source_adapter",
+      "purpose": "Design-only category-specific adapter family for approved manually exported or future read-only sources.",
+      "input": [
+        "category",
+        "local source snapshot",
+        "requirements artifact"
+      ],
+      "output": [
+        "category_specific_evidence_fields",
+        "source_gap_updates"
+      ],
+      "allowed_data_source_type": "manually_exported_source",
+      "current_implementation_status": "design_only",
+      "requires_network": false,
+      "future_network_possible": true,
+      "future_network_requires_separate_approval": true,
+      "safety_constraints": {
+        "operator_review_only": true,
+        "passive_context_only": true,
+        "no_trading_authority": true,
+        "no_queue_authority": true,
+        "no_runtime_authority": true,
+        "no_dispatcher_authority": true,
+        "no_wallet_or_order_authority": true,
+        "acceptance_is_not_trading_approval": true,
+        "analysis_only": true,
+        "manual_review_only": true,
+        "no_market_action_guidance": true,
+        "no_probability_ev_edge_confidence_side_selection": true,
+        "no_buy_sell_hold_enter_exit": true,
+        "openrouter_calls_performed_by_this_task": 0,
+        "polymarket_api_calls_performed_by_this_task": 0,
+        "external_network_calls_performed_by_this_task": 0,
+        "network_calls_performed_by_this_task": 0,
+        "api_key_accessed": false,
+        "api_key_value_printed": false,
+        "api_key_value_written": false,
+        "api_key_leaked": false,
+        "wallet_or_private_key_accessed": false,
+        "orders_created": 0,
+        "queue_items_created": 0,
+        "queue_state_mutated": false,
+        "runtime_wiring_added": false,
+        "dispatcher_changed": false,
+        "background_workers_added": false,
+        "browser_automation_used": false,
+        "live_enrichment_performed": false,
+        "market_decisions_made": false
+      },
+      "artifact_paths_it_would_produce": [
+        "pm_bot/llm/future_category_specific_source_adapter_output.v1.json"
+      ],
+      "how_it_would_improve_packet_completeness": "It would replace placeholder or missing packet evidence fields with reviewed local structure, explicit unknowns, and operator-review-only completeness metadata.",
+      "category_applicability": [
+        "company/business",
+        "crypto",
+        "elections",
+        "legal/courts",
+        "politics"
+      ],
+      "validation_requirements": [
+        "all outputs parse as JSON",
+        "no live network/API/browser/LLM calls",
+        "no credential or wallet access",
+        "no queue/runtime/dispatcher mutation",
+        "no market action guidance"
+      ]
+    }
+  ],
+  "current_task_limitations": [
+    "No live enrichment was performed.",
+    "No external data was fetched.",
+    "No API, browser, wallet, order, queue, dispatcher, runtime, or background worker was touched."
+  ],
+  "network_calls_performed": 0,
+  "polymarket_api_calls_performed": 0,
+  "openrouter_calls_performed": 0,
+  "safety_summary": {
+    "operator_review_only": true,
+    "passive_context_only": true,
+    "no_trading_authority": true,
+    "no_queue_authority": true,
+    "no_runtime_authority": true,
+    "no_dispatcher_authority": true,
+    "no_wallet_or_order_authority": true,
+    "acceptance_is_not_trading_approval": true,
+    "analysis_only": true,
+    "manual_review_only": true,
+    "no_market_action_guidance": true,
+    "no_probability_ev_edge_confidence_side_selection": true,
+    "no_buy_sell_hold_enter_exit": true,
+    "openrouter_calls_performed_by_this_task": 0,
+    "polymarket_api_calls_performed_by_this_task": 0,
+    "external_network_calls_performed_by_this_task": 0,
+    "network_calls_performed_by_this_task": 0,
+    "api_key_accessed": false,
+    "api_key_value_printed": false,
+    "api_key_value_written": false,
+    "api_key_leaked": false,
+    "wallet_or_private_key_accessed": false,
+    "orders_created": 0,
+    "queue_items_created": 0,
+    "queue_state_mutated": false,
+    "runtime_wiring_added": false,
+    "dispatcher_changed": false,
+    "background_workers_added": false,
+    "browser_automation_used": false,
+    "live_enrichment_performed": false,
+    "market_decisions_made": false
+  }
+}

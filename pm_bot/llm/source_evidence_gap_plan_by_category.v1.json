@@ -1,0 +1,663 @@
+{
+  "schema_version": "source_evidence_gap_plan_by_category.v1",
+  "task_id": "PMBOT-SOURCE-001-EVIDENCE-ENRICHMENT-DESIGN-FROM-INVENTORY",
+  "generated_by": "pm_bot/llm/source_evidence_enrichment_artifacts.py",
+  "generated_at_marker": "deterministic-source-001-local-artifact-generation.v1",
+  "status": "gap_plan_created",
+  "source_inventory_path": "pm_bot/llm/current_llm_market_packet_inventory.v1.json",
+  "source_readiness_scores_path": "pm_bot/llm/current_llm_packet_evidence_readiness_scores.v1.json",
+  "category_count": 5,
+  "categories": [
+    {
+      "category": "company/business",
+      "market_ids_in_category": [
+        "691547",
+        "692258"
+      ],
+      "common_missing_fields": [
+        {
+          "field": "contradiction_checks",
+          "market_count": 2
+        },
+        {
+          "field": "entity",
+          "market_count": 2
+        },
+        {
+          "field": "event_definition",
+          "market_count": 2
+        },
+        {
+          "field": "evidence_completeness_audit_status",
+          "market_count": 2
+        },
+        {
+          "field": "full_market_resolution_criteria_text",
+          "market_count": 2
+        },
+        {
+          "field": "full_resolution_rules",
+          "market_count": 2
+        },
+        {
+          "field": "instrument_or_business_action_if_applicable",
+          "market_count": 2
+        },
+        {
+          "field": "non_placeholder_evidence_notes",
+          "market_count": 2
+        },
+        {
+          "field": "official_source_references",
+          "market_count": 2
+        },
+        {
+          "field": "official_source_urls_or_rule_references",
+          "market_count": 2
+        },
+        {
+          "field": "operator_checklist",
+          "market_count": 2
+        },
+        {
+          "field": "reviewed_local_evidence_references",
+          "market_count": 2
+        },
+        {
+          "field": "risk_notes",
+          "market_count": 2
+        },
+        {
+          "field": "source_reliability_review",
+          "market_count": 2
+        },
+        {
+          "field": "source_timestamps",
+          "market_count": 2
+        }
+      ],
+      "common_medium-completeness_causes": [
+        "full local resolution/source/rule text is absent or weak",
+        "official source references and timestamps are absent from local packets",
+        "local evidence remains placeholder or source-gap oriented",
+        "unreviewed packets lack local contradiction, risk, and operator checklist sections"
+      ],
+      "required_local_enrichment_fields_to_reach_high": [
+        "full_market_resolution_criteria_text",
+        "official_source_or_rule_reference_notes",
+        "explicit_source_gap_notes",
+        "contradiction_check_context",
+        "risk_notes_context",
+        "operator_checklist",
+        "category_specific_key_fields",
+        "entity",
+        "event_definition",
+        "instrument_or_business_action_if_applicable",
+        "date_or_resolution_window",
+        "source_timestamps_when_present_locally"
+      ],
+      "optional_fields": [
+        "live_external_source_url_when_absent_from_local_artifacts",
+        "source_timestamp_when_absent_from_local_artifacts",
+        "market_status_when_not_recorded_locally",
+        "nonessential_background_context"
+      ],
+      "local_artifact_sources_to_check": [
+        "pm_bot/llm/manual_packet_batch/*_packet.v1.json",
+        "pm_bot/llm/manual_packet_batch/*_prompt.v1.md",
+        "packet.source_artifacts.path",
+        "packet.market_context.public_resolution_context",
+        "packet.local_review_context.local_resolution_or_description_snippet",
+        "packet.source_gap_notes",
+        "packet.missing_evidence"
+      ],
+      "safe_future_adapter_design_notes": [
+        "Adapters should read local packet JSON, prompt Markdown, and manually exported local snapshots only.",
+        "Adapters should emit JSON/Markdown artifacts and not mutate queue or runtime state.",
+        "Adapters should preserve unknowns instead of live-fetching missing fields."
+      ],
+      "unsafe_or_disallowed_sources/actions": [
+        "do_not_fetch_external_data",
+        "do_not_call_polymarket_api",
+        "do_not_call_openrouter_or_other_llm_api",
+        "do_not_use_browser_automation",
+        "do_not_read_or_print_api_keys",
+        "do_not_touch_wallets_orders_or_private_keys",
+        "do_not_mutate_queue_state",
+        "do_not_add_runtime_dispatcher_or_background_wiring",
+        "do_not_produce_market_action_guidance",
+        "do_not_score_probability_ev_edge_confidence_or_side_selection"
+      ],
+      "recommended_priority": "high",
+      "estimated_effort": "medium",
+      "future_task_suggestion": "Normalize company/business source/rule fields from local packets and produce operator-review-only completeness updates."
+    },
+    {
+      "category": "crypto",
+      "market_ids_in_category": [
+        "573656"
+      ],
+      "common_missing_fields": [
+        {
+          "field": "asset_or_ticker",
+          "market_count": 1
+        },
+        {
+          "field": "benchmark_and_timezone_rules",
+          "market_count": 1
+        },
+        {
+          "field": "full_market_resolution_criteria_text",
+          "market_count": 1
+        },
+        {
+          "field": "full_resolution_rules",
+          "market_count": 1
+        },
+        {
+          "field": "non_placeholder_evidence_notes",
+          "market_count": 1
+        },
+        {
+          "field": "official_source_references",
+          "market_count": 1
+        },
+        {
+          "field": "official_source_urls_or_rule_references",
+          "market_count": 1
+        },
+        {
+          "field": "reviewed_local_evidence_references",
+          "market_count": 1
+        },
+        {
+          "field": "source_reliability_review",
+          "market_count": 1
+        },
+        {
+          "field": "source_timestamps",
+          "market_count": 1
+        },
+        {
+          "field": "threshold",
+          "market_count": 1
+        }
+      ],
+      "common_medium-completeness_causes": [
+        "full local resolution/source/rule text is absent or weak",
+        "official source references and timestamps are absent from local packets",
+        "local evidence remains placeholder or source-gap oriented",
+        "reviewed OpenRouter artifacts are medium completeness rather than high"
+      ],
+      "required_local_enrichment_fields_to_reach_high": [
+        "full_market_resolution_criteria_text",
+        "official_source_or_rule_reference_notes",
+        "explicit_source_gap_notes",
+        "contradiction_check_context",
+        "risk_notes_context",
+        "operator_checklist",
+        "category_specific_key_fields",
+        "asset_or_ticker",
+        "threshold",
+        "date_or_resolution_window",
+        "settlement_condition",
+        "benchmark_and_timezone_rules",
+        "source_timestamps_when_present_locally"
+      ],
+      "optional_fields": [
+        "live_external_source_url_when_absent_from_local_artifacts",
+        "source_timestamp_when_absent_from_local_artifacts",
+        "market_status_when_not_recorded_locally",
+        "nonessential_background_context"
+      ],
+      "local_artifact_sources_to_check": [
+        "pm_bot/llm/manual_packet_batch/*_packet.v1.json",
+        "pm_bot/llm/manual_packet_batch/*_prompt.v1.md",
+        "packet.source_artifacts.path",
+        "packet.market_context.public_resolution_context",
+        "packet.local_review_context.local_resolution_or_description_snippet",
+        "packet.source_gap_notes",
+        "packet.missing_evidence"
+      ],
+      "safe_future_adapter_design_notes": [
+        "Adapters should read local packet JSON, prompt Markdown, and manually exported local snapshots only.",
+        "Adapters should emit JSON/Markdown artifacts and not mutate queue or runtime state.",
+        "Adapters should preserve unknowns instead of live-fetching missing fields."
+      ],
+      "unsafe_or_disallowed_sources/actions": [
+        "do_not_fetch_external_data",
+        "do_not_call_polymarket_api",
+        "do_not_call_openrouter_or_other_llm_api",
+        "do_not_use_browser_automation",
+        "do_not_read_or_print_api_keys",
+        "do_not_touch_wallets_orders_or_private_keys",
+        "do_not_mutate_queue_state",
+        "do_not_add_runtime_dispatcher_or_background_wiring",
+        "do_not_produce_market_action_guidance",
+        "do_not_score_probability_ev_edge_confidence_or_side_selection"
+      ],
+      "recommended_priority": "high",
+      "estimated_effort": "small",
+      "future_task_suggestion": "Normalize crypto source/rule fields from local packets and produce operator-review-only completeness updates."
+    },
+    {
+      "category": "elections",
+      "market_ids_in_category": [
+        "569332",
+        "569333",
+        "569334",
+        "569343",
+        "569344",
+        "569366",
+        "569368",
+        "569373",
+        "598936"
+      ],
+      "common_missing_fields": [
+        {
+          "field": "candidate_or_party_if_applicable",
+          "market_count": 9
+        },
+        {
+          "field": "full_market_resolution_criteria_text",
+          "market_count": 9
+        },
+        {
+          "field": "full_resolution_rules",
+          "market_count": 9
+        },
+        {
+          "field": "jurisdiction",
+          "market_count": 9
+        },
+        {
+          "field": "non_placeholder_evidence_notes",
+          "market_count": 9
+        },
+        {
+          "field": "office_or_election_event",
+          "market_count": 9
+        },
+        {
+          "field": "official_election_authority_identifier",
+          "market_count": 9
+        },
+        {
+          "field": "official_source_references",
+          "market_count": 9
+        },
+        {
+          "field": "official_source_urls_or_rule_references",
+          "market_count": 9
+        },
+        {
+          "field": "reviewed_local_evidence_references",
+          "market_count": 9
+        },
+        {
+          "field": "source_reliability_review",
+          "market_count": 9
+        },
+        {
+          "field": "source_timestamps",
+          "market_count": 9
+        },
+        {
+          "field": "contradiction_checks",
+          "market_count": 1
+        },
+        {
+          "field": "evidence_completeness_audit_status",
+          "market_count": 1
+        },
+        {
+          "field": "operator_checklist",
+          "market_count": 1
+        },
+        {
+          "field": "risk_notes",
+          "market_count": 1
+        }
+      ],
+      "common_medium-completeness_causes": [
+        "full local resolution/source/rule text is absent or weak",
+        "official source references and timestamps are absent from local packets",
+        "local evidence remains placeholder or source-gap oriented",
+        "reviewed OpenRouter artifacts are medium completeness rather than high",
+        "unreviewed packets lack local contradiction, risk, and operator checklist sections"
+      ],
+      "required_local_enrichment_fields_to_reach_high": [
+        "full_market_resolution_criteria_text",
+        "official_source_or_rule_reference_notes",
+        "explicit_source_gap_notes",
+        "contradiction_check_context",
+        "risk_notes_context",
+        "operator_checklist",
+        "category_specific_key_fields",
+        "jurisdiction",
+        "office_or_election_event",
+        "candidate_or_party_if_applicable",
+        "date_or_resolution_window",
+        "official_election_authority_identifier_if_available",
+        "source_timestamps_when_present_locally"
+      ],
+      "optional_fields": [
+        "live_external_source_url_when_absent_from_local_artifacts",
+        "source_timestamp_when_absent_from_local_artifacts",
+        "market_status_when_not_recorded_locally",
+        "nonessential_background_context"
+      ],
+      "local_artifact_sources_to_check": [
+        "pm_bot/llm/manual_packet_batch/*_packet.v1.json",
+        "pm_bot/llm/manual_packet_batch/*_prompt.v1.md",
+        "packet.source_artifacts.path",
+        "packet.market_context.public_resolution_context",
+        "packet.local_review_context.local_resolution_or_description_snippet",
+        "packet.source_gap_notes",
+        "packet.missing_evidence"
+      ],
+      "safe_future_adapter_design_notes": [
+        "Adapters should read local packet JSON, prompt Markdown, and manually exported local snapshots only.",
+        "Adapters should emit JSON/Markdown artifacts and not mutate queue or runtime state.",
+        "Adapters should preserve unknowns instead of live-fetching missing fields."
+      ],
+      "unsafe_or_disallowed_sources/actions": [
+        "do_not_fetch_external_data",
+        "do_not_call_polymarket_api",
+        "do_not_call_openrouter_or_other_llm_api",
+        "do_not_use_browser_automation",
+        "do_not_read_or_print_api_keys",
+        "do_not_touch_wallets_orders_or_private_keys",
+        "do_not_mutate_queue_state",
+        "do_not_add_runtime_dispatcher_or_background_wiring",
+        "do_not_produce_market_action_guidance",
+        "do_not_score_probability_ev_edge_confidence_or_side_selection"
+      ],
+      "recommended_priority": "high",
+      "estimated_effort": "large",
+      "future_task_suggestion": "Normalize elections source/rule fields from local packets and produce operator-review-only completeness updates."
+    },
+    {
+      "category": "legal/courts",
+      "market_ids_in_category": [
+        "563650"
+      ],
+      "common_missing_fields": [
+        {
+          "field": "case_or_event_definition",
+          "market_count": 1
+        },
+        {
+          "field": "court_or_legal_body",
+          "market_count": 1
+        },
+        {
+          "field": "docket_identifier",
+          "market_count": 1
+        },
+        {
+          "field": "full_market_resolution_criteria_text",
+          "market_count": 1
+        },
+        {
+          "field": "full_resolution_rules",
+          "market_count": 1
+        },
+        {
+          "field": "non_placeholder_evidence_notes",
+          "market_count": 1
+        },
+        {
+          "field": "official_source_references",
+          "market_count": 1
+        },
+        {
+          "field": "official_source_urls_or_rule_references",
+          "market_count": 1
+        },
+        {
+          "field": "reviewed_local_evidence_references",
+          "market_count": 1
+        },
+        {
+          "field": "source_reliability_review",
+          "market_count": 1
+        },
+        {
+          "field": "source_timestamps",
+          "market_count": 1
+        }
+      ],
+      "common_medium-completeness_causes": [
+        "full local resolution/source/rule text is absent or weak",
+        "official source references and timestamps are absent from local packets",
+        "local evidence remains placeholder or source-gap oriented",
+        "reviewed OpenRouter artifacts are medium completeness rather than high"
+      ],
+      "required_local_enrichment_fields_to_reach_high": [
+        "full_market_resolution_criteria_text",
+        "official_source_or_rule_reference_notes",
+        "explicit_source_gap_notes",
+        "contradiction_check_context",
+        "risk_notes_context",
+        "operator_checklist",
+        "category_specific_key_fields",
+        "court_or_legal_body",
+        "case_or_event_definition",
+        "docket_identifier_if_available",
+        "decision_or_acceptance_condition",
+        "date_or_resolution_window",
+        "source_timestamps_when_present_locally"
+      ],
+      "optional_fields": [
+        "live_external_source_url_when_absent_from_local_artifacts",
+        "source_timestamp_when_absent_from_local_artifacts",
+        "market_status_when_not_recorded_locally",
+        "nonessential_background_context"
+      ],
+      "local_artifact_sources_to_check": [
+        "pm_bot/llm/manual_packet_batch/*_packet.v1.json",
+        "pm_bot/llm/manual_packet_batch/*_prompt.v1.md",
+        "packet.source_artifacts.path",
+        "packet.market_context.public_resolution_context",
+        "packet.local_review_context.local_resolution_or_description_snippet",
+        "packet.source_gap_notes",
+        "packet.missing_evidence"
+      ],
+      "safe_future_adapter_design_notes": [
+        "Adapters should read local packet JSON, prompt Markdown, and manually exported local snapshots only.",
+        "Adapters should emit JSON/Markdown artifacts and not mutate queue or runtime state.",
+        "Adapters should preserve unknowns instead of live-fetching missing fields."
+      ],
+      "unsafe_or_disallowed_sources/actions": [
+        "do_not_fetch_external_data",
+        "do_not_call_polymarket_api",
+        "do_not_call_openrouter_or_other_llm_api",
+        "do_not_use_browser_automation",
+        "do_not_read_or_print_api_keys",
+        "do_not_touch_wallets_orders_or_private_keys",
+        "do_not_mutate_queue_state",
+        "do_not_add_runtime_dispatcher_or_background_wiring",
+        "do_not_produce_market_action_guidance",
+        "do_not_score_probability_ev_edge_confidence_or_side_selection"
+      ],
+      "recommended_priority": "high",
+      "estimated_effort": "small",
+      "future_task_suggestion": "Normalize legal/courts source/rule fields from local packets and produce operator-review-only completeness updates."
+    },
+    {
+      "category": "politics",
+      "market_ids_in_category": [
+        "597964"
+      ],
+      "common_missing_fields": [
+        {
+          "field": "contradiction_checks",
+          "market_count": 1
+        },
+        {
+          "field": "event_definition",
+          "market_count": 1
+        },
+        {
+          "field": "evidence_completeness_audit_status",
+          "market_count": 1
+        },
+        {
+          "field": "full_market_resolution_criteria_text",
+          "market_count": 1
+        },
+        {
+          "field": "full_resolution_rules",
+          "market_count": 1
+        },
+        {
+          "field": "jurisdiction",
+          "market_count": 1
+        },
+        {
+          "field": "named_person_or_institution",
+          "market_count": 1
+        },
+        {
+          "field": "non_placeholder_evidence_notes",
+          "market_count": 1
+        },
+        {
+          "field": "office_or_public_role",
+          "market_count": 1
+        },
+        {
+          "field": "official_source_references",
+          "market_count": 1
+        },
+        {
+          "field": "official_source_urls_or_rule_references",
+          "market_count": 1
+        },
+        {
+          "field": "operator_checklist",
+          "market_count": 1
+        },
+        {
+          "field": "reviewed_local_evidence_references",
+          "market_count": 1
+        },
+        {
+          "field": "risk_notes",
+          "market_count": 1
+        },
+        {
+          "field": "source_reliability_review",
+          "market_count": 1
+        },
+        {
+          "field": "source_timestamps",
+          "market_count": 1
+        }
+      ],
+      "common_medium-completeness_causes": [
+        "full local resolution/source/rule text is absent or weak",
+        "official source references and timestamps are absent from local packets",
+        "local evidence remains placeholder or source-gap oriented",
+        "unreviewed packets lack local contradiction, risk, and operator checklist sections"
+      ],
+      "required_local_enrichment_fields_to_reach_high": [
+        "full_market_resolution_criteria_text",
+        "official_source_or_rule_reference_notes",
+        "explicit_source_gap_notes",
+        "contradiction_check_context",
+        "risk_notes_context",
+        "operator_checklist",
+        "category_specific_key_fields",
+        "jurisdiction",
+        "office_or_public_role",
+        "named_person_or_institution",
+        "event_definition",
+        "date_or_resolution_window",
+        "source_timestamps_when_present_locally"
+      ],
+      "optional_fields": [
+        "live_external_source_url_when_absent_from_local_artifacts",
+        "source_timestamp_when_absent_from_local_artifacts",
+        "market_status_when_not_recorded_locally",
+        "nonessential_background_context"
+      ],
+      "local_artifact_sources_to_check": [
+        "pm_bot/llm/manual_packet_batch/*_packet.v1.json",
+        "pm_bot/llm/manual_packet_batch/*_prompt.v1.md",
+        "packet.source_artifacts.path",
+        "packet.market_context.public_resolution_context",
+        "packet.local_review_context.local_resolution_or_description_snippet",
+        "packet.source_gap_notes",
+        "packet.missing_evidence"
+      ],
+      "safe_future_adapter_design_notes": [
+        "Adapters should read local packet JSON, prompt Markdown, and manually exported local snapshots only.",
+        "Adapters should emit JSON/Markdown artifacts and not mutate queue or runtime state.",
+        "Adapters should preserve unknowns instead of live-fetching missing fields."
+      ],
+      "unsafe_or_disallowed_sources/actions": [
+        "do_not_fetch_external_data",
+        "do_not_call_polymarket_api",
+        "do_not_call_openrouter_or_other_llm_api",
+        "do_not_use_browser_automation",
+        "do_not_read_or_print_api_keys",
+        "do_not_touch_wallets_orders_or_private_keys",
+        "do_not_mutate_queue_state",
+        "do_not_add_runtime_dispatcher_or_background_wiring",
+        "do_not_produce_market_action_guidance",
+        "do_not_score_probability_ev_edge_confidence_or_side_selection"
+      ],
+      "recommended_priority": "high",
+      "estimated_effort": "small",
+      "future_task_suggestion": "Normalize politics source/rule fields from local packets and produce operator-review-only completeness updates."
+    }
+  ],
+  "aggregate": {
+    "category_count": 5,
+    "recommended_next_local_enrichment_focus": [
+      "resolution source extraction",
+      "source gap normalization",
+      "operator checklist standardization for unreviewed packets",
+      "contradiction and risk context builder for unreviewed packets",
+      "local packet completeness scorer integration"
+    ]
+  },
+  "network_calls_performed": 0,
+  "polymarket_api_calls_performed": 0,
+  "openrouter_calls_performed": 0,
+  "safety_summary": {
+    "operator_review_only": true,
+    "passive_context_only": true,
+    "no_trading_authority": true,
+    "no_queue_authority": true,
+    "no_runtime_authority": true,
+    "no_dispatcher_authority": true,
+    "no_wallet_or_order_authority": true,
+    "acceptance_is_not_trading_approval": true,
+    "analysis_only": true,
+    "manual_review_only": true,
+    "no_market_action_guidance": true,
+    "no_probability_ev_edge_confidence_side_selection": true,
+    "no_buy_sell_hold_enter_exit": true,
+    "openrouter_calls_performed_by_this_task": 0,
+    "polymarket_api_calls_performed_by_this_task": 0,
+    "external_network_calls_performed_by_this_task": 0,
+    "network_calls_performed_by_this_task": 0,
+    "api_key_accessed": false,
+    "api_key_value_printed": false,
+    "api_key_value_written": false,
+    "api_key_leaked": false,
+    "wallet_or_private_key_accessed": false,
+    "orders_created": 0,
+    "queue_items_created": 0,
+    "queue_state_mutated": false,
+    "runtime_wiring_added": false,
+    "dispatcher_changed": false,
+    "background_workers_added": false,
+    "browser_automation_used": false,
+    "live_enrichment_performed": false,
+    "market_decisions_made": false
+  }
+}

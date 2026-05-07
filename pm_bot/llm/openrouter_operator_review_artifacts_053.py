@@ -1043,9 +1043,21 @@ def render_current_llm_source_evidence_completeness_audit_markdown(audit):
     return "\n".join(lines)
 
 
+def _source_001_evidence_readiness_context(root=ROOT):
+    try:
+        from pm_bot.llm import source_evidence_enrichment_artifacts as source_001
+    except ModuleNotFoundError:
+        return {}
+    try:
+        return source_001.build_dashboard_evidence_readiness_context(root=root)
+    except (OSError, json.JSONDecodeError):
+        return {}
+
+
 def build_operator_openrouter_review_dashboard(root=ROOT):
     inventory = build_current_llm_market_packet_inventory(root=root)
     evidence = build_current_llm_source_evidence_completeness_audit(root=root)
+    source_001_context = _source_001_evidence_readiness_context(root=root)
     n3 = _n3_summary(root=root)
     n5 = _n5_summary(root=root)
     combined = _combined_summary()
@@ -1093,6 +1105,25 @@ def build_operator_openrouter_review_dashboard(root=ROOT):
             ],
         },
         "evidence_completeness_summary": evidence["aggregate"],
+        "evidence_readiness_integration_status": (
+            "source_001_context_ready" if source_001_context else "source_001_context_unavailable"
+        ),
+        "source_001_evidence_readiness_context": source_001_context,
+        "evidence_readiness_score_summary": _safe_dict(
+            source_001_context.get("evidence_readiness_score_summary")
+        ),
+        "category_gap_summary": _safe_dict(source_001_context.get("category_gap_summary")),
+        "markets_reviewed_vs_unreviewed": _safe_dict(
+            source_001_context.get("markets_reviewed_vs_unreviewed")
+        ),
+        "markets_with_medium_evidence_completeness": _safe_list(
+            source_001_context.get("markets_with_medium_evidence_completeness")
+        ),
+        "recommended_next_local_enrichment_focus": _safe_list(
+            source_001_context.get("recommended_next_local_enrichment_focus")
+        ),
+        "top_missing_fields": _safe_list(source_001_context.get("top_missing_fields")),
+        "no_market_action_guidance": True,
         "operator_next_engineering_actions": [
             "category/source inventory review",
             "source/evidence enrichment design",
@@ -1117,6 +1148,7 @@ def build_operator_openrouter_review_dashboard(root=ROOT):
             "runbook": SOURCE_PATHS["runbook_md"],
             "decision_matrix_json": SOURCE_PATHS["decision_matrix_json"],
             "decision_matrix_md": SOURCE_PATHS["decision_matrix_md"],
+            **_safe_dict(source_001_context.get("artifact_pointers")),
         },
         "network_calls_performed": 0,
         "polymarket_api_calls_performed": 0,
@@ -1128,6 +1160,9 @@ def render_operator_openrouter_review_dashboard_markdown(dashboard):
     combined = dashboard["combined_openrouter_review_contour_summary"]
     inventory = dashboard["inventory_summary"]
     evidence = dashboard["evidence_completeness_summary"]
+    readiness = _safe_dict(dashboard.get("evidence_readiness_score_summary"))
+    category_gaps = _safe_dict(dashboard.get("category_gap_summary"))
+    reviewed_vs_unreviewed = _safe_dict(dashboard.get("markets_reviewed_vs_unreviewed"))
     lines = [
         "# PMBOT Operator OpenRouter Review Dashboard v1",
         "",
@@ -1171,7 +1206,10 @@ def render_operator_openrouter_review_dashboard_markdown(dashboard):
         "- no_trading_authority: true",
         "- no_queue_authority: true",
         "- no_runtime_authority: true",
+        "- no_dispatcher_authority: true",
         "- no_wallet_or_order_authority: true",
+        "- acceptance_is_not_trading_approval: true",
+        "- no_market_action_guidance: true",
         "",
         "## Inventory Summary",
         "",
@@ -1188,6 +1226,40 @@ def render_operator_openrouter_review_dashboard_markdown(dashboard):
     lines.extend(["", "## Evidence Completeness", ""])
     for level, count in sorted(evidence["evidence_completeness_counts"].items()):
         lines.append(f"- {level}: {count}")
+    if readiness:
+        lines.extend(
+            [
+                "",
+                "## Evidence Readiness",
+                "",
+                f"- integration_status: {dashboard['evidence_readiness_integration_status']}",
+                f"- high_count: {readiness.get('high_count', 0)}",
+                f"- medium_count: {readiness.get('medium_count', 0)}",
+                f"- low_count: {readiness.get('low_count', 0)}",
+                f"- blocked_count: {readiness.get('blocked_count', 0)}",
+                "- average_evidence_readiness_score: "
+                f"{readiness.get('average_evidence_readiness_score', 0)}",
+                "- reviewed_market_ids: "
+                + ", ".join(reviewed_vs_unreviewed.get("reviewed_market_ids", [])),
+                "- unreviewed_market_ids: "
+                + ", ".join(reviewed_vs_unreviewed.get("unreviewed_market_ids", [])),
+                "- markets_with_medium_evidence_completeness: "
+                + ", ".join(dashboard.get("markets_with_medium_evidence_completeness", [])),
+                "",
+                "## Category Gap Summary",
+                "",
+            ]
+        )
+        for category, summary in sorted(category_gaps.items()):
+            lines.append(
+                "- "
+                f"{category}: priority={summary.get('recommended_priority')}, "
+                f"effort={summary.get('estimated_effort')}, "
+                f"markets={', '.join(summary.get('market_ids_in_category', []))}"
+            )
+        lines.extend(["", "## Recommended Next Local Enrichment Focus", ""])
+        for item in dashboard.get("recommended_next_local_enrichment_focus", []):
+            lines.append(f"- {item}")
     lines.extend(["", "## Operator Next Engineering Actions", ""])
     for item in dashboard["operator_next_engineering_actions"]:
         lines.append(f"- {item}")

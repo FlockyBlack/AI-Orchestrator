@@ -4,10 +4,44 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
+SOURCE_001_JSON_ARTIFACTS = [
+    "docs/PMBOT_SOURCE_001_RESULT.json",
+    "pm_bot/llm/source_evidence_enrichment_requirements.v1.json",
+    "pm_bot/llm/current_llm_packet_evidence_readiness_scores.v1.json",
+    "pm_bot/llm/source_evidence_gap_plan_by_category.v1.json",
+    "pm_bot/llm/llm_market_packet_completeness_contract.v1.json",
+    "pm_bot/llm/source_evidence_enrichment_design.v1.json",
+    "pm_bot/workbench/operator_openrouter_review_dashboard.v1.json",
+    "pm_bot/workbench/operator_review_pack.v1.json",
+    "pm_bot/workbench/operator_workbench_export_run.v1.json",
+]
+
+SOURCE_001_SOURCE_JSON_ARTIFACTS = [
+    "docs/PMBOT_OPENROUTER_053_RESULT.json",
+    "pm_bot/llm/current_llm_market_packet_inventory.v1.json",
+    "pm_bot/llm/current_llm_source_evidence_completeness_audit.v1.json",
+]
+
+SOURCE_001_PUBLIC_MARKDOWN_ARTIFACTS = [
+    "docs/PMBOT_SOURCE_001_EVIDENCE_ENRICHMENT_DESIGN_FROM_INVENTORY.md",
+    "docs/PMBOT_SOURCE_EVIDENCE_ENRICHMENT_DESIGN.md",
+    "pm_bot/llm/source_evidence_enrichment_requirements.v1.md",
+    "pm_bot/llm/current_llm_packet_evidence_readiness_scores.v1.md",
+    "pm_bot/llm/source_evidence_gap_plan_by_category.v1.md",
+    "pm_bot/llm/llm_market_packet_completeness_contract.v1.md",
+    "pm_bot/workbench/operator_openrouter_review_dashboard.v1.md",
+    "pm_bot/workbench/operator_review_pack.v1.md",
+    "pm_bot/workbench/operator_workbench_export_run.v1.md",
+]
+
 
 def _load_result(name: str) -> dict:
     path = ROOT / "docs" / name
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _frag(*parts: str) -> str:
+    return "".join(parts)
 
 
 def test_openrouter_037_status_is_reconciled_before_retry_artifacts():
@@ -362,3 +396,82 @@ def test_openrouter_053_records_n5_surface_workbench_inventory_ux_and_contour_au
     assert result_053["safety_summary"]["openrouter_calls_performed_by_this_task"] == 0
     assert result_053["safety_summary"]["polymarket_api_calls_performed_by_this_task"] == 0
     assert result_053["safety_summary"]["api_key_accessed"] is False
+
+
+def test_source_001_result_records_local_evidence_enrichment_design():
+    result = _load_result("PMBOT_SOURCE_001_RESULT.json")
+
+    assert result["task_id"] == "PMBOT-SOURCE-001-EVIDENCE-ENRICHMENT-DESIGN-FROM-INVENTORY"
+    assert result["status"] in {
+        "completed_local_validation_pending_commit_push",
+        "completed_pushed",
+    }
+    assert result["head_before"] == "aa2b8a982cd383d2211f818d33ccbf7ae3c27362"
+    assert result["openrouter_calls_performed"] == 0
+    assert result["polymarket_api_calls_performed"] == 0
+    assert result["external_network_calls_performed"] == 0
+    assert result["source_053_status"] == "completed_pushed"
+    assert result["enrichment_requirements_created"] is True
+    assert result["readiness_scores_created"] is True
+    assert result["category_gap_plan_created"] is True
+    assert result["completeness_contract_created"] is True
+    assert result["enrichment_design_created"] is True
+    assert result["workbench_dashboard_updated"] is True
+    assert result["inventory_market_count"] == 14
+    assert result["scored_market_count"] == 14
+    assert result["category_count"] == 5
+    assert result["evidence_readiness_summary"]["medium_count"] == 10
+    assert result["evidence_readiness_summary"]["low_count"] == 4
+    assert result["secret_scan_passed"] is True
+    assert result["safety_summary"]["no_market_action_guidance"] is True
+    assert result["safety_summary"]["api_key_accessed"] is False
+    assert result["safety_summary"]["queue_state_mutated"] is False
+    assert result["safety_summary"]["runtime_wiring_added"] is False
+    assert result["safety_summary"]["browser_automation_used"] is False
+
+
+def test_source_001_json_artifacts_parse_and_source_artifacts_remain_valid():
+    for path in SOURCE_001_JSON_ARTIFACTS + SOURCE_001_SOURCE_JSON_ARTIFACTS:
+        payload = json.loads((ROOT / path).read_text(encoding="utf-8"))
+        assert isinstance(payload, dict), path
+
+    dashboard = json.loads(
+        (ROOT / "pm_bot" / "workbench" / "operator_openrouter_review_dashboard.v1.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    assert dashboard["n3_summary"]["calls"] == 3
+    assert dashboard["n5_summary"]["calls"] == 5
+    assert dashboard["combined_openrouter_review_contour_summary"]["combined_tokens"] == 48573
+    assert dashboard["evidence_readiness_score_summary"]["medium_count"] == 10
+    assert dashboard["evidence_readiness_score_summary"]["low_count"] == 4
+    assert dashboard["safety_summary"]["operator_review_only"] is True
+    assert dashboard["safety_summary"]["no_queue_authority"] is True
+    assert dashboard["safety_summary"]["no_runtime_authority"] is True
+    assert dashboard["safety_summary"]["no_dispatcher_authority"] is True
+    assert dashboard["safety_summary"]["no_wallet_or_order_authority"] is True
+    assert dashboard["safety_summary"]["acceptance_is_not_trading_approval"] is True
+
+
+def test_source_001_public_markdown_and_changed_files_pass_safety_scans():
+    forbidden_markdown_phrases = [
+        "buy recommendation",
+        "sell recommendation",
+        "hold recommendation",
+        "enter position",
+        "exit position",
+        "recommended side",
+        "place an order",
+        "submit an order",
+        "market action recommendation",
+    ]
+    for path in SOURCE_001_PUBLIC_MARKDOWN_ARTIFACTS:
+        text = (ROOT / path).read_text(encoding="utf-8").lower()
+        for phrase in forbidden_markdown_phrases:
+            assert phrase not in text, path
+
+    secret_name = _frag("OPENROUTER", "_API", "_KEY")
+    result = _load_result("PMBOT_SOURCE_001_RESULT.json")
+    for path in result["files_changed"]:
+        text = (ROOT / path).read_text(encoding="utf-8", errors="ignore")
+        assert secret_name not in text, path
