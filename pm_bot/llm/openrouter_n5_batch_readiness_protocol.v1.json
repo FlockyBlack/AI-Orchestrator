@@ -1,0 +1,211 @@
+{
+  "protocol_version": "openrouter_n5_batch_readiness_protocol.v1",
+  "protocol_only": true,
+  "live_calls_approved": false,
+  "future_task_id": "PMBOT-OPENROUTER-051-CONTROLLED-N5-BATCH-LIVE-CALL",
+  "source_successful_batch_task": "PMBOT-OPENROUTER-046",
+  "source_baseline_task": "PMBOT-OPENROUTER-047",
+  "source_surface_task": "PMBOT-OPENROUTER-048",
+  "source_workbench_task": "PMBOT-OPENROUTER-049",
+  "source_statuses": {
+    "PMBOT-OPENROUTER-046": "completed_pushed",
+    "PMBOT-OPENROUTER-047": "completed_pushed",
+    "PMBOT-OPENROUTER-048": "completed_pushed",
+    "PMBOT-OPENROUTER-049": "completed_pushed"
+  },
+  "approval_boundary": {
+    "n5_live_batch_approved_by_this_protocol": false,
+    "future_task_must_separately_approve_live_calls": true,
+    "max_openrouter_calls_allowed_in_future_task": 5,
+    "no_retries": true,
+    "fail_fast_on_first_blocking_condition": true,
+    "acceptance_meaning": "safe_for_operator_review_only"
+  },
+  "proposed_market_ids": [
+    "569344",
+    "569366",
+    "569368",
+    "569373",
+    "573656"
+  ],
+  "candidate_selection_status": "ready",
+  "candidate_selection_method": {
+    "source_artifact": "pm_bot/llm/manual_llm_packet_batch_manifest.v1.json",
+    "source_field": "exported_market_ids",
+    "local_artifacts_required": [
+      "pm_bot/llm/manual_packet_batch/{market_id}_packet.v1.json",
+      "pm_bot/llm/manual_packet_batch/{market_id}_prompt.v1.md"
+    ],
+    "completed_046_market_ids_excluded": [
+      "569333",
+      "569334",
+      "569343"
+    ],
+    "selection_rule": "Use manifest order. Find the highest manifest index occupied by a 046 completed market_id, then choose the first five later market_ids with both local packet and prompt artifacts, excluding 046 completed markets unless a future task explicitly changes the protocol to test repeatability.",
+    "if_fewer_than_five_eligible_local_artifacts": "block_future_n5_live_task",
+    "network_calls_allowed": false,
+    "polymarket_api_calls_allowed": false,
+    "live_data_fetch_allowed": false,
+    "browser_automation_allowed": false,
+    "queue_mutation_allowed": false,
+    "deterministic": true
+  },
+  "candidate_selection_evidence": {
+    "manifest_exported_market_ids": [
+      "563650",
+      "569332",
+      "569333",
+      "569334",
+      "569343",
+      "569344",
+      "569366",
+      "569368",
+      "569373",
+      "573656",
+      "597964",
+      "598936",
+      "691547",
+      "692258"
+    ],
+    "last_completed_046_manifest_index": 4,
+    "eligible_after_046_count": 9,
+    "verified_packet_prompt_pairs": {
+      "569344": {
+        "packet_path": "pm_bot/llm/manual_packet_batch/569344_packet.v1.json",
+        "prompt_path": "pm_bot/llm/manual_packet_batch/569344_prompt.v1.md"
+      },
+      "569366": {
+        "packet_path": "pm_bot/llm/manual_packet_batch/569366_packet.v1.json",
+        "prompt_path": "pm_bot/llm/manual_packet_batch/569366_prompt.v1.md"
+      },
+      "569368": {
+        "packet_path": "pm_bot/llm/manual_packet_batch/569368_packet.v1.json",
+        "prompt_path": "pm_bot/llm/manual_packet_batch/569368_prompt.v1.md"
+      },
+      "569373": {
+        "packet_path": "pm_bot/llm/manual_packet_batch/569373_packet.v1.json",
+        "prompt_path": "pm_bot/llm/manual_packet_batch/569373_prompt.v1.md"
+      },
+      "573656": {
+        "packet_path": "pm_bot/llm/manual_packet_batch/573656_packet.v1.json",
+        "prompt_path": "pm_bot/llm/manual_packet_batch/573656_prompt.v1.md"
+      }
+    }
+  },
+  "model": "anthropic/claude-sonnet-4.5",
+  "adapter": {
+    "path": "pm_bot/llm/run_openrouter_adapter.py",
+    "same_adapter_path_as_046_required": true
+  },
+  "max_openrouter_calls_allowed": 5,
+  "no_retries": true,
+  "fail_fast": true,
+  "cost_estimate": {
+    "source_task": "PMBOT-OPENROUTER-047",
+    "source_average_tokens_per_market": 6228.666667,
+    "source_average_cost_per_market_usd": 0.041994,
+    "future_market_count": 5,
+    "estimated_total_tokens": 31143.333335,
+    "estimated_total_cost_usd": 0.20997
+  },
+  "cost_cap": {
+    "max_total_cost_allowed_usd": 0.35,
+    "max_total_openrouter_calls_allowed": 5,
+    "missing_per_market_usage_or_cost_artifact_blocks": true,
+    "missing_aggregate_usage_or_cost_artifact_blocks": true
+  },
+  "normalization_policy": {
+    "version": "fenced_json_normalization.v1",
+    "required": true,
+    "raw_response_preserved": true,
+    "semantic_repair_allowed": false,
+    "clean_raw_json_preferred": true,
+    "fenced_json_normalization_allowed_only_under_policy": true
+  },
+  "safety_boundaries": {
+    "operator_review_only": true,
+    "passive_context_only": true,
+    "analysis_only": true,
+    "manual_review_only": true,
+    "acceptance_is_not_trading_approval": true,
+    "no_trading_authority": true,
+    "no_queue_authority": true,
+    "no_runtime_authority": true,
+    "no_dispatcher_authority": true,
+    "no_wallet_or_order_authority": true,
+    "no_wallet_private_key_access": true,
+    "no_orders": true,
+    "no_trading": true,
+    "no_runtime_wiring": true,
+    "no_dispatcher_changes": true,
+    "no_background_workers": true,
+    "no_browser_automation": true,
+    "no_queue_mutation": true,
+    "no_polymarket_api_calls": true,
+    "no_openrouter_calls_in_050": true,
+    "no_live_data_fetch": true,
+    "no_api_key_value_read_or_written": true,
+    "no_probability_ev_edge_confidence_side_selection_content": true,
+    "no_buy_sell_hold_enter_exit_recommendation_language": true
+  },
+  "fail_fast_conditions": [
+    "missing local packet or prompt artifact",
+    "configured OpenRouter credential absent from process environment when the future live task performs a boolean presence check",
+    "any OpenRouter request failure",
+    "any malformed raw response",
+    "response is not clean JSON and is not normalizable under fenced_json_normalization.v1",
+    "normalization policy violation",
+    "raw or normalized validator failure",
+    "schema validation failure",
+    "acceptance gate failure",
+    "prohibited content detected",
+    "forbidden phrase detected",
+    "probability, EV, edge, confidence, or side selection content detected",
+    "buy, sell, hold, enter, or exit recommendation language detected",
+    "missing per-market usage or cost artifact",
+    "missing aggregate usage or cost artifact",
+    "any API key leak signal",
+    "any runtime, dispatcher, background, browser, wallet, orders, trading, or queue mutation"
+  ],
+  "expected_artifacts": {
+    "future_session_dir": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_051_controlled_n5_batch_live_call",
+    "per_market_file_templates": [
+      "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_051_controlled_n5_batch_live_call/openrouter_sonnet_{market_id}_raw.json",
+      "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_051_controlled_n5_batch_live_call/openrouter_sonnet_{market_id}_content.json",
+      "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_051_controlled_n5_batch_live_call/openrouter_sonnet_{market_id}_validation.json",
+      "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_051_controlled_n5_batch_live_call/openrouter_sonnet_{market_id}_summary.json"
+    ],
+    "aggregate_files": [
+      "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_051_controlled_n5_batch_live_call/openrouter_batch_summary.v1.json",
+      "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_051_controlled_n5_batch_live_call/openrouter_batch_cost_report.v1.json",
+      "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_051_controlled_n5_batch_live_call/openrouter_batch_cost_report.v1.md"
+    ]
+  },
+  "required_validation_commands": [
+    "python -m compileall pm_bot",
+    "python -m pytest tests pm_bot\\llm\\tests -q",
+    "python -m pytest tests\\test_openrouter_prompt_test.py -q",
+    "python -m pytest tests\\test_openrouter_result_artifacts.py -q",
+    "python -m pytest tests\\test_openrouter_fenced_json_normalization.py -q",
+    "python -m pytest pm_bot\\llm\\tests\\test_operator_openrouter_batch_surface_046.py -q",
+    "python -m pytest pm_bot\\workbench\\tests -q",
+    "JSON parse checks for all new JSON artifacts",
+    "result JSON checks",
+    "secret scan over generated artifacts"
+  ],
+  "future_success_next_steps": [
+    "create baseline quality summary",
+    "create operator summary",
+    "create passive operator surface only after baseline and operator summary exist",
+    "integrate into workbench only after passive operator surface exists",
+    "do not auto-promote into runtime",
+    "do not mutate queue"
+  ],
+  "future_blocked_next_steps": [
+    "preserve blocked result and report",
+    "do not retry automatically",
+    "do not continue after fail-fast",
+    "create diagnostic task before retry",
+    "keep working tree clean if possible"
+  ]
+}

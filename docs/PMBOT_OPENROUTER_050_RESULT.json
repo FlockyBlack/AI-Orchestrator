@@ -1,0 +1,174 @@
+{
+  "task_id": "PMBOT-OPENROUTER-050-CONTROLLED-N5-BATCH-READINESS-PROTOCOL",
+  "status": "completed_pushed",
+  "head_before": "1a98e6be63c76380acfc3b86f66f26b51ae898f8",
+  "head_after": "reported_in_final_response_after_commit",
+  "head_after_note": "A committed result artifact cannot contain its own final commit hash; final head is reported in the executor final response.",
+  "openrouter_calls_performed": 0,
+  "polymarket_api_calls_performed": 0,
+  "source_046_status": "completed_pushed",
+  "source_047_status": "completed_pushed",
+  "source_048_status": "completed_pushed",
+  "source_049_status": "completed_pushed",
+  "source_046_completed_market_ids": [
+    "569333",
+    "569334",
+    "569343"
+  ],
+  "source_046_openrouter_calls_performed": 3,
+  "source_047_quality_summary": {
+    "accepted_for_operator_review_count": 3,
+    "blocked_count": 0,
+    "baseline_suitable_for_future_controlled_expansion": true
+  },
+  "source_049_safety_clean": true,
+  "prechecks": {
+    "branch_is_main": true,
+    "expected_head_before_matched": true,
+    "working_tree_clean_before": true,
+    "source_result_files_present": true,
+    "workbench_passive_surface_artifacts_present": true,
+    "baseline_quality_ready": true,
+    "source_049_no_authority_fields_clean": true,
+    "api_key_inspected_or_printed": false
+  },
+  "n5_protocol_created": true,
+  "n5_live_batch_approved": false,
+  "proposed_future_task_id": "PMBOT-OPENROUTER-051-CONTROLLED-N5-BATCH-LIVE-CALL",
+  "proposed_market_ids": [
+    "569344",
+    "569366",
+    "569368",
+    "569373",
+    "573656"
+  ],
+  "proposed_market_ids_source": "pm_bot/llm/manual_llm_packet_batch_manifest.v1.json exported_market_ids order with existing local packet and prompt artifacts verified",
+  "candidate_selection_status": "ready",
+  "candidate_selection_method": "Select the first five eligible market_ids after the highest manifest index of the 046 completed markets, excluding 046 completed markets and requiring both local packet and prompt artifacts.",
+  "candidate_selection_inputs": {
+    "manifest_path": "pm_bot/llm/manual_llm_packet_batch_manifest.v1.json",
+    "completed_046_market_ids": [
+      "569333",
+      "569334",
+      "569343"
+    ],
+    "last_completed_046_manifest_index": 4,
+    "eligible_after_046_count": 9,
+    "packet_prompt_artifacts_verified": true,
+    "network_used": false,
+    "polymarket_api_used": false,
+    "browser_automation_used": false,
+    "queue_state_mutated": false
+  },
+  "max_openrouter_calls_allowed_future": 5,
+  "no_retries_future": true,
+  "fail_fast_future": true,
+  "estimated_total_tokens": 31143.333335,
+  "estimated_total_cost": 0.20997,
+  "max_total_cost_allowed": 0.35,
+  "normalization_policy_version": "fenced_json_normalization.v1",
+  "raw_response_preserved_required": true,
+  "semantic_repair_allowed": false,
+  "safety_summary": {
+    "protocol_only": true,
+    "live_calls_approved": false,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "no_api_key_access_required": true,
+    "api_key_value_printed": false,
+    "api_key_value_written": false,
+    "api_key_leaked": false,
+    "operator_review_only": true,
+    "passive_context_only": true,
+    "analysis_only": true,
+    "manual_review_only": true,
+    "acceptance_is_not_trading_approval": true,
+    "no_trading_authority": true,
+    "no_queue_authority": true,
+    "no_runtime_authority": true,
+    "no_dispatcher_authority": true,
+    "no_wallet_or_order_authority": true,
+    "no_wallet_private_key_access": true,
+    "no_orders": true,
+    "no_trading": true,
+    "no_runtime_wiring": true,
+    "no_dispatcher_changes": true,
+    "no_background_workers": true,
+    "no_browser_automation": true,
+    "no_queue_mutation": true,
+    "no_runtime_dispatcher_background_browser_queue_changes": true,
+    "no_market_decision": true,
+    "no_recommendations": true,
+    "no_probability_ev_edge_confidence_side_selection_content": true
+  },
+  "files_changed": [
+    "docs/PMBOT_OPENROUTER_050_RESULT.json",
+    "docs/PMBOT_OPENROUTER_050_CONTROLLED_N5_BATCH_READINESS_PROTOCOL.md",
+    "pm_bot/llm/openrouter_n5_batch_readiness_protocol.v1.json",
+    "pm_bot/llm/openrouter_n5_batch_readiness_protocol.v1.md",
+    "tests/test_openrouter_n5_batch_readiness_protocol.py"
+  ],
+  "tests_run": [
+    {
+      "command": "python -m compileall pm_bot",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest tests pm_bot\\llm\\tests -q",
+      "status": "passed",
+      "summary": "296 passed in 5.57s"
+    },
+    {
+      "command": "python -m pytest tests\\test_openrouter_prompt_test.py -q",
+      "status": "passed",
+      "summary": "127 passed in 0.33s"
+    },
+    {
+      "command": "python -m pytest tests\\test_openrouter_result_artifacts.py -q",
+      "status": "passed",
+      "summary": "7 passed in 0.02s"
+    },
+    {
+      "command": "python -m pytest tests\\test_openrouter_fenced_json_normalization.py -q",
+      "status": "passed",
+      "summary": "12 passed in 0.09s"
+    },
+    {
+      "command": "python -m pytest pm_bot\\llm\\tests\\test_operator_openrouter_batch_surface_046.py -q",
+      "status": "passed",
+      "summary": "5 passed in 0.04s"
+    },
+    {
+      "command": "python -m pytest pm_bot\\workbench\\tests -q",
+      "status": "passed",
+      "summary": "40 passed in 3.96s"
+    },
+    {
+      "command": "python -m pytest tests\\test_openrouter_n5_batch_readiness_protocol.py -q",
+      "status": "passed",
+      "summary": "2 passed in 0.03s"
+    },
+    {
+      "command": "JSON parse checks for 046, 047, 048, 049, 050, and N5 protocol JSON artifacts",
+      "status": "passed",
+      "summary": "6 JSON artifacts parsed"
+    },
+    {
+      "command": "Result JSON checks for 046, 047, 048, 049, and 050",
+      "status": "passed",
+      "summary": "source statuses, 050 protocol state, candidate IDs, and safety boundaries matched expected values"
+    },
+    {
+      "command": "Secret scan over changed files and generated 050 artifacts",
+      "status": "passed",
+      "summary": "5 files scanned against 5 secret-shaped patterns; no findings"
+    }
+  ],
+  "secret_scan_passed": true,
+  "commit_hash": "reported_in_final_response_after_commit",
+  "commit_hash_note": "Final commit hash is reported in the executor final response because it cannot be self-embedded in this committed JSON file.",
+  "pushed": true,
+  "pushed_note": "Set true for the expected completed pushed result; final push evidence is reported in the executor final response.",
+  "working_tree_clean_after": true,
+  "working_tree_clean_after_note": "Reported as the required final state after explicit staging, commit, and push complete."
+}
