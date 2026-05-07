@@ -102,20 +102,29 @@ def test_raw_json_validation_passes_valid_object():
 
     assert validation["valid"] is True
     assert validation["status"] == "accepted"
+    assert validation["raw_response_was_markdown_fenced"] is False
+    assert validation["raw_strict_json_parse_passed"] is True
+    assert validation["normalized_from_markdown_fence"] is False
+    assert validation["normalized_content_used"] is False
     assert parsed["contract_version"] == "unit_test"
 
 
-def test_raw_json_validation_rejects_markdown_fenced_json_by_default():
+def test_raw_json_validation_normalizes_markdown_fenced_json_by_default():
     validation, parsed = harness.validate_raw_json_content('```json\n{"ok": true}\n```')
 
-    assert validation["valid"] is False
-    assert validation["recovery"]["applied"] is False
+    assert validation["valid"] is True
+    assert validation["raw_response_was_markdown_fenced"] is True
+    assert validation["raw_strict_json_parse_passed"] is False
+    assert validation["normalized_from_markdown_fence"] is True
+    assert validation["normalized_json_parse_passed"] is True
+    assert validation["normalization_policy_applied"] is True
+    assert validation["normalization_policy_version"] == harness.NORMALIZATION_POLICY_VERSION
+    assert validation["recovery"]["applied"] is True
     assert validation["checks"]["raw_starts_with_object"] is False
     assert validation["checks"]["raw_ends_with_object"] is False
     assert validation["checks"]["raw_no_markdown_fences"] is False
-    assert any(error["code"] == "markdown_fence_present" for error in validation["errors"])
-    assert not any(warning["code"] == "markdown_fence_recovered" for warning in validation["warnings"])
-    assert parsed is None
+    assert any(warning["code"] == "markdown_fence_normalized" for warning in validation["warnings"])
+    assert parsed == {"ok": True}
 
 
 def test_raw_json_validation_recovers_markdown_fenced_json_when_allowed():
@@ -125,6 +134,7 @@ def test_raw_json_validation_recovers_markdown_fenced_json_when_allowed():
     )
 
     assert validation["valid"] is True
+    assert validation["normalization"]["legacy_allow_local_json_fence_repair"] is True
     assert validation["recovery"]["applied"] is True
     assert validation["recovery"]["method"] == "single_json_markdown_fence"
     assert validation["checks"]["raw_no_markdown_fences"] is False
@@ -511,14 +521,16 @@ def test_structured_critic_json_fence_repair_behavior_still_works():
     payload = _structured_critic_payload()
     raw = "```json\n" + json.dumps(payload) + "\n```"
 
-    strict_validation, _strict_parsed = harness.validate_critic_json_content(raw)
+    strict_validation, strict_parsed = harness.validate_critic_json_content(raw)
     repaired_validation, repaired_parsed = harness.validate_critic_json_content(
         raw,
         allow_local_json_fence_repair=True,
     )
 
-    assert strict_validation["valid"] is False
-    assert any(error["code"] == "markdown_fence_present" for error in strict_validation["errors"])
+    assert strict_validation["valid"] is True
+    assert strict_validation["raw_strict_json_parse_passed"] is False
+    assert strict_validation["normalized_from_markdown_fence"] is True
+    assert strict_parsed == payload
     assert repaired_validation["valid"] is True
     assert repaired_validation["recovery"]["applied"] is True
     assert repaired_parsed == payload
@@ -587,11 +599,25 @@ def test_critic_skipped_when_sonnet_invalid(tmp_path):
     assert summary["critic_called"] is False
 
 
-def test_fenced_sonnet_json_is_strict_failure_by_default_and_skips_critic(tmp_path):
+def test_fenced_sonnet_json_is_normalized_by_default_before_critic(tmp_path):
     calls = []
 
     def fake_api_caller(model, system_prompt, user_content, api_key):
-        calls.append(model)
+        calls.append({"model": model, "user_content": user_content})
+        if model == harness.DEFAULT_CRITIC_MODEL:
+            return {
+                "id": "fake-critic-response",
+                "model": model,
+                "provider": "unit-test-provider",
+                "usage": {"prompt_tokens": 1, "completion_tokens": 1},
+                "choices": [
+                    {
+                        "message": {
+                            "content": json.dumps(_structured_critic_payload())
+                        }
+                    }
+                ],
+            }
         return {
             "id": "fake-sonnet-response",
             "model": model,
@@ -613,22 +639,29 @@ def test_fenced_sonnet_json_is_strict_failure_by_default_and_skips_critic(tmp_pa
         root=ROOT,
     )
 
-    assert code == 1
-    assert calls == [harness.DEFAULT_SONNET_MODEL]
-    assert summary["status"] == "sonnet_validation_failed"
-    assert summary["sonnet_valid"] is False
-    assert summary["sonnet_json_recovered"] is False
-    assert summary["critic_called"] is False
+    assert code == 0
+    assert [call["model"] for call in calls] == [harness.DEFAULT_SONNET_MODEL, harness.DEFAULT_CRITIC_MODEL]
+    assert summary["status"] == "completed"
+    assert summary["sonnet_valid"] is True
+    assert summary["sonnet_json_recovered"] is True
+    assert summary["sonnet_raw_markdown_fence_detected"] is True
+    assert summary["sonnet_normalized_content_used"] is True
+    assert summary["sonnet_raw_strict_json_parse_passed"] is False
+    assert summary["critic_called"] is True
+    assert "```" not in calls[1]["user_content"]
 
     sonnet_paths = summary["artifact_paths"]["sonnet"]
     sonnet_content = json.loads(_artifact_path(sonnet_paths["content"]).read_text(encoding="utf-8"))
     sonnet_validation = json.loads(_artifact_path(sonnet_paths["validation"]).read_text(encoding="utf-8"))
     sonnet_raw = json.loads(_artifact_path(sonnet_paths["raw"]).read_text(encoding="utf-8"))
 
-    assert sonnet_content["status"] == "not_valid_json_object"
-    assert sonnet_content["raw_content"].startswith("```json")
-    assert sonnet_validation["recovery"]["applied"] is False
-    assert any(error["code"] == "markdown_fence_present" for error in sonnet_validation["errors"])
+    assert sonnet_content["contract_version"] == "unit_test"
+    assert sonnet_validation["recovery"]["applied"] is True
+    assert sonnet_validation["raw_response_was_markdown_fenced"] is True
+    assert sonnet_validation["raw_strict_json_parse_passed"] is False
+    assert sonnet_validation["normalized_content_used"] is True
+    assert sonnet_raw["raw_response_was_markdown_fenced"] is True
+    assert sonnet_raw["normalized_content_used"] is True
     assert sonnet_raw["raw_content"].startswith("```json")
 
 

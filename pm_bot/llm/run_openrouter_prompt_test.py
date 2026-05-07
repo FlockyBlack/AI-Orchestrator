@@ -178,6 +178,9 @@ FORBIDDEN_FIELD_NAMES = {
     "auto_trade_instruction",
     "bet_yes_or_no",
     "buy",
+    "confidence",
+    "confidence_level",
+    "confidence_score",
     "edge",
     "enter",
     "ev",
@@ -282,6 +285,13 @@ FORBIDDEN_LANGUAGE_PATTERNS = (
     ("forbidden_phrase:edge", re.compile(r"\bedge\b(?!\s+cases?\b)", re.IGNORECASE)),
     ("forbidden_phrase:kelly", re.compile(r"\bkelly\b", re.IGNORECASE)),
     ("forbidden_phrase:scoring", re.compile(r"\b(score|scoring)\b", re.IGNORECASE)),
+    (
+        "forbidden_phrase:confidence",
+        re.compile(
+            r"\bconfidence\s*(score|level|estimate|is|are|=|:)\b|\b(high|medium|low)\s+confidence\b",
+            re.IGNORECASE,
+        ),
+    ),
     ("forbidden_phrase:market_decision", re.compile(r"\bmarket[-\s]+decision(?:ing)?\b", re.IGNORECASE)),
     ("forbidden_phrase:resolve_as", re.compile(r"\b(resolve|resolves|settle|settles)\s+(as\s+)?(yes|no)\b", re.IGNORECASE)),
     ("forbidden_phrase:certainty", re.compile(r"\b(will\s+definitely|guaranteed\s+outcome|outcome\s+is\s+certain)\b", re.IGNORECASE)),
@@ -348,6 +358,7 @@ CRITIC_EXPLICIT_FORBIDDEN_LANGUAGE_PATTERNS = (
 )
 
 NEGATIVE_ATTESTATION_SUPPRESSIBLE_CODES = {
+    "forbidden_phrase:confidence",
     "forbidden_phrase:edge",
     "forbidden_phrase:ev",
     "forbidden_phrase:kelly",
@@ -394,6 +405,7 @@ NEGATIVE_ATTESTATION_CATEGORY_RE = re.compile(
     r"kelly|"
     r"score|"
     r"scoring|"
+    r"confidence(\s+(score|level|estimate))?|"
     r"trade\s+execution|"
     r"trading\s+recommendations?|"
     r"market\s+recommendations?|"
@@ -466,9 +478,10 @@ NEGATIVE_ATTESTATION_UNSAFE_CONTEXT_PATTERNS = (
 )
 
 JSON_MARKDOWN_FENCE_RE = re.compile(
-    r"\A[ \t]*```[ \t]*(?P<language>[A-Za-z0-9_-]*)[ \t]*\r?\n(?P<body>.*?)\r?\n```[ \t]*\Z",
+    r"\A\s*```[ \t]*(?P<language>[A-Za-z0-9_-]*)[ \t]*\r?\n(?P<body>.*?)\r?\n```\s*\Z",
     re.DOTALL,
 )
+NORMALIZATION_POLICY_VERSION = "fenced_json_normalization.v1"
 
 
 class HarnessError(Exception):
@@ -723,49 +736,119 @@ def _is_negative_safety_attestation(value, match, code):
     return _match_inside_scope(normalized_context, normalized_match_start, normalized_match_end)
 
 
+def _raw_strict_json_object_parse_passed(text):
+    try:
+        parsed = json.loads(text)
+    except json.JSONDecodeError:
+        return False
+    return isinstance(parsed, dict)
+
+
+def _normalization_flags(text, allow_local_json_fence_repair=False):
+    raw_markdown_fence_detected = "```" in text
+    return {
+        "raw_response_was_markdown_fenced": raw_markdown_fence_detected,
+        "raw_markdown_fence_detected": raw_markdown_fence_detected,
+        "normalized_from_markdown_fence": False,
+        "normalized_content_used": False,
+        "raw_strict_json_parse_passed": _raw_strict_json_object_parse_passed(text),
+        "normalized_json_parse_passed": False,
+        "normalization_policy_applied": False,
+        "normalization_policy_version": NORMALIZATION_POLICY_VERSION,
+        "semantic_repair_allowed": False,
+        "legacy_allow_local_json_fence_repair": bool(allow_local_json_fence_repair),
+        "fence_language": None,
+    }
+
+
+def _legacy_recovery_flags(normalization):
+    return {
+        "applied": normalization["normalized_from_markdown_fence"],
+        "method": "single_json_markdown_fence" if normalization["normalized_from_markdown_fence"] else None,
+        "raw_markdown_fence_present": normalization["raw_response_was_markdown_fenced"],
+        "allow_local_json_fence_repair": normalization["legacy_allow_local_json_fence_repair"],
+        "normalization_policy_applied": normalization["normalization_policy_applied"],
+        "normalization_policy_version": normalization["normalization_policy_version"],
+        "normalized_from_markdown_fence": normalization["normalized_from_markdown_fence"],
+        "semantic_repair_allowed": False,
+        "fence_language": normalization["fence_language"],
+    }
+
+
 def _json_candidate_from_raw_content(raw_content, allow_local_json_fence_repair=False):
     text = "" if raw_content is None else str(raw_content)
-    stripped = text.strip()
-    recovery = {
-        "applied": False,
-        "method": None,
-        "raw_markdown_fence_present": "```" in text,
-        "allow_local_json_fence_repair": bool(allow_local_json_fence_repair),
-    }
+    normalization = _normalization_flags(
+        text,
+        allow_local_json_fence_repair=allow_local_json_fence_repair,
+    )
     errors = []
 
-    if "```" not in text or not allow_local_json_fence_repair:
-        return text, recovery, errors
+    if not normalization["raw_response_was_markdown_fenced"]:
+        return text, normalization, _legacy_recovery_flags(normalization), errors
 
-    match = JSON_MARKDOWN_FENCE_RE.fullmatch(stripped)
+    normalization["normalization_policy_applied"] = True
+
+    if text.count("```") != 2:
+        errors.append(
+            {
+                "code": "multiple_markdown_fences_present",
+                "message": "Fenced JSON normalization allows exactly one Markdown fenced block.",
+            }
+        )
+        return text, normalization, _legacy_recovery_flags(normalization), errors
+
+    match = JSON_MARKDOWN_FENCE_RE.fullmatch(text)
     if not match:
         errors.append(
             {
                 "code": "markdown_fence_present",
-                "message": "Markdown fences are only recoverable when the full response is a single JSON fence.",
+                "message": "Markdown fences are only normalized when the full response is a single JSON fence.",
             }
         )
-        return text, recovery, errors
+        return text, normalization, _legacy_recovery_flags(normalization), errors
 
     language = match.group("language").lower()
     if language not in ("", "json"):
         errors.append(
             {
                 "code": "markdown_fence_present",
-                "message": "Markdown fence language must be json or empty to recover.",
+                "message": "Markdown fence language must be json or empty to normalize.",
             }
         )
-        return text, recovery, errors
+        return text, normalization, _legacy_recovery_flags(normalization), errors
 
-    recovery["applied"] = True
-    recovery["method"] = "single_json_markdown_fence"
-    recovery["fence_language"] = language or None
-    return match.group("body").strip(), recovery, errors
+    candidate_text = match.group("body").strip()
+    normalization["fence_language"] = language or None
+
+    try:
+        parsed = json.loads(candidate_text)
+    except json.JSONDecodeError as exc:
+        errors.append(
+            {
+                "code": "normalized_json_parse_failed",
+                "message": f"Normalized fenced JSON parse failed at {exc.lineno}:{exc.colno}.",
+            }
+        )
+        return candidate_text, normalization, _legacy_recovery_flags(normalization), errors
+
+    if not isinstance(parsed, dict):
+        errors.append(
+            {
+                "code": "normalized_json_top_level_not_object",
+                "message": "Normalized fenced JSON must parse as a top-level object.",
+            }
+        )
+        return candidate_text, normalization, _legacy_recovery_flags(normalization), errors
+
+    normalization["normalized_from_markdown_fence"] = True
+    normalization["normalized_content_used"] = True
+    normalization["normalized_json_parse_passed"] = True
+    return candidate_text, normalization, _legacy_recovery_flags(normalization), errors
 
 
 def validate_raw_json_content(raw_content, allow_local_json_fence_repair=False, fail_on_repair=False):
     text = "" if raw_content is None else str(raw_content)
-    candidate_text, recovery, recovery_errors = _json_candidate_from_raw_content(
+    candidate_text, normalization, recovery, recovery_errors = _json_candidate_from_raw_content(
         text,
         allow_local_json_fence_repair=allow_local_json_fence_repair,
     )
@@ -784,13 +867,20 @@ def validate_raw_json_content(raw_content, allow_local_json_fence_repair=False, 
         "forbidden_fields_absent": True,
         "forbidden_language_absent": True,
     }
+    checks.update(normalization)
 
     errors.extend(recovery_errors)
     if recovery["applied"]:
         warnings.append(
             {
+                "code": "markdown_fence_normalized",
+                "message": "Normalized JSON from a single full-response Markdown fence.",
+            }
+        )
+        warnings.append(
+            {
                 "code": "markdown_fence_recovered",
-                "message": "Recovered JSON from a single full-response Markdown fence.",
+                "message": "Legacy recovery alias for fenced JSON normalization.",
             }
         )
         if fail_on_repair:
@@ -850,6 +940,14 @@ def validate_raw_json_content(raw_content, allow_local_json_fence_repair=False, 
     return {
         "status": status,
         "valid": status == "accepted",
+        "raw_response_was_markdown_fenced": normalization["raw_response_was_markdown_fenced"],
+        "normalized_from_markdown_fence": normalization["normalized_from_markdown_fence"],
+        "raw_strict_json_parse_passed": normalization["raw_strict_json_parse_passed"],
+        "normalized_json_parse_passed": normalization["normalized_json_parse_passed"],
+        "normalization_policy_applied": normalization["normalization_policy_applied"],
+        "normalization_policy_version": normalization["normalization_policy_version"],
+        "normalized_content_used": normalization["normalized_content_used"],
+        "normalization": normalization,
         "recovery": recovery,
         "warnings": sorted(warnings, key=lambda item: (item["code"], item["message"])),
         "checks": checks,
@@ -869,7 +967,7 @@ def _append_validation_error(errors, code, message, path=None):
 
 def _validate_raw_json_object_syntax(raw_content, allow_local_json_fence_repair=False, fail_on_repair=False):
     text = "" if raw_content is None else str(raw_content)
-    candidate_text, recovery, recovery_errors = _json_candidate_from_raw_content(
+    candidate_text, normalization, recovery, recovery_errors = _json_candidate_from_raw_content(
         text,
         allow_local_json_fence_repair=allow_local_json_fence_repair,
     )
@@ -886,13 +984,20 @@ def _validate_raw_json_object_syntax(raw_content, allow_local_json_fence_repair=
         "parses_json": False,
         "top_level_object": False,
     }
+    checks.update(normalization)
 
     errors.extend(recovery_errors)
     if recovery["applied"]:
         warnings.append(
             {
+                "code": "markdown_fence_normalized",
+                "message": "Normalized JSON from a single full-response Markdown fence.",
+            }
+        )
+        warnings.append(
+            {
                 "code": "markdown_fence_recovered",
-                "message": "Recovered JSON from a single full-response Markdown fence.",
+                "message": "Legacy recovery alias for fenced JSON normalization.",
             }
         )
         if fail_on_repair:
@@ -921,7 +1026,7 @@ def _validate_raw_json_object_syntax(raw_content, allow_local_json_fence_repair=
         if not checks["top_level_object"]:
             _append_validation_error(errors, "json_top_level_not_object", "Top-level JSON value must be an object.")
 
-    return errors, warnings, checks, recovery, parsed
+    return errors, warnings, checks, normalization, recovery, parsed
 
 
 def _require_exact_fields(value, required_fields, section_path, errors):
@@ -1051,13 +1156,18 @@ def _is_critic_schema_validation_error(error):
     return (
         code.startswith("raw_content_")
         or code.startswith("json_")
+        or code.startswith("normalized_json_")
         or code.startswith("critic_schema_")
-        or code in {"markdown_fence_present", "markdown_fence_recovered_fail_on_repair"}
+        or code in {
+            "markdown_fence_present",
+            "markdown_fence_recovered_fail_on_repair",
+            "multiple_markdown_fences_present",
+        }
     )
 
 
 def validate_critic_json_content(raw_content, allow_local_json_fence_repair=False, fail_on_repair=False):
-    errors, warnings, checks, recovery, parsed = _validate_raw_json_object_syntax(
+    errors, warnings, checks, normalization, recovery, parsed = _validate_raw_json_object_syntax(
         raw_content,
         allow_local_json_fence_repair=allow_local_json_fence_repair,
         fail_on_repair=fail_on_repair,
@@ -1164,6 +1274,14 @@ def validate_critic_json_content(raw_content, allow_local_json_fence_repair=Fals
     return {
         "status": status,
         "valid": status == "accepted",
+        "raw_response_was_markdown_fenced": normalization["raw_response_was_markdown_fenced"],
+        "normalized_from_markdown_fence": normalization["normalized_from_markdown_fence"],
+        "raw_strict_json_parse_passed": normalization["raw_strict_json_parse_passed"],
+        "normalized_json_parse_passed": normalization["normalized_json_parse_passed"],
+        "normalization_policy_applied": normalization["normalization_policy_applied"],
+        "normalization_policy_version": normalization["normalization_policy_version"],
+        "normalized_content_used": normalization["normalized_content_used"],
+        "normalization": normalization,
         "recovery": recovery,
         "warnings": sorted(warnings, key=lambda item: (item["code"], item["message"])),
         "checks": checks,
@@ -1270,6 +1388,17 @@ def _write_model_artifacts(
         timestamp_utc=timestamp_utc,
         phase=phase,
     )
+    raw_artifact.update(
+        {
+            "raw_response_was_markdown_fenced": validation.get("raw_response_was_markdown_fenced"),
+            "normalized_from_markdown_fence": validation.get("normalized_from_markdown_fence"),
+            "raw_strict_json_parse_passed": validation.get("raw_strict_json_parse_passed"),
+            "normalized_json_parse_passed": validation.get("normalized_json_parse_passed"),
+            "normalization_policy_applied": validation.get("normalization_policy_applied"),
+            "normalization_policy_version": validation.get("normalization_policy_version"),
+            "normalized_content_used": validation.get("normalized_content_used"),
+        }
+    )
     if validation["valid"] and isinstance(parsed_content, dict):
         if wrap_valid_parsed_content:
             content_artifact = {
@@ -1373,12 +1502,20 @@ def _base_summary(args, prompt_selection, timestamp_utc):
         "sonnet_called": False,
         "sonnet_valid": None,
         "sonnet_json_recovered": False,
+        "sonnet_raw_markdown_fence_detected": None,
+        "sonnet_normalized_content_used": False,
+        "sonnet_raw_strict_json_parse_passed": None,
+        "sonnet_normalized_json_parse_passed": None,
         "critic_called": False,
         "critic_valid": None,
         "critic_schema_valid": None,
         "critic_safety_booleans_passed": None,
         "critic_verdict": None,
         "critic_json_recovered": False,
+        "critic_raw_markdown_fence_detected": None,
+        "critic_normalized_content_used": False,
+        "critic_raw_strict_json_parse_passed": None,
+        "critic_normalized_json_parse_passed": None,
         "models": {
             "sonnet": {
                 "requested_model": args.sonnet_model,
@@ -1409,6 +1546,9 @@ def _base_summary(args, prompt_selection, timestamp_utc):
         "manual_only": True,
         "allow_local_json_fence_repair": bool(args.allow_local_json_fence_repair),
         "fail_on_repair": bool(args.fail_on_repair),
+        "fenced_json_normalization_policy_enabled": True,
+        "normalization_policy_version": NORMALIZATION_POLICY_VERSION,
+        "semantic_repair_allowed": False,
     }
 
 
@@ -1421,6 +1561,21 @@ def _update_summary_with_model(summary, phase, api_response, requested_model):
     summary["providers"][phase] = model_summary["provider"]
     summary["usage"][phase] = model_summary["usage"]
     summary["costs"][phase] = model_summary["cost"]
+
+
+def _update_summary_with_validation(summary, phase, validation):
+    summary[f"{phase}_raw_markdown_fence_detected"] = bool(
+        validation.get("raw_response_was_markdown_fenced")
+    )
+    summary[f"{phase}_normalized_content_used"] = bool(
+        validation.get("normalized_content_used")
+    )
+    summary[f"{phase}_raw_strict_json_parse_passed"] = bool(
+        validation.get("raw_strict_json_parse_passed")
+    )
+    summary[f"{phase}_normalized_json_parse_passed"] = bool(
+        validation.get("normalized_json_parse_passed")
+    )
 
 
 def _validation_no_trading_decision(validation):
@@ -1520,6 +1675,7 @@ def run_harness(argv, env=None, api_caller=call_openrouter, root=ROOT):
     )
     summary["sonnet_valid"] = sonnet_validation["valid"]
     summary["sonnet_json_recovered"] = bool(sonnet_validation.get("recovery", {}).get("applied"))
+    _update_summary_with_validation(summary, "sonnet", sonnet_validation)
     summary["artifact_paths"]["sonnet"] = _write_model_artifacts(
         out_dir=out_dir,
         phase="sonnet",
@@ -1554,6 +1710,7 @@ def run_harness(argv, env=None, api_caller=call_openrouter, root=ROOT):
             )
             summary["critic_valid"] = critic_validation["valid"]
             summary["critic_json_recovered"] = bool(critic_validation.get("recovery", {}).get("applied"))
+            _update_summary_with_validation(summary, "critic", critic_validation)
             summary["critic_schema_valid"] = bool(critic_validation.get("checks", {}).get("critic_schema_valid"))
             summary["critic_safety_booleans_passed"] = bool(
                 critic_validation.get("checks", {}).get("critic_safety_booleans_passed")

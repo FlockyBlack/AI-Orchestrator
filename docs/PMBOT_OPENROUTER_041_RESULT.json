@@ -1,0 +1,96 @@
+{
+  "task_id": "PMBOT-OPENROUTER-041-FENCED-JSON-NORMALIZATION-POLICY",
+  "status": "completed_pushed",
+  "head_before": "e7f83f5f834078588dc52c6dba581d9d547c9c8c",
+  "head_after": "reported_in_final_response_after_commit",
+  "openrouter_calls_performed": 0,
+  "polymarket_api_calls_performed": 0,
+  "source_040_status": "blocked_markdown_fence_detected",
+  "source_040_fail_fast_reason": "markdown_fence_detected:569333",
+  "source_040_total_openrouter_calls_performed": 1,
+  "source_040_safety_precheck": {
+    "no_polymarket_api_calls": true,
+    "no_wallet_orders_trading": true,
+    "no_runtime_dispatcher_background_browser_queue_changes": true,
+    "api_key_value_printed": false,
+    "api_key_value_written": false,
+    "api_key_leaked": false
+  },
+  "fenced_json_normalization_policy_added": true,
+  "normalization_policy_version": "fenced_json_normalization.v1",
+  "semantic_repair_allowed": false,
+  "raw_response_preserved": true,
+  "raw_strict_json_parse_remains_strict": true,
+  "acceptance_scope": "operator_review_only_after_normalized_content_passes_all_existing_gates",
+  "files_changed": [
+    "docs/PMBOT_OPENROUTER_041_FENCED_JSON_NORMALIZATION_POLICY.md",
+    "docs/PMBOT_OPENROUTER_041_RESULT.json",
+    "pm_bot/llm/run_openrouter_prompt_test.py",
+    "tests/test_openrouter_fenced_json_normalization.py",
+    "tests/test_openrouter_prompt_test.py",
+    "tests/test_openrouter_result_artifacts.py"
+  ],
+  "tests_run": [
+    {
+      "command": "python -m py_compile pm_bot\\llm\\run_openrouter_prompt_test.py",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest tests\\test_openrouter_fenced_json_normalization.py tests\\test_openrouter_prompt_test.py -q",
+      "status": "passed"
+    },
+    {
+      "command": "python -m compileall pm_bot",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest tests pm_bot\\llm\\tests -q",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest tests\\test_openrouter_prompt_test.py -q",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest tests\\test_openrouter_result_artifacts.py -q",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest tests\\test_openrouter_fenced_json_normalization.py -q",
+      "status": "passed"
+    },
+    {
+      "command": "python -m json.tool docs\\PMBOT_OPENROUTER_040_RESULT.json",
+      "status": "passed"
+    },
+    {
+      "command": "python -m json.tool docs\\PMBOT_OPENROUTER_041_RESULT.json",
+      "status": "passed"
+    },
+    {
+      "command": "changed-file secret scan",
+      "status": "passed"
+    }
+  ],
+  "secret_scan_passed": true,
+  "safety_summary": {
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "no_wallet_private_keys": true,
+    "no_orders": true,
+    "no_trading": true,
+    "no_runtime_dispatcher_background_browser_queue_changes": true,
+    "no_browser_automation": true,
+    "no_queue_mutation": true,
+    "operator_review_only": true,
+    "no_live_calls": true,
+    "api_key_value_printed": false,
+    "api_key_value_written": false,
+    "api_key_leaked": false
+  },
+  "commit_hash": null,
+  "commit_hash_note": "reported in final response because a committed file cannot contain its own final commit hash",
+  "pushed": true,
+  "pushed_note": "final push evidence is reported in the executor final response",
+  "working_tree_clean_after": true
+}

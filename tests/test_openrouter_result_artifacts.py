@@ -32,3 +32,27 @@ def test_openrouter_037_status_is_reconciled_before_retry_artifacts():
     assert result_039["source_037_reconciled"] is True
     assert result_039["source_038_preserved_as_blocked"] is True
     assert result_039["source_038_openrouter_calls_performed"] == 0
+
+
+def test_openrouter_041_records_fenced_json_normalization_policy():
+    result_040 = _load_result("PMBOT_OPENROUTER_040_RESULT.json")
+    result_041 = _load_result("PMBOT_OPENROUTER_041_RESULT.json")
+
+    assert result_040["status"] == "blocked_markdown_fence_detected"
+    assert result_040["total_openrouter_calls_performed"] == 1
+    assert result_040["fail_fast_reason"] == "markdown_fence_detected:569333"
+
+    assert result_041["task_id"] == "PMBOT-OPENROUTER-041-FENCED-JSON-NORMALIZATION-POLICY"
+    assert result_041["status"] == "completed_pushed"
+    assert result_041["openrouter_calls_performed"] == 0
+    assert result_041["polymarket_api_calls_performed"] == 0
+    assert result_041["source_040_status"] == "blocked_markdown_fence_detected"
+    assert result_041["source_040_fail_fast_reason"] == "markdown_fence_detected:569333"
+    assert result_041["fenced_json_normalization_policy_added"] is True
+    assert result_041["normalization_policy_version"] == "fenced_json_normalization.v1"
+    assert result_041["semantic_repair_allowed"] is False
+    assert result_041["raw_response_preserved"] is True
+    assert result_041["raw_strict_json_parse_remains_strict"] is True
+    assert result_041["secret_scan_passed"] is True
+    assert result_041["safety_summary"]["openrouter_calls_performed"] == 0
+    assert result_041["safety_summary"]["polymarket_api_calls_performed"] == 0
