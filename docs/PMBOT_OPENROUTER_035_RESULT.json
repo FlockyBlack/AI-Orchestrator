@@ -1,0 +1,168 @@
+{
+  "task_id": "PMBOT-OPENROUTER-035-SMALL-BATCH-READINESS-PROTOCOL",
+  "status": "completed_local_checks_passed_pending_commit",
+  "repo": {
+    "repo_root": "C:\\Users\\OpenC\\OneDrive\\\u0414\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u044b\\AI-Orchestrator",
+    "branch": "main",
+    "head_before": "9101d8f8117350d56156ee2f0ca3f187cf54f456",
+    "head_after": "9101d8f8117350d56156ee2f0ca3f187cf54f456",
+    "expected_head_at_start": "9101d8f8117350d56156ee2f0ca3f187cf54f456",
+    "expected_head_was_head": true,
+    "working_tree_clean_before": true
+  },
+  "precheck": {
+    "api_key_needed": false,
+    "openrouter_api_key_inspected": false
+  },
+  "milestone_validation": {
+    "result_028_exists": true,
+    "result_033_exists": true,
+    "result_034_exists": true,
+    "operator_surface_563650_exists": true,
+    "operator_surface_569332_exists": true,
+    "first_live_call_passed": true,
+    "second_live_call_passed": true,
+    "two_call_stability_report_exists": true,
+    "result_034_status_in_artifact": "completed_local_checks_passed_pending_commit",
+    "result_034_artifacts_present_in_pushed_baseline": true,
+    "batch_live_calls_previously_approved": false
+  },
+  "loaded_metadata_checks": {
+    "result_028_status": "completed_live_call_passed",
+    "result_033_status": "completed_live_call_passed",
+    "result_034_current_repo_baseline_pushed": true,
+    "result_028_openrouter_calls_count": 1,
+    "result_033_openrouter_calls_count": 1,
+    "result_028_accepted_for_operator_review": true,
+    "result_033_accepted_for_operator_review": true,
+    "result_028_prohibited_trading_content_detected": false,
+    "result_033_prohibited_trading_content_detected": false,
+    "result_028_api_key_leaked": false,
+    "result_033_api_key_leaked": false,
+    "result_034_batch_live_calls_approved": false
+  },
+  "small_batch_protocol": {
+    "future_task_id": "PMBOT-OPENROUTER-036-SMALL-MANUAL-BATCH-LIVE-CALL",
+    "protocol_only": true,
+    "batch_live_calls_performed": false,
+    "batch_live_calls_approved_by_this_task": false,
+    "proposed_batch_size": 3,
+    "proposed_market_ids": [
+      "569333",
+      "569334",
+      "569343"
+    ],
+    "replacement_market_ids_if_artifacts_missing": [
+      "569344",
+      "569366",
+      "569368",
+      "569373",
+      "573656",
+      "597964",
+      "598936",
+      "691547",
+      "692258"
+    ],
+    "excluded_already_tested_market_ids": [
+      "563650",
+      "569332"
+    ],
+    "model": "anthropic/claude-sonnet-4.5",
+    "max_openrouter_calls": 3,
+    "retries_allowed": false,
+    "operator_approval_required_for_036": true,
+    "automatic_operator_surface": false,
+    "runtime_queue_import": false,
+    "dispatch_background_scheduler_integration": false,
+    "trading_authority": false
+  },
+  "candidate_artifact_precheck": {
+    "569333_packet_exists": true,
+    "569333_prompt_exists": true,
+    "569334_packet_exists": true,
+    "569334_prompt_exists": true,
+    "569343_packet_exists": true,
+    "569343_prompt_exists": true
+  },
+  "fail_fast_rules": {
+    "stop_on_raw_validation_failure": true,
+    "stop_on_acceptance_gate_failure": true,
+    "stop_on_prohibited_trading_content": true,
+    "stop_on_missing_usage_or_cost_artifact": true,
+    "stop_on_api_key_leak": true
+  },
+  "cost_guard": {
+    "documented": true,
+    "existing_budget_policy_referenced": [
+      "docs/PMBOT_OPENROUTER_010_MANUAL_NETWORK_ADAPTER_PROPOSAL.md",
+      "docs/PMBOT_OPENROUTER_032_POST_LIVE_BASELINE_AND_SECOND_CALL_READINESS.md"
+    ],
+    "aggregate_batch_budget_cap_usd": 0.15,
+    "per_market_planning_cap_usd": 0.05,
+    "per_market_usage_required": true,
+    "aggregate_usage_summary_required": true,
+    "operator_visible_cost_report_required": true,
+    "spend_automation_added": false
+  },
+  "artifact_plan": {
+    "base_dir": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_036_small_manual_batch_live_call",
+    "per_market_raw_response_pattern": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_036_small_manual_batch_live_call/<market_id>/openrouter_sonnet_<market_id>_raw.json",
+    "per_market_content_pattern": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_036_small_manual_batch_live_call/<market_id>/openrouter_sonnet_<market_id>_content.json",
+    "per_market_validation_pattern": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_036_small_manual_batch_live_call/<market_id>/openrouter_sonnet_<market_id>_validation.json",
+    "per_market_summary_pattern": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_036_small_manual_batch_live_call/<market_id>/openrouter_test_summary_<market_id>.json",
+    "batch_aggregate_summary": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_036_small_manual_batch_live_call/batch_aggregate_summary.v1.json",
+    "batch_acceptance_report": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_036_small_manual_batch_live_call/batch_acceptance_report.v1.json",
+    "batch_cost_report": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_036_small_manual_batch_live_call/batch_cost_report.v1.json",
+    "actual_036_live_artifacts_created": false
+  },
+  "safety": {
+    "no_openrouter_calls": true,
+    "no_polymarket_api_calls": true,
+    "no_wallet_private_keys": true,
+    "no_orders": true,
+    "no_trading": true,
+    "no_runtime_wiring": true,
+    "no_dispatcher_changes": true,
+    "no_background_workers": true,
+    "no_browser_automation": true,
+    "no_queue_mutation": true,
+    "no_probability_ev_edge_confidence_side_selection": true,
+    "no_buy_sell_hold_enter_exit_recommendations": true,
+    "openrouter_api_key_read": false,
+    "openrouter_api_key_printed": false,
+    "openrouter_api_key_written_to_disk": false,
+    "secret_scan_passed": true,
+    "api_key_leaked": false
+  },
+  "tests": {
+    "compileall_passed": true,
+    "pytest_llm_passed": true,
+    "pytest_summary": "265 passed in 5.22s",
+    "json_parse_checks_passed": true,
+    "result_json_checks_passed": true
+  },
+  "reports": {
+    "result_json_path": "docs/PMBOT_OPENROUTER_035_RESULT.json",
+    "markdown_report_path": "docs/PMBOT_OPENROUTER_035_SMALL_BATCH_READINESS_PROTOCOL.md"
+  },
+  "git": {
+    "commit_created": false,
+    "commit_hash": null,
+    "pushed": false,
+    "files_committed": []
+  },
+  "commands_run": [
+    "git status --short",
+    "git branch --show-current",
+    "git rev-parse HEAD",
+    "Test-Path milestone artifacts and candidate manual packet artifacts",
+    "Loaded 028, 033, and 034 result JSON files",
+    "Reviewed existing OpenRouter cost and usage documentation",
+    "python -m compileall pm_bot",
+    "python -m pytest tests pm_bot\\llm\\tests -q",
+    "python -m json.tool docs/PMBOT_OPENROUTER_035_RESULT.json",
+    "Python result JSON validation checks for PMBOT_OPENROUTER_035_RESULT.json",
+    "secret scan over generated 035 artifacts"
+  ],
+  "next_action": "Seek separate operator approval before any PMBOT-OPENROUTER-036 batch live test."
+}
