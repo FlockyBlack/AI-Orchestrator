@@ -1,0 +1,82 @@
+{
+  "acceptance_gate_passed": true,
+  "accepted_for_operator_review": true,
+  "analysis_only": true,
+  "api_key_leaked": false,
+  "api_key_presence_checked": true,
+  "api_key_value_printed": false,
+  "api_key_value_written": false,
+  "artifact_paths": {
+    "content": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_051_controlled_n5_batch_live_call/openrouter_sonnet_569344_content.json",
+    "raw": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_051_controlled_n5_batch_live_call/openrouter_sonnet_569344_raw.json",
+    "summary": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_051_controlled_n5_batch_live_call/openrouter_sonnet_569344_summary.json",
+    "validation": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_051_controlled_n5_batch_live_call/openrouter_sonnet_569344_validation.json"
+  },
+  "cost": 0.041745,
+  "cost_details": {
+    "upstream_inference_completions_cost": 0.02892,
+    "upstream_inference_cost": 0.041745,
+    "upstream_inference_prompt_cost": 0.012825
+  },
+  "cost_present": true,
+  "fail_fast_reason": null,
+  "fail_fast_triggered": false,
+  "forbidden_phrase_detected": false,
+  "forbidden_phrase_diagnostic": null,
+  "manual_review_only": true,
+  "market_id": "569344",
+  "model": "anthropic/claude-sonnet-4.5",
+  "no_browser_automation": true,
+  "no_buy_sell_hold_enter_exit": true,
+  "no_polymarket_api_calls": true,
+  "no_probability_ev_edge_confidence_side_selection": true,
+  "no_queue_mutation": true,
+  "no_recommendations": true,
+  "no_runtime_dispatcher_background_browser_queue_changes": true,
+  "no_wallet_orders_trading": true,
+  "normalization_policy_applied": true,
+  "normalization_policy_version": "fenced_json_normalization.v1",
+  "normalized_from_markdown_fence": true,
+  "normalized_json_parse_passed": true,
+  "normalized_response_validator_passed": true,
+  "openrouter_call_index": 1,
+  "openrouter_call_performed": true,
+  "prohibited_content_detected": false,
+  "prohibited_content_diagnostic": null,
+  "provider": "Amazon Bedrock",
+  "raw_response_preserved": true,
+  "raw_response_validator_passed": false,
+  "raw_response_was_markdown_fenced": true,
+  "raw_strict_json_parse_passed": false,
+  "response_schema_validator_passed": true,
+  "returned_model": "anthropic/claude-4.5-sonnet-20250929",
+  "schema_validation_passed": true,
+  "semantic_repair_allowed": false,
+  "session_id": "pmbot_openrouter_051_controlled_n5_batch_live_call",
+  "strict_json_parse_passed": true,
+  "task_id": "PMBOT-OPENROUTER-051-CONTROLLED-N5-BATCH-LIVE-CALL",
+  "usage": {
+    "completion_tokens": 1928,
+    "completion_tokens_details": {
+      "audio_tokens": 0,
+      "image_tokens": 0,
+      "reasoning_tokens": 0
+    },
+    "cost": 0.041745,
+    "cost_details": {
+      "upstream_inference_completions_cost": 0.02892,
+      "upstream_inference_cost": 0.041745,
+      "upstream_inference_prompt_cost": 0.012825
+    },
+    "is_byok": false,
+    "prompt_tokens": 4275,
+    "prompt_tokens_details": {
+      "audio_tokens": 0,
+      "cache_write_tokens": 0,
+      "cached_tokens": 0,
+      "video_tokens": 0
+    },
+    "total_tokens": 6203
+  },
+  "usage_present": true
+}

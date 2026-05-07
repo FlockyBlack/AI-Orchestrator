@@ -1,0 +1,102 @@
+{
+  "citation_or_source_gap_notes": [
+    "No official Polymarket resolution criteria text is present in the packet",
+    "No benchmark source URL or specification is provided",
+    "No timezone information is included",
+    "No current or historical Bitcoin price data is present",
+    "No credible news source content is included despite placeholder references to Reuters, CoinDesk, The Block, Bloomberg, and Wall Street Journal",
+    "All evidence_source_placeholders remain as placeholders without actual source material",
+    "Source gap notes list multiple missing queries but no query results are present",
+    "No timestamp information for when packet was generated or when market data would be current",
+    "No verification that market 573656 exists or is correctly identified",
+    "No documentation of whether this market has precedent or similar resolved markets for reference"
+  ],
+  "concise_market_summary": "Market 573656 asks whether Bitcoin will reach $150,000 by December 31, 2026. The packet contains only stub information and placeholders. No resolution criteria text, benchmark source, timezone specification, or price index definition is present. The market status is unknown. Outcome labels are Yes and No. All substantive evidence is missing.",
+  "contract_version": "llm_analysis_response.v1",
+  "contradiction_checks": [
+    {
+      "check_result": "needs_more_source_review",
+      "notes": "Packet references both 'December 31, 2026' and '2027-01-01' in different contexts. Clarification needed on whether the cutoff is end of day December 31, 2026 or beginning of January 1, 2027, and in which timezone.",
+      "topic": "Deadline interpretation"
+    },
+    {
+      "check_result": "not_checked",
+      "notes": "Market status listed as unknown. Cannot verify whether market is open, closed, or resolved without accessing official source.",
+      "topic": "Market status consistency"
+    },
+    {
+      "check_result": "needs_more_source_review",
+      "notes": "Multiple placeholder references to benchmark, exchange, and index sources without specification. Cannot check for internal consistency until official resolution criteria are obtained.",
+      "topic": "Benchmark source alignment"
+    }
+  ],
+  "key_uncertainties": [
+    "Which price benchmark or exchange index determines resolution (e.g., specific exchange spot price, aggregated index, futures settlement price)",
+    "Timezone and exact timestamp cutoff for December 31, 2026 deadline",
+    "Whether intraday peak qualifies or only closing price matters",
+    "Minimum duration requirement if threshold is touched briefly",
+    "Handling of exchange outages, trading halts, or data feed interruptions during the measurement window",
+    "Whether the market resolves based on a single exchange or multiple sources",
+    "Treatment of flash crashes or anomalous price spikes that may not reflect broad market consensus"
+  ],
+  "missing_evidence": [
+    "Complete resolution criteria text from Polymarket market 573656",
+    "Official benchmark source specification (exchange name, index provider, or aggregator)",
+    "Timezone definition for December 31, 2026 deadline",
+    "Price measurement methodology (spot, VWAP, closing price, intraday high)",
+    "Historical Bitcoin price data and volatility patterns",
+    "Current Bitcoin price as of packet generation",
+    "Market participant commentary or order book depth",
+    "Macroeconomic context relevant to cryptocurrency valuation through 2026",
+    "Regulatory developments that may affect Bitcoin markets",
+    "Technical infrastructure considerations for price reporting"
+  ],
+  "operator_review_checklist": [
+    "Obtain complete official resolution criteria text from Polymarket market 573656",
+    "Identify and document the specific price benchmark source (exchange, index, or aggregator)",
+    "Confirm timezone and exact timestamp for December 31, 2026 deadline",
+    "Verify price measurement methodology (spot, closing, intraday high, VWAP, or other)",
+    "Check for minimum duration requirements if threshold is touched",
+    "Review handling of special cases such as exchange outages or data feed failures",
+    "Examine historical Bitcoin price volatility to understand typical ranges and movement patterns",
+    "Document current Bitcoin price and distance to $150,000 threshold",
+    "Assess whether market is currently open for participation or already resolved",
+    "Review any official amendments or clarifications to resolution criteria",
+    "Verify that all placeholder source references have been replaced with actual source material",
+    "Confirm that benchmark source is accessible and has reliable historical uptime"
+  ],
+  "packet_id": "llm-analysis-packet-manual-batch-573656",
+  "response_id": "llm-analysis-response-manual-batch-573656",
+  "risk_notes": [
+    "Complete absence of resolution criteria creates fundamental uncertainty about what constitutes a qualifying event",
+    "Price threshold markets are sensitive to measurement methodology; different exchanges can show significant price divergence during volatile periods",
+    "Long time horizon (through end of 2026) introduces substantial macroeconomic, regulatory, and technological uncertainty",
+    "Cryptocurrency markets can experience extreme volatility, including rapid price movements that may briefly touch thresholds without sustained levels",
+    "Exchange-specific issues (outages, delisting, regulatory actions) could complicate resolution if a single source is specified",
+    "Timezone ambiguity could create disputes if price crosses threshold near the deadline in some timezones but not others",
+    "Without current price context, cannot assess how far the threshold is from present levels or historical ranges"
+  ],
+  "safety_acknowledgement": {
+    "local_only": true,
+    "manual_review_only": true,
+    "no_autonomous_actions": true,
+    "no_outcome_estimates": true,
+    "no_recommendations": true,
+    "no_trade_or_wallet_instructions": true,
+    "no_value_scoring": true,
+    "offline_only": true,
+    "uncertain_claims_marked": true
+  },
+  "suggested_research_questions": [
+    "What is the complete official resolution criteria text for Polymarket market 573656?",
+    "Which specific price source (exchange or index) is designated as the resolution benchmark?",
+    "What timezone applies to the December 31, 2026 deadline?",
+    "Does resolution require sustained price level or is momentary touch sufficient?",
+    "How are exchange outages or data gaps handled in the resolution process?",
+    "What is the current Bitcoin price and how does it compare to historical volatility patterns?",
+    "Are there any precedent markets with similar cryptocurrency threshold questions and how were special cases resolved?",
+    "What macroeconomic or regulatory factors are most likely to influence Bitcoin price trajectory through 2026?",
+    "Has Polymarket published any clarifications or amendments to this market's resolution criteria?",
+    "What is the typical price divergence between major Bitcoin exchanges during volatile periods?"
+  ]
+}

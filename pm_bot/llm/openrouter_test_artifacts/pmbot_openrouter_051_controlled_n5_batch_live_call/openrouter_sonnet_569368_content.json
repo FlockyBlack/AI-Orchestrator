@@ -1,0 +1,114 @@
+{
+  "citation_or_source_gap_notes": [
+    "No Polymarket resolution criteria document is referenced or included",
+    "No official Colombian government or election authority sources are cited",
+    "No news coverage from Reuters, Associated Press, or Colombian outlets is provided",
+    "No candidate official pages, campaign materials, or party documents are referenced",
+    "No polling data, political analysis, or expert commentary sources are included",
+    "No historical election data or precedent sources are cited",
+    "No legal or constitutional sources regarding Colombian election law are provided",
+    "No source timestamps or publication dates are available for verification",
+    "No source reliability assessment or verification methodology is documented",
+    "All evidence placeholders remain unfilled with actual source material",
+    "No primary source documents from Colombian government entities are referenced",
+    "No verification pathway exists for any factual claims about the candidate or election"
+  ],
+  "concise_market_summary": "This market asks whether Ivan Cepeda Castro will win the 2026 Colombian presidential election, with a resolution date of 2026-06-21. The packet contains only structural placeholders and no substantive evidence. The full resolution criteria text is missing, as are all official sources, news coverage, candidate information, election authority identifiers, and any evidence supporting either outcome. The market status is listed as unknown.",
+  "contract_version": "llm_analysis_response.v1",
+  "contradiction_checks": [
+    {
+      "check_result": "needs_more_source_review",
+      "notes": "The resolution date of 2026-06-21 is provided, but without knowledge of the actual Colombian presidential election date or whether runoffs are possible, cannot assess whether this date is appropriate or might create resolution ambiguity.",
+      "topic": "Market resolution date versus typical Colombian election timing"
+    },
+    {
+      "check_result": "not_checked",
+      "notes": "No information is available to verify whether Ivan Cepeda Castro is eligible to run, has declared candidacy, or faces any legal or constitutional barriers. Cannot check for conflicts without source material.",
+      "topic": "Candidate eligibility and candidacy status"
+    },
+    {
+      "check_result": "needs_more_source_review",
+      "notes": "The market title asks about winning the election, but the full resolution criteria are missing. Cannot verify whether the criteria define winning consistently with the title or include special cases.",
+      "topic": "Market title versus resolution criteria alignment"
+    }
+  ],
+  "key_uncertainties": [
+    "Complete resolution criteria and special case handling rules are not provided in the packet",
+    "No information about Ivan Cepeda Castro's candidacy status, party affiliation, or campaign presence",
+    "Election date and format for the 2026 Colombian presidential election are not specified",
+    "Runoff procedures and their impact on resolution timing are unclear",
+    "Definition of what constitutes a win for resolution purposes is not documented",
+    "No baseline information about Colombian electoral processes or timeline",
+    "Whether the candidate must formally declare candidacy or meet other prerequisites is unspecified",
+    "Handling of scenarios where the election is postponed, cancelled, or contested is not addressed"
+  ],
+  "missing_evidence": [
+    "Full text of Polymarket resolution criteria for market 569368",
+    "Official Colombian election authority name and website",
+    "Confirmation that Ivan Cepeda Castro is a declared or potential candidate",
+    "Colombian presidential election schedule and key dates for 2026",
+    "Current polling data or political context for the 2026 race",
+    "Historical information about the candidate's political career and previous campaigns",
+    "Party affiliation and coalition information",
+    "News coverage from Reuters, Associated Press, or major Colombian outlets",
+    "Official candidate statements or campaign materials",
+    "Electoral system details including runoff requirements and thresholds",
+    "Source timestamps for any claims or data points",
+    "Reliability assessment framework for Colombian election sources"
+  ],
+  "operator_review_checklist": [
+    "Obtain and review the complete Polymarket resolution criteria document for market 569368",
+    "Identify the official Colombian election authority and locate their website and announcement channels",
+    "Verify Ivan Cepeda Castro's current political status and any declared candidacy for 2026",
+    "Research Colombian presidential election procedures, including dates, runoff rules, and certification processes",
+    "Confirm the scheduled date for the 2026 Colombian presidential election and compare to the market resolution date",
+    "Review special case handling in the resolution criteria for scenarios such as candidate withdrawal, election postponement, or contested results",
+    "Establish a source hierarchy for Colombian election information, prioritizing official government sources",
+    "Document the definition of winning used in the resolution criteria, including whether it requires official certification or preliminary results",
+    "Check for any constitutional or legal requirements that might affect candidacy or election timing",
+    "Review historical Colombian presidential elections for precedent on timing, runoffs, and result certification",
+    "Assess whether the market requires the candidate to win a first round outright or includes runoff scenarios",
+    "Verify that the resolution date allows sufficient time for official result certification",
+    "Document any party primary or nomination processes that might affect candidacy status before the election"
+  ],
+  "packet_id": "llm-analysis-packet-manual-batch-569368",
+  "response_id": "llm-analysis-response-manual-batch-569368",
+  "risk_notes": [
+    "Complete absence of resolution criteria creates fundamental uncertainty about how the market will be settled",
+    "No official sources are available to verify candidate status, election dates, or procedural requirements",
+    "The 2026 timeline means the election is approximately two years away, creating extended exposure to political developments, candidacy changes, and rule modifications",
+    "Without Colombian election authority identification, the resolution source chain cannot be validated",
+    "Potential for candidacy status changes between now and 2026, including withdrawal, disqualification, or party nomination processes",
+    "Runoff scenarios may create timing complications if the resolution date falls between rounds",
+    "Political context in Colombia may involve coalition dynamics, party primaries, or constitutional requirements not captured in the packet",
+    "No framework exists in the packet for handling postponed, cancelled, or contested elections",
+    "Source reliability standards for Colombian political news and official announcements are not established",
+    "The market may resolve based on preliminary results, official certification, or inauguration depending on criteria not provided"
+  ],
+  "safety_acknowledgement": {
+    "local_only": true,
+    "manual_review_only": true,
+    "no_autonomous_actions": true,
+    "no_outcome_estimates": true,
+    "no_recommendations": true,
+    "no_trade_or_wallet_instructions": true,
+    "no_value_scoring": true,
+    "offline_only": true,
+    "uncertain_claims_marked": true
+  },
+  "suggested_research_questions": [
+    "What are the complete resolution criteria for Polymarket market 569368, including all special case provisions?",
+    "What is the official name and website of the Colombian national election authority responsible for presidential elections?",
+    "Has Ivan Cepeda Castro formally declared candidacy for the 2026 Colombian presidential election?",
+    "What is the scheduled date for the first round of the 2026 Colombian presidential election?",
+    "Does the Colombian presidential election system include a runoff, and if so, what are the threshold requirements and timing?",
+    "What is Ivan Cepeda Castro's party affiliation and current political position?",
+    "What constitutional or legal requirements must a candidate meet to run for president in Colombia?",
+    "How does the market define winning - preliminary results, official certification, or inauguration?",
+    "What is the typical timeline between Colombian election day and official result certification?",
+    "Are there any pending legal cases, investigations, or eligibility questions regarding this candidate?",
+    "What party nomination or primary processes must occur before the 2026 general election?",
+    "How have previous Colombian presidential elections handled contested results or close races?",
+    "What credible polling or political analysis sources exist for Colombian presidential elections?"
+  ]
+}

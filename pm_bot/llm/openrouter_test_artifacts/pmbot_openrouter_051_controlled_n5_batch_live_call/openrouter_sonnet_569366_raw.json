@@ -1,0 +1,99 @@
+{
+  "artifact_type": "openrouter_sonnet_raw.v1",
+  "cost": 0.037236,
+  "market_id": "569366",
+  "normalization_policy_applied": true,
+  "normalization_policy_version": "fenced_json_normalization.v1",
+  "normalized_content_used": true,
+  "normalized_from_markdown_fence": true,
+  "normalized_json_parse_passed": true,
+  "openrouter_response": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "logprobs": null,
+        "message": {
+          "content": "```json\n{\n  \"contract_version\": \"llm_analysis_response.v1\",\n  \"response_id\": \"llm-analysis-response-manual-batch-569366\",\n  \"packet_id\": \"llm-analysis-packet-manual-batch-569366\",\n  \"concise_market_summary\": \"This market asks whether Abelardo de la Espriella will win the 2026 Colombian presidential election, with a resolution date of 2026-06-21. The packet contains only stub information and placeholders; no actual market rules, candidate background, polling data, official election authority details, or credible news coverage has been provided. The market status is unknown, and all substantive evidence fields are marked as missing.\",\n  \"key_uncertainties\": [\n    \"Complete market resolution criteria and rules are not included in the packet\",\n    \"Identity, political background, and current candidacy status of Abelardo de la Espriella are unknown\",\n    \"Colombian presidential election schedule, format, and official authority are not documented\",\n    \"Whether the resolution date 2026-06-21 corresponds to election day, runoff day, or certification deadline is unclear\",\n    \"No information about other candidates, incumbent status, or political landscape\",\n    \"Handling of scenarios such as candidate withdrawal, disqualification, election postponement, or runoff requirements is not specified\",\n    \"Definition of what constitutes a win under Colombian electoral law is absent\"\n  ],\n  \"missing_evidence\": [\n    \"Full Polymarket market rules and resolution criteria for market 569366\",\n    \"Official Colombian election authority identification and website\",\n    \"Candidate registration status and eligibility documentation\",\n    \"Current polling data or political analysis from credible sources\",\n    \"Reuters, Associated Press, or major Colombian news outlet coverage\",\n    \"Historical context for Colombian presidential elections and typical timelines\",\n    \"Party affiliation, campaign platform, or public statements from the candidate\",\n    \"Legal or procedural requirements for presidential candidacy in Colombia\",\n    \"Clarification of whether a first-round majority or runoff victory is required\",\n    \"Official election calendar showing primary, general, and potential runoff dates\"\n  ],\n  \"contradiction_checks\": [\n    {\n      \"topic\": \"Resolution date alignment with election schedule\",\n      \"check_result\": \"not_checked\",\n      \"notes\": \"Cannot verify whether 2026-06-21 is a plausible election date, runoff date, or certification deadline without access to official Colombian election authority calendar or historical election timing patterns.\"\n    },\n    {\n      \"topic\": \"Candidate name spelling and identity\",\n      \"check_result\": \"not_checked\",\n      \"notes\": \"No sources provided to confirm the correct spelling of the candidate name or verify this is a real political figure rather than a hypothetical or misspelled name.\"\n    },\n    {\n      \"topic\": \"Market rules versus Colombian electoral law\",\n      \"check_result\": \"not_checked\",\n      \"notes\": \"Cannot assess whether market resolution criteria align with official Colombian presidential election procedures, including potential runoff requirements or certification processes.\"\n    }\n  ],\n  \"risk_notes\": [\n    \"The packet explicitly lists all substantive evidence as missing, making any analysis purely structural\",\n    \"Resolution criteria gaps create ambiguity about special cases such as candidate withdrawal after the resolution date but before inauguration\",\n    \"Without official election authority identification, post-resolution verification would be difficult\",\n    \"The 2026 timeline means this market will remain unresolved for an extended period, increasing exposure to rule interpretation disputes\",\n    \"Colombian electoral procedures may include runoff requirements that are not addressed in the stub summary\",\n    \"Political landscape changes over the next two years could affect candidacy status in ways not covered by current information\"\n  ],\n  \"operator_review_checklist\": [\n    \"Obtain and review complete Polymarket market rules for market 569366\",\n    \"Verify the identity and current political status of Abelardo de la Espriella through official sources\",\n    \"Identify the official Colombian election authority and locate their website\",\n    \"Confirm the 2026 Colombian presidential election schedule, including primary, general, and potential runoff dates\",\n    \"Review Colombian electoral law regarding presidential candidacy requirements and victory conditions\",\n    \"Check credible news sources for any coverage of this candidate or the 2026 election landscape\",\n    \"Clarify how the market resolves in special cases: candidate withdrawal, disqualification, election postponement, death, or runoff scenarios\",\n    \"Determine whether the resolution date represents election day, final runoff day, or official certification deadline\",\n    \"Assess whether sufficient public information exists to make this market resolvable in a deterministic manner\",\n    \"Document any language or translation considerations for Colombian political terms\"\n  ],\n  \"suggested_research_questions\": [\n    \"What are the complete resolution criteria and special case handling rules for Polymarket market 569366?\",\n    \"Who is Abelardo de la Espriella and what is their current role in Colombian politics?\",\n    \"Has Abelardo de la Espriella officially declared candidacy or formed an exploratory committee for the 2026 presidential election?\",\n    \"What is the official Colombian election authority responsible for certifying presidential election results?\",\n    \"What is the scheduled date for the 2026 Colombian presidential election, and is a runoff system used?\",\n    \"What are the legal requirements for presidential candidacy in Colombia?\",\n    \"How have previous Colombian presidential elections been scheduled and conducted?\",\n    \"What credible polling or political analysis exists regarding the 2026 Colombian presidential race?\",\n    \"Are there any credible news reports from Reuters, AP, or major Colombian outlets mentioning this candidate?\",\n    \"What is the current political landscape in Colombia and who are the likely major candidates for 2026?\"\n  ],\n  \"citation_or_source_gap_notes\": [\n    \"No actual Polymarket market rules document or URL provided\",\n    \"No official Colombian election authority identified or linked\",\n    \"No candidate biography, official website, or party affiliation documented\",\n    \"No credible news coverage URLs from Reuters, Associated Press, or Colombian outlets\",\n    \"No polling data or political analysis sources cited\",\n    \"No historical election data or academic sources on Colombian electoral procedures\",\n    \"All evidence placeholders are marked as offline-check stubs without actual content\",\n    \"Source plan is explicitly labeled as a template that does not fetch sources\",\n    \"The packet acknowledges this is a partial evidence overlay used to prove deterministic merge behavior rather than a complete research artifact\"\n  ],\n  \"safety_acknowledgement\": {\n    \"offline_only\": true,\n    \"local_only\": true,\n    \"manual_review_only\": true,\n    \"no_recommendations\": true,\n    \"no_outcome_estimates\": true,\n    \"no_value_scoring\": true,\n    \"no_trade_or_wallet_instructions\": true,\n    \"no_autonomous_actions\": true,\n    \"uncertain_claims_marked\": true\n  }\n}\n```",
+          "reasoning": null,
+          "refusal": null,
+          "role": "assistant"
+        },
+        "native_finish_reason": "end_turn"
+      }
+    ],
+    "created": 1778168882,
+    "id": "gen-1778168882-R6l1r8fYlNZwPyJoIxqU",
+    "model": "anthropic/claude-4.5-sonnet-20250929",
+    "object": "chat.completion",
+    "provider": "Amazon Bedrock",
+    "system_fingerprint": null,
+    "usage": {
+      "completion_tokens": 1617,
+      "completion_tokens_details": {
+        "audio_tokens": 0,
+        "image_tokens": 0,
+        "reasoning_tokens": 0
+      },
+      "cost": 0.037236,
+      "cost_details": {
+        "upstream_inference_completions_cost": 0.024255,
+        "upstream_inference_cost": 0.037236,
+        "upstream_inference_prompt_cost": 0.012981
+      },
+      "is_byok": false,
+      "prompt_tokens": 4327,
+      "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "cache_write_tokens": 0,
+        "cached_tokens": 0,
+        "video_tokens": 0
+      },
+      "total_tokens": 5944
+    }
+  },
+  "packet_path": "pm_bot/llm/manual_packet_batch/569366_packet.v1.json",
+  "prompt_path": "pm_bot/llm/manual_packet_batch/569366_prompt.v1.md",
+  "provider": "Amazon Bedrock",
+  "raw_content": "```json\n{\n  \"contract_version\": \"llm_analysis_response.v1\",\n  \"response_id\": \"llm-analysis-response-manual-batch-569366\",\n  \"packet_id\": \"llm-analysis-packet-manual-batch-569366\",\n  \"concise_market_summary\": \"This market asks whether Abelardo de la Espriella will win the 2026 Colombian presidential election, with a resolution date of 2026-06-21. The packet contains only stub information and placeholders; no actual market rules, candidate background, polling data, official election authority details, or credible news coverage has been provided. The market status is unknown, and all substantive evidence fields are marked as missing.\",\n  \"key_uncertainties\": [\n    \"Complete market resolution criteria and rules are not included in the packet\",\n    \"Identity, political background, and current candidacy status of Abelardo de la Espriella are unknown\",\n    \"Colombian presidential election schedule, format, and official authority are not documented\",\n    \"Whether the resolution date 2026-06-21 corresponds to election day, runoff day, or certification deadline is unclear\",\n    \"No information about other candidates, incumbent status, or political landscape\",\n    \"Handling of scenarios such as candidate withdrawal, disqualification, election postponement, or runoff requirements is not specified\",\n    \"Definition of what constitutes a win under Colombian electoral law is absent\"\n  ],\n  \"missing_evidence\": [\n    \"Full Polymarket market rules and resolution criteria for market 569366\",\n    \"Official Colombian election authority identification and website\",\n    \"Candidate registration status and eligibility documentation\",\n    \"Current polling data or political analysis from credible sources\",\n    \"Reuters, Associated Press, or major Colombian news outlet coverage\",\n    \"Historical context for Colombian presidential elections and typical timelines\",\n    \"Party affiliation, campaign platform, or public statements from the candidate\",\n    \"Legal or procedural requirements for presidential candidacy in Colombia\",\n    \"Clarification of whether a first-round majority or runoff victory is required\",\n    \"Official election calendar showing primary, general, and potential runoff dates\"\n  ],\n  \"contradiction_checks\": [\n    {\n      \"topic\": \"Resolution date alignment with election schedule\",\n      \"check_result\": \"not_checked\",\n      \"notes\": \"Cannot verify whether 2026-06-21 is a plausible election date, runoff date, or certification deadline without access to official Colombian election authority calendar or historical election timing patterns.\"\n    },\n    {\n      \"topic\": \"Candidate name spelling and identity\",\n      \"check_result\": \"not_checked\",\n      \"notes\": \"No sources provided to confirm the correct spelling of the candidate name or verify this is a real political figure rather than a hypothetical or misspelled name.\"\n    },\n    {\n      \"topic\": \"Market rules versus Colombian electoral law\",\n      \"check_result\": \"not_checked\",\n      \"notes\": \"Cannot assess whether market resolution criteria align with official Colombian presidential election procedures, including potential runoff requirements or certification processes.\"\n    }\n  ],\n  \"risk_notes\": [\n    \"The packet explicitly lists all substantive evidence as missing, making any analysis purely structural\",\n    \"Resolution criteria gaps create ambiguity about special cases such as candidate withdrawal after the resolution date but before inauguration\",\n    \"Without official election authority identification, post-resolution verification would be difficult\",\n    \"The 2026 timeline means this market will remain unresolved for an extended period, increasing exposure to rule interpretation disputes\",\n    \"Colombian electoral procedures may include runoff requirements that are not addressed in the stub summary\",\n    \"Political landscape changes over the next two years could affect candidacy status in ways not covered by current information\"\n  ],\n  \"operator_review_checklist\": [\n    \"Obtain and review complete Polymarket market rules for market 569366\",\n    \"Verify the identity and current political status of Abelardo de la Espriella through official sources\",\n    \"Identify the official Colombian election authority and locate their website\",\n    \"Confirm the 2026 Colombian presidential election schedule, including primary, general, and potential runoff dates\",\n    \"Review Colombian electoral law regarding presidential candidacy requirements and victory conditions\",\n    \"Check credible news sources for any coverage of this candidate or the 2026 election landscape\",\n    \"Clarify how the market resolves in special cases: candidate withdrawal, disqualification, election postponement, death, or runoff scenarios\",\n    \"Determine whether the resolution date represents election day, final runoff day, or official certification deadline\",\n    \"Assess whether sufficient public information exists to make this market resolvable in a deterministic manner\",\n    \"Document any language or translation considerations for Colombian political terms\"\n  ],\n  \"suggested_research_questions\": [\n    \"What are the complete resolution criteria and special case handling rules for Polymarket market 569366?\",\n    \"Who is Abelardo de la Espriella and what is their current role in Colombian politics?\",\n    \"Has Abelardo de la Espriella officially declared candidacy or formed an exploratory committee for the 2026 presidential election?\",\n    \"What is the official Colombian election authority responsible for certifying presidential election results?\",\n    \"What is the scheduled date for the 2026 Colombian presidential election, and is a runoff system used?\",\n    \"What are the legal requirements for presidential candidacy in Colombia?\",\n    \"How have previous Colombian presidential elections been scheduled and conducted?\",\n    \"What credible polling or political analysis exists regarding the 2026 Colombian presidential race?\",\n    \"Are there any credible news reports from Reuters, AP, or major Colombian outlets mentioning this candidate?\",\n    \"What is the current political landscape in Colombia and who are the likely major candidates for 2026?\"\n  ],\n  \"citation_or_source_gap_notes\": [\n    \"No actual Polymarket market rules document or URL provided\",\n    \"No official Colombian election authority identified or linked\",\n    \"No candidate biography, official website, or party affiliation documented\",\n    \"No credible news coverage URLs from Reuters, Associated Press, or Colombian outlets\",\n    \"No polling data or political analysis sources cited\",\n    \"No historical election data or academic sources on Colombian electoral procedures\",\n    \"All evidence placeholders are marked as offline-check stubs without actual content\",\n    \"Source plan is explicitly labeled as a template that does not fetch sources\",\n    \"The packet acknowledges this is a partial evidence overlay used to prove deterministic merge behavior rather than a complete research artifact\"\n  ],\n  \"safety_acknowledgement\": {\n    \"offline_only\": true,\n    \"local_only\": true,\n    \"manual_review_only\": true,\n    \"no_recommendations\": true,\n    \"no_outcome_estimates\": true,\n    \"no_value_scoring\": true,\n    \"no_trade_or_wallet_instructions\": true,\n    \"no_autonomous_actions\": true,\n    \"uncertain_claims_marked\": true\n  }\n}\n```",
+  "raw_response_was_markdown_fenced": true,
+  "raw_strict_json_parse_passed": false,
+  "requested_model": "anthropic/claude-sonnet-4.5",
+  "response_id": "gen-1778168882-R6l1r8fYlNZwPyJoIxqU",
+  "returned_model": "anthropic/claude-4.5-sonnet-20250929",
+  "safety_flags": {
+    "analysis_only": true,
+    "manual_review_only": true,
+    "no_automatic_llm_loops": true,
+    "no_orders": true,
+    "no_runtime_wiring": true,
+    "no_trading_decision": true,
+    "no_wallet_private_keys_credentials": "[redacted]",
+    "operator_gated": true,
+    "validator_gated": true
+  },
+  "timestamp_utc": "2026-05-07T15:48:31Z",
+  "usage": {
+    "completion_tokens": 1617,
+    "completion_tokens_details": {
+      "audio_tokens": 0,
+      "image_tokens": 0,
+      "reasoning_tokens": 0
+    },
+    "cost": 0.037236,
+    "cost_details": {
+      "upstream_inference_completions_cost": 0.024255,
+      "upstream_inference_cost": 0.037236,
+      "upstream_inference_prompt_cost": 0.012981
+    },
+    "is_byok": false,
+    "prompt_tokens": 4327,
+    "prompt_tokens_details": {
+      "audio_tokens": 0,
+      "cache_write_tokens": 0,
+      "cached_tokens": 0,
+      "video_tokens": 0
+    },
+    "total_tokens": 5944
+  }
+}

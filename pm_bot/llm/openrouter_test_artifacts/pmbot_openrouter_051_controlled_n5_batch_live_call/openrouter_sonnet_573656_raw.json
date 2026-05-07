@@ -1,0 +1,99 @@
+{
+  "artifact_type": "openrouter_sonnet_raw.v1",
+  "cost": 0.036696,
+  "market_id": "573656",
+  "normalization_policy_applied": true,
+  "normalization_policy_version": "fenced_json_normalization.v1",
+  "normalized_content_used": true,
+  "normalized_from_markdown_fence": true,
+  "normalized_json_parse_passed": true,
+  "openrouter_response": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "logprobs": null,
+        "message": {
+          "content": "```json\n{\n  \"contract_version\": \"llm_analysis_response.v1\",\n  \"response_id\": \"llm-analysis-response-manual-batch-573656\",\n  \"packet_id\": \"llm-analysis-packet-manual-batch-573656\",\n  \"concise_market_summary\": \"Market 573656 asks whether Bitcoin will reach $150,000 by December 31, 2026. The packet contains only stub information and placeholders. No resolution criteria text, benchmark source, timezone specification, or price index definition is present. The market status is unknown. Outcome labels are Yes and No. All substantive evidence is missing.\",\n  \"key_uncertainties\": [\n    \"Which price benchmark or exchange index determines resolution (e.g., specific exchange spot price, aggregated index, futures settlement price)\",\n    \"Timezone and exact timestamp cutoff for December 31, 2026 deadline\",\n    \"Whether intraday peak qualifies or only closing price matters\",\n    \"Minimum duration requirement if threshold is touched briefly\",\n    \"Handling of exchange outages, trading halts, or data feed interruptions during the measurement window\",\n    \"Whether the market resolves based on a single exchange or multiple sources\",\n    \"Treatment of flash crashes or anomalous price spikes that may not reflect broad market consensus\"\n  ],\n  \"missing_evidence\": [\n    \"Complete resolution criteria text from Polymarket market 573656\",\n    \"Official benchmark source specification (exchange name, index provider, or aggregator)\",\n    \"Timezone definition for December 31, 2026 deadline\",\n    \"Price measurement methodology (spot, VWAP, closing price, intraday high)\",\n    \"Historical Bitcoin price data and volatility patterns\",\n    \"Current Bitcoin price as of packet generation\",\n    \"Market participant commentary or order book depth\",\n    \"Macroeconomic context relevant to cryptocurrency valuation through 2026\",\n    \"Regulatory developments that may affect Bitcoin markets\",\n    \"Technical infrastructure considerations for price reporting\"\n  ],\n  \"contradiction_checks\": [\n    {\n      \"topic\": \"Deadline interpretation\",\n      \"check_result\": \"needs_more_source_review\",\n      \"notes\": \"Packet references both 'December 31, 2026' and '2027-01-01' in different contexts. Clarification needed on whether the cutoff is end of day December 31, 2026 or beginning of January 1, 2027, and in which timezone.\"\n    },\n    {\n      \"topic\": \"Market status consistency\",\n      \"check_result\": \"not_checked\",\n      \"notes\": \"Market status listed as unknown. Cannot verify whether market is open, closed, or resolved without accessing official source.\"\n    },\n    {\n      \"topic\": \"Benchmark source alignment\",\n      \"check_result\": \"needs_more_source_review\",\n      \"notes\": \"Multiple placeholder references to benchmark, exchange, and index sources without specification. Cannot check for internal consistency until official resolution criteria are obtained.\"\n    }\n  ],\n  \"risk_notes\": [\n    \"Complete absence of resolution criteria creates fundamental uncertainty about what constitutes a qualifying event\",\n    \"Price threshold markets are sensitive to measurement methodology; different exchanges can show significant price divergence during volatile periods\",\n    \"Long time horizon (through end of 2026) introduces substantial macroeconomic, regulatory, and technological uncertainty\",\n    \"Cryptocurrency markets can experience extreme volatility, including rapid price movements that may briefly touch thresholds without sustained levels\",\n    \"Exchange-specific issues (outages, delisting, regulatory actions) could complicate resolution if a single source is specified\",\n    \"Timezone ambiguity could create disputes if price crosses threshold near the deadline in some timezones but not others\",\n    \"Without current price context, cannot assess how far the threshold is from present levels or historical ranges\"\n  ],\n  \"operator_review_checklist\": [\n    \"Obtain complete official resolution criteria text from Polymarket market 573656\",\n    \"Identify and document the specific price benchmark source (exchange, index, or aggregator)\",\n    \"Confirm timezone and exact timestamp for December 31, 2026 deadline\",\n    \"Verify price measurement methodology (spot, closing, intraday high, VWAP, or other)\",\n    \"Check for minimum duration requirements if threshold is touched\",\n    \"Review handling of special cases such as exchange outages or data feed failures\",\n    \"Examine historical Bitcoin price volatility to understand typical ranges and movement patterns\",\n    \"Document current Bitcoin price and distance to $150,000 threshold\",\n    \"Assess whether market is currently open for participation or already resolved\",\n    \"Review any official amendments or clarifications to resolution criteria\",\n    \"Verify that all placeholder source references have been replaced with actual source material\",\n    \"Confirm that benchmark source is accessible and has reliable historical uptime\"\n  ],\n  \"suggested_research_questions\": [\n    \"What is the complete official resolution criteria text for Polymarket market 573656?\",\n    \"Which specific price source (exchange or index) is designated as the resolution benchmark?\",\n    \"What timezone applies to the December 31, 2026 deadline?\",\n    \"Does resolution require sustained price level or is momentary touch sufficient?\",\n    \"How are exchange outages or data gaps handled in the resolution process?\",\n    \"What is the current Bitcoin price and how does it compare to historical volatility patterns?\",\n    \"Are there any precedent markets with similar cryptocurrency threshold questions and how were special cases resolved?\",\n    \"What macroeconomic or regulatory factors are most likely to influence Bitcoin price trajectory through 2026?\",\n    \"Has Polymarket published any clarifications or amendments to this market's resolution criteria?\",\n    \"What is the typical price divergence between major Bitcoin exchanges during volatile periods?\"\n  ],\n  \"citation_or_source_gap_notes\": [\n    \"No official Polymarket resolution criteria text is present in the packet\",\n    \"No benchmark source URL or specification is provided\",\n    \"No timezone information is included\",\n    \"No current or historical Bitcoin price data is present\",\n    \"No credible news source content is included despite placeholder references to Reuters, CoinDesk, The Block, Bloomberg, and Wall Street Journal\",\n    \"All evidence_source_placeholders remain as placeholders without actual source material\",\n    \"Source gap notes list multiple missing queries but no query results are present\",\n    \"No timestamp information for when packet was generated or when market data would be current\",\n    \"No verification that market 573656 exists or is correctly identified\",\n    \"No documentation of whether this market has precedent or similar resolved markets for reference\"\n  ],\n  \"safety_acknowledgement\": {\n    \"offline_only\": true,\n    \"local_only\": true,\n    \"manual_review_only\": true,\n    \"no_recommendations\": true,\n    \"no_outcome_estimates\": true,\n    \"no_value_scoring\": true,\n    \"no_trade_or_wallet_instructions\": true,\n    \"no_autonomous_actions\": true,\n    \"uncertain_claims_marked\": true\n  }\n}\n```",
+          "reasoning": null,
+          "refusal": null,
+          "role": "assistant"
+        },
+        "native_finish_reason": "end_turn"
+      }
+    ],
+    "created": 1778168985,
+    "id": "gen-1778168985-8IjLt2xM06HYAHMd6SDj",
+    "model": "anthropic/claude-4.5-sonnet-20250929",
+    "object": "chat.completion",
+    "provider": "Amazon Bedrock",
+    "system_fingerprint": null,
+    "usage": {
+      "completion_tokens": 1634,
+      "completion_tokens_details": {
+        "audio_tokens": 0,
+        "image_tokens": 0,
+        "reasoning_tokens": 0
+      },
+      "cost": 0.036696,
+      "cost_details": {
+        "upstream_inference_completions_cost": 0.02451,
+        "upstream_inference_cost": 0.036696,
+        "upstream_inference_prompt_cost": 0.012186
+      },
+      "is_byok": false,
+      "prompt_tokens": 4062,
+      "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "cache_write_tokens": 0,
+        "cached_tokens": 0,
+        "video_tokens": 0
+      },
+      "total_tokens": 5696
+    }
+  },
+  "packet_path": "pm_bot/llm/manual_packet_batch/573656_packet.v1.json",
+  "prompt_path": "pm_bot/llm/manual_packet_batch/573656_prompt.v1.md",
+  "provider": "Amazon Bedrock",
+  "raw_content": "```json\n{\n  \"contract_version\": \"llm_analysis_response.v1\",\n  \"response_id\": \"llm-analysis-response-manual-batch-573656\",\n  \"packet_id\": \"llm-analysis-packet-manual-batch-573656\",\n  \"concise_market_summary\": \"Market 573656 asks whether Bitcoin will reach $150,000 by December 31, 2026. The packet contains only stub information and placeholders. No resolution criteria text, benchmark source, timezone specification, or price index definition is present. The market status is unknown. Outcome labels are Yes and No. All substantive evidence is missing.\",\n  \"key_uncertainties\": [\n    \"Which price benchmark or exchange index determines resolution (e.g., specific exchange spot price, aggregated index, futures settlement price)\",\n    \"Timezone and exact timestamp cutoff for December 31, 2026 deadline\",\n    \"Whether intraday peak qualifies or only closing price matters\",\n    \"Minimum duration requirement if threshold is touched briefly\",\n    \"Handling of exchange outages, trading halts, or data feed interruptions during the measurement window\",\n    \"Whether the market resolves based on a single exchange or multiple sources\",\n    \"Treatment of flash crashes or anomalous price spikes that may not reflect broad market consensus\"\n  ],\n  \"missing_evidence\": [\n    \"Complete resolution criteria text from Polymarket market 573656\",\n    \"Official benchmark source specification (exchange name, index provider, or aggregator)\",\n    \"Timezone definition for December 31, 2026 deadline\",\n    \"Price measurement methodology (spot, VWAP, closing price, intraday high)\",\n    \"Historical Bitcoin price data and volatility patterns\",\n    \"Current Bitcoin price as of packet generation\",\n    \"Market participant commentary or order book depth\",\n    \"Macroeconomic context relevant to cryptocurrency valuation through 2026\",\n    \"Regulatory developments that may affect Bitcoin markets\",\n    \"Technical infrastructure considerations for price reporting\"\n  ],\n  \"contradiction_checks\": [\n    {\n      \"topic\": \"Deadline interpretation\",\n      \"check_result\": \"needs_more_source_review\",\n      \"notes\": \"Packet references both 'December 31, 2026' and '2027-01-01' in different contexts. Clarification needed on whether the cutoff is end of day December 31, 2026 or beginning of January 1, 2027, and in which timezone.\"\n    },\n    {\n      \"topic\": \"Market status consistency\",\n      \"check_result\": \"not_checked\",\n      \"notes\": \"Market status listed as unknown. Cannot verify whether market is open, closed, or resolved without accessing official source.\"\n    },\n    {\n      \"topic\": \"Benchmark source alignment\",\n      \"check_result\": \"needs_more_source_review\",\n      \"notes\": \"Multiple placeholder references to benchmark, exchange, and index sources without specification. Cannot check for internal consistency until official resolution criteria are obtained.\"\n    }\n  ],\n  \"risk_notes\": [\n    \"Complete absence of resolution criteria creates fundamental uncertainty about what constitutes a qualifying event\",\n    \"Price threshold markets are sensitive to measurement methodology; different exchanges can show significant price divergence during volatile periods\",\n    \"Long time horizon (through end of 2026) introduces substantial macroeconomic, regulatory, and technological uncertainty\",\n    \"Cryptocurrency markets can experience extreme volatility, including rapid price movements that may briefly touch thresholds without sustained levels\",\n    \"Exchange-specific issues (outages, delisting, regulatory actions) could complicate resolution if a single source is specified\",\n    \"Timezone ambiguity could create disputes if price crosses threshold near the deadline in some timezones but not others\",\n    \"Without current price context, cannot assess how far the threshold is from present levels or historical ranges\"\n  ],\n  \"operator_review_checklist\": [\n    \"Obtain complete official resolution criteria text from Polymarket market 573656\",\n    \"Identify and document the specific price benchmark source (exchange, index, or aggregator)\",\n    \"Confirm timezone and exact timestamp for December 31, 2026 deadline\",\n    \"Verify price measurement methodology (spot, closing, intraday high, VWAP, or other)\",\n    \"Check for minimum duration requirements if threshold is touched\",\n    \"Review handling of special cases such as exchange outages or data feed failures\",\n    \"Examine historical Bitcoin price volatility to understand typical ranges and movement patterns\",\n    \"Document current Bitcoin price and distance to $150,000 threshold\",\n    \"Assess whether market is currently open for participation or already resolved\",\n    \"Review any official amendments or clarifications to resolution criteria\",\n    \"Verify that all placeholder source references have been replaced with actual source material\",\n    \"Confirm that benchmark source is accessible and has reliable historical uptime\"\n  ],\n  \"suggested_research_questions\": [\n    \"What is the complete official resolution criteria text for Polymarket market 573656?\",\n    \"Which specific price source (exchange or index) is designated as the resolution benchmark?\",\n    \"What timezone applies to the December 31, 2026 deadline?\",\n    \"Does resolution require sustained price level or is momentary touch sufficient?\",\n    \"How are exchange outages or data gaps handled in the resolution process?\",\n    \"What is the current Bitcoin price and how does it compare to historical volatility patterns?\",\n    \"Are there any precedent markets with similar cryptocurrency threshold questions and how were special cases resolved?\",\n    \"What macroeconomic or regulatory factors are most likely to influence Bitcoin price trajectory through 2026?\",\n    \"Has Polymarket published any clarifications or amendments to this market's resolution criteria?\",\n    \"What is the typical price divergence between major Bitcoin exchanges during volatile periods?\"\n  ],\n  \"citation_or_source_gap_notes\": [\n    \"No official Polymarket resolution criteria text is present in the packet\",\n    \"No benchmark source URL or specification is provided\",\n    \"No timezone information is included\",\n    \"No current or historical Bitcoin price data is present\",\n    \"No credible news source content is included despite placeholder references to Reuters, CoinDesk, The Block, Bloomberg, and Wall Street Journal\",\n    \"All evidence_source_placeholders remain as placeholders without actual source material\",\n    \"Source gap notes list multiple missing queries but no query results are present\",\n    \"No timestamp information for when packet was generated or when market data would be current\",\n    \"No verification that market 573656 exists or is correctly identified\",\n    \"No documentation of whether this market has precedent or similar resolved markets for reference\"\n  ],\n  \"safety_acknowledgement\": {\n    \"offline_only\": true,\n    \"local_only\": true,\n    \"manual_review_only\": true,\n    \"no_recommendations\": true,\n    \"no_outcome_estimates\": true,\n    \"no_value_scoring\": true,\n    \"no_trade_or_wallet_instructions\": true,\n    \"no_autonomous_actions\": true,\n    \"uncertain_claims_marked\": true\n  }\n}\n```",
+  "raw_response_was_markdown_fenced": true,
+  "raw_strict_json_parse_passed": false,
+  "requested_model": "anthropic/claude-sonnet-4.5",
+  "response_id": "gen-1778168985-8IjLt2xM06HYAHMd6SDj",
+  "returned_model": "anthropic/claude-4.5-sonnet-20250929",
+  "safety_flags": {
+    "analysis_only": true,
+    "manual_review_only": true,
+    "no_automatic_llm_loops": true,
+    "no_orders": true,
+    "no_runtime_wiring": true,
+    "no_trading_decision": true,
+    "no_wallet_private_keys_credentials": "[redacted]",
+    "operator_gated": true,
+    "validator_gated": true
+  },
+  "timestamp_utc": "2026-05-07T15:50:17Z",
+  "usage": {
+    "completion_tokens": 1634,
+    "completion_tokens_details": {
+      "audio_tokens": 0,
+      "image_tokens": 0,
+      "reasoning_tokens": 0
+    },
+    "cost": 0.036696,
+    "cost_details": {
+      "upstream_inference_completions_cost": 0.02451,
+      "upstream_inference_cost": 0.036696,
+      "upstream_inference_prompt_cost": 0.012186
+    },
+    "is_byok": false,
+    "prompt_tokens": 4062,
+    "prompt_tokens_details": {
+      "audio_tokens": 0,
+      "cache_write_tokens": 0,
+      "cached_tokens": 0,
+      "video_tokens": 0
+    },
+    "total_tokens": 5696
+  }
+}

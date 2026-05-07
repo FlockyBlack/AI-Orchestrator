@@ -1,0 +1,124 @@
+{
+  "aggregate": {
+    "completion_tokens": 9119,
+    "cost": 0.199089,
+    "cost_returned_by_openrouter": true,
+    "prompt_tokens": 20768,
+    "total_tokens": 29887
+  },
+  "artifact_type": "openrouter_batch_cost_report.v1",
+  "average_cost_per_completed_market": 0.0398178,
+  "average_tokens_per_completed_market": 5977.4,
+  "cost_cap_exceeded": false,
+  "cost_report_is_not_trading_approval": true,
+  "max_total_cost_allowed": 0.35,
+  "model": "anthropic/claude-sonnet-4.5",
+  "no_secret_fields": true,
+  "operator_visibility_only": true,
+  "per_market": {
+    "569344": {
+      "completion_tokens": 1928,
+      "cost": 0.041745,
+      "cost_details": {
+        "upstream_inference_completions_cost": 0.02892,
+        "upstream_inference_cost": 0.041745,
+        "upstream_inference_prompt_cost": 0.012825
+      },
+      "market_id": "569344",
+      "model": "anthropic/claude-sonnet-4.5",
+      "no_secret_fields": true,
+      "openrouter_call_performed": true,
+      "operator_visibility_only": true,
+      "prompt_tokens": 4275,
+      "provider": "Amazon Bedrock",
+      "returned_model": "anthropic/claude-4.5-sonnet-20250929",
+      "total_tokens": 6203,
+      "usage_present": true
+    },
+    "569366": {
+      "completion_tokens": 1617,
+      "cost": 0.037236,
+      "cost_details": {
+        "upstream_inference_completions_cost": 0.024255,
+        "upstream_inference_cost": 0.037236,
+        "upstream_inference_prompt_cost": 0.012981
+      },
+      "market_id": "569366",
+      "model": "anthropic/claude-sonnet-4.5",
+      "no_secret_fields": true,
+      "openrouter_call_performed": true,
+      "operator_visibility_only": true,
+      "prompt_tokens": 4327,
+      "provider": "Amazon Bedrock",
+      "returned_model": "anthropic/claude-4.5-sonnet-20250929",
+      "total_tokens": 5944,
+      "usage_present": true
+    },
+    "569368": {
+      "completion_tokens": 1896,
+      "cost": 0.040647,
+      "cost_details": {
+        "upstream_inference_completions_cost": 0.02844,
+        "upstream_inference_cost": 0.040647,
+        "upstream_inference_prompt_cost": 0.012207
+      },
+      "market_id": "569368",
+      "model": "anthropic/claude-sonnet-4.5",
+      "no_secret_fields": true,
+      "openrouter_call_performed": true,
+      "operator_visibility_only": true,
+      "prompt_tokens": 4069,
+      "provider": "Amazon Bedrock",
+      "returned_model": "anthropic/claude-4.5-sonnet-20250929",
+      "total_tokens": 5965,
+      "usage_present": true
+    },
+    "569373": {
+      "completion_tokens": 2044,
+      "cost": 0.042765,
+      "cost_details": {
+        "upstream_inference_completions_cost": 0.03066,
+        "upstream_inference_cost": 0.042765,
+        "upstream_inference_prompt_cost": 0.012105
+      },
+      "market_id": "569373",
+      "model": "anthropic/claude-sonnet-4.5",
+      "no_secret_fields": true,
+      "openrouter_call_performed": true,
+      "operator_visibility_only": true,
+      "prompt_tokens": 4035,
+      "provider": "Amazon Bedrock",
+      "returned_model": "anthropic/claude-4.5-sonnet-20250929",
+      "total_tokens": 6079,
+      "usage_present": true
+    },
+    "573656": {
+      "completion_tokens": 1634,
+      "cost": 0.036696,
+      "cost_details": {
+        "upstream_inference_completions_cost": 0.02451,
+        "upstream_inference_cost": 0.036696,
+        "upstream_inference_prompt_cost": 0.012186
+      },
+      "market_id": "573656",
+      "model": "anthropic/claude-sonnet-4.5",
+      "no_secret_fields": true,
+      "openrouter_call_performed": true,
+      "operator_visibility_only": true,
+      "prompt_tokens": 4062,
+      "provider": "Amazon Bedrock",
+      "returned_model": "anthropic/claude-4.5-sonnet-20250929",
+      "total_tokens": 5696,
+      "usage_present": true
+    }
+  },
+  "provider_info_if_returned": {
+    "569344": "Amazon Bedrock",
+    "569366": "Amazon Bedrock",
+    "569368": "Amazon Bedrock",
+    "569373": "Amazon Bedrock",
+    "573656": "Amazon Bedrock"
+  },
+  "session_id": "pmbot_openrouter_051_controlled_n5_batch_live_call",
+  "task_id": "PMBOT-OPENROUTER-051-CONTROLLED-N5-BATCH-LIVE-CALL"
+}

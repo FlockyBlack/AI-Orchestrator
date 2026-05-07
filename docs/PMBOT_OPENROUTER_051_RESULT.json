@@ -1,0 +1,200 @@
+{
+  "aggregate_cost": 0.199089,
+  "aggregate_usage": {
+    "completion_tokens": 9119,
+    "prompt_tokens": 20768,
+    "total_tokens": 29887
+  },
+  "all_completed_responses_accepted_for_operator_review": true,
+  "any_forbidden_phrase_detected": false,
+  "any_normalization_policy_applied": true,
+  "any_prohibited_content_detected": false,
+  "any_raw_markdown_fence_detected": true,
+  "approved_market_ids": [
+    "569344",
+    "569366",
+    "569368",
+    "569373",
+    "573656"
+  ],
+  "artifact_paths": {
+    "batch_summary": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_051_controlled_n5_batch_live_call/openrouter_batch_summary.v1.json",
+    "cost_report_json": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_051_controlled_n5_batch_live_call/openrouter_batch_cost_report.v1.json",
+    "cost_report_md": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_051_controlled_n5_batch_live_call/openrouter_batch_cost_report.v1.md",
+    "per_market": {
+      "569344": {
+        "content": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_051_controlled_n5_batch_live_call/openrouter_sonnet_569344_content.json",
+        "raw": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_051_controlled_n5_batch_live_call/openrouter_sonnet_569344_raw.json",
+        "summary": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_051_controlled_n5_batch_live_call/openrouter_sonnet_569344_summary.json",
+        "validation": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_051_controlled_n5_batch_live_call/openrouter_sonnet_569344_validation.json"
+      },
+      "569366": {
+        "content": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_051_controlled_n5_batch_live_call/openrouter_sonnet_569366_content.json",
+        "raw": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_051_controlled_n5_batch_live_call/openrouter_sonnet_569366_raw.json",
+        "summary": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_051_controlled_n5_batch_live_call/openrouter_sonnet_569366_summary.json",
+        "validation": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_051_controlled_n5_batch_live_call/openrouter_sonnet_569366_validation.json"
+      },
+      "569368": {
+        "content": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_051_controlled_n5_batch_live_call/openrouter_sonnet_569368_content.json",
+        "raw": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_051_controlled_n5_batch_live_call/openrouter_sonnet_569368_raw.json",
+        "summary": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_051_controlled_n5_batch_live_call/openrouter_sonnet_569368_summary.json",
+        "validation": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_051_controlled_n5_batch_live_call/openrouter_sonnet_569368_validation.json"
+      },
+      "569373": {
+        "content": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_051_controlled_n5_batch_live_call/openrouter_sonnet_569373_content.json",
+        "raw": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_051_controlled_n5_batch_live_call/openrouter_sonnet_569373_raw.json",
+        "summary": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_051_controlled_n5_batch_live_call/openrouter_sonnet_569373_summary.json",
+        "validation": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_051_controlled_n5_batch_live_call/openrouter_sonnet_569373_validation.json"
+      },
+      "573656": {
+        "content": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_051_controlled_n5_batch_live_call/openrouter_sonnet_573656_content.json",
+        "raw": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_051_controlled_n5_batch_live_call/openrouter_sonnet_573656_raw.json",
+        "summary": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_051_controlled_n5_batch_live_call/openrouter_sonnet_573656_summary.json",
+        "validation": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_051_controlled_n5_batch_live_call/openrouter_sonnet_573656_validation.json"
+      }
+    },
+    "session_dir": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_051_controlled_n5_batch_live_call",
+    "task_report": "docs/PMBOT_OPENROUTER_051_CONTROLLED_N5_BATCH_LIVE_CALL.md"
+  },
+  "attempted_market_ids": [
+    "569344",
+    "569366",
+    "569368",
+    "569373",
+    "573656"
+  ],
+  "completed_market_ids": [
+    "569344",
+    "569366",
+    "569368",
+    "569373",
+    "573656"
+  ],
+  "cost_cap_exceeded": false,
+  "fail_fast_reason": null,
+  "fail_fast_triggered": false,
+  "head_after": "reported_in_final_response_after_commit",
+  "head_before": "6af75772285acfb3eedcb5bfccb0ec8085fb6f95",
+  "max_openrouter_calls_allowed": 5,
+  "max_total_cost_allowed": 0.35,
+  "model": "anthropic/claude-sonnet-4.5",
+  "no_retries": true,
+  "normalization_policy_version": "fenced_json_normalization.v1",
+  "openrouter_calls_performed": 5,
+  "polymarket_api_calls_performed": 0,
+  "pushed": true,
+  "raw_response_preserved": true,
+  "safety_summary": {
+    "acceptance_is_not_trading_approval": true,
+    "analysis_only": true,
+    "api_key_leaked": false,
+    "api_key_value_printed": false,
+    "api_key_value_written": false,
+    "manual_review_only": true,
+    "no_browser_automation": true,
+    "no_buy_sell_hold_enter_exit": true,
+    "no_dispatcher_authority": true,
+    "no_polymarket_api_calls": true,
+    "no_probability_ev_edge_confidence_side_selection": true,
+    "no_queue_authority": true,
+    "no_queue_mutation": true,
+    "no_recommendations": true,
+    "no_runtime_authority": true,
+    "no_runtime_dispatcher_background_browser_queue_changes": true,
+    "no_trading_authority": true,
+    "no_wallet_or_order_authority": true,
+    "no_wallet_orders_trading": true,
+    "openrouter_api_only": true,
+    "operator_review_only": true,
+    "secret_scan_passed": true
+  },
+  "secret_scan_passed": true,
+  "semantic_repair_allowed": false,
+  "skipped_market_ids": [],
+  "source_050_status": "completed_pushed",
+  "status": "completed_pushed",
+  "task_id": "PMBOT-OPENROUTER-051-CONTROLLED-N5-BATCH-LIVE-CALL",
+  "tests_run": [
+    {
+      "command": "python -m pytest tests\\test_openrouter_prompt_test.py -q",
+      "phase": "precheck",
+      "status": "passed",
+      "summary": "127 passed in 0.30s"
+    },
+    {
+      "command": "python -m pytest tests\\test_openrouter_result_artifacts.py -q",
+      "phase": "precheck",
+      "status": "passed",
+      "summary": "7 passed in 0.03s"
+    },
+    {
+      "command": "python -m pytest tests\\test_openrouter_fenced_json_normalization.py -q",
+      "phase": "precheck",
+      "status": "passed",
+      "summary": "12 passed in 0.09s"
+    },
+    {
+      "command": "python -m pytest tests\\test_openrouter_n5_batch_readiness_protocol.py -q",
+      "phase": "precheck",
+      "status": "passed",
+      "summary": "2 passed in 0.02s"
+    },
+    {
+      "command": "python -m compileall pm_bot",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest tests pm_bot\\llm\\tests -q",
+      "status": "passed",
+      "summary": "296 passed in 5.49s"
+    },
+    {
+      "command": "python -m pytest tests\\test_openrouter_prompt_test.py -q",
+      "status": "passed",
+      "summary": "127 passed in 0.33s"
+    },
+    {
+      "command": "python -m pytest tests\\test_openrouter_result_artifacts.py -q",
+      "status": "passed",
+      "summary": "7 passed in 0.02s"
+    },
+    {
+      "command": "python -m pytest tests\\test_openrouter_fenced_json_normalization.py -q",
+      "status": "passed",
+      "summary": "12 passed in 0.11s"
+    },
+    {
+      "command": "python -m pytest tests\\test_openrouter_n5_batch_readiness_protocol.py -q",
+      "status": "passed",
+      "summary": "2 passed in 0.02s"
+    },
+    {
+      "command": "python -m pytest pm_bot\\llm\\tests\\test_operator_openrouter_batch_surface_046.py -q",
+      "status": "passed",
+      "summary": "5 passed in 0.05s"
+    },
+    {
+      "command": "python -m pytest pm_bot\\workbench\\tests -q",
+      "status": "passed",
+      "summary": "40 passed in 3.88s"
+    },
+    {
+      "command": "JSON parse checks for all newly created JSON artifacts",
+      "status": "passed",
+      "summary": "23 JSON files checked"
+    },
+    {
+      "command": "Result JSON checks for 050 and 051",
+      "status": "passed",
+      "summary": "050 completed_pushed; 051 completed all five approved markets; no fail-fast; cost cap not exceeded"
+    },
+    {
+      "command": "Secret scan over generated 051 artifacts and changed files",
+      "status": "passed",
+      "summary": "25 files scanned; no API key value or secret-bearing auth material found"
+    }
+  ],
+  "total_openrouter_calls_performed": 5,
+  "working_tree_clean_after": true,
+  "working_tree_clean_after_note": "reported as final expected state after explicit staging, commit, and push complete"
+}

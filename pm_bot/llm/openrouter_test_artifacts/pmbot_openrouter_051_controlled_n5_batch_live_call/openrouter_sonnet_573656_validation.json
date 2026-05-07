@@ -1,0 +1,71 @@
+{
+  "checked_content_source": "normalized_content",
+  "checks": {
+    "ends_with_object": true,
+    "fence_language": "json",
+    "forbidden_fields_absent": true,
+    "forbidden_language_absent": true,
+    "legacy_allow_local_json_fence_repair": true,
+    "no_markdown_fences": true,
+    "normalization_policy_applied": true,
+    "normalization_policy_version": "fenced_json_normalization.v1",
+    "normalized_content_used": true,
+    "normalized_from_markdown_fence": true,
+    "normalized_json_parse_passed": true,
+    "parses_json": true,
+    "raw_ends_with_object": false,
+    "raw_markdown_fence_detected": true,
+    "raw_no_markdown_fences": false,
+    "raw_response_was_markdown_fenced": true,
+    "raw_starts_with_object": false,
+    "raw_strict_json_parse_passed": false,
+    "semantic_repair_allowed": false,
+    "starts_with_object": true,
+    "top_level_object": true
+  },
+  "errors": [],
+  "normalization": {
+    "fence_language": "json",
+    "legacy_allow_local_json_fence_repair": true,
+    "normalization_policy_applied": true,
+    "normalization_policy_version": "fenced_json_normalization.v1",
+    "normalized_content_used": true,
+    "normalized_from_markdown_fence": true,
+    "normalized_json_parse_passed": true,
+    "raw_markdown_fence_detected": true,
+    "raw_response_was_markdown_fenced": true,
+    "raw_strict_json_parse_passed": false,
+    "semantic_repair_allowed": false
+  },
+  "normalization_policy_applied": true,
+  "normalization_policy_version": "fenced_json_normalization.v1",
+  "normalized_content_used": true,
+  "normalized_from_markdown_fence": true,
+  "normalized_json_parse_passed": true,
+  "prohibited_content_diagnostics": [],
+  "raw_response_was_markdown_fenced": true,
+  "raw_strict_json_parse_passed": false,
+  "recovery": {
+    "allow_local_json_fence_repair": true,
+    "applied": true,
+    "fence_language": "json",
+    "method": "single_json_markdown_fence",
+    "normalization_policy_applied": true,
+    "normalization_policy_version": "fenced_json_normalization.v1",
+    "normalized_from_markdown_fence": true,
+    "raw_markdown_fence_present": true,
+    "semantic_repair_allowed": false
+  },
+  "status": "accepted",
+  "valid": true,
+  "warnings": [
+    {
+      "code": "markdown_fence_normalized",
+      "message": "Normalized JSON from a single full-response Markdown fence."
+    },
+    {
+      "code": "markdown_fence_recovered",
+      "message": "Legacy recovery alias for fenced JSON normalization."
+    }
+  ]
+}

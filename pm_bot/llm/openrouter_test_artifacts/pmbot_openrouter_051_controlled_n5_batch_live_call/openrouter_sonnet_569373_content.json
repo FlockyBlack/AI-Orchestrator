@@ -1,0 +1,126 @@
+{
+  "citation_or_source_gap_notes": [
+    "No actual sources provided; packet contains only placeholder references to source types",
+    "Market resolution criteria text is completely absent; only a stub summary is included",
+    "No URLs, documents, or specific source identifiers for any official election authority",
+    "No news coverage links or article references from Reuters, AP, or Colombian outlets",
+    "No official candidate, party, or government page references",
+    "No timestamps or publication dates for any information",
+    "Source plan placeholder indicates sources should not be fetched in this stub version",
+    "All evidence categories in missing_evidence list are unfilled",
+    "No source reliability assessment or verification information",
+    "Packet appears to be a structural template rather than a completed research artifact",
+    "No distinction between primary official sources and secondary news sources",
+    "No archived or verified copies of any referenced materials"
+  ],
+  "concise_market_summary": "This market asks whether Paloma Valencia will win the 2026 Colombian presidential election, with a resolution date of 2026-06-21. The packet contains only structural placeholders and no actual evidence. No market rules text, official election authority information, candidate background, polling data, or news coverage has been provided. The market status is unknown and no source URLs or timestamps are available.",
+  "contract_version": "llm_analysis_response.v1",
+  "contradiction_checks": [
+    {
+      "check_result": "not_checked",
+      "notes": "Cannot verify whether 2026-06-21 corresponds to a Colombian election date without official election calendar information. Colombian presidential elections historically occur in May-June, but specific 2026 dates are not provided in the packet.",
+      "topic": "Resolution date alignment with election schedule"
+    },
+    {
+      "check_result": "not_checked",
+      "notes": "No information provided to confirm whether Paloma Valencia is eligible to run or has declared candidacy. Cannot check for conflicts between candidacy status and market framing.",
+      "topic": "Candidate eligibility and candidacy status"
+    },
+    {
+      "check_result": "not_checked",
+      "notes": "Without full market resolution criteria, cannot verify alignment between market definition of winning and actual Colombian electoral procedures (e.g., whether runoff victories count, how plurality versus majority is handled).",
+      "topic": "Market rules versus Colombian electoral process"
+    },
+    {
+      "check_result": "not_checked",
+      "notes": "Packet does not specify which official election authority would be used for resolution. Cannot check for potential conflicts between different official sources.",
+      "topic": "Source authority designation"
+    }
+  ],
+  "key_uncertainties": [
+    "Complete market resolution criteria text is missing; the packet contains only a stub summary",
+    "No information about Paloma Valencia's candidacy status, party affiliation, or campaign activity",
+    "Unknown whether Paloma Valencia has officially declared candidacy for the 2026 election",
+    "No clarity on what constitutes winning under the market rules (first round majority, runoff victory, or other criteria)",
+    "Colombian presidential election schedule and process details not provided",
+    "No information about other candidates or the competitive landscape",
+    "Unknown whether the resolution date 2026-06-21 aligns with actual Colombian election dates",
+    "No evidence regarding current political context in Colombia or Valencia's political standing",
+    "Unclear how the market would handle special cases such as election postponement, candidate withdrawal, or disqualification",
+    "No information about the official election authority that would provide resolution source data"
+  ],
+  "missing_evidence": [
+    "Full verbatim market resolution criteria from Polymarket for market_id 569373",
+    "Official Colombian election authority name and website",
+    "Scheduled dates for the 2026 Colombian presidential election (first round and potential runoff)",
+    "Paloma Valencia biographical information and current political role",
+    "Confirmation of whether Paloma Valencia has announced candidacy for 2026",
+    "Party affiliation and political platform information",
+    "Historical election results and political context for Colombia",
+    "Current polling data or political analysis regarding the 2026 race",
+    "News coverage from Reuters, Associated Press, or major Colombian outlets",
+    "Official candidate registration deadlines and requirements",
+    "Constitutional or legal requirements for presidential candidacy in Colombia",
+    "Information about incumbent president and term limit rules",
+    "Details on Colombian electoral system (majority requirement, runoff rules, etc.)"
+  ],
+  "operator_review_checklist": [
+    "Obtain and review complete verbatim market resolution criteria from Polymarket market_id 569373",
+    "Verify official Colombian election authority name and resolution source designation in market rules",
+    "Confirm scheduled dates for 2026 Colombian presidential election from official sources",
+    "Research Paloma Valencia background, current political position, and party affiliation",
+    "Verify whether Paloma Valencia has officially declared or announced candidacy for 2026",
+    "Review Colombian presidential election process, including majority requirements and runoff procedures",
+    "Check market rules for handling of special cases: candidate withdrawal, disqualification, election postponement",
+    "Verify that resolution date 2026-06-21 aligns with actual election schedule or has defined relationship to it",
+    "Identify credible news sources covering Colombian politics and the 2026 presidential race",
+    "Review historical context of Colombian presidential elections and current political landscape",
+    "Confirm constitutional eligibility requirements for presidential candidates in Colombia",
+    "Check for any legal or political barriers to Valencia's potential candidacy",
+    "Assess whether market framing matches realistic electoral scenarios",
+    "Document all official sources and verify their authority status",
+    "Note any ambiguities in market rules that could affect resolution interpretation"
+  ],
+  "packet_id": "llm-analysis-packet-manual-batch-569373",
+  "response_id": "llm-analysis-response-manual-batch-569373",
+  "risk_notes": [
+    "Complete absence of market resolution criteria creates fundamental uncertainty about what the market is actually measuring",
+    "No verification that Paloma Valencia is a real candidate or has declared intent to run in 2026",
+    "Resolution date may not align with actual Colombian election schedule, creating ambiguity",
+    "Without official election authority identification, resolution source is undefined",
+    "No information about special case handling (withdrawal, disqualification, election postponement, death, constitutional changes)",
+    "Colombian electoral system details unknown; unclear whether market resolves on first round, runoff, or other criteria",
+    "Political context entirely absent; cannot assess whether question premise is reasonable",
+    "No source timestamps mean currency of any future information cannot be verified",
+    "Packet structure suggests this is a template or placeholder rather than a researched market",
+    "Two-outcome structure (Yes/No) may not capture complexity of multi-candidate elections with runoffs"
+  ],
+  "safety_acknowledgement": {
+    "local_only": true,
+    "manual_review_only": true,
+    "no_autonomous_actions": true,
+    "no_outcome_estimates": true,
+    "no_recommendations": true,
+    "no_trade_or_wallet_instructions": true,
+    "no_value_scoring": true,
+    "offline_only": true,
+    "uncertain_claims_marked": true
+  },
+  "suggested_research_questions": [
+    "What are the complete verbatim resolution criteria for Polymarket market_id 569373?",
+    "Which official Colombian election authority is designated as the resolution source?",
+    "What are the officially scheduled dates for the 2026 Colombian presidential election?",
+    "Who is Paloma Valencia and what is her current political role in Colombia?",
+    "Has Paloma Valencia officially announced or declared candidacy for the 2026 presidential election?",
+    "What party does Paloma Valencia represent and what is her political platform?",
+    "What are the constitutional and legal requirements for presidential candidacy in Colombia?",
+    "How does the Colombian presidential election system work (majority requirement, runoff procedures)?",
+    "What is the current political landscape in Colombia and who are other potential 2026 candidates?",
+    "Are there term limits or other factors affecting the 2026 presidential race?",
+    "What special case scenarios are defined in the market rules (withdrawal, postponement, etc.)?",
+    "How have previous Colombian presidential elections been conducted and resolved?",
+    "What credible polling or political analysis exists regarding the 2026 race?",
+    "What is the relationship between the resolution date 2026-06-21 and the actual election schedule?",
+    "Are there any current legal, political, or constitutional issues that could affect the 2026 election?"
+  ]
+}
