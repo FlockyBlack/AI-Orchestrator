@@ -120,3 +120,48 @@ def test_openrouter_045_records_local_only_acceptance_forbidden_phrase_diagnosti
     assert result_045["secret_scan_passed"] is True
     assert result_045["safety_summary"]["openrouter_calls_performed"] == 0
     assert result_045["safety_summary"]["polymarket_api_calls_performed"] == 0
+
+
+def test_openrouter_047_records_local_only_small_batch_quality_baseline():
+    result_046 = _load_result("PMBOT_OPENROUTER_046_RESULT.json")
+    result_047 = _load_result("PMBOT_OPENROUTER_047_RESULT.json")
+    baseline = json.loads(
+        (ROOT / "pm_bot" / "llm" / "openrouter_046_small_batch_quality_baseline.v1.json").read_text(
+            encoding="utf-8"
+        )
+    )
+
+    assert result_047["task_id"] == (
+        "PMBOT-OPENROUTER-047-SMALL-BATCH-BASELINE-QUALITY-AND-OPERATOR-SUMMARY"
+    )
+    assert result_047["status"] == "completed_pushed"
+    assert result_047["openrouter_calls_performed"] == 0
+    assert result_047["polymarket_api_calls_performed"] == 0
+    assert result_047["source_046_status"] == "completed_pushed"
+    assert result_047["source_046_completed_market_ids"] == ["569333", "569334", "569343"]
+    assert result_047["source_046_completed_market_ids"] == result_046["completed_market_ids"]
+    assert result_047["source_046_total_openrouter_calls_performed"] == 3
+    assert result_047["baseline_created"] is True
+    assert result_047["operator_summary_created"] is True
+    assert result_047["normalization_summary"]["normalization_policy_version"] == (
+        "fenced_json_normalization.v1"
+    )
+    assert result_047["normalization_summary"]["fenced_response_count"] == 3
+    assert result_047["normalization_summary"]["normalized_response_count"] == 3
+    assert result_047["normalization_summary"]["clean_raw_json_response_count"] == 0
+    assert result_047["quality_summary"]["accepted_for_operator_review_count"] == 3
+    assert result_047["quality_summary"]["blocked_count"] == 0
+    assert result_047["quality_summary"]["baseline_suitable_for_future_controlled_expansion"] is True
+    assert result_047["safety_summary"]["openrouter_calls_performed"] == 0
+    assert result_047["safety_summary"]["polymarket_api_calls_performed"] == 0
+    assert result_047["safety_summary"]["api_key_accessed"] is False
+
+    assert baseline["artifact_type"] == "openrouter_046_small_batch_quality_baseline.v1"
+    assert baseline["source_status"] == "completed_pushed"
+    assert baseline["aggregate"]["source_openrouter_calls_performed"] == 3
+    assert baseline["aggregate"]["fenced_response_count"] == 3
+    assert baseline["aggregate"]["normalized_response_count"] == 3
+    assert baseline["aggregate"]["clean_raw_json_response_count"] == 0
+    assert baseline["quality_summary"]["all_completed_markets_have_operator_checklists"] is True
+    assert baseline["future_readiness_note"]["option_a"]["run_or_approved_by_047"] is False
+    assert baseline["future_readiness_note"]["option_b"]["run_or_approved_by_047"] is False

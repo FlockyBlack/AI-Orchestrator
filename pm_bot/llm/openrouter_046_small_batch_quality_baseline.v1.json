@@ -1,0 +1,341 @@
+{
+  "artifact_type": "openrouter_046_small_batch_quality_baseline.v1",
+  "source_task_id": "PMBOT-OPENROUTER-046-RETRY-SMALL-MANUAL-BATCH-AFTER-ACCEPTANCE-PHRASE-HARDENING",
+  "source_status": "completed_pushed",
+  "source_session_id": "pmbot_openrouter_046_retry_small_manual_batch_after_acceptance_phrase_hardening",
+  "baseline_scope": "local_artifact_quality_only",
+  "operator_review_only": true,
+  "acceptance_is_not_trading_approval": true,
+  "no_market_decision": true,
+  "no_recommendations": true,
+  "no_runtime_or_queue_authority": true,
+  "openrouter_calls_performed_by_this_task": 0,
+  "polymarket_api_calls_performed_by_this_task": 0,
+  "source_artifacts_analyzed": {
+    "result": "docs/PMBOT_OPENROUTER_046_RESULT.json",
+    "session_dir": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_046_retry_small_manual_batch_after_acceptance_phrase_hardening",
+    "batch_summary": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_046_retry_small_manual_batch_after_acceptance_phrase_hardening/openrouter_batch_summary.v1.json",
+    "cost_report_json": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_046_retry_small_manual_batch_after_acceptance_phrase_hardening/openrouter_batch_cost_report.v1.json",
+    "cost_report_md": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_046_retry_small_manual_batch_after_acceptance_phrase_hardening/openrouter_batch_cost_report.v1.md",
+    "per_market": {
+      "569333": {
+        "raw": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_046_retry_small_manual_batch_after_acceptance_phrase_hardening/openrouter_sonnet_569333_raw.json",
+        "content": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_046_retry_small_manual_batch_after_acceptance_phrase_hardening/openrouter_sonnet_569333_content.json",
+        "validation": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_046_retry_small_manual_batch_after_acceptance_phrase_hardening/openrouter_sonnet_569333_validation.json",
+        "summary": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_046_retry_small_manual_batch_after_acceptance_phrase_hardening/openrouter_sonnet_569333_summary.json"
+      },
+      "569334": {
+        "raw": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_046_retry_small_manual_batch_after_acceptance_phrase_hardening/openrouter_sonnet_569334_raw.json",
+        "content": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_046_retry_small_manual_batch_after_acceptance_phrase_hardening/openrouter_sonnet_569334_content.json",
+        "validation": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_046_retry_small_manual_batch_after_acceptance_phrase_hardening/openrouter_sonnet_569334_validation.json",
+        "summary": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_046_retry_small_manual_batch_after_acceptance_phrase_hardening/openrouter_sonnet_569334_summary.json"
+      },
+      "569343": {
+        "raw": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_046_retry_small_manual_batch_after_acceptance_phrase_hardening/openrouter_sonnet_569343_raw.json",
+        "content": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_046_retry_small_manual_batch_after_acceptance_phrase_hardening/openrouter_sonnet_569343_content.json",
+        "validation": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_046_retry_small_manual_batch_after_acceptance_phrase_hardening/openrouter_sonnet_569343_validation.json",
+        "summary": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_046_retry_small_manual_batch_after_acceptance_phrase_hardening/openrouter_sonnet_569343_summary.json"
+      }
+    }
+  },
+  "aggregate": {
+    "attempted_market_count": 3,
+    "completed_market_count": 3,
+    "skipped_market_count": 0,
+    "attempted_market_ids": [
+      "569333",
+      "569334",
+      "569343"
+    ],
+    "completed_market_ids": [
+      "569333",
+      "569334",
+      "569343"
+    ],
+    "skipped_market_ids": [],
+    "source_openrouter_calls_performed": 3,
+    "prompt_tokens": 12859,
+    "completion_tokens": 5827,
+    "total_tokens": 18686,
+    "total_cost": 0.125982,
+    "cost_returned_by_openrouter": true,
+    "average_tokens_per_market": 6228.666667,
+    "average_cost_per_market": 0.041994,
+    "fenced_response_count": 3,
+    "normalized_response_count": 3,
+    "clean_raw_json_response_count": 0,
+    "accepted_for_operator_review_count": 3,
+    "blocked_count": 0,
+    "any_safety_violations": false,
+    "any_secret_scan_concerns": false,
+    "suitable_as_baseline_for_future_controlled_expansion": true
+  },
+  "normalization_summary": {
+    "normalization_policy_version": "fenced_json_normalization.v1",
+    "raw_response_preserved": true,
+    "semantic_repair_allowed": false,
+    "all_completed_responses_were_markdown_fenced": true,
+    "all_completed_responses_required_normalization": true,
+    "all_normalized_json_parse_checks_passed": true,
+    "raw_strict_json_parse_passed_count": 0,
+    "raw_strict_json_parse_failed_count": 3,
+    "quality_warning": "All three source responses were valid only after fenced JSON normalization; future prompt hardening should continue to target clean raw JSON."
+  },
+  "safety_summary": {
+    "source_no_polymarket_api_calls": true,
+    "source_no_wallet_orders_trading": true,
+    "source_no_runtime_dispatcher_background_browser_queue_changes": true,
+    "source_no_browser_automation": true,
+    "source_no_queue_mutation": true,
+    "source_api_key_value_printed": false,
+    "source_api_key_value_written": false,
+    "source_api_key_leaked": false,
+    "this_task_openrouter_calls_performed": 0,
+    "this_task_polymarket_api_calls_performed": 0,
+    "this_task_api_key_accessed": false,
+    "this_task_no_wallet_orders_trading": true,
+    "this_task_no_runtime_dispatcher_background_browser_queue_changes": true,
+    "this_task_no_browser_automation": true,
+    "this_task_no_queue_mutation": true
+  },
+  "per_market": [
+    {
+      "market_id": "569333",
+      "openrouter_call_performed": true,
+      "accepted_for_operator_review": true,
+      "raw_response_was_markdown_fenced": true,
+      "normalization_policy_applied": true,
+      "normalization_policy_version": "fenced_json_normalization.v1",
+      "raw_response_preserved": true,
+      "semantic_repair_allowed": false,
+      "strict_json_parse": {
+        "status": "failed",
+        "raw_strict_json_parse_passed": false
+      },
+      "normalized_json_parse": {
+        "status": "passed",
+        "normalized_json_parse_passed": true
+      },
+      "schema_validation": {
+        "status": "accepted",
+        "response_schema_validator_passed": true
+      },
+      "acceptance_gate": {
+        "status": "passed",
+        "acceptance_gate_passed": true
+      },
+      "prohibited_content": {
+        "status": "clean",
+        "detected": false
+      },
+      "forbidden_phrase": {
+        "status": "clean",
+        "detected": false
+      },
+      "usage_summary": {
+        "prompt_tokens": 4241,
+        "completion_tokens": 1859,
+        "total_tokens": 6100
+      },
+      "cost_summary": {
+        "cost": 0.040608,
+        "cost_returned_by_openrouter": true
+      },
+      "operator_usefulness_assessment": {
+        "status": "useful_for_manual_operator_review",
+        "basis": "Required operator-review fields are populated, validation accepted the normalized JSON, and the content includes explicit evidence-gap, risk-note, contradiction-check, and checklist sections."
+      },
+      "missing_evidence_or_source_gap_notes": {
+        "missing_evidence_present": true,
+        "missing_evidence_count": 12,
+        "citation_or_source_gap_notes_present": true,
+        "citation_or_source_gap_notes_count": 10
+      },
+      "contradiction_check": {
+        "present": true,
+        "count": 4
+      },
+      "risk_notes": {
+        "present": true,
+        "count": 7
+      },
+      "operator_checklist": {
+        "present": true,
+        "count": 12
+      },
+      "quality_warnings": [
+        "markdown_fence_normalized",
+        "markdown_fence_recovered"
+      ]
+    },
+    {
+      "market_id": "569334",
+      "openrouter_call_performed": true,
+      "accepted_for_operator_review": true,
+      "raw_response_was_markdown_fenced": true,
+      "normalization_policy_applied": true,
+      "normalization_policy_version": "fenced_json_normalization.v1",
+      "raw_response_preserved": true,
+      "semantic_repair_allowed": false,
+      "strict_json_parse": {
+        "status": "failed",
+        "raw_strict_json_parse_passed": false
+      },
+      "normalized_json_parse": {
+        "status": "passed",
+        "normalized_json_parse_passed": true
+      },
+      "schema_validation": {
+        "status": "accepted",
+        "response_schema_validator_passed": true
+      },
+      "acceptance_gate": {
+        "status": "passed",
+        "acceptance_gate_passed": true
+      },
+      "prohibited_content": {
+        "status": "clean",
+        "detected": false
+      },
+      "forbidden_phrase": {
+        "status": "clean",
+        "detected": false
+      },
+      "usage_summary": {
+        "prompt_tokens": 4292,
+        "completion_tokens": 1883,
+        "total_tokens": 6175
+      },
+      "cost_summary": {
+        "cost": 0.041121,
+        "cost_returned_by_openrouter": true
+      },
+      "operator_usefulness_assessment": {
+        "status": "useful_for_manual_operator_review",
+        "basis": "Required operator-review fields are populated, validation accepted the normalized JSON, and the content includes explicit evidence-gap, risk-note, contradiction-check, and checklist sections."
+      },
+      "missing_evidence_or_source_gap_notes": {
+        "missing_evidence_present": true,
+        "missing_evidence_count": 10,
+        "citation_or_source_gap_notes_present": true,
+        "citation_or_source_gap_notes_count": 10
+      },
+      "contradiction_check": {
+        "present": true,
+        "count": 3
+      },
+      "risk_notes": {
+        "present": true,
+        "count": 8
+      },
+      "operator_checklist": {
+        "present": true,
+        "count": 12
+      },
+      "quality_warnings": [
+        "markdown_fence_normalized",
+        "markdown_fence_recovered"
+      ]
+    },
+    {
+      "market_id": "569343",
+      "openrouter_call_performed": true,
+      "accepted_for_operator_review": true,
+      "raw_response_was_markdown_fenced": true,
+      "normalization_policy_applied": true,
+      "normalization_policy_version": "fenced_json_normalization.v1",
+      "raw_response_preserved": true,
+      "semantic_repair_allowed": false,
+      "strict_json_parse": {
+        "status": "failed",
+        "raw_strict_json_parse_passed": false
+      },
+      "normalized_json_parse": {
+        "status": "passed",
+        "normalized_json_parse_passed": true
+      },
+      "schema_validation": {
+        "status": "accepted",
+        "response_schema_validator_passed": true
+      },
+      "acceptance_gate": {
+        "status": "passed",
+        "acceptance_gate_passed": true
+      },
+      "prohibited_content": {
+        "status": "clean",
+        "detected": false
+      },
+      "forbidden_phrase": {
+        "status": "clean",
+        "detected": false
+      },
+      "usage_summary": {
+        "prompt_tokens": 4326,
+        "completion_tokens": 2085,
+        "total_tokens": 6411
+      },
+      "cost_summary": {
+        "cost": 0.044253,
+        "cost_returned_by_openrouter": true
+      },
+      "operator_usefulness_assessment": {
+        "status": "useful_for_manual_operator_review",
+        "basis": "Required operator-review fields are populated, validation accepted the normalized JSON, and the content includes explicit evidence-gap, risk-note, contradiction-check, and checklist sections."
+      },
+      "missing_evidence_or_source_gap_notes": {
+        "missing_evidence_present": true,
+        "missing_evidence_count": 12,
+        "citation_or_source_gap_notes_present": true,
+        "citation_or_source_gap_notes_count": 10
+      },
+      "contradiction_check": {
+        "present": true,
+        "count": 4
+      },
+      "risk_notes": {
+        "present": true,
+        "count": 10
+      },
+      "operator_checklist": {
+        "present": true,
+        "count": 15
+      },
+      "quality_warnings": [
+        "markdown_fence_normalized",
+        "markdown_fence_recovered"
+      ]
+    }
+  ],
+  "quality_summary": {
+    "baseline_created": true,
+    "operator_summary_created": true,
+    "all_required_artifacts_present": true,
+    "all_json_artifacts_parse": true,
+    "all_completed_markets_accepted_for_operator_review": true,
+    "all_completed_markets_have_usage": true,
+    "all_completed_markets_have_cost": true,
+    "all_completed_markets_have_evidence_gap_notes": true,
+    "all_completed_markets_have_contradiction_checks": true,
+    "all_completed_markets_have_risk_notes": true,
+    "all_completed_markets_have_operator_checklists": true,
+    "warnings": [
+      "All three responses required fenced JSON normalization.",
+      "No clean raw JSON responses were observed in the 046 batch."
+    ],
+    "blocked": false,
+    "baseline_judgment": "suitable_local_baseline_for_future_protocol_work"
+  },
+  "future_readiness_note": {
+    "option_a": {
+      "task_id": "PMBOT-OPENROUTER-048-PASSIVE-OPERATOR-SURFACE-046-BATCH",
+      "purpose": "Surface the 046 accepted responses as passive operator-review-only artifacts or dashboard state, with no queue, runtime, or trading authority.",
+      "run_or_approved_by_047": false
+    },
+    "option_b": {
+      "task_id": "PMBOT-OPENROUTER-048B-CONTROLLED-N5-BATCH-READINESS-PROTOCOL",
+      "purpose": "Create protocol-only readiness for a future 5-market controlled batch, with no live calls.",
+      "run_or_approved_by_047": false
+    }
+  }
+}
