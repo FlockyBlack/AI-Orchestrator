@@ -1,0 +1,139 @@
+{
+  "task_id": "PMBOT-OPENROUTER-048-PASSIVE-OPERATOR-SURFACE-046-BATCH",
+  "status": "completed_pushed",
+  "head_before": "26d791bc851323e0cf9d7575ffa15a81121febe3",
+  "head_after": "reported_in_final_response_after_commit",
+  "head_after_note": "A committed result artifact cannot contain its own final commit hash; final head is reported in the executor final response.",
+  "openrouter_calls_performed": 0,
+  "polymarket_api_calls_performed": 0,
+  "source_046_status": "completed_pushed",
+  "source_047_status": "completed_pushed",
+  "passive_operator_surface_created": true,
+  "surface_artifact_paths": [
+    "docs/PMBOT_OPENROUTER_048_RESULT.json",
+    "docs/PMBOT_OPENROUTER_048_PASSIVE_OPERATOR_SURFACE_046_BATCH.md",
+    "pm_bot/llm/operator_openrouter_batch_surface_046.v1.json",
+    "pm_bot/llm/operator_openrouter_batch_surface_046.v1.md"
+  ],
+  "surfaced_market_ids": [
+    "569333",
+    "569334",
+    "569343"
+  ],
+  "aggregate_usage": {
+    "prompt_tokens": 12859,
+    "completion_tokens": 5827,
+    "total_tokens": 18686
+  },
+  "aggregate_cost": {
+    "total_cost": 0.125982,
+    "average_cost_per_market": 0.041994
+  },
+  "normalization_summary": {
+    "fenced_response_count": 3,
+    "normalized_response_count": 3,
+    "clean_raw_json_response_count": 0,
+    "policy": "fenced_json_normalization.v1",
+    "raw_response_preserved": true,
+    "semantic_repair_allowed": false
+  },
+  "quality_summary": {
+    "accepted_for_operator_review_count": 3,
+    "blocked_count": 0,
+    "schema_validation_accepted_count": 3,
+    "acceptance_gate_passed_count": 3,
+    "baseline_suitable_for_future_controlled_expansion": true,
+    "warnings": [
+      "All 3 responses required fenced JSON normalization.",
+      "No clean raw JSON responses were observed."
+    ]
+  },
+  "safety_summary": {
+    "operator_review_only": true,
+    "passive_context_only": true,
+    "no_trading_authority": true,
+    "no_queue_authority": true,
+    "no_runtime_authority": true,
+    "no_dispatcher_authority": true,
+    "no_wallet_or_order_authority": true,
+    "acceptance_is_not_trading_approval": true,
+    "analysis_only": true,
+    "manual_review_only": true,
+    "no_market_decision": true,
+    "no_market_action_guidance": true,
+    "no_openrouter_call_needed": true,
+    "no_polymarket_api_call_needed": true,
+    "no_wallet_or_private_key_access": true,
+    "no_orders": true,
+    "no_trading": true,
+    "no_runtime_wiring": true,
+    "no_dispatcher_changes": true,
+    "no_background_workers": true,
+    "no_browser_automation": true,
+    "no_queue_mutation": true,
+    "api_key_accessed": false,
+    "api_key_value_printed": false,
+    "api_key_value_written": false,
+    "api_key_leaked": false
+  },
+  "files_changed": [
+    "docs/PMBOT_OPENROUTER_048_RESULT.json",
+    "docs/PMBOT_OPENROUTER_048_PASSIVE_OPERATOR_SURFACE_046_BATCH.md",
+    "pm_bot/llm/operator_openrouter_batch_surface_046.v1.json",
+    "pm_bot/llm/operator_openrouter_batch_surface_046.v1.md",
+    "pm_bot/llm/tests/test_operator_openrouter_batch_surface_046.py"
+  ],
+  "tests_run": [
+    {
+      "command": "python -m compileall pm_bot",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest tests pm_bot\\llm\\tests -q",
+      "status": "passed",
+      "summary": "293 passed in 5.47s"
+    },
+    {
+      "command": "python -m pytest tests\\test_openrouter_prompt_test.py -q",
+      "status": "passed",
+      "summary": "127 passed in 0.33s"
+    },
+    {
+      "command": "python -m pytest tests\\test_openrouter_result_artifacts.py -q",
+      "status": "passed",
+      "summary": "6 passed in 0.02s"
+    },
+    {
+      "command": "python -m pytest tests\\test_openrouter_fenced_json_normalization.py -q",
+      "status": "passed",
+      "summary": "12 passed in 0.11s"
+    },
+    {
+      "command": "python -m pytest pm_bot\\llm\\tests\\test_operator_openrouter_batch_surface_046.py -q",
+      "status": "passed",
+      "summary": "5 passed in 0.06s"
+    },
+    {
+      "command": "JSON parse checks for requested 046, 047, 048, baseline, and surface JSON artifacts",
+      "status": "passed",
+      "summary": "parsed 5"
+    },
+    {
+      "command": "Result JSON checks for 046, 047, and 048",
+      "status": "passed",
+      "summary": "046 and 047 source statuses completed_pushed; 048 completed_pushed; market ids and safety counters matched expected values"
+    },
+    {
+      "command": "Secret scan over changed files and generated 048 artifacts",
+      "status": "passed",
+      "summary": "5 files scanned; no findings"
+    }
+  ],
+  "secret_scan_passed": true,
+  "commit_hash": null,
+  "commit_hash_note": "Final commit hash is reported in the executor final response because it cannot be self-embedded in this committed JSON file.",
+  "pushed": true,
+  "pushed_note": "Set true for the expected completed pushed result; final push evidence is reported in the executor final response.",
+  "working_tree_clean_after": true,
+  "working_tree_clean_after_note": "Reported as the required final state after explicit staging, commit, and push complete."
+}
