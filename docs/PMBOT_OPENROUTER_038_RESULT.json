@@ -1,0 +1,161 @@
+{
+  "approved_market_ids": [
+    "569333",
+    "569334",
+    "569343"
+  ],
+  "artifacts": {
+    "batch_summary_path": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_038_retry_small_manual_batch_after_strict_json_hardening/openrouter_batch_summary.v1.json",
+    "cost_report_json_path": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_038_retry_small_manual_batch_after_strict_json_hardening/openrouter_batch_cost_report.v1.json",
+    "cost_report_md_path": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_038_retry_small_manual_batch_after_strict_json_hardening/openrouter_batch_cost_report.v1.md",
+    "markdown_report_path": "docs/PMBOT_OPENROUTER_038_RETRY_SMALL_MANUAL_BATCH_AFTER_STRICT_JSON_HARDENING.md",
+    "per_market_artifact_paths": {
+      "569333": {
+        "content": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_038_retry_small_manual_batch_after_strict_json_hardening/openrouter_sonnet_569333_content.json",
+        "raw": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_038_retry_small_manual_batch_after_strict_json_hardening/openrouter_sonnet_569333_raw.json",
+        "summary": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_038_retry_small_manual_batch_after_strict_json_hardening/openrouter_sonnet_569333_summary.json",
+        "validation": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_038_retry_small_manual_batch_after_strict_json_hardening/openrouter_sonnet_569333_validation.json"
+      },
+      "569334": {
+        "content": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_038_retry_small_manual_batch_after_strict_json_hardening/openrouter_sonnet_569334_content.json",
+        "raw": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_038_retry_small_manual_batch_after_strict_json_hardening/openrouter_sonnet_569334_raw.json",
+        "summary": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_038_retry_small_manual_batch_after_strict_json_hardening/openrouter_sonnet_569334_summary.json",
+        "validation": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_038_retry_small_manual_batch_after_strict_json_hardening/openrouter_sonnet_569334_validation.json"
+      },
+      "569343": {
+        "content": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_038_retry_small_manual_batch_after_strict_json_hardening/openrouter_sonnet_569343_content.json",
+        "raw": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_038_retry_small_manual_batch_after_strict_json_hardening/openrouter_sonnet_569343_raw.json",
+        "summary": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_038_retry_small_manual_batch_after_strict_json_hardening/openrouter_sonnet_569343_summary.json",
+        "validation": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_038_retry_small_manual_batch_after_strict_json_hardening/openrouter_sonnet_569343_validation.json"
+      }
+    },
+    "result_json_path": "docs/PMBOT_OPENROUTER_038_RESULT.json",
+    "session_dir": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_038_retry_small_manual_batch_after_strict_json_hardening"
+  },
+  "attempted_market_ids": [],
+  "completed_market_ids": [],
+  "environment": {
+    "api_key_leaked": false,
+    "api_key_presence_checked": true,
+    "api_key_value_printed": false,
+    "api_key_value_written": false,
+    "openrouter_api_key_present": true
+  },
+  "fail_fast_reason": "precheck_failed:037_result_status_expected_completed_pushed_actual_completed_local_checks_passed_pending_commit_push",
+  "fail_fast_triggered": true,
+  "git": {
+    "commit_created": false,
+    "commit_hash": null,
+    "commit_hash_note": "final commit hash is reported in the executor final response because a committed file cannot contain its own final hash",
+    "pushed": false,
+    "pushed_note": "reported in final response after push attempt"
+  },
+  "max_openrouter_calls_allowed": 3,
+  "model": "anthropic/claude-sonnet-4.5",
+  "no_retries": true,
+  "prechecks": {
+    "037_result_exists": {
+      "passed": true,
+      "path": "docs/PMBOT_OPENROUTER_037_RESULT.json"
+    },
+    "037_status_completed_pushed": {
+      "actual": "completed_local_checks_passed_pending_commit_push",
+      "expected": "completed_pushed",
+      "passed": false
+    },
+    "api_key_presence_only": {
+      "passed": true,
+      "value_printed": false,
+      "value_written": false
+    },
+    "branch_is_main": {
+      "actual": "main",
+      "expected": "main",
+      "passed": true
+    },
+    "expected_head": {
+      "actual": "5dbc94872527194cb139d1159990062616079e50",
+      "expected": "5dbc94872527194cb139d1159990062616079e50",
+      "passed": true
+    },
+    "local_packet_prompt_artifacts": {
+      "market_ids": [
+        "569333",
+        "569334",
+        "569343"
+      ],
+      "passed": true
+    },
+    "prompt_strict_raw_json_instructions": {
+      "first_character_must_be_open_brace": true,
+      "last_character_must_be_close_brace": true,
+      "no_json_fences": true,
+      "no_markdown": true,
+      "no_prose_before_or_after_json": true,
+      "passed": true
+    },
+    "working_tree_clean_before": {
+      "passed": true
+    }
+  },
+  "safety": {
+    "acceptance_is_not_trading_approval": true,
+    "analysis_only": true,
+    "api_key_leaked": false,
+    "manual_review_only": true,
+    "no_browser_automation": true,
+    "no_buy_sell_hold_enter_exit_recommendations": true,
+    "no_openrouter_calls_after_failed_precheck": true,
+    "no_polymarket_api_calls": true,
+    "no_probability_ev_edge_confidence_side_selection": true,
+    "no_queue_mutation": true,
+    "no_runtime_dispatcher_background_browser_queue_changes": true,
+    "no_wallet_orders_trading": true,
+    "operator_review_only": true,
+    "secret_scan_passed": true
+  },
+  "session_id": "pmbot_openrouter_038_retry_small_manual_batch_after_strict_json_hardening",
+  "skipped_market_ids": [
+    "569333",
+    "569334",
+    "569343"
+  ],
+  "status": "blocked_precheck_failed",
+  "task_id": "PMBOT-OPENROUTER-038-RETRY-SMALL-MANUAL-BATCH-AFTER-STRICT-JSON-HARDENING",
+  "tests_run": [
+    {
+      "command": "python -m compileall pm_bot",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest tests pm_bot\\llm\\tests -q",
+      "status": "passed",
+      "summary": "268 passed in 5.49s"
+    },
+    {
+      "command": "python -m pytest tests\\test_openrouter_prompt_test.py -q",
+      "status": "passed",
+      "summary": "126 passed in 0.23s"
+    },
+    {
+      "command": "JSON parse checks for all newly created JSON artifacts",
+      "status": "passed",
+      "summary": "15 JSON artifacts parsed"
+    },
+    {
+      "command": "Result JSON checks for 038",
+      "status": "passed"
+    },
+    {
+      "command": "Secret scan over newly created 038 artifacts",
+      "status": "passed",
+      "summary": "17 files scanned for key-shaped material and authorization headers"
+    },
+    {
+      "command": "Focused strict JSON / Markdown-fence tests",
+      "status": "passed",
+      "summary": "5 passed in 0.05s"
+    }
+  ],
+  "total_openrouter_calls_performed": 0
+}
