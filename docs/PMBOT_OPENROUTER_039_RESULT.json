@@ -1,0 +1,89 @@
+{
+  "task_id": "PMBOT-OPENROUTER-039-RECONCILE-037-038-PRECHECK-ARTIFACT-STATUS",
+  "status": "completed_pushed",
+  "head_before": "7b6d7a9eed7508184002fcd9a2d5b30eb743fec3",
+  "head_after": "reported_in_final_response_after_commit",
+  "openrouter_calls_performed": 0,
+  "polymarket_api_calls_performed": 0,
+  "source_037_status_before": "completed_local_checks_passed_pending_commit_push",
+  "source_037_status_after": "completed_pushed",
+  "source_037_reconciled": true,
+  "source_037_commit_hash": "5dbc94872527194cb139d1159990062616079e50",
+  "source_038_status": "blocked_precheck_failed",
+  "source_038_preserved_as_blocked": true,
+  "source_038_openrouter_calls_performed": 0,
+  "source_038_fail_fast_reason": "precheck_failed:037_result_status_expected_completed_pushed_actual_completed_local_checks_passed_pending_commit_push",
+  "git_evidence": {
+    "037_commit_hash": "5dbc94872527194cb139d1159990062616079e50",
+    "038_commit_hash": "7b6d7a9eed7508184002fcd9a2d5b30eb743fec3",
+    "038_parent_hash": "5dbc94872527194cb139d1159990062616079e50",
+    "local_origin_main_before": "7b6d7a9eed7508184002fcd9a2d5b30eb743fec3",
+    "verified_with_local_git_only": true
+  },
+  "files_changed": [
+    "docs/PMBOT_OPENROUTER_037_RESULT.json",
+    "docs/PMBOT_OPENROUTER_039_RESULT.json",
+    "docs/PMBOT_OPENROUTER_039_RECONCILE_037_038_PRECHECK_ARTIFACT_STATUS.md",
+    "tests/test_openrouter_result_artifacts.py"
+  ],
+  "tests_run": [
+    {
+      "command": "python -m pytest tests\\test_openrouter_result_artifacts.py -q",
+      "status": "passed",
+      "summary": "1 passed in 0.02s"
+    },
+    {
+      "command": "python -m compileall pm_bot",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest tests pm_bot\\llm\\tests -q",
+      "status": "passed",
+      "summary": "269 passed in 5.35s"
+    },
+    {
+      "command": "python -m pytest tests\\test_openrouter_prompt_test.py -q",
+      "status": "passed",
+      "summary": "126 passed in 0.21s"
+    },
+    {
+      "command": "JSON parse checks for docs\\PMBOT_OPENROUTER_037_RESULT.json, docs\\PMBOT_OPENROUTER_038_RESULT.json, and docs\\PMBOT_OPENROUTER_039_RESULT.json",
+      "status": "passed",
+      "summary": "3 JSON artifacts parsed"
+    },
+    {
+      "command": "Result JSON checks for 037, 038, and 039",
+      "status": "passed"
+    },
+    {
+      "command": "Secret scan over task-relevant changed files",
+      "status": "passed",
+      "summary": "4 task-relevant files scanned for secret-like material and authorization headers"
+    }
+  ],
+  "secret_scan_passed": true,
+  "safety_summary": {
+    "local_only": true,
+    "no_openrouter_calls": true,
+    "no_polymarket_api_calls": true,
+    "no_wallet_private_keys": true,
+    "no_orders": true,
+    "no_trading": true,
+    "no_runtime_wiring": true,
+    "no_dispatcher_changes": true,
+    "no_background_workers": true,
+    "no_queue_mutation": true,
+    "no_browser_automation": true,
+    "no_probability_ev_edge_confidence_side_selection": true,
+    "no_buy_sell_hold_enter_exit_recommendations": true,
+    "operator_review_only": true,
+    "acceptance_is_not_trading_approval": true,
+    "openrouter_api_key_read": false,
+    "openrouter_api_key_value_printed": false,
+    "openrouter_api_key_value_written": false
+  },
+  "commit_hash": null,
+  "pushed": true,
+  "working_tree_clean_after": true,
+  "self_reference_note": "commit_hash and head_after are reported in the final executor response because a committed file cannot contain its own final commit hash."
+}

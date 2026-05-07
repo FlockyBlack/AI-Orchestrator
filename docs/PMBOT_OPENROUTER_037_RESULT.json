@@ -1,8 +1,8 @@
 {
   "task_id": "PMBOT-OPENROUTER-037-BLOCKED-036-HARDEN-STRICT-JSON-PROMPT",
-  "status": "completed_local_checks_passed_pending_commit_push",
+  "status": "completed_pushed",
   "head_before": "af0cac69017edb198e77123e87b0df09988b59e1",
-  "head_after": "reported_in_final_response_after_commit",
+  "head_after": "5dbc94872527194cb139d1159990062616079e50",
   "openrouter_calls_performed": 0,
   "polymarket_api_calls_performed": 0,
   "source_036_status": "blocked_validation_failed",
@@ -94,8 +94,8 @@
     "openrouter_api_key_value_printed": false,
     "openrouter_api_key_value_written": false
   },
-  "commit_hash": null,
-  "pushed": "reported_in_final_response_after_push",
-  "working_tree_clean_after": "reported_in_final_response_after_commit",
-  "self_reference_note": "commit_hash, head_after, pushed, and final working_tree_clean_after are reported in the final executor response because a committed file cannot contain its own final commit hash."
+  "commit_hash": "5dbc94872527194cb139d1159990062616079e50",
+  "pushed": true,
+  "working_tree_clean_after": true,
+  "reconciliation_note": "PMBOT-OPENROUTER-039 reconciled this stale local status using local git evidence: 5dbc94872527194cb139d1159990062616079e50 is the 037 commit and is the parent of 7b6d7a9eed7508184002fcd9a2d5b30eb743fec3, the 038 artifact commit."
 }
