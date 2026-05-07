@@ -165,3 +165,60 @@ def test_openrouter_047_records_local_only_small_batch_quality_baseline():
     assert baseline["quality_summary"]["all_completed_markets_have_operator_checklists"] is True
     assert baseline["future_readiness_note"]["option_a"]["run_or_approved_by_047"] is False
     assert baseline["future_readiness_note"]["option_b"]["run_or_approved_by_047"] is False
+
+
+def test_openrouter_049_records_workbench_passive_surface_integration():
+    result_048 = _load_result("PMBOT_OPENROUTER_048_RESULT.json")
+    result_049 = _load_result("PMBOT_OPENROUTER_049_RESULT.json")
+    pointer = json.loads(
+        (ROOT / "pm_bot" / "workbench" / "openrouter_passive_surface_pointer.v1.json").read_text(
+            encoding="utf-8"
+        )
+    )
+
+    assert result_049["task_id"] == "PMBOT-OPENROUTER-049-WORKBENCH-PASSIVE-SURFACE-INTEGRATION"
+    assert result_049["status"] == "completed_pushed"
+    assert result_049["head_before"] == "6ecd297901366e9679257ac535cbe3f99de995de"
+    assert result_049["openrouter_calls_performed"] == 0
+    assert result_049["polymarket_api_calls_performed"] == 0
+    assert result_049["source_048_status"] == "completed_pushed"
+    assert result_049["source_048_status"] == result_048["status"]
+    assert result_049["workbench_passive_surface_integrated"] is True
+    assert result_049["surfaced_market_ids"] == ["569333", "569334", "569343"]
+    assert result_049["surfaced_market_ids"] == pointer["surfaced_market_ids"]
+    assert result_049["aggregate_usage"] == pointer["aggregate_usage"]
+    assert result_049["aggregate_cost"] == pointer["aggregate_cost"]
+    assert result_049["normalization_summary"] == pointer["normalization_summary"]
+    assert result_049["quality_summary"] == pointer["quality_summary"]
+
+    safety = result_049["safety_summary"]
+    for flag in (
+        "operator_review_only",
+        "passive_context_only",
+        "no_trading_authority",
+        "no_queue_authority",
+        "no_runtime_authority",
+        "no_dispatcher_authority",
+        "no_wallet_or_order_authority",
+        "acceptance_is_not_trading_approval",
+        "analysis_only",
+        "manual_review_only",
+    ):
+        assert safety[flag] is True
+
+    assert safety["openrouter_calls_performed"] == 0
+    assert safety["polymarket_api_calls_performed"] == 0
+    assert safety["network_calls"] == 0
+    assert safety["orders_created"] == 0
+    assert safety["runtime_wiring_added"] is False
+    assert safety["dispatcher_changes_added"] is False
+    assert safety["background_workers_added"] is False
+    assert safety["queue_items_created"] is False
+    assert safety["queue_state_mutated"] is False
+    assert safety["browser_automation_added"] is False
+    assert safety["wallet_or_order_access_added"] is False
+    assert safety["raw_model_responses_included"] is False
+    assert safety["per_market_response_text_included"] is False
+    assert result_049["secret_scan_passed"] is True
+    assert result_049["pushed"] is True
+    assert result_049["working_tree_clean_after"] is True

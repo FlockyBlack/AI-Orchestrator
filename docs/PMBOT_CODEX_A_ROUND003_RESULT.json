@@ -19,11 +19,11 @@
   "files_modified": [],
   "tests": [],
   "artifact_inventory_summary": {
-    "total_artifacts": 24,
-    "present_artifacts": 24,
+    "total_artifacts": 25,
+    "present_artifacts": 25,
     "missing_artifacts": 0,
     "required_missing_artifacts": 0,
-    "json_artifacts_parsed": 23,
+    "json_artifacts_parsed": 24,
     "json_artifacts_parse_failed": 0
   },
   "actual_manual_llm_response_trial": {
@@ -54,10 +54,84 @@
     "not_trading_advice": true,
     "not_execution_authority": true
   },
+  "openrouter_passive_surface": {
+    "artifact_status": "present",
+    "artifact_pointer": "pm_bot/workbench/openrouter_passive_surface_pointer.v1.json",
+    "source_048_status": "completed_pushed",
+    "surfaced_market_ids": [
+      "569333",
+      "569334",
+      "569343"
+    ],
+    "model": "anthropic/claude-sonnet-4.5",
+    "total_calls": 3,
+    "aggregate_usage": {
+      "prompt_tokens": 12859,
+      "completion_tokens": 5827,
+      "total_tokens": 18686
+    },
+    "aggregate_cost": {
+      "total_cost": 0.125982,
+      "average_cost_per_market": 0.041994
+    },
+    "normalization_summary": {
+      "fenced_response_count": 3,
+      "normalized_response_count": 3,
+      "clean_raw_json_response_count": 0,
+      "policy": "fenced_json_normalization.v1",
+      "raw_response_preserved": true,
+      "semantic_repair_allowed": false
+    },
+    "quality_summary": {
+      "accepted_for_operator_review_count": 3,
+      "blocked_count": 0,
+      "schema_validation_accepted_count": 3,
+      "acceptance_gate_passed_count": 3,
+      "all_required_artifacts_present": true,
+      "all_json_artifacts_parse": true,
+      "baseline_suitable_for_future_controlled_expansion": true
+    },
+    "safety_summary": {
+      "operator_review_only": true,
+      "passive_context_only": true,
+      "no_trading_authority": true,
+      "no_queue_authority": true,
+      "no_runtime_authority": true,
+      "no_dispatcher_authority": true,
+      "no_wallet_or_order_authority": true,
+      "acceptance_is_not_trading_approval": true,
+      "analysis_only": true,
+      "manual_review_only": true,
+      "raw_model_responses_included": false,
+      "per_market_response_text_included": false,
+      "openrouter_calls_performed_by_this_task": false,
+      "polymarket_api_calls_performed_by_this_task": false,
+      "runtime_wiring_added": false,
+      "dispatcher_changes_added": false,
+      "background_workers_added": false,
+      "queue_items_created": false,
+      "queue_state_mutated": false,
+      "browser_automation_added": false,
+      "wallet_or_order_access_added": false,
+      "openrouter_calls_performed": 0,
+      "polymarket_api_calls_performed": 0,
+      "network_calls": 0,
+      "orders_created": 0
+    }
+  },
   "missing_artifacts": [],
   "warnings_count": 4,
   "safety_flags": {
     "operator_review_only": true,
+    "passive_context_only": true,
+    "analysis_only": true,
+    "manual_review_only": true,
+    "no_trading_authority": true,
+    "no_queue_authority": true,
+    "no_runtime_authority": true,
+    "no_dispatcher_authority": true,
+    "no_wallet_or_order_authority": true,
+    "acceptance_is_not_trading_approval": true,
     "offline_only": true,
     "deterministic_output": true,
     "local_file_reads_only": true,

@@ -19,10 +19,13 @@ MANUAL_LLM_REVIEW = ROOT / "pm_bot" / "llm" / "manual_llm_paste_in_review.v1.jso
 MANUAL_LLM_QUALITY_GATE = ROOT / "pm_bot" / "llm" / "manual_llm_review_quality_gate.v1.json"
 MANUAL_LLM_REVIEW_QUEUE = ROOT / "pm_bot" / "llm" / "manual_llm_review_queue.v1.json"
 ACTUAL_MANUAL_LLM_RESPONSE_TRIAL = ROOT / "pm_bot" / "llm" / "actual_manual_llm_response_trial.v1.json"
+OPENROUTER_PASSIVE_SURFACE_POINTER = ROOT / "pm_bot" / "workbench" / "openrouter_passive_surface_pointer.v1.json"
+OPENROUTER_PASSIVE_SURFACE_POINTER_MD = ROOT / "pm_bot" / "workbench" / "openrouter_passive_surface_pointer.v1.md"
 
 NEW_JSON_FILES = [
     PACK_JSON,
     EXPECTED_JSON,
+    OPENROUTER_PASSIVE_SURFACE_POINTER,
     RESULT,
     LANE_RESULT,
 ]
@@ -123,6 +126,7 @@ class OperatorReviewPackExportTests(unittest.TestCase):
             "manual_llm_review_quality_gate",
             "manual_llm_review_queue",
             "actual_manual_llm_response_trial",
+            "openrouter_passive_surface",
             "quality_warning_summary",
             "warnings",
             "missing_artifacts",
@@ -188,6 +192,7 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertTrue(inventory["manual_llm_review_quality_gate"]["present"])
         self.assertTrue(inventory["manual_llm_review_queue"]["present"])
         self.assertTrue(inventory["actual_manual_llm_response_trial"]["present"])
+        self.assertTrue(inventory["openrouter_passive_surface"]["present"])
         self.assertEqual(inventory["paper_019_result"]["parse_status"], "parsed")
         self.assertEqual(inventory["paper_019_multi_market_run_series"]["parse_status"], "parsed")
         self.assertEqual(inventory["paper_020_result"]["parse_status"], "parsed")
@@ -196,6 +201,7 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertEqual(inventory["manual_llm_review_quality_gate"]["parse_status"], "parsed")
         self.assertEqual(inventory["manual_llm_review_queue"]["parse_status"], "parsed")
         self.assertEqual(inventory["actual_manual_llm_response_trial"]["parse_status"], "parsed")
+        self.assertEqual(inventory["openrouter_passive_surface"]["parse_status"], "parsed")
         self.assertEqual(
             inventory["paper_019_multi_market_run_series"]["path"],
             "pm_bot/paper/multi_market_paper_run_series.v1.json",
@@ -215,6 +221,10 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertEqual(
             inventory["actual_manual_llm_response_trial"]["path"],
             "pm_bot/llm/actual_manual_llm_response_trial.v1.json",
+        )
+        self.assertEqual(
+            inventory["openrouter_passive_surface"]["path"],
+            "pm_bot/workbench/openrouter_passive_surface_pointer.v1.json",
         )
 
         missing = {item["path"]: item for item in pack["missing_artifacts"]}
@@ -417,6 +427,84 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertFalse(trial["runtime_integration_added"])
         self.assertIn("offline review context only", trial["explicit_operator_warning"])
 
+    def test_openrouter_passive_surface_section_surfaces_pointer_only(self):
+        _run_write()
+        pack = _load_json(PACK_JSON)
+        pointer = _load_json(OPENROUTER_PASSIVE_SURFACE_POINTER)
+        section = pack["openrouter_passive_surface"]
+
+        self.assertTrue(OPENROUTER_PASSIVE_SURFACE_POINTER_MD.exists())
+        self.assertEqual(section["section_id"], "openrouter_passive_surface")
+        self.assertEqual(section["artifact_status"], "present")
+        self.assertEqual(
+            section["artifact_pointer"],
+            "pm_bot/workbench/openrouter_passive_surface_pointer.v1.json",
+        )
+        self.assertEqual(section["artifact_parse_status"], "parsed")
+        self.assertEqual(section["source_batch_task"], "PMBOT-OPENROUTER-046")
+        self.assertEqual(section["source_baseline_task"], "PMBOT-OPENROUTER-047")
+        self.assertEqual(section["source_surface_task"], "PMBOT-OPENROUTER-048")
+        self.assertEqual(section["source_048_status"], "completed_pushed")
+        self.assertEqual(section["surfaced_market_ids"], ["569333", "569334", "569343"])
+        self.assertEqual(section["model"], "anthropic/claude-sonnet-4.5")
+        self.assertEqual(section["total_calls"], 3)
+        self.assertEqual(section["aggregate_usage"], pointer["aggregate_usage"])
+        self.assertEqual(section["aggregate_cost"], pointer["aggregate_cost"])
+        self.assertEqual(section["normalization_summary"], pointer["normalization_summary"])
+        self.assertEqual(section["quality_summary"], pointer["quality_summary"])
+        for flag in (
+            "operator_review_only",
+            "passive_context_only",
+            "no_trading_authority",
+            "no_queue_authority",
+            "no_runtime_authority",
+            "no_dispatcher_authority",
+            "no_wallet_or_order_authority",
+            "acceptance_is_not_trading_approval",
+            "analysis_only",
+            "manual_review_only",
+        ):
+            self.assertTrue(section["safety_summary"][flag])
+
+        self.assertFalse(section["safety_summary"]["raw_model_responses_included"])
+        self.assertFalse(section["safety_summary"]["per_market_response_text_included"])
+        self.assertFalse(section["safety_summary"]["runtime_wiring_added"])
+        self.assertFalse(section["safety_summary"]["dispatcher_changes_added"])
+        self.assertFalse(section["safety_summary"]["background_workers_added"])
+        self.assertFalse(section["safety_summary"]["queue_items_created"])
+        self.assertFalse(section["safety_summary"]["queue_state_mutated"])
+        self.assertFalse(section["safety_summary"]["browser_automation_added"])
+        self.assertFalse(section["safety_summary"]["wallet_or_order_access_added"])
+        self.assertEqual(section["safety_summary"]["openrouter_calls_performed"], 0)
+        self.assertEqual(section["safety_summary"]["polymarket_api_calls_performed"], 0)
+        self.assertEqual(section["safety_summary"]["network_calls"], 0)
+        self.assertEqual(section["safety_summary"]["orders_created"], 0)
+        self.assertNotIn("per_market_passive_entries", section)
+        for item in section["artifact_pointers"].values():
+            self.assertTrue((ROOT / item["path"]).exists())
+
+    def test_openrouter_passive_surface_missing_pointer_is_non_blocking(self):
+        module = _load_module()
+        with tempfile.TemporaryDirectory() as directory:
+            pack = module.build_operator_review_pack(Path(directory))
+
+        section = pack["openrouter_passive_surface"]
+        warnings = {item["warning_id"]: item for item in pack["warnings"]}
+        self.assertEqual(section["artifact_status"], "missing")
+        self.assertEqual(
+            section["artifact_pointer"],
+            "pm_bot/workbench/openrouter_passive_surface_pointer.v1.json",
+        )
+        self.assertEqual(section["source_batch_task"], "PMBOT-OPENROUTER-046")
+        self.assertEqual(section["source_baseline_task"], "PMBOT-OPENROUTER-047")
+        self.assertEqual(section["source_surface_task"], "PMBOT-OPENROUTER-048")
+        self.assertEqual(section["surfaced_market_ids"], [])
+        self.assertEqual(section["total_calls"], 0)
+        self.assertIn("openrouter_passive_surface_pointer_missing", warnings)
+        self.assertEqual(section["safety_summary"]["openrouter_calls_performed"], 0)
+        self.assertEqual(section["safety_summary"]["polymarket_api_calls_performed"], 0)
+        self.assertFalse(section["safety_summary"]["queue_items_created"])
+
     def test_manual_llm_review_missing_artifact_is_not_available_and_non_blocking(self):
         module = _load_module()
         with tempfile.TemporaryDirectory() as directory:
@@ -558,6 +646,7 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         quality_gate = pack["manual_llm_review_quality_gate"]
         queue = pack["manual_llm_review_queue"]
         actual_trial = pack["actual_manual_llm_response_trial"]
+        openrouter = pack["openrouter_passive_surface"]
 
         self.assertFalse(manual_llm["llm_api_calls_added"])
         self.assertFalse(manual_llm["browser_automation_added"])
@@ -572,6 +661,13 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertFalse(actual_trial["llm_api_calls_added"])
         self.assertFalse(actual_trial["browser_automation_added"])
         self.assertFalse(actual_trial["runtime_integration_added"])
+        self.assertEqual(openrouter["safety_summary"]["openrouter_calls_performed"], 0)
+        self.assertEqual(openrouter["safety_summary"]["polymarket_api_calls_performed"], 0)
+        self.assertFalse(openrouter["safety_summary"]["browser_automation_added"])
+        self.assertFalse(openrouter["safety_summary"]["runtime_wiring_added"])
+        self.assertFalse(openrouter["safety_summary"]["dispatcher_changes_added"])
+        self.assertFalse(openrouter["safety_summary"]["queue_items_created"])
+        self.assertFalse(openrouter["safety_summary"]["queue_state_mutated"])
         self.assertEqual(pack["network_calls"], 0)
         self.assertEqual(pack["commands_executed"], 0)
         self.assertEqual(pack["paper_orders_created"], 0)
@@ -812,6 +908,24 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertIn("not_trading_advice: true", markdown)
         self.assertIn("not_execution_authority: true", markdown)
         self.assertIn("not a truth source, not trading advice, and not execution authority", markdown)
+        self.assertIn("OpenRouter Passive Surface", markdown)
+        self.assertIn("section_id: openrouter_passive_surface", markdown)
+        self.assertIn("artifact_pointer: pm_bot/workbench/openrouter_passive_surface_pointer.v1.json", markdown)
+        self.assertIn("source_batch_task: PMBOT-OPENROUTER-046", markdown)
+        self.assertIn("source_baseline_task: PMBOT-OPENROUTER-047", markdown)
+        self.assertIn("source_surface_task: PMBOT-OPENROUTER-048", markdown)
+        self.assertIn("source_048_status: completed_pushed", markdown)
+        self.assertIn("surfaced_market_ids: 569333, 569334, 569343", markdown)
+        self.assertIn("model: anthropic/claude-sonnet-4.5", markdown)
+        self.assertIn("total_calls: 3", markdown)
+        self.assertIn("prompt_tokens: 12859", markdown)
+        self.assertIn("completion_tokens: 5827", markdown)
+        self.assertIn("total_tokens: 18686", markdown)
+        self.assertIn("fenced_response_count: 3", markdown)
+        self.assertIn("clean_raw_json_response_count: 0", markdown)
+        self.assertIn("OpenRouter Passive Surface Safety Flags", markdown)
+        self.assertIn("no_runtime_authority: true", markdown)
+        self.assertIn("manual_review_only: true", markdown)
 
     def test_result_docs_match_and_report_no_forbidden_changes(self):
         _run_write()
@@ -837,6 +951,28 @@ class OperatorReviewPackExportTests(unittest.TestCase):
             1,
         )
         self.assertTrue(result["manual_llm_review_queue"]["offline_manual_only"])
+        self.assertEqual(result["openrouter_passive_surface"]["artifact_status"], "present")
+        self.assertEqual(result["openrouter_passive_surface"]["source_048_status"], "completed_pushed")
+        self.assertEqual(
+            result["openrouter_passive_surface"]["surfaced_market_ids"],
+            ["569333", "569334", "569343"],
+        )
+        self.assertEqual(result["openrouter_passive_surface"]["model"], "anthropic/claude-sonnet-4.5")
+        self.assertEqual(result["openrouter_passive_surface"]["total_calls"], 3)
+        self.assertEqual(
+            result["openrouter_passive_surface"]["quality_summary"]["accepted_for_operator_review_count"],
+            3,
+        )
+        self.assertTrue(result["openrouter_passive_surface"]["safety_summary"]["operator_review_only"])
+        self.assertTrue(result["openrouter_passive_surface"]["safety_summary"]["passive_context_only"])
+        self.assertEqual(
+            result["openrouter_passive_surface"]["safety_summary"]["openrouter_calls_performed"],
+            0,
+        )
+        self.assertEqual(
+            result["openrouter_passive_surface"]["safety_summary"]["polymarket_api_calls_performed"],
+            0,
+        )
         self.assertEqual(result["paper_orders_created"], 0)
         self.assertEqual(result["commands_executed"], 0)
         self.assertEqual(result["network_calls"], 0)

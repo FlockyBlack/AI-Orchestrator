@@ -16,6 +16,7 @@ if str(ROOT) not in sys.path:
 
 from pm_bot.llm import summarize_actual_manual_llm_response_trial as actual_llm_response_surface  # noqa: E402
 from pm_bot.llm import export_manual_llm_review_queue as manual_llm_review_queue_surface  # noqa: E402
+from pm_bot.workbench import openrouter_passive_surface_pointer  # noqa: E402
 
 WORKBENCH_DIR = ROOT / "pm_bot" / "workbench"
 DOCS_DIR = ROOT / "docs"
@@ -29,6 +30,8 @@ SUMMARY_OUTPUT_ARTIFACTS = [
     "pm_bot/workbench/operator_workbench_export_run.v1.json",
     "pm_bot/workbench/operator_workbench_export_run.v1.md",
     "pm_bot/workbench/expected_operator_workbench_export_run.v1.json",
+    "pm_bot/workbench/openrouter_passive_surface_pointer.v1.json",
+    "pm_bot/workbench/openrouter_passive_surface_pointer.v1.md",
     "docs/PMBOT_WORKBENCH_003_RESULT.json",
 ]
 
@@ -39,9 +42,19 @@ MANUAL_LLM_REVIEW_QUEUE_ARTIFACT_PATH = "pm_bot/llm/manual_llm_review_queue.v1.j
 
 SAFETY_FLAGS = {
     "manual_cli_only": True,
+    "operator_review_only": True,
+    "passive_context_only": True,
+    "analysis_only": True,
+    "manual_review_only": True,
     "offline_only": True,
     "deterministic": True,
     "local_file_operations_only": True,
+    "no_trading_authority": True,
+    "no_queue_authority": True,
+    "no_runtime_authority": True,
+    "no_dispatcher_authority": True,
+    "no_wallet_or_order_authority": True,
+    "acceptance_is_not_trading_approval": True,
     "runtime_wiring": False,
     "network_api": False,
     "wallet": False,
@@ -119,6 +132,17 @@ def build_export_steps(root=ROOT):
                 "pm_bot/quality/expected_artifact_health_report.v1.json",
                 "docs/PMBOT_QUALITY_001_RESULT.json",
                 "docs/PMBOT_CODEX_B_ROUND003_RESULT.json",
+            ],
+        },
+        {
+            "step_id": "openrouter_passive_surface_pointer",
+            "script_path": "pm_bot/workbench/openrouter_passive_surface_pointer.py",
+            "required": False,
+            "runner": "module_function",
+            "function_name": "write_openrouter_passive_surface_pointer_artifacts",
+            "output_artifacts": [
+                "pm_bot/workbench/openrouter_passive_surface_pointer.v1.json",
+                "pm_bot/workbench/openrouter_passive_surface_pointer.v1.md",
             ],
         },
         {
@@ -251,6 +275,10 @@ def _manual_llm_review_queue_surface(root=ROOT):
     return manual_llm_review_queue_surface.summarize_manual_llm_review_queue(root=root)
 
 
+def _openrouter_passive_surface(root=ROOT):
+    return openrouter_passive_surface_pointer.build_openrouter_passive_surface_pointer(root=root)
+
+
 def build_run_summary(step_results, root=ROOT):
     required_steps_passed = all(
         step["status"] == "ran" for step in step_results if step["required"]
@@ -273,6 +301,7 @@ def build_run_summary(step_results, root=ROOT):
         "artifacts_refreshed": _ordered_unique(artifacts),
         "actual_manual_llm_response_trial": _actual_manual_llm_response_trial_surface(root=root),
         "manual_llm_review_queue": _manual_llm_review_queue_surface(root=root),
+        "openrouter_passive_surface": _openrouter_passive_surface(root=root),
         "warnings": _warnings_for_steps(step_results),
         "safety_flags": dict(SAFETY_FLAGS),
         "network_calls": 0,
@@ -288,6 +317,7 @@ def build_run_summary(step_results, root=ROOT):
 def render_markdown(summary):
     actual_trial = summary["actual_manual_llm_response_trial"]
     manual_llm_review_queue = summary["manual_llm_review_queue"]
+    openrouter_surface = summary["openrouter_passive_surface"]
     lines = [
         "# PMBOT Operator Workbench Export Run v1",
         "",
@@ -358,6 +388,39 @@ def render_markdown(summary):
             f"- not_trading_advice: {str(manual_llm_review_queue['not_trading_advice']).lower()}",
             "- not_execution_authority: "
             f"{str(manual_llm_review_queue['not_execution_authority']).lower()}",
+            "",
+            "## OpenRouter Passive Surface",
+            "",
+            f"- artifact_path: {openrouter_surface['artifact_pointers']['workbench_pointer_json']['path']}",
+            f"- status: {openrouter_surface['status']}",
+            f"- source_batch_task: {openrouter_surface['source_batch_task']}",
+            f"- source_baseline_task: {openrouter_surface['source_baseline_task']}",
+            f"- source_surface_task: {openrouter_surface['source_surface_task']}",
+            f"- source_048_status: {openrouter_surface['source_048_status']}",
+            f"- surfaced_market_ids: {', '.join(openrouter_surface['surfaced_market_ids'])}",
+            f"- model: {openrouter_surface['model']}",
+            f"- total_calls: {openrouter_surface['total_calls']}",
+            "- accepted_for_operator_review_count: "
+            f"{openrouter_surface['quality_summary'].get('accepted_for_operator_review_count', 0)}",
+            f"- blocked_count: {openrouter_surface['quality_summary'].get('blocked_count', 0)}",
+            "- fenced_response_count: "
+            f"{openrouter_surface['normalization_summary'].get('fenced_response_count', 0)}",
+            "- normalized_response_count: "
+            f"{openrouter_surface['normalization_summary'].get('normalized_response_count', 0)}",
+            "- clean_raw_json_response_count: "
+            f"{openrouter_surface['normalization_summary'].get('clean_raw_json_response_count', 0)}",
+            f"- operator_review_only: {str(openrouter_surface['operator_review_only']).lower()}",
+            f"- passive_context_only: {str(openrouter_surface['passive_context_only']).lower()}",
+            f"- no_trading_authority: {str(openrouter_surface['no_trading_authority']).lower()}",
+            f"- no_queue_authority: {str(openrouter_surface['no_queue_authority']).lower()}",
+            f"- no_runtime_authority: {str(openrouter_surface['no_runtime_authority']).lower()}",
+            f"- no_dispatcher_authority: {str(openrouter_surface['no_dispatcher_authority']).lower()}",
+            "- no_wallet_or_order_authority: "
+            f"{str(openrouter_surface['no_wallet_or_order_authority']).lower()}",
+            "- acceptance_is_not_trading_approval: "
+            f"{str(openrouter_surface['acceptance_is_not_trading_approval']).lower()}",
+            f"- analysis_only: {str(openrouter_surface['analysis_only']).lower()}",
+            f"- manual_review_only: {str(openrouter_surface['manual_review_only']).lower()}",
         ]
     )
 
@@ -443,6 +506,19 @@ def _result_payload(summary):
             "not_truth_source": summary["manual_llm_review_queue"]["not_truth_source"],
             "not_trading_advice": summary["manual_llm_review_queue"]["not_trading_advice"],
             "not_execution_authority": summary["manual_llm_review_queue"]["not_execution_authority"],
+        },
+        "openrouter_passive_surface": {
+            "status": summary["openrouter_passive_surface"]["status"],
+            "source_048_status": summary["openrouter_passive_surface"]["source_048_status"],
+            "surfaced_market_ids": summary["openrouter_passive_surface"]["surfaced_market_ids"],
+            "model": summary["openrouter_passive_surface"]["model"],
+            "total_calls": summary["openrouter_passive_surface"]["total_calls"],
+            "aggregate_usage": summary["openrouter_passive_surface"]["aggregate_usage"],
+            "aggregate_cost": summary["openrouter_passive_surface"]["aggregate_cost"],
+            "normalization_summary": summary["openrouter_passive_surface"]["normalization_summary"],
+            "quality_summary": summary["openrouter_passive_surface"]["quality_summary"],
+            "safety_summary": summary["openrouter_passive_surface"]["safety_summary"],
+            "artifact_pointers": summary["openrouter_passive_surface"]["artifact_pointers"],
         },
         "safety_flags": summary["safety_flags"],
         "network_calls": 0,

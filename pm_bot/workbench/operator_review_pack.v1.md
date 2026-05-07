@@ -51,8 +51,8 @@
 
 ## Artifact Inventory
 
-- total_artifacts: 24
-- present_artifacts: 24
+- total_artifacts: 25
+- present_artifacts: 25
 - missing_artifacts: 0
 - required_missing_artifacts: 0
 
@@ -80,6 +80,7 @@
 - manual_llm_review_quality_gate: pm_bot/llm/manual_llm_review_quality_gate.v1.json (present=true, required=false, parse_status=parsed)
 - manual_llm_review_queue: pm_bot/llm/manual_llm_review_queue.v1.json (present=true, required=false, parse_status=parsed)
 - actual_manual_llm_response_trial: pm_bot/llm/actual_manual_llm_response_trial.v1.json (present=true, required=false, parse_status=parsed)
+- openrouter_passive_surface: pm_bot/workbench/openrouter_passive_surface_pointer.v1.json (present=true, required=false, parse_status=parsed)
 
 ## Paper Audits
 
@@ -398,6 +399,54 @@
 - surface_only: true
 - truth_evaluation: false
 
+## OpenRouter Passive Surface
+
+- section_id: openrouter_passive_surface
+- artifact_status: present
+- artifact_pointer: pm_bot/workbench/openrouter_passive_surface_pointer.v1.json
+- artifact_markdown_pointer: pm_bot/workbench/openrouter_passive_surface_pointer.v1.md
+- artifact_parse_status: parsed
+- source_batch_task: PMBOT-OPENROUTER-046
+- source_baseline_task: PMBOT-OPENROUTER-047
+- source_surface_task: PMBOT-OPENROUTER-048
+- source_048_status: completed_pushed
+- surfaced_market_ids: 569333, 569334, 569343
+- model: anthropic/claude-sonnet-4.5
+- total_calls: 3
+- prompt_tokens: 12859
+- completion_tokens: 5827
+- total_tokens: 18686
+- total_cost: 0.125982
+- average_cost_per_market: 0.041994
+- fenced_response_count: 3
+- normalized_response_count: 3
+- clean_raw_json_response_count: 0
+- accepted_for_operator_review_count: 3
+- blocked_count: 0
+- offline_review_warning: OpenRouter passive surface is read-only operator context; it creates no queue item, runtime hook, API call, wallet/order access, or authority.
+
+## OpenRouter Passive Surface Safety Flags
+
+- operator_review_only: true
+- passive_context_only: true
+- no_trading_authority: true
+- no_queue_authority: true
+- no_runtime_authority: true
+- no_dispatcher_authority: true
+- no_wallet_or_order_authority: true
+- acceptance_is_not_trading_approval: true
+- analysis_only: true
+- manual_review_only: true
+
+## OpenRouter Passive Surface Artifact Pointers
+
+- workbench_pointer_json: pm_bot/workbench/openrouter_passive_surface_pointer.v1.json (generated_workbench_pointer)
+- workbench_pointer_markdown: pm_bot/workbench/openrouter_passive_surface_pointer.v1.md (generated_workbench_pointer)
+- source_surface_json: pm_bot/llm/operator_openrouter_batch_surface_046.v1.json (read_only_passive_source)
+- source_surface_markdown: pm_bot/llm/operator_openrouter_batch_surface_046.v1.md (read_only_passive_source)
+- source_048_result: docs/PMBOT_OPENROUTER_048_RESULT.json (read_only_source_result)
+- source_048_report: docs/PMBOT_OPENROUTER_048_PASSIVE_OPERATOR_SURFACE_046_BATCH.md (read_only_source_report)
+
 ## Missing Artifacts
 
 - none
@@ -411,6 +460,8 @@
 
 ## Safety Flags
 
+- acceptance_is_not_trading_approval: true
+- analysis_only: true
 - autonomous_paper_orders: false
 - command_execution: false
 - credentials: false
@@ -418,10 +469,17 @@
 - dispatcher_run_codex_changes: false
 - live_trading: false
 - local_file_reads_only: true
+- manual_review_only: true
 - market_decisions: false
 - network_api: false
+- no_dispatcher_authority: true
+- no_queue_authority: true
+- no_runtime_authority: true
+- no_trading_authority: true
+- no_wallet_or_order_authority: true
 - offline_only: true
 - operator_review_only: true
+- passive_context_only: true
 - real_orders: false
 - recommendations: false
 - runtime_wiring: false
@@ -437,6 +495,7 @@
 - review_operator_inbox_queue: Review accepted, rejected, and needs-human-review inbox records without executing commands.
 - review_manual_llm_review_queue: Review manual LLM queue status for local packet and response readiness.
 - review_actual_manual_llm_response_trial_surface: Review actual manual LLM response trial status as offline local context only.
+- review_openrouter_passive_surface_pointer: Review OpenRouter batch surface pointer as read-only local context.
 - integration_review_only: Use this pack as a static input for human integration review only.
 
 - This operator review pack does not recommend markets, sides, prices, sizes, orders, trades, paper orders, or decisions.

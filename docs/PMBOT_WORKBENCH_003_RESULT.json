@@ -9,6 +9,7 @@
       "portfolio_audit_state",
       "manual_command_inbox_review",
       "artifact_health_report",
+      "openrouter_passive_surface_pointer",
       "operator_review_pack"
     ],
     "optional_steps_skipped": [],
@@ -51,6 +52,8 @@
     "pm_bot/quality/expected_artifact_health_report.v1.json",
     "docs/PMBOT_QUALITY_001_RESULT.json",
     "docs/PMBOT_CODEX_B_ROUND003_RESULT.json",
+    "pm_bot/workbench/openrouter_passive_surface_pointer.v1.json",
+    "pm_bot/workbench/openrouter_passive_surface_pointer.v1.md",
     "pm_bot/workbench/operator_review_pack.v1.json",
     "pm_bot/workbench/operator_review_pack.v1.md",
     "pm_bot/workbench/expected_operator_review_pack.v1.json",
@@ -90,11 +93,111 @@
     "not_trading_advice": true,
     "not_execution_authority": true
   },
+  "openrouter_passive_surface": {
+    "status": "passive_surface_pointer_ready",
+    "source_048_status": "completed_pushed",
+    "surfaced_market_ids": [
+      "569333",
+      "569334",
+      "569343"
+    ],
+    "model": "anthropic/claude-sonnet-4.5",
+    "total_calls": 3,
+    "aggregate_usage": {
+      "prompt_tokens": 12859,
+      "completion_tokens": 5827,
+      "total_tokens": 18686
+    },
+    "aggregate_cost": {
+      "total_cost": 0.125982,
+      "average_cost_per_market": 0.041994
+    },
+    "normalization_summary": {
+      "fenced_response_count": 3,
+      "normalized_response_count": 3,
+      "clean_raw_json_response_count": 0,
+      "policy": "fenced_json_normalization.v1",
+      "raw_response_preserved": true,
+      "semantic_repair_allowed": false
+    },
+    "quality_summary": {
+      "accepted_for_operator_review_count": 3,
+      "blocked_count": 0,
+      "schema_validation_accepted_count": 3,
+      "acceptance_gate_passed_count": 3,
+      "all_required_artifacts_present": true,
+      "all_json_artifacts_parse": true,
+      "baseline_suitable_for_future_controlled_expansion": true
+    },
+    "safety_summary": {
+      "operator_review_only": true,
+      "passive_context_only": true,
+      "no_trading_authority": true,
+      "no_queue_authority": true,
+      "no_runtime_authority": true,
+      "no_dispatcher_authority": true,
+      "no_wallet_or_order_authority": true,
+      "acceptance_is_not_trading_approval": true,
+      "analysis_only": true,
+      "manual_review_only": true,
+      "raw_model_responses_included": false,
+      "per_market_response_text_included": false,
+      "openrouter_calls_performed_by_this_task": false,
+      "polymarket_api_calls_performed_by_this_task": false,
+      "runtime_wiring_added": false,
+      "dispatcher_changes_added": false,
+      "background_workers_added": false,
+      "queue_items_created": false,
+      "queue_state_mutated": false,
+      "browser_automation_added": false,
+      "wallet_or_order_access_added": false,
+      "openrouter_calls_performed": 0,
+      "polymarket_api_calls_performed": 0,
+      "network_calls": 0,
+      "orders_created": 0
+    },
+    "artifact_pointers": {
+      "workbench_pointer_json": {
+        "path": "pm_bot/workbench/openrouter_passive_surface_pointer.v1.json",
+        "role": "generated_workbench_pointer"
+      },
+      "workbench_pointer_markdown": {
+        "path": "pm_bot/workbench/openrouter_passive_surface_pointer.v1.md",
+        "role": "generated_workbench_pointer"
+      },
+      "source_surface_json": {
+        "path": "pm_bot/llm/operator_openrouter_batch_surface_046.v1.json",
+        "role": "read_only_passive_source"
+      },
+      "source_surface_markdown": {
+        "path": "pm_bot/llm/operator_openrouter_batch_surface_046.v1.md",
+        "role": "read_only_passive_source"
+      },
+      "source_048_result": {
+        "path": "docs/PMBOT_OPENROUTER_048_RESULT.json",
+        "role": "read_only_source_result"
+      },
+      "source_048_report": {
+        "path": "docs/PMBOT_OPENROUTER_048_PASSIVE_OPERATOR_SURFACE_046_BATCH.md",
+        "role": "read_only_source_report"
+      }
+    }
+  },
   "safety_flags": {
     "manual_cli_only": true,
+    "operator_review_only": true,
+    "passive_context_only": true,
+    "analysis_only": true,
+    "manual_review_only": true,
     "offline_only": true,
     "deterministic": true,
     "local_file_operations_only": true,
+    "no_trading_authority": true,
+    "no_queue_authority": true,
+    "no_runtime_authority": true,
+    "no_dispatcher_authority": true,
+    "no_wallet_or_order_authority": true,
+    "acceptance_is_not_trading_approval": true,
     "runtime_wiring": false,
     "network_api": false,
     "wallet": false,

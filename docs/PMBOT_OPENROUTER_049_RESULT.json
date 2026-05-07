@@ -1,0 +1,111 @@
+{
+  "task_id": "PMBOT-OPENROUTER-049-WORKBENCH-PASSIVE-SURFACE-INTEGRATION",
+  "status": "completed_pushed",
+  "head_before": "6ecd297901366e9679257ac535cbe3f99de995de",
+  "head_after": "reported_in_final_response_after_commit",
+  "openrouter_calls_performed": 0,
+  "polymarket_api_calls_performed": 0,
+  "source_048_status": "completed_pushed",
+  "workbench_passive_surface_integrated": true,
+  "workbench_artifact_paths": [
+    "pm_bot/workbench/openrouter_passive_surface_pointer.v1.json",
+    "pm_bot/workbench/openrouter_passive_surface_pointer.v1.md",
+    "pm_bot/workbench/operator_review_pack.v1.json",
+    "pm_bot/workbench/operator_review_pack.v1.md",
+    "pm_bot/workbench/operator_workbench_export_run.v1.json",
+    "pm_bot/workbench/operator_workbench_export_run.v1.md"
+  ],
+  "surfaced_market_ids": [
+    "569333",
+    "569334",
+    "569343"
+  ],
+  "aggregate_usage": {
+    "prompt_tokens": 12859,
+    "completion_tokens": 5827,
+    "total_tokens": 18686
+  },
+  "aggregate_cost": {
+    "total_cost": 0.125982,
+    "average_cost_per_market": 0.041994
+  },
+  "normalization_summary": {
+    "fenced_response_count": 3,
+    "normalized_response_count": 3,
+    "clean_raw_json_response_count": 0,
+    "policy": "fenced_json_normalization.v1",
+    "raw_response_preserved": true,
+    "semantic_repair_allowed": false
+  },
+  "quality_summary": {
+    "accepted_for_operator_review_count": 3,
+    "blocked_count": 0,
+    "schema_validation_accepted_count": 3,
+    "acceptance_gate_passed_count": 3,
+    "all_required_artifacts_present": true,
+    "all_json_artifacts_parse": true,
+    "baseline_suitable_for_future_controlled_expansion": true
+  },
+  "safety_summary": {
+    "operator_review_only": true,
+    "passive_context_only": true,
+    "no_trading_authority": true,
+    "no_queue_authority": true,
+    "no_runtime_authority": true,
+    "no_dispatcher_authority": true,
+    "no_wallet_or_order_authority": true,
+    "acceptance_is_not_trading_approval": true,
+    "analysis_only": true,
+    "manual_review_only": true,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "network_calls": 0,
+    "orders_created": 0,
+    "runtime_wiring_added": false,
+    "dispatcher_changes_added": false,
+    "background_workers_added": false,
+    "queue_items_created": false,
+    "queue_state_mutated": false,
+    "browser_automation_added": false,
+    "wallet_or_order_access_added": false,
+    "raw_model_responses_included": false,
+    "per_market_response_text_included": false
+  },
+  "files_changed": [
+    "docs/PMBOT_CODEX_A_ROUND003_RESULT.json",
+    "docs/PMBOT_OPENROUTER_049_RESULT.json",
+    "docs/PMBOT_OPENROUTER_049_WORKBENCH_PASSIVE_SURFACE_INTEGRATION.md",
+    "docs/PMBOT_WORKBENCH_001_RESULT.json",
+    "docs/PMBOT_WORKBENCH_003_RESULT.json",
+    "pm_bot/workbench/expected_operator_review_pack.v1.json",
+    "pm_bot/workbench/expected_operator_workbench_export_run.v1.json",
+    "pm_bot/workbench/export_operator_review_pack.py",
+    "pm_bot/workbench/openrouter_passive_surface_pointer.py",
+    "pm_bot/workbench/openrouter_passive_surface_pointer.v1.json",
+    "pm_bot/workbench/openrouter_passive_surface_pointer.v1.md",
+    "pm_bot/workbench/operator_review_pack.v1.json",
+    "pm_bot/workbench/operator_review_pack.v1.md",
+    "pm_bot/workbench/operator_workbench_export_run.v1.json",
+    "pm_bot/workbench/operator_workbench_export_run.v1.md",
+    "pm_bot/workbench/run_operator_workbench_export.py",
+    "pm_bot/workbench/tests/test_openrouter_passive_surface_pointer.py",
+    "pm_bot/workbench/tests/test_operator_review_pack_export.py",
+    "pm_bot/workbench/tests/test_operator_workbench_export_runner.py",
+    "tests/test_openrouter_result_artifacts.py"
+  ],
+  "tests_run": [
+    "python -m compileall pm_bot",
+    "python -m pytest tests pm_bot\\llm\\tests -q",
+    "python -m pytest pm_bot\\llm\\tests\\test_operator_openrouter_batch_surface_046.py -q",
+    "python -m pytest tests\\test_openrouter_result_artifacts.py -q",
+    "python -m pytest pm_bot\\workbench\\tests -q",
+    "python -m pm_bot.workbench.run_operator_workbench_export",
+    "json_parse_checks_for_048_049_surface_and_pointer_artifacts",
+    "result_json_checks_for_048_and_049",
+    "secret_scan_over_changed_files_and_049_artifacts"
+  ],
+  "secret_scan_passed": true,
+  "commit_hash": "reported_in_final_response_after_commit",
+  "pushed": true,
+  "working_tree_clean_after": true
+}

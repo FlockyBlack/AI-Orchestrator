@@ -12,6 +12,7 @@ if str(ROOT) not in sys.path:
 
 from pm_bot.llm import summarize_actual_manual_llm_response_trial as actual_llm_response_surface  # noqa: E402
 from pm_bot.llm import export_manual_llm_review_queue as manual_llm_review_queue_surface  # noqa: E402
+from pm_bot.workbench import openrouter_passive_surface_pointer  # noqa: E402
 
 WORKBENCH_DIR = ROOT / "pm_bot" / "workbench"
 DOCS_DIR = ROOT / "docs"
@@ -37,6 +38,13 @@ ACTUAL_MANUAL_LLM_RESPONSE_TRIAL_ARTIFACT_PATH = (
     "pm_bot/llm/actual_manual_llm_response_trial.v1.json"
 )
 ACTUAL_MANUAL_LLM_RESPONSE_TRIAL_SECTION_ID = "actual_manual_llm_response_trial"
+OPENROUTER_PASSIVE_SURFACE_POINTER_ARTIFACT_PATH = (
+    "pm_bot/workbench/openrouter_passive_surface_pointer.v1.json"
+)
+OPENROUTER_PASSIVE_SURFACE_POINTER_MARKDOWN_PATH = (
+    "pm_bot/workbench/openrouter_passive_surface_pointer.v1.md"
+)
+OPENROUTER_PASSIVE_SURFACE_SECTION_ID = "openrouter_passive_surface"
 
 SCHEMA_VERSION = "operator_review_pack.v1"
 GENERATED_BY = "pm_bot/workbench/export_operator_review_pack.py"
@@ -75,6 +83,10 @@ ACTUAL_MANUAL_LLM_RESPONSE_TRIAL_WARNING = (
     "Actual manual LLM response trial surface is offline review context only; it is not truth, "
     "not trading advice, and not execution authority."
 )
+OPENROUTER_PASSIVE_SURFACE_WARNING = (
+    "OpenRouter passive surface is read-only operator context; it creates no queue item, "
+    "runtime hook, API call, wallet/order access, or authority."
+)
 MANUAL_LLM_QUALITY_GATE_VALIDATION_STATUSES = {
     "quality_passed",
     "quality_passed_with_warnings",
@@ -83,6 +95,15 @@ MANUAL_LLM_QUALITY_GATE_VALIDATION_STATUSES = {
 
 SAFETY_FLAGS = {
     "operator_review_only": True,
+    "passive_context_only": True,
+    "analysis_only": True,
+    "manual_review_only": True,
+    "no_trading_authority": True,
+    "no_queue_authority": True,
+    "no_runtime_authority": True,
+    "no_dispatcher_authority": True,
+    "no_wallet_or_order_authority": True,
+    "acceptance_is_not_trading_approval": True,
     "offline_only": True,
     "deterministic_output": True,
     "local_file_reads_only": True,
@@ -288,6 +309,13 @@ SOURCE_ARTIFACTS = (
         "path": ACTUAL_MANUAL_LLM_RESPONSE_TRIAL_ARTIFACT_PATH,
         "category": "manual_llm_actual_response_trial",
         "artifact_type": "actual_manual_llm_response_trial_json",
+        "required": False,
+    },
+    {
+        "artifact_id": OPENROUTER_PASSIVE_SURFACE_SECTION_ID,
+        "path": OPENROUTER_PASSIVE_SURFACE_POINTER_ARTIFACT_PATH,
+        "category": "openrouter_passive_surface",
+        "artifact_type": "openrouter_passive_surface_pointer_json",
         "required": False,
     },
 )
@@ -936,6 +964,86 @@ def _inventory_item(inventory, artifact_id):
     return {}
 
 
+def _openrouter_passive_surface_base(artifact):
+    return {
+        "section_id": OPENROUTER_PASSIVE_SURFACE_SECTION_ID,
+        "artifact_status": "missing" if not artifact.get("present") else "invalid",
+        "artifact_pointer": OPENROUTER_PASSIVE_SURFACE_POINTER_ARTIFACT_PATH,
+        "artifact_markdown_pointer": OPENROUTER_PASSIVE_SURFACE_POINTER_MARKDOWN_PATH,
+        "artifact_parse_status": artifact.get("parse_status", "not_available"),
+        "source_batch_task": "PMBOT-OPENROUTER-046",
+        "source_baseline_task": "PMBOT-OPENROUTER-047",
+        "source_surface_task": "PMBOT-OPENROUTER-048",
+        "source_048_status": "not_available",
+        "surfaced_market_ids": [],
+        "model": "not_available",
+        "total_calls": 0,
+        "aggregate_usage": {},
+        "aggregate_cost": {},
+        "normalization_summary": {},
+        "quality_summary": {},
+        "required_flag_status": {},
+        "safety_summary": {
+            **openrouter_passive_surface_pointer.SAFETY_TRUE_FLAGS,
+            **openrouter_passive_surface_pointer.SAFETY_FALSE_FLAGS,
+            "openrouter_calls_performed": 0,
+            "polymarket_api_calls_performed": 0,
+            "network_calls": 0,
+            "orders_created": 0,
+        },
+        "artifact_pointers": {},
+        "source_artifact_pointers": {},
+        "warnings_count": 0,
+        "known_warnings": [],
+        "offline_review_warning": OPENROUTER_PASSIVE_SURFACE_WARNING,
+        "openrouter_calls_performed": 0,
+        "polymarket_api_calls_performed": 0,
+        "network_calls": 0,
+        "orders_created": 0,
+        "queue_items_created": 0,
+    }
+
+
+def _openrouter_passive_surface_summary(payloads, inventory):
+    artifact = _inventory_item(inventory, OPENROUTER_PASSIVE_SURFACE_SECTION_ID)
+    base = _openrouter_passive_surface_base(artifact)
+    pointer = payloads.get(OPENROUTER_PASSIVE_SURFACE_SECTION_ID)
+    if not isinstance(pointer, dict):
+        return base
+
+    required_flag_status = _safe_dict(pointer.get("required_flag_status"))
+    flags_passed = bool(required_flag_status) and all(required_flag_status.values())
+    artifact_status = (
+        "present"
+        if artifact.get("parse_status") == "parsed"
+        and pointer.get("status") == "passive_surface_pointer_ready"
+        and flags_passed
+        else "invalid"
+    )
+
+    return {
+        **base,
+        "artifact_status": artifact_status,
+        "source_batch_task": pointer.get("source_batch_task") or base["source_batch_task"],
+        "source_baseline_task": pointer.get("source_baseline_task") or base["source_baseline_task"],
+        "source_surface_task": pointer.get("source_surface_task") or base["source_surface_task"],
+        "source_048_status": pointer.get("source_048_status") or base["source_048_status"],
+        "surfaced_market_ids": _safe_list(pointer.get("surfaced_market_ids")),
+        "model": pointer.get("model") or base["model"],
+        "total_calls": pointer.get("total_calls", 0),
+        "aggregate_usage": _safe_dict(pointer.get("aggregate_usage")),
+        "aggregate_cost": _safe_dict(pointer.get("aggregate_cost")),
+        "normalization_summary": _safe_dict(pointer.get("normalization_summary")),
+        "quality_summary": _safe_dict(pointer.get("quality_summary")),
+        "required_flag_status": required_flag_status,
+        "safety_summary": _safe_dict(pointer.get("safety_summary")),
+        "artifact_pointers": _safe_dict(pointer.get("artifact_pointers")),
+        "source_artifact_pointers": _safe_dict(pointer.get("source_artifact_pointers")),
+        "warnings_count": len(_safe_list(pointer.get("warnings"))),
+        "known_warnings": _safe_list(pointer.get("warnings")),
+    }
+
+
 def _safe_int(value):
     if isinstance(value, bool):
         return 0
@@ -1297,6 +1405,32 @@ def _manual_llm_review_queue_warnings(summary):
     return []
 
 
+def _openrouter_passive_surface_warnings(summary):
+    artifact_status = summary.get("artifact_status")
+    if artifact_status == "missing":
+        return [
+            {
+                "warning_id": "openrouter_passive_surface_pointer_missing",
+                "source_path": OPENROUTER_PASSIVE_SURFACE_POINTER_ARTIFACT_PATH,
+                "category": "optional_artifact_missing",
+                "message": "OpenRouter passive surface pointer is missing; review pack generation continued.",
+            }
+        ]
+    if artifact_status == "invalid":
+        return [
+            {
+                "warning_id": "openrouter_passive_surface_pointer_invalid",
+                "source_path": OPENROUTER_PASSIVE_SURFACE_POINTER_ARTIFACT_PATH,
+                "category": "optional_artifact_invalid",
+                "message": (
+                    "OpenRouter passive surface pointer is present but invalid or incomplete; "
+                    "review pack generation continued."
+                ),
+            }
+        ]
+    return []
+
+
 def _missing_artifacts(inventory):
     return [
         {
@@ -1363,6 +1497,13 @@ def _next_safe_manual_actions():
             "creates_orders": False,
         },
         {
+            "action_id": "review_openrouter_passive_surface_pointer",
+            "description": "Review OpenRouter batch surface pointer as read-only local context.",
+            "non_trading_action": True,
+            "requires_runtime": False,
+            "creates_orders": False,
+        },
+        {
             "action_id": "integration_review_only",
             "description": "Use this pack as a static input for human integration review only.",
             "non_trading_action": True,
@@ -1381,12 +1522,14 @@ def build_operator_review_pack(root=ROOT):
     manual_llm_quality_gate = _manual_llm_quality_gate_summary(payloads, inventory)
     manual_llm_review_queue = _manual_llm_review_queue_summary(root=root)
     actual_manual_llm_response_trial = _actual_manual_llm_response_trial_summary(root=root)
+    openrouter_passive_surface = _openrouter_passive_surface_summary(payloads, inventory)
     warnings = (
         _warnings(payloads)
         + _paper_019_warnings(paper_019_summary)
         + _paper_020_warnings(paper_020_summary)
         + _manual_llm_review_queue_warnings(manual_llm_review_queue)
         + _actual_manual_llm_response_trial_warnings(actual_manual_llm_response_trial)
+        + _openrouter_passive_surface_warnings(openrouter_passive_surface)
         + _parse_warnings(inventory)
     )
     return {
@@ -1409,6 +1552,7 @@ def build_operator_review_pack(root=ROOT):
         "manual_llm_review_quality_gate": manual_llm_quality_gate,
         "manual_llm_review_queue": manual_llm_review_queue,
         "actual_manual_llm_response_trial": actual_manual_llm_response_trial,
+        "openrouter_passive_surface": openrouter_passive_surface,
         "quality_warning_summary": _quality_warning_summary(quality_report, quality_load_status),
         "warnings": warnings,
         "missing_artifacts": _missing_artifacts(inventory),
@@ -1436,6 +1580,7 @@ def render_operator_review_pack_markdown(pack):
     manual_llm_quality_gate = pack["manual_llm_review_quality_gate"]
     manual_llm_review_queue = pack["manual_llm_review_queue"]
     actual_manual_llm_response_trial = pack["actual_manual_llm_response_trial"]
+    openrouter_passive_surface = pack["openrouter_passive_surface"]
     lines = [
         "# PMBOT Operator Review Pack v1",
         "",
@@ -1937,6 +2082,60 @@ def render_operator_review_pack_markdown(pack):
     lines.extend(
         [
             "",
+            "## OpenRouter Passive Surface",
+            "",
+            f"- section_id: {openrouter_passive_surface['section_id']}",
+            f"- artifact_status: {openrouter_passive_surface['artifact_status']}",
+            f"- artifact_pointer: {openrouter_passive_surface['artifact_pointer']}",
+            "- artifact_markdown_pointer: "
+            f"{openrouter_passive_surface['artifact_markdown_pointer']}",
+            f"- artifact_parse_status: {openrouter_passive_surface['artifact_parse_status']}",
+            f"- source_batch_task: {openrouter_passive_surface['source_batch_task']}",
+            f"- source_baseline_task: {openrouter_passive_surface['source_baseline_task']}",
+            f"- source_surface_task: {openrouter_passive_surface['source_surface_task']}",
+            f"- source_048_status: {openrouter_passive_surface['source_048_status']}",
+            f"- surfaced_market_ids: {', '.join(openrouter_passive_surface['surfaced_market_ids'])}",
+            f"- model: {openrouter_passive_surface['model']}",
+            f"- total_calls: {openrouter_passive_surface['total_calls']}",
+            "- prompt_tokens: "
+            f"{openrouter_passive_surface['aggregate_usage'].get('prompt_tokens', 0)}",
+            "- completion_tokens: "
+            f"{openrouter_passive_surface['aggregate_usage'].get('completion_tokens', 0)}",
+            "- total_tokens: "
+            f"{openrouter_passive_surface['aggregate_usage'].get('total_tokens', 0)}",
+            "- total_cost: "
+            f"{openrouter_passive_surface['aggregate_cost'].get('total_cost', 0)}",
+            "- average_cost_per_market: "
+            f"{openrouter_passive_surface['aggregate_cost'].get('average_cost_per_market', 0)}",
+            "- fenced_response_count: "
+            f"{openrouter_passive_surface['normalization_summary'].get('fenced_response_count', 0)}",
+            "- normalized_response_count: "
+            f"{openrouter_passive_surface['normalization_summary'].get('normalized_response_count', 0)}",
+            "- clean_raw_json_response_count: "
+            f"{openrouter_passive_surface['normalization_summary'].get('clean_raw_json_response_count', 0)}",
+            "- accepted_for_operator_review_count: "
+            f"{openrouter_passive_surface['quality_summary'].get('accepted_for_operator_review_count', 0)}",
+            f"- blocked_count: {openrouter_passive_surface['quality_summary'].get('blocked_count', 0)}",
+            f"- offline_review_warning: {openrouter_passive_surface['offline_review_warning']}",
+            "",
+            "## OpenRouter Passive Surface Safety Flags",
+            "",
+        ]
+    )
+    for key in openrouter_passive_surface_pointer.REQUIRED_TRUE_FLAGS:
+        lines.append(
+            f"- {key}: {str(openrouter_passive_surface['safety_summary'][key]).lower()}"
+        )
+    lines.extend(["", "## OpenRouter Passive Surface Artifact Pointers", ""])
+    if openrouter_passive_surface["artifact_pointers"]:
+        for key, item in openrouter_passive_surface["artifact_pointers"].items():
+            lines.append(f"- {key}: {item['path']} ({item['role']})")
+    else:
+        lines.append("- none")
+
+    lines.extend(
+        [
+            "",
             "## Missing Artifacts",
             "",
         ]
@@ -2025,6 +2224,19 @@ def _result_payload(pack):
             "not_trading_advice": pack["manual_llm_review_queue"]["not_trading_advice"],
             "not_execution_authority": pack["manual_llm_review_queue"]["not_execution_authority"],
         },
+        "openrouter_passive_surface": {
+            "artifact_status": pack["openrouter_passive_surface"]["artifact_status"],
+            "artifact_pointer": pack["openrouter_passive_surface"]["artifact_pointer"],
+            "source_048_status": pack["openrouter_passive_surface"]["source_048_status"],
+            "surfaced_market_ids": pack["openrouter_passive_surface"]["surfaced_market_ids"],
+            "model": pack["openrouter_passive_surface"]["model"],
+            "total_calls": pack["openrouter_passive_surface"]["total_calls"],
+            "aggregate_usage": pack["openrouter_passive_surface"]["aggregate_usage"],
+            "aggregate_cost": pack["openrouter_passive_surface"]["aggregate_cost"],
+            "normalization_summary": pack["openrouter_passive_surface"]["normalization_summary"],
+            "quality_summary": pack["openrouter_passive_surface"]["quality_summary"],
+            "safety_summary": pack["openrouter_passive_surface"]["safety_summary"],
+        },
         "missing_artifacts": pack["missing_artifacts"],
         "warnings_count": len(pack["warnings"]),
         "safety_flags": pack["safety_flags"],
@@ -2038,6 +2250,7 @@ def _result_payload(pack):
 
 
 def write_operator_review_pack_artifacts():
+    openrouter_passive_surface_pointer.write_openrouter_passive_surface_pointer_artifacts()
     pack = build_operator_review_pack()
     result = _result_payload(pack)
     _write_json(DEFAULT_PACK_JSON, pack)

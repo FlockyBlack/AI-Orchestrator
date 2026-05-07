@@ -27,6 +27,9 @@
   output: pm_bot/quality/expected_artifact_health_report.v1.json
   output: docs/PMBOT_QUALITY_001_RESULT.json
   output: docs/PMBOT_CODEX_B_ROUND003_RESULT.json
+- openrouter_passive_surface_pointer: status=ran, required=false, script=pm_bot/workbench/openrouter_passive_surface_pointer.py
+  output: pm_bot/workbench/openrouter_passive_surface_pointer.v1.json
+  output: pm_bot/workbench/openrouter_passive_surface_pointer.v1.md
 - operator_review_pack: status=ran, required=true, script=pm_bot/workbench/export_operator_review_pack.py
   output: pm_bot/workbench/operator_review_pack.v1.json
   output: pm_bot/workbench/operator_review_pack.v1.md
@@ -48,6 +51,8 @@
 - pm_bot/quality/expected_artifact_health_report.v1.json
 - docs/PMBOT_QUALITY_001_RESULT.json
 - docs/PMBOT_CODEX_B_ROUND003_RESULT.json
+- pm_bot/workbench/openrouter_passive_surface_pointer.v1.json
+- pm_bot/workbench/openrouter_passive_surface_pointer.v1.md
 - pm_bot/workbench/operator_review_pack.v1.json
 - pm_bot/workbench/operator_review_pack.v1.md
 - pm_bot/workbench/expected_operator_review_pack.v1.json
@@ -90,21 +95,58 @@
 - not_trading_advice: true
 - not_execution_authority: true
 
+## OpenRouter Passive Surface
+
+- artifact_path: pm_bot/workbench/openrouter_passive_surface_pointer.v1.json
+- status: passive_surface_pointer_ready
+- source_batch_task: PMBOT-OPENROUTER-046
+- source_baseline_task: PMBOT-OPENROUTER-047
+- source_surface_task: PMBOT-OPENROUTER-048
+- source_048_status: completed_pushed
+- surfaced_market_ids: 569333, 569334, 569343
+- model: anthropic/claude-sonnet-4.5
+- total_calls: 3
+- accepted_for_operator_review_count: 3
+- blocked_count: 0
+- fenced_response_count: 3
+- normalized_response_count: 3
+- clean_raw_json_response_count: 0
+- operator_review_only: true
+- passive_context_only: true
+- no_trading_authority: true
+- no_queue_authority: true
+- no_runtime_authority: true
+- no_dispatcher_authority: true
+- no_wallet_or_order_authority: true
+- acceptance_is_not_trading_approval: true
+- analysis_only: true
+- manual_review_only: true
+
 ## Warnings
 
 - none
 
 ## Safety Flags
 
+- acceptance_is_not_trading_approval: true
+- analysis_only: true
 - automation_daemon: false
 - autonomous_paper_orders: false
 - command_execution: false
 - deterministic: true
 - local_file_operations_only: true
 - manual_cli_only: true
+- manual_review_only: true
 - market_decisions: false
 - network_api: false
+- no_dispatcher_authority: true
+- no_queue_authority: true
+- no_runtime_authority: true
+- no_trading_authority: true
+- no_wallet_or_order_authority: true
 - offline_only: true
+- operator_review_only: true
+- passive_context_only: true
 - runtime_wiring: false
 - scoring_probability_ev_edge: false
 - trading: false
