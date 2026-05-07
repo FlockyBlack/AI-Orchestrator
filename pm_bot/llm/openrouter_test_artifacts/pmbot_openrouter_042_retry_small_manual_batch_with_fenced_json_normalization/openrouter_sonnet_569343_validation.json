@@ -1,0 +1,19 @@
+{
+  "checks": {
+    "parses_json": false,
+    "response_schema_passed": false,
+    "top_level_object": false
+  },
+  "errors": [],
+  "normalization_policy_applied": false,
+  "normalization_policy_version": "fenced_json_normalization.v1",
+  "normalized_from_markdown_fence": false,
+  "normalized_json_parse_passed": false,
+  "raw_response_was_markdown_fenced": false,
+  "raw_strict_json_parse_passed": false,
+  "semantic_repair_allowed": false,
+  "skip_reason": "skipped_after_fail_fast:prohibited_content_detected:569334",
+  "status": "skipped",
+  "valid": false,
+  "warnings": []
+}

@@ -1,0 +1,65 @@
+{
+  "aggregate": {
+    "completion_tokens": 3510,
+    "cost": 0.077259,
+    "cost_returned_by_openrouter": true,
+    "prompt_tokens": 8203,
+    "total_tokens": 11713
+  },
+  "artifact_type": "openrouter_batch_cost_report.v1",
+  "cost_report_is_not_trading_approval": true,
+  "model": "anthropic/claude-sonnet-4.5",
+  "no_secret_fields": true,
+  "operator_visibility_only": true,
+  "per_market": {
+    "569333": {
+      "completion_tokens": 1747,
+      "cost": 0.038433,
+      "market_id": "569333",
+      "model": "anthropic/claude-sonnet-4.5",
+      "no_secret_fields": true,
+      "openrouter_call_performed": true,
+      "operator_visibility_only": true,
+      "prompt_tokens": 4076,
+      "provider": "Amazon Bedrock",
+      "returned_model": "anthropic/claude-4.5-sonnet-20250929",
+      "total_tokens": 5823,
+      "usage_present": true
+    },
+    "569334": {
+      "completion_tokens": 1763,
+      "cost": 0.038826,
+      "market_id": "569334",
+      "model": "anthropic/claude-sonnet-4.5",
+      "no_secret_fields": true,
+      "openrouter_call_performed": true,
+      "operator_visibility_only": true,
+      "prompt_tokens": 4127,
+      "provider": "Amazon Bedrock",
+      "returned_model": "anthropic/claude-4.5-sonnet-20250929",
+      "total_tokens": 5890,
+      "usage_present": true
+    },
+    "569343": {
+      "completion_tokens": null,
+      "cost": null,
+      "market_id": "569343",
+      "model": "anthropic/claude-sonnet-4.5",
+      "no_secret_fields": true,
+      "openrouter_call_performed": false,
+      "operator_visibility_only": true,
+      "prompt_tokens": null,
+      "provider": null,
+      "returned_model": null,
+      "total_tokens": null,
+      "usage_present": false
+    }
+  },
+  "provider_info_if_returned": {
+    "569333": "Amazon Bedrock",
+    "569334": "Amazon Bedrock",
+    "569343": null
+  },
+  "session_id": "pmbot_openrouter_042_retry_small_manual_batch_with_fenced_json_normalization",
+  "task_id": "PMBOT-OPENROUTER-042-RETRY-SMALL-MANUAL-BATCH-WITH-FENCED-JSON-NORMALIZATION"
+}

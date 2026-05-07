@@ -1,0 +1,70 @@
+{
+  "acceptance_gate_passed": true,
+  "accepted_for_operator_review": true,
+  "analysis_only": true,
+  "api_key_leaked": false,
+  "api_key_presence_checked": true,
+  "api_key_value_printed": false,
+  "api_key_value_written": false,
+  "artifact_paths": {
+    "content": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_042_retry_small_manual_batch_with_fenced_json_normalization/openrouter_sonnet_569333_content.json",
+    "raw": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_042_retry_small_manual_batch_with_fenced_json_normalization/openrouter_sonnet_569333_raw.json",
+    "summary": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_042_retry_small_manual_batch_with_fenced_json_normalization/openrouter_sonnet_569333_summary.json",
+    "validation": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_042_retry_small_manual_batch_with_fenced_json_normalization/openrouter_sonnet_569333_validation.json"
+  },
+  "cost": 0.038433,
+  "fail_fast_reason": null,
+  "fail_fast_triggered": false,
+  "manual_review_only": true,
+  "market_id": "569333",
+  "model": "anthropic/claude-sonnet-4.5",
+  "no_buy_sell_hold_enter_exit": true,
+  "no_polymarket_api_calls": true,
+  "no_probability_ev_edge_confidence_side_selection": true,
+  "no_recommendations": true,
+  "no_runtime_dispatcher_background_browser_queue_changes": true,
+  "no_wallet_orders_trading": true,
+  "normalization_policy_applied": true,
+  "normalization_policy_version": "fenced_json_normalization.v1",
+  "normalized_from_markdown_fence": true,
+  "normalized_json_parse_passed": true,
+  "normalized_response_validator_passed": true,
+  "openrouter_call_index": 1,
+  "openrouter_call_performed": true,
+  "prohibited_trading_content_detected": false,
+  "provider": "Amazon Bedrock",
+  "raw_response_preserved": true,
+  "raw_response_validator_passed": false,
+  "raw_response_was_markdown_fenced": true,
+  "raw_strict_json_parse_passed": false,
+  "response_schema_validator_passed": true,
+  "returned_model": "anthropic/claude-4.5-sonnet-20250929",
+  "semantic_repair_allowed": false,
+  "session_id": "pmbot_openrouter_042_retry_small_manual_batch_with_fenced_json_normalization",
+  "strict_json_parse_passed": true,
+  "task_id": "PMBOT-OPENROUTER-042-RETRY-SMALL-MANUAL-BATCH-WITH-FENCED-JSON-NORMALIZATION",
+  "usage": {
+    "completion_tokens": 1747,
+    "completion_tokens_details": {
+      "audio_tokens": 0,
+      "image_tokens": 0,
+      "reasoning_tokens": 0
+    },
+    "cost": 0.038433,
+    "cost_details": {
+      "upstream_inference_completions_cost": 0.026205,
+      "upstream_inference_cost": 0.038433,
+      "upstream_inference_prompt_cost": 0.012228
+    },
+    "is_byok": false,
+    "prompt_tokens": 4076,
+    "prompt_tokens_details": {
+      "audio_tokens": 0,
+      "cache_write_tokens": 0,
+      "cached_tokens": 0,
+      "video_tokens": 0
+    },
+    "total_tokens": 5823
+  },
+  "usage_present": true
+}
