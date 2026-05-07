@@ -19,15 +19,15 @@ DEFAULT_PACKET_PATH = validator.DEFAULT_PACKET_PATH
 DEFAULT_OUT_MD_PATH = validator.LLM_DIR / "manual_llm_prompt.v1.md"
 
 FORBIDDEN_OUTPUT_CONSTRAINTS = (
-    "probability estimates",
-    "EV",
-    "edge",
-    "scoring",
-    "recommended side",
-    "bet recommendations",
-    "order size",
-    "price target",
-    "execution instruction",
+    "numeric likelihood estimates",
+    "abbreviated value terms",
+    "value-comparison language",
+    "scoring or rating labels",
+    "outcome selection",
+    "betting guidance",
+    "order sizing",
+    "price targets",
+    "execution instructions",
     "wallet/private-key/credential handling",
     "certainty claims",
 )

@@ -113,6 +113,34 @@ FORBIDDEN_LANGUAGE_PATTERNS = (
     ("forbidden_phrase:execute_trade", "execute trade", re.compile(r"\bexecute\s+trade\b", re.IGNORECASE)),
 )
 
+FORBIDDEN_LANGUAGE_CATEGORIES = {
+    "forbidden_phrase:recommended_side": "side_selection_language",
+    "forbidden_phrase:bet_on": "market_action_language",
+    "forbidden_phrase:place_order": "order_instruction_language",
+    "forbidden_phrase:buy_yes": "market_action_language",
+    "forbidden_phrase:buy_no": "market_action_language",
+    "forbidden_phrase:sell_yes": "market_action_language",
+    "forbidden_phrase:sell_no": "market_action_language",
+    "forbidden_phrase:ev": "value_scoring_language",
+    "forbidden_phrase:edge": "value_scoring_language",
+    "forbidden_phrase:kelly": "value_scoring_language",
+    "forbidden_phrase:fair_probability": "probability_language",
+    "forbidden_phrase:my_probability": "probability_language",
+    "forbidden_phrase:autotrade": "autonomous_action_language",
+    "forbidden_phrase:execute_trade": "trade_execution_language",
+}
+
+SNIPPET_REDACTION_RE = re.compile(
+    r"\b("
+    r"buy|buying|sell|selling|hold|holding|enter|entering|entry|exit|exiting|"
+    r"trade|trading|order|orders|side|yes|no|probability|probabilities|ev|edge|"
+    r"score|scoring|confidence|kelly|wallet|private\s+key|seed\s+phrase|"
+    r"credential|credentials|recommend|recommends|recommended|recommending|"
+    r"recommendation|recommendations"
+    r")\b",
+    re.IGNORECASE,
+)
+
 CERTAINTY_LANGUAGE_PATTERNS = (
     ("forbidden_certainty:market_outcome_is_certain", "market outcome is certain", re.compile(r"\bmarket\s+outcome\s+is\s+certain\b", re.IGNORECASE)),
     ("forbidden_certainty:outcome_is_certain", "outcome is certain", re.compile(r"\boutcome\s+is\s+certain\b", re.IGNORECASE)),
@@ -166,12 +194,14 @@ def _load_json(path):
         return json.load(handle)
 
 
-def _error(code, path, message):
-    return {"code": code, "path": path, "message": message}
+def _error(code, path, message, **extra):
+    error = {"code": code, "path": path, "message": message}
+    error.update(extra)
+    return error
 
 
-def _append(errors, code, path, message):
-    errors.append(_error(code, path, message))
+def _append(errors, code, path, message, **extra):
+    errors.append(_error(code, path, message, **extra))
 
 
 def _normalize_key(key):
@@ -201,6 +231,31 @@ def _iter_strings(value, prefix=""):
         for index, item in enumerate(value):
             path = f"{prefix}[{index}]" if prefix else f"[{index}]"
             yield from _iter_strings(item, path)
+
+
+def _safe_redacted_snippet(value, match=None, max_chars=180):
+    text = str(value)
+    if match is None:
+        snippet = text[:max_chars]
+        if len(text) > max_chars:
+            snippet += "..."
+    else:
+        radius = max(20, (max_chars - len(match.group(0))) // 2)
+        start = max(0, match.start() - radius)
+        end = min(len(text), match.end() + radius)
+        snippet = text[start:end]
+        if start > 0:
+            snippet = "..." + snippet
+        if end < len(text):
+            snippet += "..."
+    snippet = SNIPPET_REDACTION_RE.sub("[redacted:safety-term]", snippet)
+    return " ".join(snippet.split())
+
+
+def _language_diagnostic_classification(code, text):
+    if code == "forbidden_phrase:edge" and re.search(r"\bedge\s+cases?\b", str(text), re.IGNORECASE):
+        return "false_positive_contextual_phrase", "neutral_edge_case_phrase_preserve_block"
+    return "true_positive_model_forbidden_phrase", "direct_policy_phrase"
 
 
 def _type_matches(value, expected_type):
@@ -274,7 +329,7 @@ def _schema_errors(payload, schema):
     return sorted(errors, key=lambda item: (item["path"], item["code"], item["message"]))
 
 
-def _forbidden_field_errors(payload, forbidden_names, base_code):
+def _forbidden_field_errors(payload, forbidden_names, base_code, gate_id):
     errors = []
     for path, normalized_key in _iter_key_paths(payload):
         if normalized_key in forbidden_names:
@@ -283,19 +338,53 @@ def _forbidden_field_errors(payload, forbidden_names, base_code):
                 f"{base_code}:{normalized_key}",
                 path,
                 f"{path} uses forbidden field name {normalized_key}.",
+                gate_id=gate_id,
+                detector_rule_id=f"{base_code}:{normalized_key}",
+                forbidden_phrase=normalized_key,
+                field_path=path,
+                safe_redacted_excerpt="field:[redacted:safety-term]",
+                safe_redacted_snippet="field:[redacted:safety-term]",
+                diagnostic_classification="true_positive_model_forbidden_phrase",
+                diagnostic_reason_code="prohibited_schema_field",
+                checked_content_source="parsed_payload",
+                violation_category="prohibited_field",
             )
     return sorted(errors, key=lambda item: (item["path"], item["code"], item["message"]))
 
 
-def _language_pattern_errors(value, path_prefix, include_certainty_patterns):
+def _language_pattern_errors(
+    value,
+    path_prefix,
+    include_certainty_patterns,
+    gate_id,
+    checked_content_source,
+):
     errors = []
     patterns = FORBIDDEN_LANGUAGE_PATTERNS
     if include_certainty_patterns:
         patterns = patterns + CERTAINTY_LANGUAGE_PATTERNS
     for path, text in _iter_strings(value, path_prefix):
         for code, display, pattern in patterns:
-            if pattern.search(text):
-                _append(errors, code, path, f"Forbidden deterministic language pattern found: {display}.")
+            match = pattern.search(text)
+            if match:
+                diagnostic_classification, reason_code = _language_diagnostic_classification(code, text)
+                category = FORBIDDEN_LANGUAGE_CATEGORIES.get(code, "certainty_language")
+                _append(
+                    errors,
+                    code,
+                    path,
+                    f"Forbidden deterministic language pattern found: {display}.",
+                    gate_id=gate_id,
+                    detector_rule_id=code,
+                    forbidden_phrase=display,
+                    field_path=path,
+                    safe_redacted_excerpt=_safe_redacted_snippet(text, match),
+                    safe_redacted_snippet=_safe_redacted_snippet(text, match),
+                    diagnostic_classification=diagnostic_classification,
+                    diagnostic_reason_code=reason_code,
+                    checked_content_source=checked_content_source,
+                    violation_category=category,
+                )
     return sorted(errors, key=lambda item: (item["path"], item["code"], item["message"]))
 
 
@@ -305,7 +394,15 @@ def _packet_request_language_errors(packet):
         return errors
     for field in sorted(PACKET_REQUEST_SCAN_FIELDS):
         if field in packet:
-            errors.extend(_language_pattern_errors(packet[field], field, include_certainty_patterns=True))
+            errors.extend(
+                _language_pattern_errors(
+                    packet[field],
+                    field,
+                    include_certainty_patterns=True,
+                    gate_id="packet_request",
+                    checked_content_source="parsed_packet_payload",
+                )
+            )
     return sorted(errors, key=lambda item: (item["path"], item["code"], item["message"]))
 
 
@@ -333,7 +430,14 @@ def validate_packet_payload(packet, schema=None):
     errors = []
     warnings = []
     errors.extend(_schema_errors(packet, schema))
-    errors.extend(_forbidden_field_errors(packet, FORBIDDEN_PACKET_FIELD_NAMES, "forbidden_packet_field"))
+    errors.extend(
+        _forbidden_field_errors(
+            packet,
+            FORBIDDEN_PACKET_FIELD_NAMES,
+            "forbidden_packet_field",
+            gate_id="packet_schema",
+        )
+    )
     errors.extend(_packet_request_language_errors(packet))
     errors.extend(_packet_forbidden_outputs_errors(packet))
     return {
@@ -348,8 +452,23 @@ def validate_response_payload(response, schema=None):
     errors = []
     warnings = []
     errors.extend(_schema_errors(response, schema))
-    errors.extend(_forbidden_field_errors(response, FORBIDDEN_RESPONSE_FIELD_NAMES, "forbidden_response_field"))
-    errors.extend(_language_pattern_errors(response, "", include_certainty_patterns=True))
+    errors.extend(
+        _forbidden_field_errors(
+            response,
+            FORBIDDEN_RESPONSE_FIELD_NAMES,
+            "forbidden_response_field",
+            gate_id="response_schema",
+        )
+    )
+    errors.extend(
+        _language_pattern_errors(
+            response,
+            "",
+            include_certainty_patterns=True,
+            gate_id="response_schema",
+            checked_content_source="parsed_response_payload",
+        )
+    )
     return {
         "status": "accepted" if not errors else "rejected",
         "errors": sorted(errors, key=lambda item: (item["path"], item["code"], item["message"])),

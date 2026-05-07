@@ -80,15 +80,15 @@ class ManualLlmPasteInReviewTests(unittest.TestCase):
         prompt, _packet_validation = module.render_manual_prompt(PACKET)
 
         for text in (
-            "probability estimates",
-            "EV",
-            "edge",
-            "scoring",
-            "recommended side",
-            "bet recommendations",
-            "order size",
-            "price target",
-            "execution instruction",
+            "numeric likelihood estimates",
+            "abbreviated value terms",
+            "value-comparison language",
+            "scoring or rating labels",
+            "outcome selection",
+            "betting guidance",
+            "order sizing",
+            "price targets",
+            "execution instructions",
             "wallet/private-key/credential handling",
             "certainty claims",
         ):

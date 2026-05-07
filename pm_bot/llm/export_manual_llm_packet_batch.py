@@ -59,17 +59,18 @@ SAFETY_FLAGS = {
 }
 
 PROMPT_RESTRICTIONS = (
-    "No trading recommendations.",
-    "No buy, sell, hold, enter, or exit instructions.",
+    "No trading guidance.",
+    "No market-action instruction verbs.",
     "Do not repeat restriction wording in output fields.",
     "Avoid market-action verbs in checklist, risk note, and research question text.",
     "Describe candidate participation changes with neutral wording such as candidacy status changes.",
-    "No probability.",
-    "No EV.",
+    "Use corner cases or special cases for neutral exceptions; do not use value-boundary wording.",
+    "No numerical likelihood estimates.",
+    "No abbreviated value terms.",
     "No value metrics.",
-    "No scoring.",
-    "No confidence for betting.",
-    "No side selection.",
+    "No scoring or rating labels.",
+    "No betting certainty labels.",
+    "No outcome selection.",
     "No market decision.",
     "No truth inference.",
     "No order instructions.",
@@ -91,7 +92,7 @@ BOUNDARY_NOTICE = (
     "and not execution authority."
 )
 
-_RESTRICTED_LITERAL_RE = re.compile(r"\bedge\b", re.IGNORECASE)
+_RESTRICTED_LITERAL_RE = re.compile(r"(?<![A-Za-z0-9])edge(?![A-Za-z0-9])", re.IGNORECASE)
 
 
 def _parse_args(argv):

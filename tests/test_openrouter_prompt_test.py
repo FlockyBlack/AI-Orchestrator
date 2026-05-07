@@ -192,13 +192,24 @@ def test_raw_json_validation_rejects_non_json_markdown_fence():
     assert any(error["code"] == "markdown_fence_present" for error in validation["errors"])
 
 
-def test_raw_json_validation_allows_benign_edge_cases_phrase():
+def test_raw_json_validation_preserves_block_for_neutral_edge_cases_phrase():
     validation, parsed = harness.validate_raw_json_content(
         '{"notes":["How should edge cases be handled during manual review?"]}'
     )
 
-    assert validation["valid"] is True
+    assert validation["valid"] is False
+    assert validation["checks"]["forbidden_language_absent"] is False
     assert parsed["notes"] == ["How should edge cases be handled during manual review?"]
+    diagnostic = validation["prohibited_content_diagnostics"][0]
+    assert diagnostic["gate_id"] == "raw_or_normalized_json"
+    assert diagnostic["detector_rule_id"] == "forbidden_phrase:edge"
+    assert diagnostic["forbidden_phrase"].lower() == "edge"
+    assert diagnostic["field_path"] == "notes[0]"
+    assert diagnostic["checked_content_source"] == "raw_content"
+    assert diagnostic["diagnostic_classification"] == "false_positive_contextual_phrase"
+    assert diagnostic["diagnostic_reason_code"] == "neutral_edge_case_phrase_preserve_block"
+    assert "[redacted:safety-term]" in diagnostic["safe_redacted_excerpt"]
+    assert "edge" not in diagnostic["safe_redacted_excerpt"].lower()
 
 
 def test_raw_json_validation_still_rejects_trading_edge_phrase():

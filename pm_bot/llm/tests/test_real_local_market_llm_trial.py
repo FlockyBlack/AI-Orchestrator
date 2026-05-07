@@ -144,11 +144,11 @@ class RealLocalMarketLlmTrialTests(unittest.TestCase):
         self.assertIn("Do not wrap the JSON in Markdown.", prompt)
         self.assertIn("Use only this packet content. Do not infer from unstated external data.", prompt)
         for text in (
-            "Do not include probability estimates.",
-            "Do not include EV.",
-            "Do not include edge.",
-            "Do not include scoring.",
-            "Do not include recommended side.",
+            "Do not include numeric likelihood estimates.",
+            "Do not include abbreviated value terms.",
+            "Do not include value-comparison language.",
+            "Do not include scoring or rating labels.",
+            "Do not include outcome selection.",
             "Also do not include market decisions",
         ):
             self.assertIn(text, prompt)

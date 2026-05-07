@@ -61,6 +61,30 @@ class ValidateLlmAnalysisArtifactsTests(unittest.TestCase):
         self.assertEqual(result["status"], "rejected")
         self.assertIn("forbidden_phrase:place_order", codes)
 
+    def test_response_forbidden_phrase_error_reports_sanitized_acceptance_diagnostic(self):
+        module = _load_module()
+        response = copy.deepcopy(_load_json(VALID_RESPONSE))
+        checklist_index = len(response["operator_review_checklist"])
+        response["operator_review_checklist"].append(
+            "Check for any market-specific edge cases in official rules."
+        )
+
+        result = module.validate_response_payload(response)
+        errors = [error for error in result["errors"] if error["code"] == "forbidden_phrase:edge"]
+
+        self.assertEqual(result["status"], "rejected")
+        self.assertEqual(len(errors), 1)
+        error = errors[0]
+        self.assertEqual(error["gate_id"], "response_schema")
+        self.assertEqual(error["detector_rule_id"], "forbidden_phrase:edge")
+        self.assertEqual(error["forbidden_phrase"], "edge")
+        self.assertEqual(error["field_path"], f"operator_review_checklist[{checklist_index}]")
+        self.assertEqual(error["checked_content_source"], "parsed_response_payload")
+        self.assertEqual(error["diagnostic_classification"], "false_positive_contextual_phrase")
+        self.assertEqual(error["diagnostic_reason_code"], "neutral_edge_case_phrase_preserve_block")
+        self.assertIn("[redacted:safety-term]", error["safe_redacted_excerpt"])
+        self.assertNotIn("edge", error["safe_redacted_excerpt"].lower())
+
     def test_packet_with_forbidden_output_request_fails(self):
         module = _load_module()
         packet = copy.deepcopy(_load_json(PACKET))

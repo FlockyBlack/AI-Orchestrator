@@ -26,9 +26,12 @@ SONNET_SYSTEM_PROMPT = (
     "fences or any other code fences. Do not include prose before or after the JSON. The first "
     "character must be { and the last character must be }. Any Markdown fencing makes the response "
     "invalid. Follow the provided schema exactly. Acceptance means operator-review readiness only, "
-    "never trading approval. Do not "
-    "include trading recommendations, side selection, probability, EV, edge, scoring, market decisions, "
-    "execution instructions, wallet instructions, or external data. Do not use market-action verbs or "
+    "never trading approval. Do not include trading guidance, outcome selection, chance estimates, "
+    "abbreviated value terms, value-comparison language, scoring language, market decisions, "
+    "execution instructions, wallet instructions, or external data. Never use the literal tokens "
+    "probability, EV, edge, confidence, buy, sell, hold, enter, exit, or side in any JSON string; "
+    "use neutral alternatives such as corner cases or special cases for resolution exceptions. "
+    "Do not use market-action verbs or "
     "slash-paired lifecycle shortcuts in any JSON field, including checklists, risk notes, or research "
     "questions; describe candidate participation changes neutrally."
 )
@@ -284,7 +287,7 @@ FORBIDDEN_LANGUAGE_PATTERNS = (
     ("forbidden_phrase:probability_value", re.compile(r"\bprobabilit(y|ies)\s*(estimate|is|are|=|:)", re.IGNORECASE)),
     ("forbidden_phrase:percent_chance", re.compile(r"\b\d+(\.\d+)?\s*%\s*(chance|probability|likely|likelihood)\b", re.IGNORECASE)),
     ("forbidden_phrase:ev", re.compile(r"\bev\b", re.IGNORECASE)),
-    ("forbidden_phrase:edge", re.compile(r"\bedge\b(?!\s+cases?\b)", re.IGNORECASE)),
+    ("forbidden_phrase:edge", re.compile(r"\bedge\b", re.IGNORECASE)),
     ("forbidden_phrase:kelly", re.compile(r"\bkelly\b", re.IGNORECASE)),
     ("forbidden_phrase:scoring", re.compile(r"\b(score|scoring)\b", re.IGNORECASE)),
     (
@@ -305,6 +308,14 @@ PROHIBITED_CONTENT_DIAGNOSTIC_STATUSES = {
     "false_positive_validator_rule",
     "ambiguous_needs_operator_review",
     "artifact_or_schema_misclassification",
+}
+
+DIAGNOSTIC_CLASSIFICATIONS = {
+    "true_positive_model_forbidden_phrase",
+    "prompt_induced_forbidden_phrase",
+    "schema_or_fixture_induced_forbidden_phrase",
+    "false_positive_contextual_phrase",
+    "ambiguous_preserve_block",
 }
 
 FORBIDDEN_LANGUAGE_CATEGORIES = {
@@ -657,36 +668,66 @@ def _classify_prohibited_language_match(code, value, match):
         "forbidden_phrase:scoring",
         "forbidden_phrase:confidence",
     }:
+        if code == "forbidden_phrase:edge" and re.search(r"\bedge\s+cases?\b", context):
+            return "ambiguous_needs_operator_review", "neutral_edge_case_phrase_preserve_block"
         return "ambiguous_needs_operator_review", "broad_keyword_rule"
     return "true_positive_model_violation", "direct_policy_phrase"
 
 
-def _build_prohibited_language_diagnostic(code, path, value, match):
+def _language_diagnostic_classification(code, value, match, diagnostic_status, reason_code):
+    context = str(value).lower()
+    if code == "forbidden_phrase:edge" and re.search(r"\bedge\s+cases?\b", context):
+        return "false_positive_contextual_phrase"
+    if diagnostic_status == "false_positive_validator_rule":
+        return "false_positive_contextual_phrase"
+    if diagnostic_status == "ambiguous_needs_operator_review":
+        return "ambiguous_preserve_block"
+    return "true_positive_model_forbidden_phrase"
+
+
+def _build_prohibited_language_diagnostic(code, path, value, match, checked_content_source):
     category = FORBIDDEN_LANGUAGE_CATEGORIES.get(code, "prohibited_language")
     diagnostic_status, reason_code = _classify_prohibited_language_match(code, value, match)
+    diagnostic_classification = _language_diagnostic_classification(
+        code,
+        value,
+        match,
+        diagnostic_status,
+        reason_code,
+    )
     return {
+        "gate_id": "raw_or_normalized_json",
         "violation_category": category,
         "detector_rule_id": code,
+        "forbidden_phrase": match.group(0),
         "field_path": path,
         "path": path,
         "safe_redacted_snippet": _safe_redacted_snippet(value, match),
+        "safe_redacted_excerpt": _safe_redacted_snippet(value, match),
         "diagnostic_status": diagnostic_status,
+        "diagnostic_classification": diagnostic_classification,
         "diagnostic_reason_code": reason_code,
+        "checked_content_source": checked_content_source,
         "matched_text_redacted": f"[redacted:{category}]",
     }
 
 
-def _build_prohibited_field_diagnostic(normalized_key, path):
+def _build_prohibited_field_diagnostic(normalized_key, path, checked_content_source):
     category = _forbidden_field_category(normalized_key)
     detector_rule_id = f"forbidden_field:{normalized_key}"
     return {
+        "gate_id": "raw_or_normalized_json",
         "violation_category": category,
         "detector_rule_id": detector_rule_id,
+        "forbidden_phrase": normalized_key,
         "field_path": path,
         "path": path,
         "safe_redacted_snippet": "field:[redacted:safety-term]",
+        "safe_redacted_excerpt": "field:[redacted:safety-term]",
         "diagnostic_status": "true_positive_model_violation",
+        "diagnostic_classification": "true_positive_model_forbidden_phrase",
         "diagnostic_reason_code": "prohibited_schema_field",
+        "checked_content_source": checked_content_source,
         "matched_text_redacted": f"[redacted:{category}]",
     }
 
@@ -1005,6 +1046,7 @@ def validate_raw_json_content(raw_content, allow_local_json_fence_repair=False, 
     errors = []
     warnings = []
     prohibited_content_diagnostics = []
+    checked_content_source = "normalized_content" if normalization["normalized_content_used"] else "raw_content"
     checks = {
         "raw_starts_with_object": bool(text.strip()) and text.strip()[0] == "{",
         "raw_ends_with_object": bool(text.strip()) and text.strip()[-1] == "}",
@@ -1064,19 +1106,24 @@ def validate_raw_json_content(raw_content, allow_local_json_fence_repair=False, 
         for path, normalized_key in _iter_key_paths(parsed):
             if normalized_key in FORBIDDEN_FIELD_NAMES:
                 checks["forbidden_fields_absent"] = False
-                diagnostic = _build_prohibited_field_diagnostic(normalized_key, path)
+                diagnostic = _build_prohibited_field_diagnostic(normalized_key, path, checked_content_source)
                 prohibited_content_diagnostics.append(diagnostic)
                 errors.append(
                     {
                         "code": f"forbidden_field:{normalized_key}",
                         "path": path,
                         "message": f"Forbidden PMBOT safety field found: {normalized_key}.",
+                        "gate_id": diagnostic["gate_id"],
                         "violation_category": diagnostic["violation_category"],
                         "detector_rule_id": diagnostic["detector_rule_id"],
+                        "forbidden_phrase": diagnostic["forbidden_phrase"],
                         "field_path": diagnostic["field_path"],
                         "safe_redacted_snippet": diagnostic["safe_redacted_snippet"],
+                        "safe_redacted_excerpt": diagnostic["safe_redacted_excerpt"],
                         "diagnostic_status": diagnostic["diagnostic_status"],
+                        "diagnostic_classification": diagnostic["diagnostic_classification"],
                         "diagnostic_reason_code": diagnostic["diagnostic_reason_code"],
+                        "checked_content_source": diagnostic["checked_content_source"],
                     }
                 )
         for path, value in _iter_strings(parsed):
@@ -1085,19 +1132,30 @@ def validate_raw_json_content(raw_content, allow_local_json_fence_repair=False, 
                     if _is_negative_safety_attestation(value, match, code):
                         continue
                     checks["forbidden_language_absent"] = False
-                    diagnostic = _build_prohibited_language_diagnostic(code, path, value, match)
+                    diagnostic = _build_prohibited_language_diagnostic(
+                        code,
+                        path,
+                        value,
+                        match,
+                        checked_content_source,
+                    )
                     prohibited_content_diagnostics.append(diagnostic)
                     errors.append(
                         {
                             "code": code,
                             "path": path,
                             "message": "Forbidden PMBOT safety language found.",
+                            "gate_id": diagnostic["gate_id"],
                             "violation_category": diagnostic["violation_category"],
                             "detector_rule_id": diagnostic["detector_rule_id"],
+                            "forbidden_phrase": diagnostic["forbidden_phrase"],
                             "field_path": diagnostic["field_path"],
                             "safe_redacted_snippet": diagnostic["safe_redacted_snippet"],
+                            "safe_redacted_excerpt": diagnostic["safe_redacted_excerpt"],
                             "diagnostic_status": diagnostic["diagnostic_status"],
+                            "diagnostic_classification": diagnostic["diagnostic_classification"],
                             "diagnostic_reason_code": diagnostic["diagnostic_reason_code"],
+                            "checked_content_source": diagnostic["checked_content_source"],
                         }
                     )
                     break
@@ -1117,6 +1175,7 @@ def validate_raw_json_content(raw_content, allow_local_json_fence_repair=False, 
         "normalization_policy_applied": normalization["normalization_policy_applied"],
         "normalization_policy_version": normalization["normalization_policy_version"],
         "normalized_content_used": normalization["normalized_content_used"],
+        "checked_content_source": checked_content_source,
         "normalization": normalization,
         "recovery": recovery,
         "warnings": sorted(warnings, key=lambda item: (item["code"], item["message"])),

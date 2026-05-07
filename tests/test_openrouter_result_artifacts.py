@@ -95,3 +95,28 @@ def test_openrouter_043_records_local_only_prohibited_content_diagnostic():
     assert result_043["secret_scan_passed"] is True
     assert result_043["safety_summary"]["openrouter_calls_performed"] == 0
     assert result_043["safety_summary"]["polymarket_api_calls_performed"] == 0
+
+
+def test_openrouter_045_records_local_only_acceptance_forbidden_phrase_diagnostic():
+    result_045 = _load_result("PMBOT_OPENROUTER_045_RESULT.json")
+
+    assert result_045["task_id"] == "PMBOT-OPENROUTER-045-ANALYZE-044-ACCEPTANCE-FORBIDDEN-PHRASE-EDGE"
+    assert result_045["status"] == "completed_pushed"
+    assert result_045["openrouter_calls_performed"] == 0
+    assert result_045["polymarket_api_calls_performed"] == 0
+    assert result_045["source_044_status"] == "blocked_acceptance_failed"
+    assert (
+        result_045["source_044_fail_fast_reason"]
+        == "acceptance_gate_failed:569334:response_schema:forbidden_phrase:edge"
+    )
+    assert result_045["analyzed_market_id"] == "569334"
+    assert result_045["diagnostic_classification"] == "false_positive_contextual_phrase"
+    assert result_045["acceptance_gate_reporting_improved"] is True
+    assert result_045["prompt_hardening_performed"] is True
+    assert result_045["schema_or_fixture_changes_performed"] is True
+    assert result_045["forbidden_phrase"] == "edge"
+    assert result_045["forbidden_phrase_field_path"] == "operator_review_checklist[9]"
+    assert result_045["preserve_block_behavior"] is True
+    assert result_045["secret_scan_passed"] is True
+    assert result_045["safety_summary"]["openrouter_calls_performed"] == 0
+    assert result_045["safety_summary"]["polymarket_api_calls_performed"] == 0

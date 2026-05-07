@@ -101,7 +101,7 @@
     "yes_evidence",
     "no_or_counterevidence",
     "source_reliability_review",
-    "operator_edge_assessment",
+    "operator_value-boundary_assessment",
     "operator_risk_review",
     "official_election_authority_identifier",
     "Valid partial evidence overlay used to prove deterministic merge behavior."

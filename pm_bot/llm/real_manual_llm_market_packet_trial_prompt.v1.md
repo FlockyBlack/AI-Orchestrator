@@ -25,15 +25,15 @@ Required response sections:
 - safety_acknowledgement
 
 ## Forbidden Output Constraints
-- Do not include probability estimates.
-- Do not include EV.
-- Do not include edge.
-- Do not include scoring.
-- Do not include recommended side.
-- Do not include bet recommendations.
-- Do not include order size.
-- Do not include price target.
-- Do not include execution instruction.
+- Do not include numeric likelihood estimates.
+- Do not include abbreviated value terms.
+- Do not include value-comparison language.
+- Do not include scoring or rating labels.
+- Do not include outcome selection.
+- Do not include betting guidance.
+- Do not include order sizing.
+- Do not include price targets.
+- Do not include execution instructions.
 - Do not include wallet/private-key/credential handling.
 - Do not include certainty claims.
 
