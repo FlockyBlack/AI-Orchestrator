@@ -51,8 +51,8 @@
 
 ## Artifact Inventory
 
-- total_artifacts: 26
-- present_artifacts: 26
+- total_artifacts: 27
+- present_artifacts: 27
 - missing_artifacts: 0
 - required_missing_artifacts: 0
 
@@ -82,6 +82,7 @@
 - actual_manual_llm_response_trial: pm_bot/llm/actual_manual_llm_response_trial.v1.json (present=true, required=false, parse_status=parsed)
 - openrouter_passive_surface: pm_bot/workbench/openrouter_passive_surface_pointer.v1.json (present=true, required=false, parse_status=parsed)
 - openrouter_review_dashboard: pm_bot/workbench/operator_openrouter_review_dashboard.v1.json (present=true, required=false, parse_status=parsed)
+- packet_completeness_readiness_gate: pm_bot/llm/current_llm_batch_readiness_gate.v1.json (present=true, required=false, parse_status=parsed)
 
 ## Paper Audits
 
@@ -468,6 +469,50 @@
 - source_048_result: docs/PMBOT_OPENROUTER_048_RESULT.json (read_only_source_result)
 - source_052_result: docs/PMBOT_OPENROUTER_052_RESULT.json (read_only_source_result)
 
+## Packet Completeness Readiness Gate
+
+- section_id: packet_completeness_readiness_gate
+- artifact_status: present
+- artifact_pointer: pm_bot/llm/current_llm_batch_readiness_gate.v1.json
+- artifact_markdown_pointer: pm_bot/llm/current_llm_batch_readiness_gate.v1.md
+- artifact_parse_status: parsed
+- gate_version: current_llm_batch_readiness_gate.v1
+- total_markets: 14
+- high_count: 0
+- medium_count: 10
+- low_count: 4
+- blocked_count: 0
+- eligible_for_future_llm_review_count: 10
+- eligible_for_future_openrouter_batch_count: 10
+- needs_local_enrichment_count: 14
+- needs_local_enrichment_before_future_openrouter_batch_count: 4
+- low_readiness_market_ids: 597964, 598936, 691547, 692258
+- unreviewed_market_ids: 597964, 598936, 691547, 692258
+- future_live_batch_scheduled: false
+- future_openrouter_batch_approved: false
+- no_market_action_guidance: true
+
+## Packet Completeness Top Missing Fields
+
+- full_market_resolution_criteria_text: 14
+- full_resolution_rules: 14
+- non_placeholder_evidence_notes: 14
+- official_source_references: 14
+- official_source_urls_or_rule_references: 14
+- reviewed_local_evidence_references: 14
+- source_reliability_review: 14
+- source_timestamps: 14
+- jurisdiction: 10
+- candidate_or_party_if_applicable: 9
+
+## Packet Completeness Next Local Focus
+
+- resolution source extraction
+- source gap normalization
+- operator checklist standardization for unreviewed packets
+- contradiction and risk context builder for unreviewed packets
+- packet completeness readiness gate review before future LLM batches
+
 ## OpenRouter Review Dashboard
 
 - section_id: openrouter_review_dashboard
@@ -485,7 +530,7 @@
 - evidence_readiness_low_count: 4
 - average_evidence_readiness_score: 75.43
 - markets_with_medium_evidence_completeness: 563650, 569332, 569333, 569334, 569343, 569344, 569366, 569368, 569373, 573656
-- recommended_next_local_enrichment_focus: resolution source extraction, source gap normalization, operator checklist standardization for unreviewed packets, contradiction and risk context builder for unreviewed packets, local packet completeness scorer integration
+- recommended_next_local_enrichment_focus: resolution source extraction, source gap normalization, operator checklist standardization for unreviewed packets, contradiction and risk context builder for unreviewed packets, packet completeness readiness gate review before future LLM batches
 - no_market_action_guidance: true
 
 ## Missing Artifacts
@@ -514,6 +559,7 @@
 - market_decisions: false
 - network_api: false
 - no_dispatcher_authority: true
+- no_market_action_guidance: true
 - no_queue_authority: true
 - no_runtime_authority: true
 - no_trading_authority: true

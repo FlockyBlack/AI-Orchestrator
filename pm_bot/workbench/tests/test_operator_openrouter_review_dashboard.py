@@ -95,6 +95,29 @@ class OperatorOpenrouterReviewDashboardTests(unittest.TestCase):
         self.assertEqual(len(dashboard["markets_with_medium_evidence_completeness"]), 10)
         self.assertIn("elections", dashboard["category_gap_summary"])
         self.assertTrue(dashboard["no_market_action_guidance"])
+        self.assertEqual(
+            dashboard["batch_readiness_gate_integration_status"],
+            "source_002_gate_ready",
+        )
+        gate = dashboard["batch_readiness_gate_summary"]
+        self.assertEqual(
+            gate["artifact_pointer"],
+            "pm_bot/llm/current_llm_batch_readiness_gate.v1.json",
+        )
+        self.assertEqual(gate["total_markets"], 14)
+        self.assertEqual(gate["medium_count"], 10)
+        self.assertEqual(gate["low_count"], 4)
+        self.assertEqual(gate["blocked_count"], 0)
+        self.assertEqual(gate["eligible_for_future_llm_review_count"], 10)
+        self.assertEqual(gate["eligible_for_future_openrouter_batch_count"], 10)
+        self.assertEqual(gate["needs_local_enrichment_count"], 14)
+        self.assertEqual(
+            gate["low_readiness_market_ids"],
+            ["597964", "598936", "691547", "692258"],
+        )
+        self.assertFalse(gate["future_live_batch_scheduled"])
+        self.assertFalse(gate["future_openrouter_batch_approved"])
+        self.assertTrue(gate["no_market_action_guidance"])
 
         safety = dashboard["safety_summary"]
         self.assertTrue(safety["operator_review_only"])

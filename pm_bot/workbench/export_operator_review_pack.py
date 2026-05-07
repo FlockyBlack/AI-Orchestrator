@@ -53,6 +53,13 @@ OPENROUTER_REVIEW_DASHBOARD_MARKDOWN_PATH = (
     "pm_bot/workbench/operator_openrouter_review_dashboard.v1.md"
 )
 OPENROUTER_REVIEW_DASHBOARD_SECTION_ID = "openrouter_review_dashboard"
+PACKET_COMPLETENESS_GATE_ARTIFACT_PATH = (
+    "pm_bot/llm/current_llm_batch_readiness_gate.v1.json"
+)
+PACKET_COMPLETENESS_GATE_MARKDOWN_PATH = (
+    "pm_bot/llm/current_llm_batch_readiness_gate.v1.md"
+)
+PACKET_COMPLETENESS_GATE_SECTION_ID = "packet_completeness_readiness_gate"
 
 SCHEMA_VERSION = "operator_review_pack.v1"
 GENERATED_BY = "pm_bot/workbench/export_operator_review_pack.py"
@@ -112,6 +119,7 @@ SAFETY_FLAGS = {
     "no_dispatcher_authority": True,
     "no_wallet_or_order_authority": True,
     "acceptance_is_not_trading_approval": True,
+    "no_market_action_guidance": True,
     "offline_only": True,
     "deterministic_output": True,
     "local_file_reads_only": True,
@@ -331,6 +339,13 @@ SOURCE_ARTIFACTS = (
         "path": OPENROUTER_REVIEW_DASHBOARD_ARTIFACT_PATH,
         "category": "openrouter_review_dashboard",
         "artifact_type": "openrouter_review_dashboard_json",
+        "required": False,
+    },
+    {
+        "artifact_id": PACKET_COMPLETENESS_GATE_SECTION_ID,
+        "path": PACKET_COMPLETENESS_GATE_ARTIFACT_PATH,
+        "category": "packet_completeness_readiness",
+        "artifact_type": "packet_completeness_readiness_gate_json",
         "required": False,
     },
 )
@@ -1529,6 +1544,62 @@ def _openrouter_review_dashboard_summary(payloads, inventory):
     }
 
 
+def _packet_completeness_gate_summary(payloads, inventory):
+    artifact = _inventory_item(inventory, PACKET_COMPLETENESS_GATE_SECTION_ID)
+    gate = _safe_dict(payloads.get(PACKET_COMPLETENESS_GATE_SECTION_ID))
+    artifact_status = (
+        "present"
+        if artifact.get("parse_status") == "parsed"
+        and gate.get("status") == "batch_readiness_gate_created"
+        else ("missing" if not artifact.get("present") else "invalid")
+    )
+    return {
+        "section_id": PACKET_COMPLETENESS_GATE_SECTION_ID,
+        "artifact_status": artifact_status,
+        "artifact_pointer": PACKET_COMPLETENESS_GATE_ARTIFACT_PATH,
+        "artifact_markdown_pointer": PACKET_COMPLETENESS_GATE_MARKDOWN_PATH,
+        "artifact_parse_status": artifact.get("parse_status", "not_available"),
+        "gate_version": gate.get("gate_version"),
+        "status": gate.get("status"),
+        "total_markets": gate.get("total_markets", 0),
+        "high_count": gate.get("high_count", 0),
+        "medium_count": gate.get("medium_count", 0),
+        "low_count": gate.get("low_count", 0),
+        "blocked_count": gate.get("blocked_count", 0),
+        "eligible_for_future_llm_review_count": gate.get(
+            "eligible_for_future_llm_review_count", 0
+        ),
+        "eligible_for_future_openrouter_batch_count": gate.get(
+            "eligible_for_future_openrouter_batch_count", 0
+        ),
+        "needs_local_enrichment_count": gate.get("needs_local_enrichment_count", 0),
+        "needs_local_enrichment_before_future_openrouter_batch_count": gate.get(
+            "needs_local_enrichment_before_future_openrouter_batch_count", 0
+        ),
+        "reviewed_count": gate.get("reviewed_count", 0),
+        "unreviewed_count": gate.get("unreviewed_count", 0),
+        "low_readiness_market_ids": _safe_list(gate.get("low_readiness_market_ids")),
+        "blocked_market_ids": _safe_list(gate.get("blocked_market_ids")),
+        "unreviewed_market_ids": _safe_list(gate.get("unreviewed_market_ids")),
+        "top_missing_fields": _safe_list(gate.get("top_missing_fields"))[:10],
+        "recommended_next_local_enrichment_focus": _safe_list(
+            gate.get("recommended_next_local_enrichment_focus")
+        ),
+        "future_live_batch_scheduled": gate.get("future_live_batch_scheduled", False),
+        "future_openrouter_batch_approved": gate.get(
+            "future_openrouter_batch_approved", False
+        ),
+        "future_llm_review_approved": gate.get("future_llm_review_approved", False),
+        "safety_flags": _safe_dict(gate.get("safety_flags")),
+        "openrouter_calls_performed": gate.get("openrouter_calls_performed", 0),
+        "polymarket_api_calls_performed": gate.get("polymarket_api_calls_performed", 0),
+        "network_calls_performed": gate.get("network_calls_performed", 0),
+        "no_market_action_guidance": _safe_dict(gate.get("safety_flags")).get(
+            "no_market_action_guidance", True
+        ),
+    }
+
+
 def _openrouter_review_dashboard_warnings(summary):
     if summary.get("artifact_status") == "missing":
         return [
@@ -1644,6 +1715,7 @@ def build_operator_review_pack(root=ROOT):
     actual_manual_llm_response_trial = _actual_manual_llm_response_trial_summary(root=root)
     openrouter_passive_surface = _openrouter_passive_surface_summary(payloads, inventory)
     openrouter_review_dashboard = _openrouter_review_dashboard_summary(payloads, inventory)
+    packet_completeness_gate = _packet_completeness_gate_summary(payloads, inventory)
     warnings = (
         _warnings(payloads)
         + _paper_019_warnings(paper_019_summary)
@@ -1676,6 +1748,7 @@ def build_operator_review_pack(root=ROOT):
         "actual_manual_llm_response_trial": actual_manual_llm_response_trial,
         "openrouter_passive_surface": openrouter_passive_surface,
         "openrouter_review_dashboard": openrouter_review_dashboard,
+        "packet_completeness_readiness_gate": packet_completeness_gate,
         "quality_warning_summary": _quality_warning_summary(quality_report, quality_load_status),
         "warnings": warnings,
         "missing_artifacts": _missing_artifacts(inventory),
@@ -1705,6 +1778,7 @@ def render_operator_review_pack_markdown(pack):
     actual_manual_llm_response_trial = pack["actual_manual_llm_response_trial"]
     openrouter_passive_surface = pack["openrouter_passive_surface"]
     openrouter_review_dashboard = pack["openrouter_review_dashboard"]
+    packet_completeness_gate = pack["packet_completeness_readiness_gate"]
     lines = [
         "# PMBOT Operator Review Pack v1",
         "",
@@ -2291,6 +2365,52 @@ def render_operator_review_pack_markdown(pack):
     lines.extend(
         [
             "",
+            "## Packet Completeness Readiness Gate",
+            "",
+            f"- section_id: {packet_completeness_gate['section_id']}",
+            f"- artifact_status: {packet_completeness_gate['artifact_status']}",
+            f"- artifact_pointer: {packet_completeness_gate['artifact_pointer']}",
+            "- artifact_markdown_pointer: "
+            f"{packet_completeness_gate['artifact_markdown_pointer']}",
+            f"- artifact_parse_status: {packet_completeness_gate['artifact_parse_status']}",
+            f"- gate_version: {packet_completeness_gate['gate_version']}",
+            f"- total_markets: {packet_completeness_gate['total_markets']}",
+            f"- high_count: {packet_completeness_gate['high_count']}",
+            f"- medium_count: {packet_completeness_gate['medium_count']}",
+            f"- low_count: {packet_completeness_gate['low_count']}",
+            f"- blocked_count: {packet_completeness_gate['blocked_count']}",
+            "- eligible_for_future_llm_review_count: "
+            f"{packet_completeness_gate['eligible_for_future_llm_review_count']}",
+            "- eligible_for_future_openrouter_batch_count: "
+            f"{packet_completeness_gate['eligible_for_future_openrouter_batch_count']}",
+            "- needs_local_enrichment_count: "
+            f"{packet_completeness_gate['needs_local_enrichment_count']}",
+            "- needs_local_enrichment_before_future_openrouter_batch_count: "
+            f"{packet_completeness_gate['needs_local_enrichment_before_future_openrouter_batch_count']}",
+            "- low_readiness_market_ids: "
+            f"{', '.join(packet_completeness_gate['low_readiness_market_ids'])}",
+            "- unreviewed_market_ids: "
+            f"{', '.join(packet_completeness_gate['unreviewed_market_ids'])}",
+            "- future_live_batch_scheduled: "
+            f"{str(packet_completeness_gate['future_live_batch_scheduled']).lower()}",
+            "- future_openrouter_batch_approved: "
+            f"{str(packet_completeness_gate['future_openrouter_batch_approved']).lower()}",
+            "- no_market_action_guidance: "
+            f"{str(packet_completeness_gate['no_market_action_guidance']).lower()}",
+            "",
+            "## Packet Completeness Top Missing Fields",
+            "",
+        ]
+    )
+    for item in packet_completeness_gate["top_missing_fields"]:
+        lines.append(f"- {item['field']}: {item['market_count']}")
+    lines.extend(["", "## Packet Completeness Next Local Focus", ""])
+    for item in packet_completeness_gate["recommended_next_local_enrichment_focus"]:
+        lines.append(f"- {item}")
+
+    lines.extend(
+        [
+            "",
             "## OpenRouter Review Dashboard",
             "",
             f"- section_id: {openrouter_review_dashboard['section_id']}",
@@ -2464,6 +2584,48 @@ def _result_payload(pack):
                 "recommended_next_local_enrichment_focus"
             ],
             "no_market_action_guidance": pack["openrouter_review_dashboard"][
+                "no_market_action_guidance"
+            ],
+        },
+        "packet_completeness_readiness_gate": {
+            "artifact_status": pack["packet_completeness_readiness_gate"]["artifact_status"],
+            "artifact_pointer": pack["packet_completeness_readiness_gate"]["artifact_pointer"],
+            "artifact_markdown_pointer": pack["packet_completeness_readiness_gate"][
+                "artifact_markdown_pointer"
+            ],
+            "total_markets": pack["packet_completeness_readiness_gate"]["total_markets"],
+            "high_count": pack["packet_completeness_readiness_gate"]["high_count"],
+            "medium_count": pack["packet_completeness_readiness_gate"]["medium_count"],
+            "low_count": pack["packet_completeness_readiness_gate"]["low_count"],
+            "blocked_count": pack["packet_completeness_readiness_gate"]["blocked_count"],
+            "eligible_for_future_llm_review_count": pack[
+                "packet_completeness_readiness_gate"
+            ]["eligible_for_future_llm_review_count"],
+            "eligible_for_future_openrouter_batch_count": pack[
+                "packet_completeness_readiness_gate"
+            ]["eligible_for_future_openrouter_batch_count"],
+            "needs_local_enrichment_count": pack["packet_completeness_readiness_gate"][
+                "needs_local_enrichment_count"
+            ],
+            "low_readiness_market_ids": pack["packet_completeness_readiness_gate"][
+                "low_readiness_market_ids"
+            ],
+            "unreviewed_market_ids": pack["packet_completeness_readiness_gate"][
+                "unreviewed_market_ids"
+            ],
+            "top_missing_fields": pack["packet_completeness_readiness_gate"][
+                "top_missing_fields"
+            ],
+            "recommended_next_local_enrichment_focus": pack[
+                "packet_completeness_readiness_gate"
+            ]["recommended_next_local_enrichment_focus"],
+            "future_live_batch_scheduled": pack["packet_completeness_readiness_gate"][
+                "future_live_batch_scheduled"
+            ],
+            "future_openrouter_batch_approved": pack[
+                "packet_completeness_readiness_gate"
+            ]["future_openrouter_batch_approved"],
+            "no_market_action_guidance": pack["packet_completeness_readiness_gate"][
                 "no_market_action_guidance"
             ],
         },

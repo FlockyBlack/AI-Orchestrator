@@ -31,6 +31,8 @@
   output: pm_bot/workbench/openrouter_passive_surface_pointer.v1.json
   output: pm_bot/workbench/openrouter_passive_surface_pointer.v1.md
 - operator_openrouter_review_dashboard: status=ran, required=false, script=pm_bot/workbench/operator_openrouter_review_dashboard.py
+  output: pm_bot/llm/current_llm_batch_readiness_gate.v1.json
+  output: pm_bot/llm/current_llm_batch_readiness_gate.v1.md
   output: pm_bot/workbench/operator_openrouter_review_dashboard.v1.json
   output: pm_bot/workbench/operator_openrouter_review_dashboard.v1.md
 - operator_review_pack: status=ran, required=true, script=pm_bot/workbench/export_operator_review_pack.py
@@ -56,6 +58,8 @@
 - docs/PMBOT_CODEX_B_ROUND003_RESULT.json
 - pm_bot/workbench/openrouter_passive_surface_pointer.v1.json
 - pm_bot/workbench/openrouter_passive_surface_pointer.v1.md
+- pm_bot/llm/current_llm_batch_readiness_gate.v1.json
+- pm_bot/llm/current_llm_batch_readiness_gate.v1.md
 - pm_bot/workbench/operator_openrouter_review_dashboard.v1.json
 - pm_bot/workbench/operator_openrouter_review_dashboard.v1.md
 - pm_bot/workbench/operator_review_pack.v1.json
@@ -142,7 +146,24 @@
 - evidence_readiness_low_count: 4
 - average_evidence_readiness_score: 75.43
 - markets_with_medium_evidence_completeness: 563650, 569332, 569333, 569334, 569343, 569344, 569366, 569368, 569373, 573656
-- recommended_next_local_enrichment_focus: resolution source extraction, source gap normalization, operator checklist standardization for unreviewed packets, contradiction and risk context builder for unreviewed packets, local packet completeness scorer integration
+- recommended_next_local_enrichment_focus: resolution source extraction, source gap normalization, operator checklist standardization for unreviewed packets, contradiction and risk context builder for unreviewed packets, packet completeness readiness gate review before future LLM batches
+- no_market_action_guidance: true
+
+## Packet Completeness Readiness Gate
+
+- artifact_path: pm_bot/llm/current_llm_batch_readiness_gate.v1.json
+- artifact_markdown_path: pm_bot/llm/current_llm_batch_readiness_gate.v1.md
+- total_markets: 14
+- high_count: 0
+- medium_count: 10
+- low_count: 4
+- blocked_count: 0
+- eligible_for_future_llm_review_count: 10
+- eligible_for_future_openrouter_batch_count: 10
+- needs_local_enrichment_count: 14
+- low_readiness_market_ids: 597964, 598936, 691547, 692258
+- unreviewed_market_ids: 597964, 598936, 691547, 692258
+- future_openrouter_batch_approved: false
 - no_market_action_guidance: true
 
 ## Warnings
@@ -163,6 +184,7 @@
 - market_decisions: false
 - network_api: false
 - no_dispatcher_authority: true
+- no_market_action_guidance: true
 - no_queue_authority: true
 - no_runtime_authority: true
 - no_trading_authority: true

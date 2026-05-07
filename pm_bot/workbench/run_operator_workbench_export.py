@@ -33,6 +33,8 @@ SUMMARY_OUTPUT_ARTIFACTS = [
     "pm_bot/workbench/expected_operator_workbench_export_run.v1.json",
     "pm_bot/workbench/openrouter_passive_surface_pointer.v1.json",
     "pm_bot/workbench/openrouter_passive_surface_pointer.v1.md",
+    "pm_bot/llm/current_llm_batch_readiness_gate.v1.json",
+    "pm_bot/llm/current_llm_batch_readiness_gate.v1.md",
     "pm_bot/workbench/operator_openrouter_review_dashboard.v1.json",
     "pm_bot/workbench/operator_openrouter_review_dashboard.v1.md",
     "docs/PMBOT_WORKBENCH_003_RESULT.json",
@@ -58,6 +60,7 @@ SAFETY_FLAGS = {
     "no_dispatcher_authority": True,
     "no_wallet_or_order_authority": True,
     "acceptance_is_not_trading_approval": True,
+    "no_market_action_guidance": True,
     "runtime_wiring": False,
     "network_api": False,
     "wallet": False,
@@ -95,6 +98,10 @@ def _write_json(path, payload):
 def _write_text(path, text):
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text, encoding="utf-8")
+
+
+def _safe_dict(value):
+    return value if isinstance(value, dict) else {}
 
 
 def build_export_steps(root=ROOT):
@@ -155,6 +162,8 @@ def build_export_steps(root=ROOT):
             "runner": "module_function",
             "function_name": "write_operator_openrouter_review_dashboard_artifacts",
             "output_artifacts": [
+                "pm_bot/llm/current_llm_batch_readiness_gate.v1.json",
+                "pm_bot/llm/current_llm_batch_readiness_gate.v1.md",
                 "pm_bot/workbench/operator_openrouter_review_dashboard.v1.json",
                 "pm_bot/workbench/operator_openrouter_review_dashboard.v1.md",
             ],
@@ -306,6 +315,7 @@ def build_run_summary(step_results, root=ROOT):
         if step["status"] == "ran":
             artifacts.extend(step["output_artifacts"])
     artifacts.extend(SUMMARY_OUTPUT_ARTIFACTS)
+    openrouter_dashboard = _openrouter_review_dashboard(root=root)
     return {
         "schema_version": SCHEMA_VERSION,
         "task_id": TASK_ID,
@@ -320,7 +330,10 @@ def build_run_summary(step_results, root=ROOT):
         "actual_manual_llm_response_trial": _actual_manual_llm_response_trial_surface(root=root),
         "manual_llm_review_queue": _manual_llm_review_queue_surface(root=root),
         "openrouter_passive_surface": _openrouter_passive_surface(root=root),
-        "openrouter_review_dashboard": _openrouter_review_dashboard(root=root),
+        "openrouter_review_dashboard": openrouter_dashboard,
+        "packet_completeness_readiness_gate": _safe_dict(
+            openrouter_dashboard.get("batch_readiness_gate_summary")
+        ),
         "warnings": _warnings_for_steps(step_results),
         "safety_flags": dict(SAFETY_FLAGS),
         "network_calls": 0,
@@ -338,6 +351,7 @@ def render_markdown(summary):
     manual_llm_review_queue = summary["manual_llm_review_queue"]
     openrouter_surface = summary["openrouter_passive_surface"]
     openrouter_dashboard = summary["openrouter_review_dashboard"]
+    packet_gate = summary.get("packet_completeness_readiness_gate", {})
     lines = [
         "# PMBOT Operator Workbench Export Run v1",
         "",
@@ -472,6 +486,35 @@ def render_markdown(summary):
         ]
     )
 
+    if packet_gate:
+        lines.extend(
+            [
+                "",
+                "## Packet Completeness Readiness Gate",
+                "",
+                f"- artifact_path: {packet_gate['artifact_pointer']}",
+                f"- artifact_markdown_path: {packet_gate['artifact_markdown_pointer']}",
+                f"- total_markets: {packet_gate['total_markets']}",
+                f"- high_count: {packet_gate['high_count']}",
+                f"- medium_count: {packet_gate['medium_count']}",
+                f"- low_count: {packet_gate['low_count']}",
+                f"- blocked_count: {packet_gate['blocked_count']}",
+                "- eligible_for_future_llm_review_count: "
+                f"{packet_gate['eligible_for_future_llm_review_count']}",
+                "- eligible_for_future_openrouter_batch_count: "
+                f"{packet_gate['eligible_for_future_openrouter_batch_count']}",
+                f"- needs_local_enrichment_count: {packet_gate['needs_local_enrichment_count']}",
+                "- low_readiness_market_ids: "
+                f"{', '.join(packet_gate['low_readiness_market_ids'])}",
+                "- unreviewed_market_ids: "
+                f"{', '.join(packet_gate['unreviewed_market_ids'])}",
+                "- future_openrouter_batch_approved: "
+                f"{str(packet_gate['future_openrouter_batch_approved']).lower()}",
+                "- no_market_action_guidance: "
+                f"{str(packet_gate['no_market_action_guidance']).lower()}",
+            ]
+        )
+
     lines.extend(["", "## Warnings", ""])
     if summary["warnings"]:
         lines.extend(f"- {warning}" for warning in summary["warnings"])
@@ -509,6 +552,8 @@ def _result_payload(summary):
             "pm_bot/workbench/operator_workbench_export_run.v1.json",
             "pm_bot/workbench/operator_workbench_export_run.v1.md",
             "pm_bot/workbench/expected_operator_workbench_export_run.v1.json",
+            "pm_bot/llm/current_llm_batch_readiness_gate.v1.json",
+            "pm_bot/llm/current_llm_batch_readiness_gate.v1.md",
             "pm_bot/workbench/operator_openrouter_review_dashboard.py",
             "pm_bot/workbench/operator_openrouter_review_dashboard.v1.json",
             "pm_bot/workbench/operator_openrouter_review_dashboard.v1.md",
@@ -603,6 +648,9 @@ def _result_payload(summary):
             ],
             "artifact_pointers": summary["openrouter_review_dashboard"]["artifact_pointers"],
         },
+        "packet_completeness_readiness_gate": summary[
+            "packet_completeness_readiness_gate"
+        ],
         "safety_flags": summary["safety_flags"],
         "network_calls": 0,
         "commands_executed": 0,

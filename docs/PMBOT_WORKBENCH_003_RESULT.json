@@ -21,6 +21,8 @@
     "pm_bot/workbench/operator_workbench_export_run.v1.json",
     "pm_bot/workbench/operator_workbench_export_run.v1.md",
     "pm_bot/workbench/expected_operator_workbench_export_run.v1.json",
+    "pm_bot/llm/current_llm_batch_readiness_gate.v1.json",
+    "pm_bot/llm/current_llm_batch_readiness_gate.v1.md",
     "pm_bot/workbench/operator_openrouter_review_dashboard.py",
     "pm_bot/workbench/operator_openrouter_review_dashboard.v1.json",
     "pm_bot/workbench/operator_openrouter_review_dashboard.v1.md",
@@ -60,6 +62,8 @@
     "docs/PMBOT_CODEX_B_ROUND003_RESULT.json",
     "pm_bot/workbench/openrouter_passive_surface_pointer.v1.json",
     "pm_bot/workbench/openrouter_passive_surface_pointer.v1.md",
+    "pm_bot/llm/current_llm_batch_readiness_gate.v1.json",
+    "pm_bot/llm/current_llm_batch_readiness_gate.v1.md",
     "pm_bot/workbench/operator_openrouter_review_dashboard.v1.json",
     "pm_bot/workbench/operator_openrouter_review_dashboard.v1.md",
     "pm_bot/workbench/operator_review_pack.v1.json",
@@ -550,7 +554,7 @@
       "source gap normalization",
       "operator checklist standardization for unreviewed packets",
       "contradiction and risk context builder for unreviewed packets",
-      "local packet completeness scorer integration"
+      "packet completeness readiness gate review before future LLM batches"
     ],
     "no_market_action_guidance": true,
     "artifact_pointers": {
@@ -564,6 +568,8 @@
       "inventory_md": "pm_bot/llm/current_llm_market_packet_inventory.v1.md",
       "evidence_audit_json": "pm_bot/llm/current_llm_source_evidence_completeness_audit.v1.json",
       "evidence_audit_md": "pm_bot/llm/current_llm_source_evidence_completeness_audit.v1.md",
+      "batch_readiness_gate_json": "pm_bot/llm/current_llm_batch_readiness_gate.v1.json",
+      "batch_readiness_gate_md": "pm_bot/llm/current_llm_batch_readiness_gate.v1.md",
       "operator_review_pack_json": "pm_bot/workbench/operator_review_pack.v1.json",
       "operator_review_pack_md": "pm_bot/workbench/operator_review_pack.v1.md",
       "workbench_export_run_json": "pm_bot/workbench/operator_workbench_export_run.v1.json",
@@ -583,6 +589,107 @@
       "enrichment_design_md": "docs/PMBOT_SOURCE_EVIDENCE_ENRICHMENT_DESIGN.md"
     }
   },
+  "packet_completeness_readiness_gate": {
+    "gate_version": "current_llm_batch_readiness_gate.v1",
+    "status": "batch_readiness_gate_created",
+    "artifact_pointer": "pm_bot/llm/current_llm_batch_readiness_gate.v1.json",
+    "artifact_markdown_pointer": "pm_bot/llm/current_llm_batch_readiness_gate.v1.md",
+    "total_markets": 14,
+    "high_count": 0,
+    "medium_count": 10,
+    "low_count": 4,
+    "blocked_count": 0,
+    "eligible_for_future_llm_review_count": 10,
+    "eligible_for_future_openrouter_batch_count": 10,
+    "needs_local_enrichment_count": 14,
+    "needs_local_enrichment_before_future_openrouter_batch_count": 4,
+    "reviewed_count": 10,
+    "unreviewed_count": 4,
+    "low_readiness_market_ids": [
+      "597964",
+      "598936",
+      "691547",
+      "692258"
+    ],
+    "blocked_market_ids": [],
+    "unreviewed_market_ids": [
+      "597964",
+      "598936",
+      "691547",
+      "692258"
+    ],
+    "top_missing_fields": [
+      {
+        "field": "full_market_resolution_criteria_text",
+        "market_count": 14
+      },
+      {
+        "field": "full_resolution_rules",
+        "market_count": 14
+      },
+      {
+        "field": "non_placeholder_evidence_notes",
+        "market_count": 14
+      },
+      {
+        "field": "official_source_references",
+        "market_count": 14
+      },
+      {
+        "field": "official_source_urls_or_rule_references",
+        "market_count": 14
+      },
+      {
+        "field": "reviewed_local_evidence_references",
+        "market_count": 14
+      },
+      {
+        "field": "source_reliability_review",
+        "market_count": 14
+      },
+      {
+        "field": "source_timestamps",
+        "market_count": 14
+      },
+      {
+        "field": "jurisdiction",
+        "market_count": 10
+      },
+      {
+        "field": "candidate_or_party_if_applicable",
+        "market_count": 9
+      }
+    ],
+    "recommended_next_local_enrichment_focus": [
+      "resolution source extraction",
+      "source gap normalization",
+      "operator checklist standardization for unreviewed packets",
+      "contradiction and risk context builder for unreviewed packets",
+      "packet completeness readiness gate review before future LLM batches"
+    ],
+    "future_live_batch_scheduled": false,
+    "future_openrouter_batch_approved": false,
+    "future_llm_review_approved": false,
+    "safety_flags": {
+      "local_only": true,
+      "no_live_calls": true,
+      "no_trading_authority": true,
+      "no_queue_authority": true,
+      "no_runtime_authority": true,
+      "no_dispatcher_authority": true,
+      "no_wallet_or_order_authority": true,
+      "operator_review_only": true,
+      "passive_context_only": true,
+      "acceptance_is_not_trading_approval": true,
+      "no_market_action_guidance": true,
+      "no_probability_ev_edge_confidence_side_selection": true,
+      "no_openrouter_calls": true,
+      "no_polymarket_api_calls": true,
+      "no_external_network_calls": true,
+      "no_browser_automation": true
+    },
+    "no_market_action_guidance": true
+  },
   "safety_flags": {
     "manual_cli_only": true,
     "operator_review_only": true,
@@ -598,6 +705,7 @@
     "no_dispatcher_authority": true,
     "no_wallet_or_order_authority": true,
     "acceptance_is_not_trading_approval": true,
+    "no_market_action_guidance": true,
     "runtime_wiring": false,
     "network_api": false,
     "wallet": false,

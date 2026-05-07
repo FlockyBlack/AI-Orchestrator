@@ -83,6 +83,8 @@ SOURCE_PATHS = {
     "inventory_md": "pm_bot/llm/current_llm_market_packet_inventory.v1.md",
     "evidence_audit_json": "pm_bot/llm/current_llm_source_evidence_completeness_audit.v1.json",
     "evidence_audit_md": "pm_bot/llm/current_llm_source_evidence_completeness_audit.v1.md",
+    "batch_readiness_gate_json": "pm_bot/llm/current_llm_batch_readiness_gate.v1.json",
+    "batch_readiness_gate_md": "pm_bot/llm/current_llm_batch_readiness_gate.v1.md",
     "contour_audit_json": "pm_bot/llm/openrouter_operator_review_contour_046_053_audit.v1.json",
     "contour_audit_md": "pm_bot/llm/openrouter_operator_review_contour_046_053_audit.v1.md",
     "dashboard_json": "pm_bot/workbench/operator_openrouter_review_dashboard.v1.json",
@@ -1054,10 +1056,68 @@ def _source_001_evidence_readiness_context(root=ROOT):
         return {}
 
 
+def _source_002_packet_readiness_gate(root=ROOT):
+    try:
+        from pm_bot.llm import packet_completeness_scorer as source_002
+    except ModuleNotFoundError:
+        return {}
+    try:
+        return source_002.build_batch_readiness_gate(root=root)
+    except (OSError, json.JSONDecodeError, KeyError):
+        return {}
+
+
+def _batch_readiness_gate_summary(gate):
+    gate = _safe_dict(gate)
+    if not gate:
+        return {}
+    return {
+        "gate_version": gate.get("gate_version"),
+        "status": gate.get("status"),
+        "artifact_pointer": SOURCE_PATHS["batch_readiness_gate_json"],
+        "artifact_markdown_pointer": SOURCE_PATHS["batch_readiness_gate_md"],
+        "total_markets": gate.get("total_markets", 0),
+        "high_count": gate.get("high_count", 0),
+        "medium_count": gate.get("medium_count", 0),
+        "low_count": gate.get("low_count", 0),
+        "blocked_count": gate.get("blocked_count", 0),
+        "eligible_for_future_llm_review_count": gate.get(
+            "eligible_for_future_llm_review_count", 0
+        ),
+        "eligible_for_future_openrouter_batch_count": gate.get(
+            "eligible_for_future_openrouter_batch_count", 0
+        ),
+        "needs_local_enrichment_count": gate.get("needs_local_enrichment_count", 0),
+        "needs_local_enrichment_before_future_openrouter_batch_count": gate.get(
+            "needs_local_enrichment_before_future_openrouter_batch_count", 0
+        ),
+        "reviewed_count": gate.get("reviewed_count", 0),
+        "unreviewed_count": gate.get("unreviewed_count", 0),
+        "low_readiness_market_ids": _safe_list(gate.get("low_readiness_market_ids")),
+        "blocked_market_ids": _safe_list(gate.get("blocked_market_ids")),
+        "unreviewed_market_ids": _safe_list(gate.get("unreviewed_market_ids")),
+        "top_missing_fields": _safe_list(gate.get("top_missing_fields"))[:10],
+        "recommended_next_local_enrichment_focus": _safe_list(
+            gate.get("recommended_next_local_enrichment_focus")
+        ),
+        "future_live_batch_scheduled": gate.get("future_live_batch_scheduled", False),
+        "future_openrouter_batch_approved": gate.get(
+            "future_openrouter_batch_approved", False
+        ),
+        "future_llm_review_approved": gate.get("future_llm_review_approved", False),
+        "safety_flags": _safe_dict(gate.get("safety_flags")),
+        "no_market_action_guidance": gate.get("safety_flags", {}).get(
+            "no_market_action_guidance", True
+        ),
+    }
+
+
 def build_operator_openrouter_review_dashboard(root=ROOT):
     inventory = build_current_llm_market_packet_inventory(root=root)
     evidence = build_current_llm_source_evidence_completeness_audit(root=root)
     source_001_context = _source_001_evidence_readiness_context(root=root)
+    source_002_gate = _source_002_packet_readiness_gate(root=root)
+    batch_gate_summary = _batch_readiness_gate_summary(source_002_gate)
     n3 = _n3_summary(root=root)
     n5 = _n5_summary(root=root)
     combined = _combined_summary()
@@ -1109,6 +1169,11 @@ def build_operator_openrouter_review_dashboard(root=ROOT):
             "source_001_context_ready" if source_001_context else "source_001_context_unavailable"
         ),
         "source_001_evidence_readiness_context": source_001_context,
+        "batch_readiness_gate_integration_status": (
+            "source_002_gate_ready" if source_002_gate else "source_002_gate_unavailable"
+        ),
+        "batch_readiness_gate_summary": batch_gate_summary,
+        "packet_completeness_readiness_gate": source_002_gate,
         "evidence_readiness_score_summary": _safe_dict(
             source_001_context.get("evidence_readiness_score_summary")
         ),
@@ -1120,9 +1185,17 @@ def build_operator_openrouter_review_dashboard(root=ROOT):
             source_001_context.get("markets_with_medium_evidence_completeness")
         ),
         "recommended_next_local_enrichment_focus": _safe_list(
-            source_001_context.get("recommended_next_local_enrichment_focus")
+            batch_gate_summary.get("recommended_next_local_enrichment_focus")
+            or source_001_context.get("recommended_next_local_enrichment_focus")
         ),
-        "top_missing_fields": _safe_list(source_001_context.get("top_missing_fields")),
+        "top_missing_fields": _safe_list(
+            batch_gate_summary.get("top_missing_fields")
+            or source_001_context.get("top_missing_fields")
+        ),
+        "low_readiness_market_ids": _safe_list(
+            batch_gate_summary.get("low_readiness_market_ids")
+        ),
+        "unreviewed_market_ids": _safe_list(batch_gate_summary.get("unreviewed_market_ids")),
         "no_market_action_guidance": True,
         "operator_next_engineering_actions": [
             "category/source inventory review",
@@ -1141,6 +1214,8 @@ def build_operator_openrouter_review_dashboard(root=ROOT):
             "inventory_md": SOURCE_PATHS["inventory_md"],
             "evidence_audit_json": SOURCE_PATHS["evidence_audit_json"],
             "evidence_audit_md": SOURCE_PATHS["evidence_audit_md"],
+            "batch_readiness_gate_json": SOURCE_PATHS["batch_readiness_gate_json"],
+            "batch_readiness_gate_md": SOURCE_PATHS["batch_readiness_gate_md"],
             "operator_review_pack_json": "pm_bot/workbench/operator_review_pack.v1.json",
             "operator_review_pack_md": "pm_bot/workbench/operator_review_pack.v1.md",
             "workbench_export_run_json": "pm_bot/workbench/operator_workbench_export_run.v1.json",
@@ -1161,6 +1236,7 @@ def render_operator_openrouter_review_dashboard_markdown(dashboard):
     inventory = dashboard["inventory_summary"]
     evidence = dashboard["evidence_completeness_summary"]
     readiness = _safe_dict(dashboard.get("evidence_readiness_score_summary"))
+    batch_gate = _safe_dict(dashboard.get("batch_readiness_gate_summary"))
     category_gaps = _safe_dict(dashboard.get("category_gap_summary"))
     reviewed_vs_unreviewed = _safe_dict(dashboard.get("markets_reviewed_vs_unreviewed"))
     lines = [
@@ -1257,6 +1333,48 @@ def render_operator_openrouter_review_dashboard_markdown(dashboard):
                 f"effort={summary.get('estimated_effort')}, "
                 f"markets={', '.join(summary.get('market_ids_in_category', []))}"
             )
+    if batch_gate:
+        lines.extend(
+            [
+                "",
+                "## Batch Readiness Gate",
+                "",
+                f"- integration_status: {dashboard['batch_readiness_gate_integration_status']}",
+                f"- artifact_pointer: {batch_gate['artifact_pointer']}",
+                f"- artifact_markdown_pointer: {batch_gate['artifact_markdown_pointer']}",
+                f"- total_markets: {batch_gate['total_markets']}",
+                f"- high_count: {batch_gate['high_count']}",
+                f"- medium_count: {batch_gate['medium_count']}",
+                f"- low_count: {batch_gate['low_count']}",
+                f"- blocked_count: {batch_gate['blocked_count']}",
+                "- eligible_for_future_llm_review_count: "
+                f"{batch_gate['eligible_for_future_llm_review_count']}",
+                "- eligible_for_future_openrouter_batch_count: "
+                f"{batch_gate['eligible_for_future_openrouter_batch_count']}",
+                f"- needs_local_enrichment_count: {batch_gate['needs_local_enrichment_count']}",
+                "- needs_local_enrichment_before_future_openrouter_batch_count: "
+                f"{batch_gate['needs_local_enrichment_before_future_openrouter_batch_count']}",
+                "- low_readiness_market_ids: "
+                + ", ".join(batch_gate.get("low_readiness_market_ids", [])),
+                "- unreviewed_market_ids: "
+                + ", ".join(batch_gate.get("unreviewed_market_ids", [])),
+                "- future_live_batch_scheduled: "
+                f"{str(batch_gate['future_live_batch_scheduled']).lower()}",
+                "- future_openrouter_batch_approved: "
+                f"{str(batch_gate['future_openrouter_batch_approved']).lower()}",
+                "- no_market_action_guidance: "
+                f"{str(batch_gate['no_market_action_guidance']).lower()}",
+                "",
+                "## Top Missing Fields",
+                "",
+            ]
+        )
+        for item in batch_gate.get("top_missing_fields", []):
+            lines.append(f"- {item['field']}: {item['market_count']}")
+        lines.extend(["", "## Recommended Next Local Enrichment Focus", ""])
+        for item in batch_gate.get("recommended_next_local_enrichment_focus", []):
+            lines.append(f"- {item}")
+    elif readiness:
         lines.extend(["", "## Recommended Next Local Enrichment Focus", ""])
         for item in dashboard.get("recommended_next_local_enrichment_focus", []):
             lines.append(f"- {item}")

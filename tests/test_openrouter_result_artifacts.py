@@ -34,6 +34,22 @@ SOURCE_001_PUBLIC_MARKDOWN_ARTIFACTS = [
     "pm_bot/workbench/operator_workbench_export_run.v1.md",
 ]
 
+SOURCE_002_JSON_ARTIFACTS = [
+    "docs/PMBOT_SOURCE_002_RESULT.json",
+    "pm_bot/llm/current_llm_batch_readiness_gate.v1.json",
+    "pm_bot/workbench/operator_openrouter_review_dashboard.v1.json",
+    "pm_bot/workbench/operator_review_pack.v1.json",
+    "pm_bot/workbench/operator_workbench_export_run.v1.json",
+]
+
+SOURCE_002_PUBLIC_MARKDOWN_ARTIFACTS = [
+    "docs/PMBOT_SOURCE_002_LOCAL_PACKET_COMPLETENESS_SCORER_INTEGRATION.md",
+    "pm_bot/llm/current_llm_batch_readiness_gate.v1.md",
+    "pm_bot/workbench/operator_openrouter_review_dashboard.v1.md",
+    "pm_bot/workbench/operator_review_pack.v1.md",
+    "pm_bot/workbench/operator_workbench_export_run.v1.md",
+]
+
 
 def _load_result(name: str) -> dict:
     path = ROOT / "docs" / name
@@ -472,6 +488,105 @@ def test_source_001_public_markdown_and_changed_files_pass_safety_scans():
 
     secret_name = _frag("OPENROUTER", "_API", "_KEY")
     result = _load_result("PMBOT_SOURCE_001_RESULT.json")
+    for path in result["files_changed"]:
+        text = (ROOT / path).read_text(encoding="utf-8", errors="ignore")
+        assert secret_name not in text, path
+
+
+def test_source_002_result_records_local_packet_completeness_gate():
+    result = _load_result("PMBOT_SOURCE_002_RESULT.json")
+
+    assert result["task_id"] == "PMBOT-SOURCE-002-LOCAL-PACKET-COMPLETENESS-SCORER-INTEGRATION"
+    assert result["status"] in {
+        "completed_local_validation_pending_commit_push",
+        "completed_pushed",
+    }
+    assert result["head_before"] == "ee4562eaa920d592019d8db6387a9cd66dc3b5e6"
+    assert result["openrouter_calls_performed"] == 0
+    assert result["polymarket_api_calls_performed"] == 0
+    assert result["external_network_calls_performed"] == 0
+    assert result["source_001_status"] == "completed_pushed"
+    assert result["scorer_module_created"] is True
+    assert result["batch_readiness_gate_created"] is True
+    assert result["workbench_dashboard_updated"] is True
+    assert result["inventory_market_count"] == 14
+    assert result["scored_market_count"] == 14
+    assert result["high_count"] == 0
+    assert result["medium_count"] == 10
+    assert result["low_count"] == 4
+    assert result["blocked_count"] == 0
+    assert result["eligible_for_future_llm_review_count"] == 10
+    assert result["eligible_for_future_openrouter_batch_count"] == 10
+    assert result["needs_local_enrichment_count"] == 14
+    assert result["secret_scan_passed"] is True
+    assert result["safety_summary"]["operator_review_only"] is True
+    assert result["safety_summary"]["no_market_action_guidance"] is True
+    assert result["safety_summary"]["api_key_accessed"] is False
+    assert result["safety_summary"]["queue_state_mutated"] is False
+    assert result["safety_summary"]["runtime_wiring_added"] is False
+    assert result["safety_summary"]["browser_automation_used"] is False
+
+
+def test_source_002_json_artifacts_parse_and_gate_is_reflected_in_workbench():
+    for path in SOURCE_002_JSON_ARTIFACTS:
+        payload = json.loads((ROOT / path).read_text(encoding="utf-8"))
+        assert isinstance(payload, dict), path
+
+    gate = json.loads(
+        (ROOT / "pm_bot" / "llm" / "current_llm_batch_readiness_gate.v1.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    assert gate["total_markets"] == 14
+    assert gate["low_readiness_market_ids"] == ["597964", "598936", "691547", "692258"]
+    assert gate["future_live_batch_scheduled"] is False
+    assert gate["future_openrouter_batch_approved"] is False
+    assert gate["safety_flags"]["no_queue_authority"] is True
+    assert gate["safety_flags"]["no_runtime_authority"] is True
+    assert gate["safety_flags"]["no_market_action_guidance"] is True
+
+    dashboard = json.loads(
+        (ROOT / "pm_bot" / "workbench" / "operator_openrouter_review_dashboard.v1.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    assert dashboard["batch_readiness_gate_summary"]["total_markets"] == 14
+    assert dashboard["batch_readiness_gate_summary"]["low_count"] == 4
+    assert (
+        dashboard["batch_readiness_gate_summary"]["artifact_pointer"]
+        == "pm_bot/llm/current_llm_batch_readiness_gate.v1.json"
+    )
+
+    review_pack = json.loads(
+        (ROOT / "pm_bot" / "workbench" / "operator_review_pack.v1.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    assert (
+        review_pack["packet_completeness_readiness_gate"]["artifact_pointer"]
+        == "pm_bot/llm/current_llm_batch_readiness_gate.v1.json"
+    )
+
+
+def test_source_002_public_markdown_and_changed_files_pass_safety_scans():
+    forbidden_markdown_phrases = [
+        "buy recommendation",
+        "sell recommendation",
+        "hold recommendation",
+        "enter position",
+        "exit position",
+        "recommended side",
+        "place an order",
+        "submit an order",
+        "market action recommendation",
+    ]
+    for path in SOURCE_002_PUBLIC_MARKDOWN_ARTIFACTS:
+        text = (ROOT / path).read_text(encoding="utf-8").lower()
+        for phrase in forbidden_markdown_phrases:
+            assert phrase not in text, path
+
+    secret_name = _frag("OPENROUTER", "_API", "_KEY")
+    result = _load_result("PMBOT_SOURCE_002_RESULT.json")
     for path in result["files_changed"]:
         text = (ROOT / path).read_text(encoding="utf-8", errors="ignore")
         assert secret_name not in text, path

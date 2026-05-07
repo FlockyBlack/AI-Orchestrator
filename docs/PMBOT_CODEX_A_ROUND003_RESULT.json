@@ -19,11 +19,11 @@
   "files_modified": [],
   "tests": [],
   "artifact_inventory_summary": {
-    "total_artifacts": 26,
-    "present_artifacts": 26,
+    "total_artifacts": 27,
+    "present_artifacts": 27,
     "missing_artifacts": 0,
     "required_missing_artifacts": 0,
-    "json_artifacts_parsed": 25,
+    "json_artifacts_parsed": 26,
     "json_artifacts_parse_failed": 0
   },
   "actual_manual_llm_response_trial": {
@@ -629,8 +629,85 @@
       "source gap normalization",
       "operator checklist standardization for unreviewed packets",
       "contradiction and risk context builder for unreviewed packets",
-      "local packet completeness scorer integration"
+      "packet completeness readiness gate review before future LLM batches"
     ],
+    "no_market_action_guidance": true
+  },
+  "packet_completeness_readiness_gate": {
+    "artifact_status": "present",
+    "artifact_pointer": "pm_bot/llm/current_llm_batch_readiness_gate.v1.json",
+    "artifact_markdown_pointer": "pm_bot/llm/current_llm_batch_readiness_gate.v1.md",
+    "total_markets": 14,
+    "high_count": 0,
+    "medium_count": 10,
+    "low_count": 4,
+    "blocked_count": 0,
+    "eligible_for_future_llm_review_count": 10,
+    "eligible_for_future_openrouter_batch_count": 10,
+    "needs_local_enrichment_count": 14,
+    "low_readiness_market_ids": [
+      "597964",
+      "598936",
+      "691547",
+      "692258"
+    ],
+    "unreviewed_market_ids": [
+      "597964",
+      "598936",
+      "691547",
+      "692258"
+    ],
+    "top_missing_fields": [
+      {
+        "field": "full_market_resolution_criteria_text",
+        "market_count": 14
+      },
+      {
+        "field": "full_resolution_rules",
+        "market_count": 14
+      },
+      {
+        "field": "non_placeholder_evidence_notes",
+        "market_count": 14
+      },
+      {
+        "field": "official_source_references",
+        "market_count": 14
+      },
+      {
+        "field": "official_source_urls_or_rule_references",
+        "market_count": 14
+      },
+      {
+        "field": "reviewed_local_evidence_references",
+        "market_count": 14
+      },
+      {
+        "field": "source_reliability_review",
+        "market_count": 14
+      },
+      {
+        "field": "source_timestamps",
+        "market_count": 14
+      },
+      {
+        "field": "jurisdiction",
+        "market_count": 10
+      },
+      {
+        "field": "candidate_or_party_if_applicable",
+        "market_count": 9
+      }
+    ],
+    "recommended_next_local_enrichment_focus": [
+      "resolution source extraction",
+      "source gap normalization",
+      "operator checklist standardization for unreviewed packets",
+      "contradiction and risk context builder for unreviewed packets",
+      "packet completeness readiness gate review before future LLM batches"
+    ],
+    "future_live_batch_scheduled": false,
+    "future_openrouter_batch_approved": false,
     "no_market_action_guidance": true
   },
   "missing_artifacts": [],
@@ -646,6 +723,7 @@
     "no_dispatcher_authority": true,
     "no_wallet_or_order_authority": true,
     "acceptance_is_not_trading_approval": true,
+    "no_market_action_guidance": true,
     "offline_only": true,
     "deterministic_output": true,
     "local_file_reads_only": true,

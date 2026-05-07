@@ -22,12 +22,14 @@ ACTUAL_MANUAL_LLM_RESPONSE_TRIAL = ROOT / "pm_bot" / "llm" / "actual_manual_llm_
 OPENROUTER_PASSIVE_SURFACE_POINTER = ROOT / "pm_bot" / "workbench" / "openrouter_passive_surface_pointer.v1.json"
 OPENROUTER_PASSIVE_SURFACE_POINTER_MD = ROOT / "pm_bot" / "workbench" / "openrouter_passive_surface_pointer.v1.md"
 OPENROUTER_REVIEW_DASHBOARD = ROOT / "pm_bot" / "workbench" / "operator_openrouter_review_dashboard.v1.json"
+PACKET_COMPLETENESS_GATE = ROOT / "pm_bot" / "llm" / "current_llm_batch_readiness_gate.v1.json"
 
 NEW_JSON_FILES = [
     PACK_JSON,
     EXPECTED_JSON,
     OPENROUTER_PASSIVE_SURFACE_POINTER,
     OPENROUTER_REVIEW_DASHBOARD,
+    PACKET_COMPLETENESS_GATE,
     RESULT,
     LANE_RESULT,
 ]
@@ -129,6 +131,8 @@ class OperatorReviewPackExportTests(unittest.TestCase):
             "manual_llm_review_queue",
             "actual_manual_llm_response_trial",
             "openrouter_passive_surface",
+            "openrouter_review_dashboard",
+            "packet_completeness_readiness_gate",
             "quality_warning_summary",
             "warnings",
             "missing_artifacts",
@@ -195,6 +199,7 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertTrue(inventory["manual_llm_review_queue"]["present"])
         self.assertTrue(inventory["actual_manual_llm_response_trial"]["present"])
         self.assertTrue(inventory["openrouter_passive_surface"]["present"])
+        self.assertTrue(inventory["packet_completeness_readiness_gate"]["present"])
         self.assertEqual(inventory["paper_019_result"]["parse_status"], "parsed")
         self.assertEqual(inventory["paper_019_multi_market_run_series"]["parse_status"], "parsed")
         self.assertEqual(inventory["paper_020_result"]["parse_status"], "parsed")
@@ -204,6 +209,7 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertEqual(inventory["manual_llm_review_queue"]["parse_status"], "parsed")
         self.assertEqual(inventory["actual_manual_llm_response_trial"]["parse_status"], "parsed")
         self.assertEqual(inventory["openrouter_passive_surface"]["parse_status"], "parsed")
+        self.assertEqual(inventory["packet_completeness_readiness_gate"]["parse_status"], "parsed")
         self.assertEqual(
             inventory["paper_019_multi_market_run_series"]["path"],
             "pm_bot/paper/multi_market_paper_run_series.v1.json",
@@ -227,6 +233,10 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertEqual(
             inventory["openrouter_passive_surface"]["path"],
             "pm_bot/workbench/openrouter_passive_surface_pointer.v1.json",
+        )
+        self.assertEqual(
+            inventory["packet_completeness_readiness_gate"]["path"],
+            "pm_bot/llm/current_llm_batch_readiness_gate.v1.json",
         )
 
         missing = {item["path"]: item for item in pack["missing_artifacts"]}
@@ -954,6 +964,10 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertIn("N=5: calls=5", markdown)
         self.assertIn("OpenRouter Combined Review Contour", markdown)
         self.assertIn("combined_cost: 0.325071", markdown)
+        self.assertIn("Packet Completeness Readiness Gate", markdown)
+        self.assertIn("artifact_pointer: pm_bot/llm/current_llm_batch_readiness_gate.v1.json", markdown)
+        self.assertIn("low_readiness_market_ids: 597964, 598936, 691547, 692258", markdown)
+        self.assertIn("future_openrouter_batch_approved: false", markdown)
         self.assertIn("OpenRouter Review Dashboard", markdown)
         self.assertIn("total_markets_found: 14", markdown)
         self.assertIn("evidence_readiness_integration_status: source_001_context_ready", markdown)
@@ -1022,6 +1036,21 @@ class OperatorReviewPackExportTests(unittest.TestCase):
             ["597964", "598936", "691547", "692258"],
         )
         self.assertTrue(result["openrouter_review_dashboard"]["no_market_action_guidance"])
+        gate = result["packet_completeness_readiness_gate"]
+        self.assertEqual(gate["artifact_pointer"], "pm_bot/llm/current_llm_batch_readiness_gate.v1.json")
+        self.assertEqual(gate["total_markets"], 14)
+        self.assertEqual(gate["medium_count"], 10)
+        self.assertEqual(gate["low_count"], 4)
+        self.assertEqual(gate["eligible_for_future_llm_review_count"], 10)
+        self.assertEqual(gate["eligible_for_future_openrouter_batch_count"], 10)
+        self.assertEqual(gate["needs_local_enrichment_count"], 14)
+        self.assertEqual(
+            gate["low_readiness_market_ids"],
+            ["597964", "598936", "691547", "692258"],
+        )
+        self.assertFalse(gate["future_live_batch_scheduled"])
+        self.assertFalse(gate["future_openrouter_batch_approved"])
+        self.assertTrue(gate["no_market_action_guidance"])
         self.assertTrue(result["openrouter_passive_surface"]["safety_summary"]["operator_review_only"])
         self.assertTrue(result["openrouter_passive_surface"]["safety_summary"]["passive_context_only"])
         self.assertEqual(

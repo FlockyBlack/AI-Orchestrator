@@ -261,6 +261,7 @@ class OperatorWorkbenchExportRunnerTests(unittest.TestCase):
             self.assertTrue(safety["no_dispatcher_authority"])
             self.assertTrue(safety["no_wallet_or_order_authority"])
             self.assertTrue(safety["acceptance_is_not_trading_approval"])
+            self.assertTrue(safety["no_market_action_guidance"])
             self.assertFalse(safety["runtime_wiring"])
             self.assertFalse(safety["network_api"])
             self.assertFalse(safety["wallet"])
@@ -342,6 +343,20 @@ class OperatorWorkbenchExportRunnerTests(unittest.TestCase):
             ["597964", "598936", "691547", "692258"],
         )
         self.assertTrue(summary["openrouter_review_dashboard"]["no_market_action_guidance"])
+        self.assertIn("packet_completeness_readiness_gate", summary)
+        packet_gate = summary["packet_completeness_readiness_gate"]
+        self.assertEqual(packet_gate["artifact_pointer"], "pm_bot/llm/current_llm_batch_readiness_gate.v1.json")
+        self.assertEqual(packet_gate["total_markets"], 14)
+        self.assertEqual(packet_gate["medium_count"], 10)
+        self.assertEqual(packet_gate["low_count"], 4)
+        self.assertEqual(packet_gate["eligible_for_future_llm_review_count"], 10)
+        self.assertEqual(packet_gate["eligible_for_future_openrouter_batch_count"], 10)
+        self.assertEqual(
+            packet_gate["low_readiness_market_ids"],
+            ["597964", "598936", "691547", "692258"],
+        )
+        self.assertFalse(packet_gate["future_openrouter_batch_approved"])
+        self.assertTrue(packet_gate["no_market_action_guidance"])
         self.assertTrue(openrouter["operator_review_only"])
         self.assertTrue(openrouter["passive_context_only"])
         self.assertTrue(openrouter["no_trading_authority"])

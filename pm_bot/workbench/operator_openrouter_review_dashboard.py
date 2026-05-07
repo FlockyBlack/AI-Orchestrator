@@ -13,6 +13,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from pm_bot.llm import openrouter_operator_review_artifacts_053 as artifacts_053  # noqa: E402
+from pm_bot.llm import export_packet_completeness_readiness as packet_readiness  # noqa: E402
 
 
 def _parse_args(argv):
@@ -33,6 +34,7 @@ def render_markdown(dashboard):
 
 
 def write_operator_openrouter_review_dashboard_artifacts(root=ROOT):
+    gate_result = packet_readiness.write_packet_completeness_readiness_artifacts(root=root)
     dashboard = build_operator_openrouter_review_dashboard(root=root)
     artifacts_053._write_json(artifacts_053.SOURCE_PATHS["dashboard_json"], dashboard, root=root)
     artifacts_053._write_text(
@@ -44,6 +46,7 @@ def write_operator_openrouter_review_dashboard_artifacts(root=ROOT):
         "task_id": TASK_ID,
         "status": "operator_openrouter_review_dashboard_created",
         "files_written": [
+            *gate_result["files_written"],
             artifacts_053.SOURCE_PATHS["dashboard_json"],
             artifacts_053.SOURCE_PATHS["dashboard_md"],
         ],

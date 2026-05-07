@@ -83,13 +83,46 @@
 - legal/courts: priority=high, effort=small, markets=563650
 - politics: priority=high, effort=small, markets=597964
 
+## Batch Readiness Gate
+
+- integration_status: source_002_gate_ready
+- artifact_pointer: pm_bot/llm/current_llm_batch_readiness_gate.v1.json
+- artifact_markdown_pointer: pm_bot/llm/current_llm_batch_readiness_gate.v1.md
+- total_markets: 14
+- high_count: 0
+- medium_count: 10
+- low_count: 4
+- blocked_count: 0
+- eligible_for_future_llm_review_count: 10
+- eligible_for_future_openrouter_batch_count: 10
+- needs_local_enrichment_count: 14
+- needs_local_enrichment_before_future_openrouter_batch_count: 4
+- low_readiness_market_ids: 597964, 598936, 691547, 692258
+- unreviewed_market_ids: 597964, 598936, 691547, 692258
+- future_live_batch_scheduled: false
+- future_openrouter_batch_approved: false
+- no_market_action_guidance: true
+
+## Top Missing Fields
+
+- full_market_resolution_criteria_text: 14
+- full_resolution_rules: 14
+- non_placeholder_evidence_notes: 14
+- official_source_references: 14
+- official_source_urls_or_rule_references: 14
+- reviewed_local_evidence_references: 14
+- source_reliability_review: 14
+- source_timestamps: 14
+- jurisdiction: 10
+- candidate_or_party_if_applicable: 9
+
 ## Recommended Next Local Enrichment Focus
 
 - resolution source extraction
 - source gap normalization
 - operator checklist standardization for unreviewed packets
 - contradiction and risk context builder for unreviewed packets
-- local packet completeness scorer integration
+- packet completeness readiness gate review before future LLM batches
 
 ## Operator Next Engineering Actions
 
@@ -110,6 +143,8 @@
 - inventory_md: pm_bot/llm/current_llm_market_packet_inventory.v1.md
 - evidence_audit_json: pm_bot/llm/current_llm_source_evidence_completeness_audit.v1.json
 - evidence_audit_md: pm_bot/llm/current_llm_source_evidence_completeness_audit.v1.md
+- batch_readiness_gate_json: pm_bot/llm/current_llm_batch_readiness_gate.v1.json
+- batch_readiness_gate_md: pm_bot/llm/current_llm_batch_readiness_gate.v1.md
 - operator_review_pack_json: pm_bot/workbench/operator_review_pack.v1.json
 - operator_review_pack_md: pm_bot/workbench/operator_review_pack.v1.md
 - workbench_export_run_json: pm_bot/workbench/operator_workbench_export_run.v1.json

@@ -56,11 +56,11 @@
   },
   "artifact_inventory": {
     "summary": {
-      "total_artifacts": 26,
-      "present_artifacts": 26,
+      "total_artifacts": 27,
+      "present_artifacts": 27,
       "missing_artifacts": 0,
       "required_missing_artifacts": 0,
-      "json_artifacts_parsed": 25,
+      "json_artifacts_parsed": 26,
       "json_artifacts_parse_failed": 0
     },
     "artifacts": [
@@ -450,6 +450,21 @@
         "schema_version": "operator_openrouter_review_dashboard.v1",
         "task_id": "PMBOT-OPENROUTER-053-N5-SURFACE-WORKBENCH-INVENTORY-UX-AND-CONTOUR-AUDIT",
         "status": "operator_openrouter_review_dashboard_created",
+        "audit_status": null,
+        "deterministic": null,
+        "warning_count": 0
+      },
+      {
+        "artifact_id": "packet_completeness_readiness_gate",
+        "path": "pm_bot/llm/current_llm_batch_readiness_gate.v1.json",
+        "category": "packet_completeness_readiness",
+        "artifact_type": "packet_completeness_readiness_gate_json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed",
+        "schema_version": "current_llm_batch_readiness_gate.v1",
+        "task_id": "PMBOT-SOURCE-002-LOCAL-PACKET-COMPLETENESS-SCORER-INTEGRATION",
+        "status": "batch_readiness_gate_created",
         "audit_status": null,
         "deterministic": null,
         "warning_count": 0
@@ -1218,7 +1233,7 @@
       "691547",
       "692258"
     ],
-    "skipped_candidate_count": 9,
+    "skipped_candidate_count": 6,
     "offline_manual_only": true,
     "not_truth_source": true,
     "not_trading_advice": true,
@@ -2306,7 +2321,7 @@
       "source gap normalization",
       "operator checklist standardization for unreviewed packets",
       "contradiction and risk context builder for unreviewed packets",
-      "local packet completeness scorer integration"
+      "packet completeness readiness gate review before future LLM batches"
     ],
     "top_missing_fields": [
       {
@@ -2348,74 +2363,6 @@
       {
         "field": "candidate_or_party_if_applicable",
         "market_count": 9
-      },
-      {
-        "field": "office_or_election_event",
-        "market_count": 9
-      },
-      {
-        "field": "official_election_authority_identifier",
-        "market_count": 9
-      },
-      {
-        "field": "contradiction_checks",
-        "market_count": 4
-      },
-      {
-        "field": "evidence_completeness_audit_status",
-        "market_count": 4
-      },
-      {
-        "field": "operator_checklist",
-        "market_count": 4
-      },
-      {
-        "field": "risk_notes",
-        "market_count": 4
-      },
-      {
-        "field": "event_definition",
-        "market_count": 3
-      },
-      {
-        "field": "entity",
-        "market_count": 2
-      },
-      {
-        "field": "instrument_or_business_action_if_applicable",
-        "market_count": 2
-      },
-      {
-        "field": "case_or_event_definition",
-        "market_count": 1
-      },
-      {
-        "field": "court_or_legal_body",
-        "market_count": 1
-      },
-      {
-        "field": "docket_identifier",
-        "market_count": 1
-      },
-      {
-        "field": "asset_or_ticker",
-        "market_count": 1
-      },
-      {
-        "field": "benchmark_and_timezone_rules",
-        "market_count": 1
-      },
-      {
-        "field": "threshold",
-        "market_count": 1
-      },
-      {
-        "field": "named_person_or_institution",
-        "market_count": 1
-      },
-      {
-        "field": "office_or_public_role",
-        "market_count": 1
       }
     ],
     "no_market_action_guidance": true,
@@ -2436,6 +2383,8 @@
       "inventory_md": "pm_bot/llm/current_llm_market_packet_inventory.v1.md",
       "evidence_audit_json": "pm_bot/llm/current_llm_source_evidence_completeness_audit.v1.json",
       "evidence_audit_md": "pm_bot/llm/current_llm_source_evidence_completeness_audit.v1.md",
+      "batch_readiness_gate_json": "pm_bot/llm/current_llm_batch_readiness_gate.v1.json",
+      "batch_readiness_gate_md": "pm_bot/llm/current_llm_batch_readiness_gate.v1.md",
       "operator_review_pack_json": "pm_bot/workbench/operator_review_pack.v1.json",
       "operator_review_pack_md": "pm_bot/workbench/operator_review_pack.v1.md",
       "workbench_export_run_json": "pm_bot/workbench/operator_workbench_export_run.v1.json",
@@ -2487,6 +2436,113 @@
     "openrouter_calls_performed": 0,
     "polymarket_api_calls_performed": 0,
     "network_calls_performed": 0
+  },
+  "packet_completeness_readiness_gate": {
+    "section_id": "packet_completeness_readiness_gate",
+    "artifact_status": "present",
+    "artifact_pointer": "pm_bot/llm/current_llm_batch_readiness_gate.v1.json",
+    "artifact_markdown_pointer": "pm_bot/llm/current_llm_batch_readiness_gate.v1.md",
+    "artifact_parse_status": "parsed",
+    "gate_version": "current_llm_batch_readiness_gate.v1",
+    "status": "batch_readiness_gate_created",
+    "total_markets": 14,
+    "high_count": 0,
+    "medium_count": 10,
+    "low_count": 4,
+    "blocked_count": 0,
+    "eligible_for_future_llm_review_count": 10,
+    "eligible_for_future_openrouter_batch_count": 10,
+    "needs_local_enrichment_count": 14,
+    "needs_local_enrichment_before_future_openrouter_batch_count": 4,
+    "reviewed_count": 10,
+    "unreviewed_count": 4,
+    "low_readiness_market_ids": [
+      "597964",
+      "598936",
+      "691547",
+      "692258"
+    ],
+    "blocked_market_ids": [],
+    "unreviewed_market_ids": [
+      "597964",
+      "598936",
+      "691547",
+      "692258"
+    ],
+    "top_missing_fields": [
+      {
+        "field": "full_market_resolution_criteria_text",
+        "market_count": 14
+      },
+      {
+        "field": "full_resolution_rules",
+        "market_count": 14
+      },
+      {
+        "field": "non_placeholder_evidence_notes",
+        "market_count": 14
+      },
+      {
+        "field": "official_source_references",
+        "market_count": 14
+      },
+      {
+        "field": "official_source_urls_or_rule_references",
+        "market_count": 14
+      },
+      {
+        "field": "reviewed_local_evidence_references",
+        "market_count": 14
+      },
+      {
+        "field": "source_reliability_review",
+        "market_count": 14
+      },
+      {
+        "field": "source_timestamps",
+        "market_count": 14
+      },
+      {
+        "field": "jurisdiction",
+        "market_count": 10
+      },
+      {
+        "field": "candidate_or_party_if_applicable",
+        "market_count": 9
+      }
+    ],
+    "recommended_next_local_enrichment_focus": [
+      "resolution source extraction",
+      "source gap normalization",
+      "operator checklist standardization for unreviewed packets",
+      "contradiction and risk context builder for unreviewed packets",
+      "packet completeness readiness gate review before future LLM batches"
+    ],
+    "future_live_batch_scheduled": false,
+    "future_openrouter_batch_approved": false,
+    "future_llm_review_approved": false,
+    "safety_flags": {
+      "local_only": true,
+      "no_live_calls": true,
+      "no_trading_authority": true,
+      "no_queue_authority": true,
+      "no_runtime_authority": true,
+      "no_dispatcher_authority": true,
+      "no_wallet_or_order_authority": true,
+      "operator_review_only": true,
+      "passive_context_only": true,
+      "acceptance_is_not_trading_approval": true,
+      "no_market_action_guidance": true,
+      "no_probability_ev_edge_confidence_side_selection": true,
+      "no_openrouter_calls": true,
+      "no_polymarket_api_calls": true,
+      "no_external_network_calls": true,
+      "no_browser_automation": true
+    },
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "network_calls_performed": 0,
+    "no_market_action_guidance": true
   },
   "quality_warning_summary": {
     "source_path": "pm_bot/quality/artifact_health_report.v1.json",
@@ -2560,6 +2616,7 @@
     "no_dispatcher_authority": true,
     "no_wallet_or_order_authority": true,
     "acceptance_is_not_trading_approval": true,
+    "no_market_action_guidance": true,
     "offline_only": true,
     "deterministic_output": true,
     "local_file_reads_only": true,
