@@ -1,0 +1,65 @@
+{
+  "acceptance_is_not_trading_approval": true,
+  "aggregate": {
+    "completion_tokens": 2140,
+    "cost": 0.044328,
+    "cost_present_for_all_completed_markets": true,
+    "prompt_tokens": 4076,
+    "total_tokens": 6216
+  },
+  "api_key_leaked": false,
+  "api_key_value_printed": false,
+  "api_key_value_written": false,
+  "cost_report_is_for_operator_visibility_only": true,
+  "manual_review_only": true,
+  "model": "anthropic/claude-sonnet-4.5",
+  "no_queue_authority": true,
+  "no_runtime_authority": true,
+  "no_secret_fields": true,
+  "no_trading_authority": true,
+  "operator_review_only": true,
+  "operator_visibility_only": true,
+  "per_market": [
+    {
+      "accepted_for_operator_review": false,
+      "completion_tokens": 2140,
+      "cost": 0.044328,
+      "market_id": "569333",
+      "prompt_tokens": 4076,
+      "provider": "Amazon Bedrock",
+      "total_tokens": 6216,
+      "usage_present": true
+    },
+    {
+      "accepted_for_operator_review": false,
+      "completion_tokens": 0,
+      "cost": null,
+      "market_id": "569334",
+      "prompt_tokens": 0,
+      "provider": null,
+      "total_tokens": 0,
+      "usage_present": false
+    },
+    {
+      "accepted_for_operator_review": false,
+      "completion_tokens": 0,
+      "cost": null,
+      "market_id": "569343",
+      "prompt_tokens": 0,
+      "provider": null,
+      "total_tokens": 0,
+      "usage_present": false
+    }
+  ],
+  "provider_info": [
+    {
+      "market_id": "569333",
+      "provider": "Amazon Bedrock",
+      "returned_model": "anthropic/claude-4.5-sonnet-20250929"
+    }
+  ],
+  "session_id": "pmbot_openrouter_040_retry_small_manual_batch_after_artifact_reconciliation",
+  "status": "blocked_markdown_fence_detected",
+  "task_id": "PMBOT-OPENROUTER-040-RETRY-SMALL-MANUAL-BATCH-AFTER-ARTIFACT-RECONCILIATION",
+  "usage_source": "openrouter_response_usage_when_present"
+}

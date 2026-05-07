@@ -1,0 +1,25 @@
+{
+  "artifact_type": "openrouter_sonnet_raw.v1",
+  "cost": null,
+  "market_id": "569343",
+  "openrouter_call_performed": false,
+  "openrouter_response": null,
+  "provider": null,
+  "raw_content": null,
+  "reason": "skipped_after_fail_fast:markdown_fence_detected:569333",
+  "requested_model": "anthropic/claude-sonnet-4.5",
+  "returned_model": null,
+  "safety_flags": {
+    "analysis_only": true,
+    "manual_review_only": true,
+    "no_orders": true,
+    "no_runtime_wiring": true,
+    "no_trading_decision": true,
+    "no_wallet_private_keys_credentials": "[redacted]"
+  },
+  "session_id": "pmbot_openrouter_040_retry_small_manual_batch_after_artifact_reconciliation",
+  "status": "skipped",
+  "task_id": "PMBOT-OPENROUTER-040-RETRY-SMALL-MANUAL-BATCH-AFTER-ARTIFACT-RECONCILIATION",
+  "timestamp_utc": "2026-05-07T12:25:28Z",
+  "usage": {}
+}

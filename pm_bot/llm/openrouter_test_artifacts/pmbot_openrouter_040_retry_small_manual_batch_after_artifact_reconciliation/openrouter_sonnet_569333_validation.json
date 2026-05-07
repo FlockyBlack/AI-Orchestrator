@@ -1,0 +1,49 @@
+{
+  "checks": {
+    "ends_with_object": false,
+    "forbidden_fields_absent": true,
+    "forbidden_language_absent": true,
+    "no_markdown_fences": false,
+    "parses_json": false,
+    "raw_ends_with_object": false,
+    "raw_no_markdown_fences": false,
+    "raw_starts_with_object": false,
+    "response_schema_passed": false,
+    "starts_with_object": false,
+    "top_level_object": false
+  },
+  "errors": [
+    {
+      "code": "json_parse_failed",
+      "message": "JSON parse failed at 1:1."
+    },
+    {
+      "code": "markdown_fence_present",
+      "message": "Markdown fences are not allowed."
+    },
+    {
+      "code": "raw_content_not_object_end",
+      "message": "Last non-whitespace char must be }."
+    },
+    {
+      "code": "raw_content_not_object_start",
+      "message": "First non-whitespace char must be {."
+    },
+    {
+      "code": "response_schema_not_applicable_without_json_object",
+      "message": "Response schema validation failed."
+    }
+  ],
+  "recovery": {
+    "allow_local_json_fence_repair": false,
+    "applied": false,
+    "method": null,
+    "raw_markdown_fence_present": true
+  },
+  "response_schema_errors": [
+    "response_schema_not_applicable_without_json_object"
+  ],
+  "status": "rejected",
+  "valid": false,
+  "warnings": []
+}

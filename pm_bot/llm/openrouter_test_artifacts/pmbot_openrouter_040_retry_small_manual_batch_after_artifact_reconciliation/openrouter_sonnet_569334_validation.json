@@ -1,0 +1,19 @@
+{
+  "checks": {
+    "parses_json": false,
+    "raw_ends_with_object": false,
+    "raw_no_markdown_fences": true,
+    "raw_starts_with_object": false,
+    "response_schema_passed": false,
+    "top_level_object": false
+  },
+  "errors": [],
+  "recovery": {
+    "allow_local_json_fence_repair": false,
+    "applied": false,
+    "raw_markdown_fence_present": false
+  },
+  "status": "skipped",
+  "valid": false,
+  "warnings": []
+}
