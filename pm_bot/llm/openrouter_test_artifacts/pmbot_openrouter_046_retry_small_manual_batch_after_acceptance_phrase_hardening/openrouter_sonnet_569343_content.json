@@ -1,0 +1,121 @@
+{
+  "citation_or_source_gap_notes": [
+    "No Polymarket market resolution criteria text has been retrieved or cited",
+    "No official Colombian election authority sources have been identified or accessed",
+    "No biographical or official sources for candidate Iv\u00e1n Cepeda Castro have been provided",
+    "No news coverage from Reuters, Associated Press, or Colombian outlets has been included",
+    "No Colombian constitutional or electoral law sources have been cited",
+    "No official election schedule or candidate registration information has been sourced",
+    "No polling data or political analysis sources have been referenced",
+    "No historical election result data or precedent analysis has been included",
+    "All evidence fields in the packet are explicitly marked as missing",
+    "The packet consists entirely of structural metadata and placeholder references without substantive content"
+  ],
+  "concise_market_summary": "This market asks whether Iv\u00e1n Cepeda Castro will win the first round of the 2026 Colombian presidential election. The packet contains only structural metadata and placeholders. No actual market resolution criteria text, candidate information, polling data, election authority details, or news coverage has been provided. The market status is listed as unknown, with a resolution context stub referencing a 2026-05-31 date. All substantive evidence fields are explicitly listed as missing.",
+  "contract_version": "llm_analysis_response.v1",
+  "contradiction_checks": [
+    {
+      "check_result": "needs_more_source_review",
+      "notes": "The stub references 2026-05-31 as a relevant date, but no information confirms whether this is the election date, a resolution deadline, or another milestone. Colombian presidential elections historically occur in May, but the specific 2026 schedule requires verification against official election authority announcements.",
+      "topic": "Market resolution date versus election timing"
+    },
+    {
+      "check_result": "needs_more_source_review",
+      "notes": "The name Iv\u00e1n Cepeda Castro appears consistently in the packet, but no biographical or official source confirms this refers to a specific individual or verifies the spelling. Identity confirmation against official candidate registrations is needed.",
+      "topic": "Candidate name spelling and identity"
+    },
+    {
+      "check_result": "not_checked",
+      "notes": "No definition of what constitutes a first-round win is provided. Colombian presidential elections typically require either an absolute majority or a plurality with a minimum threshold to avoid a runoff, but the specific criteria applicable to this market are absent.",
+      "topic": "First-round win definition"
+    },
+    {
+      "check_result": "no_conflict_seen",
+      "notes": "The market status is consistently listed as unknown throughout the packet. No conflicting status indicators are present, though the actual current state requires verification from the Polymarket platform.",
+      "topic": "Market status and resolution state"
+    }
+  ],
+  "key_uncertainties": [
+    "Complete market resolution criteria and special case handling rules are absent",
+    "No information about what constitutes a first-round win threshold in Colombian presidential elections",
+    "Candidate eligibility status, party affiliation, and campaign standing are unknown",
+    "Current political landscape, polling data, and candidacy announcements are unavailable",
+    "Official election authority identity and result certification process are unspecified",
+    "Timeline for first-round voting relative to the 2026-05-31 reference date is unclear",
+    "Whether the market resolves on preliminary results, certified results, or other criteria is undefined",
+    "Handling of scenarios such as candidate withdrawal, disqualification, or election postponement is unspecified"
+  ],
+  "missing_evidence": [
+    "Full verbatim market resolution criteria from Polymarket for market 569343",
+    "Colombian election authority name, official website, and result publication procedures",
+    "Candidate biographical information and current political position of Iv\u00e1n Cepeda Castro",
+    "Constitutional or legal requirements for first-round victory in Colombian presidential elections",
+    "Scheduled date for the 2026 Colombian presidential election first round",
+    "Current list of declared or potential candidates for the 2026 election",
+    "Recent polling data or political analysis regarding the 2026 race",
+    "Historical context about Colombian presidential election outcomes and runoff procedures",
+    "News coverage from Reuters, Associated Press, or Colombian national outlets",
+    "Official candidate registration deadlines and eligibility verification processes",
+    "Market creation date and any associated commentary or context from market creator",
+    "Current market participation data or historical trading patterns if available"
+  ],
+  "operator_review_checklist": [
+    "Retrieve and review complete verbatim market resolution criteria from Polymarket market 569343",
+    "Identify the official Colombian election authority and locate its official website and result publication procedures",
+    "Verify the identity, current political position, and eligibility status of Iv\u00e1n Cepeda Castro",
+    "Confirm the scheduled date for the first round of the 2026 Colombian presidential election",
+    "Research Colombian constitutional and legal requirements for first-round presidential victory",
+    "Determine whether a runoff system applies and what vote threshold avoids a second round",
+    "Review candidate registration deadlines and current list of declared candidates for 2026",
+    "Check for any official announcements regarding the 2026 election schedule or procedures",
+    "Search for credible news coverage from Reuters, AP, and major Colombian outlets regarding the 2026 race",
+    "Examine historical Colombian presidential election results and resolution patterns",
+    "Verify the relationship between the 2026-05-31 date and the actual election timeline",
+    "Review market special case handling for scenarios like candidate withdrawal or election postponement",
+    "Assess whether sufficient public information exists to evaluate this market meaningfully",
+    "Document all source timestamps and verify information currency",
+    "Confirm no automated actions or participation changes occur without explicit operator authorization"
+  ],
+  "packet_id": "llm-analysis-packet-manual-batch-569343",
+  "response_id": "llm-analysis-response-manual-batch-569343",
+  "risk_notes": [
+    "Complete absence of resolution criteria creates fundamental ambiguity about what evidence would satisfy market conditions",
+    "No verification that Iv\u00e1n Cepeda Castro is an actual candidate or eligible to run in 2026",
+    "Unknown whether the market resolves on preliminary results, official certification, or other milestones",
+    "Potential for special cases such as election postponement, candidate withdrawal, or disqualification without defined handling",
+    "No information about Colombian electoral system rules, thresholds, or runoff procedures",
+    "Timeline uncertainty regarding when the first round occurs relative to the 2026-05-31 reference date",
+    "Lack of official election authority identification prevents verification of authoritative result sources",
+    "No news coverage or current political context to assess candidacy viability or campaign status",
+    "Market may resolve based on criteria not yet publicly specified or may have been created speculatively",
+    "Absence of historical precedent information about similar markets or Colombian election prediction markets"
+  ],
+  "safety_acknowledgement": {
+    "local_only": true,
+    "manual_review_only": true,
+    "no_autonomous_actions": true,
+    "no_outcome_estimates": true,
+    "no_recommendations": true,
+    "no_trade_or_wallet_instructions": true,
+    "no_value_scoring": true,
+    "offline_only": true,
+    "uncertain_claims_marked": true
+  },
+  "suggested_research_questions": [
+    "What are the complete verbatim resolution criteria for Polymarket market 569343?",
+    "What is the official name and website of the Colombian national election authority?",
+    "Who is Iv\u00e1n Cepeda Castro and what is their current political position or party affiliation?",
+    "What are the constitutional requirements for winning the first round of a Colombian presidential election?",
+    "When is the first round of the 2026 Colombian presidential election scheduled to occur?",
+    "What vote percentage or threshold is required to win in the first round without a runoff?",
+    "Which candidates have officially declared or are expected to run in the 2026 Colombian presidential election?",
+    "What is the candidate registration deadline for the 2026 election?",
+    "How does the Colombian election authority certify and publish official results?",
+    "What is the historical timeline between preliminary results and official certification in Colombian presidential elections?",
+    "Are there any current news reports or political analyses discussing the 2026 Colombian presidential race?",
+    "What special cases or exceptional scenarios are defined in the market resolution criteria?",
+    "How have similar political election markets on Polymarket resolved in the past?",
+    "What is the significance of the 2026-05-31 date in relation to the election timeline?",
+    "Has Iv\u00e1n Cepeda Castro made any official statements about candidacy for the 2026 election?"
+  ]
+}

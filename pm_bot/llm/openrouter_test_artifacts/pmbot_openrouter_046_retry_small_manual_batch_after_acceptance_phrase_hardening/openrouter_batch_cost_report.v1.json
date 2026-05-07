@@ -1,0 +1,65 @@
+{
+  "aggregate": {
+    "completion_tokens": 5827,
+    "cost": 0.12598199999999998,
+    "cost_returned_by_openrouter": true,
+    "prompt_tokens": 12859,
+    "total_tokens": 18686
+  },
+  "artifact_type": "openrouter_batch_cost_report.v1",
+  "cost_report_is_not_trading_approval": true,
+  "model": "anthropic/claude-sonnet-4.5",
+  "no_secret_fields": true,
+  "operator_visibility_only": true,
+  "per_market": {
+    "569333": {
+      "completion_tokens": 1859,
+      "cost": 0.040608,
+      "market_id": "569333",
+      "model": "anthropic/claude-sonnet-4.5",
+      "no_secret_fields": true,
+      "openrouter_call_performed": true,
+      "operator_visibility_only": true,
+      "prompt_tokens": 4241,
+      "provider": "Amazon Bedrock",
+      "returned_model": "anthropic/claude-4.5-sonnet-20250929",
+      "total_tokens": 6100,
+      "usage_present": true
+    },
+    "569334": {
+      "completion_tokens": 1883,
+      "cost": 0.041121,
+      "market_id": "569334",
+      "model": "anthropic/claude-sonnet-4.5",
+      "no_secret_fields": true,
+      "openrouter_call_performed": true,
+      "operator_visibility_only": true,
+      "prompt_tokens": 4292,
+      "provider": "Amazon Bedrock",
+      "returned_model": "anthropic/claude-4.5-sonnet-20250929",
+      "total_tokens": 6175,
+      "usage_present": true
+    },
+    "569343": {
+      "completion_tokens": 2085,
+      "cost": 0.044253,
+      "market_id": "569343",
+      "model": "anthropic/claude-sonnet-4.5",
+      "no_secret_fields": true,
+      "openrouter_call_performed": true,
+      "operator_visibility_only": true,
+      "prompt_tokens": 4326,
+      "provider": "Amazon Bedrock",
+      "returned_model": "anthropic/claude-4.5-sonnet-20250929",
+      "total_tokens": 6411,
+      "usage_present": true
+    }
+  },
+  "provider_info_if_returned": {
+    "569333": "Amazon Bedrock",
+    "569334": "Amazon Bedrock",
+    "569343": "Amazon Bedrock"
+  },
+  "session_id": "pmbot_openrouter_046_retry_small_manual_batch_after_acceptance_phrase_hardening",
+  "task_id": "PMBOT-OPENROUTER-046-RETRY-SMALL-MANUAL-BATCH-AFTER-ACCEPTANCE-PHRASE-HARDENING"
+}
