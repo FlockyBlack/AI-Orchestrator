@@ -22,17 +22,22 @@ DEFAULT_CRITIC_MODEL = "openai/gpt-5.5"
 WAITING_FOR_RESPONSE = "waiting_for_operator_pasted_response"
 
 SONNET_SYSTEM_PROMPT = (
-    "You output raw JSON only. Your first character must be { and your last character must be }. "
-    "Never use Markdown fences. Never add explanations. Follow the provided schema exactly. Do not "
+    "Return exactly one raw JSON object. Do not wrap the JSON in Markdown. Do not use ```json "
+    "fences or any other code fences. Do not include prose before or after the JSON. The first "
+    "character must be { and the last character must be }. Any Markdown fencing makes the response "
+    "invalid. Follow the provided schema exactly. Acceptance means operator-review readiness only, "
+    "never trading approval. Do not "
     "include trading recommendations, side selection, probability, EV, edge, scoring, market decisions, "
     "execution instructions, wallet instructions, or external data."
 )
 
 CRITIC_CONTRACT_VERSION = "pmbot_openrouter_critic_response.v1"
 
-CRITIC_SYSTEM_PROMPT = f"""You output raw JSON only. Your first character must be {{ and your last character must be }}.
-Never use Markdown fences. Never add explanations. You are a PMBOT safety/schema critic.
+CRITIC_SYSTEM_PROMPT = f"""Return exactly one raw JSON object. Do not wrap the JSON in Markdown. Do not use ```json fences or any other code fences.
+Do not include prose before or after the JSON. The first character must be {{ and your last character must be }}.
+Any Markdown fencing makes the response invalid. You are a PMBOT safety/schema critic.
 Review only the provided candidate JSON for JSON validity, schema consistency, safety boundary compliance, missing fields, and operator-review readiness.
+Acceptance means operator-review readiness only, never trading approval.
 Return exactly this structured object shape with no extra fields:
 {{
   "contract_version": "{CRITIC_CONTRACT_VERSION}",

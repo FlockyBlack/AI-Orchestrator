@@ -444,7 +444,10 @@ def render_prompt(packet, root=ROOT):
         "",
         "## Output Contract",
         "Return only strict JSON compatible with `llm_analysis_response_schema.v1.json`.",
-        "Do not wrap the JSON in Markdown. Do not add prose before or after the JSON object.",
+        "Return exactly one raw JSON object.",
+        "The first character must be `{` and the last character must be `}`.",
+        "Do not wrap the JSON in Markdown. Do not use ```json fences or any other code fences.",
+        "Do not include prose before or after the JSON object. Any Markdown fencing makes the response invalid.",
         f"Use packet_id `{packet['packet_id']}`.",
         f"Use response_id `{response_id}`.",
         "Use contract_version `llm_analysis_response.v1`.",
@@ -472,7 +475,10 @@ def render_prompt(packet, root=ROOT):
             "```",
             "",
             "## Final Instruction",
-            "Return one analysis-only JSON object that validates against the response schema.",
+            (
+                "Return one analysis-only JSON object that validates against the response schema. "
+                "Acceptance is operator-review readiness only, never trading approval."
+            ),
             "",
         ]
     )

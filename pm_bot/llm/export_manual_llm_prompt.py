@@ -161,7 +161,10 @@ def render_manual_prompt(packet_path=DEFAULT_PACKET_PATH):
         "",
         "## Output Contract",
         "Return only strict JSON matching `llm_analysis_response_schema.v1.json`.",
-        "Do not wrap the JSON in Markdown. Do not add prose before or after the JSON.",
+        "Return exactly one raw JSON object.",
+        "The first character must be `{` and the last character must be `}`.",
+        "Do not wrap the JSON in Markdown. Do not use ```json fences or any other code fences.",
+        "Do not include prose before or after the JSON object. Any Markdown fencing makes the response invalid.",
         "Use the packet_id from the packet. Use contract_version `llm_analysis_response.v1`.",
         "",
         "Required response sections:",
@@ -187,7 +190,7 @@ def render_manual_prompt(packet_path=DEFAULT_PACKET_PATH):
         "## Final Instruction",
         (
             "Produce one JSON object that validates against the response schema and remains within the offline, "
-            "manual-review-only boundary."
+            "manual-review-only boundary. Acceptance is operator-review readiness only, never trading approval."
         ),
         "",
     ]

@@ -66,6 +66,35 @@ def test_default_prompt_selection_ignores_legacy_prompt():
     assert selection["prompt_path"].name.endswith("_prompt.v1.md")
 
 
+def _assert_strict_json_prompt_contract(text):
+    for fragment in (
+        "Return exactly one raw JSON object.",
+        "Do not wrap the JSON in Markdown.",
+        "Do not use ```json fences",
+        "Do not include prose before or after the JSON",
+        "Any Markdown fencing makes the response invalid.",
+    ):
+        assert fragment in text
+
+
+def test_openrouter_system_prompts_contain_no_markdown_fence_contract():
+    for prompt in (harness.SONNET_SYSTEM_PROMPT, harness.CRITIC_SYSTEM_PROMPT):
+        _assert_strict_json_prompt_contract(prompt)
+        assert "first character must be {" in prompt
+        assert "last character must be }" in prompt
+        assert "operator-review readiness only, never trading approval" in prompt
+
+
+def test_selected_live_prompt_contains_no_markdown_fence_contract():
+    prompt = (ROOT / "pm_bot" / "llm" / "manual_packet_batch" / "569333_prompt.v1.md").read_text(
+        encoding="utf-8"
+    )
+
+    _assert_strict_json_prompt_contract(prompt)
+    assert "The first character must be `{` and the last character must be `}`." in prompt
+    assert "Acceptance is operator-review readiness only, never trading approval." in prompt
+
+
 def test_raw_json_validation_passes_valid_object():
     validation, parsed = harness.validate_raw_json_content(
         '{"contract_version":"unit_test","notes":["operator review only"]}'
@@ -81,6 +110,9 @@ def test_raw_json_validation_rejects_markdown_fenced_json_by_default():
 
     assert validation["valid"] is False
     assert validation["recovery"]["applied"] is False
+    assert validation["checks"]["raw_starts_with_object"] is False
+    assert validation["checks"]["raw_ends_with_object"] is False
+    assert validation["checks"]["raw_no_markdown_fences"] is False
     assert any(error["code"] == "markdown_fence_present" for error in validation["errors"])
     assert not any(warning["code"] == "markdown_fence_recovered" for warning in validation["warnings"])
     assert parsed is None
@@ -95,6 +127,7 @@ def test_raw_json_validation_recovers_markdown_fenced_json_when_allowed():
     assert validation["valid"] is True
     assert validation["recovery"]["applied"] is True
     assert validation["recovery"]["method"] == "single_json_markdown_fence"
+    assert validation["checks"]["raw_no_markdown_fences"] is False
     assert any(warning["code"] == "markdown_fence_recovered" for warning in validation["warnings"])
     assert parsed == {"ok": True}
 
@@ -392,6 +425,17 @@ def test_structured_critic_ready_for_trading_action_true_fails():
     assert validation["checks"]["ready_for_trading_action_false"] is False
     assert any(error["code"] == "critic_ready_for_trading_action_true" for error in validation["errors"])
     assert parsed == payload
+
+
+def test_structured_critic_acceptance_is_operator_review_only_not_trading_approval():
+    payload = _structured_critic_payload()
+
+    validation, parsed = harness.validate_critic_json_content(json.dumps(payload))
+
+    assert validation["valid"] is True
+    assert parsed["operator_readiness"]["ready_for_operator_review"] is True
+    assert parsed["operator_readiness"]["ready_for_resolution"] is False
+    assert parsed["operator_readiness"]["ready_for_trading_action"] is False
 
 
 def test_structured_critic_missing_required_fields_fails():

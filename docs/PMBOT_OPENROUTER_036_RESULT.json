@@ -1,0 +1,105 @@
+{
+  "approved_market_ids": [
+    "569333",
+    "569334",
+    "569343"
+  ],
+  "artifacts": {
+    "batch_summary_path": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_036_small_manual_batch_live_call/openrouter_batch_summary.v1.json",
+    "cost_report_json_path": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_036_small_manual_batch_live_call/openrouter_batch_cost_report.v1.json",
+    "cost_report_md_path": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_036_small_manual_batch_live_call/openrouter_batch_cost_report.v1.md",
+    "markdown_report_path": "docs/PMBOT_OPENROUTER_036_SMALL_MANUAL_BATCH_LIVE_CALL.md",
+    "per_market_artifact_paths": {
+      "569333": {
+        "content": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_036_small_manual_batch_live_call/openrouter_sonnet_569333_content.json",
+        "raw": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_036_small_manual_batch_live_call/openrouter_sonnet_569333_raw.json",
+        "summary": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_036_small_manual_batch_live_call/openrouter_sonnet_569333_summary.json",
+        "validation": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_036_small_manual_batch_live_call/openrouter_sonnet_569333_validation.json"
+      }
+    },
+    "result_json_path": "docs/PMBOT_OPENROUTER_036_RESULT.json",
+    "session_dir": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_036_small_manual_batch_live_call"
+  },
+  "attempted_market_ids": [
+    "569333"
+  ],
+  "completed_market_ids": [],
+  "environment": {
+    "api_key_leaked": false,
+    "api_key_presence_checked": true,
+    "api_key_value_printed": false,
+    "api_key_value_written": false,
+    "openrouter_api_key_present": true
+  },
+  "fail_fast_reason": "raw_response_validation_failed:569333",
+  "fail_fast_triggered": true,
+  "git": {
+    "commit_created": false,
+    "commit_hash": null,
+    "pushed": false
+  },
+  "max_openrouter_calls_allowed": 3,
+  "model": "anthropic/claude-sonnet-4.5",
+  "no_retries": true,
+  "repo": {
+    "branch": "main",
+    "expected_head_at_start": "af0cac69017edb198e77123e87b0df09988b59e1",
+    "expected_head_was_head": true,
+    "head_after": "af0cac69017edb198e77123e87b0df09988b59e1",
+    "head_before": "af0cac69017edb198e77123e87b0df09988b59e1",
+    "repo_root": "C:\\Users\\OpenC\\OneDrive\\\u0414\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u044b\\AI-Orchestrator",
+    "working_tree_clean_before": true
+  },
+  "safety": {
+    "acceptance_is_not_trading_approval": true,
+    "analysis_only": true,
+    "api_key_leaked": false,
+    "manual_review_only": true,
+    "no_browser_automation": true,
+    "no_buy_sell_hold_enter_exit_recommendations": true,
+    "no_polymarket_api_calls": true,
+    "no_probability_ev_edge_confidence_side_selection": true,
+    "no_queue_mutation": true,
+    "no_runtime_dispatcher_background_browser_queue_changes": true,
+    "no_wallet_orders_trading": true,
+    "operator_review_only": true,
+    "secret_scan_passed": true
+  },
+  "session_id": "pmbot_openrouter_036_small_manual_batch_live_call",
+  "skipped_market_ids": [
+    "569334",
+    "569343"
+  ],
+  "status": "blocked_validation_failed",
+  "task_id": "PMBOT-OPENROUTER-036-SMALL-MANUAL-BATCH-LIVE-CALL",
+  "tests_run": [
+    {
+      "command": "python -m compileall pm_bot",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest tests pm_bot\\llm\\tests -q",
+      "status": "passed",
+      "summary": "265 passed in 5.38s"
+    },
+    {
+      "command": "JSON parse checks for all newly created JSON artifacts",
+      "status": "passed",
+      "summary": "7 JSON artifacts parsed"
+    },
+    {
+      "command": "Result JSON checks for PMBOT_OPENROUTER_036_RESULT.json and batch summary",
+      "status": "passed"
+    },
+    {
+      "command": "Secret scan over generated 036 docs and OpenRouter artifacts",
+      "status": "passed"
+    },
+    {
+      "command": "Focused OpenRouter/LLM validator coverage",
+      "status": "passed",
+      "summary": "covered by requested pytest set"
+    }
+  ],
+  "total_openrouter_calls_performed": 1
+}
