@@ -129,6 +129,21 @@ SOURCE_PATHS = {
     "manual_resolution_source_capture_validation_md": (
         "pm_bot/llm/manual_resolution_source_capture_validation.v1.md"
     ),
+    "manual_resolution_source_capture_operator_guide_md": (
+        "docs/PMBOT_SOURCE_004B_MANUAL_CAPTURE_OPERATOR_FILL_GUIDE.md"
+    ),
+    "manual_resolution_source_capture_operator_checklist_json": (
+        "pm_bot/llm/manual_resolution_source_capture_operator_checklist.v1.json"
+    ),
+    "manual_resolution_source_capture_operator_checklist_md": (
+        "pm_bot/llm/manual_resolution_source_capture_operator_checklist.v1.md"
+    ),
+    "manual_resolution_source_capture_progress_json": (
+        "pm_bot/llm/manual_resolution_source_capture_progress.v1.json"
+    ),
+    "manual_resolution_source_capture_progress_md": (
+        "pm_bot/llm/manual_resolution_source_capture_progress.v1.md"
+    ),
     "contour_audit_json": "pm_bot/llm/openrouter_operator_review_contour_046_053_audit.v1.json",
     "contour_audit_md": "pm_bot/llm/openrouter_operator_review_contour_046_053_audit.v1.md",
     "dashboard_json": "pm_bot/workbench/operator_openrouter_review_dashboard.v1.json",
@@ -1174,10 +1189,32 @@ def _manual_resolution_source_capture_summary(root=ROOT):
     validation = _load_optional_json(
         SOURCE_PATHS["manual_resolution_source_capture_validation_json"], root=root
     ) or {}
+    checklist = _load_optional_json(
+        SOURCE_PATHS["manual_resolution_source_capture_operator_checklist_json"],
+        root=root,
+    ) or {}
+    progress = _load_optional_json(
+        SOURCE_PATHS["manual_resolution_source_capture_progress_json"], root=root
+    ) or {}
     if not manifest:
         return {
             "section_id": "manual_resolution_source_capture",
             "artifact_status": "missing",
+            "guide_pointer": SOURCE_PATHS[
+                "manual_resolution_source_capture_operator_guide_md"
+            ],
+            "checklist_pointer": SOURCE_PATHS[
+                "manual_resolution_source_capture_operator_checklist_json"
+            ],
+            "checklist_markdown_pointer": SOURCE_PATHS[
+                "manual_resolution_source_capture_operator_checklist_md"
+            ],
+            "progress_pointer": SOURCE_PATHS[
+                "manual_resolution_source_capture_progress_json"
+            ],
+            "progress_markdown_pointer": SOURCE_PATHS[
+                "manual_resolution_source_capture_progress_md"
+            ],
             "manifest_pointer": SOURCE_PATHS["manual_resolution_source_capture_manifest_json"],
             "manifest_markdown_pointer": SOURCE_PATHS[
                 "manual_resolution_source_capture_manifest_md"
@@ -1189,12 +1226,17 @@ def _manual_resolution_source_capture_summary(root=ROOT):
                 "manual_resolution_source_capture_validation_md"
             ],
             "total_capture_packets": 0,
+            "total_templates": 0,
+            "target_capture_directory": "pm_bot/llm/manual_resolution_source_capture",
             "capture_status_counts": {},
+            "current_status_counts": {},
             "packets_created": 0,
             "packets_not_started": 0,
             "packets_ready_for_local_review": 0,
             "top_fields_to_fill": [],
             "recommended_operator_fill_order": [],
+            "validation_command": "python -m pm_bot.llm.manual_resolution_source_capture_validator --write",
+            "next_operator_action": "Create SOURCE-004 capture artifacts before operator fill work.",
             "validation_valid_count": 0,
             "validation_invalid_count": 0,
             "no_trading_authority": True,
@@ -1215,6 +1257,23 @@ def _manual_resolution_source_capture_summary(root=ROOT):
         "artifact_status": "present"
         if manifest.get("status") == "manual_resolution_source_capture_manifest_created"
         else "invalid",
+        "guide_pointer": SOURCE_PATHS[
+            "manual_resolution_source_capture_operator_guide_md"
+        ],
+        "checklist_status": "present" if checklist else "missing",
+        "checklist_pointer": SOURCE_PATHS[
+            "manual_resolution_source_capture_operator_checklist_json"
+        ],
+        "checklist_markdown_pointer": SOURCE_PATHS[
+            "manual_resolution_source_capture_operator_checklist_md"
+        ],
+        "progress_status": "present" if progress else "missing",
+        "progress_pointer": SOURCE_PATHS[
+            "manual_resolution_source_capture_progress_json"
+        ],
+        "progress_markdown_pointer": SOURCE_PATHS[
+            "manual_resolution_source_capture_progress_md"
+        ],
         "manifest_pointer": SOURCE_PATHS["manual_resolution_source_capture_manifest_json"],
         "manifest_markdown_pointer": SOURCE_PATHS[
             "manual_resolution_source_capture_manifest_md"
@@ -1231,7 +1290,10 @@ def _manual_resolution_source_capture_summary(root=ROOT):
             "manual_resolution_source_capture_validation_md"
         ],
         "total_capture_packets": manifest.get("total_capture_packets", 0),
+        "total_templates": manifest.get("total_capture_packets", 0),
+        "target_capture_directory": "pm_bot/llm/manual_resolution_source_capture",
         "capture_status_counts": status_counts,
+        "current_status_counts": status_counts,
         "packets_created": manifest.get("total_capture_packets", 0),
         "packets_not_started": status_counts.get("not_started", 0),
         "packets_ready_for_local_review": status_counts.get("ready_for_local_review", 0),
@@ -1245,6 +1307,14 @@ def _manual_resolution_source_capture_summary(root=ROOT):
         ],
         "recommended_operator_fill_order": _safe_list(
             manifest.get("recommended_operator_fill_order")
+        ),
+        "validation_command": checklist.get(
+            "validation_command",
+            "python -m pm_bot.llm.manual_resolution_source_capture_validator --write",
+        ),
+        "next_operator_action": progress.get(
+            "recommended_operator_next_action",
+            "Fill one not_started template from manual local review, set both status fields to draft, then rerun validation.",
         ),
         "markets_by_category": _safe_dict(manifest.get("markets_by_category")),
         "reviewed_vs_unreviewed": _safe_dict(manifest.get("reviewed_vs_unreviewed")),
@@ -1432,6 +1502,21 @@ def build_operator_openrouter_review_dashboard(root=ROOT):
             ],
             "manual_resolution_source_capture_validation_md": SOURCE_PATHS[
                 "manual_resolution_source_capture_validation_md"
+            ],
+            "manual_resolution_source_capture_operator_guide_md": SOURCE_PATHS[
+                "manual_resolution_source_capture_operator_guide_md"
+            ],
+            "manual_resolution_source_capture_operator_checklist_json": SOURCE_PATHS[
+                "manual_resolution_source_capture_operator_checklist_json"
+            ],
+            "manual_resolution_source_capture_operator_checklist_md": SOURCE_PATHS[
+                "manual_resolution_source_capture_operator_checklist_md"
+            ],
+            "manual_resolution_source_capture_progress_json": SOURCE_PATHS[
+                "manual_resolution_source_capture_progress_json"
+            ],
+            "manual_resolution_source_capture_progress_md": SOURCE_PATHS[
+                "manual_resolution_source_capture_progress_md"
             ],
             "operator_review_pack_json": "pm_bot/workbench/operator_review_pack.v1.json",
             "operator_review_pack_md": "pm_bot/workbench/operator_review_pack.v1.md",
@@ -1687,12 +1772,21 @@ def render_operator_openrouter_review_dashboard_markdown(dashboard):
                 "",
                 "- integration_status: "
                 f"{dashboard['manual_resolution_source_capture_integration_status']}",
+                f"- guide_pointer: {manual_capture['guide_pointer']}",
+                f"- checklist_pointer: {manual_capture['checklist_pointer']}",
+                "- checklist_markdown_pointer: "
+                f"{manual_capture['checklist_markdown_pointer']}",
+                f"- progress_pointer: {manual_capture['progress_pointer']}",
+                "- progress_markdown_pointer: "
+                f"{manual_capture['progress_markdown_pointer']}",
                 f"- manifest_pointer: {manual_capture['manifest_pointer']}",
                 "- manifest_markdown_pointer: "
                 f"{manual_capture['manifest_markdown_pointer']}",
                 f"- validation_pointer: {manual_capture['validation_pointer']}",
                 "- validation_markdown_pointer: "
                 f"{manual_capture['validation_markdown_pointer']}",
+                f"- target_capture_directory: {manual_capture['target_capture_directory']}",
+                f"- total_templates: {manual_capture['total_templates']}",
                 f"- packets_created: {manual_capture['packets_created']}",
                 f"- packets_not_started: {manual_capture['packets_not_started']}",
                 "- packets_ready_for_local_review: "
@@ -1701,6 +1795,8 @@ def render_operator_openrouter_review_dashboard_markdown(dashboard):
                 f"{manual_capture['validation_valid_count']}",
                 "- validation_invalid_count: "
                 f"{manual_capture['validation_invalid_count']}",
+                f"- validation_command: {manual_capture['validation_command']}",
+                f"- next_operator_action: {manual_capture['next_operator_action']}",
                 "- no_market_action_guidance: "
                 f"{str(manual_capture['no_market_action_guidance']).lower()}",
                 "- no_trading_authority: "
@@ -1718,6 +1814,9 @@ def render_operator_openrouter_review_dashboard_markdown(dashboard):
         )
         for item in manual_capture.get("top_fields_to_fill", []):
             lines.append(f"- {item}")
+        lines.extend(["", "## Manual Capture Status Counts", ""])
+        for status, count in manual_capture.get("current_status_counts", {}).items():
+            lines.append(f"- {status}: {count}")
         lines.extend(["", "## Manual Capture Recommended Fill Order", ""])
         for index, item in enumerate(
             manual_capture.get("recommended_operator_fill_order", []), start=1

@@ -15,6 +15,7 @@ if str(ROOT) not in sys.path:
 from pm_bot.llm import openrouter_operator_review_artifacts_053 as artifacts_053  # noqa: E402
 from pm_bot.llm import export_packet_completeness_readiness as packet_readiness  # noqa: E402
 from pm_bot.llm import manual_resolution_source_capture as manual_capture  # noqa: E402
+from pm_bot.llm import manual_resolution_source_capture_operator_artifacts as manual_capture_operator  # noqa: E402
 from pm_bot.llm import manual_resolution_source_capture_validator as manual_capture_validator  # noqa: E402
 from pm_bot.llm import resolution_source_normalizer as source_normalizer  # noqa: E402
 
@@ -41,6 +42,7 @@ def write_operator_openrouter_review_dashboard_artifacts(root=ROOT):
     source_result = source_normalizer.write_resolution_source_normalization_artifacts(root=root)
     capture_result = manual_capture.write_manual_resolution_source_capture_artifacts(root=root)
     capture_validation_result = manual_capture_validator.write_validation_report(root=root)
+    capture_operator_result = manual_capture_operator.write_operator_artifacts(root=root)
     dashboard = build_operator_openrouter_review_dashboard(root=root)
     artifacts_053._write_json(artifacts_053.SOURCE_PATHS["dashboard_json"], dashboard, root=root)
     artifacts_053._write_text(
@@ -56,6 +58,7 @@ def write_operator_openrouter_review_dashboard_artifacts(root=ROOT):
             *source_result["files_written"],
             *capture_result["files_written"],
             *capture_validation_result["files_written"],
+            *capture_operator_result["files_written"],
             artifacts_053.SOURCE_PATHS["dashboard_json"],
             artifacts_053.SOURCE_PATHS["dashboard_md"],
         ],

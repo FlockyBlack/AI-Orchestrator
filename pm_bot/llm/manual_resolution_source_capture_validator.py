@@ -49,6 +49,14 @@ REQUIRED_TEMPLATE_FIELDS = (
     *tuple(capture.NO_AUTHORITY_FLAGS),
 )
 
+READY_FOR_LOCAL_REVIEW_REQUIRED_FIELDS = (
+    *tuple(capture.FIELDS_REQUIRED_FOR_HIGH_COMPLETENESS),
+    "source_timestamps",
+    "source_reliability_review",
+    "reviewed_local_evidence_references",
+    "non_placeholder_evidence_notes",
+)
+
 PROHIBITION_MARKERS = (
     "do not",
     "no ",
@@ -76,6 +84,23 @@ def _parse_args(argv):
     )
     parser.add_argument("--write", action="store_true", help="Write validation JSON and Markdown.")
     parser.add_argument("--markdown", action="store_true", help="Print validation Markdown instead of JSON.")
+    parser.add_argument(
+        "--summary-only",
+        action="store_true",
+        help="Print a concise validation summary JSON instead of the full report.",
+    )
+    parser.add_argument(
+        "--market-id",
+        help="Validate and print a single market_id without writing the persisted report.",
+    )
+    parser.add_argument(
+        "--strict-ready",
+        action="store_true",
+        help=(
+            "For ready_for_local_review/reviewed packets, require all priority "
+            "operator fields to be non-empty."
+        ),
+    )
     return parser.parse_args(argv)
 
 
@@ -142,6 +167,41 @@ def _market_action_guidance_findings(payload):
     return findings
 
 
+def _missing_fields_by_priority(payload, fields=None):
+    fields = fields or capture.RECOMMENDED_OPERATOR_FILL_ORDER
+    missing = []
+    for priority, field in enumerate(fields, start=1):
+        if _is_empty(payload.get(field)):
+            missing.append({"field": field, "priority": priority})
+    return missing
+
+
+def _operator_next_step(payload, errors, missing_by_priority):
+    status = payload.get("capture_status")
+    if errors:
+        return "Fix validator errors first, then rerun the local validator."
+    if status == "not_started":
+        return (
+            "Fill the priority source fields from manual local review, set both "
+            "status fields to draft, then rerun validation."
+        )
+    if status == "draft":
+        if missing_by_priority:
+            first = missing_by_priority[0]["field"]
+            return f"Continue draft fill work; next priority field is {first}."
+        return (
+            "If local evidence review is complete, set both status fields to "
+            "ready_for_local_review and rerun validation."
+        )
+    if status == "ready_for_local_review":
+        return "Local reviewer can inspect this packet; review status does not approve actions."
+    if status == "reviewed":
+        return "No validator action needed unless a local reviewer requests revision."
+    if status == "needs_revision":
+        return "Resolve the local source questions, then rerun validation."
+    return "Set a valid capture_status and source_capture_status, then rerun validation."
+
+
 def _validate_status(payload):
     statuses = set(capture.CAPTURE_STATUS_VALUES)
     capture_status = payload.get("capture_status")
@@ -156,7 +216,7 @@ def _validate_status(payload):
     return errors
 
 
-def validate_capture_packet(payload, schema):
+def validate_capture_packet(payload, schema, strict_ready=False):
     market_id = str(payload.get("market_id") or "unknown")
     missing = [field for field in REQUIRED_TEMPLATE_FIELDS if field not in payload]
     errors = []
@@ -179,6 +239,17 @@ def validate_capture_packet(payload, schema):
     empty_high_fields = [field for field in high_fields if _is_empty(payload.get(field))]
     if empty_high_fields and status not in {"not_started", "draft"}:
         errors.append("empty_high_completeness_fields_for_review_status")
+    strict_ready_missing = []
+    if strict_ready and status in {"ready_for_local_review", "reviewed"}:
+        strict_ready_missing = [
+            field
+            for field in READY_FOR_LOCAL_REVIEW_REQUIRED_FIELDS
+            if _is_empty(payload.get(field))
+        ]
+        if strict_ready_missing:
+            errors.append("strict_ready_required_fields_empty")
+
+    missing_by_priority = _missing_fields_by_priority(payload)
 
     return {
         "market_id": market_id,
@@ -187,16 +258,82 @@ def validate_capture_packet(payload, schema):
         "missing_required_template_fields": missing,
         "market_action_guidance_findings": findings,
         "empty_required_for_high_completeness_fields": empty_high_fields,
+        "strict_ready_missing_fields": strict_ready_missing,
+        "missing_fields_by_priority": missing_by_priority,
+        "operator_next_step": _operator_next_step(payload, errors, missing_by_priority),
         "capture_status": payload.get("capture_status"),
     }
 
 
-def build_validation_report(root=ROOT):
+def _priority_missing_summary(packet_results):
+    counts = {}
+    for item in packet_results:
+        for missing in item.get("missing_fields_by_priority", []):
+            field = missing["field"]
+            current = counts.setdefault(
+                field,
+                {
+                    "field": field,
+                    "priority": missing["priority"],
+                    "market_count": 0,
+                    "market_ids": [],
+                },
+            )
+            current["market_count"] += 1
+            current["market_ids"].append(item["market_id"])
+    return sorted(counts.values(), key=lambda item: (item["priority"], item["field"]))
+
+
+def _operator_next_steps_summary(packet_results):
+    status_counts = {}
+    for item in packet_results:
+        status = item.get("capture_status") or "unknown"
+        status_counts[status] = status_counts.get(status, 0) + 1
+    if status_counts.get("not_started"):
+        return [
+            "Open a not_started capture template and fill priority fields from manual local review.",
+            "Set both source_capture_status and capture_status to draft after substantive local input starts.",
+            "Run python -m pm_bot.llm.manual_resolution_source_capture_validator --write after edits.",
+        ]
+    if status_counts.get("draft"):
+        return [
+            "Complete missing priority fields in draft templates.",
+            "Move a template to ready_for_local_review only after local source fields are filled.",
+            "Run the validator before local review.",
+        ]
+    if status_counts.get("ready_for_local_review"):
+        return [
+            "Have a local reviewer inspect ready_for_local_review templates.",
+            "Keep review acceptance separate from any market action authority.",
+        ]
+    return ["No operator fill step is currently required by validator status."]
+
+
+def _validation_summary(report):
+    return {
+        "schema_version": report["schema_version"],
+        "status": report["status"],
+        "total_packets_validated": report["total_packets_validated"],
+        "valid_count": report["valid_count"],
+        "invalid_count": report["invalid_count"],
+        "packets_ready_for_local_review": len(report["packets_ready_for_local_review"]),
+        "packets_not_started": len(report["packets_not_started"]),
+        "operator_next_steps": report["operator_next_steps"],
+        "missing_fields_by_priority": report["missing_fields_by_priority"],
+        "openrouter_calls_performed": 0,
+        "polymarket_api_calls_performed": 0,
+        "external_network_calls_performed": 0,
+    }
+
+
+def build_validation_report(root=ROOT, market_id=None, strict_ready=False):
     schema = _load_json(capture.SOURCE_PATHS["schema_json"], root=root)
     packet_results = []
     for path in _capture_paths(root=root):
         payload = _load_json(path, root=root)
-        result = validate_capture_packet(payload, schema)
+        if market_id and str(payload.get("market_id")) != str(market_id):
+            continue
+        result = validate_capture_packet(payload, schema, strict_ready=strict_ready)
         result["path"] = capture._display_path(path, root=root)
         packet_results.append(result)
 
@@ -235,6 +372,8 @@ def build_validation_report(root=ROOT):
         "status": "manual_resolution_source_capture_validation_passed"
         if not invalid
         else "manual_resolution_source_capture_validation_failed",
+        "strict_ready_enabled": strict_ready,
+        "market_id_filter": str(market_id) if market_id else None,
         "total_packets_validated": len(packet_results),
         "valid_count": len(packet_results) - len(invalid),
         "invalid_count": len(invalid),
@@ -242,6 +381,8 @@ def build_validation_report(root=ROOT):
         "packets_with_market_action_guidance": guidance,
         "packets_ready_for_local_review": ready,
         "packets_not_started": not_started,
+        "missing_fields_by_priority": _priority_missing_summary(packet_results),
+        "operator_next_steps": _operator_next_steps_summary(packet_results),
         "packet_results": packet_results,
         "safety_summary": {
             **capture.SAFETY_SUMMARY,
@@ -261,6 +402,7 @@ def render_validation_markdown(report):
         f"- capture_schema_version: {report['capture_schema_version']}",
         f"- task_id: {report['task_id']}",
         f"- status: {report['status']}",
+        f"- strict_ready_enabled: {str(report['strict_ready_enabled']).lower()}",
         f"- total_packets_validated: {report['total_packets_validated']}",
         f"- valid_count: {report['valid_count']}",
         f"- invalid_count: {report['invalid_count']}",
@@ -279,6 +421,19 @@ def render_validation_markdown(report):
             )
     else:
         lines.append("- none")
+    lines.extend(["", "## Missing Fields By Priority", ""])
+    if report["missing_fields_by_priority"]:
+        for item in report["missing_fields_by_priority"]:
+            lines.append(
+                "- "
+                f"priority={item['priority']} field={item['field']} "
+                f"market_count={item['market_count']}"
+            )
+    else:
+        lines.append("- none")
+    lines.extend(["", "## Operator Next Steps", ""])
+    for step in report["operator_next_steps"]:
+        lines.append(f"- {step}")
     lines.extend(["", "## Market Action Guidance Findings", ""])
     if report["packets_with_market_action_guidance"]:
         for item in report["packets_with_market_action_guidance"]:
@@ -300,14 +455,15 @@ def render_validation_markdown(report):
             "- no_queue_authority: true",
             "- no_runtime_authority: true",
             "- no_wallet_or_order_authority: true",
+            "- validation_command: python -m pm_bot.llm.manual_resolution_source_capture_validator --write",
             "",
         ]
     )
     return "\n".join(lines)
 
 
-def write_validation_report(root=ROOT):
-    report = build_validation_report(root=root)
+def write_validation_report(root=ROOT, strict_ready=False):
+    report = build_validation_report(root=root, strict_ready=strict_ready)
     _write_json(VALIDATION_JSON, report, root=root)
     _write_text(VALIDATION_MD, render_validation_markdown(report), root=root)
     return {
@@ -325,12 +481,23 @@ def write_validation_report(root=ROOT):
 
 def main(argv):
     args = _parse_args(argv)
+    if args.write and args.market_id:
+        raise SystemExit("--market-id cannot be used with --write because persisted reports must cover all templates")
     if args.write:
-        print(json.dumps(write_validation_report(ROOT), indent=2, ensure_ascii=True))
+        result = write_validation_report(ROOT, strict_ready=args.strict_ready)
+        if args.summary_only:
+            report = build_validation_report(ROOT, strict_ready=args.strict_ready)
+            print(json.dumps(_validation_summary(report), indent=2, ensure_ascii=True))
+        else:
+            print(json.dumps(result, indent=2, ensure_ascii=True))
         return 0
-    report = build_validation_report(ROOT)
+    report = build_validation_report(
+        ROOT, market_id=args.market_id, strict_ready=args.strict_ready
+    )
     if args.markdown:
         print(render_validation_markdown(report), end="")
+    elif args.summary_only:
+        print(json.dumps(_validation_summary(report), indent=2, ensure_ascii=True))
     else:
         print(json.dumps(report, indent=2, ensure_ascii=True))
     return 0 if report["invalid_count"] == 0 else 2

@@ -72,6 +72,11 @@
         "pm_bot/llm/manual_resolution_source_capture_manifest.v1.md",
         "pm_bot/llm/manual_resolution_source_capture_validation.v1.json",
         "pm_bot/llm/manual_resolution_source_capture_validation.v1.md",
+        "docs/PMBOT_SOURCE_004B_MANUAL_CAPTURE_OPERATOR_FILL_GUIDE.md",
+        "pm_bot/llm/manual_resolution_source_capture_operator_checklist.v1.json",
+        "pm_bot/llm/manual_resolution_source_capture_operator_checklist.v1.md",
+        "pm_bot/llm/manual_resolution_source_capture_progress.v1.json",
+        "pm_bot/llm/manual_resolution_source_capture_progress.v1.md",
         "pm_bot/workbench/operator_openrouter_review_dashboard.v1.json",
         "pm_bot/workbench/operator_openrouter_review_dashboard.v1.md"
       ]
@@ -123,6 +128,11 @@
     "pm_bot/llm/manual_resolution_source_capture_manifest.v1.md",
     "pm_bot/llm/manual_resolution_source_capture_validation.v1.json",
     "pm_bot/llm/manual_resolution_source_capture_validation.v1.md",
+    "docs/PMBOT_SOURCE_004B_MANUAL_CAPTURE_OPERATOR_FILL_GUIDE.md",
+    "pm_bot/llm/manual_resolution_source_capture_operator_checklist.v1.json",
+    "pm_bot/llm/manual_resolution_source_capture_operator_checklist.v1.md",
+    "pm_bot/llm/manual_resolution_source_capture_progress.v1.json",
+    "pm_bot/llm/manual_resolution_source_capture_progress.v1.md",
     "pm_bot/workbench/operator_openrouter_review_dashboard.v1.json",
     "pm_bot/workbench/operator_openrouter_review_dashboard.v1.md",
     "pm_bot/workbench/operator_review_pack.v1.json",
@@ -3893,6 +3903,13 @@
     "manual_resolution_source_capture_summary": {
       "section_id": "manual_resolution_source_capture",
       "artifact_status": "present",
+      "guide_pointer": "docs/PMBOT_SOURCE_004B_MANUAL_CAPTURE_OPERATOR_FILL_GUIDE.md",
+      "checklist_status": "present",
+      "checklist_pointer": "pm_bot/llm/manual_resolution_source_capture_operator_checklist.v1.json",
+      "checklist_markdown_pointer": "pm_bot/llm/manual_resolution_source_capture_operator_checklist.v1.md",
+      "progress_status": "present",
+      "progress_pointer": "pm_bot/llm/manual_resolution_source_capture_progress.v1.json",
+      "progress_markdown_pointer": "pm_bot/llm/manual_resolution_source_capture_progress.v1.md",
       "manifest_pointer": "pm_bot/llm/manual_resolution_source_capture_manifest.v1.json",
       "manifest_markdown_pointer": "pm_bot/llm/manual_resolution_source_capture_manifest.v1.md",
       "schema_pointer": "pm_bot/llm/manual_resolution_source_capture_schema.v1.json",
@@ -3901,7 +3918,16 @@
       "validation_pointer": "pm_bot/llm/manual_resolution_source_capture_validation.v1.json",
       "validation_markdown_pointer": "pm_bot/llm/manual_resolution_source_capture_validation.v1.md",
       "total_capture_packets": 14,
+      "total_templates": 14,
+      "target_capture_directory": "pm_bot/llm/manual_resolution_source_capture",
       "capture_status_counts": {
+        "not_started": 14,
+        "draft": 0,
+        "ready_for_local_review": 0,
+        "reviewed": 0,
+        "needs_revision": 0
+      },
+      "current_status_counts": {
         "not_started": 14,
         "draft": 0,
         "ready_for_local_review": 0,
@@ -3937,6 +3963,8 @@
         "reviewed_local_evidence_references",
         "non_placeholder_evidence_notes"
       ],
+      "validation_command": "python -m pm_bot.llm.manual_resolution_source_capture_validator --write",
+      "next_operator_action": "Open one not_started capture JSON and its Markdown companion, fill the recommended fields from manual local review, set both status fields to draft, then rerun validation.",
       "markets_by_category": {
         "company/business": [
           "691547",
@@ -4408,6 +4436,11 @@
       "manual_resolution_source_capture_manifest_md": "pm_bot/llm/manual_resolution_source_capture_manifest.v1.md",
       "manual_resolution_source_capture_validation_json": "pm_bot/llm/manual_resolution_source_capture_validation.v1.json",
       "manual_resolution_source_capture_validation_md": "pm_bot/llm/manual_resolution_source_capture_validation.v1.md",
+      "manual_resolution_source_capture_operator_guide_md": "docs/PMBOT_SOURCE_004B_MANUAL_CAPTURE_OPERATOR_FILL_GUIDE.md",
+      "manual_resolution_source_capture_operator_checklist_json": "pm_bot/llm/manual_resolution_source_capture_operator_checklist.v1.json",
+      "manual_resolution_source_capture_operator_checklist_md": "pm_bot/llm/manual_resolution_source_capture_operator_checklist.v1.md",
+      "manual_resolution_source_capture_progress_json": "pm_bot/llm/manual_resolution_source_capture_progress.v1.json",
+      "manual_resolution_source_capture_progress_md": "pm_bot/llm/manual_resolution_source_capture_progress.v1.md",
       "operator_review_pack_json": "pm_bot/workbench/operator_review_pack.v1.json",
       "operator_review_pack_md": "pm_bot/workbench/operator_review_pack.v1.md",
       "workbench_export_run_json": "pm_bot/workbench/operator_workbench_export_run.v1.json",
@@ -4985,6 +5018,13 @@
   "manual_resolution_source_capture": {
     "section_id": "manual_resolution_source_capture",
     "artifact_status": "present",
+    "guide_pointer": "docs/PMBOT_SOURCE_004B_MANUAL_CAPTURE_OPERATOR_FILL_GUIDE.md",
+    "checklist_status": "present",
+    "checklist_pointer": "pm_bot/llm/manual_resolution_source_capture_operator_checklist.v1.json",
+    "checklist_markdown_pointer": "pm_bot/llm/manual_resolution_source_capture_operator_checklist.v1.md",
+    "progress_status": "present",
+    "progress_pointer": "pm_bot/llm/manual_resolution_source_capture_progress.v1.json",
+    "progress_markdown_pointer": "pm_bot/llm/manual_resolution_source_capture_progress.v1.md",
     "manifest_pointer": "pm_bot/llm/manual_resolution_source_capture_manifest.v1.json",
     "manifest_markdown_pointer": "pm_bot/llm/manual_resolution_source_capture_manifest.v1.md",
     "schema_pointer": "pm_bot/llm/manual_resolution_source_capture_schema.v1.json",
@@ -4993,7 +5033,16 @@
     "validation_pointer": "pm_bot/llm/manual_resolution_source_capture_validation.v1.json",
     "validation_markdown_pointer": "pm_bot/llm/manual_resolution_source_capture_validation.v1.md",
     "total_capture_packets": 14,
+    "total_templates": 14,
+    "target_capture_directory": "pm_bot/llm/manual_resolution_source_capture",
     "capture_status_counts": {
+      "not_started": 14,
+      "draft": 0,
+      "ready_for_local_review": 0,
+      "reviewed": 0,
+      "needs_revision": 0
+    },
+    "current_status_counts": {
       "not_started": 14,
       "draft": 0,
       "ready_for_local_review": 0,
@@ -5029,6 +5078,8 @@
       "reviewed_local_evidence_references",
       "non_placeholder_evidence_notes"
     ],
+    "validation_command": "python -m pm_bot.llm.manual_resolution_source_capture_validator --write",
+    "next_operator_action": "Open one not_started capture JSON and its Markdown companion, fill the recommended fields from manual local review, set both status fields to draft, then rerun validation.",
     "markets_by_category": {
       "company/business": [
         "691547",
@@ -5154,5 +5205,5 @@
   "network_calls": 0,
   "commands_executed": 0,
   "orders_created": 0,
-  "next_safe_action": "Open pm_bot/workbench/operator_workbench_export_run.v1.md, then pm_bot/workbench/operator_review_pack.v1.md for manual local review."
+  "next_safe_action": "Open docs/PMBOT_SOURCE_004B_MANUAL_CAPTURE_OPERATOR_FILL_GUIDE.md, then pm_bot/llm/manual_resolution_source_capture_operator_checklist.v1.md before filling local source capture templates."
 }

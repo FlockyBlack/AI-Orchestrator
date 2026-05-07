@@ -56,11 +56,11 @@
   },
   "artifact_inventory": {
     "summary": {
-      "total_artifacts": 34,
-      "present_artifacts": 34,
+      "total_artifacts": 36,
+      "present_artifacts": 36,
       "missing_artifacts": 0,
       "required_missing_artifacts": 0,
-      "json_artifacts_parsed": 33,
+      "json_artifacts_parsed": 35,
       "json_artifacts_parse_failed": 0
     },
     "artifacts": [
@@ -570,6 +570,36 @@
         "schema_version": "manual_resolution_source_capture_validation.v1",
         "task_id": "PMBOT-SOURCE-004-LOCAL-MANUAL-RESOLUTION-SOURCE-CAPTURE-PACKETS",
         "status": "manual_resolution_source_capture_validation_passed",
+        "audit_status": null,
+        "deterministic": null,
+        "warning_count": 0
+      },
+      {
+        "artifact_id": "manual_resolution_source_capture_operator_checklist",
+        "path": "pm_bot/llm/manual_resolution_source_capture_operator_checklist.v1.json",
+        "category": "manual_resolution_source_capture",
+        "artifact_type": "manual_resolution_source_capture_operator_checklist_json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed",
+        "schema_version": null,
+        "task_id": "PMBOT-SOURCE-004B-MANUAL-CAPTURE-OPERATOR-FILL-GUIDE",
+        "status": null,
+        "audit_status": null,
+        "deterministic": null,
+        "warning_count": 0
+      },
+      {
+        "artifact_id": "manual_resolution_source_capture_progress",
+        "path": "pm_bot/llm/manual_resolution_source_capture_progress.v1.json",
+        "category": "manual_resolution_source_capture",
+        "artifact_type": "manual_resolution_source_capture_progress_json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed",
+        "schema_version": "manual_resolution_source_capture_progress.v1",
+        "task_id": "PMBOT-SOURCE-004B-MANUAL-CAPTURE-OPERATOR-FILL-GUIDE",
+        "status": null,
         "audit_status": null,
         "deterministic": null,
         "warning_count": 0
@@ -2504,6 +2534,11 @@
       "manual_resolution_source_capture_manifest_md": "pm_bot/llm/manual_resolution_source_capture_manifest.v1.md",
       "manual_resolution_source_capture_validation_json": "pm_bot/llm/manual_resolution_source_capture_validation.v1.json",
       "manual_resolution_source_capture_validation_md": "pm_bot/llm/manual_resolution_source_capture_validation.v1.md",
+      "manual_resolution_source_capture_operator_guide_md": "docs/PMBOT_SOURCE_004B_MANUAL_CAPTURE_OPERATOR_FILL_GUIDE.md",
+      "manual_resolution_source_capture_operator_checklist_json": "pm_bot/llm/manual_resolution_source_capture_operator_checklist.v1.json",
+      "manual_resolution_source_capture_operator_checklist_md": "pm_bot/llm/manual_resolution_source_capture_operator_checklist.v1.md",
+      "manual_resolution_source_capture_progress_json": "pm_bot/llm/manual_resolution_source_capture_progress.v1.json",
+      "manual_resolution_source_capture_progress_md": "pm_bot/llm/manual_resolution_source_capture_progress.v1.md",
       "operator_review_pack_json": "pm_bot/workbench/operator_review_pack.v1.json",
       "operator_review_pack_md": "pm_bot/workbench/operator_review_pack.v1.md",
       "workbench_export_run_json": "pm_bot/workbench/operator_workbench_export_run.v1.json",
@@ -2901,6 +2936,12 @@
   },
   "manual_resolution_source_capture": {
     "section_id": "manual_resolution_source_capture",
+    "guide_pointer": "docs/PMBOT_SOURCE_004B_MANUAL_CAPTURE_OPERATOR_FILL_GUIDE.md",
+    "checklist_pointer": "pm_bot/llm/manual_resolution_source_capture_operator_checklist.v1.json",
+    "checklist_markdown_pointer": "pm_bot/llm/manual_resolution_source_capture_operator_checklist.v1.md",
+    "progress_pointer": "pm_bot/llm/manual_resolution_source_capture_progress.v1.json",
+    "progress_markdown_pointer": "pm_bot/llm/manual_resolution_source_capture_progress.v1.md",
+    "target_capture_directory": "pm_bot/llm/manual_resolution_source_capture",
     "schema_artifact_status": "present",
     "schema_pointer": "pm_bot/llm/manual_resolution_source_capture_schema.v1.json",
     "schema_markdown_pointer": "pm_bot/llm/manual_resolution_source_capture_schema.v1.md",
@@ -2912,8 +2953,20 @@
     "validation_pointer": "pm_bot/llm/manual_resolution_source_capture_validation.v1.json",
     "validation_markdown_pointer": "pm_bot/llm/manual_resolution_source_capture_validation.v1.md",
     "validation_parse_status": "parsed",
+    "checklist_artifact_status": "present",
+    "checklist_parse_status": "parsed",
+    "progress_artifact_status": "present",
+    "progress_parse_status": "parsed",
     "total_capture_packets": 14,
+    "total_templates": 14,
     "capture_status_counts": {
+      "not_started": 14,
+      "draft": 0,
+      "ready_for_local_review": 0,
+      "reviewed": 0,
+      "needs_revision": 0
+    },
+    "current_status_counts": {
       "not_started": 14,
       "draft": 0,
       "ready_for_local_review": 0,
@@ -2973,6 +3026,8 @@
       "reviewed_local_evidence_references",
       "non_placeholder_evidence_notes"
     ],
+    "validation_command": "python -m pm_bot.llm.manual_resolution_source_capture_validator --write",
+    "next_operator_action": "Open one not_started capture JSON and its Markdown companion, fill the recommended fields from manual local review, set both status fields to draft, then rerun validation.",
     "markets_by_category": {
       "company/business": [
         "691547",
@@ -3208,6 +3263,13 @@
     {
       "action_id": "review_openrouter_passive_surface_pointer",
       "description": "Review OpenRouter batch surface pointer as read-only local context.",
+      "non_trading_action": true,
+      "requires_runtime": false,
+      "creates_orders": false
+    },
+    {
+      "action_id": "fill_manual_resolution_source_capture_templates",
+      "description": "Use the SOURCE-004B guide and checklist to fill not_started local source capture templates, then rerun the validator.",
       "non_trading_action": true,
       "requires_runtime": false,
       "creates_orders": false

@@ -19,11 +19,11 @@
   "files_modified": [],
   "tests": [],
   "artifact_inventory_summary": {
-    "total_artifacts": 34,
-    "present_artifacts": 34,
+    "total_artifacts": 36,
+    "present_artifacts": 36,
     "missing_artifacts": 0,
     "required_missing_artifacts": 0,
-    "json_artifacts_parsed": 33,
+    "json_artifacts_parsed": 35,
     "json_artifacts_parse_failed": 0
   },
   "actual_manual_llm_response_trial": {
@@ -754,10 +754,14 @@
     "no_market_action_guidance": true
   },
   "manual_resolution_source_capture": {
+    "guide_pointer": "docs/PMBOT_SOURCE_004B_MANUAL_CAPTURE_OPERATOR_FILL_GUIDE.md",
+    "checklist_pointer": "pm_bot/llm/manual_resolution_source_capture_operator_checklist.v1.json",
+    "progress_pointer": "pm_bot/llm/manual_resolution_source_capture_progress.v1.json",
     "schema_pointer": "pm_bot/llm/manual_resolution_source_capture_schema.v1.json",
     "manifest_pointer": "pm_bot/llm/manual_resolution_source_capture_manifest.v1.json",
     "validation_pointer": "pm_bot/llm/manual_resolution_source_capture_validation.v1.json",
     "total_capture_packets": 14,
+    "total_templates": 14,
     "capture_status_counts": {
       "not_started": 14,
       "draft": 0,
@@ -784,6 +788,8 @@
       "reviewed_local_evidence_references",
       "non_placeholder_evidence_notes"
     ],
+    "validation_command": "python -m pm_bot.llm.manual_resolution_source_capture_validator --write",
+    "next_operator_action": "Open one not_started capture JSON and its Markdown companion, fill the recommended fields from manual local review, set both status fields to draft, then rerun validation.",
     "validation_valid_count": 14,
     "validation_invalid_count": 0,
     "no_market_action_guidance": true,

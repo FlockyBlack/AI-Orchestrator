@@ -141,13 +141,32 @@ class OperatorOpenrouterReviewDashboardTests(unittest.TestCase):
             dashboard["manual_resolution_source_capture_integration_status"],
             "source_004_capture_context_ready",
         )
+        self.assertEqual(
+            manual_capture["guide_pointer"],
+            "docs/PMBOT_SOURCE_004B_MANUAL_CAPTURE_OPERATOR_FILL_GUIDE.md",
+        )
+        self.assertEqual(
+            manual_capture["checklist_pointer"],
+            "pm_bot/llm/manual_resolution_source_capture_operator_checklist.v1.json",
+        )
+        self.assertEqual(
+            manual_capture["progress_pointer"],
+            "pm_bot/llm/manual_resolution_source_capture_progress.v1.json",
+        )
         self.assertEqual(manual_capture["manifest_pointer"], "pm_bot/llm/manual_resolution_source_capture_manifest.v1.json")
         self.assertEqual(manual_capture["validation_pointer"], "pm_bot/llm/manual_resolution_source_capture_validation.v1.json")
+        self.assertEqual(manual_capture["total_templates"], 14)
+        self.assertEqual(manual_capture["current_status_counts"]["not_started"], 14)
         self.assertEqual(manual_capture["packets_created"], 14)
         self.assertEqual(manual_capture["packets_not_started"], 14)
         self.assertEqual(manual_capture["packets_ready_for_local_review"], 0)
         self.assertEqual(manual_capture["validation_valid_count"], 14)
         self.assertEqual(manual_capture["validation_invalid_count"], 0)
+        self.assertEqual(
+            manual_capture["validation_command"],
+            "python -m pm_bot.llm.manual_resolution_source_capture_validator --write",
+        )
+        self.assertIn("not_started", manual_capture["next_operator_action"])
         self.assertIn(
             "full_market_resolution_criteria_text",
             manual_capture["top_fields_to_fill"],

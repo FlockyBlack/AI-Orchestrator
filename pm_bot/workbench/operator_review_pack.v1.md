@@ -51,8 +51,8 @@
 
 ## Artifact Inventory
 
-- total_artifacts: 34
-- present_artifacts: 34
+- total_artifacts: 36
+- present_artifacts: 36
 - missing_artifacts: 0
 - required_missing_artifacts: 0
 
@@ -90,6 +90,8 @@
 - manual_resolution_source_capture_schema: pm_bot/llm/manual_resolution_source_capture_schema.v1.json (present=true, required=false, parse_status=parsed)
 - manual_resolution_source_capture: pm_bot/llm/manual_resolution_source_capture_manifest.v1.json (present=true, required=false, parse_status=parsed)
 - manual_resolution_source_capture_validation: pm_bot/llm/manual_resolution_source_capture_validation.v1.json (present=true, required=false, parse_status=parsed)
+- manual_resolution_source_capture_operator_checklist: pm_bot/llm/manual_resolution_source_capture_operator_checklist.v1.json (present=true, required=false, parse_status=parsed)
+- manual_resolution_source_capture_progress: pm_bot/llm/manual_resolution_source_capture_progress.v1.json (present=true, required=false, parse_status=parsed)
 
 ## Paper Audits
 
@@ -557,17 +559,26 @@
 ## Manual Resolution Source Capture
 
 - section_id: manual_resolution_source_capture
+- guide_pointer: docs/PMBOT_SOURCE_004B_MANUAL_CAPTURE_OPERATOR_FILL_GUIDE.md
+- checklist_pointer: pm_bot/llm/manual_resolution_source_capture_operator_checklist.v1.json
+- checklist_markdown_pointer: pm_bot/llm/manual_resolution_source_capture_operator_checklist.v1.md
+- progress_pointer: pm_bot/llm/manual_resolution_source_capture_progress.v1.json
+- progress_markdown_pointer: pm_bot/llm/manual_resolution_source_capture_progress.v1.md
+- target_capture_directory: pm_bot/llm/manual_resolution_source_capture
 - schema_pointer: pm_bot/llm/manual_resolution_source_capture_schema.v1.json
 - manifest_pointer: pm_bot/llm/manual_resolution_source_capture_manifest.v1.json
 - manifest_markdown_pointer: pm_bot/llm/manual_resolution_source_capture_manifest.v1.md
 - validation_pointer: pm_bot/llm/manual_resolution_source_capture_validation.v1.json
 - validation_markdown_pointer: pm_bot/llm/manual_resolution_source_capture_validation.v1.md
 - total_capture_packets: 14
+- total_templates: 14
 - packets_created: 14
 - packets_not_started: 14
 - packets_ready_for_local_review: 0
 - validation_valid_count: 14
 - validation_invalid_count: 0
+- validation_command: python -m pm_bot.llm.manual_resolution_source_capture_validator --write
+- next_operator_action: Open one not_started capture JSON and its Markdown companion, fill the recommended fields from manual local review, set both status fields to draft, then rerun validation.
 - no_market_action_guidance: true
 - no_trading_authority: true
 - no_queue_authority: true
@@ -584,6 +595,14 @@
 6. source_reliability_review
 7. reviewed_local_evidence_references
 8. non_placeholder_evidence_notes
+
+## Manual Capture Status Counts
+
+- not_started: 14
+- draft: 0
+- ready_for_local_review: 0
+- reviewed: 0
+- needs_revision: 0
 
 ## OpenRouter Review Dashboard
 
@@ -655,6 +674,7 @@
 - review_manual_llm_review_queue: Review manual LLM queue status for local packet and response readiness.
 - review_actual_manual_llm_response_trial_surface: Review actual manual LLM response trial status as offline local context only.
 - review_openrouter_passive_surface_pointer: Review OpenRouter batch surface pointer as read-only local context.
+- fill_manual_resolution_source_capture_templates: Use the SOURCE-004B guide and checklist to fill not_started local source capture templates, then rerun the validator.
 - integration_review_only: Use this pack as a static input for human integration review only.
 
 - This operator review pack does not recommend markets, sides, prices, sizes, orders, trades, paper orders, or decisions.

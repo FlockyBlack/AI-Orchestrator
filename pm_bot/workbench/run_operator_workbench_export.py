@@ -49,6 +49,11 @@ SUMMARY_OUTPUT_ARTIFACTS = [
     "pm_bot/llm/manual_resolution_source_capture_manifest.v1.md",
     "pm_bot/llm/manual_resolution_source_capture_validation.v1.json",
     "pm_bot/llm/manual_resolution_source_capture_validation.v1.md",
+    "docs/PMBOT_SOURCE_004B_MANUAL_CAPTURE_OPERATOR_FILL_GUIDE.md",
+    "pm_bot/llm/manual_resolution_source_capture_operator_checklist.v1.json",
+    "pm_bot/llm/manual_resolution_source_capture_operator_checklist.v1.md",
+    "pm_bot/llm/manual_resolution_source_capture_progress.v1.json",
+    "pm_bot/llm/manual_resolution_source_capture_progress.v1.md",
     "pm_bot/workbench/operator_openrouter_review_dashboard.v1.json",
     "pm_bot/workbench/operator_openrouter_review_dashboard.v1.md",
     "docs/PMBOT_WORKBENCH_003_RESULT.json",
@@ -192,6 +197,11 @@ def build_export_steps(root=ROOT):
                 "pm_bot/llm/manual_resolution_source_capture_manifest.v1.md",
                 "pm_bot/llm/manual_resolution_source_capture_validation.v1.json",
                 "pm_bot/llm/manual_resolution_source_capture_validation.v1.md",
+                "docs/PMBOT_SOURCE_004B_MANUAL_CAPTURE_OPERATOR_FILL_GUIDE.md",
+                "pm_bot/llm/manual_resolution_source_capture_operator_checklist.v1.json",
+                "pm_bot/llm/manual_resolution_source_capture_operator_checklist.v1.md",
+                "pm_bot/llm/manual_resolution_source_capture_progress.v1.json",
+                "pm_bot/llm/manual_resolution_source_capture_progress.v1.md",
                 "pm_bot/workbench/operator_openrouter_review_dashboard.v1.json",
                 "pm_bot/workbench/operator_openrouter_review_dashboard.v1.md",
             ],
@@ -385,8 +395,9 @@ def build_run_summary(step_results, root=ROOT):
         "commands_executed": 0,
         "orders_created": 0,
         "next_safe_action": (
-            "Open pm_bot/workbench/operator_workbench_export_run.v1.md, then "
-            "pm_bot/workbench/operator_review_pack.v1.md for manual local review."
+            "Open docs/PMBOT_SOURCE_004B_MANUAL_CAPTURE_OPERATOR_FILL_GUIDE.md, then "
+            "pm_bot/llm/manual_resolution_source_capture_operator_checklist.v1.md "
+            "before filling local source capture templates."
         ),
     }
 
@@ -630,14 +641,20 @@ def render_markdown(summary):
                 "",
                 "## Manual Resolution Source Capture",
                 "",
+                f"- guide_path: {manual_capture['guide_pointer']}",
+                f"- checklist_path: {manual_capture['checklist_pointer']}",
+                f"- progress_path: {manual_capture['progress_pointer']}",
                 f"- manifest_path: {manual_capture['manifest_pointer']}",
                 f"- validation_path: {manual_capture['validation_pointer']}",
+                f"- total_templates: {manual_capture['total_templates']}",
                 f"- packets_created: {manual_capture['packets_created']}",
                 f"- packets_not_started: {manual_capture['packets_not_started']}",
                 "- packets_ready_for_local_review: "
                 f"{manual_capture['packets_ready_for_local_review']}",
                 f"- validation_valid_count: {manual_capture['validation_valid_count']}",
                 f"- validation_invalid_count: {manual_capture['validation_invalid_count']}",
+                f"- validation_command: {manual_capture['validation_command']}",
+                f"- next_operator_action: {manual_capture['next_operator_action']}",
                 "- top_fields_to_fill: "
                 + ", ".join(manual_capture.get("top_fields_to_fill", [])),
                 "- no_market_action_guidance: "
@@ -700,6 +717,11 @@ def _result_payload(summary):
             "pm_bot/llm/current_llm_batch_readiness_gate_after_source_normalization.v1.md",
             "pm_bot/llm/local_source_enrichment_action_plan.v1.json",
             "pm_bot/llm/local_source_enrichment_action_plan.v1.md",
+            "docs/PMBOT_SOURCE_004B_MANUAL_CAPTURE_OPERATOR_FILL_GUIDE.md",
+            "pm_bot/llm/manual_resolution_source_capture_operator_checklist.v1.json",
+            "pm_bot/llm/manual_resolution_source_capture_operator_checklist.v1.md",
+            "pm_bot/llm/manual_resolution_source_capture_progress.v1.json",
+            "pm_bot/llm/manual_resolution_source_capture_progress.v1.md",
             "pm_bot/workbench/operator_openrouter_review_dashboard.py",
             "pm_bot/workbench/operator_openrouter_review_dashboard.v1.json",
             "pm_bot/workbench/operator_openrouter_review_dashboard.v1.md",

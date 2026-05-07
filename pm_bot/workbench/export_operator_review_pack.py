@@ -110,6 +110,21 @@ MANUAL_RESOLUTION_SOURCE_CAPTURE_VALIDATION_ARTIFACT_PATH = (
 MANUAL_RESOLUTION_SOURCE_CAPTURE_VALIDATION_MARKDOWN_PATH = (
     "pm_bot/llm/manual_resolution_source_capture_validation.v1.md"
 )
+MANUAL_RESOLUTION_SOURCE_CAPTURE_OPERATOR_GUIDE_PATH = (
+    "docs/PMBOT_SOURCE_004B_MANUAL_CAPTURE_OPERATOR_FILL_GUIDE.md"
+)
+MANUAL_RESOLUTION_SOURCE_CAPTURE_OPERATOR_CHECKLIST_ARTIFACT_PATH = (
+    "pm_bot/llm/manual_resolution_source_capture_operator_checklist.v1.json"
+)
+MANUAL_RESOLUTION_SOURCE_CAPTURE_OPERATOR_CHECKLIST_MARKDOWN_PATH = (
+    "pm_bot/llm/manual_resolution_source_capture_operator_checklist.v1.md"
+)
+MANUAL_RESOLUTION_SOURCE_CAPTURE_PROGRESS_ARTIFACT_PATH = (
+    "pm_bot/llm/manual_resolution_source_capture_progress.v1.json"
+)
+MANUAL_RESOLUTION_SOURCE_CAPTURE_PROGRESS_MARKDOWN_PATH = (
+    "pm_bot/llm/manual_resolution_source_capture_progress.v1.md"
+)
 MANUAL_RESOLUTION_SOURCE_CAPTURE_SECTION_ID = "manual_resolution_source_capture"
 
 SCHEMA_VERSION = "operator_review_pack.v1"
@@ -446,6 +461,20 @@ SOURCE_ARTIFACTS = (
         "path": MANUAL_RESOLUTION_SOURCE_CAPTURE_VALIDATION_ARTIFACT_PATH,
         "category": MANUAL_RESOLUTION_SOURCE_CAPTURE_SECTION_ID,
         "artifact_type": "manual_resolution_source_capture_validation_json",
+        "required": False,
+    },
+    {
+        "artifact_id": "manual_resolution_source_capture_operator_checklist",
+        "path": MANUAL_RESOLUTION_SOURCE_CAPTURE_OPERATOR_CHECKLIST_ARTIFACT_PATH,
+        "category": MANUAL_RESOLUTION_SOURCE_CAPTURE_SECTION_ID,
+        "artifact_type": "manual_resolution_source_capture_operator_checklist_json",
+        "required": False,
+    },
+    {
+        "artifact_id": "manual_resolution_source_capture_progress",
+        "path": MANUAL_RESOLUTION_SOURCE_CAPTURE_PROGRESS_ARTIFACT_PATH,
+        "category": MANUAL_RESOLUTION_SOURCE_CAPTURE_SECTION_ID,
+        "artifact_type": "manual_resolution_source_capture_progress_json",
         "required": False,
     },
 )
@@ -1828,11 +1857,33 @@ def _manual_resolution_source_capture_summary(payloads, inventory):
     validation_item = _inventory_item(
         inventory, "manual_resolution_source_capture_validation"
     )
+    checklist_item = _inventory_item(
+        inventory, "manual_resolution_source_capture_operator_checklist"
+    )
+    progress_item = _inventory_item(
+        inventory, "manual_resolution_source_capture_progress"
+    )
     manifest = _safe_dict(payloads.get(MANUAL_RESOLUTION_SOURCE_CAPTURE_SECTION_ID))
     validation = _safe_dict(payloads.get("manual_resolution_source_capture_validation"))
+    checklist = _safe_dict(
+        payloads.get("manual_resolution_source_capture_operator_checklist")
+    )
+    progress = _safe_dict(payloads.get("manual_resolution_source_capture_progress"))
     status_counts = _safe_dict(manifest.get("capture_status_counts"))
     return {
         "section_id": MANUAL_RESOLUTION_SOURCE_CAPTURE_SECTION_ID,
+        "guide_pointer": MANUAL_RESOLUTION_SOURCE_CAPTURE_OPERATOR_GUIDE_PATH,
+        "checklist_pointer": (
+            MANUAL_RESOLUTION_SOURCE_CAPTURE_OPERATOR_CHECKLIST_ARTIFACT_PATH
+        ),
+        "checklist_markdown_pointer": (
+            MANUAL_RESOLUTION_SOURCE_CAPTURE_OPERATOR_CHECKLIST_MARKDOWN_PATH
+        ),
+        "progress_pointer": MANUAL_RESOLUTION_SOURCE_CAPTURE_PROGRESS_ARTIFACT_PATH,
+        "progress_markdown_pointer": (
+            MANUAL_RESOLUTION_SOURCE_CAPTURE_PROGRESS_MARKDOWN_PATH
+        ),
+        "target_capture_directory": "pm_bot/llm/manual_resolution_source_capture",
         "schema_artifact_status": (
             "present"
             if schema_item.get("parse_status") == "parsed"
@@ -1864,8 +1915,24 @@ def _manual_resolution_source_capture_summary(payloads, inventory):
             MANUAL_RESOLUTION_SOURCE_CAPTURE_VALIDATION_MARKDOWN_PATH
         ),
         "validation_parse_status": validation_item.get("parse_status", "not_available"),
+        "checklist_artifact_status": (
+            "present"
+            if checklist_item.get("parse_status") == "parsed"
+            else ("missing" if not checklist_item.get("present") else "invalid")
+        ),
+        "checklist_parse_status": checklist_item.get("parse_status", "not_available"),
+        "progress_artifact_status": (
+            "present"
+            if progress_item.get("parse_status") == "parsed"
+            else ("missing" if not progress_item.get("present") else "invalid")
+        ),
+        "progress_parse_status": progress_item.get("parse_status", "not_available"),
         "total_capture_packets": manifest.get("total_capture_packets", 0),
+        "total_templates": checklist.get(
+            "total_templates", manifest.get("total_capture_packets", 0)
+        ),
         "capture_status_counts": status_counts,
+        "current_status_counts": status_counts,
         "packets_created": manifest.get("total_capture_packets", 0),
         "packets_not_started": status_counts.get("not_started", 0),
         "packets_ready_for_local_review": status_counts.get("ready_for_local_review", 0),
@@ -1877,6 +1944,14 @@ def _manual_resolution_source_capture_summary(payloads, inventory):
         ),
         "recommended_operator_fill_order": _safe_list(
             manifest.get("recommended_operator_fill_order")
+        ),
+        "validation_command": checklist.get(
+            "validation_command",
+            "python -m pm_bot.llm.manual_resolution_source_capture_validator --write",
+        ),
+        "next_operator_action": progress.get(
+            "recommended_operator_next_action",
+            "Fill one not_started template from manual local review, set both status fields to draft, then rerun validation.",
         ),
         "markets_by_category": _safe_dict(manifest.get("markets_by_category")),
         "reviewed_vs_unreviewed": _safe_dict(manifest.get("reviewed_vs_unreviewed")),
@@ -1988,6 +2063,16 @@ def _next_safe_manual_actions():
         {
             "action_id": "review_openrouter_passive_surface_pointer",
             "description": "Review OpenRouter batch surface pointer as read-only local context.",
+            "non_trading_action": True,
+            "requires_runtime": False,
+            "creates_orders": False,
+        },
+        {
+            "action_id": "fill_manual_resolution_source_capture_templates",
+            "description": (
+                "Use the SOURCE-004B guide and checklist to fill not_started local "
+                "source capture templates, then rerun the validator."
+            ),
             "non_trading_action": True,
             "requires_runtime": False,
             "creates_orders": False,
@@ -2782,6 +2867,18 @@ def render_operator_review_pack_markdown(pack):
             "## Manual Resolution Source Capture",
             "",
             f"- section_id: {manual_resolution_source_capture['section_id']}",
+            "- guide_pointer: "
+            f"{manual_resolution_source_capture['guide_pointer']}",
+            "- checklist_pointer: "
+            f"{manual_resolution_source_capture['checklist_pointer']}",
+            "- checklist_markdown_pointer: "
+            f"{manual_resolution_source_capture['checklist_markdown_pointer']}",
+            "- progress_pointer: "
+            f"{manual_resolution_source_capture['progress_pointer']}",
+            "- progress_markdown_pointer: "
+            f"{manual_resolution_source_capture['progress_markdown_pointer']}",
+            "- target_capture_directory: "
+            f"{manual_resolution_source_capture['target_capture_directory']}",
             "- schema_pointer: "
             f"{manual_resolution_source_capture['schema_pointer']}",
             "- manifest_pointer: "
@@ -2794,6 +2891,8 @@ def render_operator_review_pack_markdown(pack):
             f"{manual_resolution_source_capture['validation_markdown_pointer']}",
             "- total_capture_packets: "
             f"{manual_resolution_source_capture['total_capture_packets']}",
+            "- total_templates: "
+            f"{manual_resolution_source_capture['total_templates']}",
             "- packets_created: "
             f"{manual_resolution_source_capture['packets_created']}",
             "- packets_not_started: "
@@ -2804,6 +2903,10 @@ def render_operator_review_pack_markdown(pack):
             f"{manual_resolution_source_capture['validation_valid_count']}",
             "- validation_invalid_count: "
             f"{manual_resolution_source_capture['validation_invalid_count']}",
+            "- validation_command: "
+            f"{manual_resolution_source_capture['validation_command']}",
+            "- next_operator_action: "
+            f"{manual_resolution_source_capture['next_operator_action']}",
             "- no_market_action_guidance: "
             f"{str(manual_resolution_source_capture['no_market_action_guidance']).lower()}",
             "- no_trading_authority: "
@@ -2823,6 +2926,9 @@ def render_operator_review_pack_markdown(pack):
         manual_resolution_source_capture["recommended_operator_fill_order"], start=1
     ):
         lines.append(f"{index}. {field}")
+    lines.extend(["", "## Manual Capture Status Counts", ""])
+    for status, count in manual_resolution_source_capture["current_status_counts"].items():
+        lines.append(f"- {status}: {count}")
 
     lines.extend(
         [
@@ -3097,6 +3203,13 @@ def _result_payload(pack):
             ],
         },
         "manual_resolution_source_capture": {
+            "guide_pointer": pack["manual_resolution_source_capture"]["guide_pointer"],
+            "checklist_pointer": pack["manual_resolution_source_capture"][
+                "checklist_pointer"
+            ],
+            "progress_pointer": pack["manual_resolution_source_capture"][
+                "progress_pointer"
+            ],
             "schema_pointer": pack["manual_resolution_source_capture"]["schema_pointer"],
             "manifest_pointer": pack["manual_resolution_source_capture"][
                 "manifest_pointer"
@@ -3106,6 +3219,9 @@ def _result_payload(pack):
             ],
             "total_capture_packets": pack["manual_resolution_source_capture"][
                 "total_capture_packets"
+            ],
+            "total_templates": pack["manual_resolution_source_capture"][
+                "total_templates"
             ],
             "capture_status_counts": pack["manual_resolution_source_capture"][
                 "capture_status_counts"
@@ -3125,6 +3241,12 @@ def _result_payload(pack):
             "recommended_operator_fill_order": pack[
                 "manual_resolution_source_capture"
             ]["recommended_operator_fill_order"],
+            "validation_command": pack["manual_resolution_source_capture"][
+                "validation_command"
+            ],
+            "next_operator_action": pack["manual_resolution_source_capture"][
+                "next_operator_action"
+            ],
             "validation_valid_count": pack["manual_resolution_source_capture"][
                 "validation_valid_count"
             ],

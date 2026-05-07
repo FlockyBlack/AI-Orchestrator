@@ -41,6 +41,10 @@ LOCAL_SOURCE_ENRICHMENT_ACTION_PLAN = (
 MANUAL_CAPTURE_SCHEMA = ROOT / "pm_bot" / "llm" / "manual_resolution_source_capture_schema.v1.json"
 MANUAL_CAPTURE_MANIFEST = ROOT / "pm_bot" / "llm" / "manual_resolution_source_capture_manifest.v1.json"
 MANUAL_CAPTURE_VALIDATION = ROOT / "pm_bot" / "llm" / "manual_resolution_source_capture_validation.v1.json"
+MANUAL_CAPTURE_CHECKLIST = (
+    ROOT / "pm_bot" / "llm" / "manual_resolution_source_capture_operator_checklist.v1.json"
+)
+MANUAL_CAPTURE_PROGRESS = ROOT / "pm_bot" / "llm" / "manual_resolution_source_capture_progress.v1.json"
 
 NEW_JSON_FILES = [
     PACK_JSON,
@@ -55,6 +59,8 @@ NEW_JSON_FILES = [
     MANUAL_CAPTURE_SCHEMA,
     MANUAL_CAPTURE_MANIFEST,
     MANUAL_CAPTURE_VALIDATION,
+    MANUAL_CAPTURE_CHECKLIST,
+    MANUAL_CAPTURE_PROGRESS,
     RESULT,
     LANE_RESULT,
 ]
@@ -234,6 +240,8 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertTrue(inventory["manual_resolution_source_capture_schema"]["present"])
         self.assertTrue(inventory["manual_resolution_source_capture"]["present"])
         self.assertTrue(inventory["manual_resolution_source_capture_validation"]["present"])
+        self.assertTrue(inventory["manual_resolution_source_capture_operator_checklist"]["present"])
+        self.assertTrue(inventory["manual_resolution_source_capture_progress"]["present"])
         self.assertEqual(inventory["paper_019_result"]["parse_status"], "parsed")
         self.assertEqual(inventory["paper_019_multi_market_run_series"]["parse_status"], "parsed")
         self.assertEqual(inventory["paper_020_result"]["parse_status"], "parsed")
@@ -254,6 +262,14 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertEqual(inventory["manual_resolution_source_capture_schema"]["parse_status"], "parsed")
         self.assertEqual(inventory["manual_resolution_source_capture"]["parse_status"], "parsed")
         self.assertEqual(inventory["manual_resolution_source_capture_validation"]["parse_status"], "parsed")
+        self.assertEqual(
+            inventory["manual_resolution_source_capture_operator_checklist"]["parse_status"],
+            "parsed",
+        )
+        self.assertEqual(
+            inventory["manual_resolution_source_capture_progress"]["parse_status"],
+            "parsed",
+        )
         self.assertEqual(
             inventory["paper_019_multi_market_run_series"]["path"],
             "pm_bot/paper/multi_market_paper_run_series.v1.json",
@@ -914,6 +930,10 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertTrue(all(action["non_trading_action"] for action in pack["next_safe_manual_actions"]))
         self.assertTrue(all(not action["requires_runtime"] for action in pack["next_safe_manual_actions"]))
         self.assertTrue(all(not action["creates_orders"] for action in pack["next_safe_manual_actions"]))
+        self.assertIn(
+            "fill_manual_resolution_source_capture_templates",
+            {action["action_id"] for action in pack["next_safe_manual_actions"]},
+        )
 
     def test_manual_resolution_source_capture_section_surfaces_manifest_and_validation(self):
         _run_write()
@@ -921,6 +941,18 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         manual_capture = pack["manual_resolution_source_capture"]
 
         self.assertEqual(manual_capture["section_id"], "manual_resolution_source_capture")
+        self.assertEqual(
+            manual_capture["guide_pointer"],
+            "docs/PMBOT_SOURCE_004B_MANUAL_CAPTURE_OPERATOR_FILL_GUIDE.md",
+        )
+        self.assertEqual(
+            manual_capture["checklist_pointer"],
+            "pm_bot/llm/manual_resolution_source_capture_operator_checklist.v1.json",
+        )
+        self.assertEqual(
+            manual_capture["progress_pointer"],
+            "pm_bot/llm/manual_resolution_source_capture_progress.v1.json",
+        )
         self.assertEqual(
             manual_capture["manifest_pointer"],
             "pm_bot/llm/manual_resolution_source_capture_manifest.v1.json",
@@ -930,11 +962,18 @@ class OperatorReviewPackExportTests(unittest.TestCase):
             "pm_bot/llm/manual_resolution_source_capture_validation.v1.json",
         )
         self.assertEqual(manual_capture["total_capture_packets"], 14)
+        self.assertEqual(manual_capture["total_templates"], 14)
+        self.assertEqual(manual_capture["current_status_counts"]["not_started"], 14)
         self.assertEqual(manual_capture["packets_created"], 14)
         self.assertEqual(manual_capture["packets_not_started"], 14)
         self.assertEqual(manual_capture["packets_ready_for_local_review"], 0)
         self.assertEqual(manual_capture["validation_valid_count"], 14)
         self.assertEqual(manual_capture["validation_invalid_count"], 0)
+        self.assertEqual(
+            manual_capture["validation_command"],
+            "python -m pm_bot.llm.manual_resolution_source_capture_validator --write",
+        )
+        self.assertIn("not_started", manual_capture["next_operator_action"])
         self.assertIn(
             "full_market_resolution_criteria_text",
             manual_capture["recommended_operator_fill_order"],
@@ -1052,11 +1091,25 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertIn("no_runtime_authority: true", markdown)
         self.assertIn("manual_review_only: true", markdown)
         self.assertIn("Manual Resolution Source Capture", markdown)
+        self.assertIn(
+            "guide_pointer: docs/PMBOT_SOURCE_004B_MANUAL_CAPTURE_OPERATOR_FILL_GUIDE.md",
+            markdown,
+        )
+        self.assertIn(
+            "checklist_pointer: pm_bot/llm/manual_resolution_source_capture_operator_checklist.v1.json",
+            markdown,
+        )
+        self.assertIn(
+            "progress_pointer: pm_bot/llm/manual_resolution_source_capture_progress.v1.json",
+            markdown,
+        )
         self.assertIn("manifest_pointer: pm_bot/llm/manual_resolution_source_capture_manifest.v1.json", markdown)
         self.assertIn("validation_pointer: pm_bot/llm/manual_resolution_source_capture_validation.v1.json", markdown)
+        self.assertIn("total_templates: 14", markdown)
         self.assertIn("packets_created: 14", markdown)
         self.assertIn("packets_not_started: 14", markdown)
         self.assertIn("validation_valid_count: 14", markdown)
+        self.assertIn("next_operator_action:", markdown)
 
     def test_result_docs_match_and_report_no_forbidden_changes(self):
         _run_write()
@@ -1143,11 +1196,29 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertFalse(source_norm["queue_state_mutated"])
         self.assertTrue(source_norm["no_market_action_guidance"])
         manual_capture = result["manual_resolution_source_capture"]
+        self.assertEqual(
+            manual_capture["guide_pointer"],
+            "docs/PMBOT_SOURCE_004B_MANUAL_CAPTURE_OPERATOR_FILL_GUIDE.md",
+        )
+        self.assertEqual(
+            manual_capture["checklist_pointer"],
+            "pm_bot/llm/manual_resolution_source_capture_operator_checklist.v1.json",
+        )
+        self.assertEqual(
+            manual_capture["progress_pointer"],
+            "pm_bot/llm/manual_resolution_source_capture_progress.v1.json",
+        )
         self.assertEqual(manual_capture["total_capture_packets"], 14)
+        self.assertEqual(manual_capture["total_templates"], 14)
         self.assertEqual(manual_capture["capture_status_counts"]["not_started"], 14)
         self.assertEqual(manual_capture["packets_ready_for_local_review"], 0)
         self.assertEqual(manual_capture["validation_valid_count"], 14)
         self.assertEqual(manual_capture["validation_invalid_count"], 0)
+        self.assertEqual(
+            manual_capture["validation_command"],
+            "python -m pm_bot.llm.manual_resolution_source_capture_validator --write",
+        )
+        self.assertIn("not_started", manual_capture["next_operator_action"])
         self.assertTrue(manual_capture["no_market_action_guidance"])
         self.assertTrue(manual_capture["no_trading_authority"])
         self.assertTrue(manual_capture["no_queue_authority"])

@@ -47,6 +47,11 @@
   output: pm_bot/llm/manual_resolution_source_capture_manifest.v1.md
   output: pm_bot/llm/manual_resolution_source_capture_validation.v1.json
   output: pm_bot/llm/manual_resolution_source_capture_validation.v1.md
+  output: docs/PMBOT_SOURCE_004B_MANUAL_CAPTURE_OPERATOR_FILL_GUIDE.md
+  output: pm_bot/llm/manual_resolution_source_capture_operator_checklist.v1.json
+  output: pm_bot/llm/manual_resolution_source_capture_operator_checklist.v1.md
+  output: pm_bot/llm/manual_resolution_source_capture_progress.v1.json
+  output: pm_bot/llm/manual_resolution_source_capture_progress.v1.md
   output: pm_bot/workbench/operator_openrouter_review_dashboard.v1.json
   output: pm_bot/workbench/operator_openrouter_review_dashboard.v1.md
 - operator_review_pack: status=ran, required=true, script=pm_bot/workbench/export_operator_review_pack.py
@@ -88,6 +93,11 @@
 - pm_bot/llm/manual_resolution_source_capture_manifest.v1.md
 - pm_bot/llm/manual_resolution_source_capture_validation.v1.json
 - pm_bot/llm/manual_resolution_source_capture_validation.v1.md
+- docs/PMBOT_SOURCE_004B_MANUAL_CAPTURE_OPERATOR_FILL_GUIDE.md
+- pm_bot/llm/manual_resolution_source_capture_operator_checklist.v1.json
+- pm_bot/llm/manual_resolution_source_capture_operator_checklist.v1.md
+- pm_bot/llm/manual_resolution_source_capture_progress.v1.json
+- pm_bot/llm/manual_resolution_source_capture_progress.v1.md
 - pm_bot/workbench/operator_openrouter_review_dashboard.v1.json
 - pm_bot/workbench/operator_openrouter_review_dashboard.v1.md
 - pm_bot/workbench/operator_review_pack.v1.json
@@ -235,13 +245,19 @@
 
 ## Manual Resolution Source Capture
 
+- guide_path: docs/PMBOT_SOURCE_004B_MANUAL_CAPTURE_OPERATOR_FILL_GUIDE.md
+- checklist_path: pm_bot/llm/manual_resolution_source_capture_operator_checklist.v1.json
+- progress_path: pm_bot/llm/manual_resolution_source_capture_progress.v1.json
 - manifest_path: pm_bot/llm/manual_resolution_source_capture_manifest.v1.json
 - validation_path: pm_bot/llm/manual_resolution_source_capture_validation.v1.json
+- total_templates: 14
 - packets_created: 14
 - packets_not_started: 14
 - packets_ready_for_local_review: 0
 - validation_valid_count: 14
 - validation_invalid_count: 0
+- validation_command: python -m pm_bot.llm.manual_resolution_source_capture_validator --write
+- next_operator_action: Open one not_started capture JSON and its Markdown companion, fill the recommended fields from manual local review, set both status fields to draft, then rerun validation.
 - top_fields_to_fill: full_market_resolution_criteria_text, full_resolution_rules, official_source_references, official_source_urls_or_rule_references, source_timestamps, source_reliability_review, reviewed_local_evidence_references, non_placeholder_evidence_notes
 - no_market_action_guidance: true
 - no_trading_authority: true
@@ -280,4 +296,4 @@
 - trading: false
 - wallet: false
 
-- next_safe_action: Open pm_bot/workbench/operator_workbench_export_run.v1.md, then pm_bot/workbench/operator_review_pack.v1.md for manual local review.
+- next_safe_action: Open docs/PMBOT_SOURCE_004B_MANUAL_CAPTURE_OPERATOR_FILL_GUIDE.md, then pm_bot/llm/manual_resolution_source_capture_operator_checklist.v1.md before filling local source capture templates.

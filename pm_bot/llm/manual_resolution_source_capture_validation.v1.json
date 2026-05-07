@@ -4,6 +4,8 @@
   "task_id": "PMBOT-SOURCE-004-LOCAL-MANUAL-RESOLUTION-SOURCE-CAPTURE-PACKETS",
   "generated_by": "pm_bot/llm/manual_resolution_source_capture_validator.py",
   "status": "manual_resolution_source_capture_validation_passed",
+  "strict_ready_enabled": false,
+  "market_id_filter": null,
   "total_packets_validated": 14,
   "valid_count": 14,
   "invalid_count": 0,
@@ -26,6 +28,181 @@
     "691547",
     "692258"
   ],
+  "missing_fields_by_priority": [
+    {
+      "field": "full_market_resolution_criteria_text",
+      "priority": 1,
+      "market_count": 14,
+      "market_ids": [
+        "563650",
+        "569332",
+        "569333",
+        "569334",
+        "569343",
+        "569344",
+        "569366",
+        "569368",
+        "569373",
+        "573656",
+        "597964",
+        "598936",
+        "691547",
+        "692258"
+      ]
+    },
+    {
+      "field": "full_resolution_rules",
+      "priority": 2,
+      "market_count": 14,
+      "market_ids": [
+        "563650",
+        "569332",
+        "569333",
+        "569334",
+        "569343",
+        "569344",
+        "569366",
+        "569368",
+        "569373",
+        "573656",
+        "597964",
+        "598936",
+        "691547",
+        "692258"
+      ]
+    },
+    {
+      "field": "official_source_references",
+      "priority": 3,
+      "market_count": 14,
+      "market_ids": [
+        "563650",
+        "569332",
+        "569333",
+        "569334",
+        "569343",
+        "569344",
+        "569366",
+        "569368",
+        "569373",
+        "573656",
+        "597964",
+        "598936",
+        "691547",
+        "692258"
+      ]
+    },
+    {
+      "field": "official_source_urls_or_rule_references",
+      "priority": 4,
+      "market_count": 14,
+      "market_ids": [
+        "563650",
+        "569332",
+        "569333",
+        "569334",
+        "569343",
+        "569344",
+        "569366",
+        "569368",
+        "569373",
+        "573656",
+        "597964",
+        "598936",
+        "691547",
+        "692258"
+      ]
+    },
+    {
+      "field": "source_timestamps",
+      "priority": 5,
+      "market_count": 14,
+      "market_ids": [
+        "563650",
+        "569332",
+        "569333",
+        "569334",
+        "569343",
+        "569344",
+        "569366",
+        "569368",
+        "569373",
+        "573656",
+        "597964",
+        "598936",
+        "691547",
+        "692258"
+      ]
+    },
+    {
+      "field": "source_reliability_review",
+      "priority": 6,
+      "market_count": 14,
+      "market_ids": [
+        "563650",
+        "569332",
+        "569333",
+        "569334",
+        "569343",
+        "569344",
+        "569366",
+        "569368",
+        "569373",
+        "573656",
+        "597964",
+        "598936",
+        "691547",
+        "692258"
+      ]
+    },
+    {
+      "field": "reviewed_local_evidence_references",
+      "priority": 7,
+      "market_count": 14,
+      "market_ids": [
+        "563650",
+        "569332",
+        "569333",
+        "569334",
+        "569343",
+        "569344",
+        "569366",
+        "569368",
+        "569373",
+        "573656",
+        "597964",
+        "598936",
+        "691547",
+        "692258"
+      ]
+    },
+    {
+      "field": "non_placeholder_evidence_notes",
+      "priority": 8,
+      "market_count": 14,
+      "market_ids": [
+        "563650",
+        "569332",
+        "569333",
+        "569334",
+        "569343",
+        "569344",
+        "569366",
+        "569368",
+        "569373",
+        "573656",
+        "597964",
+        "598936",
+        "691547",
+        "692258"
+      ]
+    }
+  ],
+  "operator_next_steps": [
+    "Open a not_started capture template and fill priority fields from manual local review.",
+    "Set both source_capture_status and capture_status to draft after substantive local input starts.",
+    "Run python -m pm_bot.llm.manual_resolution_source_capture_validator --write after edits."
+  ],
   "packet_results": [
     {
       "market_id": "563650",
@@ -39,6 +216,42 @@
         "official_source_references",
         "official_source_urls_or_rule_references"
       ],
+      "strict_ready_missing_fields": [],
+      "missing_fields_by_priority": [
+        {
+          "field": "full_market_resolution_criteria_text",
+          "priority": 1
+        },
+        {
+          "field": "full_resolution_rules",
+          "priority": 2
+        },
+        {
+          "field": "official_source_references",
+          "priority": 3
+        },
+        {
+          "field": "official_source_urls_or_rule_references",
+          "priority": 4
+        },
+        {
+          "field": "source_timestamps",
+          "priority": 5
+        },
+        {
+          "field": "source_reliability_review",
+          "priority": 6
+        },
+        {
+          "field": "reviewed_local_evidence_references",
+          "priority": 7
+        },
+        {
+          "field": "non_placeholder_evidence_notes",
+          "priority": 8
+        }
+      ],
+      "operator_next_step": "Fill the priority source fields from manual local review, set both status fields to draft, then rerun validation.",
       "capture_status": "not_started",
       "path": "pm_bot/llm/manual_resolution_source_capture/563650_resolution_source_capture.v1.json"
     },
@@ -54,6 +267,42 @@
         "official_source_references",
         "official_source_urls_or_rule_references"
       ],
+      "strict_ready_missing_fields": [],
+      "missing_fields_by_priority": [
+        {
+          "field": "full_market_resolution_criteria_text",
+          "priority": 1
+        },
+        {
+          "field": "full_resolution_rules",
+          "priority": 2
+        },
+        {
+          "field": "official_source_references",
+          "priority": 3
+        },
+        {
+          "field": "official_source_urls_or_rule_references",
+          "priority": 4
+        },
+        {
+          "field": "source_timestamps",
+          "priority": 5
+        },
+        {
+          "field": "source_reliability_review",
+          "priority": 6
+        },
+        {
+          "field": "reviewed_local_evidence_references",
+          "priority": 7
+        },
+        {
+          "field": "non_placeholder_evidence_notes",
+          "priority": 8
+        }
+      ],
+      "operator_next_step": "Fill the priority source fields from manual local review, set both status fields to draft, then rerun validation.",
       "capture_status": "not_started",
       "path": "pm_bot/llm/manual_resolution_source_capture/569332_resolution_source_capture.v1.json"
     },
@@ -69,6 +318,42 @@
         "official_source_references",
         "official_source_urls_or_rule_references"
       ],
+      "strict_ready_missing_fields": [],
+      "missing_fields_by_priority": [
+        {
+          "field": "full_market_resolution_criteria_text",
+          "priority": 1
+        },
+        {
+          "field": "full_resolution_rules",
+          "priority": 2
+        },
+        {
+          "field": "official_source_references",
+          "priority": 3
+        },
+        {
+          "field": "official_source_urls_or_rule_references",
+          "priority": 4
+        },
+        {
+          "field": "source_timestamps",
+          "priority": 5
+        },
+        {
+          "field": "source_reliability_review",
+          "priority": 6
+        },
+        {
+          "field": "reviewed_local_evidence_references",
+          "priority": 7
+        },
+        {
+          "field": "non_placeholder_evidence_notes",
+          "priority": 8
+        }
+      ],
+      "operator_next_step": "Fill the priority source fields from manual local review, set both status fields to draft, then rerun validation.",
       "capture_status": "not_started",
       "path": "pm_bot/llm/manual_resolution_source_capture/569333_resolution_source_capture.v1.json"
     },
@@ -84,6 +369,42 @@
         "official_source_references",
         "official_source_urls_or_rule_references"
       ],
+      "strict_ready_missing_fields": [],
+      "missing_fields_by_priority": [
+        {
+          "field": "full_market_resolution_criteria_text",
+          "priority": 1
+        },
+        {
+          "field": "full_resolution_rules",
+          "priority": 2
+        },
+        {
+          "field": "official_source_references",
+          "priority": 3
+        },
+        {
+          "field": "official_source_urls_or_rule_references",
+          "priority": 4
+        },
+        {
+          "field": "source_timestamps",
+          "priority": 5
+        },
+        {
+          "field": "source_reliability_review",
+          "priority": 6
+        },
+        {
+          "field": "reviewed_local_evidence_references",
+          "priority": 7
+        },
+        {
+          "field": "non_placeholder_evidence_notes",
+          "priority": 8
+        }
+      ],
+      "operator_next_step": "Fill the priority source fields from manual local review, set both status fields to draft, then rerun validation.",
       "capture_status": "not_started",
       "path": "pm_bot/llm/manual_resolution_source_capture/569334_resolution_source_capture.v1.json"
     },
@@ -99,6 +420,42 @@
         "official_source_references",
         "official_source_urls_or_rule_references"
       ],
+      "strict_ready_missing_fields": [],
+      "missing_fields_by_priority": [
+        {
+          "field": "full_market_resolution_criteria_text",
+          "priority": 1
+        },
+        {
+          "field": "full_resolution_rules",
+          "priority": 2
+        },
+        {
+          "field": "official_source_references",
+          "priority": 3
+        },
+        {
+          "field": "official_source_urls_or_rule_references",
+          "priority": 4
+        },
+        {
+          "field": "source_timestamps",
+          "priority": 5
+        },
+        {
+          "field": "source_reliability_review",
+          "priority": 6
+        },
+        {
+          "field": "reviewed_local_evidence_references",
+          "priority": 7
+        },
+        {
+          "field": "non_placeholder_evidence_notes",
+          "priority": 8
+        }
+      ],
+      "operator_next_step": "Fill the priority source fields from manual local review, set both status fields to draft, then rerun validation.",
       "capture_status": "not_started",
       "path": "pm_bot/llm/manual_resolution_source_capture/569343_resolution_source_capture.v1.json"
     },
@@ -114,6 +471,42 @@
         "official_source_references",
         "official_source_urls_or_rule_references"
       ],
+      "strict_ready_missing_fields": [],
+      "missing_fields_by_priority": [
+        {
+          "field": "full_market_resolution_criteria_text",
+          "priority": 1
+        },
+        {
+          "field": "full_resolution_rules",
+          "priority": 2
+        },
+        {
+          "field": "official_source_references",
+          "priority": 3
+        },
+        {
+          "field": "official_source_urls_or_rule_references",
+          "priority": 4
+        },
+        {
+          "field": "source_timestamps",
+          "priority": 5
+        },
+        {
+          "field": "source_reliability_review",
+          "priority": 6
+        },
+        {
+          "field": "reviewed_local_evidence_references",
+          "priority": 7
+        },
+        {
+          "field": "non_placeholder_evidence_notes",
+          "priority": 8
+        }
+      ],
+      "operator_next_step": "Fill the priority source fields from manual local review, set both status fields to draft, then rerun validation.",
       "capture_status": "not_started",
       "path": "pm_bot/llm/manual_resolution_source_capture/569344_resolution_source_capture.v1.json"
     },
@@ -129,6 +522,42 @@
         "official_source_references",
         "official_source_urls_or_rule_references"
       ],
+      "strict_ready_missing_fields": [],
+      "missing_fields_by_priority": [
+        {
+          "field": "full_market_resolution_criteria_text",
+          "priority": 1
+        },
+        {
+          "field": "full_resolution_rules",
+          "priority": 2
+        },
+        {
+          "field": "official_source_references",
+          "priority": 3
+        },
+        {
+          "field": "official_source_urls_or_rule_references",
+          "priority": 4
+        },
+        {
+          "field": "source_timestamps",
+          "priority": 5
+        },
+        {
+          "field": "source_reliability_review",
+          "priority": 6
+        },
+        {
+          "field": "reviewed_local_evidence_references",
+          "priority": 7
+        },
+        {
+          "field": "non_placeholder_evidence_notes",
+          "priority": 8
+        }
+      ],
+      "operator_next_step": "Fill the priority source fields from manual local review, set both status fields to draft, then rerun validation.",
       "capture_status": "not_started",
       "path": "pm_bot/llm/manual_resolution_source_capture/569366_resolution_source_capture.v1.json"
     },
@@ -144,6 +573,42 @@
         "official_source_references",
         "official_source_urls_or_rule_references"
       ],
+      "strict_ready_missing_fields": [],
+      "missing_fields_by_priority": [
+        {
+          "field": "full_market_resolution_criteria_text",
+          "priority": 1
+        },
+        {
+          "field": "full_resolution_rules",
+          "priority": 2
+        },
+        {
+          "field": "official_source_references",
+          "priority": 3
+        },
+        {
+          "field": "official_source_urls_or_rule_references",
+          "priority": 4
+        },
+        {
+          "field": "source_timestamps",
+          "priority": 5
+        },
+        {
+          "field": "source_reliability_review",
+          "priority": 6
+        },
+        {
+          "field": "reviewed_local_evidence_references",
+          "priority": 7
+        },
+        {
+          "field": "non_placeholder_evidence_notes",
+          "priority": 8
+        }
+      ],
+      "operator_next_step": "Fill the priority source fields from manual local review, set both status fields to draft, then rerun validation.",
       "capture_status": "not_started",
       "path": "pm_bot/llm/manual_resolution_source_capture/569368_resolution_source_capture.v1.json"
     },
@@ -159,6 +624,42 @@
         "official_source_references",
         "official_source_urls_or_rule_references"
       ],
+      "strict_ready_missing_fields": [],
+      "missing_fields_by_priority": [
+        {
+          "field": "full_market_resolution_criteria_text",
+          "priority": 1
+        },
+        {
+          "field": "full_resolution_rules",
+          "priority": 2
+        },
+        {
+          "field": "official_source_references",
+          "priority": 3
+        },
+        {
+          "field": "official_source_urls_or_rule_references",
+          "priority": 4
+        },
+        {
+          "field": "source_timestamps",
+          "priority": 5
+        },
+        {
+          "field": "source_reliability_review",
+          "priority": 6
+        },
+        {
+          "field": "reviewed_local_evidence_references",
+          "priority": 7
+        },
+        {
+          "field": "non_placeholder_evidence_notes",
+          "priority": 8
+        }
+      ],
+      "operator_next_step": "Fill the priority source fields from manual local review, set both status fields to draft, then rerun validation.",
       "capture_status": "not_started",
       "path": "pm_bot/llm/manual_resolution_source_capture/569373_resolution_source_capture.v1.json"
     },
@@ -174,6 +675,42 @@
         "official_source_references",
         "official_source_urls_or_rule_references"
       ],
+      "strict_ready_missing_fields": [],
+      "missing_fields_by_priority": [
+        {
+          "field": "full_market_resolution_criteria_text",
+          "priority": 1
+        },
+        {
+          "field": "full_resolution_rules",
+          "priority": 2
+        },
+        {
+          "field": "official_source_references",
+          "priority": 3
+        },
+        {
+          "field": "official_source_urls_or_rule_references",
+          "priority": 4
+        },
+        {
+          "field": "source_timestamps",
+          "priority": 5
+        },
+        {
+          "field": "source_reliability_review",
+          "priority": 6
+        },
+        {
+          "field": "reviewed_local_evidence_references",
+          "priority": 7
+        },
+        {
+          "field": "non_placeholder_evidence_notes",
+          "priority": 8
+        }
+      ],
+      "operator_next_step": "Fill the priority source fields from manual local review, set both status fields to draft, then rerun validation.",
       "capture_status": "not_started",
       "path": "pm_bot/llm/manual_resolution_source_capture/573656_resolution_source_capture.v1.json"
     },
@@ -189,6 +726,42 @@
         "official_source_references",
         "official_source_urls_or_rule_references"
       ],
+      "strict_ready_missing_fields": [],
+      "missing_fields_by_priority": [
+        {
+          "field": "full_market_resolution_criteria_text",
+          "priority": 1
+        },
+        {
+          "field": "full_resolution_rules",
+          "priority": 2
+        },
+        {
+          "field": "official_source_references",
+          "priority": 3
+        },
+        {
+          "field": "official_source_urls_or_rule_references",
+          "priority": 4
+        },
+        {
+          "field": "source_timestamps",
+          "priority": 5
+        },
+        {
+          "field": "source_reliability_review",
+          "priority": 6
+        },
+        {
+          "field": "reviewed_local_evidence_references",
+          "priority": 7
+        },
+        {
+          "field": "non_placeholder_evidence_notes",
+          "priority": 8
+        }
+      ],
+      "operator_next_step": "Fill the priority source fields from manual local review, set both status fields to draft, then rerun validation.",
       "capture_status": "not_started",
       "path": "pm_bot/llm/manual_resolution_source_capture/597964_resolution_source_capture.v1.json"
     },
@@ -204,6 +777,42 @@
         "official_source_references",
         "official_source_urls_or_rule_references"
       ],
+      "strict_ready_missing_fields": [],
+      "missing_fields_by_priority": [
+        {
+          "field": "full_market_resolution_criteria_text",
+          "priority": 1
+        },
+        {
+          "field": "full_resolution_rules",
+          "priority": 2
+        },
+        {
+          "field": "official_source_references",
+          "priority": 3
+        },
+        {
+          "field": "official_source_urls_or_rule_references",
+          "priority": 4
+        },
+        {
+          "field": "source_timestamps",
+          "priority": 5
+        },
+        {
+          "field": "source_reliability_review",
+          "priority": 6
+        },
+        {
+          "field": "reviewed_local_evidence_references",
+          "priority": 7
+        },
+        {
+          "field": "non_placeholder_evidence_notes",
+          "priority": 8
+        }
+      ],
+      "operator_next_step": "Fill the priority source fields from manual local review, set both status fields to draft, then rerun validation.",
       "capture_status": "not_started",
       "path": "pm_bot/llm/manual_resolution_source_capture/598936_resolution_source_capture.v1.json"
     },
@@ -219,6 +828,42 @@
         "official_source_references",
         "official_source_urls_or_rule_references"
       ],
+      "strict_ready_missing_fields": [],
+      "missing_fields_by_priority": [
+        {
+          "field": "full_market_resolution_criteria_text",
+          "priority": 1
+        },
+        {
+          "field": "full_resolution_rules",
+          "priority": 2
+        },
+        {
+          "field": "official_source_references",
+          "priority": 3
+        },
+        {
+          "field": "official_source_urls_or_rule_references",
+          "priority": 4
+        },
+        {
+          "field": "source_timestamps",
+          "priority": 5
+        },
+        {
+          "field": "source_reliability_review",
+          "priority": 6
+        },
+        {
+          "field": "reviewed_local_evidence_references",
+          "priority": 7
+        },
+        {
+          "field": "non_placeholder_evidence_notes",
+          "priority": 8
+        }
+      ],
+      "operator_next_step": "Fill the priority source fields from manual local review, set both status fields to draft, then rerun validation.",
       "capture_status": "not_started",
       "path": "pm_bot/llm/manual_resolution_source_capture/691547_resolution_source_capture.v1.json"
     },
@@ -234,6 +879,42 @@
         "official_source_references",
         "official_source_urls_or_rule_references"
       ],
+      "strict_ready_missing_fields": [],
+      "missing_fields_by_priority": [
+        {
+          "field": "full_market_resolution_criteria_text",
+          "priority": 1
+        },
+        {
+          "field": "full_resolution_rules",
+          "priority": 2
+        },
+        {
+          "field": "official_source_references",
+          "priority": 3
+        },
+        {
+          "field": "official_source_urls_or_rule_references",
+          "priority": 4
+        },
+        {
+          "field": "source_timestamps",
+          "priority": 5
+        },
+        {
+          "field": "source_reliability_review",
+          "priority": 6
+        },
+        {
+          "field": "reviewed_local_evidence_references",
+          "priority": 7
+        },
+        {
+          "field": "non_placeholder_evidence_notes",
+          "priority": 8
+        }
+      ],
+      "operator_next_step": "Fill the priority source fields from manual local review, set both status fields to draft, then rerun validation.",
       "capture_status": "not_started",
       "path": "pm_bot/llm/manual_resolution_source_capture/692258_resolution_source_capture.v1.json"
     }

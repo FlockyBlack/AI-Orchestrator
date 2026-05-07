@@ -92,6 +92,28 @@ SOURCE_004_PUBLIC_MARKDOWN_ARTIFACTS = [
     "pm_bot/workbench/operator_workbench_export_run.v1.md",
 ]
 
+SOURCE_004B_JSON_ARTIFACTS = [
+    "docs/PMBOT_SOURCE_004B_RESULT.json",
+    "pm_bot/llm/manual_resolution_source_capture_operator_checklist.v1.json",
+    "pm_bot/llm/manual_resolution_source_capture_progress.v1.json",
+    "pm_bot/llm/manual_resolution_source_capture_manifest.v1.json",
+    "pm_bot/llm/manual_resolution_source_capture_validation.v1.json",
+    "pm_bot/workbench/operator_openrouter_review_dashboard.v1.json",
+    "pm_bot/workbench/operator_review_pack.v1.json",
+    "pm_bot/workbench/operator_workbench_export_run.v1.json",
+]
+
+SOURCE_004B_PUBLIC_MARKDOWN_ARTIFACTS = [
+    "docs/PMBOT_SOURCE_004B_MANUAL_CAPTURE_OPERATOR_FILL_GUIDE.md",
+    "docs/PMBOT_SOURCE_004B_MANUAL_CAPTURE_OPERATOR_FILL_GUIDE_AND_CHECKLIST.md",
+    "pm_bot/llm/manual_resolution_source_capture_operator_checklist.v1.md",
+    "pm_bot/llm/manual_resolution_source_capture_progress.v1.md",
+    "pm_bot/llm/manual_resolution_source_capture_validation.v1.md",
+    "pm_bot/workbench/operator_openrouter_review_dashboard.v1.md",
+    "pm_bot/workbench/operator_review_pack.v1.md",
+    "pm_bot/workbench/operator_workbench_export_run.v1.md",
+]
+
 SOURCE_003_JSON_ARTIFACTS = [
     "docs/PMBOT_SOURCE_003_RESULT.json",
     "pm_bot/llm/current_llm_resolution_source_normalization_audit.v1.json",
@@ -1008,6 +1030,150 @@ def test_source_004_public_markdown_and_changed_files_pass_safety_scans():
 
     secret_name = _frag("OPENROUTER", "_API", "_KEY")
     result = _load_result("PMBOT_SOURCE_004_RESULT.json")
+    for path in result["files_changed"]:
+        text = (ROOT / path).read_text(encoding="utf-8", errors="ignore")
+        assert secret_name not in text, path
+
+
+def test_source_004b_result_records_operator_fill_guide_and_checklist():
+    result = _load_result("PMBOT_SOURCE_004B_RESULT.json")
+
+    assert result["task_id"] == "PMBOT-SOURCE-004B-MANUAL-CAPTURE-OPERATOR-FILL-GUIDE"
+    assert result["status"] in {
+        "completed_local_validation_pending_push",
+        "completed_pushed",
+    }
+    assert result["head_before"] == "e84ed1e177cc4174cfd897697208dca61f4cdb0a"
+    assert result["openrouter_calls_performed"] == 0
+    assert result["polymarket_api_calls_performed"] == 0
+    assert result["external_network_calls_performed"] == 0
+    assert result["source_004_status"] == "completed_pushed"
+    assert result["operator_fill_guide_created"] is True
+    assert result["operator_checklist_created"] is True
+    assert result["capture_progress_created"] is True
+    assert result["validator_ux_improved"] is True
+    assert result["workbench_dashboard_updated"] is True
+    assert result["capture_template_count"] == 14
+    assert result["current_capture_status_counts"]["not_started"] == 14
+    assert result["validation_valid_count"] == 14
+    assert result["validation_invalid_count"] == 0
+    assert result["secret_scan_passed"] is True
+
+    safety = result["safety_summary"]
+    assert safety["operator_review_only"] is True
+    assert safety["passive_context_only"] is True
+    assert safety["no_market_action_guidance"] is True
+    assert safety["no_trading_authority"] is True
+    assert safety["no_queue_authority"] is True
+    assert safety["no_runtime_authority"] is True
+    assert safety["no_dispatcher_authority"] is True
+    assert safety["no_wallet_or_order_authority"] is True
+    assert safety["api_key_accessed"] is False
+
+
+def test_source_004b_json_artifacts_parse_and_report_progress():
+    for path in SOURCE_004B_JSON_ARTIFACTS:
+        payload = json.loads((ROOT / path).read_text(encoding="utf-8"))
+        assert isinstance(payload, dict), path
+
+    checklist = json.loads(
+        (
+            ROOT
+            / "pm_bot"
+            / "llm"
+            / "manual_resolution_source_capture_operator_checklist.v1.json"
+        ).read_text(encoding="utf-8")
+    )
+    progress = json.loads(
+        (
+            ROOT
+            / "pm_bot"
+            / "llm"
+            / "manual_resolution_source_capture_progress.v1.json"
+        ).read_text(encoding="utf-8")
+    )
+    validation = json.loads(
+        (
+            ROOT / "pm_bot" / "llm" / "manual_resolution_source_capture_validation.v1.json"
+        ).read_text(encoding="utf-8")
+    )
+
+    assert checklist["total_templates"] == 14
+    assert len(checklist["per_market_checklist"]) == 14
+    assert checklist["recommended_fill_order"][0] == "full_market_resolution_criteria_text"
+    assert "no trading recommendations" in checklist["safety_do_not_include"]
+    assert progress["not_started_count"] == 14
+    assert progress["ready_for_local_review_count"] == 0
+    assert progress["fields_missing_counts"]["full_market_resolution_criteria_text"] == 14
+    assert validation["valid_count"] == 14
+    assert validation["invalid_count"] == 0
+    assert validation["operator_next_steps"]
+    assert validation["missing_fields_by_priority"][0]["field"] == "full_market_resolution_criteria_text"
+
+
+def test_source_004b_workbench_artifacts_surface_manual_capture_pointers():
+    dashboard = json.loads(
+        (
+            ROOT / "pm_bot" / "workbench" / "operator_openrouter_review_dashboard.v1.json"
+        ).read_text(encoding="utf-8")
+    )
+    review_pack = json.loads(
+        (ROOT / "pm_bot" / "workbench" / "operator_review_pack.v1.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    run = json.loads(
+        (
+            ROOT / "pm_bot" / "workbench" / "operator_workbench_export_run.v1.json"
+        ).read_text(encoding="utf-8")
+    )
+
+    dashboard_capture = dashboard["manual_resolution_source_capture_summary"]
+    assert (
+        dashboard_capture["guide_pointer"]
+        == "docs/PMBOT_SOURCE_004B_MANUAL_CAPTURE_OPERATOR_FILL_GUIDE.md"
+    )
+    assert (
+        dashboard_capture["checklist_pointer"]
+        == "pm_bot/llm/manual_resolution_source_capture_operator_checklist.v1.json"
+    )
+    assert (
+        dashboard_capture["progress_pointer"]
+        == "pm_bot/llm/manual_resolution_source_capture_progress.v1.json"
+    )
+    assert dashboard_capture["total_templates"] == 14
+    assert dashboard_capture["current_status_counts"]["not_started"] == 14
+    assert "not_started" in dashboard_capture["next_operator_action"]
+
+    pack_capture = review_pack["manual_resolution_source_capture"]
+    assert pack_capture["checklist_pointer"] == dashboard_capture["checklist_pointer"]
+    assert pack_capture["progress_pointer"] == dashboard_capture["progress_pointer"]
+    assert pack_capture["validation_command"] == (
+        "python -m pm_bot.llm.manual_resolution_source_capture_validator --write"
+    )
+    assert run["manual_resolution_source_capture"]["total_templates"] == 14
+    assert run["manual_resolution_source_capture"]["validation_invalid_count"] == 0
+
+
+def test_source_004b_public_markdown_and_changed_files_pass_safety_scans():
+    forbidden_markdown_phrases = [
+        "buy recommendation",
+        "sell recommendation",
+        "hold recommendation",
+        "enter position",
+        "exit position",
+        "recommended side",
+        "place an order",
+        "submit an order",
+        "market action recommendation",
+    ]
+    for path in SOURCE_004B_PUBLIC_MARKDOWN_ARTIFACTS:
+        text = (ROOT / path).read_text(encoding="utf-8").lower()
+        for phrase in forbidden_markdown_phrases:
+            assert phrase not in text, path
+
+    secret_name = _frag("OPENROUTER", "_API", "_KEY")
+    result = _load_result("PMBOT_SOURCE_004B_RESULT.json")
     for path in result["files_changed"]:
         text = (ROOT / path).read_text(encoding="utf-8", errors="ignore")
         assert secret_name not in text, path
