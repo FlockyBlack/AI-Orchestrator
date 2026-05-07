@@ -1,0 +1,126 @@
+{
+  "task_id": "PMBOT-OPENROUTER-032-POST-LIVE-BASELINE-AND-SECOND-CALL-READINESS",
+  "status": "completed_pending_commit",
+  "summary": "Created a post-live baseline after the first accepted controlled one-market OpenRouter live call and documented readiness criteria for a separately approved second manually selected one-market live call. No live call or runtime change was performed by this task.",
+  "repo": {
+    "repo_root": "C:\\Users\\OpenC\\OneDrive\\\u0414\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u044b\\AI-Orchestrator",
+    "branch": "main",
+    "head_before": "99db6ef740ea104cd7def91ada4fe7ab38cfdb39",
+    "expected_head_at_start": "99db6ef740ea104cd7def91ada4fe7ab38cfdb39",
+    "expected_head_was_head": true,
+    "working_tree_clean_before": true
+  },
+  "artifact_presence": {
+    "result_028_exists": true,
+    "report_028_exists": true,
+    "operator_surface_json_exists": true,
+    "operator_surface_md_exists": true,
+    "result_029_exists": false,
+    "result_030_exists": true,
+    "result_031_exists": true,
+    "validation_028_exists": true,
+    "summary_028_exists": true
+  },
+  "source_metadata_verified": {
+    "first_live_call_verified": true,
+    "market_id": "563650",
+    "session_id": "pmbot_openrouter_028_first_live_call_with_safe_user_env_import",
+    "model": "anthropic/claude-sonnet-4.5",
+    "openrouter_calls_count": 1,
+    "accepted_for_operator_review": true,
+    "prohibited_trading_content_detected": false,
+    "raw_response_validator_passed": true,
+    "acceptance_gate_passed": true,
+    "usage_recorded": true,
+    "cost_recorded": true,
+    "operator_surface_passive_only": true
+  },
+  "post_live_baseline": {
+    "what_is_proven": [
+      "The restored/manual one-market packet path can produce one accepted OpenRouter response through the gated harness.",
+      "The first successful live call used market 563650 and model anthropic/claude-sonnet-4.5.",
+      "The accepted response was surfaced only as passive operator-review artifacts.",
+      "Validation and acceptance gates recorded no prohibited trading content.",
+      "Usage and cost metadata were recorded for the live call."
+    ],
+    "what_is_not_proven": [
+      "No batch live-call behavior is proven or approved.",
+      "No autonomous market selection is proven or approved.",
+      "No runtime queue, dispatcher, worker, dashboard, or trading integration is proven or approved.",
+      "No second market, second model, or repeated-call pattern is proven yet.",
+      "No production reliability claim is made from a single accepted live call."
+    ],
+    "batch_live_calls_approved": false,
+    "next_live_action_allowed_only_if_separately_approved": "single_manual_one_market_live_call"
+  },
+  "second_call_readiness": {
+    "future_task_id_suggested": "PMBOT-OPENROUTER-033-SECOND-ONE-MARKET-LIVE-CALL",
+    "readiness_documented": true,
+    "operator_must_select_exactly_one_market_id": true,
+    "use_existing_restored_manual_packet_or_explicitly_generated_safe_packet": true,
+    "one_model_only_unless_separately_approved": true,
+    "one_openrouter_call_only": true,
+    "same_strict_validators_and_acceptance_gate_required": true,
+    "same_no_trading_no_recommendations_boundaries_required": true,
+    "cost_and_usage_must_be_recorded": true,
+    "raw_response_must_be_archived": true,
+    "operator_surface_created_after_acceptance_only": true,
+    "batch_automation_allowed": false,
+    "execution_command_pack_created": false
+  },
+  "reports": {
+    "result_json_path": "docs/PMBOT_OPENROUTER_032_RESULT.json",
+    "markdown_report_path": "docs/PMBOT_OPENROUTER_032_POST_LIVE_BASELINE_AND_SECOND_CALL_READINESS.md"
+  },
+  "safety": {
+    "no_openrouter_calls": true,
+    "no_polymarket_api_calls": true,
+    "no_wallet_private_keys": true,
+    "no_orders": true,
+    "no_trading": true,
+    "no_runtime_wiring": true,
+    "no_dispatcher_changes": true,
+    "no_background_workers": true,
+    "no_queue_mutation": true,
+    "no_probability_ev_edge_confidence_side_selection": true,
+    "no_buy_sell_hold_enter_exit_recommendations": true,
+    "openrouter_api_key_read": false,
+    "openrouter_api_key_printed": false,
+    "openrouter_api_key_written_to_disk": false,
+    "secret_scan_passed": true,
+    "api_key_leaked": false
+  },
+  "tests": {
+    "compileall_passed": true,
+    "pytest_llm_passed": true,
+    "pytest_summary": "260 passed in 5.27s",
+    "json_parse_checks_passed": true,
+    "result_json_checks_passed": true,
+    "secret_scan_passed": true
+  },
+  "git": {
+    "commit_message": "docs: add OpenRouter post-live baseline",
+    "commit_hash": null,
+    "pushed": null,
+    "note": "The final commit hash is intentionally not self-embedded in this result artifact."
+  },
+  "commands_run": [
+    "git status --short",
+    "git branch --show-current",
+    "git rev-parse HEAD",
+    "git log --oneline -n 8",
+    "Test-Path required milestone artifacts",
+    "Read only result, summary, validation, and operator surface artifacts",
+    "python -m compileall pm_bot",
+    "python -m pytest tests pm_bot\\llm\\tests -q",
+    "python -m json.tool docs\\PMBOT_OPENROUTER_032_RESULT.json",
+    "PowerShell 032 result metadata and readiness validation",
+    "PowerShell secret-shaped OpenRouter key and bearer token scan over generated 032 artifacts"
+  ],
+  "files_created": [
+    "docs/PMBOT_OPENROUTER_032_RESULT.json",
+    "docs/PMBOT_OPENROUTER_032_POST_LIVE_BASELINE_AND_SECOND_CALL_READINESS.md"
+  ],
+  "files_modified": [],
+  "next_action": "If separately approved, PMBOT-OPENROUTER-033 may execute one manually selected one-market live call under the documented readiness criteria."
+}
