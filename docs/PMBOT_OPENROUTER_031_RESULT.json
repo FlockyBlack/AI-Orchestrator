@@ -1,0 +1,86 @@
+{
+  "task_id": "PMBOT-OPENROUTER-031-REVIEW-UNTRACKED-010-026-DOCS",
+  "status": "completed_pending_commit",
+  "summary": "Reviewed the remaining untracked OpenRouter 010 and 026 documentation/result artifacts. All four expected historical files were present, parsed where applicable, and were safe and useful to preserve as historical records. No PMBOT runtime code was modified.",
+  "repo": {
+    "branch": "main",
+    "head_before": "d62a4093887dfd5d4218147cae6c9f174f1870b6",
+    "expected_head_at_start": "d62a4093887dfd5d4218147cae6c9f174f1870b6",
+    "expected_head_was_head": true
+  },
+  "reviewed_files": [
+    {
+      "path": "docs/PMBOT_OPENROUTER_010_MANUAL_NETWORK_ADAPTER_PROPOSAL.md",
+      "exists": true,
+      "safe_to_commit": true,
+      "decision": "commit",
+      "useful_historical_record": true,
+      "notes": "Proposal-only manual network adapter design record with explicit non-goals and future gates."
+    },
+    {
+      "path": "docs/PMBOT_OPENROUTER_010_RESULT.json",
+      "exists": true,
+      "safe_to_commit": true,
+      "json_parse_passed": true,
+      "decision": "commit",
+      "useful_historical_record": true,
+      "notes": "Structured result for task 010 with tests and safety summary."
+    },
+    {
+      "path": "docs/PMBOT_OPENROUTER_026_FIRST_ONE_MARKET_LIVE_CALL_AFTER_ENV_FIX.md",
+      "exists": true,
+      "safe_to_commit": true,
+      "decision": "commit",
+      "useful_historical_record": true,
+      "notes": "Historical blocked-run report showing no OpenRouter call was made because the process lacked the key."
+    },
+    {
+      "path": "docs/PMBOT_OPENROUTER_026_RESULT.json",
+      "exists": true,
+      "safe_to_commit": true,
+      "json_parse_passed": true,
+      "decision": "commit",
+      "useful_historical_record": true,
+      "notes": "Structured task 026 result for the blocked no-call run."
+    }
+  ],
+  "safety": {
+    "no_openrouter_calls": true,
+    "no_polymarket_api_calls": true,
+    "no_wallet_private_keys": true,
+    "no_orders": true,
+    "no_trading": true,
+    "no_runtime_wiring": true,
+    "no_dispatcher_changes": true,
+    "no_background_workers": true,
+    "no_queue_mutation": true,
+    "no_probability_ev_edge_confidence_side_selection": true,
+    "no_buy_sell_hold_enter_exit_recommendations": true,
+    "openrouter_api_key_read": false,
+    "openrouter_api_key_printed": false,
+    "openrouter_api_key_written_to_disk": false,
+    "secret_scan_passed": true,
+    "api_key_leaked": false
+  },
+  "tests": {
+    "compileall_command": "python -m compileall pm_bot",
+    "compileall_passed": true,
+    "pytest_command": "python -m pytest tests pm_bot\\\\llm\\\\tests -q",
+    "pytest_passed": true,
+    "pytest_result": "260 passed",
+    "json_parse_checks_passed": true,
+    "result_json_checks_passed": true
+  },
+  "git": {
+    "commit_message": "docs: add OpenRouter 010 and 026 historical reports",
+    "commit_hash": null,
+    "pushed": null,
+    "note": "Commit hash is assigned after this file is committed and is intentionally not self-embedded."
+  },
+  "files_created": [
+    "docs/PMBOT_OPENROUTER_031_RESULT.json",
+    "docs/PMBOT_OPENROUTER_031_REVIEW_UNTRACKED_010_026_DOCS.md"
+  ],
+  "files_modified": [],
+  "next_action": "None."
+}

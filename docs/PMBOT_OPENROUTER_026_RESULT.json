@@ -1,0 +1,116 @@
+{
+  "task_id": "PMBOT-OPENROUTER-026-FIRST-ONE-MARKET-LIVE-CALL-AFTER-ENV-FIX",
+  "status": "blocked_missing_api_key_in_codex_process",
+  "market_id": "563650",
+  "session_id": "pmbot_openrouter_026_first_live_call_after_env_fix",
+  "model": "anthropic/claude-sonnet-4.5",
+  "precheck": {
+    "repo_root": "C:\\Users\\OpenC\\OneDrive\\Документы\\AI-Orchestrator",
+    "git_status_clean_before": false,
+    "manifest_exists": true,
+    "manifest_md_exists": true,
+    "manual_packet_batch_exists": true,
+    "selected_market_packet_exists": true,
+    "selected_market_packet_path": "pm_bot/llm/manual_packet_batch/563650_packet.v1.json",
+    "selected_market_prompt_path": "pm_bot/llm/manual_packet_batch/563650_prompt.v1.md",
+    "openrouter_api_key_present": false,
+    "windows_user_environment_key_reported_present": true,
+    "api_key_printed": false
+  },
+  "live_call": {
+    "performed": false,
+    "allow_network_openrouter_used": false,
+    "openrouter_calls_count": 0,
+    "raw_response_path": "",
+    "metadata_path": "",
+    "usage_recorded": false,
+    "cost_recorded": false
+  },
+  "validation": {
+    "raw_response_validator_passed": false,
+    "acceptance_gate_passed": false,
+    "accepted_for_operator_review": false,
+    "prohibited_trading_content_detected": false
+  },
+  "safety": {
+    "no_wallet_private_keys": true,
+    "no_orders": true,
+    "no_trading": true,
+    "no_runtime_wiring": true,
+    "no_dispatcher_changes": true,
+    "no_background_workers": true,
+    "no_browser_automation": true,
+    "no_polymarket_api_calls": true,
+    "no_probability_ev_edge_confidence_side_selection": true,
+    "no_buy_sell_hold_enter_exit_recommendations": true,
+    "secret_scan_passed": true,
+    "api_key_leaked": false
+  },
+  "tests": {
+    "compileall_passed": true,
+    "pytest_passed": true,
+    "result_json_checks_passed": true
+  },
+  "files_created": [
+    "docs/PMBOT_OPENROUTER_026_RESULT.json",
+    "docs/PMBOT_OPENROUTER_026_FIRST_ONE_MARKET_LIVE_CALL_AFTER_ENV_FIX.md"
+  ],
+  "files_modified": [],
+  "commands_run": [
+    {
+      "command": "git status --short",
+      "status": "passed",
+      "result": "Repository had pre-existing untracked docs/PMBOT_OPENROUTER_010_* files before this task."
+    },
+    {
+      "command": "Test-Path pm_bot/llm/manual_llm_packet_batch_manifest.v1.json",
+      "status": "passed"
+    },
+    {
+      "command": "Test-Path pm_bot/llm/manual_llm_packet_batch_manifest.v1.md",
+      "status": "passed"
+    },
+    {
+      "command": "Test-Path pm_bot/llm/manual_packet_batch",
+      "status": "passed"
+    },
+    {
+      "command": "Test-Path pm_bot/llm/manual_packet_batch/563650_packet.v1.json and 563650_prompt.v1.md",
+      "status": "passed"
+    },
+    {
+      "command": "if ($env:OPENROUTER_API_KEY) { \"OPENROUTER_API_KEY present\" } else { \"OPENROUTER_API_KEY missing\" }",
+      "status": "passed",
+      "result": "OPENROUTER_API_KEY missing"
+    },
+    {
+      "command": "python -m compileall pm_bot",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest tests pm_bot\\llm\\tests -q",
+      "status": "passed",
+      "result": "256 passed"
+    },
+    {
+      "command": "python -m json.tool docs\\PMBOT_OPENROUTER_026_RESULT.json",
+      "status": "passed"
+    },
+    {
+      "command": "Select-String secret-shaped content scan over generated 026 artifacts",
+      "status": "passed",
+      "result": "No secret-shaped OpenRouter key, API key assignment, or bearer token was found."
+    }
+  ],
+  "commit": {
+    "created": false,
+    "hash": null,
+    "pushed": false
+  },
+  "notes": [
+    "The operator reported that the Windows User Environment contains OPENROUTER_API_KEY, but this already-running Codex application process still does not see it.",
+    "Because the key was missing from the executable environment, no OpenRouter network call was attempted.",
+    "pytest reported success and then emitted the known ignored Windows temp cleanup PermissionError after completion."
+  ],
+  "next_action": "Fully close Codex app and any related node or terminal processes, restart the app, then rerun this same task."
+}

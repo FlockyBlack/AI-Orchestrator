@@ -1,0 +1,46 @@
+{
+  "task_id": "PMBOT-OPENROUTER-010-MANUAL-NETWORK-ADAPTER-PROPOSAL",
+  "status": "completed",
+  "summary": "Created a proposal-only document for a future manually invoked OpenRouter network adapter path from the current dry-run shell to a controlled one-prompt network call. No adapter implementation, network code, key reads, runtime wiring, dispatcher changes, wallet/order logic, trading logic, or queue automation were added.",
+  "files_created": [
+    "docs/PMBOT_OPENROUTER_010_MANUAL_NETWORK_ADAPTER_PROPOSAL.md",
+    "docs/PMBOT_OPENROUTER_010_RESULT.json"
+  ],
+  "files_modified": [],
+  "tests_run": [
+    {
+      "command": "python -m compileall pm_bot",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest tests pm_bot\\llm\\tests -q",
+      "status": "passed",
+      "result": "256 passed"
+    },
+    {
+      "command": "python -m json.tool docs\\PMBOT_OPENROUTER_010_RESULT.json",
+      "status": "passed"
+    },
+    {
+      "command": "Select-String secret scan over docs, pm_bot\\llm JSON files, and .gitignore",
+      "status": "passed",
+      "result": "No matches."
+    }
+  ],
+  "safety": {
+    "proposal_only": true,
+    "no_network_code": true,
+    "no_network_calls": true,
+    "api_key_not_read": true,
+    "no_runtime_wiring": true,
+    "no_dispatcher_changes": true,
+    "no_wallet_or_orders": true,
+    "no_trading_decision": true,
+    "manual_only": true
+  },
+  "notes": [
+    "pytest emitted an ignored Windows temp cleanup PermissionError after reporting success.",
+    "pm_bot/llm/openrouter_adapter_contract.v1.json was not modified, so its JSON validation was not required for this task."
+  ],
+  "next_action": "PMBOT-OPENROUTER-011-MANUAL-NETWORK-ADAPTER-GATED-IMPLEMENTATION requires separate operator approval before coding."
+}
