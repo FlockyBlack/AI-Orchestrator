@@ -19,11 +19,11 @@
   "files_modified": [],
   "tests": [],
   "artifact_inventory_summary": {
-    "total_artifacts": 31,
-    "present_artifacts": 31,
+    "total_artifacts": 34,
+    "present_artifacts": 34,
     "missing_artifacts": 0,
     "required_missing_artifacts": 0,
-    "json_artifacts_parsed": 30,
+    "json_artifacts_parsed": 33,
     "json_artifacts_parse_failed": 0
   },
   "actual_manual_llm_response_trial": {
@@ -752,6 +752,45 @@
     "queue_items_created": 0,
     "queue_state_mutated": false,
     "no_market_action_guidance": true
+  },
+  "manual_resolution_source_capture": {
+    "schema_pointer": "pm_bot/llm/manual_resolution_source_capture_schema.v1.json",
+    "manifest_pointer": "pm_bot/llm/manual_resolution_source_capture_manifest.v1.json",
+    "validation_pointer": "pm_bot/llm/manual_resolution_source_capture_validation.v1.json",
+    "total_capture_packets": 14,
+    "capture_status_counts": {
+      "not_started": 14,
+      "draft": 0,
+      "ready_for_local_review": 0,
+      "reviewed": 0,
+      "needs_revision": 0
+    },
+    "packets_created": 14,
+    "packets_not_started": 14,
+    "packets_ready_for_local_review": 0,
+    "fields_required_for_high_completeness": [
+      "full_market_resolution_criteria_text",
+      "full_resolution_rules",
+      "official_source_references",
+      "official_source_urls_or_rule_references"
+    ],
+    "recommended_operator_fill_order": [
+      "full_market_resolution_criteria_text",
+      "full_resolution_rules",
+      "official_source_references",
+      "official_source_urls_or_rule_references",
+      "source_timestamps",
+      "source_reliability_review",
+      "reviewed_local_evidence_references",
+      "non_placeholder_evidence_notes"
+    ],
+    "validation_valid_count": 14,
+    "validation_invalid_count": 0,
+    "no_market_action_guidance": true,
+    "no_trading_authority": true,
+    "no_queue_authority": true,
+    "no_runtime_authority": true,
+    "no_wallet_or_order_authority": true
   },
   "missing_artifacts": [],
   "warnings_count": 4,

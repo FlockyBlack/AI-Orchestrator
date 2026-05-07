@@ -43,6 +43,12 @@ SUMMARY_OUTPUT_ARTIFACTS = [
     "pm_bot/llm/current_llm_batch_readiness_gate_after_source_normalization.v1.md",
     "pm_bot/llm/local_source_enrichment_action_plan.v1.json",
     "pm_bot/llm/local_source_enrichment_action_plan.v1.md",
+    "pm_bot/llm/manual_resolution_source_capture_schema.v1.json",
+    "pm_bot/llm/manual_resolution_source_capture_schema.v1.md",
+    "pm_bot/llm/manual_resolution_source_capture_manifest.v1.json",
+    "pm_bot/llm/manual_resolution_source_capture_manifest.v1.md",
+    "pm_bot/llm/manual_resolution_source_capture_validation.v1.json",
+    "pm_bot/llm/manual_resolution_source_capture_validation.v1.md",
     "pm_bot/workbench/operator_openrouter_review_dashboard.v1.json",
     "pm_bot/workbench/operator_openrouter_review_dashboard.v1.md",
     "docs/PMBOT_WORKBENCH_003_RESULT.json",
@@ -180,6 +186,12 @@ def build_export_steps(root=ROOT):
                 "pm_bot/llm/current_llm_batch_readiness_gate_after_source_normalization.v1.md",
                 "pm_bot/llm/local_source_enrichment_action_plan.v1.json",
                 "pm_bot/llm/local_source_enrichment_action_plan.v1.md",
+                "pm_bot/llm/manual_resolution_source_capture_schema.v1.json",
+                "pm_bot/llm/manual_resolution_source_capture_schema.v1.md",
+                "pm_bot/llm/manual_resolution_source_capture_manifest.v1.json",
+                "pm_bot/llm/manual_resolution_source_capture_manifest.v1.md",
+                "pm_bot/llm/manual_resolution_source_capture_validation.v1.json",
+                "pm_bot/llm/manual_resolution_source_capture_validation.v1.md",
                 "pm_bot/workbench/operator_openrouter_review_dashboard.v1.json",
                 "pm_bot/workbench/operator_openrouter_review_dashboard.v1.md",
             ],
@@ -364,6 +376,9 @@ def build_run_summary(step_results, root=ROOT):
         "local_source_enrichment_action_plan": _safe_dict(
             openrouter_dashboard.get("local_source_enrichment_action_plan_summary")
         ),
+        "manual_resolution_source_capture": _safe_dict(
+            openrouter_dashboard.get("manual_resolution_source_capture_summary")
+        ),
         "warnings": _warnings_for_steps(step_results),
         "safety_flags": dict(SAFETY_FLAGS),
         "network_calls": 0,
@@ -386,6 +401,7 @@ def render_markdown(summary):
     readiness_after_source = summary.get("readiness_after_source_normalization", {})
     source_gate = summary.get("batch_readiness_gate_after_source_normalization", {})
     action_plan = summary.get("local_source_enrichment_action_plan", {})
+    manual_capture = summary.get("manual_resolution_source_capture", {})
     lines = [
         "# PMBOT Operator Workbench Export Run v1",
         "",
@@ -608,6 +624,35 @@ def render_markdown(summary):
             ]
         )
 
+    if manual_capture:
+        lines.extend(
+            [
+                "",
+                "## Manual Resolution Source Capture",
+                "",
+                f"- manifest_path: {manual_capture['manifest_pointer']}",
+                f"- validation_path: {manual_capture['validation_pointer']}",
+                f"- packets_created: {manual_capture['packets_created']}",
+                f"- packets_not_started: {manual_capture['packets_not_started']}",
+                "- packets_ready_for_local_review: "
+                f"{manual_capture['packets_ready_for_local_review']}",
+                f"- validation_valid_count: {manual_capture['validation_valid_count']}",
+                f"- validation_invalid_count: {manual_capture['validation_invalid_count']}",
+                "- top_fields_to_fill: "
+                + ", ".join(manual_capture.get("top_fields_to_fill", [])),
+                "- no_market_action_guidance: "
+                f"{str(manual_capture.get('no_market_action_guidance', True)).lower()}",
+                "- no_trading_authority: "
+                f"{str(manual_capture.get('no_trading_authority', True)).lower()}",
+                "- no_queue_authority: "
+                f"{str(manual_capture.get('no_queue_authority', True)).lower()}",
+                "- no_runtime_authority: "
+                f"{str(manual_capture.get('no_runtime_authority', True)).lower()}",
+                "- no_wallet_or_order_authority: "
+                f"{str(manual_capture.get('no_wallet_or_order_authority', True)).lower()}",
+            ]
+        )
+
     lines.extend(["", "## Warnings", ""])
     if summary["warnings"]:
         lines.extend(f"- {warning}" for warning in summary["warnings"])
@@ -761,6 +806,9 @@ def _result_payload(summary):
         ],
         "local_source_enrichment_action_plan": summary[
             "local_source_enrichment_action_plan"
+        ],
+        "manual_resolution_source_capture": summary[
+            "manual_resolution_source_capture"
         ],
         "safety_flags": summary["safety_flags"],
         "network_calls": 0,

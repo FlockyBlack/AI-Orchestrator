@@ -38,6 +38,9 @@ BATCH_GATE_AFTER_SOURCE_NORMALIZATION = (
 LOCAL_SOURCE_ENRICHMENT_ACTION_PLAN = (
     ROOT / "pm_bot" / "llm" / "local_source_enrichment_action_plan.v1.json"
 )
+MANUAL_CAPTURE_SCHEMA = ROOT / "pm_bot" / "llm" / "manual_resolution_source_capture_schema.v1.json"
+MANUAL_CAPTURE_MANIFEST = ROOT / "pm_bot" / "llm" / "manual_resolution_source_capture_manifest.v1.json"
+MANUAL_CAPTURE_VALIDATION = ROOT / "pm_bot" / "llm" / "manual_resolution_source_capture_validation.v1.json"
 
 NEW_JSON_FILES = [
     PACK_JSON,
@@ -49,6 +52,9 @@ NEW_JSON_FILES = [
     READINESS_AFTER_SOURCE_NORMALIZATION,
     BATCH_GATE_AFTER_SOURCE_NORMALIZATION,
     LOCAL_SOURCE_ENRICHMENT_ACTION_PLAN,
+    MANUAL_CAPTURE_SCHEMA,
+    MANUAL_CAPTURE_MANIFEST,
+    MANUAL_CAPTURE_VALIDATION,
     RESULT,
     LANE_RESULT,
 ]
@@ -153,6 +159,7 @@ class OperatorReviewPackExportTests(unittest.TestCase):
             "openrouter_review_dashboard",
             "packet_completeness_readiness_gate",
             "resolution_source_normalization",
+            "manual_resolution_source_capture",
             "quality_warning_summary",
             "warnings",
             "missing_artifacts",
@@ -224,6 +231,9 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertTrue(inventory["readiness_after_source_normalization"]["present"])
         self.assertTrue(inventory["batch_readiness_gate_after_source_normalization"]["present"])
         self.assertTrue(inventory["local_source_enrichment_action_plan"]["present"])
+        self.assertTrue(inventory["manual_resolution_source_capture_schema"]["present"])
+        self.assertTrue(inventory["manual_resolution_source_capture"]["present"])
+        self.assertTrue(inventory["manual_resolution_source_capture_validation"]["present"])
         self.assertEqual(inventory["paper_019_result"]["parse_status"], "parsed")
         self.assertEqual(inventory["paper_019_multi_market_run_series"]["parse_status"], "parsed")
         self.assertEqual(inventory["paper_020_result"]["parse_status"], "parsed")
@@ -241,6 +251,9 @@ class OperatorReviewPackExportTests(unittest.TestCase):
             "parsed",
         )
         self.assertEqual(inventory["local_source_enrichment_action_plan"]["parse_status"], "parsed")
+        self.assertEqual(inventory["manual_resolution_source_capture_schema"]["parse_status"], "parsed")
+        self.assertEqual(inventory["manual_resolution_source_capture"]["parse_status"], "parsed")
+        self.assertEqual(inventory["manual_resolution_source_capture_validation"]["parse_status"], "parsed")
         self.assertEqual(
             inventory["paper_019_multi_market_run_series"]["path"],
             "pm_bot/paper/multi_market_paper_run_series.v1.json",
@@ -902,6 +915,36 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertTrue(all(not action["requires_runtime"] for action in pack["next_safe_manual_actions"]))
         self.assertTrue(all(not action["creates_orders"] for action in pack["next_safe_manual_actions"]))
 
+    def test_manual_resolution_source_capture_section_surfaces_manifest_and_validation(self):
+        _run_write()
+        pack = _load_json(PACK_JSON)
+        manual_capture = pack["manual_resolution_source_capture"]
+
+        self.assertEqual(manual_capture["section_id"], "manual_resolution_source_capture")
+        self.assertEqual(
+            manual_capture["manifest_pointer"],
+            "pm_bot/llm/manual_resolution_source_capture_manifest.v1.json",
+        )
+        self.assertEqual(
+            manual_capture["validation_pointer"],
+            "pm_bot/llm/manual_resolution_source_capture_validation.v1.json",
+        )
+        self.assertEqual(manual_capture["total_capture_packets"], 14)
+        self.assertEqual(manual_capture["packets_created"], 14)
+        self.assertEqual(manual_capture["packets_not_started"], 14)
+        self.assertEqual(manual_capture["packets_ready_for_local_review"], 0)
+        self.assertEqual(manual_capture["validation_valid_count"], 14)
+        self.assertEqual(manual_capture["validation_invalid_count"], 0)
+        self.assertIn(
+            "full_market_resolution_criteria_text",
+            manual_capture["recommended_operator_fill_order"],
+        )
+        self.assertTrue(manual_capture["no_market_action_guidance"])
+        self.assertTrue(manual_capture["no_trading_authority"])
+        self.assertTrue(manual_capture["no_queue_authority"])
+        self.assertTrue(manual_capture["no_runtime_authority"])
+        self.assertTrue(manual_capture["no_wallet_or_order_authority"])
+
     def test_markdown_matches_cli_output(self):
         _run_write()
         markdown = PACK_MD.read_text(encoding="utf-8")
@@ -1008,6 +1051,12 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertIn("OpenRouter Passive Surface Safety Flags", markdown)
         self.assertIn("no_runtime_authority: true", markdown)
         self.assertIn("manual_review_only: true", markdown)
+        self.assertIn("Manual Resolution Source Capture", markdown)
+        self.assertIn("manifest_pointer: pm_bot/llm/manual_resolution_source_capture_manifest.v1.json", markdown)
+        self.assertIn("validation_pointer: pm_bot/llm/manual_resolution_source_capture_validation.v1.json", markdown)
+        self.assertIn("packets_created: 14", markdown)
+        self.assertIn("packets_not_started: 14", markdown)
+        self.assertIn("validation_valid_count: 14", markdown)
 
     def test_result_docs_match_and_report_no_forbidden_changes(self):
         _run_write()
@@ -1093,6 +1142,17 @@ class OperatorReviewPackExportTests(unittest.TestCase):
         self.assertEqual(source_norm["queue_items_created"], 0)
         self.assertFalse(source_norm["queue_state_mutated"])
         self.assertTrue(source_norm["no_market_action_guidance"])
+        manual_capture = result["manual_resolution_source_capture"]
+        self.assertEqual(manual_capture["total_capture_packets"], 14)
+        self.assertEqual(manual_capture["capture_status_counts"]["not_started"], 14)
+        self.assertEqual(manual_capture["packets_ready_for_local_review"], 0)
+        self.assertEqual(manual_capture["validation_valid_count"], 14)
+        self.assertEqual(manual_capture["validation_invalid_count"], 0)
+        self.assertTrue(manual_capture["no_market_action_guidance"])
+        self.assertTrue(manual_capture["no_trading_authority"])
+        self.assertTrue(manual_capture["no_queue_authority"])
+        self.assertTrue(manual_capture["no_runtime_authority"])
+        self.assertTrue(manual_capture["no_wallet_or_order_authority"])
         self.assertTrue(result["openrouter_passive_surface"]["safety_summary"]["operator_review_only"])
         self.assertTrue(result["openrouter_passive_surface"]["safety_summary"]["passive_context_only"])
         self.assertEqual(

@@ -1,0 +1,473 @@
+{
+  "schema_version": "manual_resolution_source_capture_schema.v1",
+  "contract_version": "manual_resolution_source_capture.v1",
+  "task_id": "PMBOT-SOURCE-004-LOCAL-MANUAL-RESOLUTION-SOURCE-CAPTURE-PACKETS",
+  "generated_by": "pm_bot/llm/manual_resolution_source_capture.py",
+  "generated_at_marker": "deterministic-source-004-local-manual-capture.v1",
+  "status": "manual_resolution_source_capture_schema_created",
+  "schema_scope": "local_manual_source_evidence_capture_only",
+  "capture_status_values": [
+    "not_started",
+    "draft",
+    "ready_for_local_review",
+    "reviewed",
+    "needs_revision"
+  ],
+  "field_order": [
+    "market_id",
+    "market_title_or_question",
+    "category",
+    "capture_status",
+    "full_market_resolution_criteria_text",
+    "full_resolution_rules",
+    "official_source_references",
+    "official_source_urls_or_rule_references",
+    "source_timestamps",
+    "source_reliability_review",
+    "reviewed_local_evidence_references",
+    "non_placeholder_evidence_notes",
+    "jurisdiction",
+    "candidate_or_party_if_applicable",
+    "manual_operator_notes",
+    "unresolved_source_questions",
+    "source_capture_author_or_operator",
+    "source_capture_timestamp_local",
+    "source_capture_provenance",
+    "no_market_action_guidance",
+    "operator_review_only",
+    "no_trading_authority",
+    "no_queue_authority",
+    "no_runtime_authority",
+    "no_wallet_or_order_authority"
+  ],
+  "field_definitions": {
+    "market_id": {
+      "field": "market_id",
+      "type": "string",
+      "required_template_field": true,
+      "required_for_high_completeness": false,
+      "recommended_before_openrouter_review": false,
+      "may_be_empty_in_not_started_template": false,
+      "empty_allowed_statuses": [
+        "not_started",
+        "draft",
+        "ready_for_local_review",
+        "reviewed",
+        "needs_revision"
+      ]
+    },
+    "market_title_or_question": {
+      "field": "market_title_or_question",
+      "type": "string_or_null",
+      "required_template_field": true,
+      "required_for_high_completeness": false,
+      "recommended_before_openrouter_review": false,
+      "may_be_empty_in_not_started_template": false,
+      "empty_allowed_statuses": [
+        "not_started",
+        "draft",
+        "ready_for_local_review",
+        "reviewed",
+        "needs_revision"
+      ]
+    },
+    "category": {
+      "field": "category",
+      "type": "string_or_null",
+      "required_template_field": true,
+      "required_for_high_completeness": false,
+      "recommended_before_openrouter_review": false,
+      "may_be_empty_in_not_started_template": false,
+      "empty_allowed_statuses": [
+        "not_started",
+        "draft",
+        "ready_for_local_review",
+        "reviewed",
+        "needs_revision"
+      ]
+    },
+    "capture_status": {
+      "field": "capture_status",
+      "type": "enum",
+      "required_template_field": true,
+      "required_for_high_completeness": false,
+      "recommended_before_openrouter_review": false,
+      "may_be_empty_in_not_started_template": false,
+      "empty_allowed_statuses": [
+        "not_started",
+        "draft",
+        "ready_for_local_review",
+        "reviewed",
+        "needs_revision"
+      ]
+    },
+    "full_market_resolution_criteria_text": {
+      "field": "full_market_resolution_criteria_text",
+      "type": "string",
+      "required_template_field": true,
+      "required_for_high_completeness": true,
+      "recommended_before_openrouter_review": false,
+      "may_be_empty_in_not_started_template": true,
+      "empty_allowed_statuses": [
+        "not_started",
+        "draft"
+      ]
+    },
+    "full_resolution_rules": {
+      "field": "full_resolution_rules",
+      "type": "string",
+      "required_template_field": true,
+      "required_for_high_completeness": true,
+      "recommended_before_openrouter_review": false,
+      "may_be_empty_in_not_started_template": true,
+      "empty_allowed_statuses": [
+        "not_started",
+        "draft"
+      ]
+    },
+    "official_source_references": {
+      "field": "official_source_references",
+      "type": "array",
+      "required_template_field": true,
+      "required_for_high_completeness": true,
+      "recommended_before_openrouter_review": false,
+      "may_be_empty_in_not_started_template": true,
+      "empty_allowed_statuses": [
+        "not_started",
+        "draft"
+      ]
+    },
+    "official_source_urls_or_rule_references": {
+      "field": "official_source_urls_or_rule_references",
+      "type": "array",
+      "required_template_field": true,
+      "required_for_high_completeness": true,
+      "recommended_before_openrouter_review": false,
+      "may_be_empty_in_not_started_template": true,
+      "empty_allowed_statuses": [
+        "not_started",
+        "draft"
+      ]
+    },
+    "source_timestamps": {
+      "field": "source_timestamps",
+      "type": "array",
+      "required_template_field": true,
+      "required_for_high_completeness": false,
+      "recommended_before_openrouter_review": false,
+      "may_be_empty_in_not_started_template": true,
+      "empty_allowed_statuses": [
+        "not_started",
+        "draft",
+        "ready_for_local_review",
+        "reviewed",
+        "needs_revision"
+      ]
+    },
+    "source_reliability_review": {
+      "field": "source_reliability_review",
+      "type": "string",
+      "required_template_field": true,
+      "required_for_high_completeness": false,
+      "recommended_before_openrouter_review": true,
+      "may_be_empty_in_not_started_template": true,
+      "empty_allowed_statuses": [
+        "not_started",
+        "draft",
+        "ready_for_local_review",
+        "reviewed",
+        "needs_revision"
+      ]
+    },
+    "reviewed_local_evidence_references": {
+      "field": "reviewed_local_evidence_references",
+      "type": "array",
+      "required_template_field": true,
+      "required_for_high_completeness": false,
+      "recommended_before_openrouter_review": true,
+      "may_be_empty_in_not_started_template": true,
+      "empty_allowed_statuses": [
+        "not_started",
+        "draft",
+        "ready_for_local_review",
+        "reviewed",
+        "needs_revision"
+      ]
+    },
+    "non_placeholder_evidence_notes": {
+      "field": "non_placeholder_evidence_notes",
+      "type": "string",
+      "required_template_field": true,
+      "required_for_high_completeness": false,
+      "recommended_before_openrouter_review": false,
+      "may_be_empty_in_not_started_template": true,
+      "empty_allowed_statuses": [
+        "not_started",
+        "draft",
+        "ready_for_local_review",
+        "reviewed",
+        "needs_revision"
+      ]
+    },
+    "jurisdiction": {
+      "field": "jurisdiction",
+      "type": "string_or_null",
+      "required_template_field": true,
+      "required_for_high_completeness": false,
+      "recommended_before_openrouter_review": false,
+      "may_be_empty_in_not_started_template": false,
+      "empty_allowed_statuses": [
+        "not_started",
+        "draft",
+        "ready_for_local_review",
+        "reviewed",
+        "needs_revision"
+      ]
+    },
+    "candidate_or_party_if_applicable": {
+      "field": "candidate_or_party_if_applicable",
+      "type": "string_or_null",
+      "required_template_field": true,
+      "required_for_high_completeness": false,
+      "recommended_before_openrouter_review": false,
+      "may_be_empty_in_not_started_template": false,
+      "empty_allowed_statuses": [
+        "not_started",
+        "draft",
+        "ready_for_local_review",
+        "reviewed",
+        "needs_revision"
+      ]
+    },
+    "manual_operator_notes": {
+      "field": "manual_operator_notes",
+      "type": "string",
+      "required_template_field": true,
+      "required_for_high_completeness": false,
+      "recommended_before_openrouter_review": false,
+      "may_be_empty_in_not_started_template": false,
+      "empty_allowed_statuses": [
+        "not_started",
+        "draft",
+        "ready_for_local_review",
+        "reviewed",
+        "needs_revision"
+      ]
+    },
+    "unresolved_source_questions": {
+      "field": "unresolved_source_questions",
+      "type": "array",
+      "required_template_field": true,
+      "required_for_high_completeness": false,
+      "recommended_before_openrouter_review": false,
+      "may_be_empty_in_not_started_template": false,
+      "empty_allowed_statuses": [
+        "not_started",
+        "draft",
+        "ready_for_local_review",
+        "reviewed",
+        "needs_revision"
+      ]
+    },
+    "source_capture_author_or_operator": {
+      "field": "source_capture_author_or_operator",
+      "type": "string_or_null",
+      "required_template_field": true,
+      "required_for_high_completeness": false,
+      "recommended_before_openrouter_review": false,
+      "may_be_empty_in_not_started_template": false,
+      "empty_allowed_statuses": [
+        "not_started",
+        "draft",
+        "ready_for_local_review",
+        "reviewed",
+        "needs_revision"
+      ]
+    },
+    "source_capture_timestamp_local": {
+      "field": "source_capture_timestamp_local",
+      "type": "string_or_null",
+      "required_template_field": true,
+      "required_for_high_completeness": false,
+      "recommended_before_openrouter_review": false,
+      "may_be_empty_in_not_started_template": false,
+      "empty_allowed_statuses": [
+        "not_started",
+        "draft",
+        "ready_for_local_review",
+        "reviewed",
+        "needs_revision"
+      ]
+    },
+    "source_capture_provenance": {
+      "field": "source_capture_provenance",
+      "type": "string",
+      "required_template_field": true,
+      "required_for_high_completeness": false,
+      "recommended_before_openrouter_review": false,
+      "may_be_empty_in_not_started_template": false,
+      "empty_allowed_statuses": [
+        "not_started",
+        "draft",
+        "ready_for_local_review",
+        "reviewed",
+        "needs_revision"
+      ]
+    },
+    "no_market_action_guidance": {
+      "field": "no_market_action_guidance",
+      "type": "boolean",
+      "required_template_field": true,
+      "required_for_high_completeness": false,
+      "recommended_before_openrouter_review": false,
+      "may_be_empty_in_not_started_template": false,
+      "empty_allowed_statuses": [
+        "not_started",
+        "draft",
+        "ready_for_local_review",
+        "reviewed",
+        "needs_revision"
+      ]
+    },
+    "operator_review_only": {
+      "field": "operator_review_only",
+      "type": "boolean",
+      "required_template_field": true,
+      "required_for_high_completeness": false,
+      "recommended_before_openrouter_review": false,
+      "may_be_empty_in_not_started_template": false,
+      "empty_allowed_statuses": [
+        "not_started",
+        "draft",
+        "ready_for_local_review",
+        "reviewed",
+        "needs_revision"
+      ]
+    },
+    "no_trading_authority": {
+      "field": "no_trading_authority",
+      "type": "boolean",
+      "required_template_field": true,
+      "required_for_high_completeness": false,
+      "recommended_before_openrouter_review": false,
+      "may_be_empty_in_not_started_template": false,
+      "empty_allowed_statuses": [
+        "not_started",
+        "draft",
+        "ready_for_local_review",
+        "reviewed",
+        "needs_revision"
+      ]
+    },
+    "no_queue_authority": {
+      "field": "no_queue_authority",
+      "type": "boolean",
+      "required_template_field": true,
+      "required_for_high_completeness": false,
+      "recommended_before_openrouter_review": false,
+      "may_be_empty_in_not_started_template": false,
+      "empty_allowed_statuses": [
+        "not_started",
+        "draft",
+        "ready_for_local_review",
+        "reviewed",
+        "needs_revision"
+      ]
+    },
+    "no_runtime_authority": {
+      "field": "no_runtime_authority",
+      "type": "boolean",
+      "required_template_field": true,
+      "required_for_high_completeness": false,
+      "recommended_before_openrouter_review": false,
+      "may_be_empty_in_not_started_template": false,
+      "empty_allowed_statuses": [
+        "not_started",
+        "draft",
+        "ready_for_local_review",
+        "reviewed",
+        "needs_revision"
+      ]
+    },
+    "no_wallet_or_order_authority": {
+      "field": "no_wallet_or_order_authority",
+      "type": "boolean",
+      "required_template_field": true,
+      "required_for_high_completeness": false,
+      "recommended_before_openrouter_review": false,
+      "may_be_empty_in_not_started_template": false,
+      "empty_allowed_statuses": [
+        "not_started",
+        "draft",
+        "ready_for_local_review",
+        "reviewed",
+        "needs_revision"
+      ]
+    }
+  },
+  "fields_required_for_high_completeness": [
+    "full_market_resolution_criteria_text",
+    "full_resolution_rules",
+    "official_source_references",
+    "official_source_urls_or_rule_references"
+  ],
+  "fields_recommended_before_openrouter_review": [
+    "source_reliability_review",
+    "reviewed_local_evidence_references"
+  ],
+  "recommended_operator_fill_order": [
+    "full_market_resolution_criteria_text",
+    "full_resolution_rules",
+    "official_source_references",
+    "official_source_urls_or_rule_references",
+    "source_timestamps",
+    "source_reliability_review",
+    "reviewed_local_evidence_references",
+    "non_placeholder_evidence_notes"
+  ],
+  "operator_safety_rules": [
+    "Do not include trading recommendations.",
+    "Do not include market predictions.",
+    "Do not include probability, EV, edge, confidence, or side selection.",
+    "Do not include buy/sell/hold/enter/exit language.",
+    "Capture is for source/evidence completeness only."
+  ],
+  "no_market_action_guidance": true,
+  "operator_review_only": true,
+  "no_trading_authority": true,
+  "no_queue_authority": true,
+  "no_runtime_authority": true,
+  "no_wallet_or_order_authority": true,
+  "safety_summary": {
+    "no_market_action_guidance": true,
+    "operator_review_only": true,
+    "no_trading_authority": true,
+    "no_queue_authority": true,
+    "no_runtime_authority": true,
+    "no_wallet_or_order_authority": true,
+    "local_only": true,
+    "passive_context_only": true,
+    "manual_review_only": true,
+    "analysis_only": true,
+    "no_dispatcher_authority": true,
+    "no_browser_automation": true,
+    "no_probability_ev_edge_confidence_side_selection": true,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "external_network_calls_performed": 0,
+    "network_calls_performed": 0,
+    "api_key_accessed": false,
+    "api_key_value_printed": false,
+    "api_key_value_written": false,
+    "api_key_leaked": false,
+    "wallet_or_private_key_accessed": false,
+    "orders_created": 0,
+    "queue_items_created": 0,
+    "queue_state_mutated": false,
+    "runtime_wiring_added": false,
+    "dispatcher_changed": false,
+    "background_workers_added": false,
+    "browser_automation_used": false,
+    "market_decisions_made": false
+  }
+}

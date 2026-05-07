@@ -41,6 +41,12 @@
   output: pm_bot/llm/current_llm_batch_readiness_gate_after_source_normalization.v1.md
   output: pm_bot/llm/local_source_enrichment_action_plan.v1.json
   output: pm_bot/llm/local_source_enrichment_action_plan.v1.md
+  output: pm_bot/llm/manual_resolution_source_capture_schema.v1.json
+  output: pm_bot/llm/manual_resolution_source_capture_schema.v1.md
+  output: pm_bot/llm/manual_resolution_source_capture_manifest.v1.json
+  output: pm_bot/llm/manual_resolution_source_capture_manifest.v1.md
+  output: pm_bot/llm/manual_resolution_source_capture_validation.v1.json
+  output: pm_bot/llm/manual_resolution_source_capture_validation.v1.md
   output: pm_bot/workbench/operator_openrouter_review_dashboard.v1.json
   output: pm_bot/workbench/operator_openrouter_review_dashboard.v1.md
 - operator_review_pack: status=ran, required=true, script=pm_bot/workbench/export_operator_review_pack.py
@@ -76,6 +82,12 @@
 - pm_bot/llm/current_llm_batch_readiness_gate_after_source_normalization.v1.md
 - pm_bot/llm/local_source_enrichment_action_plan.v1.json
 - pm_bot/llm/local_source_enrichment_action_plan.v1.md
+- pm_bot/llm/manual_resolution_source_capture_schema.v1.json
+- pm_bot/llm/manual_resolution_source_capture_schema.v1.md
+- pm_bot/llm/manual_resolution_source_capture_manifest.v1.json
+- pm_bot/llm/manual_resolution_source_capture_manifest.v1.md
+- pm_bot/llm/manual_resolution_source_capture_validation.v1.json
+- pm_bot/llm/manual_resolution_source_capture_validation.v1.md
 - pm_bot/workbench/operator_openrouter_review_dashboard.v1.json
 - pm_bot/workbench/operator_openrouter_review_dashboard.v1.md
 - pm_bot/workbench/operator_review_pack.v1.json
@@ -220,6 +232,22 @@
 - passive_only: true
 - queue_items_created: 0
 - queue_state_mutated: false
+
+## Manual Resolution Source Capture
+
+- manifest_path: pm_bot/llm/manual_resolution_source_capture_manifest.v1.json
+- validation_path: pm_bot/llm/manual_resolution_source_capture_validation.v1.json
+- packets_created: 14
+- packets_not_started: 14
+- packets_ready_for_local_review: 0
+- validation_valid_count: 14
+- validation_invalid_count: 0
+- top_fields_to_fill: full_market_resolution_criteria_text, full_resolution_rules, official_source_references, official_source_urls_or_rule_references, source_timestamps, source_reliability_review, reviewed_local_evidence_references, non_placeholder_evidence_notes
+- no_market_action_guidance: true
+- no_trading_authority: true
+- no_queue_authority: true
+- no_runtime_authority: true
+- no_wallet_or_order_authority: true
 
 ## Warnings
 

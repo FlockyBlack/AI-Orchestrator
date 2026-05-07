@@ -111,6 +111,24 @@ SOURCE_PATHS = {
     "local_source_enrichment_action_plan_md": (
         "pm_bot/llm/local_source_enrichment_action_plan.v1.md"
     ),
+    "manual_resolution_source_capture_schema_json": (
+        "pm_bot/llm/manual_resolution_source_capture_schema.v1.json"
+    ),
+    "manual_resolution_source_capture_schema_md": (
+        "pm_bot/llm/manual_resolution_source_capture_schema.v1.md"
+    ),
+    "manual_resolution_source_capture_manifest_json": (
+        "pm_bot/llm/manual_resolution_source_capture_manifest.v1.json"
+    ),
+    "manual_resolution_source_capture_manifest_md": (
+        "pm_bot/llm/manual_resolution_source_capture_manifest.v1.md"
+    ),
+    "manual_resolution_source_capture_validation_json": (
+        "pm_bot/llm/manual_resolution_source_capture_validation.v1.json"
+    ),
+    "manual_resolution_source_capture_validation_md": (
+        "pm_bot/llm/manual_resolution_source_capture_validation.v1.md"
+    ),
     "contour_audit_json": "pm_bot/llm/openrouter_operator_review_contour_046_053_audit.v1.json",
     "contour_audit_md": "pm_bot/llm/openrouter_operator_review_contour_046_053_audit.v1.md",
     "dashboard_json": "pm_bot/workbench/operator_openrouter_review_dashboard.v1.json",
@@ -1149,12 +1167,109 @@ def _batch_readiness_gate_summary(gate):
     }
 
 
+def _manual_resolution_source_capture_summary(root=ROOT):
+    manifest = _load_optional_json(
+        SOURCE_PATHS["manual_resolution_source_capture_manifest_json"], root=root
+    ) or {}
+    validation = _load_optional_json(
+        SOURCE_PATHS["manual_resolution_source_capture_validation_json"], root=root
+    ) or {}
+    if not manifest:
+        return {
+            "section_id": "manual_resolution_source_capture",
+            "artifact_status": "missing",
+            "manifest_pointer": SOURCE_PATHS["manual_resolution_source_capture_manifest_json"],
+            "manifest_markdown_pointer": SOURCE_PATHS[
+                "manual_resolution_source_capture_manifest_md"
+            ],
+            "validation_pointer": SOURCE_PATHS[
+                "manual_resolution_source_capture_validation_json"
+            ],
+            "validation_markdown_pointer": SOURCE_PATHS[
+                "manual_resolution_source_capture_validation_md"
+            ],
+            "total_capture_packets": 0,
+            "capture_status_counts": {},
+            "packets_created": 0,
+            "packets_not_started": 0,
+            "packets_ready_for_local_review": 0,
+            "top_fields_to_fill": [],
+            "recommended_operator_fill_order": [],
+            "validation_valid_count": 0,
+            "validation_invalid_count": 0,
+            "no_trading_authority": True,
+            "no_queue_authority": True,
+            "no_runtime_authority": True,
+            "no_wallet_or_order_authority": True,
+            "no_market_action_guidance": True,
+        }
+
+    status_counts = _safe_dict(manifest.get("capture_status_counts"))
+    validation_status = (
+        "present"
+        if validation.get("status") == "manual_resolution_source_capture_validation_passed"
+        else ("missing" if not validation else "invalid")
+    )
+    return {
+        "section_id": "manual_resolution_source_capture",
+        "artifact_status": "present"
+        if manifest.get("status") == "manual_resolution_source_capture_manifest_created"
+        else "invalid",
+        "manifest_pointer": SOURCE_PATHS["manual_resolution_source_capture_manifest_json"],
+        "manifest_markdown_pointer": SOURCE_PATHS[
+            "manual_resolution_source_capture_manifest_md"
+        ],
+        "schema_pointer": SOURCE_PATHS["manual_resolution_source_capture_schema_json"],
+        "schema_markdown_pointer": SOURCE_PATHS[
+            "manual_resolution_source_capture_schema_md"
+        ],
+        "validation_status": validation_status,
+        "validation_pointer": SOURCE_PATHS[
+            "manual_resolution_source_capture_validation_json"
+        ],
+        "validation_markdown_pointer": SOURCE_PATHS[
+            "manual_resolution_source_capture_validation_md"
+        ],
+        "total_capture_packets": manifest.get("total_capture_packets", 0),
+        "capture_status_counts": status_counts,
+        "packets_created": manifest.get("total_capture_packets", 0),
+        "packets_not_started": status_counts.get("not_started", 0),
+        "packets_ready_for_local_review": status_counts.get("ready_for_local_review", 0),
+        "fields_required_for_high_completeness": _safe_list(
+            manifest.get("fields_required_for_high_completeness")
+        ),
+        "top_fields_to_fill": [
+            item.get("field")
+            for item in _safe_list(manifest.get("fields_missing_across_all_packets"))
+            if item.get("field")
+        ],
+        "recommended_operator_fill_order": _safe_list(
+            manifest.get("recommended_operator_fill_order")
+        ),
+        "markets_by_category": _safe_dict(manifest.get("markets_by_category")),
+        "reviewed_vs_unreviewed": _safe_dict(manifest.get("reviewed_vs_unreviewed")),
+        "readiness_band_counts": _safe_dict(manifest.get("readiness_band_counts")),
+        "validation_valid_count": validation.get("valid_count", 0),
+        "validation_invalid_count": validation.get("invalid_count", 0),
+        "safety_summary": _safe_dict(manifest.get("safety_summary")),
+        "no_market_action_guidance": manifest.get("no_market_action_guidance", True),
+        "operator_review_only": manifest.get("operator_review_only", True),
+        "no_trading_authority": manifest.get("no_trading_authority", True),
+        "no_queue_authority": manifest.get("no_queue_authority", True),
+        "no_runtime_authority": manifest.get("no_runtime_authority", True),
+        "no_wallet_or_order_authority": manifest.get(
+            "no_wallet_or_order_authority", True
+        ),
+    }
+
+
 def build_operator_openrouter_review_dashboard(root=ROOT):
     inventory = build_current_llm_market_packet_inventory(root=root)
     evidence = build_current_llm_source_evidence_completeness_audit(root=root)
     source_001_context = _source_001_evidence_readiness_context(root=root)
     source_002_gate = _source_002_packet_readiness_gate(root=root)
     source_003_context = _source_003_resolution_source_context(root=root)
+    manual_capture_summary = _manual_resolution_source_capture_summary(root=root)
     batch_gate_summary = _batch_readiness_gate_summary(source_002_gate)
     source_003_artifacts = _safe_dict(source_003_context.get("artifact_pointers"))
     n3 = _n3_summary(root=root)
@@ -1231,6 +1346,13 @@ def build_operator_openrouter_review_dashboard(root=ROOT):
         "local_source_enrichment_action_plan_summary": _safe_dict(
             source_003_context.get("local_source_enrichment_action_plan_summary")
         ),
+        "manual_resolution_source_capture_integration_status": (
+            "source_004_capture_context_ready"
+            if manual_capture_summary.get("artifact_status") == "present"
+            and manual_capture_summary.get("validation_status") == "present"
+            else "source_004_capture_context_unavailable"
+        ),
+        "manual_resolution_source_capture_summary": manual_capture_summary,
         "evidence_readiness_score_summary": _safe_dict(
             source_001_context.get("evidence_readiness_score_summary")
         ),
@@ -1293,6 +1415,24 @@ def build_operator_openrouter_review_dashboard(root=ROOT):
             "local_source_enrichment_action_plan_md": SOURCE_PATHS[
                 "local_source_enrichment_action_plan_md"
             ],
+            "manual_resolution_source_capture_schema_json": SOURCE_PATHS[
+                "manual_resolution_source_capture_schema_json"
+            ],
+            "manual_resolution_source_capture_schema_md": SOURCE_PATHS[
+                "manual_resolution_source_capture_schema_md"
+            ],
+            "manual_resolution_source_capture_manifest_json": SOURCE_PATHS[
+                "manual_resolution_source_capture_manifest_json"
+            ],
+            "manual_resolution_source_capture_manifest_md": SOURCE_PATHS[
+                "manual_resolution_source_capture_manifest_md"
+            ],
+            "manual_resolution_source_capture_validation_json": SOURCE_PATHS[
+                "manual_resolution_source_capture_validation_json"
+            ],
+            "manual_resolution_source_capture_validation_md": SOURCE_PATHS[
+                "manual_resolution_source_capture_validation_md"
+            ],
             "operator_review_pack_json": "pm_bot/workbench/operator_review_pack.v1.json",
             "operator_review_pack_md": "pm_bot/workbench/operator_review_pack.v1.md",
             "workbench_export_run_json": "pm_bot/workbench/operator_workbench_export_run.v1.json",
@@ -1325,6 +1465,9 @@ def render_operator_openrouter_review_dashboard_markdown(dashboard):
         dashboard.get("batch_readiness_gate_after_source_normalization_summary")
     )
     action_plan = _safe_dict(dashboard.get("local_source_enrichment_action_plan_summary"))
+    manual_capture = _safe_dict(
+        dashboard.get("manual_resolution_source_capture_summary")
+    )
     lines = [
         "# PMBOT Operator OpenRouter Review Dashboard v1",
         "",
@@ -1536,6 +1679,50 @@ def render_operator_openrouter_review_dashboard_markdown(dashboard):
                 f"{str(action_plan.get('queue_state_mutated', False)).lower()}",
             ]
         )
+    if manual_capture:
+        lines.extend(
+            [
+                "",
+                "## Manual Resolution Source Capture",
+                "",
+                "- integration_status: "
+                f"{dashboard['manual_resolution_source_capture_integration_status']}",
+                f"- manifest_pointer: {manual_capture['manifest_pointer']}",
+                "- manifest_markdown_pointer: "
+                f"{manual_capture['manifest_markdown_pointer']}",
+                f"- validation_pointer: {manual_capture['validation_pointer']}",
+                "- validation_markdown_pointer: "
+                f"{manual_capture['validation_markdown_pointer']}",
+                f"- packets_created: {manual_capture['packets_created']}",
+                f"- packets_not_started: {manual_capture['packets_not_started']}",
+                "- packets_ready_for_local_review: "
+                f"{manual_capture['packets_ready_for_local_review']}",
+                "- validation_valid_count: "
+                f"{manual_capture['validation_valid_count']}",
+                "- validation_invalid_count: "
+                f"{manual_capture['validation_invalid_count']}",
+                "- no_market_action_guidance: "
+                f"{str(manual_capture['no_market_action_guidance']).lower()}",
+                "- no_trading_authority: "
+                f"{str(manual_capture['no_trading_authority']).lower()}",
+                "- no_queue_authority: "
+                f"{str(manual_capture['no_queue_authority']).lower()}",
+                "- no_runtime_authority: "
+                f"{str(manual_capture['no_runtime_authority']).lower()}",
+                "- no_wallet_or_order_authority: "
+                f"{str(manual_capture['no_wallet_or_order_authority']).lower()}",
+                "",
+                "## Manual Capture Top Fields To Fill",
+                "",
+            ]
+        )
+        for item in manual_capture.get("top_fields_to_fill", []):
+            lines.append(f"- {item}")
+        lines.extend(["", "## Manual Capture Recommended Fill Order", ""])
+        for index, item in enumerate(
+            manual_capture.get("recommended_operator_fill_order", []), start=1
+        ):
+            lines.append(f"{index}. {item}")
     lines.extend(["", "## Operator Next Engineering Actions", ""])
     for item in dashboard["operator_next_engineering_actions"]:
         lines.append(f"- {item}")

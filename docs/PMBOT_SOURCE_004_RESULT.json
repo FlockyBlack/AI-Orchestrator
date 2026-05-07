@@ -1,0 +1,217 @@
+{
+  "task_id": "PMBOT-SOURCE-004-LOCAL-MANUAL-RESOLUTION-SOURCE-CAPTURE-PACKETS",
+  "status": "completed_pushed",
+  "head_before": "c9d183a29d0655e05db87505e8c3719183e05576",
+  "head_after": "reported_in_final_response_after_commit",
+  "head_after_note": "A committed result artifact cannot contain its own final commit hash; final head is reported in the executor final response.",
+  "pushed": true,
+  "pushed_note": "The final git push is performed after local validation and commit; the final executor response reports the pushed head.",
+  "openrouter_calls_performed": 0,
+  "polymarket_api_calls_performed": 0,
+  "external_network_calls_performed": 0,
+  "source_003_status": "completed_pushed",
+  "capture_schema_created": true,
+  "capture_templates_created": true,
+  "capture_manifest_created": true,
+  "capture_validator_created": true,
+  "capture_validation_report_created": true,
+  "workbench_dashboard_updated": true,
+  "capture_market_count": 14,
+  "capture_json_template_count": 14,
+  "capture_markdown_template_count": 14,
+  "capture_status_counts": {
+    "not_started": 14,
+    "draft": 0,
+    "ready_for_local_review": 0,
+    "reviewed": 0,
+    "needs_revision": 0
+  },
+  "validation_valid_count": 14,
+  "validation_invalid_count": 0,
+  "top_fields_to_fill": [
+    "full_market_resolution_criteria_text",
+    "full_resolution_rules",
+    "official_source_references",
+    "official_source_urls_or_rule_references",
+    "source_timestamps",
+    "source_reliability_review",
+    "reviewed_local_evidence_references",
+    "non_placeholder_evidence_notes"
+  ],
+  "recommended_operator_fill_order": [
+    "full_market_resolution_criteria_text",
+    "full_resolution_rules",
+    "official_source_references",
+    "official_source_urls_or_rule_references",
+    "source_timestamps",
+    "source_reliability_review",
+    "reviewed_local_evidence_references",
+    "non_placeholder_evidence_notes"
+  ],
+  "files_changed": [
+    "docs/PMBOT_SOURCE_004_RESULT.json",
+    "docs/PMBOT_SOURCE_004_LOCAL_MANUAL_RESOLUTION_SOURCE_CAPTURE_PACKETS.md",
+    "pm_bot/llm/manual_resolution_source_capture.py",
+    "pm_bot/llm/manual_resolution_source_capture_validator.py",
+    "pm_bot/llm/manual_resolution_source_capture_schema.v1.json",
+    "pm_bot/llm/manual_resolution_source_capture_schema.v1.md",
+    "pm_bot/llm/manual_resolution_source_capture/563650_resolution_source_capture.v1.json",
+    "pm_bot/llm/manual_resolution_source_capture/569332_resolution_source_capture.v1.json",
+    "pm_bot/llm/manual_resolution_source_capture/569333_resolution_source_capture.v1.json",
+    "pm_bot/llm/manual_resolution_source_capture/569334_resolution_source_capture.v1.json",
+    "pm_bot/llm/manual_resolution_source_capture/569343_resolution_source_capture.v1.json",
+    "pm_bot/llm/manual_resolution_source_capture/569344_resolution_source_capture.v1.json",
+    "pm_bot/llm/manual_resolution_source_capture/569366_resolution_source_capture.v1.json",
+    "pm_bot/llm/manual_resolution_source_capture/569368_resolution_source_capture.v1.json",
+    "pm_bot/llm/manual_resolution_source_capture/569373_resolution_source_capture.v1.json",
+    "pm_bot/llm/manual_resolution_source_capture/573656_resolution_source_capture.v1.json",
+    "pm_bot/llm/manual_resolution_source_capture/597964_resolution_source_capture.v1.json",
+    "pm_bot/llm/manual_resolution_source_capture/598936_resolution_source_capture.v1.json",
+    "pm_bot/llm/manual_resolution_source_capture/691547_resolution_source_capture.v1.json",
+    "pm_bot/llm/manual_resolution_source_capture/692258_resolution_source_capture.v1.json",
+    "pm_bot/llm/manual_resolution_source_capture/563650_resolution_source_capture.v1.md",
+    "pm_bot/llm/manual_resolution_source_capture/569332_resolution_source_capture.v1.md",
+    "pm_bot/llm/manual_resolution_source_capture/569333_resolution_source_capture.v1.md",
+    "pm_bot/llm/manual_resolution_source_capture/569334_resolution_source_capture.v1.md",
+    "pm_bot/llm/manual_resolution_source_capture/569343_resolution_source_capture.v1.md",
+    "pm_bot/llm/manual_resolution_source_capture/569344_resolution_source_capture.v1.md",
+    "pm_bot/llm/manual_resolution_source_capture/569366_resolution_source_capture.v1.md",
+    "pm_bot/llm/manual_resolution_source_capture/569368_resolution_source_capture.v1.md",
+    "pm_bot/llm/manual_resolution_source_capture/569373_resolution_source_capture.v1.md",
+    "pm_bot/llm/manual_resolution_source_capture/573656_resolution_source_capture.v1.md",
+    "pm_bot/llm/manual_resolution_source_capture/597964_resolution_source_capture.v1.md",
+    "pm_bot/llm/manual_resolution_source_capture/598936_resolution_source_capture.v1.md",
+    "pm_bot/llm/manual_resolution_source_capture/691547_resolution_source_capture.v1.md",
+    "pm_bot/llm/manual_resolution_source_capture/692258_resolution_source_capture.v1.md",
+    "pm_bot/llm/manual_resolution_source_capture_manifest.v1.json",
+    "pm_bot/llm/manual_resolution_source_capture_manifest.v1.md",
+    "pm_bot/llm/manual_resolution_source_capture_validation.v1.json",
+    "pm_bot/llm/manual_resolution_source_capture_validation.v1.md",
+    "pm_bot/llm/tests/test_manual_resolution_source_capture_schema.py",
+    "pm_bot/llm/tests/test_manual_resolution_source_capture_templates.py",
+    "pm_bot/llm/tests/test_manual_resolution_source_capture_validator.py",
+    "pm_bot/llm/tests/test_manual_resolution_source_capture_manifest.py",
+    "pm_bot/llm/openrouter_operator_review_artifacts_053.py",
+    "pm_bot/workbench/operator_openrouter_review_dashboard.py",
+    "pm_bot/workbench/operator_openrouter_review_dashboard.v1.json",
+    "pm_bot/workbench/operator_openrouter_review_dashboard.v1.md",
+    "pm_bot/workbench/export_operator_review_pack.py",
+    "pm_bot/workbench/operator_review_pack.v1.json",
+    "pm_bot/workbench/operator_review_pack.v1.md",
+    "pm_bot/workbench/expected_operator_review_pack.v1.json",
+    "pm_bot/workbench/run_operator_workbench_export.py",
+    "pm_bot/workbench/operator_workbench_export_run.v1.json",
+    "pm_bot/workbench/operator_workbench_export_run.v1.md",
+    "pm_bot/workbench/expected_operator_workbench_export_run.v1.json",
+    "pm_bot/workbench/tests/test_operator_openrouter_review_dashboard.py",
+    "pm_bot/workbench/tests/test_operator_review_pack_export.py",
+    "pm_bot/workbench/tests/test_operator_workbench_export_runner.py",
+    "docs/PMBOT_WORKBENCH_001_RESULT.json",
+    "docs/PMBOT_WORKBENCH_003_RESULT.json",
+    "docs/PMBOT_CODEX_A_ROUND003_RESULT.json",
+    "tests/test_openrouter_result_artifacts.py"
+  ],
+  "tests_run": [
+    {
+      "command": "python -m py_compile pm_bot\\llm\\manual_resolution_source_capture.py pm_bot\\llm\\manual_resolution_source_capture_validator.py",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\llm\\tests\\test_manual_resolution_source_capture_schema.py pm_bot\\llm\\tests\\test_manual_resolution_source_capture_templates.py pm_bot\\llm\\tests\\test_manual_resolution_source_capture_validator.py pm_bot\\llm\\tests\\test_manual_resolution_source_capture_manifest.py -q",
+      "status": "passed",
+      "summary": "12 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\workbench\\tests\\test_operator_openrouter_review_dashboard.py pm_bot\\workbench\\tests\\test_operator_review_pack_export.py pm_bot\\workbench\\tests\\test_operator_workbench_export_runner.py -q",
+      "status": "passed",
+      "summary": "40 passed"
+    },
+    {
+      "command": "python -m pytest tests\\test_openrouter_result_artifacts.py -q",
+      "status": "passed",
+      "summary": "26 passed"
+    },
+    {
+      "command": "python -m compileall pm_bot",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest tests pm_bot\\llm\\tests -q",
+      "status": "passed",
+      "summary": "375 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\llm\\tests -q",
+      "status": "passed",
+      "summary": "193 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot\\workbench\\tests -q",
+      "status": "passed",
+      "summary": "46 passed"
+    },
+    {
+      "command": "python -m pm_bot.workbench.run_operator_workbench_export",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pm_bot.llm.manual_resolution_source_capture_validator --write",
+      "status": "passed",
+      "summary": "14 valid, 0 invalid"
+    },
+    {
+      "command": "JSON parse checks for SOURCE-003, SOURCE-004, schema, manifest, validation, all 14 capture templates, and workbench JSON artifacts",
+      "status": "passed",
+      "summary": "22 JSON objects parsed"
+    },
+    {
+      "command": "SOURCE-003 and SOURCE-004 result JSON checks",
+      "status": "passed"
+    },
+    {
+      "command": "Public Markdown guidance scan",
+      "status": "passed",
+      "summary": "21 Markdown files scanned"
+    },
+    {
+      "command": "Changed-file secret scan",
+      "status": "passed",
+      "summary": "61 changed files scanned"
+    }
+  ],
+  "safety_summary": {
+    "operator_review_only": true,
+    "passive_context_only": true,
+    "manual_review_only": true,
+    "analysis_only": true,
+    "local_only": true,
+    "no_market_action_guidance": true,
+    "no_probability_ev_edge_confidence_side_selection": true,
+    "no_trading_authority": true,
+    "no_queue_authority": true,
+    "no_runtime_authority": true,
+    "no_dispatcher_authority": true,
+    "no_wallet_or_order_authority": true,
+    "openrouter_calls_performed_by_this_task": 0,
+    "polymarket_api_calls_performed_by_this_task": 0,
+    "external_network_calls_performed_by_this_task": 0,
+    "network_calls_performed_by_this_task": 0,
+    "api_key_accessed": false,
+    "api_key_value_printed": false,
+    "api_key_value_written": false,
+    "api_key_leaked": false,
+    "wallet_or_private_key_accessed": false,
+    "orders_created": 0,
+    "queue_items_created": 0,
+    "queue_state_mutated": false,
+    "runtime_wiring_added": false,
+    "dispatcher_changed": false,
+    "background_workers_added": false,
+    "browser_automation_used": false,
+    "market_decisions_made": false
+  },
+  "secret_scan_passed": true,
+  "commit_hash": "reported_in_final_response_after_commit",
+  "commit_hash_note": "Self-referential commit hash is reported in the final executor response.",
+  "working_tree_clean_after": true
+}

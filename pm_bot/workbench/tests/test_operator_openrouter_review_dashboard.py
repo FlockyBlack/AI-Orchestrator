@@ -136,6 +136,28 @@ class OperatorOpenrouterReviewDashboardTests(unittest.TestCase):
         self.assertFalse(source_gate["future_openrouter_batch_approved"])
         self.assertTrue(source_gate["no_market_action_guidance"])
 
+        manual_capture = dashboard["manual_resolution_source_capture_summary"]
+        self.assertEqual(
+            dashboard["manual_resolution_source_capture_integration_status"],
+            "source_004_capture_context_ready",
+        )
+        self.assertEqual(manual_capture["manifest_pointer"], "pm_bot/llm/manual_resolution_source_capture_manifest.v1.json")
+        self.assertEqual(manual_capture["validation_pointer"], "pm_bot/llm/manual_resolution_source_capture_validation.v1.json")
+        self.assertEqual(manual_capture["packets_created"], 14)
+        self.assertEqual(manual_capture["packets_not_started"], 14)
+        self.assertEqual(manual_capture["packets_ready_for_local_review"], 0)
+        self.assertEqual(manual_capture["validation_valid_count"], 14)
+        self.assertEqual(manual_capture["validation_invalid_count"], 0)
+        self.assertIn(
+            "full_market_resolution_criteria_text",
+            manual_capture["top_fields_to_fill"],
+        )
+        self.assertTrue(manual_capture["no_market_action_guidance"])
+        self.assertTrue(manual_capture["no_trading_authority"])
+        self.assertTrue(manual_capture["no_queue_authority"])
+        self.assertTrue(manual_capture["no_runtime_authority"])
+        self.assertTrue(manual_capture["no_wallet_or_order_authority"])
+
         safety = dashboard["safety_summary"]
         self.assertTrue(safety["operator_review_only"])
         self.assertTrue(safety["passive_context_only"])

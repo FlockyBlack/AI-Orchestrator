@@ -56,11 +56,11 @@
   },
   "artifact_inventory": {
     "summary": {
-      "total_artifacts": 31,
-      "present_artifacts": 31,
+      "total_artifacts": 34,
+      "present_artifacts": 34,
       "missing_artifacts": 0,
       "required_missing_artifacts": 0,
-      "json_artifacts_parsed": 30,
+      "json_artifacts_parsed": 33,
       "json_artifacts_parse_failed": 0
     },
     "artifacts": [
@@ -525,6 +525,51 @@
         "schema_version": "local_source_enrichment_action_plan.v1",
         "task_id": "PMBOT-SOURCE-003-RESOLUTION-SOURCE-FIELD-NORMALIZATION",
         "status": "local_source_enrichment_action_plan_created",
+        "audit_status": null,
+        "deterministic": null,
+        "warning_count": 0
+      },
+      {
+        "artifact_id": "manual_resolution_source_capture_schema",
+        "path": "pm_bot/llm/manual_resolution_source_capture_schema.v1.json",
+        "category": "manual_resolution_source_capture",
+        "artifact_type": "manual_resolution_source_capture_schema_json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed",
+        "schema_version": "manual_resolution_source_capture_schema.v1",
+        "task_id": "PMBOT-SOURCE-004-LOCAL-MANUAL-RESOLUTION-SOURCE-CAPTURE-PACKETS",
+        "status": "manual_resolution_source_capture_schema_created",
+        "audit_status": null,
+        "deterministic": null,
+        "warning_count": 0
+      },
+      {
+        "artifact_id": "manual_resolution_source_capture",
+        "path": "pm_bot/llm/manual_resolution_source_capture_manifest.v1.json",
+        "category": "manual_resolution_source_capture",
+        "artifact_type": "manual_resolution_source_capture_manifest_json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed",
+        "schema_version": "manual_resolution_source_capture_manifest.v1",
+        "task_id": "PMBOT-SOURCE-004-LOCAL-MANUAL-RESOLUTION-SOURCE-CAPTURE-PACKETS",
+        "status": "manual_resolution_source_capture_manifest_created",
+        "audit_status": null,
+        "deterministic": null,
+        "warning_count": 0
+      },
+      {
+        "artifact_id": "manual_resolution_source_capture_validation",
+        "path": "pm_bot/llm/manual_resolution_source_capture_validation.v1.json",
+        "category": "manual_resolution_source_capture",
+        "artifact_type": "manual_resolution_source_capture_validation_json",
+        "required": false,
+        "present": true,
+        "parse_status": "parsed",
+        "schema_version": "manual_resolution_source_capture_validation.v1",
+        "task_id": "PMBOT-SOURCE-004-LOCAL-MANUAL-RESOLUTION-SOURCE-CAPTURE-PACKETS",
+        "status": "manual_resolution_source_capture_validation_passed",
         "audit_status": null,
         "deterministic": null,
         "warning_count": 0
@@ -1293,7 +1338,7 @@
       "691547",
       "692258"
     ],
-    "skipped_candidate_count": 10,
+    "skipped_candidate_count": 6,
     "offline_manual_only": true,
     "not_truth_source": true,
     "not_trading_advice": true,
@@ -2453,6 +2498,12 @@
       "batch_gate_after_source_normalization_md": "pm_bot/llm/current_llm_batch_readiness_gate_after_source_normalization.v1.md",
       "local_source_enrichment_action_plan_json": "pm_bot/llm/local_source_enrichment_action_plan.v1.json",
       "local_source_enrichment_action_plan_md": "pm_bot/llm/local_source_enrichment_action_plan.v1.md",
+      "manual_resolution_source_capture_schema_json": "pm_bot/llm/manual_resolution_source_capture_schema.v1.json",
+      "manual_resolution_source_capture_schema_md": "pm_bot/llm/manual_resolution_source_capture_schema.v1.md",
+      "manual_resolution_source_capture_manifest_json": "pm_bot/llm/manual_resolution_source_capture_manifest.v1.json",
+      "manual_resolution_source_capture_manifest_md": "pm_bot/llm/manual_resolution_source_capture_manifest.v1.md",
+      "manual_resolution_source_capture_validation_json": "pm_bot/llm/manual_resolution_source_capture_validation.v1.json",
+      "manual_resolution_source_capture_validation_md": "pm_bot/llm/manual_resolution_source_capture_validation.v1.md",
       "operator_review_pack_json": "pm_bot/workbench/operator_review_pack.v1.json",
       "operator_review_pack_md": "pm_bot/workbench/operator_review_pack.v1.md",
       "workbench_export_run_json": "pm_bot/workbench/operator_workbench_export_run.v1.json",
@@ -2847,6 +2898,176 @@
     "queue_items_created": 0,
     "queue_state_mutated": false,
     "no_market_action_guidance": true
+  },
+  "manual_resolution_source_capture": {
+    "section_id": "manual_resolution_source_capture",
+    "schema_artifact_status": "present",
+    "schema_pointer": "pm_bot/llm/manual_resolution_source_capture_schema.v1.json",
+    "schema_markdown_pointer": "pm_bot/llm/manual_resolution_source_capture_schema.v1.md",
+    "manifest_artifact_status": "present",
+    "manifest_pointer": "pm_bot/llm/manual_resolution_source_capture_manifest.v1.json",
+    "manifest_markdown_pointer": "pm_bot/llm/manual_resolution_source_capture_manifest.v1.md",
+    "manifest_parse_status": "parsed",
+    "validation_artifact_status": "present",
+    "validation_pointer": "pm_bot/llm/manual_resolution_source_capture_validation.v1.json",
+    "validation_markdown_pointer": "pm_bot/llm/manual_resolution_source_capture_validation.v1.md",
+    "validation_parse_status": "parsed",
+    "total_capture_packets": 14,
+    "capture_status_counts": {
+      "not_started": 14,
+      "draft": 0,
+      "ready_for_local_review": 0,
+      "reviewed": 0,
+      "needs_revision": 0
+    },
+    "packets_created": 14,
+    "packets_not_started": 14,
+    "packets_ready_for_local_review": 0,
+    "fields_missing_across_all_packets": [
+      {
+        "field": "full_market_resolution_criteria_text",
+        "market_count": 14
+      },
+      {
+        "field": "full_resolution_rules",
+        "market_count": 14
+      },
+      {
+        "field": "official_source_references",
+        "market_count": 14
+      },
+      {
+        "field": "official_source_urls_or_rule_references",
+        "market_count": 14
+      },
+      {
+        "field": "source_timestamps",
+        "market_count": 14
+      },
+      {
+        "field": "source_reliability_review",
+        "market_count": 14
+      },
+      {
+        "field": "reviewed_local_evidence_references",
+        "market_count": 14
+      },
+      {
+        "field": "non_placeholder_evidence_notes",
+        "market_count": 14
+      }
+    ],
+    "fields_required_for_high_completeness": [
+      "full_market_resolution_criteria_text",
+      "full_resolution_rules",
+      "official_source_references",
+      "official_source_urls_or_rule_references"
+    ],
+    "recommended_operator_fill_order": [
+      "full_market_resolution_criteria_text",
+      "full_resolution_rules",
+      "official_source_references",
+      "official_source_urls_or_rule_references",
+      "source_timestamps",
+      "source_reliability_review",
+      "reviewed_local_evidence_references",
+      "non_placeholder_evidence_notes"
+    ],
+    "markets_by_category": {
+      "company/business": [
+        "691547",
+        "692258"
+      ],
+      "crypto": [
+        "573656"
+      ],
+      "elections": [
+        "569332",
+        "569333",
+        "569334",
+        "569343",
+        "569344",
+        "569366",
+        "569368",
+        "569373",
+        "598936"
+      ],
+      "legal/courts": [
+        "563650"
+      ],
+      "politics": [
+        "597964"
+      ]
+    },
+    "reviewed_vs_unreviewed": {
+      "reviewed_accepted": 10,
+      "reviewed_blocked": 0,
+      "not_reviewed": 4,
+      "unknown": 0,
+      "reviewed_market_ids": [
+        "563650",
+        "569332",
+        "569333",
+        "569334",
+        "569343",
+        "569344",
+        "569366",
+        "569368",
+        "569373",
+        "573656"
+      ],
+      "unreviewed_market_ids": [
+        "597964",
+        "598936",
+        "691547",
+        "692258"
+      ]
+    },
+    "readiness_band_counts": {
+      "low": 4,
+      "medium": 10
+    },
+    "validation_valid_count": 14,
+    "validation_invalid_count": 0,
+    "packets_with_market_action_guidance": [],
+    "safety_summary": {
+      "no_market_action_guidance": true,
+      "operator_review_only": true,
+      "no_trading_authority": true,
+      "no_queue_authority": true,
+      "no_runtime_authority": true,
+      "no_wallet_or_order_authority": true,
+      "local_only": true,
+      "passive_context_only": true,
+      "manual_review_only": true,
+      "analysis_only": true,
+      "no_dispatcher_authority": true,
+      "no_browser_automation": true,
+      "no_probability_ev_edge_confidence_side_selection": true,
+      "openrouter_calls_performed": 0,
+      "polymarket_api_calls_performed": 0,
+      "external_network_calls_performed": 0,
+      "network_calls_performed": 0,
+      "api_key_accessed": false,
+      "api_key_value_printed": false,
+      "api_key_value_written": false,
+      "api_key_leaked": false,
+      "wallet_or_private_key_accessed": false,
+      "orders_created": 0,
+      "queue_items_created": 0,
+      "queue_state_mutated": false,
+      "runtime_wiring_added": false,
+      "dispatcher_changed": false,
+      "background_workers_added": false,
+      "browser_automation_used": false,
+      "market_decisions_made": false
+    },
+    "no_market_action_guidance": true,
+    "operator_review_only": true,
+    "no_trading_authority": true,
+    "no_queue_authority": true,
+    "no_runtime_authority": true,
+    "no_wallet_or_order_authority": true
   },
   "quality_warning_summary": {
     "source_path": "pm_bot/quality/artifact_health_report.v1.json",

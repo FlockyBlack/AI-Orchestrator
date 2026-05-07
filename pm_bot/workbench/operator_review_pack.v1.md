@@ -51,8 +51,8 @@
 
 ## Artifact Inventory
 
-- total_artifacts: 31
-- present_artifacts: 31
+- total_artifacts: 34
+- present_artifacts: 34
 - missing_artifacts: 0
 - required_missing_artifacts: 0
 
@@ -87,6 +87,9 @@
 - readiness_after_source_normalization: pm_bot/llm/current_llm_packet_evidence_readiness_scores_after_source_normalization.v1.json (present=true, required=false, parse_status=parsed)
 - batch_readiness_gate_after_source_normalization: pm_bot/llm/current_llm_batch_readiness_gate_after_source_normalization.v1.json (present=true, required=false, parse_status=parsed)
 - local_source_enrichment_action_plan: pm_bot/llm/local_source_enrichment_action_plan.v1.json (present=true, required=false, parse_status=parsed)
+- manual_resolution_source_capture_schema: pm_bot/llm/manual_resolution_source_capture_schema.v1.json (present=true, required=false, parse_status=parsed)
+- manual_resolution_source_capture: pm_bot/llm/manual_resolution_source_capture_manifest.v1.json (present=true, required=false, parse_status=parsed)
+- manual_resolution_source_capture_validation: pm_bot/llm/manual_resolution_source_capture_validation.v1.json (present=true, required=false, parse_status=parsed)
 
 ## Paper Audits
 
@@ -550,6 +553,37 @@
 - official_source_urls_or_rule_references: 14
 - source_timestamps: 14
 - source_reliability_review: 14
+
+## Manual Resolution Source Capture
+
+- section_id: manual_resolution_source_capture
+- schema_pointer: pm_bot/llm/manual_resolution_source_capture_schema.v1.json
+- manifest_pointer: pm_bot/llm/manual_resolution_source_capture_manifest.v1.json
+- manifest_markdown_pointer: pm_bot/llm/manual_resolution_source_capture_manifest.v1.md
+- validation_pointer: pm_bot/llm/manual_resolution_source_capture_validation.v1.json
+- validation_markdown_pointer: pm_bot/llm/manual_resolution_source_capture_validation.v1.md
+- total_capture_packets: 14
+- packets_created: 14
+- packets_not_started: 14
+- packets_ready_for_local_review: 0
+- validation_valid_count: 14
+- validation_invalid_count: 0
+- no_market_action_guidance: true
+- no_trading_authority: true
+- no_queue_authority: true
+- no_runtime_authority: true
+- no_wallet_or_order_authority: true
+
+## Manual Capture Recommended Fill Order
+
+1. full_market_resolution_criteria_text
+2. full_resolution_rules
+3. official_source_references
+4. official_source_urls_or_rule_references
+5. source_timestamps
+6. source_reliability_review
+7. reviewed_local_evidence_references
+8. non_placeholder_evidence_notes
 
 ## OpenRouter Review Dashboard
 

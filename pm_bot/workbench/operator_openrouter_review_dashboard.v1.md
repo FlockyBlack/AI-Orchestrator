@@ -171,6 +171,46 @@
 - queue_items_created: 0
 - queue_state_mutated: false
 
+## Manual Resolution Source Capture
+
+- integration_status: source_004_capture_context_ready
+- manifest_pointer: pm_bot/llm/manual_resolution_source_capture_manifest.v1.json
+- manifest_markdown_pointer: pm_bot/llm/manual_resolution_source_capture_manifest.v1.md
+- validation_pointer: pm_bot/llm/manual_resolution_source_capture_validation.v1.json
+- validation_markdown_pointer: pm_bot/llm/manual_resolution_source_capture_validation.v1.md
+- packets_created: 14
+- packets_not_started: 14
+- packets_ready_for_local_review: 0
+- validation_valid_count: 14
+- validation_invalid_count: 0
+- no_market_action_guidance: true
+- no_trading_authority: true
+- no_queue_authority: true
+- no_runtime_authority: true
+- no_wallet_or_order_authority: true
+
+## Manual Capture Top Fields To Fill
+
+- full_market_resolution_criteria_text
+- full_resolution_rules
+- official_source_references
+- official_source_urls_or_rule_references
+- source_timestamps
+- source_reliability_review
+- reviewed_local_evidence_references
+- non_placeholder_evidence_notes
+
+## Manual Capture Recommended Fill Order
+
+1. full_market_resolution_criteria_text
+2. full_resolution_rules
+3. official_source_references
+4. official_source_urls_or_rule_references
+5. source_timestamps
+6. source_reliability_review
+7. reviewed_local_evidence_references
+8. non_placeholder_evidence_notes
+
 ## Operator Next Engineering Actions
 
 - category/source inventory review
@@ -200,6 +240,12 @@
 - batch_gate_after_source_normalization_md: pm_bot/llm/current_llm_batch_readiness_gate_after_source_normalization.v1.md
 - local_source_enrichment_action_plan_json: pm_bot/llm/local_source_enrichment_action_plan.v1.json
 - local_source_enrichment_action_plan_md: pm_bot/llm/local_source_enrichment_action_plan.v1.md
+- manual_resolution_source_capture_schema_json: pm_bot/llm/manual_resolution_source_capture_schema.v1.json
+- manual_resolution_source_capture_schema_md: pm_bot/llm/manual_resolution_source_capture_schema.v1.md
+- manual_resolution_source_capture_manifest_json: pm_bot/llm/manual_resolution_source_capture_manifest.v1.json
+- manual_resolution_source_capture_manifest_md: pm_bot/llm/manual_resolution_source_capture_manifest.v1.md
+- manual_resolution_source_capture_validation_json: pm_bot/llm/manual_resolution_source_capture_validation.v1.json
+- manual_resolution_source_capture_validation_md: pm_bot/llm/manual_resolution_source_capture_validation.v1.md
 - operator_review_pack_json: pm_bot/workbench/operator_review_pack.v1.json
 - operator_review_pack_md: pm_bot/workbench/operator_review_pack.v1.md
 - workbench_export_run_json: pm_bot/workbench/operator_workbench_export_run.v1.json

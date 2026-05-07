@@ -92,6 +92,25 @@ LOCAL_SOURCE_ENRICHMENT_ACTION_PLAN_MARKDOWN_PATH = (
     "pm_bot/llm/local_source_enrichment_action_plan.v1.md"
 )
 LOCAL_SOURCE_ENRICHMENT_ACTION_PLAN_SECTION_ID = "local_source_enrichment_action_plan"
+MANUAL_RESOLUTION_SOURCE_CAPTURE_SCHEMA_ARTIFACT_PATH = (
+    "pm_bot/llm/manual_resolution_source_capture_schema.v1.json"
+)
+MANUAL_RESOLUTION_SOURCE_CAPTURE_SCHEMA_MARKDOWN_PATH = (
+    "pm_bot/llm/manual_resolution_source_capture_schema.v1.md"
+)
+MANUAL_RESOLUTION_SOURCE_CAPTURE_MANIFEST_ARTIFACT_PATH = (
+    "pm_bot/llm/manual_resolution_source_capture_manifest.v1.json"
+)
+MANUAL_RESOLUTION_SOURCE_CAPTURE_MANIFEST_MARKDOWN_PATH = (
+    "pm_bot/llm/manual_resolution_source_capture_manifest.v1.md"
+)
+MANUAL_RESOLUTION_SOURCE_CAPTURE_VALIDATION_ARTIFACT_PATH = (
+    "pm_bot/llm/manual_resolution_source_capture_validation.v1.json"
+)
+MANUAL_RESOLUTION_SOURCE_CAPTURE_VALIDATION_MARKDOWN_PATH = (
+    "pm_bot/llm/manual_resolution_source_capture_validation.v1.md"
+)
+MANUAL_RESOLUTION_SOURCE_CAPTURE_SECTION_ID = "manual_resolution_source_capture"
 
 SCHEMA_VERSION = "operator_review_pack.v1"
 GENERATED_BY = "pm_bot/workbench/export_operator_review_pack.py"
@@ -406,6 +425,27 @@ SOURCE_ARTIFACTS = (
         "path": LOCAL_SOURCE_ENRICHMENT_ACTION_PLAN_ARTIFACT_PATH,
         "category": "resolution_source_normalization",
         "artifact_type": "local_source_enrichment_action_plan_json",
+        "required": False,
+    },
+    {
+        "artifact_id": "manual_resolution_source_capture_schema",
+        "path": MANUAL_RESOLUTION_SOURCE_CAPTURE_SCHEMA_ARTIFACT_PATH,
+        "category": MANUAL_RESOLUTION_SOURCE_CAPTURE_SECTION_ID,
+        "artifact_type": "manual_resolution_source_capture_schema_json",
+        "required": False,
+    },
+    {
+        "artifact_id": MANUAL_RESOLUTION_SOURCE_CAPTURE_SECTION_ID,
+        "path": MANUAL_RESOLUTION_SOURCE_CAPTURE_MANIFEST_ARTIFACT_PATH,
+        "category": MANUAL_RESOLUTION_SOURCE_CAPTURE_SECTION_ID,
+        "artifact_type": "manual_resolution_source_capture_manifest_json",
+        "required": False,
+    },
+    {
+        "artifact_id": "manual_resolution_source_capture_validation",
+        "path": MANUAL_RESOLUTION_SOURCE_CAPTURE_VALIDATION_ARTIFACT_PATH,
+        "category": MANUAL_RESOLUTION_SOURCE_CAPTURE_SECTION_ID,
+        "artifact_type": "manual_resolution_source_capture_validation_json",
         "required": False,
     },
 )
@@ -1782,6 +1822,82 @@ def _resolution_source_normalization_summary(payloads, inventory):
     }
 
 
+def _manual_resolution_source_capture_summary(payloads, inventory):
+    schema_item = _inventory_item(inventory, "manual_resolution_source_capture_schema")
+    manifest_item = _inventory_item(inventory, MANUAL_RESOLUTION_SOURCE_CAPTURE_SECTION_ID)
+    validation_item = _inventory_item(
+        inventory, "manual_resolution_source_capture_validation"
+    )
+    manifest = _safe_dict(payloads.get(MANUAL_RESOLUTION_SOURCE_CAPTURE_SECTION_ID))
+    validation = _safe_dict(payloads.get("manual_resolution_source_capture_validation"))
+    status_counts = _safe_dict(manifest.get("capture_status_counts"))
+    return {
+        "section_id": MANUAL_RESOLUTION_SOURCE_CAPTURE_SECTION_ID,
+        "schema_artifact_status": (
+            "present"
+            if schema_item.get("parse_status") == "parsed"
+            else ("missing" if not schema_item.get("present") else "invalid")
+        ),
+        "schema_pointer": MANUAL_RESOLUTION_SOURCE_CAPTURE_SCHEMA_ARTIFACT_PATH,
+        "schema_markdown_pointer": MANUAL_RESOLUTION_SOURCE_CAPTURE_SCHEMA_MARKDOWN_PATH,
+        "manifest_artifact_status": (
+            "present"
+            if manifest_item.get("parse_status") == "parsed"
+            and manifest.get("status")
+            == "manual_resolution_source_capture_manifest_created"
+            else ("missing" if not manifest_item.get("present") else "invalid")
+        ),
+        "manifest_pointer": MANUAL_RESOLUTION_SOURCE_CAPTURE_MANIFEST_ARTIFACT_PATH,
+        "manifest_markdown_pointer": (
+            MANUAL_RESOLUTION_SOURCE_CAPTURE_MANIFEST_MARKDOWN_PATH
+        ),
+        "manifest_parse_status": manifest_item.get("parse_status", "not_available"),
+        "validation_artifact_status": (
+            "present"
+            if validation_item.get("parse_status") == "parsed"
+            and validation.get("status")
+            == "manual_resolution_source_capture_validation_passed"
+            else ("missing" if not validation_item.get("present") else "invalid")
+        ),
+        "validation_pointer": MANUAL_RESOLUTION_SOURCE_CAPTURE_VALIDATION_ARTIFACT_PATH,
+        "validation_markdown_pointer": (
+            MANUAL_RESOLUTION_SOURCE_CAPTURE_VALIDATION_MARKDOWN_PATH
+        ),
+        "validation_parse_status": validation_item.get("parse_status", "not_available"),
+        "total_capture_packets": manifest.get("total_capture_packets", 0),
+        "capture_status_counts": status_counts,
+        "packets_created": manifest.get("total_capture_packets", 0),
+        "packets_not_started": status_counts.get("not_started", 0),
+        "packets_ready_for_local_review": status_counts.get("ready_for_local_review", 0),
+        "fields_missing_across_all_packets": _safe_list(
+            manifest.get("fields_missing_across_all_packets")
+        ),
+        "fields_required_for_high_completeness": _safe_list(
+            manifest.get("fields_required_for_high_completeness")
+        ),
+        "recommended_operator_fill_order": _safe_list(
+            manifest.get("recommended_operator_fill_order")
+        ),
+        "markets_by_category": _safe_dict(manifest.get("markets_by_category")),
+        "reviewed_vs_unreviewed": _safe_dict(manifest.get("reviewed_vs_unreviewed")),
+        "readiness_band_counts": _safe_dict(manifest.get("readiness_band_counts")),
+        "validation_valid_count": validation.get("valid_count", 0),
+        "validation_invalid_count": validation.get("invalid_count", 0),
+        "packets_with_market_action_guidance": _safe_list(
+            validation.get("packets_with_market_action_guidance")
+        ),
+        "safety_summary": _safe_dict(manifest.get("safety_summary")),
+        "no_market_action_guidance": manifest.get("no_market_action_guidance", True),
+        "operator_review_only": manifest.get("operator_review_only", True),
+        "no_trading_authority": manifest.get("no_trading_authority", True),
+        "no_queue_authority": manifest.get("no_queue_authority", True),
+        "no_runtime_authority": manifest.get("no_runtime_authority", True),
+        "no_wallet_or_order_authority": manifest.get(
+            "no_wallet_or_order_authority", True
+        ),
+    }
+
+
 def _openrouter_review_dashboard_warnings(summary):
     if summary.get("artifact_status") == "missing":
         return [
@@ -1901,6 +2017,9 @@ def build_operator_review_pack(root=ROOT):
     resolution_source_normalization = _resolution_source_normalization_summary(
         payloads, inventory
     )
+    manual_resolution_source_capture = _manual_resolution_source_capture_summary(
+        payloads, inventory
+    )
     warnings = (
         _warnings(payloads)
         + _paper_019_warnings(paper_019_summary)
@@ -1935,6 +2054,7 @@ def build_operator_review_pack(root=ROOT):
         "openrouter_review_dashboard": openrouter_review_dashboard,
         "packet_completeness_readiness_gate": packet_completeness_gate,
         "resolution_source_normalization": resolution_source_normalization,
+        "manual_resolution_source_capture": manual_resolution_source_capture,
         "quality_warning_summary": _quality_warning_summary(quality_report, quality_load_status),
         "warnings": warnings,
         "missing_artifacts": _missing_artifacts(inventory),
@@ -1966,6 +2086,7 @@ def render_operator_review_pack_markdown(pack):
     openrouter_review_dashboard = pack["openrouter_review_dashboard"]
     packet_completeness_gate = pack["packet_completeness_readiness_gate"]
     resolution_source_normalization = pack["resolution_source_normalization"]
+    manual_resolution_source_capture = pack["manual_resolution_source_capture"]
     lines = [
         "# PMBOT Operator Review Pack v1",
         "",
@@ -2658,6 +2779,54 @@ def render_operator_review_pack_markdown(pack):
     lines.extend(
         [
             "",
+            "## Manual Resolution Source Capture",
+            "",
+            f"- section_id: {manual_resolution_source_capture['section_id']}",
+            "- schema_pointer: "
+            f"{manual_resolution_source_capture['schema_pointer']}",
+            "- manifest_pointer: "
+            f"{manual_resolution_source_capture['manifest_pointer']}",
+            "- manifest_markdown_pointer: "
+            f"{manual_resolution_source_capture['manifest_markdown_pointer']}",
+            "- validation_pointer: "
+            f"{manual_resolution_source_capture['validation_pointer']}",
+            "- validation_markdown_pointer: "
+            f"{manual_resolution_source_capture['validation_markdown_pointer']}",
+            "- total_capture_packets: "
+            f"{manual_resolution_source_capture['total_capture_packets']}",
+            "- packets_created: "
+            f"{manual_resolution_source_capture['packets_created']}",
+            "- packets_not_started: "
+            f"{manual_resolution_source_capture['packets_not_started']}",
+            "- packets_ready_for_local_review: "
+            f"{manual_resolution_source_capture['packets_ready_for_local_review']}",
+            "- validation_valid_count: "
+            f"{manual_resolution_source_capture['validation_valid_count']}",
+            "- validation_invalid_count: "
+            f"{manual_resolution_source_capture['validation_invalid_count']}",
+            "- no_market_action_guidance: "
+            f"{str(manual_resolution_source_capture['no_market_action_guidance']).lower()}",
+            "- no_trading_authority: "
+            f"{str(manual_resolution_source_capture['no_trading_authority']).lower()}",
+            "- no_queue_authority: "
+            f"{str(manual_resolution_source_capture['no_queue_authority']).lower()}",
+            "- no_runtime_authority: "
+            f"{str(manual_resolution_source_capture['no_runtime_authority']).lower()}",
+            "- no_wallet_or_order_authority: "
+            f"{str(manual_resolution_source_capture['no_wallet_or_order_authority']).lower()}",
+            "",
+            "## Manual Capture Recommended Fill Order",
+            "",
+        ]
+    )
+    for index, field in enumerate(
+        manual_resolution_source_capture["recommended_operator_fill_order"], start=1
+    ):
+        lines.append(f"{index}. {field}")
+
+    lines.extend(
+        [
+            "",
             "## OpenRouter Review Dashboard",
             "",
             f"- section_id: {openrouter_review_dashboard['section_id']}",
@@ -2925,6 +3094,57 @@ def _result_payload(pack):
             ],
             "no_market_action_guidance": pack["resolution_source_normalization"][
                 "no_market_action_guidance"
+            ],
+        },
+        "manual_resolution_source_capture": {
+            "schema_pointer": pack["manual_resolution_source_capture"]["schema_pointer"],
+            "manifest_pointer": pack["manual_resolution_source_capture"][
+                "manifest_pointer"
+            ],
+            "validation_pointer": pack["manual_resolution_source_capture"][
+                "validation_pointer"
+            ],
+            "total_capture_packets": pack["manual_resolution_source_capture"][
+                "total_capture_packets"
+            ],
+            "capture_status_counts": pack["manual_resolution_source_capture"][
+                "capture_status_counts"
+            ],
+            "packets_created": pack["manual_resolution_source_capture"][
+                "packets_created"
+            ],
+            "packets_not_started": pack["manual_resolution_source_capture"][
+                "packets_not_started"
+            ],
+            "packets_ready_for_local_review": pack[
+                "manual_resolution_source_capture"
+            ]["packets_ready_for_local_review"],
+            "fields_required_for_high_completeness": pack[
+                "manual_resolution_source_capture"
+            ]["fields_required_for_high_completeness"],
+            "recommended_operator_fill_order": pack[
+                "manual_resolution_source_capture"
+            ]["recommended_operator_fill_order"],
+            "validation_valid_count": pack["manual_resolution_source_capture"][
+                "validation_valid_count"
+            ],
+            "validation_invalid_count": pack["manual_resolution_source_capture"][
+                "validation_invalid_count"
+            ],
+            "no_market_action_guidance": pack["manual_resolution_source_capture"][
+                "no_market_action_guidance"
+            ],
+            "no_trading_authority": pack["manual_resolution_source_capture"][
+                "no_trading_authority"
+            ],
+            "no_queue_authority": pack["manual_resolution_source_capture"][
+                "no_queue_authority"
+            ],
+            "no_runtime_authority": pack["manual_resolution_source_capture"][
+                "no_runtime_authority"
+            ],
+            "no_wallet_or_order_authority": pack["manual_resolution_source_capture"][
+                "no_wallet_or_order_authority"
             ],
         },
         "missing_artifacts": pack["missing_artifacts"],
