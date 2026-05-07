@@ -1,0 +1,115 @@
+{
+  "task_id": "PMBOT-OPENROUTER-030-PUSH-029-AND-GIT-HYGIENE-BASELINE",
+  "status": "completed_029_pushed_reports_validated",
+  "summary": "Pushed the completed OpenRouter 029 commit by normal fast-forward push, verified the remaining dirty state is limited to unrelated untracked OpenRouter 010 and 026 docs/results, and prepared the 030 hygiene baseline reports.",
+  "repo": {
+    "repo_root": "C:\\Users\\OpenC\\OneDrive\\\u0414\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u044b\\AI-Orchestrator",
+    "branch": "main",
+    "head_before": "108ac1adc0e4fb16983b6ea5c5cd4077425d0b81",
+    "head_after": "108ac1adc0e4fb16983b6ea5c5cd4077425d0b81",
+    "head_after_scope": "after the 029 push and 030 report generation, before the self-referential 030 report commit",
+    "expected_029_commit_at_start": "108ac1adc0e4fb16983b6ea5c5cd4077425d0b81",
+    "expected_029_commit_was_head": true
+  },
+  "remote": {
+    "origin_configured": true,
+    "origin_fetch_url": "https://github.com/FlockyBlack/AI-Orchestrator.git",
+    "origin_push_url": "https://github.com/FlockyBlack/AI-Orchestrator.git",
+    "fetch_performed": true,
+    "lineage_check": {
+      "comparison_ref": "origin/main",
+      "origin_main_before_push_029": "d177e0fcb50b2374bef37dc4b3eb0e2bc64e8854",
+      "local_ahead_count_before_push_029": 1,
+      "remote_ahead_count_before_push_029": 0,
+      "non_fast_forward_risk_detected": false,
+      "force_push_used": false
+    },
+    "push_029_performed": true,
+    "push_performed": true,
+    "pushed_commit_hash": "108ac1adc0e4fb16983b6ea5c5cd4077425d0b81",
+    "push_030_performed": "reported_in_final_response_after_report_commit",
+    "pushed_commits": [
+      "108ac1adc0e4fb16983b6ea5c5cd4077425d0b81"
+    ]
+  },
+  "git_hygiene": {
+    "git_status_clean_before": false,
+    "git_status_clean_after_report_generation": false,
+    "remaining_untracked_or_modified": [
+      "docs/PMBOT_OPENROUTER_010_MANUAL_NETWORK_ADAPTER_PROPOSAL.md",
+      "docs/PMBOT_OPENROUTER_010_RESULT.json",
+      "docs/PMBOT_OPENROUTER_026_FIRST_ONE_MARKET_LIVE_CALL_AFTER_ENV_FIX.md",
+      "docs/PMBOT_OPENROUTER_026_RESULT.json"
+    ],
+    "likely_safe_docs": [
+      "docs/PMBOT_OPENROUTER_010_MANUAL_NETWORK_ADAPTER_PROPOSAL.md",
+      "docs/PMBOT_OPENROUTER_026_FIRST_ONE_MARKET_LIVE_CALL_AFTER_ENV_FIX.md"
+    ],
+    "likely_safe_artifacts": [
+      "docs/PMBOT_OPENROUTER_010_RESULT.json",
+      "docs/PMBOT_OPENROUTER_026_RESULT.json"
+    ],
+    "needs_review": [],
+    "must_not_commit": [],
+    "classification_notes": [
+      "The untracked OpenRouter 010 and 026 docs/results were present before 030 report generation and are unrelated to the 029/030 commit scope.",
+      "No unrelated file was staged or committed by this task."
+    ]
+  },
+  "reports": {
+    "result_json_path": "docs/PMBOT_OPENROUTER_030_RESULT.json",
+    "markdown_report_path": "docs/PMBOT_OPENROUTER_030_PUSH_AND_GIT_HYGIENE_BASELINE.md"
+  },
+  "safety": {
+    "no_openrouter_calls": true,
+    "no_polymarket_api_calls": true,
+    "no_wallet_private_keys": true,
+    "no_orders": true,
+    "no_trading": true,
+    "no_runtime_wiring": true,
+    "no_dispatcher_changes": true,
+    "no_background_workers": true,
+    "no_queue_mutation": true,
+    "no_probability_ev_edge_confidence_side_selection": true,
+    "no_buy_sell_hold_enter_exit_recommendations": true,
+    "openrouter_api_key_read": false,
+    "openrouter_api_key_printed": false,
+    "openrouter_api_key_written_to_disk": false,
+    "secret_scan_passed": true,
+    "api_key_leaked": false
+  },
+  "tests": {
+    "compileall_passed": true,
+    "pytest_llm_passed": true,
+    "pytest_summary": "260 passed in 5.30s",
+    "result_json_checks_passed": true,
+    "secret_scan_passed": true
+  },
+  "commands_run": [
+    "git status --short",
+    "git branch --show-current",
+    "git rev-parse HEAD",
+    "git remote -v",
+    "git diff --cached --name-status",
+    "git fetch origin",
+    "git rev-parse origin/main",
+    "git rev-list --left-right --count HEAD...origin/main",
+    "git status -sb",
+    "git push origin main",
+    "python -m compileall pm_bot",
+    "python -m pytest tests pm_bot\\llm\\tests -q",
+    "python -m json.tool docs\\PMBOT_OPENROUTER_030_RESULT.json",
+    "PowerShell no-key-leak scan over git-tracked files plus generated 030 reports"
+  ],
+  "files_created": [
+    "docs/PMBOT_OPENROUTER_030_RESULT.json",
+    "docs/PMBOT_OPENROUTER_030_PUSH_AND_GIT_HYGIENE_BASELINE.md"
+  ],
+  "files_modified": [],
+  "commit": {
+    "commit_030_created": "reported_in_final_response",
+    "commit_030_hash": "reported_in_final_response",
+    "pushed": "reported_in_final_response"
+  },
+  "next_action": "Separate hygiene review can decide whether to stage the unrelated OpenRouter 010 and 026 docs/results."
+}
