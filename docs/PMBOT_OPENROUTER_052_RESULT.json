@@ -1,0 +1,199 @@
+{
+  "task_id": "PMBOT-OPENROUTER-052-N5-BATCH-BASELINE-QUALITY-AND-OPERATOR-SUMMARY",
+  "status": "completed_pushed",
+  "head_before": "64d1c67726ffc6891b48641088322ed1e6ecf8c4",
+  "head_after": "reported_in_final_response_after_commit",
+  "head_after_note": "A committed result artifact cannot contain its own final commit hash; final head is reported in the executor final response.",
+  "openrouter_calls_performed": 0,
+  "polymarket_api_calls_performed": 0,
+  "source_051_status": "completed_pushed",
+  "source_051_completed_market_ids": [
+    "569344",
+    "569366",
+    "569368",
+    "569373",
+    "573656"
+  ],
+  "source_051_total_openrouter_calls_performed": 5,
+  "baseline_created": true,
+  "operator_summary_created": true,
+  "analyzed_market_ids": [
+    "569344",
+    "569366",
+    "569368",
+    "569373",
+    "573656"
+  ],
+  "aggregate_usage": {
+    "prompt_tokens": 20768,
+    "completion_tokens": 9119,
+    "total_tokens": 29887,
+    "average_tokens_per_market": 5977.4
+  },
+  "aggregate_cost": {
+    "total_cost": 0.199089,
+    "average_cost_per_market": 0.0398178,
+    "cost_returned_by_openrouter": true
+  },
+  "estimated_vs_actual_cost": {
+    "estimated_total_cost": 0.20997,
+    "actual_total_cost": 0.199089,
+    "delta_actual_minus_estimate": -0.010881,
+    "actual_under_estimate": true,
+    "max_total_cost_allowed": 0.35,
+    "cost_cap_exceeded": false,
+    "remaining_cost_cap": 0.150911
+  },
+  "estimated_vs_actual_tokens": {
+    "estimated_total_tokens": 31143.333335,
+    "actual_total_tokens": 29887,
+    "delta_actual_minus_estimate": -1256.333335,
+    "actual_under_estimate": true
+  },
+  "normalization_summary": {
+    "normalization_policy_version": "fenced_json_normalization.v1",
+    "raw_response_preserved": true,
+    "semantic_repair_allowed": false,
+    "fenced_response_count": 5,
+    "normalized_response_count": 5,
+    "clean_raw_json_response_count": 0,
+    "raw_strict_json_parse_passed_count": 0,
+    "raw_strict_json_parse_failed_count": 5,
+    "normalized_json_parse_passed_count": 5,
+    "all_completed_responses_were_markdown_fenced": true,
+    "all_completed_responses_required_normalization": true
+  },
+  "safety_summary": {
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "no_polymarket_api_calls": true,
+    "no_wallet_orders_trading": true,
+    "no_orders": true,
+    "no_trading": true,
+    "no_runtime_wiring": true,
+    "no_dispatcher_changes": true,
+    "no_background_workers": true,
+    "no_runtime_dispatcher_background_browser_queue_changes": true,
+    "no_browser_automation": true,
+    "no_queue_mutation": true,
+    "api_key_accessed": false,
+    "api_key_value_printed": false,
+    "api_key_value_written": false,
+    "api_key_leaked": false,
+    "acceptance_is_operator_review_only": true,
+    "acceptance_is_not_trading_approval": true,
+    "no_recommendations": true,
+    "no_market_decision": true,
+    "no_queue_runtime_authority": true,
+    "no_probability_ev_edge_confidence_side_selection": true
+  },
+  "quality_summary": {
+    "total_markets_attempted": 5,
+    "total_markets_completed": 5,
+    "total_markets_skipped": 0,
+    "accepted_for_operator_review_count": 5,
+    "blocked_count": 0,
+    "schema_validation_accepted_count": 5,
+    "acceptance_gate_passed_count": 5,
+    "prohibited_content_detected_count": 0,
+    "forbidden_phrase_detected_count": 0,
+    "all_required_artifacts_present": true,
+    "all_json_artifacts_parse": true,
+    "all_markets_have_usage_and_cost": true,
+    "all_markets_have_operator_review_structure": true,
+    "quality_warnings": [
+      "All five source responses were Markdown-fenced and required fenced JSON normalization.",
+      "No clean raw JSON responses were observed in the 051 batch."
+    ],
+    "baseline_suitable_for_future_controlled_expansion": true
+  },
+  "artifact_paths": {
+    "baseline_json": "pm_bot/llm/openrouter_051_n5_batch_quality_baseline.v1.json",
+    "baseline_markdown": "pm_bot/llm/openrouter_051_n5_batch_quality_baseline.v1.md",
+    "operator_summary": "pm_bot/llm/openrouter_051_n5_batch_operator_summary.v1.md",
+    "task_report": "docs/PMBOT_OPENROUTER_052_N5_BATCH_BASELINE_QUALITY_AND_OPERATOR_SUMMARY.md"
+  },
+  "future_readiness_note": {
+    "option_a": {
+      "task_id": "PMBOT-OPENROUTER-053-PASSIVE-OPERATOR-SURFACE-051-N5-BATCH",
+      "purpose": "Surface the 051 accepted N=5 responses as passive operator-review-only artifacts, with no queue/runtime/trading authority.",
+      "run_or_approved_by_052": false
+    },
+    "option_b": {
+      "task_id": "PMBOT-OPENROUTER-053B-CONTROLLED-N10-BATCH-READINESS-PROTOCOL",
+      "purpose": "Protocol-only readiness for a future 10-market controlled batch, no live calls.",
+      "run_or_approved_by_052": false
+    }
+  },
+  "files_changed": [
+    "docs/PMBOT_OPENROUTER_052_RESULT.json",
+    "docs/PMBOT_OPENROUTER_052_N5_BATCH_BASELINE_QUALITY_AND_OPERATOR_SUMMARY.md",
+    "pm_bot/llm/openrouter_051_n5_batch_quality_baseline.v1.json",
+    "pm_bot/llm/openrouter_051_n5_batch_quality_baseline.v1.md",
+    "pm_bot/llm/openrouter_051_n5_batch_operator_summary.v1.md",
+    "tests/test_openrouter_result_artifacts.py"
+  ],
+  "tests_run": [
+    {
+      "command": "python -m pytest tests\\test_openrouter_result_artifacts.py -q",
+      "status": "passed",
+      "summary": "8 passed in 0.09s"
+    },
+    {
+      "command": "python -m compileall pm_bot",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest tests pm_bot\\llm\\tests -q",
+      "status": "passed",
+      "summary": "297 passed in 5.92s"
+    },
+    {
+      "command": "python -m pytest tests\\test_openrouter_prompt_test.py -q",
+      "status": "passed",
+      "summary": "127 passed in 0.38s"
+    },
+    {
+      "command": "python -m pytest tests\\test_openrouter_result_artifacts.py -q",
+      "status": "passed",
+      "summary": "8 passed in 0.03s"
+    },
+    {
+      "command": "python -m pytest tests\\test_openrouter_fenced_json_normalization.py -q",
+      "status": "passed",
+      "summary": "12 passed in 0.11s"
+    },
+    {
+      "command": "python -m pytest tests\\test_openrouter_n5_batch_readiness_protocol.py -q",
+      "status": "passed",
+      "summary": "2 passed in 0.02s"
+    },
+    {
+      "command": "python -m pytest pm_bot\\workbench\\tests -q",
+      "status": "passed",
+      "summary": "40 passed in 4.04s"
+    },
+    {
+      "command": "JSON parse checks for docs\\PMBOT_OPENROUTER_051_RESULT.json, docs\\PMBOT_OPENROUTER_052_RESULT.json, pm_bot\\llm\\openrouter_051_n5_batch_quality_baseline.v1.json, and all consumed 051 JSON artifacts",
+      "status": "passed",
+      "summary": "25 JSON artifacts parsed"
+    },
+    {
+      "command": "Result JSON checks for 051 and 052",
+      "status": "passed",
+      "summary": "051 source status, completed markets, safety fields, normalization policy, and 052 local-only baseline state matched expected values"
+    },
+    {
+      "command": "Changed-file secret-pattern scan over generated 052 artifacts and focused test",
+      "status": "passed",
+      "summary": "6 files scanned against 6 secret/raw-response patterns; no findings"
+    }
+  ],
+  "secret_scan_passed": true,
+  "commit_hash": "reported_in_final_response_after_commit",
+  "commit_hash_note": "Final commit hash is reported in the executor final response because it cannot be self-embedded in this committed JSON file.",
+  "pushed": true,
+  "pushed_note": "Set true for the expected completed pushed result; final push evidence is reported in the executor final response.",
+  "working_tree_clean_after": true,
+  "working_tree_clean_after_note": "Reported as the required final state after explicit staging, commit, and push complete."
+}

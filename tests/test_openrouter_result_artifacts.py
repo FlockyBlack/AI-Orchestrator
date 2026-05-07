@@ -222,3 +222,82 @@ def test_openrouter_049_records_workbench_passive_surface_integration():
     assert result_049["secret_scan_passed"] is True
     assert result_049["pushed"] is True
     assert result_049["working_tree_clean_after"] is True
+
+
+def test_openrouter_052_records_local_only_n5_batch_quality_baseline():
+    result_051 = _load_result("PMBOT_OPENROUTER_051_RESULT.json")
+    result_052 = _load_result("PMBOT_OPENROUTER_052_RESULT.json")
+    baseline = json.loads(
+        (ROOT / "pm_bot" / "llm" / "openrouter_051_n5_batch_quality_baseline.v1.json").read_text(
+            encoding="utf-8"
+        )
+    )
+
+    expected_market_ids = ["569344", "569366", "569368", "569373", "573656"]
+
+    assert result_052["task_id"] == (
+        "PMBOT-OPENROUTER-052-N5-BATCH-BASELINE-QUALITY-AND-OPERATOR-SUMMARY"
+    )
+    assert result_052["status"] == "completed_pushed"
+    assert result_052["head_before"] == "64d1c67726ffc6891b48641088322ed1e6ecf8c4"
+    assert result_052["openrouter_calls_performed"] == 0
+    assert result_052["polymarket_api_calls_performed"] == 0
+    assert result_052["source_051_status"] == "completed_pushed"
+    assert result_052["source_051_completed_market_ids"] == expected_market_ids
+    assert result_052["source_051_completed_market_ids"] == result_051["completed_market_ids"]
+    assert result_052["source_051_total_openrouter_calls_performed"] == 5
+    assert result_052["baseline_created"] is True
+    assert result_052["operator_summary_created"] is True
+    assert result_052["analyzed_market_ids"] == expected_market_ids
+    assert result_052["aggregate_usage"]["total_tokens"] == 29887
+    assert result_052["aggregate_cost"]["total_cost"] == 0.199089
+    assert result_052["estimated_vs_actual_tokens"]["estimated_total_tokens"] == 31143.333335
+    assert result_052["estimated_vs_actual_tokens"]["actual_under_estimate"] is True
+    assert result_052["estimated_vs_actual_cost"]["estimated_total_cost"] == 0.20997
+    assert result_052["estimated_vs_actual_cost"]["actual_under_estimate"] is True
+    assert result_052["estimated_vs_actual_cost"]["cost_cap_exceeded"] is False
+    assert result_052["normalization_summary"]["normalization_policy_version"] == (
+        "fenced_json_normalization.v1"
+    )
+    assert result_052["normalization_summary"]["fenced_response_count"] == 5
+    assert result_052["normalization_summary"]["normalized_response_count"] == 5
+    assert result_052["normalization_summary"]["clean_raw_json_response_count"] == 0
+    assert result_052["quality_summary"]["accepted_for_operator_review_count"] == 5
+    assert result_052["quality_summary"]["blocked_count"] == 0
+    assert result_052["quality_summary"]["baseline_suitable_for_future_controlled_expansion"] is True
+    assert result_052["secret_scan_passed"] is True
+
+    safety = result_052["safety_summary"]
+    assert safety["openrouter_calls_performed"] == 0
+    assert safety["polymarket_api_calls_performed"] == 0
+    assert safety["api_key_accessed"] is False
+    assert safety["no_wallet_orders_trading"] is True
+    assert safety["no_runtime_dispatcher_background_browser_queue_changes"] is True
+    assert safety["no_browser_automation"] is True
+    assert safety["no_queue_mutation"] is True
+    assert safety["acceptance_is_not_trading_approval"] is True
+    assert safety["no_recommendations"] is True
+    assert safety["no_market_decision"] is True
+
+    assert baseline["artifact_type"] == "openrouter_051_n5_batch_quality_baseline.v1"
+    assert baseline["source_status"] == "completed_pushed"
+    assert baseline["aggregate"]["source_openrouter_calls_performed"] == 5
+    assert baseline["aggregate"]["attempted_market_count"] == 5
+    assert baseline["aggregate"]["completed_market_count"] == 5
+    assert baseline["aggregate"]["skipped_market_count"] == 0
+    assert baseline["aggregate"]["fenced_response_count"] == 5
+    assert baseline["aggregate"]["normalized_response_count"] == 5
+    assert baseline["aggregate"]["clean_raw_json_response_count"] == 0
+    assert baseline["aggregate"]["accepted_for_operator_review_count"] == 5
+    assert baseline["aggregate"]["blocked_count"] == 0
+    assert baseline["aggregate"]["estimated_vs_actual_cost"]["actual_total_cost"] == 0.199089
+    assert baseline["quality_summary"]["all_completed_markets_have_operator_checklists"] is True
+    assert baseline["quality_summary"]["baseline_judgment"] == (
+        "suitable_local_baseline_for_future_protocol_work"
+    )
+    assert len(baseline["per_market"]) == 5
+    assert [item["market_id"] for item in baseline["per_market"]] == expected_market_ids
+    assert all(item["accepted_for_operator_review"] is True for item in baseline["per_market"])
+    assert all(item["quality_warnings"] for item in baseline["per_market"])
+    assert baseline["future_readiness_note"]["option_a"]["run_or_approved_by_052"] is False
+    assert baseline["future_readiness_note"]["option_b"]["run_or_approved_by_052"] is False
