@@ -1,0 +1,101 @@
+{
+  "task_id": "PMBOT-OPENROUTER-028-FIRST-ONE-MARKET-LIVE-CALL-WITH-SAFE-USER-ENV-IMPORT",
+  "status": "completed_live_call_passed",
+  "market_id": "563650",
+  "session_id": "pmbot_openrouter_028_first_live_call_with_safe_user_env_import",
+  "model": "anthropic/claude-sonnet-4.5",
+  "precheck": {
+    "repo_root": "C:\\Users\\OpenC\\OneDrive\\Документы\\AI-Orchestrator",
+    "git_status_clean_before": false,
+    "manifest_exists": true,
+    "manifest_md_exists": true,
+    "manual_packet_batch_exists": true,
+    "selected_market_packet_exists": true
+  },
+  "environment": {
+    "process_env_openrouter_api_key_present_before_import": true,
+    "user_env_openrouter_api_key_present": true,
+    "safe_user_env_import_performed": false,
+    "process_env_openrouter_api_key_present_after_import": true,
+    "api_key_printed": false,
+    "api_key_written_to_disk": false
+  },
+  "live_call": {
+    "performed": true,
+    "allow_network_openrouter_used": true,
+    "openrouter_calls_count": 1,
+    "raw_response_path": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_028_first_live_call_with_safe_user_env_import/openrouter_sonnet_563650_raw.json",
+    "metadata_path": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_028_first_live_call_with_safe_user_env_import/openrouter_test_summary_563650.json",
+    "usage_recorded": true,
+    "cost_recorded": true
+  },
+  "validation": {
+    "raw_response_validator_passed": true,
+    "acceptance_gate_passed": true,
+    "accepted_for_operator_review": true,
+    "prohibited_trading_content_detected": false,
+    "harness_status": "completed",
+    "sonnet_json_recovered": true,
+    "validation_warning_codes": [
+      "markdown_fence_recovered"
+    ]
+  },
+  "safety": {
+    "no_wallet_private_keys": true,
+    "no_orders": true,
+    "no_trading": true,
+    "no_runtime_wiring": true,
+    "no_dispatcher_changes": true,
+    "no_background_workers": true,
+    "no_browser_automation": true,
+    "no_polymarket_api_calls": true,
+    "no_probability_ev_edge_confidence_side_selection": true,
+    "no_buy_sell_hold_enter_exit_recommendations": true,
+    "secret_scan_passed": true,
+    "api_key_leaked": false
+  },
+  "tests": {
+    "compileall_passed": true,
+    "pytest_passed": true,
+    "result_json_checks_passed": true
+  },
+  "artifacts": {
+    "content_path": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_028_first_live_call_with_safe_user_env_import/openrouter_sonnet_563650_content.json",
+    "validation_path": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_028_first_live_call_with_safe_user_env_import/openrouter_sonnet_563650_validation.json",
+    "precheck_dry_run_summary_path": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_028_first_live_call_with_safe_user_env_import_precheck/openrouter_test_summary_563650.json"
+  },
+  "usage": {
+    "prompt_tokens": 3178,
+    "completion_tokens": 1862,
+    "total_tokens": 5040,
+    "cost": 0.037464,
+    "returned_model": "anthropic/claude-4.5-sonnet-20250929",
+    "provider": "Amazon Bedrock"
+  },
+  "files_created": [
+    "docs/PMBOT_OPENROUTER_028_RESULT.json",
+    "docs/PMBOT_OPENROUTER_028_FIRST_ONE_MARKET_LIVE_CALL_WITH_SAFE_USER_ENV_IMPORT.md",
+    "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_028_first_live_call_with_safe_user_env_import/openrouter_sonnet_563650_raw.json",
+    "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_028_first_live_call_with_safe_user_env_import/openrouter_sonnet_563650_content.json",
+    "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_028_first_live_call_with_safe_user_env_import/openrouter_sonnet_563650_validation.json",
+    "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_028_first_live_call_with_safe_user_env_import/openrouter_test_summary_563650.json",
+    "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_028_first_live_call_with_safe_user_env_import_precheck/openrouter_test_summary_563650.json"
+  ],
+  "files_modified": [],
+  "commands_run": [
+    "git status --short",
+    "Test-Path restored manifest, manifest markdown, manual packet batch, and selected 563650 prompt/packet",
+    "safe OPENROUTER_API_KEY process/user environment presence checks",
+    "python pm_bot/llm/run_openrouter_prompt_test.py --market-id 563650 --sonnet-model anthropic/claude-sonnet-4.5 --skip-critic --allow-local-json-fence-repair --out-dir pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_028_first_live_call_with_safe_user_env_import",
+    "python -m compileall pm_bot",
+    "python -m pytest tests pm_bot\\llm\\tests -q",
+    "python -m json.tool docs/PMBOT_OPENROUTER_028_RESULT.json",
+    "secret scan over generated 028 docs and OpenRouter artifacts"
+  ],
+  "commit": {
+    "created": false,
+    "hash": null,
+    "pushed": false
+  },
+  "next_action": "Operator may manually review the saved Sonnet output artifact; no trading, runtime wiring, dispatcher change, or queue import was performed."
+}

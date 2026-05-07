@@ -1,0 +1,115 @@
+{
+  "contract_version": "operator_live_review_surface.v1",
+  "task_id": "PMBOT-OPENROUTER-029-LIVE-RESPONSE-OPERATOR-REVIEW-SURFACING",
+  "source_task_id": "PMBOT-OPENROUTER-028-FIRST-ONE-MARKET-LIVE-CALL-WITH-SAFE-USER-ENV-IMPORT",
+  "market_id": "563650",
+  "session_id": "pmbot_openrouter_028_first_live_call_with_safe_user_env_import",
+  "model": "anthropic/claude-sonnet-4.5",
+  "status": "accepted_for_operator_review",
+  "operator_review_only": true,
+  "no_trading_authority": true,
+  "no_runtime_authority": true,
+  "no_queue_mutation": true,
+  "no_recommendations": true,
+  "source_artifacts": {
+    "result_json": {
+      "path": "docs/PMBOT_OPENROUTER_028_RESULT.json",
+      "role": "read_only_input"
+    },
+    "content_json": {
+      "path": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_028_first_live_call_with_safe_user_env_import/openrouter_sonnet_563650_content.json",
+      "role": "read_only_input"
+    },
+    "validation_json": {
+      "path": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_028_first_live_call_with_safe_user_env_import/openrouter_sonnet_563650_validation.json",
+      "role": "read_only_input"
+    },
+    "summary_json": {
+      "path": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_028_first_live_call_with_safe_user_env_import/openrouter_test_summary_563650.json",
+      "role": "read_only_input"
+    }
+  },
+  "source_validation": {
+    "market_id_consistent": true,
+    "session_id_consistent": true,
+    "model_consistent": true,
+    "live_call_performed": true,
+    "openrouter_calls_count_is_one": true,
+    "raw_response_validator_passed": true,
+    "validation_status": "accepted",
+    "validation_valid": true,
+    "summary_status": "completed",
+    "summary_sonnet_valid": true,
+    "accepted_for_operator_review": true,
+    "prohibited_trading_content_detected": false,
+    "api_key_leaked": false
+  },
+  "authority_flags": {
+    "operator_review_only": true,
+    "no_trading_authority": true,
+    "no_runtime_authority": true,
+    "no_queue_mutation": true,
+    "no_recommendations": true
+  },
+  "safety_flags": {
+    "passive_context_only": true,
+    "offline_artifact_surface_only": true,
+    "no_openrouter_call_needed": true,
+    "no_api_key_needed": true,
+    "no_network_needed": true,
+    "no_polymarket_api_call_needed": true,
+    "no_wallet_or_private_key_access": true,
+    "no_orders": true,
+    "no_trading": true,
+    "no_runtime_wiring": true,
+    "no_dispatcher_changes": true,
+    "no_background_workers": true,
+    "no_browser_automation": true
+  },
+  "passive_llm_review_summary": {
+    "packet_id": "llm-analysis-packet-manual-batch-563650",
+    "response_id": "llm-analysis-response-manual-batch-563650",
+    "response_contract_version": "llm_analysis_response.v1",
+    "concise_market_summary": "Market 563650 asks whether the Supreme Court of the United States accepts a sports event contract case by July 31, 2026. The packet contains only structural placeholders referencing rules, docket, and news sources. No actual resolution criteria, docket identifiers, case names, or substantive evidence are provided. The market status is unknown and outcome labels are Yes/No.",
+    "source_gap_notes_count": 9,
+    "key_uncertainties_count": 7,
+    "missing_evidence_count": 9,
+    "risk_notes_count": 8,
+    "contradiction_check_results": [
+      {
+        "topic": "Market resolution criteria completeness",
+        "check_result": "needs_more_source_review"
+      },
+      {
+        "topic": "Evidence source availability",
+        "check_result": "no_conflict_seen"
+      },
+      {
+        "topic": "Missing evidence acknowledgement",
+        "check_result": "no_conflict_seen"
+      },
+      {
+        "topic": "Safety boundary compliance",
+        "check_result": "no_conflict_seen"
+      }
+    ],
+    "source_content_safety_acknowledgement": {
+      "local_only": true,
+      "manual_review_only": true,
+      "no_autonomous_actions": true,
+      "no_outcome_estimates": true,
+      "no_recommendations": true,
+      "no_trade_or_wallet_instructions": true,
+      "no_value_scoring": true,
+      "offline_only": true,
+      "uncertain_claims_marked": true
+    }
+  },
+  "explicit_exclusions": {
+    "runtime_wiring_changed": false,
+    "dispatcher_changed": false,
+    "queue_mutated": false,
+    "background_worker_added": false,
+    "dashboard_or_status_exporter_updated": false
+  }
+}
