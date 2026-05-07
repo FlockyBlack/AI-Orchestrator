@@ -1,0 +1,53 @@
+{
+  "task_id": "PMBOT-SOURCE-003C-RECONCILE-LOCAL-HEAD-BEFORE-PUSH",
+  "status": "completed_diagnostic_committed_push_not_performed",
+  "head_before": "6b8c496e9d9848f2e8e8e4d17c9bf59a5f1f5dd0",
+  "head_after": "reported_in_final_response_after_commit",
+  "head_after_note": "A committed diagnostic artifact cannot contain its own final commit hash; final head is reported in the executor final response.",
+  "pushed": false,
+  "expected_source_003_commit": "99663c21df014c7c4d8e98d957bc14a54c1a4a16",
+  "observed_current_head": "6b8c496e9d9848f2e8e8e4d17c9bf59a5f1f5dd0",
+  "source_003_commit_is_ancestor_of_head": false,
+  "local_lineage_classification": "source_003_rewritten_or_missing",
+  "extra_commits_after_source_003": [],
+  "source_003_result_json_commit_hash": "reported_in_final_response_after_commit",
+  "source_003_result_json_status": "completed_pushed",
+  "source_003_result_json_expected_commit_hash": "99663c21df014c7c4d8e98d957bc14a54c1a4a16",
+  "source_003_result_json_expected_status": "completed_local_validation_pending_push_network_prohibited",
+  "source_003_result_json_matches_expected": false,
+  "remote_checked": false,
+  "origin_main_head_if_checked": null,
+  "local_origin_main_tracking_ref_at_inspection": "6b8c496e9d9848f2e8e8e4d17c9bf59a5f1f5dd0",
+  "remote_conflict_detected": null,
+  "recommended_next_action": "Do not push from 003C. Open a separate review task to decide whether amended HEAD 6b8c496e9d9848f2e8e8e4d17c9bf59a5f1f5dd0 should replace expected SOURCE-003 commit 99663c21df014c7c4d8e98d957bc14a54c1a4a16, or whether to restore/recreate the expected validated commit before any push task.",
+  "recommended_next_task_id": "PMBOT-SOURCE-003D-RESOLVE-REWRITTEN-SOURCE-003-HEAD",
+  "safety_summary": {
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "external_network_calls_performed": 0,
+    "git_fetch_performed": false,
+    "wallet_private_key_access": false,
+    "orders_created_or_modified": false,
+    "trading_performed": false,
+    "runtime_wiring_changed": false,
+    "dispatcher_changed": false,
+    "background_workers_changed": false,
+    "queue_mutation_performed": false,
+    "browser_automation_performed": false,
+    "market_action_guidance_provided": false,
+    "api_key_access_performed": false,
+    "force_push_performed": false
+  },
+  "files_changed": [
+    "docs/PMBOT_SOURCE_003C_RESULT.json",
+    "docs/PMBOT_SOURCE_003C_RECONCILE_LOCAL_HEAD_BEFORE_PUSH.md"
+  ],
+  "tests_run": [
+    "python -m json.tool docs\\PMBOT_SOURCE_003_RESULT.json",
+    "python -m json.tool docs\\PMBOT_SOURCE_003C_RESULT.json",
+    "git status --short",
+    "secret scan over changed 003C artifact files"
+  ],
+  "secret_scan_passed": true,
+  "working_tree_clean_after": true
+}
