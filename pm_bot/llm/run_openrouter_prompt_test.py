@@ -28,7 +28,9 @@ SONNET_SYSTEM_PROMPT = (
     "invalid. Follow the provided schema exactly. Acceptance means operator-review readiness only, "
     "never trading approval. Do not "
     "include trading recommendations, side selection, probability, EV, edge, scoring, market decisions, "
-    "execution instructions, wallet instructions, or external data."
+    "execution instructions, wallet instructions, or external data. Do not use market-action verbs or "
+    "slash-paired lifecycle shortcuts in any JSON field, including checklists, risk notes, or research "
+    "questions; describe candidate participation changes neutrally."
 )
 
 CRITIC_CONTRACT_VERSION = "pmbot_openrouter_critic_response.v1"
@@ -298,6 +300,60 @@ FORBIDDEN_LANGUAGE_PATTERNS = (
     ("forbidden_phrase:wallet", re.compile(r"\b(wallet|private\s+key|seed\s+phrase|credential)\b", re.IGNORECASE)),
 )
 
+PROHIBITED_CONTENT_DIAGNOSTIC_STATUSES = {
+    "true_positive_model_violation",
+    "false_positive_validator_rule",
+    "ambiguous_needs_operator_review",
+    "artifact_or_schema_misclassification",
+}
+
+FORBIDDEN_LANGUAGE_CATEGORIES = {
+    "forbidden_phrase:buy": "market_action_keyword",
+    "forbidden_phrase:order": "order_instruction_language",
+    "forbidden_phrase:order_instruction": "order_instruction_language",
+    "forbidden_phrase:trade": "trade_execution_language",
+    "forbidden_phrase:trade_execution": "trade_execution_language",
+    "forbidden_phrase:trading_avoidance_bypass": "trading_boundary_bypass_language",
+    "forbidden_phrase:trading_recommendation": "recommendation_language",
+    "forbidden_phrase:market_recommendation": "recommendation_language",
+    "forbidden_phrase:recommended_side": "side_selection_language",
+    "forbidden_phrase:recommended_market_action": "recommendation_language",
+    "forbidden_phrase:recommend_market_action": "recommendation_language",
+    "forbidden_phrase:recommend_order": "order_instruction_language",
+    "forbidden_phrase:recommend_market_decision": "market_decision_language",
+    "forbidden_phrase:side_selection": "side_selection_language",
+    "forbidden_phrase:choose_side": "side_selection_language",
+    "forbidden_phrase:side_selected": "side_selection_language",
+    "forbidden_phrase:yes_no_side": "side_selection_language",
+    "forbidden_phrase:outcome_side": "side_selection_language",
+    "forbidden_phrase:likely_side": "side_selection_language",
+    "forbidden_phrase:implied_outcome": "outcome_inference_language",
+    "forbidden_phrase:outcome_estimate": "outcome_estimate_language",
+    "forbidden_phrase:probability": "probability_language",
+    "forbidden_phrase:probability_value": "probability_language",
+    "forbidden_phrase:percent_chance": "probability_language",
+    "forbidden_phrase:ev": "value_scoring_language",
+    "forbidden_phrase:edge": "value_scoring_language",
+    "forbidden_phrase:kelly": "value_scoring_language",
+    "forbidden_phrase:scoring": "value_scoring_language",
+    "forbidden_phrase:confidence": "confidence_language",
+    "forbidden_phrase:market_decision": "market_decision_language",
+    "forbidden_phrase:resolve_as": "resolution_decision_language",
+    "forbidden_phrase:certainty": "certainty_language",
+    "forbidden_phrase:wallet": "wallet_or_credentials_language",
+}
+
+SNIPPET_REDACTION_RE = re.compile(
+    r"\b("
+    r"buy|buying|sell|selling|hold|holding|enter|entering|entry|exit|exiting|"
+    r"trade|trading|order|orders|side|yes|no|probability|probabilities|ev|edge|"
+    r"score|scoring|confidence|kelly|wallet|private\s+key|seed\s+phrase|"
+    r"credential|credentials|recommend|recommends|recommended|recommending|"
+    r"recommendation|recommendations"
+    r")\b",
+    re.IGNORECASE,
+)
+
 CRITIC_EXPLICIT_FORBIDDEN_LANGUAGE_PATTERNS = (
     ("critic_forbidden_instruction:market_action", re.compile(r"\b(buy|sell|hold|enter|exit)\b", re.IGNORECASE)),
     (
@@ -540,6 +596,99 @@ def _safe_suffix(value):
 
 def _normalize_key(key):
     return re.sub(r"[^a-z0-9]+", "_", str(key).lower()).strip("_")
+
+
+def _forbidden_field_category(normalized_key):
+    if normalized_key in {"wallet_instruction"}:
+        return "wallet_or_credentials_field"
+    if normalized_key in {"probability", "implied_probability"}:
+        return "probability_field"
+    if normalized_key in {"ev", "edge", "expected_return", "fair_value", "kelly_sizing", "score", "scoring"}:
+        return "value_scoring_field"
+    if normalized_key in {"confidence", "confidence_level", "confidence_score"}:
+        return "confidence_field"
+    if normalized_key in {"side", "side_selection", "recommended_side", "bet_yes_or_no"}:
+        return "side_selection_field"
+    if normalized_key in {"order", "orders", "order_size", "place_order", "price_target", "execution_instruction"}:
+        return "order_instruction_field"
+    if normalized_key in {"market_decision", "trading_recommendation", "auto_trade_instruction"}:
+        return "market_decision_field"
+    if normalized_key in {"buy", "sell", "hold", "enter", "exit", "trade"}:
+        return "market_action_field"
+    return "prohibited_field"
+
+
+def _safe_redacted_snippet(value, match=None, max_chars=180):
+    text = str(value)
+    if match is None:
+        snippet = text[:max_chars]
+        if len(text) > max_chars:
+            snippet += "..."
+    else:
+        radius = max(20, (max_chars - len(match.group(0))) // 2)
+        start = max(0, match.start() - radius)
+        end = min(len(text), match.end() + radius)
+        snippet = text[start:end]
+        if start > 0:
+            snippet = "..." + snippet
+        if end < len(text):
+            snippet += "..."
+    snippet = SNIPPET_REDACTION_RE.sub("[redacted:safety-term]", snippet)
+    return " ".join(snippet.split())
+
+
+def _classify_prohibited_language_match(code, value, match):
+    matched = match.group(0).lower()
+    context = str(value).lower()
+    if code == "forbidden_phrase:buy" and matched in {"enter", "exit"}:
+        candidate_context = re.search(
+            r"\b(candidate|candidates|candidacy|campaign|entrant|field|ballot|race)\b",
+            context,
+        )
+        lifecycle_context = re.search(
+            r"\b(candidate\s+)?(entry|exit|entry\s*/\s*exit|entry\s+and\s+exit)\b",
+            context,
+        )
+        if candidate_context and lifecycle_context:
+            return "false_positive_validator_rule", "candidate_lifecycle_context"
+    if code in {
+        "forbidden_phrase:buy",
+        "forbidden_phrase:edge",
+        "forbidden_phrase:scoring",
+        "forbidden_phrase:confidence",
+    }:
+        return "ambiguous_needs_operator_review", "broad_keyword_rule"
+    return "true_positive_model_violation", "direct_policy_phrase"
+
+
+def _build_prohibited_language_diagnostic(code, path, value, match):
+    category = FORBIDDEN_LANGUAGE_CATEGORIES.get(code, "prohibited_language")
+    diagnostic_status, reason_code = _classify_prohibited_language_match(code, value, match)
+    return {
+        "violation_category": category,
+        "detector_rule_id": code,
+        "field_path": path,
+        "path": path,
+        "safe_redacted_snippet": _safe_redacted_snippet(value, match),
+        "diagnostic_status": diagnostic_status,
+        "diagnostic_reason_code": reason_code,
+        "matched_text_redacted": f"[redacted:{category}]",
+    }
+
+
+def _build_prohibited_field_diagnostic(normalized_key, path):
+    category = _forbidden_field_category(normalized_key)
+    detector_rule_id = f"forbidden_field:{normalized_key}"
+    return {
+        "violation_category": category,
+        "detector_rule_id": detector_rule_id,
+        "field_path": path,
+        "path": path,
+        "safe_redacted_snippet": "field:[redacted:safety-term]",
+        "diagnostic_status": "true_positive_model_violation",
+        "diagnostic_reason_code": "prohibited_schema_field",
+        "matched_text_redacted": f"[redacted:{category}]",
+    }
 
 
 def _redact_secret_text(text, known_secrets=()):
@@ -855,6 +1004,7 @@ def validate_raw_json_content(raw_content, allow_local_json_fence_repair=False, 
     stripped = candidate_text.strip()
     errors = []
     warnings = []
+    prohibited_content_diagnostics = []
     checks = {
         "raw_starts_with_object": bool(text.strip()) and text.strip()[0] == "{",
         "raw_ends_with_object": bool(text.strip()) and text.strip()[-1] == "}",
@@ -914,11 +1064,19 @@ def validate_raw_json_content(raw_content, allow_local_json_fence_repair=False, 
         for path, normalized_key in _iter_key_paths(parsed):
             if normalized_key in FORBIDDEN_FIELD_NAMES:
                 checks["forbidden_fields_absent"] = False
+                diagnostic = _build_prohibited_field_diagnostic(normalized_key, path)
+                prohibited_content_diagnostics.append(diagnostic)
                 errors.append(
                     {
                         "code": f"forbidden_field:{normalized_key}",
                         "path": path,
                         "message": f"Forbidden PMBOT safety field found: {normalized_key}.",
+                        "violation_category": diagnostic["violation_category"],
+                        "detector_rule_id": diagnostic["detector_rule_id"],
+                        "field_path": diagnostic["field_path"],
+                        "safe_redacted_snippet": diagnostic["safe_redacted_snippet"],
+                        "diagnostic_status": diagnostic["diagnostic_status"],
+                        "diagnostic_reason_code": diagnostic["diagnostic_reason_code"],
                     }
                 )
         for path, value in _iter_strings(parsed):
@@ -927,16 +1085,28 @@ def validate_raw_json_content(raw_content, allow_local_json_fence_repair=False, 
                     if _is_negative_safety_attestation(value, match, code):
                         continue
                     checks["forbidden_language_absent"] = False
+                    diagnostic = _build_prohibited_language_diagnostic(code, path, value, match)
+                    prohibited_content_diagnostics.append(diagnostic)
                     errors.append(
                         {
                             "code": code,
                             "path": path,
                             "message": "Forbidden PMBOT safety language found.",
+                            "violation_category": diagnostic["violation_category"],
+                            "detector_rule_id": diagnostic["detector_rule_id"],
+                            "field_path": diagnostic["field_path"],
+                            "safe_redacted_snippet": diagnostic["safe_redacted_snippet"],
+                            "diagnostic_status": diagnostic["diagnostic_status"],
+                            "diagnostic_reason_code": diagnostic["diagnostic_reason_code"],
                         }
                     )
                     break
 
     status = "accepted" if not errors else "rejected"
+    prohibited_content_diagnostics = sorted(
+        prohibited_content_diagnostics,
+        key=lambda item: (item.get("field_path", ""), item["detector_rule_id"], item["violation_category"]),
+    )
     return {
         "status": status,
         "valid": status == "accepted",
@@ -952,6 +1122,7 @@ def validate_raw_json_content(raw_content, allow_local_json_fence_repair=False, 
         "warnings": sorted(warnings, key=lambda item: (item["code"], item["message"])),
         "checks": checks,
         "errors": sorted(errors, key=lambda item: (item.get("path", ""), item["code"], item["message"])),
+        "prohibited_content_diagnostics": prohibited_content_diagnostics,
     }, parsed
 
 
@@ -1416,6 +1587,7 @@ def _write_model_artifacts(
             "raw_content": raw_content,
             "validation_errors": validation.get("errors", []),
             "validation_warnings": validation.get("warnings", []),
+            "prohibited_content_diagnostics": validation.get("prohibited_content_diagnostics", []),
         }
     else:
         content_artifact = {

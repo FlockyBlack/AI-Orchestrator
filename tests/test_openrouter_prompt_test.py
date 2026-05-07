@@ -83,6 +83,7 @@ def test_openrouter_system_prompts_contain_no_markdown_fence_contract():
         assert "first character must be {" in prompt
         assert "last character must be }" in prompt
         assert "operator-review readiness only, never trading approval" in prompt
+    assert "slash-paired lifecycle shortcuts" in harness.SONNET_SYSTEM_PROMPT
 
 
 def test_selected_live_prompt_contains_no_markdown_fence_contract():
@@ -93,6 +94,7 @@ def test_selected_live_prompt_contains_no_markdown_fence_contract():
     _assert_strict_json_prompt_contract(prompt)
     assert "The first character must be `{` and the last character must be `}`." in prompt
     assert "Acceptance is operator-review readiness only, never trading approval." in prompt
+    assert "Describe candidate participation changes with neutral wording" in prompt
 
 
 def test_raw_json_validation_passes_valid_object():
@@ -388,6 +390,40 @@ def test_raw_json_validation_rejects_trading_recommendation_language(phrase):
     assert validation["checks"]["forbidden_language_absent"] is False
     assert any(error["code"].startswith("forbidden_phrase:") for error in validation["errors"])
     assert parsed == payload
+
+
+def test_raw_json_validation_reports_sanitized_candidate_lifecycle_keyword_diagnostic():
+    payload = {
+        "risk_notes": [
+            (
+                "Political prediction markets for elections years in advance carry high uncertainty "
+                "due to candidate entry/exit, scandals, economic changes, and unforeseen events"
+            )
+        ]
+    }
+
+    validation, parsed = harness.validate_raw_json_content(json.dumps(payload))
+
+    assert validation["valid"] is False
+    assert validation["checks"]["forbidden_language_absent"] is False
+    assert parsed == payload
+    diagnostics = validation["prohibited_content_diagnostics"]
+    assert len(diagnostics) == 1
+    diagnostic = diagnostics[0]
+    assert diagnostic["detector_rule_id"] == "forbidden_phrase:buy"
+    assert diagnostic["violation_category"] == "market_action_keyword"
+    assert diagnostic["field_path"] == "risk_notes[0]"
+    assert diagnostic["diagnostic_status"] == "false_positive_validator_rule"
+    assert diagnostic["diagnostic_reason_code"] == "candidate_lifecycle_context"
+    assert "[redacted:safety-term]" in diagnostic["safe_redacted_snippet"]
+    lowered_snippet = diagnostic["safe_redacted_snippet"].lower()
+    for forbidden_term in ("buy", "sell", "hold", "enter", "exit"):
+        assert forbidden_term not in lowered_snippet
+    error = validation["errors"][0]
+    assert error["detector_rule_id"] == diagnostic["detector_rule_id"]
+    assert error["violation_category"] == diagnostic["violation_category"]
+    assert error["safe_redacted_snippet"] == diagnostic["safe_redacted_snippet"]
+    assert error["diagnostic_status"] == diagnostic["diagnostic_status"]
 
 
 def test_raw_json_validation_fails_array_non_object_json():

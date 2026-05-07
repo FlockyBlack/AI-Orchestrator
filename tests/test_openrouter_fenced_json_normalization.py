@@ -150,6 +150,11 @@ def test_normalized_fenced_json_still_fails_prohibited_trading_language():
     assert validation["normalized_from_markdown_fence"] is True
     assert validation["checks"]["forbidden_language_absent"] is False
     assert any(error["code"].startswith("forbidden_phrase:") for error in validation["errors"])
+    diagnostic = validation["prohibited_content_diagnostics"][0]
+    assert diagnostic["detector_rule_id"] == "forbidden_phrase:buy"
+    assert diagnostic["violation_category"] == "market_action_keyword"
+    assert diagnostic["diagnostic_status"] == "ambiguous_needs_operator_review"
+    assert "[redacted:safety-term]" in diagnostic["safe_redacted_snippet"]
     assert parsed == {"notes": ["Buy YES"]}
 
 

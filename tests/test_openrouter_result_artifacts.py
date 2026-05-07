@@ -56,3 +56,42 @@ def test_openrouter_041_records_fenced_json_normalization_policy():
     assert result_041["secret_scan_passed"] is True
     assert result_041["safety_summary"]["openrouter_calls_performed"] == 0
     assert result_041["safety_summary"]["polymarket_api_calls_performed"] == 0
+
+
+def test_openrouter_042_records_prohibited_content_block_inputs():
+    result_042 = _load_result("PMBOT_OPENROUTER_042_RESULT.json")
+
+    assert result_042["status"] == "blocked_prohibited_content_detected"
+    assert result_042["fail_fast_reason"] == "prohibited_content_detected:569334"
+    assert result_042["total_openrouter_calls_performed"] == 2
+    assert result_042["attempted_market_ids"] == ["569333", "569334"]
+    assert result_042["completed_market_ids"] == ["569333"]
+    assert result_042["skipped_market_ids"] == ["569343"]
+    safety = result_042["safety_boundary_summary"]
+    assert safety["no_polymarket_api_calls"] is True
+    assert safety["no_wallet_orders_trading"] is True
+    assert safety["no_runtime_dispatcher_background_browser_queue_changes"] is True
+    assert safety["api_key_value_printed"] is False
+    assert safety["api_key_value_written"] is False
+    assert safety["api_key_leaked"] is False
+
+
+def test_openrouter_043_records_local_only_prohibited_content_diagnostic():
+    result_043 = _load_result("PMBOT_OPENROUTER_043_RESULT.json")
+
+    assert result_043["task_id"] == "PMBOT-OPENROUTER-043-ANALYZE-042-PROHIBITED-CONTENT-BLOCK"
+    assert result_043["status"] == "completed_pushed"
+    assert result_043["openrouter_calls_performed"] == 0
+    assert result_043["polymarket_api_calls_performed"] == 0
+    assert result_043["source_042_status"] == "blocked_prohibited_content_detected"
+    assert result_043["source_042_fail_fast_reason"] == "prohibited_content_detected:569334"
+    assert result_043["analyzed_market_id"] == "569334"
+    assert result_043["diagnostic_classification"] == "false_positive_validator_rule"
+    assert result_043["prohibited_content_true_positive"] is False
+    assert result_043["prohibited_content_false_positive"] is True
+    assert result_043["prohibited_content_uncertain"] is False
+    assert result_043["validator_reporting_improved"] is True
+    assert result_043["prompt_hardening_performed"] is True
+    assert result_043["secret_scan_passed"] is True
+    assert result_043["safety_summary"]["openrouter_calls_performed"] == 0
+    assert result_043["safety_summary"]["polymarket_api_calls_performed"] == 0

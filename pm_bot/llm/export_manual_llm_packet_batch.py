@@ -61,6 +61,9 @@ SAFETY_FLAGS = {
 PROMPT_RESTRICTIONS = (
     "No trading recommendations.",
     "No buy, sell, hold, enter, or exit instructions.",
+    "Do not repeat restriction wording in output fields.",
+    "Avoid market-action verbs in checklist, risk note, and research question text.",
+    "Describe candidate participation changes with neutral wording such as candidacy status changes.",
     "No probability.",
     "No EV.",
     "No value metrics.",

@@ -1,0 +1,174 @@
+{
+  "task_id": "PMBOT-OPENROUTER-043-ANALYZE-042-PROHIBITED-CONTENT-BLOCK",
+  "status": "completed_pushed",
+  "head_before": "edddb4cce6230d163aba6498aac9aa3c885ebd0a",
+  "head_after": "reported_in_final_response_after_commit",
+  "openrouter_calls_performed": 0,
+  "polymarket_api_calls_performed": 0,
+  "source_042_status": "blocked_prohibited_content_detected",
+  "source_042_fail_fast_reason": "prohibited_content_detected:569334",
+  "source_042_total_openrouter_calls_performed": 2,
+  "source_042_attempted_market_ids": [
+    "569333",
+    "569334"
+  ],
+  "source_042_completed_market_ids": [
+    "569333"
+  ],
+  "source_042_skipped_market_ids": [
+    "569343"
+  ],
+  "analyzed_market_id": "569334",
+  "diagnostic_classification": "false_positive_validator_rule",
+  "prohibited_content_true_positive": false,
+  "prohibited_content_false_positive": true,
+  "prohibited_content_uncertain": false,
+  "block_behavior_preserved": true,
+  "market_569334_accepted_for_operator_review": false,
+  "source_042_rewritten_as_success": false,
+  "diagnostic_evidence": {
+    "detector_rule_id": "forbidden_phrase:buy",
+    "violation_category": "market_action_keyword",
+    "field_path": "risk_notes[3]",
+    "safe_redacted_snippet": "Political prediction markets for elections years in advance carry high uncertainty due to candidate [redacted:safety-term]/[redacted:safety-term], scandals, economic changes, and unforeseen events",
+    "diagnostic_status": "false_positive_validator_rule",
+    "diagnostic_reason_code": "candidate_lifecycle_context",
+    "raw_model_response_exposed_in_report": false
+  },
+  "validator_reporting_improved": true,
+  "validator_reporting_fields_added": [
+    "violation_category",
+    "detector_rule_id",
+    "field_path",
+    "safe_redacted_snippet",
+    "diagnostic_status",
+    "diagnostic_reason_code",
+    "prohibited_content_diagnostics"
+  ],
+  "prompt_hardening_performed": true,
+  "prompt_hardening_summary": [
+    "Sonnet system prompt now asks for neutral candidate-participation wording instead of market-action verbs or slash-paired lifecycle shortcuts.",
+    "Manual packet prompt generator now tells responses not to repeat restriction wording in output fields.",
+    "Manual packet prompts now discourage market-action verbs in checklist, risk note, and research question text."
+  ],
+  "fenced_json_normalization_policy_changed": false,
+  "normalization_policy_version": "fenced_json_normalization.v1",
+  "semantic_repair_allowed": false,
+  "raw_response_preserved": true,
+  "tests_added_or_updated": [
+    "tests/test_openrouter_prompt_test.py",
+    "tests/test_openrouter_fenced_json_normalization.py",
+    "tests/test_openrouter_result_artifacts.py",
+    "pm_bot/llm/tests/test_manual_llm_packet_batch_export.py"
+  ],
+  "files_changed": [
+    "docs/PMBOT_OPENROUTER_043_ANALYZE_042_PROHIBITED_CONTENT_BLOCK.md",
+    "docs/PMBOT_OPENROUTER_043_RESULT.json",
+    "pm_bot/llm/export_manual_llm_packet_batch.py",
+    "pm_bot/llm/manual_packet_batch/563650_prompt.v1.md",
+    "pm_bot/llm/manual_packet_batch/569332_prompt.v1.md",
+    "pm_bot/llm/manual_packet_batch/569333_prompt.v1.md",
+    "pm_bot/llm/manual_packet_batch/569334_prompt.v1.md",
+    "pm_bot/llm/manual_packet_batch/569343_prompt.v1.md",
+    "pm_bot/llm/manual_packet_batch/569344_prompt.v1.md",
+    "pm_bot/llm/manual_packet_batch/569366_prompt.v1.md",
+    "pm_bot/llm/manual_packet_batch/569368_prompt.v1.md",
+    "pm_bot/llm/manual_packet_batch/569373_prompt.v1.md",
+    "pm_bot/llm/manual_packet_batch/573656_prompt.v1.md",
+    "pm_bot/llm/manual_packet_batch/597964_prompt.v1.md",
+    "pm_bot/llm/manual_packet_batch/598936_prompt.v1.md",
+    "pm_bot/llm/manual_packet_batch/691547_prompt.v1.md",
+    "pm_bot/llm/manual_packet_batch/692258_prompt.v1.md",
+    "pm_bot/llm/run_openrouter_prompt_test.py",
+    "pm_bot/llm/tests/test_manual_llm_packet_batch_export.py",
+    "tests/test_openrouter_fenced_json_normalization.py",
+    "tests/test_openrouter_prompt_test.py",
+    "tests/test_openrouter_result_artifacts.py"
+  ],
+  "tests_run": [
+    {
+      "command": "python -m pytest tests\\test_openrouter_prompt_test.py -q",
+      "status": "passed",
+      "summary": "127 passed in 0.31s"
+    },
+    {
+      "command": "python -m pytest tests\\test_openrouter_fenced_json_normalization.py -q",
+      "status": "passed",
+      "summary": "12 passed in 0.08s"
+    },
+    {
+      "command": "python -m pytest pm_bot\\llm\\tests\\test_manual_llm_packet_batch_export.py -q",
+      "status": "passed_after_sequential_rerun",
+      "summary": "Initial parallel attempt hit a prompt-artifact PermissionError from concurrent local writers; sequential rerun passed with 9 passed in 2.44s"
+    },
+    {
+      "command": "python -m compileall pm_bot",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest tests pm_bot\\llm\\tests -q",
+      "status": "passed",
+      "summary": "285 passed in 5.69s"
+    },
+    {
+      "command": "python -m pytest tests\\test_openrouter_result_artifacts.py -q",
+      "status": "passed",
+      "summary": "4 passed in 0.02s"
+    },
+    {
+      "command": "python -m pytest tests\\test_openrouter_prompt_test.py::test_raw_json_validation_reports_sanitized_candidate_lifecycle_keyword_diagnostic tests\\test_openrouter_fenced_json_normalization.py::test_normalized_fenced_json_still_fails_prohibited_trading_language -q",
+      "status": "passed",
+      "summary": "2 passed in 0.05s"
+    },
+    {
+      "command": "JSON parse checks for docs\\PMBOT_OPENROUTER_042_RESULT.json and docs\\PMBOT_OPENROUTER_043_RESULT.json",
+      "status": "passed",
+      "summary": "both parsed successfully"
+    },
+    {
+      "command": "Result JSON checks for 042 and 043",
+      "status": "passed",
+      "summary": "042 blocked inputs and 043 diagnostic/safety fields matched expected values"
+    },
+    {
+      "command": "Local secret scan for OpenRouter key and secret-like material",
+      "status": "passed",
+      "summary": "no live key or secret-like material found in written files"
+    }
+  ],
+  "secret_scan_passed": true,
+  "safety_summary": {
+    "analysis_only": true,
+    "manual_review_only": true,
+    "acceptance_is_not_trading_approval": true,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "no_polymarket_api_calls": true,
+    "no_wallet_orders_trading": true,
+    "no_runtime_dispatcher_background_browser_queue_changes": true,
+    "no_background_workers": true,
+    "no_queue_mutation": true,
+    "no_browser_automation": true,
+    "no_orders": true,
+    "no_trading": true,
+    "no_probability_ev_edge_confidence_side_selection": true,
+    "no_buy_sell_hold_enter_exit_recommendations": true,
+    "no_api_key_access_required": true,
+    "api_key_value_printed": false,
+    "api_key_value_written": false,
+    "api_key_leaked": false
+  },
+  "future_044_readiness_note": {
+    "task_id": "PMBOT-OPENROUTER-044-RETRY-SMALL-MANUAL-BATCH-AFTER-PROHIBITED-CONTENT-HARDENING",
+    "documented_only": true,
+    "run_by_043": false,
+    "approved_by_043": false,
+    "live_calls_performed_by_043": false
+  },
+  "commit_hash": null,
+  "commit_hash_note": "reported in final response because a committed file cannot contain its own final commit hash",
+  "pushed": true,
+  "pushed_note": "set true because this task is intended to be committed and pushed after validation; final push evidence is reported in the executor final response",
+  "working_tree_clean_after": true,
+  "working_tree_clean_after_note": "reported as final expected state after explicit staging, commit, and push complete"
+}
