@@ -1,0 +1,115 @@
+{
+  "contract_version": "operator_live_review_surface.v1",
+  "task_id": "PMBOT-OPENROUTER-034-SECOND-LIVE-SURFACE-AND-TWO-CALL-STABILITY",
+  "source_task_id": "PMBOT-OPENROUTER-033-SECOND-ONE-MARKET-LIVE-CALL",
+  "market_id": "569332",
+  "session_id": "pmbot_openrouter_033_second_one_market_live_call_569332",
+  "model": "anthropic/claude-sonnet-4.5",
+  "status": "accepted_for_operator_review",
+  "operator_review_only": true,
+  "no_trading_authority": true,
+  "no_runtime_authority": true,
+  "no_queue_mutation": true,
+  "no_recommendations": true,
+  "source_artifacts": {
+    "result_json": {
+      "path": "docs/PMBOT_OPENROUTER_033_RESULT.json",
+      "role": "read_only_input"
+    },
+    "content_json": {
+      "path": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_033_second_one_market_live_call_569332/openrouter_sonnet_569332_content.json",
+      "role": "read_only_input"
+    },
+    "validation_json": {
+      "path": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_033_second_one_market_live_call_569332/openrouter_sonnet_569332_validation.json",
+      "role": "read_only_input"
+    },
+    "summary_json": {
+      "path": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_033_second_one_market_live_call_569332/openrouter_test_summary_569332.json",
+      "role": "read_only_input"
+    }
+  },
+  "source_validation": {
+    "market_id_consistent": true,
+    "session_id_consistent": true,
+    "model_consistent": true,
+    "live_call_performed": true,
+    "openrouter_calls_count_is_one": true,
+    "raw_response_validator_passed": true,
+    "validation_status": "accepted",
+    "validation_valid": true,
+    "summary_status": "completed",
+    "summary_sonnet_valid": true,
+    "accepted_for_operator_review": true,
+    "prohibited_trading_content_detected": false,
+    "api_key_leaked": false
+  },
+  "authority_flags": {
+    "operator_review_only": true,
+    "no_trading_authority": true,
+    "no_runtime_authority": true,
+    "no_queue_mutation": true,
+    "no_recommendations": true
+  },
+  "safety_flags": {
+    "passive_context_only": true,
+    "offline_artifact_surface_only": true,
+    "no_openrouter_call_needed": true,
+    "no_api_key_needed": true,
+    "no_network_needed": true,
+    "no_polymarket_api_call_needed": true,
+    "no_wallet_or_private_key_access": true,
+    "no_orders": true,
+    "no_trading": true,
+    "no_runtime_wiring": true,
+    "no_dispatcher_changes": true,
+    "no_background_workers": true,
+    "no_browser_automation": true
+  },
+  "passive_llm_review_summary": {
+    "packet_id": "llm-analysis-packet-manual-batch-569332",
+    "response_id": "llm-analysis-response-manual-batch-569332",
+    "response_contract_version": "llm_analysis_response.v1",
+    "concise_market_summary": "Market 569332 asks whether Vicky Davila will win the first round of the 2026 Colombian presidential election. The accepted response says the packet contains only stub information with no actual market resolution criteria, official election data, candidate information, polling data, or credible news sources. It also notes that all substantive evidence is missing.",
+    "source_gap_notes_count": 10,
+    "key_uncertainties_count": 9,
+    "missing_evidence_count": 12,
+    "risk_notes_count": 9,
+    "contradiction_check_results": [
+      {
+        "topic": "Market resolution criteria completeness",
+        "check_result": "needs_more_source_review"
+      },
+      {
+        "topic": "Election date consistency",
+        "check_result": "needs_more_source_review"
+      },
+      {
+        "topic": "Market status",
+        "check_result": "not_checked"
+      },
+      {
+        "topic": "Candidate information",
+        "check_result": "not_checked"
+      }
+    ],
+    "source_content_safety_acknowledgement": {
+      "local_only": true,
+      "manual_review_only": true,
+      "no_autonomous_actions": true,
+      "no_outcome_estimates": true,
+      "no_recommendations": true,
+      "no_trade_or_wallet_instructions": true,
+      "no_value_scoring": true,
+      "offline_only": true,
+      "uncertain_claims_marked": true
+    }
+  },
+  "explicit_exclusions": {
+    "runtime_wiring_changed": false,
+    "dispatcher_changed": false,
+    "queue_mutated": false,
+    "background_worker_added": false,
+    "dashboard_or_status_exporter_updated": false
+  }
+}

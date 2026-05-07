@@ -1,0 +1,124 @@
+{
+  "task_id": "PMBOT-OPENROUTER-033-SECOND-ONE-MARKET-LIVE-CALL",
+  "status": "completed_live_call_passed",
+  "market_id": "569332",
+  "session_id": "pmbot_openrouter_033_second_one_market_live_call_569332",
+  "model": "anthropic/claude-sonnet-4.5",
+  "repo": {
+    "repo_root": "C:\\Users\\OpenC\\OneDrive\\\u0414\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u044b\\AI-Orchestrator",
+    "branch": "main",
+    "head_before": "6634d4d4df9a5a2049e536a7a357c83d3a8155ea",
+    "head_after": "6634d4d4df9a5a2049e536a7a357c83d3a8155ea",
+    "expected_head_at_start": "6634d4d4df9a5a2049e536a7a357c83d3a8155ea",
+    "expected_head_was_head": true,
+    "working_tree_clean_before": true
+  },
+  "readiness": {
+    "result_032_exists": true,
+    "batch_live_calls_approved": false,
+    "single_manual_one_market_live_call_allowed": true,
+    "selected_market_id_operator_selected": "569332",
+    "one_market_only": true,
+    "one_openrouter_call_only": true
+  },
+  "precheck": {
+    "manifest_exists": true,
+    "manifest_md_exists": true,
+    "manual_packet_batch_exists": true,
+    "selected_market_packet_exists": true,
+    "selected_market_prompt_exists": true
+  },
+  "environment": {
+    "process_env_openrouter_api_key_present_before_import": true,
+    "user_env_openrouter_api_key_present": true,
+    "safe_user_env_import_performed": false,
+    "process_env_openrouter_api_key_present_after_import": true,
+    "api_key_printed": false,
+    "api_key_written_to_disk": false
+  },
+  "live_call": {
+    "performed": true,
+    "allow_network_openrouter_used": true,
+    "openrouter_calls_count": 1,
+    "raw_response_path": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_033_second_one_market_live_call_569332/openrouter_sonnet_569332_raw.json",
+    "metadata_path": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_033_second_one_market_live_call_569332/openrouter_test_summary_569332.json",
+    "usage_recorded": true,
+    "cost_recorded": true
+  },
+  "validation": {
+    "raw_response_validator_passed": true,
+    "acceptance_gate_passed": true,
+    "accepted_for_operator_review": true,
+    "prohibited_trading_content_detected": false,
+    "harness_status": "completed",
+    "sonnet_json_recovered": true,
+    "validation_warning_codes": [
+      "markdown_fence_recovered"
+    ],
+    "generic_packet_schema_validator_applicable": false,
+    "generic_response_schema_validator_passed": true
+  },
+  "safety": {
+    "no_polymarket_api_calls": true,
+    "no_wallet_private_keys": true,
+    "no_orders": true,
+    "no_trading": true,
+    "no_runtime_wiring": true,
+    "no_dispatcher_changes": true,
+    "no_background_workers": true,
+    "no_queue_mutation": true,
+    "no_browser_automation": true,
+    "no_probability_ev_edge_confidence_side_selection": true,
+    "no_buy_sell_hold_enter_exit_recommendations": true,
+    "secret_scan_passed": true,
+    "api_key_leaked": false
+  },
+  "tests": {
+    "compileall_passed": true,
+    "pytest_llm_passed": true,
+    "pytest_summary": "260 passed in 5.93s",
+    "json_parse_checks_passed": true,
+    "result_json_checks_passed": true
+  },
+  "artifacts": {
+    "content_path": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_033_second_one_market_live_call_569332/openrouter_sonnet_569332_content.json",
+    "validation_path": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_033_second_one_market_live_call_569332/openrouter_sonnet_569332_validation.json"
+  },
+  "usage": {
+    "prompt_tokens": 3999,
+    "completion_tokens": 1814,
+    "total_tokens": 5813,
+    "cost": 0.039207,
+    "returned_model": "anthropic/claude-4.5-sonnet-20250929",
+    "provider": "Amazon Bedrock"
+  },
+  "files_created": [
+    "docs/PMBOT_OPENROUTER_033_RESULT.json",
+    "docs/PMBOT_OPENROUTER_033_SECOND_ONE_MARKET_LIVE_CALL.md",
+    "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_033_second_one_market_live_call_569332/openrouter_sonnet_569332_raw.json",
+    "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_033_second_one_market_live_call_569332/openrouter_sonnet_569332_content.json",
+    "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_033_second_one_market_live_call_569332/openrouter_sonnet_569332_validation.json",
+    "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_033_second_one_market_live_call_569332/openrouter_test_summary_569332.json"
+  ],
+  "files_modified": [],
+  "commands_run": [
+    "git status --short",
+    "git branch --show-current",
+    "git rev-parse HEAD",
+    "Test-Path docs/PMBOT_OPENROUTER_032_RESULT.json",
+    "PowerShell 032 readiness validation",
+    "Test-Path restored manifest, manifest markdown, manual packet batch, and selected 569332 prompt/packet",
+    "safe OPENROUTER_API_KEY process/user environment presence checks",
+    "python pm_bot/llm/run_openrouter_prompt_test.py --market-id 569332 --sonnet-model anthropic/claude-sonnet-4.5 --skip-critic --allow-local-json-fence-repair --out-dir pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_033_second_one_market_live_call_569332",
+    "python pm_bot/llm/validate_llm_analysis_artifacts.py --packet pm_bot/llm/manual_packet_batch/569332_packet.v1.json --response pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_033_second_one_market_live_call_569332/openrouter_sonnet_569332_content.json",
+    "Python harness raw-response revalidation and single-call acceptance check",
+    "python -m compileall pm_bot",
+    "python -m pytest tests pm_bot\\llm\\tests -q"
+  ],
+  "git": {
+    "commit_created": false,
+    "commit_hash": null,
+    "pushed": false
+  },
+  "next_action": "Operator may review the saved Sonnet output artifact as passive local context only; no operator surface, trading action, runtime wiring, dispatcher change, queue mutation, or batch live call was performed."
+}

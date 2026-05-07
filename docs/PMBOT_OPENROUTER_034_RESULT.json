@@ -1,0 +1,106 @@
+{
+  "task_id": "PMBOT-OPENROUTER-034-SECOND-LIVE-SURFACE-AND-TWO-CALL-STABILITY",
+  "status": "completed_local_checks_passed_pending_commit",
+  "repo": {
+    "repo_root": "C:\\Users\\OpenC\\OneDrive\\\u0414\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u044b\\AI-Orchestrator",
+    "branch": "main",
+    "head_before": "6634d4d4df9a5a2049e536a7a357c83d3a8155ea",
+    "head_after": "6634d4d4df9a5a2049e536a7a357c83d3a8155ea",
+    "expected_head_at_start": "6634d4d4df9a5a2049e536a7a357c83d3a8155ea",
+    "expected_head_was_head": true,
+    "working_tree_clean_before": false
+  },
+  "source_033_validation": {
+    "result_033_exists": true,
+    "report_033_exists": true,
+    "content_033_exists": true,
+    "validation_033_exists": true,
+    "summary_033_exists": true,
+    "market_id_consistent": true,
+    "session_id_consistent": true,
+    "model_consistent": true,
+    "live_call_performed": true,
+    "openrouter_calls_count_is_one": true,
+    "accepted_for_operator_review": true,
+    "prohibited_trading_content_detected": false,
+    "api_key_leaked": false
+  },
+  "operator_surface_033": {
+    "json_path": "pm_bot/llm/operator_live_review_surface_569332.v1.json",
+    "markdown_path": "pm_bot/llm/operator_live_review_surface_569332.v1.md",
+    "status": "accepted_for_operator_review",
+    "operator_review_only": true,
+    "no_trading_authority": true,
+    "no_runtime_authority": true,
+    "no_queue_mutation": true,
+    "no_recommendations": true
+  },
+  "two_call_stability": {
+    "first_market_id": "563650",
+    "second_market_id": "569332",
+    "first_task_id": "PMBOT-OPENROUTER-028-FIRST-ONE-MARKET-LIVE-CALL-WITH-SAFE-USER-ENV-IMPORT",
+    "second_task_id": "PMBOT-OPENROUTER-033-SECOND-ONE-MARKET-LIVE-CALL",
+    "model": "anthropic/claude-sonnet-4.5",
+    "same_model": true,
+    "both_single_openrouter_call": true,
+    "both_accepted_for_operator_review": true,
+    "both_prohibited_trading_content_detected_false": true,
+    "both_api_key_leaked_false": true,
+    "both_no_polymarket_api_calls": true,
+    "both_no_runtime_dispatcher_queue_trading_authority": true,
+    "both_saved_artifacts_and_metadata": true,
+    "both_operator_surface_passive_only": true,
+    "batch_live_calls_approved": false
+  },
+  "explicit_statements": [
+    "Two successful one-market live calls do not approve batch live calls.",
+    "Any batch live testing requires a separate approval and a separate task."
+  ],
+  "code_changes": {
+    "runtime_wiring_changed": false,
+    "dispatcher_changed": false,
+    "queue_mutated": false,
+    "background_worker_added": false
+  },
+  "safety": {
+    "no_openrouter_calls": true,
+    "no_polymarket_api_calls": true,
+    "no_wallet_private_keys": true,
+    "no_orders": true,
+    "no_trading": true,
+    "no_runtime_wiring": true,
+    "no_dispatcher_changes": true,
+    "no_background_workers": true,
+    "no_browser_automation": true,
+    "no_queue_mutation": true,
+    "no_probability_ev_edge_confidence_side_selection": true,
+    "no_buy_sell_hold_enter_exit_recommendations": true,
+    "openrouter_api_key_read": false,
+    "openrouter_api_key_printed": false,
+    "openrouter_api_key_written_to_disk": false,
+    "secret_scan_passed": true,
+    "api_key_leaked": false
+  },
+  "tests": {
+    "compileall_passed": true,
+    "pytest_llm_passed": true,
+    "pytest_summary": "265 passed in 5.59s",
+    "json_parse_checks_passed": true,
+    "result_json_checks_passed": true,
+    "focused_tests_passed": true
+  },
+  "git": {
+    "commit_created": false,
+    "commit_hash": null,
+    "pushed": false
+  },
+  "files_created": [
+    "pm_bot/llm/operator_live_review_surface_569332.v1.json",
+    "pm_bot/llm/operator_live_review_surface_569332.v1.md",
+    "docs/PMBOT_OPENROUTER_034_RESULT.json",
+    "docs/PMBOT_OPENROUTER_034_SECOND_LIVE_SURFACE_AND_TWO_CALL_STABILITY.md",
+    "pm_bot/llm/tests/test_operator_live_review_surface_569332.py"
+  ],
+  "files_modified": [],
+  "next_action": "Operator may review the passive 569332 surface and two-call stability report. Batch live testing remains unapproved and requires separate approval in a separate task."
+}
