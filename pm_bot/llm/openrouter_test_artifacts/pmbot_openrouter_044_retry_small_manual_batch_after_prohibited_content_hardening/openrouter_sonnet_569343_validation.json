@@ -1,0 +1,41 @@
+{
+  "acceptance_gate_components": {
+    "no_buy_sell_hold_enter_exit": true,
+    "no_probability_ev_edge_confidence_side_selection": true,
+    "no_prohibited_content": true,
+    "raw_or_normalized_json_validator_passed": false,
+    "response_schema_validator_passed": false,
+    "usage_present": false
+  },
+  "acceptance_gate_passed": false,
+  "api_key_leaked": false,
+  "api_key_presence_checked": true,
+  "api_key_value_printed": false,
+  "api_key_value_written": false,
+  "checks": {
+    "parses_json": false,
+    "response_schema_passed": false,
+    "top_level_object": false
+  },
+  "error_reason": null,
+  "errors": [],
+  "market_id": "569343",
+  "model": "anthropic/claude-sonnet-4.5",
+  "normalization_policy_applied": false,
+  "normalization_policy_version": "fenced_json_normalization.v1",
+  "normalized_from_markdown_fence": false,
+  "normalized_json_parse_passed": false,
+  "openrouter_call_index": null,
+  "openrouter_call_performed": false,
+  "raw_response_preserved": false,
+  "raw_response_was_markdown_fenced": false,
+  "raw_strict_json_parse_passed": false,
+  "semantic_repair_allowed": false,
+  "session_id": "pmbot_openrouter_044_retry_small_manual_batch_after_prohibited_content_hardening",
+  "skip_reason": "skipped_after_fail_fast:acceptance_gate_failed:569334:response_schema:forbidden_phrase:edge",
+  "status": "skipped",
+  "task_id": "PMBOT-OPENROUTER-044-RETRY-SMALL-MANUAL-BATCH-AFTER-PROHIBITED-CONTENT-HARDENING",
+  "usage_present": false,
+  "valid": false,
+  "warnings": []
+}

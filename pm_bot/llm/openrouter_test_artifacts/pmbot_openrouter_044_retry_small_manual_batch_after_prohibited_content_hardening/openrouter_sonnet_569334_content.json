@@ -1,0 +1,128 @@
+{
+  "content_status": "rejected",
+  "parsed_content": {
+    "citation_or_source_gap_notes": [
+      "No market resolution criteria text provided; only placeholder reference to Polymarket market 569334",
+      "No official election authority identified; placeholder mentions need for official results but provides no source",
+      "No candidate biographical or political information; placeholder references official pages but includes no data",
+      "No news coverage provided; placeholders mention Reuters, AP, and local outlets but contain no articles or URLs",
+      "No polling data, political analysis, or expert commentary included in packet",
+      "No Colombian electoral law or constitutional provisions documented",
+      "No historical election data or precedent analysis provided",
+      "All evidence fields explicitly listed as missing in packet metadata",
+      "Source gap notes list search queries but no actual search results or retrieved content",
+      "No timestamps, publication dates, or source reliability assessments included"
+    ],
+    "concise_market_summary": "This market asks whether Claudia L\u00f3pez will win the first round of Colombia's 2026 presidential election. The packet contains only structural metadata and placeholders. No actual market resolution criteria text, polling data, candidate information, election authority details, or news coverage has been provided. The market status is listed as unknown. The outcome date appears to be 2026-05-31, but this is only mentioned in a stub summary. All substantive evidence fields are explicitly listed as missing.",
+    "contract_version": "llm_analysis_response.v1",
+    "contradiction_checks": [
+      {
+        "check_result": "needs_more_source_review",
+        "notes": "The stub mentions 2026-05-31 as a relevant date, but Colombian presidential elections have historically occurred in May. Without official election calendar confirmation or market rules, cannot verify whether this date represents the election date, a market closure date, or a resolution deadline.",
+        "topic": "Market resolution date versus election timing"
+      },
+      {
+        "check_result": "not_checked",
+        "notes": "No information provided about whether Claudia L\u00f3pez meets eligibility requirements, has announced candidacy, or is legally permitted to run. Cannot check for conflicts regarding candidacy status.",
+        "topic": "Candidate eligibility and current status"
+      },
+      {
+        "check_result": "needs_more_source_review",
+        "notes": "The market asks about winning the first round, but Colombian presidential elections may require an absolute majority or use other thresholds. Without resolution criteria or electoral law details, cannot verify consistency between market question and actual electoral outcomes.",
+        "topic": "Definition of first-round victory"
+      }
+    ],
+    "key_uncertainties": [
+      "Complete market resolution criteria and exact definition of 'win the 1st round' are absent",
+      "Whether Claudia L\u00f3pez is currently a declared or likely candidate for 2026 is unknown",
+      "Colombian electoral system requirements for first-round victory (absolute majority, plurality, or threshold) are not specified",
+      "Current political landscape, polling data, and candidate field are entirely absent",
+      "Official election authority identity and result certification process are not documented",
+      "Market closure date and resolution source hierarchy are not provided",
+      "Whether L\u00f3pez holds current political office or has announced candidacy is unknown"
+    ],
+    "missing_evidence": [
+      "Full verbatim market resolution criteria from Polymarket market 569334",
+      "Colombian election authority name, website, and official result publication process",
+      "Current polling data or political analysis regarding 2026 presidential race",
+      "Claudia L\u00f3pez biographical information, current position, and candidacy status",
+      "Colombian electoral law regarding first-round victory thresholds",
+      "List of other declared or potential candidates for 2026 election",
+      "Historical context of Colombian presidential elections and first-round outcomes",
+      "Market creation date, end date, and current price or volume data",
+      "Any official statements from L\u00f3pez regarding 2026 candidacy intentions",
+      "Credible news coverage of the 2026 Colombian presidential race"
+    ],
+    "operator_review_checklist": [
+      "Retrieve and review complete verbatim resolution criteria from Polymarket market 569334",
+      "Identify official Colombian election authority and locate result publication procedures",
+      "Verify Claudia L\u00f3pez current political position and any public statements regarding 2026 candidacy",
+      "Research Colombian electoral law regarding first-round victory requirements and thresholds",
+      "Confirm official date of 2026 Colombian presidential election first round",
+      "Review market status, trading activity, and current price levels if market is active",
+      "Identify other declared or likely candidates for 2026 presidential race",
+      "Locate credible polling data or political analysis regarding 2026 election landscape",
+      "Verify market end date and resolution timeline relative to election date",
+      "Check for any market-specific edge cases or resolution exceptions in official rules",
+      "Review historical Colombian presidential election outcomes and first-round winner patterns",
+      "Confirm L\u00f3pez eligibility under Colombian constitutional and legal requirements"
+    ],
+    "packet_id": "llm-analysis-packet-manual-batch-569334",
+    "response_id": "llm-analysis-response-manual-batch-569334",
+    "risk_notes": [
+      "Complete absence of market resolution criteria creates fundamental ambiguity about what outcome would trigger each side",
+      "No verification that Claudia L\u00f3pez is or will be a candidate; market may reference a non-participant",
+      "Electoral system mechanics (majority requirement, runoff triggers) are undefined and critical to first-round outcome interpretation",
+      "No official source identification means resolution authority chain is unknown",
+      "Political landscape may change substantially between packet creation and May 2026 election date",
+      "Market status listed as unknown; candidacy status may affect market validity or trading activity",
+      "Without current polling or political context, baseline likelihood assessment is impossible",
+      "Colombian electoral calendar and official result certification timeline are not documented"
+    ],
+    "safety_acknowledgement": {
+      "local_only": true,
+      "manual_review_only": true,
+      "no_autonomous_actions": true,
+      "no_outcome_estimates": true,
+      "no_recommendations": true,
+      "no_trade_or_wallet_instructions": true,
+      "no_value_scoring": true,
+      "offline_only": true,
+      "uncertain_claims_marked": true
+    },
+    "suggested_research_questions": [
+      "What are the complete official resolution criteria for Polymarket market 569334?",
+      "What percentage or vote threshold is required to win the first round of a Colombian presidential election?",
+      "Has Claudia L\u00f3pez publicly announced or indicated intention to run in 2026?",
+      "What is the official name and website of Colombia's national election authority?",
+      "When is the first round of the 2026 Colombian presidential election officially scheduled?",
+      "Who are the other declared or likely candidates for the 2026 Colombian presidency?",
+      "What is Claudia L\u00f3pez's current political position and recent electoral history?",
+      "What do current polls or political analysts say about the 2026 presidential race?",
+      "How does the market define 'win' - plurality, absolute majority, or another threshold?",
+      "What is the typical timeline for official result certification in Colombian presidential elections?",
+      "Are there constitutional or legal restrictions on L\u00f3pez's eligibility to run?",
+      "What historical precedents exist for first-round victories in Colombian presidential elections?"
+    ]
+  },
+  "prohibited_content_diagnostics": [],
+  "raw_content": "```json\n{\n  \"contract_version\": \"llm_analysis_response.v1\",\n  \"response_id\": \"llm-analysis-response-manual-batch-569334\",\n  \"packet_id\": \"llm-analysis-packet-manual-batch-569334\",\n  \"concise_market_summary\": \"This market asks whether Claudia L\u00f3pez will win the first round of Colombia's 2026 presidential election. The packet contains only structural metadata and placeholders. No actual market resolution criteria text, polling data, candidate information, election authority details, or news coverage has been provided. The market status is listed as unknown. The outcome date appears to be 2026-05-31, but this is only mentioned in a stub summary. All substantive evidence fields are explicitly listed as missing.\",\n  \"key_uncertainties\": [\n    \"Complete market resolution criteria and exact definition of 'win the 1st round' are absent\",\n    \"Whether Claudia L\u00f3pez is currently a declared or likely candidate for 2026 is unknown\",\n    \"Colombian electoral system requirements for first-round victory (absolute majority, plurality, or threshold) are not specified\",\n    \"Current political landscape, polling data, and candidate field are entirely absent\",\n    \"Official election authority identity and result certification process are not documented\",\n    \"Market closure date and resolution source hierarchy are not provided\",\n    \"Whether L\u00f3pez holds current political office or has announced candidacy is unknown\"\n  ],\n  \"missing_evidence\": [\n    \"Full verbatim market resolution criteria from Polymarket market 569334\",\n    \"Colombian election authority name, website, and official result publication process\",\n    \"Current polling data or political analysis regarding 2026 presidential race\",\n    \"Claudia L\u00f3pez biographical information, current position, and candidacy status\",\n    \"Colombian electoral law regarding first-round victory thresholds\",\n    \"List of other declared or potential candidates for 2026 election\",\n    \"Historical context of Colombian presidential elections and first-round outcomes\",\n    \"Market creation date, end date, and current price or volume data\",\n    \"Any official statements from L\u00f3pez regarding 2026 candidacy intentions\",\n    \"Credible news coverage of the 2026 Colombian presidential race\"\n  ],\n  \"contradiction_checks\": [\n    {\n      \"topic\": \"Market resolution date versus election timing\",\n      \"check_result\": \"needs_more_source_review\",\n      \"notes\": \"The stub mentions 2026-05-31 as a relevant date, but Colombian presidential elections have historically occurred in May. Without official election calendar confirmation or market rules, cannot verify whether this date represents the election date, a market closure date, or a resolution deadline.\"\n    },\n    {\n      \"topic\": \"Candidate eligibility and current status\",\n      \"check_result\": \"not_checked\",\n      \"notes\": \"No information provided about whether Claudia L\u00f3pez meets eligibility requirements, has announced candidacy, or is legally permitted to run. Cannot check for conflicts regarding candidacy status.\"\n    },\n    {\n      \"topic\": \"Definition of first-round victory\",\n      \"check_result\": \"needs_more_source_review\",\n      \"notes\": \"The market asks about winning the first round, but Colombian presidential elections may require an absolute majority or use other thresholds. Without resolution criteria or electoral law details, cannot verify consistency between market question and actual electoral outcomes.\"\n    }\n  ],\n  \"risk_notes\": [\n    \"Complete absence of market resolution criteria creates fundamental ambiguity about what outcome would trigger each side\",\n    \"No verification that Claudia L\u00f3pez is or will be a candidate; market may reference a non-participant\",\n    \"Electoral system mechanics (majority requirement, runoff triggers) are undefined and critical to first-round outcome interpretation\",\n    \"No official source identification means resolution authority chain is unknown\",\n    \"Political landscape may change substantially between packet creation and May 2026 election date\",\n    \"Market status listed as unknown; candidacy status may affect market validity or trading activity\",\n    \"Without current polling or political context, baseline likelihood assessment is impossible\",\n    \"Colombian electoral calendar and official result certification timeline are not documented\"\n  ],\n  \"operator_review_checklist\": [\n    \"Retrieve and review complete verbatim resolution criteria from Polymarket market 569334\",\n    \"Identify official Colombian election authority and locate result publication procedures\",\n    \"Verify Claudia L\u00f3pez current political position and any public statements regarding 2026 candidacy\",\n    \"Research Colombian electoral law regarding first-round victory requirements and thresholds\",\n    \"Confirm official date of 2026 Colombian presidential election first round\",\n    \"Review market status, trading activity, and current price levels if market is active\",\n    \"Identify other declared or likely candidates for 2026 presidential race\",\n    \"Locate credible polling data or political analysis regarding 2026 election landscape\",\n    \"Verify market end date and resolution timeline relative to election date\",\n    \"Check for any market-specific edge cases or resolution exceptions in official rules\",\n    \"Review historical Colombian presidential election outcomes and first-round winner patterns\",\n    \"Confirm L\u00f3pez eligibility under Colombian constitutional and legal requirements\"\n  ],\n  \"suggested_research_questions\": [\n    \"What are the complete official resolution criteria for Polymarket market 569334?\",\n    \"What percentage or vote threshold is required to win the first round of a Colombian presidential election?\",\n    \"Has Claudia L\u00f3pez publicly announced or indicated intention to run in 2026?\",\n    \"What is the official name and website of Colombia's national election authority?\",\n    \"When is the first round of the 2026 Colombian presidential election officially scheduled?\",\n    \"Who are the other declared or likely candidates for the 2026 Colombian presidency?\",\n    \"What is Claudia L\u00f3pez's current political position and recent electoral history?\",\n    \"What do current polls or political analysts say about the 2026 presidential race?\",\n    \"How does the market define 'win' - plurality, absolute majority, or another threshold?\",\n    \"What is the typical timeline for official result certification in Colombian presidential elections?\",\n    \"Are there constitutional or legal restrictions on L\u00f3pez's eligibility to run?\",\n    \"What historical precedents exist for first-round victories in Colombian presidential elections?\"\n  ],\n  \"citation_or_source_gap_notes\": [\n    \"No market resolution criteria text provided; only placeholder reference to Polymarket market 569334\",\n    \"No official election authority identified; placeholder mentions need for official results but provides no source\",\n    \"No candidate biographical or political information; placeholder references official pages but includes no data\",\n    \"No news coverage provided; placeholders mention Reuters, AP, and local outlets but contain no articles or URLs\",\n    \"No polling data, political analysis, or expert commentary included in packet\",\n    \"No Colombian electoral law or constitutional provisions documented\",\n    \"No historical election data or precedent analysis provided\",\n    \"All evidence fields explicitly listed as missing in packet metadata\",\n    \"Source gap notes list search queries but no actual search results or retrieved content\",\n    \"No timestamps, publication dates, or source reliability assessments included\"\n  ],\n  \"safety_acknowledgement\": {\n    \"offline_only\": true,\n    \"local_only\": true,\n    \"manual_review_only\": true,\n    \"no_recommendations\": true,\n    \"no_outcome_estimates\": true,\n    \"no_value_scoring\": true,\n    \"no_trade_or_wallet_instructions\": true,\n    \"no_autonomous_actions\": true,\n    \"uncertain_claims_marked\": true\n  }\n}\n```",
+  "status": "rejected",
+  "validation_errors": [
+    {
+      "code": "response_schema:forbidden_phrase:edge",
+      "message": "Forbidden deterministic language pattern found: edge.",
+      "path": "operator_review_checklist[9]"
+    }
+  ],
+  "validation_warnings": [
+    {
+      "code": "markdown_fence_normalized",
+      "message": "Normalized JSON from a single full-response Markdown fence."
+    },
+    {
+      "code": "markdown_fence_recovered",
+      "message": "Legacy recovery alias for fenced JSON normalization."
+    }
+  ]
+}

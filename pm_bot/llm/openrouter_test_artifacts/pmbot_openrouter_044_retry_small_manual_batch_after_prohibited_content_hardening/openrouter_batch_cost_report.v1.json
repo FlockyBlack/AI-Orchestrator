@@ -1,0 +1,65 @@
+{
+  "aggregate": {
+    "completion_tokens": 3550,
+    "cost": 0.07839299999999999,
+    "cost_returned_by_openrouter": true,
+    "prompt_tokens": 8381,
+    "total_tokens": 11931
+  },
+  "artifact_type": "openrouter_batch_cost_report.v1",
+  "cost_report_is_not_trading_approval": true,
+  "model": "anthropic/claude-sonnet-4.5",
+  "no_secret_fields": true,
+  "operator_visibility_only": true,
+  "per_market": {
+    "569333": {
+      "completion_tokens": 1820,
+      "cost": 0.039795,
+      "market_id": "569333",
+      "model": "anthropic/claude-sonnet-4.5",
+      "no_secret_fields": true,
+      "openrouter_call_performed": true,
+      "operator_visibility_only": true,
+      "prompt_tokens": 4165,
+      "provider": "Amazon Bedrock",
+      "returned_model": "anthropic/claude-4.5-sonnet-20250929",
+      "total_tokens": 5985,
+      "usage_present": true
+    },
+    "569334": {
+      "completion_tokens": 1730,
+      "cost": 0.038598,
+      "market_id": "569334",
+      "model": "anthropic/claude-sonnet-4.5",
+      "no_secret_fields": true,
+      "openrouter_call_performed": true,
+      "operator_visibility_only": true,
+      "prompt_tokens": 4216,
+      "provider": "Amazon Bedrock",
+      "returned_model": "anthropic/claude-4.5-sonnet-20250929",
+      "total_tokens": 5946,
+      "usage_present": true
+    },
+    "569343": {
+      "completion_tokens": null,
+      "cost": null,
+      "market_id": "569343",
+      "model": "anthropic/claude-sonnet-4.5",
+      "no_secret_fields": true,
+      "openrouter_call_performed": false,
+      "operator_visibility_only": true,
+      "prompt_tokens": null,
+      "provider": null,
+      "returned_model": null,
+      "total_tokens": null,
+      "usage_present": false
+    }
+  },
+  "provider_info_if_returned": {
+    "569333": "Amazon Bedrock",
+    "569334": "Amazon Bedrock",
+    "569343": null
+  },
+  "session_id": "pmbot_openrouter_044_retry_small_manual_batch_after_prohibited_content_hardening",
+  "task_id": "PMBOT-OPENROUTER-044-RETRY-SMALL-MANUAL-BATCH-AFTER-PROHIBITED-CONTENT-HARDENING"
+}

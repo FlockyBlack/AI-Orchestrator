@@ -1,0 +1,99 @@
+{
+  "artifact_type": "openrouter_sonnet_raw.v1",
+  "cost": 0.039795,
+  "market_id": "569333",
+  "normalization_policy_applied": true,
+  "normalization_policy_version": "fenced_json_normalization.v1",
+  "normalized_content_used": true,
+  "normalized_from_markdown_fence": true,
+  "normalized_json_parse_passed": true,
+  "openrouter_response": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "logprobs": null,
+        "message": {
+          "content": "```json\n{\n  \"contract_version\": \"llm_analysis_response.v1\",\n  \"response_id\": \"llm-analysis-response-manual-batch-569333\",\n  \"packet_id\": \"llm-analysis-packet-manual-batch-569333\",\n  \"concise_market_summary\": \"This market asks whether Luis Gilberto Murillo will win the first round of Colombia's 2026 presidential election. The packet contains only structural metadata and placeholders. No actual market resolution criteria, candidate information, polling data, election authority details, or news coverage has been provided. The election date appears to be targeted for May 31, 2026. All substantive evidence required for analysis is absent from the supplied packet.\",\n  \"key_uncertainties\": [\n    \"Complete market resolution criteria and official rules from Polymarket for market 569333 are not included in the packet\",\n    \"Identity and background of candidate Luis Gilberto Murillo is not established in the supplied materials\",\n    \"Colombian electoral system rules for first-round victory thresholds are not documented\",\n    \"Official election authority responsible for certifying results is not identified\",\n    \"Current political landscape, polling data, and candidate field composition are entirely absent\",\n    \"Whether the election date of 2026-05-31 is confirmed or provisional is unclear\",\n    \"Market status is marked as 'unknown' with no indication of whether the market is active, resolved, or suspended\"\n  ],\n  \"missing_evidence\": [\n    \"Full text of Polymarket market resolution criteria for market 569333\",\n    \"Biographical and political background information for Luis Gilberto Murillo\",\n    \"List of other declared or potential candidates in the 2026 Colombian presidential race\",\n    \"Colombian electoral law regarding first-round victory requirements (absolute majority, plurality, runoff thresholds)\",\n    \"Official election schedule and confirmed first-round date from Colombian electoral authorities\",\n    \"Current polling data or political analysis regarding the 2026 election\",\n    \"Historical context of recent Colombian presidential elections and outcomes\",\n    \"Official government or electoral commission sources for Colombia\",\n    \"News coverage from Reuters, Associated Press, or Colombian national outlets\",\n    \"Party affiliation and political platform of Luis Gilberto Murillo\",\n    \"Any official candidate declarations or campaign announcements\"\n  ],\n  \"contradiction_checks\": [\n    {\n      \"topic\": \"Market resolution date versus election timing\",\n      \"check_result\": \"needs_more_source_review\",\n      \"notes\": \"The packet references 2026-05-31 as a relevant date, but without full resolution criteria, it is unclear whether this is the election date, a resolution deadline, or another milestone. Colombian presidential elections historically occur in May, but confirmation is needed.\"\n    },\n    {\n      \"topic\": \"Market status and operability\",\n      \"check_result\": \"needs_more_source_review\",\n      \"notes\": \"Market status is listed as 'unknown'. Without knowing whether the market is active, paused, or already resolved, the relevance of any analysis cannot be determined.\"\n    },\n    {\n      \"topic\": \"Candidate eligibility and candidacy status\",\n      \"check_result\": \"not_checked\",\n      \"notes\": \"No information is provided about whether Luis Gilberto Murillo has officially declared candidacy, meets eligibility requirements, or is actively campaigning. This fundamental question cannot be assessed with the supplied packet.\"\n    }\n  ],\n  \"risk_notes\": [\n    \"The packet contains only structural placeholders with no actual source material, making any substantive analysis impossible\",\n    \"Without official market resolution criteria, the precise conditions for a 'Yes' outcome cannot be determined\",\n    \"Colombian electoral law may have specific first-round victory thresholds (such as 50%+1 requirement) that would affect outcome interpretation\",\n    \"The 2026 election is approximately two years away, introducing significant political volatility and uncertainty\",\n    \"Candidate field composition is completely unknown, making relative competitiveness impossible to assess\",\n    \"No verification that Luis Gilberto Murillo is an actual declared or potential candidate\",\n    \"Political dynamics in Colombia may shift substantially between now and 2026\",\n    \"Without access to the official electoral authority, result certification processes cannot be mapped to market resolution\"\n  ],\n  \"operator_review_checklist\": [\n    \"Obtain and review complete Polymarket market resolution criteria for market 569333\",\n    \"Verify the identity and current political status of Luis Gilberto Murillo\",\n    \"Confirm whether Luis Gilberto Murillo has officially declared candidacy for the 2026 presidential election\",\n    \"Research Colombian electoral law regarding first-round victory requirements and runoff procedures\",\n    \"Identify the official Colombian electoral authority responsible for certifying presidential election results\",\n    \"Confirm the scheduled date for the first round of the 2026 Colombian presidential election\",\n    \"Review current polling data and political analysis for the 2026 election cycle\",\n    \"Identify all other declared or potential candidates in the race\",\n    \"Check market status on Polymarket to confirm whether market 569333 is active and accepting participation\",\n    \"Review recent Colombian political history and electoral patterns\",\n    \"Verify that all source placeholders have been replaced with actual source material before proceeding\",\n    \"Confirm that news coverage from credible outlets (Reuters, AP, Colombian national media) has been obtained and reviewed\"\n  ],\n  \"suggested_research_questions\": [\n    \"What are the complete and official resolution criteria for Polymarket market 569333?\",\n    \"Who is Luis Gilberto Murillo and what is his political background and experience?\",\n    \"Has Luis Gilberto Murillo officially declared his candidacy for the 2026 Colombian presidential election?\",\n    \"What percentage of votes is required to win the first round of a Colombian presidential election outright?\",\n    \"Which government body or electoral commission in Colombia certifies presidential election results?\",\n    \"What is the confirmed date for the first round of the 2026 Colombian presidential election?\",\n    \"Who are the other declared or likely candidates in the 2026 Colombian presidential race?\",\n    \"What do current polls indicate about the 2026 Colombian presidential election?\",\n    \"What party or political coalition is Luis Gilberto Murillo affiliated with?\",\n    \"What were the results and dynamics of the most recent Colombian presidential election?\",\n    \"Are there any constitutional or legal barriers to Luis Gilberto Murillo's candidacy?\",\n    \"What is the current political climate in Colombia and how might it affect the 2026 election?\"\n  ],\n  \"citation_or_source_gap_notes\": [\n    \"No actual Polymarket market page content or resolution criteria text is included in the packet\",\n    \"No official Colombian government or electoral authority sources are provided\",\n    \"No biographical or political information about Luis Gilberto Murillo is included\",\n    \"No news coverage from Reuters, Associated Press, or Colombian outlets is present\",\n    \"No polling data or political analysis sources are referenced\",\n    \"All evidence fields are marked as missing in the packet metadata\",\n    \"Source placeholders indicate required sources but contain no actual content\",\n    \"No timestamps or publication dates for any sources are available\",\n    \"No source reliability assessment can be performed due to absence of actual sources\",\n    \"The packet explicitly lists 'full_market_resolution_criteria_text' as missing evidence\"\n  ],\n  \"safety_acknowledgement\": {\n    \"offline_only\": true,\n    \"local_only\": true,\n    \"manual_review_only\": true,\n    \"no_recommendations\": true,\n    \"no_outcome_estimates\": true,\n    \"no_value_scoring\": true,\n    \"no_trade_or_wallet_instructions\": true,\n    \"no_autonomous_actions\": true,\n    \"uncertain_claims_marked\": true\n  }\n}\n```",
+          "reasoning": null,
+          "refusal": null,
+          "role": "assistant"
+        },
+        "native_finish_reason": "end_turn"
+      }
+    ],
+    "created": 1778160609,
+    "id": "gen-1778160609-7X1aHgLag5xj3s0Zv79B",
+    "model": "anthropic/claude-4.5-sonnet-20250929",
+    "object": "chat.completion",
+    "provider": "Amazon Bedrock",
+    "system_fingerprint": null,
+    "usage": {
+      "completion_tokens": 1820,
+      "completion_tokens_details": {
+        "audio_tokens": 0,
+        "image_tokens": 0,
+        "reasoning_tokens": 0
+      },
+      "cost": 0.039795,
+      "cost_details": {
+        "upstream_inference_completions_cost": 0.0273,
+        "upstream_inference_cost": 0.039795,
+        "upstream_inference_prompt_cost": 0.012495
+      },
+      "is_byok": false,
+      "prompt_tokens": 4165,
+      "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "cache_write_tokens": 0,
+        "cached_tokens": 0,
+        "video_tokens": 0
+      },
+      "total_tokens": 5985
+    }
+  },
+  "packet_path": "pm_bot/llm/manual_packet_batch/569333_packet.v1.json",
+  "prompt_path": "pm_bot/llm/manual_packet_batch/569333_prompt.v1.md",
+  "provider": "Amazon Bedrock",
+  "raw_content": "```json\n{\n  \"contract_version\": \"llm_analysis_response.v1\",\n  \"response_id\": \"llm-analysis-response-manual-batch-569333\",\n  \"packet_id\": \"llm-analysis-packet-manual-batch-569333\",\n  \"concise_market_summary\": \"This market asks whether Luis Gilberto Murillo will win the first round of Colombia's 2026 presidential election. The packet contains only structural metadata and placeholders. No actual market resolution criteria, candidate information, polling data, election authority details, or news coverage has been provided. The election date appears to be targeted for May 31, 2026. All substantive evidence required for analysis is absent from the supplied packet.\",\n  \"key_uncertainties\": [\n    \"Complete market resolution criteria and official rules from Polymarket for market 569333 are not included in the packet\",\n    \"Identity and background of candidate Luis Gilberto Murillo is not established in the supplied materials\",\n    \"Colombian electoral system rules for first-round victory thresholds are not documented\",\n    \"Official election authority responsible for certifying results is not identified\",\n    \"Current political landscape, polling data, and candidate field composition are entirely absent\",\n    \"Whether the election date of 2026-05-31 is confirmed or provisional is unclear\",\n    \"Market status is marked as 'unknown' with no indication of whether the market is active, resolved, or suspended\"\n  ],\n  \"missing_evidence\": [\n    \"Full text of Polymarket market resolution criteria for market 569333\",\n    \"Biographical and political background information for Luis Gilberto Murillo\",\n    \"List of other declared or potential candidates in the 2026 Colombian presidential race\",\n    \"Colombian electoral law regarding first-round victory requirements (absolute majority, plurality, runoff thresholds)\",\n    \"Official election schedule and confirmed first-round date from Colombian electoral authorities\",\n    \"Current polling data or political analysis regarding the 2026 election\",\n    \"Historical context of recent Colombian presidential elections and outcomes\",\n    \"Official government or electoral commission sources for Colombia\",\n    \"News coverage from Reuters, Associated Press, or Colombian national outlets\",\n    \"Party affiliation and political platform of Luis Gilberto Murillo\",\n    \"Any official candidate declarations or campaign announcements\"\n  ],\n  \"contradiction_checks\": [\n    {\n      \"topic\": \"Market resolution date versus election timing\",\n      \"check_result\": \"needs_more_source_review\",\n      \"notes\": \"The packet references 2026-05-31 as a relevant date, but without full resolution criteria, it is unclear whether this is the election date, a resolution deadline, or another milestone. Colombian presidential elections historically occur in May, but confirmation is needed.\"\n    },\n    {\n      \"topic\": \"Market status and operability\",\n      \"check_result\": \"needs_more_source_review\",\n      \"notes\": \"Market status is listed as 'unknown'. Without knowing whether the market is active, paused, or already resolved, the relevance of any analysis cannot be determined.\"\n    },\n    {\n      \"topic\": \"Candidate eligibility and candidacy status\",\n      \"check_result\": \"not_checked\",\n      \"notes\": \"No information is provided about whether Luis Gilberto Murillo has officially declared candidacy, meets eligibility requirements, or is actively campaigning. This fundamental question cannot be assessed with the supplied packet.\"\n    }\n  ],\n  \"risk_notes\": [\n    \"The packet contains only structural placeholders with no actual source material, making any substantive analysis impossible\",\n    \"Without official market resolution criteria, the precise conditions for a 'Yes' outcome cannot be determined\",\n    \"Colombian electoral law may have specific first-round victory thresholds (such as 50%+1 requirement) that would affect outcome interpretation\",\n    \"The 2026 election is approximately two years away, introducing significant political volatility and uncertainty\",\n    \"Candidate field composition is completely unknown, making relative competitiveness impossible to assess\",\n    \"No verification that Luis Gilberto Murillo is an actual declared or potential candidate\",\n    \"Political dynamics in Colombia may shift substantially between now and 2026\",\n    \"Without access to the official electoral authority, result certification processes cannot be mapped to market resolution\"\n  ],\n  \"operator_review_checklist\": [\n    \"Obtain and review complete Polymarket market resolution criteria for market 569333\",\n    \"Verify the identity and current political status of Luis Gilberto Murillo\",\n    \"Confirm whether Luis Gilberto Murillo has officially declared candidacy for the 2026 presidential election\",\n    \"Research Colombian electoral law regarding first-round victory requirements and runoff procedures\",\n    \"Identify the official Colombian electoral authority responsible for certifying presidential election results\",\n    \"Confirm the scheduled date for the first round of the 2026 Colombian presidential election\",\n    \"Review current polling data and political analysis for the 2026 election cycle\",\n    \"Identify all other declared or potential candidates in the race\",\n    \"Check market status on Polymarket to confirm whether market 569333 is active and accepting participation\",\n    \"Review recent Colombian political history and electoral patterns\",\n    \"Verify that all source placeholders have been replaced with actual source material before proceeding\",\n    \"Confirm that news coverage from credible outlets (Reuters, AP, Colombian national media) has been obtained and reviewed\"\n  ],\n  \"suggested_research_questions\": [\n    \"What are the complete and official resolution criteria for Polymarket market 569333?\",\n    \"Who is Luis Gilberto Murillo and what is his political background and experience?\",\n    \"Has Luis Gilberto Murillo officially declared his candidacy for the 2026 Colombian presidential election?\",\n    \"What percentage of votes is required to win the first round of a Colombian presidential election outright?\",\n    \"Which government body or electoral commission in Colombia certifies presidential election results?\",\n    \"What is the confirmed date for the first round of the 2026 Colombian presidential election?\",\n    \"Who are the other declared or likely candidates in the 2026 Colombian presidential race?\",\n    \"What do current polls indicate about the 2026 Colombian presidential election?\",\n    \"What party or political coalition is Luis Gilberto Murillo affiliated with?\",\n    \"What were the results and dynamics of the most recent Colombian presidential election?\",\n    \"Are there any constitutional or legal barriers to Luis Gilberto Murillo's candidacy?\",\n    \"What is the current political climate in Colombia and how might it affect the 2026 election?\"\n  ],\n  \"citation_or_source_gap_notes\": [\n    \"No actual Polymarket market page content or resolution criteria text is included in the packet\",\n    \"No official Colombian government or electoral authority sources are provided\",\n    \"No biographical or political information about Luis Gilberto Murillo is included\",\n    \"No news coverage from Reuters, Associated Press, or Colombian outlets is present\",\n    \"No polling data or political analysis sources are referenced\",\n    \"All evidence fields are marked as missing in the packet metadata\",\n    \"Source placeholders indicate required sources but contain no actual content\",\n    \"No timestamps or publication dates for any sources are available\",\n    \"No source reliability assessment can be performed due to absence of actual sources\",\n    \"The packet explicitly lists 'full_market_resolution_criteria_text' as missing evidence\"\n  ],\n  \"safety_acknowledgement\": {\n    \"offline_only\": true,\n    \"local_only\": true,\n    \"manual_review_only\": true,\n    \"no_recommendations\": true,\n    \"no_outcome_estimates\": true,\n    \"no_value_scoring\": true,\n    \"no_trade_or_wallet_instructions\": true,\n    \"no_autonomous_actions\": true,\n    \"uncertain_claims_marked\": true\n  }\n}\n```",
+  "raw_response_was_markdown_fenced": true,
+  "raw_strict_json_parse_passed": false,
+  "requested_model": "anthropic/claude-sonnet-4.5",
+  "response_id": "gen-1778160609-7X1aHgLag5xj3s0Zv79B",
+  "returned_model": "anthropic/claude-4.5-sonnet-20250929",
+  "safety_flags": {
+    "analysis_only": true,
+    "manual_review_only": true,
+    "no_automatic_llm_loops": true,
+    "no_orders": true,
+    "no_runtime_wiring": true,
+    "no_trading_decision": true,
+    "no_wallet_private_keys_credentials": "[redacted]",
+    "operator_gated": true,
+    "validator_gated": true
+  },
+  "timestamp_utc": "2026-05-07T13:30:42Z",
+  "usage": {
+    "completion_tokens": 1820,
+    "completion_tokens_details": {
+      "audio_tokens": 0,
+      "image_tokens": 0,
+      "reasoning_tokens": 0
+    },
+    "cost": 0.039795,
+    "cost_details": {
+      "upstream_inference_completions_cost": 0.0273,
+      "upstream_inference_cost": 0.039795,
+      "upstream_inference_prompt_cost": 0.012495
+    },
+    "is_byok": false,
+    "prompt_tokens": 4165,
+    "prompt_tokens_details": {
+      "audio_tokens": 0,
+      "cache_write_tokens": 0,
+      "cached_tokens": 0,
+      "video_tokens": 0
+    },
+    "total_tokens": 5985
+  }
+}

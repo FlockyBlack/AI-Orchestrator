@@ -1,0 +1,337 @@
+{
+  "aggregate_cost_report_paths": {
+    "json": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_044_retry_small_manual_batch_after_prohibited_content_hardening/openrouter_batch_cost_report.v1.json",
+    "markdown": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_044_retry_small_manual_batch_after_prohibited_content_hardening/openrouter_batch_cost_report.v1.md"
+  },
+  "all_completed_responses_accepted_for_operator_review": false,
+  "any_buy_sell_hold_enter_exit_detected": false,
+  "any_normalization_policy_applied": true,
+  "any_probability_ev_edge_confidence_side_selection_detected": true,
+  "any_prohibited_content_detected": false,
+  "any_prohibited_trading_content_detected": false,
+  "any_raw_markdown_fence_detected": true,
+  "api_key_leaked": false,
+  "api_key_presence_checked": true,
+  "api_key_value_printed": false,
+  "api_key_value_written": false,
+  "approved_market_ids": [
+    "569333",
+    "569334",
+    "569343"
+  ],
+  "attempted_market_ids": [
+    "569333",
+    "569334"
+  ],
+  "commit_hash": null,
+  "commit_hash_note": "reported in final response because a committed file cannot contain its own final commit hash",
+  "completed_market_ids": [
+    "569333"
+  ],
+  "fail_fast_reason": "acceptance_gate_failed:569334:response_schema:forbidden_phrase:edge",
+  "fail_fast_triggered": true,
+  "max_openrouter_calls_allowed": 3,
+  "model": "anthropic/claude-sonnet-4.5",
+  "no_retries": true,
+  "normalization_policy_version": "fenced_json_normalization.v1",
+  "per_market_artifact_paths": {
+    "569333": {
+      "content": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_044_retry_small_manual_batch_after_prohibited_content_hardening/openrouter_sonnet_569333_content.json",
+      "raw": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_044_retry_small_manual_batch_after_prohibited_content_hardening/openrouter_sonnet_569333_raw.json",
+      "summary": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_044_retry_small_manual_batch_after_prohibited_content_hardening/openrouter_sonnet_569333_summary.json",
+      "validation": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_044_retry_small_manual_batch_after_prohibited_content_hardening/openrouter_sonnet_569333_validation.json"
+    },
+    "569334": {
+      "content": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_044_retry_small_manual_batch_after_prohibited_content_hardening/openrouter_sonnet_569334_content.json",
+      "raw": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_044_retry_small_manual_batch_after_prohibited_content_hardening/openrouter_sonnet_569334_raw.json",
+      "summary": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_044_retry_small_manual_batch_after_prohibited_content_hardening/openrouter_sonnet_569334_summary.json",
+      "validation": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_044_retry_small_manual_batch_after_prohibited_content_hardening/openrouter_sonnet_569334_validation.json"
+    },
+    "569343": {
+      "content": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_044_retry_small_manual_batch_after_prohibited_content_hardening/openrouter_sonnet_569343_content.json",
+      "raw": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_044_retry_small_manual_batch_after_prohibited_content_hardening/openrouter_sonnet_569343_raw.json",
+      "summary": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_044_retry_small_manual_batch_after_prohibited_content_hardening/openrouter_sonnet_569343_summary.json",
+      "validation": "pm_bot/llm/openrouter_test_artifacts/pmbot_openrouter_044_retry_small_manual_batch_after_prohibited_content_hardening/openrouter_sonnet_569343_validation.json"
+    }
+  },
+  "prechecks": {
+    "041_fenced_json_normalization_policy_added": {
+      "actual": true,
+      "expected": true,
+      "passed": true
+    },
+    "041_normalization_policy_version": {
+      "actual": "fenced_json_normalization.v1",
+      "expected": "fenced_json_normalization.v1",
+      "passed": true
+    },
+    "041_raw_response_preserved": {
+      "actual": true,
+      "expected": true,
+      "passed": true
+    },
+    "041_result_exists": {
+      "passed": true,
+      "path": "docs/PMBOT_OPENROUTER_041_RESULT.json"
+    },
+    "041_result_parse": {
+      "passed": true
+    },
+    "041_semantic_repair_allowed": {
+      "actual": false,
+      "expected": false,
+      "passed": true
+    },
+    "043_diagnostic_classification": {
+      "actual": "false_positive_validator_rule",
+      "expected": "false_positive_validator_rule",
+      "passed": true
+    },
+    "043_openrouter_calls_performed": {
+      "actual": 0,
+      "expected": 0,
+      "passed": true
+    },
+    "043_prompt_hardening_performed": {
+      "actual": true,
+      "expected": true,
+      "passed": true
+    },
+    "043_result_exists": {
+      "passed": true,
+      "path": "docs/PMBOT_OPENROUTER_043_RESULT.json"
+    },
+    "043_result_parse": {
+      "passed": true
+    },
+    "043_status": {
+      "actual": "completed_pushed",
+      "expected": "completed_pushed",
+      "passed": true
+    },
+    "043_validator_reporting_improved": {
+      "actual": true,
+      "expected": true,
+      "passed": true
+    },
+    "api_key_presence_only": {
+      "api_key_presence_checked": true,
+      "passed": true,
+      "value_printed": false,
+      "value_written": false
+    },
+    "branch_is_main": {
+      "actual": "main",
+      "expected": "main",
+      "passed": true,
+      "stderr": null
+    },
+    "expected_head": {
+      "actual": "161e17c1751550e6ecc04ed8a0098599d03cbda0",
+      "expected": "161e17c1751550e6ecc04ed8a0098599d03cbda0",
+      "passed": true,
+      "stderr": null
+    },
+    "focused_pre_live_tests": {
+      "passed": true,
+      "tests": [
+        {
+          "command": "python -m pytest tests\\test_openrouter_fenced_json_normalization.py -q",
+          "phase": "precheck",
+          "status": "passed",
+          "summary": "12 passed in 0.08s"
+        },
+        {
+          "command": "python -m pytest tests\\test_openrouter_result_artifacts.py -q",
+          "phase": "precheck",
+          "status": "passed",
+          "summary": "4 passed in 0.02s"
+        },
+        {
+          "command": "python -m pytest tests\\test_openrouter_prompt_test.py -q",
+          "phase": "precheck",
+          "status": "passed",
+          "summary": "127 passed in 0.30s"
+        }
+      ]
+    },
+    "local_packet_prompt_artifacts": {
+      "details": [
+        {
+          "market_id": "569333",
+          "packet_exists": true,
+          "packet_path": "pm_bot/llm/manual_packet_batch/569333_packet.v1.json",
+          "prompt_contract_fragments": {
+            "first_character_must_be_open_brace": true,
+            "last_character_must_be_close_brace": true,
+            "no_buy_sell_hold_enter_exit": true,
+            "no_json_fences": true,
+            "no_markdown": true,
+            "no_market_decisions": true,
+            "no_probability_ev_edge_confidence_scoring": true,
+            "no_prose_before_or_after_json": true,
+            "no_recommendations": true,
+            "no_side_selection": true
+          },
+          "prompt_contract_passed": true,
+          "prompt_exists": true,
+          "prompt_path": "pm_bot/llm/manual_packet_batch/569333_prompt.v1.md"
+        },
+        {
+          "market_id": "569334",
+          "packet_exists": true,
+          "packet_path": "pm_bot/llm/manual_packet_batch/569334_packet.v1.json",
+          "prompt_contract_fragments": {
+            "first_character_must_be_open_brace": true,
+            "last_character_must_be_close_brace": true,
+            "no_buy_sell_hold_enter_exit": true,
+            "no_json_fences": true,
+            "no_markdown": true,
+            "no_market_decisions": true,
+            "no_probability_ev_edge_confidence_scoring": true,
+            "no_prose_before_or_after_json": true,
+            "no_recommendations": true,
+            "no_side_selection": true
+          },
+          "prompt_contract_passed": true,
+          "prompt_exists": true,
+          "prompt_path": "pm_bot/llm/manual_packet_batch/569334_prompt.v1.md"
+        },
+        {
+          "market_id": "569343",
+          "packet_exists": true,
+          "packet_path": "pm_bot/llm/manual_packet_batch/569343_packet.v1.json",
+          "prompt_contract_fragments": {
+            "first_character_must_be_open_brace": true,
+            "last_character_must_be_close_brace": true,
+            "no_buy_sell_hold_enter_exit": true,
+            "no_json_fences": true,
+            "no_markdown": true,
+            "no_market_decisions": true,
+            "no_probability_ev_edge_confidence_scoring": true,
+            "no_prose_before_or_after_json": true,
+            "no_recommendations": true,
+            "no_side_selection": true
+          },
+          "prompt_contract_passed": true,
+          "prompt_exists": true,
+          "prompt_path": "pm_bot/llm/manual_packet_batch/569343_prompt.v1.md"
+        }
+      ],
+      "market_ids": [
+        "569333",
+        "569334",
+        "569343"
+      ],
+      "passed": true
+    },
+    "working_tree_clean_before": {
+      "details": "",
+      "passed": true,
+      "stderr": null
+    }
+  },
+  "prohibited_content_diagnostics": {},
+  "pushed": true,
+  "pushed_note": "set true because these blocked-but-safe artifacts are intended for commit and push by this task; final push evidence is reported in the executor final response",
+  "raw_response_preserved": true,
+  "safety_boundary_summary": {
+    "acceptance_is_not_trading_approval": true,
+    "analysis_only": true,
+    "api_key_leaked": false,
+    "api_key_value_printed": false,
+    "api_key_value_written": false,
+    "manual_review_only": true,
+    "no_browser_automation": true,
+    "no_buy_sell_hold_enter_exit": true,
+    "no_polymarket_api_calls": true,
+    "no_probability_ev_edge_confidence_side_selection": false,
+    "no_queue_mutation": true,
+    "no_recommendations": true,
+    "no_runtime_dispatcher_background_browser_queue_changes": true,
+    "no_wallet_orders_trading": true,
+    "openrouter_api_only": true,
+    "operator_review_only": true,
+    "secret_scan_passed": true
+  },
+  "secret_scan_passed": true,
+  "semantic_repair_allowed": false,
+  "session_id": "pmbot_openrouter_044_retry_small_manual_batch_after_prohibited_content_hardening",
+  "skipped_market_ids": [
+    "569343"
+  ],
+  "status": "blocked_acceptance_failed",
+  "task_id": "PMBOT-OPENROUTER-044-RETRY-SMALL-MANUAL-BATCH-AFTER-PROHIBITED-CONTENT-HARDENING",
+  "tests_run": [
+    {
+      "command": "python -m pytest tests\\test_openrouter_fenced_json_normalization.py -q",
+      "phase": "precheck",
+      "status": "passed",
+      "summary": "12 passed in 0.08s"
+    },
+    {
+      "command": "python -m pytest tests\\test_openrouter_result_artifacts.py -q",
+      "phase": "precheck",
+      "status": "passed",
+      "summary": "4 passed in 0.02s"
+    },
+    {
+      "command": "python -m pytest tests\\test_openrouter_prompt_test.py -q",
+      "phase": "precheck",
+      "status": "passed",
+      "summary": "127 passed in 0.30s"
+    },
+    {
+      "command": "python -m compileall pm_bot",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest tests pm_bot\\llm\\tests -q",
+      "status": "passed",
+      "summary": "285 passed in 5.68s"
+    },
+    {
+      "command": "python -m pytest tests\\test_openrouter_prompt_test.py -q",
+      "status": "passed",
+      "summary": "127 passed in 0.23s"
+    },
+    {
+      "command": "python -m pytest tests\\test_openrouter_result_artifacts.py -q",
+      "status": "passed",
+      "summary": "4 passed in 0.02s"
+    },
+    {
+      "command": "python -m pytest tests\\test_openrouter_fenced_json_normalization.py -q",
+      "status": "passed",
+      "summary": "12 passed in 0.06s"
+    },
+    {
+      "command": "python -m pytest tests\\test_openrouter_prompt_test.py::test_raw_json_validation_reports_sanitized_candidate_lifecycle_keyword_diagnostic tests\\test_openrouter_fenced_json_normalization.py::test_normalized_fenced_json_still_fails_prohibited_trading_language -q",
+      "status": "passed",
+      "summary": "2 passed in 0.05s"
+    },
+    {
+      "command": "python -m pytest tests\\test_openrouter_fenced_json_normalization.py::test_clean_raw_json_object_is_accepted_without_normalization tests\\test_openrouter_fenced_json_normalization.py::test_json_fenced_object_with_only_whitespace_is_normalized_and_accepted tests\\test_openrouter_fenced_json_normalization.py::test_multiple_fenced_blocks_are_rejected -q",
+      "status": "passed",
+      "summary": "3 passed in 0.04s"
+    },
+    {
+      "command": "JSON parse checks for all newly created JSON artifacts",
+      "status": "passed",
+      "summary": "15 JSON artifacts parsed"
+    },
+    {
+      "command": "Result JSON checks for 044",
+      "status": "passed",
+      "summary": "status blocked_acceptance_failed; attempted 569333/569334; completed 569333; skipped 569343; total calls 2"
+    },
+    {
+      "command": "Secret scan over newly created 044 artifacts",
+      "status": "passed",
+      "summary": "17 files scanned; no environment key value or secret-bearing auth material found"
+    }
+  ],
+  "total_openrouter_calls_performed": 2,
+  "working_tree_clean_after": true,
+  "working_tree_clean_after_note": "reported as final expected state after explicit staging, commit, and push complete"
+}
