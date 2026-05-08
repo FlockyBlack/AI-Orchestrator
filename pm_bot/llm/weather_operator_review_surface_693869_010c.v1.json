@@ -1,0 +1,205 @@
+{
+  "schema_version": "weather_operator_review_surface_693869_010c.v1",
+  "task_id": "PMBOT-SOURCE-010C-WEATHER-OPERATOR-REVIEW-SURFACE-AND-PAPERLIVE-PREPARATION",
+  "market_id": "693869",
+  "market_class": "weather",
+  "title_or_question": "Will the minimum Arctic sea ice extent this summer be less than 4m square kilometers?",
+  "capture_status": "draft",
+  "source_capture_status": "draft",
+  "operator_review_required": true,
+  "ready_for_local_review": false,
+  "paper_live_preparation_status": {
+    "status": "prepared_pending_operator_review",
+    "weather_observation_plan_available": true,
+    "weather_outcome_tracking_contract_available": true,
+    "weather_source_quality_flow_available": true,
+    "passive_workbench_surface_available": true,
+    "ready_for_weather_paperlive_observation": false,
+    "ready_for_simulated_decision": false,
+    "simulated_decision_created": false,
+    "blocking_reasons": [
+      "source capture remains draft",
+      "operator review checklist remains unchecked",
+      "ready_for_local_review remains false",
+      "timezone is not captured in the stored 010A2 or 010B metadata",
+      "official sea ice source and dataset hierarchy require operator verification before observation starts"
+    ]
+  },
+  "known_fields": {
+    "location": "Arctic",
+    "weather_metric": "minimum Arctic sea ice extent",
+    "unit": "million_square_kilometers",
+    "threshold_or_condition": "less than 4 million square kilometers",
+    "date_or_time_window": "between August 1, 2026 and October 1, 2026",
+    "timezone": "",
+    "official_weather_source": "National Snow and Ice Data Center",
+    "official_weather_source_url": "https://nsidc.org/sea-ice-today/sea-ice-tools",
+    "station_or_source_hierarchy": "National Snow and Ice Data Center Sea Ice Index Daily Extent data set, NH-Daily-Extent tab, minimum value for any day in the market window",
+    "fallback_source": "If this resolution source becomes unavailable, another resolution source will be chosen.",
+    "source_timestamp": [
+      "SOURCE-010A2 read-only fetch marker: 2026-05-08T00:00:00Z_SOURCE_010A2_REFINED_READONLY_ATTEMPT",
+      "SOURCE-010B local autofill timestamp: 2026-05-08 Asia/Tbilisi; no network calls performed."
+    ],
+    "draft_capture_source": "pm_bot/llm/manual_resolution_source_capture/693869_resolution_source_capture.v1.json",
+    "normalized_candidate_source": "pm_bot/live_readonly/weather_market_discovery/weather_market_normalized_candidate_010a2.v1.json"
+  },
+  "missing_fields": [
+    "timezone",
+    "operator-confirmed exact Polymarket/Gamma rules text",
+    "operator-confirmed official weather source availability at future observation time",
+    "operator-confirmed source timestamp for the future final measurement",
+    "operator-confirmed fallback source handling if the named source becomes unavailable"
+  ],
+  "ambiguity_flags": [
+    {
+      "field": "timezone",
+      "status": "unresolved",
+      "operator_action": "Verify the time basis for the August 1, 2026 through October 1, 2026 window."
+    },
+    {
+      "field": "official_weather_source",
+      "status": "candidate_from_stored_market_metadata",
+      "operator_action": "Verify NSIDC source identity from approved local evidence before paper-live observation starts."
+    },
+    {
+      "field": "station_or_source_hierarchy",
+      "status": "candidate_from_stored_market_metadata",
+      "operator_action": "Verify Sea Ice Index Daily Extent data set and NH-Daily-Extent tab hierarchy."
+    },
+    {
+      "field": "fallback_source",
+      "status": "generic_clause",
+      "operator_action": "Define how a substitute source would be reviewed if the named source becomes unavailable."
+    },
+    {
+      "field": "rules_text_precision_clause",
+      "status": "requires_operator_review",
+      "operator_action": "Review the stored precision wording against the exact market rules before any status promotion."
+    }
+  ],
+  "operator_review_checklist": [
+    {
+      "check_id": "verify_exact_polymarket_rules_text",
+      "review_prompt": "Verify exact Polymarket rules text.",
+      "required": true,
+      "status": "unchecked"
+    },
+    {
+      "check_id": "verify_location",
+      "review_prompt": "Verify location.",
+      "required": true,
+      "status": "unchecked"
+    },
+    {
+      "check_id": "verify_weather_metric",
+      "review_prompt": "Verify weather metric.",
+      "required": true,
+      "status": "unchecked"
+    },
+    {
+      "check_id": "verify_unit",
+      "review_prompt": "Verify unit.",
+      "required": true,
+      "status": "unchecked"
+    },
+    {
+      "check_id": "verify_threshold_or_condition",
+      "review_prompt": "Verify threshold or condition.",
+      "required": true,
+      "status": "unchecked"
+    },
+    {
+      "check_id": "verify_date_or_time_window",
+      "review_prompt": "Verify date or time window.",
+      "required": true,
+      "status": "unchecked"
+    },
+    {
+      "check_id": "verify_timezone",
+      "review_prompt": "Verify timezone.",
+      "required": true,
+      "status": "unchecked"
+    },
+    {
+      "check_id": "verify_official_weather_source",
+      "review_prompt": "Verify official weather source.",
+      "required": true,
+      "status": "unchecked"
+    },
+    {
+      "check_id": "verify_station_or_source_hierarchy",
+      "review_prompt": "Verify station or source hierarchy.",
+      "required": true,
+      "status": "unchecked"
+    },
+    {
+      "check_id": "verify_fallback_source",
+      "review_prompt": "Verify fallback source.",
+      "required": true,
+      "status": "unchecked"
+    },
+    {
+      "check_id": "verify_source_capture_promotion_readiness",
+      "review_prompt": "Verify whether source capture can be promoted to ready_for_local_review.",
+      "required": true,
+      "status": "unchecked"
+    },
+    {
+      "check_id": "no_trading_decision",
+      "review_prompt": "No trading decision.",
+      "required": true,
+      "status": "unchecked"
+    }
+  ],
+  "direct_rules_text_captured": true,
+  "official_weather_source_identified": true,
+  "station_or_source_hierarchy_identified": true,
+  "unresolved_source_questions": [
+    "Operator must verify exact Polymarket/Gamma rules text before any status promotion.",
+    "Operator must verify the Arctic sea ice extent metric, unit precision, threshold, and resolution window.",
+    "Operator must verify that the stored NSIDC dataset and NH-Daily-Extent tab text matches the canonical market rules.",
+    "Operator must verify fallback-source handling if the named weather source becomes unavailable.",
+    "Operator must verify the market time window timezone."
+  ],
+  "source_quality_observation_status": {
+    "candidate_artifact": "pm_bot/llm/source_quality_observation_candidate_693869_010b.v1.json",
+    "status": "pending_capture_operator_review_and_future_outcome",
+    "outcome_known": false,
+    "source_scoring_performed": false,
+    "source_ranking_updated": false,
+    "trading_profit_used_for_scoring": false,
+    "flow_extension_artifact": "pm_bot/llm/weather_source_quality_observation_flow_010c.v1.json"
+  },
+  "no_market_action_guidance": true,
+  "no_trading_authority": true,
+  "no_execution_authority": true,
+  "safety_summary": {
+    "local_only": true,
+    "operator_review_only": true,
+    "observation_preparation_only": true,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "external_network_calls_performed": 0,
+    "authenticated_endpoints_used": false,
+    "wallet_or_private_key_accessed": false,
+    "orders_created": false,
+    "simulated_trade_created": false,
+    "selected_side": null,
+    "stake_amount": null,
+    "position_sizing_created": false,
+    "outcome_checked": false,
+    "outcome_known": false,
+    "source_scoring_performed": false,
+    "source_ranking_updated": false,
+    "profit_or_pnl_recorded": false,
+    "market_action_guidance_generated": false,
+    "probability_ev_edge_confidence_generated": false,
+    "side_selection_generated": false,
+    "trading_runtime_changed": false,
+    "dispatcher_changed": false,
+    "background_worker_created": false,
+    "queue_mutated": false,
+    "browser_automation_used": false,
+    "canonical_packets_mutated": false
+  }
+}

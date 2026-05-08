@@ -1,0 +1,116 @@
+{
+  "schema_version": "weather_source_quality_observation_flow_010c.v1",
+  "task_id": "PMBOT-SOURCE-010C-WEATHER-OPERATOR-REVIEW-SURFACE-AND-PAPERLIVE-PREPARATION",
+  "market_id": "693869",
+  "market_class": "weather",
+  "source_quality_candidate_reference": "pm_bot/llm/source_quality_observation_candidate_693869_010b.v1.json",
+  "outcome_tracking_contract_reference": "pm_bot/paper_live/weather_outcome_tracking_contract_693869_010c.v1.json",
+  "purpose": "Connect the SOURCE-010B weather source quality observation candidate to future weather outcome and source alignment review.",
+  "stages": [
+    {
+      "stage_number": 1,
+      "stage_name": "source_observed",
+      "status": "completed_from_source_010b_candidate",
+      "operator_review_required": false
+    },
+    {
+      "stage_number": 2,
+      "stage_name": "weather_source_role_classified",
+      "status": "completed_from_source_010b_candidate",
+      "operator_review_required": false
+    },
+    {
+      "stage_number": 3,
+      "stage_name": "operator_reviews_whether_source_is_official_or_credible",
+      "status": "pending_operator_review",
+      "operator_review_required": true
+    },
+    {
+      "stage_number": 4,
+      "stage_name": "outcome_or_measurement_becomes_known_later",
+      "status": "pending_future_outcome",
+      "operator_review_required": true
+    },
+    {
+      "stage_number": 5,
+      "stage_name": "source_alignment_reviewed",
+      "status": "pending_future_outcome",
+      "operator_review_required": true
+    },
+    {
+      "stage_number": 6,
+      "stage_name": "source_reliability_updated",
+      "status": "pending_future_outcome",
+      "operator_review_required": true
+    },
+    {
+      "stage_number": 7,
+      "stage_name": "source_can_be_preferred_in_future_source_capture_not_automatically_trusted_for_trading",
+      "status": "future_protocol_only",
+      "operator_review_required": true
+    }
+  ],
+  "weather_source_roles": [
+    "market_metadata_source",
+    "market_rules_source",
+    "official_weather_source_candidate",
+    "station_or_dataset_source_candidate",
+    "fallback_weather_source_candidate",
+    "unresolved_source",
+    "local_capture_source",
+    "operator_review_surface"
+  ],
+  "allowed_future_scoring": [
+    "resolution_alignment",
+    "measurement_alignment",
+    "timeliness",
+    "official_source_status",
+    "contradiction_count",
+    "operator_usefulness_notes"
+  ],
+  "forbidden_scoring_inputs": [
+    "no profit_only_score",
+    "no PnL",
+    "no ROI",
+    "no EV",
+    "no edge",
+    "no betting confidence",
+    "no side selection",
+    "no trade recommendation"
+  ],
+  "future_use_boundary": {
+    "source_can_be_preferred_for_future_source_capture": true,
+    "source_is_automatically_trusted_for_trading": false,
+    "source_ranking_for_trading_decisions_created": false,
+    "profit_only_source_scoring_allowed": false,
+    "market_action_or_trade_score_allowed": false
+  },
+  "no_market_action_guidance": true,
+  "no_trading_authority": true,
+  "no_execution_authority": true,
+  "safety_summary": {
+    "local_only": true,
+    "operator_review_only": true,
+    "source_quality_tracking_only": true,
+    "trading_profit_used_for_scoring": false,
+    "market_action_or_trading_score_allowed": false,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "external_network_calls_performed": 0,
+    "authenticated_endpoints_used": false,
+    "wallet_or_private_key_accessed": false,
+    "orders_created": false,
+    "simulated_trade_created": false,
+    "selected_side": null,
+    "stake_amount": null,
+    "market_action_guidance_generated": false,
+    "probability_ev_edge_confidence_generated": false,
+    "side_selection_generated": false,
+    "trading_runtime_changed": false,
+    "dispatcher_changed": false,
+    "background_worker_created": false,
+    "queue_mutated": false,
+    "browser_automation_used": false,
+    "canonical_packets_mutated": false
+  }
+}

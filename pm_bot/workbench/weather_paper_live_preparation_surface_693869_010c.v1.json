@@ -1,0 +1,22 @@
+{
+  "schema_version": "weather_paper_live_preparation_surface_693869_010c.v1",
+  "task_id": "PMBOT-SOURCE-010C-WEATHER-OPERATOR-REVIEW-SURFACE-AND-PAPERLIVE-PREPARATION",
+  "market_id": "693869",
+  "market_class": "weather",
+  "source_capture_status": "draft",
+  "operator_review_required": true,
+  "paper_live_observation_plan_available": true,
+  "weather_outcome_tracking_contract_available": true,
+  "source_quality_flow_available": true,
+  "next_operator_action": "Review the consolidated SOURCE-010C surface and verify weather source/rules readiness before any future observation run.",
+  "no_trading_authority": true,
+  "no_execution_authority": true,
+  "no_market_action_guidance": true,
+  "queue_created": false,
+  "queue_mutated": false,
+  "runtime_wiring_changed": false,
+  "dispatcher_changed": false,
+  "background_worker_created": false,
+  "browser_automation_used": false,
+  "canonical_packets_mutated": false
+}
