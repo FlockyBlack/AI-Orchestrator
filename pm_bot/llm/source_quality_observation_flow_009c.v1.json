@@ -1,0 +1,98 @@
+{
+  "schema_version": "source_quality_observation_flow_009c.v1",
+  "task_id": "PMBOT-SOURCE-009C-ESPORTS-OPERATOR-REVIEW-SURFACE-AND-PAPERLIVE-PREPARATION",
+  "market_id": "1987056",
+  "market_class": "esports",
+  "source_quality_candidate_reference": "pm_bot/llm/source_quality_observation_candidate_1987056_009b.v1.json",
+  "outcome_tracking_contract_reference": "pm_bot/paper_live/outcome_tracking_contract.v1.json",
+  "purpose": "Connect the SOURCE-009B source quality observation candidate to future outcome and source alignment review.",
+  "stages": [
+    {
+      "stage_number": 1,
+      "stage_name": "source_observed",
+      "status": "completed_from_source_009b_candidate",
+      "operator_review_required": false
+    },
+    {
+      "stage_number": 2,
+      "stage_name": "source_role_classified",
+      "status": "completed_from_source_009b_candidate",
+      "operator_review_required": false
+    },
+    {
+      "stage_number": 3,
+      "stage_name": "operator_reviews_whether_source_is_official_or_credible",
+      "status": "pending_operator_review",
+      "operator_review_required": true
+    },
+    {
+      "stage_number": 4,
+      "stage_name": "outcome_becomes_known_later",
+      "status": "pending_future_outcome",
+      "operator_review_required": true
+    },
+    {
+      "stage_number": 5,
+      "stage_name": "source_alignment_reviewed",
+      "status": "pending_future_outcome",
+      "operator_review_required": true
+    },
+    {
+      "stage_number": 6,
+      "stage_name": "source_reliability_updated",
+      "status": "pending_future_outcome",
+      "operator_review_required": true
+    },
+    {
+      "stage_number": 7,
+      "stage_name": "source_can_be_preferred_in_future_source_capture_not_automatically_trusted_for_trading",
+      "status": "future_protocol_only",
+      "operator_review_required": true
+    }
+  ],
+  "allowed_future_source_quality_fields": [
+    "resolution_alignment_count",
+    "contradiction_count",
+    "timeliness_notes",
+    "official_source_status",
+    "operator_usefulness_notes"
+  ],
+  "forbidden_scoring_inputs": [
+    "trade profitability",
+    "financial outcome",
+    "stake result",
+    "order result",
+    "market action result"
+  ],
+  "future_use_boundary": {
+    "source_can_be_preferred_for_source_capture": true,
+    "source_is_automatically_trusted_for_trading": false,
+    "source_ranking_for_trading_decisions_created": false,
+    "profit_only_source_scoring_allowed": false
+  },
+  "no_market_action_guidance": true,
+  "no_trading_authority": true,
+  "no_execution_authority": true,
+  "safety_summary": {
+    "local_only": true,
+    "operator_review_only": true,
+    "source_quality_tracking_only": true,
+    "trading_profit_used_for_scoring": false,
+    "market_action_or_trading_score_allowed": false,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "external_network_calls_performed": 0,
+    "authenticated_endpoints_used": false,
+    "wallet_or_private_key_accessed": false,
+    "orders_created": false,
+    "simulated_trade_created": false,
+    "market_action_guidance_generated": false,
+    "scoring_or_selection_generated": false,
+    "trading_runtime_changed": false,
+    "dispatcher_changed": false,
+    "background_worker_created": false,
+    "queue_mutated": false,
+    "browser_automation_used": false,
+    "canonical_packets_mutated": false
+  }
+}

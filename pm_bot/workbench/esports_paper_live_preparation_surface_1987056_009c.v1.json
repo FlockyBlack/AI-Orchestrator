@@ -1,0 +1,21 @@
+{
+  "schema_version": "esports_paper_live_preparation_surface_1987056_009c.v1",
+  "task_id": "PMBOT-SOURCE-009C-ESPORTS-OPERATOR-REVIEW-SURFACE-AND-PAPERLIVE-PREPARATION",
+  "market_id": "1987056",
+  "market_class": "esports",
+  "source_capture_status": "draft",
+  "operator_review_required": true,
+  "paper_live_contract_available": true,
+  "observation_plan_available": true,
+  "outcome_tracking_contract_available": true,
+  "source_quality_flow_available": true,
+  "next_operator_action": "Review the consolidated SOURCE-009C surface and verify source/rules readiness before any future observation run.",
+  "no_trading_authority": true,
+  "no_execution_authority": true,
+  "queue_mutated": false,
+  "runtime_wiring_changed": false,
+  "dispatcher_changed": false,
+  "background_worker_created": false,
+  "browser_automation_used": false,
+  "canonical_packets_mutated": false
+}

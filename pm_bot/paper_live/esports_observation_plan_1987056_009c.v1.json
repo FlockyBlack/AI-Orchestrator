@@ -1,0 +1,66 @@
+{
+  "schema_version": "esports_observation_plan_1987056_009c.v1",
+  "task_id": "PMBOT-SOURCE-009C-ESPORTS-OPERATOR-REVIEW-SURFACE-AND-PAPERLIVE-PREPARATION",
+  "market_id": "1987056",
+  "market_class": "esports",
+  "title_or_question": "LoL: JD Gaming vs Anyone's Legend (BO5) - Esports World Cup China Qualifier Phase 2",
+  "observation_mode": "source_and_outcome_tracking_only",
+  "planned_status": "pending_operator_review",
+  "source_capture_status": "draft",
+  "ready_for_paper_live_observation": false,
+  "ready_for_simulated_decision": false,
+  "simulated_decision_created": false,
+  "selected_side": null,
+  "stake_amount": null,
+  "monitored_facts": [
+    "match identity",
+    "tournament identity",
+    "teams/players identity",
+    "official result source",
+    "schedule/timezone",
+    "cancellation/reschedule/forfeit handling",
+    "final result"
+  ],
+  "required_sources": [
+    "Polymarket rules/description",
+    "official tournament/match result source if available",
+    "fallback credible result source if official unavailable"
+  ],
+  "missing_sources": [
+    "operator-confirmed exact Polymarket/Gamma rules text",
+    "operator-confirmed match-specific official result source",
+    "operator-confirmed fallback source list for event conclusion"
+  ],
+  "unresolved_questions": [
+    "Has the operator verified the exact market rules text?",
+    "Is the official source a match-specific result page or a general esports home page?",
+    "How should cancellation, reschedule, forfeit, walkover, delay, and name discrepancy clauses be applied during outcome tracking?",
+    "What timestamp should be used for the source alignment review when the outcome becomes known?"
+  ],
+  "operator_review_required": true,
+  "source_quality_tracking_required": true,
+  "no_market_action_guidance": true,
+  "no_trading_authority": true,
+  "no_execution_authority": true,
+  "safety_summary": {
+    "local_only": true,
+    "observation_only": true,
+    "simulated_decision_created": false,
+    "selected_side_is_null_by_contract": true,
+    "stake_amount_is_null_by_contract": true,
+    "market_action_guidance_generated": false,
+    "scoring_or_selection_generated": false,
+    "orders_created": false,
+    "wallet_or_private_key_accessed": false,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "external_network_calls_performed": 0,
+    "authenticated_endpoints_used": false,
+    "trading_runtime_changed": false,
+    "dispatcher_changed": false,
+    "background_worker_created": false,
+    "queue_mutated": false,
+    "browser_automation_used": false,
+    "canonical_packets_mutated": false
+  }
+}

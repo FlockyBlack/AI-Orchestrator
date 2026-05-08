@@ -1,0 +1,158 @@
+{
+  "schema_version": "esports_operator_review_surface_1987056_009c.v1",
+  "task_id": "PMBOT-SOURCE-009C-ESPORTS-OPERATOR-REVIEW-SURFACE-AND-PAPERLIVE-PREPARATION",
+  "market_id": "1987056",
+  "market_class": "esports",
+  "title_or_question": "LoL: JD Gaming vs Anyone's Legend (BO5) - Esports World Cup China Qualifier Phase 2",
+  "capture_status": "draft",
+  "source_capture_status": "draft",
+  "operator_review_required": true,
+  "ready_for_local_review": false,
+  "paper_live_preparation_status": {
+    "status": "prepared_pending_operator_review",
+    "observation_only_contract_available": true,
+    "observation_plan_available": true,
+    "outcome_tracking_contract_available": true,
+    "simulated_decision_ready": false,
+    "simulated_decision_created": false,
+    "blocking_reasons": [
+      "source capture is still draft",
+      "operator review checklist remains unchecked",
+      "ready_for_local_review is false",
+      "official result source and fallback hierarchy still need operator verification"
+    ]
+  },
+  "known_fields": {
+    "game_title": "League of Legends",
+    "event_or_tournament": "Esports World Cup / China Qualifier / Phase 2",
+    "match_format": "BO5",
+    "teams_or_players": [
+      "JD Gaming",
+      "Anyone's Legend"
+    ],
+    "scheduled_time_utc": "2026-05-21T09:00:00Z",
+    "direct_rules_text_source": "pm_bot/live_readonly/esports_market_discovery/esports_market_normalized_candidate_009a.v1.json",
+    "draft_capture_source": "pm_bot/llm/manual_resolution_source_capture/1987056_resolution_source_capture.v1.json",
+    "official_result_source_from_market_metadata": "https://gol.gg/esports/home",
+    "fallback_source_rule": "credible reporting may be used if the named official source has not published final results within 2 hours after event conclusion"
+  },
+  "missing_fields": [
+    "operator-confirmed exact Polymarket/Gamma rules text",
+    "operator-confirmed official result source page or match-specific source path",
+    "operator-confirmed fallback source hierarchy around event conclusion",
+    "operator-confirmed timezone and event schedule",
+    "operator-confirmed final result"
+  ],
+  "ambiguity_flags": [
+    {
+      "flag": "source_capture_is_draft",
+      "status": "unresolved",
+      "operator_action": "Verify the draft capture before any status promotion."
+    },
+    {
+      "flag": "result_source_is_home_page_reference",
+      "status": "unresolved",
+      "operator_action": "Identify whether a match-specific official result page exists when outcome tracking begins."
+    },
+    {
+      "flag": "cancellation_reschedule_forfeit_walkover_rules_need_review",
+      "status": "unresolved",
+      "operator_action": "Check the rules text against the stored market description and operator checklist."
+    },
+    {
+      "flag": "team_name_discrepancy_handling_needs_review",
+      "status": "unresolved",
+      "operator_action": "Verify name normalization rules before outcome alignment review."
+    }
+  ],
+  "operator_review_checklist": [
+    {
+      "check_id": "verify_exact_polymarket_rules_text",
+      "review_prompt": "Verify exact Polymarket/Gamma rules text.",
+      "required": true,
+      "status": "unchecked"
+    },
+    {
+      "check_id": "verify_match_tournament_game_identity",
+      "review_prompt": "Verify match, tournament, game, and format identity.",
+      "required": true,
+      "status": "unchecked"
+    },
+    {
+      "check_id": "verify_teams_or_players",
+      "review_prompt": "Verify teams or players.",
+      "required": true,
+      "status": "unchecked"
+    },
+    {
+      "check_id": "verify_official_result_source",
+      "review_prompt": "Verify official result source and fallback source hierarchy.",
+      "required": true,
+      "status": "unchecked"
+    },
+    {
+      "check_id": "verify_cancellation_reschedule_forfeit_handling",
+      "review_prompt": "Verify cancellation, reschedule, forfeit, walkover, delay, and name discrepancy handling.",
+      "required": true,
+      "status": "unchecked"
+    },
+    {
+      "check_id": "verify_timezone_deadline",
+      "review_prompt": "Verify timezone and resolution timing.",
+      "required": true,
+      "status": "unchecked"
+    },
+    {
+      "check_id": "verify_source_capture_promotion_readiness",
+      "review_prompt": "Verify whether source capture can later be promoted by an operator.",
+      "required": true,
+      "status": "unchecked"
+    },
+    {
+      "check_id": "confirm_no_market_decision",
+      "review_prompt": "Confirm this surface remains source/rules preparation only.",
+      "required": true,
+      "status": "unchecked"
+    }
+  ],
+  "direct_rules_text_captured": true,
+  "official_result_source_identified": true,
+  "unresolved_source_questions": [
+    "Operator must verify exact Polymarket/Gamma rules text before any status promotion.",
+    "Operator must verify match, tournament, game, team names, timezone, and event schedule.",
+    "Operator must verify cancellation, reschedule, forfeit, walkover, delay, and name discrepancy handling.",
+    "Operator must verify the official result source and fallback source hierarchy around event conclusion.",
+    "Operator must verify whether the named source has a match-specific result page when outcome tracking begins."
+  ],
+  "source_quality_observation_status": {
+    "candidate_artifact": "pm_bot/llm/source_quality_observation_candidate_1987056_009b.v1.json",
+    "status": "pending_resolution_outcome",
+    "outcome_known": false,
+    "source_scoring_performed": false,
+    "trading_profit_used_for_scoring": false,
+    "flow_extension_artifact": "pm_bot/llm/source_quality_observation_flow_009c.v1.json"
+  },
+  "no_market_action_guidance": true,
+  "no_trading_authority": true,
+  "no_execution_authority": true,
+  "safety_summary": {
+    "local_only": true,
+    "operator_review_only": true,
+    "observation_only": true,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "external_network_calls_performed": 0,
+    "authenticated_endpoints_used": false,
+    "wallet_or_private_key_accessed": false,
+    "orders_created": false,
+    "simulated_trade_created": false,
+    "market_action_guidance_generated": false,
+    "scoring_or_selection_generated": false,
+    "trading_runtime_changed": false,
+    "dispatcher_changed": false,
+    "background_worker_created": false,
+    "queue_mutated": false,
+    "browser_automation_used": false,
+    "canonical_packets_mutated": false
+  }
+}

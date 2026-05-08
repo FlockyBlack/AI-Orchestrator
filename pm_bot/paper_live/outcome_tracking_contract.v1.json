@@ -1,0 +1,57 @@
+{
+  "contract_version": "outcome_tracking_contract.v1",
+  "task_id": "PMBOT-SOURCE-009C-ESPORTS-OPERATOR-REVIEW-SURFACE-AND-PAPERLIVE-PREPARATION",
+  "tracking_scope": "outcome_and_source_alignment_only",
+  "market_id": "1987056",
+  "market_class": "esports",
+  "outcome_known": false,
+  "outcome_source": null,
+  "outcome_source_timestamp": null,
+  "outcome_resolution_text": null,
+  "source_alignment_review": {
+    "status": "pending_outcome",
+    "resolution_alignment_count": null,
+    "contradiction_count": null,
+    "notes": "Review is deferred until outcome source evidence exists."
+  },
+  "source_helpfulness_review": {
+    "status": "pending_outcome",
+    "timeliness_notes": null,
+    "official_source_status": "pending_operator_review",
+    "operator_usefulness_notes": null
+  },
+  "contradictions_found": false,
+  "operator_review_required": true,
+  "trading_profit_used_for_source_scoring": false,
+  "no_market_action_guidance": true,
+  "no_trading_authority": true,
+  "no_execution_authority": true,
+  "forbidden_learning_inputs": [
+    "trading profit",
+    "financial return",
+    "stake result",
+    "order result",
+    "market action result"
+  ],
+  "safety_summary": {
+    "not_profit_loss_tracking": true,
+    "local_only": true,
+    "operator_review_only": true,
+    "outcome_and_source_alignment_only": true,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "external_network_calls_performed": 0,
+    "authenticated_endpoints_used": false,
+    "wallet_or_private_key_accessed": false,
+    "orders_created": false,
+    "simulated_trade_created": false,
+    "market_action_guidance_generated": false,
+    "scoring_or_selection_generated": false,
+    "trading_runtime_changed": false,
+    "dispatcher_changed": false,
+    "background_worker_created": false,
+    "queue_mutated": false,
+    "browser_automation_used": false,
+    "canonical_packets_mutated": false
+  }
+}
