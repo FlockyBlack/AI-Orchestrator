@@ -1,0 +1,30 @@
+{
+  "schema_version": "source_quality_observation_candidate_weather_010a.v1",
+  "task_id": "PMBOT-SOURCE-010A-WEATHER-MARKET-CLASS-PILOT-READONLY-DISCOVERY",
+  "market_id": null,
+  "market_class": "weather",
+  "source_ids_observed": [
+    "unresolved_weather_source_questions"
+  ],
+  "source_types_observed": [
+    "unresolved_source"
+  ],
+  "source_roles": [
+    {
+      "source_id": "unresolved_weather_source_questions",
+      "roles": [
+        "unresolved_source"
+      ]
+    }
+  ],
+  "source_quality_status": "pending_future_capture_and_outcome_review",
+  "outcome_known": false,
+  "source_scoring_performed": false,
+  "source_ranking_updated": false,
+  "trading_profit_used_for_scoring": false,
+  "operator_review_required": true,
+  "notes": [
+    "Weather source-quality observation is candidate-only until SOURCE-010B and future outcome review.",
+    "No source scoring or ranking is performed in SOURCE-010A."
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "contract_version": "weather_source_capture_candidate_010a.v1",
+  "task_id": "PMBOT-SOURCE-010A-WEATHER-MARKET-CLASS-PILOT-READONLY-DISCOVERY",
+  "market_id": null,
+  "market_class": "weather",
+  "full_market_resolution_criteria_text": "",
+  "full_resolution_rules": "",
+  "official_source_references": [],
+  "official_source_urls_or_rule_references": [],
+  "source_timestamps": {
+    "fetched_at_marker": "2026-05-08T00:00:00Z_SOURCE_010A_READONLY_FIELD_TEST",
+    "market_date_or_time_window": ""
+  },
+  "source_reliability_review": "candidate_only_operator_must_verify_direct_polymarket_rules_and_weather_source",
+  "reviewed_local_evidence_references": [
+    "pm_bot/live_readonly/weather_market_discovery/weather_market_raw_fetch_010a.v1.json"
+  ],
+  "non_placeholder_evidence_notes": [
+    "Public Gamma metadata captured for operator source/rules review only."
+  ],
+  "unresolved_source_questions": [
+    "No suitable public read-only weather market candidate was selected.",
+    "No matching market met pilot criteria."
+  ],
+  "planned_source_capture_status": "draft",
+  "planned_capture_status": "draft",
+  "operator_review_required": true,
+  "direct_rules_text_captured": false,
+  "official_weather_source_identified": false,
+  "station_or_source_hierarchy_identified": false,
+  "auto_fill_allowed_only_as_draft": true,
+  "auto_promote_to_ready_for_local_review": false,
+  "no_market_action_guidance": true,
+  "no_trading_authority": true
+}

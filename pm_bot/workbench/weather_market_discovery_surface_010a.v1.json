@@ -1,0 +1,20 @@
+{
+  "schema_version": "weather_market_discovery_surface_010a.v1",
+  "task_id": "PMBOT-SOURCE-010A-WEATHER-MARKET-CLASS-PILOT-READONLY-DISCOVERY",
+  "market_class": "weather",
+  "selected_market_id": null,
+  "selected_market_title_or_question": null,
+  "discovery_status": "no_suitable_weather_market_found",
+  "normalized_candidate_available": false,
+  "source_capture_candidate_available": false,
+  "operator_checklist_available": true,
+  "source_quality_observation_candidate_available": false,
+  "operator_review_required": true,
+  "next_operator_actions": [
+    "Review inspected candidate reasons.",
+    "Retry weather discovery later if the operator still wants a weather pilot candidate.",
+    "Current fetch_status: no_suitable_weather_market_found."
+  ],
+  "no_market_action_guidance": true,
+  "no_trading_authority": true
+}

@@ -1,0 +1,924 @@
+{
+  "schema_version": "weather_market_raw_fetch_010a.v1",
+  "task_id": "PMBOT-SOURCE-010A-WEATHER-MARKET-CLASS-PILOT-READONLY-DISCOVERY",
+  "fetch_status": "no_suitable_weather_market_found",
+  "fetched_at_marker": "2026-05-08T00:00:00Z_SOURCE_010A_READONLY_FIELD_TEST",
+  "network_allowed_explicitly": true,
+  "public_readonly_only": true,
+  "authenticated_endpoints_used": false,
+  "auth_headers_used": false,
+  "wallet_or_private_key_accessed": false,
+  "orders_created": false,
+  "endpoint_or_url_used": [
+    "https://gamma-api.polymarket.com/markets?active=true&closed=false&limit=500&offset=0",
+    "https://gamma-api.polymarket.com/markets?active=true&closed=false&limit=500&offset=500",
+    "https://gamma-api.polymarket.com/markets?active=true&closed=false&limit=500&offset=1000",
+    "https://gamma-api.polymarket.com/markets?active=true&closed=false&limit=500&offset=1500",
+    "https://gamma-api.polymarket.com/markets?active=true&closed=false&limit=500&offset=2000"
+  ],
+  "network_call_count": 5,
+  "polymarket_api_calls_performed": 5,
+  "raw_market_payload": {
+    "inspected_candidate_summaries": [
+      {
+        "market_id": "577294",
+        "market_slug": "will-jonas-wind-be-the-top-goal-scorer-in-the-202526-bundesliga-season",
+        "market_title_or_question": "Will Jonas Wind be the top goal scorer in the 2025\u201326 Bundesliga season?",
+        "active": true,
+        "closed": false,
+        "reason": "weather_word_false_positive_or_sports_context",
+        "weather_marker_detected": true,
+        "missing_basic_fields": [
+          "weather_metric",
+          "threshold_or_condition"
+        ],
+        "extracted_weather_fields": {
+          "location": "Bundesliga matches only will count",
+          "weather_metric": "",
+          "unit": "",
+          "threshold_or_condition": "",
+          "date_or_time_window": "by August 1, 2026",
+          "timezone": "",
+          "official_weather_source_candidate": "",
+          "station_or_source_hierarchy": "",
+          "fallback_source_candidate": "",
+          "source_urls_or_references": []
+        }
+      },
+      {
+        "market_id": "678686",
+        "market_slug": "will-2026-be-the-hottest-year-on-record",
+        "market_title_or_question": "Will 2026 be the hottest year on record?",
+        "active": true,
+        "closed": false,
+        "reason": "weather_marker_but_missing_basic_fields",
+        "weather_marker_detected": true,
+        "missing_basic_fields": [
+          "location",
+          "threshold_or_condition"
+        ],
+        "extracted_weather_fields": {
+          "location": "",
+          "weather_metric": "temperature",
+          "unit": "",
+          "threshold_or_condition": "",
+          "date_or_time_window": "by March 1, 2027",
+          "timezone": "ET",
+          "official_weather_source_candidate": "",
+          "station_or_source_hierarchy": "according to the numerical rank of how hot 2026 is when compared against all other years for which the Global Lan",
+          "fallback_source_candidate": "If 2026 ties with any other year, it will resolve according to the place the year it ties with occupies. This market will resolve immediately once the specified data becomes available, regardless of whether the figure for the relevant years is later revised. The primary resolution source for this market will be the figure found in the table titled \"Land-Ocean Temperature Index (C)\" under the column \"No_Smoothing\" in the row \"2026\" (https://data.giss.nasa.gov/gistemp/graphs/graph_data/Global_Mean_Estimates_based_on_Land_and_Ocean_Data/graph.txt). If NASA's \"Global Temperature Index\" is rendered permanently unavailable, other information from NASA may be used. If no information for 2026 is provided by NASA by March 1, 2027, 11:59 PM ET, this market will resolve based on a con",
+          "source_urls_or_references": [
+            "https://data.giss.nasa.gov/gistemp/graphs/graph_data/Global_Mean_Estimates_based_on_Land_and_Ocean_Data/graph.txt"
+          ]
+        }
+      },
+      {
+        "market_id": "678687",
+        "market_slug": "will-2026-be-the-second-hottest-year-on-record",
+        "market_title_or_question": "Will 2026 be the second-hottest year on record?",
+        "active": true,
+        "closed": false,
+        "reason": "weather_marker_but_missing_basic_fields",
+        "weather_marker_detected": true,
+        "missing_basic_fields": [
+          "location",
+          "threshold_or_condition"
+        ],
+        "extracted_weather_fields": {
+          "location": "",
+          "weather_metric": "temperature",
+          "unit": "",
+          "threshold_or_condition": "",
+          "date_or_time_window": "by March 1, 2027",
+          "timezone": "ET",
+          "official_weather_source_candidate": "",
+          "station_or_source_hierarchy": "according to the numerical rank of how hot 2026 is when compared against all other years for which the Global Lan",
+          "fallback_source_candidate": "If 2026 ties with any other year, it will resolve according to the place the year it ties with occupies. This market will resolve immediately once the specified data becomes available, regardless of whether the figure for the relevant years is later revised. The primary resolution source for this market will be the figure found in the table titled \"Land-Ocean Temperature Index (C)\" under the column \"No_Smoothing\" in the row \"2026\" (https://data.giss.nasa.gov/gistemp/graphs/graph_data/Global_Mean_Estimates_based_on_Land_and_Ocean_Data/graph.txt). If NASA's \"Global Temperature Index\" is rendered permanently unavailable, other information from NASA may be used. If no information for 2026 is provided by NASA by March 1, 2027, 11:59 PM ET, this market will resolve based on a con",
+          "source_urls_or_references": [
+            "https://data.giss.nasa.gov/gistemp/graphs/graph_data/Global_Mean_Estimates_based_on_Land_and_Ocean_Data/graph.txt"
+          ]
+        }
+      },
+      {
+        "market_id": "678688",
+        "market_slug": "will-2026-be-the-third-hottest-year-on-record",
+        "market_title_or_question": "Will 2026 be the third-hottest year on record?",
+        "active": true,
+        "closed": false,
+        "reason": "weather_marker_but_missing_basic_fields",
+        "weather_marker_detected": true,
+        "missing_basic_fields": [
+          "location",
+          "threshold_or_condition"
+        ],
+        "extracted_weather_fields": {
+          "location": "",
+          "weather_metric": "temperature",
+          "unit": "",
+          "threshold_or_condition": "",
+          "date_or_time_window": "by March 1, 2027",
+          "timezone": "ET",
+          "official_weather_source_candidate": "",
+          "station_or_source_hierarchy": "according to the numerical rank of how hot 2026 is when compared against all other years for which the Global Lan",
+          "fallback_source_candidate": "If 2026 ties with any other year, it will resolve according to the place the year it ties with occupies. This market will resolve immediately once the specified data becomes available, regardless of whether the figure for the relevant years is later revised. The primary resolution source for this market will be the figure found in the table titled \"Land-Ocean Temperature Index (C)\" under the column \"No_Smoothing\" in the row \"2026\" (https://data.giss.nasa.gov/gistemp/graphs/graph_data/Global_Mean_Estimates_based_on_Land_and_Ocean_Data/graph.txt). If NASA's \"Global Temperature Index\" is rendered permanently unavailable, other information from NASA may be used. If no information for 2026 is provided by NASA by March 1, 2027, 11:59 PM ET, this market will resolve based on a con",
+          "source_urls_or_references": [
+            "https://data.giss.nasa.gov/gistemp/graphs/graph_data/Global_Mean_Estimates_based_on_Land_and_Ocean_Data/graph.txt"
+          ]
+        }
+      },
+      {
+        "market_id": "678689",
+        "market_slug": "will-2026-be-the-fourth-hottest-year-on-record",
+        "market_title_or_question": "Will 2026 be the fourth-hottest year on record?",
+        "active": true,
+        "closed": false,
+        "reason": "weather_marker_but_missing_basic_fields",
+        "weather_marker_detected": true,
+        "missing_basic_fields": [
+          "location",
+          "threshold_or_condition"
+        ],
+        "extracted_weather_fields": {
+          "location": "",
+          "weather_metric": "temperature",
+          "unit": "",
+          "threshold_or_condition": "",
+          "date_or_time_window": "by March 1, 2027",
+          "timezone": "ET",
+          "official_weather_source_candidate": "",
+          "station_or_source_hierarchy": "according to the numerical rank of how hot 2026 is when compared against all other years for which the Global Lan",
+          "fallback_source_candidate": "If 2026 ties with any other year, it will resolve according to the place the year it ties with occupies. This market will resolve immediately once the specified data becomes available, regardless of whether the figure for the relevant years is later revised. The primary resolution source for this market will be the figure found in the table titled \"Land-Ocean Temperature Index (C)\" under the column \"No_Smoothing\" in the row \"2026\" (https://data.giss.nasa.gov/gistemp/graphs/graph_data/Global_Mean_Estimates_based_on_Land_and_Ocean_Data/graph.txt). If NASA's \"Global Temperature Index\" is rendered permanently unavailable, other information from NASA may be used. If no information for 2026 is provided by NASA by March 1, 2027, 11:59 PM ET, this market will resolve based on a con",
+          "source_urls_or_references": [
+            "https://data.giss.nasa.gov/gistemp/graphs/graph_data/Global_Mean_Estimates_based_on_Land_and_Ocean_Data/graph.txt"
+          ]
+        }
+      },
+      {
+        "market_id": "678690",
+        "market_slug": "will-2026-be-the-fifth-hottest-year-on-record",
+        "market_title_or_question": "Will 2026 be the fifth-hottest year on record?",
+        "active": true,
+        "closed": false,
+        "reason": "weather_marker_but_missing_basic_fields",
+        "weather_marker_detected": true,
+        "missing_basic_fields": [
+          "location",
+          "threshold_or_condition"
+        ],
+        "extracted_weather_fields": {
+          "location": "",
+          "weather_metric": "temperature",
+          "unit": "",
+          "threshold_or_condition": "",
+          "date_or_time_window": "by March 1, 2027",
+          "timezone": "ET",
+          "official_weather_source_candidate": "",
+          "station_or_source_hierarchy": "according to the numerical rank of how hot 2026 is when compared against all other years for which the Global Lan",
+          "fallback_source_candidate": "If 2026 ties with any other year, it will resolve according to the place the year it ties with occupies. This market will resolve immediately once the specified data becomes available, regardless of whether the figure for the relevant years is later revised. The primary resolution source for this market will be the figure found in the table titled \"Land-Ocean Temperature Index (C)\" under the column \"No_Smoothing\" in the row \"2026\" (https://data.giss.nasa.gov/gistemp/graphs/graph_data/Global_Mean_Estimates_based_on_Land_and_Ocean_Data/graph.txt). If NASA's \"Global Temperature Index\" is rendered permanently unavailable, other information from NASA may be used. If no information for 2026 is provided by NASA by March 1, 2027, 11:59 PM ET, this market will resolve based on a con",
+          "source_urls_or_references": [
+            "https://data.giss.nasa.gov/gistemp/graphs/graph_data/Global_Mean_Estimates_based_on_Land_and_Ocean_Data/graph.txt"
+          ]
+        }
+      },
+      {
+        "market_id": "678691",
+        "market_slug": "will-2026-rank-as-the-sixth-hottest-year-on-record-or-lower",
+        "market_title_or_question": "Will 2026 rank as the sixth-hottest year on record or lower?",
+        "active": true,
+        "closed": false,
+        "reason": "weather_marker_but_missing_basic_fields",
+        "weather_marker_detected": true,
+        "missing_basic_fields": [
+          "location",
+          "threshold_or_condition"
+        ],
+        "extracted_weather_fields": {
+          "location": "",
+          "weather_metric": "temperature",
+          "unit": "",
+          "threshold_or_condition": "",
+          "date_or_time_window": "by March 1, 2027",
+          "timezone": "ET",
+          "official_weather_source_candidate": "",
+          "station_or_source_hierarchy": "according to the numerical rank of how hot 2026 is when compared against all other years for which the Global Lan",
+          "fallback_source_candidate": "If 2026 ties with any other year, it will resolve according to the place the year it ties with occupies. This market will resolve immediately once the specified data becomes available, regardless of whether the figure for the relevant years is later revised. The primary resolution source for this market will be the figure found in the table titled \"Land-Ocean Temperature Index (C)\" under the column \"No_Smoothing\" in the row \"2026\" (https://data.giss.nasa.gov/gistemp/graphs/graph_data/Global_Mean_Estimates_based_on_Land_and_Ocean_Data/graph.txt). If NASA's \"Global Temperature Index\" is rendered permanently unavailable, other information from NASA may be used. If no information for 2026 is provided by NASA by March 1, 2027, 11:59 PM ET, this market will resolve based on a con",
+          "source_urls_or_references": [
+            "https://data.giss.nasa.gov/gistemp/graphs/graph_data/Global_Mean_Estimates_based_on_Land_and_Ocean_Data/graph.txt"
+          ]
+        }
+      },
+      {
+        "market_id": "678690",
+        "market_slug": "will-2026-be-the-fifth-hottest-year-on-record",
+        "market_title_or_question": "Will 2026 be the fifth-hottest year on record?",
+        "active": true,
+        "closed": false,
+        "reason": "weather_marker_but_missing_basic_fields",
+        "weather_marker_detected": true,
+        "missing_basic_fields": [
+          "location",
+          "threshold_or_condition"
+        ],
+        "extracted_weather_fields": {
+          "location": "",
+          "weather_metric": "temperature",
+          "unit": "",
+          "threshold_or_condition": "",
+          "date_or_time_window": "by March 1, 2027",
+          "timezone": "ET",
+          "official_weather_source_candidate": "",
+          "station_or_source_hierarchy": "according to the numerical rank of how hot 2026 is when compared against all other years for which the Global Lan",
+          "fallback_source_candidate": "If 2026 ties with any other year, it will resolve according to the place the year it ties with occupies. This market will resolve immediately once the specified data becomes available, regardless of whether the figure for the relevant years is later revised. The primary resolution source for this market will be the figure found in the table titled \"Land-Ocean Temperature Index (C)\" under the column \"No_Smoothing\" in the row \"2026\" (https://data.giss.nasa.gov/gistemp/graphs/graph_data/Global_Mean_Estimates_based_on_Land_and_Ocean_Data/graph.txt). If NASA's \"Global Temperature Index\" is rendered permanently unavailable, other information from NASA may be used. If no information for 2026 is provided by NASA by March 1, 2027, 11:59 PM ET, this market will resolve based on a con",
+          "source_urls_or_references": [
+            "https://data.giss.nasa.gov/gistemp/graphs/graph_data/Global_Mean_Estimates_based_on_Land_and_Ocean_Data/graph.txt"
+          ]
+        }
+      },
+      {
+        "market_id": "678691",
+        "market_slug": "will-2026-rank-as-the-sixth-hottest-year-on-record-or-lower",
+        "market_title_or_question": "Will 2026 rank as the sixth-hottest year on record or lower?",
+        "active": true,
+        "closed": false,
+        "reason": "weather_marker_but_missing_basic_fields",
+        "weather_marker_detected": true,
+        "missing_basic_fields": [
+          "location",
+          "threshold_or_condition"
+        ],
+        "extracted_weather_fields": {
+          "location": "",
+          "weather_metric": "temperature",
+          "unit": "",
+          "threshold_or_condition": "",
+          "date_or_time_window": "by March 1, 2027",
+          "timezone": "ET",
+          "official_weather_source_candidate": "",
+          "station_or_source_hierarchy": "according to the numerical rank of how hot 2026 is when compared against all other years for which the Global Lan",
+          "fallback_source_candidate": "If 2026 ties with any other year, it will resolve according to the place the year it ties with occupies. This market will resolve immediately once the specified data becomes available, regardless of whether the figure for the relevant years is later revised. The primary resolution source for this market will be the figure found in the table titled \"Land-Ocean Temperature Index (C)\" under the column \"No_Smoothing\" in the row \"2026\" (https://data.giss.nasa.gov/gistemp/graphs/graph_data/Global_Mean_Estimates_based_on_Land_and_Ocean_Data/graph.txt). If NASA's \"Global Temperature Index\" is rendered permanently unavailable, other information from NASA may be used. If no information for 2026 is provided by NASA by March 1, 2027, 11:59 PM ET, this market will resolve based on a con",
+          "source_urls_or_references": [
+            "https://data.giss.nasa.gov/gistemp/graphs/graph_data/Global_Mean_Estimates_based_on_Land_and_Ocean_Data/graph.txt"
+          ]
+        }
+      },
+      {
+        "market_id": "693869",
+        "market_slug": "will-the-minimum-arctic-sea-ice-extent-this-summer-be-less-than-4m-square-kilometers",
+        "market_title_or_question": "Will the minimum Arctic sea ice extent this summer be less than 4m square kilometers?",
+        "active": true,
+        "closed": false,
+        "reason": "weather_marker_but_missing_basic_fields",
+        "weather_marker_detected": true,
+        "missing_basic_fields": [
+          "location"
+        ],
+        "extracted_weather_fields": {
+          "location": "",
+          "weather_metric": "temperature",
+          "unit": "",
+          "threshold_or_condition": "less than 4",
+          "date_or_time_window": "between August 1, 2026 and October 1,",
+          "timezone": "",
+          "official_weather_source_candidate": "",
+          "station_or_source_hierarchy": "according to the minimum Arctic sea ice extent for all days between August 1, 2026 and October 1, 2026, as publis",
+          "fallback_source_candidate": "If this resolution source becomes unavailable, another resolution source will be chosen.",
+          "source_urls_or_references": [
+            "https://nsidc.org/sea-ice-today/sea-ice-tools"
+          ]
+        }
+      },
+      {
+        "market_id": "693870",
+        "market_slug": "will-the-minimum-arctic-sea-ice-extent-this-summer-be-between-4pt0m-4pt2m-square-kilometers",
+        "market_title_or_question": "Will the minimum Arctic sea ice extent this summer be between 4.0m & 4.2m square kilometers?",
+        "active": true,
+        "closed": false,
+        "reason": "weather_marker_but_missing_basic_fields",
+        "weather_marker_detected": true,
+        "missing_basic_fields": [
+          "location"
+        ],
+        "extracted_weather_fields": {
+          "location": "",
+          "weather_metric": "temperature",
+          "unit": "",
+          "threshold_or_condition": "will resolve according to the minimum Arctic sea ice extent for all days between August 1, 2026 and October 1, 2026, as published by the National Snow",
+          "date_or_time_window": "between August 1, 2026 and October 1,",
+          "timezone": "",
+          "official_weather_source_candidate": "",
+          "station_or_source_hierarchy": "according to the minimum Arctic sea ice extent for all days between August 1, 2026 and October 1, 2026, as publis",
+          "fallback_source_candidate": "If this resolution source becomes unavailable, another resolution source will be chosen.",
+          "source_urls_or_references": [
+            "https://nsidc.org/sea-ice-today/sea-ice-tools"
+          ]
+        }
+      },
+      {
+        "market_id": "693871",
+        "market_slug": "will-the-minimum-arctic-sea-ice-extent-this-summer-be-between-4pt2m-4pt4m-square-kilometers",
+        "market_title_or_question": "Will the minimum Arctic sea ice extent this summer be between 4.2m & 4.4m square kilometers?",
+        "active": true,
+        "closed": false,
+        "reason": "weather_marker_but_missing_basic_fields",
+        "weather_marker_detected": true,
+        "missing_basic_fields": [
+          "location"
+        ],
+        "extracted_weather_fields": {
+          "location": "",
+          "weather_metric": "temperature",
+          "unit": "",
+          "threshold_or_condition": "will resolve according to the minimum Arctic sea ice extent for all days between August 1, 2026 and October 1, 2026, as published by the National Snow",
+          "date_or_time_window": "between August 1, 2026 and October 1,",
+          "timezone": "",
+          "official_weather_source_candidate": "",
+          "station_or_source_hierarchy": "according to the minimum Arctic sea ice extent for all days between August 1, 2026 and October 1, 2026, as publis",
+          "fallback_source_candidate": "If this resolution source becomes unavailable, another resolution source will be chosen.",
+          "source_urls_or_references": [
+            "https://nsidc.org/sea-ice-today/sea-ice-tools"
+          ]
+        }
+      },
+      {
+        "market_id": "693872",
+        "market_slug": "will-the-minimum-arctic-sea-ice-extent-this-summer-be-between-4pt4m-4pt6m-square-kilometers",
+        "market_title_or_question": "Will the minimum Arctic sea ice extent this summer be between 4.4m & 4.6m square kilometers?",
+        "active": true,
+        "closed": false,
+        "reason": "weather_marker_but_missing_basic_fields",
+        "weather_marker_detected": true,
+        "missing_basic_fields": [
+          "location"
+        ],
+        "extracted_weather_fields": {
+          "location": "",
+          "weather_metric": "temperature",
+          "unit": "",
+          "threshold_or_condition": "will resolve according to the minimum Arctic sea ice extent for all days between August 1, 2026 and October 1, 2026, as published by the National Snow",
+          "date_or_time_window": "between August 1, 2026 and October 1,",
+          "timezone": "",
+          "official_weather_source_candidate": "",
+          "station_or_source_hierarchy": "according to the minimum Arctic sea ice extent for all days between August 1, 2026 and October 1, 2026, as publis",
+          "fallback_source_candidate": "If this resolution source becomes unavailable, another resolution source will be chosen.",
+          "source_urls_or_references": [
+            "https://nsidc.org/sea-ice-today/sea-ice-tools"
+          ]
+        }
+      },
+      {
+        "market_id": "693873",
+        "market_slug": "will-the-minimum-arctic-sea-ice-extent-this-summer-be-between-4pt6m-4pt8m-square-kilometers",
+        "market_title_or_question": "Will the minimum Arctic sea ice extent this summer be between 4.6m & 4.8m square kilometers?",
+        "active": true,
+        "closed": false,
+        "reason": "weather_marker_but_missing_basic_fields",
+        "weather_marker_detected": true,
+        "missing_basic_fields": [
+          "location"
+        ],
+        "extracted_weather_fields": {
+          "location": "",
+          "weather_metric": "temperature",
+          "unit": "",
+          "threshold_or_condition": "will resolve according to the minimum Arctic sea ice extent for all days between August 1, 2026 and October 1, 2026, as published by the National Snow",
+          "date_or_time_window": "between August 1, 2026 and October 1,",
+          "timezone": "",
+          "official_weather_source_candidate": "",
+          "station_or_source_hierarchy": "according to the minimum Arctic sea ice extent for all days between August 1, 2026 and October 1, 2026, as publis",
+          "fallback_source_candidate": "If this resolution source becomes unavailable, another resolution source will be chosen.",
+          "source_urls_or_references": [
+            "https://nsidc.org/sea-ice-today/sea-ice-tools"
+          ]
+        }
+      },
+      {
+        "market_id": "693874",
+        "market_slug": "will-the-minimum-arctic-sea-ice-extent-this-summer-be-between-4pt8m-5m-square-kilometers",
+        "market_title_or_question": "Will the minimum Arctic sea ice extent this summer be between 4.8m & 5m square kilometers?",
+        "active": true,
+        "closed": false,
+        "reason": "weather_marker_but_missing_basic_fields",
+        "weather_marker_detected": true,
+        "missing_basic_fields": [
+          "location"
+        ],
+        "extracted_weather_fields": {
+          "location": "",
+          "weather_metric": "temperature",
+          "unit": "",
+          "threshold_or_condition": "will resolve according to the minimum Arctic sea ice extent for all days between August 1, 2026 and October 1, 2026, as published by the National Snow",
+          "date_or_time_window": "between August 1, 2026 and October 1,",
+          "timezone": "",
+          "official_weather_source_candidate": "",
+          "station_or_source_hierarchy": "according to the minimum Arctic sea ice extent for all days between August 1, 2026 and October 1, 2026, as publis",
+          "fallback_source_candidate": "If this resolution source becomes unavailable, another resolution source will be chosen.",
+          "source_urls_or_references": [
+            "https://nsidc.org/sea-ice-today/sea-ice-tools"
+          ]
+        }
+      },
+      {
+        "market_id": "693875",
+        "market_slug": "will-the-minimum-arctic-sea-ice-extent-this-summer-be-at-least-5m-square-kilometers",
+        "market_title_or_question": "Will the minimum Arctic sea ice extent this summer be at least 5m square kilometers?",
+        "active": true,
+        "closed": false,
+        "reason": "weather_marker_but_missing_basic_fields",
+        "weather_marker_detected": true,
+        "missing_basic_fields": [
+          "location"
+        ],
+        "extracted_weather_fields": {
+          "location": "",
+          "weather_metric": "temperature",
+          "unit": "",
+          "threshold_or_condition": "at least 5",
+          "date_or_time_window": "between August 1, 2026 and October 1,",
+          "timezone": "",
+          "official_weather_source_candidate": "",
+          "station_or_source_hierarchy": "according to the minimum Arctic sea ice extent for all days between August 1, 2026 and October 1, 2026, as publis",
+          "fallback_source_candidate": "If this resolution source becomes unavailable, another resolution source will be chosen.",
+          "source_urls_or_references": [
+            "https://nsidc.org/sea-ice-today/sea-ice-tools"
+          ]
+        }
+      }
+    ],
+    "note": "No selected weather market raw payload because no suitable candidate was found."
+  },
+  "raw_market_payload_redactions": [
+    "platform context_description fields removed; not used for source/rules capture"
+  ],
+  "selected_market_id": null,
+  "selected_market_slug": null,
+  "selected_market_title_or_question": null,
+  "selection_reason": "No inspected market met the basic weather pilot criteria.",
+  "inspected_candidate_count": 2500,
+  "inspected_candidates": [
+    {
+      "market_id": "577294",
+      "market_slug": "will-jonas-wind-be-the-top-goal-scorer-in-the-202526-bundesliga-season",
+      "market_title_or_question": "Will Jonas Wind be the top goal scorer in the 2025\u201326 Bundesliga season?",
+      "active": true,
+      "closed": false,
+      "reason": "weather_word_false_positive_or_sports_context",
+      "weather_marker_detected": true,
+      "missing_basic_fields": [
+        "weather_metric",
+        "threshold_or_condition"
+      ],
+      "extracted_weather_fields": {
+        "location": "Bundesliga matches only will count",
+        "weather_metric": "",
+        "unit": "",
+        "threshold_or_condition": "",
+        "date_or_time_window": "by August 1, 2026",
+        "timezone": "",
+        "official_weather_source_candidate": "",
+        "station_or_source_hierarchy": "",
+        "fallback_source_candidate": "",
+        "source_urls_or_references": []
+      }
+    },
+    {
+      "market_id": "678686",
+      "market_slug": "will-2026-be-the-hottest-year-on-record",
+      "market_title_or_question": "Will 2026 be the hottest year on record?",
+      "active": true,
+      "closed": false,
+      "reason": "weather_marker_but_missing_basic_fields",
+      "weather_marker_detected": true,
+      "missing_basic_fields": [
+        "location",
+        "threshold_or_condition"
+      ],
+      "extracted_weather_fields": {
+        "location": "",
+        "weather_metric": "temperature",
+        "unit": "",
+        "threshold_or_condition": "",
+        "date_or_time_window": "by March 1, 2027",
+        "timezone": "ET",
+        "official_weather_source_candidate": "",
+        "station_or_source_hierarchy": "according to the numerical rank of how hot 2026 is when compared against all other years for which the Global Lan",
+        "fallback_source_candidate": "If 2026 ties with any other year, it will resolve according to the place the year it ties with occupies. This market will resolve immediately once the specified data becomes available, regardless of whether the figure for the relevant years is later revised. The primary resolution source for this market will be the figure found in the table titled \"Land-Ocean Temperature Index (C)\" under the column \"No_Smoothing\" in the row \"2026\" (https://data.giss.nasa.gov/gistemp/graphs/graph_data/Global_Mean_Estimates_based_on_Land_and_Ocean_Data/graph.txt). If NASA's \"Global Temperature Index\" is rendered permanently unavailable, other information from NASA may be used. If no information for 2026 is provided by NASA by March 1, 2027, 11:59 PM ET, this market will resolve based on a con",
+        "source_urls_or_references": [
+          "https://data.giss.nasa.gov/gistemp/graphs/graph_data/Global_Mean_Estimates_based_on_Land_and_Ocean_Data/graph.txt"
+        ]
+      }
+    },
+    {
+      "market_id": "678687",
+      "market_slug": "will-2026-be-the-second-hottest-year-on-record",
+      "market_title_or_question": "Will 2026 be the second-hottest year on record?",
+      "active": true,
+      "closed": false,
+      "reason": "weather_marker_but_missing_basic_fields",
+      "weather_marker_detected": true,
+      "missing_basic_fields": [
+        "location",
+        "threshold_or_condition"
+      ],
+      "extracted_weather_fields": {
+        "location": "",
+        "weather_metric": "temperature",
+        "unit": "",
+        "threshold_or_condition": "",
+        "date_or_time_window": "by March 1, 2027",
+        "timezone": "ET",
+        "official_weather_source_candidate": "",
+        "station_or_source_hierarchy": "according to the numerical rank of how hot 2026 is when compared against all other years for which the Global Lan",
+        "fallback_source_candidate": "If 2026 ties with any other year, it will resolve according to the place the year it ties with occupies. This market will resolve immediately once the specified data becomes available, regardless of whether the figure for the relevant years is later revised. The primary resolution source for this market will be the figure found in the table titled \"Land-Ocean Temperature Index (C)\" under the column \"No_Smoothing\" in the row \"2026\" (https://data.giss.nasa.gov/gistemp/graphs/graph_data/Global_Mean_Estimates_based_on_Land_and_Ocean_Data/graph.txt). If NASA's \"Global Temperature Index\" is rendered permanently unavailable, other information from NASA may be used. If no information for 2026 is provided by NASA by March 1, 2027, 11:59 PM ET, this market will resolve based on a con",
+        "source_urls_or_references": [
+          "https://data.giss.nasa.gov/gistemp/graphs/graph_data/Global_Mean_Estimates_based_on_Land_and_Ocean_Data/graph.txt"
+        ]
+      }
+    },
+    {
+      "market_id": "678688",
+      "market_slug": "will-2026-be-the-third-hottest-year-on-record",
+      "market_title_or_question": "Will 2026 be the third-hottest year on record?",
+      "active": true,
+      "closed": false,
+      "reason": "weather_marker_but_missing_basic_fields",
+      "weather_marker_detected": true,
+      "missing_basic_fields": [
+        "location",
+        "threshold_or_condition"
+      ],
+      "extracted_weather_fields": {
+        "location": "",
+        "weather_metric": "temperature",
+        "unit": "",
+        "threshold_or_condition": "",
+        "date_or_time_window": "by March 1, 2027",
+        "timezone": "ET",
+        "official_weather_source_candidate": "",
+        "station_or_source_hierarchy": "according to the numerical rank of how hot 2026 is when compared against all other years for which the Global Lan",
+        "fallback_source_candidate": "If 2026 ties with any other year, it will resolve according to the place the year it ties with occupies. This market will resolve immediately once the specified data becomes available, regardless of whether the figure for the relevant years is later revised. The primary resolution source for this market will be the figure found in the table titled \"Land-Ocean Temperature Index (C)\" under the column \"No_Smoothing\" in the row \"2026\" (https://data.giss.nasa.gov/gistemp/graphs/graph_data/Global_Mean_Estimates_based_on_Land_and_Ocean_Data/graph.txt). If NASA's \"Global Temperature Index\" is rendered permanently unavailable, other information from NASA may be used. If no information for 2026 is provided by NASA by March 1, 2027, 11:59 PM ET, this market will resolve based on a con",
+        "source_urls_or_references": [
+          "https://data.giss.nasa.gov/gistemp/graphs/graph_data/Global_Mean_Estimates_based_on_Land_and_Ocean_Data/graph.txt"
+        ]
+      }
+    },
+    {
+      "market_id": "678689",
+      "market_slug": "will-2026-be-the-fourth-hottest-year-on-record",
+      "market_title_or_question": "Will 2026 be the fourth-hottest year on record?",
+      "active": true,
+      "closed": false,
+      "reason": "weather_marker_but_missing_basic_fields",
+      "weather_marker_detected": true,
+      "missing_basic_fields": [
+        "location",
+        "threshold_or_condition"
+      ],
+      "extracted_weather_fields": {
+        "location": "",
+        "weather_metric": "temperature",
+        "unit": "",
+        "threshold_or_condition": "",
+        "date_or_time_window": "by March 1, 2027",
+        "timezone": "ET",
+        "official_weather_source_candidate": "",
+        "station_or_source_hierarchy": "according to the numerical rank of how hot 2026 is when compared against all other years for which the Global Lan",
+        "fallback_source_candidate": "If 2026 ties with any other year, it will resolve according to the place the year it ties with occupies. This market will resolve immediately once the specified data becomes available, regardless of whether the figure for the relevant years is later revised. The primary resolution source for this market will be the figure found in the table titled \"Land-Ocean Temperature Index (C)\" under the column \"No_Smoothing\" in the row \"2026\" (https://data.giss.nasa.gov/gistemp/graphs/graph_data/Global_Mean_Estimates_based_on_Land_and_Ocean_Data/graph.txt). If NASA's \"Global Temperature Index\" is rendered permanently unavailable, other information from NASA may be used. If no information for 2026 is provided by NASA by March 1, 2027, 11:59 PM ET, this market will resolve based on a con",
+        "source_urls_or_references": [
+          "https://data.giss.nasa.gov/gistemp/graphs/graph_data/Global_Mean_Estimates_based_on_Land_and_Ocean_Data/graph.txt"
+        ]
+      }
+    },
+    {
+      "market_id": "678690",
+      "market_slug": "will-2026-be-the-fifth-hottest-year-on-record",
+      "market_title_or_question": "Will 2026 be the fifth-hottest year on record?",
+      "active": true,
+      "closed": false,
+      "reason": "weather_marker_but_missing_basic_fields",
+      "weather_marker_detected": true,
+      "missing_basic_fields": [
+        "location",
+        "threshold_or_condition"
+      ],
+      "extracted_weather_fields": {
+        "location": "",
+        "weather_metric": "temperature",
+        "unit": "",
+        "threshold_or_condition": "",
+        "date_or_time_window": "by March 1, 2027",
+        "timezone": "ET",
+        "official_weather_source_candidate": "",
+        "station_or_source_hierarchy": "according to the numerical rank of how hot 2026 is when compared against all other years for which the Global Lan",
+        "fallback_source_candidate": "If 2026 ties with any other year, it will resolve according to the place the year it ties with occupies. This market will resolve immediately once the specified data becomes available, regardless of whether the figure for the relevant years is later revised. The primary resolution source for this market will be the figure found in the table titled \"Land-Ocean Temperature Index (C)\" under the column \"No_Smoothing\" in the row \"2026\" (https://data.giss.nasa.gov/gistemp/graphs/graph_data/Global_Mean_Estimates_based_on_Land_and_Ocean_Data/graph.txt). If NASA's \"Global Temperature Index\" is rendered permanently unavailable, other information from NASA may be used. If no information for 2026 is provided by NASA by March 1, 2027, 11:59 PM ET, this market will resolve based on a con",
+        "source_urls_or_references": [
+          "https://data.giss.nasa.gov/gistemp/graphs/graph_data/Global_Mean_Estimates_based_on_Land_and_Ocean_Data/graph.txt"
+        ]
+      }
+    },
+    {
+      "market_id": "678691",
+      "market_slug": "will-2026-rank-as-the-sixth-hottest-year-on-record-or-lower",
+      "market_title_or_question": "Will 2026 rank as the sixth-hottest year on record or lower?",
+      "active": true,
+      "closed": false,
+      "reason": "weather_marker_but_missing_basic_fields",
+      "weather_marker_detected": true,
+      "missing_basic_fields": [
+        "location",
+        "threshold_or_condition"
+      ],
+      "extracted_weather_fields": {
+        "location": "",
+        "weather_metric": "temperature",
+        "unit": "",
+        "threshold_or_condition": "",
+        "date_or_time_window": "by March 1, 2027",
+        "timezone": "ET",
+        "official_weather_source_candidate": "",
+        "station_or_source_hierarchy": "according to the numerical rank of how hot 2026 is when compared against all other years for which the Global Lan",
+        "fallback_source_candidate": "If 2026 ties with any other year, it will resolve according to the place the year it ties with occupies. This market will resolve immediately once the specified data becomes available, regardless of whether the figure for the relevant years is later revised. The primary resolution source for this market will be the figure found in the table titled \"Land-Ocean Temperature Index (C)\" under the column \"No_Smoothing\" in the row \"2026\" (https://data.giss.nasa.gov/gistemp/graphs/graph_data/Global_Mean_Estimates_based_on_Land_and_Ocean_Data/graph.txt). If NASA's \"Global Temperature Index\" is rendered permanently unavailable, other information from NASA may be used. If no information for 2026 is provided by NASA by March 1, 2027, 11:59 PM ET, this market will resolve based on a con",
+        "source_urls_or_references": [
+          "https://data.giss.nasa.gov/gistemp/graphs/graph_data/Global_Mean_Estimates_based_on_Land_and_Ocean_Data/graph.txt"
+        ]
+      }
+    },
+    {
+      "market_id": "678690",
+      "market_slug": "will-2026-be-the-fifth-hottest-year-on-record",
+      "market_title_or_question": "Will 2026 be the fifth-hottest year on record?",
+      "active": true,
+      "closed": false,
+      "reason": "weather_marker_but_missing_basic_fields",
+      "weather_marker_detected": true,
+      "missing_basic_fields": [
+        "location",
+        "threshold_or_condition"
+      ],
+      "extracted_weather_fields": {
+        "location": "",
+        "weather_metric": "temperature",
+        "unit": "",
+        "threshold_or_condition": "",
+        "date_or_time_window": "by March 1, 2027",
+        "timezone": "ET",
+        "official_weather_source_candidate": "",
+        "station_or_source_hierarchy": "according to the numerical rank of how hot 2026 is when compared against all other years for which the Global Lan",
+        "fallback_source_candidate": "If 2026 ties with any other year, it will resolve according to the place the year it ties with occupies. This market will resolve immediately once the specified data becomes available, regardless of whether the figure for the relevant years is later revised. The primary resolution source for this market will be the figure found in the table titled \"Land-Ocean Temperature Index (C)\" under the column \"No_Smoothing\" in the row \"2026\" (https://data.giss.nasa.gov/gistemp/graphs/graph_data/Global_Mean_Estimates_based_on_Land_and_Ocean_Data/graph.txt). If NASA's \"Global Temperature Index\" is rendered permanently unavailable, other information from NASA may be used. If no information for 2026 is provided by NASA by March 1, 2027, 11:59 PM ET, this market will resolve based on a con",
+        "source_urls_or_references": [
+          "https://data.giss.nasa.gov/gistemp/graphs/graph_data/Global_Mean_Estimates_based_on_Land_and_Ocean_Data/graph.txt"
+        ]
+      }
+    },
+    {
+      "market_id": "678691",
+      "market_slug": "will-2026-rank-as-the-sixth-hottest-year-on-record-or-lower",
+      "market_title_or_question": "Will 2026 rank as the sixth-hottest year on record or lower?",
+      "active": true,
+      "closed": false,
+      "reason": "weather_marker_but_missing_basic_fields",
+      "weather_marker_detected": true,
+      "missing_basic_fields": [
+        "location",
+        "threshold_or_condition"
+      ],
+      "extracted_weather_fields": {
+        "location": "",
+        "weather_metric": "temperature",
+        "unit": "",
+        "threshold_or_condition": "",
+        "date_or_time_window": "by March 1, 2027",
+        "timezone": "ET",
+        "official_weather_source_candidate": "",
+        "station_or_source_hierarchy": "according to the numerical rank of how hot 2026 is when compared against all other years for which the Global Lan",
+        "fallback_source_candidate": "If 2026 ties with any other year, it will resolve according to the place the year it ties with occupies. This market will resolve immediately once the specified data becomes available, regardless of whether the figure for the relevant years is later revised. The primary resolution source for this market will be the figure found in the table titled \"Land-Ocean Temperature Index (C)\" under the column \"No_Smoothing\" in the row \"2026\" (https://data.giss.nasa.gov/gistemp/graphs/graph_data/Global_Mean_Estimates_based_on_Land_and_Ocean_Data/graph.txt). If NASA's \"Global Temperature Index\" is rendered permanently unavailable, other information from NASA may be used. If no information for 2026 is provided by NASA by March 1, 2027, 11:59 PM ET, this market will resolve based on a con",
+        "source_urls_or_references": [
+          "https://data.giss.nasa.gov/gistemp/graphs/graph_data/Global_Mean_Estimates_based_on_Land_and_Ocean_Data/graph.txt"
+        ]
+      }
+    },
+    {
+      "market_id": "693869",
+      "market_slug": "will-the-minimum-arctic-sea-ice-extent-this-summer-be-less-than-4m-square-kilometers",
+      "market_title_or_question": "Will the minimum Arctic sea ice extent this summer be less than 4m square kilometers?",
+      "active": true,
+      "closed": false,
+      "reason": "weather_marker_but_missing_basic_fields",
+      "weather_marker_detected": true,
+      "missing_basic_fields": [
+        "location"
+      ],
+      "extracted_weather_fields": {
+        "location": "",
+        "weather_metric": "temperature",
+        "unit": "",
+        "threshold_or_condition": "less than 4",
+        "date_or_time_window": "between August 1, 2026 and October 1,",
+        "timezone": "",
+        "official_weather_source_candidate": "",
+        "station_or_source_hierarchy": "according to the minimum Arctic sea ice extent for all days between August 1, 2026 and October 1, 2026, as publis",
+        "fallback_source_candidate": "If this resolution source becomes unavailable, another resolution source will be chosen.",
+        "source_urls_or_references": [
+          "https://nsidc.org/sea-ice-today/sea-ice-tools"
+        ]
+      }
+    },
+    {
+      "market_id": "693870",
+      "market_slug": "will-the-minimum-arctic-sea-ice-extent-this-summer-be-between-4pt0m-4pt2m-square-kilometers",
+      "market_title_or_question": "Will the minimum Arctic sea ice extent this summer be between 4.0m & 4.2m square kilometers?",
+      "active": true,
+      "closed": false,
+      "reason": "weather_marker_but_missing_basic_fields",
+      "weather_marker_detected": true,
+      "missing_basic_fields": [
+        "location"
+      ],
+      "extracted_weather_fields": {
+        "location": "",
+        "weather_metric": "temperature",
+        "unit": "",
+        "threshold_or_condition": "will resolve according to the minimum Arctic sea ice extent for all days between August 1, 2026 and October 1, 2026, as published by the National Snow",
+        "date_or_time_window": "between August 1, 2026 and October 1,",
+        "timezone": "",
+        "official_weather_source_candidate": "",
+        "station_or_source_hierarchy": "according to the minimum Arctic sea ice extent for all days between August 1, 2026 and October 1, 2026, as publis",
+        "fallback_source_candidate": "If this resolution source becomes unavailable, another resolution source will be chosen.",
+        "source_urls_or_references": [
+          "https://nsidc.org/sea-ice-today/sea-ice-tools"
+        ]
+      }
+    },
+    {
+      "market_id": "693871",
+      "market_slug": "will-the-minimum-arctic-sea-ice-extent-this-summer-be-between-4pt2m-4pt4m-square-kilometers",
+      "market_title_or_question": "Will the minimum Arctic sea ice extent this summer be between 4.2m & 4.4m square kilometers?",
+      "active": true,
+      "closed": false,
+      "reason": "weather_marker_but_missing_basic_fields",
+      "weather_marker_detected": true,
+      "missing_basic_fields": [
+        "location"
+      ],
+      "extracted_weather_fields": {
+        "location": "",
+        "weather_metric": "temperature",
+        "unit": "",
+        "threshold_or_condition": "will resolve according to the minimum Arctic sea ice extent for all days between August 1, 2026 and October 1, 2026, as published by the National Snow",
+        "date_or_time_window": "between August 1, 2026 and October 1,",
+        "timezone": "",
+        "official_weather_source_candidate": "",
+        "station_or_source_hierarchy": "according to the minimum Arctic sea ice extent for all days between August 1, 2026 and October 1, 2026, as publis",
+        "fallback_source_candidate": "If this resolution source becomes unavailable, another resolution source will be chosen.",
+        "source_urls_or_references": [
+          "https://nsidc.org/sea-ice-today/sea-ice-tools"
+        ]
+      }
+    },
+    {
+      "market_id": "693872",
+      "market_slug": "will-the-minimum-arctic-sea-ice-extent-this-summer-be-between-4pt4m-4pt6m-square-kilometers",
+      "market_title_or_question": "Will the minimum Arctic sea ice extent this summer be between 4.4m & 4.6m square kilometers?",
+      "active": true,
+      "closed": false,
+      "reason": "weather_marker_but_missing_basic_fields",
+      "weather_marker_detected": true,
+      "missing_basic_fields": [
+        "location"
+      ],
+      "extracted_weather_fields": {
+        "location": "",
+        "weather_metric": "temperature",
+        "unit": "",
+        "threshold_or_condition": "will resolve according to the minimum Arctic sea ice extent for all days between August 1, 2026 and October 1, 2026, as published by the National Snow",
+        "date_or_time_window": "between August 1, 2026 and October 1,",
+        "timezone": "",
+        "official_weather_source_candidate": "",
+        "station_or_source_hierarchy": "according to the minimum Arctic sea ice extent for all days between August 1, 2026 and October 1, 2026, as publis",
+        "fallback_source_candidate": "If this resolution source becomes unavailable, another resolution source will be chosen.",
+        "source_urls_or_references": [
+          "https://nsidc.org/sea-ice-today/sea-ice-tools"
+        ]
+      }
+    },
+    {
+      "market_id": "693873",
+      "market_slug": "will-the-minimum-arctic-sea-ice-extent-this-summer-be-between-4pt6m-4pt8m-square-kilometers",
+      "market_title_or_question": "Will the minimum Arctic sea ice extent this summer be between 4.6m & 4.8m square kilometers?",
+      "active": true,
+      "closed": false,
+      "reason": "weather_marker_but_missing_basic_fields",
+      "weather_marker_detected": true,
+      "missing_basic_fields": [
+        "location"
+      ],
+      "extracted_weather_fields": {
+        "location": "",
+        "weather_metric": "temperature",
+        "unit": "",
+        "threshold_or_condition": "will resolve according to the minimum Arctic sea ice extent for all days between August 1, 2026 and October 1, 2026, as published by the National Snow",
+        "date_or_time_window": "between August 1, 2026 and October 1,",
+        "timezone": "",
+        "official_weather_source_candidate": "",
+        "station_or_source_hierarchy": "according to the minimum Arctic sea ice extent for all days between August 1, 2026 and October 1, 2026, as publis",
+        "fallback_source_candidate": "If this resolution source becomes unavailable, another resolution source will be chosen.",
+        "source_urls_or_references": [
+          "https://nsidc.org/sea-ice-today/sea-ice-tools"
+        ]
+      }
+    },
+    {
+      "market_id": "693874",
+      "market_slug": "will-the-minimum-arctic-sea-ice-extent-this-summer-be-between-4pt8m-5m-square-kilometers",
+      "market_title_or_question": "Will the minimum Arctic sea ice extent this summer be between 4.8m & 5m square kilometers?",
+      "active": true,
+      "closed": false,
+      "reason": "weather_marker_but_missing_basic_fields",
+      "weather_marker_detected": true,
+      "missing_basic_fields": [
+        "location"
+      ],
+      "extracted_weather_fields": {
+        "location": "",
+        "weather_metric": "temperature",
+        "unit": "",
+        "threshold_or_condition": "will resolve according to the minimum Arctic sea ice extent for all days between August 1, 2026 and October 1, 2026, as published by the National Snow",
+        "date_or_time_window": "between August 1, 2026 and October 1,",
+        "timezone": "",
+        "official_weather_source_candidate": "",
+        "station_or_source_hierarchy": "according to the minimum Arctic sea ice extent for all days between August 1, 2026 and October 1, 2026, as publis",
+        "fallback_source_candidate": "If this resolution source becomes unavailable, another resolution source will be chosen.",
+        "source_urls_or_references": [
+          "https://nsidc.org/sea-ice-today/sea-ice-tools"
+        ]
+      }
+    },
+    {
+      "market_id": "693875",
+      "market_slug": "will-the-minimum-arctic-sea-ice-extent-this-summer-be-at-least-5m-square-kilometers",
+      "market_title_or_question": "Will the minimum Arctic sea ice extent this summer be at least 5m square kilometers?",
+      "active": true,
+      "closed": false,
+      "reason": "weather_marker_but_missing_basic_fields",
+      "weather_marker_detected": true,
+      "missing_basic_fields": [
+        "location"
+      ],
+      "extracted_weather_fields": {
+        "location": "",
+        "weather_metric": "temperature",
+        "unit": "",
+        "threshold_or_condition": "at least 5",
+        "date_or_time_window": "between August 1, 2026 and October 1,",
+        "timezone": "",
+        "official_weather_source_candidate": "",
+        "station_or_source_hierarchy": "according to the minimum Arctic sea ice extent for all days between August 1, 2026 and October 1, 2026, as publis",
+        "fallback_source_candidate": "If this resolution source becomes unavailable, another resolution source will be chosen.",
+        "source_urls_or_references": [
+          "https://nsidc.org/sea-ice-today/sea-ice-tools"
+        ]
+      }
+    }
+  ],
+  "blocked_reason": null,
+  "no_market_action_guidance": true,
+  "safety_summary": {
+    "network_allowed_explicitly": true,
+    "public_readonly_only": true,
+    "network_calls_performed": 5,
+    "polymarket_api_calls_performed": 5,
+    "non_polymarket_public_source_calls_performed": 0,
+    "openrouter_calls_performed": 0,
+    "authenticated_endpoints_used": false,
+    "auth_headers_used": false,
+    "wallet_or_private_key_accessed": false,
+    "orders_created": false,
+    "simulated_trade_created": false,
+    "selected_side": null,
+    "stake_amount": null,
+    "position_sizing_created": false,
+    "outcome_checked": false,
+    "outcome_known": false,
+    "source_scoring_performed": false,
+    "source_ranking_updated": false,
+    "profit_or_pnl_recorded": false,
+    "trading_runtime_changed": false,
+    "dispatcher_changed": false,
+    "background_worker_created": false,
+    "queue_mutated": false,
+    "browser_automation_used": false,
+    "canonical_packets_mutated": false,
+    "market_action_guidance_generated": false,
+    "probability_ev_edge_confidence_generated": false,
+    "side_selection_generated": false,
+    "operator_review_required": true,
+    "no_trading_authority": true,
+    "no_market_action_guidance": true,
+    "ready_for_autonomous_trading": false
+  },
+  "inspected_weather_candidate_summary_count": 16,
+  "inspected_candidate_reason_counts": {
+    "no_weather_marker": 2484,
+    "weather_word_false_positive_or_sports_context": 1,
+    "weather_marker_but_missing_basic_fields": 15
+  }
+}

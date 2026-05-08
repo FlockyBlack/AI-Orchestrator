@@ -1,0 +1,86 @@
+{
+  "contract_version": "weather_operator_review_checklist_010a.v1",
+  "task_id": "PMBOT-SOURCE-010A-WEATHER-MARKET-CLASS-PILOT-READONLY-DISCOVERY",
+  "market_id": null,
+  "market_class": "weather",
+  "title_or_question": null,
+  "operator_review_required": true,
+  "planned_capture_status": "draft",
+  "auto_promote_to_ready_for_local_review": false,
+  "checklist": [
+    {
+      "check_id": "verify_exact_polymarket_rules_text",
+      "review_prompt": "Verify exact Polymarket rules text.",
+      "required": true,
+      "status": "unchecked"
+    },
+    {
+      "check_id": "verify_location",
+      "review_prompt": "Verify location.",
+      "required": true,
+      "status": "unchecked"
+    },
+    {
+      "check_id": "verify_weather_metric",
+      "review_prompt": "Verify weather metric.",
+      "required": true,
+      "status": "unchecked"
+    },
+    {
+      "check_id": "verify_unit",
+      "review_prompt": "Verify unit.",
+      "required": true,
+      "status": "unchecked"
+    },
+    {
+      "check_id": "verify_threshold_or_condition",
+      "review_prompt": "Verify threshold or condition.",
+      "required": true,
+      "status": "unchecked"
+    },
+    {
+      "check_id": "verify_date_or_time_window",
+      "review_prompt": "Verify date or time window.",
+      "required": true,
+      "status": "unchecked"
+    },
+    {
+      "check_id": "verify_timezone",
+      "review_prompt": "Verify timezone.",
+      "required": true,
+      "status": "unchecked"
+    },
+    {
+      "check_id": "verify_official_weather_source",
+      "review_prompt": "Verify official weather source.",
+      "required": true,
+      "status": "unchecked"
+    },
+    {
+      "check_id": "verify_station_or_source_hierarchy",
+      "review_prompt": "Verify station or source hierarchy.",
+      "required": true,
+      "status": "unchecked"
+    },
+    {
+      "check_id": "verify_fallback_source",
+      "review_prompt": "Verify fallback source.",
+      "required": true,
+      "status": "unchecked"
+    },
+    {
+      "check_id": "verify_source_capture_promotion_readiness",
+      "review_prompt": "Verify whether source capture can be promoted to ready_for_local_review.",
+      "required": true,
+      "status": "unchecked"
+    },
+    {
+      "check_id": "no_trading_decision",
+      "review_prompt": "No trading decision.",
+      "required": true,
+      "status": "unchecked"
+    }
+  ],
+  "no_market_action_guidance": true,
+  "no_trading_authority": true
+}
