@@ -1,0 +1,171 @@
+{
+  "schema_version": "market_class_pilot_taxonomy.v1",
+  "task_id": "PMBOT-SOURCE-008B-MARKET-CLASS-PILOT-PROTOCOL-ESPORTS-WEATHER-CRYPTO",
+  "status": "protocol_only_no_network",
+  "class_order": [
+    "esports",
+    "weather",
+    "crypto"
+  ],
+  "classes": {
+    "esports": {
+      "description": "Markets resolved by recorded esports match, map, tournament, roster, or event outcomes where the settlement source should be an official tournament, organizer, league, game publisher, or recognized match data page.",
+      "expected_resolution_source_types": [
+        "official tournament match page",
+        "official league or organizer results page",
+        "game publisher event page",
+        "recognized match statistics page when official source is unavailable"
+      ],
+      "common_resolution_risks": [
+        "forfeit or technical default wording differs from scoreboard wording",
+        "map count and match winner markets can use different settlement clauses",
+        "event pages may update after disputes or reschedules",
+        "team names, aliases, and roster labels may differ across sources",
+        "best-of format or included maps may be unclear"
+      ],
+      "required_capture_fields": [
+        "market_id",
+        "market_class",
+        "market_title_or_question",
+        "resolution_wording",
+        "event_name",
+        "game_title",
+        "team_or_player_names",
+        "match_or_event_start_time",
+        "official_source_name",
+        "official_source_reference",
+        "source_checked_at_local",
+        "captured_resolution_text",
+        "source_reliability_review",
+        "operator_notes",
+        "capture_status"
+      ],
+      "operator_review_focus": [
+        "confirm the market wording matches the exact match, map, team, and event",
+        "check whether forfeits, postponements, or map replays have special handling",
+        "verify official source identity and timestamp",
+        "record any mismatch between source names and market names",
+        "keep the capture as draft until direct operator review is complete"
+      ],
+      "future_read_only_fetch_requirements": [
+        "future fetch must be public and unauthenticated",
+        "future fetch must write raw source artifacts only",
+        "future fetch must record source URL or source label and retrieval timestamp",
+        "future fetch must not mutate canonical packets or capture templates directly",
+        "future fetch requires a separate task with explicit network approval"
+      ]
+    },
+    "weather": {
+      "description": "Markets resolved by weather observations, measurements, warnings, or station reports where the settlement source should be an official meteorological agency, station, or published dataset named by the market.",
+      "expected_resolution_source_types": [
+        "national or regional meteorological agency page",
+        "named station observation record",
+        "official warning or advisory archive",
+        "official climate or daily summary dataset"
+      ],
+      "common_resolution_risks": [
+        "station identity, timezone, and observation window may be ambiguous",
+        "measurement units and rounding rules may differ from market wording",
+        "preliminary readings can be revised",
+        "local time and UTC windows may not match",
+        "nearby stations may be mistaken for the named settlement station"
+      ],
+      "required_capture_fields": [
+        "market_id",
+        "market_class",
+        "market_title_or_question",
+        "resolution_wording",
+        "weather_location",
+        "station_or_agency_name",
+        "measurement_type",
+        "measurement_window",
+        "measurement_units",
+        "official_source_name",
+        "official_source_reference",
+        "source_checked_at_local",
+        "captured_resolution_text",
+        "source_reliability_review",
+        "operator_notes",
+        "capture_status"
+      ],
+      "operator_review_focus": [
+        "confirm the location, station, measurement type, units, and time window",
+        "check whether preliminary data can later be revised",
+        "verify local timezone handling against market wording",
+        "record any station substitutions or missing source details",
+        "keep the capture as draft until direct operator review is complete"
+      ],
+      "future_read_only_fetch_requirements": [
+        "future fetch must be public and unauthenticated",
+        "future fetch must write raw source artifacts only",
+        "future fetch must preserve agency or station identifiers",
+        "future fetch must record retrieval timestamp and observed source timestamp when available",
+        "future fetch requires a separate task with explicit network approval"
+      ]
+    },
+    "crypto": {
+      "description": "Markets resolved by cryptocurrency price, index, chain event, ETF, or exchange-published event wording where the settlement source should be the named index, exchange, chain explorer, issuer page, or official market rules text.",
+      "expected_resolution_source_types": [
+        "named price index methodology page",
+        "official exchange market data page",
+        "official chain explorer or protocol page",
+        "ETF issuer or regulatory filing page when named by the market",
+        "Polymarket rules text for exact settlement source naming"
+      ],
+      "common_resolution_risks": [
+        "price source, cutoff time, and timezone may be unclear",
+        "index methodologies can use different aggregation windows",
+        "chain reorganizations or delayed data can affect event timing",
+        "ticker symbols may refer to multiple assets or venues",
+        "market wording may depend on a named source rather than a generic price"
+      ],
+      "required_capture_fields": [
+        "market_id",
+        "market_class",
+        "market_title_or_question",
+        "resolution_wording",
+        "asset_or_event_name",
+        "named_index_or_source",
+        "settlement_time_window",
+        "measurement_units",
+        "official_source_name",
+        "official_source_reference",
+        "source_checked_at_local",
+        "captured_resolution_text",
+        "source_reliability_review",
+        "operator_notes",
+        "capture_status"
+      ],
+      "operator_review_focus": [
+        "confirm the named source, asset identifier, measurement window, and units",
+        "check whether the market depends on a specific index methodology",
+        "verify timezone and cutoff wording",
+        "record any ambiguity in ticker or venue naming",
+        "keep the capture as draft until direct operator review is complete"
+      ],
+      "future_read_only_fetch_requirements": [
+        "future fetch must be public and unauthenticated",
+        "future fetch must write raw source artifacts only",
+        "future fetch must preserve named source and timestamp metadata",
+        "future fetch must not derive market actions or mutate runtime state",
+        "future fetch requires a separate task with explicit network approval"
+      ]
+    }
+  },
+  "safety_summary": {
+    "protocol_only": true,
+    "local_only": true,
+    "network_calls_performed": 0,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "wallet_or_private_key_accessed": false,
+    "orders_created": false,
+    "runtime_wiring_changed": false,
+    "dispatcher_changed": false,
+    "background_worker_created": false,
+    "queue_mutated": false,
+    "browser_automation_used": false,
+    "canonical_packets_mutated": false,
+    "market_action_guidance_generated": false
+  }
+}

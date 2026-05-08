@@ -1,0 +1,129 @@
+{
+  "schema_version": "market_class_operator_review_contract.v1",
+  "task_id": "PMBOT-SOURCE-008B-MARKET-CLASS-PILOT-PROTOCOL-ESPORTS-WEATHER-CRYPTO",
+  "status": "protocol_only_no_network",
+  "description": "Schema for future human operator review of market-class source capture candidates.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "market_id",
+    "market_class",
+    "reviewed_by_operator",
+    "review_timestamp_local",
+    "source_identity_checked",
+    "resolution_wording_checked",
+    "class_specific_checklist",
+    "review_result",
+    "remaining_operator_questions",
+    "safety_summary"
+  ],
+  "properties": {
+    "contract_version": {
+      "const": "market_class_operator_review.v1"
+    },
+    "market_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "market_class": {
+      "enum": [
+        "esports",
+        "weather",
+        "crypto"
+      ]
+    },
+    "reviewed_by_operator": {
+      "type": "boolean"
+    },
+    "review_timestamp_local": {
+      "type": "string"
+    },
+    "source_identity_checked": {
+      "type": "boolean"
+    },
+    "resolution_wording_checked": {
+      "type": "boolean"
+    },
+    "class_specific_checklist": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "review_result": {
+      "enum": [
+        "draft_needs_more_source_work",
+        "source_capture_ready_for_local_review",
+        "reject_for_ambiguous_source",
+        "reject_for_out_of_scope_market"
+      ]
+    },
+    "remaining_operator_questions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "safety_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "operator_review_only",
+        "network_calls_performed",
+        "openrouter_calls_performed",
+        "polymarket_api_calls_performed",
+        "wallet_or_private_key_accessed",
+        "orders_created",
+        "runtime_wiring_changed",
+        "dispatcher_changed",
+        "background_worker_created",
+        "queue_mutated",
+        "browser_automation_used",
+        "canonical_packets_mutated",
+        "market_action_guidance_generated"
+      ],
+      "properties": {
+        "operator_review_only": {
+          "const": true
+        },
+        "network_calls_performed": {
+          "const": 0
+        },
+        "openrouter_calls_performed": {
+          "const": 0
+        },
+        "polymarket_api_calls_performed": {
+          "const": 0
+        },
+        "wallet_or_private_key_accessed": {
+          "const": false
+        },
+        "orders_created": {
+          "const": false
+        },
+        "runtime_wiring_changed": {
+          "const": false
+        },
+        "dispatcher_changed": {
+          "const": false
+        },
+        "background_worker_created": {
+          "const": false
+        },
+        "queue_mutated": {
+          "const": false
+        },
+        "browser_automation_used": {
+          "const": false
+        },
+        "canonical_packets_mutated": {
+          "const": false
+        },
+        "market_action_guidance_generated": {
+          "const": false
+        }
+      }
+    }
+  }
+}

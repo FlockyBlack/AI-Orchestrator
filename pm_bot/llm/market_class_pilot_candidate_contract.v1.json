@@ -1,0 +1,147 @@
+{
+  "schema_version": "market_class_pilot_candidate_contract.v1",
+  "task_id": "PMBOT-SOURCE-008B-MARKET-CLASS-PILOT-PROTOCOL-ESPORTS-WEATHER-CRYPTO",
+  "status": "protocol_only_no_network",
+  "description": "Schema for a future local market-class pilot candidate. This contract records source-capture suitability only.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "market_id",
+    "market_class",
+    "market_title_or_question",
+    "selection_reason",
+    "resolution_wording_summary",
+    "expected_official_source_type",
+    "expected_source_locator",
+    "time_horizon_bucket",
+    "operator_review_required",
+    "capture_status",
+    "safety_summary"
+  ],
+  "properties": {
+    "contract_version": {
+      "const": "market_class_pilot_candidate.v1"
+    },
+    "market_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "market_class": {
+      "enum": [
+        "esports",
+        "weather",
+        "crypto"
+      ]
+    },
+    "market_title_or_question": {
+      "type": "string",
+      "minLength": 1
+    },
+    "selection_reason": {
+      "type": "string",
+      "minLength": 1
+    },
+    "resolution_wording_summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "expected_official_source_type": {
+      "type": "string",
+      "minLength": 1
+    },
+    "expected_source_locator": {
+      "type": "string",
+      "minLength": 1
+    },
+    "time_horizon_bucket": {
+      "enum": [
+        "near_term",
+        "mid_term"
+      ]
+    },
+    "avoidance_flags": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "ambiguous_wording",
+          "meme_driven",
+          "private_person_rumor",
+          "legal_rumor",
+          "medical_rumor",
+          "missing_official_source_type"
+        ]
+      }
+    },
+    "operator_review_required": {
+      "const": true
+    },
+    "capture_status": {
+      "enum": [
+        "candidate_draft",
+        "operator_review_needed",
+        "rejected_for_pilot"
+      ]
+    },
+    "safety_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "local_only",
+        "network_calls_performed",
+        "openrouter_calls_performed",
+        "polymarket_api_calls_performed",
+        "wallet_or_private_key_accessed",
+        "orders_created",
+        "runtime_wiring_changed",
+        "dispatcher_changed",
+        "background_worker_created",
+        "queue_mutated",
+        "browser_automation_used",
+        "canonical_packets_mutated",
+        "market_action_guidance_generated"
+      ],
+      "properties": {
+        "local_only": {
+          "const": true
+        },
+        "network_calls_performed": {
+          "const": 0
+        },
+        "openrouter_calls_performed": {
+          "const": 0
+        },
+        "polymarket_api_calls_performed": {
+          "const": 0
+        },
+        "wallet_or_private_key_accessed": {
+          "const": false
+        },
+        "orders_created": {
+          "const": false
+        },
+        "runtime_wiring_changed": {
+          "const": false
+        },
+        "dispatcher_changed": {
+          "const": false
+        },
+        "background_worker_created": {
+          "const": false
+        },
+        "queue_mutated": {
+          "const": false
+        },
+        "browser_automation_used": {
+          "const": false
+        },
+        "canonical_packets_mutated": {
+          "const": false
+        },
+        "market_action_guidance_generated": {
+          "const": false
+        }
+      }
+    }
+  }
+}

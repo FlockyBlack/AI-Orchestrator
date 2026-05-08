@@ -1,0 +1,66 @@
+{
+  "schema_version": "market_class_pilot_protocol_status.v1",
+  "task_id": "PMBOT-SOURCE-008B-MARKET-CLASS-PILOT-PROTOCOL-ESPORTS-WEATHER-CRYPTO",
+  "status": "protocol_only_no_network",
+  "implemented_now": [
+    "taxonomy",
+    "selection criteria",
+    "candidate contracts",
+    "operator review contract",
+    "placeholder CLI",
+    "protocol status artifact",
+    "dry-run plan artifact"
+  ],
+  "class_order": [
+    "esports",
+    "weather",
+    "crypto"
+  ],
+  "taxonomy_path": "pm_bot/llm/market_class_pilot_taxonomy.v1.json",
+  "selection_criteria_path": "pm_bot/llm/market_class_pilot_selection_criteria.v1.json",
+  "selection_order": [
+    "esports",
+    "weather",
+    "crypto"
+  ],
+  "taxonomy_classes": [
+    "esports",
+    "weather",
+    "crypto"
+  ],
+  "current_source_state": {
+    "real_ingested_template_count": 1,
+    "draft_ingested_template_count": 1,
+    "ready_ingested_template_count": 0,
+    "future_live_002_allowed": false,
+    "readiness": "source_overlay_present_but_not_ready"
+  },
+  "future_testing_order": [
+    "esports",
+    "weather",
+    "crypto"
+  ],
+  "write_scope": "protocol_status_or_dry_run_plan_artifacts_only",
+  "fetch_performed": false,
+  "runtime_wiring_changed": false,
+  "canonical_packets_mutated": false,
+  "safety_summary": {
+    "protocol_only": true,
+    "local_only": true,
+    "network_calls_performed": 0,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "external_network_calls_performed": 0,
+    "authenticated_endpoints_used": false,
+    "wallet_or_private_key_accessed": false,
+    "orders_created": false,
+    "runtime_wiring_changed": false,
+    "dispatcher_changed": false,
+    "background_worker_created": false,
+    "queue_mutated": false,
+    "browser_automation_used": false,
+    "canonical_packets_mutated": false,
+    "market_action_guidance_generated": false,
+    "operator_review_only": true
+  }
+}

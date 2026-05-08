@@ -1,0 +1,134 @@
+{
+  "schema_version": "market_class_source_capture_candidate_contract.v1",
+  "task_id": "PMBOT-SOURCE-008B-MARKET-CLASS-PILOT-PROTOCOL-ESPORTS-WEATHER-CRYPTO",
+  "status": "protocol_only_no_network",
+  "description": "Schema for future local source-capture candidate artifacts produced after an approved read-only fetch task.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "market_id",
+    "market_class",
+    "source_capture_status",
+    "raw_artifact_reference",
+    "normalized_source_summary",
+    "official_source_name",
+    "official_source_reference",
+    "source_checked_at_local",
+    "captured_resolution_text",
+    "missing_source_questions",
+    "operator_review_required",
+    "safety_summary"
+  ],
+  "properties": {
+    "contract_version": {
+      "const": "market_class_source_capture_candidate.v1"
+    },
+    "market_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "market_class": {
+      "enum": [
+        "esports",
+        "weather",
+        "crypto"
+      ]
+    },
+    "source_capture_status": {
+      "enum": [
+        "draft",
+        "needs_operator_review",
+        "rejected_for_source_gap"
+      ]
+    },
+    "raw_artifact_reference": {
+      "type": "string",
+      "minLength": 1
+    },
+    "normalized_source_summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "official_source_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "official_source_reference": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_checked_at_local": {
+      "type": "string",
+      "minLength": 1
+    },
+    "captured_resolution_text": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_reliability_review": {
+      "type": "string"
+    },
+    "missing_source_questions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "operator_review_required": {
+      "const": true
+    },
+    "safety_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "local_only_after_fetch",
+        "openrouter_calls_performed",
+        "wallet_or_private_key_accessed",
+        "orders_created",
+        "runtime_wiring_changed",
+        "dispatcher_changed",
+        "background_worker_created",
+        "queue_mutated",
+        "browser_automation_used",
+        "canonical_packets_mutated",
+        "market_action_guidance_generated"
+      ],
+      "properties": {
+        "local_only_after_fetch": {
+          "const": true
+        },
+        "openrouter_calls_performed": {
+          "const": 0
+        },
+        "wallet_or_private_key_accessed": {
+          "const": false
+        },
+        "orders_created": {
+          "const": false
+        },
+        "runtime_wiring_changed": {
+          "const": false
+        },
+        "dispatcher_changed": {
+          "const": false
+        },
+        "background_worker_created": {
+          "const": false
+        },
+        "queue_mutated": {
+          "const": false
+        },
+        "browser_automation_used": {
+          "const": false
+        },
+        "canonical_packets_mutated": {
+          "const": false
+        },
+        "market_action_guidance_generated": {
+          "const": false
+        }
+      }
+    }
+  }
+}

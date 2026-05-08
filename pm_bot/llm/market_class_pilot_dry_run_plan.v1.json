@@ -1,0 +1,212 @@
+{
+  "schema_version": "market_class_pilot_dry_run_plan.v1",
+  "task_id": "PMBOT-SOURCE-008B-MARKET-CLASS-PILOT-PROTOCOL-ESPORTS-WEATHER-CRYPTO",
+  "status": "dry_run_planned_not_fetched",
+  "mode": "dry_run",
+  "class_order": [
+    "esports",
+    "weather",
+    "crypto"
+  ],
+  "target_classes": [
+    "esports",
+    "weather",
+    "crypto"
+  ],
+  "target_class_count": 3,
+  "class_plans": [
+    {
+      "market_class": "esports",
+      "status": "planned_not_fetched",
+      "candidate_count": 0,
+      "future_candidate_contract": "pm_bot/llm/market_class_pilot_candidate_contract.v1.json",
+      "future_source_capture_candidate_contract": "pm_bot/llm/market_class_source_capture_candidate_contract.v1.json",
+      "future_operator_review_contract": "pm_bot/llm/market_class_operator_review_contract.v1.json",
+      "selection_checks": [
+        "clear_resolution_wording",
+        "identifiable_official_source",
+        "near_or_mid_term_market",
+        "avoid_ambiguous_or_sensitive_markets"
+      ],
+      "required_capture_fields": [
+        "market_id",
+        "market_class",
+        "market_title_or_question",
+        "resolution_wording",
+        "event_name",
+        "game_title",
+        "team_or_player_names",
+        "match_or_event_start_time",
+        "official_source_name",
+        "official_source_reference",
+        "source_checked_at_local",
+        "captured_resolution_text",
+        "source_reliability_review",
+        "operator_notes",
+        "capture_status"
+      ],
+      "operator_review_focus": [
+        "confirm the market wording matches the exact match, map, team, and event",
+        "check whether forfeits, postponements, or map replays have special handling",
+        "verify official source identity and timestamp",
+        "record any mismatch between source names and market names",
+        "keep the capture as draft until direct operator review is complete"
+      ],
+      "future_read_only_fetch_requirements": [
+        "future fetch must be public and unauthenticated",
+        "future fetch must write raw source artifacts only",
+        "future fetch must record source URL or source label and retrieval timestamp",
+        "future fetch must not mutate canonical packets or capture templates directly",
+        "future fetch requires a separate task with explicit network approval"
+      ],
+      "network_calls_performed": 0,
+      "openrouter_calls_performed": 0,
+      "polymarket_api_calls_performed": 0,
+      "canonical_packets_mutated": false,
+      "operator_review_required": true,
+      "market_action_guidance_generated": false
+    },
+    {
+      "market_class": "weather",
+      "status": "planned_not_fetched",
+      "candidate_count": 0,
+      "future_candidate_contract": "pm_bot/llm/market_class_pilot_candidate_contract.v1.json",
+      "future_source_capture_candidate_contract": "pm_bot/llm/market_class_source_capture_candidate_contract.v1.json",
+      "future_operator_review_contract": "pm_bot/llm/market_class_operator_review_contract.v1.json",
+      "selection_checks": [
+        "clear_resolution_wording",
+        "identifiable_official_source",
+        "near_or_mid_term_market",
+        "avoid_ambiguous_or_sensitive_markets"
+      ],
+      "required_capture_fields": [
+        "market_id",
+        "market_class",
+        "market_title_or_question",
+        "resolution_wording",
+        "weather_location",
+        "station_or_agency_name",
+        "measurement_type",
+        "measurement_window",
+        "measurement_units",
+        "official_source_name",
+        "official_source_reference",
+        "source_checked_at_local",
+        "captured_resolution_text",
+        "source_reliability_review",
+        "operator_notes",
+        "capture_status"
+      ],
+      "operator_review_focus": [
+        "confirm the location, station, measurement type, units, and time window",
+        "check whether preliminary data can later be revised",
+        "verify local timezone handling against market wording",
+        "record any station substitutions or missing source details",
+        "keep the capture as draft until direct operator review is complete"
+      ],
+      "future_read_only_fetch_requirements": [
+        "future fetch must be public and unauthenticated",
+        "future fetch must write raw source artifacts only",
+        "future fetch must preserve agency or station identifiers",
+        "future fetch must record retrieval timestamp and observed source timestamp when available",
+        "future fetch requires a separate task with explicit network approval"
+      ],
+      "network_calls_performed": 0,
+      "openrouter_calls_performed": 0,
+      "polymarket_api_calls_performed": 0,
+      "canonical_packets_mutated": false,
+      "operator_review_required": true,
+      "market_action_guidance_generated": false
+    },
+    {
+      "market_class": "crypto",
+      "status": "planned_not_fetched",
+      "candidate_count": 0,
+      "future_candidate_contract": "pm_bot/llm/market_class_pilot_candidate_contract.v1.json",
+      "future_source_capture_candidate_contract": "pm_bot/llm/market_class_source_capture_candidate_contract.v1.json",
+      "future_operator_review_contract": "pm_bot/llm/market_class_operator_review_contract.v1.json",
+      "selection_checks": [
+        "clear_resolution_wording",
+        "identifiable_official_source",
+        "near_or_mid_term_market",
+        "avoid_ambiguous_or_sensitive_markets"
+      ],
+      "required_capture_fields": [
+        "market_id",
+        "market_class",
+        "market_title_or_question",
+        "resolution_wording",
+        "asset_or_event_name",
+        "named_index_or_source",
+        "settlement_time_window",
+        "measurement_units",
+        "official_source_name",
+        "official_source_reference",
+        "source_checked_at_local",
+        "captured_resolution_text",
+        "source_reliability_review",
+        "operator_notes",
+        "capture_status"
+      ],
+      "operator_review_focus": [
+        "confirm the named source, asset identifier, measurement window, and units",
+        "check whether the market depends on a specific index methodology",
+        "verify timezone and cutoff wording",
+        "record any ambiguity in ticker or venue naming",
+        "keep the capture as draft until direct operator review is complete"
+      ],
+      "future_read_only_fetch_requirements": [
+        "future fetch must be public and unauthenticated",
+        "future fetch must write raw source artifacts only",
+        "future fetch must preserve named source and timestamp metadata",
+        "future fetch must not derive market actions or mutate runtime state",
+        "future fetch requires a separate task with explicit network approval"
+      ],
+      "network_calls_performed": 0,
+      "openrouter_calls_performed": 0,
+      "polymarket_api_calls_performed": 0,
+      "canonical_packets_mutated": false,
+      "operator_review_required": true,
+      "market_action_guidance_generated": false
+    }
+  ],
+  "future_pipeline_not_executed": true,
+  "fetch_performed": false,
+  "write_scope": "dry_run_plan_artifacts_only",
+  "current_source_state": {
+    "real_ingested_template_count": 1,
+    "draft_ingested_template_count": 1,
+    "ready_ingested_template_count": 0,
+    "future_live_002_allowed": false,
+    "readiness": "source_overlay_present_but_not_ready"
+  },
+  "safety_summary": {
+    "protocol_only": true,
+    "local_only": true,
+    "network_calls_performed": 0,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "external_network_calls_performed": 0,
+    "authenticated_endpoints_used": false,
+    "wallet_or_private_key_accessed": false,
+    "orders_created": false,
+    "runtime_wiring_changed": false,
+    "dispatcher_changed": false,
+    "background_worker_created": false,
+    "queue_mutated": false,
+    "browser_automation_used": false,
+    "canonical_packets_mutated": false,
+    "market_action_guidance_generated": false,
+    "operator_review_only": true
+  },
+  "validation": {
+    "validator_status": "passed",
+    "errors": [],
+    "candidate_count": 0,
+    "network_calls_performed": 0,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "canonical_packets_mutated": false,
+    "operator_review_required": true
+  }
+}

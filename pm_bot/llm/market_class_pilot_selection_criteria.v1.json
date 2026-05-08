@@ -1,0 +1,60 @@
+{
+  "schema_version": "market_class_pilot_selection_criteria.v1",
+  "task_id": "PMBOT-SOURCE-008B-MARKET-CLASS-PILOT-PROTOCOL-ESPORTS-WEATHER-CRYPTO",
+  "status": "protocol_only_no_network",
+  "selection_order": [
+    "esports",
+    "weather",
+    "crypto"
+  ],
+  "criteria": [
+    {
+      "criterion_id": "clear_resolution_wording",
+      "label": "prefer clear resolution wording",
+      "operator_check": "Market wording should clearly name the event, source concept, measurement, and settlement condition before pilot selection."
+    },
+    {
+      "criterion_id": "identifiable_official_source",
+      "label": "prefer identifiable official source",
+      "operator_check": "A future operator should be able to name the likely official source type before any network fetch is attempted."
+    },
+    {
+      "criterion_id": "near_or_mid_term_market",
+      "label": "prefer near/mid-term markets",
+      "operator_check": "First pilots should avoid distant or stale markets where source pages and wording are more likely to drift."
+    },
+    {
+      "criterion_id": "avoid_ambiguous_or_sensitive_markets",
+      "label": "avoid ambiguous/meme/private-person/legal/medical rumor-driven markets for first pilots",
+      "operator_check": "First pilots should avoid markets driven by vague memes, private-person rumors, legal allegations, medical claims, or hard-to-verify informal sources."
+    },
+    {
+      "criterion_id": "pilot_order",
+      "label": "order: esports, weather, crypto",
+      "operator_check": "Future pilot testing should run esports first, weather second, and crypto third."
+    }
+  ],
+  "excluded_first_pilot_market_types": [
+    "ambiguous meme markets",
+    "private-person rumor markets",
+    "legal rumor markets",
+    "medical rumor markets",
+    "markets without an identifiable official source type"
+  ],
+  "safety_summary": {
+    "protocol_only": true,
+    "local_only": true,
+    "network_calls_performed": 0,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "wallet_or_private_key_accessed": false,
+    "orders_created": false,
+    "runtime_wiring_changed": false,
+    "dispatcher_changed": false,
+    "background_worker_created": false,
+    "queue_mutated": false,
+    "browser_automation_used": false,
+    "canonical_packets_mutated": false,
+    "market_action_guidance_generated": false
+  }
+}
