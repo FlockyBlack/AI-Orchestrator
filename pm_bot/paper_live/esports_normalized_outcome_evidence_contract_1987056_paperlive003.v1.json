@@ -1,0 +1,30 @@
+{
+  "contract_version": "esports_normalized_outcome_evidence_contract.paperlive003.v1",
+  "task_id": "PMBOT-PAPERLIVE-003-ESPORTS-READONLY-OUTCOME-CHECK-PROTOCOL-NO-TRADE",
+  "generated_by": "pm_bot/paper_live/esports_readonly_outcome_check_protocol.py",
+  "market_id": "1987056",
+  "market_class": "esports",
+  "outcome_evidence_status": "contract_defined_not_populated",
+  "outcome_known": false,
+  "result_source_type": null,
+  "result_source_name": null,
+  "result_source_reference": null,
+  "match_identity_confirmed": false,
+  "teams_or_players_confirmed": false,
+  "tournament_confirmed": false,
+  "match_format_confirmed": false,
+  "final_result_text": null,
+  "result_timestamp": null,
+  "cancellation_or_forfeit_detected": null,
+  "reschedule_detected": null,
+  "contradiction_flags": [],
+  "unresolved_questions": [
+    "No outcome source has been fetched in PAPERLIVE-003.",
+    "Future PAPERLIVE-004 needs explicit public read-only network approval.",
+    "Operator review is required before outcome reconciliation."
+  ],
+  "operator_review_required": true,
+  "source_alignment_review_required": true,
+  "no_market_action_guidance": true,
+  "no_trading_authority": true
+}
