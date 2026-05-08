@@ -1,0 +1,62 @@
+{
+  "contract_version": "esports_operator_review_checklist_009a.v1",
+  "task_id": "PMBOT-SOURCE-009A-ESPORTS-MARKET-CLASS-PILOT-READONLY-DISCOVERY",
+  "market_id": "1987056",
+  "market_class": "esports",
+  "title_or_question": "LoL: JD Gaming vs Anyone's Legend (BO5) - Esports World Cup China Qualifier Phase 2",
+  "operator_review_required": true,
+  "planned_capture_status": "draft",
+  "auto_promote_to_ready_for_local_review": false,
+  "checklist": [
+    {
+      "check_id": "verify_exact_polymarket_rules_text",
+      "review_prompt": "Verify exact Polymarket rules text.",
+      "required": true,
+      "status": "unchecked"
+    },
+    {
+      "check_id": "verify_match_tournament_game_identity",
+      "review_prompt": "Verify match, tournament, and game identity.",
+      "required": true,
+      "status": "unchecked"
+    },
+    {
+      "check_id": "verify_teams_or_players",
+      "review_prompt": "Verify teams or players.",
+      "required": true,
+      "status": "unchecked"
+    },
+    {
+      "check_id": "verify_official_result_source",
+      "review_prompt": "Verify official result source.",
+      "required": true,
+      "status": "unchecked"
+    },
+    {
+      "check_id": "verify_cancellation_reschedule_forfeit_handling",
+      "review_prompt": "Verify cancellation, reschedule, forfeit, walkover, and delay handling.",
+      "required": true,
+      "status": "unchecked"
+    },
+    {
+      "check_id": "verify_timezone_deadline",
+      "review_prompt": "Verify timezone and deadline.",
+      "required": true,
+      "status": "unchecked"
+    },
+    {
+      "check_id": "verify_source_capture_promotion_readiness",
+      "review_prompt": "Verify whether source capture can be promoted to ready_for_local_review.",
+      "required": true,
+      "status": "unchecked"
+    },
+    {
+      "check_id": "no_trading_decision",
+      "review_prompt": "No trading decision.",
+      "required": true,
+      "status": "unchecked"
+    }
+  ],
+  "no_market_action_guidance": true,
+  "no_trading_authority": true
+}

@@ -1,0 +1,54 @@
+{
+  "schema_version": "source_quality_ledger_protocol.v1",
+  "task_id": "PMBOT-SOURCE-009A-ESPORTS-MARKET-CLASS-PILOT-READONLY-DISCOVERY",
+  "status": "protocol_only_no_trading_performance_learning",
+  "purpose": "Define a future ledger for tracking source usefulness for resolution and source-capture quality only.",
+  "allowed_future_fields": [
+    "source_id",
+    "source_type",
+    "market_class",
+    "markets_used_count",
+    "resolved_markets_count",
+    "resolution_alignment_count",
+    "misleading_count",
+    "timeliness_notes",
+    "source_reliability_notes",
+    "operator_review_notes"
+  ],
+  "forbidden_future_uses": [
+    "no trade profit as sole source quality score",
+    "no buy or sell recommendation",
+    "no edge, EV, probability, or confidence scoring",
+    "no side selection",
+    "no autonomous execution authority",
+    "no wallet or order authority"
+  ],
+  "source_quality_principles": [
+    "A source should not be rewarded merely because a trade was profitable.",
+    "A source should be reviewed for alignment with final resolution outcomes.",
+    "A source should be reviewed for timeliness relative to resolution/source capture needs.",
+    "A source should be reviewed according to official/source hierarchy.",
+    "A source should be reviewed for contradiction rate and misleading history.",
+    "A source should be reviewed for usefulness in rules/source capture and operator review."
+  ],
+  "future_scoring_inputs_allowed": [
+    "resolution alignment",
+    "timeliness",
+    "official/source hierarchy",
+    "contradiction rate",
+    "usefulness for rules/source capture",
+    "operator review usefulness"
+  ],
+  "safety_summary": {
+    "protocol_only": true,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "authenticated_endpoints_used": false,
+    "wallet_or_private_key_accessed": false,
+    "orders_created": false,
+    "market_action_guidance_generated": false,
+    "probability_ev_edge_confidence_generated": false,
+    "side_selection_generated": false,
+    "autonomous_execution_authority": false
+  }
+}

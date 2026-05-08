@@ -1,0 +1,33 @@
+{
+  "schema_version": "esports_market_normalized_candidate_009a.v1",
+  "task_id": "PMBOT-SOURCE-009A-ESPORTS-MARKET-CLASS-PILOT-READONLY-DISCOVERY",
+  "market_id": "1987056",
+  "market_class": "esports",
+  "title_or_question": "LoL: JD Gaming vs Anyone's Legend (BO5) - Esports World Cup China Qualifier Phase 2",
+  "description": "This market refers to the LoL Upper bracket final match between JD Gaming and Anyone's Legend in the Esports World Cup China Qualifier Phase 2, initially scheduled for May 21 at 4:00AM ET.\n\nThis market will resolve to \"JD Gaming\" if JD Gaming win the match against Anyone's Legend.\n\nThis market will resolve to \"Anyone's Legend\" if Anyone's Legend win the match against JD Gaming.\n\nIf the match is canceled (not played at all), ends in a tie, or is delayed beyond 7 days from the scheduled date without a winner determined, this market will resolve to 50-50. \n\nIf the match begins but is not completed, and one team wins due to the opponent's forfeiture, disqualification, or walkover, this market will resolve to the team who wins. \n\nIf the match ends in a forfeit, disqualification, or walkover (team withdraws before the start and the other wins automatically), this market will resolve to 50-50. \n\nThe resolution source for this market will be official information from https://gol.gg/esports/home. However, if https://gol.gg/esports/home has not published final results within 2 hours after the event\u2019s conclusion, a consensus of credible reporting may be used instead including video evidence.\n\nIn cases where a team\u2019s listed name includes minor discrepancies from the resolution source, this market will resolve based on the underlying real-world match rather than exact name matching. Recognizable abbreviations, alternate or erroneous spellings, sponsor tags, affiliate or academy designations, regional identifiers, and minor formatting differences will be treated as referring to the same team, provided the intended team can be clearly and uniquely identified within the relevant competition. If a listed team name has no reasonable connection to any participating team, or if it matches or could reasonably refer to another team in the same competition such that the intended team cannot be unambiguously determined, this market will resolve 50-50.",
+  "rules_text": "This market refers to the LoL Upper bracket final match between JD Gaming and Anyone's Legend in the Esports World Cup China Qualifier Phase 2, initially scheduled for May 21 at 4:00AM ET.\n\nThis market will resolve to \"JD Gaming\" if JD Gaming win the match against Anyone's Legend.\n\nThis market will resolve to \"Anyone's Legend\" if Anyone's Legend win the match against JD Gaming.\n\nIf the match is canceled (not played at all), ends in a tie, or is delayed beyond 7 days from the scheduled date without a winner determined, this market will resolve to 50-50. \n\nIf the match begins but is not completed, and one team wins due to the opponent's forfeiture, disqualification, or walkover, this market will resolve to the team who wins. \n\nIf the match ends in a forfeit, disqualification, or walkover (team withdraws before the start and the other wins automatically), this market will resolve to 50-50. \n\nThe resolution source for this market will be official information from https://gol.gg/esports/home. However, if https://gol.gg/esports/home has not published final results within 2 hours after the event\u2019s conclusion, a consensus of credible reporting may be used instead including video evidence.\n\nIn cases where a team\u2019s listed name includes minor discrepancies from the resolution source, this market will resolve based on the underlying real-world match rather than exact name matching. Recognizable abbreviations, alternate or erroneous spellings, sponsor tags, affiliate or academy designations, regional identifiers, and minor formatting differences will be treated as referring to the same team, provided the intended team can be clearly and uniquely identified within the relevant competition. If a listed team name has no reasonable connection to any participating team, or if it matches or could reasonably refer to another team in the same competition such that the intended team cannot be unambiguously determined, this market will resolve 50-50.",
+  "resolution_source_text": "https://gol.gg/esports/home",
+  "outcomes": [
+    "JD Gaming",
+    "Anyone's Legend"
+  ],
+  "event_or_tournament": "Esports World Cup / China Qualifier / Phase 2",
+  "teams_or_players": [
+    "JD Gaming",
+    "Anyone's Legend"
+  ],
+  "game_title": "League of Legends",
+  "scheduled_time_if_available": "2026-05-21T09:00:00Z",
+  "source_urls_or_references": [
+    "https://gol.gg/esports/home"
+  ],
+  "unresolved_source_questions": [
+    "Operator must verify cancellation, reschedule, forfeit, and walkover handling."
+  ],
+  "missing_fields": [],
+  "operator_review_required": true,
+  "planned_capture_status": "draft",
+  "auto_promote_to_ready_for_local_review": false,
+  "no_market_action_guidance": true,
+  "no_trading_authority": true
+}
