@@ -1,0 +1,157 @@
+{
+  "task_id": "PMBOT-SOURCE-006-POST-CAPTURE-READINESS-AND-BATCH-GATE-REFRESH",
+  "status": "completed_local_validation_pending_commit",
+  "head_before": "97e72f99a9202e5ea44b98a8df1dd2523fcef5c3",
+  "head_after": "reported_in_final_response_after_commit",
+  "head_after_note": "A committed result artifact cannot contain its own final commit hash; the final executor response reports the pushed head.",
+  "pushed": false,
+  "openrouter_calls_performed": 0,
+  "polymarket_api_calls_performed": 0,
+  "external_network_calls_performed": 0,
+  "source_006_readiness_created": true,
+  "post_capture_gate_created": true,
+  "real_filled_template_count": 0,
+  "real_ingested_template_count": 0,
+  "sandbox_example_count": 1,
+  "live_readonly_api_discovery_readiness": "not_ready",
+  "blocker_reasons": [
+    "no real manually filled source capture templates",
+    "no real manually ingested source capture templates",
+    "no explicit operator override document exists"
+  ],
+  "workbench_artifacts_mutated": false,
+  "canonical_packets_mutated": false,
+  "queue_mutated": false,
+  "runtime_wiring_changed": false,
+  "dispatcher_changed": false,
+  "tests_run": [
+    {
+      "command": "python -m compileall pm_bot",
+      "status": "passed"
+    },
+    {
+      "command": "pytest pm_bot\\llm\\tests -q",
+      "status": "passed",
+      "summary": "203 passed"
+    },
+    {
+      "command": "pytest pm_bot\\workbench\\tests -q",
+      "status": "passed",
+      "summary": "46 passed"
+    },
+    {
+      "command": "pytest tests\\test_manual_resolution_source_capture_ingest.py -q",
+      "status": "passed",
+      "summary": "8 passed"
+    },
+    {
+      "command": "pytest tests\\test_post_capture_readiness.py -q",
+      "status": "passed",
+      "summary": "5 passed"
+    },
+    {
+      "command": "pytest tests\\test_live_readonly_protocol_boundaries.py -q",
+      "status": "passed",
+      "summary": "5 passed"
+    },
+    {
+      "command": "pytest tests -q",
+      "status": "passed",
+      "summary": "204 passed"
+    },
+    {
+      "command": "python -m pm_bot.llm.manual_resolution_source_capture_validator --write",
+      "status": "passed",
+      "summary": "14 valid, 0 invalid"
+    },
+    {
+      "command": "python -m pm_bot.llm.manual_resolution_source_capture_validator --summary-only",
+      "status": "passed",
+      "summary": "14 valid, 0 invalid"
+    },
+    {
+      "command": "python -m pm_bot.llm.manual_resolution_source_capture_validator --strict-ready --summary-only",
+      "status": "passed",
+      "summary": "14 valid, 0 invalid"
+    },
+    {
+      "command": "python -m pm_bot.llm.ingest_manual_resolution_source_capture --dry-run --summary-only",
+      "status": "passed",
+      "summary": "pending_manual_operator_filled_template"
+    },
+    {
+      "command": "python -m pm_bot.llm.ingest_manual_resolution_source_capture --write --summary-only",
+      "status": "passed",
+      "summary": "0 real filled, 0 real ingested"
+    },
+    {
+      "command": "python -m pm_bot.llm.export_post_capture_readiness --write",
+      "status": "passed",
+      "summary": "not_ready with no real filled templates"
+    },
+    {
+      "command": "python -m pm_bot.live_readonly.polymarket_readonly_discovery --protocol-only",
+      "status": "passed",
+      "summary": "protocol_only_no_network"
+    },
+    {
+      "command": "JSON parse checks for new/changed JSON artifacts",
+      "status": "passed",
+      "summary": "12 JSON files parsed"
+    },
+    {
+      "command": "Public Markdown safety scan for new/changed Markdown artifacts",
+      "status": "passed",
+      "summary": "13 Markdown files scanned"
+    },
+    {
+      "command": "Changed-file secret scan",
+      "status": "passed",
+      "summary": "32 files scanned; no secret values found"
+    }
+  ],
+  "files_created": [
+    "pm_bot/llm/post_capture_readiness_report.v1.json",
+    "pm_bot/llm/post_capture_readiness_report.v1.md",
+    "pm_bot/llm/post_capture_batch_readiness_gate.v1.json",
+    "pm_bot/llm/post_capture_batch_readiness_gate.v1.md",
+    "docs/PMBOT_SOURCE_006_RESULT.json",
+    "docs/PMBOT_SOURCE_006_POST_CAPTURE_READINESS_AND_BATCH_GATE_REFRESH.md"
+  ],
+  "files_modified": [
+    "pm_bot/llm/export_post_capture_readiness.py"
+  ],
+  "next_recommended_action": "Fill one real capture template with required source fields from manual local review.",
+  "safety_summary": {
+    "no_market_action_guidance": true,
+    "operator_review_only": true,
+    "no_trading_authority": true,
+    "no_queue_authority": true,
+    "no_runtime_authority": true,
+    "no_wallet_or_order_authority": true,
+    "local_only": true,
+    "passive_context_only": true,
+    "manual_review_only": true,
+    "analysis_only": true,
+    "no_dispatcher_authority": true,
+    "no_browser_automation": true,
+    "no_probability_ev_edge_confidence_side_selection": true,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "external_network_calls_performed": 0,
+    "network_calls_performed": 0,
+    "api_key_accessed": false,
+    "api_key_value_printed": false,
+    "api_key_value_written": false,
+    "api_key_leaked": false,
+    "wallet_or_private_key_accessed": false,
+    "orders_created": 0,
+    "queue_items_created": 0,
+    "queue_state_mutated": false,
+    "runtime_wiring_added": false,
+    "dispatcher_changed": false,
+    "background_workers_added": false,
+    "browser_automation_used": false,
+    "market_decisions_made": false
+  }
+}

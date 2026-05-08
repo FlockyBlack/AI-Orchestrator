@@ -1,0 +1,218 @@
+{
+  "schema_version": "manual_resolution_source_capture_ingest_manifest.v1",
+  "task_id": "PMBOT-SOURCE-005-MANUAL-CAPTURE-INGEST-FROM-FILLED-TEMPLATES",
+  "generated_by": "pm_bot/llm/ingest_manual_resolution_source_capture.py",
+  "status": "manual_capture_ingest_manifest_created",
+  "capture_dir": "pm_bot/llm/manual_resolution_source_capture",
+  "example_dir": "pm_bot/llm/manual_resolution_source_capture_examples",
+  "total_real_template_count": 14,
+  "real_filled_template_count": 0,
+  "real_ingested_template_count": 0,
+  "sandbox_example_count": 1,
+  "skipped_empty_count": 14,
+  "skipped_placeholder_count": 0,
+  "skipped_example_count": 1,
+  "capture_status_counts": {
+    "not_started": 14,
+    "draft": 0,
+    "ready_for_local_review": 0,
+    "reviewed": 0,
+    "needs_revision": 0
+  },
+  "allowed_statuses": [
+    "ready_for_local_review",
+    "reviewed"
+  ],
+  "include_drafts": false,
+  "strict_ready": false,
+  "required_ingest_fields": [
+    "full_market_resolution_criteria_text",
+    "full_resolution_rules",
+    "official_source_references",
+    "official_source_urls_or_rule_references",
+    "source_timestamps",
+    "source_reliability_review",
+    "reviewed_local_evidence_references",
+    "non_placeholder_evidence_notes"
+  ],
+  "eligible_market_ids": [],
+  "skipped_templates": [
+    {
+      "path": "pm_bot/llm/manual_resolution_source_capture/563650_resolution_source_capture.v1.json",
+      "market_id": "563650",
+      "source_capture_status": "not_started",
+      "capture_status": "not_started",
+      "eligible_for_ingest": false,
+      "skip_reason": "not_started_or_empty_template",
+      "missing_required_source_fields": [],
+      "placeholder_required_source_fields": []
+    },
+    {
+      "path": "pm_bot/llm/manual_resolution_source_capture/569332_resolution_source_capture.v1.json",
+      "market_id": "569332",
+      "source_capture_status": "not_started",
+      "capture_status": "not_started",
+      "eligible_for_ingest": false,
+      "skip_reason": "not_started_or_empty_template",
+      "missing_required_source_fields": [],
+      "placeholder_required_source_fields": []
+    },
+    {
+      "path": "pm_bot/llm/manual_resolution_source_capture/569333_resolution_source_capture.v1.json",
+      "market_id": "569333",
+      "source_capture_status": "not_started",
+      "capture_status": "not_started",
+      "eligible_for_ingest": false,
+      "skip_reason": "not_started_or_empty_template",
+      "missing_required_source_fields": [],
+      "placeholder_required_source_fields": []
+    },
+    {
+      "path": "pm_bot/llm/manual_resolution_source_capture/569334_resolution_source_capture.v1.json",
+      "market_id": "569334",
+      "source_capture_status": "not_started",
+      "capture_status": "not_started",
+      "eligible_for_ingest": false,
+      "skip_reason": "not_started_or_empty_template",
+      "missing_required_source_fields": [],
+      "placeholder_required_source_fields": []
+    },
+    {
+      "path": "pm_bot/llm/manual_resolution_source_capture/569343_resolution_source_capture.v1.json",
+      "market_id": "569343",
+      "source_capture_status": "not_started",
+      "capture_status": "not_started",
+      "eligible_for_ingest": false,
+      "skip_reason": "not_started_or_empty_template",
+      "missing_required_source_fields": [],
+      "placeholder_required_source_fields": []
+    },
+    {
+      "path": "pm_bot/llm/manual_resolution_source_capture/569344_resolution_source_capture.v1.json",
+      "market_id": "569344",
+      "source_capture_status": "not_started",
+      "capture_status": "not_started",
+      "eligible_for_ingest": false,
+      "skip_reason": "not_started_or_empty_template",
+      "missing_required_source_fields": [],
+      "placeholder_required_source_fields": []
+    },
+    {
+      "path": "pm_bot/llm/manual_resolution_source_capture/569366_resolution_source_capture.v1.json",
+      "market_id": "569366",
+      "source_capture_status": "not_started",
+      "capture_status": "not_started",
+      "eligible_for_ingest": false,
+      "skip_reason": "not_started_or_empty_template",
+      "missing_required_source_fields": [],
+      "placeholder_required_source_fields": []
+    },
+    {
+      "path": "pm_bot/llm/manual_resolution_source_capture/569368_resolution_source_capture.v1.json",
+      "market_id": "569368",
+      "source_capture_status": "not_started",
+      "capture_status": "not_started",
+      "eligible_for_ingest": false,
+      "skip_reason": "not_started_or_empty_template",
+      "missing_required_source_fields": [],
+      "placeholder_required_source_fields": []
+    },
+    {
+      "path": "pm_bot/llm/manual_resolution_source_capture/569373_resolution_source_capture.v1.json",
+      "market_id": "569373",
+      "source_capture_status": "not_started",
+      "capture_status": "not_started",
+      "eligible_for_ingest": false,
+      "skip_reason": "not_started_or_empty_template",
+      "missing_required_source_fields": [],
+      "placeholder_required_source_fields": []
+    },
+    {
+      "path": "pm_bot/llm/manual_resolution_source_capture/573656_resolution_source_capture.v1.json",
+      "market_id": "573656",
+      "source_capture_status": "not_started",
+      "capture_status": "not_started",
+      "eligible_for_ingest": false,
+      "skip_reason": "not_started_or_empty_template",
+      "missing_required_source_fields": [],
+      "placeholder_required_source_fields": []
+    },
+    {
+      "path": "pm_bot/llm/manual_resolution_source_capture/597964_resolution_source_capture.v1.json",
+      "market_id": "597964",
+      "source_capture_status": "not_started",
+      "capture_status": "not_started",
+      "eligible_for_ingest": false,
+      "skip_reason": "not_started_or_empty_template",
+      "missing_required_source_fields": [],
+      "placeholder_required_source_fields": []
+    },
+    {
+      "path": "pm_bot/llm/manual_resolution_source_capture/598936_resolution_source_capture.v1.json",
+      "market_id": "598936",
+      "source_capture_status": "not_started",
+      "capture_status": "not_started",
+      "eligible_for_ingest": false,
+      "skip_reason": "not_started_or_empty_template",
+      "missing_required_source_fields": [],
+      "placeholder_required_source_fields": []
+    },
+    {
+      "path": "pm_bot/llm/manual_resolution_source_capture/691547_resolution_source_capture.v1.json",
+      "market_id": "691547",
+      "source_capture_status": "not_started",
+      "capture_status": "not_started",
+      "eligible_for_ingest": false,
+      "skip_reason": "not_started_or_empty_template",
+      "missing_required_source_fields": [],
+      "placeholder_required_source_fields": []
+    },
+    {
+      "path": "pm_bot/llm/manual_resolution_source_capture/692258_resolution_source_capture.v1.json",
+      "market_id": "692258",
+      "source_capture_status": "not_started",
+      "capture_status": "not_started",
+      "eligible_for_ingest": false,
+      "skip_reason": "not_started_or_empty_template",
+      "missing_required_source_fields": [],
+      "placeholder_required_source_fields": []
+    }
+  ],
+  "sandbox_example_paths": [
+    "pm_bot/llm/manual_resolution_source_capture_examples/example_filled_capture.v1.json"
+  ],
+  "overlay_path": "pm_bot/llm/manual_resolution_source_capture_ingested_overlay.v1.json",
+  "canonical_packets_mutated": false,
+  "safety_summary": {
+    "no_market_action_guidance": true,
+    "operator_review_only": true,
+    "no_trading_authority": true,
+    "no_queue_authority": true,
+    "no_runtime_authority": true,
+    "no_wallet_or_order_authority": true,
+    "local_only": true,
+    "passive_context_only": true,
+    "manual_review_only": true,
+    "analysis_only": true,
+    "no_dispatcher_authority": true,
+    "no_browser_automation": true,
+    "no_probability_ev_edge_confidence_side_selection": true,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "external_network_calls_performed": 0,
+    "network_calls_performed": 0,
+    "api_key_accessed": false,
+    "api_key_value_printed": false,
+    "api_key_value_written": false,
+    "api_key_leaked": false,
+    "wallet_or_private_key_accessed": false,
+    "orders_created": 0,
+    "queue_items_created": 0,
+    "queue_state_mutated": false,
+    "runtime_wiring_added": false,
+    "dispatcher_changed": false,
+    "background_workers_added": false,
+    "browser_automation_used": false,
+    "market_decisions_made": false
+  }
+}

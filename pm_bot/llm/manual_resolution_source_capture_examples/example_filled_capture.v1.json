@@ -1,0 +1,80 @@
+{
+  "contract_version": "manual_resolution_source_capture_example.v1",
+  "schema_version": "manual_resolution_source_capture_schema.v1",
+  "task_id": "PMBOT-SOURCE-004C-SANDBOX-MANUAL-CAPTURE-FILL-WORKFLOW",
+  "generated_by": "static_sandbox_example",
+  "market_id": "example_source_004c_sandbox",
+  "category": "sandbox/example",
+  "market_title_or_question": "Fictional local event source capture example",
+  "source_capture_status": "ready_for_local_review",
+  "capture_status": "ready_for_local_review",
+  "example_only": true,
+  "sandbox_only": true,
+  "not_real_market_data": true,
+  "not_for_ingest_as_real_source": true,
+  "analysis_only": true,
+  "operator_review_only": true,
+  "no_trading_authority": true,
+  "no_queue_authority": true,
+  "no_runtime_authority": true,
+  "no_wallet_or_order_authority": true,
+  "no_market_action_guidance": true,
+  "full_market_resolution_criteria_text": "Fictional example criteria: this sandbox record demonstrates where a local operator would put complete resolution criteria for a non-real event. It is not evidence for any real market.",
+  "full_resolution_rules": "Fictional example rules: use only the named mock rule document, the mock cutoff timestamp, and the mock source label. This text demonstrates shape only.",
+  "official_source_references": [
+    "Example Official Rule Document (sandbox)"
+  ],
+  "official_source_urls_or_rule_references": [
+    "example-rule-reference://sandbox/local-rule-section-1"
+  ],
+  "source_timestamps": [
+    {
+      "source_label": "Example Official Rule Document (sandbox)",
+      "checked_at_local": "2026-05-08T00:00:00+04:00",
+      "timestamp_type": "sandbox_example"
+    }
+  ],
+  "source_reliability_review": "Sandbox-only reliability note. The source label is fictional and demonstrates format only; it carries no real source claim.",
+  "reviewed_local_evidence_references": [
+    "pm_bot/llm/manual_resolution_source_capture_examples/example_filled_capture.v1.json"
+  ],
+  "non_placeholder_evidence_notes": "Filled example fields show the expected shape for operator source capture. This is not real source evidence and must never be counted as real ingest.",
+  "jurisdiction": "sandbox",
+  "candidate_or_party_if_applicable": null,
+  "manual_operator_notes": "Use this example to understand field shape only.",
+  "unresolved_source_questions": [
+    "None; sandbox example only."
+  ],
+  "source_capture_author_or_operator": "sandbox_example",
+  "source_capture_timestamp_local": "2026-05-08T00:00:00+04:00",
+  "source_capture_provenance": "sandbox_example_not_fetched_not_real_market_data",
+  "safety_summary": {
+    "example_only": true,
+    "sandbox_only": true,
+    "not_real_market_data": true,
+    "not_for_ingest_as_real_source": true,
+    "analysis_only": true,
+    "operator_review_only": true,
+    "local_only": true,
+    "manual_review_only": true,
+    "no_market_action_guidance": true,
+    "no_trading_authority": true,
+    "no_queue_authority": true,
+    "no_runtime_authority": true,
+    "no_dispatcher_authority": true,
+    "no_browser_automation": true,
+    "no_wallet_or_order_authority": true,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "external_network_calls_performed": 0,
+    "network_calls_performed": 0,
+    "api_key_accessed": false,
+    "wallet_or_private_key_accessed": false,
+    "orders_created": 0,
+    "queue_state_mutated": false,
+    "runtime_wiring_added": false,
+    "dispatcher_changed": false,
+    "background_workers_added": false,
+    "browser_automation_used": false
+  }
+}
