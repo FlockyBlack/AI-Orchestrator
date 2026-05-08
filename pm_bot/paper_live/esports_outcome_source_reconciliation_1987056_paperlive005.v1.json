@@ -1,0 +1,245 @@
+{
+  "schema_version": "paper_live_esports_outcome_source_reconciliation.v1",
+  "task_id": "PMBOT-PAPERLIVE-005-ESPORTS-OUTCOME-SOURCE-RECONCILIATION-NO-TRADE",
+  "generated_by": "pm_bot/paper_live/esports_outcome_source_reconciliation.py",
+  "generated_at_marker": "2026-05-08 Asia/Tbilisi",
+  "market_id": "1987056",
+  "market_class": "esports",
+  "title_or_question": "LoL: JD Gaming vs Anyone's Legend (BO5) - Esports World Cup China Qualifier Phase 2",
+  "reconciliation_mode": "local_evidence_assessment_only",
+  "reconciliation_status": "pending_unresolved",
+  "outcome_checked": true,
+  "outcome_known": false,
+  "outcome_resolution_status": "unresolved",
+  "final_outcome_resolved": false,
+  "source_alignment_review_performed": false,
+  "source_quality_update_performed": false,
+  "source_scoring_performed": false,
+  "source_ranking_updated": false,
+  "profit_or_pnl_recorded": false,
+  "simulated_trade_created": false,
+  "selected_side": null,
+  "stake_amount": null,
+  "order_created": false,
+  "orders_created": false,
+  "wallet_used": false,
+  "wallet_or_private_key_accessed": false,
+  "position_sizing_created": false,
+  "input_artifacts": [
+    {
+      "path": "pm_bot/paper_live/esports_outcome_raw_fetch_1987056_paperlive004.v1.json",
+      "role": "PAPERLIVE-004 raw outcome fetch evidence",
+      "exists": true
+    },
+    {
+      "path": "pm_bot/paper_live/esports_normalized_outcome_evidence_1987056_paperlive004.v1.json",
+      "role": "PAPERLIVE-004 normalized outcome evidence",
+      "exists": true
+    },
+    {
+      "path": "pm_bot/paper_live/esports_outcome_fetch_call_ledger_1987056_paperlive004.v1.json",
+      "role": "PAPERLIVE-004 outcome fetch call ledger",
+      "exists": true
+    },
+    {
+      "path": "pm_bot/paper_live/esports_reconciliation_input_1987056_paperlive004.v1.json",
+      "role": "PAPERLIVE-004 reconciliation input",
+      "exists": true
+    },
+    {
+      "path": "pm_bot/workbench/esports_outcome_fetch_surface_1987056_paperlive004.v1.json",
+      "role": "PAPERLIVE-004 passive outcome fetch surface",
+      "exists": true
+    },
+    {
+      "path": "pm_bot/paper_live/esports_readonly_outcome_check_protocol_1987056_paperlive003.v1.json",
+      "role": "PAPERLIVE-003 read-only outcome check protocol",
+      "exists": true
+    },
+    {
+      "path": "pm_bot/llm/source_alignment_review_contract_1987056_paperlive003.v1.json",
+      "role": "PAPERLIVE-003 source alignment review contract",
+      "exists": true
+    },
+    {
+      "path": "pm_bot/paper_live/esports_readonly_outcome_check_readiness_gate_1987056_paperlive003.v1.json",
+      "role": "PAPERLIVE-003 readiness gate",
+      "exists": true
+    },
+    {
+      "path": "pm_bot/paper_live/esports_outcome_source_monitoring_plan_1987056_paperlive002.v1.json",
+      "role": "PAPERLIVE-002 outcome/source monitoring plan",
+      "exists": true
+    },
+    {
+      "path": "pm_bot/paper_live/esports_source_monitoring_checklist_1987056_paperlive002.v1.json",
+      "role": "PAPERLIVE-002 source monitoring checklist",
+      "exists": true
+    },
+    {
+      "path": "pm_bot/llm/source_quality_update_plan_1987056_paperlive002.v1.json",
+      "role": "PAPERLIVE-002 source quality update plan",
+      "exists": true
+    },
+    {
+      "path": "pm_bot/paper_live/esports_observation_ledger_first_run_1987056.v1.json",
+      "role": "PAPERLIVE-001 observation ledger",
+      "exists": true
+    },
+    {
+      "path": "pm_bot/llm/source_quality_pending_observation_1987056_paperlive001.v1.json",
+      "role": "PAPERLIVE-001 source quality pending observation",
+      "exists": true
+    },
+    {
+      "path": "pm_bot/paper_live/esports_outcome_reconciliation_placeholder_1987056.v1.json",
+      "role": "PAPERLIVE-001 outcome reconciliation placeholder",
+      "exists": true
+    },
+    {
+      "path": "pm_bot/llm/manual_resolution_source_capture/1987056_resolution_source_capture.v1.json",
+      "role": "SOURCE-009B manual resolution source capture",
+      "exists": true
+    },
+    {
+      "path": "pm_bot/llm/manual_resolution_source_capture_ingest_result.v1.json",
+      "role": "manual source capture ingest result",
+      "exists": true
+    },
+    {
+      "path": "pm_bot/llm/manual_resolution_source_capture_ingested_overlay.v1.json",
+      "role": "manual source capture ingested overlay",
+      "exists": true
+    },
+    {
+      "path": "pm_bot/llm/post_capture_readiness_report.v1.json",
+      "role": "post-capture readiness report",
+      "exists": true
+    },
+    {
+      "path": "pm_bot/llm/post_capture_batch_readiness_gate.v1.json",
+      "role": "post-capture batch readiness gate",
+      "exists": true
+    }
+  ],
+  "normalized_evidence_summary": {
+    "outcome_evidence_status": "evidence_unavailable",
+    "outcome_known": false,
+    "outcome_resolution_status": "unresolved",
+    "result_source_type": "polymarket_metadata",
+    "result_source_name": "Polymarket Gamma public metadata",
+    "result_source_reference": {
+      "metadata_urls": [
+        "https://gamma-api.polymarket.com/events/slug/lol-jdg-al-2026-05-21"
+      ],
+      "official_source_references_prepared": {
+        "public_urls": [
+          "https://gol.gg/esports/home",
+          "https://www.douyu.com/424559"
+        ],
+        "local_artifact_references": [
+          "pm_bot/live_readonly/esports_market_discovery/esports_market_normalized_candidate_009a.v1.json",
+          "pm_bot/live_readonly/esports_market_discovery/esports_source_capture_candidate_009a.v1.json",
+          "pm_bot/llm/manual_resolution_source_capture/1987056_resolution_source_capture.v1.json"
+        ]
+      }
+    },
+    "match_identity_confirmed": true,
+    "teams_or_players_confirmed": true,
+    "tournament_confirmed": true,
+    "match_format_confirmed": true,
+    "final_result_text": null,
+    "result_timestamp": null,
+    "contradiction_flags": [],
+    "unresolved_questions": [
+      "No final result or explicit resolved outcome was available in fetched public metadata.",
+      "Official result source reference is prepared for later operator review."
+    ]
+  },
+  "reconciliation_findings": [
+    "PAPERLIVE-004 normalized evidence is available for local assessment.",
+    "The prior outcome check did not find a final resolved outcome.",
+    "Outcome resolution status remains unresolved in the local evidence.",
+    "Final source alignment review is pending until outcome evidence is known.",
+    "Source quality update is pending; no scoring or ranking is performed."
+  ],
+  "unresolved_questions": [
+    "No final result or explicit resolved outcome was available in fetched public metadata.",
+    "Official result source reference is prepared for later operator review.",
+    "Final result text is still unavailable.",
+    "Result timestamp is still unavailable.",
+    "Operator review remains required before any final reconciliation update."
+  ],
+  "blockers_to_final_reconciliation": [
+    "outcome_known is false",
+    "outcome_resolution_status is unresolved",
+    "final_result_text is null",
+    "final result source has not been reviewed by an operator",
+    "source alignment review is blocked until outcome evidence is known"
+  ],
+  "future_reconciliation_required": true,
+  "future_readonly_fetch_required": true,
+  "operator_review_required": true,
+  "next_recommended_action": "PMBOT-PAPERLIVE-006-ESPORTS-SOURCE-QUALITY-PENDING-LEDGER-AND-SUMMARY-NO-TRADE",
+  "no_market_action_guidance": true,
+  "no_trading_authority": true,
+  "safety_summary": {
+    "no_market_action_guidance": true,
+    "operator_review_only": true,
+    "analysis_only": true,
+    "local_only": true,
+    "local_evidence_assessment_only": true,
+    "passive_context_only": true,
+    "manual_review_only": true,
+    "no_trading_authority": true,
+    "no_execution_authority": true,
+    "no_queue_authority": true,
+    "no_runtime_authority": true,
+    "no_wallet_or_order_authority": true,
+    "no_dispatcher_authority": true,
+    "no_browser_automation": true,
+    "no_probability_ev_edge_confidence_side_selection": true,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "external_network_calls_performed": 0,
+    "network_calls_performed": 0,
+    "authenticated_endpoints_used": false,
+    "auth_headers_used": false,
+    "api_key_accessed": false,
+    "api_key_value_printed": false,
+    "api_key_value_written": false,
+    "api_key_leaked": false,
+    "wallet_or_private_key_accessed": false,
+    "orders_created": false,
+    "orders_created_count": 0,
+    "simulated_trade_created": false,
+    "selected_side": null,
+    "stake_amount": null,
+    "position_sizing_created": false,
+    "queue_items_created": 0,
+    "queue_state_mutated": false,
+    "runtime_wiring_added": false,
+    "trading_runtime_changed": false,
+    "dispatcher_changed": false,
+    "background_worker_created": false,
+    "background_workers_added": false,
+    "browser_automation_used": false,
+    "market_decisions_made": false,
+    "outcome_checked": true,
+    "outcome_known": false,
+    "outcome_resolution_status": "unresolved",
+    "final_outcome_resolved": false,
+    "source_alignment_review_performed": false,
+    "source_quality_update_performed": false,
+    "source_scoring_performed": false,
+    "source_ranking_updated": false,
+    "profit_or_pnl_recorded": false,
+    "canonical_packets_mutated": false,
+    "market_action_guidance_generated": false,
+    "probability_ev_edge_confidence_generated": false,
+    "side_selection_generated": false
+  },
+  "openrouter_calls_performed": 0,
+  "polymarket_api_calls_performed": 0,
+  "external_network_calls_performed": 0
+}
