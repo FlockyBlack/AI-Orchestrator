@@ -1,0 +1,23 @@
+{
+  "schema_version": "paper_live_esports_reconciliation_input.v1",
+  "task_id": "PMBOT-PAPERLIVE-004-ESPORTS-CONTROLLED-READONLY-OUTCOME-SOURCE-FETCH-NO-TRADE",
+  "generated_by": "pm_bot/paper_live/esports_controlled_readonly_outcome_fetch.py",
+  "generated_at_marker": "2026-05-08 Asia/Tbilisi",
+  "market_id": "1987056",
+  "market_class": "esports",
+  "raw_fetch_artifact_path": "pm_bot/paper_live/esports_outcome_raw_fetch_1987056_paperlive004.v1.json",
+  "normalized_outcome_evidence_path": "pm_bot/paper_live/esports_normalized_outcome_evidence_1987056_paperlive004.v1.json",
+  "source_alignment_review_contract_path": "pm_bot/llm/source_alignment_review_contract_1987056_paperlive003.v1.json",
+  "source_quality_update_plan_path": "pm_bot/llm/source_quality_update_plan_1987056_paperlive002.v1.json",
+  "reconciliation_ready": false,
+  "outcome_known": false,
+  "source_alignment_review_performed": false,
+  "source_quality_update_performed": false,
+  "operator_review_required": true,
+  "blockers": [
+    "outcome evidence is unavailable",
+    "normalized outcome evidence is not evidence_available"
+  ],
+  "no_market_action_guidance": true,
+  "no_trading_authority": true
+}

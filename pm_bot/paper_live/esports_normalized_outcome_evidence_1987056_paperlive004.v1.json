@@ -1,0 +1,56 @@
+{
+  "schema_version": "paper_live_esports_normalized_outcome_evidence.v1",
+  "task_id": "PMBOT-PAPERLIVE-004-ESPORTS-CONTROLLED-READONLY-OUTCOME-SOURCE-FETCH-NO-TRADE",
+  "generated_by": "pm_bot/paper_live/esports_controlled_readonly_outcome_fetch.py",
+  "generated_at_marker": "2026-05-08 Asia/Tbilisi",
+  "market_id": "1987056",
+  "market_class": "esports",
+  "outcome_evidence_status": "evidence_unavailable",
+  "outcome_known": false,
+  "outcome_resolution_status": "unresolved",
+  "result_source_type": "polymarket_metadata",
+  "result_source_name": "Polymarket Gamma public metadata",
+  "result_source_reference": {
+    "metadata_urls": [
+      "https://gamma-api.polymarket.com/events/slug/lol-jdg-al-2026-05-21"
+    ],
+    "official_source_references_prepared": {
+      "public_urls": [
+        "https://gol.gg/esports/home",
+        "https://www.douyu.com/424559"
+      ],
+      "local_artifact_references": [
+        "pm_bot/live_readonly/esports_market_discovery/esports_market_normalized_candidate_009a.v1.json",
+        "pm_bot/live_readonly/esports_market_discovery/esports_source_capture_candidate_009a.v1.json",
+        "pm_bot/llm/manual_resolution_source_capture/1987056_resolution_source_capture.v1.json"
+      ]
+    }
+  },
+  "match_identity_confirmed": true,
+  "teams_or_players_confirmed": true,
+  "tournament_confirmed": true,
+  "match_format_confirmed": true,
+  "final_result_text": null,
+  "result_timestamp": null,
+  "cancellation_or_forfeit_detected": null,
+  "reschedule_detected": null,
+  "contradiction_flags": [],
+  "unresolved_questions": [
+    "No final result or explicit resolved outcome was available in fetched public metadata.",
+    "Official result source reference is prepared for later operator review."
+  ],
+  "operator_review_required": true,
+  "source_alignment_review_required": false,
+  "source_quality_update_allowed_now": false,
+  "source_scoring_performed": false,
+  "source_ranking_updated": false,
+  "trading_profit_used_for_scoring": false,
+  "source_alignment_review_performed": false,
+  "no_market_action_guidance": true,
+  "no_trading_authority": true,
+  "simulated_trade_created": false,
+  "selected_side": null,
+  "stake_amount": null,
+  "orders_created": false,
+  "wallet_or_private_key_accessed": false
+}

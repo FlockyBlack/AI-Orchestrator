@@ -1,0 +1,33 @@
+{
+  "schema_version": "paper_live_esports_outcome_fetch_surface.v1",
+  "task_id": "PMBOT-PAPERLIVE-004-ESPORTS-CONTROLLED-READONLY-OUTCOME-SOURCE-FETCH-NO-TRADE",
+  "generated_by": "pm_bot/paper_live/esports_controlled_readonly_outcome_fetch.py",
+  "generated_at_marker": "2026-05-08 Asia/Tbilisi",
+  "market_id": "1987056",
+  "market_class": "esports",
+  "raw_fetch_available": true,
+  "normalized_outcome_evidence_available": true,
+  "call_ledger_available": true,
+  "reconciliation_input_available": true,
+  "outcome_known": false,
+  "outcome_resolution_status": "unresolved",
+  "operator_review_required": true,
+  "simulated_trade_created": false,
+  "selected_side": null,
+  "stake_amount": null,
+  "next_operator_actions": [
+    "Review fetched metadata and prepared source references.",
+    "Repeat controlled read-only evidence collection later if the market remains unresolved."
+  ],
+  "queue_mutated": false,
+  "runtime_wiring_changed": false,
+  "dispatcher_changed": false,
+  "background_worker_created": false,
+  "browser_automation_used": false,
+  "canonical_packets_mutated": false,
+  "no_queue_authority": true,
+  "no_runtime_authority": true,
+  "no_dispatcher_authority": true,
+  "no_market_action_guidance": true,
+  "no_trading_authority": true
+}
