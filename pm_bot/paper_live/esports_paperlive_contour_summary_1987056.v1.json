@@ -1,0 +1,247 @@
+{
+  "schema_version": "esports_paperlive_contour_summary.v1",
+  "task_id": "PMBOT-PAPERLIVE-006-ESPORTS-SOURCE-QUALITY-PENDING-LEDGER-AND-SUMMARY-NO-TRADE",
+  "generated_by": "pm_bot/llm/source_quality_pending_ledger.py",
+  "generated_at_marker": "2026-05-08 Asia/Tbilisi",
+  "market_id": "1987056",
+  "market_class": "esports",
+  "title_or_question": "LoL: JD Gaming vs Anyone's Legend (BO5) - Esports World Cup China Qualifier Phase 2",
+  "contour_status": "esports_paperlive_observation_contour_established_pending_outcome_resolution",
+  "stages_completed": [
+    {
+      "stage_id": "009A",
+      "stage_name": "discovery",
+      "status": "completed_local_artifact_available",
+      "artifact_paths": [
+        "pm_bot/live_readonly/esports_market_discovery/esports_market_raw_fetch_009a.v1.json",
+        "pm_bot/live_readonly/esports_market_discovery/esports_market_normalized_candidate_009a.v1.json",
+        "pm_bot/live_readonly/esports_market_discovery/esports_source_capture_candidate_009a.v1.json",
+        "pm_bot/live_readonly/esports_market_discovery/esports_operator_review_checklist_009a.v1.json"
+      ]
+    },
+    {
+      "stage_id": "009B",
+      "stage_name": "draft capture",
+      "status": "completed_local_artifact_available",
+      "artifact_paths": [
+        "pm_bot/llm/manual_resolution_source_capture/1987056_resolution_source_capture.v1.json",
+        "pm_bot/llm/esports_capture_autofill_result_009b.v1.json",
+        "pm_bot/llm/esports_capture_operator_review_surface_009b.v1.json",
+        "pm_bot/llm/source_quality_observation_candidate_1987056_009b.v1.json"
+      ]
+    },
+    {
+      "stage_id": "009C",
+      "stage_name": "operator review preparation",
+      "status": "completed_local_artifact_available",
+      "artifact_paths": [
+        "pm_bot/llm/esports_operator_review_surface_1987056_009c.v1.json",
+        "pm_bot/paper_live/esports_observation_plan_1987056_009c.v1.json",
+        "pm_bot/paper_live/outcome_tracking_contract.v1.json",
+        "pm_bot/llm/source_quality_observation_flow_009c.v1.json",
+        "pm_bot/workbench/esports_paper_live_preparation_surface_1987056_009c.v1.json"
+      ]
+    },
+    {
+      "stage_id": "PAPERLIVE-001",
+      "stage_name": "paper-live observation ledger",
+      "status": "completed_local_artifact_available",
+      "artifact_paths": [
+        "pm_bot/paper_live/esports_observation_ledger_first_run_1987056.v1.json",
+        "pm_bot/llm/source_quality_pending_observation_1987056_paperlive001.v1.json",
+        "pm_bot/paper_live/esports_outcome_reconciliation_placeholder_1987056.v1.json",
+        "pm_bot/workbench/esports_paper_live_observation_surface_1987056_paperlive001.v1.json"
+      ]
+    },
+    {
+      "stage_id": "PAPERLIVE-002",
+      "stage_name": "monitoring plan",
+      "status": "completed_local_artifact_available",
+      "artifact_paths": [
+        "pm_bot/paper_live/esports_outcome_source_monitoring_plan_1987056_paperlive002.v1.json",
+        "pm_bot/paper_live/esports_source_monitoring_checklist_1987056_paperlive002.v1.json",
+        "pm_bot/paper_live/esports_future_readonly_outcome_check_request_1987056.v1.json",
+        "pm_bot/llm/source_quality_update_plan_1987056_paperlive002.v1.json",
+        "pm_bot/workbench/esports_monitoring_plan_surface_1987056_paperlive002.v1.json"
+      ]
+    },
+    {
+      "stage_id": "PAPERLIVE-003",
+      "stage_name": "readonly outcome protocol",
+      "status": "completed_local_artifact_available",
+      "artifact_paths": [
+        "pm_bot/paper_live/esports_readonly_outcome_check_protocol_1987056_paperlive003.v1.json",
+        "pm_bot/paper_live/esports_outcome_raw_fetch_contract_1987056_paperlive003.v1.json",
+        "pm_bot/paper_live/esports_normalized_outcome_evidence_contract_1987056_paperlive003.v1.json",
+        "pm_bot/llm/source_alignment_review_contract_1987056_paperlive003.v1.json",
+        "pm_bot/paper_live/esports_readonly_outcome_check_readiness_gate_1987056_paperlive003.v1.json",
+        "pm_bot/workbench/esports_readonly_outcome_check_protocol_surface_1987056_paperlive003.v1.json"
+      ]
+    },
+    {
+      "stage_id": "PAPERLIVE-004",
+      "stage_name": "controlled readonly outcome fetch",
+      "status": "completed_local_artifact_available",
+      "artifact_paths": [
+        "pm_bot/paper_live/esports_outcome_raw_fetch_1987056_paperlive004.v1.json",
+        "pm_bot/paper_live/esports_normalized_outcome_evidence_1987056_paperlive004.v1.json",
+        "pm_bot/paper_live/esports_outcome_fetch_call_ledger_1987056_paperlive004.v1.json",
+        "pm_bot/paper_live/esports_reconciliation_input_1987056_paperlive004.v1.json",
+        "pm_bot/workbench/esports_outcome_fetch_surface_1987056_paperlive004.v1.json"
+      ]
+    },
+    {
+      "stage_id": "PAPERLIVE-005",
+      "stage_name": "reconciliation assessment",
+      "status": "completed_pending_outcome_resolution",
+      "artifact_paths": [
+        "pm_bot/paper_live/esports_outcome_source_reconciliation_1987056_paperlive005.v1.json",
+        "pm_bot/paper_live/esports_outcome_source_reconciliation_summary.v1.json",
+        "pm_bot/llm/source_alignment_review_pending_1987056_paperlive005.v1.json",
+        "pm_bot/llm/source_quality_pending_update_1987056_paperlive005.v1.json",
+        "pm_bot/paper_live/esports_future_reconciliation_update_request_1987056.v1.json",
+        "pm_bot/workbench/esports_reconciliation_surface_1987056_paperlive005.v1.json"
+      ]
+    },
+    {
+      "stage_id": "PAPERLIVE-006",
+      "stage_name": "source-quality pending ledger",
+      "status": "completed_by_this_task_when_written",
+      "artifact_paths": [
+        "pm_bot/llm/source_quality_pending_ledger_1987056_paperlive006.v1.json",
+        "pm_bot/llm/source_quality_pending_ledger_index.v1.json",
+        "pm_bot/paper_live/esports_paperlive_contour_summary_1987056.v1.json",
+        "pm_bot/paper_live/esports_to_weather_handoff_readiness.v1.json",
+        "pm_bot/workbench/esports_paperlive_contour_summary_surface_1987056_paperlive006.v1.json"
+      ]
+    }
+  ],
+  "stages_pending": [
+    {
+      "stage_id": "future_outcome_resolution_check",
+      "status": "pending_explicit_future_approval",
+      "reason": "outcome_known is false and outcome_resolution_status is unresolved"
+    },
+    {
+      "stage_id": "future_source_alignment_review",
+      "status": "pending_outcome_resolution",
+      "reason": "source alignment review requires known final outcome evidence"
+    },
+    {
+      "stage_id": "future_source_quality_update",
+      "status": "pending_outcome_resolution",
+      "reason": "source scoring and ranking are blocked while outcome is unresolved"
+    }
+  ],
+  "discovery": "009A artifacts established a public read-only esports market candidate.",
+  "draft_capture": "009B artifacts prepared local source/rules capture drafts.",
+  "ingest_readiness": "Readiness artifacts preserve real and draft ingest counts without ready promotion.",
+  "operator_review_preparation": "009C prepared operator review and paper-live observation surfaces.",
+  "paper_live_observation_ledger": "PAPERLIVE-001 created the first observation ledger entry.",
+  "monitoring_plan": "PAPERLIVE-002 created source/outcome monitoring plans.",
+  "readonly_outcome_protocol": "PAPERLIVE-003 created a read-only outcome check protocol.",
+  "controlled_readonly_outcome_fetch": "PAPERLIVE-004 captured local outcome evidence state.",
+  "reconciliation_assessment": "PAPERLIVE-005 preserved unresolved reconciliation state.",
+  "source_quality_pending_ledger": "PAPERLIVE-006 records pending source quality state without scoring.",
+  "remaining_blockers": [
+    "outcome_known is false",
+    "outcome_resolution_status is unresolved",
+    "final_outcome_resolved is false",
+    "source_alignment_review_performed is false",
+    "operator review of final outcome evidence is pending"
+  ],
+  "next_recommended_action": "PMBOT-SOURCE-010A-WEATHER-MARKET-CLASS-PILOT-READONLY-DISCOVERY",
+  "outcome_checked": true,
+  "outcome_known": false,
+  "outcome_resolution_status": "unresolved",
+  "final_outcome_resolved": false,
+  "source_capture_status": "real_and_draft_templates_ingested_no_ready_templates",
+  "real_ingested_template_count": 2,
+  "draft_ingested_template_count": 2,
+  "ready_ingested_template_count": 0,
+  "simulated_trade_created": false,
+  "selected_side": null,
+  "stake_amount": null,
+  "source_scoring_performed": false,
+  "source_ranking_updated": false,
+  "market_action_guidance_generated": false,
+  "probability_ev_edge_confidence_generated": false,
+  "side_selection_generated": false,
+  "future_reconciliation_required": true,
+  "future_outcome_check_required": true,
+  "ready_for_weather_pilot": true,
+  "ready_for_autonomous_trading": false,
+  "blockers_before_autonomous_trading": [
+    "weather pilot not completed",
+    "crypto pilot not completed",
+    "simulated decision ledger not completed",
+    "risk engine not completed",
+    "position sizing not completed",
+    "execution mock not completed",
+    "supervised micro-execution not completed",
+    "wallet isolation not completed",
+    "kill switch not completed",
+    "audit and reconciliation not completed",
+    "limited autonomous mode governance not completed"
+  ],
+  "no_market_action_guidance": true,
+  "no_trading_authority": true,
+  "safety_summary": {
+    "no_market_action_guidance": true,
+    "operator_review_only": true,
+    "analysis_only": true,
+    "local_only": true,
+    "local_evidence_assessment_only": true,
+    "passive_context_only": true,
+    "manual_review_only": true,
+    "no_trading_authority": true,
+    "no_execution_authority": true,
+    "no_queue_authority": true,
+    "no_runtime_authority": true,
+    "no_wallet_or_order_authority": true,
+    "no_dispatcher_authority": true,
+    "no_browser_automation": true,
+    "no_probability_ev_edge_confidence_side_selection": true,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "external_network_calls_performed": 0,
+    "network_calls_performed": 0,
+    "authenticated_endpoints_used": false,
+    "auth_headers_used": false,
+    "api_key_accessed": false,
+    "api_key_value_printed": false,
+    "api_key_value_written": false,
+    "api_key_leaked": false,
+    "wallet_or_private_key_accessed": false,
+    "orders_created": false,
+    "orders_created_count": 0,
+    "simulated_trade_created": false,
+    "selected_side": null,
+    "stake_amount": null,
+    "position_sizing_created": false,
+    "queue_items_created": 0,
+    "queue_state_mutated": false,
+    "runtime_wiring_added": false,
+    "trading_runtime_changed": false,
+    "dispatcher_changed": false,
+    "background_worker_created": false,
+    "background_workers_added": false,
+    "browser_automation_used": false,
+    "market_decisions_made": false,
+    "outcome_checked": true,
+    "outcome_known": false,
+    "outcome_resolution_status": "unresolved",
+    "final_outcome_resolved": false,
+    "source_alignment_review_performed": false,
+    "source_quality_update_performed": false,
+    "source_scoring_performed": false,
+    "source_ranking_updated": false,
+    "profit_or_pnl_recorded": false,
+    "profit_or_pnl_used_for_scoring": false,
+    "canonical_packets_mutated": false,
+    "market_action_guidance_generated": false,
+    "probability_ev_edge_confidence_generated": false,
+    "side_selection_generated": false,
+    "ready_for_autonomous_trading": false
+  }
+}
