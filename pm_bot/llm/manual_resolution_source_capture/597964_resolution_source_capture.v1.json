@@ -9,23 +9,52 @@
   "market_title_or_question": "Macron out by June 30, 2026?",
   "current_openrouter_review_status": "not_reviewed",
   "current_readiness_band": "low",
-  "source_capture_status": "not_started",
-  "capture_status": "not_started",
-  "full_market_resolution_criteria_text": "",
-  "full_resolution_rules": "",
-  "official_source_references": [],
-  "official_source_urls_or_rule_references": [],
-  "source_timestamps": [],
-  "source_reliability_review": "",
-  "reviewed_local_evidence_references": [],
-  "non_placeholder_evidence_notes": "",
+  "source_capture_status": "draft",
+  "capture_status": "draft",
+  "full_market_resolution_criteria_text": "Draft web-assisted capture for operator review. The market question is: \"Macron out by June 30, 2026?\" Based on the public market title and third-party market mirror context, this market appears intended to resolve to Yes if Emmanuel Macron ceases to be President of France for any length of time on or before June 30, 2026. It should otherwise resolve to No if Emmanuel Macron remains President of France through the relevant deadline. This draft requires operator verification against the direct Polymarket Rules section or canonical Polymarket/Gamma market metadata before being marked ready_for_local_review.",
+  "full_resolution_rules": "Draft rule interpretation for operator review only: resolve Yes if Emmanuel Macron is no longer serving as President of France for any length of time by the market deadline of June 30, 2026. Potential qualifying events may include resignation, removal, death, incapacitation or another officially recognized vacancy/end of his presidency before or on the deadline, subject to the direct Polymarket Rules section. Resolve No if no such official change occurs by the deadline. Primary verification should use the direct Polymarket Rules section for exact market-specific wording. Supporting verification should use official French Presidency/Elysee sources and credible reporting only as evidence of official status change. Do not use market prices, trader comments, implied odds, probabilities, EV, confidence, or side-selection language as resolution evidence.",
+  "official_source_references": [
+    "Direct Polymarket market page / Rules section for market_id 597964 or its canonical slug; still requires operator verification before ready_for_local_review",
+    "Elysee official Emmanuel Macron biography/status page",
+    "Elysee official Constitution of the Fifth Republic page",
+    "Credible reporting consensus only if direct market rules allow reporting consensus or if official status pages lag a formally announced departure"
+  ],
+  "official_source_urls_or_rule_references": [
+    "https://polymarket.com/",
+    "https://www.elysee.fr/en/emmanuel-macron",
+    "https://www.elysee.fr/en/french-presidency/constitution-of-4-october-1958",
+    "Third-party discovery/context mirror observed for market_id 597964; not final resolution authority"
+  ],
+  "source_timestamps": [
+    "Web-assisted draft capture prepared on 2026-05-08 Europe/Amsterdam",
+    "Elysee Emmanuel Macron official page observed during web-assisted source review on 2026-05-08",
+    "Elysee Constitution official page observed during web-assisted source review on 2026-05-08",
+    "Third-party market mirror/context observed during web-assisted source review on 2026-05-08"
+  ],
+  "source_reliability_review": "The direct Polymarket Rules section is required as the highest-priority market-specific source, but it has not yet been directly pasted into this capture. The Elysee official website is a high-reliability primary source for Emmanuel Macron's current public role/status and institutional context, but it does not replace Polymarket's exact market-specific resolution wording. Third-party market mirrors are lower-reliability and should be used only for discovery/context, not as final resolution authority. This capture must remain draft until an operator verifies the direct Polymarket Rules text or canonical Polymarket/Gamma metadata.",
+  "reviewed_local_evidence_references": [
+    "pm_bot/llm/manual_resolution_source_capture/597964_resolution_source_capture.v1.json",
+    "pm_bot/llm/manual_packet_batch/597964_packet.v1.json",
+    "pm_bot/llm/manual_packet_batch/597964_prompt.v1.md",
+    "pm_bot/llm/current_llm_resolution_source_normalization_audit.v1.json",
+    "pm_bot/llm/current_llm_market_packet_inventory.v1.json",
+    "pm_bot/llm/current_llm_batch_readiness_gate_after_source_normalization.v1.json",
+    "pm_bot/llm/current_llm_packet_evidence_readiness_scores_after_source_normalization.v1.json"
+  ],
+  "non_placeholder_evidence_notes": "Market 597964 asks whether Emmanuel Macron will be out by June 30, 2026. Local packet/source audit previously marked this market low-readiness because full resolution criteria, full rules, official source references, source timestamps, and source reliability notes were missing. Web-assisted review found official Elysee context for Emmanuel Macron and official constitutional context for the French presidency. A third-party market mirror/context source indicates the apparent market condition is whether Macron ceases to be President of France for any length of time, but direct Polymarket Rules text still needs operator verification before this capture can be considered ready_for_local_review. This note is evidence-context only and contains no market action guidance.",
   "jurisdiction": "France",
   "candidate_or_party_if_applicable": null,
-  "manual_operator_notes": "",
-  "unresolved_source_questions": [],
-  "source_capture_author_or_operator": null,
-  "source_capture_timestamp_local": null,
-  "source_capture_provenance": "local_manual_operator_input_only_not_fetched_by_codex",
+  "manual_operator_notes": "Draft prepared from public web/source review plus existing local PMBOT artifacts. Before marking ready_for_local_review, operator should open the canonical Polymarket market page or canonical Gamma market metadata for market_id 597964 and paste the exact Rules/Description text into full_market_resolution_criteria_text and full_resolution_rules. Do not use this draft for trading, side selection, probability, EV, confidence, or execution decisions.",
+  "unresolved_source_questions": [
+    "What is the exact direct Polymarket Rules text for market_id 597964?",
+    "Does the market deadline use 11:59 PM ET, France local time, UTC, or another cutoff?",
+    "Does Polymarket define 'out' as resignation announcement, effective date of departure, removal, death, incapacity, formal vacancy, or any period of non-service?",
+    "Does the market specify official sources, consensus of credible reporting, or another source hierarchy?",
+    "Does an announced future resignation before June 30 count immediately, or only when it takes effect?"
+  ],
+  "source_capture_author_or_operator": "web_assisted_operator_draft",
+  "source_capture_timestamp_local": "2026-05-08 Europe/Amsterdam",
+  "source_capture_provenance": "web_assisted_draft_requires_operator_verification_against_direct_polymarket_rules",
   "no_market_action_guidance": true,
   "operator_review_only": true,
   "no_trading_authority": true,
@@ -92,7 +121,8 @@
     "Add source/rule references only if manually verified.",
     "Add source timestamp.",
     "Add reliability note.",
-    "Do not add predictions or trading guidance."
+    "Do not add predictions or trading guidance.",
+    "Keep this capture as draft until direct Polymarket Rules text is verified."
   ],
   "safety_summary": {
     "no_market_action_guidance": true,
@@ -101,7 +131,7 @@
     "no_queue_authority": true,
     "no_runtime_authority": true,
     "no_wallet_or_order_authority": true,
-    "local_only": true,
+    "local_only": false,
     "passive_context_only": true,
     "manual_review_only": true,
     "analysis_only": true,
@@ -124,6 +154,8 @@
     "dispatcher_changed": false,
     "background_workers_added": false,
     "browser_automation_used": false,
-    "market_decisions_made": false
+    "market_decisions_made": false,
+    "web_assisted_operator_draft": true,
+    "requires_direct_polymarket_rules_verification": true
   }
 }

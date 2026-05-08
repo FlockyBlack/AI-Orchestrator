@@ -5,12 +5,12 @@ It does not treat empty real templates or sandbox examples as source improvement
 
 ## Result
 
-- ingest_status: pending_manual_operator_filled_template
-- reason: no eligible real filled manual capture templates
-- real_filled_template_count: 0
-- real_ingested_template_count: 0
+- ingest_status: real_templates_ingested
+- reason: none
+- real_filled_template_count: 1
+- real_ingested_template_count: 1
 - sandbox_example_count: 1
-- skipped_empty_count: 14
+- skipped_empty_count: 13
 - skipped_placeholder_count: 0
 - skipped_example_count: 1
 
@@ -25,7 +25,7 @@ It does not treat empty real templates or sandbox examples as source improvement
 
 ## Current Honest State
 
-- Real ingest is pending manual operator-filled source templates.
+- At least one real capture template was ingested into the overlay.
 
 ## Safety Boundary
 

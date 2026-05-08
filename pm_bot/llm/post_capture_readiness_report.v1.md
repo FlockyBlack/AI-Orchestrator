@@ -4,24 +4,31 @@
 - task_id: PMBOT-SOURCE-006-POST-CAPTURE-READINESS-AND-BATCH-GATE-REFRESH
 - status: post_capture_readiness_report_created
 - total_capture_templates: 14
-- real_templates_not_started: 14
-- real_templates_draft: 0
+- real_templates_not_started: 13
+- real_templates_draft: 1
 - real_templates_ready_for_local_review: 0
 - real_templates_reviewed: 0
 - real_templates_needs_revision: 0
-- real_filled_template_count: 0
-- real_ingested_template_count: 0
+- real_filled_template_count: 1
+- real_ingested_template_count: 1
+- draft_ingested_template_count: 1
+- ready_ingested_template_count: 0
+- ready_for_local_review_ingested_template_count: 0
+- reviewed_ingested_template_count: 0
 - sandbox_example_count: 1
-- skipped_empty_count: 14
+- skipped_empty_count: 13
 - skipped_placeholder_count: 0
 - skipped_example_count: 1
-- markets_with_resolution_criteria_text: 0
-- markets_with_full_resolution_rules: 0
-- markets_with_official_source_references: 0
-- markets_still_missing_resolution_criteria_text: 14
-- markets_still_missing_full_resolution_rules: 14
-- markets_still_missing_official_source_references: 14
-- live_readonly_api_discovery_readiness: not_ready
+- overlay_read_by_readiness_exporter: true
+- direct_polymarket_rules_verification_required: true
+- operator_override_document_exists: false
+- markets_with_resolution_criteria_text: 1
+- markets_with_full_resolution_rules: 1
+- markets_with_official_source_references: 1
+- markets_still_missing_resolution_criteria_text: 13
+- markets_still_missing_full_resolution_rules: 13
+- markets_still_missing_official_source_references: 13
+- live_readonly_api_discovery_readiness: source_overlay_present_but_not_ready
 
 ## Readiness Before
 
@@ -33,22 +40,23 @@
 
 ## Readiness After
 
-- available: false
-- status: not_available_no_real_ingest
+- available: true
+- status: source_overlay_present_but_not_ready
 - score_recalculation_performed: false
 - canonical_packets_mutated: false
 
 ## Blockers
 
-- no real manually filled source capture templates
-- no real manually ingested source capture templates
+- ingested source capture exists only as draft
+- no ready_for_local_review or reviewed source capture templates
+- direct Polymarket rules verification still required
 - no explicit operator override document exists
 
 ## Next Operator Actions
 
-- Fill one real capture template with required source fields from manual local review.
-- Set both capture status fields to draft, ready_for_local_review, or reviewed as appropriate.
-- Run python -m pm_bot.llm.ingest_manual_resolution_source_capture --write --summary-only.
+- Verify the direct Polymarket Rules text locally before advancing any draft capture.
+- Set at least one fully verified capture to ready_for_local_review or reviewed.
+- Rerun SOURCE-005 ingest and then SOURCE-006 readiness export.
 
 ## Safety Summary
 

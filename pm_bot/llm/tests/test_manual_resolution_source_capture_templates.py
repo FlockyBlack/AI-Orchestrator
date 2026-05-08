@@ -6,6 +6,17 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 CAPTURE_DIR = ROOT / "pm_bot" / "llm" / "manual_resolution_source_capture"
 INVENTORY = ROOT / "pm_bot" / "llm" / "current_llm_market_packet_inventory.v1.json"
+FILLED_DRAFT_MARKET_IDS = {"597964"}
+SOURCE_FIELDS = (
+    "full_market_resolution_criteria_text",
+    "full_resolution_rules",
+    "official_source_references",
+    "official_source_urls_or_rule_references",
+    "source_timestamps",
+    "source_reliability_review",
+    "reviewed_local_evidence_references",
+    "non_placeholder_evidence_notes",
+)
 
 
 class ManualResolutionSourceCaptureTemplateTests(unittest.TestCase):
@@ -31,10 +42,13 @@ class ManualResolutionSourceCaptureTemplateTests(unittest.TestCase):
     def test_capture_json_templates_have_status_and_no_authority_flags(self):
         for path in sorted(CAPTURE_DIR.glob("*_resolution_source_capture.v1.json")):
             packet = json.loads(path.read_text(encoding="utf-8"))
+            expected_status = (
+                "draft" if packet["market_id"] in FILLED_DRAFT_MARKET_IDS else "not_started"
+            )
 
             self.assertEqual(packet["contract_version"], "manual_resolution_source_capture.v1")
-            self.assertEqual(packet["source_capture_status"], "not_started")
-            self.assertEqual(packet["capture_status"], "not_started")
+            self.assertEqual(packet["source_capture_status"], expected_status)
+            self.assertEqual(packet["capture_status"], expected_status)
             self.assertTrue(packet["no_market_action_guidance"])
             self.assertTrue(packet["operator_review_only"])
             self.assertTrue(packet["no_trading_authority"])
@@ -49,14 +63,18 @@ class ManualResolutionSourceCaptureTemplateTests(unittest.TestCase):
         for path in sorted(CAPTURE_DIR.glob("*_resolution_source_capture.v1.json")):
             packet = json.loads(path.read_text(encoding="utf-8"))
 
-            self.assertEqual(packet["full_market_resolution_criteria_text"], "")
-            self.assertEqual(packet["full_resolution_rules"], "")
-            self.assertEqual(packet["official_source_references"], [])
-            self.assertEqual(packet["official_source_urls_or_rule_references"], [])
-            self.assertEqual(packet["source_timestamps"], [])
-            self.assertEqual(packet["source_reliability_review"], "")
-            self.assertEqual(packet["reviewed_local_evidence_references"], [])
-            self.assertEqual(packet["non_placeholder_evidence_notes"], "")
+            if packet["market_id"] in FILLED_DRAFT_MARKET_IDS:
+                for field in SOURCE_FIELDS:
+                    self.assertTrue(packet[field], field)
+            else:
+                self.assertEqual(packet["full_market_resolution_criteria_text"], "")
+                self.assertEqual(packet["full_resolution_rules"], "")
+                self.assertEqual(packet["official_source_references"], [])
+                self.assertEqual(packet["official_source_urls_or_rule_references"], [])
+                self.assertEqual(packet["source_timestamps"], [])
+                self.assertEqual(packet["source_reliability_review"], "")
+                self.assertEqual(packet["reviewed_local_evidence_references"], [])
+                self.assertEqual(packet["non_placeholder_evidence_notes"], "")
 
 
 if __name__ == "__main__":

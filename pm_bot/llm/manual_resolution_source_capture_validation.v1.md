@@ -9,7 +9,7 @@
 - valid_count: 14
 - invalid_count: 0
 - packets_ready_for_local_review: 0
-- packets_not_started: 14
+- packets_not_started: 13
 
 ## Missing Required Template Fields
 
@@ -17,14 +17,14 @@
 
 ## Missing Fields By Priority
 
-- priority=1 field=full_market_resolution_criteria_text market_count=14
-- priority=2 field=full_resolution_rules market_count=14
-- priority=3 field=official_source_references market_count=14
-- priority=4 field=official_source_urls_or_rule_references market_count=14
-- priority=5 field=source_timestamps market_count=14
-- priority=6 field=source_reliability_review market_count=14
-- priority=7 field=reviewed_local_evidence_references market_count=14
-- priority=8 field=non_placeholder_evidence_notes market_count=14
+- priority=1 field=full_market_resolution_criteria_text market_count=13
+- priority=2 field=full_resolution_rules market_count=13
+- priority=3 field=official_source_references market_count=13
+- priority=4 field=official_source_urls_or_rule_references market_count=13
+- priority=5 field=source_timestamps market_count=13
+- priority=6 field=source_reliability_review market_count=13
+- priority=7 field=reviewed_local_evidence_references market_count=13
+- priority=8 field=non_placeholder_evidence_notes market_count=13
 
 ## Operator Next Steps
 
@@ -38,7 +38,7 @@
 
 ## Packets Not Started
 
-- 563650, 569332, 569333, 569334, 569343, 569344, 569366, 569368, 569373, 573656, 597964, 598936, 691547, 692258
+- 563650, 569332, 569333, 569334, 569343, 569344, 569366, 569368, 569373, 573656, 598936, 691547, 692258
 
 ## Safety Summary
 

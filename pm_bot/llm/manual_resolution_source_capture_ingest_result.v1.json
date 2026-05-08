@@ -2,16 +2,16 @@
   "schema_version": "manual_resolution_source_capture_ingest_result.v1",
   "task_id": "PMBOT-SOURCE-005-MANUAL-CAPTURE-INGEST-FROM-FILLED-TEMPLATES",
   "generated_by": "pm_bot/llm/ingest_manual_resolution_source_capture.py",
-  "status": "blocked_or_pending",
-  "ingest_status": "pending_manual_operator_filled_template",
-  "reason": "no eligible real filled manual capture templates",
+  "status": "completed",
+  "ingest_status": "real_templates_ingested",
+  "reason": null,
   "dry_run": false,
-  "include_drafts": false,
+  "include_drafts": true,
   "strict_ready": false,
-  "real_filled_template_count": 0,
-  "real_ingested_template_count": 0,
+  "real_filled_template_count": 1,
+  "real_ingested_template_count": 1,
   "sandbox_example_count": 1,
-  "skipped_empty_count": 14,
+  "skipped_empty_count": 13,
   "skipped_placeholder_count": 0,
   "skipped_example_count": 1,
   "template_results": [
@@ -118,10 +118,10 @@
     {
       "path": "pm_bot/llm/manual_resolution_source_capture/597964_resolution_source_capture.v1.json",
       "market_id": "597964",
-      "source_capture_status": "not_started",
-      "capture_status": "not_started",
-      "eligible_for_ingest": false,
-      "skip_reason": "not_started_or_empty_template",
+      "source_capture_status": "draft",
+      "capture_status": "draft",
+      "eligible_for_ingest": true,
+      "skip_reason": null,
       "missing_required_source_fields": [],
       "placeholder_required_source_fields": []
     },
@@ -164,24 +164,25 @@
     "capture_dir": "pm_bot/llm/manual_resolution_source_capture",
     "example_dir": "pm_bot/llm/manual_resolution_source_capture_examples",
     "total_real_template_count": 14,
-    "real_filled_template_count": 0,
-    "real_ingested_template_count": 0,
+    "real_filled_template_count": 1,
+    "real_ingested_template_count": 1,
     "sandbox_example_count": 1,
-    "skipped_empty_count": 14,
+    "skipped_empty_count": 13,
     "skipped_placeholder_count": 0,
     "skipped_example_count": 1,
     "capture_status_counts": {
-      "not_started": 14,
-      "draft": 0,
+      "not_started": 13,
+      "draft": 1,
       "ready_for_local_review": 0,
       "reviewed": 0,
       "needs_revision": 0
     },
     "allowed_statuses": [
+      "draft",
       "ready_for_local_review",
       "reviewed"
     ],
-    "include_drafts": false,
+    "include_drafts": true,
     "strict_ready": false,
     "required_ingest_fields": [
       "full_market_resolution_criteria_text",
@@ -193,7 +194,9 @@
       "reviewed_local_evidence_references",
       "non_placeholder_evidence_notes"
     ],
-    "eligible_market_ids": [],
+    "eligible_market_ids": [
+      "597964"
+    ],
     "skipped_templates": [
       {
         "path": "pm_bot/llm/manual_resolution_source_capture/563650_resolution_source_capture.v1.json",
@@ -296,16 +299,6 @@
         "placeholder_required_source_fields": []
       },
       {
-        "path": "pm_bot/llm/manual_resolution_source_capture/597964_resolution_source_capture.v1.json",
-        "market_id": "597964",
-        "source_capture_status": "not_started",
-        "capture_status": "not_started",
-        "eligible_for_ingest": false,
-        "skip_reason": "not_started_or_empty_template",
-        "missing_required_source_fields": [],
-        "placeholder_required_source_fields": []
-      },
-      {
         "path": "pm_bot/llm/manual_resolution_source_capture/598936_resolution_source_capture.v1.json",
         "market_id": "598936",
         "source_capture_status": "not_started",
@@ -378,11 +371,73 @@
     "schema_version": "manual_resolution_source_capture_ingested_overlay.v1",
     "task_id": "PMBOT-SOURCE-005-MANUAL-CAPTURE-INGEST-FROM-FILLED-TEMPLATES",
     "generated_by": "pm_bot/llm/ingest_manual_resolution_source_capture.py",
-    "status": "no_real_ingested_templates",
+    "status": "real_templates_ingested",
     "overlay_scope": "local_manual_source_capture_overlay_only",
     "canonical_packets_mutated": false,
-    "real_ingested_template_count": 0,
-    "markets": [],
+    "real_ingested_template_count": 1,
+    "markets": [
+      {
+        "market_id": "597964",
+        "capture_path": "pm_bot/llm/manual_resolution_source_capture/597964_resolution_source_capture.v1.json",
+        "source_capture_status": "draft",
+        "capture_status": "draft",
+        "market_title_or_question": "Macron out by June 30, 2026?",
+        "category": "politics",
+        "ingested_fields": [
+          "full_market_resolution_criteria_text",
+          "full_resolution_rules",
+          "official_source_references",
+          "official_source_urls_or_rule_references",
+          "source_timestamps",
+          "source_reliability_review",
+          "reviewed_local_evidence_references",
+          "non_placeholder_evidence_notes"
+        ],
+        "full_market_resolution_criteria_text": "Draft web-assisted capture for operator review. The market question is: \"Macron out by June 30, 2026?\" Based on the public market title and third-party market mirror context, this market appears intended to resolve to Yes if Emmanuel Macron ceases to be President of France for any length of time on or before June 30, 2026. It should otherwise resolve to No if Emmanuel Macron remains President of France through the relevant deadline. This draft requires operator verification against the direct Polymarket Rules section or canonical Polymarket/Gamma market metadata before being marked ready_for_local_review.",
+        "full_resolution_rules": "Draft rule interpretation for operator review only: resolve Yes if Emmanuel Macron is no longer serving as President of France for any length of time by the market deadline of June 30, 2026. Potential qualifying events may include resignation, removal, death, incapacitation or another officially recognized vacancy/end of his presidency before or on the deadline, subject to the direct Polymarket Rules section. Resolve No if no such official change occurs by the deadline. Primary verification should use the direct Polymarket Rules section for exact market-specific wording. Supporting verification should use official French Presidency/Elysee sources and credible reporting only as evidence of official status change. Do not use market prices, trader comments, implied odds, probabilities, EV, confidence, or side-selection language as resolution evidence.",
+        "official_source_references": [
+          "Direct Polymarket market page / Rules section for market_id 597964 or its canonical slug; still requires operator verification before ready_for_local_review",
+          "Elysee official Emmanuel Macron biography/status page",
+          "Elysee official Constitution of the Fifth Republic page",
+          "Credible reporting consensus only if direct market rules allow reporting consensus or if official status pages lag a formally announced departure"
+        ],
+        "official_source_urls_or_rule_references": [
+          "https://polymarket.com/",
+          "https://www.elysee.fr/en/emmanuel-macron",
+          "https://www.elysee.fr/en/french-presidency/constitution-of-4-october-1958",
+          "Third-party discovery/context mirror observed for market_id 597964; not final resolution authority"
+        ],
+        "source_timestamps": [
+          "Web-assisted draft capture prepared on 2026-05-08 Europe/Amsterdam",
+          "Elysee Emmanuel Macron official page observed during web-assisted source review on 2026-05-08",
+          "Elysee Constitution official page observed during web-assisted source review on 2026-05-08",
+          "Third-party market mirror/context observed during web-assisted source review on 2026-05-08"
+        ],
+        "source_reliability_review": "The direct Polymarket Rules section is required as the highest-priority market-specific source, but it has not yet been directly pasted into this capture. The Elysee official website is a high-reliability primary source for Emmanuel Macron's current public role/status and institutional context, but it does not replace Polymarket's exact market-specific resolution wording. Third-party market mirrors are lower-reliability and should be used only for discovery/context, not as final resolution authority. This capture must remain draft until an operator verifies the direct Polymarket Rules text or canonical Polymarket/Gamma metadata.",
+        "reviewed_local_evidence_references": [
+          "pm_bot/llm/manual_resolution_source_capture/597964_resolution_source_capture.v1.json",
+          "pm_bot/llm/manual_packet_batch/597964_packet.v1.json",
+          "pm_bot/llm/manual_packet_batch/597964_prompt.v1.md",
+          "pm_bot/llm/current_llm_resolution_source_normalization_audit.v1.json",
+          "pm_bot/llm/current_llm_market_packet_inventory.v1.json",
+          "pm_bot/llm/current_llm_batch_readiness_gate_after_source_normalization.v1.json",
+          "pm_bot/llm/current_llm_packet_evidence_readiness_scores_after_source_normalization.v1.json"
+        ],
+        "non_placeholder_evidence_notes": "Market 597964 asks whether Emmanuel Macron will be out by June 30, 2026. Local packet/source audit previously marked this market low-readiness because full resolution criteria, full rules, official source references, source timestamps, and source reliability notes were missing. Web-assisted review found official Elysee context for Emmanuel Macron and official constitutional context for the French presidency. A third-party market mirror/context source indicates the apparent market condition is whether Macron ceases to be President of France for any length of time, but direct Polymarket Rules text still needs operator verification before this capture can be considered ready_for_local_review. This note is evidence-context only and contains no market action guidance.",
+        "jurisdiction": "France",
+        "candidate_or_party_if_applicable": null,
+        "source_capture_author_or_operator": "web_assisted_operator_draft",
+        "source_capture_timestamp_local": "2026-05-08 Europe/Amsterdam",
+        "source_capture_provenance": "web_assisted_draft_requires_operator_verification_against_direct_polymarket_rules",
+        "operator_review_only": true,
+        "analysis_only": true,
+        "no_market_action_guidance": true,
+        "no_trading_authority": true,
+        "no_queue_authority": true,
+        "no_runtime_authority": true,
+        "no_wallet_or_order_authority": true
+      }
+    ],
     "safety_summary": {
       "no_market_action_guidance": true,
       "operator_review_only": true,

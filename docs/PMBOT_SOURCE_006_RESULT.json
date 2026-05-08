@@ -10,13 +10,20 @@
   "external_network_calls_performed": 0,
   "source_006_readiness_created": true,
   "post_capture_gate_created": true,
-  "real_filled_template_count": 0,
-  "real_ingested_template_count": 0,
+  "real_filled_template_count": 1,
+  "real_ingested_template_count": 1,
+  "draft_ingested_template_count": 1,
+  "ready_ingested_template_count": 0,
+  "overlay_read_by_readiness_exporter": true,
+  "direct_polymarket_rules_verification_required": true,
+  "operator_override_document_exists": false,
+  "future_live_002_allowed": false,
   "sandbox_example_count": 1,
-  "live_readonly_api_discovery_readiness": "not_ready",
+  "live_readonly_api_discovery_readiness": "source_overlay_present_but_not_ready",
   "blocker_reasons": [
-    "no real manually filled source capture templates",
-    "no real manually ingested source capture templates",
+    "ingested source capture exists only as draft",
+    "no ready_for_local_review or reviewed source capture templates",
+    "direct Polymarket rules verification still required",
     "no explicit operator override document exists"
   ],
   "workbench_artifacts_mutated": false,
@@ -24,92 +31,7 @@
   "queue_mutated": false,
   "runtime_wiring_changed": false,
   "dispatcher_changed": false,
-  "tests_run": [
-    {
-      "command": "python -m compileall pm_bot",
-      "status": "passed"
-    },
-    {
-      "command": "pytest pm_bot\\llm\\tests -q",
-      "status": "passed",
-      "summary": "203 passed"
-    },
-    {
-      "command": "pytest pm_bot\\workbench\\tests -q",
-      "status": "passed",
-      "summary": "46 passed"
-    },
-    {
-      "command": "pytest tests\\test_manual_resolution_source_capture_ingest.py -q",
-      "status": "passed",
-      "summary": "8 passed"
-    },
-    {
-      "command": "pytest tests\\test_post_capture_readiness.py -q",
-      "status": "passed",
-      "summary": "5 passed"
-    },
-    {
-      "command": "pytest tests\\test_live_readonly_protocol_boundaries.py -q",
-      "status": "passed",
-      "summary": "5 passed"
-    },
-    {
-      "command": "pytest tests -q",
-      "status": "passed",
-      "summary": "204 passed"
-    },
-    {
-      "command": "python -m pm_bot.llm.manual_resolution_source_capture_validator --write",
-      "status": "passed",
-      "summary": "14 valid, 0 invalid"
-    },
-    {
-      "command": "python -m pm_bot.llm.manual_resolution_source_capture_validator --summary-only",
-      "status": "passed",
-      "summary": "14 valid, 0 invalid"
-    },
-    {
-      "command": "python -m pm_bot.llm.manual_resolution_source_capture_validator --strict-ready --summary-only",
-      "status": "passed",
-      "summary": "14 valid, 0 invalid"
-    },
-    {
-      "command": "python -m pm_bot.llm.ingest_manual_resolution_source_capture --dry-run --summary-only",
-      "status": "passed",
-      "summary": "pending_manual_operator_filled_template"
-    },
-    {
-      "command": "python -m pm_bot.llm.ingest_manual_resolution_source_capture --write --summary-only",
-      "status": "passed",
-      "summary": "0 real filled, 0 real ingested"
-    },
-    {
-      "command": "python -m pm_bot.llm.export_post_capture_readiness --write",
-      "status": "passed",
-      "summary": "not_ready with no real filled templates"
-    },
-    {
-      "command": "python -m pm_bot.live_readonly.polymarket_readonly_discovery --protocol-only",
-      "status": "passed",
-      "summary": "protocol_only_no_network"
-    },
-    {
-      "command": "JSON parse checks for new/changed JSON artifacts",
-      "status": "passed",
-      "summary": "12 JSON files parsed"
-    },
-    {
-      "command": "Public Markdown safety scan for new/changed Markdown artifacts",
-      "status": "passed",
-      "summary": "13 Markdown files scanned"
-    },
-    {
-      "command": "Changed-file secret scan",
-      "status": "passed",
-      "summary": "32 files scanned; no secret values found"
-    }
-  ],
+  "tests_run": [],
   "files_created": [
     "pm_bot/llm/post_capture_readiness_report.v1.json",
     "pm_bot/llm/post_capture_readiness_report.v1.md",
@@ -121,7 +43,7 @@
   "files_modified": [
     "pm_bot/llm/export_post_capture_readiness.py"
   ],
-  "next_recommended_action": "Fill one real capture template with required source fields from manual local review.",
+  "next_recommended_action": "Verify the direct Polymarket Rules text locally before advancing any draft capture.",
   "safety_summary": {
     "no_market_action_guidance": true,
     "operator_review_only": true,

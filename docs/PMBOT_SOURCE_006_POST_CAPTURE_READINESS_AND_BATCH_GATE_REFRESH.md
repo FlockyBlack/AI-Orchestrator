@@ -5,15 +5,22 @@ Sandbox examples are counted separately and do not improve real readiness.
 
 ## Current Honest State
 
-- real_filled_template_count: 0
-- real_ingested_template_count: 0
+- real_filled_template_count: 1
+- real_ingested_template_count: 1
+- draft_ingested_template_count: 1
+- ready_ingested_template_count: 0
+- overlay_read_by_readiness_exporter: true
+- direct_polymarket_rules_verification_required: true
+- operator_override_document_exists: false
+- future_live_002_allowed: false
 - sandbox_example_count: 1
-- live_readonly_api_discovery_readiness: not_ready
+- live_readonly_api_discovery_readiness: source_overlay_present_but_not_ready
 
 ## Blockers
 
-- no real manually filled source capture templates
-- no real manually ingested source capture templates
+- ingested source capture exists only as draft
+- no ready_for_local_review or reviewed source capture templates
+- direct Polymarket rules verification still required
 - no explicit operator override document exists
 
 ## Safety Boundary

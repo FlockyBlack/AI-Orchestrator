@@ -6,18 +6,18 @@
 - capture_dir: pm_bot/llm/manual_resolution_source_capture
 - example_dir: pm_bot/llm/manual_resolution_source_capture_examples
 - total_real_template_count: 14
-- real_filled_template_count: 0
-- real_ingested_template_count: 0
+- real_filled_template_count: 1
+- real_ingested_template_count: 1
 - sandbox_example_count: 1
-- skipped_empty_count: 14
+- skipped_empty_count: 13
 - skipped_placeholder_count: 0
 - skipped_example_count: 1
 - canonical_packets_mutated: false
 
 ## Capture Status Counts
 
-- not_started: 14
-- draft: 0
+- not_started: 13
+- draft: 1
 - ready_for_local_review: 0
 - reviewed: 0
 - needs_revision: 0
@@ -35,7 +35,7 @@
 
 ## Eligible Market IDs
 
-- none
+- 597964
 
 ## Sandbox Example Paths
 

@@ -9,101 +9,16 @@
   "polymarket_api_calls_performed": 0,
   "external_network_calls_performed": 0,
   "source_005_ingest_logic_created": true,
-  "real_filled_template_count": 0,
-  "real_ingested_template_count": 0,
-  "ingest_status": "pending_manual_operator_filled_template",
-  "reason": "no eligible real filled manual capture templates",
+  "real_filled_template_count": 1,
+  "real_ingested_template_count": 1,
+  "ingest_status": "real_templates_ingested",
+  "reason": null,
   "sandbox_examples_skipped": true,
   "empty_not_started_templates_skipped": true,
   "placeholder_fields_skipped": true,
   "canonical_packets_mutated": false,
   "overlay_artifact_created": true,
-  "tests_run": [
-    {
-      "command": "python -m compileall pm_bot",
-      "status": "passed"
-    },
-    {
-      "command": "pytest pm_bot\\llm\\tests -q",
-      "status": "passed",
-      "summary": "203 passed"
-    },
-    {
-      "command": "pytest pm_bot\\workbench\\tests -q",
-      "status": "passed",
-      "summary": "46 passed"
-    },
-    {
-      "command": "pytest tests\\test_manual_resolution_source_capture_ingest.py -q",
-      "status": "passed",
-      "summary": "8 passed"
-    },
-    {
-      "command": "pytest tests\\test_post_capture_readiness.py -q",
-      "status": "passed",
-      "summary": "5 passed"
-    },
-    {
-      "command": "pytest tests\\test_live_readonly_protocol_boundaries.py -q",
-      "status": "passed",
-      "summary": "5 passed"
-    },
-    {
-      "command": "pytest tests -q",
-      "status": "passed",
-      "summary": "204 passed"
-    },
-    {
-      "command": "python -m pm_bot.llm.manual_resolution_source_capture_validator --write",
-      "status": "passed",
-      "summary": "14 valid, 0 invalid"
-    },
-    {
-      "command": "python -m pm_bot.llm.manual_resolution_source_capture_validator --summary-only",
-      "status": "passed",
-      "summary": "14 valid, 0 invalid"
-    },
-    {
-      "command": "python -m pm_bot.llm.manual_resolution_source_capture_validator --strict-ready --summary-only",
-      "status": "passed",
-      "summary": "14 valid, 0 invalid"
-    },
-    {
-      "command": "python -m pm_bot.llm.ingest_manual_resolution_source_capture --dry-run --summary-only",
-      "status": "passed",
-      "summary": "pending_manual_operator_filled_template"
-    },
-    {
-      "command": "python -m pm_bot.llm.ingest_manual_resolution_source_capture --write --summary-only",
-      "status": "passed",
-      "summary": "0 real filled, 0 real ingested"
-    },
-    {
-      "command": "python -m pm_bot.llm.export_post_capture_readiness --write",
-      "status": "passed",
-      "summary": "not_ready with no real filled templates"
-    },
-    {
-      "command": "python -m pm_bot.live_readonly.polymarket_readonly_discovery --protocol-only",
-      "status": "passed",
-      "summary": "protocol_only_no_network"
-    },
-    {
-      "command": "JSON parse checks for new/changed JSON artifacts",
-      "status": "passed",
-      "summary": "12 JSON files parsed"
-    },
-    {
-      "command": "Public Markdown safety scan for new/changed Markdown artifacts",
-      "status": "passed",
-      "summary": "13 Markdown files scanned"
-    },
-    {
-      "command": "Changed-file secret scan",
-      "status": "passed",
-      "summary": "32 files scanned; no secret values found"
-    }
-  ],
+  "tests_run": [],
   "files_created": [
     "pm_bot/llm/manual_resolution_source_capture_ingest_result.v1.json",
     "pm_bot/llm/manual_resolution_source_capture_ingest_result.v1.md",

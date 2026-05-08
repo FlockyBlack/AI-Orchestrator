@@ -26,12 +26,18 @@ class ManualResolutionSourceCaptureValidatorTests(unittest.TestCase):
         self.assertEqual(report["packets_missing_required_template_fields"], [])
         self.assertEqual(report["packets_with_market_action_guidance"], [])
         self.assertEqual(len(report["packets_ready_for_local_review"]), 0)
-        self.assertEqual(len(report["packets_not_started"]), 14)
+        self.assertEqual(len(report["packets_not_started"]), 13)
+        self.assertNotIn("597964", report["packets_not_started"])
         self.assertIn("operator_next_steps", report)
         self.assertIn("missing_fields_by_priority", report)
         self.assertEqual(report["missing_fields_by_priority"][0]["field"], "full_market_resolution_criteria_text")
-        self.assertEqual(report["missing_fields_by_priority"][0]["market_count"], 14)
+        self.assertEqual(report["missing_fields_by_priority"][0]["market_count"], 13)
         self.assertIn("Fill", report["packet_results"][0]["operator_next_step"])
+        draft_result = next(
+            item for item in report["packet_results"] if item["market_id"] == "597964"
+        )
+        self.assertEqual(draft_result["capture_status"], "draft")
+        self.assertEqual(draft_result["missing_fields_by_priority"], [])
 
     def test_validator_rejects_ready_packets_with_empty_high_completeness_fields(self):
         module = importlib.import_module("pm_bot.llm.manual_resolution_source_capture_validator")

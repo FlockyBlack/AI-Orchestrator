@@ -6,24 +6,25 @@
   "capture_dir": "pm_bot/llm/manual_resolution_source_capture",
   "example_dir": "pm_bot/llm/manual_resolution_source_capture_examples",
   "total_real_template_count": 14,
-  "real_filled_template_count": 0,
-  "real_ingested_template_count": 0,
+  "real_filled_template_count": 1,
+  "real_ingested_template_count": 1,
   "sandbox_example_count": 1,
-  "skipped_empty_count": 14,
+  "skipped_empty_count": 13,
   "skipped_placeholder_count": 0,
   "skipped_example_count": 1,
   "capture_status_counts": {
-    "not_started": 14,
-    "draft": 0,
+    "not_started": 13,
+    "draft": 1,
     "ready_for_local_review": 0,
     "reviewed": 0,
     "needs_revision": 0
   },
   "allowed_statuses": [
+    "draft",
     "ready_for_local_review",
     "reviewed"
   ],
-  "include_drafts": false,
+  "include_drafts": true,
   "strict_ready": false,
   "required_ingest_fields": [
     "full_market_resolution_criteria_text",
@@ -35,7 +36,9 @@
     "reviewed_local_evidence_references",
     "non_placeholder_evidence_notes"
   ],
-  "eligible_market_ids": [],
+  "eligible_market_ids": [
+    "597964"
+  ],
   "skipped_templates": [
     {
       "path": "pm_bot/llm/manual_resolution_source_capture/563650_resolution_source_capture.v1.json",
@@ -130,16 +133,6 @@
     {
       "path": "pm_bot/llm/manual_resolution_source_capture/573656_resolution_source_capture.v1.json",
       "market_id": "573656",
-      "source_capture_status": "not_started",
-      "capture_status": "not_started",
-      "eligible_for_ingest": false,
-      "skip_reason": "not_started_or_empty_template",
-      "missing_required_source_fields": [],
-      "placeholder_required_source_fields": []
-    },
-    {
-      "path": "pm_bot/llm/manual_resolution_source_capture/597964_resolution_source_capture.v1.json",
-      "market_id": "597964",
       "source_capture_status": "not_started",
       "capture_status": "not_started",
       "eligible_for_ingest": false,

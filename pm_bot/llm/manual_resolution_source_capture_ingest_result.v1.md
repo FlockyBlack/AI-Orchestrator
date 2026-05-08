@@ -2,24 +2,23 @@
 
 - schema_version: manual_resolution_source_capture_ingest_result.v1
 - task_id: PMBOT-SOURCE-005-MANUAL-CAPTURE-INGEST-FROM-FILLED-TEMPLATES
-- status: blocked_or_pending
-- ingest_status: pending_manual_operator_filled_template
-- reason: no eligible real filled manual capture templates
+- status: completed
+- ingest_status: real_templates_ingested
+- reason: none
 - dry_run: false
-- include_drafts: false
+- include_drafts: true
 - strict_ready: false
-- real_filled_template_count: 0
-- real_ingested_template_count: 0
+- real_filled_template_count: 1
+- real_ingested_template_count: 1
 - sandbox_example_count: 1
-- skipped_empty_count: 14
+- skipped_empty_count: 13
 - skipped_placeholder_count: 0
 - skipped_example_count: 1
 - canonical_packets_mutated: false
 
 ## Current Outcome
 
-- Real ingest is pending manual operator-filled templates.
-- Empty, not_started, placeholder, and sandbox/example records were skipped.
+- Local overlay contains real manually filled capture data.
 
 ## Overlay Policy
 

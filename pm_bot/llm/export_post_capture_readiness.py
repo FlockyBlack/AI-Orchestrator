@@ -30,6 +30,9 @@ SOURCE_FIELDS = (
     "full_resolution_rules",
     "official_source_references",
 )
+READY_INGESTED_STATUSES = set(ingest.READY_STATUSES)
+DRAFT_STATUS = "draft"
+OPERATOR_OVERRIDE_DOCUMENT_EXISTS = False
 
 SAFETY_SUMMARY = {
     **capture.SAFETY_SUMMARY,
@@ -79,6 +82,13 @@ def _load_json(path, root=ROOT):
         return json.load(handle)
 
 
+def _load_optional_json(path, root=ROOT):
+    resolved = _resolve(path, root=root)
+    if not resolved.exists():
+        return None
+    return _load_json(path, root=root)
+
+
 def _write_json(path, payload, root=ROOT):
     resolved = _resolve(path, root=root)
     resolved.parent.mkdir(parents=True, exist_ok=True)
@@ -106,12 +116,76 @@ def _is_non_empty(value):
     return value not in (None, "", [], {})
 
 
+def _overlay_markets(overlay):
+    markets = overlay.get("markets", []) if isinstance(overlay, dict) else []
+    return [entry for entry in markets if isinstance(entry, dict)]
+
+
 def _market_count_with_field(overlay, field):
-    return sum(1 for entry in overlay.get("markets", []) if _is_non_empty(entry.get(field)))
+    return sum(1 for entry in _overlay_markets(overlay) if _is_non_empty(entry.get(field)))
 
 
 def _missing_count(total, present):
     return max(total - present, 0)
+
+
+def _safe_int(value, default=0):
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return default
+
+
+def _load_ingest_snapshot(root=ROOT):
+    computed = ingest.build_ingest_report(root=root, dry_run=False)
+    persisted_ingest_result = _load_optional_json(ingest.RESULT_JSON, root=root)
+    persisted_overlay = _load_optional_json(ingest.OVERLAY_JSON, root=root)
+    ingest_result = persisted_ingest_result or computed
+    overlay = persisted_overlay
+    if overlay is None:
+        overlay = ingest_result.get("overlay") or computed.get("overlay", {})
+    return {
+        "computed": computed,
+        "ingest_result": ingest_result,
+        "overlay": overlay,
+        "ingest_result_read": persisted_ingest_result is not None,
+        "overlay_read": persisted_overlay is not None,
+    }
+
+
+def _market_status(entry):
+    return entry.get("source_capture_status") or entry.get("capture_status") or "unknown"
+
+
+def _market_count_with_status(markets, statuses):
+    allowed = set(statuses)
+    return sum(1 for entry in markets if _market_status(entry) in allowed)
+
+
+def _text_values(value):
+    if isinstance(value, dict):
+        for item in value.values():
+            yield from _text_values(item)
+    elif isinstance(value, list):
+        for item in value:
+            yield from _text_values(item)
+    elif isinstance(value, str):
+        yield value
+
+
+def _requires_direct_rules_verification(markets):
+    if any(_market_status(entry) == DRAFT_STATUS for entry in markets):
+        return True
+    markers = (
+        "direct polymarket rules",
+        "operator verification",
+        "requires operator verification",
+    )
+    for entry in markets:
+        text = " ".join(_text_values(entry)).lower()
+        if any(marker in text for marker in markers):
+            return True
+    return False
 
 
 def _readiness_before(root=ROOT):
@@ -132,17 +206,36 @@ def _readiness_before(root=ROOT):
     }
 
 
-def _blocker_reasons(real_filled_count, real_ingested_count):
+def _blocker_reasons(
+    real_filled_count,
+    real_ingested_count,
+    draft_ingested_count=0,
+    ready_ingested_count=0,
+    direct_rules_verification_required=False,
+    operator_override_document_exists=OPERATOR_OVERRIDE_DOCUMENT_EXISTS,
+):
     blockers = []
     if real_filled_count == 0:
         blockers.append("no real manually filled source capture templates")
     if real_ingested_count == 0:
         blockers.append("no real manually ingested source capture templates")
-    blockers.append("no explicit operator override document exists")
+    if real_ingested_count > 0 and draft_ingested_count > 0 and ready_ingested_count == 0:
+        blockers.append("ingested source capture exists only as draft")
+    if real_ingested_count > 0 and ready_ingested_count == 0:
+        blockers.append("no ready_for_local_review or reviewed source capture templates")
+    if real_ingested_count > 0 and direct_rules_verification_required:
+        blockers.append("direct Polymarket rules verification still required")
+    if not operator_override_document_exists:
+        blockers.append("no explicit operator override document exists")
     return blockers
 
 
-def _next_operator_actions(real_filled_count, real_ingested_count):
+def _next_operator_actions(
+    real_filled_count,
+    real_ingested_count,
+    ready_ingested_count=0,
+    direct_rules_verification_required=False,
+):
     if real_filled_count == 0:
         return [
             "Fill one real capture template with required source fields from manual local review.",
@@ -154,17 +247,56 @@ def _next_operator_actions(real_filled_count, real_ingested_count):
             "Rerun SOURCE-005 ingest with the correct status option or advance the template to local review status.",
             "Run python -m pm_bot.llm.export_post_capture_readiness --write.",
         ]
+    if ready_ingested_count == 0:
+        return [
+            "Verify the direct Polymarket Rules text locally before advancing any draft capture.",
+            "Set at least one fully verified capture to ready_for_local_review or reviewed.",
+            "Rerun SOURCE-005 ingest and then SOURCE-006 readiness export.",
+        ]
+    if direct_rules_verification_required:
+        return [
+            "Resolve direct Polymarket Rules verification notes before any future live read-only protocol step.",
+            "Record an explicit operator override document only if the operator approves that separate protocol step.",
+        ]
     return [
         "Review the local overlay before connecting any future read-only discovery task.",
         "Keep future network work separated behind explicit approval.",
     ]
 
 
+def _live_readonly_readiness(real_ingested_count, ready_ingested_count, blockers):
+    if real_ingested_count == 0:
+        return "not_ready"
+    if ready_ingested_count == 0:
+        return "source_overlay_present_but_not_ready"
+    if blockers:
+        return "partially_ready"
+    return "ready_for_protocol_review"
+
+
 def build_post_capture_gate(report):
     real_filled = report["real_filled_template_count"]
     real_ingested = report["real_ingested_template_count"]
-    blockers = _blocker_reasons(real_filled, real_ingested)
-    readiness = "ready_for_protocol_review" if real_ingested > 0 else "not_ready"
+    ready_ingested = report["ready_ingested_template_count"]
+    draft_ingested = report["draft_ingested_template_count"]
+    operator_override_exists = report["operator_override_document_exists"]
+    direct_rules_required = report["direct_polymarket_rules_verification_required"]
+    blockers = _blocker_reasons(
+        real_filled,
+        real_ingested,
+        draft_ingested_count=draft_ingested,
+        ready_ingested_count=ready_ingested,
+        direct_rules_verification_required=direct_rules_required,
+        operator_override_document_exists=operator_override_exists,
+    )
+    readiness = _live_readonly_readiness(real_ingested, ready_ingested, blockers)
+    future_live_002_allowed = (
+        real_ingested > 0
+        and ready_ingested > 0
+        and not direct_rules_required
+        and operator_override_exists
+        and not blockers
+    )
     return {
         "schema_version": GATE_VERSION,
         "task_id": TASK_ID,
@@ -174,21 +306,36 @@ def build_post_capture_gate(report):
         "manual_capture_ingest_result_path": ingest.RESULT_JSON,
         "manual_capture_ingested_overlay_path": ingest.OVERLAY_JSON,
         "live_readonly_api_discovery_readiness": readiness,
-        "future_live_002_allowed": real_ingested > 0,
+        "future_live_002_allowed": future_live_002_allowed,
         "future_openrouter_batch_approved": False,
         "future_llm_review_approved": False,
         "real_filled_template_count": real_filled,
         "real_ingested_template_count": real_ingested,
+        "draft_ingested_template_count": draft_ingested,
+        "ready_ingested_template_count": ready_ingested,
+        "ready_for_local_review_ingested_template_count": report[
+            "ready_for_local_review_ingested_template_count"
+        ],
+        "reviewed_ingested_template_count": report["reviewed_ingested_template_count"],
         "blocker_reasons": blockers,
-        "next_operator_actions": _next_operator_actions(real_filled, real_ingested),
+        "next_operator_actions": _next_operator_actions(
+            real_filled,
+            real_ingested,
+            ready_ingested_count=ready_ingested,
+            direct_rules_verification_required=direct_rules_required,
+        ),
         "required_before_future_live_002": [
             "source/evidence readiness report exists",
             "manual capture ingest report exists",
-            "at least one real filled capture template is ingested or explicit operator override exists",
+            "at least one real filled capture template is ingested from ready_for_local_review or reviewed status",
+            "direct Polymarket Rules text is locally verified",
+            "explicit operator override document exists",
             "read-only safety protocol remains protocol-only until separately approved",
             "tests pass",
         ],
-        "operator_override_document_exists": False,
+        "operator_override_document_exists": operator_override_exists,
+        "direct_polymarket_rules_verification_required": direct_rules_required,
+        "overlay_read_by_readiness_exporter": report["overlay_read_by_readiness_exporter"],
         "canonical_packets_mutated": False,
         "queue_mutated": False,
         "runtime_wiring_changed": False,
@@ -203,15 +350,61 @@ def build_post_capture_gate(report):
 
 
 def build_post_capture_readiness_report(root=ROOT):
-    ingest_report = ingest.build_ingest_report(root=root, dry_run=False)
+    ingest_snapshot = _load_ingest_snapshot(root=root)
+    ingest_report = ingest_snapshot["ingest_result"]
+    computed_ingest_report = ingest_snapshot["computed"]
     captures = _capture_payloads(root=root)
     status_counts = Counter(packet.get("capture_status") for packet in captures)
-    overlay = ingest_report["overlay"]
+    overlay = ingest_snapshot["overlay"]
+    overlay_markets = _overlay_markets(overlay)
     total = len(captures)
+    real_ingested_count = len(overlay_markets)
+    real_filled_count = _safe_int(
+        ingest_report.get("real_filled_template_count"),
+        computed_ingest_report.get("real_filled_template_count", 0),
+    )
+    sandbox_example_count = _safe_int(
+        ingest_report.get("sandbox_example_count"),
+        computed_ingest_report.get("sandbox_example_count", 0),
+    )
+    skipped_empty_count = _safe_int(
+        ingest_report.get("skipped_empty_count"),
+        computed_ingest_report.get("skipped_empty_count", 0),
+    )
+    skipped_placeholder_count = _safe_int(
+        ingest_report.get("skipped_placeholder_count"),
+        computed_ingest_report.get("skipped_placeholder_count", 0),
+    )
+    skipped_example_count = _safe_int(
+        ingest_report.get("skipped_example_count"),
+        computed_ingest_report.get("skipped_example_count", 0),
+    )
+    draft_ingested_count = _market_count_with_status(overlay_markets, (DRAFT_STATUS,))
+    ready_for_local_review_count = _market_count_with_status(
+        overlay_markets, ("ready_for_local_review",)
+    )
+    reviewed_count = _market_count_with_status(overlay_markets, ("reviewed",))
+    ready_ingested_count = _market_count_with_status(
+        overlay_markets, READY_INGESTED_STATUSES
+    )
+    direct_rules_required = _requires_direct_rules_verification(overlay_markets)
     with_resolution = _market_count_with_field(overlay, "full_market_resolution_criteria_text")
     with_rules = _market_count_with_field(overlay, "full_resolution_rules")
     with_sources = _market_count_with_field(overlay, "official_source_references")
-    readiness_after_available = ingest_report["real_ingested_template_count"] > 0
+    readiness_after_available = real_ingested_count > 0
+    blockers = _blocker_reasons(
+        real_filled_count,
+        real_ingested_count,
+        draft_ingested_count=draft_ingested_count,
+        ready_ingested_count=ready_ingested_count,
+        direct_rules_verification_required=direct_rules_required,
+        operator_override_document_exists=OPERATOR_OVERRIDE_DOCUMENT_EXISTS,
+    )
+    live_readiness = _live_readonly_readiness(
+        real_ingested_count,
+        ready_ingested_count,
+        blockers,
+    )
     report = {
         "schema_version": REPORT_VERSION,
         "task_id": TASK_ID,
@@ -225,12 +418,17 @@ def build_post_capture_readiness_report(root=ROOT):
         ),
         "real_templates_reviewed": status_counts.get("reviewed", 0),
         "real_templates_needs_revision": status_counts.get("needs_revision", 0),
-        "real_filled_template_count": ingest_report["real_filled_template_count"],
-        "real_ingested_template_count": ingest_report["real_ingested_template_count"],
-        "sandbox_example_count": ingest_report["sandbox_example_count"],
-        "skipped_empty_count": ingest_report["skipped_empty_count"],
-        "skipped_placeholder_count": ingest_report["skipped_placeholder_count"],
-        "skipped_example_count": ingest_report["skipped_example_count"],
+        "real_filled_template_count": real_filled_count,
+        "real_ingested_template_count": real_ingested_count,
+        "draft_ingested_template_count": draft_ingested_count,
+        "ready_ingested_template_count": ready_ingested_count,
+        "ready_for_local_review_ingested_template_count": ready_for_local_review_count,
+        "reviewed_ingested_template_count": reviewed_count,
+        "sandbox_example_count": sandbox_example_count,
+        "skipped_empty_count": skipped_empty_count,
+        "skipped_placeholder_count": skipped_placeholder_count,
+        "skipped_example_count": skipped_example_count,
+        "source_overlay_market_ids": [entry.get("market_id") for entry in overlay_markets],
         "markets_with_resolution_criteria_text": with_resolution,
         "markets_with_full_resolution_rules": with_rules,
         "markets_with_official_source_references": with_sources,
@@ -242,22 +440,23 @@ def build_post_capture_readiness_report(root=ROOT):
             "available": readiness_after_available,
             "status": "not_available_no_real_ingest"
             if not readiness_after_available
-            else "available_from_manual_capture_overlay",
+            else live_readiness,
             "score_recalculation_performed": False,
             "canonical_packets_mutated": False,
         },
         "manual_capture_ingest_result_path": ingest.RESULT_JSON,
         "manual_capture_overlay_path": ingest.OVERLAY_JSON,
-        "live_readonly_api_discovery_readiness": "ready_for_protocol_review"
-        if ingest_report["real_ingested_template_count"] > 0
-        else "not_ready",
-        "blocker_reasons": _blocker_reasons(
-            ingest_report["real_filled_template_count"],
-            ingest_report["real_ingested_template_count"],
-        ),
+        "manual_capture_ingest_result_read": ingest_snapshot["ingest_result_read"],
+        "overlay_read_by_readiness_exporter": ingest_snapshot["overlay_read"],
+        "direct_polymarket_rules_verification_required": direct_rules_required,
+        "operator_override_document_exists": OPERATOR_OVERRIDE_DOCUMENT_EXISTS,
+        "live_readonly_api_discovery_readiness": live_readiness,
+        "blocker_reasons": blockers,
         "next_operator_actions": _next_operator_actions(
-            ingest_report["real_filled_template_count"],
-            ingest_report["real_ingested_template_count"],
+            real_filled_count,
+            real_ingested_count,
+            ready_ingested_count=ready_ingested_count,
+            direct_rules_verification_required=direct_rules_required,
         ),
         "canonical_packets_mutated": False,
         "workbench_artifacts_mutated": False,
@@ -283,10 +482,13 @@ def _summary(report):
         "total_capture_templates": report["total_capture_templates"],
         "real_filled_template_count": report["real_filled_template_count"],
         "real_ingested_template_count": report["real_ingested_template_count"],
+        "draft_ingested_template_count": report["draft_ingested_template_count"],
+        "ready_ingested_template_count": report["ready_ingested_template_count"],
         "sandbox_example_count": report["sandbox_example_count"],
         "live_readonly_api_discovery_readiness": report[
             "live_readonly_api_discovery_readiness"
         ],
+        "future_live_002_allowed": report["gate"]["future_live_002_allowed"],
         "blocker_reasons": report["blocker_reasons"],
         "openrouter_calls_performed": 0,
         "polymarket_api_calls_performed": 0,
@@ -309,10 +511,17 @@ def render_report_markdown(report):
         f"- real_templates_needs_revision: {report['real_templates_needs_revision']}",
         f"- real_filled_template_count: {report['real_filled_template_count']}",
         f"- real_ingested_template_count: {report['real_ingested_template_count']}",
+        f"- draft_ingested_template_count: {report['draft_ingested_template_count']}",
+        f"- ready_ingested_template_count: {report['ready_ingested_template_count']}",
+        f"- ready_for_local_review_ingested_template_count: {report['ready_for_local_review_ingested_template_count']}",
+        f"- reviewed_ingested_template_count: {report['reviewed_ingested_template_count']}",
         f"- sandbox_example_count: {report['sandbox_example_count']}",
         f"- skipped_empty_count: {report['skipped_empty_count']}",
         f"- skipped_placeholder_count: {report['skipped_placeholder_count']}",
         f"- skipped_example_count: {report['skipped_example_count']}",
+        f"- overlay_read_by_readiness_exporter: {str(report['overlay_read_by_readiness_exporter']).lower()}",
+        f"- direct_polymarket_rules_verification_required: {str(report['direct_polymarket_rules_verification_required']).lower()}",
+        f"- operator_override_document_exists: {str(report['operator_override_document_exists']).lower()}",
         f"- markets_with_resolution_criteria_text: {report['markets_with_resolution_criteria_text']}",
         f"- markets_with_full_resolution_rules: {report['markets_with_full_resolution_rules']}",
         f"- markets_with_official_source_references: {report['markets_with_official_source_references']}",
@@ -375,6 +584,10 @@ def render_gate_markdown(gate):
         f"- future_llm_review_approved: {str(gate['future_llm_review_approved']).lower()}",
         f"- real_filled_template_count: {gate['real_filled_template_count']}",
         f"- real_ingested_template_count: {gate['real_ingested_template_count']}",
+        f"- draft_ingested_template_count: {gate['draft_ingested_template_count']}",
+        f"- ready_ingested_template_count: {gate['ready_ingested_template_count']}",
+        f"- direct_polymarket_rules_verification_required: {str(gate['direct_polymarket_rules_verification_required']).lower()}",
+        f"- operator_override_document_exists: {str(gate['operator_override_document_exists']).lower()}",
         "",
         "## Blocker Reasons",
         "",
@@ -416,6 +629,14 @@ def build_docs_result(report):
         "post_capture_gate_created": True,
         "real_filled_template_count": report["real_filled_template_count"],
         "real_ingested_template_count": report["real_ingested_template_count"],
+        "draft_ingested_template_count": report["draft_ingested_template_count"],
+        "ready_ingested_template_count": report["ready_ingested_template_count"],
+        "overlay_read_by_readiness_exporter": report["overlay_read_by_readiness_exporter"],
+        "direct_polymarket_rules_verification_required": report[
+            "direct_polymarket_rules_verification_required"
+        ],
+        "operator_override_document_exists": report["operator_override_document_exists"],
+        "future_live_002_allowed": report["gate"]["future_live_002_allowed"],
         "sandbox_example_count": report["sandbox_example_count"],
         "live_readonly_api_discovery_readiness": report[
             "live_readonly_api_discovery_readiness"
@@ -452,6 +673,12 @@ def render_docs_markdown(report):
         "",
         f"- real_filled_template_count: {report['real_filled_template_count']}",
         f"- real_ingested_template_count: {report['real_ingested_template_count']}",
+        f"- draft_ingested_template_count: {report['draft_ingested_template_count']}",
+        f"- ready_ingested_template_count: {report['ready_ingested_template_count']}",
+        f"- overlay_read_by_readiness_exporter: {str(report['overlay_read_by_readiness_exporter']).lower()}",
+        f"- direct_polymarket_rules_verification_required: {str(report['direct_polymarket_rules_verification_required']).lower()}",
+        f"- operator_override_document_exists: {str(report['operator_override_document_exists']).lower()}",
+        f"- future_live_002_allowed: {str(report['gate']['future_live_002_allowed']).lower()}",
         f"- sandbox_example_count: {report['sandbox_example_count']}",
         f"- live_readonly_api_discovery_readiness: {report['live_readonly_api_discovery_readiness']}",
         "",
