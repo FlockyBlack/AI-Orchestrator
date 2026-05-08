@@ -7,9 +7,9 @@
 - future_live_002_allowed: false
 - future_openrouter_batch_approved: false
 - future_llm_review_approved: false
-- real_filled_template_count: 1
-- real_ingested_template_count: 1
-- draft_ingested_template_count: 1
+- real_filled_template_count: 2
+- real_ingested_template_count: 2
+- draft_ingested_template_count: 2
 - ready_ingested_template_count: 0
 - direct_polymarket_rules_verification_required: true
 - operator_override_document_exists: false

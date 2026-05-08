@@ -7,8 +7,8 @@ It does not treat empty real templates or sandbox examples as source improvement
 
 - ingest_status: real_templates_ingested
 - reason: none
-- real_filled_template_count: 1
-- real_ingested_template_count: 1
+- real_filled_template_count: 2
+- real_ingested_template_count: 2
 - sandbox_example_count: 1
 - skipped_empty_count: 13
 - skipped_placeholder_count: 0

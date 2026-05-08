@@ -295,9 +295,9 @@ def test_existing_source_007_and_008b_state_remains_preserved():
     gate = _load_json(SOURCE_007_GATE)
     source_008b = _load_json(ROOT / "docs" / "PMBOT_SOURCE_008B_RESULT.json")
 
-    assert ingest["real_ingested_template_count"] == 1
-    assert gate["real_ingested_template_count"] == 1
-    assert gate["draft_ingested_template_count"] == 1
+    assert ingest["real_ingested_template_count"] >= source_008b["real_ingested_template_count_preserved"]
+    assert gate["real_ingested_template_count"] >= source_008b["real_ingested_template_count_preserved"]
+    assert gate["draft_ingested_template_count"] >= source_008b["draft_ingested_template_count_preserved"]
     assert gate["ready_ingested_template_count"] == 0
     assert gate["future_live_002_allowed"] is False
     assert source_008b["real_ingested_template_count_preserved"] == 1

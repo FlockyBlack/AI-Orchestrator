@@ -152,20 +152,21 @@ def test_post_capture_report_works_with_one_draft_overlay_market():
     report = json.loads(REPORT.read_text(encoding="utf-8"))
 
     assert report["schema_version"] == "post_capture_readiness_report.v1"
-    assert report["total_capture_templates"] == 14
+    assert report["total_capture_templates"] == 15
     assert report["real_templates_not_started"] == 13
-    assert report["real_templates_draft"] == 1
-    assert report["real_filled_template_count"] == 1
-    assert report["real_ingested_template_count"] == 1
-    assert report["draft_ingested_template_count"] == 1
+    assert report["real_templates_draft"] == 2
+    assert report["real_filled_template_count"] == 2
+    assert report["real_ingested_template_count"] == 2
+    assert report["draft_ingested_template_count"] == 2
     assert report["ready_ingested_template_count"] == 0
     assert report["sandbox_example_count"] == 1
-    assert report["markets_with_resolution_criteria_text"] == 1
-    assert report["markets_with_full_resolution_rules"] == 1
-    assert report["markets_with_official_source_references"] == 1
+    assert report["markets_with_resolution_criteria_text"] == 2
+    assert report["markets_with_full_resolution_rules"] == 2
+    assert report["markets_with_official_source_references"] == 2
     assert report["markets_still_missing_resolution_criteria_text"] == 13
     assert report["markets_still_missing_full_resolution_rules"] == 13
     assert report["markets_still_missing_official_source_references"] == 13
+    assert "1987056" in report["source_overlay_market_ids"]
 
 
 def test_examples_do_not_increase_real_readiness(tmp_path):
@@ -204,6 +205,9 @@ def test_gate_blocks_live_readonly_when_only_draft_overlay_is_ingested():
     assert gate["schema_version"] == "post_capture_batch_readiness_gate.v1"
     assert gate["live_readonly_api_discovery_readiness"] == "source_overlay_present_but_not_ready"
     assert gate["future_live_002_allowed"] is False
+    assert gate["real_ingested_template_count"] == 2
+    assert gate["draft_ingested_template_count"] == 2
+    assert gate["ready_ingested_template_count"] == 0
     assert "no real manually ingested source capture templates" not in gate["blocker_reasons"]
     assert "ingested source capture exists only as draft" in gate["blocker_reasons"]
     assert "no ready_for_local_review or reviewed source capture templates" in gate["blocker_reasons"]

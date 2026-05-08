@@ -8,6 +8,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
 VALIDATION = ROOT / "pm_bot" / "llm" / "manual_resolution_source_capture_validation.v1.json"
+CAPTURE_DIR = ROOT / "pm_bot" / "llm" / "manual_resolution_source_capture"
 
 
 class ManualResolutionSourceCaptureValidatorTests(unittest.TestCase):
@@ -20,24 +21,33 @@ class ManualResolutionSourceCaptureValidatorTests(unittest.TestCase):
 
         self.assertEqual(report["schema_version"], "manual_resolution_source_capture_validation.v1")
         self.assertEqual(report["capture_schema_version"], "manual_resolution_source_capture_schema.v1")
-        self.assertEqual(report["total_packets_validated"], 14)
-        self.assertEqual(report["valid_count"], 14)
+        self.assertEqual(report["total_packets_validated"], 15)
+        self.assertEqual(report["valid_count"], 15)
         self.assertEqual(report["invalid_count"], 0)
         self.assertEqual(report["packets_missing_required_template_fields"], [])
         self.assertEqual(report["packets_with_market_action_guidance"], [])
         self.assertEqual(len(report["packets_ready_for_local_review"]), 0)
         self.assertEqual(len(report["packets_not_started"]), 13)
         self.assertNotIn("597964", report["packets_not_started"])
+        self.assertNotIn("1987056", report["packets_not_started"])
         self.assertIn("operator_next_steps", report)
         self.assertIn("missing_fields_by_priority", report)
         self.assertEqual(report["missing_fields_by_priority"][0]["field"], "full_market_resolution_criteria_text")
         self.assertEqual(report["missing_fields_by_priority"][0]["market_count"], 13)
-        self.assertIn("Fill", report["packet_results"][0]["operator_next_step"])
+        not_started_result = next(
+            item for item in report["packet_results"] if item["market_id"] == "563650"
+        )
+        self.assertIn("Fill", not_started_result["operator_next_step"])
         draft_result = next(
             item for item in report["packet_results"] if item["market_id"] == "597964"
         )
         self.assertEqual(draft_result["capture_status"], "draft")
         self.assertEqual(draft_result["missing_fields_by_priority"], [])
+        esports_result = next(
+            item for item in report["packet_results"] if item["market_id"] == "1987056"
+        )
+        self.assertEqual(esports_result["capture_status"], "draft")
+        self.assertEqual(esports_result["missing_fields_by_priority"], [])
 
     def test_validator_rejects_ready_packets_with_empty_high_completeness_fields(self):
         module = importlib.import_module("pm_bot.llm.manual_resolution_source_capture_validator")
@@ -46,11 +56,7 @@ class ManualResolutionSourceCaptureValidatorTests(unittest.TestCase):
                 encoding="utf-8"
             )
         )
-        packet_path = next(
-            (ROOT / "pm_bot" / "llm" / "manual_resolution_source_capture").glob(
-                "*_resolution_source_capture.v1.json"
-            )
-        )
+        packet_path = CAPTURE_DIR / "563650_resolution_source_capture.v1.json"
         packet = json.loads(packet_path.read_text(encoding="utf-8"))
         packet["capture_status"] = "ready_for_local_review"
         packet["source_capture_status"] = "ready_for_local_review"
@@ -67,11 +73,7 @@ class ManualResolutionSourceCaptureValidatorTests(unittest.TestCase):
                 encoding="utf-8"
             )
         )
-        packet_path = next(
-            (ROOT / "pm_bot" / "llm" / "manual_resolution_source_capture").glob(
-                "*_resolution_source_capture.v1.json"
-            )
-        )
+        packet_path = CAPTURE_DIR / "563650_resolution_source_capture.v1.json"
         packet = json.loads(packet_path.read_text(encoding="utf-8"))
         packet["capture_status"] = "ready_for_local_review"
         packet["source_capture_status"] = "ready_for_local_review"

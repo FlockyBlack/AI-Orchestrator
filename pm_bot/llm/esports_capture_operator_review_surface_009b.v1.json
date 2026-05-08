@@ -1,0 +1,114 @@
+{
+  "schema_version": "esports_capture_operator_review_surface_009b.v1",
+  "task_id": "PMBOT-SOURCE-009B-ESPORTS-DRAFT-CAPTURE-AUTOFILL-FROM-READONLY-CANDIDATE",
+  "generated_by": "pm_bot/llm/esports_capture_autofill_from_readonly_candidate.py",
+  "market_id": "1987056",
+  "title": "LoL: JD Gaming vs Anyone's Legend (BO5) - Esports World Cup China Qualifier Phase 2",
+  "market_class": "esports",
+  "capture_status": "draft",
+  "source_capture_status": "draft",
+  "operator_review_required": true,
+  "auto_promote_to_ready_for_local_review": false,
+  "missing_or_ambiguous_fields": [
+    "Operator must verify exact Polymarket/Gamma rules text before any status promotion.",
+    "Operator must verify match, tournament, game, team names, timezone, and event schedule.",
+    "Operator must verify cancellation, reschedule, forfeit, walkover, delay, and name discrepancy handling.",
+    "Operator must verify the official result source and fallback source hierarchy around event conclusion.",
+    "Operator must verify cancellation, reschedule, forfeit, and walkover handling."
+  ],
+  "checklist_items_from_009a": [
+    {
+      "check_id": "verify_exact_polymarket_rules_text",
+      "review_prompt": "Verify exact Polymarket rules text.",
+      "required": true,
+      "status": "unchecked"
+    },
+    {
+      "check_id": "verify_match_tournament_game_identity",
+      "review_prompt": "Verify match, tournament, and game identity.",
+      "required": true,
+      "status": "unchecked"
+    },
+    {
+      "check_id": "verify_teams_or_players",
+      "review_prompt": "Verify teams or players.",
+      "required": true,
+      "status": "unchecked"
+    },
+    {
+      "check_id": "verify_official_result_source",
+      "review_prompt": "Verify official result source.",
+      "required": true,
+      "status": "unchecked"
+    },
+    {
+      "check_id": "verify_cancellation_reschedule_forfeit_handling",
+      "review_prompt": "Verify cancellation, reschedule, forfeit, walkover, and delay handling.",
+      "required": true,
+      "status": "unchecked"
+    },
+    {
+      "check_id": "verify_timezone_deadline",
+      "review_prompt": "Verify timezone and deadline.",
+      "required": true,
+      "status": "unchecked"
+    },
+    {
+      "check_id": "verify_source_capture_promotion_readiness",
+      "review_prompt": "Verify whether source capture can be promoted to ready_for_local_review.",
+      "required": true,
+      "status": "unchecked"
+    },
+    {
+      "check_id": "no_trading_decision",
+      "review_prompt": "No trading decision.",
+      "required": true,
+      "status": "unchecked"
+    }
+  ],
+  "operator_next_actions": [
+    "Verify exact rules text and source hierarchy.",
+    "Verify match identity, teams, scheduled time, and timezone.",
+    "Verify cancellation, reschedule, forfeit, walkover, delay, and name discrepancy handling.",
+    "Keep capture as draft until review is complete."
+  ],
+  "no_market_action_guidance": true,
+  "operator_review_only": true,
+  "no_trading_authority": true,
+  "safety_summary": {
+    "no_market_action_guidance": true,
+    "operator_review_only": true,
+    "no_trading_authority": true,
+    "no_queue_authority": true,
+    "no_runtime_authority": true,
+    "no_wallet_or_order_authority": true,
+    "analysis_only": true,
+    "local_only": true,
+    "manual_review_only": true,
+    "passive_context_only": true,
+    "no_dispatcher_authority": true,
+    "no_browser_automation": true,
+    "no_probability_ev_edge_confidence_side_selection": true,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "external_network_calls_performed": 0,
+    "network_calls_performed": 0,
+    "api_key_accessed": false,
+    "api_key_value_printed": false,
+    "api_key_value_written": false,
+    "api_key_leaked": false,
+    "authenticated_endpoints_used": false,
+    "wallet_or_private_key_accessed": false,
+    "orders_created": 0,
+    "queue_items_created": 0,
+    "queue_state_mutated": false,
+    "runtime_wiring_added": false,
+    "dispatcher_changed": false,
+    "background_workers_added": false,
+    "browser_automation_used": false,
+    "market_decisions_made": false
+  },
+  "openrouter_calls_performed": 0,
+  "polymarket_api_calls_performed": 0,
+  "external_network_calls_performed": 0
+}

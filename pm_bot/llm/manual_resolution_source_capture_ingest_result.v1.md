@@ -8,8 +8,8 @@
 - dry_run: false
 - include_drafts: true
 - strict_ready: false
-- real_filled_template_count: 1
-- real_ingested_template_count: 1
+- real_filled_template_count: 2
+- real_ingested_template_count: 2
 - sandbox_example_count: 1
 - skipped_empty_count: 13
 - skipped_placeholder_count: 0

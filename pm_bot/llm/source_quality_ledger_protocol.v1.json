@@ -39,6 +39,17 @@
     "usefulness for rules/source capture",
     "operator review usefulness"
   ],
+  "first_observation_candidate_hooks": [
+    {
+      "market_id": "1987056",
+      "market_class": "esports",
+      "artifact_path": "pm_bot/llm/source_quality_observation_candidate_1987056_009b.v1.json",
+      "status": "pending_resolution_outcome",
+      "outcome_known": false,
+      "source_scoring_performed": false,
+      "operator_review_required": true
+    }
+  ],
   "safety_summary": {
     "protocol_only": true,
     "openrouter_calls_performed": 0,

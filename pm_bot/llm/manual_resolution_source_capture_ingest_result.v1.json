@@ -8,13 +8,23 @@
   "dry_run": false,
   "include_drafts": true,
   "strict_ready": false,
-  "real_filled_template_count": 1,
-  "real_ingested_template_count": 1,
+  "real_filled_template_count": 2,
+  "real_ingested_template_count": 2,
   "sandbox_example_count": 1,
   "skipped_empty_count": 13,
   "skipped_placeholder_count": 0,
   "skipped_example_count": 1,
   "template_results": [
+    {
+      "path": "pm_bot/llm/manual_resolution_source_capture/1987056_resolution_source_capture.v1.json",
+      "market_id": "1987056",
+      "source_capture_status": "draft",
+      "capture_status": "draft",
+      "eligible_for_ingest": true,
+      "skip_reason": null,
+      "missing_required_source_fields": [],
+      "placeholder_required_source_fields": []
+    },
     {
       "path": "pm_bot/llm/manual_resolution_source_capture/563650_resolution_source_capture.v1.json",
       "market_id": "563650",
@@ -163,16 +173,16 @@
     "status": "manual_capture_ingest_manifest_created",
     "capture_dir": "pm_bot/llm/manual_resolution_source_capture",
     "example_dir": "pm_bot/llm/manual_resolution_source_capture_examples",
-    "total_real_template_count": 14,
-    "real_filled_template_count": 1,
-    "real_ingested_template_count": 1,
+    "total_real_template_count": 15,
+    "real_filled_template_count": 2,
+    "real_ingested_template_count": 2,
     "sandbox_example_count": 1,
     "skipped_empty_count": 13,
     "skipped_placeholder_count": 0,
     "skipped_example_count": 1,
     "capture_status_counts": {
       "not_started": 13,
-      "draft": 1,
+      "draft": 2,
       "ready_for_local_review": 0,
       "reviewed": 0,
       "needs_revision": 0
@@ -195,6 +205,7 @@
       "non_placeholder_evidence_notes"
     ],
     "eligible_market_ids": [
+      "1987056",
       "597964"
     ],
     "skipped_templates": [
@@ -374,8 +385,62 @@
     "status": "real_templates_ingested",
     "overlay_scope": "local_manual_source_capture_overlay_only",
     "canonical_packets_mutated": false,
-    "real_ingested_template_count": 1,
+    "real_ingested_template_count": 2,
     "markets": [
+      {
+        "market_id": "1987056",
+        "capture_path": "pm_bot/llm/manual_resolution_source_capture/1987056_resolution_source_capture.v1.json",
+        "source_capture_status": "draft",
+        "capture_status": "draft",
+        "market_title_or_question": "LoL: JD Gaming vs Anyone's Legend (BO5) - Esports World Cup China Qualifier Phase 2",
+        "category": "esports",
+        "ingested_fields": [
+          "full_market_resolution_criteria_text",
+          "full_resolution_rules",
+          "official_source_references",
+          "official_source_urls_or_rule_references",
+          "source_timestamps",
+          "source_reliability_review",
+          "reviewed_local_evidence_references",
+          "non_placeholder_evidence_notes"
+        ],
+        "full_market_resolution_criteria_text": "This market refers to the LoL Upper bracket final match between JD Gaming and Anyone's Legend in the Esports World Cup China Qualifier Phase 2, initially scheduled for May 21 at 4:00AM ET.\n\nThis market will resolve to \"JD Gaming\" if JD Gaming win the match against Anyone's Legend.\n\nThis market will resolve to \"Anyone's Legend\" if Anyone's Legend win the match against JD Gaming.\n\nIf the match is canceled (not played at all), ends in a tie, or is delayed beyond 7 days from the scheduled date without a winner determined, this market will resolve to 50-50. \n\nIf the match begins but is not completed, and one team wins due to the opponent's forfeiture, disqualification, or walkover, this market will resolve to the team who wins. \n\nIf the match ends in a forfeit, disqualification, or walkover (team withdraws before the start and the other wins automatically), this market will resolve to 50-50. \n\nThe resolution source for this market will be official information from https://gol.gg/esports/home. However, if https://gol.gg/esports/home has not published final results within 2 hours after the event\u2019s conclusion, a consensus of credible reporting may be used instead including video evidence.\n\nIn cases where a team\u2019s listed name includes minor discrepancies from the resolution source, this market will resolve based on the underlying real-world match rather than exact name matching. Recognizable abbreviations, alternate or erroneous spellings, sponsor tags, affiliate or academy designations, regional identifiers, and minor formatting differences will be treated as referring to the same team, provided the intended team can be clearly and uniquely identified within the relevant competition. If a listed team name has no reasonable connection to any participating team, or if it matches or could reasonably refer to another team in the same competition such that the intended team cannot be unambiguously determined, this market will resolve 50-50.",
+        "full_resolution_rules": "This market refers to the LoL Upper bracket final match between JD Gaming and Anyone's Legend in the Esports World Cup China Qualifier Phase 2, initially scheduled for May 21 at 4:00AM ET.\n\nThis market will resolve to \"JD Gaming\" if JD Gaming win the match against Anyone's Legend.\n\nThis market will resolve to \"Anyone's Legend\" if Anyone's Legend win the match against JD Gaming.\n\nIf the match is canceled (not played at all), ends in a tie, or is delayed beyond 7 days from the scheduled date without a winner determined, this market will resolve to 50-50. \n\nIf the match begins but is not completed, and one team wins due to the opponent's forfeiture, disqualification, or walkover, this market will resolve to the team who wins. \n\nIf the match ends in a forfeit, disqualification, or walkover (team withdraws before the start and the other wins automatically), this market will resolve to 50-50. \n\nThe resolution source for this market will be official information from https://gol.gg/esports/home. However, if https://gol.gg/esports/home has not published final results within 2 hours after the event\u2019s conclusion, a consensus of credible reporting may be used instead including video evidence.\n\nIn cases where a team\u2019s listed name includes minor discrepancies from the resolution source, this market will resolve based on the underlying real-world match rather than exact name matching. Recognizable abbreviations, alternate or erroneous spellings, sponsor tags, affiliate or academy designations, regional identifiers, and minor formatting differences will be treated as referring to the same team, provided the intended team can be clearly and uniquely identified within the relevant competition. If a listed team name has no reasonable connection to any participating team, or if it matches or could reasonably refer to another team in the same competition such that the intended team cannot be unambiguously determined, this market will resolve 50-50.",
+        "official_source_references": [
+          "SOURCE-009A read-only Gamma market metadata artifact for market-specific rules text",
+          "https://gol.gg/esports/home"
+        ],
+        "official_source_urls_or_rule_references": [
+          "https://gol.gg/esports/home",
+          "pm_bot/live_readonly/esports_market_discovery/esports_source_capture_candidate_009a.v1.json"
+        ],
+        "source_timestamps": [
+          "SOURCE-009A read-only fetch marker: 2026-05-08T00:00:00Z_SOURCE_009A_READONLY_FIELD_TEST",
+          "Scheduled match time from normalized candidate: 2026-05-21T09:00:00Z",
+          "SOURCE-009B local autofill timestamp: 2026-05-08 Asia/Tbilisi; no network calls performed."
+        ],
+        "source_reliability_review": "SOURCE-009A provides locally stored public read-only Gamma metadata for rules text. The market metadata names https://gol.gg/esports/home as the official result source, but SOURCE-009B does not fetch or verify any live result page. Operator review must verify the exact rules text, source hierarchy, event identity, and timing before any status promotion.",
+        "reviewed_local_evidence_references": [
+          "pm_bot/live_readonly/esports_market_discovery/esports_market_raw_fetch_009a.v1.json",
+          "pm_bot/live_readonly/esports_market_discovery/esports_market_normalized_candidate_009a.v1.json",
+          "pm_bot/live_readonly/esports_market_discovery/esports_source_capture_candidate_009a.v1.json",
+          "pm_bot/live_readonly/esports_market_discovery/esports_operator_review_checklist_009a.v1.json",
+          "pm_bot/live_readonly/esports_market_discovery/esports_operator_review_checklist_009a.v1.md"
+        ],
+        "non_placeholder_evidence_notes": "SOURCE-009A locally stored Gamma metadata contains the esports market description, rules text, named result source, event/tournament context, teams, game title, and scheduled time. SOURCE-009B copies that evidence into a manual capture draft only; operator review remains required and no market decision is made.",
+        "jurisdiction": "global_esports_competition_context",
+        "candidate_or_party_if_applicable": "JD Gaming; Anyone's Legend",
+        "source_capture_author_or_operator": "local_autofill_from_source_009a_readonly_candidate",
+        "source_capture_timestamp_local": "2026-05-08 Asia/Tbilisi",
+        "source_capture_provenance": "local_only_autofill_from_pm_bot_live_readonly_esports_market_discovery_009a_artifacts; direct_rules_text_captured=true; official_result_source_identified=true; no network calls in SOURCE-009B",
+        "operator_review_only": true,
+        "analysis_only": true,
+        "no_market_action_guidance": true,
+        "no_trading_authority": true,
+        "no_queue_authority": true,
+        "no_runtime_authority": true,
+        "no_wallet_or_order_authority": true
+      },
       {
         "market_id": "597964",
         "capture_path": "pm_bot/llm/manual_resolution_source_capture/597964_resolution_source_capture.v1.json",

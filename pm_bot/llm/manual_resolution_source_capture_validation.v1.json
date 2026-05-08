@@ -6,8 +6,8 @@
   "status": "manual_resolution_source_capture_validation_passed",
   "strict_ready_enabled": false,
   "market_id_filter": null,
-  "total_packets_validated": 14,
-  "valid_count": 14,
+  "total_packets_validated": 15,
+  "valid_count": 15,
   "invalid_count": 0,
   "packets_missing_required_template_fields": [],
   "packets_with_market_action_guidance": [],
@@ -195,6 +195,19 @@
     "Run python -m pm_bot.llm.manual_resolution_source_capture_validator --write after edits."
   ],
   "packet_results": [
+    {
+      "market_id": "1987056",
+      "valid": true,
+      "errors": [],
+      "missing_required_template_fields": [],
+      "market_action_guidance_findings": [],
+      "empty_required_for_high_completeness_fields": [],
+      "strict_ready_missing_fields": [],
+      "missing_fields_by_priority": [],
+      "operator_next_step": "If local evidence review is complete, set both status fields to ready_for_local_review and rerun validation.",
+      "capture_status": "draft",
+      "path": "pm_bot/llm/manual_resolution_source_capture/1987056_resolution_source_capture.v1.json"
+    },
     {
       "market_id": "563650",
       "valid": true,

@@ -38,3 +38,13 @@ A source should be reviewed by:
 - no side selection
 - no autonomous execution authority
 - no wallet or order authority
+
+## First Observation Candidate Hook
+
+- market_id: 1987056
+- market_class: esports
+- artifact_path: pm_bot/llm/source_quality_observation_candidate_1987056_009b.v1.json
+- status: pending_resolution_outcome
+- outcome_known: false
+- source_scoring_performed: false
+- operator_review_required: true

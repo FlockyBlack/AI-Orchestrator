@@ -6,7 +6,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 CAPTURE_DIR = ROOT / "pm_bot" / "llm" / "manual_resolution_source_capture"
 INVENTORY = ROOT / "pm_bot" / "llm" / "current_llm_market_packet_inventory.v1.json"
-FILLED_DRAFT_MARKET_IDS = {"597964"}
+PILOT_DISCOVERED_CAPTURE_MARKET_IDS = {"1987056"}
+FILLED_DRAFT_MARKET_IDS = {"597964", *PILOT_DISCOVERED_CAPTURE_MARKET_IDS}
 SOURCE_FIELDS = (
     "full_market_resolution_criteria_text",
     "full_resolution_rules",
@@ -22,14 +23,17 @@ SOURCE_FIELDS = (
 class ManualResolutionSourceCaptureTemplateTests(unittest.TestCase):
     def test_capture_directory_has_one_json_and_markdown_template_per_inventory_market(self):
         inventory = json.loads(INVENTORY.read_text(encoding="utf-8"))
-        expected_market_ids = [item["market_id"] for item in inventory["markets"]]
+        expected_market_ids = sorted(
+            [item["market_id"] for item in inventory["markets"]]
+            + list(PILOT_DISCOVERED_CAPTURE_MARKET_IDS)
+        )
 
         json_paths = sorted(CAPTURE_DIR.glob("*_resolution_source_capture.v1.json"))
         markdown_paths = sorted(CAPTURE_DIR.glob("*_resolution_source_capture.v1.md"))
 
         self.assertTrue(CAPTURE_DIR.exists())
-        self.assertEqual(len(json_paths), 14)
-        self.assertEqual(len(markdown_paths), 14)
+        self.assertEqual(len(json_paths), len(expected_market_ids))
+        self.assertEqual(len(markdown_paths), len(expected_market_ids))
         self.assertEqual(
             [path.name.split("_")[0] for path in json_paths],
             expected_market_ids,
