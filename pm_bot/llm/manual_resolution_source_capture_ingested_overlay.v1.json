@@ -5,7 +5,7 @@
   "status": "real_templates_ingested",
   "overlay_scope": "local_manual_source_capture_overlay_only",
   "canonical_packets_mutated": false,
-  "real_ingested_template_count": 2,
+  "real_ingested_template_count": 3,
   "markets": [
     {
       "market_id": "1987056",
@@ -114,6 +114,67 @@
       "source_capture_author_or_operator": "web_assisted_operator_draft",
       "source_capture_timestamp_local": "2026-05-08 Europe/Amsterdam",
       "source_capture_provenance": "web_assisted_draft_requires_operator_verification_against_direct_polymarket_rules",
+      "operator_review_only": true,
+      "analysis_only": true,
+      "no_market_action_guidance": true,
+      "no_trading_authority": true,
+      "no_queue_authority": true,
+      "no_runtime_authority": true,
+      "no_wallet_or_order_authority": true
+    },
+    {
+      "market_id": "693869",
+      "capture_path": "pm_bot/llm/manual_resolution_source_capture/693869_resolution_source_capture.v1.json",
+      "source_capture_status": "draft",
+      "capture_status": "draft",
+      "market_title_or_question": "Will the minimum Arctic sea ice extent this summer be less than 4m square kilometers?",
+      "category": "weather",
+      "ingested_fields": [
+        "full_market_resolution_criteria_text",
+        "full_resolution_rules",
+        "official_source_references",
+        "official_source_urls_or_rule_references",
+        "source_timestamps",
+        "source_reliability_review",
+        "reviewed_local_evidence_references",
+        "non_placeholder_evidence_notes"
+      ],
+      "full_market_resolution_criteria_text": "This market will resolve according to the minimum Arctic sea ice extent for all days between August 1, 2026 and October 1, 2026, as published by the National Snow and Ice Data Center.\n\nThis market will remain open until data has been published for October 1, 2026, at which point it will resolve immediately. Any revisions to sea ice extent recorded after data is published for October 1, 2026 will not be considered.\n\nThe resolution source for this market measures temperatures to thousands of square kilometers (e.g. 4.255 million sq km). Thus, this is the level of precision that will be used when resolving the market.\n\nThe resolution source for this market will be information from the National Snow and Ice Data Center, specifically the minimum value recorded for any day between August 1, 2026 and October 1, 2026 in the \u201cNH-Daily-Extent\u201d tab of the \u201cSea Ice Index Daily Extent\u201d data set, available at https://nsidc.org/sea-ice-today/sea-ice-tools. If this resolution source becomes unavailable, another resolution source will be chosen.",
+      "full_resolution_rules": "This market will resolve according to the minimum Arctic sea ice extent for all days between August 1, 2026 and October 1, 2026, as published by the National Snow and Ice Data Center.\n\nThis market will remain open until data has been published for October 1, 2026, at which point it will resolve immediately. Any revisions to sea ice extent recorded after data is published for October 1, 2026 will not be considered.\n\nThe resolution source for this market measures temperatures to thousands of square kilometers (e.g. 4.255 million sq km). Thus, this is the level of precision that will be used when resolving the market.\n\nThe resolution source for this market will be information from the National Snow and Ice Data Center, specifically the minimum value recorded for any day between August 1, 2026 and October 1, 2026 in the \u201cNH-Daily-Extent\u201d tab of the \u201cSea Ice Index Daily Extent\u201d data set, available at https://nsidc.org/sea-ice-today/sea-ice-tools. If this resolution source becomes unavailable, another resolution source will be chosen.",
+      "official_source_references": [
+        "SOURCE-010A2 read-only Gamma market metadata artifact for market-specific rules text",
+        "National Snow and Ice Data Center",
+        "Sea Ice Index Daily Extent data set",
+        "NH-Daily-Extent tab",
+        "https://nsidc.org/sea-ice-today/sea-ice-tools",
+        "according to the minimum Arctic sea ice extent for all days between August 1, 2026 and October 1, 2026, as publis",
+        "If this resolution source becomes unavailable, another resolution source will be chosen."
+      ],
+      "official_source_urls_or_rule_references": [
+        "https://nsidc.org/sea-ice-today/sea-ice-tools",
+        "pm_bot/live_readonly/weather_market_discovery/weather_source_capture_candidate_010a2.v1.json"
+      ],
+      "source_timestamps": [
+        "SOURCE-010A2 read-only fetch marker: 2026-05-08T00:00:00Z_SOURCE_010A2_REFINED_READONLY_ATTEMPT",
+        "Market time window from SOURCE-010A2 metadata: between August 1, 2026 and October 1, 2026",
+        "SOURCE-010B local autofill timestamp: 2026-05-08 Asia/Tbilisi; no network calls performed."
+      ],
+      "source_reliability_review": "SOURCE-010A2 provides locally stored public read-only Gamma metadata for market rules text. The stored metadata names the National Snow and Ice Data Center Sea Ice Index Daily Extent data set and NH-Daily-Extent tab, but SOURCE-010B does not fetch or verify any live NSIDC page. Operator review must verify exact rules text, source hierarchy, time window, timezone, and fallback handling before any status promotion.",
+      "reviewed_local_evidence_references": [
+        "pm_bot/live_readonly/weather_market_discovery/weather_market_raw_fetch_010a2.v1.json",
+        "pm_bot/live_readonly/weather_market_discovery/weather_market_normalized_candidate_010a2.v1.json",
+        "pm_bot/live_readonly/weather_market_discovery/weather_source_capture_candidate_010a2.v1.json",
+        "pm_bot/live_readonly/weather_market_discovery/weather_operator_review_checklist_010a2.v1.json",
+        "pm_bot/live_readonly/weather_market_discovery/weather_operator_review_checklist_010a2.v1.md",
+        "pm_bot/live_readonly/weather_market_discovery/weather_discovery_refinement_diagnostics_010a2.v1.json",
+        "pm_bot/llm/source_quality_observation_candidate_weather_010a2.v1.json"
+      ],
+      "non_placeholder_evidence_notes": "SOURCE-010A2 locally stored Gamma metadata contains the weather market description, rules text, Arctic region, minimum sea ice extent metric, million-square-kilometer unit, less-than-4-million-square-kilometer condition, August 1 through October 1 2026 window, NSIDC source reference, and generic fallback-source clause. SOURCE-010B copies that evidence into a manual capture draft only; operator review remains required and no market decision is made.",
+      "jurisdiction": "Arctic sea ice extent region",
+      "candidate_or_party_if_applicable": null,
+      "source_capture_author_or_operator": "local_autofill_from_source_010a2_readonly_candidate",
+      "source_capture_timestamp_local": "2026-05-08 Asia/Tbilisi",
+      "source_capture_provenance": "local_only_autofill_from_pm_bot_live_readonly_weather_market_discovery_010a2_artifacts; direct_rules_text_captured=true; official_weather_source_identified=true; station_or_source_hierarchy_identified=true; no network calls in SOURCE-010B",
       "operator_review_only": true,
       "analysis_only": true,
       "no_market_action_guidance": true,

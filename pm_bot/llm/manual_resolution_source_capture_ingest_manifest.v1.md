@@ -5,9 +5,9 @@
 - status: manual_capture_ingest_manifest_created
 - capture_dir: pm_bot/llm/manual_resolution_source_capture
 - example_dir: pm_bot/llm/manual_resolution_source_capture_examples
-- total_real_template_count: 15
-- real_filled_template_count: 2
-- real_ingested_template_count: 2
+- total_real_template_count: 16
+- real_filled_template_count: 3
+- real_ingested_template_count: 3
 - sandbox_example_count: 1
 - skipped_empty_count: 13
 - skipped_placeholder_count: 0
@@ -17,7 +17,7 @@
 ## Capture Status Counts
 
 - not_started: 13
-- draft: 2
+- draft: 3
 - ready_for_local_review: 0
 - reviewed: 0
 - needs_revision: 0
@@ -37,6 +37,7 @@
 
 - 1987056
 - 597964
+- 693869
 
 ## Sandbox Example Paths
 

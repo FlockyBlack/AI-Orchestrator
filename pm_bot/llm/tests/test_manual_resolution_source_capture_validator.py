@@ -21,8 +21,8 @@ class ManualResolutionSourceCaptureValidatorTests(unittest.TestCase):
 
         self.assertEqual(report["schema_version"], "manual_resolution_source_capture_validation.v1")
         self.assertEqual(report["capture_schema_version"], "manual_resolution_source_capture_schema.v1")
-        self.assertEqual(report["total_packets_validated"], 15)
-        self.assertEqual(report["valid_count"], 15)
+        self.assertEqual(report["total_packets_validated"], 16)
+        self.assertEqual(report["valid_count"], 16)
         self.assertEqual(report["invalid_count"], 0)
         self.assertEqual(report["packets_missing_required_template_fields"], [])
         self.assertEqual(report["packets_with_market_action_guidance"], [])
@@ -30,6 +30,7 @@ class ManualResolutionSourceCaptureValidatorTests(unittest.TestCase):
         self.assertEqual(len(report["packets_not_started"]), 13)
         self.assertNotIn("597964", report["packets_not_started"])
         self.assertNotIn("1987056", report["packets_not_started"])
+        self.assertNotIn("693869", report["packets_not_started"])
         self.assertIn("operator_next_steps", report)
         self.assertIn("missing_fields_by_priority", report)
         self.assertEqual(report["missing_fields_by_priority"][0]["field"], "full_market_resolution_criteria_text")
@@ -48,6 +49,11 @@ class ManualResolutionSourceCaptureValidatorTests(unittest.TestCase):
         )
         self.assertEqual(esports_result["capture_status"], "draft")
         self.assertEqual(esports_result["missing_fields_by_priority"], [])
+        weather_result = next(
+            item for item in report["packet_results"] if item["market_id"] == "693869"
+        )
+        self.assertEqual(weather_result["capture_status"], "draft")
+        self.assertEqual(weather_result["missing_fields_by_priority"], [])
 
     def test_validator_rejects_ready_packets_with_empty_high_completeness_fields(self):
         module = importlib.import_module("pm_bot.llm.manual_resolution_source_capture_validator")

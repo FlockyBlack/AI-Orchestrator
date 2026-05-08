@@ -6,8 +6,8 @@
   "status": "manual_resolution_source_capture_validation_passed",
   "strict_ready_enabled": false,
   "market_id_filter": null,
-  "total_packets_validated": 15,
-  "valid_count": 15,
+  "total_packets_validated": 16,
+  "valid_count": 16,
   "invalid_count": 0,
   "packets_missing_required_template_fields": [],
   "packets_with_market_action_guidance": [],
@@ -883,6 +883,19 @@
       "operator_next_step": "Fill the priority source fields from manual local review, set both status fields to draft, then rerun validation.",
       "capture_status": "not_started",
       "path": "pm_bot/llm/manual_resolution_source_capture/692258_resolution_source_capture.v1.json"
+    },
+    {
+      "market_id": "693869",
+      "valid": true,
+      "errors": [],
+      "missing_required_template_fields": [],
+      "market_action_guidance_findings": [],
+      "empty_required_for_high_completeness_fields": [],
+      "strict_ready_missing_fields": [],
+      "missing_fields_by_priority": [],
+      "operator_next_step": "If local evidence review is complete, set both status fields to ready_for_local_review and rerun validation.",
+      "capture_status": "draft",
+      "path": "pm_bot/llm/manual_resolution_source_capture/693869_resolution_source_capture.v1.json"
     }
   ],
   "safety_summary": {

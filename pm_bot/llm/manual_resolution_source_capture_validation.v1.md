@@ -5,8 +5,8 @@
 - task_id: PMBOT-SOURCE-004-LOCAL-MANUAL-RESOLUTION-SOURCE-CAPTURE-PACKETS
 - status: manual_resolution_source_capture_validation_passed
 - strict_ready_enabled: false
-- total_packets_validated: 15
-- valid_count: 15
+- total_packets_validated: 16
+- valid_count: 16
 - invalid_count: 0
 - packets_ready_for_local_review: 0
 - packets_not_started: 13

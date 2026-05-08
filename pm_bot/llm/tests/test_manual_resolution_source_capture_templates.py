@@ -6,7 +6,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 CAPTURE_DIR = ROOT / "pm_bot" / "llm" / "manual_resolution_source_capture"
 INVENTORY = ROOT / "pm_bot" / "llm" / "current_llm_market_packet_inventory.v1.json"
-PILOT_DISCOVERED_CAPTURE_MARKET_IDS = {"1987056"}
+PILOT_DISCOVERED_CAPTURE_MARKET_IDS = {"1987056", "693869"}
 FILLED_DRAFT_MARKET_IDS = {"597964", *PILOT_DISCOVERED_CAPTURE_MARKET_IDS}
 SOURCE_FIELDS = (
     "full_market_resolution_criteria_text",

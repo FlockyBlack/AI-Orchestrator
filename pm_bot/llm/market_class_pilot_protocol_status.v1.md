@@ -7,8 +7,8 @@
 - network_calls_performed: 0
 - openrouter_calls_performed: 0
 - polymarket_api_calls_performed: 0
-- real_ingested_template_count: 1
-- draft_ingested_template_count: 1
+- real_ingested_template_count: 3
+- draft_ingested_template_count: 3
 - ready_ingested_template_count: 0
 - future_live_002_allowed: false
 

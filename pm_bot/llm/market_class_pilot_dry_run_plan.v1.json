@@ -174,8 +174,8 @@
   "fetch_performed": false,
   "write_scope": "dry_run_plan_artifacts_only",
   "current_source_state": {
-    "real_ingested_template_count": 1,
-    "draft_ingested_template_count": 1,
+    "real_ingested_template_count": 3,
+    "draft_ingested_template_count": 3,
     "ready_ingested_template_count": 0,
     "future_live_002_allowed": false,
     "readiness": "source_overlay_present_but_not_ready"

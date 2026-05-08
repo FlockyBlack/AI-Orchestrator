@@ -1,0 +1,167 @@
+{
+  "schema_version": "weather_capture_operator_review_surface_010b.v1",
+  "task_id": "PMBOT-SOURCE-010B-WEATHER-DRAFT-CAPTURE-AUTOFILL-FROM-READONLY-CANDIDATE",
+  "generated_by": "pm_bot/llm/weather_capture_autofill_from_readonly_candidate.py",
+  "market_id": "693869",
+  "title": "Will the minimum Arctic sea ice extent this summer be less than 4m square kilometers?",
+  "market_class": "weather",
+  "source_capture_status": "draft",
+  "capture_status": "draft",
+  "operator_review_required": true,
+  "ready_for_local_review": false,
+  "direct_rules_text_captured": true,
+  "official_weather_source_identified": true,
+  "station_or_source_hierarchy_identified": true,
+  "known_fields": {
+    "location": "Arctic",
+    "weather_metric": "minimum Arctic sea ice extent",
+    "unit": "million_square_kilometers",
+    "threshold_or_condition": "less than 4 million square kilometers",
+    "date_or_time_window": "between August 1, 2026 and October 1, 2026",
+    "timezone": "",
+    "official_weather_source": "National Snow and Ice Data Center",
+    "official_weather_source_url": "https://nsidc.org/sea-ice-today/sea-ice-tools",
+    "station_or_source_hierarchy": "National Snow and Ice Data Center Sea Ice Index Daily Extent data set, NH-Daily-Extent tab, minimum value for any day in the market window",
+    "fallback_source_candidate": "If this resolution source becomes unavailable, another resolution source will be chosen.",
+    "official_weather_source_identified": true,
+    "station_or_source_hierarchy_identified": true
+  },
+  "missing_fields": [
+    "timezone"
+  ],
+  "ambiguity_flags": [
+    "timezone_missing_in_source_010a2_metadata",
+    "fallback_source_clause_is_generic_and_requires_operator_review",
+    "stored_rules_text_not_refetched_in_source_010b"
+  ],
+  "unresolved_source_questions": [
+    "Operator must verify exact Polymarket/Gamma rules text before any status promotion.",
+    "Operator must verify the Arctic sea ice extent metric, unit precision, threshold, and resolution window.",
+    "Operator must verify that the stored NSIDC dataset and NH-Daily-Extent tab text matches the canonical market rules.",
+    "Operator must verify fallback-source handling if the named weather source becomes unavailable.",
+    "Operator must verify the market time window timezone."
+  ],
+  "checklist_items_from_010a2": [
+    {
+      "check_id": "verify_exact_polymarket_rules_text",
+      "review_prompt": "Verify exact Polymarket rules text.",
+      "required": true,
+      "status": "unchecked"
+    },
+    {
+      "check_id": "verify_location",
+      "review_prompt": "Verify location.",
+      "required": true,
+      "status": "unchecked"
+    },
+    {
+      "check_id": "verify_weather_metric",
+      "review_prompt": "Verify weather metric.",
+      "required": true,
+      "status": "unchecked"
+    },
+    {
+      "check_id": "verify_unit",
+      "review_prompt": "Verify unit.",
+      "required": true,
+      "status": "unchecked"
+    },
+    {
+      "check_id": "verify_threshold_or_condition",
+      "review_prompt": "Verify threshold or condition.",
+      "required": true,
+      "status": "unchecked"
+    },
+    {
+      "check_id": "verify_date_or_time_window",
+      "review_prompt": "Verify date or time window.",
+      "required": true,
+      "status": "unchecked"
+    },
+    {
+      "check_id": "verify_timezone",
+      "review_prompt": "Verify timezone.",
+      "required": true,
+      "status": "unchecked"
+    },
+    {
+      "check_id": "verify_official_weather_source",
+      "review_prompt": "Verify official weather source.",
+      "required": true,
+      "status": "unchecked"
+    },
+    {
+      "check_id": "verify_station_or_source_hierarchy",
+      "review_prompt": "Verify station or source hierarchy.",
+      "required": true,
+      "status": "unchecked"
+    },
+    {
+      "check_id": "verify_fallback_source",
+      "review_prompt": "Verify fallback source.",
+      "required": true,
+      "status": "unchecked"
+    },
+    {
+      "check_id": "verify_source_capture_promotion_readiness",
+      "review_prompt": "Verify whether source capture can be promoted to ready_for_local_review.",
+      "required": true,
+      "status": "unchecked"
+    },
+    {
+      "check_id": "no_trading_decision",
+      "review_prompt": "No trading decision.",
+      "required": true,
+      "status": "unchecked"
+    }
+  ],
+  "next_operator_actions": [
+    "Verify exact rules text from the stored SOURCE-010A2 market metadata.",
+    "Verify NSIDC source hierarchy, dataset name, tab name, and source availability.",
+    "Verify time window, timezone, threshold, unit precision, and fallback-source clause.",
+    "Keep capture status as draft until review is complete."
+  ],
+  "no_market_action_guidance": true,
+  "no_trading_authority": true,
+  "safety_summary": {
+    "no_market_action_guidance": true,
+    "operator_review_only": true,
+    "no_trading_authority": true,
+    "no_queue_authority": true,
+    "no_runtime_authority": true,
+    "no_wallet_or_order_authority": true,
+    "analysis_only": true,
+    "local_only": true,
+    "manual_review_only": true,
+    "passive_context_only": true,
+    "no_dispatcher_authority": true,
+    "no_browser_automation": true,
+    "no_probability_ev_edge_confidence_side_selection": true,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "external_network_calls_performed": 0,
+    "network_calls_performed": 0,
+    "api_key_accessed": false,
+    "api_key_value_printed": false,
+    "api_key_value_written": false,
+    "api_key_leaked": false,
+    "authenticated_endpoints_used": false,
+    "wallet_or_private_key_accessed": false,
+    "orders_created": 0,
+    "simulated_trade_created": false,
+    "selected_side": null,
+    "stake_amount": null,
+    "queue_items_created": 0,
+    "queue_state_mutated": false,
+    "runtime_wiring_added": false,
+    "dispatcher_changed": false,
+    "background_workers_added": false,
+    "browser_automation_used": false,
+    "market_decisions_made": false,
+    "outcome_checked": false,
+    "source_scoring_performed": false
+  },
+  "openrouter_calls_performed": 0,
+  "polymarket_api_calls_performed": 0,
+  "external_network_calls_performed": 0
+}

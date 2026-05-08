@@ -5,9 +5,9 @@ Sandbox examples are counted separately and do not improve real readiness.
 
 ## Current Honest State
 
-- real_filled_template_count: 2
-- real_ingested_template_count: 2
-- draft_ingested_template_count: 2
+- real_filled_template_count: 3
+- real_ingested_template_count: 3
+- draft_ingested_template_count: 3
 - ready_ingested_template_count: 0
 - overlay_read_by_readiness_exporter: true
 - direct_polymarket_rules_verification_required: true

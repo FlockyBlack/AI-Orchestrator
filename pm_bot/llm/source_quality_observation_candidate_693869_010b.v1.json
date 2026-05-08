@@ -1,0 +1,128 @@
+{
+  "schema_version": "source_quality_observation_candidate_693869_010b.v1",
+  "task_id": "PMBOT-SOURCE-010B-WEATHER-DRAFT-CAPTURE-AUTOFILL-FROM-READONLY-CANDIDATE",
+  "generated_by": "pm_bot/llm/weather_capture_autofill_from_readonly_candidate.py",
+  "market_id": "693869",
+  "market_class": "weather",
+  "source_ids_observed": [
+    "gamma_market_metadata:693869",
+    "gamma_market_rules:693869",
+    "https://nsidc.org/sea-ice-today/sea-ice-tools",
+    "NSIDC Sea Ice Index Daily Extent NH-Daily-Extent tab",
+    "source_010b_manual_capture_draft_693869",
+    "source_010b_operator_review_surface_693869",
+    "unresolved_weather_source_questions"
+  ],
+  "source_types_observed": [
+    "public_polymarket_gamma_metadata",
+    "public_polymarket_market_description",
+    "official_weather_source_candidate",
+    "station_or_measurement_source_candidate",
+    "local_capture_source",
+    "operator_review_surface",
+    "unresolved_source"
+  ],
+  "source_roles": [
+    {
+      "source_id": "gamma_market_metadata:693869",
+      "roles": [
+        "market_metadata_source"
+      ]
+    },
+    {
+      "source_id": "gamma_market_rules:693869",
+      "roles": [
+        "market_rules_source"
+      ]
+    },
+    {
+      "source_id": "https://nsidc.org/sea-ice-today/sea-ice-tools",
+      "roles": [
+        "official_weather_source_candidate"
+      ]
+    },
+    {
+      "source_id": "NSIDC Sea Ice Index Daily Extent NH-Daily-Extent tab",
+      "roles": [
+        "station_or_measurement_source_candidate"
+      ]
+    },
+    {
+      "source_id": "If this resolution source becomes unavailable, another resolution source will be chosen.",
+      "roles": [
+        "fallback_weather_source_candidate"
+      ]
+    },
+    {
+      "source_id": "pm_bot/llm/manual_resolution_source_capture/693869_resolution_source_capture.v1.json",
+      "roles": [
+        "local_capture_source"
+      ]
+    },
+    {
+      "source_id": "pm_bot/llm/weather_capture_operator_review_surface_010b.v1.json",
+      "roles": [
+        "operator_review_surface"
+      ]
+    },
+    {
+      "source_id": "unresolved_weather_source_questions",
+      "roles": [
+        "unresolved_source"
+      ]
+    }
+  ],
+  "source_quality_status": "pending_capture_operator_review_and_outcome",
+  "outcome_known": false,
+  "source_scoring_performed": false,
+  "source_ranking_updated": false,
+  "trading_profit_used_for_scoring": false,
+  "profit_or_pnl_recorded": false,
+  "operator_review_required": true,
+  "notes": [
+    "Observation hook only; no source score is assigned.",
+    "Outcome is not known in SOURCE-010B.",
+    "Future review should compare stored source text to final outcome evidence after operator review."
+  ],
+  "safety_summary": {
+    "no_market_action_guidance": true,
+    "operator_review_only": true,
+    "no_trading_authority": true,
+    "no_queue_authority": true,
+    "no_runtime_authority": true,
+    "no_wallet_or_order_authority": true,
+    "analysis_only": true,
+    "local_only": true,
+    "manual_review_only": true,
+    "passive_context_only": true,
+    "no_dispatcher_authority": true,
+    "no_browser_automation": true,
+    "no_probability_ev_edge_confidence_side_selection": true,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "external_network_calls_performed": 0,
+    "network_calls_performed": 0,
+    "api_key_accessed": false,
+    "api_key_value_printed": false,
+    "api_key_value_written": false,
+    "api_key_leaked": false,
+    "authenticated_endpoints_used": false,
+    "wallet_or_private_key_accessed": false,
+    "orders_created": 0,
+    "simulated_trade_created": false,
+    "selected_side": null,
+    "stake_amount": null,
+    "queue_items_created": 0,
+    "queue_state_mutated": false,
+    "runtime_wiring_added": false,
+    "dispatcher_changed": false,
+    "background_workers_added": false,
+    "browser_automation_used": false,
+    "market_decisions_made": false,
+    "outcome_checked": false,
+    "source_scoring_performed": false
+  },
+  "openrouter_calls_performed": 0,
+  "polymarket_api_calls_performed": 0,
+  "external_network_calls_performed": 0
+}
