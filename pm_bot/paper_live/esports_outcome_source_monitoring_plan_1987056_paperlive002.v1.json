@@ -1,0 +1,369 @@
+{
+  "schema_version": "paper_live_outcome_source_monitoring_plan.v1",
+  "task_id": "PMBOT-PAPERLIVE-002-ESPORTS-OUTCOME-SOURCE-MONITORING-PLAN-RUNNER-NO-TRADE",
+  "generated_by": "pm_bot/paper_live/esports_outcome_source_monitoring_plan_runner.py",
+  "generated_at_marker": "2026-05-08 Asia/Tbilisi",
+  "market_id": "1987056",
+  "market_class": "esports",
+  "title_or_question": "LoL: JD Gaming vs Anyone's Legend (BO5) - Esports World Cup China Qualifier Phase 2",
+  "monitoring_mode": "source_and_outcome_monitoring_plan_only",
+  "outcome_checked": false,
+  "outcome_known": false,
+  "outcome_resolution_status": "pending_not_checked",
+  "simulated_trade_created": false,
+  "selected_side": null,
+  "stake_amount": null,
+  "order_created": false,
+  "wallet_used": false,
+  "position_sizing_created": false,
+  "market_action_guidance_generated": false,
+  "probability_ev_edge_confidence_generated": false,
+  "side_selection_generated": false,
+  "monitored_facts": [
+    {
+      "fact_id": "match_identity",
+      "description": "Confirm the stored market identity maps to the intended match.",
+      "current_status": "known",
+      "current_value": "LoL: JD Gaming vs Anyone's Legend (BO5) - Esports World Cup China Qualifier Phase 2",
+      "source_reference_if_known": "pm_bot/live_readonly/esports_market_discovery/esports_market_normalized_candidate_009a.v1.json",
+      "requires_operator_review": true
+    },
+    {
+      "fact_id": "game_title",
+      "description": "Confirm the game title.",
+      "current_status": "known",
+      "current_value": "League of Legends",
+      "source_reference_if_known": "pm_bot/llm/esports_operator_review_surface_1987056_009c.v1.json",
+      "requires_operator_review": true
+    },
+    {
+      "fact_id": "tournament_identity",
+      "description": "Confirm the tournament identity and phase.",
+      "current_status": "known",
+      "current_value": "Esports World Cup / China Qualifier / Phase 2",
+      "source_reference_if_known": "pm_bot/llm/esports_operator_review_surface_1987056_009c.v1.json",
+      "requires_operator_review": true
+    },
+    {
+      "fact_id": "teams_or_players_identity",
+      "description": "Confirm the participant identities.",
+      "current_status": "known",
+      "current_value": [
+        "JD Gaming",
+        "Anyone's Legend"
+      ],
+      "source_reference_if_known": "pm_bot/live_readonly/esports_market_discovery/esports_market_normalized_candidate_009a.v1.json",
+      "requires_operator_review": true
+    },
+    {
+      "fact_id": "match_format",
+      "description": "Confirm the match format.",
+      "current_status": "known",
+      "current_value": "BO5",
+      "source_reference_if_known": "pm_bot/llm/esports_operator_review_surface_1987056_009c.v1.json",
+      "requires_operator_review": true
+    },
+    {
+      "fact_id": "scheduled_time_timezone",
+      "description": "Confirm scheduled time and timezone.",
+      "current_status": "known",
+      "current_value": "2026-05-21T09:00:00Z",
+      "source_reference_if_known": "pm_bot/live_readonly/esports_market_discovery/esports_market_normalized_candidate_009a.v1.json",
+      "requires_operator_review": true
+    },
+    {
+      "fact_id": "official_result_source",
+      "description": "Identify a direct official match or tournament result source later.",
+      "current_status": "ambiguous",
+      "current_value": "https://gol.gg/esports/home",
+      "source_reference_if_known": "pm_bot/llm/esports_operator_review_surface_1987056_009c.v1.json",
+      "requires_operator_review": true
+    },
+    {
+      "fact_id": "cancellation_reschedule_forfeit_handling",
+      "description": "Confirm cancellation, reschedule, and forfeit rules from stored rules.",
+      "current_status": "known",
+      "current_value": "stored_rules_text_review_required",
+      "source_reference_if_known": "pm_bot/live_readonly/esports_market_discovery/esports_source_capture_candidate_009a.v1.json",
+      "requires_operator_review": true
+    },
+    {
+      "fact_id": "final_match_result",
+      "description": "Final result evidence for later outcome reconciliation.",
+      "current_status": "pending_future_readonly_check",
+      "current_value": null,
+      "source_reference_if_known": null,
+      "requires_operator_review": true
+    },
+    {
+      "fact_id": "exact_polymarket_rules_description_completeness",
+      "description": "Confirm that direct market rules text is complete.",
+      "current_status": "ambiguous",
+      "current_value": true,
+      "source_reference_if_known": "pm_bot/live_readonly/esports_market_discovery/esports_source_capture_candidate_009a.v1.json",
+      "requires_operator_review": true
+    },
+    {
+      "fact_id": "polymarket_resolution_status",
+      "description": "Resolution status may be checked later only with explicit approval.",
+      "current_status": "pending_future_readonly_check",
+      "current_value": null,
+      "source_reference_if_known": null,
+      "requires_operator_review": true
+    }
+  ],
+  "known_sources_from_existing_artifacts": [
+    {
+      "artifact_group": "SOURCE-009A",
+      "source_role": "public_readonly_market_metadata_snapshot",
+      "status": "available",
+      "reference": "pm_bot/live_readonly/esports_market_discovery/esports_market_normalized_candidate_009a.v1.json",
+      "notes": "Stored local artifact from prior public read-only discovery."
+    },
+    {
+      "artifact_group": "SOURCE-009A",
+      "source_role": "stored_market_rules_and_source_capture_candidate",
+      "status": "available",
+      "reference": "pm_bot/live_readonly/esports_market_discovery/esports_source_capture_candidate_009a.v1.json",
+      "notes": "Stored local rules text and source candidate; operator review remains required."
+    },
+    {
+      "artifact_group": "SOURCE-009B",
+      "source_role": "manual_resolution_source_capture_draft",
+      "status": "available",
+      "reference": "pm_bot/llm/manual_resolution_source_capture/1987056_resolution_source_capture.v1.json",
+      "notes": "Draft manual capture, not ready or reviewed."
+    },
+    {
+      "artifact_group": "SOURCE-009B",
+      "source_role": "capture_operator_review_surface",
+      "status": "available",
+      "reference": "pm_bot/llm/esports_capture_operator_review_surface_009b.v1.json",
+      "notes": "Passive operator review surface."
+    },
+    {
+      "artifact_group": "SOURCE-009B",
+      "source_role": "source_quality_observation_candidate",
+      "status": "available",
+      "reference": "pm_bot/llm/source_quality_observation_candidate_1987056_009b.v1.json",
+      "notes": "Candidate only; no source scoring performed here."
+    },
+    {
+      "artifact_group": "SOURCE-009C",
+      "source_role": "operator_review_surface",
+      "status": "available",
+      "reference": "pm_bot/llm/esports_operator_review_surface_1987056_009c.v1.json",
+      "notes": "Consolidated operator review surface."
+    },
+    {
+      "artifact_group": "SOURCE-009C",
+      "source_role": "observation_plan",
+      "status": "available",
+      "reference": "pm_bot/paper_live/esports_observation_plan_1987056_009c.v1.json",
+      "notes": "Prior paper-live preparation plan."
+    },
+    {
+      "artifact_group": "SOURCE-009C",
+      "source_role": "outcome_tracking_contract",
+      "status": "available",
+      "reference": "pm_bot/paper_live/outcome_tracking_contract.v1.json",
+      "notes": "Local outcome tracking contract."
+    },
+    {
+      "artifact_group": "SOURCE-009C",
+      "source_role": "source_quality_observation_flow",
+      "status": "available",
+      "reference": "pm_bot/llm/source_quality_observation_flow_009c.v1.json",
+      "notes": "Local source quality update flow; no update performed here."
+    },
+    {
+      "artifact_group": "PAPERLIVE-001",
+      "source_role": "first_observation_ledger_entry",
+      "status": "available",
+      "reference": "pm_bot/paper_live/esports_observation_ledger_first_run_1987056.v1.json",
+      "notes": "Observation-only ledger entry preserved."
+    },
+    {
+      "artifact_group": "PAPERLIVE-001",
+      "source_role": "source_quality_pending_observation",
+      "status": "available",
+      "reference": "pm_bot/llm/source_quality_pending_observation_1987056_paperlive001.v1.json",
+      "notes": "Pending source quality observation; no scoring here."
+    },
+    {
+      "artifact_group": "PAPERLIVE-001",
+      "source_role": "outcome_reconciliation_placeholder",
+      "status": "available",
+      "reference": "pm_bot/paper_live/esports_outcome_reconciliation_placeholder_1987056.v1.json",
+      "notes": "Outcome remains pending and not checked by PAPERLIVE-002."
+    }
+  ],
+  "missing_sources": [
+    "official match/tournament result source",
+    "final result source",
+    "result timestamp",
+    "Polymarket resolution status if available later",
+    "operator-confirmed exact direct Polymarket rules text completeness",
+    "operator-confirmed cancellation/forfeit/reschedule rule handling"
+  ],
+  "source_fetch_required_later": [
+    {
+      "fetch_id": "future_public_readonly_market_resolution_status",
+      "source_scope": "public read-only Polymarket/Gamma market or resolution status",
+      "required": true,
+      "explicit_network_approval_required": true,
+      "performed_in_this_task": false
+    },
+    {
+      "fetch_id": "future_official_match_result_source",
+      "source_scope": "official tournament or match result source if available",
+      "required": true,
+      "explicit_network_approval_required": true,
+      "performed_in_this_task": false
+    },
+    {
+      "fetch_id": "future_fallback_credible_result_source",
+      "source_scope": "fallback credible match result source only if official source is unavailable",
+      "required": false,
+      "explicit_network_approval_required": true,
+      "performed_in_this_task": false
+    }
+  ],
+  "future_readonly_fetch_allowed_only_with_explicit_approval": true,
+  "outcome_reconciliation_steps": [
+    "Obtain explicit approval before any future readonly network check.",
+    "Collect official result evidence, or fallback evidence only if the stored rules allow it.",
+    "Record source URL or reference, source type, result timestamp, and retrieval timestamp.",
+    "Compare result evidence with stored market rules and stored match identity facts.",
+    "Record any source contradiction without resolving it automatically.",
+    "Capture public read-only Polymarket resolution status later if explicitly approved.",
+    "Submit the evidence package for operator review before any status promotion."
+  ],
+  "source_quality_update_steps": [
+    "Wait until outcome evidence exists and operator review is ready.",
+    "Compare each stored source role against the reviewed outcome evidence.",
+    "Update only allowed metrics: resolution alignment, timeliness, official source status, contradiction count, and operator notes.",
+    "Do not use profit, PnL, ROI, EV, edge, betting confidence, or side selection as source quality metrics.",
+    "Keep source ranking unchanged until a separate reviewed update task approves it."
+  ],
+  "operator_review_steps": [
+    "Review monitored facts and mark missing or ambiguous source gaps.",
+    "Confirm exact market rules text completeness from local artifacts.",
+    "Confirm participant, tournament, format, schedule, and timezone fields.",
+    "Confirm how cancellation, reschedule, forfeit, delay, and fallback rules should be used later.",
+    "Approve or reject any future readonly outcome check request in a separate task."
+  ],
+  "blockers_before_outcome_reconciliation": [
+    "explicit future readonly network approval is missing",
+    "official match/tournament result source is missing",
+    "final result source is missing",
+    "result timestamp is missing",
+    "operator review is incomplete"
+  ],
+  "blockers_before_any_simulated_decision": [
+    "this task has no simulated decision authority",
+    "operator review is incomplete",
+    "outcome evidence is missing",
+    "governance, risk, execution, and wallet controls are out of scope"
+  ],
+  "references": {
+    "paperlive001": {
+      "observation_ledger": "pm_bot/paper_live/esports_observation_ledger_first_run_1987056.v1.json",
+      "observation_summary": "pm_bot/paper_live/esports_observation_ledger_first_run_summary.v1.json",
+      "source_quality_pending_observation": "pm_bot/llm/source_quality_pending_observation_1987056_paperlive001.v1.json",
+      "outcome_reconciliation_placeholder": "pm_bot/paper_live/esports_outcome_reconciliation_placeholder_1987056.v1.json",
+      "workbench_surface": "pm_bot/workbench/esports_paper_live_observation_surface_1987056_paperlive001.v1.json"
+    },
+    "source_009c": {
+      "operator_surface_json": "pm_bot/llm/esports_operator_review_surface_1987056_009c.v1.json",
+      "operator_surface_md": "pm_bot/llm/esports_operator_review_surface_1987056_009c.v1.md",
+      "observation_plan_json": "pm_bot/paper_live/esports_observation_plan_1987056_009c.v1.json",
+      "observation_plan_md": "pm_bot/paper_live/esports_observation_plan_1987056_009c.v1.md",
+      "outcome_contract_json": "pm_bot/paper_live/outcome_tracking_contract.v1.json",
+      "outcome_contract_md": "pm_bot/paper_live/outcome_tracking_contract.v1.md",
+      "source_quality_flow_json": "pm_bot/llm/source_quality_observation_flow_009c.v1.json",
+      "source_quality_flow_md": "pm_bot/llm/source_quality_observation_flow_009c.v1.md"
+    },
+    "source_009b": {
+      "manual_capture_json": "pm_bot/llm/manual_resolution_source_capture/1987056_resolution_source_capture.v1.json",
+      "manual_capture_md": "pm_bot/llm/manual_resolution_source_capture/1987056_resolution_source_capture.v1.md",
+      "operator_surface_json": "pm_bot/llm/esports_capture_operator_review_surface_009b.v1.json",
+      "operator_surface_md": "pm_bot/llm/esports_capture_operator_review_surface_009b.v1.md",
+      "source_quality_candidate_json": "pm_bot/llm/source_quality_observation_candidate_1987056_009b.v1.json",
+      "source_quality_candidate_md": "pm_bot/llm/source_quality_observation_candidate_1987056_009b.v1.md"
+    },
+    "source_009a": {
+      "raw_fetch": "pm_bot/live_readonly/esports_market_discovery/esports_market_raw_fetch_009a.v1.json",
+      "normalized_candidate": "pm_bot/live_readonly/esports_market_discovery/esports_market_normalized_candidate_009a.v1.json",
+      "source_capture_candidate": "pm_bot/live_readonly/esports_market_discovery/esports_source_capture_candidate_009a.v1.json",
+      "operator_checklist_json": "pm_bot/live_readonly/esports_market_discovery/esports_operator_review_checklist_009a.v1.json",
+      "operator_checklist_md": "pm_bot/live_readonly/esports_market_discovery/esports_operator_review_checklist_009a.v1.md"
+    },
+    "readiness": {
+      "ingest_result": "pm_bot/llm/manual_resolution_source_capture_ingest_result.v1.json",
+      "ingested_overlay": "pm_bot/llm/manual_resolution_source_capture_ingested_overlay.v1.json",
+      "readiness_report": "pm_bot/llm/post_capture_readiness_report.v1.json",
+      "readiness_gate": "pm_bot/llm/post_capture_batch_readiness_gate.v1.json"
+    }
+  },
+  "pipeline_snapshot": {
+    "real_ingested_template_count": 2,
+    "draft_ingested_template_count": 2,
+    "ready_ingested_template_count": 0,
+    "future_live_002_allowed": false,
+    "canonical_packets_mutated": false
+  },
+  "real_ingested_template_count_preserved_or_after": 2,
+  "draft_ingested_template_count_preserved_or_after": 2,
+  "ready_ingested_template_count_after": 0,
+  "future_live_002_allowed": false,
+  "safety_summary": {
+    "no_market_action_guidance": true,
+    "operator_review_only": true,
+    "analysis_only": true,
+    "local_only": true,
+    "passive_context_only": true,
+    "manual_review_only": true,
+    "no_trading_authority": true,
+    "no_execution_authority": true,
+    "no_queue_authority": true,
+    "no_runtime_authority": true,
+    "no_wallet_or_order_authority": true,
+    "no_dispatcher_authority": true,
+    "no_browser_automation": true,
+    "no_probability_ev_edge_confidence_side_selection": true,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "external_network_calls_performed": 0,
+    "network_calls_performed": 0,
+    "authenticated_endpoints_used": false,
+    "api_key_accessed": false,
+    "api_key_value_printed": false,
+    "api_key_value_written": false,
+    "api_key_leaked": false,
+    "wallet_or_private_key_accessed": false,
+    "orders_created": 0,
+    "simulated_trade_created": false,
+    "selected_side": null,
+    "stake_amount": null,
+    "position_sizing_created": false,
+    "queue_items_created": 0,
+    "queue_state_mutated": false,
+    "runtime_wiring_added": false,
+    "dispatcher_changed": false,
+    "background_workers_added": false,
+    "browser_automation_used": false,
+    "market_decisions_made": false,
+    "outcome_checked": false,
+    "outcome_known": false,
+    "source_scoring_performed": false,
+    "source_ranking_updated": false,
+    "profit_or_pnl_recorded": false,
+    "canonical_packets_mutated": false
+  },
+  "openrouter_calls_performed": 0,
+  "polymarket_api_calls_performed": 0,
+  "external_network_calls_performed": 0,
+  "network_calls_performed": 0,
+  "canonical_packets_mutated": false
+}
