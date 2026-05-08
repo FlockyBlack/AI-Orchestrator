@@ -1,0 +1,91 @@
+# PMBOT SOURCE-008 Market Rules Capture Dry-Run Plan
+
+- task_id: PMBOT-SOURCE-008-READONLY-MARKET-RULES-CAPTURE-PIPELINE-PROTOCOL
+- status: dry_run_planned_not_fetched
+- target_market_count: 14
+- network_calls_performed: 0
+- polymarket_api_calls_performed: 0
+- validator_status: passed
+
+## Planned Markets
+
+- 563650: planned_not_fetched
+  - future raw artifact: pm_bot/live_readonly/market_rules_raw_fetch/563650_market_rules_raw_fetch.v1.json
+  - future normalized candidate: pm_bot/live_readonly/market_rules_normalized_candidates/563650_market_rules_normalized_candidate.v1.json
+  - future capture template: pm_bot/llm/manual_resolution_source_capture/563650_resolution_source_capture.v1.json
+  - planned_status_after_fill: draft
+- 569332: planned_not_fetched
+  - future raw artifact: pm_bot/live_readonly/market_rules_raw_fetch/569332_market_rules_raw_fetch.v1.json
+  - future normalized candidate: pm_bot/live_readonly/market_rules_normalized_candidates/569332_market_rules_normalized_candidate.v1.json
+  - future capture template: pm_bot/llm/manual_resolution_source_capture/569332_resolution_source_capture.v1.json
+  - planned_status_after_fill: draft
+- 569333: planned_not_fetched
+  - future raw artifact: pm_bot/live_readonly/market_rules_raw_fetch/569333_market_rules_raw_fetch.v1.json
+  - future normalized candidate: pm_bot/live_readonly/market_rules_normalized_candidates/569333_market_rules_normalized_candidate.v1.json
+  - future capture template: pm_bot/llm/manual_resolution_source_capture/569333_resolution_source_capture.v1.json
+  - planned_status_after_fill: draft
+- 569334: planned_not_fetched
+  - future raw artifact: pm_bot/live_readonly/market_rules_raw_fetch/569334_market_rules_raw_fetch.v1.json
+  - future normalized candidate: pm_bot/live_readonly/market_rules_normalized_candidates/569334_market_rules_normalized_candidate.v1.json
+  - future capture template: pm_bot/llm/manual_resolution_source_capture/569334_resolution_source_capture.v1.json
+  - planned_status_after_fill: draft
+- 569343: planned_not_fetched
+  - future raw artifact: pm_bot/live_readonly/market_rules_raw_fetch/569343_market_rules_raw_fetch.v1.json
+  - future normalized candidate: pm_bot/live_readonly/market_rules_normalized_candidates/569343_market_rules_normalized_candidate.v1.json
+  - future capture template: pm_bot/llm/manual_resolution_source_capture/569343_resolution_source_capture.v1.json
+  - planned_status_after_fill: draft
+- 569344: planned_not_fetched
+  - future raw artifact: pm_bot/live_readonly/market_rules_raw_fetch/569344_market_rules_raw_fetch.v1.json
+  - future normalized candidate: pm_bot/live_readonly/market_rules_normalized_candidates/569344_market_rules_normalized_candidate.v1.json
+  - future capture template: pm_bot/llm/manual_resolution_source_capture/569344_resolution_source_capture.v1.json
+  - planned_status_after_fill: draft
+- 569366: planned_not_fetched
+  - future raw artifact: pm_bot/live_readonly/market_rules_raw_fetch/569366_market_rules_raw_fetch.v1.json
+  - future normalized candidate: pm_bot/live_readonly/market_rules_normalized_candidates/569366_market_rules_normalized_candidate.v1.json
+  - future capture template: pm_bot/llm/manual_resolution_source_capture/569366_resolution_source_capture.v1.json
+  - planned_status_after_fill: draft
+- 569368: planned_not_fetched
+  - future raw artifact: pm_bot/live_readonly/market_rules_raw_fetch/569368_market_rules_raw_fetch.v1.json
+  - future normalized candidate: pm_bot/live_readonly/market_rules_normalized_candidates/569368_market_rules_normalized_candidate.v1.json
+  - future capture template: pm_bot/llm/manual_resolution_source_capture/569368_resolution_source_capture.v1.json
+  - planned_status_after_fill: draft
+- 569373: planned_not_fetched
+  - future raw artifact: pm_bot/live_readonly/market_rules_raw_fetch/569373_market_rules_raw_fetch.v1.json
+  - future normalized candidate: pm_bot/live_readonly/market_rules_normalized_candidates/569373_market_rules_normalized_candidate.v1.json
+  - future capture template: pm_bot/llm/manual_resolution_source_capture/569373_resolution_source_capture.v1.json
+  - planned_status_after_fill: draft
+- 573656: planned_not_fetched
+  - future raw artifact: pm_bot/live_readonly/market_rules_raw_fetch/573656_market_rules_raw_fetch.v1.json
+  - future normalized candidate: pm_bot/live_readonly/market_rules_normalized_candidates/573656_market_rules_normalized_candidate.v1.json
+  - future capture template: pm_bot/llm/manual_resolution_source_capture/573656_resolution_source_capture.v1.json
+  - planned_status_after_fill: draft
+- 597964: planned_not_fetched
+  - future raw artifact: pm_bot/live_readonly/market_rules_raw_fetch/597964_market_rules_raw_fetch.v1.json
+  - future normalized candidate: pm_bot/live_readonly/market_rules_normalized_candidates/597964_market_rules_normalized_candidate.v1.json
+  - future capture template: pm_bot/llm/manual_resolution_source_capture/597964_resolution_source_capture.v1.json
+  - planned_status_after_fill: draft
+- 598936: planned_not_fetched
+  - future raw artifact: pm_bot/live_readonly/market_rules_raw_fetch/598936_market_rules_raw_fetch.v1.json
+  - future normalized candidate: pm_bot/live_readonly/market_rules_normalized_candidates/598936_market_rules_normalized_candidate.v1.json
+  - future capture template: pm_bot/llm/manual_resolution_source_capture/598936_resolution_source_capture.v1.json
+  - planned_status_after_fill: draft
+- 691547: planned_not_fetched
+  - future raw artifact: pm_bot/live_readonly/market_rules_raw_fetch/691547_market_rules_raw_fetch.v1.json
+  - future normalized candidate: pm_bot/live_readonly/market_rules_normalized_candidates/691547_market_rules_normalized_candidate.v1.json
+  - future capture template: pm_bot/llm/manual_resolution_source_capture/691547_resolution_source_capture.v1.json
+  - planned_status_after_fill: draft
+- 692258: planned_not_fetched
+  - future raw artifact: pm_bot/live_readonly/market_rules_raw_fetch/692258_market_rules_raw_fetch.v1.json
+  - future normalized candidate: pm_bot/live_readonly/market_rules_normalized_candidates/692258_market_rules_normalized_candidate.v1.json
+  - future capture template: pm_bot/llm/manual_resolution_source_capture/692258_resolution_source_capture.v1.json
+  - planned_status_after_fill: draft
+
+## Safety Boundary
+
+- no network calls
+- no data fetching
+- no capture template mutation in this dry run
+- no ready_for_local_review or reviewed auto-promotion
+- no canonical packet mutation
+- no wallet, order, runtime, dispatcher, background worker, queue, or browser authority
+- no buy, sell, hold, enter, exit, probability, EV, edge, confidence, or side selection text

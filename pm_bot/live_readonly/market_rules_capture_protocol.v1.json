@@ -1,0 +1,252 @@
+{
+  "schema_version": "market_rules_capture_protocol.v1",
+  "task_id": "PMBOT-SOURCE-008-READONLY-MARKET-RULES-CAPTURE-PIPELINE-PROTOCOL",
+  "status": "protocol_only_no_network",
+  "protocol_scope": "future_public_readonly_market_rules_source_capture_contract_only",
+  "current_stage": "STAGE_0_PROTOCOL_ONLY",
+  "network_allowed_explicitly": false,
+  "polymarket_api_calls_performed": 0,
+  "openrouter_calls_performed": 0,
+  "external_network_calls_performed": 0,
+  "current_market_count": 14,
+  "current_market_ids": [
+    "563650",
+    "569332",
+    "569333",
+    "569334",
+    "569343",
+    "569344",
+    "569366",
+    "569368",
+    "569373",
+    "573656",
+    "597964",
+    "598936",
+    "691547",
+    "692258"
+  ],
+  "current_source_007_state": {
+    "market_597964_capture_status": "draft",
+    "real_ingested_template_count": 1,
+    "draft_ingested_template_count": 1,
+    "ready_ingested_template_count": 0,
+    "future_live_002_allowed": false,
+    "readiness": "source_overlay_present_but_not_ready",
+    "direct_polymarket_rules_verification_required": true
+  },
+  "future_pipeline_stages": [
+    {
+      "stage_id": "STAGE_0",
+      "name": "protocol only",
+      "task_scope": "current task",
+      "implemented_now": true,
+      "network_approval_required": false,
+      "network_allowed_explicitly": false,
+      "api_calls_allowed": false,
+      "data_fetching_allowed": false,
+      "writes_allowed": [
+        "protocol artifacts",
+        "dry-run plan artifacts"
+      ],
+      "summary": "Defines the future pipeline contract only. It performs no network, API, data fetching, browser, wallet, order, runtime, dispatcher, background worker, queue, or canonical packet behavior."
+    },
+    {
+      "stage_id": "STAGE_1",
+      "name": "one-market read-only discovery",
+      "task_scope": "future task only",
+      "implemented_now": false,
+      "network_approval_required": true,
+      "network_allowed_explicitly": "must_be_true_in_future_task_only",
+      "suggested_market_id": "597964",
+      "allowed_scope": [
+        "fetch one current market only",
+        "public unauthenticated Polymarket or Gamma metadata only",
+        "write raw fetched artifact only"
+      ],
+      "prohibited_scope": [
+        "no wallet access",
+        "no private key access",
+        "no orders",
+        "no trading endpoints",
+        "no authenticated endpoints",
+        "no browser automation",
+        "no market action guidance"
+      ]
+    },
+    {
+      "stage_id": "STAGE_2",
+      "name": "batch read-only rules capture",
+      "task_scope": "future task only",
+      "implemented_now": false,
+      "network_approval_required": true,
+      "network_allowed_explicitly": "must_be_true_in_future_task_only",
+      "allowed_scope": [
+        "fetch current 14 market ids only",
+        "public unauthenticated Polymarket or Gamma metadata only",
+        "write raw fetched artifacts"
+      ],
+      "prohibited_scope": [
+        "no capture template mutation",
+        "no canonical packet mutation",
+        "no wallet access",
+        "no private key access",
+        "no orders",
+        "no trading endpoints",
+        "no authenticated endpoints",
+        "no runtime changes",
+        "no dispatcher changes",
+        "no background workers",
+        "no queue mutation"
+      ]
+    },
+    {
+      "stage_id": "STAGE_3",
+      "name": "normalize fetched metadata",
+      "task_scope": "future local-only task",
+      "implemented_now": false,
+      "network_approval_required": false,
+      "network_allowed_explicitly": false,
+      "allowed_scope": [
+        "parse question, title, description, rules, resolution source, source references, and end date from raw artifacts",
+        "create normalized candidate artifacts",
+        "require operator review for every candidate"
+      ],
+      "prohibited_scope": [
+        "no final operator approval",
+        "no ready_for_local_review promotion",
+        "no reviewed promotion",
+        "no canonical packet mutation",
+        "no probability, EV, edge, confidence, or side selection generation",
+        "no market action guidance"
+      ]
+    },
+    {
+      "stage_id": "STAGE_4",
+      "name": "auto-fill draft capture templates",
+      "task_scope": "future local-only task",
+      "implemented_now": false,
+      "network_approval_required": false,
+      "network_allowed_explicitly": false,
+      "allowed_scope": [
+        "update only empty or not_started manual source capture templates",
+        "set source_capture_status and capture_status to draft only",
+        "run validator, SOURCE-005 ingest, and SOURCE-006 readiness export"
+      ],
+      "prohibited_scope": [
+        "no ready_for_local_review auto-promotion",
+        "no reviewed auto-promotion",
+        "no canonical packet mutation",
+        "no runtime changes",
+        "no dispatcher changes",
+        "no background workers",
+        "no queue mutation",
+        "no market action guidance"
+      ]
+    },
+    {
+      "stage_id": "STAGE_5",
+      "name": "operator review",
+      "task_scope": "future human review task",
+      "implemented_now": false,
+      "network_approval_required": false,
+      "network_allowed_explicitly": false,
+      "allowed_scope": [
+        "human checks direct Polymarket Rules text",
+        "human decides whether selected captures may become ready_for_local_review",
+        "human records remaining unresolved source questions"
+      ],
+      "prohibited_scope": [
+        "no automated ready_for_local_review promotion",
+        "no automated reviewed promotion",
+        "no trading authority",
+        "no market action guidance"
+      ]
+    }
+  ],
+  "artifact_contracts": {
+    "raw_fetch_schema": "pm_bot/live_readonly/schemas/market_rules_raw_fetch.schema.v1.json",
+    "normalized_candidate_schema": "pm_bot/live_readonly/schemas/market_rules_normalized_candidate.schema.v1.json",
+    "auto_fill_plan_schema": "pm_bot/live_readonly/schemas/market_rules_auto_fill_plan.schema.v1.json",
+    "future_raw_artifact_pattern": "pm_bot/live_readonly/market_rules_raw_fetch/{market_id}_market_rules_raw_fetch.v1.json",
+    "future_normalized_candidate_pattern": "pm_bot/live_readonly/market_rules_normalized_candidates/{market_id}_market_rules_normalized_candidate.v1.json",
+    "future_auto_fill_plan_pattern": "pm_bot/live_readonly/market_rules_auto_fill_plans/{market_id}_market_rules_auto_fill_plan.v1.json"
+  },
+  "placeholder_cli": {
+    "module": "pm_bot.live_readonly.market_rules_capture_pipeline",
+    "protocol_only_command": "python -m pm_bot.live_readonly.market_rules_capture_pipeline --protocol-only",
+    "one_market_dry_run_command": "python -m pm_bot.live_readonly.market_rules_capture_pipeline --dry-run --market-id 597964",
+    "all_current_markets_dry_run_command": "python -m pm_bot.live_readonly.market_rules_capture_pipeline --dry-run --all-current-markets",
+    "write_flag_scope": "writes only protocol status or dry-run plan artifacts",
+    "network_imports_allowed": false,
+    "env_secret_reads_allowed": false
+  },
+  "auto_fill_guardrails": {
+    "allowed_capture_template_statuses_before_fill": [
+      "not_started"
+    ],
+    "planned_status_after_fill": "draft",
+    "source_capture_status_after_fill": "draft",
+    "capture_status_after_fill": "draft",
+    "will_auto_promote_to_ready": false,
+    "forbidden_auto_statuses": [
+      "ready_for_local_review",
+      "reviewed"
+    ],
+    "canonical_packets_mutated": false,
+    "operator_review_required": true,
+    "required_post_fill_commands": [
+      "validator",
+      "python -m pm_bot.llm.ingest_manual_resolution_source_capture --dry-run --summary-only --include-drafts",
+      "python -m pm_bot.llm.export_post_capture_readiness --write"
+    ]
+  },
+  "required_future_safety_fields": {
+    "network_allowed_explicitly": false,
+    "polymarket_api_calls_performed": 0,
+    "authenticated_endpoints_used": false,
+    "wallet_or_private_key_accessed": false,
+    "orders_created": false,
+    "trading_runtime_changed": false,
+    "dispatcher_changed": false,
+    "background_worker_created": false,
+    "queue_mutated": false,
+    "browser_automation_used": false,
+    "canonical_packets_mutated": false,
+    "probability_ev_edge_confidence_generated": false,
+    "side_selection_generated": false,
+    "market_action_guidance_generated": false,
+    "operator_review_only": true,
+    "analysis_only": true
+  },
+  "safety_summary": {
+    "local_only": true,
+    "protocol_only": true,
+    "analysis_only": true,
+    "operator_review_only": true,
+    "no_market_action_guidance": true,
+    "no_trading_authority": true,
+    "no_queue_authority": true,
+    "no_runtime_authority": true,
+    "no_dispatcher_authority": true,
+    "no_background_worker": true,
+    "no_browser_automation": true,
+    "no_wallet_or_order_authority": true,
+    "network_allowed_explicitly": false,
+    "network_calls_performed": 0,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "external_network_calls_performed": 0,
+    "authenticated_endpoints_used": false,
+    "wallet_or_private_key_accessed": false,
+    "orders_created": false,
+    "trading_runtime_changed": false,
+    "dispatcher_changed": false,
+    "background_worker_created": false,
+    "queue_mutated": false,
+    "browser_automation_used": false,
+    "canonical_packets_mutated": false,
+    "probability_ev_edge_confidence_generated": false,
+    "side_selection_generated": false,
+    "market_action_guidance_generated": false
+  }
+}

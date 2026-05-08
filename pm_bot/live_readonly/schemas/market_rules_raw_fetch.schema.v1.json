@@ -1,0 +1,178 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "market_rules_raw_fetch.schema.v1",
+  "title": "PMBOT Market Rules Raw Fetch Contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "market_id",
+    "fetch_status",
+    "fetched_at",
+    "source_url",
+    "endpoint_type",
+    "raw_question",
+    "raw_title",
+    "raw_description",
+    "raw_rules",
+    "raw_resolution_source",
+    "raw_end_date",
+    "raw_slug",
+    "raw_event_metadata",
+    "no_auth_used",
+    "network_allowed_explicitly",
+    "polymarket_api_calls_performed",
+    "safety_summary"
+  ],
+  "properties": {
+    "contract_version": {
+      "const": "market_rules_raw_fetch.v1"
+    },
+    "market_id": {
+      "type": "string"
+    },
+    "fetch_status": {
+      "enum": [
+        "fetched",
+        "not_found",
+        "blocked",
+        "failed"
+      ]
+    },
+    "fetched_at": {
+      "type": "string"
+    },
+    "source_url": {
+      "type": "string"
+    },
+    "endpoint_type": {
+      "enum": [
+        "public_polymarket_market_metadata",
+        "public_gamma_market_metadata"
+      ]
+    },
+    "raw_question": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "raw_title": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "raw_description": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "raw_rules": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "raw_resolution_source": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "raw_end_date": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "raw_slug": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "raw_event_metadata": {
+      "type": [
+        "object",
+        "array",
+        "null"
+      ]
+    },
+    "no_auth_used": {
+      "const": true
+    },
+    "network_allowed_explicitly": {
+      "const": true
+    },
+    "polymarket_api_calls_performed": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "safety_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "authenticated_endpoints_used",
+        "wallet_or_private_key_accessed",
+        "orders_created",
+        "trading_runtime_changed",
+        "dispatcher_changed",
+        "background_worker_created",
+        "queue_mutated",
+        "browser_automation_used",
+        "canonical_packets_mutated",
+        "probability_ev_edge_confidence_generated",
+        "side_selection_generated",
+        "market_action_guidance_generated",
+        "operator_review_only",
+        "analysis_only"
+      ],
+      "properties": {
+        "authenticated_endpoints_used": {
+          "const": false
+        },
+        "wallet_or_private_key_accessed": {
+          "const": false
+        },
+        "orders_created": {
+          "const": false
+        },
+        "trading_runtime_changed": {
+          "const": false
+        },
+        "dispatcher_changed": {
+          "const": false
+        },
+        "background_worker_created": {
+          "const": false
+        },
+        "queue_mutated": {
+          "const": false
+        },
+        "browser_automation_used": {
+          "const": false
+        },
+        "canonical_packets_mutated": {
+          "const": false
+        },
+        "probability_ev_edge_confidence_generated": {
+          "const": false
+        },
+        "side_selection_generated": {
+          "const": false
+        },
+        "market_action_guidance_generated": {
+          "const": false
+        },
+        "operator_review_only": {
+          "const": true
+        },
+        "analysis_only": {
+          "const": true
+        }
+      }
+    }
+  }
+}

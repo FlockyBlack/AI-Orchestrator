@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "market_rules_auto_fill_plan.schema.v1",
+  "title": "PMBOT Market Rules Auto-Fill Plan Contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "market_id",
+    "capture_template_path",
+    "planned_status_after_fill",
+    "fields_to_fill",
+    "fields_to_preserve",
+    "will_auto_promote_to_ready",
+    "canonical_packets_mutated",
+    "operator_review_required",
+    "safety_summary"
+  ],
+  "properties": {
+    "contract_version": {
+      "const": "market_rules_auto_fill_plan.v1"
+    },
+    "market_id": {
+      "type": "string"
+    },
+    "capture_template_path": {
+      "type": "string"
+    },
+    "planned_status_after_fill": {
+      "const": "draft"
+    },
+    "source_capture_status_after_fill": {
+      "const": "draft"
+    },
+    "capture_status_after_fill": {
+      "const": "draft"
+    },
+    "fields_to_fill": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "fields_to_preserve": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "will_auto_promote_to_ready": {
+      "const": false
+    },
+    "canonical_packets_mutated": {
+      "const": false
+    },
+    "operator_review_required": {
+      "const": true
+    },
+    "safety_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "network_calls_performed",
+        "polymarket_api_calls_performed",
+        "authenticated_endpoints_used",
+        "wallet_or_private_key_accessed",
+        "orders_created",
+        "trading_runtime_changed",
+        "dispatcher_changed",
+        "background_worker_created",
+        "queue_mutated",
+        "browser_automation_used",
+        "canonical_packets_mutated",
+        "probability_ev_edge_confidence_generated",
+        "side_selection_generated",
+        "market_action_guidance_generated",
+        "operator_review_only",
+        "analysis_only"
+      ],
+      "properties": {
+        "network_calls_performed": {
+          "const": 0
+        },
+        "polymarket_api_calls_performed": {
+          "const": 0
+        },
+        "authenticated_endpoints_used": {
+          "const": false
+        },
+        "wallet_or_private_key_accessed": {
+          "const": false
+        },
+        "orders_created": {
+          "const": false
+        },
+        "trading_runtime_changed": {
+          "const": false
+        },
+        "dispatcher_changed": {
+          "const": false
+        },
+        "background_worker_created": {
+          "const": false
+        },
+        "queue_mutated": {
+          "const": false
+        },
+        "browser_automation_used": {
+          "const": false
+        },
+        "canonical_packets_mutated": {
+          "const": false
+        },
+        "probability_ev_edge_confidence_generated": {
+          "const": false
+        },
+        "side_selection_generated": {
+          "const": false
+        },
+        "market_action_guidance_generated": {
+          "const": false
+        },
+        "operator_review_only": {
+          "const": true
+        },
+        "analysis_only": {
+          "const": true
+        }
+      }
+    }
+  }
+}
