@@ -1,0 +1,156 @@
+{
+  "schema_version": "weather_discovery_refinement_diagnostics_010a2.v1",
+  "task_id": "PMBOT-SOURCE-010A2-WEATHER-DISCOVERY-QUERY-REFINEMENT-AND-SECOND-READONLY-ATTEMPT",
+  "previous_attempt_result_path": "docs/PMBOT_SOURCE_010A_RESULT.json",
+  "previous_attempt_status": "completed_no_suitable_weather_market_found",
+  "refined_strategy_summary": [
+    "Reused 010A active/open Gamma market pagination.",
+    "Added keyword searches for weather, temperature, rain, snow, storms, wind, heat, cold, drought, air quality, and climate-event terms.",
+    "Expanded local filtering for weather-adjacent direct measurement markets, including named storms, AQI, drought, and Arctic sea ice extent.",
+    "Selected at most one candidate using weather metadata completeness only."
+  ],
+  "queries_or_filters_used": {
+    "attempted_strategy": [
+      "reuse_010a_active_open_markets_pagination",
+      "keyword_search_over_active_open_markets",
+      "local_weather_keyword_filtering_over_titles_descriptions_slugs_tags",
+      "metadata_completeness_selection_without_price_liquidity_or_profit_inputs"
+    ],
+    "primary_weather_terms_considered": [
+      "weather",
+      "temperature",
+      "rain",
+      "rainfall",
+      "precipitation",
+      "snow",
+      "snowfall",
+      "hurricane",
+      "tropical storm",
+      "storm",
+      "wind",
+      "heat",
+      "cold",
+      "freeze",
+      "drought",
+      "wildfire smoke",
+      "air quality",
+      "AQI",
+      "climate event",
+      "landfall"
+    ],
+    "location_or_metric_indicators_considered": [
+      "city_names",
+      "state_country_region_names",
+      "degrees",
+      "fahrenheit_celsius",
+      "inches_mm",
+      "mph_kmh",
+      "category_landfall_named_storm",
+      "above_below_threshold",
+      "sea_ice_extent",
+      "AQI"
+    ],
+    "query_plan_used": [
+      {
+        "kind": "broad_active_market_page",
+        "term": null,
+        "endpoint_or_url": "https://gamma-api.polymarket.com/markets?active=true&closed=false&limit=500&offset=0"
+      },
+      {
+        "kind": "broad_active_market_page",
+        "term": null,
+        "endpoint_or_url": "https://gamma-api.polymarket.com/markets?active=true&closed=false&limit=500&offset=500"
+      },
+      {
+        "kind": "broad_active_market_page",
+        "term": null,
+        "endpoint_or_url": "https://gamma-api.polymarket.com/markets?active=true&closed=false&limit=500&offset=1000"
+      },
+      {
+        "kind": "broad_active_market_page",
+        "term": null,
+        "endpoint_or_url": "https://gamma-api.polymarket.com/markets?active=true&closed=false&limit=500&offset=1500"
+      },
+      {
+        "kind": "broad_active_market_page",
+        "term": null,
+        "endpoint_or_url": "https://gamma-api.polymarket.com/markets?active=true&closed=false&limit=500&offset=2000"
+      },
+      {
+        "kind": "keyword_active_market_search",
+        "term": "weather",
+        "endpoint_or_url": "https://gamma-api.polymarket.com/markets?active=true&closed=false&limit=100&offset=0&search=weather"
+      },
+      {
+        "kind": "keyword_active_market_search",
+        "term": "temperature",
+        "endpoint_or_url": "https://gamma-api.polymarket.com/markets?active=true&closed=false&limit=100&offset=0&search=temperature"
+      },
+      {
+        "kind": "keyword_active_market_search",
+        "term": "rain",
+        "endpoint_or_url": "https://gamma-api.polymarket.com/markets?active=true&closed=false&limit=100&offset=0&search=rain"
+      },
+      {
+        "kind": "keyword_active_market_search",
+        "term": "rainfall",
+        "endpoint_or_url": "https://gamma-api.polymarket.com/markets?active=true&closed=false&limit=100&offset=0&search=rainfall"
+      },
+      {
+        "kind": "keyword_active_market_search",
+        "term": "precipitation",
+        "endpoint_or_url": "https://gamma-api.polymarket.com/markets?active=true&closed=false&limit=100&offset=0&search=precipitation"
+      },
+      {
+        "kind": "keyword_active_market_search",
+        "term": "snow",
+        "endpoint_or_url": "https://gamma-api.polymarket.com/markets?active=true&closed=false&limit=100&offset=0&search=snow"
+      },
+      {
+        "kind": "keyword_active_market_search",
+        "term": "snowfall",
+        "endpoint_or_url": "https://gamma-api.polymarket.com/markets?active=true&closed=false&limit=100&offset=0&search=snowfall"
+      },
+      {
+        "kind": "keyword_active_market_search",
+        "term": "hurricane",
+        "endpoint_or_url": "https://gamma-api.polymarket.com/markets?active=true&closed=false&limit=100&offset=0&search=hurricane"
+      },
+      {
+        "kind": "keyword_active_market_search",
+        "term": "tropical storm",
+        "endpoint_or_url": "https://gamma-api.polymarket.com/markets?active=true&closed=false&limit=100&offset=0&search=tropical+storm"
+      },
+      {
+        "kind": "keyword_active_market_search",
+        "term": "storm",
+        "endpoint_or_url": "https://gamma-api.polymarket.com/markets?active=true&closed=false&limit=100&offset=0&search=storm"
+      }
+    ]
+  },
+  "endpoints_or_urls_used": [
+    "https://gamma-api.polymarket.com/markets?active=true&closed=false&limit=500&offset=0",
+    "https://gamma-api.polymarket.com/markets?active=true&closed=false&limit=500&offset=500",
+    "https://gamma-api.polymarket.com/markets?active=true&closed=false&limit=500&offset=1000",
+    "https://gamma-api.polymarket.com/markets?active=true&closed=false&limit=500&offset=1500",
+    "https://gamma-api.polymarket.com/markets?active=true&closed=false&limit=500&offset=2000",
+    "https://gamma-api.polymarket.com/markets?active=true&closed=false&limit=100&offset=0&search=weather",
+    "https://gamma-api.polymarket.com/markets?active=true&closed=false&limit=100&offset=0&search=temperature",
+    "https://gamma-api.polymarket.com/markets?active=true&closed=false&limit=100&offset=0&search=rain",
+    "https://gamma-api.polymarket.com/markets?active=true&closed=false&limit=100&offset=0&search=rainfall",
+    "https://gamma-api.polymarket.com/markets?active=true&closed=false&limit=100&offset=0&search=precipitation",
+    "https://gamma-api.polymarket.com/markets?active=true&closed=false&limit=100&offset=0&search=snow",
+    "https://gamma-api.polymarket.com/markets?active=true&closed=false&limit=100&offset=0&search=snowfall",
+    "https://gamma-api.polymarket.com/markets?active=true&closed=false&limit=100&offset=0&search=hurricane",
+    "https://gamma-api.polymarket.com/markets?active=true&closed=false&limit=100&offset=0&search=tropical+storm",
+    "https://gamma-api.polymarket.com/markets?active=true&closed=false&limit=100&offset=0&search=storm"
+  ],
+  "inspected_candidate_count": 2500,
+  "weather_like_candidate_count": 15,
+  "selected_market_id": "693869",
+  "selected_market_title_or_question": "Will the minimum Arctic sea ice extent this summer be less than 4m square kilometers?",
+  "if_no_selection_reasons": [],
+  "recommended_next_action": "PMBOT-SOURCE-010B-WEATHER-DRAFT-CAPTURE-AUTOFILL-FROM-READONLY-CANDIDATE",
+  "no_market_action_guidance": true,
+  "no_trading_authority": true
+}
