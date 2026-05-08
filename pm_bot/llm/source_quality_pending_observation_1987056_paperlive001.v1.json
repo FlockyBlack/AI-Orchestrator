@@ -1,0 +1,115 @@
+{
+  "schema_version": "source_quality_pending_observation_paperlive001.v1",
+  "task_id": "PMBOT-PAPERLIVE-001-ESPORTS-OBSERVATION-LEDGER-FIRST-RUN-NO-TRADE",
+  "generated_by": "pm_bot/paper_live/esports_observation_ledger_first_run.py",
+  "market_id": "1987056",
+  "market_class": "esports",
+  "observation_ledger_entry_path": "pm_bot/paper_live/esports_observation_ledger_first_run_1987056.v1.json",
+  "source_quality_candidate_reference": "pm_bot/llm/source_quality_observation_candidate_1987056_009b.v1.json",
+  "source_quality_flow_reference": "pm_bot/llm/source_quality_observation_flow_009c.v1.json",
+  "outcome_tracking_contract_reference": "pm_bot/paper_live/outcome_tracking_contract.v1.json",
+  "source_ids_observed": [
+    "source_009a_gamma_market_metadata_1987056",
+    "source_009a_polymarket_gamma_rules_text_1987056",
+    "https://gol.gg/esports/home",
+    "pm_bot/llm/manual_resolution_source_capture/1987056_resolution_source_capture.v1.json",
+    "pm_bot/llm/esports_operator_review_surface_1987056_009c.v1.json"
+  ],
+  "source_roles_observed": [
+    "market_metadata_source",
+    "market_rules_source",
+    "official_result_source_candidate",
+    "tournament_or_match_context_source",
+    "unresolved_source",
+    "local_capture_source",
+    "operator_review_surface"
+  ],
+  "source_roles": [
+    {
+      "source_id": "source_009a_gamma_market_metadata_1987056",
+      "roles": [
+        "market_metadata_source",
+        "market_rules_source"
+      ]
+    },
+    {
+      "source_id": "https://gol.gg/esports/home",
+      "roles": [
+        "official_result_source_candidate"
+      ]
+    },
+    {
+      "source_id": "source_009a_operator_checklist_1987056",
+      "roles": [
+        "tournament_or_match_context_source",
+        "unresolved_source"
+      ]
+    },
+    {
+      "source_id": "pm_bot/llm/manual_resolution_source_capture/1987056_resolution_source_capture.v1.json",
+      "roles": [
+        "local_capture_source"
+      ]
+    },
+    {
+      "source_id": "pm_bot/llm/esports_operator_review_surface_1987056_009c.v1.json",
+      "roles": [
+        "operator_review_surface"
+      ]
+    }
+  ],
+  "source_quality_status": "pending_outcome_and_operator_review",
+  "outcome_known": false,
+  "source_scoring_performed": false,
+  "source_ranking_updated": false,
+  "trading_profit_used_for_scoring": false,
+  "profit_or_pnl_recorded": false,
+  "operator_review_required": true,
+  "future_update_allowed_only_after_outcome_review": true,
+  "notes": [
+    "Pending observation only; no source score is assigned.",
+    "Outcome is not known in PAPERLIVE-001.",
+    "Future update requires operator review of the final result source and source alignment.",
+    "This record is connected to the PAPERLIVE-001 observation ledger entry."
+  ],
+  "safety_summary": {
+    "no_market_action_guidance": true,
+    "operator_review_only": true,
+    "analysis_only": true,
+    "local_only": true,
+    "passive_context_only": true,
+    "manual_review_only": true,
+    "no_trading_authority": true,
+    "no_execution_authority": true,
+    "no_queue_authority": true,
+    "no_runtime_authority": true,
+    "no_wallet_or_order_authority": true,
+    "no_dispatcher_authority": true,
+    "no_browser_automation": true,
+    "no_probability_ev_edge_confidence_side_selection": true,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "external_network_calls_performed": 0,
+    "network_calls_performed": 0,
+    "authenticated_endpoints_used": false,
+    "api_key_accessed": false,
+    "api_key_value_printed": false,
+    "api_key_value_written": false,
+    "api_key_leaked": false,
+    "wallet_or_private_key_accessed": false,
+    "orders_created": 0,
+    "simulated_trade_created": false,
+    "selected_side": null,
+    "stake_amount": null,
+    "queue_items_created": 0,
+    "queue_state_mutated": false,
+    "runtime_wiring_added": false,
+    "dispatcher_changed": false,
+    "background_workers_added": false,
+    "browser_automation_used": false,
+    "market_decisions_made": false
+  },
+  "openrouter_calls_performed": 0,
+  "polymarket_api_calls_performed": 0,
+  "external_network_calls_performed": 0
+}
