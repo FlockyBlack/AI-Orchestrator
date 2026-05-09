@@ -1,0 +1,80 @@
+{
+  "available_evidence": [
+    "City agenda says the committee forwarded the permit item.",
+    "Local article confirms the item is scheduled for a full council vote."
+  ],
+  "contract_version": "pmbot_one_market_input.v1",
+  "created_at": "2026-05-10T00:00:00Z",
+  "current_context_summary": "The local packet captures a synthetic civic permit market after committee review and before final council action.",
+  "known_uncertainties": [
+    "The full council vote has not appeared in the local packet.",
+    "The resolution source wording still needs final outcome confirmation."
+  ],
+  "market_id": "synthetic-garden-permit-001",
+  "market_slug_or_reference": "synthetic-garden-permit-before-june-30",
+  "market_title": "Will the synthetic community garden permit be approved by June 30?",
+  "market_type": "binary_resolution",
+  "missing_evidence": [
+    "Final council vote record",
+    "Official resolution notice"
+  ],
+  "operator_notes": [
+    "Synthetic fixture for practical PMBOT analysis quality testing.",
+    "No live data was fetched."
+  ],
+  "outcomes": [
+    "approved",
+    "not_approved"
+  ],
+  "resolution_source_summary": "The official council resolution notice is the synthetic resolution source for this fixture.",
+  "rules_summary": "The market resolves approved only if the permit is officially approved on or before 2026-06-30.",
+  "source_packets": [
+    {
+      "captured_at": "2026-05-09T12:00:00Z",
+      "claim_type": "permit_status",
+      "claim_value": "committee_forwarded",
+      "evidence_summary": "The synthetic city agenda records the permit as forwarded from committee.",
+      "freshness_status": "current",
+      "known_limitations": [
+        "Committee forwarding is not final approval.",
+        "The agenda snapshot does not include the final council vote."
+      ],
+      "source_id": "synthetic_city_agenda",
+      "source_name": "Synthetic City Agenda",
+      "source_type": "official_static_fixture",
+      "source_url_or_reference": "pm_bot/tests/fixtures/practical_one_market/source_city_agenda.synthetic",
+      "used_in_analysis": true
+    },
+    {
+      "captured_at": "2026-05-09T13:00:00Z",
+      "claim_type": "hearing_schedule",
+      "claim_value": "full_council_vote_scheduled",
+      "evidence_summary": "The synthetic local article says the item is scheduled for a full council vote.",
+      "freshness_status": "current",
+      "known_limitations": [
+        "Article timing may lag the official agenda.",
+        "Article does not determine the final outcome."
+      ],
+      "source_id": "synthetic_local_article",
+      "source_name": "Synthetic Local Article",
+      "source_type": "news_static_fixture",
+      "source_url_or_reference": "pm_bot/tests/fixtures/practical_one_market/source_local_article.synthetic",
+      "used_in_analysis": true
+    },
+    {
+      "captured_at": "2026-05-08T10:00:00Z",
+      "claim_type": "community_comment",
+      "claim_value": "public_support_recorded",
+      "evidence_summary": "The synthetic community board note records public support but does not affect the resolution rule.",
+      "freshness_status": "current",
+      "known_limitations": [
+        "Community comment is not an official resolution source."
+      ],
+      "source_id": "synthetic_community_board_note",
+      "source_name": "Synthetic Community Board Note",
+      "source_type": "community_static_fixture",
+      "source_url_or_reference": "pm_bot/tests/fixtures/practical_one_market/source_community_board.synthetic",
+      "used_in_analysis": false
+    }
+  ]
+}

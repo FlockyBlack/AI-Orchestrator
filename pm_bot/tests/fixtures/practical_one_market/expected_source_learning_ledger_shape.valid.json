@@ -1,0 +1,19 @@
+{
+  "contract_version": "pmbot_expected_shape.v1",
+  "expected_contract_version": "pmbot_source_learning_ledger.v1",
+  "required_top_level_keys": [
+    "analysis_prompt_improvement_notes",
+    "contract_version",
+    "generated_artifacts",
+    "generated_at",
+    "input_feedback_ids",
+    "ledger_id",
+    "market_ids",
+    "no_autonomous_training_performed",
+    "no_real_trade_decision",
+    "recommended_source_handling_updates",
+    "source_failure_patterns",
+    "source_records",
+    "source_usefulness_summary"
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "actual_outcome_summary": "The final synthetic council notice aligned with the local source-backed analysis and was useful for review.",
+  "analysis_id": "synthetic-garden-permit-001.analysis.dce3e1b2a251",
+  "analysis_quality_label": "useful",
+  "contract_version": "pmbot_one_market_paper_feedback_result.v1",
+  "feedback_id": "synthetic-garden-permit-001.analysis.dce3e1b2a251.feedback.41e18d7dc6fa",
+  "generated_artifacts": {
+    "feedback_markdown": "pm_bot/practical/artifacts/one_market_feedback_sample_001.md",
+    "feedback_result_json": "pm_bot/practical/artifacts/one_market_feedback_sample_001.result.json"
+  },
+  "market_id": "synthetic-garden-permit-001",
+  "missing_evidence_lessons": [
+    "Track whether this missing evidence matters later: Final council vote record",
+    "Track whether this missing evidence matters later: Official resolution notice"
+  ],
+  "next_prompt_improvements": [
+    "Keep the current compact card shape and source attribution fields."
+  ],
+  "no_real_trade_decision": true,
+  "operator_notes": [
+    "operator_labeled_analysis_quality: useful",
+    "The local analysis matched the later outcome review."
+  ],
+  "orders_or_trading_actions": false,
+  "outcome_status": "resolved",
+  "paper_hypothesis_review": {
+    "hypothesis_id": "synthetic-garden-permit-001.analysis.dce3e1b2a251.paper_hypothesis",
+    "outcome_check_completed": true,
+    "paper_only_non_executable": true,
+    "qualitative_result": "Analysis was useful for later review against the recorded outcome.",
+    "review_status": "reviewed"
+  },
+  "reasoning_lessons": [
+    "Preserve compact source attribution and outcome check fields."
+  ],
+  "resolution_source_reference": "pm_bot/tests/fixtures/practical_one_market/outcome_resolved_aligned.synthetic",
+  "resolved_at": "2026-06-20T18:00:00Z",
+  "source_contribution_review": [
+    {
+      "claim_type": "permit_status",
+      "evidence_role": "used_source",
+      "observed_issue": "Source contributed to a useful qualitative analysis review.",
+      "source_id": "synthetic_city_agenda",
+      "source_name": "Synthetic City Agenda",
+      "suggested_future_handling": "Keep source attribution and limitations visible in future packets.",
+      "usefulness_label": "useful"
+    },
+    {
+      "claim_type": "community_comment",
+      "evidence_role": "unused_context",
+      "observed_issue": "Source was present but not used in the local analysis.",
+      "source_id": "synthetic_community_board_note",
+      "source_name": "Synthetic Community Board Note",
+      "suggested_future_handling": "Keep as context unless a later packet needs its claim type.",
+      "usefulness_label": "unused"
+    },
+    {
+      "claim_type": "hearing_schedule",
+      "evidence_role": "used_source",
+      "observed_issue": "Source contributed to a useful qualitative analysis review.",
+      "source_id": "synthetic_local_article",
+      "source_name": "Synthetic Local Article",
+      "suggested_future_handling": "Keep source attribution and limitations visible in future packets.",
+      "usefulness_label": "useful"
+    }
+  ],
+  "source_quality_lessons": [
+    "Observed source usefulness label: unused",
+    "Observed source usefulness label: useful"
+  ],
+  "wallet_or_private_key_access": false
+}

@@ -1,0 +1,65 @@
+{
+  "analysis_prompt_improvement_notes": [
+    "Keep the current compact card shape and source attribution fields."
+  ],
+  "contract_version": "pmbot_source_learning_ledger.v1",
+  "generated_artifacts": {
+    "source_learning_ledger_json": "pm_bot/practical/artifacts/source_learning_ledger_sample_001.result.json",
+    "source_learning_ledger_markdown": "pm_bot/practical/artifacts/source_learning_ledger_sample_001.md"
+  },
+  "generated_at": "2026-05-10T00:00:00Z",
+  "input_feedback_ids": [
+    "synthetic-garden-permit-001.analysis.dce3e1b2a251.feedback.41e18d7dc6fa"
+  ],
+  "ledger_id": "source_learning_ledger.37f1c96ab5a4",
+  "market_ids": [
+    "synthetic-garden-permit-001"
+  ],
+  "no_autonomous_training_performed": true,
+  "no_real_trade_decision": true,
+  "recommended_source_handling_updates": [
+    "Keep unused sources separate from sources that supported the analysis."
+  ],
+  "source_failure_patterns": [
+    "1 source record(s) labeled unused."
+  ],
+  "source_records": [
+    {
+      "evidence_role": "used_source",
+      "markets_used": [
+        "synthetic-garden-permit-001"
+      ],
+      "observed_issue": "Source contributed to a useful qualitative analysis review.",
+      "source_id": "synthetic_city_agenda",
+      "source_name": "Synthetic City Agenda",
+      "suggested_future_handling": "Keep source attribution and limitations visible in future packets.",
+      "usefulness_label": "useful"
+    },
+    {
+      "evidence_role": "unused_context",
+      "markets_used": [
+        "synthetic-garden-permit-001"
+      ],
+      "observed_issue": "Source was present but not used in the local analysis.",
+      "source_id": "synthetic_community_board_note",
+      "source_name": "Synthetic Community Board Note",
+      "suggested_future_handling": "Keep as context unless a later packet needs its claim type.",
+      "usefulness_label": "unused"
+    },
+    {
+      "evidence_role": "used_source",
+      "markets_used": [
+        "synthetic-garden-permit-001"
+      ],
+      "observed_issue": "Source contributed to a useful qualitative analysis review.",
+      "source_id": "synthetic_local_article",
+      "source_name": "Synthetic Local Article",
+      "suggested_future_handling": "Keep source attribution and limitations visible in future packets.",
+      "usefulness_label": "useful"
+    }
+  ],
+  "source_usefulness_summary": {
+    "unused": 1,
+    "useful": 2
+  }
+}

@@ -1,0 +1,175 @@
+{
+  "analysis_id": "synthetic-garden-permit-001.analysis.dce3e1b2a251",
+  "analysis_mode": "local_one_market",
+  "authenticated_endpoints_used": false,
+  "contract_version": "pmbot_one_market_analysis_result.v1",
+  "contradiction_notes": [],
+  "evidence_status": {
+    "available_evidence_count": 2,
+    "contradiction_note_count": 0,
+    "missing_evidence_count": 2,
+    "source_packets_count": 3,
+    "stale_source_count": 0,
+    "unused_source_count": 1,
+    "used_source_count": 2
+  },
+  "generated_artifacts": {
+    "analysis_card_markdown": "pm_bot/practical/artifacts/one_market_analysis_sample_001.md",
+    "analysis_result_json": "pm_bot/practical/artifacts/one_market_analysis_sample_001.result.json"
+  },
+  "key_question": "What local evidence would resolve the operator's review of: Will the synthetic community garden permit be approved by June 30?",
+  "live_network_used": false,
+  "market_id": "synthetic-garden-permit-001",
+  "market_recommendation_generated": false,
+  "market_title": "Will the synthetic community garden permit be approved by June 30?",
+  "missing_evidence": [
+    "Final council vote record",
+    "Official resolution notice"
+  ],
+  "next_research_questions": [
+    "Collect local evidence for: Final council vote record",
+    "Collect local evidence for: Official resolution notice",
+    "Clarify uncertainty: The full council vote has not appeared in the local packet.",
+    "Clarify uncertainty: The resolution source wording still needs final outcome confirmation."
+  ],
+  "no_real_trade_decision": true,
+  "openrouter_calls_performed": 0,
+  "operator_summary": "Local one-market review for Will the synthetic community garden permit be approved by June 30?. The local packet captures a synthetic civic permit market after committee review and before final council action. The packet has 2 used source(s), 2 missing evidence item(s), 0 stale source note(s), and 0 contradiction note(s). The result is a paper-only analysis record for later outcome review.",
+  "orders_or_trading_actions": false,
+  "outcome_tracking_status": {
+    "required_contract_version": "pmbot_one_market_outcome_record.v1",
+    "review_required": true,
+    "status": "placeholder_pending_outcome_record"
+  },
+  "paper_hypothesis": {
+    "execution_boundary": "Paper-only review record. It is not a market instruction and cannot be used for orders.",
+    "hypothesis_id": "synthetic-garden-permit-001.analysis.dce3e1b2a251.paper_hypothesis",
+    "outcome_check_needed": "Later compare the final outcome record with the local rules summary, resolution source summary, and source attribution.",
+    "refuting_evidence_needed": [
+      "Final council vote record",
+      "Official resolution notice"
+    ],
+    "safety_label": "paper_only_non_executable_analysis_tracking",
+    "source_assumptions_to_review": [
+      "Synthetic City Agenda",
+      "Synthetic Local Article",
+      "The full council vote has not appeared in the local packet.",
+      "The resolution source wording still needs final outcome confirmation."
+    ],
+    "supporting_evidence_needed": [
+      "Resolution evidence matches the local rules summary.",
+      "Used source records remain applicable to the same market and outcome rules.",
+      "No material missing evidence changes the qualitative review."
+    ],
+    "tracked_claim": "Track whether the local source-backed analysis remains useful after the market outcome is reviewed."
+  },
+  "paper_hypothesis_allowed": true,
+  "paper_hypothesis_safety_label": "paper_only_non_executable_analysis_tracking",
+  "paper_hypothesis_tracking_fields": {
+    "analysis_id": "synthetic-garden-permit-001.analysis.dce3e1b2a251",
+    "created_from": "local_one_market",
+    "expected_outcome_record_contract_version": "pmbot_one_market_outcome_record.v1",
+    "market_id": "synthetic-garden-permit-001",
+    "outcome_record_required_fields": [
+      "contract_version",
+      "market_id",
+      "outcome_status",
+      "actual_outcome_summary",
+      "resolved_at",
+      "resolution_source_reference",
+      "operator_notes"
+    ],
+    "tracking_status": "pending_outcome_record"
+  },
+  "polymarket_api_calls_performed": 0,
+  "probability_ev_edge_or_side_selection_generated": false,
+  "review_quality_score_inputs": {
+    "available_evidence_count": 2,
+    "contradiction_note_count": 0,
+    "missing_evidence_count": 2,
+    "operator_note_count": 2,
+    "stale_source_count": 0,
+    "used_source_count": 2
+  },
+  "runtime_or_dispatcher_changes": false,
+  "source_attribution": [
+    {
+      "captured_at": "2026-05-09T12:00:00Z",
+      "claim_type": "permit_status",
+      "claim_value": "committee_forwarded",
+      "evidence_summary": "The synthetic city agenda records the permit as forwarded from committee.",
+      "freshness_status": "current",
+      "known_limitations": [
+        "Committee forwarding is not final approval.",
+        "The agenda snapshot does not include the final council vote."
+      ],
+      "source_id": "synthetic_city_agenda",
+      "source_name": "Synthetic City Agenda",
+      "source_type": "official_static_fixture",
+      "source_url_or_reference": "pm_bot/tests/fixtures/practical_one_market/source_city_agenda.synthetic",
+      "used_in_analysis": true
+    },
+    {
+      "captured_at": "2026-05-09T13:00:00Z",
+      "claim_type": "hearing_schedule",
+      "claim_value": "full_council_vote_scheduled",
+      "evidence_summary": "The synthetic local article says the item is scheduled for a full council vote.",
+      "freshness_status": "current",
+      "known_limitations": [
+        "Article timing may lag the official agenda.",
+        "Article does not determine the final outcome."
+      ],
+      "source_id": "synthetic_local_article",
+      "source_name": "Synthetic Local Article",
+      "source_type": "news_static_fixture",
+      "source_url_or_reference": "pm_bot/tests/fixtures/practical_one_market/source_local_article.synthetic",
+      "used_in_analysis": true
+    },
+    {
+      "captured_at": "2026-05-08T10:00:00Z",
+      "claim_type": "community_comment",
+      "claim_value": "public_support_recorded",
+      "evidence_summary": "The synthetic community board note records public support but does not affect the resolution rule.",
+      "freshness_status": "current",
+      "known_limitations": [
+        "Community comment is not an official resolution source."
+      ],
+      "source_id": "synthetic_community_board_note",
+      "source_name": "Synthetic Community Board Note",
+      "source_type": "community_static_fixture",
+      "source_url_or_reference": "pm_bot/tests/fixtures/practical_one_market/source_community_board.synthetic",
+      "used_in_analysis": false
+    }
+  ],
+  "sources_not_used": [
+    {
+      "claim_type": "community_comment",
+      "freshness_status": "current",
+      "source_id": "synthetic_community_board_note",
+      "source_name": "Synthetic Community Board Note",
+      "source_type": "community_static_fixture"
+    }
+  ],
+  "sources_used": [
+    {
+      "claim_type": "permit_status",
+      "freshness_status": "current",
+      "source_id": "synthetic_city_agenda",
+      "source_name": "Synthetic City Agenda",
+      "source_type": "official_static_fixture"
+    },
+    {
+      "claim_type": "hearing_schedule",
+      "freshness_status": "current",
+      "source_id": "synthetic_local_article",
+      "source_name": "Synthetic Local Article",
+      "source_type": "news_static_fixture"
+    }
+  ],
+  "staleness_notes": [],
+  "uncertainty_notes": [
+    "The full council vote has not appeared in the local packet.",
+    "The resolution source wording still needs final outcome confirmation."
+  ],
+  "wallet_or_private_key_access": false
+}

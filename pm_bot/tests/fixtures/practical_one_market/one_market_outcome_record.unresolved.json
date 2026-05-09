@@ -1,0 +1,11 @@
+{
+  "actual_outcome_summary": "The synthetic market has not resolved in the local fixture.",
+  "contract_version": "pmbot_one_market_outcome_record.v1",
+  "market_id": "synthetic-garden-permit-001",
+  "operator_notes": [
+    "Outcome pending for paper-only analysis tracking."
+  ],
+  "outcome_status": "unresolved",
+  "resolution_source_reference": "pm_bot/tests/fixtures/practical_one_market/outcome_unresolved.synthetic",
+  "resolved_at": null
+}

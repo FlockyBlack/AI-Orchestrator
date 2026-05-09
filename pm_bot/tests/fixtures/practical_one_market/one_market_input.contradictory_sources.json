@@ -1,0 +1,61 @@
+{
+  "available_evidence": [
+    "City agenda says the committee forwarded the permit item.",
+    "Clerk note says the committee tabled the permit item."
+  ],
+  "contract_version": "pmbot_one_market_input.v1",
+  "created_at": "2026-05-10T00:00:00Z",
+  "current_context_summary": "The local packet intentionally contains conflicting synthetic status claims.",
+  "known_uncertainties": [
+    "The official committee disposition requires operator review."
+  ],
+  "market_id": "synthetic-garden-permit-contradiction-001",
+  "market_slug_or_reference": "synthetic-garden-permit-contradiction",
+  "market_title": "Will the synthetic community garden permit be approved by June 30?",
+  "market_type": "binary_resolution",
+  "missing_evidence": [
+    "Final committee minutes",
+    "Final council vote record"
+  ],
+  "operator_notes": [
+    "Synthetic contradiction fixture."
+  ],
+  "outcomes": [
+    "approved",
+    "not_approved"
+  ],
+  "resolution_source_summary": "The official council resolution notice is the synthetic resolution source for this fixture.",
+  "rules_summary": "The market resolves approved only if the permit is officially approved on or before 2026-06-30.",
+  "source_packets": [
+    {
+      "captured_at": "2026-05-09T12:00:00Z",
+      "claim_type": "permit_status",
+      "claim_value": "committee_forwarded",
+      "evidence_summary": "The synthetic city agenda records the permit as forwarded from committee.",
+      "freshness_status": "current",
+      "known_limitations": [
+        "Agenda snapshot may not include late amendments."
+      ],
+      "source_id": "synthetic_city_agenda",
+      "source_name": "Synthetic City Agenda",
+      "source_type": "official_static_fixture",
+      "source_url_or_reference": "pm_bot/tests/fixtures/practical_one_market/source_city_agenda.synthetic",
+      "used_in_analysis": true
+    },
+    {
+      "captured_at": "2026-05-09T12:30:00Z",
+      "claim_type": "permit_status",
+      "claim_value": "committee_tabled",
+      "evidence_summary": "The synthetic clerk note records the permit as tabled by committee.",
+      "freshness_status": "current",
+      "known_limitations": [
+        "Clerk note needs reconciliation with the agenda."
+      ],
+      "source_id": "synthetic_clerk_note",
+      "source_name": "Synthetic Clerk Note",
+      "source_type": "official_static_fixture",
+      "source_url_or_reference": "pm_bot/tests/fixtures/practical_one_market/source_clerk_note.synthetic",
+      "used_in_analysis": true
+    }
+  ]
+}

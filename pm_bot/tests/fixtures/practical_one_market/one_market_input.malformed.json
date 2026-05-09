@@ -1,0 +1,8 @@
+{
+  "available_evidence": [
+    "Malformed fixture intentionally omits required fields."
+  ],
+  "contract_version": "pmbot_one_market_input.v0",
+  "market_id": "synthetic-malformed-001",
+  "source_packets": []
+}

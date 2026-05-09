@@ -1,0 +1,12 @@
+{
+  "actual_outcome_summary": "The later synthetic outcome review showed the analysis missed material missing evidence from the official resolution notice.",
+  "contract_version": "pmbot_one_market_outcome_record.v1",
+  "market_id": "synthetic-garden-permit-001",
+  "operator_notes": [
+    "operator_labeled_analysis_quality: wrong_due_to_missing_evidence",
+    "The missing evidence changed the qualitative review."
+  ],
+  "outcome_status": "resolved",
+  "resolution_source_reference": "pm_bot/tests/fixtures/practical_one_market/outcome_resolved_missing_evidence.synthetic",
+  "resolved_at": "2026-06-20T18:00:00Z"
+}

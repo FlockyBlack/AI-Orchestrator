@@ -1,0 +1,26 @@
+{
+  "contract_version": "pmbot_expected_shape.v1",
+  "expected_contract_version": "pmbot_one_market_paper_feedback_result.v1",
+  "required_top_level_keys": [
+    "actual_outcome_summary",
+    "analysis_id",
+    "analysis_quality_label",
+    "contract_version",
+    "feedback_id",
+    "generated_artifacts",
+    "market_id",
+    "missing_evidence_lessons",
+    "next_prompt_improvements",
+    "no_real_trade_decision",
+    "operator_notes",
+    "orders_or_trading_actions",
+    "outcome_status",
+    "paper_hypothesis_review",
+    "reasoning_lessons",
+    "resolved_at",
+    "resolution_source_reference",
+    "source_contribution_review",
+    "source_quality_lessons",
+    "wallet_or_private_key_access"
+  ]
+}
