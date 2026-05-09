@@ -22,8 +22,8 @@ from .safety import classify_packet
 from .validator import validate_packet
 
 BATCH_REPORT_SCHEMA_VERSION = "codex_cli_batch_execution_report.v1"
-DEFAULT_MAX_TASKS = 3
-HARD_MAX_TASKS = 5
+DEFAULT_MAX_TASKS = 10
+HARD_MAX_TASKS = 20
 READY_STATES = ("approved", "planned")
 
 

@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from ai_orchestrator.codex_queue.codex_cli_batch_runner import run_codex_batch
+from ai_orchestrator.codex_queue.codex_cli_batch_runner import DEFAULT_MAX_TASKS, HARD_MAX_TASKS, run_codex_batch
 from ai_orchestrator.codex_queue.schema import default_packet
 
 
@@ -123,14 +123,42 @@ def test_batch_max_tasks_cap_is_enforced(tmp_path: Path) -> None:
     assert all(skipped["reason"] == "beyond max_tasks cap" for skipped in report["skipped_tasks"])
 
 
-def test_batch_hard_cap_rejects_values_above_five(tmp_path: Path) -> None:
+def test_batch_default_max_tasks_is_ten(tmp_path: Path) -> None:
+    queue_root = tmp_path / "agent_tasks"
+    task_ids = [f"ORCH-BATCH-DEFAULT-{index:02d}" for index in range(1, 12)]
+    for task_id in task_ids:
+        _write_ready_task(queue_root, task_id)
+
+    report = run_codex_batch(queue_root, dry_run=True)
+
+    assert DEFAULT_MAX_TASKS == 10
+    assert report["max_tasks"] == 10
+    assert report["selected_task_ids"] == task_ids[:10]
+    assert report["skipped_task_ids"] == task_ids[10:]
+
+
+def test_batch_hard_cap_is_twenty(tmp_path: Path) -> None:
+    queue_root = tmp_path / "agent_tasks"
+    task_ids = [f"ORCH-BATCH-HARD-{index:02d}" for index in range(1, 22)]
+    for task_id in task_ids:
+        _write_ready_task(queue_root, task_id)
+
+    report = run_codex_batch(queue_root, max_tasks=20, dry_run=True)
+
+    assert HARD_MAX_TASKS == 20
+    assert report["hard_max_tasks"] == 20
+    assert report["selected_task_ids"] == task_ids[:20]
+    assert report["skipped_task_ids"] == task_ids[20:]
+
+
+def test_batch_hard_cap_rejects_values_above_twenty(tmp_path: Path) -> None:
     queue_root = tmp_path / "agent_tasks"
     _write_ready_task(queue_root, "ORCH-BATCH-HARD-CAP")
 
-    report = run_codex_batch(queue_root, max_tasks=6, dry_run=True)
+    report = run_codex_batch(queue_root, max_tasks=21, dry_run=True)
 
     assert report["status"] == "blocked"
-    assert any("5 or fewer" in error for error in report["errors"])
+    assert any("20 or fewer" in error for error in report["errors"])
     assert Path(report["report_paths"]["batch_report_json"]).exists()
 
 
@@ -200,10 +228,18 @@ def test_batch_does_not_perform_forbidden_auto_actions(tmp_path: Path, monkeypat
     assert report["review_approved_automatically"] is False
     assert report["git_commit_performed"] is False
     assert report["git_push_performed"] is False
+    assert report["task_created_automatically"] is False
+    assert report["task_approved_automatically"] is False
     assert report["scheduler_created"] is False
     assert report["daemon_created"] is False
     assert report["background_worker_created"] is False
     assert report["infinite_loop_created"] is False
+    assert report["network_calls_performed"] == 0
+    assert report["openrouter_calls_performed"] == 0
+    assert report["polymarket_api_calls_performed"] == 0
+    assert report["wallet_or_private_key_access"] is False
+    assert report["orders_or_trading_actions"] is False
+    assert report["runtime_or_dispatcher_changes"] is False
 
 
 def test_batch_writes_json_and_markdown_report(tmp_path: Path) -> None:
