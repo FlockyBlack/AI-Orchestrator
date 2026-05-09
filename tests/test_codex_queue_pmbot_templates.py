@@ -7,6 +7,8 @@ from ai_orchestrator.codex_queue.operator_cli import main
 from ai_orchestrator.codex_queue.pmbot_templates import (
     PMBOT_NIGHT_BATCH_TASKS,
     PMBOT_NIGHT_BATCH_TASK_IDS,
+    PMBOT_NEXT_TWENTY_TASKS,
+    PMBOT_NEXT_TWENTY_TASK_IDS,
     PMBOT_PROJECT,
     PMBOT_REQUIRED_FORBIDDEN_ACTIONS,
     PMBOT_WEATHER_VALIDATION_COMMANDS,
@@ -160,7 +162,7 @@ def test_night_batch_templates_cover_requested_task_ids_and_stay_local_only() ->
         "PMBOT-ROADMAP-001-REAL-WALLET-READINESS-BLOCKER-MATRIX",
     )
 
-    assert PMBOT_NIGHT_BATCH_TASK_IDS == expected_task_ids
+    assert PMBOT_NIGHT_BATCH_TASK_IDS[: len(expected_task_ids)] == expected_task_ids
 
     for spec in PMBOT_NIGHT_BATCH_TASKS:
         packet = build_pmbot_task_packet(str(spec["task_id"]), str(spec["template"]))
@@ -181,6 +183,56 @@ def test_night_batch_templates_cover_requested_task_ids_and_stay_local_only() ->
         assert "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py" in packet["validation_commands"]
         for forbidden_word in ("buy", "sell", "hold", "enter", "exit"):
             assert forbidden_word not in text
+
+
+def test_next_twenty_pmbot_templates_cover_requested_task_ids_and_stay_local_only() -> None:
+    expected_task_ids = (
+        "PMBOT-SOURCE-LEDGER-003-SOURCE-QUALITY-REPORT-SUMMARY-LOCAL-ONLY",
+        "PMBOT-SOURCE-LEDGER-004-SOURCE-QUALITY-REGRESSION-FIXTURE-LOCAL-ONLY",
+        "PMBOT-PAPERLIVE-DECISION-003-SIMULATED-DECISION-AUDIT-LEDGER-NO-RECOMMENDATIONS",
+        "PMBOT-PAPERLIVE-DECISION-004-SIMULATED-DECISION-REPLAY-SUMMARY-NO-RECOMMENDATIONS",
+        "PMBOT-PAPER-ACCOUNTING-002-PAPER-ONLY-ACCOUNTING-VALIDATOR-LOCAL-ONLY",
+        "PMBOT-PAPER-ACCOUNTING-003-PAPER-ONLY-SESSION-SUMMARY-LOCAL-ONLY",
+        "PMBOT-CRYPTO-PILOT-001-CRYPTO-MARKET-CLASS-CAPTURE-TEMPLATE-LOCAL-ONLY",
+        "PMBOT-CRYPTO-PILOT-002-CRYPTO-OPERATOR-REVIEW-PROTOCOL-LOCAL-ONLY",
+        "PMBOT-CRYPTO-PILOT-003-CRYPTO-PAPERLIVE-OBSERVATION-LEDGER-LOCAL-ONLY",
+        "PMBOT-CRYPTO-PILOT-004-CRYPTO-SOURCE-QUALITY-CAPTURE-SURFACE-LOCAL-ONLY",
+        "PMBOT-DASHBOARD-002-QUEUE-AND-PAPERLIVE-STATUS-SURFACE",
+        "PMBOT-DASHBOARD-003-SOURCE-QUALITY-DASHBOARD-SUMMARY",
+        "PMBOT-DASHBOARD-004-PAPER-ACCOUNTING-DASHBOARD-SUMMARY",
+        "PMBOT-SAFETY-001-AUTONOMY-GATE-CHECKLIST-LOCAL-ONLY",
+        "PMBOT-SAFETY-002-NIGHT-BATCH-POSTRUN-AUDIT-SUMMARY-LOCAL-ONLY",
+        "PMBOT-SAFETY-003-FORBIDDEN-ACTION-SCAN-LOCAL-ONLY",
+        "PMBOT-ROADMAP-002-PMBOT-LOCAL-TO-SUPERVISED-LIVE-GAP-MATRIX",
+        "PMBOT-ROADMAP-003-NEXT-20-TASK-BACKLOG-GENERATOR",
+        "PMBOT-OPERATOR-001-MORNING-REVIEW-PACK-LOCAL-ONLY",
+        "PMBOT-OPERATOR-002-NIGHT-BATCH-ACCEPTANCE-REPORT-LOCAL-ONLY",
+    )
+
+    assert PMBOT_NEXT_TWENTY_TASK_IDS == expected_task_ids
+    assert tuple(str(spec["task_id"]) for spec in PMBOT_NEXT_TWENTY_TASKS) == expected_task_ids
+
+    seen_templates: set[str] = set()
+    for spec in PMBOT_NEXT_TWENTY_TASKS:
+        packet = build_pmbot_task_packet(str(spec["task_id"]), str(spec["template"]))
+        text = _intent_text(packet)
+
+        assert str(spec["template"]) in SUPPORTED_PMBOT_TEMPLATES
+        assert str(spec["template"]) not in seen_templates
+        assert validate_packet(packet).valid is True
+        assert classify_packet(_approved_view(packet)).allowed is True
+        assert packet["project"] == PMBOT_PROJECT
+        assert packet["task_template"]["name"] == spec["template"]
+        assert all(value is False for value in packet["risk_flags"].values())
+        assert "runtime/" in packet["repo"]["forbidden_paths"]
+        assert "dispatcher/" in packet["repo"]["forbidden_paths"]
+        assert "run_codex/" in packet["repo"]["forbidden_paths"]
+        assert "pm_bot/llm/" in packet["repo"]["forbidden_paths"]
+        assert "python -m compileall pm_bot tests" in packet["validation_commands"]
+        assert "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py" in packet["validation_commands"]
+        for forbidden_word in ("buy", "sell", "hold", "enter", "exit"):
+            assert forbidden_word not in text
+        seen_templates.add(str(spec["template"]))
 
 
 def test_create_all_pmbot_night_tasks_then_approve_and_plan(tmp_path: Path) -> None:

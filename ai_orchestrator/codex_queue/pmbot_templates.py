@@ -20,6 +20,26 @@ SIMULATED_DECISION_VALIDATOR_TEMPLATE = "simulated-decision-validator"
 PAPER_ACCOUNTING_LEDGER_TEMPLATE = "paper-accounting-ledger"
 LOCAL_OPERATOR_DASHBOARD_SUMMARY_TEMPLATE = "local-operator-dashboard-summary"
 READINESS_BLOCKER_MATRIX_TEMPLATE = "readiness-blocker-matrix"
+SOURCE_QUALITY_REPORT_SUMMARY_TEMPLATE = "source-quality-report-summary"
+SOURCE_QUALITY_REGRESSION_FIXTURE_TEMPLATE = "source-quality-regression-fixture"
+SIMULATED_DECISION_AUDIT_LEDGER_TEMPLATE = "simulated-decision-audit-ledger"
+SIMULATED_DECISION_REPLAY_SUMMARY_TEMPLATE = "simulated-decision-replay-summary"
+PAPER_ACCOUNTING_VALIDATOR_TEMPLATE = "paper-accounting-validator"
+PAPER_ACCOUNTING_SESSION_SUMMARY_TEMPLATE = "paper-accounting-session-summary"
+CRYPTO_MARKET_CLASS_CAPTURE_TEMPLATE = "crypto-market-class-capture"
+CRYPTO_OPERATOR_REVIEW_PROTOCOL_TEMPLATE = "crypto-operator-review-protocol"
+CRYPTO_PAPERLIVE_OBSERVATION_LEDGER_TEMPLATE = "crypto-paperlive-observation-ledger"
+CRYPTO_SOURCE_QUALITY_CAPTURE_SURFACE_TEMPLATE = "crypto-source-quality-capture-surface"
+QUEUE_AND_PAPERLIVE_STATUS_SURFACE_TEMPLATE = "queue-and-paperlive-status-surface"
+SOURCE_QUALITY_DASHBOARD_SUMMARY_TEMPLATE = "source-quality-dashboard-summary"
+PAPER_ACCOUNTING_DASHBOARD_SUMMARY_TEMPLATE = "paper-accounting-dashboard-summary"
+AUTONOMY_GATE_CHECKLIST_TEMPLATE = "autonomy-gate-checklist"
+NIGHT_BATCH_POSTRUN_AUDIT_SUMMARY_TEMPLATE = "night-batch-postrun-audit-summary"
+FORBIDDEN_ACTION_SCAN_TEMPLATE = "forbidden-action-scan"
+LOCAL_TO_SUPERVISED_GAP_MATRIX_TEMPLATE = "local-to-supervised-gap-matrix"
+NEXT_20_TASK_BACKLOG_GENERATOR_TEMPLATE = "next-20-task-backlog-generator"
+MORNING_REVIEW_PACK_TEMPLATE = "morning-review-pack"
+NIGHT_BATCH_ACCEPTANCE_REPORT_TEMPLATE = "night-batch-acceptance-report"
 
 SUPPORTED_PMBOT_TEMPLATES = (
     WEATHER_SOURCE_MONITORING_TEMPLATE,
@@ -33,6 +53,26 @@ SUPPORTED_PMBOT_TEMPLATES = (
     PAPER_ACCOUNTING_LEDGER_TEMPLATE,
     LOCAL_OPERATOR_DASHBOARD_SUMMARY_TEMPLATE,
     READINESS_BLOCKER_MATRIX_TEMPLATE,
+    SOURCE_QUALITY_REPORT_SUMMARY_TEMPLATE,
+    SOURCE_QUALITY_REGRESSION_FIXTURE_TEMPLATE,
+    SIMULATED_DECISION_AUDIT_LEDGER_TEMPLATE,
+    SIMULATED_DECISION_REPLAY_SUMMARY_TEMPLATE,
+    PAPER_ACCOUNTING_VALIDATOR_TEMPLATE,
+    PAPER_ACCOUNTING_SESSION_SUMMARY_TEMPLATE,
+    CRYPTO_MARKET_CLASS_CAPTURE_TEMPLATE,
+    CRYPTO_OPERATOR_REVIEW_PROTOCOL_TEMPLATE,
+    CRYPTO_PAPERLIVE_OBSERVATION_LEDGER_TEMPLATE,
+    CRYPTO_SOURCE_QUALITY_CAPTURE_SURFACE_TEMPLATE,
+    QUEUE_AND_PAPERLIVE_STATUS_SURFACE_TEMPLATE,
+    SOURCE_QUALITY_DASHBOARD_SUMMARY_TEMPLATE,
+    PAPER_ACCOUNTING_DASHBOARD_SUMMARY_TEMPLATE,
+    AUTONOMY_GATE_CHECKLIST_TEMPLATE,
+    NIGHT_BATCH_POSTRUN_AUDIT_SUMMARY_TEMPLATE,
+    FORBIDDEN_ACTION_SCAN_TEMPLATE,
+    LOCAL_TO_SUPERVISED_GAP_MATRIX_TEMPLATE,
+    NEXT_20_TASK_BACKLOG_GENERATOR_TEMPLATE,
+    MORNING_REVIEW_PACK_TEMPLATE,
+    NIGHT_BATCH_ACCEPTANCE_REPORT_TEMPLATE,
 )
 
 WEATHER_SOURCE_MONITORING_TASK_ID = (
@@ -216,10 +256,275 @@ PMBOT_NIGHT_BATCH_TASKS: tuple[dict[str, Any], ...] = (
             "A strict result JSON packet for operator review.",
         ),
     },
+    {
+        "task_id": "PMBOT-SOURCE-LEDGER-003-SOURCE-QUALITY-REPORT-SUMMARY-LOCAL-ONLY",
+        "template": SOURCE_QUALITY_REPORT_SUMMARY_TEMPLATE,
+        "title": "PMBOT source quality report summary",
+        "objective": "Add a deterministic local source quality report summary artifact.",
+        "summary": "Prepare a local PMBOT source quality report summary for operator review.",
+        "allowed_paths": ("pm_bot/source_quality/", "pm_bot/tests/", "tests/", "docs/"),
+        "expected_outputs": (
+            "Source quality report summary code, fixtures, tests, or docs under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-SOURCE-LEDGER-004-SOURCE-QUALITY-REGRESSION-FIXTURE-LOCAL-ONLY",
+        "template": SOURCE_QUALITY_REGRESSION_FIXTURE_TEMPLATE,
+        "title": "PMBOT source quality regression fixture",
+        "objective": "Add a deterministic local source quality regression fixture.",
+        "summary": "Prepare a local PMBOT source quality regression fixture for repeatable review.",
+        "allowed_paths": ("pm_bot/source_quality/", "pm_bot/tests/", "tests/", "docs/"),
+        "expected_outputs": (
+            "Source quality regression fixture code, fixtures, tests, or docs under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-PAPERLIVE-DECISION-003-SIMULATED-DECISION-AUDIT-LEDGER-NO-RECOMMENDATIONS",
+        "template": SIMULATED_DECISION_AUDIT_LEDGER_TEMPLATE,
+        "title": "PMBOT simulated decision audit ledger",
+        "objective": "Add a deterministic local audit ledger for simulated decision records.",
+        "summary": "Prepare a local PMBOT simulated decision audit ledger for record review only.",
+        "allowed_paths": ("pm_bot/simulated_decisions/", "pm_bot/tests/", "tests/", "docs/"),
+        "expected_outputs": (
+            "Simulated decision audit ledger code, fixtures, tests, or docs under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-PAPERLIVE-DECISION-004-SIMULATED-DECISION-REPLAY-SUMMARY-NO-RECOMMENDATIONS",
+        "template": SIMULATED_DECISION_REPLAY_SUMMARY_TEMPLATE,
+        "title": "PMBOT simulated decision replay summary",
+        "objective": "Add a deterministic local replay summary for simulated decision records.",
+        "summary": "Prepare a local PMBOT simulated decision replay summary for record review only.",
+        "allowed_paths": ("pm_bot/simulated_decisions/", "pm_bot/tests/", "tests/", "docs/"),
+        "expected_outputs": (
+            "Simulated decision replay summary code, fixtures, tests, or docs under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-PAPER-ACCOUNTING-002-PAPER-ONLY-ACCOUNTING-VALIDATOR-LOCAL-ONLY",
+        "template": PAPER_ACCOUNTING_VALIDATOR_TEMPLATE,
+        "title": "PMBOT paper accounting validator",
+        "objective": "Add deterministic local validation for paper accounting records.",
+        "summary": "Prepare local PMBOT paper accounting validation support for operator review.",
+        "allowed_paths": ("pm_bot/paper_accounting/", "pm_bot/tests/", "tests/", "docs/"),
+        "expected_outputs": (
+            "Paper accounting validator code, fixtures, tests, or docs under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-PAPER-ACCOUNTING-003-PAPER-ONLY-SESSION-SUMMARY-LOCAL-ONLY",
+        "template": PAPER_ACCOUNTING_SESSION_SUMMARY_TEMPLATE,
+        "title": "PMBOT paper accounting session summary",
+        "objective": "Add a deterministic local session summary for paper accounting records.",
+        "summary": "Prepare a local PMBOT paper accounting session summary for operator review.",
+        "allowed_paths": ("pm_bot/paper_accounting/", "pm_bot/tests/", "tests/", "docs/"),
+        "expected_outputs": (
+            "Paper accounting session summary code, fixtures, tests, or docs under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-CRYPTO-PILOT-001-CRYPTO-MARKET-CLASS-CAPTURE-TEMPLATE-LOCAL-ONLY",
+        "template": CRYPTO_MARKET_CLASS_CAPTURE_TEMPLATE,
+        "title": "PMBOT crypto market class capture template",
+        "objective": "Add a deterministic local capture template for crypto market class records.",
+        "summary": "Prepare a local PMBOT crypto market class capture template for descriptive records.",
+        "allowed_paths": ("docs/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Crypto market class capture template docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-CRYPTO-PILOT-002-CRYPTO-OPERATOR-REVIEW-PROTOCOL-LOCAL-ONLY",
+        "template": CRYPTO_OPERATOR_REVIEW_PROTOCOL_TEMPLATE,
+        "title": "PMBOT crypto operator review protocol",
+        "objective": "Add a deterministic local operator review protocol for crypto pilot records.",
+        "summary": "Prepare a local PMBOT crypto operator review protocol for descriptive record checks.",
+        "allowed_paths": ("docs/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Crypto operator review protocol docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-CRYPTO-PILOT-003-CRYPTO-PAPERLIVE-OBSERVATION-LEDGER-LOCAL-ONLY",
+        "template": CRYPTO_PAPERLIVE_OBSERVATION_LEDGER_TEMPLATE,
+        "title": "PMBOT crypto paperlive observation ledger",
+        "objective": "Add a deterministic local observation ledger for crypto paperlive records.",
+        "summary": "Prepare a local PMBOT crypto paperlive observation ledger for descriptive records.",
+        "allowed_paths": ("docs/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Crypto paperlive observation ledger docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-CRYPTO-PILOT-004-CRYPTO-SOURCE-QUALITY-CAPTURE-SURFACE-LOCAL-ONLY",
+        "template": CRYPTO_SOURCE_QUALITY_CAPTURE_SURFACE_TEMPLATE,
+        "title": "PMBOT crypto source quality capture surface",
+        "objective": "Add a deterministic local source quality capture surface for crypto pilot records.",
+        "summary": "Prepare a local PMBOT crypto source quality capture surface for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/source_quality/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Crypto source quality capture surface docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-DASHBOARD-002-QUEUE-AND-PAPERLIVE-STATUS-SURFACE",
+        "template": QUEUE_AND_PAPERLIVE_STATUS_SURFACE_TEMPLATE,
+        "title": "PMBOT queue and paperlive status surface",
+        "objective": "Add a deterministic local queue and paperlive status surface.",
+        "summary": "Prepare a local PMBOT queue and paperlive status surface for operator review.",
+        "allowed_paths": ("pm_bot/dashboard/", "pm_bot/tests/", "tests/", "docs/"),
+        "expected_outputs": (
+            "Queue and paperlive status surface code, fixtures, tests, or docs under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-DASHBOARD-003-SOURCE-QUALITY-DASHBOARD-SUMMARY",
+        "template": SOURCE_QUALITY_DASHBOARD_SUMMARY_TEMPLATE,
+        "title": "PMBOT source quality dashboard summary",
+        "objective": "Add a deterministic local source quality dashboard summary.",
+        "summary": "Prepare a local PMBOT source quality dashboard summary for operator review.",
+        "allowed_paths": ("pm_bot/dashboard/", "pm_bot/source_quality/", "pm_bot/tests/", "tests/", "docs/"),
+        "expected_outputs": (
+            "Source quality dashboard summary code, fixtures, tests, or docs under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-DASHBOARD-004-PAPER-ACCOUNTING-DASHBOARD-SUMMARY",
+        "template": PAPER_ACCOUNTING_DASHBOARD_SUMMARY_TEMPLATE,
+        "title": "PMBOT paper accounting dashboard summary",
+        "objective": "Add a deterministic local paper accounting dashboard summary.",
+        "summary": "Prepare a local PMBOT paper accounting dashboard summary for operator review.",
+        "allowed_paths": ("pm_bot/dashboard/", "pm_bot/paper_accounting/", "pm_bot/tests/", "tests/", "docs/"),
+        "expected_outputs": (
+            "Paper accounting dashboard summary code, fixtures, tests, or docs under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-SAFETY-001-AUTONOMY-GATE-CHECKLIST-LOCAL-ONLY",
+        "template": AUTONOMY_GATE_CHECKLIST_TEMPLATE,
+        "title": "PMBOT autonomy gate checklist",
+        "objective": "Add a deterministic local autonomy gate checklist for operator review.",
+        "summary": "Prepare a local PMBOT autonomy gate checklist for safety review.",
+        "allowed_paths": ("docs/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Autonomy gate checklist docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-SAFETY-002-NIGHT-BATCH-POSTRUN-AUDIT-SUMMARY-LOCAL-ONLY",
+        "template": NIGHT_BATCH_POSTRUN_AUDIT_SUMMARY_TEMPLATE,
+        "title": "PMBOT night batch postrun audit summary",
+        "objective": "Add a deterministic local postrun audit summary for night batch records.",
+        "summary": "Prepare a local PMBOT night batch postrun audit summary for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Night batch postrun audit summary docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-SAFETY-003-FORBIDDEN-ACTION-SCAN-LOCAL-ONLY",
+        "template": FORBIDDEN_ACTION_SCAN_TEMPLATE,
+        "title": "PMBOT forbidden action scan",
+        "objective": "Add a deterministic local forbidden action scan artifact.",
+        "summary": "Prepare a local PMBOT forbidden action scan for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Forbidden action scan docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-ROADMAP-002-PMBOT-LOCAL-TO-SUPERVISED-LIVE-GAP-MATRIX",
+        "template": LOCAL_TO_SUPERVISED_GAP_MATRIX_TEMPLATE,
+        "title": "PMBOT local to supervised live gap matrix",
+        "objective": "Add a deterministic local gap matrix for supervised review gates.",
+        "summary": "Prepare a local PMBOT gap matrix for supervised review gate tracking.",
+        "allowed_paths": ("docs/", "pm_bot/readiness/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Local to supervised gap matrix docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-ROADMAP-003-NEXT-20-TASK-BACKLOG-GENERATOR",
+        "template": NEXT_20_TASK_BACKLOG_GENERATOR_TEMPLATE,
+        "title": "PMBOT next 20 task backlog generator",
+        "objective": "Add a deterministic local backlog generator artifact for future operator review.",
+        "summary": "Prepare a local PMBOT next task backlog generator artifact for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/readiness/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Next task backlog generator docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-OPERATOR-001-MORNING-REVIEW-PACK-LOCAL-ONLY",
+        "template": MORNING_REVIEW_PACK_TEMPLATE,
+        "title": "PMBOT morning review pack",
+        "objective": "Add a deterministic local morning review pack for operator use.",
+        "summary": "Prepare a local PMBOT morning review pack for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/dashboard/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Morning review pack docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-OPERATOR-002-NIGHT-BATCH-ACCEPTANCE-REPORT-LOCAL-ONLY",
+        "template": NIGHT_BATCH_ACCEPTANCE_REPORT_TEMPLATE,
+        "title": "PMBOT night batch acceptance report",
+        "objective": "Add a deterministic local acceptance report for night batch operator review.",
+        "summary": "Prepare a local PMBOT night batch acceptance report for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/dashboard/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Night batch acceptance report docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
 )
 
 PMBOT_NIGHT_BATCH_TASKS_BY_TEMPLATE = {str(spec["template"]): spec for spec in PMBOT_NIGHT_BATCH_TASKS}
 PMBOT_NIGHT_BATCH_TASK_IDS = tuple(str(spec["task_id"]) for spec in PMBOT_NIGHT_BATCH_TASKS)
+PMBOT_NEXT_TWENTY_TASK_IDS = (
+    "PMBOT-SOURCE-LEDGER-003-SOURCE-QUALITY-REPORT-SUMMARY-LOCAL-ONLY",
+    "PMBOT-SOURCE-LEDGER-004-SOURCE-QUALITY-REGRESSION-FIXTURE-LOCAL-ONLY",
+    "PMBOT-PAPERLIVE-DECISION-003-SIMULATED-DECISION-AUDIT-LEDGER-NO-RECOMMENDATIONS",
+    "PMBOT-PAPERLIVE-DECISION-004-SIMULATED-DECISION-REPLAY-SUMMARY-NO-RECOMMENDATIONS",
+    "PMBOT-PAPER-ACCOUNTING-002-PAPER-ONLY-ACCOUNTING-VALIDATOR-LOCAL-ONLY",
+    "PMBOT-PAPER-ACCOUNTING-003-PAPER-ONLY-SESSION-SUMMARY-LOCAL-ONLY",
+    "PMBOT-CRYPTO-PILOT-001-CRYPTO-MARKET-CLASS-CAPTURE-TEMPLATE-LOCAL-ONLY",
+    "PMBOT-CRYPTO-PILOT-002-CRYPTO-OPERATOR-REVIEW-PROTOCOL-LOCAL-ONLY",
+    "PMBOT-CRYPTO-PILOT-003-CRYPTO-PAPERLIVE-OBSERVATION-LEDGER-LOCAL-ONLY",
+    "PMBOT-CRYPTO-PILOT-004-CRYPTO-SOURCE-QUALITY-CAPTURE-SURFACE-LOCAL-ONLY",
+    "PMBOT-DASHBOARD-002-QUEUE-AND-PAPERLIVE-STATUS-SURFACE",
+    "PMBOT-DASHBOARD-003-SOURCE-QUALITY-DASHBOARD-SUMMARY",
+    "PMBOT-DASHBOARD-004-PAPER-ACCOUNTING-DASHBOARD-SUMMARY",
+    "PMBOT-SAFETY-001-AUTONOMY-GATE-CHECKLIST-LOCAL-ONLY",
+    "PMBOT-SAFETY-002-NIGHT-BATCH-POSTRUN-AUDIT-SUMMARY-LOCAL-ONLY",
+    "PMBOT-SAFETY-003-FORBIDDEN-ACTION-SCAN-LOCAL-ONLY",
+    "PMBOT-ROADMAP-002-PMBOT-LOCAL-TO-SUPERVISED-LIVE-GAP-MATRIX",
+    "PMBOT-ROADMAP-003-NEXT-20-TASK-BACKLOG-GENERATOR",
+    "PMBOT-OPERATOR-001-MORNING-REVIEW-PACK-LOCAL-ONLY",
+    "PMBOT-OPERATOR-002-NIGHT-BATCH-ACCEPTANCE-REPORT-LOCAL-ONLY",
+)
+PMBOT_NEXT_TWENTY_TASKS = tuple(
+    spec for spec in PMBOT_NIGHT_BATCH_TASKS if str(spec["task_id"]) in PMBOT_NEXT_TWENTY_TASK_IDS
+)
 
 PMBOT_NIGHT_VALIDATION_COMMANDS = (
     "python -m compileall pm_bot tests",
