@@ -1,0 +1,203 @@
+{
+  "task_id": "ORCH-PMBOT-STATUS-003-CRYPTO-LIVE-READINESS-UPDATE",
+  "status": "completed_report_created",
+  "generated_at": "2026-05-09T15:37:35Z",
+  "repo": {
+    "root": "C:/Users/OpenC/.openclaw/workspace",
+    "branch": "master",
+    "source_head": "f04688ae88cfbe0f4ad55b3ea6020588bfd495bc"
+  },
+  "summary": "PMBOT now has a finalized crypto pilot live-readiness evidence package after the 20-task crypto batch. Codex automation remains operator-started and can handle bounded 20-task PMBOT development batches with stable post-batch evidence. PMBOT is strong for local operator review, closer to a separately approved read-only supervised-live rehearsal, locally prepared for crypto pilot readiness review, and still not ready for real autonomous trading.",
+  "artifacts": {
+    "markdown_report": "docs/ORCH_PMBOT_STATUS_003_CRYPTO_LIVE_READINESS_UPDATE.md",
+    "json_result": "docs/ORCH_PMBOT_STATUS_003_RESULT.json"
+  },
+  "evidence": {
+    "pmbot_done_task_count": 71,
+    "latest_crypto_live_batch": {
+      "batch_report": "agent_tasks/reports/codex_cli_batch_report_20260509T124436Z.json",
+      "latest_batch_report_pointer": "agent_tasks/reports/latest_codex_cli_batch_report.json",
+      "run_id": "20260509T124436Z",
+      "selected_tasks": 20,
+      "completed_tasks": 20,
+      "failed_tasks": 0,
+      "skipped_tasks": 0,
+      "codex_invocation_count_in_historical_batch": 20
+    },
+    "latest_post_batch_review": {
+      "batch_review_ledger": "agent_tasks/reports/batch_review_ledger_20260509T151008437858Z_c9766509.json",
+      "latest_batch_review_ledger_pointer": "agent_tasks/reports/latest_batch_review_ledger.json",
+      "post_batch_summary": "agent_tasks/reports/post_batch_review_summary_20260509T151008437858Z_c9766509.json",
+      "latest_post_batch_summary_pointer": "agent_tasks/reports/latest_post_batch_review_summary.json",
+      "run_id": "20260509T151008437858Z_c9766509",
+      "task_count": 20,
+      "completed_execution_count": 20,
+      "bridged_count": 20,
+      "ingested_count": 20,
+      "reviewed_count": 20,
+      "blocked_count": 0
+    },
+    "crypto_live_readiness_task_ids": [
+      "PMBOT-CRYPTO-LIVE-001-READ-ONLY-CRYPTO-DATA-CONTRACT-LOCAL-ONLY",
+      "PMBOT-CRYPTO-LIVE-002-CRYPTO-LIVE-DATA-SOURCE-INVENTORY-LOCAL-ONLY",
+      "PMBOT-CRYPTO-LIVE-003-CRYPTO-SOURCE-EVIDENCE-LINK-MAP-LOCAL-ONLY",
+      "PMBOT-CRYPTO-LIVE-004-CRYPTO-SOURCE-STALENESS-CHECK-SPEC-LOCAL-ONLY",
+      "PMBOT-CRYPTO-LIVE-005-CRYPTO-SOURCE-CONTRADICTION-LEDGER-LOCAL-ONLY",
+      "PMBOT-CRYPTO-LIVE-006-CRYPTO-PAPERLIVE-REHEARSAL-PACKET-LOCAL-ONLY",
+      "PMBOT-CRYPTO-LIVE-007-CRYPTO-PAPERLIVE-OBSERVATION-REPLAY-LOCAL-ONLY",
+      "PMBOT-CRYPTO-LIVE-008-CRYPTO-OUTCOME-EVIDENCE-BUNDLE-LOCAL-ONLY",
+      "PMBOT-CRYPTO-LIVE-009-CRYPTO-OPERATOR-APPROVAL-GATE-RECORD-LOCAL-ONLY",
+      "PMBOT-CRYPTO-LIVE-010-CRYPTO-STOP-CONDITION-MAPPING-LOCAL-ONLY",
+      "PMBOT-CRYPTO-LIVE-011-CRYPTO-SUPERVISED-LIVE-GAP-MATRIX-LOCAL-ONLY",
+      "PMBOT-CRYPTO-LIVE-012-CRYPTO-VALIDATION-REPLAY-BUNDLE-LOCAL-ONLY",
+      "PMBOT-CRYPTO-LIVE-013-CRYPTO-CI-SAFE-VALIDATION-SUBSET-LOCAL-ONLY",
+      "PMBOT-CRYPTO-LIVE-014-CRYPTO-FORBIDDEN-LANGUAGE-REGRESSION-LOCAL-ONLY",
+      "PMBOT-CRYPTO-LIVE-015-CRYPTO-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY",
+      "PMBOT-CRYPTO-LIVE-016-CRYPTO-DASHBOARD-READINESS-SUMMARY-LOCAL-ONLY",
+      "PMBOT-CRYPTO-LIVE-017-CRYPTO-MORNING-REVIEW-CARD-LOCAL-ONLY",
+      "PMBOT-CRYPTO-LIVE-018-CRYPTO-NIGHT-BATCH-ACCEPTANCE-REPORT-LOCAL-ONLY",
+      "PMBOT-CRYPTO-LIVE-019-CRYPTO-REHEARSAL-TO-SOURCE-QUALITY-LINKS-LOCAL-ONLY",
+      "PMBOT-CRYPTO-LIVE-020-CRYPTO-READINESS-NEXT-ACTION-BACKLOG-LOCAL-ONLY"
+    ]
+  },
+  "codex_automation_current_capabilities": [
+    "File-backed PMBOT task queues across inbox, approved, planned, review, done, and blocked states.",
+    "PMBOT local-only template creation, validation, safety classification, dry-run planning, and handoff prompt generation.",
+    "Operator-started one-task Codex CLI execution with task ID, timeout, stdout/stderr capture, last-message capture, and execution reports.",
+    "Operator-started bounded batch execution with a hard cap of 20 tasks.",
+    "Git baseline checks before and during batch execution.",
+    "Post-batch result bridging from Codex execution artifacts into queue-compatible result packets.",
+    "Result ingestion and review report generation with ready-for-operator-done recommendations.",
+    "Stable post-batch evidence indexes with collision-resistant run IDs.",
+    "Operator-facing status, runbook, morning report, next-actions, portability, package-readiness, batch, and post-batch reports."
+  ],
+  "pmbot_local_operator_review_readiness": {
+    "status": "strong_local_operator_review_ready",
+    "summary": "PMBOT has deterministic fixtures, validation tests, local dashboards, morning and acceptance reports, safety records, source evidence documents, replay bundles, and review-oriented Markdown reports. Queue completion remains distinct from human product approval.",
+    "remaining_gaps": [
+      "Product-level operator review ledger is not yet the single source of truth.",
+      "Many artifact records remain pending_operator_review.",
+      "Dashboard and morning-card surfaces are mostly static summaries rather than an integrated daily operator console.",
+      "The broad pre-existing untracked worktree surface increases selective-staging risk."
+    ]
+  },
+  "pmbot_supervised_live_readiness": {
+    "status": "partial_readiness_for_separately_approved_read_only_rehearsal",
+    "summary": "Generic supervised-live readiness has been extended into a bounded crypto-specific evidence package covering read-only contracts, source evidence, gates, stop conditions, replay, validation, safety, dashboards, morning review, acceptance reporting, and backlog records.",
+    "remaining_gaps": [
+      "No approved read-only supervised-live rehearsal session.",
+      "Crypto readiness records are local/static and still need rehearsal-grade operator workflow evidence.",
+      "Stop conditions are specified but not connected to any running process.",
+      "Human operator review records still need to become authoritative product state.",
+      "No external provider, authenticated endpoint, scheduler, daemon, worker, or autonomous runtime approval."
+    ]
+  },
+  "pmbot_crypto_pilot_live_readiness": {
+    "status": "local_static_crypto_readiness_package_ready_for_operator_review",
+    "summary": "The finalized crypto batch produced 20 local static artifacts covering source boundaries, source quality, rehearsal, observation replay, outcome evidence, gates, stop conditions, validation, safety, dashboard, morning review, night-batch acceptance, source-quality links, and a next-action backlog.",
+    "remaining_gaps": [
+      "No actual read-only supervised-live rehearsal has been approved or run.",
+      "No external source refresh occurred in the status task.",
+      "All crypto readiness artifacts remain pending operator review.",
+      "The dashboard is descriptive rather than a single integrated operator console.",
+      "Source quality controls still need rehearsal-grade review under approved read-only boundaries."
+    ]
+  },
+  "pmbot_real_autonomous_trading_blockers": [
+    "No wallet/private-key access approval.",
+    "No signing, transaction, or order-path approval.",
+    "No authenticated market endpoint approval.",
+    "No autonomous runtime, scheduler, daemon, or background worker approval.",
+    "No runtime/dispatcher/run_codex change approval for execution paths.",
+    "No operator-reviewed stop mechanism connected to any live execution loop.",
+    "No production incident, rollback, or loss-control process.",
+    "No compliance, jurisdiction, capital-limit, or account-ownership approval record.",
+    "No separation process that converts local paper-mode evidence into a controlled real-money execution surface."
+  ],
+  "what_night_005_added": [
+    "Read-only crypto data contract.",
+    "Crypto live data source inventory.",
+    "Crypto source evidence link map.",
+    "Crypto source staleness check spec.",
+    "Crypto source contradiction ledger.",
+    "Crypto paperlive rehearsal packet.",
+    "Crypto paperlive observation replay.",
+    "Crypto outcome evidence bundle.",
+    "Crypto operator approval gate record.",
+    "Crypto stop-condition mapping.",
+    "Crypto supervised-live gap matrix.",
+    "Crypto validation replay bundle.",
+    "Crypto CI-safe validation subset.",
+    "Crypto forbidden-language regression.",
+    "Crypto sensitive-path exclusion audit.",
+    "Crypto dashboard readiness summary.",
+    "Crypto morning review card.",
+    "Crypto night batch acceptance report.",
+    "Crypto rehearsal-to-source-quality links.",
+    "Crypto readiness next-action backlog."
+  ],
+  "remaining_gaps": [
+    "No actual read-only supervised-live rehearsal has been approved or run.",
+    "Crypto readiness records are local/static and do not prove operator workflow performance under rehearsal conditions.",
+    "Operator approval gates exist as local artifacts, but human review records still need to be captured as authoritative product state.",
+    "Stop conditions are specified but not connected to any running process.",
+    "Dashboard and morning-card outputs are descriptive summaries rather than a single integrated operator console.",
+    "Source evidence needs rehearsal-grade review across complete source paths, stale-source cases, contradiction cases, and evidence-retention rules.",
+    "External provider calls, authenticated endpoints, wallet/private-key access, transactions, orders, and real-money actions remain out of scope.",
+    "The worktree contains substantial pre-existing untracked files; future tasks must continue selective staging only."
+  ],
+  "progress_estimates": {
+    "codex_automation_for_pmbot_development_percent": 90,
+    "pmbot_local_operator_review_percent": 85,
+    "pmbot_supervised_live_readiness_percent": 65,
+    "pmbot_crypto_pilot_live_readiness_percent": 60,
+    "pmbot_real_autonomous_trading_readiness_percent": 0
+  },
+  "recommended_next_20_task_batch_focus": {
+    "selected_focus": "actual read-only supervised-live rehearsal preparation",
+    "why": "The crypto batch already created the domain-specific static evidence layer. The next focused batch should convert that evidence into an operator-reviewed rehearsal preparation package while preserving closed boundaries. Source evidence hardening and operator dashboard UX should be included as support work inside the rehearsal preparation flow rather than selected as the primary focus.",
+    "other_options": {
+      "source_evidence_hardening": "Important, but should be embedded in rehearsal preparation so source-quality improvements are tested against a concrete operator workflow.",
+      "operator_dashboard_ux": "Important, but dashboard UX should follow the rehearsal workflow requirements after the preparation protocol is locked."
+    },
+    "recommended_tasks": [
+      "Read-only rehearsal scope and sensitive-access exclusion record.",
+      "Rehearsal operator approval packet schema.",
+      "Rehearsal command checklist with no execution.",
+      "Crypto source allowlist and static snapshot manifest.",
+      "Source freshness review worksheet.",
+      "Source contradiction triage worksheet.",
+      "Pre-rehearsal evidence completeness audit.",
+      "Operator signoff record template.",
+      "Manual stop-condition drill checklist.",
+      "Observation ledger field lock record.",
+      "Local replay bundle for rehearsal inputs.",
+      "Validation command capture template.",
+      "Dashboard rehearsal view specification.",
+      "Morning review card rehearsal section.",
+      "Manual pause and escalation record template.",
+      "Post-rehearsal evidence bundle template.",
+      "Source-quality-to-observation trace map.",
+      "CI-safe rehearsal validation subset.",
+      "Rehearsal readiness decision record.",
+      "Final read-only rehearsal preparation acceptance report."
+    ]
+  },
+  "safety": {
+    "new_codex_execution_performed": false,
+    "new_batch_execution_performed": false,
+    "scheduler_created": false,
+    "daemon_created": false,
+    "background_worker_created": false,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "wallet_or_private_key_access": false,
+    "orders_or_trading_actions": false,
+    "runtime_or_dispatcher_changes": false,
+    "market_recommendation_generated": false,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "destructive_commands_used": false,
+    "forbidden_git_commands_used": false,
+    "force_push_used": false
+  }
+}
