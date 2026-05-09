@@ -78,7 +78,36 @@ This invokes exactly one `codex exec` process and passes `agent_tasks/planned/<T
 
 The command never marks the task done, never approves review, never ingests the result automatically, never pushes, and never starts a scheduler, daemon, background worker, or multi-task loop.
 
-## 8. Put Result JSON Into Review
+## 8. Optional Supervised Small Batch
+
+Use this only after multiple tasks are already approved and planned. First inspect the batch:
+
+```powershell
+python -m ai_orchestrator.codex_queue.operator_cli run-codex-batch --queue-root agent_tasks --max-tasks 3 --dry-run
+```
+
+Review:
+
+- `agent_tasks/reports/latest_codex_cli_batch_report.md`
+- selected task IDs and skipped task IDs
+- the exact `run-codex-once` commands shown for each selected task
+- any git or queue warnings
+
+Run a supervised three-task batch only after the dry-run is clean:
+
+```powershell
+python -m ai_orchestrator.codex_queue.operator_cli run-codex-batch --queue-root agent_tasks --max-tasks 3 --timeout-seconds 3600
+```
+
+The hard cap is five tasks. Optional explicit ordering is repeatable:
+
+```powershell
+python -m ai_orchestrator.codex_queue.operator_cli run-codex-batch --queue-root agent_tasks --task-id TASK_ONE --task-id TASK_TWO --task-id TASK_THREE --dry-run
+```
+
+The batch runner calls the one-task runner sequentially, stops on the first failure, and stops before a task if git has unexpected changes. It does not create, approve, mark done, ingest, review, commit, push, schedule, daemonize, or run in the background.
+
+## 9. Put Result JSON Into Review
 
 Confirm the Codex result packet exists as:
 
@@ -88,13 +117,13 @@ agent_tasks/review/<TASK_ID>.result.json
 
 Inspect it before ingestion.
 
-## 9. Ingest Result
+## 10. Ingest Result
 
 ```powershell
 python -m ai_orchestrator.codex_queue.operator_cli ingest-result --queue-root agent_tasks --result agent_tasks/review/<TASK_ID>.result.json
 ```
 
-## 10. Review
+## 11. Review
 
 ```powershell
 python -m ai_orchestrator.codex_queue.operator_cli review --queue-root agent_tasks --task-id <TASK_ID>
@@ -102,7 +131,7 @@ python -m ai_orchestrator.codex_queue.operator_cli review --queue-root agent_tas
 
 Inspect `agent_tasks/reports/<TASK_ID>.review.md`.
 
-## 11. Mark Done
+## 12. Mark Done
 
 Only after the review recommends acceptance:
 
@@ -110,7 +139,7 @@ Only after the review recommends acceptance:
 python -m ai_orchestrator.codex_queue.operator_cli mark-done --queue-root agent_tasks --task-id <TASK_ID>
 ```
 
-## 12. Daily Reports
+## 13. Daily Reports
 
 ```powershell
 python -m ai_orchestrator.codex_queue.operator_cli morning-report --queue-root agent_tasks
@@ -121,4 +150,4 @@ python -m ai_orchestrator.codex_queue.operator_cli portability-check --queue-roo
 python -m ai_orchestrator.codex_queue.operator_cli package-readiness --queue-root agent_tasks
 ```
 
-All commands above are local and operator-invoked. Only `run-codex-once` without `--dry-run` invokes Codex CLI, and it invokes exactly one `codex exec` process for one explicit task. These commands do not commit, push, create branches, create worktrees, register schedulers, start background workers, call Codex app-server, call network services directly, or access credentials.
+All commands above are local and operator-invoked. Only `run-codex-once` without `--dry-run` and `run-codex-batch` without `--dry-run` invoke Codex CLI. The batch command does so only by calling the existing one-task runner sequentially for a bounded selected set. These commands do not commit, push, create branches, create worktrees, register schedulers, start background workers, call Codex app-server, call network services directly, or access credentials.

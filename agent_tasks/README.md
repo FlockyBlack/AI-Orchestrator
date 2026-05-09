@@ -15,7 +15,7 @@ The MVP shape is:
 - proof-of-work report
 - human review
 
-There is no autonomous multi-task execution in this MVP. The dry-run runner validates approved JSON packets, classifies safety, writes non-executing plans, writes handoff prompts, and writes reports. The supervised Codex CLI runner executes only one explicit approved/planned task per operator command.
+There is no autonomous multi-task execution in this MVP. The dry-run runner validates approved JSON packets, classifies safety, writes non-executing plans, writes handoff prompts, and writes reports. The supervised Codex CLI runner executes only one explicit approved/planned task per operator command. The supervised batch runner is manually invoked, bounded to three tasks by default with a hard cap of five, and calls the one-task runner sequentially for already approved/planned tasks only.
 
 Manual approval is required. Proposed tasks start in `inbox/`; an operator must inspect and move a task packet to `approved/` before the dry-run runner will plan it.
 
@@ -75,3 +75,41 @@ The runner:
 - captures stdout, stderr, the last Codex message, and JSON/Markdown execution reports under `agent_tasks/reports/codex_cli_runs/<TASK_ID>/<RUN_ID>/`
 
 It does not mark tasks done, approve review, ingest results, push git changes, create schedulers, start daemons, start background workers, or run a multi-task loop.
+
+## Supervised Small-Batch Codex CLI Runner
+
+After several tasks are approved and planned, inspect the batch without invoking Codex:
+
+```powershell
+python -m ai_orchestrator.codex_queue.operator_cli run-codex-batch --queue-root agent_tasks --max-tasks 3 --dry-run
+```
+
+The dry-run report lists task order, selected task IDs, skipped task IDs, exact `run-codex-once` dry-run commands, exact one-task execution commands, and report paths:
+
+- `agent_tasks/reports/latest_codex_cli_batch_report.json`
+- `agent_tasks/reports/latest_codex_cli_batch_report.md`
+
+For a supervised three-task batch, run only after the dry-run is clean and the operator is watching:
+
+```powershell
+python -m ai_orchestrator.codex_queue.operator_cli run-codex-batch --queue-root agent_tasks --max-tasks 3 --timeout-seconds 3600
+```
+
+Optional explicit task order is supported with repeatable `--task-id`:
+
+```powershell
+python -m ai_orchestrator.codex_queue.operator_cli run-codex-batch --queue-root agent_tasks --task-id TASK_ONE --task-id TASK_TWO --task-id TASK_THREE --dry-run
+```
+
+Without explicit `--task-id`, order follows planned queue artifact order. The batch runner only selects approved/planned tasks that already have a matching plan and handoff prompt, skips non-approved/non-planned tasks, and stops on the first failed one-task execution. Before each real task execution, it checks git state and stops if the working tree has unexpected changes.
+
+After batch execution, these steps remain manual for each task:
+
+- inspect `agent_tasks/reports/codex_cli_runs/<TASK_ID>/<RUN_ID>/execution_report.md`
+- inspect `agent_tasks/review/<TASK_ID>.result.json`
+- run `ingest-result`
+- run `review`
+- run `mark-done` only after the review report recommends acceptance
+- stage, commit, and push only through explicit operator git actions
+
+The batch runner does not create tasks, approve tasks, mark tasks done, ingest results, review results, commit, push, create schedulers, start daemons, start background workers, or schedule itself.

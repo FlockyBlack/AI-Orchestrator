@@ -6,6 +6,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Mapping
 
+from .codex_cli_batch_runner import DEFAULT_MAX_TASKS, HARD_MAX_TASKS, run_codex_batch
 from .codex_cli_runner import DEFAULT_TIMEOUT_SECONDS, run_codex_once
 from .dry_run_runner import run_dry_run
 from .files import (
@@ -83,6 +84,17 @@ def main(argv: list[str] | None = None) -> int:
     run_codex_parser.add_argument("--dry-run", action="store_true")
     run_codex_parser.add_argument("--timeout-seconds", type=int, default=DEFAULT_TIMEOUT_SECONDS)
     run_codex_parser.set_defaults(func=_cmd_run_codex_once)
+
+    run_codex_batch_parser = subparsers.add_parser(
+        "run-codex-batch",
+        help="Run a supervised bounded batch of approved/planned Codex CLI tasks.",
+    )
+    _add_queue_root(run_codex_batch_parser)
+    run_codex_batch_parser.add_argument("--max-tasks", type=int, default=DEFAULT_MAX_TASKS)
+    run_codex_batch_parser.add_argument("--dry-run", action="store_true")
+    run_codex_batch_parser.add_argument("--task-id", action="append", default=[])
+    run_codex_batch_parser.add_argument("--timeout-seconds", type=int, default=DEFAULT_TIMEOUT_SECONDS)
+    run_codex_batch_parser.set_defaults(func=_cmd_run_codex_batch)
 
     workspace_plan_parser = subparsers.add_parser(
         "workspace-plan",
@@ -676,6 +688,57 @@ def _cmd_run_codex_once(args: argparse.Namespace) -> dict[str, Any]:
     )
 
 
+def _cmd_run_codex_batch(args: argparse.Namespace) -> dict[str, Any]:
+    root = ensure_queue_directories(args.queue_root)
+    report = run_codex_batch(
+        root,
+        max_tasks=args.max_tasks,
+        dry_run=args.dry_run,
+        task_ids=args.task_id or None,
+        timeout_seconds=args.timeout_seconds,
+    )
+    status = "ok" if report["status"] == "ok" else report["status"]
+    return write_operator_action_report(
+        root,
+        _action(
+            "run-codex-batch",
+            status,
+            "",
+            root,
+            destination_path=report["report_paths"].get("batch_report_json", ""),
+            errors=list(report.get("errors", [])),
+            warnings=list(report.get("warnings", [])),
+            next_operator_action=str(report.get("next_operator_action", "")),
+            extra={
+                "codex_cli_batch_report_paths": report["report_paths"],
+                "execution_status": report["execution_status"],
+                "dry_run": report["dry_run"],
+                "max_tasks": report["max_tasks"],
+                "hard_max_tasks": HARD_MAX_TASKS,
+                "selected_task_ids": report["selected_task_ids"],
+                "skipped_task_ids": report["skipped_task_ids"],
+                "task_order": report["task_order"],
+                "task_executions": report["task_executions"],
+                "stopped_on_task_id": report["stopped_on_task_id"],
+                "stopped_reason": report["stopped_reason"],
+                "one_task_runner_invocation_count": report["one_task_runner_invocation_count"],
+                "would_invoke_one_task_runner_count": report["would_invoke_one_task_runner_count"],
+                "codex_exec_invoked": report["codex_exec_invoked"],
+                "codex_invocation_count": report["codex_invocation_count"],
+                "result_ingested_automatically": report["result_ingested_automatically"],
+                "task_marked_done_automatically": report["task_marked_done_automatically"],
+                "review_approved_automatically": report["review_approved_automatically"],
+                "git_commit_performed": report["git_commit_performed"],
+                "git_push_performed": report["git_push_performed"],
+                "scheduler_created": report["scheduler_created"],
+                "daemon_created": report["daemon_created"],
+                "background_worker_created": report["background_worker_created"],
+                "infinite_loop_created": report["infinite_loop_created"],
+            },
+        ),
+    )
+
+
 def _cmd_workspace_plan(args: argparse.Namespace) -> dict[str, Any]:
     root = ensure_queue_directories(args.queue_root)
     task_id = validate_task_id(args.task_id)
@@ -1201,6 +1264,10 @@ def render_operator_action_markdown(report: Mapping[str, Any]) -> str:
     if report["command"] == "run-codex-once":
         lines.append(
             "This operator action is supervised and one-task only. When dry_run is false and preflight passes, it invokes exactly one local `codex exec` process and captures logs; it does not call Codex app-server, start background workers, add schedulers, approve review, mark tasks done, push git branches, call network services directly, or access credentials."
+        )
+    elif report["command"] == "run-codex-batch":
+        lines.append(
+            "This operator action is supervised and bounded by --max-tasks with a hard cap of five. In dry-run it only reports selected tasks and one-task commands; in execution mode it invokes the existing one-task runner sequentially and stops on the first failure or dirty git preflight. It does not create tasks, approve tasks, ingest results, review results, mark tasks done, commit, push, schedule itself, start a daemon, start a background worker, call network services directly, or access credentials."
         )
     else:
         lines.append(

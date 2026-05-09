@@ -323,6 +323,7 @@ def test_commands_do_not_execute_codex_acceptance_checks_or_network(tmp_path: Pa
 
     assert main(["status", "--queue-root", str(queue_root)]) == 0
     assert main(["plan", "--queue-root", str(queue_root)]) == 0
+    assert main(["run-codex-batch", "--queue-root", str(queue_root), "--max-tasks", "3", "--dry-run"]) == 0
     assert main(["workspace-plan", "--queue-root", str(queue_root), "--task-id", task_id]) == 0
     assert main(["runbook", "--queue-root", str(queue_root)]) == 0
     assert main(["morning-report", "--queue-root", str(queue_root)]) == 0
@@ -350,6 +351,29 @@ def test_runbook_morning_report_and_next_actions_commands_write_reports(tmp_path
     assert (queue_root / "reports" / "latest_morning_report.md").exists()
     assert (queue_root / "reports" / "latest_next_actions.json").exists()
     assert (queue_root / "reports" / "latest_next_actions.md").exists()
+
+
+def test_run_codex_batch_dry_run_command_writes_report_without_codex(tmp_path: Path, monkeypatch) -> None:
+    queue_root = tmp_path / "agent_tasks"
+    task_id = "ORCH-BATCH-CLI"
+    _write_task(queue_root, _safe_packet(task_id, status="approved"))
+    _write_ready_handoff_artifacts(queue_root, task_id)
+
+    def fail_run_codex_once(*args, **kwargs):  # type: ignore[no-untyped-def]
+        raise AssertionError("batch dry-run must not invoke the one-task runner")
+
+    monkeypatch.setattr("ai_orchestrator.codex_queue.codex_cli_batch_runner.run_codex_once", fail_run_codex_once)
+
+    exit_code = main(["run-codex-batch", "--queue-root", str(queue_root), "--max-tasks", "3", "--dry-run"])
+
+    action = json.loads((queue_root / "reports" / "latest_operator_action.json").read_text(encoding="utf-8"))
+    assert exit_code == 0
+    assert action["status"] == "ok"
+    assert action["execution_status"] == "dry_run"
+    assert action["selected_task_ids"] == [task_id]
+    assert action["codex_exec_invoked"] is False
+    assert action["codex_invocation_count"] == 0
+    assert Path(action["codex_cli_batch_report_paths"]["batch_report_json"]).exists()
 
 
 def test_night_dry_run_and_scheduler_plan_commands_write_reports(tmp_path: Path, monkeypatch) -> None:
