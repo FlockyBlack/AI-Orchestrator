@@ -2,9 +2,20 @@
 
 This bridge creates local-only PMBOT task packets in `agent_tasks/inbox/` for operator review. It does not approve, plan, execute, schedule, or hand off work by itself.
 
-## Supported Template
+## Supported Templates
 
 - `weather-source-monitoring`: creates the PMBOT weather outcome/source monitoring plan-runner packet for `PMBOT-PAPERLIVE-010W-002-WEATHER-OUTCOME-SOURCE-MONITORING-PLAN-RUNNER-NO-TRADE`.
+- Night batch backlog templates:
+  - `weather-observation-refresh-ledger`
+  - `weather-outcome-reconciliation-stub`
+  - `weather-operator-review-surface`
+  - `source-quality-ledger`
+  - `source-quality-validator`
+  - `simulated-decision-packet-schema`
+  - `simulated-decision-validator`
+  - `paper-accounting-ledger`
+  - `local-operator-dashboard-summary`
+  - `readiness-blocker-matrix`
 
 The generated packet uses the normal `codex_task_packet.v1` schema with PMBOT metadata:
 
@@ -31,6 +42,16 @@ python -m ai_orchestrator.codex_queue.operator_cli create-pmbot-task --queue-roo
 ```
 
 Review `agent_tasks/inbox/<TASK_ID>.task.json` before approval.
+
+## Create A Night Batch Backlog Packet
+
+Use the specific task ID and template pair from the requested PMBOT night backlog:
+
+```powershell
+python -m ai_orchestrator.codex_queue.operator_cli create-pmbot-task --queue-root agent_tasks --task-id PMBOT-SOURCE-LEDGER-001-UNIFIED-SOURCE-QUALITY-LEDGER-LOCAL-ONLY --template source-quality-ledger --repo-root . --branch master --expected-head <HEAD>
+```
+
+Night backlog packets are still local-only operator-reviewed task packets. They do not approve themselves, plan themselves, invoke Codex, register timers, start resident processes, ingest results, review results, mark tasks done, commit, or push.
 
 ## Approve
 

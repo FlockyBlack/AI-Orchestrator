@@ -5,9 +5,12 @@ from pathlib import Path
 
 from ai_orchestrator.codex_queue.operator_cli import main
 from ai_orchestrator.codex_queue.pmbot_templates import (
+    PMBOT_NIGHT_BATCH_TASKS,
+    PMBOT_NIGHT_BATCH_TASK_IDS,
     PMBOT_PROJECT,
     PMBOT_REQUIRED_FORBIDDEN_ACTIONS,
     PMBOT_WEATHER_VALIDATION_COMMANDS,
+    SUPPORTED_PMBOT_TEMPLATES,
     WEATHER_SOURCE_MONITORING_TASK_ID,
     WEATHER_SOURCE_MONITORING_TEMPLATE,
     build_pmbot_task_packet,
@@ -23,6 +26,18 @@ def _approved_view(packet: dict) -> dict:
     approved["approved_by"] = "operator"
     approved["approved_at"] = "2026-05-09T00:00:00Z"
     return approved
+
+
+def _intent_text(packet: dict) -> str:
+    values: list[str] = [
+        packet["summary"],
+        packet["operator_notes"],
+        *packet["instructions"],
+        *packet["expected_outputs"],
+        *packet.get("allowed_actions", []),
+        *packet.get("safety_boundaries", []),
+    ]
+    return "\n".join(values).lower()
 
 
 def test_weather_template_packet_is_valid_and_approvable() -> None:
@@ -129,3 +144,73 @@ def test_create_pmbot_task_command_writes_inbox_packet_and_plans_after_approval(
     assert action["acceptance_checks_executed"] is False
     assert action["codex_execution_added"] is False
     assert action["codex_app_server_used"] is False
+
+
+def test_night_batch_templates_cover_requested_task_ids_and_stay_local_only() -> None:
+    expected_task_ids = (
+        "PMBOT-PAPERLIVE-010W-003-WEATHER-OBSERVATION-REFRESH-LEDGER-NO-TRADE",
+        "PMBOT-PAPERLIVE-010W-004-WEATHER-OUTCOME-RECONCILIATION-PLACEHOLDER-NO-TRADE",
+        "PMBOT-PAPERLIVE-010W-005-WEATHER-OPERATOR-REVIEW-SURFACE-UPDATE-NO-TRADE",
+        "PMBOT-SOURCE-LEDGER-001-UNIFIED-SOURCE-QUALITY-LEDGER-LOCAL-ONLY",
+        "PMBOT-SOURCE-LEDGER-002-SOURCE-QUALITY-VALIDATOR-LOCAL-ONLY",
+        "PMBOT-PAPERLIVE-DECISION-001-SIMULATED-DECISION-PACKET-SCHEMA-NO-RECOMMENDATIONS",
+        "PMBOT-PAPERLIVE-DECISION-002-SIMULATED-DECISION-VALIDATOR-NO-RECOMMENDATIONS",
+        "PMBOT-PAPER-ACCOUNTING-001-PAPER-ONLY-ACCOUNTING-LEDGER-LOCAL-ONLY",
+        "PMBOT-DASHBOARD-001-LOCAL-OPERATOR-DASHBOARD-SUMMARY",
+        "PMBOT-ROADMAP-001-REAL-WALLET-READINESS-BLOCKER-MATRIX",
+    )
+
+    assert PMBOT_NIGHT_BATCH_TASK_IDS == expected_task_ids
+
+    for spec in PMBOT_NIGHT_BATCH_TASKS:
+        packet = build_pmbot_task_packet(str(spec["task_id"]), str(spec["template"]))
+        text = _intent_text(packet)
+
+        assert str(spec["template"]) in SUPPORTED_PMBOT_TEMPLATES
+        assert validate_packet(packet).valid is True
+        assert classify_packet(_approved_view(packet)).allowed is True
+        assert packet["project"] == PMBOT_PROJECT
+        assert packet["task_template"]["name"] == spec["template"]
+        assert all(value is False for value in packet["risk_flags"].values())
+        assert packet["repo"]["expected_head"] is None
+        assert "runtime/" in packet["repo"]["forbidden_paths"]
+        assert "dispatcher/" in packet["repo"]["forbidden_paths"]
+        assert "run_codex/" in packet["repo"]["forbidden_paths"]
+        assert "pm_bot/llm/" in packet["repo"]["forbidden_paths"]
+        assert "python -m compileall pm_bot tests" in packet["validation_commands"]
+        assert "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py" in packet["validation_commands"]
+        for forbidden_word in ("buy", "sell", "hold", "enter", "exit"):
+            assert forbidden_word not in text
+
+
+def test_create_all_pmbot_night_tasks_then_approve_and_plan(tmp_path: Path) -> None:
+    queue_root = tmp_path / "agent_tasks"
+    for spec in PMBOT_NIGHT_BATCH_TASKS:
+        task_id = str(spec["task_id"])
+        template = str(spec["template"])
+        assert (
+            main(
+                [
+                    "create-pmbot-task",
+                    "--queue-root",
+                    str(queue_root),
+                    "--task-id",
+                    task_id,
+                    "--template",
+                    template,
+                    "--expected-head",
+                    "603bd0e235594688ce1796b79e9f597a5f9ea465",
+                ]
+            )
+            == 0
+        )
+        assert (queue_root / "inbox" / f"{task_id}.task.json").exists()
+
+    for task_id in PMBOT_NIGHT_BATCH_TASK_IDS:
+        assert main(["approve", "--queue-root", str(queue_root), "--task-id", task_id]) == 0
+        assert (queue_root / "approved" / f"{task_id}.task.json").exists()
+
+    assert main(["plan", "--queue-root", str(queue_root)]) == 0
+    for task_id in PMBOT_NIGHT_BATCH_TASK_IDS:
+        assert (queue_root / "planned" / f"{task_id}.plan.json").exists()
+        assert (queue_root / "planned" / f"{task_id}.handoff_prompt.md").exists()

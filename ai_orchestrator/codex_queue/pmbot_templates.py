@@ -10,7 +10,30 @@ from .schema import default_packet
 PMBOT_TEMPLATE_SCHEMA_VERSION = "pmbot_task_template.v1"
 PMBOT_PROJECT = "PMBOT"
 WEATHER_SOURCE_MONITORING_TEMPLATE = "weather-source-monitoring"
-SUPPORTED_PMBOT_TEMPLATES = (WEATHER_SOURCE_MONITORING_TEMPLATE,)
+WEATHER_OBSERVATION_REFRESH_LEDGER_TEMPLATE = "weather-observation-refresh-ledger"
+WEATHER_OUTCOME_RECONCILIATION_STUB_TEMPLATE = "weather-outcome-reconciliation-stub"
+WEATHER_OPERATOR_REVIEW_SURFACE_TEMPLATE = "weather-operator-review-surface"
+SOURCE_QUALITY_LEDGER_TEMPLATE = "source-quality-ledger"
+SOURCE_QUALITY_VALIDATOR_TEMPLATE = "source-quality-validator"
+SIMULATED_DECISION_PACKET_SCHEMA_TEMPLATE = "simulated-decision-packet-schema"
+SIMULATED_DECISION_VALIDATOR_TEMPLATE = "simulated-decision-validator"
+PAPER_ACCOUNTING_LEDGER_TEMPLATE = "paper-accounting-ledger"
+LOCAL_OPERATOR_DASHBOARD_SUMMARY_TEMPLATE = "local-operator-dashboard-summary"
+READINESS_BLOCKER_MATRIX_TEMPLATE = "readiness-blocker-matrix"
+
+SUPPORTED_PMBOT_TEMPLATES = (
+    WEATHER_SOURCE_MONITORING_TEMPLATE,
+    WEATHER_OBSERVATION_REFRESH_LEDGER_TEMPLATE,
+    WEATHER_OUTCOME_RECONCILIATION_STUB_TEMPLATE,
+    WEATHER_OPERATOR_REVIEW_SURFACE_TEMPLATE,
+    SOURCE_QUALITY_LEDGER_TEMPLATE,
+    SOURCE_QUALITY_VALIDATOR_TEMPLATE,
+    SIMULATED_DECISION_PACKET_SCHEMA_TEMPLATE,
+    SIMULATED_DECISION_VALIDATOR_TEMPLATE,
+    PAPER_ACCOUNTING_LEDGER_TEMPLATE,
+    LOCAL_OPERATOR_DASHBOARD_SUMMARY_TEMPLATE,
+    READINESS_BLOCKER_MATRIX_TEMPLATE,
+)
 
 WEATHER_SOURCE_MONITORING_TASK_ID = (
     "PMBOT-PAPERLIVE-010W-002-WEATHER-OUTCOME-SOURCE-MONITORING-PLAN-RUNNER-NO-TRADE"
@@ -72,6 +95,172 @@ PMBOT_WEATHER_FORBIDDEN_PATHS = (
     "agent_tasks/running/",
 )
 
+PMBOT_NIGHT_BATCH_TASKS: tuple[dict[str, Any], ...] = (
+    {
+        "task_id": "PMBOT-PAPERLIVE-010W-003-WEATHER-OBSERVATION-REFRESH-LEDGER-NO-TRADE",
+        "template": WEATHER_OBSERVATION_REFRESH_LEDGER_TEMPLATE,
+        "title": "PMBOT weather observation refresh ledger",
+        "objective": "Add deterministic local support for refreshing weather observation ledger records.",
+        "summary": "Prepare local PMBOT weather observation ledger refresh support using fixtures and operator-readable artifacts.",
+        "allowed_paths": ("pm_bot/weather/", "pm_bot/tests/", "tests/", "docs/"),
+        "expected_outputs": (
+            "Weather observation ledger refresh code, fixtures, tests, or docs under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-PAPERLIVE-010W-004-WEATHER-OUTCOME-RECONCILIATION-PLACEHOLDER-NO-TRADE",
+        "template": WEATHER_OUTCOME_RECONCILIATION_STUB_TEMPLATE,
+        "title": "PMBOT weather outcome reconciliation stub",
+        "objective": "Add deterministic local reconciliation stub artifacts for weather outcomes.",
+        "summary": "Prepare a local PMBOT weather outcome reconciliation stub with clear operator review records.",
+        "allowed_paths": ("pm_bot/weather/", "pm_bot/tests/", "tests/", "docs/"),
+        "expected_outputs": (
+            "Weather outcome reconciliation stub code, fixtures, tests, or docs under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-PAPERLIVE-010W-005-WEATHER-OPERATOR-REVIEW-SURFACE-UPDATE-NO-TRADE",
+        "template": WEATHER_OPERATOR_REVIEW_SURFACE_TEMPLATE,
+        "title": "PMBOT weather operator review surface update",
+        "objective": "Improve deterministic local operator review artifacts for weather workflows.",
+        "summary": "Update local PMBOT weather review surfaces so operators can inspect ledger and reconciliation records.",
+        "allowed_paths": ("pm_bot/weather/", "pm_bot/tests/", "tests/", "docs/"),
+        "expected_outputs": (
+            "Weather operator review surface code, fixtures, tests, or docs under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-SOURCE-LEDGER-001-UNIFIED-SOURCE-QUALITY-LEDGER-LOCAL-ONLY",
+        "template": SOURCE_QUALITY_LEDGER_TEMPLATE,
+        "title": "PMBOT unified source quality ledger",
+        "objective": "Add a deterministic local source quality ledger artifact.",
+        "summary": "Prepare a unified local source quality ledger for PMBOT source review workflows.",
+        "allowed_paths": ("pm_bot/source_quality/", "pm_bot/tests/", "tests/", "docs/"),
+        "expected_outputs": (
+            "Source quality ledger code, fixtures, tests, or docs under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-SOURCE-LEDGER-002-SOURCE-QUALITY-VALIDATOR-LOCAL-ONLY",
+        "template": SOURCE_QUALITY_VALIDATOR_TEMPLATE,
+        "title": "PMBOT source quality validator",
+        "objective": "Add deterministic local validation for source quality ledger records.",
+        "summary": "Prepare local validation support for PMBOT source quality ledger artifacts.",
+        "allowed_paths": ("pm_bot/source_quality/", "pm_bot/tests/", "tests/", "docs/"),
+        "expected_outputs": (
+            "Source quality validator code, fixtures, tests, or docs under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-PAPERLIVE-DECISION-001-SIMULATED-DECISION-PACKET-SCHEMA-NO-RECOMMENDATIONS",
+        "template": SIMULATED_DECISION_PACKET_SCHEMA_TEMPLATE,
+        "title": "PMBOT simulated decision packet schema",
+        "objective": "Add a deterministic local schema for simulated decision packets without guidance fields.",
+        "summary": "Prepare a local PMBOT simulated decision packet schema for offline recordkeeping only.",
+        "allowed_paths": ("pm_bot/simulated_decisions/", "pm_bot/tests/", "tests/", "docs/"),
+        "expected_outputs": (
+            "Simulated decision packet schema code, fixtures, tests, or docs under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-PAPERLIVE-DECISION-002-SIMULATED-DECISION-VALIDATOR-NO-RECOMMENDATIONS",
+        "template": SIMULATED_DECISION_VALIDATOR_TEMPLATE,
+        "title": "PMBOT simulated decision validator",
+        "objective": "Add deterministic local validation for simulated decision packets without guidance fields.",
+        "summary": "Prepare local PMBOT validation support for simulated decision packet records.",
+        "allowed_paths": ("pm_bot/simulated_decisions/", "pm_bot/tests/", "tests/", "docs/"),
+        "expected_outputs": (
+            "Simulated decision validator code, fixtures, tests, or docs under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-PAPER-ACCOUNTING-001-PAPER-ONLY-ACCOUNTING-LEDGER-LOCAL-ONLY",
+        "template": PAPER_ACCOUNTING_LEDGER_TEMPLATE,
+        "title": "PMBOT paper accounting ledger",
+        "objective": "Add deterministic local paper accounting ledger artifacts.",
+        "summary": "Prepare a local PMBOT accounting ledger for offline paper records and operator review.",
+        "allowed_paths": ("pm_bot/paper_accounting/", "pm_bot/tests/", "tests/", "docs/"),
+        "expected_outputs": (
+            "Paper accounting ledger code, fixtures, tests, or docs under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-DASHBOARD-001-LOCAL-OPERATOR-DASHBOARD-SUMMARY",
+        "template": LOCAL_OPERATOR_DASHBOARD_SUMMARY_TEMPLATE,
+        "title": "PMBOT local operator dashboard summary",
+        "objective": "Add deterministic local dashboard summary artifacts for operator review.",
+        "summary": "Prepare a local PMBOT dashboard summary for queue, ledger, and validation status records.",
+        "allowed_paths": ("pm_bot/dashboard/", "pm_bot/tests/", "tests/", "docs/"),
+        "expected_outputs": (
+            "Local dashboard summary code, fixtures, tests, or docs under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-ROADMAP-001-REAL-WALLET-READINESS-BLOCKER-MATRIX",
+        "template": READINESS_BLOCKER_MATRIX_TEMPLATE,
+        "title": "PMBOT readiness blocker matrix",
+        "objective": "Add a local readiness blocker matrix document for sensitive-access review.",
+        "summary": "Prepare a local PMBOT readiness blocker matrix that records unresolved operator approval gates.",
+        "allowed_paths": ("docs/", "pm_bot/readiness/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Readiness blocker matrix docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+)
+
+PMBOT_NIGHT_BATCH_TASKS_BY_TEMPLATE = {str(spec["template"]): spec for spec in PMBOT_NIGHT_BATCH_TASKS}
+PMBOT_NIGHT_BATCH_TASK_IDS = tuple(str(spec["task_id"]) for spec in PMBOT_NIGHT_BATCH_TASKS)
+
+PMBOT_NIGHT_VALIDATION_COMMANDS = (
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py",
+)
+
+PMBOT_NIGHT_ALLOWED_ACTIONS = (
+    "Inspect local files under the allowed paths before editing.",
+    "Add deterministic local code, tests, fixtures, or docs only for the named PMBOT artifact.",
+    "Use local fixtures, local sample data, and operator-reviewed artifacts only.",
+    "Run only the listed local validation commands.",
+    "Return a strict result JSON packet for operator review.",
+)
+
+PMBOT_NIGHT_SAFETY_BOUNDARIES = (
+    "Local files and fixtures only.",
+    "No external service calls.",
+    "No sensitive credential or signing material access.",
+    "No transaction endpoint or execution endpoint work.",
+    "No core execution wiring changes.",
+    "No timed automation or resident process.",
+    "No browser automation.",
+    "No destructive commands.",
+    "No forecast scoring, action guidance, or selection advice.",
+)
+
+PMBOT_NIGHT_FORBIDDEN_PATHS = (
+    ".env",
+    ".env.*",
+    ".git/",
+    ".codex/",
+    "runtime/",
+    "dispatcher/",
+    "run_codex/",
+    "pm_bot/llm/",
+    "pm_bot/wallet/",
+    "pm_bot/trading/",
+    "pm_bot/orders/",
+    "agent_tasks/running/",
+)
+
 
 def build_pmbot_task_packet(
     task_id: str,
@@ -82,6 +271,14 @@ def build_pmbot_task_packet(
     expected_head: str | None = None,
 ) -> dict[str, Any]:
     safe_task_id = validate_task_id(task_id)
+    if template in PMBOT_NIGHT_BATCH_TASKS_BY_TEMPLATE:
+        return _build_night_batch_task_packet(
+            safe_task_id,
+            template,
+            repo_root=repo_root,
+            base_branch=base_branch,
+            expected_head=expected_head,
+        )
     if template != WEATHER_SOURCE_MONITORING_TEMPLATE:
         raise ValueError(f"unsupported PMBOT template: {template}")
 
@@ -165,6 +362,90 @@ def build_pmbot_task_packet(
         "expected_head": clean_expected_head,
         "allowed_paths": list(PMBOT_WEATHER_ALLOWED_PATHS),
         "forbidden_paths": list(PMBOT_WEATHER_FORBIDDEN_PATHS),
+    }
+    packet["risk_flags"] = {key: False for key in packet["risk_flags"]}
+    return packet
+
+
+def _build_night_batch_task_packet(
+    safe_task_id: str,
+    template: str,
+    *,
+    repo_root: str,
+    base_branch: str,
+    expected_head: str | None,
+) -> dict[str, Any]:
+    spec = PMBOT_NIGHT_BATCH_TASKS_BY_TEMPLATE[template]
+    if safe_task_id != spec["task_id"]:
+        raise ValueError(f"template {template} is for task_id {spec['task_id']}, got {safe_task_id}")
+
+    clean_expected_head = expected_head.strip() if isinstance(expected_head, str) else expected_head
+    if clean_expected_head == "":
+        clean_expected_head = None
+
+    instructions = [
+        "Inspect local PMBOT files under the allowed paths before editing.",
+        str(spec["objective"]),
+        "Use only local files, local fixtures, and static samples.",
+        "Keep outputs descriptive, deterministic, and operator-reviewed.",
+        "Do not produce forecast scoring, action guidance, or selection advice.",
+        "Do not use git add ., git add -A, git add --all, force push, or destructive commands.",
+        "Return a strict result JSON packet that follows the result contract expectations.",
+    ]
+    validation_commands = list(PMBOT_NIGHT_VALIDATION_COMMANDS)
+
+    packet = default_packet()
+    packet.update(
+        {
+            "task_id": safe_task_id,
+            "title": str(spec["title"]),
+            "status": "inbox",
+            "created_by": "operator_cli",
+            "created_at": _utc_iso(),
+            "approved_by": None,
+            "approved_at": None,
+            "priority": "normal",
+            "project": PMBOT_PROJECT,
+            "task_template": {
+                "schema_version": PMBOT_TEMPLATE_SCHEMA_VERSION,
+                "name": template,
+                "project": PMBOT_PROJECT,
+            },
+            "task_type": "local_code_tests",
+            "objective": str(spec["objective"]),
+            "summary": str(spec["summary"]),
+            "instructions": instructions,
+            "safety_boundaries": list(PMBOT_NIGHT_SAFETY_BOUNDARIES),
+            "explicit_safety_boundaries": list(PMBOT_NIGHT_SAFETY_BOUNDARIES),
+            "allowed_actions": list(PMBOT_NIGHT_ALLOWED_ACTIONS),
+            "forbidden_actions": list(PMBOT_NIGHT_SAFETY_BOUNDARIES),
+            "acceptance_checks": validation_commands,
+            "validation_commands": validation_commands,
+            "expected_outputs": list(spec["expected_outputs"]),
+            "result_contract_expectations": _result_contract_expectations(safe_task_id),
+            "operator_notes": (
+                f"Generated by operator_cli create-pmbot-task from {template}. "
+                "Review the inbox packet before approval."
+            ),
+        }
+    )
+    packet["source"] = {
+        "origin": "operator_cli_pmbot_template",
+        "reference": template,
+    }
+    packet["symphony_mapping"] = {
+        "issue_id": safe_task_id,
+        "workspace_key": safe_task_id.lower(),
+        "proof_of_work_required": True,
+        "human_review_required": True,
+    }
+    packet["repo"] = {
+        "repo_root": repo_root,
+        "base_branch": base_branch,
+        "target_branch": None,
+        "expected_head": clean_expected_head,
+        "allowed_paths": list(spec["allowed_paths"]),
+        "forbidden_paths": list(PMBOT_NIGHT_FORBIDDEN_PATHS),
     }
     packet["risk_flags"] = {key: False for key in packet["risk_flags"]}
     return packet
