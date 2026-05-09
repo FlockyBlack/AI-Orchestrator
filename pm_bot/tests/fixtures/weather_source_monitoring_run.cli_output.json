@@ -1,0 +1,86 @@
+{
+  "contract_version": "pmbot_weather_source_monitoring_run.v1",
+  "errors": [],
+  "local_only": true,
+  "market_context": {
+    "market_id": "fixture-weather-market-001",
+    "question": "Fixture weather threshold question for local operator review"
+  },
+  "operator_review_required": true,
+  "outcome_monitoring_items": [
+    {
+      "evidence_fields": [
+        "observation_date",
+        "station_id",
+        "high_temperature_f",
+        "observed_high_temperature_f"
+      ],
+      "operator_review_status": "pending_operator_review",
+      "operator_review_steps": [
+        "Confirm each source snapshot matches the target weather station and date.",
+        "Confirm all required evidence fields are present in the local snapshots.",
+        "Record any final weather outcome determination outside this runner."
+      ],
+      "outcome_id": "temperature_threshold_source_review",
+      "runner_state": "assembled_for_operator_review",
+      "runner_verdict": "not_evaluated",
+      "source_ids": [
+        "official_daily_climate_report",
+        "airport_station_observation_log"
+      ],
+      "title": "Temperature threshold source review"
+    }
+  ],
+  "plan_id": "weather_source_monitoring_fixture_001",
+  "run_id": "weather_source_monitoring_fixture_001-9c51b89977c8",
+  "run_mode": "local_fixture_only",
+  "safety_boundaries": {
+    "external_market_api_allowed": false,
+    "llm_calls_allowed": false,
+    "network_calls_allowed": false,
+    "offline_inputs_only": true,
+    "operator_review_gate_required": true,
+    "runtime_wiring_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "trade_action_guidance_allowed": false,
+    "wallet_or_order_code_allowed": false
+  },
+  "scope": "weather_outcome_source_monitoring",
+  "source_inventory": [
+    {
+      "label": "Official daily climate report",
+      "local_reference": "pm_bot/tests/fixtures/weather/official_daily_climate_report_snapshot.json",
+      "observed_fields": [
+        "observation_date",
+        "station_id",
+        "high_temperature_f",
+        "report_timestamp"
+      ],
+      "operator_review_status": "pending_operator_review",
+      "runner_state": "assembled_for_operator_review",
+      "snapshot_id": "fixture_official_daily_climate_report_2026_05_09",
+      "source_id": "official_daily_climate_report",
+      "source_type": "official_record_snapshot"
+    },
+    {
+      "label": "Airport station observation log",
+      "local_reference": "pm_bot/tests/fixtures/weather/airport_station_observation_log_snapshot.json",
+      "observed_fields": [
+        "observation_date",
+        "station_id",
+        "observed_high_temperature_f",
+        "observation_timestamp"
+      ],
+      "operator_review_status": "pending_operator_review",
+      "runner_state": "assembled_for_operator_review",
+      "snapshot_id": "fixture_airport_station_observation_log_2026_05_09",
+      "source_id": "airport_station_observation_log",
+      "source_type": "station_observation_snapshot"
+    }
+  ],
+  "summary_counts": {
+    "monitoring_items": 1,
+    "sources": 2
+  },
+  "warnings": []
+}

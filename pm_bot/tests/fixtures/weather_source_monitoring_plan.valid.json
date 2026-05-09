@@ -1,0 +1,60 @@
+{
+  "contract_version": "pmbot_weather_source_monitoring_plan.v1",
+  "plan_id": "weather_source_monitoring_fixture_001",
+  "scope": "weather_outcome_source_monitoring",
+  "local_only": true,
+  "operator_review_required": true,
+  "market_context": {
+    "market_id": "fixture-weather-market-001",
+    "question": "Fixture weather threshold question for local operator review"
+  },
+  "sources": [
+    {
+      "source_id": "official_daily_climate_report",
+      "label": "Official daily climate report",
+      "source_type": "official_record_snapshot",
+      "local_reference": "pm_bot/tests/fixtures/weather/official_daily_climate_report_snapshot.json",
+      "snapshot_id": "fixture_official_daily_climate_report_2026_05_09",
+      "observed_fields": [
+        "observation_date",
+        "station_id",
+        "high_temperature_f",
+        "report_timestamp"
+      ]
+    },
+    {
+      "source_id": "airport_station_observation_log",
+      "label": "Airport station observation log",
+      "source_type": "station_observation_snapshot",
+      "local_reference": "pm_bot/tests/fixtures/weather/airport_station_observation_log_snapshot.json",
+      "snapshot_id": "fixture_airport_station_observation_log_2026_05_09",
+      "observed_fields": [
+        "observation_date",
+        "station_id",
+        "observed_high_temperature_f",
+        "observation_timestamp"
+      ]
+    }
+  ],
+  "outcome_checks": [
+    {
+      "outcome_id": "temperature_threshold_source_review",
+      "title": "Temperature threshold source review",
+      "source_ids": [
+        "official_daily_climate_report",
+        "airport_station_observation_log"
+      ],
+      "evidence_fields": [
+        "observation_date",
+        "station_id",
+        "high_temperature_f",
+        "observed_high_temperature_f"
+      ],
+      "operator_review_steps": [
+        "Confirm each source snapshot matches the target weather station and date.",
+        "Confirm all required evidence fields are present in the local snapshots.",
+        "Record any final weather outcome determination outside this runner."
+      ]
+    }
+  ]
+}

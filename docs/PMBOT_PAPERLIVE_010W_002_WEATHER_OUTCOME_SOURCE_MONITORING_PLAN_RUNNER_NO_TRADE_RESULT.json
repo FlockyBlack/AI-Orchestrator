@@ -1,0 +1,32 @@
+{
+  "task_id": "PMBOT-PAPERLIVE-010W-002-WEATHER-OUTCOME-SOURCE-MONITORING-PLAN-RUNNER-NO-TRADE",
+  "status": "completed",
+  "summary": "Implemented deterministic local PMBOT weather outcome/source monitoring plan-runner support with static fixtures, focused tests, CLI report generation, docs, and explicit operator review boundaries.",
+  "files_changed": [
+    "pm_bot/weather/__init__.py",
+    "pm_bot/weather/source_monitoring_plan_runner.py",
+    "pm_bot/tests/__init__.py",
+    "pm_bot/tests/conftest.py",
+    "pm_bot/tests/fixtures/weather_source_monitoring_plan.valid.json",
+    "pm_bot/tests/fixtures/weather_source_monitoring_plan.unknown_source.json",
+    "pm_bot/tests/fixtures/weather_source_monitoring_run.cli_output.json",
+    "pm_bot/tests/test_weather_source_monitoring_plan_runner.py",
+    "docs/PMBOT_PAPERLIVE_010W_002_WEATHER_OUTCOME_SOURCE_MONITORING_PLAN_RUNNER_NO_TRADE.md",
+    "docs/PMBOT_PAPERLIVE_010W_002_WEATHER_OUTCOME_SOURCE_MONITORING_PLAN_RUNNER_NO_TRADE_RESULT.json"
+  ],
+  "validation_commands_run": [
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests/test_weather_source_monitoring_plan_runner.py",
+    "python -m json.tool docs\\PMBOT_PAPERLIVE_010W_002_WEATHER_OUTCOME_SOURCE_MONITORING_PLAN_RUNNER_NO_TRADE_RESULT.json"
+  ],
+  "tests_passed": true,
+  "safety_notes": [
+    "Implementation is local-only and uses fixture/static artifact paths only.",
+    "No network calls, OpenRouter calls, Polymarket API calls, authenticated endpoint use, browser automation, runtime wiring, dispatcher wiring, scheduler, background worker, wallet, order, or trading endpoint code was added.",
+    "Runner output is an operator review checklist only and does not include market scoring metrics, stance selection, or trade action guidance.",
+    "Acceptance compile command traversed the existing pm_bot tree as requested; no source edits were made under forbidden runtime, LLM, wallet, trading, order, dispatcher, or run_codex paths."
+  ],
+  "remaining_risks": [
+    "pytest emitted a cache warning because .pytest_cache was not writable in this environment; the focused test assertions passed."
+  ]
+}

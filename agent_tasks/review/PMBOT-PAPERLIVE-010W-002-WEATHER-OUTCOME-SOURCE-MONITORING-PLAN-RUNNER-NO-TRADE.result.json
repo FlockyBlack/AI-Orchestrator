@@ -1,0 +1,57 @@
+{
+  "schema_version": "codex_task_result.v1",
+  "task_id": "PMBOT-PAPERLIVE-010W-002-WEATHER-OUTCOME-SOURCE-MONITORING-PLAN-RUNNER-NO-TRADE",
+  "status": "completed",
+  "completed_by": "supervised_codex_cli_run",
+  "completed_at": "2026-05-09T02:13:35Z",
+  "summary": "Implemented deterministic local PMBOT weather outcome/source monitoring plan-runner support with static fixtures, focused tests, CLI report generation, docs, and explicit operator review boundaries.",
+  "files_created": [
+    "pm_bot/weather/__init__.py",
+    "pm_bot/weather/source_monitoring_plan_runner.py",
+    "pm_bot/tests/__init__.py",
+    "pm_bot/tests/conftest.py",
+    "pm_bot/tests/fixtures/weather_source_monitoring_plan.valid.json",
+    "pm_bot/tests/fixtures/weather_source_monitoring_plan.unknown_source.json",
+    "pm_bot/tests/fixtures/weather_source_monitoring_run.cli_output.json",
+    "pm_bot/tests/test_weather_source_monitoring_plan_runner.py",
+    "docs/PMBOT_PAPERLIVE_010W_002_WEATHER_OUTCOME_SOURCE_MONITORING_PLAN_RUNNER_NO_TRADE.md",
+    "docs/PMBOT_PAPERLIVE_010W_002_WEATHER_OUTCOME_SOURCE_MONITORING_PLAN_RUNNER_NO_TRADE_RESULT.json"
+  ],
+  "files_modified": [],
+  "files_deleted": [],
+  "commands_run": [
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests/test_weather_source_monitoring_plan_runner.py",
+    "python -m json.tool docs\\PMBOT_PAPERLIVE_010W_002_WEATHER_OUTCOME_SOURCE_MONITORING_PLAN_RUNNER_NO_TRADE_RESULT.json"
+  ],
+  "validation_results": [
+    {
+      "command": "python -m compileall pm_bot tests",
+      "status": "passed"
+    },
+    {
+      "command": "pytest pm_bot/tests/test_weather_source_monitoring_plan_runner.py",
+      "status": "passed"
+    },
+    {
+      "command": "python -m json.tool docs\\PMBOT_PAPERLIVE_010W_002_WEATHER_OUTCOME_SOURCE_MONITORING_PLAN_RUNNER_NO_TRADE_RESULT.json",
+      "status": "passed"
+    }
+  ],
+  "acceptance_checks_passed": true,
+  "safety_confirmation": {
+    "network_calls_performed": 0,
+    "credentials_accessed": false,
+    "wallet_or_trading_touched": false,
+    "runtime_or_dispatcher_touched": false,
+    "background_worker_added": false,
+    "scheduler_added": false,
+    "telegram_or_openclaw_added": false,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "codex_app_server_used": false,
+    "destructive_commands_used": false
+  },
+  "operator_review_notes": "Bridged from docs/PMBOT_PAPERLIVE_010W_002_WEATHER_OUTCOME_SOURCE_MONITORING_PLAN_RUNNER_NO_TRADE_RESULT.json because the supervised Codex run did not create the expected agent_tasks/review result packet. The docs result recorded a pytest cache warning because .pytest_cache was not writable; focused assertions passed.",
+  "next_recommended_action": "Run operator_cli review, inspect the review report, and mark done only if the operator explicitly accepts the review recommendation."
+}
