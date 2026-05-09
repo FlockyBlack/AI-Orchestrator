@@ -1,0 +1,74 @@
+{
+  "task_id": "ORCH-PMBOT-STATUS-004-READ-ONLY-REHEARSAL-PREP-UPDATE",
+  "status": "completed_pushed",
+  "repo_root": "C:/Users/OpenC/.openclaw/workspace",
+  "branch": "master",
+  "head_before": "6599a6440de31f6dc9c57ed3c7ba7bbf7fc2d895",
+  "head_after": "POST_PUSH_HEAD_REPORTED_IN_FINAL_CHAT",
+  "remote_master_head": "POST_PUSH_REMOTE_HEAD_REPORTED_IN_FINAL_CHAT",
+  "pushed": true,
+  "remote_verified": true,
+  "source_milestone": "ORCH-PMBOT-NIGHT-006B-FINALIZE-READ-ONLY-REHEARSAL-PREP-BATCH",
+  "source_milestone_head_before": "bd6a3cdc91269ea700570060a49151d4b65e388c",
+  "source_milestone_head_after": "6599a6440de31f6dc9c57ed3c7ba7bbf7fc2d895",
+  "source_milestone_evidence": {
+    "result_json": "docs/ORCH_PMBOT_NIGHT_006B_FINALIZE_READ_ONLY_REHEARSAL_PREP_BATCH_RESULT.json",
+    "markdown_report": "docs/ORCH_PMBOT_NIGHT_006B_FINALIZE_READ_ONLY_REHEARSAL_PREP_BATCH.md",
+    "status": "completed_pushed",
+    "validation_passed": true,
+    "pushed": true,
+    "remote_verified": true,
+    "safety_ok": true
+  },
+  "finalized_rehearsal_prep_task_count": 20,
+  "updated_progress_estimates": {
+    "codex_automation_for_pmbot_development": "90-92%",
+    "pmbot_local_operator_review": "86-88%",
+    "pmbot_supervised_live_readiness": "70-72%",
+    "pmbot_crypto_pilot_live_readiness": "60-62%",
+    "pmbot_real_autonomous_trading_readiness": "0%"
+  },
+  "real_autonomous_trading_readiness_explanation": "PMBOT real autonomous trading remains 0% because no wallet, private keys, signing path, orders, authenticated endpoints, real-money execution, risk engine, kill switch, or approved real-money operating protocol are enabled.",
+  "immediate_next_milestone": "ORCH-PMBOT-REHEARSAL-001-ACTUAL-READ-ONLY-SUPERVISED-LIVE-REHEARSAL-STATIC-REPLAY",
+  "immediate_next_milestone_scope": {
+    "local_only": true,
+    "static_or_replayed_source_packets": true,
+    "live_network": false,
+    "api_calls": false,
+    "trading": false,
+    "recommendations": false,
+    "execution": false
+  },
+  "remaining_blockers_before_controlled_read_only_fetch": [
+    "saved-source packet selection",
+    "replay runner",
+    "rehearsal acceptance gate",
+    "source staleness/contradiction handling",
+    "operator review card",
+    "replay evidence retention"
+  ],
+  "remaining_blockers_before_real_money_trading": [
+    "risk engine",
+    "execution mock",
+    "order intent schema",
+    "wallet/key isolation",
+    "kill switch",
+    "manual approval protocol",
+    "reconciliation",
+    "incident handling",
+    "limited supervised micro-trade approval"
+  ],
+  "safety_summary": {
+    "no_scheduler_daemon_background_worker": true,
+    "no_codex_batch_execution": true,
+    "no_openrouter_calls": true,
+    "no_polymarket_calls": true,
+    "no_wallet_private_key_access": true,
+    "no_orders_trading_actions": true,
+    "no_runtime_dispatcher_changes": true,
+    "no_market_recommendation_probability_ev_edge_side_selection": true,
+    "no_forbidden_git_commands": true
+  },
+  "result_hash_note": "The exact post-push commit hash is reported in the final chat summary because a committed file cannot contain the hash of the same commit.",
+  "next_recommended_action": "ORCH-PMBOT-REHEARSAL-001-ACTUAL-READ-ONLY-SUPERVISED-LIVE-REHEARSAL-STATIC-REPLAY"
+}
