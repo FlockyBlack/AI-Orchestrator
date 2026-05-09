@@ -1,0 +1,205 @@
+{
+  "task_id": "ORCH-PMBOT-STATUS-001-CODEX-AUTOMATION-AND-PMBOT-PROGRESS-REPORT",
+  "status": "completed",
+  "generated_at": "2026-05-09T08:39:35Z",
+  "repo": {
+    "root": "C:/Users/OpenC/.openclaw/workspace",
+    "branch": "master",
+    "source_head": "c460c02dd3242b5cd825358ac25f5ee9a3e47e33"
+  },
+  "summary": "Codex automation for PMBOT development now supports supervised one-task and bounded 20-task batch execution with post-batch result bridging, ingestion, and review reports. PMBOT itself remains a local, paper-mode, operator-review system with deterministic modules across weather, source quality, simulated decisions, paper accounting, dashboards, safety, and readiness. Supervised-live and real autonomous trading gates remain closed.",
+  "evidence": {
+    "pmbot_done_task_count": 31,
+    "latest_20_task_batch": {
+      "batch_report": "agent_tasks/reports/latest_codex_cli_batch_report.json",
+      "run_id": "20260509T045704Z",
+      "selected_tasks": 20,
+      "completed_tasks": 20,
+      "failed_tasks": 0,
+      "skipped_tasks": 0,
+      "codex_invocation_count": 20,
+      "result_ingested_automatically": false,
+      "task_marked_done_automatically": false
+    },
+    "latest_post_batch_review": {
+      "post_batch_summary": "agent_tasks/reports/latest_post_batch_review_summary.json",
+      "run_id": "20260509T070549Z",
+      "completed_execution_count": 20,
+      "bridged_count": 20,
+      "ingested_count": 20,
+      "reviewed_count": 20,
+      "blocked_count": 0
+    },
+    "task_review_recommendations": {
+      "ready_for_operator_done": 31
+    }
+  },
+  "codex_automation_capabilities": [
+    "File-backed queue state management for inbox, approved, planned, review, done, and blocked task packets.",
+    "PMBOT task template bridge with local-only safety boundaries.",
+    "Task packet validation, safety classification, dry-run planning, and handoff prompt generation.",
+    "Operator CLI for queue status, task creation, approval, planning, ingestion, review, mark-done, mark-blocked, runbook, morning report, next-actions, portability, and package readiness.",
+    "Supervised one-task Codex CLI runner with explicit task ID, timeout, execution logs, last-message capture, and execution reports.",
+    "Supervised bounded batch runner with default 10-task night mode and hard cap of 20 tasks.",
+    "Post-batch result bridge from Codex execution artifacts into queue-compatible result packets.",
+    "Optional post-batch ingestion and review report generation."
+  ],
+  "automatic_now": [
+    "Select eligible approved or planned tasks with matching plan and handoff prompt artifacts after explicit operator invocation.",
+    "Run bounded sequential Codex CLI task execution after explicit operator invocation.",
+    "Capture per-task stdout, stderr, execution report, and last message.",
+    "Stop batch execution on failed task execution, git preflight change, invalid arguments, or missing required artifacts.",
+    "Bridge completed task output into result packets.",
+    "Run ingestion and review reports for bridged result packets when explicitly requested."
+  ],
+  "manual_remaining": [
+    "Task choice and approval.",
+    "Dry-run inspection.",
+    "Starting any one-task or batch execution.",
+    "Inspecting execution logs, result packets, ingestion reports, and review reports.",
+    "Moving tasks to done.",
+    "Selective staging, commit, push, and remote verification.",
+    "Any scheduler, daemon, worker, branch, worktree, runtime, dispatcher, or external integration changes."
+  ],
+  "pmbot_modules_created_so_far": [
+    {
+      "area": "weather",
+      "paths": [
+        "pm_bot/weather/source_monitoring_plan_runner.py",
+        "pm_bot/weather/observation_ledger_refresher.py",
+        "pm_bot/weather/outcome_reconciliation_stub.py",
+        "pm_bot/weather/operator_review_surface.py"
+      ]
+    },
+    {
+      "area": "source_quality",
+      "paths": [
+        "pm_bot/source_quality/unified_source_quality_ledger.py",
+        "pm_bot/source_quality/source_quality_report_summary.py",
+        "pm_bot/source_quality/source_quality_regression_fixture.py",
+        "pm_bot/source_quality/crypto_source_quality_capture_surface.py"
+      ]
+    },
+    {
+      "area": "simulated_decisions",
+      "paths": [
+        "pm_bot/simulated_decisions/schema.py",
+        "pm_bot/simulated_decisions/audit_ledger.py",
+        "pm_bot/simulated_decisions/replay_summary.py"
+      ]
+    },
+    {
+      "area": "paper_accounting",
+      "paths": [
+        "pm_bot/paper_accounting/paper_accounting_ledger.py",
+        "pm_bot/paper_accounting/paper_accounting_validator.py",
+        "pm_bot/paper_accounting/paper_accounting_session_summary.py"
+      ]
+    },
+    {
+      "area": "dashboard",
+      "paths": [
+        "pm_bot/dashboard/local_operator_dashboard_summary.py",
+        "pm_bot/dashboard/local_queue_paperlive_status_surface.py",
+        "pm_bot/dashboard/local_source_quality_dashboard_summary.py",
+        "pm_bot/dashboard/local_paper_accounting_dashboard_summary.py",
+        "pm_bot/dashboard/local_morning_review_pack.py",
+        "pm_bot/dashboard/local_night_batch_acceptance_report.py"
+      ]
+    },
+    {
+      "area": "readiness",
+      "paths": [
+        "pm_bot/readiness/PMBOT_ROADMAP_001_REAL_WALLET_READINESS_BLOCKER_MATRIX.md",
+        "pm_bot/readiness/PMBOT_ROADMAP_002_PMBOT_LOCAL_TO_SUPERVISED_LIVE_GAP_MATRIX.md",
+        "pm_bot/readiness/PMBOT_ROADMAP_003_NEXT_20_TASK_BACKLOG_GENERATOR.md",
+        "pm_bot/readiness/next_20_task_backlog_generator.py"
+      ]
+    }
+  ],
+  "readiness": {
+    "pmbot_local_operator_review": "Reasonably ready for local operator review with deterministic fixtures, validation commands, review reports, dashboards, and readiness documents. Pending review rows still require explicit human review records before product status changes are trusted.",
+    "pmbot_supervised_live": "Not ready without additional source inventory, static sample scope, source quality evidence, paper accounting reconciliation, simulated decision audit, autonomy status, runtime boundary, sensitive-access, and validation replay gates.",
+    "real_autonomous_trading": "Not ready. Wallet/private-key access, authenticated endpoints, transaction paths, order paths, autonomous execution, schedulers, workers, runtime changes, and dispatcher changes remain blocked."
+  },
+  "progress_estimates": {
+    "codex_automation_for_pmbot_development_percent": 80,
+    "pmbot_local_operator_review_percent": 70,
+    "pmbot_supervised_live_readiness_percent": 25,
+    "pmbot_real_autonomous_trading_readiness_percent": 0
+  },
+  "known_issues": [
+    {
+      "id": "result-ingestion-report-run-id-collision",
+      "severity": "high",
+      "summary": "Result ingestion reports use second-level run IDs, causing per-task report overwrites when many ingestions occur in the same second.",
+      "evidence": "The 20-task post-batch summary references two ingestion run report paths: two tasks use result_ingestion_report_20260509T070549Z.json and eighteen tasks use result_ingestion_report_20260509T070550Z.json.",
+      "recommended_fix": "Use collision-resistant run IDs with microseconds or a per-task sequence, and persist unique ingestion reports for each bridged task."
+    },
+    {
+      "id": "latest-result-ingestion-report-is-single-pointer",
+      "severity": "medium",
+      "summary": "latest_result_ingestion_report.json only points to the most recent ingestion and is not batch-wide evidence.",
+      "evidence": "Later ingestion activity can move latest_result_ingestion_report.json away from the last batch context.",
+      "recommended_fix": "Treat post_batch_review_summary_<RUN_ID>.json as the batch-wide index and add direct per-task ingestion report links."
+    },
+    {
+      "id": "absolute-local-report-paths",
+      "severity": "medium",
+      "summary": "Generated reports include absolute local paths.",
+      "evidence": "Batch, execution, and review Markdown reports reference C:/Users/OpenC/.openclaw/workspace paths.",
+      "recommended_fix": "Keep local reports local, or add a publish-safe report rendering mode with repo-relative paths."
+    },
+    {
+      "id": "large-preexisting-untracked-worktree",
+      "severity": "medium",
+      "summary": "The workspace has substantial pre-existing untracked files outside this task.",
+      "evidence": "git status --short --untracked-files=all reports many untracked paths, including untracked PMBOT OpenRouter/LLM files not counted as committed head milestones.",
+      "recommended_fix": "Continue using selective staging only and decide untracked PMBOT artifact policy in a separate task."
+    },
+    {
+      "id": "queue-done-is-not-product-approval",
+      "severity": "medium",
+      "summary": "A task packet in done/ records queue lifecycle completion, not final PMBOT product approval.",
+      "evidence": "PMBOT fixtures and readiness docs keep operator review fields in pending_operator_review.",
+      "recommended_fix": "Add a product-level operator review ledger that records explicit human review status changes."
+    }
+  ],
+  "recommended_next_20_task_batch_focus": [
+    "Add collision-resistant report IDs for result ingestion and batch postprocess reports.",
+    "Add a per-task ingestion report index inside post-batch summaries.",
+    "Add a batch-wide operator review ledger linking task result, ingestion, review, and changed files.",
+    "Add a report-retention policy for timestamped reports and mutable latest pointers.",
+    "Add a local queue/dashboard reconciliation check.",
+    "Add a morning review pack to done-task artifact coverage reconciliation.",
+    "Add a night acceptance report to post-batch summary consistency check.",
+    "Add a source inventory review packet for supervised-live preflight.",
+    "Add a static sample scope manifest and validator.",
+    "Add source quality evidence cross-link validation.",
+    "Add paper accounting reconciliation coverage validation.",
+    "Add simulated decision audit/replay cross-link validation.",
+    "Add autonomy gate status-change review records.",
+    "Add forbidden-action regression checks over PMBOT docs, fixtures, and result packets.",
+    "Add a sensitive-path exclusion audit for PMBOT tasks.",
+    "Add a local validation replay bundle for operator review.",
+    "Add a clean-checkout validation note or CI-safe test subset.",
+    "Add a policy for untracked PMBOT OpenRouter/LLM artifacts.",
+    "Add an operator stop-condition and log-destination spec for any future supervised run.",
+    "Add a final readiness report that separates local review readiness, supervised-live readiness, and autonomous execution blockers."
+  ],
+  "safety": {
+    "new_codex_execution_performed": false,
+    "new_batch_execution_performed": false,
+    "scheduler_created": false,
+    "daemon_created": false,
+    "background_worker_created": false,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "wallet_or_private_key_access": false,
+    "orders_or_trading_actions": false,
+    "runtime_or_dispatcher_changes": false,
+    "market_recommendation_generated": false,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "destructive_commands_used": false
+  }
+}
