@@ -1,0 +1,35 @@
+{
+  "case_records": [
+    {
+      "case_id": "actual_static_replay_rehearsal_001.staleness.official_report_current",
+      "evidence_id": "evidence_official_static_report",
+      "expected_review_class": "within_static_review_window",
+      "maximum_age_seconds": 3600,
+      "observed_timestamp_utc": "2026-05-10T00:10:00Z",
+      "reference_timestamp_utc": "2026-05-10T00:30:00Z",
+      "severity_if_stale": "hard_blocker",
+      "timestamp_field_present": true,
+      "timestamp_required": true
+    },
+    {
+      "case_id": "actual_static_replay_rehearsal_001.staleness.station_log_current",
+      "evidence_id": "evidence_station_static_log",
+      "expected_review_class": "within_static_review_window",
+      "maximum_age_seconds": 7200,
+      "observed_timestamp_utc": "2026-05-09T23:55:00Z",
+      "reference_timestamp_utc": "2026-05-10T00:30:00Z",
+      "severity_if_stale": "hard_blocker",
+      "timestamp_field_present": true,
+      "timestamp_required": true
+    }
+  ],
+  "case_set_id": "actual_static_replay_staleness_case_set_001",
+  "contract_version": "pmbot_actual_read_only_rehearsal_staleness_case_set.v1",
+  "local_only": true,
+  "rehearsal_id": "actual_static_replay_rehearsal_001",
+  "reference_clock": {
+    "reference_source": "static_fixture_value",
+    "reference_timestamp_utc": "2026-05-10T00:30:00Z",
+    "system_clock_used": false
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "contract_version": "pmbot_actual_read_only_rehearsal_operator_surface_link_map.v1",
+  "live_network_used": false,
+  "local_only": true,
+  "operator_approval_required": true,
+  "operator_review_status": "pending_operator_review",
+  "rehearsal_id": "actual_static_replay_rehearsal_001",
+  "rehearsal_result_reference": "pm_bot/rehearsal/artifacts/actual_static_replay_rehearsal_001.result.json",
+  "summary_counts": {
+    "surface_links": 6,
+    "warnings": 0
+  },
+  "surface_links": [
+    {
+      "local_reference": "pm_bot/dashboard/local_rehearsal_readiness_dashboard_card.py",
+      "surface_id": "rehearsal_readiness_dashboard_card",
+      "surface_role": "operator_readiness_review"
+    },
+    {
+      "local_reference": "docs/PMBOT_REHEARSAL_012_REHEARSAL_MORNING_OPERATOR_CARD_LOCAL_ONLY.md",
+      "surface_id": "rehearsal_morning_operator_card",
+      "surface_role": "morning_operator_review"
+    },
+    {
+      "local_reference": "docs/PMBOT_REHEARSAL_013_REHEARSAL_ACCEPTANCE_REPORT_LOCAL_ONLY.md",
+      "surface_id": "rehearsal_acceptance_report",
+      "surface_role": "acceptance_review"
+    },
+    {
+      "local_reference": "pm_bot/source_quality/rehearsal_source_quality_links.py",
+      "surface_id": "rehearsal_source_quality_links",
+      "surface_role": "source_quality_review"
+    },
+    {
+      "local_reference": "pm_bot/paper_accounting/rehearsal_paperlive_accounting_links.py",
+      "surface_id": "rehearsal_paperlive_accounting_links",
+      "surface_role": "paperlive_accounting_reference"
+    },
+    {
+      "local_reference": "pm_bot/simulated_decisions/rehearsal_simulated_decision_replay_links.py",
+      "surface_id": "rehearsal_simulated_decision_replay_links",
+      "surface_role": "simulated_replay_reference"
+    }
+  ],
+  "warnings": []
+}

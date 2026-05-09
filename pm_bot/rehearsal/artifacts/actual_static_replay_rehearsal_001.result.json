@@ -1,0 +1,96 @@
+{
+  "authenticated_endpoints_used": false,
+  "contract_version": "pmbot_actual_read_only_rehearsal_static_replay_result.v1",
+  "contradiction_check_status": {
+    "case_results": [
+      {
+        "case_id": "actual_static_replay_rehearsal_001.contradiction.subject_and_value_match",
+        "detected": false,
+        "left_evidence_id": "evidence_official_static_report",
+        "right_evidence_id": "evidence_station_static_log",
+        "semantic_field": "subject_key",
+        "severity": "none",
+        "status": "passed"
+      }
+    ],
+    "detected_case_ids": [],
+    "hard_blocker_case_ids": [],
+    "status": "passed",
+    "warnings": []
+  },
+  "generated_artifacts": {
+    "operator_surface_link_map": "pm_bot/rehearsal/artifacts/actual_static_replay_rehearsal_001.operator_surface_link_map.json",
+    "rehearsal_result_json": "pm_bot/rehearsal/artifacts/actual_static_replay_rehearsal_001.result.json",
+    "rehearsal_summary_markdown": "pm_bot/rehearsal/artifacts/actual_static_replay_rehearsal_001.md"
+  },
+  "hard_blockers": [],
+  "input_artifacts": {
+    "contradiction_case_set": "pm_bot/tests/fixtures/rehearsal_actual_static_replay/rehearsal_contradiction_case_set.valid.json",
+    "market_packet": "pm_bot/tests/fixtures/rehearsal_actual_static_replay/rehearsal_market_packet.valid.json",
+    "source_evidence": "pm_bot/tests/fixtures/rehearsal_actual_static_replay/rehearsal_source_evidence_bundle.valid.json",
+    "staleness_case_set": "pm_bot/tests/fixtures/rehearsal_actual_static_replay/rehearsal_staleness_case_set.valid.json",
+    "stop_condition_matrix": "pm_bot/tests/fixtures/rehearsal_actual_static_replay/rehearsal_stop_condition_matrix.valid.json"
+  },
+  "live_network_used": false,
+  "market_recommendation_generated": false,
+  "mode": "static_replay",
+  "next_allowed_actions": [
+    "operator review of local run artifacts",
+    "controlled static replay failure-mode hardening",
+    "controlled public read-only fetch preparation only after a separate approval task"
+  ],
+  "openrouter_calls_performed": 0,
+  "operator_approval_granted": false,
+  "operator_approval_required": true,
+  "orders_or_trading_actions": false,
+  "polymarket_api_calls_performed": 0,
+  "probability_ev_edge_or_side_selection_generated": false,
+  "rehearsal_id": "actual_static_replay_rehearsal_001",
+  "rehearsal_passed": true,
+  "source_evidence_status": {
+    "checked_local_references": [
+      "docs/PMBOT_REHEARSAL_003_REHEARSAL_SOURCE_EVIDENCE_BUNDLE_LOCAL_ONLY.md",
+      "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_source_evidence_bundle.valid.json"
+    ],
+    "errors": [],
+    "linked_market_packet_id": "actual_static_replay_market_packet_001.synthetic_weather_review",
+    "missing_evidence_ids": [],
+    "present_evidence_ids": [
+      "evidence_official_static_report",
+      "evidence_station_static_log"
+    ],
+    "status": "passed",
+    "warnings": []
+  },
+  "staleness_check_status": {
+    "case_results": [
+      {
+        "age_seconds": 1200,
+        "case_id": "actual_static_replay_rehearsal_001.staleness.official_report_current",
+        "evidence_id": "evidence_official_static_report",
+        "maximum_age_seconds": 3600,
+        "severity": "none",
+        "status": "passed"
+      },
+      {
+        "age_seconds": 2100,
+        "case_id": "actual_static_replay_rehearsal_001.staleness.station_log_current",
+        "evidence_id": "evidence_station_static_log",
+        "maximum_age_seconds": 7200,
+        "severity": "none",
+        "status": "passed"
+      }
+    ],
+    "hard_blocker_case_ids": [],
+    "status": "passed",
+    "warnings": []
+  },
+  "stop_condition_status": {
+    "hard_blocker_condition_ids": [],
+    "status": "passed",
+    "triggered_conditions": [],
+    "warnings": []
+  },
+  "wallet_or_private_key_access": false,
+  "warnings": []
+}
