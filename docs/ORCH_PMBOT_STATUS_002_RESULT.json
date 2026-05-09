@@ -1,0 +1,186 @@
+{
+  "task_id": "ORCH-PMBOT-STATUS-002-SUPERVISED-LIVE-READINESS-UPDATE",
+  "status": "completed_report_created",
+  "generated_at": "2026-05-09T12:22:20Z",
+  "repo": {
+    "root": "C:/Users/OpenC/.openclaw/workspace",
+    "branch": "master",
+    "source_head": "221ffa0fcd366d61ce436c7235986d403b465995"
+  },
+  "summary": "PMBOT now has a committed supervised-live readiness evidence layer after the finalized 20-task supervised-live readiness batch. Codex automation can run operator-started one-task and bounded 20-task lifecycles with post-batch evidence hardening. PMBOT is strong for local operator review, partially ready for a separately approved read-only supervised-live rehearsal, and still not ready for real autonomous trading.",
+  "artifacts": {
+    "markdown_report": "docs/ORCH_PMBOT_STATUS_002_SUPERVISED_LIVE_READINESS_UPDATE.md",
+    "json_result": "docs/ORCH_PMBOT_STATUS_002_RESULT.json"
+  },
+  "evidence": {
+    "pmbot_done_task_count": 51,
+    "latest_supervised_live_batch": {
+      "batch_report": "agent_tasks/reports/codex_cli_batch_report_20260509T091552Z.json",
+      "latest_batch_report_pointer": "agent_tasks/reports/latest_codex_cli_batch_report.json",
+      "run_id": "20260509T091552Z",
+      "selected_tasks": 20,
+      "completed_tasks": 20,
+      "failed_tasks": 0,
+      "skipped_tasks": 0,
+      "codex_invocation_count_in_historical_batch": 20
+    },
+    "latest_post_batch_review": {
+      "batch_review_ledger": "agent_tasks/reports/batch_review_ledger_20260509T113332480835Z_3f223751.json",
+      "latest_batch_review_ledger_pointer": "agent_tasks/reports/latest_batch_review_ledger.json",
+      "post_batch_summary": "agent_tasks/reports/post_batch_review_summary_20260509T113332480835Z_3f223751.json",
+      "latest_post_batch_summary_pointer": "agent_tasks/reports/latest_post_batch_review_summary.json",
+      "run_id": "20260509T113332480835Z_3f223751",
+      "task_count": 20,
+      "completed_execution_count": 20,
+      "bridged_count": 20,
+      "ingested_count": 20,
+      "reviewed_count": 20,
+      "blocked_count": 0
+    },
+    "supervised_live_readiness_task_ids": [
+      "PMBOT-SUPERVISED-LIVE-001-READ-ONLY-LIVE-DATA-CONTRACT-LOCAL-ONLY",
+      "PMBOT-SUPERVISED-LIVE-002-LIVE-DATA-SOURCE-INVENTORY-LOCAL-ONLY",
+      "PMBOT-SUPERVISED-LIVE-003-OPERATOR-APPROVAL-GATE-RECORD-LOCAL-ONLY",
+      "PMBOT-SUPERVISED-LIVE-004-SUPERVISED-LIVE-STOP-CONDITION-SPEC-LOCAL-ONLY",
+      "PMBOT-SUPERVISED-LIVE-005-LIVE-READINESS-EVIDENCE-BUNDLE-LOCAL-ONLY",
+      "PMBOT-SOURCE-EVIDENCE-001-SOURCE-INVENTORY-LEDGER-LOCAL-ONLY",
+      "PMBOT-SOURCE-EVIDENCE-002-SOURCE-EVIDENCE-LINK-MAP-LOCAL-ONLY",
+      "PMBOT-SOURCE-EVIDENCE-003-SOURCE-STALENESS-CHECK-SPEC-LOCAL-ONLY",
+      "PMBOT-SOURCE-EVIDENCE-004-SOURCE-CONTRADICTION-LEDGER-LOCAL-ONLY",
+      "PMBOT-VALIDATION-001-SAVED-EVIDENCE-REPLAY-BUNDLE-LOCAL-ONLY",
+      "PMBOT-VALIDATION-002-CI-SAFE-VALIDATION-SUBSET-LOCAL-ONLY",
+      "PMBOT-VALIDATION-003-BATCH-VALIDATION-REPLAY-REPORT-LOCAL-ONLY",
+      "PMBOT-SAFETY-004-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY",
+      "PMBOT-SAFETY-005-FORBIDDEN-LANGUAGE-REGRESSION-SUITE-LOCAL-ONLY",
+      "PMBOT-SAFETY-006-AUTONOMY-REVIEW-RECORD-LOCAL-ONLY",
+      "PMBOT-PAPERLIVE-AUDIT-001-PAPERLIVE-TO-ACCOUNTING-RECONCILIATION-LOCAL-ONLY",
+      "PMBOT-PAPERLIVE-AUDIT-002-SIMULATED-DECISION-TO-OUTCOME-REPLAY-LINKS-LOCAL-ONLY",
+      "PMBOT-DASHBOARD-005-SUPERVISED-LIVE-READINESS-DASHBOARD-LOCAL-ONLY",
+      "PMBOT-OPERATOR-003-SUPERVISED-LIVE-MORNING-REVIEW-CARD-LOCAL-ONLY",
+      "PMBOT-ROADMAP-004-REAL-WALLET-GATED-MILESTONE-SEPARATION-LOCAL-ONLY"
+    ]
+  },
+  "codex_automation_current_capabilities": [
+    "File-backed PMBOT task queues across inbox, approved, planned, review, done, and blocked states.",
+    "PMBOT local-only template creation, validation, safety classification, dry-run planning, and handoff prompt generation.",
+    "Operator-started one-task Codex CLI execution with task ID, timeout, stdout/stderr capture, last-message capture, and execution reports.",
+    "Operator-started bounded batch execution with a hard cap of 20 tasks.",
+    "Git baseline checks before and during batch execution.",
+    "Post-batch result bridging from Codex execution artifacts into queue-compatible result packets.",
+    "Result ingestion and review report generation with ready-for-operator-done recommendations.",
+    "Stable post-batch evidence indexes with collision-resistant run IDs after evidence/report persistence hardening.",
+    "Operator-facing status, runbook, morning report, next-actions, portability, package-readiness, batch, and post-batch reports."
+  ],
+  "pmbot_local_operator_review_readiness": {
+    "status": "strong_local_operator_review_ready",
+    "summary": "PMBOT has deterministic fixtures, validation tests, local dashboards, morning and acceptance reports, safety records, source evidence documents, replay bundles, and review-oriented Markdown reports. Queue completion remains distinct from human product approval.",
+    "remaining_gaps": [
+      "Product-level operator review ledger is not yet the single source of truth.",
+      "Many artifact records remain pending_operator_review.",
+      "Dashboard and morning-card surfaces are mostly static summaries rather than an integrated daily operator console.",
+      "The broad pre-existing untracked worktree surface increases selective-staging risk."
+    ]
+  },
+  "pmbot_supervised_live_readiness": {
+    "status": "partial_readiness_for_separately_approved_read_only_rehearsal",
+    "summary": "Read-only boundaries, source inventories, approval gates, stop conditions, evidence bundles, replay, validation subset, safety records, dashboard, morning review card, and real-wallet milestone separation now exist as local artifacts. No actual read-only supervised-live rehearsal has been approved or run.",
+    "remaining_gaps": [
+      "No approved read-only supervised-live rehearsal session.",
+      "Local/static evidence still needs domain-specific replay.",
+      "Stop conditions are specified but not connected to any running process.",
+      "Human operator review records still need to become authoritative product state.",
+      "No external provider, authenticated endpoint, scheduler, daemon, worker, or autonomous runtime approval."
+    ]
+  },
+  "pmbot_real_autonomous_trading_blockers": [
+    "No wallet/private-key access approval.",
+    "No signing, transaction, or order-path approval.",
+    "No authenticated market endpoint approval.",
+    "No autonomous runtime, scheduler, daemon, or background worker approval.",
+    "No runtime/dispatcher/run_codex change approval for execution paths.",
+    "No operator-reviewed stop mechanism connected to any live execution loop.",
+    "No production incident, rollback, or loss-control process.",
+    "No compliance, jurisdiction, capital-limit, or account-ownership approval record."
+  ],
+  "what_night_004_added": [
+    "Read-only live-data contract boundaries.",
+    "Live data source inventory.",
+    "Operator approval gate records.",
+    "Supervised-live stop conditions.",
+    "Live-readiness evidence bundles.",
+    "Source evidence inventory, link, staleness, and contradiction review.",
+    "Saved evidence replay.",
+    "CI-safe validation subset.",
+    "Batch validation replay reporting.",
+    "Sensitive-path exclusion audit.",
+    "Forbidden-language regression suite.",
+    "Autonomy review records.",
+    "Paperlive/accounting reconciliation.",
+    "Simulated decision to outcome replay links.",
+    "Supervised-live readiness dashboard.",
+    "Supervised-live morning review card.",
+    "Real-wallet gated milestone separation."
+  ],
+  "remaining_gaps": [
+    "No actual read-only supervised-live rehearsal has been approved or run.",
+    "Live-readiness records are local/static and need domain-specific replay evidence.",
+    "Operator approval gates exist as local artifacts, but human review records still need to be captured as authoritative product state.",
+    "Stop conditions are specified but not connected to any running process.",
+    "The dashboard and morning card are descriptive summaries, not an integrated operator console.",
+    "External provider calls, authenticated endpoints, wallet/private-key access, transactions, orders, and real-money actions remain out of scope.",
+    "The worktree contains substantial pre-existing untracked files; future tasks must continue selective staging only."
+  ],
+  "progress_estimates": {
+    "codex_automation_for_pmbot_development_percent": 88,
+    "pmbot_local_operator_review_percent": 82,
+    "pmbot_supervised_live_readiness_percent": 55,
+    "pmbot_real_autonomous_trading_readiness_percent": 0
+  },
+  "recommended_next_20_task_batch_focus": {
+    "selected_focus": "crypto pilot live-readiness",
+    "why": "NIGHT-004 already created generic source evidence and dashboard readiness layers. The next best step is to apply them to one bounded pilot domain that already has local crypto pilot artifacts, while staying local-only, paper-mode, and without external calls or sensitive access.",
+    "other_options": {
+      "source_evidence_hardening": "Important, but better treated as support inside the crypto pilot so evidence work is tested against a concrete domain.",
+      "operator_dashboard_ux": "Important, but dashboard UX should follow the next domain-specific evidence and review workflow rather than lead it."
+    },
+    "recommended_tasks": [
+      "Crypto pilot local scope and sensitive-access exclusion record.",
+      "Crypto pilot read-only source contract.",
+      "Crypto pilot source allowlist and provenance manifest.",
+      "Crypto pilot source freshness/staleness threshold fixture.",
+      "Crypto pilot source contradiction review fixture.",
+      "Crypto pilot saved evidence replay bundle.",
+      "Crypto pilot static observation ledger replay.",
+      "Crypto pilot operator approval gate card.",
+      "Crypto pilot supervised-live stop-condition checklist.",
+      "Crypto pilot session preflight review packet.",
+      "Crypto pilot paperlive/accounting reconciliation fixture.",
+      "Crypto pilot simulated decision/outcome replay link audit.",
+      "Crypto pilot forbidden-language regression fixture.",
+      "Crypto pilot sensitive-path exclusion regression fixture.",
+      "Crypto pilot CI-safe validation subset.",
+      "Crypto pilot validation replay report.",
+      "Crypto pilot dashboard readiness section.",
+      "Crypto pilot morning review card section.",
+      "Crypto pilot evidence retention and stable-link index.",
+      "Crypto pilot final local operator review record."
+    ]
+  },
+  "safety": {
+    "new_codex_execution_performed": false,
+    "new_batch_execution_performed": false,
+    "scheduler_created": false,
+    "daemon_created": false,
+    "background_worker_created": false,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "wallet_or_private_key_access": false,
+    "orders_or_trading_actions": false,
+    "runtime_or_dispatcher_changes": false,
+    "market_recommendation_generated": false,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "destructive_commands_used": false,
+    "forbidden_git_commands_used": false,
+    "force_push_used": false
+  }
+}
