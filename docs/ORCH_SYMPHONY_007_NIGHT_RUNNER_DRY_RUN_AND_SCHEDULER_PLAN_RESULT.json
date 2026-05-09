@@ -1,0 +1,84 @@
+{
+  "task_id": "ORCH-SYMPHONY-007-NIGHT-RUNNER-DRY-RUN-AND-SCHEDULER-PLAN",
+  "status": "completed",
+  "repo_root": "C:/Users/OpenC/.openclaw/workspace",
+  "branch": "master",
+  "head_before": "273651c04544d008aea4ba423d2870f99b503ce9",
+  "head_after": "273651c04544d008aea4ba423d2870f99b503ce9",
+  "working_tree_status_before": "git status --short listed a large pre-existing untracked workspace tree and no tracked modifications; it was inspected before edits and intentionally not cleaned.",
+  "working_tree_status_after": "git status --short still lists the workspace tree as untracked, including the new queue/report/test/docs artifacts; no tracked modifications, cleanup, reset, or git clean was performed.",
+  "night_runner_dry_run_added": true,
+  "scheduler_plan_added": true,
+  "operator_cli_night_dry_run_added": true,
+  "operator_cli_scheduler_plan_added": true,
+  "lock_check_added": true,
+  "night_runner_workflow_doc_added": true,
+  "scheduler_plan_doc_added": true,
+  "demo_task_id": "ORCH-DEMO-005-NIGHT-DRY-RUN",
+  "demo_task_status": "approved_with_plan_handoff_prompt_and_workspace_plan; not executed; not marked done",
+  "latest_night_dry_run_plan_json": "agent_tasks/reports/latest_night_dry_run_plan.json",
+  "latest_night_dry_run_plan_md": "agent_tasks/reports/latest_night_dry_run_plan.md",
+  "latest_scheduler_plan_json": "agent_tasks/reports/latest_scheduler_plan.json",
+  "latest_scheduler_plan_md": "agent_tasks/reports/latest_scheduler_plan.md",
+  "latest_lock_check_json": "agent_tasks/reports/latest_night_runner_lock_check.json",
+  "latest_lock_check_md": "agent_tasks/reports/latest_night_runner_lock_check.md",
+  "real_scheduler_registered": false,
+  "background_worker_added": false,
+  "branch_created": false,
+  "worktree_created": false,
+  "git_commit_performed": false,
+  "git_push_performed": false,
+  "codex_execution_added": false,
+  "codex_app_server_used": false,
+  "official_symphony_runtime_integrated": false,
+  "linear_integration_added": false,
+  "github_issues_integration_added": false,
+  "telegram_added": false,
+  "openclaw_added": false,
+  "openrouter_calls_performed": 0,
+  "polymarket_api_calls_performed": 0,
+  "network_calls_performed": 0,
+  "credentials_accessed": false,
+  "wallet_or_trading_touched": false,
+  "runtime_or_dispatcher_touched": false,
+  "destructive_commands_used": false,
+  "validation_commands_run": [
+    {
+      "command": "python -m compileall ai_orchestrator tests",
+      "result": "passed"
+    },
+    {
+      "command": "pytest tests/test_codex_queue_schema.py tests/test_codex_queue_validator.py tests/test_codex_queue_safety.py tests/test_codex_queue_planner.py tests/test_codex_queue_dry_run_runner.py tests/test_codex_queue_result_schema.py tests/test_codex_queue_result_validator.py tests/test_codex_queue_result_ingestor.py tests/test_codex_queue_operator_cli.py tests/test_codex_queue_git_safety.py tests/test_codex_queue_workspace_planner.py tests/test_codex_queue_queue_health.py tests/test_codex_queue_runbook.py tests/test_codex_queue_morning_report.py tests/test_codex_queue_night_runner.py tests/test_codex_queue_scheduler_plan.py",
+      "result": "passed: 90 tests passed; Windows emitted an ignored pytest temporary-directory cleanup PermissionError after the pass summary"
+    },
+    {
+      "command": "python -m ai_orchestrator.codex_queue.operator_cli status --queue-root agent_tasks",
+      "result": "passed: status ok"
+    },
+    {
+      "command": "python -m ai_orchestrator.codex_queue.operator_cli night-dry-run --queue-root agent_tasks --max-tasks 5",
+      "result": "passed: status ok; warning reported many pre-existing untracked files"
+    },
+    {
+      "command": "python -m ai_orchestrator.codex_queue.operator_cli scheduler-plan --queue-root agent_tasks",
+      "result": "passed: status ok; warning correctly states explicit operator approval is still required and no scheduler was registered"
+    },
+    {
+      "command": "python -m json.tool agent_tasks/reports/latest_night_dry_run_plan.json",
+      "result": "passed: valid JSON"
+    },
+    {
+      "command": "python -m json.tool agent_tasks/reports/latest_scheduler_plan.json",
+      "result": "passed: valid JSON"
+    }
+  ],
+  "tests_passed": true,
+  "safety_notes": [
+    "The repository root is represented as a large untracked workspace tree in git status; it was not cleaned or reset.",
+    "Night dry-run generated reports only and recorded would_execute_codex, would_create_branch, would_create_worktree, and would_register_scheduler as false.",
+    "Scheduler plan generated reports only and recorded scheduler_registered and real_scheduler_registered as false.",
+    "The scheduler readiness report intentionally keeps explicit_operator_approval unsatisfied.",
+    "The demo task is approved and ready for manual handoff but was not executed and was not marked done."
+  ],
+  "next_recommended_task": "ORCH-SYMPHONY-008-REAL-MANUAL-CODEX-TASK-PILOT-NO-AUTONOMY"
+}

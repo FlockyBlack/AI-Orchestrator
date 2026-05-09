@@ -1,0 +1,58 @@
+{
+  "schema_version": "codex_task_packet.v1",
+  "task_id": "ORCH-BLOCKED-TRADING-EXAMPLE",
+  "title": "Blocked trading request example",
+  "status": "inbox",
+  "created_by": "operator",
+  "created_at": null,
+  "approved_by": null,
+  "approved_at": null,
+  "priority": "high",
+  "source": {
+    "origin": "manual",
+    "reference": "example"
+  },
+  "symphony_mapping": {
+    "issue_id": null,
+    "workspace_key": null,
+    "proof_of_work_required": true,
+    "human_review_required": true
+  },
+  "repo": {
+    "repo_root": ".",
+    "base_branch": "master",
+    "target_branch": null,
+    "allowed_paths": [],
+    "forbidden_paths": [
+      "runtime/",
+      "pm_bot/",
+      "merchant_pipeline/"
+    ]
+  },
+  "task_type": "blocked_trading",
+  "summary": "Example packet that would be blocked because it asks for trading behavior.",
+  "instructions": [
+    "Do not approve this packet.",
+    "This example represents a forbidden request to place order activity."
+  ],
+  "safety_boundaries": [
+    "No credentials",
+    "No wallet",
+    "No trading"
+  ],
+  "acceptance_checks": [],
+  "expected_outputs": [],
+  "risk_flags": {
+    "requires_network": false,
+    "requires_credentials": false,
+    "touches_trading": true,
+    "touches_wallet": false,
+    "touches_runtime": false,
+    "touches_dispatcher": false,
+    "allows_background_worker": false,
+    "uses_codex_app_server": false,
+    "requires_external_tracker": false
+  },
+  "operator_notes": "This template should remain blocked and should not be moved to approved."
+}
+

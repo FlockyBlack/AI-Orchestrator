@@ -1,0 +1,55 @@
+{
+  "schema_version": "codex_task_packet.v1",
+  "task_id": "ORCH-EXAMPLE-001",
+  "title": "Short task title",
+  "status": "inbox",
+  "created_by": "operator",
+  "created_at": null,
+  "approved_by": null,
+  "approved_at": null,
+  "priority": "normal",
+  "source": {
+    "origin": "manual",
+    "reference": ""
+  },
+  "symphony_mapping": {
+    "issue_id": null,
+    "workspace_key": null,
+    "proof_of_work_required": true,
+    "human_review_required": true
+  },
+  "repo": {
+    "repo_root": ".",
+    "base_branch": "main",
+    "target_branch": null,
+    "allowed_paths": [],
+    "forbidden_paths": []
+  },
+  "task_type": "local_code_tests",
+  "summary": "What should be done",
+  "instructions": [
+    "Concrete instruction"
+  ],
+  "safety_boundaries": [
+    "No network calls",
+    "No credentials",
+    "No trading"
+  ],
+  "acceptance_checks": [
+    "python -m compileall ai_orchestrator tests"
+  ],
+  "expected_outputs": [],
+  "risk_flags": {
+    "requires_network": false,
+    "requires_credentials": false,
+    "touches_trading": false,
+    "touches_wallet": false,
+    "touches_runtime": false,
+    "touches_dispatcher": false,
+    "allows_background_worker": false,
+    "uses_codex_app_server": false,
+    "requires_external_tracker": false
+  },
+  "operator_notes": ""
+}
+

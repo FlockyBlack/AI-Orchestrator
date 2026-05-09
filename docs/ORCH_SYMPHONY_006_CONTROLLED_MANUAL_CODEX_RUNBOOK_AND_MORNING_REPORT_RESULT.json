@@ -1,0 +1,91 @@
+{
+  "task_id": "ORCH-SYMPHONY-006-CONTROLLED-MANUAL-CODEX-RUNBOOK-AND-MORNING-REPORT",
+  "status": "completed",
+  "repo_root": "C:/Users/OpenC/.openclaw/workspace",
+  "branch": "master",
+  "head_before": "273651c04544d008aea4ba423d2870f99b503ce9",
+  "head_after": "273651c04544d008aea4ba423d2870f99b503ce9",
+  "working_tree_status_before": "git status --short listed a large pre-existing untracked workspace tree and no tracked modifications; it was inspected before edits and intentionally not cleaned.",
+  "working_tree_status_after": "git status --short still lists the workspace tree as untracked, including the newly added queue/report/test/docs files; no tracked modifications, cleanup, reset, or git clean was performed.",
+  "queue_health_added": true,
+  "controlled_runbook_added": true,
+  "morning_report_added": true,
+  "next_actions_added": true,
+  "operator_cli_runbook_added": true,
+  "operator_cli_morning_report_added": true,
+  "operator_cli_next_actions_added": true,
+  "demo_task_id": "ORCH-DEMO-004-RUNBOOK-MORNING-REPORT",
+  "demo_task_ready_for_manual_handoff": true,
+  "latest_controlled_runbook_json": "agent_tasks/reports/latest_controlled_codex_runbook.json",
+  "latest_controlled_runbook_md": "agent_tasks/reports/latest_controlled_codex_runbook.md",
+  "latest_morning_report_json": "agent_tasks/reports/latest_morning_report.json",
+  "latest_morning_report_md": "agent_tasks/reports/latest_morning_report.md",
+  "latest_next_actions_json": "agent_tasks/reports/latest_next_actions.json",
+  "latest_next_actions_md": "agent_tasks/reports/latest_next_actions.md",
+  "branch_created": false,
+  "worktree_created": false,
+  "git_commit_performed": false,
+  "git_push_performed": false,
+  "codex_execution_added": false,
+  "codex_app_server_used": false,
+  "official_symphony_runtime_integrated": false,
+  "linear_integration_added": false,
+  "github_issues_integration_added": false,
+  "background_worker_added": false,
+  "scheduler_added": false,
+  "telegram_added": false,
+  "openclaw_added": false,
+  "openrouter_calls_performed": 0,
+  "polymarket_api_calls_performed": 0,
+  "network_calls_performed": 0,
+  "credentials_accessed": false,
+  "wallet_or_trading_touched": false,
+  "runtime_or_dispatcher_touched": false,
+  "destructive_commands_used": false,
+  "validation_commands_run": [
+    {
+      "command": "python -m compileall ai_orchestrator tests",
+      "result": "passed"
+    },
+    {
+      "command": "pytest tests/test_codex_queue_schema.py tests/test_codex_queue_validator.py tests/test_codex_queue_safety.py tests/test_codex_queue_planner.py tests/test_codex_queue_dry_run_runner.py tests/test_codex_queue_result_schema.py tests/test_codex_queue_result_validator.py tests/test_codex_queue_result_ingestor.py tests/test_codex_queue_operator_cli.py tests/test_codex_queue_git_safety.py tests/test_codex_queue_workspace_planner.py tests/test_codex_queue_queue_health.py tests/test_codex_queue_runbook.py tests/test_codex_queue_morning_report.py",
+      "result": "passed: 82 tests passed"
+    },
+    {
+      "command": "python -m ai_orchestrator.codex_queue.operator_cli status --queue-root agent_tasks",
+      "result": "passed: status ok"
+    },
+    {
+      "command": "python -m ai_orchestrator.codex_queue.operator_cli runbook --queue-root agent_tasks",
+      "result": "passed: runbook ok"
+    },
+    {
+      "command": "python -m ai_orchestrator.codex_queue.operator_cli morning-report --queue-root agent_tasks",
+      "result": "passed: morning-report ok"
+    },
+    {
+      "command": "python -m ai_orchestrator.codex_queue.operator_cli next-actions --queue-root agent_tasks",
+      "result": "passed: next-actions ok"
+    },
+    {
+      "command": "python -m json.tool agent_tasks/reports/latest_controlled_codex_runbook.json",
+      "result": "passed: valid JSON"
+    },
+    {
+      "command": "python -m json.tool agent_tasks/reports/latest_morning_report.json",
+      "result": "passed: valid JSON"
+    },
+    {
+      "command": "python -m json.tool agent_tasks/reports/latest_next_actions.json",
+      "result": "passed: valid JSON"
+    }
+  ],
+  "tests_passed": true,
+  "safety_notes": [
+    "The repository root is represented as a large untracked workspace tree in git status; it was not cleaned or reset.",
+    "Workspace planning warned about many untracked files, but did not create a branch or worktree.",
+    "pytest completed successfully; Windows emitted an ignored pytest temporary-directory cleanup PermissionError after the pass summary.",
+    "All generated reports are local queue artifacts only."
+  ],
+  "next_recommended_task": "ORCH-SYMPHONY-007-NIGHT-RUNNER-DRY-RUN-AND-SCHEDULER-PLAN"
+}

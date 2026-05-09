@@ -1,0 +1,69 @@
+{
+  "schema_version": "codex_task_packet.v1",
+  "task_id": "ORCH-LOCAL-CODE-TESTS-EXAMPLE",
+  "title": "Add local tests for a safe utility",
+  "status": "inbox",
+  "created_by": "operator",
+  "created_at": null,
+  "approved_by": null,
+  "approved_at": null,
+  "priority": "normal",
+  "source": {
+    "origin": "manual",
+    "reference": "example"
+  },
+  "symphony_mapping": {
+    "issue_id": null,
+    "workspace_key": null,
+    "proof_of_work_required": true,
+    "human_review_required": true
+  },
+  "repo": {
+    "repo_root": ".",
+    "base_branch": "master",
+    "target_branch": null,
+    "allowed_paths": [
+      "ai_orchestrator/",
+      "tests/"
+    ],
+    "forbidden_paths": [
+      "runtime/",
+      "pm_bot/",
+      "merchant_pipeline/"
+    ]
+  },
+  "task_type": "local_code_tests",
+  "summary": "Add or update deterministic local tests for a utility module.",
+  "instructions": [
+    "Inspect the relevant local utility code before editing.",
+    "Make the smallest code and test change needed.",
+    "Run the smallest relevant test command and report the result."
+  ],
+  "safety_boundaries": [
+    "No network calls",
+    "No credentials",
+    "No trading",
+    "Do not modify runtime, dispatcher, or run_codex code"
+  ],
+  "acceptance_checks": [
+    "python -m compileall ai_orchestrator tests",
+    "pytest tests/test_codex_queue_schema.py"
+  ],
+  "expected_outputs": [
+    "Updated local code and focused tests",
+    "Proof-of-work summary"
+  ],
+  "risk_flags": {
+    "requires_network": false,
+    "requires_credentials": false,
+    "touches_trading": false,
+    "touches_wallet": false,
+    "touches_runtime": false,
+    "touches_dispatcher": false,
+    "allows_background_worker": false,
+    "uses_codex_app_server": false,
+    "requires_external_tracker": false
+  },
+  "operator_notes": "Example only. Move a reviewed copy to approved before planning."
+}
+
