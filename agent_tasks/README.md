@@ -15,7 +15,7 @@ The MVP shape is:
 - proof-of-work report
 - human review
 
-There is no autonomous multi-task execution in this MVP. The dry-run runner validates approved JSON packets, classifies safety, writes non-executing plans, writes handoff prompts, and writes reports. The supervised Codex CLI runner executes only one explicit approved/planned task per operator command. The supervised batch runner is manually invoked, bounded to three tasks by default with a hard cap of five, and calls the one-task runner sequentially for already approved/planned tasks only.
+There is no autonomous multi-task execution in this MVP. The dry-run runner validates approved JSON packets, classifies safety, writes non-executing plans, writes handoff prompts, and writes reports. The supervised Codex CLI runner executes only one explicit approved/planned task per operator command. The supervised batch runner is manually invoked, bounded to ten tasks by default with a hard cap of twenty, and calls the one-task runner sequentially for already approved/planned tasks only.
 
 Manual approval is required. Proposed tasks start in `inbox/`; an operator must inspect and move a task packet to `approved/` before the dry-run runner will plan it.
 
@@ -76,7 +76,7 @@ The runner:
 
 It does not mark tasks done, approve review, ingest results, push git changes, create schedulers, start daemons, start background workers, or run a multi-task loop.
 
-## Supervised Small-Batch Codex CLI Runner
+## Supervised Batch Codex CLI Runner
 
 After several tasks are approved and planned, inspect the batch without invoking Codex:
 
@@ -95,6 +95,13 @@ For a supervised three-task batch, run only after the dry-run is clean and the o
 python -m ai_orchestrator.codex_queue.operator_cli run-codex-batch --queue-root agent_tasks --max-tasks 3 --timeout-seconds 3600
 ```
 
+For a supervised night batch, omit `--max-tasks` to use the default cap of ten, or explicitly raise the cap up to twenty:
+
+```powershell
+python -m ai_orchestrator.codex_queue.operator_cli run-codex-batch --queue-root agent_tasks --max-tasks 20 --dry-run
+python -m ai_orchestrator.codex_queue.operator_cli run-codex-batch --queue-root agent_tasks --max-tasks 20 --timeout-seconds 3600
+```
+
 Optional explicit task order is supported with repeatable `--task-id`:
 
 ```powershell
@@ -103,13 +110,31 @@ python -m ai_orchestrator.codex_queue.operator_cli run-codex-batch --queue-root 
 
 Without explicit `--task-id`, order follows planned queue artifact order. The batch runner only selects approved/planned tasks that already have a matching plan and handoff prompt, skips non-approved/non-planned tasks, and stops on the first failed one-task execution. Before each real task execution, it checks git state and stops if the working tree has unexpected changes.
 
-After batch execution, these steps remain manual for each task:
+After batch execution, bridge completed results from `last_message.md` into queue review packets:
+
+```powershell
+python -m ai_orchestrator.codex_queue.operator_cli postprocess-codex-batch --queue-root agent_tasks --batch-report agent_tasks/reports/latest_codex_cli_batch_report.json --bridge-results
+```
+
+To also run the existing ingestion and review helpers for every successfully bridged task:
+
+```powershell
+python -m ai_orchestrator.codex_queue.operator_cli postprocess-codex-batch --queue-root agent_tasks --batch-report agent_tasks/reports/latest_codex_cli_batch_report.json --bridge-results --review-results
+```
+
+The postprocess summary is written to:
+
+- `agent_tasks/reports/latest_post_batch_review_summary.json`
+- `agent_tasks/reports/latest_post_batch_review_summary.md`
+
+If a completed task cannot be bridged safely, the summary records it as blocked and continues with the other completed task executions.
+
+After batch execution and optional postprocess review, these steps remain manual for each task:
 
 - inspect `agent_tasks/reports/codex_cli_runs/<TASK_ID>/<RUN_ID>/execution_report.md`
 - inspect `agent_tasks/review/<TASK_ID>.result.json`
-- run `ingest-result`
-- run `review`
+- run `ingest-result` and `review` if `--review-results` was not used
 - run `mark-done` only after the review report recommends acceptance
 - stage, commit, and push only through explicit operator git actions
 
-The batch runner does not create tasks, approve tasks, mark tasks done, ingest results, review results, commit, push, create schedulers, start daemons, start background workers, or schedule itself.
+The batch runner does not create tasks, approve tasks, mark tasks done, ingest results, review results, commit, push, create schedulers, start daemons, start background workers, or schedule itself. The postprocess command can ingest and review only when explicitly requested, but it also never marks tasks done, commits, pushes, schedules itself, daemonizes, or runs in the background.

@@ -376,6 +376,95 @@ def test_run_codex_batch_dry_run_command_writes_report_without_codex(tmp_path: P
     assert Path(action["codex_cli_batch_report_paths"]["batch_report_json"]).exists()
 
 
+def test_postprocess_codex_batch_command_bridges_result(tmp_path: Path) -> None:
+    queue_root = tmp_path / "agent_tasks"
+    task_id = "ORCH-BATCH-POSTPROCESS-CLI"
+    execution_dir = queue_root / "reports" / "codex_cli_runs" / task_id / "20260509T010000Z"
+    execution_report_path = execution_dir / "execution_report.json"
+    last_message_path = execution_dir / "last_message.md"
+    _write_json(
+        execution_report_path,
+        {
+            "schema_version": "codex_cli_execution_report.v1",
+            "task_id": task_id,
+            "run_id": "20260509T010000Z",
+            "status": "ok",
+            "execution_status": "completed",
+            "exit_code": 0,
+            "execution_ended_at": "2026-05-09T01:05:00Z",
+            "report_paths": {"last_message": str(last_message_path)},
+            "network_calls_performed": 0,
+            "openrouter_calls_performed": 0,
+            "polymarket_api_calls_performed": 0,
+            "wallet_or_private_key_access": False,
+            "orders_or_trading_actions": False,
+            "runtime_or_dispatcher_changes": False,
+            "background_worker_created": False,
+            "scheduler_created": False,
+            "codex_app_server_used": False,
+            "destructive_commands_used": False,
+        },
+    )
+    last_message_path.write_text(
+        json.dumps(
+            {
+                "task_id": task_id,
+                "status": "completed",
+                "summary": "Completed CLI postprocess bridge test.",
+                "files_changed": ["docs/postprocess.md"],
+                "validation_commands_run": ["pytest tests/test_codex_queue_operator_cli.py"],
+                "tests_passed": True,
+                "safety_notes": ["No network, credentials, wallet, trading, runtime, scheduler, or destructive commands."],
+            }
+        ),
+        encoding="utf-8",
+    )
+    batch_report_path = queue_root / "reports" / "codex_cli_batch_report_20260509T020000Z.json"
+    _write_json(
+        batch_report_path,
+        {
+            "schema_version": "codex_cli_batch_execution_report.v1",
+            "run_id": "20260509T020000Z",
+            "status": "ok",
+            "execution_status": "completed",
+            "ended_at": "2026-05-09T02:00:00Z",
+            "task_executions": [
+                {
+                    "task_id": task_id,
+                    "status": "ok",
+                    "execution_status": "completed",
+                    "exit_code": 0,
+                    "execution_report_json": str(execution_report_path),
+                    "errors": [],
+                    "warnings": [],
+                }
+            ],
+        },
+    )
+
+    exit_code = main(
+        [
+            "postprocess-codex-batch",
+            "--queue-root",
+            str(queue_root),
+            "--batch-report",
+            str(batch_report_path),
+            "--bridge-results",
+        ]
+    )
+
+    action = json.loads((queue_root / "reports" / "latest_operator_action.json").read_text(encoding="utf-8"))
+    result = json.loads((queue_root / "review" / f"{task_id}.result.json").read_text(encoding="utf-8"))
+    assert exit_code == 0
+    assert action["status"] == "ok"
+    assert action["bridged_count"] == 1
+    assert action["task_marked_done_automatically"] is False
+    assert action["git_commit_performed"] is False
+    assert action["git_push_performed"] is False
+    assert result["schema_version"] == "codex_task_result.v1"
+    assert result["files_modified"] == ["docs/postprocess.md"]
+
+
 def test_night_dry_run_and_scheduler_plan_commands_write_reports(tmp_path: Path, monkeypatch) -> None:
     queue_root = tmp_path / "agent_tasks"
     task_id = "ORCH-NIGHT-CLI"

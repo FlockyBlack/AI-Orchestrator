@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any, Mapping
 
 from .codex_cli_batch_runner import DEFAULT_MAX_TASKS, HARD_MAX_TASKS, run_codex_batch
+from .codex_cli_postprocessor import postprocess_codex_batch
 from .codex_cli_runner import DEFAULT_TIMEOUT_SECONDS, run_codex_once
 from .dry_run_runner import run_dry_run
 from .files import (
@@ -95,6 +96,17 @@ def main(argv: list[str] | None = None) -> int:
     run_codex_batch_parser.add_argument("--task-id", action="append", default=[])
     run_codex_batch_parser.add_argument("--timeout-seconds", type=int, default=DEFAULT_TIMEOUT_SECONDS)
     run_codex_batch_parser.set_defaults(func=_cmd_run_codex_batch)
+
+    postprocess_codex_batch_parser = subparsers.add_parser(
+        "postprocess-codex-batch",
+        help="Bridge completed Codex batch results and optionally run ingestion/review.",
+    )
+    _add_queue_root(postprocess_codex_batch_parser)
+    postprocess_codex_batch_parser.add_argument("--batch-report", required=True)
+    postprocess_codex_batch_parser.add_argument("--bridge-results", action="store_true")
+    postprocess_codex_batch_parser.add_argument("--review-results", action="store_true")
+    postprocess_codex_batch_parser.add_argument("--overwrite-results", action="store_true")
+    postprocess_codex_batch_parser.set_defaults(func=_cmd_postprocess_codex_batch)
 
     workspace_plan_parser = subparsers.add_parser(
         "workspace-plan",
@@ -739,6 +751,63 @@ def _cmd_run_codex_batch(args: argparse.Namespace) -> dict[str, Any]:
     )
 
 
+def _cmd_postprocess_codex_batch(args: argparse.Namespace) -> dict[str, Any]:
+    root = ensure_queue_directories(args.queue_root)
+    report = postprocess_codex_batch(
+        root,
+        batch_report_path=args.batch_report,
+        bridge_results=args.bridge_results,
+        review_results=args.review_results,
+        overwrite_results=args.overwrite_results,
+        review_result_func=build_review_report,
+    )
+    status = "ok" if report["status"] == "ok" else "blocked"
+    return write_operator_action_report(
+        root,
+        _action(
+            "postprocess-codex-batch",
+            status,
+            "",
+            root,
+            source_path=report.get("batch_report_path", ""),
+            destination_path=report["report_paths"].get("post_batch_summary_json", ""),
+            errors=list(report.get("errors", [])),
+            warnings=list(report.get("warnings", [])),
+            next_operator_action=str(report.get("next_operator_action", "")),
+            extra={
+                "post_batch_summary_report_paths": report["report_paths"],
+                "batch_run_id": report.get("batch_run_id"),
+                "bridge_results": report["bridge_results"],
+                "review_results": report["review_results"],
+                "overwrite_results": report["overwrite_results"],
+                "task_results": report["task_results"],
+                "completed_execution_count": report["completed_execution_count"],
+                "bridged_count": report["bridged_count"],
+                "ingested_count": report["ingested_count"],
+                "reviewed_count": report["reviewed_count"],
+                "blocked_count": report["blocked_count"],
+                "skipped_count": report["skipped_count"],
+                "result_json_written_count": report["result_json_written_count"],
+                "task_marked_done_automatically": report["task_marked_done_automatically"],
+                "review_approved_automatically": report["review_approved_automatically"],
+                "git_commit_performed": report["git_commit_performed"],
+                "git_push_performed": report["git_push_performed"],
+                "scheduler_created": report["scheduler_created"],
+                "daemon_created": report["daemon_created"],
+                "background_worker_created": report["background_worker_created"],
+                "infinite_loop_created": report["infinite_loop_created"],
+                "codex_exec_invoked": report["codex_exec_invoked"],
+                "codex_invocation_count": report["codex_invocation_count"],
+                "openrouter_calls_performed": report["openrouter_calls_performed"],
+                "polymarket_api_calls_performed": report["polymarket_api_calls_performed"],
+                "wallet_or_private_key_access": report["wallet_or_private_key_access"],
+                "orders_or_trading_actions": report["orders_or_trading_actions"],
+                "runtime_or_dispatcher_changes": report["runtime_or_dispatcher_changes"],
+            },
+        ),
+    )
+
+
 def _cmd_workspace_plan(args: argparse.Namespace) -> dict[str, Any]:
     root = ensure_queue_directories(args.queue_root)
     task_id = validate_task_id(args.task_id)
@@ -1268,6 +1337,10 @@ def render_operator_action_markdown(report: Mapping[str, Any]) -> str:
     elif report["command"] == "run-codex-batch":
         lines.append(
             "This operator action is supervised and bounded by --max-tasks with a hard cap of 20. In dry-run it only reports selected tasks and one-task commands; in execution mode it invokes the existing one-task runner sequentially and stops on the first failure, git preflight error, or out-of-band git state change. It does not create tasks, approve tasks, ingest results, review results, mark tasks done, commit, push, schedule itself, start a daemon, start a background worker, call network services directly, or access credentials."
+        )
+    elif report["command"] == "postprocess-codex-batch":
+        lines.append(
+            "This operator action only reads an existing batch report and Codex execution artifacts. With --bridge-results it writes queue-compatible result JSON under review; with --review-results it runs the existing ingestion and review helpers. It does not execute Codex, mark tasks done, commit, push, schedule itself, start a daemon, start a background worker, call network services directly, or access credentials."
         )
     else:
         lines.append(
