@@ -16,6 +16,27 @@ This bridge creates local-only PMBOT task packets in `agent_tasks/inbox/` for op
   - `paper-accounting-ledger`
   - `local-operator-dashboard-summary`
   - `readiness-blocker-matrix`
+- Supervised-live readiness batch templates:
+  - `supervised-live-read-only-live-data-contract`
+  - `supervised-live-data-source-inventory`
+  - `supervised-live-operator-approval-gate-record`
+  - `supervised-live-stop-condition-spec`
+  - `supervised-live-readiness-evidence-bundle`
+  - `source-evidence-inventory-ledger`
+  - `source-evidence-link-map`
+  - `source-evidence-staleness-check-spec`
+  - `source-evidence-contradiction-ledger`
+  - `validation-saved-evidence-replay-bundle`
+  - `validation-ci-safe-subset`
+  - `validation-batch-replay-report`
+  - `safety-sensitive-path-exclusion-audit`
+  - `safety-forbidden-language-regression-suite`
+  - `safety-autonomy-review-record`
+  - `paperlive-accounting-reconciliation`
+  - `paperlive-simulated-outcome-replay-links`
+  - `dashboard-supervised-live-readiness`
+  - `operator-supervised-live-morning-review-card`
+  - `roadmap-sensitive-access-gated-milestone-separation`
 
 The generated packet uses the normal `codex_task_packet.v1` schema with PMBOT metadata:
 
@@ -52,6 +73,16 @@ python -m ai_orchestrator.codex_queue.operator_cli create-pmbot-task --queue-roo
 ```
 
 Night backlog packets are still local-only operator-reviewed task packets. They do not approve themselves, plan themselves, invoke Codex, register timers, start resident processes, ingest results, review results, mark tasks done, commit, or push.
+
+## Create A Supervised-Live Readiness Packet
+
+Use the specific task ID and template pair from the supervised-live readiness batch:
+
+```powershell
+python -m ai_orchestrator.codex_queue.operator_cli create-pmbot-task --queue-root agent_tasks --task-id PMBOT-SUPERVISED-LIVE-001-READ-ONLY-LIVE-DATA-CONTRACT-LOCAL-ONLY --template supervised-live-read-only-live-data-contract --repo-root . --branch master --expected-head <HEAD>
+```
+
+These packets are local-only, descriptive, and operator-reviewed. They do not approve themselves, plan themselves, invoke Codex, register timers, start resident processes, ingest results, review results, mark tasks done, commit, or push.
 
 ## Approve
 

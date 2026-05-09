@@ -12,6 +12,8 @@ from ai_orchestrator.codex_queue.pmbot_templates import (
     PMBOT_NEXT_TWENTY_TASK_IDS,
     PMBOT_PROJECT,
     PMBOT_REQUIRED_FORBIDDEN_ACTIONS,
+    PMBOT_SUPERVISED_LIVE_READINESS_TASKS,
+    PMBOT_SUPERVISED_LIVE_READINESS_TASK_IDS,
     PMBOT_WEATHER_VALIDATION_COMMANDS,
     SUPPORTED_PMBOT_TEMPLATES,
     WEATHER_SOURCE_MONITORING_TASK_ID,
@@ -236,6 +238,58 @@ def test_next_twenty_pmbot_templates_cover_requested_task_ids_and_stay_local_onl
         seen_templates.add(str(spec["template"]))
 
 
+def test_supervised_live_readiness_templates_cover_requested_task_ids_and_stay_local_only() -> None:
+    expected_task_ids = (
+        "PMBOT-SUPERVISED-LIVE-001-READ-ONLY-LIVE-DATA-CONTRACT-LOCAL-ONLY",
+        "PMBOT-SUPERVISED-LIVE-002-LIVE-DATA-SOURCE-INVENTORY-LOCAL-ONLY",
+        "PMBOT-SUPERVISED-LIVE-003-OPERATOR-APPROVAL-GATE-RECORD-LOCAL-ONLY",
+        "PMBOT-SUPERVISED-LIVE-004-SUPERVISED-LIVE-STOP-CONDITION-SPEC-LOCAL-ONLY",
+        "PMBOT-SUPERVISED-LIVE-005-LIVE-READINESS-EVIDENCE-BUNDLE-LOCAL-ONLY",
+        "PMBOT-SOURCE-EVIDENCE-001-SOURCE-INVENTORY-LEDGER-LOCAL-ONLY",
+        "PMBOT-SOURCE-EVIDENCE-002-SOURCE-EVIDENCE-LINK-MAP-LOCAL-ONLY",
+        "PMBOT-SOURCE-EVIDENCE-003-SOURCE-STALENESS-CHECK-SPEC-LOCAL-ONLY",
+        "PMBOT-SOURCE-EVIDENCE-004-SOURCE-CONTRADICTION-LEDGER-LOCAL-ONLY",
+        "PMBOT-VALIDATION-001-SAVED-EVIDENCE-REPLAY-BUNDLE-LOCAL-ONLY",
+        "PMBOT-VALIDATION-002-CI-SAFE-VALIDATION-SUBSET-LOCAL-ONLY",
+        "PMBOT-VALIDATION-003-BATCH-VALIDATION-REPLAY-REPORT-LOCAL-ONLY",
+        "PMBOT-SAFETY-004-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY",
+        "PMBOT-SAFETY-005-FORBIDDEN-LANGUAGE-REGRESSION-SUITE-LOCAL-ONLY",
+        "PMBOT-SAFETY-006-AUTONOMY-REVIEW-RECORD-LOCAL-ONLY",
+        "PMBOT-PAPERLIVE-AUDIT-001-PAPERLIVE-TO-ACCOUNTING-RECONCILIATION-LOCAL-ONLY",
+        "PMBOT-PAPERLIVE-AUDIT-002-SIMULATED-DECISION-TO-OUTCOME-REPLAY-LINKS-LOCAL-ONLY",
+        "PMBOT-DASHBOARD-005-SUPERVISED-LIVE-READINESS-DASHBOARD-LOCAL-ONLY",
+        "PMBOT-OPERATOR-003-SUPERVISED-LIVE-MORNING-REVIEW-CARD-LOCAL-ONLY",
+        "PMBOT-ROADMAP-004-REAL-WALLET-GATED-MILESTONE-SEPARATION-LOCAL-ONLY",
+    )
+
+    assert PMBOT_SUPERVISED_LIVE_READINESS_TASK_IDS == expected_task_ids
+    assert tuple(str(spec["task_id"]) for spec in PMBOT_SUPERVISED_LIVE_READINESS_TASKS) == expected_task_ids
+
+    seen_templates: set[str] = set()
+    for spec in PMBOT_SUPERVISED_LIVE_READINESS_TASKS:
+        packet = build_pmbot_task_packet(str(spec["task_id"]), str(spec["template"]))
+        text = _intent_text(packet)
+
+        assert str(spec["template"]) in SUPPORTED_PMBOT_TEMPLATES
+        assert str(spec["template"]) not in seen_templates
+        assert validate_packet(packet).valid is True
+        assert classify_packet(_approved_view(packet)).allowed is True
+        assert packet["project"] == PMBOT_PROJECT
+        assert packet["task_template"]["name"] == spec["template"]
+        assert all(value is False for value in packet["risk_flags"].values())
+        assert "runtime/" in packet["repo"]["forbidden_paths"]
+        assert "dispatcher/" in packet["repo"]["forbidden_paths"]
+        assert "run_codex/" in packet["repo"]["forbidden_paths"]
+        assert "pm_bot/llm/" in packet["repo"]["forbidden_paths"]
+        assert "python -m compileall pm_bot tests" in packet["validation_commands"]
+        assert "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py" in packet["validation_commands"]
+        assert "No external service calls." in packet["safety_boundaries"]
+        assert "No timed automation or resident process." in packet["safety_boundaries"]
+        for forbidden_word in ("buy", "sell", "hold", "enter", "exit"):
+            assert forbidden_word not in text
+        seen_templates.add(str(spec["template"]))
+
+
 def test_crypto_market_class_capture_queue_template_matches_local_only_scope() -> None:
     packet = build_pmbot_task_packet(
         "PMBOT-CRYPTO-PILOT-001-CRYPTO-MARKET-CLASS-CAPTURE-TEMPLATE-LOCAL-ONLY",
@@ -284,5 +338,38 @@ def test_create_all_pmbot_night_tasks_then_approve_and_plan(tmp_path: Path) -> N
 
     assert main(["plan", "--queue-root", str(queue_root)]) == 0
     for task_id in PMBOT_NIGHT_BATCH_TASK_IDS:
+        assert (queue_root / "planned" / f"{task_id}.plan.json").exists()
+        assert (queue_root / "planned" / f"{task_id}.handoff_prompt.md").exists()
+
+
+def test_create_all_supervised_live_readiness_tasks_then_approve_and_plan(tmp_path: Path) -> None:
+    queue_root = tmp_path / "agent_tasks"
+    for spec in PMBOT_SUPERVISED_LIVE_READINESS_TASKS:
+        task_id = str(spec["task_id"])
+        template = str(spec["template"])
+        assert (
+            main(
+                [
+                    "create-pmbot-task",
+                    "--queue-root",
+                    str(queue_root),
+                    "--task-id",
+                    task_id,
+                    "--template",
+                    template,
+                    "--expected-head",
+                    "603bd0e235594688ce1796b79e9f597a5f9ea465",
+                ]
+            )
+            == 0
+        )
+        assert (queue_root / "inbox" / f"{task_id}.task.json").exists()
+
+    for task_id in PMBOT_SUPERVISED_LIVE_READINESS_TASK_IDS:
+        assert main(["approve", "--queue-root", str(queue_root), "--task-id", task_id]) == 0
+        assert (queue_root / "approved" / f"{task_id}.task.json").exists()
+
+    assert main(["plan", "--queue-root", str(queue_root)]) == 0
+    for task_id in PMBOT_SUPERVISED_LIVE_READINESS_TASK_IDS:
         assert (queue_root / "planned" / f"{task_id}.plan.json").exists()
         assert (queue_root / "planned" / f"{task_id}.handoff_prompt.md").exists()

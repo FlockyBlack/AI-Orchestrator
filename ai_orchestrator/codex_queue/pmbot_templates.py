@@ -40,6 +40,26 @@ LOCAL_TO_SUPERVISED_GAP_MATRIX_TEMPLATE = "local-to-supervised-gap-matrix"
 NEXT_20_TASK_BACKLOG_GENERATOR_TEMPLATE = "next-20-task-backlog-generator"
 MORNING_REVIEW_PACK_TEMPLATE = "morning-review-pack"
 NIGHT_BATCH_ACCEPTANCE_REPORT_TEMPLATE = "night-batch-acceptance-report"
+SUPERVISED_LIVE_READ_ONLY_LIVE_DATA_CONTRACT_TEMPLATE = "supervised-live-read-only-live-data-contract"
+SUPERVISED_LIVE_DATA_SOURCE_INVENTORY_TEMPLATE = "supervised-live-data-source-inventory"
+SUPERVISED_LIVE_OPERATOR_APPROVAL_GATE_RECORD_TEMPLATE = "supervised-live-operator-approval-gate-record"
+SUPERVISED_LIVE_STOP_CONDITION_SPEC_TEMPLATE = "supervised-live-stop-condition-spec"
+SUPERVISED_LIVE_READINESS_EVIDENCE_BUNDLE_TEMPLATE = "supervised-live-readiness-evidence-bundle"
+SOURCE_EVIDENCE_INVENTORY_LEDGER_TEMPLATE = "source-evidence-inventory-ledger"
+SOURCE_EVIDENCE_LINK_MAP_TEMPLATE = "source-evidence-link-map"
+SOURCE_EVIDENCE_STALENESS_CHECK_SPEC_TEMPLATE = "source-evidence-staleness-check-spec"
+SOURCE_EVIDENCE_CONTRADICTION_LEDGER_TEMPLATE = "source-evidence-contradiction-ledger"
+VALIDATION_SAVED_EVIDENCE_REPLAY_BUNDLE_TEMPLATE = "validation-saved-evidence-replay-bundle"
+VALIDATION_CI_SAFE_SUBSET_TEMPLATE = "validation-ci-safe-subset"
+VALIDATION_BATCH_REPLAY_REPORT_TEMPLATE = "validation-batch-replay-report"
+SAFETY_SENSITIVE_PATH_EXCLUSION_AUDIT_TEMPLATE = "safety-sensitive-path-exclusion-audit"
+SAFETY_FORBIDDEN_LANGUAGE_REGRESSION_SUITE_TEMPLATE = "safety-forbidden-language-regression-suite"
+SAFETY_AUTONOMY_REVIEW_RECORD_TEMPLATE = "safety-autonomy-review-record"
+PAPERLIVE_ACCOUNTING_RECONCILIATION_TEMPLATE = "paperlive-accounting-reconciliation"
+PAPERLIVE_SIMULATED_OUTCOME_REPLAY_LINKS_TEMPLATE = "paperlive-simulated-outcome-replay-links"
+DASHBOARD_SUPERVISED_LIVE_READINESS_TEMPLATE = "dashboard-supervised-live-readiness"
+OPERATOR_SUPERVISED_LIVE_MORNING_REVIEW_CARD_TEMPLATE = "operator-supervised-live-morning-review-card"
+ROADMAP_REAL_WALLET_GATED_MILESTONE_SEPARATION_TEMPLATE = "roadmap-sensitive-access-gated-milestone-separation"
 
 SUPPORTED_PMBOT_TEMPLATES = (
     WEATHER_SOURCE_MONITORING_TEMPLATE,
@@ -73,6 +93,26 @@ SUPPORTED_PMBOT_TEMPLATES = (
     NEXT_20_TASK_BACKLOG_GENERATOR_TEMPLATE,
     MORNING_REVIEW_PACK_TEMPLATE,
     NIGHT_BATCH_ACCEPTANCE_REPORT_TEMPLATE,
+    SUPERVISED_LIVE_READ_ONLY_LIVE_DATA_CONTRACT_TEMPLATE,
+    SUPERVISED_LIVE_DATA_SOURCE_INVENTORY_TEMPLATE,
+    SUPERVISED_LIVE_OPERATOR_APPROVAL_GATE_RECORD_TEMPLATE,
+    SUPERVISED_LIVE_STOP_CONDITION_SPEC_TEMPLATE,
+    SUPERVISED_LIVE_READINESS_EVIDENCE_BUNDLE_TEMPLATE,
+    SOURCE_EVIDENCE_INVENTORY_LEDGER_TEMPLATE,
+    SOURCE_EVIDENCE_LINK_MAP_TEMPLATE,
+    SOURCE_EVIDENCE_STALENESS_CHECK_SPEC_TEMPLATE,
+    SOURCE_EVIDENCE_CONTRADICTION_LEDGER_TEMPLATE,
+    VALIDATION_SAVED_EVIDENCE_REPLAY_BUNDLE_TEMPLATE,
+    VALIDATION_CI_SAFE_SUBSET_TEMPLATE,
+    VALIDATION_BATCH_REPLAY_REPORT_TEMPLATE,
+    SAFETY_SENSITIVE_PATH_EXCLUSION_AUDIT_TEMPLATE,
+    SAFETY_FORBIDDEN_LANGUAGE_REGRESSION_SUITE_TEMPLATE,
+    SAFETY_AUTONOMY_REVIEW_RECORD_TEMPLATE,
+    PAPERLIVE_ACCOUNTING_RECONCILIATION_TEMPLATE,
+    PAPERLIVE_SIMULATED_OUTCOME_REPLAY_LINKS_TEMPLATE,
+    DASHBOARD_SUPERVISED_LIVE_READINESS_TEMPLATE,
+    OPERATOR_SUPERVISED_LIVE_MORNING_REVIEW_CARD_TEMPLATE,
+    ROADMAP_REAL_WALLET_GATED_MILESTONE_SEPARATION_TEMPLATE,
 )
 
 WEATHER_SOURCE_MONITORING_TASK_ID = (
@@ -498,8 +538,259 @@ PMBOT_NIGHT_BATCH_TASKS: tuple[dict[str, Any], ...] = (
     },
 )
 
+PMBOT_SUPERVISED_LIVE_READINESS_TASKS: tuple[dict[str, Any], ...] = (
+    {
+        "task_id": "PMBOT-SUPERVISED-LIVE-001-READ-ONLY-LIVE-DATA-CONTRACT-LOCAL-ONLY",
+        "template": SUPERVISED_LIVE_READ_ONLY_LIVE_DATA_CONTRACT_TEMPLATE,
+        "title": "PMBOT supervised live read-only live data contract",
+        "objective": "Add a deterministic local contract artifact for read-only live data handling.",
+        "summary": "Prepare a local PMBOT read-only live data contract for supervised readiness review.",
+        "allowed_paths": ("docs/", "pm_bot/readiness/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Read-only live data contract docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-SUPERVISED-LIVE-002-LIVE-DATA-SOURCE-INVENTORY-LOCAL-ONLY",
+        "template": SUPERVISED_LIVE_DATA_SOURCE_INVENTORY_TEMPLATE,
+        "title": "PMBOT supervised live data source inventory",
+        "objective": "Add a deterministic local inventory artifact for live data source records.",
+        "summary": "Prepare a local PMBOT live data source inventory for supervised readiness review.",
+        "allowed_paths": ("docs/", "pm_bot/readiness/", "pm_bot/source_quality/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Live data source inventory docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-SUPERVISED-LIVE-003-OPERATOR-APPROVAL-GATE-RECORD-LOCAL-ONLY",
+        "template": SUPERVISED_LIVE_OPERATOR_APPROVAL_GATE_RECORD_TEMPLATE,
+        "title": "PMBOT supervised live operator approval gate record",
+        "objective": "Add a deterministic local approval gate record for supervised-live transitions.",
+        "summary": "Prepare a local PMBOT operator approval gate record for supervised readiness review.",
+        "allowed_paths": ("docs/", "pm_bot/readiness/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Operator approval gate record docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-SUPERVISED-LIVE-004-SUPERVISED-LIVE-STOP-CONDITION-SPEC-LOCAL-ONLY",
+        "template": SUPERVISED_LIVE_STOP_CONDITION_SPEC_TEMPLATE,
+        "title": "PMBOT supervised live stop condition spec",
+        "objective": "Add a deterministic local stop-condition specification for supervised-live sessions.",
+        "summary": "Prepare a local PMBOT supervised-live stop-condition spec for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/readiness/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Supervised-live stop-condition spec docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-SUPERVISED-LIVE-005-LIVE-READINESS-EVIDENCE-BUNDLE-LOCAL-ONLY",
+        "template": SUPERVISED_LIVE_READINESS_EVIDENCE_BUNDLE_TEMPLATE,
+        "title": "PMBOT supervised live readiness evidence bundle",
+        "objective": "Add a deterministic local evidence bundle for supervised-live readiness review.",
+        "summary": "Prepare a local PMBOT supervised-live readiness evidence bundle for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/readiness/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Supervised-live readiness evidence bundle docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-SOURCE-EVIDENCE-001-SOURCE-INVENTORY-LEDGER-LOCAL-ONLY",
+        "template": SOURCE_EVIDENCE_INVENTORY_LEDGER_TEMPLATE,
+        "title": "PMBOT source evidence inventory ledger",
+        "objective": "Add a deterministic local source evidence inventory ledger.",
+        "summary": "Prepare a local PMBOT source evidence inventory ledger for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/source_quality/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Source evidence inventory ledger docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-SOURCE-EVIDENCE-002-SOURCE-EVIDENCE-LINK-MAP-LOCAL-ONLY",
+        "template": SOURCE_EVIDENCE_LINK_MAP_TEMPLATE,
+        "title": "PMBOT source evidence link map",
+        "objective": "Add a deterministic local source evidence link map.",
+        "summary": "Prepare a local PMBOT source evidence link map for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/source_quality/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Source evidence link map docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-SOURCE-EVIDENCE-003-SOURCE-STALENESS-CHECK-SPEC-LOCAL-ONLY",
+        "template": SOURCE_EVIDENCE_STALENESS_CHECK_SPEC_TEMPLATE,
+        "title": "PMBOT source staleness check spec",
+        "objective": "Add a deterministic local source staleness check specification.",
+        "summary": "Prepare a local PMBOT source staleness check spec for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/source_quality/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Source staleness check spec docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-SOURCE-EVIDENCE-004-SOURCE-CONTRADICTION-LEDGER-LOCAL-ONLY",
+        "template": SOURCE_EVIDENCE_CONTRADICTION_LEDGER_TEMPLATE,
+        "title": "PMBOT source contradiction ledger",
+        "objective": "Add a deterministic local source contradiction ledger.",
+        "summary": "Prepare a local PMBOT source contradiction ledger for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/source_quality/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Source contradiction ledger docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-VALIDATION-001-SAVED-EVIDENCE-REPLAY-BUNDLE-LOCAL-ONLY",
+        "template": VALIDATION_SAVED_EVIDENCE_REPLAY_BUNDLE_TEMPLATE,
+        "title": "PMBOT saved evidence replay bundle",
+        "objective": "Add a deterministic local saved evidence replay bundle.",
+        "summary": "Prepare a local PMBOT saved evidence replay bundle for validation review.",
+        "allowed_paths": ("docs/", "pm_bot/readiness/", "pm_bot/simulated_decisions/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Saved evidence replay bundle docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-VALIDATION-002-CI-SAFE-VALIDATION-SUBSET-LOCAL-ONLY",
+        "template": VALIDATION_CI_SAFE_SUBSET_TEMPLATE,
+        "title": "PMBOT CI-safe validation subset",
+        "objective": "Add a deterministic local CI-safe validation subset artifact.",
+        "summary": "Prepare a local PMBOT CI-safe validation subset for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "CI-safe validation subset docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-VALIDATION-003-BATCH-VALIDATION-REPLAY-REPORT-LOCAL-ONLY",
+        "template": VALIDATION_BATCH_REPLAY_REPORT_TEMPLATE,
+        "title": "PMBOT batch validation replay report",
+        "objective": "Add a deterministic local batch validation replay report.",
+        "summary": "Prepare a local PMBOT batch validation replay report for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/readiness/", "pm_bot/simulated_decisions/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Batch validation replay report docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-SAFETY-004-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY",
+        "template": SAFETY_SENSITIVE_PATH_EXCLUSION_AUDIT_TEMPLATE,
+        "title": "PMBOT sensitive path exclusion audit",
+        "objective": "Add a deterministic local sensitive path exclusion audit artifact.",
+        "summary": "Prepare a local PMBOT sensitive path exclusion audit for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Sensitive path exclusion audit docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-SAFETY-005-FORBIDDEN-LANGUAGE-REGRESSION-SUITE-LOCAL-ONLY",
+        "template": SAFETY_FORBIDDEN_LANGUAGE_REGRESSION_SUITE_TEMPLATE,
+        "title": "PMBOT forbidden language regression suite",
+        "objective": "Add a deterministic local forbidden-language regression suite artifact.",
+        "summary": "Prepare a local PMBOT forbidden-language regression suite for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Forbidden-language regression suite docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-SAFETY-006-AUTONOMY-REVIEW-RECORD-LOCAL-ONLY",
+        "template": SAFETY_AUTONOMY_REVIEW_RECORD_TEMPLATE,
+        "title": "PMBOT autonomy review record",
+        "objective": "Add a deterministic local autonomy review record artifact.",
+        "summary": "Prepare a local PMBOT autonomy review record for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Autonomy review record docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-PAPERLIVE-AUDIT-001-PAPERLIVE-TO-ACCOUNTING-RECONCILIATION-LOCAL-ONLY",
+        "template": PAPERLIVE_ACCOUNTING_RECONCILIATION_TEMPLATE,
+        "title": "PMBOT paperlive to accounting reconciliation",
+        "objective": "Add a deterministic local paperlive to accounting reconciliation artifact.",
+        "summary": "Prepare a local PMBOT paperlive to accounting reconciliation for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/paper_accounting/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Paperlive to accounting reconciliation docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-PAPERLIVE-AUDIT-002-SIMULATED-DECISION-TO-OUTCOME-REPLAY-LINKS-LOCAL-ONLY",
+        "template": PAPERLIVE_SIMULATED_OUTCOME_REPLAY_LINKS_TEMPLATE,
+        "title": "PMBOT simulated decision to outcome replay links",
+        "objective": "Add deterministic local simulated decision to outcome replay link artifacts.",
+        "summary": "Prepare local PMBOT simulated decision to outcome replay links for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/simulated_decisions/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Simulated decision to outcome replay link docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-DASHBOARD-005-SUPERVISED-LIVE-READINESS-DASHBOARD-LOCAL-ONLY",
+        "template": DASHBOARD_SUPERVISED_LIVE_READINESS_TEMPLATE,
+        "title": "PMBOT supervised live readiness dashboard",
+        "objective": "Add a deterministic local supervised-live readiness dashboard artifact.",
+        "summary": "Prepare a local PMBOT supervised-live readiness dashboard for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/dashboard/", "pm_bot/readiness/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Supervised-live readiness dashboard docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-OPERATOR-003-SUPERVISED-LIVE-MORNING-REVIEW-CARD-LOCAL-ONLY",
+        "template": OPERATOR_SUPERVISED_LIVE_MORNING_REVIEW_CARD_TEMPLATE,
+        "title": "PMBOT supervised live morning review card",
+        "objective": "Add a deterministic local supervised-live morning review card artifact.",
+        "summary": "Prepare a local PMBOT supervised-live morning review card for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/dashboard/", "pm_bot/readiness/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Supervised-live morning review card docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-ROADMAP-004-REAL-WALLET-GATED-MILESTONE-SEPARATION-LOCAL-ONLY",
+        "template": ROADMAP_REAL_WALLET_GATED_MILESTONE_SEPARATION_TEMPLATE,
+        "title": "PMBOT sensitive-access gated milestone separation",
+        "objective": "Add a deterministic local gated milestone separation artifact for sensitive-access readiness.",
+        "summary": "Prepare a local PMBOT gated milestone separation record for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/readiness/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Gated milestone separation docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+)
+
+PMBOT_TASK_SPECS = PMBOT_NIGHT_BATCH_TASKS + PMBOT_SUPERVISED_LIVE_READINESS_TASKS
 PMBOT_NIGHT_BATCH_TASKS_BY_TEMPLATE = {str(spec["template"]): spec for spec in PMBOT_NIGHT_BATCH_TASKS}
+PMBOT_SUPERVISED_LIVE_READINESS_TASKS_BY_TEMPLATE = {
+    str(spec["template"]): spec for spec in PMBOT_SUPERVISED_LIVE_READINESS_TASKS
+}
+PMBOT_TASK_SPECS_BY_TEMPLATE = {str(spec["template"]): spec for spec in PMBOT_TASK_SPECS}
 PMBOT_NIGHT_BATCH_TASK_IDS = tuple(str(spec["task_id"]) for spec in PMBOT_NIGHT_BATCH_TASKS)
+PMBOT_SUPERVISED_LIVE_READINESS_TASK_IDS = tuple(
+    str(spec["task_id"]) for spec in PMBOT_SUPERVISED_LIVE_READINESS_TASKS
+)
 PMBOT_NEXT_TWENTY_TASK_IDS = (
     "PMBOT-SOURCE-LEDGER-003-SOURCE-QUALITY-REPORT-SUMMARY-LOCAL-ONLY",
     "PMBOT-SOURCE-LEDGER-004-SOURCE-QUALITY-REGRESSION-FIXTURE-LOCAL-ONLY",
@@ -576,7 +867,7 @@ def build_pmbot_task_packet(
     expected_head: str | None = None,
 ) -> dict[str, Any]:
     safe_task_id = validate_task_id(task_id)
-    if template in PMBOT_NIGHT_BATCH_TASKS_BY_TEMPLATE:
+    if template in PMBOT_TASK_SPECS_BY_TEMPLATE:
         return _build_night_batch_task_packet(
             safe_task_id,
             template,
@@ -680,7 +971,7 @@ def _build_night_batch_task_packet(
     base_branch: str,
     expected_head: str | None,
 ) -> dict[str, Any]:
-    spec = PMBOT_NIGHT_BATCH_TASKS_BY_TEMPLATE[template]
+    spec = PMBOT_TASK_SPECS_BY_TEMPLATE[template]
     if safe_task_id != spec["task_id"]:
         raise ValueError(f"template {template} is for task_id {spec['task_id']}, got {safe_task_id}")
 
