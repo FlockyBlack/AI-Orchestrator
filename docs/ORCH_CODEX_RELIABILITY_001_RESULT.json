@@ -1,0 +1,84 @@
+{
+  "task_id": "ORCH-CODEX-RELIABILITY-001-BATCH-EVIDENCE-AND-REPORT-PERSISTENCE",
+  "status": "completed",
+  "generated_at": "2026-05-09T09:10:00Z",
+  "repo": {
+    "root": "C:/Users/OpenC/.openclaw/workspace",
+    "branch": "master",
+    "head_before": "7784d113164b6ae422391624fd5e8e7f10ce020b"
+  },
+  "summary": "Hardened Codex queue result ingestion report persistence and post-batch review traceability. Result ingestion reports now use task-slug, high-resolution timestamp, and UUID-suffixed stable filenames. Post-batch review now writes a batch review ledger with per-task execution, result, ingestion, and review evidence paths. Latest reports remain convenience pointers and are no longer used as authoritative ingestion allowance evidence.",
+  "created_capabilities": {
+    "collision_resistant_ingestion_reports": true,
+    "per_task_ingestion_persistence": true,
+    "batch_wide_review_ledger": true,
+    "latest_reports_documented_as_pointers": true,
+    "report_retention_policy": true,
+    "untracked_artifact_policy": true,
+    "tests_added": true,
+    "docs_updated": true
+  },
+  "stable_evidence_policy": {
+    "stable_reports": [
+      "agent_tasks/reports/result_ingestion_report_<task-slug>_<timestamp>_<uuid8>.json",
+      "agent_tasks/reports/post_batch_review_summary_<run-id>.json",
+      "agent_tasks/reports/batch_review_ledger_<run-id>.json",
+      "agent_tasks/reports/<TASK_ID>.review.json",
+      "agent_tasks/review/<TASK_ID>.result.json",
+      "per-task execution reports linked from batch reports"
+    ],
+    "mutable_pointers": [
+      "agent_tasks/reports/latest_result_ingestion_report.json",
+      "agent_tasks/reports/latest_result_ingestion_report.md",
+      "agent_tasks/reports/latest_post_batch_review_summary.json",
+      "agent_tasks/reports/latest_post_batch_review_summary.md",
+      "agent_tasks/reports/latest_batch_review_ledger.json"
+    ]
+  },
+  "known_issues_resolved": [
+    "Result ingestion report filenames no longer use only second-level timestamps.",
+    "Rapid repeated ingestion calls persist unique stable report paths.",
+    "Post-batch task rows record direct stable ingestion report paths.",
+    "Batch postprocess writes a batch-wide review ledger with per-task evidence paths.",
+    "latest_result_ingestion_report.json is surfaced as pointer metadata instead of ingestion allowance evidence."
+  ],
+  "known_issues_remaining": [
+    "Generated operational reports may still contain absolute local paths; the retention policy treats them as local evidence and warns against blind publication.",
+    "A full saved-evidence replay command is documented as the next step rather than implemented in this task.",
+    "Queue done still means automation-task completion, not PMBOT product artifact approval."
+  ],
+  "validation": {
+    "passed": true,
+    "commands_run": [
+      "python -m compileall ai_orchestrator pm_bot tests",
+      "pytest tests/test_codex_queue_codex_cli_postprocessor.py tests/test_codex_queue_operator_cli.py",
+      "pytest tests/test_codex_queue_result_ingestor.py",
+      "pytest tests/test_codex_queue_result_ingestor.py tests/test_codex_queue_codex_cli_postprocessor.py tests/test_codex_queue_operator_cli.py",
+      "python -m json.tool docs/ORCH_CODEX_RELIABILITY_001_RESULT.json",
+      "python -m ai_orchestrator.codex_queue.operator_cli status --queue-root agent_tasks",
+      "git diff --check"
+    ],
+    "failures": []
+  },
+  "safety": {
+    "new_codex_execution_performed": false,
+    "new_batch_execution_performed": false,
+    "scheduler_created": false,
+    "daemon_created": false,
+    "background_worker_created": false,
+    "infinite_loop_created": false,
+    "auto_mark_done_created": false,
+    "auto_commit_task_outputs": false,
+    "auto_push_task_outputs": false,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "wallet_or_private_key_access": false,
+    "orders_or_trading_actions": false,
+    "runtime_or_dispatcher_changes": false,
+    "market_recommendation_generated": false,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "destructive_commands_used": false,
+    "forbidden_git_commands_used": false,
+    "force_push_used": false
+  }
+}

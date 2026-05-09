@@ -4,11 +4,24 @@ import json
 from pathlib import Path
 
 from ai_orchestrator.codex_queue.codex_cli_postprocessor import postprocess_codex_batch
+from ai_orchestrator.codex_queue.schema import default_packet
 
 
 def _write_json(path: Path, payload: dict) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload), encoding="utf-8")
+
+
+def _write_approved_packet(queue_root: Path, task_id: str) -> None:
+    packet = default_packet()
+    packet["task_id"] = task_id
+    packet["title"] = f"{task_id} postprocess review packet"
+    packet["status"] = "approved"
+    packet["approved_by"] = "operator"
+    packet["approved_at"] = "2026-05-09T00:00:00Z"
+    packet["repo"]["allowed_paths"] = ["docs/"]
+    packet["repo"]["forbidden_paths"] = ["ai_orchestrator/", "pm_bot/", "runtime/", "dispatcher/"]
+    _write_json(queue_root / "approved" / f"{task_id}.task.json", packet)
 
 
 def _compact_last_message(task_id: str, *, summary: str | None = None) -> dict:
@@ -189,7 +202,10 @@ def test_review_mode_calls_ingest_and_review_helpers(tmp_path: Path) -> None:
         return {
             "accepted": True,
             "ingestion_status": "accepted",
-            "report_paths": {"latest_report_json": str(queue_root / "reports" / "latest_result_ingestion_report.json")},
+            "report_paths": {
+                "run_report_json": str(queue_root / "reports" / f"result_ingestion_report_{task_id}.json"),
+                "latest_report_json": str(queue_root / "reports" / "latest_result_ingestion_report.json"),
+            },
             "errors": [],
         }
 
@@ -214,6 +230,7 @@ def test_review_mode_calls_ingest_and_review_helpers(tmp_path: Path) -> None:
     assert report["reviewed_count"] == 1
     assert calls["ingest"][0][1] == queue_root / "review" / f"{task_id}.result.json"
     assert calls["review"] == [(queue_root, task_id)]
+    assert report["task_results"][0]["ingestion_report_json"].endswith(f"result_ingestion_report_{task_id}.json")
 
 
 def test_postprocess_does_not_mark_done_commit_or_push(tmp_path: Path) -> None:
@@ -232,3 +249,91 @@ def test_postprocess_does_not_mark_done_commit_or_push(tmp_path: Path) -> None:
     assert report["daemon_created"] is False
     assert report["background_worker_created"] is False
     assert report["infinite_loop_created"] is False
+
+
+def test_postprocess_review_mode_does_not_mark_done_commit_or_push(tmp_path: Path) -> None:
+    queue_root = tmp_path / "agent_tasks"
+    task_id = "ORCH-BRIDGE-REVIEW-NO-AUTO"
+    batch_report = _write_batch_report(queue_root, [_write_completed_execution(queue_root, task_id)])
+
+    def fake_ingest(queue_root_arg, result_path):  # type: ignore[no-untyped-def]
+        return {
+            "accepted": True,
+            "ingestion_status": "accepted",
+            "report_paths": {
+                "run_report_json": str(queue_root / "reports" / "result_ingestion_report_fake.json"),
+                "latest_report_json": str(queue_root / "reports" / "latest_result_ingestion_report.json"),
+            },
+            "errors": [],
+        }
+
+    def fake_review(queue_root_arg, task_id_arg):  # type: ignore[no-untyped-def]
+        return {
+            "recommendation": "ready_for_operator_done",
+            "report_paths": {"review_json": str(queue_root / "reports" / f"{task_id_arg}.review.json")},
+        }
+
+    report = postprocess_codex_batch(
+        queue_root,
+        batch_report_path=batch_report,
+        bridge_results=True,
+        review_results=True,
+        ingest_result_func=fake_ingest,
+        review_result_func=fake_review,
+    )
+
+    assert not list((queue_root / "done").glob("*.json"))
+    assert report["task_marked_done_automatically"] is False
+    assert report["review_approved_automatically"] is False
+    assert report["git_commit_performed"] is False
+    assert report["git_push_performed"] is False
+    assert report["scheduler_created"] is False
+    assert report["daemon_created"] is False
+    assert report["background_worker_created"] is False
+    assert report["infinite_loop_created"] is False
+
+
+def test_postprocess_review_summary_records_unique_ingestion_paths_and_batch_ledger(tmp_path: Path) -> None:
+    queue_root = tmp_path / "agent_tasks"
+    task_ids = [f"ORCH-BRIDGE-LEDGER-{index:02d}" for index in range(20)]
+    executions = []
+    for index, task_id in enumerate(task_ids):
+        _write_approved_packet(queue_root, task_id)
+        executions.append(_write_completed_execution(queue_root, task_id, run_id=f"20260509T0100{index:02d}Z"))
+    batch_report = _write_batch_report(queue_root, executions)
+
+    report = postprocess_codex_batch(
+        queue_root,
+        batch_report_path=batch_report,
+        bridge_results=True,
+        review_results=True,
+    )
+
+    ingestion_paths = [entry["ingestion_report_json"] for entry in report["task_results"]]
+    assert report["status"] == "ok"
+    assert report["ingested_count"] == 20
+    assert report["reviewed_count"] == 20
+    assert len(ingestion_paths) == 20
+    assert len(set(ingestion_paths)) == 20
+    assert all(path and Path(path).exists() for path in ingestion_paths)
+    assert all("latest_result_ingestion_report.json" not in str(path) for path in ingestion_paths)
+
+    ledger_path = Path(report["report_paths"]["batch_review_ledger_json"])
+    latest_ledger_path = Path(report["report_paths"]["latest_batch_review_ledger_json"])
+    ledger = json.loads(ledger_path.read_text(encoding="utf-8"))
+    assert ledger_path.exists()
+    assert latest_ledger_path.exists()
+    assert ledger["latest_reports_are_pointers_only"] is True
+    assert ledger["batch_report_path"] == str(batch_report.resolve())
+    assert ledger["task_ids"] == task_ids
+    assert ledger["blocked_or_failed_task_ids"] == []
+    assert ledger["next_operator_action"] == report["next_operator_action"]
+
+    for task in ledger["tasks"]:
+        assert task["task_id"] in task_ids
+        assert Path(task["execution_report_json"]).exists()
+        assert Path(task["bridged_result_json_path"]).exists()
+        assert task["result_validation_status"] == "valid"
+        assert task["ingestion_report_json"] in ingestion_paths
+        assert Path(task["review_report_json"]).exists()
+        assert task["review_recommendation"] == "ready_for_operator_done"

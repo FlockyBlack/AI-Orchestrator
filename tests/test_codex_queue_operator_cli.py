@@ -5,7 +5,7 @@ import socket
 import subprocess
 from pathlib import Path
 
-from ai_orchestrator.codex_queue.operator_cli import main
+from ai_orchestrator.codex_queue.operator_cli import find_allowed_ingestion_report, main
 from ai_orchestrator.codex_queue.result_schema import default_result
 from ai_orchestrator.codex_queue.schema import default_packet
 
@@ -234,6 +234,34 @@ def test_mark_done_refuses_when_no_allowed_ingestion_exists(tmp_path: Path) -> N
     assert action["status"] == "blocked"
     assert any("ingestion report" in error for error in action["errors"])
     assert (queue_root / "approved" / f"{task_id}.task.json").exists()
+
+
+def test_latest_result_ingestion_report_is_pointer_only(tmp_path: Path) -> None:
+    queue_root = tmp_path / "agent_tasks"
+    task_id = "ORCH-LATEST-POINTER"
+    _write_task(queue_root, _safe_packet(task_id, status="approved"))
+    latest_path = queue_root / "reports" / "latest_result_ingestion_report.json"
+    _write_json(
+        latest_path,
+        {
+            "task_id": task_id,
+            "ingestion_status": "accepted",
+            "accepted": True,
+            "errors": [],
+            "result_validation": {"valid": True},
+            "task_validation": {"valid": True},
+            "path_validation": {"valid": True},
+        },
+    )
+
+    ingestion = find_allowed_ingestion_report(queue_root, task_id)
+
+    assert ingestion["allowed"] is False
+    assert ingestion["status"] == "missing"
+    assert ingestion["path"] is None
+    assert ingestion["latest_report_path"] == str(latest_path)
+    assert ingestion["latest_report_is_pointer"] is True
+    assert ingestion["latest_report_task_id"] == task_id
 
 
 def test_mark_done_succeeds_only_after_allowed_ingestion_and_ready_review(tmp_path: Path) -> None:

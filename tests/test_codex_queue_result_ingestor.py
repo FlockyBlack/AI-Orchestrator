@@ -106,14 +106,54 @@ def test_ingestor_writes_latest_json_and_markdown_reports(tmp_path: Path) -> Non
 
     report = ingest_result(queue_root, result_path)
 
+    run_json = Path(report["report_paths"]["run_report_json"])
     latest_json = queue_root / "reports" / "latest_result_ingestion_report.json"
     latest_md = queue_root / "reports" / "latest_result_ingestion_report.md"
+    assert run_json.exists()
     assert latest_json.exists()
     assert latest_md.exists()
     assert report["report_paths"]["latest_report_json"] == str(latest_json)
     latest_payload = json.loads(latest_json.read_text(encoding="utf-8"))
     assert latest_payload["accepted"] is True
+    assert latest_payload["report_path_roles"]["latest_report_json"] == "mutable_pointer"
+    assert latest_payload["report_path_roles"]["run_report_json"] == "stable_evidence"
     assert "does not execute Codex" in latest_md.read_text(encoding="utf-8")
+
+
+def test_two_rapid_ingest_result_calls_do_not_collide(tmp_path: Path) -> None:
+    queue_root = tmp_path / "agent_tasks"
+    _write_task(queue_root, _approved_packet(allowed_paths=["docs/"]))
+    result_path = _write_result(queue_root, _result(files_created=["docs/result.md"]))
+
+    first = ingest_result(queue_root, result_path)
+    second = ingest_result(queue_root, result_path)
+
+    first_path = Path(first["report_paths"]["run_report_json"])
+    second_path = Path(second["report_paths"]["run_report_json"])
+    assert first_path != second_path
+    assert first_path.exists()
+    assert second_path.exists()
+    assert "orch-result-test" in first_path.name
+    assert "orch-result-test" in second_path.name
+    latest_payload = json.loads((queue_root / "reports" / "latest_result_ingestion_report.json").read_text())
+    assert latest_payload["run_id"] == second["run_id"]
+
+
+def test_twenty_rapid_ingest_result_calls_do_not_collide(tmp_path: Path) -> None:
+    queue_root = tmp_path / "agent_tasks"
+    report_paths: list[str] = []
+
+    for index in range(20):
+        task_id = f"ORCH-RESULT-BATCH-{index:02d}"
+        _write_task(queue_root, _approved_packet(task_id=task_id, allowed_paths=["docs/"]))
+        result_path = _write_result(queue_root, _result(task_id=task_id, files_created=[f"docs/{task_id}.md"]))
+        report = ingest_result(queue_root, result_path)
+        report_paths.append(report["report_paths"]["run_report_json"])
+
+    assert len(report_paths) == 20
+    assert len(set(report_paths)) == 20
+    assert all(Path(path).exists() for path in report_paths)
+    assert len(list((queue_root / "reports").glob("result_ingestion_report_*.json"))) == 20
 
 
 def test_ingestor_does_not_execute_commands_from_result(tmp_path: Path) -> None:

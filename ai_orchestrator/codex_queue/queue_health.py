@@ -458,14 +458,12 @@ def _result_packet_summary(root: Path, task_id: str) -> dict[str, Any]:
 
 def _ingestion_summary(root: Path, task_id: str) -> dict[str, Any]:
     reports_dir = safe_queue_path(root, "reports")
-    candidate_paths: list[Path] = []
     latest = reports_dir / "latest_result_ingestion_report.json"
-    if latest.exists():
-        candidate_paths.append(latest)
-    candidate_paths.extend(sorted(reports_dir.glob("result_ingestion_report_*.json"), key=_mtime, reverse=True))
+    candidate_paths = sorted(reports_dir.glob("result_ingestion_report_*.json"), key=_mtime, reverse=True)
 
     matching_reports: list[dict[str, Any]] = []
     errors: list[str] = []
+    latest_payload = _read_mapping(latest) if latest.exists() else None
     for path in candidate_paths:
         payload = _read_mapping(path)
         if not payload:
@@ -490,6 +488,10 @@ def _ingestion_summary(root: Path, task_id: str) -> dict[str, Any]:
                 "allowed": True,
                 "status": "allowed",
                 "path": str(path),
+                "latest_report_path": str(latest) if latest.exists() else None,
+                "latest_report_is_pointer": latest.exists(),
+                "latest_report_task_id": latest_payload.get("task_id") if latest_payload else None,
+                "latest_report_status": latest_payload.get("ingestion_status") if latest_payload else None,
                 "matching_reports": matching_reports,
                 "errors": errors,
             }
@@ -499,6 +501,10 @@ def _ingestion_summary(root: Path, task_id: str) -> dict[str, Any]:
         "allowed": False,
         "status": matching_reports[0]["status"] if matching_reports else "missing",
         "path": matching_reports[0]["path"] if matching_reports else None,
+        "latest_report_path": str(latest) if latest.exists() else None,
+        "latest_report_is_pointer": latest.exists(),
+        "latest_report_task_id": latest_payload.get("task_id") if latest_payload else None,
+        "latest_report_status": latest_payload.get("ingestion_status") if latest_payload else None,
         "matching_reports": matching_reports,
         "errors": errors,
     }

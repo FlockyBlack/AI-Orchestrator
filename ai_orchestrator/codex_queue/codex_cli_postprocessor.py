@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import uuid
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable, Mapping
@@ -19,7 +20,8 @@ from .result_schema import SCHEMA_VERSION as RESULT_SCHEMA_VERSION
 from .result_schema import STATUS_VALUES, default_result
 from .result_validator import validate_result
 
-POSTPROCESS_REPORT_SCHEMA_VERSION = "codex_cli_batch_postprocess_report.v1"
+POSTPROCESS_REPORT_SCHEMA_VERSION = "codex_cli_batch_postprocess_report.v2"
+BATCH_REVIEW_LEDGER_SCHEMA_VERSION = "codex_batch_review_ledger.v1"
 
 IngestResultFunc = Callable[[str | Path, str | Path], dict[str, Any]]
 ReviewResultFunc = Callable[[str | Path, str], dict[str, Any]]
@@ -95,6 +97,7 @@ def postprocess_codex_batch(
         if report["status"] == "ok"
         else "Inspect blocked postprocess entries; fix missing or invalid result artifacts before review."
     )
+    report["batch_review_ledger"] = _build_batch_review_ledger(report)
     return _write_postprocess_report(root, report)
 
 
@@ -133,6 +136,10 @@ def render_postprocess_markdown(report: Mapping[str, Any]) -> str:
             lines.append(f"  - result: `{entry['result_path']}`")
         if entry.get("execution_report_json"):
             lines.append(f"  - execution_report: `{entry['execution_report_json']}`")
+        if entry.get("ingestion_report_json"):
+            lines.append(f"  - ingestion_report: `{entry['ingestion_report_json']}`")
+        if entry.get("review_report_json"):
+            lines.append(f"  - review_report: `{entry['review_report_json']}`")
         if entry.get("last_message_path"):
             lines.append(f"  - last_message: `{entry['last_message_path']}`")
         if entry.get("errors"):
@@ -146,6 +153,12 @@ def render_postprocess_markdown(report: Mapping[str, Any]) -> str:
         lines.extend(f"- {warning}" for warning in report["warnings"])
     lines.extend(
         [
+            "",
+            "## Batch Ledger",
+            "",
+            f"- batch_review_ledger: `{_as_mapping(report.get('report_paths')).get('batch_review_ledger_json')}`",
+            f"- latest_batch_review_ledger_pointer: `{_as_mapping(report.get('report_paths')).get('latest_batch_review_ledger_json')}`",
+            "",
             "",
             "## Safety",
             "",
@@ -227,6 +240,8 @@ def _postprocess_execution(
         ingestion_report = ingest_result_func(root, result_path)
         entry["ingestion_status"] = ingestion_report.get("ingestion_status")
         entry["ingestion_report_paths"] = ingestion_report.get("report_paths", {})
+        entry["ingestion_report_json"] = _as_mapping(entry["ingestion_report_paths"]).get("run_report_json")
+        entry["ingestion_latest_report_json"] = _as_mapping(entry["ingestion_report_paths"]).get("latest_report_json")
         entry["ingested"] = bool(ingestion_report.get("accepted"))
         if not entry["ingested"]:
             entry["errors"].extend(str(error) for error in ingestion_report.get("errors", []))
@@ -235,6 +250,7 @@ def _postprocess_execution(
         review_func = review_result_func or _default_review_result_func
         review_report = review_func(root, safe_task_id)
         entry["review_report_paths"] = review_report.get("report_paths", {})
+        entry["review_report_json"] = _as_mapping(entry["review_report_paths"]).get("review_json")
         entry["review_recommendation"] = review_report.get("recommendation")
         entry["reviewed"] = True
 
@@ -482,7 +498,10 @@ def _entry_from_execution(execution: Mapping[str, Any]) -> dict[str, Any]:
         "last_message_path": None,
         "result_validation": None,
         "ingestion_status": None,
+        "ingestion_report_json": None,
+        "ingestion_latest_report_json": None,
         "ingestion_report_paths": {},
+        "review_report_json": None,
         "review_report_paths": {},
         "review_recommendation": None,
         "errors": [],
@@ -637,6 +656,10 @@ def _base_report(
         "blocked_count": 0,
         "skipped_count": 0,
         "result_json_written_count": 0,
+        "batch_review_ledger": {
+            "schema_version": BATCH_REVIEW_LEDGER_SCHEMA_VERSION,
+            "tasks": [],
+        },
         "task_marked_done_automatically": False,
         "review_approved_automatically": False,
         "git_commit_performed": False,
@@ -670,19 +693,139 @@ def _finalize_counts(report: dict[str, Any]) -> None:
     report["result_json_written_count"] = report["bridged_count"]
 
 
+def _build_batch_review_ledger(report: Mapping[str, Any]) -> dict[str, Any]:
+    entries = list(report.get("task_results", []))
+    task_ids = [str(entry.get("task_id") or "") for entry in entries if entry.get("task_id")]
+    tasks = [_ledger_task(entry) for entry in entries]
+    blocked_task_ids = [
+        str(task["task_id"])
+        for task in tasks
+        if task.get("postprocess_status") == "blocked"
+    ]
+    failed_task_ids = [
+        str(task["task_id"])
+        for task in tasks
+        if task.get("completed_execution") is False and task.get("postprocess_status") != "skipped"
+    ]
+    return {
+        "schema_version": BATCH_REVIEW_LEDGER_SCHEMA_VERSION,
+        "run_id": report.get("run_id"),
+        "batch_report_path": report.get("batch_report_path"),
+        "batch_run_id": report.get("batch_run_id"),
+        "batch_status": report.get("batch_status"),
+        "batch_execution_status": report.get("batch_execution_status"),
+        "task_ids": task_ids,
+        "task_count": len(task_ids),
+        "completed_execution_count": report.get("completed_execution_count", 0),
+        "bridged_count": report.get("bridged_count", 0),
+        "ingested_count": report.get("ingested_count", 0),
+        "reviewed_count": report.get("reviewed_count", 0),
+        "blocked_count": report.get("blocked_count", 0),
+        "skipped_count": report.get("skipped_count", 0),
+        "tasks": tasks,
+        "blocked_task_ids": blocked_task_ids,
+        "failed_task_ids": failed_task_ids,
+        "blocked_or_failed_task_ids": sorted(set(blocked_task_ids + failed_task_ids)),
+        "next_operator_action": report.get("next_operator_action", ""),
+        "latest_reports_are_pointers_only": True,
+        "stable_evidence_required": [
+            "batch_report_path",
+            "execution_report_json",
+            "result_path",
+            "ingestion_report_json",
+            "review_report_json",
+        ],
+        "postprocess_safety": {
+            "task_marked_done_automatically": bool(report.get("task_marked_done_automatically")),
+            "review_approved_automatically": bool(report.get("review_approved_automatically")),
+            "git_commit_performed": bool(report.get("git_commit_performed")),
+            "git_push_performed": bool(report.get("git_push_performed")),
+            "codex_exec_invoked": bool(report.get("codex_exec_invoked")),
+            "codex_invocation_count": int(report.get("codex_invocation_count") or 0),
+            "openrouter_calls_performed": int(report.get("openrouter_calls_performed") or 0),
+            "polymarket_api_calls_performed": int(report.get("polymarket_api_calls_performed") or 0),
+        },
+    }
+
+
+def _ledger_task(entry: Mapping[str, Any]) -> dict[str, Any]:
+    validation = entry.get("result_validation")
+    validation_status = "not_validated"
+    if isinstance(validation, Mapping):
+        validation_status = "valid" if validation.get("valid") is True else "invalid"
+    ingestion_paths = _as_mapping(entry.get("ingestion_report_paths"))
+    review_paths = _as_mapping(entry.get("review_report_paths"))
+    return {
+        "task_id": entry.get("task_id"),
+        "postprocess_status": entry.get("postprocess_status"),
+        "completed_execution": bool(entry.get("completed_execution")),
+        "execution_report_json": entry.get("execution_report_json"),
+        "bridged_result_json_path": entry.get("result_path"),
+        "result_path": entry.get("result_path"),
+        "result_validation_status": validation_status,
+        "result_validation": validation if isinstance(validation, Mapping) else None,
+        "ingestion_status": entry.get("ingestion_status"),
+        "ingestion_report_json": entry.get("ingestion_report_json") or ingestion_paths.get("run_report_json"),
+        "ingestion_report_paths": dict(ingestion_paths),
+        "ingestion_latest_report_json": entry.get("ingestion_latest_report_json") or ingestion_paths.get("latest_report_json"),
+        "ingestion_latest_report_is_pointer": bool(
+            entry.get("ingestion_latest_report_json") or ingestion_paths.get("latest_report_json")
+        ),
+        "review_report_json": entry.get("review_report_json") or review_paths.get("review_json"),
+        "review_report_paths": dict(review_paths),
+        "review_recommendation": entry.get("review_recommendation"),
+        "blocked": entry.get("postprocess_status") == "blocked",
+        "errors": list(entry.get("errors", [])),
+        "warnings": list(entry.get("warnings", [])),
+    }
+
+
 def _write_postprocess_report(root: Path, report: dict[str, Any]) -> dict[str, Any]:
     payload = dict(report)
     reports_dir = safe_queue_path(root, "reports")
     json_path = reports_dir / f"post_batch_review_summary_{payload['run_id']}.json"
     md_path = reports_dir / f"post_batch_review_summary_{payload['run_id']}.md"
+    ledger_path = reports_dir / f"batch_review_ledger_{payload['run_id']}.json"
     latest_json_path = reports_dir / "latest_post_batch_review_summary.json"
     latest_md_path = reports_dir / "latest_post_batch_review_summary.md"
+    latest_ledger_path = reports_dir / "latest_batch_review_ledger.json"
     payload["report_paths"] = {
         "post_batch_summary_json": str(json_path),
         "post_batch_summary_md": str(md_path),
+        "batch_review_ledger_json": str(ledger_path),
         "latest_post_batch_summary_json": str(latest_json_path),
         "latest_post_batch_summary_md": str(latest_md_path),
+        "latest_batch_review_ledger_json": str(latest_ledger_path),
     }
+    payload["report_path_roles"] = {
+        "post_batch_summary_json": "stable_evidence",
+        "post_batch_summary_md": "stable_evidence",
+        "batch_review_ledger_json": "stable_evidence",
+        "latest_post_batch_summary_json": "mutable_pointer",
+        "latest_post_batch_summary_md": "mutable_pointer",
+        "latest_batch_review_ledger_json": "mutable_pointer",
+    }
+    ledger = dict(payload.get("batch_review_ledger", {}))
+    ledger["next_operator_action"] = payload.get("next_operator_action", "")
+    ledger["report_paths"] = {
+        "batch_review_ledger_json": str(ledger_path),
+        "latest_batch_review_ledger_json": str(latest_ledger_path),
+        "latest_batch_review_ledger_role": "mutable_pointer",
+        "post_batch_summary_json": str(json_path),
+    }
+    ledger["stable_evidence_paths"] = {
+        "post_batch_summary_json": str(json_path),
+        "batch_review_ledger_json": str(ledger_path),
+        "batch_report_path": payload.get("batch_report_path"),
+    }
+    ledger["mutable_pointer_paths"] = {
+        "latest_post_batch_summary_json": str(latest_json_path),
+        "latest_post_batch_summary_md": str(latest_md_path),
+        "latest_batch_review_ledger_json": str(latest_ledger_path),
+    }
+    payload["batch_review_ledger"] = ledger
+    write_json_atomic(ledger_path, ledger)
+    write_json_atomic(latest_ledger_path, ledger)
     write_json_atomic(json_path, payload)
     write_text_atomic(md_path, render_postprocess_markdown(payload))
     write_json_atomic(latest_json_path, payload)
@@ -691,4 +834,9 @@ def _write_postprocess_report(root: Path, report: dict[str, Any]) -> dict[str, A
 
 
 def _run_id() -> str:
-    return datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    timestamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
+    return f"{timestamp}_{uuid.uuid4().hex[:8]}"
+
+
+def _as_mapping(value: Any) -> Mapping[str, Any]:
+    return value if isinstance(value, Mapping) else {}

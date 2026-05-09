@@ -2,10 +2,14 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
+import uuid
+from datetime import datetime, timezone
 from pathlib import Path, PurePosixPath, PureWindowsPath
 from typing import Any, Mapping
 
-from .report_writer import ensure_queue_directories, utc_run_id, write_json, write_text
+from .files import write_json_atomic, write_text_atomic
+from .report_writer import ensure_queue_directories
 from .result_schema import FILE_LIST_FIELDS, SCHEMA_VERSION as RESULT_SCHEMA_VERSION
 from .result_validator import validate_result
 from .schema import SCHEMA_VERSION as TASK_PACKET_SCHEMA_VERSION
@@ -44,7 +48,6 @@ RUNTIME_DISPATCHER_TOKENS = (
 
 def ingest_result(queue_root: str | Path, result_path: str | Path) -> dict[str, Any]:
     root = ensure_queue_directories(queue_root)
-    run_id = utc_run_id()
     result_file = Path(result_path)
     errors: list[str] = []
 
@@ -53,6 +56,7 @@ def ingest_result(queue_root: str | Path, result_path: str | Path) -> dict[str, 
     errors.extend(result_validation.errors)
 
     task_id = result_payload.get("task_id") if isinstance(result_payload, Mapping) else None
+    run_id = _ingestion_report_id(task_id)
     task_match: dict[str, Any] = {
         "found": False,
         "task_id": task_id,
@@ -207,15 +211,20 @@ def write_result_ingestion_reports(queue_root: str | Path, report: Mapping[str, 
     }
     payload = dict(report)
     payload["report_paths"] = report_paths
-    write_json(run_json, payload)
-    write_json(latest_json, payload)
-    write_text(latest_md, render_result_ingestion_markdown(payload))
+    payload["report_path_roles"] = {
+        "run_report_json": "stable_evidence",
+        "latest_report_json": "mutable_pointer",
+        "latest_report_md": "mutable_pointer",
+    }
+    write_json_atomic(run_json, payload, overwrite=False)
+    write_json_atomic(latest_json, payload)
+    write_text_atomic(latest_md, render_result_ingestion_markdown(payload))
     return report_paths
 
 
 def render_result_ingestion_markdown(report: Mapping[str, Any]) -> str:
     lines = [
-        "# Latest Codex Result Ingestion Report",
+        "# Codex Result Ingestion Report",
         "",
         f"- run_id: `{report['run_id']}`",
         f"- ingestion_status: `{report['ingestion_status']}`",
@@ -248,6 +257,8 @@ def render_result_ingestion_markdown(report: Mapping[str, Any]) -> str:
             "This ingestor is local-only. It loads a manually supplied result packet, checks that it matches an existing task packet, validates declared safety confirmations, validates declared changed paths against the task packet path rules, and writes review reports.",
             "",
             "It does not execute Codex, use Codex app-server, run commands listed in the result, inspect git diffs deeply, move task packets, mark tasks done, start background workers, add schedulers, call network services, or integrate with external trackers.",
+            "",
+            "The timestamped run report is stable evidence. latest_result_ingestion_report.* files are mutable convenience pointers only and must not be used as batch-wide evidence.",
             "",
         ]
     )
@@ -320,6 +331,18 @@ def _normalize_rule(rule: str) -> str:
 def _is_runtime_or_dispatcher_like(path: str) -> bool:
     parts = [part.lower() for part in PurePosixPath(path).parts]
     return any(token in part for token in RUNTIME_DISPATCHER_TOKENS for part in parts)
+
+
+def _ingestion_report_id(task_id: Any) -> str:
+    timestamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
+    return f"{_task_slug(task_id)}_{timestamp}_{uuid.uuid4().hex[:8]}"
+
+
+def _task_slug(task_id: Any) -> str:
+    if not isinstance(task_id, str) or not task_id.strip():
+        return "unknown-task"
+    slug = re.sub(r"[^A-Za-z0-9]+", "-", task_id.strip()).strip("-").lower()
+    return slug[:80] or "unknown-task"
 
 
 def main(argv: list[str] | None = None) -> int:

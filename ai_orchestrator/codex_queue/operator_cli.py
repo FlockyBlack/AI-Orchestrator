@@ -951,7 +951,7 @@ def _cmd_mark_done(args: argparse.Namespace) -> dict[str, Any]:
 
     ingestion = find_allowed_ingestion_report(root, task_id)
     if not ingestion["allowed"]:
-        errors.append("latest or task-specific ingestion report status must be allowed")
+        errors.append("stable task-specific ingestion report status must be allowed")
 
     match = find_task_packet(root, task_id, states=("inbox", "approved", "planned", "running", "review", "blocked"))
     if not match["found"]:
@@ -1075,17 +1075,19 @@ def write_queue_status(queue_root: str | Path) -> dict[str, Any]:
         safe_queue_path(root, "reports", "latest_dry_run_report.json"),
         tuple(safe_queue_path(root, "reports").glob("dry_run_report_*.json")),
     )
-    latest_ingestion = _latest_existing(
-        safe_queue_path(root, "reports", "latest_result_ingestion_report.json"),
-        tuple(safe_queue_path(root, "reports").glob("result_ingestion_report_*.json")),
-    )
+    latest_ingestion_pointer = safe_queue_path(root, "reports", "latest_result_ingestion_report.json")
+    latest_stable_ingestion = _latest_stable_ingestion_report(root)
     report = {
         "run_id": _run_id(),
         "queue_root": str(root),
         "counts": counts,
         "artifact_counts": artifact_counts,
         "latest_dry_run_report_path": str(latest_dry_run) if latest_dry_run else None,
-        "latest_result_ingestion_report_path": str(latest_ingestion) if latest_ingestion else None,
+        "latest_result_ingestion_report_path": str(latest_ingestion_pointer) if latest_ingestion_pointer.exists() else None,
+        "latest_result_ingestion_report_is_pointer": latest_ingestion_pointer.exists(),
+        "latest_stable_result_ingestion_report_path": (
+            str(latest_stable_ingestion) if latest_stable_ingestion else None
+        ),
         "codex_execution_added": False,
         "codex_app_server_used": False,
         "automatic_execution_enabled": False,
@@ -1184,17 +1186,23 @@ def find_allowed_ingestion_report(queue_root: str | Path, task_id: str) -> dict[
     root = ensure_queue_directories(queue_root)
     safe_task_id = validate_task_id(task_id)
     reports_dir = safe_queue_path(root, "reports")
-    candidate_paths: list[Path] = []
     latest = reports_dir / "latest_result_ingestion_report.json"
-    if latest.exists():
-        candidate_paths.append(latest)
-    candidate_paths.extend(sorted(reports_dir.glob("result_ingestion_report_*.json"), key=_mtime, reverse=True))
+    candidate_paths = sorted(reports_dir.glob("result_ingestion_report_*.json"), key=_mtime, reverse=True)
 
     latest_seen_path: str | None = str(latest) if latest.exists() else None
     latest_seen_status: str | None = None
     latest_seen_task_id: str | None = None
     matching_reports: list[dict[str, Any]] = []
     errors: list[str] = []
+
+    if latest.exists():
+        try:
+            latest_payload = read_json(latest)
+            if isinstance(latest_payload, Mapping):
+                latest_seen_status = str(latest_payload.get("ingestion_status"))
+                latest_seen_task_id = str(latest_payload.get("task_id"))
+        except json.JSONDecodeError as exc:
+            errors.append(f"{latest}: invalid JSON: {exc}")
 
     for path in candidate_paths:
         try:
@@ -1204,9 +1212,6 @@ def find_allowed_ingestion_report(queue_root: str | Path, task_id: str) -> dict[
             continue
         if not isinstance(payload, Mapping):
             continue
-        if path == latest:
-            latest_seen_status = str(payload.get("ingestion_status"))
-            latest_seen_task_id = str(payload.get("task_id"))
         if payload.get("task_id") != safe_task_id:
             continue
         allowed = _ingestion_report_allowed(payload)
@@ -1225,6 +1230,7 @@ def find_allowed_ingestion_report(queue_root: str | Path, task_id: str) -> dict[
                 "status": "allowed",
                 "path": str(path),
                 "latest_report_path": latest_seen_path,
+                "latest_report_is_pointer": latest.exists(),
                 "latest_report_task_id": latest_seen_task_id,
                 "latest_report_status": latest_seen_status,
                 "matching_reports": matching_reports,
@@ -1236,6 +1242,7 @@ def find_allowed_ingestion_report(queue_root: str | Path, task_id: str) -> dict[
         "status": matching_reports[0]["status"] if matching_reports else "missing",
         "path": matching_reports[0]["path"] if matching_reports else None,
         "latest_report_path": latest_seen_path,
+        "latest_report_is_pointer": latest.exists(),
         "latest_report_task_id": latest_seen_task_id,
         "latest_report_status": latest_seen_status,
         "matching_reports": matching_reports,
@@ -1280,7 +1287,8 @@ def render_queue_status_markdown(report: Mapping[str, Any]) -> str:
         f"- run_id: `{report['run_id']}`",
         f"- queue_root: `{report['queue_root']}`",
         f"- latest_dry_run_report: `{report.get('latest_dry_run_report_path')}`",
-        f"- latest_result_ingestion_report: `{report.get('latest_result_ingestion_report_path')}`",
+        f"- latest_result_ingestion_report_pointer: `{report.get('latest_result_ingestion_report_path')}`",
+        f"- latest_stable_result_ingestion_report: `{report.get('latest_stable_result_ingestion_report_path')}`",
         "",
         "## Task Counts",
         "",
@@ -1492,6 +1500,14 @@ def _latest_existing(latest_path: Path, candidates: tuple[Path, ...]) -> Path | 
     if not existing:
         return None
     return max(existing, key=_mtime)
+
+
+def _latest_stable_ingestion_report(queue_root: str | Path) -> Path | None:
+    reports_dir = safe_queue_path(queue_root, "reports")
+    candidates = [path for path in reports_dir.glob("result_ingestion_report_*.json") if path.exists()]
+    if not candidates:
+        return None
+    return max(candidates, key=_mtime)
 
 
 def _mtime(path: Path) -> float:
