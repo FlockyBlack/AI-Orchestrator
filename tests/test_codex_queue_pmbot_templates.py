@@ -13,6 +13,8 @@ from ai_orchestrator.codex_queue.pmbot_templates import (
     PMBOT_NEXT_TWENTY_TASKS,
     PMBOT_NEXT_TWENTY_TASK_IDS,
     PMBOT_PROJECT,
+    PMBOT_REHEARSAL_PREP_TASKS,
+    PMBOT_REHEARSAL_PREP_TASK_IDS,
     PMBOT_REQUIRED_FORBIDDEN_ACTIONS,
     PMBOT_SUPERVISED_LIVE_READINESS_TASKS,
     PMBOT_SUPERVISED_LIVE_READINESS_TASK_IDS,
@@ -344,6 +346,70 @@ def test_crypto_live_readiness_templates_cover_requested_task_ids_and_stay_local
         seen_templates.add(str(spec["template"]))
 
 
+def test_rehearsal_prep_templates_cover_requested_task_ids_and_stay_local_only() -> None:
+    expected_task_ids = (
+        "PMBOT-REHEARSAL-001-READ-ONLY-REHEARSAL-SCENARIO-CONTRACT-LOCAL-ONLY",
+        "PMBOT-REHEARSAL-002-REHEARSAL-MARKET-PACKET-SCHEMA-LOCAL-ONLY",
+        "PMBOT-REHEARSAL-003-REHEARSAL-SOURCE-EVIDENCE-BUNDLE-LOCAL-ONLY",
+        "PMBOT-REHEARSAL-004-REHEARSAL-OPERATOR-APPROVAL-RECORD-LOCAL-ONLY",
+        "PMBOT-REHEARSAL-005-REHEARSAL-STOP-CONDITION-TRIGGER-MATRIX-LOCAL-ONLY",
+        "PMBOT-REHEARSAL-006-REHEARSAL-STALENESS-CASE-SET-LOCAL-ONLY",
+        "PMBOT-REHEARSAL-007-REHEARSAL-CONTRADICTION-CASE-SET-LOCAL-ONLY",
+        "PMBOT-REHEARSAL-008-REHEARSAL-EVIDENCE-RETENTION-LEDGER-LOCAL-ONLY",
+        "PMBOT-REHEARSAL-009-REHEARSAL-VALIDATION-REPLAY-PACKET-LOCAL-ONLY",
+        "PMBOT-REHEARSAL-010-REHEARSAL-CI-SAFE-VALIDATION-RUNNER-LOCAL-ONLY",
+        "PMBOT-REHEARSAL-011-REHEARSAL-READINESS-DASHBOARD-CARD-LOCAL-ONLY",
+        "PMBOT-REHEARSAL-012-REHEARSAL-MORNING-OPERATOR-CARD-LOCAL-ONLY",
+        "PMBOT-REHEARSAL-013-REHEARSAL-ACCEPTANCE-REPORT-LOCAL-ONLY",
+        "PMBOT-REHEARSAL-014-REHEARSAL-SOURCE-QUALITY-LINKS-LOCAL-ONLY",
+        "PMBOT-REHEARSAL-015-REHEARSAL-PAPERLIVE-ACCOUNTING-LINKS-LOCAL-ONLY",
+        "PMBOT-REHEARSAL-016-REHEARSAL-SIMULATED-DECISION-REPLAY-LINKS-LOCAL-ONLY",
+        "PMBOT-REHEARSAL-017-REHEARSAL-FORBIDDEN-ACTION-SCAN-LOCAL-ONLY",
+        "PMBOT-REHEARSAL-018-REHEARSAL-SENSITIVE-PATH-AUDIT-LOCAL-ONLY",
+        "PMBOT-REHEARSAL-019-REHEARSAL-FAILURE-AND-ROLLBACK-PLAYBOOK-LOCAL-ONLY",
+        "PMBOT-REHEARSAL-020-REHEARSAL-NEXT-ACTION-BACKLOG-LOCAL-ONLY",
+    )
+
+    assert PMBOT_REHEARSAL_PREP_TASK_IDS == expected_task_ids
+    assert tuple(str(spec["task_id"]) for spec in PMBOT_REHEARSAL_PREP_TASKS) == expected_task_ids
+
+    seen_templates: set[str] = set()
+    for spec in PMBOT_REHEARSAL_PREP_TASKS:
+        packet = build_pmbot_task_packet(str(spec["task_id"]), str(spec["template"]))
+        text = _intent_text(packet)
+
+        assert str(spec["template"]) in SUPPORTED_PMBOT_TEMPLATES
+        assert str(spec["template"]) not in seen_templates
+        assert validate_packet(packet).valid is True
+        assert classify_packet(_approved_view(packet)).allowed is True
+        assert packet["project"] == PMBOT_PROJECT
+        assert packet["task_template"]["name"] == spec["template"]
+        assert all(value is False for value in packet["risk_flags"].values())
+        assert "runtime/" in packet["repo"]["forbidden_paths"]
+        assert "dispatcher/" in packet["repo"]["forbidden_paths"]
+        assert "run_codex/" in packet["repo"]["forbidden_paths"]
+        assert "pm_bot/llm/" in packet["repo"]["forbidden_paths"]
+        assert "python -m compileall pm_bot tests" in packet["validation_commands"]
+        assert "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py" in packet["validation_commands"]
+        assert "No network calls." in packet["safety_boundaries"]
+        assert "No OpenRouter calls." in packet["safety_boundaries"]
+        assert "No Polymarket API calls." in packet["safety_boundaries"]
+        assert "No authenticated endpoints." in packet["safety_boundaries"]
+        assert "No wallet or private-key access." in packet["safety_boundaries"]
+        assert "No trading endpoints." in packet["safety_boundaries"]
+        assert "No runtime/dispatcher/run_codex changes." in packet["safety_boundaries"]
+        assert "No scheduler or background worker." in packet["safety_boundaries"]
+        assert "No browser automation." in packet["safety_boundaries"]
+        assert "No market recommendation, forecast scoring, action guidance, or selection advice." in packet[
+            "safety_boundaries"
+        ]
+        assert "No probability, EV, edge, or confidence scoring." in packet["safety_boundaries"]
+        assert "No real-money actions." in packet["safety_boundaries"]
+        for forbidden_word in ("buy", "sell", "hold", "enter", "exit"):
+            assert forbidden_word not in text
+        seen_templates.add(str(spec["template"]))
+
+
 def test_crypto_market_class_capture_queue_template_matches_local_only_scope() -> None:
     packet = build_pmbot_task_packet(
         "PMBOT-CRYPTO-PILOT-001-CRYPTO-MARKET-CLASS-CAPTURE-TEMPLATE-LOCAL-ONLY",
@@ -458,5 +524,38 @@ def test_create_all_crypto_live_readiness_tasks_then_approve_and_plan(tmp_path: 
 
     assert main(["plan", "--queue-root", str(queue_root)]) == 0
     for task_id in PMBOT_CRYPTO_LIVE_READINESS_TASK_IDS:
+        assert (queue_root / "planned" / f"{task_id}.plan.json").exists()
+        assert (queue_root / "planned" / f"{task_id}.handoff_prompt.md").exists()
+
+
+def test_create_all_rehearsal_prep_tasks_then_approve_and_plan(tmp_path: Path) -> None:
+    queue_root = tmp_path / "agent_tasks"
+    for spec in PMBOT_REHEARSAL_PREP_TASKS:
+        task_id = str(spec["task_id"])
+        template = str(spec["template"])
+        assert (
+            main(
+                [
+                    "create-pmbot-task",
+                    "--queue-root",
+                    str(queue_root),
+                    "--task-id",
+                    task_id,
+                    "--template",
+                    template,
+                    "--expected-head",
+                    "603bd0e235594688ce1796b79e9f597a5f9ea465",
+                ]
+            )
+            == 0
+        )
+        assert (queue_root / "inbox" / f"{task_id}.task.json").exists()
+
+    for task_id in PMBOT_REHEARSAL_PREP_TASK_IDS:
+        assert main(["approve", "--queue-root", str(queue_root), "--task-id", task_id]) == 0
+        assert (queue_root / "approved" / f"{task_id}.task.json").exists()
+
+    assert main(["plan", "--queue-root", str(queue_root)]) == 0
+    for task_id in PMBOT_REHEARSAL_PREP_TASK_IDS:
         assert (queue_root / "planned" / f"{task_id}.plan.json").exists()
         assert (queue_root / "planned" / f"{task_id}.handoff_prompt.md").exists()

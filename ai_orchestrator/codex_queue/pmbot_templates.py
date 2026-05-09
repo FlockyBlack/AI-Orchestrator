@@ -80,6 +80,26 @@ CRYPTO_LIVE_MORNING_REVIEW_CARD_TEMPLATE = "crypto-live-morning-review-card"
 CRYPTO_LIVE_NIGHT_BATCH_ACCEPTANCE_REPORT_TEMPLATE = "crypto-live-night-batch-acceptance-report"
 CRYPTO_LIVE_REHEARSAL_TO_SOURCE_QUALITY_LINKS_TEMPLATE = "crypto-live-rehearsal-to-source-quality-links"
 CRYPTO_LIVE_READINESS_NEXT_ACTION_BACKLOG_TEMPLATE = "crypto-live-readiness-next-action-backlog"
+REHEARSAL_READ_ONLY_SCENARIO_CONTRACT_TEMPLATE = "rehearsal-read-only-scenario-contract"
+REHEARSAL_MARKET_PACKET_SCHEMA_TEMPLATE = "rehearsal-market-packet-schema"
+REHEARSAL_SOURCE_EVIDENCE_BUNDLE_TEMPLATE = "rehearsal-source-evidence-bundle"
+REHEARSAL_OPERATOR_APPROVAL_RECORD_TEMPLATE = "rehearsal-operator-approval-record"
+REHEARSAL_STOP_CONDITION_TRIGGER_MATRIX_TEMPLATE = "rehearsal-stop-condition-trigger-matrix"
+REHEARSAL_STALENESS_CASE_SET_TEMPLATE = "rehearsal-staleness-case-set"
+REHEARSAL_CONTRADICTION_CASE_SET_TEMPLATE = "rehearsal-contradiction-case-set"
+REHEARSAL_EVIDENCE_RETENTION_LEDGER_TEMPLATE = "rehearsal-evidence-retention-ledger"
+REHEARSAL_VALIDATION_REPLAY_PACKET_TEMPLATE = "rehearsal-validation-replay-packet"
+REHEARSAL_CI_SAFE_VALIDATION_RUNNER_TEMPLATE = "rehearsal-ci-safe-validation-runner"
+REHEARSAL_READINESS_DASHBOARD_CARD_TEMPLATE = "rehearsal-readiness-dashboard-card"
+REHEARSAL_MORNING_OPERATOR_CARD_TEMPLATE = "rehearsal-morning-operator-card"
+REHEARSAL_ACCEPTANCE_REPORT_TEMPLATE = "rehearsal-acceptance-report"
+REHEARSAL_SOURCE_QUALITY_LINKS_TEMPLATE = "rehearsal-source-quality-links"
+REHEARSAL_PAPERLIVE_ACCOUNTING_LINKS_TEMPLATE = "rehearsal-paperlive-accounting-links"
+REHEARSAL_SIMULATED_DECISION_REPLAY_LINKS_TEMPLATE = "rehearsal-simulated-decision-replay-links"
+REHEARSAL_FORBIDDEN_ACTION_SCAN_TEMPLATE = "rehearsal-forbidden-action-scan"
+REHEARSAL_SENSITIVE_PATH_AUDIT_TEMPLATE = "rehearsal-sensitive-path-audit"
+REHEARSAL_FAILURE_AND_ROLLBACK_PLAYBOOK_TEMPLATE = "rehearsal-failure-and-rollback-playbook"
+REHEARSAL_NEXT_ACTION_BACKLOG_TEMPLATE = "rehearsal-next-action-backlog"
 
 SUPPORTED_PMBOT_TEMPLATES = (
     WEATHER_SOURCE_MONITORING_TEMPLATE,
@@ -153,6 +173,26 @@ SUPPORTED_PMBOT_TEMPLATES = (
     CRYPTO_LIVE_NIGHT_BATCH_ACCEPTANCE_REPORT_TEMPLATE,
     CRYPTO_LIVE_REHEARSAL_TO_SOURCE_QUALITY_LINKS_TEMPLATE,
     CRYPTO_LIVE_READINESS_NEXT_ACTION_BACKLOG_TEMPLATE,
+    REHEARSAL_READ_ONLY_SCENARIO_CONTRACT_TEMPLATE,
+    REHEARSAL_MARKET_PACKET_SCHEMA_TEMPLATE,
+    REHEARSAL_SOURCE_EVIDENCE_BUNDLE_TEMPLATE,
+    REHEARSAL_OPERATOR_APPROVAL_RECORD_TEMPLATE,
+    REHEARSAL_STOP_CONDITION_TRIGGER_MATRIX_TEMPLATE,
+    REHEARSAL_STALENESS_CASE_SET_TEMPLATE,
+    REHEARSAL_CONTRADICTION_CASE_SET_TEMPLATE,
+    REHEARSAL_EVIDENCE_RETENTION_LEDGER_TEMPLATE,
+    REHEARSAL_VALIDATION_REPLAY_PACKET_TEMPLATE,
+    REHEARSAL_CI_SAFE_VALIDATION_RUNNER_TEMPLATE,
+    REHEARSAL_READINESS_DASHBOARD_CARD_TEMPLATE,
+    REHEARSAL_MORNING_OPERATOR_CARD_TEMPLATE,
+    REHEARSAL_ACCEPTANCE_REPORT_TEMPLATE,
+    REHEARSAL_SOURCE_QUALITY_LINKS_TEMPLATE,
+    REHEARSAL_PAPERLIVE_ACCOUNTING_LINKS_TEMPLATE,
+    REHEARSAL_SIMULATED_DECISION_REPLAY_LINKS_TEMPLATE,
+    REHEARSAL_FORBIDDEN_ACTION_SCAN_TEMPLATE,
+    REHEARSAL_SENSITIVE_PATH_AUDIT_TEMPLATE,
+    REHEARSAL_FAILURE_AND_ROLLBACK_PLAYBOOK_TEMPLATE,
+    REHEARSAL_NEXT_ACTION_BACKLOG_TEMPLATE,
 )
 
 WEATHER_SOURCE_MONITORING_TASK_ID = (
@@ -1064,7 +1104,255 @@ PMBOT_CRYPTO_LIVE_READINESS_TASKS: tuple[dict[str, Any], ...] = (
     },
 )
 
-PMBOT_TASK_SPECS = PMBOT_NIGHT_BATCH_TASKS + PMBOT_SUPERVISED_LIVE_READINESS_TASKS + PMBOT_CRYPTO_LIVE_READINESS_TASKS
+PMBOT_REHEARSAL_PREP_TASKS: tuple[dict[str, Any], ...] = (
+    {
+        "task_id": "PMBOT-REHEARSAL-001-READ-ONLY-REHEARSAL-SCENARIO-CONTRACT-LOCAL-ONLY",
+        "template": REHEARSAL_READ_ONLY_SCENARIO_CONTRACT_TEMPLATE,
+        "title": "PMBOT read-only rehearsal scenario contract",
+        "objective": "Add a deterministic local scenario contract for the first read-only supervised-live rehearsal.",
+        "summary": "Prepare a local PMBOT read-only rehearsal scenario contract for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/readiness/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Read-only rehearsal scenario contract docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-REHEARSAL-002-REHEARSAL-MARKET-PACKET-SCHEMA-LOCAL-ONLY",
+        "template": REHEARSAL_MARKET_PACKET_SCHEMA_TEMPLATE,
+        "title": "PMBOT rehearsal market packet schema",
+        "objective": "Add a deterministic local schema for descriptive rehearsal market packets.",
+        "summary": "Prepare a local PMBOT rehearsal market packet schema for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/readiness/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Rehearsal market packet schema docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-REHEARSAL-003-REHEARSAL-SOURCE-EVIDENCE-BUNDLE-LOCAL-ONLY",
+        "template": REHEARSAL_SOURCE_EVIDENCE_BUNDLE_TEMPLATE,
+        "title": "PMBOT rehearsal source evidence bundle",
+        "objective": "Add a deterministic local source evidence bundle for rehearsal review.",
+        "summary": "Prepare a local PMBOT rehearsal source evidence bundle for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/readiness/", "pm_bot/source_quality/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Rehearsal source evidence bundle docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-REHEARSAL-004-REHEARSAL-OPERATOR-APPROVAL-RECORD-LOCAL-ONLY",
+        "template": REHEARSAL_OPERATOR_APPROVAL_RECORD_TEMPLATE,
+        "title": "PMBOT rehearsal operator approval record",
+        "objective": "Add a deterministic local operator approval record for read-only rehearsal control.",
+        "summary": "Prepare a local PMBOT rehearsal operator approval record for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/readiness/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Rehearsal operator approval record docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-REHEARSAL-005-REHEARSAL-STOP-CONDITION-TRIGGER-MATRIX-LOCAL-ONLY",
+        "template": REHEARSAL_STOP_CONDITION_TRIGGER_MATRIX_TEMPLATE,
+        "title": "PMBOT rehearsal stop condition trigger matrix",
+        "objective": "Add a deterministic local stop condition trigger matrix for rehearsal control.",
+        "summary": "Prepare a local PMBOT rehearsal stop condition trigger matrix for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/readiness/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Rehearsal stop condition trigger matrix docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-REHEARSAL-006-REHEARSAL-STALENESS-CASE-SET-LOCAL-ONLY",
+        "template": REHEARSAL_STALENESS_CASE_SET_TEMPLATE,
+        "title": "PMBOT rehearsal staleness case set",
+        "objective": "Add a deterministic local staleness case set for rehearsal source review.",
+        "summary": "Prepare a local PMBOT rehearsal staleness case set for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/source_quality/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Rehearsal staleness case set docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-REHEARSAL-007-REHEARSAL-CONTRADICTION-CASE-SET-LOCAL-ONLY",
+        "template": REHEARSAL_CONTRADICTION_CASE_SET_TEMPLATE,
+        "title": "PMBOT rehearsal contradiction case set",
+        "objective": "Add a deterministic local contradiction case set for rehearsal source review.",
+        "summary": "Prepare a local PMBOT rehearsal contradiction case set for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/source_quality/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Rehearsal contradiction case set docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-REHEARSAL-008-REHEARSAL-EVIDENCE-RETENTION-LEDGER-LOCAL-ONLY",
+        "template": REHEARSAL_EVIDENCE_RETENTION_LEDGER_TEMPLATE,
+        "title": "PMBOT rehearsal evidence retention ledger",
+        "objective": "Add a deterministic local evidence retention ledger for rehearsal review records.",
+        "summary": "Prepare a local PMBOT rehearsal evidence retention ledger for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/readiness/", "pm_bot/source_quality/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Rehearsal evidence retention ledger docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-REHEARSAL-009-REHEARSAL-VALIDATION-REPLAY-PACKET-LOCAL-ONLY",
+        "template": REHEARSAL_VALIDATION_REPLAY_PACKET_TEMPLATE,
+        "title": "PMBOT rehearsal validation replay packet",
+        "objective": "Add a deterministic local validation replay packet for rehearsal review.",
+        "summary": "Prepare a local PMBOT rehearsal validation replay packet for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/readiness/", "pm_bot/simulated_decisions/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Rehearsal validation replay packet docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-REHEARSAL-010-REHEARSAL-CI-SAFE-VALIDATION-RUNNER-LOCAL-ONLY",
+        "template": REHEARSAL_CI_SAFE_VALIDATION_RUNNER_TEMPLATE,
+        "title": "PMBOT rehearsal CI-safe validation runner",
+        "objective": "Add a deterministic local CI-safe validation runner for rehearsal artifacts.",
+        "summary": "Prepare a local PMBOT rehearsal CI-safe validation runner for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Rehearsal CI-safe validation runner docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-REHEARSAL-011-REHEARSAL-READINESS-DASHBOARD-CARD-LOCAL-ONLY",
+        "template": REHEARSAL_READINESS_DASHBOARD_CARD_TEMPLATE,
+        "title": "PMBOT rehearsal readiness dashboard card",
+        "objective": "Add a deterministic local readiness dashboard card for rehearsal review.",
+        "summary": "Prepare a local PMBOT rehearsal readiness dashboard card for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/dashboard/", "pm_bot/readiness/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Rehearsal readiness dashboard card docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-REHEARSAL-012-REHEARSAL-MORNING-OPERATOR-CARD-LOCAL-ONLY",
+        "template": REHEARSAL_MORNING_OPERATOR_CARD_TEMPLATE,
+        "title": "PMBOT rehearsal morning operator card",
+        "objective": "Add a deterministic local morning operator card for rehearsal review.",
+        "summary": "Prepare a local PMBOT rehearsal morning operator card for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/dashboard/", "pm_bot/readiness/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Rehearsal morning operator card docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-REHEARSAL-013-REHEARSAL-ACCEPTANCE-REPORT-LOCAL-ONLY",
+        "template": REHEARSAL_ACCEPTANCE_REPORT_TEMPLATE,
+        "title": "PMBOT rehearsal acceptance report",
+        "objective": "Add a deterministic local acceptance report for rehearsal review.",
+        "summary": "Prepare a local PMBOT rehearsal acceptance report for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/dashboard/", "pm_bot/readiness/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Rehearsal acceptance report docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-REHEARSAL-014-REHEARSAL-SOURCE-QUALITY-LINKS-LOCAL-ONLY",
+        "template": REHEARSAL_SOURCE_QUALITY_LINKS_TEMPLATE,
+        "title": "PMBOT rehearsal source quality links",
+        "objective": "Add deterministic local links between rehearsal artifacts and source quality records.",
+        "summary": "Prepare local PMBOT rehearsal source quality links for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/readiness/", "pm_bot/source_quality/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Rehearsal source quality link docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-REHEARSAL-015-REHEARSAL-PAPERLIVE-ACCOUNTING-LINKS-LOCAL-ONLY",
+        "template": REHEARSAL_PAPERLIVE_ACCOUNTING_LINKS_TEMPLATE,
+        "title": "PMBOT rehearsal paperlive accounting links",
+        "objective": "Add deterministic local links between rehearsal artifacts and paperlive accounting records.",
+        "summary": "Prepare local PMBOT rehearsal paperlive accounting links for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/paper_accounting/", "pm_bot/readiness/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Rehearsal paperlive accounting link docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-REHEARSAL-016-REHEARSAL-SIMULATED-DECISION-REPLAY-LINKS-LOCAL-ONLY",
+        "template": REHEARSAL_SIMULATED_DECISION_REPLAY_LINKS_TEMPLATE,
+        "title": "PMBOT rehearsal simulated decision replay links",
+        "objective": "Add deterministic local links between rehearsal artifacts and simulated decision replay records.",
+        "summary": "Prepare local PMBOT rehearsal simulated decision replay links for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/readiness/", "pm_bot/simulated_decisions/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Rehearsal simulated decision replay link docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-REHEARSAL-017-REHEARSAL-FORBIDDEN-ACTION-SCAN-LOCAL-ONLY",
+        "template": REHEARSAL_FORBIDDEN_ACTION_SCAN_TEMPLATE,
+        "title": "PMBOT rehearsal forbidden action scan",
+        "objective": "Add a deterministic local forbidden action scan artifact for rehearsal review.",
+        "summary": "Prepare a local PMBOT rehearsal forbidden action scan for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Rehearsal forbidden action scan docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-REHEARSAL-018-REHEARSAL-SENSITIVE-PATH-AUDIT-LOCAL-ONLY",
+        "template": REHEARSAL_SENSITIVE_PATH_AUDIT_TEMPLATE,
+        "title": "PMBOT rehearsal sensitive path audit",
+        "objective": "Add a deterministic local sensitive path audit artifact for rehearsal review.",
+        "summary": "Prepare a local PMBOT rehearsal sensitive path audit for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Rehearsal sensitive path audit docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-REHEARSAL-019-REHEARSAL-FAILURE-AND-ROLLBACK-PLAYBOOK-LOCAL-ONLY",
+        "template": REHEARSAL_FAILURE_AND_ROLLBACK_PLAYBOOK_TEMPLATE,
+        "title": "PMBOT rehearsal failure and rollback playbook",
+        "objective": "Add a deterministic local failure and rollback playbook for rehearsal control.",
+        "summary": "Prepare a local PMBOT rehearsal failure and rollback playbook for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/readiness/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Rehearsal failure and rollback playbook docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-REHEARSAL-020-REHEARSAL-NEXT-ACTION-BACKLOG-LOCAL-ONLY",
+        "template": REHEARSAL_NEXT_ACTION_BACKLOG_TEMPLATE,
+        "title": "PMBOT rehearsal next action backlog",
+        "objective": "Add a deterministic local next action backlog for rehearsal follow-up review.",
+        "summary": "Prepare a local PMBOT rehearsal next action backlog for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/readiness/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Rehearsal next action backlog docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+)
+
+PMBOT_TASK_SPECS = (
+    PMBOT_NIGHT_BATCH_TASKS
+    + PMBOT_SUPERVISED_LIVE_READINESS_TASKS
+    + PMBOT_CRYPTO_LIVE_READINESS_TASKS
+    + PMBOT_REHEARSAL_PREP_TASKS
+)
 PMBOT_NIGHT_BATCH_TASKS_BY_TEMPLATE = {str(spec["template"]): spec for spec in PMBOT_NIGHT_BATCH_TASKS}
 PMBOT_SUPERVISED_LIVE_READINESS_TASKS_BY_TEMPLATE = {
     str(spec["template"]): spec for spec in PMBOT_SUPERVISED_LIVE_READINESS_TASKS
@@ -1072,12 +1360,14 @@ PMBOT_SUPERVISED_LIVE_READINESS_TASKS_BY_TEMPLATE = {
 PMBOT_CRYPTO_LIVE_READINESS_TASKS_BY_TEMPLATE = {
     str(spec["template"]): spec for spec in PMBOT_CRYPTO_LIVE_READINESS_TASKS
 }
+PMBOT_REHEARSAL_PREP_TASKS_BY_TEMPLATE = {str(spec["template"]): spec for spec in PMBOT_REHEARSAL_PREP_TASKS}
 PMBOT_TASK_SPECS_BY_TEMPLATE = {str(spec["template"]): spec for spec in PMBOT_TASK_SPECS}
 PMBOT_NIGHT_BATCH_TASK_IDS = tuple(str(spec["task_id"]) for spec in PMBOT_NIGHT_BATCH_TASKS)
 PMBOT_SUPERVISED_LIVE_READINESS_TASK_IDS = tuple(
     str(spec["task_id"]) for spec in PMBOT_SUPERVISED_LIVE_READINESS_TASKS
 )
 PMBOT_CRYPTO_LIVE_READINESS_TASK_IDS = tuple(str(spec["task_id"]) for spec in PMBOT_CRYPTO_LIVE_READINESS_TASKS)
+PMBOT_REHEARSAL_PREP_TASK_IDS = tuple(str(spec["task_id"]) for spec in PMBOT_REHEARSAL_PREP_TASKS)
 PMBOT_NEXT_TWENTY_TASK_IDS = (
     "PMBOT-SOURCE-LEDGER-003-SOURCE-QUALITY-REPORT-SUMMARY-LOCAL-ONLY",
     "PMBOT-SOURCE-LEDGER-004-SOURCE-QUALITY-REGRESSION-FIXTURE-LOCAL-ONLY",
@@ -1119,14 +1409,25 @@ PMBOT_NIGHT_ALLOWED_ACTIONS = (
 
 PMBOT_NIGHT_SAFETY_BOUNDARIES = (
     "Local files and fixtures only.",
+    "No network calls.",
+    "No OpenRouter calls.",
+    "No Polymarket API calls.",
+    "No authenticated endpoints.",
+    "No wallet or private-key access.",
+    "No order placement.",
+    "No trading endpoints.",
     "No external service calls.",
     "No sensitive credential or signing material access.",
     "No transaction endpoint or execution endpoint work.",
+    "No runtime/dispatcher/run_codex changes.",
     "No core execution wiring changes.",
     "No timed automation or resident process.",
+    "No scheduler or background worker.",
     "No browser automation.",
     "No destructive commands.",
-    "No forecast scoring, action guidance, or selection advice.",
+    "No market recommendation, forecast scoring, action guidance, or selection advice.",
+    "No probability, EV, edge, or confidence scoring.",
+    "No real-money actions.",
 )
 
 PMBOT_NIGHT_FORBIDDEN_PATHS = (
@@ -1271,7 +1572,16 @@ def _build_night_batch_task_packet(
         str(spec["objective"]),
         "Use only local files, local fixtures, and static samples.",
         "Keep outputs descriptive, deterministic, and operator-reviewed.",
+        "Do not use network calls.",
+        "Do not call OpenRouter.",
+        "Do not call Polymarket API.",
+        "Do not use authenticated endpoints.",
+        "Do not access wallet files, private keys, secrets, or credential stores.",
+        "Do not create orders or use trading endpoints.",
+        "Do not change runtime, dispatcher, or run_codex wiring.",
+        "Do not add a scheduler, daemon, background worker, resident process, or browser automation.",
         "Do not produce forecast scoring, action guidance, or selection advice.",
+        "Do not produce market recommendations, probability scores, EV, edge, confidence, or side selection.",
         "Do not use git add ., git add -A, git add --all, force push, or destructive commands.",
         "Return a strict result JSON packet that follows the result contract expectations.",
     ]
