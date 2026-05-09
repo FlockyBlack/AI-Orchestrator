@@ -2,7 +2,7 @@
 
 Task: `ORCH-SYMPHONY-011-OPERATOR-APPROVED-SELECTIVE-COMMIT`
 
-Status: `completed`, pending post-commit hash reporting in the final operator response.
+Status: `completed`
 
 ## What Was Staged
 
@@ -52,9 +52,9 @@ Warnings:
 
 ## Commit Hash
 
-The final commit hash is reported in the final operator response after `git commit` completes.
+Commit: `da0ebfe5ec446a955627aa8dfe945da197caf7ca`
 
-This committed result artifact cannot embed its own final commit hash without an additional amend or second commit, neither of which is approved for this task.
+The committed copy of this result artifact cannot embed its own final commit hash without an additional amend or second commit, neither of which is approved for this task. This on-disk report was finalized after the commit and remains unstaged.
 
 ## Push
 
