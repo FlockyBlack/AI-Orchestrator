@@ -146,6 +146,8 @@ def run_codex_batch(
             )
             return _write_batch_report(root, report)
 
+        _refresh_git_baseline_after_successful_task(candidate, git_baselines, report)
+
     report["status"] = "ok"
     report["execution_status"] = "completed"
     report["next_operator_action"] = (
@@ -411,6 +413,27 @@ def _inspect_git_before_task(
     }
 
 
+def _refresh_git_baseline_after_successful_task(
+    candidate: Mapping[str, Any],
+    git_baselines: dict[str, dict[str, Any]],
+    report: dict[str, Any],
+) -> None:
+    repo_root = _repo_root_from_packet(candidate.get("task_packet"))
+    repo_key = str(repo_root)
+    git_state = inspect_git_state(str(repo_root))
+    git_baselines[repo_key] = {
+        "signature": _git_state_signature(git_state),
+        "git_state": git_state,
+    }
+    report["git_post_task_baseline_checks"].append(
+        {
+            "repo_root": repo_key,
+            "task_id": candidate["task_id"],
+            "git_state": git_state,
+        }
+    )
+
+
 def _git_state_signature(git_state: Mapping[str, Any]) -> tuple[str, ...]:
     return tuple(str(line) for line in git_state.get("status_lines", []))
 
@@ -475,6 +498,7 @@ def _base_report(
         "task_executions": [],
         "git_baseline_checks": [],
         "git_preflight_checks": [],
+        "git_post_task_baseline_checks": [],
         "stopped_on_task_id": None,
         "stopped_reason": "",
         "one_task_runner_invocation_count": 0,

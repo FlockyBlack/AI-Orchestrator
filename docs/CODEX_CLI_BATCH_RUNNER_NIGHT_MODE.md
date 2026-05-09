@@ -26,7 +26,7 @@ The hard cap is 20 tasks. Values above 20 are rejected before any task execution
 
 ## Execution Guardrails
 
-The command is not a scheduler, daemon, background worker, or infinite loop. It runs once, stops on the first failed task or dirty git preflight, and writes JSON and Markdown batch reports.
+The command is not a scheduler, daemon, background worker, or infinite loop. It runs once, stops on the first failed task, git preflight error, or out-of-band git state change, and writes JSON and Markdown batch reports.
 
 The batch runner does not create tasks, approve tasks, ingest results, review results, mark tasks done, commit, push, call network services directly, access credentials, call OpenRouter, call Polymarket APIs, access wallets or private keys, place orders, or change runtime/dispatcher wiring.
 

@@ -198,6 +198,53 @@ def test_batch_stops_on_first_failure(tmp_path: Path, monkeypatch) -> None:
     assert [execution["task_id"] for execution in report["task_executions"]] == task_ids[:2]
 
 
+def test_batch_refreshes_git_baseline_after_successful_task(tmp_path: Path, monkeypatch) -> None:
+    queue_root = tmp_path / "agent_tasks"
+    task_ids = ["ORCH-BATCH-GIT-BASELINE-1", "ORCH-BATCH-GIT-BASELINE-2"]
+    for task_id in task_ids:
+        _write_ready_task(queue_root, task_id)
+    calls: list[str] = []
+    git_statuses = iter(
+        [
+            [],
+            [" M docs/first_task.md"],
+            [" M docs/first_task.md"],
+            [" M docs/first_task.md", " M docs/second_task.md"],
+        ]
+    )
+
+    def fake_git_state(repo: str) -> dict:
+        state = _clean_git_state()
+        state["status_lines"] = next(git_statuses)
+        return state
+
+    def fake_run_codex_once(queue_root_arg, *, task_id, dry_run, timeout_seconds):  # type: ignore[no-untyped-def]
+        calls.append(task_id)
+        return {
+            "task_id": task_id,
+            "status": "ok",
+            "execution_status": "completed",
+            "exit_code": 0,
+            "report_paths": {"execution_report_json": f"{task_id}.json", "execution_report_md": f"{task_id}.md"},
+            "codex_exec_invoked": True,
+            "codex_invocation_count": 1,
+            "errors": [],
+            "warnings": [],
+            "next_operator_action": "inspect result",
+        }
+
+    monkeypatch.setattr("ai_orchestrator.codex_queue.codex_cli_batch_runner.inspect_git_state", fake_git_state)
+    monkeypatch.setattr("ai_orchestrator.codex_queue.codex_cli_batch_runner.run_codex_once", fake_run_codex_once)
+
+    report = run_codex_batch(queue_root, max_tasks=2)
+
+    assert calls == task_ids
+    assert report["status"] == "ok"
+    assert report["execution_status"] == "completed"
+    assert [execution["task_id"] for execution in report["task_executions"]] == task_ids
+    assert [check["task_id"] for check in report["git_post_task_baseline_checks"]] == task_ids
+
+
 def test_batch_does_not_perform_forbidden_auto_actions(tmp_path: Path, monkeypatch) -> None:
     queue_root = tmp_path / "agent_tasks"
     task_id = "ORCH-BATCH-NO-AUTO"

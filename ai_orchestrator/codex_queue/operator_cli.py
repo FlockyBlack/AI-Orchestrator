@@ -1267,7 +1267,7 @@ def render_operator_action_markdown(report: Mapping[str, Any]) -> str:
         )
     elif report["command"] == "run-codex-batch":
         lines.append(
-            "This operator action is supervised and bounded by --max-tasks with a hard cap of 20. In dry-run it only reports selected tasks and one-task commands; in execution mode it invokes the existing one-task runner sequentially and stops on the first failure or dirty git preflight. It does not create tasks, approve tasks, ingest results, review results, mark tasks done, commit, push, schedule itself, start a daemon, start a background worker, call network services directly, or access credentials."
+            "This operator action is supervised and bounded by --max-tasks with a hard cap of 20. In dry-run it only reports selected tasks and one-task commands; in execution mode it invokes the existing one-task runner sequentially and stops on the first failure, git preflight error, or out-of-band git state change. It does not create tasks, approve tasks, ingest results, review results, mark tasks done, commit, push, schedule itself, start a daemon, start a background worker, call network services directly, or access credentials."
         )
     else:
         lines.append(
