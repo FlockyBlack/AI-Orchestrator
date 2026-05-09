@@ -1,0 +1,308 @@
+{
+  "all_failure_modes_behaved_as_expected": true,
+  "authenticated_endpoints_used": false,
+  "base_rehearsal_id": "actual_static_replay_rehearsal_001",
+  "contract_version": "pmbot_actual_read_only_rehearsal_static_replay_failure_modes.v1",
+  "failed_scenario_count": 0,
+  "generated_artifacts": {
+    "failure_mode_result_json": "pm_bot/rehearsal/artifacts/actual_static_replay_failure_modes_002.result.json",
+    "failure_mode_summary_markdown": "pm_bot/rehearsal/artifacts/actual_static_replay_failure_modes_002.md"
+  },
+  "hard_blockers": [
+    "contradiction:actual_static_replay_rehearsal_001.contradiction.subject_and_value_match",
+    "market_packet:market_packet.contract_version must be pmbot_actual_read_only_rehearsal_market_packet.v1",
+    "safety:forbidden_action_text_sanitized",
+    "safety:sensitive_text_sanitized",
+    "source_evidence:missing_required_evidence_ids:evidence_station_static_log",
+    "staleness:actual_static_replay_rehearsal_001.staleness.official_report_current",
+    "stop_condition:rehearsal_forced_matrix_block",
+    "stop_condition:rehearsal_source_contradiction_detected",
+    "stop_condition:rehearsal_source_evidence_mismatch",
+    "stop_condition:rehearsal_stale_source_evidence"
+  ],
+  "live_network_used": false,
+  "market_recommendation_generated": false,
+  "mode": "static_replay_failure_modes",
+  "next_allowed_actions": [
+    "operator review of local failure-mode replay artifacts",
+    "controlled public read-only fetch preparation only after separate operator approval"
+  ],
+  "next_blocked_actions": [
+    "live network access",
+    "OpenRouter calls",
+    "Polymarket API calls",
+    "authenticated endpoint use",
+    "wallet or private-key access",
+    "order or trading action paths",
+    "runtime or dispatcher changes",
+    "autonomous trading readiness claims"
+  ],
+  "openrouter_calls_performed": 0,
+  "orders_or_trading_actions": false,
+  "passed_scenario_count": 7,
+  "polymarket_api_calls_performed": 0,
+  "probability_ev_edge_or_side_selection_generated": false,
+  "rehearsal_failure_mode_batch_id": "actual_static_replay_failure_modes_002",
+  "runtime_or_dispatcher_changes": false,
+  "scenarios": [
+    {
+      "blockers": [
+        "contradiction:actual_static_replay_rehearsal_001.contradiction.subject_and_value_match",
+        "stop_condition:rehearsal_source_contradiction_detected"
+      ],
+      "expectation_failures": [],
+      "expected_behavior": "two required evidence records disagree on a required static fact; replay detects and blocks",
+      "fixture_dir": "pm_bot/tests/fixtures/rehearsal_static_replay_failure_modes/contradiction_detected",
+      "input_artifacts": {
+        "contradiction_case_set": "pm_bot/tests/fixtures/rehearsal_static_replay_failure_modes/contradiction_detected/contradiction_case_set.json",
+        "market_packet": "pm_bot/tests/fixtures/rehearsal_static_replay_failure_modes/contradiction_detected/market_packet.json",
+        "source_evidence": "pm_bot/tests/fixtures/rehearsal_static_replay_failure_modes/contradiction_detected/source_evidence.json",
+        "staleness_case_set": "pm_bot/tests/fixtures/rehearsal_static_replay_failure_modes/contradiction_detected/staleness_case_set.json",
+        "stop_condition_matrix": "pm_bot/tests/fixtures/rehearsal_static_replay_failure_modes/contradiction_detected/stop_condition_matrix.json"
+      },
+      "observed_behavior": {
+        "hard_blocker_count": 2,
+        "rehearsal_passed": false,
+        "status_summary": {
+          "contradiction_check_status": "blocked",
+          "market_packet_status": "passed",
+          "source_evidence_status": "passed",
+          "staleness_check_status": "passed",
+          "stop_condition_status": "blocked"
+        },
+        "summary": "scenario failed safely with contradiction_check_status=blocked, stop_condition_status=blocked",
+        "warning_count": 0
+      },
+      "pass": true,
+      "safety_notes": [
+        "Contradictory required evidence is not resolved by inference.",
+        "The result remains descriptive and pending operator review."
+      ],
+      "scenario_name": "contradiction_detected",
+      "warnings": []
+    },
+    {
+      "blockers": [
+        "safety:forbidden_action_text_sanitized"
+      ],
+      "expectation_failures": [],
+      "expected_behavior": "action-like noisy input is sanitized and blocked without being echoed as instruction text",
+      "fixture_dir": "pm_bot/tests/fixtures/rehearsal_static_replay_failure_modes/forbidden_action_leakage_guard",
+      "input_artifacts": {
+        "contradiction_case_set": "pm_bot/tests/fixtures/rehearsal_static_replay_failure_modes/forbidden_action_leakage_guard/contradiction_case_set.json",
+        "market_packet": "pm_bot/tests/fixtures/rehearsal_static_replay_failure_modes/forbidden_action_leakage_guard/market_packet.json",
+        "source_evidence": "pm_bot/tests/fixtures/rehearsal_static_replay_failure_modes/forbidden_action_leakage_guard/source_evidence.json",
+        "staleness_case_set": "pm_bot/tests/fixtures/rehearsal_static_replay_failure_modes/forbidden_action_leakage_guard/staleness_case_set.json",
+        "stop_condition_matrix": "pm_bot/tests/fixtures/rehearsal_static_replay_failure_modes/forbidden_action_leakage_guard/stop_condition_matrix.json"
+      },
+      "observed_behavior": {
+        "hard_blocker_count": 1,
+        "rehearsal_passed": false,
+        "status_summary": {
+          "contradiction_check_status": "passed",
+          "input_safety_status": "blocked",
+          "market_packet_status": "passed",
+          "source_evidence_status": "passed",
+          "staleness_check_status": "passed",
+          "stop_condition_status": "passed"
+        },
+        "summary": "scenario failed safely with input_safety_status=blocked",
+        "warning_count": 1
+      },
+      "pass": true,
+      "safety_notes": [
+        "The unsafe fixture text is not copied into result blockers, warnings, or summaries.",
+        "No action instruction is produced by the replay result."
+      ],
+      "scenario_name": "forbidden_action_leakage_guard",
+      "warnings": [
+        "safety_sanitized_forbidden_action_text"
+      ]
+    },
+    {
+      "blockers": [
+        "market_packet:market_packet.contract_version must be pmbot_actual_read_only_rehearsal_market_packet.v1"
+      ],
+      "expectation_failures": [],
+      "expected_behavior": "market packet contract version is invalid; replay rejects the input as malformed",
+      "fixture_dir": "pm_bot/tests/fixtures/rehearsal_static_replay_failure_modes/malformed_market_packet",
+      "input_artifacts": {
+        "contradiction_case_set": "pm_bot/tests/fixtures/rehearsal_static_replay_failure_modes/malformed_market_packet/contradiction_case_set.json",
+        "market_packet": "pm_bot/tests/fixtures/rehearsal_static_replay_failure_modes/malformed_market_packet/market_packet.json",
+        "source_evidence": "pm_bot/tests/fixtures/rehearsal_static_replay_failure_modes/malformed_market_packet/source_evidence.json",
+        "staleness_case_set": "pm_bot/tests/fixtures/rehearsal_static_replay_failure_modes/malformed_market_packet/staleness_case_set.json",
+        "stop_condition_matrix": "pm_bot/tests/fixtures/rehearsal_static_replay_failure_modes/malformed_market_packet/stop_condition_matrix.json"
+      },
+      "observed_behavior": {
+        "hard_blocker_count": 1,
+        "rehearsal_passed": false,
+        "status_summary": {
+          "contradiction_check_status": "passed",
+          "market_packet_status": "failed",
+          "source_evidence_status": "passed",
+          "staleness_check_status": "passed",
+          "stop_condition_status": "passed"
+        },
+        "summary": "scenario failed safely with market_packet_status=failed",
+        "warning_count": 0
+      },
+      "pass": true,
+      "safety_notes": [
+        "Malformed local packets fail closed without falling back to live data.",
+        "The failure does not open runtime, dispatcher, wallet, or order paths."
+      ],
+      "scenario_name": "malformed_market_packet",
+      "warnings": []
+    },
+    {
+      "blockers": [
+        "source_evidence:missing_required_evidence_ids:evidence_station_static_log",
+        "stop_condition:rehearsal_source_evidence_mismatch"
+      ],
+      "expectation_failures": [],
+      "expected_behavior": "source evidence lacks a required local record; replay hard-blocks before review",
+      "fixture_dir": "pm_bot/tests/fixtures/rehearsal_static_replay_failure_modes/missing_evidence",
+      "input_artifacts": {
+        "contradiction_case_set": "pm_bot/tests/fixtures/rehearsal_static_replay_failure_modes/missing_evidence/contradiction_case_set.json",
+        "market_packet": "pm_bot/tests/fixtures/rehearsal_static_replay_failure_modes/missing_evidence/market_packet.json",
+        "source_evidence": "pm_bot/tests/fixtures/rehearsal_static_replay_failure_modes/missing_evidence/source_evidence.json",
+        "staleness_case_set": "pm_bot/tests/fixtures/rehearsal_static_replay_failure_modes/missing_evidence/staleness_case_set.json",
+        "stop_condition_matrix": "pm_bot/tests/fixtures/rehearsal_static_replay_failure_modes/missing_evidence/stop_condition_matrix.json"
+      },
+      "observed_behavior": {
+        "hard_blocker_count": 2,
+        "rehearsal_passed": false,
+        "status_summary": {
+          "contradiction_check_status": "passed",
+          "market_packet_status": "passed",
+          "source_evidence_status": "failed",
+          "staleness_check_status": "passed",
+          "stop_condition_status": "blocked"
+        },
+        "summary": "scenario failed safely with source_evidence_status=failed, stop_condition_status=blocked",
+        "warning_count": 0
+      },
+      "pass": true,
+      "safety_notes": [
+        "No live fetch was attempted to replace missing local evidence.",
+        "Operator review remains required and no execution surface is opened."
+      ],
+      "scenario_name": "missing_evidence",
+      "warnings": []
+    },
+    {
+      "blockers": [
+        "safety:sensitive_text_sanitized"
+      ],
+      "expectation_failures": [],
+      "expected_behavior": "fake sensitive-looking local strings are sanitized and blocked without credential use",
+      "fixture_dir": "pm_bot/tests/fixtures/rehearsal_static_replay_failure_modes/sensitive_path_leakage_guard",
+      "input_artifacts": {
+        "contradiction_case_set": "pm_bot/tests/fixtures/rehearsal_static_replay_failure_modes/sensitive_path_leakage_guard/contradiction_case_set.json",
+        "market_packet": "pm_bot/tests/fixtures/rehearsal_static_replay_failure_modes/sensitive_path_leakage_guard/market_packet.json",
+        "source_evidence": "pm_bot/tests/fixtures/rehearsal_static_replay_failure_modes/sensitive_path_leakage_guard/source_evidence.json",
+        "staleness_case_set": "pm_bot/tests/fixtures/rehearsal_static_replay_failure_modes/sensitive_path_leakage_guard/staleness_case_set.json",
+        "stop_condition_matrix": "pm_bot/tests/fixtures/rehearsal_static_replay_failure_modes/sensitive_path_leakage_guard/stop_condition_matrix.json"
+      },
+      "observed_behavior": {
+        "hard_blocker_count": 1,
+        "rehearsal_passed": false,
+        "status_summary": {
+          "contradiction_check_status": "passed",
+          "input_safety_status": "blocked",
+          "market_packet_status": "passed",
+          "source_evidence_status": "passed",
+          "staleness_check_status": "passed",
+          "stop_condition_status": "passed"
+        },
+        "summary": "scenario failed safely with input_safety_status=blocked",
+        "warning_count": 1
+      },
+      "pass": true,
+      "safety_notes": [
+        "The fake sensitive-looking string is treated as inert input text only.",
+        "Only safe fixture references are checked for existence."
+      ],
+      "scenario_name": "sensitive_path_leakage_guard",
+      "warnings": [
+        "safety_sanitized_sensitive_text"
+      ]
+    },
+    {
+      "blockers": [
+        "staleness:actual_static_replay_rehearsal_001.staleness.official_report_current",
+        "stop_condition:rehearsal_stale_source_evidence"
+      ],
+      "expectation_failures": [],
+      "expected_behavior": "stale local evidence exceeds the fixed freshness window; replay hard-blocks",
+      "fixture_dir": "pm_bot/tests/fixtures/rehearsal_static_replay_failure_modes/stale_evidence",
+      "input_artifacts": {
+        "contradiction_case_set": "pm_bot/tests/fixtures/rehearsal_static_replay_failure_modes/stale_evidence/contradiction_case_set.json",
+        "market_packet": "pm_bot/tests/fixtures/rehearsal_static_replay_failure_modes/stale_evidence/market_packet.json",
+        "source_evidence": "pm_bot/tests/fixtures/rehearsal_static_replay_failure_modes/stale_evidence/source_evidence.json",
+        "staleness_case_set": "pm_bot/tests/fixtures/rehearsal_static_replay_failure_modes/stale_evidence/staleness_case_set.json",
+        "stop_condition_matrix": "pm_bot/tests/fixtures/rehearsal_static_replay_failure_modes/stale_evidence/stop_condition_matrix.json"
+      },
+      "observed_behavior": {
+        "hard_blocker_count": 2,
+        "rehearsal_passed": false,
+        "status_summary": {
+          "contradiction_check_status": "passed",
+          "market_packet_status": "passed",
+          "source_evidence_status": "passed",
+          "staleness_check_status": "blocked",
+          "stop_condition_status": "blocked"
+        },
+        "summary": "scenario failed safely with staleness_check_status=blocked, stop_condition_status=blocked",
+        "warning_count": 0
+      },
+      "pass": true,
+      "safety_notes": [
+        "Staleness is treated as safety-sensitive in this static rehearsal.",
+        "No network refresh is attempted inside the replay runner."
+      ],
+      "scenario_name": "stale_evidence",
+      "warnings": []
+    },
+    {
+      "blockers": [
+        "stop_condition:rehearsal_forced_matrix_block"
+      ],
+      "expectation_failures": [],
+      "expected_behavior": "the local stop matrix intentionally trips a hard stop even with otherwise valid inputs",
+      "fixture_dir": "pm_bot/tests/fixtures/rehearsal_static_replay_failure_modes/stop_condition_triggered",
+      "input_artifacts": {
+        "contradiction_case_set": "pm_bot/tests/fixtures/rehearsal_static_replay_failure_modes/stop_condition_triggered/contradiction_case_set.json",
+        "market_packet": "pm_bot/tests/fixtures/rehearsal_static_replay_failure_modes/stop_condition_triggered/market_packet.json",
+        "source_evidence": "pm_bot/tests/fixtures/rehearsal_static_replay_failure_modes/stop_condition_triggered/source_evidence.json",
+        "staleness_case_set": "pm_bot/tests/fixtures/rehearsal_static_replay_failure_modes/stop_condition_triggered/staleness_case_set.json",
+        "stop_condition_matrix": "pm_bot/tests/fixtures/rehearsal_static_replay_failure_modes/stop_condition_triggered/stop_condition_matrix.json"
+      },
+      "observed_behavior": {
+        "hard_blocker_count": 1,
+        "rehearsal_passed": false,
+        "status_summary": {
+          "contradiction_check_status": "passed",
+          "market_packet_status": "passed",
+          "source_evidence_status": "passed",
+          "staleness_check_status": "passed",
+          "stop_condition_status": "blocked"
+        },
+        "summary": "scenario failed safely with stop_condition_status=blocked",
+        "warning_count": 0
+      },
+      "pass": true,
+      "safety_notes": [
+        "Stop conditions are honored as hard blockers in static replay.",
+        "No operator approval is granted by the replay result."
+      ],
+      "scenario_name": "stop_condition_triggered",
+      "warnings": []
+    }
+  ],
+  "wallet_or_private_key_access": false,
+  "warnings": [
+    "safety_sanitized_forbidden_action_text",
+    "safety_sanitized_sensitive_text"
+  ]
+}

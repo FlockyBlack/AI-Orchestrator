@@ -1,0 +1,56 @@
+{
+  "category_label": "synthetic weather rehearsal",
+  "close_time_utc": "2026-05-10T18:00:00Z",
+  "contract_version": "pmbot_actual_read_only_rehearsal_market_packet.v1",
+  "currency_label": "label only",
+  "description": "Static packet for supervised-live behavior rehearsal using saved local source records.",
+  "excluded_fields": [
+    "credential_reference",
+    "execution_payload",
+    "market_numeric_metric",
+    "order_payload",
+    "pricing_payload",
+    "trade_instruction",
+    "wallet_reference"
+  ],
+  "local_only": true,
+  "market_packet_id": "actual_static_replay_market_packet_001.synthetic_weather_review",
+  "market_packet_state": "static_replay_packet_pending_operator_review",
+  "mode": "static_replay",
+  "operator_review_status": "pending_operator_review",
+  "outcome_label_policy": "labels_only_no_numeric_metrics",
+  "outcome_labels": [
+    "outcome_label_alpha",
+    "outcome_label_beta"
+  ],
+  "rehearsal_id": "actual_static_replay_rehearsal_001",
+  "rehearsal_phase": "actual_read_only_supervised_live_rehearsal_001",
+  "required_evidence_ids": [
+    "evidence_official_static_report",
+    "evidence_station_static_log"
+  ],
+  "safety_boundaries": {
+    "authenticated_endpoint_calls_allowed": false,
+    "background_process_allowed": false,
+    "credential_or_secret_access_allowed": false,
+    "execution_endpoint_calls_allowed": false,
+    "local_only": true,
+    "local_static_samples_only": true,
+    "market_api_calls_allowed": false,
+    "network_calls_allowed": false,
+    "openrouter_calls_allowed": false,
+    "operator_review_required": true,
+    "order_or_trade_surface_changes_allowed": false,
+    "paper_mode_only": true,
+    "polymarket_api_calls_allowed": false,
+    "runtime_or_dispatcher_changes_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "wallet_or_signing_material_access_allowed": false
+  },
+  "source_reference_policy": "local_static_source_packet_only",
+  "static_source_ids": [
+    "official_static_report",
+    "station_static_log"
+  ],
+  "venue_label": "local fixture venue label"
+}

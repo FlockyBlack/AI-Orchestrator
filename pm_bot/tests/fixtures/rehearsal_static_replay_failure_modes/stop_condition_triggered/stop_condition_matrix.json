@@ -1,0 +1,52 @@
+{
+  "contract_version": "pmbot_actual_read_only_rehearsal_stop_condition_matrix.v1",
+  "local_only": true,
+  "matrix_id": "actual_static_replay_failure_modes_002.stop_condition_triggered.matrix",
+  "rehearsal_id": "actual_static_replay_rehearsal_001",
+  "trigger_matrix_records": [
+    {
+      "condition_id": "rehearsal_source_evidence_mismatch",
+      "enabled": true,
+      "force_trigger_for_rehearsal": false,
+      "severity": "hard_blocker",
+      "status_key": "source_evidence_status",
+      "trigger_on_statuses": [
+        "failed"
+      ],
+      "trigger_state_after_match": "stopped_pending_source_review"
+    },
+    {
+      "condition_id": "rehearsal_stale_source_evidence",
+      "enabled": true,
+      "force_trigger_for_rehearsal": false,
+      "severity": "hard_blocker",
+      "status_key": "staleness_check_status",
+      "trigger_on_statuses": [
+        "blocked"
+      ],
+      "trigger_state_after_match": "stopped_pending_staleness_review"
+    },
+    {
+      "condition_id": "rehearsal_source_contradiction_detected",
+      "enabled": true,
+      "force_trigger_for_rehearsal": false,
+      "severity": "hard_blocker",
+      "status_key": "contradiction_check_status",
+      "trigger_on_statuses": [
+        "blocked"
+      ],
+      "trigger_state_after_match": "stopped_pending_contradiction_review"
+    },
+    {
+      "condition_id": "rehearsal_forced_matrix_block",
+      "enabled": true,
+      "force_trigger_for_rehearsal": true,
+      "severity": "hard_blocker",
+      "status_key": "market_packet_status",
+      "trigger_on_statuses": [
+        "passed"
+      ],
+      "trigger_state_after_match": "stopped_pending_manual_matrix_review"
+    }
+  ]
+}

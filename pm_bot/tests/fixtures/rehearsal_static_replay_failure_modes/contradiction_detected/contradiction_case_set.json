@@ -1,0 +1,22 @@
+{
+  "case_records": [
+    {
+      "case_id": "actual_static_replay_rehearsal_001.contradiction.subject_and_value_match",
+      "expected_review_class": "static_difference_recorded",
+      "left_evidence_id": "evidence_official_static_report",
+      "left_field_present": true,
+      "left_static_value": "synthetic_weather_rehearsal_subject_001",
+      "right_evidence_id": "evidence_station_static_log",
+      "right_field_present": true,
+      "right_static_value": "contradictory_static_subject_key",
+      "semantic_field": "subject_key",
+      "severity_if_detected": "hard_blocker",
+      "subject_keys_match": false,
+      "values_match": false
+    }
+  ],
+  "case_set_id": "actual_static_replay_failure_modes_002.contradiction_detected.case_set",
+  "contract_version": "pmbot_actual_read_only_rehearsal_contradiction_case_set.v1",
+  "local_only": true,
+  "rehearsal_id": "actual_static_replay_rehearsal_001"
+}

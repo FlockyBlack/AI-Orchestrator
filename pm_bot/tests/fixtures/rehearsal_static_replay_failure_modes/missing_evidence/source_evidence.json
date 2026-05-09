@@ -1,0 +1,41 @@
+{
+  "bundle_id": "actual_static_replay_failure_modes_002.missing_evidence.source_bundle",
+  "contract_version": "pmbot_actual_read_only_rehearsal_source_evidence_bundle.v1",
+  "evidence_reference_policy": "local_static_artifact_references_only",
+  "linked_market_packet_id": "actual_static_replay_market_packet_001.synthetic_weather_review",
+  "local_only": true,
+  "operator_review_status": "pending_operator_review",
+  "rehearsal_id": "actual_static_replay_rehearsal_001",
+  "safety_boundaries": {
+    "authenticated_endpoint_calls_allowed": false,
+    "background_process_allowed": false,
+    "credential_or_secret_access_allowed": false,
+    "execution_endpoint_calls_allowed": false,
+    "local_only": true,
+    "local_static_samples_only": true,
+    "market_api_calls_allowed": false,
+    "network_calls_allowed": false,
+    "openrouter_calls_allowed": false,
+    "operator_review_required": true,
+    "order_or_trade_surface_changes_allowed": false,
+    "paper_mode_only": true,
+    "polymarket_api_calls_allowed": false,
+    "runtime_or_dispatcher_changes_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "wallet_or_signing_material_access_allowed": false
+  },
+  "source_evidence_records": [
+    {
+      "content_label": "official static report local excerpt",
+      "evidence_id": "evidence_official_static_report",
+      "evidence_state": "present_static_local_record",
+      "local_reference": "docs/PMBOT_REHEARSAL_003_REHEARSAL_SOURCE_EVIDENCE_BUNDLE_LOCAL_ONLY.md",
+      "observed_timestamp_utc": "2026-05-10T00:10:00Z",
+      "operator_review_status": "pending_operator_review",
+      "source_id": "official_static_report",
+      "subject_key": "synthetic_weather_rehearsal_subject_001",
+      "value_label": "static_label_alpha"
+    }
+  ],
+  "source_value_policy": "labels_only_no_numeric_metrics"
+}

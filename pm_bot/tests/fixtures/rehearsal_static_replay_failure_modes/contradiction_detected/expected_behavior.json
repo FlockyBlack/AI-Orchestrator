@@ -1,0 +1,31 @@
+{
+  "expected_behavior": "two required evidence records disagree on a required static fact; replay detects and blocks",
+  "expected_hard_blocker_fragments": [
+    "contradiction:actual_static_replay_rehearsal_001.contradiction.subject_and_value_match",
+    "stop_condition:rehearsal_source_contradiction_detected"
+  ],
+  "expected_no_action_text_leakage": true,
+  "expected_no_sensitive_text_leakage": true,
+  "expected_rehearsal_passed": false,
+  "expected_safety_flags": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "openrouter_calls_performed": 0,
+    "operator_approval_granted": false,
+    "operator_approval_required": true,
+    "orders_or_trading_actions": false,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "wallet_or_private_key_access": false
+  },
+  "expected_statuses": {
+    "contradiction_check_status": "blocked",
+    "stop_condition_status": "blocked"
+  },
+  "safety_notes": [
+    "Contradictory required evidence is not resolved by inference.",
+    "The result remains descriptive and pending operator review."
+  ],
+  "scenario_name": "contradiction_detected"
+}

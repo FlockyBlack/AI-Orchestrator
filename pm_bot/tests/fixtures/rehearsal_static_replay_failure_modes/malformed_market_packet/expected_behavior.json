@@ -1,0 +1,32 @@
+{
+  "expected_behavior": "market packet contract version is invalid; replay rejects the input as malformed",
+  "expected_hard_blocker_fragments": [
+    "market_packet:market_packet.contract_version must be pmbot_actual_read_only_rehearsal_market_packet.v1"
+  ],
+  "expected_no_action_text_leakage": true,
+  "expected_no_sensitive_text_leakage": true,
+  "expected_rehearsal_passed": false,
+  "expected_safety_flags": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "openrouter_calls_performed": 0,
+    "operator_approval_granted": false,
+    "operator_approval_required": true,
+    "orders_or_trading_actions": false,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "wallet_or_private_key_access": false
+  },
+  "expected_statuses": {
+    "contradiction_check_status": "passed",
+    "source_evidence_status": "passed",
+    "staleness_check_status": "passed",
+    "stop_condition_status": "passed"
+  },
+  "safety_notes": [
+    "Malformed local packets fail closed without falling back to live data.",
+    "The failure does not open runtime, dispatcher, wallet, or order paths."
+  ],
+  "scenario_name": "malformed_market_packet"
+}

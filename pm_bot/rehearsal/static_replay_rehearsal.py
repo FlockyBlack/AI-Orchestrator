@@ -9,13 +9,25 @@ from typing import Any, Mapping, Sequence
 
 
 RESULT_CONTRACT_VERSION = "pmbot_actual_read_only_rehearsal_static_replay_result.v1"
+FAILURE_MODE_RESULT_CONTRACT_VERSION = (
+    "pmbot_actual_read_only_rehearsal_static_replay_failure_modes.v1"
+)
+MARKET_PACKET_CONTRACT_VERSION = "pmbot_actual_read_only_rehearsal_market_packet.v1"
 REHEARSAL_MODE = "static_replay"
+FAILURE_MODE_REHEARSAL_MODE = "static_replay_failure_modes"
 OPERATOR_REVIEW_STATUS = "pending_operator_review"
 DEFAULT_RESULT_PATH = "pm_bot/rehearsal/artifacts/actual_static_replay_rehearsal_001.result.json"
 DEFAULT_MARKDOWN_PATH = "pm_bot/rehearsal/artifacts/actual_static_replay_rehearsal_001.md"
 DEFAULT_LINK_MAP_PATH = (
     "pm_bot/rehearsal/artifacts/actual_static_replay_rehearsal_001.operator_surface_link_map.json"
 )
+DEFAULT_FAILURE_MODE_RESULT_PATH = (
+    "pm_bot/rehearsal/artifacts/actual_static_replay_failure_modes_002.result.json"
+)
+DEFAULT_FAILURE_MODE_MARKDOWN_PATH = (
+    "pm_bot/rehearsal/artifacts/actual_static_replay_failure_modes_002.md"
+)
+FAILURE_MODE_BATCH_ID = "actual_static_replay_failure_modes_002"
 
 REQUIRED_MARKET_PACKET_FIELDS = (
     "contract_version",
@@ -114,6 +126,48 @@ TRUE_SAFETY_BOUNDARIES = {
     "operator_review_required",
     "paper_mode_only",
 }
+FORBIDDEN_ACTION_TEXT_TOKENS = {
+    "buy",
+    "enter",
+    "exit",
+    "hold",
+    "pick",
+    "sell",
+    "stake",
+    "wager",
+}
+SENSITIVE_TEXT_MARKERS = (
+    ".env",
+    "api_key",
+    "auth token",
+    "browser profile",
+    "credential",
+    "private key",
+    "private_key",
+    "secret",
+    "seed phrase",
+    "signing key",
+    "wallet",
+)
+SAFETY_SCAN_SKIP_KEYS = {"excluded_fields", "safety_boundaries"}
+STATIC_REPLAY_INPUT_FILENAMES = {
+    "contradiction_case_set_path": "contradiction_case_set.json",
+    "market_packet_path": "market_packet.json",
+    "source_evidence_path": "source_evidence.json",
+    "staleness_case_set_path": "staleness_case_set.json",
+    "stop_condition_matrix_path": "stop_condition_matrix.json",
+}
+SAFE_RESULT_FLAGS = {
+    "authenticated_endpoints_used": False,
+    "live_network_used": False,
+    "market_recommendation_generated": False,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": False,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": False,
+    "runtime_or_dispatcher_changes": False,
+    "wallet_or_private_key_access": False,
+}
 
 
 class StaticReplayRehearsalError(ValueError):
@@ -166,6 +220,15 @@ def run_static_replay_rehearsal(
     source_status = _check_source_evidence(root, market_packet, source_evidence)
     staleness_status = _check_staleness_cases(staleness_case_set)
     contradiction_status = _check_contradiction_cases(contradiction_case_set)
+    input_safety_status = _check_input_safety_text(
+        {
+            "contradiction_case_set": contradiction_case_set,
+            "market_packet": market_packet,
+            "source_evidence": source_evidence,
+            "staleness_case_set": staleness_case_set,
+            "stop_condition_matrix": stop_condition_matrix,
+        }
+    )
 
     hard_blockers.extend(f"market_packet:{error}" for error in market_errors)
     hard_blockers.extend(f"source_evidence:{error}" for error in source_status["errors"])
@@ -175,8 +238,10 @@ def run_static_replay_rehearsal(
     hard_blockers.extend(
         f"contradiction:{case_id}" for case_id in contradiction_status["hard_blocker_case_ids"]
     )
+    hard_blockers.extend(input_safety_status["hard_blockers"])
     warnings.extend(staleness_status["warnings"])
     warnings.extend(contradiction_status["warnings"])
+    warnings.extend(input_safety_status["warnings"])
 
     base_status_context = {
         "contradiction_check_status": contradiction_status["status"],
@@ -196,7 +261,7 @@ def run_static_replay_rehearsal(
         and stop_status["status"] == "passed"
     )
 
-    return {
+    result = {
         "authenticated_endpoints_used": False,
         "contract_version": RESULT_CONTRACT_VERSION,
         "contradiction_check_status": contradiction_status,
@@ -231,6 +296,9 @@ def run_static_replay_rehearsal(
         "wallet_or_private_key_access": False,
         "warnings": sorted(set(warnings)),
     }
+    if input_safety_status["status"] != "passed":
+        result["input_safety_status"] = input_safety_status
+    return result
 
 
 def build_operator_surface_link_map(result: Mapping[str, Any]) -> dict[str, Any]:
@@ -336,6 +404,147 @@ def render_markdown_summary(result: Mapping[str, Any]) -> str:
     return "\n".join(lines) + "\n"
 
 
+def run_static_replay_failure_mode_batch(
+    *,
+    fixture_root: str | Path,
+    generated_artifact_paths: Mapping[str, str] | None = None,
+    base_rehearsal_id: str = "actual_static_replay_rehearsal_001",
+    repo_root: str | Path | None = None,
+) -> dict[str, Any]:
+    """Run deterministic local failure-mode scenarios and summarize expectation checks."""
+
+    root = Path(fixture_root)
+    if not root.exists():
+        raise StaticReplayRehearsalError(f"missing failure-mode fixture root: {_normalize_path_string(root)}")
+
+    artifact_paths = {
+        "failure_mode_result_json": DEFAULT_FAILURE_MODE_RESULT_PATH,
+        "failure_mode_summary_markdown": DEFAULT_FAILURE_MODE_MARKDOWN_PATH,
+    }
+    if generated_artifact_paths:
+        artifact_paths.update(dict(generated_artifact_paths))
+
+    scenarios: list[dict[str, Any]] = []
+    aggregated_hard_blockers: list[str] = []
+    aggregated_warnings: list[str] = []
+
+    for scenario_dir in sorted(path for path in root.iterdir() if path.is_dir()):
+        expected_behavior = _load_json_object(scenario_dir / "expected_behavior.json")
+        result = run_static_replay_rehearsal(
+            **_scenario_input_paths(scenario_dir),
+            repo_root=repo_root,
+        )
+        expectation_failures = _scenario_expectation_failures(result, expected_behavior)
+        passed = not expectation_failures
+        aggregated_hard_blockers.extend(result["hard_blockers"])
+        aggregated_warnings.extend(result["warnings"])
+        scenarios.append(
+            {
+                "blockers": result["hard_blockers"],
+                "expected_behavior": expected_behavior["expected_behavior"],
+                "expectation_failures": expectation_failures,
+                "fixture_dir": _normalize_path_string(scenario_dir),
+                "input_artifacts": result["input_artifacts"],
+                "observed_behavior": _summarize_failure_mode_observation(result),
+                "pass": passed,
+                "safety_notes": expected_behavior.get("safety_notes", []),
+                "scenario_name": expected_behavior.get("scenario_name", scenario_dir.name),
+                "warnings": result["warnings"],
+            }
+        )
+
+    passed_scenario_count = sum(1 for scenario in scenarios if scenario["pass"] is True)
+    failed_scenario_count = len(scenarios) - passed_scenario_count
+    return {
+        "all_failure_modes_behaved_as_expected": failed_scenario_count == 0,
+        "authenticated_endpoints_used": False,
+        "base_rehearsal_id": base_rehearsal_id,
+        "contract_version": FAILURE_MODE_RESULT_CONTRACT_VERSION,
+        "failed_scenario_count": failed_scenario_count,
+        "generated_artifacts": dict(sorted(artifact_paths.items())),
+        "hard_blockers": sorted(set(aggregated_hard_blockers)),
+        "live_network_used": False,
+        "market_recommendation_generated": False,
+        "mode": FAILURE_MODE_REHEARSAL_MODE,
+        "next_allowed_actions": [
+            "operator review of local failure-mode replay artifacts",
+            "controlled public read-only fetch preparation only after separate operator approval",
+        ],
+        "next_blocked_actions": [
+            "live network access",
+            "OpenRouter calls",
+            "Polymarket API calls",
+            "authenticated endpoint use",
+            "wallet or private-key access",
+            "order or trading action paths",
+            "runtime or dispatcher changes",
+            "autonomous trading readiness claims",
+        ],
+        "openrouter_calls_performed": 0,
+        "orders_or_trading_actions": False,
+        "passed_scenario_count": passed_scenario_count,
+        "polymarket_api_calls_performed": 0,
+        "probability_ev_edge_or_side_selection_generated": False,
+        "rehearsal_failure_mode_batch_id": FAILURE_MODE_BATCH_ID,
+        "runtime_or_dispatcher_changes": False,
+        "scenarios": scenarios,
+        "wallet_or_private_key_access": False,
+        "warnings": sorted(set(aggregated_warnings)),
+    }
+
+
+def render_failure_mode_markdown_summary(batch_result: Mapping[str, Any]) -> str:
+    lines = [
+        "# Actual Static Replay Failure Modes 002",
+        "",
+        f"Batch: `{batch_result['rehearsal_failure_mode_batch_id']}`",
+        f"Base rehearsal: `{batch_result['base_rehearsal_id']}`",
+        "Mode: static replay failure modes.",
+        "Live network used: false.",
+        "OpenRouter calls performed: 0.",
+        "Polymarket API calls performed: 0.",
+        "Authenticated endpoints used: false.",
+        "Wallet/private-key access: false.",
+        "Order or trading actions: false.",
+        "Runtime or dispatcher changes: false.",
+        "",
+        f"All failure modes behaved as expected: {str(batch_result['all_failure_modes_behaved_as_expected']).lower()}.",
+        f"Passed scenarios: {batch_result['passed_scenario_count']}.",
+        f"Failed scenarios: {batch_result['failed_scenario_count']}.",
+        "",
+    ]
+    for scenario in batch_result["scenarios"]:
+        lines.extend(
+            [
+                f"## {scenario['scenario_name']}",
+                "",
+                f"Expected behavior: {scenario['expected_behavior']}",
+                f"Observed behavior: {scenario['observed_behavior']['summary']}",
+                f"Pass/fail: {'pass' if scenario['pass'] else 'fail'}",
+                "",
+                "Blockers:",
+                *[f"- {item}" for item in (scenario["blockers"] or ["none"])],
+                "",
+                "Warnings:",
+                *[f"- {item}" for item in (scenario["warnings"] or ["none"])],
+                "",
+                "Safety notes:",
+                *[f"- {item}" for item in (scenario["safety_notes"] or ["none"])],
+                "",
+            ]
+        )
+    lines.extend(
+        [
+            "## Still Blocked",
+            "",
+            *[f"- {item}" for item in batch_result["next_blocked_actions"]],
+            "",
+            "This artifact is local-only, deterministic, and pending operator review.",
+        ]
+    )
+    return "\n".join(lines) + "\n"
+
+
 def write_json(path: str | Path, payload: Mapping[str, Any]) -> None:
     destination = Path(path)
     destination.parent.mkdir(parents=True, exist_ok=True)
@@ -384,6 +593,8 @@ def main(argv: Sequence[str] | None = None) -> int:
 
 def _validate_market_packet(market_packet: Mapping[str, Any]) -> list[str]:
     errors = _missing_fields(market_packet, REQUIRED_MARKET_PACKET_FIELDS, "market_packet")
+    if market_packet.get("contract_version") != MARKET_PACKET_CONTRACT_VERSION:
+        errors.append(f"market_packet.contract_version must be {MARKET_PACKET_CONTRACT_VERSION}")
     if market_packet.get("mode") != REHEARSAL_MODE:
         errors.append("market_packet.mode must be static_replay")
     if market_packet.get("local_only") is not True:
@@ -396,6 +607,168 @@ def _validate_market_packet(market_packet: Mapping[str, Any]) -> list[str]:
         errors.append("market_packet.static_source_ids must be a non-empty list of strings")
     errors.extend(_safety_boundary_errors(market_packet.get("safety_boundaries"), "market_packet.safety_boundaries"))
     return errors
+
+
+def _check_input_safety_text(payloads: Mapping[str, Any]) -> dict[str, Any]:
+    forbidden_locations: list[str] = []
+    sensitive_locations: list[str] = []
+    for label, payload in payloads.items():
+        if payload is None:
+            continue
+        _collect_input_safety_text_findings(
+            payload,
+            label,
+            forbidden_locations=forbidden_locations,
+            sensitive_locations=sensitive_locations,
+        )
+
+    hard_blockers: list[str] = []
+    warnings: list[str] = []
+    sanitized_findings: list[dict[str, Any]] = []
+    if forbidden_locations:
+        hard_blockers.append("safety:forbidden_action_text_sanitized")
+        warnings.append("safety_sanitized_forbidden_action_text")
+        sanitized_findings.append(
+            {
+                "category": "forbidden_action_text",
+                "location_count": len(set(forbidden_locations)),
+                "locations": sorted(set(forbidden_locations)),
+            }
+        )
+    if sensitive_locations:
+        hard_blockers.append("safety:sensitive_text_sanitized")
+        warnings.append("safety_sanitized_sensitive_text")
+        sanitized_findings.append(
+            {
+                "category": "sensitive_text",
+                "location_count": len(set(sensitive_locations)),
+                "locations": sorted(set(sensitive_locations)),
+            }
+        )
+
+    return {
+        "hard_blockers": sorted(hard_blockers),
+        "sanitized_findings": sanitized_findings,
+        "status": "blocked" if hard_blockers else "passed",
+        "warnings": sorted(warnings),
+    }
+
+
+def _collect_input_safety_text_findings(
+    value: Any,
+    path: str,
+    *,
+    forbidden_locations: list[str],
+    sensitive_locations: list[str],
+) -> None:
+    if isinstance(value, Mapping):
+        for key, nested in value.items():
+            key_string = str(key)
+            if key_string in SAFETY_SCAN_SKIP_KEYS:
+                continue
+            _collect_input_safety_text_findings(
+                nested,
+                f"{path}.{key_string}",
+                forbidden_locations=forbidden_locations,
+                sensitive_locations=sensitive_locations,
+            )
+    elif isinstance(value, list):
+        for index, nested in enumerate(value):
+            _collect_input_safety_text_findings(
+                nested,
+                f"{path}[{index}]",
+                forbidden_locations=forbidden_locations,
+                sensitive_locations=sensitive_locations,
+            )
+    elif isinstance(value, str):
+        if _has_forbidden_action_text(value):
+            forbidden_locations.append(path)
+        if _has_sensitive_text_marker(value):
+            sensitive_locations.append(path)
+
+
+def _scenario_input_paths(scenario_dir: Path) -> dict[str, Path]:
+    return {
+        argument_name: scenario_dir / filename
+        for argument_name, filename in STATIC_REPLAY_INPUT_FILENAMES.items()
+    }
+
+
+def _scenario_expectation_failures(
+    result: Mapping[str, Any],
+    expected_behavior: Mapping[str, Any],
+) -> list[str]:
+    failures: list[str] = []
+    expected_passed = expected_behavior.get("expected_rehearsal_passed")
+    if expected_passed is not None and result["rehearsal_passed"] is not expected_passed:
+        failures.append(
+            f"expected rehearsal_passed={str(expected_passed).lower()} "
+            f"observed={str(result['rehearsal_passed']).lower()}"
+        )
+
+    for blocker_fragment in expected_behavior.get("expected_hard_blocker_fragments", []):
+        if not any(str(blocker_fragment) in blocker for blocker in result["hard_blockers"]):
+            failures.append(f"missing hard blocker fragment: {blocker_fragment}")
+
+    for warning_fragment in expected_behavior.get("expected_warning_fragments", []):
+        if not any(str(warning_fragment) in warning for warning in result["warnings"]):
+            failures.append(f"missing warning fragment: {warning_fragment}")
+
+    for status_key, expected_status in expected_behavior.get("expected_statuses", {}).items():
+        observed_payload = result.get(status_key)
+        observed_status = observed_payload.get("status") if isinstance(observed_payload, Mapping) else observed_payload
+        if observed_status != expected_status:
+            failures.append(f"expected {status_key}.status={expected_status} observed={observed_status}")
+
+    default_safety_flags = {
+        field_name: expected_value
+        for field_name, expected_value in SAFE_RESULT_FLAGS.items()
+        if field_name != "runtime_or_dispatcher_changes"
+    }
+    for field_name, expected_value in expected_behavior.get("expected_safety_flags", default_safety_flags).items():
+        if result.get(field_name) != expected_value:
+            failures.append(f"expected {field_name}={expected_value!r} observed={result.get(field_name)!r}")
+
+    if expected_behavior.get("expected_no_action_text_leakage") is True and _contains_forbidden_action_text(result):
+        failures.append("action-like input text leaked into result strings")
+    if expected_behavior.get("expected_no_sensitive_text_leakage") is True and _contains_sensitive_text_marker(result):
+        failures.append("sensitive-looking input text leaked into result strings")
+    return failures
+
+
+def _summarize_failure_mode_observation(result: Mapping[str, Any]) -> dict[str, Any]:
+    status_summary = {
+        "contradiction_check_status": result["contradiction_check_status"]["status"],
+        "market_packet_status": "failed"
+        if any(blocker.startswith("market_packet:") for blocker in result["hard_blockers"])
+        else "passed",
+        "source_evidence_status": result["source_evidence_status"]["status"],
+        "staleness_check_status": result["staleness_check_status"]["status"],
+        "stop_condition_status": result["stop_condition_status"]["status"],
+    }
+    if "input_safety_status" in result:
+        status_summary["input_safety_status"] = result["input_safety_status"]["status"]
+
+    return {
+        "hard_blocker_count": len(result["hard_blockers"]),
+        "rehearsal_passed": result["rehearsal_passed"],
+        "status_summary": status_summary,
+        "summary": _failure_mode_summary_sentence(result, status_summary),
+        "warning_count": len(result["warnings"]),
+    }
+
+
+def _failure_mode_summary_sentence(result: Mapping[str, Any], status_summary: Mapping[str, str]) -> str:
+    blocked_statuses = [
+        f"{key}={status}"
+        for key, status in status_summary.items()
+        if status in {"blocked", "failed", "warning"}
+    ]
+    if not blocked_statuses and result["rehearsal_passed"]:
+        return "scenario unexpectedly passed without blockers"
+    if not blocked_statuses:
+        return "scenario failed through explicit hard blockers"
+    return "scenario failed safely with " + ", ".join(blocked_statuses)
 
 
 def _check_source_evidence(
@@ -764,6 +1137,37 @@ def _parse_utc(value: str) -> datetime:
 def _is_network_like(value: str) -> bool:
     lowered = value.lower()
     return "://" in lowered or lowered.startswith("http:") or lowered.startswith("https:")
+
+
+def _has_forbidden_action_text(value: str) -> bool:
+    tokens = _normalized_tokens(value)
+    return bool(tokens & FORBIDDEN_ACTION_TEXT_TOKENS)
+
+
+def _has_sensitive_text_marker(value: str) -> bool:
+    lowered = value.lower()
+    return any(marker in lowered for marker in SENSITIVE_TEXT_MARKERS)
+
+
+def _contains_forbidden_action_text(value: Any) -> bool:
+    if isinstance(value, Mapping):
+        return any(_contains_forbidden_action_text(nested) for nested in value.values())
+    if isinstance(value, list):
+        return any(_contains_forbidden_action_text(item) for item in value)
+    return isinstance(value, str) and _has_forbidden_action_text(value)
+
+
+def _contains_sensitive_text_marker(value: Any) -> bool:
+    if isinstance(value, Mapping):
+        return any(_contains_sensitive_text_marker(nested) for nested in value.values())
+    if isinstance(value, list):
+        return any(_contains_sensitive_text_marker(item) for item in value)
+    return isinstance(value, str) and _has_sensitive_text_marker(value)
+
+
+def _normalized_tokens(value: str) -> set[str]:
+    normalized = "".join(character if character.isalnum() else "_" for character in value.lower())
+    return {token for token in normalized.split("_") if token}
 
 
 def _reject_sensitive_path(path: Path) -> None:
