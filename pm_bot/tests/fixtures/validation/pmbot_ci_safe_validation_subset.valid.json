@@ -1,0 +1,178 @@
+{
+  "contract_id": "pmbot-ci-safe-validation-subset",
+  "contract_version": "pmbot_ci_safe_validation_subset.v1",
+  "created_at": "2026-05-09T01:00:00Z",
+  "errors": [],
+  "excluded_path_prefixes": [
+    ".env",
+    ".env.*",
+    ".git/",
+    ".codex/",
+    "runtime/",
+    "dispatcher/",
+    "run_codex/",
+    "pm_bot/llm/",
+    "pm_bot/wallet/",
+    "pm_bot/trading/",
+    "pm_bot/orders/",
+    "agent_tasks/running/"
+  ],
+  "local_only": true,
+  "operator_review": {
+    "reviewed_at": null,
+    "reviewed_by": null,
+    "status": "pending_operator_review"
+  },
+  "operator_review_required": true,
+  "required_validation_commands": [
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "run_mode": "local_static_ci_safe_validation_subset",
+  "safety_boundaries": {
+    "authenticated_endpoint_calls_allowed": false,
+    "background_process_allowed": false,
+    "browser_automation_allowed": false,
+    "ci_subset_mutates_runtime_allowed": false,
+    "credential_or_secret_access_allowed": false,
+    "execution_endpoint_calls_allowed": false,
+    "external_service_calls_allowed": false,
+    "llm_provider_calls_allowed": false,
+    "local_fixtures_only": true,
+    "market_api_calls_allowed": false,
+    "market_instruction_fields_allowed": false,
+    "network_calls_allowed": false,
+    "operator_review_required": true,
+    "order_or_trade_surface_changes_allowed": false,
+    "paper_mode_only": true,
+    "runtime_or_dispatcher_changes_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "sensitive_path_access_allowed": false,
+    "timed_automation_allowed": false,
+    "transaction_endpoint_calls_allowed": false,
+    "wallet_or_signing_material_access_allowed": false
+  },
+  "subset_checks": [
+    {
+      "check_id": "local_reference_scope",
+      "expected_state": "all_named_references_are_local_allowed_paths",
+      "local_reference": "pm_bot/tests/fixtures/validation/pmbot_ci_safe_validation_subset.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Local reference scope"
+    },
+    {
+      "check_id": "static_fixture_scope",
+      "expected_state": "fixture_uses_static_samples_only",
+      "local_reference": "pm_bot/tests/fixtures/validation/pmbot_saved_evidence_replay_bundle.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Static fixture scope"
+    },
+    {
+      "check_id": "validation_command_scope",
+      "expected_state": "commands_are_local_compile_and_pytest_checks",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Validation command scope"
+    },
+    {
+      "check_id": "external_call_boundary",
+      "expected_state": "external_calls_remain_disabled",
+      "local_reference": "pm_bot/tests/test_saved_evidence_replay_bundle.py",
+      "operator_review_status": "pending_operator_review",
+      "review_label": "External call boundary"
+    },
+    {
+      "check_id": "sensitive_path_boundary",
+      "expected_state": "excluded_path_prefixes_are_documented_only",
+      "local_reference": "pm_bot/tests/test_autonomy_gate_checklist.py",
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Sensitive path boundary"
+    },
+    {
+      "check_id": "execution_wiring_boundary",
+      "expected_state": "runtime_dispatcher_worker_and_endpoint_changes_remain_disabled",
+      "local_reference": "pm_bot/tests/test_forbidden_action_scan.py",
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Execution wiring boundary"
+    },
+    {
+      "check_id": "human_review_boundary",
+      "expected_state": "operator_review_remains_pending",
+      "local_reference": "docs/PMBOT_VALIDATION_002_CI_SAFE_VALIDATION_SUBSET_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Human review boundary"
+    }
+  ],
+  "subset_id": "pmbot-ci-safe-validation-subset-001",
+  "subset_name": "pmbot-ci-safe-validation-subset",
+  "summary_counts": {
+    "errors": 0,
+    "excluded_path_prefixes": 12,
+    "local_references": 8,
+    "required_validation_commands": 2,
+    "subset_checks": 7,
+    "subset_checks_pending_operator_review": 7,
+    "validation_targets": 7,
+    "warnings": 0
+  },
+  "task_id": "PMBOT-VALIDATION-002-CI-SAFE-VALIDATION-SUBSET-LOCAL-ONLY",
+  "validation_targets": [
+    {
+      "artifact_role": "ci_safe_subset_fixture",
+      "artifact_type": "json_fixture",
+      "expected_state": "pending_operator_review",
+      "local_reference": "pm_bot/tests/fixtures/validation/pmbot_ci_safe_validation_subset.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "target_id": "ci_safe_validation_subset_001.fixture"
+    },
+    {
+      "artifact_role": "ci_safe_subset_document",
+      "artifact_type": "markdown_document",
+      "expected_state": "pending_operator_review",
+      "local_reference": "docs/PMBOT_VALIDATION_002_CI_SAFE_VALIDATION_SUBSET_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "target_id": "ci_safe_validation_subset_001.document"
+    },
+    {
+      "artifact_role": "ci_safe_subset_contract_test",
+      "artifact_type": "python_test_reference",
+      "expected_state": "local_validation_reference",
+      "local_reference": "pm_bot/tests/test_ci_safe_validation_subset.py",
+      "operator_review_status": "pending_operator_review",
+      "target_id": "ci_safe_validation_subset_001.contract_test"
+    },
+    {
+      "artifact_role": "saved_evidence_replay_fixture",
+      "artifact_type": "json_fixture",
+      "expected_state": "local_validation_reference",
+      "local_reference": "pm_bot/tests/fixtures/validation/pmbot_saved_evidence_replay_bundle.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "target_id": "ci_safe_validation_subset_001.saved_evidence_fixture"
+    },
+    {
+      "artifact_role": "saved_evidence_replay_contract_test",
+      "artifact_type": "python_test_reference",
+      "expected_state": "local_validation_reference",
+      "local_reference": "pm_bot/tests/test_saved_evidence_replay_bundle.py",
+      "operator_review_status": "pending_operator_review",
+      "target_id": "ci_safe_validation_subset_001.saved_evidence_test"
+    },
+    {
+      "artifact_role": "safety_gate_contract_test",
+      "artifact_type": "python_test_reference",
+      "expected_state": "local_validation_reference",
+      "local_reference": "pm_bot/tests/test_autonomy_gate_checklist.py",
+      "operator_review_status": "pending_operator_review",
+      "target_id": "ci_safe_validation_subset_001.safety_gate_test"
+    },
+    {
+      "artifact_role": "queue_template_contract_test",
+      "artifact_type": "python_test_reference",
+      "expected_state": "local_validation_reference",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "target_id": "ci_safe_validation_subset_001.queue_template_test"
+    }
+  ],
+  "warnings": []
+}

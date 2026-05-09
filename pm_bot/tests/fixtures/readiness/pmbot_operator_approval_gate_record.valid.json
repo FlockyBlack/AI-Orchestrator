@@ -1,0 +1,155 @@
+{
+  "approval_gate_id": "pmbot-supervised-live-operator-approval-gate-record-001",
+  "contract_id": "pmbot-supervised-live-operator-approval-gate-record",
+  "contract_version": "pmbot_supervised_live_operator_approval_gate_record.v1",
+  "created_at": "2026-05-09T00:00:00Z",
+  "errors": [],
+  "gate_records": [
+    {
+      "approval_state": "not_approved",
+      "evidence_required": "Human record confirming the read-only contract was reviewed from local artifacts.",
+      "gate_id": "read_only_data_contract_review",
+      "gate_label": "Read-only data contract review",
+      "local_reference": "docs/PMBOT_SUPERVISED_LIVE_001_READ_ONLY_LIVE_DATA_CONTRACT_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "required_prior_state": "pending_operator_review",
+      "scope_boundary": "local_static_read_only_contract_only",
+      "transition_state": "blocked_until_record_complete"
+    },
+    {
+      "approval_state": "not_approved",
+      "evidence_required": "Human record confirming source rows were reviewed from local artifacts.",
+      "gate_id": "source_inventory_review",
+      "gate_label": "Live data source inventory review",
+      "local_reference": "docs/PMBOT_SUPERVISED_LIVE_002_LIVE_DATA_SOURCE_INVENTORY_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "required_prior_state": "pending_operator_review",
+      "scope_boundary": "local_static_source_inventory_only",
+      "transition_state": "blocked_until_record_complete"
+    },
+    {
+      "approval_state": "not_approved",
+      "evidence_required": "Human record confirming gap rows and local evidence requirements were reviewed.",
+      "gate_id": "gap_matrix_review",
+      "gate_label": "Local to supervised live gap matrix review",
+      "local_reference": "pm_bot/readiness/PMBOT_ROADMAP_002_PMBOT_LOCAL_TO_SUPERVISED_LIVE_GAP_MATRIX.md",
+      "operator_review_status": "pending_operator_review",
+      "required_prior_state": "pending_operator_review",
+      "scope_boundary": "readiness_gap_record_only",
+      "transition_state": "blocked_until_record_complete"
+    },
+    {
+      "approval_state": "not_approved",
+      "evidence_required": "Human record confirming sensitive, process, and endpoint boundaries remain closed.",
+      "gate_id": "safety_boundary_review",
+      "gate_label": "Safety boundary review",
+      "local_reference": "docs/PMBOT_SAFETY_001_AUTONOMY_GATE_CHECKLIST_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "required_prior_state": "pending_operator_review",
+      "scope_boundary": "closed_boundary_record_only",
+      "transition_state": "blocked_until_record_complete"
+    },
+    {
+      "approval_state": "not_approved",
+      "evidence_required": "Human record confirming local compile and pytest output was captured.",
+      "gate_id": "validation_replay_review",
+      "gate_label": "Validation replay review",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "required_prior_state": "pending_operator_review",
+      "scope_boundary": "local_validation_record_only",
+      "transition_state": "blocked_until_record_complete"
+    },
+    {
+      "approval_state": "not_approved",
+      "evidence_required": "Human record naming reviewer, timestamp, reviewed artifacts, and unresolved blockers.",
+      "gate_id": "human_record_completion",
+      "gate_label": "Human record completion",
+      "local_reference": "pm_bot/tests/fixtures/readiness/pmbot_operator_approval_gate_record.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "required_prior_state": "pending_operator_review",
+      "scope_boundary": "operator_record_only",
+      "transition_state": "blocked_until_record_complete"
+    }
+  ],
+  "gate_result": "blocked_until_operator_record_complete",
+  "local_only": true,
+  "operator_review": {
+    "reviewed_at": null,
+    "reviewed_by": null,
+    "status": "pending_operator_review"
+  },
+  "operator_review_required": true,
+  "required_validation_commands": [
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "run_mode": "local_static_operator_approval_gate_record",
+  "safety_boundaries": {
+    "authenticated_endpoint_calls_allowed": false,
+    "background_process_allowed": false,
+    "browser_automation_allowed": false,
+    "credential_or_secret_access_allowed": false,
+    "execution_endpoint_calls_allowed": false,
+    "external_service_calls_allowed": false,
+    "live_data_refresh_allowed": false,
+    "llm_provider_calls_allowed": false,
+    "local_static_samples_only": true,
+    "market_api_calls_allowed": false,
+    "market_ranking_allowed": false,
+    "network_calls_allowed": false,
+    "numeric_prediction_metric_allowed": false,
+    "operator_review_required": true,
+    "order_or_trade_surface_changes_allowed": false,
+    "paper_mode_only": true,
+    "runtime_or_dispatcher_changes_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "supervised_live_transition_allowed": false,
+    "trade_instruction_allowed": false,
+    "transaction_endpoint_calls_allowed": false,
+    "transition_without_record_allowed": false,
+    "wallet_or_signing_material_access_allowed": false
+  },
+  "source_artifacts": [
+    {
+      "artifact_id": "read_only_live_data_contract",
+      "contract_version": "pmbot_supervised_live_read_only_live_data_contract.v1",
+      "local_reference": "docs/PMBOT_SUPERVISED_LIVE_001_READ_ONLY_LIVE_DATA_CONTRACT_LOCAL_ONLY.md",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "live_data_source_inventory",
+      "contract_version": "pmbot_supervised_live_data_source_inventory.v1",
+      "local_reference": "docs/PMBOT_SUPERVISED_LIVE_002_LIVE_DATA_SOURCE_INVENTORY_LOCAL_ONLY.md",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "local_to_supervised_live_gap_matrix",
+      "contract_version": "pmbot_local_to_supervised_live_gap_matrix.v1",
+      "local_reference": "pm_bot/readiness/PMBOT_ROADMAP_002_PMBOT_LOCAL_TO_SUPERVISED_LIVE_GAP_MATRIX.md",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "autonomy_gate_checklist",
+      "contract_version": "pmbot_autonomy_gate_checklist.v1",
+      "local_reference": "docs/PMBOT_SAFETY_001_AUTONOMY_GATE_CHECKLIST_LOCAL_ONLY.md",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "forbidden_action_scan",
+      "contract_version": "pmbot_forbidden_action_scan.v1",
+      "local_reference": "docs/PMBOT_SAFETY_003_FORBIDDEN_ACTION_SCAN_LOCAL_ONLY.md",
+      "required_state": "pending_operator_review"
+    }
+  ],
+  "summary_counts": {
+    "gate_records": 6,
+    "gate_records_pending_operator_review": 6,
+    "local_references": 7,
+    "required_validation_commands": 2,
+    "source_artifacts": 5,
+    "warnings": 0
+  },
+  "task_id": "PMBOT-SUPERVISED-LIVE-003-OPERATOR-APPROVAL-GATE-RECORD-LOCAL-ONLY",
+  "warnings": []
+}

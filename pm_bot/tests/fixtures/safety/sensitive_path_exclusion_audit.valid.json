@@ -1,0 +1,157 @@
+{
+  "allowed_path_prefixes": [
+    "docs/",
+    "pm_bot/tests/",
+    "tests/"
+  ],
+  "audit_checks": [
+    {
+      "check_id": "allowed_path_scope",
+      "expected_state": "allowed_paths_are_docs_pm_bot_tests_and_tests",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Confirm task packet allowed paths are limited to docs, pm_bot/tests, and tests."
+    },
+    {
+      "check_id": "excluded_path_registry",
+      "expected_state": "excluded_prefixes_recorded_for_operator_review",
+      "local_reference": "pm_bot/tests/fixtures/safety/sensitive_path_exclusion_audit.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Confirm the fixed excluded prefix list is present in this local audit fixture."
+    },
+    {
+      "check_id": "environment_file_exclusion",
+      "expected_state": "environment_files_stay_out_of_scope",
+      "local_reference": "docs/PMBOT_VALIDATION_002_CI_SAFE_VALIDATION_SUBSET_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Confirm environment file prefixes remain excluded from local PMBOT audit work."
+    },
+    {
+      "check_id": "codex_metadata_exclusion",
+      "expected_state": "codex_metadata_stays_out_of_scope",
+      "local_reference": "docs/PMBOT_VALIDATION_002_CI_SAFE_VALIDATION_SUBSET_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Confirm Codex metadata prefixes remain excluded from local PMBOT audit work."
+    },
+    {
+      "check_id": "execution_wiring_exclusion",
+      "expected_state": "runtime_dispatcher_and_runner_wiring_stay_out_of_scope",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Confirm runtime, dispatcher, and runner wiring prefixes remain excluded."
+    },
+    {
+      "check_id": "pmbot_sensitive_module_exclusion",
+      "expected_state": "llm_wallet_trading_and_orders_stay_out_of_scope",
+      "local_reference": "docs/PMBOT_SAFETY_003_FORBIDDEN_ACTION_SCAN_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Confirm PMBOT sensitive module prefixes remain excluded."
+    },
+    {
+      "check_id": "running_task_exclusion",
+      "expected_state": "running_agent_tasks_stay_out_of_scope",
+      "local_reference": "docs/PMBOT_SAFETY_003_FORBIDDEN_ACTION_SCAN_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Confirm running agent task prefixes remain excluded."
+    },
+    {
+      "check_id": "operator_review_boundary",
+      "expected_state": "status_stays_pending_until_operator_review_record",
+      "local_reference": "docs/PMBOT_SAFETY_004_SENSITIVE_PATH_EXCLUSION_AUDIT_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Confirm audit status remains pending until operator review is recorded."
+    }
+  ],
+  "audit_id": "pmbot_sensitive_path_exclusion_audit_001",
+  "audit_inputs": [
+    {
+      "input_id": "queue_template_safety_contract",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "observed_state": "pmbot_task_template_safety_contract_present",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "input_id": "ci_safe_validation_subset",
+      "local_reference": "docs/PMBOT_VALIDATION_002_CI_SAFE_VALIDATION_SUBSET_LOCAL_ONLY.md",
+      "observed_state": "sensitive_path_exclusion_reference_present",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "input_id": "forbidden_action_scan",
+      "local_reference": "docs/PMBOT_SAFETY_003_FORBIDDEN_ACTION_SCAN_LOCAL_ONLY.md",
+      "observed_state": "forbidden_surface_reference_present",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "input_id": "static_audit_fixture",
+      "local_reference": "pm_bot/tests/fixtures/safety/sensitive_path_exclusion_audit.valid.json",
+      "observed_state": "audit_record_available_for_operator_review",
+      "operator_review_status": "pending_operator_review"
+    }
+  ],
+  "audit_name": "pmbot-sensitive-path-exclusion-audit",
+  "contract_version": "pmbot_sensitive_path_exclusion_audit.v1",
+  "created_at": "2026-05-09T02:00:00Z",
+  "errors": [],
+  "excluded_path_prefixes": [
+    ".env",
+    ".env.*",
+    ".git/",
+    ".codex/",
+    "runtime/",
+    "dispatcher/",
+    "run_codex/",
+    "pm_bot/llm/",
+    "pm_bot/wallet/",
+    "pm_bot/trading/",
+    "pm_bot/orders/",
+    "agent_tasks/running/"
+  ],
+  "local_only": true,
+  "operator_review": {
+    "reviewed_at": null,
+    "reviewed_by": null,
+    "status": "pending_operator_review"
+  },
+  "operator_review_required": true,
+  "required_validation_commands": [
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "run_mode": "local_static_sensitive_path_exclusion_audit",
+  "safety_boundaries": {
+    "authenticated_endpoint_calls_allowed": false,
+    "background_process_allowed": false,
+    "browser_automation_allowed": false,
+    "credential_or_secret_access_allowed": false,
+    "execution_endpoint_calls_allowed": false,
+    "external_service_calls_allowed": false,
+    "llm_provider_calls_allowed": false,
+    "local_fixtures_only": true,
+    "market_api_calls_allowed": false,
+    "market_instruction_fields_allowed": false,
+    "network_calls_allowed": false,
+    "operator_review_required": true,
+    "order_or_trade_surface_changes_allowed": false,
+    "paper_mode_only": true,
+    "runtime_or_dispatcher_changes_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "sensitive_path_access_allowed": false,
+    "timed_automation_allowed": false,
+    "transaction_endpoint_calls_allowed": false,
+    "wallet_or_signing_material_access_allowed": false
+  },
+  "summary_counts": {
+    "allowed_path_prefixes": 3,
+    "audit_checks": 8,
+    "audit_checks_pending_operator_review": 8,
+    "audit_inputs": 4,
+    "errors": 0,
+    "excluded_path_prefixes": 12,
+    "local_references": 5,
+    "required_validation_commands": 2,
+    "warnings": 0
+  },
+  "task_id": "PMBOT-SAFETY-004-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY",
+  "warnings": []
+}

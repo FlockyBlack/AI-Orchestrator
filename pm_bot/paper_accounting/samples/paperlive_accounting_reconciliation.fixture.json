@@ -1,0 +1,121 @@
+{
+  "account_context": {
+    "account_id": "paper_fixture_account_001",
+    "currency": "USD",
+    "description": "Offline paper records for operator review"
+  },
+  "accounting_balance_summary": [
+    {
+      "asset_code": "USD",
+      "entry_count": 3,
+      "net_quantity_delta": "992.50",
+      "operator_review_status": "pending_operator_review"
+    }
+  ],
+  "build_id": "paperlive_accounting_reconciliation_fixture_001-e515f0da1873",
+  "contract_version": "pmbot_paperlive_accounting_reconciliation.v1",
+  "errors": [],
+  "local_input_artifacts": [
+    {
+      "artifact_id": "crypto_paperlive_observation_ledger_001",
+      "artifact_role": "crypto_paperlive_observation_ledger",
+      "contract_version": "pmbot_crypto_paperlive_observation_ledger.v1",
+      "local_reference": "pm_bot/tests/fixtures/crypto_paperlive_observation_ledger/crypto_paperlive_observation_ledger.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "record_count": 1,
+      "runner_state": "descriptive_paperlive_accounting_reconciliation_record"
+    },
+    {
+      "artifact_id": "paper_accounting_ledger_fixture_001",
+      "artifact_role": "paper_accounting_ledger",
+      "contract_version": "pmbot_paper_accounting_ledger.v1",
+      "local_reference": "pm_bot/paper_accounting/samples/paper_accounting_ledger.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "record_count": 3,
+      "runner_state": "descriptive_paperlive_accounting_reconciliation_record"
+    },
+    {
+      "artifact_id": "paper_accounting_ledger_fixture_001.paper_accounting_validation",
+      "artifact_role": "paper_accounting_validation",
+      "contract_version": "pmbot_paper_accounting_validation.v1",
+      "local_reference": "pm_bot/paper_accounting/samples/paper_accounting_validation.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "record_count": 3,
+      "runner_state": "descriptive_paperlive_accounting_reconciliation_record"
+    },
+    {
+      "artifact_id": "paper_accounting_ledger_fixture_001.paper_accounting_session_summary",
+      "artifact_role": "paper_accounting_session_summary",
+      "contract_version": "pmbot_paper_accounting_session_summary.v1",
+      "local_reference": "pm_bot/paper_accounting/samples/paper_accounting_session_summary.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "record_count": 3,
+      "runner_state": "descriptive_paperlive_accounting_reconciliation_record"
+    }
+  ],
+  "local_only": true,
+  "operator_review": {
+    "required": true,
+    "review_steps": [
+      "Confirm every paperlive record in the request appears in the named local static fixture.",
+      "Confirm linked accounting entry identifiers appear in the local paper accounting ledger sample.",
+      "Confirm rows remain pending operator review until a human records any later accounting dispute."
+    ],
+    "status": "pending_operator_review"
+  },
+  "operator_review_required": true,
+  "paperlive_reconciliation_rows": [
+    {
+      "accounting_entry_count": 0,
+      "accounting_entry_ids": [],
+      "accounting_handling": "no_accounting_delta_recorded",
+      "accounting_ledger_id": "paper_accounting_ledger_fixture_001",
+      "accounting_quantity_delta_total": "0.00",
+      "accounting_review_status": "pending_operator_review",
+      "link_id": "crypto_paperlive_observation_ledger_001.sample.btc_threshold.to.paper_accounting",
+      "operator_review_label": "Confirm static observation has no linked accounting entry in the local ledger.",
+      "operator_review_status": "pending_operator_review",
+      "paperlive_artifact_id": "crypto_paperlive_observation_ledger_001",
+      "paperlive_asset_symbol": "BTC",
+      "paperlive_metric_type": "spot_index_threshold",
+      "paperlive_record_id": "crypto_paperlive_observation_ledger_001.sample.btc_threshold.observation",
+      "paperlive_reference_unit": "USD",
+      "paperlive_reference_value": "102500.00",
+      "paperlive_reported_at_utc": "2026-05-09T00:00:00Z",
+      "paperlive_review_status": "pending_operator_review",
+      "reconciliation_label": "Static crypto paperlive observation has no accounting entry in the paper ledger sample.",
+      "reconciliation_status": "ready_for_operator_review",
+      "row_id": "crypto_paperlive_observation_ledger_001.sample.btc_threshold.to.paper_accounting.paperlive_accounting_reconciliation",
+      "runner_state": "descriptive_paperlive_accounting_reconciliation_record",
+      "source_fixture_reference": "pm_bot/tests/fixtures/crypto_paperlive_observation_ledger/static_crypto_reference_snapshot.valid.json"
+    }
+  ],
+  "reconciliation_id": "paperlive_accounting_reconciliation_fixture_001",
+  "run_mode": "local_static_paperlive_to_accounting_reconciliation",
+  "safety_boundaries": {
+    "account_change_instruction_allowed": false,
+    "authenticated_endpoint_calls_allowed": false,
+    "background_process_allowed": false,
+    "browser_automation_allowed": false,
+    "external_market_api_allowed": false,
+    "llm_calls_allowed": false,
+    "network_calls_allowed": false,
+    "offline_inputs_only": true,
+    "operator_review_gate_required": true,
+    "paperlive_execution_allowed": false,
+    "real_money_or_signing_allowed": false,
+    "runtime_wiring_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "transaction_endpoint_allowed": false,
+    "wallet_or_order_code_allowed": false
+  },
+  "summary_counts": {
+    "accounting_entries_linked": 0,
+    "accounting_entries_total": 3,
+    "input_artifacts": 4,
+    "paperlive_records": 1,
+    "reconciliation_rows": 1,
+    "warnings": 0
+  },
+  "warnings": []
+}

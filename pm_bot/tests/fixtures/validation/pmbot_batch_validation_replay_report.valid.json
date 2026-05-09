@@ -1,0 +1,290 @@
+{
+  "batch_id": "pmbot-batch-validation-replay-001",
+  "batch_name": "pmbot-batch-validation-replay",
+  "contract_id": "pmbot-batch-validation-replay-report",
+  "contract_version": "pmbot_batch_validation_replay_report.v1",
+  "created_at": "2026-05-09T01:30:00Z",
+  "errors": [],
+  "excluded_path_prefixes": [
+    ".env",
+    ".env.*",
+    ".git/",
+    ".codex/",
+    "runtime/",
+    "dispatcher/",
+    "run_codex/",
+    "pm_bot/llm/",
+    "pm_bot/wallet/",
+    "pm_bot/trading/",
+    "pm_bot/orders/",
+    "agent_tasks/running/"
+  ],
+  "local_only": true,
+  "operator_review": {
+    "reviewed_at": null,
+    "reviewed_by": null,
+    "status": "pending_operator_review"
+  },
+  "operator_review_checks": [
+    {
+      "check_id": "local_reference_check",
+      "local_reference": "docs/PMBOT_VALIDATION_003_BATCH_VALIDATION_REPLAY_REPORT_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "required_evidence": "Human record confirming every named path is local and present.",
+      "review_label": "Local reference check"
+    },
+    {
+      "check_id": "static_fixture_check",
+      "local_reference": "pm_bot/tests/fixtures/validation/pmbot_batch_validation_replay_report.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "required_evidence": "Human record confirming the report uses static fixtures and samples only.",
+      "review_label": "Static fixture check"
+    },
+    {
+      "check_id": "validation_command_check",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "required_evidence": "Human record confirming required local commands are listed.",
+      "review_label": "Validation command check"
+    },
+    {
+      "check_id": "closed_boundary_check",
+      "local_reference": "pm_bot/tests/test_saved_evidence_replay_bundle.py",
+      "operator_review_status": "pending_operator_review",
+      "required_evidence": "Human record confirming endpoint, wallet, runtime, worker, and browser boundaries remain closed.",
+      "review_label": "Closed boundary check"
+    },
+    {
+      "check_id": "human_review_check",
+      "local_reference": "pm_bot/tests/test_batch_validation_replay_report.py",
+      "operator_review_status": "pending_operator_review",
+      "required_evidence": "Human record confirming this report remains pending review.",
+      "review_label": "Human review check"
+    }
+  ],
+  "operator_review_required": true,
+  "replay_records": [
+    {
+      "contract_version": "pmbot_batch_validation_replay_report.v1",
+      "expected_state": "pending_operator_review",
+      "local_reference": "pm_bot/tests/fixtures/validation/pmbot_batch_validation_replay_report.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "batch_validation_replay_report_001.report_fixture",
+      "record_label": "Batch validation replay report fixture",
+      "record_role": "batch_validation_replay_report_fixture",
+      "source_fixture_reference": "pm_bot/tests/fixtures/validation/pmbot_batch_validation_replay_report.valid.json"
+    },
+    {
+      "contract_version": "pmbot_batch_validation_replay_report.v1",
+      "expected_state": "pending_operator_review",
+      "local_reference": "docs/PMBOT_VALIDATION_003_BATCH_VALIDATION_REPLAY_REPORT_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "batch_validation_replay_report_001.report_document",
+      "record_label": "Batch validation replay report document",
+      "record_role": "batch_validation_replay_report_document",
+      "source_fixture_reference": "pm_bot/tests/fixtures/validation/pmbot_batch_validation_replay_report.valid.json"
+    },
+    {
+      "contract_version": "pmbot_saved_evidence_replay_bundle.v1",
+      "expected_state": "pending_operator_review",
+      "local_reference": "docs/PMBOT_VALIDATION_001_SAVED_EVIDENCE_REPLAY_BUNDLE_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "batch_validation_replay_report_001.saved_evidence_replay_bundle",
+      "record_label": "Saved evidence replay bundle",
+      "record_role": "saved_evidence_replay_bundle",
+      "source_fixture_reference": "pm_bot/tests/fixtures/validation/pmbot_saved_evidence_replay_bundle.valid.json"
+    },
+    {
+      "contract_version": "pmbot_ci_safe_validation_subset.v1",
+      "expected_state": "pending_operator_review",
+      "local_reference": "docs/PMBOT_VALIDATION_002_CI_SAFE_VALIDATION_SUBSET_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "batch_validation_replay_report_001.ci_safe_validation_subset",
+      "record_label": "CI-safe validation subset",
+      "record_role": "ci_safe_validation_subset",
+      "source_fixture_reference": "pm_bot/tests/fixtures/validation/pmbot_ci_safe_validation_subset.valid.json"
+    },
+    {
+      "contract_version": "pmbot_simulated_decision_replay_summary.v1",
+      "expected_state": "recorded_for_operator_review",
+      "local_reference": "pm_bot/simulated_decisions/samples/simulated_decision_replay_summary.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "batch_validation_replay_report_001.simulated_decision_replay_summary",
+      "record_label": "Simulated decision replay summary",
+      "record_role": "simulated_decision_replay_summary",
+      "source_fixture_reference": "pm_bot/tests/fixtures/simulated_decisions/simulated_decision_replay_summary_request.valid.json"
+    },
+    {
+      "contract_version": "pmbot_simulated_decision_audit_ledger.v1",
+      "expected_state": "recorded_for_operator_review",
+      "local_reference": "pm_bot/simulated_decisions/samples/simulated_decision_audit_ledger.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "batch_validation_replay_report_001.simulated_decision_audit_ledger",
+      "record_label": "Simulated decision audit ledger",
+      "record_role": "simulated_decision_audit_ledger",
+      "source_fixture_reference": "pm_bot/simulated_decisions/samples/simulated_decision_audit_ledger.fixture.json"
+    },
+    {
+      "contract_version": "pmbot_simulated_decision_packet.v1",
+      "expected_state": "recorded_for_operator_review",
+      "local_reference": "pm_bot/simulated_decisions/samples/simulated_decision_packet.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "batch_validation_replay_report_001.simulated_decision_packet",
+      "record_label": "Simulated decision packet",
+      "record_role": "simulated_decision_packet",
+      "source_fixture_reference": "pm_bot/simulated_decisions/samples/simulated_decision_packet.fixture.json"
+    },
+    {
+      "contract_version": "pmbot_queue_templates_local_validation",
+      "expected_state": "local_validation_reference",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "batch_validation_replay_report_001.queue_template_boundary_test",
+      "record_label": "Queue template boundary test",
+      "record_role": "queue_template_boundary_test",
+      "source_fixture_reference": "tests/test_codex_queue_pmbot_templates.py"
+    },
+    {
+      "contract_version": "pmbot_batch_validation_replay_report_contract_test",
+      "expected_state": "local_validation_reference",
+      "local_reference": "pm_bot/tests/test_batch_validation_replay_report.py",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "batch_validation_replay_report_001.report_contract_test",
+      "record_label": "Batch validation replay report contract test",
+      "record_role": "batch_validation_replay_report_contract_test",
+      "source_fixture_reference": "pm_bot/tests/test_batch_validation_replay_report.py"
+    }
+  ],
+  "report_id": "pmbot-batch-validation-replay-report-001",
+  "report_name": "pmbot-batch-validation-replay-report",
+  "report_sections": [
+    {
+      "local_reference": "docs/PMBOT_VALIDATION_003_BATCH_VALIDATION_REPLAY_REPORT_LOCAL_ONLY.md",
+      "observed_state": "static_report_identity_available_for_operator_review",
+      "operator_review_status": "pending_operator_review",
+      "record_count": 2,
+      "section_id": "batch_validation_replay_identity",
+      "section_label": "Batch validation replay identity",
+      "section_role": "report_identity",
+      "source_fixture_reference": "pm_bot/tests/fixtures/validation/pmbot_batch_validation_replay_report.valid.json"
+    },
+    {
+      "local_reference": "docs/PMBOT_VALIDATION_001_SAVED_EVIDENCE_REPLAY_BUNDLE_LOCAL_ONLY.md",
+      "observed_state": "static_saved_evidence_replay_available_for_operator_review",
+      "operator_review_status": "pending_operator_review",
+      "record_count": 10,
+      "section_id": "saved_evidence_replay_bundle_section",
+      "section_label": "Saved evidence replay bundle section",
+      "section_role": "saved_evidence_replay",
+      "source_fixture_reference": "pm_bot/tests/fixtures/validation/pmbot_saved_evidence_replay_bundle.valid.json"
+    },
+    {
+      "local_reference": "docs/PMBOT_VALIDATION_002_CI_SAFE_VALIDATION_SUBSET_LOCAL_ONLY.md",
+      "observed_state": "static_ci_safe_validation_subset_available_for_operator_review",
+      "operator_review_status": "pending_operator_review",
+      "record_count": 14,
+      "section_id": "ci_safe_validation_subset_section",
+      "section_label": "CI-safe validation subset section",
+      "section_role": "ci_safe_validation_subset",
+      "source_fixture_reference": "pm_bot/tests/fixtures/validation/pmbot_ci_safe_validation_subset.valid.json"
+    },
+    {
+      "local_reference": "pm_bot/simulated_decisions/samples/simulated_decision_replay_summary.fixture.json",
+      "observed_state": "static_simulated_decision_replay_summary_available_for_operator_review",
+      "operator_review_status": "pending_operator_review",
+      "record_count": 3,
+      "section_id": "simulated_decision_replay_summary_section",
+      "section_label": "Simulated decision replay summary section",
+      "section_role": "simulated_decision_replay_summary",
+      "source_fixture_reference": "pm_bot/tests/fixtures/simulated_decisions/simulated_decision_replay_summary_request.valid.json"
+    },
+    {
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "observed_state": "static_queue_template_validation_available_for_operator_review",
+      "operator_review_status": "pending_operator_review",
+      "record_count": 20,
+      "section_id": "queue_template_validation_section",
+      "section_label": "Queue template validation section",
+      "section_role": "queue_template_boundary",
+      "source_fixture_reference": "tests/test_codex_queue_pmbot_templates.py"
+    },
+    {
+      "local_reference": "pm_bot/tests/fixtures/validation/pmbot_batch_validation_replay_report.valid.json",
+      "observed_state": "static_validation_commands_recorded_for_operator_review",
+      "operator_review_status": "pending_operator_review",
+      "record_count": 2,
+      "section_id": "validation_command_section",
+      "section_label": "Validation command section",
+      "section_role": "validation_command_record",
+      "source_fixture_reference": "tests/test_codex_queue_pmbot_templates.py"
+    }
+  ],
+  "required_validation_commands": [
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "run_mode": "local_static_batch_validation_replay_report",
+  "safety_boundaries": {
+    "authenticated_endpoint_calls_allowed": false,
+    "background_process_allowed": false,
+    "browser_automation_allowed": false,
+    "credential_or_secret_access_allowed": false,
+    "execution_endpoint_calls_allowed": false,
+    "external_service_calls_allowed": false,
+    "llm_provider_calls_allowed": false,
+    "local_fixtures_only": true,
+    "local_static_samples_only": true,
+    "market_api_calls_allowed": false,
+    "market_instruction_fields_allowed": false,
+    "network_calls_allowed": false,
+    "operator_review_required": true,
+    "order_or_trade_surface_changes_allowed": false,
+    "paper_mode_only": true,
+    "report_mutates_source_artifacts_allowed": false,
+    "runtime_or_dispatcher_changes_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "sensitive_path_access_allowed": false,
+    "timed_automation_allowed": false,
+    "transaction_endpoint_calls_allowed": false,
+    "wallet_or_signing_material_access_allowed": false
+  },
+  "source_batch": {
+    "batch_label": "pmbot-validation-static-replay-record-set",
+    "local_reference": "docs/PMBOT_VALIDATION_003_BATCH_VALIDATION_REPLAY_REPORT_LOCAL_ONLY.md",
+    "record_scope": "batch_validation_replay_records",
+    "run_identifier": "2026-05-09-local-batch-validation-replay-report",
+    "run_state": "records_ready_for_operator_review"
+  },
+  "summary_counts": {
+    "errors": 0,
+    "excluded_path_prefixes": 12,
+    "local_references": 13,
+    "operator_review_checks": 5,
+    "operator_review_checks_pending_operator_review": 5,
+    "replay_records": 9,
+    "replay_records_pending_operator_review": 9,
+    "report_sections": 6,
+    "report_sections_pending_operator_review": 6,
+    "required_validation_commands": 2,
+    "validation_command_records": 2,
+    "warnings": 0
+  },
+  "task_id": "PMBOT-VALIDATION-003-BATCH-VALIDATION-REPLAY-REPORT-LOCAL-ONLY",
+  "validation_command_records": [
+    {
+      "command_label": "python -m compileall pm_bot tests",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "compileall.pm_bot.tests",
+      "status": "not_run_static_record"
+    },
+    {
+      "command_label": "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "pytest.pm_bot_tests.queue_templates",
+      "status": "not_run_static_record"
+    }
+  ],
+  "warnings": []
+}

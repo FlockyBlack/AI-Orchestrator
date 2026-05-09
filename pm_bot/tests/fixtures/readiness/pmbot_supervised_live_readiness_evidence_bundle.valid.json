@@ -1,0 +1,280 @@
+{
+  "bundle_id": "pmbot-supervised-live-readiness-evidence-bundle-001",
+  "bundle_name": "pmbot-supervised-live-readiness-evidence-bundle",
+  "bundle_sections": [
+    {
+      "local_references": [
+        "docs/PMBOT_SUPERVISED_LIVE_001_READ_ONLY_LIVE_DATA_CONTRACT_LOCAL_ONLY.md",
+        "pm_bot/tests/fixtures/readiness/pmbot_read_only_live_data_contract.valid.json"
+      ],
+      "operator_review_status": "pending_operator_review",
+      "section_id": "read_only_contract_evidence",
+      "section_label": "Read-only data contract evidence",
+      "section_role": "contract_presence_review"
+    },
+    {
+      "local_references": [
+        "docs/PMBOT_SUPERVISED_LIVE_002_LIVE_DATA_SOURCE_INVENTORY_LOCAL_ONLY.md",
+        "pm_bot/tests/fixtures/readiness/pmbot_live_data_source_inventory.valid.json"
+      ],
+      "operator_review_status": "pending_operator_review",
+      "section_id": "source_inventory_evidence",
+      "section_label": "Source inventory evidence",
+      "section_role": "static_source_presence_review"
+    },
+    {
+      "local_references": [
+        "docs/PMBOT_SUPERVISED_LIVE_003_OPERATOR_APPROVAL_GATE_RECORD_LOCAL_ONLY.md",
+        "pm_bot/tests/fixtures/readiness/pmbot_operator_approval_gate_record.valid.json",
+        "pm_bot/readiness/PMBOT_ROADMAP_002_PMBOT_LOCAL_TO_SUPERVISED_LIVE_GAP_MATRIX.md"
+      ],
+      "operator_review_status": "pending_operator_review",
+      "section_id": "operator_gate_evidence",
+      "section_label": "Operator gate evidence",
+      "section_role": "human_record_presence_review"
+    },
+    {
+      "local_references": [
+        "docs/PMBOT_SUPERVISED_LIVE_004_SUPERVISED_LIVE_STOP_CONDITION_SPEC_LOCAL_ONLY.md",
+        "pm_bot/tests/fixtures/readiness/pmbot_supervised_live_stop_condition_spec.valid.json",
+        "docs/PMBOT_SAFETY_003_FORBIDDEN_ACTION_SCAN_LOCAL_ONLY.md"
+      ],
+      "operator_review_status": "pending_operator_review",
+      "section_id": "stop_condition_evidence",
+      "section_label": "Stop condition evidence",
+      "section_role": "closed_boundary_presence_review"
+    }
+  ],
+  "contract_id": "pmbot-supervised-live-readiness-evidence-bundle",
+  "contract_version": "pmbot_supervised_live_readiness_evidence_bundle.v1",
+  "created_at": "2026-05-09T00:00:00Z",
+  "errors": [],
+  "evidence_record_fields": [
+    "record_id",
+    "artifact_id",
+    "artifact_type",
+    "contract_version",
+    "local_reference",
+    "operator_review_status",
+    "required_state",
+    "review_material",
+    "review_note"
+  ],
+  "evidence_records": [
+    {
+      "artifact_id": "read_only_live_data_contract",
+      "artifact_type": "supervised_live_contract",
+      "contract_version": "pmbot_supervised_live_read_only_live_data_contract.v1",
+      "local_reference": "docs/PMBOT_SUPERVISED_LIVE_001_READ_ONLY_LIVE_DATA_CONTRACT_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "readiness_evidence_bundle_001.read_only_live_data_contract",
+      "required_state": "pending_operator_review",
+      "review_material": "local_markdown_and_fixture",
+      "review_note": "Confirm read-only contract artifact and fixture are present."
+    },
+    {
+      "artifact_id": "live_data_source_inventory",
+      "artifact_type": "supervised_live_inventory",
+      "contract_version": "pmbot_supervised_live_data_source_inventory.v1",
+      "local_reference": "docs/PMBOT_SUPERVISED_LIVE_002_LIVE_DATA_SOURCE_INVENTORY_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "readiness_evidence_bundle_001.live_data_source_inventory",
+      "required_state": "pending_operator_review",
+      "review_material": "local_markdown_and_fixture",
+      "review_note": "Confirm source inventory artifact and fixture are present."
+    },
+    {
+      "artifact_id": "operator_approval_gate_record",
+      "artifact_type": "supervised_live_gate_record",
+      "contract_version": "pmbot_supervised_live_operator_approval_gate_record.v1",
+      "local_reference": "docs/PMBOT_SUPERVISED_LIVE_003_OPERATOR_APPROVAL_GATE_RECORD_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "readiness_evidence_bundle_001.operator_approval_gate_record",
+      "required_state": "pending_operator_review",
+      "review_material": "local_markdown_and_fixture",
+      "review_note": "Confirm gate record artifact and fixture are present."
+    },
+    {
+      "artifact_id": "supervised_live_stop_condition_spec",
+      "artifact_type": "supervised_live_stop_spec",
+      "contract_version": "pmbot_supervised_live_stop_condition_spec.v1",
+      "local_reference": "docs/PMBOT_SUPERVISED_LIVE_004_SUPERVISED_LIVE_STOP_CONDITION_SPEC_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "readiness_evidence_bundle_001.supervised_live_stop_condition_spec",
+      "required_state": "pending_operator_review",
+      "review_material": "local_markdown_and_fixture",
+      "review_note": "Confirm stop condition artifact and fixture are present."
+    },
+    {
+      "artifact_id": "local_to_supervised_live_gap_matrix",
+      "artifact_type": "readiness_gap_matrix",
+      "contract_version": "pmbot_local_to_supervised_live_gap_matrix.v1",
+      "local_reference": "pm_bot/readiness/PMBOT_ROADMAP_002_PMBOT_LOCAL_TO_SUPERVISED_LIVE_GAP_MATRIX.md",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "readiness_evidence_bundle_001.local_to_supervised_live_gap_matrix",
+      "required_state": "pending_operator_review",
+      "review_material": "local_readiness_markdown_and_fixture",
+      "review_note": "Confirm gap matrix remains local and pending human review."
+    },
+    {
+      "artifact_id": "autonomy_gate_checklist",
+      "artifact_type": "safety_review_record",
+      "contract_version": "pmbot_autonomy_gate_checklist.v1",
+      "local_reference": "docs/PMBOT_SAFETY_001_AUTONOMY_GATE_CHECKLIST_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "readiness_evidence_bundle_001.autonomy_gate_checklist",
+      "required_state": "pending_operator_review",
+      "review_material": "local_markdown_and_fixture",
+      "review_note": "Confirm autonomy records remain pending human review."
+    },
+    {
+      "artifact_id": "forbidden_action_scan",
+      "artifact_type": "safety_review_record",
+      "contract_version": "pmbot_forbidden_action_scan.v1",
+      "local_reference": "docs/PMBOT_SAFETY_003_FORBIDDEN_ACTION_SCAN_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "readiness_evidence_bundle_001.forbidden_action_scan",
+      "required_state": "pending_operator_review",
+      "review_material": "local_markdown_and_fixture",
+      "review_note": "Confirm forbidden operation boundaries remain closed."
+    },
+    {
+      "artifact_id": "pmbot_queue_template_validation",
+      "artifact_type": "local_test_reference",
+      "contract_version": "pmbot_queue_templates_local_validation",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "readiness_evidence_bundle_001.pmbot_queue_template_validation",
+      "required_state": "local_validation_reference",
+      "review_material": "local_test_file",
+      "review_note": "Confirm PMBOT queue templates keep local-only boundaries."
+    }
+  ],
+  "local_only": true,
+  "operator_review": {
+    "reviewed_at": null,
+    "reviewed_by": null,
+    "status": "pending_operator_review"
+  },
+  "operator_review_checklist": [
+    {
+      "check_id": "bundle_reference_review",
+      "description": "Confirm every evidence reference is a local file inside the allowed review paths.",
+      "required_evidence": "Human record confirming evidence path review.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "fixture_presence_review",
+      "description": "Confirm static fixtures named by the bundle are present and unchanged by runtime activity.",
+      "required_evidence": "Human record confirming fixture presence.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "operator_state_review",
+      "description": "Confirm every bundled artifact remains pending human review.",
+      "required_evidence": "Human record confirming status labels.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "sensitive_path_exclusion_check",
+      "description": "Confirm credential, wallet, signing, auth, and private material paths remain excluded.",
+      "required_evidence": "Human record confirming sensitive path boundaries.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "runtime_boundary_check",
+      "description": "Confirm runtime, dispatcher, scheduler, worker, browser, and resident process boundaries stay closed.",
+      "required_evidence": "Human record confirming no process or wiring changes.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "output_boundary_check",
+      "description": "Confirm outputs remain descriptive and exclude numeric prediction metrics, market ranking, and execution instruction fields.",
+      "required_evidence": "Human record confirming output field review.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "validation_replay_check",
+      "description": "Confirm local validation commands are run after artifact review.",
+      "required_evidence": "Human record confirming compile and pytest results.",
+      "status": "pending_operator_review"
+    }
+  ],
+  "operator_review_required": true,
+  "required_validation_commands": [
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "run_mode": "local_static_supervised_live_readiness_evidence_bundle",
+  "safety_boundaries": {
+    "artifact_status_change_allowed": false,
+    "authenticated_endpoint_calls_allowed": false,
+    "automated_restart_allowed": false,
+    "background_process_allowed": false,
+    "browser_automation_allowed": false,
+    "bundle_mutates_source_artifacts_allowed": false,
+    "credential_or_secret_access_allowed": false,
+    "execution_endpoint_calls_allowed": false,
+    "external_service_calls_allowed": false,
+    "live_data_refresh_allowed": false,
+    "llm_provider_calls_allowed": false,
+    "local_static_samples_only": true,
+    "market_api_calls_allowed": false,
+    "market_ranking_allowed": false,
+    "network_calls_allowed": false,
+    "numeric_prediction_metric_allowed": false,
+    "operator_review_required": true,
+    "order_or_trade_surface_changes_allowed": false,
+    "paper_mode_only": true,
+    "runtime_or_dispatcher_changes_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "supervised_live_transition_allowed": false,
+    "trade_instruction_allowed": false,
+    "transaction_endpoint_calls_allowed": false,
+    "wallet_or_signing_material_access_allowed": false
+  },
+  "source_artifacts": [
+    {
+      "artifact_id": "read_only_live_data_contract_fixture",
+      "contract_version": "pmbot_supervised_live_read_only_live_data_contract.v1",
+      "local_reference": "pm_bot/tests/fixtures/readiness/pmbot_read_only_live_data_contract.valid.json",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "live_data_source_inventory_fixture",
+      "contract_version": "pmbot_supervised_live_data_source_inventory.v1",
+      "local_reference": "pm_bot/tests/fixtures/readiness/pmbot_live_data_source_inventory.valid.json",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "operator_approval_gate_record_fixture",
+      "contract_version": "pmbot_supervised_live_operator_approval_gate_record.v1",
+      "local_reference": "pm_bot/tests/fixtures/readiness/pmbot_operator_approval_gate_record.valid.json",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "supervised_live_stop_condition_spec_fixture",
+      "contract_version": "pmbot_supervised_live_stop_condition_spec.v1",
+      "local_reference": "pm_bot/tests/fixtures/readiness/pmbot_supervised_live_stop_condition_spec.valid.json",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "readiness_evidence_bundle_fixture",
+      "contract_version": "pmbot_supervised_live_readiness_evidence_bundle.v1",
+      "local_reference": "pm_bot/tests/fixtures/readiness/pmbot_supervised_live_readiness_evidence_bundle.valid.json",
+      "required_state": "pending_operator_review"
+    }
+  ],
+  "summary_counts": {
+    "bundle_sections": 4,
+    "evidence_records": 8,
+    "evidence_records_pending_operator_review": 8,
+    "local_references": 13,
+    "operator_review_checklist_items": 7,
+    "required_validation_commands": 2,
+    "source_artifacts": 5,
+    "warnings": 0
+  },
+  "task_id": "PMBOT-SUPERVISED-LIVE-005-LIVE-READINESS-EVIDENCE-BUNDLE-LOCAL-ONLY",
+  "warnings": []
+}

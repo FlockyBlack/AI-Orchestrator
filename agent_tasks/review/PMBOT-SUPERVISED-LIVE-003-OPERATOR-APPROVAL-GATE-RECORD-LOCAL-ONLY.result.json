@@ -1,0 +1,41 @@
+{
+  "acceptance_checks_passed": true,
+  "commands_run": [
+    "pytest pm_bot/tests/test_operator_approval_gate_record.py",
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "completed_at": "2026-05-09T09:31:38Z",
+  "completed_by": "codex_cli_last_message_bridge",
+  "files_created": [],
+  "files_deleted": [],
+  "files_modified": [
+    "docs/PMBOT_SUPERVISED_LIVE_003_OPERATOR_APPROVAL_GATE_RECORD_LOCAL_ONLY.md",
+    "pm_bot/tests/fixtures/readiness/pmbot_operator_approval_gate_record.valid.json",
+    "pm_bot/tests/test_operator_approval_gate_record.py"
+  ],
+  "next_recommended_action": "Inspect the bridged result, ingestion report, review report, and git diff before mark-done.",
+  "operator_review_notes": "Bridged from C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-SUPERVISED-LIVE-003-OPERATOR-APPROVAL-GATE-RECORD-LOCAL-ONLY\\20260509T092622Z\\last_message.md. Safety notes: Used only local files, local fixtures, and static samples.; Changed files only under docs/ and pm_bot/tests/.; No network, browser automation, background process, external service call, credential access, wallet access, trading endpoint work, runtime wiring, dispatcher work, or scheduler work was performed.; The fixture records descriptive operator review gates only and contains no forecast scoring, action guidance, or selection advice.; The requested compileall command traverses the full pm_bot tree by design; no edits were made under forbidden PMBOT paths. Remaining risks: pytest reported a cache warning because .pytest_cache could not be written, but all tests passed.; This record is not execution approval and still requires human operator review before any later supervised-live status change. Bridge warnings: last_message used files_changed; bridged those paths as files_modified",
+  "safety_confirmation": {
+    "background_worker_added": false,
+    "codex_app_server_used": false,
+    "credentials_accessed": false,
+    "destructive_commands_used": false,
+    "network_calls_performed": 0,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "runtime_or_dispatcher_touched": false,
+    "scheduler_added": false,
+    "telegram_or_openclaw_added": false,
+    "wallet_or_trading_touched": false
+  },
+  "schema_version": "codex_task_result.v1",
+  "status": "completed",
+  "summary": "Added a deterministic local-only supervised-live operator approval gate record, static fixture, and pytest coverage. The gate remains not_approved, pending_operator_review, and blocked_until_operator_record_complete.",
+  "task_id": "PMBOT-SUPERVISED-LIVE-003-OPERATOR-APPROVAL-GATE-RECORD-LOCAL-ONLY",
+  "validation_results": [
+    "pytest pm_bot/tests/test_operator_approval_gate_record.py",
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ]
+}

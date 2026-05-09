@@ -1,0 +1,60 @@
+{
+  "accounting_artifacts": [
+    {
+      "artifact_id": "paper_accounting_ledger_fixture_001",
+      "artifact_role": "paper_accounting_ledger",
+      "contract_version": "pmbot_paper_accounting_ledger.v1",
+      "local_reference": "pm_bot/paper_accounting/samples/paper_accounting_ledger.fixture.json"
+    },
+    {
+      "artifact_id": "paper_accounting_ledger_fixture_001.paper_accounting_validation",
+      "artifact_role": "paper_accounting_validation",
+      "contract_version": "pmbot_paper_accounting_validation.v1",
+      "local_reference": "pm_bot/paper_accounting/samples/paper_accounting_validation.fixture.json"
+    },
+    {
+      "artifact_id": "paper_accounting_ledger_fixture_001.paper_accounting_session_summary",
+      "artifact_role": "paper_accounting_session_summary",
+      "contract_version": "pmbot_paper_accounting_session_summary.v1",
+      "local_reference": "pm_bot/paper_accounting/samples/paper_accounting_session_summary.fixture.json"
+    }
+  ],
+  "contract_version": "pmbot_paperlive_accounting_reconciliation_request.v1",
+  "local_only": true,
+  "operator_review_required": true,
+  "operator_review_steps": [
+    "Confirm every paperlive record in the request appears in the named local static fixture.",
+    "Confirm linked accounting entry identifiers appear in the local paper accounting ledger sample.",
+    "Confirm rows remain pending operator review until a human records any later accounting dispute."
+  ],
+  "paperlive_artifacts": [
+    {
+      "artifact_id": "crypto_paperlive_observation_ledger_001",
+      "artifact_role": "crypto_paperlive_observation_ledger",
+      "contract_version": "pmbot_crypto_paperlive_observation_ledger.v1",
+      "local_reference": "pm_bot/tests/fixtures/crypto_paperlive_observation_ledger/crypto_paperlive_observation_ledger.valid.json",
+      "required_fields": [
+        "contract_version",
+        "ledger_id",
+        "local_only",
+        "observation_records",
+        "operator_review_required",
+        "summary_counts"
+      ]
+    }
+  ],
+  "reconciliation_id": "paperlive_accounting_reconciliation_fixture_001",
+  "record_links": [
+    {
+      "accounting_entry_ids": [],
+      "accounting_handling": "no_accounting_delta_recorded",
+      "accounting_ledger_id": "paper_accounting_ledger_fixture_001",
+      "link_id": "crypto_paperlive_observation_ledger_001.sample.btc_threshold.to.paper_accounting",
+      "operator_review_label": "Confirm static observation has no linked accounting entry in the local ledger.",
+      "paperlive_artifact_id": "crypto_paperlive_observation_ledger_001",
+      "paperlive_record_id": "crypto_paperlive_observation_ledger_001.sample.btc_threshold.observation",
+      "reconciliation_label": "Static crypto paperlive observation has no accounting entry in the paper ledger sample."
+    }
+  ],
+  "scope": "paperlive_to_accounting_reconciliation"
+}

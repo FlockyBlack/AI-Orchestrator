@@ -1,0 +1,218 @@
+{
+  "allowed_path_prefixes": [
+    "docs/",
+    "pm_bot/tests/",
+    "tests/"
+  ],
+  "contract_version": "pmbot_forbidden_language_regression_suite.v1",
+  "created_at": "2026-05-09T03:00:00Z",
+  "errors": [],
+  "forbidden_language_categories": [
+    {
+      "category_id": "trade_action_terms",
+      "detection_tokens": [
+        "buy",
+        "sell",
+        "hold",
+        "enter",
+        "exit"
+      ],
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Trade action vocabulary literal-token coverage"
+    },
+    {
+      "category_id": "forecast_metric_terms",
+      "detection_tokens": [
+        "forecast",
+        "probability",
+        "confidence",
+        "edge",
+        "ev",
+        "odds",
+        "score",
+        "scoring"
+      ],
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Forecast metric vocabulary literal-token coverage"
+    },
+    {
+      "category_id": "selection_terms",
+      "detection_tokens": [
+        "pick",
+        "selection",
+        "recommendation",
+        "recommendations",
+        "side"
+      ],
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Selection vocabulary literal-token coverage"
+    },
+    {
+      "category_id": "exposure_terms",
+      "detection_tokens": [
+        "stake",
+        "wager"
+      ],
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Exposure vocabulary literal-token coverage"
+    }
+  ],
+  "local_only": true,
+  "operator_review": {
+    "reviewed_at": null,
+    "reviewed_by": null,
+    "status": "pending_operator_review"
+  },
+  "operator_review_required": true,
+  "regression_samples": [
+    {
+      "expected_categories": [],
+      "expected_result": "clear_for_operator_review",
+      "operator_review_status": "pending_operator_review",
+      "sample_id": "forbidden_language_regression_suite_001.clean_operator_review_reference",
+      "sample_kind": "clean_local_review_sample",
+      "sample_text": "Clean local-review sample: record source labels, evidence timestamps, and pending operator status."
+    },
+    {
+      "expected_categories": [
+        "trade_action_terms"
+      ],
+      "expected_result": "flag_for_operator_review",
+      "operator_review_status": "pending_operator_review",
+      "sample_id": "forbidden_language_regression_suite_001.trade_action_terms_lowercase",
+      "sample_kind": "literal_token_detection_only",
+      "sample_text": "Literal safety-token sample: buy sell hold enter exit."
+    },
+    {
+      "expected_categories": [
+        "trade_action_terms"
+      ],
+      "expected_result": "flag_for_operator_review",
+      "operator_review_status": "pending_operator_review",
+      "sample_id": "forbidden_language_regression_suite_001.trade_action_terms_case_and_punctuation",
+      "sample_kind": "literal_token_detection_only",
+      "sample_text": "Literal safety-token sample: BUY, Sell; HOLD. Enter? Exit!"
+    },
+    {
+      "expected_categories": [
+        "forecast_metric_terms"
+      ],
+      "expected_result": "flag_for_operator_review",
+      "operator_review_status": "pending_operator_review",
+      "sample_id": "forbidden_language_regression_suite_001.forecast_metric_terms",
+      "sample_kind": "literal_token_detection_only",
+      "sample_text": "Literal safety-token sample: forecast probability confidence edge EV odds score scoring."
+    },
+    {
+      "expected_categories": [
+        "selection_terms"
+      ],
+      "expected_result": "flag_for_operator_review",
+      "operator_review_status": "pending_operator_review",
+      "sample_id": "forbidden_language_regression_suite_001.selection_terms",
+      "sample_kind": "literal_token_detection_only",
+      "sample_text": "Literal safety-token sample: pick selection recommendation recommendations side."
+    },
+    {
+      "expected_categories": [
+        "exposure_terms"
+      ],
+      "expected_result": "flag_for_operator_review",
+      "operator_review_status": "pending_operator_review",
+      "sample_id": "forbidden_language_regression_suite_001.exposure_terms",
+      "sample_kind": "literal_token_detection_only",
+      "sample_text": "Literal safety-token sample: stake wager."
+    },
+    {
+      "expected_categories": [
+        "trade_action_terms",
+        "forecast_metric_terms",
+        "selection_terms",
+        "exposure_terms"
+      ],
+      "expected_result": "flag_for_operator_review",
+      "operator_review_status": "pending_operator_review",
+      "sample_id": "forbidden_language_regression_suite_001.mixed_terms",
+      "sample_kind": "literal_token_detection_only",
+      "sample_text": "Literal safety-token sample: buy probability pick stake."
+    },
+    {
+      "expected_categories": [],
+      "expected_result": "clear_for_operator_review",
+      "operator_review_status": "pending_operator_review",
+      "sample_id": "forbidden_language_regression_suite_001.clean_boundary_reference",
+      "sample_kind": "clean_local_review_sample",
+      "sample_text": "Clean local-review sample: static record, local fixture, pending review, closed boundary, no endpoint use."
+    }
+  ],
+  "required_validation_commands": [
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "run_mode": "local_static_forbidden_language_regression_suite",
+  "safety_boundaries": {
+    "authenticated_endpoint_calls_allowed": false,
+    "background_process_allowed": false,
+    "browser_automation_allowed": false,
+    "credential_or_secret_access_allowed": false,
+    "execution_endpoint_calls_allowed": false,
+    "external_service_calls_allowed": false,
+    "forbidden_language_samples_are_literal_tokens_only": true,
+    "llm_provider_calls_allowed": false,
+    "local_static_samples_only": true,
+    "market_api_calls_allowed": false,
+    "market_instruction_output_allowed": false,
+    "network_calls_allowed": false,
+    "operator_review_required": true,
+    "order_or_trade_surface_changes_allowed": false,
+    "paper_mode_only": true,
+    "runtime_or_dispatcher_changes_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "sensitive_path_access_allowed": false,
+    "timed_automation_allowed": false,
+    "transaction_endpoint_calls_allowed": false,
+    "wallet_or_signing_material_access_allowed": false
+  },
+  "source_artifacts": [
+    {
+      "artifact_id": "forbidden_action_scan_doc",
+      "local_reference": "docs/PMBOT_SAFETY_003_FORBIDDEN_ACTION_SCAN_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "artifact_id": "sensitive_path_exclusion_audit_doc",
+      "local_reference": "docs/PMBOT_SAFETY_004_SENSITIVE_PATH_EXCLUSION_AUDIT_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "artifact_id": "forbidden_action_scan_fixture",
+      "local_reference": "pm_bot/tests/fixtures/safety/forbidden_action_scan.valid.json",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "artifact_id": "queue_template_safety_contract",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "artifact_id": "forbidden_language_regression_suite_fixture",
+      "local_reference": "pm_bot/tests/fixtures/safety/forbidden_language_regression_suite.valid.json",
+      "operator_review_status": "pending_operator_review"
+    }
+  ],
+  "suite_id": "pmbot_forbidden_language_regression_suite_001",
+  "suite_name": "pmbot-forbidden-language-regression-suite",
+  "summary_counts": {
+    "allowed_path_prefixes": 3,
+    "clear_samples": 2,
+    "errors": 0,
+    "flagged_samples": 6,
+    "forbidden_language_categories": 4,
+    "regression_samples": 8,
+    "required_validation_commands": 2,
+    "source_artifacts": 5,
+    "warnings": 0
+  },
+  "task_id": "PMBOT-SAFETY-005-FORBIDDEN-LANGUAGE-REGRESSION-SUITE-LOCAL-ONLY",
+  "warnings": []
+}

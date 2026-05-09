@@ -1,0 +1,273 @@
+{
+  "contract_id": "pmbot-supervised-live-data-source-inventory",
+  "contract_version": "pmbot_supervised_live_data_source_inventory.v1",
+  "created_at": "2026-05-09T00:00:00Z",
+  "errors": [],
+  "inventory_id": "pmbot-supervised-live-data-source-inventory-001",
+  "local_only": true,
+  "operator_review": {
+    "reviewed_at": null,
+    "reviewed_by": null,
+    "status": "pending_operator_review"
+  },
+  "operator_review_checklist": [
+    {
+      "check_id": "local_reference_review",
+      "description": "Confirm every source record points to a local file inside the allowed review paths.",
+      "required_evidence": "Human record confirming path review and excluded paths.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "static_record_scope_review",
+      "description": "Confirm every source record is copied from a local fixture or static sample.",
+      "required_evidence": "Human record confirming static file scope.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "field_inventory_review",
+      "description": "Confirm included fields name fixture fields without copying market values into this inventory.",
+      "required_evidence": "Human record confirming field list review.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "currentness_label_review",
+      "description": "Confirm freshness labels are descriptive and make no current external-state claim.",
+      "required_evidence": "Human record confirming timestamp and static status review.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "sensitive_path_exclusion_check",
+      "description": "Confirm credential, wallet, signing, auth, and private material paths remain excluded.",
+      "required_evidence": "Human record confirming sensitive path boundaries.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "runtime_boundary_check",
+      "description": "Confirm runtime, dispatcher, scheduler, worker, browser, and resident process boundaries stay closed.",
+      "required_evidence": "Human record confirming no process or wiring changes.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "validation_replay_check",
+      "description": "Confirm local validation commands are run after artifact review.",
+      "required_evidence": "Human record confirming compile and pytest results.",
+      "status": "pending_operator_review"
+    }
+  ],
+  "operator_review_required": true,
+  "required_validation_commands": [
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "run_mode": "local_static_live_data_source_inventory",
+  "safety_boundaries": {
+    "authenticated_endpoint_calls_allowed": false,
+    "background_process_allowed": false,
+    "browser_automation_allowed": false,
+    "credential_or_secret_access_allowed": false,
+    "execution_endpoint_calls_allowed": false,
+    "external_service_calls_allowed": false,
+    "live_data_refresh_allowed": false,
+    "llm_provider_calls_allowed": false,
+    "local_static_samples_only": true,
+    "market_api_calls_allowed": false,
+    "market_ranking_allowed": false,
+    "network_calls_allowed": false,
+    "numeric_prediction_metric_allowed": false,
+    "operator_review_required": true,
+    "order_or_trade_surface_changes_allowed": false,
+    "paper_mode_only": true,
+    "runtime_or_dispatcher_changes_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "source_record_ordering_output_allowed": false,
+    "trade_instruction_allowed": false,
+    "transaction_endpoint_calls_allowed": false,
+    "wallet_or_signing_material_access_allowed": false
+  },
+  "source_contracts": [
+    {
+      "contract_version": "pmbot_supervised_live_read_only_live_data_contract.v1",
+      "local_reference": "docs/PMBOT_SUPERVISED_LIVE_001_READ_ONLY_LIVE_DATA_CONTRACT_LOCAL_ONLY.md",
+      "required_state": "pending_operator_review",
+      "source_contract_id": "read_only_live_data_contract"
+    },
+    {
+      "contract_version": "pmbot_local_to_supervised_live_gap_matrix.v1",
+      "local_reference": "pm_bot/readiness/PMBOT_ROADMAP_002_PMBOT_LOCAL_TO_SUPERVISED_LIVE_GAP_MATRIX.md",
+      "required_state": "pending_operator_review",
+      "source_contract_id": "local_to_supervised_live_gap_matrix"
+    },
+    {
+      "contract_version": "pmbot_unified_source_quality_ledger.v1",
+      "local_reference": "pm_bot/source_quality/samples/unified_source_quality_ledger.fixture.json",
+      "required_state": "pending_operator_review",
+      "source_contract_id": "unified_source_quality_ledger_sample"
+    }
+  ],
+  "source_record_fields": [
+    "captured_at_utc",
+    "contract_version",
+    "excluded_operations",
+    "freshness_label",
+    "included_fields",
+    "local_reference",
+    "notes",
+    "operator_review_status",
+    "record_id",
+    "source_access_mode",
+    "source_class",
+    "source_domain",
+    "source_id",
+    "source_label",
+    "snapshot_id"
+  ],
+  "source_records": [
+    {
+      "captured_at_utc": "2026-05-09T00:00:00Z",
+      "contract_version": "pmbot_supervised_live_read_only_live_data_contract.v1",
+      "excluded_operations": [
+        "network_endpoint_fetch",
+        "authenticated_request",
+        "credential_lookup",
+        "wallet_balance_read",
+        "transaction_preparation",
+        "order_submission",
+        "runtime_dispatch",
+        "browser_automation",
+        "background_process_start"
+      ],
+      "freshness_label": "static_sample_no_currentness_claim",
+      "included_fields": [
+        "record_id",
+        "source_label",
+        "source_class",
+        "capture_mode",
+        "captured_at_utc",
+        "local_snapshot_reference",
+        "read_only_use",
+        "source_freshness_label",
+        "operator_review_status"
+      ],
+      "local_reference": "pm_bot/tests/fixtures/readiness/pmbot_read_only_live_data_contract.valid.json",
+      "notes": "Static sample record for supervised source inventory shape only.",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "live_data_source_inventory_001.read_only_contract_fixture",
+      "snapshot_id": "read_only_live_data_snapshot.sample_001",
+      "source_access_mode": "local_fixture_copy",
+      "source_class": "operator_supplied_static_snapshot",
+      "source_domain": "readiness_contract",
+      "source_id": "read_only_live_data_contract_fixture",
+      "source_label": "Read-only live data contract fixture"
+    },
+    {
+      "captured_at_utc": "2026-05-10T00:05:00Z",
+      "contract_version": "pmbot_weather_observation_snapshot.v1",
+      "excluded_operations": [
+        "network_endpoint_fetch",
+        "authenticated_request",
+        "credential_lookup",
+        "wallet_balance_read",
+        "transaction_preparation",
+        "order_submission",
+        "runtime_dispatch",
+        "browser_automation",
+        "background_process_start"
+      ],
+      "freshness_label": "static_fixture_timestamp_only",
+      "included_fields": [
+        "observation_date",
+        "station_id",
+        "high_temperature_f",
+        "report_timestamp"
+      ],
+      "local_reference": "pm_bot/tests/fixtures/weather/official_daily_climate_report_snapshot.json",
+      "notes": "Local fixture source record for operator inventory review only.",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "live_data_source_inventory_001.official_daily_climate_report",
+      "snapshot_id": "fixture_official_daily_climate_report_2026_05_09",
+      "source_access_mode": "local_fixture_copy",
+      "source_class": "official_record_snapshot",
+      "source_domain": "weather_observation",
+      "source_id": "official_daily_climate_report",
+      "source_label": "Official daily climate report"
+    },
+    {
+      "captured_at_utc": "2026-05-09T23:58:00Z",
+      "contract_version": "pmbot_weather_observation_snapshot.v1",
+      "excluded_operations": [
+        "network_endpoint_fetch",
+        "authenticated_request",
+        "credential_lookup",
+        "wallet_balance_read",
+        "transaction_preparation",
+        "order_submission",
+        "runtime_dispatch",
+        "browser_automation",
+        "background_process_start"
+      ],
+      "freshness_label": "static_fixture_timestamp_only",
+      "included_fields": [
+        "observation_date",
+        "station_id",
+        "observed_high_temperature_f",
+        "observation_timestamp"
+      ],
+      "local_reference": "pm_bot/tests/fixtures/weather/airport_station_observation_log_snapshot.json",
+      "notes": "Local fixture source record for operator inventory review only.",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "live_data_source_inventory_001.airport_station_observation_log",
+      "snapshot_id": "fixture_airport_station_observation_log_2026_05_09",
+      "source_access_mode": "local_fixture_copy",
+      "source_class": "station_observation_snapshot",
+      "source_domain": "weather_observation",
+      "source_id": "airport_station_observation_log",
+      "source_label": "Airport station observation log"
+    },
+    {
+      "captured_at_utc": "2026-05-09T00:20:00Z",
+      "contract_version": "pmbot_static_crypto_reference_snapshot.v1",
+      "excluded_operations": [
+        "network_endpoint_fetch",
+        "authenticated_request",
+        "credential_lookup",
+        "wallet_balance_read",
+        "transaction_preparation",
+        "order_submission",
+        "runtime_dispatch",
+        "browser_automation",
+        "background_process_start"
+      ],
+      "freshness_label": "static_fixture_timestamp_only",
+      "included_fields": [
+        "asset_symbol",
+        "asset_name",
+        "metric_type",
+        "measurement_source_label",
+        "reported_reference_value",
+        "reported_reference_unit",
+        "reported_at_utc",
+        "source_label"
+      ],
+      "local_reference": "pm_bot/tests/fixtures/crypto_paperlive_observation_ledger/static_crypto_reference_snapshot.valid.json",
+      "notes": "Local fixture source record for operator inventory review only.",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "live_data_source_inventory_001.static_crypto_reference_snapshot",
+      "snapshot_id": "static_crypto_reference_snapshot_2026_05_09_btc",
+      "source_access_mode": "local_fixture_copy",
+      "source_class": "local_static_crypto_reference_snapshot",
+      "source_domain": "crypto_reference",
+      "source_id": "static_crypto_reference_snapshot_2026_05_09_btc",
+      "source_label": "Static crypto reference sample"
+    }
+  ],
+  "summary_counts": {
+    "local_references": 4,
+    "operator_review_checklist_items": 7,
+    "required_validation_commands": 2,
+    "source_contracts": 3,
+    "source_records": 4,
+    "warnings": 0
+  },
+  "task_id": "PMBOT-SUPERVISED-LIVE-002-LIVE-DATA-SOURCE-INVENTORY-LOCAL-ONLY",
+  "warnings": []
+}

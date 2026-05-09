@@ -1,0 +1,180 @@
+{
+  "build_id": "source_contradiction_ledger_fixture_001-5d1565a70e0d",
+  "contract_version": "pmbot_source_contradiction_ledger.v1",
+  "documentation": {
+    "byte_count": 4131,
+    "content_sha256": "098d1365ffc73192107d69283a02b58c82d0735cb0edfce3de961de51232c8e0",
+    "local_reference": "docs/PMBOT_SOURCE_EVIDENCE_003_SOURCE_STALENESS_CHECK_SPEC_LOCAL_ONLY.md",
+    "present": true
+  },
+  "errors": [],
+  "ledger_id": "source_contradiction_ledger_fixture_001",
+  "local_only": true,
+  "operator_review": {
+    "status": "pending_operator_review",
+    "steps": [
+      "Confirm each source pair is copied from local static artifact references.",
+      "Confirm mapped fields and static values match the local artifact bytes.",
+      "Record unresolved differences outside this ledger before any later status change."
+    ]
+  },
+  "operator_review_required": true,
+  "run_mode": "local_static_source_contradiction_ledger",
+  "safety_boundaries": {
+    "authenticated_endpoint_calls_allowed": false,
+    "background_process_allowed": false,
+    "browser_automation_allowed": false,
+    "credential_or_secret_access_allowed": false,
+    "execution_endpoint_calls_allowed": false,
+    "external_service_calls_allowed": false,
+    "llm_provider_calls_allowed": false,
+    "local_static_inputs_only": true,
+    "network_calls_allowed": false,
+    "operator_review_required": true,
+    "order_or_trade_surface_changes_allowed": false,
+    "runtime_or_dispatcher_changes_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "transaction_endpoint_calls_allowed": false,
+    "wallet_or_signing_material_access_allowed": false
+  },
+  "scope": "source_contradiction_ledger",
+  "source_contradiction_rows": [
+    {
+      "check_label": "Weather daily high temperature static comparison",
+      "comparison_kind": "mapped_field_value_compare",
+      "contradiction_state": "static_value_difference_pending_review",
+      "field_comparisons": [
+        {
+          "comparison_state": "different_static_values_pending_review",
+          "left_field": "high_temperature_f",
+          "left_value": 74,
+          "operator_review_status": "pending_operator_review",
+          "right_field": "observed_high_temperature_f",
+          "right_value": 73,
+          "semantic_field": "daily_high_temperature_f",
+          "unit_label": "fahrenheit",
+          "values_match": false
+        }
+      ],
+      "known_limitations": [
+        "Static local ledger only; no external refresh is performed.",
+        "Records mapped field differences and pending review state only.",
+        "Does not authorize execution and is not runtime input."
+      ],
+      "left_source": {
+        "operator_review_status": "pending_operator_review",
+        "source_artifact": {
+          "artifact_format": "json_object",
+          "byte_count": 514,
+          "content_sha256": "5141db855f8039139fe1b875a2c945c06f83d1fa608a206a35122fd7c7ef5867",
+          "local_reference": "pm_bot/tests/fixtures/weather/official_daily_climate_report_snapshot.json",
+          "present": true,
+          "source_artifact_present": true
+        },
+        "source_domain": "weather_observation",
+        "source_evidence_link_id": "source_evidence_link_map_fixture_001.official_daily_climate_report.source_evidence_link",
+        "source_id": "official_daily_climate_report",
+        "source_label": "Official daily climate report",
+        "source_type": "official_record_snapshot",
+        "staleness_check_id": "source_staleness_check_spec_fixture_001.official_daily_climate_report.source_staleness_check",
+        "staleness_state": "within_static_review_window",
+        "timestamp_field": "report_timestamp"
+      },
+      "operator_review_status": "pending_operator_review",
+      "request_check_id": "weather_daily_high_temperature_static_compare",
+      "review_checks": [
+        {
+          "check_id": "source_pair_identity",
+          "description": "Confirm source ids and source staleness rows match the local staleness spec.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "artifact_digest",
+          "description": "Confirm source artifact references and digests match local bytes.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "mapped_value_review",
+          "description": "Confirm mapped field values are copied from local static artifacts.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "pending_review_state",
+          "description": "Confirm every row remains pending operator review.",
+          "operator_review_status": "pending_operator_review"
+        }
+      ],
+      "right_source": {
+        "operator_review_status": "pending_operator_review",
+        "source_artifact": {
+          "artifact_format": "json_object",
+          "byte_count": 536,
+          "content_sha256": "e27ccc4dedeb4b3da48cd9e636d137e78be3cefa9683598879b2aed122370a8c",
+          "local_reference": "pm_bot/tests/fixtures/weather/airport_station_observation_log_snapshot.json",
+          "present": true,
+          "source_artifact_present": true
+        },
+        "source_domain": "weather_observation",
+        "source_evidence_link_id": "source_evidence_link_map_fixture_001.airport_station_observation_log.source_evidence_link",
+        "source_id": "airport_station_observation_log",
+        "source_label": "Airport station observation log",
+        "source_type": "station_observation_snapshot",
+        "staleness_check_id": "source_staleness_check_spec_fixture_001.airport_station_observation_log.source_staleness_check",
+        "staleness_state": "within_static_review_window",
+        "timestamp_field": "observation_timestamp"
+      },
+      "row_id": "source_contradiction_ledger_fixture_001.weather_daily_high_temperature_static_compare.source_contradiction_review",
+      "row_state": "descriptive_source_contradiction_review",
+      "source_domain": "weather_observation",
+      "subject_key_comparisons": [
+        {
+          "field_name": "station_id",
+          "left_value": "KNYC",
+          "operator_review_status": "pending_operator_review",
+          "right_value": "KNYC",
+          "values_match": true
+        },
+        {
+          "field_name": "observation_date",
+          "left_value": "2026-05-09",
+          "operator_review_status": "pending_operator_review",
+          "right_value": "2026-05-09",
+          "values_match": true
+        }
+      ]
+    }
+  ],
+  "source_staleness_check_report": {
+    "byte_count": 3401,
+    "content_sha256": "5c6f9086a3121ae0916cb17526c5cede860775520f685087c492253ce44b87d9",
+    "local_reference": "pm_bot/source_quality/samples/source_staleness_check_spec.fixture.md",
+    "present": true
+  },
+  "source_staleness_check_spec": {
+    "build_id": "source_staleness_check_spec_fixture_001-6d7b66d4f994",
+    "byte_count": 14427,
+    "content_sha256": "7f3974efcb2eac6e53d9302eb3198a9b9e36946337e36ac57144ed936b94290b",
+    "contract_version": "pmbot_source_staleness_check_spec.v1",
+    "local_reference": "pm_bot/source_quality/samples/source_staleness_check_spec.fixture.json",
+    "operator_review_status": "pending_operator_review",
+    "present": true,
+    "run_mode": "local_static_source_staleness_check_spec",
+    "source_staleness_checks": 4,
+    "spec_id": "source_staleness_check_spec_fixture_001"
+  },
+  "summary_counts": {
+    "different_field_comparisons": 1,
+    "field_comparisons": 1,
+    "local_references": 5,
+    "matching_field_comparisons": 0,
+    "operator_review_steps": 3,
+    "review_checks": 4,
+    "source_artifact_references": 2,
+    "source_contradiction_rows": 1,
+    "source_staleness_checks": 2,
+    "subject_key_comparisons": 2,
+    "subject_key_differences": 0,
+    "warnings": 0
+  },
+  "warnings": []
+}

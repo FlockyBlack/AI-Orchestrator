@@ -1,0 +1,44 @@
+{
+  "acceptance_checks_passed": true,
+  "commands_run": [
+    "pytest pm_bot/tests/test_source_evidence_link_map.py",
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "completed_at": "2026-05-09T09:58:49Z",
+  "completed_by": "codex_cli_last_message_bridge",
+  "files_created": [],
+  "files_deleted": [],
+  "files_modified": [
+    "docs/PMBOT_SOURCE_EVIDENCE_002_SOURCE_EVIDENCE_LINK_MAP_LOCAL_ONLY.md",
+    "pm_bot/source_quality/source_evidence_link_map.py",
+    "pm_bot/source_quality/samples/source_evidence_link_map.fixture.json",
+    "pm_bot/source_quality/samples/source_evidence_link_map.fixture.md",
+    "pm_bot/tests/fixtures/source_quality/source_evidence_link_map_request.valid.json",
+    "pm_bot/tests/test_source_evidence_link_map.py"
+  ],
+  "next_recommended_action": "Inspect the bridged result, ingestion report, review report, and git diff before mark-done.",
+  "operator_review_notes": "Bridged from C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-SOURCE-EVIDENCE-002-SOURCE-EVIDENCE-LINK-MAP-LOCAL-ONLY\\20260509T094927Z\\last_message.md. Safety notes: Implementation edits stayed under docs/, pm_bot/source_quality/, and pm_bot/tests/.; Used only local files, local fixtures, and static samples.; No network, browser automation, background process, endpoint, credential, wallet, order, trading, runtime, dispatcher, or run_codex work was performed.; The link map records local references, byte counts, digests, and pending operator review state only; it does not produce forecast scoring, action guidance, or selection advice. Remaining risks: python -m compileall pm_bot tests returned exit code 0 but reported it could not list tests\\.pytest_tmp\\pytest-of-OpenC.; pytest passed with a cache warning because .pytest_cache could not be written. Bridge warnings: last_message used files_changed; bridged those paths as files_modified",
+  "safety_confirmation": {
+    "background_worker_added": false,
+    "codex_app_server_used": false,
+    "credentials_accessed": false,
+    "destructive_commands_used": false,
+    "network_calls_performed": 0,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "runtime_or_dispatcher_touched": false,
+    "scheduler_added": false,
+    "telegram_or_openclaw_added": false,
+    "wallet_or_trading_touched": false
+  },
+  "schema_version": "codex_task_result.v1",
+  "status": "completed",
+  "summary": "Added a deterministic local PMBOT source evidence link map for operator review, with request fixture, generated JSON/Markdown samples, documentation, and tests.",
+  "task_id": "PMBOT-SOURCE-EVIDENCE-002-SOURCE-EVIDENCE-LINK-MAP-LOCAL-ONLY",
+  "validation_results": [
+    "pytest pm_bot/tests/test_source_evidence_link_map.py",
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ]
+}

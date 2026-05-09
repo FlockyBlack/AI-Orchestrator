@@ -1,0 +1,160 @@
+{
+  "allowed_path_prefixes": [
+    "docs/",
+    "pm_bot/tests/",
+    "tests/"
+  ],
+  "contract_version": "pmbot_autonomy_review_record.v1",
+  "created_at": "2026-05-09T04:00:00Z",
+  "errors": [],
+  "local_only": true,
+  "operator_review": {
+    "reviewed_at": null,
+    "reviewed_by": null,
+    "status": "pending_operator_review"
+  },
+  "operator_review_required": true,
+  "record_id": "pmbot_autonomy_review_record_001",
+  "record_name": "pmbot-autonomy-review-record",
+  "required_validation_commands": [
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "review_inputs": [
+    {
+      "input_id": "queue_template_safety_contract",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "observed_state": "pmbot_task_template_safety_contract_present",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "input_id": "autonomy_gate_checklist",
+      "local_reference": "docs/PMBOT_SAFETY_001_AUTONOMY_GATE_CHECKLIST_LOCAL_ONLY.md",
+      "observed_state": "autonomy_gate_checklist_present",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "input_id": "night_batch_postrun_audit_summary",
+      "local_reference": "docs/PMBOT_SAFETY_002_NIGHT_BATCH_POSTRUN_AUDIT_SUMMARY_LOCAL_ONLY.md",
+      "observed_state": "postrun_audit_summary_present",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "input_id": "forbidden_action_scan",
+      "local_reference": "docs/PMBOT_SAFETY_003_FORBIDDEN_ACTION_SCAN_LOCAL_ONLY.md",
+      "observed_state": "forbidden_surface_scan_present",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "input_id": "sensitive_path_exclusion_audit",
+      "local_reference": "docs/PMBOT_SAFETY_004_SENSITIVE_PATH_EXCLUSION_AUDIT_LOCAL_ONLY.md",
+      "observed_state": "sensitive_path_exclusion_audit_present",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "input_id": "forbidden_language_regression_suite",
+      "local_reference": "docs/PMBOT_SAFETY_005_FORBIDDEN_LANGUAGE_REGRESSION_SUITE_LOCAL_ONLY.md",
+      "observed_state": "forbidden_language_regression_suite_present",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "input_id": "static_review_record_fixture",
+      "local_reference": "pm_bot/tests/fixtures/safety/autonomy_review_record.valid.json",
+      "observed_state": "record_ready_for_operator_review",
+      "operator_review_status": "pending_operator_review"
+    }
+  ],
+  "review_items": [
+    {
+      "item_id": "allowed_path_scope",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Confirm task packet allowed paths are limited to docs, pm_bot/tests, and tests.",
+      "review_state": "allowed_path_scope_recorded"
+    },
+    {
+      "item_id": "source_basis",
+      "local_reference": "docs/PMBOT_SAFETY_006_AUTONOMY_REVIEW_RECORD_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Confirm the local source basis is recorded for this review record.",
+      "review_state": "source_basis_recorded"
+    },
+    {
+      "item_id": "prior_safety_records",
+      "local_reference": "docs/PMBOT_SAFETY_001_AUTONOMY_GATE_CHECKLIST_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Confirm prior local safety records are linked for operator review.",
+      "review_state": "prior_safety_records_linked"
+    },
+    {
+      "item_id": "endpoint_boundary",
+      "local_reference": "docs/PMBOT_SAFETY_003_FORBIDDEN_ACTION_SCAN_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Confirm endpoint and external service boundaries remain closed.",
+      "review_state": "endpoint_boundary_recorded"
+    },
+    {
+      "item_id": "sensitive_path_boundary",
+      "local_reference": "docs/PMBOT_SAFETY_004_SENSITIVE_PATH_EXCLUSION_AUDIT_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Confirm sensitive path exclusions remain recorded.",
+      "review_state": "sensitive_path_boundary_recorded"
+    },
+    {
+      "item_id": "language_boundary",
+      "local_reference": "docs/PMBOT_SAFETY_005_FORBIDDEN_LANGUAGE_REGRESSION_SUITE_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Confirm language boundary coverage remains local and literal.",
+      "review_state": "language_boundary_recorded"
+    },
+    {
+      "item_id": "validation_commands",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Confirm required local validation commands are recorded.",
+      "review_state": "validation_commands_recorded"
+    },
+    {
+      "item_id": "operator_status",
+      "local_reference": "pm_bot/tests/fixtures/safety/autonomy_review_record.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Confirm status remains pending until operator review is recorded.",
+      "review_state": "operator_status_pending"
+    }
+  ],
+  "run_mode": "local_static_autonomy_review_record",
+  "safety_boundaries": {
+    "authenticated_endpoint_calls_allowed": false,
+    "background_process_allowed": false,
+    "browser_automation_allowed": false,
+    "credential_or_secret_access_allowed": false,
+    "execution_endpoint_calls_allowed": false,
+    "external_service_calls_allowed": false,
+    "llm_provider_calls_allowed": false,
+    "local_static_samples_only": true,
+    "market_api_calls_allowed": false,
+    "market_instruction_output_allowed": false,
+    "network_calls_allowed": false,
+    "operator_review_required": true,
+    "order_or_trade_surface_changes_allowed": false,
+    "paper_mode_only": true,
+    "runtime_or_dispatcher_changes_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "sensitive_path_access_allowed": false,
+    "timed_automation_allowed": false,
+    "transaction_endpoint_calls_allowed": false,
+    "wallet_or_signing_material_access_allowed": false
+  },
+  "summary_counts": {
+    "allowed_path_prefixes": 3,
+    "errors": 0,
+    "local_references": 8,
+    "required_validation_commands": 2,
+    "review_inputs": 7,
+    "review_items": 8,
+    "review_items_pending_operator_review": 8,
+    "warnings": 0
+  },
+  "task_id": "PMBOT-SAFETY-006-AUTONOMY-REVIEW-RECORD-LOCAL-ONLY",
+  "warnings": []
+}

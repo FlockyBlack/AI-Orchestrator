@@ -1,0 +1,48 @@
+{
+  "contract_version": "pmbot_simulated_decision_outcome_replay_links_request.v1",
+  "created_at": "2026-05-09T00:30:00Z",
+  "link_requirements": [
+    {
+      "description": "Confirm replay summary identity and local artifact path before using the link rows.",
+      "operator_review_status": "pending_operator_review",
+      "requirement_id": "source_summary_review"
+    },
+    {
+      "description": "Confirm outcome artifact identity and local artifact path before using the link rows.",
+      "operator_review_status": "pending_operator_review",
+      "requirement_id": "outcome_artifact_review"
+    },
+    {
+      "description": "Confirm link rows remain descriptive and leave final outcome handling outside this artifact.",
+      "operator_review_status": "pending_operator_review",
+      "requirement_id": "link_boundary_review"
+    }
+  ],
+  "links_id": "simulated_decision_outcome_replay_links_fixture_001",
+  "local_only": true,
+  "operator_review_required": true,
+  "operator_review_steps": [
+    "Review replay summary rows, outcome artifact rows, local references, and safety flags before downstream use.",
+    "Keep any final outcome record separate from these replay links."
+  ],
+  "outcome_artifacts": [
+    {
+      "artifact_role": "weather_outcome_reconciliation_request",
+      "expected_contract_version": "pmbot_weather_outcome_reconciliation_request.v1",
+      "link_basis": "market_fixture_and_observation_record_ids",
+      "local_reference": "pm_bot/tests/fixtures/weather_outcome_reconciliation_request.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "outcome_artifact_id": "weather_outcome_reconciliation_request_fixture_001",
+      "outcome_artifact_label": "Static weather outcome reconciliation request fixture"
+    }
+  ],
+  "replay_scope": "fixture_simulated_decision_to_outcome_replay",
+  "source_replay_summaries": [
+    {
+      "local_reference": "pm_bot/simulated_decisions/samples/simulated_decision_replay_summary.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "source_summary_id": "simulated_decision_replay_summary_fixture_001",
+      "source_summary_label": "Static simulated decision replay summary fixture"
+    }
+  ]
+}

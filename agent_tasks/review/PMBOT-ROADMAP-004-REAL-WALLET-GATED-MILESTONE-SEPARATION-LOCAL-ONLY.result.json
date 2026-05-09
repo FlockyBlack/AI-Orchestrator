@@ -1,0 +1,41 @@
+{
+  "acceptance_checks_passed": true,
+  "commands_run": [
+    "pytest pm_bot/tests/test_real_wallet_gated_milestone_separation.py",
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "completed_at": "2026-05-09T11:32:45Z",
+  "completed_by": "codex_cli_last_message_bridge",
+  "files_created": [],
+  "files_deleted": [],
+  "files_modified": [
+    "pm_bot/readiness/PMBOT_ROADMAP_004_REAL_WALLET_GATED_MILESTONE_SEPARATION_LOCAL_ONLY.md",
+    "pm_bot/tests/fixtures/readiness/pmbot_real_wallet_gated_milestone_separation.valid.json",
+    "pm_bot/tests/test_real_wallet_gated_milestone_separation.py"
+  ],
+  "next_recommended_action": "Inspect the bridged result, ingestion report, review report, and git diff before mark-done.",
+  "operator_review_notes": "Bridged from C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-ROADMAP-004-REAL-WALLET-GATED-MILESTONE-SEPARATION-LOCAL-ONLY\\20260509T112659Z\\last_message.md. Safety notes: Used only local files, local fixtures, and static samples.; No network calls or external service calls were made.; No credential, wallet, trading, orders, runtime, dispatcher, run_codex, or Codex app-server source files were edited.; The artifact is descriptive, pending operator review, and does not approve sensitive access or execution.; No forecast scoring, action guidance, or selection advice was added. Remaining risks: python -m compileall pm_bot tests exited 0 but printed a permission warning while listing tests/.pytest_tmp/pytest-of-OpenC.; Operator review remains pending by design before any later sensitive-access milestone can be considered. Bridge warnings: last_message used files_changed; bridged those paths as files_modified",
+  "safety_confirmation": {
+    "background_worker_added": false,
+    "codex_app_server_used": false,
+    "credentials_accessed": false,
+    "destructive_commands_used": false,
+    "network_calls_performed": 0,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "runtime_or_dispatcher_touched": false,
+    "scheduler_added": false,
+    "telegram_or_openclaw_added": false,
+    "wallet_or_trading_touched": false
+  },
+  "schema_version": "codex_task_result.v1",
+  "status": "completed",
+  "summary": "Added a local-only PMBOT Roadmap 004 gated milestone separation record, a deterministic readiness fixture, and fixture/documentation tests. The artifact keeps paper-mode, supervised review, sensitive-access scoping, credential/wallet handling, runtime wiring, and validation replay as separate pending operator-reviewed milestones.",
+  "task_id": "PMBOT-ROADMAP-004-REAL-WALLET-GATED-MILESTONE-SEPARATION-LOCAL-ONLY",
+  "validation_results": [
+    "pytest pm_bot/tests/test_real_wallet_gated_milestone_separation.py",
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ]
+}

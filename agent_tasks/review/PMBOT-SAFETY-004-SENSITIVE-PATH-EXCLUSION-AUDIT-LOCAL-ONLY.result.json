@@ -1,0 +1,43 @@
+{
+  "acceptance_checks_passed": true,
+  "commands_run": [
+    "pytest pm_bot/tests/test_sensitive_path_exclusion_audit.py",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py",
+    "$env:PYTHONPYCACHEPREFIX = 'tests/__pycache__/compileall_cache'; python -m compileall pm_bot tests",
+    "python -m json.tool pm_bot/tests/fixtures/safety/sensitive_path_exclusion_audit.valid.json > $null"
+  ],
+  "completed_at": "2026-05-09T10:41:22Z",
+  "completed_by": "codex_cli_last_message_bridge",
+  "files_created": [],
+  "files_deleted": [],
+  "files_modified": [
+    "docs/PMBOT_SAFETY_004_SENSITIVE_PATH_EXCLUSION_AUDIT_LOCAL_ONLY.md",
+    "pm_bot/tests/fixtures/safety/sensitive_path_exclusion_audit.valid.json",
+    "pm_bot/tests/test_sensitive_path_exclusion_audit.py"
+  ],
+  "next_recommended_action": "Inspect the bridged result, ingestion report, review report, and git diff before mark-done.",
+  "operator_review_notes": "Bridged from C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-SAFETY-004-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY\\20260509T103516Z\\last_message.md. Safety notes: Edits were limited to docs/ and pm_bot/tests/ paths.; No network, external service, endpoint, credential, wallet signing, trading execution, scheduler, worker, runtime, dispatcher, browser, or resident process work was performed.; The audit remains descriptive, deterministic, local-only, and pending_operator_review.; Compileall bytecode output was redirected to tests/__pycache__/compileall_cache to avoid writing cache files beside PMBOT source modules. Remaining risks: pytest emitted a root .pytest_cache permission warning, but all tests passed.; compileall reported it could not list tests/.pytest_tmp/pytest-of-OpenC, but the command exited 0.; Operator review is still required before any audit status can change. Bridge warnings: last_message used files_changed; bridged those paths as files_modified",
+  "safety_confirmation": {
+    "background_worker_added": false,
+    "codex_app_server_used": false,
+    "credentials_accessed": false,
+    "destructive_commands_used": false,
+    "network_calls_performed": 0,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "runtime_or_dispatcher_touched": false,
+    "scheduler_added": false,
+    "telegram_or_openclaw_added": false,
+    "wallet_or_trading_touched": false
+  },
+  "schema_version": "codex_task_result.v1",
+  "status": "completed",
+  "summary": "Added a deterministic local PMBOT sensitive path exclusion audit doc, static fixture, and contract test for operator review.",
+  "task_id": "PMBOT-SAFETY-004-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY",
+  "validation_results": [
+    "pytest pm_bot/tests/test_sensitive_path_exclusion_audit.py",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py",
+    "$env:PYTHONPYCACHEPREFIX = 'tests/__pycache__/compileall_cache'; python -m compileall pm_bot tests",
+    "python -m json.tool pm_bot/tests/fixtures/safety/sensitive_path_exclusion_audit.valid.json > $null"
+  ]
+}

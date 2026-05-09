@@ -1,0 +1,327 @@
+{
+  "contract_id": "pmbot-supervised-live-stop-condition-spec",
+  "contract_version": "pmbot_supervised_live_stop_condition_spec.v1",
+  "created_at": "2026-05-09T00:00:00Z",
+  "errors": [],
+  "local_only": true,
+  "operator_review": {
+    "reviewed_at": null,
+    "reviewed_by": null,
+    "status": "pending_operator_review"
+  },
+  "operator_review_checklist": [
+    {
+      "check_id": "condition_catalog_review",
+      "description": "Confirm fixed condition rows match supervised-live local review scope.",
+      "required_evidence": "Human record confirming condition row review.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "trigger_evidence_review",
+      "description": "Confirm each condition names a local evidence reference inside the allowed paths.",
+      "required_evidence": "Human record confirming evidence path review.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "manual_record_review",
+      "description": "Confirm every condition requires a human stop record before later review.",
+      "required_evidence": "Human record confirming required record fields.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "sensitive_path_exclusion_check",
+      "description": "Confirm credential, wallet, signing, auth, and private material paths remain excluded.",
+      "required_evidence": "Human record confirming sensitive path boundaries.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "runtime_boundary_check",
+      "description": "Confirm runtime, dispatcher, scheduler, worker, browser, and resident process boundaries stay closed.",
+      "required_evidence": "Human record confirming no process or wiring changes.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "output_boundary_check",
+      "description": "Confirm outputs remain descriptive and exclude numeric prediction metrics, market ranking, and execution instruction fields.",
+      "required_evidence": "Human record confirming output field review.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "validation_replay_check",
+      "description": "Confirm local validation commands are run after artifact review.",
+      "required_evidence": "Human record confirming compile and pytest results.",
+      "status": "pending_operator_review"
+    }
+  ],
+  "operator_review_required": true,
+  "required_operator_record_fields": [
+    "record_id",
+    "condition_id",
+    "observed_at_utc",
+    "observed_by",
+    "local_evidence_reference",
+    "prior_session_state",
+    "new_session_state",
+    "operator_review_status",
+    "unresolved_blockers"
+  ],
+  "required_validation_commands": [
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "run_mode": "local_static_supervised_live_stop_condition_spec",
+  "safety_boundaries": {
+    "authenticated_endpoint_calls_allowed": false,
+    "automated_restart_allowed": false,
+    "background_process_allowed": false,
+    "browser_automation_allowed": false,
+    "condition_trigger_automation_allowed": false,
+    "credential_or_secret_access_allowed": false,
+    "execution_endpoint_calls_allowed": false,
+    "external_service_calls_allowed": false,
+    "live_data_refresh_allowed": false,
+    "llm_provider_calls_allowed": false,
+    "local_static_samples_only": true,
+    "market_api_calls_allowed": false,
+    "market_ranking_allowed": false,
+    "network_calls_allowed": false,
+    "numeric_prediction_metric_allowed": false,
+    "operator_review_required": true,
+    "order_or_trade_surface_changes_allowed": false,
+    "paper_mode_only": true,
+    "runtime_or_dispatcher_changes_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "session_restart_without_operator_record_allowed": false,
+    "stop_condition_mutates_runtime_allowed": false,
+    "supervised_live_transition_allowed": false,
+    "trade_instruction_allowed": false,
+    "transaction_endpoint_calls_allowed": false,
+    "transition_without_record_allowed": false,
+    "wallet_or_signing_material_access_allowed": false
+  },
+  "source_artifacts": [
+    {
+      "artifact_id": "read_only_live_data_contract",
+      "contract_version": "pmbot_supervised_live_read_only_live_data_contract.v1",
+      "local_reference": "docs/PMBOT_SUPERVISED_LIVE_001_READ_ONLY_LIVE_DATA_CONTRACT_LOCAL_ONLY.md",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "live_data_source_inventory",
+      "contract_version": "pmbot_supervised_live_data_source_inventory.v1",
+      "local_reference": "docs/PMBOT_SUPERVISED_LIVE_002_LIVE_DATA_SOURCE_INVENTORY_LOCAL_ONLY.md",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "operator_approval_gate_record",
+      "contract_version": "pmbot_supervised_live_operator_approval_gate_record.v1",
+      "local_reference": "docs/PMBOT_SUPERVISED_LIVE_003_OPERATOR_APPROVAL_GATE_RECORD_LOCAL_ONLY.md",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "local_to_supervised_live_gap_matrix",
+      "contract_version": "pmbot_local_to_supervised_live_gap_matrix.v1",
+      "local_reference": "pm_bot/readiness/PMBOT_ROADMAP_002_PMBOT_LOCAL_TO_SUPERVISED_LIVE_GAP_MATRIX.md",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "forbidden_action_scan",
+      "contract_version": "pmbot_forbidden_action_scan.v1",
+      "local_reference": "docs/PMBOT_SAFETY_003_FORBIDDEN_ACTION_SCAN_LOCAL_ONLY.md",
+      "required_state": "pending_operator_review"
+    }
+  ],
+  "spec_id": "pmbot-supervised-live-stop-condition-spec-001",
+  "stop_condition_fields": [
+    "condition_id",
+    "condition_label",
+    "condition_class",
+    "trigger_source",
+    "trigger_evidence_reference",
+    "operator_review_status",
+    "manual_record_required",
+    "session_state_after_trigger",
+    "excluded_operations",
+    "notes"
+  ],
+  "stop_condition_records": [
+    {
+      "condition_class": "operator_manual_boundary",
+      "condition_id": "operator_manual_stop_request",
+      "condition_label": "Operator manual stop request",
+      "excluded_operations": [
+        "network_endpoint_fetch",
+        "authenticated_request",
+        "credential_lookup",
+        "wallet_balance_read",
+        "transaction_preparation",
+        "order_submission",
+        "runtime_dispatch",
+        "browser_automation",
+        "background_process_start",
+        "automated_session_restart"
+      ],
+      "manual_record_required": true,
+      "notes": "Operator manual stop request requires a human record before later review.",
+      "operator_review_status": "pending_operator_review",
+      "session_state_after_trigger": "stopped_pending_operator_record",
+      "trigger_evidence_reference": "docs/PMBOT_SUPERVISED_LIVE_003_OPERATOR_APPROVAL_GATE_RECORD_LOCAL_ONLY.md",
+      "trigger_source": "operator_supplied_stop_request"
+    },
+    {
+      "condition_class": "local_artifact_boundary",
+      "condition_id": "local_artifact_boundary_breach",
+      "condition_label": "Local artifact boundary breach",
+      "excluded_operations": [
+        "network_endpoint_fetch",
+        "authenticated_request",
+        "credential_lookup",
+        "wallet_balance_read",
+        "transaction_preparation",
+        "order_submission",
+        "runtime_dispatch",
+        "browser_automation",
+        "background_process_start",
+        "automated_session_restart"
+      ],
+      "manual_record_required": true,
+      "notes": "Any nonlocal reference requires a stopped local review state.",
+      "operator_review_status": "pending_operator_review",
+      "session_state_after_trigger": "stopped_pending_artifact_review",
+      "trigger_evidence_reference": "docs/PMBOT_SUPERVISED_LIVE_001_READ_ONLY_LIVE_DATA_CONTRACT_LOCAL_ONLY.md",
+      "trigger_source": "local_reference_review"
+    },
+    {
+      "condition_class": "forbidden_operation_boundary",
+      "condition_id": "forbidden_operation_request_detected",
+      "condition_label": "Forbidden operation request detected",
+      "excluded_operations": [
+        "network_endpoint_fetch",
+        "authenticated_request",
+        "credential_lookup",
+        "wallet_balance_read",
+        "transaction_preparation",
+        "order_submission",
+        "runtime_dispatch",
+        "browser_automation",
+        "background_process_start",
+        "automated_session_restart"
+      ],
+      "manual_record_required": true,
+      "notes": "Endpoint, credential, wallet, order, transaction, runtime, browser, scheduler, worker, and resident process requests require stopped review.",
+      "operator_review_status": "pending_operator_review",
+      "session_state_after_trigger": "stopped_pending_safety_review",
+      "trigger_evidence_reference": "docs/PMBOT_SAFETY_003_FORBIDDEN_ACTION_SCAN_LOCAL_ONLY.md",
+      "trigger_source": "forbidden_operation_scan"
+    },
+    {
+      "condition_class": "local_validation_boundary",
+      "condition_id": "local_validation_command_failed",
+      "condition_label": "Local validation command failed",
+      "excluded_operations": [
+        "network_endpoint_fetch",
+        "authenticated_request",
+        "credential_lookup",
+        "wallet_balance_read",
+        "transaction_preparation",
+        "order_submission",
+        "runtime_dispatch",
+        "browser_automation",
+        "background_process_start",
+        "automated_session_restart"
+      ],
+      "manual_record_required": true,
+      "notes": "Any failed required local validation command keeps the session stopped until reviewed.",
+      "operator_review_status": "pending_operator_review",
+      "session_state_after_trigger": "stopped_pending_validation_review",
+      "trigger_evidence_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "trigger_source": "local_validation_result"
+    },
+    {
+      "condition_class": "source_record_review_boundary",
+      "condition_id": "source_record_label_dispute",
+      "condition_label": "Source record label dispute",
+      "excluded_operations": [
+        "network_endpoint_fetch",
+        "authenticated_request",
+        "credential_lookup",
+        "wallet_balance_read",
+        "transaction_preparation",
+        "order_submission",
+        "runtime_dispatch",
+        "browser_automation",
+        "background_process_start",
+        "automated_session_restart"
+      ],
+      "manual_record_required": true,
+      "notes": "Any unresolved source label or timestamp dispute keeps source review stopped.",
+      "operator_review_status": "pending_operator_review",
+      "session_state_after_trigger": "stopped_pending_source_review",
+      "trigger_evidence_reference": "docs/PMBOT_SUPERVISED_LIVE_002_LIVE_DATA_SOURCE_INVENTORY_LOCAL_ONLY.md",
+      "trigger_source": "source_inventory_review"
+    },
+    {
+      "condition_class": "operator_record_boundary",
+      "condition_id": "missing_operator_gate_record",
+      "condition_label": "Missing operator gate record",
+      "excluded_operations": [
+        "network_endpoint_fetch",
+        "authenticated_request",
+        "credential_lookup",
+        "wallet_balance_read",
+        "transaction_preparation",
+        "order_submission",
+        "runtime_dispatch",
+        "browser_automation",
+        "background_process_start",
+        "automated_session_restart"
+      ],
+      "manual_record_required": true,
+      "notes": "Missing operator gate evidence keeps supervised-live transition blocked.",
+      "operator_review_status": "pending_operator_review",
+      "session_state_after_trigger": "blocked_until_gate_record_complete",
+      "trigger_evidence_reference": "pm_bot/readiness/PMBOT_ROADMAP_002_PMBOT_LOCAL_TO_SUPERVISED_LIVE_GAP_MATRIX.md",
+      "trigger_source": "operator_gate_record_review"
+    }
+  ],
+  "stop_condition_rules": [
+    {
+      "rule_id": "manual_stop_precedence",
+      "rule_text": "Any operator manual stop request overrides local review flow and requires a human record before later review.",
+      "status": "active"
+    },
+    {
+      "rule_id": "closed_boundary_precedence",
+      "rule_text": "Endpoint, credential, wallet, order, transaction, runtime, browser, scheduler, worker, and resident process requests stop the session review.",
+      "status": "active"
+    },
+    {
+      "rule_id": "local_artifact_evidence_required",
+      "rule_text": "Every stop record names a local evidence reference and keeps external service state out of scope.",
+      "status": "active"
+    },
+    {
+      "rule_id": "validation_failure_stop",
+      "rule_text": "Any required local validation command failure keeps the session stopped until a reviewed local record exists.",
+      "status": "active"
+    },
+    {
+      "rule_id": "no_restart_without_operator_record",
+      "rule_text": "No restart, retry, or resumed session can be represented as available until the operator record is complete.",
+      "status": "active"
+    }
+  ],
+  "summary_counts": {
+    "local_references": 6,
+    "operator_review_checklist_items": 7,
+    "required_operator_record_fields": 9,
+    "required_validation_commands": 2,
+    "source_artifacts": 5,
+    "stop_condition_records": 6,
+    "stop_condition_records_pending_operator_review": 6,
+    "stop_condition_rules": 5,
+    "warnings": 0
+  },
+  "task_id": "PMBOT-SUPERVISED-LIVE-004-SUPERVISED-LIVE-STOP-CONDITION-SPEC-LOCAL-ONLY",
+  "warnings": []
+}

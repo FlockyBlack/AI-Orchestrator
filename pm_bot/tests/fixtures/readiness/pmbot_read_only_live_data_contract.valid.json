@@ -1,0 +1,176 @@
+{
+  "contract_id": "pmbot-supervised-live-read-only-live-data-contract",
+  "contract_version": "pmbot_supervised_live_read_only_live_data_contract.v1",
+  "created_at": "2026-05-09T00:00:00Z",
+  "errors": [],
+  "live_data_observation_fields": [
+    "record_id",
+    "source_label",
+    "source_class",
+    "capture_mode",
+    "captured_at_utc",
+    "local_snapshot_reference",
+    "read_only_use",
+    "source_freshness_label",
+    "operator_review_status",
+    "excluded_operations",
+    "notes"
+  ],
+  "local_only": true,
+  "operator_review": {
+    "reviewed_at": null,
+    "reviewed_by": null,
+    "status": "pending_operator_review"
+  },
+  "operator_review_checklist": [
+    {
+      "check_id": "local_reference_review",
+      "description": "Confirm every referenced artifact is a local file inside the allowed review paths.",
+      "required_evidence": "Human record confirming local file paths and excluded paths.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "static_sample_review",
+      "description": "Confirm sample rows are static records and are not fetched during this task.",
+      "required_evidence": "Human record confirming sample scope and source class.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "freshness_label_review",
+      "description": "Confirm freshness labels are descriptive and make no current external-state claim.",
+      "required_evidence": "Human record confirming captured timestamp and static status.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "sensitive_path_exclusion_check",
+      "description": "Confirm credential, wallet, signing, auth, and private material paths remain excluded.",
+      "required_evidence": "Human record confirming sensitive path boundaries.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "runtime_boundary_check",
+      "description": "Confirm runtime, dispatcher, scheduler, worker, browser, and resident process boundaries stay closed.",
+      "required_evidence": "Human record confirming no process or wiring changes.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "output_boundary_check",
+      "description": "Confirm outputs remain descriptive and exclude numeric prediction metrics, market ranking, and execution instruction fields.",
+      "required_evidence": "Human record confirming output field review.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "validation_replay_check",
+      "description": "Confirm local validation commands are run after artifact review.",
+      "required_evidence": "Human record confirming compile and pytest results.",
+      "status": "pending_operator_review"
+    }
+  ],
+  "operator_review_required": true,
+  "read_only_rules": [
+    {
+      "rule_id": "local_fixture_input_only",
+      "rule_text": "Use only operator-provided local snapshots, local fixtures, or static samples.",
+      "status": "active"
+    },
+    {
+      "rule_id": "descriptive_records_only",
+      "rule_text": "Keep every record descriptive and pending human review.",
+      "status": "active"
+    },
+    {
+      "rule_id": "local_references_only",
+      "rule_text": "Store local file references instead of fetched content.",
+      "status": "active"
+    },
+    {
+      "rule_id": "endpoint_and_process_boundary_closed",
+      "rule_text": "Reject endpoint, credential, wallet, order, transaction, runtime, browser, scheduler, worker, and resident process activity.",
+      "status": "active"
+    },
+    {
+      "rule_id": "execution_instruction_boundary_closed",
+      "rule_text": "Reject numeric prediction metrics, market ranking, and execution instruction fields.",
+      "status": "active"
+    }
+  ],
+  "required_validation_commands": [
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "run_mode": "local_static_read_only_live_data_contract",
+  "safety_boundaries": {
+    "authenticated_endpoint_calls_allowed": false,
+    "background_process_allowed": false,
+    "browser_automation_allowed": false,
+    "credential_or_secret_access_allowed": false,
+    "execution_endpoint_calls_allowed": false,
+    "external_service_calls_allowed": false,
+    "llm_provider_calls_allowed": false,
+    "local_static_samples_only": true,
+    "market_api_calls_allowed": false,
+    "market_ranking_allowed": false,
+    "network_calls_allowed": false,
+    "numeric_prediction_metric_allowed": false,
+    "operator_review_required": true,
+    "order_or_trade_surface_changes_allowed": false,
+    "paper_mode_only": true,
+    "runtime_or_dispatcher_changes_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "transaction_endpoint_calls_allowed": false,
+    "wallet_or_signing_material_access_allowed": false
+  },
+  "source_contracts": [
+    {
+      "contract_version": "pmbot_local_to_supervised_live_gap_matrix.v1",
+      "local_reference": "pm_bot/readiness/PMBOT_ROADMAP_002_PMBOT_LOCAL_TO_SUPERVISED_LIVE_GAP_MATRIX.md",
+      "required_state": "pending_operator_review",
+      "source_contract_id": "local_to_supervised_live_gap_matrix"
+    },
+    {
+      "contract_version": "pmbot_real_wallet_readiness_blocker_matrix.local_review",
+      "local_reference": "pm_bot/readiness/PMBOT_ROADMAP_001_REAL_WALLET_READINESS_BLOCKER_MATRIX.md",
+      "required_state": "unresolved_operator_approval",
+      "source_contract_id": "real_wallet_readiness_blocker_matrix"
+    },
+    {
+      "contract_version": "pmbot_simulated_decision_packet.v1",
+      "local_reference": "docs/PMBOT_PAPERLIVE_DECISION_001_SIMULATED_DECISION_PACKET_SCHEMA_NO_RECOMMENDATIONS.md",
+      "required_state": "local_static_no_market_instruction_fields",
+      "source_contract_id": "simulated_decision_packet_boundary"
+    }
+  ],
+  "static_sample_records": [
+    {
+      "capture_mode": "manual_copy_to_local_fixture",
+      "captured_at_utc": "2026-05-09T00:00:00Z",
+      "excluded_operations": [
+        "network_endpoint_fetch",
+        "authenticated_request",
+        "credential_lookup",
+        "wallet_balance_read",
+        "transaction_preparation",
+        "order_submission",
+        "runtime_dispatch"
+      ],
+      "local_snapshot_reference": "pm_bot/tests/fixtures/readiness/pmbot_read_only_live_data_contract.valid.json",
+      "notes": "Static sample record for contract review; not a current external-state claim.",
+      "operator_review_status": "pending_operator_review",
+      "read_only_use": "descriptive_presence_only",
+      "record_id": "read_only_live_data_snapshot.sample_001",
+      "source_class": "operator_supplied_static_snapshot",
+      "source_freshness_label": "static_sample_no_currentness_claim",
+      "source_label": "operator_saved_live_data_snapshot"
+    }
+  ],
+  "summary_counts": {
+    "operator_review_checklist_items": 7,
+    "read_only_rules": 5,
+    "required_validation_commands": 2,
+    "source_contracts": 3,
+    "static_sample_records": 1,
+    "warnings": 0
+  },
+  "task_id": "PMBOT-SUPERVISED-LIVE-001-READ-ONLY-LIVE-DATA-CONTRACT-LOCAL-ONLY",
+  "warnings": []
+}

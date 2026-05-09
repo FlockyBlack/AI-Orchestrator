@@ -1,0 +1,80 @@
+{
+  "contract_version": "pmbot_source_staleness_check_spec_request.v1",
+  "documentation_reference": "docs/PMBOT_SOURCE_EVIDENCE_002_SOURCE_EVIDENCE_LINK_MAP_LOCAL_ONLY.md",
+  "known_limitations": [
+    "Static local spec only; no external refresh is performed.",
+    "Uses request fixture reference time instead of system time.",
+    "Records descriptive age windows and pending review state only."
+  ],
+  "local_only": true,
+  "operator_review_required": true,
+  "operator_review_steps": [
+    "Confirm each source has one local staleness rule and one check row.",
+    "Confirm timestamp fields, age windows, and digests match local static artifacts.",
+    "Record disputes outside this spec before any later status change."
+  ],
+  "reference_timestamp_utc": "2026-05-10T00:30:00Z",
+  "review_checks": [
+    {
+      "check_id": "source_link_identity",
+      "description": "Confirm source identity and source evidence link row match the local link map."
+    },
+    {
+      "check_id": "artifact_digest",
+      "description": "Confirm source artifact reference and digest match local bytes."
+    },
+    {
+      "check_id": "timestamp_window",
+      "description": "Confirm field presence and computed age use the static request reference time."
+    },
+    {
+      "check_id": "pending_review_state",
+      "description": "Confirm every check remains pending operator review."
+    }
+  ],
+  "scope": "source_staleness_check_spec",
+  "source_evidence_link_map_reference": "pm_bot/source_quality/samples/source_evidence_link_map.fixture.json",
+  "source_evidence_link_report_reference": "pm_bot/source_quality/samples/source_evidence_link_map.fixture.md",
+  "source_staleness_rules": [
+    {
+      "maximum_age_seconds": 86400,
+      "rule_id": "airport_station_observation_log_timestamp_window",
+      "source_id": "airport_station_observation_log",
+      "threshold_label": "weather_station_static_fixture_day_window",
+      "timestamp_field_candidates": [
+        "observation_timestamp"
+      ],
+      "timestamp_required": true
+    },
+    {
+      "maximum_age_seconds": 86400,
+      "rule_id": "official_daily_climate_report_timestamp_window",
+      "source_id": "official_daily_climate_report",
+      "threshold_label": "weather_official_static_fixture_day_window",
+      "timestamp_field_candidates": [
+        "report_timestamp"
+      ],
+      "timestamp_required": true
+    },
+    {
+      "maximum_age_seconds": 172800,
+      "rule_id": "static_crypto_reference_timestamp_window",
+      "source_id": "static_crypto_reference_snapshot_2026_05_09_btc",
+      "threshold_label": "crypto_reference_static_fixture_two_day_window",
+      "timestamp_field_candidates": [
+        "reported_at_utc",
+        "created_at"
+      ],
+      "timestamp_required": true
+    },
+    {
+      "maximum_age_seconds": null,
+      "rule_id": "unified_source_quality_ledger_sample_manual_review",
+      "source_id": "unified_source_quality_ledger_sample",
+      "threshold_label": "source_quality_static_sample_manual_review",
+      "timestamp_field_candidates": [],
+      "timestamp_required": false
+    }
+  ],
+  "spec_id": "source_staleness_check_spec_fixture_001"
+}

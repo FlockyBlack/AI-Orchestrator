@@ -1,0 +1,1454 @@
+{
+  "background_worker_created": false,
+  "batch_execution_status": "completed",
+  "batch_report_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_batch_report_20260509T091552Z.json",
+  "batch_review_ledger": {
+    "batch_execution_status": "completed",
+    "batch_report_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_batch_report_20260509T091552Z.json",
+    "batch_run_id": "20260509T091552Z",
+    "batch_status": "ok",
+    "blocked_count": 0,
+    "blocked_or_failed_task_ids": [],
+    "blocked_task_ids": [],
+    "bridged_count": 20,
+    "completed_execution_count": 20,
+    "failed_task_ids": [],
+    "ingested_count": 20,
+    "latest_reports_are_pointers_only": true,
+    "mutable_pointer_paths": {
+      "latest_batch_review_ledger_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\latest_batch_review_ledger.json",
+      "latest_post_batch_summary_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\latest_post_batch_review_summary.json",
+      "latest_post_batch_summary_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\latest_post_batch_review_summary.md"
+    },
+    "next_operator_action": "Inspect the post-batch summary, task review reports, and git diff; run mark-done only for tasks whose review report recommends ready_for_operator_done.",
+    "postprocess_safety": {
+      "codex_exec_invoked": false,
+      "codex_invocation_count": 0,
+      "git_commit_performed": false,
+      "git_push_performed": false,
+      "openrouter_calls_performed": 0,
+      "polymarket_api_calls_performed": 0,
+      "review_approved_automatically": false,
+      "task_marked_done_automatically": false
+    },
+    "report_paths": {
+      "batch_review_ledger_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\batch_review_ledger_20260509T113332480835Z_3f223751.json",
+      "latest_batch_review_ledger_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\latest_batch_review_ledger.json",
+      "latest_batch_review_ledger_role": "mutable_pointer",
+      "post_batch_summary_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\post_batch_review_summary_20260509T113332480835Z_3f223751.json"
+    },
+    "reviewed_count": 20,
+    "run_id": "20260509T113332480835Z_3f223751",
+    "schema_version": "codex_batch_review_ledger.v1",
+    "skipped_count": 0,
+    "stable_evidence_paths": {
+      "batch_report_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_batch_report_20260509T091552Z.json",
+      "batch_review_ledger_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\batch_review_ledger_20260509T113332480835Z_3f223751.json",
+      "post_batch_summary_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\post_batch_review_summary_20260509T113332480835Z_3f223751.json"
+    },
+    "stable_evidence_required": [
+      "batch_report_path",
+      "execution_report_json",
+      "result_path",
+      "ingestion_report_json",
+      "review_report_json"
+    ],
+    "task_count": 20,
+    "task_ids": [
+      "PMBOT-SUPERVISED-LIVE-001-READ-ONLY-LIVE-DATA-CONTRACT-LOCAL-ONLY",
+      "PMBOT-SUPERVISED-LIVE-002-LIVE-DATA-SOURCE-INVENTORY-LOCAL-ONLY",
+      "PMBOT-SUPERVISED-LIVE-003-OPERATOR-APPROVAL-GATE-RECORD-LOCAL-ONLY",
+      "PMBOT-SUPERVISED-LIVE-004-SUPERVISED-LIVE-STOP-CONDITION-SPEC-LOCAL-ONLY",
+      "PMBOT-SUPERVISED-LIVE-005-LIVE-READINESS-EVIDENCE-BUNDLE-LOCAL-ONLY",
+      "PMBOT-SOURCE-EVIDENCE-001-SOURCE-INVENTORY-LEDGER-LOCAL-ONLY",
+      "PMBOT-SOURCE-EVIDENCE-002-SOURCE-EVIDENCE-LINK-MAP-LOCAL-ONLY",
+      "PMBOT-SOURCE-EVIDENCE-003-SOURCE-STALENESS-CHECK-SPEC-LOCAL-ONLY",
+      "PMBOT-SOURCE-EVIDENCE-004-SOURCE-CONTRADICTION-LEDGER-LOCAL-ONLY",
+      "PMBOT-VALIDATION-001-SAVED-EVIDENCE-REPLAY-BUNDLE-LOCAL-ONLY",
+      "PMBOT-VALIDATION-002-CI-SAFE-VALIDATION-SUBSET-LOCAL-ONLY",
+      "PMBOT-VALIDATION-003-BATCH-VALIDATION-REPLAY-REPORT-LOCAL-ONLY",
+      "PMBOT-SAFETY-004-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY",
+      "PMBOT-SAFETY-005-FORBIDDEN-LANGUAGE-REGRESSION-SUITE-LOCAL-ONLY",
+      "PMBOT-SAFETY-006-AUTONOMY-REVIEW-RECORD-LOCAL-ONLY",
+      "PMBOT-PAPERLIVE-AUDIT-001-PAPERLIVE-TO-ACCOUNTING-RECONCILIATION-LOCAL-ONLY",
+      "PMBOT-PAPERLIVE-AUDIT-002-SIMULATED-DECISION-TO-OUTCOME-REPLAY-LINKS-LOCAL-ONLY",
+      "PMBOT-DASHBOARD-005-SUPERVISED-LIVE-READINESS-DASHBOARD-LOCAL-ONLY",
+      "PMBOT-OPERATOR-003-SUPERVISED-LIVE-MORNING-REVIEW-CARD-LOCAL-ONLY",
+      "PMBOT-ROADMAP-004-REAL-WALLET-GATED-MILESTONE-SEPARATION-LOCAL-ONLY"
+    ],
+    "tasks": [
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-SUPERVISED-LIVE-001-READ-ONLY-LIVE-DATA-CONTRACT-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-SUPERVISED-LIVE-001-READ-ONLY-LIVE-DATA-CONTRACT-LOCAL-ONLY\\20260509T091553Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-supervised-live-001-read-only-live-data-contract-local-only_20260509T113332515769Z_d0e34a11.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-supervised-live-001-read-only-live-data-contract-local-only_20260509T113332515769Z_d0e34a11.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-SUPERVISED-LIVE-001-READ-ONLY-LIVE-DATA-CONTRACT-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SUPERVISED-LIVE-001-READ-ONLY-LIVE-DATA-CONTRACT-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SUPERVISED-LIVE-001-READ-ONLY-LIVE-DATA-CONTRACT-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SUPERVISED-LIVE-001-READ-ONLY-LIVE-DATA-CONTRACT-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-SUPERVISED-LIVE-001-READ-ONLY-LIVE-DATA-CONTRACT-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-SUPERVISED-LIVE-002-LIVE-DATA-SOURCE-INVENTORY-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-SUPERVISED-LIVE-002-LIVE-DATA-SOURCE-INVENTORY-LOCAL-ONLY\\20260509T092056Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-supervised-live-002-live-data-source-inventory-local-only_20260509T113332580556Z_74d9cfa6.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-supervised-live-002-live-data-source-inventory-local-only_20260509T113332580556Z_74d9cfa6.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-SUPERVISED-LIVE-002-LIVE-DATA-SOURCE-INVENTORY-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SUPERVISED-LIVE-002-LIVE-DATA-SOURCE-INVENTORY-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SUPERVISED-LIVE-002-LIVE-DATA-SOURCE-INVENTORY-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SUPERVISED-LIVE-002-LIVE-DATA-SOURCE-INVENTORY-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-SUPERVISED-LIVE-002-LIVE-DATA-SOURCE-INVENTORY-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-SUPERVISED-LIVE-003-OPERATOR-APPROVAL-GATE-RECORD-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-SUPERVISED-LIVE-003-OPERATOR-APPROVAL-GATE-RECORD-LOCAL-ONLY\\20260509T092622Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-supervised-live-003-operator-approval-gate-record-local-only_20260509T113332647539Z_4755823f.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-supervised-live-003-operator-approval-gate-record-local-only_20260509T113332647539Z_4755823f.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-SUPERVISED-LIVE-003-OPERATOR-APPROVAL-GATE-RECORD-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SUPERVISED-LIVE-003-OPERATOR-APPROVAL-GATE-RECORD-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SUPERVISED-LIVE-003-OPERATOR-APPROVAL-GATE-RECORD-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SUPERVISED-LIVE-003-OPERATOR-APPROVAL-GATE-RECORD-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-SUPERVISED-LIVE-003-OPERATOR-APPROVAL-GATE-RECORD-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-SUPERVISED-LIVE-004-SUPERVISED-LIVE-STOP-CONDITION-SPEC-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-SUPERVISED-LIVE-004-SUPERVISED-LIVE-STOP-CONDITION-SPEC-LOCAL-ONLY\\20260509T093138Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-supervised-live-004-supervised-live-stop-condition-spec-local-only_20260509T113332718420Z_78e45f36.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-supervised-live-004-supervised-live-stop-condition-spec-local-only_20260509T113332718420Z_78e45f36.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-SUPERVISED-LIVE-004-SUPERVISED-LIVE-STOP-CONDITION-SPEC-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SUPERVISED-LIVE-004-SUPERVISED-LIVE-STOP-CONDITION-SPEC-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SUPERVISED-LIVE-004-SUPERVISED-LIVE-STOP-CONDITION-SPEC-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SUPERVISED-LIVE-004-SUPERVISED-LIVE-STOP-CONDITION-SPEC-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-SUPERVISED-LIVE-004-SUPERVISED-LIVE-STOP-CONDITION-SPEC-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-SUPERVISED-LIVE-005-LIVE-READINESS-EVIDENCE-BUNDLE-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-SUPERVISED-LIVE-005-LIVE-READINESS-EVIDENCE-BUNDLE-LOCAL-ONLY\\20260509T093629Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-supervised-live-005-live-readiness-evidence-bundle-local-only_20260509T113332781920Z_a1fda688.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-supervised-live-005-live-readiness-evidence-bundle-local-only_20260509T113332781920Z_a1fda688.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-SUPERVISED-LIVE-005-LIVE-READINESS-EVIDENCE-BUNDLE-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SUPERVISED-LIVE-005-LIVE-READINESS-EVIDENCE-BUNDLE-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SUPERVISED-LIVE-005-LIVE-READINESS-EVIDENCE-BUNDLE-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SUPERVISED-LIVE-005-LIVE-READINESS-EVIDENCE-BUNDLE-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-SUPERVISED-LIVE-005-LIVE-READINESS-EVIDENCE-BUNDLE-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-SOURCE-EVIDENCE-001-SOURCE-INVENTORY-LEDGER-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-SOURCE-EVIDENCE-001-SOURCE-INVENTORY-LEDGER-LOCAL-ONLY\\20260509T094048Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-source-evidence-001-source-inventory-ledger-local-only_20260509T113332846594Z_cb0eba99.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-source-evidence-001-source-inventory-ledger-local-only_20260509T113332846594Z_cb0eba99.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-SOURCE-EVIDENCE-001-SOURCE-INVENTORY-LEDGER-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SOURCE-EVIDENCE-001-SOURCE-INVENTORY-LEDGER-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SOURCE-EVIDENCE-001-SOURCE-INVENTORY-LEDGER-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SOURCE-EVIDENCE-001-SOURCE-INVENTORY-LEDGER-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-SOURCE-EVIDENCE-001-SOURCE-INVENTORY-LEDGER-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-SOURCE-EVIDENCE-002-SOURCE-EVIDENCE-LINK-MAP-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-SOURCE-EVIDENCE-002-SOURCE-EVIDENCE-LINK-MAP-LOCAL-ONLY\\20260509T094927Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-source-evidence-002-source-evidence-link-map-local-only_20260509T113332907907Z_251b8813.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-source-evidence-002-source-evidence-link-map-local-only_20260509T113332907907Z_251b8813.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-SOURCE-EVIDENCE-002-SOURCE-EVIDENCE-LINK-MAP-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SOURCE-EVIDENCE-002-SOURCE-EVIDENCE-LINK-MAP-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SOURCE-EVIDENCE-002-SOURCE-EVIDENCE-LINK-MAP-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SOURCE-EVIDENCE-002-SOURCE-EVIDENCE-LINK-MAP-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-SOURCE-EVIDENCE-002-SOURCE-EVIDENCE-LINK-MAP-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-SOURCE-EVIDENCE-003-SOURCE-STALENESS-CHECK-SPEC-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-SOURCE-EVIDENCE-003-SOURCE-STALENESS-CHECK-SPEC-LOCAL-ONLY\\20260509T095850Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-source-evidence-003-source-staleness-check-spec-local-only_20260509T113332990258Z_c5ac15c8.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-source-evidence-003-source-staleness-check-spec-local-only_20260509T113332990258Z_c5ac15c8.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-SOURCE-EVIDENCE-003-SOURCE-STALENESS-CHECK-SPEC-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SOURCE-EVIDENCE-003-SOURCE-STALENESS-CHECK-SPEC-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SOURCE-EVIDENCE-003-SOURCE-STALENESS-CHECK-SPEC-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SOURCE-EVIDENCE-003-SOURCE-STALENESS-CHECK-SPEC-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-SOURCE-EVIDENCE-003-SOURCE-STALENESS-CHECK-SPEC-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-SOURCE-EVIDENCE-004-SOURCE-CONTRADICTION-LEDGER-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-SOURCE-EVIDENCE-004-SOURCE-CONTRADICTION-LEDGER-LOCAL-ONLY\\20260509T100920Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-source-evidence-004-source-contradiction-ledger-local-only_20260509T113333057136Z_9a8dd8a8.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-source-evidence-004-source-contradiction-ledger-local-only_20260509T113333057136Z_9a8dd8a8.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-SOURCE-EVIDENCE-004-SOURCE-CONTRADICTION-LEDGER-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SOURCE-EVIDENCE-004-SOURCE-CONTRADICTION-LEDGER-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SOURCE-EVIDENCE-004-SOURCE-CONTRADICTION-LEDGER-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SOURCE-EVIDENCE-004-SOURCE-CONTRADICTION-LEDGER-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-SOURCE-EVIDENCE-004-SOURCE-CONTRADICTION-LEDGER-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-VALIDATION-001-SAVED-EVIDENCE-REPLAY-BUNDLE-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-VALIDATION-001-SAVED-EVIDENCE-REPLAY-BUNDLE-LOCAL-ONLY\\20260509T101924Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-validation-001-saved-evidence-replay-bundle-local-only_20260509T113333123746Z_24f08d80.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-validation-001-saved-evidence-replay-bundle-local-only_20260509T113333123746Z_24f08d80.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-VALIDATION-001-SAVED-EVIDENCE-REPLAY-BUNDLE-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-VALIDATION-001-SAVED-EVIDENCE-REPLAY-BUNDLE-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-VALIDATION-001-SAVED-EVIDENCE-REPLAY-BUNDLE-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-VALIDATION-001-SAVED-EVIDENCE-REPLAY-BUNDLE-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-VALIDATION-001-SAVED-EVIDENCE-REPLAY-BUNDLE-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-VALIDATION-002-CI-SAFE-VALIDATION-SUBSET-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-VALIDATION-002-CI-SAFE-VALIDATION-SUBSET-LOCAL-ONLY\\20260509T102522Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-validation-002-ci-safe-validation-subset-local-only_20260509T113333190784Z_b8331dcb.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-validation-002-ci-safe-validation-subset-local-only_20260509T113333190784Z_b8331dcb.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-VALIDATION-002-CI-SAFE-VALIDATION-SUBSET-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-VALIDATION-002-CI-SAFE-VALIDATION-SUBSET-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-VALIDATION-002-CI-SAFE-VALIDATION-SUBSET-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-VALIDATION-002-CI-SAFE-VALIDATION-SUBSET-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-VALIDATION-002-CI-SAFE-VALIDATION-SUBSET-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-VALIDATION-003-BATCH-VALIDATION-REPLAY-REPORT-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-VALIDATION-003-BATCH-VALIDATION-REPLAY-REPORT-LOCAL-ONLY\\20260509T102925Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-validation-003-batch-validation-replay-report-local-only_20260509T113333259769Z_3209c91f.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-validation-003-batch-validation-replay-report-local-only_20260509T113333259769Z_3209c91f.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-VALIDATION-003-BATCH-VALIDATION-REPLAY-REPORT-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-VALIDATION-003-BATCH-VALIDATION-REPLAY-REPORT-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-VALIDATION-003-BATCH-VALIDATION-REPLAY-REPORT-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-VALIDATION-003-BATCH-VALIDATION-REPLAY-REPORT-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-VALIDATION-003-BATCH-VALIDATION-REPLAY-REPORT-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-SAFETY-004-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-SAFETY-004-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY\\20260509T103516Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-safety-004-sensitive-path-exclusion-audit-local-only_20260509T113333328326Z_89624fdb.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-safety-004-sensitive-path-exclusion-audit-local-only_20260509T113333328326Z_89624fdb.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-SAFETY-004-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SAFETY-004-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SAFETY-004-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SAFETY-004-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-SAFETY-004-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-SAFETY-005-FORBIDDEN-LANGUAGE-REGRESSION-SUITE-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-SAFETY-005-FORBIDDEN-LANGUAGE-REGRESSION-SUITE-LOCAL-ONLY\\20260509T104122Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-safety-005-forbidden-language-regression-suite-local-only_20260509T113333398608Z_5025e8af.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-safety-005-forbidden-language-regression-suite-local-only_20260509T113333398608Z_5025e8af.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-SAFETY-005-FORBIDDEN-LANGUAGE-REGRESSION-SUITE-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SAFETY-005-FORBIDDEN-LANGUAGE-REGRESSION-SUITE-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SAFETY-005-FORBIDDEN-LANGUAGE-REGRESSION-SUITE-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SAFETY-005-FORBIDDEN-LANGUAGE-REGRESSION-SUITE-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-SAFETY-005-FORBIDDEN-LANGUAGE-REGRESSION-SUITE-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-SAFETY-006-AUTONOMY-REVIEW-RECORD-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-SAFETY-006-AUTONOMY-REVIEW-RECORD-LOCAL-ONLY\\20260509T104603Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-safety-006-autonomy-review-record-local-only_20260509T113333457734Z_1ebdf1e4.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-safety-006-autonomy-review-record-local-only_20260509T113333457734Z_1ebdf1e4.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-SAFETY-006-AUTONOMY-REVIEW-RECORD-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SAFETY-006-AUTONOMY-REVIEW-RECORD-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SAFETY-006-AUTONOMY-REVIEW-RECORD-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SAFETY-006-AUTONOMY-REVIEW-RECORD-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-SAFETY-006-AUTONOMY-REVIEW-RECORD-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-PAPERLIVE-AUDIT-001-PAPERLIVE-TO-ACCOUNTING-RECONCILIATION-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-PAPERLIVE-AUDIT-001-PAPERLIVE-TO-ACCOUNTING-RECONCILIATION-LOCAL-ONLY\\20260509T105039Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-paperlive-audit-001-paperlive-to-accounting-reconciliation-local-only_20260509T113333519884Z_7f1db046.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-paperlive-audit-001-paperlive-to-accounting-reconciliation-local-only_20260509T113333519884Z_7f1db046.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-PAPERLIVE-AUDIT-001-PAPERLIVE-TO-ACCOUNTING-RECONCILIATION-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-PAPERLIVE-AUDIT-001-PAPERLIVE-TO-ACCOUNTING-RECONCILIATION-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-PAPERLIVE-AUDIT-001-PAPERLIVE-TO-ACCOUNTING-RECONCILIATION-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-PAPERLIVE-AUDIT-001-PAPERLIVE-TO-ACCOUNTING-RECONCILIATION-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-PAPERLIVE-AUDIT-001-PAPERLIVE-TO-ACCOUNTING-RECONCILIATION-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-PAPERLIVE-AUDIT-002-SIMULATED-DECISION-TO-OUTCOME-REPLAY-LINKS-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-PAPERLIVE-AUDIT-002-SIMULATED-DECISION-TO-OUTCOME-REPLAY-LINKS-LOCAL-ONLY\\20260509T105939Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-paperlive-audit-002-simulated-decision-to-outcome-replay-links-local-only_20260509T113333580764Z_07c91ff1.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-paperlive-audit-002-simulated-decision-to-outcome-replay-links-local-only_20260509T113333580764Z_07c91ff1.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-PAPERLIVE-AUDIT-002-SIMULATED-DECISION-TO-OUTCOME-REPLAY-LINKS-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-PAPERLIVE-AUDIT-002-SIMULATED-DECISION-TO-OUTCOME-REPLAY-LINKS-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-PAPERLIVE-AUDIT-002-SIMULATED-DECISION-TO-OUTCOME-REPLAY-LINKS-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-PAPERLIVE-AUDIT-002-SIMULATED-DECISION-TO-OUTCOME-REPLAY-LINKS-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-PAPERLIVE-AUDIT-002-SIMULATED-DECISION-TO-OUTCOME-REPLAY-LINKS-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-DASHBOARD-005-SUPERVISED-LIVE-READINESS-DASHBOARD-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-DASHBOARD-005-SUPERVISED-LIVE-READINESS-DASHBOARD-LOCAL-ONLY\\20260509T111003Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-dashboard-005-supervised-live-readiness-dashboard-local-only_20260509T113333642798Z_64584d42.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-dashboard-005-supervised-live-readiness-dashboard-local-only_20260509T113333642798Z_64584d42.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-DASHBOARD-005-SUPERVISED-LIVE-READINESS-DASHBOARD-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-DASHBOARD-005-SUPERVISED-LIVE-READINESS-DASHBOARD-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-DASHBOARD-005-SUPERVISED-LIVE-READINESS-DASHBOARD-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-DASHBOARD-005-SUPERVISED-LIVE-READINESS-DASHBOARD-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-DASHBOARD-005-SUPERVISED-LIVE-READINESS-DASHBOARD-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-OPERATOR-003-SUPERVISED-LIVE-MORNING-REVIEW-CARD-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-OPERATOR-003-SUPERVISED-LIVE-MORNING-REVIEW-CARD-LOCAL-ONLY\\20260509T111833Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-operator-003-supervised-live-morning-review-card-local-only_20260509T113333704913Z_5b426a27.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-operator-003-supervised-live-morning-review-card-local-only_20260509T113333704913Z_5b426a27.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-OPERATOR-003-SUPERVISED-LIVE-MORNING-REVIEW-CARD-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-OPERATOR-003-SUPERVISED-LIVE-MORNING-REVIEW-CARD-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-OPERATOR-003-SUPERVISED-LIVE-MORNING-REVIEW-CARD-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-OPERATOR-003-SUPERVISED-LIVE-MORNING-REVIEW-CARD-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-OPERATOR-003-SUPERVISED-LIVE-MORNING-REVIEW-CARD-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-ROADMAP-004-REAL-WALLET-GATED-MILESTONE-SEPARATION-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-ROADMAP-004-REAL-WALLET-GATED-MILESTONE-SEPARATION-LOCAL-ONLY\\20260509T112659Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-roadmap-004-real-wallet-gated-milestone-separation-local-only_20260509T113333768208Z_b92d87bd.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-roadmap-004-real-wallet-gated-milestone-separation-local-only_20260509T113333768208Z_b92d87bd.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-ROADMAP-004-REAL-WALLET-GATED-MILESTONE-SEPARATION-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-ROADMAP-004-REAL-WALLET-GATED-MILESTONE-SEPARATION-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-ROADMAP-004-REAL-WALLET-GATED-MILESTONE-SEPARATION-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-ROADMAP-004-REAL-WALLET-GATED-MILESTONE-SEPARATION-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-ROADMAP-004-REAL-WALLET-GATED-MILESTONE-SEPARATION-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      }
+    ]
+  },
+  "batch_run_id": "20260509T091552Z",
+  "batch_status": "ok",
+  "blocked_count": 0,
+  "bridge_results": true,
+  "bridged_count": 20,
+  "codex_exec_invoked": false,
+  "codex_invocation_count": 0,
+  "completed_execution_count": 20,
+  "daemon_created": false,
+  "errors": [],
+  "git_commit_performed": false,
+  "git_push_performed": false,
+  "infinite_loop_created": false,
+  "ingested_count": 20,
+  "next_operator_action": "Inspect the post-batch summary, task review reports, and git diff; run mark-done only for tasks whose review report recommends ready_for_operator_done.",
+  "openrouter_calls_performed": 0,
+  "orders_or_trading_actions": false,
+  "overwrite_results": false,
+  "policy": "continue through completed task executions; block individual tasks that cannot be bridged safely",
+  "polymarket_api_calls_performed": 0,
+  "queue_root": "agent_tasks",
+  "report_path_roles": {
+    "batch_review_ledger_json": "stable_evidence",
+    "latest_batch_review_ledger_json": "mutable_pointer",
+    "latest_post_batch_summary_json": "mutable_pointer",
+    "latest_post_batch_summary_md": "mutable_pointer",
+    "post_batch_summary_json": "stable_evidence",
+    "post_batch_summary_md": "stable_evidence"
+  },
+  "report_paths": {
+    "batch_review_ledger_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\batch_review_ledger_20260509T113332480835Z_3f223751.json",
+    "latest_batch_review_ledger_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\latest_batch_review_ledger.json",
+    "latest_post_batch_summary_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\latest_post_batch_review_summary.json",
+    "latest_post_batch_summary_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\latest_post_batch_review_summary.md",
+    "post_batch_summary_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\post_batch_review_summary_20260509T113332480835Z_3f223751.json",
+    "post_batch_summary_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\post_batch_review_summary_20260509T113332480835Z_3f223751.md"
+  },
+  "result_json_written_count": 20,
+  "review_approved_automatically": false,
+  "review_results": true,
+  "reviewed_count": 20,
+  "run_id": "20260509T113332480835Z_3f223751",
+  "runtime_or_dispatcher_changes": false,
+  "scheduler_created": false,
+  "schema_version": "codex_cli_batch_postprocess_report.v2",
+  "skipped_count": 0,
+  "status": "ok",
+  "task_marked_done_automatically": false,
+  "task_results": [
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-SUPERVISED-LIVE-001-READ-ONLY-LIVE-DATA-CONTRACT-LOCAL-ONLY\\20260509T091553Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-supervised-live-001-read-only-live-data-contract-local-only_20260509T113332515769Z_d0e34a11.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-supervised-live-001-read-only-live-data-contract-local-only_20260509T113332515769Z_d0e34a11.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-SUPERVISED-LIVE-001-READ-ONLY-LIVE-DATA-CONTRACT-LOCAL-ONLY\\20260509T091553Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-SUPERVISED-LIVE-001-READ-ONLY-LIVE-DATA-CONTRACT-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SUPERVISED-LIVE-001-READ-ONLY-LIVE-DATA-CONTRACT-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SUPERVISED-LIVE-001-READ-ONLY-LIVE-DATA-CONTRACT-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SUPERVISED-LIVE-001-READ-ONLY-LIVE-DATA-CONTRACT-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-SUPERVISED-LIVE-001-READ-ONLY-LIVE-DATA-CONTRACT-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-SUPERVISED-LIVE-002-LIVE-DATA-SOURCE-INVENTORY-LOCAL-ONLY\\20260509T092056Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-supervised-live-002-live-data-source-inventory-local-only_20260509T113332580556Z_74d9cfa6.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-supervised-live-002-live-data-source-inventory-local-only_20260509T113332580556Z_74d9cfa6.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-SUPERVISED-LIVE-002-LIVE-DATA-SOURCE-INVENTORY-LOCAL-ONLY\\20260509T092056Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-SUPERVISED-LIVE-002-LIVE-DATA-SOURCE-INVENTORY-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SUPERVISED-LIVE-002-LIVE-DATA-SOURCE-INVENTORY-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SUPERVISED-LIVE-002-LIVE-DATA-SOURCE-INVENTORY-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SUPERVISED-LIVE-002-LIVE-DATA-SOURCE-INVENTORY-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-SUPERVISED-LIVE-002-LIVE-DATA-SOURCE-INVENTORY-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-SUPERVISED-LIVE-003-OPERATOR-APPROVAL-GATE-RECORD-LOCAL-ONLY\\20260509T092622Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-supervised-live-003-operator-approval-gate-record-local-only_20260509T113332647539Z_4755823f.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-supervised-live-003-operator-approval-gate-record-local-only_20260509T113332647539Z_4755823f.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-SUPERVISED-LIVE-003-OPERATOR-APPROVAL-GATE-RECORD-LOCAL-ONLY\\20260509T092622Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-SUPERVISED-LIVE-003-OPERATOR-APPROVAL-GATE-RECORD-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SUPERVISED-LIVE-003-OPERATOR-APPROVAL-GATE-RECORD-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SUPERVISED-LIVE-003-OPERATOR-APPROVAL-GATE-RECORD-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SUPERVISED-LIVE-003-OPERATOR-APPROVAL-GATE-RECORD-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-SUPERVISED-LIVE-003-OPERATOR-APPROVAL-GATE-RECORD-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-SUPERVISED-LIVE-004-SUPERVISED-LIVE-STOP-CONDITION-SPEC-LOCAL-ONLY\\20260509T093138Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-supervised-live-004-supervised-live-stop-condition-spec-local-only_20260509T113332718420Z_78e45f36.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-supervised-live-004-supervised-live-stop-condition-spec-local-only_20260509T113332718420Z_78e45f36.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-SUPERVISED-LIVE-004-SUPERVISED-LIVE-STOP-CONDITION-SPEC-LOCAL-ONLY\\20260509T093138Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-SUPERVISED-LIVE-004-SUPERVISED-LIVE-STOP-CONDITION-SPEC-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SUPERVISED-LIVE-004-SUPERVISED-LIVE-STOP-CONDITION-SPEC-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SUPERVISED-LIVE-004-SUPERVISED-LIVE-STOP-CONDITION-SPEC-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SUPERVISED-LIVE-004-SUPERVISED-LIVE-STOP-CONDITION-SPEC-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-SUPERVISED-LIVE-004-SUPERVISED-LIVE-STOP-CONDITION-SPEC-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-SUPERVISED-LIVE-005-LIVE-READINESS-EVIDENCE-BUNDLE-LOCAL-ONLY\\20260509T093629Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-supervised-live-005-live-readiness-evidence-bundle-local-only_20260509T113332781920Z_a1fda688.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-supervised-live-005-live-readiness-evidence-bundle-local-only_20260509T113332781920Z_a1fda688.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-SUPERVISED-LIVE-005-LIVE-READINESS-EVIDENCE-BUNDLE-LOCAL-ONLY\\20260509T093629Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-SUPERVISED-LIVE-005-LIVE-READINESS-EVIDENCE-BUNDLE-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SUPERVISED-LIVE-005-LIVE-READINESS-EVIDENCE-BUNDLE-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SUPERVISED-LIVE-005-LIVE-READINESS-EVIDENCE-BUNDLE-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SUPERVISED-LIVE-005-LIVE-READINESS-EVIDENCE-BUNDLE-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-SUPERVISED-LIVE-005-LIVE-READINESS-EVIDENCE-BUNDLE-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-SOURCE-EVIDENCE-001-SOURCE-INVENTORY-LEDGER-LOCAL-ONLY\\20260509T094048Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-source-evidence-001-source-inventory-ledger-local-only_20260509T113332846594Z_cb0eba99.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-source-evidence-001-source-inventory-ledger-local-only_20260509T113332846594Z_cb0eba99.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-SOURCE-EVIDENCE-001-SOURCE-INVENTORY-LEDGER-LOCAL-ONLY\\20260509T094048Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-SOURCE-EVIDENCE-001-SOURCE-INVENTORY-LEDGER-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SOURCE-EVIDENCE-001-SOURCE-INVENTORY-LEDGER-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SOURCE-EVIDENCE-001-SOURCE-INVENTORY-LEDGER-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SOURCE-EVIDENCE-001-SOURCE-INVENTORY-LEDGER-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-SOURCE-EVIDENCE-001-SOURCE-INVENTORY-LEDGER-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-SOURCE-EVIDENCE-002-SOURCE-EVIDENCE-LINK-MAP-LOCAL-ONLY\\20260509T094927Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-source-evidence-002-source-evidence-link-map-local-only_20260509T113332907907Z_251b8813.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-source-evidence-002-source-evidence-link-map-local-only_20260509T113332907907Z_251b8813.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-SOURCE-EVIDENCE-002-SOURCE-EVIDENCE-LINK-MAP-LOCAL-ONLY\\20260509T094927Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-SOURCE-EVIDENCE-002-SOURCE-EVIDENCE-LINK-MAP-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SOURCE-EVIDENCE-002-SOURCE-EVIDENCE-LINK-MAP-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SOURCE-EVIDENCE-002-SOURCE-EVIDENCE-LINK-MAP-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SOURCE-EVIDENCE-002-SOURCE-EVIDENCE-LINK-MAP-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-SOURCE-EVIDENCE-002-SOURCE-EVIDENCE-LINK-MAP-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-SOURCE-EVIDENCE-003-SOURCE-STALENESS-CHECK-SPEC-LOCAL-ONLY\\20260509T095850Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-source-evidence-003-source-staleness-check-spec-local-only_20260509T113332990258Z_c5ac15c8.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-source-evidence-003-source-staleness-check-spec-local-only_20260509T113332990258Z_c5ac15c8.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-SOURCE-EVIDENCE-003-SOURCE-STALENESS-CHECK-SPEC-LOCAL-ONLY\\20260509T095850Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-SOURCE-EVIDENCE-003-SOURCE-STALENESS-CHECK-SPEC-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SOURCE-EVIDENCE-003-SOURCE-STALENESS-CHECK-SPEC-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SOURCE-EVIDENCE-003-SOURCE-STALENESS-CHECK-SPEC-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SOURCE-EVIDENCE-003-SOURCE-STALENESS-CHECK-SPEC-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-SOURCE-EVIDENCE-003-SOURCE-STALENESS-CHECK-SPEC-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-SOURCE-EVIDENCE-004-SOURCE-CONTRADICTION-LEDGER-LOCAL-ONLY\\20260509T100920Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-source-evidence-004-source-contradiction-ledger-local-only_20260509T113333057136Z_9a8dd8a8.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-source-evidence-004-source-contradiction-ledger-local-only_20260509T113333057136Z_9a8dd8a8.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-SOURCE-EVIDENCE-004-SOURCE-CONTRADICTION-LEDGER-LOCAL-ONLY\\20260509T100920Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-SOURCE-EVIDENCE-004-SOURCE-CONTRADICTION-LEDGER-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SOURCE-EVIDENCE-004-SOURCE-CONTRADICTION-LEDGER-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SOURCE-EVIDENCE-004-SOURCE-CONTRADICTION-LEDGER-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SOURCE-EVIDENCE-004-SOURCE-CONTRADICTION-LEDGER-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-SOURCE-EVIDENCE-004-SOURCE-CONTRADICTION-LEDGER-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-VALIDATION-001-SAVED-EVIDENCE-REPLAY-BUNDLE-LOCAL-ONLY\\20260509T101924Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-validation-001-saved-evidence-replay-bundle-local-only_20260509T113333123746Z_24f08d80.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-validation-001-saved-evidence-replay-bundle-local-only_20260509T113333123746Z_24f08d80.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-VALIDATION-001-SAVED-EVIDENCE-REPLAY-BUNDLE-LOCAL-ONLY\\20260509T101924Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-VALIDATION-001-SAVED-EVIDENCE-REPLAY-BUNDLE-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-VALIDATION-001-SAVED-EVIDENCE-REPLAY-BUNDLE-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-VALIDATION-001-SAVED-EVIDENCE-REPLAY-BUNDLE-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-VALIDATION-001-SAVED-EVIDENCE-REPLAY-BUNDLE-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-VALIDATION-001-SAVED-EVIDENCE-REPLAY-BUNDLE-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-VALIDATION-002-CI-SAFE-VALIDATION-SUBSET-LOCAL-ONLY\\20260509T102522Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-validation-002-ci-safe-validation-subset-local-only_20260509T113333190784Z_b8331dcb.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-validation-002-ci-safe-validation-subset-local-only_20260509T113333190784Z_b8331dcb.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-VALIDATION-002-CI-SAFE-VALIDATION-SUBSET-LOCAL-ONLY\\20260509T102522Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-VALIDATION-002-CI-SAFE-VALIDATION-SUBSET-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-VALIDATION-002-CI-SAFE-VALIDATION-SUBSET-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-VALIDATION-002-CI-SAFE-VALIDATION-SUBSET-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-VALIDATION-002-CI-SAFE-VALIDATION-SUBSET-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-VALIDATION-002-CI-SAFE-VALIDATION-SUBSET-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-VALIDATION-003-BATCH-VALIDATION-REPLAY-REPORT-LOCAL-ONLY\\20260509T102925Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-validation-003-batch-validation-replay-report-local-only_20260509T113333259769Z_3209c91f.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-validation-003-batch-validation-replay-report-local-only_20260509T113333259769Z_3209c91f.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-VALIDATION-003-BATCH-VALIDATION-REPLAY-REPORT-LOCAL-ONLY\\20260509T102925Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-VALIDATION-003-BATCH-VALIDATION-REPLAY-REPORT-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-VALIDATION-003-BATCH-VALIDATION-REPLAY-REPORT-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-VALIDATION-003-BATCH-VALIDATION-REPLAY-REPORT-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-VALIDATION-003-BATCH-VALIDATION-REPLAY-REPORT-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-VALIDATION-003-BATCH-VALIDATION-REPLAY-REPORT-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-SAFETY-004-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY\\20260509T103516Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-safety-004-sensitive-path-exclusion-audit-local-only_20260509T113333328326Z_89624fdb.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-safety-004-sensitive-path-exclusion-audit-local-only_20260509T113333328326Z_89624fdb.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-SAFETY-004-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY\\20260509T103516Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-SAFETY-004-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SAFETY-004-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SAFETY-004-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SAFETY-004-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-SAFETY-004-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-SAFETY-005-FORBIDDEN-LANGUAGE-REGRESSION-SUITE-LOCAL-ONLY\\20260509T104122Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-safety-005-forbidden-language-regression-suite-local-only_20260509T113333398608Z_5025e8af.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-safety-005-forbidden-language-regression-suite-local-only_20260509T113333398608Z_5025e8af.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-SAFETY-005-FORBIDDEN-LANGUAGE-REGRESSION-SUITE-LOCAL-ONLY\\20260509T104122Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-SAFETY-005-FORBIDDEN-LANGUAGE-REGRESSION-SUITE-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SAFETY-005-FORBIDDEN-LANGUAGE-REGRESSION-SUITE-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SAFETY-005-FORBIDDEN-LANGUAGE-REGRESSION-SUITE-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SAFETY-005-FORBIDDEN-LANGUAGE-REGRESSION-SUITE-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-SAFETY-005-FORBIDDEN-LANGUAGE-REGRESSION-SUITE-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-SAFETY-006-AUTONOMY-REVIEW-RECORD-LOCAL-ONLY\\20260509T104603Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-safety-006-autonomy-review-record-local-only_20260509T113333457734Z_1ebdf1e4.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-safety-006-autonomy-review-record-local-only_20260509T113333457734Z_1ebdf1e4.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-SAFETY-006-AUTONOMY-REVIEW-RECORD-LOCAL-ONLY\\20260509T104603Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-SAFETY-006-AUTONOMY-REVIEW-RECORD-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SAFETY-006-AUTONOMY-REVIEW-RECORD-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SAFETY-006-AUTONOMY-REVIEW-RECORD-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SAFETY-006-AUTONOMY-REVIEW-RECORD-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-SAFETY-006-AUTONOMY-REVIEW-RECORD-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-PAPERLIVE-AUDIT-001-PAPERLIVE-TO-ACCOUNTING-RECONCILIATION-LOCAL-ONLY\\20260509T105039Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-paperlive-audit-001-paperlive-to-accounting-reconciliation-local-only_20260509T113333519884Z_7f1db046.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-paperlive-audit-001-paperlive-to-accounting-reconciliation-local-only_20260509T113333519884Z_7f1db046.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-PAPERLIVE-AUDIT-001-PAPERLIVE-TO-ACCOUNTING-RECONCILIATION-LOCAL-ONLY\\20260509T105039Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-PAPERLIVE-AUDIT-001-PAPERLIVE-TO-ACCOUNTING-RECONCILIATION-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-PAPERLIVE-AUDIT-001-PAPERLIVE-TO-ACCOUNTING-RECONCILIATION-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-PAPERLIVE-AUDIT-001-PAPERLIVE-TO-ACCOUNTING-RECONCILIATION-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-PAPERLIVE-AUDIT-001-PAPERLIVE-TO-ACCOUNTING-RECONCILIATION-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-PAPERLIVE-AUDIT-001-PAPERLIVE-TO-ACCOUNTING-RECONCILIATION-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-PAPERLIVE-AUDIT-002-SIMULATED-DECISION-TO-OUTCOME-REPLAY-LINKS-LOCAL-ONLY\\20260509T105939Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-paperlive-audit-002-simulated-decision-to-outcome-replay-links-local-only_20260509T113333580764Z_07c91ff1.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-paperlive-audit-002-simulated-decision-to-outcome-replay-links-local-only_20260509T113333580764Z_07c91ff1.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-PAPERLIVE-AUDIT-002-SIMULATED-DECISION-TO-OUTCOME-REPLAY-LINKS-LOCAL-ONLY\\20260509T105939Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-PAPERLIVE-AUDIT-002-SIMULATED-DECISION-TO-OUTCOME-REPLAY-LINKS-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-PAPERLIVE-AUDIT-002-SIMULATED-DECISION-TO-OUTCOME-REPLAY-LINKS-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-PAPERLIVE-AUDIT-002-SIMULATED-DECISION-TO-OUTCOME-REPLAY-LINKS-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-PAPERLIVE-AUDIT-002-SIMULATED-DECISION-TO-OUTCOME-REPLAY-LINKS-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-PAPERLIVE-AUDIT-002-SIMULATED-DECISION-TO-OUTCOME-REPLAY-LINKS-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-DASHBOARD-005-SUPERVISED-LIVE-READINESS-DASHBOARD-LOCAL-ONLY\\20260509T111003Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-dashboard-005-supervised-live-readiness-dashboard-local-only_20260509T113333642798Z_64584d42.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-dashboard-005-supervised-live-readiness-dashboard-local-only_20260509T113333642798Z_64584d42.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-DASHBOARD-005-SUPERVISED-LIVE-READINESS-DASHBOARD-LOCAL-ONLY\\20260509T111003Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-DASHBOARD-005-SUPERVISED-LIVE-READINESS-DASHBOARD-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-DASHBOARD-005-SUPERVISED-LIVE-READINESS-DASHBOARD-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-DASHBOARD-005-SUPERVISED-LIVE-READINESS-DASHBOARD-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-DASHBOARD-005-SUPERVISED-LIVE-READINESS-DASHBOARD-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-DASHBOARD-005-SUPERVISED-LIVE-READINESS-DASHBOARD-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-OPERATOR-003-SUPERVISED-LIVE-MORNING-REVIEW-CARD-LOCAL-ONLY\\20260509T111833Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-operator-003-supervised-live-morning-review-card-local-only_20260509T113333704913Z_5b426a27.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-operator-003-supervised-live-morning-review-card-local-only_20260509T113333704913Z_5b426a27.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-OPERATOR-003-SUPERVISED-LIVE-MORNING-REVIEW-CARD-LOCAL-ONLY\\20260509T111833Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-OPERATOR-003-SUPERVISED-LIVE-MORNING-REVIEW-CARD-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-OPERATOR-003-SUPERVISED-LIVE-MORNING-REVIEW-CARD-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-OPERATOR-003-SUPERVISED-LIVE-MORNING-REVIEW-CARD-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-OPERATOR-003-SUPERVISED-LIVE-MORNING-REVIEW-CARD-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-OPERATOR-003-SUPERVISED-LIVE-MORNING-REVIEW-CARD-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-ROADMAP-004-REAL-WALLET-GATED-MILESTONE-SEPARATION-LOCAL-ONLY\\20260509T112659Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-roadmap-004-real-wallet-gated-milestone-separation-local-only_20260509T113333768208Z_b92d87bd.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-roadmap-004-real-wallet-gated-milestone-separation-local-only_20260509T113333768208Z_b92d87bd.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-ROADMAP-004-REAL-WALLET-GATED-MILESTONE-SEPARATION-LOCAL-ONLY\\20260509T112659Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-ROADMAP-004-REAL-WALLET-GATED-MILESTONE-SEPARATION-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-ROADMAP-004-REAL-WALLET-GATED-MILESTONE-SEPARATION-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-ROADMAP-004-REAL-WALLET-GATED-MILESTONE-SEPARATION-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-ROADMAP-004-REAL-WALLET-GATED-MILESTONE-SEPARATION-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-ROADMAP-004-REAL-WALLET-GATED-MILESTONE-SEPARATION-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    }
+  ],
+  "wallet_or_private_key_access": false,
+  "warnings": []
+}

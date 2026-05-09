@@ -1,0 +1,38 @@
+{
+  "contract_version": "pmbot_source_evidence_link_map_request.v1",
+  "documentation_reference": "docs/PMBOT_SOURCE_EVIDENCE_001_SOURCE_INVENTORY_LEDGER_LOCAL_ONLY.md",
+  "known_limitations": [
+    "Static local map only; no external refresh is performed.",
+    "Maps references and digests only; source values stay in local artifacts.",
+    "Does not authorize execution and is not runtime input."
+  ],
+  "local_only": true,
+  "map_id": "source_evidence_link_map_fixture_001",
+  "operator_review_required": true,
+  "operator_review_steps": [
+    "Confirm every source evidence row has a local artifact link and inventory row link.",
+    "Confirm every linked local reference remains static and under allowed paths.",
+    "Record disputes outside this map before any later readiness change."
+  ],
+  "review_checks": [
+    {
+      "check_id": "row_identity",
+      "description": "Confirm source_id and source evidence record_id match the inventory row."
+    },
+    {
+      "check_id": "artifact_digest",
+      "description": "Confirm source artifact reference and digest match local bytes."
+    },
+    {
+      "check_id": "review_artifacts",
+      "description": "Confirm ledger, report, and documentation references remain local static files."
+    },
+    {
+      "check_id": "pending_review_state",
+      "description": "Confirm every link remains pending operator review."
+    }
+  ],
+  "scope": "source_evidence_link_map",
+  "source_inventory_ledger_reference": "pm_bot/source_quality/samples/source_evidence_inventory_ledger.fixture.json",
+  "source_inventory_report_reference": "pm_bot/source_quality/samples/source_evidence_inventory_ledger.fixture.md"
+}

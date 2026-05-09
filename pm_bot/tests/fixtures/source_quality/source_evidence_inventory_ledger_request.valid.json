@@ -1,0 +1,173 @@
+{
+  "contract_version": "pmbot_source_evidence_inventory_ledger_request.v1",
+  "inventory_id": "source_evidence_inventory_ledger_fixture_001",
+  "local_only": true,
+  "operator_review_required": true,
+  "operator_review_steps": [
+    "Confirm every local reference stays under allowed static paths.",
+    "Confirm content digests and field names match local artifacts.",
+    "Record disputes outside this ledger before any later readiness change."
+  ],
+  "scope": "source_evidence_inventory_ledger",
+  "source_artifacts": [
+    {
+      "evidence_role": "weather_observation_fixture",
+      "expected_contract_version": "pmbot_weather_observation_snapshot.v1",
+      "expected_top_level_fields": [
+        "contract_version",
+        "snapshot_id",
+        "source_id",
+        "source_type",
+        "observation_date",
+        "station_id",
+        "high_temperature_f",
+        "report_timestamp",
+        "source_snapshot_note"
+      ],
+      "known_limitations": [
+        "Static local artifact only; no external refresh is performed.",
+        "Records field names and byte digests only, not source values."
+      ],
+      "local_reference": "pm_bot/tests/fixtures/weather/official_daily_climate_report_snapshot.json",
+      "review_checks": [
+        {
+          "check_id": "identity",
+          "description": "Confirm artifact path and source identity match the local fixture."
+        },
+        {
+          "check_id": "digest",
+          "description": "Confirm generated digest can be reviewed against local bytes."
+        },
+        {
+          "check_id": "field_inventory",
+          "description": "Confirm declared field names exist without copying source values."
+        }
+      ],
+      "snapshot_id": "fixture_official_daily_climate_report_2026_05_09",
+      "source_domain": "weather_observation",
+      "source_id": "official_daily_climate_report",
+      "source_label": "Official daily climate report",
+      "source_type": "official_record_snapshot"
+    },
+    {
+      "evidence_role": "weather_observation_fixture",
+      "expected_contract_version": "pmbot_weather_observation_snapshot.v1",
+      "expected_top_level_fields": [
+        "contract_version",
+        "snapshot_id",
+        "source_id",
+        "source_type",
+        "observation_date",
+        "station_id",
+        "observed_high_temperature_f",
+        "observation_timestamp",
+        "source_snapshot_note"
+      ],
+      "known_limitations": [
+        "Static local artifact only; no external refresh is performed.",
+        "Records field names and byte digests only, not source values."
+      ],
+      "local_reference": "pm_bot/tests/fixtures/weather/airport_station_observation_log_snapshot.json",
+      "review_checks": [
+        {
+          "check_id": "identity",
+          "description": "Confirm artifact path and source identity match the local fixture."
+        },
+        {
+          "check_id": "digest",
+          "description": "Confirm generated digest can be reviewed against local bytes."
+        },
+        {
+          "check_id": "field_inventory",
+          "description": "Confirm declared field names exist without copying source values."
+        }
+      ],
+      "snapshot_id": "fixture_airport_station_observation_log_2026_05_09",
+      "source_domain": "weather_observation",
+      "source_id": "airport_station_observation_log",
+      "source_label": "Airport station observation log",
+      "source_type": "station_observation_snapshot"
+    },
+    {
+      "evidence_role": "crypto_reference_fixture",
+      "expected_contract_version": "pmbot_static_crypto_reference_snapshot.v1",
+      "expected_top_level_fields": [
+        "asset_name",
+        "asset_symbol",
+        "contract_version",
+        "local_only",
+        "measurement_source_label",
+        "metric_type",
+        "reported_at_utc",
+        "reported_reference_unit",
+        "reported_reference_value",
+        "snapshot_id",
+        "source_label"
+      ],
+      "known_limitations": [
+        "Static local artifact only; no external refresh is performed.",
+        "Records field names and byte digests only, not source values."
+      ],
+      "local_reference": "pm_bot/tests/fixtures/crypto_paperlive_observation_ledger/static_crypto_reference_snapshot.valid.json",
+      "review_checks": [
+        {
+          "check_id": "identity",
+          "description": "Confirm artifact path and source identity match the local fixture."
+        },
+        {
+          "check_id": "digest",
+          "description": "Confirm generated digest can be reviewed against local bytes."
+        },
+        {
+          "check_id": "field_inventory",
+          "description": "Confirm declared field names exist without copying source values."
+        }
+      ],
+      "snapshot_id": "static_crypto_reference_snapshot_2026_05_09_btc",
+      "source_domain": "crypto_reference",
+      "source_id": "static_crypto_reference_snapshot_2026_05_09_btc",
+      "source_label": "Static crypto reference sample",
+      "source_type": "local_static_crypto_reference_snapshot"
+    },
+    {
+      "evidence_role": "source_quality_review_sample",
+      "expected_contract_version": "pmbot_unified_source_quality_ledger.v1",
+      "expected_top_level_fields": [
+        "build_id",
+        "contract_version",
+        "ledger_id",
+        "local_only",
+        "operator_review",
+        "run_mode",
+        "safety_boundaries",
+        "source_inventory",
+        "source_quality_rows",
+        "summary_counts"
+      ],
+      "known_limitations": [
+        "Static local artifact only; no external refresh is performed.",
+        "Records field names and byte digests only, not source values."
+      ],
+      "local_reference": "pm_bot/source_quality/samples/unified_source_quality_ledger.fixture.json",
+      "review_checks": [
+        {
+          "check_id": "identity",
+          "description": "Confirm artifact path and source identity match the local fixture."
+        },
+        {
+          "check_id": "digest",
+          "description": "Confirm generated digest can be reviewed against local bytes."
+        },
+        {
+          "check_id": "field_inventory",
+          "description": "Confirm declared field names exist without copying source values."
+        }
+      ],
+      "snapshot_id": "unified_source_quality_ledger_fixture_001-be4cc5453863",
+      "source_domain": "source_quality_review",
+      "source_id": "unified_source_quality_ledger_sample",
+      "source_label": "Unified source quality ledger sample",
+      "source_type": "local_source_quality_sample"
+    }
+  ]
+}

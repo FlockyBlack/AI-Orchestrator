@@ -1,0 +1,41 @@
+{
+  "acceptance_checks_passed": true,
+  "commands_run": [
+    "pytest pm_bot/tests/test_supervised_live_readiness_evidence_bundle.py",
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "completed_at": "2026-05-09T09:40:47Z",
+  "completed_by": "codex_cli_last_message_bridge",
+  "files_created": [],
+  "files_deleted": [],
+  "files_modified": [
+    "docs/PMBOT_SUPERVISED_LIVE_005_LIVE_READINESS_EVIDENCE_BUNDLE_LOCAL_ONLY.md",
+    "pm_bot/tests/fixtures/readiness/pmbot_supervised_live_readiness_evidence_bundle.valid.json",
+    "pm_bot/tests/test_supervised_live_readiness_evidence_bundle.py"
+  ],
+  "next_recommended_action": "Inspect the bridged result, ingestion report, review report, and git diff before mark-done.",
+  "operator_review_notes": "Bridged from C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-SUPERVISED-LIVE-005-LIVE-READINESS-EVIDENCE-BUNDLE-LOCAL-ONLY\\20260509T093629Z\\last_message.md. Safety notes: Used only local files, local fixtures, and static samples.; No network calls, browser automation, background processes, external service calls, credential access, wallet access, trading/order/payment/transaction work, or runtime wiring changes were performed.; Outputs remain descriptive and pending operator review; the bundle does not approve execution or a supervised-live transition.; No forecast scoring, action guidance, market ranking, numeric prediction metric, or selection advice was added. Remaining risks: Operator review is still required before any later readiness status change.; Pytest passed with a cache warning because .pytest_cache could not be written in this workspace; this did not fail the tests.; compileall exited successfully but reported it could not list tests/.pytest_tmp/pytest-of-OpenC. Bridge warnings: last_message used files_changed; bridged those paths as files_modified",
+  "safety_confirmation": {
+    "background_worker_added": false,
+    "codex_app_server_used": false,
+    "credentials_accessed": false,
+    "destructive_commands_used": false,
+    "network_calls_performed": 0,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "runtime_or_dispatcher_touched": false,
+    "scheduler_added": false,
+    "telegram_or_openclaw_added": false,
+    "wallet_or_trading_touched": false
+  },
+  "schema_version": "codex_task_result.v1",
+  "status": "completed",
+  "summary": "Added a deterministic local PMBOT supervised-live readiness evidence bundle with operator-review documentation, a static JSON fixture, and pytest coverage for contract shape, local references, closed safety boundaries, validation commands, and blocked decision-language terms.",
+  "task_id": "PMBOT-SUPERVISED-LIVE-005-LIVE-READINESS-EVIDENCE-BUNDLE-LOCAL-ONLY",
+  "validation_results": [
+    "pytest pm_bot/tests/test_supervised_live_readiness_evidence_bundle.py",
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ]
+}

@@ -1,0 +1,313 @@
+{
+  "build_id": "source_staleness_check_spec_fixture_001-6d7b66d4f994",
+  "contract_version": "pmbot_source_staleness_check_spec.v1",
+  "documentation": {
+    "byte_count": 4066,
+    "content_sha256": "287ca4001236844b1768c01ff8c3f18ff3c9508395b974814c239b2c7cf14cfa",
+    "local_reference": "docs/PMBOT_SOURCE_EVIDENCE_002_SOURCE_EVIDENCE_LINK_MAP_LOCAL_ONLY.md",
+    "present": true
+  },
+  "errors": [],
+  "local_only": true,
+  "operator_review": {
+    "status": "pending_operator_review",
+    "steps": [
+      "Confirm each source has one local staleness rule and one check row.",
+      "Confirm timestamp fields, age windows, and digests match local static artifacts.",
+      "Record disputes outside this spec before any later status change."
+    ]
+  },
+  "operator_review_required": true,
+  "reference_clock": {
+    "reference_source": "request_fixture_static_value",
+    "reference_timestamp_utc": "2026-05-10T00:30:00Z",
+    "system_clock_used": false
+  },
+  "run_mode": "local_static_source_staleness_check_spec",
+  "safety_boundaries": {
+    "authenticated_endpoint_calls_allowed": false,
+    "background_process_allowed": false,
+    "browser_automation_allowed": false,
+    "credential_or_secret_access_allowed": false,
+    "execution_endpoint_calls_allowed": false,
+    "external_service_calls_allowed": false,
+    "llm_provider_calls_allowed": false,
+    "local_static_inputs_only": true,
+    "network_calls_allowed": false,
+    "operator_review_required": true,
+    "order_or_trade_surface_changes_allowed": false,
+    "runtime_or_dispatcher_changes_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "transaction_endpoint_calls_allowed": false,
+    "wallet_or_signing_material_access_allowed": false
+  },
+  "scope": "source_staleness_check_spec",
+  "source_evidence_link_map": {
+    "build_id": "source_evidence_link_map_fixture_001-a888c8609457",
+    "byte_count": 16224,
+    "content_sha256": "dd25e3d21b7922cc936f41ecd1f81553f5c8ac185d841a0ab862d3d4eb5e1a1e",
+    "contract_version": "pmbot_source_evidence_link_map.v1",
+    "local_reference": "pm_bot/source_quality/samples/source_evidence_link_map.fixture.json",
+    "map_id": "source_evidence_link_map_fixture_001",
+    "operator_review_status": "pending_operator_review",
+    "present": true,
+    "run_mode": "local_static_source_evidence_link_map",
+    "source_evidence_links": 4
+  },
+  "source_evidence_link_report": {
+    "byte_count": 3807,
+    "content_sha256": "3393bceeef15f73206b8435287107c359632aef7f763bb59c91bd350b141a254",
+    "local_reference": "pm_bot/source_quality/samples/source_evidence_link_map.fixture.md",
+    "present": true
+  },
+  "source_staleness_checks": [
+    {
+      "age_seconds": 1920,
+      "check_id": "source_staleness_check_spec_fixture_001.airport_station_observation_log.source_staleness_check",
+      "check_kind": "local_static_source_staleness_review",
+      "check_state": "descriptive_source_staleness_check",
+      "known_limitations": [
+        "Static local spec only; no external refresh is performed.",
+        "Uses request fixture reference time instead of system time.",
+        "Records descriptive age windows and pending review state only."
+      ],
+      "maximum_age_seconds": 86400,
+      "observed_timestamp_utc": "2026-05-09T23:58:00Z",
+      "operator_review_status": "pending_operator_review",
+      "reference_timestamp_utc": "2026-05-10T00:30:00Z",
+      "review_checks": [
+        {
+          "check_id": "source_link_identity",
+          "description": "Confirm source identity and source evidence link row match the local link map.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "artifact_digest",
+          "description": "Confirm source artifact reference and digest match local bytes.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "timestamp_window",
+          "description": "Confirm field presence and computed age use the static request reference time.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "pending_review_state",
+          "description": "Confirm every check remains pending operator review.",
+          "operator_review_status": "pending_operator_review"
+        }
+      ],
+      "rule_id": "airport_station_observation_log_timestamp_window",
+      "source_artifact": {
+        "artifact_format": "json_object",
+        "byte_count": 536,
+        "content_sha256": "e27ccc4dedeb4b3da48cd9e636d137e78be3cefa9683598879b2aed122370a8c",
+        "local_reference": "pm_bot/tests/fixtures/weather/airport_station_observation_log_snapshot.json",
+        "present": true,
+        "source_artifact_present": true
+      },
+      "source_domain": "weather_observation",
+      "source_evidence_link_id": "source_evidence_link_map_fixture_001.airport_station_observation_log.source_evidence_link",
+      "source_id": "airport_station_observation_log",
+      "source_label": "Airport station observation log",
+      "source_type": "station_observation_snapshot",
+      "staleness_state": "within_static_review_window",
+      "threshold_label": "weather_station_static_fixture_day_window",
+      "timestamp_field": "observation_timestamp",
+      "timestamp_field_candidates": [
+        "observation_timestamp"
+      ],
+      "timestamp_field_present": true,
+      "timestamp_required": true
+    },
+    {
+      "age_seconds": 1500,
+      "check_id": "source_staleness_check_spec_fixture_001.official_daily_climate_report.source_staleness_check",
+      "check_kind": "local_static_source_staleness_review",
+      "check_state": "descriptive_source_staleness_check",
+      "known_limitations": [
+        "Static local spec only; no external refresh is performed.",
+        "Uses request fixture reference time instead of system time.",
+        "Records descriptive age windows and pending review state only."
+      ],
+      "maximum_age_seconds": 86400,
+      "observed_timestamp_utc": "2026-05-10T00:05:00Z",
+      "operator_review_status": "pending_operator_review",
+      "reference_timestamp_utc": "2026-05-10T00:30:00Z",
+      "review_checks": [
+        {
+          "check_id": "source_link_identity",
+          "description": "Confirm source identity and source evidence link row match the local link map.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "artifact_digest",
+          "description": "Confirm source artifact reference and digest match local bytes.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "timestamp_window",
+          "description": "Confirm field presence and computed age use the static request reference time.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "pending_review_state",
+          "description": "Confirm every check remains pending operator review.",
+          "operator_review_status": "pending_operator_review"
+        }
+      ],
+      "rule_id": "official_daily_climate_report_timestamp_window",
+      "source_artifact": {
+        "artifact_format": "json_object",
+        "byte_count": 514,
+        "content_sha256": "5141db855f8039139fe1b875a2c945c06f83d1fa608a206a35122fd7c7ef5867",
+        "local_reference": "pm_bot/tests/fixtures/weather/official_daily_climate_report_snapshot.json",
+        "present": true,
+        "source_artifact_present": true
+      },
+      "source_domain": "weather_observation",
+      "source_evidence_link_id": "source_evidence_link_map_fixture_001.official_daily_climate_report.source_evidence_link",
+      "source_id": "official_daily_climate_report",
+      "source_label": "Official daily climate report",
+      "source_type": "official_record_snapshot",
+      "staleness_state": "within_static_review_window",
+      "threshold_label": "weather_official_static_fixture_day_window",
+      "timestamp_field": "report_timestamp",
+      "timestamp_field_candidates": [
+        "report_timestamp"
+      ],
+      "timestamp_field_present": true,
+      "timestamp_required": true
+    },
+    {
+      "age_seconds": 88200,
+      "check_id": "source_staleness_check_spec_fixture_001.static_crypto_reference_snapshot_2026_05_09_btc.source_staleness_check",
+      "check_kind": "local_static_source_staleness_review",
+      "check_state": "descriptive_source_staleness_check",
+      "known_limitations": [
+        "Static local spec only; no external refresh is performed.",
+        "Uses request fixture reference time instead of system time.",
+        "Records descriptive age windows and pending review state only."
+      ],
+      "maximum_age_seconds": 172800,
+      "observed_timestamp_utc": "2026-05-09T00:00:00Z",
+      "operator_review_status": "pending_operator_review",
+      "reference_timestamp_utc": "2026-05-10T00:30:00Z",
+      "review_checks": [
+        {
+          "check_id": "source_link_identity",
+          "description": "Confirm source identity and source evidence link row match the local link map.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "artifact_digest",
+          "description": "Confirm source artifact reference and digest match local bytes.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "timestamp_window",
+          "description": "Confirm field presence and computed age use the static request reference time.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "pending_review_state",
+          "description": "Confirm every check remains pending operator review.",
+          "operator_review_status": "pending_operator_review"
+        }
+      ],
+      "rule_id": "static_crypto_reference_timestamp_window",
+      "source_artifact": {
+        "artifact_format": "json_object",
+        "byte_count": 534,
+        "content_sha256": "1f0ffac6d0264f62bb8bf8689de09addc80fabf2069c15a76d40c306178fb1fe",
+        "local_reference": "pm_bot/tests/fixtures/crypto_paperlive_observation_ledger/static_crypto_reference_snapshot.valid.json",
+        "present": true,
+        "source_artifact_present": true
+      },
+      "source_domain": "crypto_reference",
+      "source_evidence_link_id": "source_evidence_link_map_fixture_001.static_crypto_reference_snapshot_2026_05_09_btc.source_evidence_link",
+      "source_id": "static_crypto_reference_snapshot_2026_05_09_btc",
+      "source_label": "Static crypto reference sample",
+      "source_type": "local_static_crypto_reference_snapshot",
+      "staleness_state": "within_static_review_window",
+      "threshold_label": "crypto_reference_static_fixture_two_day_window",
+      "timestamp_field": "reported_at_utc",
+      "timestamp_field_candidates": [
+        "reported_at_utc",
+        "created_at"
+      ],
+      "timestamp_field_present": true,
+      "timestamp_required": true
+    },
+    {
+      "age_seconds": null,
+      "check_id": "source_staleness_check_spec_fixture_001.unified_source_quality_ledger_sample.source_staleness_check",
+      "check_kind": "local_static_source_staleness_review",
+      "check_state": "descriptive_source_staleness_check",
+      "known_limitations": [
+        "Static local spec only; no external refresh is performed.",
+        "Uses request fixture reference time instead of system time.",
+        "Records descriptive age windows and pending review state only."
+      ],
+      "maximum_age_seconds": null,
+      "observed_timestamp_utc": null,
+      "operator_review_status": "pending_operator_review",
+      "reference_timestamp_utc": "2026-05-10T00:30:00Z",
+      "review_checks": [
+        {
+          "check_id": "source_link_identity",
+          "description": "Confirm source identity and source evidence link row match the local link map.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "artifact_digest",
+          "description": "Confirm source artifact reference and digest match local bytes.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "timestamp_window",
+          "description": "Confirm field presence and computed age use the static request reference time.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "pending_review_state",
+          "description": "Confirm every check remains pending operator review.",
+          "operator_review_status": "pending_operator_review"
+        }
+      ],
+      "rule_id": "unified_source_quality_ledger_sample_manual_review",
+      "source_artifact": {
+        "artifact_format": "json_object",
+        "byte_count": 7474,
+        "content_sha256": "7b95524e7c16ec9abec0ea15b8509c3a9c55ce310a8c0fde84abba4f611f74a9",
+        "local_reference": "pm_bot/source_quality/samples/unified_source_quality_ledger.fixture.json",
+        "present": true,
+        "source_artifact_present": true
+      },
+      "source_domain": "source_quality_review",
+      "source_evidence_link_id": "source_evidence_link_map_fixture_001.unified_source_quality_ledger_sample.source_evidence_link",
+      "source_id": "unified_source_quality_ledger_sample",
+      "source_label": "Unified source quality ledger sample",
+      "source_type": "local_source_quality_sample",
+      "staleness_state": "timestamp_not_required_by_rule",
+      "threshold_label": "source_quality_static_sample_manual_review",
+      "timestamp_field": null,
+      "timestamp_field_candidates": [],
+      "timestamp_field_present": false,
+      "timestamp_required": false
+    }
+  ],
+  "spec_id": "source_staleness_check_spec_fixture_001",
+  "summary_counts": {
+    "local_references": 7,
+    "operator_review_steps": 3,
+    "review_checks": 16,
+    "source_artifact_references": 4,
+    "source_evidence_links": 4,
+    "source_staleness_checks": 4,
+    "timestamp_fields_missing": 1,
+    "timestamp_fields_present": 3,
+    "warnings": 0
+  },
+  "warnings": []
+}

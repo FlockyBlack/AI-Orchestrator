@@ -1,0 +1,336 @@
+{
+  "build_id": "source_evidence_link_map_fixture_001-a888c8609457",
+  "contract_version": "pmbot_source_evidence_link_map.v1",
+  "documentation_reference": "docs/PMBOT_SOURCE_EVIDENCE_001_SOURCE_INVENTORY_LEDGER_LOCAL_ONLY.md",
+  "errors": [],
+  "local_only": true,
+  "map_id": "source_evidence_link_map_fixture_001",
+  "operator_review": {
+    "status": "pending_operator_review",
+    "steps": [
+      "Confirm every source evidence row has a local artifact link and inventory row link.",
+      "Confirm every linked local reference remains static and under allowed paths.",
+      "Record disputes outside this map before any later readiness change."
+    ]
+  },
+  "operator_review_required": true,
+  "run_mode": "local_static_source_evidence_link_map",
+  "safety_boundaries": {
+    "authenticated_endpoint_calls_allowed": false,
+    "background_process_allowed": false,
+    "browser_automation_allowed": false,
+    "credential_or_secret_access_allowed": false,
+    "execution_endpoint_calls_allowed": false,
+    "external_service_calls_allowed": false,
+    "llm_provider_calls_allowed": false,
+    "local_static_inputs_only": true,
+    "network_calls_allowed": false,
+    "operator_review_required": true,
+    "order_or_trade_surface_changes_allowed": false,
+    "runtime_or_dispatcher_changes_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "transaction_endpoint_calls_allowed": false,
+    "wallet_or_signing_material_access_allowed": false
+  },
+  "scope": "source_evidence_link_map",
+  "source_evidence_links": [
+    {
+      "documentation": {
+        "byte_count": 3915,
+        "content_sha256": "827942409dc8b4a98310a7004a9a885ca31a167a0f15cf7202c5f6aef15d61e4",
+        "local_reference": "docs/PMBOT_SOURCE_EVIDENCE_001_SOURCE_INVENTORY_LEDGER_LOCAL_ONLY.md",
+        "present": true
+      },
+      "inventory_ledger": {
+        "build_id": "source_evidence_inventory_ledger_fixture_001-911f62d75877",
+        "byte_count": 17354,
+        "content_sha256": "76b25429ffe1fc90afdb85532217c89b13fb57bd29228001868b737876626123",
+        "contract_version": "pmbot_source_evidence_inventory_ledger.v1",
+        "inventory_id": "source_evidence_inventory_ledger_fixture_001",
+        "local_reference": "pm_bot/source_quality/samples/source_evidence_inventory_ledger.fixture.json",
+        "present": true,
+        "row_present": true
+      },
+      "known_limitations": [
+        "Static local map only; no external refresh is performed.",
+        "Maps references and digests only; source values stay in local artifacts.",
+        "Does not authorize execution and is not runtime input."
+      ],
+      "link_id": "source_evidence_link_map_fixture_001.airport_station_observation_log.source_evidence_link",
+      "link_kind": "local_static_source_evidence_review_link",
+      "link_state": "descriptive_source_evidence_link",
+      "operator_report": {
+        "byte_count": 2724,
+        "content_sha256": "331f74ed7df8f5a231b39034476b86c402bc2c75ca81f4108531b19e5f58f67c",
+        "local_reference": "pm_bot/source_quality/samples/source_evidence_inventory_ledger.fixture.md",
+        "present": true
+      },
+      "operator_review_status": "pending_operator_review",
+      "review_checks": [
+        {
+          "check_id": "row_identity",
+          "description": "Confirm source_id and source evidence record_id match the inventory row.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "artifact_digest",
+          "description": "Confirm source artifact reference and digest match local bytes.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "review_artifacts",
+          "description": "Confirm ledger, report, and documentation references remain local static files.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "pending_review_state",
+          "description": "Confirm every link remains pending operator review.",
+          "operator_review_status": "pending_operator_review"
+        }
+      ],
+      "source_artifact": {
+        "artifact_format": "json_object",
+        "byte_count": 536,
+        "content_sha256": "e27ccc4dedeb4b3da48cd9e636d137e78be3cefa9683598879b2aed122370a8c",
+        "local_reference": "pm_bot/tests/fixtures/weather/airport_station_observation_log_snapshot.json",
+        "present": true,
+        "source_artifact_present": true
+      },
+      "source_domain": "weather_observation",
+      "source_evidence_record_id": "source_evidence_inventory_ledger_fixture_001.airport_station_observation_log.source_evidence",
+      "source_evidence_status": "pending_operator_review",
+      "source_id": "airport_station_observation_log",
+      "source_label": "Airport station observation log",
+      "source_type": "station_observation_snapshot"
+    },
+    {
+      "documentation": {
+        "byte_count": 3915,
+        "content_sha256": "827942409dc8b4a98310a7004a9a885ca31a167a0f15cf7202c5f6aef15d61e4",
+        "local_reference": "docs/PMBOT_SOURCE_EVIDENCE_001_SOURCE_INVENTORY_LEDGER_LOCAL_ONLY.md",
+        "present": true
+      },
+      "inventory_ledger": {
+        "build_id": "source_evidence_inventory_ledger_fixture_001-911f62d75877",
+        "byte_count": 17354,
+        "content_sha256": "76b25429ffe1fc90afdb85532217c89b13fb57bd29228001868b737876626123",
+        "contract_version": "pmbot_source_evidence_inventory_ledger.v1",
+        "inventory_id": "source_evidence_inventory_ledger_fixture_001",
+        "local_reference": "pm_bot/source_quality/samples/source_evidence_inventory_ledger.fixture.json",
+        "present": true,
+        "row_present": true
+      },
+      "known_limitations": [
+        "Static local map only; no external refresh is performed.",
+        "Maps references and digests only; source values stay in local artifacts.",
+        "Does not authorize execution and is not runtime input."
+      ],
+      "link_id": "source_evidence_link_map_fixture_001.official_daily_climate_report.source_evidence_link",
+      "link_kind": "local_static_source_evidence_review_link",
+      "link_state": "descriptive_source_evidence_link",
+      "operator_report": {
+        "byte_count": 2724,
+        "content_sha256": "331f74ed7df8f5a231b39034476b86c402bc2c75ca81f4108531b19e5f58f67c",
+        "local_reference": "pm_bot/source_quality/samples/source_evidence_inventory_ledger.fixture.md",
+        "present": true
+      },
+      "operator_review_status": "pending_operator_review",
+      "review_checks": [
+        {
+          "check_id": "row_identity",
+          "description": "Confirm source_id and source evidence record_id match the inventory row.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "artifact_digest",
+          "description": "Confirm source artifact reference and digest match local bytes.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "review_artifacts",
+          "description": "Confirm ledger, report, and documentation references remain local static files.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "pending_review_state",
+          "description": "Confirm every link remains pending operator review.",
+          "operator_review_status": "pending_operator_review"
+        }
+      ],
+      "source_artifact": {
+        "artifact_format": "json_object",
+        "byte_count": 514,
+        "content_sha256": "5141db855f8039139fe1b875a2c945c06f83d1fa608a206a35122fd7c7ef5867",
+        "local_reference": "pm_bot/tests/fixtures/weather/official_daily_climate_report_snapshot.json",
+        "present": true,
+        "source_artifact_present": true
+      },
+      "source_domain": "weather_observation",
+      "source_evidence_record_id": "source_evidence_inventory_ledger_fixture_001.official_daily_climate_report.source_evidence",
+      "source_evidence_status": "pending_operator_review",
+      "source_id": "official_daily_climate_report",
+      "source_label": "Official daily climate report",
+      "source_type": "official_record_snapshot"
+    },
+    {
+      "documentation": {
+        "byte_count": 3915,
+        "content_sha256": "827942409dc8b4a98310a7004a9a885ca31a167a0f15cf7202c5f6aef15d61e4",
+        "local_reference": "docs/PMBOT_SOURCE_EVIDENCE_001_SOURCE_INVENTORY_LEDGER_LOCAL_ONLY.md",
+        "present": true
+      },
+      "inventory_ledger": {
+        "build_id": "source_evidence_inventory_ledger_fixture_001-911f62d75877",
+        "byte_count": 17354,
+        "content_sha256": "76b25429ffe1fc90afdb85532217c89b13fb57bd29228001868b737876626123",
+        "contract_version": "pmbot_source_evidence_inventory_ledger.v1",
+        "inventory_id": "source_evidence_inventory_ledger_fixture_001",
+        "local_reference": "pm_bot/source_quality/samples/source_evidence_inventory_ledger.fixture.json",
+        "present": true,
+        "row_present": true
+      },
+      "known_limitations": [
+        "Static local map only; no external refresh is performed.",
+        "Maps references and digests only; source values stay in local artifacts.",
+        "Does not authorize execution and is not runtime input."
+      ],
+      "link_id": "source_evidence_link_map_fixture_001.static_crypto_reference_snapshot_2026_05_09_btc.source_evidence_link",
+      "link_kind": "local_static_source_evidence_review_link",
+      "link_state": "descriptive_source_evidence_link",
+      "operator_report": {
+        "byte_count": 2724,
+        "content_sha256": "331f74ed7df8f5a231b39034476b86c402bc2c75ca81f4108531b19e5f58f67c",
+        "local_reference": "pm_bot/source_quality/samples/source_evidence_inventory_ledger.fixture.md",
+        "present": true
+      },
+      "operator_review_status": "pending_operator_review",
+      "review_checks": [
+        {
+          "check_id": "row_identity",
+          "description": "Confirm source_id and source evidence record_id match the inventory row.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "artifact_digest",
+          "description": "Confirm source artifact reference and digest match local bytes.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "review_artifacts",
+          "description": "Confirm ledger, report, and documentation references remain local static files.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "pending_review_state",
+          "description": "Confirm every link remains pending operator review.",
+          "operator_review_status": "pending_operator_review"
+        }
+      ],
+      "source_artifact": {
+        "artifact_format": "json_object",
+        "byte_count": 534,
+        "content_sha256": "1f0ffac6d0264f62bb8bf8689de09addc80fabf2069c15a76d40c306178fb1fe",
+        "local_reference": "pm_bot/tests/fixtures/crypto_paperlive_observation_ledger/static_crypto_reference_snapshot.valid.json",
+        "present": true,
+        "source_artifact_present": true
+      },
+      "source_domain": "crypto_reference",
+      "source_evidence_record_id": "source_evidence_inventory_ledger_fixture_001.static_crypto_reference_snapshot_2026_05_09_btc.source_evidence",
+      "source_evidence_status": "pending_operator_review",
+      "source_id": "static_crypto_reference_snapshot_2026_05_09_btc",
+      "source_label": "Static crypto reference sample",
+      "source_type": "local_static_crypto_reference_snapshot"
+    },
+    {
+      "documentation": {
+        "byte_count": 3915,
+        "content_sha256": "827942409dc8b4a98310a7004a9a885ca31a167a0f15cf7202c5f6aef15d61e4",
+        "local_reference": "docs/PMBOT_SOURCE_EVIDENCE_001_SOURCE_INVENTORY_LEDGER_LOCAL_ONLY.md",
+        "present": true
+      },
+      "inventory_ledger": {
+        "build_id": "source_evidence_inventory_ledger_fixture_001-911f62d75877",
+        "byte_count": 17354,
+        "content_sha256": "76b25429ffe1fc90afdb85532217c89b13fb57bd29228001868b737876626123",
+        "contract_version": "pmbot_source_evidence_inventory_ledger.v1",
+        "inventory_id": "source_evidence_inventory_ledger_fixture_001",
+        "local_reference": "pm_bot/source_quality/samples/source_evidence_inventory_ledger.fixture.json",
+        "present": true,
+        "row_present": true
+      },
+      "known_limitations": [
+        "Static local map only; no external refresh is performed.",
+        "Maps references and digests only; source values stay in local artifacts.",
+        "Does not authorize execution and is not runtime input."
+      ],
+      "link_id": "source_evidence_link_map_fixture_001.unified_source_quality_ledger_sample.source_evidence_link",
+      "link_kind": "local_static_source_evidence_review_link",
+      "link_state": "descriptive_source_evidence_link",
+      "operator_report": {
+        "byte_count": 2724,
+        "content_sha256": "331f74ed7df8f5a231b39034476b86c402bc2c75ca81f4108531b19e5f58f67c",
+        "local_reference": "pm_bot/source_quality/samples/source_evidence_inventory_ledger.fixture.md",
+        "present": true
+      },
+      "operator_review_status": "pending_operator_review",
+      "review_checks": [
+        {
+          "check_id": "row_identity",
+          "description": "Confirm source_id and source evidence record_id match the inventory row.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "artifact_digest",
+          "description": "Confirm source artifact reference and digest match local bytes.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "review_artifacts",
+          "description": "Confirm ledger, report, and documentation references remain local static files.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "pending_review_state",
+          "description": "Confirm every link remains pending operator review.",
+          "operator_review_status": "pending_operator_review"
+        }
+      ],
+      "source_artifact": {
+        "artifact_format": "json_object",
+        "byte_count": 7474,
+        "content_sha256": "7b95524e7c16ec9abec0ea15b8509c3a9c55ce310a8c0fde84abba4f611f74a9",
+        "local_reference": "pm_bot/source_quality/samples/unified_source_quality_ledger.fixture.json",
+        "present": true,
+        "source_artifact_present": true
+      },
+      "source_domain": "source_quality_review",
+      "source_evidence_record_id": "source_evidence_inventory_ledger_fixture_001.unified_source_quality_ledger_sample.source_evidence",
+      "source_evidence_status": "pending_operator_review",
+      "source_id": "unified_source_quality_ledger_sample",
+      "source_label": "Unified source quality ledger sample",
+      "source_type": "local_source_quality_sample"
+    }
+  ],
+  "source_inventory": {
+    "build_id": "source_evidence_inventory_ledger_fixture_001-911f62d75877",
+    "byte_count": 17354,
+    "content_sha256": "76b25429ffe1fc90afdb85532217c89b13fb57bd29228001868b737876626123",
+    "contract_version": "pmbot_source_evidence_inventory_ledger.v1",
+    "inventory_id": "source_evidence_inventory_ledger_fixture_001",
+    "local_reference": "pm_bot/source_quality/samples/source_evidence_inventory_ledger.fixture.json",
+    "operator_review_status": "pending_operator_review",
+    "present": true,
+    "run_mode": "local_static_source_evidence_inventory",
+    "source_evidence_rows": 4
+  },
+  "summary_counts": {
+    "inventory_rows_linked": 4,
+    "local_references": 7,
+    "operator_review_steps": 3,
+    "review_checks": 16,
+    "source_artifact_references": 4,
+    "source_evidence_links": 4,
+    "warnings": 0
+  },
+  "warnings": []
+}

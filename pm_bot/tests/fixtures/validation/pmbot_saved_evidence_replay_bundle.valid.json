@@ -1,0 +1,254 @@
+{
+  "bundle_id": "pmbot-saved-evidence-replay-bundle-001",
+  "bundle_name": "pmbot-saved-evidence-replay-bundle",
+  "contract_id": "pmbot-saved-evidence-replay-bundle",
+  "contract_version": "pmbot_saved_evidence_replay_bundle.v1",
+  "created_at": "2026-05-09T00:30:00Z",
+  "errors": [],
+  "local_only": true,
+  "operator_review": {
+    "reviewed_at": null,
+    "reviewed_by": null,
+    "status": "pending_operator_review"
+  },
+  "operator_review_required": true,
+  "replay_checklist": [
+    {
+      "check_id": "local_reference_replay",
+      "description": "Confirm every saved evidence record resolves to a local file under the allowed paths.",
+      "required_evidence": "Human record confirming local path review.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "static_artifact_replay",
+      "description": "Confirm saved artifacts are static fixtures, docs, or test references only.",
+      "required_evidence": "Human record confirming static artifact review.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "review_state_replay",
+      "description": "Confirm replay records restate saved local artifacts without changing their review state.",
+      "required_evidence": "Human record confirming review state labels.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "safety_boundary_replay",
+      "description": "Confirm wallet, credential, runtime, worker, endpoint, and browser boundaries remain closed.",
+      "required_evidence": "Human record confirming closed safety boundaries.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "output_boundary_replay",
+      "description": "Confirm emitted bundle fields remain descriptive and omit market instruction, numeric metric, and execution instruction fields.",
+      "required_evidence": "Human record confirming output field review.",
+      "status": "pending_operator_review"
+    }
+  ],
+  "replay_record_fields": [
+    "record_id",
+    "artifact_id",
+    "artifact_role",
+    "artifact_type",
+    "contract_version",
+    "local_reference",
+    "operator_review_status",
+    "expected_state",
+    "replay_note"
+  ],
+  "replay_scope": "saved_evidence_validation_review",
+  "replay_sections": [
+    {
+      "operator_review_status": "pending_operator_review",
+      "replay_role": "bundle_identity_review",
+      "section_id": "bundle_identity_replay",
+      "section_label": "Bundle identity replay",
+      "source_record_ids": [
+        "saved_evidence_replay_bundle_001.saved_evidence_replay_bundle_fixture",
+        "saved_evidence_replay_bundle_001.saved_evidence_replay_bundle_doc"
+      ]
+    },
+    {
+      "operator_review_status": "pending_operator_review",
+      "replay_role": "readiness_evidence_review",
+      "section_id": "readiness_evidence_replay",
+      "section_label": "Readiness evidence replay",
+      "source_record_ids": [
+        "saved_evidence_replay_bundle_001.supervised_live_readiness_bundle_fixture",
+        "saved_evidence_replay_bundle_001.supervised_live_readiness_bundle_doc",
+        "saved_evidence_replay_bundle_001.local_to_supervised_live_gap_matrix_fixture"
+      ]
+    },
+    {
+      "operator_review_status": "pending_operator_review",
+      "replay_role": "simulated_decision_record_review",
+      "section_id": "simulated_decision_record_replay",
+      "section_label": "Simulated decision record replay",
+      "source_record_ids": [
+        "saved_evidence_replay_bundle_001.simulated_decision_replay_summary_sample",
+        "saved_evidence_replay_bundle_001.simulated_decision_replay_request_fixture",
+        "saved_evidence_replay_bundle_001.simulated_decision_audit_ledger_sample",
+        "saved_evidence_replay_bundle_001.simulated_decision_packet_sample"
+      ]
+    },
+    {
+      "operator_review_status": "pending_operator_review",
+      "replay_role": "queue_template_boundary_review",
+      "section_id": "queue_template_validation_replay",
+      "section_label": "Queue template validation replay",
+      "source_record_ids": [
+        "saved_evidence_replay_bundle_001.pmbot_queue_template_validation_test"
+      ]
+    }
+  ],
+  "required_validation_commands": [
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "run_mode": "local_static_saved_evidence_replay_bundle",
+  "safety_boundaries": {
+    "authenticated_endpoint_calls_allowed": false,
+    "background_process_allowed": false,
+    "browser_automation_allowed": false,
+    "credential_or_secret_access_allowed": false,
+    "execution_endpoint_calls_allowed": false,
+    "external_service_calls_allowed": false,
+    "llm_provider_calls_allowed": false,
+    "local_static_artifacts_only": true,
+    "market_api_calls_allowed": false,
+    "market_instruction_allowed": false,
+    "network_calls_allowed": false,
+    "numeric_prediction_metric_allowed": false,
+    "operator_review_required": true,
+    "order_or_trade_surface_changes_allowed": false,
+    "paper_mode_only": true,
+    "replay_mutates_source_artifacts_allowed": false,
+    "runtime_or_dispatcher_changes_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "transaction_endpoint_calls_allowed": false,
+    "wallet_or_signing_material_access_allowed": false
+  },
+  "saved_evidence_records": [
+    {
+      "artifact_id": "saved_evidence_replay_bundle_fixture",
+      "artifact_role": "validation_replay_bundle",
+      "artifact_type": "json_fixture",
+      "contract_version": "pmbot_saved_evidence_replay_bundle.v1",
+      "expected_state": "pending_operator_review",
+      "local_reference": "pm_bot/tests/fixtures/validation/pmbot_saved_evidence_replay_bundle.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "saved_evidence_replay_bundle_001.saved_evidence_replay_bundle_fixture",
+      "replay_note": "Registers this saved evidence replay bundle fixture for human review."
+    },
+    {
+      "artifact_id": "saved_evidence_replay_bundle_doc",
+      "artifact_role": "validation_replay_document",
+      "artifact_type": "markdown_document",
+      "contract_version": "pmbot_saved_evidence_replay_bundle.v1",
+      "expected_state": "pending_operator_review",
+      "local_reference": "docs/PMBOT_VALIDATION_001_SAVED_EVIDENCE_REPLAY_BUNDLE_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "saved_evidence_replay_bundle_001.saved_evidence_replay_bundle_doc",
+      "replay_note": "Links the saved evidence replay bundle operator document."
+    },
+    {
+      "artifact_id": "supervised_live_readiness_bundle_fixture",
+      "artifact_role": "readiness_evidence_bundle",
+      "artifact_type": "json_fixture",
+      "contract_version": "pmbot_supervised_live_readiness_evidence_bundle.v1",
+      "expected_state": "pending_operator_review",
+      "local_reference": "pm_bot/tests/fixtures/readiness/pmbot_supervised_live_readiness_evidence_bundle.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "saved_evidence_replay_bundle_001.supervised_live_readiness_bundle_fixture",
+      "replay_note": "Restates the saved readiness evidence bundle fixture for human review."
+    },
+    {
+      "artifact_id": "supervised_live_readiness_bundle_doc",
+      "artifact_role": "readiness_evidence_document",
+      "artifact_type": "markdown_document",
+      "contract_version": "pmbot_supervised_live_readiness_evidence_bundle.v1",
+      "expected_state": "pending_operator_review",
+      "local_reference": "docs/PMBOT_SUPERVISED_LIVE_005_LIVE_READINESS_EVIDENCE_BUNDLE_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "saved_evidence_replay_bundle_001.supervised_live_readiness_bundle_doc",
+      "replay_note": "Links the saved readiness evidence bundle operator document."
+    },
+    {
+      "artifact_id": "local_to_supervised_live_gap_matrix_fixture",
+      "artifact_role": "readiness_gap_matrix",
+      "artifact_type": "json_fixture",
+      "contract_version": "pmbot_local_to_supervised_live_gap_matrix.v1",
+      "expected_state": "pending_operator_review",
+      "local_reference": "pm_bot/tests/fixtures/readiness/pmbot_local_to_supervised_live_gap_matrix.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "saved_evidence_replay_bundle_001.local_to_supervised_live_gap_matrix_fixture",
+      "replay_note": "Restates the saved local-to-supervised-live gap matrix fixture."
+    },
+    {
+      "artifact_id": "simulated_decision_replay_summary_sample",
+      "artifact_role": "simulated_decision_replay_summary",
+      "artifact_type": "json_sample",
+      "contract_version": "pmbot_simulated_decision_replay_summary.v1",
+      "expected_state": "recorded_for_operator_review",
+      "local_reference": "pm_bot/simulated_decisions/samples/simulated_decision_replay_summary.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "saved_evidence_replay_bundle_001.simulated_decision_replay_summary_sample",
+      "replay_note": "Restates the saved simulated decision replay summary sample."
+    },
+    {
+      "artifact_id": "simulated_decision_replay_request_fixture",
+      "artifact_role": "simulated_decision_replay_request",
+      "artifact_type": "json_fixture",
+      "contract_version": "pmbot_simulated_decision_replay_summary_request.v1",
+      "expected_state": "pending_operator_review",
+      "local_reference": "pm_bot/tests/fixtures/simulated_decisions/simulated_decision_replay_summary_request.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "saved_evidence_replay_bundle_001.simulated_decision_replay_request_fixture",
+      "replay_note": "Restates the saved simulated decision replay request fixture."
+    },
+    {
+      "artifact_id": "simulated_decision_audit_ledger_sample",
+      "artifact_role": "simulated_decision_audit_ledger",
+      "artifact_type": "json_sample",
+      "contract_version": "pmbot_simulated_decision_audit_ledger.v1",
+      "expected_state": "recorded_for_operator_review",
+      "local_reference": "pm_bot/simulated_decisions/samples/simulated_decision_audit_ledger.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "saved_evidence_replay_bundle_001.simulated_decision_audit_ledger_sample",
+      "replay_note": "Restates the saved simulated decision audit ledger sample."
+    },
+    {
+      "artifact_id": "simulated_decision_packet_sample",
+      "artifact_role": "simulated_decision_packet",
+      "artifact_type": "json_sample",
+      "contract_version": "pmbot_simulated_decision_packet.v1",
+      "expected_state": "recorded_for_operator_review",
+      "local_reference": "pm_bot/simulated_decisions/samples/simulated_decision_packet.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "saved_evidence_replay_bundle_001.simulated_decision_packet_sample",
+      "replay_note": "Restates the saved simulated decision packet sample."
+    },
+    {
+      "artifact_id": "pmbot_queue_template_validation_test",
+      "artifact_role": "queue_template_boundary_test",
+      "artifact_type": "python_test_reference",
+      "contract_version": "pmbot_queue_templates_local_validation",
+      "expected_state": "local_validation_reference",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "saved_evidence_replay_bundle_001.pmbot_queue_template_validation_test",
+      "replay_note": "Links queue template validation for local-only task boundaries."
+    }
+  ],
+  "summary_counts": {
+    "errors": 0,
+    "local_references": 10,
+    "replay_checklist_items": 5,
+    "replay_sections": 4,
+    "required_validation_commands": 2,
+    "saved_evidence_records": 10,
+    "saved_evidence_records_pending_operator_review": 10,
+    "warnings": 0
+  },
+  "task_id": "PMBOT-VALIDATION-001-SAVED-EVIDENCE-REPLAY-BUNDLE-LOCAL-ONLY",
+  "warnings": []
+}

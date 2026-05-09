@@ -1,0 +1,45 @@
+{
+  "acceptance_checks_passed": true,
+  "commands_run": [
+    "pytest pm_bot/tests/test_saved_evidence_replay_bundle.py",
+    "python -m json.tool pm_bot/tests/fixtures/validation/pmbot_saved_evidence_replay_bundle.valid.json",
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py",
+    "git diff --check -- docs/PMBOT_VALIDATION_001_SAVED_EVIDENCE_REPLAY_BUNDLE_LOCAL_ONLY.md pm_bot/tests/fixtures/validation/pmbot_saved_evidence_replay_bundle.valid.json pm_bot/tests/test_saved_evidence_replay_bundle.py"
+  ],
+  "completed_at": "2026-05-09T10:25:22Z",
+  "completed_by": "codex_cli_last_message_bridge",
+  "files_created": [],
+  "files_deleted": [],
+  "files_modified": [
+    "docs/PMBOT_VALIDATION_001_SAVED_EVIDENCE_REPLAY_BUNDLE_LOCAL_ONLY.md",
+    "pm_bot/tests/fixtures/validation/pmbot_saved_evidence_replay_bundle.valid.json",
+    "pm_bot/tests/test_saved_evidence_replay_bundle.py"
+  ],
+  "next_recommended_action": "Inspect the bridged result, ingestion report, review report, and git diff before mark-done.",
+  "operator_review_notes": "Bridged from C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-VALIDATION-001-SAVED-EVIDENCE-REPLAY-BUNDLE-LOCAL-ONLY\\20260509T101924Z\\last_message.md. Safety notes: No network, browser automation, external service, credential, wallet, trading, order, runtime, dispatcher, run_codex, scheduler, worker, or background process work was performed.; No forecast scoring, action guidance, market ranking, numeric prediction metric, side selection, or trade instruction output was added.; The requested broad compileall command enumerated pre-existing pm_bot/llm paths because it targets the whole pm_bot tree; no edits or service calls were made there. Remaining risks: pytest passed with a cache warning because .pytest_cache could not be written in this workspace.; The worktree contains substantial pre-existing untracked files outside this task; this task intentionally added only the three files listed above. Bridge warnings: last_message used files_changed; bridged those paths as files_modified",
+  "safety_confirmation": {
+    "background_worker_added": false,
+    "codex_app_server_used": false,
+    "credentials_accessed": false,
+    "destructive_commands_used": false,
+    "network_calls_performed": 0,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "runtime_or_dispatcher_touched": false,
+    "scheduler_added": false,
+    "telegram_or_openclaw_added": false,
+    "wallet_or_trading_touched": false
+  },
+  "schema_version": "codex_task_result.v1",
+  "status": "completed",
+  "summary": "Added a deterministic local PMBOT saved evidence replay bundle for operator validation review, including a static JSON fixture, documentation, and focused tests. The bundle only references local docs, fixtures, static samples, and tests; all replay records remain pending operator review and descriptive only.",
+  "task_id": "PMBOT-VALIDATION-001-SAVED-EVIDENCE-REPLAY-BUNDLE-LOCAL-ONLY",
+  "validation_results": [
+    "pytest pm_bot/tests/test_saved_evidence_replay_bundle.py",
+    "python -m json.tool pm_bot/tests/fixtures/validation/pmbot_saved_evidence_replay_bundle.valid.json",
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py",
+    "git diff --check -- docs/PMBOT_VALIDATION_001_SAVED_EVIDENCE_REPLAY_BUNDLE_LOCAL_ONLY.md pm_bot/tests/fixtures/validation/pmbot_saved_evidence_replay_bundle.valid.json pm_bot/tests/test_saved_evidence_replay_bundle.py"
+  ]
+}

@@ -1,0 +1,226 @@
+{
+  "allowed_path_prefixes": [
+    "docs/",
+    "pm_bot/readiness/",
+    "pm_bot/tests/",
+    "tests/"
+  ],
+  "contract_version": "pmbot_real_wallet_gated_milestone_separation.v1",
+  "created_at": "2026-05-09T00:00:00Z",
+  "errors": [],
+  "excluded_path_prefixes": [
+    ".env",
+    ".env.*",
+    ".git/",
+    ".codex/",
+    "runtime/",
+    "dispatcher/",
+    "run_codex/",
+    "pm_bot/llm/",
+    "pm_bot/wallet/",
+    "pm_bot/trading/",
+    "pm_bot/orders/",
+    "agent_tasks/running/"
+  ],
+  "local_only": true,
+  "milestone_name": "pmbot-real-wallet-gated-milestone-separation",
+  "milestone_rows": [
+    {
+      "approval_state": "not_approved",
+      "gate_id": "paper_mode_baseline_milestone",
+      "human_record_required": "Human record confirming the local paper-mode baseline remains separate from sensitive-access review.",
+      "local_reference": "pm_bot/readiness/PMBOT_ROADMAP_001_REAL_WALLET_READINESS_BLOCKER_MATRIX.md",
+      "milestone_group": "paper_mode_baseline",
+      "operator_review_status": "pending_operator_review",
+      "separated_from": "sensitive_access",
+      "transition_state": "blocked_until_separate_operator_record"
+    },
+    {
+      "approval_state": "not_approved",
+      "gate_id": "supervised_review_boundary_milestone",
+      "human_record_required": "Human record confirming supervised review materials do not change real wallet boundaries.",
+      "local_reference": "pm_bot/readiness/PMBOT_ROADMAP_002_PMBOT_LOCAL_TO_SUPERVISED_LIVE_GAP_MATRIX.md",
+      "milestone_group": "supervised_review_boundary",
+      "operator_review_status": "pending_operator_review",
+      "separated_from": "real_wallet_access",
+      "transition_state": "blocked_until_separate_operator_record"
+    },
+    {
+      "approval_state": "not_approved",
+      "gate_id": "sensitive_scope_record_milestone",
+      "human_record_required": "Human record naming exact files, modules, endpoints, duration, redaction rules, and stop conditions.",
+      "local_reference": "docs/PMBOT_SUPERVISED_LIVE_003_OPERATOR_APPROVAL_GATE_RECORD_LOCAL_ONLY.md",
+      "milestone_group": "sensitive_scope_record",
+      "operator_review_status": "pending_operator_review",
+      "separated_from": "credential_and_wallet_access",
+      "transition_state": "blocked_until_separate_operator_record"
+    },
+    {
+      "approval_state": "not_approved",
+      "gate_id": "credential_wallet_boundary_milestone",
+      "human_record_required": "Human record confirming excluded sensitive paths remain closed for this review.",
+      "local_reference": "docs/PMBOT_SAFETY_004_SENSITIVE_PATH_EXCLUSION_AUDIT_LOCAL_ONLY.md",
+      "milestone_group": "credential_wallet_boundary",
+      "operator_review_status": "pending_operator_review",
+      "separated_from": "secret_or_signing_material_access",
+      "transition_state": "blocked_until_separate_operator_record"
+    },
+    {
+      "approval_state": "not_approved",
+      "gate_id": "runtime_wiring_boundary_milestone",
+      "human_record_required": "Human record confirming runtime, dispatcher, scheduler, worker, and browser boundaries remain closed.",
+      "local_reference": "docs/PMBOT_SAFETY_003_FORBIDDEN_ACTION_SCAN_LOCAL_ONLY.md",
+      "milestone_group": "runtime_wiring_boundary",
+      "operator_review_status": "pending_operator_review",
+      "separated_from": "execution_wiring",
+      "transition_state": "blocked_until_separate_operator_record"
+    },
+    {
+      "approval_state": "not_approved",
+      "gate_id": "validation_replay_milestone",
+      "human_record_required": "Human record confirming local compile and pytest output before any later status change.",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "milestone_group": "validation_replay",
+      "operator_review_status": "pending_operator_review",
+      "separated_from": "activation_or_status_change",
+      "transition_state": "blocked_until_separate_operator_record"
+    }
+  ],
+  "milestone_set_id": "pmbot-real-wallet-gated-milestone-separation-001",
+  "operator_review": {
+    "reviewed_at": null,
+    "reviewed_by": null,
+    "status": "pending_operator_review"
+  },
+  "operator_review_required": true,
+  "required_validation_commands": [
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "run_mode": "local_static_real_wallet_gated_milestone_separation",
+  "safety_boundaries": {
+    "artifact_status_change_allowed": false,
+    "authenticated_endpoint_calls_allowed": false,
+    "automated_restart_allowed": false,
+    "background_process_allowed": false,
+    "browser_automation_allowed": false,
+    "core_execution_wiring_changes_allowed": false,
+    "credential_or_secret_access_allowed": false,
+    "execution_endpoint_calls_allowed": false,
+    "external_service_calls_allowed": false,
+    "llm_provider_calls_allowed": false,
+    "local_static_samples_only": true,
+    "market_api_calls_allowed": false,
+    "market_ranking_allowed": false,
+    "network_calls_allowed": false,
+    "numeric_prediction_metric_allowed": false,
+    "operator_review_required": true,
+    "order_or_trade_surface_changes_allowed": false,
+    "paper_mode_only": true,
+    "production_dependency_changes_allowed": false,
+    "real_wallet_transition_allowed": false,
+    "runtime_or_dispatcher_changes_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "sensitive_access_scope_expansion_allowed": false,
+    "supervised_live_transition_allowed": false,
+    "timed_automation_allowed": false,
+    "trade_instruction_allowed": false,
+    "transaction_endpoint_calls_allowed": false,
+    "wallet_or_signing_material_access_allowed": false
+  },
+  "separation_rules": [
+    {
+      "blocked_transition": "paper_mode_baseline_to_sensitive_access",
+      "from_milestone_group": "paper_mode_baseline",
+      "required_human_record": "Separate operator record for sensitive-access scope.",
+      "rule_id": "separation_rule_001",
+      "rule_state": "closed_pending_operator_review"
+    },
+    {
+      "blocked_transition": "supervised_review_boundary_to_real_wallet_access",
+      "from_milestone_group": "supervised_review_boundary",
+      "required_human_record": "Separate operator record for real wallet boundary change.",
+      "rule_id": "separation_rule_002",
+      "rule_state": "closed_pending_operator_review"
+    },
+    {
+      "blocked_transition": "sensitive_scope_record_to_credential_wallet_access",
+      "from_milestone_group": "sensitive_scope_record",
+      "required_human_record": "Separate operator record for credential and wallet handling.",
+      "rule_id": "separation_rule_003",
+      "rule_state": "closed_pending_operator_review"
+    },
+    {
+      "blocked_transition": "credential_wallet_boundary_to_transaction_endpoint_use",
+      "from_milestone_group": "credential_wallet_boundary",
+      "required_human_record": "Separate operator record for transaction endpoint scope.",
+      "rule_id": "separation_rule_004",
+      "rule_state": "closed_pending_operator_review"
+    },
+    {
+      "blocked_transition": "runtime_wiring_boundary_to_resident_process",
+      "from_milestone_group": "runtime_wiring_boundary",
+      "required_human_record": "Separate operator record for runtime process scope.",
+      "rule_id": "separation_rule_005",
+      "rule_state": "closed_pending_operator_review"
+    },
+    {
+      "blocked_transition": "validation_replay_to_activation",
+      "from_milestone_group": "validation_replay",
+      "required_human_record": "Separate operator record for any later activation.",
+      "rule_id": "separation_rule_006",
+      "rule_state": "closed_pending_operator_review"
+    }
+  ],
+  "source_artifacts": [
+    {
+      "artifact_id": "real_wallet_blocker_matrix",
+      "contract_version": "pmbot_real_wallet_readiness_blocker_matrix.v1",
+      "local_reference": "pm_bot/readiness/PMBOT_ROADMAP_001_REAL_WALLET_READINESS_BLOCKER_MATRIX.md",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "local_to_supervised_live_gap_matrix",
+      "contract_version": "pmbot_local_to_supervised_live_gap_matrix.v1",
+      "local_reference": "pm_bot/readiness/PMBOT_ROADMAP_002_PMBOT_LOCAL_TO_SUPERVISED_LIVE_GAP_MATRIX.md",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "operator_approval_gate_record",
+      "contract_version": "pmbot_supervised_live_operator_approval_gate_record.v1",
+      "local_reference": "docs/PMBOT_SUPERVISED_LIVE_003_OPERATOR_APPROVAL_GATE_RECORD_LOCAL_ONLY.md",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "readiness_evidence_bundle",
+      "contract_version": "pmbot_supervised_live_readiness_evidence_bundle.v1",
+      "local_reference": "docs/PMBOT_SUPERVISED_LIVE_005_LIVE_READINESS_EVIDENCE_BUNDLE_LOCAL_ONLY.md",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "sensitive_path_exclusion_audit",
+      "contract_version": "pmbot_sensitive_path_exclusion_audit.v1",
+      "local_reference": "docs/PMBOT_SAFETY_004_SENSITIVE_PATH_EXCLUSION_AUDIT_LOCAL_ONLY.md",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "queue_template_contract",
+      "contract_version": "pmbot_queue_template_local_contract.v1",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "required_state": "pending_operator_review"
+    }
+  ],
+  "summary_counts": {
+    "allowed_path_prefixes": 4,
+    "excluded_path_prefixes": 12,
+    "local_references": 7,
+    "milestone_rows": 6,
+    "milestone_rows_pending_operator_review": 6,
+    "required_validation_commands": 2,
+    "separation_rules": 6,
+    "source_artifacts": 6,
+    "warnings": 0
+  },
+  "task_id": "PMBOT-ROADMAP-004-REAL-WALLET-GATED-MILESTONE-SEPARATION-LOCAL-ONLY",
+  "warnings": []
+}

@@ -1,0 +1,60 @@
+{
+  "contract_version": "pmbot_source_contradiction_ledger_request.v1",
+  "contradiction_checks": [
+    {
+      "check_id": "weather_daily_high_temperature_static_compare",
+      "check_label": "Weather daily high temperature static comparison",
+      "comparison_kind": "mapped_field_value_compare",
+      "field_mappings": [
+        {
+          "left_field": "high_temperature_f",
+          "right_field": "observed_high_temperature_f",
+          "semantic_field": "daily_high_temperature_f",
+          "unit_label": "fahrenheit"
+        }
+      ],
+      "left_source_id": "official_daily_climate_report",
+      "right_source_id": "airport_station_observation_log",
+      "source_domain": "weather_observation",
+      "subject_key_fields": [
+        "station_id",
+        "observation_date"
+      ]
+    }
+  ],
+  "documentation_reference": "docs/PMBOT_SOURCE_EVIDENCE_003_SOURCE_STALENESS_CHECK_SPEC_LOCAL_ONLY.md",
+  "known_limitations": [
+    "Static local ledger only; no external refresh is performed.",
+    "Records mapped field differences and pending review state only.",
+    "Does not authorize execution and is not runtime input."
+  ],
+  "ledger_id": "source_contradiction_ledger_fixture_001",
+  "local_only": true,
+  "operator_review_required": true,
+  "operator_review_steps": [
+    "Confirm each source pair is copied from local static artifact references.",
+    "Confirm mapped fields and static values match the local artifact bytes.",
+    "Record unresolved differences outside this ledger before any later status change."
+  ],
+  "review_checks": [
+    {
+      "check_id": "source_pair_identity",
+      "description": "Confirm source ids and source staleness rows match the local staleness spec."
+    },
+    {
+      "check_id": "artifact_digest",
+      "description": "Confirm source artifact references and digests match local bytes."
+    },
+    {
+      "check_id": "mapped_value_review",
+      "description": "Confirm mapped field values are copied from local static artifacts."
+    },
+    {
+      "check_id": "pending_review_state",
+      "description": "Confirm every row remains pending operator review."
+    }
+  ],
+  "scope": "source_contradiction_ledger",
+  "source_staleness_check_report_reference": "pm_bot/source_quality/samples/source_staleness_check_spec.fixture.md",
+  "source_staleness_check_spec_reference": "pm_bot/source_quality/samples/source_staleness_check_spec.fixture.json"
+}
