@@ -1,0 +1,41 @@
+{
+  "acceptance_checks_passed": true,
+  "commands_run": [
+    "pytest pm_bot/tests/test_crypto_validation_replay_bundle.py",
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "completed_at": "2026-05-09T14:11:30Z",
+  "completed_by": "codex_cli_last_message_bridge",
+  "files_created": [],
+  "files_deleted": [],
+  "files_modified": [
+    "docs/PMBOT_CRYPTO_LIVE_012_CRYPTO_VALIDATION_REPLAY_BUNDLE_LOCAL_ONLY.md",
+    "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_validation_replay_bundle.valid.json",
+    "pm_bot/tests/test_crypto_validation_replay_bundle.py"
+  ],
+  "next_recommended_action": "Inspect the bridged result, ingestion report, review report, and git diff before mark-done.",
+  "operator_review_notes": "Bridged from C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-012-CRYPTO-VALIDATION-REPLAY-BUNDLE-LOCAL-ONLY\\20260509T140457Z\\last_message.md. Safety notes: Changed files are under allowed paths only.; No network calls, browser automation, background processes, schedulers, credential access, wallet access, trading, order, transaction, runtime, dispatcher, or run_codex changes were used.; All bundle records remain local, descriptive, static, and pending operator review or local validation reference. Remaining risks: Operator review remains required before any readiness status change.; Validation emitted non-fatal local cache/temp warnings: compileall could not list tests/.pytest_tmp/pytest-of-OpenC, and pytest could not write .pytest_cache. Bridge warnings: last_message used files_changed; bridged those paths as files_modified",
+  "safety_confirmation": {
+    "background_worker_added": false,
+    "codex_app_server_used": false,
+    "credentials_accessed": false,
+    "destructive_commands_used": false,
+    "network_calls_performed": 0,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "runtime_or_dispatcher_touched": false,
+    "scheduler_added": false,
+    "telegram_or_openclaw_added": false,
+    "wallet_or_trading_touched": false
+  },
+  "schema_version": "codex_task_result.v1",
+  "status": "completed",
+  "summary": "Added a deterministic local PMBOT crypto validation replay bundle for operator review, including a static fixture, operator-facing documentation, and a focused pytest contract. The bundle uses local files, local fixtures, and static samples only, keeps records pending operator review, and does not provide forecast, execution, or selection outputs.",
+  "task_id": "PMBOT-CRYPTO-LIVE-012-CRYPTO-VALIDATION-REPLAY-BUNDLE-LOCAL-ONLY",
+  "validation_results": [
+    "pytest pm_bot/tests/test_crypto_validation_replay_bundle.py",
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ]
+}

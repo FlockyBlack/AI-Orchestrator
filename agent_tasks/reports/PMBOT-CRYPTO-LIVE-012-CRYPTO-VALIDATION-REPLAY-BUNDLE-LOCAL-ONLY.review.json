@@ -1,0 +1,56 @@
+{
+  "automatic_execution_enabled": false,
+  "codex_app_server_used": false,
+  "codex_execution_added": false,
+  "handoff_prompt": {
+    "found": true,
+    "path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\planned\\PMBOT-CRYPTO-LIVE-012-CRYPTO-VALIDATION-REPLAY-BUNDLE-LOCAL-ONLY.handoff_prompt.md"
+  },
+  "ingestion": {
+    "allowed": true,
+    "errors": [],
+    "latest_report_is_pointer": true,
+    "latest_report_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\latest_result_ingestion_report.json",
+    "latest_report_status": "accepted",
+    "latest_report_task_id": "PMBOT-CRYPTO-LIVE-012-CRYPTO-VALIDATION-REPLAY-BUNDLE-LOCAL-ONLY",
+    "matching_reports": [
+      {
+        "accepted": true,
+        "allowed": true,
+        "errors": [],
+        "path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-012-crypto-validation-replay-bundle-local-only_20260509T151009519609Z_9a4d196b.json",
+        "status": "allowed"
+      }
+    ],
+    "path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-012-crypto-validation-replay-bundle-local-only_20260509T151009519609Z_9a4d196b.json",
+    "status": "allowed"
+  },
+  "plan": {
+    "found": true,
+    "path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\planned\\PMBOT-CRYPTO-LIVE-012-CRYPTO-VALIDATION-REPLAY-BUNDLE-LOCAL-ONLY.plan.json"
+  },
+  "queue_root": "agent_tasks",
+  "recommendation": "ready_for_operator_done",
+  "report_paths": {
+    "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-012-CRYPTO-VALIDATION-REPLAY-BUNDLE-LOCAL-ONLY.review.json",
+    "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-012-CRYPTO-VALIDATION-REPLAY-BUNDLE-LOCAL-ONLY.review.md"
+  },
+  "result_packet": {
+    "found": true,
+    "path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-012-CRYPTO-VALIDATION-REPLAY-BUNDLE-LOCAL-ONLY.result.json",
+    "status": "completed"
+  },
+  "run_id": "20260509T151009Z",
+  "task_id": "PMBOT-CRYPTO-LIVE-012-CRYPTO-VALIDATION-REPLAY-BUNDLE-LOCAL-ONLY",
+  "task_marked_done_automatically": false,
+  "task_packet": {
+    "found": true,
+    "path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\approved\\PMBOT-CRYPTO-LIVE-012-CRYPTO-VALIDATION-REPLAY-BUNDLE-LOCAL-ONLY.task.json",
+    "state": "approved",
+    "validation": {
+      "errors": [],
+      "valid": true
+    }
+  },
+  "warnings": []
+}

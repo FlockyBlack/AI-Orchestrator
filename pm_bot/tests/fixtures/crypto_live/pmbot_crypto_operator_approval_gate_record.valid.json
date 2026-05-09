@@ -1,0 +1,246 @@
+{
+  "approval_gate_id": "pmbot-crypto-operator-approval-gate-record-001",
+  "contract_id": "pmbot-crypto-operator-approval-gate-record",
+  "contract_version": "pmbot_crypto_operator_approval_gate_record.v1",
+  "created_at": "2026-05-09T03:30:00Z",
+  "errors": [],
+  "gate_records": [
+    {
+      "approval_state": "not_approved",
+      "evidence_required": "Human record confirming the read-only crypto data contract was reviewed from local artifacts.",
+      "gate_id": "read_only_crypto_data_contract_review",
+      "gate_label": "Read-only crypto data contract review",
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_001_READ_ONLY_CRYPTO_DATA_CONTRACT_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "required_prior_state": "pending_operator_review",
+      "scope_boundary": "local_static_crypto_contract_only",
+      "transition_state": "blocked_until_record_complete"
+    },
+    {
+      "approval_state": "not_approved",
+      "evidence_required": "Human record confirming crypto source inventory rows were reviewed from local artifacts.",
+      "gate_id": "crypto_live_data_source_inventory_review",
+      "gate_label": "Crypto live data source inventory review",
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_002_CRYPTO_LIVE_DATA_SOURCE_INVENTORY_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "required_prior_state": "pending_operator_review",
+      "scope_boundary": "local_static_crypto_source_inventory_only",
+      "transition_state": "blocked_until_record_complete"
+    },
+    {
+      "approval_state": "not_approved",
+      "evidence_required": "Human record confirming crypto source evidence link rows were reviewed from local artifacts.",
+      "gate_id": "crypto_source_evidence_link_map_review",
+      "gate_label": "Crypto source evidence link map review",
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_003_CRYPTO_SOURCE_EVIDENCE_LINK_MAP_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "required_prior_state": "pending_operator_review",
+      "scope_boundary": "local_static_crypto_source_link_review_only",
+      "transition_state": "blocked_until_record_complete"
+    },
+    {
+      "approval_state": "not_approved",
+      "evidence_required": "Human record confirming crypto source staleness rows were reviewed from local artifacts.",
+      "gate_id": "crypto_source_staleness_check_spec_review",
+      "gate_label": "Crypto source staleness check spec review",
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_004_CRYPTO_SOURCE_STALENESS_CHECK_SPEC_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "required_prior_state": "pending_operator_review",
+      "scope_boundary": "local_static_crypto_staleness_review_only",
+      "transition_state": "blocked_until_record_complete"
+    },
+    {
+      "approval_state": "not_approved",
+      "evidence_required": "Human record confirming crypto source contradiction rows were reviewed from local artifacts.",
+      "gate_id": "crypto_source_contradiction_ledger_review",
+      "gate_label": "Crypto source contradiction ledger review",
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_005_CRYPTO_SOURCE_CONTRADICTION_LEDGER_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "required_prior_state": "pending_operator_review",
+      "scope_boundary": "local_static_crypto_source_pair_review_only",
+      "transition_state": "blocked_until_record_complete"
+    },
+    {
+      "approval_state": "not_approved",
+      "evidence_required": "Human record confirming the crypto paperlive rehearsal packet was reviewed from local artifacts.",
+      "gate_id": "crypto_paperlive_rehearsal_packet_review",
+      "gate_label": "Crypto paperlive rehearsal packet review",
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_006_CRYPTO_PAPERLIVE_REHEARSAL_PACKET_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "required_prior_state": "pending_operator_review",
+      "scope_boundary": "local_static_crypto_rehearsal_packet_only",
+      "transition_state": "blocked_until_record_complete"
+    },
+    {
+      "approval_state": "not_approved",
+      "evidence_required": "Human record confirming the crypto paperlive observation replay was reviewed from local artifacts.",
+      "gate_id": "crypto_paperlive_observation_replay_review",
+      "gate_label": "Crypto paperlive observation replay review",
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_007_CRYPTO_PAPERLIVE_OBSERVATION_REPLAY_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "required_prior_state": "pending_operator_review",
+      "scope_boundary": "local_static_crypto_observation_replay_only",
+      "transition_state": "blocked_until_record_complete"
+    },
+    {
+      "approval_state": "not_approved",
+      "evidence_required": "Human record confirming the crypto outcome evidence bundle was reviewed from local artifacts.",
+      "gate_id": "crypto_outcome_evidence_bundle_review",
+      "gate_label": "Crypto outcome evidence bundle review",
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_008_CRYPTO_OUTCOME_EVIDENCE_BUNDLE_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "required_prior_state": "pending_operator_review",
+      "scope_boundary": "local_static_crypto_outcome_evidence_only",
+      "transition_state": "blocked_until_record_complete"
+    },
+    {
+      "approval_state": "not_approved",
+      "evidence_required": "Human record naming reviewer, timestamp, reviewed artifacts, and unresolved blockers.",
+      "gate_id": "human_approval_record_completion",
+      "gate_label": "Human approval record completion",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_operator_approval_gate_record.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "required_prior_state": "pending_operator_review",
+      "scope_boundary": "operator_record_only",
+      "transition_state": "blocked_until_record_complete"
+    }
+  ],
+  "gate_result": "blocked_until_operator_record_complete",
+  "local_only": true,
+  "operator_review": {
+    "reviewed_at": null,
+    "reviewed_by": null,
+    "status": "pending_operator_review"
+  },
+  "operator_review_required": true,
+  "required_validation_commands": [
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "run_mode": "local_static_crypto_operator_approval_gate_record",
+  "safety_boundaries": {
+    "authenticated_endpoint_calls_allowed": false,
+    "background_process_allowed": false,
+    "browser_automation_allowed": false,
+    "credential_or_secret_access_allowed": false,
+    "crypto_data_refresh_allowed": false,
+    "execution_endpoint_calls_allowed": false,
+    "external_service_calls_allowed": false,
+    "llm_provider_calls_allowed": false,
+    "local_static_samples_only": true,
+    "market_api_calls_allowed": false,
+    "market_ranking_allowed": false,
+    "network_calls_allowed": false,
+    "numeric_prediction_metric_allowed": false,
+    "operator_review_required": true,
+    "order_or_trade_surface_changes_allowed": false,
+    "outcome_resolution_allowed": false,
+    "paper_mode_only": true,
+    "paperlive_execution_allowed": false,
+    "runtime_or_dispatcher_changes_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "supervised_live_transition_allowed": false,
+    "threshold_comparison_output_allowed": false,
+    "trade_instruction_allowed": false,
+    "transaction_endpoint_calls_allowed": false,
+    "transition_without_record_allowed": false,
+    "value_transform_allowed": false,
+    "wallet_or_signing_material_access_allowed": false
+  },
+  "source_artifacts": [
+    {
+      "artifact_id": "crypto_live_001_read_only_contract_doc",
+      "contract_version": "pmbot_crypto_live_read_only_crypto_data_contract.v1",
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_001_READ_ONLY_CRYPTO_DATA_CONTRACT_LOCAL_ONLY.md",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "read_only_crypto_data_contract_fixture",
+      "contract_version": "pmbot_crypto_live_read_only_crypto_data_contract.v1",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_read_only_crypto_data_contract.valid.json",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "crypto_live_002_data_source_inventory_doc",
+      "contract_version": "pmbot_crypto_live_data_source_inventory.v1",
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_002_CRYPTO_LIVE_DATA_SOURCE_INVENTORY_LOCAL_ONLY.md",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "crypto_live_data_source_inventory_fixture",
+      "contract_version": "pmbot_crypto_live_data_source_inventory.v1",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_live_data_source_inventory.valid.json",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "crypto_live_003_source_evidence_link_map_doc",
+      "contract_version": "pmbot_crypto_source_evidence_link_map.v1",
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_003_CRYPTO_SOURCE_EVIDENCE_LINK_MAP_LOCAL_ONLY.md",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "crypto_live_004_source_staleness_check_spec_doc",
+      "contract_version": "pmbot_crypto_source_staleness_check_spec.v1",
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_004_CRYPTO_SOURCE_STALENESS_CHECK_SPEC_LOCAL_ONLY.md",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "crypto_live_005_source_contradiction_ledger_doc",
+      "contract_version": "pmbot_crypto_source_contradiction_ledger.v1",
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_005_CRYPTO_SOURCE_CONTRADICTION_LEDGER_LOCAL_ONLY.md",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "crypto_live_006_rehearsal_packet_doc",
+      "contract_version": "pmbot_crypto_paperlive_rehearsal_packet.v1",
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_006_CRYPTO_PAPERLIVE_REHEARSAL_PACKET_LOCAL_ONLY.md",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "crypto_live_006_rehearsal_packet_fixture",
+      "contract_version": "pmbot_crypto_paperlive_rehearsal_packet.v1",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_paperlive_rehearsal_packet.valid.json",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "crypto_live_007_observation_replay_doc",
+      "contract_version": "pmbot_crypto_paperlive_observation_replay.v1",
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_007_CRYPTO_PAPERLIVE_OBSERVATION_REPLAY_LOCAL_ONLY.md",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "crypto_live_007_observation_replay_fixture",
+      "contract_version": "pmbot_crypto_paperlive_observation_replay.v1",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_paperlive_observation_replay.valid.json",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "crypto_live_008_outcome_evidence_bundle_doc",
+      "contract_version": "pmbot_crypto_outcome_evidence_bundle.v1",
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_008_CRYPTO_OUTCOME_EVIDENCE_BUNDLE_LOCAL_ONLY.md",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "crypto_live_008_outcome_evidence_bundle_fixture",
+      "contract_version": "pmbot_crypto_outcome_evidence_bundle.v1",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_outcome_evidence_bundle.valid.json",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "pmbot_queue_template_validation",
+      "contract_version": "pmbot_queue_templates_local_validation",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "required_state": "local_validation_reference"
+    }
+  ],
+  "summary_counts": {
+    "gate_records": 9,
+    "gate_records_pending_operator_review": 9,
+    "local_references": 15,
+    "required_validation_commands": 2,
+    "source_artifacts": 14,
+    "warnings": 0
+  },
+  "task_id": "PMBOT-CRYPTO-LIVE-009-CRYPTO-OPERATOR-APPROVAL-GATE-RECORD-LOCAL-ONLY",
+  "warnings": []
+}

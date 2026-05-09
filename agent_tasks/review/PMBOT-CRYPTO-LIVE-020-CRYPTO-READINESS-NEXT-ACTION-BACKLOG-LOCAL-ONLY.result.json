@@ -1,0 +1,41 @@
+{
+  "acceptance_checks_passed": true,
+  "commands_run": [
+    "pytest pm_bot/tests/test_crypto_readiness_next_action_backlog.py",
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "completed_at": "2026-05-09T15:09:48Z",
+  "completed_by": "codex_cli_last_message_bridge",
+  "files_created": [],
+  "files_deleted": [],
+  "files_modified": [
+    "docs/PMBOT_CRYPTO_LIVE_020_CRYPTO_READINESS_NEXT_ACTION_BACKLOG_LOCAL_ONLY.md",
+    "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_readiness_next_action_backlog.valid.json",
+    "pm_bot/tests/test_crypto_readiness_next_action_backlog.py"
+  ],
+  "next_recommended_action": "Inspect the bridged result, ingestion report, review report, and git diff before mark-done.",
+  "operator_review_notes": "Bridged from C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-020-CRYPTO-READINESS-NEXT-ACTION-BACKLOG-LOCAL-ONLY\\20260509T150335Z\\last_message.md. Safety notes: Used only local files, local fixtures, and static samples.; Did not use network, browser automation, background processes, or external service calls.; Did not touch credentials, wallet, trading, orders, runtime, dispatcher, run_codex, or app-server wiring.; The backlog is descriptive, pending operator review, and not execution approval or runtime input.; No forecast scoring, action guidance, or selection advice was produced. Remaining risks: Operator review remains required before any later readiness status change.; Validation passed, but pytest emitted a non-fatal .pytest_cache write warning and compileall emitted a non-fatal temp-directory listing warning. Bridge warnings: last_message used files_changed; bridged those paths as files_modified",
+  "safety_confirmation": {
+    "background_worker_added": false,
+    "codex_app_server_used": false,
+    "credentials_accessed": false,
+    "destructive_commands_used": false,
+    "network_calls_performed": 0,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "runtime_or_dispatcher_touched": false,
+    "scheduler_added": false,
+    "telegram_or_openclaw_added": false,
+    "wallet_or_trading_touched": false
+  },
+  "schema_version": "codex_task_result.v1",
+  "status": "completed",
+  "summary": "Added a deterministic local PMBOT crypto readiness next action backlog fixture, documentation registration, and contract test for operator review.",
+  "task_id": "PMBOT-CRYPTO-LIVE-020-CRYPTO-READINESS-NEXT-ACTION-BACKLOG-LOCAL-ONLY",
+  "validation_results": [
+    "pytest pm_bot/tests/test_crypto_readiness_next_action_backlog.py",
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "acceptance_checks_passed": true,
+  "commands_run": [
+    "pytest pm_bot/tests/test_crypto_rehearsal_source_quality_links.py",
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "completed_at": "2026-05-09T15:03:34Z",
+  "completed_by": "codex_cli_last_message_bridge",
+  "files_created": [],
+  "files_deleted": [],
+  "files_modified": [
+    "docs/PMBOT_CRYPTO_LIVE_019_CRYPTO_REHEARSAL_TO_SOURCE_QUALITY_LINKS_LOCAL_ONLY.md",
+    "pm_bot/source_quality/crypto_rehearsal_source_quality_links.py",
+    "pm_bot/source_quality/samples/crypto_rehearsal_source_quality_links.fixture.json",
+    "pm_bot/source_quality/samples/crypto_rehearsal_source_quality_links.fixture.md",
+    "pm_bot/tests/test_crypto_rehearsal_source_quality_links.py"
+  ],
+  "next_recommended_action": "Inspect the bridged result, ingestion report, review report, and git diff before mark-done.",
+  "operator_review_notes": "Bridged from C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-019-CRYPTO-REHEARSAL-TO-SOURCE-QUALITY-LINKS-LOCAL-ONLY\\20260509T145200Z\\last_message.md. Safety notes: Used only local files, local fixtures, and static samples.; Made intentional edits only under docs/, pm_bot/source_quality/, and pm_bot/tests/.; No network, browser automation, background process, endpoint, credential, wallet, trading, runtime, dispatcher, scheduler, or resident process work was performed.; The new artifacts remain descriptive, deterministic, paper-mode, and pending operator review.; No forecast scoring, action guidance, market ranking, threshold comparison output, outcome resolution, selection advice, or trade instruction output was produced. Remaining risks: Operator review is still required before any later readiness status change.; Pytest passed with one cache warning because .pytest_cache could not be written; test outcomes were unaffected. Bridge warnings: last_message used files_changed; bridged those paths as files_modified",
+  "safety_confirmation": {
+    "background_worker_added": false,
+    "codex_app_server_used": false,
+    "credentials_accessed": false,
+    "destructive_commands_used": false,
+    "network_calls_performed": 0,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "runtime_or_dispatcher_touched": false,
+    "scheduler_added": false,
+    "telegram_or_openclaw_added": false,
+    "wallet_or_trading_touched": false
+  },
+  "schema_version": "codex_task_result.v1",
+  "status": "completed",
+  "summary": "Added deterministic local 019 rehearsal-to-source-quality link artifacts for operator review, linking the crypto paperlive rehearsal packet to source quality capture, evidence link, staleness, and contradiction records without copying numeric source values or producing scoring/action outputs.",
+  "task_id": "PMBOT-CRYPTO-LIVE-019-CRYPTO-REHEARSAL-TO-SOURCE-QUALITY-LINKS-LOCAL-ONLY",
+  "validation_results": [
+    "pytest pm_bot/tests/test_crypto_rehearsal_source_quality_links.py",
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ]
+}

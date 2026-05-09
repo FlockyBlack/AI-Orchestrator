@@ -1,0 +1,1454 @@
+{
+  "background_worker_created": false,
+  "batch_execution_status": "completed",
+  "batch_report_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_batch_report_20260509T124436Z.json",
+  "batch_review_ledger": {
+    "batch_execution_status": "completed",
+    "batch_report_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_batch_report_20260509T124436Z.json",
+    "batch_run_id": "20260509T124436Z",
+    "batch_status": "ok",
+    "blocked_count": 0,
+    "blocked_or_failed_task_ids": [],
+    "blocked_task_ids": [],
+    "bridged_count": 20,
+    "completed_execution_count": 20,
+    "failed_task_ids": [],
+    "ingested_count": 20,
+    "latest_reports_are_pointers_only": true,
+    "mutable_pointer_paths": {
+      "latest_batch_review_ledger_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\latest_batch_review_ledger.json",
+      "latest_post_batch_summary_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\latest_post_batch_review_summary.json",
+      "latest_post_batch_summary_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\latest_post_batch_review_summary.md"
+    },
+    "next_operator_action": "Inspect the post-batch summary, task review reports, and git diff; run mark-done only for tasks whose review report recommends ready_for_operator_done.",
+    "postprocess_safety": {
+      "codex_exec_invoked": false,
+      "codex_invocation_count": 0,
+      "git_commit_performed": false,
+      "git_push_performed": false,
+      "openrouter_calls_performed": 0,
+      "polymarket_api_calls_performed": 0,
+      "review_approved_automatically": false,
+      "task_marked_done_automatically": false
+    },
+    "report_paths": {
+      "batch_review_ledger_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\batch_review_ledger_20260509T151008437858Z_c9766509.json",
+      "latest_batch_review_ledger_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\latest_batch_review_ledger.json",
+      "latest_batch_review_ledger_role": "mutable_pointer",
+      "post_batch_summary_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\post_batch_review_summary_20260509T151008437858Z_c9766509.json"
+    },
+    "reviewed_count": 20,
+    "run_id": "20260509T151008437858Z_c9766509",
+    "schema_version": "codex_batch_review_ledger.v1",
+    "skipped_count": 0,
+    "stable_evidence_paths": {
+      "batch_report_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_batch_report_20260509T124436Z.json",
+      "batch_review_ledger_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\batch_review_ledger_20260509T151008437858Z_c9766509.json",
+      "post_batch_summary_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\post_batch_review_summary_20260509T151008437858Z_c9766509.json"
+    },
+    "stable_evidence_required": [
+      "batch_report_path",
+      "execution_report_json",
+      "result_path",
+      "ingestion_report_json",
+      "review_report_json"
+    ],
+    "task_count": 20,
+    "task_ids": [
+      "PMBOT-CRYPTO-LIVE-001-READ-ONLY-CRYPTO-DATA-CONTRACT-LOCAL-ONLY",
+      "PMBOT-CRYPTO-LIVE-002-CRYPTO-LIVE-DATA-SOURCE-INVENTORY-LOCAL-ONLY",
+      "PMBOT-CRYPTO-LIVE-003-CRYPTO-SOURCE-EVIDENCE-LINK-MAP-LOCAL-ONLY",
+      "PMBOT-CRYPTO-LIVE-004-CRYPTO-SOURCE-STALENESS-CHECK-SPEC-LOCAL-ONLY",
+      "PMBOT-CRYPTO-LIVE-005-CRYPTO-SOURCE-CONTRADICTION-LEDGER-LOCAL-ONLY",
+      "PMBOT-CRYPTO-LIVE-006-CRYPTO-PAPERLIVE-REHEARSAL-PACKET-LOCAL-ONLY",
+      "PMBOT-CRYPTO-LIVE-007-CRYPTO-PAPERLIVE-OBSERVATION-REPLAY-LOCAL-ONLY",
+      "PMBOT-CRYPTO-LIVE-008-CRYPTO-OUTCOME-EVIDENCE-BUNDLE-LOCAL-ONLY",
+      "PMBOT-CRYPTO-LIVE-009-CRYPTO-OPERATOR-APPROVAL-GATE-RECORD-LOCAL-ONLY",
+      "PMBOT-CRYPTO-LIVE-010-CRYPTO-STOP-CONDITION-MAPPING-LOCAL-ONLY",
+      "PMBOT-CRYPTO-LIVE-011-CRYPTO-SUPERVISED-LIVE-GAP-MATRIX-LOCAL-ONLY",
+      "PMBOT-CRYPTO-LIVE-012-CRYPTO-VALIDATION-REPLAY-BUNDLE-LOCAL-ONLY",
+      "PMBOT-CRYPTO-LIVE-013-CRYPTO-CI-SAFE-VALIDATION-SUBSET-LOCAL-ONLY",
+      "PMBOT-CRYPTO-LIVE-014-CRYPTO-FORBIDDEN-LANGUAGE-REGRESSION-LOCAL-ONLY",
+      "PMBOT-CRYPTO-LIVE-015-CRYPTO-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY",
+      "PMBOT-CRYPTO-LIVE-016-CRYPTO-DASHBOARD-READINESS-SUMMARY-LOCAL-ONLY",
+      "PMBOT-CRYPTO-LIVE-017-CRYPTO-MORNING-REVIEW-CARD-LOCAL-ONLY",
+      "PMBOT-CRYPTO-LIVE-018-CRYPTO-NIGHT-BATCH-ACCEPTANCE-REPORT-LOCAL-ONLY",
+      "PMBOT-CRYPTO-LIVE-019-CRYPTO-REHEARSAL-TO-SOURCE-QUALITY-LINKS-LOCAL-ONLY",
+      "PMBOT-CRYPTO-LIVE-020-CRYPTO-READINESS-NEXT-ACTION-BACKLOG-LOCAL-ONLY"
+    ],
+    "tasks": [
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-001-READ-ONLY-CRYPTO-DATA-CONTRACT-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-001-READ-ONLY-CRYPTO-DATA-CONTRACT-LOCAL-ONLY\\20260509T124437Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-001-read-only-crypto-data-contract-local-only_20260509T151008486157Z_0adb0939.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-001-read-only-crypto-data-contract-local-only_20260509T151008486157Z_0adb0939.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-001-READ-ONLY-CRYPTO-DATA-CONTRACT-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-001-READ-ONLY-CRYPTO-DATA-CONTRACT-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-001-READ-ONLY-CRYPTO-DATA-CONTRACT-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-001-READ-ONLY-CRYPTO-DATA-CONTRACT-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-CRYPTO-LIVE-001-READ-ONLY-CRYPTO-DATA-CONTRACT-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-002-CRYPTO-LIVE-DATA-SOURCE-INVENTORY-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-002-CRYPTO-LIVE-DATA-SOURCE-INVENTORY-LOCAL-ONLY\\20260509T125102Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-002-crypto-live-data-source-inventory-local-only_20260509T151008608736Z_e4748984.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-002-crypto-live-data-source-inventory-local-only_20260509T151008608736Z_e4748984.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-002-CRYPTO-LIVE-DATA-SOURCE-INVENTORY-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-002-CRYPTO-LIVE-DATA-SOURCE-INVENTORY-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-002-CRYPTO-LIVE-DATA-SOURCE-INVENTORY-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-002-CRYPTO-LIVE-DATA-SOURCE-INVENTORY-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-CRYPTO-LIVE-002-CRYPTO-LIVE-DATA-SOURCE-INVENTORY-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-003-CRYPTO-SOURCE-EVIDENCE-LINK-MAP-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-003-CRYPTO-SOURCE-EVIDENCE-LINK-MAP-LOCAL-ONLY\\20260509T125645Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-003-crypto-source-evidence-link-map-local-only_20260509T151008694123Z_cd4337ee.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-003-crypto-source-evidence-link-map-local-only_20260509T151008694123Z_cd4337ee.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-003-CRYPTO-SOURCE-EVIDENCE-LINK-MAP-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-003-CRYPTO-SOURCE-EVIDENCE-LINK-MAP-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-003-CRYPTO-SOURCE-EVIDENCE-LINK-MAP-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-003-CRYPTO-SOURCE-EVIDENCE-LINK-MAP-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-CRYPTO-LIVE-003-CRYPTO-SOURCE-EVIDENCE-LINK-MAP-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-004-CRYPTO-SOURCE-STALENESS-CHECK-SPEC-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-004-CRYPTO-SOURCE-STALENESS-CHECK-SPEC-LOCAL-ONLY\\20260509T130545Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-004-crypto-source-staleness-check-spec-local-only_20260509T151008781387Z_5c2abd33.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-004-crypto-source-staleness-check-spec-local-only_20260509T151008781387Z_5c2abd33.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-004-CRYPTO-SOURCE-STALENESS-CHECK-SPEC-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-004-CRYPTO-SOURCE-STALENESS-CHECK-SPEC-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-004-CRYPTO-SOURCE-STALENESS-CHECK-SPEC-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-004-CRYPTO-SOURCE-STALENESS-CHECK-SPEC-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-CRYPTO-LIVE-004-CRYPTO-SOURCE-STALENESS-CHECK-SPEC-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-005-CRYPTO-SOURCE-CONTRADICTION-LEDGER-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-005-CRYPTO-SOURCE-CONTRADICTION-LEDGER-LOCAL-ONLY\\20260509T131500Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-005-crypto-source-contradiction-ledger-local-only_20260509T151008880243Z_f887a8dd.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-005-crypto-source-contradiction-ledger-local-only_20260509T151008880243Z_f887a8dd.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-005-CRYPTO-SOURCE-CONTRADICTION-LEDGER-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-005-CRYPTO-SOURCE-CONTRADICTION-LEDGER-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-005-CRYPTO-SOURCE-CONTRADICTION-LEDGER-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-005-CRYPTO-SOURCE-CONTRADICTION-LEDGER-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-CRYPTO-LIVE-005-CRYPTO-SOURCE-CONTRADICTION-LEDGER-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-006-CRYPTO-PAPERLIVE-REHEARSAL-PACKET-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-006-CRYPTO-PAPERLIVE-REHEARSAL-PACKET-LOCAL-ONLY\\20260509T132705Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-006-crypto-paperlive-rehearsal-packet-local-only_20260509T151008974334Z_98722ff3.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-006-crypto-paperlive-rehearsal-packet-local-only_20260509T151008974334Z_98722ff3.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-006-CRYPTO-PAPERLIVE-REHEARSAL-PACKET-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-006-CRYPTO-PAPERLIVE-REHEARSAL-PACKET-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-006-CRYPTO-PAPERLIVE-REHEARSAL-PACKET-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-006-CRYPTO-PAPERLIVE-REHEARSAL-PACKET-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-CRYPTO-LIVE-006-CRYPTO-PAPERLIVE-REHEARSAL-PACKET-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-007-CRYPTO-PAPERLIVE-OBSERVATION-REPLAY-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-007-CRYPTO-PAPERLIVE-OBSERVATION-REPLAY-LOCAL-ONLY\\20260509T133345Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-007-crypto-paperlive-observation-replay-local-only_20260509T151009063130Z_56d82a0a.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-007-crypto-paperlive-observation-replay-local-only_20260509T151009063130Z_56d82a0a.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-007-CRYPTO-PAPERLIVE-OBSERVATION-REPLAY-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-007-CRYPTO-PAPERLIVE-OBSERVATION-REPLAY-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-007-CRYPTO-PAPERLIVE-OBSERVATION-REPLAY-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-007-CRYPTO-PAPERLIVE-OBSERVATION-REPLAY-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-CRYPTO-LIVE-007-CRYPTO-PAPERLIVE-OBSERVATION-REPLAY-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-008-CRYPTO-OUTCOME-EVIDENCE-BUNDLE-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-008-CRYPTO-OUTCOME-EVIDENCE-BUNDLE-LOCAL-ONLY\\20260509T133947Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-008-crypto-outcome-evidence-bundle-local-only_20260509T151009152617Z_384f850e.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-008-crypto-outcome-evidence-bundle-local-only_20260509T151009152617Z_384f850e.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-008-CRYPTO-OUTCOME-EVIDENCE-BUNDLE-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-008-CRYPTO-OUTCOME-EVIDENCE-BUNDLE-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-008-CRYPTO-OUTCOME-EVIDENCE-BUNDLE-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-008-CRYPTO-OUTCOME-EVIDENCE-BUNDLE-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-CRYPTO-LIVE-008-CRYPTO-OUTCOME-EVIDENCE-BUNDLE-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-009-CRYPTO-OPERATOR-APPROVAL-GATE-RECORD-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-009-CRYPTO-OPERATOR-APPROVAL-GATE-RECORD-LOCAL-ONLY\\20260509T134619Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-009-crypto-operator-approval-gate-record-local-only_20260509T151009245086Z_3bda2171.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-009-crypto-operator-approval-gate-record-local-only_20260509T151009245086Z_3bda2171.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-009-CRYPTO-OPERATOR-APPROVAL-GATE-RECORD-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-009-CRYPTO-OPERATOR-APPROVAL-GATE-RECORD-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-009-CRYPTO-OPERATOR-APPROVAL-GATE-RECORD-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-009-CRYPTO-OPERATOR-APPROVAL-GATE-RECORD-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-CRYPTO-LIVE-009-CRYPTO-OPERATOR-APPROVAL-GATE-RECORD-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-010-CRYPTO-STOP-CONDITION-MAPPING-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-010-CRYPTO-STOP-CONDITION-MAPPING-LOCAL-ONLY\\20260509T135131Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-010-crypto-stop-condition-mapping-local-only_20260509T151009337432Z_2cc18f52.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-010-crypto-stop-condition-mapping-local-only_20260509T151009337432Z_2cc18f52.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-010-CRYPTO-STOP-CONDITION-MAPPING-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-010-CRYPTO-STOP-CONDITION-MAPPING-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-010-CRYPTO-STOP-CONDITION-MAPPING-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-010-CRYPTO-STOP-CONDITION-MAPPING-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-CRYPTO-LIVE-010-CRYPTO-STOP-CONDITION-MAPPING-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-011-CRYPTO-SUPERVISED-LIVE-GAP-MATRIX-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-011-CRYPTO-SUPERVISED-LIVE-GAP-MATRIX-LOCAL-ONLY\\20260509T135831Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-011-crypto-supervised-live-gap-matrix-local-only_20260509T151009426352Z_e40a4d91.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-011-crypto-supervised-live-gap-matrix-local-only_20260509T151009426352Z_e40a4d91.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-011-CRYPTO-SUPERVISED-LIVE-GAP-MATRIX-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-011-CRYPTO-SUPERVISED-LIVE-GAP-MATRIX-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-011-CRYPTO-SUPERVISED-LIVE-GAP-MATRIX-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-011-CRYPTO-SUPERVISED-LIVE-GAP-MATRIX-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-CRYPTO-LIVE-011-CRYPTO-SUPERVISED-LIVE-GAP-MATRIX-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-012-CRYPTO-VALIDATION-REPLAY-BUNDLE-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-012-CRYPTO-VALIDATION-REPLAY-BUNDLE-LOCAL-ONLY\\20260509T140457Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-012-crypto-validation-replay-bundle-local-only_20260509T151009519609Z_9a4d196b.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-012-crypto-validation-replay-bundle-local-only_20260509T151009519609Z_9a4d196b.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-012-CRYPTO-VALIDATION-REPLAY-BUNDLE-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-012-CRYPTO-VALIDATION-REPLAY-BUNDLE-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-012-CRYPTO-VALIDATION-REPLAY-BUNDLE-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-012-CRYPTO-VALIDATION-REPLAY-BUNDLE-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-CRYPTO-LIVE-012-CRYPTO-VALIDATION-REPLAY-BUNDLE-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-013-CRYPTO-CI-SAFE-VALIDATION-SUBSET-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-013-CRYPTO-CI-SAFE-VALIDATION-SUBSET-LOCAL-ONLY\\20260509T141130Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-013-crypto-ci-safe-validation-subset-local-only_20260509T151009619195Z_c2f56666.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-013-crypto-ci-safe-validation-subset-local-only_20260509T151009619195Z_c2f56666.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-013-CRYPTO-CI-SAFE-VALIDATION-SUBSET-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-013-CRYPTO-CI-SAFE-VALIDATION-SUBSET-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-013-CRYPTO-CI-SAFE-VALIDATION-SUBSET-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-013-CRYPTO-CI-SAFE-VALIDATION-SUBSET-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-CRYPTO-LIVE-013-CRYPTO-CI-SAFE-VALIDATION-SUBSET-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-014-CRYPTO-FORBIDDEN-LANGUAGE-REGRESSION-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-014-CRYPTO-FORBIDDEN-LANGUAGE-REGRESSION-LOCAL-ONLY\\20260509T141751Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-014-crypto-forbidden-language-regression-local-only_20260509T151009714587Z_e3d84435.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-014-crypto-forbidden-language-regression-local-only_20260509T151009714587Z_e3d84435.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-014-CRYPTO-FORBIDDEN-LANGUAGE-REGRESSION-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-014-CRYPTO-FORBIDDEN-LANGUAGE-REGRESSION-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-014-CRYPTO-FORBIDDEN-LANGUAGE-REGRESSION-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-014-CRYPTO-FORBIDDEN-LANGUAGE-REGRESSION-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-CRYPTO-LIVE-014-CRYPTO-FORBIDDEN-LANGUAGE-REGRESSION-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-015-CRYPTO-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-015-CRYPTO-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY\\20260509T142303Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-015-crypto-sensitive-path-exclusion-audit-local-only_20260509T151009814869Z_fe1c76c7.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-015-crypto-sensitive-path-exclusion-audit-local-only_20260509T151009814869Z_fe1c76c7.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-015-CRYPTO-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-015-CRYPTO-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-015-CRYPTO-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-015-CRYPTO-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-CRYPTO-LIVE-015-CRYPTO-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-016-CRYPTO-DASHBOARD-READINESS-SUMMARY-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-016-CRYPTO-DASHBOARD-READINESS-SUMMARY-LOCAL-ONLY\\20260509T142912Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-016-crypto-dashboard-readiness-summary-local-only_20260509T151009904015Z_5955735f.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-016-crypto-dashboard-readiness-summary-local-only_20260509T151009904015Z_5955735f.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-016-CRYPTO-DASHBOARD-READINESS-SUMMARY-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-016-CRYPTO-DASHBOARD-READINESS-SUMMARY-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-016-CRYPTO-DASHBOARD-READINESS-SUMMARY-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-016-CRYPTO-DASHBOARD-READINESS-SUMMARY-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-CRYPTO-LIVE-016-CRYPTO-DASHBOARD-READINESS-SUMMARY-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-017-CRYPTO-MORNING-REVIEW-CARD-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-017-CRYPTO-MORNING-REVIEW-CARD-LOCAL-ONLY\\20260509T143724Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-017-crypto-morning-review-card-local-only_20260509T151010001139Z_d011e76b.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-017-crypto-morning-review-card-local-only_20260509T151010001139Z_d011e76b.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-017-CRYPTO-MORNING-REVIEW-CARD-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-017-CRYPTO-MORNING-REVIEW-CARD-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-017-CRYPTO-MORNING-REVIEW-CARD-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-017-CRYPTO-MORNING-REVIEW-CARD-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-CRYPTO-LIVE-017-CRYPTO-MORNING-REVIEW-CARD-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-018-CRYPTO-NIGHT-BATCH-ACCEPTANCE-REPORT-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-018-CRYPTO-NIGHT-BATCH-ACCEPTANCE-REPORT-LOCAL-ONLY\\20260509T144407Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-018-crypto-night-batch-acceptance-report-local-only_20260509T151010097289Z_9734ef74.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-018-crypto-night-batch-acceptance-report-local-only_20260509T151010097289Z_9734ef74.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-018-CRYPTO-NIGHT-BATCH-ACCEPTANCE-REPORT-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-018-CRYPTO-NIGHT-BATCH-ACCEPTANCE-REPORT-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-018-CRYPTO-NIGHT-BATCH-ACCEPTANCE-REPORT-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-018-CRYPTO-NIGHT-BATCH-ACCEPTANCE-REPORT-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-CRYPTO-LIVE-018-CRYPTO-NIGHT-BATCH-ACCEPTANCE-REPORT-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-019-CRYPTO-REHEARSAL-TO-SOURCE-QUALITY-LINKS-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-019-CRYPTO-REHEARSAL-TO-SOURCE-QUALITY-LINKS-LOCAL-ONLY\\20260509T145200Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-019-crypto-rehearsal-to-source-quality-links-local-only_20260509T151010184762Z_5ba5f012.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-019-crypto-rehearsal-to-source-quality-links-local-only_20260509T151010184762Z_5ba5f012.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-019-CRYPTO-REHEARSAL-TO-SOURCE-QUALITY-LINKS-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-019-CRYPTO-REHEARSAL-TO-SOURCE-QUALITY-LINKS-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-019-CRYPTO-REHEARSAL-TO-SOURCE-QUALITY-LINKS-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-019-CRYPTO-REHEARSAL-TO-SOURCE-QUALITY-LINKS-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-CRYPTO-LIVE-019-CRYPTO-REHEARSAL-TO-SOURCE-QUALITY-LINKS-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-020-CRYPTO-READINESS-NEXT-ACTION-BACKLOG-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-020-CRYPTO-READINESS-NEXT-ACTION-BACKLOG-LOCAL-ONLY\\20260509T150335Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-020-crypto-readiness-next-action-backlog-local-only_20260509T151010270835Z_41984c8e.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-020-crypto-readiness-next-action-backlog-local-only_20260509T151010270835Z_41984c8e.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-020-CRYPTO-READINESS-NEXT-ACTION-BACKLOG-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-020-CRYPTO-READINESS-NEXT-ACTION-BACKLOG-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-020-CRYPTO-READINESS-NEXT-ACTION-BACKLOG-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-020-CRYPTO-READINESS-NEXT-ACTION-BACKLOG-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-CRYPTO-LIVE-020-CRYPTO-READINESS-NEXT-ACTION-BACKLOG-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      }
+    ]
+  },
+  "batch_run_id": "20260509T124436Z",
+  "batch_status": "ok",
+  "blocked_count": 0,
+  "bridge_results": true,
+  "bridged_count": 20,
+  "codex_exec_invoked": false,
+  "codex_invocation_count": 0,
+  "completed_execution_count": 20,
+  "daemon_created": false,
+  "errors": [],
+  "git_commit_performed": false,
+  "git_push_performed": false,
+  "infinite_loop_created": false,
+  "ingested_count": 20,
+  "next_operator_action": "Inspect the post-batch summary, task review reports, and git diff; run mark-done only for tasks whose review report recommends ready_for_operator_done.",
+  "openrouter_calls_performed": 0,
+  "orders_or_trading_actions": false,
+  "overwrite_results": false,
+  "policy": "continue through completed task executions; block individual tasks that cannot be bridged safely",
+  "polymarket_api_calls_performed": 0,
+  "queue_root": "agent_tasks",
+  "report_path_roles": {
+    "batch_review_ledger_json": "stable_evidence",
+    "latest_batch_review_ledger_json": "mutable_pointer",
+    "latest_post_batch_summary_json": "mutable_pointer",
+    "latest_post_batch_summary_md": "mutable_pointer",
+    "post_batch_summary_json": "stable_evidence",
+    "post_batch_summary_md": "stable_evidence"
+  },
+  "report_paths": {
+    "batch_review_ledger_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\batch_review_ledger_20260509T151008437858Z_c9766509.json",
+    "latest_batch_review_ledger_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\latest_batch_review_ledger.json",
+    "latest_post_batch_summary_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\latest_post_batch_review_summary.json",
+    "latest_post_batch_summary_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\latest_post_batch_review_summary.md",
+    "post_batch_summary_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\post_batch_review_summary_20260509T151008437858Z_c9766509.json",
+    "post_batch_summary_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\post_batch_review_summary_20260509T151008437858Z_c9766509.md"
+  },
+  "result_json_written_count": 20,
+  "review_approved_automatically": false,
+  "review_results": true,
+  "reviewed_count": 20,
+  "run_id": "20260509T151008437858Z_c9766509",
+  "runtime_or_dispatcher_changes": false,
+  "scheduler_created": false,
+  "schema_version": "codex_cli_batch_postprocess_report.v2",
+  "skipped_count": 0,
+  "status": "ok",
+  "task_marked_done_automatically": false,
+  "task_results": [
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-001-READ-ONLY-CRYPTO-DATA-CONTRACT-LOCAL-ONLY\\20260509T124437Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-001-read-only-crypto-data-contract-local-only_20260509T151008486157Z_0adb0939.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-001-read-only-crypto-data-contract-local-only_20260509T151008486157Z_0adb0939.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-001-READ-ONLY-CRYPTO-DATA-CONTRACT-LOCAL-ONLY\\20260509T124437Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-001-READ-ONLY-CRYPTO-DATA-CONTRACT-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-001-READ-ONLY-CRYPTO-DATA-CONTRACT-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-001-READ-ONLY-CRYPTO-DATA-CONTRACT-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-001-READ-ONLY-CRYPTO-DATA-CONTRACT-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-CRYPTO-LIVE-001-READ-ONLY-CRYPTO-DATA-CONTRACT-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-002-CRYPTO-LIVE-DATA-SOURCE-INVENTORY-LOCAL-ONLY\\20260509T125102Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-002-crypto-live-data-source-inventory-local-only_20260509T151008608736Z_e4748984.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-002-crypto-live-data-source-inventory-local-only_20260509T151008608736Z_e4748984.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-002-CRYPTO-LIVE-DATA-SOURCE-INVENTORY-LOCAL-ONLY\\20260509T125102Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-002-CRYPTO-LIVE-DATA-SOURCE-INVENTORY-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-002-CRYPTO-LIVE-DATA-SOURCE-INVENTORY-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-002-CRYPTO-LIVE-DATA-SOURCE-INVENTORY-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-002-CRYPTO-LIVE-DATA-SOURCE-INVENTORY-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-CRYPTO-LIVE-002-CRYPTO-LIVE-DATA-SOURCE-INVENTORY-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-003-CRYPTO-SOURCE-EVIDENCE-LINK-MAP-LOCAL-ONLY\\20260509T125645Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-003-crypto-source-evidence-link-map-local-only_20260509T151008694123Z_cd4337ee.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-003-crypto-source-evidence-link-map-local-only_20260509T151008694123Z_cd4337ee.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-003-CRYPTO-SOURCE-EVIDENCE-LINK-MAP-LOCAL-ONLY\\20260509T125645Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-003-CRYPTO-SOURCE-EVIDENCE-LINK-MAP-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-003-CRYPTO-SOURCE-EVIDENCE-LINK-MAP-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-003-CRYPTO-SOURCE-EVIDENCE-LINK-MAP-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-003-CRYPTO-SOURCE-EVIDENCE-LINK-MAP-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-CRYPTO-LIVE-003-CRYPTO-SOURCE-EVIDENCE-LINK-MAP-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-004-CRYPTO-SOURCE-STALENESS-CHECK-SPEC-LOCAL-ONLY\\20260509T130545Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-004-crypto-source-staleness-check-spec-local-only_20260509T151008781387Z_5c2abd33.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-004-crypto-source-staleness-check-spec-local-only_20260509T151008781387Z_5c2abd33.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-004-CRYPTO-SOURCE-STALENESS-CHECK-SPEC-LOCAL-ONLY\\20260509T130545Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-004-CRYPTO-SOURCE-STALENESS-CHECK-SPEC-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-004-CRYPTO-SOURCE-STALENESS-CHECK-SPEC-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-004-CRYPTO-SOURCE-STALENESS-CHECK-SPEC-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-004-CRYPTO-SOURCE-STALENESS-CHECK-SPEC-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-CRYPTO-LIVE-004-CRYPTO-SOURCE-STALENESS-CHECK-SPEC-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-005-CRYPTO-SOURCE-CONTRADICTION-LEDGER-LOCAL-ONLY\\20260509T131500Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-005-crypto-source-contradiction-ledger-local-only_20260509T151008880243Z_f887a8dd.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-005-crypto-source-contradiction-ledger-local-only_20260509T151008880243Z_f887a8dd.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-005-CRYPTO-SOURCE-CONTRADICTION-LEDGER-LOCAL-ONLY\\20260509T131500Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-005-CRYPTO-SOURCE-CONTRADICTION-LEDGER-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-005-CRYPTO-SOURCE-CONTRADICTION-LEDGER-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-005-CRYPTO-SOURCE-CONTRADICTION-LEDGER-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-005-CRYPTO-SOURCE-CONTRADICTION-LEDGER-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-CRYPTO-LIVE-005-CRYPTO-SOURCE-CONTRADICTION-LEDGER-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-006-CRYPTO-PAPERLIVE-REHEARSAL-PACKET-LOCAL-ONLY\\20260509T132705Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-006-crypto-paperlive-rehearsal-packet-local-only_20260509T151008974334Z_98722ff3.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-006-crypto-paperlive-rehearsal-packet-local-only_20260509T151008974334Z_98722ff3.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-006-CRYPTO-PAPERLIVE-REHEARSAL-PACKET-LOCAL-ONLY\\20260509T132705Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-006-CRYPTO-PAPERLIVE-REHEARSAL-PACKET-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-006-CRYPTO-PAPERLIVE-REHEARSAL-PACKET-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-006-CRYPTO-PAPERLIVE-REHEARSAL-PACKET-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-006-CRYPTO-PAPERLIVE-REHEARSAL-PACKET-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-CRYPTO-LIVE-006-CRYPTO-PAPERLIVE-REHEARSAL-PACKET-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-007-CRYPTO-PAPERLIVE-OBSERVATION-REPLAY-LOCAL-ONLY\\20260509T133345Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-007-crypto-paperlive-observation-replay-local-only_20260509T151009063130Z_56d82a0a.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-007-crypto-paperlive-observation-replay-local-only_20260509T151009063130Z_56d82a0a.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-007-CRYPTO-PAPERLIVE-OBSERVATION-REPLAY-LOCAL-ONLY\\20260509T133345Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-007-CRYPTO-PAPERLIVE-OBSERVATION-REPLAY-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-007-CRYPTO-PAPERLIVE-OBSERVATION-REPLAY-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-007-CRYPTO-PAPERLIVE-OBSERVATION-REPLAY-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-007-CRYPTO-PAPERLIVE-OBSERVATION-REPLAY-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-CRYPTO-LIVE-007-CRYPTO-PAPERLIVE-OBSERVATION-REPLAY-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-008-CRYPTO-OUTCOME-EVIDENCE-BUNDLE-LOCAL-ONLY\\20260509T133947Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-008-crypto-outcome-evidence-bundle-local-only_20260509T151009152617Z_384f850e.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-008-crypto-outcome-evidence-bundle-local-only_20260509T151009152617Z_384f850e.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-008-CRYPTO-OUTCOME-EVIDENCE-BUNDLE-LOCAL-ONLY\\20260509T133947Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-008-CRYPTO-OUTCOME-EVIDENCE-BUNDLE-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-008-CRYPTO-OUTCOME-EVIDENCE-BUNDLE-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-008-CRYPTO-OUTCOME-EVIDENCE-BUNDLE-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-008-CRYPTO-OUTCOME-EVIDENCE-BUNDLE-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-CRYPTO-LIVE-008-CRYPTO-OUTCOME-EVIDENCE-BUNDLE-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-009-CRYPTO-OPERATOR-APPROVAL-GATE-RECORD-LOCAL-ONLY\\20260509T134619Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-009-crypto-operator-approval-gate-record-local-only_20260509T151009245086Z_3bda2171.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-009-crypto-operator-approval-gate-record-local-only_20260509T151009245086Z_3bda2171.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-009-CRYPTO-OPERATOR-APPROVAL-GATE-RECORD-LOCAL-ONLY\\20260509T134619Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-009-CRYPTO-OPERATOR-APPROVAL-GATE-RECORD-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-009-CRYPTO-OPERATOR-APPROVAL-GATE-RECORD-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-009-CRYPTO-OPERATOR-APPROVAL-GATE-RECORD-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-009-CRYPTO-OPERATOR-APPROVAL-GATE-RECORD-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-CRYPTO-LIVE-009-CRYPTO-OPERATOR-APPROVAL-GATE-RECORD-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-010-CRYPTO-STOP-CONDITION-MAPPING-LOCAL-ONLY\\20260509T135131Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-010-crypto-stop-condition-mapping-local-only_20260509T151009337432Z_2cc18f52.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-010-crypto-stop-condition-mapping-local-only_20260509T151009337432Z_2cc18f52.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-010-CRYPTO-STOP-CONDITION-MAPPING-LOCAL-ONLY\\20260509T135131Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-010-CRYPTO-STOP-CONDITION-MAPPING-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-010-CRYPTO-STOP-CONDITION-MAPPING-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-010-CRYPTO-STOP-CONDITION-MAPPING-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-010-CRYPTO-STOP-CONDITION-MAPPING-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-CRYPTO-LIVE-010-CRYPTO-STOP-CONDITION-MAPPING-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-011-CRYPTO-SUPERVISED-LIVE-GAP-MATRIX-LOCAL-ONLY\\20260509T135831Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-011-crypto-supervised-live-gap-matrix-local-only_20260509T151009426352Z_e40a4d91.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-011-crypto-supervised-live-gap-matrix-local-only_20260509T151009426352Z_e40a4d91.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-011-CRYPTO-SUPERVISED-LIVE-GAP-MATRIX-LOCAL-ONLY\\20260509T135831Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-011-CRYPTO-SUPERVISED-LIVE-GAP-MATRIX-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-011-CRYPTO-SUPERVISED-LIVE-GAP-MATRIX-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-011-CRYPTO-SUPERVISED-LIVE-GAP-MATRIX-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-011-CRYPTO-SUPERVISED-LIVE-GAP-MATRIX-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-CRYPTO-LIVE-011-CRYPTO-SUPERVISED-LIVE-GAP-MATRIX-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-012-CRYPTO-VALIDATION-REPLAY-BUNDLE-LOCAL-ONLY\\20260509T140457Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-012-crypto-validation-replay-bundle-local-only_20260509T151009519609Z_9a4d196b.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-012-crypto-validation-replay-bundle-local-only_20260509T151009519609Z_9a4d196b.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-012-CRYPTO-VALIDATION-REPLAY-BUNDLE-LOCAL-ONLY\\20260509T140457Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-012-CRYPTO-VALIDATION-REPLAY-BUNDLE-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-012-CRYPTO-VALIDATION-REPLAY-BUNDLE-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-012-CRYPTO-VALIDATION-REPLAY-BUNDLE-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-012-CRYPTO-VALIDATION-REPLAY-BUNDLE-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-CRYPTO-LIVE-012-CRYPTO-VALIDATION-REPLAY-BUNDLE-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-013-CRYPTO-CI-SAFE-VALIDATION-SUBSET-LOCAL-ONLY\\20260509T141130Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-013-crypto-ci-safe-validation-subset-local-only_20260509T151009619195Z_c2f56666.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-013-crypto-ci-safe-validation-subset-local-only_20260509T151009619195Z_c2f56666.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-013-CRYPTO-CI-SAFE-VALIDATION-SUBSET-LOCAL-ONLY\\20260509T141130Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-013-CRYPTO-CI-SAFE-VALIDATION-SUBSET-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-013-CRYPTO-CI-SAFE-VALIDATION-SUBSET-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-013-CRYPTO-CI-SAFE-VALIDATION-SUBSET-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-013-CRYPTO-CI-SAFE-VALIDATION-SUBSET-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-CRYPTO-LIVE-013-CRYPTO-CI-SAFE-VALIDATION-SUBSET-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-014-CRYPTO-FORBIDDEN-LANGUAGE-REGRESSION-LOCAL-ONLY\\20260509T141751Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-014-crypto-forbidden-language-regression-local-only_20260509T151009714587Z_e3d84435.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-014-crypto-forbidden-language-regression-local-only_20260509T151009714587Z_e3d84435.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-014-CRYPTO-FORBIDDEN-LANGUAGE-REGRESSION-LOCAL-ONLY\\20260509T141751Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-014-CRYPTO-FORBIDDEN-LANGUAGE-REGRESSION-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-014-CRYPTO-FORBIDDEN-LANGUAGE-REGRESSION-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-014-CRYPTO-FORBIDDEN-LANGUAGE-REGRESSION-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-014-CRYPTO-FORBIDDEN-LANGUAGE-REGRESSION-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-CRYPTO-LIVE-014-CRYPTO-FORBIDDEN-LANGUAGE-REGRESSION-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-015-CRYPTO-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY\\20260509T142303Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-015-crypto-sensitive-path-exclusion-audit-local-only_20260509T151009814869Z_fe1c76c7.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-015-crypto-sensitive-path-exclusion-audit-local-only_20260509T151009814869Z_fe1c76c7.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-015-CRYPTO-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY\\20260509T142303Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-015-CRYPTO-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-015-CRYPTO-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-015-CRYPTO-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-015-CRYPTO-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-CRYPTO-LIVE-015-CRYPTO-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-016-CRYPTO-DASHBOARD-READINESS-SUMMARY-LOCAL-ONLY\\20260509T142912Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-016-crypto-dashboard-readiness-summary-local-only_20260509T151009904015Z_5955735f.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-016-crypto-dashboard-readiness-summary-local-only_20260509T151009904015Z_5955735f.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-016-CRYPTO-DASHBOARD-READINESS-SUMMARY-LOCAL-ONLY\\20260509T142912Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-016-CRYPTO-DASHBOARD-READINESS-SUMMARY-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-016-CRYPTO-DASHBOARD-READINESS-SUMMARY-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-016-CRYPTO-DASHBOARD-READINESS-SUMMARY-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-016-CRYPTO-DASHBOARD-READINESS-SUMMARY-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-CRYPTO-LIVE-016-CRYPTO-DASHBOARD-READINESS-SUMMARY-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-017-CRYPTO-MORNING-REVIEW-CARD-LOCAL-ONLY\\20260509T143724Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-017-crypto-morning-review-card-local-only_20260509T151010001139Z_d011e76b.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-017-crypto-morning-review-card-local-only_20260509T151010001139Z_d011e76b.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-017-CRYPTO-MORNING-REVIEW-CARD-LOCAL-ONLY\\20260509T143724Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-017-CRYPTO-MORNING-REVIEW-CARD-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-017-CRYPTO-MORNING-REVIEW-CARD-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-017-CRYPTO-MORNING-REVIEW-CARD-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-017-CRYPTO-MORNING-REVIEW-CARD-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-CRYPTO-LIVE-017-CRYPTO-MORNING-REVIEW-CARD-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-018-CRYPTO-NIGHT-BATCH-ACCEPTANCE-REPORT-LOCAL-ONLY\\20260509T144407Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-018-crypto-night-batch-acceptance-report-local-only_20260509T151010097289Z_9734ef74.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-018-crypto-night-batch-acceptance-report-local-only_20260509T151010097289Z_9734ef74.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-018-CRYPTO-NIGHT-BATCH-ACCEPTANCE-REPORT-LOCAL-ONLY\\20260509T144407Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-018-CRYPTO-NIGHT-BATCH-ACCEPTANCE-REPORT-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-018-CRYPTO-NIGHT-BATCH-ACCEPTANCE-REPORT-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-018-CRYPTO-NIGHT-BATCH-ACCEPTANCE-REPORT-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-018-CRYPTO-NIGHT-BATCH-ACCEPTANCE-REPORT-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-CRYPTO-LIVE-018-CRYPTO-NIGHT-BATCH-ACCEPTANCE-REPORT-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-019-CRYPTO-REHEARSAL-TO-SOURCE-QUALITY-LINKS-LOCAL-ONLY\\20260509T145200Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-019-crypto-rehearsal-to-source-quality-links-local-only_20260509T151010184762Z_5ba5f012.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-019-crypto-rehearsal-to-source-quality-links-local-only_20260509T151010184762Z_5ba5f012.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-019-CRYPTO-REHEARSAL-TO-SOURCE-QUALITY-LINKS-LOCAL-ONLY\\20260509T145200Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-019-CRYPTO-REHEARSAL-TO-SOURCE-QUALITY-LINKS-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-019-CRYPTO-REHEARSAL-TO-SOURCE-QUALITY-LINKS-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-019-CRYPTO-REHEARSAL-TO-SOURCE-QUALITY-LINKS-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-019-CRYPTO-REHEARSAL-TO-SOURCE-QUALITY-LINKS-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-CRYPTO-LIVE-019-CRYPTO-REHEARSAL-TO-SOURCE-QUALITY-LINKS-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-020-CRYPTO-READINESS-NEXT-ACTION-BACKLOG-LOCAL-ONLY\\20260509T150335Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-020-crypto-readiness-next-action-backlog-local-only_20260509T151010270835Z_41984c8e.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-020-crypto-readiness-next-action-backlog-local-only_20260509T151010270835Z_41984c8e.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-020-CRYPTO-READINESS-NEXT-ACTION-BACKLOG-LOCAL-ONLY\\20260509T150335Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-020-CRYPTO-READINESS-NEXT-ACTION-BACKLOG-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-020-CRYPTO-READINESS-NEXT-ACTION-BACKLOG-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-020-CRYPTO-READINESS-NEXT-ACTION-BACKLOG-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-LIVE-020-CRYPTO-READINESS-NEXT-ACTION-BACKLOG-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-CRYPTO-LIVE-020-CRYPTO-READINESS-NEXT-ACTION-BACKLOG-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    }
+  ],
+  "wallet_or_private_key_access": false,
+  "warnings": []
+}

@@ -1,0 +1,306 @@
+{
+  "allowed_path_prefixes": [
+    "docs/",
+    "pm_bot/tests/",
+    "tests/"
+  ],
+  "audit_checks": [
+    {
+      "check_id": "allowed_output_scope",
+      "expected_state": "allowed_paths_are_docs_pm_bot_tests_and_tests",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Confirm crypto audit output remains limited to allowed local paths."
+    },
+    {
+      "check_id": "excluded_prefix_registry",
+      "expected_state": "excluded_prefixes_recorded_for_operator_review",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_sensitive_path_exclusion_audit.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Confirm the fixed excluded prefix list is present in the crypto audit fixture."
+    },
+    {
+      "check_id": "secret_and_metadata_exclusion",
+      "expected_state": "secret_metadata_and_repo_control_prefixes_stay_out_of_scope",
+      "local_reference": "pm_bot/tests/fixtures/safety/sensitive_path_exclusion_audit.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Confirm secret, metadata, and repository control prefixes remain excluded."
+    },
+    {
+      "check_id": "execution_wiring_exclusion",
+      "expected_state": "runtime_dispatcher_runner_and_running_task_prefixes_stay_out_of_scope",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Confirm runtime, dispatcher, runner, and running task prefixes remain excluded."
+    },
+    {
+      "check_id": "pmbot_sensitive_module_exclusion",
+      "expected_state": "llm_wallet_trading_and_order_prefixes_stay_out_of_scope",
+      "local_reference": "docs/PMBOT_SAFETY_004_SENSITIVE_PATH_EXCLUSION_AUDIT_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Confirm PMBOT LLM, wallet, trading, and order prefixes remain excluded."
+    },
+    {
+      "check_id": "crypto_artifact_static_scope",
+      "expected_state": "crypto_references_are_static_local_artifacts",
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_013_CRYPTO_CI_SAFE_VALIDATION_SUBSET_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Confirm crypto source references remain static local artifacts."
+    },
+    {
+      "check_id": "validation_command_scope",
+      "expected_state": "validation_commands_are_local_operator_checks",
+      "local_reference": "pm_bot/tests/test_crypto_sensitive_path_exclusion_audit.py",
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Confirm validation command records remain local operator checks."
+    },
+    {
+      "check_id": "operator_review_boundary",
+      "expected_state": "status_stays_pending_until_operator_review_record",
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_015_CRYPTO_SENSITIVE_PATH_EXCLUSION_AUDIT_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Confirm crypto audit status remains pending until operator review is recorded."
+    }
+  ],
+  "audit_id": "pmbot-crypto-sensitive-path-exclusion-audit-001",
+  "audit_name": "pmbot-crypto-sensitive-path-exclusion-audit",
+  "audit_scope_records": [
+    {
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "crypto_sensitive_path_exclusion_audit_001.allowed_local_output_scope",
+      "record_label": "Allowed local output scope",
+      "record_type": "allowed_path_scope",
+      "review_state": "docs_pm_bot_tests_and_tests_only",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-015-CRYPTO-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY"
+    },
+    {
+      "local_reference": "pm_bot/tests/fixtures/safety/sensitive_path_exclusion_audit.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "crypto_sensitive_path_exclusion_audit_001.excluded_secret_and_metadata_prefixes",
+      "record_label": "Secret and metadata prefix exclusions",
+      "record_type": "excluded_path_scope",
+      "review_state": "environment_git_and_codex_metadata_prefixes_excluded",
+      "source_task_id": "PMBOT-SAFETY-004-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY"
+    },
+    {
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "crypto_sensitive_path_exclusion_audit_001.excluded_execution_wiring_prefixes",
+      "record_label": "Execution wiring prefix exclusions",
+      "record_type": "excluded_path_scope",
+      "review_state": "runtime_dispatcher_runner_and_running_task_prefixes_excluded",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-015-CRYPTO-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY"
+    },
+    {
+      "local_reference": "docs/PMBOT_SAFETY_004_SENSITIVE_PATH_EXCLUSION_AUDIT_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "crypto_sensitive_path_exclusion_audit_001.excluded_pmbot_sensitive_modules",
+      "record_label": "PMBOT sensitive module prefix exclusions",
+      "record_type": "excluded_path_scope",
+      "review_state": "llm_wallet_trading_and_order_prefixes_excluded",
+      "source_task_id": "PMBOT-SAFETY-004-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY"
+    },
+    {
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_014_CRYPTO_FORBIDDEN_LANGUAGE_REGRESSION_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "crypto_sensitive_path_exclusion_audit_001.crypto_artifact_reference_scope",
+      "record_label": "Crypto local artifact reference scope",
+      "record_type": "local_reference_scope",
+      "review_state": "crypto_live_references_remain_static_local_artifacts",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-014-CRYPTO-FORBIDDEN-LANGUAGE-REGRESSION-LOCAL-ONLY"
+    },
+    {
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_015_CRYPTO_SENSITIVE_PATH_EXCLUSION_AUDIT_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "crypto_sensitive_path_exclusion_audit_001.operator_review_boundary",
+      "record_label": "Operator review boundary",
+      "record_type": "operator_review_scope",
+      "review_state": "audit_pending_until_operator_review_record",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-015-CRYPTO-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY"
+    }
+  ],
+  "contract_id": "pmbot-crypto-sensitive-path-exclusion-audit",
+  "contract_version": "pmbot_crypto_sensitive_path_exclusion_audit.v1",
+  "created_at": "2026-05-09T05:15:00Z",
+  "errors": [],
+  "excluded_path_prefixes": [
+    ".env",
+    ".env.*",
+    ".git/",
+    ".codex/",
+    "runtime/",
+    "dispatcher/",
+    "run_codex/",
+    "pm_bot/llm/",
+    "pm_bot/wallet/",
+    "pm_bot/trading/",
+    "pm_bot/orders/",
+    "agent_tasks/running/"
+  ],
+  "local_only": true,
+  "operator_review": {
+    "reviewed_at": null,
+    "reviewed_by": null,
+    "status": "pending_operator_review"
+  },
+  "operator_review_required": true,
+  "required_validation_commands": [
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "run_mode": "local_static_crypto_sensitive_path_exclusion_audit",
+  "safety_boundaries": {
+    "authenticated_endpoint_calls_allowed": false,
+    "background_process_allowed": false,
+    "browser_automation_allowed": false,
+    "core_execution_wiring_changes_allowed": false,
+    "credential_or_secret_access_allowed": false,
+    "crypto_data_refresh_allowed": false,
+    "execution_endpoint_calls_allowed": false,
+    "external_service_calls_allowed": false,
+    "llm_provider_calls_allowed": false,
+    "local_fixtures_only": true,
+    "local_static_samples_only": true,
+    "market_api_calls_allowed": false,
+    "market_instruction_output_allowed": false,
+    "market_ranking_allowed": false,
+    "network_calls_allowed": false,
+    "numeric_prediction_metric_allowed": false,
+    "operator_review_required": true,
+    "order_or_trade_surface_changes_allowed": false,
+    "outcome_resolution_allowed": false,
+    "paper_mode_only": true,
+    "paperlive_execution_allowed": false,
+    "runtime_or_dispatcher_changes_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "sensitive_path_access_allowed": false,
+    "sensitive_path_registry_static_only": true,
+    "supervised_live_transition_allowed": false,
+    "threshold_comparison_output_allowed": false,
+    "timed_automation_allowed": false,
+    "trade_instruction_allowed": false,
+    "transaction_endpoint_calls_allowed": false,
+    "wallet_or_signing_material_access_allowed": false
+  },
+  "source_artifacts": [
+    {
+      "artifact_id": "crypto_sensitive_path_exclusion_audit_fixture",
+      "artifact_role": "audit_fixture",
+      "artifact_type": "json_fixture",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_sensitive_path_exclusion_audit.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-015-CRYPTO-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "crypto_sensitive_path_exclusion_audit_document",
+      "artifact_role": "audit_document",
+      "artifact_type": "markdown_document",
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_015_CRYPTO_SENSITIVE_PATH_EXCLUSION_AUDIT_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-015-CRYPTO-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "crypto_sensitive_path_exclusion_audit_contract_test",
+      "artifact_role": "audit_contract_test",
+      "artifact_type": "pytest_module",
+      "local_reference": "pm_bot/tests/test_crypto_sensitive_path_exclusion_audit.py",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-015-CRYPTO-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "base_sensitive_path_exclusion_audit_fixture",
+      "artifact_role": "source_fixture",
+      "artifact_type": "json_fixture",
+      "local_reference": "pm_bot/tests/fixtures/safety/sensitive_path_exclusion_audit.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-SAFETY-004-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "base_sensitive_path_exclusion_audit_document",
+      "artifact_role": "source_document",
+      "artifact_type": "markdown_document",
+      "local_reference": "docs/PMBOT_SAFETY_004_SENSITIVE_PATH_EXCLUSION_AUDIT_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-SAFETY-004-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "base_sensitive_path_exclusion_audit_contract_test",
+      "artifact_role": "source_contract_test",
+      "artifact_type": "pytest_module",
+      "local_reference": "pm_bot/tests/test_sensitive_path_exclusion_audit.py",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-SAFETY-004-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "crypto_forbidden_language_regression_fixture",
+      "artifact_role": "source_fixture",
+      "artifact_type": "json_fixture",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_forbidden_language_regression.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-014-CRYPTO-FORBIDDEN-LANGUAGE-REGRESSION-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "crypto_forbidden_language_regression_document",
+      "artifact_role": "source_document",
+      "artifact_type": "markdown_document",
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_014_CRYPTO_FORBIDDEN_LANGUAGE_REGRESSION_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-014-CRYPTO-FORBIDDEN-LANGUAGE-REGRESSION-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "crypto_ci_safe_validation_subset_fixture",
+      "artifact_role": "source_fixture",
+      "artifact_type": "json_fixture",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_ci_safe_validation_subset.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-013-CRYPTO-CI-SAFE-VALIDATION-SUBSET-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "crypto_ci_safe_validation_subset_document",
+      "artifact_role": "source_document",
+      "artifact_type": "markdown_document",
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_013_CRYPTO_CI_SAFE_VALIDATION_SUBSET_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-013-CRYPTO-CI-SAFE-VALIDATION-SUBSET-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "queue_template_validation_test",
+      "artifact_role": "queue_template_contract",
+      "artifact_type": "pytest_module",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-015-CRYPTO-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY"
+    }
+  ],
+  "summary_counts": {
+    "allowed_path_prefixes": 3,
+    "audit_checks": 8,
+    "audit_checks_pending_operator_review": 8,
+    "audit_scope_records": 6,
+    "audit_scope_records_pending_operator_review": 6,
+    "errors": 0,
+    "excluded_path_prefixes": 12,
+    "local_references": 11,
+    "required_validation_commands": 2,
+    "source_artifacts": 11,
+    "validation_command_records": 2,
+    "warnings": 0
+  },
+  "task_id": "PMBOT-CRYPTO-LIVE-015-CRYPTO-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY",
+  "validation_command_records": [
+    {
+      "command_label": "python -m compileall pm_bot tests",
+      "local_reference": "pm_bot/tests/test_crypto_sensitive_path_exclusion_audit.py",
+      "operator_review_status": "pending_operator_review",
+      "status": "not_run_static_record"
+    },
+    {
+      "command_label": "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "status": "not_run_static_record"
+    }
+  ],
+  "warnings": []
+}

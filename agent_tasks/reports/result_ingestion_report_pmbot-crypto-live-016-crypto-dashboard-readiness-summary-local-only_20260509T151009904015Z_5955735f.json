@@ -1,0 +1,66 @@
+{
+  "accepted": true,
+  "automatic_execution_enabled": false,
+  "background_worker_added": false,
+  "codex_app_server_used": false,
+  "codex_execution_added": false,
+  "commands_from_result_executed": false,
+  "commands_run_recorded_only": true,
+  "credentials_accessed": false,
+  "destructive_commands_used": false,
+  "errors": [],
+  "github_issues_integration_added": false,
+  "ingestion_status": "accepted",
+  "linear_integration_added": false,
+  "network_calls_performed": 0,
+  "official_symphony_runtime_integrated": false,
+  "openclaw_added": false,
+  "openrouter_calls_performed": 0,
+  "path_validation": {
+    "errors": [],
+    "valid": true
+  },
+  "polymarket_api_calls_performed": 0,
+  "queue_root": "agent_tasks",
+  "report_path_roles": {
+    "latest_report_json": "mutable_pointer",
+    "latest_report_md": "mutable_pointer",
+    "run_report_json": "stable_evidence"
+  },
+  "report_paths": {
+    "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+    "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+    "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-crypto-live-016-crypto-dashboard-readiness-summary-local-only_20260509T151009904015Z_5955735f.json"
+  },
+  "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-LIVE-016-CRYPTO-DASHBOARD-READINESS-SUMMARY-LOCAL-ONLY.result.json",
+  "result_schema_version": "codex_task_result.v1",
+  "result_validation": {
+    "errors": [],
+    "valid": true
+  },
+  "run_id": "pmbot-crypto-live-016-crypto-dashboard-readiness-summary-local-only_20260509T151009904015Z_5955735f",
+  "runtime_or_dispatcher_touched": false,
+  "scheduler_added": false,
+  "task_id": "PMBOT-CRYPTO-LIVE-016-CRYPTO-DASHBOARD-READINESS-SUMMARY-LOCAL-ONLY",
+  "task_marked_done_automatically": false,
+  "task_match": {
+    "errors": [],
+    "found": true,
+    "packet_path": "agent_tasks\\approved\\PMBOT-CRYPTO-LIVE-016-CRYPTO-DASHBOARD-READINESS-SUMMARY-LOCAL-ONLY.task.json",
+    "search_directories": [
+      "agent_tasks\\approved",
+      "agent_tasks\\planned",
+      "agent_tasks\\review",
+      "agent_tasks\\done",
+      "agent_tasks\\blocked"
+    ],
+    "task_id": "PMBOT-CRYPTO-LIVE-016-CRYPTO-DASHBOARD-READINESS-SUMMARY-LOCAL-ONLY"
+  },
+  "task_packets_moved": false,
+  "task_validation": {
+    "errors": [],
+    "valid": true
+  },
+  "telegram_added": false,
+  "wallet_or_trading_touched": false
+}

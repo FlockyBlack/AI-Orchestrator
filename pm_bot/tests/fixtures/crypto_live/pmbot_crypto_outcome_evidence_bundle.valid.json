@@ -1,0 +1,356 @@
+{
+  "bundle_id": "pmbot-crypto-outcome-evidence-bundle-001",
+  "contract_version": "pmbot_crypto_outcome_evidence_bundle.v1",
+  "created_at": "2026-05-09T03:10:00Z",
+  "errors": [],
+  "evidence_artifact_records": [
+    {
+      "artifact_kind": "documentation",
+      "content_byte_count": 4570,
+      "content_sha256": "8e1a5267be4911f5c928ba3b18364618660e306ed11fdc7978aa52dea324ab77",
+      "contract_version": "pmbot_crypto_paperlive_observation_replay.v1",
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_007_CRYPTO_PAPERLIVE_OBSERVATION_REPLAY_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "required_state": "pending_operator_review",
+      "selected_record_id": "document",
+      "source_artifact_id": "crypto_live_007_observation_replay_doc"
+    },
+    {
+      "artifact_kind": "fixture",
+      "content_byte_count": 12699,
+      "content_sha256": "a08fc3e6b8ea883cea7f4ee9db571191cf4e222a6f09fcf9c5b985c95e522b32",
+      "contract_version": "pmbot_crypto_paperlive_observation_replay.v1",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_paperlive_observation_replay.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "required_state": "reconstructed_from_local_static_artifacts",
+      "selected_record_id": "pmbot-crypto-paperlive-observation-replay-001.sample.btc_threshold.replay",
+      "source_artifact_id": "crypto_live_007_observation_replay_fixture"
+    },
+    {
+      "artifact_kind": "documentation",
+      "content_byte_count": 4810,
+      "content_sha256": "47bcfb82ed62aab2ad76bcfe309b123453ead73c343822e8c55b322a5126ab7c",
+      "contract_version": "pmbot_crypto_paperlive_rehearsal_packet.v1",
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_006_CRYPTO_PAPERLIVE_REHEARSAL_PACKET_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "required_state": "pending_operator_review",
+      "selected_record_id": "document",
+      "source_artifact_id": "crypto_live_006_rehearsal_packet_doc"
+    },
+    {
+      "artifact_kind": "fixture",
+      "content_byte_count": 14112,
+      "content_sha256": "0f52f6b64051d89d38ec551eda069e228aed816175b44991f585c7c27ab4519f",
+      "contract_version": "pmbot_crypto_paperlive_rehearsal_packet.v1",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_paperlive_rehearsal_packet.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "required_state": "packet_only_static_sample",
+      "selected_record_id": "pmbot-crypto-paperlive-rehearsal-packet-001.sample.btc_threshold.rehearsal",
+      "source_artifact_id": "crypto_live_006_rehearsal_packet_fixture"
+    },
+    {
+      "artifact_kind": "documentation",
+      "content_byte_count": 2565,
+      "content_sha256": "7105385dcab08ddb6875e59bc408c5b1bb8d26003ed36313a700c2abbdbba68e",
+      "contract_version": "pmbot_crypto_paperlive_observation_ledger.v1",
+      "local_reference": "docs/PMBOT_CRYPTO_PILOT_003_CRYPTO_PAPERLIVE_OBSERVATION_LEDGER_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "required_state": "pending_operator_review",
+      "selected_record_id": "document",
+      "source_artifact_id": "crypto_pilot_003_observation_ledger_doc"
+    },
+    {
+      "artifact_kind": "fixture",
+      "content_byte_count": 5171,
+      "content_sha256": "afd28003f13378066081448a608f62beebca6bc11b73bab1b34a236920d5dce2",
+      "contract_version": "pmbot_crypto_paperlive_observation_ledger.v1",
+      "local_reference": "pm_bot/tests/fixtures/crypto_paperlive_observation_ledger/crypto_paperlive_observation_ledger.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "required_state": "ledger_only_static_sample",
+      "selected_record_id": "crypto_paperlive_observation_ledger_001.sample.btc_threshold.observation",
+      "source_artifact_id": "crypto_paperlive_observation_ledger_fixture"
+    },
+    {
+      "artifact_kind": "fixture",
+      "content_byte_count": 534,
+      "content_sha256": "1f0ffac6d0264f62bb8bf8689de09addc80fabf2069c15a76d40c306178fb1fe",
+      "contract_version": "pmbot_static_crypto_reference_snapshot.v1",
+      "local_reference": "pm_bot/tests/fixtures/crypto_paperlive_observation_ledger/static_crypto_reference_snapshot.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "required_state": "local_static_sample",
+      "selected_record_id": "static_crypto_reference_snapshot_2026_05_09_btc",
+      "source_artifact_id": "static_crypto_reference_snapshot_2026_05_09_btc"
+    },
+    {
+      "artifact_kind": "fixture",
+      "content_byte_count": 25622,
+      "content_sha256": "81b9a536c56c8353dc823cd71c34f44e412cc8d096e8ef6faaf149be1bd04f2e",
+      "contract_version": "pmbot_crypto_source_evidence_link_map.v1",
+      "local_reference": "pm_bot/source_quality/samples/crypto_source_evidence_link_map.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "required_state": "pending_operator_review",
+      "selected_record_id": "pmbot-crypto-source-evidence-link-map-001",
+      "source_artifact_id": "crypto_source_evidence_link_map_sample"
+    },
+    {
+      "artifact_kind": "fixture",
+      "content_byte_count": 29599,
+      "content_sha256": "b2d2a6ebe95c92c6f711f4455485683486b7a6611c05639ee19a19fbc50d56cc",
+      "contract_version": "pmbot_crypto_source_staleness_check_spec.v1",
+      "local_reference": "pm_bot/source_quality/samples/crypto_source_staleness_check_spec.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "required_state": "pending_operator_review",
+      "selected_record_id": "pmbot-crypto-source-staleness-check-spec-001",
+      "source_artifact_id": "crypto_source_staleness_check_spec_sample"
+    },
+    {
+      "artifact_kind": "fixture",
+      "content_byte_count": 42526,
+      "content_sha256": "60485173ddf43dab11c750a686a090908016e60e059caad90ce4192c33942099",
+      "contract_version": "pmbot_crypto_source_contradiction_ledger.v1",
+      "local_reference": "pm_bot/source_quality/samples/crypto_source_contradiction_ledger.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "required_state": "pending_operator_review",
+      "selected_record_id": "pmbot-crypto-source-contradiction-ledger-001",
+      "source_artifact_id": "crypto_source_contradiction_ledger_sample"
+    },
+    {
+      "artifact_kind": "test",
+      "content_byte_count": 22849,
+      "content_sha256": "25a8025adae5e43c0768299998dce6707ebbefeb2143a7646d3620fada5e01d3",
+      "contract_version": "pmbot_queue_templates_local_validation",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "required_state": "local_validation_reference",
+      "selected_record_id": "test_crypto_live_readiness_templates_cover_requested_task_ids_and_stay_local_only",
+      "source_artifact_id": "pmbot_queue_template_validation"
+    }
+  ],
+  "evidence_bundle_sections": [
+    {
+      "local_references": [
+        "docs/PMBOT_CRYPTO_LIVE_007_CRYPTO_PAPERLIVE_OBSERVATION_REPLAY_LOCAL_ONLY.md",
+        "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_paperlive_observation_replay.valid.json"
+      ],
+      "operator_review_status": "pending_operator_review",
+      "section_id": "observation_replay_evidence",
+      "section_role": "local_static_replay_chain_review",
+      "section_state": "pending_operator_review"
+    },
+    {
+      "local_references": [
+        "docs/PMBOT_CRYPTO_LIVE_006_CRYPTO_PAPERLIVE_REHEARSAL_PACKET_LOCAL_ONLY.md",
+        "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_paperlive_rehearsal_packet.valid.json"
+      ],
+      "operator_review_status": "pending_operator_review",
+      "section_id": "paperlive_rehearsal_evidence",
+      "section_role": "local_static_packet_review",
+      "section_state": "pending_operator_review"
+    },
+    {
+      "local_references": [
+        "docs/PMBOT_CRYPTO_PILOT_003_CRYPTO_PAPERLIVE_OBSERVATION_LEDGER_LOCAL_ONLY.md",
+        "pm_bot/tests/fixtures/crypto_paperlive_observation_ledger/crypto_paperlive_observation_ledger.valid.json",
+        "pm_bot/tests/fixtures/crypto_paperlive_observation_ledger/static_crypto_reference_snapshot.valid.json"
+      ],
+      "operator_review_status": "pending_operator_review",
+      "section_id": "observation_source_evidence",
+      "section_role": "local_static_observation_source_review",
+      "section_state": "pending_operator_review"
+    },
+    {
+      "local_references": [
+        "pm_bot/source_quality/samples/crypto_source_evidence_link_map.fixture.json",
+        "pm_bot/source_quality/samples/crypto_source_staleness_check_spec.fixture.json",
+        "pm_bot/source_quality/samples/crypto_source_contradiction_ledger.fixture.json"
+      ],
+      "operator_review_status": "pending_operator_review",
+      "section_id": "source_quality_evidence",
+      "section_role": "local_static_source_quality_review",
+      "section_state": "pending_operator_review"
+    },
+    {
+      "local_references": [
+        "tests/test_codex_queue_pmbot_templates.py"
+      ],
+      "operator_review_status": "pending_operator_review",
+      "section_id": "validation_evidence",
+      "section_role": "local_static_validation_reference",
+      "section_state": "pending_operator_review"
+    }
+  ],
+  "evidence_record_fields": [
+    "record_id",
+    "source_replay_record_id",
+    "source_packet_record_id",
+    "source_observation_record_id",
+    "source_review_record_id",
+    "source_capture_record_id",
+    "market_class",
+    "market_slug",
+    "market_title",
+    "asset_symbol",
+    "asset_name",
+    "quote_currency",
+    "metric_type",
+    "deadline_utc",
+    "local_replay_fixture_reference",
+    "local_rehearsal_packet_reference",
+    "local_observation_fixture_reference",
+    "local_snapshot_reference",
+    "evidence_state",
+    "operator_review_status",
+    "static_copy_checks",
+    "value_field_policy"
+  ],
+  "local_only": true,
+  "operator_review": {
+    "reviewed_at": null,
+    "reviewed_by": null,
+    "status": "pending_operator_review"
+  },
+  "operator_review_checklist": [
+    {
+      "check_id": "local_reference_digest_check",
+      "description": "Confirm every bundled source is a local static file and digest matches current local bytes.",
+      "required_evidence": "Human record confirming path review and digest review.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "record_chain_check",
+      "description": "Confirm the bundle record links the replay, rehearsal packet, observation, review, and capture records.",
+      "required_evidence": "Human record confirming fixed record identifiers.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "descriptive_field_check",
+      "description": "Confirm descriptive labels, market text, and static timestamps match the replay source record.",
+      "required_evidence": "Human record confirming copied static text review.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "value_retention_check",
+      "description": "Confirm source value fields stay in the referenced fixtures and are not copied into this bundle.",
+      "required_evidence": "Human record confirming value field retention.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "unresolved_outcome_state_check",
+      "description": "Confirm the bundle leaves outcome state unresolved and does not compare thresholds.",
+      "required_evidence": "Human record confirming unresolved bundle state.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "safety_boundary_check",
+      "description": "Confirm endpoint, credential, wallet, runtime, browser, worker, and timer boundaries remain closed.",
+      "required_evidence": "Human record confirming closed boundaries.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "validation_check",
+      "description": "Confirm local validation commands are run after bundle review.",
+      "required_evidence": "Human record confirming compile and pytest results.",
+      "status": "pending_operator_review"
+    }
+  ],
+  "operator_review_required": true,
+  "outcome_evidence_records": [
+    {
+      "record_id": "pmbot-crypto-outcome-evidence-bundle-001.sample.btc_threshold.evidence",
+      "source_replay_record_id": "pmbot-crypto-paperlive-observation-replay-001.sample.btc_threshold.replay",
+      "source_packet_record_id": "pmbot-crypto-paperlive-rehearsal-packet-001.sample.btc_threshold.rehearsal",
+      "source_observation_record_id": "crypto_paperlive_observation_ledger_001.sample.btc_threshold.observation",
+      "source_review_record_id": "crypto_operator_review_protocol_001.sample.btc_threshold.review",
+      "source_capture_record_id": "crypto_market_class_capture_template_001.sample.btc_threshold",
+      "market_class": "crypto_threshold_event",
+      "market_slug": "static-sample-btc-threshold-2026",
+      "market_title": "Static sample BTC threshold market",
+      "asset_symbol": "BTC",
+      "asset_name": "Bitcoin",
+      "quote_currency": "USD",
+      "metric_type": "spot_index_threshold",
+      "deadline_utc": "2026-12-31T23:59:59Z",
+      "local_replay_fixture_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_paperlive_observation_replay.valid.json",
+      "local_rehearsal_packet_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_paperlive_rehearsal_packet.valid.json",
+      "local_observation_fixture_reference": "pm_bot/tests/fixtures/crypto_paperlive_observation_ledger/crypto_paperlive_observation_ledger.valid.json",
+      "local_snapshot_reference": "pm_bot/tests/fixtures/crypto_paperlive_observation_ledger/static_crypto_reference_snapshot.valid.json",
+      "evidence_state": "outcome_not_resolved_by_bundle",
+      "operator_review_status": "pending_operator_review",
+      "static_copy_checks": [
+        "record_ids_copied_from_crypto_paperlive_observation_replay",
+        "market_text_copied_from_crypto_paperlive_observation_replay",
+        "asset_labels_copied_from_crypto_paperlive_observation_replay",
+        "numeric_source_fields_left_in_source_artifacts",
+        "outcome_resolution_left_for_operator_review"
+      ],
+      "value_field_policy": "numeric_source_values_remain_in_local_source_artifacts"
+    }
+  ],
+  "required_validation_commands": [
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "run_mode": "local_static_crypto_outcome_evidence_bundle",
+  "safety_boundaries": {
+    "authenticated_endpoint_calls_allowed": false,
+    "background_process_allowed": false,
+    "browser_automation_allowed": false,
+    "credential_or_secret_access_allowed": false,
+    "crypto_data_refresh_allowed": false,
+    "execution_endpoint_calls_allowed": false,
+    "external_service_calls_allowed": false,
+    "llm_provider_calls_allowed": false,
+    "local_static_samples_only": true,
+    "market_api_calls_allowed": false,
+    "market_ranking_allowed": false,
+    "network_calls_allowed": false,
+    "numeric_prediction_metric_allowed": false,
+    "operator_review_required": true,
+    "order_or_trade_surface_changes_allowed": false,
+    "outcome_resolution_allowed": false,
+    "paper_mode_only": true,
+    "paperlive_execution_allowed": false,
+    "runtime_or_dispatcher_changes_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "threshold_comparison_output_allowed": false,
+    "trade_instruction_allowed": false,
+    "transaction_endpoint_calls_allowed": false,
+    "value_transform_allowed": false,
+    "wallet_or_signing_material_access_allowed": false
+  },
+  "source_chain_policy": {
+    "copied_into_bundle": [
+      "asset_name",
+      "asset_symbol",
+      "deadline_utc",
+      "market_class",
+      "market_slug",
+      "market_title",
+      "metric_type",
+      "quote_currency",
+      "source_capture_record_id",
+      "source_observation_record_id",
+      "source_packet_record_id",
+      "source_replay_record_id",
+      "source_review_record_id"
+    ],
+    "policy_id": "local_static_outcome_evidence_value_retention",
+    "retained_in_source_artifacts": [
+      "threshold_value",
+      "reported_reference_value"
+    ],
+    "status": "active"
+  },
+  "summary_counts": {
+    "evidence_artifact_records": 11,
+    "evidence_bundle_sections": 5,
+    "local_references": 11,
+    "operator_review_checklist_items": 7,
+    "outcome_evidence_records": 1,
+    "required_validation_commands": 2,
+    "value_fields_retained_in_source_artifacts": 2,
+    "warnings": 0
+  },
+  "task_id": "PMBOT-CRYPTO-LIVE-008-CRYPTO-OUTCOME-EVIDENCE-BUNDLE-LOCAL-ONLY",
+  "warnings": []
+}

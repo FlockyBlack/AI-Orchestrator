@@ -1,0 +1,41 @@
+{
+  "acceptance_checks_passed": true,
+  "commands_run": [
+    "pytest pm_bot/tests/test_crypto_ci_safe_validation_subset.py",
+    "$env:PYTHONDONTWRITEBYTECODE='1'; python -m compileall pm_bot tests",
+    "$env:PYTHONDONTWRITEBYTECODE='1'; $env:PYTEST_ADDOPTS='-p no:cacheprovider'; pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "completed_at": "2026-05-09T14:17:51Z",
+  "completed_by": "codex_cli_last_message_bridge",
+  "files_created": [],
+  "files_deleted": [],
+  "files_modified": [
+    "docs/PMBOT_CRYPTO_LIVE_013_CRYPTO_CI_SAFE_VALIDATION_SUBSET_LOCAL_ONLY.md",
+    "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_ci_safe_validation_subset.valid.json",
+    "pm_bot/tests/test_crypto_ci_safe_validation_subset.py"
+  ],
+  "next_recommended_action": "Inspect the bridged result, ingestion report, review report, and git diff before mark-done.",
+  "operator_review_notes": "Bridged from C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-013-CRYPTO-CI-SAFE-VALIDATION-SUBSET-LOCAL-ONLY\\20260509T141130Z\\last_message.md. Safety notes: Used only local files, local fixtures, and static samples.; No network, browser automation, background process, scheduler, daemon, credential, wallet, trading, order, payment, runtime, dispatcher, or execution endpoint work was performed.; The new subset records operator-review status only and does not approve a live run or supervised-live transition.; Bytecode/cache writes were disabled for acceptance validation where possible. Remaining risks: Operator review remains pending by design.; compileall exited 0 but printed a non-fatal inability to list tests\\.pytest_tmp\\pytest-of-OpenC. Bridge warnings: last_message used files_changed; bridged those paths as files_modified",
+  "safety_confirmation": {
+    "background_worker_added": false,
+    "codex_app_server_used": false,
+    "credentials_accessed": false,
+    "destructive_commands_used": false,
+    "network_calls_performed": 0,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "runtime_or_dispatcher_touched": false,
+    "scheduler_added": false,
+    "telegram_or_openclaw_added": false,
+    "wallet_or_trading_touched": false
+  },
+  "schema_version": "codex_task_result.v1",
+  "status": "completed",
+  "summary": "Added a deterministic local PMBOT crypto CI-safe validation subset for operator review: markdown register, static JSON fixture, and pytest contract. The artifact stays descriptive, local-only, and pending operator review.",
+  "task_id": "PMBOT-CRYPTO-LIVE-013-CRYPTO-CI-SAFE-VALIDATION-SUBSET-LOCAL-ONLY",
+  "validation_results": [
+    "pytest pm_bot/tests/test_crypto_ci_safe_validation_subset.py",
+    "$env:PYTHONDONTWRITEBYTECODE='1'; python -m compileall pm_bot tests",
+    "$env:PYTHONDONTWRITEBYTECODE='1'; $env:PYTEST_ADDOPTS='-p no:cacheprovider'; pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ]
+}

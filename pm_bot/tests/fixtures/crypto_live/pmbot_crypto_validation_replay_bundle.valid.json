@@ -1,0 +1,357 @@
+{
+  "bundle_id": "pmbot-crypto-validation-replay-bundle-001",
+  "bundle_name": "pmbot-crypto-validation-replay-bundle",
+  "contract_id": "pmbot-crypto-validation-replay-bundle",
+  "contract_version": "pmbot_crypto_validation_replay_bundle.v1",
+  "created_at": "2026-05-09T04:30:00Z",
+  "errors": [],
+  "excluded_path_prefixes": [
+    ".env",
+    ".env.*",
+    ".git/",
+    ".codex/",
+    "runtime/",
+    "dispatcher/",
+    "run_codex/",
+    "pm_bot/llm/",
+    "pm_bot/wallet/",
+    "pm_bot/trading/",
+    "pm_bot/orders/",
+    "agent_tasks/running/"
+  ],
+  "local_only": true,
+  "operator_review": {
+    "reviewed_at": null,
+    "reviewed_by": null,
+    "status": "pending_operator_review"
+  },
+  "operator_review_required": true,
+  "replay_checklist": [
+    {
+      "check_id": "local_reference_replay",
+      "description": "Confirm every replay record resolves to an allowed local file.",
+      "required_evidence": "Human record confirming local path review.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "crypto_readiness_record_replay",
+      "description": "Confirm crypto readiness gate records are restated without changing their review state.",
+      "required_evidence": "Human record confirming crypto gate replay review.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "static_fixture_replay",
+      "description": "Confirm replay inputs are static fixtures, documents, tests, or samples only.",
+      "required_evidence": "Human record confirming static fixture review.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "validation_command_replay",
+      "description": "Confirm validation command records are listed for operator-run local checks.",
+      "required_evidence": "Human record confirming compile and pytest command review.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "closed_boundary_replay",
+      "description": "Confirm credential, wallet, endpoint, runtime, worker, timer, and browser boundaries remain closed.",
+      "required_evidence": "Human record confirming closed boundary review.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "human_review_replay",
+      "description": "Confirm no replay record changes from pending review without a human record.",
+      "required_evidence": "Human record confirming pending review state.",
+      "status": "pending_operator_review"
+    }
+  ],
+  "replay_record_fields": [
+    "artifact_id",
+    "artifact_role",
+    "artifact_type",
+    "contract_version",
+    "expected_state",
+    "local_reference",
+    "operator_review_status",
+    "record_id",
+    "record_label",
+    "source_task_id"
+  ],
+  "replay_records": [
+    {
+      "artifact_id": "crypto_validation_replay_bundle_fixture",
+      "artifact_role": "crypto_validation_replay_bundle",
+      "artifact_type": "json_fixture",
+      "contract_version": "pmbot_crypto_validation_replay_bundle.v1",
+      "expected_state": "pending_operator_review",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_validation_replay_bundle.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "crypto_validation_replay_bundle_001.bundle_fixture",
+      "record_label": "Crypto validation replay bundle fixture",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-012-CRYPTO-VALIDATION-REPLAY-BUNDLE-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "crypto_validation_replay_bundle_doc",
+      "artifact_role": "crypto_validation_replay_document",
+      "artifact_type": "markdown_document",
+      "contract_version": "pmbot_crypto_validation_replay_bundle.v1",
+      "expected_state": "pending_operator_review",
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_012_CRYPTO_VALIDATION_REPLAY_BUNDLE_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "crypto_validation_replay_bundle_001.bundle_document",
+      "record_label": "Crypto validation replay bundle document",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-012-CRYPTO-VALIDATION-REPLAY-BUNDLE-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "crypto_supervised_live_gap_matrix_doc",
+      "artifact_role": "crypto_supervised_live_gap_matrix_document",
+      "artifact_type": "markdown_document",
+      "contract_version": "pmbot_crypto_supervised_live_gap_matrix.v1",
+      "expected_state": "pending_operator_review",
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_011_CRYPTO_SUPERVISED_LIVE_GAP_MATRIX_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "crypto_validation_replay_bundle_001.crypto_supervised_live_gap_matrix_document",
+      "record_label": "Crypto supervised live gap matrix document",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-011-CRYPTO-SUPERVISED-LIVE-GAP-MATRIX-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "crypto_supervised_live_gap_matrix_fixture",
+      "artifact_role": "crypto_supervised_live_gap_matrix_fixture",
+      "artifact_type": "json_fixture",
+      "contract_version": "pmbot_crypto_supervised_live_gap_matrix.v1",
+      "expected_state": "pending_operator_review",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_supervised_live_gap_matrix.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "crypto_validation_replay_bundle_001.crypto_supervised_live_gap_matrix_fixture",
+      "record_label": "Crypto supervised live gap matrix fixture",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-011-CRYPTO-SUPERVISED-LIVE-GAP-MATRIX-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "crypto_operator_gate_fixture",
+      "artifact_role": "crypto_operator_approval_gate_fixture",
+      "artifact_type": "json_fixture",
+      "contract_version": "pmbot_crypto_operator_approval_gate_record.v1",
+      "expected_state": "pending_operator_review",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_operator_approval_gate_record.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "crypto_validation_replay_bundle_001.crypto_operator_gate_fixture",
+      "record_label": "Crypto operator approval gate fixture",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-009-CRYPTO-OPERATOR-APPROVAL-GATE-RECORD-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "crypto_stop_condition_mapping_fixture",
+      "artifact_role": "crypto_stop_condition_mapping_fixture",
+      "artifact_type": "json_fixture",
+      "contract_version": "pmbot_crypto_stop_condition_mapping.v1",
+      "expected_state": "pending_operator_review",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_stop_condition_mapping.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "crypto_validation_replay_bundle_001.crypto_stop_condition_mapping_fixture",
+      "record_label": "Crypto stop condition mapping fixture",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-010-CRYPTO-STOP-CONDITION-MAPPING-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "crypto_outcome_evidence_bundle_fixture",
+      "artifact_role": "crypto_outcome_evidence_bundle_fixture",
+      "artifact_type": "json_fixture",
+      "contract_version": "pmbot_crypto_outcome_evidence_bundle.v1",
+      "expected_state": "pending_operator_review",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_outcome_evidence_bundle.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "crypto_validation_replay_bundle_001.crypto_outcome_evidence_bundle_fixture",
+      "record_label": "Crypto outcome evidence bundle fixture",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-008-CRYPTO-OUTCOME-EVIDENCE-BUNDLE-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "crypto_observation_replay_fixture",
+      "artifact_role": "crypto_observation_replay_fixture",
+      "artifact_type": "json_fixture",
+      "contract_version": "pmbot_crypto_paperlive_observation_replay.v1",
+      "expected_state": "pending_operator_review",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_paperlive_observation_replay.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "crypto_validation_replay_bundle_001.crypto_observation_replay_fixture",
+      "record_label": "Crypto paperlive observation replay fixture",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-007-CRYPTO-PAPERLIVE-OBSERVATION-REPLAY-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "crypto_rehearsal_packet_fixture",
+      "artifact_role": "crypto_paperlive_rehearsal_packet_fixture",
+      "artifact_type": "json_fixture",
+      "contract_version": "pmbot_crypto_paperlive_rehearsal_packet.v1",
+      "expected_state": "pending_operator_review",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_paperlive_rehearsal_packet.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "crypto_validation_replay_bundle_001.crypto_rehearsal_packet_fixture",
+      "record_label": "Crypto paperlive rehearsal packet fixture",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-006-CRYPTO-PAPERLIVE-REHEARSAL-PACKET-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "simulated_decision_replay_summary_sample",
+      "artifact_role": "simulated_decision_replay_summary_sample",
+      "artifact_type": "json_sample",
+      "contract_version": "pmbot_simulated_decision_replay_summary.v1",
+      "expected_state": "recorded_for_operator_review",
+      "local_reference": "pm_bot/simulated_decisions/samples/simulated_decision_replay_summary.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "crypto_validation_replay_bundle_001.simulated_decision_replay_summary_sample",
+      "record_label": "Simulated decision replay summary sample",
+      "source_task_id": "PMBOT-SIMULATED-DECISION-REPLAY-SUMMARY-STATIC-SAMPLE"
+    },
+    {
+      "artifact_id": "pmbot_queue_template_validation_test",
+      "artifact_role": "queue_template_validation_test",
+      "artifact_type": "python_test_reference",
+      "contract_version": "pmbot_queue_templates_local_validation",
+      "expected_state": "local_validation_reference",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "crypto_validation_replay_bundle_001.queue_template_validation_test",
+      "record_label": "PMBOT queue template validation test",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-012-CRYPTO-VALIDATION-REPLAY-BUNDLE-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "crypto_validation_replay_bundle_contract_test",
+      "artifact_role": "crypto_validation_replay_bundle_contract_test",
+      "artifact_type": "python_test_reference",
+      "contract_version": "pmbot_crypto_validation_replay_bundle_contract_test",
+      "expected_state": "local_validation_reference",
+      "local_reference": "pm_bot/tests/test_crypto_validation_replay_bundle.py",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "crypto_validation_replay_bundle_001.bundle_contract_test",
+      "record_label": "Crypto validation replay bundle contract test",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-012-CRYPTO-VALIDATION-REPLAY-BUNDLE-LOCAL-ONLY"
+    }
+  ],
+  "replay_scope": "crypto_pilot_readiness_validation_review",
+  "replay_sections": [
+    {
+      "operator_review_status": "pending_operator_review",
+      "replay_role": "bundle_identity_review",
+      "section_id": "bundle_identity_replay",
+      "section_label": "Bundle identity replay",
+      "source_record_ids": [
+        "crypto_validation_replay_bundle_001.bundle_fixture",
+        "crypto_validation_replay_bundle_001.bundle_document"
+      ]
+    },
+    {
+      "operator_review_status": "pending_operator_review",
+      "replay_role": "crypto_readiness_gate_review",
+      "section_id": "crypto_readiness_gate_replay",
+      "section_label": "Crypto readiness gate replay",
+      "source_record_ids": [
+        "crypto_validation_replay_bundle_001.crypto_supervised_live_gap_matrix_document",
+        "crypto_validation_replay_bundle_001.crypto_supervised_live_gap_matrix_fixture",
+        "crypto_validation_replay_bundle_001.crypto_operator_gate_fixture",
+        "crypto_validation_replay_bundle_001.crypto_stop_condition_mapping_fixture"
+      ]
+    },
+    {
+      "operator_review_status": "pending_operator_review",
+      "replay_role": "crypto_evidence_chain_review",
+      "section_id": "crypto_evidence_chain_replay",
+      "section_label": "Crypto evidence chain replay",
+      "source_record_ids": [
+        "crypto_validation_replay_bundle_001.crypto_outcome_evidence_bundle_fixture",
+        "crypto_validation_replay_bundle_001.crypto_observation_replay_fixture",
+        "crypto_validation_replay_bundle_001.crypto_rehearsal_packet_fixture"
+      ]
+    },
+    {
+      "operator_review_status": "pending_operator_review",
+      "replay_role": "simulated_decision_static_review",
+      "section_id": "simulated_decision_static_replay",
+      "section_label": "Simulated decision static replay",
+      "source_record_ids": [
+        "crypto_validation_replay_bundle_001.simulated_decision_replay_summary_sample"
+      ]
+    },
+    {
+      "operator_review_status": "pending_operator_review",
+      "replay_role": "queue_template_validation_review",
+      "section_id": "queue_template_validation_replay",
+      "section_label": "Queue template validation replay",
+      "source_record_ids": [
+        "crypto_validation_replay_bundle_001.queue_template_validation_test"
+      ]
+    },
+    {
+      "operator_review_status": "pending_operator_review",
+      "replay_role": "validation_command_review",
+      "section_id": "validation_command_replay",
+      "section_label": "Validation command replay",
+      "source_record_ids": [
+        "crypto_validation_replay_bundle_001.queue_template_validation_test",
+        "crypto_validation_replay_bundle_001.bundle_contract_test"
+      ]
+    }
+  ],
+  "required_validation_commands": [
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "run_mode": "local_static_crypto_validation_replay_bundle",
+  "safety_boundaries": {
+    "authenticated_endpoint_calls_allowed": false,
+    "background_process_allowed": false,
+    "browser_automation_allowed": false,
+    "credential_or_secret_access_allowed": false,
+    "crypto_data_refresh_allowed": false,
+    "execution_endpoint_calls_allowed": false,
+    "external_service_calls_allowed": false,
+    "llm_provider_calls_allowed": false,
+    "local_fixtures_only": true,
+    "local_static_samples_only": true,
+    "market_api_calls_allowed": false,
+    "market_ranking_allowed": false,
+    "network_calls_allowed": false,
+    "numeric_prediction_metric_allowed": false,
+    "operator_review_required": true,
+    "order_or_trade_surface_changes_allowed": false,
+    "outcome_resolution_allowed": false,
+    "paper_mode_only": true,
+    "paperlive_execution_allowed": false,
+    "replay_mutates_source_artifacts_allowed": false,
+    "runtime_or_dispatcher_changes_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "sensitive_path_access_allowed": false,
+    "supervised_live_transition_allowed": false,
+    "threshold_comparison_output_allowed": false,
+    "timed_automation_allowed": false,
+    "trade_instruction_allowed": false,
+    "transaction_endpoint_calls_allowed": false,
+    "value_transform_allowed": false,
+    "wallet_or_signing_material_access_allowed": false
+  },
+  "summary_counts": {
+    "errors": 0,
+    "excluded_path_prefixes": 12,
+    "local_references": 12,
+    "replay_checklist_items": 6,
+    "replay_records": 12,
+    "replay_records_pending_operator_review": 12,
+    "replay_sections": 6,
+    "replay_sections_pending_operator_review": 6,
+    "required_validation_commands": 2,
+    "validation_command_records": 2,
+    "warnings": 0
+  },
+  "task_id": "PMBOT-CRYPTO-LIVE-012-CRYPTO-VALIDATION-REPLAY-BUNDLE-LOCAL-ONLY",
+  "validation_command_records": [
+    {
+      "command_label": "python -m compileall pm_bot tests",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "compileall.pm_bot.tests",
+      "status": "not_run_static_record"
+    },
+    {
+      "command_label": "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "pytest.pm_bot_tests.queue_templates",
+      "status": "not_run_static_record"
+    }
+  ],
+  "warnings": []
+}

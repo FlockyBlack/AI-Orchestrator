@@ -1,0 +1,475 @@
+{
+  "allowed_path_prefixes": [
+    "docs/",
+    "pm_bot/dashboard/",
+    "pm_bot/readiness/",
+    "pm_bot/tests/",
+    "tests/"
+  ],
+  "contract_id": "pmbot-crypto-dashboard-readiness-summary",
+  "contract_version": "pmbot_crypto_dashboard_readiness_summary.v1",
+  "created_at": "2026-05-09T05:30:00Z",
+  "dashboard_id": "pmbot-crypto-dashboard-readiness-summary-001",
+  "dashboard_name": "pmbot-crypto-dashboard-readiness-summary",
+  "dashboard_sections": [
+    {
+      "artifact_type": "operator_dashboard_surface",
+      "dashboard_section_id": "crypto_operator_dashboard_surface",
+      "local_reference": "pm_bot/dashboard/samples/local_operator_dashboard_summary.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "primary_artifact_id": "local_operator_dashboard_summary_sample",
+      "readiness_record_count": 3,
+      "reference_group": "dashboard_summary",
+      "review_label": "Confirm operator dashboard sample and crypto gate records are present for review.",
+      "run_mode": "local_static_dashboard_summary",
+      "source_artifact_ids": [
+        "local_operator_dashboard_summary_sample",
+        "crypto_live_009_operator_gate_fixture",
+        "crypto_live_010_stop_condition_mapping_fixture"
+      ],
+      "status_label": "static_summary_ready",
+      "supporting_artifacts": 3
+    },
+    {
+      "artifact_type": "queue_replay_surface",
+      "dashboard_section_id": "crypto_queue_and_replay_surface",
+      "local_reference": "pm_bot/dashboard/samples/local_queue_paperlive_status_surface.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "primary_artifact_id": "local_queue_paperlive_status_surface_sample",
+      "readiness_record_count": 3,
+      "reference_group": "dashboard_summary",
+      "review_label": "Confirm queue and replay samples stay descriptive and unresolved.",
+      "run_mode": "local_static_queue_paperlive_status_surface",
+      "source_artifact_ids": [
+        "local_queue_paperlive_status_surface_sample",
+        "crypto_live_006_rehearsal_packet_fixture",
+        "crypto_live_007_observation_replay_fixture"
+      ],
+      "status_label": "static_summary_ready",
+      "supporting_artifacts": 3
+    },
+    {
+      "artifact_type": "source_quality_surface",
+      "dashboard_section_id": "crypto_source_quality_surface",
+      "local_reference": "pm_bot/dashboard/samples/local_source_quality_dashboard_summary.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "primary_artifact_id": "local_source_quality_dashboard_summary_sample",
+      "readiness_record_count": 4,
+      "reference_group": "dashboard_summary",
+      "review_label": "Confirm source quality references remain local static review material.",
+      "run_mode": "local_static_source_quality_dashboard_summary",
+      "source_artifact_ids": [
+        "local_source_quality_dashboard_summary_sample",
+        "crypto_live_002_source_inventory_document",
+        "crypto_live_003_source_evidence_link_document",
+        "crypto_live_004_source_staleness_spec_document",
+        "crypto_live_005_source_contradiction_ledger_document"
+      ],
+      "status_label": "static_summary_ready",
+      "supporting_artifacts": 5
+    },
+    {
+      "artifact_type": "paper_accounting_surface",
+      "dashboard_section_id": "crypto_paper_accounting_surface",
+      "local_reference": "pm_bot/dashboard/samples/local_paper_accounting_dashboard_summary.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "primary_artifact_id": "local_paper_accounting_dashboard_summary_sample",
+      "readiness_record_count": 2,
+      "reference_group": "dashboard_summary",
+      "review_label": "Confirm paper accounting and outcome evidence references stay local static material.",
+      "run_mode": "local_static_paper_accounting_dashboard_summary",
+      "source_artifact_ids": [
+        "local_paper_accounting_dashboard_summary_sample",
+        "crypto_live_008_outcome_evidence_bundle_fixture"
+      ],
+      "status_label": "static_summary_ready",
+      "supporting_artifacts": 2
+    },
+    {
+      "artifact_type": "supervised_readiness_surface",
+      "dashboard_section_id": "crypto_supervised_readiness_surface",
+      "local_reference": "pm_bot/dashboard/samples/local_supervised_live_readiness_dashboard.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "primary_artifact_id": "local_supervised_live_readiness_dashboard_sample",
+      "readiness_record_count": 3,
+      "reference_group": "dashboard_summary",
+      "review_label": "Confirm readiness dashboard, gap matrix, and validation fixtures remain pending review.",
+      "run_mode": "local_static_supervised_live_readiness_dashboard",
+      "source_artifact_ids": [
+        "local_supervised_live_readiness_dashboard_sample",
+        "crypto_live_001_read_only_contract_document",
+        "crypto_live_011_gap_matrix_fixture",
+        "crypto_live_012_validation_bundle_fixture",
+        "crypto_live_013_ci_subset_fixture"
+      ],
+      "status_label": "static_summary_ready",
+      "supporting_artifacts": 5
+    },
+    {
+      "artifact_type": "safety_review_surface",
+      "dashboard_section_id": "crypto_safety_review_surface",
+      "local_reference": "pm_bot/dashboard/samples/pmbot_crypto_dashboard_readiness_summary.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "primary_artifact_id": "crypto_dashboard_readiness_summary_sample",
+      "readiness_record_count": 3,
+      "reference_group": "dashboard_summary",
+      "review_label": "Confirm language, sensitive path, and queue validation references remain local-only.",
+      "run_mode": "local_static_crypto_dashboard_readiness_summary",
+      "source_artifact_ids": [
+        "crypto_live_014_language_regression_fixture",
+        "crypto_live_015_sensitive_path_audit_fixture",
+        "queue_template_validation_test",
+        "crypto_dashboard_readiness_summary_sample"
+      ],
+      "status_label": "static_summary_ready",
+      "supporting_artifacts": 4
+    }
+  ],
+  "errors": [],
+  "excluded_path_prefixes": [
+    ".env",
+    ".env.*",
+    ".git/",
+    ".codex/",
+    "runtime/",
+    "dispatcher/",
+    "run_codex/",
+    "pm_bot/llm/",
+    "pm_bot/wallet/",
+    "pm_bot/trading/",
+    "pm_bot/orders/",
+    "agent_tasks/running/"
+  ],
+  "local_only": true,
+  "operator_review": {
+    "reviewed_at": null,
+    "reviewed_by": null,
+    "status": "pending_operator_review"
+  },
+  "operator_review_checklist": [
+    {
+      "check_id": "dashboard_section_review",
+      "local_reference": "pm_bot/dashboard/samples/pmbot_crypto_dashboard_readiness_summary.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "required_state": "pending_operator_review",
+      "review_label": "Confirm each dashboard section has one primary local reference."
+    },
+    {
+      "check_id": "source_artifact_review",
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_016_CRYPTO_DASHBOARD_READINESS_SUMMARY_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "required_state": "pending_operator_review",
+      "review_label": "Confirm source artifact references resolve inside the allowed local paths."
+    },
+    {
+      "check_id": "operator_gate_review",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_operator_approval_gate_record.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "required_state": "pending_operator_review",
+      "review_label": "Confirm crypto gate records remain pending operator review."
+    },
+    {
+      "check_id": "validation_review",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "required_state": "pending_operator_review",
+      "review_label": "Confirm local validation command records are captured for operator review."
+    },
+    {
+      "check_id": "safety_boundary_review",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_sensitive_path_exclusion_audit.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "required_state": "pending_operator_review",
+      "review_label": "Confirm sensitive path and execution wiring boundaries remain closed."
+    },
+    {
+      "check_id": "report_sample_review",
+      "local_reference": "pm_bot/dashboard/samples/pmbot_crypto_dashboard_readiness_summary.fixture.md",
+      "operator_review_status": "pending_operator_review",
+      "required_state": "pending_operator_review",
+      "review_label": "Confirm the markdown report mirrors the static dashboard summary."
+    }
+  ],
+  "operator_review_required": true,
+  "required_validation_commands": [
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "run_mode": "local_static_crypto_dashboard_readiness_summary",
+  "safety_boundaries": {
+    "authenticated_endpoint_calls_allowed": false,
+    "background_process_allowed": false,
+    "browser_automation_allowed": false,
+    "core_execution_wiring_changes_allowed": false,
+    "credential_or_secret_access_allowed": false,
+    "crypto_data_refresh_allowed": false,
+    "execution_endpoint_calls_allowed": false,
+    "external_service_calls_allowed": false,
+    "llm_provider_calls_allowed": false,
+    "local_fixtures_only": true,
+    "local_static_samples_only": true,
+    "market_api_calls_allowed": false,
+    "market_instruction_output_allowed": false,
+    "market_ranking_allowed": false,
+    "network_calls_allowed": false,
+    "numeric_prediction_metric_allowed": false,
+    "operator_review_required": true,
+    "order_or_trade_surface_changes_allowed": false,
+    "outcome_resolution_allowed": false,
+    "paper_mode_only": true,
+    "paperlive_execution_allowed": false,
+    "resident_process_allowed": false,
+    "runtime_or_dispatcher_changes_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "sensitive_path_access_allowed": false,
+    "supervised_live_transition_allowed": false,
+    "threshold_comparison_output_allowed": false,
+    "timed_automation_allowed": false,
+    "trade_instruction_allowed": false,
+    "transaction_endpoint_calls_allowed": false,
+    "wallet_or_signing_material_access_allowed": false
+  },
+  "source_artifacts": [
+    {
+      "artifact_id": "crypto_dashboard_readiness_summary_document",
+      "artifact_role": "summary_document",
+      "artifact_type": "markdown_document",
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_016_CRYPTO_DASHBOARD_READINESS_SUMMARY_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-016-CRYPTO-DASHBOARD-READINESS-SUMMARY-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "crypto_dashboard_readiness_summary_sample",
+      "artifact_role": "summary_sample",
+      "artifact_type": "json_sample",
+      "local_reference": "pm_bot/dashboard/samples/pmbot_crypto_dashboard_readiness_summary.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-016-CRYPTO-DASHBOARD-READINESS-SUMMARY-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "crypto_dashboard_readiness_summary_report",
+      "artifact_role": "summary_report",
+      "artifact_type": "markdown_sample",
+      "local_reference": "pm_bot/dashboard/samples/pmbot_crypto_dashboard_readiness_summary.fixture.md",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-016-CRYPTO-DASHBOARD-READINESS-SUMMARY-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "crypto_dashboard_readiness_summary_contract_test",
+      "artifact_role": "summary_contract_test",
+      "artifact_type": "pytest_module",
+      "local_reference": "pm_bot/tests/test_crypto_dashboard_readiness_summary.py",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-016-CRYPTO-DASHBOARD-READINESS-SUMMARY-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "local_operator_dashboard_summary_sample",
+      "artifact_role": "dashboard_sample",
+      "artifact_type": "json_sample",
+      "local_reference": "pm_bot/dashboard/samples/local_operator_dashboard_summary.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-DASHBOARD-001-LOCAL-OPERATOR-DASHBOARD-SUMMARY"
+    },
+    {
+      "artifact_id": "local_queue_paperlive_status_surface_sample",
+      "artifact_role": "dashboard_sample",
+      "artifact_type": "json_sample",
+      "local_reference": "pm_bot/dashboard/samples/local_queue_paperlive_status_surface.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-DASHBOARD-002-QUEUE-AND-PAPERLIVE-STATUS-SURFACE"
+    },
+    {
+      "artifact_id": "local_source_quality_dashboard_summary_sample",
+      "artifact_role": "dashboard_sample",
+      "artifact_type": "json_sample",
+      "local_reference": "pm_bot/dashboard/samples/local_source_quality_dashboard_summary.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-DASHBOARD-003-SOURCE-QUALITY-DASHBOARD-SUMMARY"
+    },
+    {
+      "artifact_id": "local_paper_accounting_dashboard_summary_sample",
+      "artifact_role": "dashboard_sample",
+      "artifact_type": "json_sample",
+      "local_reference": "pm_bot/dashboard/samples/local_paper_accounting_dashboard_summary.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-DASHBOARD-004-PAPER-ACCOUNTING-DASHBOARD-SUMMARY"
+    },
+    {
+      "artifact_id": "local_supervised_live_readiness_dashboard_sample",
+      "artifact_role": "dashboard_sample",
+      "artifact_type": "json_sample",
+      "local_reference": "pm_bot/dashboard/samples/local_supervised_live_readiness_dashboard.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-DASHBOARD-005-SUPERVISED-LIVE-READINESS-DASHBOARD-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "crypto_live_001_read_only_contract_document",
+      "artifact_role": "crypto_source_document",
+      "artifact_type": "markdown_document",
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_001_READ_ONLY_CRYPTO_DATA_CONTRACT_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-001-READ-ONLY-CRYPTO-DATA-CONTRACT-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "crypto_live_002_source_inventory_document",
+      "artifact_role": "crypto_source_document",
+      "artifact_type": "markdown_document",
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_002_CRYPTO_LIVE_DATA_SOURCE_INVENTORY_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-002-CRYPTO-LIVE-DATA-SOURCE-INVENTORY-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "crypto_live_003_source_evidence_link_document",
+      "artifact_role": "crypto_source_document",
+      "artifact_type": "markdown_document",
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_003_CRYPTO_SOURCE_EVIDENCE_LINK_MAP_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-003-CRYPTO-SOURCE-EVIDENCE-LINK-MAP-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "crypto_live_004_source_staleness_spec_document",
+      "artifact_role": "crypto_source_document",
+      "artifact_type": "markdown_document",
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_004_CRYPTO_SOURCE_STALENESS_CHECK_SPEC_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-004-CRYPTO-SOURCE-STALENESS-CHECK-SPEC-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "crypto_live_005_source_contradiction_ledger_document",
+      "artifact_role": "crypto_source_document",
+      "artifact_type": "markdown_document",
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_005_CRYPTO_SOURCE_CONTRADICTION_LEDGER_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-005-CRYPTO-SOURCE-CONTRADICTION-LEDGER-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "crypto_live_006_rehearsal_packet_fixture",
+      "artifact_role": "crypto_fixture",
+      "artifact_type": "json_fixture",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_paperlive_rehearsal_packet.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-006-CRYPTO-PAPERLIVE-REHEARSAL-PACKET-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "crypto_live_007_observation_replay_fixture",
+      "artifact_role": "crypto_fixture",
+      "artifact_type": "json_fixture",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_paperlive_observation_replay.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-007-CRYPTO-PAPERLIVE-OBSERVATION-REPLAY-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "crypto_live_008_outcome_evidence_bundle_fixture",
+      "artifact_role": "crypto_fixture",
+      "artifact_type": "json_fixture",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_outcome_evidence_bundle.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-008-CRYPTO-OUTCOME-EVIDENCE-BUNDLE-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "crypto_live_009_operator_gate_fixture",
+      "artifact_role": "crypto_fixture",
+      "artifact_type": "json_fixture",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_operator_approval_gate_record.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-009-CRYPTO-OPERATOR-APPROVAL-GATE-RECORD-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "crypto_live_010_stop_condition_mapping_fixture",
+      "artifact_role": "crypto_fixture",
+      "artifact_type": "json_fixture",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_stop_condition_mapping.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-010-CRYPTO-STOP-CONDITION-MAPPING-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "crypto_live_011_gap_matrix_fixture",
+      "artifact_role": "crypto_fixture",
+      "artifact_type": "json_fixture",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_supervised_live_gap_matrix.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-011-CRYPTO-SUPERVISED-LIVE-GAP-MATRIX-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "crypto_live_012_validation_bundle_fixture",
+      "artifact_role": "crypto_fixture",
+      "artifact_type": "json_fixture",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_validation_replay_bundle.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-012-CRYPTO-VALIDATION-REPLAY-BUNDLE-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "crypto_live_013_ci_subset_fixture",
+      "artifact_role": "crypto_fixture",
+      "artifact_type": "json_fixture",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_ci_safe_validation_subset.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-013-CRYPTO-CI-SAFE-VALIDATION-SUBSET-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "crypto_live_014_language_regression_fixture",
+      "artifact_role": "crypto_fixture",
+      "artifact_type": "json_fixture",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_forbidden_language_regression.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-014-CRYPTO-FORBIDDEN-LANGUAGE-REGRESSION-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "crypto_live_015_sensitive_path_audit_fixture",
+      "artifact_role": "crypto_fixture",
+      "artifact_type": "json_fixture",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_sensitive_path_exclusion_audit.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-015-CRYPTO-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "queue_template_validation_test",
+      "artifact_role": "validation_test",
+      "artifact_type": "pytest_module",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-016-CRYPTO-DASHBOARD-READINESS-SUMMARY-LOCAL-ONLY"
+    }
+  ],
+  "summary_columns": [
+    "dashboard_section_id",
+    "artifact_type",
+    "primary_artifact_id",
+    "local_reference",
+    "readiness_record_count",
+    "supporting_artifacts",
+    "operator_review_status"
+  ],
+  "summary_counts": {
+    "allowed_path_prefixes": 5,
+    "dashboard_sections": 6,
+    "dashboard_sections_pending_operator_review": 6,
+    "errors": 0,
+    "excluded_path_prefixes": 12,
+    "local_references": 25,
+    "operator_review_checks": 6,
+    "operator_review_checks_pending_operator_review": 6,
+    "readiness_record_count": 18,
+    "required_validation_commands": 2,
+    "source_artifacts": 25,
+    "supporting_artifacts": 22,
+    "validation_command_records": 2,
+    "warnings": 0
+  },
+  "task_id": "PMBOT-CRYPTO-LIVE-016-CRYPTO-DASHBOARD-READINESS-SUMMARY-LOCAL-ONLY",
+  "validation_command_records": [
+    {
+      "command_label": "python -m compileall pm_bot tests",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "status": "not_run_static_record"
+    },
+    {
+      "command_label": "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "status": "not_run_static_record"
+    }
+  ],
+  "warnings": []
+}

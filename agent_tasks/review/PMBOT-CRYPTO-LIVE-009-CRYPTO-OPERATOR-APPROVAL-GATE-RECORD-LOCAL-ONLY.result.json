@@ -1,0 +1,41 @@
+{
+  "acceptance_checks_passed": true,
+  "commands_run": [
+    "pytest pm_bot/tests/test_crypto_operator_approval_gate_record.py",
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "completed_at": "2026-05-09T13:51:31Z",
+  "completed_by": "codex_cli_last_message_bridge",
+  "files_created": [],
+  "files_deleted": [],
+  "files_modified": [
+    "docs/PMBOT_CRYPTO_LIVE_009_CRYPTO_OPERATOR_APPROVAL_GATE_RECORD_LOCAL_ONLY.md",
+    "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_operator_approval_gate_record.valid.json",
+    "pm_bot/tests/test_crypto_operator_approval_gate_record.py"
+  ],
+  "next_recommended_action": "Inspect the bridged result, ingestion report, review report, and git diff before mark-done.",
+  "operator_review_notes": "Bridged from C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-009-CRYPTO-OPERATOR-APPROVAL-GATE-RECORD-LOCAL-ONLY\\20260509T134619Z\\last_message.md. Safety notes: Used only local files, local fixtures, and static samples.; No network calls, external services, browser automation, resident processes, schedulers, or background workers were started.; No credential, wallet, signing, trading, order, transaction, runtime, dispatcher, run_codex, or app-server files were edited.; The approval gate record is descriptive only and keeps all gate rows pending operator review with approval_state set to not_approved.; The required compileall command was run as specified by the task; it enumerated pm_bot as a package tree, but no forbidden-path edits were made. Remaining risks: pytest emitted a cache write warning for .pytest_cache permissions; all requested tests still passed.; This artifact records local review readiness only and does not constitute human approval or supervised-live execution approval. Bridge warnings: last_message used files_changed; bridged those paths as files_modified",
+  "safety_confirmation": {
+    "background_worker_added": false,
+    "codex_app_server_used": false,
+    "credentials_accessed": false,
+    "destructive_commands_used": false,
+    "network_calls_performed": 0,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "runtime_or_dispatcher_touched": false,
+    "scheduler_added": false,
+    "telegram_or_openclaw_added": false,
+    "wallet_or_trading_touched": false
+  },
+  "schema_version": "codex_task_result.v1",
+  "status": "completed",
+  "summary": "Added a deterministic local PMBOT crypto operator approval gate record for supervised readiness review, with a markdown record, static JSON fixture, and focused pytest coverage. The record remains local-only, descriptive, pending operator review, not approved for transition, and contains no forecast scoring, action guidance, or selection advice.",
+  "task_id": "PMBOT-CRYPTO-LIVE-009-CRYPTO-OPERATOR-APPROVAL-GATE-RECORD-LOCAL-ONLY",
+  "validation_results": [
+    "pytest pm_bot/tests/test_crypto_operator_approval_gate_record.py",
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ]
+}

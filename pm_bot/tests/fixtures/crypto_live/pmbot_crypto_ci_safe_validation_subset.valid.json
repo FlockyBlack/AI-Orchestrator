@@ -1,0 +1,361 @@
+{
+  "contract_id": "pmbot-crypto-ci-safe-validation-subset",
+  "contract_version": "pmbot_crypto_ci_safe_validation_subset.v1",
+  "created_at": "2026-05-09T04:45:00Z",
+  "errors": [],
+  "excluded_path_prefixes": [
+    ".env",
+    ".env.*",
+    ".git/",
+    ".codex/",
+    "runtime/",
+    "dispatcher/",
+    "run_codex/",
+    "pm_bot/llm/",
+    "pm_bot/wallet/",
+    "pm_bot/trading/",
+    "pm_bot/orders/",
+    "agent_tasks/running/"
+  ],
+  "local_only": true,
+  "operator_review": {
+    "reviewed_at": null,
+    "reviewed_by": null,
+    "status": "pending_operator_review"
+  },
+  "operator_review_required": true,
+  "required_validation_commands": [
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "run_mode": "local_static_crypto_ci_safe_validation_subset",
+  "safety_boundaries": {
+    "authenticated_endpoint_calls_allowed": false,
+    "background_process_allowed": false,
+    "browser_automation_allowed": false,
+    "ci_subset_mutates_source_artifacts_allowed": false,
+    "credential_or_secret_access_allowed": false,
+    "crypto_data_refresh_allowed": false,
+    "execution_endpoint_calls_allowed": false,
+    "external_service_calls_allowed": false,
+    "llm_provider_calls_allowed": false,
+    "local_fixtures_only": true,
+    "local_static_samples_only": true,
+    "market_api_calls_allowed": false,
+    "market_ranking_allowed": false,
+    "network_calls_allowed": false,
+    "numeric_prediction_metric_allowed": false,
+    "operator_review_required": true,
+    "order_or_trade_surface_changes_allowed": false,
+    "outcome_resolution_allowed": false,
+    "paper_mode_only": true,
+    "paperlive_execution_allowed": false,
+    "runtime_or_dispatcher_changes_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "sensitive_path_access_allowed": false,
+    "supervised_live_transition_allowed": false,
+    "threshold_comparison_output_allowed": false,
+    "timed_automation_allowed": false,
+    "trade_instruction_allowed": false,
+    "transaction_endpoint_calls_allowed": false,
+    "value_transform_allowed": false,
+    "wallet_or_signing_material_access_allowed": false
+  },
+  "subset_checks": [
+    {
+      "check_id": "local_reference_scope",
+      "expected_state": "all_named_references_are_local_allowed_paths",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_ci_safe_validation_subset.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Local reference scope"
+    },
+    {
+      "check_id": "static_fixture_scope",
+      "expected_state": "fixture_uses_static_local_records_only",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_validation_replay_bundle.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Static fixture scope"
+    },
+    {
+      "check_id": "validation_command_scope",
+      "expected_state": "commands_are_local_compile_and_pytest_checks",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Validation command scope"
+    },
+    {
+      "check_id": "crypto_readiness_gate_scope",
+      "expected_state": "crypto_readiness_records_remain_pending_review",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_supervised_live_gap_matrix.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Crypto readiness gate scope"
+    },
+    {
+      "check_id": "closed_boundary_scope",
+      "expected_state": "credential_wallet_runtime_and_endpoint_boundaries_remain_closed",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_stop_condition_mapping.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Closed boundary scope"
+    },
+    {
+      "check_id": "sensitive_path_boundary",
+      "expected_state": "excluded_path_prefixes_are_documented_only",
+      "local_reference": "pm_bot/tests/test_sensitive_path_exclusion_audit.py",
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Sensitive path boundary"
+    },
+    {
+      "check_id": "human_review_boundary",
+      "expected_state": "operator_review_remains_pending",
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_013_CRYPTO_CI_SAFE_VALIDATION_SUBSET_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Human review boundary"
+    }
+  ],
+  "subset_id": "pmbot-crypto-ci-safe-validation-subset-001",
+  "subset_name": "pmbot-crypto-ci-safe-validation-subset",
+  "subset_sections": [
+    {
+      "operator_review_status": "pending_operator_review",
+      "section_id": "subset_identity_review",
+      "section_label": "Subset identity review",
+      "section_role": "crypto_ci_safe_subset_identity",
+      "source_target_ids": [
+        "crypto_ci_safe_validation_subset_001.subset_fixture",
+        "crypto_ci_safe_validation_subset_001.subset_document",
+        "crypto_ci_safe_validation_subset_001.subset_contract_test"
+      ]
+    },
+    {
+      "operator_review_status": "pending_operator_review",
+      "section_id": "crypto_readiness_gate_review",
+      "section_label": "Crypto readiness gate review",
+      "section_role": "crypto_readiness_gate_records",
+      "source_target_ids": [
+        "crypto_ci_safe_validation_subset_001.crypto_validation_replay_bundle_fixture",
+        "crypto_ci_safe_validation_subset_001.crypto_supervised_live_gap_matrix_fixture",
+        "crypto_ci_safe_validation_subset_001.crypto_operator_gate_fixture",
+        "crypto_ci_safe_validation_subset_001.crypto_stop_condition_mapping_fixture"
+      ]
+    },
+    {
+      "operator_review_status": "pending_operator_review",
+      "section_id": "crypto_replay_chain_review",
+      "section_label": "Crypto replay chain review",
+      "section_role": "crypto_static_replay_chain_records",
+      "source_target_ids": [
+        "crypto_ci_safe_validation_subset_001.crypto_outcome_evidence_bundle_fixture",
+        "crypto_ci_safe_validation_subset_001.crypto_observation_replay_fixture",
+        "crypto_ci_safe_validation_subset_001.crypto_rehearsal_packet_fixture"
+      ]
+    },
+    {
+      "operator_review_status": "pending_operator_review",
+      "section_id": "queue_template_validation_review",
+      "section_label": "Queue template validation review",
+      "section_role": "queue_template_contract_reference",
+      "source_target_ids": [
+        "crypto_ci_safe_validation_subset_001.queue_template_validation_test"
+      ]
+    },
+    {
+      "operator_review_status": "pending_operator_review",
+      "section_id": "validation_command_review",
+      "section_label": "Validation command review",
+      "section_role": "operator_run_local_commands",
+      "source_target_ids": [
+        "crypto_ci_safe_validation_subset_001.subset_contract_test",
+        "crypto_ci_safe_validation_subset_001.queue_template_validation_test"
+      ]
+    },
+    {
+      "operator_review_status": "pending_operator_review",
+      "section_id": "closed_boundary_review",
+      "section_label": "Closed boundary review",
+      "section_role": "non_local_surface_closure",
+      "source_target_ids": [
+        "crypto_ci_safe_validation_subset_001.subset_fixture",
+        "crypto_ci_safe_validation_subset_001.crypto_operator_gate_fixture",
+        "crypto_ci_safe_validation_subset_001.crypto_stop_condition_mapping_fixture"
+      ]
+    }
+  ],
+  "summary_counts": {
+    "errors": 0,
+    "excluded_path_prefixes": 12,
+    "local_references": 12,
+    "required_validation_commands": 2,
+    "subset_checks": 7,
+    "subset_checks_pending_operator_review": 7,
+    "subset_sections": 6,
+    "subset_sections_pending_operator_review": 6,
+    "validation_command_records": 2,
+    "validation_targets": 11,
+    "validation_targets_pending_operator_review": 11,
+    "warnings": 0
+  },
+  "task_id": "PMBOT-CRYPTO-LIVE-013-CRYPTO-CI-SAFE-VALIDATION-SUBSET-LOCAL-ONLY",
+  "validation_command_records": [
+    {
+      "command_label": "python -m compileall pm_bot tests",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "compileall.pm_bot.tests",
+      "status": "not_run_static_record"
+    },
+    {
+      "command_label": "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "pytest.pm_bot_tests.queue_templates",
+      "status": "not_run_static_record"
+    }
+  ],
+  "validation_target_fields": [
+    "artifact_id",
+    "artifact_role",
+    "artifact_type",
+    "contract_version",
+    "expected_state",
+    "local_reference",
+    "operator_review_status",
+    "source_task_id",
+    "target_id",
+    "target_label"
+  ],
+  "validation_targets": [
+    {
+      "artifact_id": "crypto_ci_safe_validation_subset_fixture",
+      "artifact_role": "crypto_ci_safe_validation_subset_fixture",
+      "artifact_type": "json_fixture",
+      "contract_version": "pmbot_crypto_ci_safe_validation_subset.v1",
+      "expected_state": "pending_operator_review",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_ci_safe_validation_subset.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-013-CRYPTO-CI-SAFE-VALIDATION-SUBSET-LOCAL-ONLY",
+      "target_id": "crypto_ci_safe_validation_subset_001.subset_fixture",
+      "target_label": "Crypto CI safe validation subset fixture"
+    },
+    {
+      "artifact_id": "crypto_ci_safe_validation_subset_doc",
+      "artifact_role": "crypto_ci_safe_validation_subset_document",
+      "artifact_type": "markdown_document",
+      "contract_version": "pmbot_crypto_ci_safe_validation_subset.v1",
+      "expected_state": "pending_operator_review",
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_013_CRYPTO_CI_SAFE_VALIDATION_SUBSET_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-013-CRYPTO-CI-SAFE-VALIDATION-SUBSET-LOCAL-ONLY",
+      "target_id": "crypto_ci_safe_validation_subset_001.subset_document",
+      "target_label": "Crypto CI safe validation subset document"
+    },
+    {
+      "artifact_id": "crypto_ci_safe_validation_subset_contract_test",
+      "artifact_role": "crypto_ci_safe_validation_subset_contract_test",
+      "artifact_type": "python_test_reference",
+      "contract_version": "pmbot_crypto_ci_safe_validation_subset_contract_test",
+      "expected_state": "local_validation_reference",
+      "local_reference": "pm_bot/tests/test_crypto_ci_safe_validation_subset.py",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-013-CRYPTO-CI-SAFE-VALIDATION-SUBSET-LOCAL-ONLY",
+      "target_id": "crypto_ci_safe_validation_subset_001.subset_contract_test",
+      "target_label": "Crypto CI safe validation subset contract test"
+    },
+    {
+      "artifact_id": "crypto_validation_replay_bundle_fixture",
+      "artifact_role": "crypto_validation_replay_bundle_fixture",
+      "artifact_type": "json_fixture",
+      "contract_version": "pmbot_crypto_validation_replay_bundle.v1",
+      "expected_state": "pending_operator_review",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_validation_replay_bundle.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-012-CRYPTO-VALIDATION-REPLAY-BUNDLE-LOCAL-ONLY",
+      "target_id": "crypto_ci_safe_validation_subset_001.crypto_validation_replay_bundle_fixture",
+      "target_label": "Crypto validation replay bundle fixture"
+    },
+    {
+      "artifact_id": "crypto_supervised_live_gap_matrix_fixture",
+      "artifact_role": "crypto_supervised_live_gap_matrix_fixture",
+      "artifact_type": "json_fixture",
+      "contract_version": "pmbot_crypto_supervised_live_gap_matrix.v1",
+      "expected_state": "pending_operator_review",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_supervised_live_gap_matrix.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-011-CRYPTO-SUPERVISED-LIVE-GAP-MATRIX-LOCAL-ONLY",
+      "target_id": "crypto_ci_safe_validation_subset_001.crypto_supervised_live_gap_matrix_fixture",
+      "target_label": "Crypto supervised live gap matrix fixture"
+    },
+    {
+      "artifact_id": "crypto_operator_gate_fixture",
+      "artifact_role": "crypto_operator_approval_gate_fixture",
+      "artifact_type": "json_fixture",
+      "contract_version": "pmbot_crypto_operator_approval_gate_record.v1",
+      "expected_state": "pending_operator_review",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_operator_approval_gate_record.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-009-CRYPTO-OPERATOR-APPROVAL-GATE-RECORD-LOCAL-ONLY",
+      "target_id": "crypto_ci_safe_validation_subset_001.crypto_operator_gate_fixture",
+      "target_label": "Crypto operator approval gate fixture"
+    },
+    {
+      "artifact_id": "crypto_stop_condition_mapping_fixture",
+      "artifact_role": "crypto_stop_condition_mapping_fixture",
+      "artifact_type": "json_fixture",
+      "contract_version": "pmbot_crypto_stop_condition_mapping.v1",
+      "expected_state": "pending_operator_review",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_stop_condition_mapping.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-010-CRYPTO-STOP-CONDITION-MAPPING-LOCAL-ONLY",
+      "target_id": "crypto_ci_safe_validation_subset_001.crypto_stop_condition_mapping_fixture",
+      "target_label": "Crypto stop condition mapping fixture"
+    },
+    {
+      "artifact_id": "crypto_outcome_evidence_bundle_fixture",
+      "artifact_role": "crypto_outcome_evidence_bundle_fixture",
+      "artifact_type": "json_fixture",
+      "contract_version": "pmbot_crypto_outcome_evidence_bundle.v1",
+      "expected_state": "pending_operator_review",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_outcome_evidence_bundle.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-008-CRYPTO-OUTCOME-EVIDENCE-BUNDLE-LOCAL-ONLY",
+      "target_id": "crypto_ci_safe_validation_subset_001.crypto_outcome_evidence_bundle_fixture",
+      "target_label": "Crypto outcome evidence bundle fixture"
+    },
+    {
+      "artifact_id": "crypto_observation_replay_fixture",
+      "artifact_role": "crypto_observation_replay_fixture",
+      "artifact_type": "json_fixture",
+      "contract_version": "pmbot_crypto_paperlive_observation_replay.v1",
+      "expected_state": "pending_operator_review",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_paperlive_observation_replay.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-007-CRYPTO-PAPERLIVE-OBSERVATION-REPLAY-LOCAL-ONLY",
+      "target_id": "crypto_ci_safe_validation_subset_001.crypto_observation_replay_fixture",
+      "target_label": "Crypto paperlive observation replay fixture"
+    },
+    {
+      "artifact_id": "crypto_rehearsal_packet_fixture",
+      "artifact_role": "crypto_paperlive_rehearsal_packet_fixture",
+      "artifact_type": "json_fixture",
+      "contract_version": "pmbot_crypto_paperlive_rehearsal_packet.v1",
+      "expected_state": "pending_operator_review",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_paperlive_rehearsal_packet.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-006-CRYPTO-PAPERLIVE-REHEARSAL-PACKET-LOCAL-ONLY",
+      "target_id": "crypto_ci_safe_validation_subset_001.crypto_rehearsal_packet_fixture",
+      "target_label": "Crypto paperlive rehearsal packet fixture"
+    },
+    {
+      "artifact_id": "pmbot_queue_template_validation_test",
+      "artifact_role": "queue_template_validation_test",
+      "artifact_type": "python_test_reference",
+      "contract_version": "pmbot_queue_templates_local_validation",
+      "expected_state": "local_validation_reference",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-013-CRYPTO-CI-SAFE-VALIDATION-SUBSET-LOCAL-ONLY",
+      "target_id": "crypto_ci_safe_validation_subset_001.queue_template_validation_test",
+      "target_label": "PMBOT queue template validation test"
+    }
+  ],
+  "warnings": []
+}

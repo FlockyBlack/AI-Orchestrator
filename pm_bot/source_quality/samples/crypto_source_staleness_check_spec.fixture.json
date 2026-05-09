@@ -1,0 +1,572 @@
+{
+  "build_id": "pmbot-crypto-source-staleness-check-spec-001-8d78439513d2",
+  "contract_version": "pmbot_crypto_source_staleness_check_spec.v1",
+  "created_at": "2026-05-09T01:20:00Z",
+  "documentation": {
+    "byte_count": 4574,
+    "content_sha256": "f3c8399ab5c12f749dbee3b68cad5941b0cae49292a4010288a3fcaa399786b2",
+    "local_reference": "docs/PMBOT_CRYPTO_LIVE_004_CRYPTO_SOURCE_STALENESS_CHECK_SPEC_LOCAL_ONLY.md",
+    "present": true
+  },
+  "errors": [],
+  "local_only": true,
+  "operator_review": {
+    "reviewed_at": null,
+    "reviewed_by": null,
+    "status": "pending_operator_review"
+  },
+  "operator_review_required": true,
+  "operator_review_steps": [
+    "Confirm every crypto source evidence link row has one local staleness check row.",
+    "Confirm timestamp field paths, age windows, and digests match local static artifacts.",
+    "Record disputes outside this spec before any later readiness status change."
+  ],
+  "reference_clock": {
+    "reference_source": "static_fixture_reference_time",
+    "reference_timestamp_utc": "2026-05-09T01:30:00Z",
+    "system_clock_used": false
+  },
+  "required_validation_commands": [
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "run_mode": "local_static_crypto_source_staleness_check_spec",
+  "safety_boundaries": {
+    "authenticated_endpoint_calls_allowed": false,
+    "background_process_allowed": false,
+    "browser_automation_allowed": false,
+    "credential_or_secret_access_allowed": false,
+    "crypto_data_refresh_allowed": false,
+    "execution_endpoint_calls_allowed": false,
+    "external_service_calls_allowed": false,
+    "llm_provider_calls_allowed": false,
+    "local_static_samples_only": true,
+    "market_api_calls_allowed": false,
+    "network_calls_allowed": false,
+    "operator_review_required": true,
+    "order_or_trade_surface_changes_allowed": false,
+    "paper_mode_only": true,
+    "runtime_or_dispatcher_changes_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "transaction_endpoint_calls_allowed": false,
+    "value_transform_allowed": false,
+    "wallet_or_signing_material_access_allowed": false
+  },
+  "source_evidence_link_map": {
+    "build_id": "pmbot-crypto-source-evidence-link-map-001-31b7949e98d1",
+    "byte_count": 25622,
+    "content_sha256": "81b9a536c56c8353dc823cd71c34f44e412cc8d096e8ef6faaf149be1bd04f2e",
+    "contract_version": "pmbot_crypto_source_evidence_link_map.v1",
+    "local_reference": "pm_bot/source_quality/samples/crypto_source_evidence_link_map.fixture.json",
+    "map_id": "pmbot-crypto-source-evidence-link-map-001",
+    "operator_review_status": "pending_operator_review",
+    "present": true,
+    "run_mode": "local_static_crypto_source_evidence_link_map",
+    "source_evidence_links": 6
+  },
+  "source_evidence_link_report": {
+    "byte_count": 4539,
+    "content_sha256": "de405064780a033f7d7647cf22988fda36c89cf45b471b0b7c20bf21a4430b64",
+    "local_reference": "pm_bot/source_quality/samples/crypto_source_evidence_link_map.fixture.md",
+    "present": true
+  },
+  "source_staleness_checks": [
+    {
+      "age_seconds": 3000,
+      "check_id": "pmbot-crypto-source-staleness-check-spec-001.read_only_crypto_data_contract_fixture.crypto_source_staleness_check",
+      "check_kind": "local_static_crypto_source_staleness_review",
+      "check_state": "descriptive_crypto_source_staleness_check",
+      "known_limitations": [
+        "Static local spec only; no crypto data refresh is performed.",
+        "Uses a fixed fixture reference timestamp instead of the system clock.",
+        "Records descriptive age windows and pending review state only."
+      ],
+      "maximum_age_seconds": 172800,
+      "observed_timestamp_utc": "2026-05-09T00:40:00Z",
+      "operator_review_status": "pending_operator_review",
+      "reference_timestamp_utc": "2026-05-09T01:30:00Z",
+      "review_checks": [
+        {
+          "check_id": "crypto_source_link_identity",
+          "description": "Confirm source identity and source evidence link row match the crypto link map.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "artifact_digest",
+          "description": "Confirm source artifact reference and digest match local bytes.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "static_timestamp_window",
+          "description": "Confirm timestamp field path and computed age use the fixed fixture reference time.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "pending_review_state",
+          "description": "Confirm every check remains pending operator review.",
+          "operator_review_status": "pending_operator_review"
+        }
+      ],
+      "rule_id": "read_only_crypto_data_contract_created_at_window",
+      "source_artifact": {
+        "artifact_format": "json_object",
+        "byte_count": 15250,
+        "content_sha256": "c6376ad29238c3ac64418a6efaf993a56bc34c8f2430bbff24c60cd8316b4a71",
+        "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_read_only_crypto_data_contract.valid.json",
+        "present": true,
+        "source_artifact_present": true
+      },
+      "source_contract": {
+        "byte_count": 4111,
+        "content_sha256": "6774f3093b6281618a4352e5c88839574ee470547f4f04b2bc9eb5d8084147e7",
+        "contract_coverage": "direct_contract_documentation",
+        "contract_version": "pmbot_crypto_live_read_only_crypto_data_contract.v1",
+        "local_reference": "docs/PMBOT_CRYPTO_LIVE_001_READ_ONLY_CRYPTO_DATA_CONTRACT_LOCAL_ONLY.md",
+        "present": true,
+        "required_state": "pending_operator_review",
+        "source_contract_id": "crypto_live_read_only_crypto_data_contract",
+        "source_record_contract_version": "pmbot_crypto_live_read_only_crypto_data_contract.v1"
+      },
+      "source_domain": "crypto_live_contract",
+      "source_evidence_link_id": "pmbot-crypto-source-evidence-link-map-001.read_only_crypto_data_contract_fixture.crypto_source_evidence_link",
+      "source_id": "read_only_crypto_data_contract_fixture",
+      "source_inventory": {
+        "byte_count": 16172,
+        "content_sha256": "0da0978055a763a893ba6e3fbb83881327261a7c3510b45844c98ae7c58afe96",
+        "contract_version": "pmbot_crypto_live_data_source_inventory.v1",
+        "inventory_id": "pmbot-crypto-live-data-source-inventory-001",
+        "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_live_data_source_inventory.valid.json",
+        "present": true,
+        "record_id": "crypto_live_data_source_inventory_001.read_only_contract_fixture",
+        "record_present": true,
+        "source_record_index": 0
+      },
+      "source_label": "Read-only crypto data contract fixture",
+      "source_record_id": "crypto_live_data_source_inventory_001.read_only_contract_fixture",
+      "source_record_status": "pending_operator_review",
+      "source_type": "read_only_crypto_contract_fixture",
+      "staleness_state": "within_static_review_window",
+      "timestamp_field_path": "$.created_at",
+      "timestamp_field_present": true,
+      "timestamp_required": true,
+      "window_label": "crypto_static_contract_two_day_window"
+    },
+    {
+      "age_seconds": 5400,
+      "check_id": "pmbot-crypto-source-staleness-check-spec-001.crypto_market_class_capture_template.crypto_source_staleness_check",
+      "check_kind": "local_static_crypto_source_staleness_review",
+      "check_state": "descriptive_crypto_source_staleness_check",
+      "known_limitations": [
+        "Static local spec only; no crypto data refresh is performed.",
+        "Uses a fixed fixture reference timestamp instead of the system clock.",
+        "Records descriptive age windows and pending review state only."
+      ],
+      "maximum_age_seconds": 172800,
+      "observed_timestamp_utc": "2026-05-09T00:00:00Z",
+      "operator_review_status": "pending_operator_review",
+      "reference_timestamp_utc": "2026-05-09T01:30:00Z",
+      "review_checks": [
+        {
+          "check_id": "crypto_source_link_identity",
+          "description": "Confirm source identity and source evidence link row match the crypto link map.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "artifact_digest",
+          "description": "Confirm source artifact reference and digest match local bytes.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "static_timestamp_window",
+          "description": "Confirm timestamp field path and computed age use the fixed fixture reference time.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "pending_review_state",
+          "description": "Confirm every check remains pending operator review.",
+          "operator_review_status": "pending_operator_review"
+        }
+      ],
+      "rule_id": "crypto_market_class_capture_template_created_at_window",
+      "source_artifact": {
+        "artifact_format": "json_object",
+        "byte_count": 3439,
+        "content_sha256": "ee206844e13934f2b46fa9ada6ef0935bb17897041170366c12ba77c9208dcd7",
+        "local_reference": "pm_bot/tests/fixtures/crypto_market_class_capture/crypto_market_class_capture_template.valid.json",
+        "present": true,
+        "source_artifact_present": true
+      },
+      "source_contract": {
+        "byte_count": 2129,
+        "content_sha256": "a088e34c7bf19c901e93b22a230ab70bef8c7ced33aefdc223f11339d7040de7",
+        "contract_coverage": "direct_contract_documentation",
+        "contract_version": "pmbot_crypto_market_class_capture_template.v1",
+        "local_reference": "docs/PMBOT_CRYPTO_PILOT_001_CRYPTO_MARKET_CLASS_CAPTURE_TEMPLATE_LOCAL_ONLY.md",
+        "present": true,
+        "required_state": "template_only_static_sample",
+        "source_contract_id": "crypto_market_class_capture_template",
+        "source_record_contract_version": "pmbot_crypto_market_class_capture_template.v1"
+      },
+      "source_domain": "crypto_market_capture",
+      "source_evidence_link_id": "pmbot-crypto-source-evidence-link-map-001.crypto_market_class_capture_template.crypto_source_evidence_link",
+      "source_id": "crypto_market_class_capture_template",
+      "source_inventory": {
+        "byte_count": 16172,
+        "content_sha256": "0da0978055a763a893ba6e3fbb83881327261a7c3510b45844c98ae7c58afe96",
+        "contract_version": "pmbot_crypto_live_data_source_inventory.v1",
+        "inventory_id": "pmbot-crypto-live-data-source-inventory-001",
+        "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_live_data_source_inventory.valid.json",
+        "present": true,
+        "record_id": "crypto_live_data_source_inventory_001.crypto_market_class_capture_template",
+        "record_present": true,
+        "source_record_index": 1
+      },
+      "source_label": "Crypto market class capture template",
+      "source_record_id": "crypto_live_data_source_inventory_001.crypto_market_class_capture_template",
+      "source_record_status": "pending_operator_review",
+      "source_type": "local_static_crypto_market_template",
+      "staleness_state": "within_static_review_window",
+      "timestamp_field_path": "$.created_at",
+      "timestamp_field_present": true,
+      "timestamp_required": true,
+      "window_label": "crypto_static_template_two_day_window"
+    },
+    {
+      "age_seconds": 5400,
+      "check_id": "pmbot-crypto-source-staleness-check-spec-001.crypto_operator_review_protocol.crypto_source_staleness_check",
+      "check_kind": "local_static_crypto_source_staleness_review",
+      "check_state": "descriptive_crypto_source_staleness_check",
+      "known_limitations": [
+        "Static local spec only; no crypto data refresh is performed.",
+        "Uses a fixed fixture reference timestamp instead of the system clock.",
+        "Records descriptive age windows and pending review state only."
+      ],
+      "maximum_age_seconds": 172800,
+      "observed_timestamp_utc": "2026-05-09T00:00:00Z",
+      "operator_review_status": "pending_operator_review",
+      "reference_timestamp_utc": "2026-05-09T01:30:00Z",
+      "review_checks": [
+        {
+          "check_id": "crypto_source_link_identity",
+          "description": "Confirm source identity and source evidence link row match the crypto link map.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "artifact_digest",
+          "description": "Confirm source artifact reference and digest match local bytes.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "static_timestamp_window",
+          "description": "Confirm timestamp field path and computed age use the fixed fixture reference time.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "pending_review_state",
+          "description": "Confirm every check remains pending operator review.",
+          "operator_review_status": "pending_operator_review"
+        }
+      ],
+      "rule_id": "crypto_operator_review_protocol_created_at_window",
+      "source_artifact": {
+        "artifact_format": "json_object",
+        "byte_count": 4871,
+        "content_sha256": "d917ecdf02d7efd934af2959644869b03680ebbd093e86a01a818aa8ac8cfbbd",
+        "local_reference": "pm_bot/tests/fixtures/crypto_operator_review_protocol/crypto_operator_review_protocol.valid.json",
+        "present": true,
+        "source_artifact_present": true
+      },
+      "source_contract": {
+        "byte_count": 2650,
+        "content_sha256": "7f2609ad6dc46994a941337cc28878ccf16c6640deb5874985e9c14864c7b1b1",
+        "contract_coverage": "direct_contract_documentation",
+        "contract_version": "pmbot_crypto_operator_review_protocol.v1",
+        "local_reference": "docs/PMBOT_CRYPTO_PILOT_002_CRYPTO_OPERATOR_REVIEW_PROTOCOL_LOCAL_ONLY.md",
+        "present": true,
+        "required_state": "protocol_only_static_sample",
+        "source_contract_id": "crypto_operator_review_protocol",
+        "source_record_contract_version": "pmbot_crypto_operator_review_protocol.v1"
+      },
+      "source_domain": "crypto_operator_review",
+      "source_evidence_link_id": "pmbot-crypto-source-evidence-link-map-001.crypto_operator_review_protocol.crypto_source_evidence_link",
+      "source_id": "crypto_operator_review_protocol",
+      "source_inventory": {
+        "byte_count": 16172,
+        "content_sha256": "0da0978055a763a893ba6e3fbb83881327261a7c3510b45844c98ae7c58afe96",
+        "contract_version": "pmbot_crypto_live_data_source_inventory.v1",
+        "inventory_id": "pmbot-crypto-live-data-source-inventory-001",
+        "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_live_data_source_inventory.valid.json",
+        "present": true,
+        "record_id": "crypto_live_data_source_inventory_001.crypto_operator_review_protocol",
+        "record_present": true,
+        "source_record_index": 2
+      },
+      "source_label": "Crypto operator review protocol",
+      "source_record_id": "crypto_live_data_source_inventory_001.crypto_operator_review_protocol",
+      "source_record_status": "pending_operator_review",
+      "source_type": "local_static_crypto_review_protocol",
+      "staleness_state": "within_static_review_window",
+      "timestamp_field_path": "$.created_at",
+      "timestamp_field_present": true,
+      "timestamp_required": true,
+      "window_label": "crypto_static_protocol_two_day_window"
+    },
+    {
+      "age_seconds": 4200,
+      "check_id": "pmbot-crypto-source-staleness-check-spec-001.crypto_paperlive_observation_ledger.crypto_source_staleness_check",
+      "check_kind": "local_static_crypto_source_staleness_review",
+      "check_state": "descriptive_crypto_source_staleness_check",
+      "known_limitations": [
+        "Static local spec only; no crypto data refresh is performed.",
+        "Uses a fixed fixture reference timestamp instead of the system clock.",
+        "Records descriptive age windows and pending review state only."
+      ],
+      "maximum_age_seconds": 172800,
+      "observed_timestamp_utc": "2026-05-09T00:20:00Z",
+      "operator_review_status": "pending_operator_review",
+      "reference_timestamp_utc": "2026-05-09T01:30:00Z",
+      "review_checks": [
+        {
+          "check_id": "crypto_source_link_identity",
+          "description": "Confirm source identity and source evidence link row match the crypto link map.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "artifact_digest",
+          "description": "Confirm source artifact reference and digest match local bytes.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "static_timestamp_window",
+          "description": "Confirm timestamp field path and computed age use the fixed fixture reference time.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "pending_review_state",
+          "description": "Confirm every check remains pending operator review.",
+          "operator_review_status": "pending_operator_review"
+        }
+      ],
+      "rule_id": "crypto_paperlive_observation_ledger_created_at_window",
+      "source_artifact": {
+        "artifact_format": "json_object",
+        "byte_count": 5171,
+        "content_sha256": "afd28003f13378066081448a608f62beebca6bc11b73bab1b34a236920d5dce2",
+        "local_reference": "pm_bot/tests/fixtures/crypto_paperlive_observation_ledger/crypto_paperlive_observation_ledger.valid.json",
+        "present": true,
+        "source_artifact_present": true
+      },
+      "source_contract": {
+        "byte_count": 2565,
+        "content_sha256": "7105385dcab08ddb6875e59bc408c5b1bb8d26003ed36313a700c2abbdbba68e",
+        "contract_coverage": "direct_contract_documentation",
+        "contract_version": "pmbot_crypto_paperlive_observation_ledger.v1",
+        "local_reference": "docs/PMBOT_CRYPTO_PILOT_003_CRYPTO_PAPERLIVE_OBSERVATION_LEDGER_LOCAL_ONLY.md",
+        "present": true,
+        "required_state": "ledger_only_static_sample",
+        "source_contract_id": "crypto_paperlive_observation_ledger",
+        "source_record_contract_version": "pmbot_crypto_paperlive_observation_ledger.v1"
+      },
+      "source_domain": "crypto_paperlive_observation",
+      "source_evidence_link_id": "pmbot-crypto-source-evidence-link-map-001.crypto_paperlive_observation_ledger.crypto_source_evidence_link",
+      "source_id": "crypto_paperlive_observation_ledger",
+      "source_inventory": {
+        "byte_count": 16172,
+        "content_sha256": "0da0978055a763a893ba6e3fbb83881327261a7c3510b45844c98ae7c58afe96",
+        "contract_version": "pmbot_crypto_live_data_source_inventory.v1",
+        "inventory_id": "pmbot-crypto-live-data-source-inventory-001",
+        "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_live_data_source_inventory.valid.json",
+        "present": true,
+        "record_id": "crypto_live_data_source_inventory_001.crypto_paperlive_observation_ledger",
+        "record_present": true,
+        "source_record_index": 3
+      },
+      "source_label": "Crypto paperlive observation ledger",
+      "source_record_id": "crypto_live_data_source_inventory_001.crypto_paperlive_observation_ledger",
+      "source_record_status": "pending_operator_review",
+      "source_type": "local_static_crypto_observation_ledger",
+      "staleness_state": "within_static_review_window",
+      "timestamp_field_path": "$.created_at",
+      "timestamp_field_present": true,
+      "timestamp_required": true,
+      "window_label": "crypto_static_observation_ledger_two_day_window"
+    },
+    {
+      "age_seconds": 3600,
+      "check_id": "pmbot-crypto-source-staleness-check-spec-001.crypto_source_quality_capture_surface_sample.crypto_source_staleness_check",
+      "check_kind": "local_static_crypto_source_staleness_review",
+      "check_state": "descriptive_crypto_source_staleness_check",
+      "known_limitations": [
+        "Static local spec only; no crypto data refresh is performed.",
+        "Uses a fixed fixture reference timestamp instead of the system clock.",
+        "Records descriptive age windows and pending review state only."
+      ],
+      "maximum_age_seconds": 172800,
+      "observed_timestamp_utc": "2026-05-09T00:30:00Z",
+      "operator_review_status": "pending_operator_review",
+      "reference_timestamp_utc": "2026-05-09T01:30:00Z",
+      "review_checks": [
+        {
+          "check_id": "crypto_source_link_identity",
+          "description": "Confirm source identity and source evidence link row match the crypto link map.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "artifact_digest",
+          "description": "Confirm source artifact reference and digest match local bytes.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "static_timestamp_window",
+          "description": "Confirm timestamp field path and computed age use the fixed fixture reference time.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "pending_review_state",
+          "description": "Confirm every check remains pending operator review.",
+          "operator_review_status": "pending_operator_review"
+        }
+      ],
+      "rule_id": "crypto_source_quality_capture_surface_created_at_window",
+      "source_artifact": {
+        "artifact_format": "json_object",
+        "byte_count": 11404,
+        "content_sha256": "126f170f9417697f02575109da88f85e4faf92d1e29005159fe8f6a5ab0d89fb",
+        "local_reference": "pm_bot/source_quality/samples/crypto_source_quality_capture_surface.fixture.json",
+        "present": true,
+        "source_artifact_present": true
+      },
+      "source_contract": {
+        "byte_count": 3114,
+        "content_sha256": "321f7032736df9799689f658916ed8f4eeca20c5da6d09b48718348b72edaa51",
+        "contract_coverage": "direct_contract_documentation",
+        "contract_version": "pmbot_crypto_source_quality_capture_surface.v1",
+        "local_reference": "docs/PMBOT_CRYPTO_PILOT_004_CRYPTO_SOURCE_QUALITY_CAPTURE_SURFACE_LOCAL_ONLY.md",
+        "present": true,
+        "required_state": "surface_only_static_sample",
+        "source_contract_id": "crypto_source_quality_capture_surface",
+        "source_record_contract_version": "pmbot_crypto_source_quality_capture_surface.v1"
+      },
+      "source_domain": "crypto_source_quality",
+      "source_evidence_link_id": "pmbot-crypto-source-evidence-link-map-001.crypto_source_quality_capture_surface_sample.crypto_source_evidence_link",
+      "source_id": "crypto_source_quality_capture_surface_sample",
+      "source_inventory": {
+        "byte_count": 16172,
+        "content_sha256": "0da0978055a763a893ba6e3fbb83881327261a7c3510b45844c98ae7c58afe96",
+        "contract_version": "pmbot_crypto_live_data_source_inventory.v1",
+        "inventory_id": "pmbot-crypto-live-data-source-inventory-001",
+        "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_live_data_source_inventory.valid.json",
+        "present": true,
+        "record_id": "crypto_live_data_source_inventory_001.crypto_source_quality_capture_surface",
+        "record_present": true,
+        "source_record_index": 4
+      },
+      "source_label": "Crypto source quality capture surface sample",
+      "source_record_id": "crypto_live_data_source_inventory_001.crypto_source_quality_capture_surface",
+      "source_record_status": "pending_operator_review",
+      "source_type": "local_static_source_quality_surface",
+      "staleness_state": "within_static_review_window",
+      "timestamp_field_path": "$.created_at",
+      "timestamp_field_present": true,
+      "timestamp_required": true,
+      "window_label": "crypto_static_source_quality_two_day_window"
+    },
+    {
+      "age_seconds": 5400,
+      "check_id": "pmbot-crypto-source-staleness-check-spec-001.static_crypto_reference_snapshot_2026_05_09_btc.crypto_source_staleness_check",
+      "check_kind": "local_static_crypto_source_staleness_review",
+      "check_state": "descriptive_crypto_source_staleness_check",
+      "known_limitations": [
+        "Static local spec only; no crypto data refresh is performed.",
+        "Uses a fixed fixture reference timestamp instead of the system clock.",
+        "Records descriptive age windows and pending review state only."
+      ],
+      "maximum_age_seconds": 172800,
+      "observed_timestamp_utc": "2026-05-09T00:00:00Z",
+      "operator_review_status": "pending_operator_review",
+      "reference_timestamp_utc": "2026-05-09T01:30:00Z",
+      "review_checks": [
+        {
+          "check_id": "crypto_source_link_identity",
+          "description": "Confirm source identity and source evidence link row match the crypto link map.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "artifact_digest",
+          "description": "Confirm source artifact reference and digest match local bytes.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "static_timestamp_window",
+          "description": "Confirm timestamp field path and computed age use the fixed fixture reference time.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "pending_review_state",
+          "description": "Confirm every check remains pending operator review.",
+          "operator_review_status": "pending_operator_review"
+        }
+      ],
+      "rule_id": "static_crypto_reference_snapshot_reported_at_window",
+      "source_artifact": {
+        "artifact_format": "json_object",
+        "byte_count": 534,
+        "content_sha256": "1f0ffac6d0264f62bb8bf8689de09addc80fabf2069c15a76d40c306178fb1fe",
+        "local_reference": "pm_bot/tests/fixtures/crypto_paperlive_observation_ledger/static_crypto_reference_snapshot.valid.json",
+        "present": true,
+        "source_artifact_present": true
+      },
+      "source_contract": {
+        "byte_count": 2565,
+        "content_sha256": "7105385dcab08ddb6875e59bc408c5b1bb8d26003ed36313a700c2abbdbba68e",
+        "contract_coverage": "static_reference_snapshot_covered_by_observation_ledger_contract",
+        "contract_version": "pmbot_crypto_paperlive_observation_ledger.v1",
+        "local_reference": "docs/PMBOT_CRYPTO_PILOT_003_CRYPTO_PAPERLIVE_OBSERVATION_LEDGER_LOCAL_ONLY.md",
+        "present": true,
+        "required_state": "ledger_only_static_sample",
+        "source_contract_id": "crypto_paperlive_observation_ledger",
+        "source_record_contract_version": "pmbot_static_crypto_reference_snapshot.v1"
+      },
+      "source_domain": "crypto_reference",
+      "source_evidence_link_id": "pmbot-crypto-source-evidence-link-map-001.static_crypto_reference_snapshot_2026_05_09_btc.crypto_source_evidence_link",
+      "source_id": "static_crypto_reference_snapshot_2026_05_09_btc",
+      "source_inventory": {
+        "byte_count": 16172,
+        "content_sha256": "0da0978055a763a893ba6e3fbb83881327261a7c3510b45844c98ae7c58afe96",
+        "contract_version": "pmbot_crypto_live_data_source_inventory.v1",
+        "inventory_id": "pmbot-crypto-live-data-source-inventory-001",
+        "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_live_data_source_inventory.valid.json",
+        "present": true,
+        "record_id": "crypto_live_data_source_inventory_001.static_crypto_reference_snapshot",
+        "record_present": true,
+        "source_record_index": 5
+      },
+      "source_label": "Static crypto reference sample",
+      "source_record_id": "crypto_live_data_source_inventory_001.static_crypto_reference_snapshot",
+      "source_record_status": "pending_operator_review",
+      "source_type": "local_static_crypto_reference_snapshot",
+      "staleness_state": "within_static_review_window",
+      "timestamp_field_path": "$.reported_at_utc",
+      "timestamp_field_present": true,
+      "timestamp_required": true,
+      "window_label": "crypto_static_reference_two_day_window"
+    }
+  ],
+  "spec_id": "pmbot-crypto-source-staleness-check-spec-001",
+  "summary_counts": {
+    "local_references": 15,
+    "operator_review_steps": 3,
+    "required_validation_commands": 2,
+    "review_checks": 24,
+    "source_artifact_references": 6,
+    "source_contract_references": 6,
+    "source_evidence_links": 6,
+    "source_inventory_records": 6,
+    "source_staleness_checks": 6,
+    "timestamp_fields_missing": 0,
+    "timestamp_fields_present": 6,
+    "warnings": 0
+  },
+  "task_id": "PMBOT-CRYPTO-LIVE-004-CRYPTO-SOURCE-STALENESS-CHECK-SPEC-LOCAL-ONLY",
+  "warnings": []
+}

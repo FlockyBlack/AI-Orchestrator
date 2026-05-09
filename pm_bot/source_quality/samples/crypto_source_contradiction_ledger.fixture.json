@@ -1,0 +1,924 @@
+{
+  "build_id": "pmbot-crypto-source-contradiction-ledger-001-7caf57862990",
+  "contract_version": "pmbot_crypto_source_contradiction_ledger.v1",
+  "created_at": "2026-05-09T01:40:00Z",
+  "documentation": {
+    "byte_count": 4629,
+    "content_sha256": "56405017a8280817eb63dbc2b714a0401b7dbe50423596f1b1e7972fd6ac68c2",
+    "local_reference": "docs/PMBOT_CRYPTO_LIVE_005_CRYPTO_SOURCE_CONTRADICTION_LEDGER_LOCAL_ONLY.md",
+    "present": true
+  },
+  "errors": [],
+  "ledger_id": "pmbot-crypto-source-contradiction-ledger-001",
+  "local_only": true,
+  "operator_review": {
+    "reviewed_at": null,
+    "reviewed_by": null,
+    "status": "pending_operator_review"
+  },
+  "operator_review_required": true,
+  "operator_review_steps": [
+    "Confirm each crypto source pair resolves to local static artifacts and expected nested records.",
+    "Confirm static copy fields and source keys match or remain pending operator review when they differ.",
+    "Record disputes outside this ledger before any later readiness status change."
+  ],
+  "required_validation_commands": [
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "run_mode": "local_static_crypto_source_contradiction_ledger",
+  "safety_boundaries": {
+    "authenticated_endpoint_calls_allowed": false,
+    "background_process_allowed": false,
+    "browser_automation_allowed": false,
+    "credential_or_secret_access_allowed": false,
+    "crypto_data_refresh_allowed": false,
+    "execution_endpoint_calls_allowed": false,
+    "external_service_calls_allowed": false,
+    "llm_provider_calls_allowed": false,
+    "local_static_samples_only": true,
+    "market_api_calls_allowed": false,
+    "network_calls_allowed": false,
+    "operator_review_required": true,
+    "order_or_trade_surface_changes_allowed": false,
+    "paper_mode_only": true,
+    "runtime_or_dispatcher_changes_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "transaction_endpoint_calls_allowed": false,
+    "value_transform_allowed": false,
+    "wallet_or_signing_material_access_allowed": false
+  },
+  "source_contradiction_rows": [
+    {
+      "check_id": "read_only_contract_to_reference_snapshot_static_copy",
+      "check_label": "Read-only contract static sample to reference snapshot copy review",
+      "comparison_kind": "mapped_static_field_copy_review",
+      "contradiction_state": "no_static_difference_recorded",
+      "field_comparisons": [
+        {
+          "comparison_state": "matching_static_values",
+          "left_field": "asset_name",
+          "left_field_present": true,
+          "left_value": "Bitcoin",
+          "operator_review_status": "pending_operator_review",
+          "right_field": "asset_name",
+          "right_field_present": true,
+          "right_value": "Bitcoin",
+          "semantic_field": "asset_name",
+          "unit_label": "static_text",
+          "values_match": true
+        },
+        {
+          "comparison_state": "matching_static_values",
+          "left_field": "measurement_source_label",
+          "left_field_present": true,
+          "left_value": "local fixture index close label",
+          "operator_review_status": "pending_operator_review",
+          "right_field": "measurement_source_label",
+          "right_field_present": true,
+          "right_value": "local fixture index close label",
+          "semantic_field": "measurement_source_label",
+          "unit_label": "static_text",
+          "values_match": true
+        },
+        {
+          "comparison_state": "matching_static_values",
+          "left_field": "reported_at_utc",
+          "left_field_present": true,
+          "left_value": "2026-05-09T00:00:00Z",
+          "operator_review_status": "pending_operator_review",
+          "right_field": "reported_at_utc",
+          "right_field_present": true,
+          "right_value": "2026-05-09T00:00:00Z",
+          "semantic_field": "reported_at_utc",
+          "unit_label": "utc_timestamp",
+          "values_match": true
+        },
+        {
+          "comparison_state": "matching_static_values",
+          "left_field": "reported_reference_unit",
+          "left_field_present": true,
+          "left_value": "USD",
+          "operator_review_status": "pending_operator_review",
+          "right_field": "reported_reference_unit",
+          "right_field_present": true,
+          "right_value": "USD",
+          "semantic_field": "reported_reference_unit",
+          "unit_label": "static_text",
+          "values_match": true
+        },
+        {
+          "comparison_state": "matching_static_values",
+          "left_field": "source_label",
+          "left_field_present": true,
+          "left_value": "Static crypto reference sample",
+          "operator_review_status": "pending_operator_review",
+          "right_field": "source_label",
+          "right_field_present": true,
+          "right_value": "Static crypto reference sample",
+          "semantic_field": "source_label",
+          "unit_label": "static_text",
+          "values_match": true
+        }
+      ],
+      "known_limitations": [
+        "Static local ledger only; no crypto data refresh is performed.",
+        "Compares selected copied fields from local fixtures and static samples only.",
+        "Records descriptive copy differences and pending review state only."
+      ],
+      "left_source": {
+        "operator_review_status": "pending_operator_review",
+        "source_artifact": {
+          "artifact_format": "json_object",
+          "byte_count": 15250,
+          "content_sha256": "c6376ad29238c3ac64418a6efaf993a56bc34c8f2430bbff24c60cd8316b4a71",
+          "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_read_only_crypto_data_contract.valid.json",
+          "present": true,
+          "source_artifact_present": true
+        },
+        "source_domain": "crypto_live_contract",
+        "source_evidence_link_id": "pmbot-crypto-source-evidence-link-map-001.read_only_crypto_data_contract_fixture.crypto_source_evidence_link",
+        "source_id": "read_only_crypto_data_contract_fixture",
+        "source_label": "Read-only crypto data contract fixture",
+        "source_record_id": "crypto_live_data_source_inventory_001.read_only_contract_fixture",
+        "source_record_selector": "$.static_sample_records[0]",
+        "source_record_status": "pending_operator_review",
+        "source_type": "read_only_crypto_contract_fixture",
+        "staleness_check_id": "pmbot-crypto-source-staleness-check-spec-001.read_only_crypto_data_contract_fixture.crypto_source_staleness_check",
+        "staleness_state": "within_static_review_window",
+        "timestamp_field_path": "$.created_at"
+      },
+      "operator_review_status": "pending_operator_review",
+      "review_checks": [
+        {
+          "check_id": "source_pair_identity",
+          "description": "Confirm left and right source ids, artifacts, and selected records match the fixed crypto source pair.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "artifact_digest",
+          "description": "Confirm source artifact references and digests match local bytes.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "static_copy_consistency",
+          "description": "Confirm mapped static fields are descriptive copy checks only.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "pending_review_state",
+          "description": "Confirm every row remains pending operator review.",
+          "operator_review_status": "pending_operator_review"
+        }
+      ],
+      "right_source": {
+        "operator_review_status": "pending_operator_review",
+        "source_artifact": {
+          "artifact_format": "json_object",
+          "byte_count": 534,
+          "content_sha256": "1f0ffac6d0264f62bb8bf8689de09addc80fabf2069c15a76d40c306178fb1fe",
+          "local_reference": "pm_bot/tests/fixtures/crypto_paperlive_observation_ledger/static_crypto_reference_snapshot.valid.json",
+          "present": true,
+          "source_artifact_present": true
+        },
+        "source_domain": "crypto_reference",
+        "source_evidence_link_id": "pmbot-crypto-source-evidence-link-map-001.static_crypto_reference_snapshot_2026_05_09_btc.crypto_source_evidence_link",
+        "source_id": "static_crypto_reference_snapshot_2026_05_09_btc",
+        "source_label": "Static crypto reference sample",
+        "source_record_id": "crypto_live_data_source_inventory_001.static_crypto_reference_snapshot",
+        "source_record_selector": "$",
+        "source_record_status": "pending_operator_review",
+        "source_type": "local_static_crypto_reference_snapshot",
+        "staleness_check_id": "pmbot-crypto-source-staleness-check-spec-001.static_crypto_reference_snapshot_2026_05_09_btc.crypto_source_staleness_check",
+        "staleness_state": "within_static_review_window",
+        "timestamp_field_path": "$.reported_at_utc"
+      },
+      "row_id": "pmbot-crypto-source-contradiction-ledger-001.read_only_contract_to_reference_snapshot_static_copy.crypto_source_contradiction_review",
+      "row_state": "descriptive_crypto_source_contradiction_review",
+      "source_domain": "crypto_static_copy_lineage",
+      "subject_key_comparisons": [
+        {
+          "left_field": "asset_symbol",
+          "left_field_present": true,
+          "left_value": "BTC",
+          "operator_review_status": "pending_operator_review",
+          "right_field": "asset_symbol",
+          "right_field_present": true,
+          "right_value": "BTC",
+          "semantic_field": "asset_symbol",
+          "values_match": true
+        },
+        {
+          "left_field": "metric_type",
+          "left_field_present": true,
+          "left_value": "spot_index_threshold",
+          "operator_review_status": "pending_operator_review",
+          "right_field": "metric_type",
+          "right_field_present": true,
+          "right_value": "spot_index_threshold",
+          "semantic_field": "metric_type",
+          "values_match": true
+        }
+      ]
+    },
+    {
+      "check_id": "market_capture_to_operator_review_static_copy",
+      "check_label": "Market capture sample to operator review record copy review",
+      "comparison_kind": "mapped_static_field_copy_review",
+      "contradiction_state": "no_static_difference_recorded",
+      "field_comparisons": [
+        {
+          "comparison_state": "matching_static_values",
+          "left_field": "market_class",
+          "left_field_present": true,
+          "left_value": "crypto_threshold_event",
+          "operator_review_status": "pending_operator_review",
+          "right_field": "market_class",
+          "right_field_present": true,
+          "right_value": "crypto_threshold_event",
+          "semantic_field": "market_class",
+          "unit_label": "static_text",
+          "values_match": true
+        },
+        {
+          "comparison_state": "matching_static_values",
+          "left_field": "market_slug",
+          "left_field_present": true,
+          "left_value": "static-sample-btc-threshold-2026",
+          "operator_review_status": "pending_operator_review",
+          "right_field": "market_slug",
+          "right_field_present": true,
+          "right_value": "static-sample-btc-threshold-2026",
+          "semantic_field": "market_slug",
+          "unit_label": "static_text",
+          "values_match": true
+        },
+        {
+          "comparison_state": "matching_static_values",
+          "left_field": "market_title",
+          "left_field_present": true,
+          "left_value": "Static sample BTC threshold market",
+          "operator_review_status": "pending_operator_review",
+          "right_field": "market_title",
+          "right_field_present": true,
+          "right_value": "Static sample BTC threshold market",
+          "semantic_field": "market_title",
+          "unit_label": "static_text",
+          "values_match": true
+        },
+        {
+          "comparison_state": "matching_static_values",
+          "left_field": "asset_symbol",
+          "left_field_present": true,
+          "left_value": "BTC",
+          "operator_review_status": "pending_operator_review",
+          "right_field": "asset_symbol",
+          "right_field_present": true,
+          "right_value": "BTC",
+          "semantic_field": "asset_symbol",
+          "unit_label": "static_text",
+          "values_match": true
+        },
+        {
+          "comparison_state": "matching_static_values",
+          "left_field": "asset_name",
+          "left_field_present": true,
+          "left_value": "Bitcoin",
+          "operator_review_status": "pending_operator_review",
+          "right_field": "asset_name",
+          "right_field_present": true,
+          "right_value": "Bitcoin",
+          "semantic_field": "asset_name",
+          "unit_label": "static_text",
+          "values_match": true
+        },
+        {
+          "comparison_state": "matching_static_values",
+          "left_field": "quote_currency",
+          "left_field_present": true,
+          "left_value": "USD",
+          "operator_review_status": "pending_operator_review",
+          "right_field": "quote_currency",
+          "right_field_present": true,
+          "right_value": "USD",
+          "semantic_field": "quote_currency",
+          "unit_label": "static_text",
+          "values_match": true
+        },
+        {
+          "comparison_state": "matching_static_values",
+          "left_field": "metric_type",
+          "left_field_present": true,
+          "left_value": "spot_index_threshold",
+          "operator_review_status": "pending_operator_review",
+          "right_field": "metric_type",
+          "right_field_present": true,
+          "right_value": "spot_index_threshold",
+          "semantic_field": "metric_type",
+          "unit_label": "static_text",
+          "values_match": true
+        },
+        {
+          "comparison_state": "matching_static_values",
+          "left_field": "threshold_value",
+          "left_field_present": true,
+          "left_value": "150000.00",
+          "operator_review_status": "pending_operator_review",
+          "right_field": "threshold_value",
+          "right_field_present": true,
+          "right_value": "150000.00",
+          "semantic_field": "threshold_value",
+          "unit_label": "usd_string",
+          "values_match": true
+        },
+        {
+          "comparison_state": "matching_static_values",
+          "left_field": "threshold_unit",
+          "left_field_present": true,
+          "left_value": "USD",
+          "operator_review_status": "pending_operator_review",
+          "right_field": "threshold_unit",
+          "right_field_present": true,
+          "right_value": "USD",
+          "semantic_field": "threshold_unit",
+          "unit_label": "static_text",
+          "values_match": true
+        },
+        {
+          "comparison_state": "matching_static_values",
+          "left_field": "comparison_rule",
+          "left_field_present": true,
+          "left_value": "at_or_above_threshold_by_deadline",
+          "operator_review_status": "pending_operator_review",
+          "right_field": "comparison_rule",
+          "right_field_present": true,
+          "right_value": "at_or_above_threshold_by_deadline",
+          "semantic_field": "comparison_rule",
+          "unit_label": "static_text",
+          "values_match": true
+        },
+        {
+          "comparison_state": "matching_static_values",
+          "left_field": "deadline_utc",
+          "left_field_present": true,
+          "left_value": "2026-12-31T23:59:59Z",
+          "operator_review_status": "pending_operator_review",
+          "right_field": "deadline_utc",
+          "right_field_present": true,
+          "right_value": "2026-12-31T23:59:59Z",
+          "semantic_field": "deadline_utc",
+          "unit_label": "utc_timestamp",
+          "values_match": true
+        }
+      ],
+      "known_limitations": [
+        "Static local ledger only; no crypto data refresh is performed.",
+        "Compares selected copied fields from local fixtures and static samples only.",
+        "Records descriptive copy differences and pending review state only."
+      ],
+      "left_source": {
+        "operator_review_status": "pending_operator_review",
+        "source_artifact": {
+          "artifact_format": "json_object",
+          "byte_count": 3439,
+          "content_sha256": "ee206844e13934f2b46fa9ada6ef0935bb17897041170366c12ba77c9208dcd7",
+          "local_reference": "pm_bot/tests/fixtures/crypto_market_class_capture/crypto_market_class_capture_template.valid.json",
+          "present": true,
+          "source_artifact_present": true
+        },
+        "source_domain": "crypto_market_capture",
+        "source_evidence_link_id": "pmbot-crypto-source-evidence-link-map-001.crypto_market_class_capture_template.crypto_source_evidence_link",
+        "source_id": "crypto_market_class_capture_template",
+        "source_label": "Crypto market class capture template",
+        "source_record_id": "crypto_live_data_source_inventory_001.crypto_market_class_capture_template",
+        "source_record_selector": "$.sample_records[0]",
+        "source_record_status": "pending_operator_review",
+        "source_type": "local_static_crypto_market_template",
+        "staleness_check_id": "pmbot-crypto-source-staleness-check-spec-001.crypto_market_class_capture_template.crypto_source_staleness_check",
+        "staleness_state": "within_static_review_window",
+        "timestamp_field_path": "$.created_at"
+      },
+      "operator_review_status": "pending_operator_review",
+      "review_checks": [
+        {
+          "check_id": "source_pair_identity",
+          "description": "Confirm left and right source ids, artifacts, and selected records match the fixed crypto source pair.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "artifact_digest",
+          "description": "Confirm source artifact references and digests match local bytes.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "static_copy_consistency",
+          "description": "Confirm mapped static fields are descriptive copy checks only.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "pending_review_state",
+          "description": "Confirm every row remains pending operator review.",
+          "operator_review_status": "pending_operator_review"
+        }
+      ],
+      "right_source": {
+        "operator_review_status": "pending_operator_review",
+        "source_artifact": {
+          "artifact_format": "json_object",
+          "byte_count": 4871,
+          "content_sha256": "d917ecdf02d7efd934af2959644869b03680ebbd093e86a01a818aa8ac8cfbbd",
+          "local_reference": "pm_bot/tests/fixtures/crypto_operator_review_protocol/crypto_operator_review_protocol.valid.json",
+          "present": true,
+          "source_artifact_present": true
+        },
+        "source_domain": "crypto_operator_review",
+        "source_evidence_link_id": "pmbot-crypto-source-evidence-link-map-001.crypto_operator_review_protocol.crypto_source_evidence_link",
+        "source_id": "crypto_operator_review_protocol",
+        "source_label": "Crypto operator review protocol",
+        "source_record_id": "crypto_live_data_source_inventory_001.crypto_operator_review_protocol",
+        "source_record_selector": "$.static_review_records[0]",
+        "source_record_status": "pending_operator_review",
+        "source_type": "local_static_crypto_review_protocol",
+        "staleness_check_id": "pmbot-crypto-source-staleness-check-spec-001.crypto_operator_review_protocol.crypto_source_staleness_check",
+        "staleness_state": "within_static_review_window",
+        "timestamp_field_path": "$.created_at"
+      },
+      "row_id": "pmbot-crypto-source-contradiction-ledger-001.market_capture_to_operator_review_static_copy.crypto_source_contradiction_review",
+      "row_state": "descriptive_crypto_source_contradiction_review",
+      "source_domain": "crypto_static_copy_lineage",
+      "subject_key_comparisons": [
+        {
+          "left_field": "record_id",
+          "left_field_present": true,
+          "left_value": "crypto_market_class_capture_template_001.sample.btc_threshold",
+          "operator_review_status": "pending_operator_review",
+          "right_field": "source_record_id",
+          "right_field_present": true,
+          "right_value": "crypto_market_class_capture_template_001.sample.btc_threshold",
+          "semantic_field": "source_record_id",
+          "values_match": true
+        }
+      ]
+    },
+    {
+      "check_id": "operator_review_to_observation_static_copy",
+      "check_label": "Operator review record to observation ledger copy review",
+      "comparison_kind": "mapped_static_field_copy_review",
+      "contradiction_state": "no_static_difference_recorded",
+      "field_comparisons": [
+        {
+          "comparison_state": "matching_static_values",
+          "left_field": "market_class",
+          "left_field_present": true,
+          "left_value": "crypto_threshold_event",
+          "operator_review_status": "pending_operator_review",
+          "right_field": "market_class",
+          "right_field_present": true,
+          "right_value": "crypto_threshold_event",
+          "semantic_field": "market_class",
+          "unit_label": "static_text",
+          "values_match": true
+        },
+        {
+          "comparison_state": "matching_static_values",
+          "left_field": "market_slug",
+          "left_field_present": true,
+          "left_value": "static-sample-btc-threshold-2026",
+          "operator_review_status": "pending_operator_review",
+          "right_field": "market_slug",
+          "right_field_present": true,
+          "right_value": "static-sample-btc-threshold-2026",
+          "semantic_field": "market_slug",
+          "unit_label": "static_text",
+          "values_match": true
+        },
+        {
+          "comparison_state": "matching_static_values",
+          "left_field": "market_title",
+          "left_field_present": true,
+          "left_value": "Static sample BTC threshold market",
+          "operator_review_status": "pending_operator_review",
+          "right_field": "market_title",
+          "right_field_present": true,
+          "right_value": "Static sample BTC threshold market",
+          "semantic_field": "market_title",
+          "unit_label": "static_text",
+          "values_match": true
+        },
+        {
+          "comparison_state": "matching_static_values",
+          "left_field": "asset_symbol",
+          "left_field_present": true,
+          "left_value": "BTC",
+          "operator_review_status": "pending_operator_review",
+          "right_field": "asset_symbol",
+          "right_field_present": true,
+          "right_value": "BTC",
+          "semantic_field": "asset_symbol",
+          "unit_label": "static_text",
+          "values_match": true
+        },
+        {
+          "comparison_state": "matching_static_values",
+          "left_field": "asset_name",
+          "left_field_present": true,
+          "left_value": "Bitcoin",
+          "operator_review_status": "pending_operator_review",
+          "right_field": "asset_name",
+          "right_field_present": true,
+          "right_value": "Bitcoin",
+          "semantic_field": "asset_name",
+          "unit_label": "static_text",
+          "values_match": true
+        },
+        {
+          "comparison_state": "matching_static_values",
+          "left_field": "quote_currency",
+          "left_field_present": true,
+          "left_value": "USD",
+          "operator_review_status": "pending_operator_review",
+          "right_field": "quote_currency",
+          "right_field_present": true,
+          "right_value": "USD",
+          "semantic_field": "quote_currency",
+          "unit_label": "static_text",
+          "values_match": true
+        },
+        {
+          "comparison_state": "matching_static_values",
+          "left_field": "metric_type",
+          "left_field_present": true,
+          "left_value": "spot_index_threshold",
+          "operator_review_status": "pending_operator_review",
+          "right_field": "metric_type",
+          "right_field_present": true,
+          "right_value": "spot_index_threshold",
+          "semantic_field": "metric_type",
+          "unit_label": "static_text",
+          "values_match": true
+        },
+        {
+          "comparison_state": "matching_static_values",
+          "left_field": "threshold_value",
+          "left_field_present": true,
+          "left_value": "150000.00",
+          "operator_review_status": "pending_operator_review",
+          "right_field": "threshold_value",
+          "right_field_present": true,
+          "right_value": "150000.00",
+          "semantic_field": "threshold_value",
+          "unit_label": "usd_string",
+          "values_match": true
+        },
+        {
+          "comparison_state": "matching_static_values",
+          "left_field": "threshold_unit",
+          "left_field_present": true,
+          "left_value": "USD",
+          "operator_review_status": "pending_operator_review",
+          "right_field": "threshold_unit",
+          "right_field_present": true,
+          "right_value": "USD",
+          "semantic_field": "threshold_unit",
+          "unit_label": "static_text",
+          "values_match": true
+        },
+        {
+          "comparison_state": "matching_static_values",
+          "left_field": "comparison_rule",
+          "left_field_present": true,
+          "left_value": "at_or_above_threshold_by_deadline",
+          "operator_review_status": "pending_operator_review",
+          "right_field": "comparison_rule",
+          "right_field_present": true,
+          "right_value": "at_or_above_threshold_by_deadline",
+          "semantic_field": "comparison_rule",
+          "unit_label": "static_text",
+          "values_match": true
+        },
+        {
+          "comparison_state": "matching_static_values",
+          "left_field": "deadline_utc",
+          "left_field_present": true,
+          "left_value": "2026-12-31T23:59:59Z",
+          "operator_review_status": "pending_operator_review",
+          "right_field": "deadline_utc",
+          "right_field_present": true,
+          "right_value": "2026-12-31T23:59:59Z",
+          "semantic_field": "deadline_utc",
+          "unit_label": "utc_timestamp",
+          "values_match": true
+        }
+      ],
+      "known_limitations": [
+        "Static local ledger only; no crypto data refresh is performed.",
+        "Compares selected copied fields from local fixtures and static samples only.",
+        "Records descriptive copy differences and pending review state only."
+      ],
+      "left_source": {
+        "operator_review_status": "pending_operator_review",
+        "source_artifact": {
+          "artifact_format": "json_object",
+          "byte_count": 4871,
+          "content_sha256": "d917ecdf02d7efd934af2959644869b03680ebbd093e86a01a818aa8ac8cfbbd",
+          "local_reference": "pm_bot/tests/fixtures/crypto_operator_review_protocol/crypto_operator_review_protocol.valid.json",
+          "present": true,
+          "source_artifact_present": true
+        },
+        "source_domain": "crypto_operator_review",
+        "source_evidence_link_id": "pmbot-crypto-source-evidence-link-map-001.crypto_operator_review_protocol.crypto_source_evidence_link",
+        "source_id": "crypto_operator_review_protocol",
+        "source_label": "Crypto operator review protocol",
+        "source_record_id": "crypto_live_data_source_inventory_001.crypto_operator_review_protocol",
+        "source_record_selector": "$.static_review_records[0]",
+        "source_record_status": "pending_operator_review",
+        "source_type": "local_static_crypto_review_protocol",
+        "staleness_check_id": "pmbot-crypto-source-staleness-check-spec-001.crypto_operator_review_protocol.crypto_source_staleness_check",
+        "staleness_state": "within_static_review_window",
+        "timestamp_field_path": "$.created_at"
+      },
+      "operator_review_status": "pending_operator_review",
+      "review_checks": [
+        {
+          "check_id": "source_pair_identity",
+          "description": "Confirm left and right source ids, artifacts, and selected records match the fixed crypto source pair.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "artifact_digest",
+          "description": "Confirm source artifact references and digests match local bytes.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "static_copy_consistency",
+          "description": "Confirm mapped static fields are descriptive copy checks only.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "pending_review_state",
+          "description": "Confirm every row remains pending operator review.",
+          "operator_review_status": "pending_operator_review"
+        }
+      ],
+      "right_source": {
+        "operator_review_status": "pending_operator_review",
+        "source_artifact": {
+          "artifact_format": "json_object",
+          "byte_count": 5171,
+          "content_sha256": "afd28003f13378066081448a608f62beebca6bc11b73bab1b34a236920d5dce2",
+          "local_reference": "pm_bot/tests/fixtures/crypto_paperlive_observation_ledger/crypto_paperlive_observation_ledger.valid.json",
+          "present": true,
+          "source_artifact_present": true
+        },
+        "source_domain": "crypto_paperlive_observation",
+        "source_evidence_link_id": "pmbot-crypto-source-evidence-link-map-001.crypto_paperlive_observation_ledger.crypto_source_evidence_link",
+        "source_id": "crypto_paperlive_observation_ledger",
+        "source_label": "Crypto paperlive observation ledger",
+        "source_record_id": "crypto_live_data_source_inventory_001.crypto_paperlive_observation_ledger",
+        "source_record_selector": "$.observation_records[0]",
+        "source_record_status": "pending_operator_review",
+        "source_type": "local_static_crypto_observation_ledger",
+        "staleness_check_id": "pmbot-crypto-source-staleness-check-spec-001.crypto_paperlive_observation_ledger.crypto_source_staleness_check",
+        "staleness_state": "within_static_review_window",
+        "timestamp_field_path": "$.created_at"
+      },
+      "row_id": "pmbot-crypto-source-contradiction-ledger-001.operator_review_to_observation_static_copy.crypto_source_contradiction_review",
+      "row_state": "descriptive_crypto_source_contradiction_review",
+      "source_domain": "crypto_static_copy_lineage",
+      "subject_key_comparisons": [
+        {
+          "left_field": "review_record_id",
+          "left_field_present": true,
+          "left_value": "crypto_operator_review_protocol_001.sample.btc_threshold.review",
+          "operator_review_status": "pending_operator_review",
+          "right_field": "source_review_record_id",
+          "right_field_present": true,
+          "right_value": "crypto_operator_review_protocol_001.sample.btc_threshold.review",
+          "semantic_field": "source_review_record_id",
+          "values_match": true
+        }
+      ]
+    },
+    {
+      "check_id": "observation_to_reference_snapshot_static_copy",
+      "check_label": "Observation ledger to reference snapshot copy review",
+      "comparison_kind": "mapped_static_field_copy_review",
+      "contradiction_state": "no_static_difference_recorded",
+      "field_comparisons": [
+        {
+          "comparison_state": "matching_static_values",
+          "left_field": "asset_name",
+          "left_field_present": true,
+          "left_value": "Bitcoin",
+          "operator_review_status": "pending_operator_review",
+          "right_field": "asset_name",
+          "right_field_present": true,
+          "right_value": "Bitcoin",
+          "semantic_field": "asset_name",
+          "unit_label": "static_text",
+          "values_match": true
+        },
+        {
+          "comparison_state": "matching_static_values",
+          "left_field": "measurement_source_label",
+          "left_field_present": true,
+          "left_value": "local fixture index close label",
+          "operator_review_status": "pending_operator_review",
+          "right_field": "measurement_source_label",
+          "right_field_present": true,
+          "right_value": "local fixture index close label",
+          "semantic_field": "measurement_source_label",
+          "unit_label": "static_text",
+          "values_match": true
+        },
+        {
+          "comparison_state": "matching_static_values",
+          "left_field": "reported_at_utc",
+          "left_field_present": true,
+          "left_value": "2026-05-09T00:00:00Z",
+          "operator_review_status": "pending_operator_review",
+          "right_field": "reported_at_utc",
+          "right_field_present": true,
+          "right_value": "2026-05-09T00:00:00Z",
+          "semantic_field": "reported_at_utc",
+          "unit_label": "utc_timestamp",
+          "values_match": true
+        },
+        {
+          "comparison_state": "matching_static_values",
+          "left_field": "reported_reference_unit",
+          "left_field_present": true,
+          "left_value": "USD",
+          "operator_review_status": "pending_operator_review",
+          "right_field": "reported_reference_unit",
+          "right_field_present": true,
+          "right_value": "USD",
+          "semantic_field": "reported_reference_unit",
+          "unit_label": "static_text",
+          "values_match": true
+        },
+        {
+          "comparison_state": "matching_static_values",
+          "left_field": "reported_reference_value",
+          "left_field_present": true,
+          "left_value": "102500.00",
+          "operator_review_status": "pending_operator_review",
+          "right_field": "reported_reference_value",
+          "right_field_present": true,
+          "right_value": "102500.00",
+          "semantic_field": "reported_reference_value",
+          "unit_label": "usd_string",
+          "values_match": true
+        },
+        {
+          "comparison_state": "matching_static_values",
+          "left_field": "observation_source_label",
+          "left_field_present": true,
+          "left_value": "Static crypto reference sample",
+          "operator_review_status": "pending_operator_review",
+          "right_field": "source_label",
+          "right_field_present": true,
+          "right_value": "Static crypto reference sample",
+          "semantic_field": "source_label",
+          "unit_label": "static_text",
+          "values_match": true
+        }
+      ],
+      "known_limitations": [
+        "Static local ledger only; no crypto data refresh is performed.",
+        "Compares selected copied fields from local fixtures and static samples only.",
+        "Records descriptive copy differences and pending review state only."
+      ],
+      "left_source": {
+        "operator_review_status": "pending_operator_review",
+        "source_artifact": {
+          "artifact_format": "json_object",
+          "byte_count": 5171,
+          "content_sha256": "afd28003f13378066081448a608f62beebca6bc11b73bab1b34a236920d5dce2",
+          "local_reference": "pm_bot/tests/fixtures/crypto_paperlive_observation_ledger/crypto_paperlive_observation_ledger.valid.json",
+          "present": true,
+          "source_artifact_present": true
+        },
+        "source_domain": "crypto_paperlive_observation",
+        "source_evidence_link_id": "pmbot-crypto-source-evidence-link-map-001.crypto_paperlive_observation_ledger.crypto_source_evidence_link",
+        "source_id": "crypto_paperlive_observation_ledger",
+        "source_label": "Crypto paperlive observation ledger",
+        "source_record_id": "crypto_live_data_source_inventory_001.crypto_paperlive_observation_ledger",
+        "source_record_selector": "$.observation_records[0]",
+        "source_record_status": "pending_operator_review",
+        "source_type": "local_static_crypto_observation_ledger",
+        "staleness_check_id": "pmbot-crypto-source-staleness-check-spec-001.crypto_paperlive_observation_ledger.crypto_source_staleness_check",
+        "staleness_state": "within_static_review_window",
+        "timestamp_field_path": "$.created_at"
+      },
+      "operator_review_status": "pending_operator_review",
+      "review_checks": [
+        {
+          "check_id": "source_pair_identity",
+          "description": "Confirm left and right source ids, artifacts, and selected records match the fixed crypto source pair.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "artifact_digest",
+          "description": "Confirm source artifact references and digests match local bytes.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "static_copy_consistency",
+          "description": "Confirm mapped static fields are descriptive copy checks only.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "pending_review_state",
+          "description": "Confirm every row remains pending operator review.",
+          "operator_review_status": "pending_operator_review"
+        }
+      ],
+      "right_source": {
+        "operator_review_status": "pending_operator_review",
+        "source_artifact": {
+          "artifact_format": "json_object",
+          "byte_count": 534,
+          "content_sha256": "1f0ffac6d0264f62bb8bf8689de09addc80fabf2069c15a76d40c306178fb1fe",
+          "local_reference": "pm_bot/tests/fixtures/crypto_paperlive_observation_ledger/static_crypto_reference_snapshot.valid.json",
+          "present": true,
+          "source_artifact_present": true
+        },
+        "source_domain": "crypto_reference",
+        "source_evidence_link_id": "pmbot-crypto-source-evidence-link-map-001.static_crypto_reference_snapshot_2026_05_09_btc.crypto_source_evidence_link",
+        "source_id": "static_crypto_reference_snapshot_2026_05_09_btc",
+        "source_label": "Static crypto reference sample",
+        "source_record_id": "crypto_live_data_source_inventory_001.static_crypto_reference_snapshot",
+        "source_record_selector": "$",
+        "source_record_status": "pending_operator_review",
+        "source_type": "local_static_crypto_reference_snapshot",
+        "staleness_check_id": "pmbot-crypto-source-staleness-check-spec-001.static_crypto_reference_snapshot_2026_05_09_btc.crypto_source_staleness_check",
+        "staleness_state": "within_static_review_window",
+        "timestamp_field_path": "$.reported_at_utc"
+      },
+      "row_id": "pmbot-crypto-source-contradiction-ledger-001.observation_to_reference_snapshot_static_copy.crypto_source_contradiction_review",
+      "row_state": "descriptive_crypto_source_contradiction_review",
+      "source_domain": "crypto_static_copy_lineage",
+      "subject_key_comparisons": [
+        {
+          "left_field": "asset_symbol",
+          "left_field_present": true,
+          "left_value": "BTC",
+          "operator_review_status": "pending_operator_review",
+          "right_field": "asset_symbol",
+          "right_field_present": true,
+          "right_value": "BTC",
+          "semantic_field": "asset_symbol",
+          "values_match": true
+        },
+        {
+          "left_field": "metric_type",
+          "left_field_present": true,
+          "left_value": "spot_index_threshold",
+          "operator_review_status": "pending_operator_review",
+          "right_field": "metric_type",
+          "right_field_present": true,
+          "right_value": "spot_index_threshold",
+          "semantic_field": "metric_type",
+          "values_match": true
+        }
+      ]
+    }
+  ],
+  "source_staleness_check_report": {
+    "byte_count": 5039,
+    "content_sha256": "d9620586e676ecfe604b8e818d43c2f32b8992944908bca3745591bb93e5b6e6",
+    "local_reference": "pm_bot/source_quality/samples/crypto_source_staleness_check_spec.fixture.md",
+    "present": true
+  },
+  "source_staleness_check_spec": {
+    "build_id": "pmbot-crypto-source-staleness-check-spec-001-8d78439513d2",
+    "byte_count": 29599,
+    "content_sha256": "b2d2a6ebe95c92c6f711f4455485683486b7a6611c05639ee19a19fbc50d56cc",
+    "contract_version": "pmbot_crypto_source_staleness_check_spec.v1",
+    "local_reference": "pm_bot/source_quality/samples/crypto_source_staleness_check_spec.fixture.json",
+    "operator_review_status": "pending_operator_review",
+    "present": true,
+    "run_mode": "local_static_crypto_source_staleness_check_spec",
+    "source_staleness_checks": 6,
+    "spec_id": "pmbot-crypto-source-staleness-check-spec-001"
+  },
+  "summary_counts": {
+    "different_field_comparisons": 0,
+    "field_comparisons": 33,
+    "local_references": 8,
+    "matching_field_comparisons": 33,
+    "operator_review_steps": 3,
+    "required_validation_commands": 2,
+    "review_checks": 16,
+    "source_artifact_references": 5,
+    "source_contradiction_rows": 4,
+    "source_record_pairs": 4,
+    "source_staleness_checks": 5,
+    "subject_key_comparisons": 6,
+    "subject_key_differences": 0,
+    "warnings": 0
+  },
+  "task_id": "PMBOT-CRYPTO-LIVE-005-CRYPTO-SOURCE-CONTRADICTION-LEDGER-LOCAL-ONLY",
+  "warnings": []
+}

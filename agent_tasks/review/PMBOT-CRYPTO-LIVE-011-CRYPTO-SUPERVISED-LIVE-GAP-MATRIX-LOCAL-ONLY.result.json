@@ -1,0 +1,41 @@
+{
+  "acceptance_checks_passed": true,
+  "commands_run": [
+    "pytest pm_bot/tests/test_crypto_supervised_live_gap_matrix.py",
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "completed_at": "2026-05-09T14:04:57Z",
+  "completed_by": "codex_cli_last_message_bridge",
+  "files_created": [],
+  "files_deleted": [],
+  "files_modified": [
+    "docs/PMBOT_CRYPTO_LIVE_011_CRYPTO_SUPERVISED_LIVE_GAP_MATRIX_LOCAL_ONLY.md",
+    "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_supervised_live_gap_matrix.valid.json",
+    "pm_bot/tests/test_crypto_supervised_live_gap_matrix.py"
+  ],
+  "next_recommended_action": "Inspect the bridged result, ingestion report, review report, and git diff before mark-done.",
+  "operator_review_notes": "Bridged from C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-011-CRYPTO-SUPERVISED-LIVE-GAP-MATRIX-LOCAL-ONLY\\20260509T135831Z\\last_message.md. Safety notes: Used only local files, local fixtures, and static samples.; No network, browser automation, background process, credential, wallet, signing, trading, order, transaction endpoint, runtime, dispatcher, or scheduler work was performed.; The required compileall command traversed pm_bot per the acceptance check, including listing pm_bot/llm, but this task did not edit forbidden production paths. Remaining risks: Operator review is still required before any readiness state change.; pytest emitted a cache warning because .pytest_cache was not writable; the suite still passed.; compileall exited 0 but reported it could not list tests/.pytest_tmp/pytest-of-OpenC. Bridge warnings: last_message used files_changed; bridged those paths as files_modified",
+  "safety_confirmation": {
+    "background_worker_added": false,
+    "codex_app_server_used": false,
+    "credentials_accessed": false,
+    "destructive_commands_used": false,
+    "network_calls_performed": 0,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "runtime_or_dispatcher_touched": false,
+    "scheduler_added": false,
+    "telegram_or_openclaw_added": false,
+    "wallet_or_trading_touched": false
+  },
+  "schema_version": "codex_task_result.v1",
+  "status": "completed",
+  "summary": "Added a deterministic local PMBOT crypto supervised live gap matrix doc, fixture, and regression test for operator review. The artifact is static, descriptive, pending_operator_review, and does not approve execution or provide forecast scoring, action guidance, or selection advice.",
+  "task_id": "PMBOT-CRYPTO-LIVE-011-CRYPTO-SUPERVISED-LIVE-GAP-MATRIX-LOCAL-ONLY",
+  "validation_results": [
+    "pytest pm_bot/tests/test_crypto_supervised_live_gap_matrix.py",
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ]
+}

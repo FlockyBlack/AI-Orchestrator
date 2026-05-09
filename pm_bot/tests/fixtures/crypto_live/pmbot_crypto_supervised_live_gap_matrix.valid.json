@@ -1,0 +1,324 @@
+{
+  "contract_id": "pmbot-crypto-supervised-live-gap-matrix",
+  "contract_version": "pmbot_crypto_supervised_live_gap_matrix.v1",
+  "created_at": "2026-05-09T04:10:00Z",
+  "errors": [],
+  "gap_matrix_id": "pmbot-crypto-supervised-live-gap-matrix-001",
+  "local_only": true,
+  "matrix_columns": [
+    "gate_id",
+    "current_local_state",
+    "supervised_live_gap",
+    "local_reference",
+    "required_review_evidence",
+    "mapped_source_artifact_id",
+    "operator_review_status"
+  ],
+  "matrix_rows": [
+    {
+      "current_local_state": "Read-only crypto contract exists as a local static artifact with closed endpoint and value transformation boundaries.",
+      "gate_id": "crypto_read_only_contract_gate",
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_001_READ_ONLY_CRYPTO_DATA_CONTRACT_LOCAL_ONLY.md",
+      "mapped_source_artifact_id": "crypto_live_001_read_only_contract_doc",
+      "operator_review_status": "pending_operator_review",
+      "required_review_evidence": "Human record naming contract artifact, reviewer, timestamp, and unresolved blockers.",
+      "supervised_live_gap": "Human review must confirm the contract remains local static material and non-execution input."
+    },
+    {
+      "current_local_state": "Crypto source inventory exists as a local static record with no source refresh in this task.",
+      "gate_id": "crypto_live_source_inventory_gate",
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_002_CRYPTO_LIVE_DATA_SOURCE_INVENTORY_LOCAL_ONLY.md",
+      "mapped_source_artifact_id": "crypto_live_002_data_source_inventory_doc",
+      "operator_review_status": "pending_operator_review",
+      "required_review_evidence": "Human record naming source rows, fixture references, excluded paths, and disputes.",
+      "supervised_live_gap": "Human review must confirm every listed source row is static and locally referenced."
+    },
+    {
+      "current_local_state": "Crypto source evidence links are represented by local docs and fixtures only.",
+      "gate_id": "crypto_source_evidence_link_gate",
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_003_CRYPTO_SOURCE_EVIDENCE_LINK_MAP_LOCAL_ONLY.md",
+      "mapped_source_artifact_id": "crypto_live_003_source_evidence_link_map_doc",
+      "operator_review_status": "pending_operator_review",
+      "required_review_evidence": "Human record confirming path coverage and unresolved link gaps.",
+      "supervised_live_gap": "Human review must confirm each evidence link resolves to an allowed local artifact."
+    },
+    {
+      "current_local_state": "Crypto source staleness checks remain a static local spec and do not refresh data.",
+      "gate_id": "crypto_source_staleness_gate",
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_004_CRYPTO_SOURCE_STALENESS_CHECK_SPEC_LOCAL_ONLY.md",
+      "mapped_source_artifact_id": "crypto_live_004_source_staleness_check_spec_doc",
+      "operator_review_status": "pending_operator_review",
+      "required_review_evidence": "Human record confirming static timestamp review and no service access.",
+      "supervised_live_gap": "Human review must confirm staleness fields are descriptive and no endpoint check occurred."
+    },
+    {
+      "current_local_state": "Crypto contradiction rows remain local source review records.",
+      "gate_id": "crypto_source_contradiction_gate",
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_005_CRYPTO_SOURCE_CONTRADICTION_LEDGER_LOCAL_ONLY.md",
+      "mapped_source_artifact_id": "crypto_live_005_source_contradiction_ledger_doc",
+      "operator_review_status": "pending_operator_review",
+      "required_review_evidence": "Human record naming row identifiers, local paths, and unresolved disputes.",
+      "supervised_live_gap": "Human review must confirm contradiction labels remain unresolved until a separate record closes them."
+    },
+    {
+      "current_local_state": "Crypto paperlive rehearsal packet is a local static packet.",
+      "gate_id": "crypto_paperlive_rehearsal_gate",
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_006_CRYPTO_PAPERLIVE_REHEARSAL_PACKET_LOCAL_ONLY.md",
+      "mapped_source_artifact_id": "crypto_live_006_rehearsal_packet_doc",
+      "operator_review_status": "pending_operator_review",
+      "required_review_evidence": "Human record confirming packet field coverage and paper-only state.",
+      "supervised_live_gap": "Human review must confirm packet fields remain descriptive and paper-only."
+    },
+    {
+      "current_local_state": "Crypto observation replay is a local static replay chain.",
+      "gate_id": "crypto_observation_replay_gate",
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_007_CRYPTO_PAPERLIVE_OBSERVATION_REPLAY_LOCAL_ONLY.md",
+      "mapped_source_artifact_id": "crypto_live_007_observation_replay_doc",
+      "operator_review_status": "pending_operator_review",
+      "required_review_evidence": "Human record confirming replay chain identifiers and unresolved state.",
+      "supervised_live_gap": "Human review must confirm replay links are copied from static local records and remain unresolved."
+    },
+    {
+      "current_local_state": "Crypto outcome evidence bundle keeps numeric source values in referenced local artifacts.",
+      "gate_id": "crypto_outcome_evidence_gate",
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_008_CRYPTO_OUTCOME_EVIDENCE_BUNDLE_LOCAL_ONLY.md",
+      "mapped_source_artifact_id": "crypto_live_008_outcome_evidence_bundle_doc",
+      "operator_review_status": "pending_operator_review",
+      "required_review_evidence": "Human record confirming retained source values and unresolved outcome state.",
+      "supervised_live_gap": "Human review must confirm bundle evidence does not resolve or compare outcome state."
+    },
+    {
+      "current_local_state": "Crypto operator gate fixture keeps every gate not approved and pending operator review.",
+      "gate_id": "crypto_operator_approval_gate",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_operator_approval_gate_record.valid.json",
+      "mapped_source_artifact_id": "crypto_live_009_operator_gate_fixture",
+      "operator_review_status": "pending_operator_review",
+      "required_review_evidence": "Human record confirming gate states, reviewer, timestamp, and blockers.",
+      "supervised_live_gap": "Human review must confirm no gate state changed and no transition is approved by this matrix."
+    },
+    {
+      "current_local_state": "Crypto stop condition mapping keeps every condition manual and pending review.",
+      "gate_id": "crypto_stop_condition_gate",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_stop_condition_mapping.valid.json",
+      "mapped_source_artifact_id": "crypto_live_010_stop_condition_mapping_fixture",
+      "operator_review_status": "pending_operator_review",
+      "required_review_evidence": "Human record confirming stop row coverage and manual record requirements.",
+      "supervised_live_gap": "Human review must confirm stop rows map to existing local evidence and block transitions without records."
+    },
+    {
+      "current_local_state": "Queue template regression coverage includes the crypto live task sequence through this task.",
+      "gate_id": "crypto_validation_replay_gate",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "mapped_source_artifact_id": "pmbot_queue_template_validation",
+      "operator_review_status": "pending_operator_review",
+      "required_review_evidence": "Human record confirming validation command output and unresolved failures, if any.",
+      "supervised_live_gap": "Human review must confirm current compile and pytest output after fixture review."
+    }
+  ],
+  "operator_review": {
+    "reviewed_at": null,
+    "reviewed_by": null,
+    "status": "pending_operator_review"
+  },
+  "operator_review_checklist": [
+    {
+      "check_id": "matrix_row_review",
+      "description": "Confirm each crypto gap row has one fixed local reference and one mapped source artifact.",
+      "required_evidence": "Human record confirming row and path review.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "source_artifact_review",
+      "description": "Confirm every source artifact is an allowed local static file.",
+      "required_evidence": "Human record confirming source artifact coverage.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "operator_gate_review",
+      "description": "Confirm operator gate rows remain pending and no transition is approved by this matrix.",
+      "required_evidence": "Human record confirming operator gate state review.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "stop_condition_review",
+      "description": "Confirm stop condition rows require manual records before any state change.",
+      "required_evidence": "Human record confirming stop condition coverage.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "sensitive_path_exclusion_check",
+      "description": "Confirm credential, wallet, signing, payment, order, and transaction paths remain outside scope.",
+      "required_evidence": "Human record confirming sensitive path exclusion.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "runtime_boundary_check",
+      "description": "Confirm runtime, dispatcher, scheduler, worker, browser, and resident process boundaries remain closed.",
+      "required_evidence": "Human record confirming process boundary review.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "validation_check",
+      "description": "Confirm local validation commands are run after matrix review.",
+      "required_evidence": "Human record confirming compile and pytest results.",
+      "status": "pending_operator_review"
+    }
+  ],
+  "operator_review_required": true,
+  "required_validation_commands": [
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "run_mode": "local_static_crypto_supervised_live_gap_matrix",
+  "safety_boundaries": {
+    "authenticated_endpoint_calls_allowed": false,
+    "automated_restart_allowed": false,
+    "background_process_allowed": false,
+    "browser_automation_allowed": false,
+    "credential_or_secret_access_allowed": false,
+    "crypto_data_refresh_allowed": false,
+    "execution_endpoint_calls_allowed": false,
+    "external_service_calls_allowed": false,
+    "llm_provider_calls_allowed": false,
+    "local_static_samples_only": true,
+    "market_api_calls_allowed": false,
+    "market_ranking_allowed": false,
+    "network_calls_allowed": false,
+    "numeric_prediction_metric_allowed": false,
+    "operator_review_required": true,
+    "order_or_trade_surface_changes_allowed": false,
+    "outcome_resolution_allowed": false,
+    "paper_mode_only": true,
+    "paperlive_execution_allowed": false,
+    "runtime_or_dispatcher_changes_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "supervised_live_transition_allowed": false,
+    "threshold_comparison_output_allowed": false,
+    "trade_instruction_allowed": false,
+    "transaction_endpoint_calls_allowed": false,
+    "transition_without_record_allowed": false,
+    "value_transform_allowed": false,
+    "wallet_or_signing_material_access_allowed": false
+  },
+  "source_artifacts": [
+    {
+      "artifact_id": "crypto_live_001_read_only_contract_doc",
+      "contract_version": "pmbot_crypto_live_read_only_crypto_data_contract.v1",
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_001_READ_ONLY_CRYPTO_DATA_CONTRACT_LOCAL_ONLY.md",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "read_only_crypto_data_contract_fixture",
+      "contract_version": "pmbot_crypto_live_read_only_crypto_data_contract.v1",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_read_only_crypto_data_contract.valid.json",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "crypto_live_002_data_source_inventory_doc",
+      "contract_version": "pmbot_crypto_live_data_source_inventory.v1",
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_002_CRYPTO_LIVE_DATA_SOURCE_INVENTORY_LOCAL_ONLY.md",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "crypto_live_data_source_inventory_fixture",
+      "contract_version": "pmbot_crypto_live_data_source_inventory.v1",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_live_data_source_inventory.valid.json",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "crypto_live_003_source_evidence_link_map_doc",
+      "contract_version": "pmbot_crypto_source_evidence_link_map.v1",
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_003_CRYPTO_SOURCE_EVIDENCE_LINK_MAP_LOCAL_ONLY.md",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "crypto_live_004_source_staleness_check_spec_doc",
+      "contract_version": "pmbot_crypto_source_staleness_check_spec.v1",
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_004_CRYPTO_SOURCE_STALENESS_CHECK_SPEC_LOCAL_ONLY.md",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "crypto_live_005_source_contradiction_ledger_doc",
+      "contract_version": "pmbot_crypto_source_contradiction_ledger.v1",
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_005_CRYPTO_SOURCE_CONTRADICTION_LEDGER_LOCAL_ONLY.md",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "crypto_live_006_rehearsal_packet_doc",
+      "contract_version": "pmbot_crypto_paperlive_rehearsal_packet.v1",
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_006_CRYPTO_PAPERLIVE_REHEARSAL_PACKET_LOCAL_ONLY.md",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "crypto_live_006_rehearsal_packet_fixture",
+      "contract_version": "pmbot_crypto_paperlive_rehearsal_packet.v1",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_paperlive_rehearsal_packet.valid.json",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "crypto_live_007_observation_replay_doc",
+      "contract_version": "pmbot_crypto_paperlive_observation_replay.v1",
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_007_CRYPTO_PAPERLIVE_OBSERVATION_REPLAY_LOCAL_ONLY.md",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "crypto_live_007_observation_replay_fixture",
+      "contract_version": "pmbot_crypto_paperlive_observation_replay.v1",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_paperlive_observation_replay.valid.json",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "crypto_live_008_outcome_evidence_bundle_doc",
+      "contract_version": "pmbot_crypto_outcome_evidence_bundle.v1",
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_008_CRYPTO_OUTCOME_EVIDENCE_BUNDLE_LOCAL_ONLY.md",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "crypto_live_008_outcome_evidence_bundle_fixture",
+      "contract_version": "pmbot_crypto_outcome_evidence_bundle.v1",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_outcome_evidence_bundle.valid.json",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "crypto_live_009_operator_gate_doc",
+      "contract_version": "pmbot_crypto_operator_approval_gate_record.v1",
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_009_CRYPTO_OPERATOR_APPROVAL_GATE_RECORD_LOCAL_ONLY.md",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "crypto_live_009_operator_gate_fixture",
+      "contract_version": "pmbot_crypto_operator_approval_gate_record.v1",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_operator_approval_gate_record.valid.json",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "crypto_live_010_stop_condition_mapping_doc",
+      "contract_version": "pmbot_crypto_stop_condition_mapping.v1",
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_010_CRYPTO_STOP_CONDITION_MAPPING_LOCAL_ONLY.md",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "crypto_live_010_stop_condition_mapping_fixture",
+      "contract_version": "pmbot_crypto_stop_condition_mapping.v1",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_stop_condition_mapping.valid.json",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "pmbot_queue_template_validation",
+      "contract_version": "pmbot_queue_templates_local_validation",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "required_state": "local_validation_reference"
+    }
+  ],
+  "summary_counts": {
+    "gap_rows": 11,
+    "gap_rows_pending_operator_review": 11,
+    "local_references": 18,
+    "operator_review_checklist_items": 7,
+    "required_validation_commands": 2,
+    "source_artifacts": 18,
+    "warnings": 0
+  },
+  "task_id": "PMBOT-CRYPTO-LIVE-011-CRYPTO-SUPERVISED-LIVE-GAP-MATRIX-LOCAL-ONLY",
+  "warnings": []
+}

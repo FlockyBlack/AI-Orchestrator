@@ -1,0 +1,45 @@
+{
+  "acceptance_checks_passed": true,
+  "commands_run": [
+    "python -m py_compile pm_bot/source_quality/crypto_source_contradiction_ledger.py",
+    "pytest pm_bot/tests/test_crypto_source_contradiction_ledger.py",
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "completed_at": "2026-05-09T13:27:04Z",
+  "completed_by": "codex_cli_last_message_bridge",
+  "files_created": [],
+  "files_deleted": [],
+  "files_modified": [
+    "docs/PMBOT_CRYPTO_LIVE_005_CRYPTO_SOURCE_CONTRADICTION_LEDGER_LOCAL_ONLY.md",
+    "pm_bot/source_quality/crypto_source_contradiction_ledger.py",
+    "pm_bot/source_quality/samples/crypto_source_contradiction_ledger.fixture.json",
+    "pm_bot/source_quality/samples/crypto_source_contradiction_ledger.fixture.md",
+    "pm_bot/tests/test_crypto_source_contradiction_ledger.py"
+  ],
+  "next_recommended_action": "Inspect the bridged result, ingestion report, review report, and git diff before mark-done.",
+  "operator_review_notes": "Bridged from C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-005-CRYPTO-SOURCE-CONTRADICTION-LEDGER-LOCAL-ONLY\\20260509T131500Z\\last_message.md. Safety notes: Used local files, local fixtures, and static samples only.; No network, external service, browser automation, scheduler, worker, wallet, trading, order, transaction, runtime, dispatcher, run_codex, credential, or signing-material work was performed.; Ledger outputs are descriptive, deterministic, and operator-reviewed; no forecast scoring, action guidance, or selection advice was produced.; The required compileall command exited 0; it reported it could not list an existing tests\\.pytest_tmp\\pytest-of-OpenC temp path. Remaining risks: Operator review is still required before any later readiness status change.; Pytest passed with a cache warning because .pytest_cache could not be written in this environment. Bridge warnings: last_message used files_changed; bridged those paths as files_modified",
+  "safety_confirmation": {
+    "background_worker_added": false,
+    "codex_app_server_used": false,
+    "credentials_accessed": false,
+    "destructive_commands_used": false,
+    "network_calls_performed": 0,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "runtime_or_dispatcher_touched": false,
+    "scheduler_added": false,
+    "telegram_or_openclaw_added": false,
+    "wallet_or_trading_touched": false
+  },
+  "schema_version": "codex_task_result.v1",
+  "status": "completed",
+  "summary": "Added a deterministic local-only PMBOT crypto source contradiction ledger, static JSON/Markdown operator-review samples, documentation, and focused tests. The ledger compares selected local crypto fixture records only, records descriptive source-copy consistency state, and remains pending operator review.",
+  "task_id": "PMBOT-CRYPTO-LIVE-005-CRYPTO-SOURCE-CONTRADICTION-LEDGER-LOCAL-ONLY",
+  "validation_results": [
+    "python -m py_compile pm_bot/source_quality/crypto_source_contradiction_ledger.py",
+    "pytest pm_bot/tests/test_crypto_source_contradiction_ledger.py",
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ]
+}

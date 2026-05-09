@@ -1,0 +1,308 @@
+{
+  "allowed_path_prefixes": [
+    "docs/",
+    "pm_bot/tests/",
+    "tests/"
+  ],
+  "contract_id": "pmbot-crypto-forbidden-language-regression",
+  "contract_version": "pmbot_crypto_forbidden_language_regression.v1",
+  "created_at": "2026-05-09T05:00:00Z",
+  "errors": [],
+  "excluded_path_prefixes": [
+    ".env",
+    ".env.*",
+    ".git/",
+    ".codex/",
+    "runtime/",
+    "dispatcher/",
+    "run_codex/",
+    "pm_bot/llm/",
+    "pm_bot/wallet/",
+    "pm_bot/trading/",
+    "pm_bot/orders/",
+    "agent_tasks/running/"
+  ],
+  "forbidden_language_categories": [
+    {
+      "category_id": "trade_action_terms",
+      "detection_tokens": [
+        "buy",
+        "sell",
+        "hold",
+        "enter",
+        "exit"
+      ],
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Trade action vocabulary literal-token coverage"
+    },
+    {
+      "category_id": "forecast_metric_terms",
+      "detection_tokens": [
+        "forecast",
+        "probability",
+        "confidence",
+        "edge",
+        "ev",
+        "odds",
+        "score",
+        "scoring"
+      ],
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Forecast metric vocabulary literal-token coverage"
+    },
+    {
+      "category_id": "selection_terms",
+      "detection_tokens": [
+        "pick",
+        "selection",
+        "recommendation",
+        "recommendations",
+        "side"
+      ],
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Selection vocabulary literal-token coverage"
+    },
+    {
+      "category_id": "exposure_terms",
+      "detection_tokens": [
+        "stake",
+        "wager"
+      ],
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Exposure vocabulary literal-token coverage"
+    },
+    {
+      "category_id": "crypto_position_terms",
+      "detection_tokens": [
+        "long",
+        "short",
+        "leverage"
+      ],
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Crypto position vocabulary literal-token coverage"
+    }
+  ],
+  "local_only": true,
+  "operator_review": {
+    "reviewed_at": null,
+    "reviewed_by": null,
+    "status": "pending_operator_review"
+  },
+  "operator_review_required": true,
+  "regression_id": "pmbot-crypto-forbidden-language-regression-001",
+  "regression_name": "pmbot-crypto-forbidden-language-regression",
+  "regression_samples": [
+    {
+      "expected_categories": [],
+      "expected_result": "clear_for_operator_review",
+      "operator_review_status": "pending_operator_review",
+      "sample_id": "crypto_forbidden_language_regression_001.clean_operator_review_reference",
+      "sample_kind": "clean_local_review_sample",
+      "sample_text": "Clean local-review sample: crypto source label, evidence timestamp, stale flag, and pending operator status."
+    },
+    {
+      "expected_categories": [],
+      "expected_result": "clear_for_operator_review",
+      "operator_review_status": "pending_operator_review",
+      "sample_id": "crypto_forbidden_language_regression_001.clean_crypto_readiness_reference",
+      "sample_kind": "clean_local_review_sample",
+      "sample_text": "Clean local-review sample: asset ticker, market slug, observation window, source ledger, and review queue."
+    },
+    {
+      "expected_categories": [
+        "trade_action_terms"
+      ],
+      "expected_result": "flag_for_operator_review",
+      "operator_review_status": "pending_operator_review",
+      "sample_id": "crypto_forbidden_language_regression_001.trade_action_terms",
+      "sample_kind": "literal_token_detection_only",
+      "sample_text": "Literal crypto safety-token sample: buy sell hold enter exit."
+    },
+    {
+      "expected_categories": [
+        "forecast_metric_terms"
+      ],
+      "expected_result": "flag_for_operator_review",
+      "operator_review_status": "pending_operator_review",
+      "sample_id": "crypto_forbidden_language_regression_001.forecast_metric_terms",
+      "sample_kind": "literal_token_detection_only",
+      "sample_text": "Literal crypto safety-token sample: forecast probability confidence edge EV odds score scoring."
+    },
+    {
+      "expected_categories": [
+        "selection_terms"
+      ],
+      "expected_result": "flag_for_operator_review",
+      "operator_review_status": "pending_operator_review",
+      "sample_id": "crypto_forbidden_language_regression_001.selection_terms",
+      "sample_kind": "literal_token_detection_only",
+      "sample_text": "Literal crypto safety-token sample: pick selection recommendation recommendations side."
+    },
+    {
+      "expected_categories": [
+        "exposure_terms"
+      ],
+      "expected_result": "flag_for_operator_review",
+      "operator_review_status": "pending_operator_review",
+      "sample_id": "crypto_forbidden_language_regression_001.exposure_terms",
+      "sample_kind": "literal_token_detection_only",
+      "sample_text": "Literal crypto safety-token sample: stake wager."
+    },
+    {
+      "expected_categories": [
+        "crypto_position_terms"
+      ],
+      "expected_result": "flag_for_operator_review",
+      "operator_review_status": "pending_operator_review",
+      "sample_id": "crypto_forbidden_language_regression_001.crypto_position_terms",
+      "sample_kind": "literal_token_detection_only",
+      "sample_text": "Literal crypto safety-token sample: long short leverage."
+    },
+    {
+      "expected_categories": [
+        "trade_action_terms",
+        "forecast_metric_terms",
+        "selection_terms",
+        "exposure_terms",
+        "crypto_position_terms"
+      ],
+      "expected_result": "flag_for_operator_review",
+      "operator_review_status": "pending_operator_review",
+      "sample_id": "crypto_forbidden_language_regression_001.mixed_crypto_terms",
+      "sample_kind": "literal_token_detection_only",
+      "sample_text": "Literal crypto safety-token sample: buy probability pick stake long."
+    }
+  ],
+  "required_validation_commands": [
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "run_mode": "local_static_crypto_forbidden_language_regression",
+  "safety_boundaries": {
+    "authenticated_endpoint_calls_allowed": false,
+    "background_process_allowed": false,
+    "browser_automation_allowed": false,
+    "credential_or_secret_access_allowed": false,
+    "crypto_data_refresh_allowed": false,
+    "execution_endpoint_calls_allowed": false,
+    "external_service_calls_allowed": false,
+    "forbidden_language_samples_are_literal_tokens_only": true,
+    "llm_provider_calls_allowed": false,
+    "local_fixtures_only": true,
+    "local_static_samples_only": true,
+    "market_api_calls_allowed": false,
+    "market_instruction_output_allowed": false,
+    "market_ranking_allowed": false,
+    "network_calls_allowed": false,
+    "numeric_prediction_metric_allowed": false,
+    "operator_review_required": true,
+    "order_or_trade_surface_changes_allowed": false,
+    "paper_mode_only": true,
+    "paperlive_execution_allowed": false,
+    "regression_artifact_runtime_input_allowed": false,
+    "runtime_or_dispatcher_changes_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "sensitive_path_access_allowed": false,
+    "supervised_live_transition_allowed": false,
+    "threshold_comparison_output_allowed": false,
+    "timed_automation_allowed": false,
+    "trade_instruction_allowed": false,
+    "transaction_endpoint_calls_allowed": false,
+    "wallet_or_signing_material_access_allowed": false
+  },
+  "source_artifacts": [
+    {
+      "artifact_id": "crypto_forbidden_language_regression_fixture",
+      "artifact_role": "regression_fixture",
+      "artifact_type": "json_fixture",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_forbidden_language_regression.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-014-CRYPTO-FORBIDDEN-LANGUAGE-REGRESSION-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "crypto_forbidden_language_regression_document",
+      "artifact_role": "regression_document",
+      "artifact_type": "markdown_document",
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_014_CRYPTO_FORBIDDEN_LANGUAGE_REGRESSION_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-014-CRYPTO-FORBIDDEN-LANGUAGE-REGRESSION-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "crypto_forbidden_language_regression_contract_test",
+      "artifact_role": "regression_contract_test",
+      "artifact_type": "pytest_module",
+      "local_reference": "pm_bot/tests/test_crypto_forbidden_language_regression.py",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-014-CRYPTO-FORBIDDEN-LANGUAGE-REGRESSION-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "base_forbidden_language_regression_suite_fixture",
+      "artifact_role": "source_fixture",
+      "artifact_type": "json_fixture",
+      "local_reference": "pm_bot/tests/fixtures/safety/forbidden_language_regression_suite.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-SAFETY-005-FORBIDDEN-LANGUAGE-REGRESSION-SUITE-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "base_forbidden_language_regression_suite_document",
+      "artifact_role": "source_document",
+      "artifact_type": "markdown_document",
+      "local_reference": "docs/PMBOT_SAFETY_005_FORBIDDEN_LANGUAGE_REGRESSION_SUITE_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-SAFETY-005-FORBIDDEN-LANGUAGE-REGRESSION-SUITE-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "crypto_ci_safe_validation_subset_fixture",
+      "artifact_role": "source_fixture",
+      "artifact_type": "json_fixture",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_ci_safe_validation_subset.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-013-CRYPTO-CI-SAFE-VALIDATION-SUBSET-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "crypto_ci_safe_validation_subset_document",
+      "artifact_role": "source_document",
+      "artifact_type": "markdown_document",
+      "local_reference": "docs/PMBOT_CRYPTO_LIVE_013_CRYPTO_CI_SAFE_VALIDATION_SUBSET_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-013-CRYPTO-CI-SAFE-VALIDATION-SUBSET-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "queue_template_validation_test",
+      "artifact_role": "queue_template_contract",
+      "artifact_type": "pytest_module",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-CRYPTO-LIVE-014-CRYPTO-FORBIDDEN-LANGUAGE-REGRESSION-LOCAL-ONLY"
+    }
+  ],
+  "summary_counts": {
+    "allowed_path_prefixes": 3,
+    "clear_samples": 2,
+    "errors": 0,
+    "excluded_path_prefixes": 12,
+    "flagged_samples": 6,
+    "forbidden_language_categories": 5,
+    "regression_samples": 8,
+    "required_validation_commands": 2,
+    "source_artifacts": 8,
+    "validation_command_records": 2,
+    "warnings": 0
+  },
+  "task_id": "PMBOT-CRYPTO-LIVE-014-CRYPTO-FORBIDDEN-LANGUAGE-REGRESSION-LOCAL-ONLY",
+  "validation_command_records": [
+    {
+      "command_label": "python -m compileall pm_bot tests",
+      "local_reference": "pm_bot/tests/test_crypto_forbidden_language_regression.py",
+      "operator_review_status": "pending_operator_review",
+      "status": "not_run_static_record"
+    },
+    {
+      "command_label": "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "status": "not_run_static_record"
+    }
+  ],
+  "warnings": []
+}

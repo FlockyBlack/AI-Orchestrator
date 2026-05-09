@@ -1,0 +1,403 @@
+{
+  "contract_id": "pmbot-crypto-live-read-only-crypto-data-contract",
+  "contract_version": "pmbot_crypto_live_read_only_crypto_data_contract.v1",
+  "created_at": "2026-05-09T00:40:00Z",
+  "crypto_data_observation_fields": [
+    "record_id",
+    "source_label",
+    "source_class",
+    "source_access_mode",
+    "captured_at_utc",
+    "asset_symbol",
+    "asset_name",
+    "metric_type",
+    "measurement_source_label",
+    "reported_at_utc",
+    "reported_reference_unit",
+    "local_snapshot_reference",
+    "included_static_fields",
+    "allowed_handling",
+    "freshness_label",
+    "operator_review_status",
+    "excluded_operations",
+    "notes"
+  ],
+  "errors": [],
+  "field_handling_rules": [
+    {
+      "allowed_handling": "copy_static_text_from_local_fixture",
+      "excluded_handling": [
+        "current_external_state_claim",
+        "threshold_comparison",
+        "market_ranking",
+        "execution_instruction",
+        "runtime_input"
+      ],
+      "field_name": "asset_symbol",
+      "handling_class": "static_crypto_label",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "allowed_handling": "copy_static_text_from_local_fixture",
+      "excluded_handling": [
+        "current_external_state_claim",
+        "threshold_comparison",
+        "market_ranking",
+        "execution_instruction",
+        "runtime_input"
+      ],
+      "field_name": "asset_name",
+      "handling_class": "static_crypto_label",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "allowed_handling": "copy_static_text_from_local_fixture",
+      "excluded_handling": [
+        "current_external_state_claim",
+        "threshold_comparison",
+        "market_ranking",
+        "execution_instruction",
+        "runtime_input"
+      ],
+      "field_name": "metric_type",
+      "handling_class": "static_metric_label",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "allowed_handling": "copy_static_text_from_local_fixture",
+      "excluded_handling": [
+        "current_external_state_claim",
+        "threshold_comparison",
+        "market_ranking",
+        "execution_instruction",
+        "runtime_input"
+      ],
+      "field_name": "measurement_source_label",
+      "handling_class": "static_source_label",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "allowed_handling": "retain_in_referenced_local_fixture",
+      "excluded_handling": [
+        "current_external_state_claim",
+        "threshold_comparison",
+        "market_ranking",
+        "execution_instruction",
+        "runtime_input"
+      ],
+      "field_name": "reported_reference_value",
+      "handling_class": "source_value_not_copied_into_contract",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "allowed_handling": "copy_static_text_from_local_fixture",
+      "excluded_handling": [
+        "current_external_state_claim",
+        "threshold_comparison",
+        "market_ranking",
+        "execution_instruction",
+        "runtime_input"
+      ],
+      "field_name": "reported_reference_unit",
+      "handling_class": "static_unit_label",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "allowed_handling": "copy_static_timestamp_from_local_fixture",
+      "excluded_handling": [
+        "current_external_state_claim",
+        "threshold_comparison",
+        "market_ranking",
+        "execution_instruction",
+        "runtime_input"
+      ],
+      "field_name": "reported_at_utc",
+      "handling_class": "static_timestamp_label",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "allowed_handling": "copy_static_text_from_local_fixture",
+      "excluded_handling": [
+        "current_external_state_claim",
+        "threshold_comparison",
+        "market_ranking",
+        "execution_instruction",
+        "runtime_input"
+      ],
+      "field_name": "source_label",
+      "handling_class": "static_source_label",
+      "operator_review_status": "pending_operator_review"
+    }
+  ],
+  "local_only": true,
+  "operator_review": {
+    "reviewed_at": null,
+    "reviewed_by": null,
+    "status": "pending_operator_review"
+  },
+  "operator_review_checklist": [
+    {
+      "check_id": "local_reference_review",
+      "description": "Confirm every referenced artifact is a local file inside the allowed review paths.",
+      "required_evidence": "Human record confirming local file paths and excluded paths.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "static_crypto_snapshot_review",
+      "description": "Confirm crypto rows are static records and are not fetched during this task.",
+      "required_evidence": "Human record confirming sample scope and source class.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "field_name_inventory_review",
+      "description": "Confirm this contract inventories crypto fixture field names without copying numeric source values.",
+      "required_evidence": "Human record confirming field-name-only handling for source values.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "static_timestamp_review",
+      "description": "Confirm freshness labels and copied timestamps make no current external-state claim.",
+      "required_evidence": "Human record confirming captured timestamp and static status.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "sensitive_path_exclusion_check",
+      "description": "Confirm credential, wallet, signing, auth, and private material paths remain excluded.",
+      "required_evidence": "Human record confirming sensitive path boundaries.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "runtime_boundary_check",
+      "description": "Confirm runtime, dispatcher, scheduler, worker, browser, and resident process boundaries stay closed.",
+      "required_evidence": "Human record confirming no process or wiring changes.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "output_boundary_check",
+      "description": "Confirm outputs remain descriptive and exclude market ranking, threshold comparison output, numeric prediction metrics, and execution instruction fields.",
+      "required_evidence": "Human record confirming output field review.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "validation_replay_check",
+      "description": "Confirm local validation commands are run after artifact review.",
+      "required_evidence": "Human record confirming compile and pytest results.",
+      "status": "pending_operator_review"
+    }
+  ],
+  "operator_review_required": true,
+  "read_only_rules": [
+    {
+      "rule_id": "local_fixture_input_only",
+      "rule_text": "Use only operator-provided local crypto snapshots, local fixtures, or static samples.",
+      "status": "active"
+    },
+    {
+      "rule_id": "descriptive_crypto_records_only",
+      "rule_text": "Keep every crypto data record descriptive and pending human review.",
+      "status": "active"
+    },
+    {
+      "rule_id": "static_value_copy_boundary",
+      "rule_text": "Keep numeric crypto source values in their referenced local fixture; this contract inventories field names, timestamps, labels, and local paths only.",
+      "status": "active"
+    },
+    {
+      "rule_id": "local_references_only",
+      "rule_text": "Store local file references instead of fetched content.",
+      "status": "active"
+    },
+    {
+      "rule_id": "endpoint_and_process_boundary_closed",
+      "rule_text": "Reject endpoint, credential, wallet, order, transaction, runtime, browser, scheduler, worker, and resident process activity.",
+      "status": "active"
+    },
+    {
+      "rule_id": "execution_instruction_boundary_closed",
+      "rule_text": "Reject market ranking, threshold comparison output, and execution instruction fields.",
+      "status": "active"
+    }
+  ],
+  "required_validation_commands": [
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "run_mode": "local_static_read_only_crypto_data_contract",
+  "safety_boundaries": {
+    "authenticated_endpoint_calls_allowed": false,
+    "background_process_allowed": false,
+    "browser_automation_allowed": false,
+    "credential_or_secret_access_allowed": false,
+    "crypto_data_refresh_allowed": false,
+    "execution_endpoint_calls_allowed": false,
+    "external_service_calls_allowed": false,
+    "llm_provider_calls_allowed": false,
+    "local_static_samples_only": true,
+    "market_api_calls_allowed": false,
+    "market_ranking_allowed": false,
+    "network_calls_allowed": false,
+    "numeric_prediction_metric_allowed": false,
+    "operator_review_required": true,
+    "order_or_trade_surface_changes_allowed": false,
+    "paper_mode_only": true,
+    "runtime_or_dispatcher_changes_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "source_record_ordering_output_allowed": false,
+    "threshold_comparison_allowed": false,
+    "trade_instruction_allowed": false,
+    "transaction_endpoint_calls_allowed": false,
+    "value_transform_allowed": false,
+    "wallet_or_signing_material_access_allowed": false
+  },
+  "source_artifacts": [
+    {
+      "contract_version": "pmbot_crypto_market_class_capture_template.v1",
+      "fixture_reference": "pm_bot/tests/fixtures/crypto_market_class_capture/crypto_market_class_capture_template.valid.json",
+      "included_fields": [
+        "capture_fields",
+        "market_class_catalog",
+        "sample_records",
+        "operator_review",
+        "summary_counts"
+      ],
+      "required_state": "template_only_static_sample",
+      "source_artifact_id": "crypto_market_class_capture_template"
+    },
+    {
+      "contract_version": "pmbot_crypto_operator_review_protocol.v1",
+      "fixture_reference": "pm_bot/tests/fixtures/crypto_operator_review_protocol/crypto_operator_review_protocol.valid.json",
+      "included_fields": [
+        "review_record_fields",
+        "protocol_steps",
+        "static_review_records",
+        "operator_review",
+        "summary_counts"
+      ],
+      "required_state": "protocol_only_static_sample",
+      "source_artifact_id": "crypto_operator_review_protocol"
+    },
+    {
+      "contract_version": "pmbot_crypto_paperlive_observation_ledger.v1",
+      "fixture_reference": "pm_bot/tests/fixtures/crypto_paperlive_observation_ledger/crypto_paperlive_observation_ledger.valid.json",
+      "included_fields": [
+        "ledger_record_fields",
+        "observation_source_catalog",
+        "observation_records",
+        "operator_review",
+        "summary_counts"
+      ],
+      "required_state": "ledger_only_static_sample",
+      "source_artifact_id": "crypto_paperlive_observation_ledger"
+    },
+    {
+      "contract_version": "pmbot_static_crypto_reference_snapshot.v1",
+      "fixture_reference": "pm_bot/tests/fixtures/crypto_paperlive_observation_ledger/static_crypto_reference_snapshot.valid.json",
+      "included_fields": [
+        "asset_symbol",
+        "asset_name",
+        "metric_type",
+        "measurement_source_label",
+        "reported_reference_value",
+        "reported_reference_unit",
+        "reported_at_utc",
+        "source_label"
+      ],
+      "required_state": "local_static_sample",
+      "source_artifact_id": "static_crypto_reference_snapshot"
+    }
+  ],
+  "source_contracts": [
+    {
+      "contract_version": "pmbot_crypto_market_class_capture_template.v1",
+      "local_reference": "docs/PMBOT_CRYPTO_PILOT_001_CRYPTO_MARKET_CLASS_CAPTURE_TEMPLATE_LOCAL_ONLY.md",
+      "required_state": "template_only_static_sample",
+      "source_contract_id": "crypto_market_class_capture_template"
+    },
+    {
+      "contract_version": "pmbot_crypto_operator_review_protocol.v1",
+      "local_reference": "docs/PMBOT_CRYPTO_PILOT_002_CRYPTO_OPERATOR_REVIEW_PROTOCOL_LOCAL_ONLY.md",
+      "required_state": "protocol_only_static_sample",
+      "source_contract_id": "crypto_operator_review_protocol"
+    },
+    {
+      "contract_version": "pmbot_crypto_paperlive_observation_ledger.v1",
+      "local_reference": "docs/PMBOT_CRYPTO_PILOT_003_CRYPTO_PAPERLIVE_OBSERVATION_LEDGER_LOCAL_ONLY.md",
+      "required_state": "ledger_only_static_sample",
+      "source_contract_id": "crypto_paperlive_observation_ledger"
+    },
+    {
+      "contract_version": "pmbot_crypto_source_quality_capture_surface.v1",
+      "local_reference": "docs/PMBOT_CRYPTO_PILOT_004_CRYPTO_SOURCE_QUALITY_CAPTURE_SURFACE_LOCAL_ONLY.md",
+      "required_state": "surface_only_static_sample",
+      "source_contract_id": "crypto_source_quality_capture_surface"
+    },
+    {
+      "contract_version": "pmbot_supervised_live_read_only_live_data_contract.v1",
+      "local_reference": "docs/PMBOT_SUPERVISED_LIVE_001_READ_ONLY_LIVE_DATA_CONTRACT_LOCAL_ONLY.md",
+      "required_state": "pending_operator_review",
+      "source_contract_id": "supervised_read_only_live_data_contract"
+    }
+  ],
+  "static_sample_records": [
+    {
+      "allowed_handling": [
+        "copy_local_fixture_path",
+        "inventory_field_names",
+        "preserve_static_timestamp",
+        "require_operator_review"
+      ],
+      "asset_name": "Bitcoin",
+      "asset_symbol": "BTC",
+      "captured_at_utc": "2026-05-09T00:40:00Z",
+      "excluded_operations": [
+        "network_endpoint_fetch",
+        "authenticated_request",
+        "credential_lookup",
+        "wallet_balance_read",
+        "transaction_preparation",
+        "order_submission",
+        "runtime_dispatch",
+        "browser_automation",
+        "background_process_start",
+        "currentness_claim",
+        "threshold_comparison",
+        "market_ranking",
+        "execution_instruction"
+      ],
+      "freshness_label": "static_sample_no_currentness_claim",
+      "included_static_fields": [
+        "asset_symbol",
+        "asset_name",
+        "metric_type",
+        "measurement_source_label",
+        "reported_reference_value",
+        "reported_reference_unit",
+        "reported_at_utc",
+        "source_label"
+      ],
+      "local_snapshot_reference": "pm_bot/tests/fixtures/crypto_paperlive_observation_ledger/static_crypto_reference_snapshot.valid.json",
+      "measurement_source_label": "local fixture index close label",
+      "metric_type": "spot_index_threshold",
+      "notes": "Static crypto sample for contract review; source values remain in the referenced local fixture.",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "read_only_crypto_data_contract.sample_001",
+      "reported_at_utc": "2026-05-09T00:00:00Z",
+      "reported_reference_unit": "USD",
+      "source_access_mode": "local_fixture_copy",
+      "source_class": "operator_supplied_static_crypto_snapshot",
+      "source_label": "Static crypto reference sample"
+    }
+  ],
+  "summary_counts": {
+    "field_handling_rules": 8,
+    "operator_review_checklist_items": 8,
+    "read_only_rules": 6,
+    "required_validation_commands": 2,
+    "source_artifacts": 4,
+    "source_contracts": 5,
+    "static_sample_records": 1,
+    "warnings": 0
+  },
+  "task_id": "PMBOT-CRYPTO-LIVE-001-READ-ONLY-CRYPTO-DATA-CONTRACT-LOCAL-ONLY",
+  "warnings": []
+}

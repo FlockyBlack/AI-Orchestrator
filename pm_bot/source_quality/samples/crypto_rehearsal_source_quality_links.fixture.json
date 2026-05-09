@@ -1,0 +1,378 @@
+{
+  "build_id": "pmbot-crypto-rehearsal-source-quality-links-001-c47d1d7b9791",
+  "contract_version": "pmbot_crypto_rehearsal_source_quality_links.v1",
+  "created_at": "2026-05-09T07:30:00Z",
+  "documentation": {
+    "byte_count": 5102,
+    "content_sha256": "8572e24f1dff2bc970ba51e212d4eeee2a56d6dc365b386cb1e6151e8bbcb9a9",
+    "local_reference": "docs/PMBOT_CRYPTO_LIVE_019_CRYPTO_REHEARSAL_TO_SOURCE_QUALITY_LINKS_LOCAL_ONLY.md",
+    "present": true
+  },
+  "errors": [],
+  "link_fields": [
+    "link_id",
+    "link_kind",
+    "link_state",
+    "local_reference_policy",
+    "operator_review_status",
+    "packet_record_id",
+    "rehearsal_packet_reference",
+    "rehearsal_source_field",
+    "rehearsal_source_record_id",
+    "review_checks",
+    "source_id",
+    "source_quality_artifact_ids",
+    "source_quality_record_ids",
+    "value_policy"
+  ],
+  "link_set_id": "pmbot-crypto-rehearsal-source-quality-links-001",
+  "local_only": true,
+  "operator_review": {
+    "reviewed_at": null,
+    "reviewed_by": null,
+    "status": "pending_operator_review"
+  },
+  "operator_review_required": true,
+  "operator_review_steps": [
+    "Confirm the rehearsal packet record resolves to the listed source quality records.",
+    "Confirm every source quality record remains local, static, and pending operator review.",
+    "Confirm source value fields remain in referenced artifacts and are not copied into this link set."
+  ],
+  "rehearsal_packet": {
+    "byte_count": 14112,
+    "content_sha256": "0f52f6b64051d89d38ec551eda069e228aed816175b44991f585c7c27ab4519f",
+    "contract_version": "pmbot_crypto_paperlive_rehearsal_packet.v1",
+    "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_paperlive_rehearsal_packet.valid.json",
+    "operator_review_status": "pending_operator_review",
+    "packet_id": "pmbot-crypto-paperlive-rehearsal-packet-001",
+    "paperlive_rehearsal_records": 1,
+    "present": true,
+    "run_mode": "local_static_crypto_paperlive_rehearsal_packet"
+  },
+  "rehearsal_packet_documentation": {
+    "byte_count": 4810,
+    "content_sha256": "47bcfb82ed62aab2ad76bcfe309b123453ead73c343822e8c55b322a5126ab7c",
+    "local_reference": "docs/PMBOT_CRYPTO_LIVE_006_CRYPTO_PAPERLIVE_REHEARSAL_PACKET_LOCAL_ONLY.md",
+    "present": true
+  },
+  "rehearsal_source_quality_links": [
+    {
+      "link_id": "pmbot-crypto-rehearsal-source-quality-links-001.market_capture.rehearsal_source_quality_link",
+      "link_kind": "local_static_rehearsal_source_quality_record_link",
+      "link_state": "descriptive_rehearsal_source_quality_link",
+      "local_reference_policy": "local_static_references_only",
+      "operator_review_status": "pending_operator_review",
+      "packet_record_id": "pmbot-crypto-paperlive-rehearsal-packet-001.sample.btc_threshold.rehearsal",
+      "rehearsal_packet_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_paperlive_rehearsal_packet.valid.json",
+      "rehearsal_source_field": "source_capture_record_id",
+      "rehearsal_source_record_id": "crypto_market_class_capture_template_001.sample.btc_threshold",
+      "review_checks": [
+        {
+          "check_id": "rehearsal_record_identity",
+          "description": "Confirm the rehearsal record and source field match the static packet.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "source_quality_record_presence",
+          "description": "Confirm each linked source quality record exists in the named local artifact.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "local_reference_digest",
+          "description": "Confirm linked local artifact byte counts and digests match current local bytes.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "pending_review_state",
+          "description": "Confirm the rehearsal link and source quality records remain pending operator review.",
+          "operator_review_status": "pending_operator_review"
+        }
+      ],
+      "source_id": "crypto_market_class_capture_template",
+      "source_quality_artifact_ids": [
+        "crypto_source_quality_capture_surface_sample",
+        "crypto_source_evidence_link_map_sample",
+        "crypto_source_staleness_check_spec_sample",
+        "crypto_source_contradiction_ledger_sample"
+      ],
+      "source_quality_record_ids": {
+        "quality_capture_record_id": "crypto_source_quality_capture_surface_001.crypto_market_class_capture_template_001.quality_capture",
+        "source_contradiction_row_ids": [
+          "pmbot-crypto-source-contradiction-ledger-001.market_capture_to_operator_review_static_copy.crypto_source_contradiction_review"
+        ],
+        "source_evidence_link_id": "pmbot-crypto-source-evidence-link-map-001.crypto_market_class_capture_template.crypto_source_evidence_link",
+        "source_staleness_check_id": "pmbot-crypto-source-staleness-check-spec-001.crypto_market_class_capture_template.crypto_source_staleness_check"
+      },
+      "value_policy": "record_identifiers_only_source_values_remain_in_local_artifacts"
+    },
+    {
+      "link_id": "pmbot-crypto-rehearsal-source-quality-links-001.operator_review_protocol.rehearsal_source_quality_link",
+      "link_kind": "local_static_rehearsal_source_quality_record_link",
+      "link_state": "descriptive_rehearsal_source_quality_link",
+      "local_reference_policy": "local_static_references_only",
+      "operator_review_status": "pending_operator_review",
+      "packet_record_id": "pmbot-crypto-paperlive-rehearsal-packet-001.sample.btc_threshold.rehearsal",
+      "rehearsal_packet_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_paperlive_rehearsal_packet.valid.json",
+      "rehearsal_source_field": "source_review_record_id",
+      "rehearsal_source_record_id": "crypto_operator_review_protocol_001.sample.btc_threshold.review",
+      "review_checks": [
+        {
+          "check_id": "rehearsal_record_identity",
+          "description": "Confirm the rehearsal record and source field match the static packet.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "source_quality_record_presence",
+          "description": "Confirm each linked source quality record exists in the named local artifact.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "local_reference_digest",
+          "description": "Confirm linked local artifact byte counts and digests match current local bytes.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "pending_review_state",
+          "description": "Confirm the rehearsal link and source quality records remain pending operator review.",
+          "operator_review_status": "pending_operator_review"
+        }
+      ],
+      "source_id": "crypto_operator_review_protocol",
+      "source_quality_artifact_ids": [
+        "crypto_source_quality_capture_surface_sample",
+        "crypto_source_evidence_link_map_sample",
+        "crypto_source_staleness_check_spec_sample",
+        "crypto_source_contradiction_ledger_sample"
+      ],
+      "source_quality_record_ids": {
+        "quality_capture_record_id": "crypto_source_quality_capture_surface_001.crypto_operator_review_protocol_001.quality_capture",
+        "source_contradiction_row_ids": [
+          "pmbot-crypto-source-contradiction-ledger-001.market_capture_to_operator_review_static_copy.crypto_source_contradiction_review",
+          "pmbot-crypto-source-contradiction-ledger-001.operator_review_to_observation_static_copy.crypto_source_contradiction_review"
+        ],
+        "source_evidence_link_id": "pmbot-crypto-source-evidence-link-map-001.crypto_operator_review_protocol.crypto_source_evidence_link",
+        "source_staleness_check_id": "pmbot-crypto-source-staleness-check-spec-001.crypto_operator_review_protocol.crypto_source_staleness_check"
+      },
+      "value_policy": "record_identifiers_only_source_values_remain_in_local_artifacts"
+    },
+    {
+      "link_id": "pmbot-crypto-rehearsal-source-quality-links-001.paperlive_observation_ledger.rehearsal_source_quality_link",
+      "link_kind": "local_static_rehearsal_source_quality_record_link",
+      "link_state": "descriptive_rehearsal_source_quality_link",
+      "local_reference_policy": "local_static_references_only",
+      "operator_review_status": "pending_operator_review",
+      "packet_record_id": "pmbot-crypto-paperlive-rehearsal-packet-001.sample.btc_threshold.rehearsal",
+      "rehearsal_packet_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_paperlive_rehearsal_packet.valid.json",
+      "rehearsal_source_field": "observation_record_id",
+      "rehearsal_source_record_id": "crypto_paperlive_observation_ledger_001.sample.btc_threshold.observation",
+      "review_checks": [
+        {
+          "check_id": "rehearsal_record_identity",
+          "description": "Confirm the rehearsal record and source field match the static packet.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "source_quality_record_presence",
+          "description": "Confirm each linked source quality record exists in the named local artifact.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "local_reference_digest",
+          "description": "Confirm linked local artifact byte counts and digests match current local bytes.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "pending_review_state",
+          "description": "Confirm the rehearsal link and source quality records remain pending operator review.",
+          "operator_review_status": "pending_operator_review"
+        }
+      ],
+      "source_id": "crypto_paperlive_observation_ledger",
+      "source_quality_artifact_ids": [
+        "crypto_source_quality_capture_surface_sample",
+        "crypto_source_evidence_link_map_sample",
+        "crypto_source_staleness_check_spec_sample",
+        "crypto_source_contradiction_ledger_sample"
+      ],
+      "source_quality_record_ids": {
+        "quality_capture_record_id": "crypto_source_quality_capture_surface_001.crypto_paperlive_observation_ledger_001.quality_capture",
+        "source_contradiction_row_ids": [
+          "pmbot-crypto-source-contradiction-ledger-001.operator_review_to_observation_static_copy.crypto_source_contradiction_review",
+          "pmbot-crypto-source-contradiction-ledger-001.observation_to_reference_snapshot_static_copy.crypto_source_contradiction_review"
+        ],
+        "source_evidence_link_id": "pmbot-crypto-source-evidence-link-map-001.crypto_paperlive_observation_ledger.crypto_source_evidence_link",
+        "source_staleness_check_id": "pmbot-crypto-source-staleness-check-spec-001.crypto_paperlive_observation_ledger.crypto_source_staleness_check"
+      },
+      "value_policy": "record_identifiers_only_source_values_remain_in_local_artifacts"
+    },
+    {
+      "link_id": "pmbot-crypto-rehearsal-source-quality-links-001.static_reference_snapshot.rehearsal_source_quality_link",
+      "link_kind": "local_static_rehearsal_source_quality_record_link",
+      "link_state": "descriptive_rehearsal_source_quality_link",
+      "local_reference_policy": "local_static_references_only",
+      "operator_review_status": "pending_operator_review",
+      "packet_record_id": "pmbot-crypto-paperlive-rehearsal-packet-001.sample.btc_threshold.rehearsal",
+      "rehearsal_packet_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_paperlive_rehearsal_packet.valid.json",
+      "rehearsal_source_field": "local_snapshot_reference",
+      "rehearsal_source_record_id": "static_crypto_reference_snapshot_2026_05_09_btc",
+      "review_checks": [
+        {
+          "check_id": "rehearsal_record_identity",
+          "description": "Confirm the rehearsal record and source field match the static packet.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "source_quality_record_presence",
+          "description": "Confirm each linked source quality record exists in the named local artifact.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "local_reference_digest",
+          "description": "Confirm linked local artifact byte counts and digests match current local bytes.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "pending_review_state",
+          "description": "Confirm the rehearsal link and source quality records remain pending operator review.",
+          "operator_review_status": "pending_operator_review"
+        }
+      ],
+      "source_id": "static_crypto_reference_snapshot_2026_05_09_btc",
+      "source_quality_artifact_ids": [
+        "crypto_source_quality_capture_surface_sample",
+        "crypto_source_evidence_link_map_sample",
+        "crypto_source_staleness_check_spec_sample",
+        "crypto_source_contradiction_ledger_sample"
+      ],
+      "source_quality_record_ids": {
+        "quality_capture_record_id": "crypto_source_quality_capture_surface_001.static_crypto_reference_snapshot_2026_05_09_btc.quality_capture",
+        "source_contradiction_row_ids": [
+          "pmbot-crypto-source-contradiction-ledger-001.read_only_contract_to_reference_snapshot_static_copy.crypto_source_contradiction_review",
+          "pmbot-crypto-source-contradiction-ledger-001.observation_to_reference_snapshot_static_copy.crypto_source_contradiction_review"
+        ],
+        "source_evidence_link_id": "pmbot-crypto-source-evidence-link-map-001.static_crypto_reference_snapshot_2026_05_09_btc.crypto_source_evidence_link",
+        "source_staleness_check_id": "pmbot-crypto-source-staleness-check-spec-001.static_crypto_reference_snapshot_2026_05_09_btc.crypto_source_staleness_check"
+      },
+      "value_policy": "record_identifiers_only_source_values_remain_in_local_artifacts"
+    }
+  ],
+  "required_validation_commands": [
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "run_mode": "local_static_crypto_rehearsal_source_quality_links",
+  "safety_boundaries": {
+    "authenticated_endpoint_calls_allowed": false,
+    "background_process_allowed": false,
+    "browser_automation_allowed": false,
+    "credential_or_secret_access_allowed": false,
+    "crypto_data_refresh_allowed": false,
+    "execution_endpoint_calls_allowed": false,
+    "external_service_calls_allowed": false,
+    "llm_provider_calls_allowed": false,
+    "local_static_samples_only": true,
+    "market_api_calls_allowed": false,
+    "market_ranking_allowed": false,
+    "network_calls_allowed": false,
+    "numeric_prediction_metric_allowed": false,
+    "operator_review_required": true,
+    "order_or_trade_surface_changes_allowed": false,
+    "paper_mode_only": true,
+    "paperlive_execution_allowed": false,
+    "runtime_or_dispatcher_changes_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "threshold_comparison_output_allowed": false,
+    "trade_instruction_allowed": false,
+    "transaction_endpoint_calls_allowed": false,
+    "value_transform_allowed": false,
+    "wallet_or_signing_material_access_allowed": false
+  },
+  "source_quality_artifacts": [
+    {
+      "artifact_id": "crypto_source_quality_capture_surface_sample",
+      "byte_count": 11404,
+      "content_sha256": "126f170f9417697f02575109da88f85e4faf92d1e29005159fe8f6a5ab0d89fb",
+      "contract_version": "pmbot_crypto_source_quality_capture_surface.v1",
+      "local_reference": "pm_bot/source_quality/samples/crypto_source_quality_capture_surface.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "present": true,
+      "record_collection": "quality_capture_records",
+      "record_count": 4,
+      "record_ids": [
+        "crypto_source_quality_capture_surface_001.crypto_market_class_capture_template_001.quality_capture",
+        "crypto_source_quality_capture_surface_001.crypto_operator_review_protocol_001.quality_capture",
+        "crypto_source_quality_capture_surface_001.crypto_paperlive_observation_ledger_001.quality_capture",
+        "crypto_source_quality_capture_surface_001.static_crypto_reference_snapshot_2026_05_09_btc.quality_capture"
+      ]
+    },
+    {
+      "artifact_id": "crypto_source_evidence_link_map_sample",
+      "byte_count": 25622,
+      "content_sha256": "81b9a536c56c8353dc823cd71c34f44e412cc8d096e8ef6faaf149be1bd04f2e",
+      "contract_version": "pmbot_crypto_source_evidence_link_map.v1",
+      "local_reference": "pm_bot/source_quality/samples/crypto_source_evidence_link_map.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "present": true,
+      "record_collection": "source_evidence_links",
+      "record_count": 6,
+      "record_ids": [
+        "pmbot-crypto-source-evidence-link-map-001.read_only_crypto_data_contract_fixture.crypto_source_evidence_link",
+        "pmbot-crypto-source-evidence-link-map-001.crypto_market_class_capture_template.crypto_source_evidence_link",
+        "pmbot-crypto-source-evidence-link-map-001.crypto_operator_review_protocol.crypto_source_evidence_link",
+        "pmbot-crypto-source-evidence-link-map-001.crypto_paperlive_observation_ledger.crypto_source_evidence_link",
+        "pmbot-crypto-source-evidence-link-map-001.crypto_source_quality_capture_surface_sample.crypto_source_evidence_link",
+        "pmbot-crypto-source-evidence-link-map-001.static_crypto_reference_snapshot_2026_05_09_btc.crypto_source_evidence_link"
+      ]
+    },
+    {
+      "artifact_id": "crypto_source_staleness_check_spec_sample",
+      "byte_count": 29599,
+      "content_sha256": "b2d2a6ebe95c92c6f711f4455485683486b7a6611c05639ee19a19fbc50d56cc",
+      "contract_version": "pmbot_crypto_source_staleness_check_spec.v1",
+      "local_reference": "pm_bot/source_quality/samples/crypto_source_staleness_check_spec.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "present": true,
+      "record_collection": "source_staleness_checks",
+      "record_count": 6,
+      "record_ids": [
+        "pmbot-crypto-source-staleness-check-spec-001.read_only_crypto_data_contract_fixture.crypto_source_staleness_check",
+        "pmbot-crypto-source-staleness-check-spec-001.crypto_market_class_capture_template.crypto_source_staleness_check",
+        "pmbot-crypto-source-staleness-check-spec-001.crypto_operator_review_protocol.crypto_source_staleness_check",
+        "pmbot-crypto-source-staleness-check-spec-001.crypto_paperlive_observation_ledger.crypto_source_staleness_check",
+        "pmbot-crypto-source-staleness-check-spec-001.crypto_source_quality_capture_surface_sample.crypto_source_staleness_check",
+        "pmbot-crypto-source-staleness-check-spec-001.static_crypto_reference_snapshot_2026_05_09_btc.crypto_source_staleness_check"
+      ]
+    },
+    {
+      "artifact_id": "crypto_source_contradiction_ledger_sample",
+      "byte_count": 42526,
+      "content_sha256": "60485173ddf43dab11c750a686a090908016e60e059caad90ce4192c33942099",
+      "contract_version": "pmbot_crypto_source_contradiction_ledger.v1",
+      "local_reference": "pm_bot/source_quality/samples/crypto_source_contradiction_ledger.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "present": true,
+      "record_collection": "source_contradiction_rows",
+      "record_count": 4,
+      "record_ids": [
+        "pmbot-crypto-source-contradiction-ledger-001.read_only_contract_to_reference_snapshot_static_copy.crypto_source_contradiction_review",
+        "pmbot-crypto-source-contradiction-ledger-001.market_capture_to_operator_review_static_copy.crypto_source_contradiction_review",
+        "pmbot-crypto-source-contradiction-ledger-001.operator_review_to_observation_static_copy.crypto_source_contradiction_review",
+        "pmbot-crypto-source-contradiction-ledger-001.observation_to_reference_snapshot_static_copy.crypto_source_contradiction_review"
+      ]
+    }
+  ],
+  "summary_counts": {
+    "link_fields": 14,
+    "local_references": 7,
+    "operator_review_steps": 3,
+    "packet_records": 1,
+    "rehearsal_source_quality_links": 4,
+    "required_validation_commands": 2,
+    "review_checks": 16,
+    "source_quality_artifacts": 4,
+    "source_quality_record_links": 19,
+    "warnings": 0
+  },
+  "task_id": "PMBOT-CRYPTO-LIVE-019-CRYPTO-REHEARSAL-TO-SOURCE-QUALITY-LINKS-LOCAL-ONLY",
+  "warnings": []
+}

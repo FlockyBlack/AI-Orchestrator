@@ -1,0 +1,43 @@
+{
+  "acceptance_checks_passed": true,
+  "commands_run": [
+    "pytest pm_bot/tests/test_crypto_source_staleness_check_spec.py",
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "completed_at": "2026-05-09T13:14:59Z",
+  "completed_by": "codex_cli_last_message_bridge",
+  "files_created": [],
+  "files_deleted": [],
+  "files_modified": [
+    "docs/PMBOT_CRYPTO_LIVE_004_CRYPTO_SOURCE_STALENESS_CHECK_SPEC_LOCAL_ONLY.md",
+    "pm_bot/source_quality/crypto_source_staleness_check_spec.py",
+    "pm_bot/source_quality/samples/crypto_source_staleness_check_spec.fixture.json",
+    "pm_bot/source_quality/samples/crypto_source_staleness_check_spec.fixture.md",
+    "pm_bot/tests/test_crypto_source_staleness_check_spec.py"
+  ],
+  "next_recommended_action": "Inspect the bridged result, ingestion report, review report, and git diff before mark-done.",
+  "operator_review_notes": "Bridged from C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-LIVE-004-CRYPTO-SOURCE-STALENESS-CHECK-SPEC-LOCAL-ONLY\\20260509T130545Z\\last_message.md. Safety notes: Implementation edits stayed under docs/, pm_bot/source_quality/, and pm_bot/tests/.; The spec derives only from local fixtures and static samples, including the existing crypto source evidence link map.; No network, browser automation, external service, runtime, wallet, trading, order, credential, scheduler, worker, or transaction endpoint work was performed.; Outputs remain descriptive and pending operator review; no forecast scoring, action guidance, or selection advice was added. Remaining risks: Operator review remains pending by design before any later readiness status change.; Pytest emitted a .pytest_cache write warning, but all selected tests passed. Bridge warnings: last_message used files_changed; bridged those paths as files_modified",
+  "safety_confirmation": {
+    "background_worker_added": false,
+    "codex_app_server_used": false,
+    "credentials_accessed": false,
+    "destructive_commands_used": false,
+    "network_calls_performed": 0,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "runtime_or_dispatcher_touched": false,
+    "scheduler_added": false,
+    "telegram_or_openclaw_added": false,
+    "wallet_or_trading_touched": false
+  },
+  "schema_version": "codex_task_result.v1",
+  "status": "completed",
+  "summary": "Added a deterministic local crypto source staleness check spec, generated static JSON/Markdown operator-review samples, documented the artifact, and added tests covering build determinism, validation, CLI output, safety wording, and fixture alignment.",
+  "task_id": "PMBOT-CRYPTO-LIVE-004-CRYPTO-SOURCE-STALENESS-CHECK-SPEC-LOCAL-ONLY",
+  "validation_results": [
+    "pytest pm_bot/tests/test_crypto_source_staleness_check_spec.py",
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ]
+}
