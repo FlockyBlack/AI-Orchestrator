@@ -5,6 +5,7 @@ from pathlib import Path
 
 from ai_orchestrator.codex_queue.operator_cli import main
 from ai_orchestrator.codex_queue.pmbot_templates import (
+    CRYPTO_MARKET_CLASS_CAPTURE_TEMPLATE,
     PMBOT_NIGHT_BATCH_TASKS,
     PMBOT_NIGHT_BATCH_TASK_IDS,
     PMBOT_NEXT_TWENTY_TASKS,
@@ -233,6 +234,25 @@ def test_next_twenty_pmbot_templates_cover_requested_task_ids_and_stay_local_onl
         for forbidden_word in ("buy", "sell", "hold", "enter", "exit"):
             assert forbidden_word not in text
         seen_templates.add(str(spec["template"]))
+
+
+def test_crypto_market_class_capture_queue_template_matches_local_only_scope() -> None:
+    packet = build_pmbot_task_packet(
+        "PMBOT-CRYPTO-PILOT-001-CRYPTO-MARKET-CLASS-CAPTURE-TEMPLATE-LOCAL-ONLY",
+        CRYPTO_MARKET_CLASS_CAPTURE_TEMPLATE,
+    )
+
+    assert validate_packet(packet).valid is True
+    assert classify_packet(_approved_view(packet)).allowed is True
+    assert packet["task_template"]["name"] == CRYPTO_MARKET_CLASS_CAPTURE_TEMPLATE
+    assert packet["title"] == "PMBOT crypto market class capture template"
+    assert packet["summary"] == "Prepare a local PMBOT crypto market class capture template for descriptive records."
+    assert packet["repo"]["allowed_paths"] == ["docs/", "pm_bot/tests/", "tests/"]
+    assert packet["expected_outputs"] == [
+        "Crypto market class capture template docs, fixtures, tests, or local artifacts under allowed paths.",
+        "A strict result JSON packet for operator review.",
+    ]
+    assert all(value is False for value in packet["risk_flags"].values())
 
 
 def test_create_all_pmbot_night_tasks_then_approve_and_plan(tmp_path: Path) -> None:

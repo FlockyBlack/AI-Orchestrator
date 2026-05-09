@@ -1,0 +1,36 @@
+{
+  "contract_version": "pmbot_simulated_decision_replay_summary_request.v1",
+  "created_at": "2026-05-09T00:20:00Z",
+  "local_only": true,
+  "operator_review_required": true,
+  "operator_review_steps": [
+    "Review ledger identity, packet rows, local references, and safety flags before downstream use."
+  ],
+  "replay_checks": [
+    {
+      "check_id": "ledger_identity_review",
+      "description": "Confirm ledger identity and local artifact path are reproduced from the static ledger.",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "check_id": "packet_row_review",
+      "description": "Confirm packet rows and section rows match static local record counts.",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "check_id": "safety_boundary_review",
+      "description": "Confirm closed local-only safety flags remain unchanged.",
+      "operator_review_status": "pending_operator_review"
+    }
+  ],
+  "replay_scope": "fixture_simulated_decision_replay",
+  "source_audit_ledgers": [
+    {
+      "local_reference": "pm_bot/simulated_decisions/samples/simulated_decision_audit_ledger.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "source_ledger_id": "simulated_decision_audit_ledger_fixture_001",
+      "source_ledger_label": "Static simulated decision audit ledger fixture"
+    }
+  ],
+  "summary_id": "simulated_decision_replay_summary_fixture_001"
+}

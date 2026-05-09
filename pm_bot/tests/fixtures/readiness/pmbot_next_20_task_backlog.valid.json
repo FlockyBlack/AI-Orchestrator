@@ -1,0 +1,265 @@
+{
+  "backlog_id": "pmbot_next_20_task_backlog_001",
+  "backlog_name": "pmbot-next-20-task-backlog",
+  "contract_version": "pmbot_next_20_task_backlog.v1",
+  "created_at": "2026-05-09T00:00:00Z",
+  "errors": [],
+  "generator": {
+    "generator_id": "next_20_task_backlog_generator_001",
+    "generator_state": "deterministic_local_artifact_builder",
+    "input_mode": "static_local_constants"
+  },
+  "local_only": true,
+  "operator_review": {
+    "reviewed_at": null,
+    "reviewed_by": null,
+    "status": "pending_operator_review"
+  },
+  "operator_review_required": true,
+  "required_validation_commands": [
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "run_mode": "local_static_next_20_task_backlog_generator",
+  "safety_boundaries": {
+    "authenticated_endpoint_calls_allowed": false,
+    "background_process_allowed": false,
+    "browser_automation_allowed": false,
+    "credential_or_secret_access_allowed": false,
+    "execution_endpoint_calls_allowed": false,
+    "external_service_calls_allowed": false,
+    "llm_provider_calls_allowed": false,
+    "local_static_samples_only": true,
+    "market_api_calls_allowed": false,
+    "network_calls_allowed": false,
+    "operator_review_required": true,
+    "order_or_trade_surface_changes_allowed": false,
+    "paper_mode_only": true,
+    "runtime_or_dispatcher_changes_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "transaction_endpoint_calls_allowed": false,
+    "wallet_or_signing_material_access_allowed": false
+  },
+  "source_artifacts": [
+    {
+      "artifact_id": "queue_template_task_source",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "record_role": "fixed_task_id_source",
+      "record_state": "local_test_reference"
+    },
+    {
+      "artifact_id": "roadmap_gap_matrix",
+      "local_reference": "pm_bot/readiness/PMBOT_ROADMAP_002_PMBOT_LOCAL_TO_SUPERVISED_LIVE_GAP_MATRIX.md",
+      "operator_review_status": "pending_operator_review",
+      "record_role": "readiness_gap_reference",
+      "record_state": "local_readiness_document"
+    },
+    {
+      "artifact_id": "real_wallet_blocker_matrix",
+      "local_reference": "pm_bot/readiness/PMBOT_ROADMAP_001_REAL_WALLET_READINESS_BLOCKER_MATRIX.md",
+      "operator_review_status": "pending_operator_review",
+      "record_role": "sensitive_boundary_reference",
+      "record_state": "local_readiness_document"
+    },
+    {
+      "artifact_id": "forbidden_action_boundary",
+      "local_reference": "docs/PMBOT_SAFETY_003_FORBIDDEN_ACTION_SCAN_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "record_role": "closed_boundary_reference",
+      "record_state": "local_safety_document"
+    }
+  ],
+  "summary_counts": {
+    "local_references": 20,
+    "required_validation_commands": 2,
+    "source_artifacts": 4,
+    "task_records": 20,
+    "task_records_pending_operator_review": 20,
+    "warnings": 0
+  },
+  "task_id": "PMBOT-ROADMAP-003-NEXT-20-TASK-BACKLOG-GENERATOR",
+  "task_records": [
+    {
+      "artifact_family": "source_ledger",
+      "local_reference": "docs/PMBOT_SOURCE_LEDGER_003_SOURCE_QUALITY_REPORT_SUMMARY_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "record_index": 1,
+      "review_note": "Summarize local source quality rows for human review.",
+      "task_id": "PMBOT-SOURCE-LEDGER-003-SOURCE-QUALITY-REPORT-SUMMARY-LOCAL-ONLY",
+      "workstream": "source_ledger"
+    },
+    {
+      "artifact_family": "source_ledger",
+      "local_reference": "docs/PMBOT_SOURCE_LEDGER_004_SOURCE_QUALITY_REGRESSION_FIXTURE_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "record_index": 2,
+      "review_note": "Keep a fixed source quality regression fixture for human review.",
+      "task_id": "PMBOT-SOURCE-LEDGER-004-SOURCE-QUALITY-REGRESSION-FIXTURE-LOCAL-ONLY",
+      "workstream": "source_ledger"
+    },
+    {
+      "artifact_family": "paperlive_decision",
+      "local_reference": "docs/PMBOT_PAPERLIVE_DECISION_003_SIMULATED_DECISION_AUDIT_LEDGER_NO_RECOMMENDATIONS.md",
+      "operator_review_status": "pending_operator_review",
+      "record_index": 3,
+      "review_note": "Record simulated decision audit rows with human review pending.",
+      "task_id": "PMBOT-PAPERLIVE-DECISION-003-SIMULATED-DECISION-AUDIT-LEDGER-NO-RECOMMENDATIONS",
+      "workstream": "paperlive_decision"
+    },
+    {
+      "artifact_family": "paperlive_decision",
+      "local_reference": "docs/PMBOT_PAPERLIVE_DECISION_004_SIMULATED_DECISION_REPLAY_SUMMARY_NO_RECOMMENDATIONS.md",
+      "operator_review_status": "pending_operator_review",
+      "record_index": 4,
+      "review_note": "Record simulated decision replay rows with human review pending.",
+      "task_id": "PMBOT-PAPERLIVE-DECISION-004-SIMULATED-DECISION-REPLAY-SUMMARY-NO-RECOMMENDATIONS",
+      "workstream": "paperlive_decision"
+    },
+    {
+      "artifact_family": "paper_accounting",
+      "local_reference": "docs/PMBOT_PAPER_ACCOUNTING_002_PAPER_ONLY_ACCOUNTING_VALIDATOR_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "record_index": 5,
+      "review_note": "Validate paper-only accounting rows for human review.",
+      "task_id": "PMBOT-PAPER-ACCOUNTING-002-PAPER-ONLY-ACCOUNTING-VALIDATOR-LOCAL-ONLY",
+      "workstream": "paper_accounting"
+    },
+    {
+      "artifact_family": "paper_accounting",
+      "local_reference": "docs/PMBOT_PAPER_ACCOUNTING_003_PAPER_ONLY_SESSION_SUMMARY_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "record_index": 6,
+      "review_note": "Summarize paper-only session rows for human review.",
+      "task_id": "PMBOT-PAPER-ACCOUNTING-003-PAPER-ONLY-SESSION-SUMMARY-LOCAL-ONLY",
+      "workstream": "paper_accounting"
+    },
+    {
+      "artifact_family": "crypto_pilot",
+      "local_reference": "docs/PMBOT_CRYPTO_PILOT_001_CRYPTO_MARKET_CLASS_CAPTURE_TEMPLATE_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "record_index": 7,
+      "review_note": "Capture crypto market class fields as static records.",
+      "task_id": "PMBOT-CRYPTO-PILOT-001-CRYPTO-MARKET-CLASS-CAPTURE-TEMPLATE-LOCAL-ONLY",
+      "workstream": "crypto_pilot"
+    },
+    {
+      "artifact_family": "crypto_pilot",
+      "local_reference": "docs/PMBOT_CRYPTO_PILOT_002_CRYPTO_OPERATOR_REVIEW_PROTOCOL_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "record_index": 8,
+      "review_note": "Document crypto operator review protocol as static records.",
+      "task_id": "PMBOT-CRYPTO-PILOT-002-CRYPTO-OPERATOR-REVIEW-PROTOCOL-LOCAL-ONLY",
+      "workstream": "crypto_pilot"
+    },
+    {
+      "artifact_family": "crypto_pilot",
+      "local_reference": "docs/PMBOT_CRYPTO_PILOT_003_CRYPTO_PAPERLIVE_OBSERVATION_LEDGER_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "record_index": 9,
+      "review_note": "Record crypto paperlive observation rows as static records.",
+      "task_id": "PMBOT-CRYPTO-PILOT-003-CRYPTO-PAPERLIVE-OBSERVATION-LEDGER-LOCAL-ONLY",
+      "workstream": "crypto_pilot"
+    },
+    {
+      "artifact_family": "crypto_pilot",
+      "local_reference": "docs/PMBOT_CRYPTO_PILOT_004_CRYPTO_SOURCE_QUALITY_CAPTURE_SURFACE_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "record_index": 10,
+      "review_note": "Capture crypto source quality rows as static records.",
+      "task_id": "PMBOT-CRYPTO-PILOT-004-CRYPTO-SOURCE-QUALITY-CAPTURE-SURFACE-LOCAL-ONLY",
+      "workstream": "crypto_pilot"
+    },
+    {
+      "artifact_family": "dashboard",
+      "local_reference": "docs/PMBOT_DASHBOARD_002_QUEUE_AND_PAPERLIVE_STATUS_SURFACE.md",
+      "operator_review_status": "pending_operator_review",
+      "record_index": 11,
+      "review_note": "Summarize local queue and paperlive states for human review.",
+      "task_id": "PMBOT-DASHBOARD-002-QUEUE-AND-PAPERLIVE-STATUS-SURFACE",
+      "workstream": "dashboard"
+    },
+    {
+      "artifact_family": "dashboard",
+      "local_reference": "docs/PMBOT_DASHBOARD_003_SOURCE_QUALITY_DASHBOARD_SUMMARY.md",
+      "operator_review_status": "pending_operator_review",
+      "record_index": 12,
+      "review_note": "Summarize source quality dashboard rows for human review.",
+      "task_id": "PMBOT-DASHBOARD-003-SOURCE-QUALITY-DASHBOARD-SUMMARY",
+      "workstream": "dashboard"
+    },
+    {
+      "artifact_family": "dashboard",
+      "local_reference": "docs/PMBOT_DASHBOARD_004_PAPER_ACCOUNTING_DASHBOARD_SUMMARY.md",
+      "operator_review_status": "pending_operator_review",
+      "record_index": 13,
+      "review_note": "Summarize paper accounting dashboard rows for human review.",
+      "task_id": "PMBOT-DASHBOARD-004-PAPER-ACCOUNTING-DASHBOARD-SUMMARY",
+      "workstream": "dashboard"
+    },
+    {
+      "artifact_family": "safety",
+      "local_reference": "docs/PMBOT_SAFETY_001_AUTONOMY_GATE_CHECKLIST_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "record_index": 14,
+      "review_note": "Record autonomy gates with human review pending.",
+      "task_id": "PMBOT-SAFETY-001-AUTONOMY-GATE-CHECKLIST-LOCAL-ONLY",
+      "workstream": "safety"
+    },
+    {
+      "artifact_family": "safety",
+      "local_reference": "docs/PMBOT_SAFETY_002_NIGHT_BATCH_POSTRUN_AUDIT_SUMMARY_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "record_index": 15,
+      "review_note": "Summarize night batch postrun records for human review.",
+      "task_id": "PMBOT-SAFETY-002-NIGHT-BATCH-POSTRUN-AUDIT-SUMMARY-LOCAL-ONLY",
+      "workstream": "safety"
+    },
+    {
+      "artifact_family": "safety",
+      "local_reference": "docs/PMBOT_SAFETY_003_FORBIDDEN_ACTION_SCAN_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "record_index": 16,
+      "review_note": "Record forbidden action scan rows for human review.",
+      "task_id": "PMBOT-SAFETY-003-FORBIDDEN-ACTION-SCAN-LOCAL-ONLY",
+      "workstream": "safety"
+    },
+    {
+      "artifact_family": "roadmap",
+      "local_reference": "pm_bot/readiness/PMBOT_ROADMAP_002_PMBOT_LOCAL_TO_SUPERVISED_LIVE_GAP_MATRIX.md",
+      "operator_review_status": "pending_operator_review",
+      "record_index": 17,
+      "review_note": "Record local-to-supervised-live gaps for human review.",
+      "task_id": "PMBOT-ROADMAP-002-PMBOT-LOCAL-TO-SUPERVISED-LIVE-GAP-MATRIX",
+      "workstream": "roadmap"
+    },
+    {
+      "artifact_family": "roadmap",
+      "local_reference": "pm_bot/readiness/PMBOT_ROADMAP_003_NEXT_20_TASK_BACKLOG_GENERATOR.md",
+      "operator_review_status": "pending_operator_review",
+      "record_index": 18,
+      "review_note": "Generate this static backlog artifact for human review.",
+      "task_id": "PMBOT-ROADMAP-003-NEXT-20-TASK-BACKLOG-GENERATOR",
+      "workstream": "roadmap"
+    },
+    {
+      "artifact_family": "operator",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "record_index": 19,
+      "review_note": "Prepare a morning review pack task record for later human review.",
+      "task_id": "PMBOT-OPERATOR-001-MORNING-REVIEW-PACK-LOCAL-ONLY",
+      "workstream": "operator"
+    },
+    {
+      "artifact_family": "operator",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "record_index": 20,
+      "review_note": "Prepare a night batch acceptance report task record for later human review.",
+      "task_id": "PMBOT-OPERATOR-002-NIGHT-BATCH-ACCEPTANCE-REPORT-LOCAL-ONLY",
+      "workstream": "operator"
+    }
+  ],
+  "warnings": []
+}

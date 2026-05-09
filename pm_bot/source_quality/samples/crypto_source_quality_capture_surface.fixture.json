@@ -1,0 +1,288 @@
+{
+  "build_id": "crypto_source_quality_capture_surface_001-e3588b6b1073",
+  "capture_surface_fields": [
+    "record_id",
+    "source_artifact_id",
+    "source_artifact_label",
+    "source_artifact_role",
+    "contract_version",
+    "local_reference",
+    "required_fields",
+    "present_fields",
+    "missing_fields",
+    "field_presence_check",
+    "contract_check",
+    "local_reference_check",
+    "copy_lineage_check",
+    "operator_notes",
+    "operator_review_status"
+  ],
+  "capture_surface_id": "crypto_source_quality_capture_surface_001",
+  "contract_version": "pmbot_crypto_source_quality_capture_surface.v1",
+  "created_at": "2026-05-09T00:30:00Z",
+  "errors": [],
+  "input_artifacts": [
+    {
+      "contract_version": "pmbot_crypto_market_class_capture_template.v1",
+      "local_reference": "pm_bot/tests/fixtures/crypto_market_class_capture/crypto_market_class_capture_template.valid.json",
+      "record_state": "template_only_static_sample",
+      "required_fields": [
+        "contract_version",
+        "template_id",
+        "template_name",
+        "capture_fields",
+        "market_class_catalog",
+        "sample_records",
+        "operator_review",
+        "summary_counts"
+      ],
+      "source_artifact_id": "crypto_market_class_capture_template_001",
+      "source_artifact_label": "Crypto market class capture template",
+      "source_artifact_role": "market_class_capture_template"
+    },
+    {
+      "contract_version": "pmbot_crypto_operator_review_protocol.v1",
+      "local_reference": "pm_bot/tests/fixtures/crypto_operator_review_protocol/crypto_operator_review_protocol.valid.json",
+      "record_state": "protocol_only_static_sample",
+      "required_fields": [
+        "contract_version",
+        "protocol_id",
+        "protocol_name",
+        "input_contracts",
+        "protocol_steps",
+        "review_record_fields",
+        "static_review_records",
+        "operator_review",
+        "summary_counts"
+      ],
+      "source_artifact_id": "crypto_operator_review_protocol_001",
+      "source_artifact_label": "Crypto operator review protocol",
+      "source_artifact_role": "operator_review_protocol"
+    },
+    {
+      "contract_version": "pmbot_crypto_paperlive_observation_ledger.v1",
+      "local_reference": "pm_bot/tests/fixtures/crypto_paperlive_observation_ledger/crypto_paperlive_observation_ledger.valid.json",
+      "record_state": "ledger_only_static_sample",
+      "required_fields": [
+        "contract_version",
+        "ledger_id",
+        "ledger_record_fields",
+        "observation_records",
+        "observation_source_catalog",
+        "source_contracts",
+        "operator_review",
+        "summary_counts"
+      ],
+      "source_artifact_id": "crypto_paperlive_observation_ledger_001",
+      "source_artifact_label": "Crypto paperlive observation ledger",
+      "source_artifact_role": "paperlive_observation_ledger"
+    },
+    {
+      "contract_version": "pmbot_static_crypto_reference_snapshot.v1",
+      "local_reference": "pm_bot/tests/fixtures/crypto_paperlive_observation_ledger/static_crypto_reference_snapshot.valid.json",
+      "record_state": "static_reference_snapshot",
+      "required_fields": [
+        "contract_version",
+        "snapshot_id",
+        "asset_symbol",
+        "asset_name",
+        "metric_type",
+        "measurement_source_label",
+        "reported_reference_value",
+        "reported_reference_unit",
+        "reported_at_utc",
+        "source_label"
+      ],
+      "source_artifact_id": "static_crypto_reference_snapshot_2026_05_09_btc",
+      "source_artifact_label": "Static crypto reference snapshot",
+      "source_artifact_role": "static_reference_snapshot"
+    }
+  ],
+  "local_only": true,
+  "operator_review": {
+    "reviewed_at": null,
+    "reviewed_by": null,
+    "status": "pending_operator_review"
+  },
+  "operator_review_required": true,
+  "operator_review_steps": [
+    "Confirm each listed local fixture opens as a static JSON artifact.",
+    "Confirm required fields are visible in each artifact.",
+    "Confirm every capture row remains pending operator review."
+  ],
+  "quality_capture_records": [
+    {
+      "contract_check": "expected_contract_visible",
+      "contract_version": "pmbot_crypto_market_class_capture_template.v1",
+      "copy_lineage_check": "static_capture_fixture_retained",
+      "field_presence_check": "all_required_fields_visible",
+      "local_reference": "pm_bot/tests/fixtures/crypto_market_class_capture/crypto_market_class_capture_template.valid.json",
+      "local_reference_check": "relative_local_fixture_path",
+      "missing_fields": [],
+      "operator_notes": "Static sample for source quality capture surface only.",
+      "operator_review_status": "pending_operator_review",
+      "present_fields": [
+        "contract_version",
+        "template_id",
+        "template_name",
+        "capture_fields",
+        "market_class_catalog",
+        "sample_records",
+        "operator_review",
+        "summary_counts"
+      ],
+      "record_id": "crypto_source_quality_capture_surface_001.crypto_market_class_capture_template_001.quality_capture",
+      "required_fields": [
+        "contract_version",
+        "template_id",
+        "template_name",
+        "capture_fields",
+        "market_class_catalog",
+        "sample_records",
+        "operator_review",
+        "summary_counts"
+      ],
+      "source_artifact_id": "crypto_market_class_capture_template_001",
+      "source_artifact_label": "Crypto market class capture template",
+      "source_artifact_role": "market_class_capture_template"
+    },
+    {
+      "contract_check": "expected_contract_visible",
+      "contract_version": "pmbot_crypto_operator_review_protocol.v1",
+      "copy_lineage_check": "static_protocol_fixture_retained",
+      "field_presence_check": "all_required_fields_visible",
+      "local_reference": "pm_bot/tests/fixtures/crypto_operator_review_protocol/crypto_operator_review_protocol.valid.json",
+      "local_reference_check": "relative_local_fixture_path",
+      "missing_fields": [],
+      "operator_notes": "Static sample for source quality capture surface only.",
+      "operator_review_status": "pending_operator_review",
+      "present_fields": [
+        "contract_version",
+        "protocol_id",
+        "protocol_name",
+        "input_contracts",
+        "protocol_steps",
+        "review_record_fields",
+        "static_review_records",
+        "operator_review",
+        "summary_counts"
+      ],
+      "record_id": "crypto_source_quality_capture_surface_001.crypto_operator_review_protocol_001.quality_capture",
+      "required_fields": [
+        "contract_version",
+        "protocol_id",
+        "protocol_name",
+        "input_contracts",
+        "protocol_steps",
+        "review_record_fields",
+        "static_review_records",
+        "operator_review",
+        "summary_counts"
+      ],
+      "source_artifact_id": "crypto_operator_review_protocol_001",
+      "source_artifact_label": "Crypto operator review protocol",
+      "source_artifact_role": "operator_review_protocol"
+    },
+    {
+      "contract_check": "expected_contract_visible",
+      "contract_version": "pmbot_crypto_paperlive_observation_ledger.v1",
+      "copy_lineage_check": "static_observation_ledger_retained",
+      "field_presence_check": "all_required_fields_visible",
+      "local_reference": "pm_bot/tests/fixtures/crypto_paperlive_observation_ledger/crypto_paperlive_observation_ledger.valid.json",
+      "local_reference_check": "relative_local_fixture_path",
+      "missing_fields": [],
+      "operator_notes": "Static sample for source quality capture surface only.",
+      "operator_review_status": "pending_operator_review",
+      "present_fields": [
+        "contract_version",
+        "ledger_id",
+        "ledger_record_fields",
+        "observation_records",
+        "observation_source_catalog",
+        "source_contracts",
+        "operator_review",
+        "summary_counts"
+      ],
+      "record_id": "crypto_source_quality_capture_surface_001.crypto_paperlive_observation_ledger_001.quality_capture",
+      "required_fields": [
+        "contract_version",
+        "ledger_id",
+        "ledger_record_fields",
+        "observation_records",
+        "observation_source_catalog",
+        "source_contracts",
+        "operator_review",
+        "summary_counts"
+      ],
+      "source_artifact_id": "crypto_paperlive_observation_ledger_001",
+      "source_artifact_label": "Crypto paperlive observation ledger",
+      "source_artifact_role": "paperlive_observation_ledger"
+    },
+    {
+      "contract_check": "expected_contract_visible",
+      "contract_version": "pmbot_static_crypto_reference_snapshot.v1",
+      "copy_lineage_check": "static_reference_snapshot_retained",
+      "field_presence_check": "all_required_fields_visible",
+      "local_reference": "pm_bot/tests/fixtures/crypto_paperlive_observation_ledger/static_crypto_reference_snapshot.valid.json",
+      "local_reference_check": "relative_local_fixture_path",
+      "missing_fields": [],
+      "operator_notes": "Static sample for source quality capture surface only.",
+      "operator_review_status": "pending_operator_review",
+      "present_fields": [
+        "contract_version",
+        "snapshot_id",
+        "asset_symbol",
+        "asset_name",
+        "metric_type",
+        "measurement_source_label",
+        "reported_reference_value",
+        "reported_reference_unit",
+        "reported_at_utc",
+        "source_label"
+      ],
+      "record_id": "crypto_source_quality_capture_surface_001.static_crypto_reference_snapshot_2026_05_09_btc.quality_capture",
+      "required_fields": [
+        "contract_version",
+        "snapshot_id",
+        "asset_symbol",
+        "asset_name",
+        "metric_type",
+        "measurement_source_label",
+        "reported_reference_value",
+        "reported_reference_unit",
+        "reported_at_utc",
+        "source_label"
+      ],
+      "source_artifact_id": "static_crypto_reference_snapshot_2026_05_09_btc",
+      "source_artifact_label": "Static crypto reference snapshot",
+      "source_artifact_role": "static_reference_snapshot"
+    }
+  ],
+  "record_state": "surface_only_static_sample",
+  "run_mode": "local_descriptive_crypto_source_quality_capture_surface",
+  "safety_boundaries": {
+    "authenticated_endpoint_calls_allowed": false,
+    "background_process_allowed": false,
+    "browser_automation_allowed": false,
+    "external_market_api_calls_allowed": false,
+    "local_static_samples_only": true,
+    "network_calls_allowed": false,
+    "operator_review_required": true,
+    "paperlive_execution_allowed": false,
+    "runtime_or_dispatcher_changes_allowed": false,
+    "transaction_endpoint_calls_allowed": false,
+    "wallet_or_signing_material_access_allowed": false
+  },
+  "summary_counts": {
+    "capture_surface_fields": 15,
+    "input_artifacts": 4,
+    "missing_fields": 0,
+    "operator_review_steps": 3,
+    "present_fields": 35,
+    "quality_capture_records": 4,
+    "required_fields": 35,
+    "warnings": 0
+  },
+  "task_id": "PMBOT-CRYPTO-PILOT-004-CRYPTO-SOURCE-QUALITY-CAPTURE-SURFACE-LOCAL-ONLY",
+  "warnings": []
+}

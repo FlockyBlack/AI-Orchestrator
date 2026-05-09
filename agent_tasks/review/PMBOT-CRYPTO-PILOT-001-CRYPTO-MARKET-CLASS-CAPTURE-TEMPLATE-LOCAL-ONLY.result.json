@@ -1,0 +1,42 @@
+{
+  "acceptance_checks_passed": true,
+  "commands_run": [
+    "pytest pm_bot/tests/test_crypto_market_class_capture_template.py tests/test_codex_queue_pmbot_templates.py",
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "completed_at": "2026-05-09T05:45:32Z",
+  "completed_by": "codex_cli_last_message_bridge",
+  "files_created": [],
+  "files_deleted": [],
+  "files_modified": [
+    "docs/PMBOT_CRYPTO_PILOT_001_CRYPTO_MARKET_CLASS_CAPTURE_TEMPLATE_LOCAL_ONLY.md",
+    "pm_bot/tests/fixtures/crypto_market_class_capture/crypto_market_class_capture_template.valid.json",
+    "pm_bot/tests/test_crypto_market_class_capture_template.py",
+    "tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "next_recommended_action": "Inspect the bridged result, ingestion report, review report, and git diff before mark-done.",
+  "operator_review_notes": "Bridged from C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-PILOT-001-CRYPTO-MARKET-CLASS-CAPTURE-TEMPLATE-LOCAL-ONLY\\20260509T054009Z\\last_message.md. Safety notes: Used local files, local fixtures, and static samples only.; Intentional changes stayed within docs/, pm_bot/tests/, and tests/.; No network calls, browser automation, background processes, wallet access, trading/order changes, runtime changes, dispatcher changes, or execution wiring changes were made.; The capture fixture contains descriptive fields only and tests reject guidance, scoring, selection, and market-action terms. Remaining risks: python -m compileall pm_bot tests exited 0 but printed that it could not list tests\\.pytest_tmp\\pytest-of-OpenC due permissions.; pytest emitted a PytestCacheWarning for .pytest_cache permission access; all collected tests still passed.; The workspace already had unrelated modified/untracked files outside this task scope; they were left untouched. Bridge warnings: last_message used files_changed; bridged those paths as files_modified",
+  "safety_confirmation": {
+    "background_worker_added": false,
+    "codex_app_server_used": false,
+    "credentials_accessed": false,
+    "destructive_commands_used": false,
+    "network_calls_performed": 0,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "runtime_or_dispatcher_touched": false,
+    "scheduler_added": false,
+    "telegram_or_openclaw_added": false,
+    "wallet_or_trading_touched": false
+  },
+  "schema_version": "codex_task_result.v1",
+  "status": "completed",
+  "summary": "Added a deterministic local PMBOT crypto market class capture template for descriptive records, with a static JSON fixture, documentation, PMBOT fixture tests, and a queue-template scope assertion. Outputs remain local-only, descriptive, deterministic, and pending operator review.",
+  "task_id": "PMBOT-CRYPTO-PILOT-001-CRYPTO-MARKET-CLASS-CAPTURE-TEMPLATE-LOCAL-ONLY",
+  "validation_results": [
+    "pytest pm_bot/tests/test_crypto_market_class_capture_template.py tests/test_codex_queue_pmbot_templates.py",
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ]
+}

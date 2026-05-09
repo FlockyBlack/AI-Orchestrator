@@ -1,0 +1,147 @@
+{
+  "contract_version": "pmbot_local_morning_review_pack_request.v1",
+  "dashboard_records": [
+    {
+      "artifact_id": "local_operator_dashboard_summary",
+      "artifact_label": "Local operator dashboard summary",
+      "artifact_type": "dashboard_summary",
+      "contract_version": "pmbot_local_operator_dashboard_summary.v1",
+      "local_reference": "docs/PMBOT_DASHBOARD_001_LOCAL_OPERATOR_DASHBOARD_SUMMARY.md",
+      "notes": "Static dashboard summary fixture is available for human review.",
+      "operator_review_status": "pending_operator_review",
+      "record_count": 9,
+      "record_state": "static_review_material_ready",
+      "source_fixture_reference": "pm_bot/dashboard/samples/local_operator_dashboard_summary.fixture.json"
+    },
+    {
+      "artifact_id": "queue_paperlive_status_surface",
+      "artifact_label": "Queue and paperlive status surface",
+      "artifact_type": "dashboard_summary",
+      "contract_version": "pmbot_local_queue_paperlive_status_surface.v1",
+      "local_reference": "docs/PMBOT_DASHBOARD_002_QUEUE_AND_PAPERLIVE_STATUS_SURFACE.md",
+      "notes": "Static queue and paperlive status fixture is available for human review.",
+      "operator_review_status": "pending_operator_review",
+      "record_count": 7,
+      "record_state": "static_review_material_ready",
+      "source_fixture_reference": "pm_bot/dashboard/samples/local_queue_paperlive_status_surface.fixture.json"
+    },
+    {
+      "artifact_id": "source_quality_dashboard_summary",
+      "artifact_label": "Source quality dashboard summary",
+      "artifact_type": "dashboard_summary",
+      "contract_version": "pmbot_local_source_quality_dashboard_summary.v1",
+      "local_reference": "docs/PMBOT_DASHBOARD_003_SOURCE_QUALITY_DASHBOARD_SUMMARY.md",
+      "notes": "Static source quality dashboard fixture is available for human review.",
+      "operator_review_status": "pending_operator_review",
+      "record_count": 6,
+      "record_state": "static_review_material_ready",
+      "source_fixture_reference": "pm_bot/dashboard/samples/local_source_quality_dashboard_summary.fixture.json"
+    },
+    {
+      "artifact_id": "paper_accounting_dashboard_summary",
+      "artifact_label": "Paper accounting dashboard summary",
+      "artifact_type": "dashboard_summary",
+      "contract_version": "pmbot_local_paper_accounting_dashboard_summary.v1",
+      "local_reference": "docs/PMBOT_DASHBOARD_004_PAPER_ACCOUNTING_DASHBOARD_SUMMARY.md",
+      "notes": "Static paper accounting dashboard fixture is available for human review.",
+      "operator_review_status": "pending_operator_review",
+      "record_count": 5,
+      "record_state": "static_review_material_ready",
+      "source_fixture_reference": "pm_bot/dashboard/samples/local_paper_accounting_dashboard_summary.fixture.json"
+    }
+  ],
+  "local_only": true,
+  "operator_review_required": true,
+  "operator_review_steps": [
+    "Review queue rows against local PMBOT template coverage.",
+    "Review dashboard rows against local static fixture references.",
+    "Review safety rows for closed local boundaries.",
+    "Review validation command records before any later operator run."
+  ],
+  "pack_id": "pmbot_morning_review_pack_fixture_001",
+  "queue_records": [
+    {
+      "local_reference": "docs/PMBOT_OPERATOR_001_MORNING_REVIEW_PACK_LOCAL_ONLY.md",
+      "notes": "Static task record for the local morning review pack.",
+      "operator_review_status": "pending_operator_review",
+      "queue_group": "next_twenty_template",
+      "record_state": "static_task_record_ready",
+      "safety_class": "local_only_no_execution",
+      "task_id": "PMBOT-OPERATOR-001-MORNING-REVIEW-PACK-LOCAL-ONLY",
+      "task_template": "morning_review_pack",
+      "task_title": "PMBOT morning review pack",
+      "validation_profile": "pmbot_local_code_tests"
+    },
+    {
+      "local_reference": "docs/PMBOT_SAFETY_002_NIGHT_BATCH_POSTRUN_AUDIT_SUMMARY_LOCAL_ONLY.md",
+      "notes": "Static postrun audit summary record for morning review.",
+      "operator_review_status": "pending_operator_review",
+      "queue_group": "safety_template",
+      "record_state": "static_task_record_ready",
+      "safety_class": "local_only_no_execution",
+      "task_id": "PMBOT-SAFETY-002-NIGHT-BATCH-POSTRUN-AUDIT-SUMMARY-LOCAL-ONLY",
+      "task_template": "night_batch_postrun_audit_summary",
+      "task_title": "PMBOT night batch postrun audit summary",
+      "validation_profile": "pmbot_local_code_tests"
+    },
+    {
+      "local_reference": "docs/PMBOT_DASHBOARD_002_QUEUE_AND_PAPERLIVE_STATUS_SURFACE.md",
+      "notes": "Static queue and paperlive status surface record for morning review.",
+      "operator_review_status": "pending_operator_review",
+      "queue_group": "dashboard_template",
+      "record_state": "static_task_record_ready",
+      "safety_class": "local_only_no_execution",
+      "task_id": "PMBOT-DASHBOARD-002-QUEUE-AND-PAPERLIVE-STATUS-SURFACE",
+      "task_template": "queue_and_paperlive_status_surface",
+      "task_title": "PMBOT queue and paperlive status surface",
+      "validation_profile": "pmbot_local_code_tests"
+    }
+  ],
+  "review_date": "2026-05-09",
+  "run_label": "2026-05-09-local-morning-review",
+  "safety_records": [
+    {
+      "boundary_id": "autonomy_gate_checklist",
+      "boundary_label": "Autonomy gate checklist",
+      "local_reference": "docs/PMBOT_SAFETY_001_AUTONOMY_GATE_CHECKLIST_LOCAL_ONLY.md",
+      "notes": "Static autonomy gate checklist remains for human review.",
+      "observed_state": "closed_local_only_boundary",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "boundary_id": "night_batch_postrun_audit",
+      "boundary_label": "Night batch postrun audit",
+      "local_reference": "docs/PMBOT_SAFETY_002_NIGHT_BATCH_POSTRUN_AUDIT_SUMMARY_LOCAL_ONLY.md",
+      "notes": "Static postrun audit summary remains for human review.",
+      "observed_state": "closed_local_only_boundary",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "boundary_id": "forbidden_action_scan",
+      "boundary_label": "Forbidden action scan",
+      "local_reference": "docs/PMBOT_SAFETY_003_FORBIDDEN_ACTION_SCAN_LOCAL_ONLY.md",
+      "notes": "Static forbidden action scan remains for human review.",
+      "observed_state": "closed_local_only_boundary",
+      "operator_review_status": "pending_operator_review"
+    }
+  ],
+  "scope": "local_morning_review_pack",
+  "validation_records": [
+    {
+      "command_label": "python -m compileall pm_bot tests",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "notes": "Acceptance command listed for operator-run validation.",
+      "operator_review_status": "pending_operator_review",
+      "status": "not_run_static_record",
+      "validation_id": "compileall.pm_bot.tests"
+    },
+    {
+      "command_label": "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "notes": "Acceptance command listed for operator-run validation.",
+      "operator_review_status": "pending_operator_review",
+      "status": "not_run_static_record",
+      "validation_id": "pytest.pm_bot_tests.queue_templates"
+    }
+  ]
+}

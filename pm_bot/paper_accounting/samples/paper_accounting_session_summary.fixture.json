@@ -1,0 +1,134 @@
+{
+  "account_context": {
+    "account_id": "paper_fixture_account_001",
+    "currency": "USD",
+    "description": "Offline paper records for operator review"
+  },
+  "balance_summary": [
+    {
+      "asset_code": "USD",
+      "entry_count": 3,
+      "net_quantity_delta": "992.50",
+      "operator_review_status": "pending_operator_review"
+    }
+  ],
+  "build_id": "paper_accounting_ledger_fixture_001-02801beecc93.paper_accounting_session_summary",
+  "contract_version": "pmbot_paper_accounting_session_summary.v1",
+  "errors": [],
+  "ledger_build_id": "paper_accounting_ledger_fixture_001-02801beecc93",
+  "ledger_contract_version": "pmbot_paper_accounting_ledger.v1",
+  "ledger_id": "paper_accounting_ledger_fixture_001",
+  "local_input_artifacts": [
+    {
+      "artifact_id": "paper_accounting_ledger_fixture_001",
+      "artifact_role": "paper_accounting_ledger",
+      "build_id": "paper_accounting_ledger_fixture_001-02801beecc93",
+      "contract_version": "pmbot_paper_accounting_ledger.v1",
+      "local_reference": "pm_bot/paper_accounting/samples/paper_accounting_ledger.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "runner_state": "descriptive_paper_accounting_session_summary_record"
+    },
+    {
+      "artifact_id": "paper_accounting_ledger_fixture_001.paper_accounting_validation",
+      "artifact_role": "paper_accounting_validation",
+      "build_id": "paper_accounting_ledger_fixture_001-02801beecc93.paper_accounting_validation",
+      "contract_version": "pmbot_paper_accounting_validation.v1",
+      "local_reference": "pm_bot/paper_accounting/samples/paper_accounting_validation.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "runner_state": "descriptive_paper_accounting_session_summary_record"
+    }
+  ],
+  "local_only": true,
+  "operator_review": {
+    "required": true,
+    "review_steps": [
+      "Confirm ledger and validation build identifiers match the local samples.",
+      "Confirm session rows mirror the accounting entries and validation rows.",
+      "Record accounting disputes outside this session summary artifact."
+    ],
+    "status": "pending_operator_review"
+  },
+  "operator_review_required": true,
+  "run_mode": "local_paper_only_session_summary",
+  "safety_boundaries": {
+    "account_change_instruction_allowed": false,
+    "external_market_api_allowed": false,
+    "llm_calls_allowed": false,
+    "market_ranking_allowed": false,
+    "network_calls_allowed": false,
+    "offline_inputs_only": true,
+    "operator_review_gate_required": true,
+    "real_money_or_signing_allowed": false,
+    "runtime_wiring_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "transaction_endpoint_allowed": false,
+    "wallet_or_order_code_allowed": false
+  },
+  "session_id": "paper_accounting_ledger_fixture_001.paper_accounting_session_summary",
+  "session_review_rows": [
+    {
+      "asset_code": "USD",
+      "entry_id": "paper_fixture_account_001.2026-05-09.opening_balance",
+      "entry_type": "opening_balance",
+      "event_id": "paper_event_001",
+      "event_timestamp": "2026-05-09T12:00:00Z",
+      "ledger_quantity_delta": "1000.00",
+      "local_reference": "pm_bot/tests/fixtures/paper_accounting/paper_accounting_events.valid.json",
+      "operator_review_label": "Opening paper cash balance",
+      "operator_review_status": "pending_operator_review",
+      "runner_state": "descriptive_paper_accounting_session_summary_record",
+      "source_artifact_id": "paper_accounting_events_fixture_001",
+      "validation_check_count": 6,
+      "validation_failed_check_count": 0,
+      "validation_row_id": "paper_fixture_account_001.2026-05-09.opening_balance.paper_accounting_validation",
+      "validation_status": "passed"
+    },
+    {
+      "asset_code": "USD",
+      "entry_id": "paper_fixture_account_001.2026-05-09.paper_adjustment",
+      "entry_type": "paper_adjustment",
+      "event_id": "paper_event_002",
+      "event_timestamp": "2026-05-09T13:30:00Z",
+      "ledger_quantity_delta": "-12.50",
+      "local_reference": "pm_bot/tests/fixtures/paper_accounting/paper_accounting_events.valid.json",
+      "operator_review_label": "Offline accounting adjustment",
+      "operator_review_status": "pending_operator_review",
+      "runner_state": "descriptive_paper_accounting_session_summary_record",
+      "source_artifact_id": "paper_accounting_events_fixture_001",
+      "validation_check_count": 6,
+      "validation_failed_check_count": 0,
+      "validation_row_id": "paper_fixture_account_001.2026-05-09.paper_adjustment.paper_accounting_validation",
+      "validation_status": "passed"
+    },
+    {
+      "asset_code": "USD",
+      "entry_id": "paper_fixture_account_001.2026-05-09.paper_correction",
+      "entry_type": "paper_correction",
+      "event_id": "paper_event_003",
+      "event_timestamp": "2026-05-09T14:00:00Z",
+      "ledger_quantity_delta": "5.00",
+      "local_reference": "pm_bot/tests/fixtures/paper_accounting/paper_accounting_events.valid.json",
+      "operator_review_label": "Offline accounting correction",
+      "operator_review_status": "pending_operator_review",
+      "runner_state": "descriptive_paper_accounting_session_summary_record",
+      "source_artifact_id": "paper_accounting_events_fixture_001",
+      "validation_check_count": 6,
+      "validation_failed_check_count": 0,
+      "validation_row_id": "paper_fixture_account_001.2026-05-09.paper_correction.paper_accounting_validation",
+      "validation_status": "passed"
+    }
+  ],
+  "summary_counts": {
+    "accounting_entries": 3,
+    "assets": 1,
+    "failed_validation_checks": 0,
+    "input_artifacts": 2,
+    "source_artifacts": 1,
+    "validation_rows": 3,
+    "warnings": 0
+  },
+  "validation_build_id": "paper_accounting_ledger_fixture_001-02801beecc93.paper_accounting_validation",
+  "validation_contract_version": "pmbot_paper_accounting_validation.v1",
+  "validation_id": "paper_accounting_ledger_fixture_001.paper_accounting_validation",
+  "warnings": []
+}

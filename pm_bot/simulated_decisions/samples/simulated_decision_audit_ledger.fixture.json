@@ -1,0 +1,171 @@
+{
+  "audit_requirement_rows": [
+    {
+      "description": "Confirm source references are repository-relative local artifacts.",
+      "operator_review_status": "pending_operator_review",
+      "requirement_id": "local_reference_review",
+      "row_id": "local_reference_review",
+      "row_state": "recorded_for_operator_review"
+    },
+    {
+      "description": "Confirm record counts match packet content.",
+      "operator_review_status": "pending_operator_review",
+      "requirement_id": "summary_count_review",
+      "row_id": "summary_count_review",
+      "row_state": "recorded_for_operator_review"
+    },
+    {
+      "description": "Confirm closed local-only safety flags remain unchanged.",
+      "operator_review_status": "pending_operator_review",
+      "requirement_id": "safety_boundary_review",
+      "row_id": "safety_boundary_review",
+      "row_state": "recorded_for_operator_review"
+    }
+  ],
+  "audit_rows": [
+    {
+      "audit_area": "packet_contract",
+      "audit_label": "Packet contract and review gate",
+      "local_reference": "pm_bot/simulated_decisions/samples/simulated_decision_packet.fixture.json",
+      "observed_detail": "contract=pmbot_simulated_decision_packet.v1; run_mode=offline_recordkeeping",
+      "observed_state": "recorded_for_operator_review",
+      "operator_review_status": "pending_operator_review",
+      "row_id": "simulated_decision_packet_fixture_001.packet_contract",
+      "row_state": "recorded_for_operator_review",
+      "source_packet_id": "simulated_decision_packet_fixture_001"
+    },
+    {
+      "audit_area": "summary_counts",
+      "audit_label": "Packet count fields",
+      "local_reference": "pm_bot/simulated_decisions/samples/simulated_decision_packet.fixture.json",
+      "observed_detail": "input_artifacts=1; record_sections=1; observations=1; warnings=0",
+      "observed_state": "counts_match_local_record",
+      "operator_review_status": "pending_operator_review",
+      "row_id": "simulated_decision_packet_fixture_001.summary_counts",
+      "row_state": "recorded_for_operator_review",
+      "source_packet_id": "simulated_decision_packet_fixture_001"
+    },
+    {
+      "audit_area": "safety_boundaries",
+      "audit_label": "Closed local-only safety flags",
+      "local_reference": "pm_bot/simulated_decisions/samples/simulated_decision_packet.fixture.json",
+      "observed_detail": "network=false; llm=false; wallet=false; runtime=false",
+      "observed_state": "closed_local_only",
+      "operator_review_status": "pending_operator_review",
+      "row_id": "simulated_decision_packet_fixture_001.safety_boundaries",
+      "row_state": "recorded_for_operator_review",
+      "source_packet_id": "simulated_decision_packet_fixture_001"
+    }
+  ],
+  "build_id": "simulated_decision_audit_ledger_fixture_001-1c53006b42b2",
+  "contract_version": "pmbot_simulated_decision_audit_ledger.v1",
+  "created_at": "2026-05-09T00:10:00Z",
+  "errors": [],
+  "ledger_id": "simulated_decision_audit_ledger_fixture_001",
+  "ledger_state": "recorded_for_operator_review",
+  "local_only": true,
+  "local_reference_rows": [
+    {
+      "local_reference": "pm_bot/simulated_decisions/samples/simulated_decision_packet.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "reference_exists": true,
+      "reference_role": "source_packet",
+      "row_id": "simulated_decision_packet_fixture_001.source_packet",
+      "row_state": "recorded_for_operator_review",
+      "source_packet_id": "simulated_decision_packet_fixture_001"
+    },
+    {
+      "local_reference": "pm_bot/simulated_decisions/schemas/simulated_decision_packet.schema.v1.json",
+      "operator_review_status": "pending_operator_review",
+      "reference_exists": true,
+      "reference_role": "schema_reference",
+      "row_id": "simulated_decision_packet_fixture_001.schema_reference",
+      "row_state": "recorded_for_operator_review",
+      "source_packet_id": "simulated_decision_packet_fixture_001"
+    },
+    {
+      "local_reference": "pm_bot/tests/fixtures/weather/official_daily_climate_report_snapshot.json",
+      "operator_review_status": "pending_operator_review",
+      "reference_exists": true,
+      "reference_role": "market_snapshot",
+      "row_id": "simulated_decision_packet_fixture_001.market_snapshot",
+      "row_state": "recorded_for_operator_review",
+      "source_packet_id": "simulated_decision_packet_fixture_001"
+    },
+    {
+      "local_reference": "pm_bot/tests/fixtures/weather/official_daily_climate_report_snapshot.json",
+      "operator_review_status": "pending_operator_review",
+      "reference_exists": true,
+      "reference_role": "input_artifact.official_daily_climate_report_snapshot",
+      "row_id": "simulated_decision_packet_fixture_001.input_artifact.official_daily_climate_report_snapshot",
+      "row_state": "recorded_for_operator_review",
+      "source_packet_id": "simulated_decision_packet_fixture_001"
+    }
+  ],
+  "operator_review": {
+    "notes": [],
+    "reviewed_at": null,
+    "reviewed_by": null,
+    "status": "pending_operator_review"
+  },
+  "operator_review_required": true,
+  "record_section_rows": [
+    {
+      "local_reference": "pm_bot/simulated_decisions/samples/simulated_decision_packet.fixture.json",
+      "observation_count": 1,
+      "operator_review_status": "pending_operator_review",
+      "row_id": "simulated_decision_packet_fixture_001.source_observation_summary",
+      "row_state": "recorded_for_operator_review",
+      "section_id": "source_observation_summary",
+      "section_label": "Source observation summary",
+      "source_artifact_ids": [
+        "official_daily_climate_report_snapshot"
+      ],
+      "source_packet_id": "simulated_decision_packet_fixture_001"
+    }
+  ],
+  "run_mode": "offline_recordkeeping",
+  "safety_boundaries": {
+    "authenticated_service_allowed": false,
+    "external_market_api_allowed": false,
+    "llm_calls_allowed": false,
+    "market_instruction_allowed": false,
+    "network_calls_allowed": false,
+    "numeric_estimate_allowed": false,
+    "offline_inputs_only": true,
+    "operator_review_gate_required": true,
+    "paper_record_only": true,
+    "ranked_candidate_allowed": false,
+    "runtime_wiring_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "transaction_signing_allowed": false,
+    "wallet_access_allowed": false
+  },
+  "scope": "fixture_simulated_decision_records",
+  "source_inventory": [
+    {
+      "artifact_loaded": true,
+      "contract_version": "pmbot_simulated_decision_packet.v1",
+      "error_count": 0,
+      "local_reference": "pm_bot/simulated_decisions/samples/simulated_decision_packet.fixture.json",
+      "observation_count": 1,
+      "operator_review_status": "pending_operator_review",
+      "packet_state": "recorded_for_operator_review",
+      "record_section_count": 1,
+      "row_state": "recorded_for_operator_review",
+      "source_packet_id": "simulated_decision_packet_fixture_001",
+      "source_packet_label": "Static simulated decision packet fixture",
+      "warning_count": 0
+    }
+  ],
+  "summary_counts": {
+    "audit_requirements": 3,
+    "audit_rows": 3,
+    "errors": 0,
+    "local_references": 4,
+    "record_section_rows": 1,
+    "source_packets": 1,
+    "warnings": 0
+  },
+  "warnings": []
+}

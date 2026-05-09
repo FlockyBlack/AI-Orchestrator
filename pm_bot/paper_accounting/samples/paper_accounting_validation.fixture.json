@@ -1,0 +1,213 @@
+{
+  "account_context": {
+    "account_id": "paper_fixture_account_001",
+    "currency": "USD",
+    "description": "Offline paper records for operator review"
+  },
+  "build_id": "paper_accounting_ledger_fixture_001-02801beecc93.paper_accounting_validation",
+  "contract_version": "pmbot_paper_accounting_validation.v1",
+  "errors": [],
+  "ledger_build_id": "paper_accounting_ledger_fixture_001-02801beecc93",
+  "ledger_contract_version": "pmbot_paper_accounting_ledger.v1",
+  "ledger_id": "paper_accounting_ledger_fixture_001",
+  "local_only": true,
+  "operator_review": {
+    "required": true,
+    "review_steps": [
+      "Confirm every validation row maps to one local paper accounting entry.",
+      "Confirm each local reference remains inside the paper accounting fixture or static sample boundary.",
+      "Record any accounting disputes outside this validation artifact."
+    ],
+    "status": "pending_operator_review"
+  },
+  "operator_review_required": true,
+  "record_validation_rows": [
+    {
+      "asset_code": "USD",
+      "check_count": 6,
+      "checks": [
+        {
+          "check_id": "required_fields_present",
+          "observed_value": "14/14",
+          "operator_review_status": "pending_operator_review",
+          "status": "passed"
+        },
+        {
+          "check_id": "local_reference_boundary",
+          "observed_value": "pm_bot/tests/fixtures/paper_accounting/paper_accounting_events.valid.json",
+          "operator_review_status": "pending_operator_review",
+          "status": "passed"
+        },
+        {
+          "check_id": "timestamp_utc_format",
+          "observed_value": "2026-05-09T12:00:00Z",
+          "operator_review_status": "pending_operator_review",
+          "status": "passed"
+        },
+        {
+          "check_id": "quantity_delta_canonical",
+          "observed_value": "1000.00",
+          "operator_review_status": "pending_operator_review",
+          "status": "passed"
+        },
+        {
+          "check_id": "operator_review_state",
+          "observed_value": "pending_operator_review|descriptive_paper_accounting_record",
+          "operator_review_status": "pending_operator_review",
+          "status": "passed"
+        },
+        {
+          "check_id": "source_inventory_reference",
+          "observed_value": "paper_accounting_events_fixture_001",
+          "operator_review_status": "pending_operator_review",
+          "status": "passed"
+        }
+      ],
+      "entry_id": "paper_fixture_account_001.2026-05-09.opening_balance",
+      "entry_type": "opening_balance",
+      "event_id": "paper_event_001",
+      "event_timestamp": "2026-05-09T12:00:00Z",
+      "failed_check_count": 0,
+      "local_reference": "pm_bot/tests/fixtures/paper_accounting/paper_accounting_events.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "quantity_delta": "1000.00",
+      "runner_state": "descriptive_paper_accounting_validation_record",
+      "source_artifact_id": "paper_accounting_events_fixture_001",
+      "status": "passed",
+      "validation_row_id": "paper_fixture_account_001.2026-05-09.opening_balance.paper_accounting_validation"
+    },
+    {
+      "asset_code": "USD",
+      "check_count": 6,
+      "checks": [
+        {
+          "check_id": "required_fields_present",
+          "observed_value": "14/14",
+          "operator_review_status": "pending_operator_review",
+          "status": "passed"
+        },
+        {
+          "check_id": "local_reference_boundary",
+          "observed_value": "pm_bot/tests/fixtures/paper_accounting/paper_accounting_events.valid.json",
+          "operator_review_status": "pending_operator_review",
+          "status": "passed"
+        },
+        {
+          "check_id": "timestamp_utc_format",
+          "observed_value": "2026-05-09T13:30:00Z",
+          "operator_review_status": "pending_operator_review",
+          "status": "passed"
+        },
+        {
+          "check_id": "quantity_delta_canonical",
+          "observed_value": "-12.50",
+          "operator_review_status": "pending_operator_review",
+          "status": "passed"
+        },
+        {
+          "check_id": "operator_review_state",
+          "observed_value": "pending_operator_review|descriptive_paper_accounting_record",
+          "operator_review_status": "pending_operator_review",
+          "status": "passed"
+        },
+        {
+          "check_id": "source_inventory_reference",
+          "observed_value": "paper_accounting_events_fixture_001",
+          "operator_review_status": "pending_operator_review",
+          "status": "passed"
+        }
+      ],
+      "entry_id": "paper_fixture_account_001.2026-05-09.paper_adjustment",
+      "entry_type": "paper_adjustment",
+      "event_id": "paper_event_002",
+      "event_timestamp": "2026-05-09T13:30:00Z",
+      "failed_check_count": 0,
+      "local_reference": "pm_bot/tests/fixtures/paper_accounting/paper_accounting_events.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "quantity_delta": "-12.50",
+      "runner_state": "descriptive_paper_accounting_validation_record",
+      "source_artifact_id": "paper_accounting_events_fixture_001",
+      "status": "passed",
+      "validation_row_id": "paper_fixture_account_001.2026-05-09.paper_adjustment.paper_accounting_validation"
+    },
+    {
+      "asset_code": "USD",
+      "check_count": 6,
+      "checks": [
+        {
+          "check_id": "required_fields_present",
+          "observed_value": "14/14",
+          "operator_review_status": "pending_operator_review",
+          "status": "passed"
+        },
+        {
+          "check_id": "local_reference_boundary",
+          "observed_value": "pm_bot/tests/fixtures/paper_accounting/paper_accounting_events.valid.json",
+          "operator_review_status": "pending_operator_review",
+          "status": "passed"
+        },
+        {
+          "check_id": "timestamp_utc_format",
+          "observed_value": "2026-05-09T14:00:00Z",
+          "operator_review_status": "pending_operator_review",
+          "status": "passed"
+        },
+        {
+          "check_id": "quantity_delta_canonical",
+          "observed_value": "5.00",
+          "operator_review_status": "pending_operator_review",
+          "status": "passed"
+        },
+        {
+          "check_id": "operator_review_state",
+          "observed_value": "pending_operator_review|descriptive_paper_accounting_record",
+          "operator_review_status": "pending_operator_review",
+          "status": "passed"
+        },
+        {
+          "check_id": "source_inventory_reference",
+          "observed_value": "paper_accounting_events_fixture_001",
+          "operator_review_status": "pending_operator_review",
+          "status": "passed"
+        }
+      ],
+      "entry_id": "paper_fixture_account_001.2026-05-09.paper_correction",
+      "entry_type": "paper_correction",
+      "event_id": "paper_event_003",
+      "event_timestamp": "2026-05-09T14:00:00Z",
+      "failed_check_count": 0,
+      "local_reference": "pm_bot/tests/fixtures/paper_accounting/paper_accounting_events.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "quantity_delta": "5.00",
+      "runner_state": "descriptive_paper_accounting_validation_record",
+      "source_artifact_id": "paper_accounting_events_fixture_001",
+      "status": "passed",
+      "validation_row_id": "paper_fixture_account_001.2026-05-09.paper_correction.paper_accounting_validation"
+    }
+  ],
+  "run_mode": "local_paper_only_validation",
+  "safety_boundaries": {
+    "account_change_instruction_allowed": false,
+    "external_market_api_allowed": false,
+    "llm_calls_allowed": false,
+    "market_ranking_allowed": false,
+    "network_calls_allowed": false,
+    "offline_inputs_only": true,
+    "operator_review_gate_required": true,
+    "real_money_or_signing_allowed": false,
+    "runtime_wiring_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "transaction_endpoint_allowed": false,
+    "wallet_or_order_code_allowed": false
+  },
+  "summary_counts": {
+    "accounting_entries": 3,
+    "failed_checks": 0,
+    "source_artifacts": 1,
+    "validation_checks": 18,
+    "validation_rows": 3,
+    "warnings": 0
+  },
+  "validation_id": "paper_accounting_ledger_fixture_001.paper_accounting_validation",
+  "warnings": []
+}

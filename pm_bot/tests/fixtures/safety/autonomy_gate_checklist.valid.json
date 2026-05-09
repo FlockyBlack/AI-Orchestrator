@@ -1,0 +1,93 @@
+{
+  "checklist_entries": [
+    {
+      "entry_id": "scope_boundary_check",
+      "expected_state": "allowed_paths_limited_to_docs_pm_bot_tests_and_tests",
+      "inspection_label": "Confirm task packet keeps allowed paths limited to docs, pm_bot/tests, and tests.",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "entry_id": "forbidden_path_check",
+      "expected_state": "blocked_surfaces_remain_out_of_scope",
+      "inspection_label": "Confirm blocked local surfaces remain outside this checklist task.",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "entry_id": "local_reference_check",
+      "expected_state": "local_docs_fixtures_and_tests_only",
+      "inspection_label": "Confirm referenced material is local docs, fixture, or test content without URL values.",
+      "local_reference": "docs/PMBOT_SAFETY_001_AUTONOMY_GATE_CHECKLIST_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "entry_id": "endpoint_isolation_check",
+      "expected_state": "no_endpoint_or_external_service_use",
+      "inspection_label": "Confirm endpoint, external service, wallet, scheduler, browser, worker, and background process work is absent.",
+      "local_reference": "docs/PMBOT_SAFETY_001_AUTONOMY_GATE_CHECKLIST_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "entry_id": "descriptive_output_check",
+      "expected_state": "descriptive_records_for_human_review_only",
+      "inspection_label": "Confirm outputs remain descriptive records for human review.",
+      "local_reference": "pm_bot/tests/fixtures/safety/autonomy_gate_checklist.valid.json",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "entry_id": "validation_command_check",
+      "expected_state": "operator_run_local_checks_recorded",
+      "inspection_label": "Confirm validation commands are recorded for operator-run local checks.",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "entry_id": "human_review_check",
+      "expected_state": "status_stays_pending_until_human_review_record",
+      "inspection_label": "Confirm status remains pending operator review until a human review record exists.",
+      "local_reference": "docs/PMBOT_SAFETY_001_AUTONOMY_GATE_CHECKLIST_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review"
+    }
+  ],
+  "checklist_id": "pmbot_autonomy_gate_checklist_001",
+  "checklist_name": "pmbot-autonomy-gate-checklist",
+  "contract_version": "pmbot_autonomy_gate_checklist.v1",
+  "created_at": "2026-05-09T00:00:00Z",
+  "errors": [],
+  "local_only": true,
+  "operator_review": {
+    "reviewed_at": null,
+    "reviewed_by": null,
+    "status": "pending_operator_review"
+  },
+  "operator_review_required": true,
+  "required_validation_commands": [
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "run_mode": "local_static_operator_gate_checklist",
+  "safety_boundaries": {
+    "authenticated_endpoint_calls_allowed": false,
+    "background_process_allowed": false,
+    "browser_automation_allowed": false,
+    "credential_or_secret_access_allowed": false,
+    "execution_endpoint_calls_allowed": false,
+    "external_service_calls_allowed": false,
+    "local_static_samples_only": true,
+    "network_calls_allowed": false,
+    "operator_review_required": true,
+    "runtime_or_dispatcher_changes_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "transaction_endpoint_calls_allowed": false,
+    "wallet_or_signing_material_access_allowed": false
+  },
+  "summary_counts": {
+    "checklist_entries": 7,
+    "local_references": 3,
+    "required_validation_commands": 2,
+    "warnings": 0
+  },
+  "task_id": "PMBOT-SAFETY-001-AUTONOMY-GATE-CHECKLIST-LOCAL-ONLY",
+  "warnings": []
+}

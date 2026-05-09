@@ -1,0 +1,145 @@
+{
+  "contract_version": "pmbot_crypto_operator_review_protocol.v1",
+  "created_at": "2026-05-09T00:00:00Z",
+  "errors": [],
+  "input_contracts": [
+    {
+      "contract_version": "pmbot_crypto_market_class_capture_template.v1",
+      "fixture_reference": "pm_bot/tests/fixtures/crypto_market_class_capture/crypto_market_class_capture_template.valid.json",
+      "required_state": "template_only_static_sample",
+      "sample_record_id": "crypto_market_class_capture_template_001.sample.btc_threshold"
+    }
+  ],
+  "local_only": true,
+  "operator_review": {
+    "reviewed_at": null,
+    "reviewed_by": null,
+    "status": "pending_operator_review"
+  },
+  "operator_review_required": true,
+  "protocol_id": "crypto_operator_review_protocol_001",
+  "protocol_name": "crypto-operator-review-protocol",
+  "protocol_steps": [
+    {
+      "expected_record_state": "pending_operator_review",
+      "inspection_label": "Confirm every required field is present in the static review record.",
+      "required_fields": [
+        "review_record_id",
+        "source_record_id",
+        "market_class",
+        "market_slug",
+        "market_title",
+        "asset_symbol",
+        "asset_name",
+        "quote_currency",
+        "metric_type",
+        "threshold_value",
+        "threshold_unit",
+        "comparison_rule",
+        "deadline_utc",
+        "local_source_reference",
+        "review_status"
+      ],
+      "step_id": "field_presence_check"
+    },
+    {
+      "expected_record_state": "pending_operator_review",
+      "inspection_label": "Confirm copied market text matches the local capture fixture.",
+      "required_fields": [
+        "market_slug",
+        "market_title",
+        "asset_symbol",
+        "asset_name",
+        "quote_currency",
+        "metric_type",
+        "threshold_value",
+        "threshold_unit",
+        "comparison_rule"
+      ],
+      "step_id": "copied_text_check"
+    },
+    {
+      "expected_record_state": "pending_operator_review",
+      "inspection_label": "Confirm deadline text is copied without runtime lookup.",
+      "required_fields": [
+        "deadline_utc"
+      ],
+      "step_id": "timestamp_check"
+    },
+    {
+      "expected_record_state": "pending_operator_review",
+      "inspection_label": "Confirm the record remains pending operator review.",
+      "required_fields": [
+        "review_status"
+      ],
+      "step_id": "pending_state_check"
+    }
+  ],
+  "record_state": "protocol_only_static_sample",
+  "review_record_fields": [
+    "review_record_id",
+    "source_record_id",
+    "market_class",
+    "market_slug",
+    "market_title",
+    "asset_symbol",
+    "asset_name",
+    "quote_currency",
+    "metric_type",
+    "threshold_value",
+    "threshold_unit",
+    "comparison_rule",
+    "deadline_utc",
+    "local_source_reference",
+    "copied_text_check",
+    "timestamp_check",
+    "field_presence_check",
+    "operator_notes",
+    "review_status"
+  ],
+  "run_mode": "local_descriptive_operator_review_protocol",
+  "safety_boundaries": {
+    "authenticated_endpoint_calls_allowed": false,
+    "background_process_allowed": false,
+    "browser_automation_allowed": false,
+    "external_market_api_calls_allowed": false,
+    "local_static_samples_only": true,
+    "network_calls_allowed": false,
+    "operator_review_required": true,
+    "runtime_or_dispatcher_changes_allowed": false,
+    "transaction_endpoint_calls_allowed": false,
+    "wallet_or_signing_material_access_allowed": false
+  },
+  "static_review_records": [
+    {
+      "asset_name": "Bitcoin",
+      "asset_symbol": "BTC",
+      "comparison_rule": "at_or_above_threshold_by_deadline",
+      "copied_text_check": "copied_from_static_capture_fixture",
+      "deadline_utc": "2026-12-31T23:59:59Z",
+      "field_presence_check": "all_required_fields_present",
+      "local_source_reference": "pm_bot/tests/fixtures/crypto_market_class_capture/crypto_market_class_capture_template.valid.json",
+      "market_class": "crypto_threshold_event",
+      "market_slug": "static-sample-btc-threshold-2026",
+      "market_title": "Static sample BTC threshold market",
+      "metric_type": "spot_index_threshold",
+      "operator_notes": "Static sample for review protocol shape only.",
+      "quote_currency": "USD",
+      "review_record_id": "crypto_operator_review_protocol_001.sample.btc_threshold.review",
+      "review_status": "pending_operator_review",
+      "source_record_id": "crypto_market_class_capture_template_001.sample.btc_threshold",
+      "threshold_unit": "USD",
+      "threshold_value": "150000.00",
+      "timestamp_check": "deadline_copied_without_runtime_lookup"
+    }
+  ],
+  "summary_counts": {
+    "input_contracts": 1,
+    "protocol_steps": 4,
+    "review_record_fields": 19,
+    "static_review_records": 1,
+    "warnings": 0
+  },
+  "task_id": "PMBOT-CRYPTO-PILOT-002-CRYPTO-OPERATOR-REVIEW-PROTOCOL-LOCAL-ONLY",
+  "warnings": []
+}

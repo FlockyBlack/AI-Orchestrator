@@ -1,0 +1,99 @@
+{
+  "audit_records": [
+    {
+      "audit_record_id": "night_batch_task_inventory",
+      "inspection_label": "Confirm PMBOT night batch task identifiers are represented by local queue template tests.",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "observed_state": "static_task_inventory_available_for_operator_review",
+      "operator_review_status": "pending_operator_review",
+      "record_type": "queue_template_inventory"
+    },
+    {
+      "audit_record_id": "batch_runner_guardrail_record",
+      "inspection_label": "Confirm the night batch runner surface is documented as a one-time local report flow.",
+      "local_reference": "docs/CODEX_CLI_BATCH_RUNNER_NIGHT_MODE.md",
+      "observed_state": "manual_batch_report_flow_documented",
+      "operator_review_status": "pending_operator_review",
+      "record_type": "batch_runner_guardrail"
+    },
+    {
+      "audit_record_id": "postprocess_summary_contract",
+      "inspection_label": "Confirm postprocess tests cover local JSON and Markdown summary records.",
+      "local_reference": "tests/test_codex_queue_codex_cli_postprocessor.py",
+      "observed_state": "postprocess_summary_records_are_local_artifacts",
+      "operator_review_status": "pending_operator_review",
+      "record_type": "postprocess_summary"
+    },
+    {
+      "audit_record_id": "result_packet_shape",
+      "inspection_label": "Confirm result packet fields are covered by local queue result tests.",
+      "local_reference": "tests/test_codex_queue_result_schema.py",
+      "observed_state": "result_packet_shape_has_local_test_coverage",
+      "operator_review_status": "pending_operator_review",
+      "record_type": "result_packet_contract"
+    },
+    {
+      "audit_record_id": "safety_gate_carryover",
+      "inspection_label": "Confirm prior PMBOT safety gate documentation remains pending human review.",
+      "local_reference": "docs/PMBOT_SAFETY_001_AUTONOMY_GATE_CHECKLIST_LOCAL_ONLY.md",
+      "observed_state": "safety_gate_remains_pending_operator_review",
+      "operator_review_status": "pending_operator_review",
+      "record_type": "safety_gate_record"
+    },
+    {
+      "audit_record_id": "validation_command_record",
+      "inspection_label": "Confirm local validation commands are recorded for operator-run checks.",
+      "local_reference": "pm_bot/tests/fixtures/safety/night_batch_postrun_audit_summary.valid.json",
+      "observed_state": "validation_commands_recorded_for_operator_review",
+      "operator_review_status": "pending_operator_review",
+      "record_type": "validation_record"
+    }
+  ],
+  "contract_version": "pmbot_night_batch_postrun_audit_summary.v1",
+  "created_at": "2026-05-09T00:00:00Z",
+  "errors": [],
+  "local_only": true,
+  "operator_review": {
+    "reviewed_at": null,
+    "reviewed_by": null,
+    "status": "pending_operator_review"
+  },
+  "operator_review_required": true,
+  "required_validation_commands": [
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "run_mode": "local_static_night_batch_postrun_audit_summary",
+  "safety_boundaries": {
+    "authenticated_endpoint_calls_allowed": false,
+    "background_process_allowed": false,
+    "browser_automation_allowed": false,
+    "credential_or_secret_access_allowed": false,
+    "execution_endpoint_calls_allowed": false,
+    "external_service_calls_allowed": false,
+    "local_static_samples_only": true,
+    "network_calls_allowed": false,
+    "operator_review_required": true,
+    "runtime_or_dispatcher_changes_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "transaction_endpoint_calls_allowed": false,
+    "wallet_or_signing_material_access_allowed": false
+  },
+  "source_batch": {
+    "batch_label": "pmbot-night-batch-postrun-static-record-set",
+    "local_reference": "docs/CODEX_CLI_BATCH_RUNNER_NIGHT_MODE.md",
+    "record_scope": "night_batch_postrun_records",
+    "run_identifier": "2026-05-09-local-night-batch-postrun-audit",
+    "run_state": "records_ready_for_operator_review"
+  },
+  "summary_counts": {
+    "audit_records": 6,
+    "audit_records_pending_operator_review": 6,
+    "local_references": 6,
+    "required_validation_commands": 2,
+    "warnings": 0
+  },
+  "summary_id": "pmbot_night_batch_postrun_audit_summary_001",
+  "task_id": "PMBOT-SAFETY-002-NIGHT-BATCH-POSTRUN-AUDIT-SUMMARY-LOCAL-ONLY",
+  "warnings": []
+}

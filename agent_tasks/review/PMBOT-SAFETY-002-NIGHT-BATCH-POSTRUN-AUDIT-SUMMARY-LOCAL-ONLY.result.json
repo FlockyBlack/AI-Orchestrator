@@ -1,0 +1,41 @@
+{
+  "acceptance_checks_passed": true,
+  "commands_run": [
+    "pytest pm_bot/tests/test_night_batch_postrun_audit_summary.py",
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "completed_at": "2026-05-09T06:32:43Z",
+  "completed_by": "codex_cli_last_message_bridge",
+  "files_created": [],
+  "files_deleted": [],
+  "files_modified": [
+    "docs/PMBOT_SAFETY_002_NIGHT_BATCH_POSTRUN_AUDIT_SUMMARY_LOCAL_ONLY.md",
+    "pm_bot/tests/fixtures/safety/night_batch_postrun_audit_summary.valid.json",
+    "pm_bot/tests/test_night_batch_postrun_audit_summary.py"
+  ],
+  "next_recommended_action": "Inspect the bridged result, ingestion report, review report, and git diff before mark-done.",
+  "operator_review_notes": "Bridged from C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-SAFETY-002-NIGHT-BATCH-POSTRUN-AUDIT-SUMMARY-LOCAL-ONLY\\20260509T062843Z\\last_message.md. Safety notes: Source edits stayed within docs/ and pm_bot/tests/.; Used only local files, local fixtures, and static samples.; No network calls, external service calls, credential access, wallet access, trading/order work, runtime changes, dispatcher changes, browser automation, background processes, schedulers, or destructive commands were used.; The audit summary is descriptive only and remains pending operator review.; The requested compileall command was run unchanged; no source files outside the allowed edit paths were modified. Remaining risks: Pytest passed but reported an environment cache warning because .pytest_cache could not be written.; compileall exited successfully but reported it could not list an existing pytest temporary directory under tests/.pytest_tmp. Bridge warnings: last_message used files_changed; bridged those paths as files_modified",
+  "safety_confirmation": {
+    "background_worker_added": false,
+    "codex_app_server_used": false,
+    "credentials_accessed": false,
+    "destructive_commands_used": false,
+    "network_calls_performed": 0,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "runtime_or_dispatcher_touched": false,
+    "scheduler_added": false,
+    "telegram_or_openclaw_added": false,
+    "wallet_or_trading_touched": false
+  },
+  "schema_version": "codex_task_result.v1",
+  "status": "completed",
+  "summary": "Added a deterministic local PMBOT night batch postrun audit summary for operator review, with a static fixture, documentation, and focused tests. Outputs remain descriptive local records only.",
+  "task_id": "PMBOT-SAFETY-002-NIGHT-BATCH-POSTRUN-AUDIT-SUMMARY-LOCAL-ONLY",
+  "validation_results": [
+    "pytest pm_bot/tests/test_night_batch_postrun_audit_summary.py",
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ]
+}

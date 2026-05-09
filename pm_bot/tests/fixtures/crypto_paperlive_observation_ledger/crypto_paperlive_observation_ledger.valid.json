@@ -1,0 +1,131 @@
+{
+  "contract_version": "pmbot_crypto_paperlive_observation_ledger.v1",
+  "created_at": "2026-05-09T00:20:00Z",
+  "errors": [],
+  "ledger_id": "crypto_paperlive_observation_ledger_001",
+  "ledger_record_fields": [
+    "record_id",
+    "source_review_record_id",
+    "market_class",
+    "market_slug",
+    "market_title",
+    "asset_symbol",
+    "asset_name",
+    "quote_currency",
+    "metric_type",
+    "measurement_source_label",
+    "threshold_value",
+    "threshold_unit",
+    "comparison_rule",
+    "deadline_utc",
+    "observation_window_start_utc",
+    "observation_window_end_utc",
+    "reported_reference_value",
+    "reported_reference_unit",
+    "reported_at_utc",
+    "observation_source_label",
+    "local_source_reference",
+    "copied_text_check",
+    "operator_notes",
+    "review_status"
+  ],
+  "local_only": true,
+  "observation_records": [
+    {
+      "asset_name": "Bitcoin",
+      "asset_symbol": "BTC",
+      "comparison_rule": "at_or_above_threshold_by_deadline",
+      "copied_text_check": "copied_from_static_crypto_review_and_reference_snapshot",
+      "deadline_utc": "2026-12-31T23:59:59Z",
+      "local_source_reference": "pm_bot/tests/fixtures/crypto_paperlive_observation_ledger/static_crypto_reference_snapshot.valid.json",
+      "market_class": "crypto_threshold_event",
+      "market_slug": "static-sample-btc-threshold-2026",
+      "market_title": "Static sample BTC threshold market",
+      "measurement_source_label": "local fixture index close label",
+      "metric_type": "spot_index_threshold",
+      "observation_source_label": "Static crypto reference sample",
+      "observation_window_end_utc": "2026-05-09T00:00:00Z",
+      "observation_window_start_utc": "2026-05-08T00:00:00Z",
+      "operator_notes": "Static sample for descriptive observation ledger shape only.",
+      "quote_currency": "USD",
+      "record_id": "crypto_paperlive_observation_ledger_001.sample.btc_threshold.observation",
+      "reported_at_utc": "2026-05-09T00:00:00Z",
+      "reported_reference_unit": "USD",
+      "reported_reference_value": "102500.00",
+      "review_status": "pending_operator_review",
+      "source_review_record_id": "crypto_operator_review_protocol_001.sample.btc_threshold.review",
+      "threshold_unit": "USD",
+      "threshold_value": "150000.00"
+    }
+  ],
+  "observation_source_catalog": [
+    {
+      "contract_version": "pmbot_static_crypto_reference_snapshot.v1",
+      "local_reference": "pm_bot/tests/fixtures/crypto_paperlive_observation_ledger/static_crypto_reference_snapshot.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "required_fields": [
+        "snapshot_id",
+        "asset_symbol",
+        "asset_name",
+        "metric_type",
+        "measurement_source_label",
+        "reported_reference_value",
+        "reported_reference_unit",
+        "reported_at_utc",
+        "source_label"
+      ],
+      "source_id": "static_crypto_reference_snapshot_2026_05_09_btc",
+      "source_label": "Static crypto reference sample",
+      "source_type": "local_static_crypto_reference_snapshot"
+    }
+  ],
+  "operator_review": {
+    "reviewed_at": null,
+    "reviewed_by": null,
+    "status": "pending_operator_review"
+  },
+  "operator_review_required": true,
+  "operator_review_steps": [
+    "Confirm ledger row copies local static source labels, timestamps, and reference values.",
+    "Confirm copied market text matches the local crypto operator review fixture.",
+    "Confirm review status remains pending operator review."
+  ],
+  "record_state": "ledger_only_static_sample",
+  "run_mode": "local_descriptive_crypto_paperlive_observation_ledger",
+  "safety_boundaries": {
+    "authenticated_endpoint_calls_allowed": false,
+    "background_process_allowed": false,
+    "browser_automation_allowed": false,
+    "external_market_api_calls_allowed": false,
+    "local_static_samples_only": true,
+    "network_calls_allowed": false,
+    "operator_review_required": true,
+    "paperlive_execution_allowed": false,
+    "runtime_or_dispatcher_changes_allowed": false,
+    "transaction_endpoint_calls_allowed": false,
+    "wallet_or_signing_material_access_allowed": false
+  },
+  "source_contracts": [
+    {
+      "contract_version": "pmbot_crypto_market_class_capture_template.v1",
+      "fixture_reference": "pm_bot/tests/fixtures/crypto_market_class_capture/crypto_market_class_capture_template.valid.json",
+      "required_state": "template_only_static_sample",
+      "sample_record_id": "crypto_market_class_capture_template_001.sample.btc_threshold"
+    },
+    {
+      "contract_version": "pmbot_crypto_operator_review_protocol.v1",
+      "fixture_reference": "pm_bot/tests/fixtures/crypto_operator_review_protocol/crypto_operator_review_protocol.valid.json",
+      "required_state": "protocol_only_static_sample",
+      "sample_record_id": "crypto_operator_review_protocol_001.sample.btc_threshold.review"
+    }
+  ],
+  "summary_counts": {
+    "ledger_record_fields": 24,
+    "observation_records": 1,
+    "observation_sources": 1,
+    "source_contracts": 2,
+    "warnings": 0
+  },
+  "task_id": "PMBOT-CRYPTO-PILOT-003-CRYPTO-PAPERLIVE-OBSERVATION-LEDGER-LOCAL-ONLY",
+  "warnings": []
+}

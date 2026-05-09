@@ -1,0 +1,41 @@
+{
+  "acceptance_checks_passed": true,
+  "commands_run": [
+    "pytest pm_bot/tests/test_pmbot_local_to_supervised_live_gap_matrix.py",
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "completed_at": "2026-05-09T06:40:54Z",
+  "completed_by": "codex_cli_last_message_bridge",
+  "files_created": [],
+  "files_deleted": [],
+  "files_modified": [
+    "pm_bot/readiness/PMBOT_ROADMAP_002_PMBOT_LOCAL_TO_SUPERVISED_LIVE_GAP_MATRIX.md",
+    "pm_bot/tests/fixtures/readiness/pmbot_local_to_supervised_live_gap_matrix.valid.json",
+    "pm_bot/tests/test_pmbot_local_to_supervised_live_gap_matrix.py"
+  ],
+  "next_recommended_action": "Inspect the bridged result, ingestion report, review report, and git diff before mark-done.",
+  "operator_review_notes": "Bridged from C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-ROADMAP-002-PMBOT-LOCAL-TO-SUPERVISED-LIVE-GAP-MATRIX\\20260509T063629Z\\last_message.md. Safety notes: Used only local files and static fixtures.; Edited only allowed paths under pm_bot/readiness and pm_bot/tests.; No network, external service, credential, wallet, signing, trading, order, transaction endpoint, runtime, dispatcher, run_codex, browser automation, scheduler, worker, daemon, or background process work was performed.; The requested compileall command targets all of pm_bot, so it listed pre-existing pm_bot/llm directories; no pm_bot/llm files were edited or invoked. Remaining risks: python -m compileall pm_bot tests exited 0 but reported it could not list tests/.pytest_tmp/pytest-of-OpenC.; pytest passed but emitted a pre-existing .pytest_cache permission warning. Bridge warnings: last_message used files_changed; bridged those paths as files_modified",
+  "safety_confirmation": {
+    "background_worker_added": false,
+    "codex_app_server_used": false,
+    "credentials_accessed": false,
+    "destructive_commands_used": false,
+    "network_calls_performed": 0,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "runtime_or_dispatcher_touched": false,
+    "scheduler_added": false,
+    "telegram_or_openclaw_added": false,
+    "wallet_or_trading_touched": false
+  },
+  "schema_version": "codex_task_result.v1",
+  "status": "completed",
+  "summary": "Added a deterministic local PMBOT supervised-live gap matrix, a static JSON fixture, and focused tests for contract shape, closed safety boundaries, pending operator review states, local references, and blocked guidance/scoring/selection terms.",
+  "task_id": "PMBOT-ROADMAP-002-PMBOT-LOCAL-TO-SUPERVISED-LIVE-GAP-MATRIX",
+  "validation_results": [
+    "pytest pm_bot/tests/test_pmbot_local_to_supervised_live_gap_matrix.py",
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ]
+}

@@ -1,0 +1,158 @@
+{
+  "additional_fields_allowed": false,
+  "contract_version": "pmbot_simulated_decision_audit_ledger.v1",
+  "description": "Local static schema for PMBOT simulated decision audit ledgers that inventory local records for human review.",
+  "local_only": true,
+  "operator_review_required": true,
+  "properties": {
+    "audit_requirement_rows": {
+      "items": {
+        "additional_fields_allowed": false,
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "audit_rows": {
+      "items": {
+        "additional_fields_allowed": false,
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "build_id": {
+      "type": "string"
+    },
+    "contract_version": {
+      "constant": "pmbot_simulated_decision_audit_ledger.v1",
+      "type": "string"
+    },
+    "created_at": {
+      "format": "utc_timestamp",
+      "type": "string"
+    },
+    "errors": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "ledger_id": {
+      "pattern": "^[a-z0-9_.-]+$",
+      "type": "string"
+    },
+    "ledger_state": {
+      "constant": "recorded_for_operator_review",
+      "type": "string"
+    },
+    "local_only": {
+      "constant": true,
+      "type": "boolean"
+    },
+    "local_reference_rows": {
+      "items": {
+        "additional_fields_allowed": false,
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "operator_review": {
+      "additional_fields_allowed": false,
+      "required_fields": [
+        "status",
+        "reviewed_by",
+        "reviewed_at",
+        "notes"
+      ],
+      "type": "object"
+    },
+    "operator_review_required": {
+      "constant": true,
+      "type": "boolean"
+    },
+    "record_section_rows": {
+      "items": {
+        "additional_fields_allowed": false,
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "run_mode": {
+      "constant": "offline_recordkeeping",
+      "type": "string"
+    },
+    "safety_boundaries": {
+      "additional_fields_allowed": false,
+      "type": "object"
+    },
+    "scope": {
+      "type": "string"
+    },
+    "source_inventory": {
+      "items": {
+        "additional_fields_allowed": false,
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "summary_counts": {
+      "additional_fields_allowed": false,
+      "required_fields": [
+        "source_packets",
+        "audit_rows",
+        "record_section_rows",
+        "local_references",
+        "audit_requirements",
+        "warnings",
+        "errors"
+      ],
+      "type": "object"
+    },
+    "warnings": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    }
+  },
+  "recordkeeping_mode": "offline_recordkeeping",
+  "required_fields": [
+    "contract_version",
+    "ledger_id",
+    "build_id",
+    "created_at",
+    "scope",
+    "run_mode",
+    "local_only",
+    "operator_review_required",
+    "ledger_state",
+    "source_inventory",
+    "audit_rows",
+    "record_section_rows",
+    "local_reference_rows",
+    "audit_requirement_rows",
+    "summary_counts",
+    "operator_review",
+    "safety_boundaries",
+    "warnings",
+    "errors"
+  ],
+  "safety_boundaries": {
+    "authenticated_service_allowed": false,
+    "external_market_api_allowed": false,
+    "llm_calls_allowed": false,
+    "market_instruction_allowed": false,
+    "network_calls_allowed": false,
+    "numeric_estimate_allowed": false,
+    "offline_inputs_only": true,
+    "operator_review_gate_required": true,
+    "paper_record_only": true,
+    "ranked_candidate_allowed": false,
+    "runtime_wiring_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "transaction_signing_allowed": false,
+    "wallet_access_allowed": false
+  },
+  "schema_id": "pmbot_simulated_decision_audit_ledger_schema.v1",
+  "schema_kind": "local_static_record_schema",
+  "title": "PMBOT simulated decision audit ledger schema"
+}

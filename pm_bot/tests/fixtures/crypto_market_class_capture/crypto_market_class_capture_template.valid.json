@@ -1,0 +1,104 @@
+{
+  "capture_fields": [
+    "record_id",
+    "market_class",
+    "market_slug",
+    "market_title",
+    "asset_symbol",
+    "asset_name",
+    "quote_currency",
+    "metric_type",
+    "measurement_source_label",
+    "threshold_value",
+    "threshold_unit",
+    "comparison_rule",
+    "deadline_utc",
+    "source_snapshot_reference",
+    "operator_notes",
+    "capture_status"
+  ],
+  "contract_version": "pmbot_crypto_market_class_capture_template.v1",
+  "created_at": "2026-05-09T00:00:00Z",
+  "errors": [],
+  "local_only": true,
+  "market_class_catalog": [
+    {
+      "class_id": "crypto_threshold_event",
+      "description": "Describes a crypto asset threshold condition, measurement label, deadline, and local source snapshot.",
+      "required_capture_fields": [
+        "record_id",
+        "market_class",
+        "market_slug",
+        "market_title",
+        "asset_symbol",
+        "asset_name",
+        "quote_currency",
+        "metric_type",
+        "measurement_source_label",
+        "threshold_value",
+        "threshold_unit",
+        "comparison_rule",
+        "deadline_utc",
+        "source_snapshot_reference",
+        "operator_notes",
+        "capture_status"
+      ],
+      "review_focus": [
+        "copy_market_text_exactly_from_local_snapshot",
+        "confirm_measurement_label_is_descriptive",
+        "confirm_deadline_timestamp_is_copied",
+        "leave_capture_status_pending_operator_review"
+      ]
+    }
+  ],
+  "operator_review": {
+    "reviewed_at": null,
+    "reviewed_by": null,
+    "status": "pending_operator_review"
+  },
+  "operator_review_required": true,
+  "record_state": "template_only_static_sample",
+  "run_mode": "local_descriptive_capture_template",
+  "safety_boundaries": {
+    "authenticated_endpoint_calls_allowed": false,
+    "background_process_allowed": false,
+    "browser_automation_allowed": false,
+    "external_market_api_calls_allowed": false,
+    "local_static_samples_only": true,
+    "network_calls_allowed": false,
+    "operator_review_required": true,
+    "runtime_or_dispatcher_changes_allowed": false,
+    "transaction_endpoint_calls_allowed": false,
+    "wallet_or_signing_material_access_allowed": false
+  },
+  "sample_records": [
+    {
+      "asset_name": "Bitcoin",
+      "asset_symbol": "BTC",
+      "capture_status": "pending_operator_review",
+      "comparison_rule": "at_or_above_threshold_by_deadline",
+      "deadline_utc": "2026-12-31T23:59:59Z",
+      "market_class": "crypto_threshold_event",
+      "market_slug": "static-sample-btc-threshold-2026",
+      "market_title": "Static sample BTC threshold market",
+      "measurement_source_label": "local fixture index close label",
+      "metric_type": "spot_index_threshold",
+      "operator_notes": "Static sample for record shape only.",
+      "quote_currency": "USD",
+      "record_id": "crypto_market_class_capture_template_001.sample.btc_threshold",
+      "source_snapshot_reference": "pm_bot/tests/fixtures/crypto_market_class_capture/crypto_market_class_capture_template.valid.json",
+      "threshold_unit": "USD",
+      "threshold_value": "150000.00"
+    }
+  ],
+  "summary_counts": {
+    "capture_fields": 16,
+    "market_classes": 1,
+    "sample_records": 1,
+    "warnings": 0
+  },
+  "task_id": "PMBOT-CRYPTO-PILOT-001-CRYPTO-MARKET-CLASS-CAPTURE-TEMPLATE-LOCAL-ONLY",
+  "template_id": "crypto_market_class_capture_template_001",
+  "template_name": "crypto-market-class-capture",
+  "warnings": []
+}

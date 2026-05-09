@@ -1,0 +1,647 @@
+{
+  "background_worker_created": false,
+  "batch_execution_status": "completed",
+  "batch_report_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_batch_report_20260509T045704Z.json",
+  "batch_run_id": "20260509T045704Z",
+  "batch_status": "ok",
+  "blocked_count": 0,
+  "bridge_results": true,
+  "bridged_count": 20,
+  "codex_exec_invoked": false,
+  "codex_invocation_count": 0,
+  "completed_execution_count": 20,
+  "daemon_created": false,
+  "errors": [],
+  "git_commit_performed": false,
+  "git_push_performed": false,
+  "infinite_loop_created": false,
+  "ingested_count": 20,
+  "next_operator_action": "Inspect the post-batch summary, task review reports, and git diff; run mark-done only for tasks whose review report recommends ready_for_operator_done.",
+  "openrouter_calls_performed": 0,
+  "orders_or_trading_actions": false,
+  "overwrite_results": false,
+  "policy": "continue through completed task executions; block individual tasks that cannot be bridged safely",
+  "polymarket_api_calls_performed": 0,
+  "queue_root": "agent_tasks",
+  "report_paths": {
+    "latest_post_batch_summary_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\latest_post_batch_review_summary.json",
+    "latest_post_batch_summary_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\latest_post_batch_review_summary.md",
+    "post_batch_summary_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\post_batch_review_summary_20260509T070549Z.json",
+    "post_batch_summary_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\post_batch_review_summary_20260509T070549Z.md"
+  },
+  "result_json_written_count": 20,
+  "review_approved_automatically": false,
+  "review_results": true,
+  "reviewed_count": 20,
+  "run_id": "20260509T070549Z",
+  "runtime_or_dispatcher_changes": false,
+  "scheduler_created": false,
+  "schema_version": "codex_cli_batch_postprocess_report.v1",
+  "skipped_count": 0,
+  "status": "ok",
+  "task_marked_done_automatically": false,
+  "task_results": [
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-SOURCE-LEDGER-003-SOURCE-QUALITY-REPORT-SUMMARY-LOCAL-ONLY\\20260509T045704Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_20260509T070549Z.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-SOURCE-LEDGER-003-SOURCE-QUALITY-REPORT-SUMMARY-LOCAL-ONLY\\20260509T045704Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-SOURCE-LEDGER-003-SOURCE-QUALITY-REPORT-SUMMARY-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SOURCE-LEDGER-003-SOURCE-QUALITY-REPORT-SUMMARY-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SOURCE-LEDGER-003-SOURCE-QUALITY-REPORT-SUMMARY-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-SOURCE-LEDGER-003-SOURCE-QUALITY-REPORT-SUMMARY-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-SOURCE-LEDGER-004-SOURCE-QUALITY-REGRESSION-FIXTURE-LOCAL-ONLY\\20260509T050330Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_20260509T070549Z.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-SOURCE-LEDGER-004-SOURCE-QUALITY-REGRESSION-FIXTURE-LOCAL-ONLY\\20260509T050330Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-SOURCE-LEDGER-004-SOURCE-QUALITY-REGRESSION-FIXTURE-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SOURCE-LEDGER-004-SOURCE-QUALITY-REGRESSION-FIXTURE-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SOURCE-LEDGER-004-SOURCE-QUALITY-REGRESSION-FIXTURE-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-SOURCE-LEDGER-004-SOURCE-QUALITY-REGRESSION-FIXTURE-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-PAPERLIVE-DECISION-003-SIMULATED-DECISION-AUDIT-LEDGER-NO-RECOMMENDATIONS\\20260509T051000Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_20260509T070550Z.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-PAPERLIVE-DECISION-003-SIMULATED-DECISION-AUDIT-LEDGER-NO-RECOMMENDATIONS\\20260509T051000Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-PAPERLIVE-DECISION-003-SIMULATED-DECISION-AUDIT-LEDGER-NO-RECOMMENDATIONS.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-PAPERLIVE-DECISION-003-SIMULATED-DECISION-AUDIT-LEDGER-NO-RECOMMENDATIONS.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-PAPERLIVE-DECISION-003-SIMULATED-DECISION-AUDIT-LEDGER-NO-RECOMMENDATIONS.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-PAPERLIVE-DECISION-003-SIMULATED-DECISION-AUDIT-LEDGER-NO-RECOMMENDATIONS",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-PAPERLIVE-DECISION-004-SIMULATED-DECISION-REPLAY-SUMMARY-NO-RECOMMENDATIONS\\20260509T051810Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_20260509T070550Z.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-PAPERLIVE-DECISION-004-SIMULATED-DECISION-REPLAY-SUMMARY-NO-RECOMMENDATIONS\\20260509T051810Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-PAPERLIVE-DECISION-004-SIMULATED-DECISION-REPLAY-SUMMARY-NO-RECOMMENDATIONS.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-PAPERLIVE-DECISION-004-SIMULATED-DECISION-REPLAY-SUMMARY-NO-RECOMMENDATIONS.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-PAPERLIVE-DECISION-004-SIMULATED-DECISION-REPLAY-SUMMARY-NO-RECOMMENDATIONS.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-PAPERLIVE-DECISION-004-SIMULATED-DECISION-REPLAY-SUMMARY-NO-RECOMMENDATIONS",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-PAPER-ACCOUNTING-002-PAPER-ONLY-ACCOUNTING-VALIDATOR-LOCAL-ONLY\\20260509T052630Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_20260509T070550Z.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-PAPER-ACCOUNTING-002-PAPER-ONLY-ACCOUNTING-VALIDATOR-LOCAL-ONLY\\20260509T052630Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-PAPER-ACCOUNTING-002-PAPER-ONLY-ACCOUNTING-VALIDATOR-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-PAPER-ACCOUNTING-002-PAPER-ONLY-ACCOUNTING-VALIDATOR-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-PAPER-ACCOUNTING-002-PAPER-ONLY-ACCOUNTING-VALIDATOR-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-PAPER-ACCOUNTING-002-PAPER-ONLY-ACCOUNTING-VALIDATOR-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-PAPER-ACCOUNTING-003-PAPER-ONLY-SESSION-SUMMARY-LOCAL-ONLY\\20260509T053351Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_20260509T070550Z.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-PAPER-ACCOUNTING-003-PAPER-ONLY-SESSION-SUMMARY-LOCAL-ONLY\\20260509T053351Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-PAPER-ACCOUNTING-003-PAPER-ONLY-SESSION-SUMMARY-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-PAPER-ACCOUNTING-003-PAPER-ONLY-SESSION-SUMMARY-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-PAPER-ACCOUNTING-003-PAPER-ONLY-SESSION-SUMMARY-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-PAPER-ACCOUNTING-003-PAPER-ONLY-SESSION-SUMMARY-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-PILOT-001-CRYPTO-MARKET-CLASS-CAPTURE-TEMPLATE-LOCAL-ONLY\\20260509T054009Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_20260509T070550Z.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-PILOT-001-CRYPTO-MARKET-CLASS-CAPTURE-TEMPLATE-LOCAL-ONLY\\20260509T054009Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-PILOT-001-CRYPTO-MARKET-CLASS-CAPTURE-TEMPLATE-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-PILOT-001-CRYPTO-MARKET-CLASS-CAPTURE-TEMPLATE-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-PILOT-001-CRYPTO-MARKET-CLASS-CAPTURE-TEMPLATE-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-CRYPTO-PILOT-001-CRYPTO-MARKET-CLASS-CAPTURE-TEMPLATE-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-PILOT-002-CRYPTO-OPERATOR-REVIEW-PROTOCOL-LOCAL-ONLY\\20260509T054532Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_20260509T070550Z.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-PILOT-002-CRYPTO-OPERATOR-REVIEW-PROTOCOL-LOCAL-ONLY\\20260509T054532Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-PILOT-002-CRYPTO-OPERATOR-REVIEW-PROTOCOL-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-PILOT-002-CRYPTO-OPERATOR-REVIEW-PROTOCOL-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-PILOT-002-CRYPTO-OPERATOR-REVIEW-PROTOCOL-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-CRYPTO-PILOT-002-CRYPTO-OPERATOR-REVIEW-PROTOCOL-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-PILOT-003-CRYPTO-PAPERLIVE-OBSERVATION-LEDGER-LOCAL-ONLY\\20260509T054940Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_20260509T070550Z.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-PILOT-003-CRYPTO-PAPERLIVE-OBSERVATION-LEDGER-LOCAL-ONLY\\20260509T054940Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-PILOT-003-CRYPTO-PAPERLIVE-OBSERVATION-LEDGER-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-PILOT-003-CRYPTO-PAPERLIVE-OBSERVATION-LEDGER-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-PILOT-003-CRYPTO-PAPERLIVE-OBSERVATION-LEDGER-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-CRYPTO-PILOT-003-CRYPTO-PAPERLIVE-OBSERVATION-LEDGER-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-PILOT-004-CRYPTO-SOURCE-QUALITY-CAPTURE-SURFACE-LOCAL-ONLY\\20260509T055405Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_20260509T070550Z.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-CRYPTO-PILOT-004-CRYPTO-SOURCE-QUALITY-CAPTURE-SURFACE-LOCAL-ONLY\\20260509T055405Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-PILOT-004-CRYPTO-SOURCE-QUALITY-CAPTURE-SURFACE-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-PILOT-004-CRYPTO-SOURCE-QUALITY-CAPTURE-SURFACE-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-PILOT-004-CRYPTO-SOURCE-QUALITY-CAPTURE-SURFACE-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-CRYPTO-PILOT-004-CRYPTO-SOURCE-QUALITY-CAPTURE-SURFACE-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-DASHBOARD-002-QUEUE-AND-PAPERLIVE-STATUS-SURFACE\\20260509T060210Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_20260509T070550Z.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-DASHBOARD-002-QUEUE-AND-PAPERLIVE-STATUS-SURFACE\\20260509T060210Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-DASHBOARD-002-QUEUE-AND-PAPERLIVE-STATUS-SURFACE.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-DASHBOARD-002-QUEUE-AND-PAPERLIVE-STATUS-SURFACE.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-DASHBOARD-002-QUEUE-AND-PAPERLIVE-STATUS-SURFACE.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-DASHBOARD-002-QUEUE-AND-PAPERLIVE-STATUS-SURFACE",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-DASHBOARD-003-SOURCE-QUALITY-DASHBOARD-SUMMARY\\20260509T060936Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_20260509T070550Z.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-DASHBOARD-003-SOURCE-QUALITY-DASHBOARD-SUMMARY\\20260509T060936Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-DASHBOARD-003-SOURCE-QUALITY-DASHBOARD-SUMMARY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-DASHBOARD-003-SOURCE-QUALITY-DASHBOARD-SUMMARY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-DASHBOARD-003-SOURCE-QUALITY-DASHBOARD-SUMMARY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-DASHBOARD-003-SOURCE-QUALITY-DASHBOARD-SUMMARY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-DASHBOARD-004-PAPER-ACCOUNTING-DASHBOARD-SUMMARY\\20260509T061819Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_20260509T070550Z.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-DASHBOARD-004-PAPER-ACCOUNTING-DASHBOARD-SUMMARY\\20260509T061819Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-DASHBOARD-004-PAPER-ACCOUNTING-DASHBOARD-SUMMARY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-DASHBOARD-004-PAPER-ACCOUNTING-DASHBOARD-SUMMARY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-DASHBOARD-004-PAPER-ACCOUNTING-DASHBOARD-SUMMARY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-DASHBOARD-004-PAPER-ACCOUNTING-DASHBOARD-SUMMARY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-SAFETY-001-AUTONOMY-GATE-CHECKLIST-LOCAL-ONLY\\20260509T062544Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_20260509T070550Z.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-SAFETY-001-AUTONOMY-GATE-CHECKLIST-LOCAL-ONLY\\20260509T062544Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-SAFETY-001-AUTONOMY-GATE-CHECKLIST-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SAFETY-001-AUTONOMY-GATE-CHECKLIST-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SAFETY-001-AUTONOMY-GATE-CHECKLIST-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-SAFETY-001-AUTONOMY-GATE-CHECKLIST-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-SAFETY-002-NIGHT-BATCH-POSTRUN-AUDIT-SUMMARY-LOCAL-ONLY\\20260509T062843Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_20260509T070550Z.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-SAFETY-002-NIGHT-BATCH-POSTRUN-AUDIT-SUMMARY-LOCAL-ONLY\\20260509T062843Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-SAFETY-002-NIGHT-BATCH-POSTRUN-AUDIT-SUMMARY-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SAFETY-002-NIGHT-BATCH-POSTRUN-AUDIT-SUMMARY-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SAFETY-002-NIGHT-BATCH-POSTRUN-AUDIT-SUMMARY-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-SAFETY-002-NIGHT-BATCH-POSTRUN-AUDIT-SUMMARY-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-SAFETY-003-FORBIDDEN-ACTION-SCAN-LOCAL-ONLY\\20260509T063243Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_20260509T070550Z.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-SAFETY-003-FORBIDDEN-ACTION-SCAN-LOCAL-ONLY\\20260509T063243Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-SAFETY-003-FORBIDDEN-ACTION-SCAN-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SAFETY-003-FORBIDDEN-ACTION-SCAN-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-SAFETY-003-FORBIDDEN-ACTION-SCAN-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-SAFETY-003-FORBIDDEN-ACTION-SCAN-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-ROADMAP-002-PMBOT-LOCAL-TO-SUPERVISED-LIVE-GAP-MATRIX\\20260509T063629Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_20260509T070550Z.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-ROADMAP-002-PMBOT-LOCAL-TO-SUPERVISED-LIVE-GAP-MATRIX\\20260509T063629Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-ROADMAP-002-PMBOT-LOCAL-TO-SUPERVISED-LIVE-GAP-MATRIX.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-ROADMAP-002-PMBOT-LOCAL-TO-SUPERVISED-LIVE-GAP-MATRIX.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-ROADMAP-002-PMBOT-LOCAL-TO-SUPERVISED-LIVE-GAP-MATRIX.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-ROADMAP-002-PMBOT-LOCAL-TO-SUPERVISED-LIVE-GAP-MATRIX",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-ROADMAP-003-NEXT-20-TASK-BACKLOG-GENERATOR\\20260509T064054Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_20260509T070550Z.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-ROADMAP-003-NEXT-20-TASK-BACKLOG-GENERATOR\\20260509T064054Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-ROADMAP-003-NEXT-20-TASK-BACKLOG-GENERATOR.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-ROADMAP-003-NEXT-20-TASK-BACKLOG-GENERATOR.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-ROADMAP-003-NEXT-20-TASK-BACKLOG-GENERATOR.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-ROADMAP-003-NEXT-20-TASK-BACKLOG-GENERATOR",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-OPERATOR-001-MORNING-REVIEW-PACK-LOCAL-ONLY\\20260509T064821Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_20260509T070550Z.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-OPERATOR-001-MORNING-REVIEW-PACK-LOCAL-ONLY\\20260509T064821Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-OPERATOR-001-MORNING-REVIEW-PACK-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-OPERATOR-001-MORNING-REVIEW-PACK-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-OPERATOR-001-MORNING-REVIEW-PACK-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-OPERATOR-001-MORNING-REVIEW-PACK-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-OPERATOR-002-NIGHT-BATCH-ACCEPTANCE-REPORT-LOCAL-ONLY\\20260509T065659Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_20260509T070550Z.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-OPERATOR-002-NIGHT-BATCH-ACCEPTANCE-REPORT-LOCAL-ONLY\\20260509T065659Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-OPERATOR-002-NIGHT-BATCH-ACCEPTANCE-REPORT-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-OPERATOR-002-NIGHT-BATCH-ACCEPTANCE-REPORT-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-OPERATOR-002-NIGHT-BATCH-ACCEPTANCE-REPORT-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-OPERATOR-002-NIGHT-BATCH-ACCEPTANCE-REPORT-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    }
+  ],
+  "wallet_or_private_key_access": false,
+  "warnings": []
+}

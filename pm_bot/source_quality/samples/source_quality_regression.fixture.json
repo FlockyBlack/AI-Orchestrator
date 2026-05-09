@@ -1,0 +1,228 @@
+{
+  "artifact_references": [
+    {
+      "build_id": "unified_source_quality_ledger_fixture_001-be4cc5453863",
+      "contract_version": "pmbot_unified_source_quality_ledger.v1",
+      "local_reference": "pm_bot/source_quality/samples/unified_source_quality_ledger.fixture.json",
+      "reference_role": "unified_source_quality_ledger_sample"
+    },
+    {
+      "build_id": "unified_source_quality_ledger_fixture_001-be4cc5453863.source_quality_report_summary",
+      "contract_version": "pmbot_source_quality_report_summary.v1",
+      "local_reference": "pm_bot/source_quality/samples/source_quality_report_summary.fixture.json",
+      "reference_role": "source_quality_report_summary_sample"
+    }
+  ],
+  "baseline": {
+    "ledger_build_id": "unified_source_quality_ledger_fixture_001-be4cc5453863",
+    "ledger_id": "unified_source_quality_ledger_fixture_001",
+    "report_summary_build_id": "unified_source_quality_ledger_fixture_001-be4cc5453863.source_quality_report_summary",
+    "report_summary_id": "unified_source_quality_ledger_fixture_001.source_quality_report_summary",
+    "report_summary_ledger_build_id": "unified_source_quality_ledger_fixture_001-be4cc5453863"
+  },
+  "build_id": "source_quality_regression_fixture_001-fc3b9f978335",
+  "contract_version": "pmbot_source_quality_regression_fixture.v1",
+  "errors": [],
+  "fixture_id": "source_quality_regression_fixture_001",
+  "local_only": true,
+  "operator_review": {
+    "status": "pending_operator_review",
+    "steps": [
+      "Confirm the ledger sample and report summary sample are the static local artifacts named in artifact_references.",
+      "Confirm review assertions describe structural parity only.",
+      "Record any source artifact dispute outside this regression fixture."
+    ]
+  },
+  "operator_review_required": true,
+  "regression_fixture_rows": [
+    {
+      "declared_fields": [
+        "observation_date",
+        "station_id",
+        "high_temperature_f",
+        "report_timestamp"
+      ],
+      "field_summary": {
+        "declared": 4,
+        "missing": 0,
+        "present": 4
+      },
+      "known_limitation_count": 2,
+      "ledger_row_id": "unified_source_quality_ledger_fixture_001.official_daily_climate_report.source_quality_review",
+      "local_reference": "pm_bot/tests/fixtures/weather/official_daily_climate_report_snapshot.json",
+      "operator_review_status": "pending_operator_review",
+      "report_row_id": "unified_source_quality_ledger_fixture_001.official_daily_climate_report.source_quality_review.source_quality_report_summary",
+      "review_check_count": 2,
+      "runner_state": "descriptive_source_quality_regression_review",
+      "snapshot_id": "fixture_official_daily_climate_report_2026_05_09",
+      "source_id": "official_daily_climate_report",
+      "source_label": "Official daily climate report",
+      "source_type": "official_record_snapshot"
+    },
+    {
+      "declared_fields": [
+        "observation_date",
+        "station_id",
+        "observed_high_temperature_f",
+        "observation_timestamp"
+      ],
+      "field_summary": {
+        "declared": 4,
+        "missing": 0,
+        "present": 4
+      },
+      "known_limitation_count": 2,
+      "ledger_row_id": "unified_source_quality_ledger_fixture_001.airport_station_observation_log.source_quality_review",
+      "local_reference": "pm_bot/tests/fixtures/weather/airport_station_observation_log_snapshot.json",
+      "operator_review_status": "pending_operator_review",
+      "report_row_id": "unified_source_quality_ledger_fixture_001.airport_station_observation_log.source_quality_review.source_quality_report_summary",
+      "review_check_count": 2,
+      "runner_state": "descriptive_source_quality_regression_review",
+      "snapshot_id": "fixture_airport_station_observation_log_2026_05_09",
+      "source_id": "airport_station_observation_log",
+      "source_label": "Airport station observation log",
+      "source_type": "station_observation_snapshot"
+    }
+  ],
+  "review_assertions": [
+    {
+      "assertion_id": "ledger_contract_version",
+      "description": "Ledger sample uses the expected local contract version.",
+      "expected_value": "pmbot_unified_source_quality_ledger.v1",
+      "observed_value": "pmbot_unified_source_quality_ledger.v1",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "assertion_id": "report_summary_contract_version",
+      "description": "Report summary sample uses the expected local contract version.",
+      "expected_value": "pmbot_source_quality_report_summary.v1",
+      "observed_value": "pmbot_source_quality_report_summary.v1",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "assertion_id": "ledger_to_report_summary_build",
+      "description": "Report summary sample references the ledger sample build.",
+      "expected_value": "unified_source_quality_ledger_fixture_001-be4cc5453863",
+      "observed_value": "unified_source_quality_ledger_fixture_001-be4cc5453863",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "assertion_id": "source_artifact_total",
+      "description": "Ledger and report summary retain the same source artifact total.",
+      "expected_value": 2,
+      "observed_value": 2,
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "assertion_id": "declared_field_total",
+      "description": "Ledger and report summary retain the same declared field total.",
+      "expected_value": 8,
+      "observed_value": 8,
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "assertion_id": "present_field_total",
+      "description": "Ledger and report summary retain the same present field total.",
+      "expected_value": 8,
+      "observed_value": 8,
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "assertion_id": "missing_field_total",
+      "description": "Ledger and report summary retain the same missing field total.",
+      "expected_value": 0,
+      "observed_value": 0,
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "assertion_id": "warning_total",
+      "description": "Ledger and report summary retain the same warning total.",
+      "expected_value": 0,
+      "observed_value": 0,
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "assertion_id": "row_identity_alignment",
+      "description": "Regression rows preserve source row and report row identity alignment.",
+      "expected_value": [
+        "unified_source_quality_ledger_fixture_001.official_daily_climate_report.source_quality_review",
+        "unified_source_quality_ledger_fixture_001.airport_station_observation_log.source_quality_review"
+      ],
+      "observed_value": [
+        "unified_source_quality_ledger_fixture_001.official_daily_climate_report.source_quality_review",
+        "unified_source_quality_ledger_fixture_001.airport_station_observation_log.source_quality_review"
+      ],
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "assertion_id": "operator_review_state",
+      "description": "Regression rows remain pending operator review.",
+      "expected_value": [
+        "pending_operator_review"
+      ],
+      "observed_value": [
+        "pending_operator_review"
+      ],
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "assertion_id": "local_safety_boundary",
+      "description": "Local-only safety boundary remains unchanged.",
+      "expected_value": {
+        "external_market_api_allowed": false,
+        "llm_calls_allowed": false,
+        "network_calls_allowed": false,
+        "offline_inputs_only": true,
+        "operator_review_gate_required": true,
+        "outcome_resolution_allowed": false,
+        "runtime_wiring_allowed": false,
+        "scheduler_or_worker_allowed": false,
+        "source_preference_output_allowed": false,
+        "trade_action_guidance_allowed": false,
+        "wallet_or_order_code_allowed": false
+      },
+      "observed_value": {
+        "external_market_api_allowed": false,
+        "llm_calls_allowed": false,
+        "network_calls_allowed": false,
+        "offline_inputs_only": true,
+        "operator_review_gate_required": true,
+        "outcome_resolution_allowed": false,
+        "runtime_wiring_allowed": false,
+        "scheduler_or_worker_allowed": false,
+        "source_preference_output_allowed": false,
+        "trade_action_guidance_allowed": false,
+        "wallet_or_order_code_allowed": false
+      },
+      "operator_review_status": "pending_operator_review"
+    }
+  ],
+  "run_mode": "local_source_quality_regression_fixture",
+  "safety_boundaries": {
+    "external_market_api_allowed": false,
+    "llm_calls_allowed": false,
+    "network_calls_allowed": false,
+    "offline_inputs_only": true,
+    "operator_review_gate_required": true,
+    "outcome_resolution_allowed": false,
+    "runtime_wiring_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "source_preference_output_allowed": false,
+    "trade_action_guidance_allowed": false,
+    "wallet_or_order_code_allowed": false
+  },
+  "scope": "source_quality_regression_fixture",
+  "summary_counts": {
+    "artifact_references": 2,
+    "fields_declared": 8,
+    "fields_missing": 0,
+    "fields_present": 8,
+    "known_limitations": 4,
+    "regression_fixture_rows": 2,
+    "review_assertions": 11,
+    "review_checks": 4,
+    "source_artifacts": 2,
+    "warnings": 0
+  },
+  "warnings": []
+}

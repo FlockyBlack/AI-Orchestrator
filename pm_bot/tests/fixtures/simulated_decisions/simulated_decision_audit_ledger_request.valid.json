@@ -1,0 +1,36 @@
+{
+  "audit_requirements": [
+    {
+      "description": "Confirm source references are repository-relative local artifacts.",
+      "operator_review_status": "pending_operator_review",
+      "requirement_id": "local_reference_review"
+    },
+    {
+      "description": "Confirm record counts match packet content.",
+      "operator_review_status": "pending_operator_review",
+      "requirement_id": "summary_count_review"
+    },
+    {
+      "description": "Confirm closed local-only safety flags remain unchanged.",
+      "operator_review_status": "pending_operator_review",
+      "requirement_id": "safety_boundary_review"
+    }
+  ],
+  "contract_version": "pmbot_simulated_decision_audit_ledger_request.v1",
+  "created_at": "2026-05-09T00:10:00Z",
+  "ledger_id": "simulated_decision_audit_ledger_fixture_001",
+  "local_only": true,
+  "operator_review_required": true,
+  "operator_review_steps": [
+    "Review packet identity, local references, count rows, and safety flags before any downstream use."
+  ],
+  "scope": "fixture_simulated_decision_records",
+  "source_packets": [
+    {
+      "local_reference": "pm_bot/simulated_decisions/samples/simulated_decision_packet.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "source_packet_id": "simulated_decision_packet_fixture_001",
+      "source_packet_label": "Static simulated decision packet fixture"
+    }
+  ]
+}

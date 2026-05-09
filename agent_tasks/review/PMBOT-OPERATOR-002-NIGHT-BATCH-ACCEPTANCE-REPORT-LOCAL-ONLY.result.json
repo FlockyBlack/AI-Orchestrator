@@ -1,0 +1,44 @@
+{
+  "acceptance_checks_passed": true,
+  "commands_run": [
+    "pytest pm_bot/tests/test_local_night_batch_acceptance_report.py",
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "completed_at": "2026-05-09T07:05:32Z",
+  "completed_by": "codex_cli_last_message_bridge",
+  "files_created": [],
+  "files_deleted": [],
+  "files_modified": [
+    "docs/PMBOT_OPERATOR_002_NIGHT_BATCH_ACCEPTANCE_REPORT_LOCAL_ONLY.md",
+    "pm_bot/dashboard/local_night_batch_acceptance_report.py",
+    "pm_bot/dashboard/samples/local_night_batch_acceptance_report.fixture.json",
+    "pm_bot/dashboard/samples/local_night_batch_acceptance_report.fixture.md",
+    "pm_bot/tests/fixtures/operator/night_batch_acceptance_report_request.valid.json",
+    "pm_bot/tests/test_local_night_batch_acceptance_report.py"
+  ],
+  "next_recommended_action": "Inspect the bridged result, ingestion report, review report, and git diff before mark-done.",
+  "operator_review_notes": "Bridged from C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-OPERATOR-002-NIGHT-BATCH-ACCEPTANCE-REPORT-LOCAL-ONLY\\20260509T065659Z\\last_message.md. Safety notes: Used only local files, local fixtures, and static samples under allowed paths.; No network, browser automation, external service, credential, wallet, signing, transaction endpoint, execution endpoint, runtime, dispatcher, run_codex, scheduler, worker, or background process work was performed.; The report is not execution approval and is not runtime input.; No forecast scoring, action guidance, or selection advice was added. Remaining risks: pytest passed but emitted a non-fatal cache warning because .pytest_cache could not be written.; compileall exited 0 but printed a non-fatal permission message for tests/.pytest_tmp/pytest-of-OpenC.; The allowed-path worktree already contains unrelated modified/untracked files; they were left untouched. Bridge warnings: last_message used files_changed; bridged those paths as files_modified",
+  "safety_confirmation": {
+    "background_worker_added": false,
+    "codex_app_server_used": false,
+    "credentials_accessed": false,
+    "destructive_commands_used": false,
+    "network_calls_performed": 0,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "runtime_or_dispatcher_touched": false,
+    "scheduler_added": false,
+    "telegram_or_openclaw_added": false,
+    "wallet_or_trading_touched": false
+  },
+  "schema_version": "codex_task_result.v1",
+  "status": "completed",
+  "summary": "Added a deterministic local PMBOT night batch acceptance report for operator review, including a local request fixture, generated JSON and Markdown report fixtures, documentation, a dashboard report builder, and focused tests. All report rows remain pending operator review and the artifact is descriptive only.",
+  "task_id": "PMBOT-OPERATOR-002-NIGHT-BATCH-ACCEPTANCE-REPORT-LOCAL-ONLY",
+  "validation_results": [
+    "pytest pm_bot/tests/test_local_night_batch_acceptance_report.py",
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ]
+}

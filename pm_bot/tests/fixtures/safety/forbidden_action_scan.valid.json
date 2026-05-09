@@ -1,0 +1,139 @@
+{
+  "contract_version": "pmbot_forbidden_action_scan.v1",
+  "created_at": "2026-05-09T00:00:00Z",
+  "errors": [],
+  "forbidden_action_scan_id": "pmbot_forbidden_action_scan_001",
+  "local_only": true,
+  "operator_review": {
+    "reviewed_at": null,
+    "reviewed_by": null,
+    "status": "pending_operator_review"
+  },
+  "operator_review_required": true,
+  "required_validation_commands": [
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "run_mode": "local_static_forbidden_action_scan",
+  "safety_boundaries": {
+    "authenticated_endpoint_calls_allowed": false,
+    "background_process_allowed": false,
+    "browser_automation_allowed": false,
+    "credential_or_secret_access_allowed": false,
+    "execution_endpoint_calls_allowed": false,
+    "external_service_calls_allowed": false,
+    "llm_provider_calls_allowed": false,
+    "local_static_samples_only": true,
+    "market_api_calls_allowed": false,
+    "network_calls_allowed": false,
+    "operator_review_required": true,
+    "order_or_trade_surface_changes_allowed": false,
+    "runtime_or_dispatcher_changes_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "transaction_endpoint_calls_allowed": false,
+    "wallet_or_signing_material_access_allowed": false
+  },
+  "scan_findings": [
+    {
+      "category": "credential_boundary",
+      "finding_id": "credential_boundary_closed",
+      "inspection_label": "Confirm credential and secret material are outside this local scan.",
+      "local_reference": "docs/PMBOT_SAFETY_001_AUTONOMY_GATE_CHECKLIST_LOCAL_ONLY.md",
+      "observed_state": "credential_and_secret_material_not_used",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "category": "endpoint_boundary",
+      "finding_id": "endpoint_boundary_closed",
+      "inspection_label": "Confirm endpoint and external service calls are outside this local scan.",
+      "local_reference": "docs/PMBOT_SAFETY_002_NIGHT_BATCH_POSTRUN_AUDIT_SUMMARY_LOCAL_ONLY.md",
+      "observed_state": "endpoint_and_service_calls_not_used",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "category": "wallet_boundary",
+      "finding_id": "wallet_boundary_closed",
+      "inspection_label": "Confirm wallet and signing material are outside this local scan.",
+      "local_reference": "docs/PMBOT_SAFETY_001_AUTONOMY_GATE_CHECKLIST_LOCAL_ONLY.md",
+      "observed_state": "wallet_and_signing_material_not_used",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "category": "runtime_boundary",
+      "finding_id": "runtime_boundary_closed",
+      "inspection_label": "Confirm runtime, dispatcher, and worker changes are outside this local scan.",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "observed_state": "runtime_dispatcher_and_worker_changes_not_used",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "category": "scheduler_boundary",
+      "finding_id": "scheduler_boundary_closed",
+      "inspection_label": "Confirm scheduler and background process work are outside this local scan.",
+      "local_reference": "docs/PMBOT_SAFETY_002_NIGHT_BATCH_POSTRUN_AUDIT_SUMMARY_LOCAL_ONLY.md",
+      "observed_state": "scheduler_and_background_process_work_not_used",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "category": "network_boundary",
+      "finding_id": "network_boundary_closed",
+      "inspection_label": "Confirm network and market API calls are outside this local scan.",
+      "local_reference": "docs/PMBOT_SAFETY_003_FORBIDDEN_ACTION_SCAN_LOCAL_ONLY.md",
+      "observed_state": "network_and_market_api_calls_not_used",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "category": "descriptive_output_boundary",
+      "finding_id": "descriptive_output_boundary_closed",
+      "inspection_label": "Confirm outputs are static records for human review only.",
+      "local_reference": "pm_bot/tests/fixtures/safety/forbidden_action_scan.valid.json",
+      "observed_state": "outputs_are_static_records_for_human_review",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "category": "human_review_boundary",
+      "finding_id": "human_review_boundary_pending",
+      "inspection_label": "Confirm status remains pending until a human review record exists.",
+      "local_reference": "docs/PMBOT_SAFETY_003_FORBIDDEN_ACTION_SCAN_LOCAL_ONLY.md",
+      "observed_state": "status_pending_until_human_review_record_exists",
+      "operator_review_status": "pending_operator_review"
+    }
+  ],
+  "scan_inputs": [
+    {
+      "input_id": "queue_template_safety_contract",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "observed_state": "pmbot_task_template_safety_contract_present",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "input_id": "autonomy_gate_record",
+      "local_reference": "docs/PMBOT_SAFETY_001_AUTONOMY_GATE_CHECKLIST_LOCAL_ONLY.md",
+      "observed_state": "operator_gate_record_available",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "input_id": "postrun_audit_record",
+      "local_reference": "docs/PMBOT_SAFETY_002_NIGHT_BATCH_POSTRUN_AUDIT_SUMMARY_LOCAL_ONLY.md",
+      "observed_state": "postrun_audit_record_available",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "input_id": "static_scan_fixture",
+      "local_reference": "pm_bot/tests/fixtures/safety/forbidden_action_scan.valid.json",
+      "observed_state": "scan_record_available_for_operator_review",
+      "operator_review_status": "pending_operator_review"
+    }
+  ],
+  "scan_name": "pmbot-forbidden-action-scan",
+  "summary_counts": {
+    "local_references": 5,
+    "required_validation_commands": 2,
+    "scan_findings": 8,
+    "scan_findings_pending_operator_review": 8,
+    "scan_inputs": 4,
+    "warnings": 0
+  },
+  "task_id": "PMBOT-SAFETY-003-FORBIDDEN-ACTION-SCAN-LOCAL-ONLY",
+  "warnings": []
+}

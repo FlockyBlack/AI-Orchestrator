@@ -1,0 +1,158 @@
+{
+  "additional_fields_allowed": false,
+  "contract_version": "pmbot_simulated_decision_replay_summary.v1",
+  "description": "Local static schema for PMBOT simulated decision replay summaries that restate local records for human review.",
+  "local_only": true,
+  "operator_review_required": true,
+  "properties": {
+    "build_id": {
+      "type": "string"
+    },
+    "contract_version": {
+      "constant": "pmbot_simulated_decision_replay_summary.v1",
+      "type": "string"
+    },
+    "created_at": {
+      "format": "utc_timestamp",
+      "type": "string"
+    },
+    "errors": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "local_only": {
+      "constant": true,
+      "type": "boolean"
+    },
+    "local_reference_rows": {
+      "items": {
+        "additional_fields_allowed": false,
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "operator_review": {
+      "additional_fields_allowed": false,
+      "required_fields": [
+        "status",
+        "reviewed_by",
+        "reviewed_at",
+        "notes"
+      ],
+      "type": "object"
+    },
+    "operator_review_required": {
+      "constant": true,
+      "type": "boolean"
+    },
+    "record_section_rows": {
+      "items": {
+        "additional_fields_allowed": false,
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "replay_check_rows": {
+      "items": {
+        "additional_fields_allowed": false,
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "replay_scope": {
+      "type": "string"
+    },
+    "run_mode": {
+      "constant": "offline_recordkeeping",
+      "type": "string"
+    },
+    "safety_boundaries": {
+      "additional_fields_allowed": false,
+      "type": "object"
+    },
+    "source_ledger_rows": {
+      "items": {
+        "additional_fields_allowed": false,
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "source_packet_rows": {
+      "items": {
+        "additional_fields_allowed": false,
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "summary_counts": {
+      "additional_fields_allowed": false,
+      "required_fields": [
+        "source_ledgers",
+        "source_packets",
+        "record_section_rows",
+        "local_references",
+        "replay_checks",
+        "warnings",
+        "errors"
+      ],
+      "type": "object"
+    },
+    "summary_id": {
+      "pattern": "^[a-z0-9_.-]+$",
+      "type": "string"
+    },
+    "summary_state": {
+      "constant": "recorded_for_operator_review",
+      "type": "string"
+    },
+    "warnings": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    }
+  },
+  "recordkeeping_mode": "offline_recordkeeping",
+  "required_fields": [
+    "contract_version",
+    "summary_id",
+    "build_id",
+    "created_at",
+    "replay_scope",
+    "run_mode",
+    "local_only",
+    "operator_review_required",
+    "summary_state",
+    "source_ledger_rows",
+    "source_packet_rows",
+    "record_section_rows",
+    "local_reference_rows",
+    "replay_check_rows",
+    "summary_counts",
+    "operator_review",
+    "safety_boundaries",
+    "warnings",
+    "errors"
+  ],
+  "safety_boundaries": {
+    "authenticated_service_allowed": false,
+    "external_market_api_allowed": false,
+    "llm_calls_allowed": false,
+    "market_instruction_allowed": false,
+    "network_calls_allowed": false,
+    "numeric_estimate_allowed": false,
+    "offline_inputs_only": true,
+    "operator_review_gate_required": true,
+    "paper_record_only": true,
+    "ranked_candidate_allowed": false,
+    "runtime_wiring_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "transaction_signing_allowed": false,
+    "wallet_access_allowed": false
+  },
+  "schema_id": "pmbot_simulated_decision_replay_summary_schema.v1",
+  "schema_kind": "local_static_record_schema",
+  "title": "PMBOT simulated decision replay summary schema"
+}

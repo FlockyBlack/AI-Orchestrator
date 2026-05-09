@@ -1,0 +1,97 @@
+{
+  "build_id": "unified_source_quality_ledger_fixture_001-be4cc5453863.source_quality_report_summary",
+  "contract_version": "pmbot_source_quality_report_summary.v1",
+  "errors": [],
+  "ledger_build_id": "unified_source_quality_ledger_fixture_001-be4cc5453863",
+  "ledger_id": "unified_source_quality_ledger_fixture_001",
+  "local_only": true,
+  "operator_review": {
+    "status": "pending_operator_review",
+    "steps": [
+      "Confirm each source artifact is an expected local fixture or static sample.",
+      "Confirm each declared field is present before using the ledger as an operator review input.",
+      "Record any source disputes outside this descriptive ledger."
+    ]
+  },
+  "operator_review_required": true,
+  "report_summary_id": "unified_source_quality_ledger_fixture_001.source_quality_report_summary",
+  "report_summary_rows": [
+    {
+      "artifact_role": "weather_observation_snapshot",
+      "declared_fields": [
+        "observation_date",
+        "station_id",
+        "high_temperature_f",
+        "report_timestamp"
+      ],
+      "field_summary": {
+        "declared": 4,
+        "missing": 0,
+        "present": 4
+      },
+      "known_limitation_count": 2,
+      "local_reference": "pm_bot/tests/fixtures/weather/official_daily_climate_report_snapshot.json",
+      "operator_review_status": "pending_operator_review",
+      "report_row_id": "unified_source_quality_ledger_fixture_001.official_daily_climate_report.source_quality_review.source_quality_report_summary",
+      "review_check_count": 2,
+      "row_id": "unified_source_quality_ledger_fixture_001.official_daily_climate_report.source_quality_review",
+      "runner_state": "descriptive_source_quality_report_summary",
+      "snapshot_id": "fixture_official_daily_climate_report_2026_05_09",
+      "source_id": "official_daily_climate_report",
+      "source_label": "Official daily climate report",
+      "source_type": "official_record_snapshot"
+    },
+    {
+      "artifact_role": "weather_observation_snapshot",
+      "declared_fields": [
+        "observation_date",
+        "station_id",
+        "observed_high_temperature_f",
+        "observation_timestamp"
+      ],
+      "field_summary": {
+        "declared": 4,
+        "missing": 0,
+        "present": 4
+      },
+      "known_limitation_count": 2,
+      "local_reference": "pm_bot/tests/fixtures/weather/airport_station_observation_log_snapshot.json",
+      "operator_review_status": "pending_operator_review",
+      "report_row_id": "unified_source_quality_ledger_fixture_001.airport_station_observation_log.source_quality_review.source_quality_report_summary",
+      "review_check_count": 2,
+      "row_id": "unified_source_quality_ledger_fixture_001.airport_station_observation_log.source_quality_review",
+      "runner_state": "descriptive_source_quality_report_summary",
+      "snapshot_id": "fixture_airport_station_observation_log_2026_05_09",
+      "source_id": "airport_station_observation_log",
+      "source_label": "Airport station observation log",
+      "source_type": "station_observation_snapshot"
+    }
+  ],
+  "run_mode": "local_source_quality_report_summary",
+  "safety_boundaries": {
+    "external_market_api_allowed": false,
+    "llm_calls_allowed": false,
+    "network_calls_allowed": false,
+    "offline_inputs_only": true,
+    "operator_review_gate_required": true,
+    "outcome_resolution_allowed": false,
+    "runtime_wiring_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "source_preference_output_allowed": false,
+    "trade_action_guidance_allowed": false,
+    "wallet_or_order_code_allowed": false
+  },
+  "scope": "source_quality_report_summary",
+  "summary_counts": {
+    "fields_declared": 8,
+    "fields_missing": 0,
+    "fields_present": 8,
+    "known_limitations": 4,
+    "operator_review_steps": 3,
+    "report_summary_rows": 2,
+    "review_checks": 4,
+    "source_artifacts": 2,
+    "warnings": 0
+  },
+  "warnings": []
+}

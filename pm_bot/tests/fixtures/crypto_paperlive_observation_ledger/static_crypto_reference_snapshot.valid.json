@@ -1,0 +1,14 @@
+{
+  "asset_name": "Bitcoin",
+  "asset_symbol": "BTC",
+  "contract_version": "pmbot_static_crypto_reference_snapshot.v1",
+  "created_at": "2026-05-09T00:20:00Z",
+  "local_only": true,
+  "measurement_source_label": "local fixture index close label",
+  "metric_type": "spot_index_threshold",
+  "reported_at_utc": "2026-05-09T00:00:00Z",
+  "reported_reference_unit": "USD",
+  "reported_reference_value": "102500.00",
+  "snapshot_id": "static_crypto_reference_snapshot_2026_05_09_btc",
+  "source_label": "Static crypto reference sample"
+}

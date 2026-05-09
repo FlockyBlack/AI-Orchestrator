@@ -1,0 +1,55 @@
+{
+  "automatic_execution_enabled": false,
+  "codex_app_server_used": false,
+  "codex_execution_added": false,
+  "handoff_prompt": {
+    "found": true,
+    "path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\planned\\PMBOT-CRYPTO-PILOT-001-CRYPTO-MARKET-CLASS-CAPTURE-TEMPLATE-LOCAL-ONLY.handoff_prompt.md"
+  },
+  "ingestion": {
+    "allowed": true,
+    "errors": [],
+    "latest_report_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\latest_result_ingestion_report.json",
+    "latest_report_status": "accepted",
+    "latest_report_task_id": "PMBOT-CRYPTO-PILOT-001-CRYPTO-MARKET-CLASS-CAPTURE-TEMPLATE-LOCAL-ONLY",
+    "matching_reports": [
+      {
+        "accepted": true,
+        "allowed": true,
+        "errors": [],
+        "path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "status": "allowed"
+      }
+    ],
+    "path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\latest_result_ingestion_report.json",
+    "status": "allowed"
+  },
+  "plan": {
+    "found": true,
+    "path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\planned\\PMBOT-CRYPTO-PILOT-001-CRYPTO-MARKET-CLASS-CAPTURE-TEMPLATE-LOCAL-ONLY.plan.json"
+  },
+  "queue_root": "agent_tasks",
+  "recommendation": "ready_for_operator_done",
+  "report_paths": {
+    "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-PILOT-001-CRYPTO-MARKET-CLASS-CAPTURE-TEMPLATE-LOCAL-ONLY.review.json",
+    "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-CRYPTO-PILOT-001-CRYPTO-MARKET-CLASS-CAPTURE-TEMPLATE-LOCAL-ONLY.review.md"
+  },
+  "result_packet": {
+    "found": true,
+    "path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-CRYPTO-PILOT-001-CRYPTO-MARKET-CLASS-CAPTURE-TEMPLATE-LOCAL-ONLY.result.json",
+    "status": "completed"
+  },
+  "run_id": "20260509T070550Z",
+  "task_id": "PMBOT-CRYPTO-PILOT-001-CRYPTO-MARKET-CLASS-CAPTURE-TEMPLATE-LOCAL-ONLY",
+  "task_marked_done_automatically": false,
+  "task_packet": {
+    "found": true,
+    "path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\approved\\PMBOT-CRYPTO-PILOT-001-CRYPTO-MARKET-CLASS-CAPTURE-TEMPLATE-LOCAL-ONLY.task.json",
+    "state": "approved",
+    "validation": {
+      "errors": [],
+      "valid": true
+    }
+  },
+  "warnings": []
+}
