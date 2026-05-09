@@ -10,6 +10,14 @@ Use a template under `agent_tasks/templates/`, or create a safe demo packet:
 python -m ai_orchestrator.codex_queue.operator_cli create-demo-task --queue-root agent_tasks --task-id ORCH-DEMO-QUICKSTART
 ```
 
+For the PMBOT weather outcome/source monitoring plan-runner packet, use the local PMBOT bridge:
+
+```powershell
+python -m ai_orchestrator.codex_queue.operator_cli create-pmbot-task --queue-root agent_tasks --task-id PMBOT-PAPERLIVE-010W-002-WEATHER-OUTCOME-SOURCE-MONITORING-PLAN-RUNNER-NO-TRADE --template weather-source-monitoring
+```
+
+See `agent_tasks/PMBOT_TASK_TEMPLATE_BRIDGE.md` for PMBOT approval, handoff, result JSON, and review-gate details.
+
 Review the task packet in `agent_tasks/inbox/`. Confirm the task is local-only, has safe paths, and does not require network, credentials, wallet/trading/payment code, runtime/dispatcher changes, background workers, schedulers, or Codex app-server.
 
 ## 2. Approve

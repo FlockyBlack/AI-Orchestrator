@@ -1,0 +1,209 @@
+{
+  "schema_version": "codex_task_packet.v1",
+  "task_id": "PMBOT-PAPERLIVE-010W-002-WEATHER-OUTCOME-SOURCE-MONITORING-PLAN-RUNNER-NO-TRADE",
+  "title": "PMBOT weather outcome source monitoring plan runner",
+  "status": "inbox",
+  "created_by": "operator",
+  "created_at": null,
+  "approved_by": null,
+  "approved_at": null,
+  "priority": "normal",
+  "project": "PMBOT",
+  "task_template": {
+    "schema_version": "pmbot_task_template.v1",
+    "name": "weather-source-monitoring",
+    "project": "PMBOT"
+  },
+  "source": {
+    "origin": "operator_cli_pmbot_template",
+    "reference": "weather-source-monitoring"
+  },
+  "symphony_mapping": {
+    "issue_id": "PMBOT-PAPERLIVE-010W-002-WEATHER-OUTCOME-SOURCE-MONITORING-PLAN-RUNNER-NO-TRADE",
+    "workspace_key": "pmbot-paperlive-010w-002-weather-outcome-source-monitoring-plan-runner-no-trade",
+    "proof_of_work_required": true,
+    "human_review_required": true
+  },
+  "repo": {
+    "repo_root": ".",
+    "base_branch": "master",
+    "target_branch": null,
+    "expected_head": null,
+    "allowed_paths": [
+      "pm_bot/weather/",
+      "pm_bot/tests/",
+      "tests/",
+      "docs/"
+    ],
+    "forbidden_paths": [
+      ".env",
+      ".env.*",
+      ".git/",
+      ".codex/",
+      "runtime/",
+      "dispatcher/",
+      "run_codex/",
+      "pm_bot/llm/",
+      "pm_bot/wallet/",
+      "pm_bot/trading/",
+      "pm_bot/orders/",
+      "agent_tasks/running/"
+    ]
+  },
+  "task_type": "local_code_tests",
+  "objective": "Prepare a deterministic local PMBOT weather outcome/source monitoring plan runner with operator review and local validation only.",
+  "summary": "Create local PMBOT weather outcome/source monitoring plan-runner support with fixtures, tests, docs, and explicit operator review boundaries.",
+  "instructions": [
+    "Inspect local PMBOT files under the allowed paths before editing.",
+    "Build only deterministic local plan-runner support for weather outcome/source monitoring using fixtures or static test data.",
+    "Keep the implementation operator-reviewed and local-only; write docs and tests for the exact behavior.",
+    "Do not use network calls.",
+    "Do not call OpenRouter.",
+    "Do not call Polymarket API.",
+    "Do not touch wallet code.",
+    "Do not create orders.",
+    "Do not add scheduler execution, background worker support, runtime changes, dispatcher changes, run_codex changes, browser automation, or authenticated endpoint use.",
+    "Do not add probability, EV, edge, confidence, side-selection, recommendation, or market-action output.",
+    "Do not add buy, sell, hold, enter, or exit recommendations.",
+    "Do not use git add ., git add -A, git add --all, force push, or destructive commands.",
+    "Return a strict result JSON packet that follows the result contract expectations."
+  ],
+  "safety_boundaries": [
+    "No wallet/private keys",
+    "No orders",
+    "No trading endpoints",
+    "No OpenRouter calls",
+    "No Polymarket API calls",
+    "No authenticated endpoints",
+    "No runtime/dispatcher/run_codex changes",
+    "No background worker",
+    "No scheduler execution",
+    "No browser automation",
+    "No destructive commands",
+    "No git add .",
+    "No git add -A",
+    "No git add --all",
+    "No force push",
+    "No probability / EV / edge / confidence / side selection",
+    "No buy/sell/hold/enter/exit recommendations",
+    "No market-action guidance"
+  ],
+  "explicit_safety_boundaries": [
+    "No wallet/private keys",
+    "No orders",
+    "No trading endpoints",
+    "No OpenRouter calls",
+    "No Polymarket API calls",
+    "No authenticated endpoints",
+    "No runtime/dispatcher/run_codex changes",
+    "No background worker",
+    "No scheduler execution",
+    "No browser automation",
+    "No destructive commands",
+    "No git add .",
+    "No git add -A",
+    "No git add --all",
+    "No force push",
+    "No probability / EV / edge / confidence / side selection",
+    "No buy/sell/hold/enter/exit recommendations",
+    "No market-action guidance"
+  ],
+  "allowed_actions": [
+    "Inspect local files under the allowed paths before editing.",
+    "Add deterministic local code, tests, fixtures, or docs only for weather outcome/source monitoring plan-runner support.",
+    "Use local fixtures, local sample data, and operator-reviewed artifacts only.",
+    "Run only the listed local validation commands.",
+    "Return a strict result JSON packet for operator review."
+  ],
+  "forbidden_actions": [
+    "No wallet/private keys",
+    "No orders",
+    "No trading endpoints",
+    "No OpenRouter calls",
+    "No Polymarket API calls",
+    "No authenticated endpoints",
+    "No runtime/dispatcher/run_codex changes",
+    "No background worker",
+    "No scheduler execution",
+    "No browser automation",
+    "No destructive commands",
+    "No git add .",
+    "No git add -A",
+    "No git add --all",
+    "No force push",
+    "No probability / EV / edge / confidence / side selection",
+    "No buy/sell/hold/enter/exit recommendations",
+    "No market-action guidance"
+  ],
+  "acceptance_checks": [
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests/test_weather_source_monitoring_plan_runner.py"
+  ],
+  "validation_commands": [
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests/test_weather_source_monitoring_plan_runner.py"
+  ],
+  "expected_outputs": [
+    "Local PMBOT weather monitoring plan-runner code, tests, or docs under allowed paths.",
+    "Focused validation output for the listed commands.",
+    "Strict result JSON packet for operator review."
+  ],
+  "result_contract_expectations": {
+    "schema_version": "codex_task_result.v1",
+    "task_id": "PMBOT-PAPERLIVE-010W-002-WEATHER-OUTCOME-SOURCE-MONITORING-PLAN-RUNNER-NO-TRADE",
+    "status_values": [
+      "completed",
+      "partial",
+      "blocked",
+      "failed"
+    ],
+    "required_top_level_fields": [
+      "schema_version",
+      "task_id",
+      "status",
+      "completed_by",
+      "completed_at",
+      "summary",
+      "files_created",
+      "files_modified",
+      "files_deleted",
+      "commands_run",
+      "validation_results",
+      "acceptance_checks_passed",
+      "safety_confirmation",
+      "operator_review_notes",
+      "next_recommended_action"
+    ],
+    "required_safety_confirmation": {
+      "network_calls_performed": 0,
+      "credentials_accessed": false,
+      "wallet_or_trading_touched": false,
+      "runtime_or_dispatcher_touched": false,
+      "background_worker_added": false,
+      "scheduler_added": false,
+      "telegram_or_openclaw_added": false,
+      "openrouter_calls_performed": 0,
+      "polymarket_api_calls_performed": 0,
+      "codex_app_server_used": false,
+      "destructive_commands_used": false
+    },
+    "additional_expectations": [
+      "Report every command that was run.",
+      "Set acceptance_checks_passed to false unless the listed validation commands passed.",
+      "Use status blocked or partial when a safety boundary prevents completion.",
+      "Do not include probability, EV, edge, confidence, side selection, or market-action guidance."
+    ]
+  },
+  "risk_flags": {
+    "requires_network": false,
+    "requires_credentials": false,
+    "touches_trading": false,
+    "touches_wallet": false,
+    "touches_runtime": false,
+    "touches_dispatcher": false,
+    "allows_background_worker": false,
+    "uses_codex_app_server": false,
+    "requires_external_tracker": false
+  },
+  "operator_notes": "Safe example only. Create a fresh inbox packet with operator_cli create-pmbot-task before approval."
+}

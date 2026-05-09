@@ -18,6 +18,8 @@ There is no autonomous execution in this MVP. The dry-run runner only validates 
 
 Manual approval is required. Proposed tasks start in `inbox/`; an operator must inspect and move a task packet to `approved/` before the dry-run runner will plan it.
 
+PMBOT operator-review packets can be created through the safe template bridge documented in `agent_tasks/PMBOT_TASK_TEMPLATE_BRIDGE.md`. The first supported PMBOT template is `weather-source-monitoring`.
+
 ## Directories
 
 - `inbox/`: proposed tasks not yet approved.

@@ -24,6 +24,7 @@ from .files import (
 from .morning_report import generate_morning_report
 from .night_runner import generate_night_dry_run_plan
 from .package_readiness import generate_package_readiness_report
+from .pmbot_templates import SUPPORTED_PMBOT_TEMPLATES, build_pmbot_task_packet
 from .portability import generate_portability_report
 from .queue_health import generate_next_actions_report
 from .result_ingestor import ingest_result
@@ -49,6 +50,19 @@ def main(argv: list[str] | None = None) -> int:
     create_parser.add_argument("--task-id", required=True)
     create_parser.add_argument("--overwrite", action="store_true")
     create_parser.set_defaults(func=_cmd_create_demo_task)
+
+    pmbot_parser = subparsers.add_parser(
+        "create-pmbot-task",
+        help="Create a safe local-only PMBOT task packet from a supported template.",
+    )
+    _add_queue_root(pmbot_parser)
+    pmbot_parser.add_argument("--task-id", required=True)
+    pmbot_parser.add_argument("--template", required=True, choices=SUPPORTED_PMBOT_TEMPLATES)
+    pmbot_parser.add_argument("--repo-root", default=".")
+    pmbot_parser.add_argument("--branch", default="master")
+    pmbot_parser.add_argument("--expected-head", default=None)
+    pmbot_parser.add_argument("--overwrite", action="store_true")
+    pmbot_parser.set_defaults(func=_cmd_create_pmbot_task)
 
     approve_parser = subparsers.add_parser("approve", help="Approve a safe inbox task.")
     _add_queue_root(approve_parser)
@@ -414,6 +428,73 @@ def _cmd_create_demo_task(args: argparse.Namespace) -> dict[str, Any]:
             root,
             destination_path=destination,
             next_operator_action="Run approve for this task when ready.",
+        ),
+    )
+
+
+def _cmd_create_pmbot_task(args: argparse.Namespace) -> dict[str, Any]:
+    root = ensure_queue_directories(args.queue_root)
+    task_id = validate_task_id(args.task_id)
+    destination = task_packet_path(root, "inbox", task_id)
+    if destination.exists() and not args.overwrite:
+        return write_operator_action_report(
+            root,
+            _action(
+                "create-pmbot-task",
+                "blocked",
+                task_id,
+                root,
+                destination_path=destination,
+                errors=[f"task packet already exists: {destination}"],
+                next_operator_action="Use --overwrite only when replacing this PMBOT packet is intentional.",
+            ),
+        )
+
+    packet = build_pmbot_task_packet(
+        task_id,
+        args.template,
+        repo_root=args.repo_root,
+        base_branch=args.branch,
+        expected_head=args.expected_head,
+    )
+    validation = validate_packet(packet)
+    approved_view = dict(packet)
+    approved_view["status"] = "approved"
+    approved_view["approved_by"] = "operator_cli_preflight"
+    approved_view["approved_at"] = _utc_iso()
+    approval_validation = validate_packet(approved_view)
+    classification = classify_packet(approved_view, approval_validation)
+    if not validation.valid or not approval_validation.valid or not classification.allowed:
+        errors = list(validation.errors) + list(approval_validation.errors) + list(classification.reasons)
+        return write_operator_action_report(
+            root,
+            _action(
+                "create-pmbot-task",
+                "blocked",
+                task_id,
+                root,
+                errors=errors,
+                warnings=[f"safety classification: {classification.status}"],
+                next_operator_action="Revise the PMBOT template before creating an inbox task packet.",
+            ),
+        )
+
+    write_json_atomic(destination, packet, overwrite=args.overwrite)
+    return write_operator_action_report(
+        root,
+        _action(
+            "create-pmbot-task",
+            "ok",
+            task_id,
+            root,
+            destination_path=destination,
+            next_operator_action="Review the PMBOT inbox packet, then run approve only if it remains safe.",
+            extra={
+                "template": args.template,
+                "project": packet.get("project"),
+                "validation": validation.to_dict(),
+                "approval_preflight_classification": classification.to_dict(),
+            },
         ),
     )
 
