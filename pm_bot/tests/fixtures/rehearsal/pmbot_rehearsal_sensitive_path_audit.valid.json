@@ -1,0 +1,367 @@
+{
+  "allowed_path_prefixes": [
+    "docs/",
+    "pm_bot/tests/",
+    "tests/"
+  ],
+  "audit_checks": [
+    {
+      "check_id": "allowed_output_scope",
+      "expected_state": "allowed_paths_are_docs_pm_bot_tests_and_tests",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Confirm rehearsal audit output remains limited to allowed local paths."
+    },
+    {
+      "check_id": "excluded_prefix_registry",
+      "expected_state": "excluded_prefixes_recorded_for_operator_review",
+      "local_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_sensitive_path_audit.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Confirm the fixed excluded prefix list is present in this rehearsal audit fixture."
+    },
+    {
+      "check_id": "environment_file_exclusion",
+      "expected_state": "environment_file_prefixes_stay_out_of_scope",
+      "local_reference": "pm_bot/tests/fixtures/safety/sensitive_path_exclusion_audit.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Confirm environment file prefixes remain excluded from rehearsal work."
+    },
+    {
+      "check_id": "repository_metadata_exclusion",
+      "expected_state": "repository_and_codex_metadata_prefixes_stay_out_of_scope",
+      "local_reference": "docs/PMBOT_SAFETY_004_SENSITIVE_PATH_EXCLUSION_AUDIT_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Confirm repository and Codex metadata prefixes remain excluded from rehearsal work."
+    },
+    {
+      "check_id": "execution_wiring_exclusion",
+      "expected_state": "runtime_dispatcher_runner_and_running_task_prefixes_stay_out_of_scope",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Confirm runtime, dispatcher, runner, and running task prefixes remain excluded."
+    },
+    {
+      "check_id": "pmbot_llm_exclusion",
+      "expected_state": "pmbot_llm_prefix_stays_out_of_scope",
+      "local_reference": "docs/PMBOT_REHEARSAL_017_REHEARSAL_FORBIDDEN_ACTION_SCAN_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Confirm the PMBOT LLM prefix remains excluded from this rehearsal audit."
+    },
+    {
+      "check_id": "wallet_signing_exclusion",
+      "expected_state": "wallet_and_signing_material_stay_out_of_scope",
+      "local_reference": "docs/PMBOT_SAFETY_004_SENSITIVE_PATH_EXCLUSION_AUDIT_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Confirm wallet and signing material remain excluded from this rehearsal audit."
+    },
+    {
+      "check_id": "order_trading_exclusion",
+      "expected_state": "order_and_trading_surfaces_stay_out_of_scope",
+      "local_reference": "docs/PMBOT_REHEARSAL_017_REHEARSAL_FORBIDDEN_ACTION_SCAN_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Confirm order and trading surfaces remain excluded from this rehearsal audit."
+    },
+    {
+      "check_id": "validation_command_scope",
+      "expected_state": "validation_commands_are_local_operator_checks",
+      "local_reference": "pm_bot/tests/test_rehearsal_sensitive_path_audit.py",
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Confirm validation command records remain local operator checks."
+    },
+    {
+      "check_id": "operator_review_boundary",
+      "expected_state": "status_stays_pending_until_operator_review_record",
+      "local_reference": "docs/PMBOT_REHEARSAL_018_REHEARSAL_SENSITIVE_PATH_AUDIT_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "review_label": "Confirm audit status remains pending until operator review is recorded."
+    }
+  ],
+  "audit_id": "pmbot-rehearsal-sensitive-path-audit-001",
+  "audit_inputs": [
+    {
+      "input_id": "queue_template_rehearsal_task_contract",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "observed_state": "rehearsal_task_template_safety_rows_present",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "input_id": "prior_rehearsal_forbidden_action_scan_document",
+      "local_reference": "docs/PMBOT_REHEARSAL_017_REHEARSAL_FORBIDDEN_ACTION_SCAN_LOCAL_ONLY.md",
+      "observed_state": "prior_rehearsal_forbidden_action_scan_document_available",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "input_id": "prior_rehearsal_forbidden_action_scan_fixture",
+      "local_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_forbidden_action_scan.valid.json",
+      "observed_state": "prior_rehearsal_forbidden_action_scan_fixture_available",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "input_id": "prior_rehearsal_forbidden_action_scan_contract_test",
+      "local_reference": "pm_bot/tests/test_rehearsal_forbidden_action_scan.py",
+      "observed_state": "prior_rehearsal_forbidden_action_scan_contract_test_available",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "input_id": "baseline_sensitive_path_exclusion_audit_document",
+      "local_reference": "docs/PMBOT_SAFETY_004_SENSITIVE_PATH_EXCLUSION_AUDIT_LOCAL_ONLY.md",
+      "observed_state": "baseline_sensitive_path_exclusion_audit_document_available",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "input_id": "baseline_sensitive_path_exclusion_audit_fixture",
+      "local_reference": "pm_bot/tests/fixtures/safety/sensitive_path_exclusion_audit.valid.json",
+      "observed_state": "baseline_sensitive_path_exclusion_audit_fixture_available",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "input_id": "baseline_sensitive_path_exclusion_audit_contract_test",
+      "local_reference": "pm_bot/tests/test_sensitive_path_exclusion_audit.py",
+      "observed_state": "baseline_sensitive_path_exclusion_audit_contract_test_available",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "input_id": "rehearsal_sensitive_path_audit_fixture",
+      "local_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_sensitive_path_audit.valid.json",
+      "observed_state": "rehearsal_sensitive_path_audit_fixture_available",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "input_id": "rehearsal_sensitive_path_audit_contract_test",
+      "local_reference": "pm_bot/tests/test_rehearsal_sensitive_path_audit.py",
+      "observed_state": "rehearsal_sensitive_path_audit_contract_test_available",
+      "operator_review_status": "pending_operator_review"
+    }
+  ],
+  "audit_name": "pmbot-rehearsal-sensitive-path-audit",
+  "audit_scope_records": [
+    {
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "rehearsal_sensitive_path_audit_001.allowed_local_output_scope",
+      "record_label": "Allowed local output scope",
+      "record_type": "allowed_path_scope",
+      "review_state": "docs_pm_bot_tests_and_tests_only",
+      "source_task_id": "PMBOT-REHEARSAL-018-REHEARSAL-SENSITIVE-PATH-AUDIT-LOCAL-ONLY"
+    },
+    {
+      "local_reference": "pm_bot/tests/fixtures/safety/sensitive_path_exclusion_audit.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "rehearsal_sensitive_path_audit_001.excluded_secret_and_metadata_prefixes",
+      "record_label": "Secret and metadata prefix exclusions",
+      "record_type": "excluded_path_scope",
+      "review_state": "environment_git_and_codex_metadata_prefixes_excluded",
+      "source_task_id": "PMBOT-SAFETY-004-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY"
+    },
+    {
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "rehearsal_sensitive_path_audit_001.excluded_execution_wiring_prefixes",
+      "record_label": "Execution wiring prefix exclusions",
+      "record_type": "excluded_path_scope",
+      "review_state": "runtime_dispatcher_runner_and_running_task_prefixes_excluded",
+      "source_task_id": "PMBOT-REHEARSAL-018-REHEARSAL-SENSITIVE-PATH-AUDIT-LOCAL-ONLY"
+    },
+    {
+      "local_reference": "docs/PMBOT_SAFETY_004_SENSITIVE_PATH_EXCLUSION_AUDIT_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "rehearsal_sensitive_path_audit_001.excluded_pmbot_sensitive_modules",
+      "record_label": "PMBOT sensitive module prefix exclusions",
+      "record_type": "excluded_path_scope",
+      "review_state": "llm_wallet_trading_and_order_prefixes_excluded",
+      "source_task_id": "PMBOT-SAFETY-004-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY"
+    },
+    {
+      "local_reference": "docs/PMBOT_REHEARSAL_017_REHEARSAL_FORBIDDEN_ACTION_SCAN_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "rehearsal_sensitive_path_audit_001.rehearsal_static_reference_scope",
+      "record_label": "Rehearsal static reference scope",
+      "record_type": "local_reference_scope",
+      "review_state": "rehearsal_references_remain_static_local_artifacts",
+      "source_task_id": "PMBOT-REHEARSAL-017-REHEARSAL-FORBIDDEN-ACTION-SCAN-LOCAL-ONLY"
+    },
+    {
+      "local_reference": "docs/PMBOT_REHEARSAL_018_REHEARSAL_SENSITIVE_PATH_AUDIT_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "rehearsal_sensitive_path_audit_001.operator_review_boundary",
+      "record_label": "Operator review boundary",
+      "record_type": "operator_review_scope",
+      "review_state": "audit_pending_until_operator_review_record",
+      "source_task_id": "PMBOT-REHEARSAL-018-REHEARSAL-SENSITIVE-PATH-AUDIT-LOCAL-ONLY"
+    }
+  ],
+  "contract_id": "pmbot-rehearsal-sensitive-path-audit",
+  "contract_version": "pmbot_rehearsal_sensitive_path_audit.v1",
+  "created_at": "2026-05-09T11:30:00Z",
+  "errors": [],
+  "excluded_path_prefixes": [
+    ".env",
+    ".env.*",
+    ".git/",
+    ".codex/",
+    "runtime/",
+    "dispatcher/",
+    "run_codex/",
+    "pm_bot/llm/",
+    "pm_bot/wallet/",
+    "pm_bot/trading/",
+    "pm_bot/orders/",
+    "agent_tasks/running/"
+  ],
+  "local_only": true,
+  "operator_review": {
+    "reviewed_at": null,
+    "reviewed_by": null,
+    "status": "pending_operator_review"
+  },
+  "operator_review_required": true,
+  "required_validation_commands": [
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "run_mode": "local_static_rehearsal_sensitive_path_audit",
+  "safety_boundaries": {
+    "authenticated_endpoint_calls_allowed": false,
+    "background_process_allowed": false,
+    "browser_automation_allowed": false,
+    "core_execution_wiring_changes_allowed": false,
+    "credential_or_secret_access_allowed": false,
+    "execution_endpoint_calls_allowed": false,
+    "external_service_calls_allowed": false,
+    "llm_provider_calls_allowed": false,
+    "local_fixtures_only": true,
+    "local_static_samples_only": true,
+    "market_api_calls_allowed": false,
+    "market_instruction_output_allowed": false,
+    "market_ranking_allowed": false,
+    "network_calls_allowed": false,
+    "numeric_prediction_metric_allowed": false,
+    "operator_review_required": true,
+    "order_or_trade_surface_changes_allowed": false,
+    "paper_mode_only": true,
+    "polymarket_api_calls_allowed": false,
+    "runtime_or_dispatcher_changes_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "sensitive_path_access_allowed": false,
+    "sensitive_path_registry_static_only": true,
+    "timed_automation_allowed": false,
+    "trade_instruction_allowed": false,
+    "transaction_endpoint_calls_allowed": false,
+    "wallet_or_signing_material_access_allowed": false
+  },
+  "source_artifacts": [
+    {
+      "artifact_id": "rehearsal_sensitive_path_audit_fixture",
+      "artifact_role": "audit_fixture",
+      "artifact_type": "json_fixture",
+      "local_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_sensitive_path_audit.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-018-REHEARSAL-SENSITIVE-PATH-AUDIT-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_sensitive_path_audit_document",
+      "artifact_role": "audit_document",
+      "artifact_type": "markdown_document",
+      "local_reference": "docs/PMBOT_REHEARSAL_018_REHEARSAL_SENSITIVE_PATH_AUDIT_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-018-REHEARSAL-SENSITIVE-PATH-AUDIT-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_sensitive_path_audit_contract_test",
+      "artifact_role": "audit_contract_test",
+      "artifact_type": "pytest_module",
+      "local_reference": "pm_bot/tests/test_rehearsal_sensitive_path_audit.py",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-018-REHEARSAL-SENSITIVE-PATH-AUDIT-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_forbidden_action_scan_fixture",
+      "artifact_role": "source_fixture",
+      "artifact_type": "json_fixture",
+      "local_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_forbidden_action_scan.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-017-REHEARSAL-FORBIDDEN-ACTION-SCAN-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_forbidden_action_scan_document",
+      "artifact_role": "source_document",
+      "artifact_type": "markdown_document",
+      "local_reference": "docs/PMBOT_REHEARSAL_017_REHEARSAL_FORBIDDEN_ACTION_SCAN_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-017-REHEARSAL-FORBIDDEN-ACTION-SCAN-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_forbidden_action_scan_contract_test",
+      "artifact_role": "source_contract_test",
+      "artifact_type": "pytest_module",
+      "local_reference": "pm_bot/tests/test_rehearsal_forbidden_action_scan.py",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-017-REHEARSAL-FORBIDDEN-ACTION-SCAN-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "base_sensitive_path_exclusion_audit_fixture",
+      "artifact_role": "source_fixture",
+      "artifact_type": "json_fixture",
+      "local_reference": "pm_bot/tests/fixtures/safety/sensitive_path_exclusion_audit.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-SAFETY-004-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "base_sensitive_path_exclusion_audit_document",
+      "artifact_role": "source_document",
+      "artifact_type": "markdown_document",
+      "local_reference": "docs/PMBOT_SAFETY_004_SENSITIVE_PATH_EXCLUSION_AUDIT_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-SAFETY-004-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "base_sensitive_path_exclusion_audit_contract_test",
+      "artifact_role": "source_contract_test",
+      "artifact_type": "pytest_module",
+      "local_reference": "pm_bot/tests/test_sensitive_path_exclusion_audit.py",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-SAFETY-004-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "queue_template_validation_test",
+      "artifact_role": "queue_template_contract",
+      "artifact_type": "pytest_module",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-018-REHEARSAL-SENSITIVE-PATH-AUDIT-LOCAL-ONLY"
+    }
+  ],
+  "summary_counts": {
+    "allowed_path_prefixes": 3,
+    "audit_checks": 10,
+    "audit_checks_pending_operator_review": 10,
+    "audit_inputs": 9,
+    "audit_scope_records": 6,
+    "audit_scope_records_pending_operator_review": 6,
+    "errors": 0,
+    "excluded_path_prefixes": 12,
+    "local_references": 10,
+    "required_validation_commands": 2,
+    "source_artifacts": 10,
+    "validation_command_records": 2,
+    "warnings": 0
+  },
+  "task_id": "PMBOT-REHEARSAL-018-REHEARSAL-SENSITIVE-PATH-AUDIT-LOCAL-ONLY",
+  "validation_command_records": [
+    {
+      "command_label": "python -m compileall pm_bot tests",
+      "local_reference": "pm_bot/tests/test_rehearsal_sensitive_path_audit.py",
+      "operator_review_status": "pending_operator_review",
+      "status": "not_run_static_record",
+      "validation_id": "compileall.pm_bot.tests"
+    },
+    {
+      "command_label": "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "status": "not_run_static_record",
+      "validation_id": "pytest.pm_bot_tests.queue_templates"
+    }
+  ],
+  "warnings": []
+}

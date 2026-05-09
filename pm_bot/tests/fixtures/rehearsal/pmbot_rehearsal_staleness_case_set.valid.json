@@ -1,0 +1,380 @@
+{
+  "case_record_fields": [
+    "age_seconds",
+    "case_id",
+    "case_label",
+    "case_record_state",
+    "case_source",
+    "expected_review_class",
+    "linked_source_staleness_check_id",
+    "local_evidence_reference",
+    "maximum_age_seconds",
+    "observed_timestamp_utc",
+    "operator_review_status",
+    "reference_timestamp_utc",
+    "timestamp_field_present",
+    "timestamp_required"
+  ],
+  "case_records": [
+    {
+      "age_seconds": 1920,
+      "case_id": "pmbot-rehearsal-staleness-case-set-001.case.within_window_station_observation",
+      "case_label": "Within-window station observation timestamp",
+      "case_record_state": "staleness_case_pending_operator_review",
+      "case_source": "source_staleness_spec_row",
+      "expected_review_class": "within_static_review_window",
+      "linked_source_staleness_check_id": "source_staleness_check_spec_fixture_001.airport_station_observation_log.source_staleness_check",
+      "local_evidence_reference": "pm_bot/source_quality/samples/source_staleness_check_spec.fixture.json",
+      "maximum_age_seconds": 86400,
+      "observed_timestamp_utc": "2026-05-09T23:58:00Z",
+      "operator_review_status": "pending_operator_review",
+      "reference_timestamp_utc": "2026-05-10T00:30:00Z",
+      "timestamp_field_present": true,
+      "timestamp_required": true
+    },
+    {
+      "age_seconds": 88200,
+      "case_id": "pmbot-rehearsal-staleness-case-set-001.case.within_window_crypto_reference",
+      "case_label": "Within-window crypto reference timestamp",
+      "case_record_state": "staleness_case_pending_operator_review",
+      "case_source": "source_staleness_spec_row",
+      "expected_review_class": "within_static_review_window",
+      "linked_source_staleness_check_id": "source_staleness_check_spec_fixture_001.static_crypto_reference_snapshot_2026_05_09_btc.source_staleness_check",
+      "local_evidence_reference": "pm_bot/source_quality/samples/source_staleness_check_spec.fixture.json",
+      "maximum_age_seconds": 172800,
+      "observed_timestamp_utc": "2026-05-09T00:00:00Z",
+      "operator_review_status": "pending_operator_review",
+      "reference_timestamp_utc": "2026-05-10T00:30:00Z",
+      "timestamp_field_present": true,
+      "timestamp_required": true
+    },
+    {
+      "age_seconds": 86400,
+      "case_id": "pmbot-rehearsal-staleness-case-set-001.case.at_limit_weather_boundary",
+      "case_label": "At-limit weather timestamp boundary",
+      "case_record_state": "staleness_case_pending_operator_review",
+      "case_source": "static_boundary_case",
+      "expected_review_class": "at_static_review_window_limit",
+      "linked_source_staleness_check_id": "source_staleness_check_spec_fixture_001.official_daily_climate_report.source_staleness_check",
+      "local_evidence_reference": "pm_bot/source_quality/samples/source_staleness_check_spec.fixture.json",
+      "maximum_age_seconds": 86400,
+      "observed_timestamp_utc": "2026-05-09T00:30:00Z",
+      "operator_review_status": "pending_operator_review",
+      "reference_timestamp_utc": "2026-05-10T00:30:00Z",
+      "timestamp_field_present": true,
+      "timestamp_required": true
+    },
+    {
+      "age_seconds": 86401,
+      "case_id": "pmbot-rehearsal-staleness-case-set-001.case.outside_window_weather_boundary",
+      "case_label": "Outside-window weather timestamp boundary",
+      "case_record_state": "staleness_case_pending_operator_review",
+      "case_source": "static_boundary_case",
+      "expected_review_class": "outside_static_review_window",
+      "linked_source_staleness_check_id": "source_staleness_check_spec_fixture_001.official_daily_climate_report.source_staleness_check",
+      "local_evidence_reference": "pm_bot/source_quality/samples/source_staleness_check_spec.fixture.json",
+      "maximum_age_seconds": 86400,
+      "observed_timestamp_utc": "2026-05-09T00:29:59Z",
+      "operator_review_status": "pending_operator_review",
+      "reference_timestamp_utc": "2026-05-10T00:30:00Z",
+      "timestamp_field_present": true,
+      "timestamp_required": true
+    },
+    {
+      "age_seconds": null,
+      "case_id": "pmbot-rehearsal-staleness-case-set-001.case.missing_required_weather_timestamp",
+      "case_label": "Missing required weather timestamp",
+      "case_record_state": "staleness_case_pending_operator_review",
+      "case_source": "static_boundary_case",
+      "expected_review_class": "timestamp_required_but_missing",
+      "linked_source_staleness_check_id": "source_staleness_check_spec_fixture_001.official_daily_climate_report.source_staleness_check",
+      "local_evidence_reference": "pm_bot/source_quality/samples/source_staleness_check_spec.fixture.json",
+      "maximum_age_seconds": 86400,
+      "observed_timestamp_utc": null,
+      "operator_review_status": "pending_operator_review",
+      "reference_timestamp_utc": "2026-05-10T00:30:00Z",
+      "timestamp_field_present": false,
+      "timestamp_required": true
+    },
+    {
+      "age_seconds": null,
+      "case_id": "pmbot-rehearsal-staleness-case-set-001.case.timestamp_not_required_source_quality_sample",
+      "case_label": "Timestamp not required source quality sample",
+      "case_record_state": "staleness_case_pending_operator_review",
+      "case_source": "source_staleness_spec_row",
+      "expected_review_class": "timestamp_not_required_by_rule",
+      "linked_source_staleness_check_id": "source_staleness_check_spec_fixture_001.unified_source_quality_ledger_sample.source_staleness_check",
+      "local_evidence_reference": "pm_bot/source_quality/samples/source_staleness_check_spec.fixture.json",
+      "maximum_age_seconds": null,
+      "observed_timestamp_utc": null,
+      "operator_review_status": "pending_operator_review",
+      "reference_timestamp_utc": "2026-05-10T00:30:00Z",
+      "timestamp_field_present": false,
+      "timestamp_required": false
+    }
+  ],
+  "case_set_id": "pmbot-rehearsal-staleness-case-set-001",
+  "case_set_rules": [
+    {
+      "rule_id": "local_static_cases_only",
+      "rule_text": "Every case must be represented by local static data in this fixture.",
+      "status": "active"
+    },
+    {
+      "rule_id": "source_staleness_link_required",
+      "rule_text": "Every case must link to a local source staleness check identifier.",
+      "status": "active"
+    },
+    {
+      "rule_id": "static_reference_clock_only",
+      "rule_text": "Every case must use the fixed reference timestamp from the local source staleness check spec fixture.",
+      "status": "active"
+    },
+    {
+      "rule_id": "operator_review_status_preserved",
+      "rule_text": "Every case and check remains pending operator review until a separate local review record exists.",
+      "status": "active"
+    },
+    {
+      "rule_id": "descriptive_source_review_only",
+      "rule_text": "The case set records source review classes only and does not alter PMBOT state.",
+      "status": "active"
+    },
+    {
+      "rule_id": "closed_endpoint_boundary",
+      "rule_text": "Endpoint, provider, market, auth, transaction, order, and trading surfaces remain outside scope.",
+      "status": "active"
+    },
+    {
+      "rule_id": "closed_process_boundary",
+      "rule_text": "Runtime, dispatcher, scheduler, worker, browser, resident process, and run_codex surfaces remain outside scope.",
+      "status": "active"
+    }
+  ],
+  "contract_id": "pmbot-rehearsal-staleness-case-set",
+  "contract_version": "pmbot_rehearsal_staleness_case_set.v1",
+  "created_at": "2026-05-09T04:40:00Z",
+  "errors": [],
+  "local_only": true,
+  "operator_review": {
+    "reviewed_at": null,
+    "reviewed_by": null,
+    "status": "pending_operator_review"
+  },
+  "operator_review_checklist": [
+    {
+      "check_id": "case_set_identity_review",
+      "description": "Confirm the case set id, contract, run mode, and local fixture reference match the rehearsal handoff.",
+      "required_evidence": "Human record confirming case set identity.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "case_row_review",
+      "description": "Confirm every fixed case row is present and remains pending human review.",
+      "required_evidence": "Human record confirming case row coverage.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "source_staleness_link_review",
+      "description": "Confirm every linked source staleness check id exists in the local source staleness fixture.",
+      "required_evidence": "Human record confirming local source staleness links.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "timestamp_boundary_review",
+      "description": "Confirm timestamp ages and limits use the fixed reference timestamp.",
+      "required_evidence": "Human record confirming static timestamp calculations.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "missing_timestamp_review",
+      "description": "Confirm the missing timestamp case remains a source review case only.",
+      "required_evidence": "Human record confirming missing timestamp handling.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "sensitive_path_exclusion_check",
+      "description": "Confirm credential, wallet, signing, auth, and private material paths remain excluded.",
+      "required_evidence": "Human record confirming sensitive path boundaries.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "endpoint_boundary_check",
+      "description": "Confirm network, provider, market, auth, transaction, order, and trading endpoint activity remains excluded.",
+      "required_evidence": "Human record confirming endpoint boundaries.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "runtime_boundary_check",
+      "description": "Confirm runtime, dispatcher, scheduler, worker, browser, resident process, and run_codex boundaries stay closed.",
+      "required_evidence": "Human record confirming no process or wiring changes.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "validation_command_review",
+      "description": "Confirm required local validation commands are listed for human-run checks.",
+      "required_evidence": "Human record confirming validation command list.",
+      "status": "pending_operator_review"
+    }
+  ],
+  "operator_review_required": true,
+  "reference_clock": {
+    "reference_source": "source_staleness_check_spec_fixture_static_value",
+    "reference_timestamp_utc": "2026-05-10T00:30:00Z",
+    "system_clock_used": false
+  },
+  "required_validation_commands": [
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "review_sections": [
+    {
+      "local_references": [
+        "docs/PMBOT_REHEARSAL_006_REHEARSAL_STALENESS_CASE_SET_LOCAL_ONLY.md",
+        "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_staleness_case_set.valid.json",
+        "pm_bot/tests/test_rehearsal_staleness_case_set.py"
+      ],
+      "operator_review_status": "pending_operator_review",
+      "review_focus": "Case set identity and local fixture registration.",
+      "section_id": "case_set_identity_review"
+    },
+    {
+      "local_references": [
+        "docs/PMBOT_REHEARSAL_003_REHEARSAL_SOURCE_EVIDENCE_BUNDLE_LOCAL_ONLY.md",
+        "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_source_evidence_bundle.valid.json",
+        "docs/PMBOT_SOURCE_EVIDENCE_003_SOURCE_STALENESS_CHECK_SPEC_LOCAL_ONLY.md",
+        "pm_bot/source_quality/samples/source_staleness_check_spec.fixture.json",
+        "pm_bot/source_quality/samples/source_staleness_check_spec.fixture.md"
+      ],
+      "operator_review_status": "pending_operator_review",
+      "review_focus": "Prior source bundle and local staleness spec references.",
+      "section_id": "prior_rehearsal_source_review"
+    },
+    {
+      "local_references": [
+        "pm_bot/source_quality/samples/source_staleness_check_spec.fixture.json"
+      ],
+      "operator_review_status": "pending_operator_review",
+      "review_focus": "Fixed staleness case rows and review classes.",
+      "section_id": "staleness_case_review"
+    },
+    {
+      "local_references": [
+        "docs/PMBOT_REHEARSAL_006_REHEARSAL_STALENESS_CASE_SET_LOCAL_ONLY.md"
+      ],
+      "operator_review_status": "pending_operator_review",
+      "review_focus": "Closed endpoint, sensitive path, process, and execution boundaries.",
+      "section_id": "safety_boundary_review"
+    },
+    {
+      "local_references": [
+        "pm_bot/tests/test_rehearsal_staleness_case_set.py",
+        "tests/test_codex_queue_pmbot_templates.py"
+      ],
+      "operator_review_status": "pending_operator_review",
+      "review_focus": "Local deterministic validation commands.",
+      "section_id": "validation_review"
+    }
+  ],
+  "run_mode": "local_static_rehearsal_staleness_case_set",
+  "safety_boundaries": {
+    "authenticated_endpoint_calls_allowed": false,
+    "background_process_allowed": false,
+    "browser_automation_allowed": false,
+    "case_automation_allowed": false,
+    "credential_or_secret_access_allowed": false,
+    "descriptive_rehearsal_staleness_case_set_only": true,
+    "execution_endpoint_calls_allowed": false,
+    "external_service_calls_allowed": false,
+    "live_data_refresh_allowed": false,
+    "llm_provider_calls_allowed": false,
+    "local_static_samples_only": true,
+    "market_api_calls_allowed": false,
+    "market_ranking_allowed": false,
+    "network_calls_allowed": false,
+    "numeric_prediction_metric_allowed": false,
+    "openrouter_calls_allowed": false,
+    "operator_review_required": true,
+    "order_or_trade_surface_changes_allowed": false,
+    "paper_mode_only": true,
+    "polymarket_api_calls_allowed": false,
+    "resident_process_allowed": false,
+    "run_codex_changes_allowed": false,
+    "runtime_or_dispatcher_changes_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "trading_endpoint_calls_allowed": false,
+    "transaction_endpoint_calls_allowed": false,
+    "wallet_or_signing_material_access_allowed": false
+  },
+  "source_artifacts": [
+    {
+      "artifact_id": "rehearsal_003_source_evidence_bundle_doc",
+      "contract_version": "pmbot_rehearsal_source_evidence_bundle.v1",
+      "local_reference": "docs/PMBOT_REHEARSAL_003_REHEARSAL_SOURCE_EVIDENCE_BUNDLE_LOCAL_ONLY.md",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "rehearsal_003_source_evidence_bundle_fixture",
+      "contract_version": "pmbot_rehearsal_source_evidence_bundle.v1",
+      "local_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_source_evidence_bundle.valid.json",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "source_staleness_check_spec_doc",
+      "contract_version": "pmbot_source_staleness_check_spec.v1",
+      "local_reference": "docs/PMBOT_SOURCE_EVIDENCE_003_SOURCE_STALENESS_CHECK_SPEC_LOCAL_ONLY.md",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "source_staleness_check_spec_fixture",
+      "contract_version": "pmbot_source_staleness_check_spec.v1",
+      "local_reference": "pm_bot/source_quality/samples/source_staleness_check_spec.fixture.json",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "source_staleness_check_spec_report",
+      "contract_version": "pmbot_source_staleness_check_spec.v1",
+      "local_reference": "pm_bot/source_quality/samples/source_staleness_check_spec.fixture.md",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "rehearsal_006_staleness_case_set_doc",
+      "contract_version": "pmbot_rehearsal_staleness_case_set.v1",
+      "local_reference": "docs/PMBOT_REHEARSAL_006_REHEARSAL_STALENESS_CASE_SET_LOCAL_ONLY.md",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "rehearsal_006_staleness_case_set_fixture",
+      "contract_version": "pmbot_rehearsal_staleness_case_set.v1",
+      "local_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_staleness_case_set.valid.json",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "rehearsal_006_staleness_case_set_test",
+      "contract_version": "local_pytest_validation",
+      "local_reference": "pm_bot/tests/test_rehearsal_staleness_case_set.py",
+      "required_state": "local_validation_reference"
+    },
+    {
+      "artifact_id": "pmbot_queue_template_validation",
+      "contract_version": "local_pytest_validation",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "required_state": "local_validation_reference"
+    }
+  ],
+  "summary_counts": {
+    "case_record_fields": 14,
+    "case_records": 6,
+    "case_set_rules": 7,
+    "local_references": 9,
+    "operator_review_checklist_items": 9,
+    "required_validation_commands": 2,
+    "review_sections": 5,
+    "source_artifacts": 9,
+    "source_staleness_check_ids": 4,
+    "staleness_review_classes": 5,
+    "warnings": 0
+  },
+  "task_id": "PMBOT-REHEARSAL-006-REHEARSAL-STALENESS-CASE-SET-LOCAL-ONLY",
+  "warnings": []
+}

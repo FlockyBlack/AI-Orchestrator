@@ -1,0 +1,41 @@
+{
+  "acceptance_checks_passed": true,
+  "commands_run": [
+    "pytest pm_bot/tests/test_rehearsal_failure_and_rollback_playbook.py",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py",
+    "python -m compileall pm_bot tests"
+  ],
+  "completed_at": "2026-05-09T18:39:20Z",
+  "completed_by": "codex_cli_last_message_bridge",
+  "files_created": [],
+  "files_deleted": [],
+  "files_modified": [
+    "docs/PMBOT_REHEARSAL_019_REHEARSAL_FAILURE_AND_ROLLBACK_PLAYBOOK_LOCAL_ONLY.md",
+    "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_failure_and_rollback_playbook.valid.json",
+    "pm_bot/tests/test_rehearsal_failure_and_rollback_playbook.py"
+  ],
+  "next_recommended_action": "Inspect the bridged result, ingestion report, review report, and git diff before mark-done.",
+  "operator_review_notes": "Bridged from C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-019-REHEARSAL-FAILURE-AND-ROLLBACK-PLAYBOOK-LOCAL-ONLY\\20260509T183122Z\\last_message.md. Safety notes: No network calls, OpenRouter calls, Polymarket API calls, authenticated endpoints, wallet access, private-key access, order placement, trading endpoint use, or external service calls were made.; No runtime, dispatcher, run_codex, scheduler, worker, daemon, resident process, or browser automation wiring was changed or started.; Only local docs, local PMBOT test fixtures, and local pytest contract files were intentionally changed.; The playbook produces no market recommendations, forecast scoring, action guidance, selection advice, probability scores, EV, edge, confidence, or side selection. Remaining risks: Operator review remains pending; the playbook is not execution approval and is not runtime input.; The requested compileall command exited 0 but listed pm_bot/llm because the acceptance command targets all of pm_bot.; Pytest passed with a non-blocking warning that .pytest_cache nodeids could not be written due workspace cache permissions.; Compileall exited 0 while reporting it could not list tests/.pytest_tmp/pytest-of-OpenC. Bridge warnings: last_message used files_changed; bridged those paths as files_modified",
+  "safety_confirmation": {
+    "background_worker_added": false,
+    "codex_app_server_used": false,
+    "credentials_accessed": false,
+    "destructive_commands_used": false,
+    "network_calls_performed": 0,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "runtime_or_dispatcher_touched": false,
+    "scheduler_added": false,
+    "telegram_or_openclaw_added": false,
+    "wallet_or_trading_touched": false
+  },
+  "schema_version": "codex_task_result.v1",
+  "status": "completed",
+  "summary": "Added a local-only PMBOT rehearsal failure and rollback playbook with a deterministic Markdown registration document, static JSON fixture, and pytest contract. The playbook keeps all failure and rollback handling descriptive, operator-reviewed, non-executing, and closed to network, wallet, trading, runtime, dispatcher, and run_codex surfaces.",
+  "task_id": "PMBOT-REHEARSAL-019-REHEARSAL-FAILURE-AND-ROLLBACK-PLAYBOOK-LOCAL-ONLY",
+  "validation_results": [
+    "pytest pm_bot/tests/test_rehearsal_failure_and_rollback_playbook.py",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py",
+    "python -m compileall pm_bot tests"
+  ]
+}

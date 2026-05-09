@@ -1,0 +1,363 @@
+{
+  "allowed_path_prefixes": [
+    "docs/",
+    "pm_bot/readiness/",
+    "pm_bot/tests/",
+    "tests/"
+  ],
+  "backlog_id": "pmbot-rehearsal-next-action-backlog-001",
+  "backlog_name": "pmbot-rehearsal-next-action-backlog",
+  "backlog_records": [
+    {
+      "backlog_record_id": "rehearsal_next_action_backlog_001.roadmap_backlog_generator_review",
+      "evidence_state": "local_static_record_present_pending_review",
+      "local_reference": "pm_bot/readiness/PMBOT_ROADMAP_003_NEXT_20_TASK_BACKLOG_GENERATOR.md",
+      "operator_review_status": "pending_operator_review",
+      "record_index": 1,
+      "review_checkpoint": "Confirm roadmap backlog generator notes remain descriptive and pending human review.",
+      "review_group": "readiness_backlog_review",
+      "source_artifact_ids": [
+        "roadmap_next_20_task_backlog_generator_document"
+      ]
+    },
+    {
+      "backlog_record_id": "rehearsal_next_action_backlog_001.readiness_dashboard_card_review",
+      "evidence_state": "local_static_record_present_pending_review",
+      "local_reference": "docs/PMBOT_REHEARSAL_011_REHEARSAL_READINESS_DASHBOARD_CARD_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "record_index": 2,
+      "review_checkpoint": "Confirm readiness card rows remain local and pending human review.",
+      "review_group": "operator_surface_review",
+      "source_artifact_ids": [
+        "rehearsal_readiness_dashboard_card_document"
+      ]
+    },
+    {
+      "backlog_record_id": "rehearsal_next_action_backlog_001.morning_operator_card_review",
+      "evidence_state": "local_static_record_present_pending_review",
+      "local_reference": "docs/PMBOT_REHEARSAL_012_REHEARSAL_MORNING_OPERATOR_CARD_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "record_index": 3,
+      "review_checkpoint": "Confirm morning operator card sections remain review surfaces only.",
+      "review_group": "operator_surface_review",
+      "source_artifact_ids": [
+        "rehearsal_morning_operator_card_document"
+      ]
+    },
+    {
+      "backlog_record_id": "rehearsal_next_action_backlog_001.acceptance_report_review",
+      "evidence_state": "local_static_record_present_pending_review",
+      "local_reference": "docs/PMBOT_REHEARSAL_013_REHEARSAL_ACCEPTANCE_REPORT_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "record_index": 4,
+      "review_checkpoint": "Confirm acceptance report sections remain local and internally consistent.",
+      "review_group": "acceptance_review",
+      "source_artifact_ids": [
+        "rehearsal_acceptance_report_document"
+      ]
+    },
+    {
+      "backlog_record_id": "rehearsal_next_action_backlog_001.source_quality_link_review",
+      "evidence_state": "local_static_record_present_pending_review",
+      "local_reference": "docs/PMBOT_REHEARSAL_014_REHEARSAL_SOURCE_QUALITY_LINKS_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "record_index": 5,
+      "review_checkpoint": "Confirm source quality links remain identifier-only local records.",
+      "review_group": "source_link_review",
+      "source_artifact_ids": [
+        "rehearsal_source_quality_links_document"
+      ]
+    },
+    {
+      "backlog_record_id": "rehearsal_next_action_backlog_001.paperlive_accounting_link_review",
+      "evidence_state": "local_static_record_present_pending_review",
+      "local_reference": "docs/PMBOT_REHEARSAL_015_REHEARSAL_PAPERLIVE_ACCOUNTING_LINKS_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "record_index": 6,
+      "review_checkpoint": "Confirm paperlive accounting links remain descriptive local records.",
+      "review_group": "accounting_link_review",
+      "source_artifact_ids": [
+        "rehearsal_paperlive_accounting_links_document"
+      ]
+    },
+    {
+      "backlog_record_id": "rehearsal_next_action_backlog_001.simulated_replay_link_review",
+      "evidence_state": "local_static_record_present_pending_review",
+      "local_reference": "docs/PMBOT_REHEARSAL_016_REHEARSAL_SIMULATED_DECISION_REPLAY_LINKS_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "record_index": 7,
+      "review_checkpoint": "Confirm simulated replay links remain descriptive and pending human review.",
+      "review_group": "simulated_replay_review",
+      "source_artifact_ids": [
+        "rehearsal_simulated_replay_links_document"
+      ]
+    },
+    {
+      "backlog_record_id": "rehearsal_next_action_backlog_001.forbidden_action_scan_review",
+      "evidence_state": "local_static_record_present_pending_review",
+      "local_reference": "docs/PMBOT_REHEARSAL_017_REHEARSAL_FORBIDDEN_ACTION_SCAN_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "record_index": 8,
+      "review_checkpoint": "Confirm forbidden operation rows keep endpoint and process boundaries closed.",
+      "review_group": "safety_boundary_review",
+      "source_artifact_ids": [
+        "rehearsal_forbidden_action_scan_document"
+      ]
+    },
+    {
+      "backlog_record_id": "rehearsal_next_action_backlog_001.sensitive_path_audit_review",
+      "evidence_state": "local_static_record_present_pending_review",
+      "local_reference": "docs/PMBOT_REHEARSAL_018_REHEARSAL_SENSITIVE_PATH_AUDIT_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "record_index": 9,
+      "review_checkpoint": "Confirm sensitive path exclusions remain present and closed.",
+      "review_group": "safety_boundary_review",
+      "source_artifact_ids": [
+        "rehearsal_sensitive_path_audit_document"
+      ]
+    },
+    {
+      "backlog_record_id": "rehearsal_next_action_backlog_001.failure_rollback_playbook_review",
+      "evidence_state": "local_static_record_present_pending_review",
+      "local_reference": "docs/PMBOT_REHEARSAL_019_REHEARSAL_FAILURE_AND_ROLLBACK_PLAYBOOK_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "record_index": 10,
+      "review_checkpoint": "Confirm failure classes and rollback steps remain manual review records.",
+      "review_group": "rollback_review",
+      "source_artifact_ids": [
+        "rehearsal_failure_and_rollback_playbook_document",
+        "rehearsal_failure_and_rollback_playbook_fixture"
+      ]
+    },
+    {
+      "backlog_record_id": "rehearsal_next_action_backlog_001.backlog_fixture_review",
+      "evidence_state": "local_static_record_present_pending_review",
+      "local_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_next_action_backlog.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "record_index": 11,
+      "review_checkpoint": "Confirm this fixed backlog artifact remains descriptive and pending human review.",
+      "review_group": "backlog_contract_review",
+      "source_artifact_ids": [
+        "rehearsal_next_action_backlog_fixture",
+        "rehearsal_next_action_backlog_document",
+        "rehearsal_next_action_backlog_contract_test"
+      ]
+    }
+  ],
+  "contract_id": "pmbot-rehearsal-next-action-backlog",
+  "contract_version": "pmbot_rehearsal_next_action_backlog.v1",
+  "created_at": "2026-05-09T12:45:00Z",
+  "errors": [],
+  "excluded_path_prefixes": [
+    ".env",
+    ".env.*",
+    ".git/",
+    ".codex/",
+    "runtime/",
+    "dispatcher/",
+    "run_codex/",
+    "pm_bot/llm/",
+    "pm_bot/wallet/",
+    "pm_bot/trading/",
+    "pm_bot/orders/",
+    "agent_tasks/running/"
+  ],
+  "local_only": true,
+  "operator_review": {
+    "reviewed_at": null,
+    "reviewed_by": null,
+    "status": "pending_operator_review"
+  },
+  "operator_review_required": true,
+  "required_validation_commands": [
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "run_mode": "local_static_rehearsal_next_action_backlog",
+  "safety_boundaries": {
+    "authenticated_endpoint_calls_allowed": false,
+    "background_process_allowed": false,
+    "browser_automation_allowed": false,
+    "core_execution_wiring_changes_allowed": false,
+    "credential_or_secret_access_allowed": false,
+    "decision_metric_output_allowed": false,
+    "execution_endpoint_calls_allowed": false,
+    "external_service_calls_allowed": false,
+    "followup_backlog_descriptive_only": true,
+    "llm_provider_calls_allowed": false,
+    "local_fixtures_only": true,
+    "local_static_samples_only": true,
+    "market_api_calls_allowed": false,
+    "market_recommendation_output_allowed": false,
+    "market_ranking_allowed": false,
+    "network_calls_allowed": false,
+    "numeric_prediction_metric_allowed": false,
+    "openrouter_calls_allowed": false,
+    "operator_review_required": true,
+    "order_or_trade_surface_changes_allowed": false,
+    "paper_mode_only": true,
+    "paperlive_execution_allowed": false,
+    "polymarket_api_calls_allowed": false,
+    "resident_process_allowed": false,
+    "run_codex_changes_allowed": false,
+    "runtime_or_dispatcher_changes_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "sensitive_path_access_allowed": false,
+    "status_mutation_allowed": false,
+    "supervised_live_transition_allowed": false,
+    "timed_automation_allowed": false,
+    "trade_instruction_allowed": false,
+    "transaction_endpoint_calls_allowed": false,
+    "wallet_or_signing_material_access_allowed": false
+  },
+  "source_artifacts": [
+    {
+      "artifact_id": "rehearsal_next_action_backlog_fixture",
+      "artifact_role": "backlog_fixture",
+      "artifact_type": "json_fixture",
+      "local_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_next_action_backlog.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-020-REHEARSAL-NEXT-ACTION-BACKLOG-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_next_action_backlog_document",
+      "artifact_role": "backlog_document",
+      "artifact_type": "markdown_document",
+      "local_reference": "docs/PMBOT_REHEARSAL_020_REHEARSAL_NEXT_ACTION_BACKLOG_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-020-REHEARSAL-NEXT-ACTION-BACKLOG-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_next_action_backlog_contract_test",
+      "artifact_role": "backlog_contract_test",
+      "artifact_type": "pytest_module",
+      "local_reference": "pm_bot/tests/test_rehearsal_next_action_backlog.py",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-020-REHEARSAL-NEXT-ACTION-BACKLOG-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "roadmap_next_20_task_backlog_generator_document",
+      "artifact_role": "source_document",
+      "artifact_type": "markdown_document",
+      "local_reference": "pm_bot/readiness/PMBOT_ROADMAP_003_NEXT_20_TASK_BACKLOG_GENERATOR.md",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-ROADMAP-003-NEXT-20-TASK-BACKLOG-GENERATOR"
+    },
+    {
+      "artifact_id": "rehearsal_readiness_dashboard_card_document",
+      "artifact_role": "source_document",
+      "artifact_type": "markdown_document",
+      "local_reference": "docs/PMBOT_REHEARSAL_011_REHEARSAL_READINESS_DASHBOARD_CARD_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-011-REHEARSAL-READINESS-DASHBOARD-CARD-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_morning_operator_card_document",
+      "artifact_role": "source_document",
+      "artifact_type": "markdown_document",
+      "local_reference": "docs/PMBOT_REHEARSAL_012_REHEARSAL_MORNING_OPERATOR_CARD_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-012-REHEARSAL-MORNING-OPERATOR-CARD-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_acceptance_report_document",
+      "artifact_role": "source_document",
+      "artifact_type": "markdown_document",
+      "local_reference": "docs/PMBOT_REHEARSAL_013_REHEARSAL_ACCEPTANCE_REPORT_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-013-REHEARSAL-ACCEPTANCE-REPORT-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_source_quality_links_document",
+      "artifact_role": "source_document",
+      "artifact_type": "markdown_document",
+      "local_reference": "docs/PMBOT_REHEARSAL_014_REHEARSAL_SOURCE_QUALITY_LINKS_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-014-REHEARSAL-SOURCE-QUALITY-LINKS-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_paperlive_accounting_links_document",
+      "artifact_role": "source_document",
+      "artifact_type": "markdown_document",
+      "local_reference": "docs/PMBOT_REHEARSAL_015_REHEARSAL_PAPERLIVE_ACCOUNTING_LINKS_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-015-REHEARSAL-PAPERLIVE-ACCOUNTING-LINKS-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_simulated_replay_links_document",
+      "artifact_role": "source_document",
+      "artifact_type": "markdown_document",
+      "local_reference": "docs/PMBOT_REHEARSAL_016_REHEARSAL_SIMULATED_DECISION_REPLAY_LINKS_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-016-REHEARSAL-SIMULATED-DECISION-REPLAY-LINKS-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_forbidden_action_scan_document",
+      "artifact_role": "source_document",
+      "artifact_type": "markdown_document",
+      "local_reference": "docs/PMBOT_REHEARSAL_017_REHEARSAL_FORBIDDEN_ACTION_SCAN_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-017-REHEARSAL-FORBIDDEN-ACTION-SCAN-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_sensitive_path_audit_document",
+      "artifact_role": "source_document",
+      "artifact_type": "markdown_document",
+      "local_reference": "docs/PMBOT_REHEARSAL_018_REHEARSAL_SENSITIVE_PATH_AUDIT_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-018-REHEARSAL-SENSITIVE-PATH-AUDIT-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_failure_and_rollback_playbook_document",
+      "artifact_role": "source_document",
+      "artifact_type": "markdown_document",
+      "local_reference": "docs/PMBOT_REHEARSAL_019_REHEARSAL_FAILURE_AND_ROLLBACK_PLAYBOOK_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-019-REHEARSAL-FAILURE-AND-ROLLBACK-PLAYBOOK-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_failure_and_rollback_playbook_fixture",
+      "artifact_role": "source_fixture",
+      "artifact_type": "json_fixture",
+      "local_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_failure_and_rollback_playbook.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-019-REHEARSAL-FAILURE-AND-ROLLBACK-PLAYBOOK-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "queue_template_validation_test",
+      "artifact_role": "queue_template_contract",
+      "artifact_type": "pytest_module",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-020-REHEARSAL-NEXT-ACTION-BACKLOG-LOCAL-ONLY"
+    }
+  ],
+  "summary_counts": {
+    "allowed_path_prefixes": 4,
+    "backlog_records": 11,
+    "backlog_records_pending_operator_review": 11,
+    "errors": 0,
+    "excluded_path_prefixes": 12,
+    "local_references": 15,
+    "required_validation_commands": 2,
+    "source_artifacts": 15,
+    "validation_command_records": 2,
+    "warnings": 0
+  },
+  "task_id": "PMBOT-REHEARSAL-020-REHEARSAL-NEXT-ACTION-BACKLOG-LOCAL-ONLY",
+  "validation_command_records": [
+    {
+      "command_label": "python -m compileall pm_bot tests",
+      "local_reference": "pm_bot/tests/test_rehearsal_next_action_backlog.py",
+      "operator_review_status": "pending_operator_review",
+      "status": "not_run_static_record"
+    },
+    {
+      "command_label": "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "status": "not_run_static_record"
+    }
+  ],
+  "warnings": []
+}

@@ -1,0 +1,491 @@
+{
+  "contract_version": "pmbot_rehearsal_market_packet_schema.v1",
+  "created_at": "2026-05-09T02:10:00Z",
+  "errors": [],
+  "field_catalog": [
+    {
+      "field_name": "category_label",
+      "field_role": "Descriptive category label copied from local static source context.",
+      "operator_review_status": "pending_operator_review",
+      "permitted_value_shape": "non_empty_string",
+      "required": true
+    },
+    {
+      "field_name": "close_time_utc",
+      "field_role": "UTC close-time label copied as descriptive text.",
+      "operator_review_status": "pending_operator_review",
+      "permitted_value_shape": "static_iso8601_string",
+      "required": true
+    },
+    {
+      "field_name": "currency_label",
+      "field_role": "Descriptive currency label copied from local static source context.",
+      "operator_review_status": "pending_operator_review",
+      "permitted_value_shape": "non_empty_string",
+      "required": true
+    },
+    {
+      "field_name": "description",
+      "field_role": "Plain-language packet description for operator review.",
+      "operator_review_status": "pending_operator_review",
+      "permitted_value_shape": "non_empty_string",
+      "required": true
+    },
+    {
+      "field_name": "excluded_fields",
+      "field_role": "Closed list of fields omitted from descriptive rehearsal market packets.",
+      "operator_review_status": "pending_operator_review",
+      "permitted_value_shape": "list_of_static_field_names",
+      "required": true
+    },
+    {
+      "field_name": "local_scenario_contract_reference",
+      "field_role": "Repository-relative reference to the local rehearsal scenario contract fixture.",
+      "operator_review_status": "pending_operator_review",
+      "permitted_value_shape": "local_repository_relative_path",
+      "required": true
+    },
+    {
+      "field_name": "market_packet_id",
+      "field_role": "Stable local identifier for the rehearsal market packet record.",
+      "operator_review_status": "pending_operator_review",
+      "permitted_value_shape": "non_empty_string",
+      "required": true
+    },
+    {
+      "field_name": "market_packet_state",
+      "field_role": "Packet state label that preserves pending operator review.",
+      "operator_review_status": "pending_operator_review",
+      "permitted_value_shape": "controlled_static_string",
+      "required": true
+    },
+    {
+      "field_name": "market_title",
+      "field_role": "Descriptive market title copied from local static source context.",
+      "operator_review_status": "pending_operator_review",
+      "permitted_value_shape": "non_empty_string",
+      "required": true
+    },
+    {
+      "field_name": "operator_review_status",
+      "field_role": "Human review state for the packet record.",
+      "operator_review_status": "pending_operator_review",
+      "permitted_value_shape": "pending_operator_review",
+      "required": true
+    },
+    {
+      "field_name": "outcome_label_policy",
+      "field_role": "Policy label confirming outcome names remain label-only fields.",
+      "operator_review_status": "pending_operator_review",
+      "permitted_value_shape": "controlled_static_string",
+      "required": true
+    },
+    {
+      "field_name": "outcome_labels",
+      "field_role": "Label-only outcome names copied from local static source context.",
+      "operator_review_status": "pending_operator_review",
+      "permitted_value_shape": "list_of_non_empty_strings",
+      "required": true
+    },
+    {
+      "field_name": "packet_kind",
+      "field_role": "Packet kind label for descriptive rehearsal market packet records.",
+      "operator_review_status": "pending_operator_review",
+      "permitted_value_shape": "controlled_static_string",
+      "required": true
+    },
+    {
+      "field_name": "rehearsal_phase",
+      "field_role": "Rehearsal phase label copied from local scenario contract context.",
+      "operator_review_status": "pending_operator_review",
+      "permitted_value_shape": "controlled_static_string",
+      "required": true
+    },
+    {
+      "field_name": "source_reference_policy",
+      "field_role": "Policy label confirming source references remain local and static.",
+      "operator_review_status": "pending_operator_review",
+      "permitted_value_shape": "controlled_static_string",
+      "required": true
+    },
+    {
+      "field_name": "static_source_references",
+      "field_role": "Repository-relative references to local static artifacts reviewed for the packet.",
+      "operator_review_status": "pending_operator_review",
+      "permitted_value_shape": "list_of_local_repository_relative_paths",
+      "required": true
+    },
+    {
+      "field_name": "venue_label",
+      "field_role": "Descriptive venue label copied from local static source context.",
+      "operator_review_status": "pending_operator_review",
+      "permitted_value_shape": "non_empty_string",
+      "required": true
+    }
+  ],
+  "local_only": true,
+  "market_packet_fields": [
+    "category_label",
+    "close_time_utc",
+    "currency_label",
+    "description",
+    "excluded_fields",
+    "local_scenario_contract_reference",
+    "market_packet_id",
+    "market_packet_state",
+    "market_title",
+    "operator_review_status",
+    "outcome_label_policy",
+    "outcome_labels",
+    "packet_kind",
+    "rehearsal_phase",
+    "source_reference_policy",
+    "static_source_references",
+    "venue_label"
+  ],
+  "market_packet_records": [
+    {
+      "category_label": "local_rehearsal_category",
+      "close_time_utc": "2030-01-01T00:00:00Z",
+      "currency_label": "label_only",
+      "description": "Static packet shape sample for operator review.",
+      "excluded_fields": [
+        "credential_reference",
+        "endpoint_payload",
+        "execution_payload",
+        "market_ranking",
+        "numeric_prediction_metric",
+        "order_payload",
+        "runtime_dispatch_reference",
+        "trade_instruction",
+        "wallet_reference"
+      ],
+      "local_scenario_contract_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_read_only_rehearsal_scenario_contract.valid.json",
+      "market_packet_id": "rehearsal_market_packet_schema_001.static_local_packet_shape",
+      "market_packet_state": "schema_only_static_sample_pending_operator_review",
+      "market_title": "Static local rehearsal market packet sample",
+      "operator_review_status": "pending_operator_review",
+      "outcome_label_policy": "labels_only_no_numeric_metrics",
+      "outcome_labels": [
+        "option_label_a",
+        "option_label_b"
+      ],
+      "packet_kind": "descriptive_rehearsal_market_packet",
+      "rehearsal_phase": "first_read_only_supervised_live_rehearsal",
+      "source_reference_policy": "local_static_reference_list_only",
+      "static_source_references": [
+        "docs/PMBOT_REHEARSAL_001_READ_ONLY_REHEARSAL_SCENARIO_CONTRACT_LOCAL_ONLY.md",
+        "pm_bot/tests/fixtures/rehearsal/pmbot_read_only_rehearsal_scenario_contract.valid.json",
+        "pm_bot/tests/fixtures/readiness/pmbot_read_only_live_data_contract.valid.json",
+        "pm_bot/tests/fixtures/readiness/pmbot_live_data_source_inventory.valid.json",
+        "pm_bot/tests/fixtures/readiness/pmbot_operator_approval_gate_record.valid.json",
+        "tests/test_codex_queue_pmbot_templates.py"
+      ],
+      "venue_label": "local_rehearsal_venue_label"
+    }
+  ],
+  "operator_review": {
+    "reviewed_at": null,
+    "reviewed_by": null,
+    "status": "pending_operator_review"
+  },
+  "operator_review_checklist": [
+    {
+      "check_id": "local_reference_review",
+      "description": "Confirm every referenced artifact is a local file inside the allowed review paths.",
+      "required_evidence": "Human record confirming local file paths and excluded paths.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "schema_field_review",
+      "description": "Confirm the market packet field list and field catalog remain closed and descriptive.",
+      "required_evidence": "Human record confirming schema field coverage.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "static_sample_review",
+      "description": "Confirm packet records are static local samples and are not refreshed during this task.",
+      "required_evidence": "Human record confirming static sample scope.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "operator_review_status_review",
+      "description": "Confirm all review states remain pending until a human updates a separate reviewed record.",
+      "required_evidence": "Human record confirming review status.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "value_boundary_review",
+      "description": "Confirm packet records retain labels only and omit numeric prediction metrics.",
+      "required_evidence": "Human record confirming value boundary review.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "sensitive_path_exclusion_check",
+      "description": "Confirm credential, wallet, signing, auth, and private material paths remain excluded.",
+      "required_evidence": "Human record confirming sensitive path boundaries.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "runtime_boundary_check",
+      "description": "Confirm runtime, dispatcher, scheduler, worker, browser, resident process, and run_codex boundaries stay closed.",
+      "required_evidence": "Human record confirming no process or wiring changes.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "output_boundary_check",
+      "description": "Confirm outputs remain descriptive and exclude prediction metrics, market ranking, and trade instruction fields.",
+      "required_evidence": "Human record confirming output field review.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "validation_replay_check",
+      "description": "Confirm local validation commands are run after artifact review.",
+      "required_evidence": "Human record confirming compile and pytest results.",
+      "status": "pending_operator_review"
+    }
+  ],
+  "operator_review_required": true,
+  "required_validation_commands": [
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "review_sections": [
+    {
+      "local_references": [
+        "docs/PMBOT_REHEARSAL_002_REHEARSAL_MARKET_PACKET_SCHEMA_LOCAL_ONLY.md",
+        "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_market_packet_schema.valid.json"
+      ],
+      "operator_review_status": "pending_operator_review",
+      "section_id": "schema_identity_review",
+      "section_label": "Schema identity review",
+      "section_role": "local_static_market_packet_schema_identity"
+    },
+    {
+      "local_references": [
+        "docs/PMBOT_REHEARSAL_001_READ_ONLY_REHEARSAL_SCENARIO_CONTRACT_LOCAL_ONLY.md",
+        "pm_bot/tests/fixtures/rehearsal/pmbot_read_only_rehearsal_scenario_contract.valid.json"
+      ],
+      "operator_review_status": "pending_operator_review",
+      "section_id": "scenario_contract_link_review",
+      "section_label": "Scenario contract link review",
+      "section_role": "local_static_scenario_contract_context"
+    },
+    {
+      "local_references": [
+        "docs/PMBOT_SUPERVISED_LIVE_001_READ_ONLY_LIVE_DATA_CONTRACT_LOCAL_ONLY.md",
+        "docs/PMBOT_SUPERVISED_LIVE_002_LIVE_DATA_SOURCE_INVENTORY_LOCAL_ONLY.md",
+        "pm_bot/tests/fixtures/readiness/pmbot_read_only_live_data_contract.valid.json",
+        "pm_bot/tests/fixtures/readiness/pmbot_live_data_source_inventory.valid.json"
+      ],
+      "operator_review_status": "pending_operator_review",
+      "section_id": "read_only_source_context_review",
+      "section_label": "Read-only source context review",
+      "section_role": "local_static_source_context"
+    },
+    {
+      "local_references": [
+        "docs/PMBOT_SUPERVISED_LIVE_003_OPERATOR_APPROVAL_GATE_RECORD_LOCAL_ONLY.md",
+        "pm_bot/tests/fixtures/readiness/pmbot_operator_approval_gate_record.valid.json"
+      ],
+      "operator_review_status": "pending_operator_review",
+      "section_id": "operator_gate_boundary_review",
+      "section_label": "Operator gate boundary review",
+      "section_role": "local_static_operator_gate_context"
+    },
+    {
+      "local_references": [
+        "pm_bot/tests/test_rehearsal_market_packet_schema.py",
+        "tests/test_codex_queue_pmbot_templates.py"
+      ],
+      "operator_review_status": "pending_operator_review",
+      "section_id": "validation_review",
+      "section_label": "Validation review",
+      "section_role": "local_static_validation_reference"
+    }
+  ],
+  "run_mode": "local_static_rehearsal_market_packet_schema",
+  "safety_boundaries": {
+    "authenticated_endpoint_calls_allowed": false,
+    "background_process_allowed": false,
+    "browser_automation_allowed": false,
+    "credential_or_secret_access_allowed": false,
+    "descriptive_market_packet_only": true,
+    "execution_endpoint_calls_allowed": false,
+    "external_service_calls_allowed": false,
+    "llm_provider_calls_allowed": false,
+    "local_static_samples_only": true,
+    "market_api_calls_allowed": false,
+    "market_ranking_allowed": false,
+    "network_calls_allowed": false,
+    "numeric_prediction_metric_allowed": false,
+    "openrouter_calls_allowed": false,
+    "operator_review_required": true,
+    "order_or_trade_surface_changes_allowed": false,
+    "paper_mode_only": true,
+    "polymarket_api_calls_allowed": false,
+    "resident_process_allowed": false,
+    "run_codex_changes_allowed": false,
+    "runtime_or_dispatcher_changes_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "trading_endpoint_calls_allowed": false,
+    "transaction_endpoint_calls_allowed": false,
+    "wallet_or_signing_material_access_allowed": false
+  },
+  "schema_id": "pmbot-rehearsal-market-packet-schema",
+  "schema_rules": [
+    {
+      "rule_id": "local_static_inputs_only",
+      "rule_text": "Use only local files, local fixtures, and static samples named in this schema.",
+      "status": "active"
+    },
+    {
+      "rule_id": "descriptive_packet_fields_only",
+      "rule_text": "Keep packet fields to descriptive labels, local references, and pending human review state.",
+      "status": "active"
+    },
+    {
+      "rule_id": "operator_review_status_preserved",
+      "rule_text": "Leave all operator review states pending until a human updates a separate reviewed record.",
+      "status": "active"
+    },
+    {
+      "rule_id": "numeric_metric_boundary",
+      "rule_text": "Omit numeric prediction metrics, market ranking fields, and trade instruction fields from packet records.",
+      "status": "active"
+    },
+    {
+      "rule_id": "closed_endpoint_boundary",
+      "rule_text": "Exclude network, OpenRouter, Polymarket, authenticated, transaction, wallet, key, order, and trading endpoint activity.",
+      "status": "active"
+    },
+    {
+      "rule_id": "closed_process_boundary",
+      "rule_text": "Exclude runtime dispatch, dispatcher wiring, run_codex wiring, browser automation, schedulers, workers, and resident processes.",
+      "status": "active"
+    }
+  ],
+  "source_artifacts": [
+    {
+      "artifact_id": "rehearsal_market_packet_schema_doc",
+      "artifact_type": "documentation",
+      "contract_version": "pmbot_rehearsal_market_packet_schema.v1",
+      "local_reference": "docs/PMBOT_REHEARSAL_002_REHEARSAL_MARKET_PACKET_SCHEMA_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "required_state": "pending_operator_review",
+      "source_role": "market_packet_schema_document"
+    },
+    {
+      "artifact_id": "rehearsal_market_packet_schema_fixture",
+      "artifact_type": "fixture",
+      "contract_version": "pmbot_rehearsal_market_packet_schema.v1",
+      "local_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_market_packet_schema.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "required_state": "pending_operator_review",
+      "source_role": "market_packet_schema_fixture"
+    },
+    {
+      "artifact_id": "rehearsal_market_packet_schema_test",
+      "artifact_type": "test",
+      "contract_version": "pmbot_rehearsal_market_packet_schema.v1",
+      "local_reference": "pm_bot/tests/test_rehearsal_market_packet_schema.py",
+      "operator_review_status": "pending_operator_review",
+      "required_state": "local_validation_reference",
+      "source_role": "market_packet_schema_validation"
+    },
+    {
+      "artifact_id": "rehearsal_scenario_contract_doc",
+      "artifact_type": "documentation",
+      "contract_version": "pmbot_read_only_rehearsal_scenario_contract.v1",
+      "local_reference": "docs/PMBOT_REHEARSAL_001_READ_ONLY_REHEARSAL_SCENARIO_CONTRACT_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "required_state": "pending_operator_review",
+      "source_role": "scenario_contract_document"
+    },
+    {
+      "artifact_id": "rehearsal_scenario_contract_fixture",
+      "artifact_type": "fixture",
+      "contract_version": "pmbot_read_only_rehearsal_scenario_contract.v1",
+      "local_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_read_only_rehearsal_scenario_contract.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "required_state": "pending_operator_review",
+      "source_role": "scenario_contract_fixture"
+    },
+    {
+      "artifact_id": "supervised_live_read_only_live_data_contract",
+      "artifact_type": "documentation",
+      "contract_version": "pmbot_supervised_live_read_only_live_data_contract.v1",
+      "local_reference": "docs/PMBOT_SUPERVISED_LIVE_001_READ_ONLY_LIVE_DATA_CONTRACT_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "required_state": "pending_operator_review",
+      "source_role": "read_only_data_contract"
+    },
+    {
+      "artifact_id": "supervised_live_data_source_inventory",
+      "artifact_type": "documentation",
+      "contract_version": "pmbot_supervised_live_data_source_inventory.v1",
+      "local_reference": "docs/PMBOT_SUPERVISED_LIVE_002_LIVE_DATA_SOURCE_INVENTORY_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "required_state": "pending_operator_review",
+      "source_role": "data_source_inventory"
+    },
+    {
+      "artifact_id": "supervised_live_operator_gate_record",
+      "artifact_type": "documentation",
+      "contract_version": "pmbot_supervised_live_operator_approval_gate_record.v1",
+      "local_reference": "docs/PMBOT_SUPERVISED_LIVE_003_OPERATOR_APPROVAL_GATE_RECORD_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "required_state": "pending_operator_review",
+      "source_role": "operator_gate"
+    },
+    {
+      "artifact_id": "read_only_live_data_contract_fixture",
+      "artifact_type": "fixture",
+      "contract_version": "pmbot_supervised_live_read_only_live_data_contract.v1",
+      "local_reference": "pm_bot/tests/fixtures/readiness/pmbot_read_only_live_data_contract.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "required_state": "pending_operator_review",
+      "source_role": "static_read_only_source"
+    },
+    {
+      "artifact_id": "live_data_source_inventory_fixture",
+      "artifact_type": "fixture",
+      "contract_version": "pmbot_supervised_live_data_source_inventory.v1",
+      "local_reference": "pm_bot/tests/fixtures/readiness/pmbot_live_data_source_inventory.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "required_state": "pending_operator_review",
+      "source_role": "static_source_inventory"
+    },
+    {
+      "artifact_id": "operator_approval_gate_record_fixture",
+      "artifact_type": "fixture",
+      "contract_version": "pmbot_supervised_live_operator_approval_gate_record.v1",
+      "local_reference": "pm_bot/tests/fixtures/readiness/pmbot_operator_approval_gate_record.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "required_state": "pending_operator_review",
+      "source_role": "static_operator_gate"
+    },
+    {
+      "artifact_id": "pmbot_template_validation",
+      "artifact_type": "test",
+      "contract_version": "pmbot_queue_template_validation.local",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "required_state": "local_validation_reference",
+      "source_role": "queue_template_validation"
+    }
+  ],
+  "summary_counts": {
+    "field_catalog_items": 17,
+    "local_references": 12,
+    "market_packet_records": 1,
+    "operator_review_checklist_items": 9,
+    "required_validation_commands": 2,
+    "review_sections": 5,
+    "schema_rules": 6,
+    "source_artifacts": 12,
+    "warnings": 0
+  },
+  "task_id": "PMBOT-REHEARSAL-002-REHEARSAL-MARKET-PACKET-SCHEMA-LOCAL-ONLY",
+  "warnings": []
+}

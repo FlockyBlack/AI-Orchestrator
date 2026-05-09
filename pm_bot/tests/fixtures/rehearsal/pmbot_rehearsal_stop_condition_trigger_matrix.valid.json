@@ -1,0 +1,561 @@
+{
+  "contract_id": "pmbot-rehearsal-stop-condition-trigger-matrix",
+  "contract_version": "pmbot_rehearsal_stop_condition_trigger_matrix.v1",
+  "created_at": "2026-05-09T04:05:00Z",
+  "errors": [],
+  "local_only": true,
+  "matrix_id": "pmbot-rehearsal-stop-condition-trigger-matrix-001",
+  "operator_review": {
+    "reviewed_at": null,
+    "reviewed_by": null,
+    "status": "pending_operator_review"
+  },
+  "operator_review_checklist": [
+    {
+      "check_id": "matrix_identity_review",
+      "description": "Confirm the matrix id, contract, run mode, and local fixture reference match the rehearsal handoff.",
+      "required_evidence": "Human record confirming matrix identity.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "trigger_row_review",
+      "description": "Confirm every fixed trigger row is present and remains pending human review.",
+      "required_evidence": "Human record confirming trigger row coverage.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "trigger_source_review",
+      "description": "Confirm every trigger source maps to a local static artifact or local validation result.",
+      "required_evidence": "Human record confirming trigger source mapping.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "trigger_state_review",
+      "description": "Confirm each trigger row maps to a blocked or stopped local review state.",
+      "required_evidence": "Human record confirming trigger state mapping.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "manual_record_review",
+      "description": "Confirm every trigger row requires a manual operator record before later review.",
+      "required_evidence": "Human record confirming required operator record fields.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "sensitive_path_exclusion_check",
+      "description": "Confirm credential, wallet, signing, auth, and private material paths remain excluded.",
+      "required_evidence": "Human record confirming sensitive path boundaries.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "endpoint_boundary_check",
+      "description": "Confirm network, provider, market, auth, transaction, order, and trading endpoint activity remains excluded.",
+      "required_evidence": "Human record confirming endpoint boundaries.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "runtime_boundary_check",
+      "description": "Confirm runtime, dispatcher, scheduler, worker, browser, resident process, and run_codex boundaries stay closed.",
+      "required_evidence": "Human record confirming no process or wiring changes.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "output_boundary_check",
+      "description": "Confirm output remains descriptive control metadata only.",
+      "required_evidence": "Human record confirming output boundary.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "validation_command_review",
+      "description": "Confirm required local validation commands are listed for human-run checks.",
+      "required_evidence": "Human record confirming validation command list.",
+      "status": "pending_operator_review"
+    }
+  ],
+  "operator_review_required": true,
+  "required_operator_record_fields": [
+    "record_id",
+    "condition_id",
+    "trigger_matrix_row_id",
+    "observed_at_utc",
+    "observed_by",
+    "local_evidence_reference",
+    "prior_rehearsal_state",
+    "new_rehearsal_state",
+    "operator_review_status",
+    "unresolved_blockers"
+  ],
+  "required_validation_commands": [
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "review_sections": [
+    {
+      "local_references": [
+        "docs/PMBOT_REHEARSAL_005_REHEARSAL_STOP_CONDITION_TRIGGER_MATRIX_LOCAL_ONLY.md",
+        "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_stop_condition_trigger_matrix.valid.json"
+      ],
+      "operator_review_status": "pending_operator_review",
+      "section_id": "matrix_identity_review",
+      "section_label": "Matrix identity review",
+      "section_role": "local_static_trigger_matrix_identity"
+    },
+    {
+      "local_references": [
+        "docs/PMBOT_REHEARSAL_001_READ_ONLY_REHEARSAL_SCENARIO_CONTRACT_LOCAL_ONLY.md",
+        "pm_bot/tests/fixtures/rehearsal/pmbot_read_only_rehearsal_scenario_contract.valid.json",
+        "docs/PMBOT_REHEARSAL_002_REHEARSAL_MARKET_PACKET_SCHEMA_LOCAL_ONLY.md",
+        "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_market_packet_schema.valid.json",
+        "docs/PMBOT_REHEARSAL_003_REHEARSAL_SOURCE_EVIDENCE_BUNDLE_LOCAL_ONLY.md",
+        "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_source_evidence_bundle.valid.json",
+        "docs/PMBOT_REHEARSAL_004_REHEARSAL_OPERATOR_APPROVAL_RECORD_LOCAL_ONLY.md",
+        "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_operator_approval_record.valid.json"
+      ],
+      "operator_review_status": "pending_operator_review",
+      "section_id": "prior_rehearsal_control_review",
+      "section_label": "Prior rehearsal control review",
+      "section_role": "local_static_prior_rehearsal_context"
+    },
+    {
+      "local_references": [
+        "docs/PMBOT_REHEARSAL_001_READ_ONLY_REHEARSAL_SCENARIO_CONTRACT_LOCAL_ONLY.md",
+        "docs/PMBOT_REHEARSAL_002_REHEARSAL_MARKET_PACKET_SCHEMA_LOCAL_ONLY.md",
+        "docs/PMBOT_REHEARSAL_003_REHEARSAL_SOURCE_EVIDENCE_BUNDLE_LOCAL_ONLY.md",
+        "docs/PMBOT_REHEARSAL_004_REHEARSAL_OPERATOR_APPROVAL_RECORD_LOCAL_ONLY.md",
+        "docs/PMBOT_SAFETY_003_FORBIDDEN_ACTION_SCAN_LOCAL_ONLY.md",
+        "docs/PMBOT_SAFETY_005_FORBIDDEN_LANGUAGE_REGRESSION_SUITE_LOCAL_ONLY.md",
+        "tests/test_codex_queue_pmbot_templates.py"
+      ],
+      "operator_review_status": "pending_operator_review",
+      "section_id": "trigger_source_review",
+      "section_label": "Trigger source review",
+      "section_role": "local_static_trigger_source_reference"
+    },
+    {
+      "local_references": [
+        "docs/PMBOT_SAFETY_003_FORBIDDEN_ACTION_SCAN_LOCAL_ONLY.md",
+        "docs/PMBOT_SAFETY_005_FORBIDDEN_LANGUAGE_REGRESSION_SUITE_LOCAL_ONLY.md"
+      ],
+      "operator_review_status": "pending_operator_review",
+      "section_id": "safety_boundary_review",
+      "section_label": "Safety boundary review",
+      "section_role": "local_static_safety_reference"
+    },
+    {
+      "local_references": [
+        "pm_bot/tests/test_rehearsal_stop_condition_trigger_matrix.py",
+        "pm_bot/tests/test_rehearsal_operator_approval_record.py",
+        "pm_bot/tests/test_rehearsal_source_evidence_bundle.py",
+        "pm_bot/tests/test_rehearsal_market_packet_schema.py",
+        "pm_bot/tests/test_read_only_rehearsal_scenario_contract.py",
+        "tests/test_codex_queue_pmbot_templates.py"
+      ],
+      "operator_review_status": "pending_operator_review",
+      "section_id": "validation_review",
+      "section_label": "Validation review",
+      "section_role": "local_static_validation_reference"
+    }
+  ],
+  "run_mode": "local_static_rehearsal_stop_condition_trigger_matrix",
+  "safety_boundaries": {
+    "authenticated_endpoint_calls_allowed": false,
+    "background_process_allowed": false,
+    "browser_automation_allowed": false,
+    "condition_trigger_automation_allowed": false,
+    "credential_or_secret_access_allowed": false,
+    "descriptive_rehearsal_trigger_matrix_only": true,
+    "execution_endpoint_calls_allowed": false,
+    "external_service_calls_allowed": false,
+    "live_data_refresh_allowed": false,
+    "llm_provider_calls_allowed": false,
+    "local_static_samples_only": true,
+    "market_api_calls_allowed": false,
+    "market_ranking_allowed": false,
+    "network_calls_allowed": false,
+    "numeric_prediction_metric_allowed": false,
+    "openrouter_calls_allowed": false,
+    "operator_review_required": true,
+    "order_or_trade_surface_changes_allowed": false,
+    "paper_mode_only": true,
+    "polymarket_api_calls_allowed": false,
+    "resident_process_allowed": false,
+    "run_codex_changes_allowed": false,
+    "runtime_or_dispatcher_changes_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "stop_condition_mutates_runtime_allowed": false,
+    "supervised_live_transition_allowed": false,
+    "trading_endpoint_calls_allowed": false,
+    "transaction_endpoint_calls_allowed": false,
+    "transition_without_record_allowed": false,
+    "wallet_or_signing_material_access_allowed": false
+  },
+  "source_artifacts": [
+    {
+      "artifact_id": "rehearsal_001_scenario_contract_doc",
+      "contract_version": "pmbot_read_only_rehearsal_scenario_contract.v1",
+      "local_reference": "docs/PMBOT_REHEARSAL_001_READ_ONLY_REHEARSAL_SCENARIO_CONTRACT_LOCAL_ONLY.md",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "rehearsal_001_scenario_contract_fixture",
+      "contract_version": "pmbot_read_only_rehearsal_scenario_contract.v1",
+      "local_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_read_only_rehearsal_scenario_contract.valid.json",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "rehearsal_002_market_packet_schema_doc",
+      "contract_version": "pmbot_rehearsal_market_packet_schema.v1",
+      "local_reference": "docs/PMBOT_REHEARSAL_002_REHEARSAL_MARKET_PACKET_SCHEMA_LOCAL_ONLY.md",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "rehearsal_002_market_packet_schema_fixture",
+      "contract_version": "pmbot_rehearsal_market_packet_schema.v1",
+      "local_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_market_packet_schema.valid.json",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "rehearsal_003_source_evidence_bundle_doc",
+      "contract_version": "pmbot_rehearsal_source_evidence_bundle.v1",
+      "local_reference": "docs/PMBOT_REHEARSAL_003_REHEARSAL_SOURCE_EVIDENCE_BUNDLE_LOCAL_ONLY.md",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "rehearsal_003_source_evidence_bundle_fixture",
+      "contract_version": "pmbot_rehearsal_source_evidence_bundle.v1",
+      "local_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_source_evidence_bundle.valid.json",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "rehearsal_004_operator_approval_record_doc",
+      "contract_version": "pmbot_rehearsal_operator_approval_record.v1",
+      "local_reference": "docs/PMBOT_REHEARSAL_004_REHEARSAL_OPERATOR_APPROVAL_RECORD_LOCAL_ONLY.md",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "rehearsal_004_operator_approval_record_fixture",
+      "contract_version": "pmbot_rehearsal_operator_approval_record.v1",
+      "local_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_operator_approval_record.valid.json",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "rehearsal_005_stop_condition_trigger_matrix_doc",
+      "contract_version": "pmbot_rehearsal_stop_condition_trigger_matrix.v1",
+      "local_reference": "docs/PMBOT_REHEARSAL_005_REHEARSAL_STOP_CONDITION_TRIGGER_MATRIX_LOCAL_ONLY.md",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "rehearsal_005_stop_condition_trigger_matrix_fixture",
+      "contract_version": "pmbot_rehearsal_stop_condition_trigger_matrix.v1",
+      "local_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_stop_condition_trigger_matrix.valid.json",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "rehearsal_005_stop_condition_trigger_matrix_test",
+      "contract_version": "pmbot_rehearsal_stop_condition_trigger_matrix.v1",
+      "local_reference": "pm_bot/tests/test_rehearsal_stop_condition_trigger_matrix.py",
+      "required_state": "local_validation_reference"
+    },
+    {
+      "artifact_id": "pmbot_queue_template_validation",
+      "contract_version": "pmbot_queue_template_validation.v1",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "required_state": "local_validation_reference"
+    },
+    {
+      "artifact_id": "safety_forbidden_action_scan_doc",
+      "contract_version": "pmbot_forbidden_action_scan.v1",
+      "local_reference": "docs/PMBOT_SAFETY_003_FORBIDDEN_ACTION_SCAN_LOCAL_ONLY.md",
+      "required_state": "local_safety_reference"
+    },
+    {
+      "artifact_id": "safety_forbidden_language_regression_doc",
+      "contract_version": "pmbot_forbidden_language_regression_suite.v1",
+      "local_reference": "docs/PMBOT_SAFETY_005_FORBIDDEN_LANGUAGE_REGRESSION_SUITE_LOCAL_ONLY.md",
+      "required_state": "local_safety_reference"
+    }
+  ],
+  "summary_counts": {
+    "local_references": 18,
+    "operator_review_checklist_items": 10,
+    "required_operator_record_fields": 10,
+    "required_validation_commands": 2,
+    "review_sections": 5,
+    "source_artifacts": 14,
+    "trigger_matrix_records": 8,
+    "trigger_matrix_records_pending_operator_review": 8,
+    "trigger_matrix_rules": 7,
+    "warnings": 0
+  },
+  "task_id": "PMBOT-REHEARSAL-005-REHEARSAL-STOP-CONDITION-TRIGGER-MATRIX-LOCAL-ONLY",
+  "trigger_matrix_fields": [
+    "blocked_operations",
+    "condition_class",
+    "condition_id",
+    "condition_label",
+    "manual_record_required",
+    "operator_review_status",
+    "required_operator_record_id",
+    "trigger_evidence_reference",
+    "trigger_matrix_row_id",
+    "trigger_review_mode",
+    "trigger_source",
+    "trigger_state_after_match"
+  ],
+  "trigger_matrix_records": [
+    {
+      "blocked_operations": [
+        "network_call",
+        "openrouter_call",
+        "polymarket_api_call",
+        "authenticated_request",
+        "credential_lookup",
+        "wallet_or_signing_material_access",
+        "transaction_endpoint_call",
+        "order_or_trade_endpoint_call",
+        "runtime_or_dispatcher_change",
+        "run_codex_wiring_change",
+        "browser_automation",
+        "scheduler_or_background_worker_start"
+      ],
+      "condition_class": "operator_manual_boundary",
+      "condition_id": "operator_manual_stop_request",
+      "condition_label": "Operator manual stop request",
+      "manual_record_required": true,
+      "operator_review_status": "pending_operator_review",
+      "required_operator_record_id": "manual_stop_observation_record",
+      "trigger_evidence_reference": "docs/PMBOT_REHEARSAL_004_REHEARSAL_OPERATOR_APPROVAL_RECORD_LOCAL_ONLY.md",
+      "trigger_matrix_row_id": "pmbot-rehearsal-stop-condition-trigger-matrix-001.row.operator_manual_stop_request",
+      "trigger_review_mode": "manual_operator_review_only",
+      "trigger_source": "operator_supplied_stop_request",
+      "trigger_state_after_match": "stopped_pending_operator_record"
+    },
+    {
+      "blocked_operations": [
+        "network_call",
+        "openrouter_call",
+        "polymarket_api_call",
+        "authenticated_request",
+        "credential_lookup",
+        "wallet_or_signing_material_access",
+        "transaction_endpoint_call",
+        "order_or_trade_endpoint_call",
+        "runtime_or_dispatcher_change",
+        "run_codex_wiring_change",
+        "browser_automation",
+        "scheduler_or_background_worker_start"
+      ],
+      "condition_class": "local_artifact_boundary",
+      "condition_id": "rehearsal_local_artifact_boundary_breach",
+      "condition_label": "Rehearsal local artifact boundary breach",
+      "manual_record_required": true,
+      "operator_review_status": "pending_operator_review",
+      "required_operator_record_id": "artifact_boundary_observation_record",
+      "trigger_evidence_reference": "docs/PMBOT_REHEARSAL_001_READ_ONLY_REHEARSAL_SCENARIO_CONTRACT_LOCAL_ONLY.md",
+      "trigger_matrix_row_id": "pmbot-rehearsal-stop-condition-trigger-matrix-001.row.rehearsal_local_artifact_boundary_breach",
+      "trigger_review_mode": "manual_operator_review_only",
+      "trigger_source": "local_reference_review",
+      "trigger_state_after_match": "stopped_pending_artifact_review"
+    },
+    {
+      "blocked_operations": [
+        "network_call",
+        "openrouter_call",
+        "polymarket_api_call",
+        "authenticated_request",
+        "credential_lookup",
+        "wallet_or_signing_material_access",
+        "transaction_endpoint_call",
+        "order_or_trade_endpoint_call",
+        "runtime_or_dispatcher_change",
+        "run_codex_wiring_change",
+        "browser_automation",
+        "scheduler_or_background_worker_start"
+      ],
+      "condition_class": "forbidden_operation_boundary",
+      "condition_id": "rehearsal_forbidden_operation_request_detected",
+      "condition_label": "Rehearsal forbidden operation request detected",
+      "manual_record_required": true,
+      "operator_review_status": "pending_operator_review",
+      "required_operator_record_id": "forbidden_operation_observation_record",
+      "trigger_evidence_reference": "docs/PMBOT_SAFETY_003_FORBIDDEN_ACTION_SCAN_LOCAL_ONLY.md",
+      "trigger_matrix_row_id": "pmbot-rehearsal-stop-condition-trigger-matrix-001.row.rehearsal_forbidden_operation_request_detected",
+      "trigger_review_mode": "manual_operator_review_only",
+      "trigger_source": "forbidden_operation_scan",
+      "trigger_state_after_match": "stopped_pending_safety_review"
+    },
+    {
+      "blocked_operations": [
+        "network_call",
+        "openrouter_call",
+        "polymarket_api_call",
+        "authenticated_request",
+        "credential_lookup",
+        "wallet_or_signing_material_access",
+        "transaction_endpoint_call",
+        "order_or_trade_endpoint_call",
+        "runtime_or_dispatcher_change",
+        "run_codex_wiring_change",
+        "browser_automation",
+        "scheduler_or_background_worker_start"
+      ],
+      "condition_class": "local_validation_boundary",
+      "condition_id": "rehearsal_validation_command_failed",
+      "condition_label": "Rehearsal validation command failed",
+      "manual_record_required": true,
+      "operator_review_status": "pending_operator_review",
+      "required_operator_record_id": "validation_failure_observation_record",
+      "trigger_evidence_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "trigger_matrix_row_id": "pmbot-rehearsal-stop-condition-trigger-matrix-001.row.rehearsal_validation_command_failed",
+      "trigger_review_mode": "manual_operator_review_only",
+      "trigger_source": "local_validation_result",
+      "trigger_state_after_match": "stopped_pending_validation_review"
+    },
+    {
+      "blocked_operations": [
+        "network_call",
+        "openrouter_call",
+        "polymarket_api_call",
+        "authenticated_request",
+        "credential_lookup",
+        "wallet_or_signing_material_access",
+        "transaction_endpoint_call",
+        "order_or_trade_endpoint_call",
+        "runtime_or_dispatcher_change",
+        "run_codex_wiring_change",
+        "browser_automation",
+        "scheduler_or_background_worker_start"
+      ],
+      "condition_class": "source_evidence_boundary",
+      "condition_id": "rehearsal_source_evidence_mismatch",
+      "condition_label": "Rehearsal source evidence mismatch",
+      "manual_record_required": true,
+      "operator_review_status": "pending_operator_review",
+      "required_operator_record_id": "source_evidence_observation_record",
+      "trigger_evidence_reference": "docs/PMBOT_REHEARSAL_003_REHEARSAL_SOURCE_EVIDENCE_BUNDLE_LOCAL_ONLY.md",
+      "trigger_matrix_row_id": "pmbot-rehearsal-stop-condition-trigger-matrix-001.row.rehearsal_source_evidence_mismatch",
+      "trigger_review_mode": "manual_operator_review_only",
+      "trigger_source": "source_evidence_bundle_review",
+      "trigger_state_after_match": "stopped_pending_source_review"
+    },
+    {
+      "blocked_operations": [
+        "network_call",
+        "openrouter_call",
+        "polymarket_api_call",
+        "authenticated_request",
+        "credential_lookup",
+        "wallet_or_signing_material_access",
+        "transaction_endpoint_call",
+        "order_or_trade_endpoint_call",
+        "runtime_or_dispatcher_change",
+        "run_codex_wiring_change",
+        "browser_automation",
+        "scheduler_or_background_worker_start"
+      ],
+      "condition_class": "operator_record_boundary",
+      "condition_id": "rehearsal_operator_approval_record_missing",
+      "condition_label": "Rehearsal operator approval record missing",
+      "manual_record_required": true,
+      "operator_review_status": "pending_operator_review",
+      "required_operator_record_id": "operator_record_gap_observation_record",
+      "trigger_evidence_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_operator_approval_record.valid.json",
+      "trigger_matrix_row_id": "pmbot-rehearsal-stop-condition-trigger-matrix-001.row.rehearsal_operator_approval_record_missing",
+      "trigger_review_mode": "manual_operator_review_only",
+      "trigger_source": "operator_record_presence_review",
+      "trigger_state_after_match": "blocked_until_operator_record_complete"
+    },
+    {
+      "blocked_operations": [
+        "network_call",
+        "openrouter_call",
+        "polymarket_api_call",
+        "authenticated_request",
+        "credential_lookup",
+        "wallet_or_signing_material_access",
+        "transaction_endpoint_call",
+        "order_or_trade_endpoint_call",
+        "runtime_or_dispatcher_change",
+        "run_codex_wiring_change",
+        "browser_automation",
+        "scheduler_or_background_worker_start"
+      ],
+      "condition_class": "review_status_boundary",
+      "condition_id": "rehearsal_review_status_changed_without_record",
+      "condition_label": "Rehearsal review status changed without record",
+      "manual_record_required": true,
+      "operator_review_status": "pending_operator_review",
+      "required_operator_record_id": "review_status_observation_record",
+      "trigger_evidence_reference": "docs/PMBOT_REHEARSAL_004_REHEARSAL_OPERATOR_APPROVAL_RECORD_LOCAL_ONLY.md",
+      "trigger_matrix_row_id": "pmbot-rehearsal-stop-condition-trigger-matrix-001.row.rehearsal_review_status_changed_without_record",
+      "trigger_review_mode": "manual_operator_review_only",
+      "trigger_source": "operator_review_status_review",
+      "trigger_state_after_match": "stopped_pending_review_status_record"
+    },
+    {
+      "blocked_operations": [
+        "network_call",
+        "openrouter_call",
+        "polymarket_api_call",
+        "authenticated_request",
+        "credential_lookup",
+        "wallet_or_signing_material_access",
+        "transaction_endpoint_call",
+        "order_or_trade_endpoint_call",
+        "runtime_or_dispatcher_change",
+        "run_codex_wiring_change",
+        "browser_automation",
+        "scheduler_or_background_worker_start"
+      ],
+      "condition_class": "output_boundary",
+      "condition_id": "rehearsal_output_boundary_breach",
+      "condition_label": "Rehearsal output boundary breach",
+      "manual_record_required": true,
+      "operator_review_status": "pending_operator_review",
+      "required_operator_record_id": "output_boundary_observation_record",
+      "trigger_evidence_reference": "docs/PMBOT_REHEARSAL_002_REHEARSAL_MARKET_PACKET_SCHEMA_LOCAL_ONLY.md",
+      "trigger_matrix_row_id": "pmbot-rehearsal-stop-condition-trigger-matrix-001.row.rehearsal_output_boundary_breach",
+      "trigger_review_mode": "manual_operator_review_only",
+      "trigger_source": "descriptive_output_review",
+      "trigger_state_after_match": "stopped_pending_output_review"
+    }
+  ],
+  "trigger_matrix_rules": [
+    {
+      "rule_id": "manual_stop_precedence",
+      "rule_text": "Any operator manual stop request maps to stopped_pending_operator_record before later review.",
+      "status": "active"
+    },
+    {
+      "rule_id": "local_static_evidence_required",
+      "rule_text": "Every trigger row names a local evidence reference and keeps external service state out of scope.",
+      "status": "active"
+    },
+    {
+      "rule_id": "closed_endpoint_boundary",
+      "rule_text": "Network, OpenRouter, Polymarket, authenticated, transaction, wallet, order, and trading endpoint activity remains excluded.",
+      "status": "active"
+    },
+    {
+      "rule_id": "closed_process_boundary",
+      "rule_text": "Runtime dispatch, dispatcher wiring, run_codex wiring, browser automation, schedulers, workers, and resident processes remain excluded.",
+      "status": "active"
+    },
+    {
+      "rule_id": "manual_record_required_before_later_review",
+      "rule_text": "A trigger row cannot move from stopped or blocked review state until a human record is available.",
+      "status": "active"
+    },
+    {
+      "rule_id": "operator_review_status_preserved",
+      "rule_text": "All trigger rows remain pending operator review in this static matrix.",
+      "status": "active"
+    },
+    {
+      "rule_id": "no_runtime_mutation",
+      "rule_text": "Stop condition rows do not mutate runtime, dispatcher, scheduler, worker, browser, resident process, or run_codex wiring.",
+      "status": "active"
+    }
+  ],
+  "warnings": []
+}

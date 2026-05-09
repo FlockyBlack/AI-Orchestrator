@@ -1,0 +1,543 @@
+{
+  "allowed_path_prefixes": [
+    "docs/",
+    "pm_bot/dashboard/",
+    "pm_bot/readiness/",
+    "pm_bot/tests/",
+    "tests/"
+  ],
+  "card_id": "pmbot-rehearsal-morning-operator-card-001",
+  "card_label": "pmbot-rehearsal-morning-operator-card",
+  "card_sections": [
+    {
+      "artifact_type": "rehearsal_readiness_snapshot",
+      "card_section_id": "morning_rehearsal_readiness_snapshot",
+      "local_reference": "pm_bot/dashboard/samples/pmbot_rehearsal_readiness_dashboard_card.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "primary_artifact_id": "rehearsal_readiness_dashboard_card_sample",
+      "readiness_record_count": 4,
+      "reference_group": "rehearsal_morning_operator_card",
+      "review_label": "Confirm the readiness dashboard card remains a local static morning basis.",
+      "run_mode": "local_static_rehearsal_readiness_dashboard_card",
+      "source_artifact_ids": [
+        "rehearsal_readiness_dashboard_card_document",
+        "rehearsal_readiness_dashboard_card_sample",
+        "rehearsal_readiness_dashboard_card_report",
+        "rehearsal_readiness_dashboard_card_contract_test"
+      ],
+      "status_label": "static_card_ready",
+      "supporting_artifacts": 4
+    },
+    {
+      "artifact_type": "rehearsal_control_snapshot",
+      "card_section_id": "morning_rehearsal_control_snapshot",
+      "local_reference": "docs/PMBOT_REHEARSAL_001_READ_ONLY_REHEARSAL_SCENARIO_CONTRACT_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "primary_artifact_id": "rehearsal_001_scenario_contract_document",
+      "readiness_record_count": 4,
+      "reference_group": "rehearsal_morning_operator_card",
+      "review_label": "Confirm scenario, packet, operator, and stop-condition records stay local.",
+      "run_mode": "local_static_rehearsal_control_review",
+      "source_artifact_ids": [
+        "rehearsal_001_scenario_contract_document",
+        "rehearsal_001_scenario_contract_fixture",
+        "rehearsal_002_market_packet_schema_document",
+        "rehearsal_002_market_packet_schema_fixture",
+        "rehearsal_004_operator_record_document",
+        "rehearsal_004_operator_record_fixture",
+        "rehearsal_005_stop_condition_matrix_document",
+        "rehearsal_005_stop_condition_matrix_fixture"
+      ],
+      "status_label": "static_card_ready",
+      "supporting_artifacts": 8
+    },
+    {
+      "artifact_type": "rehearsal_source_snapshot",
+      "card_section_id": "morning_rehearsal_source_snapshot",
+      "local_reference": "docs/PMBOT_REHEARSAL_003_REHEARSAL_SOURCE_EVIDENCE_BUNDLE_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "primary_artifact_id": "rehearsal_003_source_evidence_bundle_document",
+      "readiness_record_count": 4,
+      "reference_group": "rehearsal_morning_operator_card",
+      "review_label": "Confirm source, stale, contradiction, and retention records stay descriptive.",
+      "run_mode": "local_static_rehearsal_source_review",
+      "source_artifact_ids": [
+        "rehearsal_003_source_evidence_bundle_document",
+        "rehearsal_003_source_evidence_bundle_fixture",
+        "rehearsal_006_staleness_case_set_document",
+        "rehearsal_006_staleness_case_set_fixture",
+        "rehearsal_007_contradiction_case_set_document",
+        "rehearsal_007_contradiction_case_set_fixture",
+        "rehearsal_008_evidence_retention_ledger_document",
+        "rehearsal_008_evidence_retention_ledger_fixture"
+      ],
+      "status_label": "static_card_ready",
+      "supporting_artifacts": 8
+    },
+    {
+      "artifact_type": "rehearsal_validation_snapshot",
+      "card_section_id": "morning_rehearsal_validation_snapshot",
+      "local_reference": "docs/PMBOT_REHEARSAL_010_REHEARSAL_CI_SAFE_VALIDATION_RUNNER_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "primary_artifact_id": "rehearsal_010_ci_safe_validation_runner_document",
+      "readiness_record_count": 3,
+      "reference_group": "rehearsal_morning_operator_card",
+      "review_label": "Confirm replay, runner, and queue validation references stay local.",
+      "run_mode": "local_static_rehearsal_validation_review",
+      "source_artifact_ids": [
+        "rehearsal_009_validation_replay_packet_document",
+        "rehearsal_009_validation_replay_packet_fixture",
+        "rehearsal_010_ci_safe_validation_runner_document",
+        "rehearsal_010_ci_safe_validation_runner_fixture",
+        "rehearsal_010_ci_safe_validation_runner_test",
+        "queue_template_validation_test"
+      ],
+      "status_label": "static_card_ready",
+      "supporting_artifacts": 6
+    },
+    {
+      "artifact_type": "rehearsal_operator_review_snapshot",
+      "card_section_id": "morning_rehearsal_operator_review_snapshot",
+      "local_reference": "docs/PMBOT_REHEARSAL_012_REHEARSAL_MORNING_OPERATOR_CARD_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "primary_artifact_id": "rehearsal_morning_operator_card_document",
+      "readiness_record_count": 4,
+      "reference_group": "rehearsal_morning_operator_card",
+      "review_label": "Confirm the morning operator card artifacts remain pending human review.",
+      "run_mode": "local_static_rehearsal_morning_operator_card",
+      "source_artifact_ids": [
+        "rehearsal_morning_operator_card_document",
+        "rehearsal_morning_operator_card_sample",
+        "rehearsal_morning_operator_card_report",
+        "rehearsal_morning_operator_card_contract_test"
+      ],
+      "status_label": "static_card_ready",
+      "supporting_artifacts": 4
+    },
+    {
+      "artifact_type": "rehearsal_safety_snapshot",
+      "card_section_id": "morning_rehearsal_safety_snapshot",
+      "local_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_ci_safe_validation_runner.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "primary_artifact_id": "rehearsal_010_ci_safe_validation_runner_fixture",
+      "readiness_record_count": 4,
+      "reference_group": "rehearsal_morning_operator_card",
+      "review_label": "Confirm closed safety boundaries remain local, paper-mode, and descriptive.",
+      "run_mode": "local_static_rehearsal_safety_review",
+      "source_artifact_ids": [
+        "rehearsal_morning_operator_card_document",
+        "rehearsal_010_ci_safe_validation_runner_document",
+        "rehearsal_010_ci_safe_validation_runner_fixture",
+        "queue_template_validation_test"
+      ],
+      "status_label": "static_card_ready",
+      "supporting_artifacts": 4
+    }
+  ],
+  "contract_id": "pmbot-rehearsal-morning-operator-card",
+  "contract_version": "pmbot_rehearsal_morning_operator_card.v1",
+  "created_at": "2026-05-09T08:00:00Z",
+  "errors": [],
+  "excluded_path_prefixes": [
+    ".env",
+    ".env.*",
+    ".git/",
+    ".codex/",
+    "runtime/",
+    "dispatcher/",
+    "run_codex/",
+    "pm_bot/llm/",
+    "pm_bot/wallet/",
+    "pm_bot/trading/",
+    "pm_bot/orders/",
+    "agent_tasks/running/"
+  ],
+  "local_only": true,
+  "operator_review": {
+    "reviewed_at": null,
+    "reviewed_by": null,
+    "status": "pending_operator_review"
+  },
+  "operator_review_checklist": [
+    {
+      "check_id": "card_section_review",
+      "local_reference": "pm_bot/dashboard/samples/pmbot_rehearsal_morning_operator_card.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "required_state": "pending_operator_review",
+      "review_label": "Confirm each morning card section has one primary local reference."
+    },
+    {
+      "check_id": "readiness_card_basis_review",
+      "local_reference": "pm_bot/dashboard/samples/pmbot_rehearsal_readiness_dashboard_card.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "required_state": "pending_operator_review",
+      "review_label": "Confirm the rehearsal readiness dashboard card is included as the morning basis."
+    },
+    {
+      "check_id": "rehearsal_control_review",
+      "local_reference": "docs/PMBOT_REHEARSAL_001_READ_ONLY_REHEARSAL_SCENARIO_CONTRACT_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "required_state": "pending_operator_review",
+      "review_label": "Confirm control records remain local static references."
+    },
+    {
+      "check_id": "rehearsal_source_review",
+      "local_reference": "docs/PMBOT_REHEARSAL_003_REHEARSAL_SOURCE_EVIDENCE_BUNDLE_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "required_state": "pending_operator_review",
+      "review_label": "Confirm source evidence records remain local static references."
+    },
+    {
+      "check_id": "rehearsal_validation_review",
+      "local_reference": "docs/PMBOT_REHEARSAL_010_REHEARSAL_CI_SAFE_VALIDATION_RUNNER_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "required_state": "pending_operator_review",
+      "review_label": "Confirm validation records are captured for operator review."
+    },
+    {
+      "check_id": "safety_boundary_review",
+      "local_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_ci_safe_validation_runner.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "required_state": "pending_operator_review",
+      "review_label": "Confirm sensitive path and execution wiring boundaries remain closed."
+    },
+    {
+      "check_id": "report_sample_review",
+      "local_reference": "pm_bot/dashboard/samples/pmbot_rehearsal_morning_operator_card.fixture.md",
+      "operator_review_status": "pending_operator_review",
+      "required_state": "pending_operator_review",
+      "review_label": "Confirm the markdown report mirrors the static morning operator card."
+    }
+  ],
+  "operator_review_required": true,
+  "required_validation_commands": [
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "review_date": "2026-05-09",
+  "run_mode": "local_static_rehearsal_morning_operator_card",
+  "safety_boundaries": {
+    "authenticated_endpoint_calls_allowed": false,
+    "background_process_allowed": false,
+    "browser_automation_allowed": false,
+    "core_execution_wiring_changes_allowed": false,
+    "credential_or_secret_access_allowed": false,
+    "execution_endpoint_calls_allowed": false,
+    "external_service_calls_allowed": false,
+    "llm_provider_calls_allowed": false,
+    "local_fixtures_only": true,
+    "local_static_samples_only": true,
+    "market_api_calls_allowed": false,
+    "market_instruction_output_allowed": false,
+    "market_ranking_allowed": false,
+    "morning_operator_card_runtime_input_allowed": false,
+    "network_calls_allowed": false,
+    "numeric_prediction_metric_allowed": false,
+    "openrouter_calls_allowed": false,
+    "operator_review_required": true,
+    "order_or_trade_surface_changes_allowed": false,
+    "paper_mode_only": true,
+    "paperlive_execution_allowed": false,
+    "polymarket_api_calls_allowed": false,
+    "resident_process_allowed": false,
+    "runtime_or_dispatcher_changes_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "sensitive_path_access_allowed": false,
+    "supervised_live_transition_allowed": false,
+    "threshold_comparison_output_allowed": false,
+    "timed_automation_allowed": false,
+    "transaction_endpoint_calls_allowed": false,
+    "wallet_or_signing_material_access_allowed": false
+  },
+  "source_artifacts": [
+    {
+      "artifact_id": "rehearsal_morning_operator_card_document",
+      "artifact_role": "card_document",
+      "artifact_type": "markdown_document",
+      "local_reference": "docs/PMBOT_REHEARSAL_012_REHEARSAL_MORNING_OPERATOR_CARD_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-012-REHEARSAL-MORNING-OPERATOR-CARD-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_morning_operator_card_sample",
+      "artifact_role": "card_sample",
+      "artifact_type": "json_sample",
+      "local_reference": "pm_bot/dashboard/samples/pmbot_rehearsal_morning_operator_card.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-012-REHEARSAL-MORNING-OPERATOR-CARD-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_morning_operator_card_report",
+      "artifact_role": "card_report",
+      "artifact_type": "markdown_sample",
+      "local_reference": "pm_bot/dashboard/samples/pmbot_rehearsal_morning_operator_card.fixture.md",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-012-REHEARSAL-MORNING-OPERATOR-CARD-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_morning_operator_card_contract_test",
+      "artifact_role": "card_contract_test",
+      "artifact_type": "pytest_module",
+      "local_reference": "pm_bot/tests/test_rehearsal_morning_operator_card.py",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-012-REHEARSAL-MORNING-OPERATOR-CARD-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_readiness_dashboard_card_document",
+      "artifact_role": "readiness_card_document",
+      "artifact_type": "markdown_document",
+      "local_reference": "docs/PMBOT_REHEARSAL_011_REHEARSAL_READINESS_DASHBOARD_CARD_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-011-REHEARSAL-READINESS-DASHBOARD-CARD-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_readiness_dashboard_card_sample",
+      "artifact_role": "readiness_card_sample",
+      "artifact_type": "json_sample",
+      "local_reference": "pm_bot/dashboard/samples/pmbot_rehearsal_readiness_dashboard_card.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-011-REHEARSAL-READINESS-DASHBOARD-CARD-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_readiness_dashboard_card_report",
+      "artifact_role": "readiness_card_report",
+      "artifact_type": "markdown_sample",
+      "local_reference": "pm_bot/dashboard/samples/pmbot_rehearsal_readiness_dashboard_card.fixture.md",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-011-REHEARSAL-READINESS-DASHBOARD-CARD-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_readiness_dashboard_card_contract_test",
+      "artifact_role": "readiness_card_contract_test",
+      "artifact_type": "pytest_module",
+      "local_reference": "pm_bot/tests/test_rehearsal_readiness_dashboard_card.py",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-011-REHEARSAL-READINESS-DASHBOARD-CARD-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_001_scenario_contract_document",
+      "artifact_role": "rehearsal_control_document",
+      "artifact_type": "markdown_document",
+      "local_reference": "docs/PMBOT_REHEARSAL_001_READ_ONLY_REHEARSAL_SCENARIO_CONTRACT_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-001-READ-ONLY-REHEARSAL-SCENARIO-CONTRACT-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_001_scenario_contract_fixture",
+      "artifact_role": "rehearsal_control_fixture",
+      "artifact_type": "json_fixture",
+      "local_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_read_only_rehearsal_scenario_contract.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-001-READ-ONLY-REHEARSAL-SCENARIO-CONTRACT-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_002_market_packet_schema_document",
+      "artifact_role": "rehearsal_control_document",
+      "artifact_type": "markdown_document",
+      "local_reference": "docs/PMBOT_REHEARSAL_002_REHEARSAL_MARKET_PACKET_SCHEMA_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-002-REHEARSAL-MARKET-PACKET-SCHEMA-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_002_market_packet_schema_fixture",
+      "artifact_role": "rehearsal_control_fixture",
+      "artifact_type": "json_fixture",
+      "local_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_market_packet_schema.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-002-REHEARSAL-MARKET-PACKET-SCHEMA-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_003_source_evidence_bundle_document",
+      "artifact_role": "rehearsal_source_document",
+      "artifact_type": "markdown_document",
+      "local_reference": "docs/PMBOT_REHEARSAL_003_REHEARSAL_SOURCE_EVIDENCE_BUNDLE_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-003-REHEARSAL-SOURCE-EVIDENCE-BUNDLE-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_003_source_evidence_bundle_fixture",
+      "artifact_role": "rehearsal_source_fixture",
+      "artifact_type": "json_fixture",
+      "local_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_source_evidence_bundle.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-003-REHEARSAL-SOURCE-EVIDENCE-BUNDLE-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_004_operator_record_document",
+      "artifact_role": "rehearsal_control_document",
+      "artifact_type": "markdown_document",
+      "local_reference": "docs/PMBOT_REHEARSAL_004_REHEARSAL_OPERATOR_APPROVAL_RECORD_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-004-REHEARSAL-OPERATOR-APPROVAL-RECORD-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_004_operator_record_fixture",
+      "artifact_role": "rehearsal_control_fixture",
+      "artifact_type": "json_fixture",
+      "local_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_operator_approval_record.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-004-REHEARSAL-OPERATOR-APPROVAL-RECORD-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_005_stop_condition_matrix_document",
+      "artifact_role": "rehearsal_control_document",
+      "artifact_type": "markdown_document",
+      "local_reference": "docs/PMBOT_REHEARSAL_005_REHEARSAL_STOP_CONDITION_TRIGGER_MATRIX_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-005-REHEARSAL-STOP-CONDITION-TRIGGER-MATRIX-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_005_stop_condition_matrix_fixture",
+      "artifact_role": "rehearsal_control_fixture",
+      "artifact_type": "json_fixture",
+      "local_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_stop_condition_trigger_matrix.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-005-REHEARSAL-STOP-CONDITION-TRIGGER-MATRIX-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_006_staleness_case_set_document",
+      "artifact_role": "rehearsal_source_document",
+      "artifact_type": "markdown_document",
+      "local_reference": "docs/PMBOT_REHEARSAL_006_REHEARSAL_STALENESS_CASE_SET_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-006-REHEARSAL-STALENESS-CASE-SET-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_006_staleness_case_set_fixture",
+      "artifact_role": "rehearsal_source_fixture",
+      "artifact_type": "json_fixture",
+      "local_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_staleness_case_set.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-006-REHEARSAL-STALENESS-CASE-SET-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_007_contradiction_case_set_document",
+      "artifact_role": "rehearsal_source_document",
+      "artifact_type": "markdown_document",
+      "local_reference": "docs/PMBOT_REHEARSAL_007_REHEARSAL_CONTRADICTION_CASE_SET_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-007-REHEARSAL-CONTRADICTION-CASE-SET-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_007_contradiction_case_set_fixture",
+      "artifact_role": "rehearsal_source_fixture",
+      "artifact_type": "json_fixture",
+      "local_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_contradiction_case_set.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-007-REHEARSAL-CONTRADICTION-CASE-SET-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_008_evidence_retention_ledger_document",
+      "artifact_role": "rehearsal_source_document",
+      "artifact_type": "markdown_document",
+      "local_reference": "docs/PMBOT_REHEARSAL_008_REHEARSAL_EVIDENCE_RETENTION_LEDGER_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-008-REHEARSAL-EVIDENCE-RETENTION-LEDGER-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_008_evidence_retention_ledger_fixture",
+      "artifact_role": "rehearsal_source_fixture",
+      "artifact_type": "json_fixture",
+      "local_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_evidence_retention_ledger.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-008-REHEARSAL-EVIDENCE-RETENTION-LEDGER-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_009_validation_replay_packet_document",
+      "artifact_role": "rehearsal_validation_document",
+      "artifact_type": "markdown_document",
+      "local_reference": "docs/PMBOT_REHEARSAL_009_REHEARSAL_VALIDATION_REPLAY_PACKET_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-009-REHEARSAL-VALIDATION-REPLAY-PACKET-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_009_validation_replay_packet_fixture",
+      "artifact_role": "rehearsal_validation_fixture",
+      "artifact_type": "json_fixture",
+      "local_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_validation_replay_packet.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-009-REHEARSAL-VALIDATION-REPLAY-PACKET-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_010_ci_safe_validation_runner_document",
+      "artifact_role": "rehearsal_validation_document",
+      "artifact_type": "markdown_document",
+      "local_reference": "docs/PMBOT_REHEARSAL_010_REHEARSAL_CI_SAFE_VALIDATION_RUNNER_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-010-REHEARSAL-CI-SAFE-VALIDATION-RUNNER-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_010_ci_safe_validation_runner_fixture",
+      "artifact_role": "rehearsal_validation_fixture",
+      "artifact_type": "json_fixture",
+      "local_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_ci_safe_validation_runner.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-010-REHEARSAL-CI-SAFE-VALIDATION-RUNNER-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_010_ci_safe_validation_runner_module",
+      "artifact_role": "rehearsal_validation_module",
+      "artifact_type": "python_module",
+      "local_reference": "pm_bot/tests/rehearsal_ci_safe_validation_runner.py",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-010-REHEARSAL-CI-SAFE-VALIDATION-RUNNER-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_010_ci_safe_validation_runner_test",
+      "artifact_role": "rehearsal_validation_test",
+      "artifact_type": "pytest_module",
+      "local_reference": "pm_bot/tests/test_rehearsal_ci_safe_validation_runner.py",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-010-REHEARSAL-CI-SAFE-VALIDATION-RUNNER-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "queue_template_validation_test",
+      "artifact_role": "validation_test",
+      "artifact_type": "pytest_module",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-012-REHEARSAL-MORNING-OPERATOR-CARD-LOCAL-ONLY"
+    }
+  ],
+  "summary_columns": [
+    "card_section_id",
+    "artifact_type",
+    "primary_artifact_id",
+    "local_reference",
+    "readiness_record_count",
+    "supporting_artifacts",
+    "operator_review_status"
+  ],
+  "summary_counts": {
+    "allowed_path_prefixes": 5,
+    "card_sections": 6,
+    "card_sections_pending_operator_review": 6,
+    "errors": 0,
+    "excluded_path_prefixes": 12,
+    "local_references": 31,
+    "operator_review_checks": 7,
+    "operator_review_checks_pending_operator_review": 7,
+    "readiness_record_count": 23,
+    "required_validation_commands": 2,
+    "source_artifacts": 31,
+    "supporting_artifacts": 34,
+    "validation_command_records": 2,
+    "warnings": 0
+  },
+  "task_id": "PMBOT-REHEARSAL-012-REHEARSAL-MORNING-OPERATOR-CARD-LOCAL-ONLY",
+  "validation_command_records": [
+    {
+      "command_label": "python -m compileall pm_bot tests",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "status": "not_run_static_record"
+    },
+    {
+      "command_label": "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "status": "not_run_static_record"
+    }
+  ],
+  "warnings": []
+}

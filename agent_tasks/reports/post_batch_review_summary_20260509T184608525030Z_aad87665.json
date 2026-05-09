@@ -1,0 +1,1454 @@
+{
+  "background_worker_created": false,
+  "batch_execution_status": "completed",
+  "batch_report_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_batch_report_20260509T161208Z.json",
+  "batch_review_ledger": {
+    "batch_execution_status": "completed",
+    "batch_report_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_batch_report_20260509T161208Z.json",
+    "batch_run_id": "20260509T161208Z",
+    "batch_status": "ok",
+    "blocked_count": 0,
+    "blocked_or_failed_task_ids": [],
+    "blocked_task_ids": [],
+    "bridged_count": 20,
+    "completed_execution_count": 20,
+    "failed_task_ids": [],
+    "ingested_count": 20,
+    "latest_reports_are_pointers_only": true,
+    "mutable_pointer_paths": {
+      "latest_batch_review_ledger_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\latest_batch_review_ledger.json",
+      "latest_post_batch_summary_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\latest_post_batch_review_summary.json",
+      "latest_post_batch_summary_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\latest_post_batch_review_summary.md"
+    },
+    "next_operator_action": "Inspect the post-batch summary, task review reports, and git diff; run mark-done only for tasks whose review report recommends ready_for_operator_done.",
+    "postprocess_safety": {
+      "codex_exec_invoked": false,
+      "codex_invocation_count": 0,
+      "git_commit_performed": false,
+      "git_push_performed": false,
+      "openrouter_calls_performed": 0,
+      "polymarket_api_calls_performed": 0,
+      "review_approved_automatically": false,
+      "task_marked_done_automatically": false
+    },
+    "report_paths": {
+      "batch_review_ledger_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\batch_review_ledger_20260509T184608525030Z_aad87665.json",
+      "latest_batch_review_ledger_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\latest_batch_review_ledger.json",
+      "latest_batch_review_ledger_role": "mutable_pointer",
+      "post_batch_summary_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\post_batch_review_summary_20260509T184608525030Z_aad87665.json"
+    },
+    "reviewed_count": 20,
+    "run_id": "20260509T184608525030Z_aad87665",
+    "schema_version": "codex_batch_review_ledger.v1",
+    "skipped_count": 0,
+    "stable_evidence_paths": {
+      "batch_report_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_batch_report_20260509T161208Z.json",
+      "batch_review_ledger_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\batch_review_ledger_20260509T184608525030Z_aad87665.json",
+      "post_batch_summary_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\post_batch_review_summary_20260509T184608525030Z_aad87665.json"
+    },
+    "stable_evidence_required": [
+      "batch_report_path",
+      "execution_report_json",
+      "result_path",
+      "ingestion_report_json",
+      "review_report_json"
+    ],
+    "task_count": 20,
+    "task_ids": [
+      "PMBOT-REHEARSAL-001-READ-ONLY-REHEARSAL-SCENARIO-CONTRACT-LOCAL-ONLY",
+      "PMBOT-REHEARSAL-002-REHEARSAL-MARKET-PACKET-SCHEMA-LOCAL-ONLY",
+      "PMBOT-REHEARSAL-003-REHEARSAL-SOURCE-EVIDENCE-BUNDLE-LOCAL-ONLY",
+      "PMBOT-REHEARSAL-004-REHEARSAL-OPERATOR-APPROVAL-RECORD-LOCAL-ONLY",
+      "PMBOT-REHEARSAL-005-REHEARSAL-STOP-CONDITION-TRIGGER-MATRIX-LOCAL-ONLY",
+      "PMBOT-REHEARSAL-006-REHEARSAL-STALENESS-CASE-SET-LOCAL-ONLY",
+      "PMBOT-REHEARSAL-007-REHEARSAL-CONTRADICTION-CASE-SET-LOCAL-ONLY",
+      "PMBOT-REHEARSAL-008-REHEARSAL-EVIDENCE-RETENTION-LEDGER-LOCAL-ONLY",
+      "PMBOT-REHEARSAL-009-REHEARSAL-VALIDATION-REPLAY-PACKET-LOCAL-ONLY",
+      "PMBOT-REHEARSAL-010-REHEARSAL-CI-SAFE-VALIDATION-RUNNER-LOCAL-ONLY",
+      "PMBOT-REHEARSAL-011-REHEARSAL-READINESS-DASHBOARD-CARD-LOCAL-ONLY",
+      "PMBOT-REHEARSAL-012-REHEARSAL-MORNING-OPERATOR-CARD-LOCAL-ONLY",
+      "PMBOT-REHEARSAL-013-REHEARSAL-ACCEPTANCE-REPORT-LOCAL-ONLY",
+      "PMBOT-REHEARSAL-014-REHEARSAL-SOURCE-QUALITY-LINKS-LOCAL-ONLY",
+      "PMBOT-REHEARSAL-015-REHEARSAL-PAPERLIVE-ACCOUNTING-LINKS-LOCAL-ONLY",
+      "PMBOT-REHEARSAL-016-REHEARSAL-SIMULATED-DECISION-REPLAY-LINKS-LOCAL-ONLY",
+      "PMBOT-REHEARSAL-017-REHEARSAL-FORBIDDEN-ACTION-SCAN-LOCAL-ONLY",
+      "PMBOT-REHEARSAL-018-REHEARSAL-SENSITIVE-PATH-AUDIT-LOCAL-ONLY",
+      "PMBOT-REHEARSAL-019-REHEARSAL-FAILURE-AND-ROLLBACK-PLAYBOOK-LOCAL-ONLY",
+      "PMBOT-REHEARSAL-020-REHEARSAL-NEXT-ACTION-BACKLOG-LOCAL-ONLY"
+    ],
+    "tasks": [
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-001-READ-ONLY-REHEARSAL-SCENARIO-CONTRACT-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-001-READ-ONLY-REHEARSAL-SCENARIO-CONTRACT-LOCAL-ONLY\\20260509T161208Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-001-read-only-rehearsal-scenario-contract-local-only_20260509T184608566266Z_c1b09cc1.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-001-read-only-rehearsal-scenario-contract-local-only_20260509T184608566266Z_c1b09cc1.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-001-READ-ONLY-REHEARSAL-SCENARIO-CONTRACT-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-001-READ-ONLY-REHEARSAL-SCENARIO-CONTRACT-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-001-READ-ONLY-REHEARSAL-SCENARIO-CONTRACT-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-001-READ-ONLY-REHEARSAL-SCENARIO-CONTRACT-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-REHEARSAL-001-READ-ONLY-REHEARSAL-SCENARIO-CONTRACT-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-002-REHEARSAL-MARKET-PACKET-SCHEMA-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-002-REHEARSAL-MARKET-PACKET-SCHEMA-LOCAL-ONLY\\20260509T162001Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-002-rehearsal-market-packet-schema-local-only_20260509T184608642381Z_d0a68730.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-002-rehearsal-market-packet-schema-local-only_20260509T184608642381Z_d0a68730.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-002-REHEARSAL-MARKET-PACKET-SCHEMA-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-002-REHEARSAL-MARKET-PACKET-SCHEMA-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-002-REHEARSAL-MARKET-PACKET-SCHEMA-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-002-REHEARSAL-MARKET-PACKET-SCHEMA-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-REHEARSAL-002-REHEARSAL-MARKET-PACKET-SCHEMA-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-003-REHEARSAL-SOURCE-EVIDENCE-BUNDLE-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-003-REHEARSAL-SOURCE-EVIDENCE-BUNDLE-LOCAL-ONLY\\20260509T162549Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-003-rehearsal-source-evidence-bundle-local-only_20260509T184608717746Z_78093aa6.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-003-rehearsal-source-evidence-bundle-local-only_20260509T184608717746Z_78093aa6.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-003-REHEARSAL-SOURCE-EVIDENCE-BUNDLE-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-003-REHEARSAL-SOURCE-EVIDENCE-BUNDLE-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-003-REHEARSAL-SOURCE-EVIDENCE-BUNDLE-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-003-REHEARSAL-SOURCE-EVIDENCE-BUNDLE-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-REHEARSAL-003-REHEARSAL-SOURCE-EVIDENCE-BUNDLE-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-004-REHEARSAL-OPERATOR-APPROVAL-RECORD-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-004-REHEARSAL-OPERATOR-APPROVAL-RECORD-LOCAL-ONLY\\20260509T163443Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-004-rehearsal-operator-approval-record-local-only_20260509T184608791695Z_111bf055.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-004-rehearsal-operator-approval-record-local-only_20260509T184608791695Z_111bf055.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-004-REHEARSAL-OPERATOR-APPROVAL-RECORD-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-004-REHEARSAL-OPERATOR-APPROVAL-RECORD-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-004-REHEARSAL-OPERATOR-APPROVAL-RECORD-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-004-REHEARSAL-OPERATOR-APPROVAL-RECORD-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-REHEARSAL-004-REHEARSAL-OPERATOR-APPROVAL-RECORD-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-005-REHEARSAL-STOP-CONDITION-TRIGGER-MATRIX-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-005-REHEARSAL-STOP-CONDITION-TRIGGER-MATRIX-LOCAL-ONLY\\20260509T164156Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-005-rehearsal-stop-condition-trigger-matrix-local-only_20260509T184608885741Z_31533bab.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-005-rehearsal-stop-condition-trigger-matrix-local-only_20260509T184608885741Z_31533bab.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-005-REHEARSAL-STOP-CONDITION-TRIGGER-MATRIX-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-005-REHEARSAL-STOP-CONDITION-TRIGGER-MATRIX-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-005-REHEARSAL-STOP-CONDITION-TRIGGER-MATRIX-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-005-REHEARSAL-STOP-CONDITION-TRIGGER-MATRIX-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-REHEARSAL-005-REHEARSAL-STOP-CONDITION-TRIGGER-MATRIX-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-006-REHEARSAL-STALENESS-CASE-SET-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-006-REHEARSAL-STALENESS-CASE-SET-LOCAL-ONLY\\20260509T164907Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-006-rehearsal-staleness-case-set-local-only_20260509T184608961954Z_aee9fe5a.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-006-rehearsal-staleness-case-set-local-only_20260509T184608961954Z_aee9fe5a.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-006-REHEARSAL-STALENESS-CASE-SET-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-006-REHEARSAL-STALENESS-CASE-SET-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-006-REHEARSAL-STALENESS-CASE-SET-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-006-REHEARSAL-STALENESS-CASE-SET-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-REHEARSAL-006-REHEARSAL-STALENESS-CASE-SET-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-007-REHEARSAL-CONTRADICTION-CASE-SET-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-007-REHEARSAL-CONTRADICTION-CASE-SET-LOCAL-ONLY\\20260509T165552Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-007-rehearsal-contradiction-case-set-local-only_20260509T184609039924Z_08bfee02.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-007-rehearsal-contradiction-case-set-local-only_20260509T184609039924Z_08bfee02.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-007-REHEARSAL-CONTRADICTION-CASE-SET-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-007-REHEARSAL-CONTRADICTION-CASE-SET-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-007-REHEARSAL-CONTRADICTION-CASE-SET-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-007-REHEARSAL-CONTRADICTION-CASE-SET-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-REHEARSAL-007-REHEARSAL-CONTRADICTION-CASE-SET-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-008-REHEARSAL-EVIDENCE-RETENTION-LEDGER-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-008-REHEARSAL-EVIDENCE-RETENTION-LEDGER-LOCAL-ONLY\\20260509T170241Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-008-rehearsal-evidence-retention-ledger-local-only_20260509T184609112289Z_05c51758.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-008-rehearsal-evidence-retention-ledger-local-only_20260509T184609112289Z_05c51758.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-008-REHEARSAL-EVIDENCE-RETENTION-LEDGER-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-008-REHEARSAL-EVIDENCE-RETENTION-LEDGER-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-008-REHEARSAL-EVIDENCE-RETENTION-LEDGER-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-008-REHEARSAL-EVIDENCE-RETENTION-LEDGER-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-REHEARSAL-008-REHEARSAL-EVIDENCE-RETENTION-LEDGER-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-009-REHEARSAL-VALIDATION-REPLAY-PACKET-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-009-REHEARSAL-VALIDATION-REPLAY-PACKET-LOCAL-ONLY\\20260509T171005Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-009-rehearsal-validation-replay-packet-local-only_20260509T184609183222Z_13c5734f.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-009-rehearsal-validation-replay-packet-local-only_20260509T184609183222Z_13c5734f.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-009-REHEARSAL-VALIDATION-REPLAY-PACKET-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-009-REHEARSAL-VALIDATION-REPLAY-PACKET-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-009-REHEARSAL-VALIDATION-REPLAY-PACKET-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-009-REHEARSAL-VALIDATION-REPLAY-PACKET-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-REHEARSAL-009-REHEARSAL-VALIDATION-REPLAY-PACKET-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-010-REHEARSAL-CI-SAFE-VALIDATION-RUNNER-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-010-REHEARSAL-CI-SAFE-VALIDATION-RUNNER-LOCAL-ONLY\\20260509T171546Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-010-rehearsal-ci-safe-validation-runner-local-only_20260509T184609260646Z_78c1693b.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-010-rehearsal-ci-safe-validation-runner-local-only_20260509T184609260646Z_78c1693b.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-010-REHEARSAL-CI-SAFE-VALIDATION-RUNNER-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-010-REHEARSAL-CI-SAFE-VALIDATION-RUNNER-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-010-REHEARSAL-CI-SAFE-VALIDATION-RUNNER-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-010-REHEARSAL-CI-SAFE-VALIDATION-RUNNER-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-REHEARSAL-010-REHEARSAL-CI-SAFE-VALIDATION-RUNNER-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-011-REHEARSAL-READINESS-DASHBOARD-CARD-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-011-REHEARSAL-READINESS-DASHBOARD-CARD-LOCAL-ONLY\\20260509T172317Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-011-rehearsal-readiness-dashboard-card-local-only_20260509T184609378940Z_b622c3bb.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-011-rehearsal-readiness-dashboard-card-local-only_20260509T184609378940Z_b622c3bb.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-011-REHEARSAL-READINESS-DASHBOARD-CARD-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-011-REHEARSAL-READINESS-DASHBOARD-CARD-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-011-REHEARSAL-READINESS-DASHBOARD-CARD-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-011-REHEARSAL-READINESS-DASHBOARD-CARD-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-REHEARSAL-011-REHEARSAL-READINESS-DASHBOARD-CARD-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-012-REHEARSAL-MORNING-OPERATOR-CARD-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-012-REHEARSAL-MORNING-OPERATOR-CARD-LOCAL-ONLY\\20260509T173208Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-012-rehearsal-morning-operator-card-local-only_20260509T184609469550Z_cec54787.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-012-rehearsal-morning-operator-card-local-only_20260509T184609469550Z_cec54787.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-012-REHEARSAL-MORNING-OPERATOR-CARD-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-012-REHEARSAL-MORNING-OPERATOR-CARD-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-012-REHEARSAL-MORNING-OPERATOR-CARD-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-012-REHEARSAL-MORNING-OPERATOR-CARD-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-REHEARSAL-012-REHEARSAL-MORNING-OPERATOR-CARD-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-013-REHEARSAL-ACCEPTANCE-REPORT-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-013-REHEARSAL-ACCEPTANCE-REPORT-LOCAL-ONLY\\20260509T174001Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-013-rehearsal-acceptance-report-local-only_20260509T184609545384Z_b87bae67.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-013-rehearsal-acceptance-report-local-only_20260509T184609545384Z_b87bae67.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-013-REHEARSAL-ACCEPTANCE-REPORT-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-013-REHEARSAL-ACCEPTANCE-REPORT-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-013-REHEARSAL-ACCEPTANCE-REPORT-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-013-REHEARSAL-ACCEPTANCE-REPORT-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-REHEARSAL-013-REHEARSAL-ACCEPTANCE-REPORT-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-014-REHEARSAL-SOURCE-QUALITY-LINKS-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-014-REHEARSAL-SOURCE-QUALITY-LINKS-LOCAL-ONLY\\20260509T174734Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-014-rehearsal-source-quality-links-local-only_20260509T184609621271Z_7d8fb4a5.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-014-rehearsal-source-quality-links-local-only_20260509T184609621271Z_7d8fb4a5.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-014-REHEARSAL-SOURCE-QUALITY-LINKS-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-014-REHEARSAL-SOURCE-QUALITY-LINKS-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-014-REHEARSAL-SOURCE-QUALITY-LINKS-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-014-REHEARSAL-SOURCE-QUALITY-LINKS-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-REHEARSAL-014-REHEARSAL-SOURCE-QUALITY-LINKS-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-015-REHEARSAL-PAPERLIVE-ACCOUNTING-LINKS-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-015-REHEARSAL-PAPERLIVE-ACCOUNTING-LINKS-LOCAL-ONLY\\20260509T180030Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-015-rehearsal-paperlive-accounting-links-local-only_20260509T184609693899Z_c091d25d.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-015-rehearsal-paperlive-accounting-links-local-only_20260509T184609693899Z_c091d25d.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-015-REHEARSAL-PAPERLIVE-ACCOUNTING-LINKS-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-015-REHEARSAL-PAPERLIVE-ACCOUNTING-LINKS-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-015-REHEARSAL-PAPERLIVE-ACCOUNTING-LINKS-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-015-REHEARSAL-PAPERLIVE-ACCOUNTING-LINKS-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-REHEARSAL-015-REHEARSAL-PAPERLIVE-ACCOUNTING-LINKS-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-016-REHEARSAL-SIMULATED-DECISION-REPLAY-LINKS-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-016-REHEARSAL-SIMULATED-DECISION-REPLAY-LINKS-LOCAL-ONLY\\20260509T181009Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-016-rehearsal-simulated-decision-replay-links-local-only_20260509T184609802977Z_d1df471f.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-016-rehearsal-simulated-decision-replay-links-local-only_20260509T184609802977Z_d1df471f.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-016-REHEARSAL-SIMULATED-DECISION-REPLAY-LINKS-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-016-REHEARSAL-SIMULATED-DECISION-REPLAY-LINKS-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-016-REHEARSAL-SIMULATED-DECISION-REPLAY-LINKS-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-016-REHEARSAL-SIMULATED-DECISION-REPLAY-LINKS-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-REHEARSAL-016-REHEARSAL-SIMULATED-DECISION-REPLAY-LINKS-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-017-REHEARSAL-FORBIDDEN-ACTION-SCAN-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-017-REHEARSAL-FORBIDDEN-ACTION-SCAN-LOCAL-ONLY\\20260509T182000Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-017-rehearsal-forbidden-action-scan-local-only_20260509T184609872369Z_022b014e.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-017-rehearsal-forbidden-action-scan-local-only_20260509T184609872369Z_022b014e.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-017-REHEARSAL-FORBIDDEN-ACTION-SCAN-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-017-REHEARSAL-FORBIDDEN-ACTION-SCAN-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-017-REHEARSAL-FORBIDDEN-ACTION-SCAN-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-017-REHEARSAL-FORBIDDEN-ACTION-SCAN-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-REHEARSAL-017-REHEARSAL-FORBIDDEN-ACTION-SCAN-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-018-REHEARSAL-SENSITIVE-PATH-AUDIT-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-018-REHEARSAL-SENSITIVE-PATH-AUDIT-LOCAL-ONLY\\20260509T182458Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-018-rehearsal-sensitive-path-audit-local-only_20260509T184609952568Z_dccb9a6f.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-018-rehearsal-sensitive-path-audit-local-only_20260509T184609952568Z_dccb9a6f.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-018-REHEARSAL-SENSITIVE-PATH-AUDIT-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-018-REHEARSAL-SENSITIVE-PATH-AUDIT-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-018-REHEARSAL-SENSITIVE-PATH-AUDIT-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-018-REHEARSAL-SENSITIVE-PATH-AUDIT-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-REHEARSAL-018-REHEARSAL-SENSITIVE-PATH-AUDIT-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-019-REHEARSAL-FAILURE-AND-ROLLBACK-PLAYBOOK-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-019-REHEARSAL-FAILURE-AND-ROLLBACK-PLAYBOOK-LOCAL-ONLY\\20260509T183122Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-019-rehearsal-failure-and-rollback-playbook-local-only_20260509T184610029913Z_7f8ebd17.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-019-rehearsal-failure-and-rollback-playbook-local-only_20260509T184610029913Z_7f8ebd17.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-019-REHEARSAL-FAILURE-AND-ROLLBACK-PLAYBOOK-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-019-REHEARSAL-FAILURE-AND-ROLLBACK-PLAYBOOK-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-019-REHEARSAL-FAILURE-AND-ROLLBACK-PLAYBOOK-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-019-REHEARSAL-FAILURE-AND-ROLLBACK-PLAYBOOK-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-REHEARSAL-019-REHEARSAL-FAILURE-AND-ROLLBACK-PLAYBOOK-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      },
+      {
+        "blocked": false,
+        "bridged_result_json_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-020-REHEARSAL-NEXT-ACTION-BACKLOG-LOCAL-ONLY.result.json",
+        "completed_execution": true,
+        "errors": [],
+        "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-020-REHEARSAL-NEXT-ACTION-BACKLOG-LOCAL-ONLY\\20260509T183920Z\\execution_report.json",
+        "ingestion_latest_report_is_pointer": true,
+        "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-020-rehearsal-next-action-backlog-local-only_20260509T184610105396Z_71babdf7.json",
+        "ingestion_report_paths": {
+          "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+          "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+          "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-020-rehearsal-next-action-backlog-local-only_20260509T184610105396Z_71babdf7.json"
+        },
+        "ingestion_status": "accepted",
+        "postprocess_status": "ok",
+        "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-020-REHEARSAL-NEXT-ACTION-BACKLOG-LOCAL-ONLY.result.json",
+        "result_validation": {
+          "errors": [],
+          "valid": true
+        },
+        "result_validation_status": "valid",
+        "review_recommendation": "ready_for_operator_done",
+        "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-020-REHEARSAL-NEXT-ACTION-BACKLOG-LOCAL-ONLY.review.json",
+        "review_report_paths": {
+          "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-020-REHEARSAL-NEXT-ACTION-BACKLOG-LOCAL-ONLY.review.json",
+          "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-020-REHEARSAL-NEXT-ACTION-BACKLOG-LOCAL-ONLY.review.md"
+        },
+        "task_id": "PMBOT-REHEARSAL-020-REHEARSAL-NEXT-ACTION-BACKLOG-LOCAL-ONLY",
+        "warnings": [
+          "last_message used files_changed; bridged those paths as files_modified"
+        ]
+      }
+    ]
+  },
+  "batch_run_id": "20260509T161208Z",
+  "batch_status": "ok",
+  "blocked_count": 0,
+  "bridge_results": true,
+  "bridged_count": 20,
+  "codex_exec_invoked": false,
+  "codex_invocation_count": 0,
+  "completed_execution_count": 20,
+  "daemon_created": false,
+  "errors": [],
+  "git_commit_performed": false,
+  "git_push_performed": false,
+  "infinite_loop_created": false,
+  "ingested_count": 20,
+  "next_operator_action": "Inspect the post-batch summary, task review reports, and git diff; run mark-done only for tasks whose review report recommends ready_for_operator_done.",
+  "openrouter_calls_performed": 0,
+  "orders_or_trading_actions": false,
+  "overwrite_results": false,
+  "policy": "continue through completed task executions; block individual tasks that cannot be bridged safely",
+  "polymarket_api_calls_performed": 0,
+  "queue_root": "agent_tasks",
+  "report_path_roles": {
+    "batch_review_ledger_json": "stable_evidence",
+    "latest_batch_review_ledger_json": "mutable_pointer",
+    "latest_post_batch_summary_json": "mutable_pointer",
+    "latest_post_batch_summary_md": "mutable_pointer",
+    "post_batch_summary_json": "stable_evidence",
+    "post_batch_summary_md": "stable_evidence"
+  },
+  "report_paths": {
+    "batch_review_ledger_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\batch_review_ledger_20260509T184608525030Z_aad87665.json",
+    "latest_batch_review_ledger_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\latest_batch_review_ledger.json",
+    "latest_post_batch_summary_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\latest_post_batch_review_summary.json",
+    "latest_post_batch_summary_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\latest_post_batch_review_summary.md",
+    "post_batch_summary_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\post_batch_review_summary_20260509T184608525030Z_aad87665.json",
+    "post_batch_summary_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\post_batch_review_summary_20260509T184608525030Z_aad87665.md"
+  },
+  "result_json_written_count": 20,
+  "review_approved_automatically": false,
+  "review_results": true,
+  "reviewed_count": 20,
+  "run_id": "20260509T184608525030Z_aad87665",
+  "runtime_or_dispatcher_changes": false,
+  "scheduler_created": false,
+  "schema_version": "codex_cli_batch_postprocess_report.v2",
+  "skipped_count": 0,
+  "status": "ok",
+  "task_marked_done_automatically": false,
+  "task_results": [
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-001-READ-ONLY-REHEARSAL-SCENARIO-CONTRACT-LOCAL-ONLY\\20260509T161208Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-001-read-only-rehearsal-scenario-contract-local-only_20260509T184608566266Z_c1b09cc1.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-001-read-only-rehearsal-scenario-contract-local-only_20260509T184608566266Z_c1b09cc1.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-001-READ-ONLY-REHEARSAL-SCENARIO-CONTRACT-LOCAL-ONLY\\20260509T161208Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-001-READ-ONLY-REHEARSAL-SCENARIO-CONTRACT-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-001-READ-ONLY-REHEARSAL-SCENARIO-CONTRACT-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-001-READ-ONLY-REHEARSAL-SCENARIO-CONTRACT-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-001-READ-ONLY-REHEARSAL-SCENARIO-CONTRACT-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-REHEARSAL-001-READ-ONLY-REHEARSAL-SCENARIO-CONTRACT-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-002-REHEARSAL-MARKET-PACKET-SCHEMA-LOCAL-ONLY\\20260509T162001Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-002-rehearsal-market-packet-schema-local-only_20260509T184608642381Z_d0a68730.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-002-rehearsal-market-packet-schema-local-only_20260509T184608642381Z_d0a68730.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-002-REHEARSAL-MARKET-PACKET-SCHEMA-LOCAL-ONLY\\20260509T162001Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-002-REHEARSAL-MARKET-PACKET-SCHEMA-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-002-REHEARSAL-MARKET-PACKET-SCHEMA-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-002-REHEARSAL-MARKET-PACKET-SCHEMA-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-002-REHEARSAL-MARKET-PACKET-SCHEMA-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-REHEARSAL-002-REHEARSAL-MARKET-PACKET-SCHEMA-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-003-REHEARSAL-SOURCE-EVIDENCE-BUNDLE-LOCAL-ONLY\\20260509T162549Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-003-rehearsal-source-evidence-bundle-local-only_20260509T184608717746Z_78093aa6.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-003-rehearsal-source-evidence-bundle-local-only_20260509T184608717746Z_78093aa6.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-003-REHEARSAL-SOURCE-EVIDENCE-BUNDLE-LOCAL-ONLY\\20260509T162549Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-003-REHEARSAL-SOURCE-EVIDENCE-BUNDLE-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-003-REHEARSAL-SOURCE-EVIDENCE-BUNDLE-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-003-REHEARSAL-SOURCE-EVIDENCE-BUNDLE-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-003-REHEARSAL-SOURCE-EVIDENCE-BUNDLE-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-REHEARSAL-003-REHEARSAL-SOURCE-EVIDENCE-BUNDLE-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-004-REHEARSAL-OPERATOR-APPROVAL-RECORD-LOCAL-ONLY\\20260509T163443Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-004-rehearsal-operator-approval-record-local-only_20260509T184608791695Z_111bf055.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-004-rehearsal-operator-approval-record-local-only_20260509T184608791695Z_111bf055.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-004-REHEARSAL-OPERATOR-APPROVAL-RECORD-LOCAL-ONLY\\20260509T163443Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-004-REHEARSAL-OPERATOR-APPROVAL-RECORD-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-004-REHEARSAL-OPERATOR-APPROVAL-RECORD-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-004-REHEARSAL-OPERATOR-APPROVAL-RECORD-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-004-REHEARSAL-OPERATOR-APPROVAL-RECORD-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-REHEARSAL-004-REHEARSAL-OPERATOR-APPROVAL-RECORD-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-005-REHEARSAL-STOP-CONDITION-TRIGGER-MATRIX-LOCAL-ONLY\\20260509T164156Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-005-rehearsal-stop-condition-trigger-matrix-local-only_20260509T184608885741Z_31533bab.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-005-rehearsal-stop-condition-trigger-matrix-local-only_20260509T184608885741Z_31533bab.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-005-REHEARSAL-STOP-CONDITION-TRIGGER-MATRIX-LOCAL-ONLY\\20260509T164156Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-005-REHEARSAL-STOP-CONDITION-TRIGGER-MATRIX-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-005-REHEARSAL-STOP-CONDITION-TRIGGER-MATRIX-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-005-REHEARSAL-STOP-CONDITION-TRIGGER-MATRIX-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-005-REHEARSAL-STOP-CONDITION-TRIGGER-MATRIX-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-REHEARSAL-005-REHEARSAL-STOP-CONDITION-TRIGGER-MATRIX-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-006-REHEARSAL-STALENESS-CASE-SET-LOCAL-ONLY\\20260509T164907Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-006-rehearsal-staleness-case-set-local-only_20260509T184608961954Z_aee9fe5a.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-006-rehearsal-staleness-case-set-local-only_20260509T184608961954Z_aee9fe5a.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-006-REHEARSAL-STALENESS-CASE-SET-LOCAL-ONLY\\20260509T164907Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-006-REHEARSAL-STALENESS-CASE-SET-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-006-REHEARSAL-STALENESS-CASE-SET-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-006-REHEARSAL-STALENESS-CASE-SET-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-006-REHEARSAL-STALENESS-CASE-SET-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-REHEARSAL-006-REHEARSAL-STALENESS-CASE-SET-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-007-REHEARSAL-CONTRADICTION-CASE-SET-LOCAL-ONLY\\20260509T165552Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-007-rehearsal-contradiction-case-set-local-only_20260509T184609039924Z_08bfee02.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-007-rehearsal-contradiction-case-set-local-only_20260509T184609039924Z_08bfee02.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-007-REHEARSAL-CONTRADICTION-CASE-SET-LOCAL-ONLY\\20260509T165552Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-007-REHEARSAL-CONTRADICTION-CASE-SET-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-007-REHEARSAL-CONTRADICTION-CASE-SET-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-007-REHEARSAL-CONTRADICTION-CASE-SET-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-007-REHEARSAL-CONTRADICTION-CASE-SET-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-REHEARSAL-007-REHEARSAL-CONTRADICTION-CASE-SET-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-008-REHEARSAL-EVIDENCE-RETENTION-LEDGER-LOCAL-ONLY\\20260509T170241Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-008-rehearsal-evidence-retention-ledger-local-only_20260509T184609112289Z_05c51758.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-008-rehearsal-evidence-retention-ledger-local-only_20260509T184609112289Z_05c51758.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-008-REHEARSAL-EVIDENCE-RETENTION-LEDGER-LOCAL-ONLY\\20260509T170241Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-008-REHEARSAL-EVIDENCE-RETENTION-LEDGER-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-008-REHEARSAL-EVIDENCE-RETENTION-LEDGER-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-008-REHEARSAL-EVIDENCE-RETENTION-LEDGER-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-008-REHEARSAL-EVIDENCE-RETENTION-LEDGER-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-REHEARSAL-008-REHEARSAL-EVIDENCE-RETENTION-LEDGER-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-009-REHEARSAL-VALIDATION-REPLAY-PACKET-LOCAL-ONLY\\20260509T171005Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-009-rehearsal-validation-replay-packet-local-only_20260509T184609183222Z_13c5734f.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-009-rehearsal-validation-replay-packet-local-only_20260509T184609183222Z_13c5734f.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-009-REHEARSAL-VALIDATION-REPLAY-PACKET-LOCAL-ONLY\\20260509T171005Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-009-REHEARSAL-VALIDATION-REPLAY-PACKET-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-009-REHEARSAL-VALIDATION-REPLAY-PACKET-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-009-REHEARSAL-VALIDATION-REPLAY-PACKET-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-009-REHEARSAL-VALIDATION-REPLAY-PACKET-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-REHEARSAL-009-REHEARSAL-VALIDATION-REPLAY-PACKET-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-010-REHEARSAL-CI-SAFE-VALIDATION-RUNNER-LOCAL-ONLY\\20260509T171546Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-010-rehearsal-ci-safe-validation-runner-local-only_20260509T184609260646Z_78c1693b.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-010-rehearsal-ci-safe-validation-runner-local-only_20260509T184609260646Z_78c1693b.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-010-REHEARSAL-CI-SAFE-VALIDATION-RUNNER-LOCAL-ONLY\\20260509T171546Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-010-REHEARSAL-CI-SAFE-VALIDATION-RUNNER-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-010-REHEARSAL-CI-SAFE-VALIDATION-RUNNER-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-010-REHEARSAL-CI-SAFE-VALIDATION-RUNNER-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-010-REHEARSAL-CI-SAFE-VALIDATION-RUNNER-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-REHEARSAL-010-REHEARSAL-CI-SAFE-VALIDATION-RUNNER-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-011-REHEARSAL-READINESS-DASHBOARD-CARD-LOCAL-ONLY\\20260509T172317Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-011-rehearsal-readiness-dashboard-card-local-only_20260509T184609378940Z_b622c3bb.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-011-rehearsal-readiness-dashboard-card-local-only_20260509T184609378940Z_b622c3bb.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-011-REHEARSAL-READINESS-DASHBOARD-CARD-LOCAL-ONLY\\20260509T172317Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-011-REHEARSAL-READINESS-DASHBOARD-CARD-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-011-REHEARSAL-READINESS-DASHBOARD-CARD-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-011-REHEARSAL-READINESS-DASHBOARD-CARD-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-011-REHEARSAL-READINESS-DASHBOARD-CARD-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-REHEARSAL-011-REHEARSAL-READINESS-DASHBOARD-CARD-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-012-REHEARSAL-MORNING-OPERATOR-CARD-LOCAL-ONLY\\20260509T173208Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-012-rehearsal-morning-operator-card-local-only_20260509T184609469550Z_cec54787.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-012-rehearsal-morning-operator-card-local-only_20260509T184609469550Z_cec54787.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-012-REHEARSAL-MORNING-OPERATOR-CARD-LOCAL-ONLY\\20260509T173208Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-012-REHEARSAL-MORNING-OPERATOR-CARD-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-012-REHEARSAL-MORNING-OPERATOR-CARD-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-012-REHEARSAL-MORNING-OPERATOR-CARD-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-012-REHEARSAL-MORNING-OPERATOR-CARD-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-REHEARSAL-012-REHEARSAL-MORNING-OPERATOR-CARD-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-013-REHEARSAL-ACCEPTANCE-REPORT-LOCAL-ONLY\\20260509T174001Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-013-rehearsal-acceptance-report-local-only_20260509T184609545384Z_b87bae67.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-013-rehearsal-acceptance-report-local-only_20260509T184609545384Z_b87bae67.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-013-REHEARSAL-ACCEPTANCE-REPORT-LOCAL-ONLY\\20260509T174001Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-013-REHEARSAL-ACCEPTANCE-REPORT-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-013-REHEARSAL-ACCEPTANCE-REPORT-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-013-REHEARSAL-ACCEPTANCE-REPORT-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-013-REHEARSAL-ACCEPTANCE-REPORT-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-REHEARSAL-013-REHEARSAL-ACCEPTANCE-REPORT-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-014-REHEARSAL-SOURCE-QUALITY-LINKS-LOCAL-ONLY\\20260509T174734Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-014-rehearsal-source-quality-links-local-only_20260509T184609621271Z_7d8fb4a5.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-014-rehearsal-source-quality-links-local-only_20260509T184609621271Z_7d8fb4a5.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-014-REHEARSAL-SOURCE-QUALITY-LINKS-LOCAL-ONLY\\20260509T174734Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-014-REHEARSAL-SOURCE-QUALITY-LINKS-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-014-REHEARSAL-SOURCE-QUALITY-LINKS-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-014-REHEARSAL-SOURCE-QUALITY-LINKS-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-014-REHEARSAL-SOURCE-QUALITY-LINKS-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-REHEARSAL-014-REHEARSAL-SOURCE-QUALITY-LINKS-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-015-REHEARSAL-PAPERLIVE-ACCOUNTING-LINKS-LOCAL-ONLY\\20260509T180030Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-015-rehearsal-paperlive-accounting-links-local-only_20260509T184609693899Z_c091d25d.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-015-rehearsal-paperlive-accounting-links-local-only_20260509T184609693899Z_c091d25d.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-015-REHEARSAL-PAPERLIVE-ACCOUNTING-LINKS-LOCAL-ONLY\\20260509T180030Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-015-REHEARSAL-PAPERLIVE-ACCOUNTING-LINKS-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-015-REHEARSAL-PAPERLIVE-ACCOUNTING-LINKS-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-015-REHEARSAL-PAPERLIVE-ACCOUNTING-LINKS-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-015-REHEARSAL-PAPERLIVE-ACCOUNTING-LINKS-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-REHEARSAL-015-REHEARSAL-PAPERLIVE-ACCOUNTING-LINKS-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-016-REHEARSAL-SIMULATED-DECISION-REPLAY-LINKS-LOCAL-ONLY\\20260509T181009Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-016-rehearsal-simulated-decision-replay-links-local-only_20260509T184609802977Z_d1df471f.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-016-rehearsal-simulated-decision-replay-links-local-only_20260509T184609802977Z_d1df471f.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-016-REHEARSAL-SIMULATED-DECISION-REPLAY-LINKS-LOCAL-ONLY\\20260509T181009Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-016-REHEARSAL-SIMULATED-DECISION-REPLAY-LINKS-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-016-REHEARSAL-SIMULATED-DECISION-REPLAY-LINKS-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-016-REHEARSAL-SIMULATED-DECISION-REPLAY-LINKS-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-016-REHEARSAL-SIMULATED-DECISION-REPLAY-LINKS-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-REHEARSAL-016-REHEARSAL-SIMULATED-DECISION-REPLAY-LINKS-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-017-REHEARSAL-FORBIDDEN-ACTION-SCAN-LOCAL-ONLY\\20260509T182000Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-017-rehearsal-forbidden-action-scan-local-only_20260509T184609872369Z_022b014e.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-017-rehearsal-forbidden-action-scan-local-only_20260509T184609872369Z_022b014e.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-017-REHEARSAL-FORBIDDEN-ACTION-SCAN-LOCAL-ONLY\\20260509T182000Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-017-REHEARSAL-FORBIDDEN-ACTION-SCAN-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-017-REHEARSAL-FORBIDDEN-ACTION-SCAN-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-017-REHEARSAL-FORBIDDEN-ACTION-SCAN-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-017-REHEARSAL-FORBIDDEN-ACTION-SCAN-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-REHEARSAL-017-REHEARSAL-FORBIDDEN-ACTION-SCAN-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-018-REHEARSAL-SENSITIVE-PATH-AUDIT-LOCAL-ONLY\\20260509T182458Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-018-rehearsal-sensitive-path-audit-local-only_20260509T184609952568Z_dccb9a6f.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-018-rehearsal-sensitive-path-audit-local-only_20260509T184609952568Z_dccb9a6f.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-018-REHEARSAL-SENSITIVE-PATH-AUDIT-LOCAL-ONLY\\20260509T182458Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-018-REHEARSAL-SENSITIVE-PATH-AUDIT-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-018-REHEARSAL-SENSITIVE-PATH-AUDIT-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-018-REHEARSAL-SENSITIVE-PATH-AUDIT-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-018-REHEARSAL-SENSITIVE-PATH-AUDIT-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-REHEARSAL-018-REHEARSAL-SENSITIVE-PATH-AUDIT-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-019-REHEARSAL-FAILURE-AND-ROLLBACK-PLAYBOOK-LOCAL-ONLY\\20260509T183122Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-019-rehearsal-failure-and-rollback-playbook-local-only_20260509T184610029913Z_7f8ebd17.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-019-rehearsal-failure-and-rollback-playbook-local-only_20260509T184610029913Z_7f8ebd17.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-019-REHEARSAL-FAILURE-AND-ROLLBACK-PLAYBOOK-LOCAL-ONLY\\20260509T183122Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-019-REHEARSAL-FAILURE-AND-ROLLBACK-PLAYBOOK-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-019-REHEARSAL-FAILURE-AND-ROLLBACK-PLAYBOOK-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-019-REHEARSAL-FAILURE-AND-ROLLBACK-PLAYBOOK-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-019-REHEARSAL-FAILURE-AND-ROLLBACK-PLAYBOOK-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-REHEARSAL-019-REHEARSAL-FAILURE-AND-ROLLBACK-PLAYBOOK-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    },
+    {
+      "bridged": true,
+      "completed_execution": true,
+      "errors": [],
+      "execution_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-020-REHEARSAL-NEXT-ACTION-BACKLOG-LOCAL-ONLY\\20260509T183920Z\\execution_report.json",
+      "ingested": true,
+      "ingestion_latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+      "ingestion_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-020-rehearsal-next-action-backlog-local-only_20260509T184610105396Z_71babdf7.json",
+      "ingestion_report_paths": {
+        "latest_report_json": "agent_tasks\\reports\\latest_result_ingestion_report.json",
+        "latest_report_md": "agent_tasks\\reports\\latest_result_ingestion_report.md",
+        "run_report_json": "agent_tasks\\reports\\result_ingestion_report_pmbot-rehearsal-020-rehearsal-next-action-backlog-local-only_20260509T184610105396Z_71babdf7.json"
+      },
+      "ingestion_status": "accepted",
+      "last_message_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-020-REHEARSAL-NEXT-ACTION-BACKLOG-LOCAL-ONLY\\20260509T183920Z\\last_message.md",
+      "postprocess_status": "ok",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\review\\PMBOT-REHEARSAL-020-REHEARSAL-NEXT-ACTION-BACKLOG-LOCAL-ONLY.result.json",
+      "result_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "review_recommendation": "ready_for_operator_done",
+      "review_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-020-REHEARSAL-NEXT-ACTION-BACKLOG-LOCAL-ONLY.review.json",
+      "review_report_paths": {
+        "review_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-020-REHEARSAL-NEXT-ACTION-BACKLOG-LOCAL-ONLY.review.json",
+        "review_md": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\PMBOT-REHEARSAL-020-REHEARSAL-NEXT-ACTION-BACKLOG-LOCAL-ONLY.review.md"
+      },
+      "reviewed": true,
+      "task_id": "PMBOT-REHEARSAL-020-REHEARSAL-NEXT-ACTION-BACKLOG-LOCAL-ONLY",
+      "warnings": [
+        "last_message used files_changed; bridged those paths as files_modified"
+      ]
+    }
+  ],
+  "wallet_or_private_key_access": false,
+  "warnings": []
+}

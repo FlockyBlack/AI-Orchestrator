@@ -1,0 +1,261 @@
+{
+  "accounting_artifacts": [
+    {
+      "artifact_id": "paperlive_accounting_reconciliation_sample",
+      "artifact_role": "paperlive_accounting_reconciliation",
+      "artifact_type": "json_sample",
+      "byte_count": 5769,
+      "content_sha256": "4f2cf49c394824f8003aad974164ba58d0b06e82c88781c252afe30b1edc13b0",
+      "contract_version": "pmbot_paperlive_accounting_reconciliation.v1",
+      "local_reference": "pm_bot/paper_accounting/samples/paperlive_accounting_reconciliation.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "present": true,
+      "record_collection": "paperlive_reconciliation_rows",
+      "record_count": 1,
+      "record_ids": [
+        "crypto_paperlive_observation_ledger_001.sample.btc_threshold.to.paper_accounting.paperlive_accounting_reconciliation"
+      ]
+    },
+    {
+      "artifact_id": "paper_accounting_ledger_sample",
+      "artifact_role": "paper_accounting_ledger",
+      "artifact_type": "json_sample",
+      "byte_count": 4819,
+      "content_sha256": "0959bc380d84e2596ff0c9e94b82b58dd91091617575c4c430cf5d5aeae39394",
+      "contract_version": "pmbot_paper_accounting_ledger.v1",
+      "local_reference": "pm_bot/paper_accounting/samples/paper_accounting_ledger.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "present": true,
+      "record_collection": "accounting_entries",
+      "record_count": 3,
+      "record_ids": [
+        "paper_fixture_account_001.2026-05-09.opening_balance",
+        "paper_fixture_account_001.2026-05-09.paper_adjustment",
+        "paper_fixture_account_001.2026-05-09.paper_correction"
+      ]
+    },
+    {
+      "artifact_id": "paper_accounting_validation_sample",
+      "artifact_role": "paper_accounting_validation",
+      "artifact_type": "json_sample",
+      "byte_count": 8513,
+      "content_sha256": "c347f0f6f9a9b28bc6efd433dace0672a2e5ccaa6c9eacee38eb287ea77de072",
+      "contract_version": "pmbot_paper_accounting_validation.v1",
+      "local_reference": "pm_bot/paper_accounting/samples/paper_accounting_validation.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "present": true,
+      "record_collection": "record_validation_rows",
+      "record_count": 3,
+      "record_ids": [
+        "paper_fixture_account_001.2026-05-09.opening_balance.paper_accounting_validation",
+        "paper_fixture_account_001.2026-05-09.paper_adjustment.paper_accounting_validation",
+        "paper_fixture_account_001.2026-05-09.paper_correction.paper_accounting_validation"
+      ]
+    },
+    {
+      "artifact_id": "paper_accounting_session_summary_sample",
+      "artifact_role": "paper_accounting_session_summary",
+      "artifact_type": "json_sample",
+      "byte_count": 6135,
+      "content_sha256": "7934a905cda480c69e9bbefb01167c3ce49a10ff5415b0fb8b09a88cd845904c",
+      "contract_version": "pmbot_paper_accounting_session_summary.v1",
+      "local_reference": "pm_bot/paper_accounting/samples/paper_accounting_session_summary.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "present": true,
+      "record_collection": "session_review_rows",
+      "record_count": 3,
+      "record_ids": [
+        "paper_fixture_account_001.2026-05-09.opening_balance",
+        "paper_fixture_account_001.2026-05-09.paper_adjustment",
+        "paper_fixture_account_001.2026-05-09.paper_correction"
+      ]
+    }
+  ],
+  "build_id": "pmbot-rehearsal-paperlive-accounting-links-001-43d69351f7da",
+  "contract_version": "pmbot_rehearsal_paperlive_accounting_links.v1",
+  "created_at": "2026-05-09T10:00:00Z",
+  "errors": [],
+  "link_fields": [
+    "accounting_artifact_ids",
+    "accounting_entry_count",
+    "accounting_handling",
+    "link_id",
+    "link_state",
+    "operator_review_status",
+    "paperlive_accounting_record_ids",
+    "rehearsal_artifact_ids",
+    "rehearsal_record_ids",
+    "review_checks",
+    "value_policy"
+  ],
+  "link_set_id": "pmbot-rehearsal-paperlive-accounting-links-001",
+  "local_only": true,
+  "operator_review": {
+    "reviewed_at": null,
+    "reviewed_by": null,
+    "status": "pending_operator_review"
+  },
+  "operator_review_required": true,
+  "operator_review_steps": [
+    "Confirm rehearsal packet and replay record IDs resolve to local static fixtures.",
+    "Confirm paperlive reconciliation rows resolve to local paper accounting samples.",
+    "Confirm accounting entry, validation, and session rows remain pending operator review.",
+    "Confirm numeric source values remain in referenced local artifacts rather than this link set.",
+    "Confirm closed endpoint, wallet, order, runtime, worker, scheduler, and browser boundaries."
+  ],
+  "paperlive_accounting_links": [
+    {
+      "accounting_artifact_ids": [
+        "paperlive_accounting_reconciliation_sample",
+        "paper_accounting_ledger_sample",
+        "paper_accounting_validation_sample",
+        "paper_accounting_session_summary_sample"
+      ],
+      "accounting_entry_count": 0,
+      "accounting_handling": "no_accounting_delta_recorded",
+      "link_id": "pmbot-rehearsal-paperlive-accounting-links-001.sample.btc_threshold.paperlive_accounting",
+      "link_state": "descriptive_rehearsal_paperlive_accounting_link",
+      "operator_review_status": "pending_operator_review",
+      "paperlive_accounting_record_ids": {
+        "accounting_entry_ids": [],
+        "accounting_ledger_id": "paper_accounting_ledger_fixture_001",
+        "paperlive_record_id": "crypto_paperlive_observation_ledger_001.sample.btc_threshold.observation",
+        "reconciliation_id": "paperlive_accounting_reconciliation_fixture_001",
+        "reconciliation_row_id": "crypto_paperlive_observation_ledger_001.sample.btc_threshold.to.paper_accounting.paperlive_accounting_reconciliation",
+        "session_review_entry_ids": [],
+        "validation_row_ids": []
+      },
+      "rehearsal_artifact_ids": [
+        "crypto_paperlive_rehearsal_packet_fixture",
+        "crypto_paperlive_observation_replay_fixture"
+      ],
+      "rehearsal_record_ids": {
+        "observation_record_id": "crypto_paperlive_observation_ledger_001.sample.btc_threshold.observation",
+        "observation_replay_record_id": "pmbot-crypto-paperlive-observation-replay-001.sample.btc_threshold.replay",
+        "packet_record_id": "pmbot-crypto-paperlive-rehearsal-packet-001.sample.btc_threshold.rehearsal"
+      },
+      "review_checks": [
+        {
+          "check_id": "rehearsal_packet_record_link",
+          "operator_review_status": "pending_operator_review",
+          "review_label": "Confirm packet record ID is present in the local rehearsal packet fixture."
+        },
+        {
+          "check_id": "observation_replay_record_link",
+          "operator_review_status": "pending_operator_review",
+          "review_label": "Confirm replay row references the same packet and observation records."
+        },
+        {
+          "check_id": "paperlive_reconciliation_record_link",
+          "operator_review_status": "pending_operator_review",
+          "review_label": "Confirm reconciliation row references the same local paperlive observation record."
+        },
+        {
+          "check_id": "paper_accounting_record_link",
+          "operator_review_status": "pending_operator_review",
+          "review_label": "Confirm linked paper accounting entry IDs remain present in local accounting samples."
+        }
+      ],
+      "value_policy": "record_identifiers_only_values_remain_in_local_artifacts"
+    }
+  ],
+  "rehearsal_artifacts": [
+    {
+      "artifact_id": "crypto_paperlive_rehearsal_packet_fixture",
+      "artifact_role": "paperlive_rehearsal_packet",
+      "artifact_type": "json_fixture",
+      "byte_count": 14112,
+      "content_sha256": "0f52f6b64051d89d38ec551eda069e228aed816175b44991f585c7c27ab4519f",
+      "contract_version": "pmbot_crypto_paperlive_rehearsal_packet.v1",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_paperlive_rehearsal_packet.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "present": true,
+      "record_collection": "paperlive_rehearsal_records",
+      "record_count": 1,
+      "record_ids": [
+        "pmbot-crypto-paperlive-rehearsal-packet-001.sample.btc_threshold.rehearsal"
+      ]
+    },
+    {
+      "artifact_id": "crypto_paperlive_observation_replay_fixture",
+      "artifact_role": "paperlive_observation_replay",
+      "artifact_type": "json_fixture",
+      "byte_count": 12699,
+      "content_sha256": "a08fc3e6b8ea883cea7f4ee9db571191cf4e222a6f09fcf9c5b985c95e522b32",
+      "contract_version": "pmbot_crypto_paperlive_observation_replay.v1",
+      "local_reference": "pm_bot/tests/fixtures/crypto_live/pmbot_crypto_paperlive_observation_replay.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "present": true,
+      "record_collection": "observation_replay_records",
+      "record_count": 1,
+      "record_ids": [
+        "pmbot-crypto-paperlive-observation-replay-001.sample.btc_threshold.replay"
+      ]
+    }
+  ],
+  "required_validation_commands": [
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "run_mode": "local_static_rehearsal_paperlive_accounting_links",
+  "safety_boundaries": {
+    "account_change_instruction_allowed": false,
+    "authenticated_endpoint_calls_allowed": false,
+    "background_process_allowed": false,
+    "browser_automation_allowed": false,
+    "credential_or_secret_access_allowed": false,
+    "execution_endpoint_calls_allowed": false,
+    "external_service_calls_allowed": false,
+    "llm_provider_calls_allowed": false,
+    "local_fixtures_only": true,
+    "local_static_samples_only": true,
+    "market_api_calls_allowed": false,
+    "market_instruction_allowed": false,
+    "market_ranking_allowed": false,
+    "network_calls_allowed": false,
+    "numeric_prediction_metric_allowed": false,
+    "openrouter_calls_allowed": false,
+    "operator_review_required": true,
+    "order_or_trade_surface_changes_allowed": false,
+    "paper_mode_only": true,
+    "paperlive_execution_allowed": false,
+    "polymarket_api_calls_allowed": false,
+    "resident_process_allowed": false,
+    "runtime_or_dispatcher_changes_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "sensitive_path_access_allowed": false,
+    "timed_automation_allowed": false,
+    "transaction_endpoint_calls_allowed": false,
+    "wallet_or_signing_material_access_allowed": false
+  },
+  "summary_counts": {
+    "accounting_artifacts": 4,
+    "accounting_entry_links": 0,
+    "link_fields": 11,
+    "local_references": 8,
+    "operator_review_steps": 5,
+    "paperlive_accounting_links": 1,
+    "rehearsal_artifacts": 2,
+    "rehearsal_record_links": 3,
+    "required_validation_commands": 2,
+    "review_checks": 4,
+    "validation_command_records": 2,
+    "warnings": 0
+  },
+  "task_id": "PMBOT-REHEARSAL-015-REHEARSAL-PAPERLIVE-ACCOUNTING-LINKS-LOCAL-ONLY",
+  "validation_command_records": [
+    {
+      "command_label": "python -m compileall pm_bot tests",
+      "local_reference": "pm_bot/tests/test_rehearsal_paperlive_accounting_links.py",
+      "operator_review_status": "pending_operator_review",
+      "status": "not_run_static_record"
+    },
+    {
+      "command_label": "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "status": "not_run_static_record"
+    }
+  ],
+  "warnings": []
+}

@@ -1,0 +1,577 @@
+{
+  "contract_id": "pmbot-rehearsal-failure-and-rollback-playbook",
+  "contract_version": "pmbot_rehearsal_failure_and_rollback_playbook.v1",
+  "created_at": "2026-05-09T12:15:00Z",
+  "errors": [],
+  "failure_classes": [
+    {
+      "blocked_operations": [
+        "network_call",
+        "openrouter_call",
+        "polymarket_api_call",
+        "authenticated_request",
+        "credential_lookup",
+        "wallet_or_signing_material_access",
+        "transaction_endpoint_call",
+        "order_or_trade_endpoint_call",
+        "runtime_or_dispatcher_change",
+        "run_codex_wiring_change",
+        "browser_automation",
+        "scheduler_or_background_worker_start"
+      ],
+      "failure_class_id": "operator_manual_stop",
+      "failure_label": "Operator manual stop",
+      "local_evidence_reference": "docs/PMBOT_REHEARSAL_005_REHEARSAL_STOP_CONDITION_TRIGGER_MATRIX_LOCAL_ONLY.md",
+      "operator_record_required": true,
+      "operator_review_status": "pending_operator_review",
+      "post_failure_state": "stopped_pending_operator_record",
+      "rollback_record_id": "pmbot-rehearsal-failure-and-rollback-playbook-001.rollback.operator_manual_stop",
+      "rollback_target": "return_to_pending_operator_review",
+      "source_trigger_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_stop_condition_trigger_matrix.valid.json"
+    },
+    {
+      "blocked_operations": [
+        "network_call",
+        "openrouter_call",
+        "polymarket_api_call",
+        "authenticated_request",
+        "credential_lookup",
+        "wallet_or_signing_material_access",
+        "transaction_endpoint_call",
+        "order_or_trade_endpoint_call",
+        "runtime_or_dispatcher_change",
+        "run_codex_wiring_change",
+        "browser_automation",
+        "scheduler_or_background_worker_start"
+      ],
+      "failure_class_id": "validation_command_failure",
+      "failure_label": "Validation command failure",
+      "local_evidence_reference": "docs/PMBOT_REHEARSAL_009_REHEARSAL_VALIDATION_REPLAY_PACKET_LOCAL_ONLY.md",
+      "operator_record_required": true,
+      "operator_review_status": "pending_operator_review",
+      "post_failure_state": "stopped_pending_validation_review",
+      "rollback_record_id": "pmbot-rehearsal-failure-and-rollback-playbook-001.rollback.validation_command_failure",
+      "rollback_target": "return_to_static_validation_review",
+      "source_trigger_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_validation_replay_packet.valid.json"
+    },
+    {
+      "blocked_operations": [
+        "network_call",
+        "openrouter_call",
+        "polymarket_api_call",
+        "authenticated_request",
+        "credential_lookup",
+        "wallet_or_signing_material_access",
+        "transaction_endpoint_call",
+        "order_or_trade_endpoint_call",
+        "runtime_or_dispatcher_change",
+        "run_codex_wiring_change",
+        "browser_automation",
+        "scheduler_or_background_worker_start"
+      ],
+      "failure_class_id": "local_artifact_boundary_breach",
+      "failure_label": "Local artifact boundary breach",
+      "local_evidence_reference": "docs/PMBOT_REHEARSAL_018_REHEARSAL_SENSITIVE_PATH_AUDIT_LOCAL_ONLY.md",
+      "operator_record_required": true,
+      "operator_review_status": "pending_operator_review",
+      "post_failure_state": "stopped_pending_scope_review",
+      "rollback_record_id": "pmbot-rehearsal-failure-and-rollback-playbook-001.rollback.local_artifact_boundary_breach",
+      "rollback_target": "return_to_allowed_local_artifact_scope",
+      "source_trigger_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_sensitive_path_audit.valid.json"
+    },
+    {
+      "blocked_operations": [
+        "network_call",
+        "openrouter_call",
+        "polymarket_api_call",
+        "authenticated_request",
+        "credential_lookup",
+        "wallet_or_signing_material_access",
+        "transaction_endpoint_call",
+        "order_or_trade_endpoint_call",
+        "runtime_or_dispatcher_change",
+        "run_codex_wiring_change",
+        "browser_automation",
+        "scheduler_or_background_worker_start"
+      ],
+      "failure_class_id": "forbidden_operation_request",
+      "failure_label": "Forbidden operation request",
+      "local_evidence_reference": "docs/PMBOT_REHEARSAL_017_REHEARSAL_FORBIDDEN_ACTION_SCAN_LOCAL_ONLY.md",
+      "operator_record_required": true,
+      "operator_review_status": "pending_operator_review",
+      "post_failure_state": "stopped_pending_safety_review",
+      "rollback_record_id": "pmbot-rehearsal-failure-and-rollback-playbook-001.rollback.forbidden_operation_request",
+      "rollback_target": "return_to_closed_forbidden_operation_boundary",
+      "source_trigger_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_forbidden_action_scan.valid.json"
+    },
+    {
+      "blocked_operations": [
+        "network_call",
+        "openrouter_call",
+        "polymarket_api_call",
+        "authenticated_request",
+        "credential_lookup",
+        "wallet_or_signing_material_access",
+        "transaction_endpoint_call",
+        "order_or_trade_endpoint_call",
+        "runtime_or_dispatcher_change",
+        "run_codex_wiring_change",
+        "browser_automation",
+        "scheduler_or_background_worker_start"
+      ],
+      "failure_class_id": "sensitive_path_contact",
+      "failure_label": "Sensitive path contact",
+      "local_evidence_reference": "docs/PMBOT_REHEARSAL_018_REHEARSAL_SENSITIVE_PATH_AUDIT_LOCAL_ONLY.md",
+      "operator_record_required": true,
+      "operator_review_status": "pending_operator_review",
+      "post_failure_state": "stopped_pending_sensitive_path_review",
+      "rollback_record_id": "pmbot-rehearsal-failure-and-rollback-playbook-001.rollback.sensitive_path_contact",
+      "rollback_target": "return_to_sensitive_path_exclusion_boundary",
+      "source_trigger_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_sensitive_path_audit.valid.json"
+    },
+    {
+      "blocked_operations": [
+        "network_call",
+        "openrouter_call",
+        "polymarket_api_call",
+        "authenticated_request",
+        "credential_lookup",
+        "wallet_or_signing_material_access",
+        "transaction_endpoint_call",
+        "order_or_trade_endpoint_call",
+        "runtime_or_dispatcher_change",
+        "run_codex_wiring_change",
+        "browser_automation",
+        "scheduler_or_background_worker_start"
+      ],
+      "failure_class_id": "source_evidence_mismatch",
+      "failure_label": "Source evidence mismatch",
+      "local_evidence_reference": "docs/PMBOT_REHEARSAL_005_REHEARSAL_STOP_CONDITION_TRIGGER_MATRIX_LOCAL_ONLY.md",
+      "operator_record_required": true,
+      "operator_review_status": "pending_operator_review",
+      "post_failure_state": "stopped_pending_source_review",
+      "rollback_record_id": "pmbot-rehearsal-failure-and-rollback-playbook-001.rollback.source_evidence_mismatch",
+      "rollback_target": "return_to_local_source_evidence_review",
+      "source_trigger_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_stop_condition_trigger_matrix.valid.json"
+    },
+    {
+      "blocked_operations": [
+        "network_call",
+        "openrouter_call",
+        "polymarket_api_call",
+        "authenticated_request",
+        "credential_lookup",
+        "wallet_or_signing_material_access",
+        "transaction_endpoint_call",
+        "order_or_trade_endpoint_call",
+        "runtime_or_dispatcher_change",
+        "run_codex_wiring_change",
+        "browser_automation",
+        "scheduler_or_background_worker_start"
+      ],
+      "failure_class_id": "review_record_missing",
+      "failure_label": "Review record missing",
+      "local_evidence_reference": "docs/PMBOT_REHEARSAL_004_REHEARSAL_OPERATOR_APPROVAL_RECORD_LOCAL_ONLY.md",
+      "operator_record_required": true,
+      "operator_review_status": "pending_operator_review",
+      "post_failure_state": "stopped_pending_operator_record",
+      "rollback_record_id": "pmbot-rehearsal-failure-and-rollback-playbook-001.rollback.review_record_missing",
+      "rollback_target": "return_to_required_operator_record_review",
+      "source_trigger_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_operator_approval_record.valid.json"
+    },
+    {
+      "blocked_operations": [
+        "network_call",
+        "openrouter_call",
+        "polymarket_api_call",
+        "authenticated_request",
+        "credential_lookup",
+        "wallet_or_signing_material_access",
+        "transaction_endpoint_call",
+        "order_or_trade_endpoint_call",
+        "runtime_or_dispatcher_change",
+        "run_codex_wiring_change",
+        "browser_automation",
+        "scheduler_or_background_worker_start"
+      ],
+      "failure_class_id": "output_boundary_breach",
+      "failure_label": "Output boundary breach",
+      "local_evidence_reference": "docs/PMBOT_REHEARSAL_017_REHEARSAL_FORBIDDEN_ACTION_SCAN_LOCAL_ONLY.md",
+      "operator_record_required": true,
+      "operator_review_status": "pending_operator_review",
+      "post_failure_state": "stopped_pending_output_review",
+      "rollback_record_id": "pmbot-rehearsal-failure-and-rollback-playbook-001.rollback.output_boundary_breach",
+      "rollback_target": "return_to_descriptive_output_boundary",
+      "source_trigger_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_forbidden_action_scan.valid.json"
+    }
+  ],
+  "local_only": true,
+  "operator_review": {
+    "reviewed_at": null,
+    "reviewed_by": null,
+    "status": "pending_operator_review"
+  },
+  "operator_review_required": true,
+  "playbook_id": "pmbot-rehearsal-failure-and-rollback-playbook-001",
+  "playbook_name": "pmbot-rehearsal-failure-and-rollback-playbook",
+  "required_validation_commands": [
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "review_sections": [
+    {
+      "local_references": [
+        "docs/PMBOT_REHEARSAL_019_REHEARSAL_FAILURE_AND_ROLLBACK_PLAYBOOK_LOCAL_ONLY.md",
+        "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_failure_and_rollback_playbook.valid.json",
+        "pm_bot/tests/test_rehearsal_failure_and_rollback_playbook.py"
+      ],
+      "operator_review_status": "pending_operator_review",
+      "review_mode": "manual_operator_review_only",
+      "section_id": "playbook_identity_review",
+      "section_label": "Playbook identity review"
+    },
+    {
+      "local_references": [
+        "docs/PMBOT_REHEARSAL_005_REHEARSAL_STOP_CONDITION_TRIGGER_MATRIX_LOCAL_ONLY.md",
+        "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_stop_condition_trigger_matrix.valid.json",
+        "pm_bot/tests/test_rehearsal_stop_condition_trigger_matrix.py"
+      ],
+      "operator_review_status": "pending_operator_review",
+      "review_mode": "manual_operator_review_only",
+      "section_id": "failure_class_review",
+      "section_label": "Failure class review"
+    },
+    {
+      "local_references": [
+        "docs/PMBOT_REHEARSAL_017_REHEARSAL_FORBIDDEN_ACTION_SCAN_LOCAL_ONLY.md",
+        "docs/PMBOT_REHEARSAL_018_REHEARSAL_SENSITIVE_PATH_AUDIT_LOCAL_ONLY.md",
+        "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_forbidden_action_scan.valid.json",
+        "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_sensitive_path_audit.valid.json"
+      ],
+      "operator_review_status": "pending_operator_review",
+      "review_mode": "manual_operator_review_only",
+      "section_id": "rollback_boundary_review",
+      "section_label": "Rollback boundary review"
+    },
+    {
+      "local_references": [
+        "docs/PMBOT_REHEARSAL_009_REHEARSAL_VALIDATION_REPLAY_PACKET_LOCAL_ONLY.md",
+        "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_validation_replay_packet.valid.json",
+        "pm_bot/tests/test_rehearsal_validation_replay_packet.py",
+        "tests/test_codex_queue_pmbot_templates.py"
+      ],
+      "operator_review_status": "pending_operator_review",
+      "review_mode": "manual_operator_review_only",
+      "section_id": "validation_review",
+      "section_label": "Validation review"
+    },
+    {
+      "local_references": [
+        "docs/PMBOT_REHEARSAL_004_REHEARSAL_OPERATOR_APPROVAL_RECORD_LOCAL_ONLY.md",
+        "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_operator_approval_record.valid.json",
+        "pm_bot/tests/test_rehearsal_operator_approval_record.py"
+      ],
+      "operator_review_status": "pending_operator_review",
+      "review_mode": "manual_operator_review_only",
+      "section_id": "operator_record_review",
+      "section_label": "Operator record review"
+    }
+  ],
+  "rollback_boundary_records": [
+    {
+      "boundary_id": "local_static_material_boundary",
+      "boundary_label": "Local static material boundary",
+      "closed_state": "local_files_fixtures_and_static_samples_only",
+      "local_reference": "docs/PMBOT_REHEARSAL_018_REHEARSAL_SENSITIVE_PATH_AUDIT_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "required_record_id": "local_static_material_boundary_review_record"
+    },
+    {
+      "boundary_id": "endpoint_boundary",
+      "boundary_label": "Endpoint boundary",
+      "closed_state": "all_network_and_authenticated_endpoint_calls_closed",
+      "local_reference": "docs/PMBOT_REHEARSAL_017_REHEARSAL_FORBIDDEN_ACTION_SCAN_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "required_record_id": "endpoint_boundary_review_record"
+    },
+    {
+      "boundary_id": "sensitive_access_boundary",
+      "boundary_label": "Sensitive access boundary",
+      "closed_state": "credentials_wallet_signing_order_and_trading_paths_closed",
+      "local_reference": "docs/PMBOT_REHEARSAL_018_REHEARSAL_SENSITIVE_PATH_AUDIT_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "required_record_id": "sensitive_access_boundary_review_record"
+    },
+    {
+      "boundary_id": "process_boundary",
+      "boundary_label": "Process boundary",
+      "closed_state": "runtime_dispatcher_run_codex_scheduler_worker_browser_and_resident_process_changes_closed",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "required_record_id": "process_boundary_review_record"
+    },
+    {
+      "boundary_id": "output_boundary",
+      "boundary_label": "Output boundary",
+      "closed_state": "descriptive_output_only",
+      "local_reference": "docs/PMBOT_REHEARSAL_017_REHEARSAL_FORBIDDEN_ACTION_SCAN_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "required_record_id": "output_boundary_review_record"
+    },
+    {
+      "boundary_id": "operator_review_boundary",
+      "boundary_label": "Operator review boundary",
+      "closed_state": "status_remains_pending_until_manual_review_record",
+      "local_reference": "docs/PMBOT_REHEARSAL_004_REHEARSAL_OPERATOR_APPROVAL_RECORD_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "required_record_id": "operator_review_boundary_record"
+    }
+  ],
+  "rollback_steps": [
+    {
+      "local_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_failure_and_rollback_playbook.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "rollback_step_id": "identify_fixed_failure_class",
+      "step_label": "Identify fixed failure class",
+      "step_order": 1,
+      "step_state": "pending_local_record_review",
+      "verification_record_required": true
+    },
+    {
+      "local_reference": "docs/PMBOT_REHEARSAL_004_REHEARSAL_OPERATOR_APPROVAL_RECORD_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "rollback_step_id": "freeze_rehearsal_review_status",
+      "step_label": "Freeze rehearsal review status",
+      "step_order": 2,
+      "step_state": "pending_manual_record",
+      "verification_record_required": true
+    },
+    {
+      "local_reference": "docs/PMBOT_REHEARSAL_018_REHEARSAL_SENSITIVE_PATH_AUDIT_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "rollback_step_id": "verify_allowed_local_artifact_scope",
+      "step_label": "Verify allowed local artifact scope",
+      "step_order": 3,
+      "step_state": "pending_scope_review",
+      "verification_record_required": true
+    },
+    {
+      "local_reference": "docs/PMBOT_REHEARSAL_017_REHEARSAL_FORBIDDEN_ACTION_SCAN_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "rollback_step_id": "confirm_closed_boundaries",
+      "step_label": "Confirm closed boundaries",
+      "step_order": 4,
+      "step_state": "pending_safety_review",
+      "verification_record_required": true
+    },
+    {
+      "local_reference": "docs/PMBOT_REHEARSAL_019_REHEARSAL_FAILURE_AND_ROLLBACK_PLAYBOOK_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "rollback_step_id": "restore_pending_operator_review_posture",
+      "step_label": "Restore pending operator review posture",
+      "step_order": 5,
+      "step_state": "pending_operator_review_record",
+      "verification_record_required": true
+    },
+    {
+      "local_reference": "docs/PMBOT_REHEARSAL_009_REHEARSAL_VALIDATION_REPLAY_PACKET_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "rollback_step_id": "record_validation_outcome",
+      "step_label": "Record validation outcome",
+      "step_order": 6,
+      "step_state": "pending_validation_record",
+      "verification_record_required": true
+    }
+  ],
+  "run_mode": "local_static_rehearsal_failure_and_rollback_playbook",
+  "safety_boundaries": {
+    "authenticated_endpoint_calls_allowed": false,
+    "background_process_allowed": false,
+    "browser_automation_allowed": false,
+    "credential_or_secret_access_allowed": false,
+    "descriptive_playbook_only": true,
+    "execution_endpoint_calls_allowed": false,
+    "external_service_calls_allowed": false,
+    "live_data_refresh_allowed": false,
+    "llm_provider_calls_allowed": false,
+    "local_fixtures_only": true,
+    "local_static_samples_only": true,
+    "market_api_calls_allowed": false,
+    "market_instruction_output_allowed": false,
+    "market_ranking_allowed": false,
+    "network_calls_allowed": false,
+    "numeric_prediction_metric_allowed": false,
+    "openrouter_calls_allowed": false,
+    "operator_review_required": true,
+    "order_or_trade_surface_changes_allowed": false,
+    "paper_mode_only": true,
+    "polymarket_api_calls_allowed": false,
+    "resident_process_allowed": false,
+    "rollback_automation_allowed": false,
+    "rollback_execution_allowed": false,
+    "rollback_mutates_runtime_allowed": false,
+    "run_codex_changes_allowed": false,
+    "runtime_or_dispatcher_changes_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "sensitive_path_access_allowed": false,
+    "timed_automation_allowed": false,
+    "trade_instruction_allowed": false,
+    "transaction_endpoint_calls_allowed": false,
+    "wallet_or_signing_material_access_allowed": false
+  },
+  "source_artifacts": [
+    {
+      "artifact_id": "rehearsal_failure_and_rollback_playbook_fixture",
+      "artifact_role": "playbook_fixture",
+      "artifact_type": "json_fixture",
+      "local_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_failure_and_rollback_playbook.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-019-REHEARSAL-FAILURE-AND-ROLLBACK-PLAYBOOK-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_failure_and_rollback_playbook_document",
+      "artifact_role": "playbook_document",
+      "artifact_type": "markdown_document",
+      "local_reference": "docs/PMBOT_REHEARSAL_019_REHEARSAL_FAILURE_AND_ROLLBACK_PLAYBOOK_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-019-REHEARSAL-FAILURE-AND-ROLLBACK-PLAYBOOK-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_failure_and_rollback_playbook_contract_test",
+      "artifact_role": "playbook_contract_test",
+      "artifact_type": "pytest_module",
+      "local_reference": "pm_bot/tests/test_rehearsal_failure_and_rollback_playbook.py",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-019-REHEARSAL-FAILURE-AND-ROLLBACK-PLAYBOOK-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_operator_approval_record_fixture",
+      "artifact_role": "source_fixture",
+      "artifact_type": "json_fixture",
+      "local_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_operator_approval_record.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-004-REHEARSAL-OPERATOR-APPROVAL-RECORD-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_operator_approval_record_document",
+      "artifact_role": "source_document",
+      "artifact_type": "markdown_document",
+      "local_reference": "docs/PMBOT_REHEARSAL_004_REHEARSAL_OPERATOR_APPROVAL_RECORD_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-004-REHEARSAL-OPERATOR-APPROVAL-RECORD-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_stop_condition_trigger_matrix_fixture",
+      "artifact_role": "source_fixture",
+      "artifact_type": "json_fixture",
+      "local_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_stop_condition_trigger_matrix.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-005-REHEARSAL-STOP-CONDITION-TRIGGER-MATRIX-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_stop_condition_trigger_matrix_document",
+      "artifact_role": "source_document",
+      "artifact_type": "markdown_document",
+      "local_reference": "docs/PMBOT_REHEARSAL_005_REHEARSAL_STOP_CONDITION_TRIGGER_MATRIX_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-005-REHEARSAL-STOP-CONDITION-TRIGGER-MATRIX-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_validation_replay_packet_fixture",
+      "artifact_role": "source_fixture",
+      "artifact_type": "json_fixture",
+      "local_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_validation_replay_packet.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-009-REHEARSAL-VALIDATION-REPLAY-PACKET-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_validation_replay_packet_document",
+      "artifact_role": "source_document",
+      "artifact_type": "markdown_document",
+      "local_reference": "docs/PMBOT_REHEARSAL_009_REHEARSAL_VALIDATION_REPLAY_PACKET_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-009-REHEARSAL-VALIDATION-REPLAY-PACKET-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_acceptance_report_document",
+      "artifact_role": "source_document",
+      "artifact_type": "markdown_document",
+      "local_reference": "docs/PMBOT_REHEARSAL_013_REHEARSAL_ACCEPTANCE_REPORT_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-013-REHEARSAL-ACCEPTANCE-REPORT-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_forbidden_action_scan_fixture",
+      "artifact_role": "source_fixture",
+      "artifact_type": "json_fixture",
+      "local_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_forbidden_action_scan.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-017-REHEARSAL-FORBIDDEN-ACTION-SCAN-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_forbidden_action_scan_document",
+      "artifact_role": "source_document",
+      "artifact_type": "markdown_document",
+      "local_reference": "docs/PMBOT_REHEARSAL_017_REHEARSAL_FORBIDDEN_ACTION_SCAN_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-017-REHEARSAL-FORBIDDEN-ACTION-SCAN-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_sensitive_path_audit_fixture",
+      "artifact_role": "source_fixture",
+      "artifact_type": "json_fixture",
+      "local_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_sensitive_path_audit.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-018-REHEARSAL-SENSITIVE-PATH-AUDIT-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "rehearsal_sensitive_path_audit_document",
+      "artifact_role": "source_document",
+      "artifact_type": "markdown_document",
+      "local_reference": "docs/PMBOT_REHEARSAL_018_REHEARSAL_SENSITIVE_PATH_AUDIT_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-018-REHEARSAL-SENSITIVE-PATH-AUDIT-LOCAL-ONLY"
+    },
+    {
+      "artifact_id": "queue_template_validation_test",
+      "artifact_role": "queue_template_contract",
+      "artifact_type": "pytest_module",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "source_task_id": "PMBOT-REHEARSAL-019-REHEARSAL-FAILURE-AND-ROLLBACK-PLAYBOOK-LOCAL-ONLY"
+    }
+  ],
+  "summary_counts": {
+    "errors": 0,
+    "failure_classes": 8,
+    "failure_classes_pending_operator_review": 8,
+    "local_references": 18,
+    "required_validation_commands": 2,
+    "review_sections": 5,
+    "rollback_boundary_records": 6,
+    "rollback_boundary_records_pending_operator_review": 6,
+    "rollback_steps": 6,
+    "rollback_steps_pending_operator_review": 6,
+    "source_artifacts": 15,
+    "validation_command_records": 2,
+    "warnings": 0
+  },
+  "task_id": "PMBOT-REHEARSAL-019-REHEARSAL-FAILURE-AND-ROLLBACK-PLAYBOOK-LOCAL-ONLY",
+  "validation_command_records": [
+    {
+      "command_label": "python -m compileall pm_bot tests",
+      "local_reference": "pm_bot/tests/test_rehearsal_failure_and_rollback_playbook.py",
+      "operator_review_status": "pending_operator_review",
+      "status": "not_run_static_record",
+      "validation_id": "compileall.pm_bot.tests"
+    },
+    {
+      "command_label": "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "status": "not_run_static_record",
+      "validation_id": "pytest.pm_bot_tests.queue_templates"
+    }
+  ],
+  "warnings": []
+}

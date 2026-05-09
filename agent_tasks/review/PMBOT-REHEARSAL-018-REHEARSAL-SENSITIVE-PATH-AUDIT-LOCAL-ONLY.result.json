@@ -1,0 +1,43 @@
+{
+  "acceptance_checks_passed": true,
+  "commands_run": [
+    "pytest pm_bot/tests/test_rehearsal_sensitive_path_audit.py",
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py",
+    "git diff --check -- docs/PMBOT_REHEARSAL_018_REHEARSAL_SENSITIVE_PATH_AUDIT_LOCAL_ONLY.md pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_sensitive_path_audit.valid.json pm_bot/tests/test_rehearsal_sensitive_path_audit.py"
+  ],
+  "completed_at": "2026-05-09T18:31:22Z",
+  "completed_by": "codex_cli_last_message_bridge",
+  "files_created": [],
+  "files_deleted": [],
+  "files_modified": [
+    "docs/PMBOT_REHEARSAL_018_REHEARSAL_SENSITIVE_PATH_AUDIT_LOCAL_ONLY.md",
+    "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_sensitive_path_audit.valid.json",
+    "pm_bot/tests/test_rehearsal_sensitive_path_audit.py"
+  ],
+  "next_recommended_action": "Inspect the bridged result, ingestion report, review report, and git diff before mark-done.",
+  "operator_review_notes": "Bridged from C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\reports\\codex_cli_runs\\PMBOT-REHEARSAL-018-REHEARSAL-SENSITIVE-PATH-AUDIT-LOCAL-ONLY\\20260509T182458Z\\last_message.md. Safety notes: Used only local files, local fixtures, and static samples.; No network, OpenRouter, Polymarket API, authenticated endpoint, or external service calls were made.; No wallet, private-key, credential, order, trading endpoint, transaction endpoint, or real-money action work was performed.; No runtime, dispatcher, run_codex, scheduler, daemon, background worker, resident process, or browser automation changes were made.; No forecast scoring, action guidance, market recommendation, probability, EV, edge, confidence, or side selection was produced.; Edits were limited to the allowed docs/ and pm_bot/tests/ paths. Remaining risks: pytest emitted an existing .pytest_cache permission warning while still passing.; compileall exited 0 but reported it could not list existing tests/.pytest_tmp/pytest-of-OpenC. Bridge warnings: last_message used files_changed; bridged those paths as files_modified",
+  "safety_confirmation": {
+    "background_worker_added": false,
+    "codex_app_server_used": false,
+    "credentials_accessed": false,
+    "destructive_commands_used": false,
+    "network_calls_performed": 0,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "runtime_or_dispatcher_touched": false,
+    "scheduler_added": false,
+    "telegram_or_openclaw_added": false,
+    "wallet_or_trading_touched": false
+  },
+  "schema_version": "codex_task_result.v1",
+  "status": "completed",
+  "summary": "Added a deterministic local PMBOT rehearsal sensitive path audit for operator review, including a markdown audit record, static JSON fixture, and pytest contract. The artifact records allowed/excluded prefixes, local source references, pending operator review state, closed safety boundaries, and required validation commands without producing market guidance or execution advice.",
+  "task_id": "PMBOT-REHEARSAL-018-REHEARSAL-SENSITIVE-PATH-AUDIT-LOCAL-ONLY",
+  "validation_results": [
+    "pytest pm_bot/tests/test_rehearsal_sensitive_path_audit.py",
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py",
+    "git diff --check -- docs/PMBOT_REHEARSAL_018_REHEARSAL_SENSITIVE_PATH_AUDIT_LOCAL_ONLY.md pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_sensitive_path_audit.valid.json pm_bot/tests/test_rehearsal_sensitive_path_audit.py"
+  ]
+}

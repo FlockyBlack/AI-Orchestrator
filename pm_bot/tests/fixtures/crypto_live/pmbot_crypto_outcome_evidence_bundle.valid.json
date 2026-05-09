@@ -116,8 +116,8 @@
     },
     {
       "artifact_kind": "test",
-      "content_byte_count": 22849,
-      "content_sha256": "25a8025adae5e43c0768299998dce6707ebbefeb2143a7646d3620fada5e01d3",
+      "content_byte_count": 28270,
+      "content_sha256": "3aade848538ffcd225700b0a8e734603c48805a67b59efd79aede5f986e9d380",
       "contract_version": "pmbot_queue_templates_local_validation",
       "local_reference": "tests/test_codex_queue_pmbot_templates.py",
       "operator_review_status": "pending_operator_review",

@@ -1,0 +1,40 @@
+{
+  "acceptance_checks": [
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "allowed_paths": [
+    "docs/",
+    "pm_bot/tests/",
+    "tests/"
+  ],
+  "automatic_execution_enabled": false,
+  "codex_app_server_used": false,
+  "codex_execution_command": null,
+  "expected_outputs": [
+    "Rehearsal forbidden action scan docs, fixtures, tests, or local artifacts under allowed paths.",
+    "A strict result JSON packet for operator review."
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.*",
+    ".git/",
+    ".codex/",
+    "runtime/",
+    "dispatcher/",
+    "run_codex/",
+    "pm_bot/llm/",
+    "pm_bot/wallet/",
+    "pm_bot/trading/",
+    "pm_bot/orders/",
+    "agent_tasks/running/"
+  ],
+  "handoff_prompt_path": "agent_tasks\\planned\\PMBOT-REHEARSAL-017-REHEARSAL-FORBIDDEN-ACTION-SCAN-LOCAL-ONLY.handoff_prompt.md",
+  "human_review_required": true,
+  "proof_of_work_required": true,
+  "suggested_branch_name": "codex/pmbot-rehearsal-017-rehearsal-forbidden-action-scan-local-only",
+  "suggested_workspace_name": "pmbot-rehearsal-017-rehearsal-forbidden-action-scan-local-only",
+  "task_id": "PMBOT-REHEARSAL-017-REHEARSAL-FORBIDDEN-ACTION-SCAN-LOCAL-ONLY",
+  "workspace_plan_path": "agent_tasks\\planned\\PMBOT-REHEARSAL-017-REHEARSAL-FORBIDDEN-ACTION-SCAN-LOCAL-ONLY.workspace_plan.json",
+  "would_create_workspace": true
+}

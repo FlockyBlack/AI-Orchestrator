@@ -1,0 +1,376 @@
+{
+  "build_id": "pmbot-rehearsal-source-quality-links-001-ed9512fd23a0",
+  "contract_version": "pmbot_rehearsal_source_quality_links.v1",
+  "created_at": "2026-05-09T09:30:00Z",
+  "documentation": {
+    "byte_count": 5466,
+    "content_sha256": "7d6522d36f31f4b4704469248126761018a69777a1cf24c4815bedba265be592",
+    "local_reference": "docs/PMBOT_REHEARSAL_014_REHEARSAL_SOURCE_QUALITY_LINKS_LOCAL_ONLY.md",
+    "present": true
+  },
+  "errors": [],
+  "link_fields": [
+    "link_id",
+    "link_kind",
+    "link_state",
+    "local_reference_policy",
+    "operator_review_status",
+    "rehearsal_artifact_ids",
+    "rehearsal_record_ids",
+    "review_checks",
+    "source_id",
+    "source_quality_artifact_ids",
+    "source_quality_record_ids",
+    "value_policy"
+  ],
+  "link_set_id": "pmbot-rehearsal-source-quality-links-001",
+  "local_only": true,
+  "operator_review": {
+    "reviewed_at": null,
+    "reviewed_by": null,
+    "status": "pending_operator_review"
+  },
+  "operator_review_required": true,
+  "operator_review_steps": [
+    "Confirm each rehearsal artifact row resolves to local source quality record identifiers.",
+    "Confirm source quality artifact byte counts and SHA-256 digests match current local bytes.",
+    "Confirm values remain in referenced local artifacts and link rows stay pending operator review."
+  ],
+  "rehearsal_artifacts": [
+    {
+      "artifact_id": "rehearsal_source_evidence_bundle_fixture",
+      "byte_count": 19558,
+      "content_sha256": "0d274e6655afec29730e14aff5961e688afeb9513aa3f99eafbc6f97d9614639",
+      "contract_version": "pmbot_rehearsal_source_evidence_bundle.v1",
+      "local_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_source_evidence_bundle.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "present": true,
+      "record_collection": "bundle_records",
+      "record_count": 1,
+      "record_ids": [
+        "pmbot-rehearsal-source-evidence-bundle-001.static_local_rehearsal_source_evidence"
+      ]
+    },
+    {
+      "artifact_id": "rehearsal_staleness_case_set_fixture",
+      "byte_count": 17111,
+      "content_sha256": "1b147e8b20d2c75a540b5f432cf5cd96eb49eb089234dd57f85936852409b7eb",
+      "contract_version": "pmbot_rehearsal_staleness_case_set.v1",
+      "local_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_staleness_case_set.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "present": true,
+      "record_collection": "case_records",
+      "record_count": 6,
+      "record_ids": [
+        "pmbot-rehearsal-staleness-case-set-001.case.within_window_station_observation",
+        "pmbot-rehearsal-staleness-case-set-001.case.within_window_crypto_reference",
+        "pmbot-rehearsal-staleness-case-set-001.case.at_limit_weather_boundary",
+        "pmbot-rehearsal-staleness-case-set-001.case.outside_window_weather_boundary",
+        "pmbot-rehearsal-staleness-case-set-001.case.missing_required_weather_timestamp",
+        "pmbot-rehearsal-staleness-case-set-001.case.timestamp_not_required_source_quality_sample"
+      ]
+    },
+    {
+      "artifact_id": "rehearsal_contradiction_case_set_fixture",
+      "byte_count": 21067,
+      "content_sha256": "94e38726ecf4dde1779a111f8376f06445b9b60c8b01220ac650d9c1c7a46a3c",
+      "contract_version": "pmbot_rehearsal_contradiction_case_set.v1",
+      "local_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_contradiction_case_set.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "present": true,
+      "record_collection": "case_records",
+      "record_count": 6,
+      "record_ids": [
+        "pmbot-rehearsal-contradiction-case-set-001.case.weather_static_value_difference",
+        "pmbot-rehearsal-contradiction-case-set-001.case.subject_key_station_id_match",
+        "pmbot-rehearsal-contradiction-case-set-001.case.subject_key_observation_date_match",
+        "pmbot-rehearsal-contradiction-case-set-001.case.subject_key_difference_boundary",
+        "pmbot-rehearsal-contradiction-case-set-001.case.field_unavailable_boundary",
+        "pmbot-rehearsal-contradiction-case-set-001.case.matching_static_value_boundary"
+      ]
+    }
+  ],
+  "rehearsal_source_quality_links": [
+    {
+      "link_id": "pmbot-rehearsal-source-quality-links-001.official_daily_climate_report.rehearsal_source_quality_link",
+      "link_kind": "local_rehearsal_artifact_to_source_quality_record_link",
+      "link_state": "descriptive_rehearsal_source_quality_link",
+      "local_reference_policy": "local_static_references_only",
+      "operator_review_status": "pending_operator_review",
+      "rehearsal_artifact_ids": [
+        "rehearsal_source_evidence_bundle_fixture",
+        "rehearsal_staleness_case_set_fixture",
+        "rehearsal_contradiction_case_set_fixture"
+      ],
+      "rehearsal_record_ids": {
+        "contradiction_case_ids": [
+          "pmbot-rehearsal-contradiction-case-set-001.case.weather_static_value_difference",
+          "pmbot-rehearsal-contradiction-case-set-001.case.subject_key_station_id_match",
+          "pmbot-rehearsal-contradiction-case-set-001.case.subject_key_observation_date_match",
+          "pmbot-rehearsal-contradiction-case-set-001.case.subject_key_difference_boundary",
+          "pmbot-rehearsal-contradiction-case-set-001.case.field_unavailable_boundary",
+          "pmbot-rehearsal-contradiction-case-set-001.case.matching_static_value_boundary"
+        ],
+        "source_evidence_bundle_record_id": "pmbot-rehearsal-source-evidence-bundle-001.static_local_rehearsal_source_evidence",
+        "staleness_case_ids": [
+          "pmbot-rehearsal-staleness-case-set-001.case.at_limit_weather_boundary",
+          "pmbot-rehearsal-staleness-case-set-001.case.outside_window_weather_boundary",
+          "pmbot-rehearsal-staleness-case-set-001.case.missing_required_weather_timestamp"
+        ]
+      },
+      "review_checks": [
+        {
+          "check_id": "rehearsal_record_presence",
+          "description": "Confirm rehearsal record identifiers resolve in local rehearsal fixtures.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "source_quality_record_presence",
+          "description": "Confirm source quality record identifiers exist in named local artifacts.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "local_reference_digest",
+          "description": "Confirm linked local artifact byte counts and digests match current local bytes.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "pending_review_state",
+          "description": "Confirm links and source quality artifacts remain pending operator review.",
+          "operator_review_status": "pending_operator_review"
+        }
+      ],
+      "source_id": "official_daily_climate_report",
+      "source_quality_artifact_ids": [
+        "unified_source_quality_ledger_sample",
+        "source_quality_report_summary_sample",
+        "source_quality_regression_fixture_sample",
+        "source_evidence_link_map_sample",
+        "source_staleness_check_spec_sample",
+        "source_contradiction_ledger_sample"
+      ],
+      "source_quality_record_ids": {
+        "source_contradiction_row_ids": [
+          "source_contradiction_ledger_fixture_001.weather_daily_high_temperature_static_compare.source_contradiction_review"
+        ],
+        "source_evidence_link_id": "source_evidence_link_map_fixture_001.official_daily_climate_report.source_evidence_link",
+        "source_quality_ledger_row_id": "unified_source_quality_ledger_fixture_001.official_daily_climate_report.source_quality_review",
+        "source_quality_regression_ledger_row_id": "unified_source_quality_ledger_fixture_001.official_daily_climate_report.source_quality_review",
+        "source_quality_report_row_id": "unified_source_quality_ledger_fixture_001.official_daily_climate_report.source_quality_review.source_quality_report_summary",
+        "source_staleness_check_id": "source_staleness_check_spec_fixture_001.official_daily_climate_report.source_staleness_check"
+      },
+      "value_policy": "record_identifiers_only_source_values_remain_in_local_artifacts"
+    },
+    {
+      "link_id": "pmbot-rehearsal-source-quality-links-001.airport_station_observation_log.rehearsal_source_quality_link",
+      "link_kind": "local_rehearsal_artifact_to_source_quality_record_link",
+      "link_state": "descriptive_rehearsal_source_quality_link",
+      "local_reference_policy": "local_static_references_only",
+      "operator_review_status": "pending_operator_review",
+      "rehearsal_artifact_ids": [
+        "rehearsal_source_evidence_bundle_fixture",
+        "rehearsal_staleness_case_set_fixture",
+        "rehearsal_contradiction_case_set_fixture"
+      ],
+      "rehearsal_record_ids": {
+        "contradiction_case_ids": [
+          "pmbot-rehearsal-contradiction-case-set-001.case.weather_static_value_difference",
+          "pmbot-rehearsal-contradiction-case-set-001.case.subject_key_station_id_match",
+          "pmbot-rehearsal-contradiction-case-set-001.case.subject_key_observation_date_match",
+          "pmbot-rehearsal-contradiction-case-set-001.case.subject_key_difference_boundary",
+          "pmbot-rehearsal-contradiction-case-set-001.case.field_unavailable_boundary",
+          "pmbot-rehearsal-contradiction-case-set-001.case.matching_static_value_boundary"
+        ],
+        "source_evidence_bundle_record_id": "pmbot-rehearsal-source-evidence-bundle-001.static_local_rehearsal_source_evidence",
+        "staleness_case_ids": [
+          "pmbot-rehearsal-staleness-case-set-001.case.within_window_station_observation"
+        ]
+      },
+      "review_checks": [
+        {
+          "check_id": "rehearsal_record_presence",
+          "description": "Confirm rehearsal record identifiers resolve in local rehearsal fixtures.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "source_quality_record_presence",
+          "description": "Confirm source quality record identifiers exist in named local artifacts.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "local_reference_digest",
+          "description": "Confirm linked local artifact byte counts and digests match current local bytes.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "pending_review_state",
+          "description": "Confirm links and source quality artifacts remain pending operator review.",
+          "operator_review_status": "pending_operator_review"
+        }
+      ],
+      "source_id": "airport_station_observation_log",
+      "source_quality_artifact_ids": [
+        "unified_source_quality_ledger_sample",
+        "source_quality_report_summary_sample",
+        "source_quality_regression_fixture_sample",
+        "source_evidence_link_map_sample",
+        "source_staleness_check_spec_sample",
+        "source_contradiction_ledger_sample"
+      ],
+      "source_quality_record_ids": {
+        "source_contradiction_row_ids": [
+          "source_contradiction_ledger_fixture_001.weather_daily_high_temperature_static_compare.source_contradiction_review"
+        ],
+        "source_evidence_link_id": "source_evidence_link_map_fixture_001.airport_station_observation_log.source_evidence_link",
+        "source_quality_ledger_row_id": "unified_source_quality_ledger_fixture_001.airport_station_observation_log.source_quality_review",
+        "source_quality_regression_ledger_row_id": "unified_source_quality_ledger_fixture_001.airport_station_observation_log.source_quality_review",
+        "source_quality_report_row_id": "unified_source_quality_ledger_fixture_001.airport_station_observation_log.source_quality_review.source_quality_report_summary",
+        "source_staleness_check_id": "source_staleness_check_spec_fixture_001.airport_station_observation_log.source_staleness_check"
+      },
+      "value_policy": "record_identifiers_only_source_values_remain_in_local_artifacts"
+    }
+  ],
+  "required_validation_commands": [
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "run_mode": "local_static_rehearsal_source_quality_links",
+  "safety_boundaries": {
+    "authenticated_endpoint_calls_allowed": false,
+    "background_process_allowed": false,
+    "browser_automation_allowed": false,
+    "credential_or_secret_access_allowed": false,
+    "execution_endpoint_calls_allowed": false,
+    "external_service_calls_allowed": false,
+    "llm_provider_calls_allowed": false,
+    "local_static_samples_only": true,
+    "market_api_calls_allowed": false,
+    "market_ranking_allowed": false,
+    "network_calls_allowed": false,
+    "numeric_prediction_metric_allowed": false,
+    "openrouter_calls_allowed": false,
+    "operator_review_required": true,
+    "order_or_trade_surface_changes_allowed": false,
+    "paper_mode_only": true,
+    "polymarket_api_calls_allowed": false,
+    "rehearsal_link_runtime_input_allowed": false,
+    "resident_process_allowed": false,
+    "run_codex_changes_allowed": false,
+    "runtime_or_dispatcher_changes_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "trading_endpoint_calls_allowed": false,
+    "transaction_endpoint_calls_allowed": false,
+    "value_transform_allowed": false,
+    "wallet_or_signing_material_access_allowed": false
+  },
+  "source_quality_artifacts": [
+    {
+      "artifact_id": "unified_source_quality_ledger_sample",
+      "byte_count": 7474,
+      "content_sha256": "7b95524e7c16ec9abec0ea15b8509c3a9c55ce310a8c0fde84abba4f611f74a9",
+      "contract_version": "pmbot_unified_source_quality_ledger.v1",
+      "local_reference": "pm_bot/source_quality/samples/unified_source_quality_ledger.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "present": true,
+      "record_collection": "source_quality_rows",
+      "record_count": 2,
+      "record_ids": [
+        "unified_source_quality_ledger_fixture_001.official_daily_climate_report.source_quality_review",
+        "unified_source_quality_ledger_fixture_001.airport_station_observation_log.source_quality_review"
+      ]
+    },
+    {
+      "artifact_id": "source_quality_report_summary_sample",
+      "byte_count": 3923,
+      "content_sha256": "9863391bbd700c18ee83a119041a64f5d67767b6b2ee30b2621ed4a07fcc7628",
+      "contract_version": "pmbot_source_quality_report_summary.v1",
+      "local_reference": "pm_bot/source_quality/samples/source_quality_report_summary.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "present": true,
+      "record_collection": "report_summary_rows",
+      "record_count": 2,
+      "record_ids": [
+        "unified_source_quality_ledger_fixture_001.official_daily_climate_report.source_quality_review.source_quality_report_summary",
+        "unified_source_quality_ledger_fixture_001.airport_station_observation_log.source_quality_review.source_quality_report_summary"
+      ]
+    },
+    {
+      "artifact_id": "source_quality_regression_fixture_sample",
+      "byte_count": 9706,
+      "content_sha256": "dd2b5fc1a648ccb5347d296576e4576a20137903e18146b4317538ec51361168",
+      "contract_version": "pmbot_source_quality_regression_fixture.v1",
+      "local_reference": "pm_bot/source_quality/samples/source_quality_regression.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "present": true,
+      "record_collection": "regression_fixture_rows",
+      "record_count": 2,
+      "record_ids": [
+        "unified_source_quality_ledger_fixture_001.official_daily_climate_report.source_quality_review",
+        "unified_source_quality_ledger_fixture_001.airport_station_observation_log.source_quality_review"
+      ]
+    },
+    {
+      "artifact_id": "source_evidence_link_map_sample",
+      "byte_count": 16224,
+      "content_sha256": "dd25e3d21b7922cc936f41ecd1f81553f5c8ac185d841a0ab862d3d4eb5e1a1e",
+      "contract_version": "pmbot_source_evidence_link_map.v1",
+      "local_reference": "pm_bot/source_quality/samples/source_evidence_link_map.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "present": true,
+      "record_collection": "source_evidence_links",
+      "record_count": 4,
+      "record_ids": [
+        "source_evidence_link_map_fixture_001.airport_station_observation_log.source_evidence_link",
+        "source_evidence_link_map_fixture_001.official_daily_climate_report.source_evidence_link",
+        "source_evidence_link_map_fixture_001.static_crypto_reference_snapshot_2026_05_09_btc.source_evidence_link",
+        "source_evidence_link_map_fixture_001.unified_source_quality_ledger_sample.source_evidence_link"
+      ]
+    },
+    {
+      "artifact_id": "source_staleness_check_spec_sample",
+      "byte_count": 14427,
+      "content_sha256": "7f3974efcb2eac6e53d9302eb3198a9b9e36946337e36ac57144ed936b94290b",
+      "contract_version": "pmbot_source_staleness_check_spec.v1",
+      "local_reference": "pm_bot/source_quality/samples/source_staleness_check_spec.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "present": true,
+      "record_collection": "source_staleness_checks",
+      "record_count": 4,
+      "record_ids": [
+        "source_staleness_check_spec_fixture_001.airport_station_observation_log.source_staleness_check",
+        "source_staleness_check_spec_fixture_001.official_daily_climate_report.source_staleness_check",
+        "source_staleness_check_spec_fixture_001.static_crypto_reference_snapshot_2026_05_09_btc.source_staleness_check",
+        "source_staleness_check_spec_fixture_001.unified_source_quality_ledger_sample.source_staleness_check"
+      ]
+    },
+    {
+      "artifact_id": "source_contradiction_ledger_sample",
+      "byte_count": 8041,
+      "content_sha256": "2e564cb74c7d48da31a3210d0160359e99c3abf1c48c0053730e8bf30daa5bee",
+      "contract_version": "pmbot_source_contradiction_ledger.v1",
+      "local_reference": "pm_bot/source_quality/samples/source_contradiction_ledger.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "present": true,
+      "record_collection": "source_contradiction_rows",
+      "record_count": 1,
+      "record_ids": [
+        "source_contradiction_ledger_fixture_001.weather_daily_high_temperature_static_compare.source_contradiction_review"
+      ]
+    }
+  ],
+  "summary_counts": {
+    "link_fields": 12,
+    "local_references": 10,
+    "operator_review_steps": 3,
+    "rehearsal_artifacts": 3,
+    "rehearsal_record_links": 18,
+    "rehearsal_source_quality_links": 2,
+    "required_validation_commands": 2,
+    "review_checks": 8,
+    "source_quality_artifacts": 6,
+    "source_quality_record_links": 12,
+    "warnings": 0
+  },
+  "task_id": "PMBOT-REHEARSAL-014-REHEARSAL-SOURCE-QUALITY-LINKS-LOCAL-ONLY",
+  "warnings": []
+}

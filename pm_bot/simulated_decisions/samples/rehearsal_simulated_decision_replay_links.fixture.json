@@ -1,0 +1,504 @@
+{
+  "build_id": "pmbot-rehearsal-simulated-decision-replay-links-001-c5d6695c48b1",
+  "contract_version": "pmbot_rehearsal_simulated_decision_replay_links.v1",
+  "created_at": "2026-05-09T10:30:00Z",
+  "link_fields": [
+    "link_id",
+    "link_state",
+    "link_basis",
+    "rehearsal_artifact_ids",
+    "rehearsal_record_ids",
+    "simulated_decision_artifact_ids",
+    "simulated_decision_record_ids",
+    "replay_record_row_ids",
+    "local_reference_pairs",
+    "value_policy",
+    "operator_review_status",
+    "review_checks"
+  ],
+  "link_set_id": "pmbot-rehearsal-simulated-decision-replay-links-001",
+  "local_only": true,
+  "operator_review": {
+    "reviewed_at": null,
+    "reviewed_by": null,
+    "status": "pending_operator_review"
+  },
+  "operator_review_required": true,
+  "operator_review_steps": [
+    "Confirm each rehearsal artifact reference resolves to the fixed local fixture or document.",
+    "Confirm each simulated decision replay record identifier exists in the named static local sample.",
+    "Confirm linked rows remain descriptive and pending operator review before any later use.",
+    "Confirm validation output is captured before any later readiness status change."
+  ],
+  "rehearsal_artifacts": [
+    {
+      "artifact_id": "rehearsal_validation_replay_packet_fixture",
+      "artifact_role": "rehearsal_validation_replay_packet",
+      "artifact_type": "json_fixture",
+      "byte_count": 16629,
+      "content_sha256": "5e423a4920358c40747bc6a6b4b33dc28da8d84d976c9a1a21ee23e2acda17f6",
+      "contract_version": "pmbot_rehearsal_validation_replay_packet.v1",
+      "local_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_validation_replay_packet.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "present": true,
+      "record_count": 12,
+      "record_ids": [
+        "rehearsal_validation_replay_packet_001.packet_contract_test",
+        "rehearsal_validation_replay_packet_001.packet_document",
+        "rehearsal_validation_replay_packet_001.packet_fixture",
+        "rehearsal_validation_replay_packet_001.queue_template_validation_test",
+        "rehearsal_validation_replay_packet_001.rehearsal_contradiction_fixture",
+        "rehearsal_validation_replay_packet_001.rehearsal_market_packet_fixture",
+        "rehearsal_validation_replay_packet_001.rehearsal_operator_record_fixture",
+        "rehearsal_validation_replay_packet_001.rehearsal_retention_ledger_fixture",
+        "rehearsal_validation_replay_packet_001.rehearsal_scenario_contract_fixture",
+        "rehearsal_validation_replay_packet_001.rehearsal_source_evidence_fixture",
+        "rehearsal_validation_replay_packet_001.rehearsal_staleness_fixture",
+        "rehearsal_validation_replay_packet_001.rehearsal_stop_condition_fixture"
+      ]
+    },
+    {
+      "artifact_id": "rehearsal_ci_safe_validation_runner_fixture",
+      "artifact_role": "rehearsal_ci_safe_validation_runner",
+      "artifact_type": "json_fixture",
+      "byte_count": 17422,
+      "content_sha256": "95de0a9ee63d3fafb8f61728faf944f7d10b841a0b79494f5cb0f59864220c99",
+      "contract_version": "pmbot_rehearsal_ci_safe_validation_runner.v1",
+      "local_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_ci_safe_validation_runner.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "present": true,
+      "record_count": 16,
+      "record_ids": [
+        "rehearsal_ci_safe_validation_runner_001.queue_template_validation_test",
+        "rehearsal_ci_safe_validation_runner_001.rehearsal_contradiction_fixture",
+        "rehearsal_ci_safe_validation_runner_001.rehearsal_market_packet_fixture",
+        "rehearsal_ci_safe_validation_runner_001.rehearsal_operator_record_fixture",
+        "rehearsal_ci_safe_validation_runner_001.rehearsal_retention_ledger_fixture",
+        "rehearsal_ci_safe_validation_runner_001.rehearsal_scenario_contract_fixture",
+        "rehearsal_ci_safe_validation_runner_001.rehearsal_source_evidence_fixture",
+        "rehearsal_ci_safe_validation_runner_001.rehearsal_staleness_fixture",
+        "rehearsal_ci_safe_validation_runner_001.rehearsal_stop_condition_fixture",
+        "rehearsal_ci_safe_validation_runner_001.runner_contract_test",
+        "rehearsal_ci_safe_validation_runner_001.runner_document",
+        "rehearsal_ci_safe_validation_runner_001.runner_fixture",
+        "rehearsal_ci_safe_validation_runner_001.runner_module",
+        "rehearsal_ci_safe_validation_runner_001.validation_replay_packet_contract_test",
+        "rehearsal_ci_safe_validation_runner_001.validation_replay_packet_document",
+        "rehearsal_ci_safe_validation_runner_001.validation_replay_packet_fixture"
+      ]
+    },
+    {
+      "artifact_id": "rehearsal_acceptance_report_document",
+      "artifact_role": "rehearsal_acceptance_report",
+      "artifact_type": "markdown_document",
+      "byte_count": 4313,
+      "content_sha256": "be30bb018a36accea526da01147533540875c86779f17cbe2971679707edddec",
+      "contract_version": "pmbot_rehearsal_acceptance_report.v1",
+      "local_reference": "docs/PMBOT_REHEARSAL_013_REHEARSAL_ACCEPTANCE_REPORT_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "present": true,
+      "record_count": 1,
+      "record_ids": [
+        "PMBOT-REHEARSAL-013-REHEARSAL-ACCEPTANCE-REPORT-LOCAL-ONLY.document"
+      ]
+    },
+    {
+      "artifact_id": "rehearsal_source_quality_links_document",
+      "artifact_role": "rehearsal_source_quality_links",
+      "artifact_type": "markdown_document",
+      "byte_count": 5466,
+      "content_sha256": "7d6522d36f31f4b4704469248126761018a69777a1cf24c4815bedba265be592",
+      "contract_version": "pmbot_rehearsal_source_quality_links.v1",
+      "local_reference": "docs/PMBOT_REHEARSAL_014_REHEARSAL_SOURCE_QUALITY_LINKS_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "present": true,
+      "record_count": 1,
+      "record_ids": [
+        "PMBOT-REHEARSAL-014-REHEARSAL-SOURCE-QUALITY-LINKS-LOCAL-ONLY.document"
+      ]
+    },
+    {
+      "artifact_id": "rehearsal_paperlive_accounting_links_document",
+      "artifact_role": "rehearsal_paperlive_accounting_links",
+      "artifact_type": "markdown_document",
+      "byte_count": 5453,
+      "content_sha256": "a40c597eb3bb9773cdc1b8ae2b57fdf445934d4571254dc665c09d06b866d2db",
+      "contract_version": "pmbot_rehearsal_paperlive_accounting_links.v1",
+      "local_reference": "docs/PMBOT_REHEARSAL_015_REHEARSAL_PAPERLIVE_ACCOUNTING_LINKS_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "present": true,
+      "record_count": 1,
+      "record_ids": [
+        "PMBOT-REHEARSAL-015-REHEARSAL-PAPERLIVE-ACCOUNTING-LINKS-LOCAL-ONLY.document"
+      ]
+    }
+  ],
+  "required_validation_commands": [
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "run_mode": "local_static_rehearsal_simulated_decision_replay_links",
+  "safety_boundaries": {
+    "authenticated_endpoint_calls_allowed": false,
+    "background_process_allowed": false,
+    "browser_automation_allowed": false,
+    "credential_or_secret_access_allowed": false,
+    "execution_endpoint_calls_allowed": false,
+    "external_service_calls_allowed": false,
+    "llm_provider_calls_allowed": false,
+    "local_fixtures_only": true,
+    "local_static_samples_only": true,
+    "market_action_output_allowed": false,
+    "market_api_calls_allowed": false,
+    "market_instruction_allowed": false,
+    "market_ranking_allowed": false,
+    "network_calls_allowed": false,
+    "numeric_prediction_metric_allowed": false,
+    "openrouter_calls_allowed": false,
+    "operator_review_required": true,
+    "order_or_trade_surface_changes_allowed": false,
+    "paper_mode_only": true,
+    "polymarket_api_calls_allowed": false,
+    "replay_mutates_source_artifacts_allowed": false,
+    "run_codex_changes_allowed": false,
+    "runtime_or_dispatcher_changes_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "sensitive_path_access_allowed": false,
+    "timed_automation_allowed": false,
+    "transaction_endpoint_calls_allowed": false,
+    "wallet_or_signing_material_access_allowed": false
+  },
+  "simulated_decision_artifacts": [
+    {
+      "artifact_id": "simulated_decision_packet_sample",
+      "artifact_role": "simulated_decision_packet",
+      "artifact_type": "json_sample",
+      "byte_count": 2679,
+      "content_sha256": "4762252efb0071d12a65fd198281bff51d97e8af4d6ef7818a4df8c55081ae8a",
+      "contract_version": "pmbot_simulated_decision_packet.v1",
+      "local_reference": "pm_bot/simulated_decisions/samples/simulated_decision_packet.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "present": true,
+      "record_count": 2,
+      "record_ids": [
+        "simulated_decision_packet_fixture_001",
+        "source_observation_summary"
+      ]
+    },
+    {
+      "artifact_id": "simulated_decision_audit_ledger_sample",
+      "artifact_role": "simulated_decision_audit_ledger",
+      "artifact_type": "json_sample",
+      "byte_count": 7249,
+      "content_sha256": "114c2cffcd474e11bbc1ddfc8521a96135ae6cdc64280946f43051d2b75b4eed",
+      "contract_version": "pmbot_simulated_decision_audit_ledger.v1",
+      "local_reference": "pm_bot/simulated_decisions/samples/simulated_decision_audit_ledger.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "present": true,
+      "record_count": 5,
+      "record_ids": [
+        "simulated_decision_audit_ledger_fixture_001",
+        "simulated_decision_packet_fixture_001.packet_contract",
+        "simulated_decision_packet_fixture_001.safety_boundaries",
+        "simulated_decision_packet_fixture_001.source_observation_summary",
+        "simulated_decision_packet_fixture_001.summary_counts"
+      ]
+    },
+    {
+      "artifact_id": "simulated_decision_replay_summary_sample",
+      "artifact_role": "simulated_decision_replay_summary",
+      "artifact_type": "json_sample",
+      "byte_count": 7666,
+      "content_sha256": "8c41d4d9daf2cd5c2cebb5d03317a9348cfcd03f6197d4d7553b044556eb9524",
+      "contract_version": "pmbot_simulated_decision_replay_summary.v1",
+      "local_reference": "pm_bot/simulated_decisions/samples/simulated_decision_replay_summary.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "present": true,
+      "record_count": 7,
+      "record_ids": [
+        "ledger_identity_review",
+        "packet_row_review",
+        "safety_boundary_review",
+        "simulated_decision_audit_ledger_fixture_001.simulated_decision_packet_fixture_001.source_observation_summary",
+        "simulated_decision_audit_ledger_fixture_001.simulated_decision_packet_fixture_001.source_packet",
+        "simulated_decision_audit_ledger_fixture_001.source_audit_ledger",
+        "simulated_decision_replay_summary_fixture_001"
+      ]
+    },
+    {
+      "artifact_id": "simulated_decision_outcome_replay_links_sample",
+      "artifact_role": "simulated_decision_outcome_replay_links",
+      "artifact_type": "json_sample",
+      "byte_count": 7349,
+      "content_sha256": "80f292ef5637918ea11802aa48c7aa25a900cc941fc6bc5e4aa411f82cb9306a",
+      "contract_version": "pmbot_simulated_decision_outcome_replay_links.v1",
+      "local_reference": "pm_bot/simulated_decisions/samples/simulated_decision_outcome_replay_links.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "present": true,
+      "record_count": 8,
+      "record_ids": [
+        "link_boundary_review",
+        "outcome_artifact_review",
+        "simulated_decision_outcome_replay_links_fixture_001",
+        "simulated_decision_replay_summary_fixture_001.simulated_decision_packet_fixture_001.source_packet",
+        "simulated_decision_replay_summary_fixture_001.simulated_decision_packet_fixture_001.weather_outcome_reconciliation_request_fixture_001.replay_link",
+        "simulated_decision_replay_summary_fixture_001.source_replay_summary",
+        "source_summary_review",
+        "weather_outcome_reconciliation_request_fixture_001.outcome_artifact"
+      ]
+    }
+  ],
+  "simulated_decision_replay_links": [
+    {
+      "link_basis": "local_rehearsal_validation_records_to_simulated_decision_packet_and_audit_rows",
+      "link_id": "pmbot-rehearsal-simulated-decision-replay-links-001.validation_replay_to_packet_and_audit",
+      "link_state": "descriptive_rehearsal_simulated_decision_replay_link",
+      "local_reference_pairs": [
+        {
+          "rehearsal_artifact_id": "rehearsal_validation_replay_packet_fixture",
+          "rehearsal_local_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_validation_replay_packet.valid.json",
+          "simulated_decision_artifact_id": "simulated_decision_packet_sample",
+          "simulated_decision_local_reference": "pm_bot/simulated_decisions/samples/simulated_decision_packet.fixture.json"
+        },
+        {
+          "rehearsal_artifact_id": "rehearsal_validation_replay_packet_fixture",
+          "rehearsal_local_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_validation_replay_packet.valid.json",
+          "simulated_decision_artifact_id": "simulated_decision_audit_ledger_sample",
+          "simulated_decision_local_reference": "pm_bot/simulated_decisions/samples/simulated_decision_audit_ledger.fixture.json"
+        },
+        {
+          "rehearsal_artifact_id": "rehearsal_ci_safe_validation_runner_fixture",
+          "rehearsal_local_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_ci_safe_validation_runner.valid.json",
+          "simulated_decision_artifact_id": "simulated_decision_packet_sample",
+          "simulated_decision_local_reference": "pm_bot/simulated_decisions/samples/simulated_decision_packet.fixture.json"
+        },
+        {
+          "rehearsal_artifact_id": "rehearsal_ci_safe_validation_runner_fixture",
+          "rehearsal_local_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_ci_safe_validation_runner.valid.json",
+          "simulated_decision_artifact_id": "simulated_decision_audit_ledger_sample",
+          "simulated_decision_local_reference": "pm_bot/simulated_decisions/samples/simulated_decision_audit_ledger.fixture.json"
+        }
+      ],
+      "operator_review_status": "pending_operator_review",
+      "rehearsal_artifact_ids": [
+        "rehearsal_validation_replay_packet_fixture",
+        "rehearsal_ci_safe_validation_runner_fixture"
+      ],
+      "rehearsal_record_ids": {
+        "rehearsal_ci_safe_validation_runner_fixture": [
+          "rehearsal_ci_safe_validation_runner_001.queue_template_validation_test",
+          "rehearsal_ci_safe_validation_runner_001.rehearsal_contradiction_fixture",
+          "rehearsal_ci_safe_validation_runner_001.rehearsal_market_packet_fixture",
+          "rehearsal_ci_safe_validation_runner_001.rehearsal_operator_record_fixture",
+          "rehearsal_ci_safe_validation_runner_001.rehearsal_retention_ledger_fixture",
+          "rehearsal_ci_safe_validation_runner_001.rehearsal_scenario_contract_fixture",
+          "rehearsal_ci_safe_validation_runner_001.rehearsal_source_evidence_fixture",
+          "rehearsal_ci_safe_validation_runner_001.rehearsal_staleness_fixture",
+          "rehearsal_ci_safe_validation_runner_001.rehearsal_stop_condition_fixture",
+          "rehearsal_ci_safe_validation_runner_001.runner_contract_test",
+          "rehearsal_ci_safe_validation_runner_001.runner_document",
+          "rehearsal_ci_safe_validation_runner_001.runner_fixture",
+          "rehearsal_ci_safe_validation_runner_001.runner_module",
+          "rehearsal_ci_safe_validation_runner_001.validation_replay_packet_contract_test",
+          "rehearsal_ci_safe_validation_runner_001.validation_replay_packet_document",
+          "rehearsal_ci_safe_validation_runner_001.validation_replay_packet_fixture"
+        ],
+        "rehearsal_validation_replay_packet_fixture": [
+          "rehearsal_validation_replay_packet_001.packet_contract_test",
+          "rehearsal_validation_replay_packet_001.packet_document",
+          "rehearsal_validation_replay_packet_001.packet_fixture",
+          "rehearsal_validation_replay_packet_001.queue_template_validation_test",
+          "rehearsal_validation_replay_packet_001.rehearsal_contradiction_fixture",
+          "rehearsal_validation_replay_packet_001.rehearsal_market_packet_fixture",
+          "rehearsal_validation_replay_packet_001.rehearsal_operator_record_fixture",
+          "rehearsal_validation_replay_packet_001.rehearsal_retention_ledger_fixture",
+          "rehearsal_validation_replay_packet_001.rehearsal_scenario_contract_fixture",
+          "rehearsal_validation_replay_packet_001.rehearsal_source_evidence_fixture",
+          "rehearsal_validation_replay_packet_001.rehearsal_staleness_fixture",
+          "rehearsal_validation_replay_packet_001.rehearsal_stop_condition_fixture"
+        ]
+      },
+      "replay_record_row_ids": [
+        "simulated_decision_packet_fixture_001.packet_contract",
+        "simulated_decision_packet_fixture_001.summary_counts",
+        "simulated_decision_packet_fixture_001.safety_boundaries",
+        "simulated_decision_packet_fixture_001.source_observation_summary"
+      ],
+      "review_checks": [
+        {
+          "check_id": "pmbot-rehearsal-simulated-decision-replay-links-001.validation_replay_to_packet_and_audit.local_reference_review",
+          "description": "Confirm linked local references resolve under allowed review paths.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "pmbot-rehearsal-simulated-decision-replay-links-001.validation_replay_to_packet_and_audit.record_identity_review",
+          "description": "Confirm rehearsal and simulated decision record identifiers exist in the named local artifacts.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "pmbot-rehearsal-simulated-decision-replay-links-001.validation_replay_to_packet_and_audit.boundary_review",
+          "description": "Confirm the row remains descriptive, local-only, and pending operator review.",
+          "operator_review_status": "pending_operator_review"
+        }
+      ],
+      "simulated_decision_artifact_ids": [
+        "simulated_decision_packet_sample",
+        "simulated_decision_audit_ledger_sample"
+      ],
+      "simulated_decision_record_ids": {
+        "simulated_decision_audit_ledger_sample": [
+          "simulated_decision_audit_ledger_fixture_001",
+          "simulated_decision_packet_fixture_001.packet_contract",
+          "simulated_decision_packet_fixture_001.safety_boundaries",
+          "simulated_decision_packet_fixture_001.source_observation_summary",
+          "simulated_decision_packet_fixture_001.summary_counts"
+        ],
+        "simulated_decision_packet_sample": [
+          "simulated_decision_packet_fixture_001",
+          "source_observation_summary"
+        ]
+      },
+      "value_policy": "record_identifiers_only_values_remain_in_local_artifacts"
+    },
+    {
+      "link_basis": "local_rehearsal_operator_review_artifacts_to_simulated_decision_replay_summary_rows",
+      "link_id": "pmbot-rehearsal-simulated-decision-replay-links-001.operator_review_artifacts_to_replay_summary",
+      "link_state": "descriptive_rehearsal_simulated_decision_replay_link",
+      "local_reference_pairs": [
+        {
+          "rehearsal_artifact_id": "rehearsal_acceptance_report_document",
+          "rehearsal_local_reference": "docs/PMBOT_REHEARSAL_013_REHEARSAL_ACCEPTANCE_REPORT_LOCAL_ONLY.md",
+          "simulated_decision_artifact_id": "simulated_decision_replay_summary_sample",
+          "simulated_decision_local_reference": "pm_bot/simulated_decisions/samples/simulated_decision_replay_summary.fixture.json"
+        },
+        {
+          "rehearsal_artifact_id": "rehearsal_acceptance_report_document",
+          "rehearsal_local_reference": "docs/PMBOT_REHEARSAL_013_REHEARSAL_ACCEPTANCE_REPORT_LOCAL_ONLY.md",
+          "simulated_decision_artifact_id": "simulated_decision_outcome_replay_links_sample",
+          "simulated_decision_local_reference": "pm_bot/simulated_decisions/samples/simulated_decision_outcome_replay_links.fixture.json"
+        },
+        {
+          "rehearsal_artifact_id": "rehearsal_source_quality_links_document",
+          "rehearsal_local_reference": "docs/PMBOT_REHEARSAL_014_REHEARSAL_SOURCE_QUALITY_LINKS_LOCAL_ONLY.md",
+          "simulated_decision_artifact_id": "simulated_decision_replay_summary_sample",
+          "simulated_decision_local_reference": "pm_bot/simulated_decisions/samples/simulated_decision_replay_summary.fixture.json"
+        },
+        {
+          "rehearsal_artifact_id": "rehearsal_source_quality_links_document",
+          "rehearsal_local_reference": "docs/PMBOT_REHEARSAL_014_REHEARSAL_SOURCE_QUALITY_LINKS_LOCAL_ONLY.md",
+          "simulated_decision_artifact_id": "simulated_decision_outcome_replay_links_sample",
+          "simulated_decision_local_reference": "pm_bot/simulated_decisions/samples/simulated_decision_outcome_replay_links.fixture.json"
+        },
+        {
+          "rehearsal_artifact_id": "rehearsal_paperlive_accounting_links_document",
+          "rehearsal_local_reference": "docs/PMBOT_REHEARSAL_015_REHEARSAL_PAPERLIVE_ACCOUNTING_LINKS_LOCAL_ONLY.md",
+          "simulated_decision_artifact_id": "simulated_decision_replay_summary_sample",
+          "simulated_decision_local_reference": "pm_bot/simulated_decisions/samples/simulated_decision_replay_summary.fixture.json"
+        },
+        {
+          "rehearsal_artifact_id": "rehearsal_paperlive_accounting_links_document",
+          "rehearsal_local_reference": "docs/PMBOT_REHEARSAL_015_REHEARSAL_PAPERLIVE_ACCOUNTING_LINKS_LOCAL_ONLY.md",
+          "simulated_decision_artifact_id": "simulated_decision_outcome_replay_links_sample",
+          "simulated_decision_local_reference": "pm_bot/simulated_decisions/samples/simulated_decision_outcome_replay_links.fixture.json"
+        }
+      ],
+      "operator_review_status": "pending_operator_review",
+      "rehearsal_artifact_ids": [
+        "rehearsal_acceptance_report_document",
+        "rehearsal_source_quality_links_document",
+        "rehearsal_paperlive_accounting_links_document"
+      ],
+      "rehearsal_record_ids": {
+        "rehearsal_acceptance_report_document": [
+          "PMBOT-REHEARSAL-013-REHEARSAL-ACCEPTANCE-REPORT-LOCAL-ONLY.document"
+        ],
+        "rehearsal_paperlive_accounting_links_document": [
+          "PMBOT-REHEARSAL-015-REHEARSAL-PAPERLIVE-ACCOUNTING-LINKS-LOCAL-ONLY.document"
+        ],
+        "rehearsal_source_quality_links_document": [
+          "PMBOT-REHEARSAL-014-REHEARSAL-SOURCE-QUALITY-LINKS-LOCAL-ONLY.document"
+        ]
+      },
+      "replay_record_row_ids": [
+        "simulated_decision_audit_ledger_fixture_001.source_audit_ledger",
+        "simulated_decision_audit_ledger_fixture_001.simulated_decision_packet_fixture_001.source_packet",
+        "simulated_decision_replay_summary_fixture_001.simulated_decision_packet_fixture_001.weather_outcome_reconciliation_request_fixture_001.replay_link"
+      ],
+      "review_checks": [
+        {
+          "check_id": "pmbot-rehearsal-simulated-decision-replay-links-001.operator_review_artifacts_to_replay_summary.local_reference_review",
+          "description": "Confirm linked local references resolve under allowed review paths.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "pmbot-rehearsal-simulated-decision-replay-links-001.operator_review_artifacts_to_replay_summary.record_identity_review",
+          "description": "Confirm rehearsal and simulated decision record identifiers exist in the named local artifacts.",
+          "operator_review_status": "pending_operator_review"
+        },
+        {
+          "check_id": "pmbot-rehearsal-simulated-decision-replay-links-001.operator_review_artifacts_to_replay_summary.boundary_review",
+          "description": "Confirm the row remains descriptive, local-only, and pending operator review.",
+          "operator_review_status": "pending_operator_review"
+        }
+      ],
+      "simulated_decision_artifact_ids": [
+        "simulated_decision_replay_summary_sample",
+        "simulated_decision_outcome_replay_links_sample"
+      ],
+      "simulated_decision_record_ids": {
+        "simulated_decision_outcome_replay_links_sample": [
+          "link_boundary_review",
+          "outcome_artifact_review",
+          "simulated_decision_outcome_replay_links_fixture_001",
+          "simulated_decision_replay_summary_fixture_001.simulated_decision_packet_fixture_001.source_packet",
+          "simulated_decision_replay_summary_fixture_001.simulated_decision_packet_fixture_001.weather_outcome_reconciliation_request_fixture_001.replay_link",
+          "simulated_decision_replay_summary_fixture_001.source_replay_summary",
+          "source_summary_review",
+          "weather_outcome_reconciliation_request_fixture_001.outcome_artifact"
+        ],
+        "simulated_decision_replay_summary_sample": [
+          "ledger_identity_review",
+          "packet_row_review",
+          "safety_boundary_review",
+          "simulated_decision_audit_ledger_fixture_001.simulated_decision_packet_fixture_001.source_observation_summary",
+          "simulated_decision_audit_ledger_fixture_001.simulated_decision_packet_fixture_001.source_packet",
+          "simulated_decision_audit_ledger_fixture_001.source_audit_ledger",
+          "simulated_decision_replay_summary_fixture_001"
+        ]
+      },
+      "value_policy": "record_identifiers_only_values_remain_in_local_artifacts"
+    }
+  ],
+  "summary_counts": {
+    "link_fields": 12,
+    "local_references": 11,
+    "operator_review_steps": 4,
+    "rehearsal_artifacts": 5,
+    "rehearsal_record_links": 5,
+    "required_validation_commands": 2,
+    "review_checks": 6,
+    "simulated_decision_artifacts": 4,
+    "simulated_decision_record_links": 22,
+    "simulated_decision_replay_links": 2,
+    "validation_command_records": 2,
+    "warnings": 0
+  },
+  "task_id": "PMBOT-REHEARSAL-016-REHEARSAL-SIMULATED-DECISION-REPLAY-LINKS-LOCAL-ONLY",
+  "validation_command_records": [
+    {
+      "command_label": "python -m compileall pm_bot tests",
+      "local_reference": "pm_bot/tests/test_rehearsal_simulated_decision_replay_links.py",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "rehearsal_simulated_decision_replay_links_001.validation.compileall",
+      "status": "not_run_static_record"
+    },
+    {
+      "command_label": "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "record_id": "rehearsal_simulated_decision_replay_links_001.validation.pytest",
+      "status": "not_run_static_record"
+    }
+  ],
+  "warnings": []
+}

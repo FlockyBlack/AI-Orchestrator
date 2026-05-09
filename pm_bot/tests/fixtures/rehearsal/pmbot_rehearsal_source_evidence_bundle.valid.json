@@ -1,0 +1,411 @@
+{
+  "bundle_id": "pmbot-rehearsal-source-evidence-bundle-001",
+  "bundle_record_fields": [
+    "bundle_record_id",
+    "bundle_record_state",
+    "evidence_reference_policy",
+    "linked_market_packet_id",
+    "local_market_packet_reference",
+    "operator_review_status",
+    "rehearsal_phase",
+    "source_evidence_artifact_ids",
+    "source_evidence_record_ids",
+    "source_value_policy"
+  ],
+  "bundle_records": [
+    {
+      "bundle_record_id": "pmbot-rehearsal-source-evidence-bundle-001.static_local_rehearsal_source_evidence",
+      "bundle_record_state": "source_evidence_bundle_pending_operator_review",
+      "evidence_reference_policy": "local_static_artifact_references_only",
+      "linked_market_packet_id": "rehearsal_market_packet_schema_001.static_local_packet_shape",
+      "local_market_packet_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_market_packet_schema.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "rehearsal_phase": "first_read_only_supervised_live_rehearsal",
+      "source_evidence_artifact_ids": [
+        "source_evidence_inventory_ledger_doc",
+        "source_evidence_inventory_ledger_fixture",
+        "source_evidence_inventory_ledger_report",
+        "source_evidence_link_map_doc",
+        "source_evidence_link_map_fixture",
+        "source_evidence_link_map_report",
+        "source_staleness_check_spec_doc",
+        "source_staleness_check_spec_fixture",
+        "source_staleness_check_spec_report",
+        "source_contradiction_ledger_doc",
+        "source_contradiction_ledger_fixture",
+        "source_contradiction_ledger_report"
+      ],
+      "source_evidence_record_ids": {
+        "contradiction_row_ids": [
+          "source_contradiction_ledger_fixture_001.weather_daily_high_temperature_static_compare.source_contradiction_review"
+        ],
+        "inventory_record_ids": [
+          "source_evidence_inventory_ledger_fixture_001.airport_station_observation_log.source_evidence",
+          "source_evidence_inventory_ledger_fixture_001.official_daily_climate_report.source_evidence",
+          "source_evidence_inventory_ledger_fixture_001.static_crypto_reference_snapshot_2026_05_09_btc.source_evidence",
+          "source_evidence_inventory_ledger_fixture_001.unified_source_quality_ledger_sample.source_evidence"
+        ],
+        "link_map_row_ids": [
+          "source_evidence_link_map_fixture_001.airport_station_observation_log.source_evidence_link",
+          "source_evidence_link_map_fixture_001.official_daily_climate_report.source_evidence_link",
+          "source_evidence_link_map_fixture_001.static_crypto_reference_snapshot_2026_05_09_btc.source_evidence_link",
+          "source_evidence_link_map_fixture_001.unified_source_quality_ledger_sample.source_evidence_link"
+        ],
+        "staleness_check_ids": [
+          "source_staleness_check_spec_fixture_001.airport_station_observation_log.source_staleness_check",
+          "source_staleness_check_spec_fixture_001.official_daily_climate_report.source_staleness_check",
+          "source_staleness_check_spec_fixture_001.static_crypto_reference_snapshot_2026_05_09_btc.source_staleness_check",
+          "source_staleness_check_spec_fixture_001.unified_source_quality_ledger_sample.source_staleness_check"
+        ]
+      },
+      "source_value_policy": "source_values_remain_in_referenced_local_artifacts"
+    }
+  ],
+  "contract_version": "pmbot_rehearsal_source_evidence_bundle.v1",
+  "created_at": "2026-05-09T02:20:00Z",
+  "errors": [],
+  "local_only": true,
+  "operator_review": {
+    "reviewed_at": null,
+    "reviewed_by": null,
+    "status": "pending_operator_review"
+  },
+  "operator_review_checklist": [
+    {
+      "check_id": "local_reference_review",
+      "description": "Confirm every referenced artifact is a local file inside the allowed review paths.",
+      "required_evidence": "Human record confirming local file paths and excluded paths.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "bundle_record_review",
+      "description": "Confirm the bundle record links the static rehearsal market packet to local source evidence artifacts.",
+      "required_evidence": "Human record confirming bundle record coverage.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "source_artifact_digest_review",
+      "description": "Confirm byte counts and SHA-256 digests match current local source evidence artifacts.",
+      "required_evidence": "Human record confirming digest review.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "source_record_identifier_review",
+      "description": "Confirm source evidence record identifiers exist in the referenced local artifacts.",
+      "required_evidence": "Human record confirming source record identifier coverage.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "operator_review_status_review",
+      "description": "Confirm all review states remain pending until a human updates a separate reviewed record.",
+      "required_evidence": "Human record confirming review status.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "source_value_boundary_review",
+      "description": "Confirm source values remain in referenced local artifacts and are not copied into this bundle.",
+      "required_evidence": "Human record confirming source value boundary.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "sensitive_path_exclusion_check",
+      "description": "Confirm credential, wallet, signing, auth, and private material paths remain excluded.",
+      "required_evidence": "Human record confirming sensitive path boundaries.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "runtime_boundary_check",
+      "description": "Confirm runtime, dispatcher, scheduler, worker, browser, resident process, and run_codex boundaries stay closed.",
+      "required_evidence": "Human record confirming no process or wiring changes.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "validation_replay_check",
+      "description": "Confirm local validation commands are run after artifact review.",
+      "required_evidence": "Human record confirming compile and pytest results.",
+      "status": "pending_operator_review"
+    }
+  ],
+  "operator_review_required": true,
+  "required_validation_commands": [
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "review_sections": [
+    {
+      "local_references": [
+        "docs/PMBOT_REHEARSAL_003_REHEARSAL_SOURCE_EVIDENCE_BUNDLE_LOCAL_ONLY.md",
+        "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_source_evidence_bundle.valid.json"
+      ],
+      "operator_review_status": "pending_operator_review",
+      "section_id": "bundle_identity_review",
+      "section_label": "Bundle identity review",
+      "section_role": "local_static_source_evidence_bundle_identity"
+    },
+    {
+      "local_references": [
+        "docs/PMBOT_REHEARSAL_001_READ_ONLY_REHEARSAL_SCENARIO_CONTRACT_LOCAL_ONLY.md",
+        "pm_bot/tests/fixtures/rehearsal/pmbot_read_only_rehearsal_scenario_contract.valid.json",
+        "docs/PMBOT_REHEARSAL_002_REHEARSAL_MARKET_PACKET_SCHEMA_LOCAL_ONLY.md",
+        "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_market_packet_schema.valid.json"
+      ],
+      "operator_review_status": "pending_operator_review",
+      "section_id": "rehearsal_packet_context_review",
+      "section_label": "Rehearsal packet context review",
+      "section_role": "local_static_rehearsal_packet_context"
+    },
+    {
+      "local_references": [
+        "docs/PMBOT_SOURCE_EVIDENCE_001_SOURCE_INVENTORY_LEDGER_LOCAL_ONLY.md",
+        "pm_bot/source_quality/samples/source_evidence_inventory_ledger.fixture.json",
+        "pm_bot/source_quality/samples/source_evidence_inventory_ledger.fixture.md",
+        "docs/PMBOT_SOURCE_EVIDENCE_002_SOURCE_EVIDENCE_LINK_MAP_LOCAL_ONLY.md",
+        "pm_bot/source_quality/samples/source_evidence_link_map.fixture.json",
+        "pm_bot/source_quality/samples/source_evidence_link_map.fixture.md"
+      ],
+      "operator_review_status": "pending_operator_review",
+      "section_id": "source_evidence_link_review",
+      "section_label": "Source evidence link review",
+      "section_role": "local_static_source_evidence_links"
+    },
+    {
+      "local_references": [
+        "docs/PMBOT_SOURCE_EVIDENCE_003_SOURCE_STALENESS_CHECK_SPEC_LOCAL_ONLY.md",
+        "pm_bot/source_quality/samples/source_staleness_check_spec.fixture.json",
+        "pm_bot/source_quality/samples/source_staleness_check_spec.fixture.md",
+        "docs/PMBOT_SOURCE_EVIDENCE_004_SOURCE_CONTRADICTION_LEDGER_LOCAL_ONLY.md",
+        "pm_bot/source_quality/samples/source_contradiction_ledger.fixture.json",
+        "pm_bot/source_quality/samples/source_contradiction_ledger.fixture.md"
+      ],
+      "operator_review_status": "pending_operator_review",
+      "section_id": "source_state_review",
+      "section_label": "Source state review",
+      "section_role": "local_static_source_state_records"
+    },
+    {
+      "local_references": [
+        "pm_bot/tests/test_rehearsal_source_evidence_bundle.py",
+        "pm_bot/tests/test_rehearsal_market_packet_schema.py",
+        "pm_bot/tests/test_read_only_rehearsal_scenario_contract.py",
+        "pm_bot/tests/test_source_evidence_inventory_ledger.py",
+        "pm_bot/tests/test_source_evidence_link_map.py",
+        "tests/test_codex_queue_pmbot_templates.py"
+      ],
+      "operator_review_status": "pending_operator_review",
+      "section_id": "validation_review",
+      "section_label": "Validation review",
+      "section_role": "local_static_validation_reference"
+    }
+  ],
+  "run_mode": "local_static_rehearsal_source_evidence_bundle",
+  "safety_boundaries": {
+    "authenticated_endpoint_calls_allowed": false,
+    "background_process_allowed": false,
+    "browser_automation_allowed": false,
+    "credential_or_secret_access_allowed": false,
+    "descriptive_source_evidence_bundle_only": true,
+    "execution_endpoint_calls_allowed": false,
+    "external_service_calls_allowed": false,
+    "llm_provider_calls_allowed": false,
+    "local_static_samples_only": true,
+    "market_api_calls_allowed": false,
+    "market_ranking_allowed": false,
+    "network_calls_allowed": false,
+    "numeric_prediction_metric_allowed": false,
+    "openrouter_calls_allowed": false,
+    "operator_review_required": true,
+    "order_or_trade_surface_changes_allowed": false,
+    "paper_mode_only": true,
+    "polymarket_api_calls_allowed": false,
+    "resident_process_allowed": false,
+    "run_codex_changes_allowed": false,
+    "runtime_or_dispatcher_changes_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "trading_endpoint_calls_allowed": false,
+    "transaction_endpoint_calls_allowed": false,
+    "wallet_or_signing_material_access_allowed": false
+  },
+  "source_bundle_rules": [
+    {
+      "rule_id": "local_static_inputs_only",
+      "rule_text": "Use only local files, local fixtures, and static samples named in this bundle.",
+      "status": "active"
+    },
+    {
+      "rule_id": "descriptive_evidence_only",
+      "rule_text": "Keep bundle fields to local references, digests, record identifiers, and pending human review state.",
+      "status": "active"
+    },
+    {
+      "rule_id": "operator_review_status_preserved",
+      "rule_text": "Leave all operator review states pending until a human updates a separate reviewed record.",
+      "status": "active"
+    },
+    {
+      "rule_id": "source_value_boundary",
+      "rule_text": "Keep source values in referenced local artifacts and out of the bundle record.",
+      "status": "active"
+    },
+    {
+      "rule_id": "closed_endpoint_boundary",
+      "rule_text": "Exclude network, OpenRouter, Polymarket, authenticated, transaction, wallet, key, order, and trading endpoint activity.",
+      "status": "active"
+    },
+    {
+      "rule_id": "closed_process_boundary",
+      "rule_text": "Exclude runtime dispatch, dispatcher wiring, run_codex wiring, browser automation, schedulers, workers, and resident processes.",
+      "status": "active"
+    }
+  ],
+  "source_evidence_artifacts": [
+    {
+      "artifact_id": "source_evidence_inventory_ledger_doc",
+      "artifact_role": "source_inventory_documentation",
+      "artifact_type": "documentation",
+      "byte_count": 3915,
+      "content_sha256": "827942409dc8b4a98310a7004a9a885ca31a167a0f15cf7202c5f6aef15d61e4",
+      "contract_version": "pmbot_source_evidence_inventory_ledger.v1",
+      "local_reference": "docs/PMBOT_SOURCE_EVIDENCE_001_SOURCE_INVENTORY_LEDGER_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "source_group": "source_evidence_inventory"
+    },
+    {
+      "artifact_id": "source_evidence_inventory_ledger_fixture",
+      "artifact_role": "source_inventory_fixture",
+      "artifact_type": "fixture",
+      "byte_count": 17354,
+      "content_sha256": "76b25429ffe1fc90afdb85532217c89b13fb57bd29228001868b737876626123",
+      "contract_version": "pmbot_source_evidence_inventory_ledger.v1",
+      "local_reference": "pm_bot/source_quality/samples/source_evidence_inventory_ledger.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "source_group": "source_evidence_inventory"
+    },
+    {
+      "artifact_id": "source_evidence_inventory_ledger_report",
+      "artifact_role": "source_inventory_operator_report",
+      "artifact_type": "operator_report",
+      "byte_count": 2724,
+      "content_sha256": "331f74ed7df8f5a231b39034476b86c402bc2c75ca81f4108531b19e5f58f67c",
+      "contract_version": "pmbot_source_evidence_inventory_ledger.v1",
+      "local_reference": "pm_bot/source_quality/samples/source_evidence_inventory_ledger.fixture.md",
+      "operator_review_status": "pending_operator_review",
+      "source_group": "source_evidence_inventory"
+    },
+    {
+      "artifact_id": "source_evidence_link_map_doc",
+      "artifact_role": "source_link_map_documentation",
+      "artifact_type": "documentation",
+      "byte_count": 4066,
+      "content_sha256": "287ca4001236844b1768c01ff8c3f18ff3c9508395b974814c239b2c7cf14cfa",
+      "contract_version": "pmbot_source_evidence_link_map.v1",
+      "local_reference": "docs/PMBOT_SOURCE_EVIDENCE_002_SOURCE_EVIDENCE_LINK_MAP_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "source_group": "source_evidence_link_map"
+    },
+    {
+      "artifact_id": "source_evidence_link_map_fixture",
+      "artifact_role": "source_link_map_fixture",
+      "artifact_type": "fixture",
+      "byte_count": 16224,
+      "content_sha256": "dd25e3d21b7922cc936f41ecd1f81553f5c8ac185d841a0ab862d3d4eb5e1a1e",
+      "contract_version": "pmbot_source_evidence_link_map.v1",
+      "local_reference": "pm_bot/source_quality/samples/source_evidence_link_map.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "source_group": "source_evidence_link_map"
+    },
+    {
+      "artifact_id": "source_evidence_link_map_report",
+      "artifact_role": "source_link_map_operator_report",
+      "artifact_type": "operator_report",
+      "byte_count": 3807,
+      "content_sha256": "3393bceeef15f73206b8435287107c359632aef7f763bb59c91bd350b141a254",
+      "contract_version": "pmbot_source_evidence_link_map.v1",
+      "local_reference": "pm_bot/source_quality/samples/source_evidence_link_map.fixture.md",
+      "operator_review_status": "pending_operator_review",
+      "source_group": "source_evidence_link_map"
+    },
+    {
+      "artifact_id": "source_staleness_check_spec_doc",
+      "artifact_role": "source_staleness_documentation",
+      "artifact_type": "documentation",
+      "byte_count": 4131,
+      "content_sha256": "098d1365ffc73192107d69283a02b58c82d0735cb0edfce3de961de51232c8e0",
+      "contract_version": "pmbot_source_staleness_check_spec.v1",
+      "local_reference": "docs/PMBOT_SOURCE_EVIDENCE_003_SOURCE_STALENESS_CHECK_SPEC_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "source_group": "source_staleness_check_spec"
+    },
+    {
+      "artifact_id": "source_staleness_check_spec_fixture",
+      "artifact_role": "source_staleness_fixture",
+      "artifact_type": "fixture",
+      "byte_count": 14427,
+      "content_sha256": "7f3974efcb2eac6e53d9302eb3198a9b9e36946337e36ac57144ed936b94290b",
+      "contract_version": "pmbot_source_staleness_check_spec.v1",
+      "local_reference": "pm_bot/source_quality/samples/source_staleness_check_spec.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "source_group": "source_staleness_check_spec"
+    },
+    {
+      "artifact_id": "source_staleness_check_spec_report",
+      "artifact_role": "source_staleness_operator_report",
+      "artifact_type": "operator_report",
+      "byte_count": 3401,
+      "content_sha256": "5c6f9086a3121ae0916cb17526c5cede860775520f685087c492253ce44b87d9",
+      "contract_version": "pmbot_source_staleness_check_spec.v1",
+      "local_reference": "pm_bot/source_quality/samples/source_staleness_check_spec.fixture.md",
+      "operator_review_status": "pending_operator_review",
+      "source_group": "source_staleness_check_spec"
+    },
+    {
+      "artifact_id": "source_contradiction_ledger_doc",
+      "artifact_role": "source_contradiction_documentation",
+      "artifact_type": "documentation",
+      "byte_count": 3923,
+      "content_sha256": "f7c2f5110873ffe5d428efe59cb7abba31bd61eaaa3a56c781a9f02af7da8991",
+      "contract_version": "pmbot_source_contradiction_ledger.v1",
+      "local_reference": "docs/PMBOT_SOURCE_EVIDENCE_004_SOURCE_CONTRADICTION_LEDGER_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "source_group": "source_contradiction_ledger"
+    },
+    {
+      "artifact_id": "source_contradiction_ledger_fixture",
+      "artifact_role": "source_contradiction_fixture",
+      "artifact_type": "fixture",
+      "byte_count": 8041,
+      "content_sha256": "2e564cb74c7d48da31a3210d0160359e99c3abf1c48c0053730e8bf30daa5bee",
+      "contract_version": "pmbot_source_contradiction_ledger.v1",
+      "local_reference": "pm_bot/source_quality/samples/source_contradiction_ledger.fixture.json",
+      "operator_review_status": "pending_operator_review",
+      "source_group": "source_contradiction_ledger"
+    },
+    {
+      "artifact_id": "source_contradiction_ledger_report",
+      "artifact_role": "source_contradiction_operator_report",
+      "artifact_type": "operator_report",
+      "byte_count": 1969,
+      "content_sha256": "e83d0e9bf1d316fa81f3c3f98d9eef793f89d54c9898c507ad74d519f0868543",
+      "contract_version": "pmbot_source_contradiction_ledger.v1",
+      "local_reference": "pm_bot/source_quality/samples/source_contradiction_ledger.fixture.md",
+      "operator_review_status": "pending_operator_review",
+      "source_group": "source_contradiction_ledger"
+    }
+  ],
+  "summary_counts": {
+    "bundle_record_fields": 10,
+    "bundle_records": 1,
+    "local_references": 24,
+    "operator_review_checklist_items": 9,
+    "required_validation_commands": 2,
+    "review_sections": 5,
+    "source_bundle_rules": 6,
+    "source_contradiction_rows": 1,
+    "source_evidence_artifacts": 12,
+    "source_evidence_link_rows": 4,
+    "source_inventory_records": 4,
+    "source_staleness_checks": 4,
+    "warnings": 0
+  },
+  "task_id": "PMBOT-REHEARSAL-003-REHEARSAL-SOURCE-EVIDENCE-BUNDLE-LOCAL-ONLY",
+  "warnings": []
+}

@@ -1,0 +1,249 @@
+{
+  "allowed_path_prefixes": [
+    "docs/",
+    "pm_bot/tests/",
+    "tests/"
+  ],
+  "contract_version": "pmbot_rehearsal_forbidden_action_scan.v1",
+  "created_at": "2026-05-09T11:00:00Z",
+  "errors": [],
+  "excluded_path_prefixes": [
+    ".env",
+    ".env.*",
+    ".git/",
+    ".codex/",
+    "runtime/",
+    "dispatcher/",
+    "run_codex/",
+    "pm_bot/llm/",
+    "pm_bot/wallet/",
+    "pm_bot/trading/",
+    "pm_bot/orders/",
+    "agent_tasks/running/"
+  ],
+  "forbidden_action_scan_id": "pmbot-rehearsal-forbidden-action-scan-001",
+  "local_only": true,
+  "operator_review": {
+    "reviewed_at": null,
+    "reviewed_by": null,
+    "status": "pending_operator_review"
+  },
+  "operator_review_required": true,
+  "required_validation_commands": [
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "run_mode": "local_static_rehearsal_forbidden_action_scan",
+  "safety_boundaries": {
+    "authenticated_endpoint_calls_allowed": false,
+    "background_process_allowed": false,
+    "browser_automation_allowed": false,
+    "credential_or_secret_access_allowed": false,
+    "execution_endpoint_calls_allowed": false,
+    "external_service_calls_allowed": false,
+    "llm_provider_calls_allowed": false,
+    "local_static_samples_only": true,
+    "market_api_calls_allowed": false,
+    "network_calls_allowed": false,
+    "openrouter_calls_allowed": false,
+    "operator_review_required": true,
+    "order_or_trade_surface_changes_allowed": false,
+    "paper_mode_only": true,
+    "polymarket_api_calls_allowed": false,
+    "runtime_or_dispatcher_changes_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "sensitive_path_access_allowed": false,
+    "transaction_endpoint_calls_allowed": false,
+    "wallet_or_signing_material_access_allowed": false
+  },
+  "scan_inputs": [
+    {
+      "input_id": "queue_template_rehearsal_task_contract",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "observed_state": "rehearsal_task_template_safety_rows_present",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "input_id": "prior_rehearsal_simulated_decision_links_document",
+      "local_reference": "docs/PMBOT_REHEARSAL_016_REHEARSAL_SIMULATED_DECISION_REPLAY_LINKS_LOCAL_ONLY.md",
+      "observed_state": "prior_rehearsal_link_document_available",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "input_id": "baseline_forbidden_action_scan_document",
+      "local_reference": "docs/PMBOT_SAFETY_003_FORBIDDEN_ACTION_SCAN_LOCAL_ONLY.md",
+      "observed_state": "baseline_forbidden_action_scan_document_available",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "input_id": "baseline_forbidden_action_scan_fixture",
+      "local_reference": "pm_bot/tests/fixtures/safety/forbidden_action_scan.valid.json",
+      "observed_state": "baseline_forbidden_action_scan_fixture_available",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "input_id": "rehearsal_validation_replay_packet_fixture",
+      "local_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_validation_replay_packet.valid.json",
+      "observed_state": "rehearsal_validation_replay_packet_available",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "input_id": "rehearsal_ci_safe_validation_runner_fixture",
+      "local_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_ci_safe_validation_runner.valid.json",
+      "observed_state": "rehearsal_ci_safe_validation_runner_available",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "input_id": "rehearsal_forbidden_action_scan_fixture",
+      "local_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_forbidden_action_scan.valid.json",
+      "observed_state": "rehearsal_forbidden_action_scan_fixture_available",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "input_id": "rehearsal_forbidden_action_scan_contract_test",
+      "local_reference": "pm_bot/tests/test_rehearsal_forbidden_action_scan.py",
+      "observed_state": "rehearsal_forbidden_action_scan_contract_test_available",
+      "operator_review_status": "pending_operator_review"
+    }
+  ],
+  "scan_rows": [
+    {
+      "category": "local_material_boundary",
+      "forbidden_action_id": "local_material_boundary_closed",
+      "inspection_label": "Confirm only allowed local references are listed for this rehearsal scan.",
+      "local_reference": "docs/PMBOT_REHEARSAL_016_REHEARSAL_SIMULATED_DECISION_REPLAY_LINKS_LOCAL_ONLY.md",
+      "observed_state": "only_allowed_local_references_listed",
+      "operator_review_status": "pending_operator_review",
+      "required_state": "closed"
+    },
+    {
+      "category": "network_boundary",
+      "forbidden_action_id": "network_boundary_closed",
+      "inspection_label": "Confirm network calls remain outside this rehearsal scan.",
+      "local_reference": "docs/PMBOT_SAFETY_003_FORBIDDEN_ACTION_SCAN_LOCAL_ONLY.md",
+      "observed_state": "network_calls_not_used",
+      "operator_review_status": "pending_operator_review",
+      "required_state": "closed"
+    },
+    {
+      "category": "openrouter_boundary",
+      "forbidden_action_id": "openrouter_boundary_closed",
+      "inspection_label": "Confirm OpenRouter calls remain outside this rehearsal scan.",
+      "local_reference": "docs/PMBOT_SAFETY_003_FORBIDDEN_ACTION_SCAN_LOCAL_ONLY.md",
+      "observed_state": "openrouter_calls_not_used",
+      "operator_review_status": "pending_operator_review",
+      "required_state": "closed"
+    },
+    {
+      "category": "polymarket_api_boundary",
+      "forbidden_action_id": "polymarket_api_boundary_closed",
+      "inspection_label": "Confirm Polymarket API calls remain outside this rehearsal scan.",
+      "local_reference": "docs/PMBOT_SAFETY_003_FORBIDDEN_ACTION_SCAN_LOCAL_ONLY.md",
+      "observed_state": "polymarket_api_calls_not_used",
+      "operator_review_status": "pending_operator_review",
+      "required_state": "closed"
+    },
+    {
+      "category": "authenticated_endpoint_boundary",
+      "forbidden_action_id": "authenticated_endpoint_boundary_closed",
+      "inspection_label": "Confirm authenticated endpoints remain outside this rehearsal scan.",
+      "local_reference": "docs/PMBOT_SAFETY_003_FORBIDDEN_ACTION_SCAN_LOCAL_ONLY.md",
+      "observed_state": "authenticated_endpoints_not_used",
+      "operator_review_status": "pending_operator_review",
+      "required_state": "closed"
+    },
+    {
+      "category": "credential_and_secret_boundary",
+      "forbidden_action_id": "credential_and_secret_boundary_closed",
+      "inspection_label": "Confirm credential and secret material remain outside this rehearsal scan.",
+      "local_reference": "docs/PMBOT_SAFETY_004_SENSITIVE_PATH_EXCLUSION_AUDIT_LOCAL_ONLY.md",
+      "observed_state": "credential_and_secret_material_not_used",
+      "operator_review_status": "pending_operator_review",
+      "required_state": "closed"
+    },
+    {
+      "category": "wallet_and_signing_boundary",
+      "forbidden_action_id": "wallet_and_signing_boundary_closed",
+      "inspection_label": "Confirm wallet and signing material remain outside this rehearsal scan.",
+      "local_reference": "docs/PMBOT_SAFETY_004_SENSITIVE_PATH_EXCLUSION_AUDIT_LOCAL_ONLY.md",
+      "observed_state": "wallet_and_signing_material_not_used",
+      "operator_review_status": "pending_operator_review",
+      "required_state": "closed"
+    },
+    {
+      "category": "order_and_trading_boundary",
+      "forbidden_action_id": "order_and_trading_boundary_closed",
+      "inspection_label": "Confirm order and trading surfaces remain outside this rehearsal scan.",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "observed_state": "order_and_trading_surfaces_not_used",
+      "operator_review_status": "pending_operator_review",
+      "required_state": "closed"
+    },
+    {
+      "category": "runtime_dispatcher_run_codex_boundary",
+      "forbidden_action_id": "runtime_dispatcher_run_codex_boundary_closed",
+      "inspection_label": "Confirm runtime dispatcher and run_codex wiring remain outside this rehearsal scan.",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "observed_state": "runtime_dispatcher_and_run_codex_wiring_not_changed",
+      "operator_review_status": "pending_operator_review",
+      "required_state": "closed"
+    },
+    {
+      "category": "scheduler_worker_browser_boundary",
+      "forbidden_action_id": "scheduler_worker_browser_boundary_closed",
+      "inspection_label": "Confirm scheduler worker and browser automation remain outside this rehearsal scan.",
+      "local_reference": "docs/PMBOT_SAFETY_002_NIGHT_BATCH_POSTRUN_AUDIT_SUMMARY_LOCAL_ONLY.md",
+      "observed_state": "scheduler_worker_and_browser_automation_not_used",
+      "operator_review_status": "pending_operator_review",
+      "required_state": "closed"
+    },
+    {
+      "category": "descriptive_output_boundary",
+      "forbidden_action_id": "descriptive_output_boundary_closed",
+      "inspection_label": "Confirm output remains a static record for human review.",
+      "local_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_forbidden_action_scan.valid.json",
+      "observed_state": "output_is_static_record_for_human_review",
+      "operator_review_status": "pending_operator_review",
+      "required_state": "closed"
+    },
+    {
+      "category": "human_review_boundary",
+      "forbidden_action_id": "human_review_boundary_pending",
+      "inspection_label": "Confirm status remains pending until a human review record exists.",
+      "local_reference": "docs/PMBOT_REHEARSAL_017_REHEARSAL_FORBIDDEN_ACTION_SCAN_LOCAL_ONLY.md",
+      "observed_state": "status_pending_until_human_review_record_exists",
+      "operator_review_status": "pending_operator_review",
+      "required_state": "pending_operator_review"
+    }
+  ],
+  "summary_counts": {
+    "allowed_path_prefixes": 3,
+    "errors": 0,
+    "excluded_path_prefixes": 12,
+    "local_references": 11,
+    "required_validation_commands": 2,
+    "scan_inputs": 8,
+    "scan_rows": 12,
+    "scan_rows_pending_operator_review": 12,
+    "validation_command_records": 2,
+    "warnings": 0
+  },
+  "task_id": "PMBOT-REHEARSAL-017-REHEARSAL-FORBIDDEN-ACTION-SCAN-LOCAL-ONLY",
+  "validation_command_records": [
+    {
+      "command_label": "python -m compileall pm_bot tests",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "status": "not_run_static_record",
+      "validation_id": "compileall.pm_bot.tests"
+    },
+    {
+      "command_label": "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "status": "not_run_static_record",
+      "validation_id": "pytest.pm_bot_tests.queue_templates"
+    }
+  ],
+  "warnings": []
+}

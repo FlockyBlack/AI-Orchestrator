@@ -1,0 +1,365 @@
+{
+  "approval_record_fields": [
+    "approval_record_id",
+    "approval_record_state",
+    "approval_state",
+    "control_boundary",
+    "evidence_required",
+    "local_reference",
+    "operator_review_status",
+    "required_prior_state",
+    "transition_state"
+  ],
+  "approval_record_id": "pmbot-rehearsal-operator-approval-record-001",
+  "approval_records": [
+    {
+      "approval_record_id": "rehearsal_scenario_contract_review",
+      "approval_record_state": "control_record_pending_operator_review",
+      "approval_state": "not_approved",
+      "control_boundary": "local_static_record_only",
+      "evidence_required": "Human record confirming the read-only rehearsal scenario contract was reviewed.",
+      "local_reference": "docs/PMBOT_REHEARSAL_001_READ_ONLY_REHEARSAL_SCENARIO_CONTRACT_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "required_prior_state": "pending_operator_review",
+      "transition_state": "blocked_until_record_complete"
+    },
+    {
+      "approval_record_id": "rehearsal_market_packet_schema_review",
+      "approval_record_state": "control_record_pending_operator_review",
+      "approval_state": "not_approved",
+      "control_boundary": "local_static_schema_only",
+      "evidence_required": "Human record confirming the rehearsal market packet schema was reviewed.",
+      "local_reference": "docs/PMBOT_REHEARSAL_002_REHEARSAL_MARKET_PACKET_SCHEMA_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "required_prior_state": "pending_operator_review",
+      "transition_state": "blocked_until_record_complete"
+    },
+    {
+      "approval_record_id": "rehearsal_source_evidence_bundle_review",
+      "approval_record_state": "control_record_pending_operator_review",
+      "approval_state": "not_approved",
+      "control_boundary": "local_static_evidence_bundle_only",
+      "evidence_required": "Human record confirming the rehearsal source evidence bundle was reviewed.",
+      "local_reference": "docs/PMBOT_REHEARSAL_003_REHEARSAL_SOURCE_EVIDENCE_BUNDLE_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "required_prior_state": "pending_operator_review",
+      "transition_state": "blocked_until_record_complete"
+    },
+    {
+      "approval_record_id": "local_validation_review",
+      "approval_record_state": "control_record_pending_operator_review",
+      "approval_state": "not_approved",
+      "control_boundary": "local_validation_reference_only",
+      "evidence_required": "Human record confirming local validation command output was reviewed.",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "operator_review_status": "pending_operator_review",
+      "required_prior_state": "pending_operator_review",
+      "transition_state": "blocked_until_record_complete"
+    },
+    {
+      "approval_record_id": "safety_boundary_review",
+      "approval_record_state": "control_record_pending_operator_review",
+      "approval_state": "not_approved",
+      "control_boundary": "local_safety_reference_only",
+      "evidence_required": "Human record confirming closed safety boundaries were reviewed.",
+      "local_reference": "docs/PMBOT_SAFETY_003_FORBIDDEN_ACTION_SCAN_LOCAL_ONLY.md",
+      "operator_review_status": "pending_operator_review",
+      "required_prior_state": "pending_operator_review",
+      "transition_state": "blocked_until_record_complete"
+    },
+    {
+      "approval_record_id": "human_approval_record_completion",
+      "approval_record_state": "control_record_pending_operator_review",
+      "approval_state": "not_approved",
+      "control_boundary": "separate_human_review_required",
+      "evidence_required": "Human record confirming this approval record remains ready for review.",
+      "local_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_operator_approval_record.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "required_prior_state": "pending_operator_review",
+      "transition_state": "blocked_until_record_complete"
+    }
+  ],
+  "contract_id": "pmbot-rehearsal-operator-approval-record",
+  "contract_version": "pmbot_rehearsal_operator_approval_record.v1",
+  "created_at": "2026-05-09T02:30:00Z",
+  "errors": [],
+  "gate_result": "blocked_until_operator_record_complete",
+  "local_only": true,
+  "operator_review": {
+    "reviewed_at": null,
+    "reviewed_by": null,
+    "status": "pending_operator_review"
+  },
+  "operator_review_checklist": [
+    {
+      "check_id": "local_reference_review",
+      "description": "Confirm every referenced artifact is a local file inside the allowed review paths.",
+      "required_evidence": "Human record confirming local file paths and excluded paths.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "prior_rehearsal_artifact_review",
+      "description": "Confirm prior rehearsal artifacts are present and remain pending human review.",
+      "required_evidence": "Human record confirming prior artifact coverage.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "approval_record_row_review",
+      "description": "Confirm each approval record row keeps not_approved state and blocked transition state.",
+      "required_evidence": "Human record confirming row state.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "operator_review_status_review",
+      "description": "Confirm every row preserves pending operator review status.",
+      "required_evidence": "Human record confirming review status.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "validation_command_review",
+      "description": "Confirm required local validation commands are listed for human-run checks.",
+      "required_evidence": "Human record confirming validation command list.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "sensitive_path_exclusion_check",
+      "description": "Confirm credential, wallet, signing, auth, and private material paths remain excluded.",
+      "required_evidence": "Human record confirming sensitive path boundaries.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "runtime_boundary_check",
+      "description": "Confirm runtime, dispatcher, scheduler, worker, browser, resident process, and run_codex boundaries stay closed.",
+      "required_evidence": "Human record confirming no process or wiring changes.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "endpoint_boundary_check",
+      "description": "Confirm network, provider, market, auth, transaction, order, and trade endpoint activity remains excluded.",
+      "required_evidence": "Human record confirming endpoint boundaries.",
+      "status": "pending_operator_review"
+    },
+    {
+      "check_id": "output_boundary_check",
+      "description": "Confirm output remains descriptive control record metadata only.",
+      "required_evidence": "Human record confirming output boundary.",
+      "status": "pending_operator_review"
+    }
+  ],
+  "operator_review_required": true,
+  "record_rules": [
+    {
+      "rule_id": "local_static_inputs_only",
+      "rule_text": "Use only local files, local fixtures, and static samples named in this record.",
+      "status": "active"
+    },
+    {
+      "rule_id": "descriptive_control_only",
+      "rule_text": "Keep record fields to local references, review states, control boundaries, and human review requirements.",
+      "status": "active"
+    },
+    {
+      "rule_id": "operator_review_status_preserved",
+      "rule_text": "Leave all operator review states pending until a human updates a separate reviewed record.",
+      "status": "active"
+    },
+    {
+      "rule_id": "no_implicit_approval",
+      "rule_text": "Keep every approval row not_approved and every transition row blocked_until_record_complete.",
+      "status": "active"
+    },
+    {
+      "rule_id": "closed_endpoint_boundary",
+      "rule_text": "Exclude network, OpenRouter, Polymarket, authenticated, transaction, wallet, key, order, and trading endpoint activity.",
+      "status": "active"
+    },
+    {
+      "rule_id": "closed_process_boundary",
+      "rule_text": "Exclude runtime dispatch, dispatcher wiring, run_codex wiring, browser automation, schedulers, workers, and resident processes.",
+      "status": "active"
+    }
+  ],
+  "required_validation_commands": [
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "review_sections": [
+    {
+      "local_references": [
+        "docs/PMBOT_REHEARSAL_004_REHEARSAL_OPERATOR_APPROVAL_RECORD_LOCAL_ONLY.md",
+        "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_operator_approval_record.valid.json"
+      ],
+      "operator_review_status": "pending_operator_review",
+      "section_id": "record_identity_review",
+      "section_label": "Record identity review",
+      "section_role": "local_static_operator_approval_record_identity"
+    },
+    {
+      "local_references": [
+        "docs/PMBOT_REHEARSAL_001_READ_ONLY_REHEARSAL_SCENARIO_CONTRACT_LOCAL_ONLY.md",
+        "pm_bot/tests/fixtures/rehearsal/pmbot_read_only_rehearsal_scenario_contract.valid.json",
+        "docs/PMBOT_REHEARSAL_002_REHEARSAL_MARKET_PACKET_SCHEMA_LOCAL_ONLY.md",
+        "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_market_packet_schema.valid.json",
+        "docs/PMBOT_REHEARSAL_003_REHEARSAL_SOURCE_EVIDENCE_BUNDLE_LOCAL_ONLY.md",
+        "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_source_evidence_bundle.valid.json"
+      ],
+      "operator_review_status": "pending_operator_review",
+      "section_id": "prior_rehearsal_artifacts_review",
+      "section_label": "Prior rehearsal artifacts review",
+      "section_role": "local_static_prior_rehearsal_context"
+    },
+    {
+      "local_references": [
+        "docs/PMBOT_SAFETY_003_FORBIDDEN_ACTION_SCAN_LOCAL_ONLY.md",
+        "docs/PMBOT_SAFETY_005_FORBIDDEN_LANGUAGE_REGRESSION_SUITE_LOCAL_ONLY.md"
+      ],
+      "operator_review_status": "pending_operator_review",
+      "section_id": "safety_boundary_review",
+      "section_label": "Safety boundary review",
+      "section_role": "local_static_safety_reference"
+    },
+    {
+      "local_references": [
+        "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_operator_approval_record.valid.json",
+        "tests/test_codex_queue_pmbot_templates.py"
+      ],
+      "operator_review_status": "pending_operator_review",
+      "section_id": "operator_control_review",
+      "section_label": "Operator control review",
+      "section_role": "local_static_control_record_review"
+    },
+    {
+      "local_references": [
+        "pm_bot/tests/test_rehearsal_operator_approval_record.py",
+        "pm_bot/tests/test_rehearsal_source_evidence_bundle.py",
+        "pm_bot/tests/test_rehearsal_market_packet_schema.py",
+        "pm_bot/tests/test_read_only_rehearsal_scenario_contract.py",
+        "tests/test_codex_queue_pmbot_templates.py"
+      ],
+      "operator_review_status": "pending_operator_review",
+      "section_id": "validation_review",
+      "section_label": "Validation review",
+      "section_role": "local_static_validation_reference"
+    }
+  ],
+  "run_mode": "local_static_rehearsal_operator_approval_record",
+  "safety_boundaries": {
+    "authenticated_endpoint_calls_allowed": false,
+    "background_process_allowed": false,
+    "browser_automation_allowed": false,
+    "credential_or_secret_access_allowed": false,
+    "descriptive_rehearsal_operator_record_only": true,
+    "execution_endpoint_calls_allowed": false,
+    "external_service_calls_allowed": false,
+    "live_data_refresh_allowed": false,
+    "llm_provider_calls_allowed": false,
+    "local_static_samples_only": true,
+    "market_api_calls_allowed": false,
+    "market_ranking_allowed": false,
+    "network_calls_allowed": false,
+    "numeric_prediction_metric_allowed": false,
+    "openrouter_calls_allowed": false,
+    "operator_record_status_change_allowed": false,
+    "operator_review_required": true,
+    "order_or_trade_surface_changes_allowed": false,
+    "paper_mode_only": true,
+    "polymarket_api_calls_allowed": false,
+    "resident_process_allowed": false,
+    "run_codex_changes_allowed": false,
+    "runtime_or_dispatcher_changes_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "supervised_live_transition_allowed": false,
+    "trading_endpoint_calls_allowed": false,
+    "transaction_endpoint_calls_allowed": false,
+    "transition_without_record_allowed": false,
+    "wallet_or_signing_material_access_allowed": false
+  },
+  "source_artifacts": [
+    {
+      "artifact_id": "rehearsal_001_scenario_contract_doc",
+      "contract_version": "pmbot_read_only_rehearsal_scenario_contract.v1",
+      "local_reference": "docs/PMBOT_REHEARSAL_001_READ_ONLY_REHEARSAL_SCENARIO_CONTRACT_LOCAL_ONLY.md",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "rehearsal_001_scenario_contract_fixture",
+      "contract_version": "pmbot_read_only_rehearsal_scenario_contract.v1",
+      "local_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_read_only_rehearsal_scenario_contract.valid.json",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "rehearsal_002_market_packet_schema_doc",
+      "contract_version": "pmbot_rehearsal_market_packet_schema.v1",
+      "local_reference": "docs/PMBOT_REHEARSAL_002_REHEARSAL_MARKET_PACKET_SCHEMA_LOCAL_ONLY.md",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "rehearsal_002_market_packet_schema_fixture",
+      "contract_version": "pmbot_rehearsal_market_packet_schema.v1",
+      "local_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_market_packet_schema.valid.json",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "rehearsal_003_source_evidence_bundle_doc",
+      "contract_version": "pmbot_rehearsal_source_evidence_bundle.v1",
+      "local_reference": "docs/PMBOT_REHEARSAL_003_REHEARSAL_SOURCE_EVIDENCE_BUNDLE_LOCAL_ONLY.md",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "rehearsal_003_source_evidence_bundle_fixture",
+      "contract_version": "pmbot_rehearsal_source_evidence_bundle.v1",
+      "local_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_source_evidence_bundle.valid.json",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "rehearsal_004_operator_approval_record_doc",
+      "contract_version": "pmbot_rehearsal_operator_approval_record.v1",
+      "local_reference": "docs/PMBOT_REHEARSAL_004_REHEARSAL_OPERATOR_APPROVAL_RECORD_LOCAL_ONLY.md",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "rehearsal_004_operator_approval_record_fixture",
+      "contract_version": "pmbot_rehearsal_operator_approval_record.v1",
+      "local_reference": "pm_bot/tests/fixtures/rehearsal/pmbot_rehearsal_operator_approval_record.valid.json",
+      "required_state": "pending_operator_review"
+    },
+    {
+      "artifact_id": "rehearsal_004_operator_approval_record_test",
+      "contract_version": "pmbot_rehearsal_operator_approval_record.v1",
+      "local_reference": "pm_bot/tests/test_rehearsal_operator_approval_record.py",
+      "required_state": "local_validation_reference"
+    },
+    {
+      "artifact_id": "pmbot_queue_template_validation",
+      "contract_version": "pmbot_queue_template_validation.v1",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "required_state": "local_validation_reference"
+    },
+    {
+      "artifact_id": "safety_forbidden_action_scan_doc",
+      "contract_version": "pmbot_forbidden_action_scan.v1",
+      "local_reference": "docs/PMBOT_SAFETY_003_FORBIDDEN_ACTION_SCAN_LOCAL_ONLY.md",
+      "required_state": "local_safety_reference"
+    },
+    {
+      "artifact_id": "safety_forbidden_language_regression_doc",
+      "contract_version": "pmbot_forbidden_language_regression_suite.v1",
+      "local_reference": "docs/PMBOT_SAFETY_005_FORBIDDEN_LANGUAGE_REGRESSION_SUITE_LOCAL_ONLY.md",
+      "required_state": "local_safety_reference"
+    }
+  ],
+  "summary_counts": {
+    "approval_record_fields": 9,
+    "approval_records": 6,
+    "approval_records_pending_operator_review": 6,
+    "local_references": 15,
+    "operator_review_checklist_items": 9,
+    "record_rules": 6,
+    "required_validation_commands": 2,
+    "review_sections": 5,
+    "source_artifacts": 12,
+    "warnings": 0
+  },
+  "task_id": "PMBOT-REHEARSAL-004-REHEARSAL-OPERATOR-APPROVAL-RECORD-LOCAL-ONLY",
+  "warnings": []
+}
