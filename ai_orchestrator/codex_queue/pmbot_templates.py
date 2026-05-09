@@ -60,6 +60,26 @@ PAPERLIVE_SIMULATED_OUTCOME_REPLAY_LINKS_TEMPLATE = "paperlive-simulated-outcome
 DASHBOARD_SUPERVISED_LIVE_READINESS_TEMPLATE = "dashboard-supervised-live-readiness"
 OPERATOR_SUPERVISED_LIVE_MORNING_REVIEW_CARD_TEMPLATE = "operator-supervised-live-morning-review-card"
 ROADMAP_REAL_WALLET_GATED_MILESTONE_SEPARATION_TEMPLATE = "roadmap-sensitive-access-gated-milestone-separation"
+CRYPTO_LIVE_READ_ONLY_CRYPTO_DATA_CONTRACT_TEMPLATE = "crypto-live-read-only-crypto-data-contract"
+CRYPTO_LIVE_DATA_SOURCE_INVENTORY_TEMPLATE = "crypto-live-data-source-inventory"
+CRYPTO_LIVE_SOURCE_EVIDENCE_LINK_MAP_TEMPLATE = "crypto-live-source-evidence-link-map"
+CRYPTO_LIVE_SOURCE_STALENESS_CHECK_SPEC_TEMPLATE = "crypto-live-source-staleness-check-spec"
+CRYPTO_LIVE_SOURCE_CONTRADICTION_LEDGER_TEMPLATE = "crypto-live-source-contradiction-ledger"
+CRYPTO_LIVE_PAPERLIVE_REHEARSAL_PACKET_TEMPLATE = "crypto-live-paperlive-rehearsal-packet"
+CRYPTO_LIVE_PAPERLIVE_OBSERVATION_REPLAY_TEMPLATE = "crypto-live-paperlive-observation-replay"
+CRYPTO_LIVE_OUTCOME_EVIDENCE_BUNDLE_TEMPLATE = "crypto-live-outcome-evidence-bundle"
+CRYPTO_LIVE_OPERATOR_APPROVAL_GATE_RECORD_TEMPLATE = "crypto-live-operator-approval-gate-record"
+CRYPTO_LIVE_STOP_CONDITION_MAPPING_TEMPLATE = "crypto-live-stop-condition-mapping"
+CRYPTO_LIVE_SUPERVISED_LIVE_GAP_MATRIX_TEMPLATE = "crypto-live-supervised-live-gap-matrix"
+CRYPTO_LIVE_VALIDATION_REPLAY_BUNDLE_TEMPLATE = "crypto-live-validation-replay-bundle"
+CRYPTO_LIVE_CI_SAFE_VALIDATION_SUBSET_TEMPLATE = "crypto-live-ci-safe-validation-subset"
+CRYPTO_LIVE_FORBIDDEN_LANGUAGE_REGRESSION_TEMPLATE = "crypto-live-forbidden-language-regression"
+CRYPTO_LIVE_SENSITIVE_PATH_EXCLUSION_AUDIT_TEMPLATE = "crypto-live-sensitive-path-exclusion-audit"
+CRYPTO_LIVE_DASHBOARD_READINESS_SUMMARY_TEMPLATE = "crypto-live-dashboard-readiness-summary"
+CRYPTO_LIVE_MORNING_REVIEW_CARD_TEMPLATE = "crypto-live-morning-review-card"
+CRYPTO_LIVE_NIGHT_BATCH_ACCEPTANCE_REPORT_TEMPLATE = "crypto-live-night-batch-acceptance-report"
+CRYPTO_LIVE_REHEARSAL_TO_SOURCE_QUALITY_LINKS_TEMPLATE = "crypto-live-rehearsal-to-source-quality-links"
+CRYPTO_LIVE_READINESS_NEXT_ACTION_BACKLOG_TEMPLATE = "crypto-live-readiness-next-action-backlog"
 
 SUPPORTED_PMBOT_TEMPLATES = (
     WEATHER_SOURCE_MONITORING_TEMPLATE,
@@ -113,6 +133,26 @@ SUPPORTED_PMBOT_TEMPLATES = (
     DASHBOARD_SUPERVISED_LIVE_READINESS_TEMPLATE,
     OPERATOR_SUPERVISED_LIVE_MORNING_REVIEW_CARD_TEMPLATE,
     ROADMAP_REAL_WALLET_GATED_MILESTONE_SEPARATION_TEMPLATE,
+    CRYPTO_LIVE_READ_ONLY_CRYPTO_DATA_CONTRACT_TEMPLATE,
+    CRYPTO_LIVE_DATA_SOURCE_INVENTORY_TEMPLATE,
+    CRYPTO_LIVE_SOURCE_EVIDENCE_LINK_MAP_TEMPLATE,
+    CRYPTO_LIVE_SOURCE_STALENESS_CHECK_SPEC_TEMPLATE,
+    CRYPTO_LIVE_SOURCE_CONTRADICTION_LEDGER_TEMPLATE,
+    CRYPTO_LIVE_PAPERLIVE_REHEARSAL_PACKET_TEMPLATE,
+    CRYPTO_LIVE_PAPERLIVE_OBSERVATION_REPLAY_TEMPLATE,
+    CRYPTO_LIVE_OUTCOME_EVIDENCE_BUNDLE_TEMPLATE,
+    CRYPTO_LIVE_OPERATOR_APPROVAL_GATE_RECORD_TEMPLATE,
+    CRYPTO_LIVE_STOP_CONDITION_MAPPING_TEMPLATE,
+    CRYPTO_LIVE_SUPERVISED_LIVE_GAP_MATRIX_TEMPLATE,
+    CRYPTO_LIVE_VALIDATION_REPLAY_BUNDLE_TEMPLATE,
+    CRYPTO_LIVE_CI_SAFE_VALIDATION_SUBSET_TEMPLATE,
+    CRYPTO_LIVE_FORBIDDEN_LANGUAGE_REGRESSION_TEMPLATE,
+    CRYPTO_LIVE_SENSITIVE_PATH_EXCLUSION_AUDIT_TEMPLATE,
+    CRYPTO_LIVE_DASHBOARD_READINESS_SUMMARY_TEMPLATE,
+    CRYPTO_LIVE_MORNING_REVIEW_CARD_TEMPLATE,
+    CRYPTO_LIVE_NIGHT_BATCH_ACCEPTANCE_REPORT_TEMPLATE,
+    CRYPTO_LIVE_REHEARSAL_TO_SOURCE_QUALITY_LINKS_TEMPLATE,
+    CRYPTO_LIVE_READINESS_NEXT_ACTION_BACKLOG_TEMPLATE,
 )
 
 WEATHER_SOURCE_MONITORING_TASK_ID = (
@@ -781,16 +821,263 @@ PMBOT_SUPERVISED_LIVE_READINESS_TASKS: tuple[dict[str, Any], ...] = (
     },
 )
 
-PMBOT_TASK_SPECS = PMBOT_NIGHT_BATCH_TASKS + PMBOT_SUPERVISED_LIVE_READINESS_TASKS
+PMBOT_CRYPTO_LIVE_READINESS_TASKS: tuple[dict[str, Any], ...] = (
+    {
+        "task_id": "PMBOT-CRYPTO-LIVE-001-READ-ONLY-CRYPTO-DATA-CONTRACT-LOCAL-ONLY",
+        "template": CRYPTO_LIVE_READ_ONLY_CRYPTO_DATA_CONTRACT_TEMPLATE,
+        "title": "PMBOT crypto read-only data contract",
+        "objective": "Add a deterministic local contract artifact for crypto pilot read-only data handling.",
+        "summary": "Prepare a local PMBOT crypto pilot read-only data contract for supervised readiness review.",
+        "allowed_paths": ("docs/", "pm_bot/readiness/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Crypto pilot read-only data contract docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-CRYPTO-LIVE-002-CRYPTO-LIVE-DATA-SOURCE-INVENTORY-LOCAL-ONLY",
+        "template": CRYPTO_LIVE_DATA_SOURCE_INVENTORY_TEMPLATE,
+        "title": "PMBOT crypto live data source inventory",
+        "objective": "Add a deterministic local inventory artifact for crypto pilot data source records.",
+        "summary": "Prepare a local PMBOT crypto pilot data source inventory for supervised readiness review.",
+        "allowed_paths": ("docs/", "pm_bot/readiness/", "pm_bot/source_quality/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Crypto pilot data source inventory docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-CRYPTO-LIVE-003-CRYPTO-SOURCE-EVIDENCE-LINK-MAP-LOCAL-ONLY",
+        "template": CRYPTO_LIVE_SOURCE_EVIDENCE_LINK_MAP_TEMPLATE,
+        "title": "PMBOT crypto source evidence link map",
+        "objective": "Add a deterministic local source evidence link map for crypto pilot readiness records.",
+        "summary": "Prepare a local PMBOT crypto pilot source evidence link map for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/source_quality/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Crypto pilot source evidence link map docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-CRYPTO-LIVE-004-CRYPTO-SOURCE-STALENESS-CHECK-SPEC-LOCAL-ONLY",
+        "template": CRYPTO_LIVE_SOURCE_STALENESS_CHECK_SPEC_TEMPLATE,
+        "title": "PMBOT crypto source staleness check spec",
+        "objective": "Add a deterministic local source staleness check specification for crypto pilot source records.",
+        "summary": "Prepare a local PMBOT crypto pilot source staleness check spec for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/source_quality/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Crypto pilot source staleness check spec docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-CRYPTO-LIVE-005-CRYPTO-SOURCE-CONTRADICTION-LEDGER-LOCAL-ONLY",
+        "template": CRYPTO_LIVE_SOURCE_CONTRADICTION_LEDGER_TEMPLATE,
+        "title": "PMBOT crypto source contradiction ledger",
+        "objective": "Add a deterministic local source contradiction ledger for crypto pilot source records.",
+        "summary": "Prepare a local PMBOT crypto pilot source contradiction ledger for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/source_quality/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Crypto pilot source contradiction ledger docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-CRYPTO-LIVE-006-CRYPTO-PAPERLIVE-REHEARSAL-PACKET-LOCAL-ONLY",
+        "template": CRYPTO_LIVE_PAPERLIVE_REHEARSAL_PACKET_TEMPLATE,
+        "title": "PMBOT crypto paperlive rehearsal packet",
+        "objective": "Add a deterministic local rehearsal packet artifact for crypto pilot paperlive review.",
+        "summary": "Prepare a local PMBOT crypto pilot paperlive rehearsal packet for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/readiness/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Crypto pilot paperlive rehearsal packet docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-CRYPTO-LIVE-007-CRYPTO-PAPERLIVE-OBSERVATION-REPLAY-LOCAL-ONLY",
+        "template": CRYPTO_LIVE_PAPERLIVE_OBSERVATION_REPLAY_TEMPLATE,
+        "title": "PMBOT crypto paperlive observation replay",
+        "objective": "Add a deterministic local paperlive observation replay artifact for crypto pilot review.",
+        "summary": "Prepare a local PMBOT crypto pilot paperlive observation replay for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/readiness/", "pm_bot/simulated_decisions/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Crypto pilot paperlive observation replay docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-CRYPTO-LIVE-008-CRYPTO-OUTCOME-EVIDENCE-BUNDLE-LOCAL-ONLY",
+        "template": CRYPTO_LIVE_OUTCOME_EVIDENCE_BUNDLE_TEMPLATE,
+        "title": "PMBOT crypto outcome evidence bundle",
+        "objective": "Add a deterministic local outcome evidence bundle for crypto pilot readiness records.",
+        "summary": "Prepare a local PMBOT crypto pilot outcome evidence bundle for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/readiness/", "pm_bot/source_quality/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Crypto pilot outcome evidence bundle docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-CRYPTO-LIVE-009-CRYPTO-OPERATOR-APPROVAL-GATE-RECORD-LOCAL-ONLY",
+        "template": CRYPTO_LIVE_OPERATOR_APPROVAL_GATE_RECORD_TEMPLATE,
+        "title": "PMBOT crypto operator approval gate record",
+        "objective": "Add a deterministic local operator approval gate record for crypto pilot supervised readiness.",
+        "summary": "Prepare a local PMBOT crypto pilot operator approval gate record for review.",
+        "allowed_paths": ("docs/", "pm_bot/readiness/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Crypto pilot operator approval gate record docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-CRYPTO-LIVE-010-CRYPTO-STOP-CONDITION-MAPPING-LOCAL-ONLY",
+        "template": CRYPTO_LIVE_STOP_CONDITION_MAPPING_TEMPLATE,
+        "title": "PMBOT crypto stop condition mapping",
+        "objective": "Add a deterministic local stop condition mapping artifact for crypto pilot supervised readiness.",
+        "summary": "Prepare a local PMBOT crypto pilot stop condition mapping for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/readiness/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Crypto pilot stop condition mapping docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-CRYPTO-LIVE-011-CRYPTO-SUPERVISED-LIVE-GAP-MATRIX-LOCAL-ONLY",
+        "template": CRYPTO_LIVE_SUPERVISED_LIVE_GAP_MATRIX_TEMPLATE,
+        "title": "PMBOT crypto supervised live gap matrix",
+        "objective": "Add a deterministic local supervised live gap matrix artifact for crypto pilot readiness.",
+        "summary": "Prepare a local PMBOT crypto pilot supervised live gap matrix for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/readiness/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Crypto pilot supervised live gap matrix docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-CRYPTO-LIVE-012-CRYPTO-VALIDATION-REPLAY-BUNDLE-LOCAL-ONLY",
+        "template": CRYPTO_LIVE_VALIDATION_REPLAY_BUNDLE_TEMPLATE,
+        "title": "PMBOT crypto validation replay bundle",
+        "objective": "Add a deterministic local validation replay bundle for crypto pilot readiness records.",
+        "summary": "Prepare a local PMBOT crypto pilot validation replay bundle for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/readiness/", "pm_bot/simulated_decisions/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Crypto pilot validation replay bundle docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-CRYPTO-LIVE-013-CRYPTO-CI-SAFE-VALIDATION-SUBSET-LOCAL-ONLY",
+        "template": CRYPTO_LIVE_CI_SAFE_VALIDATION_SUBSET_TEMPLATE,
+        "title": "PMBOT crypto CI-safe validation subset",
+        "objective": "Add a deterministic local CI-safe validation subset artifact for crypto pilot readiness.",
+        "summary": "Prepare a local PMBOT crypto pilot CI-safe validation subset for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Crypto pilot CI-safe validation subset docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-CRYPTO-LIVE-014-CRYPTO-FORBIDDEN-LANGUAGE-REGRESSION-LOCAL-ONLY",
+        "template": CRYPTO_LIVE_FORBIDDEN_LANGUAGE_REGRESSION_TEMPLATE,
+        "title": "PMBOT crypto forbidden language regression",
+        "objective": "Add a deterministic local forbidden-language regression artifact for crypto pilot readiness.",
+        "summary": "Prepare a local PMBOT crypto pilot forbidden-language regression artifact for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Crypto pilot forbidden-language regression docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-CRYPTO-LIVE-015-CRYPTO-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY",
+        "template": CRYPTO_LIVE_SENSITIVE_PATH_EXCLUSION_AUDIT_TEMPLATE,
+        "title": "PMBOT crypto sensitive path exclusion audit",
+        "objective": "Add a deterministic local sensitive path exclusion audit artifact for crypto pilot readiness.",
+        "summary": "Prepare a local PMBOT crypto pilot sensitive path exclusion audit for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Crypto pilot sensitive path exclusion audit docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-CRYPTO-LIVE-016-CRYPTO-DASHBOARD-READINESS-SUMMARY-LOCAL-ONLY",
+        "template": CRYPTO_LIVE_DASHBOARD_READINESS_SUMMARY_TEMPLATE,
+        "title": "PMBOT crypto dashboard readiness summary",
+        "objective": "Add a deterministic local dashboard readiness summary artifact for crypto pilot review.",
+        "summary": "Prepare a local PMBOT crypto pilot dashboard readiness summary for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/dashboard/", "pm_bot/readiness/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Crypto pilot dashboard readiness summary docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-CRYPTO-LIVE-017-CRYPTO-MORNING-REVIEW-CARD-LOCAL-ONLY",
+        "template": CRYPTO_LIVE_MORNING_REVIEW_CARD_TEMPLATE,
+        "title": "PMBOT crypto morning review card",
+        "objective": "Add a deterministic local morning review card artifact for crypto pilot readiness.",
+        "summary": "Prepare a local PMBOT crypto pilot morning review card for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/dashboard/", "pm_bot/readiness/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Crypto pilot morning review card docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-CRYPTO-LIVE-018-CRYPTO-NIGHT-BATCH-ACCEPTANCE-REPORT-LOCAL-ONLY",
+        "template": CRYPTO_LIVE_NIGHT_BATCH_ACCEPTANCE_REPORT_TEMPLATE,
+        "title": "PMBOT crypto night batch acceptance report",
+        "objective": "Add a deterministic local night batch acceptance report artifact for crypto pilot readiness.",
+        "summary": "Prepare a local PMBOT crypto pilot night batch acceptance report for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/dashboard/", "pm_bot/readiness/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Crypto pilot night batch acceptance report docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-CRYPTO-LIVE-019-CRYPTO-REHEARSAL-TO-SOURCE-QUALITY-LINKS-LOCAL-ONLY",
+        "template": CRYPTO_LIVE_REHEARSAL_TO_SOURCE_QUALITY_LINKS_TEMPLATE,
+        "title": "PMBOT crypto rehearsal to source quality links",
+        "objective": "Add deterministic local links between crypto pilot rehearsal artifacts and source quality records.",
+        "summary": "Prepare local PMBOT crypto pilot rehearsal to source quality links for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/readiness/", "pm_bot/source_quality/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Crypto pilot rehearsal to source quality link docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+    {
+        "task_id": "PMBOT-CRYPTO-LIVE-020-CRYPTO-READINESS-NEXT-ACTION-BACKLOG-LOCAL-ONLY",
+        "template": CRYPTO_LIVE_READINESS_NEXT_ACTION_BACKLOG_TEMPLATE,
+        "title": "PMBOT crypto readiness next action backlog",
+        "objective": "Add a deterministic local next action backlog artifact for crypto pilot supervised readiness.",
+        "summary": "Prepare a local PMBOT crypto pilot readiness next action backlog for operator review.",
+        "allowed_paths": ("docs/", "pm_bot/readiness/", "pm_bot/tests/", "tests/"),
+        "expected_outputs": (
+            "Crypto pilot readiness next action backlog docs, fixtures, tests, or local artifacts under allowed paths.",
+            "A strict result JSON packet for operator review.",
+        ),
+    },
+)
+
+PMBOT_TASK_SPECS = PMBOT_NIGHT_BATCH_TASKS + PMBOT_SUPERVISED_LIVE_READINESS_TASKS + PMBOT_CRYPTO_LIVE_READINESS_TASKS
 PMBOT_NIGHT_BATCH_TASKS_BY_TEMPLATE = {str(spec["template"]): spec for spec in PMBOT_NIGHT_BATCH_TASKS}
 PMBOT_SUPERVISED_LIVE_READINESS_TASKS_BY_TEMPLATE = {
     str(spec["template"]): spec for spec in PMBOT_SUPERVISED_LIVE_READINESS_TASKS
+}
+PMBOT_CRYPTO_LIVE_READINESS_TASKS_BY_TEMPLATE = {
+    str(spec["template"]): spec for spec in PMBOT_CRYPTO_LIVE_READINESS_TASKS
 }
 PMBOT_TASK_SPECS_BY_TEMPLATE = {str(spec["template"]): spec for spec in PMBOT_TASK_SPECS}
 PMBOT_NIGHT_BATCH_TASK_IDS = tuple(str(spec["task_id"]) for spec in PMBOT_NIGHT_BATCH_TASKS)
 PMBOT_SUPERVISED_LIVE_READINESS_TASK_IDS = tuple(
     str(spec["task_id"]) for spec in PMBOT_SUPERVISED_LIVE_READINESS_TASKS
 )
+PMBOT_CRYPTO_LIVE_READINESS_TASK_IDS = tuple(str(spec["task_id"]) for spec in PMBOT_CRYPTO_LIVE_READINESS_TASKS)
 PMBOT_NEXT_TWENTY_TASK_IDS = (
     "PMBOT-SOURCE-LEDGER-003-SOURCE-QUALITY-REPORT-SUMMARY-LOCAL-ONLY",
     "PMBOT-SOURCE-LEDGER-004-SOURCE-QUALITY-REGRESSION-FIXTURE-LOCAL-ONLY",

@@ -6,6 +6,8 @@ from pathlib import Path
 from ai_orchestrator.codex_queue.operator_cli import main
 from ai_orchestrator.codex_queue.pmbot_templates import (
     CRYPTO_MARKET_CLASS_CAPTURE_TEMPLATE,
+    PMBOT_CRYPTO_LIVE_READINESS_TASKS,
+    PMBOT_CRYPTO_LIVE_READINESS_TASK_IDS,
     PMBOT_NIGHT_BATCH_TASKS,
     PMBOT_NIGHT_BATCH_TASK_IDS,
     PMBOT_NEXT_TWENTY_TASKS,
@@ -290,6 +292,58 @@ def test_supervised_live_readiness_templates_cover_requested_task_ids_and_stay_l
         seen_templates.add(str(spec["template"]))
 
 
+def test_crypto_live_readiness_templates_cover_requested_task_ids_and_stay_local_only() -> None:
+    expected_task_ids = (
+        "PMBOT-CRYPTO-LIVE-001-READ-ONLY-CRYPTO-DATA-CONTRACT-LOCAL-ONLY",
+        "PMBOT-CRYPTO-LIVE-002-CRYPTO-LIVE-DATA-SOURCE-INVENTORY-LOCAL-ONLY",
+        "PMBOT-CRYPTO-LIVE-003-CRYPTO-SOURCE-EVIDENCE-LINK-MAP-LOCAL-ONLY",
+        "PMBOT-CRYPTO-LIVE-004-CRYPTO-SOURCE-STALENESS-CHECK-SPEC-LOCAL-ONLY",
+        "PMBOT-CRYPTO-LIVE-005-CRYPTO-SOURCE-CONTRADICTION-LEDGER-LOCAL-ONLY",
+        "PMBOT-CRYPTO-LIVE-006-CRYPTO-PAPERLIVE-REHEARSAL-PACKET-LOCAL-ONLY",
+        "PMBOT-CRYPTO-LIVE-007-CRYPTO-PAPERLIVE-OBSERVATION-REPLAY-LOCAL-ONLY",
+        "PMBOT-CRYPTO-LIVE-008-CRYPTO-OUTCOME-EVIDENCE-BUNDLE-LOCAL-ONLY",
+        "PMBOT-CRYPTO-LIVE-009-CRYPTO-OPERATOR-APPROVAL-GATE-RECORD-LOCAL-ONLY",
+        "PMBOT-CRYPTO-LIVE-010-CRYPTO-STOP-CONDITION-MAPPING-LOCAL-ONLY",
+        "PMBOT-CRYPTO-LIVE-011-CRYPTO-SUPERVISED-LIVE-GAP-MATRIX-LOCAL-ONLY",
+        "PMBOT-CRYPTO-LIVE-012-CRYPTO-VALIDATION-REPLAY-BUNDLE-LOCAL-ONLY",
+        "PMBOT-CRYPTO-LIVE-013-CRYPTO-CI-SAFE-VALIDATION-SUBSET-LOCAL-ONLY",
+        "PMBOT-CRYPTO-LIVE-014-CRYPTO-FORBIDDEN-LANGUAGE-REGRESSION-LOCAL-ONLY",
+        "PMBOT-CRYPTO-LIVE-015-CRYPTO-SENSITIVE-PATH-EXCLUSION-AUDIT-LOCAL-ONLY",
+        "PMBOT-CRYPTO-LIVE-016-CRYPTO-DASHBOARD-READINESS-SUMMARY-LOCAL-ONLY",
+        "PMBOT-CRYPTO-LIVE-017-CRYPTO-MORNING-REVIEW-CARD-LOCAL-ONLY",
+        "PMBOT-CRYPTO-LIVE-018-CRYPTO-NIGHT-BATCH-ACCEPTANCE-REPORT-LOCAL-ONLY",
+        "PMBOT-CRYPTO-LIVE-019-CRYPTO-REHEARSAL-TO-SOURCE-QUALITY-LINKS-LOCAL-ONLY",
+        "PMBOT-CRYPTO-LIVE-020-CRYPTO-READINESS-NEXT-ACTION-BACKLOG-LOCAL-ONLY",
+    )
+
+    assert PMBOT_CRYPTO_LIVE_READINESS_TASK_IDS == expected_task_ids
+    assert tuple(str(spec["task_id"]) for spec in PMBOT_CRYPTO_LIVE_READINESS_TASKS) == expected_task_ids
+
+    seen_templates: set[str] = set()
+    for spec in PMBOT_CRYPTO_LIVE_READINESS_TASKS:
+        packet = build_pmbot_task_packet(str(spec["task_id"]), str(spec["template"]))
+        text = _intent_text(packet)
+
+        assert str(spec["template"]) in SUPPORTED_PMBOT_TEMPLATES
+        assert str(spec["template"]) not in seen_templates
+        assert validate_packet(packet).valid is True
+        assert classify_packet(_approved_view(packet)).allowed is True
+        assert packet["project"] == PMBOT_PROJECT
+        assert packet["task_template"]["name"] == spec["template"]
+        assert all(value is False for value in packet["risk_flags"].values())
+        assert "runtime/" in packet["repo"]["forbidden_paths"]
+        assert "dispatcher/" in packet["repo"]["forbidden_paths"]
+        assert "run_codex/" in packet["repo"]["forbidden_paths"]
+        assert "pm_bot/llm/" in packet["repo"]["forbidden_paths"]
+        assert "python -m compileall pm_bot tests" in packet["validation_commands"]
+        assert "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py" in packet["validation_commands"]
+        assert "No external service calls." in packet["safety_boundaries"]
+        assert "No timed automation or resident process." in packet["safety_boundaries"]
+        for forbidden_word in ("buy", "sell", "hold", "enter", "exit"):
+            assert forbidden_word not in text
+        seen_templates.add(str(spec["template"]))
+
+
 def test_crypto_market_class_capture_queue_template_matches_local_only_scope() -> None:
     packet = build_pmbot_task_packet(
         "PMBOT-CRYPTO-PILOT-001-CRYPTO-MARKET-CLASS-CAPTURE-TEMPLATE-LOCAL-ONLY",
@@ -371,5 +425,38 @@ def test_create_all_supervised_live_readiness_tasks_then_approve_and_plan(tmp_pa
 
     assert main(["plan", "--queue-root", str(queue_root)]) == 0
     for task_id in PMBOT_SUPERVISED_LIVE_READINESS_TASK_IDS:
+        assert (queue_root / "planned" / f"{task_id}.plan.json").exists()
+        assert (queue_root / "planned" / f"{task_id}.handoff_prompt.md").exists()
+
+
+def test_create_all_crypto_live_readiness_tasks_then_approve_and_plan(tmp_path: Path) -> None:
+    queue_root = tmp_path / "agent_tasks"
+    for spec in PMBOT_CRYPTO_LIVE_READINESS_TASKS:
+        task_id = str(spec["task_id"])
+        template = str(spec["template"])
+        assert (
+            main(
+                [
+                    "create-pmbot-task",
+                    "--queue-root",
+                    str(queue_root),
+                    "--task-id",
+                    task_id,
+                    "--template",
+                    template,
+                    "--expected-head",
+                    "603bd0e235594688ce1796b79e9f597a5f9ea465",
+                ]
+            )
+            == 0
+        )
+        assert (queue_root / "inbox" / f"{task_id}.task.json").exists()
+
+    for task_id in PMBOT_CRYPTO_LIVE_READINESS_TASK_IDS:
+        assert main(["approve", "--queue-root", str(queue_root), "--task-id", task_id]) == 0
+        assert (queue_root / "approved" / f"{task_id}.task.json").exists()
+
+    assert main(["plan", "--queue-root", str(queue_root)]) == 0
+    for task_id in PMBOT_CRYPTO_LIVE_READINESS_TASK_IDS:
         assert (queue_root / "planned" / f"{task_id}.plan.json").exists()
         assert (queue_root / "planned" / f"{task_id}.handoff_prompt.md").exists()
