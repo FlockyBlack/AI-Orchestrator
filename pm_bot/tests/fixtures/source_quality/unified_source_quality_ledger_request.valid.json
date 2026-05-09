@@ -1,0 +1,74 @@
+{
+  "contract_version": "pmbot_unified_source_quality_ledger_request.v1",
+  "ledger_id": "unified_source_quality_ledger_fixture_001",
+  "scope": "unified_source_quality_ledger",
+  "local_only": true,
+  "operator_review_required": true,
+  "market_context": {
+    "market_id": "fixture-weather-market-001",
+    "question": "Fixture weather threshold question for local operator review"
+  },
+  "source_artifacts": [
+    {
+      "source_id": "official_daily_climate_report",
+      "source_label": "Official daily climate report",
+      "source_type": "official_record_snapshot",
+      "artifact_role": "weather_observation_snapshot",
+      "local_reference": "pm_bot/tests/fixtures/weather/official_daily_climate_report_snapshot.json",
+      "snapshot_id": "fixture_official_daily_climate_report_2026_05_09",
+      "fields_available": [
+        "observation_date",
+        "station_id",
+        "high_temperature_f",
+        "report_timestamp"
+      ],
+      "review_checks": [
+        {
+          "check_id": "identity",
+          "description": "Confirm the local artifact path, source label, and snapshot identifier match the review packet."
+        },
+        {
+          "check_id": "field_inventory",
+          "description": "Confirm each declared field is visible in the local fixture before downstream operator review."
+        }
+      ],
+      "known_limitations": [
+        "Static fixture only; no live source refresh is performed.",
+        "Describes artifact readiness for operator review without resolving the weather outcome."
+      ]
+    },
+    {
+      "source_id": "airport_station_observation_log",
+      "source_label": "Airport station observation log",
+      "source_type": "station_observation_snapshot",
+      "artifact_role": "weather_observation_snapshot",
+      "local_reference": "pm_bot/tests/fixtures/weather/airport_station_observation_log_snapshot.json",
+      "snapshot_id": "fixture_airport_station_observation_log_2026_05_09",
+      "fields_available": [
+        "observation_date",
+        "station_id",
+        "observed_high_temperature_f",
+        "observation_timestamp"
+      ],
+      "review_checks": [
+        {
+          "check_id": "identity",
+          "description": "Confirm the local artifact path, source label, and snapshot identifier match the review packet."
+        },
+        {
+          "check_id": "field_inventory",
+          "description": "Confirm each declared field is visible in the local fixture before downstream operator review."
+        }
+      ],
+      "known_limitations": [
+        "Static fixture only; no live source refresh is performed.",
+        "Describes artifact readiness for operator review without resolving the weather outcome."
+      ]
+    }
+  ],
+  "operator_review_steps": [
+    "Confirm each source artifact is an expected local fixture or static sample.",
+    "Confirm each declared field is present before using the ledger as an operator review input.",
+    "Record any source disputes outside this descriptive ledger."
+  ]
+}

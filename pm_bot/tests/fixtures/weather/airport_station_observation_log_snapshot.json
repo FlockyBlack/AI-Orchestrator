@@ -1,0 +1,12 @@
+{
+  "contract_version": "pmbot_weather_observation_snapshot.v1",
+  "snapshot_id": "fixture_airport_station_observation_log_2026_05_09",
+  "source_id": "airport_station_observation_log",
+  "source_type": "station_observation_snapshot",
+  "station_id": "KNYC",
+  "station_name": "Fixture Central Park Station",
+  "observation_date": "2026-05-09",
+  "observed_high_temperature_f": 73,
+  "observation_timestamp": "2026-05-09T23:58:00Z",
+  "source_snapshot_note": "Static local fixture for PMBOT weather observation ledger refresh tests."
+}

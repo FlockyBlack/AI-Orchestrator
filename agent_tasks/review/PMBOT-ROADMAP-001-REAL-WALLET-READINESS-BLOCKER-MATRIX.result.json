@@ -1,0 +1,45 @@
+{
+  "schema_version": "codex_task_result.v1",
+  "task_id": "PMBOT-ROADMAP-001-REAL-WALLET-READINESS-BLOCKER-MATRIX",
+  "status": "completed",
+  "completed_by": "codex_cli_run_captured_by_run_codex_batch",
+  "completed_at": "2026-05-09T03:56:43Z",
+  "summary": "Added a local PMBOT real-wallet readiness blocker matrix documenting unresolved operator approval gates for sensitive-access review. The matrix is descriptive only and keeps all real wallet, credential, endpoint, transaction, order, runtime, dispatcher, scheduler, worker, browser, and production-service boundaries closed.",
+  "files_created": [],
+  "files_modified": [
+    "pm_bot/readiness/PMBOT_ROADMAP_001_REAL_WALLET_READINESS_BLOCKER_MATRIX.md"
+  ],
+  "files_deleted": [],
+  "commands_run": [
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "validation_results": [
+    {
+      "command": "python -m compileall pm_bot tests",
+      "reported_passed": true,
+      "source": "last_message.md"
+    },
+    {
+      "command": "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py",
+      "reported_passed": true,
+      "source": "last_message.md"
+    }
+  ],
+  "acceptance_checks_passed": true,
+  "safety_confirmation": {
+    "network_calls_performed": 0,
+    "credentials_accessed": false,
+    "wallet_or_trading_touched": false,
+    "runtime_or_dispatcher_touched": false,
+    "background_worker_added": false,
+    "scheduler_added": false,
+    "telegram_or_openclaw_added": false,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "codex_app_server_used": false,
+    "destructive_commands_used": false
+  },
+  "operator_review_notes": "Bridged from last_message.md for Codex CLI run 20260509T035431Z. Execution report status ok/completed, return code 0. Safety notes: Only local files, local fixtures, and static PMBOT samples/docs were used. | No network calls, browser automation, background processes, timed automation, service calls, credential access, wallet access, signing, transaction endpoint work, order endpoint work, trading endpoint work, or runtime wiring were performed. | No source edits were made outside the requested allowed path; the required compileall command traversed the existing pm_bot tree as requested. | The readiness matrix contains no forecast scoring, action guidance, market ranking, numeric prediction metrics, stance selection, or selection advice.. Remaining risks: compileall exited successfully but reported it could not list an existing tests\\.pytest_tmp\\pytest-of-OpenC path during traversal. | pytest passed with 106 tests and 1 warning because pytest could not write its cache under .pytest_cache..",
+  "next_recommended_action": "Run operator_cli ingest-result and review for this task; leave finalization to a separate operator-approved task."
+}

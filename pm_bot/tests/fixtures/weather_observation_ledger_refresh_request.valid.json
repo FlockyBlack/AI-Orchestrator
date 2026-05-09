@@ -1,0 +1,68 @@
+{
+  "contract_version": "pmbot_weather_observation_ledger_refresh_request.v1",
+  "ledger_id": "weather_observation_ledger_fixture_001",
+  "scope": "weather_observation_ledger_refresh",
+  "local_only": true,
+  "operator_review_required": true,
+  "market_context": {
+    "market_id": "fixture-weather-market-001",
+    "question": "Fixture weather threshold question for local operator review"
+  },
+  "source_snapshots": [
+    {
+      "source_id": "official_daily_climate_report",
+      "label": "Official daily climate report",
+      "source_type": "official_record_snapshot",
+      "local_reference": "pm_bot/tests/fixtures/weather/official_daily_climate_report_snapshot.json",
+      "snapshot_id": "fixture_official_daily_climate_report_2026_05_09",
+      "required_fields": [
+        "observation_date",
+        "station_id",
+        "high_temperature_f",
+        "report_timestamp"
+      ]
+    },
+    {
+      "source_id": "airport_station_observation_log",
+      "label": "Airport station observation log",
+      "source_type": "station_observation_snapshot",
+      "local_reference": "pm_bot/tests/fixtures/weather/airport_station_observation_log_snapshot.json",
+      "snapshot_id": "fixture_airport_station_observation_log_2026_05_09",
+      "required_fields": [
+        "observation_date",
+        "station_id",
+        "observed_high_temperature_f",
+        "observation_timestamp"
+      ]
+    }
+  ],
+  "record_specs": [
+    {
+      "record_id": "official_daily_climate_report.2026-05-09.KNYC.daily_high_temperature",
+      "source_id": "official_daily_climate_report",
+      "measurement_name": "daily_high_temperature",
+      "observation_date_field": "observation_date",
+      "station_id_field": "station_id",
+      "value_field": "high_temperature_f",
+      "unit": "F",
+      "timestamp_field": "report_timestamp",
+      "operator_review_label": "Official daily high temperature field"
+    },
+    {
+      "record_id": "airport_station_observation_log.2026-05-09.KNYC.daily_high_temperature",
+      "source_id": "airport_station_observation_log",
+      "measurement_name": "daily_high_temperature",
+      "observation_date_field": "observation_date",
+      "station_id_field": "station_id",
+      "value_field": "observed_high_temperature_f",
+      "unit": "F",
+      "timestamp_field": "observation_timestamp",
+      "operator_review_label": "Airport observed high temperature field"
+    }
+  ],
+  "operator_review_steps": [
+    "Confirm each snapshot identity, station, and date before using the refreshed ledger.",
+    "Confirm each ledger record copies only the named fixture field.",
+    "Record any weather outcome review outside this ledger refresher."
+  ]
+}

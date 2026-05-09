@@ -1,0 +1,34 @@
+{
+  "artifact_id": "paper_accounting_events_fixture_001",
+  "currency": "USD",
+  "events": [
+    {
+      "asset_code": "USD",
+      "event_id": "paper_event_001",
+      "event_timestamp": "2026-05-09T12:00:00Z",
+      "event_type": "opening_balance",
+      "memo": "Opening paper balance recorded from static operator worksheet.",
+      "quantity_delta": "1000.00"
+    },
+    {
+      "asset_code": "USD",
+      "event_id": "paper_event_002",
+      "event_timestamp": "2026-05-09T13:30:00Z",
+      "event_type": "paper_adjustment",
+      "memo": "Static fixture adjustment for offline accounting review.",
+      "quantity_delta": "-12.50"
+    },
+    {
+      "asset_code": "USD",
+      "event_id": "paper_event_003",
+      "event_timestamp": "2026-05-09T14:00:00Z",
+      "event_type": "paper_correction",
+      "memo": "Static fixture correction for offline accounting review.",
+      "quantity_delta": "5.00"
+    }
+  ],
+  "review_notes": [
+    "Static fixture only; no live account refresh is performed.",
+    "Describes local paper accounting records for operator review."
+  ]
+}

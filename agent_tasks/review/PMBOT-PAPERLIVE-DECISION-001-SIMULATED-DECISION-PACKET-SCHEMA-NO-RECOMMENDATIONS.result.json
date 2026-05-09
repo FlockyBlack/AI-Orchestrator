@@ -1,0 +1,56 @@
+{
+  "schema_version": "codex_task_result.v1",
+  "task_id": "PMBOT-PAPERLIVE-DECISION-001-SIMULATED-DECISION-PACKET-SCHEMA-NO-RECOMMENDATIONS",
+  "status": "completed",
+  "completed_by": "codex_cli_run_captured_by_run_codex_batch",
+  "completed_at": "2026-05-09T03:36:28Z",
+  "summary": "Added a local PMBOT simulated decision packet schema package with a static schema, static fixture packet, accessor helpers, focused tests, and a concise operator-facing doc. The schema is offline recordkeeping only, deterministic, operator-reviewed, and omits forecast scoring, recommendation, guidance, selection, stake, order, and action fields.",
+  "files_created": [],
+  "files_modified": [
+    "pm_bot/simulated_decisions/__init__.py",
+    "pm_bot/simulated_decisions/schema.py",
+    "pm_bot/simulated_decisions/schemas/simulated_decision_packet.schema.v1.json",
+    "pm_bot/simulated_decisions/samples/simulated_decision_packet.fixture.json",
+    "pm_bot/tests/test_simulated_decision_packet_schema.py",
+    "docs/PMBOT_PAPERLIVE_DECISION_001_SIMULATED_DECISION_PACKET_SCHEMA_NO_RECOMMENDATIONS.md"
+  ],
+  "files_deleted": [],
+  "commands_run": [
+    "pytest pm_bot/tests/test_simulated_decision_packet_schema.py (passed: 7 passed)",
+    "python -m compileall pm_bot tests (passed: exit 0)",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py (passed: 70 passed)"
+  ],
+  "validation_results": [
+    {
+      "command": "pytest pm_bot/tests/test_simulated_decision_packet_schema.py (passed: 7 passed)",
+      "reported_passed": true,
+      "source": "last_message.md"
+    },
+    {
+      "command": "python -m compileall pm_bot tests (passed: exit 0)",
+      "reported_passed": true,
+      "source": "last_message.md"
+    },
+    {
+      "command": "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py (passed: 70 passed)",
+      "reported_passed": true,
+      "source": "last_message.md"
+    }
+  ],
+  "acceptance_checks_passed": true,
+  "safety_confirmation": {
+    "network_calls_performed": 0,
+    "credentials_accessed": false,
+    "wallet_or_trading_touched": false,
+    "runtime_or_dispatcher_touched": false,
+    "background_worker_added": false,
+    "scheduler_added": false,
+    "telegram_or_openclaw_added": false,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "codex_app_server_used": false,
+    "destructive_commands_used": false
+  },
+  "operator_review_notes": "Bridged from last_message.md for Codex CLI run 20260509T033021Z. Execution report status ok/completed, return code 0. Safety notes: No network calls, browser automation, background processes, service calls, credential reads, wallet access, transaction signing, trading endpoint work, runtime wiring, dispatcher changes, or run_codex changes were performed. | Source edits were limited to allowed paths: pm_bot/simulated_decisions/, pm_bot/tests/, and docs/. | The schema and fixture use only local static artifacts and require pending operator review. | The requested compileall command traversed the pm_bot tree, including listed pm_bot/llm paths, because the acceptance command was provided exactly as python -m compileall pm_bot tests; no files were edited there.. Remaining risks: pytest emitted a cache warning because .pytest_cache could not be written in this workspace; test execution still passed. | compileall reported it could not list tests/.pytest_tmp/pytest-of-OpenC but exited 0..",
+  "next_recommended_action": "Run operator_cli ingest-result and review for this task; leave finalization to a separate operator-approved task."
+}

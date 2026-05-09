@@ -1,0 +1,78 @@
+{
+  "contract_version": "pmbot_simulated_decision_packet.v1",
+  "created_at": "2026-05-09T00:00:00Z",
+  "errors": [],
+  "input_artifacts": [
+    {
+      "artifact_id": "official_daily_climate_report_snapshot",
+      "artifact_type": "weather_observation_snapshot",
+      "description": "Static official daily climate report fixture.",
+      "local_reference": "pm_bot/tests/fixtures/weather/official_daily_climate_report_snapshot.json",
+      "operator_review_status": "pending_operator_review"
+    }
+  ],
+  "local_only": true,
+  "market_snapshot": {
+    "local_reference": "pm_bot/tests/fixtures/weather/official_daily_climate_report_snapshot.json",
+    "market_id": "fixture_weather_market_001",
+    "market_title": "Fixture weather threshold market",
+    "question_text": "Will the fixture daily high temperature record meet the threshold?",
+    "status": "static_fixture"
+  },
+  "operator_notes": [
+    "Fixture values are included only to exercise the local packet shape."
+  ],
+  "operator_review": {
+    "notes": [],
+    "reviewed_at": null,
+    "reviewed_by": null,
+    "status": "pending_operator_review"
+  },
+  "operator_review_required": true,
+  "packet_id": "simulated_decision_packet_fixture_001",
+  "packet_state": "recorded_for_operator_review",
+  "record_sections": [
+    {
+      "observations": [
+        {
+          "label": "Official daily high temperature",
+          "observation_id": "official_high_temperature",
+          "operator_review_status": "pending_operator_review",
+          "source_artifact_ids": [
+            "official_daily_climate_report_snapshot"
+          ],
+          "unit": "F",
+          "value": 74
+        }
+      ],
+      "operator_review_status": "pending_operator_review",
+      "section_id": "source_observation_summary",
+      "section_label": "Source observation summary"
+    }
+  ],
+  "run_mode": "offline_recordkeeping",
+  "safety_boundaries": {
+    "authenticated_service_allowed": false,
+    "external_market_api_allowed": false,
+    "llm_calls_allowed": false,
+    "market_instruction_allowed": false,
+    "network_calls_allowed": false,
+    "numeric_estimate_allowed": false,
+    "offline_inputs_only": true,
+    "operator_review_gate_required": true,
+    "paper_record_only": true,
+    "ranked_candidate_allowed": false,
+    "runtime_wiring_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "transaction_signing_allowed": false,
+    "wallet_access_allowed": false
+  },
+  "schema_reference": "pm_bot/simulated_decisions/schemas/simulated_decision_packet.schema.v1.json",
+  "summary_counts": {
+    "input_artifacts": 1,
+    "observations": 1,
+    "record_sections": 1,
+    "warnings": 0
+  },
+  "warnings": []
+}

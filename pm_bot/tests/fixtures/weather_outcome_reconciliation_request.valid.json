@@ -1,0 +1,68 @@
+{
+  "contract_version": "pmbot_weather_outcome_reconciliation_request.v1",
+  "reconciliation_id": "weather_outcome_reconciliation_fixture_001",
+  "scope": "weather_outcome_reconciliation_placeholder",
+  "local_only": true,
+  "operator_review_required": true,
+  "market_context": {
+    "market_id": "fixture-weather-market-001",
+    "question": "Fixture weather threshold question for local operator review"
+  },
+  "observation_records": [
+    {
+      "record_id": "official_daily_climate_report.2026-05-09.KNYC.daily_high_temperature",
+      "source_id": "official_daily_climate_report",
+      "source_label": "Official daily climate report",
+      "source_type": "official_record_snapshot",
+      "local_reference": "pm_bot/tests/fixtures/weather/official_daily_climate_report_snapshot.json",
+      "snapshot_id": "fixture_official_daily_climate_report_2026_05_09",
+      "measurement_name": "daily_high_temperature",
+      "observation_date": "2026-05-09",
+      "station_id": "KNYC",
+      "reported_value": 74,
+      "unit": "F",
+      "source_timestamp": "2026-05-10T00:05:00Z",
+      "operator_review_status": "pending_operator_review"
+    },
+    {
+      "record_id": "airport_station_observation_log.2026-05-09.KNYC.daily_high_temperature",
+      "source_id": "airport_station_observation_log",
+      "source_label": "Airport station observation log",
+      "source_type": "station_observation_snapshot",
+      "local_reference": "pm_bot/tests/fixtures/weather/airport_station_observation_log_snapshot.json",
+      "snapshot_id": "fixture_airport_station_observation_log_2026_05_09",
+      "measurement_name": "daily_high_temperature",
+      "observation_date": "2026-05-09",
+      "station_id": "KNYC",
+      "reported_value": 73,
+      "unit": "F",
+      "source_timestamp": "2026-05-09T23:58:00Z",
+      "operator_review_status": "pending_operator_review"
+    }
+  ],
+  "outcome_reviews": [
+    {
+      "outcome_id": "temperature_threshold_operator_review",
+      "title": "Temperature threshold operator review placeholder",
+      "measurement_name": "daily_high_temperature",
+      "record_ids": [
+        "official_daily_climate_report.2026-05-09.KNYC.daily_high_temperature",
+        "airport_station_observation_log.2026-05-09.KNYC.daily_high_temperature"
+      ],
+      "operator_review_questions": [
+        "Confirm each referenced record matches the target station and date.",
+        "Confirm the referenced values are visible for operator review.",
+        "Record the final weather outcome in a separate operator-owned review record."
+      ],
+      "placeholder_notes": [
+        "This local placeholder assembles observation records for review.",
+        "This local placeholder does not set the final weather outcome."
+      ]
+    }
+  ],
+  "operator_review_steps": [
+    "Confirm this artifact was created from local fixture records only.",
+    "Confirm each observation record remains pending operator review.",
+    "Keep any final weather outcome record separate from this placeholder."
+  ]
+}

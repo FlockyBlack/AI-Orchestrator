@@ -1,0 +1,56 @@
+{
+  "schema_version": "codex_task_result.v1",
+  "task_id": "PMBOT-DASHBOARD-001-LOCAL-OPERATOR-DASHBOARD-SUMMARY",
+  "status": "completed",
+  "completed_by": "codex_cli_run_captured_by_run_codex_batch",
+  "completed_at": "2026-05-09T03:54:30Z",
+  "summary": "Implemented a deterministic local PMBOT operator dashboard summary builder, fixture, static JSON sample, Markdown operator report, and tests covering queue, ledger, and validation status records for operator review.",
+  "files_created": [],
+  "files_modified": [
+    "pm_bot/dashboard/__init__.py",
+    "pm_bot/dashboard/local_operator_dashboard_summary.py",
+    "pm_bot/dashboard/samples/local_operator_dashboard_summary.fixture.json",
+    "pm_bot/tests/fixtures/dashboard/local_operator_dashboard_request.valid.json",
+    "pm_bot/tests/test_local_operator_dashboard_summary.py",
+    "docs/PMBOT_DASHBOARD_001_LOCAL_OPERATOR_DASHBOARD_SUMMARY.md"
+  ],
+  "files_deleted": [],
+  "commands_run": [
+    "pytest pm_bot/tests/test_local_operator_dashboard_summary.py",
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "validation_results": [
+    {
+      "command": "pytest pm_bot/tests/test_local_operator_dashboard_summary.py",
+      "reported_passed": true,
+      "source": "last_message.md"
+    },
+    {
+      "command": "python -m compileall pm_bot tests",
+      "reported_passed": true,
+      "source": "last_message.md"
+    },
+    {
+      "command": "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py",
+      "reported_passed": true,
+      "source": "last_message.md"
+    }
+  ],
+  "acceptance_checks_passed": true,
+  "safety_confirmation": {
+    "network_calls_performed": 0,
+    "credentials_accessed": false,
+    "wallet_or_trading_touched": false,
+    "runtime_or_dispatcher_touched": false,
+    "background_worker_added": false,
+    "scheduler_added": false,
+    "telegram_or_openclaw_added": false,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "codex_app_server_used": false,
+    "destructive_commands_used": false
+  },
+  "operator_review_notes": "Bridged from last_message.md for Codex CLI run 20260509T034822Z. Execution report status ok/completed, return code 0. Safety notes: Used only local fixtures and static samples. | No network, external service, credential, wallet, trading, payment, transaction endpoint, runtime, dispatcher, run_codex, browser automation, daemon, worker, or scheduler work was performed. | Dashboard artifacts are descriptive operator-review status inventory only and do not include forecast scoring, action guidance, or selection advice.. Remaining risks: python -m compileall pm_bot tests returned 0 but reported it could not list tests\\.pytest_tmp\\pytest-of-OpenC. | pytest returned 0 with a non-fatal PytestCacheWarning because .pytest_cache could not be written..",
+  "next_recommended_action": "Run operator_cli ingest-result and review for this task; leave finalization to a separate operator-approved task."
+}

@@ -1,0 +1,108 @@
+{
+  "contract_version": "pmbot_local_operator_dashboard_request.v1",
+  "dashboard_id": "local_operator_dashboard_fixture_001",
+  "ledger_records": [
+    {
+      "contract_version": "pmbot_weather_observation_ledger.v1",
+      "ledger_id": "weather_observation_ledger_fixture_001",
+      "ledger_type": "weather_observation",
+      "local_reference": "pm_bot/tests/fixtures/weather_observation_ledger_refresh_request.valid.json",
+      "notes": "Static weather observation ledger request fixture.",
+      "operator_review_status": "pending_operator_review",
+      "record_count": 2,
+      "summary_label": "Weather observation records"
+    },
+    {
+      "contract_version": "pmbot_unified_source_quality_ledger.v1",
+      "ledger_id": "unified_source_quality_ledger_fixture_001",
+      "ledger_type": "source_quality",
+      "local_reference": "pm_bot/tests/fixtures/source_quality/unified_source_quality_ledger_request.valid.json",
+      "notes": "Static source quality ledger request fixture.",
+      "operator_review_status": "pending_operator_review",
+      "record_count": 2,
+      "summary_label": "Source quality rows"
+    },
+    {
+      "contract_version": "pmbot_paper_accounting_ledger.v1",
+      "ledger_id": "paper_accounting_ledger_fixture_001",
+      "ledger_type": "paper_accounting",
+      "local_reference": "pm_bot/tests/fixtures/paper_accounting/paper_accounting_ledger_request.valid.json",
+      "notes": "Static paper accounting ledger request fixture.",
+      "operator_review_status": "pending_operator_review",
+      "record_count": 3,
+      "summary_label": "Paper accounting entries"
+    }
+  ],
+  "local_only": true,
+  "operator_review_required": true,
+  "operator_review_steps": [
+    "Confirm each queue record, ledger record, and validation record comes from an expected local fixture or static sample.",
+    "Confirm all rows remain pending operator review before downstream human review.",
+    "Confirm this summary remains descriptive status inventory only."
+  ],
+  "queue_records": [
+    {
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "notes": "Static queue coverage includes the dashboard summary task identifier.",
+      "operator_review_status": "pending_operator_review",
+      "queue_bucket": "planned_template",
+      "safety_class": "local_only_no_execution",
+      "task_id": "PMBOT-DASHBOARD-001-LOCAL-OPERATOR-DASHBOARD-SUMMARY",
+      "task_template": "local_operator_dashboard_summary",
+      "task_title": "PMBOT local operator dashboard summary",
+      "validation_profile": "pmbot_local_code_tests"
+    },
+    {
+      "local_reference": "docs/PMBOT_PAPER_ACCOUNTING_001_PAPER_ONLY_ACCOUNTING_LEDGER_LOCAL_ONLY.md",
+      "notes": "Static queue coverage for local paper accounting ledger review.",
+      "operator_review_status": "pending_operator_review",
+      "queue_bucket": "planned_template",
+      "safety_class": "local_only_no_execution",
+      "task_id": "PMBOT-PAPER-ACCOUNTING-001-PAPER-ONLY-ACCOUNTING-LEDGER-LOCAL-ONLY",
+      "task_template": "paper_only_accounting_ledger",
+      "task_title": "PMBOT paper-only accounting ledger",
+      "validation_profile": "pmbot_local_code_tests"
+    },
+    {
+      "local_reference": "docs/PMBOT_SOURCE_LEDGER_001_UNIFIED_SOURCE_QUALITY_LEDGER_LOCAL_ONLY.md",
+      "notes": "Static queue coverage for local source quality ledger review.",
+      "operator_review_status": "pending_operator_review",
+      "queue_bucket": "planned_template",
+      "safety_class": "local_only_no_execution",
+      "task_id": "PMBOT-SOURCE-LEDGER-001-UNIFIED-SOURCE-QUALITY-LEDGER-LOCAL-ONLY",
+      "task_template": "unified_source_quality_ledger",
+      "task_title": "PMBOT unified source quality ledger",
+      "validation_profile": "pmbot_local_code_tests"
+    },
+    {
+      "local_reference": "docs/PMBOT_PAPERLIVE_010W_005_WEATHER_OPERATOR_REVIEW_SURFACE_UPDATE_NO_TRADE.md",
+      "notes": "Static queue coverage for local weather operator review surface.",
+      "operator_review_status": "pending_operator_review",
+      "queue_bucket": "planned_template",
+      "safety_class": "local_only_no_execution",
+      "task_id": "PMBOT-PAPERLIVE-010W-005-WEATHER-OPERATOR-REVIEW-SURFACE-UPDATE-NO-TRADE",
+      "task_template": "weather_operator_review_surface",
+      "task_title": "PMBOT weather operator review surface",
+      "validation_profile": "pmbot_local_code_tests"
+    }
+  ],
+  "scope": "local_operator_dashboard_summary",
+  "validation_records": [
+    {
+      "command_label": "python -m compileall pm_bot tests",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "notes": "Acceptance command listed for operator-run validation.",
+      "operator_review_status": "pending_operator_review",
+      "status": "not_run_static_record",
+      "validation_id": "compileall.pm_bot.tests"
+    },
+    {
+      "command_label": "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py",
+      "local_reference": "tests/test_codex_queue_pmbot_templates.py",
+      "notes": "Acceptance command listed for operator-run validation.",
+      "operator_review_status": "pending_operator_review",
+      "status": "not_run_static_record",
+      "validation_id": "pytest.pm_bot_tests.queue_templates"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "contract_version": "pmbot_weather_observation_snapshot.v1",
+  "snapshot_id": "fixture_official_daily_climate_report_2026_05_09",
+  "source_id": "official_daily_climate_report",
+  "source_type": "official_record_snapshot",
+  "station_id": "KNYC",
+  "station_name": "Fixture Central Park Station",
+  "observation_date": "2026-05-09",
+  "high_temperature_f": 74,
+  "report_timestamp": "2026-05-10T00:05:00Z",
+  "source_snapshot_note": "Static local fixture for PMBOT weather observation ledger refresh tests."
+}

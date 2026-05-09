@@ -1,0 +1,115 @@
+{
+  "account_context": {
+    "account_id": "paper_fixture_account_001",
+    "currency": "USD",
+    "description": "Offline paper records for operator review"
+  },
+  "accounting_entries": [
+    {
+      "asset_code": "USD",
+      "entry_id": "paper_fixture_account_001.2026-05-09.opening_balance",
+      "entry_type": "opening_balance",
+      "event_id": "paper_event_001",
+      "event_timestamp": "2026-05-09T12:00:00Z",
+      "local_reference": "pm_bot/tests/fixtures/paper_accounting/paper_accounting_events.valid.json",
+      "memo": "Opening paper balance recorded from static operator worksheet.",
+      "operator_review_label": "Opening paper cash balance",
+      "operator_review_status": "pending_operator_review",
+      "quantity_delta": "1000.00",
+      "row_state": "descriptive_paper_accounting_record",
+      "source_artifact_id": "paper_accounting_events_fixture_001",
+      "source_artifact_label": "Static paper accounting event register",
+      "source_artifact_role": "paper_accounting_event_register"
+    },
+    {
+      "asset_code": "USD",
+      "entry_id": "paper_fixture_account_001.2026-05-09.paper_adjustment",
+      "entry_type": "paper_adjustment",
+      "event_id": "paper_event_002",
+      "event_timestamp": "2026-05-09T13:30:00Z",
+      "local_reference": "pm_bot/tests/fixtures/paper_accounting/paper_accounting_events.valid.json",
+      "memo": "Static fixture adjustment for offline accounting review.",
+      "operator_review_label": "Offline accounting adjustment",
+      "operator_review_status": "pending_operator_review",
+      "quantity_delta": "-12.50",
+      "row_state": "descriptive_paper_accounting_record",
+      "source_artifact_id": "paper_accounting_events_fixture_001",
+      "source_artifact_label": "Static paper accounting event register",
+      "source_artifact_role": "paper_accounting_event_register"
+    },
+    {
+      "asset_code": "USD",
+      "entry_id": "paper_fixture_account_001.2026-05-09.paper_correction",
+      "entry_type": "paper_correction",
+      "event_id": "paper_event_003",
+      "event_timestamp": "2026-05-09T14:00:00Z",
+      "local_reference": "pm_bot/tests/fixtures/paper_accounting/paper_accounting_events.valid.json",
+      "memo": "Static fixture correction for offline accounting review.",
+      "operator_review_label": "Offline accounting correction",
+      "operator_review_status": "pending_operator_review",
+      "quantity_delta": "5.00",
+      "row_state": "descriptive_paper_accounting_record",
+      "source_artifact_id": "paper_accounting_events_fixture_001",
+      "source_artifact_label": "Static paper accounting event register",
+      "source_artifact_role": "paper_accounting_event_register"
+    }
+  ],
+  "balance_summary": [
+    {
+      "asset_code": "USD",
+      "entry_count": 3,
+      "net_quantity_delta": "992.50",
+      "operator_review_status": "pending_operator_review"
+    }
+  ],
+  "build_id": "paper_accounting_ledger_fixture_001-02801beecc93",
+  "contract_version": "pmbot_paper_accounting_ledger.v1",
+  "errors": [],
+  "ledger_id": "paper_accounting_ledger_fixture_001",
+  "local_only": true,
+  "operator_review": {
+    "required": true,
+    "review_steps": [
+      "Confirm each local event identity, asset code, and quantity delta.",
+      "Confirm the balance summary is a descriptive total of the listed entries.",
+      "Record accounting disputes outside this local ledger artifact."
+    ],
+    "status": "pending_operator_review"
+  },
+  "operator_review_required": true,
+  "run_mode": "local_paper_only",
+  "safety_boundaries": {
+    "account_change_instruction_allowed": false,
+    "external_market_api_allowed": false,
+    "llm_calls_allowed": false,
+    "market_ranking_allowed": false,
+    "network_calls_allowed": false,
+    "offline_inputs_only": true,
+    "operator_review_gate_required": true,
+    "real_money_or_signing_allowed": false,
+    "runtime_wiring_allowed": false,
+    "scheduler_or_worker_allowed": false,
+    "transaction_endpoint_allowed": false,
+    "wallet_or_order_code_allowed": false
+  },
+  "source_inventory": [
+    {
+      "artifact_id": "paper_accounting_events_fixture_001",
+      "artifact_label": "Static paper accounting event register",
+      "artifact_loaded": true,
+      "artifact_role": "paper_accounting_event_register",
+      "entry_count": 3,
+      "local_reference": "pm_bot/tests/fixtures/paper_accounting/paper_accounting_events.valid.json",
+      "operator_review_status": "pending_operator_review",
+      "required_field_count": 3,
+      "runner_state": "descriptive_paper_accounting_record"
+    }
+  ],
+  "summary_counts": {
+    "accounting_entries": 3,
+    "assets": 1,
+    "source_artifacts": 1,
+    "warnings": 0
+  },
+  "warnings": []
+}

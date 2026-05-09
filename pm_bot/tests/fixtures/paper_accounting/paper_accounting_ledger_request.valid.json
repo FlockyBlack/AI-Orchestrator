@@ -1,0 +1,73 @@
+{
+  "account_context": {
+    "account_id": "paper_fixture_account_001",
+    "currency": "USD",
+    "description": "Offline paper records for operator review"
+  },
+  "contract_version": "pmbot_paper_accounting_ledger_request.v1",
+  "entry_specs": [
+    {
+      "asset_code": "USD",
+      "entry_id": "paper_fixture_account_001.2026-05-09.opening_balance",
+      "entry_type": "opening_balance",
+      "event_id": "paper_event_001",
+      "operator_review_label": "Opening paper cash balance",
+      "quantity_delta": "1000.00",
+      "source_artifact_id": "paper_accounting_events_fixture_001"
+    },
+    {
+      "asset_code": "USD",
+      "entry_id": "paper_fixture_account_001.2026-05-09.paper_adjustment",
+      "entry_type": "paper_adjustment",
+      "event_id": "paper_event_002",
+      "operator_review_label": "Offline accounting adjustment",
+      "quantity_delta": "-12.50",
+      "source_artifact_id": "paper_accounting_events_fixture_001"
+    },
+    {
+      "asset_code": "USD",
+      "entry_id": "paper_fixture_account_001.2026-05-09.paper_correction",
+      "entry_type": "paper_correction",
+      "event_id": "paper_event_003",
+      "operator_review_label": "Offline accounting correction",
+      "quantity_delta": "5.00",
+      "source_artifact_id": "paper_accounting_events_fixture_001"
+    }
+  ],
+  "ledger_id": "paper_accounting_ledger_fixture_001",
+  "local_only": true,
+  "operator_review_required": true,
+  "operator_review_steps": [
+    "Confirm each local event identity, asset code, and quantity delta.",
+    "Confirm the balance summary is a descriptive total of the listed entries.",
+    "Record accounting disputes outside this local ledger artifact."
+  ],
+  "scope": "paper_accounting_ledger",
+  "source_artifacts": [
+    {
+      "artifact_id": "paper_accounting_events_fixture_001",
+      "artifact_label": "Static paper accounting event register",
+      "artifact_role": "paper_accounting_event_register",
+      "known_limitations": [
+        "Static fixture only; no live account refresh is performed.",
+        "Describes accounting records without market ranking or execution approval."
+      ],
+      "local_reference": "pm_bot/tests/fixtures/paper_accounting/paper_accounting_events.valid.json",
+      "required_fields": [
+        "artifact_id",
+        "currency",
+        "events"
+      ],
+      "review_checks": [
+        {
+          "check_id": "identity",
+          "description": "Confirm the local artifact path and artifact identifier match the review packet."
+        },
+        {
+          "check_id": "entry_inventory",
+          "description": "Confirm each listed event is visible in the local fixture before operator review."
+        }
+      ]
+    }
+  ]
+}

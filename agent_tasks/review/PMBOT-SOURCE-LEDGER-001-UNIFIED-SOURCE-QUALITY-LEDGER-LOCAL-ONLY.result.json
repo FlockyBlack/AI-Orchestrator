@@ -1,0 +1,56 @@
+{
+  "schema_version": "codex_task_result.v1",
+  "task_id": "PMBOT-SOURCE-LEDGER-001-UNIFIED-SOURCE-QUALITY-LEDGER-LOCAL-ONLY",
+  "status": "completed",
+  "completed_by": "codex_cli_run_captured_by_run_codex_batch",
+  "completed_at": "2026-05-09T03:24:24Z",
+  "summary": "Added a deterministic local PMBOT unified source quality ledger artifact, builder CLI, static fixture request, static sample ledger, focused tests, and operator-facing documentation. Outputs are descriptive, local-only, pending operator review, and do not provide forecast scoring, action guidance, or selection advice.",
+  "files_created": [],
+  "files_modified": [
+    "pm_bot/source_quality/__init__.py",
+    "pm_bot/source_quality/unified_source_quality_ledger.py",
+    "pm_bot/source_quality/samples/unified_source_quality_ledger.fixture.json",
+    "pm_bot/tests/fixtures/source_quality/unified_source_quality_ledger_request.valid.json",
+    "pm_bot/tests/test_unified_source_quality_ledger.py",
+    "docs/PMBOT_SOURCE_LEDGER_001_UNIFIED_SOURCE_QUALITY_LEDGER_LOCAL_ONLY.md"
+  ],
+  "files_deleted": [],
+  "commands_run": [
+    "pytest pm_bot/tests/test_unified_source_quality_ledger.py",
+    "python -m compileall pm_bot tests",
+    "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py"
+  ],
+  "validation_results": [
+    {
+      "command": "pytest pm_bot/tests/test_unified_source_quality_ledger.py",
+      "reported_passed": true,
+      "source": "last_message.md"
+    },
+    {
+      "command": "python -m compileall pm_bot tests",
+      "reported_passed": true,
+      "source": "last_message.md"
+    },
+    {
+      "command": "pytest pm_bot/tests tests/test_codex_queue_pmbot_templates.py",
+      "reported_passed": true,
+      "source": "last_message.md"
+    }
+  ],
+  "acceptance_checks_passed": true,
+  "safety_confirmation": {
+    "network_calls_performed": 0,
+    "credentials_accessed": false,
+    "wallet_or_trading_touched": false,
+    "runtime_or_dispatcher_touched": false,
+    "background_worker_added": false,
+    "scheduler_added": false,
+    "telegram_or_openclaw_added": false,
+    "openrouter_calls_performed": 0,
+    "polymarket_api_calls_performed": 0,
+    "codex_app_server_used": false,
+    "destructive_commands_used": false
+  },
+  "operator_review_notes": "Bridged from last_message.md for Codex CLI run 20260509T031708Z. Execution report status ok/completed, return code 0. Safety notes: Used only local files, local fixtures, and static samples. | Made no network calls, external service calls, credential access, wallet/order/trading changes, runtime wiring changes, browser automation, or background process changes. | Source edits were limited to allowed paths. | The requested compileall command traversed the full pm_bot tree as specified by acceptance checks; no source edits were made outside the allowed paths. | Ledger output remains descriptive and operator-reviewed with closed safety boundaries.. Remaining risks: pytest emitted a cache-write permission warning for .pytest_cache, but all requested test assertions passed..",
+  "next_recommended_action": "Run operator_cli ingest-result and review for this task; leave finalization to a separate operator-approved task."
+}
