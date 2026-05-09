@@ -11,10 +11,11 @@ The MVP shape is:
 - validation
 - safety gate
 - workspace and handoff planning
+- supervised one-task Codex CLI execution
 - proof-of-work report
 - human review
 
-There is no autonomous execution in this MVP. The dry-run runner only validates approved JSON packets, classifies safety, writes non-executing plans, writes handoff prompts, and writes reports.
+There is no autonomous multi-task execution in this MVP. The dry-run runner validates approved JSON packets, classifies safety, writes non-executing plans, writes handoff prompts, and writes reports. The supervised Codex CLI runner executes only one explicit approved/planned task per operator command.
 
 Manual approval is required. Proposed tasks start in `inbox/`; an operator must inspect and move a task packet to `approved/` before the dry-run runner will plan it.
 
@@ -32,7 +33,7 @@ PMBOT operator-review packets can be created through the safe template bridge do
 - `templates/`: example task packets.
 - `reports/`: dry-run and queue reports.
 
-## Runner
+## Planning Runner
 
 Run from the repository root:
 
@@ -50,3 +51,27 @@ The runner does not:
 - move packets between queue directories
 - start daemons, background workers, schedulers, or task scheduler jobs
 
+## Supervised Codex CLI Runner
+
+After a task is approved and planned, inspect the handoff prompt and run a dry-run preflight:
+
+```powershell
+python -m ai_orchestrator.codex_queue.operator_cli run-codex-once --queue-root agent_tasks --task-id <TASK_ID> --dry-run
+```
+
+For one supervised execution:
+
+```powershell
+python -m ai_orchestrator.codex_queue.operator_cli run-codex-once --queue-root agent_tasks --task-id <TASK_ID> --timeout-seconds 3600
+```
+
+The runner:
+
+- requires an explicit `--task-id`
+- accepts only approved/planned tasks with an existing plan and handoff prompt
+- checks local git state and blocks on `expected_head` mismatches
+- invokes exactly one `codex exec` process when not in dry-run mode
+- passes the handoff prompt through stdin
+- captures stdout, stderr, the last Codex message, and JSON/Markdown execution reports under `agent_tasks/reports/codex_cli_runs/<TASK_ID>/<RUN_ID>/`
+
+It does not mark tasks done, approve review, ingest results, push git changes, create schedulers, start daemons, start background workers, or run a multi-task loop.

@@ -6,6 +6,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Mapping
 
+from .codex_cli_runner import DEFAULT_TIMEOUT_SECONDS, run_codex_once
 from .dry_run_runner import run_dry_run
 from .files import (
     QUEUE_STATE_DIRECTORIES,
@@ -72,6 +73,16 @@ def main(argv: list[str] | None = None) -> int:
     plan_parser = subparsers.add_parser("plan", help="Run the dry-run planner for approved tasks.")
     _add_queue_root(plan_parser)
     plan_parser.set_defaults(func=_cmd_plan)
+
+    run_codex_parser = subparsers.add_parser(
+        "run-codex-once",
+        help="Run Codex CLI once for one approved/planned task handoff prompt.",
+    )
+    _add_queue_root(run_codex_parser)
+    run_codex_parser.add_argument("--task-id", required=True)
+    run_codex_parser.add_argument("--dry-run", action="store_true")
+    run_codex_parser.add_argument("--timeout-seconds", type=int, default=DEFAULT_TIMEOUT_SECONDS)
+    run_codex_parser.set_defaults(func=_cmd_run_codex_once)
 
     workspace_plan_parser = subparsers.add_parser(
         "workspace-plan",
@@ -622,6 +633,49 @@ def _cmd_plan(args: argparse.Namespace) -> dict[str, Any]:
     )
 
 
+def _cmd_run_codex_once(args: argparse.Namespace) -> dict[str, Any]:
+    root = ensure_queue_directories(args.queue_root)
+    task_id = validate_task_id(args.task_id)
+    report = run_codex_once(
+        root,
+        task_id=task_id,
+        dry_run=args.dry_run,
+        timeout_seconds=args.timeout_seconds,
+    )
+    status = "ok" if report["status"] == "ok" else report["status"]
+    return write_operator_action_report(
+        root,
+        _action(
+            "run-codex-once",
+            status,
+            task_id,
+            root,
+            source_path=report.get("paths", {}).get("handoff_prompt") or "",
+            destination_path=report.get("paths", {}).get("execution_dir") or "",
+            errors=list(report.get("errors", [])),
+            warnings=list(report.get("warnings", [])),
+            next_operator_action=str(report.get("next_operator_action", "")),
+            extra={
+                "codex_cli_execution_report_paths": report["report_paths"],
+                "execution_status": report["execution_status"],
+                "dry_run": report["dry_run"],
+                "command": report["command"],
+                "codex_exec_invoked": report["codex_exec_invoked"],
+                "codex_invocation_count": report["codex_invocation_count"],
+                "exit_code": report["exit_code"],
+                "result_ingested_automatically": report["result_ingested_automatically"],
+                "task_marked_done_automatically": report["task_marked_done_automatically"],
+                "review_approved_automatically": report["review_approved_automatically"],
+                "git_push_performed": report["git_push_performed"],
+                "scheduler_created": report["scheduler_created"],
+                "daemon_created": report["daemon_created"],
+                "background_worker_created": report["background_worker_created"],
+                "multi_task_loop_created": report["multi_task_loop_created"],
+            },
+        ),
+    )
+
+
 def _cmd_workspace_plan(args: argparse.Namespace) -> dict[str, Any]:
     root = ensure_queue_directories(args.queue_root)
     task_id = validate_task_id(args.task_id)
@@ -1143,14 +1197,16 @@ def render_operator_action_markdown(report: Mapping[str, Any]) -> str:
         lines.extend(["## Warnings", ""])
         lines.extend(f"- {warning}" for warning in report["warnings"])
         lines.append("")
-    lines.extend(
-        [
-            "## Safety",
-            "",
-            "This operator action was local-only and operator-invoked. It did not execute Codex, call Codex app-server, start background workers, add schedulers, call network services, or access credentials.",
-            "",
-        ]
-    )
+    lines.extend(["## Safety", ""])
+    if report["command"] == "run-codex-once":
+        lines.append(
+            "This operator action is supervised and one-task only. When dry_run is false and preflight passes, it invokes exactly one local `codex exec` process and captures logs; it does not call Codex app-server, start background workers, add schedulers, approve review, mark tasks done, push git branches, call network services directly, or access credentials."
+        )
+    else:
+        lines.append(
+            "This operator action was local-only and operator-invoked. It did not execute Codex, call Codex app-server, start background workers, add schedulers, call network services, or access credentials."
+        )
+    lines.append("")
     return "\n".join(lines)
 
 

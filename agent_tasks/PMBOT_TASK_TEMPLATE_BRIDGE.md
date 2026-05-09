@@ -58,6 +58,34 @@ Review:
 
 The plan command does not run Codex, execute validation commands, create branches, create worktrees, call network services, or start any worker.
 
+## Dry-Run The Supervised Codex CLI Runner
+
+Review the generated handoff prompt first, then run the supervised runner dry-run:
+
+```powershell
+python -m ai_orchestrator.codex_queue.operator_cli run-codex-once --queue-root agent_tasks --task-id PMBOT-PAPERLIVE-010W-002-WEATHER-OUTCOME-SOURCE-MONITORING-PLAN-RUNNER-NO-TRADE --dry-run
+```
+
+Inspect:
+
+- `agent_tasks/reports/latest_codex_cli_execution_report.md`
+- the exact `codex exec` command
+- the task packet, plan, handoff prompt, stdout, stderr, and last-message paths
+
+The dry-run does not invoke Codex CLI.
+
+## Run One Supervised Codex CLI Execution
+
+Run exactly one supervised execution:
+
+```powershell
+python -m ai_orchestrator.codex_queue.operator_cli run-codex-once --queue-root agent_tasks --task-id PMBOT-PAPERLIVE-010W-002-WEATHER-OUTCOME-SOURCE-MONITORING-PLAN-RUNNER-NO-TRADE --timeout-seconds 3600
+```
+
+The runner passes `agent_tasks/planned/<TASK_ID>.handoff_prompt.md` to `codex exec` through stdin, captures stdout and stderr under `agent_tasks/reports/codex_cli_runs/<TASK_ID>/<RUN_ID>/`, and writes JSON/Markdown execution reports.
+
+This command never approves review, never marks the task done, never ingests the result automatically, never pushes git changes, and never starts a scheduler, daemon, background worker, or multi-task loop.
+
 ## Result JSON
 
 Codex should return a `codex_task_result.v1` JSON packet and place it under:
