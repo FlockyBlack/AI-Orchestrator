@@ -1,0 +1,184 @@
+{
+  "card_id": "new-market-public-evidence-operator-card-017",
+  "contract_version": "pmbot_new_market_public_evidence_operator_card.v1",
+  "fetch_can_run_later": false,
+  "generated_at": "2026-05-11T00:00:00Z",
+  "live_fetch_performed": false,
+  "market": {
+    "market_id": "573656",
+    "market_title": "Will Bitcoin hit $150k by December 31, 2026?"
+  },
+  "operator_must_approve": {
+    "approval_for_future_task_id": "ORCH-PMBOT-PRACTICAL-018-FIRST-PUBLIC-EVIDENCE-FETCH-FOR-NEW-MARKET",
+    "approval_id": "new-market-public-fetch-scoped-approval-pending-017",
+    "approval_status": "pending",
+    "max_request_count": 3,
+    "operator_approval_granted": false
+  },
+  "request_counts": {
+    "blocked_request_count": 0,
+    "executable_request_count": 0,
+    "missing_url_count": 3,
+    "request_intent_count": 3
+  },
+  "safety_boundary": [
+    "Planning and dashboard refresh only.",
+    "No live fetch, OpenRouter call, Polymarket API call, auth, cookies, wallet, orders, trading, scheduler, or background worker.",
+    "No outcome is resolved and no market instruction is generated."
+  ],
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "automatic_analysis_update_performed": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "new_live_fetch_performed": false,
+    "new_polymarket_api_calls_performed": 0,
+    "no_autonomous_trading": true,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "no_scheduler_daemon_background_worker": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "outcome_resolution_invented": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "source_categories_proposed": [
+    {
+      "include_in_manifest": true,
+      "safe_by_registry": true,
+      "source_category": "public_market_metadata_endpoint_placeholder",
+      "source_name": "public market metadata page/reference",
+      "url_status": "missing"
+    },
+    {
+      "include_in_manifest": true,
+      "safe_by_registry": true,
+      "source_category": "public_static_web_page_placeholder",
+      "source_name": "public Bitcoin price reference category",
+      "url_status": "missing"
+    },
+    {
+      "include_in_manifest": true,
+      "safe_by_registry": true,
+      "source_category": "public_resolution_source_page_placeholder",
+      "source_name": "public resolution source reference category",
+      "url_status": "missing"
+    },
+    {
+      "include_in_manifest": false,
+      "safe_by_registry": true,
+      "source_category": "public_static_web_page_placeholder",
+      "source_name": "public crypto market data reference category",
+      "url_status": "missing"
+    },
+    {
+      "include_in_manifest": false,
+      "safe_by_registry": true,
+      "source_category": "public_static_web_page_placeholder",
+      "source_name": "public exchange/index reference category",
+      "url_status": "missing"
+    },
+    {
+      "include_in_manifest": false,
+      "safe_by_registry": true,
+      "source_category": "public_static_web_page_placeholder",
+      "source_name": "public source already present in normalized input",
+      "url_status": "missing"
+    }
+  ],
+  "urls": {
+    "blocked_source_items": [],
+    "concrete_public_urls": [],
+    "missing_url_items": [
+      {
+        "candidate_source_id": "new-market-017:573656:01:public_market_metadata_page_reference",
+        "expected_evidence_type": "public market metadata, rules, status, and linked reference snapshot",
+        "include_in_manifest": true,
+        "reason": "No concrete public HTTP(S) URL is present in local artifacts or the manual fixture.",
+        "source_category": "public_market_metadata_endpoint_placeholder",
+        "source_name": "public market metadata page/reference"
+      },
+      {
+        "candidate_source_id": "new-market-017:573656:02:public_bitcoin_price_reference_category",
+        "expected_evidence_type": "public Bitcoin price threshold reference snapshot",
+        "include_in_manifest": true,
+        "reason": "No concrete public HTTP(S) URL is present in local artifacts or the manual fixture.",
+        "source_category": "public_static_web_page_placeholder",
+        "source_name": "public Bitcoin price reference category"
+      },
+      {
+        "candidate_source_id": "new-market-017:573656:03:public_resolution_source_reference_category",
+        "expected_evidence_type": "public resolution rules or resolution-source reference snapshot",
+        "include_in_manifest": true,
+        "reason": "No concrete public HTTP(S) URL is present in local artifacts or the manual fixture.",
+        "source_category": "public_resolution_source_page_placeholder",
+        "source_name": "public resolution source reference category"
+      },
+      {
+        "candidate_source_id": "new-market-017:573656:04:public_crypto_market_data_reference_category",
+        "expected_evidence_type": "public crypto market data reference snapshot",
+        "include_in_manifest": false,
+        "reason": "No concrete public HTTP(S) URL is present in local artifacts or the manual fixture.",
+        "source_category": "public_static_web_page_placeholder",
+        "source_name": "public crypto market data reference category"
+      },
+      {
+        "candidate_source_id": "new-market-017:573656:05:public_exchange_index_reference_category",
+        "expected_evidence_type": "public exchange or index reference snapshot",
+        "include_in_manifest": false,
+        "reason": "No concrete public HTTP(S) URL is present in local artifacts or the manual fixture.",
+        "source_category": "public_static_web_page_placeholder",
+        "source_name": "public exchange/index reference category"
+      },
+      {
+        "candidate_source_id": "new-market-017:573656:06:public_source_already_present_in_normalized_input",
+        "expected_evidence_type": "locally present source reference review",
+        "include_in_manifest": false,
+        "reason": "No concrete public HTTP(S) URL is present in local artifacts or the manual fixture.",
+        "source_category": "public_static_web_page_placeholder",
+        "source_name": "public source already present in normalized input"
+      }
+    ]
+  },
+  "what_evidence_is_needed": [
+    {
+      "category": "market_rules",
+      "present_in_practical_016_missing_evidence": false,
+      "why_needed": "Full public market resolution criteria and status text."
+    },
+    {
+      "category": "benchmark_and_timezone_rules",
+      "present_in_practical_016_missing_evidence": true,
+      "why_needed": "Benchmark, threshold, and timestamp definitions for the Bitcoin $150k condition."
+    },
+    {
+      "category": "official_source_urls",
+      "present_in_practical_016_missing_evidence": true,
+      "why_needed": "Concrete public source URLs named by the market rules or source plan."
+    },
+    {
+      "category": "price_reference_evidence",
+      "present_in_practical_016_missing_evidence": false,
+      "why_needed": "Public Bitcoin price or index reference suitable for later saved evidence review."
+    },
+    {
+      "category": "counterevidence",
+      "present_in_practical_016_missing_evidence": false,
+      "why_needed": "Public no/counterevidence category for later outcome recheck review."
+    },
+    {
+      "category": "source_reliability_review",
+      "present_in_practical_016_missing_evidence": true,
+      "why_needed": "Operator-reviewed source reliability and timestamp notes."
+    }
+  ],
+  "what_remains_manual": [
+    "Collect concrete public URLs for missing source categories.",
+    "Confirm benchmark, index, and timestamp rules from saved public evidence after a later approved fetch.",
+    "Attach outcome resolution evidence only after a saved local outcome record exists."
+  ]
+}

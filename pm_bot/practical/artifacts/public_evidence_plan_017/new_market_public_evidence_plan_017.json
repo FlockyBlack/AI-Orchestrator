@@ -1,0 +1,347 @@
+{
+  "available_local_evidence": {
+    "available_evidence": [
+      "Polymarket market rules and resolution criteria for market_id 573656",
+      "Official benchmark, exchange, or index source specified by the market rules",
+      "Timestamp and threshold definitions for 'Will Bitcoin hit $150k by December 31, 2026?'",
+      "Reuters markets coverage query for 'Will Bitcoin hit $150k by December 31, 2026?'",
+      "CoinDesk or The Block market coverage query for 'Will Bitcoin hit $150k by December 31, 2026?'",
+      "Bloomberg or Wall Street Journal markets query for 'When will Bitcoin hit $150k?'",
+      "Template only: confirm the market's own resolution rules, then check the specified benchmark, exchange or index source, timestamp rules, and credible market coverage for 'Will Bitcoin hit $150k by December 31, 2026?'. Do not fetch sources in this stub."
+    ],
+    "live_fetch_performed": false,
+    "local_only": true,
+    "new_source_dependency_count": 7,
+    "source_packet_count": 7,
+    "source_packets": [
+      {
+        "freshness_status": "unknown",
+        "source_id": "official_source_placeholder_001",
+        "source_name": "official_source_placeholder",
+        "source_type": "local_static_fixture",
+        "source_url_or_reference": "Polymarket market rules and resolution criteria for market_id 573656"
+      },
+      {
+        "freshness_status": "unknown",
+        "source_id": "official_source_placeholder_002",
+        "source_name": "official_source_placeholder",
+        "source_type": "local_static_fixture",
+        "source_url_or_reference": "Official benchmark, exchange, or index source specified by the market rules"
+      },
+      {
+        "freshness_status": "unknown",
+        "source_id": "official_source_placeholder_003",
+        "source_name": "official_source_placeholder",
+        "source_type": "local_static_fixture",
+        "source_url_or_reference": "Timestamp and threshold definitions for 'Will Bitcoin hit $150k by December 31, 2026?'"
+      },
+      {
+        "freshness_status": "unknown",
+        "source_id": "news_source_placeholder_004",
+        "source_name": "news_source_placeholder",
+        "source_type": "local_static_fixture",
+        "source_url_or_reference": "Reuters markets coverage query for 'Will Bitcoin hit $150k by December 31, 2026?'"
+      },
+      {
+        "freshness_status": "unknown",
+        "source_id": "news_source_placeholder_005",
+        "source_name": "news_source_placeholder",
+        "source_type": "local_static_fixture",
+        "source_url_or_reference": "CoinDesk or The Block market coverage query for 'Will Bitcoin hit $150k by December 31, 2026?'"
+      },
+      {
+        "freshness_status": "unknown",
+        "source_id": "news_source_placeholder_006",
+        "source_name": "news_source_placeholder",
+        "source_type": "local_static_fixture",
+        "source_url_or_reference": "Bloomberg or Wall Street Journal markets query for 'When will Bitcoin hit $150k?'"
+      },
+      {
+        "freshness_status": "unknown",
+        "source_id": "source_plan_007",
+        "source_name": "source_plan",
+        "source_type": "local_static_fixture",
+        "source_url_or_reference": "Template only: confirm the market's own resolution rules, then check the specified benchmark, exchange or index source, timestamp rules, and credible market coverage for 'Will Bitcoin hit $150k by December 31, 2026?'. Do not fetch sources in this stub."
+      }
+    ]
+  },
+  "blocked_source_items": [],
+  "candidate_public_source_categories": [
+    {
+      "include_in_manifest": true,
+      "safe_by_registry": true,
+      "source_category": "public_market_metadata_endpoint_placeholder",
+      "source_name": "public market metadata page/reference",
+      "url_status": "missing"
+    },
+    {
+      "include_in_manifest": true,
+      "safe_by_registry": true,
+      "source_category": "public_static_web_page_placeholder",
+      "source_name": "public Bitcoin price reference category",
+      "url_status": "missing"
+    },
+    {
+      "include_in_manifest": true,
+      "safe_by_registry": true,
+      "source_category": "public_resolution_source_page_placeholder",
+      "source_name": "public resolution source reference category",
+      "url_status": "missing"
+    },
+    {
+      "include_in_manifest": false,
+      "safe_by_registry": true,
+      "source_category": "public_static_web_page_placeholder",
+      "source_name": "public crypto market data reference category",
+      "url_status": "missing"
+    },
+    {
+      "include_in_manifest": false,
+      "safe_by_registry": true,
+      "source_category": "public_static_web_page_placeholder",
+      "source_name": "public exchange/index reference category",
+      "url_status": "missing"
+    },
+    {
+      "include_in_manifest": false,
+      "safe_by_registry": true,
+      "source_category": "public_static_web_page_placeholder",
+      "source_name": "public source already present in normalized input",
+      "url_status": "missing"
+    }
+  ],
+  "candidate_public_source_references": [
+    {
+      "source_id": "official_source_placeholder_001",
+      "source_name": "official_source_placeholder",
+      "source_reference": "Polymarket market rules and resolution criteria for market_id 573656",
+      "source_type": "local_static_fixture"
+    },
+    {
+      "source_id": "official_source_placeholder_002",
+      "source_name": "official_source_placeholder",
+      "source_reference": "Official benchmark, exchange, or index source specified by the market rules",
+      "source_type": "local_static_fixture"
+    },
+    {
+      "source_id": "official_source_placeholder_003",
+      "source_name": "official_source_placeholder",
+      "source_reference": "Timestamp and threshold definitions for 'Will Bitcoin hit $150k by December 31, 2026?'",
+      "source_type": "local_static_fixture"
+    },
+    {
+      "source_id": "news_source_placeholder_004",
+      "source_name": "news_source_placeholder",
+      "source_reference": "Reuters markets coverage query for 'Will Bitcoin hit $150k by December 31, 2026?'",
+      "source_type": "local_static_fixture"
+    },
+    {
+      "source_id": "news_source_placeholder_005",
+      "source_name": "news_source_placeholder",
+      "source_reference": "CoinDesk or The Block market coverage query for 'Will Bitcoin hit $150k by December 31, 2026?'",
+      "source_type": "local_static_fixture"
+    },
+    {
+      "source_id": "news_source_placeholder_006",
+      "source_name": "news_source_placeholder",
+      "source_reference": "Bloomberg or Wall Street Journal markets query for 'When will Bitcoin hit $150k?'",
+      "source_type": "local_static_fixture"
+    },
+    {
+      "source_id": "source_plan_007",
+      "source_name": "source_plan",
+      "source_reference": "Template only: confirm the market's own resolution rules, then check the specified benchmark, exchange or index source, timestamp rules, and credible market coverage for 'Will Bitcoin hit $150k by December 31, 2026?'. Do not fetch sources in this stub.",
+      "source_type": "local_static_fixture"
+    },
+    {
+      "source_id": "new-market-017:573656:01:public_market_metadata_page_reference",
+      "source_name": "public market metadata page/reference",
+      "source_reference": "public_source_placeholder:public_market_metadata_endpoint_placeholder:573656:public_market_metadata_page_reference",
+      "source_type": "candidate_public_source_placeholder"
+    },
+    {
+      "source_id": "new-market-017:573656:02:public_bitcoin_price_reference_category",
+      "source_name": "public Bitcoin price reference category",
+      "source_reference": "public_source_placeholder:public_static_web_page_placeholder:573656:public_bitcoin_price_reference_category",
+      "source_type": "candidate_public_source_placeholder"
+    },
+    {
+      "source_id": "new-market-017:573656:03:public_resolution_source_reference_category",
+      "source_name": "public resolution source reference category",
+      "source_reference": "public_source_placeholder:public_resolution_source_page_placeholder:573656:public_resolution_source_reference_category",
+      "source_type": "candidate_public_source_placeholder"
+    },
+    {
+      "source_id": "new-market-017:573656:04:public_crypto_market_data_reference_category",
+      "source_name": "public crypto market data reference category",
+      "source_reference": "public_source_placeholder:public_static_web_page_placeholder:573656:public_crypto_market_data_reference_category",
+      "source_type": "candidate_public_source_placeholder"
+    },
+    {
+      "source_id": "new-market-017:573656:05:public_exchange_index_reference_category",
+      "source_name": "public exchange/index reference category",
+      "source_reference": "public_source_placeholder:public_static_web_page_placeholder:573656:public_exchange_index_reference_category",
+      "source_type": "candidate_public_source_placeholder"
+    },
+    {
+      "source_id": "new-market-017:573656:06:public_source_already_present_in_normalized_input",
+      "source_name": "public source already present in normalized input",
+      "source_reference": "public_source_placeholder:public_static_web_page_placeholder:573656:public_source_already_present_in_normalized_input",
+      "source_type": "candidate_public_source_placeholder"
+    }
+  ],
+  "concrete_public_urls": [],
+  "contract_version": "pmbot_new_market_public_evidence_plan.v1",
+  "evidence_plan_id": "new-market-public-evidence-plan-017-573656",
+  "expected_evidence_role": [
+    {
+      "role": "Confirm the saved local title, rules, and public resolution references before any future evidence replay.",
+      "source_name": "public market metadata page/reference"
+    },
+    {
+      "role": "Capture the public price reference category that would later support threshold and timestamp review.",
+      "source_name": "public Bitcoin price reference category"
+    },
+    {
+      "role": "Confirm the public source used for resolving whether the threshold condition was met.",
+      "source_name": "public resolution source reference category"
+    },
+    {
+      "role": "Provide a public market data source category for later operator-reviewed evidence collection.",
+      "source_name": "public crypto market data reference category"
+    },
+    {
+      "role": "Provide a public exchange or index source category if the market rules name one later.",
+      "source_name": "public exchange/index reference category"
+    },
+    {
+      "role": "Check whether the normalized input already contains concrete public HTTP(S) URLs.",
+      "source_name": "public source already present in normalized input"
+    }
+  ],
+  "generated_at": "2026-05-11T00:00:00Z",
+  "linked_hypothesis_id": "573656.analysis.ceab64191597.paper_hypothesis",
+  "live_fetch_performed": false,
+  "market_class": "crypto",
+  "missing_public_evidence": [
+    "full_market_resolution_criteria_text",
+    "official_source_urls",
+    "credible_news_source_urls",
+    "yes_evidence",
+    "no_or_counterevidence",
+    "source_timestamps",
+    "source_reliability_review",
+    "operator_market_assessment_placeholder",
+    "operator_risk_review",
+    "benchmark_and_timezone_rules",
+    "Referenced source artifact path is not present locally: pm_bot/research/merged_manual_research_packets.v1.json"
+  ],
+  "missing_url_items": [
+    {
+      "candidate_source_id": "new-market-017:573656:01:public_market_metadata_page_reference",
+      "expected_evidence_type": "public market metadata, rules, status, and linked reference snapshot",
+      "include_in_manifest": true,
+      "reason": "No concrete public HTTP(S) URL is present in local artifacts or the manual fixture.",
+      "source_category": "public_market_metadata_endpoint_placeholder",
+      "source_name": "public market metadata page/reference"
+    },
+    {
+      "candidate_source_id": "new-market-017:573656:02:public_bitcoin_price_reference_category",
+      "expected_evidence_type": "public Bitcoin price threshold reference snapshot",
+      "include_in_manifest": true,
+      "reason": "No concrete public HTTP(S) URL is present in local artifacts or the manual fixture.",
+      "source_category": "public_static_web_page_placeholder",
+      "source_name": "public Bitcoin price reference category"
+    },
+    {
+      "candidate_source_id": "new-market-017:573656:03:public_resolution_source_reference_category",
+      "expected_evidence_type": "public resolution rules or resolution-source reference snapshot",
+      "include_in_manifest": true,
+      "reason": "No concrete public HTTP(S) URL is present in local artifacts or the manual fixture.",
+      "source_category": "public_resolution_source_page_placeholder",
+      "source_name": "public resolution source reference category"
+    },
+    {
+      "candidate_source_id": "new-market-017:573656:04:public_crypto_market_data_reference_category",
+      "expected_evidence_type": "public crypto market data reference snapshot",
+      "include_in_manifest": false,
+      "reason": "No concrete public HTTP(S) URL is present in local artifacts or the manual fixture.",
+      "source_category": "public_static_web_page_placeholder",
+      "source_name": "public crypto market data reference category"
+    },
+    {
+      "candidate_source_id": "new-market-017:573656:05:public_exchange_index_reference_category",
+      "expected_evidence_type": "public exchange or index reference snapshot",
+      "include_in_manifest": false,
+      "reason": "No concrete public HTTP(S) URL is present in local artifacts or the manual fixture.",
+      "source_category": "public_static_web_page_placeholder",
+      "source_name": "public exchange/index reference category"
+    },
+    {
+      "candidate_source_id": "new-market-017:573656:06:public_source_already_present_in_normalized_input",
+      "expected_evidence_type": "locally present source reference review",
+      "include_in_manifest": false,
+      "reason": "No concrete public HTTP(S) URL is present in local artifacts or the manual fixture.",
+      "source_category": "public_static_web_page_placeholder",
+      "source_name": "public source already present in normalized input"
+    }
+  ],
+  "no_real_trade_decision": true,
+  "operator_approval_required_before_fetch": true,
+  "required_evidence_categories": [
+    {
+      "category": "market_rules",
+      "present_in_practical_016_missing_evidence": false,
+      "why_needed": "Full public market resolution criteria and status text."
+    },
+    {
+      "category": "benchmark_and_timezone_rules",
+      "present_in_practical_016_missing_evidence": true,
+      "why_needed": "Benchmark, threshold, and timestamp definitions for the Bitcoin $150k condition."
+    },
+    {
+      "category": "official_source_urls",
+      "present_in_practical_016_missing_evidence": true,
+      "why_needed": "Concrete public source URLs named by the market rules or source plan."
+    },
+    {
+      "category": "price_reference_evidence",
+      "present_in_practical_016_missing_evidence": false,
+      "why_needed": "Public Bitcoin price or index reference suitable for later saved evidence review."
+    },
+    {
+      "category": "counterevidence",
+      "present_in_practical_016_missing_evidence": false,
+      "why_needed": "Public no/counterevidence category for later outcome recheck review."
+    },
+    {
+      "category": "source_reliability_review",
+      "present_in_practical_016_missing_evidence": true,
+      "why_needed": "Operator-reviewed source reliability and timestamp notes."
+    }
+  ],
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "automatic_analysis_update_performed": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "new_live_fetch_performed": false,
+    "new_polymarket_api_calls_performed": 0,
+    "no_autonomous_trading": true,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "no_scheduler_daemon_background_worker": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "outcome_resolution_invented": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "source_market_id": "573656",
+  "source_market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+  "source_normalized_input_path": "pm_bot/practical/artifacts/add_market_016/normalized_input_016.json",
+  "source_paper_hypothesis_path": "pm_bot/practical/artifacts/add_market_016/paper_hypothesis_016.json"
+}

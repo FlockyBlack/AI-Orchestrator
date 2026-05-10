@@ -1,0 +1,69 @@
+{
+  "contract_version": "pmbot_new_market_public_url_mapping_manual_fixture.v1",
+  "fixture_notes": [
+    "Manual fixture created locally for PRACTICAL-017.",
+    "Concrete public URLs are intentionally null because none were already present locally.",
+    "Do not fetch these sources until a later separately approved task."
+  ],
+  "generated_at": "2026-05-11T00:00:00Z",
+  "live_fetch_performed": false,
+  "mappings": [
+    {
+      "concrete_public_url": null,
+      "expected_evidence_type": "public market metadata, rules, status, and linked reference snapshot",
+      "linked_hypothesis_id": "573656.analysis.ceab64191597.paper_hypothesis",
+      "live_fetch_performed": false,
+      "market_id": "573656",
+      "market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+      "reason": "No concrete public HTTP(S) URL is present in local artifacts or the manual fixture.",
+      "source_category": "public_market_metadata_endpoint_placeholder",
+      "source_name": "public market metadata page/reference",
+      "url_status": "missing"
+    },
+    {
+      "concrete_public_url": null,
+      "expected_evidence_type": "public Bitcoin price threshold reference snapshot",
+      "linked_hypothesis_id": "573656.analysis.ceab64191597.paper_hypothesis",
+      "live_fetch_performed": false,
+      "market_id": "573656",
+      "market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+      "reason": "No concrete public HTTP(S) URL is present in local artifacts or the manual fixture.",
+      "source_category": "public_static_web_page_placeholder",
+      "source_name": "public Bitcoin price reference category",
+      "url_status": "missing"
+    },
+    {
+      "concrete_public_url": null,
+      "expected_evidence_type": "public resolution rules or resolution-source reference snapshot",
+      "linked_hypothesis_id": "573656.analysis.ceab64191597.paper_hypothesis",
+      "live_fetch_performed": false,
+      "market_id": "573656",
+      "market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+      "reason": "No concrete public HTTP(S) URL is present in local artifacts or the manual fixture.",
+      "source_category": "public_resolution_source_page_placeholder",
+      "source_name": "public resolution source reference category",
+      "url_status": "missing"
+    }
+  ],
+  "market_id": "573656",
+  "market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "new_live_fetch_performed": false,
+    "new_polymarket_api_calls_performed": 0,
+    "no_autonomous_trading": true,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "no_scheduler_daemon_background_worker": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "outcome_resolution_invented": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  }
+}

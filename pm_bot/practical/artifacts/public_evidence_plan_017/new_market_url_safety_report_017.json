@@ -1,0 +1,92 @@
+{
+  "allowed_count": 0,
+  "blocked_count": 0,
+  "checked_request_count": 3,
+  "contract_version": "pmbot_new_market_url_safety_report.v1",
+  "generated_at": "2026-05-11T00:00:00Z",
+  "global_blockers": [],
+  "global_warnings": [
+    "3 request intents are missing concrete URLs."
+  ],
+  "live_fetch_performed": false,
+  "missing_url_count": 3,
+  "per_request_safety": [
+    {
+      "allowed": false,
+      "blockers": [
+        "source reference is a placeholder, not an explicit URL",
+        "URL scheme must be http or https"
+      ],
+      "contract_version": "pmbot_public_fetch_url_safety.v1",
+      "fixture_mode": false,
+      "market_id": "573656",
+      "max_request_count": 3,
+      "method": "GET",
+      "non_executable_reason": "missing concrete public URL",
+      "request_index": 1,
+      "request_intent_id": "new_market_fetch_request_017_01_573656_public_market_metadata_page_reference",
+      "sanitized_url_reference": "public_source_placeholder:public_market_metadata_endpoint_placeholder:573656:public_market_metadata_page_reference",
+      "source_category": "public_market_metadata_endpoint_placeholder",
+      "url_status": "missing",
+      "warnings": []
+    },
+    {
+      "allowed": false,
+      "blockers": [
+        "source reference is a placeholder, not an explicit URL",
+        "URL scheme must be http or https"
+      ],
+      "contract_version": "pmbot_public_fetch_url_safety.v1",
+      "fixture_mode": false,
+      "market_id": "573656",
+      "max_request_count": 3,
+      "method": "GET",
+      "non_executable_reason": "missing concrete public URL",
+      "request_index": 2,
+      "request_intent_id": "new_market_fetch_request_017_02_573656_public_bitcoin_price_reference_category",
+      "sanitized_url_reference": "public_source_placeholder:public_static_web_page_placeholder:573656:public_bitcoin_price_reference_category",
+      "source_category": "public_static_web_page_placeholder",
+      "url_status": "missing",
+      "warnings": []
+    },
+    {
+      "allowed": false,
+      "blockers": [
+        "source reference is a placeholder, not an explicit URL",
+        "URL scheme must be http or https"
+      ],
+      "contract_version": "pmbot_public_fetch_url_safety.v1",
+      "fixture_mode": false,
+      "market_id": "573656",
+      "max_request_count": 3,
+      "method": "GET",
+      "non_executable_reason": "missing concrete public URL",
+      "request_index": 3,
+      "request_intent_id": "new_market_fetch_request_017_03_573656_public_resolution_source_reference_category",
+      "sanitized_url_reference": "public_source_placeholder:public_resolution_source_page_placeholder:573656:public_resolution_source_reference_category",
+      "source_category": "public_resolution_source_page_placeholder",
+      "url_status": "missing",
+      "warnings": []
+    }
+  ],
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "automatic_analysis_update_performed": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "new_live_fetch_performed": false,
+    "new_polymarket_api_calls_performed": 0,
+    "no_autonomous_trading": true,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "no_scheduler_daemon_background_worker": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "outcome_resolution_invented": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  }
+}

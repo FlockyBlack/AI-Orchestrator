@@ -1,0 +1,48 @@
+{
+  "contract_version": "pmbot_daily_workflow_public_evidence_refresh.v1",
+  "feedback_ready_count": 0,
+  "future_fetch_ready_after_approval": false,
+  "generated_at": "2026-05-11T00:00:00Z",
+  "live_fetch_performed": false,
+  "new_market_public_evidence_plan_status": {
+    "concrete_public_url_count": 0,
+    "live_fetch_performed": false,
+    "market_id": "573656",
+    "missing_url_count": 6,
+    "operator_approval_required_before_fetch": true,
+    "plan_path": "pm_bot/practical/artifacts/public_evidence_plan_017/new_market_public_evidence_plan_017.json"
+  },
+  "next_safe_operator_actions": [
+    "Collect missing concrete public URLs manually for the new market.",
+    "Keep pending approval separate from this planning task.",
+    "Run a future controlled public read-only fetch task only if concrete URLs exist and approval is granted.",
+    "Keep outcome feedback blocked while all outcomes remain unresolved."
+  ],
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "automatic_analysis_update_performed": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "new_live_fetch_performed": false,
+    "new_polymarket_api_calls_performed": 0,
+    "no_autonomous_trading": true,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "no_scheduler_daemon_background_worker": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "outcome_resolution_invented": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "summary_id": "daily-workflow-public-evidence-refresh-017",
+  "tracked_market_count": 6,
+  "unresolved_outcome_count": 6,
+  "what_is_blocked": [
+    "operator approval has not been granted",
+    "no concrete safe public URLs"
+  ]
+}

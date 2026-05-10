@@ -1,0 +1,526 @@
+{
+  "blocked_sources": [
+    {
+      "evidence_usable": false,
+      "failure_category": "http_error",
+      "failure_error": "HTTP fetch failed with status 403",
+      "first_accessibility_status": "failed",
+      "first_evidence_packet_id": "",
+      "first_source_url": "https://www.microstrategy.com/press",
+      "first_task_id": "PRACTICAL-009",
+      "has_evidence_packet": false,
+      "latest_accessibility_status": "blocked",
+      "latest_evidence_packet_id": "",
+      "latest_source_url": "https://www.microstrategy.com/press",
+      "latest_task_id": "PRACTICAL-010",
+      "market_id": "692258",
+      "market_title": "MicroStrategy sells any Bitcoin by June 30, 2026?",
+      "operator_review_required": true,
+      "recommended_handling": "use_alternative_official_source",
+      "repair_status": "blocked",
+      "replay_usable": false,
+      "request_intent_id": "public_fetch_request_intent_006_10_692258_692258_domain_public_evidence",
+      "requires_manual_review": true,
+      "source_category": "public_issuer_company_news_page_placeholder",
+      "source_id": "public_fetch_request_intent_006_10_692258_692258_domain_public_evidence",
+      "source_name": "public issuer/company news page placeholder"
+    }
+  ],
+  "contract_version": "pmbot_source_dependency_map_6_markets.v1",
+  "generated_at": "2026-05-11T00:00:00Z",
+  "map_id": "source-dependency-map-6-markets-017",
+  "market_to_source_links": [
+    {
+      "has_evidence_packet": true,
+      "market_id": "563650",
+      "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?",
+      "source_category": "public_court_government_page_placeholder",
+      "source_id": "public_fetch_request_intent_006_02_563650_563650_domain_public_evidence",
+      "source_name": "public court/government page placeholder",
+      "source_status": "reachable"
+    },
+    {
+      "has_evidence_packet": false,
+      "market_id": "597964",
+      "market_title": "Macron out by June 30, 2026?",
+      "source_category": "public_resolution_source_page_placeholder",
+      "source_id": "public_fetch_request_intent_006_04_597964_597964_domain_public_evidence",
+      "source_name": "public resolution source page placeholder",
+      "source_status": "replacement_missing"
+    },
+    {
+      "has_evidence_packet": false,
+      "market_id": "598936",
+      "market_title": "Will the next UK election be called by June 30, 2026?",
+      "source_category": "public_court_government_page_placeholder",
+      "source_id": "public_fetch_request_intent_006_06_598936_598936_domain_public_evidence",
+      "source_name": "public government or parliament page placeholder",
+      "source_status": "no_retry"
+    },
+    {
+      "has_evidence_packet": true,
+      "market_id": "691547",
+      "market_title": "Kraken IPO by December 31, 2026?",
+      "source_category": "public_exchange_company_announcement_page_placeholder",
+      "source_id": "public_fetch_request_intent_006_08_691547_691547_domain_public_evidence",
+      "source_name": "public exchange/company announcement page placeholder",
+      "source_status": "reachable"
+    },
+    {
+      "has_evidence_packet": false,
+      "market_id": "692258",
+      "market_title": "MicroStrategy sells any Bitcoin by June 30, 2026?",
+      "source_category": "public_issuer_company_news_page_placeholder",
+      "source_id": "public_fetch_request_intent_006_10_692258_692258_domain_public_evidence",
+      "source_name": "public issuer/company news page placeholder",
+      "source_status": "blocked"
+    },
+    {
+      "has_evidence_packet": false,
+      "market_id": "573656",
+      "market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+      "source_category": "local_static_fixture",
+      "source_id": "official_source_placeholder_001",
+      "source_name": "official_source_placeholder",
+      "source_status": "pending_outcome_resolution"
+    },
+    {
+      "has_evidence_packet": false,
+      "market_id": "573656",
+      "market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+      "source_category": "local_static_fixture",
+      "source_id": "official_source_placeholder_002",
+      "source_name": "official_source_placeholder",
+      "source_status": "pending_outcome_resolution"
+    },
+    {
+      "has_evidence_packet": false,
+      "market_id": "573656",
+      "market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+      "source_category": "local_static_fixture",
+      "source_id": "official_source_placeholder_003",
+      "source_name": "official_source_placeholder",
+      "source_status": "pending_outcome_resolution"
+    },
+    {
+      "has_evidence_packet": false,
+      "market_id": "573656",
+      "market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+      "source_category": "local_static_fixture",
+      "source_id": "news_source_placeholder_004",
+      "source_name": "news_source_placeholder",
+      "source_status": "pending_outcome_resolution"
+    },
+    {
+      "has_evidence_packet": false,
+      "market_id": "573656",
+      "market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+      "source_category": "local_static_fixture",
+      "source_id": "news_source_placeholder_005",
+      "source_name": "news_source_placeholder",
+      "source_status": "pending_outcome_resolution"
+    },
+    {
+      "has_evidence_packet": false,
+      "market_id": "573656",
+      "market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+      "source_category": "local_static_fixture",
+      "source_id": "news_source_placeholder_006",
+      "source_name": "news_source_placeholder",
+      "source_status": "pending_outcome_resolution"
+    },
+    {
+      "has_evidence_packet": false,
+      "market_id": "573656",
+      "market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+      "source_category": "local_static_fixture",
+      "source_id": "source_plan_007",
+      "source_name": "source_plan",
+      "source_status": "pending_outcome_resolution"
+    }
+  ],
+  "new_market_source_dependencies": [
+    {
+      "freshness_status": "unknown",
+      "has_evidence_packet": false,
+      "known_limitations": [
+        "Limitations were not fully specified in the local packet."
+      ],
+      "market_id": "573656",
+      "market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+      "pending_outcome_resolution": true,
+      "source_id": "official_source_placeholder_001",
+      "source_name": "official_source_placeholder",
+      "source_reference": "Polymarket market rules and resolution criteria for market_id 573656",
+      "source_type": "local_static_fixture",
+      "source_usefulness_label": "pending_outcome_resolution"
+    },
+    {
+      "freshness_status": "unknown",
+      "has_evidence_packet": false,
+      "known_limitations": [
+        "Limitations were not fully specified in the local packet."
+      ],
+      "market_id": "573656",
+      "market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+      "pending_outcome_resolution": true,
+      "source_id": "official_source_placeholder_002",
+      "source_name": "official_source_placeholder",
+      "source_reference": "Official benchmark, exchange, or index source specified by the market rules",
+      "source_type": "local_static_fixture",
+      "source_usefulness_label": "pending_outcome_resolution"
+    },
+    {
+      "freshness_status": "unknown",
+      "has_evidence_packet": false,
+      "known_limitations": [
+        "Limitations were not fully specified in the local packet."
+      ],
+      "market_id": "573656",
+      "market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+      "pending_outcome_resolution": true,
+      "source_id": "official_source_placeholder_003",
+      "source_name": "official_source_placeholder",
+      "source_reference": "Timestamp and threshold definitions for 'Will Bitcoin hit $150k by December 31, 2026?'",
+      "source_type": "local_static_fixture",
+      "source_usefulness_label": "pending_outcome_resolution"
+    },
+    {
+      "freshness_status": "unknown",
+      "has_evidence_packet": false,
+      "known_limitations": [
+        "Limitations were not fully specified in the local packet."
+      ],
+      "market_id": "573656",
+      "market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+      "pending_outcome_resolution": true,
+      "source_id": "news_source_placeholder_004",
+      "source_name": "news_source_placeholder",
+      "source_reference": "Reuters markets coverage query for 'Will Bitcoin hit $150k by December 31, 2026?'",
+      "source_type": "local_static_fixture",
+      "source_usefulness_label": "pending_outcome_resolution"
+    },
+    {
+      "freshness_status": "unknown",
+      "has_evidence_packet": false,
+      "known_limitations": [
+        "Limitations were not fully specified in the local packet."
+      ],
+      "market_id": "573656",
+      "market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+      "pending_outcome_resolution": true,
+      "source_id": "news_source_placeholder_005",
+      "source_name": "news_source_placeholder",
+      "source_reference": "CoinDesk or The Block market coverage query for 'Will Bitcoin hit $150k by December 31, 2026?'",
+      "source_type": "local_static_fixture",
+      "source_usefulness_label": "pending_outcome_resolution"
+    },
+    {
+      "freshness_status": "unknown",
+      "has_evidence_packet": false,
+      "known_limitations": [
+        "Limitations were not fully specified in the local packet."
+      ],
+      "market_id": "573656",
+      "market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+      "pending_outcome_resolution": true,
+      "source_id": "news_source_placeholder_006",
+      "source_name": "news_source_placeholder",
+      "source_reference": "Bloomberg or Wall Street Journal markets query for 'When will Bitcoin hit $150k?'",
+      "source_type": "local_static_fixture",
+      "source_usefulness_label": "pending_outcome_resolution"
+    },
+    {
+      "freshness_status": "unknown",
+      "has_evidence_packet": false,
+      "known_limitations": [
+        "Limitations were not fully specified in the local packet."
+      ],
+      "market_id": "573656",
+      "market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+      "pending_outcome_resolution": true,
+      "source_id": "source_plan_007",
+      "source_name": "source_plan",
+      "source_reference": "Template only: confirm the market's own resolution rules, then check the specified benchmark, exchange or index source, timestamp rules, and credible market coverage for 'Will Bitcoin hit $150k by December 31, 2026?'. Do not fetch sources in this stub.",
+      "source_type": "local_static_fixture",
+      "source_usefulness_label": "pending_outcome_resolution"
+    }
+  ],
+  "no_autonomous_training_performed": true,
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "automatic_analysis_update_performed": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "new_live_fetch_performed": false,
+    "new_polymarket_api_calls_performed": 0,
+    "no_autonomous_trading": true,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "no_scheduler_daemon_background_worker": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "outcome_resolution_invented": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "source_records": [
+    {
+      "evidence_usable": true,
+      "failure_category": "",
+      "failure_error": "None",
+      "first_accessibility_status": "reachable",
+      "first_evidence_packet_id": "public_fetch_008_563650_public_fetch_request_intent_006_02_563650_563650_domain_public_evidence_a6d1969391feeee9",
+      "first_source_url": "https://www.supremecourt.gov/docket/docket.aspx",
+      "first_task_id": "PRACTICAL-009",
+      "has_evidence_packet": true,
+      "latest_accessibility_status": "reachable",
+      "latest_evidence_packet_id": "public_fetch_008_563650_public_fetch_request_intent_006_02_563650_563650_domain_public_evidence_a6d1969391feeee9",
+      "latest_source_url": "https://www.supremecourt.gov/docket/docket.aspx",
+      "latest_task_id": "PRACTICAL-009",
+      "market_id": "563650",
+      "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?",
+      "operator_review_required": true,
+      "recommended_handling": "keep_for_operator_review",
+      "repair_status": "not_repaired",
+      "replay_usable": true,
+      "request_intent_id": "public_fetch_request_intent_006_02_563650_563650_domain_public_evidence",
+      "requires_manual_review": true,
+      "source_category": "public_court_government_page_placeholder",
+      "source_id": "public_fetch_request_intent_006_02_563650_563650_domain_public_evidence",
+      "source_name": "public court/government page placeholder"
+    },
+    {
+      "evidence_usable": false,
+      "failure_category": "source_unavailable",
+      "failure_error": "HTTP fetch failed: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1010)",
+      "first_accessibility_status": "failed",
+      "first_evidence_packet_id": "",
+      "first_source_url": "https://www.elysee.fr/emmanuel-macron",
+      "first_task_id": "PRACTICAL-009",
+      "has_evidence_packet": false,
+      "latest_accessibility_status": "replacement_missing",
+      "latest_evidence_packet_id": "",
+      "latest_source_url": "https://www.elysee.fr/emmanuel-macron",
+      "latest_task_id": "PRACTICAL-010",
+      "market_id": "597964",
+      "market_title": "Macron out by June 30, 2026?",
+      "operator_review_required": true,
+      "recommended_handling": "replace_url",
+      "repair_status": "replacement_missing",
+      "replay_usable": false,
+      "request_intent_id": "public_fetch_request_intent_006_04_597964_597964_domain_public_evidence",
+      "requires_manual_review": true,
+      "source_category": "public_resolution_source_page_placeholder",
+      "source_id": "public_fetch_request_intent_006_04_597964_597964_domain_public_evidence",
+      "source_name": "public resolution source page placeholder"
+    },
+    {
+      "evidence_usable": false,
+      "failure_category": "http_error",
+      "failure_error": "HTTP fetch failed with status 403",
+      "first_accessibility_status": "failed",
+      "first_evidence_packet_id": "",
+      "first_source_url": "https://www.parliament.uk/about/how/elections-and-voting/general/",
+      "first_task_id": "PRACTICAL-009",
+      "has_evidence_packet": false,
+      "latest_accessibility_status": "no_retry",
+      "latest_evidence_packet_id": "",
+      "latest_source_url": "https://www.parliament.uk/about/how/elections-and-voting/general/",
+      "latest_task_id": "PRACTICAL-010",
+      "market_id": "598936",
+      "market_title": "Will the next UK election be called by June 30, 2026?",
+      "operator_review_required": true,
+      "recommended_handling": "use_alternative_official_source",
+      "repair_status": "no_retry",
+      "replay_usable": false,
+      "request_intent_id": "public_fetch_request_intent_006_06_598936_598936_domain_public_evidence",
+      "requires_manual_review": true,
+      "source_category": "public_court_government_page_placeholder",
+      "source_id": "public_fetch_request_intent_006_06_598936_598936_domain_public_evidence",
+      "source_name": "public government or parliament page placeholder"
+    },
+    {
+      "evidence_usable": true,
+      "failure_category": "source_unavailable",
+      "failure_error": "redirect blocked: 308 https://blog.kraken.com/",
+      "first_accessibility_status": "failed",
+      "first_evidence_packet_id": "",
+      "first_source_url": "https://www.kraken.com/blog",
+      "first_task_id": "PRACTICAL-009",
+      "has_evidence_packet": true,
+      "latest_accessibility_status": "reachable",
+      "latest_evidence_packet_id": "public_fetch_010_public_fetch_request_intent_006_08_691547_691547_domain_public_evidence_293c511e51a6fac6",
+      "latest_source_url": "https://blog.kraken.com/",
+      "latest_task_id": "PRACTICAL-010",
+      "market_id": "691547",
+      "market_title": "Kraken IPO by December 31, 2026?",
+      "operator_review_required": true,
+      "recommended_handling": "replace_url",
+      "repair_status": "executable_candidate",
+      "replay_usable": true,
+      "request_intent_id": "public_fetch_request_intent_006_08_691547_691547_domain_public_evidence",
+      "requires_manual_review": true,
+      "source_category": "public_exchange_company_announcement_page_placeholder",
+      "source_id": "public_fetch_request_intent_006_08_691547_691547_domain_public_evidence",
+      "source_name": "public exchange/company announcement page placeholder"
+    },
+    {
+      "evidence_usable": false,
+      "failure_category": "http_error",
+      "failure_error": "HTTP fetch failed with status 403",
+      "first_accessibility_status": "failed",
+      "first_evidence_packet_id": "",
+      "first_source_url": "https://www.microstrategy.com/press",
+      "first_task_id": "PRACTICAL-009",
+      "has_evidence_packet": false,
+      "latest_accessibility_status": "blocked",
+      "latest_evidence_packet_id": "",
+      "latest_source_url": "https://www.microstrategy.com/press",
+      "latest_task_id": "PRACTICAL-010",
+      "market_id": "692258",
+      "market_title": "MicroStrategy sells any Bitcoin by June 30, 2026?",
+      "operator_review_required": true,
+      "recommended_handling": "use_alternative_official_source",
+      "repair_status": "blocked",
+      "replay_usable": false,
+      "request_intent_id": "public_fetch_request_intent_006_10_692258_692258_domain_public_evidence",
+      "requires_manual_review": true,
+      "source_category": "public_issuer_company_news_page_placeholder",
+      "source_id": "public_fetch_request_intent_006_10_692258_692258_domain_public_evidence",
+      "source_name": "public issuer/company news page placeholder"
+    },
+    {
+      "freshness_status": "unknown",
+      "has_evidence_packet": false,
+      "known_limitations": [
+        "Limitations were not fully specified in the local packet."
+      ],
+      "market_id": "573656",
+      "market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+      "pending_outcome_resolution": true,
+      "source_id": "official_source_placeholder_001",
+      "source_name": "official_source_placeholder",
+      "source_reference": "Polymarket market rules and resolution criteria for market_id 573656",
+      "source_type": "local_static_fixture",
+      "source_usefulness_label": "pending_outcome_resolution"
+    },
+    {
+      "freshness_status": "unknown",
+      "has_evidence_packet": false,
+      "known_limitations": [
+        "Limitations were not fully specified in the local packet."
+      ],
+      "market_id": "573656",
+      "market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+      "pending_outcome_resolution": true,
+      "source_id": "official_source_placeholder_002",
+      "source_name": "official_source_placeholder",
+      "source_reference": "Official benchmark, exchange, or index source specified by the market rules",
+      "source_type": "local_static_fixture",
+      "source_usefulness_label": "pending_outcome_resolution"
+    },
+    {
+      "freshness_status": "unknown",
+      "has_evidence_packet": false,
+      "known_limitations": [
+        "Limitations were not fully specified in the local packet."
+      ],
+      "market_id": "573656",
+      "market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+      "pending_outcome_resolution": true,
+      "source_id": "official_source_placeholder_003",
+      "source_name": "official_source_placeholder",
+      "source_reference": "Timestamp and threshold definitions for 'Will Bitcoin hit $150k by December 31, 2026?'",
+      "source_type": "local_static_fixture",
+      "source_usefulness_label": "pending_outcome_resolution"
+    },
+    {
+      "freshness_status": "unknown",
+      "has_evidence_packet": false,
+      "known_limitations": [
+        "Limitations were not fully specified in the local packet."
+      ],
+      "market_id": "573656",
+      "market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+      "pending_outcome_resolution": true,
+      "source_id": "news_source_placeholder_004",
+      "source_name": "news_source_placeholder",
+      "source_reference": "Reuters markets coverage query for 'Will Bitcoin hit $150k by December 31, 2026?'",
+      "source_type": "local_static_fixture",
+      "source_usefulness_label": "pending_outcome_resolution"
+    },
+    {
+      "freshness_status": "unknown",
+      "has_evidence_packet": false,
+      "known_limitations": [
+        "Limitations were not fully specified in the local packet."
+      ],
+      "market_id": "573656",
+      "market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+      "pending_outcome_resolution": true,
+      "source_id": "news_source_placeholder_005",
+      "source_name": "news_source_placeholder",
+      "source_reference": "CoinDesk or The Block market coverage query for 'Will Bitcoin hit $150k by December 31, 2026?'",
+      "source_type": "local_static_fixture",
+      "source_usefulness_label": "pending_outcome_resolution"
+    },
+    {
+      "freshness_status": "unknown",
+      "has_evidence_packet": false,
+      "known_limitations": [
+        "Limitations were not fully specified in the local packet."
+      ],
+      "market_id": "573656",
+      "market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+      "pending_outcome_resolution": true,
+      "source_id": "news_source_placeholder_006",
+      "source_name": "news_source_placeholder",
+      "source_reference": "Bloomberg or Wall Street Journal markets query for 'When will Bitcoin hit $150k?'",
+      "source_type": "local_static_fixture",
+      "source_usefulness_label": "pending_outcome_resolution"
+    },
+    {
+      "freshness_status": "unknown",
+      "has_evidence_packet": false,
+      "known_limitations": [
+        "Limitations were not fully specified in the local packet."
+      ],
+      "market_id": "573656",
+      "market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+      "pending_outcome_resolution": true,
+      "source_id": "source_plan_007",
+      "source_name": "source_plan",
+      "source_reference": "Template only: confirm the market's own resolution rules, then check the specified benchmark, exchange or index source, timestamp rules, and credible market coverage for 'Will Bitcoin hit $150k by December 31, 2026?'. Do not fetch sources in this stub.",
+      "source_type": "local_static_fixture",
+      "source_usefulness_label": "pending_outcome_resolution"
+    }
+  ],
+  "sources_ready_for_future_fetch": [],
+  "sources_requiring_concrete_url": [
+    {
+      "market_id": "573656",
+      "reason": "no concrete public HTTP(S) URL is present in local artifacts or the manual fixture",
+      "source_category": "public_market_metadata_endpoint_placeholder",
+      "source_id": null,
+      "source_name": "public market metadata page/reference"
+    },
+    {
+      "market_id": "573656",
+      "reason": "no concrete public HTTP(S) URL is present in local artifacts or the manual fixture",
+      "source_category": "public_static_web_page_placeholder",
+      "source_id": null,
+      "source_name": "public Bitcoin price reference category"
+    },
+    {
+      "market_id": "573656",
+      "reason": "no concrete public HTTP(S) URL is present in local artifacts or the manual fixture",
+      "source_category": "public_resolution_source_page_placeholder",
+      "source_id": null,
+      "source_name": "public resolution source reference category"
+    }
+  ]
+}
