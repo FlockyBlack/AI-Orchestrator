@@ -1,0 +1,59 @@
+{
+  "available_evidence": [
+    "Archived local reference note shows the prior close near the level."
+  ],
+  "context": "A local packet captures static crypto-like reference records without using live exchange data.",
+  "created_at": "2026-05-10T00:00:00Z",
+  "known_uncertainties": [
+    "The archived source may be too old for the fixture window."
+  ],
+  "market_id": "synthetic-crypto-reference-001",
+  "market_slug_or_reference": "synthetic-crypto-reference-001",
+  "market_title": "Will the synthetic token close above the reference level on June 2?",
+  "market_type": "crypto_like_binary",
+  "missing_evidence": [
+    "Final reference close record for 2026-06-02"
+  ],
+  "operator_notes": [
+    "Synthetic local fixture for PMBOT practical testing.",
+    "No live data was fetched."
+  ],
+  "outcomes": [
+    "yes",
+    "no"
+  ],
+  "resolution_source_summary": "The synthetic reference close record is the resolution source for this fixture.",
+  "rules_summary": "Resolves yes only if the local reference close record is above the stated level at the fixture timestamp.",
+  "sources": [
+    {
+      "captured_at": "2026-05-01T00:00:00Z",
+      "claim_type": "reference_close_context",
+      "claim_value": "near_reference_level",
+      "evidence_summary": "The archived note shows an earlier close near the fixture level.",
+      "freshness_status": "stale",
+      "known_limitations": [
+        "The note predates the event window."
+      ],
+      "source_id": "crypto_archived_reference",
+      "source_name": "Synthetic Archived Reference Close",
+      "source_type": "local_static_fixture",
+      "source_url_or_reference": "pm_bot/tests/fixtures/practical_market_queue_batch/sources/crypto.sources.json",
+      "used_in_analysis": true
+    },
+    {
+      "captured_at": "2026-05-10T00:00:00Z",
+      "claim_type": "resolution_clock",
+      "claim_value": "june_2_close_record",
+      "evidence_summary": "The rules capture identifies the fixture timestamp.",
+      "freshness_status": "current",
+      "known_limitations": [
+        "Rules capture is not outcome evidence."
+      ],
+      "source_id": "crypto_rules_capture",
+      "source_name": "Synthetic Crypto Rules Capture",
+      "source_type": "operator_static_fixture",
+      "source_url_or_reference": "pm_bot/tests/fixtures/practical_market_queue_batch/sources/crypto.sources.json",
+      "used_in_analysis": true
+    }
+  ]
+}

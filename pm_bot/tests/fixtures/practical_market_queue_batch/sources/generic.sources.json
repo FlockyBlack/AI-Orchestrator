@@ -1,0 +1,32 @@
+[
+  {
+    "captured_at": "2026-05-10T00:00:00Z",
+    "claim_type": "filing_intent",
+    "claim_value": "filing_expected",
+    "evidence_summary": "The planning note says the filing was expected.",
+    "freshness_status": "current",
+    "known_limitations": [
+      "Intent is not a certificate filing record."
+    ],
+    "source_id": "generic_planning_note",
+    "source_name": "Synthetic Planning Note",
+    "source_type": "operator_static_fixture",
+    "source_url_or_reference": "pm_bot/tests/fixtures/practical_market_queue_batch/sources/generic.sources.json",
+    "used_in_analysis": true
+  },
+  {
+    "captured_at": "2026-05-10T00:00:00Z",
+    "claim_type": "resolution_rule",
+    "claim_value": "certificate_record_required",
+    "evidence_summary": "The rules note says the certificate filing record controls resolution.",
+    "freshness_status": "current",
+    "known_limitations": [
+      "Rules note does not include the final filing record."
+    ],
+    "source_id": "generic_event_rules",
+    "source_name": "Synthetic Event Rules Note",
+    "source_type": "rules_static_fixture",
+    "source_url_or_reference": "pm_bot/tests/fixtures/practical_market_queue_batch/sources/generic.sources.json",
+    "used_in_analysis": true
+  }
+]

@@ -1,0 +1,46 @@
+{
+  "ambiguous_count": 0,
+  "contract_version": "pmbot_analysis_quality_summary.v1",
+  "feedback_dir": "pm_bot/practical/artifacts/night_002/feedback_batch",
+  "generated_at": "2026-05-10T00:00:00Z",
+  "incomplete_count": 0,
+  "next_prompt_improvements": [
+    "Keep the current compact card shape and source attribution fields.",
+    "Add a required reasoning audit note for each key claim.",
+    "Add a required material-missing-evidence check before analysis completion.",
+    "Keep the outcome placeholder visible until a resolved local record exists."
+  ],
+  "recurring_missing_evidence": [
+    "Track whether this missing evidence matters later: Final station precipitation total for 2026-06-01",
+    "Track whether this missing evidence matters later: Final reference close record for 2026-06-02",
+    "Track whether this missing evidence matters later: Final match result sheet",
+    "Missing evidence was material: Actual certificate filing record",
+    "Missing evidence was material: Clerk timestamp for the filing",
+    "Track whether this missing evidence matters later: Final committee clerk record"
+  ],
+  "recurring_reasoning_lessons": [
+    "Preserve compact source attribution and outcome check fields.",
+    "Separate evidence summary from the reasoning claim in the next analysis card.",
+    "Add an explicit missing-evidence impact check before writing the paper-only hypothesis.",
+    "Wait for a local outcome record before judging the analysis."
+  ],
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "total_feedback_items": 6,
+  "unresolved_count": 1,
+  "useful_count": 3,
+  "wrong_due_to_bad_reasoning_count": 1,
+  "wrong_due_to_missing_evidence_count": 1
+}

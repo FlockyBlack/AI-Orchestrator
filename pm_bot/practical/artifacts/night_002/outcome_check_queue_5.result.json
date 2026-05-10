@@ -1,0 +1,87 @@
+{
+  "contract_version": "pmbot_outcome_check_queue.v1",
+  "generated_at": "2026-05-10T00:00:00Z",
+  "outcome_checks": [
+    {
+      "market_id": "synthetic-weather-rain-001",
+      "market_title": "Will the synthetic city record measurable rain on June 1?",
+      "next_operator_action": "No local outcome check is needed yet.",
+      "outcome_check_status": "not_due",
+      "outcome_record_path": "",
+      "outcome_status": "unknown",
+      "paper_hypothesis_id": "",
+      "queue_item_id": "queue-weather-001"
+    },
+    {
+      "market_id": "synthetic-crypto-reference-001",
+      "market_title": "Will the synthetic token close above the reference level on June 2?",
+      "next_operator_action": "No local outcome check is needed yet.",
+      "outcome_check_status": "not_due",
+      "outcome_record_path": "",
+      "outcome_status": "unknown",
+      "paper_hypothesis_id": "synthetic-crypto-reference-001.analysis.7384b905ed0b.paper_hypothesis",
+      "queue_item_id": "queue-crypto-001"
+    },
+    {
+      "market_id": "synthetic-politics-measure-001",
+      "market_title": "Will the synthetic policy measure pass committee by June 3?",
+      "next_operator_action": "Look for a local outcome record and attach it to the queue item.",
+      "outcome_check_status": "due_now",
+      "outcome_record_path": "",
+      "outcome_status": "unknown",
+      "paper_hypothesis_id": "synthetic-politics-measure-001.analysis.b32ac6067fb8.paper_hypothesis",
+      "queue_item_id": "queue-politics-001"
+    },
+    {
+      "market_id": "synthetic-esports-match-001",
+      "market_title": "Will synthetic Team Azure win the map-three match on June 4?",
+      "next_operator_action": "Attach or update the local outcome record before feedback review.",
+      "outcome_check_status": "overdue",
+      "outcome_record_path": "pm_bot/tests/fixtures/practical_market_queue_batch/outcomes/esports.unresolved.json",
+      "outcome_status": "unresolved",
+      "paper_hypothesis_id": "synthetic-esports-match-001.analysis.a6d4bc90b97b.paper_hypothesis",
+      "queue_item_id": "queue-esports-001"
+    },
+    {
+      "market_id": "synthetic-generic-event-001",
+      "market_title": "Will the synthetic event certificate be filed by June 5?",
+      "next_operator_action": "Run local paper feedback if it has not been generated.",
+      "outcome_check_status": "resolved",
+      "outcome_record_path": "pm_bot/tests/fixtures/practical_market_queue_batch/outcomes/generic.resolved.json",
+      "outcome_status": "resolved",
+      "paper_hypothesis_id": "synthetic-generic-event-001.analysis.11f645d06c7a.paper_hypothesis",
+      "queue_item_id": "queue-generic-001"
+    },
+    {
+      "market_id": "synthetic-weather-rain-001",
+      "market_title": "Will the synthetic city record measurable rain on June 1?",
+      "next_operator_action": "Resolve queue blockers or inspect the local outcome record path.",
+      "outcome_check_status": "unknown",
+      "outcome_record_path": "",
+      "outcome_status": "unknown",
+      "paper_hypothesis_id": "",
+      "queue_item_id": "queue-blocked-001"
+    }
+  ],
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "status_counts": {
+    "due_now": 1,
+    "not_due": 2,
+    "overdue": 1,
+    "resolved": 1,
+    "unknown": 1
+  }
+}

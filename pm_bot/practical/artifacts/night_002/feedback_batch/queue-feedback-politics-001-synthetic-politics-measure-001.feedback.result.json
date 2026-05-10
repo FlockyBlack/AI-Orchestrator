@@ -1,0 +1,61 @@
+{
+  "actual_outcome_summary": "The final synthetic committee log was resolved, and the conflicting local records required operator review.",
+  "analysis_id": "synthetic-politics-measure-001.analysis.b32ac6067fb8",
+  "analysis_quality_label": "useful",
+  "contract_version": "pmbot_one_market_paper_feedback_result.v1",
+  "feedback_id": "synthetic-politics-measure-001.analysis.b32ac6067fb8.feedback.128c574bbbfb",
+  "generated_artifacts": {
+    "feedback_markdown": "pm_bot/practical/artifacts/night_002/feedback_batch/queue-feedback-politics-001-synthetic-politics-measure-001.feedback.md",
+    "feedback_result_json": "pm_bot/practical/artifacts/night_002/feedback_batch/queue-feedback-politics-001-synthetic-politics-measure-001.feedback.result.json"
+  },
+  "market_id": "synthetic-politics-measure-001",
+  "missing_evidence_lessons": [
+    "Track whether this missing evidence matters later: Final committee clerk record"
+  ],
+  "next_prompt_improvements": [
+    "Keep the current compact card shape and source attribution fields."
+  ],
+  "no_real_trade_decision": true,
+  "operator_notes": [
+    "operator_labeled_analysis_quality: useful",
+    "The contradiction note was important for review."
+  ],
+  "orders_or_trading_actions": false,
+  "outcome_status": "resolved",
+  "paper_hypothesis_review": {
+    "hypothesis_id": "synthetic-politics-measure-001.analysis.b32ac6067fb8.paper_hypothesis",
+    "outcome_check_completed": true,
+    "paper_only_non_executable": true,
+    "qualitative_result": "Analysis was useful for later review against the recorded outcome.",
+    "review_status": "reviewed"
+  },
+  "reasoning_lessons": [
+    "Preserve compact source attribution and outcome check fields."
+  ],
+  "resolution_source_reference": "pm_bot/tests/fixtures/practical_market_queue_batch/outcomes/politics.resolved.synthetic",
+  "resolved_at": "2026-06-10T00:00:00Z",
+  "source_contribution_review": [
+    {
+      "claim_type": "committee_status",
+      "evidence_role": "used_source",
+      "observed_issue": "Source was part of a contradiction note.",
+      "source_id": "politics_committee_note_a",
+      "source_name": "Synthetic Committee Note A",
+      "suggested_future_handling": "Require operator review when this source conflicts with another local record.",
+      "usefulness_label": "contradictory"
+    },
+    {
+      "claim_type": "committee_status",
+      "evidence_role": "used_source",
+      "observed_issue": "Source was part of a contradiction note.",
+      "source_id": "politics_committee_note_b",
+      "source_name": "Synthetic Committee Note B",
+      "suggested_future_handling": "Require operator review when this source conflicts with another local record.",
+      "usefulness_label": "contradictory"
+    }
+  ],
+  "source_quality_lessons": [
+    "Observed source usefulness label: contradictory"
+  ],
+  "wallet_or_private_key_access": false
+}

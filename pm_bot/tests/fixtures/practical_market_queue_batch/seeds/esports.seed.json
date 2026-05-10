@@ -1,0 +1,60 @@
+{
+  "available_evidence": [
+    "Roster note says Team Azure has the same starting roster.",
+    "Match note confirms the map-three fixture."
+  ],
+  "context": "A local packet captures static roster and match-note records before the synthetic match result.",
+  "created_at": "2026-05-10T00:00:00Z",
+  "known_uncertainties": [
+    "Roster continuity does not resolve the match result."
+  ],
+  "market_id": "synthetic-esports-match-001",
+  "market_slug_or_reference": "synthetic-esports-match-001",
+  "market_title": "Will synthetic Team Azure win the map-three match on June 4?",
+  "market_type": "esports_like_match",
+  "missing_evidence": [
+    "Final match result sheet"
+  ],
+  "operator_notes": [
+    "Synthetic local fixture for PMBOT practical testing.",
+    "No live data was fetched."
+  ],
+  "outcomes": [
+    "yes",
+    "no"
+  ],
+  "resolution_source_summary": "The synthetic match result sheet is the resolution source for this fixture.",
+  "rules_summary": "Resolves yes only if the synthetic match result sheet lists Team Azure as the map-three winner.",
+  "sources": [
+    {
+      "captured_at": "2026-05-10T00:00:00Z",
+      "claim_type": "roster_status",
+      "claim_value": "same_starting_roster",
+      "evidence_summary": "The roster note records no starting roster change.",
+      "freshness_status": "current",
+      "known_limitations": [
+        "Roster continuity is not a result record."
+      ],
+      "source_id": "esports_roster_note",
+      "source_name": "Synthetic Roster Note",
+      "source_type": "team_static_fixture",
+      "source_url_or_reference": "pm_bot/tests/fixtures/practical_market_queue_batch/sources/esports.sources.json",
+      "used_in_analysis": true
+    },
+    {
+      "captured_at": "2026-05-10T00:00:00Z",
+      "claim_type": "match_scope",
+      "claim_value": "map_three_fixture",
+      "evidence_summary": "The match note confirms the fixture scope.",
+      "freshness_status": "current",
+      "known_limitations": [
+        "The match note does not include final result."
+      ],
+      "source_id": "esports_match_note",
+      "source_name": "Synthetic Match Note",
+      "source_type": "event_static_fixture",
+      "source_url_or_reference": "pm_bot/tests/fixtures/practical_market_queue_batch/sources/esports.sources.json",
+      "used_in_analysis": true
+    }
+  ]
+}

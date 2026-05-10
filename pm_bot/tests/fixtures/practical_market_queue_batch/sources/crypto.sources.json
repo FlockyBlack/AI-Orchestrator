@@ -1,0 +1,32 @@
+[
+  {
+    "captured_at": "2026-05-01T00:00:00Z",
+    "claim_type": "reference_close_context",
+    "claim_value": "near_reference_level",
+    "evidence_summary": "The archived note shows an earlier close near the fixture level.",
+    "freshness_status": "stale",
+    "known_limitations": [
+      "The note predates the event window."
+    ],
+    "source_id": "crypto_archived_reference",
+    "source_name": "Synthetic Archived Reference Close",
+    "source_type": "local_static_fixture",
+    "source_url_or_reference": "pm_bot/tests/fixtures/practical_market_queue_batch/sources/crypto.sources.json",
+    "used_in_analysis": true
+  },
+  {
+    "captured_at": "2026-05-10T00:00:00Z",
+    "claim_type": "resolution_clock",
+    "claim_value": "june_2_close_record",
+    "evidence_summary": "The rules capture identifies the fixture timestamp.",
+    "freshness_status": "current",
+    "known_limitations": [
+      "Rules capture is not outcome evidence."
+    ],
+    "source_id": "crypto_rules_capture",
+    "source_name": "Synthetic Crypto Rules Capture",
+    "source_type": "operator_static_fixture",
+    "source_url_or_reference": "pm_bot/tests/fixtures/practical_market_queue_batch/sources/crypto.sources.json",
+    "used_in_analysis": true
+  }
+]

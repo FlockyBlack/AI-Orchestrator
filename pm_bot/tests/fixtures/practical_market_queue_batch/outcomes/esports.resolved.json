@@ -1,0 +1,12 @@
+{
+  "actual_outcome_summary": "The synthetic match result showed the local reasoning was wrong due to bad reasoning, not source capture alone.",
+  "contract_version": "pmbot_one_market_outcome_record.v1",
+  "market_id": "synthetic-esports-match-001",
+  "operator_notes": [
+    "operator_labeled_analysis_quality: wrong_due_to_bad_reasoning",
+    "bad reasoning caused the local review to overread roster continuity."
+  ],
+  "outcome_status": "resolved",
+  "resolution_source_reference": "pm_bot/tests/fixtures/practical_market_queue_batch/outcomes/esports.resolved.synthetic",
+  "resolved_at": "2026-06-10T00:00:00Z"
+}

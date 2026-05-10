@@ -1,0 +1,60 @@
+{
+  "available_evidence": [
+    "Station bulletin lists a rain-bearing system near the event window.",
+    "Event note confirms the date and station identifier."
+  ],
+  "context": "A local packet captures static weather-like station and event-note records before the synthetic event date.",
+  "created_at": "2026-05-10T00:00:00Z",
+  "known_uncertainties": [
+    "The final station total is not yet present in the local packet."
+  ],
+  "market_id": "synthetic-weather-rain-001",
+  "market_slug_or_reference": "synthetic-weather-rain-001",
+  "market_title": "Will the synthetic city record measurable rain on June 1?",
+  "market_type": "weather_like_binary",
+  "missing_evidence": [
+    "Final station precipitation total for 2026-06-01"
+  ],
+  "operator_notes": [
+    "Synthetic local fixture for PMBOT practical testing.",
+    "No live data was fetched."
+  ],
+  "outcomes": [
+    "yes",
+    "no"
+  ],
+  "resolution_source_summary": "The synthetic official station log is the resolution source for this fixture.",
+  "rules_summary": "Resolves yes only if the official synthetic station log records measurable rain on 2026-06-01.",
+  "sources": [
+    {
+      "captured_at": "2026-05-10T00:00:00Z",
+      "claim_type": "station_setup",
+      "claim_value": "measurable_rain_possible",
+      "evidence_summary": "The bulletin records a rain-bearing system near the station window.",
+      "freshness_status": "current",
+      "known_limitations": [
+        "Bulletin is not the final precipitation total."
+      ],
+      "source_id": "weather_station_bulletin",
+      "source_name": "Synthetic Station Bulletin",
+      "source_type": "official_static_fixture",
+      "source_url_or_reference": "pm_bot/tests/fixtures/practical_market_queue_batch/sources/weather.sources.json",
+      "used_in_analysis": true
+    },
+    {
+      "captured_at": "2026-05-10T00:00:00Z",
+      "claim_type": "event_date",
+      "claim_value": "june_1_station_log",
+      "evidence_summary": "The event note maps the fixture to the June 1 station log.",
+      "freshness_status": "current",
+      "known_limitations": [
+        "Operator note does not resolve the outcome."
+      ],
+      "source_id": "weather_event_note",
+      "source_name": "Synthetic Event Note",
+      "source_type": "operator_static_fixture",
+      "source_url_or_reference": "pm_bot/tests/fixtures/practical_market_queue_batch/sources/weather.sources.json",
+      "used_in_analysis": true
+    }
+  ]
+}

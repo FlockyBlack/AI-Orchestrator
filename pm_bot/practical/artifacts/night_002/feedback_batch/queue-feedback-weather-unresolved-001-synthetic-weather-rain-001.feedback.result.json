@@ -1,0 +1,60 @@
+{
+  "actual_outcome_summary": "Outcome has not been entered in the local fixture yet.",
+  "analysis_id": "synthetic-weather-rain-001.analysis.6ba2343c0bce",
+  "analysis_quality_label": "unresolved",
+  "contract_version": "pmbot_one_market_paper_feedback_result.v1",
+  "feedback_id": "synthetic-weather-rain-001.analysis.6ba2343c0bce.feedback.30bc2b9cebcf",
+  "generated_artifacts": {
+    "feedback_markdown": "pm_bot/practical/artifacts/night_002/feedback_batch/queue-feedback-weather-unresolved-001-synthetic-weather-rain-001.feedback.md",
+    "feedback_result_json": "pm_bot/practical/artifacts/night_002/feedback_batch/queue-feedback-weather-unresolved-001-synthetic-weather-rain-001.feedback.result.json"
+  },
+  "market_id": "synthetic-weather-rain-001",
+  "missing_evidence_lessons": [
+    "Track whether this missing evidence matters later: Final station precipitation total for 2026-06-01"
+  ],
+  "next_prompt_improvements": [
+    "Keep the outcome placeholder visible until a resolved local record exists."
+  ],
+  "no_real_trade_decision": true,
+  "operator_notes": [
+    "Unresolved local outcome record for queue testing."
+  ],
+  "orders_or_trading_actions": false,
+  "outcome_status": "unresolved",
+  "paper_hypothesis_review": {
+    "hypothesis_id": "synthetic-weather-rain-001.analysis.6ba2343c0bce.paper_hypothesis",
+    "outcome_check_completed": false,
+    "paper_only_non_executable": true,
+    "qualitative_result": "Outcome is not resolved, so the paper hypothesis remains pending.",
+    "review_status": "outcome_pending"
+  },
+  "reasoning_lessons": [
+    "Wait for a local outcome record before judging the analysis."
+  ],
+  "resolution_source_reference": "pending_local_fixture_record",
+  "resolved_at": null,
+  "source_contribution_review": [
+    {
+      "claim_type": "event_date",
+      "evidence_role": "used_source",
+      "observed_issue": "Outcome review did not resolve source usefulness.",
+      "source_id": "weather_event_note",
+      "source_name": "Synthetic Event Note",
+      "suggested_future_handling": "Keep source in pending review until a resolved outcome exists.",
+      "usefulness_label": "unknown"
+    },
+    {
+      "claim_type": "station_setup",
+      "evidence_role": "used_source",
+      "observed_issue": "Outcome review did not resolve source usefulness.",
+      "source_id": "weather_station_bulletin",
+      "source_name": "Synthetic Station Bulletin",
+      "suggested_future_handling": "Keep source in pending review until a resolved outcome exists.",
+      "usefulness_label": "unknown"
+    }
+  ],
+  "source_quality_lessons": [
+    "Observed source usefulness label: unknown"
+  ],
+  "wallet_or_private_key_access": false
+}

@@ -1,0 +1,144 @@
+{
+  "analysis_id": "synthetic-esports-match-001.analysis.a6d4bc90b97b",
+  "analysis_mode": "local_one_market",
+  "authenticated_endpoints_used": false,
+  "contract_version": "pmbot_one_market_analysis_result.v1",
+  "contradiction_notes": [],
+  "evidence_status": {
+    "available_evidence_count": 2,
+    "contradiction_note_count": 0,
+    "missing_evidence_count": 1,
+    "source_packets_count": 2,
+    "stale_source_count": 0,
+    "unused_source_count": 0,
+    "used_source_count": 2
+  },
+  "generated_artifacts": {
+    "analysis_card_markdown": "pm_bot/practical/artifacts/night_002/analyses/esports.analysis.md",
+    "analysis_result_json": "pm_bot/practical/artifacts/night_002/analyses/esports.analysis.result.json"
+  },
+  "key_question": "What local evidence would resolve the operator's review of: Will synthetic Team Azure win the map-three match on June 4?",
+  "live_network_used": false,
+  "market_id": "synthetic-esports-match-001",
+  "market_recommendation_generated": false,
+  "market_title": "Will synthetic Team Azure win the map-three match on June 4?",
+  "missing_evidence": [
+    "Final match result sheet"
+  ],
+  "next_research_questions": [
+    "Collect local evidence for: Final match result sheet",
+    "Clarify uncertainty: Roster continuity does not resolve the match result."
+  ],
+  "no_real_trade_decision": true,
+  "openrouter_calls_performed": 0,
+  "operator_summary": "Local one-market review for Will synthetic Team Azure win the map-three match on June 4?. A local packet captures static roster and match-note records before the synthetic match result. The packet has 2 used source(s), 1 missing evidence item(s), 0 stale source note(s), and 0 contradiction note(s). The result is a paper-only analysis record for later outcome review.",
+  "orders_or_trading_actions": false,
+  "outcome_tracking_status": {
+    "required_contract_version": "pmbot_one_market_outcome_record.v1",
+    "review_required": true,
+    "status": "placeholder_pending_outcome_record"
+  },
+  "paper_hypothesis": {
+    "execution_boundary": "Paper-only review record. It is not a market instruction and cannot be used for orders.",
+    "hypothesis_id": "synthetic-esports-match-001.analysis.a6d4bc90b97b.paper_hypothesis",
+    "outcome_check_needed": "Later compare the final outcome record with the local rules summary, resolution source summary, and source attribution.",
+    "refuting_evidence_needed": [
+      "Final match result sheet"
+    ],
+    "safety_label": "paper_only_non_executable_analysis_tracking",
+    "source_assumptions_to_review": [
+      "Synthetic Roster Note",
+      "Synthetic Match Note",
+      "Roster continuity does not resolve the match result."
+    ],
+    "supporting_evidence_needed": [
+      "Resolution evidence matches the local rules summary.",
+      "Used source records remain applicable to the same market and outcome rules.",
+      "No material missing evidence changes the qualitative review."
+    ],
+    "tracked_claim": "Track whether the local source-backed analysis remains useful after the market outcome is reviewed."
+  },
+  "paper_hypothesis_allowed": true,
+  "paper_hypothesis_safety_label": "paper_only_non_executable_analysis_tracking",
+  "paper_hypothesis_tracking_fields": {
+    "analysis_id": "synthetic-esports-match-001.analysis.a6d4bc90b97b",
+    "created_from": "local_one_market",
+    "expected_outcome_record_contract_version": "pmbot_one_market_outcome_record.v1",
+    "market_id": "synthetic-esports-match-001",
+    "outcome_record_required_fields": [
+      "contract_version",
+      "market_id",
+      "outcome_status",
+      "actual_outcome_summary",
+      "resolved_at",
+      "resolution_source_reference",
+      "operator_notes"
+    ],
+    "tracking_status": "pending_outcome_record"
+  },
+  "polymarket_api_calls_performed": 0,
+  "probability_ev_edge_or_side_selection_generated": false,
+  "review_quality_score_inputs": {
+    "available_evidence_count": 2,
+    "contradiction_note_count": 0,
+    "missing_evidence_count": 1,
+    "operator_note_count": 2,
+    "stale_source_count": 0,
+    "used_source_count": 2
+  },
+  "runtime_or_dispatcher_changes": false,
+  "source_attribution": [
+    {
+      "captured_at": "2026-05-10T00:00:00Z",
+      "claim_type": "roster_status",
+      "claim_value": "same_starting_roster",
+      "evidence_summary": "The roster note records no starting roster change.",
+      "freshness_status": "current",
+      "known_limitations": [
+        "Roster continuity is not a result record."
+      ],
+      "source_id": "esports_roster_note",
+      "source_name": "Synthetic Roster Note",
+      "source_type": "team_static_fixture",
+      "source_url_or_reference": "pm_bot/tests/fixtures/practical_market_queue_batch/sources/esports.sources.json",
+      "used_in_analysis": true
+    },
+    {
+      "captured_at": "2026-05-10T00:00:00Z",
+      "claim_type": "match_scope",
+      "claim_value": "map_three_fixture",
+      "evidence_summary": "The match note confirms the fixture scope.",
+      "freshness_status": "current",
+      "known_limitations": [
+        "The match note does not include final result."
+      ],
+      "source_id": "esports_match_note",
+      "source_name": "Synthetic Match Note",
+      "source_type": "event_static_fixture",
+      "source_url_or_reference": "pm_bot/tests/fixtures/practical_market_queue_batch/sources/esports.sources.json",
+      "used_in_analysis": true
+    }
+  ],
+  "sources_not_used": [],
+  "sources_used": [
+    {
+      "claim_type": "roster_status",
+      "freshness_status": "current",
+      "source_id": "esports_roster_note",
+      "source_name": "Synthetic Roster Note",
+      "source_type": "team_static_fixture"
+    },
+    {
+      "claim_type": "match_scope",
+      "freshness_status": "current",
+      "source_id": "esports_match_note",
+      "source_name": "Synthetic Match Note",
+      "source_type": "event_static_fixture"
+    }
+  ],
+  "staleness_notes": [],
+  "uncertainty_notes": [
+    "Roster continuity does not resolve the match result."
+  ],
+  "wallet_or_private_key_access": false
+}

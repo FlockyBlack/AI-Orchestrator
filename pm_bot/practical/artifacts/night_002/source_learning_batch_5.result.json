@@ -1,0 +1,297 @@
+{
+  "analysis_prompt_improvement_notes": [
+    "Add a required material-missing-evidence check before analysis completion.",
+    "Add a required reasoning audit note for each key claim.",
+    "Keep the current compact card shape and source attribution fields.",
+    "Keep the outcome placeholder visible until a resolved local record exists."
+  ],
+  "contract_version": "pmbot_source_learning_batch_ledger.v1",
+  "generated_artifacts": {
+    "source_learning_ledger_json": "pm_bot/practical/artifacts/night_002/source_learning_batch_5.result.json",
+    "source_learning_ledger_markdown": "pm_bot/practical/artifacts/night_002/source_learning_batch_5.md"
+  },
+  "generated_at": "2026-05-10T00:00:00Z",
+  "input_feedback_ids": [
+    "synthetic-crypto-reference-001.analysis.7384b905ed0b.feedback.43c63ed7fd61",
+    "synthetic-esports-match-001.analysis.a6d4bc90b97b.feedback.1eec6af56a38",
+    "synthetic-generic-event-001.analysis.11f645d06c7a.feedback.fb0d436d5783",
+    "synthetic-politics-measure-001.analysis.b32ac6067fb8.feedback.128c574bbbfb",
+    "synthetic-weather-rain-001.analysis.6ba2343c0bce.feedback.30bc2b9cebcf",
+    "synthetic-weather-rain-001.analysis.6ba2343c0bce.feedback.5728109c45aa"
+  ],
+  "ledger_id": "source_learning_ledger.86375b12d34e",
+  "market_ids": [
+    "synthetic-crypto-reference-001",
+    "synthetic-esports-match-001",
+    "synthetic-generic-event-001",
+    "synthetic-politics-measure-001",
+    "synthetic-weather-rain-001"
+  ],
+  "no_autonomous_training_performed": true,
+  "no_real_trade_decision": true,
+  "recommended_source_handling_updates": [
+    "Require freshness review for stale local source packets.",
+    "Separate source claim capture from reasoning review for misleading observations.",
+    "Keep contradiction notes visible before feedback review.",
+    "Pair insufficient sources with explicit missing-evidence capture."
+  ],
+  "source_failure_patterns": [
+    "2 source observation(s) labeled contradictory.",
+    "2 source observation(s) labeled insufficient.",
+    "2 source observation(s) labeled misleading.",
+    "1 source observation(s) labeled stale.",
+    "2 source observation(s) labeled unknown."
+  ],
+  "source_observations": [
+    {
+      "feedback_id": "synthetic-crypto-reference-001.analysis.7384b905ed0b.feedback.43c63ed7fd61",
+      "market_id": "synthetic-crypto-reference-001",
+      "observed_issue": "Source freshness status was stale or equivalent.",
+      "source_id": "crypto_archived_reference",
+      "source_name": "Synthetic Archived Reference Close",
+      "suggested_future_handling": "Require a fresher local capture before relying on the same claim.",
+      "usefulness_label": "stale"
+    },
+    {
+      "feedback_id": "synthetic-crypto-reference-001.analysis.7384b905ed0b.feedback.43c63ed7fd61",
+      "market_id": "synthetic-crypto-reference-001",
+      "observed_issue": "Source contributed to a useful qualitative analysis review.",
+      "source_id": "crypto_rules_capture",
+      "source_name": "Synthetic Crypto Rules Capture",
+      "suggested_future_handling": "Keep source attribution and limitations visible in future packets.",
+      "usefulness_label": "useful"
+    },
+    {
+      "feedback_id": "synthetic-esports-match-001.analysis.a6d4bc90b97b.feedback.1eec6af56a38",
+      "market_id": "synthetic-esports-match-001",
+      "observed_issue": "Source may have been interpreted incorrectly in the local analysis.",
+      "source_id": "esports_match_note",
+      "source_name": "Synthetic Match Note",
+      "suggested_future_handling": "Add a prompt check separating source claim from reasoning step.",
+      "usefulness_label": "misleading"
+    },
+    {
+      "feedback_id": "synthetic-esports-match-001.analysis.a6d4bc90b97b.feedback.1eec6af56a38",
+      "market_id": "synthetic-esports-match-001",
+      "observed_issue": "Source may have been interpreted incorrectly in the local analysis.",
+      "source_id": "esports_roster_note",
+      "source_name": "Synthetic Roster Note",
+      "suggested_future_handling": "Add a prompt check separating source claim from reasoning step.",
+      "usefulness_label": "misleading"
+    },
+    {
+      "feedback_id": "synthetic-generic-event-001.analysis.11f645d06c7a.feedback.fb0d436d5783",
+      "market_id": "synthetic-generic-event-001",
+      "observed_issue": "Used source did not cover the evidence later identified as material.",
+      "source_id": "generic_event_rules",
+      "source_name": "Synthetic Event Rules Note",
+      "suggested_future_handling": "Pair this source with the missing evidence type in future packets.",
+      "usefulness_label": "insufficient"
+    },
+    {
+      "feedback_id": "synthetic-generic-event-001.analysis.11f645d06c7a.feedback.fb0d436d5783",
+      "market_id": "synthetic-generic-event-001",
+      "observed_issue": "Used source did not cover the evidence later identified as material.",
+      "source_id": "generic_planning_note",
+      "source_name": "Synthetic Planning Note",
+      "suggested_future_handling": "Pair this source with the missing evidence type in future packets.",
+      "usefulness_label": "insufficient"
+    },
+    {
+      "feedback_id": "synthetic-politics-measure-001.analysis.b32ac6067fb8.feedback.128c574bbbfb",
+      "market_id": "synthetic-politics-measure-001",
+      "observed_issue": "Source was part of a contradiction note.",
+      "source_id": "politics_committee_note_a",
+      "source_name": "Synthetic Committee Note A",
+      "suggested_future_handling": "Require operator review when this source conflicts with another local record.",
+      "usefulness_label": "contradictory"
+    },
+    {
+      "feedback_id": "synthetic-politics-measure-001.analysis.b32ac6067fb8.feedback.128c574bbbfb",
+      "market_id": "synthetic-politics-measure-001",
+      "observed_issue": "Source was part of a contradiction note.",
+      "source_id": "politics_committee_note_b",
+      "source_name": "Synthetic Committee Note B",
+      "suggested_future_handling": "Require operator review when this source conflicts with another local record.",
+      "usefulness_label": "contradictory"
+    },
+    {
+      "feedback_id": "synthetic-weather-rain-001.analysis.6ba2343c0bce.feedback.30bc2b9cebcf",
+      "market_id": "synthetic-weather-rain-001",
+      "observed_issue": "Outcome review did not resolve source usefulness.",
+      "source_id": "weather_event_note",
+      "source_name": "Synthetic Event Note",
+      "suggested_future_handling": "Keep source in pending review until a resolved outcome exists.",
+      "usefulness_label": "unknown"
+    },
+    {
+      "feedback_id": "synthetic-weather-rain-001.analysis.6ba2343c0bce.feedback.5728109c45aa",
+      "market_id": "synthetic-weather-rain-001",
+      "observed_issue": "Source contributed to a useful qualitative analysis review.",
+      "source_id": "weather_event_note",
+      "source_name": "Synthetic Event Note",
+      "suggested_future_handling": "Keep source attribution and limitations visible in future packets.",
+      "usefulness_label": "useful"
+    },
+    {
+      "feedback_id": "synthetic-weather-rain-001.analysis.6ba2343c0bce.feedback.30bc2b9cebcf",
+      "market_id": "synthetic-weather-rain-001",
+      "observed_issue": "Outcome review did not resolve source usefulness.",
+      "source_id": "weather_station_bulletin",
+      "source_name": "Synthetic Station Bulletin",
+      "suggested_future_handling": "Keep source in pending review until a resolved outcome exists.",
+      "usefulness_label": "unknown"
+    },
+    {
+      "feedback_id": "synthetic-weather-rain-001.analysis.6ba2343c0bce.feedback.5728109c45aa",
+      "market_id": "synthetic-weather-rain-001",
+      "observed_issue": "Source contributed to a useful qualitative analysis review.",
+      "source_id": "weather_station_bulletin",
+      "source_name": "Synthetic Station Bulletin",
+      "suggested_future_handling": "Keep source attribution and limitations visible in future packets.",
+      "usefulness_label": "useful"
+    }
+  ],
+  "source_records": [
+    {
+      "markets_used": [
+        "synthetic-crypto-reference-001"
+      ],
+      "observed_issue": "Source freshness status was stale or equivalent.",
+      "source_id": "crypto_archived_reference",
+      "source_label_counts": {
+        "stale": 1
+      },
+      "source_name": "Synthetic Archived Reference Close",
+      "suggested_future_handling": "Require a fresher local capture before relying on the same claim.",
+      "usefulness_label": "stale"
+    },
+    {
+      "markets_used": [
+        "synthetic-crypto-reference-001"
+      ],
+      "observed_issue": "Source contributed to a useful qualitative analysis review.",
+      "source_id": "crypto_rules_capture",
+      "source_label_counts": {
+        "useful": 1
+      },
+      "source_name": "Synthetic Crypto Rules Capture",
+      "suggested_future_handling": "Keep source attribution and limitations visible in future packets.",
+      "usefulness_label": "useful"
+    },
+    {
+      "markets_used": [
+        "synthetic-esports-match-001"
+      ],
+      "observed_issue": "Source may have been interpreted incorrectly in the local analysis.",
+      "source_id": "esports_match_note",
+      "source_label_counts": {
+        "misleading": 1
+      },
+      "source_name": "Synthetic Match Note",
+      "suggested_future_handling": "Add a prompt check separating source claim from reasoning step.",
+      "usefulness_label": "misleading"
+    },
+    {
+      "markets_used": [
+        "synthetic-esports-match-001"
+      ],
+      "observed_issue": "Source may have been interpreted incorrectly in the local analysis.",
+      "source_id": "esports_roster_note",
+      "source_label_counts": {
+        "misleading": 1
+      },
+      "source_name": "Synthetic Roster Note",
+      "suggested_future_handling": "Add a prompt check separating source claim from reasoning step.",
+      "usefulness_label": "misleading"
+    },
+    {
+      "markets_used": [
+        "synthetic-generic-event-001"
+      ],
+      "observed_issue": "Used source did not cover the evidence later identified as material.",
+      "source_id": "generic_event_rules",
+      "source_label_counts": {
+        "insufficient": 1
+      },
+      "source_name": "Synthetic Event Rules Note",
+      "suggested_future_handling": "Pair this source with the missing evidence type in future packets.",
+      "usefulness_label": "insufficient"
+    },
+    {
+      "markets_used": [
+        "synthetic-generic-event-001"
+      ],
+      "observed_issue": "Used source did not cover the evidence later identified as material.",
+      "source_id": "generic_planning_note",
+      "source_label_counts": {
+        "insufficient": 1
+      },
+      "source_name": "Synthetic Planning Note",
+      "suggested_future_handling": "Pair this source with the missing evidence type in future packets.",
+      "usefulness_label": "insufficient"
+    },
+    {
+      "markets_used": [
+        "synthetic-politics-measure-001"
+      ],
+      "observed_issue": "Source was part of a contradiction note.",
+      "source_id": "politics_committee_note_a",
+      "source_label_counts": {
+        "contradictory": 1
+      },
+      "source_name": "Synthetic Committee Note A",
+      "suggested_future_handling": "Require operator review when this source conflicts with another local record.",
+      "usefulness_label": "contradictory"
+    },
+    {
+      "markets_used": [
+        "synthetic-politics-measure-001"
+      ],
+      "observed_issue": "Source was part of a contradiction note.",
+      "source_id": "politics_committee_note_b",
+      "source_label_counts": {
+        "contradictory": 1
+      },
+      "source_name": "Synthetic Committee Note B",
+      "suggested_future_handling": "Require operator review when this source conflicts with another local record.",
+      "usefulness_label": "contradictory"
+    },
+    {
+      "markets_used": [
+        "synthetic-weather-rain-001"
+      ],
+      "observed_issue": "Outcome review did not resolve source usefulness.; Source contributed to a useful qualitative analysis review.",
+      "source_id": "weather_event_note",
+      "source_label_counts": {
+        "unknown": 1,
+        "useful": 1
+      },
+      "source_name": "Synthetic Event Note",
+      "suggested_future_handling": "Keep source attribution and limitations visible in future packets.; Keep source in pending review until a resolved outcome exists.",
+      "usefulness_label": "useful"
+    },
+    {
+      "markets_used": [
+        "synthetic-weather-rain-001"
+      ],
+      "observed_issue": "Outcome review did not resolve source usefulness.; Source contributed to a useful qualitative analysis review.",
+      "source_id": "weather_station_bulletin",
+      "source_label_counts": {
+        "unknown": 1,
+        "useful": 1
+      },
+      "source_name": "Synthetic Station Bulletin",
+      "suggested_future_handling": "Keep source attribution and limitations visible in future packets.; Keep source in pending review until a resolved outcome exists.",
+      "usefulness_label": "useful"
+    }
+  ],
+  "source_usefulness_summary": {
+    "contradictory": 2,
+    "insufficient": 2,
+    "misleading": 2,
+    "stale": 1,
+    "unknown": 2,
+    "useful": 3
+  }
+}

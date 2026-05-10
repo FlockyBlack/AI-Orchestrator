@@ -1,0 +1,280 @@
+{
+  "active_paper_hypotheses_count": 4,
+  "blocked_items": [
+    {
+      "blockers": [
+        "Local packet missing required evidence file.",
+        "Missing linked artifact `local_input_path` at `pm_bot/tests/fixtures/practical_market_queue_batch/inputs/missing.blocked.json`"
+      ],
+      "market_id": "synthetic-weather-rain-001",
+      "market_title": "Will the synthetic city record measurable rain on June 1?",
+      "next_operator_action": "Resolve the local blockers before continuing this queue item.",
+      "queue_item_id": "queue-blocked-001"
+    }
+  ],
+  "contract_version": "pmbot_practical_operator_console.v1",
+  "feedback_complete_count": 1,
+  "feedback_pending_count": 0,
+  "generated_artifacts": {
+    "active_paper_hypotheses": "generated_inline",
+    "market_queue_summary": "pm_bot/tests/fixtures/practical_market_queue_batch/market_queue_5.valid.json",
+    "operator_console": "generated_inline",
+    "operator_console_json": "pm_bot/practical/artifacts/night_002/operator_console_5.result.json",
+    "operator_console_markdown": "pm_bot/practical/artifacts/night_002/operator_console_5.md"
+  },
+  "generated_at": "2026-05-10T00:00:00Z",
+  "markets_analyzed": [
+    {
+      "analysis_markdown_path": "pm_bot/practical/artifacts/night_002/analyses/crypto.analysis.md",
+      "analysis_result_path": "pm_bot/practical/artifacts/night_002/analyses/crypto.analysis.result.json",
+      "blockers": [],
+      "computed_blockers": [],
+      "computed_next_operator_action": "Inspect the analysis card and decide whether to track the paper-only hypothesis.",
+      "created_at": "2026-05-10T00:00:00Z",
+      "feedback_result_path": "",
+      "local_input_path": "pm_bot/tests/fixtures/practical_market_queue_batch/inputs/crypto.one_market_input.json",
+      "market_id": "synthetic-crypto-reference-001",
+      "market_title": "Will the synthetic token close above the reference level on June 2?",
+      "market_type": "crypto_like_binary",
+      "missing_linked_artifacts": [],
+      "next_operator_action": "",
+      "outcome_record_path": "",
+      "paper_hypothesis_id": "synthetic-crypto-reference-001.analysis.7384b905ed0b.paper_hypothesis",
+      "queue_item_id": "queue-crypto-001",
+      "safety_flags": {
+        "authenticated_endpoints_used": false,
+        "live_network_used": false,
+        "market_recommendation_generated": false,
+        "no_autonomous_training_performed": true,
+        "no_real_trade_decision": true,
+        "openrouter_calls_performed": 0,
+        "orders_or_trading_actions": false,
+        "paper_only": true,
+        "polymarket_api_calls_performed": 0,
+        "probability_ev_edge_or_side_selection_generated": false,
+        "runtime_or_dispatcher_changes": false,
+        "wallet_or_private_key_access": false
+      },
+      "source_learning_ledger_path": "",
+      "status": "analysis_ready",
+      "updated_at": "2026-05-10T00:00:00Z"
+    },
+    {
+      "analysis_markdown_path": "pm_bot/practical/artifacts/night_002/analyses/politics.analysis.md",
+      "analysis_result_path": "pm_bot/practical/artifacts/night_002/analyses/politics.analysis.result.json",
+      "blockers": [],
+      "computed_blockers": [],
+      "computed_next_operator_action": "Wait for a local outcome record or add one when the outcome is known.",
+      "created_at": "2026-05-10T00:00:00Z",
+      "feedback_result_path": "",
+      "local_input_path": "pm_bot/tests/fixtures/practical_market_queue_batch/inputs/politics.one_market_input.json",
+      "market_id": "synthetic-politics-measure-001",
+      "market_title": "Will the synthetic policy measure pass committee by June 3?",
+      "market_type": "politics_like_binary",
+      "missing_linked_artifacts": [],
+      "next_operator_action": "",
+      "outcome_record_path": "",
+      "paper_hypothesis_id": "synthetic-politics-measure-001.analysis.b32ac6067fb8.paper_hypothesis",
+      "queue_item_id": "queue-politics-001",
+      "safety_flags": {
+        "authenticated_endpoints_used": false,
+        "live_network_used": false,
+        "market_recommendation_generated": false,
+        "no_autonomous_training_performed": true,
+        "no_real_trade_decision": true,
+        "openrouter_calls_performed": 0,
+        "orders_or_trading_actions": false,
+        "paper_only": true,
+        "polymarket_api_calls_performed": 0,
+        "probability_ev_edge_or_side_selection_generated": false,
+        "runtime_or_dispatcher_changes": false,
+        "wallet_or_private_key_access": false
+      },
+      "source_learning_ledger_path": "",
+      "status": "hypothesis_active",
+      "updated_at": "2026-05-10T00:00:00Z"
+    },
+    {
+      "analysis_markdown_path": "pm_bot/practical/artifacts/night_002/analyses/esports.analysis.md",
+      "analysis_result_path": "pm_bot/practical/artifacts/night_002/analyses/esports.analysis.result.json",
+      "blockers": [],
+      "computed_blockers": [],
+      "computed_next_operator_action": "Add a resolved local outcome record when available.",
+      "created_at": "2026-05-10T00:00:00Z",
+      "feedback_result_path": "",
+      "local_input_path": "pm_bot/tests/fixtures/practical_market_queue_batch/inputs/esports.one_market_input.json",
+      "market_id": "synthetic-esports-match-001",
+      "market_title": "Will synthetic Team Azure win the map-three match on June 4?",
+      "market_type": "esports_like_match",
+      "missing_linked_artifacts": [],
+      "next_operator_action": "",
+      "outcome_record_path": "pm_bot/tests/fixtures/practical_market_queue_batch/outcomes/esports.unresolved.json",
+      "paper_hypothesis_id": "synthetic-esports-match-001.analysis.a6d4bc90b97b.paper_hypothesis",
+      "queue_item_id": "queue-esports-001",
+      "safety_flags": {
+        "authenticated_endpoints_used": false,
+        "live_network_used": false,
+        "market_recommendation_generated": false,
+        "no_autonomous_training_performed": true,
+        "no_real_trade_decision": true,
+        "openrouter_calls_performed": 0,
+        "orders_or_trading_actions": false,
+        "paper_only": true,
+        "polymarket_api_calls_performed": 0,
+        "probability_ev_edge_or_side_selection_generated": false,
+        "runtime_or_dispatcher_changes": false,
+        "wallet_or_private_key_access": false
+      },
+      "source_learning_ledger_path": "",
+      "status": "outcome_pending",
+      "updated_at": "2026-05-07T00:00:00Z"
+    },
+    {
+      "analysis_markdown_path": "pm_bot/practical/artifacts/night_002/analyses/generic.analysis.md",
+      "analysis_result_path": "pm_bot/practical/artifacts/night_002/analyses/generic.analysis.result.json",
+      "blockers": [],
+      "computed_blockers": [],
+      "computed_next_operator_action": "Review feedback lessons and update the source learning ledger.",
+      "created_at": "2026-05-10T00:00:00Z",
+      "feedback_result_path": "pm_bot/practical/artifacts/night_002/feedback_batch/queue-feedback-generic-001-synthetic-generic-event-001.feedback.result.json",
+      "local_input_path": "pm_bot/tests/fixtures/practical_market_queue_batch/inputs/generic.one_market_input.json",
+      "market_id": "synthetic-generic-event-001",
+      "market_title": "Will the synthetic event certificate be filed by June 5?",
+      "market_type": "generic_event_resolution",
+      "missing_linked_artifacts": [],
+      "next_operator_action": "",
+      "outcome_record_path": "pm_bot/tests/fixtures/practical_market_queue_batch/outcomes/generic.resolved.json",
+      "paper_hypothesis_id": "synthetic-generic-event-001.analysis.11f645d06c7a.paper_hypothesis",
+      "queue_item_id": "queue-generic-001",
+      "safety_flags": {
+        "authenticated_endpoints_used": false,
+        "live_network_used": false,
+        "market_recommendation_generated": false,
+        "no_autonomous_training_performed": true,
+        "no_real_trade_decision": true,
+        "openrouter_calls_performed": 0,
+        "orders_or_trading_actions": false,
+        "paper_only": true,
+        "polymarket_api_calls_performed": 0,
+        "probability_ev_edge_or_side_selection_generated": false,
+        "runtime_or_dispatcher_changes": false,
+        "wallet_or_private_key_access": false
+      },
+      "source_learning_ledger_path": "pm_bot/practical/artifacts/night_002/source_learning_batch_5.result.json",
+      "status": "feedback_complete",
+      "updated_at": "2026-05-10T00:00:00Z"
+    }
+  ],
+  "markets_queued": [
+    {
+      "analysis_markdown_path": "",
+      "analysis_result_path": "",
+      "blockers": [],
+      "computed_blockers": [],
+      "computed_next_operator_action": "Run local packet import if needed, then run finite local analysis.",
+      "created_at": "2026-05-10T00:00:00Z",
+      "feedback_result_path": "",
+      "local_input_path": "pm_bot/tests/fixtures/practical_market_queue_batch/inputs/weather.one_market_input.json",
+      "market_id": "synthetic-weather-rain-001",
+      "market_title": "Will the synthetic city record measurable rain on June 1?",
+      "market_type": "weather_like_binary",
+      "missing_linked_artifacts": [],
+      "next_operator_action": "",
+      "outcome_record_path": "",
+      "paper_hypothesis_id": "",
+      "queue_item_id": "queue-weather-001",
+      "safety_flags": {
+        "authenticated_endpoints_used": false,
+        "live_network_used": false,
+        "market_recommendation_generated": false,
+        "no_autonomous_training_performed": true,
+        "no_real_trade_decision": true,
+        "openrouter_calls_performed": 0,
+        "orders_or_trading_actions": false,
+        "paper_only": true,
+        "polymarket_api_calls_performed": 0,
+        "probability_ev_edge_or_side_selection_generated": false,
+        "runtime_or_dispatcher_changes": false,
+        "wallet_or_private_key_access": false
+      },
+      "source_learning_ledger_path": "",
+      "status": "queued",
+      "updated_at": "2026-05-10T00:00:00Z"
+    }
+  ],
+  "next_operator_actions": [
+    {
+      "market_id": "synthetic-weather-rain-001",
+      "market_title": "Will the synthetic city record measurable rain on June 1?",
+      "next_operator_action": "Run local packet import if needed, then run finite local analysis.",
+      "queue_item_id": "queue-weather-001"
+    },
+    {
+      "market_id": "synthetic-crypto-reference-001",
+      "market_title": "Will the synthetic token close above the reference level on June 2?",
+      "next_operator_action": "Inspect the analysis card and decide whether to track the paper-only hypothesis.",
+      "queue_item_id": "queue-crypto-001"
+    },
+    {
+      "market_id": "synthetic-politics-measure-001",
+      "market_title": "Will the synthetic policy measure pass committee by June 3?",
+      "next_operator_action": "Wait for a local outcome record or add one when the outcome is known.",
+      "queue_item_id": "queue-politics-001"
+    },
+    {
+      "market_id": "synthetic-esports-match-001",
+      "market_title": "Will synthetic Team Azure win the map-three match on June 4?",
+      "next_operator_action": "Add a resolved local outcome record when available.",
+      "queue_item_id": "queue-esports-001"
+    },
+    {
+      "market_id": "synthetic-generic-event-001",
+      "market_title": "Will the synthetic event certificate be filed by June 5?",
+      "next_operator_action": "Review feedback lessons and update the source learning ledger.",
+      "queue_item_id": "queue-generic-001"
+    },
+    {
+      "market_id": "synthetic-weather-rain-001",
+      "market_title": "Will the synthetic city record measurable rain on June 1?",
+      "next_operator_action": "Resolve the local blockers before continuing this queue item.",
+      "queue_item_id": "queue-blocked-001"
+    }
+  ],
+  "queue_status_counts": {
+    "analysis_ready": 1,
+    "blocked": 1,
+    "feedback_complete": 1,
+    "hypothesis_active": 1,
+    "outcome_pending": 1,
+    "queued": 1
+  },
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "source_learning_summary": {
+    "ledger_count": 1,
+    "ledger_paths": [
+      "pm_bot/practical/artifacts/night_002/source_learning_batch_5.result.json"
+    ],
+    "source_usefulness_summary": {
+      "contradictory": 2,
+      "insufficient": 2,
+      "misleading": 2,
+      "stale": 1,
+      "unknown": 2,
+      "useful": 3
+    }
+  },
+  "unresolved_outcomes_count": 3
+}

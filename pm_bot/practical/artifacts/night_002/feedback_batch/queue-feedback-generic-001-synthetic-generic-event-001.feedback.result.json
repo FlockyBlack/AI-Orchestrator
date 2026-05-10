@@ -1,0 +1,62 @@
+{
+  "actual_outcome_summary": "The final review found the local analysis wrong due to missing evidence in the packet.",
+  "analysis_id": "synthetic-generic-event-001.analysis.11f645d06c7a",
+  "analysis_quality_label": "wrong_due_to_missing_evidence",
+  "contract_version": "pmbot_one_market_paper_feedback_result.v1",
+  "feedback_id": "synthetic-generic-event-001.analysis.11f645d06c7a.feedback.fb0d436d5783",
+  "generated_artifacts": {
+    "feedback_markdown": "pm_bot/practical/artifacts/night_002/feedback_batch/queue-feedback-generic-001-synthetic-generic-event-001.feedback.md",
+    "feedback_result_json": "pm_bot/practical/artifacts/night_002/feedback_batch/queue-feedback-generic-001-synthetic-generic-event-001.feedback.result.json"
+  },
+  "market_id": "synthetic-generic-event-001",
+  "missing_evidence_lessons": [
+    "Missing evidence was material: Actual certificate filing record",
+    "Missing evidence was material: Clerk timestamp for the filing"
+  ],
+  "next_prompt_improvements": [
+    "Add a required material-missing-evidence check before analysis completion."
+  ],
+  "no_real_trade_decision": true,
+  "operator_notes": [
+    "operator_labeled_analysis_quality: wrong_due_to_missing_evidence",
+    "missing evidence was material because the certificate record was absent from the packet."
+  ],
+  "orders_or_trading_actions": false,
+  "outcome_status": "resolved",
+  "paper_hypothesis_review": {
+    "hypothesis_id": "synthetic-generic-event-001.analysis.11f645d06c7a.paper_hypothesis",
+    "outcome_check_completed": true,
+    "paper_only_non_executable": true,
+    "qualitative_result": "Analysis appears wrong because material evidence was missing.",
+    "review_status": "reviewed"
+  },
+  "reasoning_lessons": [
+    "Add an explicit missing-evidence impact check before writing the paper-only hypothesis."
+  ],
+  "resolution_source_reference": "pm_bot/tests/fixtures/practical_market_queue_batch/outcomes/generic.resolved.synthetic",
+  "resolved_at": "2026-06-10T00:00:00Z",
+  "source_contribution_review": [
+    {
+      "claim_type": "resolution_rule",
+      "evidence_role": "used_source",
+      "observed_issue": "Used source did not cover the evidence later identified as material.",
+      "source_id": "generic_event_rules",
+      "source_name": "Synthetic Event Rules Note",
+      "suggested_future_handling": "Pair this source with the missing evidence type in future packets.",
+      "usefulness_label": "insufficient"
+    },
+    {
+      "claim_type": "filing_intent",
+      "evidence_role": "used_source",
+      "observed_issue": "Used source did not cover the evidence later identified as material.",
+      "source_id": "generic_planning_note",
+      "source_name": "Synthetic Planning Note",
+      "suggested_future_handling": "Pair this source with the missing evidence type in future packets.",
+      "usefulness_label": "insufficient"
+    }
+  ],
+  "source_quality_lessons": [
+    "Observed source usefulness label: insufficient"
+  ],
+  "wallet_or_private_key_access": false
+}

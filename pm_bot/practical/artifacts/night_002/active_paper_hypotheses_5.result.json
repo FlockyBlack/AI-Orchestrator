@@ -1,0 +1,145 @@
+{
+  "active_hypotheses": [
+    {
+      "analysis_id": "synthetic-crypto-reference-001.analysis.7384b905ed0b",
+      "feedback_status": "outcome_pending",
+      "hypothesis_id": "synthetic-crypto-reference-001.analysis.7384b905ed0b.paper_hypothesis",
+      "linked_sources": [
+        {
+          "freshness_status": "stale",
+          "source_id": "crypto_archived_reference",
+          "source_name": "Synthetic Archived Reference Close"
+        },
+        {
+          "freshness_status": "current",
+          "source_id": "crypto_rules_capture",
+          "source_name": "Synthetic Crypto Rules Capture"
+        }
+      ],
+      "market_id": "synthetic-crypto-reference-001",
+      "market_title": "Will the synthetic token close above the reference level on June 2?",
+      "next_operator_action": "Check whether a local outcome record is available.",
+      "no_real_trade_decision": true,
+      "outcome_due_status": "unknown",
+      "outcome_status": "unknown",
+      "paper_hypothesis_summary": "Track whether the local source-backed analysis remains useful after the market outcome is reviewed.",
+      "safety_label": "paper_only_non_executable_analysis_tracking"
+    },
+    {
+      "analysis_id": "synthetic-esports-match-001.analysis.a6d4bc90b97b",
+      "feedback_status": "outcome_pending",
+      "hypothesis_id": "synthetic-esports-match-001.analysis.a6d4bc90b97b.paper_hypothesis",
+      "linked_sources": [
+        {
+          "freshness_status": "current",
+          "source_id": "esports_roster_note",
+          "source_name": "Synthetic Roster Note"
+        },
+        {
+          "freshness_status": "current",
+          "source_id": "esports_match_note",
+          "source_name": "Synthetic Match Note"
+        }
+      ],
+      "market_id": "synthetic-esports-match-001",
+      "market_title": "Will synthetic Team Azure win the map-three match on June 4?",
+      "next_operator_action": "Add or confirm the local outcome record before judging analysis quality.",
+      "no_real_trade_decision": true,
+      "outcome_due_status": "overdue",
+      "outcome_status": "unresolved",
+      "paper_hypothesis_summary": "Track whether the local source-backed analysis remains useful after the market outcome is reviewed.",
+      "safety_label": "paper_only_non_executable_analysis_tracking"
+    },
+    {
+      "analysis_id": "synthetic-generic-event-001.analysis.11f645d06c7a",
+      "feedback_status": "wrong_due_to_missing_evidence",
+      "hypothesis_id": "synthetic-generic-event-001.analysis.11f645d06c7a.paper_hypothesis",
+      "linked_sources": [
+        {
+          "freshness_status": "current",
+          "source_id": "generic_planning_note",
+          "source_name": "Synthetic Planning Note"
+        },
+        {
+          "freshness_status": "current",
+          "source_id": "generic_event_rules",
+          "source_name": "Synthetic Event Rules Note"
+        }
+      ],
+      "market_id": "synthetic-generic-event-001",
+      "market_title": "Will the synthetic event certificate be filed by June 5?",
+      "next_operator_action": "Review source-learning lessons from completed feedback.",
+      "no_real_trade_decision": true,
+      "outcome_due_status": "resolved",
+      "outcome_status": "resolved",
+      "paper_hypothesis_summary": "Track whether the local source-backed analysis remains useful after the market outcome is reviewed.",
+      "safety_label": "paper_only_non_executable_analysis_tracking"
+    },
+    {
+      "analysis_id": "synthetic-politics-measure-001.analysis.b32ac6067fb8",
+      "feedback_status": "outcome_pending",
+      "hypothesis_id": "synthetic-politics-measure-001.analysis.b32ac6067fb8.paper_hypothesis",
+      "linked_sources": [
+        {
+          "freshness_status": "current",
+          "source_id": "politics_committee_note_a",
+          "source_name": "Synthetic Committee Note A"
+        },
+        {
+          "freshness_status": "current",
+          "source_id": "politics_committee_note_b",
+          "source_name": "Synthetic Committee Note B"
+        }
+      ],
+      "market_id": "synthetic-politics-measure-001",
+      "market_title": "Will the synthetic policy measure pass committee by June 3?",
+      "next_operator_action": "Check whether a local outcome record is available.",
+      "no_real_trade_decision": true,
+      "outcome_due_status": "due_now",
+      "outcome_status": "unknown",
+      "paper_hypothesis_summary": "Track whether the local source-backed analysis remains useful after the market outcome is reviewed.",
+      "safety_label": "paper_only_non_executable_analysis_tracking"
+    }
+  ],
+  "blocked_count": 1,
+  "contract_version": "pmbot_active_paper_hypotheses.v1",
+  "feedback_pending_count": 0,
+  "generated_at": "2026-05-10T00:00:00Z",
+  "next_outcome_checks": [
+    {
+      "hypothesis_id": "synthetic-crypto-reference-001.analysis.7384b905ed0b.paper_hypothesis",
+      "market_id": "synthetic-crypto-reference-001",
+      "next_operator_action": "Check whether a local outcome record is available.",
+      "outcome_due_status": "unknown"
+    },
+    {
+      "hypothesis_id": "synthetic-politics-measure-001.analysis.b32ac6067fb8.paper_hypothesis",
+      "market_id": "synthetic-politics-measure-001",
+      "next_operator_action": "Check whether a local outcome record is available.",
+      "outcome_due_status": "due_now"
+    },
+    {
+      "hypothesis_id": "synthetic-esports-match-001.analysis.a6d4bc90b97b.paper_hypothesis",
+      "market_id": "synthetic-esports-match-001",
+      "next_operator_action": "Add or confirm the local outcome record before judging analysis quality.",
+      "outcome_due_status": "overdue"
+    }
+  ],
+  "resolved_count": 1,
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "stale_outcome_check_count": 1,
+  "unresolved_count": 3
+}

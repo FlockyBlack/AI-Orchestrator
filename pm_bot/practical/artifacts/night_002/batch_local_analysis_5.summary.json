@@ -1,0 +1,56 @@
+{
+  "contract_version": "pmbot_batch_local_analysis_summary.v1",
+  "generated_at": "2026-05-10T00:00:00Z",
+  "original_queue_mutated": false,
+  "out_dir": "pm_bot/practical/artifacts/night_002/batch_analysis",
+  "out_queue_path": null,
+  "processed_count": 1,
+  "processed_items": [
+    {
+      "analysis_id": "synthetic-weather-rain-001.analysis.6ba2343c0bce",
+      "analysis_markdown_path": "pm_bot/practical/artifacts/night_002/batch_analysis/synthetic-weather-rain-001.analysis.md",
+      "analysis_result_path": "pm_bot/practical/artifacts/night_002/batch_analysis/synthetic-weather-rain-001.analysis.result.json",
+      "market_id": "synthetic-weather-rain-001",
+      "paper_hypothesis_id": "synthetic-weather-rain-001.analysis.6ba2343c0bce.paper_hypothesis",
+      "queue_item_id": "queue-weather-001"
+    }
+  ],
+  "queue_path": "pm_bot/tests/fixtures/practical_market_queue_batch/market_queue_5.valid.json",
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "skipped_count": 5,
+  "skipped_items": [
+    {
+      "queue_item_id": "queue-crypto-001",
+      "reason": "status is analysis_ready"
+    },
+    {
+      "queue_item_id": "queue-politics-001",
+      "reason": "status is hypothesis_active"
+    },
+    {
+      "queue_item_id": "queue-esports-001",
+      "reason": "status is outcome_pending"
+    },
+    {
+      "queue_item_id": "queue-generic-001",
+      "reason": "status is feedback_complete"
+    },
+    {
+      "queue_item_id": "queue-blocked-001",
+      "reason": "status is blocked"
+    }
+  ]
+}

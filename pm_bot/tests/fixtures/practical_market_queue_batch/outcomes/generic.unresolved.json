@@ -1,0 +1,11 @@
+{
+  "actual_outcome_summary": "Outcome has not been entered in the local fixture yet.",
+  "contract_version": "pmbot_one_market_outcome_record.v1",
+  "market_id": "synthetic-generic-event-001",
+  "operator_notes": [
+    "Unresolved local outcome record for queue testing."
+  ],
+  "outcome_status": "unresolved",
+  "resolution_source_reference": "pending_local_fixture_record",
+  "resolved_at": null
+}

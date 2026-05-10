@@ -1,0 +1,203 @@
+{
+  "analyses": [
+    {
+      "contract_version": "pmbot_one_market_analysis_result.v1",
+      "generated_at": "",
+      "id": "synthetic-crypto-reference-001.analysis.7384b905ed0b",
+      "path": "pm_bot/practical/artifacts/night_002/analyses/crypto.analysis.result.json"
+    },
+    {
+      "contract_version": "pmbot_one_market_analysis_result.v1",
+      "generated_at": "",
+      "id": "synthetic-esports-match-001.analysis.a6d4bc90b97b",
+      "path": "pm_bot/practical/artifacts/night_002/analyses/esports.analysis.result.json"
+    },
+    {
+      "contract_version": "pmbot_one_market_analysis_result.v1",
+      "generated_at": "",
+      "id": "synthetic-generic-event-001.analysis.11f645d06c7a",
+      "path": "pm_bot/practical/artifacts/night_002/analyses/generic.analysis.result.json"
+    },
+    {
+      "contract_version": "pmbot_one_market_analysis_result.v1",
+      "generated_at": "",
+      "id": "synthetic-politics-measure-001.analysis.b32ac6067fb8",
+      "path": "pm_bot/practical/artifacts/night_002/analyses/politics.analysis.result.json"
+    },
+    {
+      "contract_version": "pmbot_one_market_analysis_result.v1",
+      "generated_at": "",
+      "id": "synthetic-weather-rain-001.analysis.6ba2343c0bce",
+      "path": "pm_bot/practical/artifacts/night_002/analyses/weather.analysis.result.json"
+    },
+    {
+      "contract_version": "pmbot_one_market_analysis_result.v1",
+      "generated_at": "",
+      "id": "synthetic-weather-rain-001.analysis.6ba2343c0bce",
+      "path": "pm_bot/practical/artifacts/night_002/batch_analysis/synthetic-weather-rain-001.analysis.result.json"
+    }
+  ],
+  "artifact_dirs": [
+    "pm_bot/practical/artifacts/night_002"
+  ],
+  "contract_version": "pmbot_practical_dashboard_index.v1",
+  "feedback_results": [
+    {
+      "contract_version": "pmbot_one_market_paper_feedback_result.v1",
+      "generated_at": "",
+      "id": "synthetic-crypto-reference-001.analysis.7384b905ed0b",
+      "path": "pm_bot/practical/artifacts/night_002/feedback_batch/queue-feedback-crypto-001-synthetic-crypto-reference-001.feedback.result.json"
+    },
+    {
+      "contract_version": "pmbot_one_market_paper_feedback_result.v1",
+      "generated_at": "",
+      "id": "synthetic-esports-match-001.analysis.a6d4bc90b97b",
+      "path": "pm_bot/practical/artifacts/night_002/feedback_batch/queue-feedback-esports-001-synthetic-esports-match-001.feedback.result.json"
+    },
+    {
+      "contract_version": "pmbot_one_market_paper_feedback_result.v1",
+      "generated_at": "",
+      "id": "synthetic-generic-event-001.analysis.11f645d06c7a",
+      "path": "pm_bot/practical/artifacts/night_002/feedback_batch/queue-feedback-generic-001-synthetic-generic-event-001.feedback.result.json"
+    },
+    {
+      "contract_version": "pmbot_one_market_paper_feedback_result.v1",
+      "generated_at": "",
+      "id": "synthetic-politics-measure-001.analysis.b32ac6067fb8",
+      "path": "pm_bot/practical/artifacts/night_002/feedback_batch/queue-feedback-politics-001-synthetic-politics-measure-001.feedback.result.json"
+    },
+    {
+      "contract_version": "pmbot_one_market_paper_feedback_result.v1",
+      "generated_at": "",
+      "id": "synthetic-weather-rain-001.analysis.6ba2343c0bce",
+      "path": "pm_bot/practical/artifacts/night_002/feedback_batch/queue-feedback-weather-001-synthetic-weather-rain-001.feedback.result.json"
+    },
+    {
+      "contract_version": "pmbot_one_market_paper_feedback_result.v1",
+      "generated_at": "",
+      "id": "synthetic-weather-rain-001.analysis.6ba2343c0bce",
+      "path": "pm_bot/practical/artifacts/night_002/feedback_batch/queue-feedback-weather-unresolved-001-synthetic-weather-rain-001.feedback.result.json"
+    }
+  ],
+  "generated_at": "2026-05-10T00:00:00Z",
+  "next_operator_actions": [
+    {
+      "market_id": "synthetic-weather-rain-001",
+      "market_title": "Will the synthetic city record measurable rain on June 1?",
+      "next_operator_action": "Run local packet import if needed, then run finite local analysis.",
+      "queue_item_id": "queue-weather-001"
+    },
+    {
+      "market_id": "synthetic-crypto-reference-001",
+      "market_title": "Will the synthetic token close above the reference level on June 2?",
+      "next_operator_action": "Inspect the analysis card and decide whether to track the paper-only hypothesis.",
+      "queue_item_id": "queue-crypto-001"
+    },
+    {
+      "market_id": "synthetic-politics-measure-001",
+      "market_title": "Will the synthetic policy measure pass committee by June 3?",
+      "next_operator_action": "Wait for a local outcome record or add one when the outcome is known.",
+      "queue_item_id": "queue-politics-001"
+    },
+    {
+      "market_id": "synthetic-esports-match-001",
+      "market_title": "Will synthetic Team Azure win the map-three match on June 4?",
+      "next_operator_action": "Add a resolved local outcome record when available.",
+      "queue_item_id": "queue-esports-001"
+    },
+    {
+      "market_id": "synthetic-generic-event-001",
+      "market_title": "Will the synthetic event certificate be filed by June 5?",
+      "next_operator_action": "Review feedback lessons and update the source learning ledger.",
+      "queue_item_id": "queue-generic-001"
+    },
+    {
+      "market_id": "synthetic-weather-rain-001",
+      "market_title": "Will the synthetic city record measurable rain on June 1?",
+      "next_operator_action": "Resolve the local blockers before continuing this queue item.",
+      "queue_item_id": "queue-blocked-001"
+    },
+    {
+      "market_id": "synthetic-weather-rain-001",
+      "market_title": "Will the synthetic city record measurable rain on June 1?",
+      "next_operator_action": "Run local packet import if needed, then run finite local analysis.",
+      "queue_item_id": "queue-weather-001"
+    },
+    {
+      "market_id": "synthetic-crypto-reference-001",
+      "market_title": "Will the synthetic token close above the reference level on June 2?",
+      "next_operator_action": "Inspect the analysis card and decide whether to track the paper-only hypothesis.",
+      "queue_item_id": "queue-crypto-001"
+    },
+    {
+      "market_id": "synthetic-politics-measure-001",
+      "market_title": "Will the synthetic policy measure pass committee by June 3?",
+      "next_operator_action": "Wait for a local outcome record or add one when the outcome is known.",
+      "queue_item_id": "queue-politics-001"
+    },
+    {
+      "market_id": "synthetic-esports-match-001",
+      "market_title": "Will synthetic Team Azure win the map-three match on June 4?",
+      "next_operator_action": "Add a resolved local outcome record when available.",
+      "queue_item_id": "queue-esports-001"
+    },
+    {
+      "market_id": "synthetic-generic-event-001",
+      "market_title": "Will the synthetic event certificate be filed by June 5?",
+      "next_operator_action": "Review feedback lessons and update the source learning ledger.",
+      "queue_item_id": "queue-generic-001"
+    },
+    {
+      "market_id": "synthetic-weather-rain-001",
+      "market_title": "Will the synthetic city record measurable rain on June 1?",
+      "next_operator_action": "Resolve the local blockers before continuing this queue item.",
+      "queue_item_id": "queue-blocked-001"
+    }
+  ],
+  "operator_consoles": [
+    {
+      "contract_version": "pmbot_practical_operator_console.v1",
+      "generated_at": "2026-05-10T00:00:00Z",
+      "id": "pmbot_practical_operator_console.v1",
+      "path": "pm_bot/practical/artifacts/night_002/operator_console_5.result.json"
+    }
+  ],
+  "outcome_queues": [
+    {
+      "contract_version": "pmbot_outcome_check_queue.v1",
+      "generated_at": "2026-05-10T00:00:00Z",
+      "id": "pmbot_outcome_check_queue.v1",
+      "path": "pm_bot/practical/artifacts/night_002/outcome_check_queue_5.result.json"
+    }
+  ],
+  "queue_summaries": [
+    {
+      "contract_version": "pmbot_market_queue_summary.v1",
+      "generated_at": "2026-05-10T00:00:00Z",
+      "id": "pmbot_market_queue_summary.v1",
+      "path": "pm_bot/practical/artifacts/night_002/market_queue_5.summary.json"
+    }
+  ],
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "source_ledgers": [
+    {
+      "contract_version": "pmbot_source_learning_batch_ledger.v1",
+      "generated_at": "2026-05-10T00:00:00Z",
+      "id": "source_learning_ledger.86375b12d34e",
+      "path": "pm_bot/practical/artifacts/night_002/source_learning_batch_5.result.json"
+    }
+  ]
+}

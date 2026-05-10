@@ -1,0 +1,171 @@
+{
+  "contract_version": "pmbot_source_scorecard.v1",
+  "generated_at": "2026-05-10T00:00:00Z",
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "source_count": 10,
+  "source_scorecard": [
+    {
+      "contradictory_count": 0,
+      "insufficient_count": 0,
+      "markets_used": [
+        "synthetic-crypto-reference-001"
+      ],
+      "misleading_count": 0,
+      "notes": "Source freshness status was stale or equivalent.",
+      "source_id": "crypto_archived_reference",
+      "source_name": "Synthetic Archived Reference Close",
+      "stale_count": 1,
+      "suggested_handling": "Require a fresher local capture before relying on the same claim.",
+      "unknown_count": 0,
+      "useful_count": 0
+    },
+    {
+      "contradictory_count": 0,
+      "insufficient_count": 0,
+      "markets_used": [
+        "synthetic-crypto-reference-001"
+      ],
+      "misleading_count": 0,
+      "notes": "Source contributed to a useful qualitative analysis review.",
+      "source_id": "crypto_rules_capture",
+      "source_name": "Synthetic Crypto Rules Capture",
+      "stale_count": 0,
+      "suggested_handling": "Keep source attribution and limitations visible in future packets.",
+      "unknown_count": 0,
+      "useful_count": 1
+    },
+    {
+      "contradictory_count": 0,
+      "insufficient_count": 0,
+      "markets_used": [
+        "synthetic-esports-match-001"
+      ],
+      "misleading_count": 1,
+      "notes": "Source may have been interpreted incorrectly in the local analysis.",
+      "source_id": "esports_match_note",
+      "source_name": "Synthetic Match Note",
+      "stale_count": 0,
+      "suggested_handling": "Add a prompt check separating source claim from reasoning step.",
+      "unknown_count": 0,
+      "useful_count": 0
+    },
+    {
+      "contradictory_count": 0,
+      "insufficient_count": 0,
+      "markets_used": [
+        "synthetic-esports-match-001"
+      ],
+      "misleading_count": 1,
+      "notes": "Source may have been interpreted incorrectly in the local analysis.",
+      "source_id": "esports_roster_note",
+      "source_name": "Synthetic Roster Note",
+      "stale_count": 0,
+      "suggested_handling": "Add a prompt check separating source claim from reasoning step.",
+      "unknown_count": 0,
+      "useful_count": 0
+    },
+    {
+      "contradictory_count": 0,
+      "insufficient_count": 1,
+      "markets_used": [
+        "synthetic-generic-event-001"
+      ],
+      "misleading_count": 0,
+      "notes": "Used source did not cover the evidence later identified as material.",
+      "source_id": "generic_event_rules",
+      "source_name": "Synthetic Event Rules Note",
+      "stale_count": 0,
+      "suggested_handling": "Pair this source with the missing evidence type in future packets.",
+      "unknown_count": 0,
+      "useful_count": 0
+    },
+    {
+      "contradictory_count": 0,
+      "insufficient_count": 1,
+      "markets_used": [
+        "synthetic-generic-event-001"
+      ],
+      "misleading_count": 0,
+      "notes": "Used source did not cover the evidence later identified as material.",
+      "source_id": "generic_planning_note",
+      "source_name": "Synthetic Planning Note",
+      "stale_count": 0,
+      "suggested_handling": "Pair this source with the missing evidence type in future packets.",
+      "unknown_count": 0,
+      "useful_count": 0
+    },
+    {
+      "contradictory_count": 1,
+      "insufficient_count": 0,
+      "markets_used": [
+        "synthetic-politics-measure-001"
+      ],
+      "misleading_count": 0,
+      "notes": "Source was part of a contradiction note.",
+      "source_id": "politics_committee_note_a",
+      "source_name": "Synthetic Committee Note A",
+      "stale_count": 0,
+      "suggested_handling": "Require operator review when this source conflicts with another local record.",
+      "unknown_count": 0,
+      "useful_count": 0
+    },
+    {
+      "contradictory_count": 1,
+      "insufficient_count": 0,
+      "markets_used": [
+        "synthetic-politics-measure-001"
+      ],
+      "misleading_count": 0,
+      "notes": "Source was part of a contradiction note.",
+      "source_id": "politics_committee_note_b",
+      "source_name": "Synthetic Committee Note B",
+      "stale_count": 0,
+      "suggested_handling": "Require operator review when this source conflicts with another local record.",
+      "unknown_count": 0,
+      "useful_count": 0
+    },
+    {
+      "contradictory_count": 0,
+      "insufficient_count": 0,
+      "markets_used": [
+        "synthetic-weather-rain-001"
+      ],
+      "misleading_count": 0,
+      "notes": "Outcome review did not resolve source usefulness.; Source contributed to a useful qualitative analysis review.",
+      "source_id": "weather_event_note",
+      "source_name": "Synthetic Event Note",
+      "stale_count": 0,
+      "suggested_handling": "Keep source attribution and limitations visible in future packets.; Keep source in pending review until a resolved outcome exists.",
+      "unknown_count": 1,
+      "useful_count": 1
+    },
+    {
+      "contradictory_count": 0,
+      "insufficient_count": 0,
+      "markets_used": [
+        "synthetic-weather-rain-001"
+      ],
+      "misleading_count": 0,
+      "notes": "Outcome review did not resolve source usefulness.; Source contributed to a useful qualitative analysis review.",
+      "source_id": "weather_station_bulletin",
+      "source_name": "Synthetic Station Bulletin",
+      "stale_count": 0,
+      "suggested_handling": "Keep source attribution and limitations visible in future packets.; Keep source in pending review until a resolved outcome exists.",
+      "unknown_count": 1,
+      "useful_count": 1
+    }
+  ]
+}

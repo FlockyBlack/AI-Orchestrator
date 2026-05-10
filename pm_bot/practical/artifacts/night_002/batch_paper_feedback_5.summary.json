@@ -1,0 +1,77 @@
+{
+  "contract_version": "pmbot_batch_paper_feedback_summary.v1",
+  "generated_at": "2026-05-10T00:00:00Z",
+  "generated_count": 6,
+  "generated_feedback": [
+    {
+      "analysis_quality_label": "useful",
+      "feedback_id": "synthetic-weather-rain-001.analysis.6ba2343c0bce.feedback.5728109c45aa",
+      "feedback_markdown_path": "pm_bot/practical/artifacts/night_002/feedback_batch/queue-feedback-weather-001-synthetic-weather-rain-001.feedback.md",
+      "feedback_result_path": "pm_bot/practical/artifacts/night_002/feedback_batch/queue-feedback-weather-001-synthetic-weather-rain-001.feedback.result.json",
+      "market_id": "synthetic-weather-rain-001",
+      "outcome_status": "resolved",
+      "queue_item_id": "queue-feedback-weather-001"
+    },
+    {
+      "analysis_quality_label": "useful",
+      "feedback_id": "synthetic-crypto-reference-001.analysis.7384b905ed0b.feedback.43c63ed7fd61",
+      "feedback_markdown_path": "pm_bot/practical/artifacts/night_002/feedback_batch/queue-feedback-crypto-001-synthetic-crypto-reference-001.feedback.md",
+      "feedback_result_path": "pm_bot/practical/artifacts/night_002/feedback_batch/queue-feedback-crypto-001-synthetic-crypto-reference-001.feedback.result.json",
+      "market_id": "synthetic-crypto-reference-001",
+      "outcome_status": "resolved",
+      "queue_item_id": "queue-feedback-crypto-001"
+    },
+    {
+      "analysis_quality_label": "useful",
+      "feedback_id": "synthetic-politics-measure-001.analysis.b32ac6067fb8.feedback.128c574bbbfb",
+      "feedback_markdown_path": "pm_bot/practical/artifacts/night_002/feedback_batch/queue-feedback-politics-001-synthetic-politics-measure-001.feedback.md",
+      "feedback_result_path": "pm_bot/practical/artifacts/night_002/feedback_batch/queue-feedback-politics-001-synthetic-politics-measure-001.feedback.result.json",
+      "market_id": "synthetic-politics-measure-001",
+      "outcome_status": "resolved",
+      "queue_item_id": "queue-feedback-politics-001"
+    },
+    {
+      "analysis_quality_label": "wrong_due_to_bad_reasoning",
+      "feedback_id": "synthetic-esports-match-001.analysis.a6d4bc90b97b.feedback.1eec6af56a38",
+      "feedback_markdown_path": "pm_bot/practical/artifacts/night_002/feedback_batch/queue-feedback-esports-001-synthetic-esports-match-001.feedback.md",
+      "feedback_result_path": "pm_bot/practical/artifacts/night_002/feedback_batch/queue-feedback-esports-001-synthetic-esports-match-001.feedback.result.json",
+      "market_id": "synthetic-esports-match-001",
+      "outcome_status": "resolved",
+      "queue_item_id": "queue-feedback-esports-001"
+    },
+    {
+      "analysis_quality_label": "wrong_due_to_missing_evidence",
+      "feedback_id": "synthetic-generic-event-001.analysis.11f645d06c7a.feedback.fb0d436d5783",
+      "feedback_markdown_path": "pm_bot/practical/artifacts/night_002/feedback_batch/queue-feedback-generic-001-synthetic-generic-event-001.feedback.md",
+      "feedback_result_path": "pm_bot/practical/artifacts/night_002/feedback_batch/queue-feedback-generic-001-synthetic-generic-event-001.feedback.result.json",
+      "market_id": "synthetic-generic-event-001",
+      "outcome_status": "resolved",
+      "queue_item_id": "queue-feedback-generic-001"
+    },
+    {
+      "analysis_quality_label": "unresolved",
+      "feedback_id": "synthetic-weather-rain-001.analysis.6ba2343c0bce.feedback.30bc2b9cebcf",
+      "feedback_markdown_path": "pm_bot/practical/artifacts/night_002/feedback_batch/queue-feedback-weather-unresolved-001-synthetic-weather-rain-001.feedback.md",
+      "feedback_result_path": "pm_bot/practical/artifacts/night_002/feedback_batch/queue-feedback-weather-unresolved-001-synthetic-weather-rain-001.feedback.result.json",
+      "market_id": "synthetic-weather-rain-001",
+      "outcome_status": "unresolved",
+      "queue_item_id": "queue-feedback-weather-unresolved-001"
+    }
+  ],
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "skipped_count": 0,
+  "skipped_items": []
+}

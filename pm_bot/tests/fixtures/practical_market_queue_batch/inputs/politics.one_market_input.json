@@ -1,0 +1,61 @@
+{
+  "available_evidence": [
+    "One committee note says the measure advanced.",
+    "Another note says the measure was tabled."
+  ],
+  "contract_version": "pmbot_one_market_input.v1",
+  "created_at": "2026-05-10T00:00:00Z",
+  "current_context_summary": "A local packet captures conflicting synthetic committee notes for source-quality testing.",
+  "known_uncertainties": [
+    "The two local records conflict on the same claim type."
+  ],
+  "market_id": "synthetic-politics-measure-001",
+  "market_slug_or_reference": "synthetic-politics-measure-001",
+  "market_title": "Will the synthetic policy measure pass committee by June 3?",
+  "market_type": "politics_like_binary",
+  "missing_evidence": [
+    "Final committee clerk record"
+  ],
+  "operator_notes": [
+    "Synthetic local fixture for PMBOT practical testing.",
+    "No live data was fetched."
+  ],
+  "outcomes": [
+    "yes",
+    "no"
+  ],
+  "resolution_source_summary": "The synthetic committee log is the resolution source for this fixture.",
+  "rules_summary": "Resolves yes only if the synthetic committee log records passage by 2026-06-03.",
+  "source_packets": [
+    {
+      "captured_at": "2026-05-10T00:00:00Z",
+      "claim_type": "committee_status",
+      "claim_value": "advanced",
+      "evidence_summary": "Note A records the measure as advanced.",
+      "freshness_status": "current",
+      "known_limitations": [
+        "The note may be preliminary."
+      ],
+      "source_id": "politics_committee_note_a",
+      "source_name": "Synthetic Committee Note A",
+      "source_type": "official_static_fixture",
+      "source_url_or_reference": "pm_bot/tests/fixtures/practical_market_queue_batch/sources/politics.sources.json",
+      "used_in_analysis": true
+    },
+    {
+      "captured_at": "2026-05-10T00:00:00Z",
+      "claim_type": "committee_status",
+      "claim_value": "tabled",
+      "evidence_summary": "Note B records the measure as tabled.",
+      "freshness_status": "current",
+      "known_limitations": [
+        "The note may reflect a different clerk update."
+      ],
+      "source_id": "politics_committee_note_b",
+      "source_name": "Synthetic Committee Note B",
+      "source_type": "official_static_fixture",
+      "source_url_or_reference": "pm_bot/tests/fixtures/practical_market_queue_batch/sources/politics.sources.json",
+      "used_in_analysis": true
+    }
+  ]
+}

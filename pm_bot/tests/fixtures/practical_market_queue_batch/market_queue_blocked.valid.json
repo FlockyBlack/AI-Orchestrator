@@ -1,0 +1,26 @@
+{
+  "contract_version": "pmbot_market_queue.v1",
+  "created_at": "2026-05-10T00:00:00Z",
+  "items": [
+    {
+      "analysis_markdown_path": "",
+      "analysis_result_path": "",
+      "blockers": [
+        "Operator has not provided a local packet."
+      ],
+      "created_at": "2026-05-10T00:00:00Z",
+      "feedback_result_path": "",
+      "local_input_path": "pm_bot/tests/fixtures/practical_market_queue_batch/inputs/weather.one_market_input.json",
+      "market_id": "synthetic-weather-rain-001",
+      "market_title": "Will the synthetic city record measurable rain on June 1?",
+      "market_type": "weather_like_binary",
+      "next_operator_action": "",
+      "outcome_record_path": "",
+      "paper_hypothesis_id": "",
+      "queue_item_id": "queue-blocked-fixture-001",
+      "source_learning_ledger_path": "",
+      "status": "blocked",
+      "updated_at": "2026-05-10T00:00:00Z"
+    }
+  ]
+}

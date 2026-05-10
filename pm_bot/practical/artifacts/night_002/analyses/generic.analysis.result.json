@@ -1,0 +1,147 @@
+{
+  "analysis_id": "synthetic-generic-event-001.analysis.11f645d06c7a",
+  "analysis_mode": "local_one_market",
+  "authenticated_endpoints_used": false,
+  "contract_version": "pmbot_one_market_analysis_result.v1",
+  "contradiction_notes": [],
+  "evidence_status": {
+    "available_evidence_count": 1,
+    "contradiction_note_count": 0,
+    "missing_evidence_count": 2,
+    "source_packets_count": 2,
+    "stale_source_count": 0,
+    "unused_source_count": 0,
+    "used_source_count": 2
+  },
+  "generated_artifacts": {
+    "analysis_card_markdown": "pm_bot/practical/artifacts/night_002/analyses/generic.analysis.md",
+    "analysis_result_json": "pm_bot/practical/artifacts/night_002/analyses/generic.analysis.result.json"
+  },
+  "key_question": "What local evidence would resolve the operator's review of: Will the synthetic event certificate be filed by June 5?",
+  "live_network_used": false,
+  "market_id": "synthetic-generic-event-001",
+  "market_recommendation_generated": false,
+  "market_title": "Will the synthetic event certificate be filed by June 5?",
+  "missing_evidence": [
+    "Actual certificate filing record",
+    "Clerk timestamp for the filing"
+  ],
+  "next_research_questions": [
+    "Collect local evidence for: Actual certificate filing record",
+    "Collect local evidence for: Clerk timestamp for the filing",
+    "Clarify uncertainty: Expected filing notes are not resolution evidence."
+  ],
+  "no_real_trade_decision": true,
+  "openrouter_calls_performed": 0,
+  "operator_summary": "Local one-market review for Will the synthetic event certificate be filed by June 5?. A local packet captures a generic event-resolution market with deliberately missing material evidence. The packet has 2 used source(s), 2 missing evidence item(s), 0 stale source note(s), and 0 contradiction note(s). The result is a paper-only analysis record for later outcome review.",
+  "orders_or_trading_actions": false,
+  "outcome_tracking_status": {
+    "required_contract_version": "pmbot_one_market_outcome_record.v1",
+    "review_required": true,
+    "status": "placeholder_pending_outcome_record"
+  },
+  "paper_hypothesis": {
+    "execution_boundary": "Paper-only review record. It is not a market instruction and cannot be used for orders.",
+    "hypothesis_id": "synthetic-generic-event-001.analysis.11f645d06c7a.paper_hypothesis",
+    "outcome_check_needed": "Later compare the final outcome record with the local rules summary, resolution source summary, and source attribution.",
+    "refuting_evidence_needed": [
+      "Actual certificate filing record",
+      "Clerk timestamp for the filing"
+    ],
+    "safety_label": "paper_only_non_executable_analysis_tracking",
+    "source_assumptions_to_review": [
+      "Synthetic Planning Note",
+      "Synthetic Event Rules Note",
+      "Expected filing notes are not resolution evidence."
+    ],
+    "supporting_evidence_needed": [
+      "Resolution evidence matches the local rules summary.",
+      "Used source records remain applicable to the same market and outcome rules.",
+      "No material missing evidence changes the qualitative review."
+    ],
+    "tracked_claim": "Track whether the local source-backed analysis remains useful after the market outcome is reviewed."
+  },
+  "paper_hypothesis_allowed": true,
+  "paper_hypothesis_safety_label": "paper_only_non_executable_analysis_tracking",
+  "paper_hypothesis_tracking_fields": {
+    "analysis_id": "synthetic-generic-event-001.analysis.11f645d06c7a",
+    "created_from": "local_one_market",
+    "expected_outcome_record_contract_version": "pmbot_one_market_outcome_record.v1",
+    "market_id": "synthetic-generic-event-001",
+    "outcome_record_required_fields": [
+      "contract_version",
+      "market_id",
+      "outcome_status",
+      "actual_outcome_summary",
+      "resolved_at",
+      "resolution_source_reference",
+      "operator_notes"
+    ],
+    "tracking_status": "pending_outcome_record"
+  },
+  "polymarket_api_calls_performed": 0,
+  "probability_ev_edge_or_side_selection_generated": false,
+  "review_quality_score_inputs": {
+    "available_evidence_count": 1,
+    "contradiction_note_count": 0,
+    "missing_evidence_count": 2,
+    "operator_note_count": 2,
+    "stale_source_count": 0,
+    "used_source_count": 2
+  },
+  "runtime_or_dispatcher_changes": false,
+  "source_attribution": [
+    {
+      "captured_at": "2026-05-10T00:00:00Z",
+      "claim_type": "filing_intent",
+      "claim_value": "filing_expected",
+      "evidence_summary": "The planning note says the filing was expected.",
+      "freshness_status": "current",
+      "known_limitations": [
+        "Intent is not a certificate filing record."
+      ],
+      "source_id": "generic_planning_note",
+      "source_name": "Synthetic Planning Note",
+      "source_type": "operator_static_fixture",
+      "source_url_or_reference": "pm_bot/tests/fixtures/practical_market_queue_batch/sources/generic.sources.json",
+      "used_in_analysis": true
+    },
+    {
+      "captured_at": "2026-05-10T00:00:00Z",
+      "claim_type": "resolution_rule",
+      "claim_value": "certificate_record_required",
+      "evidence_summary": "The rules note says the certificate filing record controls resolution.",
+      "freshness_status": "current",
+      "known_limitations": [
+        "Rules note does not include the final filing record."
+      ],
+      "source_id": "generic_event_rules",
+      "source_name": "Synthetic Event Rules Note",
+      "source_type": "rules_static_fixture",
+      "source_url_or_reference": "pm_bot/tests/fixtures/practical_market_queue_batch/sources/generic.sources.json",
+      "used_in_analysis": true
+    }
+  ],
+  "sources_not_used": [],
+  "sources_used": [
+    {
+      "claim_type": "filing_intent",
+      "freshness_status": "current",
+      "source_id": "generic_planning_note",
+      "source_name": "Synthetic Planning Note",
+      "source_type": "operator_static_fixture"
+    },
+    {
+      "claim_type": "resolution_rule",
+      "freshness_status": "current",
+      "source_id": "generic_event_rules",
+      "source_name": "Synthetic Event Rules Note",
+      "source_type": "rules_static_fixture"
+    }
+  ],
+  "staleness_notes": [],
+  "uncertainty_notes": [
+    "Expected filing notes are not resolution evidence."
+  ],
+  "wallet_or_private_key_access": false
+}

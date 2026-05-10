@@ -1,0 +1,26 @@
+{
+  "blocked": [
+    "queue-blocked-001 is blocked because its local packet path is missing."
+  ],
+  "contract_version": "pmbot_operator_next_actions.v1",
+  "feedback_review_pending": {
+    "market_id": "synthetic-esports-match-001",
+    "reason": "Feedback waits until a resolved outcome record exists.",
+    "safe_next_action": "Run local paper feedback after the outcome is resolved."
+  },
+  "generated_at": "2026-05-10T00:00:00Z",
+  "hypothesis_needs_outcome_check": {
+    "market_id": "synthetic-esports-match-001",
+    "reason": "The queue has an unresolved local outcome record and is overdue for operator review.",
+    "safe_next_action": "Attach a resolved local outcome record when available."
+  },
+  "market_should_be_analyzed_next": {
+    "market_id": "synthetic-weather-rain-001",
+    "reason": "It is queued with a valid local input and no local blockers.",
+    "safe_next_action": "Run finite local analysis and inspect the paper-only analysis card."
+  },
+  "next_safe_action": "Run finite local analysis for the queued weather-like fixture, then inspect active paper hypotheses.",
+  "safety_boundary": "Paper-only, non-executable, local artifact workflow. No trading action or live fetch.",
+  "source_looks_stale_or_misleading": "Synthetic Archived Reference Close is stale; Synthetic Roster Note needs reasoning review after the esports feedback case.",
+  "source_looks_useful": "Synthetic Station Bulletin and Synthetic Event Note have useful labels in resolved feedback."
+}

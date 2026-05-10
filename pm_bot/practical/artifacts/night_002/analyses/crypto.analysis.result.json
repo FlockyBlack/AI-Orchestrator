@@ -1,0 +1,151 @@
+{
+  "analysis_id": "synthetic-crypto-reference-001.analysis.7384b905ed0b",
+  "analysis_mode": "local_one_market",
+  "authenticated_endpoints_used": false,
+  "contract_version": "pmbot_one_market_analysis_result.v1",
+  "contradiction_notes": [],
+  "evidence_status": {
+    "available_evidence_count": 1,
+    "contradiction_note_count": 0,
+    "missing_evidence_count": 1,
+    "source_packets_count": 2,
+    "stale_source_count": 1,
+    "unused_source_count": 0,
+    "used_source_count": 2
+  },
+  "generated_artifacts": {
+    "analysis_card_markdown": "pm_bot/practical/artifacts/night_002/analyses/crypto.analysis.md",
+    "analysis_result_json": "pm_bot/practical/artifacts/night_002/analyses/crypto.analysis.result.json"
+  },
+  "key_question": "What local evidence would resolve the operator's review of: Will the synthetic token close above the reference level on June 2?",
+  "live_network_used": false,
+  "market_id": "synthetic-crypto-reference-001",
+  "market_recommendation_generated": false,
+  "market_title": "Will the synthetic token close above the reference level on June 2?",
+  "missing_evidence": [
+    "Final reference close record for 2026-06-02"
+  ],
+  "next_research_questions": [
+    "Collect local evidence for: Final reference close record for 2026-06-02",
+    "Clarify uncertainty: The archived source may be too old for the fixture window."
+  ],
+  "no_real_trade_decision": true,
+  "openrouter_calls_performed": 0,
+  "operator_summary": "Local one-market review for Will the synthetic token close above the reference level on June 2?. A local packet captures static crypto-like reference records without using live exchange data. The packet has 2 used source(s), 1 missing evidence item(s), 1 stale source note(s), and 0 contradiction note(s). The result is a paper-only analysis record for later outcome review.",
+  "orders_or_trading_actions": false,
+  "outcome_tracking_status": {
+    "required_contract_version": "pmbot_one_market_outcome_record.v1",
+    "review_required": true,
+    "status": "placeholder_pending_outcome_record"
+  },
+  "paper_hypothesis": {
+    "execution_boundary": "Paper-only review record. It is not a market instruction and cannot be used for orders.",
+    "hypothesis_id": "synthetic-crypto-reference-001.analysis.7384b905ed0b.paper_hypothesis",
+    "outcome_check_needed": "Later compare the final outcome record with the local rules summary, resolution source summary, and source attribution.",
+    "refuting_evidence_needed": [
+      "Final reference close record for 2026-06-02"
+    ],
+    "safety_label": "paper_only_non_executable_analysis_tracking",
+    "source_assumptions_to_review": [
+      "Synthetic Archived Reference Close",
+      "Synthetic Crypto Rules Capture",
+      "The archived source may be too old for the fixture window."
+    ],
+    "supporting_evidence_needed": [
+      "Resolution evidence matches the local rules summary.",
+      "Used source records remain applicable to the same market and outcome rules.",
+      "No material missing evidence changes the qualitative review."
+    ],
+    "tracked_claim": "Track whether the local source-backed analysis remains useful after the market outcome is reviewed."
+  },
+  "paper_hypothesis_allowed": true,
+  "paper_hypothesis_safety_label": "paper_only_non_executable_analysis_tracking",
+  "paper_hypothesis_tracking_fields": {
+    "analysis_id": "synthetic-crypto-reference-001.analysis.7384b905ed0b",
+    "created_from": "local_one_market",
+    "expected_outcome_record_contract_version": "pmbot_one_market_outcome_record.v1",
+    "market_id": "synthetic-crypto-reference-001",
+    "outcome_record_required_fields": [
+      "contract_version",
+      "market_id",
+      "outcome_status",
+      "actual_outcome_summary",
+      "resolved_at",
+      "resolution_source_reference",
+      "operator_notes"
+    ],
+    "tracking_status": "pending_outcome_record"
+  },
+  "polymarket_api_calls_performed": 0,
+  "probability_ev_edge_or_side_selection_generated": false,
+  "review_quality_score_inputs": {
+    "available_evidence_count": 1,
+    "contradiction_note_count": 0,
+    "missing_evidence_count": 1,
+    "operator_note_count": 2,
+    "stale_source_count": 1,
+    "used_source_count": 2
+  },
+  "runtime_or_dispatcher_changes": false,
+  "source_attribution": [
+    {
+      "captured_at": "2026-05-01T00:00:00Z",
+      "claim_type": "reference_close_context",
+      "claim_value": "near_reference_level",
+      "evidence_summary": "The archived note shows an earlier close near the fixture level.",
+      "freshness_status": "stale",
+      "known_limitations": [
+        "The note predates the event window."
+      ],
+      "source_id": "crypto_archived_reference",
+      "source_name": "Synthetic Archived Reference Close",
+      "source_type": "local_static_fixture",
+      "source_url_or_reference": "pm_bot/tests/fixtures/practical_market_queue_batch/sources/crypto.sources.json",
+      "used_in_analysis": true
+    },
+    {
+      "captured_at": "2026-05-10T00:00:00Z",
+      "claim_type": "resolution_clock",
+      "claim_value": "june_2_close_record",
+      "evidence_summary": "The rules capture identifies the fixture timestamp.",
+      "freshness_status": "current",
+      "known_limitations": [
+        "Rules capture is not outcome evidence."
+      ],
+      "source_id": "crypto_rules_capture",
+      "source_name": "Synthetic Crypto Rules Capture",
+      "source_type": "operator_static_fixture",
+      "source_url_or_reference": "pm_bot/tests/fixtures/practical_market_queue_batch/sources/crypto.sources.json",
+      "used_in_analysis": true
+    }
+  ],
+  "sources_not_used": [],
+  "sources_used": [
+    {
+      "claim_type": "reference_close_context",
+      "freshness_status": "stale",
+      "source_id": "crypto_archived_reference",
+      "source_name": "Synthetic Archived Reference Close",
+      "source_type": "local_static_fixture"
+    },
+    {
+      "claim_type": "resolution_clock",
+      "freshness_status": "current",
+      "source_id": "crypto_rules_capture",
+      "source_name": "Synthetic Crypto Rules Capture",
+      "source_type": "operator_static_fixture"
+    }
+  ],
+  "staleness_notes": [
+    {
+      "freshness_status": "stale",
+      "note": "Source freshness needs operator review before reuse.",
+      "source_id": "crypto_archived_reference",
+      "source_name": "Synthetic Archived Reference Close"
+    }
+  ],
+  "uncertainty_notes": [
+    "The archived source may be too old for the fixture window."
+  ],
+  "wallet_or_private_key_access": false
+}

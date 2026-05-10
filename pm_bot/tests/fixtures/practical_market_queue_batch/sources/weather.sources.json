@@ -1,0 +1,32 @@
+[
+  {
+    "captured_at": "2026-05-10T00:00:00Z",
+    "claim_type": "station_setup",
+    "claim_value": "measurable_rain_possible",
+    "evidence_summary": "The bulletin records a rain-bearing system near the station window.",
+    "freshness_status": "current",
+    "known_limitations": [
+      "Bulletin is not the final precipitation total."
+    ],
+    "source_id": "weather_station_bulletin",
+    "source_name": "Synthetic Station Bulletin",
+    "source_type": "official_static_fixture",
+    "source_url_or_reference": "pm_bot/tests/fixtures/practical_market_queue_batch/sources/weather.sources.json",
+    "used_in_analysis": true
+  },
+  {
+    "captured_at": "2026-05-10T00:00:00Z",
+    "claim_type": "event_date",
+    "claim_value": "june_1_station_log",
+    "evidence_summary": "The event note maps the fixture to the June 1 station log.",
+    "freshness_status": "current",
+    "known_limitations": [
+      "Operator note does not resolve the outcome."
+    ],
+    "source_id": "weather_event_note",
+    "source_name": "Synthetic Event Note",
+    "source_type": "operator_static_fixture",
+    "source_url_or_reference": "pm_bot/tests/fixtures/practical_market_queue_batch/sources/weather.sources.json",
+    "used_in_analysis": true
+  }
+]
