@@ -1,0 +1,273 @@
+{
+  "contract_version": "pmbot_public_fetch_source_learning_pending.v1",
+  "evidence_packets_created": [],
+  "generated_at": "2026-05-10T00:00:00Z",
+  "markets_affected": [
+    "563650",
+    "597964",
+    "598936",
+    "691547",
+    "692258"
+  ],
+  "no_autonomous_training_performed": true,
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "sources_blocked": [
+    {
+      "market_id": "563650",
+      "request_intent_id": "public_fetch_request_intent_006_01_563650_563650_market_metadata",
+      "source_category": "public_market_metadata_endpoint_placeholder",
+      "source_reference": "public_source_placeholder:public_market_metadata_endpoint_placeholder:563650",
+      "url_safety": {
+        "allowed": false,
+        "blockers": [
+          "source reference is a placeholder, not an explicit URL",
+          "URL scheme must be http or https"
+        ],
+        "contract_version": "pmbot_public_fetch_url_safety.v1",
+        "fixture_mode": false,
+        "market_id": "563650",
+        "max_request_count": 5,
+        "method": "GET",
+        "request_index": 1,
+        "request_intent_id": "public_fetch_request_intent_006_01_563650_563650_market_metadata",
+        "sanitized_url_reference": "public_source_placeholder:public_market_metadata_endpoint_placeholder:563650",
+        "source_category": "public_market_metadata_endpoint_placeholder",
+        "warnings": []
+      }
+    },
+    {
+      "market_id": "563650",
+      "request_intent_id": "public_fetch_request_intent_006_02_563650_563650_domain_public_evidence",
+      "source_category": "public_court_government_page_placeholder",
+      "source_reference": "public_source_placeholder:public_court_government_page_placeholder:563650",
+      "url_safety": {
+        "allowed": false,
+        "blockers": [
+          "source reference is a placeholder, not an explicit URL",
+          "URL scheme must be http or https"
+        ],
+        "contract_version": "pmbot_public_fetch_url_safety.v1",
+        "fixture_mode": false,
+        "market_id": "563650",
+        "max_request_count": 5,
+        "method": "GET",
+        "request_index": 2,
+        "request_intent_id": "public_fetch_request_intent_006_02_563650_563650_domain_public_evidence",
+        "sanitized_url_reference": "public_source_placeholder:public_court_government_page_placeholder:563650",
+        "source_category": "public_court_government_page_placeholder",
+        "warnings": []
+      }
+    },
+    {
+      "market_id": "597964",
+      "request_intent_id": "public_fetch_request_intent_006_03_597964_597964_market_metadata",
+      "source_category": "public_market_metadata_endpoint_placeholder",
+      "source_reference": "public_source_placeholder:public_market_metadata_endpoint_placeholder:597964",
+      "url_safety": {
+        "allowed": false,
+        "blockers": [
+          "source reference is a placeholder, not an explicit URL",
+          "URL scheme must be http or https"
+        ],
+        "contract_version": "pmbot_public_fetch_url_safety.v1",
+        "fixture_mode": false,
+        "market_id": "597964",
+        "max_request_count": 5,
+        "method": "GET",
+        "request_index": 3,
+        "request_intent_id": "public_fetch_request_intent_006_03_597964_597964_market_metadata",
+        "sanitized_url_reference": "public_source_placeholder:public_market_metadata_endpoint_placeholder:597964",
+        "source_category": "public_market_metadata_endpoint_placeholder",
+        "warnings": []
+      }
+    },
+    {
+      "market_id": "597964",
+      "request_intent_id": "public_fetch_request_intent_006_04_597964_597964_domain_public_evidence",
+      "source_category": "public_resolution_source_page_placeholder",
+      "source_reference": "public_source_placeholder:public_resolution_source_page_placeholder:597964",
+      "url_safety": {
+        "allowed": false,
+        "blockers": [
+          "source reference is a placeholder, not an explicit URL",
+          "URL scheme must be http or https"
+        ],
+        "contract_version": "pmbot_public_fetch_url_safety.v1",
+        "fixture_mode": false,
+        "market_id": "597964",
+        "max_request_count": 5,
+        "method": "GET",
+        "request_index": 4,
+        "request_intent_id": "public_fetch_request_intent_006_04_597964_597964_domain_public_evidence",
+        "sanitized_url_reference": "public_source_placeholder:public_resolution_source_page_placeholder:597964",
+        "source_category": "public_resolution_source_page_placeholder",
+        "warnings": []
+      }
+    },
+    {
+      "market_id": "598936",
+      "request_intent_id": "public_fetch_request_intent_006_05_598936_598936_market_metadata",
+      "source_category": "public_market_metadata_endpoint_placeholder",
+      "source_reference": "public_source_placeholder:public_market_metadata_endpoint_placeholder:598936",
+      "url_safety": {
+        "allowed": false,
+        "blockers": [
+          "source reference is a placeholder, not an explicit URL",
+          "URL scheme must be http or https"
+        ],
+        "contract_version": "pmbot_public_fetch_url_safety.v1",
+        "fixture_mode": false,
+        "market_id": "598936",
+        "max_request_count": 5,
+        "method": "GET",
+        "request_index": 5,
+        "request_intent_id": "public_fetch_request_intent_006_05_598936_598936_market_metadata",
+        "sanitized_url_reference": "public_source_placeholder:public_market_metadata_endpoint_placeholder:598936",
+        "source_category": "public_market_metadata_endpoint_placeholder",
+        "warnings": []
+      }
+    },
+    {
+      "market_id": "598936",
+      "request_intent_id": "public_fetch_request_intent_006_06_598936_598936_domain_public_evidence",
+      "source_category": "public_court_government_page_placeholder",
+      "source_reference": "public_source_placeholder:public_court_government_page_placeholder:598936",
+      "url_safety": {
+        "allowed": false,
+        "blockers": [
+          "request count exceeds approved max request count",
+          "source reference is a placeholder, not an explicit URL",
+          "URL scheme must be http or https"
+        ],
+        "contract_version": "pmbot_public_fetch_url_safety.v1",
+        "fixture_mode": false,
+        "market_id": "598936",
+        "max_request_count": 5,
+        "method": "GET",
+        "request_index": 6,
+        "request_intent_id": "public_fetch_request_intent_006_06_598936_598936_domain_public_evidence",
+        "sanitized_url_reference": "public_source_placeholder:public_court_government_page_placeholder:598936",
+        "source_category": "public_court_government_page_placeholder",
+        "warnings": []
+      }
+    },
+    {
+      "market_id": "691547",
+      "request_intent_id": "public_fetch_request_intent_006_07_691547_691547_market_metadata",
+      "source_category": "public_market_metadata_endpoint_placeholder",
+      "source_reference": "public_source_placeholder:public_market_metadata_endpoint_placeholder:691547",
+      "url_safety": {
+        "allowed": false,
+        "blockers": [
+          "request count exceeds approved max request count",
+          "source reference is a placeholder, not an explicit URL",
+          "URL scheme must be http or https"
+        ],
+        "contract_version": "pmbot_public_fetch_url_safety.v1",
+        "fixture_mode": false,
+        "market_id": "691547",
+        "max_request_count": 5,
+        "method": "GET",
+        "request_index": 7,
+        "request_intent_id": "public_fetch_request_intent_006_07_691547_691547_market_metadata",
+        "sanitized_url_reference": "public_source_placeholder:public_market_metadata_endpoint_placeholder:691547",
+        "source_category": "public_market_metadata_endpoint_placeholder",
+        "warnings": []
+      }
+    },
+    {
+      "market_id": "691547",
+      "request_intent_id": "public_fetch_request_intent_006_08_691547_691547_domain_public_evidence",
+      "source_category": "public_exchange_company_announcement_page_placeholder",
+      "source_reference": "public_source_placeholder:public_exchange_company_announcement_page_placeholder:691547",
+      "url_safety": {
+        "allowed": false,
+        "blockers": [
+          "request count exceeds approved max request count",
+          "source reference is a placeholder, not an explicit URL",
+          "URL scheme must be http or https"
+        ],
+        "contract_version": "pmbot_public_fetch_url_safety.v1",
+        "fixture_mode": false,
+        "market_id": "691547",
+        "max_request_count": 5,
+        "method": "GET",
+        "request_index": 8,
+        "request_intent_id": "public_fetch_request_intent_006_08_691547_691547_domain_public_evidence",
+        "sanitized_url_reference": "public_source_placeholder:public_exchange_company_announcement_page_placeholder:691547",
+        "source_category": "public_exchange_company_announcement_page_placeholder",
+        "warnings": []
+      }
+    },
+    {
+      "market_id": "692258",
+      "request_intent_id": "public_fetch_request_intent_006_09_692258_692258_market_metadata",
+      "source_category": "public_market_metadata_endpoint_placeholder",
+      "source_reference": "public_source_placeholder:public_market_metadata_endpoint_placeholder:692258",
+      "url_safety": {
+        "allowed": false,
+        "blockers": [
+          "request count exceeds approved max request count",
+          "source reference is a placeholder, not an explicit URL",
+          "URL scheme must be http or https"
+        ],
+        "contract_version": "pmbot_public_fetch_url_safety.v1",
+        "fixture_mode": false,
+        "market_id": "692258",
+        "max_request_count": 5,
+        "method": "GET",
+        "request_index": 9,
+        "request_intent_id": "public_fetch_request_intent_006_09_692258_692258_market_metadata",
+        "sanitized_url_reference": "public_source_placeholder:public_market_metadata_endpoint_placeholder:692258",
+        "source_category": "public_market_metadata_endpoint_placeholder",
+        "warnings": []
+      }
+    },
+    {
+      "market_id": "692258",
+      "request_intent_id": "public_fetch_request_intent_006_10_692258_692258_domain_public_evidence",
+      "source_category": "public_issuer_company_news_page_placeholder",
+      "source_reference": "public_source_placeholder:public_issuer_company_news_page_placeholder:692258",
+      "url_safety": {
+        "allowed": false,
+        "blockers": [
+          "request count exceeds approved max request count",
+          "source reference is a placeholder, not an explicit URL",
+          "URL scheme must be http or https"
+        ],
+        "contract_version": "pmbot_public_fetch_url_safety.v1",
+        "fixture_mode": false,
+        "market_id": "692258",
+        "max_request_count": 5,
+        "method": "GET",
+        "request_index": 10,
+        "request_intent_id": "public_fetch_request_intent_006_10_692258_692258_domain_public_evidence",
+        "sanitized_url_reference": "public_source_placeholder:public_issuer_company_news_page_placeholder:692258",
+        "source_category": "public_issuer_company_news_page_placeholder",
+        "warnings": []
+      }
+    }
+  ],
+  "sources_fetched": [],
+  "what_can_be_learned_now_about_source_accessibility_freshness": [
+    "Placeholder-only manifest entries are not executable.",
+    "Concrete public URLs must be added locally before a live fetch can occur."
+  ],
+  "what_can_be_learned_only_after_outcome_resolution": [
+    "Whether captured public sources later aligned with final market outcomes.",
+    "Whether source freshness correlated with useful paper-only analysis maintenance."
+  ]
+}

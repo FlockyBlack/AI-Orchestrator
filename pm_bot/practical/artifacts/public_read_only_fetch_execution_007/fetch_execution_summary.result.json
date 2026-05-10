@@ -1,0 +1,36 @@
+{
+  "attempted_requests": [],
+  "blockers": [
+    "request manifest count exceeds scoped approval max request count",
+    "No executable public read-only request intents passed validation."
+  ],
+  "contract_version": "pmbot_controlled_public_fetch_execution_summary.v1",
+  "evidence_packet_ids": [],
+  "evidence_packets_created": [],
+  "failed_requests": [],
+  "generated_at": "2026-05-10T00:00:00Z",
+  "live_fetch_performed": false,
+  "replay_performed": false,
+  "replay_status": "blocked_no_evidence",
+  "request_count_attempted": 0,
+  "request_count_blocked": 10,
+  "request_count_failed": 0,
+  "request_count_succeeded": 0,
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "public_read_only_fetch_count": 0,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "succeeded_requests": [],
+  "warnings": []
+}

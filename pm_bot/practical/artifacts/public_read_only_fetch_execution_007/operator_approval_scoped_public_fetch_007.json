@@ -1,0 +1,43 @@
+{
+  "approval_for_task_id": "ORCH-PMBOT-PRACTICAL-007-FIRST-CONTROLLED-PUBLIC-READ-ONLY-FETCH-EXECUTION-OPERATOR-APPROVED",
+  "approval_id": "operator-scoped-public-fetch-007",
+  "approval_source": "current Codex task prompt",
+  "approval_status": "approved_for_scoped_public_read_only_fetch_only",
+  "approved_at": "2026-05-10T12:44:03Z",
+  "approved_by": "operator",
+  "approved_scope": {
+    "approved_market_ids": [
+      "563650",
+      "597964",
+      "598936",
+      "691547",
+      "692258"
+    ],
+    "finite_public_read_only_fetch": true,
+    "max_request_count": 5,
+    "no_api_keys": true,
+    "no_authentication": true,
+    "no_background_worker": true,
+    "no_browser_automation": true,
+    "no_orders": true,
+    "no_scheduler": true,
+    "no_trading": true,
+    "no_wallet": true,
+    "replay_before_analysis_update": true,
+    "save_evidence_before_use": true
+  },
+  "blocked_scope": [
+    "authenticated endpoints",
+    "trading endpoints",
+    "order endpoints",
+    "wallet/signing/private key access",
+    "OpenRouter",
+    "market recommendations",
+    "probability/EV/edge/side-selection as blocked trading-signal category",
+    "autonomous execution",
+    "polling/scheduler/background worker"
+  ],
+  "contract_version": "pmbot_scoped_public_read_only_fetch_approval.v1",
+  "expires_after_task": true,
+  "reusable": false
+}

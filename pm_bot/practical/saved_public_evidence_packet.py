@@ -53,13 +53,15 @@ def build_saved_public_evidence_packet(
     contradiction_candidates: Sequence[str] = (),
     limitations: Sequence[str] = (),
     capture_mode: str = "fixture",
+    live_network_used: bool = False,
+    capture_errors: Sequence[str] = (),
 ) -> dict[str, Any]:
     packet = {
         "contract_version": SAVED_EVIDENCE_PACKET_CONTRACT_VERSION,
         "evidence_packet_id": clean_text(evidence_packet_id),
         "captured_at": GENERATED_AT,
         "capture_mode": clean_text(capture_mode),
-        "live_network_used": False,
+        "live_network_used": bool(live_network_used),
         "source_id": clean_text(source_id),
         "source_name": clean_text(source_name),
         "source_category": clean_text(source_category),
@@ -75,7 +77,7 @@ def build_saved_public_evidence_packet(
             "Fixture evidence only.",
             "Not captured from a live public source in this task.",
         ],
-        "capture_errors": [],
+        "capture_errors": [clean_text(error) for error in capture_errors],
         "auth_used": False,
         "credentials_used": False,
         "wallet_or_private_key_access": False,
@@ -103,8 +105,8 @@ def validate_saved_public_evidence_packet(packet: Mapping[str, Any]) -> dict[str
             errors.append(f"{field} is required")
     if packet.get("capture_mode") not in CAPTURE_MODES:
         errors.append("capture_mode is not allowed")
-    if packet.get("live_network_used") is not False:
-        errors.append("live_network_used must be false for local fixtures and replay")
+    if packet.get("live_network_used") is True and packet.get("capture_mode") != "future_public_read_only_fetch":
+        errors.append("live_network_used may be true only for future_public_read_only_fetch capture mode")
     if packet.get("auth_used") is not False:
         errors.append("auth_used must be false")
     if packet.get("credentials_used") is not False:
@@ -184,7 +186,7 @@ def render_saved_public_evidence_packet_markdown(packet: Mapping[str, Any]) -> s
         "## Safety Boundary",
         "",
         "- Local saved evidence format only.",
-        "- No authenticated source, wallet access, order path, trading action, or live network fetch is used.",
+        "- No authenticated source, wallet access, order path, or trading action is used.",
     ]
     return "\n".join(lines) + "\n"
 

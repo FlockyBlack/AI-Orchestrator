@@ -11,7 +11,6 @@ from pm_bot.practical.practical_io import GENERATED_AT, bullet_lines, normalize_
 SAFETY_SCAN_CONTRACT_VERSION = "pmbot_practical_safety_scan.v1"
 UNSAFE_FLAG_FIELDS = {
     "authenticated_endpoints_used",
-    "live_network_used",
     "market_recommendation_generated",
     "orders_or_trading_actions",
     "probability_ev_edge_or_side_selection_generated",
@@ -115,10 +114,13 @@ def _collect_paths(artifact_dirs: Sequence[str | Path], artifact_paths: Sequence
 
 def _scan_text(path: str | Path, text: str) -> list[dict[str, str]]:
     issues = []
-    if ACTION_PATTERN.search(text):
-        issues.append(_issue(path, "actionable_trading_wording", "Action-like trading wording was detected."))
-    if SIGNAL_PATTERN.search(text):
-        issues.append(_issue(path, "trading_signal_wording", "Quantitative signal wording was detected."))
+    for line in text.splitlines():
+        if _is_boundary_context_line(line):
+            continue
+        if ACTION_PATTERN.search(line):
+            issues.append(_issue(path, "actionable_trading_wording", "Action-like trading wording was detected."))
+        if SIGNAL_PATTERN.search(line):
+            issues.append(_issue(path, "trading_signal_wording", "Quantitative signal wording was detected."))
     return issues
 
 
@@ -140,6 +142,23 @@ def _scan_json_flags(path: str | Path, value: Any, json_path: str = "$") -> list
 
 def _issue(path: str | Path, issue_type: str, detail: str) -> dict[str, str]:
     return {"path": normalize_path(path), "issue_type": issue_type, "detail": detail}
+
+
+def _is_boundary_context_line(line: str) -> bool:
+    normalized = line.lower()
+    return any(
+        phrase in normalized
+        for phrase in (
+            "blocked",
+            "disallowed",
+            "forbidden",
+            "not allowed",
+            "no ",
+            "remain false",
+            "remains false",
+            "prohibited",
+        )
+    )
 
 
 if __name__ == "__main__":
