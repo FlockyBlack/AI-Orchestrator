@@ -1,0 +1,109 @@
+{
+  "allowed_count": 5,
+  "blocked_count": 0,
+  "checked_request_count": 5,
+  "contract_version": "pmbot_enriched_public_fetch_url_safety_report.v1",
+  "generated_at": "2026-05-10T00:00:00Z",
+  "global_blockers": [],
+  "global_warnings": [
+    "5 request intents are missing concrete URLs and are non-executable."
+  ],
+  "live_fetch_performed": false,
+  "missing_url_count": 5,
+  "per_request_safety": [
+    {
+      "allowed": true,
+      "blockers": [],
+      "contract_version": "pmbot_public_fetch_url_safety.v1",
+      "fixture_mode": false,
+      "market_id": "563650",
+      "max_request_count": 5,
+      "method": "GET",
+      "request_index": 1,
+      "request_intent_id": "public_fetch_request_intent_006_02_563650_563650_domain_public_evidence",
+      "sanitized_url_reference": "https://www.supremecourt.gov/docket/docket.aspx",
+      "source_category": "public_court_government_page_placeholder",
+      "warnings": [
+        "source category is a placeholder category with a concrete URL reference"
+      ]
+    },
+    {
+      "allowed": true,
+      "blockers": [],
+      "contract_version": "pmbot_public_fetch_url_safety.v1",
+      "fixture_mode": false,
+      "market_id": "598936",
+      "max_request_count": 5,
+      "method": "GET",
+      "request_index": 2,
+      "request_intent_id": "public_fetch_request_intent_006_06_598936_598936_domain_public_evidence",
+      "sanitized_url_reference": "https://www.parliament.uk/about/how/elections-and-voting/general/",
+      "source_category": "public_court_government_page_placeholder",
+      "warnings": [
+        "source category is a placeholder category with a concrete URL reference"
+      ]
+    },
+    {
+      "allowed": true,
+      "blockers": [],
+      "contract_version": "pmbot_public_fetch_url_safety.v1",
+      "fixture_mode": false,
+      "market_id": "597964",
+      "max_request_count": 5,
+      "method": "GET",
+      "request_index": 3,
+      "request_intent_id": "public_fetch_request_intent_006_04_597964_597964_domain_public_evidence",
+      "sanitized_url_reference": "https://www.elysee.fr/emmanuel-macron",
+      "source_category": "public_resolution_source_page_placeholder",
+      "warnings": [
+        "source category is a placeholder category with a concrete URL reference"
+      ]
+    },
+    {
+      "allowed": true,
+      "blockers": [],
+      "contract_version": "pmbot_public_fetch_url_safety.v1",
+      "fixture_mode": false,
+      "market_id": "691547",
+      "max_request_count": 5,
+      "method": "GET",
+      "request_index": 4,
+      "request_intent_id": "public_fetch_request_intent_006_08_691547_691547_domain_public_evidence",
+      "sanitized_url_reference": "https://www.kraken.com/blog",
+      "source_category": "public_exchange_company_announcement_page_placeholder",
+      "warnings": [
+        "source category is a placeholder category with a concrete URL reference"
+      ]
+    },
+    {
+      "allowed": true,
+      "blockers": [],
+      "contract_version": "pmbot_public_fetch_url_safety.v1",
+      "fixture_mode": false,
+      "market_id": "692258",
+      "max_request_count": 5,
+      "method": "GET",
+      "request_index": 5,
+      "request_intent_id": "public_fetch_request_intent_006_10_692258_692258_domain_public_evidence",
+      "sanitized_url_reference": "https://www.microstrategy.com/press",
+      "source_category": "public_issuer_company_news_page_placeholder",
+      "warnings": [
+        "source category is a placeholder category with a concrete URL reference"
+      ]
+    }
+  ],
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  }
+}

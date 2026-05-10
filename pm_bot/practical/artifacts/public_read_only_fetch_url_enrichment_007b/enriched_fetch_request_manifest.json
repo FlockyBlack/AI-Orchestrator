@@ -1,0 +1,330 @@
+{
+  "blocked_request_count": 0,
+  "blocked_request_intents": [],
+  "blockers": [],
+  "contract_version": "pmbot_enriched_public_fetch_request_manifest.v1",
+  "enrichment_task_id": "ORCH-PMBOT-PRACTICAL-007B-ENRICH-PUBLIC-SOURCE-URL-MANIFEST-LOCAL-ONLY",
+  "executable_request_count": 5,
+  "executable_request_intents": [
+    {
+      "category_priority": 10,
+      "cookies_required": false,
+      "credentials_required": false,
+      "expected_evidence_type": "official docket or resolution page snapshot",
+      "linked_hypothesis_id": "563650.analysis.adc53630aa1f.paper_hypothesis",
+      "live_fetch_performed": false,
+      "market_id": "563650",
+      "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?",
+      "method": "GET",
+      "original_manifest_index": 2,
+      "reason_needed": "The paper hypothesis depends on later checking whether public court records support the saved local packet.",
+      "request_intent_id": "public_fetch_request_intent_006_02_563650_563650_domain_public_evidence",
+      "requires_auth": false,
+      "save_evidence_as": "pm_bot/practical/artifacts/public_read_only_fetch_execution_007/saved_public_evidence/563650/public_fetch_request_intent_006_02_563650_563650_domain_public_evidence.saved_public_evidence_packet.json",
+      "source_category": "public_court_government_page_placeholder",
+      "source_name": "public court/government page placeholder",
+      "source_plan_id": "public-read-only-fetch-prep-005-5-markets",
+      "source_reference": "https://www.supremecourt.gov/docket/docket.aspx",
+      "source_url": "https://www.supremecourt.gov/docket/docket.aspx",
+      "trading_or_order_endpoint": false,
+      "url_safety_validation": {
+        "allowed": true,
+        "warnings": [
+          "source category is a placeholder category with a concrete URL reference"
+        ]
+      },
+      "url_selection_reason": "Official public Supreme Court docket search page; the exact docket id is still missing locally, so this is a future read-only source candidate only.",
+      "url_status": "concrete_safe_public_url",
+      "wallet_or_signing_required": false
+    },
+    {
+      "category_priority": 10,
+      "cookies_required": false,
+      "credentials_required": false,
+      "expected_evidence_type": "public election or parliament page snapshot",
+      "linked_hypothesis_id": "598936.analysis.dceea0f50063.paper_hypothesis",
+      "live_fetch_performed": false,
+      "market_id": "598936",
+      "market_title": "Will the next UK election be called by June 30, 2026?",
+      "method": "GET",
+      "original_manifest_index": 6,
+      "reason_needed": "The paper hypothesis depends on later checking public election timing evidence against the saved local packet.",
+      "request_intent_id": "public_fetch_request_intent_006_06_598936_598936_domain_public_evidence",
+      "requires_auth": false,
+      "save_evidence_as": "pm_bot/practical/artifacts/public_read_only_fetch_execution_007/saved_public_evidence/598936/public_fetch_request_intent_006_06_598936_598936_domain_public_evidence.saved_public_evidence_packet.json",
+      "source_category": "public_court_government_page_placeholder",
+      "source_name": "public government or parliament page placeholder",
+      "source_plan_id": "public-read-only-fetch-prep-005-5-markets",
+      "source_reference": "https://www.parliament.uk/about/how/elections-and-voting/general/",
+      "source_url": "https://www.parliament.uk/about/how/elections-and-voting/general/",
+      "trading_or_order_endpoint": false,
+      "url_safety_validation": {
+        "allowed": true,
+        "warnings": [
+          "source category is a placeholder category with a concrete URL reference"
+        ]
+      },
+      "url_selection_reason": "Official UK Parliament public elections page; suitable as a public government/parliament source candidate, with final election-call evidence still requiring review.",
+      "url_status": "concrete_safe_public_url",
+      "wallet_or_signing_required": false
+    },
+    {
+      "category_priority": 20,
+      "cookies_required": false,
+      "credentials_required": false,
+      "expected_evidence_type": "public official status or resolution page snapshot",
+      "linked_hypothesis_id": "597964.analysis.33643849e5db.paper_hypothesis",
+      "live_fetch_performed": false,
+      "market_id": "597964",
+      "market_title": "Macron out by June 30, 2026?",
+      "method": "GET",
+      "original_manifest_index": 4,
+      "reason_needed": "The paper hypothesis depends on later checking public status evidence against the saved local packet.",
+      "request_intent_id": "public_fetch_request_intent_006_04_597964_597964_domain_public_evidence",
+      "requires_auth": false,
+      "save_evidence_as": "pm_bot/practical/artifacts/public_read_only_fetch_execution_007/saved_public_evidence/597964/public_fetch_request_intent_006_04_597964_597964_domain_public_evidence.saved_public_evidence_packet.json",
+      "source_category": "public_resolution_source_page_placeholder",
+      "source_name": "public resolution source page placeholder",
+      "source_plan_id": "public-read-only-fetch-prep-005-5-markets",
+      "source_reference": "https://www.elysee.fr/emmanuel-macron",
+      "source_url": "https://www.elysee.fr/emmanuel-macron",
+      "trading_or_order_endpoint": false,
+      "url_safety_validation": {
+        "allowed": true,
+        "warnings": [
+          "source category is a placeholder category with a concrete URL reference"
+        ]
+      },
+      "url_selection_reason": "Official public Elysee page for Emmanuel Macron; suitable as a read-only official-status source candidate, without implying outcome verification.",
+      "url_status": "concrete_safe_public_url",
+      "wallet_or_signing_required": false
+    },
+    {
+      "category_priority": 30,
+      "cookies_required": false,
+      "credentials_required": false,
+      "expected_evidence_type": "public listing or company announcement snapshot",
+      "linked_hypothesis_id": "691547.analysis.56b3a68b9b94.paper_hypothesis",
+      "live_fetch_performed": false,
+      "market_id": "691547",
+      "market_title": "Kraken IPO by December 31, 2026?",
+      "method": "GET",
+      "original_manifest_index": 8,
+      "reason_needed": "The paper hypothesis depends on later checking public listing or company announcement evidence against the saved local packet.",
+      "request_intent_id": "public_fetch_request_intent_006_08_691547_691547_domain_public_evidence",
+      "requires_auth": false,
+      "save_evidence_as": "pm_bot/practical/artifacts/public_read_only_fetch_execution_007/saved_public_evidence/691547/public_fetch_request_intent_006_08_691547_691547_domain_public_evidence.saved_public_evidence_packet.json",
+      "source_category": "public_exchange_company_announcement_page_placeholder",
+      "source_name": "public exchange/company announcement page placeholder",
+      "source_plan_id": "public-read-only-fetch-prep-005-5-markets",
+      "source_reference": "https://www.kraken.com/blog",
+      "source_url": "https://www.kraken.com/blog",
+      "trading_or_order_endpoint": false,
+      "url_safety_validation": {
+        "allowed": true,
+        "warnings": [
+          "source category is a placeholder category with a concrete URL reference"
+        ]
+      },
+      "url_selection_reason": "Official public Kraken blog/news page; suitable as a read-only company announcement source candidate, without implying IPO outcome verification.",
+      "url_status": "concrete_safe_public_url",
+      "wallet_or_signing_required": false
+    },
+    {
+      "category_priority": 40,
+      "cookies_required": false,
+      "credentials_required": false,
+      "expected_evidence_type": "public issuer news or filing summary snapshot",
+      "linked_hypothesis_id": "692258.analysis.bed289c1494d.paper_hypothesis",
+      "live_fetch_performed": false,
+      "market_id": "692258",
+      "market_title": "MicroStrategy sells any Bitcoin by June 30, 2026?",
+      "method": "GET",
+      "original_manifest_index": 10,
+      "reason_needed": "The paper hypothesis depends on later checking public company evidence against the saved local packet.",
+      "request_intent_id": "public_fetch_request_intent_006_10_692258_692258_domain_public_evidence",
+      "requires_auth": false,
+      "save_evidence_as": "pm_bot/practical/artifacts/public_read_only_fetch_execution_007/saved_public_evidence/692258/public_fetch_request_intent_006_10_692258_692258_domain_public_evidence.saved_public_evidence_packet.json",
+      "source_category": "public_issuer_company_news_page_placeholder",
+      "source_name": "public issuer/company news page placeholder",
+      "source_plan_id": "public-read-only-fetch-prep-005-5-markets",
+      "source_reference": "https://www.microstrategy.com/press",
+      "source_url": "https://www.microstrategy.com/press",
+      "trading_or_order_endpoint": false,
+      "url_safety_validation": {
+        "allowed": true,
+        "warnings": [
+          "source category is a placeholder category with a concrete URL reference"
+        ]
+      },
+      "url_selection_reason": "Official public MicroStrategy press page pattern; suitable as a read-only issuer/company news source candidate, without implying Bitcoin sale outcome verification.",
+      "url_status": "concrete_safe_public_url",
+      "wallet_or_signing_required": false
+    }
+  ],
+  "generated_at": "2026-05-10T00:00:00Z",
+  "live_fetch_performed": false,
+  "market_ids": [
+    "563650",
+    "597964",
+    "598936",
+    "691547",
+    "692258"
+  ],
+  "max_request_count": 5,
+  "missing_url_count": 5,
+  "missing_url_request_intents": [
+    {
+      "dependency_source_ids": [
+        "563650:local_evidence_summary_001",
+        "563650:local_evidence_summary_002",
+        "563650:local_evidence_summary_003"
+      ],
+      "expected_evidence_type": "public market metadata snapshot",
+      "linked_hypothesis_id": "563650.analysis.adc53630aa1f.paper_hypothesis",
+      "live_fetch_performed": false,
+      "market_id": "563650",
+      "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?",
+      "missing_url_reason": "The local artifacts include only a market id and placeholder metadata reference; no stable public market metadata URL can be safely inferred without browsing or a Polymarket API call.",
+      "normalized_source_reference_count": 3,
+      "original_manifest_index": 1,
+      "request_intent_id": "public_fetch_request_intent_006_01_563650_563650_market_metadata",
+      "source_category": "public_market_metadata_endpoint_placeholder",
+      "source_name_or_placeholder": "public market metadata endpoint placeholder",
+      "source_reference_or_placeholder": "public_source_placeholder:public_market_metadata_endpoint_placeholder:563650",
+      "url_status": "missing"
+    },
+    {
+      "dependency_source_ids": [
+        "597964:news_source_placeholder_004",
+        "597964:news_source_placeholder_005",
+        "597964:news_source_placeholder_006",
+        "597964:official_source_placeholder_001",
+        "597964:official_source_placeholder_002",
+        "597964:official_source_placeholder_003",
+        "597964:source_plan_007"
+      ],
+      "expected_evidence_type": "public market metadata snapshot",
+      "linked_hypothesis_id": "597964.analysis.33643849e5db.paper_hypothesis",
+      "live_fetch_performed": false,
+      "market_id": "597964",
+      "market_title": "Macron out by June 30, 2026?",
+      "missing_url_reason": "The local artifacts include only a market id and placeholder metadata reference; no stable public market metadata URL can be safely inferred without browsing or a Polymarket API call.",
+      "normalized_source_reference_count": 7,
+      "original_manifest_index": 3,
+      "request_intent_id": "public_fetch_request_intent_006_03_597964_597964_market_metadata",
+      "source_category": "public_market_metadata_endpoint_placeholder",
+      "source_name_or_placeholder": "public market metadata endpoint placeholder",
+      "source_reference_or_placeholder": "public_source_placeholder:public_market_metadata_endpoint_placeholder:597964",
+      "url_status": "missing"
+    },
+    {
+      "dependency_source_ids": [
+        "598936:news_source_placeholder_004",
+        "598936:news_source_placeholder_005",
+        "598936:news_source_placeholder_006",
+        "598936:official_source_placeholder_001",
+        "598936:official_source_placeholder_002",
+        "598936:official_source_placeholder_003",
+        "598936:source_plan_007"
+      ],
+      "expected_evidence_type": "public market metadata snapshot",
+      "linked_hypothesis_id": "598936.analysis.dceea0f50063.paper_hypothesis",
+      "live_fetch_performed": false,
+      "market_id": "598936",
+      "market_title": "Will the next UK election be called by June 30, 2026?",
+      "missing_url_reason": "The local artifacts include only a market id and placeholder metadata reference; no stable public market metadata URL can be safely inferred without browsing or a Polymarket API call.",
+      "normalized_source_reference_count": 7,
+      "original_manifest_index": 5,
+      "request_intent_id": "public_fetch_request_intent_006_05_598936_598936_market_metadata",
+      "source_category": "public_market_metadata_endpoint_placeholder",
+      "source_name_or_placeholder": "public market metadata endpoint placeholder",
+      "source_reference_or_placeholder": "public_source_placeholder:public_market_metadata_endpoint_placeholder:598936",
+      "url_status": "missing"
+    },
+    {
+      "dependency_source_ids": [
+        "691547:news_source_placeholder_004",
+        "691547:news_source_placeholder_005",
+        "691547:news_source_placeholder_006",
+        "691547:official_source_placeholder_001",
+        "691547:official_source_placeholder_002",
+        "691547:official_source_placeholder_003",
+        "691547:source_plan_007"
+      ],
+      "expected_evidence_type": "public market metadata snapshot",
+      "linked_hypothesis_id": "691547.analysis.56b3a68b9b94.paper_hypothesis",
+      "live_fetch_performed": false,
+      "market_id": "691547",
+      "market_title": "Kraken IPO by December 31, 2026?",
+      "missing_url_reason": "The local artifacts include only a market id and placeholder metadata reference; no stable public market metadata URL can be safely inferred without browsing or a Polymarket API call.",
+      "normalized_source_reference_count": 7,
+      "original_manifest_index": 7,
+      "request_intent_id": "public_fetch_request_intent_006_07_691547_691547_market_metadata",
+      "source_category": "public_market_metadata_endpoint_placeholder",
+      "source_name_or_placeholder": "public market metadata endpoint placeholder",
+      "source_reference_or_placeholder": "public_source_placeholder:public_market_metadata_endpoint_placeholder:691547",
+      "url_status": "missing"
+    },
+    {
+      "dependency_source_ids": [
+        "692258:news_source_checked_006",
+        "692258:news_source_placeholder_007",
+        "692258:news_source_placeholder_008",
+        "692258:news_source_placeholder_009",
+        "692258:official_source_checked_001",
+        "692258:official_source_checked_002",
+        "692258:official_source_placeholder_003",
+        "692258:official_source_placeholder_004",
+        "692258:official_source_placeholder_005",
+        "692258:source_plan_010"
+      ],
+      "expected_evidence_type": "public market metadata snapshot",
+      "linked_hypothesis_id": "692258.analysis.bed289c1494d.paper_hypothesis",
+      "live_fetch_performed": false,
+      "market_id": "692258",
+      "market_title": "MicroStrategy sells any Bitcoin by June 30, 2026?",
+      "missing_url_reason": "The local artifacts include only a market id and placeholder metadata reference; no stable public market metadata URL can be safely inferred without browsing or a Polymarket API call.",
+      "normalized_source_reference_count": 10,
+      "original_manifest_index": 9,
+      "request_intent_id": "public_fetch_request_intent_006_09_692258_692258_market_metadata",
+      "source_category": "public_market_metadata_endpoint_placeholder",
+      "source_name_or_placeholder": "public market metadata endpoint placeholder",
+      "source_reference_or_placeholder": "public_source_placeholder:public_market_metadata_endpoint_placeholder:692258",
+      "url_status": "missing"
+    }
+  ],
+  "omitted_safe_candidate_count": 0,
+  "omitted_safe_candidates": [],
+  "original_request_count": 10,
+  "ready_for_future_controlled_fetch_attempt": true,
+  "request_count_total": 10,
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "selection_policy": {
+    "blocked_policy": "Auth, wallet, order, trading, credential, cookie, login, and unsafe URL shapes stay non-executable.",
+    "concrete_url_policy": "Only executable_request_intents contain concrete HTTP(S) URLs.",
+    "deterministic_order": "source category priority, then original manifest order, then market_id, then request_intent_id",
+    "max_request_count": 5,
+    "missing_policy": "Placeholder-only source references stay non-executable."
+  },
+  "source_manifest_contract_version": "pmbot_public_fetch_request_manifest.v1",
+  "source_manifest_id": "public-read-only-fetch-prep-005-5-markets.request_manifest.006",
+  "source_task_id": "ORCH-PMBOT-PRACTICAL-007-FIRST-CONTROLLED-PUBLIC-READ-ONLY-FETCH-EXECUTION-OPERATOR-APPROVED",
+  "warnings": [
+    "5 placeholder request intents still lack concrete public URLs."
+  ],
+  "within_request_limit": true
+}

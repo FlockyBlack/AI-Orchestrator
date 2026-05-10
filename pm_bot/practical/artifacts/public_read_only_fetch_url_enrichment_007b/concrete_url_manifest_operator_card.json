@@ -1,0 +1,115 @@
+{
+  "blocked_request_count": 0,
+  "blocked_requests": [],
+  "card_id": "concrete-url-manifest-operator-card-007b",
+  "concrete_safe_urls": [
+    {
+      "market_id": "563650",
+      "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?",
+      "reason": "Official public Supreme Court docket search page; the exact docket id is still missing locally, so this is a future read-only source candidate only.",
+      "request_intent_id": "public_fetch_request_intent_006_02_563650_563650_domain_public_evidence",
+      "source_category": "public_court_government_page_placeholder",
+      "source_url": "https://www.supremecourt.gov/docket/docket.aspx"
+    },
+    {
+      "market_id": "598936",
+      "market_title": "Will the next UK election be called by June 30, 2026?",
+      "reason": "Official UK Parliament public elections page; suitable as a public government/parliament source candidate, with final election-call evidence still requiring review.",
+      "request_intent_id": "public_fetch_request_intent_006_06_598936_598936_domain_public_evidence",
+      "source_category": "public_court_government_page_placeholder",
+      "source_url": "https://www.parliament.uk/about/how/elections-and-voting/general/"
+    },
+    {
+      "market_id": "597964",
+      "market_title": "Macron out by June 30, 2026?",
+      "reason": "Official public Elysee page for Emmanuel Macron; suitable as a read-only official-status source candidate, without implying outcome verification.",
+      "request_intent_id": "public_fetch_request_intent_006_04_597964_597964_domain_public_evidence",
+      "source_category": "public_resolution_source_page_placeholder",
+      "source_url": "https://www.elysee.fr/emmanuel-macron"
+    },
+    {
+      "market_id": "691547",
+      "market_title": "Kraken IPO by December 31, 2026?",
+      "reason": "Official public Kraken blog/news page; suitable as a read-only company announcement source candidate, without implying IPO outcome verification.",
+      "request_intent_id": "public_fetch_request_intent_006_08_691547_691547_domain_public_evidence",
+      "source_category": "public_exchange_company_announcement_page_placeholder",
+      "source_url": "https://www.kraken.com/blog"
+    },
+    {
+      "market_id": "692258",
+      "market_title": "MicroStrategy sells any Bitcoin by June 30, 2026?",
+      "reason": "Official public MicroStrategy press page pattern; suitable as a read-only issuer/company news source candidate, without implying Bitcoin sale outcome verification.",
+      "request_intent_id": "public_fetch_request_intent_006_10_692258_692258_domain_public_evidence",
+      "source_category": "public_issuer_company_news_page_placeholder",
+      "source_url": "https://www.microstrategy.com/press"
+    }
+  ],
+  "contract_version": "pmbot_concrete_url_manifest_operator_card.v1",
+  "executable_request_count": 5,
+  "generated_at": "2026-05-10T00:00:00Z",
+  "live_fetch_performed": false,
+  "markets_still_needing_urls": [
+    {
+      "market_id": "563650",
+      "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?",
+      "reason": "The local artifacts include only a market id and placeholder metadata reference; no stable public market metadata URL can be safely inferred without browsing or a Polymarket API call.",
+      "request_intent_id": "public_fetch_request_intent_006_01_563650_563650_market_metadata",
+      "source_category": "public_market_metadata_endpoint_placeholder"
+    },
+    {
+      "market_id": "597964",
+      "market_title": "Macron out by June 30, 2026?",
+      "reason": "The local artifacts include only a market id and placeholder metadata reference; no stable public market metadata URL can be safely inferred without browsing or a Polymarket API call.",
+      "request_intent_id": "public_fetch_request_intent_006_03_597964_597964_market_metadata",
+      "source_category": "public_market_metadata_endpoint_placeholder"
+    },
+    {
+      "market_id": "598936",
+      "market_title": "Will the next UK election be called by June 30, 2026?",
+      "reason": "The local artifacts include only a market id and placeholder metadata reference; no stable public market metadata URL can be safely inferred without browsing or a Polymarket API call.",
+      "request_intent_id": "public_fetch_request_intent_006_05_598936_598936_market_metadata",
+      "source_category": "public_market_metadata_endpoint_placeholder"
+    },
+    {
+      "market_id": "691547",
+      "market_title": "Kraken IPO by December 31, 2026?",
+      "reason": "The local artifacts include only a market id and placeholder metadata reference; no stable public market metadata URL can be safely inferred without browsing or a Polymarket API call.",
+      "request_intent_id": "public_fetch_request_intent_006_07_691547_691547_market_metadata",
+      "source_category": "public_market_metadata_endpoint_placeholder"
+    },
+    {
+      "market_id": "692258",
+      "market_title": "MicroStrategy sells any Bitcoin by June 30, 2026?",
+      "reason": "The local artifacts include only a market id and placeholder metadata reference; no stable public market metadata URL can be safely inferred without browsing or a Polymarket API call.",
+      "request_intent_id": "public_fetch_request_intent_006_09_692258_692258_market_metadata",
+      "source_category": "public_market_metadata_endpoint_placeholder"
+    }
+  ],
+  "missing_url_count": 5,
+  "next_fetch_can_run_after_approval": true,
+  "operator_must_approve_next": "Approve the pending scoped approval artifact for the future PRACTICAL-008 controlled public read-only fetch task.",
+  "original_request_count": 10,
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "what_changed_after_practical_007": [
+    "Placeholder request intents were separated from executable concrete URL intents.",
+    "Executable request count was capped at five.",
+    "Operator approval for the next fetch remains pending."
+  ],
+  "why_practical_007_blocked_fetch": [
+    "The prior manifest had placeholder source references instead of concrete HTTP(S) URLs.",
+    "The prior manifest had ten request intents while scoped approval allowed five."
+  ]
+}

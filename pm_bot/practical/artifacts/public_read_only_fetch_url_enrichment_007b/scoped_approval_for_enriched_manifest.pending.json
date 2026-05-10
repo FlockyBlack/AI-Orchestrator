@@ -1,0 +1,52 @@
+{
+  "approval_for_future_task_id": "ORCH-PMBOT-PRACTICAL-008-FIRST-CONTROLLED-PUBLIC-READ-ONLY-FETCH-EXECUTION-WITH-CONCRETE-URL-MANIFEST",
+  "approval_id": "scoped-approval-for-enriched-public-fetch-manifest-007b",
+  "approval_status": "pending",
+  "approved_market_ids_proposed": [
+    "563650",
+    "597964",
+    "598936",
+    "691547",
+    "692258"
+  ],
+  "approved_request_intent_ids_proposed": [
+    "public_fetch_request_intent_006_02_563650_563650_domain_public_evidence",
+    "public_fetch_request_intent_006_06_598936_598936_domain_public_evidence",
+    "public_fetch_request_intent_006_04_597964_597964_domain_public_evidence",
+    "public_fetch_request_intent_006_08_691547_691547_domain_public_evidence",
+    "public_fetch_request_intent_006_10_692258_692258_domain_public_evidence"
+  ],
+  "blocked_scope": [
+    "authenticated endpoints",
+    "API keys, cookies, login, KYC, browser profiles, and bypass automation",
+    "wallet, private key, signing, custody, order, or trading paths",
+    "OpenRouter calls",
+    "Polymarket API calls",
+    "schedulers, daemons, watchers, automatic polling, and unattended automation",
+    "market recommendations or executable quantitative market output"
+  ],
+  "contract_version": "pmbot_enriched_public_fetch_scoped_approval_pending.v1",
+  "executable_request_count": 5,
+  "expires_after_future_task": true,
+  "live_fetch_performed": false,
+  "max_request_count": 5,
+  "operator_approval_granted": false,
+  "operator_approval_required": true,
+  "reusable": false,
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_fetch_performed": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "openrouter_calls_performed": 0,
+    "operator_approval_granted": false,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  }
+}
