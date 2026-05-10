@@ -1,0 +1,55 @@
+{
+  "contract_version": "pmbot_saved_evidence_replay_adapter.v1",
+  "generated_at": "2026-05-10T00:00:00Z",
+  "hypothesis_ids": [
+    "563650.analysis.adc53630aa1f.paper_hypothesis"
+  ],
+  "live_network_used": false,
+  "market_ids": [
+    "563650"
+  ],
+  "replay_mode": true,
+  "safety_notes": [
+    "Saved evidence replay only.",
+    "No network fetch is performed.",
+    "Source IDs, source categories, freshness, limitations, and replay markers are preserved."
+  ],
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "source_packet_format": "pmbot_one_market_input.v1 source_packets-compatible",
+  "source_packets": [
+    {
+      "captured_at": "2026-05-10T00:00:00Z",
+      "claim_type": "saved_public_evidence_claims",
+      "claim_value": "Fixture claims are local-only and safe for replay. | No public source was fetched while creating this packet.",
+      "evidence_packet_id": "public-fetch-prep-005.fixture.563650.domain-evidence",
+      "evidence_summary": "Deterministic fixture summary for a future public court or government source placeholder. It is not live evidence and exists only to test saved-evidence replay.",
+      "freshness_status": "fixture_current",
+      "known_limitations": [
+        "Fixture only.",
+        "Not captured from a live public source.",
+        "Not sufficient for outcome resolution."
+      ],
+      "live_network_used": false,
+      "replay_mode": true,
+      "source_category": "public_court_government_page_placeholder",
+      "source_id": "563650:domain_public_evidence",
+      "source_name": "public court/government page placeholder",
+      "source_type": "saved_public_evidence_replay",
+      "source_url_or_reference": "public_source_placeholder:public_court_government_page_placeholder:563650",
+      "used_in_analysis": true
+    }
+  ]
+}

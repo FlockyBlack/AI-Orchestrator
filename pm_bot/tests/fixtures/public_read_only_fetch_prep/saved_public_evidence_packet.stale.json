@@ -1,0 +1,47 @@
+{
+  "auth_used": false,
+  "capture_errors": [],
+  "capture_mode": "fixture",
+  "captured_at": "2026-05-10T00:00:00Z",
+  "contract_version": "pmbot_saved_public_evidence_packet.v1",
+  "contradiction_candidates": [],
+  "credentials_used": false,
+  "evidence_packet_id": "public-fetch-prep-005.fixture.563650.stale",
+  "freshness_status": "stale",
+  "hypothesis_ids": [
+    "563650.analysis.adc53630aa1f.paper_hypothesis"
+  ],
+  "limitations": [
+    "Stale fixture only.",
+    "Not captured from a live public source."
+  ],
+  "live_network_used": false,
+  "market_ids": [
+    "563650"
+  ],
+  "normalized_claims": [
+    "Fixture claims are stale and require fresh saved evidence before any analysis update."
+  ],
+  "orders_or_trading_actions": false,
+  "raw_excerpt_or_summary": "Deterministic fixture summary for a future public court or government source placeholder. It is not live evidence and exists only to test saved-evidence replay.",
+  "safe_for_replay": true,
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "source_category": "public_court_government_page_placeholder",
+  "source_id": "563650:domain_public_evidence",
+  "source_name": "public court/government page placeholder",
+  "source_reference": "public_source_placeholder:public_court_government_page_placeholder:563650",
+  "wallet_or_private_key_access": false
+}

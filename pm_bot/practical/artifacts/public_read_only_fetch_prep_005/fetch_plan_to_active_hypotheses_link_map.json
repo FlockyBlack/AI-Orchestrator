@@ -1,0 +1,507 @@
+{
+  "contract_version": "pmbot_public_fetch_plan_to_active_hypotheses_link_map.v1",
+  "fetch_plan_id": "public-read-only-fetch-prep-005-5-markets",
+  "generated_at": "2026-05-10T00:00:00Z",
+  "links": [
+    {
+      "expected_evidence_role": [
+        "future metadata check for market title, rules, status, and linked references",
+        "future official-source evidence for outcome and rules review"
+      ],
+      "hypothesis_id": "563650.analysis.adc53630aa1f.paper_hypothesis",
+      "market_id": "563650",
+      "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?",
+      "outcome_check_dependency": {
+        "market_id": "563650",
+        "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?",
+        "next_operator_action": "Look for a local outcome record and attach it to the queue item.",
+        "outcome_check_status": "due_now",
+        "outcome_record_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/563650/outcome_record.unresolved.json",
+        "outcome_status": "unresolved",
+        "paper_hypothesis_id": "563650.analysis.adc53630aa1f.paper_hypothesis",
+        "queue_item_id": "real-market-batch-004-563650"
+      },
+      "planned_public_evidence_source_category": [
+        "public_market_metadata_endpoint_placeholder",
+        "public_court_government_page_placeholder"
+      ],
+      "safety_status": "paper_only_fetch_prep_no_live_network_no_trading",
+      "source_dependency": [
+        {
+          "dependency_role": "local_evidence_summary",
+          "known_limitations": [
+            "contradictory",
+            "insufficient",
+            "unknown"
+          ],
+          "source_id": "563650:local_evidence_summary_001"
+        },
+        {
+          "dependency_role": "local_evidence_summary",
+          "known_limitations": [
+            "contradictory",
+            "insufficient",
+            "unknown"
+          ],
+          "source_id": "563650:local_evidence_summary_002"
+        },
+        {
+          "dependency_role": "local_evidence_summary",
+          "known_limitations": [
+            "contradictory",
+            "insufficient",
+            "unknown"
+          ],
+          "source_id": "563650:local_evidence_summary_003"
+        }
+      ],
+      "why_fresh_evidence_would_matter": [
+        "Fresh public metadata would help verify that the saved local packet still matches public market terms before replay.",
+        "The paper hypothesis depends on later checking whether public court records support the saved local packet."
+      ]
+    },
+    {
+      "expected_evidence_role": [
+        "future metadata check for market title, rules, status, and linked references",
+        "future public evidence for outcome review"
+      ],
+      "hypothesis_id": "597964.analysis.33643849e5db.paper_hypothesis",
+      "market_id": "597964",
+      "market_title": "Macron out by June 30, 2026?",
+      "outcome_check_dependency": {
+        "market_id": "597964",
+        "market_title": "Macron out by June 30, 2026?",
+        "next_operator_action": "Look for a local outcome record and attach it to the queue item.",
+        "outcome_check_status": "due_now",
+        "outcome_record_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/597964/outcome_record.unresolved.json",
+        "outcome_status": "unresolved",
+        "paper_hypothesis_id": "597964.analysis.33643849e5db.paper_hypothesis",
+        "queue_item_id": "real-market-batch-004-597964"
+      },
+      "planned_public_evidence_source_category": [
+        "public_market_metadata_endpoint_placeholder",
+        "public_resolution_source_page_placeholder"
+      ],
+      "safety_status": "paper_only_fetch_prep_no_live_network_no_trading",
+      "source_dependency": [
+        {
+          "dependency_role": "official_source_placeholder",
+          "known_limitations": [
+            "contradictory",
+            "insufficient",
+            "missing",
+            "unknown"
+          ],
+          "source_id": "597964:official_source_placeholder_001"
+        },
+        {
+          "dependency_role": "official_source_placeholder",
+          "known_limitations": [
+            "contradictory",
+            "insufficient",
+            "missing",
+            "unknown"
+          ],
+          "source_id": "597964:official_source_placeholder_002"
+        },
+        {
+          "dependency_role": "official_source_placeholder",
+          "known_limitations": [
+            "contradictory",
+            "insufficient",
+            "missing",
+            "unknown"
+          ],
+          "source_id": "597964:official_source_placeholder_003"
+        },
+        {
+          "dependency_role": "news_source_placeholder",
+          "known_limitations": [
+            "contradictory",
+            "insufficient",
+            "missing",
+            "unknown"
+          ],
+          "source_id": "597964:news_source_placeholder_004"
+        },
+        {
+          "dependency_role": "news_source_placeholder",
+          "known_limitations": [
+            "contradictory",
+            "insufficient",
+            "missing",
+            "unknown"
+          ],
+          "source_id": "597964:news_source_placeholder_005"
+        },
+        {
+          "dependency_role": "news_source_placeholder",
+          "known_limitations": [
+            "contradictory",
+            "insufficient",
+            "missing",
+            "unknown"
+          ],
+          "source_id": "597964:news_source_placeholder_006"
+        },
+        {
+          "dependency_role": "source_plan",
+          "known_limitations": [
+            "contradictory",
+            "insufficient",
+            "missing",
+            "unknown"
+          ],
+          "source_id": "597964:source_plan_007"
+        }
+      ],
+      "why_fresh_evidence_would_matter": [
+        "Fresh public metadata would help verify that the saved local packet still matches public market terms before replay.",
+        "The paper hypothesis depends on later checking public status evidence against the saved local packet."
+      ]
+    },
+    {
+      "expected_evidence_role": [
+        "future metadata check for market title, rules, status, and linked references",
+        "future official-source evidence for outcome review"
+      ],
+      "hypothesis_id": "598936.analysis.dceea0f50063.paper_hypothesis",
+      "market_id": "598936",
+      "market_title": "Will the next UK election be called by June 30, 2026?",
+      "outcome_check_dependency": {
+        "market_id": "598936",
+        "market_title": "Will the next UK election be called by June 30, 2026?",
+        "next_operator_action": "Look for a local outcome record and attach it to the queue item.",
+        "outcome_check_status": "due_now",
+        "outcome_record_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/598936/outcome_record.unresolved.json",
+        "outcome_status": "unresolved",
+        "paper_hypothesis_id": "598936.analysis.dceea0f50063.paper_hypothesis",
+        "queue_item_id": "real-market-batch-004-598936"
+      },
+      "planned_public_evidence_source_category": [
+        "public_market_metadata_endpoint_placeholder",
+        "public_court_government_page_placeholder"
+      ],
+      "safety_status": "paper_only_fetch_prep_no_live_network_no_trading",
+      "source_dependency": [
+        {
+          "dependency_role": "official_source_placeholder",
+          "known_limitations": [
+            "contradictory",
+            "insufficient",
+            "missing",
+            "unknown"
+          ],
+          "source_id": "598936:official_source_placeholder_001"
+        },
+        {
+          "dependency_role": "official_source_placeholder",
+          "known_limitations": [
+            "contradictory",
+            "insufficient",
+            "missing",
+            "unknown"
+          ],
+          "source_id": "598936:official_source_placeholder_002"
+        },
+        {
+          "dependency_role": "official_source_placeholder",
+          "known_limitations": [
+            "contradictory",
+            "insufficient",
+            "missing",
+            "unknown"
+          ],
+          "source_id": "598936:official_source_placeholder_003"
+        },
+        {
+          "dependency_role": "news_source_placeholder",
+          "known_limitations": [
+            "contradictory",
+            "insufficient",
+            "missing",
+            "unknown"
+          ],
+          "source_id": "598936:news_source_placeholder_004"
+        },
+        {
+          "dependency_role": "news_source_placeholder",
+          "known_limitations": [
+            "contradictory",
+            "insufficient",
+            "missing",
+            "unknown"
+          ],
+          "source_id": "598936:news_source_placeholder_005"
+        },
+        {
+          "dependency_role": "news_source_placeholder",
+          "known_limitations": [
+            "contradictory",
+            "insufficient",
+            "missing",
+            "unknown"
+          ],
+          "source_id": "598936:news_source_placeholder_006"
+        },
+        {
+          "dependency_role": "source_plan",
+          "known_limitations": [
+            "contradictory",
+            "insufficient",
+            "missing",
+            "unknown"
+          ],
+          "source_id": "598936:source_plan_007"
+        }
+      ],
+      "why_fresh_evidence_would_matter": [
+        "Fresh public metadata would help verify that the saved local packet still matches public market terms before replay.",
+        "The paper hypothesis depends on later checking public election timing evidence against the saved local packet."
+      ]
+    },
+    {
+      "expected_evidence_role": [
+        "future metadata check for market title, rules, status, and linked references",
+        "future public evidence for IPO status review"
+      ],
+      "hypothesis_id": "691547.analysis.56b3a68b9b94.paper_hypothesis",
+      "market_id": "691547",
+      "market_title": "Kraken IPO by December 31, 2026?",
+      "outcome_check_dependency": {
+        "market_id": "691547",
+        "market_title": "Kraken IPO by December 31, 2026?",
+        "next_operator_action": "Look for a local outcome record and attach it to the queue item.",
+        "outcome_check_status": "due_now",
+        "outcome_record_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/691547/outcome_record.unresolved.json",
+        "outcome_status": "unresolved",
+        "paper_hypothesis_id": "691547.analysis.56b3a68b9b94.paper_hypothesis",
+        "queue_item_id": "real-market-batch-004-691547"
+      },
+      "planned_public_evidence_source_category": [
+        "public_market_metadata_endpoint_placeholder",
+        "public_exchange_company_announcement_page_placeholder"
+      ],
+      "safety_status": "paper_only_fetch_prep_no_live_network_no_trading",
+      "source_dependency": [
+        {
+          "dependency_role": "official_source_placeholder",
+          "known_limitations": [
+            "contradictory",
+            "insufficient",
+            "missing",
+            "unknown"
+          ],
+          "source_id": "691547:official_source_placeholder_001"
+        },
+        {
+          "dependency_role": "official_source_placeholder",
+          "known_limitations": [
+            "contradictory",
+            "insufficient",
+            "missing",
+            "unknown"
+          ],
+          "source_id": "691547:official_source_placeholder_002"
+        },
+        {
+          "dependency_role": "official_source_placeholder",
+          "known_limitations": [
+            "contradictory",
+            "insufficient",
+            "missing",
+            "unknown"
+          ],
+          "source_id": "691547:official_source_placeholder_003"
+        },
+        {
+          "dependency_role": "news_source_placeholder",
+          "known_limitations": [
+            "contradictory",
+            "insufficient",
+            "missing",
+            "unknown"
+          ],
+          "source_id": "691547:news_source_placeholder_004"
+        },
+        {
+          "dependency_role": "news_source_placeholder",
+          "known_limitations": [
+            "contradictory",
+            "insufficient",
+            "missing",
+            "unknown"
+          ],
+          "source_id": "691547:news_source_placeholder_005"
+        },
+        {
+          "dependency_role": "news_source_placeholder",
+          "known_limitations": [
+            "contradictory",
+            "insufficient",
+            "missing",
+            "unknown"
+          ],
+          "source_id": "691547:news_source_placeholder_006"
+        },
+        {
+          "dependency_role": "source_plan",
+          "known_limitations": [
+            "contradictory",
+            "insufficient",
+            "missing",
+            "unknown"
+          ],
+          "source_id": "691547:source_plan_007"
+        }
+      ],
+      "why_fresh_evidence_would_matter": [
+        "Fresh public metadata would help verify that the saved local packet still matches public market terms before replay.",
+        "The paper hypothesis depends on later checking public listing or company announcement evidence against the saved local packet."
+      ]
+    },
+    {
+      "expected_evidence_role": [
+        "future metadata check for market title, rules, status, and linked references",
+        "future public evidence for company action review"
+      ],
+      "hypothesis_id": "692258.analysis.bed289c1494d.paper_hypothesis",
+      "market_id": "692258",
+      "market_title": "MicroStrategy sells any Bitcoin by June 30, 2026?",
+      "outcome_check_dependency": {
+        "market_id": "692258",
+        "market_title": "MicroStrategy sells any Bitcoin by June 30, 2026?",
+        "next_operator_action": "Look for a local outcome record and attach it to the queue item.",
+        "outcome_check_status": "due_now",
+        "outcome_record_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/692258/outcome_record.unresolved.json",
+        "outcome_status": "unresolved",
+        "paper_hypothesis_id": "692258.analysis.bed289c1494d.paper_hypothesis",
+        "queue_item_id": "real-market-batch-004-692258"
+      },
+      "planned_public_evidence_source_category": [
+        "public_market_metadata_endpoint_placeholder",
+        "public_issuer_company_news_page_placeholder"
+      ],
+      "safety_status": "paper_only_fetch_prep_no_live_network_no_trading",
+      "source_dependency": [
+        {
+          "dependency_role": "official_source_checked",
+          "known_limitations": [
+            "contradictory",
+            "insufficient",
+            "unknown"
+          ],
+          "source_id": "692258:official_source_checked_001"
+        },
+        {
+          "dependency_role": "official_source_checked",
+          "known_limitations": [
+            "contradictory",
+            "insufficient",
+            "missing",
+            "unknown"
+          ],
+          "source_id": "692258:official_source_checked_002"
+        },
+        {
+          "dependency_role": "official_source_placeholder",
+          "known_limitations": [
+            "contradictory",
+            "insufficient",
+            "missing",
+            "unknown"
+          ],
+          "source_id": "692258:official_source_placeholder_003"
+        },
+        {
+          "dependency_role": "official_source_placeholder",
+          "known_limitations": [
+            "contradictory",
+            "insufficient",
+            "missing",
+            "unknown"
+          ],
+          "source_id": "692258:official_source_placeholder_004"
+        },
+        {
+          "dependency_role": "official_source_placeholder",
+          "known_limitations": [
+            "contradictory",
+            "insufficient",
+            "missing",
+            "unknown"
+          ],
+          "source_id": "692258:official_source_placeholder_005"
+        },
+        {
+          "dependency_role": "news_source_checked",
+          "known_limitations": [
+            "contradictory",
+            "insufficient",
+            "missing",
+            "unknown"
+          ],
+          "source_id": "692258:news_source_checked_006"
+        },
+        {
+          "dependency_role": "news_source_placeholder",
+          "known_limitations": [
+            "contradictory",
+            "insufficient",
+            "missing",
+            "unknown"
+          ],
+          "source_id": "692258:news_source_placeholder_007"
+        },
+        {
+          "dependency_role": "news_source_placeholder",
+          "known_limitations": [
+            "contradictory",
+            "insufficient",
+            "missing",
+            "unknown"
+          ],
+          "source_id": "692258:news_source_placeholder_008"
+        },
+        {
+          "dependency_role": "news_source_placeholder",
+          "known_limitations": [
+            "contradictory",
+            "insufficient",
+            "missing",
+            "unknown"
+          ],
+          "source_id": "692258:news_source_placeholder_009"
+        },
+        {
+          "dependency_role": "source_plan",
+          "known_limitations": [
+            "contradictory",
+            "insufficient",
+            "missing",
+            "unknown"
+          ],
+          "source_id": "692258:source_plan_010"
+        }
+      ],
+      "why_fresh_evidence_would_matter": [
+        "Fresh public metadata would help verify that the saved local packet still matches public market terms before replay.",
+        "The paper hypothesis depends on later checking public company evidence against the saved local packet."
+      ]
+    }
+  ],
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  }
+}

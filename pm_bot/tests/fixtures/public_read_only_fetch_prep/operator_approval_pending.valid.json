@@ -1,0 +1,77 @@
+{
+  "allowed_scope": {
+    "capture_mode": "future_public_read_only_fetch_after_separate_approval",
+    "market_ids": [
+      "563650",
+      "597964",
+      "598936",
+      "691547",
+      "692258"
+    ],
+    "request_count": 10,
+    "source_categories": [
+      "public_court_government_page_placeholder",
+      "public_exchange_company_announcement_page_placeholder",
+      "public_issuer_company_news_page_placeholder",
+      "public_market_metadata_endpoint_placeholder",
+      "public_resolution_source_page_placeholder"
+    ]
+  },
+  "allowed_source_categories": [
+    "public_court_government_page_placeholder",
+    "public_exchange_company_announcement_page_placeholder",
+    "public_issuer_company_news_page_placeholder",
+    "public_market_metadata_endpoint_placeholder",
+    "public_resolution_source_page_placeholder"
+  ],
+  "approval_id": "public-read-only-fetch-prep-005-5-markets.operator_approval.pending",
+  "approved_at": null,
+  "approved_by": null,
+  "blocked_scope": [
+    "authenticated endpoints",
+    "credentials or private API keys",
+    "wallet, private key, signing, custody, or KYC paths",
+    "orders, trading endpoints, or real-money actions",
+    "scheduler, daemon, watcher, polling, or unattended automation",
+    "live recommendations or quantitative market signals used for execution"
+  ],
+  "blocked_source_categories": [
+    "authenticated_endpoint",
+    "browser_session_cookie_based_source",
+    "forum_rumor_only_unlabeled_source",
+    "order_endpoint",
+    "private_api_key_endpoint",
+    "source_requiring_bypass_or_automation",
+    "source_requiring_kyc_or_login",
+    "trading_endpoint",
+    "wallet_signing_endpoint"
+  ],
+  "contract_version": "pmbot_public_read_only_fetch_operator_approval.v1",
+  "created_at": "2026-05-10T00:00:00Z",
+  "fetch_plan_id": "public-read-only-fetch-prep-005-5-markets",
+  "live_fetch_enabled_after_approval": false,
+  "max_markets": 5,
+  "max_request_count": 10,
+  "operator_approval_granted": false,
+  "operator_approval_required": true,
+  "safety_acknowledgements": [
+    "Approval is pending.",
+    "This record does not grant permission to fetch.",
+    "Any future fetch must save evidence before replay.",
+    "Any future analysis update must replay saved evidence first."
+  ],
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  }
+}

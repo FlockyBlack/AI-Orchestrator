@@ -1,0 +1,127 @@
+{
+  "allowed_sources": [
+    {
+      "allowed": true,
+      "reason": "May be retained only when explicitly labeled low quality and not used as decisive evidence.",
+      "safety_boundary": "Low-quality context label only; never an executable market instruction.",
+      "source_category": "low_quality_forum_or_rumor_labeled_source"
+    },
+    {
+      "allowed": true,
+      "reason": "Future public court, government, parliament, or regulator page for official evidence.",
+      "safety_boundary": "Public official page only; no account, KYC, or session cookies.",
+      "source_category": "public_court_government_page_placeholder"
+    },
+    {
+      "allowed": true,
+      "reason": "Future public exchange, listing, IPO, or company announcement page for evidence.",
+      "safety_boundary": "Public read-only announcement source only; no broker, order, or trading API.",
+      "source_category": "public_exchange_company_announcement_page_placeholder"
+    },
+    {
+      "allowed": true,
+      "reason": "Future public issuer or company news page for source evidence.",
+      "safety_boundary": "Public web page only; no investor portal login or private API key.",
+      "source_category": "public_issuer_company_news_page_placeholder"
+    },
+    {
+      "allowed": true,
+      "reason": "Future public metadata lookup for market title, rules, status, and resolution terms.",
+      "safety_boundary": "Public read-only placeholder only; no authenticated or trading endpoint.",
+      "source_category": "public_market_metadata_endpoint_placeholder"
+    },
+    {
+      "allowed": true,
+      "reason": "Future public page used to capture outcome or resolution evidence.",
+      "safety_boundary": "Static public page capture only; no login, bypass, or private feed.",
+      "source_category": "public_resolution_source_page_placeholder"
+    },
+    {
+      "allowed": true,
+      "reason": "Future public static web page used as a low-risk source reference.",
+      "safety_boundary": "Public static page only; no browser profile, cookies, or automation bypass.",
+      "source_category": "public_static_web_page_placeholder"
+    }
+  ],
+  "artifact_contract_version": "pmbot_public_read_only_fetch_prep_005_artifact.v1",
+  "blocked_sources": [
+    {
+      "blocked": true,
+      "reason": "Requires identity, session, token, or account access.",
+      "safety_boundary": "Blocked for this public read-only preparation layer.",
+      "source_category": "authenticated_endpoint"
+    },
+    {
+      "blocked": true,
+      "reason": "Depends on browser profile state, session cookies, or logged-in context.",
+      "safety_boundary": "Browser sessions and cookies are not used.",
+      "source_category": "browser_session_cookie_based_source"
+    },
+    {
+      "blocked": true,
+      "reason": "Rumor-only material is too weak unless explicitly labeled low quality.",
+      "safety_boundary": "Unlabeled rumor sources are blocked.",
+      "source_category": "forum_rumor_only_unlabeled_source"
+    },
+    {
+      "blocked": true,
+      "reason": "Could create, cancel, or inspect executable order paths.",
+      "safety_boundary": "Order endpoints remain out of scope.",
+      "source_category": "order_endpoint"
+    },
+    {
+      "blocked": true,
+      "reason": "Requires private credentials or API keys.",
+      "safety_boundary": "Credentials are not required or used.",
+      "source_category": "private_api_key_endpoint"
+    },
+    {
+      "blocked": true,
+      "reason": "Requires bypassing controls, bot detection, or automated interactive access.",
+      "safety_boundary": "Bypass and unattended automation are blocked.",
+      "source_category": "source_requiring_bypass_or_automation"
+    },
+    {
+      "blocked": true,
+      "reason": "Requires KYC, login, or account identity.",
+      "safety_boundary": "Login and KYC sources are blocked.",
+      "source_category": "source_requiring_kyc_or_login"
+    },
+    {
+      "blocked": true,
+      "reason": "Could expose execution or market-taking behavior.",
+      "safety_boundary": "Trading endpoints remain out of scope.",
+      "source_category": "trading_endpoint"
+    },
+    {
+      "blocked": true,
+      "reason": "Touches wallet, signing, private key, or custody boundaries.",
+      "safety_boundary": "Wallet and signing paths remain out of scope.",
+      "source_category": "wallet_signing_endpoint"
+    }
+  ],
+  "contract_version": "pmbot_public_source_registry.v1",
+  "generated_at": "2026-05-10T00:00:00Z",
+  "reason": "Make future public read-only fetch planning explicit and reviewable before any live request is allowed.",
+  "safety_boundary": "Registry validation only; no network calls, browser sessions, credentials, wallet access, orders, or trading actions.",
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "source_category_rules": [
+    "Allowed categories are placeholders for future public read-only sources.",
+    "Blocked categories must not be used in fetch plans.",
+    "No source category may require auth, credentials, wallet access, signing, orders, trading, KYC, cookies, or bypass automation.",
+    "Forum or rumor-only material is blocked unless explicitly labeled low quality."
+  ]
+}

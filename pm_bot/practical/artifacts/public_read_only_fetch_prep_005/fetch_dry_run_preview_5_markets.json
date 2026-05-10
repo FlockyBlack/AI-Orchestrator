@@ -1,0 +1,72 @@
+{
+  "approval_status": {
+    "operator_approval_granted": false,
+    "operator_approval_required": true
+  },
+  "contract_version": "pmbot_public_read_only_fetch_dry_run_preview.v1",
+  "evidence_expected_counts": {
+    "official docket or resolution page snapshot": 1,
+    "public election or parliament page snapshot": 1,
+    "public issuer news or filing summary snapshot": 1,
+    "public listing or company announcement snapshot": 1,
+    "public market metadata snapshot": 5,
+    "public official status or resolution page snapshot": 1
+  },
+  "fetch_plan_id": "public-read-only-fetch-prep-005-5-markets",
+  "generated_at": "2026-05-10T00:00:00Z",
+  "live_fetch": {
+    "allowed_now": false,
+    "reason": "Operator approval is not granted and live fetch is not part of this task."
+  },
+  "live_fetch_allowed_now": false,
+  "live_network_used": false,
+  "markets_affected": [
+    {
+      "market_id": "563650",
+      "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?"
+    },
+    {
+      "market_id": "597964",
+      "market_title": "Macron out by June 30, 2026?"
+    },
+    {
+      "market_id": "598936",
+      "market_title": "Will the next UK election be called by June 30, 2026?"
+    },
+    {
+      "market_id": "691547",
+      "market_title": "Kraken IPO by December 31, 2026?"
+    },
+    {
+      "market_id": "692258",
+      "market_title": "MicroStrategy sells any Bitcoin by June 30, 2026?"
+    }
+  ],
+  "max_request_count": 10,
+  "request_count": 10,
+  "safety_blockers": [
+    "Operator approval is not granted.",
+    "Live fetch is not part of this task."
+  ],
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "source_category_counts": {
+    "public_court_government_page_placeholder": 2,
+    "public_exchange_company_announcement_page_placeholder": 1,
+    "public_issuer_company_news_page_placeholder": 1,
+    "public_market_metadata_endpoint_placeholder": 5,
+    "public_resolution_source_page_placeholder": 1
+  }
+}

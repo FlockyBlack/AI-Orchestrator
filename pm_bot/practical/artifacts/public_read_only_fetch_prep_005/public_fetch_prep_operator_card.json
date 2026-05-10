@@ -1,0 +1,119 @@
+{
+  "approval_needed": {
+    "approval_record": "public-read-only-fetch-prep-005-5-markets.operator_approval.pending",
+    "operator_approval_granted": false,
+    "operator_approval_required": true
+  },
+  "contract_version": "pmbot_public_fetch_prep_operator_card.v1",
+  "fetch_plan_id": "public-read-only-fetch-prep-005-5-markets",
+  "generated_at": "2026-05-10T00:00:00Z",
+  "live_fetch_allowed_now": false,
+  "next_safe_action": "Review the pending approval packet and readiness blockers before creating a separate first controlled public read-only fetch approval packet.",
+  "ready_for_controlled_public_fetch": false,
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "what_is_blocked": [
+    "Operator approval has not been granted.",
+    "Approval record does not enable live fetch after approval."
+  ],
+  "what_is_ready": [
+    "Local source registry is defined.",
+    "Fetch plan contract is valid.",
+    "Dry-run preview is available.",
+    "Saved evidence packet and replay format are available.",
+    "Readiness gate can explain blockers before any future request."
+  ],
+  "what_will_not_be_fetched": [
+    "Authenticated endpoints",
+    "Private API key endpoints",
+    "Browser session or cookie-based sources",
+    "KYC or login-gated sources",
+    "Wallet, signing, custody, order, or trading endpoints",
+    "Scheduler, polling, daemon, watcher, or unattended automation paths"
+  ],
+  "what_would_be_fetched_later": [
+    {
+      "expected_evidence_type": "public market metadata snapshot",
+      "market_id": "563650",
+      "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?",
+      "source_category": "public_market_metadata_endpoint_placeholder",
+      "source_reference": "public_source_placeholder:public_market_metadata_endpoint_placeholder:563650"
+    },
+    {
+      "expected_evidence_type": "official docket or resolution page snapshot",
+      "market_id": "563650",
+      "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?",
+      "source_category": "public_court_government_page_placeholder",
+      "source_reference": "public_source_placeholder:public_court_government_page_placeholder:563650"
+    },
+    {
+      "expected_evidence_type": "public market metadata snapshot",
+      "market_id": "597964",
+      "market_title": "Macron out by June 30, 2026?",
+      "source_category": "public_market_metadata_endpoint_placeholder",
+      "source_reference": "public_source_placeholder:public_market_metadata_endpoint_placeholder:597964"
+    },
+    {
+      "expected_evidence_type": "public official status or resolution page snapshot",
+      "market_id": "597964",
+      "market_title": "Macron out by June 30, 2026?",
+      "source_category": "public_resolution_source_page_placeholder",
+      "source_reference": "public_source_placeholder:public_resolution_source_page_placeholder:597964"
+    },
+    {
+      "expected_evidence_type": "public market metadata snapshot",
+      "market_id": "598936",
+      "market_title": "Will the next UK election be called by June 30, 2026?",
+      "source_category": "public_market_metadata_endpoint_placeholder",
+      "source_reference": "public_source_placeholder:public_market_metadata_endpoint_placeholder:598936"
+    },
+    {
+      "expected_evidence_type": "public election or parliament page snapshot",
+      "market_id": "598936",
+      "market_title": "Will the next UK election be called by June 30, 2026?",
+      "source_category": "public_court_government_page_placeholder",
+      "source_reference": "public_source_placeholder:public_court_government_page_placeholder:598936"
+    },
+    {
+      "expected_evidence_type": "public market metadata snapshot",
+      "market_id": "691547",
+      "market_title": "Kraken IPO by December 31, 2026?",
+      "source_category": "public_market_metadata_endpoint_placeholder",
+      "source_reference": "public_source_placeholder:public_market_metadata_endpoint_placeholder:691547"
+    },
+    {
+      "expected_evidence_type": "public listing or company announcement snapshot",
+      "market_id": "691547",
+      "market_title": "Kraken IPO by December 31, 2026?",
+      "source_category": "public_exchange_company_announcement_page_placeholder",
+      "source_reference": "public_source_placeholder:public_exchange_company_announcement_page_placeholder:691547"
+    },
+    {
+      "expected_evidence_type": "public market metadata snapshot",
+      "market_id": "692258",
+      "market_title": "MicroStrategy sells any Bitcoin by June 30, 2026?",
+      "source_category": "public_market_metadata_endpoint_placeholder",
+      "source_reference": "public_source_placeholder:public_market_metadata_endpoint_placeholder:692258"
+    },
+    {
+      "expected_evidence_type": "public issuer news or filing summary snapshot",
+      "market_id": "692258",
+      "market_title": "MicroStrategy sells any Bitcoin by June 30, 2026?",
+      "source_category": "public_issuer_company_news_page_placeholder",
+      "source_reference": "public_source_placeholder:public_issuer_company_news_page_placeholder:692258"
+    }
+  ],
+  "why_live_fetch_is_not_performed_in_this_task": "This task creates contracts, dry-run surfaces, evidence replay, and approval gates only. Operator approval is pending and live fetch is out of scope."
+}

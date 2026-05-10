@@ -1,0 +1,47 @@
+{
+  "approval_status": {
+    "live_fetch_enabled_after_approval": false,
+    "operator_approval_granted": false,
+    "operator_approval_required": true
+  },
+  "blockers": [
+    "Operator approval has not been granted.",
+    "Approval record does not enable live fetch after approval."
+  ],
+  "contract_version": "pmbot_public_read_only_fetch_readiness_gate.v1",
+  "fetch_plan_id": "public-read-only-fetch-prep-005-5-markets",
+  "gate_requirements": {
+    "allowed_source_categories_only": true,
+    "evidence_save_required": true,
+    "no_auth_wallet_trading_order_endpoint": true,
+    "no_live_fetch_already_performed": true,
+    "no_scheduler_or_background_worker": true,
+    "operator_approval_granted": false,
+    "replay_required_before_analysis_update": true,
+    "request_count_within_limit": true
+  },
+  "generated_at": "2026-05-10T00:00:00Z",
+  "live_network_used": false,
+  "ready_for_controlled_public_fetch": false,
+  "required_next_actions": [
+    "Review the fetch plan and source registry.",
+    "Keep approval pending for this task.",
+    "Create a separate approval packet before any future controlled public read-only request.",
+    "Save evidence first and replay saved evidence before any analysis update."
+  ],
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "warnings": []
+}
