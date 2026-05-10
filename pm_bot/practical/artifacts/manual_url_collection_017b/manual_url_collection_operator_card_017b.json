@@ -1,0 +1,98 @@
+{
+  "acceptable_url_summary": [
+    "Public HTTP(S) page.",
+    "No login, API key, cookie, private dashboard, localhost, internal host, wallet, order, or trading endpoint.",
+    "Clear match to the expected evidence type.",
+    "Stable enough for later replay and evidence capture."
+  ],
+  "card_id": "manual-url-collection-operator-card-017b",
+  "contract_version": "pmbot_manual_url_collection_operator_card.v1",
+  "file_to_fill": "pm_bot/practical/artifacts/manual_url_collection_017b/manual_public_url_collection_packet_573656.json",
+  "future_fetch_task_after_validation_and_approval": "ORCH-PMBOT-PRACTICAL-018-FIRST-PUBLIC-EVIDENCE-FETCH-FOR-NEW-MARKET",
+  "generated_at": "2026-05-11T00:00:00Z",
+  "live_fetch_performed": false,
+  "market": {
+    "market_id": "573656",
+    "market_title": "Will Bitcoin hit $150k by December 31, 2026?"
+  },
+  "missing_urls": [
+    {
+      "expected_evidence_type": "public market metadata, rules, status, and linked reference snapshot",
+      "item_id": "new_market_fetch_request_017_01_573656_public_market_metadata_page_reference",
+      "source_category": "public_market_metadata_endpoint_placeholder",
+      "source_name": "public market metadata page/reference"
+    },
+    {
+      "expected_evidence_type": "public Bitcoin price threshold reference snapshot",
+      "item_id": "new_market_fetch_request_017_02_573656_public_bitcoin_price_reference_category",
+      "source_category": "public_static_web_page_placeholder",
+      "source_name": "public Bitcoin price reference category"
+    },
+    {
+      "expected_evidence_type": "public resolution rules or resolution-source reference snapshot",
+      "item_id": "new_market_fetch_request_017_03_573656_public_resolution_source_reference_category",
+      "source_category": "public_resolution_source_page_placeholder",
+      "source_name": "public resolution source reference category"
+    }
+  ],
+  "next_task_after_fill": "ORCH-PMBOT-PRACTICAL-017C-FILL-NEW-MARKET-PUBLIC-URL-PACKET-MANUALLY",
+  "no_real_trade_decision": true,
+  "prohibited_url_patterns": [
+    {
+      "pattern": "localhost, loopback, private IP, or internal hostname",
+      "reason": "not public evidence"
+    },
+    {
+      "pattern": "URL username or password",
+      "reason": "credential-bearing URL"
+    },
+    {
+      "pattern": "token, key, secret, signature, session, auth, or cookie query keys",
+      "reason": "credential-like query"
+    },
+    {
+      "pattern": "login, auth, session, kyc, admin, private, or oauth path hints",
+      "reason": "authentication or private view"
+    },
+    {
+      "pattern": "wallet, sign, order, trade, trading, clob, or withdraw path hints",
+      "reason": "execution-adjacent endpoint"
+    }
+  ],
+  "request_counts": {
+    "blocked_url_count": 0,
+    "executable_request_count": 0,
+    "filled_url_count": 0,
+    "missing_url_count": 3
+  },
+  "safety_boundary": [
+    "Manual URL collection only.",
+    "No live fetch, OpenRouter call, Polymarket API call, auth, cookies, wallet, orders, trading, scheduler, or background worker.",
+    "No outcome is resolved and no market instruction is generated."
+  ],
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "automatic_analysis_update_performed": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "new_live_fetch_performed": false,
+    "new_polymarket_api_calls_performed": 0,
+    "no_autonomous_trading": true,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "no_scheduler_daemon_background_worker": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "outcome_resolution_invented": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "why_fetch_is_blocked": [
+    "PRACTICAL-017 found zero executable request intents for the new market.",
+    "The capped manifest has three missing concrete public URLs.",
+    "Operator approval alone is not enough until the URL packet is filled and validated."
+  ]
+}

@@ -1,0 +1,99 @@
+{
+  "contract_version": "pmbot_public_evidence_dashboard_manual_url_pending.v1",
+  "dashboard_id": "public-evidence-dashboard-manual-url-pending-017b",
+  "executable_request_count": 0,
+  "future_fetch_ready": false,
+  "generated_at": "2026-05-11T00:00:00Z",
+  "live_fetch_performed": false,
+  "manual_url_collection_required": true,
+  "markets": [
+    {
+      "market_class": "generic",
+      "market_id": "563650",
+      "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?",
+      "outcome_record_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/563650/outcome_record.unresolved.json",
+      "paper_hypothesis_id": "563650.analysis.adc53630aa1f.paper_hypothesis",
+      "paper_hypothesis_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/563650/paper_hypothesis.json",
+      "status": "hypothesis_active"
+    },
+    {
+      "market_class": "politics",
+      "market_id": "597964",
+      "market_title": "Macron out by June 30, 2026?",
+      "outcome_record_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/597964/outcome_record.unresolved.json",
+      "paper_hypothesis_id": "597964.analysis.33643849e5db.paper_hypothesis",
+      "paper_hypothesis_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/597964/paper_hypothesis.json",
+      "status": "hypothesis_active"
+    },
+    {
+      "market_class": "politics",
+      "market_id": "598936",
+      "market_title": "Will the next UK election be called by June 30, 2026?",
+      "outcome_record_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/598936/outcome_record.unresolved.json",
+      "paper_hypothesis_id": "598936.analysis.dceea0f50063.paper_hypothesis",
+      "paper_hypothesis_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/598936/paper_hypothesis.json",
+      "status": "hypothesis_active"
+    },
+    {
+      "market_class": "crypto",
+      "market_id": "691547",
+      "market_title": "Kraken IPO by December 31, 2026?",
+      "outcome_record_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/691547/outcome_record.unresolved.json",
+      "paper_hypothesis_id": "691547.analysis.56b3a68b9b94.paper_hypothesis",
+      "paper_hypothesis_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/691547/paper_hypothesis.json",
+      "status": "hypothesis_active"
+    },
+    {
+      "market_class": "crypto",
+      "market_id": "692258",
+      "market_title": "MicroStrategy sells any Bitcoin by June 30, 2026?",
+      "outcome_record_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/692258/outcome_record.unresolved.json",
+      "paper_hypothesis_id": "692258.analysis.bed289c1494d.paper_hypothesis",
+      "paper_hypothesis_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/692258/paper_hypothesis.json",
+      "status": "hypothesis_active"
+    },
+    {
+      "market_class": "crypto",
+      "market_id": "573656",
+      "market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+      "outcome_record_path": "pm_bot/practical/artifacts/add_market_016/outcome_record_unresolved_016.json",
+      "paper_hypothesis_id": "573656.analysis.ceab64191597.paper_hypothesis",
+      "paper_hypothesis_path": "pm_bot/practical/artifacts/add_market_016/paper_hypothesis_016.json",
+      "status": "hypothesis_active"
+    }
+  ],
+  "missing_url_count": 3,
+  "new_market_manual_url_collection_state": {
+    "executable_request_count": 0,
+    "future_fetch_ready": false,
+    "manual_url_collection_required": true,
+    "market_id": "573656",
+    "market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+    "missing_url_count": 3,
+    "packet_path": "pm_bot/practical/artifacts/manual_url_collection_017b/manual_public_url_collection_packet_573656.json",
+    "validation_result_path": "pm_bot/practical/artifacts/manual_url_collection_017b/manual_url_collection_validation_result_017b.json"
+  },
+  "next_operator_action": "fill manual URL collection packet",
+  "no_real_trade_decision": true,
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "automatic_analysis_update_performed": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "new_live_fetch_performed": false,
+    "new_polymarket_api_calls_performed": 0,
+    "no_autonomous_trading": true,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "no_scheduler_daemon_background_worker": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "outcome_resolution_invented": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "tracked_market_count": 6
+}

@@ -1,0 +1,114 @@
+{
+  "checklist_id": "manual-url-collection-checklist-017b-573656",
+  "checklist_items": [
+    {
+      "check_id": "public_http_url",
+      "label": "must be public HTTP(S)",
+      "operator_check": "Use a normal http or https page that can be opened without credentials.",
+      "required": true
+    },
+    {
+      "check_id": "no_login",
+      "label": "must not require login",
+      "operator_check": "Do not use pages behind accounts, KYC, paywalls, or identity gates.",
+      "required": true
+    },
+    {
+      "check_id": "no_api_key",
+      "label": "must not require API key",
+      "operator_check": "Do not use URLs that depend on tokens, API keys, signatures, or private headers.",
+      "required": true
+    },
+    {
+      "check_id": "no_cookies",
+      "label": "must not require cookies",
+      "operator_check": "Do not use browser-session URLs or profile-specific links.",
+      "required": true
+    },
+    {
+      "check_id": "no_wallet_or_execution_endpoint",
+      "label": "must not be wallet, order, or trading endpoint",
+      "operator_check": "Use read-only public reference pages only.",
+      "required": true
+    },
+    {
+      "check_id": "no_private_dashboard",
+      "label": "must not be a private dashboard",
+      "operator_check": "Avoid private dashboards, admin pages, local tools, and account-specific views.",
+      "required": true
+    },
+    {
+      "check_id": "no_local_or_internal_host",
+      "label": "must not be localhost or internal IP",
+      "operator_check": "Do not use localhost, private IP ranges, internal hostnames, or intranet links.",
+      "required": true
+    },
+    {
+      "check_id": "official_or_high_quality",
+      "label": "should be official or high-quality public reference",
+      "operator_check": "Prefer official market, resolution, benchmark, or durable public reference pages.",
+      "required": false
+    },
+    {
+      "check_id": "maps_to_expected_evidence",
+      "label": "should map clearly to expected evidence type",
+      "operator_check": "The URL should visibly support the evidence type named in the packet row.",
+      "required": false
+    },
+    {
+      "check_id": "stable_for_replay",
+      "label": "should be stable enough for future replay",
+      "operator_check": "Prefer durable pages over ephemeral search results, interactive state, or personalized views.",
+      "required": false
+    }
+  ],
+  "contract_version": "pmbot_manual_public_url_collection_checklist.v1",
+  "generated_at": "2026-05-11T00:00:00Z",
+  "live_fetch_performed": false,
+  "market_id": "573656",
+  "market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+  "no_real_trade_decision": true,
+  "operator_fill_target": "manual_public_url_collection_packet_573656.json",
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "new_live_fetch_performed": false,
+    "new_polymarket_api_calls_performed": 0,
+    "no_autonomous_trading": true,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "no_scheduler_daemon_background_worker": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "outcome_resolution_invented": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "source_category_checklist": [
+    {
+      "expected_evidence_type": "public market metadata, rules, status, and linked reference snapshot",
+      "item_id": "new_market_fetch_request_017_01_573656_public_market_metadata_page_reference",
+      "operator_goal": "Find one concrete public URL that matches this evidence type and passes the checklist.",
+      "source_category": "public_market_metadata_endpoint_placeholder",
+      "source_name": "public market metadata page/reference"
+    },
+    {
+      "expected_evidence_type": "public Bitcoin price threshold reference snapshot",
+      "item_id": "new_market_fetch_request_017_02_573656_public_bitcoin_price_reference_category",
+      "operator_goal": "Find one concrete public URL that matches this evidence type and passes the checklist.",
+      "source_category": "public_static_web_page_placeholder",
+      "source_name": "public Bitcoin price reference category"
+    },
+    {
+      "expected_evidence_type": "public resolution rules or resolution-source reference snapshot",
+      "item_id": "new_market_fetch_request_017_03_573656_public_resolution_source_reference_category",
+      "operator_goal": "Find one concrete public URL that matches this evidence type and passes the checklist.",
+      "source_category": "public_resolution_source_page_placeholder",
+      "source_name": "public resolution source reference category"
+    }
+  ]
+}

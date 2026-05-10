@@ -1,0 +1,165 @@
+{
+  "blocked_url_count": 0,
+  "candidate_urls": [
+    {
+      "expected_evidence_type": "public market metadata, rules, status, and linked reference snapshot",
+      "item_id": "new_market_fetch_request_017_01_573656_public_market_metadata_page_reference",
+      "linked_hypothesis_id": "573656.analysis.ceab64191597.paper_hypothesis",
+      "live_fetch_performed": false,
+      "market_id": "573656",
+      "operator_supplied_url": null,
+      "requires_operator_review": true,
+      "source_category": "public_market_metadata_endpoint_placeholder",
+      "source_name": "public market metadata page/reference",
+      "url_status": "missing",
+      "validation_notes": [
+        "operator fill required; no concrete URL is present locally"
+      ]
+    },
+    {
+      "expected_evidence_type": "public Bitcoin price threshold reference snapshot",
+      "item_id": "new_market_fetch_request_017_02_573656_public_bitcoin_price_reference_category",
+      "linked_hypothesis_id": "573656.analysis.ceab64191597.paper_hypothesis",
+      "live_fetch_performed": false,
+      "market_id": "573656",
+      "operator_supplied_url": null,
+      "requires_operator_review": true,
+      "source_category": "public_static_web_page_placeholder",
+      "source_name": "public Bitcoin price reference category",
+      "url_status": "missing",
+      "validation_notes": [
+        "operator fill required; no concrete URL is present locally"
+      ]
+    },
+    {
+      "expected_evidence_type": "public resolution rules or resolution-source reference snapshot",
+      "item_id": "new_market_fetch_request_017_03_573656_public_resolution_source_reference_category",
+      "linked_hypothesis_id": "573656.analysis.ceab64191597.paper_hypothesis",
+      "live_fetch_performed": false,
+      "market_id": "573656",
+      "operator_supplied_url": null,
+      "requires_operator_review": true,
+      "source_category": "public_resolution_source_page_placeholder",
+      "source_name": "public resolution source reference category",
+      "url_status": "missing",
+      "validation_notes": [
+        "operator fill required; no concrete URL is present locally"
+      ]
+    }
+  ],
+  "contract_version": "pmbot_manual_public_url_collection_packet.v1",
+  "created_at": "2026-05-11T00:00:00Z",
+  "filled_url_count": 0,
+  "live_fetch_performed": false,
+  "market_id": "573656",
+  "market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+  "missing_url_count": 3,
+  "next_action_after_fill": "ORCH-PMBOT-PRACTICAL-017C-FILL-NEW-MARKET-PUBLIC-URL-PACKET-MANUALLY",
+  "no_real_trade_decision": true,
+  "operator_fill_required": true,
+  "packet_id": "manual-public-url-collection-017b-573656",
+  "prohibited_url_patterns": [
+    {
+      "pattern": "localhost, loopback, private IP, or internal hostname",
+      "reason": "not public evidence"
+    },
+    {
+      "pattern": "URL username or password",
+      "reason": "credential-bearing URL"
+    },
+    {
+      "pattern": "token, key, secret, signature, session, auth, or cookie query keys",
+      "reason": "credential-like query"
+    },
+    {
+      "pattern": "login, auth, session, kyc, admin, private, or oauth path hints",
+      "reason": "authentication or private view"
+    },
+    {
+      "pattern": "wallet, sign, order, trade, trading, clob, or withdraw path hints",
+      "reason": "execution-adjacent endpoint"
+    }
+  ],
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "automatic_analysis_update_performed": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "new_live_fetch_performed": false,
+    "new_polymarket_api_calls_performed": 0,
+    "no_autonomous_trading": true,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "no_scheduler_daemon_background_worker": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "outcome_resolution_invented": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "source_category_guidance": [
+    {
+      "expected_evidence_type": "public market metadata, rules, status, and linked reference snapshot",
+      "item_id": "new_market_fetch_request_017_01_573656_public_market_metadata_page_reference",
+      "operator_guidance": "Provide one concrete public URL matching this expected evidence type.",
+      "source_category": "public_market_metadata_endpoint_placeholder",
+      "source_name": "public market metadata page/reference"
+    },
+    {
+      "expected_evidence_type": "public Bitcoin price threshold reference snapshot",
+      "item_id": "new_market_fetch_request_017_02_573656_public_bitcoin_price_reference_category",
+      "operator_guidance": "Provide one concrete public URL matching this expected evidence type.",
+      "source_category": "public_static_web_page_placeholder",
+      "source_name": "public Bitcoin price reference category"
+    },
+    {
+      "expected_evidence_type": "public resolution rules or resolution-source reference snapshot",
+      "item_id": "new_market_fetch_request_017_03_573656_public_resolution_source_reference_category",
+      "operator_guidance": "Provide one concrete public URL matching this expected evidence type.",
+      "source_category": "public_resolution_source_page_placeholder",
+      "source_name": "public resolution source reference category"
+    }
+  ],
+  "source_missing_url_items": [
+    {
+      "expected_evidence_type": "public market metadata, rules, status, and linked reference snapshot",
+      "item_id": "new_market_fetch_request_017_01_573656_public_market_metadata_page_reference",
+      "linked_hypothesis_id": "573656.analysis.ceab64191597.paper_hypothesis",
+      "market_id": "573656",
+      "missing_url_reason": "no concrete public HTTP(S) URL is present in local artifacts or the manual fixture",
+      "source_category": "public_market_metadata_endpoint_placeholder",
+      "source_name": "public market metadata page/reference"
+    },
+    {
+      "expected_evidence_type": "public Bitcoin price threshold reference snapshot",
+      "item_id": "new_market_fetch_request_017_02_573656_public_bitcoin_price_reference_category",
+      "linked_hypothesis_id": "573656.analysis.ceab64191597.paper_hypothesis",
+      "market_id": "573656",
+      "missing_url_reason": "no concrete public HTTP(S) URL is present in local artifacts or the manual fixture",
+      "source_category": "public_static_web_page_placeholder",
+      "source_name": "public Bitcoin price reference category"
+    },
+    {
+      "expected_evidence_type": "public resolution rules or resolution-source reference snapshot",
+      "item_id": "new_market_fetch_request_017_03_573656_public_resolution_source_reference_category",
+      "linked_hypothesis_id": "573656.analysis.ceab64191597.paper_hypothesis",
+      "market_id": "573656",
+      "missing_url_reason": "no concrete public HTTP(S) URL is present in local artifacts or the manual fixture",
+      "source_category": "public_resolution_source_page_placeholder",
+      "source_name": "public resolution source reference category"
+    }
+  ],
+  "validation_rules": [
+    "operator_supplied_url may remain null while the packet is unfilled.",
+    "If operator_supplied_url is present, it is validated locally as a URL string only.",
+    "Only http and https schemes are accepted.",
+    "Credentials in the URL are blocked.",
+    "Credential-like query keys are blocked.",
+    "Localhost, private IPs, internal hostnames, and private dashboard shapes are blocked.",
+    "Wallet, signing, order, and trading endpoint shapes are blocked.",
+    "Validation does not fetch the URL and does not approve a future fetch."
+  ]
+}
