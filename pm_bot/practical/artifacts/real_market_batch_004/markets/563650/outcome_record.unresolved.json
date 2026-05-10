@@ -1,0 +1,15 @@
+{
+  "actual_outcome_summary": "unresolved",
+  "contract_version": "pmbot_one_market_outcome_record.v1",
+  "created_at": "2026-05-10T00:00:00Z",
+  "market_id": "563650",
+  "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?",
+  "next_outcome_check_action": "Attach a resolved local outcome record only after saved local resolution evidence exists.",
+  "operator_notes": [
+    "Outcome is unresolved in the saved local packet.",
+    "Future update must preserve a local resolution source reference before feedback review."
+  ],
+  "outcome_status": "unresolved",
+  "resolution_source_reference": "Stub summary only: determine whether the legal/court event in 'SCOTUS accepts sports event contract case by July 31, 2026?' occurs by 2026-07-31; the full market rules and official docket criteria must be copied before completion.",
+  "resolved_at": null
+}

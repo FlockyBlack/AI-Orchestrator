@@ -1,0 +1,448 @@
+{
+  "active_paper_hypotheses_count": 5,
+  "blocked_items": [],
+  "contract_version": "pmbot_practical_operator_console.v1",
+  "feedback_complete_count": 0,
+  "feedback_pending_count": 0,
+  "generated_artifacts": {
+    "active_paper_hypotheses": "generated_inline",
+    "market_queue_summary": "pm_bot/practical/artifacts/real_market_batch_004/real_market_batch_004.market_queue.json",
+    "operator_console": "generated_inline",
+    "operator_console_json": "pm_bot/practical/artifacts/real_market_batch_004/real_market_batch_004.operator_console.result.json",
+    "operator_console_markdown": "pm_bot/practical/artifacts/real_market_batch_004/real_market_batch_004.operator_console.md"
+  },
+  "generated_at": "2026-05-10T00:00:00Z",
+  "market_review_details": [
+    {
+      "analysis_status": "analysis_result_loaded",
+      "market_id": "563650",
+      "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?",
+      "missing_evidence": [
+        "No missing-information item is closed by this gate; human review remains required.",
+        "Confirm the exact docket identifier before any later human decision.",
+        "Court docket terminology may require manual interpretation.",
+        "Source timing should be reviewed by a human before any later workflow.",
+        "Manual draft sections are populated for structural quality review only.",
+        "Reviewer verified checklist coverage for the review pack and approved a later draft-preparation step.",
+        "Referenced source artifact path is not present locally: pm_bot/research/final_dossier_drafts.v1.json"
+      ],
+      "next_operator_action": "Wait for a local outcome record or add one when the outcome is known.",
+      "outcome_status": "unresolved",
+      "paper_hypothesis_id": "563650.analysis.adc53630aa1f.paper_hypothesis",
+      "queue_status": "hypothesis_active",
+      "safety_label": "paper_only_non_executable_analysis_tracking",
+      "sources_used": [
+        "local_evidence_summary_001 - local_evidence_summary (unknown)",
+        "local_evidence_summary_002 - local_evidence_summary (unknown)",
+        "local_evidence_summary_003 - local_evidence_summary (unknown)"
+      ]
+    },
+    {
+      "analysis_status": "analysis_result_loaded",
+      "market_id": "597964",
+      "market_title": "Macron out by June 30, 2026?",
+      "missing_evidence": [
+        "manual_research_not_started",
+        "full_market_resolution_criteria_review",
+        "official_source_references",
+        "credible_news_source_references",
+        "empty_evidence_slots",
+        "operator_human_review_required",
+        "Referenced source artifact path is not present locally: pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json"
+      ],
+      "next_operator_action": "Wait for a local outcome record or add one when the outcome is known.",
+      "outcome_status": "unresolved",
+      "paper_hypothesis_id": "597964.analysis.33643849e5db.paper_hypothesis",
+      "queue_status": "hypothesis_active",
+      "safety_label": "paper_only_non_executable_analysis_tracking",
+      "sources_used": [
+        "official_source_placeholder_001 - official_source_placeholder (unknown)",
+        "official_source_placeholder_002 - official_source_placeholder (unknown)",
+        "official_source_placeholder_003 - official_source_placeholder (unknown)",
+        "news_source_placeholder_004 - news_source_placeholder (unknown)",
+        "news_source_placeholder_005 - news_source_placeholder (unknown)",
+        "news_source_placeholder_006 - news_source_placeholder (unknown)",
+        "source_plan_007 - source_plan (unknown)"
+      ]
+    },
+    {
+      "analysis_status": "analysis_result_loaded",
+      "market_id": "598936",
+      "market_title": "Will the next UK election be called by June 30, 2026?",
+      "missing_evidence": [
+        "manual_research_not_started",
+        "full_market_resolution_criteria_review",
+        "official_source_references",
+        "credible_news_source_references",
+        "empty_evidence_slots",
+        "operator_human_review_required",
+        "Referenced source artifact path is not present locally: pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json"
+      ],
+      "next_operator_action": "Wait for a local outcome record or add one when the outcome is known.",
+      "outcome_status": "unresolved",
+      "paper_hypothesis_id": "598936.analysis.dceea0f50063.paper_hypothesis",
+      "queue_status": "hypothesis_active",
+      "safety_label": "paper_only_non_executable_analysis_tracking",
+      "sources_used": [
+        "official_source_placeholder_001 - official_source_placeholder (unknown)",
+        "official_source_placeholder_002 - official_source_placeholder (unknown)",
+        "official_source_placeholder_003 - official_source_placeholder (unknown)",
+        "news_source_placeholder_004 - news_source_placeholder (unknown)",
+        "news_source_placeholder_005 - news_source_placeholder (unknown)",
+        "news_source_placeholder_006 - news_source_placeholder (unknown)",
+        "source_plan_007 - source_plan (unknown)"
+      ]
+    },
+    {
+      "analysis_status": "analysis_result_loaded",
+      "market_id": "691547",
+      "market_title": "Kraken IPO by December 31, 2026?",
+      "missing_evidence": [
+        "manual_research_not_started",
+        "full_market_resolution_criteria_review",
+        "official_source_references",
+        "credible_news_source_references",
+        "empty_evidence_slots",
+        "operator_human_review_required",
+        "Referenced source artifact path is not present locally: pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json"
+      ],
+      "next_operator_action": "Wait for a local outcome record or add one when the outcome is known.",
+      "outcome_status": "unresolved",
+      "paper_hypothesis_id": "691547.analysis.56b3a68b9b94.paper_hypothesis",
+      "queue_status": "hypothesis_active",
+      "safety_label": "paper_only_non_executable_analysis_tracking",
+      "sources_used": [
+        "official_source_placeholder_001 - official_source_placeholder (unknown)",
+        "official_source_placeholder_002 - official_source_placeholder (unknown)",
+        "official_source_placeholder_003 - official_source_placeholder (unknown)",
+        "news_source_placeholder_004 - news_source_placeholder (unknown)",
+        "news_source_placeholder_005 - news_source_placeholder (unknown)",
+        "news_source_placeholder_006 - news_source_placeholder (unknown)",
+        "source_plan_007 - source_plan (unknown)"
+      ]
+    },
+    {
+      "analysis_status": "analysis_result_loaded",
+      "market_id": "692258",
+      "market_title": "MicroStrategy sells any Bitcoin by June 30, 2026?",
+      "missing_evidence": [
+        "full_official_source_reference",
+        "credible_news_source_references",
+        "official_yes_or_no_evidence",
+        "source_reliability_review",
+        "Valid partial selected-ingest overlay used to prove deterministic merge behavior.",
+        "Referenced source artifact path is not present locally: pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json"
+      ],
+      "next_operator_action": "Wait for a local outcome record or add one when the outcome is known.",
+      "outcome_status": "unresolved",
+      "paper_hypothesis_id": "692258.analysis.bed289c1494d.paper_hypothesis",
+      "queue_status": "hypothesis_active",
+      "safety_label": "paper_only_non_executable_analysis_tracking",
+      "sources_used": [
+        "official_source_checked_001 - official_source_checked (unknown)",
+        "official_source_checked_002 - official_source_checked (unknown)",
+        "official_source_placeholder_003 - official_source_placeholder (unknown)",
+        "official_source_placeholder_004 - official_source_placeholder (unknown)",
+        "official_source_placeholder_005 - official_source_placeholder (unknown)",
+        "news_source_checked_006 - news_source_checked (unknown)",
+        "news_source_placeholder_007 - news_source_placeholder (unknown)",
+        "news_source_placeholder_008 - news_source_placeholder (unknown)",
+        "news_source_placeholder_009 - news_source_placeholder (unknown)",
+        "source_plan_010 - source_plan (unknown)"
+      ]
+    }
+  ],
+  "markets_analyzed": [
+    {
+      "analysis_markdown_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/563650/analysis.md",
+      "analysis_result_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/563650/analysis.result.json",
+      "blockers": [],
+      "computed_blockers": [],
+      "computed_next_operator_action": "Wait for a local outcome record or add one when the outcome is known.",
+      "created_at": "2026-05-10T00:00:00Z",
+      "feedback_result_path": "",
+      "local_input_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/563650/normalized_input.json",
+      "market_id": "563650",
+      "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?",
+      "market_type": "binary_resolution",
+      "missing_linked_artifacts": [],
+      "next_operator_action": "Inspect the analysis card, keep the paper-only hypothesis active, and update the unresolved local outcome record only when saved resolution evidence exists.",
+      "outcome_record_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/563650/outcome_record.unresolved.json",
+      "paper_hypothesis_id": "563650.analysis.adc53630aa1f.paper_hypothesis",
+      "queue_item_id": "real-market-batch-004-563650",
+      "safety_flags": {
+        "authenticated_endpoints_used": false,
+        "live_network_used": false,
+        "market_recommendation_generated": false,
+        "no_autonomous_training_performed": true,
+        "no_real_trade_decision": true,
+        "openrouter_calls_performed": 0,
+        "orders_or_trading_actions": false,
+        "paper_only": true,
+        "polymarket_api_calls_performed": 0,
+        "probability_ev_edge_or_side_selection_generated": false,
+        "runtime_or_dispatcher_changes": false,
+        "wallet_or_private_key_access": false
+      },
+      "source_learning_ledger_path": "",
+      "status": "hypothesis_active",
+      "updated_at": "2026-05-10T00:00:00Z"
+    },
+    {
+      "analysis_markdown_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/597964/analysis.md",
+      "analysis_result_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/597964/analysis.result.json",
+      "blockers": [],
+      "computed_blockers": [],
+      "computed_next_operator_action": "Wait for a local outcome record or add one when the outcome is known.",
+      "created_at": "2026-05-10T00:00:00Z",
+      "feedback_result_path": "",
+      "local_input_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/597964/normalized_input.json",
+      "market_id": "597964",
+      "market_title": "Macron out by June 30, 2026?",
+      "market_type": "binary_resolution",
+      "missing_linked_artifacts": [],
+      "next_operator_action": "Inspect the analysis card, keep the paper-only hypothesis active, and update the unresolved local outcome record only when saved resolution evidence exists.",
+      "outcome_record_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/597964/outcome_record.unresolved.json",
+      "paper_hypothesis_id": "597964.analysis.33643849e5db.paper_hypothesis",
+      "queue_item_id": "real-market-batch-004-597964",
+      "safety_flags": {
+        "authenticated_endpoints_used": false,
+        "live_network_used": false,
+        "market_recommendation_generated": false,
+        "no_autonomous_training_performed": true,
+        "no_real_trade_decision": true,
+        "openrouter_calls_performed": 0,
+        "orders_or_trading_actions": false,
+        "paper_only": true,
+        "polymarket_api_calls_performed": 0,
+        "probability_ev_edge_or_side_selection_generated": false,
+        "runtime_or_dispatcher_changes": false,
+        "wallet_or_private_key_access": false
+      },
+      "source_learning_ledger_path": "",
+      "status": "hypothesis_active",
+      "updated_at": "2026-05-10T00:00:00Z"
+    },
+    {
+      "analysis_markdown_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/598936/analysis.md",
+      "analysis_result_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/598936/analysis.result.json",
+      "blockers": [],
+      "computed_blockers": [],
+      "computed_next_operator_action": "Wait for a local outcome record or add one when the outcome is known.",
+      "created_at": "2026-05-10T00:00:00Z",
+      "feedback_result_path": "",
+      "local_input_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/598936/normalized_input.json",
+      "market_id": "598936",
+      "market_title": "Will the next UK election be called by June 30, 2026?",
+      "market_type": "binary_resolution",
+      "missing_linked_artifacts": [],
+      "next_operator_action": "Inspect the analysis card, keep the paper-only hypothesis active, and update the unresolved local outcome record only when saved resolution evidence exists.",
+      "outcome_record_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/598936/outcome_record.unresolved.json",
+      "paper_hypothesis_id": "598936.analysis.dceea0f50063.paper_hypothesis",
+      "queue_item_id": "real-market-batch-004-598936",
+      "safety_flags": {
+        "authenticated_endpoints_used": false,
+        "live_network_used": false,
+        "market_recommendation_generated": false,
+        "no_autonomous_training_performed": true,
+        "no_real_trade_decision": true,
+        "openrouter_calls_performed": 0,
+        "orders_or_trading_actions": false,
+        "paper_only": true,
+        "polymarket_api_calls_performed": 0,
+        "probability_ev_edge_or_side_selection_generated": false,
+        "runtime_or_dispatcher_changes": false,
+        "wallet_or_private_key_access": false
+      },
+      "source_learning_ledger_path": "",
+      "status": "hypothesis_active",
+      "updated_at": "2026-05-10T00:00:00Z"
+    },
+    {
+      "analysis_markdown_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/691547/analysis.md",
+      "analysis_result_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/691547/analysis.result.json",
+      "blockers": [],
+      "computed_blockers": [],
+      "computed_next_operator_action": "Wait for a local outcome record or add one when the outcome is known.",
+      "created_at": "2026-05-10T00:00:00Z",
+      "feedback_result_path": "",
+      "local_input_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/691547/normalized_input.json",
+      "market_id": "691547",
+      "market_title": "Kraken IPO by December 31, 2026?",
+      "market_type": "binary_resolution",
+      "missing_linked_artifacts": [],
+      "next_operator_action": "Inspect the analysis card, keep the paper-only hypothesis active, and update the unresolved local outcome record only when saved resolution evidence exists.",
+      "outcome_record_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/691547/outcome_record.unresolved.json",
+      "paper_hypothesis_id": "691547.analysis.56b3a68b9b94.paper_hypothesis",
+      "queue_item_id": "real-market-batch-004-691547",
+      "safety_flags": {
+        "authenticated_endpoints_used": false,
+        "live_network_used": false,
+        "market_recommendation_generated": false,
+        "no_autonomous_training_performed": true,
+        "no_real_trade_decision": true,
+        "openrouter_calls_performed": 0,
+        "orders_or_trading_actions": false,
+        "paper_only": true,
+        "polymarket_api_calls_performed": 0,
+        "probability_ev_edge_or_side_selection_generated": false,
+        "runtime_or_dispatcher_changes": false,
+        "wallet_or_private_key_access": false
+      },
+      "source_learning_ledger_path": "",
+      "status": "hypothesis_active",
+      "updated_at": "2026-05-10T00:00:00Z"
+    },
+    {
+      "analysis_markdown_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/692258/analysis.md",
+      "analysis_result_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/692258/analysis.result.json",
+      "blockers": [],
+      "computed_blockers": [],
+      "computed_next_operator_action": "Wait for a local outcome record or add one when the outcome is known.",
+      "created_at": "2026-05-10T00:00:00Z",
+      "feedback_result_path": "",
+      "local_input_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/692258/normalized_input.json",
+      "market_id": "692258",
+      "market_title": "MicroStrategy sells any Bitcoin by June 30, 2026?",
+      "market_type": "binary_resolution",
+      "missing_linked_artifacts": [],
+      "next_operator_action": "Inspect the analysis card, keep the paper-only hypothesis active, and update the unresolved local outcome record only when saved resolution evidence exists.",
+      "outcome_record_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/692258/outcome_record.unresolved.json",
+      "paper_hypothesis_id": "692258.analysis.bed289c1494d.paper_hypothesis",
+      "queue_item_id": "real-market-batch-004-692258",
+      "safety_flags": {
+        "authenticated_endpoints_used": false,
+        "live_network_used": false,
+        "market_recommendation_generated": false,
+        "no_autonomous_training_performed": true,
+        "no_real_trade_decision": true,
+        "openrouter_calls_performed": 0,
+        "orders_or_trading_actions": false,
+        "paper_only": true,
+        "polymarket_api_calls_performed": 0,
+        "probability_ev_edge_or_side_selection_generated": false,
+        "runtime_or_dispatcher_changes": false,
+        "wallet_or_private_key_access": false
+      },
+      "source_learning_ledger_path": "",
+      "status": "hypothesis_active",
+      "updated_at": "2026-05-10T00:00:00Z"
+    }
+  ],
+  "markets_queued": [],
+  "missing_evidence_total": 34,
+  "next_operator_actions": [
+    {
+      "market_id": "563650",
+      "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?",
+      "next_operator_action": "Wait for a local outcome record or add one when the outcome is known.",
+      "queue_item_id": "real-market-batch-004-563650"
+    },
+    {
+      "market_id": "597964",
+      "market_title": "Macron out by June 30, 2026?",
+      "next_operator_action": "Wait for a local outcome record or add one when the outcome is known.",
+      "queue_item_id": "real-market-batch-004-597964"
+    },
+    {
+      "market_id": "598936",
+      "market_title": "Will the next UK election be called by June 30, 2026?",
+      "next_operator_action": "Wait for a local outcome record or add one when the outcome is known.",
+      "queue_item_id": "real-market-batch-004-598936"
+    },
+    {
+      "market_id": "691547",
+      "market_title": "Kraken IPO by December 31, 2026?",
+      "next_operator_action": "Wait for a local outcome record or add one when the outcome is known.",
+      "queue_item_id": "real-market-batch-004-691547"
+    },
+    {
+      "market_id": "692258",
+      "market_title": "MicroStrategy sells any Bitcoin by June 30, 2026?",
+      "next_operator_action": "Wait for a local outcome record or add one when the outcome is known.",
+      "queue_item_id": "real-market-batch-004-692258"
+    }
+  ],
+  "queue_status_counts": {
+    "hypothesis_active": 5
+  },
+  "safety_boundary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "local_artifacts_only": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "paper_only_analysis_quality_tracking": true,
+    "polymarket_api_calls_performed": 0,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "selected_real_local_markets": [
+    {
+      "analysis_status": "analysis_result_loaded",
+      "market_id": "563650",
+      "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?",
+      "missing_evidence_count": 7,
+      "outcome_status": "unresolved",
+      "paper_hypothesis_id": "563650.analysis.adc53630aa1f.paper_hypothesis",
+      "sources_used_count": 3
+    },
+    {
+      "analysis_status": "analysis_result_loaded",
+      "market_id": "597964",
+      "market_title": "Macron out by June 30, 2026?",
+      "missing_evidence_count": 7,
+      "outcome_status": "unresolved",
+      "paper_hypothesis_id": "597964.analysis.33643849e5db.paper_hypothesis",
+      "sources_used_count": 7
+    },
+    {
+      "analysis_status": "analysis_result_loaded",
+      "market_id": "598936",
+      "market_title": "Will the next UK election be called by June 30, 2026?",
+      "missing_evidence_count": 7,
+      "outcome_status": "unresolved",
+      "paper_hypothesis_id": "598936.analysis.dceea0f50063.paper_hypothesis",
+      "sources_used_count": 7
+    },
+    {
+      "analysis_status": "analysis_result_loaded",
+      "market_id": "691547",
+      "market_title": "Kraken IPO by December 31, 2026?",
+      "missing_evidence_count": 7,
+      "outcome_status": "unresolved",
+      "paper_hypothesis_id": "691547.analysis.56b3a68b9b94.paper_hypothesis",
+      "sources_used_count": 7
+    },
+    {
+      "analysis_status": "analysis_result_loaded",
+      "market_id": "692258",
+      "market_title": "MicroStrategy sells any Bitcoin by June 30, 2026?",
+      "missing_evidence_count": 6,
+      "outcome_status": "unresolved",
+      "paper_hypothesis_id": "692258.analysis.bed289c1494d.paper_hypothesis",
+      "sources_used_count": 10
+    }
+  ],
+  "source_learning_summary": {
+    "ledger_count": 0,
+    "ledger_paths": [],
+    "source_usefulness_summary": {}
+  },
+  "sources_used_total": 34,
+  "unresolved_outcomes_count": 5
+}

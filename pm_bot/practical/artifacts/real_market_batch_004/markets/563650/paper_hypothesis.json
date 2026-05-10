@@ -1,0 +1,56 @@
+{
+  "analysis_id": "563650.analysis.adc53630aa1f",
+  "contract_version": "pmbot_real_market_paper_hypothesis.v1",
+  "created_at": "2026-05-10T00:00:00Z",
+  "evidence_assumptions": [
+    "local_evidence_summary",
+    "local_evidence_summary",
+    "local_evidence_summary",
+    "Local packet may be incomplete; missing evidence is preserved below."
+  ],
+  "hypothesis_id": "563650.analysis.adc53630aa1f.paper_hypothesis",
+  "market_id": "563650",
+  "market_recommendation_generated": false,
+  "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?",
+  "no_real_trade_decision": true,
+  "orders_or_trading_actions": false,
+  "outcome_check_needed": "Later compare the final outcome record with the local rules summary, resolution source summary, and source attribution.",
+  "paper_hypothesis_summary": "Track whether the local source-backed analysis remains useful after the market outcome is reviewed.",
+  "probability_ev_edge_or_side_selection_generated": false,
+  "refutation_conditions": [
+    "No missing-information item is closed by this gate; human review remains required.",
+    "Confirm the exact docket identifier before any later human decision.",
+    "Court docket terminology may require manual interpretation.",
+    "Source timing should be reviewed by a human before any later workflow.",
+    "Manual draft sections are populated for structural quality review only.",
+    "Reviewer verified checklist coverage for the review pack and approved a later draft-preparation step.",
+    "Referenced source artifact path is not present locally: pm_bot/research/final_dossier_drafts.v1.json"
+  ],
+  "safety_label": "paper_only_non_executable_analysis_tracking",
+  "source_dependencies": [
+    {
+      "expected_role": "local_evidence_summary",
+      "freshness_status": "unknown",
+      "source_id": "local_evidence_summary_001",
+      "source_name": "local_evidence_summary",
+      "source_type": "local_static_fixture",
+      "source_url_or_reference": "offline-reference:563650:rules - records the rule source category used for structural review."
+    },
+    {
+      "expected_role": "local_evidence_summary",
+      "freshness_status": "unknown",
+      "source_id": "local_evidence_summary_002",
+      "source_name": "local_evidence_summary",
+      "source_type": "local_static_fixture",
+      "source_url_or_reference": "offline-reference:563650:docket - records a court-source claim without resolving the outcome."
+    },
+    {
+      "expected_role": "local_evidence_summary",
+      "freshness_status": "unknown",
+      "source_id": "local_evidence_summary_003",
+      "source_name": "local_evidence_summary",
+      "source_type": "local_static_fixture",
+      "source_url_or_reference": "offline-reference:563650:news - records external context for later human review."
+    }
+  ]
+}

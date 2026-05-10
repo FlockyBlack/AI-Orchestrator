@@ -1,0 +1,24 @@
+{
+  "active_hypothesis_count": 5,
+  "contract_version": "pmbot_batch_analysis_quality_pending.v1",
+  "generated_at": "2026-05-10T00:00:00Z",
+  "next_feedback_actions": [
+    "Attach resolved local outcome records when available.",
+    "Run local paper feedback on each resolved analysis/outcome pair.",
+    "Update source-learning records from saved feedback artifacts only."
+  ],
+  "pending_resolution_count": 5,
+  "quality_judgement_available": false,
+  "resolved_outcome_count": 0,
+  "selected_market_count": 5,
+  "what_can_be_judged_now": [
+    "Input completeness by selected market.",
+    "Presence of local rules, source references, missing evidence, and unresolved outcome records.",
+    "Whether the batch artifacts remain local-only and paper-only."
+  ],
+  "what_requires_future_outcomes": [
+    "Whether each analysis helped interpret the final outcome record.",
+    "Whether source placeholders were useful or too weak for feedback.",
+    "Whether missing evidence caused incorrect or unusable analysis notes."
+  ]
+}

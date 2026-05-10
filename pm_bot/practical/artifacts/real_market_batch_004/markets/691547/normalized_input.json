@@ -1,0 +1,159 @@
+{
+  "available_evidence": [
+    "Manual check template: local Polymarket rules and resolution criteria for market_id 691547",
+    "Manual check template: official primary source named in the local market description for 'Kraken IPO by December 31, 2026?'",
+    "Manual check template: original issuer, government, court, exchange, or company source relevant to 'Kraken IPO by December 31, 2026?'",
+    "Manual check template: Reuters coverage query for 'Kraken IPO by December 31, 2026?'",
+    "Manual check template: Associated Press coverage query for 'Kraken IPO by December 31, 2026?'",
+    "Manual check template: major credible outlet query for 'exchange / Tech / Crypto / Finance / Business / 2025 Predictions / Featured / IPOs' and 'Kraken IPO by December 31, 2026?'",
+    "Template only: review the local market rules for 'Kraken IPO by December 31, 2026?', then manually check official primary sources and credible news coverage. This stub does not fetch or verify sources."
+  ],
+  "contract_version": "pmbot_one_market_input.v1",
+  "created_at": "2026-05-10T00:00:00Z",
+  "current_context_summary": "Stub-only local market description excerpt for 'Kraken IPO by December 31, 2026?': This market will resolve to \"Yes\" if Kraken completes an Initial Public Offering (IPO) by the listed date ET, as confirmed by official company announcements and credible news sources. Otherwise, this market will resolve to \"No.\" Manual completion must review the full local criteria before use.",
+  "known_uncertainties": [
+    "Local packet may be incomplete; missing evidence is preserved below."
+  ],
+  "market_id": "691547",
+  "market_slug_or_reference": "691547",
+  "market_title": "Kraken IPO by December 31, 2026?",
+  "market_type": "binary_resolution",
+  "missing_evidence": [
+    "manual_research_not_started",
+    "full_market_resolution_criteria_review",
+    "official_source_references",
+    "credible_news_source_references",
+    "empty_evidence_slots",
+    "operator_human_review_required",
+    "Referenced source artifact path is not present locally: pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json"
+  ],
+  "operator_notes": [
+    "Normalized from a local packet without live fetching.",
+    "Source rows came from a saved manual LLM packet batch artifact.",
+    "Manual check template: local Polymarket rules and resolution criteria for market_id 691547",
+    "Manual check template: official primary source named in the local market description for 'Kraken IPO by December 31, 2026?'",
+    "Manual check template: original issuer, government, court, exchange, or company source relevant to 'Kraken IPO by December 31, 2026?'",
+    "Manual check template: Reuters coverage query for 'Kraken IPO by December 31, 2026?'",
+    "Manual check template: Associated Press coverage query for 'Kraken IPO by December 31, 2026?'",
+    "Manual check template: major credible outlet query for 'exchange / Tech / Crypto / Finance / Business / 2025 Predictions / Featured / IPOs' and 'Kraken IPO by December 31, 2026?'",
+    "Template only: \"Kraken IPO by December 31, 2026?\" \"resolution criteria\"",
+    "Template only: \"Kraken IPO by December 31, 2026?\" \"2027-01-01T05:00:00Z\" official source",
+    "Template only: \"Polymarket\" \"691547\" \"Kraken IPO by December 31, 2026?\"",
+    "Template only: \"Kraken IPO by ___ ?\" \"Kraken IPO by December 31, 2026?\" credible reporting",
+    "Template only: \"exchange / Tech / Crypto / Finance / Business / 2025 Predictions / Featured / IPOs\" \"Kraken IPO by December 31, 2026?\" primary source"
+  ],
+  "outcomes": [
+    "Yes",
+    "No"
+  ],
+  "resolution_source_summary": "Stub-only local market description excerpt for 'Kraken IPO by December 31, 2026?': This market will resolve to \"Yes\" if Kraken completes an Initial Public Offering (IPO) by the listed date ET, as confirmed by official company announcements and credible news sources. Otherwise, this market will resolve to \"No.\" Manual completion must review the full local criteria before use.",
+  "rules_summary": "Stub-only local market description excerpt for 'Kraken IPO by December 31, 2026?': This market will resolve to \"Yes\" if Kraken completes an Initial Public Offering (IPO) by the listed date ET, as confirmed by official company announcements and credible news sources. Otherwise, this market will resolve to \"No.\" Manual completion must review the full local criteria before use.",
+  "source_artifact_path": "pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json",
+  "source_packets": [
+    {
+      "captured_at": "2026-05-10T00:00:00Z",
+      "claim_type": "official_source_placeholder",
+      "claim_value": "Manual check template: local Polymarket rules and resolution criteria for market_id 691547",
+      "evidence_summary": "Manual check template: local Polymarket rules and resolution criteria for market_id 691547",
+      "freshness_status": "unknown",
+      "known_limitations": [
+        "Limitations were not fully specified in the local packet."
+      ],
+      "source_id": "official_source_placeholder_001",
+      "source_name": "official_source_placeholder",
+      "source_type": "local_static_fixture",
+      "source_url_or_reference": "Manual check template: local Polymarket rules and resolution criteria for market_id 691547",
+      "used_in_analysis": true
+    },
+    {
+      "captured_at": "2026-05-10T00:00:00Z",
+      "claim_type": "official_source_placeholder",
+      "claim_value": "Manual check template: official primary source named in the local market description for 'Kraken IPO by December 31, 2026?'",
+      "evidence_summary": "Manual check template: official primary source named in the local market description for 'Kraken IPO by December 31, 2026?'",
+      "freshness_status": "unknown",
+      "known_limitations": [
+        "Limitations were not fully specified in the local packet."
+      ],
+      "source_id": "official_source_placeholder_002",
+      "source_name": "official_source_placeholder",
+      "source_type": "local_static_fixture",
+      "source_url_or_reference": "Manual check template: official primary source named in the local market description for 'Kraken IPO by December 31, 2026?'",
+      "used_in_analysis": true
+    },
+    {
+      "captured_at": "2026-05-10T00:00:00Z",
+      "claim_type": "official_source_placeholder",
+      "claim_value": "Manual check template: original issuer, government, court, exchange, or company source relevant to 'Kraken IPO by December 31, 2026?'",
+      "evidence_summary": "Manual check template: original issuer, government, court, exchange, or company source relevant to 'Kraken IPO by December 31, 2026?'",
+      "freshness_status": "unknown",
+      "known_limitations": [
+        "Limitations were not fully specified in the local packet."
+      ],
+      "source_id": "official_source_placeholder_003",
+      "source_name": "official_source_placeholder",
+      "source_type": "local_static_fixture",
+      "source_url_or_reference": "Manual check template: original issuer, government, court, exchange, or company source relevant to 'Kraken IPO by December 31, 2026?'",
+      "used_in_analysis": true
+    },
+    {
+      "captured_at": "2026-05-10T00:00:00Z",
+      "claim_type": "news_source_placeholder",
+      "claim_value": "Manual check template: Reuters coverage query for 'Kraken IPO by December 31, 2026?'",
+      "evidence_summary": "Manual check template: Reuters coverage query for 'Kraken IPO by December 31, 2026?'",
+      "freshness_status": "unknown",
+      "known_limitations": [
+        "Limitations were not fully specified in the local packet."
+      ],
+      "source_id": "news_source_placeholder_004",
+      "source_name": "news_source_placeholder",
+      "source_type": "local_static_fixture",
+      "source_url_or_reference": "Manual check template: Reuters coverage query for 'Kraken IPO by December 31, 2026?'",
+      "used_in_analysis": true
+    },
+    {
+      "captured_at": "2026-05-10T00:00:00Z",
+      "claim_type": "news_source_placeholder",
+      "claim_value": "Manual check template: Associated Press coverage query for 'Kraken IPO by December 31, 2026?'",
+      "evidence_summary": "Manual check template: Associated Press coverage query for 'Kraken IPO by December 31, 2026?'",
+      "freshness_status": "unknown",
+      "known_limitations": [
+        "Limitations were not fully specified in the local packet."
+      ],
+      "source_id": "news_source_placeholder_005",
+      "source_name": "news_source_placeholder",
+      "source_type": "local_static_fixture",
+      "source_url_or_reference": "Manual check template: Associated Press coverage query for 'Kraken IPO by December 31, 2026?'",
+      "used_in_analysis": true
+    },
+    {
+      "captured_at": "2026-05-10T00:00:00Z",
+      "claim_type": "news_source_placeholder",
+      "claim_value": "Manual check template: major credible outlet query for 'exchange / Tech / Crypto / Finance / Business / 2025 Predictions / Featured / IPOs' and 'Kraken IPO by December 31, 2026?'",
+      "evidence_summary": "Manual check template: major credible outlet query for 'exchange / Tech / Crypto / Finance / Business / 2025 Predictions / Featured / IPOs' and 'Kraken IPO by December 31, 2026?'",
+      "freshness_status": "unknown",
+      "known_limitations": [
+        "Limitations were not fully specified in the local packet."
+      ],
+      "source_id": "news_source_placeholder_006",
+      "source_name": "news_source_placeholder",
+      "source_type": "local_static_fixture",
+      "source_url_or_reference": "Manual check template: major credible outlet query for 'exchange / Tech / Crypto / Finance / Business / 2025 Predictions / Featured / IPOs' and 'Kraken IPO by December 31, 2026?'",
+      "used_in_analysis": true
+    },
+    {
+      "captured_at": "2026-05-10T00:00:00Z",
+      "claim_type": "source_plan",
+      "claim_value": "Template only: review the local market rules for 'Kraken IPO by December 31, 2026?', then manually check official primary sources and credible news coverage. This stub does not fetch or verify sources.",
+      "evidence_summary": "Template only: review the local market rules for 'Kraken IPO by December 31, 2026?', then manually check official primary sources and credible news coverage. This stub does not fetch or verify sources.",
+      "freshness_status": "unknown",
+      "known_limitations": [
+        "Limitations were not fully specified in the local packet."
+      ],
+      "source_id": "source_plan_007",
+      "source_name": "source_plan",
+      "source_type": "local_static_fixture",
+      "source_url_or_reference": "Template only: review the local market rules for 'Kraken IPO by December 31, 2026?', then manually check official primary sources and credible news coverage. This stub does not fetch or verify sources.",
+      "used_in_analysis": true
+    }
+  ]
+}

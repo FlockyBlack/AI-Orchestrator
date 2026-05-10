@@ -1,0 +1,344 @@
+{
+  "analysis_id": "598936.analysis.dceea0f50063",
+  "analysis_mode": "local_one_market",
+  "authenticated_endpoints_used": false,
+  "contract_version": "pmbot_one_market_analysis_result.v1",
+  "contradiction_notes": [
+    {
+      "claim_type": "news_source_placeholder",
+      "conflicting_values": [
+        {
+          "claim_value": "Manual check template: Associated Press coverage query for 'Will the next UK election be called by June 30, 2026?'",
+          "sources": [
+            {
+              "source_id": "news_source_placeholder_005",
+              "source_name": "news_source_placeholder"
+            }
+          ]
+        },
+        {
+          "claim_value": "Manual check template: Reuters coverage query for 'Will the next UK election be called by June 30, 2026?'",
+          "sources": [
+            {
+              "source_id": "news_source_placeholder_004",
+              "source_name": "news_source_placeholder"
+            }
+          ]
+        },
+        {
+          "claim_value": "Manual check template: major credible outlet query for 'Starmer / UK / pedophile / England' and 'Will the next UK election be called by June 30, 2026?'",
+          "sources": [
+            {
+              "source_id": "news_source_placeholder_006",
+              "source_name": "news_source_placeholder"
+            }
+          ]
+        }
+      ],
+      "note": "Used sources disagree on the same claim type; operator review is required."
+    },
+    {
+      "claim_type": "official_source_placeholder",
+      "conflicting_values": [
+        {
+          "claim_value": "Manual check template: local Polymarket rules and resolution criteria for market_id 598936",
+          "sources": [
+            {
+              "source_id": "official_source_placeholder_001",
+              "source_name": "official_source_placeholder"
+            }
+          ]
+        },
+        {
+          "claim_value": "Manual check template: official primary source named in the local market description for 'Will the next UK election be called by June 30, 2026?'",
+          "sources": [
+            {
+              "source_id": "official_source_placeholder_002",
+              "source_name": "official_source_placeholder"
+            }
+          ]
+        },
+        {
+          "claim_value": "Manual check template: original issuer, government, court, exchange, or company source relevant to 'Will the next UK election be called by June 30, 2026?'",
+          "sources": [
+            {
+              "source_id": "official_source_placeholder_003",
+              "source_name": "official_source_placeholder"
+            }
+          ]
+        }
+      ],
+      "note": "Used sources disagree on the same claim type; operator review is required."
+    }
+  ],
+  "evidence_status": {
+    "available_evidence_count": 7,
+    "contradiction_note_count": 2,
+    "missing_evidence_count": 7,
+    "source_packets_count": 7,
+    "stale_source_count": 0,
+    "unused_source_count": 0,
+    "used_source_count": 7
+  },
+  "generated_artifacts": {
+    "analysis_card_markdown": "pm_bot/practical/artifacts/real_market_batch_004/markets/598936/analysis.md",
+    "analysis_result_json": "pm_bot/practical/artifacts/real_market_batch_004/markets/598936/analysis.result.json"
+  },
+  "key_question": "What local evidence would resolve the operator's review of: Will the next UK election be called by June 30, 2026?",
+  "live_network_used": false,
+  "market_id": "598936",
+  "market_recommendation_generated": false,
+  "market_title": "Will the next UK election be called by June 30, 2026?",
+  "missing_evidence": [
+    "manual_research_not_started",
+    "full_market_resolution_criteria_review",
+    "official_source_references",
+    "credible_news_source_references",
+    "empty_evidence_slots",
+    "operator_human_review_required",
+    "Referenced source artifact path is not present locally: pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json"
+  ],
+  "next_research_questions": [
+    "Collect local evidence for: manual_research_not_started",
+    "Collect local evidence for: full_market_resolution_criteria_review",
+    "Collect local evidence for: official_source_references",
+    "Collect local evidence for: credible_news_source_references",
+    "Collect local evidence for: empty_evidence_slots",
+    "Collect local evidence for: operator_human_review_required",
+    "Collect local evidence for: Referenced source artifact path is not present locally: pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json",
+    "Clarify uncertainty: Local packet may be incomplete; missing evidence is preserved below."
+  ],
+  "no_real_trade_decision": true,
+  "openrouter_calls_performed": 0,
+  "operator_summary": "Local one-market review for Will the next UK election be called by June 30, 2026?. Stub-only local market description excerpt for 'Will the next UK election be called by June 30, 2026?': This market will resolve to \"Yes\" if the date of the next UK general election is declared by June 30, 2026, 11:59 PM ET. Otherwise, this market will resolve to \"No\". Manual completion must review the full local criteria before use. The packet has 7 used source(s), 7 missing evidence item(s), 0 stale source note(s), and 2 contradiction note(s). The result is a paper-only analysis record for later outcome review.",
+  "orders_or_trading_actions": false,
+  "outcome_tracking_status": {
+    "required_contract_version": "pmbot_one_market_outcome_record.v1",
+    "review_required": true,
+    "status": "placeholder_pending_outcome_record"
+  },
+  "paper_hypothesis": {
+    "execution_boundary": "Paper-only review record. It is not a market instruction and cannot be used for orders.",
+    "hypothesis_id": "598936.analysis.dceea0f50063.paper_hypothesis",
+    "outcome_check_needed": "Later compare the final outcome record with the local rules summary, resolution source summary, and source attribution.",
+    "refuting_evidence_needed": [
+      "manual_research_not_started",
+      "full_market_resolution_criteria_review",
+      "official_source_references",
+      "credible_news_source_references",
+      "empty_evidence_slots",
+      "operator_human_review_required",
+      "Referenced source artifact path is not present locally: pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json"
+    ],
+    "safety_label": "paper_only_non_executable_analysis_tracking",
+    "source_assumptions_to_review": [
+      "official_source_placeholder",
+      "official_source_placeholder",
+      "official_source_placeholder",
+      "news_source_placeholder",
+      "news_source_placeholder",
+      "news_source_placeholder",
+      "source_plan",
+      "Local packet may be incomplete; missing evidence is preserved below."
+    ],
+    "supporting_evidence_needed": [
+      "Resolution evidence matches the local rules summary.",
+      "Used source records remain applicable to the same market and outcome rules.",
+      "No material missing evidence changes the qualitative review."
+    ],
+    "tracked_claim": "Track whether the local source-backed analysis remains useful after the market outcome is reviewed."
+  },
+  "paper_hypothesis_allowed": true,
+  "paper_hypothesis_safety_label": "paper_only_non_executable_analysis_tracking",
+  "paper_hypothesis_tracking_fields": {
+    "analysis_id": "598936.analysis.dceea0f50063",
+    "created_from": "local_one_market",
+    "expected_outcome_record_contract_version": "pmbot_one_market_outcome_record.v1",
+    "market_id": "598936",
+    "outcome_record_required_fields": [
+      "contract_version",
+      "market_id",
+      "outcome_status",
+      "actual_outcome_summary",
+      "resolved_at",
+      "resolution_source_reference",
+      "operator_notes"
+    ],
+    "tracking_status": "pending_outcome_record"
+  },
+  "polymarket_api_calls_performed": 0,
+  "probability_ev_edge_or_side_selection_generated": false,
+  "review_quality_score_inputs": {
+    "available_evidence_count": 7,
+    "contradiction_note_count": 2,
+    "missing_evidence_count": 7,
+    "operator_note_count": 13,
+    "stale_source_count": 0,
+    "used_source_count": 7
+  },
+  "runtime_or_dispatcher_changes": false,
+  "source_attribution": [
+    {
+      "captured_at": "2026-05-10T00:00:00Z",
+      "claim_type": "official_source_placeholder",
+      "claim_value": "Manual check template: local Polymarket rules and resolution criteria for market_id 598936",
+      "evidence_summary": "Manual check template: local Polymarket rules and resolution criteria for market_id 598936",
+      "freshness_status": "unknown",
+      "known_limitations": [
+        "Limitations were not fully specified in the local packet."
+      ],
+      "source_id": "official_source_placeholder_001",
+      "source_name": "official_source_placeholder",
+      "source_type": "local_static_fixture",
+      "source_url_or_reference": "Manual check template: local Polymarket rules and resolution criteria for market_id 598936",
+      "used_in_analysis": true
+    },
+    {
+      "captured_at": "2026-05-10T00:00:00Z",
+      "claim_type": "official_source_placeholder",
+      "claim_value": "Manual check template: official primary source named in the local market description for 'Will the next UK election be called by June 30, 2026?'",
+      "evidence_summary": "Manual check template: official primary source named in the local market description for 'Will the next UK election be called by June 30, 2026?'",
+      "freshness_status": "unknown",
+      "known_limitations": [
+        "Limitations were not fully specified in the local packet."
+      ],
+      "source_id": "official_source_placeholder_002",
+      "source_name": "official_source_placeholder",
+      "source_type": "local_static_fixture",
+      "source_url_or_reference": "Manual check template: official primary source named in the local market description for 'Will the next UK election be called by June 30, 2026?'",
+      "used_in_analysis": true
+    },
+    {
+      "captured_at": "2026-05-10T00:00:00Z",
+      "claim_type": "official_source_placeholder",
+      "claim_value": "Manual check template: original issuer, government, court, exchange, or company source relevant to 'Will the next UK election be called by June 30, 2026?'",
+      "evidence_summary": "Manual check template: original issuer, government, court, exchange, or company source relevant to 'Will the next UK election be called by June 30, 2026?'",
+      "freshness_status": "unknown",
+      "known_limitations": [
+        "Limitations were not fully specified in the local packet."
+      ],
+      "source_id": "official_source_placeholder_003",
+      "source_name": "official_source_placeholder",
+      "source_type": "local_static_fixture",
+      "source_url_or_reference": "Manual check template: original issuer, government, court, exchange, or company source relevant to 'Will the next UK election be called by June 30, 2026?'",
+      "used_in_analysis": true
+    },
+    {
+      "captured_at": "2026-05-10T00:00:00Z",
+      "claim_type": "news_source_placeholder",
+      "claim_value": "Manual check template: Reuters coverage query for 'Will the next UK election be called by June 30, 2026?'",
+      "evidence_summary": "Manual check template: Reuters coverage query for 'Will the next UK election be called by June 30, 2026?'",
+      "freshness_status": "unknown",
+      "known_limitations": [
+        "Limitations were not fully specified in the local packet."
+      ],
+      "source_id": "news_source_placeholder_004",
+      "source_name": "news_source_placeholder",
+      "source_type": "local_static_fixture",
+      "source_url_or_reference": "Manual check template: Reuters coverage query for 'Will the next UK election be called by June 30, 2026?'",
+      "used_in_analysis": true
+    },
+    {
+      "captured_at": "2026-05-10T00:00:00Z",
+      "claim_type": "news_source_placeholder",
+      "claim_value": "Manual check template: Associated Press coverage query for 'Will the next UK election be called by June 30, 2026?'",
+      "evidence_summary": "Manual check template: Associated Press coverage query for 'Will the next UK election be called by June 30, 2026?'",
+      "freshness_status": "unknown",
+      "known_limitations": [
+        "Limitations were not fully specified in the local packet."
+      ],
+      "source_id": "news_source_placeholder_005",
+      "source_name": "news_source_placeholder",
+      "source_type": "local_static_fixture",
+      "source_url_or_reference": "Manual check template: Associated Press coverage query for 'Will the next UK election be called by June 30, 2026?'",
+      "used_in_analysis": true
+    },
+    {
+      "captured_at": "2026-05-10T00:00:00Z",
+      "claim_type": "news_source_placeholder",
+      "claim_value": "Manual check template: major credible outlet query for 'Starmer / UK / pedophile / England' and 'Will the next UK election be called by June 30, 2026?'",
+      "evidence_summary": "Manual check template: major credible outlet query for 'Starmer / UK / pedophile / England' and 'Will the next UK election be called by June 30, 2026?'",
+      "freshness_status": "unknown",
+      "known_limitations": [
+        "Limitations were not fully specified in the local packet."
+      ],
+      "source_id": "news_source_placeholder_006",
+      "source_name": "news_source_placeholder",
+      "source_type": "local_static_fixture",
+      "source_url_or_reference": "Manual check template: major credible outlet query for 'Starmer / UK / pedophile / England' and 'Will the next UK election be called by June 30, 2026?'",
+      "used_in_analysis": true
+    },
+    {
+      "captured_at": "2026-05-10T00:00:00Z",
+      "claim_type": "source_plan",
+      "claim_value": "Template only: review the local market rules for 'Will the next UK election be called by June 30, 2026?', then manually check official primary sources and credible news coverage. This stub does not fetch or verify sources.",
+      "evidence_summary": "Template only: review the local market rules for 'Will the next UK election be called by June 30, 2026?', then manually check official primary sources and credible news coverage. This stub does not fetch or verify sources.",
+      "freshness_status": "unknown",
+      "known_limitations": [
+        "Limitations were not fully specified in the local packet."
+      ],
+      "source_id": "source_plan_007",
+      "source_name": "source_plan",
+      "source_type": "local_static_fixture",
+      "source_url_or_reference": "Template only: review the local market rules for 'Will the next UK election be called by June 30, 2026?', then manually check official primary sources and credible news coverage. This stub does not fetch or verify sources.",
+      "used_in_analysis": true
+    }
+  ],
+  "sources_not_used": [],
+  "sources_used": [
+    {
+      "claim_type": "official_source_placeholder",
+      "freshness_status": "unknown",
+      "source_id": "official_source_placeholder_001",
+      "source_name": "official_source_placeholder",
+      "source_type": "local_static_fixture"
+    },
+    {
+      "claim_type": "official_source_placeholder",
+      "freshness_status": "unknown",
+      "source_id": "official_source_placeholder_002",
+      "source_name": "official_source_placeholder",
+      "source_type": "local_static_fixture"
+    },
+    {
+      "claim_type": "official_source_placeholder",
+      "freshness_status": "unknown",
+      "source_id": "official_source_placeholder_003",
+      "source_name": "official_source_placeholder",
+      "source_type": "local_static_fixture"
+    },
+    {
+      "claim_type": "news_source_placeholder",
+      "freshness_status": "unknown",
+      "source_id": "news_source_placeholder_004",
+      "source_name": "news_source_placeholder",
+      "source_type": "local_static_fixture"
+    },
+    {
+      "claim_type": "news_source_placeholder",
+      "freshness_status": "unknown",
+      "source_id": "news_source_placeholder_005",
+      "source_name": "news_source_placeholder",
+      "source_type": "local_static_fixture"
+    },
+    {
+      "claim_type": "news_source_placeholder",
+      "freshness_status": "unknown",
+      "source_id": "news_source_placeholder_006",
+      "source_name": "news_source_placeholder",
+      "source_type": "local_static_fixture"
+    },
+    {
+      "claim_type": "source_plan",
+      "freshness_status": "unknown",
+      "source_id": "source_plan_007",
+      "source_name": "source_plan",
+      "source_type": "local_static_fixture"
+    }
+  ],
+  "staleness_notes": [],
+  "uncertainty_notes": [
+    "Local packet may be incomplete; missing evidence is preserved below."
+  ],
+  "wallet_or_private_key_access": false
+}

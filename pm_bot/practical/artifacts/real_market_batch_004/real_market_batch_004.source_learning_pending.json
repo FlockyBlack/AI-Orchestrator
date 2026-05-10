@@ -1,0 +1,955 @@
+{
+  "contract_version": "pmbot_batch_source_learning_pending.v1",
+  "generated_at": "2026-05-10T00:00:00Z",
+  "no_autonomous_training_performed": true,
+  "pending_feedback_dependencies": [
+    {
+      "dependency": "Resolved local outcome record is required before source usefulness can be judged.",
+      "hypothesis_id": "563650.analysis.adc53630aa1f.paper_hypothesis",
+      "market_id": "563650"
+    },
+    {
+      "dependency": "Resolved local outcome record is required before source usefulness can be judged.",
+      "hypothesis_id": "597964.analysis.33643849e5db.paper_hypothesis",
+      "market_id": "597964"
+    },
+    {
+      "dependency": "Resolved local outcome record is required before source usefulness can be judged.",
+      "hypothesis_id": "598936.analysis.dceea0f50063.paper_hypothesis",
+      "market_id": "598936"
+    },
+    {
+      "dependency": "Resolved local outcome record is required before source usefulness can be judged.",
+      "hypothesis_id": "691547.analysis.56b3a68b9b94.paper_hypothesis",
+      "market_id": "691547"
+    },
+    {
+      "dependency": "Resolved local outcome record is required before source usefulness can be judged.",
+      "hypothesis_id": "692258.analysis.bed289c1494d.paper_hypothesis",
+      "market_id": "692258"
+    }
+  ],
+  "selected_market_count": 5,
+  "sources_used": [
+    {
+      "expected_evidence_role": "local_evidence_summary",
+      "market_titles": [
+        "SCOTUS accepts sports event contract case by July 31, 2026?"
+      ],
+      "markets_using_source": [
+        "563650"
+      ],
+      "original_source_id": "local_evidence_summary_001",
+      "pending_feedback_dependencies": [
+        "Resolved local outcome record for market 563650",
+        "Paper feedback review for hypothesis 563650.analysis.adc53630aa1f.paper_hypothesis"
+      ],
+      "source_id": "563650:local_evidence_summary_001",
+      "source_name": "local_evidence_summary",
+      "source_reference": "offline-reference:563650:rules - records the rule source category used for structural review.",
+      "source_risks_already_visible": [
+        "contradictory",
+        "insufficient",
+        "unknown"
+      ],
+      "what_can_be_learned_after_outcome_resolution": [
+        "Whether this local source row helped interpret the saved market rules.",
+        "Whether the source row was too stale, missing, contradictory, or insufficient for later feedback."
+      ]
+    },
+    {
+      "expected_evidence_role": "local_evidence_summary",
+      "market_titles": [
+        "SCOTUS accepts sports event contract case by July 31, 2026?"
+      ],
+      "markets_using_source": [
+        "563650"
+      ],
+      "original_source_id": "local_evidence_summary_002",
+      "pending_feedback_dependencies": [
+        "Resolved local outcome record for market 563650",
+        "Paper feedback review for hypothesis 563650.analysis.adc53630aa1f.paper_hypothesis"
+      ],
+      "source_id": "563650:local_evidence_summary_002",
+      "source_name": "local_evidence_summary",
+      "source_reference": "offline-reference:563650:docket - records a court-source claim without resolving the outcome.",
+      "source_risks_already_visible": [
+        "contradictory",
+        "insufficient",
+        "unknown"
+      ],
+      "what_can_be_learned_after_outcome_resolution": [
+        "Whether this local source row helped interpret the saved market rules.",
+        "Whether the source row was too stale, missing, contradictory, or insufficient for later feedback."
+      ]
+    },
+    {
+      "expected_evidence_role": "local_evidence_summary",
+      "market_titles": [
+        "SCOTUS accepts sports event contract case by July 31, 2026?"
+      ],
+      "markets_using_source": [
+        "563650"
+      ],
+      "original_source_id": "local_evidence_summary_003",
+      "pending_feedback_dependencies": [
+        "Resolved local outcome record for market 563650",
+        "Paper feedback review for hypothesis 563650.analysis.adc53630aa1f.paper_hypothesis"
+      ],
+      "source_id": "563650:local_evidence_summary_003",
+      "source_name": "local_evidence_summary",
+      "source_reference": "offline-reference:563650:news - records external context for later human review.",
+      "source_risks_already_visible": [
+        "contradictory",
+        "insufficient",
+        "unknown"
+      ],
+      "what_can_be_learned_after_outcome_resolution": [
+        "Whether this local source row helped interpret the saved market rules.",
+        "Whether the source row was too stale, missing, contradictory, or insufficient for later feedback."
+      ]
+    },
+    {
+      "expected_evidence_role": "official_source_placeholder",
+      "market_titles": [
+        "Macron out by June 30, 2026?"
+      ],
+      "markets_using_source": [
+        "597964"
+      ],
+      "original_source_id": "official_source_placeholder_001",
+      "pending_feedback_dependencies": [
+        "Resolved local outcome record for market 597964",
+        "Paper feedback review for hypothesis 597964.analysis.33643849e5db.paper_hypothesis"
+      ],
+      "source_id": "597964:official_source_placeholder_001",
+      "source_name": "official_source_placeholder",
+      "source_reference": "Manual check template: local Polymarket rules and resolution criteria for market_id 597964",
+      "source_risks_already_visible": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "what_can_be_learned_after_outcome_resolution": [
+        "Whether this local source row helped interpret the saved market rules.",
+        "Whether the source row was too stale, missing, contradictory, or insufficient for later feedback."
+      ]
+    },
+    {
+      "expected_evidence_role": "official_source_placeholder",
+      "market_titles": [
+        "Macron out by June 30, 2026?"
+      ],
+      "markets_using_source": [
+        "597964"
+      ],
+      "original_source_id": "official_source_placeholder_002",
+      "pending_feedback_dependencies": [
+        "Resolved local outcome record for market 597964",
+        "Paper feedback review for hypothesis 597964.analysis.33643849e5db.paper_hypothesis"
+      ],
+      "source_id": "597964:official_source_placeholder_002",
+      "source_name": "official_source_placeholder",
+      "source_reference": "Manual check template: official primary source named in the local market description for 'Macron out by June 30, 2026?'",
+      "source_risks_already_visible": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "what_can_be_learned_after_outcome_resolution": [
+        "Whether this local source row helped interpret the saved market rules.",
+        "Whether the source row was too stale, missing, contradictory, or insufficient for later feedback."
+      ]
+    },
+    {
+      "expected_evidence_role": "official_source_placeholder",
+      "market_titles": [
+        "Macron out by June 30, 2026?"
+      ],
+      "markets_using_source": [
+        "597964"
+      ],
+      "original_source_id": "official_source_placeholder_003",
+      "pending_feedback_dependencies": [
+        "Resolved local outcome record for market 597964",
+        "Paper feedback review for hypothesis 597964.analysis.33643849e5db.paper_hypothesis"
+      ],
+      "source_id": "597964:official_source_placeholder_003",
+      "source_name": "official_source_placeholder",
+      "source_reference": "Manual check template: original issuer, government, court, exchange, or company source relevant to 'Macron out by June 30, 2026?'",
+      "source_risks_already_visible": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "what_can_be_learned_after_outcome_resolution": [
+        "Whether this local source row helped interpret the saved market rules.",
+        "Whether the source row was too stale, missing, contradictory, or insufficient for later feedback."
+      ]
+    },
+    {
+      "expected_evidence_role": "news_source_placeholder",
+      "market_titles": [
+        "Macron out by June 30, 2026?"
+      ],
+      "markets_using_source": [
+        "597964"
+      ],
+      "original_source_id": "news_source_placeholder_004",
+      "pending_feedback_dependencies": [
+        "Resolved local outcome record for market 597964",
+        "Paper feedback review for hypothesis 597964.analysis.33643849e5db.paper_hypothesis"
+      ],
+      "source_id": "597964:news_source_placeholder_004",
+      "source_name": "news_source_placeholder",
+      "source_reference": "Manual check template: Reuters coverage query for 'Macron out by June 30, 2026?'",
+      "source_risks_already_visible": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "what_can_be_learned_after_outcome_resolution": [
+        "Whether this local source row helped interpret the saved market rules.",
+        "Whether the source row was too stale, missing, contradictory, or insufficient for later feedback."
+      ]
+    },
+    {
+      "expected_evidence_role": "news_source_placeholder",
+      "market_titles": [
+        "Macron out by June 30, 2026?"
+      ],
+      "markets_using_source": [
+        "597964"
+      ],
+      "original_source_id": "news_source_placeholder_005",
+      "pending_feedback_dependencies": [
+        "Resolved local outcome record for market 597964",
+        "Paper feedback review for hypothesis 597964.analysis.33643849e5db.paper_hypothesis"
+      ],
+      "source_id": "597964:news_source_placeholder_005",
+      "source_name": "news_source_placeholder",
+      "source_reference": "Manual check template: Associated Press coverage query for 'Macron out by June 30, 2026?'",
+      "source_risks_already_visible": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "what_can_be_learned_after_outcome_resolution": [
+        "Whether this local source row helped interpret the saved market rules.",
+        "Whether the source row was too stale, missing, contradictory, or insufficient for later feedback."
+      ]
+    },
+    {
+      "expected_evidence_role": "news_source_placeholder",
+      "market_titles": [
+        "Macron out by June 30, 2026?"
+      ],
+      "markets_using_source": [
+        "597964"
+      ],
+      "original_source_id": "news_source_placeholder_006",
+      "pending_feedback_dependencies": [
+        "Resolved local outcome record for market 597964",
+        "Paper feedback review for hypothesis 597964.analysis.33643849e5db.paper_hypothesis"
+      ],
+      "source_id": "597964:news_source_placeholder_006",
+      "source_name": "news_source_placeholder",
+      "source_reference": "Manual check template: major credible outlet query for 'France / Politics / Macron / World / 2025 Predictions / resign' and 'Macron out by June 30, 2026?'",
+      "source_risks_already_visible": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "what_can_be_learned_after_outcome_resolution": [
+        "Whether this local source row helped interpret the saved market rules.",
+        "Whether the source row was too stale, missing, contradictory, or insufficient for later feedback."
+      ]
+    },
+    {
+      "expected_evidence_role": "source_plan",
+      "market_titles": [
+        "Macron out by June 30, 2026?"
+      ],
+      "markets_using_source": [
+        "597964"
+      ],
+      "original_source_id": "source_plan_007",
+      "pending_feedback_dependencies": [
+        "Resolved local outcome record for market 597964",
+        "Paper feedback review for hypothesis 597964.analysis.33643849e5db.paper_hypothesis"
+      ],
+      "source_id": "597964:source_plan_007",
+      "source_name": "source_plan",
+      "source_reference": "Template only: review the local market rules for 'Macron out by June 30, 2026?', then manually check official primary sources and credible news coverage. This stub does not fetch or verify sources.",
+      "source_risks_already_visible": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "what_can_be_learned_after_outcome_resolution": [
+        "Whether this local source row helped interpret the saved market rules.",
+        "Whether the source row was too stale, missing, contradictory, or insufficient for later feedback."
+      ]
+    },
+    {
+      "expected_evidence_role": "official_source_placeholder",
+      "market_titles": [
+        "Will the next UK election be called by June 30, 2026?"
+      ],
+      "markets_using_source": [
+        "598936"
+      ],
+      "original_source_id": "official_source_placeholder_001",
+      "pending_feedback_dependencies": [
+        "Resolved local outcome record for market 598936",
+        "Paper feedback review for hypothesis 598936.analysis.dceea0f50063.paper_hypothesis"
+      ],
+      "source_id": "598936:official_source_placeholder_001",
+      "source_name": "official_source_placeholder",
+      "source_reference": "Manual check template: local Polymarket rules and resolution criteria for market_id 598936",
+      "source_risks_already_visible": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "what_can_be_learned_after_outcome_resolution": [
+        "Whether this local source row helped interpret the saved market rules.",
+        "Whether the source row was too stale, missing, contradictory, or insufficient for later feedback."
+      ]
+    },
+    {
+      "expected_evidence_role": "official_source_placeholder",
+      "market_titles": [
+        "Will the next UK election be called by June 30, 2026?"
+      ],
+      "markets_using_source": [
+        "598936"
+      ],
+      "original_source_id": "official_source_placeholder_002",
+      "pending_feedback_dependencies": [
+        "Resolved local outcome record for market 598936",
+        "Paper feedback review for hypothesis 598936.analysis.dceea0f50063.paper_hypothesis"
+      ],
+      "source_id": "598936:official_source_placeholder_002",
+      "source_name": "official_source_placeholder",
+      "source_reference": "Manual check template: official primary source named in the local market description for 'Will the next UK election be called by June 30, 2026?'",
+      "source_risks_already_visible": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "what_can_be_learned_after_outcome_resolution": [
+        "Whether this local source row helped interpret the saved market rules.",
+        "Whether the source row was too stale, missing, contradictory, or insufficient for later feedback."
+      ]
+    },
+    {
+      "expected_evidence_role": "official_source_placeholder",
+      "market_titles": [
+        "Will the next UK election be called by June 30, 2026?"
+      ],
+      "markets_using_source": [
+        "598936"
+      ],
+      "original_source_id": "official_source_placeholder_003",
+      "pending_feedback_dependencies": [
+        "Resolved local outcome record for market 598936",
+        "Paper feedback review for hypothesis 598936.analysis.dceea0f50063.paper_hypothesis"
+      ],
+      "source_id": "598936:official_source_placeholder_003",
+      "source_name": "official_source_placeholder",
+      "source_reference": "Manual check template: original issuer, government, court, exchange, or company source relevant to 'Will the next UK election be called by June 30, 2026?'",
+      "source_risks_already_visible": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "what_can_be_learned_after_outcome_resolution": [
+        "Whether this local source row helped interpret the saved market rules.",
+        "Whether the source row was too stale, missing, contradictory, or insufficient for later feedback."
+      ]
+    },
+    {
+      "expected_evidence_role": "news_source_placeholder",
+      "market_titles": [
+        "Will the next UK election be called by June 30, 2026?"
+      ],
+      "markets_using_source": [
+        "598936"
+      ],
+      "original_source_id": "news_source_placeholder_004",
+      "pending_feedback_dependencies": [
+        "Resolved local outcome record for market 598936",
+        "Paper feedback review for hypothesis 598936.analysis.dceea0f50063.paper_hypothesis"
+      ],
+      "source_id": "598936:news_source_placeholder_004",
+      "source_name": "news_source_placeholder",
+      "source_reference": "Manual check template: Reuters coverage query for 'Will the next UK election be called by June 30, 2026?'",
+      "source_risks_already_visible": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "what_can_be_learned_after_outcome_resolution": [
+        "Whether this local source row helped interpret the saved market rules.",
+        "Whether the source row was too stale, missing, contradictory, or insufficient for later feedback."
+      ]
+    },
+    {
+      "expected_evidence_role": "news_source_placeholder",
+      "market_titles": [
+        "Will the next UK election be called by June 30, 2026?"
+      ],
+      "markets_using_source": [
+        "598936"
+      ],
+      "original_source_id": "news_source_placeholder_005",
+      "pending_feedback_dependencies": [
+        "Resolved local outcome record for market 598936",
+        "Paper feedback review for hypothesis 598936.analysis.dceea0f50063.paper_hypothesis"
+      ],
+      "source_id": "598936:news_source_placeholder_005",
+      "source_name": "news_source_placeholder",
+      "source_reference": "Manual check template: Associated Press coverage query for 'Will the next UK election be called by June 30, 2026?'",
+      "source_risks_already_visible": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "what_can_be_learned_after_outcome_resolution": [
+        "Whether this local source row helped interpret the saved market rules.",
+        "Whether the source row was too stale, missing, contradictory, or insufficient for later feedback."
+      ]
+    },
+    {
+      "expected_evidence_role": "news_source_placeholder",
+      "market_titles": [
+        "Will the next UK election be called by June 30, 2026?"
+      ],
+      "markets_using_source": [
+        "598936"
+      ],
+      "original_source_id": "news_source_placeholder_006",
+      "pending_feedback_dependencies": [
+        "Resolved local outcome record for market 598936",
+        "Paper feedback review for hypothesis 598936.analysis.dceea0f50063.paper_hypothesis"
+      ],
+      "source_id": "598936:news_source_placeholder_006",
+      "source_name": "news_source_placeholder",
+      "source_reference": "Manual check template: major credible outlet query for 'Starmer / UK / pedophile / England' and 'Will the next UK election be called by June 30, 2026?'",
+      "source_risks_already_visible": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "what_can_be_learned_after_outcome_resolution": [
+        "Whether this local source row helped interpret the saved market rules.",
+        "Whether the source row was too stale, missing, contradictory, or insufficient for later feedback."
+      ]
+    },
+    {
+      "expected_evidence_role": "source_plan",
+      "market_titles": [
+        "Will the next UK election be called by June 30, 2026?"
+      ],
+      "markets_using_source": [
+        "598936"
+      ],
+      "original_source_id": "source_plan_007",
+      "pending_feedback_dependencies": [
+        "Resolved local outcome record for market 598936",
+        "Paper feedback review for hypothesis 598936.analysis.dceea0f50063.paper_hypothesis"
+      ],
+      "source_id": "598936:source_plan_007",
+      "source_name": "source_plan",
+      "source_reference": "Template only: review the local market rules for 'Will the next UK election be called by June 30, 2026?', then manually check official primary sources and credible news coverage. This stub does not fetch or verify sources.",
+      "source_risks_already_visible": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "what_can_be_learned_after_outcome_resolution": [
+        "Whether this local source row helped interpret the saved market rules.",
+        "Whether the source row was too stale, missing, contradictory, or insufficient for later feedback."
+      ]
+    },
+    {
+      "expected_evidence_role": "official_source_placeholder",
+      "market_titles": [
+        "Kraken IPO by December 31, 2026?"
+      ],
+      "markets_using_source": [
+        "691547"
+      ],
+      "original_source_id": "official_source_placeholder_001",
+      "pending_feedback_dependencies": [
+        "Resolved local outcome record for market 691547",
+        "Paper feedback review for hypothesis 691547.analysis.56b3a68b9b94.paper_hypothesis"
+      ],
+      "source_id": "691547:official_source_placeholder_001",
+      "source_name": "official_source_placeholder",
+      "source_reference": "Manual check template: local Polymarket rules and resolution criteria for market_id 691547",
+      "source_risks_already_visible": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "what_can_be_learned_after_outcome_resolution": [
+        "Whether this local source row helped interpret the saved market rules.",
+        "Whether the source row was too stale, missing, contradictory, or insufficient for later feedback."
+      ]
+    },
+    {
+      "expected_evidence_role": "official_source_placeholder",
+      "market_titles": [
+        "Kraken IPO by December 31, 2026?"
+      ],
+      "markets_using_source": [
+        "691547"
+      ],
+      "original_source_id": "official_source_placeholder_002",
+      "pending_feedback_dependencies": [
+        "Resolved local outcome record for market 691547",
+        "Paper feedback review for hypothesis 691547.analysis.56b3a68b9b94.paper_hypothesis"
+      ],
+      "source_id": "691547:official_source_placeholder_002",
+      "source_name": "official_source_placeholder",
+      "source_reference": "Manual check template: official primary source named in the local market description for 'Kraken IPO by December 31, 2026?'",
+      "source_risks_already_visible": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "what_can_be_learned_after_outcome_resolution": [
+        "Whether this local source row helped interpret the saved market rules.",
+        "Whether the source row was too stale, missing, contradictory, or insufficient for later feedback."
+      ]
+    },
+    {
+      "expected_evidence_role": "official_source_placeholder",
+      "market_titles": [
+        "Kraken IPO by December 31, 2026?"
+      ],
+      "markets_using_source": [
+        "691547"
+      ],
+      "original_source_id": "official_source_placeholder_003",
+      "pending_feedback_dependencies": [
+        "Resolved local outcome record for market 691547",
+        "Paper feedback review for hypothesis 691547.analysis.56b3a68b9b94.paper_hypothesis"
+      ],
+      "source_id": "691547:official_source_placeholder_003",
+      "source_name": "official_source_placeholder",
+      "source_reference": "Manual check template: original issuer, government, court, exchange, or company source relevant to 'Kraken IPO by December 31, 2026?'",
+      "source_risks_already_visible": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "what_can_be_learned_after_outcome_resolution": [
+        "Whether this local source row helped interpret the saved market rules.",
+        "Whether the source row was too stale, missing, contradictory, or insufficient for later feedback."
+      ]
+    },
+    {
+      "expected_evidence_role": "news_source_placeholder",
+      "market_titles": [
+        "Kraken IPO by December 31, 2026?"
+      ],
+      "markets_using_source": [
+        "691547"
+      ],
+      "original_source_id": "news_source_placeholder_004",
+      "pending_feedback_dependencies": [
+        "Resolved local outcome record for market 691547",
+        "Paper feedback review for hypothesis 691547.analysis.56b3a68b9b94.paper_hypothesis"
+      ],
+      "source_id": "691547:news_source_placeholder_004",
+      "source_name": "news_source_placeholder",
+      "source_reference": "Manual check template: Reuters coverage query for 'Kraken IPO by December 31, 2026?'",
+      "source_risks_already_visible": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "what_can_be_learned_after_outcome_resolution": [
+        "Whether this local source row helped interpret the saved market rules.",
+        "Whether the source row was too stale, missing, contradictory, or insufficient for later feedback."
+      ]
+    },
+    {
+      "expected_evidence_role": "news_source_placeholder",
+      "market_titles": [
+        "Kraken IPO by December 31, 2026?"
+      ],
+      "markets_using_source": [
+        "691547"
+      ],
+      "original_source_id": "news_source_placeholder_005",
+      "pending_feedback_dependencies": [
+        "Resolved local outcome record for market 691547",
+        "Paper feedback review for hypothesis 691547.analysis.56b3a68b9b94.paper_hypothesis"
+      ],
+      "source_id": "691547:news_source_placeholder_005",
+      "source_name": "news_source_placeholder",
+      "source_reference": "Manual check template: Associated Press coverage query for 'Kraken IPO by December 31, 2026?'",
+      "source_risks_already_visible": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "what_can_be_learned_after_outcome_resolution": [
+        "Whether this local source row helped interpret the saved market rules.",
+        "Whether the source row was too stale, missing, contradictory, or insufficient for later feedback."
+      ]
+    },
+    {
+      "expected_evidence_role": "news_source_placeholder",
+      "market_titles": [
+        "Kraken IPO by December 31, 2026?"
+      ],
+      "markets_using_source": [
+        "691547"
+      ],
+      "original_source_id": "news_source_placeholder_006",
+      "pending_feedback_dependencies": [
+        "Resolved local outcome record for market 691547",
+        "Paper feedback review for hypothesis 691547.analysis.56b3a68b9b94.paper_hypothesis"
+      ],
+      "source_id": "691547:news_source_placeholder_006",
+      "source_name": "news_source_placeholder",
+      "source_reference": "Manual check template: major credible outlet query for 'exchange / Tech / Crypto / Finance / Business / 2025 Predictions / Featured / IPOs' and 'Kraken IPO by December 31, 2026?'",
+      "source_risks_already_visible": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "what_can_be_learned_after_outcome_resolution": [
+        "Whether this local source row helped interpret the saved market rules.",
+        "Whether the source row was too stale, missing, contradictory, or insufficient for later feedback."
+      ]
+    },
+    {
+      "expected_evidence_role": "source_plan",
+      "market_titles": [
+        "Kraken IPO by December 31, 2026?"
+      ],
+      "markets_using_source": [
+        "691547"
+      ],
+      "original_source_id": "source_plan_007",
+      "pending_feedback_dependencies": [
+        "Resolved local outcome record for market 691547",
+        "Paper feedback review for hypothesis 691547.analysis.56b3a68b9b94.paper_hypothesis"
+      ],
+      "source_id": "691547:source_plan_007",
+      "source_name": "source_plan",
+      "source_reference": "Template only: review the local market rules for 'Kraken IPO by December 31, 2026?', then manually check official primary sources and credible news coverage. This stub does not fetch or verify sources.",
+      "source_risks_already_visible": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "what_can_be_learned_after_outcome_resolution": [
+        "Whether this local source row helped interpret the saved market rules.",
+        "Whether the source row was too stale, missing, contradictory, or insufficient for later feedback."
+      ]
+    },
+    {
+      "expected_evidence_role": "official_source_checked",
+      "market_titles": [
+        "MicroStrategy sells any Bitcoin by June 30, 2026?"
+      ],
+      "markets_using_source": [
+        "692258"
+      ],
+      "original_source_id": "official_source_checked_001",
+      "pending_feedback_dependencies": [
+        "Resolved local outcome record for market 692258",
+        "Paper feedback review for hypothesis 692258.analysis.bed289c1494d.paper_hypothesis"
+      ],
+      "source_id": "692258:official_source_checked_001",
+      "source_name": "official_source_checked",
+      "source_reference": "offline-check:692258:local-market-rules",
+      "source_risks_already_visible": [
+        "contradictory",
+        "insufficient",
+        "unknown"
+      ],
+      "what_can_be_learned_after_outcome_resolution": [
+        "Whether this local source row helped interpret the saved market rules.",
+        "Whether the source row was too stale, missing, contradictory, or insufficient for later feedback."
+      ]
+    },
+    {
+      "expected_evidence_role": "official_source_checked",
+      "market_titles": [
+        "MicroStrategy sells any Bitcoin by June 30, 2026?"
+      ],
+      "markets_using_source": [
+        "692258"
+      ],
+      "original_source_id": "official_source_checked_002",
+      "pending_feedback_dependencies": [
+        "Resolved local outcome record for market 692258",
+        "Paper feedback review for hypothesis 692258.analysis.bed289c1494d.paper_hypothesis"
+      ],
+      "source_id": "692258:official_source_checked_002",
+      "source_name": "official_source_checked",
+      "source_reference": "offline-check:692258:company-source-placeholder",
+      "source_risks_already_visible": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "what_can_be_learned_after_outcome_resolution": [
+        "Whether this local source row helped interpret the saved market rules.",
+        "Whether the source row was too stale, missing, contradictory, or insufficient for later feedback."
+      ]
+    },
+    {
+      "expected_evidence_role": "official_source_placeholder",
+      "market_titles": [
+        "MicroStrategy sells any Bitcoin by June 30, 2026?"
+      ],
+      "markets_using_source": [
+        "692258"
+      ],
+      "original_source_id": "official_source_placeholder_003",
+      "pending_feedback_dependencies": [
+        "Resolved local outcome record for market 692258",
+        "Paper feedback review for hypothesis 692258.analysis.bed289c1494d.paper_hypothesis"
+      ],
+      "source_id": "692258:official_source_placeholder_003",
+      "source_name": "official_source_placeholder",
+      "source_reference": "Manual check template: local Polymarket rules and resolution criteria for market_id 692258",
+      "source_risks_already_visible": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "what_can_be_learned_after_outcome_resolution": [
+        "Whether this local source row helped interpret the saved market rules.",
+        "Whether the source row was too stale, missing, contradictory, or insufficient for later feedback."
+      ]
+    },
+    {
+      "expected_evidence_role": "official_source_placeholder",
+      "market_titles": [
+        "MicroStrategy sells any Bitcoin by June 30, 2026?"
+      ],
+      "markets_using_source": [
+        "692258"
+      ],
+      "original_source_id": "official_source_placeholder_004",
+      "pending_feedback_dependencies": [
+        "Resolved local outcome record for market 692258",
+        "Paper feedback review for hypothesis 692258.analysis.bed289c1494d.paper_hypothesis"
+      ],
+      "source_id": "692258:official_source_placeholder_004",
+      "source_name": "official_source_placeholder",
+      "source_reference": "Manual check template: official primary source named in the local market description for 'MicroStrategy sells any Bitcoin by June 30, 2026?'",
+      "source_risks_already_visible": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "what_can_be_learned_after_outcome_resolution": [
+        "Whether this local source row helped interpret the saved market rules.",
+        "Whether the source row was too stale, missing, contradictory, or insufficient for later feedback."
+      ]
+    },
+    {
+      "expected_evidence_role": "official_source_placeholder",
+      "market_titles": [
+        "MicroStrategy sells any Bitcoin by June 30, 2026?"
+      ],
+      "markets_using_source": [
+        "692258"
+      ],
+      "original_source_id": "official_source_placeholder_005",
+      "pending_feedback_dependencies": [
+        "Resolved local outcome record for market 692258",
+        "Paper feedback review for hypothesis 692258.analysis.bed289c1494d.paper_hypothesis"
+      ],
+      "source_id": "692258:official_source_placeholder_005",
+      "source_name": "official_source_placeholder",
+      "source_reference": "Manual check template: original issuer, government, court, exchange, or company source relevant to 'MicroStrategy sells any Bitcoin by June 30, 2026?'",
+      "source_risks_already_visible": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "what_can_be_learned_after_outcome_resolution": [
+        "Whether this local source row helped interpret the saved market rules.",
+        "Whether the source row was too stale, missing, contradictory, or insufficient for later feedback."
+      ]
+    },
+    {
+      "expected_evidence_role": "news_source_checked",
+      "market_titles": [
+        "MicroStrategy sells any Bitcoin by June 30, 2026?"
+      ],
+      "markets_using_source": [
+        "692258"
+      ],
+      "original_source_id": "news_source_checked_006",
+      "pending_feedback_dependencies": [
+        "Resolved local outcome record for market 692258",
+        "Paper feedback review for hypothesis 692258.analysis.bed289c1494d.paper_hypothesis"
+      ],
+      "source_id": "692258:news_source_checked_006",
+      "source_name": "news_source_checked",
+      "source_reference": "offline-check:692258:credible-news-query-placeholder",
+      "source_risks_already_visible": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "what_can_be_learned_after_outcome_resolution": [
+        "Whether this local source row helped interpret the saved market rules.",
+        "Whether the source row was too stale, missing, contradictory, or insufficient for later feedback."
+      ]
+    },
+    {
+      "expected_evidence_role": "news_source_placeholder",
+      "market_titles": [
+        "MicroStrategy sells any Bitcoin by June 30, 2026?"
+      ],
+      "markets_using_source": [
+        "692258"
+      ],
+      "original_source_id": "news_source_placeholder_007",
+      "pending_feedback_dependencies": [
+        "Resolved local outcome record for market 692258",
+        "Paper feedback review for hypothesis 692258.analysis.bed289c1494d.paper_hypothesis"
+      ],
+      "source_id": "692258:news_source_placeholder_007",
+      "source_name": "news_source_placeholder",
+      "source_reference": "Manual check template: Reuters coverage query for 'MicroStrategy sells any Bitcoin by June 30, 2026?'",
+      "source_risks_already_visible": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "what_can_be_learned_after_outcome_resolution": [
+        "Whether this local source row helped interpret the saved market rules.",
+        "Whether the source row was too stale, missing, contradictory, or insufficient for later feedback."
+      ]
+    },
+    {
+      "expected_evidence_role": "news_source_placeholder",
+      "market_titles": [
+        "MicroStrategy sells any Bitcoin by June 30, 2026?"
+      ],
+      "markets_using_source": [
+        "692258"
+      ],
+      "original_source_id": "news_source_placeholder_008",
+      "pending_feedback_dependencies": [
+        "Resolved local outcome record for market 692258",
+        "Paper feedback review for hypothesis 692258.analysis.bed289c1494d.paper_hypothesis"
+      ],
+      "source_id": "692258:news_source_placeholder_008",
+      "source_name": "news_source_placeholder",
+      "source_reference": "Manual check template: Associated Press coverage query for 'MicroStrategy sells any Bitcoin by June 30, 2026?'",
+      "source_risks_already_visible": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "what_can_be_learned_after_outcome_resolution": [
+        "Whether this local source row helped interpret the saved market rules.",
+        "Whether the source row was too stale, missing, contradictory, or insufficient for later feedback."
+      ]
+    },
+    {
+      "expected_evidence_role": "news_source_placeholder",
+      "market_titles": [
+        "MicroStrategy sells any Bitcoin by June 30, 2026?"
+      ],
+      "markets_using_source": [
+        "692258"
+      ],
+      "original_source_id": "news_source_placeholder_009",
+      "pending_feedback_dependencies": [
+        "Resolved local outcome record for market 692258",
+        "Paper feedback review for hypothesis 692258.analysis.bed289c1494d.paper_hypothesis"
+      ],
+      "source_id": "692258:news_source_placeholder_009",
+      "source_name": "news_source_placeholder",
+      "source_reference": "Manual check template: major credible outlet query for 'Finance / Economy / Business / 2025 Predictions / Crypto / MicroStrategy / Stocks' and 'MicroStrategy sells any Bitcoin by June 30, 2026?'",
+      "source_risks_already_visible": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "what_can_be_learned_after_outcome_resolution": [
+        "Whether this local source row helped interpret the saved market rules.",
+        "Whether the source row was too stale, missing, contradictory, or insufficient for later feedback."
+      ]
+    },
+    {
+      "expected_evidence_role": "source_plan",
+      "market_titles": [
+        "MicroStrategy sells any Bitcoin by June 30, 2026?"
+      ],
+      "markets_using_source": [
+        "692258"
+      ],
+      "original_source_id": "source_plan_010",
+      "pending_feedback_dependencies": [
+        "Resolved local outcome record for market 692258",
+        "Paper feedback review for hypothesis 692258.analysis.bed289c1494d.paper_hypothesis"
+      ],
+      "source_id": "692258:source_plan_010",
+      "source_name": "source_plan",
+      "source_reference": "Template only: review the local market rules for 'MicroStrategy sells any Bitcoin by June 30, 2026?', then manually check official primary sources and credible news coverage. This stub does not fetch or verify sources.",
+      "source_risks_already_visible": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "what_can_be_learned_after_outcome_resolution": [
+        "Whether this local source row helped interpret the saved market rules.",
+        "Whether the source row was too stale, missing, contradictory, or insufficient for later feedback."
+      ]
+    }
+  ],
+  "unresolved_outcome_count": 5,
+  "what_can_be_learned_after_outcome_resolution": [
+    "Which local source placeholders were useful for reviewing the final outcome record.",
+    "Which missing evidence categories most often blocked practical analysis quality review.",
+    "Which source classes need stricter saved-evidence capture before public read-only fetch work."
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "available_evidence": [
+    "offline-reference:563650:rules - records the rule source category used for structural review.",
+    "offline-reference:563650:docket - records a court-source claim without resolving the outcome.",
+    "offline-reference:563650:news - records external context for later human review."
+  ],
+  "contract_version": "pmbot_one_market_input.v1",
+  "created_at": "2026-05-10T00:00:00Z",
+  "current_context_summary": "Stub summary only: determine whether the legal/court event in 'SCOTUS accepts sports event contract case by July 31, 2026?' occurs by 2026-07-31; the full market rules and official docket criteria must be copied before completion.",
+  "known_uncertainties": [
+    "Local packet may be incomplete; missing evidence is preserved below."
+  ],
+  "market_id": "563650",
+  "market_slug_or_reference": "563650",
+  "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?",
+  "market_type": "binary_resolution",
+  "missing_evidence": [
+    "No missing-information item is closed by this gate; human review remains required.",
+    "Confirm the exact docket identifier before any later human decision.",
+    "Court docket terminology may require manual interpretation.",
+    "Source timing should be reviewed by a human before any later workflow.",
+    "Manual draft sections are populated for structural quality review only.",
+    "Reviewer verified checklist coverage for the review pack and approved a later draft-preparation step.",
+    "Referenced source artifact path is not present locally: pm_bot/research/final_dossier_drafts.v1.json"
+  ],
+  "operator_notes": [
+    "Normalized from a local packet without live fetching.",
+    "Source rows came from a saved manual LLM packet batch artifact.",
+    "Resolution criteria note records the source categories and unresolved manual review points.",
+    "Manual context note records the market subject and timing for human review only."
+  ],
+  "outcomes": [
+    "Yes",
+    "No"
+  ],
+  "resolution_source_summary": "Stub summary only: determine whether the legal/court event in 'SCOTUS accepts sports event contract case by July 31, 2026?' occurs by 2026-07-31; the full market rules and official docket criteria must be copied before completion.",
+  "rules_summary": "Stub summary only: determine whether the legal/court event in 'SCOTUS accepts sports event contract case by July 31, 2026?' occurs by 2026-07-31; the full market rules and official docket criteria must be copied before completion.",
+  "source_artifact_path": "pm_bot/research/final_dossier_drafts.v1.json",
+  "source_packets": [
+    {
+      "captured_at": "2026-05-10T00:00:00Z",
+      "claim_type": "local_evidence_summary",
+      "claim_value": "offline-reference:563650:rules - records the rule source category used for structural review.",
+      "evidence_summary": "offline-reference:563650:rules - records the rule source category used for structural review.",
+      "freshness_status": "unknown",
+      "known_limitations": [
+        "Limitations were not fully specified in the local packet."
+      ],
+      "source_id": "local_evidence_summary_001",
+      "source_name": "local_evidence_summary",
+      "source_type": "local_static_fixture",
+      "source_url_or_reference": "offline-reference:563650:rules - records the rule source category used for structural review.",
+      "used_in_analysis": true
+    },
+    {
+      "captured_at": "2026-05-10T00:00:00Z",
+      "claim_type": "local_evidence_summary",
+      "claim_value": "offline-reference:563650:docket - records a court-source claim without resolving the outcome.",
+      "evidence_summary": "offline-reference:563650:docket - records a court-source claim without resolving the outcome.",
+      "freshness_status": "unknown",
+      "known_limitations": [
+        "Limitations were not fully specified in the local packet."
+      ],
+      "source_id": "local_evidence_summary_002",
+      "source_name": "local_evidence_summary",
+      "source_type": "local_static_fixture",
+      "source_url_or_reference": "offline-reference:563650:docket - records a court-source claim without resolving the outcome.",
+      "used_in_analysis": true
+    },
+    {
+      "captured_at": "2026-05-10T00:00:00Z",
+      "claim_type": "local_evidence_summary",
+      "claim_value": "offline-reference:563650:news - records external context for later human review.",
+      "evidence_summary": "offline-reference:563650:news - records external context for later human review.",
+      "freshness_status": "unknown",
+      "known_limitations": [
+        "Limitations were not fully specified in the local packet."
+      ],
+      "source_id": "local_evidence_summary_003",
+      "source_name": "local_evidence_summary",
+      "source_type": "local_static_fixture",
+      "source_url_or_reference": "offline-reference:563650:news - records external context for later human review.",
+      "used_in_analysis": true
+    }
+  ]
+}

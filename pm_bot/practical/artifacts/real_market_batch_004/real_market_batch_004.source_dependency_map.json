@@ -1,0 +1,650 @@
+{
+  "contract_version": "pmbot_batch_source_dependency_map.v1",
+  "dependencies": [
+    {
+      "dependency_role": "local_evidence_summary",
+      "future_source_learning_possible": true,
+      "hypothesis_ids": [
+        "563650.analysis.adc53630aa1f.paper_hypothesis"
+      ],
+      "known_limitations": [
+        "contradictory",
+        "insufficient",
+        "unknown"
+      ],
+      "market_ids": [
+        "563650"
+      ],
+      "pending_outcome_check": true,
+      "source_id": "563650:local_evidence_summary_001",
+      "source_name": "local_evidence_summary"
+    },
+    {
+      "dependency_role": "local_evidence_summary",
+      "future_source_learning_possible": true,
+      "hypothesis_ids": [
+        "563650.analysis.adc53630aa1f.paper_hypothesis"
+      ],
+      "known_limitations": [
+        "contradictory",
+        "insufficient",
+        "unknown"
+      ],
+      "market_ids": [
+        "563650"
+      ],
+      "pending_outcome_check": true,
+      "source_id": "563650:local_evidence_summary_002",
+      "source_name": "local_evidence_summary"
+    },
+    {
+      "dependency_role": "local_evidence_summary",
+      "future_source_learning_possible": true,
+      "hypothesis_ids": [
+        "563650.analysis.adc53630aa1f.paper_hypothesis"
+      ],
+      "known_limitations": [
+        "contradictory",
+        "insufficient",
+        "unknown"
+      ],
+      "market_ids": [
+        "563650"
+      ],
+      "pending_outcome_check": true,
+      "source_id": "563650:local_evidence_summary_003",
+      "source_name": "local_evidence_summary"
+    },
+    {
+      "dependency_role": "official_source_placeholder",
+      "future_source_learning_possible": true,
+      "hypothesis_ids": [
+        "597964.analysis.33643849e5db.paper_hypothesis"
+      ],
+      "known_limitations": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "market_ids": [
+        "597964"
+      ],
+      "pending_outcome_check": true,
+      "source_id": "597964:official_source_placeholder_001",
+      "source_name": "official_source_placeholder"
+    },
+    {
+      "dependency_role": "official_source_placeholder",
+      "future_source_learning_possible": true,
+      "hypothesis_ids": [
+        "597964.analysis.33643849e5db.paper_hypothesis"
+      ],
+      "known_limitations": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "market_ids": [
+        "597964"
+      ],
+      "pending_outcome_check": true,
+      "source_id": "597964:official_source_placeholder_002",
+      "source_name": "official_source_placeholder"
+    },
+    {
+      "dependency_role": "official_source_placeholder",
+      "future_source_learning_possible": true,
+      "hypothesis_ids": [
+        "597964.analysis.33643849e5db.paper_hypothesis"
+      ],
+      "known_limitations": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "market_ids": [
+        "597964"
+      ],
+      "pending_outcome_check": true,
+      "source_id": "597964:official_source_placeholder_003",
+      "source_name": "official_source_placeholder"
+    },
+    {
+      "dependency_role": "news_source_placeholder",
+      "future_source_learning_possible": true,
+      "hypothesis_ids": [
+        "597964.analysis.33643849e5db.paper_hypothesis"
+      ],
+      "known_limitations": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "market_ids": [
+        "597964"
+      ],
+      "pending_outcome_check": true,
+      "source_id": "597964:news_source_placeholder_004",
+      "source_name": "news_source_placeholder"
+    },
+    {
+      "dependency_role": "news_source_placeholder",
+      "future_source_learning_possible": true,
+      "hypothesis_ids": [
+        "597964.analysis.33643849e5db.paper_hypothesis"
+      ],
+      "known_limitations": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "market_ids": [
+        "597964"
+      ],
+      "pending_outcome_check": true,
+      "source_id": "597964:news_source_placeholder_005",
+      "source_name": "news_source_placeholder"
+    },
+    {
+      "dependency_role": "news_source_placeholder",
+      "future_source_learning_possible": true,
+      "hypothesis_ids": [
+        "597964.analysis.33643849e5db.paper_hypothesis"
+      ],
+      "known_limitations": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "market_ids": [
+        "597964"
+      ],
+      "pending_outcome_check": true,
+      "source_id": "597964:news_source_placeholder_006",
+      "source_name": "news_source_placeholder"
+    },
+    {
+      "dependency_role": "source_plan",
+      "future_source_learning_possible": true,
+      "hypothesis_ids": [
+        "597964.analysis.33643849e5db.paper_hypothesis"
+      ],
+      "known_limitations": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "market_ids": [
+        "597964"
+      ],
+      "pending_outcome_check": true,
+      "source_id": "597964:source_plan_007",
+      "source_name": "source_plan"
+    },
+    {
+      "dependency_role": "official_source_placeholder",
+      "future_source_learning_possible": true,
+      "hypothesis_ids": [
+        "598936.analysis.dceea0f50063.paper_hypothesis"
+      ],
+      "known_limitations": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "market_ids": [
+        "598936"
+      ],
+      "pending_outcome_check": true,
+      "source_id": "598936:official_source_placeholder_001",
+      "source_name": "official_source_placeholder"
+    },
+    {
+      "dependency_role": "official_source_placeholder",
+      "future_source_learning_possible": true,
+      "hypothesis_ids": [
+        "598936.analysis.dceea0f50063.paper_hypothesis"
+      ],
+      "known_limitations": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "market_ids": [
+        "598936"
+      ],
+      "pending_outcome_check": true,
+      "source_id": "598936:official_source_placeholder_002",
+      "source_name": "official_source_placeholder"
+    },
+    {
+      "dependency_role": "official_source_placeholder",
+      "future_source_learning_possible": true,
+      "hypothesis_ids": [
+        "598936.analysis.dceea0f50063.paper_hypothesis"
+      ],
+      "known_limitations": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "market_ids": [
+        "598936"
+      ],
+      "pending_outcome_check": true,
+      "source_id": "598936:official_source_placeholder_003",
+      "source_name": "official_source_placeholder"
+    },
+    {
+      "dependency_role": "news_source_placeholder",
+      "future_source_learning_possible": true,
+      "hypothesis_ids": [
+        "598936.analysis.dceea0f50063.paper_hypothesis"
+      ],
+      "known_limitations": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "market_ids": [
+        "598936"
+      ],
+      "pending_outcome_check": true,
+      "source_id": "598936:news_source_placeholder_004",
+      "source_name": "news_source_placeholder"
+    },
+    {
+      "dependency_role": "news_source_placeholder",
+      "future_source_learning_possible": true,
+      "hypothesis_ids": [
+        "598936.analysis.dceea0f50063.paper_hypothesis"
+      ],
+      "known_limitations": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "market_ids": [
+        "598936"
+      ],
+      "pending_outcome_check": true,
+      "source_id": "598936:news_source_placeholder_005",
+      "source_name": "news_source_placeholder"
+    },
+    {
+      "dependency_role": "news_source_placeholder",
+      "future_source_learning_possible": true,
+      "hypothesis_ids": [
+        "598936.analysis.dceea0f50063.paper_hypothesis"
+      ],
+      "known_limitations": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "market_ids": [
+        "598936"
+      ],
+      "pending_outcome_check": true,
+      "source_id": "598936:news_source_placeholder_006",
+      "source_name": "news_source_placeholder"
+    },
+    {
+      "dependency_role": "source_plan",
+      "future_source_learning_possible": true,
+      "hypothesis_ids": [
+        "598936.analysis.dceea0f50063.paper_hypothesis"
+      ],
+      "known_limitations": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "market_ids": [
+        "598936"
+      ],
+      "pending_outcome_check": true,
+      "source_id": "598936:source_plan_007",
+      "source_name": "source_plan"
+    },
+    {
+      "dependency_role": "official_source_placeholder",
+      "future_source_learning_possible": true,
+      "hypothesis_ids": [
+        "691547.analysis.56b3a68b9b94.paper_hypothesis"
+      ],
+      "known_limitations": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "market_ids": [
+        "691547"
+      ],
+      "pending_outcome_check": true,
+      "source_id": "691547:official_source_placeholder_001",
+      "source_name": "official_source_placeholder"
+    },
+    {
+      "dependency_role": "official_source_placeholder",
+      "future_source_learning_possible": true,
+      "hypothesis_ids": [
+        "691547.analysis.56b3a68b9b94.paper_hypothesis"
+      ],
+      "known_limitations": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "market_ids": [
+        "691547"
+      ],
+      "pending_outcome_check": true,
+      "source_id": "691547:official_source_placeholder_002",
+      "source_name": "official_source_placeholder"
+    },
+    {
+      "dependency_role": "official_source_placeholder",
+      "future_source_learning_possible": true,
+      "hypothesis_ids": [
+        "691547.analysis.56b3a68b9b94.paper_hypothesis"
+      ],
+      "known_limitations": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "market_ids": [
+        "691547"
+      ],
+      "pending_outcome_check": true,
+      "source_id": "691547:official_source_placeholder_003",
+      "source_name": "official_source_placeholder"
+    },
+    {
+      "dependency_role": "news_source_placeholder",
+      "future_source_learning_possible": true,
+      "hypothesis_ids": [
+        "691547.analysis.56b3a68b9b94.paper_hypothesis"
+      ],
+      "known_limitations": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "market_ids": [
+        "691547"
+      ],
+      "pending_outcome_check": true,
+      "source_id": "691547:news_source_placeholder_004",
+      "source_name": "news_source_placeholder"
+    },
+    {
+      "dependency_role": "news_source_placeholder",
+      "future_source_learning_possible": true,
+      "hypothesis_ids": [
+        "691547.analysis.56b3a68b9b94.paper_hypothesis"
+      ],
+      "known_limitations": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "market_ids": [
+        "691547"
+      ],
+      "pending_outcome_check": true,
+      "source_id": "691547:news_source_placeholder_005",
+      "source_name": "news_source_placeholder"
+    },
+    {
+      "dependency_role": "news_source_placeholder",
+      "future_source_learning_possible": true,
+      "hypothesis_ids": [
+        "691547.analysis.56b3a68b9b94.paper_hypothesis"
+      ],
+      "known_limitations": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "market_ids": [
+        "691547"
+      ],
+      "pending_outcome_check": true,
+      "source_id": "691547:news_source_placeholder_006",
+      "source_name": "news_source_placeholder"
+    },
+    {
+      "dependency_role": "source_plan",
+      "future_source_learning_possible": true,
+      "hypothesis_ids": [
+        "691547.analysis.56b3a68b9b94.paper_hypothesis"
+      ],
+      "known_limitations": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "market_ids": [
+        "691547"
+      ],
+      "pending_outcome_check": true,
+      "source_id": "691547:source_plan_007",
+      "source_name": "source_plan"
+    },
+    {
+      "dependency_role": "official_source_checked",
+      "future_source_learning_possible": true,
+      "hypothesis_ids": [
+        "692258.analysis.bed289c1494d.paper_hypothesis"
+      ],
+      "known_limitations": [
+        "contradictory",
+        "insufficient",
+        "unknown"
+      ],
+      "market_ids": [
+        "692258"
+      ],
+      "pending_outcome_check": true,
+      "source_id": "692258:official_source_checked_001",
+      "source_name": "official_source_checked"
+    },
+    {
+      "dependency_role": "official_source_checked",
+      "future_source_learning_possible": true,
+      "hypothesis_ids": [
+        "692258.analysis.bed289c1494d.paper_hypothesis"
+      ],
+      "known_limitations": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "market_ids": [
+        "692258"
+      ],
+      "pending_outcome_check": true,
+      "source_id": "692258:official_source_checked_002",
+      "source_name": "official_source_checked"
+    },
+    {
+      "dependency_role": "official_source_placeholder",
+      "future_source_learning_possible": true,
+      "hypothesis_ids": [
+        "692258.analysis.bed289c1494d.paper_hypothesis"
+      ],
+      "known_limitations": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "market_ids": [
+        "692258"
+      ],
+      "pending_outcome_check": true,
+      "source_id": "692258:official_source_placeholder_003",
+      "source_name": "official_source_placeholder"
+    },
+    {
+      "dependency_role": "official_source_placeholder",
+      "future_source_learning_possible": true,
+      "hypothesis_ids": [
+        "692258.analysis.bed289c1494d.paper_hypothesis"
+      ],
+      "known_limitations": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "market_ids": [
+        "692258"
+      ],
+      "pending_outcome_check": true,
+      "source_id": "692258:official_source_placeholder_004",
+      "source_name": "official_source_placeholder"
+    },
+    {
+      "dependency_role": "official_source_placeholder",
+      "future_source_learning_possible": true,
+      "hypothesis_ids": [
+        "692258.analysis.bed289c1494d.paper_hypothesis"
+      ],
+      "known_limitations": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "market_ids": [
+        "692258"
+      ],
+      "pending_outcome_check": true,
+      "source_id": "692258:official_source_placeholder_005",
+      "source_name": "official_source_placeholder"
+    },
+    {
+      "dependency_role": "news_source_checked",
+      "future_source_learning_possible": true,
+      "hypothesis_ids": [
+        "692258.analysis.bed289c1494d.paper_hypothesis"
+      ],
+      "known_limitations": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "market_ids": [
+        "692258"
+      ],
+      "pending_outcome_check": true,
+      "source_id": "692258:news_source_checked_006",
+      "source_name": "news_source_checked"
+    },
+    {
+      "dependency_role": "news_source_placeholder",
+      "future_source_learning_possible": true,
+      "hypothesis_ids": [
+        "692258.analysis.bed289c1494d.paper_hypothesis"
+      ],
+      "known_limitations": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "market_ids": [
+        "692258"
+      ],
+      "pending_outcome_check": true,
+      "source_id": "692258:news_source_placeholder_007",
+      "source_name": "news_source_placeholder"
+    },
+    {
+      "dependency_role": "news_source_placeholder",
+      "future_source_learning_possible": true,
+      "hypothesis_ids": [
+        "692258.analysis.bed289c1494d.paper_hypothesis"
+      ],
+      "known_limitations": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "market_ids": [
+        "692258"
+      ],
+      "pending_outcome_check": true,
+      "source_id": "692258:news_source_placeholder_008",
+      "source_name": "news_source_placeholder"
+    },
+    {
+      "dependency_role": "news_source_placeholder",
+      "future_source_learning_possible": true,
+      "hypothesis_ids": [
+        "692258.analysis.bed289c1494d.paper_hypothesis"
+      ],
+      "known_limitations": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "market_ids": [
+        "692258"
+      ],
+      "pending_outcome_check": true,
+      "source_id": "692258:news_source_placeholder_009",
+      "source_name": "news_source_placeholder"
+    },
+    {
+      "dependency_role": "source_plan",
+      "future_source_learning_possible": true,
+      "hypothesis_ids": [
+        "692258.analysis.bed289c1494d.paper_hypothesis"
+      ],
+      "known_limitations": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "market_ids": [
+        "692258"
+      ],
+      "pending_outcome_check": true,
+      "source_id": "692258:source_plan_010",
+      "source_name": "source_plan"
+    }
+  ],
+  "generated_at": "2026-05-10T00:00:00Z",
+  "hypothesis_count": 5,
+  "selected_market_count": 5
+}

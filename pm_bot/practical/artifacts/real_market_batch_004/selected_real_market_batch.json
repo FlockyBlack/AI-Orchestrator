@@ -1,0 +1,56 @@
+{
+  "contract_version": "pmbot_real_market_batch_selection.v1",
+  "generated_at": "2026-05-10T00:00:00Z",
+  "limitations": [
+    "All selected packets are local saved artifacts; several upstream source artifact paths referenced by packets are absent in this checkout.",
+    "Outcome records are unresolved placeholders until the operator later attaches saved local resolution evidence.",
+    "Source-learning rows are pending and cannot judge usefulness until outcomes are updated."
+  ],
+  "live_network_used": false,
+  "no_external_fetch_required": true,
+  "rejected_candidate_count": 9,
+  "selected_count": 5,
+  "selected_markets": [
+    {
+      "candidate_id": "local-market-packet-563650",
+      "candidate_path": "pm_bot/llm/manual_packet_batch/563650_packet.v1.json",
+      "market_class": "generic",
+      "market_id": "563650",
+      "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?",
+      "selection_reason": "Selected for the multi-market batch because it is a safe local-only packet with a concrete title, local rules or context, source placeholders, and no live fetch requirement."
+    },
+    {
+      "candidate_id": "local-market-packet-597964",
+      "candidate_path": "pm_bot/llm/manual_packet_batch/597964_packet.v1.json",
+      "market_class": "politics",
+      "market_id": "597964",
+      "market_title": "Macron out by June 30, 2026?",
+      "selection_reason": "Selected for the multi-market batch because it is a safe local-only packet with a concrete title, local rules or context, source placeholders, and no live fetch requirement."
+    },
+    {
+      "candidate_id": "local-market-packet-598936",
+      "candidate_path": "pm_bot/llm/manual_packet_batch/598936_packet.v1.json",
+      "market_class": "politics",
+      "market_id": "598936",
+      "market_title": "Will the next UK election be called by June 30, 2026?",
+      "selection_reason": "Selected for the multi-market batch because it is a safe local-only packet with a concrete title, local rules or context, source placeholders, and no live fetch requirement."
+    },
+    {
+      "candidate_id": "local-market-packet-691547",
+      "candidate_path": "pm_bot/llm/manual_packet_batch/691547_packet.v1.json",
+      "market_class": "crypto",
+      "market_id": "691547",
+      "market_title": "Kraken IPO by December 31, 2026?",
+      "selection_reason": "Selected for the multi-market batch because it is a safe local-only packet with a concrete title, local rules or context, source placeholders, and no live fetch requirement."
+    },
+    {
+      "candidate_id": "local-market-packet-692258",
+      "candidate_path": "pm_bot/llm/manual_packet_batch/692258_packet.v1.json",
+      "market_class": "crypto",
+      "market_id": "692258",
+      "market_title": "MicroStrategy sells any Bitcoin by June 30, 2026?",
+      "selection_reason": "Selected for the multi-market batch because it is a safe local-only packet with a concrete title, local rules or context, source placeholders, and no live fetch requirement."
+    }
+  ],
+  "selection_strategy": "Select a bounded set of safe local-only PMBOT packets with concrete title/context, available local source placeholders, no secrets, no live fetch requirement, and enough class diversity to compare analysis quality over time."
+}

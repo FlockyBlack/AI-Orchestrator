@@ -1,0 +1,290 @@
+{
+  "blocked_or_weakest_market": {
+    "blockers": [],
+    "market_id": "597964",
+    "market_title": "Macron out by June 30, 2026?",
+    "weakness": "Unresolved outcome plus missing local evidence prevents analysis-quality judgement."
+  },
+  "contract_version": "pmbot_batch_operator_next_actions.v1",
+  "generated_at": "2026-05-10T00:00:00Z",
+  "hypotheses_needing_future_outcome_check": [
+    {
+      "hypothesis_id": "563650.analysis.adc53630aa1f.paper_hypothesis",
+      "market_id": "563650",
+      "outcome_record_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/563650/outcome_record.unresolved.json"
+    },
+    {
+      "hypothesis_id": "597964.analysis.33643849e5db.paper_hypothesis",
+      "market_id": "597964",
+      "outcome_record_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/597964/outcome_record.unresolved.json"
+    },
+    {
+      "hypothesis_id": "598936.analysis.dceea0f50063.paper_hypothesis",
+      "market_id": "598936",
+      "outcome_record_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/598936/outcome_record.unresolved.json"
+    },
+    {
+      "hypothesis_id": "691547.analysis.56b3a68b9b94.paper_hypothesis",
+      "market_id": "691547",
+      "outcome_record_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/691547/outcome_record.unresolved.json"
+    },
+    {
+      "hypothesis_id": "692258.analysis.bed289c1494d.paper_hypothesis",
+      "market_id": "692258",
+      "outcome_record_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/692258/outcome_record.unresolved.json"
+    }
+  ],
+  "inspect_first": {
+    "analysis_markdown_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/597964/analysis.md",
+    "market_id": "597964",
+    "market_title": "Macron out by June 30, 2026?",
+    "reason": "This market has the highest missing-evidence count in the selected batch."
+  },
+  "most_missing_evidence_market": {
+    "market_id": "597964",
+    "missing_evidence": [
+      "manual_research_not_started",
+      "full_market_resolution_criteria_review",
+      "official_source_references",
+      "credible_news_source_references",
+      "empty_evidence_slots",
+      "operator_human_review_required",
+      "Referenced source artifact path is not present locally: pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json"
+    ],
+    "missing_evidence_count": 7
+  },
+  "next_safe_action": "Open the first analysis card and fill local missing-evidence notes where saved local artifacts already exist; otherwise leave the outcome unresolved.",
+  "no_trading_instructions": true,
+  "source_dependencies_to_watch": [
+    {
+      "dependency_role": "local_evidence_summary",
+      "future_source_learning_possible": true,
+      "hypothesis_ids": [
+        "563650.analysis.adc53630aa1f.paper_hypothesis"
+      ],
+      "known_limitations": [
+        "contradictory",
+        "insufficient",
+        "unknown"
+      ],
+      "market_ids": [
+        "563650"
+      ],
+      "pending_outcome_check": true,
+      "source_id": "563650:local_evidence_summary_001",
+      "source_name": "local_evidence_summary"
+    },
+    {
+      "dependency_role": "local_evidence_summary",
+      "future_source_learning_possible": true,
+      "hypothesis_ids": [
+        "563650.analysis.adc53630aa1f.paper_hypothesis"
+      ],
+      "known_limitations": [
+        "contradictory",
+        "insufficient",
+        "unknown"
+      ],
+      "market_ids": [
+        "563650"
+      ],
+      "pending_outcome_check": true,
+      "source_id": "563650:local_evidence_summary_002",
+      "source_name": "local_evidence_summary"
+    },
+    {
+      "dependency_role": "local_evidence_summary",
+      "future_source_learning_possible": true,
+      "hypothesis_ids": [
+        "563650.analysis.adc53630aa1f.paper_hypothesis"
+      ],
+      "known_limitations": [
+        "contradictory",
+        "insufficient",
+        "unknown"
+      ],
+      "market_ids": [
+        "563650"
+      ],
+      "pending_outcome_check": true,
+      "source_id": "563650:local_evidence_summary_003",
+      "source_name": "local_evidence_summary"
+    },
+    {
+      "dependency_role": "official_source_placeholder",
+      "future_source_learning_possible": true,
+      "hypothesis_ids": [
+        "597964.analysis.33643849e5db.paper_hypothesis"
+      ],
+      "known_limitations": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "market_ids": [
+        "597964"
+      ],
+      "pending_outcome_check": true,
+      "source_id": "597964:official_source_placeholder_001",
+      "source_name": "official_source_placeholder"
+    },
+    {
+      "dependency_role": "official_source_placeholder",
+      "future_source_learning_possible": true,
+      "hypothesis_ids": [
+        "597964.analysis.33643849e5db.paper_hypothesis"
+      ],
+      "known_limitations": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "market_ids": [
+        "597964"
+      ],
+      "pending_outcome_check": true,
+      "source_id": "597964:official_source_placeholder_002",
+      "source_name": "official_source_placeholder"
+    },
+    {
+      "dependency_role": "official_source_placeholder",
+      "future_source_learning_possible": true,
+      "hypothesis_ids": [
+        "597964.analysis.33643849e5db.paper_hypothesis"
+      ],
+      "known_limitations": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "market_ids": [
+        "597964"
+      ],
+      "pending_outcome_check": true,
+      "source_id": "597964:official_source_placeholder_003",
+      "source_name": "official_source_placeholder"
+    },
+    {
+      "dependency_role": "news_source_placeholder",
+      "future_source_learning_possible": true,
+      "hypothesis_ids": [
+        "597964.analysis.33643849e5db.paper_hypothesis"
+      ],
+      "known_limitations": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "market_ids": [
+        "597964"
+      ],
+      "pending_outcome_check": true,
+      "source_id": "597964:news_source_placeholder_004",
+      "source_name": "news_source_placeholder"
+    },
+    {
+      "dependency_role": "news_source_placeholder",
+      "future_source_learning_possible": true,
+      "hypothesis_ids": [
+        "597964.analysis.33643849e5db.paper_hypothesis"
+      ],
+      "known_limitations": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "market_ids": [
+        "597964"
+      ],
+      "pending_outcome_check": true,
+      "source_id": "597964:news_source_placeholder_005",
+      "source_name": "news_source_placeholder"
+    },
+    {
+      "dependency_role": "news_source_placeholder",
+      "future_source_learning_possible": true,
+      "hypothesis_ids": [
+        "597964.analysis.33643849e5db.paper_hypothesis"
+      ],
+      "known_limitations": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "market_ids": [
+        "597964"
+      ],
+      "pending_outcome_check": true,
+      "source_id": "597964:news_source_placeholder_006",
+      "source_name": "news_source_placeholder"
+    },
+    {
+      "dependency_role": "source_plan",
+      "future_source_learning_possible": true,
+      "hypothesis_ids": [
+        "597964.analysis.33643849e5db.paper_hypothesis"
+      ],
+      "known_limitations": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "market_ids": [
+        "597964"
+      ],
+      "pending_outcome_check": true,
+      "source_id": "597964:source_plan_007",
+      "source_name": "source_plan"
+    },
+    {
+      "dependency_role": "official_source_placeholder",
+      "future_source_learning_possible": true,
+      "hypothesis_ids": [
+        "598936.analysis.dceea0f50063.paper_hypothesis"
+      ],
+      "known_limitations": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "market_ids": [
+        "598936"
+      ],
+      "pending_outcome_check": true,
+      "source_id": "598936:official_source_placeholder_001",
+      "source_name": "official_source_placeholder"
+    },
+    {
+      "dependency_role": "official_source_placeholder",
+      "future_source_learning_possible": true,
+      "hypothesis_ids": [
+        "598936.analysis.dceea0f50063.paper_hypothesis"
+      ],
+      "known_limitations": [
+        "contradictory",
+        "insufficient",
+        "missing",
+        "unknown"
+      ],
+      "market_ids": [
+        "598936"
+      ],
+      "pending_outcome_check": true,
+      "source_id": "598936:official_source_placeholder_002",
+      "source_name": "official_source_placeholder"
+    }
+  ],
+  "source_learning_after_resolution_only": [
+    "Compare each paper-only hypothesis with the resolved local outcome record.",
+    "Record whether each source row was useful, stale, missing, contradictory, or insufficient.",
+    "Update source-learning records only from saved local feedback artifacts."
+  ]
+}
