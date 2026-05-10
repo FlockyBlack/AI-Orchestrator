@@ -1,0 +1,78 @@
+{
+  "console_card_id": "operator-console-feedback-loop-014",
+  "contract_version": "pmbot_operator_console_feedback_loop.v1",
+  "feedback_ready": false,
+  "generated_at": "2026-05-10T22:21:21Z",
+  "how_to_proceed_when_one_market_resolves": [
+    "Copy the pending packet shape into a resolved manual outcome packet for that market.",
+    "Fill the required local outcome fields from saved resolution evidence.",
+    "Set the paper result label and operator approval only after review.",
+    "Regenerate paper feedback, source feedback, and the manual feedback packet."
+  ],
+  "markets": [
+    {
+      "feedback_ready": false,
+      "market_id": "563650",
+      "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?",
+      "outcome_status": "unresolved"
+    },
+    {
+      "feedback_ready": false,
+      "market_id": "597964",
+      "market_title": "Macron out by June 30, 2026?",
+      "outcome_status": "unresolved"
+    },
+    {
+      "feedback_ready": false,
+      "market_id": "598936",
+      "market_title": "Will the next UK election be called by June 30, 2026?",
+      "outcome_status": "unresolved"
+    },
+    {
+      "feedback_ready": false,
+      "market_id": "691547",
+      "market_title": "Kraken IPO by December 31, 2026?",
+      "outcome_status": "unresolved"
+    },
+    {
+      "feedback_ready": false,
+      "market_id": "692258",
+      "market_title": "MicroStrategy sells any Bitcoin by June 30, 2026?",
+      "outcome_status": "unresolved"
+    }
+  ],
+  "outcome_packets_prepared": true,
+  "safety_boundary": [
+    "No live data fetch.",
+    "No outcome invention.",
+    "No real-money action.",
+    "No autonomous training."
+  ],
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "new_live_fetch_performed": false,
+    "new_polymarket_api_calls_performed": 0,
+    "no_autonomous_trading": true,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "no_scheduler_daemon_background_worker": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "outcome_resolution_invented": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "unresolved_market_count": 5,
+  "what_feedback_will_produce": [
+    "Paper hypothesis feedback.",
+    "Source accuracy feedback.",
+    "Reasoning lessons.",
+    "Source learning update candidate.",
+    "Operator checklist for review."
+  ]
+}

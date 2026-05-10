@@ -1,0 +1,56 @@
+{
+  "actual_outcome_summary": "Synthetic fixture outcome resolved in the same direction as the paper hypothesis.",
+  "approval_required": true,
+  "contract_version": "pmbot_manual_outcome_resolution_packet.v1",
+  "created_at": "2026-05-10T22:21:21Z",
+  "fixture_scope": "pm_bot/tests/fixtures/manual_outcome_feedback only",
+  "hypothesis_id": "synthetic-014-aligned.paper_hypothesis",
+  "market_id": "SYNTHETIC-014-ALIGNED",
+  "market_title": "Synthetic resolved aligned fixture market",
+  "missing_evidence_lessons": [],
+  "no_real_trade_decision": true,
+  "operator_approved": true,
+  "operator_notes": "",
+  "orders_or_trading_actions": false,
+  "outcome_status": "resolved",
+  "packet_id": "manual-outcome-resolution-packet-014-SYNTHETIC-014-ALIGNED-resolved",
+  "paper_hypothesis_result_label": "aligned",
+  "paper_tracking_snapshot_id": "synthetic-paper-tracking-state-snapshot-014",
+  "reasoning_lessons": [
+    "Synthetic reasoning stayed tied to local fixture evidence."
+  ],
+  "resolution_evidence_summary": "Synthetic fixture evidence says the aligned outcome occurred.",
+  "resolution_source_reference": "synthetic://manual-outcome-feedback/aligned",
+  "resolved_at": "2026-01-15T00:00:00Z",
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "new_live_fetch_performed": false,
+    "new_polymarket_api_calls_performed": 0,
+    "no_autonomous_trading": true,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "no_scheduler_daemon_background_worker": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "outcome_resolution_invented": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "source_accuracy_lessons": [
+    "Synthetic source was useful for the resolved fixture."
+  ],
+  "source_evidence_used_for_resolution": [
+    {
+      "source_id": "synthetic-source-aligned",
+      "source_name": "Synthetic aligned source",
+      "source_reference": "synthetic://manual-outcome-feedback/aligned"
+    }
+  ],
+  "synthetic_fixture": true,
+  "wallet_or_private_key_access": false
+}

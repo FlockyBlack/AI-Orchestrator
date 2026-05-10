@@ -1,0 +1,62 @@
+{
+  "contract_version": "pmbot_manual_outcome_operator_guide.v1",
+  "do_not_put_in_packet": [
+    "Invented outcomes or guessed resolution dates.",
+    "Live lookup results that were not saved as local evidence.",
+    "Secrets, cookies, wallet material, or authenticated data.",
+    "Real-money actions or market-side instructions."
+  ],
+  "generated_at": "2026-05-10T22:21:21Z",
+  "guide_id": "manual-outcome-operator-guide-014",
+  "no_real_trade_decision": true,
+  "paper_hypothesis_result_labels": {
+    "aligned": "Approved local outcome review found the paper hypothesis directionally aligned with the result.",
+    "ambiguous": "Approved local outcome review found the result cannot fairly score the paper hypothesis.",
+    "not_aligned": "Approved local outcome review found the paper hypothesis did not align with the result.",
+    "pending": "Outcome is unresolved and feedback is not ready.",
+    "void": "Approved local outcome review found the market was void or excluded from scoring."
+  },
+  "purpose": "Explain how an operator later completes a manual outcome packet for paper-only feedback.",
+  "resolved_market_required_fields": [
+    "actual_outcome_summary",
+    "resolved_at",
+    "resolution_source_reference",
+    "resolution_evidence_summary",
+    "operator_approved"
+  ],
+  "safety_rules": [
+    "No outcome invention.",
+    "No live network fetch.",
+    "No OpenRouter call.",
+    "No Polymarket API call.",
+    "No scheduler, daemon, background worker, or polling loop.",
+    "No autonomous trading."
+  ],
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "new_live_fetch_performed": false,
+    "new_polymarket_api_calls_performed": 0,
+    "no_autonomous_trading": true,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "no_scheduler_daemon_background_worker": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "outcome_resolution_invented": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "source_accuracy_feedback": {
+    "contradicted": "Source was contradicted by the approved local outcome record.",
+    "insufficient": "Source did not provide enough resolution evidence.",
+    "misleading": "Source framing led analysis away from the approved local outcome record.",
+    "pending": "Outcome unresolved; no source accuracy claim.",
+    "unknown": "Local packet does not support a source accuracy claim.",
+    "useful": "Source helped the approved local outcome review."
+  }
+}

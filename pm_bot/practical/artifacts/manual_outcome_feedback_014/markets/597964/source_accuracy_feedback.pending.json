@@ -1,0 +1,79 @@
+{
+  "contract_version": "pmbot_source_accuracy_feedback.v1",
+  "created_at": "2026-05-10T22:21:21Z",
+  "hypothesis_id": "597964.analysis.33643849e5db.paper_hypothesis",
+  "input_feedback_id": "paper-hypothesis-feedback-014-597964-unresolved",
+  "market_id": "597964",
+  "no_autonomous_training_performed": true,
+  "no_real_trade_decision": true,
+  "outcome_status": "unresolved",
+  "recommended_future_source_handling": [
+    {
+      "handling": "Keep pending until an approved local outcome packet exists.",
+      "source_accuracy_label": "pending",
+      "source_id": "public_fetch_request_intent_006_04_597964_597964_domain_public_evidence"
+    }
+  ],
+  "requires_more_outcomes": true,
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "new_live_fetch_performed": false,
+    "new_polymarket_api_calls_performed": 0,
+    "no_autonomous_trading": true,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "no_scheduler_daemon_background_worker": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "outcome_resolution_invented": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "source_accuracy_labels": {
+    "public_fetch_request_intent_006_04_597964_597964_domain_public_evidence": "pending"
+  },
+  "source_feedback_id": "source-accuracy-feedback-014-597964-unresolved",
+  "source_lessons": [],
+  "source_records": [
+    {
+      "accuracy_limit": "Outcome unresolved; source accuracy is not claimed.",
+      "first_accessibility_status": "failed",
+      "first_source_url": "https://www.elysee.fr/emmanuel-macron",
+      "has_evidence_packet": false,
+      "latest_accessibility_status": "replacement_missing",
+      "latest_evidence_packet_id": "",
+      "latest_source_url": "https://www.elysee.fr/emmanuel-macron",
+      "market_id": "597964",
+      "market_title": "Macron out by June 30, 2026?",
+      "outcome_validated": false,
+      "paper_tracking_update_support": false,
+      "pending_outcome_resolution": true,
+      "recommended_handling": "replace_url",
+      "repair_status": "replacement_missing",
+      "request_intent_id": "public_fetch_request_intent_006_04_597964_597964_domain_public_evidence",
+      "source_accuracy_label": "pending",
+      "source_category": "public_resolution_source_page_placeholder",
+      "source_id": "public_fetch_request_intent_006_04_597964_597964_domain_public_evidence",
+      "source_name": "public resolution source page placeholder",
+      "source_usefulness_label": "missing_replacement",
+      "usefulness_limit": "Outcome resolution is pending; this is not a prediction accuracy judgement."
+    }
+  ],
+  "source_role_in_analysis": [
+    {
+      "role": "missing_replacement",
+      "source_id": "public_fetch_request_intent_006_04_597964_597964_domain_public_evidence"
+    }
+  ],
+  "source_role_in_resolution": [
+    {
+      "role": "analysis_context_only",
+      "source_id": "public_fetch_request_intent_006_04_597964_597964_domain_public_evidence"
+    }
+  ]
+}

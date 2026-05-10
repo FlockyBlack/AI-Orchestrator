@@ -1,0 +1,74 @@
+{
+  "analysis_quality_label": "pending",
+  "analysis_rule_improvement_notes": [],
+  "contract_version": "pmbot_paper_hypothesis_feedback.v1",
+  "created_at": "2026-05-10T22:21:21Z",
+  "evidence_usefulness_label": "pending",
+  "feedback_applied": false,
+  "feedback_id": "paper-hypothesis-feedback-014-563650-unresolved",
+  "feedback_ready": false,
+  "hypothesis_id": "563650.analysis.adc53630aa1f.paper_hypothesis",
+  "market_id": "563650",
+  "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?",
+  "missing_evidence_lessons": [],
+  "next_prompt_improvements": [],
+  "no_real_trade_decision": true,
+  "outcome_status": "unresolved",
+  "paper_hypothesis_result_label": "pending",
+  "reasoning_lessons": [],
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "new_live_fetch_performed": false,
+    "new_polymarket_api_calls_performed": 0,
+    "no_autonomous_trading": true,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "no_scheduler_daemon_background_worker": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "outcome_resolution_invented": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "source_contribution_review": {
+    "evidence_link_count": 1,
+    "evidence_links": [
+      {
+        "active_paper_hypothesis_summary": "Track whether the local source-backed analysis remains useful after the market outcome is reviewed.",
+        "evidence_packet_id": "public_fetch_008_563650_public_fetch_request_intent_006_02_563650_563650_domain_public_evidence_a6d1969391feeee9",
+        "evidence_packet_path": "pm_bot/practical/artifacts/public_read_only_fetch_execution_008/evidence_packets/public_fetch_008_563650_public_fetch_request_intent_006_02_563650_563650_domain_public_evidence_a6d1969391feeee9.json",
+        "evidence_task_id": "PRACTICAL-008",
+        "hypothesis_id": "563650.analysis.adc53630aa1f.paper_hypothesis",
+        "link_basis": [
+          "saved evidence packet market id",
+          "saved evidence packet hypothesis id",
+          "replayed source packet evidence id"
+        ],
+        "link_id": "public-evidence-link-011-563650-public_fetch_008_563650_public_fetch_request_intent_006_02_563650_563650_domain_public_evidence_a6d1969391feeee9",
+        "link_quality": "direct_market_and_hypothesis_id_match",
+        "market_id": "563650",
+        "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?",
+        "operator_review_required": true,
+        "source_packet": {
+          "freshness_status": "captured_at_task_time",
+          "replay_mode": true,
+          "source_category": "public_court_government_page_placeholder",
+          "source_id": "public_fetch_request_intent_006_02_563650_563650_domain_public_evidence",
+          "source_name": "public court/government page placeholder",
+          "source_url_or_reference": "https://www.supremecourt.gov/docket/docket.aspx"
+        },
+        "update_candidate_id": "paper-hypothesis-update-candidate-009",
+        "update_candidate_status": "pending_operator_review"
+      }
+    ],
+    "resolution_source_count": 0,
+    "status": "pending",
+    "summary": "Outcome remains unresolved; source contribution cannot be judged yet."
+  },
+  "source_quality_lessons": []
+}

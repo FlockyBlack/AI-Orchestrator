@@ -1,0 +1,79 @@
+{
+  "contract_version": "pmbot_source_accuracy_feedback.v1",
+  "created_at": "2026-05-10T22:21:21Z",
+  "hypothesis_id": "563650.analysis.adc53630aa1f.paper_hypothesis",
+  "input_feedback_id": "paper-hypothesis-feedback-014-563650-unresolved",
+  "market_id": "563650",
+  "no_autonomous_training_performed": true,
+  "no_real_trade_decision": true,
+  "outcome_status": "unresolved",
+  "recommended_future_source_handling": [
+    {
+      "handling": "Keep pending until an approved local outcome packet exists.",
+      "source_accuracy_label": "pending",
+      "source_id": "public_fetch_request_intent_006_02_563650_563650_domain_public_evidence"
+    }
+  ],
+  "requires_more_outcomes": true,
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "new_live_fetch_performed": false,
+    "new_polymarket_api_calls_performed": 0,
+    "no_autonomous_trading": true,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "no_scheduler_daemon_background_worker": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "outcome_resolution_invented": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "source_accuracy_labels": {
+    "public_fetch_request_intent_006_02_563650_563650_domain_public_evidence": "pending"
+  },
+  "source_feedback_id": "source-accuracy-feedback-014-563650-unresolved",
+  "source_lessons": [],
+  "source_records": [
+    {
+      "accuracy_limit": "Outcome unresolved; source accuracy is not claimed.",
+      "first_accessibility_status": "reachable",
+      "first_source_url": "https://www.supremecourt.gov/docket/docket.aspx",
+      "has_evidence_packet": true,
+      "latest_accessibility_status": "reachable",
+      "latest_evidence_packet_id": "public_fetch_008_563650_public_fetch_request_intent_006_02_563650_563650_domain_public_evidence_a6d1969391feeee9",
+      "latest_source_url": "https://www.supremecourt.gov/docket/docket.aspx",
+      "market_id": "563650",
+      "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?",
+      "outcome_validated": false,
+      "paper_tracking_update_support": true,
+      "pending_outcome_resolution": true,
+      "recommended_handling": "keep_for_operator_review",
+      "repair_status": "not_repaired",
+      "request_intent_id": "public_fetch_request_intent_006_02_563650_563650_domain_public_evidence",
+      "source_accuracy_label": "pending",
+      "source_category": "public_court_government_page_placeholder",
+      "source_id": "public_fetch_request_intent_006_02_563650_563650_domain_public_evidence",
+      "source_name": "public court/government page placeholder",
+      "source_usefulness_label": "useful_for_paper_tracking_update",
+      "usefulness_limit": "Outcome resolution is pending; this is not a prediction accuracy judgement."
+    }
+  ],
+  "source_role_in_analysis": [
+    {
+      "role": "useful_for_paper_tracking_update",
+      "source_id": "public_fetch_request_intent_006_02_563650_563650_domain_public_evidence"
+    }
+  ],
+  "source_role_in_resolution": [
+    {
+      "role": "analysis_context_only",
+      "source_id": "public_fetch_request_intent_006_02_563650_563650_domain_public_evidence"
+    }
+  ]
+}

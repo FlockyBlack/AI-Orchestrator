@@ -1,0 +1,74 @@
+{
+  "analysis_quality_label": "pending",
+  "analysis_rule_improvement_notes": [],
+  "contract_version": "pmbot_paper_hypothesis_feedback.v1",
+  "created_at": "2026-05-10T22:21:21Z",
+  "evidence_usefulness_label": "pending",
+  "feedback_applied": false,
+  "feedback_id": "paper-hypothesis-feedback-014-691547-unresolved",
+  "feedback_ready": false,
+  "hypothesis_id": "691547.analysis.56b3a68b9b94.paper_hypothesis",
+  "market_id": "691547",
+  "market_title": "Kraken IPO by December 31, 2026?",
+  "missing_evidence_lessons": [],
+  "next_prompt_improvements": [],
+  "no_real_trade_decision": true,
+  "outcome_status": "unresolved",
+  "paper_hypothesis_result_label": "pending",
+  "reasoning_lessons": [],
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "new_live_fetch_performed": false,
+    "new_polymarket_api_calls_performed": 0,
+    "no_autonomous_trading": true,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "no_scheduler_daemon_background_worker": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "outcome_resolution_invented": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "source_contribution_review": {
+    "evidence_link_count": 1,
+    "evidence_links": [
+      {
+        "active_paper_hypothesis_summary": "Track whether the local source-backed analysis remains useful after the market outcome is reviewed.",
+        "evidence_packet_id": "public_fetch_010_public_fetch_request_intent_006_08_691547_691547_domain_public_evidence_293c511e51a6fac6",
+        "evidence_packet_path": "pm_bot/practical/artifacts/public_source_url_fixes_010/evidence_packets/public_fetch_010_public_fetch_request_intent_006_08_691547_691547_domain_public_evidence_293c511e51a6fac6.json",
+        "evidence_task_id": "PRACTICAL-010",
+        "hypothesis_id": "691547.analysis.56b3a68b9b94.paper_hypothesis",
+        "link_basis": [
+          "saved evidence packet market id",
+          "saved evidence packet hypothesis id",
+          "replayed source packet evidence id"
+        ],
+        "link_id": "public-evidence-link-011-691547-public_fetch_010_public_fetch_request_intent_006_08_691547_691547_domain_public_evidence_293c511e51a6fac6",
+        "link_quality": "direct_market_and_hypothesis_id_match",
+        "market_id": "691547",
+        "market_title": "Kraken IPO by December 31, 2026?",
+        "operator_review_required": true,
+        "source_packet": {
+          "freshness_status": "captured_at_task_time",
+          "replay_mode": true,
+          "source_category": "public_exchange_company_announcement_page_placeholder",
+          "source_id": "public_fetch_request_intent_006_08_691547_691547_domain_public_evidence",
+          "source_name": "public exchange/company announcement page placeholder",
+          "source_url_or_reference": "https://blog.kraken.com/"
+        },
+        "update_candidate_id": "",
+        "update_candidate_status": "none"
+      }
+    ],
+    "resolution_source_count": 0,
+    "status": "pending",
+    "summary": "Outcome remains unresolved; source contribution cannot be judged yet."
+  },
+  "source_quality_lessons": []
+}
