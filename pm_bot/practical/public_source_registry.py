@@ -32,6 +32,14 @@ ALLOWED_SOURCE_CATEGORIES: dict[str, dict[str, str]] = {
         "reason": "Future public static web page used as a low-risk source reference.",
         "safety_boundary": "Public static page only; no browser profile, cookies, or automation bypass.",
     },
+    "public_btc_price_reference": {
+        "reason": "Future public read-only Bitcoin price or chart reference for evidence capture.",
+        "safety_boundary": "Public page reference only; no authenticated feed, API key, wallet, order, or trading endpoint.",
+    },
+    "public_resolution_reference": {
+        "reason": "Future public read-only market or resolution context reference for evidence capture.",
+        "safety_boundary": "Public page reference only; no authenticated endpoint, private API, wallet, order, or trading endpoint.",
+    },
     "low_quality_forum_or_rumor_labeled_source": {
         "reason": "May be retained only when explicitly labeled low quality and not used as decisive evidence.",
         "safety_boundary": "Low-quality context label only; never an executable market instruction.",

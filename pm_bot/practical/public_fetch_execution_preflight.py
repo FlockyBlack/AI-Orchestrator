@@ -225,6 +225,7 @@ def build_enriched_manifest_execution_preflight(
     *,
     enriched_manifest: Mapping[str, Any],
     pending_approval: Mapping[str, Any],
+    expected_future_task_id: str | None = None,
     fixture_mode: bool = False,
 ) -> dict[str, Any]:
     executable = [row for row in enriched_manifest.get("executable_request_intents", []) if isinstance(row, Mapping)]
@@ -268,7 +269,8 @@ def build_enriched_manifest_execution_preflight(
         after_approval_blockers.append("executable request count exceeds max request count")
     if not executable_urls_safe:
         after_approval_blockers.append("one or more executable request URLs failed local safety validation")
-    if pending_approval.get("approval_for_future_task_id") != FUTURE_ENRICHED_FETCH_TASK_ID:
+    expected_approval_future_task_id = expected_future_task_id or FUTURE_ENRICHED_FETCH_TASK_ID
+    if pending_approval.get("approval_for_future_task_id") != expected_approval_future_task_id:
         after_approval_blockers.append("pending approval future task id does not match enriched fetch task")
     if pending_approval.get("approval_status") != "pending":
         warnings.append("approval artifact is not marked pending")

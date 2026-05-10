@@ -1,0 +1,93 @@
+{
+  "approval_for_future_task_id": "ORCH-PMBOT-PRACTICAL-018-FIRST-PUBLIC-EVIDENCE-FETCH-FOR-NEW-MARKET",
+  "approval_granted": false,
+  "approval_required": true,
+  "approval_status": "pending",
+  "approved_market_ids_proposed": [
+    "573656"
+  ],
+  "approved_request_intent_ids_proposed": [
+    "manual_url_fetch_request_017c_01_573656_coingecko_bitcoin_btc_usd_public_price_chart",
+    "manual_url_fetch_request_017c_02_573656_coinmarketcap_bitcoin_btc_usd_public_price_chart",
+    "manual_url_fetch_request_017c_03_573656_polymarket_public_event_page_for_bitcoin_150k_timing_market"
+  ],
+  "blocked_request_count": 0,
+  "blockers": [
+    "operator approval has not been granted"
+  ],
+  "contract_version": "pmbot_enriched_public_fetch_execution_preflight.v1",
+  "executable_request_count": 3,
+  "fixture_mode": false,
+  "generated_at": "2026-05-11T00:00:00Z",
+  "live_fetch_performed": false,
+  "max_request_count": 3,
+  "missing_url_count": 0,
+  "per_request_safety": [
+    {
+      "allowed": true,
+      "blockers": [],
+      "contract_version": "pmbot_public_fetch_url_safety.v1",
+      "fixture_mode": false,
+      "market_id": "573656",
+      "max_request_count": 3,
+      "method": "GET",
+      "request_index": 1,
+      "request_intent_id": "manual_url_fetch_request_017c_01_573656_coingecko_bitcoin_btc_usd_public_price_chart",
+      "sanitized_url_reference": "https://www.coingecko.com/en/coins/bitcoin",
+      "source_category": "public_btc_price_reference",
+      "warnings": []
+    },
+    {
+      "allowed": true,
+      "blockers": [],
+      "contract_version": "pmbot_public_fetch_url_safety.v1",
+      "fixture_mode": false,
+      "market_id": "573656",
+      "max_request_count": 3,
+      "method": "GET",
+      "request_index": 2,
+      "request_intent_id": "manual_url_fetch_request_017c_02_573656_coinmarketcap_bitcoin_btc_usd_public_price_chart",
+      "sanitized_url_reference": "https://coinmarketcap.com/currencies/bitcoin/",
+      "source_category": "public_btc_price_reference",
+      "warnings": []
+    },
+    {
+      "allowed": true,
+      "blockers": [],
+      "contract_version": "pmbot_public_fetch_url_safety.v1",
+      "fixture_mode": false,
+      "market_id": "573656",
+      "max_request_count": 3,
+      "method": "GET",
+      "request_index": 3,
+      "request_intent_id": "manual_url_fetch_request_017c_03_573656_polymarket_public_event_page_for_bitcoin_150k_timing_market",
+      "sanitized_url_reference": "https://polymarket.com/event/when-will-bitcoin-hit-150k",
+      "source_category": "public_resolution_reference",
+      "warnings": []
+    }
+  ],
+  "ready_to_execute_public_read_only_fetch": false,
+  "request_count_within_limit": true,
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "automatic_analysis_update_performed": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "new_live_fetch_performed": false,
+    "new_polymarket_api_calls_performed": 0,
+    "no_autonomous_trading": true,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "no_scheduler_daemon_background_worker": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "outcome_resolution_invented": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "warnings": [],
+  "would_be_ready_after_operator_approval": true
+}

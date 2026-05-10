@@ -1,0 +1,175 @@
+{
+  "blocked_url_count": 0,
+  "candidate_urls": [
+    {
+      "expected_evidence_type": "BTC/USD public price and chart reference for paper tracking",
+      "item_id": "manual_url_017c_01_573656_coingecko_bitcoin_btc_usd_public_price_chart",
+      "linked_hypothesis_id": "573656.analysis.ceab64191597.paper_hypothesis",
+      "live_fetch_performed": false,
+      "market_id": "573656",
+      "operator_supplied_reason": "CoinGecko provides a public Bitcoin page with live BTC price, market cap, trading volume, and BTC/USD chart. Use only as public read-only evidence, not as a recommendation source.",
+      "operator_supplied_url": "https://www.coingecko.com/en/coins/bitcoin",
+      "requires_operator_review": true,
+      "source_category": "public_btc_price_reference",
+      "source_name": "CoinGecko Bitcoin BTC/USD public price chart",
+      "url_status": "supplied_pending_validation",
+      "validation_notes": [
+        "operator supplied concrete public URL; pending local format and safety validation"
+      ]
+    },
+    {
+      "expected_evidence_type": "BTC/USD public price and historical chart reference for paper tracking",
+      "item_id": "manual_url_017c_02_573656_coinmarketcap_bitcoin_btc_usd_public_price_chart",
+      "linked_hypothesis_id": "573656.analysis.ceab64191597.paper_hypothesis",
+      "live_fetch_performed": false,
+      "market_id": "573656",
+      "operator_supplied_reason": "CoinMarketCap provides a public Bitcoin page with live BTC price and chart/history information. Use only as a second public read-only price/reference source, not as a recommendation source.",
+      "operator_supplied_url": "https://coinmarketcap.com/currencies/bitcoin/",
+      "requires_operator_review": true,
+      "source_category": "public_btc_price_reference",
+      "source_name": "CoinMarketCap Bitcoin BTC/USD public price chart",
+      "url_status": "supplied_pending_validation",
+      "validation_notes": [
+        "operator supplied concrete public URL; pending local format and safety validation"
+      ]
+    },
+    {
+      "expected_evidence_type": "public market/resolution context reference for the Bitcoin $150k paper tracking market",
+      "item_id": "manual_url_017c_03_573656_polymarket_public_event_page_for_bitcoin_150k_timing_market",
+      "linked_hypothesis_id": "573656.analysis.ceab64191597.paper_hypothesis",
+      "live_fetch_performed": false,
+      "market_id": "573656",
+      "operator_supplied_reason": "Public Polymarket event page for the Bitcoin $150k timing market. Use only as market/resolution context and paper-tracking reference. Do not use authenticated endpoints, trading endpoints, order endpoints, wallet actions, or Polymarket APIs.",
+      "operator_supplied_url": "https://polymarket.com/event/when-will-bitcoin-hit-150k",
+      "requires_operator_review": true,
+      "source_category": "public_resolution_reference",
+      "source_name": "Polymarket public event page for Bitcoin $150k timing market",
+      "url_status": "supplied_pending_validation",
+      "validation_notes": [
+        "operator supplied concrete public URL; pending local format and safety validation"
+      ]
+    }
+  ],
+  "contract_version": "pmbot_manual_public_url_collection_packet.v1",
+  "created_at": "2026-05-11T00:00:00Z",
+  "filled_url_count": 3,
+  "live_fetch_performed": false,
+  "live_network_used": false,
+  "market_id": "573656",
+  "market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+  "missing_url_count": 0,
+  "next_action_after_fill": "ORCH-PMBOT-PRACTICAL-018-FIRST-PUBLIC-EVIDENCE-FETCH-FOR-NEW-MARKET",
+  "no_real_trade_decision": true,
+  "operator_fill_required": false,
+  "packet_id": "manual-public-url-collection-017c-573656-filled",
+  "previous_task_id": "ORCH-PMBOT-PRACTICAL-017B-MANUAL-URL-COLLECTION-FOR-NEW-MARKET",
+  "prohibited_url_patterns": [
+    {
+      "pattern": "localhost, loopback, private IP, or internal hostname",
+      "reason": "not public evidence"
+    },
+    {
+      "pattern": "URL username or password",
+      "reason": "credential-bearing URL"
+    },
+    {
+      "pattern": "token, key, secret, signature, session, auth, or cookie query keys",
+      "reason": "credential-like query"
+    },
+    {
+      "pattern": "login, auth, session, kyc, admin, private, or oauth path hints",
+      "reason": "authentication or private view"
+    },
+    {
+      "pattern": "wallet, sign, order, trade, trading, clob, or withdraw path hints",
+      "reason": "execution-adjacent endpoint"
+    }
+  ],
+  "requires_operator_review": true,
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "automatic_analysis_update_performed": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "new_live_fetch_performed": false,
+    "new_polymarket_api_calls_performed": 0,
+    "no_autonomous_trading": true,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "no_scheduler_daemon_background_worker": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "outcome_resolution_invented": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "source_category_guidance": [
+    {
+      "expected_evidence_type": "BTC/USD public price and chart reference for paper tracking",
+      "item_id": "manual_url_017c_01_573656_coingecko_bitcoin_btc_usd_public_price_chart",
+      "operator_guidance": "Operator supplied this concrete public URL for local validation only.",
+      "source_category": "public_btc_price_reference",
+      "source_name": "CoinGecko Bitcoin BTC/USD public price chart"
+    },
+    {
+      "expected_evidence_type": "BTC/USD public price and historical chart reference for paper tracking",
+      "item_id": "manual_url_017c_02_573656_coinmarketcap_bitcoin_btc_usd_public_price_chart",
+      "operator_guidance": "Operator supplied this concrete public URL for local validation only.",
+      "source_category": "public_btc_price_reference",
+      "source_name": "CoinMarketCap Bitcoin BTC/USD public price chart"
+    },
+    {
+      "expected_evidence_type": "public market/resolution context reference for the Bitcoin $150k paper tracking market",
+      "item_id": "manual_url_017c_03_573656_polymarket_public_event_page_for_bitcoin_150k_timing_market",
+      "operator_guidance": "Operator supplied this concrete public URL for local validation only.",
+      "source_category": "public_resolution_reference",
+      "source_name": "Polymarket public event page for Bitcoin $150k timing market"
+    }
+  ],
+  "source_missing_url_items": [
+    {
+      "expected_evidence_type": "public market metadata, rules, status, and linked reference snapshot",
+      "item_id": "new_market_fetch_request_017_01_573656_public_market_metadata_page_reference",
+      "linked_hypothesis_id": "573656.analysis.ceab64191597.paper_hypothesis",
+      "market_id": "573656",
+      "missing_url_reason": "no concrete public HTTP(S) URL is present in local artifacts or the manual fixture",
+      "source_category": "public_market_metadata_endpoint_placeholder",
+      "source_name": "public market metadata page/reference"
+    },
+    {
+      "expected_evidence_type": "public Bitcoin price threshold reference snapshot",
+      "item_id": "new_market_fetch_request_017_02_573656_public_bitcoin_price_reference_category",
+      "linked_hypothesis_id": "573656.analysis.ceab64191597.paper_hypothesis",
+      "market_id": "573656",
+      "missing_url_reason": "no concrete public HTTP(S) URL is present in local artifacts or the manual fixture",
+      "source_category": "public_static_web_page_placeholder",
+      "source_name": "public Bitcoin price reference category"
+    },
+    {
+      "expected_evidence_type": "public resolution rules or resolution-source reference snapshot",
+      "item_id": "new_market_fetch_request_017_03_573656_public_resolution_source_reference_category",
+      "linked_hypothesis_id": "573656.analysis.ceab64191597.paper_hypothesis",
+      "market_id": "573656",
+      "missing_url_reason": "no concrete public HTTP(S) URL is present in local artifacts or the manual fixture",
+      "source_category": "public_resolution_source_page_placeholder",
+      "source_name": "public resolution source reference category"
+    }
+  ],
+  "source_packet_id": "manual-public-url-collection-017b-573656",
+  "source_packet_path": "pm_bot/practical/artifacts/manual_url_collection_017b/manual_public_url_collection_packet_573656.json",
+  "supplied_url_count": 3,
+  "task_id": "ORCH-PMBOT-PRACTICAL-017C-FILL-NEW-MARKET-PUBLIC-URL-PACKET-MANUALLY",
+  "validation_rules": [
+    "operator_supplied_url may remain null while the packet is unfilled.",
+    "If operator_supplied_url is present, it is validated locally as a URL string only.",
+    "Only http and https schemes are accepted.",
+    "Credentials in the URL are blocked.",
+    "Credential-like query keys are blocked.",
+    "Localhost, private IPs, internal hostnames, and private dashboard shapes are blocked.",
+    "Wallet, signing, order, and trading endpoint shapes are blocked.",
+    "Validation does not fetch the URL and does not approve a future fetch."
+  ]
+}
