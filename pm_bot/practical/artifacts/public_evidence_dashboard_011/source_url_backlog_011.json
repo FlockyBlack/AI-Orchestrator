@@ -1,0 +1,56 @@
+{
+  "backlog_items": [
+    {
+      "issue": "HTTP fetch failed: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1010)",
+      "market_id": "597964",
+      "priority": "high",
+      "reason": "No locally curated replacement URL exists.",
+      "recommended_fix": "Collect a concrete replacement public URL manually.",
+      "requires_manual_url_collection": true,
+      "safe_to_retry": false,
+      "source_id": "public_fetch_request_intent_006_04_597964_597964_domain_public_evidence"
+    },
+    {
+      "issue": "HTTP fetch failed with status 403",
+      "market_id": "598936",
+      "priority": "medium",
+      "reason": "The original URL failed and was explicitly marked no-retry.",
+      "recommended_fix": "Find an alternate official public source before any later scoped source task.",
+      "requires_manual_url_collection": true,
+      "safe_to_retry": false,
+      "source_id": "public_fetch_request_intent_006_06_598936_598936_domain_public_evidence"
+    },
+    {
+      "issue": "HTTP fetch failed with status 403",
+      "market_id": "692258",
+      "priority": "medium",
+      "reason": "The source remains blocked by access-control or simple request limitations.",
+      "recommended_fix": "Keep access-control workarounds blocked and collect a different public source manually.",
+      "requires_manual_url_collection": true,
+      "safe_to_retry": false,
+      "source_id": "public_fetch_request_intent_006_10_692258_692258_domain_public_evidence"
+    }
+  ],
+  "contract_version": "pmbot_source_url_backlog.v1",
+  "generated_at": "2026-05-10T00:00:00Z",
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "automatic_analysis_update_performed": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "new_live_fetch_performed": false,
+    "new_polymarket_api_calls_performed": 0,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "no_scheduler_daemon_background_worker": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "source_url_fix_packet_path": "pm_bot/practical/artifacts/public_evidence_review_009/failed_source_url_fix_packet_009.json",
+  "source_url_repair_result_summary_path": "pm_bot/practical/artifacts/public_source_url_fixes_010/source_url_repair_result_summary_010.json"
+}

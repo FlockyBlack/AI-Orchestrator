@@ -1,0 +1,404 @@
+{
+  "active_paper_hypotheses": [
+    {
+      "feedback_status": "outcome_pending",
+      "hypothesis_id": "563650.analysis.adc53630aa1f.paper_hypothesis",
+      "market_id": "563650",
+      "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?",
+      "next_operator_action": "Check whether a local outcome record is available.",
+      "outcome_status": "unresolved",
+      "paper_hypothesis_summary": "Track whether the local source-backed analysis remains useful after the market outcome is reviewed.",
+      "safety_label": "paper_only_non_executable_analysis_tracking"
+    },
+    {
+      "feedback_status": "outcome_pending",
+      "hypothesis_id": "597964.analysis.33643849e5db.paper_hypothesis",
+      "market_id": "597964",
+      "market_title": "Macron out by June 30, 2026?",
+      "next_operator_action": "Check whether a local outcome record is available.",
+      "outcome_status": "unresolved",
+      "paper_hypothesis_summary": "Track whether the local source-backed analysis remains useful after the market outcome is reviewed.",
+      "safety_label": "paper_only_non_executable_analysis_tracking"
+    },
+    {
+      "feedback_status": "outcome_pending",
+      "hypothesis_id": "598936.analysis.dceea0f50063.paper_hypothesis",
+      "market_id": "598936",
+      "market_title": "Will the next UK election be called by June 30, 2026?",
+      "next_operator_action": "Check whether a local outcome record is available.",
+      "outcome_status": "unresolved",
+      "paper_hypothesis_summary": "Track whether the local source-backed analysis remains useful after the market outcome is reviewed.",
+      "safety_label": "paper_only_non_executable_analysis_tracking"
+    },
+    {
+      "feedback_status": "outcome_pending",
+      "hypothesis_id": "691547.analysis.56b3a68b9b94.paper_hypothesis",
+      "market_id": "691547",
+      "market_title": "Kraken IPO by December 31, 2026?",
+      "next_operator_action": "Check whether a local outcome record is available.",
+      "outcome_status": "unresolved",
+      "paper_hypothesis_summary": "Track whether the local source-backed analysis remains useful after the market outcome is reviewed.",
+      "safety_label": "paper_only_non_executable_analysis_tracking"
+    },
+    {
+      "feedback_status": "outcome_pending",
+      "hypothesis_id": "692258.analysis.bed289c1494d.paper_hypothesis",
+      "market_id": "692258",
+      "market_title": "MicroStrategy sells any Bitcoin by June 30, 2026?",
+      "next_operator_action": "Check whether a local outcome record is available.",
+      "outcome_status": "unresolved",
+      "paper_hypothesis_summary": "Track whether the local source-backed analysis remains useful after the market outcome is reviewed.",
+      "safety_label": "paper_only_non_executable_analysis_tracking"
+    }
+  ],
+  "contract_version": "pmbot_public_evidence_tracking_dashboard.v1",
+  "dashboard_id": "public-evidence-tracking-dashboard-011",
+  "evidence_packets": [
+    {
+      "captured_at": "2026-05-10T13:16:55Z",
+      "evidence_packet_id": "public_fetch_008_563650_public_fetch_request_intent_006_02_563650_563650_domain_public_evidence_a6d1969391feeee9",
+      "evidence_packet_path": "pm_bot/practical/artifacts/public_read_only_fetch_execution_008/evidence_packets/public_fetch_008_563650_public_fetch_request_intent_006_02_563650_563650_domain_public_evidence_a6d1969391feeee9.json",
+      "historical_capture_was_public_read_only": true,
+      "http_status": 200,
+      "hypothesis_ids": [
+        "563650.analysis.adc53630aa1f.paper_hypothesis"
+      ],
+      "market_ids": [
+        "563650"
+      ],
+      "safe_for_replay": true,
+      "source_category": "public_court_government_page_placeholder",
+      "source_id": "public_fetch_request_intent_006_02_563650_563650_domain_public_evidence",
+      "source_name": "public court/government page placeholder",
+      "source_reference": "https://www.supremecourt.gov/docket/docket.aspx",
+      "source_task_id": "PRACTICAL-008",
+      "used_by_this_task_as_saved_artifact_only": true
+    },
+    {
+      "captured_at": "2026-05-10T20:53:24Z",
+      "evidence_packet_id": "public_fetch_010_public_fetch_request_intent_006_08_691547_691547_domain_public_evidence_293c511e51a6fac6",
+      "evidence_packet_path": "pm_bot/practical/artifacts/public_source_url_fixes_010/evidence_packets/public_fetch_010_public_fetch_request_intent_006_08_691547_691547_domain_public_evidence_293c511e51a6fac6.json",
+      "historical_capture_was_public_read_only": true,
+      "http_status": 200,
+      "hypothesis_ids": [
+        "691547.analysis.56b3a68b9b94.paper_hypothesis"
+      ],
+      "market_ids": [
+        "691547"
+      ],
+      "safe_for_replay": true,
+      "source_category": "public_exchange_company_announcement_page_placeholder",
+      "source_id": "public_fetch_request_intent_006_08_691547_691547_domain_public_evidence",
+      "source_name": "public exchange/company announcement page placeholder",
+      "source_reference": "https://blog.kraken.com/",
+      "source_task_id": "PRACTICAL-010",
+      "used_by_this_task_as_saved_artifact_only": true
+    }
+  ],
+  "evidence_to_hypothesis_links": [
+    {
+      "evidence_packet_id": "public_fetch_008_563650_public_fetch_request_intent_006_02_563650_563650_domain_public_evidence_a6d1969391feeee9",
+      "hypothesis_id": "563650.analysis.adc53630aa1f.paper_hypothesis",
+      "market_id": "563650",
+      "update_candidate_id": "paper-hypothesis-update-candidate-009",
+      "update_candidate_status": "pending_operator_review"
+    },
+    {
+      "evidence_packet_id": "public_fetch_010_public_fetch_request_intent_006_08_691547_691547_domain_public_evidence_293c511e51a6fac6",
+      "hypothesis_id": "691547.analysis.56b3a68b9b94.paper_hypothesis",
+      "market_id": "691547",
+      "update_candidate_id": "",
+      "update_candidate_status": "none"
+    }
+  ],
+  "evidence_to_market_links": [
+    {
+      "evidence_packet_id": "public_fetch_008_563650_public_fetch_request_intent_006_02_563650_563650_domain_public_evidence_a6d1969391feeee9",
+      "link_quality": "direct_market_and_hypothesis_id_match",
+      "market_id": "563650",
+      "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?"
+    },
+    {
+      "evidence_packet_id": "public_fetch_010_public_fetch_request_intent_006_08_691547_691547_domain_public_evidence_293c511e51a6fac6",
+      "link_quality": "direct_market_and_hypothesis_id_match",
+      "market_id": "691547",
+      "market_title": "Kraken IPO by December 31, 2026?"
+    }
+  ],
+  "generated_at": "2026-05-10T00:00:00Z",
+  "next_operator_actions": [
+    "Review the pending paper update candidate in a later operator-approved paper task.",
+    "Use the source URL backlog for manual URL collection before any future scoped public-source task.",
+    "Keep all five outcomes unresolved until saved resolution evidence is available."
+  ],
+  "outcome_feedback_pending_summary": {
+    "markets_waiting_for_outcome_resolution": [
+      {
+        "market_id": "563650",
+        "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?"
+      },
+      {
+        "market_id": "597964",
+        "market_title": "Macron out by June 30, 2026?"
+      },
+      {
+        "market_id": "598936",
+        "market_title": "Will the next UK election be called by June 30, 2026?"
+      },
+      {
+        "market_id": "691547",
+        "market_title": "Kraken IPO by December 31, 2026?"
+      },
+      {
+        "market_id": "692258",
+        "market_title": "MicroStrategy sells any Bitcoin by June 30, 2026?"
+      }
+    ],
+    "outcomes_resolved_count": 0,
+    "unresolved_outcome_count": 5
+  },
+  "pending_operator_reviews": [
+    {
+      "item_id": "paper-hypothesis-update-candidate-009",
+      "market_id": "563650",
+      "reason": "operator approval required before paper hypothesis update application",
+      "review_type": "paper_update_candidate"
+    },
+    {
+      "item_id": "public_fetch_request_intent_006_02_563650_563650_domain_public_evidence",
+      "market_id": "563650",
+      "reason": "source status is reachable",
+      "review_type": "source_accessibility"
+    },
+    {
+      "item_id": "public_fetch_request_intent_006_04_597964_597964_domain_public_evidence",
+      "market_id": "597964",
+      "reason": "source status is replacement_missing",
+      "review_type": "source_accessibility"
+    },
+    {
+      "item_id": "public_fetch_request_intent_006_06_598936_598936_domain_public_evidence",
+      "market_id": "598936",
+      "reason": "source status is no_retry",
+      "review_type": "source_accessibility"
+    },
+    {
+      "item_id": "public_fetch_request_intent_006_08_691547_691547_domain_public_evidence",
+      "market_id": "691547",
+      "reason": "source status is reachable",
+      "review_type": "source_accessibility"
+    },
+    {
+      "item_id": "public_fetch_request_intent_006_10_692258_692258_domain_public_evidence",
+      "market_id": "692258",
+      "reason": "source status is blocked",
+      "review_type": "source_accessibility"
+    }
+  ],
+  "public_evidence_scorecard": {
+    "accessibility_success_rate_label": "low",
+    "automatic_update_count": 0,
+    "contract_version": "pmbot_public_evidence_scorecard.v1",
+    "evidence_packet_count": 2,
+    "generated_at": "2026-05-10T00:00:00Z",
+    "next_source_improvement_actions": [
+      "Review the source URL backlog before any later scoped public-source task.",
+      "Collect missing replacement URLs manually where the saved artifacts do not contain a usable public URL.",
+      "Keep outcome resolution separate from source accessibility review."
+    ],
+    "quality_notes": [
+      "This scorecard covers public evidence collection and source accessibility only.",
+      "Saved evidence packets exist for SCOTUS and Kraken source checks.",
+      "Several source records still require operator review or manual URL collection.",
+      "No paper hypothesis was updated automatically."
+    ],
+    "replay_success_count": 2,
+    "safety_summary": {
+      "authenticated_endpoints_used": false,
+      "live_network_used": false,
+      "market_recommendation_generated": false,
+      "no_autonomous_training_performed": true,
+      "no_real_trade_decision": true,
+      "openrouter_calls_performed": 0,
+      "orders_or_trading_actions": false,
+      "paper_only": true,
+      "polymarket_api_calls_performed": 0,
+      "probability_ev_edge_or_side_selection_generated": false,
+      "runtime_or_dispatcher_changes": false,
+      "wallet_or_private_key_access": false
+    },
+    "source_repair_count": 1,
+    "source_still_missing_count": 1,
+    "total_fetch_attempts": 6,
+    "total_fetch_blocked": 1,
+    "total_fetch_failures": 4,
+    "total_fetch_successes": 2,
+    "update_candidate_count": 1
+  },
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "automatic_analysis_update_performed": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "new_live_fetch_performed": false,
+    "new_polymarket_api_calls_performed": 0,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "no_scheduler_daemon_background_worker": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "source_accessibility_learning_summary": {
+    "manual_review_count": 5,
+    "no_autonomous_training_performed": true,
+    "reachable_count": 2,
+    "source_learning_009_path": "pm_bot/practical/artifacts/public_evidence_review_009/source_accessibility_learning_009.json",
+    "source_learning_010_path": "pm_bot/practical/artifacts/public_source_url_fixes_010/source_accessibility_learning_010.json",
+    "source_records_count": 5
+  },
+  "source_repair_summary": {
+    "blocked_count": 1,
+    "no_retry_count": 1,
+    "repaired_executable_count": 1,
+    "replacement_missing_count": 1,
+    "second_fetch_failed": 0,
+    "second_fetch_succeeded": 1,
+    "source_url_repair_result_summary_path": "pm_bot/practical/artifacts/public_source_url_fixes_010/source_url_repair_result_summary_010.json"
+  },
+  "source_status_summary": {
+    "blocked_source_count": 1,
+    "failed_source_count": 3,
+    "no_retry_source_count": 1,
+    "reachable_source_count": 2,
+    "repaired_source_count": 1,
+    "replacement_missing_source_count": 1,
+    "source_record_count": 5,
+    "sources_with_evidence_packets_count": 2
+  },
+  "tracked_markets": [
+    {
+      "market_class": "generic",
+      "market_id": "563650",
+      "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?",
+      "outcome_record_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/563650/outcome_record.unresolved.json",
+      "paper_hypothesis_id": "563650.analysis.adc53630aa1f.paper_hypothesis",
+      "paper_hypothesis_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/563650/paper_hypothesis.json",
+      "status": "hypothesis_active"
+    },
+    {
+      "market_class": "politics",
+      "market_id": "597964",
+      "market_title": "Macron out by June 30, 2026?",
+      "outcome_record_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/597964/outcome_record.unresolved.json",
+      "paper_hypothesis_id": "597964.analysis.33643849e5db.paper_hypothesis",
+      "paper_hypothesis_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/597964/paper_hypothesis.json",
+      "status": "hypothesis_active"
+    },
+    {
+      "market_class": "politics",
+      "market_id": "598936",
+      "market_title": "Will the next UK election be called by June 30, 2026?",
+      "outcome_record_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/598936/outcome_record.unresolved.json",
+      "paper_hypothesis_id": "598936.analysis.dceea0f50063.paper_hypothesis",
+      "paper_hypothesis_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/598936/paper_hypothesis.json",
+      "status": "hypothesis_active"
+    },
+    {
+      "market_class": "crypto",
+      "market_id": "691547",
+      "market_title": "Kraken IPO by December 31, 2026?",
+      "outcome_record_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/691547/outcome_record.unresolved.json",
+      "paper_hypothesis_id": "691547.analysis.56b3a68b9b94.paper_hypothesis",
+      "paper_hypothesis_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/691547/paper_hypothesis.json",
+      "status": "hypothesis_active"
+    },
+    {
+      "market_class": "crypto",
+      "market_id": "692258",
+      "market_title": "MicroStrategy sells any Bitcoin by June 30, 2026?",
+      "outcome_record_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/692258/outcome_record.unresolved.json",
+      "paper_hypothesis_id": "692258.analysis.bed289c1494d.paper_hypothesis",
+      "paper_hypothesis_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/692258/paper_hypothesis.json",
+      "status": "hypothesis_active"
+    }
+  ],
+  "unresolved_outcomes": [
+    {
+      "actual_outcome_summary": "unresolved",
+      "market_id": "563650",
+      "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?",
+      "next_outcome_check_action": "Attach a resolved local outcome record only after saved local resolution evidence exists.",
+      "outcome_record_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/563650/outcome_record.unresolved.json",
+      "outcome_status": "unresolved",
+      "resolved_at": null
+    },
+    {
+      "actual_outcome_summary": "unresolved",
+      "market_id": "597964",
+      "market_title": "Macron out by June 30, 2026?",
+      "next_outcome_check_action": "Attach a resolved local outcome record only after saved local resolution evidence exists.",
+      "outcome_record_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/597964/outcome_record.unresolved.json",
+      "outcome_status": "unresolved",
+      "resolved_at": null
+    },
+    {
+      "actual_outcome_summary": "unresolved",
+      "market_id": "598936",
+      "market_title": "Will the next UK election be called by June 30, 2026?",
+      "next_outcome_check_action": "Attach a resolved local outcome record only after saved local resolution evidence exists.",
+      "outcome_record_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/598936/outcome_record.unresolved.json",
+      "outcome_status": "unresolved",
+      "resolved_at": null
+    },
+    {
+      "actual_outcome_summary": "unresolved",
+      "market_id": "691547",
+      "market_title": "Kraken IPO by December 31, 2026?",
+      "next_outcome_check_action": "Attach a resolved local outcome record only after saved local resolution evidence exists.",
+      "outcome_record_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/691547/outcome_record.unresolved.json",
+      "outcome_status": "unresolved",
+      "resolved_at": null
+    },
+    {
+      "actual_outcome_summary": "unresolved",
+      "market_id": "692258",
+      "market_title": "MicroStrategy sells any Bitcoin by June 30, 2026?",
+      "next_outcome_check_action": "Attach a resolved local outcome record only after saved local resolution evidence exists.",
+      "outcome_record_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/692258/outcome_record.unresolved.json",
+      "outcome_status": "unresolved",
+      "resolved_at": null
+    }
+  ],
+  "update_candidates": [
+    {
+      "active_paper_hypothesis_summary": "Track whether the local source-backed analysis remains useful after the market outcome is reviewed.",
+      "automatic_analysis_update_performed": false,
+      "candidate_artifact_path": "pm_bot/practical/artifacts/public_evidence_review_009/paper_hypothesis_update_candidate_009.json",
+      "evidence_summary": [
+        "public court/government page placeholder returned HTTP 200 for `https://www.supremecourt.gov/docket/docket.aspx` and was saved as replay-safe metadata.",
+        "Public source returned HTTP 200 for request intent public_fetch_request_intent_006_02_563650_563650_domain_public_evidence.",
+        "Response metadata and digest were saved before replay for paper-only evidence review.",
+        "4 approved PRACTICAL-008 source requests did not produce saved evidence packets.",
+        "The saved evidence supports source-accessibility tracking, not outcome resolution."
+      ],
+      "hypothesis_id": "563650.analysis.adc53630aa1f.paper_hypothesis",
+      "market_id": "563650",
+      "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?",
+      "no_real_trade_decision": true,
+      "operator_approval_required": true,
+      "proposed_paper_tracking_update": [
+        "Record that PRACTICAL-008 captured and replayed a public SCOTUS docket source for this paper hypothesis.",
+        "Treat the evidence as source-accessibility support only until an operator confirms exact case relevance.",
+        "Keep final outcome resolution as a separate unresolved follow-up."
+      ],
+      "update_applied": false,
+      "update_candidate_id": "paper-hypothesis-update-candidate-009",
+      "update_reason": "new_public_evidence"
+    }
+  ]
+}

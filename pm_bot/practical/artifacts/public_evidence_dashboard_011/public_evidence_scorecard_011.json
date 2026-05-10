@@ -1,0 +1,40 @@
+{
+  "accessibility_success_rate_label": "low",
+  "automatic_update_count": 0,
+  "contract_version": "pmbot_public_evidence_scorecard.v1",
+  "evidence_packet_count": 2,
+  "generated_at": "2026-05-10T00:00:00Z",
+  "next_source_improvement_actions": [
+    "Review the source URL backlog before any later scoped public-source task.",
+    "Collect missing replacement URLs manually where the saved artifacts do not contain a usable public URL.",
+    "Keep outcome resolution separate from source accessibility review."
+  ],
+  "quality_notes": [
+    "This scorecard covers public evidence collection and source accessibility only.",
+    "Saved evidence packets exist for SCOTUS and Kraken source checks.",
+    "Several source records still require operator review or manual URL collection.",
+    "No paper hypothesis was updated automatically."
+  ],
+  "replay_success_count": 2,
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "source_repair_count": 1,
+  "source_still_missing_count": 1,
+  "total_fetch_attempts": 6,
+  "total_fetch_blocked": 1,
+  "total_fetch_failures": 4,
+  "total_fetch_successes": 2,
+  "update_candidate_count": 1
+}

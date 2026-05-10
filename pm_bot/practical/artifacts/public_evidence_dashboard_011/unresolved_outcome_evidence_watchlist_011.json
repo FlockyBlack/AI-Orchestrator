@@ -1,0 +1,107 @@
+{
+  "contract_version": "pmbot_unresolved_outcome_evidence_watchlist.v1",
+  "generated_at": "2026-05-10T00:00:00Z",
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "automatic_analysis_update_performed": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "new_live_fetch_performed": false,
+    "new_polymarket_api_calls_performed": 0,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "no_scheduler_daemon_background_worker": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "watchlist_items": [
+    {
+      "available_public_evidence": [
+        {
+          "evidence_packet_id": "public_fetch_008_563650_public_fetch_request_intent_006_02_563650_563650_domain_public_evidence_a6d1969391feeee9",
+          "source_id": "public_fetch_request_intent_006_02_563650_563650_domain_public_evidence"
+        }
+      ],
+      "evidence_still_missing": "Outcome resolution evidence remains missing even though public source metadata exists.",
+      "future_source_fix_needed": [],
+      "market_id": "563650",
+      "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?",
+      "next_outcome_check_action": "Attach a resolved local outcome record only after saved local resolution evidence exists.",
+      "outcome_status": "unresolved",
+      "paper_update_candidate_exists": true,
+      "paper_update_candidate_id": "paper-hypothesis-update-candidate-009"
+    },
+    {
+      "available_public_evidence": [],
+      "evidence_still_missing": "No saved public evidence packet is linked to this market yet.",
+      "future_source_fix_needed": [
+        {
+          "source_id": "public_fetch_request_intent_006_04_597964_597964_domain_public_evidence",
+          "source_url": "https://www.elysee.fr/emmanuel-macron",
+          "status": "replacement_missing"
+        }
+      ],
+      "market_id": "597964",
+      "market_title": "Macron out by June 30, 2026?",
+      "next_outcome_check_action": "Attach a resolved local outcome record only after saved local resolution evidence exists.",
+      "outcome_status": "unresolved",
+      "paper_update_candidate_exists": false,
+      "paper_update_candidate_id": ""
+    },
+    {
+      "available_public_evidence": [],
+      "evidence_still_missing": "No saved public evidence packet is linked to this market yet.",
+      "future_source_fix_needed": [
+        {
+          "source_id": "public_fetch_request_intent_006_06_598936_598936_domain_public_evidence",
+          "source_url": "https://www.parliament.uk/about/how/elections-and-voting/general/",
+          "status": "no_retry"
+        }
+      ],
+      "market_id": "598936",
+      "market_title": "Will the next UK election be called by June 30, 2026?",
+      "next_outcome_check_action": "Attach a resolved local outcome record only after saved local resolution evidence exists.",
+      "outcome_status": "unresolved",
+      "paper_update_candidate_exists": false,
+      "paper_update_candidate_id": ""
+    },
+    {
+      "available_public_evidence": [
+        {
+          "evidence_packet_id": "public_fetch_010_public_fetch_request_intent_006_08_691547_691547_domain_public_evidence_293c511e51a6fac6",
+          "source_id": "public_fetch_request_intent_006_08_691547_691547_domain_public_evidence"
+        }
+      ],
+      "evidence_still_missing": "Outcome resolution evidence remains missing even though public source metadata exists.",
+      "future_source_fix_needed": [],
+      "market_id": "691547",
+      "market_title": "Kraken IPO by December 31, 2026?",
+      "next_outcome_check_action": "Attach a resolved local outcome record only after saved local resolution evidence exists.",
+      "outcome_status": "unresolved",
+      "paper_update_candidate_exists": false,
+      "paper_update_candidate_id": ""
+    },
+    {
+      "available_public_evidence": [],
+      "evidence_still_missing": "No saved public evidence packet is linked to this market yet.",
+      "future_source_fix_needed": [
+        {
+          "source_id": "public_fetch_request_intent_006_10_692258_692258_domain_public_evidence",
+          "source_url": "https://www.microstrategy.com/press",
+          "status": "blocked"
+        }
+      ],
+      "market_id": "692258",
+      "market_title": "MicroStrategy sells any Bitcoin by June 30, 2026?",
+      "next_outcome_check_action": "Attach a resolved local outcome record only after saved local resolution evidence exists.",
+      "outcome_status": "unresolved",
+      "paper_update_candidate_exists": false,
+      "paper_update_candidate_id": ""
+    }
+  ]
+}

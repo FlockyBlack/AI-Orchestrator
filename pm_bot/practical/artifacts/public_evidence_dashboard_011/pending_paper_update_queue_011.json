@@ -1,0 +1,55 @@
+{
+  "already_applied_updates": [],
+  "automatic_update_performed": false,
+  "blocked_updates": [],
+  "contract_version": "pmbot_pending_paper_update_queue.v1",
+  "generated_at": "2026-05-10T00:00:00Z",
+  "next_operator_actions": [
+    "Review pending paper update candidates against the saved evidence packet and active hypothesis.",
+    "Keep original paper hypothesis artifacts unchanged until a later operator-approved application task.",
+    "Leave unresolved outcome records unchanged until saved resolution evidence is available."
+  ],
+  "operator_review_required_count": 1,
+  "pending_update_count": 1,
+  "pending_updates": [
+    {
+      "active_paper_hypothesis_summary": "Track whether the local source-backed analysis remains useful after the market outcome is reviewed.",
+      "automatic_analysis_update_performed": false,
+      "candidate_artifact_path": "pm_bot/practical/artifacts/public_evidence_review_009/paper_hypothesis_update_candidate_009.json",
+      "evidence_summary": [
+        "public court/government page placeholder returned HTTP 200 for `https://www.supremecourt.gov/docket/docket.aspx` and was saved as replay-safe metadata.",
+        "Public source returned HTTP 200 for request intent public_fetch_request_intent_006_02_563650_563650_domain_public_evidence.",
+        "Response metadata and digest were saved before replay for paper-only evidence review.",
+        "4 approved PRACTICAL-008 source requests did not produce saved evidence packets.",
+        "The saved evidence supports source-accessibility tracking, not outcome resolution."
+      ],
+      "hypothesis_id": "563650.analysis.adc53630aa1f.paper_hypothesis",
+      "market_id": "563650",
+      "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?",
+      "no_real_trade_decision": true,
+      "operator_approval_required": true,
+      "proposed_paper_tracking_update": [
+        "Record that PRACTICAL-008 captured and replayed a public SCOTUS docket source for this paper hypothesis.",
+        "Treat the evidence as source-accessibility support only until an operator confirms exact case relevance.",
+        "Keep final outcome resolution as a separate unresolved follow-up."
+      ],
+      "update_applied": false,
+      "update_candidate_id": "paper-hypothesis-update-candidate-009",
+      "update_reason": "new_public_evidence"
+    }
+  ],
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  }
+}

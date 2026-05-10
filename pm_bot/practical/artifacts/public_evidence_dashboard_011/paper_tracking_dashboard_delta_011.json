@@ -1,0 +1,54 @@
+{
+  "after_public_fetch_state": {
+    "active_paper_hypothesis_count": 5,
+    "pending_update_candidate_count": 1,
+    "public_evidence_packet_count": 2,
+    "source_learning_record_count": 5,
+    "tracked_market_count": 5,
+    "unresolved_outcome_count": 5
+  },
+  "automatic_updates_applied_count": 0,
+  "before_public_fetch_state": {
+    "active_paper_hypothesis_count": 5,
+    "pending_update_candidate_count": 0,
+    "public_evidence_packet_count": 0,
+    "source_learning_record_count": 0,
+    "tracked_market_count": 5,
+    "unresolved_outcome_count": 5
+  },
+  "contract_version": "pmbot_paper_tracking_dashboard_delta.v1",
+  "evidence_added_count": 2,
+  "generated_at": "2026-05-10T00:00:00Z",
+  "outcomes_resolved_count": 0,
+  "outcomes_still_unresolved_count": 5,
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "automatic_analysis_update_performed": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "new_live_fetch_performed": false,
+    "new_polymarket_api_calls_performed": 0,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "no_scheduler_daemon_background_worker": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "source_learning_records_added_count": 5,
+  "update_candidates_added_count": 1,
+  "what_changed": [
+    "Saved public evidence packets are linked to the relevant paper hypotheses.",
+    "The pending paper update candidate is visible in a queue.",
+    "Source repair outcomes and source accessibility learning are merged into one board."
+  ],
+  "what_did_not_change": [
+    "Original paper hypothesis artifacts were not overwritten.",
+    "Outcome records remain unresolved.",
+    "No automatic analysis update was applied."
+  ]
+}
