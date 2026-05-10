@@ -1,0 +1,64 @@
+{
+  "automatic_analysis_update_performed": false,
+  "card_id": "operator-console-second-fetch-010",
+  "contract_version": "pmbot_operator_console_second_fetch_card.v1",
+  "evidence_saved": [
+    "pm_bot/practical/artifacts/public_source_url_fixes_010/evidence_packets/public_fetch_010_public_fetch_request_intent_006_08_691547_691547_domain_public_evidence_293c511e51a6fac6.json"
+  ],
+  "generated_at": "2026-05-10T20:53:24Z",
+  "no_real_trade_decision": true,
+  "replay_status": "replayed_saved_public_evidence",
+  "safety_boundary": [
+    "This is controlled public evidence collection only.",
+    "No real trade decision is made.",
+    "No autonomous trading, scheduler, daemon, background worker, or polling loop is created."
+  ],
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "second_fetch_result": {
+    "attempted": 1,
+    "blocked": 1,
+    "failed": 0,
+    "live_fetch_performed": true,
+    "succeeded": 1
+  },
+  "what_operator_should_inspect": [
+    "repaired_public_fetch_manifest_010.md",
+    "second_fetch_preflight_010.md",
+    "second_fetch_execution_summary_010.md",
+    "replay/replayed_source_packets_010.md",
+    "second_public_evidence_operator_review_packet_010.md",
+    "source_accessibility_learning_010.md"
+  ],
+  "what_remains_blocked": [
+    "Authentication, API keys, cookies, browser automation, wallet access, orders, and trading actions.",
+    "Missing replacement URLs and no-retry source intents.",
+    "Automatic analysis mutation from public evidence."
+  ],
+  "what_still_failed": [],
+  "what_was_fixed": [
+    "1 repaired request intent(s) became executable.",
+    "1 request intent(s) were marked no-retry.",
+    "1 request intent(s) still need curated replacement URLs.",
+    "1 request intent(s) remain blocked."
+  ],
+  "what_was_retried_or_replaced": [
+    {
+      "repair_action": "replace_url",
+      "request_intent_id": "public_fetch_request_intent_006_08_691547_691547_domain_public_evidence",
+      "source_url": "https://blog.kraken.com/"
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "affected_hypotheses": [
+    "597964.analysis.33643849e5db.paper_hypothesis",
+    "598936.analysis.dceea0f50063.paper_hypothesis",
+    "691547.analysis.56b3a68b9b94.paper_hypothesis",
+    "692258.analysis.bed289c1494d.paper_hypothesis"
+  ],
+  "affected_markets": [
+    "597964",
+    "598936",
+    "691547",
+    "692258"
+  ],
+  "automatic_analysis_update_performed": false,
+  "contract_version": "pmbot_second_public_evidence_operator_review_packet.v1",
+  "evidence_packet_paths": [
+    "pm_bot/practical/artifacts/public_source_url_fixes_010/evidence_packets/public_fetch_010_public_fetch_request_intent_006_08_691547_691547_domain_public_evidence_293c511e51a6fac6.json"
+  ],
+  "failed_request_summary": [],
+  "generated_at": "2026-05-10T20:53:24Z",
+  "market_recommendation_generated": false,
+  "no_real_trade_decision": true,
+  "operator_checklist": [
+    "Confirm the repaired URL manifest matches the scoped approval.",
+    "Confirm every saved evidence packet maps to an approved repaired request intent.",
+    "Confirm replay artifacts are reviewed before any separate paper-only tracking update.",
+    "Confirm failed, missing, no-retry, and blocked sources remain outside execution."
+  ],
+  "orders_or_trading_actions": false,
+  "probability_ev_edge_or_side_selection_generated": false,
+  "replay_artifact_paths": [
+    "pm_bot/practical/artifacts/public_source_url_fixes_010/replay/replayed_source_packets_010.json"
+  ],
+  "replay_status": "replayed_saved_public_evidence",
+  "request_summary": {
+    "attempted": 1,
+    "blocked": 1,
+    "failed": 0,
+    "succeeded": 1
+  },
+  "review_packet_id": "second-public-evidence-operator-review-packet-010",
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "source_accessibility_observations": [
+    "At least one repaired public URL was reachable through the controlled fetch path.",
+    "Some failed sources still need manually curated public replacement URLs.",
+    "Some failed sources remain blocked because a safe public repair was not available."
+  ],
+  "wallet_or_private_key_access": false
+}

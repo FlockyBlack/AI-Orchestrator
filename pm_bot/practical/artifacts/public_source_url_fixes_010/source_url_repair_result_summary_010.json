@@ -1,0 +1,40 @@
+{
+  "automatic_analysis_update_performed": false,
+  "blocked_count": 1,
+  "contract_version": "pmbot_public_source_url_repair_result_summary.v1",
+  "evidence_packets_created_count": 1,
+  "generated_at": "2026-05-10T20:53:24Z",
+  "no_real_trade_decision": true,
+  "no_retry_count": 1,
+  "original_failed_request_count": 4,
+  "recommended_next_source_actions": [
+    "Operator review should inspect any evidence packet created by the second fetch.",
+    "Manually curate official replacement URLs for replacement-missing sources.",
+    "Keep no-retry and blocked sources out of controlled fetch execution until a separate source-quality review changes them."
+  ],
+  "repaired_executable_count": 1,
+  "replacement_missing_count": 1,
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "second_fetch_attempted": 1,
+  "second_fetch_failed": 0,
+  "second_fetch_succeeded": 1,
+  "source_repair_lessons": [
+    "Redirect targets already present in controlled failure artifacts can become deterministic repair candidates.",
+    "403 responses are not enough to invent replacement URLs without a curated local mapping.",
+    "Sources that imply bypass, cookies, browser automation, or access-control workarounds stay blocked."
+  ],
+  "summary_id": "source-url-repair-result-summary-010"
+}

@@ -8,10 +8,12 @@ from pm_bot.practical.public_fetch_url_safety import validate_public_fetch_reque
 
 EXECUTION_PREFLIGHT_CONTRACT_VERSION = "pmbot_public_fetch_execution_preflight.v1"
 ENRICHED_EXECUTION_PREFLIGHT_CONTRACT_VERSION = "pmbot_enriched_public_fetch_execution_preflight.v1"
+SECOND_FETCH_PREFLIGHT_CONTRACT_VERSION = "pmbot_second_controlled_public_fetch_preflight.v1"
 SCOPED_APPROVAL_CONTRACT_VERSION = "pmbot_scoped_public_read_only_fetch_approval.v1"
 APPROVED_STATUS = "approved_for_scoped_public_read_only_fetch_only"
 TASK_ID = "ORCH-PMBOT-PRACTICAL-007-FIRST-CONTROLLED-PUBLIC-READ-ONLY-FETCH-EXECUTION-OPERATOR-APPROVED"
 FUTURE_ENRICHED_FETCH_TASK_ID = "ORCH-PMBOT-PRACTICAL-008-FIRST-CONTROLLED-PUBLIC-READ-ONLY-FETCH-EXECUTION-WITH-CONCRETE-URL-MANIFEST"
+SECOND_CONTROLLED_FETCH_TASK_ID = "ORCH-PMBOT-PRACTICAL-010-PUBLIC-SOURCE-URL-FIXES-AND-SECOND-CONTROLLED-FETCH-PACKET"
 
 
 def validate_scoped_operator_approval(approval: Mapping[str, Any]) -> dict[str, Any]:
@@ -353,6 +355,264 @@ def render_enriched_manifest_execution_preflight_markdown(result: Mapping[str, A
         ]
     )
     return "\n".join(lines) + "\n"
+
+
+def validate_second_fetch_scoped_approval(
+    approval: Mapping[str, Any],
+    repaired_manifest: Mapping[str, Any],
+) -> dict[str, Any]:
+    blockers: list[str] = []
+    warnings: list[str] = []
+    executable = [
+        row
+        for row in repaired_manifest.get("executable_request_intents", [])
+        if isinstance(row, Mapping)
+    ]
+    executable_ids = {clean_text(row.get("request_intent_id")) for row in executable}
+    executable_market_ids = {clean_text(row.get("market_id")) for row in executable}
+    approved_ids = {clean_text(row) for row in approval.get("approved_request_intent_ids", [])}
+    approved_market_ids = {clean_text(row) for row in approval.get("approved_market_ids", [])}
+
+    if approval.get("contract_version") != SCOPED_APPROVAL_CONTRACT_VERSION:
+        blockers.append("approval contract_version is not scoped public read-only approval v1")
+    if approval.get("approval_for_task_id") != SECOND_CONTROLLED_FETCH_TASK_ID:
+        blockers.append("approval_for_task_id does not match PRACTICAL-010")
+    if approval.get("approval_status") != APPROVED_STATUS:
+        blockers.append("approval_status is not approved for scoped public read-only fetch only")
+    if approval.get("approved_by") != "operator":
+        blockers.append("approved_by must be operator")
+    if not clean_text(approval.get("approved_at")):
+        blockers.append("approved_at is required")
+    if approval.get("method_allowed") != "GET":
+        blockers.append("method_allowed must be GET")
+    if approval.get("max_request_count") != 5:
+        blockers.append("max_request_count must be 5")
+    if approval.get("reusable") is not False:
+        blockers.append("approval must be non-reusable")
+    if approval.get("expires_after_task") is not True:
+        blockers.append("approval must expire after task")
+    if approval.get("automatic_analysis_update_allowed") is not False:
+        blockers.append("automatic analysis update must remain disallowed")
+
+    for key in (
+        "public_http_only",
+        "no_authentication",
+        "no_api_keys",
+        "no_cookies",
+        "no_browser_automation",
+        "no_wallet",
+        "no_orders",
+        "no_trading",
+        "no_scheduler",
+        "no_background_worker",
+        "save_evidence_before_use",
+        "replay_before_analysis_update",
+    ):
+        if approval.get(key) is not True:
+            blockers.append(f"{key} must be true")
+
+    if approved_ids != executable_ids:
+        blockers.append("approved_request_intent_ids must match repaired executable request intents")
+    if approved_market_ids != executable_market_ids:
+        blockers.append("approved_market_ids must match repaired executable market ids")
+
+    manifest_path = clean_text(
+        repaired_manifest.get("manifest_artifact_path") or repaired_manifest.get("approved_manifest_path")
+    )
+    if manifest_path and clean_text(approval.get("approved_manifest_path")) != manifest_path:
+        blockers.append("approved_manifest_path does not match repaired manifest path")
+
+    blocked_scope = " ".join(clean_text(item).lower() for item in approval.get("blocked_scope", []))
+    for phrase in (
+        "openrouter",
+        "authenticated",
+        "api",
+        "cookie",
+        "browser",
+        "wallet",
+        "order",
+        "trading",
+        "scheduler",
+        "background",
+        "analysis",
+    ):
+        if phrase not in blocked_scope:
+            warnings.append(f"blocked_scope does not mention {phrase}")
+    return {"valid": not blockers, "blockers": blockers, "warnings": warnings}
+
+
+def build_second_fetch_preflight(
+    *,
+    repaired_manifest: Mapping[str, Any],
+    approval: Mapping[str, Any],
+    safety_report: Mapping[str, Any],
+    fixture_mode: bool = False,
+) -> dict[str, Any]:
+    executable = [
+        row
+        for row in repaired_manifest.get("executable_request_intents", [])
+        if isinstance(row, Mapping)
+    ]
+    max_request_count = int(repaired_manifest.get("max_request_count") or approval.get("max_request_count") or 5)
+    approval_validation = validate_second_fetch_scoped_approval(approval, repaired_manifest)
+    blockers = list(approval_validation["blockers"])
+    warnings = list(approval_validation["warnings"])
+    safety_rows = [
+        row
+        for row in safety_report.get("per_request_safety", [])
+        if isinstance(row, Mapping)
+    ]
+    if not safety_rows:
+        safety_rows = [
+            validate_public_fetch_request_intent(
+                row,
+                request_index=index,
+                max_request_count=max_request_count,
+                fixture_mode=fixture_mode,
+            )
+            for index, row in enumerate(executable, start=1)
+        ]
+
+    if len(executable) > max_request_count:
+        blockers.append("executable request count exceeds max request count")
+    if not executable:
+        blockers.append("no executable repaired request intents")
+    if repaired_manifest.get("within_request_limit") is not True:
+        blockers.append("repaired manifest is outside the request limit")
+    if safety_report.get("global_blockers"):
+        blockers.extend(clean_text(row) for row in safety_report.get("global_blockers", []))
+
+    unsafe_executable_ids = [
+        clean_text(row.get("request_intent_id"))
+        for row in safety_rows
+        if row.get("allowed") is not True
+    ]
+    if unsafe_executable_ids:
+        blockers.append("one or more executable repaired URLs failed safety validation")
+
+    missing_url_count = len(
+        [
+            row
+            for row in repaired_manifest.get("replacement_missing_request_intents", [])
+            if isinstance(row, Mapping)
+        ]
+    )
+    no_retry_count = len(
+        [
+            row
+            for row in repaired_manifest.get("no_retry_request_intents", [])
+            if isinstance(row, Mapping)
+        ]
+    )
+    manifest_blocked_count = len(
+        [
+            row
+            for row in repaired_manifest.get("blocked_request_intents", [])
+            if isinstance(row, Mapping)
+        ]
+    )
+    if missing_url_count:
+        warnings.append(f"{missing_url_count} repaired request intents still need replacement URLs")
+    if no_retry_count:
+        warnings.append(f"{no_retry_count} repaired request intents are marked no-retry")
+    if manifest_blocked_count:
+        warnings.append(f"{manifest_blocked_count} repaired request intents are blocked from execution")
+    if safety_report.get("global_warnings"):
+        warnings.extend(clean_text(row) for row in safety_report.get("global_warnings", []))
+
+    blockers = _dedupe(blockers)
+    warnings = _dedupe(warnings)
+    approved_request_count = len(approval.get("approved_request_intent_ids", []))
+    return {
+        "contract_version": SECOND_FETCH_PREFLIGHT_CONTRACT_VERSION,
+        "generated_at": GENERATED_AT,
+        "ready_to_execute_public_read_only_fetch": not blockers,
+        "executable_request_count": len(executable),
+        "approved_request_count": approved_request_count,
+        "blocked_request_count": manifest_blocked_count + len(unsafe_executable_ids),
+        "missing_url_count": missing_url_count,
+        "no_retry_count": no_retry_count,
+        "within_request_limit": len(executable) <= max_request_count and repaired_manifest.get("within_request_limit") is True,
+        "approval_status": clean_text(approval.get("approval_status")),
+        "approved_request_intent_ids": list(approval.get("approved_request_intent_ids", [])),
+        "eligible_request_intents": executable,
+        "per_request_safety": safety_rows,
+        "unsafe_executable_request_intent_ids": unsafe_executable_ids,
+        "blockers": blockers,
+        "warnings": warnings,
+        "approval_validation": approval_validation,
+        "live_fetch_performed": False,
+        "fixture_mode": fixture_mode,
+        "safety_summary": safe_summary(),
+    }
+
+
+def render_second_fetch_preflight_markdown(result: Mapping[str, Any]) -> str:
+    lines = [
+        "# PMBOT Second Controlled Public Fetch Preflight",
+        "",
+        f"- Ready to execute public read-only fetch: `{str(result.get('ready_to_execute_public_read_only_fetch')).lower()}`",
+        f"- Executable requests: {result.get('executable_request_count')}",
+        f"- Approved requests: {result.get('approved_request_count')}",
+        f"- Blocked requests: {result.get('blocked_request_count')}",
+        f"- Missing replacement URLs: {result.get('missing_url_count')}",
+        f"- No-retry requests: {result.get('no_retry_count')}",
+        f"- Within request limit: `{str(result.get('within_request_limit')).lower()}`",
+        f"- Approval status: `{result.get('approval_status')}`",
+        f"- Live fetch performed: `{str(result.get('live_fetch_performed')).lower()}`",
+        "",
+        "## Blockers",
+        "",
+        *bullet_lines(result.get("blockers", [])),
+        "",
+        "## Warnings",
+        "",
+        *bullet_lines(result.get("warnings", [])),
+        "",
+        "## Eligible Request Intents",
+        "",
+    ]
+    for row in result.get("eligible_request_intents", []):
+        lines.extend(
+            [
+                f"- `{row.get('request_intent_id')}`",
+                f"  Market: `{row.get('market_id')}`",
+                f"  URL: `{row.get('source_url') or row.get('source_reference')}`",
+            ]
+        )
+    lines.extend(
+        [
+            "",
+            "## Safety Boundary",
+            "",
+            "- This preflight is local-only and performs no network request.",
+            "- Missing, no-retry, and blocked repaired intents are not eligible for fetch.",
+            "- Automatic analysis update remains disabled.",
+        ]
+    )
+    return "\n".join(lines) + "\n"
+
+
+def write_second_fetch_preflight(
+    *,
+    repaired_manifest: Mapping[str, Any],
+    approval: Mapping[str, Any],
+    safety_report: Mapping[str, Any],
+    out_json_path: str | None = None,
+    out_md_path: str | None = None,
+    fixture_mode: bool = False,
+) -> dict[str, Any]:
+    result = build_second_fetch_preflight(
+        repaired_manifest=repaired_manifest,
+        approval=approval,
+        safety_report=safety_report,
+        fixture_mode=fixture_mode,
+    )
+    if out_json_path is not None:
+        write_json(out_json_path, result)
+    if out_md_path is not None:
+        write_text(out_md_path, render_second_fetch_preflight_markdown(result))
+    return result
 
 
 def _dedupe(values: Sequence[str]) -> list[str]:

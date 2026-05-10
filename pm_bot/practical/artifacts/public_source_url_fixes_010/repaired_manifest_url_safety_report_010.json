@@ -1,0 +1,48 @@
+{
+  "allowed_count": 1,
+  "blocked_count": 0,
+  "checked_request_count": 1,
+  "contract_version": "pmbot_repaired_public_fetch_url_safety_report.v1",
+  "generated_at": "2026-05-10T20:53:24Z",
+  "global_blockers": [],
+  "global_warnings": [
+    "1 request intents still need replacement URLs",
+    "1 request intents are marked no-retry",
+    "1 request intents are blocked from execution"
+  ],
+  "live_fetch_performed": false,
+  "missing_replacement_count": 1,
+  "no_retry_count": 1,
+  "per_request_safety": [
+    {
+      "allowed": true,
+      "blockers": [],
+      "contract_version": "pmbot_public_fetch_url_safety.v1",
+      "fixture_mode": false,
+      "market_id": "691547",
+      "max_request_count": 5,
+      "method": "GET",
+      "request_index": 1,
+      "request_intent_id": "public_fetch_request_intent_006_08_691547_691547_domain_public_evidence",
+      "sanitized_url_reference": "https://blog.kraken.com/",
+      "source_category": "public_exchange_company_announcement_page_placeholder",
+      "warnings": [
+        "source category is a placeholder category with a concrete URL reference"
+      ]
+    }
+  ],
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  }
+}

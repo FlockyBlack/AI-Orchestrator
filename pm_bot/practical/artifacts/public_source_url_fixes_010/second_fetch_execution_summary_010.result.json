@@ -1,0 +1,91 @@
+{
+  "attempted_requests": [
+    {
+      "market_id": "691547",
+      "request_intent_id": "public_fetch_request_intent_006_08_691547_691547_domain_public_evidence",
+      "source_url": "https://blog.kraken.com/"
+    }
+  ],
+  "blockers": [],
+  "contract_version": "pmbot_second_controlled_public_fetch_execution_summary.v1",
+  "evidence_packet_ids": [
+    "public_fetch_010_public_fetch_request_intent_006_08_691547_691547_domain_public_evidence_293c511e51a6fac6"
+  ],
+  "evidence_packets_created": [
+    "pm_bot/practical/artifacts/public_source_url_fixes_010/evidence_packets/public_fetch_010_public_fetch_request_intent_006_08_691547_691547_domain_public_evidence_293c511e51a6fac6.json"
+  ],
+  "evidence_packets_created_count": 1,
+  "failed_requests": [],
+  "fetch_results": [
+    {
+      "body_byte_count": 152872,
+      "body_sha256": "293c511e51a6fac625e26a9209d74fa840438ff93101c8e165737687cfb06f55",
+      "content_type": "text/html; charset=UTF-8",
+      "evidence_packet_id": "public_fetch_010_public_fetch_request_intent_006_08_691547_691547_domain_public_evidence_293c511e51a6fac6",
+      "evidence_packet_markdown_path": "pm_bot/practical/artifacts/public_source_url_fixes_010/evidence_packets/public_fetch_010_public_fetch_request_intent_006_08_691547_691547_domain_public_evidence_293c511e51a6fac6.md",
+      "evidence_packet_path": "pm_bot/practical/artifacts/public_source_url_fixes_010/evidence_packets/public_fetch_010_public_fetch_request_intent_006_08_691547_691547_domain_public_evidence_293c511e51a6fac6.json",
+      "final_url": "https://blog.kraken.com/",
+      "http_status": 200,
+      "market_id": "691547",
+      "market_title": "Kraken IPO by December 31, 2026?",
+      "method": "GET",
+      "request_intent_id": "public_fetch_request_intent_006_08_691547_691547_domain_public_evidence",
+      "result_status": "succeeded",
+      "source_category": "public_exchange_company_announcement_page_placeholder",
+      "source_name": "public exchange/company announcement page placeholder",
+      "source_url": "https://blog.kraken.com/"
+    }
+  ],
+  "generated_at": "2026-05-10T20:53:24Z",
+  "live_fetch_performed": true,
+  "replay_performed": true,
+  "replay_status": "replayed_saved_public_evidence",
+  "request_count_attempted": 1,
+  "request_count_blocked": 1,
+  "request_count_failed": 0,
+  "request_count_succeeded": 1,
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": true,
+    "market_recommendation_generated": false,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "public_read_only_fetch_count": 1,
+    "runtime_or_dispatcher_changes": false,
+    "successful_public_read_only_fetch_count": 1,
+    "wallet_or_private_key_access": false
+  },
+  "succeeded_requests": [
+    {
+      "body_byte_count": 152872,
+      "body_sha256": "293c511e51a6fac625e26a9209d74fa840438ff93101c8e165737687cfb06f55",
+      "content_type": "text/html; charset=UTF-8",
+      "evidence_packet_id": "public_fetch_010_public_fetch_request_intent_006_08_691547_691547_domain_public_evidence_293c511e51a6fac6",
+      "evidence_packet_markdown_path": "pm_bot/practical/artifacts/public_source_url_fixes_010/evidence_packets/public_fetch_010_public_fetch_request_intent_006_08_691547_691547_domain_public_evidence_293c511e51a6fac6.md",
+      "evidence_packet_path": "pm_bot/practical/artifacts/public_source_url_fixes_010/evidence_packets/public_fetch_010_public_fetch_request_intent_006_08_691547_691547_domain_public_evidence_293c511e51a6fac6.json",
+      "final_url": "https://blog.kraken.com/",
+      "http_status": 200,
+      "market_id": "691547",
+      "market_title": "Kraken IPO by December 31, 2026?",
+      "method": "GET",
+      "request_intent_id": "public_fetch_request_intent_006_08_691547_691547_domain_public_evidence",
+      "result_status": "succeeded",
+      "source_category": "public_exchange_company_announcement_page_placeholder",
+      "source_name": "public exchange/company announcement page placeholder",
+      "source_url": "https://blog.kraken.com/"
+    }
+  ],
+  "warnings": [
+    "1 repaired request intents still need replacement URLs",
+    "1 repaired request intents are marked no-retry",
+    "1 repaired request intents are blocked from execution",
+    "1 request intents still need replacement URLs",
+    "1 request intents are marked no-retry",
+    "1 request intents are blocked from execution"
+  ]
+}

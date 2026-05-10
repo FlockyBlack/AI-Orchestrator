@@ -1,0 +1,108 @@
+{
+  "approval_status": "approved_for_scoped_public_read_only_fetch_only",
+  "approval_validation": {
+    "blockers": [],
+    "valid": true,
+    "warnings": []
+  },
+  "approved_request_count": 1,
+  "approved_request_intent_ids": [
+    "public_fetch_request_intent_006_08_691547_691547_domain_public_evidence"
+  ],
+  "blocked_request_count": 1,
+  "blockers": [],
+  "contract_version": "pmbot_second_controlled_public_fetch_preflight.v1",
+  "eligible_request_intents": [
+    {
+      "cookies_required": false,
+      "credentials_required": false,
+      "expected_evidence_type": "public listing or company announcement snapshot",
+      "failure_category": "source_unavailable",
+      "failure_error": "redirect blocked: 308 https://blog.kraken.com/",
+      "linked_hypothesis_id": "691547.analysis.56b3a68b9b94.paper_hypothesis",
+      "live_fetch_performed": false,
+      "market_id": "691547",
+      "market_title": "Kraken IPO by December 31, 2026?",
+      "method": "GET",
+      "operator_review_required": true,
+      "original_url_or_reference": "https://www.kraken.com/blog",
+      "repair_action": "replace_url",
+      "repair_reason": "PRACTICAL-008 captured the blocked redirect target in the failure string, so the public redirect target is locally known and concrete.",
+      "repair_status": "executable_candidate",
+      "request_intent_id": "public_fetch_request_intent_006_08_691547_691547_domain_public_evidence",
+      "requires_auth": false,
+      "source_category": "public_exchange_company_announcement_page_placeholder",
+      "source_name": "public exchange/company announcement page placeholder",
+      "source_reference": "https://blog.kraken.com/",
+      "source_url": "https://blog.kraken.com/",
+      "trading_or_order_endpoint": false,
+      "url_safety_validation": {
+        "allowed": true,
+        "blockers": [],
+        "contract_version": "pmbot_public_fetch_url_safety.v1",
+        "fixture_mode": false,
+        "market_id": "691547",
+        "max_request_count": 5,
+        "method": "GET",
+        "request_index": 1,
+        "request_intent_id": "public_fetch_request_intent_006_08_691547_691547_domain_public_evidence",
+        "sanitized_url_reference": "https://blog.kraken.com/",
+        "source_category": "public_exchange_company_announcement_page_placeholder",
+        "warnings": [
+          "source category is a placeholder category with a concrete URL reference"
+        ]
+      },
+      "url_status": "concrete_safe_public_url",
+      "wallet_or_signing_required": false
+    }
+  ],
+  "executable_request_count": 1,
+  "fixture_mode": false,
+  "generated_at": "2026-05-10T00:00:00Z",
+  "live_fetch_performed": false,
+  "missing_url_count": 1,
+  "no_retry_count": 1,
+  "per_request_safety": [
+    {
+      "allowed": true,
+      "blockers": [],
+      "contract_version": "pmbot_public_fetch_url_safety.v1",
+      "fixture_mode": false,
+      "market_id": "691547",
+      "max_request_count": 5,
+      "method": "GET",
+      "request_index": 1,
+      "request_intent_id": "public_fetch_request_intent_006_08_691547_691547_domain_public_evidence",
+      "sanitized_url_reference": "https://blog.kraken.com/",
+      "source_category": "public_exchange_company_announcement_page_placeholder",
+      "warnings": [
+        "source category is a placeholder category with a concrete URL reference"
+      ]
+    }
+  ],
+  "ready_to_execute_public_read_only_fetch": true,
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "unsafe_executable_request_intent_ids": [],
+  "warnings": [
+    "1 repaired request intents still need replacement URLs",
+    "1 repaired request intents are marked no-retry",
+    "1 repaired request intents are blocked from execution",
+    "1 request intents still need replacement URLs",
+    "1 request intents are marked no-retry",
+    "1 request intents are blocked from execution"
+  ],
+  "within_request_limit": true
+}

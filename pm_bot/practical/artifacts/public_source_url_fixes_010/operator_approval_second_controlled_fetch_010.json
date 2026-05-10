@@ -1,0 +1,58 @@
+{
+  "approval_for_task_id": "ORCH-PMBOT-PRACTICAL-010-PUBLIC-SOURCE-URL-FIXES-AND-SECOND-CONTROLLED-FETCH-PACKET",
+  "approval_id": "operator-second-controlled-public-fetch-010",
+  "approval_source": "current Codex task prompt",
+  "approval_status": "approved_for_scoped_public_read_only_fetch_only",
+  "approved_at": "2026-05-10T20:53:24Z",
+  "approved_by": "operator",
+  "approved_manifest_path": "pm_bot/practical/artifacts/public_source_url_fixes_010/repaired_public_fetch_manifest_010.json",
+  "approved_market_ids": [
+    "691547"
+  ],
+  "approved_request_intent_ids": [
+    "public_fetch_request_intent_006_08_691547_691547_domain_public_evidence"
+  ],
+  "automatic_analysis_update_allowed": false,
+  "blocked_scope": [
+    "OpenRouter calls",
+    "authenticated endpoints",
+    "API keys, cookies, browser profiles, and browser automation",
+    "wallets, private keys, signing, order placement, and trading endpoints",
+    "POST, PUT, PATCH, DELETE, request bodies, crawling, search, or arbitrary link following",
+    "scheduler, daemon, background worker, polling loop, autonomous execution, run-codex-once, and run-codex-batch",
+    "runtime, dispatcher, run_codex, wallet, order, or trading execution path changes",
+    "automatic market analysis mutation and executable market action output",
+    "disallowed probability, EV, edge, confidence, or side-selection output category"
+  ],
+  "contract_version": "pmbot_scoped_public_read_only_fetch_approval.v1",
+  "expires_after_task": true,
+  "max_request_count": 5,
+  "method_allowed": "GET",
+  "no_api_keys": true,
+  "no_authentication": true,
+  "no_background_worker": true,
+  "no_browser_automation": true,
+  "no_cookies": true,
+  "no_orders": true,
+  "no_scheduler": true,
+  "no_trading": true,
+  "no_wallet": true,
+  "public_http_only": true,
+  "replay_before_analysis_update": true,
+  "reusable": false,
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "save_evidence_before_use": true
+}

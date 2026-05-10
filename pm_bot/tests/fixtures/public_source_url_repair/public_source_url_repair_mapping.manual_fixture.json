@@ -1,0 +1,58 @@
+{
+  "contract_version": "pmbot_public_source_url_repair_mapping.manual_fixture.v1",
+  "fixture_id": "public-source-url-repair-mapping-010",
+  "repairs": [
+    {
+      "expected_evidence_type": "public election or parliament page snapshot",
+      "failed_request_intent_id": "public_fetch_request_intent_006_06_598936_598936_domain_public_evidence",
+      "failure_category": "http_error",
+      "market_id": "598936",
+      "operator_review_required": true,
+      "original_url_or_reference": "https://www.parliament.uk/about/how/elections-and-voting/general/",
+      "reason": "PRACTICAL-008 received HTTP 403 for the exact URL and no alternate official public URL is locally curated in the artifacts.",
+      "repair_action": "mark_no_retry",
+      "replacement_public_url": "",
+      "replacement_source_category": "public_court_government_page_placeholder",
+      "source_name": "public government or parliament page placeholder"
+    },
+    {
+      "expected_evidence_type": "public official status or resolution page snapshot",
+      "failed_request_intent_id": "public_fetch_request_intent_006_04_597964_597964_domain_public_evidence",
+      "failure_category": "source_unavailable",
+      "market_id": "597964",
+      "operator_review_required": true,
+      "original_url_or_reference": "https://www.elysee.fr/emmanuel-macron",
+      "reason": "The prior failure was local certificate validation and no alternate official public URL is locally curated without browsing.",
+      "repair_action": "mark_missing",
+      "replacement_public_url": "",
+      "replacement_source_category": "public_resolution_source_page_placeholder",
+      "source_name": "public resolution source page placeholder"
+    },
+    {
+      "expected_evidence_type": "public listing or company announcement snapshot",
+      "failed_request_intent_id": "public_fetch_request_intent_006_08_691547_691547_domain_public_evidence",
+      "failure_category": "source_unavailable",
+      "market_id": "691547",
+      "operator_review_required": true,
+      "original_url_or_reference": "https://www.kraken.com/blog",
+      "reason": "PRACTICAL-008 captured the blocked redirect target in the failure string, so the public redirect target is locally known and concrete.",
+      "repair_action": "replace_url",
+      "replacement_public_url": "https://blog.kraken.com/",
+      "replacement_source_category": "public_exchange_company_announcement_page_placeholder",
+      "source_name": "public exchange/company announcement page placeholder"
+    },
+    {
+      "expected_evidence_type": "public issuer news or filing summary snapshot",
+      "failed_request_intent_id": "public_fetch_request_intent_006_10_692258_692258_domain_public_evidence",
+      "failure_category": "http_error",
+      "market_id": "692258",
+      "operator_review_required": true,
+      "original_url_or_reference": "https://www.microstrategy.com/press",
+      "reason": "PRACTICAL-008 received HTTP 403 and a safe public replacement is not locally curated; bypass, browser automation, cookies, or access-control workarounds remain blocked.",
+      "repair_action": "block",
+      "replacement_public_url": "",
+      "replacement_source_category": "source_requiring_bypass_or_automation",
+      "source_name": "public issuer/company news page placeholder"
+    }
+  ]
+}

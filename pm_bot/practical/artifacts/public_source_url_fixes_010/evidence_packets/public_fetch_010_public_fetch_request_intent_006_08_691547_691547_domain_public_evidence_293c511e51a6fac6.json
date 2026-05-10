@@ -1,0 +1,54 @@
+{
+  "auth_used": false,
+  "body_byte_count": 152872,
+  "body_sha256": "293c511e51a6fac625e26a9209d74fa840438ff93101c8e165737687cfb06f55",
+  "capture_errors": [],
+  "capture_mode": "future_public_read_only_fetch",
+  "captured_at": "2026-05-10T20:53:24Z",
+  "content_type": "text/html; charset=UTF-8",
+  "contract_version": "pmbot_saved_public_evidence_packet.v1",
+  "contradiction_candidates": [],
+  "credentials_used": false,
+  "evidence_packet_id": "public_fetch_010_public_fetch_request_intent_006_08_691547_691547_domain_public_evidence_293c511e51a6fac6",
+  "final_url": "https://blog.kraken.com/",
+  "freshness_status": "captured_at_task_time",
+  "http_status": 200,
+  "hypothesis_ids": [
+    "691547.analysis.56b3a68b9b94.paper_hypothesis"
+  ],
+  "limitations": [
+    "Response body is summarized by metadata and digest in this artifact rather than embedded verbatim.",
+    "This packet records public source accessibility and does not resolve the market outcome.",
+    "This packet is paper-only evidence capture and is not an executable market action."
+  ],
+  "live_network_used": true,
+  "market_ids": [
+    "691547"
+  ],
+  "normalized_claims": [
+    "Public source returned HTTP 200 for request intent public_fetch_request_intent_006_08_691547_691547_domain_public_evidence.",
+    "Response metadata and digest were saved before replay for paper-only evidence review."
+  ],
+  "orders_or_trading_actions": false,
+  "raw_excerpt_or_summary": "HTTP 200 public read-only GET response captured for replay. Content-Type: text/html; charset=UTF-8. Body bytes read: 152872. SHA256: 293c511e51a6fac625e26a9209d74fa840438ff93101c8e165737687cfb06f55. Raw response body is summarized for operator review and is not a market action.",
+  "safe_for_replay": true,
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "source_category": "public_exchange_company_announcement_page_placeholder",
+  "source_id": "public_fetch_request_intent_006_08_691547_691547_domain_public_evidence",
+  "source_name": "public exchange/company announcement page placeholder",
+  "source_reference": "https://blog.kraken.com/",
+  "wallet_or_private_key_access": false
+}
