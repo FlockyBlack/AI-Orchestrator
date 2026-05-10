@@ -1,0 +1,45 @@
+{
+  "contract_version": "pmbot_source_learning_after_paper_update.v1",
+  "generated_at": "2026-05-10T21:18:17Z",
+  "linked_evidence_packet_ids": [
+    "public_fetch_008_563650_public_fetch_request_intent_006_02_563650_563650_domain_public_evidence_a6d1969391feeee9"
+  ],
+  "linked_market_ids": [
+    "563650"
+  ],
+  "linked_source_ids": [
+    "public_fetch_request_intent_006_02_563650_563650_domain_public_evidence"
+  ],
+  "linked_update_candidate_ids": [
+    "paper-hypothesis-update-candidate-009"
+  ],
+  "no_autonomous_training_performed": true,
+  "requires_outcome_resolution_for_accuracy_judgement": true,
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "automatic_analysis_update_performed": false,
+    "automatic_trading_allowed": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "new_live_fetch_performed": false,
+    "new_polymarket_api_calls_performed": 0,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "no_scheduler_daemon_background_worker": true,
+    "openrouter_calls_performed": 0,
+    "operator_approved_update_applied": true,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "source_learning_event_id": "source-learning-after-paper-update-012",
+  "source_limitations": [
+    "The evidence packet supports paper tracking only.",
+    "Exact source relevance still needs operator review before accuracy judgement.",
+    "Outcome resolution remains required before source quality can be judged."
+  ],
+  "source_usefulness_for_tracking": "useful_for_paper_tracking_update"
+}

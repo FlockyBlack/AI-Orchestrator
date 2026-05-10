@@ -1,0 +1,87 @@
+{
+  "after_snapshot_path": "pm_bot/practical/artifacts/paper_update_application_012/paper_tracking_state_snapshot_012.json",
+  "applied_fields": [
+    "applied_at",
+    "applied_paper_tracking_summary",
+    "applied_update_id",
+    "approval_id",
+    "automatic_trading_allowed",
+    "contract_version",
+    "delta_report_id",
+    "evidence_basis",
+    "hypothesis_id",
+    "limitations",
+    "market_id",
+    "market_recommendation_generated",
+    "no_real_trade_decision",
+    "operator_approval_id",
+    "operator_approval_required",
+    "orders_or_trading_actions",
+    "original_artifacts_preserved",
+    "original_candidate_path",
+    "original_hypothesis_artifact_path",
+    "outcome_status_after_update",
+    "previous_paper_tracking_summary",
+    "probability_ev_edge_or_side_selection_generated",
+    "safety_summary",
+    "unresolved_outcome_still_required",
+    "update_applied",
+    "update_candidate_id",
+    "wallet_or_private_key_access"
+  ],
+  "applied_update_ids": [
+    "applied-paper-update-012-paper-hypothesis-update-candidate-009"
+  ],
+  "applied_update_path": "pm_bot/practical/artifacts/paper_update_application_012/applied_paper_update_012.json",
+  "approval_path": "pm_bot/practical/artifacts/paper_update_application_012/paper_update_operator_approval_012.json",
+  "audit_id": "paper-update-application-audit-012",
+  "automatic_analysis_update_performed": false,
+  "before_snapshot_source_dashboard_path": "pm_bot/practical/artifacts/public_evidence_dashboard_011/public_evidence_tracking_dashboard_011.json",
+  "contract_version": "pmbot_paper_update_application_audit.v1",
+  "evidence_review_path": "pm_bot/practical/artifacts/public_evidence_review_009/public_evidence_operator_review_009.json",
+  "generated_at": "2026-05-10T21:18:17Z",
+  "no_real_trade_decision": true,
+  "operator_approved_update_applied": true,
+  "original_artifacts_preserved": true,
+  "original_update_candidate_path": "pm_bot/practical/artifacts/public_evidence_review_009/paper_hypothesis_update_candidate_009.json",
+  "safety_checks_performed": [
+    "validated candidate paper-only flags",
+    "validated operator approval scope",
+    "validated required evidence link or review link",
+    "validated original artifacts are read-only inputs",
+    "ran practical safety scan over paper_update_application_012 artifact directory"
+  ],
+  "safety_scan_path": "pm_bot/practical/artifacts/paper_update_application_012/paper_update_application_safety_scan_012.result.json",
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "automatic_analysis_update_performed": false,
+    "automatic_trading_allowed": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "new_live_fetch_performed": false,
+    "new_polymarket_api_calls_performed": 0,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "no_scheduler_daemon_background_worker": true,
+    "openrouter_calls_performed": 0,
+    "operator_approved_update_applied": true,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "unchanged_original_artifacts": [
+    {
+      "path": "pm_bot/practical/artifacts/public_evidence_review_009/paper_hypothesis_update_candidate_009.json",
+      "preserved": true,
+      "sha256": "282abd13003d9c8b1397331f8b5af95bbfe448d4d51573d8a4d03d775aebf108"
+    },
+    {
+      "path": "pm_bot/practical/artifacts/real_market_batch_004/markets/563650/paper_hypothesis.json",
+      "preserved": true,
+      "sha256": "ef4ee4c0f70359435d8ee3bdf56db29116a716d8017d9f33d217fe9052ea971a"
+    }
+  ]
+}

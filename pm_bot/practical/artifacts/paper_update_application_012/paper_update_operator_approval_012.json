@@ -1,0 +1,37 @@
+{
+  "approval_for_task_id": "ORCH-PMBOT-PRACTICAL-012-OPERATOR-APPROVED-PAPER-HYPOTHESIS-UPDATE-APPLICATION",
+  "approval_id": "paper-update-approval-012-paper-hypothesis-update-candidate-009",
+  "approval_scope": [
+    "paper_tracking_update_only",
+    "non_executable",
+    "no_real_trade_decision",
+    "no_orders",
+    "no_wallet",
+    "no_trading",
+    "original_artifacts_preserved",
+    "versioned_snapshot_required"
+  ],
+  "approval_status": "approved_for_paper_tracking_update_only",
+  "approved_at": "2026-05-10T21:18:17Z",
+  "approved_by": "operator",
+  "approved_hypothesis_ids": [
+    "563650.analysis.adc53630aa1f.paper_hypothesis"
+  ],
+  "approved_market_ids": [
+    "563650"
+  ],
+  "approved_update_candidate_ids": [
+    "paper-hypothesis-update-candidate-009"
+  ],
+  "blocked_scope": [
+    "blocked real trading",
+    "blocked wallet/signing/orders",
+    "blocked trading recommendations",
+    "blocked probability/EV/edge/side-selection trading signal",
+    "blocked automatic market action",
+    "blocked outcome resolution without local outcome record"
+  ],
+  "contract_version": "pmbot_paper_update_operator_approval.v1",
+  "expires_after_task": true,
+  "reusable": false
+}
