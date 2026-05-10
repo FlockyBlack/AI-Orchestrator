@@ -1,0 +1,280 @@
+{
+  "allowed_future_task_scope": [
+    "Only the explicitly approved future task may perform finite public read-only fetches.",
+    "Only the listed five markets and listed source categories are in scope.",
+    "Evidence must be saved before replay.",
+    "Saved evidence must be replayed before any analysis update.",
+    "Operator review remains required after replay."
+  ],
+  "approval_packet_id": "public-read-only-fetch-approval-006-5-markets",
+  "approval_record_id": "public-read-only-fetch-prep-005-5-markets.operator_approval.pending",
+  "blocked_sources": [
+    {
+      "reason": "Requires identity, session, token, or account access.",
+      "safety_boundary": "Blocked for this public read-only preparation layer.",
+      "source_category": "authenticated_endpoint"
+    },
+    {
+      "reason": "Depends on browser profile state, session cookies, or logged-in context.",
+      "safety_boundary": "Browser sessions and cookies are not used.",
+      "source_category": "browser_session_cookie_based_source"
+    },
+    {
+      "reason": "Rumor-only material is too weak unless explicitly labeled low quality.",
+      "safety_boundary": "Unlabeled rumor sources are blocked.",
+      "source_category": "forum_rumor_only_unlabeled_source"
+    },
+    {
+      "reason": "Could create, cancel, or inspect executable order paths.",
+      "safety_boundary": "Order endpoints remain out of scope.",
+      "source_category": "order_endpoint"
+    },
+    {
+      "reason": "Requires private credentials or API keys.",
+      "safety_boundary": "Credentials are not required or used.",
+      "source_category": "private_api_key_endpoint"
+    },
+    {
+      "reason": "Requires bypassing controls, bot detection, or automated interactive access.",
+      "safety_boundary": "Bypass and unattended automation are blocked.",
+      "source_category": "source_requiring_bypass_or_automation"
+    },
+    {
+      "reason": "Requires KYC, login, or account identity.",
+      "safety_boundary": "Login and KYC sources are blocked.",
+      "source_category": "source_requiring_kyc_or_login"
+    },
+    {
+      "reason": "Could expose execution or market-taking behavior.",
+      "safety_boundary": "Trading endpoints remain out of scope.",
+      "source_category": "trading_endpoint"
+    },
+    {
+      "reason": "Touches wallet, signing, private key, or custody boundaries.",
+      "safety_boundary": "Wallet and signing paths remain out of scope.",
+      "source_category": "wallet_signing_endpoint"
+    }
+  ],
+  "contract_version": "pmbot_public_read_only_fetch_approval_packet.v1",
+  "created_at": "2026-05-10T00:00:00Z",
+  "current_readiness_blockers": [
+    "Operator approval has not been granted.",
+    "Approval record does not enable live fetch after approval."
+  ],
+  "dry_run_request_count": 10,
+  "evidence_save_plan_id": "public-read-only-fetch-prep-005-5-markets.evidence_save_plan.006",
+  "evidence_save_required": true,
+  "explicitly_blocked_scope": [
+    "Authenticated endpoints",
+    "Private API key endpoints",
+    "Browser session, cookie, login, KYC, or bypass-based sources",
+    "Wallet, private key, signing, custody, order, or trading paths",
+    "OpenRouter calls",
+    "Polymarket API calls",
+    "Schedulers, daemons, watchers, automatic polling, or unattended automation",
+    "Market recommendations or executable quantitative market output",
+    "Runtime, dispatcher, run_codex, browser automation, or autonomous execution changes"
+  ],
+  "link_map_id": "public-read-only-fetch-prep-005-5-markets",
+  "live_fetch_performed": false,
+  "live_network_used": false,
+  "manual_approval_artifact_required": "pm_bot/practical/artifacts/public_read_only_fetch_approval_006/manual_operator_approval_template.json",
+  "market_count": 5,
+  "market_ids": [
+    "563650",
+    "597964",
+    "598936",
+    "691547",
+    "692258"
+  ],
+  "market_titles": {
+    "563650": "SCOTUS accepts sports event contract case by July 31, 2026?",
+    "597964": "Macron out by June 30, 2026?",
+    "598936": "Will the next UK election be called by June 30, 2026?",
+    "691547": "Kraken IPO by December 31, 2026?",
+    "692258": "MicroStrategy sells any Bitcoin by June 30, 2026?"
+  },
+  "max_request_count": 10,
+  "next_allowed_action_after_manual_approval": "ORCH-PMBOT-PRACTICAL-007-FIRST-CONTROLLED-PUBLIC-READ-ONLY-FETCH-EXECUTION-OPERATOR-APPROVED",
+  "next_blocked_actions": [
+    "Live fetch from this task.",
+    "Any authenticated or credentialed source.",
+    "Wallet, signing, custody, orders, or trading paths.",
+    "Scheduler, daemon, watcher, automatic polling, or unattended background fetch.",
+    "OpenRouter or Polymarket API calls.",
+    "Market action recommendations or executable quantitative output."
+  ],
+  "operator_approval_granted": false,
+  "operator_approval_required": true,
+  "operator_checklist": [
+    "Review the five market IDs and titles.",
+    "Review each request intent and source category.",
+    "Confirm the maximum request count remains 10.",
+    "Confirm evidence save is required before replay.",
+    "Confirm replay is required before any analysis update.",
+    "Confirm blocked scope remains blocked.",
+    "If approval is later intended, update only the manual approval artifact in a separate explicit task."
+  ],
+  "ready_for_controlled_public_fetch": false,
+  "replay_plan_id": "public-read-only-fetch-prep-005-5-markets.replay_before_update_plan.006",
+  "replay_required_before_analysis_update": true,
+  "request_manifest_id": "public-read-only-fetch-prep-005-5-markets.request_manifest.006",
+  "requested_public_sources": [
+    {
+      "allowed_status": "allowed_in_principle_pending_operator_approval",
+      "expected_evidence_type": "public market metadata snapshot",
+      "linked_hypothesis_id": "563650.analysis.adc53630aa1f.paper_hypothesis",
+      "live_fetch_performed": false,
+      "market_id": "563650",
+      "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?",
+      "planned_source_id": "fetch-prep-005:563650:market_metadata",
+      "reason_needed": "Fresh public metadata would help verify that the saved local packet still matches public market terms before replay.",
+      "source_category": "public_market_metadata_endpoint_placeholder",
+      "source_name_or_placeholder": "public market metadata endpoint placeholder",
+      "source_reference_or_placeholder": "public_source_placeholder:public_market_metadata_endpoint_placeholder:563650"
+    },
+    {
+      "allowed_status": "allowed_in_principle_pending_operator_approval",
+      "expected_evidence_type": "official docket or resolution page snapshot",
+      "linked_hypothesis_id": "563650.analysis.adc53630aa1f.paper_hypothesis",
+      "live_fetch_performed": false,
+      "market_id": "563650",
+      "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?",
+      "planned_source_id": "fetch-prep-005:563650:domain_public_evidence",
+      "reason_needed": "The paper hypothesis depends on later checking whether public court records support the saved local packet.",
+      "source_category": "public_court_government_page_placeholder",
+      "source_name_or_placeholder": "public court/government page placeholder",
+      "source_reference_or_placeholder": "public_source_placeholder:public_court_government_page_placeholder:563650"
+    },
+    {
+      "allowed_status": "allowed_in_principle_pending_operator_approval",
+      "expected_evidence_type": "public market metadata snapshot",
+      "linked_hypothesis_id": "597964.analysis.33643849e5db.paper_hypothesis",
+      "live_fetch_performed": false,
+      "market_id": "597964",
+      "market_title": "Macron out by June 30, 2026?",
+      "planned_source_id": "fetch-prep-005:597964:market_metadata",
+      "reason_needed": "Fresh public metadata would help verify that the saved local packet still matches public market terms before replay.",
+      "source_category": "public_market_metadata_endpoint_placeholder",
+      "source_name_or_placeholder": "public market metadata endpoint placeholder",
+      "source_reference_or_placeholder": "public_source_placeholder:public_market_metadata_endpoint_placeholder:597964"
+    },
+    {
+      "allowed_status": "allowed_in_principle_pending_operator_approval",
+      "expected_evidence_type": "public official status or resolution page snapshot",
+      "linked_hypothesis_id": "597964.analysis.33643849e5db.paper_hypothesis",
+      "live_fetch_performed": false,
+      "market_id": "597964",
+      "market_title": "Macron out by June 30, 2026?",
+      "planned_source_id": "fetch-prep-005:597964:domain_public_evidence",
+      "reason_needed": "The paper hypothesis depends on later checking public status evidence against the saved local packet.",
+      "source_category": "public_resolution_source_page_placeholder",
+      "source_name_or_placeholder": "public resolution source page placeholder",
+      "source_reference_or_placeholder": "public_source_placeholder:public_resolution_source_page_placeholder:597964"
+    },
+    {
+      "allowed_status": "allowed_in_principle_pending_operator_approval",
+      "expected_evidence_type": "public market metadata snapshot",
+      "linked_hypothesis_id": "598936.analysis.dceea0f50063.paper_hypothesis",
+      "live_fetch_performed": false,
+      "market_id": "598936",
+      "market_title": "Will the next UK election be called by June 30, 2026?",
+      "planned_source_id": "fetch-prep-005:598936:market_metadata",
+      "reason_needed": "Fresh public metadata would help verify that the saved local packet still matches public market terms before replay.",
+      "source_category": "public_market_metadata_endpoint_placeholder",
+      "source_name_or_placeholder": "public market metadata endpoint placeholder",
+      "source_reference_or_placeholder": "public_source_placeholder:public_market_metadata_endpoint_placeholder:598936"
+    },
+    {
+      "allowed_status": "allowed_in_principle_pending_operator_approval",
+      "expected_evidence_type": "public election or parliament page snapshot",
+      "linked_hypothesis_id": "598936.analysis.dceea0f50063.paper_hypothesis",
+      "live_fetch_performed": false,
+      "market_id": "598936",
+      "market_title": "Will the next UK election be called by June 30, 2026?",
+      "planned_source_id": "fetch-prep-005:598936:domain_public_evidence",
+      "reason_needed": "The paper hypothesis depends on later checking public election timing evidence against the saved local packet.",
+      "source_category": "public_court_government_page_placeholder",
+      "source_name_or_placeholder": "public government or parliament page placeholder",
+      "source_reference_or_placeholder": "public_source_placeholder:public_court_government_page_placeholder:598936"
+    },
+    {
+      "allowed_status": "allowed_in_principle_pending_operator_approval",
+      "expected_evidence_type": "public market metadata snapshot",
+      "linked_hypothesis_id": "691547.analysis.56b3a68b9b94.paper_hypothesis",
+      "live_fetch_performed": false,
+      "market_id": "691547",
+      "market_title": "Kraken IPO by December 31, 2026?",
+      "planned_source_id": "fetch-prep-005:691547:market_metadata",
+      "reason_needed": "Fresh public metadata would help verify that the saved local packet still matches public market terms before replay.",
+      "source_category": "public_market_metadata_endpoint_placeholder",
+      "source_name_or_placeholder": "public market metadata endpoint placeholder",
+      "source_reference_or_placeholder": "public_source_placeholder:public_market_metadata_endpoint_placeholder:691547"
+    },
+    {
+      "allowed_status": "allowed_in_principle_pending_operator_approval",
+      "expected_evidence_type": "public listing or company announcement snapshot",
+      "linked_hypothesis_id": "691547.analysis.56b3a68b9b94.paper_hypothesis",
+      "live_fetch_performed": false,
+      "market_id": "691547",
+      "market_title": "Kraken IPO by December 31, 2026?",
+      "planned_source_id": "fetch-prep-005:691547:domain_public_evidence",
+      "reason_needed": "The paper hypothesis depends on later checking public listing or company announcement evidence against the saved local packet.",
+      "source_category": "public_exchange_company_announcement_page_placeholder",
+      "source_name_or_placeholder": "public exchange/company announcement page placeholder",
+      "source_reference_or_placeholder": "public_source_placeholder:public_exchange_company_announcement_page_placeholder:691547"
+    },
+    {
+      "allowed_status": "allowed_in_principle_pending_operator_approval",
+      "expected_evidence_type": "public market metadata snapshot",
+      "linked_hypothesis_id": "692258.analysis.bed289c1494d.paper_hypothesis",
+      "live_fetch_performed": false,
+      "market_id": "692258",
+      "market_title": "MicroStrategy sells any Bitcoin by June 30, 2026?",
+      "planned_source_id": "fetch-prep-005:692258:market_metadata",
+      "reason_needed": "Fresh public metadata would help verify that the saved local packet still matches public market terms before replay.",
+      "source_category": "public_market_metadata_endpoint_placeholder",
+      "source_name_or_placeholder": "public market metadata endpoint placeholder",
+      "source_reference_or_placeholder": "public_source_placeholder:public_market_metadata_endpoint_placeholder:692258"
+    },
+    {
+      "allowed_status": "allowed_in_principle_pending_operator_approval",
+      "expected_evidence_type": "public issuer news or filing summary snapshot",
+      "linked_hypothesis_id": "692258.analysis.bed289c1494d.paper_hypothesis",
+      "live_fetch_performed": false,
+      "market_id": "692258",
+      "market_title": "MicroStrategy sells any Bitcoin by June 30, 2026?",
+      "planned_source_id": "fetch-prep-005:692258:domain_public_evidence",
+      "reason_needed": "The paper hypothesis depends on later checking public company evidence against the saved local packet.",
+      "source_category": "public_issuer_company_news_page_placeholder",
+      "source_name_or_placeholder": "public issuer/company news page placeholder",
+      "source_reference_or_placeholder": "public_source_placeholder:public_issuer_company_news_page_placeholder:692258"
+    }
+  ],
+  "retry_policy": {
+    "backoff_seconds": 0,
+    "max_attempts": 0,
+    "reason": "Retries are disabled for this local-only preparation task.",
+    "retry_enabled": false
+  },
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_fetch_performed": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "openrouter_calls_performed": 0,
+    "operator_approval_granted": false,
+    "operator_approval_required": true,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "ready_for_controlled_public_fetch": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "source_task_id": "ORCH-PMBOT-PRACTICAL-005-CONTROLLED-PUBLIC-READ-ONLY-FETCH-PREP-FOR-MARKET-PACKETS",
+  "timeout_seconds": 10
+}

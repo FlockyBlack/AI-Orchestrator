@@ -1,0 +1,107 @@
+{
+  "affected_hypothesis_ids": [
+    "563650.analysis.adc53630aa1f.paper_hypothesis",
+    "597964.analysis.33643849e5db.paper_hypothesis",
+    "598936.analysis.dceea0f50063.paper_hypothesis",
+    "691547.analysis.56b3a68b9b94.paper_hypothesis",
+    "692258.analysis.bed289c1494d.paper_hypothesis"
+  ],
+  "affected_market_ids": [
+    "563650",
+    "597964",
+    "598936",
+    "691547",
+    "692258"
+  ],
+  "automatic_analysis_update_allowed": false,
+  "automatic_trading_allowed": false,
+  "contract_version": "pmbot_public_fetch_replay_before_update_plan.v1",
+  "contradiction_check_required": true,
+  "created_at": "2026-05-10T00:00:00Z",
+  "evidence_packet_inputs": [
+    {
+      "expected_saved_packet": "pm_bot/practical/artifacts/public_read_only_fetch_execution_007/saved_public_evidence/563650/public_fetch_request_intent_006_01_563650_563650_market_metadata.saved_public_evidence_packet.json",
+      "linked_hypothesis_id": "563650.analysis.adc53630aa1f.paper_hypothesis",
+      "market_id": "563650",
+      "request_intent_id": "public_fetch_request_intent_006_01_563650_563650_market_metadata"
+    },
+    {
+      "expected_saved_packet": "pm_bot/practical/artifacts/public_read_only_fetch_execution_007/saved_public_evidence/563650/public_fetch_request_intent_006_02_563650_563650_domain_public_evidence.saved_public_evidence_packet.json",
+      "linked_hypothesis_id": "563650.analysis.adc53630aa1f.paper_hypothesis",
+      "market_id": "563650",
+      "request_intent_id": "public_fetch_request_intent_006_02_563650_563650_domain_public_evidence"
+    },
+    {
+      "expected_saved_packet": "pm_bot/practical/artifacts/public_read_only_fetch_execution_007/saved_public_evidence/597964/public_fetch_request_intent_006_03_597964_597964_market_metadata.saved_public_evidence_packet.json",
+      "linked_hypothesis_id": "597964.analysis.33643849e5db.paper_hypothesis",
+      "market_id": "597964",
+      "request_intent_id": "public_fetch_request_intent_006_03_597964_597964_market_metadata"
+    },
+    {
+      "expected_saved_packet": "pm_bot/practical/artifacts/public_read_only_fetch_execution_007/saved_public_evidence/597964/public_fetch_request_intent_006_04_597964_597964_domain_public_evidence.saved_public_evidence_packet.json",
+      "linked_hypothesis_id": "597964.analysis.33643849e5db.paper_hypothesis",
+      "market_id": "597964",
+      "request_intent_id": "public_fetch_request_intent_006_04_597964_597964_domain_public_evidence"
+    },
+    {
+      "expected_saved_packet": "pm_bot/practical/artifacts/public_read_only_fetch_execution_007/saved_public_evidence/598936/public_fetch_request_intent_006_05_598936_598936_market_metadata.saved_public_evidence_packet.json",
+      "linked_hypothesis_id": "598936.analysis.dceea0f50063.paper_hypothesis",
+      "market_id": "598936",
+      "request_intent_id": "public_fetch_request_intent_006_05_598936_598936_market_metadata"
+    },
+    {
+      "expected_saved_packet": "pm_bot/practical/artifacts/public_read_only_fetch_execution_007/saved_public_evidence/598936/public_fetch_request_intent_006_06_598936_598936_domain_public_evidence.saved_public_evidence_packet.json",
+      "linked_hypothesis_id": "598936.analysis.dceea0f50063.paper_hypothesis",
+      "market_id": "598936",
+      "request_intent_id": "public_fetch_request_intent_006_06_598936_598936_domain_public_evidence"
+    },
+    {
+      "expected_saved_packet": "pm_bot/practical/artifacts/public_read_only_fetch_execution_007/saved_public_evidence/691547/public_fetch_request_intent_006_07_691547_691547_market_metadata.saved_public_evidence_packet.json",
+      "linked_hypothesis_id": "691547.analysis.56b3a68b9b94.paper_hypothesis",
+      "market_id": "691547",
+      "request_intent_id": "public_fetch_request_intent_006_07_691547_691547_market_metadata"
+    },
+    {
+      "expected_saved_packet": "pm_bot/practical/artifacts/public_read_only_fetch_execution_007/saved_public_evidence/691547/public_fetch_request_intent_006_08_691547_691547_domain_public_evidence.saved_public_evidence_packet.json",
+      "linked_hypothesis_id": "691547.analysis.56b3a68b9b94.paper_hypothesis",
+      "market_id": "691547",
+      "request_intent_id": "public_fetch_request_intent_006_08_691547_691547_domain_public_evidence"
+    },
+    {
+      "expected_saved_packet": "pm_bot/practical/artifacts/public_read_only_fetch_execution_007/saved_public_evidence/692258/public_fetch_request_intent_006_09_692258_692258_market_metadata.saved_public_evidence_packet.json",
+      "linked_hypothesis_id": "692258.analysis.bed289c1494d.paper_hypothesis",
+      "market_id": "692258",
+      "request_intent_id": "public_fetch_request_intent_006_09_692258_692258_market_metadata"
+    },
+    {
+      "expected_saved_packet": "pm_bot/practical/artifacts/public_read_only_fetch_execution_007/saved_public_evidence/692258/public_fetch_request_intent_006_10_692258_692258_domain_public_evidence.saved_public_evidence_packet.json",
+      "linked_hypothesis_id": "692258.analysis.bed289c1494d.paper_hypothesis",
+      "market_id": "692258",
+      "request_intent_id": "public_fetch_request_intent_006_10_692258_692258_domain_public_evidence"
+    }
+  ],
+  "evidence_save_plan_id": "public-read-only-fetch-prep-005-5-markets.evidence_save_plan.006",
+  "fetch_plan_id": "public-read-only-fetch-prep-005-5-markets",
+  "live_fetch_performed": false,
+  "live_network_used": false,
+  "operator_review_required_after_replay": true,
+  "replay_adapter_required": true,
+  "replay_plan_id": "public-read-only-fetch-prep-005-5-markets.replay_before_update_plan.006",
+  "request_manifest_id": "public-read-only-fetch-prep-005-5-markets.request_manifest.006",
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "source_packet_mapping_required": true,
+  "staleness_check_required": true
+}

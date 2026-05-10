@@ -1,0 +1,61 @@
+{
+  "approval_for_task_id": "ORCH-PMBOT-PRACTICAL-007-FIRST-CONTROLLED-PUBLIC-READ-ONLY-FETCH-EXECUTION-OPERATOR-APPROVED",
+  "approval_status": "pending",
+  "approved_at": null,
+  "approved_by": null,
+  "approved_market_ids": [
+    "563650",
+    "597964",
+    "598936",
+    "691547",
+    "692258"
+  ],
+  "approved_max_request_count": 10,
+  "approved_source_categories": [
+    "public_court_government_page_placeholder",
+    "public_exchange_company_announcement_page_placeholder",
+    "public_issuer_company_news_page_placeholder",
+    "public_market_metadata_endpoint_placeholder",
+    "public_resolution_source_page_placeholder"
+  ],
+  "blocked_source_categories": [
+    "authenticated_endpoint",
+    "browser_session_cookie_based_source",
+    "forum_rumor_only_unlabeled_source",
+    "order_endpoint",
+    "private_api_key_endpoint",
+    "source_requiring_bypass_or_automation",
+    "source_requiring_kyc_or_login",
+    "trading_endpoint",
+    "wallet_signing_endpoint"
+  ],
+  "contract_version": "pmbot_manual_operator_approval_template.v1",
+  "created_at": "2026-05-10T00:00:00Z",
+  "explicit_non_approval_notice": "This template is pending and does not grant approval until a future separate operator action changes approval_status to approved with approved_by and approved_at.",
+  "live_fetch_performed": false,
+  "live_network_used": false,
+  "operator_approval_granted": false,
+  "operator_must_set_to_approved_manually": true,
+  "ready_for_controlled_public_fetch": false,
+  "safety_acknowledgements_required": [
+    "I reviewed the approval packet and request manifest.",
+    "I approve only the listed markets, request count, and source categories.",
+    "No auth, credentials, cookies, wallet, signing, orders, trading, scheduler, or polling are approved.",
+    "Evidence must be saved before replay.",
+    "Replay must happen before any analysis update."
+  ],
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "allowed_scope": [
+    "finite public read-only fetches only",
+    "no auth",
+    "no wallet",
+    "no trading",
+    "no orders",
+    "no scheduler",
+    "no automatic polling",
+    "save evidence before use",
+    "replay evidence before analysis update"
+  ],
+  "approval_artifact_required": "pm_bot/practical/artifacts/public_read_only_fetch_approval_006/manual_operator_approval_template.json",
+  "blocked_scope": [
+    "Authenticated endpoints",
+    "Private API key endpoints",
+    "Browser session, cookie, login, KYC, or bypass-based sources",
+    "Wallet, private key, signing, custody, order, or trading paths",
+    "OpenRouter calls",
+    "Polymarket API calls",
+    "Schedulers, daemons, watchers, automatic polling, or unattended automation",
+    "Market recommendations or executable quantitative market output",
+    "Runtime, dispatcher, run_codex, browser automation, or autonomous execution changes"
+  ],
+  "contract_version": "pmbot_future_controlled_public_fetch_task_spec.v1",
+  "created_at": "2026-05-10T00:00:00Z",
+  "expected_outputs": [
+    "saved public evidence packet JSON and Markdown per request intent",
+    "request execution summary with public-source capture metadata",
+    "replay-ready source packet mapping",
+    "post-fetch safety scan showing no auth, wallet, order, trading, scheduler, or OpenRouter/Polymarket API use"
+  ],
+  "live_fetch_performed": false,
+  "live_network_used": false,
+  "max_markets": 5,
+  "max_requests": 10,
+  "operator_approval_granted": false,
+  "prerequisite_task_id": "ORCH-PMBOT-PRACTICAL-006-FIRST-CONTROLLED-PUBLIC-READ-ONLY-FETCH-DRY-RUN-APPROVAL-PACKET",
+  "proposed_task_id": "ORCH-PMBOT-PRACTICAL-007-FIRST-CONTROLLED-PUBLIC-READ-ONLY-FETCH-EXECUTION-OPERATOR-APPROVED",
+  "ready_for_controlled_public_fetch": false,
+  "requires_manual_operator_approval": true,
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "stop_conditions": [
+    "approval artifact missing or still pending",
+    "source requires auth, login, cookies, private API key, wallet, signing, or KYC",
+    "source category is not in the approved source category set",
+    "request count would exceed the approved maximum",
+    "evidence cannot be saved before replay",
+    "operator asks for broad unrestricted fetch scope"
+  ]
+}

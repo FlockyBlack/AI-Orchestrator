@@ -1,0 +1,93 @@
+{
+  "contract_version": "pmbot_public_fetch_approval_blocker_scenarios.v1",
+  "created_at": "2026-05-10T00:00:00Z",
+  "live_fetch_performed": false,
+  "live_network_used": false,
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "scenario_count": 10,
+  "scenarios": [
+    {
+      "expected_behavior": "block",
+      "reason": "No manual approval artifact grants the future task.",
+      "safe_recovery_action": "Keep fetch blocked and create a reviewed approval artifact.",
+      "scenario": "approval missing",
+      "scenario_id": "approval_missing"
+    },
+    {
+      "expected_behavior": "block",
+      "reason": "Public read-only scope cannot use login, cookies, credentials, or private API keys.",
+      "safe_recovery_action": "Replace the source with a public no-auth source or keep it out of scope.",
+      "scenario": "auth required by source",
+      "scenario_id": "auth_required_by_source"
+    },
+    {
+      "expected_behavior": "block",
+      "reason": "The source category is blocked by the registry.",
+      "safe_recovery_action": "Choose an allowed source category and update the manifest locally.",
+      "scenario": "source category blocked",
+      "scenario_id": "source_category_blocked"
+    },
+    {
+      "expected_behavior": "block",
+      "reason": "The request total is greater than the approved maximum.",
+      "safe_recovery_action": "Reduce request intents or create a narrower approval artifact.",
+      "scenario": "request count exceeds limit",
+      "scenario_id": "request_count_exceeds_limit"
+    },
+    {
+      "expected_behavior": "block",
+      "reason": "Future public evidence must be saved before replay.",
+      "safe_recovery_action": "Restore evidence saving and validate the save plan.",
+      "scenario": "evidence save disabled",
+      "scenario_id": "evidence_save_disabled"
+    },
+    {
+      "expected_behavior": "block",
+      "reason": "Saved evidence must be replayed before PMBOT analysis changes.",
+      "safe_recovery_action": "Restore replay-before-update and run replay validation.",
+      "scenario": "replay-before-update disabled",
+      "scenario_id": "replay_before_update_disabled"
+    },
+    {
+      "expected_behavior": "block",
+      "reason": "Execution-related endpoints are out of scope.",
+      "safe_recovery_action": "Remove the endpoint and keep the source public read-only.",
+      "scenario": "trading endpoint detected",
+      "scenario_id": "trading_endpoint_detected"
+    },
+    {
+      "expected_behavior": "block",
+      "reason": "Wallet, private-key, signing, custody, and KYC paths are blocked.",
+      "safe_recovery_action": "Use only public no-wallet evidence sources.",
+      "scenario": "wallet/signing required",
+      "scenario_id": "wallet_signing_required"
+    },
+    {
+      "expected_behavior": "block",
+      "reason": "This approval path allows only a finite operator-approved task.",
+      "safe_recovery_action": "Use a one-time manually approved task with no scheduler or polling.",
+      "scenario": "scheduler/background fetch requested",
+      "scenario_id": "scheduler_background_fetch_requested"
+    },
+    {
+      "expected_behavior": "block",
+      "reason": "Approval must be limited to named markets, source categories, and request count.",
+      "safe_recovery_action": "Replace with a narrow approval artifact for the listed scope only.",
+      "scenario": "operator tries to approve broad unrestricted fetch",
+      "scenario_id": "broad_unrestricted_fetch_requested"
+    }
+  ]
+}

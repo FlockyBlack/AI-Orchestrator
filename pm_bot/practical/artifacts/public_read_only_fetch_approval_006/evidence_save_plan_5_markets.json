@@ -1,0 +1,75 @@
+{
+  "contract_version": "pmbot_public_fetch_evidence_save_plan.v1",
+  "created_at": "2026-05-10T00:00:00Z",
+  "evidence_directory": "pm_bot/practical/artifacts/public_read_only_fetch_execution_007/saved_public_evidence",
+  "evidence_save_plan_id": "public-read-only-fetch-prep-005-5-markets.evidence_save_plan.006",
+  "evidence_save_required": true,
+  "fetch_plan_id": "public-read-only-fetch-prep-005-5-markets",
+  "filename_pattern": "{market_id}/{request_intent_id}.saved_public_evidence_packet.json",
+  "live_fetch_performed": false,
+  "live_network_used": false,
+  "market_ids": [
+    "563650",
+    "597964",
+    "598936",
+    "691547",
+    "692258"
+  ],
+  "normalized_claim_policy": {
+    "description": "Normalize captured public evidence into explicit claims before replay.",
+    "required": true
+  },
+  "overwrite_policy": "no_overwrite",
+  "raw_capture_policy": {
+    "description": "Save the public-source excerpt or concise capture summary before any replay.",
+    "required": true
+  },
+  "redaction_policy": "If credential, session, wallet, or private material appears unexpectedly, block use and require separate local review.",
+  "replay_before_analysis_update": true,
+  "required_metadata_fields": [
+    "evidence_packet_id",
+    "captured_at",
+    "capture_mode",
+    "source_id",
+    "source_name",
+    "source_category",
+    "source_reference",
+    "market_ids",
+    "hypothesis_ids",
+    "raw_excerpt_or_summary",
+    "normalized_claims",
+    "freshness_status",
+    "contradiction_candidates",
+    "limitations",
+    "capture_errors",
+    "auth_used",
+    "credentials_used",
+    "wallet_or_private_key_access",
+    "orders_or_trading_actions",
+    "safe_for_replay"
+  ],
+  "retention_policy": "retain_with_task_artifacts_until_operator_reviewed_cleanup",
+  "safety_flags_required": {
+    "auth_used": false,
+    "capture_context_must_be_explicit": true,
+    "credentials_used": false,
+    "orders_or_trading_actions": false,
+    "safe_for_replay": true,
+    "wallet_or_private_key_access": false
+  },
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "validation_required_before_use": true
+}
