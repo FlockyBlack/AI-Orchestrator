@@ -1,0 +1,356 @@
+{
+  "analysis_id": "573656.analysis.ceab64191597",
+  "analysis_mode": "local_one_market",
+  "authenticated_endpoints_used": false,
+  "contract_version": "pmbot_one_market_analysis_result.v1",
+  "contradiction_notes": [
+    {
+      "claim_type": "news_source_placeholder",
+      "conflicting_values": [
+        {
+          "claim_value": "Bloomberg or Wall Street Journal markets query for 'When will Bitcoin hit $150k?'",
+          "sources": [
+            {
+              "source_id": "news_source_placeholder_006",
+              "source_name": "news_source_placeholder"
+            }
+          ]
+        },
+        {
+          "claim_value": "CoinDesk or The Block market coverage query for 'Will Bitcoin hit $150k by December 31, 2026?'",
+          "sources": [
+            {
+              "source_id": "news_source_placeholder_005",
+              "source_name": "news_source_placeholder"
+            }
+          ]
+        },
+        {
+          "claim_value": "Reuters markets coverage query for 'Will Bitcoin hit $150k by December 31, 2026?'",
+          "sources": [
+            {
+              "source_id": "news_source_placeholder_004",
+              "source_name": "news_source_placeholder"
+            }
+          ]
+        }
+      ],
+      "note": "Used sources disagree on the same claim type; operator review is required."
+    },
+    {
+      "claim_type": "official_source_placeholder",
+      "conflicting_values": [
+        {
+          "claim_value": "Official benchmark, exchange, or index source specified by the market rules",
+          "sources": [
+            {
+              "source_id": "official_source_placeholder_002",
+              "source_name": "official_source_placeholder"
+            }
+          ]
+        },
+        {
+          "claim_value": "Polymarket market rules and resolution criteria for market_id 573656",
+          "sources": [
+            {
+              "source_id": "official_source_placeholder_001",
+              "source_name": "official_source_placeholder"
+            }
+          ]
+        },
+        {
+          "claim_value": "Timestamp and threshold definitions for 'Will Bitcoin hit $150k by December 31, 2026?'",
+          "sources": [
+            {
+              "source_id": "official_source_placeholder_003",
+              "source_name": "official_source_placeholder"
+            }
+          ]
+        }
+      ],
+      "note": "Used sources disagree on the same claim type; operator review is required."
+    }
+  ],
+  "evidence_status": {
+    "available_evidence_count": 7,
+    "contradiction_note_count": 2,
+    "missing_evidence_count": 11,
+    "source_packets_count": 7,
+    "stale_source_count": 0,
+    "unused_source_count": 0,
+    "used_source_count": 7
+  },
+  "generated_artifacts": {
+    "analysis_card_markdown": "pm_bot/practical/artifacts/add_market_016/analysis_016.md",
+    "analysis_result_json": "pm_bot/practical/artifacts/add_market_016/analysis_016.result.json"
+  },
+  "key_question": "What local evidence would resolve the operator's review of: Will Bitcoin hit $150k by December 31, 2026?",
+  "live_network_used": false,
+  "market_id": "573656",
+  "market_recommendation_generated": false,
+  "market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+  "missing_evidence": [
+    "full_market_resolution_criteria_text",
+    "official_source_urls",
+    "credible_news_source_urls",
+    "yes_evidence",
+    "no_or_counterevidence",
+    "source_timestamps",
+    "source_reliability_review",
+    "operator_redacted-token_assessment",
+    "operator_risk_review",
+    "benchmark_and_timezone_rules",
+    "Referenced source artifact path is not present locally: pm_bot/research/merged_manual_research_packets.v1.json"
+  ],
+  "next_research_questions": [
+    "Collect local evidence for: full_market_resolution_criteria_text",
+    "Collect local evidence for: official_source_urls",
+    "Collect local evidence for: credible_news_source_urls",
+    "Collect local evidence for: yes_evidence",
+    "Collect local evidence for: no_or_counterevidence",
+    "Collect local evidence for: source_timestamps",
+    "Collect local evidence for: source_reliability_review",
+    "Collect local evidence for: operator_redacted-token_assessment",
+    "Collect local evidence for: operator_risk_review",
+    "Collect local evidence for: benchmark_and_timezone_rules",
+    "Collect local evidence for: Referenced source artifact path is not present locally: pm_bot/research/merged_manual_research_packets.v1.json",
+    "Clarify uncertainty: Local packet may be incomplete; missing evidence is preserved below."
+  ],
+  "no_real_trade_decision": true,
+  "openrouter_calls_performed": 0,
+  "operator_summary": "Local one-market review for Will Bitcoin hit $150k by December 31, 2026?. Stub summary only: determine whether the crypto threshold in 'Will Bitcoin hit $150k by December 31, 2026?' is hit by 2027-01-01; the benchmark, timezone, and threshold rules must be copied before completion. The packet has 7 used source(s), 11 missing evidence item(s), 0 stale source note(s), and 2 contradiction note(s). The result is a paper-only analysis record for later outcome review.",
+  "orders_or_trading_actions": false,
+  "outcome_tracking_status": {
+    "required_contract_version": "pmbot_one_market_outcome_record.v1",
+    "review_required": true,
+    "status": "placeholder_pending_outcome_record"
+  },
+  "paper_hypothesis": {
+    "execution_boundary": "Paper-only review record. It is not a market instruction and cannot be used for orders.",
+    "hypothesis_id": "573656.analysis.ceab64191597.paper_hypothesis",
+    "outcome_check_needed": "Later compare the final outcome record with the local rules summary, resolution source summary, and source attribution.",
+    "refuting_evidence_needed": [
+      "full_market_resolution_criteria_text",
+      "official_source_urls",
+      "credible_news_source_urls",
+      "yes_evidence",
+      "no_or_counterevidence",
+      "source_timestamps",
+      "source_reliability_review",
+      "operator_redacted-token_assessment",
+      "operator_risk_review",
+      "benchmark_and_timezone_rules",
+      "Referenced source artifact path is not present locally: pm_bot/research/merged_manual_research_packets.v1.json"
+    ],
+    "safety_label": "paper_only_non_executable_analysis_tracking",
+    "source_assumptions_to_review": [
+      "official_source_placeholder",
+      "official_source_placeholder",
+      "official_source_placeholder",
+      "news_source_placeholder",
+      "news_source_placeholder",
+      "news_source_placeholder",
+      "source_plan",
+      "Local packet may be incomplete; missing evidence is preserved below."
+    ],
+    "supporting_evidence_needed": [
+      "Resolution evidence matches the local rules summary.",
+      "Used source records remain applicable to the same market and outcome rules.",
+      "No material missing evidence changes the qualitative review."
+    ],
+    "tracked_claim": "Track whether the local source-backed analysis remains useful after the market outcome is reviewed."
+  },
+  "paper_hypothesis_allowed": true,
+  "paper_hypothesis_safety_label": "paper_only_non_executable_analysis_tracking",
+  "paper_hypothesis_tracking_fields": {
+    "analysis_id": "573656.analysis.ceab64191597",
+    "created_from": "local_one_market",
+    "expected_outcome_record_contract_version": "pmbot_one_market_outcome_record.v1",
+    "market_id": "573656",
+    "outcome_record_required_fields": [
+      "contract_version",
+      "market_id",
+      "outcome_status",
+      "actual_outcome_summary",
+      "resolved_at",
+      "resolution_source_reference",
+      "operator_notes"
+    ],
+    "tracking_status": "pending_outcome_record"
+  },
+  "polymarket_api_calls_performed": 0,
+  "probability_ev_edge_or_side_selection_generated": false,
+  "review_quality_score_inputs": {
+    "available_evidence_count": 7,
+    "contradiction_note_count": 2,
+    "missing_evidence_count": 11,
+    "operator_note_count": 14,
+    "stale_source_count": 0,
+    "used_source_count": 7
+  },
+  "runtime_or_dispatcher_changes": false,
+  "source_attribution": [
+    {
+      "captured_at": "2026-05-10T00:00:00Z",
+      "claim_type": "official_source_placeholder",
+      "claim_value": "Polymarket market rules and resolution criteria for market_id 573656",
+      "evidence_summary": "Polymarket market rules and resolution criteria for market_id 573656",
+      "freshness_status": "unknown",
+      "known_limitations": [
+        "Limitations were not fully specified in the local packet."
+      ],
+      "source_id": "official_source_placeholder_001",
+      "source_name": "official_source_placeholder",
+      "source_type": "local_static_fixture",
+      "source_url_or_reference": "Polymarket market rules and resolution criteria for market_id 573656",
+      "used_in_analysis": true
+    },
+    {
+      "captured_at": "2026-05-10T00:00:00Z",
+      "claim_type": "official_source_placeholder",
+      "claim_value": "Official benchmark, exchange, or index source specified by the market rules",
+      "evidence_summary": "Official benchmark, exchange, or index source specified by the market rules",
+      "freshness_status": "unknown",
+      "known_limitations": [
+        "Limitations were not fully specified in the local packet."
+      ],
+      "source_id": "official_source_placeholder_002",
+      "source_name": "official_source_placeholder",
+      "source_type": "local_static_fixture",
+      "source_url_or_reference": "Official benchmark, exchange, or index source specified by the market rules",
+      "used_in_analysis": true
+    },
+    {
+      "captured_at": "2026-05-10T00:00:00Z",
+      "claim_type": "official_source_placeholder",
+      "claim_value": "Timestamp and threshold definitions for 'Will Bitcoin hit $150k by December 31, 2026?'",
+      "evidence_summary": "Timestamp and threshold definitions for 'Will Bitcoin hit $150k by December 31, 2026?'",
+      "freshness_status": "unknown",
+      "known_limitations": [
+        "Limitations were not fully specified in the local packet."
+      ],
+      "source_id": "official_source_placeholder_003",
+      "source_name": "official_source_placeholder",
+      "source_type": "local_static_fixture",
+      "source_url_or_reference": "Timestamp and threshold definitions for 'Will Bitcoin hit $150k by December 31, 2026?'",
+      "used_in_analysis": true
+    },
+    {
+      "captured_at": "2026-05-10T00:00:00Z",
+      "claim_type": "news_source_placeholder",
+      "claim_value": "Reuters markets coverage query for 'Will Bitcoin hit $150k by December 31, 2026?'",
+      "evidence_summary": "Reuters markets coverage query for 'Will Bitcoin hit $150k by December 31, 2026?'",
+      "freshness_status": "unknown",
+      "known_limitations": [
+        "Limitations were not fully specified in the local packet."
+      ],
+      "source_id": "news_source_placeholder_004",
+      "source_name": "news_source_placeholder",
+      "source_type": "local_static_fixture",
+      "source_url_or_reference": "Reuters markets coverage query for 'Will Bitcoin hit $150k by December 31, 2026?'",
+      "used_in_analysis": true
+    },
+    {
+      "captured_at": "2026-05-10T00:00:00Z",
+      "claim_type": "news_source_placeholder",
+      "claim_value": "CoinDesk or The Block market coverage query for 'Will Bitcoin hit $150k by December 31, 2026?'",
+      "evidence_summary": "CoinDesk or The Block market coverage query for 'Will Bitcoin hit $150k by December 31, 2026?'",
+      "freshness_status": "unknown",
+      "known_limitations": [
+        "Limitations were not fully specified in the local packet."
+      ],
+      "source_id": "news_source_placeholder_005",
+      "source_name": "news_source_placeholder",
+      "source_type": "local_static_fixture",
+      "source_url_or_reference": "CoinDesk or The Block market coverage query for 'Will Bitcoin hit $150k by December 31, 2026?'",
+      "used_in_analysis": true
+    },
+    {
+      "captured_at": "2026-05-10T00:00:00Z",
+      "claim_type": "news_source_placeholder",
+      "claim_value": "Bloomberg or Wall Street Journal markets query for 'When will Bitcoin hit $150k?'",
+      "evidence_summary": "Bloomberg or Wall Street Journal markets query for 'When will Bitcoin hit $150k?'",
+      "freshness_status": "unknown",
+      "known_limitations": [
+        "Limitations were not fully specified in the local packet."
+      ],
+      "source_id": "news_source_placeholder_006",
+      "source_name": "news_source_placeholder",
+      "source_type": "local_static_fixture",
+      "source_url_or_reference": "Bloomberg or Wall Street Journal markets query for 'When will Bitcoin hit $150k?'",
+      "used_in_analysis": true
+    },
+    {
+      "captured_at": "2026-05-10T00:00:00Z",
+      "claim_type": "source_plan",
+      "claim_value": "Template only: confirm the market's own resolution rules, then check the specified benchmark, exchange or index source, timestamp rules, and credible market coverage for 'Will Bitcoin hit $150k by December 31, 2026?'. Do not fetch sources in this stub.",
+      "evidence_summary": "Template only: confirm the market's own resolution rules, then check the specified benchmark, exchange or index source, timestamp rules, and credible market coverage for 'Will Bitcoin hit $150k by December 31, 2026?'. Do not fetch sources in this stub.",
+      "freshness_status": "unknown",
+      "known_limitations": [
+        "Limitations were not fully specified in the local packet."
+      ],
+      "source_id": "source_plan_007",
+      "source_name": "source_plan",
+      "source_type": "local_static_fixture",
+      "source_url_or_reference": "Template only: confirm the market's own resolution rules, then check the specified benchmark, exchange or index source, timestamp rules, and credible market coverage for 'Will Bitcoin hit $150k by December 31, 2026?'. Do not fetch sources in this stub.",
+      "used_in_analysis": true
+    }
+  ],
+  "sources_not_used": [],
+  "sources_used": [
+    {
+      "claim_type": "official_source_placeholder",
+      "freshness_status": "unknown",
+      "source_id": "official_source_placeholder_001",
+      "source_name": "official_source_placeholder",
+      "source_type": "local_static_fixture"
+    },
+    {
+      "claim_type": "official_source_placeholder",
+      "freshness_status": "unknown",
+      "source_id": "official_source_placeholder_002",
+      "source_name": "official_source_placeholder",
+      "source_type": "local_static_fixture"
+    },
+    {
+      "claim_type": "official_source_placeholder",
+      "freshness_status": "unknown",
+      "source_id": "official_source_placeholder_003",
+      "source_name": "official_source_placeholder",
+      "source_type": "local_static_fixture"
+    },
+    {
+      "claim_type": "news_source_placeholder",
+      "freshness_status": "unknown",
+      "source_id": "news_source_placeholder_004",
+      "source_name": "news_source_placeholder",
+      "source_type": "local_static_fixture"
+    },
+    {
+      "claim_type": "news_source_placeholder",
+      "freshness_status": "unknown",
+      "source_id": "news_source_placeholder_005",
+      "source_name": "news_source_placeholder",
+      "source_type": "local_static_fixture"
+    },
+    {
+      "claim_type": "news_source_placeholder",
+      "freshness_status": "unknown",
+      "source_id": "news_source_placeholder_006",
+      "source_name": "news_source_placeholder",
+      "source_type": "local_static_fixture"
+    },
+    {
+      "claim_type": "source_plan",
+      "freshness_status": "unknown",
+      "source_id": "source_plan_007",
+      "source_name": "source_plan",
+      "source_type": "local_static_fixture"
+    }
+  ],
+  "staleness_notes": [],
+  "uncertainty_notes": [
+    "Local packet may be incomplete; missing evidence is preserved below."
+  ],
+  "wallet_or_private_key_access": false
+}

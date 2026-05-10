@@ -1,0 +1,74 @@
+{
+  "blocked_feedback_count": 6,
+  "contract_version": "pmbot_manual_outcome_feedback_readiness_dashboard.v1",
+  "dashboard_id": "manual-outcome-feedback-readiness-dashboard-after-add-016",
+  "feedback_ready_count": 0,
+  "generated_at": "2026-05-11T00:00:00Z",
+  "markets_waiting_for_resolution": [
+    {
+      "feedback_packet_path": "pm_bot/practical/artifacts/manual_outcome_feedback_014/markets/563650/manual_feedback_packet.pending.json",
+      "manual_outcome_packet_path": "pm_bot/practical/artifacts/manual_outcome_feedback_014/markets/563650/manual_outcome_resolution_packet.unresolved.json",
+      "market_id": "563650",
+      "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?"
+    },
+    {
+      "feedback_packet_path": "pm_bot/practical/artifacts/manual_outcome_feedback_014/markets/597964/manual_feedback_packet.pending.json",
+      "manual_outcome_packet_path": "pm_bot/practical/artifacts/manual_outcome_feedback_014/markets/597964/manual_outcome_resolution_packet.unresolved.json",
+      "market_id": "597964",
+      "market_title": "Macron out by June 30, 2026?"
+    },
+    {
+      "feedback_packet_path": "pm_bot/practical/artifacts/manual_outcome_feedback_014/markets/598936/manual_feedback_packet.pending.json",
+      "manual_outcome_packet_path": "pm_bot/practical/artifacts/manual_outcome_feedback_014/markets/598936/manual_outcome_resolution_packet.unresolved.json",
+      "market_id": "598936",
+      "market_title": "Will the next UK election be called by June 30, 2026?"
+    },
+    {
+      "feedback_packet_path": "pm_bot/practical/artifacts/manual_outcome_feedback_014/markets/691547/manual_feedback_packet.pending.json",
+      "manual_outcome_packet_path": "pm_bot/practical/artifacts/manual_outcome_feedback_014/markets/691547/manual_outcome_resolution_packet.unresolved.json",
+      "market_id": "691547",
+      "market_title": "Kraken IPO by December 31, 2026?"
+    },
+    {
+      "feedback_packet_path": "pm_bot/practical/artifacts/manual_outcome_feedback_014/markets/692258/manual_feedback_packet.pending.json",
+      "manual_outcome_packet_path": "pm_bot/practical/artifacts/manual_outcome_feedback_014/markets/692258/manual_outcome_resolution_packet.unresolved.json",
+      "market_id": "692258",
+      "market_title": "MicroStrategy sells any Bitcoin by June 30, 2026?"
+    },
+    {
+      "feedback_packet_path": "pm_bot/practical/artifacts/add_market_016/manual_feedback_packet_pending_016.json",
+      "manual_outcome_packet_path": "pm_bot/practical/artifacts/add_market_016/manual_outcome_resolution_packet_unresolved_016.json",
+      "market_id": "573656",
+      "market_title": "Will Bitcoin hit $150k by December 31, 2026?"
+    }
+  ],
+  "next_operator_actions": [
+    "Wait for a valid local outcome resolution record before setting feedback_ready true.",
+    "Fill the prepared manual outcome packet after the market resolves in local evidence.",
+    "Review paper and source feedback before any source learning update candidate is applied."
+  ],
+  "pending_feedback_packet_count": 6,
+  "resolved_local_outcome_packet_count": 0,
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "automatic_analysis_update_performed": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "new_live_fetch_performed": false,
+    "new_polymarket_api_calls_performed": 0,
+    "no_autonomous_trading": true,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "no_scheduler_daemon_background_worker": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "outcome_resolution_invented": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "tracked_market_count": 6,
+  "unresolved_count": 6
+}

@@ -1,0 +1,512 @@
+{
+  "candidates": [
+    {
+      "already_tracked": true,
+      "candidate_id": "local-market-packet-563650",
+      "candidate_path": "pm_bot/llm/manual_packet_batch/563650_packet.v1.json",
+      "evidence_available": {
+        "local_placeholder_or_packet_source_count": 3,
+        "sample_evidence_summaries": [
+          "offline-reference:563650:rules - records the rule source category used for structural review.",
+          "offline-reference:563650:docket - records a court-source claim without resolving the outcome.",
+          "offline-reference:563650:news - records external context for later human review."
+        ],
+        "source_artifact_exists_locally": false,
+        "source_artifact_path": "pm_bot/research/final_dossier_drafts.v1.json",
+        "source_gap_note_count": 2
+      },
+      "market_id": "563650",
+      "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?",
+      "market_type": "generic",
+      "missing_data": [
+        "referenced source artifact not present locally: pm_bot/research/final_dossier_drafts.v1.json",
+        "No missing-information item is closed by this gate; human review remains required.",
+        "Confirm the exact docket identifier before any later human decision.",
+        "Court docket terminology may require manual interpretation.",
+        "Source timing should be reviewed by a human before any later workflow.",
+        "Manual draft sections are populated for structural quality review only.",
+        "Reviewer verified checklist coverage for the review pack and approved a later draft-preparation step."
+      ],
+      "rules_available": true,
+      "selected": false,
+      "selection_or_rejection_reason": "Rejected for PRACTICAL-016 because this market is already tracked in the five-market practical queue."
+    },
+    {
+      "already_tracked": false,
+      "candidate_id": "local-market-packet-569332",
+      "candidate_path": "pm_bot/llm/manual_packet_batch/569332_packet.v1.json",
+      "evidence_available": {
+        "local_placeholder_or_packet_source_count": 7,
+        "sample_evidence_summaries": [
+          "Polymarket market rules and resolution criteria for market_id 569332",
+          "Official election authority results or notices for category 'Colombia Presidential Election 1st round winner?'",
+          "Official candidate, party, or government pages named by 'Will Vicky D\u00e1vila win the 1st round of the 2026 Colombian presidential election?'"
+        ],
+        "source_artifact_exists_locally": false,
+        "source_artifact_path": "pm_bot/research/merged_manual_research_packets.v1.json",
+        "source_gap_note_count": 12
+      },
+      "market_id": "569332",
+      "market_title": "Will Vicky D\u00e1vila win the 1st round of the 2026 Colombian presidential election?",
+      "market_type": "politics",
+      "missing_data": [
+        "referenced source artifact not present locally: pm_bot/research/merged_manual_research_packets.v1.json",
+        "full_market_resolution_criteria_text",
+        "official_source_urls",
+        "credible_news_source_urls",
+        "yes_evidence",
+        "no_or_counterevidence",
+        "source_timestamps",
+        "source_reliability_review",
+        "operator_market_assessment_placeholder",
+        "operator_risk_review",
+        "official_election_authority_identifier"
+      ],
+      "rules_available": true,
+      "selected": false,
+      "selection_or_rejection_reason": "Rejected for this batch because similar Colombian election packets are already represented by the selected politics slot, and this run keeps the active set small for operator inspection."
+    },
+    {
+      "already_tracked": false,
+      "candidate_id": "local-market-packet-569333",
+      "candidate_path": "pm_bot/llm/manual_packet_batch/569333_packet.v1.json",
+      "evidence_available": {
+        "local_placeholder_or_packet_source_count": 7,
+        "sample_evidence_summaries": [
+          "Polymarket market rules and resolution criteria for market_id 569333",
+          "Official election authority results or notices for category 'Colombia Presidential Election 1st round winner?'",
+          "Official candidate, party, or government pages named by 'Will Luis Gilberto Murillo win the 1st round of the 2026 Colombian presidential election?'"
+        ],
+        "source_artifact_exists_locally": false,
+        "source_artifact_path": "pm_bot/research/merged_manual_research_packets.v1.json",
+        "source_gap_note_count": 12
+      },
+      "market_id": "569333",
+      "market_title": "Will Luis Gilberto Murillo win the 1st round of the 2026 Colombian presidential election?",
+      "market_type": "politics",
+      "missing_data": [
+        "referenced source artifact not present locally: pm_bot/research/merged_manual_research_packets.v1.json",
+        "full_market_resolution_criteria_text",
+        "official_source_urls",
+        "credible_news_source_urls",
+        "yes_evidence",
+        "no_or_counterevidence",
+        "source_timestamps",
+        "source_reliability_review",
+        "operator_market_assessment_placeholder",
+        "operator_risk_review",
+        "official_election_authority_identifier"
+      ],
+      "rules_available": true,
+      "selected": false,
+      "selection_or_rejection_reason": "Rejected for this batch because similar Colombian election packets are already represented by the selected politics slot, and this run keeps the active set small for operator inspection."
+    },
+    {
+      "already_tracked": false,
+      "candidate_id": "local-market-packet-569334",
+      "candidate_path": "pm_bot/llm/manual_packet_batch/569334_packet.v1.json",
+      "evidence_available": {
+        "local_placeholder_or_packet_source_count": 7,
+        "sample_evidence_summaries": [
+          "Polymarket market rules and resolution criteria for market_id 569334",
+          "Official election authority results or notices for category 'Colombia Presidential Election 1st round winner?'",
+          "Official candidate, party, or government pages named by 'Will Claudia L\u00f3pez win the 1st round of the 2026 Colombian presidential election?'"
+        ],
+        "source_artifact_exists_locally": false,
+        "source_artifact_path": "pm_bot/research/merged_manual_research_packets.v1.json",
+        "source_gap_note_count": 12
+      },
+      "market_id": "569334",
+      "market_title": "Will Claudia L\u00f3pez win the 1st round of the 2026 Colombian presidential election?",
+      "market_type": "politics",
+      "missing_data": [
+        "referenced source artifact not present locally: pm_bot/research/merged_manual_research_packets.v1.json",
+        "full_market_resolution_criteria_text",
+        "official_source_urls",
+        "credible_news_source_urls",
+        "yes_evidence",
+        "no_or_counterevidence",
+        "source_timestamps",
+        "source_reliability_review",
+        "operator_market_assessment_placeholder",
+        "operator_risk_review",
+        "official_election_authority_identifier"
+      ],
+      "rules_available": true,
+      "selected": false,
+      "selection_or_rejection_reason": "Rejected for this batch because similar Colombian election packets are already represented by the selected politics slot, and this run keeps the active set small for operator inspection."
+    },
+    {
+      "already_tracked": false,
+      "candidate_id": "local-market-packet-569343",
+      "candidate_path": "pm_bot/llm/manual_packet_batch/569343_packet.v1.json",
+      "evidence_available": {
+        "local_placeholder_or_packet_source_count": 7,
+        "sample_evidence_summaries": [
+          "Polymarket market rules and resolution criteria for market_id 569343",
+          "Official election authority results or notices for category 'Colombia Presidential Election 1st round winner?'",
+          "Official candidate, party, or government pages named by 'Will Iv\u00e1n Cepeda Castro win the 1st round of the 2026 Colombian presidential election?'"
+        ],
+        "source_artifact_exists_locally": false,
+        "source_artifact_path": "pm_bot/research/merged_manual_research_packets.v1.json",
+        "source_gap_note_count": 12
+      },
+      "market_id": "569343",
+      "market_title": "Will Iv\u00e1n Cepeda Castro win the 1st round of the 2026 Colombian presidential election?",
+      "market_type": "politics",
+      "missing_data": [
+        "referenced source artifact not present locally: pm_bot/research/merged_manual_research_packets.v1.json",
+        "full_market_resolution_criteria_text",
+        "official_source_urls",
+        "credible_news_source_urls",
+        "yes_evidence",
+        "no_or_counterevidence",
+        "source_timestamps",
+        "source_reliability_review",
+        "operator_market_assessment_placeholder",
+        "operator_risk_review",
+        "official_election_authority_identifier"
+      ],
+      "rules_available": true,
+      "selected": false,
+      "selection_or_rejection_reason": "Rejected for this batch because similar Colombian election packets are already represented by the selected politics slot, and this run keeps the active set small for operator inspection."
+    },
+    {
+      "already_tracked": false,
+      "candidate_id": "local-market-packet-569344",
+      "candidate_path": "pm_bot/llm/manual_packet_batch/569344_packet.v1.json",
+      "evidence_available": {
+        "local_placeholder_or_packet_source_count": 7,
+        "sample_evidence_summaries": [
+          "Polymarket market rules and resolution criteria for market_id 569344",
+          "Official election authority results or notices for category 'Colombia Presidential Election 1st round winner?'",
+          "Official candidate, party, or government pages named by 'Will Abelardo de la Espriella win the 1st round of the 2026 Colombian presidential election?'"
+        ],
+        "source_artifact_exists_locally": false,
+        "source_artifact_path": "pm_bot/research/merged_manual_research_packets.v1.json",
+        "source_gap_note_count": 12
+      },
+      "market_id": "569344",
+      "market_title": "Will Abelardo de la Espriella win the 1st round of the 2026 Colombian presidential election?",
+      "market_type": "politics",
+      "missing_data": [
+        "referenced source artifact not present locally: pm_bot/research/merged_manual_research_packets.v1.json",
+        "full_market_resolution_criteria_text",
+        "official_source_urls",
+        "credible_news_source_urls",
+        "yes_evidence",
+        "no_or_counterevidence",
+        "source_timestamps",
+        "source_reliability_review",
+        "operator_market_assessment_placeholder",
+        "operator_risk_review",
+        "official_election_authority_identifier"
+      ],
+      "rules_available": true,
+      "selected": false,
+      "selection_or_rejection_reason": "Rejected for this batch because similar Colombian election packets are already represented by the selected politics slot, and this run keeps the active set small for operator inspection."
+    },
+    {
+      "already_tracked": false,
+      "candidate_id": "local-market-packet-569366",
+      "candidate_path": "pm_bot/llm/manual_packet_batch/569366_packet.v1.json",
+      "evidence_available": {
+        "local_placeholder_or_packet_source_count": 10,
+        "sample_evidence_summaries": [
+          "offline-check:569366:market-rules",
+          "offline-check:569366:election-authority",
+          "Polymarket market rules and resolution criteria for market_id 569366"
+        ],
+        "source_artifact_exists_locally": false,
+        "source_artifact_path": "pm_bot/research/merged_manual_research_packets.v1.json",
+        "source_gap_note_count": 12
+      },
+      "market_id": "569366",
+      "market_title": "Will Abelardo de la Espriella win the 2026 Colombian presidential election?",
+      "market_type": "politics",
+      "missing_data": [
+        "referenced source artifact not present locally: pm_bot/research/merged_manual_research_packets.v1.json",
+        "credible_news_source_urls",
+        "yes_evidence",
+        "no_or_counterevidence",
+        "source_reliability_review",
+        "operator_market_assessment_placeholder",
+        "operator_risk_review",
+        "official_election_authority_identifier",
+        "Valid partial evidence overlay used to prove deterministic merge behavior."
+      ],
+      "rules_available": true,
+      "selected": false,
+      "selection_or_rejection_reason": "Rejected for this batch because similar Colombian election packets are already represented by the selected politics slot, and this run keeps the active set small for operator inspection."
+    },
+    {
+      "already_tracked": false,
+      "candidate_id": "local-market-packet-569368",
+      "candidate_path": "pm_bot/llm/manual_packet_batch/569368_packet.v1.json",
+      "evidence_available": {
+        "local_placeholder_or_packet_source_count": 7,
+        "sample_evidence_summaries": [
+          "Polymarket market rules and resolution criteria for market_id 569368",
+          "Official election authority results or notices for category 'Colombia Presidential Election'",
+          "Official candidate, party, or government pages named by 'Will Ivan Cepeda Castro win the 2026 Colombian presidential election?'"
+        ],
+        "source_artifact_exists_locally": false,
+        "source_artifact_path": "pm_bot/research/merged_manual_research_packets.v1.json",
+        "source_gap_note_count": 12
+      },
+      "market_id": "569368",
+      "market_title": "Will Ivan Cepeda Castro win the 2026 Colombian presidential election?",
+      "market_type": "politics",
+      "missing_data": [
+        "referenced source artifact not present locally: pm_bot/research/merged_manual_research_packets.v1.json",
+        "full_market_resolution_criteria_text",
+        "official_source_urls",
+        "credible_news_source_urls",
+        "yes_evidence",
+        "no_or_counterevidence",
+        "source_timestamps",
+        "source_reliability_review",
+        "operator_market_assessment_placeholder",
+        "operator_risk_review",
+        "official_election_authority_identifier"
+      ],
+      "rules_available": true,
+      "selected": false,
+      "selection_or_rejection_reason": "Rejected for this batch because similar Colombian election packets are already represented by the selected politics slot, and this run keeps the active set small for operator inspection."
+    },
+    {
+      "already_tracked": false,
+      "candidate_id": "local-market-packet-569373",
+      "candidate_path": "pm_bot/llm/manual_packet_batch/569373_packet.v1.json",
+      "evidence_available": {
+        "local_placeholder_or_packet_source_count": 7,
+        "sample_evidence_summaries": [
+          "Polymarket market rules and resolution criteria for market_id 569373",
+          "Official election authority results or notices for category 'Colombia Presidential Election'",
+          "Official candidate, party, or government pages named by 'Will Paloma Valencia win the 2026 Colombian presidential election?'"
+        ],
+        "source_artifact_exists_locally": false,
+        "source_artifact_path": "pm_bot/research/merged_manual_research_packets.v1.json",
+        "source_gap_note_count": 12
+      },
+      "market_id": "569373",
+      "market_title": "Will Paloma Valencia win the 2026 Colombian presidential election?",
+      "market_type": "politics",
+      "missing_data": [
+        "referenced source artifact not present locally: pm_bot/research/merged_manual_research_packets.v1.json",
+        "full_market_resolution_criteria_text",
+        "official_source_urls",
+        "credible_news_source_urls",
+        "yes_evidence",
+        "no_or_counterevidence",
+        "source_timestamps",
+        "source_reliability_review",
+        "operator_market_assessment_placeholder",
+        "operator_risk_review",
+        "official_election_authority_identifier"
+      ],
+      "rules_available": true,
+      "selected": false,
+      "selection_or_rejection_reason": "Rejected for this batch because similar Colombian election packets are already represented by the selected politics slot, and this run keeps the active set small for operator inspection."
+    },
+    {
+      "already_tracked": false,
+      "candidate_id": "local-market-packet-573656",
+      "candidate_path": "pm_bot/llm/manual_packet_batch/573656_packet.v1.json",
+      "evidence_available": {
+        "local_placeholder_or_packet_source_count": 7,
+        "sample_evidence_summaries": [
+          "Polymarket market rules and resolution criteria for market_id 573656",
+          "Official benchmark, exchange, or index source specified by the market rules",
+          "Timestamp and threshold definitions for 'Will Bitcoin hit $150k by December 31, 2026?'"
+        ],
+        "source_artifact_exists_locally": false,
+        "source_artifact_path": "pm_bot/research/merged_manual_research_packets.v1.json",
+        "source_gap_note_count": 12
+      },
+      "market_id": "573656",
+      "market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+      "market_type": "crypto",
+      "missing_data": [
+        "referenced source artifact not present locally: pm_bot/research/merged_manual_research_packets.v1.json",
+        "full_market_resolution_criteria_text",
+        "official_source_urls",
+        "credible_news_source_urls",
+        "yes_evidence",
+        "no_or_counterevidence",
+        "source_timestamps",
+        "source_reliability_review",
+        "operator_market_assessment_placeholder",
+        "operator_risk_review",
+        "benchmark_and_timezone_rules"
+      ],
+      "rules_available": true,
+      "selected": true,
+      "selection_or_rejection_reason": "Selected for PRACTICAL-016 because it is an untracked saved local packet, was previously rejected only to keep the first batch bounded, has a concrete binary title, local source placeholders, and requires no live fetch."
+    },
+    {
+      "already_tracked": true,
+      "candidate_id": "local-market-packet-597964",
+      "candidate_path": "pm_bot/llm/manual_packet_batch/597964_packet.v1.json",
+      "evidence_available": {
+        "local_placeholder_or_packet_source_count": 7,
+        "sample_evidence_summaries": [
+          "Manual check template: local Polymarket rules and resolution criteria for market_id 597964",
+          "Manual check template: official primary source named in the local market description for 'Macron out by June 30, 2026?'",
+          "Manual check template: original issuer, government, court, exchange, or company source relevant to 'Macron out by June 30, 2026?'"
+        ],
+        "source_artifact_exists_locally": false,
+        "source_artifact_path": "pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json",
+        "source_gap_note_count": 11
+      },
+      "market_id": "597964",
+      "market_title": "Macron out by June 30, 2026?",
+      "market_type": "politics",
+      "missing_data": [
+        "referenced source artifact not present locally: pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json",
+        "manual_research_not_started",
+        "full_market_resolution_criteria_review",
+        "official_source_references",
+        "credible_news_source_references",
+        "empty_evidence_slots",
+        "operator_human_review_required"
+      ],
+      "rules_available": true,
+      "selected": false,
+      "selection_or_rejection_reason": "Rejected for PRACTICAL-016 because this market is already tracked in the five-market practical queue."
+    },
+    {
+      "already_tracked": true,
+      "candidate_id": "local-market-packet-598936",
+      "candidate_path": "pm_bot/llm/manual_packet_batch/598936_packet.v1.json",
+      "evidence_available": {
+        "local_placeholder_or_packet_source_count": 7,
+        "sample_evidence_summaries": [
+          "Manual check template: local Polymarket rules and resolution criteria for market_id 598936",
+          "Manual check template: official primary source named in the local market description for 'Will the next UK election be called by June 30, 2026?'",
+          "Manual check template: original issuer, government, court, exchange, or company source relevant to 'Will the next UK election be called by June 30, 2026?'"
+        ],
+        "source_artifact_exists_locally": false,
+        "source_artifact_path": "pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json",
+        "source_gap_note_count": 11
+      },
+      "market_id": "598936",
+      "market_title": "Will the next UK election be called by June 30, 2026?",
+      "market_type": "politics",
+      "missing_data": [
+        "referenced source artifact not present locally: pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json",
+        "manual_research_not_started",
+        "full_market_resolution_criteria_review",
+        "official_source_references",
+        "credible_news_source_references",
+        "empty_evidence_slots",
+        "operator_human_review_required"
+      ],
+      "rules_available": true,
+      "selected": false,
+      "selection_or_rejection_reason": "Rejected for PRACTICAL-016 because this market is already tracked in the five-market practical queue."
+    },
+    {
+      "already_tracked": true,
+      "candidate_id": "local-market-packet-691547",
+      "candidate_path": "pm_bot/llm/manual_packet_batch/691547_packet.v1.json",
+      "evidence_available": {
+        "local_placeholder_or_packet_source_count": 7,
+        "sample_evidence_summaries": [
+          "Manual check template: local Polymarket rules and resolution criteria for market_id 691547",
+          "Manual check template: official primary source named in the local market description for 'Kraken IPO by December 31, 2026?'",
+          "Manual check template: original issuer, government, court, exchange, or company source relevant to 'Kraken IPO by December 31, 2026?'"
+        ],
+        "source_artifact_exists_locally": false,
+        "source_artifact_path": "pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json",
+        "source_gap_note_count": 11
+      },
+      "market_id": "691547",
+      "market_title": "Kraken IPO by December 31, 2026?",
+      "market_type": "crypto",
+      "missing_data": [
+        "referenced source artifact not present locally: pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json",
+        "manual_research_not_started",
+        "full_market_resolution_criteria_review",
+        "official_source_references",
+        "credible_news_source_references",
+        "empty_evidence_slots",
+        "operator_human_review_required"
+      ],
+      "rules_available": true,
+      "selected": false,
+      "selection_or_rejection_reason": "Rejected for PRACTICAL-016 because this market is already tracked in the five-market practical queue."
+    },
+    {
+      "already_tracked": true,
+      "candidate_id": "local-market-packet-692258",
+      "candidate_path": "pm_bot/llm/manual_packet_batch/692258_packet.v1.json",
+      "evidence_available": {
+        "local_placeholder_or_packet_source_count": 10,
+        "sample_evidence_summaries": [
+          "offline-check:692258:local-market-rules",
+          "offline-check:692258:company-source-placeholder",
+          "Manual check template: local Polymarket rules and resolution criteria for market_id 692258"
+        ],
+        "source_artifact_exists_locally": false,
+        "source_artifact_path": "pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json",
+        "source_gap_note_count": 11
+      },
+      "market_id": "692258",
+      "market_title": "MicroStrategy sells any Bitcoin by June 30, 2026?",
+      "market_type": "crypto",
+      "missing_data": [
+        "referenced source artifact not present locally: pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json",
+        "full_official_source_reference",
+        "credible_news_source_references",
+        "official_yes_or_no_evidence",
+        "source_reliability_review",
+        "Valid partial selected-ingest overlay used to prove deterministic merge behavior."
+      ],
+      "rules_available": true,
+      "selected": false,
+      "selection_or_rejection_reason": "Rejected for PRACTICAL-016 because this market is already tracked in the five-market practical queue."
+    }
+  ],
+  "candidates_considered_count": 14,
+  "contract_version": "pmbot_add_market_candidate_inventory.v1",
+  "generated_at": "2026-05-11T00:00:00Z",
+  "inventory_id": "candidate-inventory-016",
+  "live_network_used": false,
+  "new_market_candidate_found": true,
+  "new_polymarket_api_calls_performed": 0,
+  "openrouter_calls_performed": 0,
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "automatic_analysis_update_performed": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "new_live_fetch_performed": false,
+    "new_polymarket_api_calls_performed": 0,
+    "no_autonomous_trading": true,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "no_scheduler_daemon_background_worker": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "outcome_resolution_invented": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "search_scope": [
+    "pm_bot/llm/manual_llm_packet_batch_manifest.v1.json",
+    "pm_bot/llm/manual_packet_batch/*_packet.v1.json",
+    "pm_bot/practical/artifacts/real_market_batch_004/candidate_market_artifact_inventory.json"
+  ],
+  "selected_market_id": "573656",
+  "tracked_market_ids_before_add": [
+    "563650",
+    "597964",
+    "598936",
+    "691547",
+    "692258"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "already_tracked": false,
+  "known_limitations": [
+    "The local packet is a stub and does not contain full market resolution criteria text.",
+    "Official source URLs are not available in the local packet.",
+    "The referenced merged research artifact is not present locally.",
+    "Outcome remains unresolved and must not be inferred from the title."
+  ],
+  "live_network_used": false,
+  "market_id": "573656",
+  "market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+  "selected": true,
+  "selected_artifact_path": "pm_bot/llm/manual_packet_batch/573656_packet.v1.json",
+  "selection_reason": "The packet is a saved local real-market packet with binary Yes/No outcomes, rules and source placeholders, and no live-data dependency. It is not one of the five currently tracked markets."
+}

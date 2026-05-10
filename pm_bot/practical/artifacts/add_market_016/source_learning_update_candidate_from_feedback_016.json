@@ -1,0 +1,41 @@
+{
+  "candidate_id": "source-learning-update-candidate-from-feedback-016-573656",
+  "contract_version": "pmbot_source_learning_update_candidate_from_feedback.v1",
+  "generated_at": "2026-05-11T00:00:00Z",
+  "no_autonomous_training_performed": true,
+  "no_real_trade_decision": true,
+  "pending_market_count": 1,
+  "pending_markets": [
+    {
+      "market_id": "573656",
+      "market_title": "Will Bitcoin hit $150k by December 31, 2026?"
+    }
+  ],
+  "reason": "new market outcome unresolved",
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "automatic_analysis_update_performed": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "new_live_fetch_performed": false,
+    "new_polymarket_api_calls_performed": 0,
+    "no_autonomous_trading": true,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "no_scheduler_daemon_background_worker": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "outcome_resolution_invented": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "update_candidate_available": false,
+  "what_will_be_updated_after_resolution": [
+    "Source accuracy labels from an approved manual outcome packet.",
+    "Source handling notes for the new local source dependency records.",
+    "Analysis prompt improvement notes derived from future paper feedback."
+  ]
+}

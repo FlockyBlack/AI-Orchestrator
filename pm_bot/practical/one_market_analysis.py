@@ -716,12 +716,13 @@ def _clean_text(value: Any) -> str:
 
 
 def _replace_forbidden_value_tokens(value: str) -> str:
-    parts = re.split(r"(\W+)", value)
-    cleaned = [
-        "redacted-token" if part.lower() in FORBIDDEN_VALUE_TOKENS else part
-        for part in parts
-    ]
-    return "".join(cleaned)
+    def replace_match(match: re.Match[str]) -> str:
+        token = match.group(0)
+        if token.lower() in FORBIDDEN_VALUE_TOKENS:
+            return "redacted-token"
+        return token
+
+    return re.sub(r"[A-Za-z0-9]+", replace_match, value)
 
 
 def _missing_fields(payload: Mapping[str, Any], required_fields: Iterable[str], label: str) -> list[str]:

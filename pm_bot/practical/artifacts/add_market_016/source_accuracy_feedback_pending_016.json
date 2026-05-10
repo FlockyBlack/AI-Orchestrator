@@ -1,0 +1,259 @@
+{
+  "contract_version": "pmbot_source_accuracy_feedback.v1",
+  "created_at": "2026-05-11T00:00:00Z",
+  "hypothesis_id": "573656.analysis.ceab64191597.paper_hypothesis",
+  "input_feedback_id": "paper-hypothesis-feedback-016-573656-unresolved",
+  "market_id": "573656",
+  "no_autonomous_training_performed": true,
+  "no_real_trade_decision": true,
+  "outcome_status": "unresolved",
+  "recommended_future_source_handling": [
+    {
+      "handling": "Keep pending until an approved local outcome packet exists.",
+      "source_accuracy_label": "pending",
+      "source_id": "official_source_placeholder_001"
+    },
+    {
+      "handling": "Keep pending until an approved local outcome packet exists.",
+      "source_accuracy_label": "pending",
+      "source_id": "official_source_placeholder_002"
+    },
+    {
+      "handling": "Keep pending until an approved local outcome packet exists.",
+      "source_accuracy_label": "pending",
+      "source_id": "official_source_placeholder_003"
+    },
+    {
+      "handling": "Keep pending until an approved local outcome packet exists.",
+      "source_accuracy_label": "pending",
+      "source_id": "news_source_placeholder_004"
+    },
+    {
+      "handling": "Keep pending until an approved local outcome packet exists.",
+      "source_accuracy_label": "pending",
+      "source_id": "news_source_placeholder_005"
+    },
+    {
+      "handling": "Keep pending until an approved local outcome packet exists.",
+      "source_accuracy_label": "pending",
+      "source_id": "news_source_placeholder_006"
+    },
+    {
+      "handling": "Keep pending until an approved local outcome packet exists.",
+      "source_accuracy_label": "pending",
+      "source_id": "source_plan_007"
+    }
+  ],
+  "requires_more_outcomes": true,
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "new_live_fetch_performed": false,
+    "new_polymarket_api_calls_performed": 0,
+    "no_autonomous_trading": true,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "no_scheduler_daemon_background_worker": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "outcome_resolution_invented": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "source_accuracy_labels": {
+    "news_source_placeholder_004": "pending",
+    "news_source_placeholder_005": "pending",
+    "news_source_placeholder_006": "pending",
+    "official_source_placeholder_001": "pending",
+    "official_source_placeholder_002": "pending",
+    "official_source_placeholder_003": "pending",
+    "source_plan_007": "pending"
+  },
+  "source_feedback_id": "source-accuracy-feedback-016-573656-unresolved",
+  "source_lessons": [],
+  "source_records": [
+    {
+      "accuracy_limit": "Outcome unresolved; source accuracy is not claimed.",
+      "freshness_status": "unknown",
+      "has_evidence_packet": false,
+      "known_limitations": [
+        "Limitations were not fully specified in the local packet."
+      ],
+      "market_id": "573656",
+      "market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+      "pending_outcome_resolution": true,
+      "source_accuracy_label": "pending",
+      "source_id": "official_source_placeholder_001",
+      "source_name": "official_source_placeholder",
+      "source_reference": "Polymarket market rules and resolution criteria for market_id 573656",
+      "source_type": "local_static_fixture",
+      "source_usefulness_label": "pending_outcome_resolution"
+    },
+    {
+      "accuracy_limit": "Outcome unresolved; source accuracy is not claimed.",
+      "freshness_status": "unknown",
+      "has_evidence_packet": false,
+      "known_limitations": [
+        "Limitations were not fully specified in the local packet."
+      ],
+      "market_id": "573656",
+      "market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+      "pending_outcome_resolution": true,
+      "source_accuracy_label": "pending",
+      "source_id": "official_source_placeholder_002",
+      "source_name": "official_source_placeholder",
+      "source_reference": "Official benchmark, exchange, or index source specified by the market rules",
+      "source_type": "local_static_fixture",
+      "source_usefulness_label": "pending_outcome_resolution"
+    },
+    {
+      "accuracy_limit": "Outcome unresolved; source accuracy is not claimed.",
+      "freshness_status": "unknown",
+      "has_evidence_packet": false,
+      "known_limitations": [
+        "Limitations were not fully specified in the local packet."
+      ],
+      "market_id": "573656",
+      "market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+      "pending_outcome_resolution": true,
+      "source_accuracy_label": "pending",
+      "source_id": "official_source_placeholder_003",
+      "source_name": "official_source_placeholder",
+      "source_reference": "Timestamp and threshold definitions for 'Will Bitcoin hit $150k by December 31, 2026?'",
+      "source_type": "local_static_fixture",
+      "source_usefulness_label": "pending_outcome_resolution"
+    },
+    {
+      "accuracy_limit": "Outcome unresolved; source accuracy is not claimed.",
+      "freshness_status": "unknown",
+      "has_evidence_packet": false,
+      "known_limitations": [
+        "Limitations were not fully specified in the local packet."
+      ],
+      "market_id": "573656",
+      "market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+      "pending_outcome_resolution": true,
+      "source_accuracy_label": "pending",
+      "source_id": "news_source_placeholder_004",
+      "source_name": "news_source_placeholder",
+      "source_reference": "Reuters markets coverage query for 'Will Bitcoin hit $150k by December 31, 2026?'",
+      "source_type": "local_static_fixture",
+      "source_usefulness_label": "pending_outcome_resolution"
+    },
+    {
+      "accuracy_limit": "Outcome unresolved; source accuracy is not claimed.",
+      "freshness_status": "unknown",
+      "has_evidence_packet": false,
+      "known_limitations": [
+        "Limitations were not fully specified in the local packet."
+      ],
+      "market_id": "573656",
+      "market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+      "pending_outcome_resolution": true,
+      "source_accuracy_label": "pending",
+      "source_id": "news_source_placeholder_005",
+      "source_name": "news_source_placeholder",
+      "source_reference": "CoinDesk or The Block market coverage query for 'Will Bitcoin hit $150k by December 31, 2026?'",
+      "source_type": "local_static_fixture",
+      "source_usefulness_label": "pending_outcome_resolution"
+    },
+    {
+      "accuracy_limit": "Outcome unresolved; source accuracy is not claimed.",
+      "freshness_status": "unknown",
+      "has_evidence_packet": false,
+      "known_limitations": [
+        "Limitations were not fully specified in the local packet."
+      ],
+      "market_id": "573656",
+      "market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+      "pending_outcome_resolution": true,
+      "source_accuracy_label": "pending",
+      "source_id": "news_source_placeholder_006",
+      "source_name": "news_source_placeholder",
+      "source_reference": "Bloomberg or Wall Street Journal markets query for 'When will Bitcoin hit $150k?'",
+      "source_type": "local_static_fixture",
+      "source_usefulness_label": "pending_outcome_resolution"
+    },
+    {
+      "accuracy_limit": "Outcome unresolved; source accuracy is not claimed.",
+      "freshness_status": "unknown",
+      "has_evidence_packet": false,
+      "known_limitations": [
+        "Limitations were not fully specified in the local packet."
+      ],
+      "market_id": "573656",
+      "market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+      "pending_outcome_resolution": true,
+      "source_accuracy_label": "pending",
+      "source_id": "source_plan_007",
+      "source_name": "source_plan",
+      "source_reference": "Template only: confirm the market's own resolution rules, then check the specified benchmark, exchange or index source, timestamp rules, and credible market coverage for 'Will Bitcoin hit $150k by December 31, 2026?'. Do not fetch sources in this stub.",
+      "source_type": "local_static_fixture",
+      "source_usefulness_label": "pending_outcome_resolution"
+    }
+  ],
+  "source_role_in_analysis": [
+    {
+      "role": "pending_outcome_resolution",
+      "source_id": "official_source_placeholder_001"
+    },
+    {
+      "role": "pending_outcome_resolution",
+      "source_id": "official_source_placeholder_002"
+    },
+    {
+      "role": "pending_outcome_resolution",
+      "source_id": "official_source_placeholder_003"
+    },
+    {
+      "role": "pending_outcome_resolution",
+      "source_id": "news_source_placeholder_004"
+    },
+    {
+      "role": "pending_outcome_resolution",
+      "source_id": "news_source_placeholder_005"
+    },
+    {
+      "role": "pending_outcome_resolution",
+      "source_id": "news_source_placeholder_006"
+    },
+    {
+      "role": "pending_outcome_resolution",
+      "source_id": "source_plan_007"
+    }
+  ],
+  "source_role_in_resolution": [
+    {
+      "role": "analysis_context_only",
+      "source_id": "official_source_placeholder_001"
+    },
+    {
+      "role": "analysis_context_only",
+      "source_id": "official_source_placeholder_002"
+    },
+    {
+      "role": "analysis_context_only",
+      "source_id": "official_source_placeholder_003"
+    },
+    {
+      "role": "analysis_context_only",
+      "source_id": "news_source_placeholder_004"
+    },
+    {
+      "role": "analysis_context_only",
+      "source_id": "news_source_placeholder_005"
+    },
+    {
+      "role": "analysis_context_only",
+      "source_id": "news_source_placeholder_006"
+    },
+    {
+      "role": "analysis_context_only",
+      "source_id": "source_plan_007"
+    }
+  ]
+}

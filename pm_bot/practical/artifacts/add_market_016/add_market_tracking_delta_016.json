@@ -1,0 +1,45 @@
+{
+  "active_hypothesis_count_delta": 1,
+  "added_market_id": "573656",
+  "added_market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+  "after_tracked_market_count": 6,
+  "before_tracked_market_count": 5,
+  "contract_version": "pmbot_add_market_tracking_delta.v1",
+  "delta_id": "add-market-tracking-delta-016",
+  "feedback_ready_count_delta": 0,
+  "generated_at": "2026-05-11T00:00:00Z",
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "automatic_analysis_update_performed": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "new_live_fetch_performed": false,
+    "new_polymarket_api_calls_performed": 0,
+    "no_autonomous_trading": true,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "no_scheduler_daemon_background_worker": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "outcome_resolution_invented": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "source_records_delta": 7,
+  "unresolved_outcome_count_delta": 1,
+  "what_changed": [
+    "One saved local real-market packet was selected and normalized.",
+    "One paper-only analysis and paper hypothesis were added.",
+    "One unresolved outcome record and one pending manual feedback packet were added.",
+    "The queue, active hypotheses, outcome recheck queue, source dependencies, daily summary, and operator dashboard now cover six markets."
+  ],
+  "what_did_not_change": [
+    "No existing PRACTICAL-004, PRACTICAL-013, PRACTICAL-014, or PRACTICAL-015 artifact was overwritten.",
+    "No outcome was marked resolved.",
+    "Feedback-ready count remains zero.",
+    "No live fetch, model API call, market API call, wallet access, order, scheduler, polling loop, runtime change, or dispatcher change occurred."
+  ]
+}

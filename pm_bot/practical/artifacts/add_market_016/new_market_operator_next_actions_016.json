@@ -1,0 +1,65 @@
+{
+  "action_card_id": "new-market-operator-next-actions-016",
+  "actions": [
+    {
+      "action": "inspect analysis card",
+      "action_id": "inspect_analysis_card",
+      "artifact_path": "pm_bot/practical/artifacts/add_market_016/analysis_016.md",
+      "status": "manual_review_required"
+    },
+    {
+      "action": "inspect paper hypothesis",
+      "action_id": "inspect_paper_hypothesis",
+      "artifact_path": "pm_bot/practical/artifacts/add_market_016/paper_hypothesis_016.md",
+      "status": "manual_review_required"
+    },
+    {
+      "action": "inspect missing evidence",
+      "action_id": "inspect_missing_evidence",
+      "artifact_path": "pm_bot/practical/artifacts/add_market_016/normalized_input_016.json",
+      "status": "manual_review_required"
+    },
+    {
+      "action": "decide whether public evidence fetch prep is needed later",
+      "action_id": "decide_public_evidence_fetch_prep_later",
+      "artifact_path": "pm_bot/practical/artifacts/add_market_016/source_dependency_update_016.md",
+      "status": "later_separate_task_only"
+    },
+    {
+      "action": "wait for outcome resolution",
+      "action_id": "wait_for_outcome_resolution",
+      "artifact_path": "pm_bot/practical/artifacts/add_market_016/outcome_record_unresolved_016.md",
+      "status": "pending"
+    },
+    {
+      "action": "no trading action",
+      "action_id": "no_trading_action",
+      "artifact_path": "",
+      "status": "prohibited"
+    }
+  ],
+  "contract_version": "pmbot_new_market_operator_next_actions.v1",
+  "generated_at": "2026-05-11T00:00:00Z",
+  "market_id": "573656",
+  "market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "automatic_analysis_update_performed": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "new_live_fetch_performed": false,
+    "new_polymarket_api_calls_performed": 0,
+    "no_autonomous_trading": true,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "no_scheduler_daemon_background_worker": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "outcome_resolution_invented": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  }
+}

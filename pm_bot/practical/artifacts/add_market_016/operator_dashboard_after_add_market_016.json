@@ -1,0 +1,159 @@
+{
+  "contract_version": "pmbot_operator_dashboard_after_add_market.v1",
+  "dashboard_id": "operator-dashboard-after-add-market-016",
+  "generated_at": "2026-05-11T00:00:00Z",
+  "new_market": {
+    "market_id": "573656",
+    "market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+    "selected_artifact_path": "pm_bot/llm/manual_packet_batch/573656_packet.v1.json"
+  },
+  "new_market_added": true,
+  "new_paper_hypothesis": {
+    "hypothesis_id": "573656.analysis.ceab64191597.paper_hypothesis",
+    "path": "pm_bot/practical/artifacts/add_market_016/paper_hypothesis_016.json",
+    "safety_label": "paper_only_non_executable_analysis_tracking"
+  },
+  "safety_boundary": [
+    "Local-only paper tracking expansion.",
+    "No live fetch, API call, authenticated endpoint, wallet, order, scheduler, polling, runtime, or dispatcher change.",
+    "No market recommendation, probability, EV, edge, or side-selection signal."
+  ],
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "automatic_analysis_update_performed": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "new_live_fetch_performed": false,
+    "new_polymarket_api_calls_performed": 0,
+    "no_autonomous_trading": true,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "no_scheduler_daemon_background_worker": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "outcome_resolution_invented": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "source_dependencies": [
+    {
+      "freshness_status": "unknown",
+      "has_evidence_packet": false,
+      "known_limitations": [
+        "Limitations were not fully specified in the local packet."
+      ],
+      "market_id": "573656",
+      "market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+      "pending_outcome_resolution": true,
+      "source_id": "official_source_placeholder_001",
+      "source_name": "official_source_placeholder",
+      "source_reference": "Polymarket market rules and resolution criteria for market_id 573656",
+      "source_type": "local_static_fixture",
+      "source_usefulness_label": "pending_outcome_resolution"
+    },
+    {
+      "freshness_status": "unknown",
+      "has_evidence_packet": false,
+      "known_limitations": [
+        "Limitations were not fully specified in the local packet."
+      ],
+      "market_id": "573656",
+      "market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+      "pending_outcome_resolution": true,
+      "source_id": "official_source_placeholder_002",
+      "source_name": "official_source_placeholder",
+      "source_reference": "Official benchmark, exchange, or index source specified by the market rules",
+      "source_type": "local_static_fixture",
+      "source_usefulness_label": "pending_outcome_resolution"
+    },
+    {
+      "freshness_status": "unknown",
+      "has_evidence_packet": false,
+      "known_limitations": [
+        "Limitations were not fully specified in the local packet."
+      ],
+      "market_id": "573656",
+      "market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+      "pending_outcome_resolution": true,
+      "source_id": "official_source_placeholder_003",
+      "source_name": "official_source_placeholder",
+      "source_reference": "Timestamp and threshold definitions for 'Will Bitcoin hit $150k by December 31, 2026?'",
+      "source_type": "local_static_fixture",
+      "source_usefulness_label": "pending_outcome_resolution"
+    },
+    {
+      "freshness_status": "unknown",
+      "has_evidence_packet": false,
+      "known_limitations": [
+        "Limitations were not fully specified in the local packet."
+      ],
+      "market_id": "573656",
+      "market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+      "pending_outcome_resolution": true,
+      "source_id": "news_source_placeholder_004",
+      "source_name": "news_source_placeholder",
+      "source_reference": "Reuters markets coverage query for 'Will Bitcoin hit $150k by December 31, 2026?'",
+      "source_type": "local_static_fixture",
+      "source_usefulness_label": "pending_outcome_resolution"
+    },
+    {
+      "freshness_status": "unknown",
+      "has_evidence_packet": false,
+      "known_limitations": [
+        "Limitations were not fully specified in the local packet."
+      ],
+      "market_id": "573656",
+      "market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+      "pending_outcome_resolution": true,
+      "source_id": "news_source_placeholder_005",
+      "source_name": "news_source_placeholder",
+      "source_reference": "CoinDesk or The Block market coverage query for 'Will Bitcoin hit $150k by December 31, 2026?'",
+      "source_type": "local_static_fixture",
+      "source_usefulness_label": "pending_outcome_resolution"
+    },
+    {
+      "freshness_status": "unknown",
+      "has_evidence_packet": false,
+      "known_limitations": [
+        "Limitations were not fully specified in the local packet."
+      ],
+      "market_id": "573656",
+      "market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+      "pending_outcome_resolution": true,
+      "source_id": "news_source_placeholder_006",
+      "source_name": "news_source_placeholder",
+      "source_reference": "Bloomberg or Wall Street Journal markets query for 'When will Bitcoin hit $150k?'",
+      "source_type": "local_static_fixture",
+      "source_usefulness_label": "pending_outcome_resolution"
+    },
+    {
+      "freshness_status": "unknown",
+      "has_evidence_packet": false,
+      "known_limitations": [
+        "Limitations were not fully specified in the local packet."
+      ],
+      "market_id": "573656",
+      "market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+      "pending_outcome_resolution": true,
+      "source_id": "source_plan_007",
+      "source_name": "source_plan",
+      "source_reference": "Template only: confirm the market's own resolution rules, then check the specified benchmark, exchange or index source, timestamp rules, and credible market coverage for 'Will Bitcoin hit $150k by December 31, 2026?'. Do not fetch sources in this stub.",
+      "source_type": "local_static_fixture",
+      "source_usefulness_label": "pending_outcome_resolution"
+    }
+  ],
+  "total_tracked_markets": 6,
+  "unresolved_outcome_path": "pm_bot/practical/artifacts/add_market_016/outcome_record_unresolved_016.json",
+  "unresolved_outcome_status": "unresolved",
+  "what_operator_should_inspect_next": [
+    "Inspect the new market analysis card.",
+    "Inspect the paper hypothesis.",
+    "Inspect missing evidence in the normalized input and analysis result.",
+    "Decide whether public evidence fetch preparation is needed in a later separate task.",
+    "Wait for outcome resolution; do not mark unresolved markets as resolved.",
+    "Do not take trading action."
+  ]
+}
