@@ -17,6 +17,7 @@ def build_operator_console(queue_path: str | Path) -> dict[str, Any]:
     base_dir = Path(queue_path).parent
     feedback_complete = [item for item in queue_summary["items"] if item["status"] == "feedback_complete"]
     source_learning_summary = _source_learning_summary(queue_summary["items"], base_dir=base_dir)
+    market_review_details = _market_review_details(queue_summary["items"], base_dir=base_dir)
     console = {
         "contract_version": CONSOLE_CONTRACT_VERSION,
         "generated_at": GENERATED_AT,
@@ -31,6 +32,7 @@ def build_operator_console(queue_path: str | Path) -> dict[str, Any]:
         "unresolved_outcomes_count": active_summary["unresolved_count"],
         "feedback_pending_count": active_summary["feedback_pending_count"],
         "feedback_complete_count": len(feedback_complete),
+        "market_review_details": market_review_details,
         "source_learning_summary": source_learning_summary,
         "blocked_items": queue_summary["blocked_items"],
         "next_operator_actions": queue_summary["next_operator_actions"],
@@ -93,24 +95,45 @@ def render_operator_console_markdown(console: Mapping[str, Any]) -> str:
             f"`{label}`: {count}" for label, count in console["source_learning_summary"].get("source_usefulness_summary", {}).items()
         ),
         "",
-        "## Blockers",
+        "## Market review details",
         "",
-        *bullet_lines(
-            f"`{row['queue_item_id']}`: {'; '.join(row['blockers'])}" for row in console["blocked_items"]
-        ),
-        "",
-        "## Next practical actions",
-        "",
-        *bullet_lines(
-            f"`{row['market_id']}` - {row['next_operator_action']}" for row in console["next_operator_actions"][:8]
-        ),
-        "",
-        "## Safety boundary",
-        "",
-        "- Local artifacts only.",
-        "- Paper-only analysis-quality tracking.",
-        "- No live fetch, real trade decision, wallet access, order, or trading action is used.",
     ]
+    for row in console.get("market_review_details", []):
+        sources = "; ".join(row["sources_used"]) if row["sources_used"] else "none"
+        missing = "; ".join(row["missing_evidence"]) if row["missing_evidence"] else "none"
+        lines.extend(
+            [
+                f"- `{row['market_id']}` `{row['queue_status']}` - {row['market_title']}",
+                f"  Analysis: `{row['analysis_status']}`",
+                f"  Paper hypothesis: `{row['paper_hypothesis_id']}`",
+                f"  Outcome: `{row['outcome_status']}`",
+                f"  Sources used: {sources}",
+                f"  Missing evidence: {missing}",
+                f"  Next: {row['next_operator_action']}",
+            ]
+        )
+    lines.extend(
+        [
+            "",
+            "## Blockers",
+            "",
+            *bullet_lines(
+                f"`{row['queue_item_id']}`: {'; '.join(row['blockers'])}" for row in console["blocked_items"]
+            ),
+            "",
+            "## Next practical actions",
+            "",
+            *bullet_lines(
+                f"`{row['market_id']}` - {row['next_operator_action']}" for row in console["next_operator_actions"][:8]
+            ),
+            "",
+            "## Safety boundary",
+            "",
+            "- Local artifacts only.",
+            "- Paper-only analysis-quality tracking.",
+            "- No live fetch, real trade decision, wallet access, order, or trading action is used.",
+        ]
+    )
     return "\n".join(lines) + "\n"
 
 
@@ -140,6 +163,39 @@ def _source_learning_summary(items: Sequence[Mapping[str, Any]], *, base_dir: Pa
         "source_usefulness_summary": {key: summary[key] for key in sorted(summary)},
         "ledger_paths": ledgers,
     }
+
+
+def _market_review_details(items: Sequence[Mapping[str, Any]], *, base_dir: Path) -> list[dict[str, Any]]:
+    details = []
+    for item in items:
+        analysis_path = optional_existing_path(item.get("analysis_result_path"), base_dir=base_dir)
+        if analysis_path is None:
+            continue
+        analysis = load_json_object(analysis_path, label="analysis result")
+        outcome = None
+        outcome_path = optional_existing_path(item.get("outcome_record_path"), base_dir=base_dir)
+        if outcome_path is not None:
+            outcome = load_json_object(outcome_path, label="outcome record")
+        paper_hypothesis = analysis.get("paper_hypothesis", {})
+        details.append(
+            {
+                "analysis_status": "analysis_result_loaded",
+                "market_id": analysis.get("market_id") or item.get("market_id"),
+                "market_title": analysis.get("market_title") or item.get("market_title"),
+                "missing_evidence": analysis.get("missing_evidence", []),
+                "next_operator_action": item.get("computed_next_operator_action") or item.get("next_operator_action", ""),
+                "outcome_status": outcome.get("outcome_status") if outcome else "unknown",
+                "paper_hypothesis_id": paper_hypothesis.get("hypothesis_id") or item.get("paper_hypothesis_id", ""),
+                "queue_status": item.get("status", ""),
+                "safety_label": paper_hypothesis.get("safety_label") or analysis.get("paper_hypothesis_safety_label", ""),
+                "sources_used": [
+                    f"{source.get('source_id')} - {source.get('source_name')} ({source.get('freshness_status')})"
+                    for source in analysis.get("sources_used", [])
+                    if isinstance(source, Mapping)
+                ],
+            }
+        )
+    return details
 
 
 if __name__ == "__main__":

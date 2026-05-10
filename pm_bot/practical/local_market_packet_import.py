@@ -22,15 +22,25 @@ def normalize_local_market_packet(path: str | Path) -> dict[str, Any]:
             raise LocalMarketPacketImportError("; ".join(validation.errors))
         return dict(payload)
 
-    market = payload.get("market") if isinstance(payload.get("market"), Mapping) else payload
-    sources = payload.get("source_packets", payload.get("sources", payload.get("source_packets_local", [])))
+    market = _market_mapping(payload)
+    review = _review_mapping(payload)
+    sources = payload.get(
+        "source_packets",
+        payload.get("sources", payload.get("source_packets_local", payload.get("evidence_source_placeholders", []))),
+    )
     if not isinstance(sources, list):
         raise LocalMarketPacketImportError("packet sources must be a list")
     if not sources:
         raise LocalMarketPacketImportError("packet must include at least one local source reference")
 
     missing_evidence = clean_string_list(payload.get("missing_evidence"))
-    normalized_sources = [_normalize_source(source, index=index, missing_evidence=missing_evidence) for index, source in enumerate(sources)]
+    source_artifact_path = clean_text(payload.get("source_artifact_path") or "")
+    if source_artifact_path and not Path(source_artifact_path).exists():
+        missing_evidence.append(f"Referenced source artifact path is not present locally: {source_artifact_path}")
+    normalized_sources = [
+        _normalize_source(source, index=index, missing_evidence=missing_evidence)
+        for index, source in enumerate(sources)
+    ]
     normalized = {
         "available_evidence": clean_string_list(payload.get("available_evidence"))
         or [source["evidence_summary"] for source in normalized_sources if source["used_in_analysis"]],
@@ -39,7 +49,10 @@ def normalize_local_market_packet(path: str | Path) -> dict[str, Any]:
         "current_context_summary": clean_text(
             payload.get("current_context_summary")
             or payload.get("context")
+            or review.get("local_resolution_or_description_snippet")
+            or review.get("local_question")
             or market.get("context")
+            or market.get("public_resolution_context")
             or "Local packet did not include a detailed context summary."
         ),
         "known_uncertainties": clean_string_list(payload.get("known_uncertainties"))
@@ -51,23 +64,46 @@ def normalize_local_market_packet(path: str | Path) -> dict[str, Any]:
             or market.get("slug")
             or market.get("reference")
             or market.get("market_id")
+            or review.get("market_id")
             or market.get("id")
         ),
-        "market_title": clean_text(payload.get("market_title") or payload.get("title") or market.get("title")),
+        "market_title": clean_text(
+            payload.get("market_title")
+            or payload.get("title")
+            or market.get("market_title")
+            or market.get("title")
+            or review.get("local_title_or_question")
+            or review.get("local_question")
+        ),
         "market_type": clean_text(payload.get("market_type") or market.get("market_type") or "binary_resolution"),
         "missing_evidence": missing_evidence or ["No final outcome evidence was provided in the local packet."],
         "operator_notes": clean_string_list(payload.get("operator_notes"))
-        or ["Normalized from a local packet without live fetching."],
-        "outcomes": clean_string_list(payload.get("outcomes") or market.get("outcomes")) or ["yes", "no"],
+        or _operator_notes(payload),
+        "outcomes": clean_string_list(
+            payload.get("outcomes") or market.get("outcomes") or market.get("outcome_labels") or review.get("outcome_labels")
+        )
+        or ["yes", "no"],
         "resolution_source_summary": clean_text(
             payload.get("resolution_source_summary")
             or payload.get("resolution")
             or market.get("resolution_source_summary")
+            or market.get("public_resolution_context")
+            or market.get("local_resolution_or_description_snippet")
+            or review.get("local_resolution_or_description_snippet")
             or "Resolution source was not fully specified in the local packet."
         ),
-        "rules_summary": clean_text(payload.get("rules_summary") or payload.get("rules") or market.get("rules")),
+        "rules_summary": clean_text(
+            payload.get("rules_summary")
+            or payload.get("rules")
+            or market.get("rules")
+            or market.get("public_resolution_context")
+            or market.get("local_resolution_or_description_snippet")
+            or review.get("local_resolution_or_description_snippet")
+        ),
         "source_packets": normalized_sources,
     }
+    if source_artifact_path:
+        normalized["source_artifact_path"] = source_artifact_path
     required = ["market_id", "market_title", "rules_summary"]
     missing_required = [field for field in required if not normalized[field]]
     if missing_required:
@@ -108,6 +144,8 @@ def render_import_summary(
         f"- Sources preserved: {len(normalized['source_packets'])}",
         f"- Missing evidence items: {len(normalized['missing_evidence'])}",
     ]
+    if normalized.get("source_artifact_path"):
+        lines.append(f"- Source artifact path: `{normalized['source_artifact_path']}`")
     if out_json_path is not None:
         lines.append(f"- Normalized JSON: `{out_json_path}`")
     lines.extend(
@@ -148,15 +186,15 @@ def main(argv: Sequence[str] | None = None) -> int:
 def _normalize_source(source: Any, *, index: int, missing_evidence: list[str]) -> dict[str, Any]:
     if not isinstance(source, Mapping):
         raise LocalMarketPacketImportError(f"source {index} must be an object")
-    source_id = clean_text(source.get("source_id") or source.get("id") or f"local_source_{index + 1}")
-    source_name = clean_text(source.get("source_name") or source.get("name") or source_id)
-    evidence_summary = clean_text(source.get("evidence_summary") or source.get("summary"))
+    source_id = clean_text(source.get("source_id") or source.get("id") or source.get("source_note_id") or f"local_source_{index + 1}")
+    source_name = clean_text(source.get("source_name") or source.get("name") or source.get("source_note_type") or source_id)
+    evidence_summary = clean_text(source.get("evidence_summary") or source.get("summary") or source.get("source_note"))
     if not evidence_summary:
         evidence_summary = f"Missing evidence summary in local packet for {source_name}."
         missing_evidence.append(evidence_summary)
-    claim_type = clean_text(source.get("claim_type") or "local_packet_claim")
-    claim_value = clean_text(source.get("claim_value") or source.get("claim") or "not_specified_in_local_packet")
-    reference = clean_text(source.get("source_url_or_reference") or source.get("reference") or source.get("path"))
+    claim_type = clean_text(source.get("claim_type") or source.get("source_note_type") or "local_packet_claim")
+    claim_value = clean_text(source.get("claim_value") or source.get("claim") or source.get("source_note") or "not_specified_in_local_packet")
+    reference = clean_text(source.get("source_url_or_reference") or source.get("reference") or source.get("path") or source.get("source_note"))
     if not reference:
         reference = f"local_packet_source_reference_missing:{source_id}"
         missing_evidence.append(f"Source reference missing for {source_name}.")
@@ -174,6 +212,30 @@ def _normalize_source(source: Any, *, index: int, missing_evidence: list[str]) -
         "source_url_or_reference": reference,
         "used_in_analysis": source.get("used_in_analysis", True) is True,
     }
+
+
+def _market_mapping(payload: Mapping[str, Any]) -> Mapping[str, Any]:
+    if isinstance(payload.get("market"), Mapping):
+        return payload["market"]
+    if isinstance(payload.get("market_context"), Mapping):
+        return payload["market_context"]
+    if isinstance(payload.get("local_review_context"), Mapping):
+        return payload["local_review_context"]
+    return payload
+
+
+def _review_mapping(payload: Mapping[str, Any]) -> Mapping[str, Any]:
+    if isinstance(payload.get("local_review_context"), Mapping):
+        return payload["local_review_context"]
+    return {}
+
+
+def _operator_notes(payload: Mapping[str, Any]) -> list[str]:
+    notes = ["Normalized from a local packet without live fetching."]
+    if payload.get("contract_version") == "manual_llm_packet_batch_packet.v1":
+        notes.append("Source rows came from a saved manual LLM packet batch artifact.")
+    notes.extend(clean_string_list(payload.get("source_gap_notes")))
+    return notes
 
 
 if __name__ == "__main__":

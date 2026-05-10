@@ -1,0 +1,27 @@
+{
+  "contract_version": "pmbot_market_queue.v1",
+  "created_at": "2026-05-10T00:00:00Z",
+  "items": [
+    {
+      "analysis_markdown_path": "pm_bot/practical/artifacts/real_market_003/real_market_003.analysis.md",
+      "analysis_result_path": "pm_bot/practical/artifacts/real_market_003/real_market_003.analysis.result.json",
+      "blockers": [],
+      "created_at": "2026-05-10T00:00:00Z",
+      "feedback_result_path": "",
+      "local_input_path": "pm_bot/practical/artifacts/real_market_003/real_market_003.normalized_input.json",
+      "market_id": "692258",
+      "market_title": "MicroStrategy sells any Bitcoin by June 30, 2026?",
+      "market_type": "binary_resolution",
+      "next_operator_action": "Inspect the analysis card, review missing evidence, and keep the paper-only hypothesis pending until a local outcome record is available.",
+      "outcome_record_markdown_path": "pm_bot/practical/artifacts/real_market_003/real_market_003.outcome_record.unresolved.md",
+      "outcome_record_path": "pm_bot/practical/artifacts/real_market_003/real_market_003.outcome_record.unresolved.json",
+      "paper_hypothesis_id": "692258.analysis.bed289c1494d.paper_hypothesis",
+      "paper_hypothesis_markdown_path": "pm_bot/practical/artifacts/real_market_003/real_market_003.paper_hypothesis.md",
+      "paper_hypothesis_path": "pm_bot/practical/artifacts/real_market_003/real_market_003.paper_hypothesis.json",
+      "queue_item_id": "real-market-003-692258",
+      "source_learning_ledger_path": "",
+      "status": "hypothesis_active",
+      "updated_at": "2026-05-10T00:00:00Z"
+    }
+  ]
+}

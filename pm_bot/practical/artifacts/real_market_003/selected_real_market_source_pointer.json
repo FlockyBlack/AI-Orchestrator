@@ -1,0 +1,17 @@
+{
+  "limitations": [
+    "referenced source artifact not present locally: pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json",
+    "full_official_source_reference",
+    "credible_news_source_references",
+    "official_yes_or_no_evidence",
+    "source_reliability_review",
+    "Valid partial selected-ingest overlay used to prove deterministic merge behavior."
+  ],
+  "live_network_used": false,
+  "market_id": "692258",
+  "market_title": "MicroStrategy sells any Bitcoin by June 30, 2026?",
+  "no_external_fetch_required": true,
+  "selected": true,
+  "selected_artifact_path": "pm_bot/llm/manual_packet_batch/692258_packet.v1.json",
+  "selection_reason": "Selected because it has the clearest concrete market question, a local rules excerpt, binary outcomes, the richest saved evidence-placeholder set, fewer missing-evidence rows than similar rich packets, and no live fetch requirement."
+}

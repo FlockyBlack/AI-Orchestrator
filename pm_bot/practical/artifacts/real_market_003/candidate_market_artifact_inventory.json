@@ -1,0 +1,352 @@
+{
+  "candidates": [
+    {
+      "artifact_type": "manual_llm_packet_batch_packet.v1",
+      "candidate_path": "pm_bot/llm/manual_packet_batch/563650_packet.v1.json",
+      "evidence_available": {
+        "evidence_source_placeholder_count": 3,
+        "has_local_rules_excerpt": true,
+        "source_artifact_exists_locally": false,
+        "source_artifact_path": "pm_bot/research/final_dossier_drafts.v1.json",
+        "source_gap_note_count": 2
+      },
+      "market_id": "563650",
+      "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?",
+      "missing_data": [
+        "referenced source artifact not present locally: pm_bot/research/final_dossier_drafts.v1.json",
+        "No missing-information item is closed by this gate; human review remains required.",
+        "Confirm the exact docket identifier before any later human decision.",
+        "Court docket terminology may require manual interpretation.",
+        "Source timing should be reviewed by a human before any later workflow.",
+        "Manual draft sections are populated for structural quality review only.",
+        "Reviewer verified checklist coverage for the review pack and approved a later draft-preparation step."
+      ],
+      "reason_selected_or_rejected": "Rejected for this run because another saved packet had a clearer local rules excerpt, richer evidence placeholders, or less missing structure.",
+      "selected_for_run": false
+    },
+    {
+      "artifact_type": "manual_llm_packet_batch_packet.v1",
+      "candidate_path": "pm_bot/llm/manual_packet_batch/569332_packet.v1.json",
+      "evidence_available": {
+        "evidence_source_placeholder_count": 7,
+        "has_local_rules_excerpt": true,
+        "source_artifact_exists_locally": false,
+        "source_artifact_path": "pm_bot/research/merged_manual_research_packets.v1.json",
+        "source_gap_note_count": 12
+      },
+      "market_id": "569332",
+      "market_title": "Will Vicky D\u00e1vila win the 1st round of the 2026 Colombian presidential election?",
+      "missing_data": [
+        "referenced source artifact not present locally: pm_bot/research/merged_manual_research_packets.v1.json",
+        "full_market_resolution_criteria_text",
+        "official_source_urls",
+        "credible_news_source_urls",
+        "yes_evidence",
+        "no_or_counterevidence",
+        "source_timestamps"
+      ],
+      "reason_selected_or_rejected": "Rejected for this run because another saved packet had a clearer local rules excerpt, richer evidence placeholders, or less missing structure.",
+      "selected_for_run": false
+    },
+    {
+      "artifact_type": "manual_llm_packet_batch_packet.v1",
+      "candidate_path": "pm_bot/llm/manual_packet_batch/569333_packet.v1.json",
+      "evidence_available": {
+        "evidence_source_placeholder_count": 7,
+        "has_local_rules_excerpt": true,
+        "source_artifact_exists_locally": false,
+        "source_artifact_path": "pm_bot/research/merged_manual_research_packets.v1.json",
+        "source_gap_note_count": 12
+      },
+      "market_id": "569333",
+      "market_title": "Will Luis Gilberto Murillo win the 1st round of the 2026 Colombian presidential election?",
+      "missing_data": [
+        "referenced source artifact not present locally: pm_bot/research/merged_manual_research_packets.v1.json",
+        "full_market_resolution_criteria_text",
+        "official_source_urls",
+        "credible_news_source_urls",
+        "yes_evidence",
+        "no_or_counterevidence",
+        "source_timestamps"
+      ],
+      "reason_selected_or_rejected": "Rejected for this run because another saved packet had a clearer local rules excerpt, richer evidence placeholders, or less missing structure.",
+      "selected_for_run": false
+    },
+    {
+      "artifact_type": "manual_llm_packet_batch_packet.v1",
+      "candidate_path": "pm_bot/llm/manual_packet_batch/569334_packet.v1.json",
+      "evidence_available": {
+        "evidence_source_placeholder_count": 7,
+        "has_local_rules_excerpt": true,
+        "source_artifact_exists_locally": false,
+        "source_artifact_path": "pm_bot/research/merged_manual_research_packets.v1.json",
+        "source_gap_note_count": 12
+      },
+      "market_id": "569334",
+      "market_title": "Will Claudia L\u00f3pez win the 1st round of the 2026 Colombian presidential election?",
+      "missing_data": [
+        "referenced source artifact not present locally: pm_bot/research/merged_manual_research_packets.v1.json",
+        "full_market_resolution_criteria_text",
+        "official_source_urls",
+        "credible_news_source_urls",
+        "yes_evidence",
+        "no_or_counterevidence",
+        "source_timestamps"
+      ],
+      "reason_selected_or_rejected": "Rejected for this run because another saved packet had a clearer local rules excerpt, richer evidence placeholders, or less missing structure.",
+      "selected_for_run": false
+    },
+    {
+      "artifact_type": "manual_llm_packet_batch_packet.v1",
+      "candidate_path": "pm_bot/llm/manual_packet_batch/569343_packet.v1.json",
+      "evidence_available": {
+        "evidence_source_placeholder_count": 7,
+        "has_local_rules_excerpt": true,
+        "source_artifact_exists_locally": false,
+        "source_artifact_path": "pm_bot/research/merged_manual_research_packets.v1.json",
+        "source_gap_note_count": 12
+      },
+      "market_id": "569343",
+      "market_title": "Will Iv\u00e1n Cepeda Castro win the 1st round of the 2026 Colombian presidential election?",
+      "missing_data": [
+        "referenced source artifact not present locally: pm_bot/research/merged_manual_research_packets.v1.json",
+        "full_market_resolution_criteria_text",
+        "official_source_urls",
+        "credible_news_source_urls",
+        "yes_evidence",
+        "no_or_counterevidence",
+        "source_timestamps"
+      ],
+      "reason_selected_or_rejected": "Rejected for this run because another saved packet had a clearer local rules excerpt, richer evidence placeholders, or less missing structure.",
+      "selected_for_run": false
+    },
+    {
+      "artifact_type": "manual_llm_packet_batch_packet.v1",
+      "candidate_path": "pm_bot/llm/manual_packet_batch/569344_packet.v1.json",
+      "evidence_available": {
+        "evidence_source_placeholder_count": 7,
+        "has_local_rules_excerpt": true,
+        "source_artifact_exists_locally": false,
+        "source_artifact_path": "pm_bot/research/merged_manual_research_packets.v1.json",
+        "source_gap_note_count": 12
+      },
+      "market_id": "569344",
+      "market_title": "Will Abelardo de la Espriella win the 1st round of the 2026 Colombian presidential election?",
+      "missing_data": [
+        "referenced source artifact not present locally: pm_bot/research/merged_manual_research_packets.v1.json",
+        "full_market_resolution_criteria_text",
+        "official_source_urls",
+        "credible_news_source_urls",
+        "yes_evidence",
+        "no_or_counterevidence",
+        "source_timestamps"
+      ],
+      "reason_selected_or_rejected": "Rejected for this run because another saved packet had a clearer local rules excerpt, richer evidence placeholders, or less missing structure.",
+      "selected_for_run": false
+    },
+    {
+      "artifact_type": "manual_llm_packet_batch_packet.v1",
+      "candidate_path": "pm_bot/llm/manual_packet_batch/569366_packet.v1.json",
+      "evidence_available": {
+        "evidence_source_placeholder_count": 10,
+        "has_local_rules_excerpt": true,
+        "source_artifact_exists_locally": false,
+        "source_artifact_path": "pm_bot/research/merged_manual_research_packets.v1.json",
+        "source_gap_note_count": 12
+      },
+      "market_id": "569366",
+      "market_title": "Will Abelardo de la Espriella win the 2026 Colombian presidential election?",
+      "missing_data": [
+        "referenced source artifact not present locally: pm_bot/research/merged_manual_research_packets.v1.json",
+        "credible_news_source_urls",
+        "yes_evidence",
+        "no_or_counterevidence",
+        "source_reliability_review",
+        "operator_edge_assessment",
+        "operator_risk_review"
+      ],
+      "reason_selected_or_rejected": "Rejected for this run because another saved packet had a clearer local rules excerpt, richer evidence placeholders, or less missing structure.",
+      "selected_for_run": false
+    },
+    {
+      "artifact_type": "manual_llm_packet_batch_packet.v1",
+      "candidate_path": "pm_bot/llm/manual_packet_batch/569368_packet.v1.json",
+      "evidence_available": {
+        "evidence_source_placeholder_count": 7,
+        "has_local_rules_excerpt": true,
+        "source_artifact_exists_locally": false,
+        "source_artifact_path": "pm_bot/research/merged_manual_research_packets.v1.json",
+        "source_gap_note_count": 12
+      },
+      "market_id": "569368",
+      "market_title": "Will Ivan Cepeda Castro win the 2026 Colombian presidential election?",
+      "missing_data": [
+        "referenced source artifact not present locally: pm_bot/research/merged_manual_research_packets.v1.json",
+        "full_market_resolution_criteria_text",
+        "official_source_urls",
+        "credible_news_source_urls",
+        "yes_evidence",
+        "no_or_counterevidence",
+        "source_timestamps"
+      ],
+      "reason_selected_or_rejected": "Rejected for this run because another saved packet had a clearer local rules excerpt, richer evidence placeholders, or less missing structure.",
+      "selected_for_run": false
+    },
+    {
+      "artifact_type": "manual_llm_packet_batch_packet.v1",
+      "candidate_path": "pm_bot/llm/manual_packet_batch/569373_packet.v1.json",
+      "evidence_available": {
+        "evidence_source_placeholder_count": 7,
+        "has_local_rules_excerpt": true,
+        "source_artifact_exists_locally": false,
+        "source_artifact_path": "pm_bot/research/merged_manual_research_packets.v1.json",
+        "source_gap_note_count": 12
+      },
+      "market_id": "569373",
+      "market_title": "Will Paloma Valencia win the 2026 Colombian presidential election?",
+      "missing_data": [
+        "referenced source artifact not present locally: pm_bot/research/merged_manual_research_packets.v1.json",
+        "full_market_resolution_criteria_text",
+        "official_source_urls",
+        "credible_news_source_urls",
+        "yes_evidence",
+        "no_or_counterevidence",
+        "source_timestamps"
+      ],
+      "reason_selected_or_rejected": "Rejected for this run because another saved packet had a clearer local rules excerpt, richer evidence placeholders, or less missing structure.",
+      "selected_for_run": false
+    },
+    {
+      "artifact_type": "manual_llm_packet_batch_packet.v1",
+      "candidate_path": "pm_bot/llm/manual_packet_batch/573656_packet.v1.json",
+      "evidence_available": {
+        "evidence_source_placeholder_count": 7,
+        "has_local_rules_excerpt": true,
+        "source_artifact_exists_locally": false,
+        "source_artifact_path": "pm_bot/research/merged_manual_research_packets.v1.json",
+        "source_gap_note_count": 12
+      },
+      "market_id": "573656",
+      "market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+      "missing_data": [
+        "referenced source artifact not present locally: pm_bot/research/merged_manual_research_packets.v1.json",
+        "full_market_resolution_criteria_text",
+        "official_source_urls",
+        "credible_news_source_urls",
+        "yes_evidence",
+        "no_or_counterevidence",
+        "source_timestamps"
+      ],
+      "reason_selected_or_rejected": "Rejected for this run because another saved packet had a clearer local rules excerpt, richer evidence placeholders, or less missing structure.",
+      "selected_for_run": false
+    },
+    {
+      "artifact_type": "manual_llm_packet_batch_packet.v1",
+      "candidate_path": "pm_bot/llm/manual_packet_batch/597964_packet.v1.json",
+      "evidence_available": {
+        "evidence_source_placeholder_count": 7,
+        "has_local_rules_excerpt": true,
+        "source_artifact_exists_locally": false,
+        "source_artifact_path": "pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json",
+        "source_gap_note_count": 11
+      },
+      "market_id": "597964",
+      "market_title": "Macron out by June 30, 2026?",
+      "missing_data": [
+        "referenced source artifact not present locally: pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json",
+        "manual_research_not_started",
+        "full_market_resolution_criteria_review",
+        "official_source_references",
+        "credible_news_source_references",
+        "empty_evidence_slots",
+        "operator_human_review_required"
+      ],
+      "reason_selected_or_rejected": "Rejected for this run because another saved packet had a clearer local rules excerpt, richer evidence placeholders, or less missing structure.",
+      "selected_for_run": false
+    },
+    {
+      "artifact_type": "manual_llm_packet_batch_packet.v1",
+      "candidate_path": "pm_bot/llm/manual_packet_batch/598936_packet.v1.json",
+      "evidence_available": {
+        "evidence_source_placeholder_count": 7,
+        "has_local_rules_excerpt": true,
+        "source_artifact_exists_locally": false,
+        "source_artifact_path": "pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json",
+        "source_gap_note_count": 11
+      },
+      "market_id": "598936",
+      "market_title": "Will the next UK election be called by June 30, 2026?",
+      "missing_data": [
+        "referenced source artifact not present locally: pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json",
+        "manual_research_not_started",
+        "full_market_resolution_criteria_review",
+        "official_source_references",
+        "credible_news_source_references",
+        "empty_evidence_slots",
+        "operator_human_review_required"
+      ],
+      "reason_selected_or_rejected": "Rejected for this run because another saved packet had a clearer local rules excerpt, richer evidence placeholders, or less missing structure.",
+      "selected_for_run": false
+    },
+    {
+      "artifact_type": "manual_llm_packet_batch_packet.v1",
+      "candidate_path": "pm_bot/llm/manual_packet_batch/691547_packet.v1.json",
+      "evidence_available": {
+        "evidence_source_placeholder_count": 7,
+        "has_local_rules_excerpt": true,
+        "source_artifact_exists_locally": false,
+        "source_artifact_path": "pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json",
+        "source_gap_note_count": 11
+      },
+      "market_id": "691547",
+      "market_title": "Kraken IPO by December 31, 2026?",
+      "missing_data": [
+        "referenced source artifact not present locally: pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json",
+        "manual_research_not_started",
+        "full_market_resolution_criteria_review",
+        "official_source_references",
+        "credible_news_source_references",
+        "empty_evidence_slots",
+        "operator_human_review_required"
+      ],
+      "reason_selected_or_rejected": "Rejected for this run because another saved packet had a clearer local rules excerpt, richer evidence placeholders, or less missing structure.",
+      "selected_for_run": false
+    },
+    {
+      "artifact_type": "manual_llm_packet_batch_packet.v1",
+      "candidate_path": "pm_bot/llm/manual_packet_batch/692258_packet.v1.json",
+      "evidence_available": {
+        "evidence_source_placeholder_count": 10,
+        "has_local_rules_excerpt": true,
+        "source_artifact_exists_locally": false,
+        "source_artifact_path": "pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json",
+        "source_gap_note_count": 11
+      },
+      "market_id": "692258",
+      "market_title": "MicroStrategy sells any Bitcoin by June 30, 2026?",
+      "missing_data": [
+        "referenced source artifact not present locally: pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json",
+        "full_official_source_reference",
+        "credible_news_source_references",
+        "official_yes_or_no_evidence",
+        "source_reliability_review",
+        "Valid partial selected-ingest overlay used to prove deterministic merge behavior."
+      ],
+      "reason_selected_or_rejected": "Selected because it has the clearest concrete market question, a local rules excerpt, binary outcomes, the richest saved evidence-placeholder set, fewer missing-evidence rows than similar rich packets, and no live fetch requirement.",
+      "selected_for_run": true
+    }
+  ],
+  "candidates_considered_count": 14,
+  "contract_version": "pmbot_real_market_artifact_inventory.v1",
+  "generated_at": "2026-05-10T00:00:00Z",
+  "known_historical_market_824952_found": false,
+  "live_network_used": false,
+  "no_external_fetch_required": true,
+  "real_local_market_candidate_found": true,
+  "search_scope": [
+    "pm_bot/**/*",
+    "docs/**/*",
+    "pm_bot/llm/manual_packet_batch/*_packet.v1.json"
+  ],
+  "selected_market_id": "692258"
+}

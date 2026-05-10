@@ -1,0 +1,33 @@
+{
+  "contract_version": "pmbot_outcome_check_queue.v1",
+  "generated_at": "2026-05-10T00:00:00Z",
+  "outcome_checks": [
+    {
+      "market_id": "692258",
+      "market_title": "MicroStrategy sells any Bitcoin by June 30, 2026?",
+      "next_operator_action": "Look for a local outcome record and attach it to the queue item.",
+      "outcome_check_status": "due_now",
+      "outcome_record_path": "pm_bot/practical/artifacts/real_market_003/real_market_003.outcome_record.unresolved.json",
+      "outcome_status": "unresolved",
+      "paper_hypothesis_id": "692258.analysis.bed289c1494d.paper_hypothesis",
+      "queue_item_id": "real-market-003-692258"
+    }
+  ],
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "status_counts": {
+    "due_now": 1
+  }
+}

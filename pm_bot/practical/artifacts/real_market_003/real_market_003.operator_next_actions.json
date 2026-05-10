@@ -1,0 +1,34 @@
+{
+  "contract_version": "pmbot_real_market_operator_next_actions.v1",
+  "evidence_missing": [
+    "full_official_source_reference",
+    "credible_news_source_references",
+    "official_yes_or_no_evidence",
+    "source_reliability_review",
+    "Valid partial selected-ingest overlay used to prove deterministic merge behavior.",
+    "Referenced source artifact path is not present locally: pm_bot/research/selected_ingest_merged_manual_research_packets.v1.json"
+  ],
+  "generated_at": "2026-05-10T00:00:00Z",
+  "inspect_now": [
+    "pm_bot/practical/artifacts/real_market_003/real_market_003.import_summary.md",
+    "pm_bot/practical/artifacts/real_market_003/real_market_003.analysis.md",
+    "pm_bot/practical/artifacts/real_market_003/real_market_003.operator_console.md"
+  ],
+  "market_id": "692258",
+  "market_title": "MicroStrategy sells any Bitcoin by June 30, 2026?",
+  "next_safe_action": "Review the analysis card and preserve a resolved local outcome record when one is available.",
+  "outcome_to_check_later": "Check whether a resolved local outcome record exists, then attach it to the queue item.",
+  "ready_for_paper_tracking": true,
+  "remaining_blocked": [
+    "The referenced selected-ingest source artifact is not present in this checkout.",
+    "Final outcome record is unresolved.",
+    "Source usefulness cannot be evaluated until outcome feedback exists."
+  ],
+  "safety_boundary": "Paper-only, non-executable, local artifact workflow. No live fetch or trading action.",
+  "source_usefulness_to_evaluate_later": [
+    "Whether local rule placeholders were enough to support later outcome review.",
+    "Whether company-source placeholders need a stricter saved-evidence requirement.",
+    "Whether news-query placeholders were useful or only created review noise.",
+    "Whether missing source artifacts materially limited analysis quality."
+  ]
+}
