@@ -1,0 +1,55 @@
+{
+  "boundaries": [
+    "No wallet or private key access.",
+    "No order placement.",
+    "No trading endpoints.",
+    "No real-money action.",
+    "No authenticated endpoint.",
+    "No OpenRouter call unless separately approved.",
+    "No Polymarket API call unless separately approved.",
+    "No scheduler, daemon, background worker, watcher, polling loop, or unattended automation.",
+    "No market recommendations, probability, EV, edge, confidence, or side-selection output.",
+    "Paper-only tracking only."
+  ],
+  "contract_version": "pmbot_practical_safety_boundary_reference.v1",
+  "generated_at": "2026-05-10T00:00:00Z",
+  "reference_id": "practical-safety-boundary-reference-015",
+  "required_false_flags": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "orders_or_trading_actions": false,
+    "outcome_resolution_invented": false,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "required_true_flags": {
+    "no_autonomous_trading": true,
+    "no_scheduler_daemon_background_worker": true,
+    "paper_only": true
+  },
+  "required_zero_counts": {
+    "new_polymarket_api_calls_performed": 0,
+    "openrouter_calls_performed": 0
+  },
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "new_live_fetch_performed": false,
+    "new_polymarket_api_calls_performed": 0,
+    "no_autonomous_trading": true,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "no_scheduler_daemon_background_worker": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "outcome_resolution_invented": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  }
+}

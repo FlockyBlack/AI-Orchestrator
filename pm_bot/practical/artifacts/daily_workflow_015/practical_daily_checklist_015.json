@@ -1,0 +1,175 @@
+{
+  "blocked_items": [
+    {
+      "count": 5,
+      "item": "outcome_feedback",
+      "reason": "Outcome feedback is blocked until saved local resolution evidence exists."
+    },
+    {
+      "count": 0,
+      "item": "feedback_packets",
+      "reason": "No manual feedback packet is ready yet."
+    },
+    {
+      "count": 3,
+      "item": "source_url_backlog",
+      "reason": "Some source URLs require manual repair before any later scoped source task."
+    },
+    {
+      "count": 0,
+      "item": "real_autonomous_trading",
+      "reason": "Real trading remains outside the approved practical workflow."
+    }
+  ],
+  "can_run_now_items": [
+    {
+      "item": "Open the quickstart card and daily workflow summary.",
+      "section": "Morning check",
+      "status": "can_run_now"
+    },
+    {
+      "item": "Record unresolved outcome count, feedback-ready count, and source URL backlog count.",
+      "section": "Morning check",
+      "status": "can_run_now"
+    },
+    {
+      "item": "Open the public evidence dashboard and confirm saved evidence packet count.",
+      "section": "Evidence check",
+      "status": "can_run_now"
+    },
+    {
+      "item": "Open paper_tracking_state_snapshot_012.md and check applied update count.",
+      "section": "Paper update review",
+      "status": "can_run_now"
+    },
+    {
+      "item": "Open feedback_readiness_dashboard_014.md and confirm feedback-ready count.",
+      "section": "Feedback readiness check",
+      "status": "can_run_now"
+    },
+    {
+      "item": "Run the daily workflow safety scan after artifact changes.",
+      "section": "Safety check",
+      "status": "can_run_now"
+    }
+  ],
+  "checklist_items": [
+    {
+      "item": "Open the quickstart card and daily workflow summary.",
+      "section": "Morning check",
+      "status": "can_run_now"
+    },
+    {
+      "item": "Record unresolved outcome count, feedback-ready count, and source URL backlog count.",
+      "section": "Morning check",
+      "status": "can_run_now"
+    },
+    {
+      "item": "Open the public evidence dashboard and confirm saved evidence packet count.",
+      "section": "Evidence check",
+      "status": "can_run_now"
+    },
+    {
+      "item": "Open source_url_backlog_011.md and note replacement needs.",
+      "section": "Source URL check",
+      "status": "manual_required"
+    },
+    {
+      "item": "Open outcome_recheck_queue_013.md and keep unresolved markets pending.",
+      "section": "Outcome recheck",
+      "status": "manual_required"
+    },
+    {
+      "item": "Open paper_tracking_state_snapshot_012.md and check applied update count.",
+      "section": "Paper update review",
+      "status": "can_run_now"
+    },
+    {
+      "item": "Open feedback_readiness_dashboard_014.md and confirm feedback-ready count.",
+      "section": "Feedback readiness check",
+      "status": "can_run_now"
+    },
+    {
+      "item": "Run the daily workflow safety scan after artifact changes.",
+      "section": "Safety check",
+      "status": "can_run_now"
+    },
+    {
+      "item": "Write local notes for changed source URLs or resolved outcomes.",
+      "section": "End-of-day notes",
+      "status": "manual_required"
+    }
+  ],
+  "contract_version": "pmbot_practical_daily_checklist.v1",
+  "generated_at": "2026-05-10T00:00:00Z",
+  "manual_required_items": [
+    {
+      "item": "Open source_url_backlog_011.md and note replacement needs.",
+      "section": "Source URL check",
+      "status": "manual_required"
+    },
+    {
+      "item": "Open outcome_recheck_queue_013.md and keep unresolved markets pending.",
+      "section": "Outcome recheck",
+      "status": "manual_required"
+    },
+    {
+      "item": "Write local notes for changed source URLs or resolved outcomes.",
+      "section": "End-of-day notes",
+      "status": "manual_required"
+    }
+  ],
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "new_live_fetch_performed": false,
+    "new_polymarket_api_calls_performed": 0,
+    "no_autonomous_trading": true,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "no_scheduler_daemon_background_worker": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "outcome_resolution_invented": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "should_not_run_items": [
+    {
+      "item": "No wallet, private key, signing, or real-money path access.",
+      "reason": "Outside PRACTICAL-015 safety boundary"
+    },
+    {
+      "item": "No order placement, trading endpoint, or authenticated endpoint.",
+      "reason": "Outside PRACTICAL-015 safety boundary"
+    },
+    {
+      "item": "No OpenRouter call unless a separate approved task explicitly allows it.",
+      "reason": "Outside PRACTICAL-015 safety boundary"
+    },
+    {
+      "item": "No Polymarket API call unless a separate approved task explicitly allows it.",
+      "reason": "Outside PRACTICAL-015 safety boundary"
+    },
+    {
+      "item": "No scheduler, daemon, background worker, watcher, polling loop, or unattended automation.",
+      "reason": "Outside PRACTICAL-015 safety boundary"
+    },
+    {
+      "item": "No market recommendation, probability, EV, edge, confidence, or side-selection output.",
+      "reason": "Outside PRACTICAL-015 safety boundary"
+    },
+    {
+      "item": "No invented outcomes and no resolved status for unresolved markets.",
+      "reason": "Outside PRACTICAL-015 safety boundary"
+    },
+    {
+      "item": "No runtime, dispatcher, browser automation, or autonomous execution path changes.",
+      "reason": "Outside PRACTICAL-015 safety boundary"
+    }
+  ]
+}

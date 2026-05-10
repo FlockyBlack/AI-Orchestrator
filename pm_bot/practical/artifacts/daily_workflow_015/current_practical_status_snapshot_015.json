@@ -1,0 +1,42 @@
+{
+  "applied_paper_update_count": 1,
+  "blockers_before_real_trading": [
+    "Resolved outcome feedback packets are missing.",
+    "Source accuracy feedback is not validated against resolved outcomes.",
+    "Source URL backlog remains open.",
+    "Risk and execution design are not approved.",
+    "No wallet, order, or autonomous execution approval exists."
+  ],
+  "contract_version": "pmbot_current_practical_status_snapshot.v1",
+  "controlled_public_read_only_progress_estimate": "20% two saved public evidence packets from earlier approved tasks",
+  "evidence_packet_count": 2,
+  "feedback_ready_count": 0,
+  "generated_at": "2026-05-10T00:00:00Z",
+  "next_major_milestone": "ORCH-PMBOT-PRACTICAL-016-ADD-NEXT-REAL-MARKET-PACKET-AND-RUN-DAILY-WORKFLOW",
+  "practical_analysis_loop_progress_estimate": "40% local paper-analysis loop operating with five tracked markets",
+  "real_autonomous_trading_progress_estimate": "0%",
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "new_live_fetch_performed": false,
+    "new_polymarket_api_calls_performed": 0,
+    "no_autonomous_trading": true,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "no_scheduler_daemon_background_worker": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "outcome_resolution_invented": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "snapshot_id": "current-practical-status-snapshot-015",
+  "source_learning_feedback_loop_progress_estimate": "25% source status tracked; outcome feedback not yet available",
+  "source_records_count": 5,
+  "tracked_market_count": 5,
+  "unresolved_outcome_count": 5
+}

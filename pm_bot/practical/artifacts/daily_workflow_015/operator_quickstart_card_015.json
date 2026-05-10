@@ -1,0 +1,68 @@
+{
+  "card_id": "operator-quickstart-card-015",
+  "check_these_3_numbers": [
+    {
+      "name": "unresolved_outcome_count",
+      "value": 5
+    },
+    {
+      "name": "feedback_ready_count",
+      "value": 0
+    },
+    {
+      "name": "source_url_backlog_count",
+      "value": 3
+    }
+  ],
+  "contract_version": "pmbot_operator_quickstart_card.v1",
+  "generated_at": "2026-05-10T00:00:00Z",
+  "if_new_market_needed": [
+    "Prepare a local market packet under pm_bot/llm/manual_packet_batch/.",
+    "Run local packet normalization and local analysis only.",
+    "Prefer next task `ORCH-PMBOT-PRACTICAL-016-ADD-NEXT-REAL-MARKET-PACKET-AND-RUN-DAILY-WORKFLOW`."
+  ],
+  "if_outcome_resolved": [
+    "Open that market's manual outcome packet under manual_outcome_feedback_014/markets/<market_id>/.",
+    "Fill only from saved local resolution evidence.",
+    "Run the feedback evaluator in a separate paper-only task after review."
+  ],
+  "if_source_broken": [
+    "Open source_url_backlog_011.md.",
+    "Collect a replacement public source manually in local notes.",
+    "Use a later approved public-source task before any fetch."
+  ],
+  "never_do_this": [
+    "No wallet, private key, signing, or real-money path access.",
+    "No order placement, trading endpoint, or authenticated endpoint.",
+    "No OpenRouter call unless a separate approved task explicitly allows it.",
+    "No Polymarket API call unless a separate approved task explicitly allows it.",
+    "No scheduler, daemon, background worker, watcher, polling loop, or unattended automation.",
+    "No market recommendation, probability, EV, edge, confidence, or side-selection output.",
+    "No invented outcomes and no resolved status for unresolved markets.",
+    "No runtime, dispatcher, browser automation, or autonomous execution path changes."
+  ],
+  "open_this_first": [
+    "pm_bot/practical/artifacts/daily_workflow_015/daily_workflow_summary_015.md",
+    "pm_bot/practical/artifacts/manual_outcome_feedback_014/feedback_readiness_dashboard_014.md",
+    "pm_bot/practical/artifacts/outcome_recheck_source_learning_013/outcome_recheck_queue_013.md"
+  ],
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "new_live_fetch_performed": false,
+    "new_polymarket_api_calls_performed": 0,
+    "no_autonomous_trading": true,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "no_scheduler_daemon_background_worker": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "outcome_resolution_invented": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  }
+}

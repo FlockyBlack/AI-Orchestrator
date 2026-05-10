@@ -1,0 +1,166 @@
+{
+  "artifacts_by_phase": {
+    "PRACTICAL-004": [
+      "pm_bot/practical/artifacts/real_market_batch_004/selected_real_market_batch.md",
+      "pm_bot/practical/artifacts/real_market_batch_004/real_market_batch_004.market_queue.json"
+    ],
+    "PRACTICAL-008": [
+      "pm_bot/practical/artifacts/public_read_only_fetch_execution_008/fetch_execution_summary_008.result.json",
+      "pm_bot/practical/artifacts/public_read_only_fetch_execution_008/evidence_packets"
+    ],
+    "PRACTICAL-010": [
+      "pm_bot/practical/artifacts/public_source_url_fixes_010/source_url_repair_result_summary_010.json",
+      "pm_bot/practical/artifacts/public_source_url_fixes_010/evidence_packets"
+    ],
+    "PRACTICAL-011": [
+      "pm_bot/practical/artifacts/public_evidence_dashboard_011/public_evidence_tracking_dashboard_011.json",
+      "pm_bot/practical/artifacts/public_evidence_dashboard_011/source_url_backlog_011.json"
+    ],
+    "PRACTICAL-012": [
+      "pm_bot/practical/artifacts/paper_update_application_012/paper_tracking_state_snapshot_012.json",
+      "pm_bot/practical/artifacts/paper_update_application_012/applied_paper_update_012.json"
+    ],
+    "PRACTICAL-013": [
+      "pm_bot/practical/artifacts/outcome_recheck_source_learning_013/outcome_recheck_queue_013.json",
+      "pm_bot/practical/artifacts/outcome_recheck_source_learning_013/source_learning_scorecard_update_013.json"
+    ],
+    "PRACTICAL-014": [
+      "pm_bot/practical/artifacts/manual_outcome_feedback_014/feedback_readiness_dashboard_014.json",
+      "pm_bot/practical/artifacts/manual_outcome_feedback_014/markets"
+    ],
+    "PRACTICAL-015": [
+      "pm_bot/practical/artifacts/daily_workflow_015/daily_workflow_summary_015.json",
+      "pm_bot/practical/artifacts/daily_workflow_015/practical_command_catalog_015.json",
+      "pm_bot/practical/artifacts/daily_workflow_015/practical_daily_checklist_015.json"
+    ]
+  },
+  "contract_version": "pmbot_practical_workflow_index.v1",
+  "daily_summary": {
+    "json_exists": true,
+    "json_path": "pm_bot/practical/artifacts/daily_workflow_015/daily_workflow_summary_015.json",
+    "label": "daily_summary",
+    "md_exists": true,
+    "md_path": "pm_bot/practical/artifacts/daily_workflow_015/daily_workflow_summary_015.md"
+  },
+  "docs_to_read": [
+    {
+      "exists": true,
+      "label": "daily_operator_runbook",
+      "path": "docs/PMBOT_PRACTICAL_DAILY_OPERATOR_RUNBOOK.md"
+    },
+    {
+      "exists": true,
+      "label": "add_new_market_workflow",
+      "path": "docs/PMBOT_HOW_TO_ADD_A_NEW_LOCAL_MARKET_PACKET.md"
+    },
+    {
+      "exists": true,
+      "label": "process_resolved_market_workflow",
+      "path": "docs/PMBOT_HOW_TO_PROCESS_A_RESOLVED_MARKET_OUTCOME.md"
+    },
+    {
+      "exists": true,
+      "label": "public_evidence_dashboard_doc",
+      "path": "docs/PMBOT_PUBLIC_EVIDENCE_TRACKING_DASHBOARD.md"
+    },
+    {
+      "exists": true,
+      "label": "paper_update_application_doc",
+      "path": "docs/PMBOT_OPERATOR_APPROVED_PAPER_UPDATE_APPLICATION.md"
+    },
+    {
+      "exists": true,
+      "label": "manual_outcome_feedback_doc",
+      "path": "docs/PMBOT_MANUAL_OUTCOME_RESOLUTION_FEEDBACK_PACKET.md"
+    }
+  ],
+  "generated_at": "2026-05-10T00:00:00Z",
+  "manual_feedback_dashboard": {
+    "json_exists": true,
+    "json_path": "pm_bot/practical/artifacts/manual_outcome_feedback_014/feedback_readiness_dashboard_014.json",
+    "label": "manual_feedback_dashboard",
+    "md_exists": true,
+    "md_path": "pm_bot/practical/artifacts/manual_outcome_feedback_014/feedback_readiness_dashboard_014.md"
+  },
+  "missing_expected_artifacts": [],
+  "next_operator_actions": [
+    "Open the primary dashboard first.",
+    "Use the quickstart card for the first daily pass.",
+    "Use the decision matrix before starting the next Codex task.",
+    "Default next task: `ORCH-PMBOT-PRACTICAL-016-ADD-NEXT-REAL-MARKET-PACKET-AND-RUN-DAILY-WORKFLOW`."
+  ],
+  "operator_morning_cards": [
+    {
+      "exists": true,
+      "label": "operator_quickstart_card_015",
+      "path": "pm_bot/practical/artifacts/daily_workflow_015/operator_quickstart_card_015.md"
+    },
+    {
+      "exists": true,
+      "label": "operator_morning_card_011",
+      "path": "pm_bot/practical/artifacts/public_evidence_dashboard_011/operator_morning_card_011.md"
+    },
+    {
+      "exists": true,
+      "label": "operator_morning_card_after_update_012",
+      "path": "pm_bot/practical/artifacts/paper_update_application_012/operator_morning_card_after_update_012.md"
+    },
+    {
+      "exists": true,
+      "label": "operator_console_feedback_loop_014",
+      "path": "pm_bot/practical/artifacts/manual_outcome_feedback_014/operator_console_feedback_loop_014.md"
+    }
+  ],
+  "outcome_recheck_queue": {
+    "json_exists": true,
+    "json_path": "pm_bot/practical/artifacts/outcome_recheck_source_learning_013/outcome_recheck_queue_013.json",
+    "label": "outcome_recheck_queue",
+    "md_exists": true,
+    "md_path": "pm_bot/practical/artifacts/outcome_recheck_source_learning_013/outcome_recheck_queue_013.md"
+  },
+  "paper_tracking_snapshot": {
+    "json_exists": true,
+    "json_path": "pm_bot/practical/artifacts/paper_update_application_012/paper_tracking_state_snapshot_012.json",
+    "label": "paper_tracking_snapshot",
+    "md_exists": true,
+    "md_path": "pm_bot/practical/artifacts/paper_update_application_012/paper_tracking_state_snapshot_012.md"
+  },
+  "primary_dashboard": {
+    "exists": true,
+    "label": "primary_dashboard",
+    "path": "docs/PMBOT_PRACTICAL_DAILY_OPERATOR_RUNBOOK.md"
+  },
+  "public_evidence_dashboard": {
+    "json_exists": true,
+    "json_path": "pm_bot/practical/artifacts/public_evidence_dashboard_011/public_evidence_tracking_dashboard_011.json",
+    "label": "public_evidence_dashboard",
+    "md_exists": true,
+    "md_path": "pm_bot/practical/artifacts/public_evidence_dashboard_011/public_evidence_tracking_dashboard_011.md"
+  },
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "new_live_fetch_performed": false,
+    "new_polymarket_api_calls_performed": 0,
+    "no_autonomous_trading": true,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "no_scheduler_daemon_background_worker": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "outcome_resolution_invented": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "source_learning_scorecard": {
+    "json_exists": true,
+    "json_path": "pm_bot/practical/artifacts/outcome_recheck_source_learning_013/source_learning_scorecard_operator_view_013.json",
+    "label": "source_learning_scorecard",
+    "md_exists": true,
+    "md_path": "pm_bot/practical/artifacts/outcome_recheck_source_learning_013/source_learning_scorecard_operator_view_013.md"
+  }
+}

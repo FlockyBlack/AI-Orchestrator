@@ -1,0 +1,203 @@
+{
+  "active_paper_hypotheses_count": 5,
+  "applied_paper_update_count": 1,
+  "blocked_items": [
+    {
+      "count": 5,
+      "item": "outcome_feedback",
+      "reason": "Outcome feedback is blocked until saved local resolution evidence exists."
+    },
+    {
+      "count": 0,
+      "item": "feedback_packets",
+      "reason": "No manual feedback packet is ready yet."
+    },
+    {
+      "count": 3,
+      "item": "source_url_backlog",
+      "reason": "Some source URLs require manual repair before any later scoped source task."
+    },
+    {
+      "count": 0,
+      "item": "real_autonomous_trading",
+      "reason": "Real trading remains outside the approved practical workflow."
+    }
+  ],
+  "contract_version": "pmbot_daily_workflow_summary.v1",
+  "dashboard_files_to_open": [
+    {
+      "exists": true,
+      "label": "Operator quickstart",
+      "path": "pm_bot/practical/artifacts/daily_workflow_015/operator_quickstart_card_015.md",
+      "priority": 1,
+      "why": "One-screen daily entry point."
+    },
+    {
+      "exists": true,
+      "label": "Daily summary",
+      "path": "pm_bot/practical/artifacts/daily_workflow_015/daily_workflow_summary_015.md",
+      "priority": 2,
+      "why": "Current counts, blockers, and next safe actions."
+    },
+    {
+      "exists": true,
+      "label": "Feedback readiness dashboard",
+      "path": "pm_bot/practical/artifacts/manual_outcome_feedback_014/feedback_readiness_dashboard_014.md",
+      "priority": 3,
+      "why": "Shows which feedback packets are pending or ready."
+    },
+    {
+      "exists": true,
+      "label": "Outcome recheck queue",
+      "path": "pm_bot/practical/artifacts/outcome_recheck_source_learning_013/outcome_recheck_queue_013.md",
+      "priority": 4,
+      "why": "Shows unresolved markets and recheck priority."
+    },
+    {
+      "exists": true,
+      "label": "Source learning scorecard",
+      "path": "pm_bot/practical/artifacts/outcome_recheck_source_learning_013/source_learning_scorecard_operator_view_013.md",
+      "priority": 5,
+      "why": "Shows reachable, repaired, missing, and blocked source records."
+    },
+    {
+      "exists": true,
+      "label": "Paper tracking snapshot",
+      "path": "pm_bot/practical/artifacts/paper_update_application_012/paper_tracking_state_snapshot_012.md",
+      "priority": 6,
+      "why": "Shows active paper hypotheses and applied paper updates."
+    },
+    {
+      "exists": true,
+      "label": "Public evidence dashboard",
+      "path": "pm_bot/practical/artifacts/public_evidence_dashboard_011/public_evidence_tracking_dashboard_011.md",
+      "priority": 7,
+      "why": "Shows saved public evidence packets and source status."
+    }
+  ],
+  "feedback_ready_count": 0,
+  "generated_at": "2026-05-10T00:00:00Z",
+  "manual_actions_required": [
+    "Review dashboard files directly; do not rely on memory.",
+    "Fill manual outcome packets only after saved local resolution evidence exists.",
+    "Choose paper result labels only after manual review.",
+    "Repair source URL manually for market `597964` before any later scoped source task.",
+    "Repair source URL manually for market `598936` before any later scoped source task.",
+    "Repair source URL manually for market `692258` before any later scoped source task."
+  ],
+  "next_operator_actions": [
+    "Open the operator quickstart card, daily summary, feedback readiness dashboard, and outcome recheck queue.",
+    "Check unresolved outcome count, feedback-ready count, and source URL backlog count.",
+    "Leave outcomes unresolved unless saved local resolution evidence exists.",
+    "Collect replacement source URLs manually before a separate approved source task.",
+    "Use `ORCH-PMBOT-PRACTICAL-016-ADD-NEXT-REAL-MARKET-PACKET-AND-RUN-DAILY-WORKFLOW` for the next local-only expansion task."
+  ],
+  "paper_updates": [
+    {
+      "applied_update_id": "applied-paper-update-012-paper-hypothesis-update-candidate-009",
+      "market_id": "563650",
+      "outcome_status_after_update": "unresolved"
+    }
+  ],
+  "prohibited_actions": [
+    "No wallet, private key, signing, or real-money path access.",
+    "No order placement, trading endpoint, or authenticated endpoint.",
+    "No OpenRouter call unless a separate approved task explicitly allows it.",
+    "No Polymarket API call unless a separate approved task explicitly allows it.",
+    "No scheduler, daemon, background worker, watcher, polling loop, or unattended automation.",
+    "No market recommendation, probability, EV, edge, confidence, or side-selection output.",
+    "No invented outcomes and no resolved status for unresolved markets.",
+    "No runtime, dispatcher, browser automation, or autonomous execution path changes."
+  ],
+  "public_evidence_packet_count": 2,
+  "recent_changes": [
+    "PRACTICAL-014 prepared pending manual feedback packets for all five tracked markets.",
+    "PRACTICAL-013 created the outcome recheck queue and source learning scorecard update.",
+    "PRACTICAL-012 applied one operator-approved paper tracking update to a versioned snapshot.",
+    "PRACTICAL-011 merged two saved public evidence packets into the dashboard."
+  ],
+  "safe_local_commands": [
+    "python -m pm_bot.practical.daily_workflow_summary --out-json pm_bot/practical/artifacts/daily_workflow_015/daily_workflow_summary_015.json --out-md pm_bot/practical/artifacts/daily_workflow_015/daily_workflow_summary_015.md",
+    "python -m pm_bot.practical.practical_command_catalog --out-json pm_bot/practical/artifacts/daily_workflow_015/practical_command_catalog_015.json --out-md pm_bot/practical/artifacts/daily_workflow_015/practical_command_catalog_015.md",
+    "python -m pm_bot.practical.practical_workflow_index --out-json pm_bot/practical/artifacts/daily_workflow_015/practical_workflow_index_015.json --out-md pm_bot/practical/artifacts/daily_workflow_015/practical_workflow_index_015.md",
+    "python -m pm_bot.practical.practical_daily_checklist --out-json pm_bot/practical/artifacts/daily_workflow_015/practical_daily_checklist_015.json --out-md pm_bot/practical/artifacts/daily_workflow_015/practical_daily_checklist_015.md",
+    "python -m pm_bot.practical.practical_safety_scan --artifact-dir pm_bot/practical/artifacts/daily_workflow_015 --out-json pm_bot/practical/artifacts/daily_workflow_015/daily_workflow_safety_scan_015.result.json --out-md pm_bot/practical/artifacts/daily_workflow_015/daily_workflow_safety_scan_015.md"
+  ],
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "new_live_fetch_performed": false,
+    "new_polymarket_api_calls_performed": 0,
+    "no_autonomous_trading": true,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "no_scheduler_daemon_background_worker": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "outcome_resolution_invented": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "source_records_count": 5,
+  "source_status": {
+    "blocked_source_count": 1,
+    "source_records_count": 5,
+    "source_url_backlog_count": 3,
+    "sources_with_saved_evidence_count": 2
+  },
+  "source_url_backlog_count": 3,
+  "summary_id": "daily-workflow-summary-015",
+  "tracked_market_count": 5,
+  "tracked_markets": [
+    {
+      "market_class": "generic",
+      "market_id": "563650",
+      "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?",
+      "outcome_record_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/563650/outcome_record.unresolved.json",
+      "paper_hypothesis_id": "563650.analysis.adc53630aa1f.paper_hypothesis",
+      "paper_hypothesis_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/563650/paper_hypothesis.json",
+      "status": "hypothesis_active"
+    },
+    {
+      "market_class": "politics",
+      "market_id": "597964",
+      "market_title": "Macron out by June 30, 2026?",
+      "outcome_record_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/597964/outcome_record.unresolved.json",
+      "paper_hypothesis_id": "597964.analysis.33643849e5db.paper_hypothesis",
+      "paper_hypothesis_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/597964/paper_hypothesis.json",
+      "status": "hypothesis_active"
+    },
+    {
+      "market_class": "politics",
+      "market_id": "598936",
+      "market_title": "Will the next UK election be called by June 30, 2026?",
+      "outcome_record_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/598936/outcome_record.unresolved.json",
+      "paper_hypothesis_id": "598936.analysis.dceea0f50063.paper_hypothesis",
+      "paper_hypothesis_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/598936/paper_hypothesis.json",
+      "status": "hypothesis_active"
+    },
+    {
+      "market_class": "crypto",
+      "market_id": "691547",
+      "market_title": "Kraken IPO by December 31, 2026?",
+      "outcome_record_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/691547/outcome_record.unresolved.json",
+      "paper_hypothesis_id": "691547.analysis.56b3a68b9b94.paper_hypothesis",
+      "paper_hypothesis_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/691547/paper_hypothesis.json",
+      "status": "hypothesis_active"
+    },
+    {
+      "market_class": "crypto",
+      "market_id": "692258",
+      "market_title": "MicroStrategy sells any Bitcoin by June 30, 2026?",
+      "outcome_record_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/692258/outcome_record.unresolved.json",
+      "paper_hypothesis_id": "692258.analysis.bed289c1494d.paper_hypothesis",
+      "paper_hypothesis_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/692258/paper_hypothesis.json",
+      "status": "hypothesis_active"
+    }
+  ],
+  "unresolved_outcome_count": 5
+}

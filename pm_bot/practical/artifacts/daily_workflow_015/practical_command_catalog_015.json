@@ -1,0 +1,124 @@
+{
+  "command_notes": [
+    "The daily catalog is local-only and finite.",
+    "Public fetch commands are intentionally excluded from the daily runbook.",
+    "Commands that write files target versioned local artifacts only.",
+    "No command in safe_commands needs API keys, cookies, browser profiles, or authenticated endpoints."
+  ],
+  "contract_version": "pmbot_practical_command_catalog.v1",
+  "generated_at": "2026-05-10T00:00:00Z",
+  "manual_only_steps": [
+    "Collect actual outcome evidence outside PMBOT, then save it locally before any packet update.",
+    "Curate replacement public source URLs manually before a separate approved source task.",
+    "Review paper labels manually before generating feedback from a resolved packet."
+  ],
+  "prohibited_commands": [
+    "run-codex-once",
+    "run-codex-batch",
+    "Any OpenRouter command without separate approval.",
+    "Any Polymarket API command without separate approval.",
+    "Any wallet, signing, order, trading endpoint, scheduler, daemon, watcher, or polling command."
+  ],
+  "safe_commands": [
+    {
+      "category": "view dashboard",
+      "command": "python -m json.tool pm_bot/practical/artifacts/daily_workflow_015/daily_workflow_summary_015.json",
+      "local_only": true,
+      "purpose": "Print the daily summary JSON in a stable local format.",
+      "requires_api_key": false,
+      "requires_network": false,
+      "writes_files": false
+    },
+    {
+      "category": "summarize daily state",
+      "command": "python -m pm_bot.practical.daily_workflow_summary --out-json pm_bot/practical/artifacts/daily_workflow_015/daily_workflow_summary_015.json --out-md pm_bot/practical/artifacts/daily_workflow_015/daily_workflow_summary_015.md",
+      "local_only": true,
+      "purpose": "Regenerate the local daily workflow summary from known artifact paths.",
+      "requires_api_key": false,
+      "requires_network": false,
+      "writes_files": true
+    },
+    {
+      "category": "inspect active paper hypotheses",
+      "command": "python -m pm_bot.practical.active_paper_hypotheses --queue pm_bot/practical/artifacts/real_market_batch_004/real_market_batch_004.market_queue.json --out-json pm_bot/practical/artifacts/daily_workflow_015/active_paper_hypotheses_local_view.json --out-md pm_bot/practical/artifacts/daily_workflow_015/active_paper_hypotheses_local_view.md",
+      "local_only": true,
+      "purpose": "Create a local view of active paper hypotheses from the saved market queue.",
+      "requires_api_key": false,
+      "requires_network": false,
+      "writes_files": true
+    },
+    {
+      "category": "inspect outcome recheck queue",
+      "command": "python -m json.tool pm_bot/practical/artifacts/outcome_recheck_source_learning_013/outcome_recheck_queue_013.json",
+      "local_only": true,
+      "purpose": "View unresolved outcome status and recheck priority.",
+      "requires_api_key": false,
+      "requires_network": false,
+      "writes_files": false
+    },
+    {
+      "category": "inspect source learning scorecard",
+      "command": "python -m json.tool pm_bot/practical/artifacts/outcome_recheck_source_learning_013/source_learning_scorecard_update_013.json",
+      "local_only": true,
+      "purpose": "View saved source status and source handling notes.",
+      "requires_api_key": false,
+      "requires_network": false,
+      "writes_files": false
+    },
+    {
+      "category": "inspect manual feedback packets",
+      "command": "python -m json.tool pm_bot/practical/artifacts/manual_outcome_feedback_014/feedback_readiness_dashboard_014.json",
+      "local_only": true,
+      "purpose": "View pending manual feedback readiness across tracked markets.",
+      "requires_api_key": false,
+      "requires_network": false,
+      "writes_files": false
+    },
+    {
+      "category": "validate artifacts",
+      "command": "python -m json.tool pm_bot/practical/artifacts/daily_workflow_015/practical_workflow_index_015.json",
+      "local_only": true,
+      "purpose": "Validate the workflow index JSON shape.",
+      "requires_api_key": false,
+      "requires_network": false,
+      "writes_files": false
+    },
+    {
+      "category": "run safety scan",
+      "command": "python -m pm_bot.practical.practical_safety_scan --artifact-dir pm_bot/practical/artifacts/daily_workflow_015 --out-json pm_bot/practical/artifacts/daily_workflow_015/daily_workflow_safety_scan_015.result.json --out-md pm_bot/practical/artifacts/daily_workflow_015/daily_workflow_safety_scan_015.md",
+      "local_only": true,
+      "purpose": "Scan daily workflow artifacts for unsafe action wording and unsafe flags.",
+      "requires_api_key": false,
+      "requires_network": false,
+      "writes_files": true
+    },
+    {
+      "category": "prepare future outcome feedback",
+      "command": "python -m json.tool pm_bot/practical/artifacts/manual_outcome_feedback_014/manual_outcome_operator_guide_014.json",
+      "local_only": true,
+      "purpose": "Open the manual outcome guide before filling any future resolved outcome packet.",
+      "requires_api_key": false,
+      "requires_network": false,
+      "writes_files": false
+    }
+  ],
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "new_live_fetch_performed": false,
+    "new_polymarket_api_calls_performed": 0,
+    "no_autonomous_trading": true,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "no_scheduler_daemon_background_worker": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "outcome_resolution_invented": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "contract_version": "pmbot_next_task_decision_matrix.v1",
+  "generated_at": "2026-05-10T00:00:00Z",
+  "matrix_id": "next-task-decision-matrix-015",
+  "rows": [
+    {
+      "blocked_until": "A safe local packet exists with title, rules, source placeholders, and unresolved outcome placeholder.",
+      "condition": "Need more real markets",
+      "recommended_next_task_id": "ORCH-PMBOT-PRACTICAL-016-ADD-NEXT-REAL-MARKET-PACKET-AND-RUN-DAILY-WORKFLOW",
+      "safety_notes": "Local-only packet import and paper tracking only.",
+      "why": "The current loop tracks five markets; more local packets improve operator coverage without live access."
+    },
+    {
+      "blocked_until": "A real local resolution record is saved and manually reviewed.",
+      "condition": "Need outcome resolution feedback",
+      "recommended_next_task_id": "ORCH-PMBOT-PRACTICAL-017-PROCESS-FIRST-RESOLVED-OUTCOME-FEEDBACK-PACKET",
+      "safety_notes": "Never invent outcome fields.",
+      "why": "Feedback is blocked until a saved local resolution record exists for at least one market."
+    },
+    {
+      "blocked_until": "Operator provides local replacement candidates.",
+      "condition": "Need source URL repair",
+      "recommended_next_task_id": "ORCH-PMBOT-PRACTICAL-018-SOURCE-URL-REPAIR-PACKET-LOCAL-ONLY",
+      "safety_notes": "No access-control workaround, cookies, profiles, or browser automation.",
+      "why": "Three source records still need manual replacement or alternate official sources."
+    },
+    {
+      "blocked_until": "A scoped manifest and approval packet exist.",
+      "condition": "Need another controlled public fetch",
+      "recommended_next_task_id": "ORCH-PMBOT-PRACTICAL-019-CONTROLLED-PUBLIC-FETCH-PACKET-SEPARATE-APPROVAL",
+      "safety_notes": "Not part of the daily workflow.",
+      "why": "Fetch work is outside the daily runbook and needs explicit separate approval."
+    },
+    {
+      "blocked_until": "Operator identifies which report is confusing.",
+      "condition": "Need practical UI/report polishing",
+      "recommended_next_task_id": "ORCH-PMBOT-PRACTICAL-020-LOCAL-REPORT-POLISHING",
+      "safety_notes": "Documentation and local artifact rendering only.",
+      "why": "The operator surface can be refined after this runbook is used."
+    },
+    {
+      "blocked_until": "Several resolved outcome feedback packets exist.",
+      "condition": "Need risk engine design later",
+      "recommended_next_task_id": "ORCH-PMBOT-PRACTICAL-LATER-RISK-ENGINE-DESIGN-PAPER-ONLY",
+      "safety_notes": "Design only; no execution path.",
+      "why": "Risk design belongs after reliable source and outcome feedback loops exist."
+    },
+    {
+      "blocked_until": "Risk design and paper-only accounting constraints are written.",
+      "condition": "Need execution mock later",
+      "recommended_next_task_id": "ORCH-PMBOT-PRACTICAL-LATER-EXECUTION-MOCK-PAPER-ONLY",
+      "safety_notes": "No wallet, signing, or real-money action.",
+      "why": "A mock can test accounting language after risk design, without real execution."
+    },
+    {
+      "blocked_until": "Separate explicit approval after many safety and validation milestones.",
+      "condition": "Do not start real trading yet",
+      "recommended_next_task_id": "BLOCKED-REAL-TRADING-NOT-A-PRACTICAL-015-OUTCOME",
+      "safety_notes": "Real autonomous trading progress remains 0%.",
+      "why": "The current system has unresolved outcomes and no proven feedback loop."
+    }
+  ],
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "new_live_fetch_performed": false,
+    "new_polymarket_api_calls_performed": 0,
+    "no_autonomous_trading": true,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "no_scheduler_daemon_background_worker": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "outcome_resolution_invented": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  }
+}
