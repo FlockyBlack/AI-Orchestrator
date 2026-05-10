@@ -1,0 +1,47 @@
+{
+  "automatic_analysis_update_performed": false,
+  "console_card_id": "operator-console-public-evidence-review-009",
+  "contract_version": "pmbot_operator_console_public_evidence_review.v1",
+  "evidence_review_status": "operator_review_candidate_created",
+  "failed_request_count": 4,
+  "generated_at": "2026-05-10T00:00:00Z",
+  "market_recommendation_generated": false,
+  "next_operator_actions": [
+    "Review the saved evidence packet and replay artifact for source relevance.",
+    "Approve or reject the paper-only tracking update candidate in a separate task.",
+    "Review failed source URL fix candidates before any later controlled fetch packet.",
+    "Keep outcome resolution tracking separate from this source accessibility review."
+  ],
+  "no_live_fetch_performed_in_this_task": true,
+  "no_real_trade_decision": true,
+  "orders_or_trading_actions": false,
+  "paper_hypothesis_update_candidate_status": "created_not_applied",
+  "practical_008_fetch_status": {
+    "attempted": 5,
+    "blocked": 0,
+    "evidence_packets_created_count": 1,
+    "failed": 4,
+    "succeeded": 1
+  },
+  "probability_ev_edge_or_side_selection_generated": false,
+  "public_fetch_execution_status": "completed_with_saved_evidence",
+  "replay_status": "replayed_saved_public_evidence",
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "source_accessibility_learning_status": "created",
+  "source_task_id": "ORCH-PMBOT-PRACTICAL-008-FIRST-CONTROLLED-PUBLIC-READ-ONLY-FETCH-EXECUTION-WITH-CONCRETE-URL-MANIFEST",
+  "successful_evidence_count": 1,
+  "wallet_or_private_key_access": false
+}

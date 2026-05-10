@@ -1,0 +1,175 @@
+{
+  "attempted_request_count": 5,
+  "blocked_request_count": 0,
+  "contract_version": "pmbot_public_fetch_failure_diagnosis.v1",
+  "diagnosis_id": "public-fetch-failure-diagnosis-009",
+  "do_not_retry_without_review": true,
+  "failed_request_count": 4,
+  "failed_requests": [
+    {
+      "error": "HTTP fetch failed with status 403",
+      "market_id": "598936",
+      "market_title": "Will the next UK election be called by June 30, 2026?",
+      "method": "GET",
+      "request_intent_id": "public_fetch_request_intent_006_06_598936_598936_domain_public_evidence",
+      "result_status": "failed",
+      "source_category": "public_court_government_page_placeholder",
+      "source_name": "public government or parliament page placeholder",
+      "source_url": "https://www.parliament.uk/about/how/elections-and-voting/general/"
+    },
+    {
+      "error": "HTTP fetch failed: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1010)",
+      "market_id": "597964",
+      "market_title": "Macron out by June 30, 2026?",
+      "method": "GET",
+      "request_intent_id": "public_fetch_request_intent_006_04_597964_597964_domain_public_evidence",
+      "result_status": "failed",
+      "source_category": "public_resolution_source_page_placeholder",
+      "source_name": "public resolution source page placeholder",
+      "source_url": "https://www.elysee.fr/emmanuel-macron"
+    },
+    {
+      "error": "redirect blocked: 308 https://blog.kraken.com/",
+      "market_id": "691547",
+      "market_title": "Kraken IPO by December 31, 2026?",
+      "method": "GET",
+      "request_intent_id": "public_fetch_request_intent_006_08_691547_691547_domain_public_evidence",
+      "result_status": "failed",
+      "source_category": "public_exchange_company_announcement_page_placeholder",
+      "source_name": "public exchange/company announcement page placeholder",
+      "source_url": "https://www.kraken.com/blog"
+    },
+    {
+      "error": "HTTP fetch failed with status 403",
+      "market_id": "692258",
+      "market_title": "MicroStrategy sells any Bitcoin by June 30, 2026?",
+      "method": "GET",
+      "request_intent_id": "public_fetch_request_intent_006_10_692258_692258_domain_public_evidence",
+      "result_status": "failed",
+      "source_category": "public_issuer_company_news_page_placeholder",
+      "source_name": "public issuer/company news page placeholder",
+      "source_url": "https://www.microstrategy.com/press"
+    }
+  ],
+  "failure_categories": {
+    "content_type_rejected": 0,
+    "dns_error": 0,
+    "http_error": 2,
+    "source_unavailable": 2,
+    "timeout": 0,
+    "unknown": 0,
+    "url_invalid": 0
+  },
+  "generated_at": "2026-05-10T00:00:00Z",
+  "market_recommendation_generated": false,
+  "no_live_fetch_performed_in_this_task": true,
+  "no_real_trade_decision": true,
+  "orders_or_trading_actions": false,
+  "per_request_diagnosis": [
+    {
+      "error": "HTTP fetch failed with status 403",
+      "failure_category": "http_error",
+      "likely_cause": "The public site denied this simple read-only request in PRACTICAL-008.",
+      "market_id": "598936",
+      "market_title": "Will the next UK election be called by June 30, 2026?",
+      "request_intent_id": "public_fetch_request_intent_006_06_598936_598936_domain_public_evidence",
+      "safe_recovery_action": "Verify the URL manually and prefer an alternative official public source if access remains denied.",
+      "source_category": "public_court_government_page_placeholder",
+      "source_name": "public government or parliament page placeholder",
+      "source_url": "https://www.parliament.uk/about/how/elections-and-voting/general/"
+    },
+    {
+      "error": "HTTP fetch failed: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1010)",
+      "failure_category": "source_unavailable",
+      "likely_cause": "The URL may require certificate-chain handling or a different official page.",
+      "market_id": "597964",
+      "market_title": "Macron out by June 30, 2026?",
+      "request_intent_id": "public_fetch_request_intent_006_04_597964_597964_domain_public_evidence",
+      "safe_recovery_action": "Replace or normalize the URL only after operator review of the source category and redirect/certificate behavior.",
+      "source_category": "public_resolution_source_page_placeholder",
+      "source_name": "public resolution source page placeholder",
+      "source_url": "https://www.elysee.fr/emmanuel-macron"
+    },
+    {
+      "error": "redirect blocked: 308 https://blog.kraken.com/",
+      "failure_category": "source_unavailable",
+      "likely_cause": "The configured URL redirects to a different host/path and the fetcher intentionally blocked redirects.",
+      "market_id": "691547",
+      "market_title": "Kraken IPO by December 31, 2026?",
+      "request_intent_id": "public_fetch_request_intent_006_08_691547_691547_domain_public_evidence",
+      "safe_recovery_action": "Replace or normalize the URL only after operator review of the source category and redirect/certificate behavior.",
+      "source_category": "public_exchange_company_announcement_page_placeholder",
+      "source_name": "public exchange/company announcement page placeholder",
+      "source_url": "https://www.kraken.com/blog"
+    },
+    {
+      "error": "HTTP fetch failed with status 403",
+      "failure_category": "http_error",
+      "likely_cause": "The public site denied this simple read-only request in PRACTICAL-008.",
+      "market_id": "692258",
+      "market_title": "MicroStrategy sells any Bitcoin by June 30, 2026?",
+      "request_intent_id": "public_fetch_request_intent_006_10_692258_692258_domain_public_evidence",
+      "safe_recovery_action": "Verify the URL manually and prefer an alternative official public source if access remains denied.",
+      "source_category": "public_issuer_company_news_page_placeholder",
+      "source_name": "public issuer/company news page placeholder",
+      "source_url": "https://www.microstrategy.com/press"
+    }
+  ],
+  "probability_ev_edge_or_side_selection_generated": false,
+  "safe_recovery_actions": [
+    "Verify the URL manually and prefer an alternative official public source if access remains denied.",
+    "Replace or normalize the URL only after operator review of the source category and redirect/certificate behavior.",
+    "Keep all recovery work non-executable until a later scoped task is approved."
+  ],
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "source_task_id": "ORCH-PMBOT-PRACTICAL-008-FIRST-CONTROLLED-PUBLIC-READ-ONLY-FETCH-EXECUTION-WITH-CONCRETE-URL-MANIFEST",
+  "succeeded_request_count": 1,
+  "url_manifest_fix_candidates": [
+    {
+      "failure_category": "http_error",
+      "market_id": "598936",
+      "recommended_fix_type": "use_alternative_official_source",
+      "request_intent_id": "public_fetch_request_intent_006_06_598936_598936_domain_public_evidence",
+      "requires_operator_review": true,
+      "source_url": "https://www.parliament.uk/about/how/elections-and-voting/general/"
+    },
+    {
+      "failure_category": "source_unavailable",
+      "market_id": "597964",
+      "recommended_fix_type": "replace_url",
+      "request_intent_id": "public_fetch_request_intent_006_04_597964_597964_domain_public_evidence",
+      "requires_operator_review": true,
+      "source_url": "https://www.elysee.fr/emmanuel-macron"
+    },
+    {
+      "failure_category": "source_unavailable",
+      "market_id": "691547",
+      "recommended_fix_type": "replace_url",
+      "request_intent_id": "public_fetch_request_intent_006_08_691547_691547_domain_public_evidence",
+      "requires_operator_review": true,
+      "source_url": "https://www.kraken.com/blog"
+    },
+    {
+      "failure_category": "http_error",
+      "market_id": "692258",
+      "recommended_fix_type": "use_alternative_official_source",
+      "request_intent_id": "public_fetch_request_intent_006_10_692258_692258_domain_public_evidence",
+      "requires_operator_review": true,
+      "source_url": "https://www.microstrategy.com/press"
+    }
+  ],
+  "wallet_or_private_key_access": false
+}

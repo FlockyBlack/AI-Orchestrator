@@ -1,0 +1,104 @@
+{
+  "affected_hypothesis_ids": [
+    "563650.analysis.adc53630aa1f.paper_hypothesis"
+  ],
+  "affected_market_ids": [
+    "563650"
+  ],
+  "automatic_analysis_update_performed": false,
+  "contract_version": "pmbot_public_evidence_operator_review.v1",
+  "contradiction_notes": [
+    "No contradiction candidates were present in the saved evidence packet metadata."
+  ],
+  "evidence_packet_count": 1,
+  "evidence_packets_reviewed": [
+    {
+      "body_sha256": "a6d1969391feeee978a5420d0c462324b869a7529ceb81290c6f80abf887f31d",
+      "captured_at": "2026-05-10T13:16:55Z",
+      "content_type": "text/html; charset=utf-8",
+      "evidence_packet_id": "public_fetch_008_563650_public_fetch_request_intent_006_02_563650_563650_domain_public_evidence_a6d1969391feeee9",
+      "freshness_status": "captured_at_task_time",
+      "http_status": 200,
+      "hypothesis_ids": [
+        "563650.analysis.adc53630aa1f.paper_hypothesis"
+      ],
+      "limitations": [
+        "Response body is summarized by metadata and digest in this artifact rather than embedded verbatim.",
+        "This packet records public source accessibility and does not resolve the market outcome.",
+        "This packet is paper-only evidence capture and is not an executable market action."
+      ],
+      "market_ids": [
+        "563650"
+      ],
+      "normalized_claims": [
+        "Public source returned HTTP 200 for request intent public_fetch_request_intent_006_02_563650_563650_domain_public_evidence.",
+        "Response metadata and digest were saved before replay for paper-only evidence review."
+      ],
+      "safe_for_replay": true,
+      "source_category": "public_court_government_page_placeholder",
+      "source_id": "public_fetch_request_intent_006_02_563650_563650_domain_public_evidence",
+      "source_name": "public court/government page placeholder",
+      "source_reference": "https://www.supremecourt.gov/docket/docket.aspx"
+    }
+  ],
+  "evidence_relevance": "supports_tracking_assumption",
+  "generated_at": "2026-05-10T00:00:00Z",
+  "limitations": [
+    "Response body is summarized by metadata and digest in this artifact rather than embedded verbatim.",
+    "This packet is paper-only evidence capture and is not an executable market action.",
+    "This packet records public source accessibility and does not resolve the market outcome.",
+    "The original response body is not embedded in the review artifact.",
+    "The review does not resolve the market outcome.",
+    "The successful source still needs operator review for exact market relevance.",
+    "Failed PRACTICAL-008 requests require URL/source handling before a later controlled fetch."
+  ],
+  "market_recommendation_generated": false,
+  "no_live_fetch_performed_in_this_task": true,
+  "no_real_trade_decision": true,
+  "normalized_evidence_summary": [
+    "public court/government page placeholder returned HTTP 200 for `https://www.supremecourt.gov/docket/docket.aspx` and was saved as replay-safe metadata.",
+    "Public source returned HTTP 200 for request intent public_fetch_request_intent_006_02_563650_563650_domain_public_evidence.",
+    "Response metadata and digest were saved before replay for paper-only evidence review.",
+    "4 approved PRACTICAL-008 source requests did not produce saved evidence packets.",
+    "The saved evidence supports source-accessibility tracking, not outcome resolution."
+  ],
+  "operator_review_checklist": [
+    "Confirm the saved evidence packet matches the approved PRACTICAL-008 request intent.",
+    "Confirm the replay artifact preserves source identity, freshness, and limitations.",
+    "Confirm the successful source is relevant to the paper hypothesis before approving any separate paper update.",
+    "Confirm failed requests are handled through a later URL/source correction task before another controlled fetch.",
+    "Confirm outcome resolution remains separate from source accessibility review."
+  ],
+  "operator_review_required": true,
+  "probability_ev_edge_or_side_selection_generated": false,
+  "replay_artifacts_used": [
+    {
+      "contract_version": "pmbot_saved_evidence_replay_adapter.v1",
+      "live_network_used": false,
+      "path": "pm_bot/practical/artifacts/public_read_only_fetch_execution_008/replay/replayed_source_packets_008.json",
+      "replay_performed": true,
+      "replay_status": "replayed_saved_public_evidence",
+      "source_packet_count": 1
+    }
+  ],
+  "review_id": "public-evidence-review-009",
+  "review_status": "operator_review_candidate_created",
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "source_task_id": "ORCH-PMBOT-PRACTICAL-008-FIRST-CONTROLLED-PUBLIC-READ-ONLY-FETCH-EXECUTION-WITH-CONCRETE-URL-MANIFEST",
+  "staleness_notes": [
+    "public_fetch_008_563650_public_fetch_request_intent_006_02_563650_563650_domain_public_evidence_a6d1969391feeee9: freshness `captured_at_task_time` captured at `2026-05-10T13:16:55Z`."
+  ]
+}

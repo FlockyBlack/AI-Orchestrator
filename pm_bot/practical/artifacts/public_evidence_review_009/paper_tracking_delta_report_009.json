@@ -1,0 +1,37 @@
+{
+  "automatic_analysis_update_performed": false,
+  "automatic_update_performed": false,
+  "contract_version": "pmbot_paper_tracking_delta_report.v1",
+  "delta_report_id": "paper-tracking-delta-report-009",
+  "evidence_reviewed": true,
+  "generated_at": "2026-05-10T00:00:00Z",
+  "market_recommendation_generated": false,
+  "no_real_trade_decision": true,
+  "operator_approval_required": true,
+  "orders_or_trading_actions": false,
+  "original_hypothesis_changed": false,
+  "probability_ev_edge_or_side_selection_generated": false,
+  "proposed_tracking_delta": [
+    "Record that PRACTICAL-008 captured and replayed a public SCOTUS docket source for this paper hypothesis.",
+    "Treat the evidence as source-accessibility support only until an operator confirms exact case relevance.",
+    "Keep final outcome resolution as a separate unresolved follow-up."
+  ],
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "source_review_id": "public-evidence-review-009",
+  "unresolved_outcome_still_required": true,
+  "update_candidate_created": true,
+  "wallet_or_private_key_access": false
+}
