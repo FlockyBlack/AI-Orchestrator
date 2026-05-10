@@ -1,0 +1,60 @@
+{
+  "contract_version": "pmbot_saved_evidence_replay_adapter.v1",
+  "evidence_packet_paths": [
+    "pm_bot/practical/artifacts/public_read_only_fetch_execution_008/evidence_packets/public_fetch_008_563650_public_fetch_request_intent_006_02_563650_563650_domain_public_evidence_a6d1969391feeee9.json"
+  ],
+  "generated_at": "2026-05-10T00:00:00Z",
+  "hypothesis_ids": [
+    "563650.analysis.adc53630aa1f.paper_hypothesis"
+  ],
+  "live_network_used": false,
+  "market_ids": [
+    "563650"
+  ],
+  "replay_mode": true,
+  "replay_performed": true,
+  "replay_status": "replayed_saved_public_evidence",
+  "safety_notes": [
+    "Saved evidence replay only.",
+    "No network fetch is performed.",
+    "Source IDs, source categories, freshness, limitations, and replay markers are preserved."
+  ],
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "source_packet_format": "pmbot_one_market_input.v1 source_packets-compatible",
+  "source_packets": [
+    {
+      "captured_at": "2026-05-10T13:16:55Z",
+      "claim_type": "saved_public_evidence_claims",
+      "claim_value": "Public source returned HTTP 200 for request intent public_fetch_request_intent_006_02_563650_563650_domain_public_evidence. | Response metadata and digest were saved before replay for paper-only evidence review.",
+      "evidence_packet_id": "public_fetch_008_563650_public_fetch_request_intent_006_02_563650_563650_domain_public_evidence_a6d1969391feeee9",
+      "evidence_summary": "HTTP 200 public read-only GET response captured for replay. Content-Type: text/html; charset=utf-8. Body bytes read: 46705. SHA256: a6d1969391feeee978a5420d0c462324b869a7529ceb81290c6f80abf887f31d. Raw response body is not embedded in this packet; the digest and metadata support operator review.",
+      "freshness_status": "captured_at_task_time",
+      "known_limitations": [
+        "Response body is summarized by metadata and digest in this artifact rather than embedded verbatim.",
+        "This packet records public source accessibility and does not resolve the market outcome.",
+        "This packet is paper-only evidence capture and is not an executable market action."
+      ],
+      "live_network_used": false,
+      "replay_mode": true,
+      "source_category": "public_court_government_page_placeholder",
+      "source_id": "public_fetch_request_intent_006_02_563650_563650_domain_public_evidence",
+      "source_name": "public court/government page placeholder",
+      "source_type": "saved_public_evidence_replay",
+      "source_url_or_reference": "https://www.supremecourt.gov/docket/docket.aspx",
+      "used_in_analysis": true
+    }
+  ]
+}

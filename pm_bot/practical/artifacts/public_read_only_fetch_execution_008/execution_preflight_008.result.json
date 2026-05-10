@@ -1,0 +1,126 @@
+{
+  "approval_status": "approved_for_scoped_public_read_only_fetch_only",
+  "approved_manifest_path": "pm_bot/practical/artifacts/public_read_only_fetch_url_enrichment_007b/enriched_fetch_request_manifest.json",
+  "approved_market_ids": [
+    "563650",
+    "597964",
+    "598936",
+    "691547",
+    "692258"
+  ],
+  "approved_request_count": 5,
+  "approved_request_intent_ids": [
+    "public_fetch_request_intent_006_02_563650_563650_domain_public_evidence",
+    "public_fetch_request_intent_006_06_598936_598936_domain_public_evidence",
+    "public_fetch_request_intent_006_04_597964_597964_domain_public_evidence",
+    "public_fetch_request_intent_006_08_691547_691547_domain_public_evidence",
+    "public_fetch_request_intent_006_10_692258_692258_domain_public_evidence"
+  ],
+  "blocked_request_count": 0,
+  "blockers": [],
+  "contract_version": "pmbot_concrete_manifest_public_fetch_execution_preflight.v1",
+  "eligible_request_intents": [
+    {
+      "market_id": "563650",
+      "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?",
+      "method": "GET",
+      "request_intent_id": "public_fetch_request_intent_006_02_563650_563650_domain_public_evidence",
+      "source_category": "public_court_government_page_placeholder",
+      "source_name": "public court/government page placeholder",
+      "source_url": "https://www.supremecourt.gov/docket/docket.aspx",
+      "url_safety_allowed": true,
+      "url_safety_blockers": [],
+      "url_safety_warnings": [
+        "source category is a placeholder category with a concrete URL reference"
+      ]
+    },
+    {
+      "market_id": "598936",
+      "market_title": "Will the next UK election be called by June 30, 2026?",
+      "method": "GET",
+      "request_intent_id": "public_fetch_request_intent_006_06_598936_598936_domain_public_evidence",
+      "source_category": "public_court_government_page_placeholder",
+      "source_name": "public government or parliament page placeholder",
+      "source_url": "https://www.parliament.uk/about/how/elections-and-voting/general/",
+      "url_safety_allowed": true,
+      "url_safety_blockers": [],
+      "url_safety_warnings": [
+        "source category is a placeholder category with a concrete URL reference"
+      ]
+    },
+    {
+      "market_id": "597964",
+      "market_title": "Macron out by June 30, 2026?",
+      "method": "GET",
+      "request_intent_id": "public_fetch_request_intent_006_04_597964_597964_domain_public_evidence",
+      "source_category": "public_resolution_source_page_placeholder",
+      "source_name": "public resolution source page placeholder",
+      "source_url": "https://www.elysee.fr/emmanuel-macron",
+      "url_safety_allowed": true,
+      "url_safety_blockers": [],
+      "url_safety_warnings": [
+        "source category is a placeholder category with a concrete URL reference"
+      ]
+    },
+    {
+      "market_id": "691547",
+      "market_title": "Kraken IPO by December 31, 2026?",
+      "method": "GET",
+      "request_intent_id": "public_fetch_request_intent_006_08_691547_691547_domain_public_evidence",
+      "source_category": "public_exchange_company_announcement_page_placeholder",
+      "source_name": "public exchange/company announcement page placeholder",
+      "source_url": "https://www.kraken.com/blog",
+      "url_safety_allowed": true,
+      "url_safety_blockers": [],
+      "url_safety_warnings": [
+        "source category is a placeholder category with a concrete URL reference"
+      ]
+    },
+    {
+      "market_id": "692258",
+      "market_title": "MicroStrategy sells any Bitcoin by June 30, 2026?",
+      "method": "GET",
+      "request_intent_id": "public_fetch_request_intent_006_10_692258_692258_domain_public_evidence",
+      "source_category": "public_issuer_company_news_page_placeholder",
+      "source_name": "public issuer/company news page placeholder",
+      "source_url": "https://www.microstrategy.com/press",
+      "url_safety_allowed": true,
+      "url_safety_blockers": [],
+      "url_safety_warnings": [
+        "source category is a placeholder category with a concrete URL reference"
+      ]
+    }
+  ],
+  "executable_request_count": 5,
+  "generated_at": "2026-05-10T13:16:55Z",
+  "ineligible_blocked_request_intent_ids": [],
+  "ineligible_missing_url_request_intent_ids": [
+    "public_fetch_request_intent_006_01_563650_563650_market_metadata",
+    "public_fetch_request_intent_006_03_597964_597964_market_metadata",
+    "public_fetch_request_intent_006_05_598936_598936_market_metadata",
+    "public_fetch_request_intent_006_07_691547_691547_market_metadata",
+    "public_fetch_request_intent_006_09_692258_692258_market_metadata"
+  ],
+  "live_fetch_performed": false,
+  "missing_url_count": 5,
+  "ready_to_execute_public_read_only_fetch": true,
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "task_id": "ORCH-PMBOT-PRACTICAL-008-FIRST-CONTROLLED-PUBLIC-READ-ONLY-FETCH-EXECUTION-WITH-CONCRETE-URL-MANIFEST",
+  "warnings": [
+    "5 missing URL request intents remain non-executable"
+  ],
+  "within_request_limit": true
+}

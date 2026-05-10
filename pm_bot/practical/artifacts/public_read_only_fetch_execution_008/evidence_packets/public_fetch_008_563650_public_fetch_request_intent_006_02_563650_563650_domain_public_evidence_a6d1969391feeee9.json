@@ -1,0 +1,54 @@
+{
+  "auth_used": false,
+  "body_byte_count": 46705,
+  "body_sha256": "a6d1969391feeee978a5420d0c462324b869a7529ceb81290c6f80abf887f31d",
+  "capture_errors": [],
+  "capture_mode": "future_public_read_only_fetch",
+  "captured_at": "2026-05-10T13:16:55Z",
+  "content_type": "text/html; charset=utf-8",
+  "contract_version": "pmbot_saved_public_evidence_packet.v1",
+  "contradiction_candidates": [],
+  "credentials_used": false,
+  "evidence_packet_id": "public_fetch_008_563650_public_fetch_request_intent_006_02_563650_563650_domain_public_evidence_a6d1969391feeee9",
+  "final_url": "https://www.supremecourt.gov/docket/docket.aspx",
+  "freshness_status": "captured_at_task_time",
+  "http_status": 200,
+  "hypothesis_ids": [
+    "563650.analysis.adc53630aa1f.paper_hypothesis"
+  ],
+  "limitations": [
+    "Response body is summarized by metadata and digest in this artifact rather than embedded verbatim.",
+    "This packet records public source accessibility and does not resolve the market outcome.",
+    "This packet is paper-only evidence capture and is not an executable market action."
+  ],
+  "live_network_used": true,
+  "market_ids": [
+    "563650"
+  ],
+  "normalized_claims": [
+    "Public source returned HTTP 200 for request intent public_fetch_request_intent_006_02_563650_563650_domain_public_evidence.",
+    "Response metadata and digest were saved before replay for paper-only evidence review."
+  ],
+  "orders_or_trading_actions": false,
+  "raw_excerpt_or_summary": "HTTP 200 public read-only GET response captured for replay. Content-Type: text/html; charset=utf-8. Body bytes read: 46705. SHA256: a6d1969391feeee978a5420d0c462324b869a7529ceb81290c6f80abf887f31d. Raw response body is not embedded in this packet; the digest and metadata support operator review.",
+  "safe_for_replay": true,
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "source_category": "public_court_government_page_placeholder",
+  "source_id": "public_fetch_request_intent_006_02_563650_563650_domain_public_evidence",
+  "source_name": "public court/government page placeholder",
+  "source_reference": "https://www.supremecourt.gov/docket/docket.aspx",
+  "wallet_or_private_key_access": false
+}

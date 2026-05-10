@@ -1,0 +1,38 @@
+{
+  "affected_hypothesis_ids": [
+    "563650.analysis.adc53630aa1f.paper_hypothesis"
+  ],
+  "affected_market_ids": [
+    "563650"
+  ],
+  "automatic_analysis_update_performed": false,
+  "automatic_update_performed": false,
+  "contract_version": "pmbot_public_fetch_analysis_update_candidate_report.v1",
+  "contradictions_detected": false,
+  "evidence_packets_used": [
+    "public_fetch_008_563650_public_fetch_request_intent_006_02_563650_563650_domain_public_evidence_a6d1969391feeee9"
+  ],
+  "generated_at": "2026-05-10T13:16:55Z",
+  "market_recommendation_generated": false,
+  "no_real_trade_decision": true,
+  "probability_ev_edge_or_side_selection_generated": false,
+  "recommended_operator_review": "Operator should review replay output before any separately approved paper-only analysis update.",
+  "replay_status": "replayed_saved_public_evidence",
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "staleness_status": "captured_for_review",
+  "task_id": "ORCH-PMBOT-PRACTICAL-008-FIRST-CONTROLLED-PUBLIC-READ-ONLY-FETCH-EXECUTION-WITH-CONCRETE-URL-MANIFEST",
+  "update_candidate_available": true
+}

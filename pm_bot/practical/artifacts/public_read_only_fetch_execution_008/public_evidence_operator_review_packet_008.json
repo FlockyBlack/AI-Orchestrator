@@ -1,0 +1,136 @@
+{
+  "contract_version": "pmbot_public_evidence_operator_review_packet.v1",
+  "contradiction_candidates": [],
+  "fetched_markets": [
+    {
+      "market_id": "563650",
+      "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?"
+    },
+    {
+      "market_id": "598936",
+      "market_title": "Will the next UK election be called by June 30, 2026?"
+    },
+    {
+      "market_id": "597964",
+      "market_title": "Macron out by June 30, 2026?"
+    },
+    {
+      "market_id": "691547",
+      "market_title": "Kraken IPO by December 31, 2026?"
+    },
+    {
+      "market_id": "692258",
+      "market_title": "MicroStrategy sells any Bitcoin by June 30, 2026?"
+    }
+  ],
+  "fetched_sources": [
+    {
+      "body_byte_count": 46705,
+      "body_sha256": "a6d1969391feeee978a5420d0c462324b869a7529ceb81290c6f80abf887f31d",
+      "content_type": "text/html; charset=utf-8",
+      "evidence_packet_id": "public_fetch_008_563650_public_fetch_request_intent_006_02_563650_563650_domain_public_evidence_a6d1969391feeee9",
+      "evidence_packet_markdown_path": "pm_bot/practical/artifacts/public_read_only_fetch_execution_008/evidence_packets/public_fetch_008_563650_public_fetch_request_intent_006_02_563650_563650_domain_public_evidence_a6d1969391feeee9.md",
+      "evidence_packet_path": "pm_bot/practical/artifacts/public_read_only_fetch_execution_008/evidence_packets/public_fetch_008_563650_public_fetch_request_intent_006_02_563650_563650_domain_public_evidence_a6d1969391feeee9.json",
+      "final_url": "https://www.supremecourt.gov/docket/docket.aspx",
+      "http_status": 200,
+      "market_id": "563650",
+      "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?",
+      "method": "GET",
+      "request_intent_id": "public_fetch_request_intent_006_02_563650_563650_domain_public_evidence",
+      "result_status": "succeeded",
+      "source_category": "public_court_government_page_placeholder",
+      "source_name": "public court/government page placeholder",
+      "source_url": "https://www.supremecourt.gov/docket/docket.aspx"
+    },
+    {
+      "error": "HTTP fetch failed with status 403",
+      "market_id": "598936",
+      "market_title": "Will the next UK election be called by June 30, 2026?",
+      "method": "GET",
+      "request_intent_id": "public_fetch_request_intent_006_06_598936_598936_domain_public_evidence",
+      "result_status": "failed",
+      "source_category": "public_court_government_page_placeholder",
+      "source_name": "public government or parliament page placeholder",
+      "source_url": "https://www.parliament.uk/about/how/elections-and-voting/general/"
+    },
+    {
+      "error": "HTTP fetch failed: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1010)",
+      "market_id": "597964",
+      "market_title": "Macron out by June 30, 2026?",
+      "method": "GET",
+      "request_intent_id": "public_fetch_request_intent_006_04_597964_597964_domain_public_evidence",
+      "result_status": "failed",
+      "source_category": "public_resolution_source_page_placeholder",
+      "source_name": "public resolution source page placeholder",
+      "source_url": "https://www.elysee.fr/emmanuel-macron"
+    },
+    {
+      "error": "redirect blocked: 308 https://blog.kraken.com/",
+      "market_id": "691547",
+      "market_title": "Kraken IPO by December 31, 2026?",
+      "method": "GET",
+      "request_intent_id": "public_fetch_request_intent_006_08_691547_691547_domain_public_evidence",
+      "result_status": "failed",
+      "source_category": "public_exchange_company_announcement_page_placeholder",
+      "source_name": "public exchange/company announcement page placeholder",
+      "source_url": "https://www.kraken.com/blog"
+    },
+    {
+      "error": "HTTP fetch failed with status 403",
+      "market_id": "692258",
+      "market_title": "MicroStrategy sells any Bitcoin by June 30, 2026?",
+      "method": "GET",
+      "request_intent_id": "public_fetch_request_intent_006_10_692258_692258_domain_public_evidence",
+      "result_status": "failed",
+      "source_category": "public_issuer_company_news_page_placeholder",
+      "source_name": "public issuer/company news page placeholder",
+      "source_url": "https://www.microstrategy.com/press"
+    }
+  ],
+  "generated_at": "2026-05-10T13:16:55Z",
+  "limitations": [
+    "Response body is summarized by metadata and digest in this artifact rather than embedded verbatim.",
+    "This packet is paper-only evidence capture and is not an executable market action.",
+    "This packet records public source accessibility and does not resolve the market outcome."
+  ],
+  "no_evidence_explanation": [],
+  "no_real_trade_decision": true,
+  "operator_review_checklist": [
+    "Confirm each saved evidence packet corresponds to an approved manifest request intent.",
+    "Confirm replayed source packets preserve source identity, freshness, limitations, and replay markers.",
+    "Confirm any later paper-only analysis update is explicitly approved in a separate task.",
+    "Confirm no missing or blocked URL request intent was fetched."
+  ],
+  "recommended_next_safe_action": "Review the replay packet and decide whether to open a separate paper-only hypothesis update task.",
+  "replay_artifact_paths": [
+    "pm_bot/practical/artifacts/public_read_only_fetch_execution_008/replay/replayed_source_packets_008.json"
+  ],
+  "replay_status": "replayed_saved_public_evidence",
+  "request_summary": {
+    "attempted": 5,
+    "blocked": 0,
+    "failed": 4,
+    "succeeded": 1
+  },
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "saved_evidence_packet_paths": [
+    "pm_bot/practical/artifacts/public_read_only_fetch_execution_008/evidence_packets/public_fetch_008_563650_public_fetch_request_intent_006_02_563650_563650_domain_public_evidence_a6d1969391feeee9.json"
+  ],
+  "source_freshness_notes": [
+    "public_fetch_request_intent_006_02_563650_563650_domain_public_evidence captured at task time with HTTP 200 and digest a6d1969391feeee9."
+  ],
+  "task_id": "ORCH-PMBOT-PRACTICAL-008-FIRST-CONTROLLED-PUBLIC-READ-ONLY-FETCH-EXECUTION-WITH-CONCRETE-URL-MANIFEST"
+}

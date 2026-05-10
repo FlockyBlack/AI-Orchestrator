@@ -1,0 +1,53 @@
+{
+  "automatic_analysis_update_performed": false,
+  "blocked_scope": [],
+  "card_id": "operator-public-fetch-execution-card-008",
+  "contract_version": "pmbot_operator_public_fetch_execution_card.v1",
+  "evidence_packets_saved": true,
+  "generated_at": "2026-05-10T13:16:55Z",
+  "live_public_read_only_fetch_occurred": true,
+  "operator_should_inspect_next": [
+    "execution_preflight_008.md",
+    "fetch_execution_summary_008.md",
+    "public_evidence_operator_review_packet_008.md",
+    "replay/replayed_source_packets_008.md",
+    "analysis_update_candidate_report_008.md",
+    "source_learning_public_fetch_pending_008.md"
+  ],
+  "replay_happened": true,
+  "request_count_blocked": 0,
+  "request_count_failed": 4,
+  "request_count_succeeded": 1,
+  "safety_boundary": [
+    "Paper-only and analysis-quality-tracking-only.",
+    "No real trade decision.",
+    "No automatic mutation of prior market analyses.",
+    "No autonomous trading readiness claim."
+  ],
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "task_id": "ORCH-PMBOT-PRACTICAL-008-FIRST-CONTROLLED-PUBLIC-READ-ONLY-FETCH-EXECUTION-WITH-CONCRETE-URL-MANIFEST",
+  "what_remains_blocked": [
+    "OpenRouter calls",
+    "authenticated endpoints",
+    "API keys, cookies, browser profiles, and browser automation",
+    "wallets, private keys, signing, order placement, and trading endpoints",
+    "POST, PUT, PATCH, DELETE, request bodies, crawling, search, or arbitrary link following",
+    "scheduler, daemon, background worker, polling loop, autonomous execution, run-codex-once, and run-codex-batch",
+    "runtime, dispatcher, run_codex, wallet, order, or trading execution path changes",
+    "automatic market analysis mutation and executable market action output",
+    "disallowed probability, EV, edge, confidence, or side-selection output category"
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "contract_version": "pmbot_operator_console_public_fetch_status.v1",
+  "generated_at": "2026-05-10T13:16:55Z",
+  "new_evidence_availability": "available",
+  "next_outcome_tracking_actions": [
+    "Review public evidence replay output.",
+    "Keep any later paper-only hypothesis update in a separate explicitly approved task.",
+    "Track outcome resolution separately from this accessibility-focused fetch execution."
+  ],
+  "original_5_market_paper_tracking_state": [
+    {
+      "market_id": "563650",
+      "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?",
+      "paper_tracking_state": "existing local paper tracking state preserved; no automatic analysis update performed"
+    },
+    {
+      "market_id": "598936",
+      "market_title": "Will the next UK election be called by June 30, 2026?",
+      "paper_tracking_state": "existing local paper tracking state preserved; no automatic analysis update performed"
+    },
+    {
+      "market_id": "597964",
+      "market_title": "Macron out by June 30, 2026?",
+      "paper_tracking_state": "existing local paper tracking state preserved; no automatic analysis update performed"
+    },
+    {
+      "market_id": "691547",
+      "market_title": "Kraken IPO by December 31, 2026?",
+      "paper_tracking_state": "existing local paper tracking state preserved; no automatic analysis update performed"
+    },
+    {
+      "market_id": "692258",
+      "market_title": "MicroStrategy sells any Bitcoin by June 30, 2026?",
+      "paper_tracking_state": "existing local paper tracking state preserved; no automatic analysis update performed"
+    }
+  ],
+  "pending_operator_review": true,
+  "public_fetch_execution_status": "completed_with_saved_evidence",
+  "replay_availability": "available",
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "source_learning_pending_updates": [
+    "Record which source URLs were reachable now.",
+    "Defer source outcome-quality scoring until market outcome resolution."
+  ],
+  "task_id": "ORCH-PMBOT-PRACTICAL-008-FIRST-CONTROLLED-PUBLIC-READ-ONLY-FETCH-EXECUTION-WITH-CONCRETE-URL-MANIFEST"
+}
