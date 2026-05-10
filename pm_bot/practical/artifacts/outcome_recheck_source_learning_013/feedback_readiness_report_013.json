@@ -1,0 +1,96 @@
+{
+  "blocked_feedback_count": 5,
+  "blocked_items": [
+    {
+      "blocker": "No valid local outcome resolution record is available.",
+      "market_id": "563650",
+      "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?",
+      "next_operator_action": "When a valid local resolution record exists, attach it before changing feedback status.",
+      "outcome_status": "unresolved"
+    },
+    {
+      "blocker": "No valid local outcome resolution record is available.",
+      "market_id": "597964",
+      "market_title": "Macron out by June 30, 2026?",
+      "next_operator_action": "When a valid local resolution record exists, attach it before changing feedback status.",
+      "outcome_status": "unresolved"
+    },
+    {
+      "blocker": "No valid local outcome resolution record is available.",
+      "market_id": "598936",
+      "market_title": "Will the next UK election be called by June 30, 2026?",
+      "next_operator_action": "When a valid local resolution record exists, attach it before changing feedback status.",
+      "outcome_status": "unresolved"
+    },
+    {
+      "blocker": "No valid local outcome resolution record is available.",
+      "market_id": "691547",
+      "market_title": "Kraken IPO by December 31, 2026?",
+      "next_operator_action": "When a valid local resolution record exists, attach it before changing feedback status.",
+      "outcome_status": "unresolved"
+    },
+    {
+      "blocker": "No valid local outcome resolution record is available.",
+      "market_id": "692258",
+      "market_title": "MicroStrategy sells any Bitcoin by June 30, 2026?",
+      "next_operator_action": "When a valid local resolution record exists, attach it before changing feedback status.",
+      "outcome_status": "unresolved"
+    }
+  ],
+  "contract_version": "pmbot_feedback_readiness_report.v1",
+  "feedback_ready_count": 0,
+  "generated_at": "2026-05-10T22:09:20Z",
+  "missing_outcome_records": [
+    {
+      "market_id": "563650",
+      "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?",
+      "missing_record_type": "resolved_or_ambiguous_or_void_local_outcome_record"
+    },
+    {
+      "market_id": "597964",
+      "market_title": "Macron out by June 30, 2026?",
+      "missing_record_type": "resolved_or_ambiguous_or_void_local_outcome_record"
+    },
+    {
+      "market_id": "598936",
+      "market_title": "Will the next UK election be called by June 30, 2026?",
+      "missing_record_type": "resolved_or_ambiguous_or_void_local_outcome_record"
+    },
+    {
+      "market_id": "691547",
+      "market_title": "Kraken IPO by December 31, 2026?",
+      "missing_record_type": "resolved_or_ambiguous_or_void_local_outcome_record"
+    },
+    {
+      "market_id": "692258",
+      "market_title": "MicroStrategy sells any Bitcoin by June 30, 2026?",
+      "missing_record_type": "resolved_or_ambiguous_or_void_local_outcome_record"
+    }
+  ],
+  "next_feedback_actions": [
+    "Wait for valid local outcome resolution records before creating feedback packets.",
+    "Use the manual outcome resolution update template when a market has local resolution evidence.",
+    "Keep unresolved markets blocked from paper feedback result labels."
+  ],
+  "ready_items": [],
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "new_live_fetch_performed": false,
+    "new_polymarket_api_calls_performed": 0,
+    "no_autonomous_trading": true,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "no_scheduler_daemon_background_worker": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "outcome_resolution_invented": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "unresolved_count": 5
+}

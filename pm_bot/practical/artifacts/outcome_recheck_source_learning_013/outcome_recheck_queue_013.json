@@ -1,0 +1,145 @@
+{
+  "ambiguous_count": 0,
+  "contract_version": "pmbot_outcome_recheck_queue.v1",
+  "generated_at": "2026-05-10T22:09:20Z",
+  "local_resolution_record_count": 0,
+  "next_recheck_actions": [
+    "Keep unresolved markets in paper-only recheck status until a saved local resolution record exists.",
+    "Prioritize the market with the applied paper update because it is the next feedback dependency.",
+    "Use only local outcome records for any later status change."
+  ],
+  "no_local_resolution_available_count": 5,
+  "queue_id": "outcome-recheck-queue-013",
+  "recheck_items": [
+    {
+      "applied_paper_update_ids": [
+        "applied-paper-update-012-paper-hypothesis-update-candidate-009"
+      ],
+      "current_paper_tracking_summary": "Track whether the local source-backed analysis remains useful after the market outcome is reviewed. Paper tracking update: Record that PRACTICAL-008 captured and replayed a public SCOTUS docket source for this paper hypothesis. Treat the evidence as source-accessibility support only until an operator confirms exact case relevance. Keep final outcome resolution as a separate unresolved follow-up.",
+      "hypothesis_id": "563650.analysis.adc53630aa1f.paper_hypothesis",
+      "local_outcome_record_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/563650/outcome_record.unresolved.json",
+      "market_id": "563650",
+      "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?",
+      "next_operator_action": "When a valid local resolution record exists, attach it before changing feedback status.",
+      "outcome_status": "unresolved",
+      "recheck_priority": "high",
+      "resolution_source_reference": null,
+      "source_evidence_available": true,
+      "source_evidence_details": {
+        "available_public_evidence": true,
+        "evidence_still_missing": true,
+        "paper_update_candidate_exists": true,
+        "paper_update_candidate_id": "paper-hypothesis-update-candidate-009"
+      },
+      "update_applied_count": 1,
+      "why_recheck_needed": "Applied paper tracking update cannot be judged until a saved local outcome resolution exists."
+    },
+    {
+      "applied_paper_update_ids": [],
+      "current_paper_tracking_summary": "Track whether the local source-backed analysis remains useful after the market outcome is reviewed.",
+      "hypothesis_id": "597964.analysis.33643849e5db.paper_hypothesis",
+      "local_outcome_record_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/597964/outcome_record.unresolved.json",
+      "market_id": "597964",
+      "market_title": "Macron out by June 30, 2026?",
+      "next_operator_action": "When a valid local resolution record exists, attach it before changing feedback status.",
+      "outcome_status": "unresolved",
+      "recheck_priority": "medium",
+      "resolution_source_reference": null,
+      "source_evidence_available": false,
+      "source_evidence_details": {
+        "available_public_evidence": false,
+        "evidence_still_missing": true,
+        "paper_update_candidate_exists": false,
+        "paper_update_candidate_id": ""
+      },
+      "update_applied_count": 0,
+      "why_recheck_needed": "Outcome is still unresolved and no saved local resolution record is available."
+    },
+    {
+      "applied_paper_update_ids": [],
+      "current_paper_tracking_summary": "Track whether the local source-backed analysis remains useful after the market outcome is reviewed.",
+      "hypothesis_id": "598936.analysis.dceea0f50063.paper_hypothesis",
+      "local_outcome_record_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/598936/outcome_record.unresolved.json",
+      "market_id": "598936",
+      "market_title": "Will the next UK election be called by June 30, 2026?",
+      "next_operator_action": "When a valid local resolution record exists, attach it before changing feedback status.",
+      "outcome_status": "unresolved",
+      "recheck_priority": "medium",
+      "resolution_source_reference": null,
+      "source_evidence_available": false,
+      "source_evidence_details": {
+        "available_public_evidence": false,
+        "evidence_still_missing": true,
+        "paper_update_candidate_exists": false,
+        "paper_update_candidate_id": ""
+      },
+      "update_applied_count": 0,
+      "why_recheck_needed": "Outcome is still unresolved and no saved local resolution record is available."
+    },
+    {
+      "applied_paper_update_ids": [],
+      "current_paper_tracking_summary": "Track whether the local source-backed analysis remains useful after the market outcome is reviewed.",
+      "hypothesis_id": "691547.analysis.56b3a68b9b94.paper_hypothesis",
+      "local_outcome_record_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/691547/outcome_record.unresolved.json",
+      "market_id": "691547",
+      "market_title": "Kraken IPO by December 31, 2026?",
+      "next_operator_action": "When a valid local resolution record exists, attach it before changing feedback status.",
+      "outcome_status": "unresolved",
+      "recheck_priority": "medium",
+      "resolution_source_reference": null,
+      "source_evidence_available": true,
+      "source_evidence_details": {
+        "available_public_evidence": true,
+        "evidence_still_missing": true,
+        "paper_update_candidate_exists": false,
+        "paper_update_candidate_id": ""
+      },
+      "update_applied_count": 0,
+      "why_recheck_needed": "Saved public evidence exists, but outcome feedback remains blocked by unresolved local status."
+    },
+    {
+      "applied_paper_update_ids": [],
+      "current_paper_tracking_summary": "Track whether the local source-backed analysis remains useful after the market outcome is reviewed.",
+      "hypothesis_id": "692258.analysis.bed289c1494d.paper_hypothesis",
+      "local_outcome_record_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/692258/outcome_record.unresolved.json",
+      "market_id": "692258",
+      "market_title": "MicroStrategy sells any Bitcoin by June 30, 2026?",
+      "next_operator_action": "When a valid local resolution record exists, attach it before changing feedback status.",
+      "outcome_status": "unresolved",
+      "recheck_priority": "medium",
+      "resolution_source_reference": null,
+      "source_evidence_available": false,
+      "source_evidence_details": {
+        "available_public_evidence": false,
+        "evidence_still_missing": true,
+        "paper_update_candidate_exists": false,
+        "paper_update_candidate_id": ""
+      },
+      "update_applied_count": 0,
+      "why_recheck_needed": "Outcome is still unresolved and no saved local resolution record is available."
+    }
+  ],
+  "resolved_count": 0,
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "new_live_fetch_performed": false,
+    "new_polymarket_api_calls_performed": 0,
+    "no_autonomous_trading": true,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "no_scheduler_daemon_background_worker": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "outcome_resolution_invented": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "tracked_market_count": 5,
+  "unresolved_count": 5,
+  "void_count": 0
+}

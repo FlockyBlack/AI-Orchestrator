@@ -1,0 +1,64 @@
+{
+  "actual_outcome_summary": null,
+  "allowed_paper_hypothesis_result_labels": [
+    "pending",
+    "aligned",
+    "not_aligned",
+    "ambiguous",
+    "void"
+  ],
+  "approval_required": true,
+  "contract_version": "pmbot_manual_outcome_resolution_update_template.v1",
+  "generated_at": "2026-05-10T22:09:20Z",
+  "market_id": null,
+  "market_title": null,
+  "operator_notes": null,
+  "outcome_status": "unresolved",
+  "paper_hypothesis_result_label": "pending",
+  "reasoning_lessons": [],
+  "resolution_source_reference": null,
+  "resolved_at": null,
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "new_live_fetch_performed": false,
+    "new_polymarket_api_calls_performed": 0,
+    "no_autonomous_trading": true,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "no_scheduler_daemon_background_worker": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "outcome_resolution_invented": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "source_accuracy_lessons": [],
+  "source_evidence_used_for_resolution": [],
+  "tracked_market_options": [
+    {
+      "market_id": "563650",
+      "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?"
+    },
+    {
+      "market_id": "597964",
+      "market_title": "Macron out by June 30, 2026?"
+    },
+    {
+      "market_id": "598936",
+      "market_title": "Will the next UK election be called by June 30, 2026?"
+    },
+    {
+      "market_id": "691547",
+      "market_title": "Kraken IPO by December 31, 2026?"
+    },
+    {
+      "market_id": "692258",
+      "market_title": "MicroStrategy sells any Bitcoin by June 30, 2026?"
+    }
+  ]
+}

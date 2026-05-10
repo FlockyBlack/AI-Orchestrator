@@ -1,0 +1,221 @@
+{
+  "applied_update_to_outcome_links": [
+    {
+      "applied_update_id": "applied-paper-update-012-paper-hypothesis-update-candidate-009",
+      "hypothesis_id": "563650.analysis.adc53630aa1f.paper_hypothesis",
+      "market_id": "563650",
+      "outcome_status": "unresolved",
+      "requires_future_outcome_resolution": true,
+      "update_candidate_id": "paper-hypothesis-update-candidate-009"
+    }
+  ],
+  "contract_version": "pmbot_outcome_source_learning_join.v1",
+  "evidence_to_outcome_links": [
+    {
+      "evidence_packet_id": "public_fetch_008_563650_public_fetch_request_intent_006_02_563650_563650_domain_public_evidence_a6d1969391feeee9",
+      "evidence_used_for_resolution": false,
+      "hypothesis_id": "563650.analysis.adc53630aa1f.paper_hypothesis",
+      "market_id": "563650",
+      "outcome_status": "unresolved",
+      "source_id": "public_fetch_request_intent_006_02_563650_563650_domain_public_evidence"
+    },
+    {
+      "evidence_packet_id": "public_fetch_010_public_fetch_request_intent_006_08_691547_691547_domain_public_evidence_293c511e51a6fac6",
+      "evidence_used_for_resolution": false,
+      "hypothesis_id": "691547.analysis.56b3a68b9b94.paper_hypothesis",
+      "market_id": "691547",
+      "outcome_status": "unresolved",
+      "source_id": "public_fetch_request_intent_006_08_691547_691547_domain_public_evidence"
+    }
+  ],
+  "generated_at": "2026-05-10T22:09:20Z",
+  "market_records": [
+    {
+      "applied_paper_update_ids": [
+        "applied-paper-update-012-paper-hypothesis-update-candidate-009"
+      ],
+      "feedback_status": "outcome_pending",
+      "hypothesis_id": "563650.analysis.adc53630aa1f.paper_hypothesis",
+      "market_id": "563650",
+      "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?",
+      "next_operator_action": "When a valid local resolution record exists, attach it before changing feedback status.",
+      "outcome_status": "unresolved",
+      "paper_tracking_summary": "Track whether the local source-backed analysis remains useful after the market outcome is reviewed. Paper tracking update: Record that PRACTICAL-008 captured and replayed a public SCOTUS docket source for this paper hypothesis. Treat the evidence as source-accessibility support only until an operator confirms exact case relevance. Keep final outcome resolution as a separate unresolved follow-up.",
+      "recheck_priority": "high",
+      "source_ids": [
+        "public_fetch_request_intent_006_02_563650_563650_domain_public_evidence"
+      ],
+      "source_usefulness_labels": [
+        "useful_for_paper_tracking_update"
+      ]
+    },
+    {
+      "applied_paper_update_ids": [],
+      "feedback_status": "outcome_pending",
+      "hypothesis_id": "597964.analysis.33643849e5db.paper_hypothesis",
+      "market_id": "597964",
+      "market_title": "Macron out by June 30, 2026?",
+      "next_operator_action": "When a valid local resolution record exists, attach it before changing feedback status.",
+      "outcome_status": "unresolved",
+      "paper_tracking_summary": "Track whether the local source-backed analysis remains useful after the market outcome is reviewed.",
+      "recheck_priority": "medium",
+      "source_ids": [
+        "public_fetch_request_intent_006_04_597964_597964_domain_public_evidence"
+      ],
+      "source_usefulness_labels": [
+        "missing_replacement"
+      ]
+    },
+    {
+      "applied_paper_update_ids": [],
+      "feedback_status": "outcome_pending",
+      "hypothesis_id": "598936.analysis.dceea0f50063.paper_hypothesis",
+      "market_id": "598936",
+      "market_title": "Will the next UK election be called by June 30, 2026?",
+      "next_operator_action": "When a valid local resolution record exists, attach it before changing feedback status.",
+      "outcome_status": "unresolved",
+      "paper_tracking_summary": "Track whether the local source-backed analysis remains useful after the market outcome is reviewed.",
+      "recheck_priority": "medium",
+      "source_ids": [
+        "public_fetch_request_intent_006_06_598936_598936_domain_public_evidence"
+      ],
+      "source_usefulness_labels": [
+        "failed_access"
+      ]
+    },
+    {
+      "applied_paper_update_ids": [],
+      "feedback_status": "outcome_pending",
+      "hypothesis_id": "691547.analysis.56b3a68b9b94.paper_hypothesis",
+      "market_id": "691547",
+      "market_title": "Kraken IPO by December 31, 2026?",
+      "next_operator_action": "When a valid local resolution record exists, attach it before changing feedback status.",
+      "outcome_status": "unresolved",
+      "paper_tracking_summary": "Track whether the local source-backed analysis remains useful after the market outcome is reviewed.",
+      "recheck_priority": "medium",
+      "source_ids": [
+        "public_fetch_request_intent_006_08_691547_691547_domain_public_evidence"
+      ],
+      "source_usefulness_labels": [
+        "repaired_access"
+      ]
+    },
+    {
+      "applied_paper_update_ids": [],
+      "feedback_status": "outcome_pending",
+      "hypothesis_id": "692258.analysis.bed289c1494d.paper_hypothesis",
+      "market_id": "692258",
+      "market_title": "MicroStrategy sells any Bitcoin by June 30, 2026?",
+      "next_operator_action": "When a valid local resolution record exists, attach it before changing feedback status.",
+      "outcome_status": "unresolved",
+      "paper_tracking_summary": "Track whether the local source-backed analysis remains useful after the market outcome is reviewed.",
+      "recheck_priority": "medium",
+      "source_ids": [
+        "public_fetch_request_intent_006_10_692258_692258_domain_public_evidence"
+      ],
+      "source_usefulness_labels": [
+        "blocked"
+      ]
+    }
+  ],
+  "no_real_trade_decision": true,
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "new_live_fetch_performed": false,
+    "new_polymarket_api_calls_performed": 0,
+    "no_autonomous_trading": true,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "no_scheduler_daemon_background_worker": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "outcome_resolution_invented": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "source_board_summary": {
+    "blocked_source_count": 1,
+    "reachable_source_count": 2,
+    "repaired_source_count": 1,
+    "source_record_count": 5
+  },
+  "source_to_market_links": [
+    {
+      "market_id": "563650",
+      "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?",
+      "source_id": "public_fetch_request_intent_006_02_563650_563650_domain_public_evidence",
+      "source_usefulness_label": "useful_for_paper_tracking_update"
+    },
+    {
+      "market_id": "597964",
+      "market_title": "Macron out by June 30, 2026?",
+      "source_id": "public_fetch_request_intent_006_04_597964_597964_domain_public_evidence",
+      "source_usefulness_label": "missing_replacement"
+    },
+    {
+      "market_id": "598936",
+      "market_title": "Will the next UK election be called by June 30, 2026?",
+      "source_id": "public_fetch_request_intent_006_06_598936_598936_domain_public_evidence",
+      "source_usefulness_label": "failed_access"
+    },
+    {
+      "market_id": "691547",
+      "market_title": "Kraken IPO by December 31, 2026?",
+      "source_id": "public_fetch_request_intent_006_08_691547_691547_domain_public_evidence",
+      "source_usefulness_label": "repaired_access"
+    },
+    {
+      "market_id": "692258",
+      "market_title": "MicroStrategy sells any Bitcoin by June 30, 2026?",
+      "source_id": "public_fetch_request_intent_006_10_692258_692258_domain_public_evidence",
+      "source_usefulness_label": "blocked"
+    }
+  ],
+  "source_to_outcome_pending_links": [
+    {
+      "market_id": "563650",
+      "outcome_status": "unresolved",
+      "pending_reason": "Source quality cannot be judged against outcome while local outcome is unresolved.",
+      "source_id": "public_fetch_request_intent_006_02_563650_563650_domain_public_evidence"
+    },
+    {
+      "market_id": "597964",
+      "outcome_status": "unresolved",
+      "pending_reason": "Source quality cannot be judged against outcome while local outcome is unresolved.",
+      "source_id": "public_fetch_request_intent_006_04_597964_597964_domain_public_evidence"
+    },
+    {
+      "market_id": "598936",
+      "outcome_status": "unresolved",
+      "pending_reason": "Source quality cannot be judged against outcome while local outcome is unresolved.",
+      "source_id": "public_fetch_request_intent_006_06_598936_598936_domain_public_evidence"
+    },
+    {
+      "market_id": "691547",
+      "outcome_status": "unresolved",
+      "pending_reason": "Source quality cannot be judged against outcome while local outcome is unresolved.",
+      "source_id": "public_fetch_request_intent_006_08_691547_691547_domain_public_evidence"
+    },
+    {
+      "market_id": "692258",
+      "outcome_status": "unresolved",
+      "pending_reason": "Source quality cannot be judged against outcome while local outcome is unresolved.",
+      "source_id": "public_fetch_request_intent_006_10_692258_692258_domain_public_evidence"
+    }
+  ],
+  "what_can_be_judged_now": [
+    "The operator-approved PRACTICAL-012 update was applied to paper tracking state.",
+    "Saved source accessibility and repair status can be labeled for operational handling.",
+    "All feedback remains blocked because saved local outcomes are still unresolved."
+  ],
+  "what_requires_future_outcome_resolution": [
+    "Paper hypothesis alignment can only be reviewed after a valid local outcome record exists.",
+    "Source correctness cannot be judged until the linked market outcome is resolved locally.",
+    "Feedback packets need manual outcome resolution evidence before any result labels are set."
+  ]
+}

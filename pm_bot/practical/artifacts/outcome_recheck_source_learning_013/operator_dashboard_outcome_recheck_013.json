@@ -1,0 +1,72 @@
+{
+  "applied_paper_update_count": 1,
+  "contract_version": "pmbot_operator_dashboard_outcome_recheck.v1",
+  "dashboard_id": "operator-dashboard-outcome-recheck-013",
+  "generated_at": "2026-05-10T22:09:20Z",
+  "next_operator_actions": [
+    "Inspect the high-priority outcome recheck item linked to the applied paper update.",
+    "Keep source usefulness labels separate from outcome correctness until local resolution records exist.",
+    "Prepare PRACTICAL-014 manual outcome resolution feedback packet only when local records are ready."
+  ],
+  "outcome_recheck_priorities": {
+    "high": 1,
+    "medium": 4
+  },
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "new_live_fetch_performed": false,
+    "new_polymarket_api_calls_performed": 0,
+    "no_autonomous_trading": true,
+    "no_autonomous_training_performed": true,
+    "no_real_trade_decision": true,
+    "no_scheduler_daemon_background_worker": true,
+    "openrouter_calls_performed": 0,
+    "orders_or_trading_actions": false,
+    "outcome_resolution_invented": false,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "runtime_or_dispatcher_changes": false,
+    "wallet_or_private_key_access": false
+  },
+  "source_learning_status": {
+    "accessible_count": 2,
+    "blocked_count": 1,
+    "failed_count": 3,
+    "missing_replacement_count": 1,
+    "repaired_count": 1,
+    "source_records_count": 5,
+    "useful_for_paper_tracking_update_count": 1
+  },
+  "source_records_pending_outcome_resolution": [
+    {
+      "market_id": "563650",
+      "source_id": "public_fetch_request_intent_006_02_563650_563650_domain_public_evidence",
+      "source_usefulness_label": "useful_for_paper_tracking_update"
+    },
+    {
+      "market_id": "597964",
+      "source_id": "public_fetch_request_intent_006_04_597964_597964_domain_public_evidence",
+      "source_usefulness_label": "missing_replacement"
+    },
+    {
+      "market_id": "598936",
+      "source_id": "public_fetch_request_intent_006_06_598936_598936_domain_public_evidence",
+      "source_usefulness_label": "failed_access"
+    },
+    {
+      "market_id": "691547",
+      "source_id": "public_fetch_request_intent_006_08_691547_691547_domain_public_evidence",
+      "source_usefulness_label": "repaired_access"
+    },
+    {
+      "market_id": "692258",
+      "source_id": "public_fetch_request_intent_006_10_692258_692258_domain_public_evidence",
+      "source_usefulness_label": "blocked"
+    }
+  ],
+  "tracked_market_count": 5,
+  "unresolved_outcome_count": 5
+}
