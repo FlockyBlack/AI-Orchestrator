@@ -63,6 +63,13 @@ from .schema import default_packet
 from .safety import classify_packet
 from .validator import validate_packet
 from .workspace_planner import plan_workspace_for_task, render_workspace_plan_markdown
+from .worktree_lane_manager import (
+    abort_task_worktree_lane,
+    create_task_worktree_lane,
+    inspect_task_worktree_lane,
+    plan_task_worktree_lane,
+    write_lane_state_artifacts,
+)
 from ai_orchestrator.symphony_adapter import (
     AppServerDryRunConfig,
     build_app_server_adapter_plan,
@@ -350,6 +357,35 @@ def main(argv: list[str] | None = None) -> int:
     workspace_plan_parser.add_argument("--task-id", required=True)
     workspace_plan_parser.set_defaults(func=_cmd_workspace_plan)
 
+    lane_plan_parser = subparsers.add_parser(
+        "worktree-lane-plan",
+        help="Plan a deterministic isolated worktree lane for one task/run.",
+    )
+    _add_worktree_lane_args(lane_plan_parser)
+    lane_plan_parser.set_defaults(func=_cmd_worktree_lane_plan)
+
+    lane_create_parser = subparsers.add_parser(
+        "worktree-lane-create",
+        help="Create a worktree lane only after base and dirty-tree preflight passes.",
+    )
+    _add_worktree_lane_args(lane_create_parser)
+    lane_create_parser.set_defaults(func=_cmd_worktree_lane_create)
+
+    lane_status_parser = subparsers.add_parser(
+        "worktree-lane-status",
+        help="Inspect a deterministic worktree lane state artifact.",
+    )
+    _add_worktree_lane_args(lane_status_parser)
+    lane_status_parser.set_defaults(func=_cmd_worktree_lane_status)
+
+    lane_abort_parser = subparsers.add_parser(
+        "worktree-lane-abort",
+        help="Write a clear blocked/aborted lane state without deleting branches or worktrees.",
+    )
+    _add_worktree_lane_args(lane_abort_parser)
+    lane_abort_parser.add_argument("--reason", default="")
+    lane_abort_parser.set_defaults(func=_cmd_worktree_lane_abort)
+
     ingest_parser = subparsers.add_parser("ingest-result", help="Ingest a manual result packet.")
     _add_queue_root(ingest_parser)
     ingest_parser.add_argument("--result", required=True)
@@ -442,6 +478,17 @@ def main(argv: list[str] | None = None) -> int:
 
 def _add_queue_root(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--queue-root", default="agent_tasks", help="Local queue root directory.")
+
+
+def _add_worktree_lane_args(parser: argparse.ArgumentParser) -> None:
+    _add_queue_root(parser)
+    parser.add_argument("--task-id", required=True)
+    parser.add_argument("--run-id", required=True)
+    parser.add_argument("--repo-root", default=".")
+    parser.add_argument("--expected-base-branch", default="master")
+    parser.add_argument("--expected-base-head", default="")
+    parser.add_argument("--lane-root", default=None)
+    parser.add_argument("--task-category", default="")
 
 
 def _cmd_status(args: argparse.Namespace) -> dict[str, Any]:
@@ -2012,6 +2059,112 @@ def _cmd_workspace_plan(args: argparse.Namespace) -> dict[str, Any]:
     )
 
 
+def _cmd_worktree_lane_plan(args: argparse.Namespace) -> dict[str, Any]:
+    state = plan_task_worktree_lane(
+        args.queue_root,
+        task_id=args.task_id,
+        run_id=args.run_id,
+        repo_root=args.repo_root,
+        expected_base_branch=args.expected_base_branch,
+        expected_base_head=args.expected_base_head,
+        lane_root=args.lane_root,
+        task_category=args.task_category,
+    )
+    state = write_lane_state_artifacts(args.queue_root, state)
+    return _worktree_lane_action_report(args.queue_root, "worktree-lane-plan", state)
+
+
+def _cmd_worktree_lane_create(args: argparse.Namespace) -> dict[str, Any]:
+    state = create_task_worktree_lane(
+        args.queue_root,
+        task_id=args.task_id,
+        run_id=args.run_id,
+        repo_root=args.repo_root,
+        expected_base_branch=args.expected_base_branch,
+        expected_base_head=args.expected_base_head,
+        lane_root=args.lane_root,
+        task_category=args.task_category,
+    )
+    state = write_lane_state_artifacts(args.queue_root, state)
+    return _worktree_lane_action_report(args.queue_root, "worktree-lane-create", state)
+
+
+def _cmd_worktree_lane_status(args: argparse.Namespace) -> dict[str, Any]:
+    state = inspect_task_worktree_lane(
+        args.queue_root,
+        task_id=args.task_id,
+        run_id=args.run_id,
+        repo_root=args.repo_root,
+        expected_base_branch=args.expected_base_branch,
+        expected_base_head=args.expected_base_head,
+        lane_root=args.lane_root,
+        task_category=args.task_category,
+    )
+    state = write_lane_state_artifacts(args.queue_root, state)
+    return _worktree_lane_action_report(args.queue_root, "worktree-lane-status", state)
+
+
+def _cmd_worktree_lane_abort(args: argparse.Namespace) -> dict[str, Any]:
+    state = abort_task_worktree_lane(
+        args.queue_root,
+        task_id=args.task_id,
+        run_id=args.run_id,
+        reason=args.reason,
+        repo_root=args.repo_root,
+        expected_base_branch=args.expected_base_branch,
+        expected_base_head=args.expected_base_head,
+        lane_root=args.lane_root,
+        task_category=args.task_category,
+    )
+    state = write_lane_state_artifacts(args.queue_root, state)
+    return _worktree_lane_action_report(args.queue_root, "worktree-lane-abort", state)
+
+
+def _worktree_lane_action_report(queue_root: str | Path, command: str, state: Mapping[str, Any]) -> dict[str, Any]:
+    root = ensure_queue_directories(queue_root)
+    status = "ok" if state.get("status") in {"planned", "ready"} else "blocked"
+    return write_operator_action_report(
+        root,
+        _action(
+            command,
+            status,
+            str(state.get("task_id") or ""),
+            root,
+            destination_path=str(state.get("state_path") or ""),
+            errors=list(state.get("blockers", [])),
+            warnings=list(state.get("warnings", [])),
+            next_operator_action=_next_worktree_lane_action(state),
+            extra={
+                "worktree_lane_status": state.get("status"),
+                "worktree_lane_ready": bool(state.get("ready", False)),
+                "worktree_lane_state_path": str(state.get("state_path") or ""),
+                "worktree_lane_report_paths": dict(state.get("report_paths", {})),
+                "blocker_reason": state.get("blocker_reason"),
+                "selected_subagent_profile": state.get("selected_subagent_profile"),
+                "selected_subagent_profile_path": state.get("selected_subagent_profile_path"),
+                "subagent_route": state.get("subagent_route", {}),
+                "branch": state.get("branch"),
+                "worktree_path": state.get("worktree_path"),
+                "branch_created": bool(state.get("branch_created", False)),
+                "worktree_created": bool(state.get("worktree_created", False)),
+                "execution_allowed": bool(state.get("execution_allowed", False)),
+                "lane_state": dict(state),
+            },
+        ),
+    )
+
+
+def _next_worktree_lane_action(state: Mapping[str, Any]) -> str:
+    status = str(state.get("status") or "")
+    if status == "ready":
+        return "Use the isolated worktree path for the explicit task, then validate and selectively stage only intended files."
+    if status == "planned":
+        return "Review the lane plan, then run worktree-lane-create with the same task_id/run_id when ready."
+    if status == "aborted":
+        return "Inspect the abort reason. No branch or worktree cleanup was performed automatically."
+    return "Resolve the lane blocker before creating or using a worktree lane."
+
+
 def _cmd_ingest_result(args: argparse.Namespace) -> dict[str, Any]:
     root = ensure_queue_directories(args.queue_root)
     try:
@@ -2583,6 +2736,10 @@ def render_operator_action_markdown(report: Mapping[str, Any]) -> str:
         lines.append(
             "This operator action starts Codex app-server only when exact operator approval is supplied through --operator-approved. Any approved run is short-lived, local-only, dry-run-only, captures logs, and stops the process; it does not create a daemon, scheduler, background worker, browser automation flow, authenticated flow, or trading action."
         )
+    elif report["command"] in {"worktree-lane-plan", "worktree-lane-create", "worktree-lane-status", "worktree-lane-abort"}:
+        lines.append(
+            "This operator action only plans, creates, inspects, or records an abort for one explicit git worktree lane. It refuses unsafe base or dirty-tree states before creation, does not invoke Codex, does not call external services, does not use browser automation or credentials, does not touch wallets/signing/orders/trading endpoints, and does not create daemons, schedulers, or background workers."
+        )
     elif report["command"] in {"run-plan", "continue-plan"} and report.get("codex_execution_added") is True:
         lines.append(
             "This operator action may invoke the configured Codex CLI only when executor=codex_cli, config.enabled=true, --allow-real-codex-invocation is present, and --auto-ingest is present. It is bounded by max_steps and stops on blocked, failed, safety, or validation outcomes."
@@ -3017,6 +3174,19 @@ def _cli_summary(report: Mapping[str, Any]) -> dict[str, Any]:
         "requires_operator_approval",
         "schema_only",
         "schema_probe_passed",
+        "worktree_lane_status",
+        "worktree_lane_ready",
+        "worktree_lane_state_path",
+        "worktree_lane_report_paths",
+        "blocker_reason",
+        "selected_subagent_profile",
+        "selected_subagent_profile_path",
+        "subagent_route",
+        "branch",
+        "worktree_path",
+        "branch_created",
+        "worktree_created",
+        "execution_allowed",
     ):
         if key in report:
             summary[key] = report[key]

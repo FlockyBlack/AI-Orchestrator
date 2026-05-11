@@ -60,6 +60,7 @@ def render_dashboard_page(data: dict[str, Any], *, repo_root: str, queue_root: s
     dashboard = data.get("dashboard") or {}
     git = data.get("git", {})
     codex_cli = data.get("codex_cli", {})
+    worktree_lane = data.get("worktree_lane", {})
     project_contract = data.get("project_contract", {})
     counts = dashboard.get("counts", {})
     body = f"""
@@ -69,6 +70,7 @@ def render_dashboard_page(data: dict[str, Any], *, repo_root: str, queue_root: s
   <div class="card"><strong>Tasks</strong><br>done {_e(counts.get('completed', 0))} / total {_e(counts.get('total', 0))}<br>blocked {_e(counts.get('blocked', 0))}, failed {_e(counts.get('failed', 0))}, pending {_e(counts.get('pending', active.get('pending_count', 0)))}</div>
   <div class="card"><strong>Safety</strong><br>{_e(dashboard.get('safety_status', 'unknown'))}<br><span class="muted">consistency: {_e(dashboard.get('state_consistency_status', ''))}</span></div>
   <div class="card"><strong>Codex CLI</strong><br>enabled: <code>{_e(codex_cli.get('enabled', False))}</code><br><span class="{_status_class('ok' if codex_cli.get('ready') else 'blocked')}">{_e('ready' if codex_cli.get('ready') else 'not ready')}</span></div>
+  <div class="card"><strong>Worktree lane</strong><br><span class="{_status_class('ok' if worktree_lane.get('ready') else 'blocked')}">{_e(worktree_lane.get('status', 'missing'))}</span><br><code>{_e(worktree_lane.get('selected_subagent_profile') or 'none')}</code><br><span class="muted">{_e(worktree_lane.get('blocker_reason') or 'ready')}</span></div>
   <div class="card"><strong>Project contract</strong><br>AGENTS.md: <code>{_e(project_contract.get('agents_md_exists', False))}</code><br>memory-bank: <code>{_e(project_contract.get('memory_bank_exists', False))}</code><br><span class="muted">milestone: {_e(project_contract.get('latest_milestone', 'unknown'))}</span></div>
 </section>
 <section class="card">

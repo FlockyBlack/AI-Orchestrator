@@ -231,6 +231,7 @@ def build_panel_dashboard_action(repo_root: str | Path, queue_root: str | Path) 
         "dashboard": dashboard,
         "git": inspect_git_action(repo_root),
         "codex_cli": codex_cli_panel_status(queue_root),
+        "worktree_lane": worktree_lane_panel_status(queue_root),
         "app_server": app_server_panel_status(repo_root, queue_root),
         "project_contract": project_contract_panel_status(repo_root),
     }
@@ -269,6 +270,32 @@ def codex_cli_panel_status(queue_root: str | Path) -> dict[str, Any]:
         "command_preview": command,
         "executable": executable,
         "ready": validation["valid"] and executable["available"],
+    }
+
+
+def worktree_lane_panel_status(queue_root: str | Path) -> dict[str, Any]:
+    latest_path = Path(queue_root) / "reports" / "latest_worktree_lane_state.json"
+    state = _read_json(latest_path)
+    if not state:
+        return {
+            "ready": False,
+            "status": "missing",
+            "latest_lane_state_path": str(latest_path),
+            "selected_subagent_profile": "",
+            "blocker_reason": "no worktree lane state has been written",
+        }
+    return {
+        "ready": bool(state.get("ready", False)),
+        "status": str(state.get("status") or "unknown"),
+        "latest_lane_state_path": str(latest_path),
+        "task_id": str(state.get("task_id") or ""),
+        "run_id": str(state.get("run_id") or ""),
+        "branch": str(state.get("branch") or ""),
+        "worktree_path": str(state.get("worktree_path") or ""),
+        "selected_subagent_profile": str(state.get("selected_subagent_profile") or ""),
+        "selected_subagent_profile_path": str(state.get("selected_subagent_profile_path") or ""),
+        "blocker_reason": state.get("blocker_reason"),
+        "state": state,
     }
 
 
