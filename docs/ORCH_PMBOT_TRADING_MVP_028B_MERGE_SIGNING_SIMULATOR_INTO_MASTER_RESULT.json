@@ -1,0 +1,82 @@
+{
+  "task_id": "ORCH-PMBOT-TRADING-MVP-028B-MERGE-SIGNING-SIMULATOR-INTO-MASTER",
+  "status": "completed_master_fast_forward_pushed",
+  "merge_worktree": "C:/oc025b",
+  "merge_worktree_note": "Used existing clean master worktree because local master was already checked out there.",
+  "master_head_before": "e3b2e14fd6cd1196dec4cee97f68387f0ad8cd32",
+  "source_branch": "pmbot/trading-mvp-028-signing-simulator-dry-run-receipts",
+  "source_head": "82c0dbb84d7af6b13d1915660f8866a221660305",
+  "master_head_after": "82c0dbb84d7af6b13d1915660f8866a221660305",
+  "pushed": true,
+  "remote_verified": true,
+  "remote_master_head": "82c0dbb84d7af6b13d1915660f8866a221660305",
+  "fast_forward_merge": true,
+  "pmbot_028_on_master": true,
+  "source_result_artifact_inspected": "docs/ORCH_PMBOT_TRADING_MVP_028_SIGNING_SIMULATOR_AND_DRY_RUN_EXECUTION_RECEIPTS_RESULT.json",
+  "signing_simulator_ready": true,
+  "dry_run_receipt_ready": true,
+  "receipt_ledger_ready": true,
+  "risk_gate_enforced": true,
+  "kill_switch_enforced": true,
+  "manual_approval_gate_enforced": true,
+  "evidence_gate_enforced": true,
+  "forbidden_private_key_signature_order_fields_rejected": true,
+  "dashboard_summary_ready": true,
+  "paper_simulator_fill_behavior_unchanged": true,
+  "external_api_calls_performed": false,
+  "wallet_or_order_code_added": false,
+  "real_signing_code_added": false,
+  "authenticated_endpoint_added": false,
+  "order_placement_added": false,
+  "outcome_resolution_invented": false,
+  "pnl_invented": false,
+  "tests_passed": true,
+  "safety_ok": true,
+  "blocked_reason": null,
+  "validation": [
+    {
+      "command": "python -m pytest pm_bot/tests/test_signing_simulator_028.py pm_bot/tests/test_wallet_execution_boundary_027.py",
+      "status": "passed",
+      "result": "22 passed"
+    },
+    {
+      "command": "pytest pm_bot/tests",
+      "status": "passed",
+      "result": "1407 passed"
+    },
+    {
+      "command": "python -m compileall pm_bot",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest tests/test_codex_queue_nightly_lane_batch_runner.py tests/test_codex_worktree_lane_manager.py tests/test_subagent_routing.py tests/test_codex_queue_operator_cli.py",
+      "status": "passed",
+      "result": "41 passed"
+    },
+    {
+      "command": "python -m compileall ai_orchestrator",
+      "status": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    }
+  ],
+  "safety_review": {
+    "passive_local_simulator_only": true,
+    "real_wallet_integration_added": false,
+    "private_key_handling_added": false,
+    "cryptographic_signing_added": false,
+    "authenticated_endpoints_added": false,
+    "order_placement_added": false,
+    "external_api_calls_performed": false,
+    "outcome_resolution_invented": false,
+    "pnl_invented": false,
+    "paper_simulator_fill_behavior_changed": false
+  },
+  "git_safety": {
+    "unsafe_broad_staging_used": false,
+    "force_push_used": false,
+    "merge_commit_created": false
+  }
+}
