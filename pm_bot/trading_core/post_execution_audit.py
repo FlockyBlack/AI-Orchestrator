@@ -216,14 +216,31 @@ def _check_execution_ledger_consistency(
     execution_batch: Mapping[str, Any],
     ledger: Mapping[str, Any],
 ) -> tuple[str, list[str]]:
-    filled_execution_ids = {
-        clean_text(row.get("execution_id"))
-        for row in mapping_rows(execution_batch.get("results"))
-        if row.get("simulated_fill") is True
+    filled_executions = [row for row in mapping_rows(execution_batch.get("results")) if row.get("simulated_fill") is True]
+    ledger_positions = mapping_rows(ledger.get("positions"))
+    ledger_execution_ids = {clean_text(row.get("source_execution_id")) for row in ledger_positions}
+    ledger_open_keys = {_open_position_key(row.get("market_id"), row.get("intent_id")) for row in ledger_positions}
+    duplicate_prevented_open_keys = {
+        _open_position_key(row.get("market_id"), row.get("intent_id"))
+        for row in filled_executions
+        if clean_text(row.get("idempotency_status")) == "already_open_position"
     }
-    ledger_execution_ids = {clean_text(row.get("source_execution_id")) for row in mapping_rows(ledger.get("positions"))}
-    missing = sorted(filled_execution_ids - ledger_execution_ids)
-    extra = sorted(ledger_execution_ids - filled_execution_ids)
+    filled_execution_ids = {clean_text(row.get("execution_id")) for row in filled_executions}
+    missing = []
+    for execution in filled_executions:
+        execution_id = clean_text(execution.get("execution_id"))
+        if execution_id in ledger_execution_ids:
+            continue
+        open_key = _open_position_key(execution.get("market_id"), execution.get("intent_id"))
+        if clean_text(execution.get("idempotency_status")) == "already_open_position" and open_key in ledger_open_keys:
+            continue
+        missing.append(execution_id)
+    allowed_extra_ledger_ids = {
+        clean_text(row.get("source_execution_id"))
+        for row in ledger_positions
+        if _open_position_key(row.get("market_id"), row.get("intent_id")) in duplicate_prevented_open_keys
+    }
+    extra = sorted(ledger_execution_ids - filled_execution_ids - allowed_extra_ledger_ids)
     if missing or extra:
         return "failed", [f"fills missing from ledger: {missing}", f"ledger extras: {extra}"]
     return "passed", [f"ledger has one position for each of {len(filled_execution_ids)} paper fills"]
@@ -263,6 +280,10 @@ def _walk_flags(value: Any, path: str = "$") -> list[tuple[str, str, Any]]:
         for index, nested in enumerate(value):
             rows.extend(_walk_flags(nested, f"{path}[{index}]"))
     return rows
+
+
+def _open_position_key(market_id: Any, intent_id: Any) -> str:
+    return ":".join([clean_text(market_id), clean_text(intent_id)])
 
 
 def main(argv: Sequence[str] | None = None) -> int:

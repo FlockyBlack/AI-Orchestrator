@@ -1,0 +1,26 @@
+{
+  "allow_network": false,
+  "allow_openrouter": false,
+  "allow_polymarket_api": false,
+  "allow_real_trading": false,
+  "contract_version": "pmbot_paper_daily_loop_config.v1",
+  "dashboard_enabled": true,
+  "idempotency_mode": "upsert_by_run_date_market_intent",
+  "market_ids": [
+    "563650",
+    "597964",
+    "598936",
+    "691547",
+    "692258",
+    "573656"
+  ],
+  "max_markets": 6,
+  "max_single_market_paper_exposure_usd": 100.0,
+  "max_total_paper_exposure_usd": 1000.0,
+  "output_dir": "pm_bot/operator_runner/artifacts/paper_daily_022",
+  "previous_ledger_path": null,
+  "previous_portfolio_path": null,
+  "run_date": "2026-05-11",
+  "run_id": "paper-daily-loop-022-2026-05-11",
+  "write_artifacts": true
+}

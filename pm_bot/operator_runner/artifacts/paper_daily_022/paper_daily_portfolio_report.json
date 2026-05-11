@@ -1,0 +1,80 @@
+{
+  "contract_version": "pmbot_paper_portfolio_report.v1",
+  "exposure_summary": {
+    "available_paper_capital_usd": 950.0,
+    "exposure_by_market_usd": {
+      "563650": 25.0,
+      "691547": 25.0
+    },
+    "feedback_ready_count": 0,
+    "open_paper_position_count": 2,
+    "total_paper_capital_usd": 1000.0,
+    "total_paper_exposure_usd": 50.0,
+    "unresolved_market_count": 6,
+    "unresolved_position_count": 2
+  },
+  "generated_at": "2026-05-11T00:00:00Z",
+  "open_paper_positions": [
+    {
+      "idempotency_key": "2026-05-11:563650:paper-intent-020-021-563650",
+      "market_id": "563650",
+      "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?",
+      "outcome_status": "unresolved",
+      "paper_exposure_usd": 25.0,
+      "paper_only": true,
+      "paper_units": 25.0,
+      "position_id": "paper-position-022-2026-05-11-563650-paper-intent-020-021-563650"
+    },
+    {
+      "idempotency_key": "2026-05-11:691547:paper-intent-020-021-691547",
+      "market_id": "691547",
+      "market_title": "Kraken IPO by December 31, 2026?",
+      "outcome_status": "unresolved",
+      "paper_exposure_usd": 25.0,
+      "paper_only": true,
+      "paper_units": 25.0,
+      "position_id": "paper-position-022-2026-05-11-691547-paper-intent-020-021-691547"
+    }
+  ],
+  "operator_note": "Paper portfolio report for local accounting only. It does not provide real trading advice, real order instructions, or real market direction.",
+  "paper_only": true,
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "autonomous_trading_enabled": false,
+    "background_worker_created": false,
+    "daemon_created": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "non_executable": true,
+    "openrouter_calls_performed": 0,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "real_money_used": false,
+    "real_order_allowed": false,
+    "real_order_submitted": false,
+    "scheduler_created": false,
+    "trading_endpoint_required": false,
+    "trading_endpoint_used": false,
+    "wallet_required": false,
+    "wallet_used": false
+  },
+  "simulated_fills": [
+    {
+      "execution_id": "sim-exec-022-2026-05-11-563650-paper-intent-020-021-563650",
+      "filled_notional_usd": 25.0,
+      "idempotency_key": "2026-05-11:563650:paper-intent-020-021-563650",
+      "market_id": "563650",
+      "paper_only": true,
+      "simulated_fill": true
+    },
+    {
+      "execution_id": "sim-exec-022-2026-05-11-691547-paper-intent-020-021-691547",
+      "filled_notional_usd": 25.0,
+      "idempotency_key": "2026-05-11:691547:paper-intent-020-021-691547",
+      "market_id": "691547",
+      "paper_only": true,
+      "simulated_fill": true
+    }
+  ]
+}

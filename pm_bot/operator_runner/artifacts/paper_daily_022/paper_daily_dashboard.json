@@ -1,0 +1,381 @@
+{
+  "audit_status": {
+    "audit_passed": true,
+    "violation_count": 0,
+    "warning_count": 0
+  },
+  "blocked_details": [],
+  "carried_forward_positions": [
+    {
+      "idempotency_key": "2026-05-11:563650:paper-intent-020-021-563650",
+      "intent_id": "paper-intent-020-021-563650",
+      "market_id": "563650",
+      "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?",
+      "outcome_status": "unresolved",
+      "paper_exposure_usd": 25.0,
+      "paper_only": true,
+      "paper_units": 25.0,
+      "position_id": "paper-position-022-2026-05-11-563650-paper-intent-020-021-563650",
+      "run_date": "2026-05-11"
+    },
+    {
+      "idempotency_key": "2026-05-11:691547:paper-intent-020-021-691547",
+      "intent_id": "paper-intent-020-021-691547",
+      "market_id": "691547",
+      "market_title": "Kraken IPO by December 31, 2026?",
+      "outcome_status": "unresolved",
+      "paper_exposure_usd": 25.0,
+      "paper_only": true,
+      "paper_units": 25.0,
+      "position_id": "paper-position-022-2026-05-11-691547-paper-intent-020-021-691547",
+      "run_date": "2026-05-11"
+    }
+  ],
+  "contract_version": "pmbot_paper_daily_dashboard.v1",
+  "counts": {
+    "carried_forward_position_count": 2,
+    "feedback_ready_count": 0,
+    "market_count": 6,
+    "open_paper_position_count": 2,
+    "paper_intent_count": 6,
+    "rejected_count": 0,
+    "resolved_market_count": 0,
+    "risk_allowed_count": 6,
+    "risk_blocked_count": 0,
+    "simulated_execution_count": 6,
+    "simulated_fill_count": 2,
+    "skipped_count": 4,
+    "total_paper_exposure_usd": 50.0,
+    "unresolved_market_count": 6
+  },
+  "dashboard_id": "paper-daily-dashboard-022-2026-05-11",
+  "feedback_readiness": {
+    "blocked_feedback_count": 6,
+    "blocked_items": [
+      {
+        "feedback_blocked_reason": "local outcome status is unresolved",
+        "market_id": "563650",
+        "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?",
+        "next_operator_action": "Recheck later and keep feedback blocked until saved local resolution evidence exists.",
+        "outcome_status": "unresolved"
+      },
+      {
+        "feedback_blocked_reason": "local outcome status is unresolved",
+        "market_id": "597964",
+        "market_title": "Macron out by June 30, 2026?",
+        "next_operator_action": "Recheck later and keep feedback blocked until saved local resolution evidence exists.",
+        "outcome_status": "unresolved"
+      },
+      {
+        "feedback_blocked_reason": "local outcome status is unresolved",
+        "market_id": "598936",
+        "market_title": "Will the next UK election be called by June 30, 2026?",
+        "next_operator_action": "Recheck later and keep feedback blocked until saved local resolution evidence exists.",
+        "outcome_status": "unresolved"
+      },
+      {
+        "feedback_blocked_reason": "local outcome status is unresolved",
+        "market_id": "691547",
+        "market_title": "Kraken IPO by December 31, 2026?",
+        "next_operator_action": "Recheck later and keep feedback blocked until saved local resolution evidence exists.",
+        "outcome_status": "unresolved"
+      },
+      {
+        "feedback_blocked_reason": "local outcome status is unresolved",
+        "market_id": "692258",
+        "market_title": "MicroStrategy sells any Bitcoin by June 30, 2026?",
+        "next_operator_action": "Recheck later and keep feedback blocked until saved local resolution evidence exists.",
+        "outcome_status": "unresolved"
+      },
+      {
+        "feedback_blocked_reason": "local outcome status is unresolved",
+        "market_id": "573656",
+        "market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+        "next_operator_action": "Recheck later and keep feedback blocked until saved local resolution evidence exists.",
+        "outcome_status": "unresolved"
+      }
+    ],
+    "feedback_ready_count": 0,
+    "resolved_count": 0,
+    "summary_id": "paper-feedback-readiness-023",
+    "total_tracked_markets": 6,
+    "unresolved_count": 6
+  },
+  "generated_at": "2026-05-11T00:00:00Z",
+  "idempotency": {
+    "already_applied_count": 2,
+    "already_open_position_count": 0,
+    "carried_forward_position_count": 2,
+    "duplicate_fill_prevented_count": 2,
+    "idempotency_mode": "upsert_by_run_date_market_intent",
+    "idempotency_passed": true,
+    "new_applied_count": 0
+  },
+  "next_operator_action": "Review rollforward, unresolved outcome queue, and feedback readiness artifacts.",
+  "next_operator_actions": [
+    "Review carried-forward open paper positions and exposure before the next local paper run.",
+    "Recheck unresolved markets only against saved local outcome artifacts.",
+    "Prepare feedback records only for markets with explicit local resolution evidence.",
+    "Keep this as an explicit one-shot local command, not a scheduler or autonomous loop."
+  ],
+  "open_paper_positions": [
+    {
+      "idempotency_key": "2026-05-11:563650:paper-intent-020-021-563650",
+      "market_id": "563650",
+      "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?",
+      "outcome_status": "unresolved",
+      "paper_exposure_usd": 25.0,
+      "paper_only": true,
+      "paper_units": 25.0,
+      "position_id": "paper-position-022-2026-05-11-563650-paper-intent-020-021-563650"
+    },
+    {
+      "idempotency_key": "2026-05-11:691547:paper-intent-020-021-691547",
+      "market_id": "691547",
+      "market_title": "Kraken IPO by December 31, 2026?",
+      "outcome_status": "unresolved",
+      "paper_exposure_usd": 25.0,
+      "paper_only": true,
+      "paper_units": 25.0,
+      "position_id": "paper-position-022-2026-05-11-691547-paper-intent-020-021-691547"
+    }
+  ],
+  "outcome_recheck_queue": {
+    "feedback_ready_count": 0,
+    "needs_future_outcome_check_count": 6,
+    "queue_id": "paper-outcome-recheck-023",
+    "recheck_items": [
+      {
+        "feedback_blocked_reason": "local outcome status is unresolved",
+        "feedback_ready": false,
+        "local_resolution_evidence_present": false,
+        "market_id": "563650",
+        "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?",
+        "needs_future_outcome_check": true,
+        "next_operator_action": "Recheck later and keep feedback blocked until saved local resolution evidence exists.",
+        "outcome_record_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/563650/outcome_record.unresolved.json",
+        "outcome_status": "unresolved"
+      },
+      {
+        "feedback_blocked_reason": "local outcome status is unresolved",
+        "feedback_ready": false,
+        "local_resolution_evidence_present": false,
+        "market_id": "597964",
+        "market_title": "Macron out by June 30, 2026?",
+        "needs_future_outcome_check": true,
+        "next_operator_action": "Recheck later and keep feedback blocked until saved local resolution evidence exists.",
+        "outcome_record_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/597964/outcome_record.unresolved.json",
+        "outcome_status": "unresolved"
+      },
+      {
+        "feedback_blocked_reason": "local outcome status is unresolved",
+        "feedback_ready": false,
+        "local_resolution_evidence_present": false,
+        "market_id": "598936",
+        "market_title": "Will the next UK election be called by June 30, 2026?",
+        "needs_future_outcome_check": true,
+        "next_operator_action": "Recheck later and keep feedback blocked until saved local resolution evidence exists.",
+        "outcome_record_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/598936/outcome_record.unresolved.json",
+        "outcome_status": "unresolved"
+      },
+      {
+        "feedback_blocked_reason": "local outcome status is unresolved",
+        "feedback_ready": false,
+        "local_resolution_evidence_present": false,
+        "market_id": "691547",
+        "market_title": "Kraken IPO by December 31, 2026?",
+        "needs_future_outcome_check": true,
+        "next_operator_action": "Recheck later and keep feedback blocked until saved local resolution evidence exists.",
+        "outcome_record_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/691547/outcome_record.unresolved.json",
+        "outcome_status": "unresolved"
+      },
+      {
+        "feedback_blocked_reason": "local outcome status is unresolved",
+        "feedback_ready": false,
+        "local_resolution_evidence_present": false,
+        "market_id": "692258",
+        "market_title": "MicroStrategy sells any Bitcoin by June 30, 2026?",
+        "needs_future_outcome_check": true,
+        "next_operator_action": "Recheck later and keep feedback blocked until saved local resolution evidence exists.",
+        "outcome_record_path": "pm_bot/practical/artifacts/real_market_batch_004/markets/692258/outcome_record.unresolved.json",
+        "outcome_status": "unresolved"
+      },
+      {
+        "feedback_blocked_reason": "local outcome status is unresolved",
+        "feedback_ready": false,
+        "local_resolution_evidence_present": false,
+        "market_id": "573656",
+        "market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+        "needs_future_outcome_check": true,
+        "next_operator_action": "Recheck later and keep feedback blocked until saved local resolution evidence exists.",
+        "outcome_record_path": "pm_bot/practical/artifacts/add_market_016/outcome_record_unresolved_016.json",
+        "outcome_status": "unresolved"
+      }
+    ]
+  },
+  "paper_only": true,
+  "portfolio_summary": {
+    "available_paper_capital_usd": 950.0,
+    "exposure_by_market_usd": {
+      "563650": 25.0,
+      "691547": 25.0
+    },
+    "feedback_ready_count": 0,
+    "open_paper_position_count": 2,
+    "total_paper_capital_usd": 1000.0,
+    "total_paper_exposure_usd": 50.0,
+    "unresolved_market_count": 6,
+    "unresolved_position_count": 2
+  },
+  "rejected_details": [],
+  "rollforward": {
+    "carried_forward_position_count": 2,
+    "current_total_paper_exposure_usd": 50.0,
+    "duplicate_fill_prevented_count": 2,
+    "new_position_count": 0,
+    "previous_ledger_loaded": true,
+    "previous_portfolio_loaded": true
+  },
+  "run_date": "2026-05-11",
+  "run_id": "paper-daily-loop-022-2026-05-11",
+  "safety_flags": {
+    "authenticated_endpoint_used": false,
+    "autonomous_trading_enabled": false,
+    "browser_automation_used": false,
+    "openrouter_used": false,
+    "outcome_invented": false,
+    "polymarket_api_used": false,
+    "private_key_used": false,
+    "real_money_used": false,
+    "real_order_submitted": false,
+    "signing_used": false,
+    "trading_endpoint_used": false,
+    "wallet_used": false
+  },
+  "skipped_details": [
+    {
+      "block_reasons": [],
+      "intent_id": "paper-intent-020-021-573656",
+      "market_id": "573656",
+      "reason": "observe_only_candidate",
+      "status": "skipped",
+      "warnings": []
+    },
+    {
+      "block_reasons": [],
+      "intent_id": "paper-intent-020-021-597964",
+      "market_id": "597964",
+      "reason": "observe_only_candidate",
+      "status": "skipped",
+      "warnings": []
+    },
+    {
+      "block_reasons": [],
+      "intent_id": "paper-intent-020-021-598936",
+      "market_id": "598936",
+      "reason": "observe_only_candidate",
+      "status": "skipped",
+      "warnings": []
+    },
+    {
+      "block_reasons": [],
+      "intent_id": "paper-intent-020-021-692258",
+      "market_id": "692258",
+      "reason": "observe_only_candidate",
+      "status": "skipped",
+      "warnings": []
+    }
+  ],
+  "source_paths": {
+    "active_hypotheses_path": "pm_bot/practical/artifacts/add_market_016/active_paper_hypotheses_6_016.json",
+    "market_queue_path": "pm_bot/practical/artifacts/add_market_016/market_queue_6_016.json"
+  },
+  "tracked_markets": [
+    {
+      "feedback_blocked_reason": "local outcome status is unresolved",
+      "feedback_ready": false,
+      "market_id": "563650",
+      "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?",
+      "outcome_status": "unresolved"
+    },
+    {
+      "feedback_blocked_reason": "local outcome status is unresolved",
+      "feedback_ready": false,
+      "market_id": "597964",
+      "market_title": "Macron out by June 30, 2026?",
+      "outcome_status": "unresolved"
+    },
+    {
+      "feedback_blocked_reason": "local outcome status is unresolved",
+      "feedback_ready": false,
+      "market_id": "598936",
+      "market_title": "Will the next UK election be called by June 30, 2026?",
+      "outcome_status": "unresolved"
+    },
+    {
+      "feedback_blocked_reason": "local outcome status is unresolved",
+      "feedback_ready": false,
+      "market_id": "691547",
+      "market_title": "Kraken IPO by December 31, 2026?",
+      "outcome_status": "unresolved"
+    },
+    {
+      "feedback_blocked_reason": "local outcome status is unresolved",
+      "feedback_ready": false,
+      "market_id": "692258",
+      "market_title": "MicroStrategy sells any Bitcoin by June 30, 2026?",
+      "outcome_status": "unresolved"
+    },
+    {
+      "feedback_blocked_reason": "local outcome status is unresolved",
+      "feedback_ready": false,
+      "market_id": "573656",
+      "market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+      "outcome_status": "unresolved"
+    }
+  ],
+  "unresolved_markets": [
+    {
+      "feedback_blocked_reason": "local outcome status is unresolved",
+      "market_id": "563650",
+      "market_title": "SCOTUS accepts sports event contract case by July 31, 2026?",
+      "next_operator_action": "Recheck later and keep feedback blocked until saved local resolution evidence exists.",
+      "outcome_status": "unresolved"
+    },
+    {
+      "feedback_blocked_reason": "local outcome status is unresolved",
+      "market_id": "597964",
+      "market_title": "Macron out by June 30, 2026?",
+      "next_operator_action": "Recheck later and keep feedback blocked until saved local resolution evidence exists.",
+      "outcome_status": "unresolved"
+    },
+    {
+      "feedback_blocked_reason": "local outcome status is unresolved",
+      "market_id": "598936",
+      "market_title": "Will the next UK election be called by June 30, 2026?",
+      "next_operator_action": "Recheck later and keep feedback blocked until saved local resolution evidence exists.",
+      "outcome_status": "unresolved"
+    },
+    {
+      "feedback_blocked_reason": "local outcome status is unresolved",
+      "market_id": "691547",
+      "market_title": "Kraken IPO by December 31, 2026?",
+      "next_operator_action": "Recheck later and keep feedback blocked until saved local resolution evidence exists.",
+      "outcome_status": "unresolved"
+    },
+    {
+      "feedback_blocked_reason": "local outcome status is unresolved",
+      "market_id": "692258",
+      "market_title": "MicroStrategy sells any Bitcoin by June 30, 2026?",
+      "next_operator_action": "Recheck later and keep feedback blocked until saved local resolution evidence exists.",
+      "outcome_status": "unresolved"
+    },
+    {
+      "feedback_blocked_reason": "local outcome status is unresolved",
+      "market_id": "573656",
+      "market_title": "Will Bitcoin hit $150k by December 31, 2026?",
+      "next_operator_action": "Recheck later and keep feedback blocked until saved local resolution evidence exists.",
+      "outcome_status": "unresolved"
+    }
+  ]
+}

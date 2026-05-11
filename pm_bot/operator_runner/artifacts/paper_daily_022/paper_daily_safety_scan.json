@@ -1,0 +1,23 @@
+{
+  "contract_version": "pmbot_paper_daily_safety_scan.v1",
+  "generated_at": "2026-05-11T00:00:00Z",
+  "issue_count": 0,
+  "issues": [],
+  "run_date": "2026-05-11",
+  "run_id": "paper-daily-loop-022-2026-05-11",
+  "safety_flags": {
+    "authenticated_endpoint_used": false,
+    "autonomous_trading_enabled": false,
+    "browser_automation_used": false,
+    "openrouter_used": false,
+    "outcome_invented": false,
+    "polymarket_api_used": false,
+    "private_key_used": false,
+    "real_money_used": false,
+    "real_order_submitted": false,
+    "signing_used": false,
+    "trading_endpoint_used": false,
+    "wallet_used": false
+  },
+  "safety_ok": true
+}

@@ -1,0 +1,38 @@
+{
+  "task_id": "ORCH-PMBOT-TRADING-MVP-023-PAPER-PORTFOLIO-ROLLFORWARD-AND-FEEDBACK-READINESS",
+  "status": "completed_branch_pushed",
+  "branch": "pmbot/paper-daily-loop-022",
+  "head_before": "6bf9064b842fba6be0c663f4a65b88c242407aa3",
+  "head_after": "pending_final_commit_hash",
+  "pushed": true,
+  "pushed_to_master": false,
+  "tests_passed": true,
+  "rollforward_ready": true,
+  "idempotency_passed": true,
+  "open_paper_position_count": 2,
+  "carried_forward_position_count": 2,
+  "total_paper_exposure_usd": 50.0,
+  "unresolved_market_count": 6,
+  "feedback_ready_count": 0,
+  "outcome_resolution_invented": false,
+  "wallet_or_order_code_added": false,
+  "safety_ok": true,
+  "blocked_reason": null,
+  "generated_artifacts": [
+    "pm_bot/operator_runner/artifacts/paper_daily_022/paper_daily_rollforward.json",
+    "pm_bot/operator_runner/artifacts/paper_daily_022/paper_daily_rollforward.md",
+    "pm_bot/operator_runner/artifacts/paper_daily_022/paper_daily_outcome_recheck_queue.json",
+    "pm_bot/operator_runner/artifacts/paper_daily_022/paper_daily_outcome_recheck_queue.md",
+    "pm_bot/operator_runner/artifacts/paper_daily_022/paper_daily_feedback_readiness.json",
+    "pm_bot/operator_runner/artifacts/paper_daily_022/paper_daily_feedback_readiness.md",
+    "pm_bot/operator_runner/artifacts/paper_daily_022/paper_daily_dashboard.json",
+    "pm_bot/operator_runner/artifacts/paper_daily_022/paper_daily_dashboard.md",
+    "docs/ORCH_PMBOT_TRADING_MVP_023_PAPER_PORTFOLIO_ROLLFORWARD_AND_FEEDBACK_READINESS.md",
+    "docs/ORCH_PMBOT_TRADING_MVP_023_RESULT.json"
+  ],
+  "tests_run": [
+    "python -m compileall pm_bot",
+    "pytest pm_bot/tests/test_paper_daily_loop_022.py pm_bot/tests/test_operator_runner_workflow_e2e_020_021.py pm_bot/tests/test_operator_runner_report_safety_020_021.py pm_bot/tests/test_practical_outcome_recheck_queue_013.py pm_bot/tests/test_practical_manual_feedback_packet_outputs_014.py",
+    "pytest pm_bot/tests"
+  ]
+}
