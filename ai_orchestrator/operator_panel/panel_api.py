@@ -8,11 +8,15 @@ from .panel_actions import (
     codex_adapter_dry_run_action,
     continue_run_action,
     continue_run_with_codex_cli_action,
+    create_app_server_session_plan_action,
     create_codex_packet_action,
     create_queue_action,
     export_next_codex_prompt_action,
     ingest_codex_result_action,
+    probe_app_server_schema_action,
     recover_run_action,
+    render_app_server_dry_run_command_action,
+    run_short_app_server_dry_run_action,
     run_fake_steps_action,
     save_pasted_plan_action,
     test_codex_cli_config_action,
@@ -89,6 +93,37 @@ def post_ingest_codex_result(form: dict[str, str], queue_root: str | Path) -> di
         form.get("packet_path", ""),
         form.get("result_json_text", "") or form.get("result_json_path", ""),
         queue_root,
+    )
+
+
+def post_app_server_schema_probe(form: dict[str, str], queue_root: str | Path) -> dict[str, Any]:
+    return probe_app_server_schema_action(queue_root, form.get("schema_dir", ""))
+
+
+def post_app_server_render_command(form: dict[str, str], repo_root: str | Path, queue_root: str | Path) -> dict[str, Any]:
+    return render_app_server_dry_run_command_action(
+        repo_root,
+        queue_root,
+        form.get("schema_dir", ""),
+        form.get("listen_mode", "stdio") or "stdio",
+    )
+
+
+def post_app_server_dry_run(form: dict[str, str], repo_root: str | Path, queue_root: str | Path) -> dict[str, Any]:
+    return run_short_app_server_dry_run_action(
+        repo_root,
+        queue_root,
+        form.get("schema_dir", ""),
+        approval_text=form.get("approval_text", ""),
+    )
+
+
+def post_create_app_server_session_plan(form: dict[str, str], queue_root: str | Path) -> dict[str, Any]:
+    return create_app_server_session_plan_action(
+        form.get("run_id", ""),
+        queue_root,
+        form.get("workspace_root", ""),
+        form.get("schema_dir", ""),
     )
 
 

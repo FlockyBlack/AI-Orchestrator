@@ -1,0 +1,1 @@
+python tests\fixtures\fake_app_server\fake_app_server.py success app-server --listen stdio://

@@ -77,6 +77,10 @@ class CodexAppServerSessionPlan(SymphonySessionPlan):
     app_server_listen: str = "stdio://"
     app_server_schema_dir: str = ""
     protocol_version: str = "v2"
+    dry_run_supported: bool = True
+    app_server_probe_mode: str = "stdio_initialize_probe"
+    protocol_schema_version: str = "v2"
+    result_artifact_dir: str = ""
     thread_start_method: str = "thread/start"
     turn_start_method: str = "turn/start"
     initialize_method: str = "initialize"
@@ -102,6 +106,10 @@ class CodexAppServerSessionPlan(SymphonySessionPlan):
             app_server_listen=str(payload.get("app_server_listen") or "stdio://"),
             app_server_schema_dir=str(payload.get("app_server_schema_dir") or ""),
             protocol_version=str(payload.get("protocol_version") or "v2"),
+            dry_run_supported=bool(payload.get("dry_run_supported", True)),
+            app_server_probe_mode=str(payload.get("app_server_probe_mode") or "stdio_initialize_probe"),
+            protocol_schema_version=str(payload.get("protocol_schema_version") or payload.get("protocol_version") or "v2"),
+            result_artifact_dir=str(payload.get("result_artifact_dir") or ""),
             thread_start_method=str(payload.get("thread_start_method") or "thread/start"),
             turn_start_method=str(payload.get("turn_start_method") or "turn/start"),
             initialize_method=str(payload.get("initialize_method") or "initialize"),
@@ -115,6 +123,10 @@ class CodexAppServerSessionPlan(SymphonySessionPlan):
                 "app_server_listen": self.app_server_listen,
                 "app_server_schema_dir": self.app_server_schema_dir,
                 "protocol_version": self.protocol_version,
+                "dry_run_supported": self.dry_run_supported,
+                "app_server_probe_mode": self.app_server_probe_mode,
+                "protocol_schema_version": self.protocol_schema_version,
+                "result_artifact_dir": self.result_artifact_dir,
                 "thread_start_method": self.thread_start_method,
                 "turn_start_method": self.turn_start_method,
                 "initialize_method": self.initialize_method,
@@ -159,6 +171,10 @@ def build_session_plan(
         result_contract=result_contract,
         app_server_schema_dir=str(Path(app_server_schema_dir).resolve(strict=False)),
         protocol_version="v2",
+        dry_run_supported=True,
+        app_server_probe_mode="stdio_initialize_probe",
+        protocol_schema_version="v2",
+        result_artifact_dir=str(session_root / "app_server_dry_runs"),
     )
     validation = validate_session_plan(plan)
     return CodexAppServerSessionPlan.from_dict({**plan.to_dict(), "errors": validation["errors"], "warnings": validation["warnings"]})
@@ -176,6 +192,12 @@ def validate_session_plan(plan: CodexAppServerSessionPlan | SymphonySessionPlan 
         errors.append("workspace_path must be absolute")
     if plan_obj.app_server_transport not in {"stdio", "websocket"}:
         errors.append(f"unsupported app_server_transport: {plan_obj.app_server_transport}")
+    if not plan_obj.dry_run_supported:
+        errors.append("dry_run_supported must be true for app-server session planning")
+    if plan_obj.app_server_probe_mode not in {"schema_inspection_only", "stdio_initialize_probe", "ws_loopback_schema_only"}:
+        errors.append(f"unsupported app_server_probe_mode: {plan_obj.app_server_probe_mode}")
+    if plan_obj.protocol_schema_version not in {"v1", "v2"}:
+        errors.append(f"unsupported protocol_schema_version: {plan_obj.protocol_schema_version}")
     if plan_obj.app_server_transport == "stdio" and plan_obj.app_server_listen != "stdio://":
         errors.append("stdio transport must use stdio:// listen URL")
     if plan_obj.app_server_transport == "websocket" and not plan_obj.app_server_listen.startswith("ws://127.0.0.1:"):

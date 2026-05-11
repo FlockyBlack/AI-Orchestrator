@@ -2,9 +2,11 @@ from __future__ import annotations
 
 from dataclasses import asdict, dataclass
 from enum import Enum
+import subprocess
 from typing import Any, Mapping
 
 from .codex_app_server_protocol import CodexAppServerSchemaIndex
+from .app_server_session_dry_run import AppServerDryRunConfig, build_app_server_command, validate_dry_run_config
 from .symphony_session_plan import CodexAppServerSessionPlan
 
 
@@ -145,3 +147,57 @@ def render_app_server_start_command(plan: AppServerAdapterPlan | Mapping[str, An
     if not validation["valid"]:
         raise ValueError("invalid app-server adapter plan: " + "; ".join(validation["errors"]))
     return " ".join(plan_obj.start_command)
+
+
+def build_dry_run_session_from_symphony_plan(
+    session_plan: CodexAppServerSessionPlan | Mapping[str, Any],
+    adapter_plan: AppServerAdapterPlan | Mapping[str, Any],
+) -> AppServerDryRunConfig:
+    session = session_plan if isinstance(session_plan, CodexAppServerSessionPlan) else CodexAppServerSessionPlan.from_dict(session_plan)
+    adapter = adapter_plan if isinstance(adapter_plan, AppServerAdapterPlan) else AppServerAdapterPlan.from_dict(adapter_plan)
+    listen_mode = "stdio" if adapter.app_server_transport == "stdio" else "ws_loopback"
+    codex_command = _codex_command_from_adapter(adapter)
+    return AppServerDryRunConfig(
+        repo_root=session.workspace_path,
+        workspace_path=session.workspace_path,
+        schema_dir=session.app_server_schema_dir,
+        codex_command=codex_command,
+        listen_mode=listen_mode,
+        ws_host="127.0.0.1",
+        ws_port=_ws_port_from_listen(adapter.app_server_listen),
+        timeout_seconds=30,
+        startup_timeout_seconds=10,
+        shutdown_timeout_seconds=5,
+        allow_network=False,
+        allow_auth=False,
+        allow_browser=False,
+        allow_real_task_execution=False,
+        write_logs=True,
+        dry_run_only=True,
+        operator_approved=False,
+    )
+
+
+def validate_dry_run_session_plan(dry_run_config: AppServerDryRunConfig | Mapping[str, Any]) -> dict[str, Any]:
+    return validate_dry_run_config(dry_run_config)
+
+
+def render_dry_run_command(dry_run_config: AppServerDryRunConfig | Mapping[str, Any]) -> str:
+    command = list(build_app_server_command(dry_run_config))
+    return subprocess.list2cmdline(command)
+
+
+def _codex_command_from_adapter(adapter: AppServerAdapterPlan) -> tuple[str, ...]:
+    command = tuple(adapter.start_command)
+    if len(command) >= 4 and command[1:3] == ("app-server", "--listen"):
+        return (command[0],)
+    return command[:1] or ("codex",)
+
+
+def _ws_port_from_listen(listen: str) -> int:
+    if not listen.startswith("ws://"):
+        return 0
+    try:
+        return int(listen.rsplit(":", 1)[1])
+    except ValueError:
+        return 0

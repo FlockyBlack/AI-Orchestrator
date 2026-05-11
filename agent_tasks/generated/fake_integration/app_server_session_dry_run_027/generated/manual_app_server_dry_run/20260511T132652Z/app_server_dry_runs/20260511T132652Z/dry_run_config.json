@@ -1,0 +1,24 @@
+{
+  "allow_auth": false,
+  "allow_browser": false,
+  "allow_network": false,
+  "allow_real_task_execution": false,
+  "codex_command": [
+    "python",
+    "tests\\fixtures\\fake_app_server\\fake_app_server.py",
+    "success"
+  ],
+  "dry_run_only": true,
+  "listen_mode": "stdio",
+  "operator_approved": true,
+  "repo_root": "C:\\Users\\OpenC\\.openclaw\\workspace",
+  "schema_dir": "C:\\Users\\OpenC\\.openclaw\\external_research\\codex_app_server_schema",
+  "schema_version": "app_server_dry_run.v1",
+  "shutdown_timeout_seconds": 5.0,
+  "startup_timeout_seconds": 3.0,
+  "timeout_seconds": 3.0,
+  "workspace_path": "C:\\Users\\OpenC\\.openclaw\\workspace",
+  "write_logs": true,
+  "ws_host": "127.0.0.1",
+  "ws_port": 0
+}

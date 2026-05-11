@@ -3,9 +3,19 @@ from __future__ import annotations
 import json
 import shutil
 import subprocess
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from ai_orchestrator.symphony_adapter import (
+    AppServerDryRunConfig,
+    build_default_dry_run_config,
+    describe_protocol_capabilities,
+    render_dry_run_command,
+    run_app_server_dry_run,
+    validate_dry_run_config,
+    write_app_server_dry_run_artifacts,
+)
 from ai_orchestrator.codex_queue.automation_dashboard import build_dashboard
 from ai_orchestrator.codex_queue.codex_cli_executor import (
     build_codex_cli_command,
@@ -221,6 +231,7 @@ def build_panel_dashboard_action(repo_root: str | Path, queue_root: str | Path) 
         "dashboard": dashboard,
         "git": inspect_git_action(repo_root),
         "codex_cli": codex_cli_panel_status(queue_root),
+        "app_server": app_server_panel_status(repo_root, queue_root),
     }
 
 
@@ -238,6 +249,168 @@ def codex_cli_panel_status(queue_root: str | Path) -> dict[str, Any]:
         "executable": executable,
         "ready": validation["valid"] and executable["available"],
     }
+
+
+def app_server_panel_status(repo_root: str | Path, queue_root: str | Path) -> dict[str, Any]:
+    schema_dir = Path("C:/Users/OpenC/.openclaw/external_research/codex_app_server_schema")
+    config = build_default_dry_run_config(repo_root, schema_dir, repo_root)
+    validation = validate_dry_run_config(config)
+    latest_result = _latest_app_server_dry_run_result(queue_root)
+    return {
+        "schema_dir": str(schema_dir),
+        "schema_dir_exists": schema_dir.exists(),
+        "schema_client_request_exists": (schema_dir / "ClientRequest.json").exists(),
+        "codex_cli_version": _codex_cli_version(),
+        "command_preview": render_dry_run_command(config),
+        "validation": validation,
+        "safety_flags": {
+            "allow_network": config.allow_network,
+            "allow_auth": config.allow_auth,
+            "allow_browser": config.allow_browser,
+            "allow_real_task_execution": config.allow_real_task_execution,
+            "dry_run_only": config.dry_run_only,
+            "operator_approved": config.operator_approved,
+        },
+        "last_dry_run_result": latest_result,
+        "artifact_paths": latest_result.get("artifact_paths", {}) if isinstance(latest_result, dict) else {},
+        "ready_to_render": validation["valid"],
+    }
+
+
+def probe_app_server_schema_action(queue_root: str | Path, schema_dir: str | Path) -> dict[str, Any]:
+    capabilities = describe_protocol_capabilities(schema_dir)
+    result = {
+        "status": "ok" if not capabilities.get("errors") else "blocked",
+        "schema_dir": str(schema_dir),
+        "protocol_capabilities": capabilities,
+        "app_server_started": False,
+        "network_used": False,
+    }
+    _remember_action(queue_root, "app_server_schema_probe", result)
+    return result
+
+
+def render_app_server_dry_run_command_action(
+    repo_root: str | Path,
+    queue_root: str | Path,
+    schema_dir: str | Path,
+    listen_mode: str = "stdio",
+) -> dict[str, Any]:
+    config = build_default_dry_run_config(repo_root, schema_dir, repo_root)
+    config = AppServerDryRunConfig.from_dict({**config.to_dict(), "listen_mode": listen_mode, "operator_approved": False})
+    validation = validate_dry_run_config(config)
+    result = {
+        "status": "ok" if validation["valid"] else "blocked",
+        "command_preview": render_dry_run_command(config),
+        "validation": validation,
+        "config": config.to_dict(),
+        "app_server_started": False,
+    }
+    _remember_action(queue_root, "app_server_render_dry_run_command", result)
+    return result
+
+
+def run_short_app_server_dry_run_action(
+    repo_root: str | Path,
+    queue_root: str | Path,
+    schema_dir: str | Path,
+    *,
+    approval_text: str = "",
+) -> dict[str, Any]:
+    required = "I approve short-lived Codex app-server dry-run"
+    if approval_text.strip() != required:
+        result = {
+            "status": "blocked",
+            "errors": [f"exact confirmation text is required: {required}"],
+            "process_started": False,
+            "app_server_started": False,
+        }
+        _remember_action(queue_root, "app_server_dry_run_blocked_approval", result)
+        return result
+    config = build_default_dry_run_config(repo_root, schema_dir, repo_root)
+    config = AppServerDryRunConfig.from_dict({**config.to_dict(), "operator_approved": True})
+    result = run_app_server_dry_run(config)
+    run_id = _panel_run_id()
+    output_dir = Path(queue_root) / "generated" / "panel_app_server_dry_run" / run_id / "app_server_dry_runs" / run_id
+    artifact_paths = write_app_server_dry_run_artifacts(result, output_dir)
+    payload = {
+        **result.to_dict(),
+        "status": result.status,
+        "artifact_dir": str(output_dir),
+        "artifact_paths": artifact_paths,
+        "app_server_started": result.process_started,
+    }
+    _remember_action(queue_root, "app_server_dry_run", payload)
+    return payload
+
+
+def create_app_server_session_plan_action(
+    run_id: str,
+    queue_root: str | Path,
+    workspace_root: str | Path,
+    schema_dir: str | Path,
+) -> dict[str, Any]:
+    from ai_orchestrator.codex_queue.operator_cli import main
+
+    exit_code = main(
+        [
+            "create-app-server-session-plan",
+            "--run-id",
+            run_id,
+            "--queue-root",
+            str(queue_root),
+            "--workspace-root",
+            str(workspace_root),
+            "--schema-dir",
+            str(schema_dir),
+        ]
+    )
+    latest = _read_json(Path(queue_root) / "reports" / "latest_operator_action.json")
+    result = {"status": "ok" if exit_code == 0 else "blocked", "operator_action": latest, "app_server_started": False}
+    _remember_action(queue_root, "create_app_server_session_plan", result, run_id=run_id)
+    return result
+
+
+def _latest_app_server_dry_run_result(queue_root: str | Path) -> dict[str, Any]:
+    candidates = sorted(Path(queue_root).glob("generated/*/*/app_server_dry_runs/*/result.json"))
+    if not candidates:
+        return {}
+    latest = candidates[-1]
+    payload = _read_json(latest)
+    payload["result_path"] = str(latest)
+    payload["artifact_dir"] = str(latest.parent)
+    payload["artifact_paths"] = {
+        "dry_run_config": str(latest.parent / "dry_run_config.json"),
+        "app_server_command": str(latest.parent / "app_server_command.txt"),
+        "protocol_probe": str(latest.parent / "protocol_probe.json"),
+        "stdout": str(latest.parent / "stdout.log"),
+        "stderr": str(latest.parent / "stderr.log"),
+        "result": str(latest),
+        "readme": str(latest.parent / "README.md"),
+    }
+    return payload
+
+
+def _codex_cli_version() -> str:
+    executable = shutil.which("codex")
+    if not executable:
+        return "unavailable"
+    try:
+        completed = subprocess.run(
+            [executable, "--version"],
+            check=False,
+            capture_output=True,
+            text=True,
+            timeout=5,
+        )
+    except (OSError, subprocess.TimeoutExpired):
+        return "unavailable"
+    output = (completed.stdout or completed.stderr).strip()
+    return output or "unknown"
+
+
+def _panel_run_id() -> str:
+    return datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
 
 
 def _remember_action(queue_root: str | Path, action: str, result: dict[str, Any], *, run_id: str = "") -> None:

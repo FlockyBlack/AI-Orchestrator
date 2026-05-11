@@ -1,0 +1,37 @@
+{
+  "errors": [],
+  "initialize_request_available": true,
+  "initialize_request_valid": true,
+  "protocol_probe_attempted": true,
+  "protocol_probe_succeeded": true,
+  "raw_stdout_lines_seen": 1,
+  "request": {
+    "id": "ai-orchestrator-dry-run-initialize",
+    "method": "initialize",
+    "params": {
+      "capabilities": {
+        "experimentalApi": false,
+        "optOutNotificationMethods": []
+      },
+      "clientInfo": {
+        "name": "ai-orchestrator",
+        "title": "AI-Orchestrator app-server dry-run",
+        "version": "0.1.0"
+      }
+    }
+  },
+  "response_messages": [
+    {
+      "id": "ai-orchestrator-dry-run-initialize",
+      "result": {
+        "codexHome": "C:\\Users\\OpenC\\.codex",
+        "platformFamily": "windows",
+        "platformOs": "windows",
+        "userAgent": "Codex Desktop/0.129.0-alpha.15 (Windows 10.0.26200; x86_64) unknown (ai-orchestrator; 0.1.0)"
+      }
+    }
+  ],
+  "schema_only": false,
+  "status": "succeeded",
+  "warnings": []
+}

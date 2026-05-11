@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import shlex
 import shutil
 import uuid
 from datetime import datetime, timezone
@@ -63,17 +64,25 @@ from .safety import classify_packet
 from .validator import validate_packet
 from .workspace_planner import plan_workspace_for_task, render_workspace_plan_markdown
 from ai_orchestrator.symphony_adapter import (
+    AppServerDryRunConfig,
     build_app_server_adapter_plan,
+    build_default_dry_run_config,
+    build_dry_run_session_from_symphony_plan,
     build_session_plan,
     build_workspace_plan_for_task,
+    describe_protocol_capabilities,
     inspect_schema_dir,
     map_plan_task_to_symphony_task,
     map_symphony_task_to_codex_packet,
+    render_dry_run_command,
     render_app_server_start_command,
     render_workspace_setup_commands,
+    run_app_server_dry_run,
     validate_app_server_adapter_plan,
+    validate_dry_run_session_plan,
     validate_session_plan,
     validate_workspace_plan,
+    write_app_server_dry_run_artifacts,
 )
 
 
@@ -175,6 +184,38 @@ def main(argv: list[str] | None = None) -> int:
     symphony_task_plan_parser.add_argument("--workspace-root", required=True)
     symphony_task_plan_parser.add_argument("--app-server-schema-dir", default=str(DEFAULT_APP_SERVER_SCHEMA_DIR))
     symphony_task_plan_parser.set_defaults(func=_cmd_create_symphony_task_plan)
+
+    schema_probe_parser = subparsers.add_parser(
+        "app-server-schema-probe",
+        help="Inspect generated Codex app-server protocol schemas without starting app-server.",
+    )
+    schema_probe_parser.add_argument("--schema-dir", required=True)
+    schema_probe_parser.set_defaults(func=_cmd_app_server_schema_probe)
+
+    app_server_dry_run_parser = subparsers.add_parser(
+        "app-server-dry-run",
+        help="Render or run one explicit short-lived Codex app-server dry-run.",
+    )
+    app_server_dry_run_parser.add_argument("--repo-root", required=True)
+    _add_queue_root(app_server_dry_run_parser)
+    app_server_dry_run_parser.add_argument("--schema-dir", required=True)
+    app_server_dry_run_parser.add_argument("--workspace-path", default=None)
+    app_server_dry_run_parser.add_argument("--listen-mode", choices=("stdio", "ws_loopback"), default="stdio")
+    app_server_dry_run_parser.add_argument("--timeout-seconds", type=float, default=30)
+    app_server_dry_run_parser.add_argument("--operator-approved", action="store_true")
+    app_server_dry_run_parser.add_argument("--codex-command", default="codex")
+    app_server_dry_run_parser.add_argument("--codex-command-part", action="append", default=[])
+    app_server_dry_run_parser.set_defaults(func=_cmd_app_server_dry_run)
+
+    app_server_session_plan_parser = subparsers.add_parser(
+        "create-app-server-session-plan",
+        help="Create a Symphony-style app-server dry-run session plan for the next runnable task.",
+    )
+    app_server_session_plan_parser.add_argument("--run-id", required=True)
+    _add_queue_root(app_server_session_plan_parser)
+    app_server_session_plan_parser.add_argument("--workspace-root", required=True)
+    app_server_session_plan_parser.add_argument("--schema-dir", required=True)
+    app_server_session_plan_parser.set_defaults(func=_cmd_create_app_server_session_plan)
 
     ingest_codex_parser = subparsers.add_parser(
         "ingest-codex-result",
@@ -737,6 +778,300 @@ def _cmd_create_symphony_task_plan(args: argparse.Namespace) -> dict[str, Any]:
                 },
                 "schema_index_passed": not schema_index.errors,
                 "symphony_mapping_passed": symphony_task.status.runnable,
+                "app_server_adapter_boundary_ready": app_server_validation["valid"],
+                "codex_app_server_used": False,
+                "real_app_server_started": False,
+                "real_codex_self_invocation": False,
+                "daemon_created": False,
+                "scheduler_created": False,
+                "background_worker_created": False,
+                "network_calls_performed": 0,
+            },
+        ),
+    )
+
+
+def _cmd_app_server_schema_probe(args: argparse.Namespace) -> dict[str, Any]:
+    capabilities = describe_protocol_capabilities(args.schema_dir)
+    status = "ok" if not capabilities.get("errors") else "blocked"
+    return {
+        "command": "app-server-schema-probe",
+        "status": status,
+        "task_id": "",
+        "errors": list(capabilities.get("errors", [])),
+        "warnings": list(capabilities.get("warnings", [])),
+        "next_operator_action": (
+            "Use app-server-dry-run without --operator-approved to render the launch command."
+            if status == "ok"
+            else "Regenerate or fix the app-server schema directory before dry-run."
+        ),
+        "protocol_capabilities": capabilities,
+        "schema_probe_passed": status == "ok",
+        "codex_app_server_used": False,
+        "real_app_server_started": False,
+        "network_calls_performed": 0,
+    }
+
+
+def _cmd_app_server_dry_run(args: argparse.Namespace) -> dict[str, Any]:
+    config = _app_server_config_from_args(args)
+    validation = validate_dry_run_session_plan(config)
+    command_preview = render_dry_run_command(config)
+    run_id = _run_id()
+    output_dir = (
+        Path(args.queue_root)
+        / "generated"
+        / "manual_app_server_dry_run"
+        / run_id
+        / "app_server_dry_runs"
+        / run_id
+    )
+    if not args.operator_approved:
+        status = "requires_operator_approval"
+        return write_operator_action_report(
+            args.queue_root,
+            _action(
+                "app-server-dry-run",
+                status,
+                "",
+                args.queue_root,
+                errors=["operator approval is required to start codex app-server"],
+                warnings=list(validation["warnings"]),
+                next_operator_action="Review the rendered command, then rerun with --operator-approved if this short-lived dry-run is intended.",
+                extra={
+                    "run_id": run_id,
+                    "app_server_dry_run": {
+                        "status": status,
+                        "command_preview": command_preview,
+                        "validation": validation,
+                        "artifact_dir": str(output_dir),
+                    },
+                    "command_preview": command_preview,
+                    "requires_operator_approval": True,
+                    "process_started": False,
+                    "protocol_probe_attempted": False,
+                    "protocol_probe_succeeded": False,
+                    "schema_only": True,
+                    "process_stopped": True,
+                    "codex_app_server_used": False,
+                    "real_app_server_started": False,
+                    "network_calls_performed": 0,
+                },
+            ),
+        )
+    if not validation["valid"]:
+        return write_operator_action_report(
+            args.queue_root,
+            _action(
+                "app-server-dry-run",
+                "blocked",
+                "",
+                args.queue_root,
+                errors=list(validation["errors"]),
+                warnings=list(validation["warnings"]),
+                next_operator_action="Resolve dry-run validation errors before starting app-server.",
+                extra={
+                    "run_id": run_id,
+                    "app_server_dry_run": {
+                        "status": "blocked",
+                        "command_preview": command_preview,
+                        "validation": validation,
+                        "artifact_dir": str(output_dir),
+                    },
+                    "command_preview": command_preview,
+                    "process_started": False,
+                    "protocol_probe_attempted": False,
+                    "protocol_probe_succeeded": False,
+                    "schema_only": True,
+                    "process_stopped": True,
+                    "codex_app_server_used": False,
+                    "real_app_server_started": False,
+                    "network_calls_performed": 0,
+                },
+            ),
+        )
+    result = run_app_server_dry_run(config)
+    artifact_paths = write_app_server_dry_run_artifacts(result, output_dir)
+    result_payload = result.to_dict()
+    real_codex_app_server = _is_real_codex_app_server_command(config.codex_command)
+    status = "ok" if result_payload["process_started"] and result_payload["process_stopped"] else "failed"
+    if result_payload["status"] in {"blocked", "failed"}:
+        status = result_payload["status"]
+    return write_operator_action_report(
+        args.queue_root,
+        _action(
+            "app-server-dry-run",
+            status,
+            "",
+            args.queue_root,
+            destination_path=output_dir,
+            errors=list(result_payload.get("errors", [])),
+            warnings=list(result_payload.get("warnings", [])),
+            next_operator_action="Review app-server dry-run artifacts and protocol probe status.",
+            extra={
+                "run_id": run_id,
+                "app_server_dry_run": {
+                    **result_payload,
+                    "artifact_dir": str(output_dir),
+                    "artifact_paths": artifact_paths,
+                    "command_preview": command_preview,
+                },
+                "artifact_paths": artifact_paths,
+                "command_preview": command_preview,
+                "process_started": result_payload["process_started"],
+                "protocol_probe_attempted": result_payload["protocol_probe_attempted"],
+                "protocol_probe_succeeded": result_payload["protocol_probe_succeeded"],
+                "schema_only": result_payload["schema_only"],
+                "process_stopped": result_payload["process_stopped"],
+                "codex_app_server_used": result_payload["process_started"],
+                "real_app_server_started": real_codex_app_server and result_payload["process_started"],
+                "real_app_server_stopped": real_codex_app_server and result_payload["process_stopped"],
+                "network_calls_performed": 0,
+            },
+        ),
+    )
+
+
+def _cmd_create_app_server_session_plan(args: argparse.Namespace) -> dict[str, Any]:
+    inspection = inspect_queue(args.queue_root, args.run_id)
+    if inspection["status"] not in {"found", "invalid"}:
+        return write_operator_action_report(
+            args.queue_root,
+            _action(
+                "create-app-server-session-plan",
+                "blocked",
+                "",
+                args.queue_root,
+                errors=list(inspection.get("errors", [])),
+                next_operator_action="Create or recover a generated run before building an app-server session plan.",
+                extra={"run_id": args.run_id, "codex_app_server_used": False, "real_app_server_started": False},
+            ),
+        )
+    manifest = dict(inspection.get("manifest", {}))
+    plan_file = str(manifest.get("source_plan_file") or "")
+    state_path = Path(str(manifest.get("state_path") or inspection.get("state_path") or ""))
+    plan = load_plan_contract(plan_file)
+    state = load_state(state_path)
+    next_tasks = get_next_runnable_tasks(
+        plan.tasks,
+        completed=state.completed_task_ids,
+        blocked=state.blocked_task_ids,
+        failed=state.failed_task_ids,
+    )
+    if not next_tasks:
+        return write_operator_action_report(
+            args.queue_root,
+            _action(
+                "create-app-server-session-plan",
+                "blocked",
+                "",
+                args.queue_root,
+                source_path=state_path,
+                errors=["no runnable task available for app-server session plan"],
+                next_operator_action="Inspect run state; there is no next runnable task.",
+                extra={"run_id": args.run_id, "plan_id": plan.plan_id, "codex_app_server_used": False},
+            ),
+        )
+
+    task = next_tasks[0]
+    symphony_task = map_plan_task_to_symphony_task(task, state, plan)
+    task_source = dict(symphony_task.source.to_dict())
+    task_source.update(
+        {
+            "source_plan_file": plan_file,
+            "task_spec_path": str(dict(manifest.get("task_paths", {})).get(task.task_id) or ""),
+            "state_path": str(state_path),
+            "manifest_path": str(inspection.get("manifest_path") or ""),
+        }
+    )
+    symphony_task = symphony_task.from_dict({**symphony_task.to_dict(), "source": task_source})
+    repo_root = plan.repo_root or "."
+    workspace_plan = build_workspace_plan_for_task(symphony_task, repo_root, args.workspace_root)
+    session_plan = build_session_plan(symphony_task, workspace_plan, args.schema_dir)
+    schema_index = inspect_schema_dir(args.schema_dir)
+    app_server_adapter_plan = build_app_server_adapter_plan(session_plan, schema_index)
+    dry_run_config = build_dry_run_session_from_symphony_plan(session_plan, app_server_adapter_plan)
+    codex_packet_preview = map_symphony_task_to_codex_packet(symphony_task, workspace_plan, session_plan)
+
+    workspace_validation = validate_workspace_plan(workspace_plan)
+    session_validation = validate_session_plan(session_plan)
+    app_server_validation = validate_app_server_adapter_plan(app_server_adapter_plan)
+    dry_run_validation = validate_dry_run_session_plan(dry_run_config)
+    errors = (
+        list(workspace_validation["errors"])
+        + list(session_validation["errors"])
+        + list(app_server_validation["errors"])
+        + list(dry_run_validation["errors"])
+        + list(schema_index.errors)
+    )
+    warnings = (
+        list(workspace_validation["warnings"])
+        + list(session_validation["warnings"])
+        + list(app_server_validation["warnings"])
+        + list(dry_run_validation["warnings"])
+        + list(schema_index.warnings)
+    )
+
+    output_dir = Path(str(inspection["run_dir"])) / "app_server_session_plans" / task.task_id
+    artifact_paths = {
+        "symphony_task": str(output_dir / "symphony_task.json"),
+        "workspace_plan": str(output_dir / "workspace_plan.json"),
+        "session_plan": str(output_dir / "session_plan.json"),
+        "app_server_adapter_plan": str(output_dir / "app_server_adapter_plan.json"),
+        "dry_run_config": str(output_dir / "dry_run_config.json"),
+        "app_server_command": str(output_dir / "app_server_command.txt"),
+        "codex_packet_preview": str(output_dir / "codex_packet_preview.json"),
+        "readme": str(output_dir / "README.md"),
+    }
+    _write_symphony_json(output_dir / "symphony_task.json", symphony_task.to_dict())
+    _write_symphony_json(output_dir / "workspace_plan.json", workspace_plan.to_dict())
+    _write_symphony_json(output_dir / "session_plan.json", session_plan.to_dict())
+    _write_symphony_json(output_dir / "app_server_adapter_plan.json", app_server_adapter_plan.to_dict())
+    _write_symphony_json(output_dir / "dry_run_config.json", dry_run_config.to_dict())
+    _write_symphony_text(output_dir / "app_server_command.txt", render_dry_run_command(dry_run_config) + "\n")
+    _write_symphony_json(output_dir / "codex_packet_preview.json", codex_packet_preview)
+    _write_symphony_text(
+        output_dir / "README.md",
+        _render_app_server_session_plan_readme(
+            symphony_task.to_dict(),
+            workspace_plan.to_dict(),
+            session_plan.to_dict(),
+            app_server_adapter_plan.to_dict(),
+            dry_run_config.to_dict(),
+        ),
+    )
+
+    status = "ok" if not errors else "blocked"
+    return write_operator_action_report(
+        args.queue_root,
+        _action(
+            "create-app-server-session-plan",
+            status,
+            task.task_id,
+            args.queue_root,
+            source_path=task_source["task_spec_path"],
+            destination_path=output_dir,
+            errors=list(dict.fromkeys(errors)),
+            warnings=list(dict.fromkeys(warnings)),
+            next_operator_action=(
+                "Review app-server session plan artifacts; no app-server process was started."
+                if status == "ok"
+                else "Resolve validation errors before rendering or running dry-run."
+            ),
+            extra={
+                "run_id": state.run_id,
+                "plan_id": plan.plan_id,
+                "app_server_session_plan": {
+                    "task_id": task.task_id,
+                    "artifact_dir": str(output_dir),
+                    "artifact_paths": artifact_paths,
+                    "app_server_dry_run_command": render_dry_run_command(dry_run_config),
+                    "schema_index_passed": not schema_index.errors,
+                    "dry_run_session_plan_valid": dry_run_validation["valid"],
+                    "app_server_adapter_boundary_ready": app_server_validation["valid"],
+                },
+                "schema_index_passed": not schema_index.errors,
+                "dry_run_session_plan_valid": dry_run_validation["valid"],
                 "app_server_adapter_boundary_ready": app_server_validation["valid"],
                 "codex_app_server_used": False,
                 "real_app_server_started": False,
@@ -2240,6 +2575,14 @@ def render_operator_action_markdown(report: Mapping[str, Any]) -> str:
         lines.append(
             "This operator action only validates or previews the real Codex CLI executor configuration. It does not invoke Codex, start background workers, add schedulers, call browser automation, access credentials, or perform trading actions."
         )
+    elif report["command"] in {"app-server-schema-probe", "create-app-server-session-plan"}:
+        lines.append(
+            "This operator action only inspects schemas or writes a local app-server session plan. It does not start Codex app-server, create a daemon, register a scheduler, run a background worker, call browser automation, use OpenRouter, call Polymarket, access authenticated endpoints, or perform trading actions."
+        )
+    elif report["command"] == "app-server-dry-run":
+        lines.append(
+            "This operator action starts Codex app-server only when exact operator approval is supplied through --operator-approved. Any approved run is short-lived, local-only, dry-run-only, captures logs, and stops the process; it does not create a daemon, scheduler, background worker, browser automation flow, authenticated flow, or trading action."
+        )
     elif report["command"] in {"run-plan", "continue-plan"} and report.get("codex_execution_added") is True:
         lines.append(
             "This operator action may invoke the configured Codex CLI only when executor=codex_cli, config.enabled=true, --allow-real-codex-invocation is present, and --auto-ingest is present. It is bounded by max_steps and stops on blocked, failed, safety, or validation outcomes."
@@ -2279,6 +2622,30 @@ def _render_symphony_task_plan_readme(
             f"- adapter_mode: `{app_server_adapter_plan.get('mode', '')}`",
             "",
             "This directory contains a render-only Symphony-style task/workspace/session plan. It did not create a worktree, start Codex app-server, invoke Codex, create a daemon, register a scheduler, run browser automation, or call external network services.",
+            "",
+        ]
+    )
+
+
+def _render_app_server_session_plan_readme(
+    symphony_task: Mapping[str, Any],
+    workspace_plan: Mapping[str, Any],
+    session_plan: Mapping[str, Any],
+    app_server_adapter_plan: Mapping[str, Any],
+    dry_run_config: Mapping[str, Any],
+) -> str:
+    return "\n".join(
+        [
+            f"# App-server session plan: {symphony_task.get('task_id', '')}",
+            "",
+            f"- task_id: `{symphony_task.get('task_id', '')}`",
+            f"- workspace_path: `{workspace_plan.get('workspace_path', '')}`",
+            f"- session_id: `{session_plan.get('session_id', '')}`",
+            f"- app_server_listen: `{app_server_adapter_plan.get('app_server_listen', '')}`",
+            f"- dry_run_only: `{dry_run_config.get('dry_run_only', True)}`",
+            f"- operator_approved: `{dry_run_config.get('operator_approved', False)}`",
+            "",
+            "This directory contains a render-only app-server session plan. It did not start Codex app-server, create a daemon, register a scheduler, run a background worker, call browser automation, use OpenRouter, call Polymarket, access authenticated endpoints, or enable real task execution.",
             "",
         ]
     )
@@ -2442,6 +2809,51 @@ def _codex_config_path(queue_root: str | Path, explicit_path: str | Path | None 
     return Path(queue_root) / "config" / "codex_executor_config.json"
 
 
+def _app_server_config_from_args(args: argparse.Namespace) -> AppServerDryRunConfig:
+    config = build_default_dry_run_config(
+        args.repo_root,
+        args.schema_dir,
+        args.workspace_path or args.repo_root,
+    )
+    return AppServerDryRunConfig.from_dict(
+        {
+            **config.to_dict(),
+            "codex_command": _codex_command_parts(args),
+            "listen_mode": args.listen_mode,
+            "timeout_seconds": args.timeout_seconds,
+            "startup_timeout_seconds": min(float(args.timeout_seconds), 10.0),
+            "shutdown_timeout_seconds": 5,
+            "allow_network": False,
+            "allow_auth": False,
+            "allow_browser": False,
+            "allow_real_task_execution": False,
+            "write_logs": True,
+            "dry_run_only": True,
+            "operator_approved": bool(args.operator_approved),
+        }
+    )
+
+
+def _codex_command_parts(args: argparse.Namespace) -> tuple[str, ...]:
+    explicit_parts = [str(part) for part in getattr(args, "codex_command_part", []) if str(part)]
+    if explicit_parts:
+        return tuple(explicit_parts)
+    value = str(getattr(args, "codex_command", "codex") or "codex").strip()
+    if not value:
+        return ()
+    try:
+        return tuple(shlex.split(value))
+    except ValueError:
+        return (value,)
+
+
+def _is_real_codex_app_server_command(command: tuple[str, ...]) -> bool:
+    if not command:
+        return False
+    executable = Path(str(command[0])).name.lower()
+    return executable in {"codex", "codex.exe"}
+
+
 def _command_can_preview(config: Any) -> bool:
     command = config.codex_command
     if isinstance(command, tuple):
@@ -2590,7 +3002,21 @@ def _cli_summary(report: Mapping[str, Any]) -> dict[str, Any]:
         "schema_index_passed",
         "symphony_mapping_passed",
         "app_server_adapter_boundary_ready",
+        "app_server_dry_run",
+        "app_server_session_plan",
+        "artifact_paths",
+        "command_preview",
+        "dry_run_session_plan_valid",
         "real_app_server_started",
+        "real_app_server_stopped",
+        "process_started",
+        "process_stopped",
+        "protocol_capabilities",
+        "protocol_probe_attempted",
+        "protocol_probe_succeeded",
+        "requires_operator_approval",
+        "schema_only",
+        "schema_probe_passed",
     ):
         if key in report:
             summary[key] = report[key]
@@ -2603,7 +3029,15 @@ def _cli_summary(report: Mapping[str, Any]) -> dict[str, Any]:
 def _exit_code_for_report(report: Mapping[str, Any]) -> int:
     status = str(report.get("status", "failed"))
     run_status = str(report.get("run_status", ""))
-    success_statuses = {"ok", "done", "max_steps", "requiring_operator_handoff", "adapter_dry_run_ready", "dry_run"}
+    success_statuses = {
+        "ok",
+        "done",
+        "max_steps",
+        "requiring_operator_handoff",
+        "requires_operator_approval",
+        "adapter_dry_run_ready",
+        "dry_run",
+    }
     failure_statuses = {"blocked", "failed", "needs_retry", "safety_failure", "validation_failure"}
     if status in failure_statuses or run_status in failure_statuses:
         return 1

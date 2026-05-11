@@ -1,0 +1,31 @@
+{
+  "task_id": "ORCH-CODEX-AUTOMATION-027-ACTUAL-APP-SERVER-SESSION-DRY-RUN",
+  "fake_app_server_integration": {
+    "artifact_dir": "agent_tasks/generated/fake_integration/app_server_session_dry_run_027/generated/manual_app_server_dry_run/20260511T132652Z/app_server_dry_runs/20260511T132652Z",
+    "fake_app_server_started": true,
+    "fake_app_server_stopped": true,
+    "fake_protocol_probe_passed": true,
+    "passed": true
+  },
+  "real_app_server_readiness": {
+    "app_server_command": "codex app-server --listen stdio://",
+    "artifact_dir": "agent_tasks/generated/fake_integration/app_server_session_dry_run_027/real/generated/manual_app_server_dry_run/20260511T132728Z/app_server_dry_runs/20260511T132728Z",
+    "real_app_server_started": true,
+    "real_app_server_stopped": true,
+    "real_protocol_probe_attempted": true,
+    "real_protocol_probe_succeeded": true,
+    "real_protocol_probe_status": "succeeded",
+    "reason": "explicit short-lived operator-approved dry-run completed and stopped cleanly"
+  },
+  "safety": {
+    "authenticated_endpoints_used": false,
+    "background_worker_created": false,
+    "browser_automation_used": false,
+    "daemon_created": false,
+    "network_used": false,
+    "openrouter_used": false,
+    "polymarket_api_used": false,
+    "scheduler_created": false,
+    "wallet_or_signing_used": false
+  }
+}

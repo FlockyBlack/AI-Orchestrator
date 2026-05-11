@@ -1,0 +1,96 @@
+{
+  "artifact_dir": "agent_tasks\\generated\\fake_integration\\app_server_session_dry_run_027\\generated\\manual_app_server_dry_run\\20260511T132652Z\\app_server_dry_runs\\20260511T132652Z",
+  "blocked": false,
+  "command": [
+    "python",
+    "tests\\fixtures\\fake_app_server\\fake_app_server.py",
+    "success",
+    "app-server",
+    "--listen",
+    "stdio://"
+  ],
+  "config": {
+    "allow_auth": false,
+    "allow_browser": false,
+    "allow_network": false,
+    "allow_real_task_execution": false,
+    "codex_command": [
+      "python",
+      "tests\\fixtures\\fake_app_server\\fake_app_server.py",
+      "success"
+    ],
+    "dry_run_only": true,
+    "listen_mode": "stdio",
+    "operator_approved": true,
+    "repo_root": "C:\\Users\\OpenC\\.openclaw\\workspace",
+    "schema_dir": "C:\\Users\\OpenC\\.openclaw\\external_research\\codex_app_server_schema",
+    "schema_version": "app_server_dry_run.v1",
+    "shutdown_timeout_seconds": 5.0,
+    "startup_timeout_seconds": 3.0,
+    "timeout_seconds": 3.0,
+    "workspace_path": "C:\\Users\\OpenC\\.openclaw\\workspace",
+    "write_logs": true,
+    "ws_host": "127.0.0.1",
+    "ws_port": 0
+  },
+  "ended_at": "2026-05-11T13:26:52Z",
+  "errors": [],
+  "process_exit_code": 0,
+  "process_started": true,
+  "process_stopped": true,
+  "protocol_probe": {
+    "errors": [],
+    "initialize_request_available": true,
+    "initialize_request_valid": true,
+    "protocol_probe_attempted": true,
+    "protocol_probe_succeeded": true,
+    "raw_stdout_lines_seen": 1,
+    "request": {
+      "id": "ai-orchestrator-dry-run-initialize",
+      "method": "initialize",
+      "params": {
+        "capabilities": {
+          "experimentalApi": false,
+          "optOutNotificationMethods": []
+        },
+        "clientInfo": {
+          "name": "ai-orchestrator",
+          "title": "AI-Orchestrator app-server dry-run",
+          "version": "0.1.0"
+        }
+      }
+    },
+    "response_messages": [
+      {
+        "id": "ai-orchestrator-dry-run-initialize",
+        "result": {
+          "codexHome": "/fake/codex-home",
+          "platformFamily": "test",
+          "platformOs": "test",
+          "userAgent": "fake-codex-app-server/0.1"
+        }
+      }
+    ],
+    "schema_only": false,
+    "status": "succeeded",
+    "warnings": []
+  },
+  "protocol_probe_attempted": true,
+  "protocol_probe_succeeded": true,
+  "schema_only": false,
+  "schema_version": "app_server_dry_run.v1",
+  "shutdown": {
+    "errors": [],
+    "exit_code": 0,
+    "kill_sent": false,
+    "process_stopped": true,
+    "terminate_sent": false,
+    "timed_out": false,
+    "warnings": []
+  },
+  "started_at": "2026-05-11T13:26:52Z",
+  "status": "ok",
+  "stderr": "fake app-server mode=success\n",
+  "stdout": "{\"id\":\"ai-orchestrator-dry-run-initialize\",\"result\":{\"userAgent\":\"fake-codex-app-server/0.1\",\"codexHome\":\"/fake/codex-home\",\"platformFamily\":\"test\",\"platformOs\":\"test\"}}\n",
+  "warnings": []
+}

@@ -44,6 +44,7 @@ def render_layout(title: str, body: str, *, repo_root: str, queue_root: str) -> 
     <a href="/git">Git</a>
     <a href="/codex-handoff">Codex Handoff</a>
     <a href="/codex-cli">Codex CLI</a>
+    <a href="/app-server">App Server</a>
   </nav>
   <div class="muted">repo: {_e(repo_root)} | queue: {_e(queue_root)}</div>
 </header>
@@ -261,6 +262,59 @@ def render_codex_cli_page(data: dict[str, Any], *, repo_root: str, queue_root: s
 </section>
 """
     return render_layout("Codex CLI", body, repo_root=repo_root, queue_root=queue_root)
+
+
+def render_app_server_page(data: dict[str, Any], *, repo_root: str, queue_root: str) -> str:
+    active = data.get("active_run") or {}
+    run_id = str(active.get("run_id") or "")
+    app_server = data.get("app_server") or {}
+    validation = app_server.get("validation") or {}
+    safety_flags = app_server.get("safety_flags") or {}
+    last_result = app_server.get("last_dry_run_result") or {}
+    schema_dir = str(app_server.get("schema_dir") or "C:/Users/OpenC/.openclaw/external_research/codex_app_server_schema")
+    approval = "I approve short-lived Codex app-server dry-run"
+    body = f"""
+<section class="card">
+  <h1>App Server</h1>
+  <p><strong>schema dir:</strong> <code>{_e(schema_dir)}</code></p>
+  <p><strong>schema:</strong> <span class="{_status_class('ok' if app_server.get('schema_client_request_exists') else 'blocked')}">{_e('ready' if app_server.get('schema_client_request_exists') else 'missing')}</span> | <strong>codex:</strong> <code>{_e(app_server.get('codex_cli_version', ''))}</code></p>
+  <h2>Command Preview</h2>
+  <pre>{_e(app_server.get('command_preview', ''))}</pre>
+  <h2>Safety Flags</h2>
+  <pre>{_e(json.dumps(safety_flags, indent=2, sort_keys=True))}</pre>
+  <form class="inline-form" method="post" action="/actions/app-server-schema-probe">
+    <input type="hidden" name="schema_dir" value="{_e(schema_dir)}">
+    <button type="submit">Probe schema</button>
+  </form>
+  <form class="inline-form" method="post" action="/actions/app-server-render-command">
+    <input type="hidden" name="schema_dir" value="{_e(schema_dir)}">
+    <input type="hidden" name="listen_mode" value="stdio">
+    <button type="submit">Render dry-run command</button>
+  </form>
+  <form class="inline-form" method="post" action="/actions/create-app-server-session-plan">
+    <input type="hidden" name="run_id" value="{_e(run_id)}">
+    <input type="hidden" name="schema_dir" value="{_e(schema_dir)}">
+    <input type="hidden" name="workspace_root" value="{_e(str(Path(queue_root) / 'workspaces'))}">
+    <button type="submit">Create app-server session plan</button>
+  </form>
+  <form method="post" action="/actions/app-server-dry-run">
+    <input type="hidden" name="schema_dir" value="{_e(schema_dir)}">
+    <label>Confirmation text</label><input name="approval_text" value="">
+    <p class="muted">Required: <code>{_e(approval)}</code></p>
+    <button type="submit">Run short app-server dry-run</button>
+  </form>
+</section>
+<section class="card">
+  <h2>Validation</h2>
+  <pre>{_e(json.dumps(validation, indent=2, sort_keys=True))}</pre>
+</section>
+<section class="card">
+  <h2>Last Dry-run Result</h2>
+  <p><strong>artifact dir:</strong> <code>{_e(last_result.get('artifact_dir', 'none'))}</code></p>
+  <pre>{_e(json.dumps(last_result, indent=2, sort_keys=True))}</pre>
+</section>
+"""
+    return render_layout("App Server", body, repo_root=repo_root, queue_root=queue_root)
 
 
 def render_plan_forms(plans: list[dict[str, Any]]) -> str:

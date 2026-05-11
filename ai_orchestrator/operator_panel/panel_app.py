@@ -13,6 +13,7 @@ from .panel_actions import inspect_git_action
 from .panel_state import discover_runs
 from .panel_renderer import (
     render_artifacts_page,
+    render_app_server_page,
     render_dashboard_page,
     render_git_page,
     render_handoff_page,
@@ -104,6 +105,8 @@ def route_get(path: str, query: str, repo_root: str | Path, queue_root: str | Pa
         )
     if path == "/codex-cli":
         return render_codex_cli_page(data, repo_root=str(repo_root), queue_root=str(queue_root))
+    if path == "/app-server":
+        return render_app_server_page(data, repo_root=str(repo_root), queue_root=str(queue_root))
     return render_result_page({"status": "not_found", "path": path}, repo_root=str(repo_root), queue_root=str(queue_root))
 
 
@@ -147,6 +150,22 @@ def route_post(path: str, form: dict[str, str], repo_root: str | Path, queue_roo
     if path == "/actions/export-codex-prompt":
         result = panel_api.post_export_handoff_prompt(form, queue_root)
         result["redirect_to"] = "/codex-handoff"
+        return result
+    if path == "/actions/app-server-schema-probe":
+        result = panel_api.post_app_server_schema_probe(form, queue_root)
+        result["redirect_to"] = "/app-server"
+        return result
+    if path == "/actions/app-server-render-command":
+        result = panel_api.post_app_server_render_command(form, repo_root, queue_root)
+        result["redirect_to"] = "/app-server"
+        return result
+    if path == "/actions/create-app-server-session-plan":
+        result = panel_api.post_create_app_server_session_plan(form, queue_root)
+        result["redirect_to"] = "/app-server"
+        return result
+    if path == "/actions/app-server-dry-run":
+        result = panel_api.post_app_server_dry_run(form, repo_root, queue_root)
+        result["redirect_to"] = "/app-server"
         return result
     return {"status": "not_found", "path": path}
 

@@ -1,0 +1,37 @@
+{
+  "errors": [],
+  "initialize_request_available": true,
+  "initialize_request_valid": true,
+  "protocol_probe_attempted": true,
+  "protocol_probe_succeeded": true,
+  "raw_stdout_lines_seen": 1,
+  "request": {
+    "id": "ai-orchestrator-dry-run-initialize",
+    "method": "initialize",
+    "params": {
+      "capabilities": {
+        "experimentalApi": false,
+        "optOutNotificationMethods": []
+      },
+      "clientInfo": {
+        "name": "ai-orchestrator",
+        "title": "AI-Orchestrator app-server dry-run",
+        "version": "0.1.0"
+      }
+    }
+  },
+  "response_messages": [
+    {
+      "id": "ai-orchestrator-dry-run-initialize",
+      "result": {
+        "codexHome": "/fake/codex-home",
+        "platformFamily": "test",
+        "platformOs": "test",
+        "userAgent": "fake-codex-app-server/0.1"
+      }
+    }
+  ],
+  "schema_only": false,
+  "status": "succeeded",
+  "warnings": []
+}

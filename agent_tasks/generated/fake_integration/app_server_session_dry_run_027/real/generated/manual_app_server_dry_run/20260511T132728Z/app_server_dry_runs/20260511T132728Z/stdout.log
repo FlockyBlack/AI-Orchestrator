@@ -1,0 +1,2 @@
+{"id":"ai-orchestrator-dry-run-initialize","result":{"userAgent":"Codex Desktop/0.129.0-alpha.15 (Windows 10.0.26200; x86_64) unknown (ai-orchestrator; 0.1.0)","codexHome":"C:\\Users\\OpenC\\.codex","platformFamily":"windows","platformOs":"windows"}}
+{"method":"remoteControl/status/changed","params":{"status":"disabled","environmentId":null}}

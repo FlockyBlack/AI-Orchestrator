@@ -1,0 +1,16 @@
+{
+  "app_server_command": "codex app-server --listen stdio://",
+  "authenticated_endpoints_used": false,
+  "browser_automation_used": false,
+  "network_used": false,
+  "operator_approval_provided_in_automated_validation": true,
+  "polymarket_api_used": false,
+  "real_app_server_artifact_dir": "agent_tasks/generated/fake_integration/app_server_session_dry_run_027/real/generated/manual_app_server_dry_run/20260511T132728Z/app_server_dry_runs/20260511T132728Z",
+  "real_app_server_started": true,
+  "real_app_server_stopped": true,
+  "real_protocol_probe_attempted": true,
+  "real_protocol_probe_status": "succeeded",
+  "real_protocol_probe_succeeded": true,
+  "reason": "explicit short-lived operator-approved dry-run completed and stopped cleanly",
+  "wallet_or_signing_used": false
+}
