@@ -1,15 +1,15 @@
 {
   "task_id": "ORCH-CODEX-AUTOMATION-031-FIRST-NIGHTLY-LANE-BATCH-DRY-RUN",
-  "status": "completed_local_pending_commit_push",
+  "status": "completed_pushed",
   "repo": {
     "worktree": "C:/oc031",
     "branch": "codex/orch-codex-automation-031-first-nightly-lane-batch-dry-run",
     "base_master_head": "31fc213be71e84af8766ad7935db41613d407f25",
     "head_before": "31fc213be71e84af8766ad7935db41613d407f25",
-    "head_after": "pending_final_commit",
-    "pushed": false,
+    "head_after": "0e397eb05b728d92781cedf71ff37d859834e32b",
+    "pushed": true,
     "pushed_to_master": false,
-    "remote_verified": false
+    "remote_verified": true
   },
   "first_nightly_dry_run_executed": true,
   "dry_run_executor_only": true,
