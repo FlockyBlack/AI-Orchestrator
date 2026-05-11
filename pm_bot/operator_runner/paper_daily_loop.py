@@ -29,6 +29,16 @@ from pm_bot.trading_core.feedback_readiness import (
     render_feedback_readiness_summary_markdown,
     render_paper_outcome_recheck_queue_markdown,
 )
+from pm_bot.trading_core.live_canary_readiness import (
+    build_canary_dashboard_summary,
+    build_canary_dry_run_acceptance_receipt,
+    build_canary_operator_approval_record,
+    build_canary_readiness_packet,
+    render_canary_dry_run_receipt_markdown,
+    render_canary_operator_approval_markdown,
+    render_canary_readiness_packet_markdown,
+    select_canary_market_id,
+)
 from pm_bot.trading_core.paper_portfolio_report import (
     build_paper_portfolio_report,
     render_paper_portfolio_report_markdown,
@@ -118,11 +128,18 @@ UNSAFE_TRUE_FIELDS = {
     "autonomous_trading_enabled",
     "authenticated_endpoint_used",
     "authenticated_endpoints_used",
+    "authenticated_endpoint_called",
     "browser_automation_used",
     "network_used",
     "external_api_calls_performed",
+    "external_api_call_performed",
     "openrouter_used",
     "polymarket_api_used",
+    "live_execution_allowed",
+    "live_execution_enabled",
+    "live_execution_performed",
+    "real_signature_created",
+    "real_wallet_used",
     "outcome_invented",
     "outcome_resolution_invented",
     "pnl_invented",
@@ -163,6 +180,9 @@ class PaperDailyLoopResult:
     risk_prep_config_path: str
     wallet_boundary_audit_ledger_path: str
     dry_run_receipt_ledger_path: str
+    canary_operator_approval_record_path: str
+    canary_readiness_packet_path: str
+    canary_dry_run_receipt_path: str
     portfolio_path: str
     rollforward_path: str
     outcome_recheck_queue_path: str
@@ -304,6 +324,37 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         portfolio_state=portfolio_state,
         generated_at=generated_at,
     )
+    canary_market_id = select_canary_market_id(
+        paper_strategy_ledger=strategy_ledger,
+        risk_decision_ledger=risk_decision_ledger,
+        wallet_boundary_audit_ledger=wallet_boundary_audit_ledger,
+        source_evidence_status=source_evidence_refresh_ledger,
+    )
+    canary_operator_approval_record = build_canary_operator_approval_record(
+        run_id=active_config.run_id,
+        market_id=canary_market_id,
+        approval_status="not_requested",
+        generated_at=generated_at,
+    )
+    canary_readiness_packet = build_canary_readiness_packet(
+        paper_strategy_ledger=strategy_ledger,
+        source_evidence_status=source_evidence_refresh_ledger,
+        risk_decision_ledger=risk_decision_ledger,
+        wallet_boundary_audit_ledger=wallet_boundary_audit_ledger,
+        signing_simulator_receipt_ledger=dry_run_receipt_ledger,
+        operator_approval_record=canary_operator_approval_record,
+        run_context={
+            "run_id": active_config.run_id,
+            "run_date": active_config.run_date,
+            "tracked_markets": tracked_markets,
+        },
+        canary_market_id=canary_market_id,
+        generated_at=generated_at,
+    )
+    canary_dry_run_receipt = build_canary_dry_run_acceptance_receipt(
+        canary_readiness_packet,
+        generated_at=generated_at,
+    )
     dashboard = _build_daily_dashboard(
         config=active_config,
         tracked_markets=tracked_markets,
@@ -325,6 +376,8 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         risk_prep_config=risk_prep_config,
         wallet_boundary_audit_ledger=wallet_boundary_audit_ledger,
         dry_run_receipt_ledger=dry_run_receipt_ledger,
+        canary_readiness_packet=canary_readiness_packet,
+        canary_dry_run_receipt=canary_dry_run_receipt,
         source_evidence_refresh_ledger=source_evidence_refresh_ledger,
         generated_at=generated_at,
     )
@@ -354,6 +407,9 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
             risk_prep_config,
             wallet_boundary_audit_ledger,
             dry_run_receipt_ledger,
+            canary_operator_approval_record,
+            canary_readiness_packet,
+            canary_dry_run_receipt,
         ],
         generated_at=generated_at,
     )
@@ -390,6 +446,24 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         and dry_run_receipt_ledger.get("pnl_invented") is False
         and dry_run_receipt_ledger.get("applied_to_paper_execution") is False
         and dry_run_receipt_ledger.get("applied_to_real_execution") is False
+        and canary_readiness_packet.get("external_api_call_performed") is False
+        and canary_readiness_packet.get("real_wallet_used") is False
+        and canary_readiness_packet.get("private_key_used") is False
+        and canary_readiness_packet.get("real_signature_created") is False
+        and canary_readiness_packet.get("real_order_submitted") is False
+        and canary_readiness_packet.get("authenticated_endpoint_called") is False
+        and canary_readiness_packet.get("live_execution_performed") is False
+        and canary_readiness_packet.get("outcome_resolution_invented") is False
+        and canary_readiness_packet.get("pnl_invented") is False
+        and canary_dry_run_receipt.get("external_api_call_performed") is False
+        and canary_dry_run_receipt.get("real_wallet_used") is False
+        and canary_dry_run_receipt.get("private_key_used") is False
+        and canary_dry_run_receipt.get("real_signature_created") is False
+        and canary_dry_run_receipt.get("real_order_submitted") is False
+        and canary_dry_run_receipt.get("authenticated_endpoint_called") is False
+        and canary_dry_run_receipt.get("live_execution_performed") is False
+        and canary_dry_run_receipt.get("outcome_resolution_invented") is False
+        and canary_dry_run_receipt.get("pnl_invented") is False
         and safety_scan["safety_ok"] is True
     )
     result = PaperDailyLoopResult(
@@ -423,6 +497,15 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         ),
         dry_run_receipt_ledger_path=(
             normalize_path(paths["dry_run_receipts"]) if active_config.write_artifacts else ""
+        ),
+        canary_operator_approval_record_path=(
+            normalize_path(paths["canary_operator_approval"]) if active_config.write_artifacts else ""
+        ),
+        canary_readiness_packet_path=(
+            normalize_path(paths["canary_readiness_packet"]) if active_config.write_artifacts else ""
+        ),
+        canary_dry_run_receipt_path=(
+            normalize_path(paths["canary_dry_run_receipt"]) if active_config.write_artifacts else ""
         ),
         portfolio_path=normalize_path(paths["portfolio"]) if active_config.write_artifacts else "",
         rollforward_path=normalize_path(paths["rollforward"]) if active_config.write_artifacts else "",
@@ -466,6 +549,9 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
             risk_prep_config=risk_prep_config,
             wallet_boundary_audit_ledger=wallet_boundary_audit_ledger,
             dry_run_receipt_ledger=dry_run_receipt_ledger,
+            canary_operator_approval_record=canary_operator_approval_record,
+            canary_readiness_packet=canary_readiness_packet,
+            canary_dry_run_receipt=canary_dry_run_receipt,
             result=result,
         )
     return result
@@ -503,6 +589,12 @@ def _daily_paths(output_dir: Path) -> dict[str, Path]:
         "wallet_boundary_audit_ledger_md": output_dir / "wallet_boundary_audit_ledger.md",
         "dry_run_receipts": output_dir / "dry_run_execution_receipts.json",
         "dry_run_receipts_md": output_dir / "dry_run_execution_receipts.md",
+        "canary_operator_approval": output_dir / "live_canary_operator_approval_record.json",
+        "canary_operator_approval_md": output_dir / "live_canary_operator_approval_record.md",
+        "canary_readiness_packet": output_dir / "live_canary_readiness_packet.json",
+        "canary_readiness_packet_md": output_dir / "live_canary_readiness_packet.md",
+        "canary_dry_run_receipt": output_dir / "live_canary_dry_run_acceptance_receipt.json",
+        "canary_dry_run_receipt_md": output_dir / "live_canary_dry_run_acceptance_receipt.md",
         "portfolio": output_dir / "paper_daily_portfolio_state.json",
         "portfolio_md": output_dir / "paper_daily_portfolio_state.md",
         "rollforward": output_dir / "paper_daily_rollforward.json",
@@ -890,6 +982,8 @@ def _build_daily_dashboard(
     risk_prep_config: Mapping[str, Any],
     wallet_boundary_audit_ledger: Mapping[str, Any],
     dry_run_receipt_ledger: Mapping[str, Any],
+    canary_readiness_packet: Mapping[str, Any],
+    canary_dry_run_receipt: Mapping[str, Any],
     source_evidence_refresh_ledger: Mapping[str, Any],
     generated_at: str,
 ) -> dict[str, Any]:
@@ -974,6 +1068,14 @@ def _build_daily_dashboard(
                 dry_run_receipt_ledger.get("dry_run_receipt_ready_count", 0) or 0
             ),
             "dry_run_receipt_blocked_count": int(dry_run_receipt_ledger.get("blocked_receipt_count", 0) or 0),
+            "live_canary_readiness_packet_count": 1 if canary_readiness_packet else 0,
+            "live_canary_dry_run_ready_count": (
+                1 if canary_readiness_packet.get("canary_status") == "dry_run_ready" else 0
+            ),
+            "live_canary_blocked_count": 1 if canary_readiness_packet.get("canary_status") == "blocked" else 0,
+            "live_canary_needs_operator_approval_count": (
+                1 if canary_readiness_packet.get("canary_status") == "needs_operator_approval" else 0
+            ),
             "source_evidence_refresh_record_count": int(source_counts.get("records", 0) or 0),
             "source_evidence_gap_count": int(
                 dict(source_quality.get("summary_counts", {})).get("missing_evidence_gaps", 0) or 0
@@ -1075,6 +1177,10 @@ def _build_daily_dashboard(
             "authenticated_endpoint_used": dry_run_receipt_ledger.get("authenticated_endpoint_used") is True,
             "external_api_calls_performed": dry_run_receipt_ledger.get("external_api_calls_performed") is True,
         },
+        "live_canary_readiness_summary": build_canary_dashboard_summary(
+            canary_readiness_packet,
+            canary_dry_run_receipt,
+        ),
         "source_evidence_refresh_status": {
             "refresh_id": source_evidence_refresh_ledger.get("refresh_id"),
             "run_mode": source_evidence_refresh_ledger.get("run_mode"),
@@ -1220,16 +1326,23 @@ def _build_daily_safety_scan(
 def _daily_safety_flags() -> dict[str, bool]:
     return {
         "real_order_submitted": False,
+        "real_signature_created": False,
+        "real_wallet_used": False,
         "wallet_used": False,
         "private_key_used": False,
         "signing_used": False,
         "trading_endpoint_used": False,
+        "live_execution_allowed": False,
+        "live_execution_enabled": False,
+        "live_execution_performed": False,
         "real_money_used": False,
         "autonomous_trading_enabled": False,
         "authenticated_endpoint_used": False,
+        "authenticated_endpoint_called": False,
         "browser_automation_used": False,
         "network_used": False,
         "external_api_calls_performed": False,
+        "external_api_call_performed": False,
         "openrouter_used": False,
         "polymarket_api_used": False,
         "outcome_invented": False,
@@ -1283,6 +1396,9 @@ def _write_daily_artifacts(
     risk_prep_config: Mapping[str, Any],
     wallet_boundary_audit_ledger: Mapping[str, Any],
     dry_run_receipt_ledger: Mapping[str, Any],
+    canary_operator_approval_record: Mapping[str, Any],
+    canary_readiness_packet: Mapping[str, Any],
+    canary_dry_run_receipt: Mapping[str, Any],
     result: PaperDailyLoopResult,
 ) -> None:
     write_json(paths["config"], config.to_dict())
@@ -1310,6 +1426,15 @@ def _write_daily_artifacts(
     )
     write_json(paths["dry_run_receipts"], dry_run_receipt_ledger)
     write_text(paths["dry_run_receipts_md"], render_dry_run_execution_receipt_ledger_markdown(dry_run_receipt_ledger))
+    write_json(paths["canary_operator_approval"], canary_operator_approval_record)
+    write_text(
+        paths["canary_operator_approval_md"],
+        render_canary_operator_approval_markdown(canary_operator_approval_record),
+    )
+    write_json(paths["canary_readiness_packet"], canary_readiness_packet)
+    write_text(paths["canary_readiness_packet_md"], render_canary_readiness_packet_markdown(canary_readiness_packet))
+    write_json(paths["canary_dry_run_receipt"], canary_dry_run_receipt)
+    write_text(paths["canary_dry_run_receipt_md"], render_canary_dry_run_receipt_markdown(canary_dry_run_receipt))
     write_json(paths["source_evidence_refresh_request"], source_evidence_refresh_request)
     write_json(paths["source_evidence_refresh"], source_evidence_refresh_ledger)
     write_text(paths["source_evidence_refresh_md"], render_public_evidence_refresh_report(source_evidence_refresh_ledger))
@@ -1398,6 +1523,10 @@ def _render_daily_dashboard_markdown(dashboard: Mapping[str, Any]) -> str:
         f"- Dry-run receipts: {counts.get('dry_run_receipt_count')}",
         f"- Dry-run receipts ready: {counts.get('dry_run_receipt_ready_count')}",
         f"- Dry-run receipts blocked: {counts.get('dry_run_receipt_blocked_count')}",
+        f"- Live canary readiness packets: {counts.get('live_canary_readiness_packet_count')}",
+        f"- Live canary dry-run ready: {counts.get('live_canary_dry_run_ready_count')}",
+        f"- Live canary blocked: {counts.get('live_canary_blocked_count')}",
+        f"- Live canary needs operator approval: {counts.get('live_canary_needs_operator_approval_count')}",
         f"- Source evidence records: {counts.get('source_evidence_refresh_record_count')}",
         f"- Source evidence gaps: {counts.get('source_evidence_gap_count')}",
         "",
@@ -1429,6 +1558,7 @@ def _render_daily_dashboard_markdown(dashboard: Mapping[str, Any]) -> str:
     wallet_boundary = dict(dashboard.get("wallet_boundary_summary", {}))
     dry_run_receipts = dict(dashboard.get("dry_run_receipt_summary", {}))
     dry_run_gates = dict(dry_run_receipts.get("gate_enforcement_summary", {}))
+    canary = dict(dashboard.get("live_canary_readiness_summary", {}))
     risk_prep = dict(dashboard.get("risk_prep_config_status", {}))
     lines.extend(
         [
@@ -1507,6 +1637,24 @@ def _render_daily_dashboard_markdown(dashboard: Mapping[str, Any]) -> str:
             *bullet_lines(
                 f"{key}: `{value}`" for key, value in dict(dry_run_receipts.get("reason_code_summary", {})).items()
             ),
+            "",
+            "## Live Canary Readiness",
+            "",
+            f"- Canary: `{canary.get('canary_id')}`",
+            f"- Readiness status: `{canary.get('canary_readiness_status')}`",
+            f"- Dry-run acceptance status: `{canary.get('dry_run_acceptance_status')}`",
+            f"- Operator approval status: `{canary.get('operator_approval_status')}`",
+            f"- Risk decision status: `{canary.get('risk_decision_status')}`",
+            f"- Wallet boundary status: `{canary.get('wallet_boundary_status')}`",
+            f"- Signing simulator receipt status: `{canary.get('signing_simulator_receipt_status')}`",
+            f"- Live execution allowed: `{str(canary.get('live_execution_allowed')).lower()}`",
+            f"- External API call performed: `{str(canary.get('external_api_call_performed')).lower()}`",
+            "- Blocked reason summary:",
+            *bullet_lines(str(item) for item in canary.get("blocked_reason_summary", [])),
+            "- Missing artifact summary:",
+            *bullet_lines(str(item) for item in canary.get("missing_artifact_summary", [])),
+            "- Next operator action:",
+            f"- {canary.get('next_operator_action')}",
             "",
             "## Source Evidence Refresh",
             "",
@@ -1627,6 +1775,9 @@ def _render_daily_run_report(
             f"- Risk decision ledger: `{result.get('risk_decision_ledger_path')}`",
             f"- Wallet boundary audit ledger: `{result.get('wallet_boundary_audit_ledger_path')}`",
             f"- Dry-run execution receipts: `{result.get('dry_run_receipt_ledger_path')}`",
+            f"- Live canary operator approval record: `{result.get('canary_operator_approval_record_path')}`",
+            f"- Live canary readiness packet: `{result.get('canary_readiness_packet_path')}`",
+            f"- Live canary dry-run receipt: `{result.get('canary_dry_run_receipt_path')}`",
             f"- Source evidence refresh: `{result.get('source_evidence_refresh_path')}`",
             f"- Source evidence quality ledger: `{result.get('source_evidence_quality_ledger_path')}`",
             f"- Source evidence pending approval: `{result.get('source_evidence_pending_approval_path')}`",

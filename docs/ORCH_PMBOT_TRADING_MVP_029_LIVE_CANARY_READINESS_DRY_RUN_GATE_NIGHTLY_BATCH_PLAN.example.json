@@ -1,0 +1,37 @@
+{
+  "allow_real_codex_invocation": false,
+  "batch_id": "live-canary-readiness-dry-run-029-example",
+  "executor_mode": "fake",
+  "expected_base_branch": "master",
+  "expected_base_head": "acbb4de029f4e8e2204ba0c0a4f948671b4228a4",
+  "lane_mode": "plan_only",
+  "lane_root": "C:/oc029-live-canary-nightly-example-lanes",
+  "max_steps_per_task": 1,
+  "queue_root": "agent_tasks",
+  "repo_root": "C:/oc029_live_canary",
+  "safety_flags": {
+    "no_autonomous_trading": true,
+    "no_background_worker": true,
+    "no_browser_automation": true,
+    "no_daemon": true,
+    "no_external_apis": true,
+    "no_scheduler": true,
+    "no_wallet_signing_or_orders": true
+  },
+  "schema_version": "nightly_lane_batch_plan.v1",
+  "stop_policy": "stop_on_first_blocker",
+  "tasks": [
+    {
+      "allowed_paths": [
+        "docs/",
+        "pm_bot/trading_core/",
+        "pm_bot/operator_runner/",
+        "pm_bot/tests/"
+      ],
+      "executor_mode": "fake",
+      "max_steps": 1,
+      "task_category": "pmbot_paper_product",
+      "task_id": "ORCH-PMBOT-TRADING-MVP-029-LIVE-CANARY-READINESS-DRY-RUN-GATE"
+    }
+  ]
+}

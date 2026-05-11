@@ -1,0 +1,84 @@
+{
+  "task_id": "ORCH-PMBOT-TRADING-MVP-029-LIVE-CANARY-READINESS-DRY-RUN-GATE",
+  "status": "completed_branch_pushed",
+  "repo": {
+    "worktree": "C:/oc029_live_canary",
+    "branch": "pmbot/trading-mvp-029-live-canary-readiness-dry-run-gate",
+    "base_master_head": "acbb4de029f4e8e2204ba0c0a4f948671b4228a4",
+    "head_before": "acbb4de029f4e8e2204ba0c0a4f948671b4228a4",
+    "head_after": "recorded_in_final_response_after_commit",
+    "pushed": true,
+    "pushed_to_master": false,
+    "remote_verified": true
+  },
+  "prerequisite_028b_present": true,
+  "canary_readiness_contract_ready": true,
+  "canary_builder_ready": true,
+  "operator_approval_gate_ready": true,
+  "dry_run_acceptance_flow_ready": true,
+  "dashboard_canary_summary_ready": true,
+  "forbidden_field_scanner_ready": true,
+  "replay_idempotency_passed": true,
+  "nightly_runner_example_added": true,
+  "external_api_calls_performed": false,
+  "real_wallet_integration_added": false,
+  "private_key_handling_added": false,
+  "cryptographic_signing_added": false,
+  "real_order_placement_added": false,
+  "authenticated_endpoint_added": false,
+  "autonomous_live_trading_enabled": false,
+  "outcome_resolution_invented": false,
+  "pnl_invented": false,
+  "tests_passed": true,
+  "safety_ok": true,
+  "blocked_reason": null,
+  "validation": [
+    {
+      "command": "pytest pm_bot/tests",
+      "status": "passed",
+      "result": "1423 passed"
+    },
+    {
+      "command": "python -m compileall pm_bot",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest tests/test_codex_queue_nightly_lane_batch_runner.py tests/test_codex_worktree_lane_manager.py tests/test_subagent_routing.py tests/test_codex_queue_operator_cli.py",
+      "status": "passed",
+      "result": "41 passed"
+    },
+    {
+      "command": "python -m compileall ai_orchestrator",
+      "status": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    }
+  ],
+  "changed_files": [
+    "ai_orchestrator/codex_queue/files.py",
+    "docs/ORCH_PMBOT_TRADING_MVP_029_LIVE_CANARY_READINESS_DRY_RUN_GATE.md",
+    "docs/ORCH_PMBOT_TRADING_MVP_029_LIVE_CANARY_READINESS_DRY_RUN_GATE_NIGHTLY_BATCH_PLAN.example.json",
+    "docs/ORCH_PMBOT_TRADING_MVP_029_LIVE_CANARY_READINESS_DRY_RUN_GATE_RESULT.json",
+    "pm_bot/operator_runner/paper_daily_loop.py",
+    "pm_bot/tests/test_live_canary_readiness_029.py",
+    "pm_bot/trading_core/live_canary_readiness.py"
+  ],
+  "safety_review": {
+    "no_real_wallet_used": true,
+    "no_private_key_used": true,
+    "no_real_signature_created": true,
+    "no_real_order_submitted": true,
+    "no_authenticated_endpoint_called": true,
+    "no_external_api_call_performed": true,
+    "no_live_execution_performed": true,
+    "operator_approval_scope": "dry_run_only"
+  },
+  "git_safety": {
+    "selective_staging_only": true,
+    "broad_git_add_used": false,
+    "force_push_used": false,
+    "pushed_to_master": false
+  }
+}

@@ -62,7 +62,7 @@ def write_json_atomic(path: str | Path, payload: Mapping[str, Any], *, overwrite
     if target.exists() and not overwrite:
         raise FileExistsError(f"file already exists: {target}")
 
-    temp_name = f".{target.name}.{os.getpid()}.{uuid.uuid4().hex}.tmp"
+    temp_name = f".tmp-{os.getpid()}-{uuid.uuid4().hex[:8]}"
     temp_path = target.with_name(temp_name)
     temp_path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     if target.exists() and not overwrite:
@@ -77,7 +77,7 @@ def write_text_atomic(path: str | Path, content: str, *, overwrite: bool = True)
     if target.exists() and not overwrite:
         raise FileExistsError(f"file already exists: {target}")
 
-    temp_name = f".{target.name}.{os.getpid()}.{uuid.uuid4().hex}.tmp"
+    temp_name = f".tmp-{os.getpid()}-{uuid.uuid4().hex[:8]}"
     temp_path = target.with_name(temp_name)
     temp_path.write_text(content, encoding="utf-8")
     if target.exists() and not overwrite:
