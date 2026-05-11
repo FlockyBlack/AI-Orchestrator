@@ -30,6 +30,7 @@ def build_paper_strategy_evaluation_ledger(
     position_ledger: Mapping[str, Any],
     portfolio_state: Mapping[str, Any],
     feedback_readiness: Mapping[str, Any] | None = None,
+    source_evidence_refresh_ledger: Mapping[str, Any] | None = None,
     generated_at: str = GENERATED_AT,
 ) -> dict[str, Any]:
     run_id = _first_text(
@@ -81,6 +82,7 @@ def build_paper_strategy_evaluation_ledger(
             exposure_by_market=exposure_by_market,
             total_unresolved_exposure_usd=total_unresolved_exposure,
             feedback_readiness=feedback_readiness or {},
+            source_evidence_refresh_ledger=source_evidence_refresh_ledger or {},
         )
         records.append(record)
 
@@ -110,6 +112,7 @@ def build_paper_strategy_evaluation_ledger(
         "unresolved_paper_exposure_usd": total_unresolved_exposure,
         "hypotheses_waiting_for_outcome_resolution": hypotheses_waiting,
         "missing_future_evaluation_data": missing_data,
+        "source_evidence_refresh_status": _source_refresh_ledger_summary(source_evidence_refresh_ledger or {}),
         "idempotency": {
             "record_ids_unique": len(record_ids) == len(set(record_ids)),
             "record_order": "market_id_then_intent_id",
@@ -157,6 +160,7 @@ def build_paper_strategy_evaluation_summary(
             strategy_ledger.get("hypotheses_waiting_for_outcome_resolution", [])
         ),
         "missing_future_evaluation_data": list(strategy_ledger.get("missing_future_evaluation_data", [])),
+        "source_evidence_refresh_status": dict(strategy_ledger.get("source_evidence_refresh_status", {})),
         "next_operator_action": "Add saved local outcome resolution evidence before evaluating paper performance.",
         "paper_only": True,
         "analysis_only": True,
@@ -194,6 +198,7 @@ def run_paper_strategy_evaluation(
         position_ledger=load_json_object(ledger_path, label="position ledger"),
         portfolio_state=portfolio_state,
         feedback_readiness=feedback_readiness,
+        source_evidence_refresh_ledger=None,
         generated_at=generated_at,
     )
     summary = build_paper_strategy_evaluation_summary(
@@ -296,6 +301,7 @@ def _strategy_record(
     exposure_by_market: Mapping[str, Any],
     total_unresolved_exposure_usd: float,
     feedback_readiness: Mapping[str, Any],
+    source_evidence_refresh_ledger: Mapping[str, Any],
 ) -> dict[str, Any]:
     market_id = clean_text(candidate.get("market_id"))
     intent_id = clean_text(candidate.get("intent_id"))
@@ -313,6 +319,14 @@ def _strategy_record(
         position=position,
         feedback_readiness=feedback_readiness,
     )
+    source_refresh_status = _source_refresh_status_for_market(
+        market_id=market_id,
+        intent_id=intent_id,
+        hypothesis_id=clean_text(candidate.get("hypothesis_id")),
+        source_evidence_refresh_ledger=source_evidence_refresh_ledger,
+    )
+    missing_data.extend(_missing_source_refresh_data(source_refresh_status))
+    missing_data = sorted(set(missing_data))
     return {
         "contract_version": PAPER_STRATEGY_EVALUATION_RECORD_CONTRACT,
         "evaluation_record_id": f"paper-strategy-eval-024-{_slug(run_date)}-{_slug(market_id)}-{_slug(intent_id)}",
@@ -327,6 +341,7 @@ def _strategy_record(
             "analysis_artifact_path": clean_text(candidate.get("analysis_source_path")),
             "evidence_artifact_paths": [clean_text(item) for item in candidate.get("evidence_source_paths", [])],
         },
+        "source_evidence_refresh": source_refresh_status,
         "simulated_action_type": clean_text(candidate.get("paper_action_type")),
         "simulated_price_usd": execution.get("paper_fill_price_usd"),
         "simulated_size_units": execution.get("paper_units") if simulated_fill else None,
@@ -426,6 +441,96 @@ def _hypotheses_waiting_for_resolution(records: Sequence[Mapping[str, Any]]) -> 
             }
         )
     return waiting
+
+
+def _source_refresh_status_for_market(
+    *,
+    market_id: str,
+    intent_id: str,
+    hypothesis_id: str,
+    source_evidence_refresh_ledger: Mapping[str, Any],
+) -> dict[str, Any]:
+    records = [
+        row
+        for row in mapping_rows(source_evidence_refresh_ledger.get("records"))
+        if clean_text(row.get("market_id")) == market_id
+        and (
+            not clean_text(row.get("intent_id"))
+            or clean_text(row.get("intent_id")) == intent_id
+            or clean_text(row.get("hypothesis_id")) == hypothesis_id
+        )
+    ]
+    if not records:
+        return {
+            "refresh_id": clean_text(source_evidence_refresh_ledger.get("refresh_id")),
+            "status": "missing_source_evidence_refresh_record",
+            "record_ids": [],
+            "fresh_records": 0,
+            "stale_records": 0,
+            "missing_source_reference_records": 1,
+            "pending_approval_records": 0,
+            "contradiction_note_records": 0,
+            "network_used": False,
+        }
+    return {
+        "refresh_id": clean_text(source_evidence_refresh_ledger.get("refresh_id")),
+        "status": "source_evidence_refresh_linked",
+        "record_ids": [clean_text(row.get("record_id")) for row in records],
+        "fresh_records": len([row for row in records if row.get("freshness_status") == "fresh_enough"]),
+        "stale_records": len([row for row in records if row.get("freshness_status") == "stale"]),
+        "missing_source_reference_records": len(
+            [row for row in records if row.get("source_status") == "missing_source_reference"]
+        ),
+        "pending_approval_records": len([row for row in records if row.get("source_status") == "pending_operator_approval"]),
+        "contradiction_note_records": len(
+            [row for row in records if row.get("contradiction_status") == "contradiction_note_present"]
+        ),
+        "network_used": False,
+    }
+
+
+def _missing_source_refresh_data(source_refresh_status: Mapping[str, Any]) -> list[str]:
+    missing: set[str] = set()
+    if int(source_refresh_status.get("missing_source_reference_records", 0) or 0) > 0:
+        missing.add("saved_public_evidence_packet_missing")
+    if int(source_refresh_status.get("pending_approval_records", 0) or 0) > 0:
+        missing.add("public_evidence_refresh_pending_operator_approval")
+    if int(source_refresh_status.get("stale_records", 0) or 0) > 0:
+        missing.add("fresh_public_evidence_refresh_needed")
+    if int(source_refresh_status.get("contradiction_note_records", 0) or 0) > 0:
+        missing.add("source_contradiction_review_pending")
+    return sorted(missing)
+
+
+def _source_refresh_ledger_summary(source_evidence_refresh_ledger: Mapping[str, Any]) -> dict[str, Any]:
+    if not source_evidence_refresh_ledger:
+        return {
+            "refresh_id": "",
+            "quality_ledger_id": "",
+            "network_used": False,
+            "records": 0,
+            "fresh_records": 0,
+            "stale_records": 0,
+            "missing_source_reference_records": 0,
+            "pending_approval_records": 0,
+            "contradiction_note_records": 0,
+            "markets_with_gaps": 0,
+        }
+    counts = dict(source_evidence_refresh_ledger.get("summary_counts", {}))
+    quality = dict(source_evidence_refresh_ledger.get("quality_ledger", {}))
+    quality_counts = dict(quality.get("summary_counts", {}))
+    return {
+        "refresh_id": clean_text(source_evidence_refresh_ledger.get("refresh_id")),
+        "quality_ledger_id": clean_text(quality.get("quality_ledger_id")),
+        "network_used": source_evidence_refresh_ledger.get("network_used") is True,
+        "records": int(counts.get("records", 0) or 0),
+        "fresh_records": int(counts.get("fresh_records", 0) or 0),
+        "stale_records": int(counts.get("stale_records", 0) or 0),
+        "missing_source_reference_records": int(counts.get("missing_source_reference_records", 0) or 0),
+        "pending_approval_records": int(counts.get("pending_approval_records", 0) or 0),
+        "contradiction_note_records": int(counts.get("contradiction_note_records", 0) or 0),
+        "markets_with_gaps": int(quality_counts.get("markets_with_gaps", 0) or 0),
+    }
 
 
 def _first_text(*values: Any) -> str:

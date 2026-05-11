@@ -12,6 +12,12 @@ from pm_bot.operator_runner.paper_daily_config import (
     load_tracked_market_state,
     local_source_paths,
 )
+from pm_bot.source_quality.public_evidence_refresh import (
+    build_public_evidence_refresh_artifacts,
+    build_public_evidence_refresh_request_from_candidates,
+    render_pending_approval_packet,
+    render_public_evidence_refresh_report,
+)
 from pm_bot.trading_core.execution_simulator import (
     SIMULATED_EXECUTION_BATCH_CONTRACT,
     render_simulated_execution_results_markdown,
@@ -101,9 +107,13 @@ UNSAFE_TRUE_FIELDS = {
     "authenticated_endpoint_used",
     "authenticated_endpoints_used",
     "browser_automation_used",
+    "network_used",
+    "external_api_calls_performed",
     "openrouter_used",
     "polymarket_api_used",
     "outcome_invented",
+    "outcome_resolution_invented",
+    "pnl_invented",
 }
 UNSAFE_POSITIVE_COUNT_FIELDS = {
     "openrouter_calls_performed",
@@ -134,6 +144,9 @@ class PaperDailyLoopResult:
     ledger_path: str
     strategy_ledger_path: str
     strategy_summary_path: str
+    source_evidence_refresh_path: str
+    source_evidence_quality_ledger_path: str
+    source_evidence_pending_approval_path: str
     risk_prep_config_path: str
     portfolio_path: str
     rollforward_path: str
@@ -183,6 +196,15 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         config=active_config,
         generated_at=generated_at,
     )
+    source_evidence_refresh_request = build_public_evidence_refresh_request_from_candidates(
+        candidates_batch=candidates,
+        tracked_markets=tracked_markets,
+        generated_at=generated_at,
+    )
+    source_evidence_refresh_artifacts = build_public_evidence_refresh_artifacts(source_evidence_refresh_request)
+    source_evidence_refresh_ledger = source_evidence_refresh_artifacts["ledger"]
+    source_evidence_quality_ledger = source_evidence_refresh_artifacts["quality_ledger"]
+    source_evidence_pending_approval = source_evidence_refresh_artifacts["pending_approval_packet"]
     limits = _build_daily_risk_limits(active_config, generated_at=generated_at)
     risk_gate = _build_risk_gate_batch(candidates, limits, generated_at=generated_at)
     executions = _build_execution_batch(candidates, risk_gate, active_config, generated_at=generated_at)
@@ -239,6 +261,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         position_ledger=ledger,
         portfolio_state=portfolio_state,
         feedback_readiness=feedback_readiness,
+        source_evidence_refresh_ledger=source_evidence_refresh_ledger,
         generated_at=generated_at,
     )
     strategy_summary = build_paper_strategy_evaluation_summary(
@@ -266,6 +289,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         strategy_ledger=strategy_ledger,
         strategy_summary=strategy_summary,
         risk_prep_config=risk_prep_config,
+        source_evidence_refresh_ledger=source_evidence_refresh_ledger,
         generated_at=generated_at,
     )
     safety_scan = _build_daily_safety_scan(
@@ -283,6 +307,9 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
             unresolved_report,
             outcome_recheck_queue,
             feedback_readiness,
+            source_evidence_refresh_request,
+            source_evidence_refresh_ledger,
+            source_evidence_quality_ledger,
             rollforward_report,
             portfolio_report,
             strategy_ledger,
@@ -301,6 +328,8 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         and audit.get("audit_passed") is True
         and idempotency_report.get("idempotency_passed") is True
         and strategy_summary.get("unresolved_pnl_not_invented") is True
+        and source_evidence_refresh_ledger.get("network_used") is False
+        and source_evidence_refresh_ledger.get("external_api_calls_performed") is False
         and risk_prep_config.get("validation", {}).get("valid") is True
         and safety_scan["safety_ok"] is True
     )
@@ -321,6 +350,13 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         ledger_path=normalize_path(paths["ledger"]) if active_config.write_artifacts else "",
         strategy_ledger_path=normalize_path(paths["strategy_ledger"]) if active_config.write_artifacts else "",
         strategy_summary_path=normalize_path(paths["strategy_summary"]) if active_config.write_artifacts else "",
+        source_evidence_refresh_path=normalize_path(paths["source_evidence_refresh"]) if active_config.write_artifacts else "",
+        source_evidence_quality_ledger_path=normalize_path(paths["source_evidence_quality"]) if active_config.write_artifacts else "",
+        source_evidence_pending_approval_path=(
+            normalize_path(paths["source_evidence_pending_approval"])
+            if active_config.write_artifacts and source_evidence_pending_approval is not None
+            else ""
+        ),
         risk_prep_config_path=normalize_path(paths["risk_prep_config"]) if active_config.write_artifacts else "",
         portfolio_path=normalize_path(paths["portfolio"]) if active_config.write_artifacts else "",
         rollforward_path=normalize_path(paths["rollforward"]) if active_config.write_artifacts else "",
@@ -352,6 +388,10 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
             unresolved_report=unresolved_report,
             outcome_recheck_queue=outcome_recheck_queue,
             feedback_readiness=feedback_readiness,
+            source_evidence_refresh_request=source_evidence_refresh_request,
+            source_evidence_refresh_ledger=source_evidence_refresh_ledger,
+            source_evidence_quality_ledger=source_evidence_quality_ledger,
+            source_evidence_pending_approval=source_evidence_pending_approval,
             rollforward_report=rollforward_report,
             portfolio_report=portfolio_report,
             strategy_ledger=strategy_ledger,
@@ -380,6 +420,12 @@ def _daily_paths(output_dir: Path) -> dict[str, Path]:
         "strategy_ledger_md": output_dir / "paper_strategy_evaluation_ledger.md",
         "strategy_summary": output_dir / "paper_strategy_evaluation_summary.json",
         "strategy_summary_md": output_dir / "paper_strategy_evaluation_summary.md",
+        "source_evidence_refresh_request": output_dir / "public_evidence_refresh_request.json",
+        "source_evidence_refresh": output_dir / "public_evidence_refresh_ledger.json",
+        "source_evidence_refresh_md": output_dir / "public_evidence_refresh_report.md",
+        "source_evidence_quality": output_dir / "public_evidence_quality_ledger.json",
+        "source_evidence_pending_approval": output_dir / "public_evidence_refresh_pending_approval_packet.json",
+        "source_evidence_pending_approval_md": output_dir / "public_evidence_refresh_pending_approval_packet.md",
         "risk_prep_config": output_dir / "future_risk_engine_config.json",
         "risk_prep_config_md": output_dir / "future_risk_engine_config.md",
         "portfolio": output_dir / "paper_daily_portfolio_state.json",
@@ -766,11 +812,15 @@ def _build_daily_dashboard(
     strategy_ledger: Mapping[str, Any],
     strategy_summary: Mapping[str, Any],
     risk_prep_config: Mapping[str, Any],
+    source_evidence_refresh_ledger: Mapping[str, Any],
     generated_at: str,
 ) -> dict[str, Any]:
     blocked = [row for row in mapping_rows(risk_gate.get("results")) if row.get("blocked") is True]
     rejected = [row for row in mapping_rows(executions.get("results")) if row.get("execution_status") == "rejected"]
     skipped = [row for row in mapping_rows(executions.get("results")) if row.get("execution_status") == "skipped"]
+    source_status_by_market = _source_status_by_market(source_evidence_refresh_ledger)
+    source_counts = dict(source_evidence_refresh_ledger.get("summary_counts", {}))
+    source_quality = dict(source_evidence_refresh_ledger.get("quality_ledger", {}))
     return {
         "contract_version": PAPER_DAILY_DASHBOARD_CONTRACT,
         "dashboard_id": f"paper-daily-dashboard-022-{config.run_date}",
@@ -784,6 +834,18 @@ def _build_daily_dashboard(
                 "outcome_status": clean_text(row.get("outcome_status") or "unknown"),
                 "feedback_ready": _feedback_ready_for_market(row, feedback_readiness),
                 "feedback_blocked_reason": _feedback_blocked_reason_for_market(row, feedback_readiness),
+                "source_gap_status": source_status_by_market.get(clean_text(row.get("market_id")), {}).get(
+                    "gap_status",
+                    "gaps_present",
+                ),
+                "source_missing_reference_count": source_status_by_market.get(clean_text(row.get("market_id")), {}).get(
+                    "missing_source_reference_count",
+                    0,
+                ),
+                "source_stale_count": source_status_by_market.get(clean_text(row.get("market_id")), {}).get(
+                    "stale_count",
+                    0,
+                ),
             }
             for row in tracked_markets
         ],
@@ -801,6 +863,10 @@ def _build_daily_dashboard(
             "total_paper_exposure_usd": float(portfolio_state.get("total_paper_exposure_usd", 0) or 0),
             "paper_strategy_ledger_record_count": int(strategy_ledger.get("record_count", 0) or 0),
             "unresolved_paper_exposure_usd": float(strategy_summary.get("unresolved_paper_exposure_usd", 0) or 0),
+            "source_evidence_refresh_record_count": int(source_counts.get("records", 0) or 0),
+            "source_evidence_gap_count": int(
+                dict(source_quality.get("summary_counts", {})).get("missing_evidence_gaps", 0) or 0
+            ),
             "unresolved_market_count": int(feedback_readiness.get("unresolved_count", 0) or 0),
             "resolved_market_count": int(feedback_readiness.get("resolved_count", 0) or 0),
             "feedback_ready_count": int(feedback_readiness.get("feedback_ready_count", 0) or 0),
@@ -841,6 +907,18 @@ def _build_daily_dashboard(
             "per_run_action_cap": risk_prep_config.get("per_run_action_cap"),
             "kill_switch_enabled": risk_prep_config.get("kill_switch_enabled"),
             "manual_approval_required": risk_prep_config.get("manual_approval_required"),
+        },
+        "source_evidence_refresh_status": {
+            "refresh_id": source_evidence_refresh_ledger.get("refresh_id"),
+            "run_mode": source_evidence_refresh_ledger.get("run_mode"),
+            "default_no_network_mode": source_evidence_refresh_ledger.get("default_no_network_mode"),
+            "network_used": source_evidence_refresh_ledger.get("network_used"),
+            "external_api_calls_performed": source_evidence_refresh_ledger.get("external_api_calls_performed"),
+            "pending_approval_packet_ready": source_evidence_refresh_ledger.get("pending_approval_packet_ready"),
+            "summary_counts": source_evidence_refresh_ledger.get("summary_counts", {}),
+            "freshness_status_counts": source_quality.get("freshness_status_counts", {}),
+            "market_source_status": source_quality.get("market_source_status", []),
+            "missing_evidence_gaps": source_quality.get("missing_evidence_gaps", []),
         },
         "open_paper_positions": portfolio_report.get("open_paper_positions", []),
         "carried_forward_positions": rollforward_report.get("carried_forward_positions", []),
@@ -887,6 +965,7 @@ def _build_daily_dashboard(
         },
         "safety_flags": _daily_safety_flags(),
         "next_operator_actions": [
+            "Review source evidence freshness and missing evidence gaps before interpreting paper strategy output.",
             "Review the paper strategy evaluation ledger before interpreting paper readiness.",
             "Add saved local outcome resolution evidence before evaluating paper performance.",
             "Review carried-forward open paper positions and exposure before the next local paper run.",
@@ -895,7 +974,7 @@ def _build_daily_dashboard(
             "Keep this as an explicit one-shot local command, not a scheduler or autonomous loop.",
         ],
         "next_operator_action": (
-            "Review strategy ledger, unresolved exposure, risk-prep config, and missing outcome evidence."
+            "Review strategy ledger, source evidence gaps, unresolved exposure, risk-prep config, and missing outcome evidence."
         ),
         "paper_only": True,
         "source_paths": local_source_paths(),
@@ -916,6 +995,15 @@ def _daily_detail_rows(rows: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]
             }
         )
     return details
+
+
+def _source_status_by_market(source_evidence_refresh_ledger: Mapping[str, Any]) -> dict[str, Mapping[str, Any]]:
+    quality = dict(source_evidence_refresh_ledger.get("quality_ledger", {}))
+    return {
+        clean_text(row.get("market_id")): row
+        for row in mapping_rows(quality.get("market_source_status"))
+        if clean_text(row.get("market_id"))
+    }
 
 
 def _feedback_ready_for_market(market: Mapping[str, Any], feedback_readiness: Mapping[str, Any]) -> bool:
@@ -971,9 +1059,13 @@ def _daily_safety_flags() -> dict[str, bool]:
         "autonomous_trading_enabled": False,
         "authenticated_endpoint_used": False,
         "browser_automation_used": False,
+        "network_used": False,
+        "external_api_calls_performed": False,
         "openrouter_used": False,
         "polymarket_api_used": False,
         "outcome_invented": False,
+        "outcome_resolution_invented": False,
+        "pnl_invented": False,
     }
 
 
@@ -1010,6 +1102,10 @@ def _write_daily_artifacts(
     unresolved_report: Mapping[str, Any],
     outcome_recheck_queue: Mapping[str, Any],
     feedback_readiness: Mapping[str, Any],
+    source_evidence_refresh_request: Mapping[str, Any],
+    source_evidence_refresh_ledger: Mapping[str, Any],
+    source_evidence_quality_ledger: Mapping[str, Any],
+    source_evidence_pending_approval: Mapping[str, Any] | None,
     rollforward_report: Mapping[str, Any],
     portfolio_report: Mapping[str, Any],
     strategy_ledger: Mapping[str, Any],
@@ -1033,6 +1129,16 @@ def _write_daily_artifacts(
     write_text(paths["strategy_ledger_md"], render_paper_strategy_evaluation_ledger_markdown(strategy_ledger))
     write_json(paths["strategy_summary"], strategy_summary)
     write_text(paths["strategy_summary_md"], render_paper_strategy_evaluation_summary_markdown(strategy_summary))
+    write_json(paths["source_evidence_refresh_request"], source_evidence_refresh_request)
+    write_json(paths["source_evidence_refresh"], source_evidence_refresh_ledger)
+    write_text(paths["source_evidence_refresh_md"], render_public_evidence_refresh_report(source_evidence_refresh_ledger))
+    write_json(paths["source_evidence_quality"], source_evidence_quality_ledger)
+    if source_evidence_pending_approval is not None:
+        write_json(paths["source_evidence_pending_approval"], source_evidence_pending_approval)
+        write_text(
+            paths["source_evidence_pending_approval_md"],
+            render_pending_approval_packet(source_evidence_pending_approval),
+        )
     write_json(paths["risk_prep_config"], risk_prep_config)
     write_text(paths["risk_prep_config_md"], render_future_risk_engine_config_markdown(risk_prep_config))
     write_json(paths["portfolio"], portfolio_state)
@@ -1081,6 +1187,8 @@ def _render_config_markdown(config: PaperDailyLoopConfig) -> str:
 
 def _render_daily_dashboard_markdown(dashboard: Mapping[str, Any]) -> str:
     counts = dict(dashboard.get("counts", {}))
+    source_status = dict(dashboard.get("source_evidence_refresh_status", {}))
+    source_counts = dict(source_status.get("summary_counts", {}))
     lines = [
         "# PMBOT Paper Daily Dashboard",
         "",
@@ -1099,12 +1207,17 @@ def _render_daily_dashboard_markdown(dashboard: Mapping[str, Any]) -> str:
         f"- Total paper exposure: `${counts.get('total_paper_exposure_usd')}`",
         f"- Paper strategy ledger records: {counts.get('paper_strategy_ledger_record_count')}",
         f"- Unresolved paper exposure: `${counts.get('unresolved_paper_exposure_usd')}`",
+        f"- Source evidence records: {counts.get('source_evidence_refresh_record_count')}",
+        f"- Source evidence gaps: {counts.get('source_evidence_gap_count')}",
         "",
         "## Tracked Markets",
         "",
     ]
     for market in dashboard.get("tracked_markets", []):
-        lines.append(f"- `{market.get('market_id')}` `{market.get('outcome_status')}` - {market.get('market_title')}")
+        lines.append(
+            f"- `{market.get('market_id')}` `{market.get('outcome_status')}` "
+            f"`source:{market.get('source_gap_status')}` - {market.get('market_title')}"
+        )
     lines.extend(["", "## Open Paper Positions", ""])
     lines.extend(
         bullet_lines(
@@ -1142,6 +1255,25 @@ def _render_daily_dashboard_markdown(dashboard: Mapping[str, Any]) -> str:
             f"- Paper unrealized PnL: `{strategy_summary.get('paper_unrealized_pnl_usd')}`",
             "- Missing future evaluation data:",
             *bullet_lines(str(item) for item in strategy_summary.get("missing_future_evaluation_data", [])),
+            "",
+            "## Source Evidence Refresh",
+            "",
+            f"- Refresh: `{source_status.get('refresh_id')}`",
+            f"- Run mode: `{source_status.get('run_mode')}`",
+            f"- Default no-network mode: `{str(source_status.get('default_no_network_mode')).lower()}`",
+            f"- Network used: `{str(source_status.get('network_used')).lower()}`",
+            f"- External API calls performed: `{str(source_status.get('external_api_calls_performed')).lower()}`",
+            f"- Records: {source_counts.get('records')}",
+            f"- Local captures ingested: {source_counts.get('local_captured_references')}",
+            f"- Missing source gaps: {source_counts.get('missing_source_reference_records')}",
+            f"- Pending approval records: {source_counts.get('pending_approval_records')}",
+            f"- Stale records: {source_counts.get('stale_records')}",
+            "- Market source status:",
+            *bullet_lines(
+                f"`{row.get('market_id')}` `{row.get('gap_status')}` "
+                f"missing {row.get('missing_source_reference_count')} stale {row.get('stale_count')}"
+                for row in source_status.get("market_source_status", [])
+            ),
             "",
             "## Risk Prep Config",
             "",
@@ -1236,6 +1368,9 @@ def _render_daily_run_report(
             f"- Ledger: `{result.get('ledger_path')}`",
             f"- Strategy ledger: `{result.get('strategy_ledger_path')}`",
             f"- Strategy summary: `{result.get('strategy_summary_path')}`",
+            f"- Source evidence refresh: `{result.get('source_evidence_refresh_path')}`",
+            f"- Source evidence quality ledger: `{result.get('source_evidence_quality_ledger_path')}`",
+            f"- Source evidence pending approval: `{result.get('source_evidence_pending_approval_path')}`",
             f"- Risk prep config: `{result.get('risk_prep_config_path')}`",
             f"- Portfolio: `{result.get('portfolio_path')}`",
             f"- Safety issues: {safety_scan.get('issue_count')}",
