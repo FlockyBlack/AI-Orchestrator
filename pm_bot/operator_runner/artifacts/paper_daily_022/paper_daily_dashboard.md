@@ -11,6 +11,7 @@
 - Simulated executions: 6
 - Simulated fills: 2
 - Open paper positions: 2
+- Carried-forward positions: 2
 - Total paper exposure: `$50.0`
 
 ## Tracked Markets
@@ -21,6 +22,24 @@
 - `691547` `unresolved` - Kraken IPO by December 31, 2026?
 - `692258` `unresolved` - MicroStrategy sells any Bitcoin by June 30, 2026?
 - `573656` `unresolved` - Will Bitcoin hit $150k by December 31, 2026?
+
+## Open Paper Positions
+
+- `563650` `$25.0` `unresolved`
+- `691547` `$25.0` `unresolved`
+
+## Carried-Forward Positions
+
+- `563650` `$25.0` `unresolved`
+- `691547` `$25.0` `unresolved`
+
+## Feedback Readiness
+
+- total_tracked_markets: `6`
+- unresolved_count: `6`
+- resolved_count: `0`
+- feedback_ready_count: `0`
+- blocked_feedback_count: `6`
 
 ## Blocked, Rejected, Skipped
 
@@ -33,7 +52,9 @@
 - idempotency_mode: `upsert_by_run_date_market_intent`
 - new_applied_count: `0`
 - already_applied_count: `2`
+- already_open_position_count: `0`
 - duplicate_fill_prevented_count: `2`
+- carried_forward_position_count: `2`
 - idempotency_passed: `True`
 
 ## Safety Flags
@@ -53,4 +74,7 @@
 
 ## Next Operator Action
 
-- Review paper-only artifacts, keep all outcomes unresolved until saved local resolution evidence exists, and rerun this local daily command only by explicit operator request.
+- Review carried-forward open paper positions and exposure before the next local paper run.
+- Recheck unresolved markets only against saved local outcome artifacts.
+- Prepare feedback records only for markets with explicit local resolution evidence.
+- Keep this as an explicit one-shot local command, not a scheduler or autonomous loop.

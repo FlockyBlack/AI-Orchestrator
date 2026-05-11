@@ -2,8 +2,10 @@
 
 - Run ID: `paper-daily-loop-022-2026-05-11`
 - Run date: `2026-05-11`
+- Carried-forward positions: 2
 - New applied fills: 0
 - Already applied fills: 2
+- Already open positions: 0
 - Duplicate fills prevented: 2
 - Idempotency passed: `true`
 

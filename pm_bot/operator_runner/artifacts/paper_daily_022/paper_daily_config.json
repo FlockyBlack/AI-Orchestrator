@@ -18,6 +18,8 @@
   "max_single_market_paper_exposure_usd": 100.0,
   "max_total_paper_exposure_usd": 1000.0,
   "output_dir": "pm_bot/operator_runner/artifacts/paper_daily_022",
+  "previous_ledger_path": null,
+  "previous_portfolio_path": null,
   "run_date": "2026-05-11",
   "run_id": "paper-daily-loop-022-2026-05-11",
   "write_artifacts": true

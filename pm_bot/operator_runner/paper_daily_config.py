@@ -30,6 +30,8 @@ class PaperDailyLoopConfig:
     market_ids: tuple[str, ...] = DEFAULT_TRACKED_MARKET_IDS
     max_markets: int = 6
     output_dir: Path | str = DEFAULT_PAPER_DAILY_OUTPUT_DIR
+    previous_ledger_path: Path | str | None = None
+    previous_portfolio_path: Path | str | None = None
     allow_network: bool = False
     allow_real_trading: bool = False
     allow_openrouter: bool = False
@@ -48,12 +50,22 @@ class PaperDailyLoopConfig:
         object.__setattr__(self, "run_id", self.run_id or f"paper-daily-loop-022-{normalized_run_date}")
         object.__setattr__(self, "market_ids", tuple(clean_text(value) for value in self.market_ids if clean_text(value)))
         object.__setattr__(self, "output_dir", Path(self.output_dir))
+        if self.previous_ledger_path is not None:
+            object.__setattr__(self, "previous_ledger_path", Path(self.previous_ledger_path))
+        if self.previous_portfolio_path is not None:
+            object.__setattr__(self, "previous_portfolio_path", Path(self.previous_portfolio_path))
         _validate_daily_config(self)
 
     def to_dict(self) -> dict[str, Any]:
         value = asdict(self)
         value["contract_version"] = PAPER_DAILY_CONFIG_CONTRACT
         value["output_dir"] = normalize_path(self.output_dir)
+        value["previous_ledger_path"] = (
+            normalize_path(self.previous_ledger_path) if self.previous_ledger_path is not None else None
+        )
+        value["previous_portfolio_path"] = (
+            normalize_path(self.previous_portfolio_path) if self.previous_portfolio_path is not None else None
+        )
         value["market_ids"] = list(self.market_ids)
         return value
 

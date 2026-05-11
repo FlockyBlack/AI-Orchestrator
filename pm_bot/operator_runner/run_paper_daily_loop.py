@@ -15,6 +15,8 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--run-date", default=date.today().isoformat())
     parser.add_argument("--max-markets", type=int, default=6)
     parser.add_argument("--output-dir", default=str(DEFAULT_PAPER_DAILY_OUTPUT_DIR))
+    parser.add_argument("--previous-ledger", default=None)
+    parser.add_argument("--previous-portfolio", default=None)
     parser.add_argument("--dry-run", action="store_true", default=False)
     parser.add_argument("--write-artifacts", action=argparse.BooleanOptionalAction, default=True)
     parser.add_argument("--allow-network", action="store_true", default=False)
@@ -28,6 +30,8 @@ def main(argv: Sequence[str] | None = None) -> int:
             run_date=args.run_date,
             max_markets=args.max_markets,
             output_dir=Path(args.output_dir),
+            previous_ledger_path=Path(args.previous_ledger) if args.previous_ledger else None,
+            previous_portfolio_path=Path(args.previous_portfolio) if args.previous_portfolio else None,
             allow_network=args.allow_network,
             allow_real_trading=args.allow_real_trading,
             allow_openrouter=args.allow_openrouter,

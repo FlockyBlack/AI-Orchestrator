@@ -11,4 +11,4 @@
 
 ## Next Operator Action
 
-- Review paper-only artifacts, keep all outcomes unresolved until saved local resolution evidence exists, and rerun this local daily command only by explicit operator request.
+- Review rollforward, unresolved outcome queue, and feedback readiness artifacts.

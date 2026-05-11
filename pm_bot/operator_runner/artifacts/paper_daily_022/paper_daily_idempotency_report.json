@@ -1,9 +1,17 @@
 {
   "already_applied_count": 2,
+  "already_open_position_count": 0,
+  "carried_forward_position_count": 2,
+  "carried_forward_position_ids": [
+    "paper-position-022-2026-05-11-563650-paper-intent-020-021-563650",
+    "paper-position-022-2026-05-11-691547-paper-intent-020-021-691547"
+  ],
   "checked_execution_count": 6,
   "contract_version": "pmbot_paper_daily_idempotency_report.v1",
   "duplicate_existing_key_count": 0,
   "duplicate_existing_keys": [],
+  "duplicate_existing_open_position_count": 0,
+  "duplicate_existing_open_position_keys": [],
   "duplicate_fill_prevented_count": 2,
   "generated_at": "2026-05-11T00:00:00Z",
   "idempotency_mode": "upsert_by_run_date_market_intent",
