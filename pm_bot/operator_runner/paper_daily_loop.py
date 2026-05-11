@@ -846,6 +846,14 @@ def _build_daily_dashboard(
                     "stale_count",
                     0,
                 ),
+                "source_missing_local_capture_count": source_status_by_market.get(
+                    clean_text(row.get("market_id")),
+                    {},
+                ).get("missing_local_capture_count", 0),
+                "source_url_refresh_not_executed_count": source_status_by_market.get(
+                    clean_text(row.get("market_id")),
+                    {},
+                ).get("source_url_refresh_not_executed_count", 0),
             }
             for row in tracked_markets
         ],
@@ -1266,12 +1274,16 @@ def _render_daily_dashboard_markdown(dashboard: Mapping[str, Any]) -> str:
             f"- Records: {source_counts.get('records')}",
             f"- Local captures ingested: {source_counts.get('local_captured_references')}",
             f"- Missing source gaps: {source_counts.get('missing_source_reference_records')}",
+            f"- Missing local captures: {source_counts.get('missing_local_capture_records')}",
             f"- Pending approval records: {source_counts.get('pending_approval_records')}",
+            f"- Approved source URLs not fetched: {source_counts.get('source_url_refresh_not_executed_records')}",
             f"- Stale records: {source_counts.get('stale_records')}",
             "- Market source status:",
             *bullet_lines(
                 f"`{row.get('market_id')}` `{row.get('gap_status')}` "
-                f"missing {row.get('missing_source_reference_count')} stale {row.get('stale_count')}"
+                f"missing {row.get('missing_source_reference_count')} "
+                f"missing_local {row.get('missing_local_capture_count')} "
+                f"stale {row.get('stale_count')}"
                 for row in source_status.get("market_source_status", [])
             ),
             "",

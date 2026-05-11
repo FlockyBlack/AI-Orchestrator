@@ -468,7 +468,10 @@ def _source_refresh_status_for_market(
             "fresh_records": 0,
             "stale_records": 0,
             "missing_source_reference_records": 1,
+            "missing_local_capture_records": 0,
             "pending_approval_records": 0,
+            "source_url_refresh_not_executed_records": 0,
+            "unknown_freshness_records": 0,
             "contradiction_note_records": 0,
             "network_used": False,
         }
@@ -481,7 +484,16 @@ def _source_refresh_status_for_market(
         "missing_source_reference_records": len(
             [row for row in records if row.get("source_status") == "missing_source_reference"]
         ),
+        "missing_local_capture_records": len(
+            [row for row in records if row.get("source_status") == "local_reference_missing"]
+        ),
         "pending_approval_records": len([row for row in records if row.get("source_status") == "pending_operator_approval"]),
+        "source_url_refresh_not_executed_records": len(
+            [row for row in records if row.get("source_status") == "source_url_waiting_for_refresh"]
+        ),
+        "unknown_freshness_records": len(
+            [row for row in records if clean_text(row.get("freshness_status")).startswith("unknown_")]
+        ),
         "contradiction_note_records": len(
             [row for row in records if row.get("contradiction_status") == "contradiction_note_present"]
         ),
@@ -493,10 +505,16 @@ def _missing_source_refresh_data(source_refresh_status: Mapping[str, Any]) -> li
     missing: set[str] = set()
     if int(source_refresh_status.get("missing_source_reference_records", 0) or 0) > 0:
         missing.add("saved_public_evidence_packet_missing")
+    if int(source_refresh_status.get("missing_local_capture_records", 0) or 0) > 0:
+        missing.add("saved_public_evidence_packet_missing")
     if int(source_refresh_status.get("pending_approval_records", 0) or 0) > 0:
         missing.add("public_evidence_refresh_pending_operator_approval")
+    if int(source_refresh_status.get("source_url_refresh_not_executed_records", 0) or 0) > 0:
+        missing.add("public_evidence_refresh_not_executed")
     if int(source_refresh_status.get("stale_records", 0) or 0) > 0:
         missing.add("fresh_public_evidence_refresh_needed")
+    if int(source_refresh_status.get("unknown_freshness_records", 0) or 0) > 0:
+        missing.add("source_evidence_freshness_unknown")
     if int(source_refresh_status.get("contradiction_note_records", 0) or 0) > 0:
         missing.add("source_contradiction_review_pending")
     return sorted(missing)
@@ -512,7 +530,10 @@ def _source_refresh_ledger_summary(source_evidence_refresh_ledger: Mapping[str, 
             "fresh_records": 0,
             "stale_records": 0,
             "missing_source_reference_records": 0,
+            "missing_local_capture_records": 0,
             "pending_approval_records": 0,
+            "source_url_refresh_not_executed_records": 0,
+            "unknown_freshness_records": 0,
             "contradiction_note_records": 0,
             "markets_with_gaps": 0,
         }
@@ -527,7 +548,12 @@ def _source_refresh_ledger_summary(source_evidence_refresh_ledger: Mapping[str, 
         "fresh_records": int(counts.get("fresh_records", 0) or 0),
         "stale_records": int(counts.get("stale_records", 0) or 0),
         "missing_source_reference_records": int(counts.get("missing_source_reference_records", 0) or 0),
+        "missing_local_capture_records": int(counts.get("missing_local_capture_records", 0) or 0),
         "pending_approval_records": int(counts.get("pending_approval_records", 0) or 0),
+        "source_url_refresh_not_executed_records": int(
+            counts.get("source_url_refresh_not_executed_records", 0) or 0
+        ),
+        "unknown_freshness_records": int(counts.get("unknown_freshness_records", 0) or 0),
         "contradiction_note_records": int(counts.get("contradiction_note_records", 0) or 0),
         "markets_with_gaps": int(quality_counts.get("markets_with_gaps", 0) or 0),
     }

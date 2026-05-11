@@ -284,6 +284,11 @@ def validate_public_evidence_refresh_request(request: Mapping[str, Any]) -> list
     approval_reference = clean_text(request.get("operator_approval_reference"))
     if approval_reference:
         errors.extend(_validate_local_reference(approval_reference, "operator_approval_reference"))
+        approval_path = Path(_normalize_reference(approval_reference))
+        if not approval_path.exists():
+            errors.append("operator_approval_reference must exist")
+        elif not approval_path.is_file():
+            errors.append("operator_approval_reference must be a file")
     if request.get("network_mode") == "operator_approved" and not approval_reference:
         errors.append("operator_approval_reference is required when network_mode is operator_approved")
 
@@ -416,6 +421,8 @@ def render_public_evidence_refresh_report(ledger: Mapping[str, Any]) -> str:
         f"- Local captures ingested: {counts.get('local_captured_references')}",
         f"- Source URLs pending approval: {counts.get('pending_approval_records')}",
         f"- Missing source gaps: {counts.get('missing_source_reference_records')}",
+        f"- Missing local captures: {counts.get('missing_local_capture_records')}",
+        f"- Approved source URLs not fetched: {counts.get('source_url_refresh_not_executed_records')}",
         f"- Stale records: {counts.get('stale_records')}",
         "",
         "## Market Source Status",
@@ -501,6 +508,8 @@ def _validate_sources(sources: Sequence[Any], market_ids: set[str]) -> list[str]
         "source_category",
         "source_label",
         "evidence_role",
+        "local_captured_reference",
+        "source_url",
         "freshness_max_age_seconds",
         "contradiction_notes",
         "evidence_quality_notes",
@@ -636,12 +645,32 @@ def _build_quality_ledger(*, request: Mapping[str, Any], records: Sequence[Mappi
         market_records = [record for record in records if record.get("market_id") == market_id]
         missing_count = len([row for row in market_records if row.get("source_status") == "missing_source_reference"])
         pending_count = len([row for row in market_records if row.get("source_status") == "pending_operator_approval"])
+        missing_local_count = len(
+            [row for row in market_records if row.get("source_status") == "local_reference_missing"]
+        )
+        url_refresh_wait_count = len(
+            [row for row in market_records if row.get("source_status") == "source_url_waiting_for_refresh"]
+        )
         stale_count = len([row for row in market_records if row.get("freshness_status") == "stale"])
+        unknown_freshness_count = len(
+            [row for row in market_records if clean_text(row.get("freshness_status")).startswith("unknown_")]
+        )
         contradiction_count = len(
             [row for row in market_records if row.get("contradiction_status") == "contradiction_note_present"]
         )
         local_count = len([row for row in market_records if row.get("local_reference_status") == "loaded"])
-        gap_status = "covered_with_local_evidence" if local_count and not missing_count and not pending_count else "gaps_present"
+        gap_status = (
+            "covered_with_local_evidence"
+            if local_count
+            and not missing_count
+            and not pending_count
+            and not missing_local_count
+            and not url_refresh_wait_count
+            and not stale_count
+            and not unknown_freshness_count
+            and not contradiction_count
+            else "gaps_present"
+        )
         market_rows.append(
             {
                 "contradiction_note_count": contradiction_count,
@@ -650,11 +679,14 @@ def _build_quality_ledger(*, request: Mapping[str, Any], records: Sequence[Mappi
                 "local_captured_reference_count": local_count,
                 "market_id": market_id,
                 "market_title": clean_text(markets[market_id].get("market_title")),
+                "missing_local_capture_count": missing_local_count,
                 "missing_source_reference_count": missing_count,
                 "pending_approval_count": pending_count,
                 "source_record_ids": [clean_text(row.get("record_id")) for row in market_records],
+                "source_url_refresh_not_executed_count": url_refresh_wait_count,
                 "stale_count": stale_count,
                 "total_source_records": len(market_records),
+                "unknown_freshness_count": unknown_freshness_count,
             }
         )
     gaps = _missing_evidence_gaps(records)
@@ -676,6 +708,9 @@ def _build_quality_ledger(*, request: Mapping[str, Any], records: Sequence[Mappi
             "local_captured_references": len([row for row in records if row.get("local_reference_status") == "loaded"]),
             "markets_with_gaps": len([row for row in market_rows if row["gap_status"] == "gaps_present"]),
             "missing_evidence_gaps": len(gaps),
+            "missing_local_capture_records": len(
+                [row for row in records if row.get("source_status") == "local_reference_missing"]
+            ),
             "missing_source_reference_records": len(
                 [row for row in records if row.get("source_status") == "missing_source_reference"]
             ),
@@ -683,7 +718,13 @@ def _build_quality_ledger(*, request: Mapping[str, Any], records: Sequence[Mappi
                 [row for row in records if row.get("source_status") == "pending_operator_approval"]
             ),
             "source_records": len(records),
+            "source_url_refresh_not_executed_records": len(
+                [row for row in records if row.get("source_status") == "source_url_waiting_for_refresh"]
+            ),
             "stale_records": len([row for row in records if row.get("freshness_status") == "stale"]),
+            "unknown_freshness_records": len(
+                [row for row in records if clean_text(row.get("freshness_status")).startswith("unknown_")]
+            ),
         },
     }
 
@@ -751,12 +792,21 @@ def _refresh_summary_counts(
         "missing_source_reference_records": len(
             [row for row in records if row.get("source_status") == "missing_source_reference"]
         ),
+        "missing_local_capture_records": len(
+            [row for row in records if row.get("source_status") == "local_reference_missing"]
+        ),
         "pending_approval_packet_count": 1 if pending_approval_packet is not None else 0,
         "pending_approval_records": len(
             [row for row in records if row.get("source_status") == "pending_operator_approval"]
         ),
         "records": len(records),
+        "source_url_refresh_not_executed_records": len(
+            [row for row in records if row.get("source_status") == "source_url_waiting_for_refresh"]
+        ),
         "stale_records": len([row for row in records if row.get("freshness_status") == "stale"]),
+        "unknown_freshness_records": len(
+            [row for row in records if clean_text(row.get("freshness_status")).startswith("unknown_")]
+        ),
     }
 
 
@@ -772,7 +822,16 @@ def _missing_evidence_gaps(records: Sequence[Mapping[str, Any]]) -> list[dict[st
                     "notes": "No source_url or local_captured_reference is available for this market record.",
                 }
             )
-        elif record.get("source_status") == "pending_operator_approval":
+        if record.get("source_status") == "local_reference_missing":
+            gaps.append(
+                {
+                    "gap_type": "missing_local_capture",
+                    "market_id": record.get("market_id"),
+                    "record_id": record.get("record_id"),
+                    "notes": "A local_captured_reference is declared, but the saved evidence file is not present.",
+                }
+            )
+        if record.get("source_status") == "pending_operator_approval":
             gaps.append(
                 {
                     "gap_type": "pending_operator_approval",
@@ -781,13 +840,40 @@ def _missing_evidence_gaps(records: Sequence[Mapping[str, Any]]) -> list[dict[st
                     "notes": "A source_url exists, but the refresh task has no explicit approval artifact.",
                 }
             )
-        elif record.get("freshness_status") == "stale":
+        if record.get("source_status") == "source_url_waiting_for_refresh":
+            gaps.append(
+                {
+                    "gap_type": "source_url_refresh_not_executed",
+                    "market_id": record.get("market_id"),
+                    "record_id": record.get("record_id"),
+                    "notes": "A public source_url is approved, but this runner did not perform network fetching.",
+                }
+            )
+        if record.get("freshness_status") == "stale":
             gaps.append(
                 {
                     "gap_type": "stale_source_evidence",
                     "market_id": record.get("market_id"),
                     "record_id": record.get("record_id"),
                     "notes": "Local captured evidence is outside the configured freshness window or marked stale.",
+                }
+            )
+        if clean_text(record.get("freshness_status")).startswith("unknown_"):
+            gaps.append(
+                {
+                    "gap_type": "unknown_source_freshness",
+                    "market_id": record.get("market_id"),
+                    "record_id": record.get("record_id"),
+                    "notes": "Evidence freshness could not be determined from deterministic timestamps.",
+                }
+            )
+        if record.get("contradiction_status") == "contradiction_note_present":
+            gaps.append(
+                {
+                    "gap_type": "source_contradiction_review_pending",
+                    "market_id": record.get("market_id"),
+                    "record_id": record.get("record_id"),
+                    "notes": "Contradiction notes are present and require operator review.",
                 }
             )
     return gaps

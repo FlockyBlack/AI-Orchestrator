@@ -24,6 +24,10 @@ STALE_FIXTURE = "pm_bot/tests/fixtures/public_read_only_fetch_prep/saved_public_
 CONTRADICTION_FIXTURE = (
     "pm_bot/tests/fixtures/public_read_only_fetch_prep/saved_public_evidence_packet.contradictory.json"
 )
+MISSING_LOCAL_FIXTURE = "pm_bot/tests/fixtures/public_read_only_fetch_prep/missing_saved_public_evidence_packet.json"
+APPROVED_PUBLIC_FETCH_008 = (
+    "pm_bot/practical/artifacts/public_read_only_fetch_execution_008/operator_approval_scoped_public_fetch_008.json"
+)
 
 
 def _request(sources: list[dict[str, object]]) -> dict[str, object]:
@@ -114,6 +118,25 @@ def test_public_evidence_refresh_creates_pending_approval_packet_for_source_url(
     assert "wallet, private key, signing, order, custody, or settlement paths" in packet["blocked_scope"]
 
 
+def test_public_evidence_refresh_keeps_approved_source_url_no_network_until_capture_exists() -> None:
+    request = _request([_source(source_id="563650.public_url", source_url="https://example.org/public-evidence")])
+    request["network_mode"] = "operator_approved"
+    request["operator_approval_reference"] = APPROVED_PUBLIC_FETCH_008
+
+    artifacts = build_public_evidence_refresh_artifacts(request)
+    ledger = artifacts["ledger"]
+    record = ledger["records"][0]
+    gap_types = {row["gap_type"] for row in ledger["quality_ledger"]["missing_evidence_gaps"]}
+
+    assert ledger["run_mode"] == "operator_approved_network_not_executed"
+    assert ledger["network_used"] is False
+    assert ledger["external_api_calls_performed"] is False
+    assert artifacts["pending_approval_packet"] is None
+    assert record["source_status"] == "source_url_waiting_for_refresh"
+    assert ledger["summary_counts"]["source_url_refresh_not_executed_records"] == 1
+    assert "source_url_refresh_not_executed" in gap_types
+
+
 def test_public_evidence_refresh_validates_saved_local_evidence_record() -> None:
     request = _request(
         [
@@ -141,6 +164,7 @@ def test_public_evidence_refresh_detects_stale_missing_and_contradiction_notes()
         [
             _source(source_id="563650.stale", local_captured_reference=STALE_FIXTURE),
             _source(source_id="563650.contradiction", local_captured_reference=CONTRADICTION_FIXTURE),
+            _source(source_id="597964.local_missing", market_id="597964", local_captured_reference=MISSING_LOCAL_FIXTURE),
             _source(source_id="597964.missing", market_id="597964"),
         ]
     )
@@ -149,10 +173,16 @@ def test_public_evidence_refresh_detects_stale_missing_and_contradiction_notes()
 
     assert ledger["summary_counts"]["stale_records"] == 1
     assert ledger["summary_counts"]["missing_source_reference_records"] == 1
+    assert ledger["summary_counts"]["missing_local_capture_records"] == 1
     assert ledger["summary_counts"]["contradiction_note_records"] == 1
     assert quality["freshness_status_counts"]["stale"] == 1
     gap_types = {row["gap_type"] for row in quality["missing_evidence_gaps"]}
-    assert {"stale_source_evidence", "missing_source_reference"}.issubset(gap_types)
+    assert {
+        "stale_source_evidence",
+        "missing_source_reference",
+        "missing_local_capture",
+        "source_contradiction_review_pending",
+    }.issubset(gap_types)
     contradiction_record = next(
         row for row in ledger["records"] if row["contradiction_status"] == "contradiction_note_present"
     )

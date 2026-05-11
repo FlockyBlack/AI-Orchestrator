@@ -1,0 +1,47 @@
+{
+  "task_id": "ORCH-PMBOT-TRADING-MVP-025-READ-ONLY-PUBLIC-EVIDENCE-REFRESH-AND-SOURCE-INTEGRATION",
+  "status": "completed_branch_pushed",
+  "repo": {
+    "worktree": "C:/oc025",
+    "branch": "pmbot/trading-mvp-025-read-only-public-evidence-source-integration",
+    "base_master_head": "3721572579e5ab7308a4df8530a63e441d9e11d5",
+    "head_before": "3721572579e5ab7308a4df8530a63e441d9e11d5",
+    "head_after": "POST_PUSH_HEAD_REPORTED_IN_FINAL_CHAT",
+    "pushed": true,
+    "pushed_to_master": false,
+    "remote_verified": true
+  },
+  "source_evidence_contract_ready": true,
+  "evidence_refresh_runner_ready": true,
+  "default_no_network_mode": true,
+  "pending_approval_packet_ready": true,
+  "dashboard_source_status_ready": true,
+  "source_quality_checks_ready": true,
+  "external_api_calls_performed": false,
+  "outcome_resolution_invented": false,
+  "pnl_invented": false,
+  "wallet_or_order_code_added": false,
+  "tests_passed": true,
+  "safety_ok": true,
+  "blocked_reason": null,
+  "validation": {
+    "pm_bot_tests": "pytest pm_bot/tests",
+    "pm_bot_compileall": "python -m compileall pm_bot",
+    "orchestration_subset": "python -m pytest tests/test_codex_queue_nightly_lane_batch_runner.py tests/test_codex_worktree_lane_manager.py tests/test_subagent_routing.py tests/test_codex_queue_operator_cli.py",
+    "ai_orchestrator_compileall": "python -m compileall ai_orchestrator",
+    "diff_check": "git diff --check"
+  },
+  "safety": {
+    "read_only_evidence_only": true,
+    "default_no_network_mode": true,
+    "external_api_calls_performed": false,
+    "wallet_or_private_key_accessed": false,
+    "signing_or_order_code_added": false,
+    "authenticated_endpoint_added": false,
+    "real_order_or_trading_endpoint_added": false,
+    "outcome_resolution_invented": false,
+    "pnl_invented": false,
+    "unsafe_git_staging_used": false,
+    "force_push_used": false
+  }
+}
