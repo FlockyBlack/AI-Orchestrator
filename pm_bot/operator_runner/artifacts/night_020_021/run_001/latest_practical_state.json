@@ -1,0 +1,33 @@
+{
+  "active_hypotheses_path": "pm_bot/practical/artifacts/add_market_016/active_paper_hypotheses_6_016.json",
+  "active_hypothesis_count": 6,
+  "contract_version": "pmbot_operator_latest_practical_state.v1",
+  "feedback_ready_count": 0,
+  "generated_at": "2026-05-11T00:00:00Z",
+  "market_queue_path": "pm_bot/practical/artifacts/add_market_016/market_queue_6_016.json",
+  "practical_dashboard_path": "pm_bot/practical/artifacts/manual_url_collection_017c/public_evidence_dashboard_url_filled_pending_approval_017c.json",
+  "ready_for_operator_approval": true,
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "autonomous_trading_enabled": false,
+    "background_worker_created": false,
+    "daemon_created": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "non_executable": true,
+    "openrouter_calls_performed": 0,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "real_money_used": false,
+    "real_order_allowed": false,
+    "real_order_submitted": false,
+    "scheduler_created": false,
+    "trading_endpoint_required": false,
+    "trading_endpoint_used": false,
+    "wallet_required": false,
+    "wallet_used": false
+  },
+  "tracked_market_count": 6,
+  "unresolved_outcome_count": 6
+}

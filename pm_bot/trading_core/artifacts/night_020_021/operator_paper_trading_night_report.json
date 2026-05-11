@@ -1,0 +1,48 @@
+{
+  "audit_result": true,
+  "contract_version": "pmbot_operator_paper_trading_night_report.v1",
+  "generated_at": "2026-05-11T00:00:00Z",
+  "next_operator_actions": [
+    "Review the dashboard and audit before treating any paper position as useful state.",
+    "Collect or approve saved public evidence for observe-only markets before future paper simulation.",
+    "Keep all six outcomes unresolved until saved local outcome evidence exists.",
+    "Use the one-shot operator runner for the next explicit local refresh."
+  ],
+  "paper_intent_count": 6,
+  "paper_positions": 2,
+  "rejected_count": 0,
+  "report_id": "operator-paper-trading-night-report-020-021",
+  "risk_allowed_count": 6,
+  "risk_blocked_count": 0,
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "autonomous_trading_enabled": false,
+    "background_worker_created": false,
+    "daemon_created": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "non_executable": true,
+    "openrouter_calls_performed": 0,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "real_money_used": false,
+    "real_order_allowed": false,
+    "real_order_submitted": false,
+    "scheduler_created": false,
+    "trading_endpoint_required": false,
+    "trading_endpoint_used": false,
+    "wallet_required": false,
+    "wallet_used": false
+  },
+  "simulated_execution_count": 6,
+  "simulated_fill_count": 2,
+  "skipped_count": 4,
+  "total_paper_exposure_usd": 50.0,
+  "what_was_analyzed": [
+    "six tracked unresolved PMBOT markets",
+    "active paper hypotheses from add_market_016",
+    "saved local public evidence packets from previous practical tasks",
+    "filled BTC public URL packet pending operator approval"
+  ]
+}

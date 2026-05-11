@@ -1,0 +1,76 @@
+{
+  "audit_id": "post-execution-audit-night-020-021",
+  "audit_passed": true,
+  "contract_version": "pmbot_post_execution_audit.v1",
+  "generated_at": "2026-05-11T00:00:00Z",
+  "records": [
+    {
+      "check_id": "intent-risk-consistency",
+      "check_name": "Intent to risk gate consistency",
+      "contract_version": "pmbot_post_execution_audit_record.v1",
+      "details": [
+        "risk result exists for all 6 intent candidates"
+      ],
+      "status": "passed"
+    },
+    {
+      "check_id": "risk-execution-consistency",
+      "check_name": "Risk gate to execution consistency",
+      "contract_version": "pmbot_post_execution_audit_record.v1",
+      "details": [
+        "risk gate results align with execution statuses"
+      ],
+      "status": "passed"
+    },
+    {
+      "check_id": "execution-ledger-consistency",
+      "check_name": "Execution to ledger consistency",
+      "contract_version": "pmbot_post_execution_audit_record.v1",
+      "details": [
+        "ledger has one position for each of 2 paper fills"
+      ],
+      "status": "passed"
+    },
+    {
+      "check_id": "portfolio-ledger-consistency",
+      "check_name": "Portfolio to ledger consistency",
+      "contract_version": "pmbot_post_execution_audit_record.v1",
+      "details": [
+        "portfolio exposure matches ledger exposure: 50.0"
+      ],
+      "status": "passed"
+    },
+    {
+      "check_id": "safety-flags",
+      "check_name": "Paper trading safety flags",
+      "contract_version": "pmbot_post_execution_audit_record.v1",
+      "details": [
+        "all audited real-money and endpoint flags remain false"
+      ],
+      "status": "passed"
+    }
+  ],
+  "safety_flags": {
+    "authenticated_endpoints_used": false,
+    "autonomous_trading_enabled": false,
+    "background_worker_created": false,
+    "daemon_created": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "non_executable": true,
+    "openrouter_calls_performed": 0,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "real_money_used": false,
+    "real_order_allowed": false,
+    "real_order_submitted": false,
+    "scheduler_created": false,
+    "trading_endpoint_required": false,
+    "trading_endpoint_used": false,
+    "wallet_required": false,
+    "wallet_used": false
+  },
+  "violations": [],
+  "warnings": []
+}

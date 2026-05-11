@@ -1,0 +1,16 @@
+{
+  "available_paper_capital_usd": 1000.0,
+  "contract_version": "pmbot_portfolio_state.v1",
+  "exposure_by_market_usd": {},
+  "feedback_ready_count": 0,
+  "generated_at": "2026-05-11T00:00:00Z",
+  "live_prices_used": false,
+  "open_position_count": 0,
+  "paper_only": true,
+  "portfolio_id": "paper-portfolio-empty-fixture",
+  "real_money_used": false,
+  "risk_usage": {},
+  "total_paper_capital_usd": 1000.0,
+  "total_paper_exposure_usd": 0.0,
+  "unresolved_market_count": 6
+}

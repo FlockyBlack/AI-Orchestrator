@@ -1,0 +1,18 @@
+{
+  "allow_live_fetch": true,
+  "allow_openrouter": false,
+  "allow_orders": false,
+  "allow_polymarket_api": false,
+  "allow_real_trading": false,
+  "allow_wallet": false,
+  "artifact_root": "pm_bot/operator_runner/artifacts/night_020_021/run_001",
+  "background_mode_allowed": false,
+  "contract_version": "pmbot_operator_workflow_config.v1",
+  "generated_at": "2026-05-11T00:00:00Z",
+  "include_daily_summary": true,
+  "include_practical_dashboard": true,
+  "include_safety_scan": true,
+  "include_trading_core": true,
+  "max_runtime_mode": "one_shot",
+  "run_id": "operator-workflow-night-020-021-run-001"
+}

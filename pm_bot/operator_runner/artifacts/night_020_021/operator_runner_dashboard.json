@@ -1,0 +1,40 @@
+{
+  "contract_version": "pmbot_operator_runner_dashboard.v1",
+  "dashboard_id": "operator-runner-dashboard-night-020-021",
+  "generated_at": "2026-05-11T00:00:00Z",
+  "last_run": {
+    "final_operator_report_path": "pm_bot/operator_runner/artifacts/night_020_021/run_001/final_operator_report.json",
+    "repeat_count": 1,
+    "run_id": "operator-workflow-night-020-021-run-001",
+    "run_once": true,
+    "run_result_path": "pm_bot/operator_runner/artifacts/night_020_021/run_001/operator_workflow_run_result.json"
+  },
+  "next_action": "ORCH-PMBOT-TRADING-MVP-022-PAPER-TRADING-LOOP-DAILY-RUN-AND-CODEX-AUTOMATION-RECOVERY",
+  "paper_trading_summary": {
+    "open_paper_position_count": 2,
+    "paper_intent_count": 6,
+    "rejected_count": 0,
+    "risk_allowed_count": 6,
+    "risk_blocked_count": 0,
+    "simulated_execution_count": 6,
+    "simulated_fill_count": 2,
+    "skipped_count": 4,
+    "total_paper_exposure_usd": 50.0
+  },
+  "portfolio_summary": {
+    "available_paper_capital_usd": 950.0,
+    "open_position_count": 2,
+    "total_paper_capital_usd": 1000.0,
+    "total_paper_exposure_usd": 50.0
+  },
+  "safety_summary": {
+    "background_worker_created": false,
+    "operator_workflow_safety_issue_count": 0,
+    "operator_workflow_safety_ok": true,
+    "real_trading_enabled": false,
+    "run_safety_ok": true,
+    "scheduler_created": false
+  },
+  "steps_failed": 0,
+  "steps_passed": 13
+}

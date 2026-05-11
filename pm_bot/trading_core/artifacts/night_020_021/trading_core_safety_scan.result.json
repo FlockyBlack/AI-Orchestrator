@@ -1,0 +1,43 @@
+{
+  "confirmed_false_flags": {
+    "autonomous_trading_enabled": false,
+    "background_worker_created": false,
+    "daemon_created": false,
+    "real_order_allowed": false,
+    "real_order_submitted": false,
+    "scheduler_created": false,
+    "trading_endpoint_required": false,
+    "trading_endpoint_used": false,
+    "wallet_required": false,
+    "wallet_used": false
+  },
+  "contract_version": "pmbot_trading_core_safety_scan.v1",
+  "generated_at": "2026-05-11T00:00:00Z",
+  "issue_count": 0,
+  "issues": [],
+  "safety_ok": true,
+  "scanned_paths": [
+    "pm_bot/trading_core/artifacts/night_020_021/future_real_adapter_boundary.json",
+    "pm_bot/trading_core/artifacts/night_020_021/future_real_adapter_boundary.md",
+    "pm_bot/trading_core/artifacts/night_020_021/operator_paper_trading_night_report.json",
+    "pm_bot/trading_core/artifacts/night_020_021/operator_paper_trading_night_report.md",
+    "pm_bot/trading_core/artifacts/night_020_021/paper_portfolio_state.json",
+    "pm_bot/trading_core/artifacts/night_020_021/paper_portfolio_state.md",
+    "pm_bot/trading_core/artifacts/night_020_021/paper_position_ledger.json",
+    "pm_bot/trading_core/artifacts/night_020_021/paper_position_ledger.md",
+    "pm_bot/trading_core/artifacts/night_020_021/paper_risk_limits.json",
+    "pm_bot/trading_core/artifacts/night_020_021/paper_risk_limits.md",
+    "pm_bot/trading_core/artifacts/night_020_021/paper_trade_intent_candidates.json",
+    "pm_bot/trading_core/artifacts/night_020_021/paper_trade_intent_candidates.md",
+    "pm_bot/trading_core/artifacts/night_020_021/paper_trading_dashboard.json",
+    "pm_bot/trading_core/artifacts/night_020_021/paper_trading_dashboard.md",
+    "pm_bot/trading_core/artifacts/night_020_021/post_execution_audit.json",
+    "pm_bot/trading_core/artifacts/night_020_021/post_execution_audit.md",
+    "pm_bot/trading_core/artifacts/night_020_021/risk_gate_results.json",
+    "pm_bot/trading_core/artifacts/night_020_021/risk_gate_results.md",
+    "pm_bot/trading_core/artifacts/night_020_021/simulated_execution_results.json",
+    "pm_bot/trading_core/artifacts/night_020_021/simulated_execution_results.md",
+    "pm_bot/trading_core/artifacts/night_020_021/trading_mvp_gap_report.json",
+    "pm_bot/trading_core/artifacts/night_020_021/trading_mvp_gap_report.md"
+  ]
+}

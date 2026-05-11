@@ -1,0 +1,49 @@
+{
+  "audit_path": "pm_bot/operator_runner/artifacts/night_020_021/run_001/trading_core/post_execution_audit.json",
+  "contract_version": "pmbot_operator_workflow_run_report.v1",
+  "daily_summary_path": "pm_bot/operator_runner/artifacts/night_020_021/run_001/daily_summary.json",
+  "generated_at": "2026-05-11T00:00:00Z",
+  "next_codex_task_suggestion": "ORCH-PMBOT-TRADING-MVP-022-PAPER-TRADING-LOOP-DAILY-RUN-AND-CODEX-AUTOMATION-RECOVERY",
+  "next_operator_actions": [
+    "Open the final operator report and paper trading dashboard.",
+    "Review observe-only markets that still lack saved public evidence.",
+    "Keep outcome updates manual until saved local resolution evidence exists.",
+    "Use the next Codex task suggestion for the paper loop and automation recovery milestone."
+  ],
+  "paper_trading_dashboard_path": "pm_bot/operator_runner/artifacts/night_020_021/run_001/trading_core/paper_trading_dashboard.json",
+  "portfolio_state_path": "pm_bot/operator_runner/artifacts/night_020_021/run_001/trading_core/paper_portfolio_state.json",
+  "run_id": "operator-workflow-night-020-021-run-001",
+  "safety_scan_paths": [
+    "pm_bot/operator_runner/artifacts/night_020_021/run_001/trading_core/trading_core_safety_scan.result.json",
+    "pm_bot/operator_runner/artifacts/night_020_021/run_001/operator_workflow_safety_scan.result.json"
+  ],
+  "safety_summary": {
+    "authenticated_endpoints_used": false,
+    "autonomous_trading_enabled": false,
+    "background_mode_allowed": false,
+    "background_worker_created": false,
+    "daemon_created": false,
+    "live_network_used": false,
+    "market_recommendation_generated": false,
+    "non_executable": true,
+    "one_shot": true,
+    "openrouter_calls_performed": 0,
+    "paper_only": true,
+    "polymarket_api_calls_performed": 0,
+    "probability_ev_edge_or_side_selection_generated": false,
+    "real_money_used": false,
+    "real_order_allowed": false,
+    "real_order_submitted": false,
+    "repeat_count": 1,
+    "scheduler_created": false,
+    "trading_core_safety_scan_path": "pm_bot/operator_runner/artifacts/night_020_021/run_001/trading_core/trading_core_safety_scan.result.json",
+    "trading_endpoint_required": false,
+    "trading_endpoint_used": false,
+    "wallet_required": false,
+    "wallet_used": false,
+    "workflow_safety_scan_path": "pm_bot/operator_runner/artifacts/night_020_021/run_001/operator_workflow_safety_scan.result.json"
+  },
+  "steps_failed": 0,
+  "steps_passed": 13,
+  "steps_run": 13
+}

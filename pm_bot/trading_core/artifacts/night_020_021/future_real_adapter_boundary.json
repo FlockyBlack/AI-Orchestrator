@@ -1,0 +1,31 @@
+{
+  "authenticated_endpoints_implemented": false,
+  "boundary_id": "future-real-adapter-boundary-night-020-021",
+  "contract_version": "pmbot_future_real_adapter_boundary.v1",
+  "generated_at": "2026-05-11T00:00:00Z",
+  "kill_switch_required": true,
+  "manual_approval_required": true,
+  "not_implemented": [
+    "real adapter",
+    "wallet",
+    "signing",
+    "orders",
+    "authenticated endpoints"
+  ],
+  "orders_implemented": false,
+  "real_adapter_implemented": false,
+  "reconciliation_required": true,
+  "required_before_any_supervised_real_execution": [
+    "Separate explicit approval task",
+    "Wallet isolation design not implemented yet",
+    "Signing isolation design not implemented yet",
+    "Order adapter boundary not implemented yet",
+    "Hard kill switch",
+    "Post-order reconciliation not implemented yet",
+    "Manual pre-trade approval gate",
+    "Risk engine upgrade with tested caps and halt states"
+  ],
+  "risk_engine_upgrade_required": true,
+  "signing_implemented": false,
+  "wallet_implemented": false
+}
