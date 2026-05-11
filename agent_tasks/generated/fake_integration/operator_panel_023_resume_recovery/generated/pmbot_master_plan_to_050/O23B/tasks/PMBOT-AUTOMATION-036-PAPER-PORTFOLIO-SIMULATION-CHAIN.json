@@ -1,0 +1,36 @@
+{
+  "acceptance_gates": [
+    "portfolio simulation is paper-only",
+    "no live positions or orders",
+    "risk limits are local fixtures"
+  ],
+  "allowed_paths": [
+    "pm_bot/practical/automation/",
+    "pm_bot/practical/artifacts/automation/",
+    "docs/",
+    "tests/"
+  ],
+  "dependencies": [
+    "PMBOT-AUTOMATION-035-PAPER-HYPOTHESIS-UPDATE-CHAIN"
+  ],
+  "description": "Create paper portfolio simulation chain from local paper records.",
+  "execution_lane": "pmbot_automation",
+  "execution_mode": "handoff",
+  "expected_artifacts": [
+    "paper portfolio simulation fixture",
+    "paper risk summary"
+  ],
+  "forbidden_actions": [
+    "real money",
+    "wallet",
+    "orders"
+  ],
+  "max_retries": 2,
+  "metadata": {},
+  "milestone_id": "",
+  "plan_id": "pmbot_master_plan_to_050",
+  "run_id": "O23B",
+  "schema_version": "codex_plan_task.v1",
+  "task_id": "PMBOT-AUTOMATION-036-PAPER-PORTFOLIO-SIMULATION-CHAIN",
+  "title": "Paper portfolio simulation chain"
+}

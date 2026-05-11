@@ -1,0 +1,37 @@
+{
+  "acceptance_gates": [
+    "PMBOT automation gate blocks unsafe actions",
+    "paper-only status is visible",
+    "operator checklist is complete"
+  ],
+  "allowed_paths": [
+    "pm_bot/practical/automation/",
+    "pm_bot/practical/artifacts/automation/",
+    "docs/",
+    "tests/"
+  ],
+  "dependencies": [
+    "PMBOT-AUTOMATION-039-MANUAL-FEEDBACK-INGESTION-CHAIN"
+  ],
+  "description": "Finalize PMBOT automation acceptance gate before paper-MVP continuation.",
+  "execution_lane": "pmbot_automation",
+  "execution_mode": "handoff",
+  "expected_artifacts": [
+    "PMBOT automation acceptance report",
+    "gate tests"
+  ],
+  "forbidden_actions": [
+    "wallet",
+    "orders",
+    "real trading",
+    "Polymarket API"
+  ],
+  "max_retries": 2,
+  "metadata": {},
+  "milestone_id": "",
+  "plan_id": "pmbot_master_plan_to_050",
+  "run_id": "O23B",
+  "schema_version": "codex_plan_task.v1",
+  "task_id": "PMBOT-AUTOMATION-040-PMBOT-AUTOMATION-ACCEPTANCE-GATE",
+  "title": "PMBOT automation acceptance gate"
+}

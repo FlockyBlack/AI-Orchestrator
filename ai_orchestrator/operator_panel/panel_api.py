@@ -40,7 +40,8 @@ def post_continue_run(form: dict[str, str], queue_root: str | Path) -> dict[str,
 
 
 def post_recover_run(form: dict[str, str], queue_root: str | Path) -> dict[str, Any]:
-    return recover_run_action(form.get("run_id", ""), queue_root)
+    allow_clear = form.get("allow_stale_lock_clear", "").lower() in {"1", "true", "on", "yes"}
+    return recover_run_action(form.get("run_id", ""), queue_root, allow_stale_lock_clear=allow_clear)
 
 
 def post_export_handoff_prompt(form: dict[str, str], queue_root: str | Path) -> dict[str, Any]:

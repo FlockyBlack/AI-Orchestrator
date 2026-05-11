@@ -1,0 +1,36 @@
+{
+  "acceptance_gates": [
+    "operator UX covers run, continue, recover, export handoff",
+    "panel smoke tests cover routes",
+    "long run remains bounded"
+  ],
+  "allowed_paths": [
+    "ai_orchestrator/codex_queue/",
+    "ai_orchestrator/operator_panel/",
+    "docs/",
+    "tests/"
+  ],
+  "dependencies": [
+    "ORCH-CODEX-AUTOMATION-028-FAILURE-RECOVERY-PLAYBOOKS"
+  ],
+  "description": "Polish long supervised run UX in the CLI and panel without adding a scheduler or daemon.",
+  "execution_lane": "orch_automation",
+  "execution_mode": "handoff",
+  "expected_artifacts": [
+    "UX docs",
+    "panel route tests"
+  ],
+  "forbidden_actions": [
+    "daemon",
+    "scheduler",
+    "unbounded worker"
+  ],
+  "max_retries": 2,
+  "metadata": {},
+  "milestone_id": "",
+  "plan_id": "pmbot_master_plan_to_050",
+  "run_id": "O23B",
+  "schema_version": "codex_plan_task.v1",
+  "task_id": "ORCH-CODEX-AUTOMATION-029-LONG-SUPERVISED-RUN-UX",
+  "title": "Long supervised run UX"
+}

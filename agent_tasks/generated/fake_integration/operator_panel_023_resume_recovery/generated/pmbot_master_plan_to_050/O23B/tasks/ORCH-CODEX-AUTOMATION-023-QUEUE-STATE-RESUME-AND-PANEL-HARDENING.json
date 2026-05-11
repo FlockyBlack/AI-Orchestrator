@@ -1,0 +1,38 @@
+{
+  "acceptance_gates": [
+    "resume fixtures cover interrupted state",
+    "panel shows resumed task status",
+    "state schema remains backward-compatible"
+  ],
+  "allowed_paths": [
+    "ai_orchestrator/codex_queue/",
+    "ai_orchestrator/operator_panel/",
+    "agent_tasks/generated/",
+    "docs/",
+    "tests/"
+  ],
+  "dependencies": [
+    "ORCH-CODEX-AUTOMATION-022-OPERATOR-PANEL-AND-PLAN-RUNNER-CONTROL"
+  ],
+  "description": "Harden queue state resume, retry counters, interrupted run inspection, and panel resume display.",
+  "execution_lane": "orch_automation",
+  "execution_mode": "handoff",
+  "expected_artifacts": [
+    "resume test fixtures",
+    "queue resume docs"
+  ],
+  "forbidden_actions": [
+    "daemon",
+    "scheduler",
+    "unsafe git staging",
+    "force push"
+  ],
+  "max_retries": 2,
+  "metadata": {},
+  "milestone_id": "",
+  "plan_id": "pmbot_master_plan_to_050",
+  "run_id": "O23B",
+  "schema_version": "codex_plan_task.v1",
+  "task_id": "ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING",
+  "title": "Stronger queue/state resume"
+}

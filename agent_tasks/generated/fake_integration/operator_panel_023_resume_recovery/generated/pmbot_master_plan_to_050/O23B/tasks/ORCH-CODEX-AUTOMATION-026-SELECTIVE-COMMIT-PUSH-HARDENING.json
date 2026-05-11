@@ -1,0 +1,35 @@
+{
+  "acceptance_gates": [
+    "unsafe staging is rejected",
+    "dry-run commit/push verification works",
+    "remote verification path is documented"
+  ],
+  "allowed_paths": [
+    "ai_orchestrator/codex_queue/",
+    "docs/",
+    "tests/"
+  ],
+  "dependencies": [
+    "ORCH-CODEX-AUTOMATION-025-WORKTREE-LANE-MANAGER"
+  ],
+  "description": "Harden selective commit and push flow with explicit paths, dry-run support, and remote HEAD verification.",
+  "execution_lane": "orch_automation",
+  "execution_mode": "handoff",
+  "expected_artifacts": [
+    "selective staging hardening tests",
+    "commit push verify docs"
+  ],
+  "forbidden_actions": [
+    "git add dot",
+    "git add all",
+    "force push"
+  ],
+  "max_retries": 2,
+  "metadata": {},
+  "milestone_id": "",
+  "plan_id": "pmbot_master_plan_to_050",
+  "run_id": "O23B",
+  "schema_version": "codex_plan_task.v1",
+  "task_id": "ORCH-CODEX-AUTOMATION-026-SELECTIVE-COMMIT-PUSH-HARDENING",
+  "title": "Selective commit/push hardening"
+}

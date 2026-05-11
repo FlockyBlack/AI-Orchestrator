@@ -1,0 +1,34 @@
+{
+  "acceptance_gates": [
+    "source scorecard feedback is evidence-linked",
+    "manual overrides are recorded",
+    "no fabricated source evidence"
+  ],
+  "allowed_paths": [
+    "pm_bot/",
+    "docs/",
+    "tests/"
+  ],
+  "dependencies": [
+    "PMBOT-TRADING-MVP-044-MARKET-QUEUE-PRIORITIZATION-WITHOUT-RECOMMENDATIONS"
+  ],
+  "description": "Create source scorecard feedback loop for paper MVP source quality.",
+  "execution_lane": "paper_mvp",
+  "execution_mode": "handoff",
+  "expected_artifacts": [
+    "source scorecard feedback loop",
+    "evidence-linked tests"
+  ],
+  "forbidden_actions": [
+    "fabricated evidence",
+    "automatic outcome resolution"
+  ],
+  "max_retries": 2,
+  "metadata": {},
+  "milestone_id": "",
+  "plan_id": "pmbot_master_plan_to_050",
+  "run_id": "O23B",
+  "schema_version": "codex_plan_task.v1",
+  "task_id": "PMBOT-TRADING-MVP-045-SOURCE-SCORECARD-FEEDBACK-LOOP",
+  "title": "Source scorecard feedback loop"
+}

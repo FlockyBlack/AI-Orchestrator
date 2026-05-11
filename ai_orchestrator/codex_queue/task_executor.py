@@ -4,7 +4,7 @@ import json
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Protocol
+from typing import Any, Mapping, Protocol
 
 from .plan_contract import PlanContract, PlanTaskSpec
 
@@ -18,6 +18,7 @@ class TaskExecutionContext:
     plan_id: str
     repo_root: str | Path
     run_dir: str | Path
+    state_summary: Mapping[str, Any] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)
@@ -45,33 +46,54 @@ class TaskExecutor(Protocol):
 class FakeTaskExecutor:
     blocked_task_ids: set[str] = field(default_factory=set)
     failed_task_ids: set[str] = field(default_factory=set)
+    needs_retry_task_ids: set[str] = field(default_factory=set)
+    handoff_task_ids: set[str] = field(default_factory=set)
 
     def execute(self, context: TaskExecutionContext) -> TaskExecutionResult:
         task = context.task_spec
         artifact_dir = Path(context.run_dir) / "artifacts"
-        artifact_path = artifact_dir / f"{task.task_id}_fake_result.json"
-        if task.task_id in self.blocked_task_ids:
-            payload = _base_payload(task, context, status="blocked")
-            payload["validation_passed"] = False
-            payload["blocked_reason"] = "Injected fake blocker for test coverage."
-            _write_json(artifact_path, payload)
-            return TaskExecutionResult("blocked", payload, (str(artifact_path),), "fake task blocked")
-        if task.task_id in self.failed_task_ids:
-            payload = _base_payload(task, context, status="failed")
-            payload["validation_passed"] = False
-            payload["safety_ok"] = True
-            payload["failure_reason"] = "Injected fake failure for test coverage."
-            _write_json(artifact_path, payload)
-            return TaskExecutionResult("failed", payload, (str(artifact_path),), "fake task failed")
+        artifact_path = artifact_dir / f"{task.task_id}_fake_{_timestamp_for_filename()}.json"
+        behavior = _fake_behavior_for_task(self, task)
+        if behavior == "accepted":
+            result_status = "completed"
+            validation_passed = True
+            message = "fake task completed"
+            extra: dict[str, Any] = {}
+        elif behavior == "blocked":
+            result_status = "blocked"
+            validation_passed = False
+            message = "fake task blocked"
+            extra = {"blocked_reason": "Injected fake blocker for deterministic test coverage."}
+        elif behavior == "failed":
+            result_status = "failed"
+            validation_passed = False
+            message = "fake task failed"
+            extra = {"failure_reason": "Injected fake failure for deterministic test coverage."}
+        elif behavior == "needs_retry":
+            result_status = "needs_retry"
+            validation_passed = False
+            message = "fake task needs retry"
+            extra = {"retry_reason": "Injected fake retry request for deterministic test coverage."}
+        elif behavior == "requiring_operator_handoff":
+            result_status = "requiring_operator_handoff"
+            validation_passed = True
+            message = "fake task requires operator handoff"
+            extra = {"handoff_reason": "Injected fake handoff request for deterministic test coverage."}
+        else:
+            result_status = "failed"
+            validation_passed = False
+            message = f"unknown fake behavior: {behavior}"
+            extra = {"failure_reason": message}
 
-        payload = _base_payload(task, context, status="completed")
+        payload = _base_payload(task, context, status=result_status)
         payload.update(
             {
-                "validation_passed": True,
+                "validation_passed": validation_passed,
                 "safety_ok": True,
                 "artifacts": [str(artifact_path)],
                 "commands_run": [],
                 "fake_executor": True,
+                "fake_behavior": behavior,
                 "safety_boundaries_acknowledged": [
                     boundary.boundary_id for boundary in context.plan.safety_boundaries if boundary.required
                 ],
@@ -84,8 +106,9 @@ class FakeTaskExecutor:
                 "force_push_used": False,
             }
         )
+        payload.update(extra)
         _write_json(artifact_path, payload)
-        return TaskExecutionResult("completed", payload, (str(artifact_path),), "fake task completed")
+        return TaskExecutionResult(result_status, payload, (str(artifact_path),), message)
 
 
 class LocalNoopExecutor:
@@ -162,18 +185,48 @@ def render_codex_handoff_prompt(context: TaskExecutionContext) -> str:
         "summary": "",
         "remaining_risks": [],
     }
+    state_summary = dict(context.state_summary or {})
+    completed = state_summary.get("completed_task_ids") or []
+    compact_state = {
+        "run_id": context.run_id,
+        "plan_id": context.plan_id,
+        "run_status": state_summary.get("status", ""),
+        "completed_count": len(completed) if isinstance(completed, list) else state_summary.get("completed_count", 0),
+        "blocked_task_ids": state_summary.get("blocked_task_ids", []),
+        "failed_task_ids": state_summary.get("failed_task_ids", []),
+        "retry_counts": state_summary.get("retry_counts", {}),
+        "latest_checkpoint": state_summary.get("latest_checkpoint"),
+    }
     lines = [
         f"# Codex Handoff: {task.task_id}",
+        "",
+        "Return only JSON matching the expected result shape. Do not include prose outside the JSON object.",
         "",
         f"- task_id: `{task.task_id}`",
         f"- repo_root: `{context.repo_root}`",
         f"- branch: `{context.plan.branch}`",
         f"- expected_current_head: `{context.plan.expected_head}`",
         f"- execution_lane: `{task.execution_lane}`",
+        f"- max_retries: `{task.max_retries}`",
         "",
-        "## Task",
+        "## Compact Run State",
+        "",
+        "```json",
+        json.dumps(compact_state, indent=2, sort_keys=True),
+        "```",
+        "",
+        "## Previously Completed Tasks",
+        "",
+        *_bullet_lines([str(value) for value in completed] if isinstance(completed, list) else []),
+        "",
+        "## Next Task Only",
+        "",
+        f"Title: {task.title}",
         "",
         task.description,
+        "",
+        "Dependencies:",
+        *_bullet_lines(list(task.dependencies)),
         "",
         "## Allowed Paths",
         "",
@@ -220,6 +273,21 @@ def _base_payload(task: PlanTaskSpec, context: TaskExecutionContext, *, status: 
     }
 
 
+def _fake_behavior_for_task(executor: FakeTaskExecutor, task: PlanTaskSpec) -> str:
+    metadata_behavior = str(task.metadata.get("fake_behavior") or "").strip().lower()
+    if metadata_behavior:
+        return metadata_behavior
+    if task.task_id in executor.handoff_task_ids:
+        return "requiring_operator_handoff"
+    if task.task_id in executor.blocked_task_ids:
+        return "blocked"
+    if task.task_id in executor.failed_task_ids:
+        return "failed"
+    if task.task_id in executor.needs_retry_task_ids:
+        return "needs_retry"
+    return "accepted"
+
+
 def _write_json(path: Path, payload: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
@@ -233,3 +301,7 @@ def _bullet_lines(values: tuple[str, ...] | list[str]) -> list[str]:
 
 def _utc_iso() -> str:
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+
+
+def _timestamp_for_filename() -> str:
+    return datetime.now(timezone.utc).strftime("%H%M%S%f")

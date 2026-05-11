@@ -12,6 +12,7 @@ class PanelState:
     selected_plan_file: str = ""
     active_run_id: str = ""
     last_action: dict[str, Any] = field(default_factory=dict)
+    action_events: list[dict[str, Any]] = field(default_factory=list)
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
@@ -23,6 +24,11 @@ class PanelState:
             selected_plan_file=str(payload.get("selected_plan_file") or ""),
             active_run_id=str(payload.get("active_run_id") or ""),
             last_action=dict(payload.get("last_action") or {}),
+            action_events=[
+                dict(item)
+                for item in payload.get("action_events", [])
+                if isinstance(item, dict)
+            ],
         )
 
 
@@ -60,10 +66,16 @@ def discover_runs(queue_root: str | Path) -> list[dict[str, Any]]:
                 "manifest_path": str(manifest_path),
                 "state_path": str(state_path),
                 "status": _run_status(manifest, state),
+                "updated_at": str(state.get("updated_at") or manifest.get("updated_at") or ""),
                 "task_count": manifest.get("task_count", 0),
                 "completed_count": len(state.get("completed_task_ids", [])) if state else 0,
                 "blocked_count": len(state.get("blocked_task_ids", [])) if state else 0,
                 "failed_count": len(state.get("failed_task_ids", [])) if state else 0,
+                "pending_count": _pending_count(manifest, state),
+                "current_task_id": str(state.get("current_task_id") or "") if state else "",
+                "latest_handoff_prompt_path": str(state.get("latest_handoff_prompt_path") or "") if state else "",
+                "latest_recovery_report_path": str(state.get("latest_recovery_report_path") or "") if state else "",
+                "latest_artifacts": list(state.get("artifact_paths", [])[-5:]) if state else [],
             }
         )
     return runs
@@ -80,7 +92,14 @@ def discover_plans(queue_root: str | Path) -> list[dict[str, Any]]:
                 "plan_id": str(payload.get("plan_id") or ""),
                 "title": str(payload.get("title") or plan_path.name),
                 "task_count": len(payload.get("tasks", [])) if isinstance(payload.get("tasks", []), list) else 0,
+                "milestone_count": len(payload.get("milestones", [])) if isinstance(payload.get("milestones", []), list) else 0,
                 "version": str(payload.get("version") or ""),
+                "expected_head": str(payload.get("expected_head") or ""),
+                "safety_boundaries": [
+                    str(item.get("description") or item.get("boundary_id") or "")
+                    for item in payload.get("safety_boundaries", [])
+                    if isinstance(item, dict)
+                ],
             }
         )
     return plans
@@ -109,6 +128,9 @@ def _read_json(path: str | Path) -> dict[str, Any]:
 def _run_status(manifest: dict[str, Any], state: dict[str, Any]) -> str:
     if not state:
         return "missing_state"
+    lifecycle = str(state.get("status") or "")
+    if lifecycle and lifecycle not in {"initialized", "queued"}:
+        return "done" if lifecycle == "completed" else lifecycle
     total = int(manifest.get("task_count", 0) or 0)
     if state.get("failed_task_ids"):
         return "failed"
@@ -117,3 +139,16 @@ def _run_status(manifest: dict[str, Any], state: dict[str, Any]) -> str:
     if total and len(state.get("completed_task_ids", [])) >= total:
         return "done"
     return "running"
+
+
+def _pending_count(manifest: dict[str, Any], state: dict[str, Any]) -> int:
+    total = int(manifest.get("task_count", 0) or 0)
+    if not state:
+        return total
+    terminal = (
+        len(state.get("completed_task_ids", []))
+        + len(state.get("blocked_task_ids", []))
+        + len(state.get("failed_task_ids", []))
+        + len(state.get("skipped_task_ids", []))
+    )
+    return max(0, total - terminal)

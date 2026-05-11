@@ -1,0 +1,36 @@
+{
+  "acceptance_gates": [
+    "dashboard refresh is local artifact based",
+    "stale data is labeled",
+    "no recommendation output"
+  ],
+  "allowed_paths": [
+    "pm_bot/practical/automation/",
+    "pm_bot/practical/artifacts/automation/",
+    "docs/",
+    "tests/"
+  ],
+  "dependencies": [
+    "PMBOT-AUTOMATION-031-PUBLIC-EVIDENCE-FETCH-CHAIN-RUNNER-OPERATOR-APPROVED-ONLY"
+  ],
+  "description": "Create dashboard refresh chain for local PMBOT artifacts.",
+  "execution_lane": "pmbot_automation",
+  "execution_mode": "handoff",
+  "expected_artifacts": [
+    "dashboard refresh plan",
+    "refresh fixtures"
+  ],
+  "forbidden_actions": [
+    "market recommendation",
+    "side selection",
+    "EV signal"
+  ],
+  "max_retries": 2,
+  "metadata": {},
+  "milestone_id": "",
+  "plan_id": "pmbot_master_plan_to_050",
+  "run_id": "O23B",
+  "schema_version": "codex_plan_task.v1",
+  "task_id": "PMBOT-AUTOMATION-032-DASHBOARD-REFRESH-CHAIN",
+  "title": "Dashboard refresh chain"
+}

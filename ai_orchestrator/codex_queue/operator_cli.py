@@ -12,7 +12,9 @@ from .codex_cli_runner import DEFAULT_TIMEOUT_SECONDS, run_codex_once
 from .dry_run_runner import run_dry_run
 from .long_run_controller import LongRunController
 from .plan_contract import load_plan_contract, validate_plan_contract
-from .plan_to_queue import create_queue_from_plan
+from .plan_recovery import inspect_run as inspect_recovery_run
+from .plan_run_state import create_checkpoint, load_state, save_state, validate_state_consistency
+from .plan_to_queue import create_queue_from_plan, inspect_queue, load_queue_manifest, validate_queue_manifest
 from .files import (
     QUEUE_STATE_DIRECTORIES,
     count_task_packets,
@@ -82,6 +84,7 @@ def main(argv: list[str] | None = None) -> int:
     continue_plan_parser.add_argument("--max-steps", type=int, default=50)
     continue_plan_parser.add_argument("--continue-until", default="blocked_or_done")
     continue_plan_parser.add_argument("--executor", choices=("fake", "noop", "handoff"), default="fake")
+    continue_plan_parser.add_argument("--stop-after-current", action="store_true")
     continue_plan_parser.set_defaults(func=_cmd_continue_plan_contract)
 
     recover_plan_parser = subparsers.add_parser("recover-plan", help="Inspect or recover a generated plan run.")
@@ -97,6 +100,26 @@ def main(argv: list[str] | None = None) -> int:
     export_prompt_parser.add_argument("--run-id", required=True)
     _add_queue_root(export_prompt_parser)
     export_prompt_parser.set_defaults(func=_cmd_export_next_codex_prompt)
+
+    inspect_run_parser = subparsers.add_parser("inspect-run", help="Inspect a generated plan run.")
+    inspect_run_parser.add_argument("--run-id", required=True)
+    _add_queue_root(inspect_run_parser)
+    inspect_run_parser.set_defaults(func=_cmd_inspect_run)
+
+    list_runs_parser = subparsers.add_parser("list-runs", help="List generated plan runs.")
+    _add_queue_root(list_runs_parser)
+    list_runs_parser.set_defaults(func=_cmd_list_runs)
+
+    validate_state_parser = subparsers.add_parser("validate-state", help="Validate run state consistency against its plan.")
+    validate_state_parser.add_argument("--run-id", required=True)
+    _add_queue_root(validate_state_parser)
+    validate_state_parser.set_defaults(func=_cmd_validate_state)
+
+    checkpoint_run_parser = subparsers.add_parser("checkpoint-run", help="Create a manual checkpoint for a generated run.")
+    checkpoint_run_parser.add_argument("--run-id", required=True)
+    checkpoint_run_parser.add_argument("--reason", required=True)
+    _add_queue_root(checkpoint_run_parser)
+    checkpoint_run_parser.set_defaults(func=_cmd_checkpoint_run)
 
     create_parser = subparsers.add_parser("create-demo-task", help="Create a safe docs-only demo task.")
     _add_queue_root(create_parser)
@@ -370,6 +393,7 @@ def _cmd_continue_plan_contract(args: argparse.Namespace) -> dict[str, Any]:
         max_steps=args.max_steps,
         executor=args.executor,
         continue_until=args.continue_until,
+        stop_after_current=args.stop_after_current,
     )
     return _write_plan_runner_action(args.queue_root, "continue-plan", result, "")
 
@@ -410,6 +434,150 @@ def _cmd_export_next_codex_prompt(args: argparse.Namespace) -> dict[str, Any]:
         continue_until="one_step",
     )
     return _write_plan_runner_action(args.queue_root, "export-next-codex-prompt", result, "")
+
+
+def _cmd_inspect_run(args: argparse.Namespace) -> dict[str, Any]:
+    inspection = inspect_recovery_run(args.run_id, args.queue_root)
+    status = "ok" if inspection.get("status") in {"found", "invalid_manifest"} else "blocked"
+    return write_operator_action_report(
+        args.queue_root,
+        _action(
+            "inspect-run",
+            status,
+            "",
+            args.queue_root,
+            source_path=inspection.get("manifest_path", ""),
+            destination_path=inspection.get("run_root", ""),
+            errors=list(inspection.get("errors", [])),
+            warnings=list(inspection.get("warnings", [])),
+            next_operator_action=(
+                "Review run state, dashboard, and choose continue-plan or recover-plan."
+                if status == "ok"
+                else "Select an existing run_id or create a queue first."
+            ),
+            extra={
+                "run_inspection": inspection,
+                "run_id": args.run_id,
+                "plan_id": str(inspection.get("plan_id") or ""),
+                "codex_execution_added": False,
+            },
+        ),
+    )
+
+
+def _cmd_list_runs(args: argparse.Namespace) -> dict[str, Any]:
+    root = Path(args.queue_root)
+    runs: list[dict[str, Any]] = []
+    for manifest_path in sorted(root.glob("generated/*/*/manifest.json")):
+        manifest = read_json(manifest_path)
+        if not isinstance(manifest, Mapping):
+            continue
+        state_path = Path(str(manifest.get("state_path") or manifest_path.parent / "state.json"))
+        state_payload = read_json(state_path) if state_path.exists() else {}
+        completed = list(state_payload.get("completed_task_ids", [])) if isinstance(state_payload, Mapping) else []
+        blocked = list(state_payload.get("blocked_task_ids", [])) if isinstance(state_payload, Mapping) else []
+        failed = list(state_payload.get("failed_task_ids", [])) if isinstance(state_payload, Mapping) else []
+        total = int(manifest.get("task_count", 0) or 0)
+        runs.append(
+            {
+                "run_id": str(manifest.get("run_id") or manifest_path.parent.name),
+                "plan_id": str(manifest.get("plan_id") or manifest_path.parent.parent.name),
+                "status": str(state_payload.get("status") or manifest.get("status") or "unknown") if isinstance(state_payload, Mapping) else "missing_state",
+                "completed_count": len(completed),
+                "blocked_count": len(blocked),
+                "failed_count": len(failed),
+                "pending_count": max(0, total - len(completed) - len(blocked) - len(failed)),
+                "task_count": total,
+                "updated_at": str(state_payload.get("updated_at") or manifest.get("updated_at") or "") if isinstance(state_payload, Mapping) else str(manifest.get("updated_at") or ""),
+                "manifest_path": str(manifest_path),
+                "state_path": str(state_path),
+            }
+        )
+    return write_operator_action_report(
+        args.queue_root,
+        _action(
+            "list-runs",
+            "ok",
+            "",
+            args.queue_root,
+            next_operator_action="Pick a run_id for inspect-run, continue-plan, recover-plan, or export-next-codex-prompt.",
+            extra={
+                "runs": runs,
+                "run_count": len(runs),
+                "codex_execution_added": False,
+            },
+        ),
+    )
+
+
+def _cmd_validate_state(args: argparse.Namespace) -> dict[str, Any]:
+    inspection = inspect_queue(args.queue_root, args.run_id)
+    errors: list[str] = list(inspection.get("errors", []))
+    validation_result: dict[str, Any] = {"consistent": False, "errors": errors}
+    plan_id = str(inspection.get("plan_id") or "")
+    if inspection.get("status") in {"found", "invalid"}:
+        manifest = load_queue_manifest(args.queue_root, args.run_id)
+        manifest_validation = validate_queue_manifest(manifest)
+        errors.extend(manifest_validation["errors"])
+        plan_id = str(manifest.get("plan_id") or plan_id)
+        plan_file = str(manifest.get("source_plan_file") or "")
+        state_path = Path(str(manifest.get("state_path") or Path(inspection["run_dir"]) / "state.json"))
+        if plan_file and Path(plan_file).exists() and state_path.exists():
+            plan = load_plan_contract(plan_file)
+            state = load_state(state_path)
+            validation_result = validate_state_consistency(state, plan)
+            errors.extend(validation_result["errors"])
+        elif not state_path.exists():
+            errors.append(f"state file missing: {state_path}")
+        else:
+            errors.append(f"source plan file missing: {plan_file}")
+    status = "ok" if not errors else "blocked"
+    return write_operator_action_report(
+        args.queue_root,
+        _action(
+            "validate-state",
+            status,
+            "",
+            args.queue_root,
+            errors=list(dict.fromkeys(errors)),
+            next_operator_action=(
+                "State is consistent; continue-plan may proceed."
+                if status == "ok"
+                else "Run recover-plan or repair state before continuing."
+            ),
+            extra={
+                "state_validation": validation_result,
+                "run_id": args.run_id,
+                "plan_id": plan_id,
+                "codex_execution_added": False,
+            },
+        ),
+    )
+
+
+def _cmd_checkpoint_run(args: argparse.Namespace) -> dict[str, Any]:
+    manifest = load_queue_manifest(args.queue_root, args.run_id)
+    state_path = Path(str(manifest.get("state_path") or ""))
+    state = load_state(state_path)
+    checkpoint = create_checkpoint(state, args.reason)
+    save_state(state, state_path, updated_by="operator_cli")
+    return write_operator_action_report(
+        args.queue_root,
+        _action(
+            "checkpoint-run",
+            "ok",
+            "",
+            args.queue_root,
+            source_path=state_path,
+            next_operator_action="Checkpoint written; continue-plan or recover-plan can reference the latest safe point.",
+            extra={
+                "checkpoint": checkpoint,
+                "run_id": args.run_id,
+                "plan_id": str(manifest.get("plan_id") or ""),
+                "codex_execution_added": False,
+            },
+        ),
+    )
 
 
 def _cmd_runbook(args: argparse.Namespace) -> dict[str, Any]:
@@ -1766,6 +1934,17 @@ def _cli_summary(report: Mapping[str, Any]) -> dict[str, Any]:
     if "next_actions" in report:
         summary["next_actions"] = report["next_actions"]
     for key in ("run_status", "run_id", "plan_id", "task_count"):
+        if key in report:
+            summary[key] = report[key]
+    for key in (
+        "runs",
+        "run_count",
+        "run_inspection",
+        "state_validation",
+        "checkpoint",
+        "queue_creation",
+        "plan_recovery",
+    ):
         if key in report:
             summary[key] = report[key]
     for key, value in report.items():

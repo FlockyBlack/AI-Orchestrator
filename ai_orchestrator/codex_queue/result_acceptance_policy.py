@@ -11,6 +11,18 @@ BLOCKED = "blocked"
 FAILED = "failed"
 NEEDS_RETRY = "needs_retry"
 
+ALLOWED_RESULT_STATUSES = {
+    "accepted",
+    "completed",
+    "done",
+    "blocked",
+    "failed",
+    "error",
+    "needs_retry",
+    "retry",
+    "requiring_operator_handoff",
+}
+
 
 FORBIDDEN_TRUE_FLAGS = {
     "real_trading": "real trading claimed",
@@ -81,19 +93,28 @@ def evaluate_task_result(
     result_payload: Mapping[str, Any],
     safety_boundaries: tuple[SafetyBoundary, ...] | list[SafetyBoundary],
 ) -> AcceptanceDecision:
-    shape_errors = validate_result_json_shape(result_payload)
+    docs_only = _task_allows_docs_only(task_spec)
+    shape_errors = validate_result_json_shape(
+        result_payload,
+        expected_task_id=task_spec.task_id,
+        docs_only=docs_only,
+    )
     claim_errors = reject_forbidden_claims(result_payload)
     errors = list(shape_errors) + list(claim_errors)
     status = str(result_payload.get("status") or "").lower()
 
+    if status not in ALLOWED_RESULT_STATUSES:
+        errors.append(f"unknown result status: {status or '<missing>'}")
+        return AcceptanceDecision(status=FAILED, accepted=False, errors=tuple(errors), reasons=("unknown_status",))
     if status in {"blocked", "requiring_operator_handoff"}:
         return AcceptanceDecision(status=BLOCKED, accepted=False, errors=tuple(errors), reasons=(status,))
     if status in {"failed", "error"}:
         return AcceptanceDecision(status=FAILED, accepted=False, errors=tuple(errors), reasons=(status,))
+    if status in {"needs_retry", "retry"}:
+        return AcceptanceDecision(status=NEEDS_RETRY, accepted=False, errors=tuple(errors), reasons=(status,))
     if errors:
         return AcceptanceDecision(status=FAILED, accepted=False, errors=tuple(errors), reasons=("shape_or_safety_rejected",))
 
-    docs_only = _task_allows_docs_only(task_spec)
     if not docs_only:
         if result_payload.get("validation_passed") is not True:
             return AcceptanceDecision(
@@ -121,11 +142,23 @@ def evaluate_task_result(
     return AcceptanceDecision(status=ACCEPTED, accepted=True)
 
 
-def validate_result_json_shape(result_payload: Mapping[str, Any]) -> tuple[str, ...]:
+def validate_result_json_shape(
+    result_payload: Mapping[str, Any],
+    *,
+    expected_task_id: str = "",
+    docs_only: bool = False,
+) -> tuple[str, ...]:
     errors: list[str] = []
-    for field in ("task_id", "status", "validation_passed", "safety_ok"):
+    required = ["task_id", "status"]
+    if not docs_only:
+        required.extend(["validation_passed", "safety_ok"])
+    for field in required:
         if field not in result_payload:
             errors.append(f"missing result field: {field}")
+    if "task_id" in result_payload and not str(result_payload.get("task_id") or "").strip():
+        errors.append("missing result field: task_id")
+    if expected_task_id and str(result_payload.get("task_id") or "") != expected_task_id:
+        errors.append(f"result task_id mismatch: expected {expected_task_id}, got {result_payload.get('task_id')}")
     if "artifacts" in result_payload and not isinstance(result_payload["artifacts"], list):
         errors.append("artifacts must be a list when present")
     if "commands_run" in result_payload and not isinstance(result_payload["commands_run"], list):

@@ -1,0 +1,65 @@
+{
+  "artifact_root": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\operator_panel_023_resume_recovery",
+  "checkpoint": {
+    "artifact_paths": [
+      "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\operator_panel_023_resume_recovery\\generated\\pmbot_master_plan_to_050\\O23B\\artifacts\\ORCH-CODEX-AUTOMATION-022-OPERATOR-PANEL-AND-PLAN-RUNNER-CONTROL_fake_103345104757.json",
+      "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\operator_panel_023_resume_recovery\\generated\\pmbot_master_plan_to_050\\O23B\\artifacts\\ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING_fake_103345738350.json",
+      "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\operator_panel_023_resume_recovery\\generated\\pmbot_master_plan_to_050\\O23B\\artifacts\\ORCH-CODEX-AUTOMATION-024-CODEX-EXECUTOR-ADAPTER-BOUNDARY_fake_103346437687.json",
+      "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\operator_panel_023_resume_recovery\\generated\\pmbot_master_plan_to_050\\O23B\\artifacts\\ORCH-CODEX-AUTOMATION-025-WORKTREE-LANE-MANAGER_fake_103346592505.json"
+    ],
+    "blocked_task_ids": [],
+    "checkpoint_created_at": "2026-05-11T10:33:46Z",
+    "checkpoint_id": "cp_0002_20260511T103346Z",
+    "checkpoint_reason": "fake_integration_manual_checkpoint_after_resume",
+    "completed_task_ids": [
+      "ORCH-CODEX-AUTOMATION-022-OPERATOR-PANEL-AND-PLAN-RUNNER-CONTROL",
+      "ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING",
+      "ORCH-CODEX-AUTOMATION-024-CODEX-EXECUTOR-ADAPTER-BOUNDARY",
+      "ORCH-CODEX-AUTOMATION-025-WORKTREE-LANE-MANAGER"
+    ],
+    "failed_task_ids": [],
+    "latest_handoff_prompt_path": "",
+    "latest_recovery_report_path": "",
+    "retry_counts": {},
+    "skipped_task_ids": [],
+    "status": "paused",
+    "task_id": ""
+  },
+  "dashboard_paths": {
+    "json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\operator_panel_023_resume_recovery\\generated\\pmbot_master_plan_to_050\\O23B\\dashboard\\dashboard.json",
+    "markdown": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\operator_panel_023_resume_recovery\\generated\\pmbot_master_plan_to_050\\O23B\\dashboard\\dashboard.md"
+  },
+  "handoff": {
+    "handoff_prompt_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\operator_panel_023_resume_recovery\\generated\\pmbot_master_plan_to_050\\O23B\\handoff\\ORCH-CODEX-AUTOMATION-026-SELECTIVE-COMMIT-PUSH-HARDENING_codex_prompt.md",
+    "status": "requiring_operator_handoff"
+  },
+  "plan_file": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\plans\\pmbot_master_plan_to_050.v1.json",
+  "run_id": "O23B",
+  "run_root": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\operator_panel_023_resume_recovery\\generated\\pmbot_master_plan_to_050\\O23B",
+  "safety": {
+    "background_worker_created": false,
+    "browser_automation_used": false,
+    "daemon_created": false,
+    "openrouter_used": false,
+    "orders_or_trading_endpoints_added": false,
+    "polymarket_api_used": false,
+    "real_codex_self_invocation": false,
+    "scheduler_created": false,
+    "wallet_or_signing_added": false
+  },
+  "safety_ok": true,
+  "stale_lock_recovery": {
+    "blocked_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\operator_panel_023_resume_recovery\\generated\\pmbot_master_plan_to_050\\O23B\\recovery\\recovery_report_20260511T103346957048Z.json",
+    "blocked_without_allow": true,
+    "cleared_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\operator_panel_023_resume_recovery\\generated\\pmbot_master_plan_to_050\\O23B\\recovery\\recovery_report_20260511T103346987430Z.json",
+    "cleared_with_allow": true
+  },
+  "state_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\operator_panel_023_resume_recovery\\generated\\pmbot_master_plan_to_050\\O23B\\state.json",
+  "status": "passed",
+  "steps": {
+    "completed_after_resume": 4,
+    "continued_fake_steps": 2,
+    "initial_fake_steps": 2
+  },
+  "task_id": "ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING"
+}

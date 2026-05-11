@@ -1,0 +1,35 @@
+{
+  "acceptance_gates": [
+    "recovery playbooks cover stale lock, partial run, and validation failure",
+    "panel exposes recovery report",
+    "no stale lock is cleared silently"
+  ],
+  "allowed_paths": [
+    "ai_orchestrator/codex_queue/",
+    "ai_orchestrator/operator_panel/",
+    "docs/",
+    "tests/"
+  ],
+  "dependencies": [
+    "ORCH-CODEX-AUTOMATION-027-DASHBOARD-AND-ARTIFACT-INDEX-IMPROVEMENTS"
+  ],
+  "description": "Document and implement operator recovery playbooks for blocked and inconsistent runs.",
+  "execution_lane": "orch_automation",
+  "execution_mode": "handoff",
+  "expected_artifacts": [
+    "recovery playbook docs",
+    "recovery tests"
+  ],
+  "forbidden_actions": [
+    "silent stale lock removal",
+    "pretend success on inconsistent state"
+  ],
+  "max_retries": 2,
+  "metadata": {},
+  "milestone_id": "",
+  "plan_id": "pmbot_master_plan_to_050",
+  "run_id": "O23B",
+  "schema_version": "codex_plan_task.v1",
+  "task_id": "ORCH-CODEX-AUTOMATION-028-FAILURE-RECOVERY-PLAYBOOKS",
+  "title": "Failure recovery playbooks"
+}

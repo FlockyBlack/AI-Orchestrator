@@ -8,7 +8,7 @@ from typing import Any
 from ai_orchestrator.codex_queue.automation_dashboard import build_dashboard
 from ai_orchestrator.codex_queue.long_run_controller import LongRunController
 from ai_orchestrator.codex_queue.plan_contract import load_plan_contract, validate_plan_contract
-from ai_orchestrator.codex_queue.plan_run_state import load_state
+from ai_orchestrator.codex_queue.plan_run_state import append_event, load_state, save_state
 from ai_orchestrator.codex_queue.plan_to_queue import create_queue_from_plan
 from ai_orchestrator.codex_queue.selective_staging_planner import collect_git_status
 
@@ -67,18 +67,21 @@ def run_fake_steps_action(plan_file: str | Path, queue_root: str | Path, max_ste
 def continue_run_action(run_id: str, queue_root: str | Path, max_steps: int) -> dict[str, Any]:
     result = LongRunController().continue_plan(run_id, queue_root, max_steps=max_steps, executor="fake")
     _remember_action(queue_root, "continue_run", result, run_id=run_id)
+    _record_run_event(queue_root, run_id, "panel_continue", result)
     return result
 
 
-def recover_run_action(run_id: str, queue_root: str | Path) -> dict[str, Any]:
-    result = LongRunController().recover_plan(run_id, queue_root)
+def recover_run_action(run_id: str, queue_root: str | Path, *, allow_stale_lock_clear: bool = False) -> dict[str, Any]:
+    result = LongRunController().recover_plan(run_id, queue_root, allow_stale_lock_clear=allow_stale_lock_clear)
     _remember_action(queue_root, "recover_run", result, run_id=run_id)
+    _record_run_event(queue_root, run_id, "panel_recover", result)
     return result
 
 
 def export_next_codex_prompt_action(run_id: str, queue_root: str | Path) -> dict[str, Any]:
     result = LongRunController().continue_plan(run_id, queue_root, max_steps=1, executor="handoff", continue_until="one_step")
     _remember_action(queue_root, "export_next_codex_prompt", result, run_id=run_id)
+    _record_run_event(queue_root, run_id, "panel_export_handoff", result)
     return result
 
 
@@ -123,7 +126,30 @@ def _remember_action(queue_root: str | Path, action: str, result: dict[str, Any]
     payload = result.get("payload", {}) if isinstance(result.get("payload", {}), dict) else {}
     state.active_run_id = run_id or str(payload.get("run_id") or state.active_run_id)
     state.last_action = {"action": action, "status": result.get("status"), "run_id": state.active_run_id}
+    state.action_events.append(dict(state.last_action))
+    state.action_events = state.action_events[-50:]
     save_panel_state(state, queue_root)
+
+
+def _record_run_event(queue_root: str | Path, run_id: str, event: str, result: dict[str, Any]) -> None:
+    if not run_id:
+        return
+    matches = sorted(Path(queue_root).glob(f"generated/*/{run_id}/state.json"))
+    if not matches:
+        return
+    try:
+        state = load_state(matches[0])
+    except (OSError, json.JSONDecodeError, ValueError):
+        return
+    append_event(
+        state,
+        {
+            "event": event,
+            "status": result.get("status"),
+            "stop_reason": result.get("stop_reason"),
+        },
+    )
+    save_state(state, matches[0], updated_by="operator_panel")
 
 
 def _safe_filename(value: str) -> str:

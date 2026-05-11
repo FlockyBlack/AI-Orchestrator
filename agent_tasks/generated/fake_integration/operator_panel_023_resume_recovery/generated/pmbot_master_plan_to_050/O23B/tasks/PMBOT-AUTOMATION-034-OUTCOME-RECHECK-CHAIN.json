@@ -1,0 +1,35 @@
+{
+  "acceptance_gates": [
+    "outcome recheck remains unresolved when evidence is absent",
+    "evidence references are required",
+    "manual operator review is preserved"
+  ],
+  "allowed_paths": [
+    "pm_bot/practical/automation/",
+    "pm_bot/practical/artifacts/automation/",
+    "docs/",
+    "tests/"
+  ],
+  "dependencies": [
+    "PMBOT-AUTOMATION-033-SOURCE-LEARNING-UPDATE-CHAIN"
+  ],
+  "description": "Create outcome recheck chain with explicit evidence requirements and unresolved-market safeguards.",
+  "execution_lane": "pmbot_automation",
+  "execution_mode": "handoff",
+  "expected_artifacts": [
+    "outcome recheck fixtures",
+    "unresolved safety report"
+  ],
+  "forbidden_actions": [
+    "invented outcomes",
+    "unresolved market resolved without evidence"
+  ],
+  "max_retries": 2,
+  "metadata": {},
+  "milestone_id": "",
+  "plan_id": "pmbot_master_plan_to_050",
+  "run_id": "O23B",
+  "schema_version": "codex_plan_task.v1",
+  "task_id": "PMBOT-AUTOMATION-034-OUTCOME-RECHECK-CHAIN",
+  "title": "Outcome recheck chain"
+}

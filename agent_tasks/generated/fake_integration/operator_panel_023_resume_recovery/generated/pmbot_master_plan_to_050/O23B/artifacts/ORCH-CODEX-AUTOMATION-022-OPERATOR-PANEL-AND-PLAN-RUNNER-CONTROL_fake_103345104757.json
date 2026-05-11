@@ -1,0 +1,31 @@
+{
+  "artifacts": [
+    "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\operator_panel_023_resume_recovery\\generated\\pmbot_master_plan_to_050\\O23B\\artifacts\\ORCH-CODEX-AUTOMATION-022-OPERATOR-PANEL-AND-PLAN-RUNNER-CONTROL_fake_103345104757.json"
+  ],
+  "commands_run": [],
+  "completed_at": "2026-05-11T10:33:45Z",
+  "fake_behavior": "accepted",
+  "fake_executor": true,
+  "force_push_used": false,
+  "openrouter_used": false,
+  "plan_id": "pmbot_master_plan_to_050",
+  "polymarket_api_used": false,
+  "real_order_submitted": false,
+  "run_id": "O23B",
+  "safety_boundaries_acknowledged": [
+    "local_only_supervised",
+    "no_real_trading",
+    "no_external_live_services",
+    "no_market_advice",
+    "selective_git_only"
+  ],
+  "safety_ok": true,
+  "schema_version": "codex_plan_task_result.v1",
+  "status": "completed",
+  "summary": "completed by local executor for ORCH-CODEX-AUTOMATION-022-OPERATOR-PANEL-AND-PLAN-RUNNER-CONTROL.",
+  "task_id": "ORCH-CODEX-AUTOMATION-022-OPERATOR-PANEL-AND-PLAN-RUNNER-CONTROL",
+  "trading_endpoint_used": false,
+  "unsafe_git_staging_used": false,
+  "validation_passed": true,
+  "wallet_used": false
+}
