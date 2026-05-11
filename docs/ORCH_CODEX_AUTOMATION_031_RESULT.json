@@ -1,0 +1,59 @@
+{
+  "task_id": "ORCH-CODEX-AUTOMATION-031-FIRST-NIGHTLY-LANE-BATCH-DRY-RUN",
+  "status": "completed_local_pending_commit_push",
+  "repo": {
+    "worktree": "C:/oc031",
+    "branch": "codex/orch-codex-automation-031-first-nightly-lane-batch-dry-run",
+    "base_master_head": "31fc213be71e84af8766ad7935db41613d407f25",
+    "head_before": "31fc213be71e84af8766ad7935db41613d407f25",
+    "head_after": "pending_final_commit",
+    "pushed": false,
+    "pushed_to_master": false,
+    "remote_verified": false
+  },
+  "first_nightly_dry_run_executed": true,
+  "dry_run_executor_only": true,
+  "real_codex_invocation_performed": false,
+  "external_api_calls_performed": false,
+  "lane_planning_passed": true,
+  "subagent_routing_passed": true,
+  "batch_report_written": true,
+  "panel_or_report_surface_updated": true,
+  "pmbot_smoke_tests_passed": true,
+  "automation_tests_passed": true,
+  "no_daemon_or_scheduler_added": true,
+  "wallet_or_order_code_added": false,
+  "safety_ok": true,
+  "blocked_reason": null,
+  "artifacts": {
+    "plan": "agent_tasks/plans/first_nightly_lane_batch_dry_run_031.json",
+    "latest_report_json": "agent_tasks/reports/latest_nightly_lane_batch_report.json",
+    "latest_report_md": "agent_tasks/reports/latest_nightly_lane_batch_report.md",
+    "stable_report_json": "agent_tasks/reports/first_nightly_lane_batch_dry_run_031_report.json",
+    "stable_report_md": "agent_tasks/reports/first_nightly_lane_batch_dry_run_031_report.md",
+    "summary": "docs/ORCH_CODEX_AUTOMATION_031_FIRST_NIGHTLY_LANE_BATCH_DRY_RUN.md"
+  },
+  "validation": {
+    "nightly_runner": "python -m pytest tests/test_codex_queue_nightly_lane_batch_runner.py",
+    "lane_routing_cli": "python -m pytest tests/test_codex_worktree_lane_manager.py tests/test_subagent_routing.py tests/test_codex_queue_operator_cli.py",
+    "operator_panel": "python -m pytest tests/test_operator_panel_actions.py tests/test_operator_panel_renderer.py",
+    "full_tests": "python -m pytest tests",
+    "compileall": "python -m compileall ai_orchestrator",
+    "pmbot_daily_loop": "pytest pm_bot/tests/test_paper_daily_loop_022.py",
+    "pmbot_strategy": "pytest pm_bot/tests/test_paper_strategy_evaluation_024.py"
+  },
+  "safety": {
+    "fake_executor_only": true,
+    "real_codex_invocation_performed": false,
+    "external_api_calls_performed": false,
+    "pmbot_runtime_or_live_trading_behavior_used": false,
+    "wallet_or_private_key_accessed": false,
+    "signing_or_order_code_added": false,
+    "daemon_created": false,
+    "scheduler_created": false,
+    "background_worker_created": false,
+    "browser_automation_used": false,
+    "unsafe_git_staging_used": false,
+    "force_push_used": false
+  }
+}

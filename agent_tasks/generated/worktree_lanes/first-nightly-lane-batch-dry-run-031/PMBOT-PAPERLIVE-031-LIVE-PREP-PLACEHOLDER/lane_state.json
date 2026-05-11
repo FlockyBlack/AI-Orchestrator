@@ -1,0 +1,103 @@
+{
+  "artifact_dir": "C:\\oc031\\agent_tasks\\generated\\worktree_lanes\\first-nightly-lane-batch-dry-run-031\\PMBOT-PAPERLIVE-031-LIVE-PREP-PLACEHOLDER",
+  "blocker_reason": null,
+  "blockers": [],
+  "branch": "codex/pmbot-paperlive-031-live-prep-placeholder-first-nightly-lane-batch-dry-run-031",
+  "branch_created": false,
+  "execution_allowed": true,
+  "git_command": [
+    "git",
+    "worktree",
+    "add",
+    "-b",
+    "codex/pmbot-paperlive-031-live-prep-placeholder-first-nightly-lane-batch-dry-run-031",
+    "C:\\oc031-nightly-lanes-031\\pmbot-paperlive-031-live-prep-placeholder-first-nightly-lane-batch-dry-run-031",
+    "31fc213be71e84af8766ad7935db41613d407f25"
+  ],
+  "lane_id": "PMBOT-PAPERLIVE-031-LIVE-PREP-PLACEHOLDER:first-nightly-lane-batch-dry-run-031",
+  "ready": true,
+  "repo": {
+    "current_branch": "codex/orch-codex-automation-031-run-source",
+    "current_head": "31fc213be71e84af8766ad7935db41613d407f25",
+    "expected_base_branch": "codex/orch-codex-automation-031-run-source",
+    "expected_base_head": "31fc213be71e84af8766ad7935db41613d407f25",
+    "is_clean": true,
+    "root": "C:/oc031-run-source",
+    "status_lines": [],
+    "tracked_changes_count": 0,
+    "untracked_count": 0
+  },
+  "report_paths": {
+    "lane_state_json": "C:\\oc031\\agent_tasks\\generated\\worktree_lanes\\first-nightly-lane-batch-dry-run-031\\PMBOT-PAPERLIVE-031-LIVE-PREP-PLACEHOLDER\\lane_state.json",
+    "lane_state_md": "C:\\oc031\\agent_tasks\\generated\\worktree_lanes\\first-nightly-lane-batch-dry-run-031\\PMBOT-PAPERLIVE-031-LIVE-PREP-PLACEHOLDER\\lane_state.md",
+    "latest_worktree_lane_state_json": "C:\\oc031\\agent_tasks\\reports\\latest_worktree_lane_state.json",
+    "latest_worktree_lane_state_md": "C:\\oc031\\agent_tasks\\reports\\latest_worktree_lane_state.md"
+  },
+  "run_id": "first-nightly-lane-batch-dry-run-031",
+  "safety": {
+    "authenticated_endpoints_used": false,
+    "background_worker_created": false,
+    "browser_automation_used": false,
+    "codex_invoked": false,
+    "daemon_created": false,
+    "external_api_calls_performed": 0,
+    "live_trading_permission": false,
+    "orders_or_trading_actions": false,
+    "scheduler_created": false,
+    "task_category": "pmbot_paper_product",
+    "wallet_or_private_key_accessed": false
+  },
+  "schema_version": "codex_worktree_lane.v1",
+  "selected_subagent_profile": "Builder",
+  "selected_subagent_profile_path": "C:\\oc031-run-source\\agent_tasks\\agents\\builder_agent.md",
+  "state_path": "C:\\oc031\\agent_tasks\\generated\\worktree_lanes\\first-nightly-lane-batch-dry-run-031\\PMBOT-PAPERLIVE-031-LIVE-PREP-PLACEHOLDER\\lane_state.json",
+  "status": "planned",
+  "subagent_route": {
+    "agents_md_exists": true,
+    "agents_md_path": "C:\\oc031-run-source\\AGENTS.md",
+    "category": "pmbot_paper_product",
+    "expected_outputs": {
+      "Builder": "implementation_notes",
+      "Docs": "docs_report",
+      "Integrator": "integration_decision",
+      "Planner": "implementation_plan",
+      "Reviewer": "review_report",
+      "Scout": "scout_report",
+      "Tester": "validation_report"
+    },
+    "live_trading_permission": false,
+    "reason": "PMBOT paper/product work uses Builder with Scout, Tester, Reviewer, Docs, and Integrator gates.",
+    "safety_boundaries": [
+      "paper_mode_only_for_pmbot",
+      "no_wallet_private_key_signing_orders_or_trading_endpoints",
+      "no_openrouter_or_polymarket_api_without_separate_approval",
+      "no_browser_automation_or_authenticated_endpoints",
+      "no_daemon_scheduler_or_background_worker",
+      "selective_git_staging_only",
+      "pmbot_paper_only",
+      "no_live_trading_permission"
+    ],
+    "schema_version": "codex_subagent_route.v1",
+    "selected_profile": "Builder",
+    "selected_profile_exists": true,
+    "selected_profile_path": "C:\\oc031-run-source\\agent_tasks\\agents\\builder_agent.md",
+    "subagent_plan": [
+      "Scout",
+      "Planner",
+      "Builder",
+      "Tester",
+      "Reviewer",
+      "Docs",
+      "Integrator"
+    ],
+    "task_id": "PMBOT-PAPERLIVE-031-LIVE-PREP-PLACEHOLDER",
+    "warnings": []
+  },
+  "task_category": "pmbot_paper_product",
+  "task_id": "PMBOT-PAPERLIVE-031-LIVE-PREP-PLACEHOLDER",
+  "warnings": [],
+  "worktree_created": false,
+  "worktree_path": "C:\\oc031-nightly-lanes-031\\pmbot-paperlive-031-live-prep-placeholder-first-nightly-lane-batch-dry-run-031",
+  "would_create_branch": true,
+  "would_create_worktree": true
+}

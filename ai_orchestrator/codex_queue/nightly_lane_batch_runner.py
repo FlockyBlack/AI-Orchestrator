@@ -238,6 +238,7 @@ def run_nightly_lane_batch(
             repo,
             plan,
             task,
+            repo_git_state=repo_preflight["git_state"],
             dry_run=dry_run,
             allow_real_codex_invocation=allow_real_codex_invocation,
             timeout_seconds=timeout_seconds,
@@ -290,6 +291,7 @@ def render_nightly_lane_batch_markdown(report: Mapping[str, Any]) -> str:
                 f"   - lane_path: `{task.get('lane_path')}`",
                 f"   - branch: `{task.get('branch')}`",
                 f"   - selected_subagent: `{task.get('selected_subagent')}`",
+                f"   - safety_flags: `{_safety_flags_text(task.get('safety_flags'))}`",
                 f"   - test_summary: `{_summary_text(task.get('test_summary'))}`",
                 f"   - blocker_reason: `{task.get('blocker_reason') or 'none'}`",
                 f"   - next_action: {task.get('next_action')}",
@@ -328,13 +330,21 @@ def _run_one_task(
     plan: Mapping[str, Any],
     task: Mapping[str, Any],
     *,
+    repo_git_state: Mapping[str, Any] | None = None,
     dry_run: bool,
     allow_real_codex_invocation: bool,
     timeout_seconds: int,
 ) -> dict[str, Any]:
     task_id = str(task["task_id"])
     route = route_from_task_payload(task, repo_root=repo)
-    lane_state = _lane_state_for_task(queue_root, repo, plan, task, dry_run=dry_run)
+    lane_state = _lane_state_for_task(
+        queue_root,
+        repo,
+        plan,
+        task,
+        dry_run=dry_run,
+        repo_git_state=repo_git_state,
+    )
     lane_state = write_lane_state_artifacts(queue_root, lane_state)
     executor_mode = "fake" if dry_run else str(task.get("executor_mode") or plan.get("executor_mode") or DEFAULT_EXECUTOR_MODE)
     if executor_mode == "dry_run":
@@ -353,6 +363,7 @@ def _run_one_task(
         "selected_subagent": route.selected_profile,
         "selected_subagent_profile_path": route.selected_profile_path,
         "subagent_route": route.to_dict(),
+        "safety_flags": dict(lane_state.get("safety", {})) if isinstance(lane_state.get("safety"), Mapping) else {},
         "executor_mode": executor_mode,
         "max_steps": int(task.get("max_steps") or plan.get("max_steps_per_task") or 1),
         "test_summary": {"status": "not_run", "details": "batch runner does not run tests inside task lanes"},
@@ -406,6 +417,7 @@ def _lane_state_for_task(
     task: Mapping[str, Any],
     *,
     dry_run: bool,
+    repo_git_state: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     lane_root = str(plan.get("lane_root") or "") or None
     common = {
@@ -418,7 +430,11 @@ def _lane_state_for_task(
         "task_category": str(task.get("task_category") or ""),
     }
     if dry_run or plan.get("lane_mode") == "plan_only":
-        return plan_task_worktree_lane(queue_root, **common)
+        return plan_task_worktree_lane(
+            queue_root,
+            git_state_override=dict(repo_git_state) if isinstance(repo_git_state, Mapping) else None,
+            **common,
+        )
 
     existing = inspect_task_worktree_lane(queue_root, **common)
     if _lane_can_be_reused(existing, plan):
@@ -683,6 +699,22 @@ def _summary_text(value: Any) -> str:
         details = value.get("details", "")
         return f"{status}: {details}" if details else str(status)
     return str(value or "unknown")
+
+
+def _safety_flags_text(value: Any) -> str:
+    if not isinstance(value, Mapping):
+        return "unknown"
+    keys = (
+        "codex_invoked",
+        "external_api_calls_performed",
+        "browser_automation_used",
+        "wallet_or_private_key_accessed",
+        "orders_or_trading_actions",
+        "daemon_created",
+        "scheduler_created",
+        "background_worker_created",
+    )
+    return ", ".join(f"{key}={value.get(key)}" for key in keys if key in value) or "none"
 
 
 def _run_id() -> str:
