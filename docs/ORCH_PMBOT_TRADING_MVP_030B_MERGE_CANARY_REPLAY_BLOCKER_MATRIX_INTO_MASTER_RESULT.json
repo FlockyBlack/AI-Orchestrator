@@ -1,0 +1,71 @@
+{
+  "task_id": "ORCH-PMBOT-TRADING-MVP-030B-MERGE-CANARY-REPLAY-BLOCKER-MATRIX-INTO-MASTER",
+  "status": "completed_pushed",
+  "repo": {
+    "merge_worktree": "C:/oc030b_canary_replay_merge",
+    "merge_branch": "codex/orch-pmbot-030b-merge-canary-replay",
+    "master_head_before": "a1dd37ddf77794efc3aab99eb21559ee83f75b2e",
+    "source_branch": "pmbot/trading-mvp-030-canary-replay-acceptance-live-connector-blocker-matrix",
+    "source_head": "9828c5279459e96b75a2f250aa495877af5bbbfa",
+    "fast_forward_merge_head": "9828c5279459e96b75a2f250aa495877af5bbbfa",
+    "master_head_after": "pending_final_commit_hash_recorded_in_final_response",
+    "pushed": true,
+    "remote_verified": true
+  },
+  "fast_forward_merge": true,
+  "merge_result_artifact_written": true,
+  "pmbot_030_on_master": true,
+  "canary_replay_suite_ready": true,
+  "acceptance_matrix_ready": true,
+  "live_connector_blocker_matrix_ready": true,
+  "operator_checklist_ready": true,
+  "nightly_batch_example_present": true,
+  "all_live_blockers_unresolved": true,
+  "live_blocker_count": 10,
+  "live_blocker_current_status_values": [
+    "absent",
+    "not_wired"
+  ],
+  "real_live_execution_available": false,
+  "external_api_calls_performed": false,
+  "real_wallet_integration_added": false,
+  "private_key_handling_added": false,
+  "cryptographic_signing_added": false,
+  "real_order_placement_added": false,
+  "authenticated_endpoint_added": false,
+  "autonomous_live_trading_enabled": false,
+  "outcome_resolution_invented": false,
+  "pnl_invented": false,
+  "tests_passed": true,
+  "tests_run": [
+    {
+      "command": "pytest pm_bot/tests",
+      "status": "passed",
+      "summary": "1434 passed"
+    },
+    {
+      "command": "python -m compileall pm_bot",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest tests/test_codex_queue_nightly_lane_batch_runner.py tests/test_codex_worktree_lane_manager.py tests/test_subagent_routing.py tests/test_codex_queue_operator_cli.py",
+      "status": "passed",
+      "summary": "41 passed"
+    },
+    {
+      "command": "python -m compileall ai_orchestrator",
+      "status": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed",
+      "summary": "passed with Git line-ending warnings on existing tracked files"
+    }
+  ],
+  "safety_ok": true,
+  "blocked_reason": null,
+  "remaining_risks": [
+    "Committed result artifact cannot self-reference the final commit hash that contains it; final response records the pushed master head.",
+    "Real live execution remains unavailable because all 10 live connector blockers remain unresolved."
+  ]
+}
