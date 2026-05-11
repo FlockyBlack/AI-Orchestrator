@@ -18,7 +18,7 @@
     "subagent_routing_deterministic_test_passed": true,
     "full_top_level_tests_passed": true,
     "top_level_tests_command": "python -m pytest tests",
-    "top_level_tests_result": "309 passed"
+    "top_level_tests_result": "310 passed"
   },
   "safety": {
     "pmbot_trading_logic_modified": false,
