@@ -232,6 +232,7 @@ def build_panel_dashboard_action(repo_root: str | Path, queue_root: str | Path) 
         "git": inspect_git_action(repo_root),
         "codex_cli": codex_cli_panel_status(queue_root),
         "worktree_lane": worktree_lane_panel_status(queue_root),
+        "nightly_lane_batch": nightly_lane_batch_panel_status(queue_root),
         "app_server": app_server_panel_status(repo_root, queue_root),
         "project_contract": project_contract_panel_status(repo_root),
     }
@@ -296,6 +297,38 @@ def worktree_lane_panel_status(queue_root: str | Path) -> dict[str, Any]:
         "selected_subagent_profile_path": str(state.get("selected_subagent_profile_path") or ""),
         "blocker_reason": state.get("blocker_reason"),
         "state": state,
+    }
+
+
+def nightly_lane_batch_panel_status(queue_root: str | Path) -> dict[str, Any]:
+    latest_json = Path(queue_root) / "reports" / "latest_nightly_lane_batch_report.json"
+    latest_md = Path(queue_root) / "reports" / "latest_nightly_lane_batch_report.md"
+    report = _read_json(latest_json)
+    if not report:
+        return {
+            "status": "missing",
+            "ready": False,
+            "latest_report_json": str(latest_json),
+            "latest_report_md": str(latest_md),
+            "task_count": 0,
+            "completed_count": 0,
+            "blocked_count": 0,
+            "failed_count": 0,
+            "blocker_reason": "no nightly lane batch report has been written",
+        }
+    return {
+        "status": str(report.get("status") or "unknown"),
+        "ready": report.get("status") in {"completed", "dry_run"},
+        "batch_id": str(report.get("batch_id") or ""),
+        "run_id": str(report.get("run_id") or ""),
+        "latest_report_json": str(latest_json),
+        "latest_report_md": str(latest_md),
+        "task_count": int(report.get("task_count") or 0),
+        "completed_count": int(report.get("completed_count") or 0),
+        "blocked_count": int(report.get("blocked_count") or 0),
+        "failed_count": int(report.get("failed_count") or 0),
+        "blocker_reason": report.get("blocker_reason"),
+        "report_paths": dict(report.get("report_paths", {})) if isinstance(report.get("report_paths"), dict) else {},
     }
 
 

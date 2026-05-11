@@ -51,6 +51,7 @@ from .files import (
 )
 from .morning_report import generate_morning_report
 from .night_runner import generate_night_dry_run_plan
+from .nightly_lane_batch_runner import run_nightly_lane_batch
 from .package_readiness import generate_package_readiness_report
 from .pmbot_templates import SUPPORTED_PMBOT_TEMPLATES, build_pmbot_task_packet
 from .portability import generate_portability_report
@@ -337,6 +338,18 @@ def main(argv: list[str] | None = None) -> int:
     run_codex_batch_parser.add_argument("--task-id", action="append", default=[])
     run_codex_batch_parser.add_argument("--timeout-seconds", type=int, default=DEFAULT_TIMEOUT_SECONDS)
     run_codex_batch_parser.set_defaults(func=_cmd_run_codex_batch)
+
+    nightly_lane_batch_parser = subparsers.add_parser(
+        "run-nightly-lane-batch",
+        help="Run an operator-started nightly batch through isolated worktree lanes.",
+    )
+    _add_queue_root(nightly_lane_batch_parser)
+    nightly_lane_batch_parser.add_argument("--plan-file", required=True)
+    nightly_lane_batch_parser.add_argument("--repo-root", default=None)
+    nightly_lane_batch_parser.add_argument("--dry-run", action="store_true")
+    nightly_lane_batch_parser.add_argument("--allow-real-codex-invocation", action="store_true")
+    nightly_lane_batch_parser.add_argument("--timeout-seconds", type=int, default=DEFAULT_TIMEOUT_SECONDS)
+    nightly_lane_batch_parser.set_defaults(func=_cmd_run_nightly_lane_batch)
 
     postprocess_codex_batch_parser = subparsers.add_parser(
         "postprocess-codex-batch",
@@ -1957,6 +1970,51 @@ def _cmd_run_codex_batch(args: argparse.Namespace) -> dict[str, Any]:
     )
 
 
+def _cmd_run_nightly_lane_batch(args: argparse.Namespace) -> dict[str, Any]:
+    root = ensure_queue_directories(args.queue_root)
+    report = run_nightly_lane_batch(
+        args.plan_file,
+        queue_root=root,
+        repo_root=args.repo_root,
+        dry_run=args.dry_run,
+        allow_real_codex_invocation=args.allow_real_codex_invocation,
+        timeout_seconds=args.timeout_seconds,
+    )
+    status = "ok" if report["status"] in {"completed", "dry_run"} else report["status"]
+    return write_operator_action_report(
+        root,
+        _action(
+            "run-nightly-lane-batch",
+            status,
+            "",
+            root,
+            source_path=args.plan_file,
+            destination_path=report["report_paths"].get("nightly_lane_batch_report_json", ""),
+            errors=list(report.get("errors", [])),
+            warnings=list(report.get("warnings", [])),
+            next_operator_action=str(report.get("next_operator_action", "")),
+            extra={
+                "nightly_lane_batch_report_paths": report["report_paths"],
+                "batch_id": report["batch_id"],
+                "batch_status": report["status"],
+                "execution_status": report["execution_status"],
+                "dry_run": report["dry_run"],
+                "lane_mode": report["lane_mode"],
+                "executor_mode": report["executor_mode"],
+                "task_count": report["task_count"],
+                "completed_count": report["completed_count"],
+                "blocked_count": report["blocked_count"],
+                "failed_count": report["failed_count"],
+                "stopped_on_task_id": report["stopped_on_task_id"],
+                "blocker_reason": report["blocker_reason"],
+                "codex_invocation_count": report["codex_invocation_count"],
+                "safety_summary": report["safety_summary"],
+                "tasks": report["tasks"],
+            },
+        ),
+    )
+
+
 def _cmd_postprocess_codex_batch(args: argparse.Namespace) -> dict[str, Any]:
     root = ensure_queue_directories(args.queue_root)
     report = postprocess_codex_batch(
@@ -2748,6 +2806,10 @@ def render_operator_action_markdown(report: Mapping[str, Any]) -> str:
         lines.append(
             "This operator action is supervised and bounded by --max-tasks with a hard cap of 20. In dry-run it only reports selected tasks and one-task commands; in execution mode it invokes the existing one-task runner sequentially and stops on the first failure, git preflight error, or out-of-band git state change. It does not create tasks, approve tasks, ingest results, review results, mark tasks done, commit, push, schedule itself, start a daemon, start a background worker, call network services directly, or access credentials."
         )
+    elif report["command"] == "run-nightly-lane-batch":
+        lines.append(
+            "This operator action is manually started and bounded by an explicit nightly lane batch plan. It validates the repository base and dirty-tree state, plans or creates isolated worktree lanes, routes each task to a subagent profile, defaults to the fake executor, and requires both plan permission and --allow-real-codex-invocation before any real Codex CLI run. It does not register schedulers, create daemons, start background workers, use browser automation, call external APIs directly, access credentials, touch wallets/signing/orders, or enable autonomous trading."
+        )
     elif report["command"] == "postprocess-codex-batch":
         lines.append(
             "This operator action only reads an existing batch report and Codex execution artifacts. With --bridge-results it writes queue-compatible result JSON under review; with --review-results it runs the existing ingestion and review helpers. It does not execute Codex, mark tasks done, commit, push, schedule itself, start a daemon, start a background worker, call network services directly, or access credentials."
@@ -3187,6 +3249,13 @@ def _cli_summary(report: Mapping[str, Any]) -> dict[str, Any]:
         "branch_created",
         "worktree_created",
         "execution_allowed",
+        "batch_id",
+        "batch_status",
+        "lane_mode",
+        "completed_count",
+        "blocked_count",
+        "failed_count",
+        "safety_summary",
     ):
         if key in report:
             summary[key] = report[key]

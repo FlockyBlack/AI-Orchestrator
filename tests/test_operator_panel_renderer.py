@@ -10,6 +10,15 @@ def test_panel_renderer_returns_html_with_plan_and_run_status() -> None:
         "active_run": {"run_id": "RUN1", "status": "running"},
         "dashboard": {"status": "running"},
         "git": {"branch": "master", "head": "abc"},
+        "nightly_lane_batch": {
+            "status": "dry_run",
+            "ready": True,
+            "task_count": 2,
+            "completed_count": 2,
+            "blocked_count": 0,
+            "failed_count": 0,
+            "latest_report_json": "agent_tasks/reports/latest_nightly_lane_batch_report.json",
+        },
     }
 
     html = render_dashboard_page(data, repo_root=".", queue_root="agent_tasks")
@@ -18,5 +27,7 @@ def test_panel_renderer_returns_html_with_plan_and_run_status() -> None:
 
     assert "<html" in html
     assert "test_plan" in html
+    assert "Nightly batch" in html
+    assert "latest_nightly_lane_batch_report.json" in html
     assert "RUN1" in runs
     assert "prompt text" in handoff

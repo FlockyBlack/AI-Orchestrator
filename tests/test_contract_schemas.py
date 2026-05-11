@@ -8,6 +8,7 @@ ROOT = Path(__file__).resolve().parents[1]
 CONTRACTS = ROOT / "contracts"
 SCHEMAS = [
     "codex_result_envelope.schema.json",
+    "nightly_lane_batch_plan.schema.json",
     "plan_task.schema.json",
     "run_state.schema.json",
     "pmbot_paper_intent.schema.json",

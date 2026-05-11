@@ -1,0 +1,155 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openclaw.local/contracts/nightly_lane_batch_plan.schema.json",
+  "title": "Nightly Lane Batch Plan",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "batch_id",
+    "tasks",
+    "expected_base_head",
+    "lane_mode",
+    "max_steps_per_task",
+    "executor_mode",
+    "safety_flags",
+    "stop_policy",
+    "allow_real_codex_invocation"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "nightly_lane_batch_plan.v1"
+    },
+    "batch_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+    },
+    "repo_root": {
+      "type": "string",
+      "default": "."
+    },
+    "queue_root": {
+      "type": "string",
+      "default": "agent_tasks"
+    },
+    "expected_base_branch": {
+      "type": "string",
+      "default": "master"
+    },
+    "expected_base_head": {
+      "type": "string",
+      "minLength": 7
+    },
+    "lane_root": {
+      "type": "string"
+    },
+    "lane_mode": {
+      "enum": [
+        "plan_only",
+        "create_or_reuse"
+      ]
+    },
+    "max_steps_per_task": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5
+    },
+    "executor_mode": {
+      "enum": [
+        "fake",
+        "codex_cli_dry_run",
+        "codex_cli"
+      ]
+    },
+    "allow_real_codex_invocation": {
+      "type": "boolean",
+      "default": false
+    },
+    "stop_policy": {
+      "enum": [
+        "stop_on_first_blocker",
+        "continue_on_task_blocker"
+      ]
+    },
+    "safety_flags": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "no_scheduler",
+        "no_daemon",
+        "no_background_worker",
+        "no_autonomous_trading",
+        "no_wallet_signing_or_orders",
+        "no_external_apis",
+        "no_browser_automation"
+      ],
+      "properties": {
+        "no_scheduler": {
+          "const": true
+        },
+        "no_daemon": {
+          "const": true
+        },
+        "no_background_worker": {
+          "const": true
+        },
+        "no_autonomous_trading": {
+          "const": true
+        },
+        "no_wallet_signing_or_orders": {
+          "const": true
+        },
+        "no_external_apis": {
+          "const": true
+        },
+        "no_browser_automation": {
+          "const": true
+        }
+      }
+    },
+    "tasks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "task_id"
+        ],
+        "properties": {
+          "task_id": {
+            "type": "string",
+            "pattern": "^[A-Z0-9][A-Z0-9_-]*$"
+          },
+          "task_category": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "allowed_paths": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "executor_mode": {
+            "enum": [
+              "fake",
+              "codex_cli_dry_run",
+              "codex_cli"
+            ]
+          },
+          "max_steps": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 5
+          }
+        }
+      }
+    }
+  }
+}

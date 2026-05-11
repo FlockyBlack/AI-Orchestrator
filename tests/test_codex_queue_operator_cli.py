@@ -6,6 +6,7 @@ import subprocess
 from pathlib import Path
 
 from ai_orchestrator.codex_queue.operator_cli import find_allowed_ingestion_report, main
+from ai_orchestrator.codex_queue.nightly_lane_batch_runner import NIGHTLY_LANE_BATCH_PLAN_SCHEMA_VERSION
 from ai_orchestrator.codex_queue.result_schema import default_result
 from ai_orchestrator.codex_queue.schema import default_packet
 
@@ -546,6 +547,50 @@ def test_portability_and_package_readiness_commands_write_reports(tmp_path: Path
     assert (queue_root / "reports" / "latest_package_readiness.md").exists()
 
 
+def test_run_nightly_lane_batch_cli_writes_reports(tmp_path: Path) -> None:
+    repo, head = _init_cli_git_repo(tmp_path)
+    queue_root = tmp_path / "agent_tasks"
+    plan_path = tmp_path / "nightly_lane_batch_plan.json"
+    _write_json(
+        plan_path,
+        {
+            "schema_version": NIGHTLY_LANE_BATCH_PLAN_SCHEMA_VERSION,
+            "batch_id": "NIGHTLY-CLI",
+            "repo_root": str(repo),
+            "queue_root": str(queue_root),
+            "expected_base_branch": "master",
+            "expected_base_head": head,
+            "lane_root": str(tmp_path / "lanes"),
+            "lane_mode": "create_or_reuse",
+            "max_steps_per_task": 1,
+            "executor_mode": "fake",
+            "stop_policy": "stop_on_first_blocker",
+            "allow_real_codex_invocation": False,
+            "safety_flags": {
+                "no_scheduler": True,
+                "no_daemon": True,
+                "no_background_worker": True,
+                "no_autonomous_trading": True,
+                "no_wallet_signing_or_orders": True,
+                "no_external_apis": True,
+                "no_browser_automation": True,
+            },
+            "tasks": [{"task_id": "ORCH-NIGHTLY-CLI", "task_category": "codex_automation"}],
+        },
+    )
+
+    exit_code = main(["run-nightly-lane-batch", "--queue-root", str(queue_root), "--plan-file", str(plan_path), "--dry-run"])
+    action = json.loads((queue_root / "reports" / "latest_operator_action.json").read_text(encoding="utf-8"))
+    report = json.loads((queue_root / "reports" / "latest_nightly_lane_batch_report.json").read_text(encoding="utf-8"))
+
+    assert exit_code == 0
+    assert action["command"] == "run-nightly-lane-batch"
+    assert action["batch_status"] == "dry_run"
+    assert action["safety_summary"]["wallet_or_order_code_added"] is False
+    assert report["status"] == "dry_run"
+    assert (queue_root / "reports" / "latest_nightly_lane_batch_report.md").exists()
+
+
 def test_report_commands_do_not_create_branch_worktree_or_mutate_queue_states(tmp_path: Path, monkeypatch) -> None:
     queue_root = tmp_path / "agent_tasks"
     task_id = "ORCH-REPORT-NO-MUTATE"
@@ -600,3 +645,34 @@ def test_report_commands_do_not_create_branch_worktree_or_mutate_queue_states(tm
     assert readiness["branch_created"] is False
     assert readiness["worktree_created"] is False
     assert readiness["git_commit_performed"] is False
+
+
+def _init_cli_git_repo(tmp_path: Path) -> tuple[Path, str]:
+    repo = tmp_path / "repo"
+    repo.mkdir()
+    init = subprocess.run(["git", "init", "--initial-branch", "master"], cwd=repo, check=False, capture_output=True, text=True)
+    if init.returncode != 0:
+        _git_cli(repo, "init")
+        _git_cli(repo, "checkout", "-B", "master")
+    _git_cli(repo, "config", "user.email", "tests@example.invalid")
+    _git_cli(repo, "config", "user.name", "Tests")
+    _write_text(repo / "AGENTS.md", "# AGENTS\n")
+    _write_text(repo / "agent_tasks" / "agents" / "builder_agent.md", "# Builder Agent\n")
+    _write_text(repo / "agent_tasks" / "agents" / "docs_agent.md", "# Docs Agent\n")
+    _write_text(repo / "agent_tasks" / "agents" / "reviewer_agent.md", "# Reviewer Agent\n")
+    _write_text(repo / "ai_orchestrator" / "codex_queue" / "keep.py", "# keep\n")
+    _write_text(repo / "docs" / "base.md", "base\n")
+    _write_text(repo / "tests" / "keep.py", "# keep\n")
+    _git_cli(repo, "add", "AGENTS.md", "agent_tasks/agents/builder_agent.md", "agent_tasks/agents/docs_agent.md")
+    _git_cli(repo, "add", "agent_tasks/agents/reviewer_agent.md", "ai_orchestrator/codex_queue/keep.py", "docs/base.md", "tests/keep.py")
+    _git_cli(repo, "commit", "-m", "base")
+    return repo, _git_cli(repo, "rev-parse", "HEAD").stdout.strip()
+
+
+def _write_text(path: Path, text: str) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(text, encoding="utf-8")
+
+
+def _git_cli(repo: Path, *args: str) -> subprocess.CompletedProcess[str]:
+    return subprocess.run(["git", *args], cwd=repo, check=True, capture_output=True, text=True)
