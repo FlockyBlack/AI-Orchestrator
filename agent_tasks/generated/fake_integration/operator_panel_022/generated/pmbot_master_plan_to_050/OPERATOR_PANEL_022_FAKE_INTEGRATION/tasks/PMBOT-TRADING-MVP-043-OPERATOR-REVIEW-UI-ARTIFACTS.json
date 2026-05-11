@@ -1,0 +1,35 @@
+{
+  "acceptance_gates": [
+    "operator review UI artifacts are static/local",
+    "paper-only labels are visible",
+    "no live action buttons"
+  ],
+  "allowed_paths": [
+    "pm_bot/",
+    "docs/",
+    "tests/"
+  ],
+  "dependencies": [
+    "PMBOT-TRADING-MVP-042-PAPER-RISK-ACCOUNTING-MODEL"
+  ],
+  "description": "Create operator review UI artifacts for paper MVP inspection.",
+  "execution_lane": "paper_mvp",
+  "execution_mode": "handoff",
+  "expected_artifacts": [
+    "operator review UI artifacts",
+    "paper-only UI test"
+  ],
+  "forbidden_actions": [
+    "live action button",
+    "order submit",
+    "wallet connection"
+  ],
+  "max_retries": 2,
+  "metadata": {},
+  "milestone_id": "",
+  "plan_id": "pmbot_master_plan_to_050",
+  "run_id": "OPERATOR_PANEL_022_FAKE_INTEGRATION",
+  "schema_version": "codex_plan_task.v1",
+  "task_id": "PMBOT-TRADING-MVP-043-OPERATOR-REVIEW-UI-ARTIFACTS",
+  "title": "Operator review UI artifacts"
+}

@@ -1,0 +1,36 @@
+{
+  "acceptance_gates": [
+    "daily workflow is a bounded operator run plan",
+    "no scheduler registration",
+    "manual stop points are explicit"
+  ],
+  "allowed_paths": [
+    "pm_bot/practical/automation/",
+    "pm_bot/practical/artifacts/automation/",
+    "docs/",
+    "tests/"
+  ],
+  "dependencies": [
+    "PMBOT-AUTOMATION-036-PAPER-PORTFOLIO-SIMULATION-CHAIN"
+  ],
+  "description": "Create daily workflow run plan for supervised local PMBOT operation.",
+  "execution_lane": "pmbot_automation",
+  "execution_mode": "handoff",
+  "expected_artifacts": [
+    "daily workflow plan",
+    "operator checklist"
+  ],
+  "forbidden_actions": [
+    "scheduler",
+    "daemon",
+    "background worker"
+  ],
+  "max_retries": 2,
+  "metadata": {},
+  "milestone_id": "",
+  "plan_id": "pmbot_master_plan_to_050",
+  "run_id": "OPERATOR_PANEL_022_FAKE_INTEGRATION",
+  "schema_version": "codex_plan_task.v1",
+  "task_id": "PMBOT-AUTOMATION-037-DAILY-WORKFLOW-RUN-PLAN",
+  "title": "Daily workflow run plan"
+}

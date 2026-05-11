@@ -1,0 +1,54 @@
+from __future__ import annotations
+
+from pathlib import Path
+from typing import Any
+
+from .panel_actions import (
+    build_panel_dashboard_action,
+    continue_run_action,
+    create_queue_action,
+    export_next_codex_prompt_action,
+    recover_run_action,
+    run_fake_steps_action,
+    save_pasted_plan_action,
+    validate_plan_action,
+)
+
+
+def get_dashboard_json(repo_root: str | Path, queue_root: str | Path) -> dict[str, Any]:
+    return build_panel_dashboard_action(repo_root, queue_root)
+
+
+def post_validate_plan(form: dict[str, str], queue_root: str | Path) -> dict[str, Any]:
+    return validate_plan_action(form.get("plan_file", ""))
+
+
+def post_save_plan(form: dict[str, str], queue_root: str | Path) -> dict[str, Any]:
+    return save_pasted_plan_action(form.get("plan_json", ""), queue_root, form.get("filename", "pasted_plan.json"))
+
+
+def post_create_queue(form: dict[str, str], queue_root: str | Path) -> dict[str, Any]:
+    return create_queue_action(form.get("plan_file", ""), queue_root)
+
+
+def post_run_fake_steps(form: dict[str, str], queue_root: str | Path) -> dict[str, Any]:
+    return run_fake_steps_action(form.get("plan_file", ""), queue_root, _int(form.get("max_steps"), 3))
+
+
+def post_continue_run(form: dict[str, str], queue_root: str | Path) -> dict[str, Any]:
+    return continue_run_action(form.get("run_id", ""), queue_root, _int(form.get("max_steps"), 3))
+
+
+def post_recover_run(form: dict[str, str], queue_root: str | Path) -> dict[str, Any]:
+    return recover_run_action(form.get("run_id", ""), queue_root)
+
+
+def post_export_handoff_prompt(form: dict[str, str], queue_root: str | Path) -> dict[str, Any]:
+    return export_next_codex_prompt_action(form.get("run_id", ""), queue_root)
+
+
+def _int(value: str | None, default: int) -> int:
+    try:
+        return int(value or default)
+    except ValueError:
+        return default

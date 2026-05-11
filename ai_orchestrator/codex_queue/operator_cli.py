@@ -10,6 +10,9 @@ from .codex_cli_batch_runner import DEFAULT_MAX_TASKS, HARD_MAX_TASKS, run_codex
 from .codex_cli_postprocessor import postprocess_codex_batch
 from .codex_cli_runner import DEFAULT_TIMEOUT_SECONDS, run_codex_once
 from .dry_run_runner import run_dry_run
+from .long_run_controller import LongRunController
+from .plan_contract import load_plan_contract, validate_plan_contract
+from .plan_to_queue import create_queue_from_plan
 from .files import (
     QUEUE_STATE_DIRECTORIES,
     count_task_packets,
@@ -47,6 +50,53 @@ def main(argv: list[str] | None = None) -> int:
     status_parser = subparsers.add_parser("status", help="Inspect queue state.")
     _add_queue_root(status_parser)
     status_parser.set_defaults(func=_cmd_status)
+
+    inspect_plan_parser = subparsers.add_parser("inspect-plan", help="Validate and summarize a plan contract.")
+    inspect_plan_parser.add_argument("--plan-file", required=True)
+    _add_queue_root(inspect_plan_parser)
+    inspect_plan_parser.set_defaults(func=_cmd_inspect_plan_contract)
+
+    plan_to_queue_parser = subparsers.add_parser("plan-to-queue", help="Materialize a plan into a generated run queue.")
+    plan_to_queue_parser.add_argument("--plan-file", required=True)
+    _add_queue_root(plan_to_queue_parser)
+    plan_to_queue_parser.add_argument("--run-id", default=None)
+    plan_to_queue_parser.add_argument("--dry-run", action="store_true")
+    plan_to_queue_parser.set_defaults(func=_cmd_plan_to_generated_queue)
+
+    run_plan_parser = subparsers.add_parser("run-plan", help="Run a bounded supervised plan with a local executor.")
+    run_plan_parser.add_argument("--plan-file", required=True)
+    _add_queue_root(run_plan_parser)
+    run_plan_parser.add_argument("--mode", default="long_supervised")
+    run_plan_parser.add_argument("--max-steps", type=int, default=50)
+    run_plan_parser.add_argument("--commit", action="store_true")
+    run_plan_parser.add_argument("--push", action="store_true")
+    run_plan_parser.add_argument("--dry-run", action="store_true")
+    run_plan_parser.add_argument("--continue-until", default="blocked_or_done")
+    run_plan_parser.add_argument("--executor", choices=("fake", "noop", "handoff"), default="fake")
+    run_plan_parser.add_argument("--run-id", default=None)
+    run_plan_parser.set_defaults(func=_cmd_run_plan_contract)
+
+    continue_plan_parser = subparsers.add_parser("continue-plan", help="Continue a generated plan run.")
+    continue_plan_parser.add_argument("--run-id", required=True)
+    _add_queue_root(continue_plan_parser)
+    continue_plan_parser.add_argument("--max-steps", type=int, default=50)
+    continue_plan_parser.add_argument("--continue-until", default="blocked_or_done")
+    continue_plan_parser.add_argument("--executor", choices=("fake", "noop", "handoff"), default="fake")
+    continue_plan_parser.set_defaults(func=_cmd_continue_plan_contract)
+
+    recover_plan_parser = subparsers.add_parser("recover-plan", help="Inspect or recover a generated plan run.")
+    recover_plan_parser.add_argument("--run-id", required=True)
+    _add_queue_root(recover_plan_parser)
+    recover_plan_parser.add_argument("--allow-stale-lock-clear", action="store_true")
+    recover_plan_parser.set_defaults(func=_cmd_recover_plan_contract)
+
+    export_prompt_parser = subparsers.add_parser(
+        "export-next-codex-prompt",
+        help="Generate the next Codex handoff prompt without invoking Codex.",
+    )
+    export_prompt_parser.add_argument("--run-id", required=True)
+    _add_queue_root(export_prompt_parser)
+    export_prompt_parser.set_defaults(func=_cmd_export_next_codex_prompt)
 
     create_parser = subparsers.add_parser("create-demo-task", help="Create a safe docs-only demo task.")
     _add_queue_root(create_parser)
@@ -203,7 +253,7 @@ def main(argv: list[str] | None = None) -> int:
         return 1
 
     print(json.dumps(_cli_summary(result), indent=2, sort_keys=True))
-    return 0 if result.get("status") == "ok" else 1
+    return _exit_code_for_report(result)
 
 
 def _add_queue_root(parser: argparse.ArgumentParser) -> None:
@@ -226,6 +276,140 @@ def _cmd_status(args: argparse.Namespace) -> dict[str, Any]:
             },
         ),
     )
+
+
+def _cmd_inspect_plan_contract(args: argparse.Namespace) -> dict[str, Any]:
+    plan = load_plan_contract(args.plan_file)
+    validation = validate_plan_contract(plan)
+    status = "ok" if validation.valid else "blocked"
+    return write_operator_action_report(
+        args.queue_root,
+        _action(
+            "inspect-plan",
+            status,
+            "",
+            args.queue_root,
+            source_path=args.plan_file,
+            errors=list(validation.errors),
+            warnings=list(validation.warnings),
+            next_operator_action=(
+                "Create the queue or run the plan with a bounded local executor."
+                if validation.valid
+                else "Fix plan validation errors before queue creation."
+            ),
+            extra={
+                "plan_validation": validation.to_dict(),
+                "plan_id": plan.plan_id,
+                "task_count": len(plan.tasks),
+                "codex_execution_added": False,
+                "network_calls_performed": 0,
+            },
+        ),
+    )
+
+
+def _cmd_plan_to_generated_queue(args: argparse.Namespace) -> dict[str, Any]:
+    result = create_queue_from_plan(
+        args.plan_file,
+        args.queue_root,
+        run_id=args.run_id,
+        dry_run=args.dry_run,
+    )
+    status = "ok" if result.status in {"created", "dry_run"} else "blocked"
+    return write_operator_action_report(
+        args.queue_root,
+        _action(
+            "plan-to-queue",
+            status,
+            "",
+            args.queue_root,
+            source_path=args.plan_file,
+            destination_path=result.queue_paths.get("run_root", ""),
+            errors=list(result.errors),
+            warnings=list(result.warnings),
+            next_operator_action=(
+                "Run run-plan or continue-plan with a bounded executor."
+                if status == "ok"
+                else "Fix plan errors before materializing the queue."
+            ),
+            extra={
+                "queue_creation": result.to_dict(),
+                "plan_id": result.plan_id,
+                "run_id": result.run_id,
+                "task_count": result.task_count,
+                "codex_execution_added": False,
+                "network_calls_performed": 0,
+            },
+        ),
+    )
+
+
+def _cmd_run_plan_contract(args: argparse.Namespace) -> dict[str, Any]:
+    plan = load_plan_contract(args.plan_file)
+    controller = LongRunController(repo_root=plan.repo_root or ".")
+    result = controller.run_plan(
+        args.plan_file,
+        args.queue_root,
+        mode=args.mode,
+        max_steps=args.max_steps,
+        executor=args.executor,
+        continue_until=args.continue_until,
+        run_id=args.run_id,
+        commit=args.commit,
+        push=args.push,
+        dry_run=args.dry_run,
+    )
+    return _write_plan_runner_action(args.queue_root, "run-plan", result, args.plan_file)
+
+
+def _cmd_continue_plan_contract(args: argparse.Namespace) -> dict[str, Any]:
+    controller = LongRunController(repo_root=".")
+    result = controller.continue_plan(
+        args.run_id,
+        args.queue_root,
+        max_steps=args.max_steps,
+        executor=args.executor,
+        continue_until=args.continue_until,
+    )
+    return _write_plan_runner_action(args.queue_root, "continue-plan", result, "")
+
+
+def _cmd_recover_plan_contract(args: argparse.Namespace) -> dict[str, Any]:
+    controller = LongRunController(repo_root=".")
+    result = controller.recover_plan(
+        args.run_id,
+        args.queue_root,
+        allow_stale_lock_clear=args.allow_stale_lock_clear,
+    )
+    status = "ok" if result.get("status") in {"found", "recovered"} else "blocked"
+    return write_operator_action_report(
+        args.queue_root,
+        _action(
+            "recover-plan",
+            status,
+            "",
+            args.queue_root,
+            errors=list(result.get("errors", [])),
+            next_operator_action=(
+                "Review recovery report and continue-plan if safe."
+                if status == "ok"
+                else "Resolve recovery blockers before continuing."
+            ),
+            extra={"plan_recovery": result, "run_id": args.run_id, "codex_execution_added": False},
+        ),
+    )
+
+
+def _cmd_export_next_codex_prompt(args: argparse.Namespace) -> dict[str, Any]:
+    controller = LongRunController(repo_root=".")
+    result = controller.continue_plan(
+        args.run_id,
+        args.queue_root,
+        max_steps=1,
+        executor="handoff",
+        continue_until="one_step",
+    )
+    return _write_plan_runner_action(args.queue_root, "export-next-codex-prompt", result, "")
 
 
 def _cmd_runbook(args: argparse.Namespace) -> dict[str, Any]:
@@ -1250,6 +1434,56 @@ def find_allowed_ingestion_report(queue_root: str | Path, task_id: str) -> dict[
     }
 
 
+def _write_plan_runner_action(
+    queue_root: str | Path,
+    command: str,
+    result: Mapping[str, Any],
+    source_path: str | Path,
+) -> dict[str, Any]:
+    run_status = str(result.get("status", "failed"))
+    cli_status = run_status if run_status in {"done", "max_steps", "requiring_operator_handoff", "dry_run"} else (
+        "ok" if run_status in {"accepted", "recovered"} else run_status
+    )
+    payload = result.get("payload", {}) if isinstance(result.get("payload", {}), Mapping) else {}
+    return write_operator_action_report(
+        queue_root,
+        _action(
+            command,
+            cli_status,
+            "",
+            queue_root,
+            source_path=source_path,
+            destination_path=payload.get("run_root", ""),
+            errors=list(result.get("errors", [])),
+            warnings=[],
+            next_operator_action=_next_action_for_plan_runner_status(run_status),
+            extra={
+                "plan_runner_result": dict(result),
+                "run_status": run_status,
+                "run_id": str(payload.get("run_id") or ""),
+                "plan_id": str(payload.get("plan_id") or ""),
+                "codex_execution_added": False,
+                "codex_app_server_used": False,
+                "network_calls_performed": 0,
+            },
+        ),
+    )
+
+
+def _next_action_for_plan_runner_status(status: str) -> str:
+    if status == "done":
+        return "Review dashboard, artifacts, and selective commit/push decision."
+    if status == "max_steps":
+        return "Run continue-plan to continue the bounded supervised run."
+    if status == "requiring_operator_handoff":
+        return "Open the generated Codex handoff prompt and run it manually if approved."
+    if status in {"blocked", "failed", "needs_retry"}:
+        return "Inspect result details and run recover-plan or retry after review."
+    if status == "dry_run":
+        return "Review dry-run queue materialization before running."
+    return "Inspect generated plan-runner artifacts."
+
+
 def write_operator_action_report(queue_root: str | Path, action: Mapping[str, Any]) -> dict[str, Any]:
     root = ensure_queue_directories(queue_root)
     reports_dir = safe_queue_path(root, "reports")
@@ -1268,6 +1502,8 @@ def write_operator_action_report(queue_root: str | Path, action: Mapping[str, An
     for key, value in action.items():
         if key not in payload:
             payload[key] = value
+    if action.get("run_id"):
+        payload["run_id"] = str(action["run_id"])
 
     json_path = reports_dir / "latest_operator_action.json"
     md_path = reports_dir / "latest_operator_action.md"
@@ -1529,10 +1765,23 @@ def _cli_summary(report: Mapping[str, Any]) -> dict[str, Any]:
     }
     if "next_actions" in report:
         summary["next_actions"] = report["next_actions"]
+    for key in ("run_status", "run_id", "plan_id", "task_count"):
+        if key in report:
+            summary[key] = report[key]
     for key, value in report.items():
         if key.endswith("_report_paths"):
             summary[key] = value
     return summary
+
+
+def _exit_code_for_report(report: Mapping[str, Any]) -> int:
+    status = str(report.get("status", "failed"))
+    run_status = str(report.get("run_status", ""))
+    success_statuses = {"ok", "done", "max_steps", "requiring_operator_handoff", "dry_run"}
+    failure_statuses = {"blocked", "failed", "needs_retry", "safety_failure", "validation_failure"}
+    if status in failure_statuses or run_status in failure_statuses:
+        return 1
+    return 0 if status in success_statuses or run_status in success_statuses else 1
 
 
 def _run_id() -> str:

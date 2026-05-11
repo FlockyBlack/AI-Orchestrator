@@ -1,0 +1,35 @@
+{
+  "acceptance_gates": [
+    "public read-only evidence refresh remains operator-approved",
+    "no authenticated endpoint is used",
+    "staleness is visible"
+  ],
+  "allowed_paths": [
+    "pm_bot/",
+    "docs/",
+    "tests/"
+  ],
+  "dependencies": [
+    "PMBOT-TRADING-MVP-047-OUTCOME-FEEDBACK-READINESS"
+  ],
+  "description": "Plan public-read-only evidence refresh for paper MVP with explicit operator approval.",
+  "execution_lane": "paper_mvp",
+  "execution_mode": "handoff",
+  "expected_artifacts": [
+    "public read-only refresh plan",
+    "staleness report"
+  ],
+  "forbidden_actions": [
+    "authenticated endpoint",
+    "Polymarket API",
+    "browser automation"
+  ],
+  "max_retries": 2,
+  "metadata": {},
+  "milestone_id": "",
+  "plan_id": "pmbot_master_plan_to_050",
+  "run_id": "OPERATOR_PANEL_022_FAKE_INTEGRATION",
+  "schema_version": "codex_plan_task.v1",
+  "task_id": "PMBOT-TRADING-MVP-048-PUBLIC-READ-ONLY-EVIDENCE-REFRESH",
+  "title": "Public-read-only evidence refresh"
+}

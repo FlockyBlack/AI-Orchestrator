@@ -1,0 +1,1073 @@
+{
+  "acceptance_gates": [
+    {
+      "description": "Targeted tests or explicit local validation pass.",
+      "gate_id": "local_validation",
+      "required": true
+    },
+    {
+      "description": "Safety result confirms no daemon, scheduler, browser automation, wallet, signing, orders, authenticated endpoint, OpenRouter, or Polymarket API usage.",
+      "gate_id": "safety_boundary_check",
+      "required": true
+    },
+    {
+      "description": "Operator-facing result JSON or dashboard artifact is written.",
+      "gate_id": "operator_artifact",
+      "required": true
+    }
+  ],
+  "branch": "master",
+  "commit_policy": {
+    "allowed": true,
+    "message_template": "<task_id> concise summary",
+    "selective_staging_only": true,
+    "unsafe_staging": false
+  },
+  "continue_until": "blocked_or_done",
+  "created_at": "2026-05-11T00:00:00Z",
+  "dashboard_policy": {
+    "write_json": true,
+    "write_markdown": true
+  },
+  "description": "Supervised local automation plan through 050. All real trading remains forbidden. No wallet, signing, orders, autonomous trading, real-money actions, market recommendation/EV/probability/side-selection as real trading signal, OpenRouter, or Polymarket API usage is allowed unless a separate future task explicitly approves it.",
+  "execution_lanes": [
+    {
+      "allowed_roots": [
+        "ai_orchestrator/codex_queue/",
+        "ai_orchestrator/operator_panel/",
+        "agent_tasks/plans/",
+        "agent_tasks/generated/",
+        "agent_tasks/automations/",
+        "docs/",
+        "tests/"
+      ],
+      "description": "Codex automation, queue, panel, dashboard, and recovery work.",
+      "dry_run_only": true,
+      "lane_id": "orch_automation",
+      "max_parallel": 1,
+      "title": "ORCH automation"
+    },
+    {
+      "allowed_roots": [
+        "pm_bot/practical/automation/",
+        "pm_bot/practical/artifacts/automation/",
+        "docs/",
+        "tests/"
+      ],
+      "description": "PMBOT practical workflow automation, public evidence planning, local-only artifacts.",
+      "dry_run_only": true,
+      "lane_id": "pmbot_automation",
+      "max_parallel": 1,
+      "title": "PMBOT automation"
+    },
+    {
+      "allowed_roots": [
+        "pm_bot/",
+        "docs/",
+        "tests/"
+      ],
+      "description": "Paper-only PMBOT MVP continuation. TRADING-MVP is a project label only.",
+      "dry_run_only": true,
+      "lane_id": "paper_mvp",
+      "max_parallel": 1,
+      "title": "Paper MVP"
+    }
+  ],
+  "expected_head": "acfc63531d76d4e9c30456a41c960a17ca04988c",
+  "max_steps_default": 50,
+  "memory_policy": {
+    "local_only": true,
+    "snapshot_allowed_roots_only": true
+  },
+  "milestones": [
+    {
+      "description": "Build local operator plan-runner and supervised control surface.",
+      "milestone_id": "A",
+      "task_ids": [
+        "ORCH-CODEX-AUTOMATION-022-OPERATOR-PANEL-AND-PLAN-RUNNER-CONTROL",
+        "ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING",
+        "ORCH-CODEX-AUTOMATION-024-CODEX-EXECUTOR-ADAPTER-BOUNDARY",
+        "ORCH-CODEX-AUTOMATION-025-WORKTREE-LANE-MANAGER",
+        "ORCH-CODEX-AUTOMATION-026-SELECTIVE-COMMIT-PUSH-HARDENING",
+        "ORCH-CODEX-AUTOMATION-027-DASHBOARD-AND-ARTIFACT-INDEX-IMPROVEMENTS",
+        "ORCH-CODEX-AUTOMATION-028-FAILURE-RECOVERY-PLAYBOOKS",
+        "ORCH-CODEX-AUTOMATION-029-LONG-SUPERVISED-RUN-UX",
+        "ORCH-CODEX-AUTOMATION-030-AUTOMATION-ACCEPTANCE-GATE"
+      ],
+      "title": "ORCH-CODEX-AUTOMATION-022..030"
+    },
+    {
+      "description": "Automate local PMBOT practical paper workflows without live trading.",
+      "milestone_id": "B",
+      "task_ids": [
+        "PMBOT-AUTOMATION-031-PUBLIC-EVIDENCE-FETCH-CHAIN-RUNNER-OPERATOR-APPROVED-ONLY",
+        "PMBOT-AUTOMATION-032-DASHBOARD-REFRESH-CHAIN",
+        "PMBOT-AUTOMATION-033-SOURCE-LEARNING-UPDATE-CHAIN",
+        "PMBOT-AUTOMATION-034-OUTCOME-RECHECK-CHAIN",
+        "PMBOT-AUTOMATION-035-PAPER-HYPOTHESIS-UPDATE-CHAIN",
+        "PMBOT-AUTOMATION-036-PAPER-PORTFOLIO-SIMULATION-CHAIN",
+        "PMBOT-AUTOMATION-037-DAILY-WORKFLOW-RUN-PLAN",
+        "PMBOT-AUTOMATION-038-UNRESOLVED-MARKET-SAFETY-CHECKS",
+        "PMBOT-AUTOMATION-039-MANUAL-FEEDBACK-INGESTION-CHAIN",
+        "PMBOT-AUTOMATION-040-PMBOT-AUTOMATION-ACCEPTANCE-GATE"
+      ],
+      "title": "PMBOT-AUTOMATION-031..040"
+    },
+    {
+      "description": "Paper-only MVP release readiness. TRADING-MVP remains a label and does not allow real trading.",
+      "milestone_id": "C",
+      "task_ids": [
+        "PMBOT-TRADING-MVP-041-PAPER-EXECUTION-MVP-PLAN",
+        "PMBOT-TRADING-MVP-042-PAPER-RISK-ACCOUNTING-MODEL",
+        "PMBOT-TRADING-MVP-043-OPERATOR-REVIEW-UI-ARTIFACTS",
+        "PMBOT-TRADING-MVP-044-MARKET-QUEUE-PRIORITIZATION-WITHOUT-RECOMMENDATIONS",
+        "PMBOT-TRADING-MVP-045-SOURCE-SCORECARD-FEEDBACK-LOOP",
+        "PMBOT-TRADING-MVP-046-PAPER-PORTFOLIO-REPORTS",
+        "PMBOT-TRADING-MVP-047-OUTCOME-FEEDBACK-READINESS",
+        "PMBOT-TRADING-MVP-048-PUBLIC-READ-ONLY-EVIDENCE-REFRESH",
+        "PMBOT-TRADING-MVP-049-PRODUCT-LEVEL-DRY-RUN-ACCEPTANCE",
+        "PMBOT-TRADING-MVP-050-SUPERVISED-PAPER-MVP-RELEASE-CHECKPOINT"
+      ],
+      "title": "PMBOT-TRADING-MVP-041..050"
+    }
+  ],
+  "mode": "long_supervised",
+  "owner": "operator",
+  "plan_id": "pmbot_master_plan_to_050",
+  "push_policy": {
+    "allowed": true,
+    "force": false,
+    "remote": "origin",
+    "verify_remote_head": true
+  },
+  "repo_root": "C:/Users/OpenC/.openclaw/workspace",
+  "safety_boundaries": [
+    {
+      "boundary_id": "local_only_supervised",
+      "description": "No daemon, scheduler, uncontrolled background worker, or recursive Codex invocation.",
+      "required": true
+    },
+    {
+      "boundary_id": "no_real_trading",
+      "description": "All real trading remains forbidden; no wallet, signing, orders, real-money actions, or trading endpoints.",
+      "required": true
+    },
+    {
+      "boundary_id": "no_external_live_services",
+      "description": "No authenticated endpoints, browser automation, OpenRouter, or Polymarket API usage unless explicitly approved in a separate future task.",
+      "required": true
+    },
+    {
+      "boundary_id": "no_market_advice",
+      "description": "No recommendation, probability, EV, edge, confidence, or side-selection as a real trading signal.",
+      "required": true
+    },
+    {
+      "boundary_id": "selective_git_only",
+      "description": "No git add dot, git add -A, git add --all, or force push.",
+      "required": true
+    }
+  ],
+  "tasks": [
+    {
+      "acceptance_gates": [
+        "compile ai_orchestrator",
+        "targeted codex_queue and operator_panel tests pass",
+        "fake integration run writes dashboard and handoff prompt"
+      ],
+      "allowed_paths": [
+        "ai_orchestrator/codex_queue/",
+        "ai_orchestrator/operator_panel/",
+        "agent_tasks/plans/",
+        "agent_tasks/generated/",
+        "agent_tasks/automations/",
+        "docs/",
+        "tests/"
+      ],
+      "dependencies": [],
+      "description": "Create the first local operator panel and plan-runner skeleton with fake executor, state, recovery, dashboards, selective staging planner, tests, master plan, and result docs.",
+      "execution_lane": "orch_automation",
+      "execution_mode": "fake",
+      "expected_artifacts": [
+        "ai_orchestrator/codex_queue/",
+        "ai_orchestrator/operator_panel/",
+        "docs/ORCH_CODEX_AUTOMATION_022_RESULT.json"
+      ],
+      "forbidden_actions": [
+        "daemon",
+        "scheduler",
+        "background worker",
+        "browser automation",
+        "wallet",
+        "signing",
+        "orders",
+        "real trading",
+        "OpenRouter",
+        "Polymarket API",
+        "unsafe git staging",
+        "force push"
+      ],
+      "max_retries": 1,
+      "task_id": "ORCH-CODEX-AUTOMATION-022-OPERATOR-PANEL-AND-PLAN-RUNNER-CONTROL",
+      "title": "Operator panel and plan-runner control"
+    },
+    {
+      "acceptance_gates": [
+        "resume fixtures cover interrupted state",
+        "panel shows resumed task status",
+        "state schema remains backward-compatible"
+      ],
+      "allowed_paths": [
+        "ai_orchestrator/codex_queue/",
+        "ai_orchestrator/operator_panel/",
+        "agent_tasks/generated/",
+        "docs/",
+        "tests/"
+      ],
+      "dependencies": [
+        "ORCH-CODEX-AUTOMATION-022-OPERATOR-PANEL-AND-PLAN-RUNNER-CONTROL"
+      ],
+      "description": "Harden queue state resume, retry counters, interrupted run inspection, and panel resume display.",
+      "execution_lane": "orch_automation",
+      "execution_mode": "handoff",
+      "expected_artifacts": [
+        "resume test fixtures",
+        "queue resume docs"
+      ],
+      "forbidden_actions": [
+        "daemon",
+        "scheduler",
+        "unsafe git staging",
+        "force push"
+      ],
+      "max_retries": 2,
+      "task_id": "ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING",
+      "title": "Stronger queue/state resume"
+    },
+    {
+      "acceptance_gates": [
+        "adapter remains non-recursive by default",
+        "manual handoff path is durable",
+        "stub tests verify NotImplemented boundaries"
+      ],
+      "allowed_paths": [
+        "ai_orchestrator/codex_queue/",
+        "agent_tasks/automations/",
+        "docs/",
+        "tests/"
+      ],
+      "dependencies": [
+        "ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING"
+      ],
+      "description": "Define Codex executor adapter boundary and future CLI/App automation interfaces without invoking Codex automatically.",
+      "execution_lane": "orch_automation",
+      "execution_mode": "handoff",
+      "expected_artifacts": [
+        "codex adapter boundary docs",
+        "adapter tests"
+      ],
+      "forbidden_actions": [
+        "recursive Codex invocation",
+        "daemon",
+        "scheduler",
+        "browser automation"
+      ],
+      "max_retries": 2,
+      "task_id": "ORCH-CODEX-AUTOMATION-024-CODEX-EXECUTOR-ADAPTER-BOUNDARY",
+      "title": "Codex executor adapter boundary"
+    },
+    {
+      "acceptance_gates": [
+        "lane isolation validation covers overlap",
+        "rendered worktree commands are dry-run only",
+        "no merge or destructive command emitted"
+      ],
+      "allowed_paths": [
+        "ai_orchestrator/codex_queue/",
+        "docs/",
+        "tests/"
+      ],
+      "dependencies": [
+        "ORCH-CODEX-AUTOMATION-024-CODEX-EXECUTOR-ADAPTER-BOUNDARY"
+      ],
+      "description": "Improve worktree lane planning for future parallel Codex agents while remaining dry-run-safe.",
+      "execution_lane": "orch_automation",
+      "execution_mode": "handoff",
+      "expected_artifacts": [
+        "lane plan tests",
+        "dry-run command renderer"
+      ],
+      "forbidden_actions": [
+        "automatic merge",
+        "destructive git",
+        "force operation"
+      ],
+      "max_retries": 2,
+      "task_id": "ORCH-CODEX-AUTOMATION-025-WORKTREE-LANE-MANAGER",
+      "title": "Worktree lane manager"
+    },
+    {
+      "acceptance_gates": [
+        "unsafe staging is rejected",
+        "dry-run commit/push verification works",
+        "remote verification path is documented"
+      ],
+      "allowed_paths": [
+        "ai_orchestrator/codex_queue/",
+        "docs/",
+        "tests/"
+      ],
+      "dependencies": [
+        "ORCH-CODEX-AUTOMATION-025-WORKTREE-LANE-MANAGER"
+      ],
+      "description": "Harden selective commit and push flow with explicit paths, dry-run support, and remote HEAD verification.",
+      "execution_lane": "orch_automation",
+      "execution_mode": "handoff",
+      "expected_artifacts": [
+        "selective staging hardening tests",
+        "commit push verify docs"
+      ],
+      "forbidden_actions": [
+        "git add dot",
+        "git add all",
+        "force push"
+      ],
+      "max_retries": 2,
+      "task_id": "ORCH-CODEX-AUTOMATION-026-SELECTIVE-COMMIT-PUSH-HARDENING",
+      "title": "Selective commit/push hardening"
+    },
+    {
+      "acceptance_gates": [
+        "artifact index renders JSON and Markdown",
+        "panel links latest artifacts",
+        "dashboard handles blocked and failed tasks"
+      ],
+      "allowed_paths": [
+        "ai_orchestrator/codex_queue/",
+        "ai_orchestrator/operator_panel/",
+        "agent_tasks/generated/",
+        "docs/",
+        "tests/"
+      ],
+      "dependencies": [
+        "ORCH-CODEX-AUTOMATION-026-SELECTIVE-COMMIT-PUSH-HARDENING"
+      ],
+      "description": "Improve dashboard and artifact index for operator review and recovery.",
+      "execution_lane": "orch_automation",
+      "execution_mode": "handoff",
+      "expected_artifacts": [
+        "artifact index",
+        "dashboard improvements"
+      ],
+      "forbidden_actions": [
+        "external service call",
+        "browser automation"
+      ],
+      "max_retries": 2,
+      "task_id": "ORCH-CODEX-AUTOMATION-027-DASHBOARD-AND-ARTIFACT-INDEX-IMPROVEMENTS",
+      "title": "Dashboard and artifact index improvements"
+    },
+    {
+      "acceptance_gates": [
+        "recovery playbooks cover stale lock, partial run, and validation failure",
+        "panel exposes recovery report",
+        "no stale lock is cleared silently"
+      ],
+      "allowed_paths": [
+        "ai_orchestrator/codex_queue/",
+        "ai_orchestrator/operator_panel/",
+        "docs/",
+        "tests/"
+      ],
+      "dependencies": [
+        "ORCH-CODEX-AUTOMATION-027-DASHBOARD-AND-ARTIFACT-INDEX-IMPROVEMENTS"
+      ],
+      "description": "Document and implement operator recovery playbooks for blocked and inconsistent runs.",
+      "execution_lane": "orch_automation",
+      "execution_mode": "handoff",
+      "expected_artifacts": [
+        "recovery playbook docs",
+        "recovery tests"
+      ],
+      "forbidden_actions": [
+        "silent stale lock removal",
+        "pretend success on inconsistent state"
+      ],
+      "max_retries": 2,
+      "task_id": "ORCH-CODEX-AUTOMATION-028-FAILURE-RECOVERY-PLAYBOOKS",
+      "title": "Failure recovery playbooks"
+    },
+    {
+      "acceptance_gates": [
+        "operator UX covers run, continue, recover, export handoff",
+        "panel smoke tests cover routes",
+        "long run remains bounded"
+      ],
+      "allowed_paths": [
+        "ai_orchestrator/codex_queue/",
+        "ai_orchestrator/operator_panel/",
+        "docs/",
+        "tests/"
+      ],
+      "dependencies": [
+        "ORCH-CODEX-AUTOMATION-028-FAILURE-RECOVERY-PLAYBOOKS"
+      ],
+      "description": "Polish long supervised run UX in the CLI and panel without adding a scheduler or daemon.",
+      "execution_lane": "orch_automation",
+      "execution_mode": "handoff",
+      "expected_artifacts": [
+        "UX docs",
+        "panel route tests"
+      ],
+      "forbidden_actions": [
+        "daemon",
+        "scheduler",
+        "unbounded worker"
+      ],
+      "max_retries": 2,
+      "task_id": "ORCH-CODEX-AUTOMATION-029-LONG-SUPERVISED-RUN-UX",
+      "title": "Long supervised run UX"
+    },
+    {
+      "acceptance_gates": [
+        "acceptance gate blocks unsafe claims",
+        "safe fake and handoff paths pass",
+        "operator result schema is stable"
+      ],
+      "allowed_paths": [
+        "ai_orchestrator/codex_queue/",
+        "docs/",
+        "tests/"
+      ],
+      "dependencies": [
+        "ORCH-CODEX-AUTOMATION-029-LONG-SUPERVISED-RUN-UX"
+      ],
+      "description": "Finalize automation acceptance gate for local supervised plan-runner operation.",
+      "execution_lane": "orch_automation",
+      "execution_mode": "handoff",
+      "expected_artifacts": [
+        "acceptance gate report",
+        "result schema tests"
+      ],
+      "forbidden_actions": [
+        "unsafe result acceptance",
+        "wallet",
+        "orders"
+      ],
+      "max_retries": 2,
+      "task_id": "ORCH-CODEX-AUTOMATION-030-AUTOMATION-ACCEPTANCE-GATE",
+      "title": "Automation acceptance gate"
+    },
+    {
+      "acceptance_gates": [
+        "operator approval file is required",
+        "public-read-only plan is local-only",
+        "no live fetch runs without approval"
+      ],
+      "allowed_paths": [
+        "pm_bot/practical/automation/",
+        "pm_bot/practical/artifacts/automation/",
+        "docs/",
+        "tests/"
+      ],
+      "dependencies": [
+        "ORCH-CODEX-AUTOMATION-030-AUTOMATION-ACCEPTANCE-GATE"
+      ],
+      "description": "Plan a public evidence fetch chain runner that only executes after explicit operator approval in a future task.",
+      "execution_lane": "pmbot_automation",
+      "execution_mode": "handoff",
+      "expected_artifacts": [
+        "public evidence chain plan",
+        "approval gate fixture"
+      ],
+      "forbidden_actions": [
+        "authenticated endpoint",
+        "Polymarket API",
+        "browser automation"
+      ],
+      "max_retries": 2,
+      "task_id": "PMBOT-AUTOMATION-031-PUBLIC-EVIDENCE-FETCH-CHAIN-RUNNER-OPERATOR-APPROVED-ONLY",
+      "title": "Public evidence fetch chain runner, operator-approved only"
+    },
+    {
+      "acceptance_gates": [
+        "dashboard refresh is local artifact based",
+        "stale data is labeled",
+        "no recommendation output"
+      ],
+      "allowed_paths": [
+        "pm_bot/practical/automation/",
+        "pm_bot/practical/artifacts/automation/",
+        "docs/",
+        "tests/"
+      ],
+      "dependencies": [
+        "PMBOT-AUTOMATION-031-PUBLIC-EVIDENCE-FETCH-CHAIN-RUNNER-OPERATOR-APPROVED-ONLY"
+      ],
+      "description": "Create dashboard refresh chain for local PMBOT artifacts.",
+      "execution_lane": "pmbot_automation",
+      "execution_mode": "handoff",
+      "expected_artifacts": [
+        "dashboard refresh plan",
+        "refresh fixtures"
+      ],
+      "forbidden_actions": [
+        "market recommendation",
+        "side selection",
+        "EV signal"
+      ],
+      "max_retries": 2,
+      "task_id": "PMBOT-AUTOMATION-032-DASHBOARD-REFRESH-CHAIN",
+      "title": "Dashboard refresh chain"
+    },
+    {
+      "acceptance_gates": [
+        "source learning update is evidence-linked",
+        "manual review status is preserved",
+        "no automated outcome resolution"
+      ],
+      "allowed_paths": [
+        "pm_bot/practical/automation/",
+        "pm_bot/practical/artifacts/automation/",
+        "docs/",
+        "tests/"
+      ],
+      "dependencies": [
+        "PMBOT-AUTOMATION-032-DASHBOARD-REFRESH-CHAIN"
+      ],
+      "description": "Build source learning update chain from local review artifacts.",
+      "execution_lane": "pmbot_automation",
+      "execution_mode": "handoff",
+      "expected_artifacts": [
+        "source learning chain plan",
+        "source score update fixture"
+      ],
+      "forbidden_actions": [
+        "invented outcomes",
+        "unresolved market resolved without evidence"
+      ],
+      "max_retries": 2,
+      "task_id": "PMBOT-AUTOMATION-033-SOURCE-LEARNING-UPDATE-CHAIN",
+      "title": "Source learning update chain"
+    },
+    {
+      "acceptance_gates": [
+        "outcome recheck remains unresolved when evidence is absent",
+        "evidence references are required",
+        "manual operator review is preserved"
+      ],
+      "allowed_paths": [
+        "pm_bot/practical/automation/",
+        "pm_bot/practical/artifacts/automation/",
+        "docs/",
+        "tests/"
+      ],
+      "dependencies": [
+        "PMBOT-AUTOMATION-033-SOURCE-LEARNING-UPDATE-CHAIN"
+      ],
+      "description": "Create outcome recheck chain with explicit evidence requirements and unresolved-market safeguards.",
+      "execution_lane": "pmbot_automation",
+      "execution_mode": "handoff",
+      "expected_artifacts": [
+        "outcome recheck fixtures",
+        "unresolved safety report"
+      ],
+      "forbidden_actions": [
+        "invented outcomes",
+        "unresolved market resolved without evidence"
+      ],
+      "max_retries": 2,
+      "task_id": "PMBOT-AUTOMATION-034-OUTCOME-RECHECK-CHAIN",
+      "title": "Outcome recheck chain"
+    },
+    {
+      "acceptance_gates": [
+        "paper hypothesis changes require accepted evidence",
+        "changes are labeled simulated",
+        "no real trading signal is emitted"
+      ],
+      "allowed_paths": [
+        "pm_bot/practical/automation/",
+        "pm_bot/practical/artifacts/automation/",
+        "docs/",
+        "tests/"
+      ],
+      "dependencies": [
+        "PMBOT-AUTOMATION-034-OUTCOME-RECHECK-CHAIN"
+      ],
+      "description": "Build paper hypothesis update chain using local accepted evidence only.",
+      "execution_lane": "pmbot_automation",
+      "execution_mode": "handoff",
+      "expected_artifacts": [
+        "paper hypothesis update chain",
+        "paper-only result fixture"
+      ],
+      "forbidden_actions": [
+        "real trading signal",
+        "market recommendation",
+        "orders"
+      ],
+      "max_retries": 2,
+      "task_id": "PMBOT-AUTOMATION-035-PAPER-HYPOTHESIS-UPDATE-CHAIN",
+      "title": "Paper hypothesis update chain"
+    },
+    {
+      "acceptance_gates": [
+        "portfolio simulation is paper-only",
+        "no live positions or orders",
+        "risk limits are local fixtures"
+      ],
+      "allowed_paths": [
+        "pm_bot/practical/automation/",
+        "pm_bot/practical/artifacts/automation/",
+        "docs/",
+        "tests/"
+      ],
+      "dependencies": [
+        "PMBOT-AUTOMATION-035-PAPER-HYPOTHESIS-UPDATE-CHAIN"
+      ],
+      "description": "Create paper portfolio simulation chain from local paper records.",
+      "execution_lane": "pmbot_automation",
+      "execution_mode": "handoff",
+      "expected_artifacts": [
+        "paper portfolio simulation fixture",
+        "paper risk summary"
+      ],
+      "forbidden_actions": [
+        "real money",
+        "wallet",
+        "orders"
+      ],
+      "max_retries": 2,
+      "task_id": "PMBOT-AUTOMATION-036-PAPER-PORTFOLIO-SIMULATION-CHAIN",
+      "title": "Paper portfolio simulation chain"
+    },
+    {
+      "acceptance_gates": [
+        "daily workflow is a bounded operator run plan",
+        "no scheduler registration",
+        "manual stop points are explicit"
+      ],
+      "allowed_paths": [
+        "pm_bot/practical/automation/",
+        "pm_bot/practical/artifacts/automation/",
+        "docs/",
+        "tests/"
+      ],
+      "dependencies": [
+        "PMBOT-AUTOMATION-036-PAPER-PORTFOLIO-SIMULATION-CHAIN"
+      ],
+      "description": "Create daily workflow run plan for supervised local PMBOT operation.",
+      "execution_lane": "pmbot_automation",
+      "execution_mode": "handoff",
+      "expected_artifacts": [
+        "daily workflow plan",
+        "operator checklist"
+      ],
+      "forbidden_actions": [
+        "scheduler",
+        "daemon",
+        "background worker"
+      ],
+      "max_retries": 2,
+      "task_id": "PMBOT-AUTOMATION-037-DAILY-WORKFLOW-RUN-PLAN",
+      "title": "Daily workflow run plan"
+    },
+    {
+      "acceptance_gates": [
+        "unresolved market checks block unsafe resolution",
+        "evidence requirements are tested",
+        "dashboard displays unresolved status"
+      ],
+      "allowed_paths": [
+        "pm_bot/practical/automation/",
+        "pm_bot/practical/artifacts/automation/",
+        "docs/",
+        "tests/"
+      ],
+      "dependencies": [
+        "PMBOT-AUTOMATION-037-DAILY-WORKFLOW-RUN-PLAN"
+      ],
+      "description": "Strengthen unresolved market safety checks across PMBOT local workflows.",
+      "execution_lane": "pmbot_automation",
+      "execution_mode": "handoff",
+      "expected_artifacts": [
+        "unresolved market safety tests",
+        "safety dashboard fixture"
+      ],
+      "forbidden_actions": [
+        "invented outcomes",
+        "unresolved market resolved without evidence"
+      ],
+      "max_retries": 2,
+      "task_id": "PMBOT-AUTOMATION-038-UNRESOLVED-MARKET-SAFETY-CHECKS",
+      "title": "Unresolved market safety checks"
+    },
+    {
+      "acceptance_gates": [
+        "manual feedback ingestion preserves operator source",
+        "conflicts are blocked",
+        "no automatic public claim is made"
+      ],
+      "allowed_paths": [
+        "pm_bot/practical/automation/",
+        "pm_bot/practical/artifacts/automation/",
+        "docs/",
+        "tests/"
+      ],
+      "dependencies": [
+        "PMBOT-AUTOMATION-038-UNRESOLVED-MARKET-SAFETY-CHECKS"
+      ],
+      "description": "Build manual feedback ingestion chain for operator-reviewed PMBOT artifacts.",
+      "execution_lane": "pmbot_automation",
+      "execution_mode": "handoff",
+      "expected_artifacts": [
+        "manual feedback ingestion fixture",
+        "conflict report"
+      ],
+      "forbidden_actions": [
+        "invented feedback",
+        "automatic outcome resolution"
+      ],
+      "max_retries": 2,
+      "task_id": "PMBOT-AUTOMATION-039-MANUAL-FEEDBACK-INGESTION-CHAIN",
+      "title": "Manual feedback ingestion chain"
+    },
+    {
+      "acceptance_gates": [
+        "PMBOT automation gate blocks unsafe actions",
+        "paper-only status is visible",
+        "operator checklist is complete"
+      ],
+      "allowed_paths": [
+        "pm_bot/practical/automation/",
+        "pm_bot/practical/artifacts/automation/",
+        "docs/",
+        "tests/"
+      ],
+      "dependencies": [
+        "PMBOT-AUTOMATION-039-MANUAL-FEEDBACK-INGESTION-CHAIN"
+      ],
+      "description": "Finalize PMBOT automation acceptance gate before paper-MVP continuation.",
+      "execution_lane": "pmbot_automation",
+      "execution_mode": "handoff",
+      "expected_artifacts": [
+        "PMBOT automation acceptance report",
+        "gate tests"
+      ],
+      "forbidden_actions": [
+        "wallet",
+        "orders",
+        "real trading",
+        "Polymarket API"
+      ],
+      "max_retries": 2,
+      "task_id": "PMBOT-AUTOMATION-040-PMBOT-AUTOMATION-ACCEPTANCE-GATE",
+      "title": "PMBOT automation acceptance gate"
+    },
+    {
+      "acceptance_gates": [
+        "paper execution plan has no live adapter",
+        "operator review gate remains required",
+        "TRADING-MVP label is documented as paper-only"
+      ],
+      "allowed_paths": [
+        "pm_bot/",
+        "docs/",
+        "tests/"
+      ],
+      "dependencies": [
+        "PMBOT-AUTOMATION-040-PMBOT-AUTOMATION-ACCEPTANCE-GATE"
+      ],
+      "description": "Create paper execution MVP plan. The project label does not permit live trading or orders.",
+      "execution_lane": "paper_mvp",
+      "execution_mode": "handoff",
+      "expected_artifacts": [
+        "paper execution MVP plan",
+        "paper-only safety matrix"
+      ],
+      "forbidden_actions": [
+        "wallet",
+        "signing",
+        "orders",
+        "live adapter"
+      ],
+      "max_retries": 2,
+      "task_id": "PMBOT-TRADING-MVP-041-PAPER-EXECUTION-MVP-PLAN",
+      "title": "Paper execution MVP plan"
+    },
+    {
+      "acceptance_gates": [
+        "risk model is paper accounting only",
+        "no real balances are read",
+        "fixtures cover rejected cases"
+      ],
+      "allowed_paths": [
+        "pm_bot/",
+        "docs/",
+        "tests/"
+      ],
+      "dependencies": [
+        "PMBOT-TRADING-MVP-041-PAPER-EXECUTION-MVP-PLAN"
+      ],
+      "description": "Build paper risk/accounting model for simulated records only.",
+      "execution_lane": "paper_mvp",
+      "execution_mode": "handoff",
+      "expected_artifacts": [
+        "paper risk model",
+        "paper accounting fixtures"
+      ],
+      "forbidden_actions": [
+        "real balances",
+        "wallet",
+        "orders"
+      ],
+      "max_retries": 2,
+      "task_id": "PMBOT-TRADING-MVP-042-PAPER-RISK-ACCOUNTING-MODEL",
+      "title": "Paper risk/accounting model"
+    },
+    {
+      "acceptance_gates": [
+        "operator review UI artifacts are static/local",
+        "paper-only labels are visible",
+        "no live action buttons"
+      ],
+      "allowed_paths": [
+        "pm_bot/",
+        "docs/",
+        "tests/"
+      ],
+      "dependencies": [
+        "PMBOT-TRADING-MVP-042-PAPER-RISK-ACCOUNTING-MODEL"
+      ],
+      "description": "Create operator review UI artifacts for paper MVP inspection.",
+      "execution_lane": "paper_mvp",
+      "execution_mode": "handoff",
+      "expected_artifacts": [
+        "operator review UI artifacts",
+        "paper-only UI test"
+      ],
+      "forbidden_actions": [
+        "live action button",
+        "order submit",
+        "wallet connection"
+      ],
+      "max_retries": 2,
+      "task_id": "PMBOT-TRADING-MVP-043-OPERATOR-REVIEW-UI-ARTIFACTS",
+      "title": "Operator review UI artifacts"
+    },
+    {
+      "acceptance_gates": [
+        "priority is workflow ordering only",
+        "no recommendation, EV, probability, or side signal",
+        "explanations are non-advisory"
+      ],
+      "allowed_paths": [
+        "pm_bot/",
+        "docs/",
+        "tests/"
+      ],
+      "dependencies": [
+        "PMBOT-TRADING-MVP-043-OPERATOR-REVIEW-UI-ARTIFACTS"
+      ],
+      "description": "Add market queue prioritization for operator workflow ordering without recommendations.",
+      "execution_lane": "paper_mvp",
+      "execution_mode": "handoff",
+      "expected_artifacts": [
+        "workflow priority queue",
+        "non-advisory safety tests"
+      ],
+      "forbidden_actions": [
+        "market recommendation",
+        "probability signal",
+        "EV signal",
+        "side selection"
+      ],
+      "max_retries": 2,
+      "task_id": "PMBOT-TRADING-MVP-044-MARKET-QUEUE-PRIORITIZATION-WITHOUT-RECOMMENDATIONS",
+      "title": "Market queue prioritization without recommendations"
+    },
+    {
+      "acceptance_gates": [
+        "source scorecard feedback is evidence-linked",
+        "manual overrides are recorded",
+        "no fabricated source evidence"
+      ],
+      "allowed_paths": [
+        "pm_bot/",
+        "docs/",
+        "tests/"
+      ],
+      "dependencies": [
+        "PMBOT-TRADING-MVP-044-MARKET-QUEUE-PRIORITIZATION-WITHOUT-RECOMMENDATIONS"
+      ],
+      "description": "Create source scorecard feedback loop for paper MVP source quality.",
+      "execution_lane": "paper_mvp",
+      "execution_mode": "handoff",
+      "expected_artifacts": [
+        "source scorecard feedback loop",
+        "evidence-linked tests"
+      ],
+      "forbidden_actions": [
+        "fabricated evidence",
+        "automatic outcome resolution"
+      ],
+      "max_retries": 2,
+      "task_id": "PMBOT-TRADING-MVP-045-SOURCE-SCORECARD-FEEDBACK-LOOP",
+      "title": "Source scorecard feedback loop"
+    },
+    {
+      "acceptance_gates": [
+        "reports are paper portfolio only",
+        "real-money wording is absent",
+        "dashboard artifacts are local"
+      ],
+      "allowed_paths": [
+        "pm_bot/",
+        "docs/",
+        "tests/"
+      ],
+      "dependencies": [
+        "PMBOT-TRADING-MVP-045-SOURCE-SCORECARD-FEEDBACK-LOOP"
+      ],
+      "description": "Build paper portfolio reports for simulated PMBOT records.",
+      "execution_lane": "paper_mvp",
+      "execution_mode": "handoff",
+      "expected_artifacts": [
+        "paper portfolio reports",
+        "report safety scan"
+      ],
+      "forbidden_actions": [
+        "real money",
+        "wallet",
+        "orders"
+      ],
+      "max_retries": 2,
+      "task_id": "PMBOT-TRADING-MVP-046-PAPER-PORTFOLIO-REPORTS",
+      "title": "Paper portfolio reports"
+    },
+    {
+      "acceptance_gates": [
+        "outcome feedback readiness separates unresolved state",
+        "evidence bundle references are required",
+        "operator review is required"
+      ],
+      "allowed_paths": [
+        "pm_bot/",
+        "docs/",
+        "tests/"
+      ],
+      "dependencies": [
+        "PMBOT-TRADING-MVP-046-PAPER-PORTFOLIO-REPORTS"
+      ],
+      "description": "Prepare outcome feedback readiness for paper MVP without resolving unresolved outcomes without evidence.",
+      "execution_lane": "paper_mvp",
+      "execution_mode": "handoff",
+      "expected_artifacts": [
+        "outcome feedback readiness report",
+        "evidence bundle fixture"
+      ],
+      "forbidden_actions": [
+        "invented outcomes",
+        "unresolved market resolved without evidence"
+      ],
+      "max_retries": 2,
+      "task_id": "PMBOT-TRADING-MVP-047-OUTCOME-FEEDBACK-READINESS",
+      "title": "Outcome feedback readiness"
+    },
+    {
+      "acceptance_gates": [
+        "public read-only evidence refresh remains operator-approved",
+        "no authenticated endpoint is used",
+        "staleness is visible"
+      ],
+      "allowed_paths": [
+        "pm_bot/",
+        "docs/",
+        "tests/"
+      ],
+      "dependencies": [
+        "PMBOT-TRADING-MVP-047-OUTCOME-FEEDBACK-READINESS"
+      ],
+      "description": "Plan public-read-only evidence refresh for paper MVP with explicit operator approval.",
+      "execution_lane": "paper_mvp",
+      "execution_mode": "handoff",
+      "expected_artifacts": [
+        "public read-only refresh plan",
+        "staleness report"
+      ],
+      "forbidden_actions": [
+        "authenticated endpoint",
+        "Polymarket API",
+        "browser automation"
+      ],
+      "max_retries": 2,
+      "task_id": "PMBOT-TRADING-MVP-048-PUBLIC-READ-ONLY-EVIDENCE-REFRESH",
+      "title": "Public-read-only evidence refresh"
+    },
+    {
+      "acceptance_gates": [
+        "product-level dry-run gate covers core workflows",
+        "safety flags are all false",
+        "operator acceptance checklist is written"
+      ],
+      "allowed_paths": [
+        "pm_bot/",
+        "docs/",
+        "tests/"
+      ],
+      "dependencies": [
+        "PMBOT-TRADING-MVP-048-PUBLIC-READ-ONLY-EVIDENCE-REFRESH"
+      ],
+      "description": "Run product-level dry-run acceptance for supervised paper MVP.",
+      "execution_lane": "paper_mvp",
+      "execution_mode": "handoff",
+      "expected_artifacts": [
+        "product dry-run acceptance report",
+        "operator acceptance checklist"
+      ],
+      "forbidden_actions": [
+        "live trading",
+        "orders",
+        "wallet",
+        "scheduler"
+      ],
+      "max_retries": 2,
+      "task_id": "PMBOT-TRADING-MVP-049-PRODUCT-LEVEL-DRY-RUN-ACCEPTANCE",
+      "title": "Product-level dry-run acceptance"
+    },
+    {
+      "acceptance_gates": [
+        "supervised paper-MVP release checkpoint is local-only",
+        "next real-world blockers are explicit",
+        "no live approval is implied"
+      ],
+      "allowed_paths": [
+        "pm_bot/",
+        "docs/",
+        "tests/"
+      ],
+      "dependencies": [
+        "PMBOT-TRADING-MVP-049-PRODUCT-LEVEL-DRY-RUN-ACCEPTANCE"
+      ],
+      "description": "Finalize supervised paper-MVP release checkpoint and record remaining blockers.",
+      "execution_lane": "paper_mvp",
+      "execution_mode": "handoff",
+      "expected_artifacts": [
+        "supervised paper-MVP checkpoint",
+        "remaining blocker matrix"
+      ],
+      "forbidden_actions": [
+        "live approval",
+        "real trading",
+        "wallet",
+        "orders"
+      ],
+      "max_retries": 2,
+      "task_id": "PMBOT-TRADING-MVP-050-SUPERVISED-PAPER-MVP-RELEASE-CHECKPOINT",
+      "title": "Supervised paper-MVP release checkpoint"
+    }
+  ],
+  "title": "PMBOT master plan to 050 with Codex automation control",
+  "version": "1.0"
+}

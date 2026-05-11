@@ -1,0 +1,35 @@
+{
+  "acceptance_gates": [
+    "source learning update is evidence-linked",
+    "manual review status is preserved",
+    "no automated outcome resolution"
+  ],
+  "allowed_paths": [
+    "pm_bot/practical/automation/",
+    "pm_bot/practical/artifacts/automation/",
+    "docs/",
+    "tests/"
+  ],
+  "dependencies": [
+    "PMBOT-AUTOMATION-032-DASHBOARD-REFRESH-CHAIN"
+  ],
+  "description": "Build source learning update chain from local review artifacts.",
+  "execution_lane": "pmbot_automation",
+  "execution_mode": "handoff",
+  "expected_artifacts": [
+    "source learning chain plan",
+    "source score update fixture"
+  ],
+  "forbidden_actions": [
+    "invented outcomes",
+    "unresolved market resolved without evidence"
+  ],
+  "max_retries": 2,
+  "metadata": {},
+  "milestone_id": "",
+  "plan_id": "pmbot_master_plan_to_050",
+  "run_id": "OPERATOR_PANEL_022_FAKE_INTEGRATION",
+  "schema_version": "codex_plan_task.v1",
+  "task_id": "PMBOT-AUTOMATION-033-SOURCE-LEARNING-UPDATE-CHAIN",
+  "title": "Source learning update chain"
+}

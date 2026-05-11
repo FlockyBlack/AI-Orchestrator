@@ -1,0 +1,37 @@
+{
+  "acceptance_gates": [
+    "adapter remains non-recursive by default",
+    "manual handoff path is durable",
+    "stub tests verify NotImplemented boundaries"
+  ],
+  "allowed_paths": [
+    "ai_orchestrator/codex_queue/",
+    "agent_tasks/automations/",
+    "docs/",
+    "tests/"
+  ],
+  "dependencies": [
+    "ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING"
+  ],
+  "description": "Define Codex executor adapter boundary and future CLI/App automation interfaces without invoking Codex automatically.",
+  "execution_lane": "orch_automation",
+  "execution_mode": "handoff",
+  "expected_artifacts": [
+    "codex adapter boundary docs",
+    "adapter tests"
+  ],
+  "forbidden_actions": [
+    "recursive Codex invocation",
+    "daemon",
+    "scheduler",
+    "browser automation"
+  ],
+  "max_retries": 2,
+  "metadata": {},
+  "milestone_id": "",
+  "plan_id": "pmbot_master_plan_to_050",
+  "run_id": "OPERATOR_PANEL_022_FAKE_INTEGRATION",
+  "schema_version": "codex_plan_task.v1",
+  "task_id": "ORCH-CODEX-AUTOMATION-024-CODEX-EXECUTOR-ADAPTER-BOUNDARY",
+  "title": "Codex executor adapter boundary"
+}

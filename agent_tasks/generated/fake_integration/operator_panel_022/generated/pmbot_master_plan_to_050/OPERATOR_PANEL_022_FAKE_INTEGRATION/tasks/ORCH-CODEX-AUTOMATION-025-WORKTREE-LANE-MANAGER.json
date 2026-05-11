@@ -1,0 +1,35 @@
+{
+  "acceptance_gates": [
+    "lane isolation validation covers overlap",
+    "rendered worktree commands are dry-run only",
+    "no merge or destructive command emitted"
+  ],
+  "allowed_paths": [
+    "ai_orchestrator/codex_queue/",
+    "docs/",
+    "tests/"
+  ],
+  "dependencies": [
+    "ORCH-CODEX-AUTOMATION-024-CODEX-EXECUTOR-ADAPTER-BOUNDARY"
+  ],
+  "description": "Improve worktree lane planning for future parallel Codex agents while remaining dry-run-safe.",
+  "execution_lane": "orch_automation",
+  "execution_mode": "handoff",
+  "expected_artifacts": [
+    "lane plan tests",
+    "dry-run command renderer"
+  ],
+  "forbidden_actions": [
+    "automatic merge",
+    "destructive git",
+    "force operation"
+  ],
+  "max_retries": 2,
+  "metadata": {},
+  "milestone_id": "",
+  "plan_id": "pmbot_master_plan_to_050",
+  "run_id": "OPERATOR_PANEL_022_FAKE_INTEGRATION",
+  "schema_version": "codex_plan_task.v1",
+  "task_id": "ORCH-CODEX-AUTOMATION-025-WORKTREE-LANE-MANAGER",
+  "title": "Worktree lane manager"
+}

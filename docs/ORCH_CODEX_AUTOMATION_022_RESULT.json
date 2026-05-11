@@ -1,0 +1,66 @@
+{
+  "implemented": {
+    "automation_prompt_template": true,
+    "codex_handoff_executor": true,
+    "commit_push_verify": true,
+    "dashboard": true,
+    "execution_lock": true,
+    "fake_executor": true,
+    "fake_safe_integration_run": true,
+    "handoff_prompt_export": true,
+    "local_panel_server": true,
+    "long_run_controller": true,
+    "master_plan_to_050": true,
+    "operator_panel": true,
+    "plan_decomposition": true,
+    "plan_paste_or_load": true,
+    "plan_validation": true,
+    "queue_creation": true,
+    "recovery": true,
+    "run_state": true,
+    "selective_staging_planner": true,
+    "tests": true
+  },
+  "next_recommended_task": "ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING",
+  "operator_commands": {
+    "continue_plan_example": "python -m ai_orchestrator.codex_queue.operator_cli continue-plan --run-id <RUN_ID> --queue-root agent_tasks --max-steps 50 --continue-until blocked_or_done",
+    "export_codex_prompt_example": "python -m ai_orchestrator.codex_queue.operator_cli export-next-codex-prompt --run-id <RUN_ID> --queue-root agent_tasks",
+    "recover_plan_example": "python -m ai_orchestrator.codex_queue.operator_cli recover-plan --run-id <RUN_ID> --queue-root agent_tasks",
+    "run_plan_example": "python -m ai_orchestrator.codex_queue.operator_cli run-plan --plan-file agent_tasks/plans/pmbot_master_plan_to_050.v1.json --queue-root agent_tasks --mode long_supervised --max-steps 50 --executor fake --continue-until blocked_or_done",
+    "start_panel": "python -m ai_orchestrator.operator_panel.panel_app --repo-root C:/Users/OpenC/.openclaw/workspace --queue-root agent_tasks --host 127.0.0.1 --port 8765"
+  },
+  "repo": {
+    "branch": "master",
+    "head_after": "POST_COMMIT_HEAD_REPORTED_IN_FINAL_RESPONSE",
+    "head_before": "acfc63531d76d4e9c30456a41c960a17ca04988c",
+    "pushed": true,
+    "remote_verified": true,
+    "root": "C:/Users/OpenC/.openclaw/workspace"
+  },
+  "safety": {
+    "authenticated_endpoints_used": false,
+    "background_worker_created": false,
+    "browser_automation_used": false,
+    "daemon_created": false,
+    "force_push_used": false,
+    "openrouter_used": false,
+    "orders_or_trading_endpoints_added": false,
+    "polymarket_api_used": false,
+    "real_codex_self_invocation": false,
+    "scheduler_created": false,
+    "unsafe_git_staging_used": false,
+    "wallet_or_signing_added": false
+  },
+  "status": "completed_pushed",
+  "task_id": "ORCH-CODEX-AUTOMATION-022-OPERATOR-PANEL-AND-PLAN-RUNNER-CONTROL",
+  "validation": {
+    "fake_integration_passed": true,
+    "full_suite_run": false,
+    "full_suite_skip_reason": "Targeted task suite covered the new plan-runner and panel surfaces. The unrelated legacy repo-wide suite was not run to avoid mixing this task result with existing broad workspace state.",
+    "panel_smoke_test_passed": true,
+    "plan_validated": true,
+    "safety_ok": true,
+    "test_command": "pytest tests/test_codex_plan_contract.py tests/test_codex_plan_decomposer.py tests/test_codex_plan_to_queue.py tests/test_codex_execution_lock.py tests/test_codex_plan_run_state.py tests/test_codex_result_acceptance_policy.py tests/test_codex_task_executor.py tests/test_codex_worktree_lane_manager.py tests/test_codex_memory_hooks.py tests/test_codex_selective_staging_planner.py tests/test_codex_commit_push_verify.py tests/test_codex_automation_dashboard.py tests/test_codex_plan_recovery.py tests/test_codex_long_run_controller.py tests/test_codex_operator_cli_plan_runner.py tests/test_operator_panel_state.py tests/test_operator_panel_actions.py tests/test_operator_panel_renderer.py tests/test_operator_panel_app_smoke.py",
+    "tests_passed": true
+  }
+}

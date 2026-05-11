@@ -1,0 +1,112 @@
+{
+  "errors": [],
+  "payload": {
+    "commit_performed": false,
+    "commit_requested": false,
+    "continue_until": "one_step",
+    "dashboard": {
+      "artifact_paths": [
+        "agent_tasks\\generated\\fake_integration\\operator_panel_022\\generated\\pmbot_master_plan_to_050\\OPERATOR_PANEL_022_FAKE_INTEGRATION\\artifacts\\ORCH-CODEX-AUTOMATION-022-OPERATOR-PANEL-AND-PLAN-RUNNER-CONTROL_fake_result.json",
+        "agent_tasks\\generated\\fake_integration\\operator_panel_022\\generated\\pmbot_master_plan_to_050\\OPERATOR_PANEL_022_FAKE_INTEGRATION\\artifacts\\ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING_fake_result.json",
+        "agent_tasks\\generated\\fake_integration\\operator_panel_022\\generated\\pmbot_master_plan_to_050\\OPERATOR_PANEL_022_FAKE_INTEGRATION\\artifacts\\ORCH-CODEX-AUTOMATION-024-CODEX-EXECUTOR-ADAPTER-BOUNDARY_fake_result.json",
+        "agent_tasks\\generated\\fake_integration\\operator_panel_022\\generated\\pmbot_master_plan_to_050\\OPERATOR_PANEL_022_FAKE_INTEGRATION\\handoff\\ORCH-CODEX-AUTOMATION-025-WORKTREE-LANE-MANAGER_codex_prompt.md"
+      ],
+      "counts": {
+        "blocked": 0,
+        "completed": 3,
+        "failed": 0,
+        "skipped": 0,
+        "total": 29
+      },
+      "current_task": "ORCH-CODEX-AUTOMATION-025-WORKTREE-LANE-MANAGER",
+      "dashboard_paths": {
+        "json": "agent_tasks\\generated\\fake_integration\\operator_panel_022\\generated\\pmbot_master_plan_to_050\\OPERATOR_PANEL_022_FAKE_INTEGRATION\\dashboard\\dashboard.json",
+        "markdown": "agent_tasks\\generated\\fake_integration\\operator_panel_022\\generated\\pmbot_master_plan_to_050\\OPERATOR_PANEL_022_FAKE_INTEGRATION\\dashboard\\dashboard.md"
+      },
+      "lane_summary": {
+        "orch_automation": {
+          "blocked": 0,
+          "completed": 3,
+          "failed": 0,
+          "task_count": 9
+        },
+        "paper_mvp": {
+          "blocked": 0,
+          "completed": 0,
+          "failed": 0,
+          "task_count": 10
+        },
+        "pmbot_automation": {
+          "blocked": 0,
+          "completed": 0,
+          "failed": 0,
+          "task_count": 10
+        }
+      },
+      "last_git_verification": "acfc63531d76d4e9c30456a41c960a17ca04988c",
+      "mode": "long_supervised",
+      "next_operator_action": "Continue with next task ORCH-CODEX-AUTOMATION-025-WORKTREE-LANE-MANAGER or export a Codex handoff prompt.",
+      "next_runnable_tasks": [
+        "ORCH-CODEX-AUTOMATION-025-WORKTREE-LANE-MANAGER"
+      ],
+      "plan_id": "pmbot_master_plan_to_050",
+      "recent_events": [
+        {
+          "at": "2026-05-11T01:21:40Z",
+          "event": "task_started",
+          "task_id": "ORCH-CODEX-AUTOMATION-022-OPERATOR-PANEL-AND-PLAN-RUNNER-CONTROL"
+        },
+        {
+          "at": "2026-05-11T01:21:40Z",
+          "event": "task_done",
+          "result_path": "agent_tasks\\generated\\fake_integration\\operator_panel_022\\generated\\pmbot_master_plan_to_050\\OPERATOR_PANEL_022_FAKE_INTEGRATION\\artifacts\\ORCH-CODEX-AUTOMATION-022-OPERATOR-PANEL-AND-PLAN-RUNNER-CONTROL_fake_result.json",
+          "task_id": "ORCH-CODEX-AUTOMATION-022-OPERATOR-PANEL-AND-PLAN-RUNNER-CONTROL"
+        },
+        {
+          "at": "2026-05-11T01:21:40Z",
+          "event": "task_started",
+          "task_id": "ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING"
+        },
+        {
+          "at": "2026-05-11T01:21:40Z",
+          "event": "task_done",
+          "result_path": "agent_tasks\\generated\\fake_integration\\operator_panel_022\\generated\\pmbot_master_plan_to_050\\OPERATOR_PANEL_022_FAKE_INTEGRATION\\artifacts\\ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING_fake_result.json",
+          "task_id": "ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING"
+        },
+        {
+          "at": "2026-05-11T01:21:40Z",
+          "event": "task_started",
+          "task_id": "ORCH-CODEX-AUTOMATION-024-CODEX-EXECUTOR-ADAPTER-BOUNDARY"
+        },
+        {
+          "at": "2026-05-11T01:21:40Z",
+          "event": "task_done",
+          "result_path": "agent_tasks\\generated\\fake_integration\\operator_panel_022\\generated\\pmbot_master_plan_to_050\\OPERATOR_PANEL_022_FAKE_INTEGRATION\\artifacts\\ORCH-CODEX-AUTOMATION-024-CODEX-EXECUTOR-ADAPTER-BOUNDARY_fake_result.json",
+          "task_id": "ORCH-CODEX-AUTOMATION-024-CODEX-EXECUTOR-ADAPTER-BOUNDARY"
+        },
+        {
+          "at": "2026-05-11T01:21:46Z",
+          "event": "task_started",
+          "task_id": "ORCH-CODEX-AUTOMATION-025-WORKTREE-LANE-MANAGER"
+        }
+      ],
+      "retry_counts": {},
+      "run_id": "OPERATOR_PANEL_022_FAKE_INTEGRATION",
+      "safety_status": "ok",
+      "schema_version": "codex_automation_dashboard.v1",
+      "status": "running"
+    },
+    "executor": "handoff",
+    "max_steps": 1,
+    "mode": "long_supervised",
+    "plan_id": "pmbot_master_plan_to_050",
+    "push_performed": false,
+    "push_requested": false,
+    "run_id": "OPERATOR_PANEL_022_FAKE_INTEGRATION",
+    "run_root": "agent_tasks\\generated\\fake_integration\\operator_panel_022\\generated\\pmbot_master_plan_to_050\\OPERATOR_PANEL_022_FAKE_INTEGRATION",
+    "state_path": "agent_tasks\\generated\\fake_integration\\operator_panel_022\\generated\\pmbot_master_plan_to_050\\OPERATOR_PANEL_022_FAKE_INTEGRATION\\state.json",
+    "steps_executed": 1
+  },
+  "status": "requiring_operator_handoff",
+  "stop_reason": "requiring_operator_handoff"
+}

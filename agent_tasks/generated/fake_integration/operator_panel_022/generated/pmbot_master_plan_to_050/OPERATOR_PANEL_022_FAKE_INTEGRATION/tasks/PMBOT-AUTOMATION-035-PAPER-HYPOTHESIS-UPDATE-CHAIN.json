@@ -1,0 +1,36 @@
+{
+  "acceptance_gates": [
+    "paper hypothesis changes require accepted evidence",
+    "changes are labeled simulated",
+    "no real trading signal is emitted"
+  ],
+  "allowed_paths": [
+    "pm_bot/practical/automation/",
+    "pm_bot/practical/artifacts/automation/",
+    "docs/",
+    "tests/"
+  ],
+  "dependencies": [
+    "PMBOT-AUTOMATION-034-OUTCOME-RECHECK-CHAIN"
+  ],
+  "description": "Build paper hypothesis update chain using local accepted evidence only.",
+  "execution_lane": "pmbot_automation",
+  "execution_mode": "handoff",
+  "expected_artifacts": [
+    "paper hypothesis update chain",
+    "paper-only result fixture"
+  ],
+  "forbidden_actions": [
+    "real trading signal",
+    "market recommendation",
+    "orders"
+  ],
+  "max_retries": 2,
+  "metadata": {},
+  "milestone_id": "",
+  "plan_id": "pmbot_master_plan_to_050",
+  "run_id": "OPERATOR_PANEL_022_FAKE_INTEGRATION",
+  "schema_version": "codex_plan_task.v1",
+  "task_id": "PMBOT-AUTOMATION-035-PAPER-HYPOTHESIS-UPDATE-CHAIN",
+  "title": "Paper hypothesis update chain"
+}

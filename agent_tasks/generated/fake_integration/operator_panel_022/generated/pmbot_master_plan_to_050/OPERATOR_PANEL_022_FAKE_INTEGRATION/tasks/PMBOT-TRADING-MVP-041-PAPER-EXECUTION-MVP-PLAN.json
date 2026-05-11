@@ -1,0 +1,36 @@
+{
+  "acceptance_gates": [
+    "paper execution plan has no live adapter",
+    "operator review gate remains required",
+    "TRADING-MVP label is documented as paper-only"
+  ],
+  "allowed_paths": [
+    "pm_bot/",
+    "docs/",
+    "tests/"
+  ],
+  "dependencies": [
+    "PMBOT-AUTOMATION-040-PMBOT-AUTOMATION-ACCEPTANCE-GATE"
+  ],
+  "description": "Create paper execution MVP plan. The project label does not permit live trading or orders.",
+  "execution_lane": "paper_mvp",
+  "execution_mode": "handoff",
+  "expected_artifacts": [
+    "paper execution MVP plan",
+    "paper-only safety matrix"
+  ],
+  "forbidden_actions": [
+    "wallet",
+    "signing",
+    "orders",
+    "live adapter"
+  ],
+  "max_retries": 2,
+  "metadata": {},
+  "milestone_id": "",
+  "plan_id": "pmbot_master_plan_to_050",
+  "run_id": "OPERATOR_PANEL_022_FAKE_INTEGRATION",
+  "schema_version": "codex_plan_task.v1",
+  "task_id": "PMBOT-TRADING-MVP-041-PAPER-EXECUTION-MVP-PLAN",
+  "title": "Paper execution MVP plan"
+}

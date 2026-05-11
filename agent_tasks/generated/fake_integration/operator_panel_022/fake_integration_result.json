@@ -1,0 +1,30 @@
+{
+  "artifact_root": "agent_tasks/generated/fake_integration/operator_panel_022",
+  "codex_handoff_prompt": "agent_tasks/generated/fake_integration/operator_panel_022/generated/pmbot_master_plan_to_050/OPERATOR_PANEL_022_FAKE_INTEGRATION/handoff/ORCH-CODEX-AUTOMATION-025-WORKTREE-LANE-MANAGER_codex_prompt.md",
+  "completed_fake_task_count": 3,
+  "dashboard_json": "agent_tasks/generated/fake_integration/operator_panel_022/generated/pmbot_master_plan_to_050/OPERATOR_PANEL_022_FAKE_INTEGRATION/dashboard/dashboard.json",
+  "dashboard_markdown": "agent_tasks/generated/fake_integration/operator_panel_022/generated/pmbot_master_plan_to_050/OPERATOR_PANEL_022_FAKE_INTEGRATION/dashboard/dashboard.md",
+  "fake_integration_passed": true,
+  "final_result_json": "agent_tasks/generated/fake_integration/operator_panel_022/generated/pmbot_master_plan_to_050/OPERATOR_PANEL_022_FAKE_INTEGRATION/result.json",
+  "loaded_plan_file": "agent_tasks/plans/pmbot_master_plan_to_050.v1.json",
+  "manifest": "agent_tasks/generated/fake_integration/operator_panel_022/generated/pmbot_master_plan_to_050/OPERATOR_PANEL_022_FAKE_INTEGRATION/manifest.json",
+  "notes": "Fake run demonstrates plan loading, deterministic run_id, queue materialization, three safe fake task executions, state updates, dashboard writing, and next Codex handoff export. It does not claim completion through 050.",
+  "queue_materialized": true,
+  "run_id": "OPERATOR_PANEL_022_FAKE_INTEGRATION",
+  "safety": {
+    "authenticated_endpoints_used": false,
+    "background_worker_created": false,
+    "browser_automation_used": false,
+    "daemon_created": false,
+    "openrouter_used": false,
+    "orders_or_trading_endpoints_added": false,
+    "polymarket_api_used": false,
+    "real_codex_self_invocation": false,
+    "real_trading": false,
+    "scheduler_created": false,
+    "wallet_or_signing_added": false
+  },
+  "state": "agent_tasks/generated/fake_integration/operator_panel_022/generated/pmbot_master_plan_to_050/OPERATOR_PANEL_022_FAKE_INTEGRATION/state.json",
+  "status": "passed_subset_only",
+  "task_count_in_queue": 29
+}
