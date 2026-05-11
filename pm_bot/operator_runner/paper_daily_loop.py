@@ -39,6 +39,7 @@ from pm_bot.trading_core.live_canary_readiness import (
     render_canary_readiness_packet_markdown,
     select_canary_market_id,
 )
+from pm_bot.trading_core.live_canary_replay_acceptance import build_canary_governance_summary
 from pm_bot.trading_core.paper_portfolio_report import (
     build_paper_portfolio_report,
     render_paper_portfolio_report_markdown,
@@ -464,6 +465,11 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         and canary_dry_run_receipt.get("live_execution_performed") is False
         and canary_dry_run_receipt.get("outcome_resolution_invented") is False
         and canary_dry_run_receipt.get("pnl_invented") is False
+        and dashboard.get("live_canary_readiness_summary", {}).get("canary_replay_passed") is True
+        and dashboard.get("live_canary_readiness_summary", {}).get("acceptance_matrix_passed") is True
+        and int(dashboard.get("live_canary_readiness_summary", {}).get("live_connector_blocker_count", 0) or 0) >= 10
+        and dashboard.get("live_canary_readiness_summary", {}).get("dry_run_only_assertion")
+        == "This checklist does not make live execution available."
         and safety_scan["safety_ok"] is True
     )
     result = PaperDailyLoopResult(
@@ -993,6 +999,11 @@ def _build_daily_dashboard(
     source_status_by_market = _source_status_by_market(source_evidence_refresh_ledger)
     source_counts = dict(source_evidence_refresh_ledger.get("summary_counts", {}))
     source_quality = dict(source_evidence_refresh_ledger.get("quality_ledger", {}))
+    canary_governance_summary = build_canary_governance_summary(
+        packet=canary_readiness_packet,
+        receipt=canary_dry_run_receipt,
+        generated_at=generated_at,
+    )
     return {
         "contract_version": PAPER_DAILY_DASHBOARD_CONTRACT,
         "dashboard_id": f"paper-daily-dashboard-022-{config.run_date}",
@@ -1075,6 +1086,10 @@ def _build_daily_dashboard(
             "live_canary_blocked_count": 1 if canary_readiness_packet.get("canary_status") == "blocked" else 0,
             "live_canary_needs_operator_approval_count": (
                 1 if canary_readiness_packet.get("canary_status") == "needs_operator_approval" else 0
+            ),
+            "live_connector_blocker_count": int(canary_governance_summary.get("live_connector_blocker_count", 0) or 0),
+            "live_connector_critical_blocker_count": int(
+                canary_governance_summary.get("critical_blocker_count", 0) or 0
             ),
             "source_evidence_refresh_record_count": int(source_counts.get("records", 0) or 0),
             "source_evidence_gap_count": int(
@@ -1177,10 +1192,26 @@ def _build_daily_dashboard(
             "authenticated_endpoint_used": dry_run_receipt_ledger.get("authenticated_endpoint_used") is True,
             "external_api_calls_performed": dry_run_receipt_ledger.get("external_api_calls_performed") is True,
         },
-        "live_canary_readiness_summary": build_canary_dashboard_summary(
-            canary_readiness_packet,
-            canary_dry_run_receipt,
-        ),
+        "live_canary_readiness_summary": {
+            **build_canary_dashboard_summary(
+                canary_readiness_packet,
+                canary_dry_run_receipt,
+            ),
+            "canary_replay_status": canary_governance_summary.get("canary_replay_status"),
+            "canary_replay_passed": canary_governance_summary.get("canary_replay_passed"),
+            "acceptance_matrix_status": canary_governance_summary.get("acceptance_matrix_status"),
+            "acceptance_matrix_passed": canary_governance_summary.get("acceptance_matrix_passed"),
+            "acceptance_matrix_case_count": canary_governance_summary.get("acceptance_matrix_case_count"),
+            "acceptance_matrix_failed_case_count": canary_governance_summary.get(
+                "acceptance_matrix_failed_case_count"
+            ),
+            "live_connector_blocker_count": canary_governance_summary.get("live_connector_blocker_count"),
+            "critical_blocker_count": canary_governance_summary.get("critical_blocker_count"),
+            "critical_blockers": canary_governance_summary.get("critical_blockers"),
+            "next_recommended_non_live_task": canary_governance_summary.get("next_recommended_non_live_task"),
+            "dry_run_only_assertion": canary_governance_summary.get("dry_run_only_assertion"),
+            "governance_summary": canary_governance_summary,
+        },
         "source_evidence_refresh_status": {
             "refresh_id": source_evidence_refresh_ledger.get("refresh_id"),
             "run_mode": source_evidence_refresh_ledger.get("run_mode"),
@@ -1649,10 +1680,20 @@ def _render_daily_dashboard_markdown(dashboard: Mapping[str, Any]) -> str:
             f"- Signing simulator receipt status: `{canary.get('signing_simulator_receipt_status')}`",
             f"- Live execution allowed: `{str(canary.get('live_execution_allowed')).lower()}`",
             f"- External API call performed: `{str(canary.get('external_api_call_performed')).lower()}`",
+            f"- Canary replay status: `{canary.get('canary_replay_status')}`",
+            f"- Acceptance matrix status: `{canary.get('acceptance_matrix_status')}`",
+            f"- Acceptance matrix failed cases: {canary.get('acceptance_matrix_failed_case_count')}",
+            f"- Live connector blockers: {canary.get('live_connector_blocker_count')}",
+            f"- Critical live connector blockers: {canary.get('critical_blocker_count')}",
+            f"- Dry-run-only assertion: {canary.get('dry_run_only_assertion')}",
             "- Blocked reason summary:",
             *bullet_lines(str(item) for item in canary.get("blocked_reason_summary", [])),
             "- Missing artifact summary:",
             *bullet_lines(str(item) for item in canary.get("missing_artifact_summary", [])),
+            "- Critical blockers:",
+            *bullet_lines(str(item) for item in canary.get("critical_blockers", [])),
+            "- Next recommended non-live task:",
+            f"- {canary.get('next_recommended_non_live_task')}",
             "- Next operator action:",
             f"- {canary.get('next_operator_action')}",
             "",

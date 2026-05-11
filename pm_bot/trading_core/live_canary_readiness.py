@@ -67,6 +67,7 @@ FORBIDDEN_CANARY_FIELD_NAMES = {
     "signature",
     "signed_order",
     "transaction_hash",
+    "wallet_private_key",
 }
 SAFE_NEGATIVE_FIELD_PREFIXES = ("no_", "no_real_", "not_")
 SAFE_NEGATIVE_FIELD_NAMES = {
@@ -279,6 +280,7 @@ def build_canary_readiness_packet(
         action_packet.get("run_id"),
     )
     canary_id = stable_canary_id(run_id=run_id, market_id=market_id)
+    approval_record_missing = operator_approval_record is None
     approval = (
         dict(operator_approval_record)
         if operator_approval_record is not None
@@ -351,7 +353,7 @@ def build_canary_readiness_packet(
         "wallet_boundary_status": wallet_status,
         "signing_simulator_receipt_id": clean_text(signing_receipt.get("receipt_id")),
         "signing_simulator_receipt_status": signing_status,
-        "operator_approval_record_id": clean_text(approval.get("approval_record_id")),
+        "operator_approval_record_id": "" if approval_record_missing else clean_text(approval.get("approval_record_id")),
         "operator_approval_status": approval_status,
         "kill_switch_status": kill_switch_status or "unknown",
         "canary_status": _canary_status(reason_codes, approval_status),
