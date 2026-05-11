@@ -1,0 +1,52 @@
+{
+  "task_id": "ORCH-PMBOT-TRADING-MVP-026-RISK-ENGINE-V1",
+  "status": "completed_branch_pushed",
+  "repo": {
+    "worktree": "C:/oc026",
+    "branch": "pmbot/trading-mvp-026-risk-engine-v1",
+    "base_master_head": "06027514e62f6e5aaf0a33f20035fa3751fdfec3",
+    "head_before": "06027514e62f6e5aaf0a33f20035fa3751fdfec3",
+    "head_after": "POST_PUSH_HEAD_REPORTED_IN_FINAL_CHAT",
+    "pushed": true,
+    "pushed_to_master": false,
+    "remote_verified": true
+  },
+  "risk_engine_contract_ready": true,
+  "risk_config_validation_ready": true,
+  "kill_switch_blocks_actions": true,
+  "exposure_limits_enforced": true,
+  "allowlist_denylist_enforced": true,
+  "evidence_gap_policy_enforced": true,
+  "manual_approval_gate_ready": true,
+  "risk_decision_ledger_ready": true,
+  "dashboard_risk_summary_ready": true,
+  "external_api_calls_performed": false,
+  "outcome_resolution_invented": false,
+  "pnl_invented": false,
+  "wallet_or_order_code_added": false,
+  "tests_passed": true,
+  "safety_ok": true,
+  "blocked_reason": null,
+  "validation": {
+    "pm_bot_tests": "pytest pm_bot/tests",
+    "pm_bot_compileall": "python -m compileall pm_bot",
+    "orchestration_subset": "python -m pytest tests/test_codex_queue_nightly_lane_batch_runner.py tests/test_codex_worktree_lane_manager.py tests/test_subagent_routing.py tests/test_codex_queue_operator_cli.py",
+    "ai_orchestrator_compileall": "python -m compileall ai_orchestrator",
+    "diff_check": "git diff --check"
+  },
+  "safety": {
+    "risk_engine_only": true,
+    "paper_only_behavior_preserved": true,
+    "live_prep_only": true,
+    "wallet_or_private_key_accessed": false,
+    "signing_or_order_code_added": false,
+    "authenticated_endpoint_added": false,
+    "real_order_or_trading_endpoint_added": false,
+    "autonomous_trading_enabled": false,
+    "external_api_calls_performed": false,
+    "outcome_resolution_invented": false,
+    "pnl_invented": false,
+    "unsafe_git_staging_used": false,
+    "force_push_used": false
+  }
+}
