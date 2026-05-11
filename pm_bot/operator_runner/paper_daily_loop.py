@@ -51,6 +51,10 @@ from pm_bot.trading_core.risk_gate import (
     evaluate_paper_trade_intent,
     render_risk_gate_results_markdown,
 )
+from pm_bot.trading_core.risk_engine import (
+    build_risk_decision_ledger,
+    render_risk_decision_ledger_markdown,
+)
 from pm_bot.trading_core.risk_limits import default_paper_risk_limits, render_paper_risk_limits_markdown
 from pm_bot.trading_core.risk_prep_config import (
     build_default_future_risk_engine_config,
@@ -147,6 +151,7 @@ class PaperDailyLoopResult:
     source_evidence_refresh_path: str
     source_evidence_quality_ledger_path: str
     source_evidence_pending_approval_path: str
+    risk_decision_ledger_path: str
     risk_prep_config_path: str
     portfolio_path: str
     rollforward_path: str
@@ -205,6 +210,13 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
     source_evidence_refresh_ledger = source_evidence_refresh_artifacts["ledger"]
     source_evidence_quality_ledger = source_evidence_refresh_artifacts["quality_ledger"]
     source_evidence_pending_approval = source_evidence_refresh_artifacts["pending_approval_packet"]
+    risk_prep_config = build_default_future_risk_engine_config(generated_at=generated_at)
+    risk_decision_ledger = build_risk_decision_ledger(
+        candidates_batch=candidates,
+        risk_config=risk_prep_config,
+        source_evidence_refresh_ledger=source_evidence_refresh_ledger,
+        generated_at=generated_at,
+    )
     limits = _build_daily_risk_limits(active_config, generated_at=generated_at)
     risk_gate = _build_risk_gate_batch(candidates, limits, generated_at=generated_at)
     executions = _build_execution_batch(candidates, risk_gate, active_config, generated_at=generated_at)
@@ -262,6 +274,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         portfolio_state=portfolio_state,
         feedback_readiness=feedback_readiness,
         source_evidence_refresh_ledger=source_evidence_refresh_ledger,
+        risk_decision_ledger=risk_decision_ledger,
         generated_at=generated_at,
     )
     strategy_summary = build_paper_strategy_evaluation_summary(
@@ -270,7 +283,6 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         portfolio_state=portfolio_state,
         generated_at=generated_at,
     )
-    risk_prep_config = build_default_future_risk_engine_config(generated_at=generated_at)
     dashboard = _build_daily_dashboard(
         config=active_config,
         tracked_markets=tracked_markets,
@@ -288,6 +300,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         portfolio_report=portfolio_report,
         strategy_ledger=strategy_ledger,
         strategy_summary=strategy_summary,
+        risk_decision_ledger=risk_decision_ledger,
         risk_prep_config=risk_prep_config,
         source_evidence_refresh_ledger=source_evidence_refresh_ledger,
         generated_at=generated_at,
@@ -314,6 +327,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
             portfolio_report,
             strategy_ledger,
             strategy_summary,
+            risk_decision_ledger,
             risk_prep_config,
         ],
         generated_at=generated_at,
@@ -330,6 +344,10 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         and strategy_summary.get("unresolved_pnl_not_invented") is True
         and source_evidence_refresh_ledger.get("network_used") is False
         and source_evidence_refresh_ledger.get("external_api_calls_performed") is False
+        and risk_decision_ledger.get("network_used") is False
+        and risk_decision_ledger.get("external_api_calls_performed") is False
+        and risk_decision_ledger.get("outcome_resolution_invented") is False
+        and risk_decision_ledger.get("pnl_invented") is False
         and risk_prep_config.get("validation", {}).get("valid") is True
         and safety_scan["safety_ok"] is True
     )
@@ -357,6 +375,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
             if active_config.write_artifacts and source_evidence_pending_approval is not None
             else ""
         ),
+        risk_decision_ledger_path=normalize_path(paths["risk_decision_ledger"]) if active_config.write_artifacts else "",
         risk_prep_config_path=normalize_path(paths["risk_prep_config"]) if active_config.write_artifacts else "",
         portfolio_path=normalize_path(paths["portfolio"]) if active_config.write_artifacts else "",
         rollforward_path=normalize_path(paths["rollforward"]) if active_config.write_artifacts else "",
@@ -396,6 +415,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
             portfolio_report=portfolio_report,
             strategy_ledger=strategy_ledger,
             strategy_summary=strategy_summary,
+            risk_decision_ledger=risk_decision_ledger,
             risk_prep_config=risk_prep_config,
             result=result,
         )
@@ -426,6 +446,8 @@ def _daily_paths(output_dir: Path) -> dict[str, Path]:
         "source_evidence_quality": output_dir / "public_evidence_quality_ledger.json",
         "source_evidence_pending_approval": output_dir / "public_evidence_refresh_pending_approval_packet.json",
         "source_evidence_pending_approval_md": output_dir / "public_evidence_refresh_pending_approval_packet.md",
+        "risk_decision_ledger": output_dir / "risk_engine_decision_ledger.json",
+        "risk_decision_ledger_md": output_dir / "risk_engine_decision_ledger.md",
         "risk_prep_config": output_dir / "future_risk_engine_config.json",
         "risk_prep_config_md": output_dir / "future_risk_engine_config.md",
         "portfolio": output_dir / "paper_daily_portfolio_state.json",
@@ -811,6 +833,7 @@ def _build_daily_dashboard(
     portfolio_report: Mapping[str, Any],
     strategy_ledger: Mapping[str, Any],
     strategy_summary: Mapping[str, Any],
+    risk_decision_ledger: Mapping[str, Any],
     risk_prep_config: Mapping[str, Any],
     source_evidence_refresh_ledger: Mapping[str, Any],
     generated_at: str,
@@ -871,6 +894,11 @@ def _build_daily_dashboard(
             "total_paper_exposure_usd": float(portfolio_state.get("total_paper_exposure_usd", 0) or 0),
             "paper_strategy_ledger_record_count": int(strategy_ledger.get("record_count", 0) or 0),
             "unresolved_paper_exposure_usd": float(strategy_summary.get("unresolved_paper_exposure_usd", 0) or 0),
+            "risk_decision_allowed_count": int(risk_decision_ledger.get("allowed_count", 0) or 0),
+            "risk_decision_blocked_count": int(risk_decision_ledger.get("blocked_count", 0) or 0),
+            "risk_decision_needs_manual_approval_count": int(
+                risk_decision_ledger.get("needs_manual_approval_count", 0) or 0
+            ),
             "source_evidence_refresh_record_count": int(source_counts.get("records", 0) or 0),
             "source_evidence_gap_count": int(
                 dict(source_quality.get("summary_counts", {})).get("missing_evidence_gaps", 0) or 0
@@ -915,6 +943,24 @@ def _build_daily_dashboard(
             "per_run_action_cap": risk_prep_config.get("per_run_action_cap"),
             "kill_switch_enabled": risk_prep_config.get("kill_switch_enabled"),
             "manual_approval_required": risk_prep_config.get("manual_approval_required"),
+        },
+        "risk_decision_ledger_status": {
+            "ledger_id": risk_decision_ledger.get("ledger_id"),
+            "decision_count": risk_decision_ledger.get("decision_count"),
+            "allowed_count": risk_decision_ledger.get("allowed_count"),
+            "blocked_count": risk_decision_ledger.get("blocked_count"),
+            "needs_manual_approval_count": risk_decision_ledger.get("needs_manual_approval_count"),
+            "reason_code_summary": risk_decision_ledger.get("reason_code_summary", {}),
+            "unresolved_evidence_gap_awareness": risk_decision_ledger.get(
+                "unresolved_evidence_gap_awareness",
+                {},
+            ),
+            "passive_reporting_only": risk_decision_ledger.get("passive_reporting_only") is True,
+            "applied_to_paper_execution": risk_decision_ledger.get("applied_to_paper_execution") is True,
+            "applied_to_real_execution": risk_decision_ledger.get("applied_to_real_execution") is True,
+            "external_api_calls_performed": risk_decision_ledger.get("external_api_calls_performed") is True,
+            "outcome_resolution_invented": risk_decision_ledger.get("outcome_resolution_invented") is True,
+            "pnl_invented": risk_decision_ledger.get("pnl_invented") is True,
         },
         "source_evidence_refresh_status": {
             "refresh_id": source_evidence_refresh_ledger.get("refresh_id"),
@@ -973,6 +1019,7 @@ def _build_daily_dashboard(
         },
         "safety_flags": _daily_safety_flags(),
         "next_operator_actions": [
+            "Review the passive risk engine decision ledger before any future execution-layer design work.",
             "Review source evidence freshness and missing evidence gaps before interpreting paper strategy output.",
             "Review the paper strategy evaluation ledger before interpreting paper readiness.",
             "Add saved local outcome resolution evidence before evaluating paper performance.",
@@ -982,7 +1029,7 @@ def _build_daily_dashboard(
             "Keep this as an explicit one-shot local command, not a scheduler or autonomous loop.",
         ],
         "next_operator_action": (
-            "Review strategy ledger, source evidence gaps, unresolved exposure, risk-prep config, and missing outcome evidence."
+            "Review risk decisions, strategy ledger, source evidence gaps, unresolved exposure, risk-prep config, and missing outcome evidence."
         ),
         "paper_only": True,
         "source_paths": local_source_paths(),
@@ -1118,6 +1165,7 @@ def _write_daily_artifacts(
     portfolio_report: Mapping[str, Any],
     strategy_ledger: Mapping[str, Any],
     strategy_summary: Mapping[str, Any],
+    risk_decision_ledger: Mapping[str, Any],
     risk_prep_config: Mapping[str, Any],
     result: PaperDailyLoopResult,
 ) -> None:
@@ -1137,6 +1185,8 @@ def _write_daily_artifacts(
     write_text(paths["strategy_ledger_md"], render_paper_strategy_evaluation_ledger_markdown(strategy_ledger))
     write_json(paths["strategy_summary"], strategy_summary)
     write_text(paths["strategy_summary_md"], render_paper_strategy_evaluation_summary_markdown(strategy_summary))
+    write_json(paths["risk_decision_ledger"], risk_decision_ledger)
+    write_text(paths["risk_decision_ledger_md"], render_risk_decision_ledger_markdown(risk_decision_ledger))
     write_json(paths["source_evidence_refresh_request"], source_evidence_refresh_request)
     write_json(paths["source_evidence_refresh"], source_evidence_refresh_ledger)
     write_text(paths["source_evidence_refresh_md"], render_public_evidence_refresh_report(source_evidence_refresh_ledger))
@@ -1215,6 +1265,8 @@ def _render_daily_dashboard_markdown(dashboard: Mapping[str, Any]) -> str:
         f"- Total paper exposure: `${counts.get('total_paper_exposure_usd')}`",
         f"- Paper strategy ledger records: {counts.get('paper_strategy_ledger_record_count')}",
         f"- Unresolved paper exposure: `${counts.get('unresolved_paper_exposure_usd')}`",
+        f"- Risk engine blocked: {counts.get('risk_decision_blocked_count')}",
+        f"- Risk engine needs manual approval: {counts.get('risk_decision_needs_manual_approval_count')}",
         f"- Source evidence records: {counts.get('source_evidence_refresh_record_count')}",
         f"- Source evidence gaps: {counts.get('source_evidence_gap_count')}",
         "",
@@ -1242,6 +1294,7 @@ def _render_daily_dashboard_markdown(dashboard: Mapping[str, Any]) -> str:
     )
     strategy_status = dict(dashboard.get("paper_strategy_ledger_status", {}))
     strategy_summary = dict(dashboard.get("paper_strategy_evaluation_summary", {}))
+    risk_decisions = dict(dashboard.get("risk_decision_ledger_status", {}))
     risk_prep = dict(dashboard.get("risk_prep_config_status", {}))
     lines.extend(
         [
@@ -1263,6 +1316,21 @@ def _render_daily_dashboard_markdown(dashboard: Mapping[str, Any]) -> str:
             f"- Paper unrealized PnL: `{strategy_summary.get('paper_unrealized_pnl_usd')}`",
             "- Missing future evaluation data:",
             *bullet_lines(str(item) for item in strategy_summary.get("missing_future_evaluation_data", [])),
+            "",
+            "## Risk Engine Decision Ledger",
+            "",
+            f"- Ledger: `{risk_decisions.get('ledger_id')}`",
+            f"- Decisions: {risk_decisions.get('decision_count')}",
+            f"- Allowed: {risk_decisions.get('allowed_count')}",
+            f"- Blocked: {risk_decisions.get('blocked_count')}",
+            f"- Needs manual approval: {risk_decisions.get('needs_manual_approval_count')}",
+            f"- Passive reporting only: `{str(risk_decisions.get('passive_reporting_only')).lower()}`",
+            f"- Applied to paper execution: `{str(risk_decisions.get('applied_to_paper_execution')).lower()}`",
+            f"- Applied to real execution: `{str(risk_decisions.get('applied_to_real_execution')).lower()}`",
+            "- Reason code summary:",
+            *bullet_lines(
+                f"{key}: `{value}`" for key, value in dict(risk_decisions.get("reason_code_summary", {})).items()
+            ),
             "",
             "## Source Evidence Refresh",
             "",
@@ -1380,6 +1448,7 @@ def _render_daily_run_report(
             f"- Ledger: `{result.get('ledger_path')}`",
             f"- Strategy ledger: `{result.get('strategy_ledger_path')}`",
             f"- Strategy summary: `{result.get('strategy_summary_path')}`",
+            f"- Risk decision ledger: `{result.get('risk_decision_ledger_path')}`",
             f"- Source evidence refresh: `{result.get('source_evidence_refresh_path')}`",
             f"- Source evidence quality ledger: `{result.get('source_evidence_quality_ledger_path')}`",
             f"- Source evidence pending approval: `{result.get('source_evidence_pending_approval_path')}`",

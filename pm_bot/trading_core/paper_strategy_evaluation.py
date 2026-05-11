@@ -31,6 +31,7 @@ def build_paper_strategy_evaluation_ledger(
     portfolio_state: Mapping[str, Any],
     feedback_readiness: Mapping[str, Any] | None = None,
     source_evidence_refresh_ledger: Mapping[str, Any] | None = None,
+    risk_decision_ledger: Mapping[str, Any] | None = None,
     generated_at: str = GENERATED_AT,
 ) -> dict[str, Any]:
     run_id = _first_text(
@@ -44,6 +45,10 @@ def build_paper_strategy_evaluation_ledger(
         position_ledger.get("run_date"),
     )
     risk_by_intent = {clean_text(row.get("intent_id")): row for row in mapping_rows(risk_gate_batch.get("results"))}
+    risk_decision_by_intent = {
+        clean_text(row.get("decision_input", {}).get("intent_id")): row
+        for row in mapping_rows((risk_decision_ledger or {}).get("decisions"))
+    }
     execution_by_intent = {
         clean_text(row.get("intent_id")): row for row in mapping_rows(execution_batch.get("results"))
     }
@@ -74,6 +79,7 @@ def build_paper_strategy_evaluation_ledger(
         record = _strategy_record(
             candidate=candidate,
             risk_result=risk_result,
+            risk_engine_decision=risk_decision_by_intent.get(intent_id, {}),
             execution=execution,
             position=position,
             run_id=run_id,
@@ -113,6 +119,9 @@ def build_paper_strategy_evaluation_ledger(
         "hypotheses_waiting_for_outcome_resolution": hypotheses_waiting,
         "missing_future_evaluation_data": missing_data,
         "source_evidence_refresh_status": _source_refresh_ledger_summary(source_evidence_refresh_ledger or {}),
+        "risk_engine_decision_ledger_id": clean_text((risk_decision_ledger or {}).get("ledger_id")),
+        "risk_engine_decision_counts": dict((risk_decision_ledger or {}).get("decision_counts", {})),
+        "risk_engine_reason_code_summary": dict((risk_decision_ledger or {}).get("reason_code_summary", {})),
         "idempotency": {
             "record_ids_unique": len(record_ids) == len(set(record_ids)),
             "record_order": "market_id_then_intent_id",
@@ -179,6 +188,7 @@ def run_paper_strategy_evaluation(
     ledger_path: str | Path = ARTIFACT_DIR / "paper_position_ledger.json",
     portfolio_path: str | Path = ARTIFACT_DIR / "paper_portfolio_state.json",
     feedback_readiness_path: str | Path | None = None,
+    risk_decision_ledger_path: str | Path | None = None,
     out_ledger_json_path: str | Path = ARTIFACT_DIR / "paper_strategy_evaluation_ledger.json",
     out_ledger_md_path: str | Path = ARTIFACT_DIR / "paper_strategy_evaluation_ledger.md",
     out_summary_json_path: str | Path = ARTIFACT_DIR / "paper_strategy_evaluation_summary.json",
@@ -190,6 +200,11 @@ def run_paper_strategy_evaluation(
         if feedback_readiness_path is not None and Path(feedback_readiness_path).exists()
         else {}
     )
+    risk_decision_ledger = (
+        load_json_object(risk_decision_ledger_path, label="risk decision ledger")
+        if risk_decision_ledger_path is not None and Path(risk_decision_ledger_path).exists()
+        else {}
+    )
     portfolio_state = load_json_object(portfolio_path, label="portfolio state")
     strategy_ledger = build_paper_strategy_evaluation_ledger(
         candidates_batch=load_json_object(candidates_path, label="intent candidates"),
@@ -199,6 +214,7 @@ def run_paper_strategy_evaluation(
         portfolio_state=portfolio_state,
         feedback_readiness=feedback_readiness,
         source_evidence_refresh_ledger=None,
+        risk_decision_ledger=risk_decision_ledger,
         generated_at=generated_at,
     )
     summary = build_paper_strategy_evaluation_summary(
@@ -229,6 +245,7 @@ def render_paper_strategy_evaluation_ledger_markdown(ledger: Mapping[str, Any]) 
     ]
     for record in mapping_rows(ledger.get("records")):
         risk = dict(record.get("risk_gate_result", {}))
+        risk_engine = dict(record.get("risk_engine_decision", {}))
         fill = dict(record.get("fill", {}))
         impact = dict(record.get("portfolio_exposure_impact", {}))
         lines.extend(
@@ -239,6 +256,7 @@ def render_paper_strategy_evaluation_ledger_markdown(ledger: Mapping[str, Any]) 
                 f"- Hypothesis: `{record.get('hypothesis_id')}`",
                 f"- Paper action type: `{record.get('simulated_action_type')}`",
                 f"- Risk gate: `{risk.get('risk_gate_status')}`",
+                f"- Risk engine decision: `{risk_engine.get('decision')}`",
                 f"- Simulated fill: `{str(record.get('simulated_fill')).lower()}`",
                 f"- Fill status: `{fill.get('execution_status')}`",
                 f"- Open position exposure: `${impact.get('open_position_exposure_usd')}`",
@@ -293,6 +311,7 @@ def _strategy_record(
     *,
     candidate: Mapping[str, Any],
     risk_result: Mapping[str, Any],
+    risk_engine_decision: Mapping[str, Any],
     execution: Mapping[str, Any],
     position: Mapping[str, Any],
     run_id: str,
@@ -327,6 +346,7 @@ def _strategy_record(
     )
     missing_data.extend(_missing_source_refresh_data(source_refresh_status))
     missing_data = sorted(set(missing_data))
+    risk_decision_input = dict(risk_engine_decision.get("decision_input", {}))
     return {
         "contract_version": PAPER_STRATEGY_EVALUATION_RECORD_CONTRACT,
         "evaluation_record_id": f"paper-strategy-eval-024-{_slug(run_date)}-{_slug(market_id)}-{_slug(intent_id)}",
@@ -354,6 +374,16 @@ def _strategy_record(
             "blocked": risk_result.get("blocked") is True,
             "block_reasons": [clean_text(item) for item in risk_result.get("block_reasons", [])],
             "warnings": [clean_text(item) for item in risk_result.get("warnings", [])],
+        },
+        "risk_engine_decision": {
+            "audit_id": clean_text(risk_engine_decision.get("audit_id")),
+            "decision": clean_text(risk_engine_decision.get("decision")),
+            "reason_codes": [clean_text(item) for item in risk_engine_decision.get("reason_codes", [])],
+            "config_version": clean_text(risk_engine_decision.get("limit_snapshot", {}).get("config_version")),
+            "requested_notional_usd": float(risk_decision_input.get("requested_notional_usd", 0) or 0),
+            "passive_reporting_only": risk_engine_decision.get("passive_reporting_only") is True,
+            "applied_to_paper_execution": risk_engine_decision.get("applied_to_paper_execution") is True,
+            "applied_to_real_execution": risk_engine_decision.get("applied_to_real_execution") is True,
         },
         "fill": {
             "execution_id": clean_text(execution.get("execution_id")),
@@ -584,6 +614,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--ledger", default=str(ARTIFACT_DIR / "paper_position_ledger.json"))
     parser.add_argument("--portfolio", default=str(ARTIFACT_DIR / "paper_portfolio_state.json"))
     parser.add_argument("--feedback-readiness", default=None)
+    parser.add_argument("--risk-decision-ledger", default=None)
     parser.add_argument("--out-ledger-json", default=str(ARTIFACT_DIR / "paper_strategy_evaluation_ledger.json"))
     parser.add_argument("--out-ledger-md", default=str(ARTIFACT_DIR / "paper_strategy_evaluation_ledger.md"))
     parser.add_argument("--out-summary-json", default=str(ARTIFACT_DIR / "paper_strategy_evaluation_summary.json"))
@@ -596,6 +627,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         ledger_path=args.ledger,
         portfolio_path=args.portfolio,
         feedback_readiness_path=args.feedback_readiness,
+        risk_decision_ledger_path=args.risk_decision_ledger,
         out_ledger_json_path=args.out_ledger_json,
         out_ledger_md_path=args.out_ledger_md,
         out_summary_json_path=args.out_summary_json,
