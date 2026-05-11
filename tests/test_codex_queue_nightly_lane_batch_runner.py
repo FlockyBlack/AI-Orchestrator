@@ -66,6 +66,97 @@ def test_nightly_lane_batch_dry_run_is_fake_and_does_not_create_lane(tmp_path: P
     assert Path(report["report_paths"]["latest_nightly_lane_batch_report_md"]).exists()
 
 
+def test_first_nightly_lane_batch_dry_run_fixture_routes_three_safe_tasks(tmp_path: Path) -> None:
+    repo, head = _init_git_repo(tmp_path)
+    queue_root = tmp_path / "agent_tasks"
+    lane_root = tmp_path / "nightly-lanes"
+    plan_path = tmp_path / "first_nightly_lane_batch_plan.json"
+    plan = {
+        "schema_version": NIGHTLY_LANE_BATCH_PLAN_SCHEMA_VERSION,
+        "batch_id": "first-nightly-lane-batch-dry-run-031",
+        "repo_root": str(repo),
+        "queue_root": str(queue_root),
+        "expected_base_branch": "master",
+        "expected_base_head": head,
+        "lane_root": str(lane_root),
+        "lane_mode": "create_or_reuse",
+        "max_steps_per_task": 1,
+        "executor_mode": "fake",
+        "stop_policy": "stop_on_first_blocker",
+        "allow_real_codex_invocation": False,
+        "safety_flags": dict(SAFETY_FLAGS),
+        "tasks": [
+            {
+                "task_id": "ORCH-CODEX-AUTOMATION-031-AUTOMATION-SAFE-DRY-RUN",
+                "task_category": "codex_automation",
+                "allowed_paths": ["ai_orchestrator/codex_queue/", "tests/", "agent_tasks/reports/"],
+                "executor_mode": "fake",
+                "max_steps": 1,
+            },
+            {
+                "task_id": "PMBOT-PAPERLIVE-031-LIVE-PREP-PLACEHOLDER",
+                "task_category": "pmbot_paper_product",
+                "allowed_paths": ["docs/", "agent_tasks/reports/", "pm_bot/readiness/"],
+                "executor_mode": "fake",
+                "max_steps": 1,
+            },
+            {
+                "task_id": "PMBOT-SAFETY-031-NIGHTLY-BATCH-REPORTING-PLACEHOLDER",
+                "task_category": "safety_review",
+                "allowed_paths": ["docs/", "agent_tasks/reports/", "tests/"],
+                "executor_mode": "fake",
+                "max_steps": 1,
+            },
+        ],
+    }
+    plan_path.write_text(json.dumps(plan), encoding="utf-8")
+
+    report = run_nightly_lane_batch(plan_path, queue_root=queue_root, dry_run=True)
+    latest_md = Path(report["report_paths"]["latest_nightly_lane_batch_report_md"]).read_text(encoding="utf-8")
+
+    assert report["schema_version"] == "nightly_lane_batch_report.v1"
+    assert report["status"] == "dry_run"
+    assert report["execution_status"] == "dry_run"
+    assert report["dry_run"] is True
+    assert report["executor_mode"] == "fake"
+    assert report["lane_mode"] == "plan_only"
+    assert report["planned_task_count"] == 3
+    assert report["task_count"] == 3
+    assert report["completed_count"] == 3
+    assert report["blocked_count"] == 0
+    assert report["failed_count"] == 0
+    assert report["codex_invocation_count"] == 0
+    assert {task["selected_subagent"] for task in report["tasks"]} == {"Builder", "Reviewer"}
+    assert [task["subagent_route"]["category"] for task in report["tasks"]] == [
+        "codex_automation",
+        "pmbot_paper_product",
+        "safety_review",
+    ]
+    for task in report["tasks"]:
+        assert task["status"] == "completed"
+        assert task["executor_mode"] == "fake"
+        assert task["codex_invoked"] is False
+        assert task["worktree_created"] is False
+        assert task["branch_created"] is False
+        assert task["branch"].startswith("codex/")
+        assert str(lane_root) in task["lane_path"]
+        assert Path(task["lane_path"]).exists() is False
+        assert task["subagent_route"]["live_trading_permission"] is False
+        assert task["safety_flags"]["external_api_calls_performed"] == 0
+        assert task["safety_flags"]["wallet_or_private_key_accessed"] is False
+        assert task["safety_flags"]["orders_or_trading_actions"] is False
+        assert task["safety_flags"]["daemon_created"] is False
+        assert task["safety_flags"]["scheduler_created"] is False
+        assert task["safety_flags"]["background_worker_created"] is False
+        assert task["next_action"]
+    assert report["safety_summary"]["real_codex_invocation_allowed_by_plan"] is False
+    assert report["safety_summary"]["real_codex_invocation_operator_flag"] is False
+    assert report["safety_summary"]["wallet_or_order_code_added"] is False
+    assert report["safety_summary"]["orders_or_trading_actions"] is False
+    assert "safety_flags:" in latest_md
+    assert "wallet_or_private_key_accessed=False" in latest_md
+
+
 def test_nightly_lane_batch_creates_and_reuses_worktree_lane(tmp_path: Path) -> None:
     repo, head = _init_git_repo(tmp_path)
     queue_root = tmp_path / "agent_tasks"

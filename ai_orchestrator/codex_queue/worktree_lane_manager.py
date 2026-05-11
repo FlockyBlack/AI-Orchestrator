@@ -135,6 +135,7 @@ def plan_task_worktree_lane(
     expected_base_head: str = "",
     lane_root: str | Path | None = None,
     task_category: str = "",
+    git_state_override: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     root = ensure_queue_directories(queue_root)
     safe_task_id = validate_task_id(task_id)
@@ -148,7 +149,11 @@ def plan_task_worktree_lane(
         task_category=task_category,
         repo_root=repo,
     )
-    git_state = inspect_git_state(str(repo))
+    git_state = (
+        dict(git_state_override)
+        if isinstance(git_state_override, dict)
+        else inspect_git_state(str(repo))
+    )
     blockers, warnings = _lane_preflight_blockers(
         repo=repo,
         queue_root=root,
