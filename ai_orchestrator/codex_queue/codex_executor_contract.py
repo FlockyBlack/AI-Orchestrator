@@ -53,6 +53,50 @@ DEFAULT_SAFETY_BOUNDARIES = (
     "selective_git_staging_only",
 )
 
+DEFAULT_SUBAGENT_PLAN = (
+    "Scout",
+    "Planner",
+    "Builder",
+    "Tester",
+    "Reviewer",
+    "Docs",
+    "Integrator",
+)
+
+DEFAULT_ROLE_ASSIGNMENTS = {
+    "Scout": "Read-only repo discovery and dependency/risk summary.",
+    "Planner": "Scope decomposition and blocker detection before implementation.",
+    "Builder": "Bounded implementation within allowed paths.",
+    "Tester": "Targeted tests and edge-case validation with external services mocked.",
+    "Reviewer": "Diff review, safety contract review, and staging-rule review.",
+    "Docs": "Operator docs and result envelope updates without unsupported success claims.",
+    "Integrator": "Aggregate role outputs and decide acceptance gates before selective staging.",
+}
+
+DEFAULT_SUBAGENT_EXPECTED_OUTPUTS = {
+    "Scout": "scout_report",
+    "Planner": "implementation_plan",
+    "Builder": "implementation_notes",
+    "Tester": "validation_report",
+    "Reviewer": "review_report",
+    "Docs": "docs_report",
+    "Integrator": "integration_decision",
+}
+
+DEFAULT_MEMORY_CONTEXT_PATHS = (
+    "AGENTS.md",
+    "memory-bank/activeContext.md",
+    "memory-bank/pmbotSafety.md",
+    "memory-bank/codexAutomation.md",
+    ".codex-agent/ultra-context.md",
+    ".codex-agent/context-bundle.md",
+)
+
+DEFAULT_AGGREGATION_POLICY = (
+    "Main Codex aggregates role outputs into one concise result JSON; "
+    "blocked gates must be reported as blocked."
+)
+
 UNSAFE_GIT_COMMAND_PATTERNS = (
     "git add .",
     "git add -a",
@@ -105,6 +149,12 @@ class CodexExecutionPacket:
     adapter_mode: str = CodexExecutionMode.MANUAL_HANDOFF.value
     requires_operator_approval: bool = True
     safety_boundaries: tuple[str, ...] = ()
+    subagent_plan: tuple[str, ...] = ()
+    role_assignments: dict[str, str] = field(default_factory=dict)
+    subagent_expected_outputs: dict[str, str] = field(default_factory=dict)
+    main_agent_aggregation_policy: str = ""
+    memory_context_paths: tuple[str, ...] = ()
+    agents_md_path: str = ""
 
     @classmethod
     def from_dict(cls, payload: Mapping[str, Any]) -> "CodexExecutionPacket":
@@ -128,11 +178,24 @@ class CodexExecutionPacket:
             adapter_mode=str(payload.get("adapter_mode") or ""),
             requires_operator_approval=bool(payload.get("requires_operator_approval", False)),
             safety_boundaries=tuple(str(value) for value in payload.get("safety_boundaries", [])),
+            subagent_plan=tuple(str(value) for value in payload.get("subagent_plan", [])),
+            role_assignments=_string_mapping(payload.get("role_assignments", {})),
+            subagent_expected_outputs=_string_mapping(payload.get("subagent_expected_outputs", {})),
+            main_agent_aggregation_policy=str(payload.get("main_agent_aggregation_policy") or ""),
+            memory_context_paths=tuple(str(value) for value in payload.get("memory_context_paths", [])),
+            agents_md_path=str(payload.get("agents_md_path") or ""),
         )
 
     def to_dict(self) -> dict[str, Any]:
         payload = asdict(self)
-        for key in ("allowed_paths", "forbidden_actions", "acceptance_gates", "safety_boundaries"):
+        for key in (
+            "allowed_paths",
+            "forbidden_actions",
+            "acceptance_gates",
+            "safety_boundaries",
+            "subagent_plan",
+            "memory_context_paths",
+        ):
             payload[key] = list(payload[key])
         return payload
 
@@ -247,6 +310,12 @@ def build_execution_packet(
         adapter_mode=mode,
         requires_operator_approval=mode in APPROVAL_REQUIRED_MODES,
         safety_boundaries=tuple(safety_boundaries),
+        subagent_plan=DEFAULT_SUBAGENT_PLAN,
+        role_assignments=dict(DEFAULT_ROLE_ASSIGNMENTS),
+        subagent_expected_outputs=dict(DEFAULT_SUBAGENT_EXPECTED_OUTPUTS),
+        main_agent_aggregation_policy=DEFAULT_AGGREGATION_POLICY,
+        memory_context_paths=DEFAULT_MEMORY_CONTEXT_PATHS,
+        agents_md_path="AGENTS.md",
     )
 
 
@@ -302,6 +371,9 @@ def expected_result_schema_for_packet(packet: CodexExecutionPacket | Mapping[str
         "summary": "",
         "remaining_risks": [],
         "safety_boundaries_acknowledged": list(packet_obj.safety_boundaries),
+        "subagent_outputs": {role: "" for role in packet_obj.subagent_plan},
+        "memory_context_used": list(packet_obj.memory_context_paths),
+        "aggregation_notes": "",
         "real_order_submitted": False,
         "wallet_used": False,
         "signing_used": False,
@@ -416,6 +488,12 @@ def _mapping_from_state(state: Any) -> dict[str, Any]:
         payload = state.to_dict()
         return dict(payload) if isinstance(payload, Mapping) else {}
     return {}
+
+
+def _string_mapping(value: Any) -> dict[str, str]:
+    if not isinstance(value, Mapping):
+        return {}
+    return {str(key): str(item) for key, item in value.items()}
 
 
 def _load_plan_from_manifest(manifest: Mapping[str, Any]) -> Any:

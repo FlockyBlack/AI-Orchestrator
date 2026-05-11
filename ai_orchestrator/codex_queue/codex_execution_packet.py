@@ -134,6 +134,25 @@ def render_execution_prompt(packet: CodexExecutionPacket) -> str:
         f"- queue_manifest_path: `{packet.queue_manifest_path}`",
         f"- task_spec_path: `{packet.task_spec_path}`",
         "",
+        "## Project Contract and Memory Context",
+        "",
+        f"- agents_md_path: `{packet.agents_md_path or 'AGENTS.md'}`",
+        "- Read AGENTS.md before changing files.",
+        "- Read only the relevant memory context files needed for this task.",
+        *_bullet_lines(list(packet.memory_context_paths)),
+        "",
+        "## Governed Subagent Workflow",
+        "",
+        "- Use the role workflow as bounded working modes under the main Codex session.",
+        "- Keep each role inside its assignment and allowed paths.",
+        "- Aggregate role outputs into one final result JSON.",
+        "- Do not invent success; report blocked gates as blocked.",
+        f"- main_agent_aggregation_policy: `{packet.main_agent_aggregation_policy}`",
+        "",
+        "### Role Plan",
+        "",
+        *_role_lines(packet),
+        "",
         "## Allowed Paths",
         "",
         *_bullet_lines(packet.allowed_paths),
@@ -212,6 +231,8 @@ def _render_readme(packet: CodexExecutionPacket) -> str:
             f"- requires_operator_approval: `{packet.requires_operator_approval}`",
             f"- prompt: `{packet.prompt_path}`",
             f"- expected_result_template: `{packet.expected_result_path}`",
+            f"- agents_md_path: `{packet.agents_md_path or 'AGENTS.md'}`",
+            f"- subagent_plan: `{', '.join(packet.subagent_plan) if packet.subagent_plan else 'none'}`",
             "",
             "This packet is a manual/safe adapter boundary artifact. It does not invoke Codex, start a worker, register a scheduler, call network services, or access credentials.",
             "",
@@ -223,6 +244,18 @@ def _bullet_lines(values: tuple[str, ...] | list[str]) -> list[str]:
     if not values:
         return ["- None"]
     return [f"- {value}" for value in values]
+
+
+def _role_lines(packet: CodexExecutionPacket) -> list[str]:
+    if not packet.subagent_plan:
+        return ["- None"]
+    lines: list[str] = []
+    for role in packet.subagent_plan:
+        assignment = packet.role_assignments.get(role, "")
+        expected = packet.subagent_expected_outputs.get(role, "")
+        suffix = f" expected_output={expected}" if expected else ""
+        lines.append(f"- {role}: {assignment}{suffix}")
+    return lines
 
 
 def _write_json(path: Path, payload: Mapping[str, Any]) -> None:

@@ -1,0 +1,37 @@
+{
+  "approved_scope": "ORCH-CODEX-AUTOMATION-028 only",
+  "allowed_paths": [
+    "AGENTS.md",
+    "agent_tasks/agents/",
+    "agent_tasks/automations/",
+    "agent_tasks/generated/fake_integration/agents_memory_028/",
+    "ai_orchestrator/codex_queue/",
+    "ai_orchestrator/operator_panel/",
+    "contracts/",
+    "docs/",
+    "docs/goals/pmbot-paper-mvp/",
+    "memory-bank/",
+    ".codex-agent/",
+    "tests/"
+  ],
+  "current_head": "8e6f19f2fcff5165b8505e3788be148c4b544b83",
+  "forbidden_scope": [
+    "wallet/private keys/signing",
+    "real orders",
+    "trading endpoints",
+    "real-money actions",
+    "autonomous real trading",
+    "authenticated endpoints",
+    "browser automation",
+    "OpenRouter",
+    "Polymarket API",
+    "daemon/scheduler/background worker",
+    "force push",
+    "broad git staging"
+  ],
+  "required_tests": [
+    "python -m compileall ai_orchestrator",
+    "pytest tests/test_agents_md_contract.py tests/test_subagent_role_profiles.py tests/test_memory_bank.py tests/test_codex_agent_phase_memory.py tests/test_goal_receipts.py tests/test_contract_schemas.py tests/test_idempotency_keys.py tests/test_codex_packet_subagent_plan.py tests/test_maintenance_prompt.py"
+  ],
+  "safety_ok": true
+}

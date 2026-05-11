@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/codex_result_envelope.schema.json",
+  "title": "Codex Result Envelope",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "packet_id",
+    "run_id",
+    "plan_id",
+    "task_id",
+    "received_at",
+    "adapter_mode",
+    "status",
+    "result_payload",
+    "validation_passed",
+    "safety_ok"
+  ],
+  "properties": {
+    "packet_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "run_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "plan_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "task_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "received_at": {
+      "type": "string"
+    },
+    "adapter_mode": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["completed", "blocked", "failed", "needs_retry", "completed|blocked|failed|needs_retry"]
+    },
+    "result_payload": {
+      "type": "object"
+    },
+    "result_path": {
+      "type": "string"
+    },
+    "validation_passed": {
+      "type": "boolean"
+    },
+    "safety_ok": {
+      "type": "boolean"
+    },
+    "acceptance_status": {
+      "type": "string"
+    },
+    "acceptance_reasons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "artifact_paths": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

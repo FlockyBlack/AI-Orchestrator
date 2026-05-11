@@ -1,0 +1,85 @@
+{
+  "packet_id": "cpkt_RUN028_ORCH-CODEX-AUTOMATION-028_SAMPLE",
+  "run_id": "RUN028",
+  "plan_id": "pmbot_master_plan_to_050",
+  "task_id": "ORCH-CODEX-AUTOMATION-028-AGENTS-MD-SUBAGENTS-MEMORY-BANK-AND-MAINTENANCE",
+  "created_at": "2026-05-11T00:00:00Z",
+  "repo_root": "C:/Users/OpenC/.openclaw/workspace",
+  "branch": "master",
+  "expected_head": "8e6f19f2fcff5165b8505e3788be148c4b544b83",
+  "queue_manifest_path": "agent_tasks/generated/fake_integration/agents_memory_028/manifest.json",
+  "state_path": "agent_tasks/generated/fake_integration/agents_memory_028/state.json",
+  "task_spec_path": "agent_tasks/generated/fake_integration/agents_memory_028/task.json",
+  "allowed_paths": [
+    "AGENTS.md",
+    "agent_tasks/agents/",
+    "memory-bank/",
+    ".codex-agent/",
+    "contracts/",
+    "docs/",
+    "tests/"
+  ],
+  "forbidden_actions": [
+    "Do not use `git add .`, `git add -A`, or `git add --all`.",
+    "Do not force push.",
+    "Do not use wallet files, private keys, signing, orders, or trading endpoints.",
+    "Do not use OpenRouter or Polymarket API unless a separate task explicitly approves it.",
+    "Do not use authenticated endpoints.",
+    "Do not use browser automation.",
+    "Do not create daemons, schedulers, or background workers."
+  ],
+  "acceptance_gates": [
+    "AGENTS.md exists",
+    "memory-bank exists",
+    "subagent profiles exist",
+    "phase memory exists",
+    "targeted tests pass"
+  ],
+  "prompt_path": "agent_tasks/generated/fake_integration/agents_memory_028/prompt.md",
+  "expected_result_path": "agent_tasks/generated/fake_integration/agents_memory_028/expected_result_template.json",
+  "adapter_mode": "manual_handoff",
+  "requires_operator_approval": true,
+  "safety_boundaries": [
+    "operator_approval_required_for_codex_execution",
+    "single_task_packet_only",
+    "no_uncontrolled_codex_loop",
+    "selective_git_staging_only"
+  ],
+  "subagent_plan": [
+    "Scout",
+    "Planner",
+    "Builder",
+    "Tester",
+    "Reviewer",
+    "Docs",
+    "Integrator"
+  ],
+  "role_assignments": {
+    "Scout": "Read-only repo discovery and dependency/risk summary.",
+    "Planner": "Scope decomposition and blocker detection before implementation.",
+    "Builder": "Bounded implementation within allowed paths.",
+    "Tester": "Targeted tests and edge-case validation with external services mocked.",
+    "Reviewer": "Diff review, safety contract review, and staging-rule review.",
+    "Docs": "Operator docs and result envelope updates without unsupported success claims.",
+    "Integrator": "Aggregate role outputs and decide acceptance gates before selective staging."
+  },
+  "subagent_expected_outputs": {
+    "Scout": "scout_report",
+    "Planner": "implementation_plan",
+    "Builder": "implementation_notes",
+    "Tester": "validation_report",
+    "Reviewer": "review_report",
+    "Docs": "docs_report",
+    "Integrator": "integration_decision"
+  },
+  "main_agent_aggregation_policy": "Main Codex aggregates role outputs into one concise result JSON; blocked gates must be reported as blocked.",
+  "memory_context_paths": [
+    "AGENTS.md",
+    "memory-bank/activeContext.md",
+    "memory-bank/pmbotSafety.md",
+    "memory-bank/codexAutomation.md",
+    ".codex-agent/ultra-context.md",
+    ".codex-agent/context-bundle.md"
+  ],
+  "agents_md_path": "AGENTS.md"
+}

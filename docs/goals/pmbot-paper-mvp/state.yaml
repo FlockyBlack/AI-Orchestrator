@@ -1,0 +1,28 @@
+goal_id: pmbot-paper-mvp
+status: active
+current_milestone_range: "022-050"
+completed_milestones:
+  - "022"
+  - "023"
+  - "024"
+  - "025"
+  - "026"
+  - "027"
+current_milestone: "028"
+next_milestones:
+  - "029"
+  - "030"
+pmbot_milestones:
+  - "031-040"
+  - "041-050"
+safety_constraints:
+  paper_only: true
+  real_trading_disabled: true
+  wallet_or_signing_allowed: false
+  orders_allowed: false
+  authenticated_endpoints_allowed: false
+  browser_automation_allowed: false
+  broad_git_staging_allowed: false
+receipt_required: true
+latest_receipt: null
+next_recommended_task: ORCH-CODEX-AUTOMATION-029-WORKTREE-LANE-REAL-EXECUTION-AND-SUBAGENT-ROUTING

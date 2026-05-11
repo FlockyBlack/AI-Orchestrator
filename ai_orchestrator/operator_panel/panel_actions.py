@@ -232,6 +232,27 @@ def build_panel_dashboard_action(repo_root: str | Path, queue_root: str | Path) 
         "git": inspect_git_action(repo_root),
         "codex_cli": codex_cli_panel_status(queue_root),
         "app_server": app_server_panel_status(repo_root, queue_root),
+        "project_contract": project_contract_panel_status(repo_root),
+    }
+
+
+def project_contract_panel_status(repo_root: str | Path) -> dict[str, Any]:
+    root = Path(repo_root)
+    agents_md = root / "AGENTS.md"
+    memory_bank = root / "memory-bank"
+    active_context = memory_bank / "activeContext.md"
+    maintenance_prompt = root / "agent_tasks" / "automations" / "codex_maintenance_prompt.md"
+    subagent_profiles = root / "agent_tasks" / "agents"
+    return {
+        "agents_md_path": str(agents_md),
+        "agents_md_exists": agents_md.exists(),
+        "memory_bank_path": str(memory_bank),
+        "memory_bank_exists": memory_bank.is_dir(),
+        "latest_milestone": _latest_milestone(active_context),
+        "maintenance_prompt_path": str(maintenance_prompt),
+        "maintenance_prompt_exists": maintenance_prompt.exists(),
+        "subagent_profiles_path": str(subagent_profiles),
+        "subagent_profiles_exists": subagent_profiles.is_dir(),
     }
 
 
@@ -407,6 +428,19 @@ def _codex_cli_version() -> str:
         return "unavailable"
     output = (completed.stdout or completed.stderr).strip()
     return output or "unknown"
+
+
+def _latest_milestone(active_context: Path) -> str:
+    try:
+        text = active_context.read_text(encoding="utf-8")
+    except OSError:
+        return "unknown"
+    for line in text.splitlines():
+        if "latest_completed_milestone" in line or "next_milestone" in line:
+            value = line.split(":", 1)[-1].strip(" `")
+            if value:
+                return value
+    return "unknown"
 
 
 def _panel_run_id() -> str:

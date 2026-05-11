@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/pmbot_paper_intent.schema.json",
+  "title": "PMBOT Paper Intent",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "intent_id",
+    "market_id",
+    "paper_only",
+    "action_type",
+    "operator_review_required",
+    "safety"
+  ],
+  "properties": {
+    "intent_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "market_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "paper_only": {
+      "const": true
+    },
+    "action_type": {
+      "type": "string",
+      "enum": ["observe", "simulate", "review", "block"]
+    },
+    "operator_review_required": {
+      "type": "boolean"
+    },
+    "evidence_packet_id": {
+      "type": "string"
+    },
+    "safety": {
+      "type": "object",
+      "required": [
+        "real_order_submitted",
+        "wallet_used",
+        "signing_used",
+        "trading_endpoint_used"
+      ],
+      "properties": {
+        "real_order_submitted": {
+          "const": false
+        },
+        "wallet_used": {
+          "const": false
+        },
+        "signing_used": {
+          "const": false
+        },
+        "trading_endpoint_used": {
+          "const": false
+        }
+      }
+    }
+  }
+}

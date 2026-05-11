@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/run_state.schema.json",
+  "title": "Plan Run State",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "run_id",
+    "plan_id",
+    "status",
+    "completed_task_ids",
+    "blocked_task_ids",
+    "failed_task_ids"
+  ],
+  "properties": {
+    "run_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "plan_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "type": "string"
+    },
+    "current_task_id": {
+      "type": "string"
+    },
+    "completed_task_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "blocked_task_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "failed_task_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "skipped_task_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "task_states": {
+      "type": "object"
+    },
+    "artifact_paths": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "events": {
+      "type": "array"
+    }
+  }
+}

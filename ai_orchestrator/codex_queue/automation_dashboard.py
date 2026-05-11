@@ -64,6 +64,7 @@ def build_dashboard(state: PlanRunState, plan: PlanContract, output_dir: str | P
         "expected_result_template.json",
     )
     latest_codex_ingestion_report_path = _latest_matching_artifact(state.artifact_paths, "/codex_packets/", "ingestion_report.json")
+    project_contract = _project_contract_status(plan.repo_root or ".")
     dashboard = {
         "schema_version": "codex_automation_dashboard.v2",
         "plan_id": plan.plan_id,
@@ -111,6 +112,7 @@ def build_dashboard(state: PlanRunState, plan: PlanContract, output_dir: str | P
         "latest_expected_result_template_path": latest_expected_result_template_path,
         "latest_codex_ingestion_report_path": latest_codex_ingestion_report_path,
         "latest_recovery_report_path": state.latest_recovery_report_path,
+        "project_contract": project_contract,
         "dashboard_paths": {
             "json": str(Path(output_dir) / "dashboard.json"),
             "markdown": str(Path(output_dir) / "dashboard.md"),
@@ -193,6 +195,13 @@ def _render_markdown(dashboard: dict[str, Any]) -> str:
         lines.append(f"- latest_expected_result_template: `{dashboard['latest_expected_result_template_path']}`")
     if dashboard.get("latest_codex_ingestion_report_path"):
         lines.append(f"- latest_codex_ingestion_report: `{dashboard['latest_codex_ingestion_report_path']}`")
+    lines.extend(["", "## Project Contract", ""])
+    project_contract = dashboard.get("project_contract") or {}
+    lines.append(f"- AGENTS.md: `{project_contract.get('agents_md_status', 'unknown')}`")
+    lines.append(f"- memory-bank: `{project_contract.get('memory_bank_status', 'unknown')}`")
+    lines.append(f"- latest_milestone: `{project_contract.get('latest_milestone', 'unknown')}`")
+    lines.append(f"- subagent_profiles_path: `{project_contract.get('subagent_profiles_path', 'agent_tasks/agents/')}`")
+    lines.append(f"- maintenance_prompt_path: `{project_contract.get('maintenance_prompt_path', 'agent_tasks/automations/codex_maintenance_prompt.md')}`")
     lines.extend(["", "## Next Operator Action", "", str(dashboard["next_operator_action"]), ""])
     return "\n".join(lines)
 
@@ -262,6 +271,37 @@ def _git(args: list[str], repo_root: str | Path) -> str:
     except OSError:
         return ""
     return completed.stdout.strip() if completed.returncode == 0 else ""
+
+
+def _project_contract_status(repo_root: str | Path) -> dict[str, Any]:
+    root = Path(repo_root)
+    agents_md = root / "AGENTS.md"
+    memory_bank = root / "memory-bank"
+    active_context = memory_bank / "activeContext.md"
+    maintenance_prompt = root / "agent_tasks" / "automations" / "codex_maintenance_prompt.md"
+    subagent_profiles = root / "agent_tasks" / "agents"
+    return {
+        "agents_md_status": "exists" if agents_md.exists() else "missing",
+        "memory_bank_status": "exists" if memory_bank.is_dir() else "missing",
+        "latest_milestone": _latest_milestone(active_context),
+        "maintenance_prompt_path": str(maintenance_prompt),
+        "maintenance_prompt_status": "exists" if maintenance_prompt.exists() else "missing",
+        "subagent_profiles_path": str(subagent_profiles),
+        "subagent_profiles_status": "exists" if subagent_profiles.is_dir() else "missing",
+    }
+
+
+def _latest_milestone(active_context: Path) -> str:
+    try:
+        text = active_context.read_text(encoding="utf-8")
+    except OSError:
+        return "unknown"
+    for line in text.splitlines():
+        if "latest_completed_milestone" in line or "next_milestone" in line:
+            value = line.split(":", 1)[-1].strip(" `")
+            if value:
+                return value
+    return "unknown"
 
 
 def _latest_matching_artifact(paths: list[str], directory_token: str, suffix: str) -> str:

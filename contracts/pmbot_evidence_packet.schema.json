@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/pmbot_evidence_packet.schema.json",
+  "title": "PMBOT Evidence Packet",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "evidence_packet_id",
+    "market_id",
+    "status",
+    "sources",
+    "outcome_claim",
+    "ambiguity"
+  ],
+  "properties": {
+    "evidence_packet_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "market_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "type": "string",
+      "enum": ["unresolved", "resolved", "ambiguous", "blocked"]
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["source_id", "url_or_path", "observed_at"],
+        "properties": {
+          "source_id": {
+            "type": "string"
+          },
+          "url_or_path": {
+            "type": "string"
+          },
+          "observed_at": {
+            "type": "string"
+          },
+          "notes": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "outcome_claim": {
+      "type": "object",
+      "required": ["claim", "evidence_sufficient"],
+      "properties": {
+        "claim": {
+          "type": "string"
+        },
+        "evidence_sufficient": {
+          "type": "boolean"
+        }
+      }
+    },
+    "ambiguity": {
+      "type": "object",
+      "required": ["is_ambiguous", "reason"],
+      "properties": {
+        "is_ambiguous": {
+          "type": "boolean"
+        },
+        "reason": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

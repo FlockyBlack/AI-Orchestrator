@@ -1,0 +1,22 @@
+{
+  "task_id": "",
+  "status": "completed_local|completed_pushed|blocked",
+  "head_before": "",
+  "head_after": "",
+  "files_changed": [],
+  "tests_run": [],
+  "artifacts": [],
+  "safety": {
+    "paper_only": true,
+    "wallet_or_signing_added": false,
+    "orders_or_trading_endpoints_added": false,
+    "authenticated_endpoints_used": false,
+    "browser_automation_used": false,
+    "openrouter_used": false,
+    "polymarket_api_used": false,
+    "unsafe_git_staging_used": false,
+    "force_push_used": false
+  },
+  "blockers": [],
+  "next_recommended_task": ""
+}
