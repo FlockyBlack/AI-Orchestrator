@@ -1,0 +1,25 @@
+pm_bot/** text eol=lf
+docs/PMBOT_* text eol=lf
+tests/test_codex_queue_pmbot_templates.py text eol=lf
+
+pm_bot/paper_accounting/samples/paper_accounting_ledger.fixture.json text eol=crlf
+pm_bot/paper_accounting/samples/paper_accounting_session_summary.fixture.json text eol=crlf
+pm_bot/paper_accounting/samples/paper_accounting_validation.fixture.json text eol=crlf
+pm_bot/paper_accounting/samples/paperlive_accounting_reconciliation.fixture.json text eol=crlf
+pm_bot/simulated_decisions/samples/simulated_decision_outcome_replay_links.fixture.json text eol=crlf
+pm_bot/simulated_decisions/samples/simulated_decision_replay_summary.fixture.json text eol=crlf
+pm_bot/source_quality/samples/crypto_source_contradiction_ledger.fixture.json text eol=crlf
+pm_bot/source_quality/samples/crypto_source_evidence_link_map.fixture.json text eol=crlf
+pm_bot/source_quality/samples/crypto_source_evidence_link_map.fixture.md text eol=crlf
+pm_bot/source_quality/samples/crypto_source_quality_capture_surface.fixture.json text eol=crlf
+pm_bot/source_quality/samples/crypto_source_staleness_check_spec.fixture.json text eol=crlf
+pm_bot/source_quality/samples/crypto_source_staleness_check_spec.fixture.md text eol=crlf
+pm_bot/source_quality/samples/source_contradiction_ledger.fixture.json text eol=crlf
+pm_bot/source_quality/samples/source_contradiction_ledger.fixture.md text eol=crlf
+pm_bot/source_quality/samples/source_evidence_inventory_ledger.fixture.json text eol=crlf
+pm_bot/source_quality/samples/source_evidence_inventory_ledger.fixture.md text eol=crlf
+pm_bot/source_quality/samples/source_evidence_link_map.fixture.json text eol=crlf
+pm_bot/source_quality/samples/source_evidence_link_map.fixture.md text eol=crlf
+pm_bot/source_quality/samples/source_quality_regression.fixture.json text eol=crlf
+pm_bot/source_quality/samples/source_staleness_check_spec.fixture.json text eol=crlf
+pm_bot/source_quality/samples/source_staleness_check_spec.fixture.md text eol=crlf
