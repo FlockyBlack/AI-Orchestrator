@@ -27,6 +27,12 @@ from pm_bot.trading_core.paper_portfolio_report import (
     build_paper_portfolio_report,
     render_paper_portfolio_report_markdown,
 )
+from pm_bot.trading_core.paper_strategy_evaluation import (
+    build_paper_strategy_evaluation_ledger,
+    build_paper_strategy_evaluation_summary,
+    render_paper_strategy_evaluation_ledger_markdown,
+    render_paper_strategy_evaluation_summary_markdown,
+)
 from pm_bot.trading_core.paper_position_ledger import render_paper_position_ledger_markdown
 from pm_bot.trading_core.portfolio_rollforward import (
     build_paper_portfolio_rollforward,
@@ -40,6 +46,10 @@ from pm_bot.trading_core.risk_gate import (
     render_risk_gate_results_markdown,
 )
 from pm_bot.trading_core.risk_limits import default_paper_risk_limits, render_paper_risk_limits_markdown
+from pm_bot.trading_core.risk_prep_config import (
+    build_default_future_risk_engine_config,
+    render_future_risk_engine_config_markdown,
+)
 from pm_bot.trading_core.schemas import (
     PAPER_POSITION_LEDGER_CONTRACT,
     PAPER_POSITION_RECORD_CONTRACT,
@@ -122,6 +132,9 @@ class PaperDailyLoopResult:
     carried_forward_position_count: int
     total_paper_exposure_usd: float
     ledger_path: str
+    strategy_ledger_path: str
+    strategy_summary_path: str
+    risk_prep_config_path: str
     portfolio_path: str
     rollforward_path: str
     outcome_recheck_queue_path: str
@@ -219,6 +232,22 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         execution_batch=executions,
         generated_at=generated_at,
     )
+    strategy_ledger = build_paper_strategy_evaluation_ledger(
+        candidates_batch=candidates,
+        risk_gate_batch=risk_gate,
+        execution_batch=executions,
+        position_ledger=ledger,
+        portfolio_state=portfolio_state,
+        feedback_readiness=feedback_readiness,
+        generated_at=generated_at,
+    )
+    strategy_summary = build_paper_strategy_evaluation_summary(
+        strategy_ledger=strategy_ledger,
+        feedback_readiness=feedback_readiness,
+        portfolio_state=portfolio_state,
+        generated_at=generated_at,
+    )
+    risk_prep_config = build_default_future_risk_engine_config(generated_at=generated_at)
     dashboard = _build_daily_dashboard(
         config=active_config,
         tracked_markets=tracked_markets,
@@ -234,6 +263,9 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         outcome_recheck_queue=outcome_recheck_queue,
         feedback_readiness=feedback_readiness,
         portfolio_report=portfolio_report,
+        strategy_ledger=strategy_ledger,
+        strategy_summary=strategy_summary,
+        risk_prep_config=risk_prep_config,
         generated_at=generated_at,
     )
     safety_scan = _build_daily_safety_scan(
@@ -253,6 +285,9 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
             feedback_readiness,
             rollforward_report,
             portfolio_report,
+            strategy_ledger,
+            strategy_summary,
+            risk_prep_config,
         ],
         generated_at=generated_at,
     )
@@ -265,6 +300,8 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         feedback_readiness.get("outcome_resolution_invented") is False
         and audit.get("audit_passed") is True
         and idempotency_report.get("idempotency_passed") is True
+        and strategy_summary.get("unresolved_pnl_not_invented") is True
+        and risk_prep_config.get("validation", {}).get("valid") is True
         and safety_scan["safety_ok"] is True
     )
     result = PaperDailyLoopResult(
@@ -282,6 +319,9 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         carried_forward_position_count=int(rollforward_report.get("carried_forward_position_count", 0) or 0),
         total_paper_exposure_usd=float(portfolio_state.get("total_paper_exposure_usd", 0) or 0),
         ledger_path=normalize_path(paths["ledger"]) if active_config.write_artifacts else "",
+        strategy_ledger_path=normalize_path(paths["strategy_ledger"]) if active_config.write_artifacts else "",
+        strategy_summary_path=normalize_path(paths["strategy_summary"]) if active_config.write_artifacts else "",
+        risk_prep_config_path=normalize_path(paths["risk_prep_config"]) if active_config.write_artifacts else "",
         portfolio_path=normalize_path(paths["portfolio"]) if active_config.write_artifacts else "",
         rollforward_path=normalize_path(paths["rollforward"]) if active_config.write_artifacts else "",
         outcome_recheck_queue_path=normalize_path(paths["outcome_recheck"]) if active_config.write_artifacts else "",
@@ -314,6 +354,9 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
             feedback_readiness=feedback_readiness,
             rollforward_report=rollforward_report,
             portfolio_report=portfolio_report,
+            strategy_ledger=strategy_ledger,
+            strategy_summary=strategy_summary,
+            risk_prep_config=risk_prep_config,
             result=result,
         )
     return result
@@ -333,6 +376,12 @@ def _daily_paths(output_dir: Path) -> dict[str, Path]:
         "executions_md": output_dir / "paper_daily_simulated_executions.md",
         "ledger": output_dir / "paper_daily_ledger.json",
         "ledger_md": output_dir / "paper_daily_ledger.md",
+        "strategy_ledger": output_dir / "paper_strategy_evaluation_ledger.json",
+        "strategy_ledger_md": output_dir / "paper_strategy_evaluation_ledger.md",
+        "strategy_summary": output_dir / "paper_strategy_evaluation_summary.json",
+        "strategy_summary_md": output_dir / "paper_strategy_evaluation_summary.md",
+        "risk_prep_config": output_dir / "future_risk_engine_config.json",
+        "risk_prep_config_md": output_dir / "future_risk_engine_config.md",
         "portfolio": output_dir / "paper_daily_portfolio_state.json",
         "portfolio_md": output_dir / "paper_daily_portfolio_state.md",
         "rollforward": output_dir / "paper_daily_rollforward.json",
@@ -714,6 +763,9 @@ def _build_daily_dashboard(
     outcome_recheck_queue: Mapping[str, Any],
     feedback_readiness: Mapping[str, Any],
     portfolio_report: Mapping[str, Any],
+    strategy_ledger: Mapping[str, Any],
+    strategy_summary: Mapping[str, Any],
+    risk_prep_config: Mapping[str, Any],
     generated_at: str,
 ) -> dict[str, Any]:
     blocked = [row for row in mapping_rows(risk_gate.get("results")) if row.get("blocked") is True]
@@ -747,11 +799,49 @@ def _build_daily_dashboard(
             "open_paper_position_count": int(ledger.get("open_position_count", 0) or 0),
             "carried_forward_position_count": int(rollforward_report.get("carried_forward_position_count", 0) or 0),
             "total_paper_exposure_usd": float(portfolio_state.get("total_paper_exposure_usd", 0) or 0),
+            "paper_strategy_ledger_record_count": int(strategy_ledger.get("record_count", 0) or 0),
+            "unresolved_paper_exposure_usd": float(strategy_summary.get("unresolved_paper_exposure_usd", 0) or 0),
             "unresolved_market_count": int(feedback_readiness.get("unresolved_count", 0) or 0),
             "resolved_market_count": int(feedback_readiness.get("resolved_count", 0) or 0),
             "feedback_ready_count": int(feedback_readiness.get("feedback_ready_count", 0) or 0),
         },
         "portfolio_summary": portfolio_report.get("exposure_summary", {}),
+        "paper_strategy_ledger_status": {
+            "ledger_id": strategy_ledger.get("ledger_id"),
+            "record_count": strategy_ledger.get("record_count"),
+            "filled_record_count": strategy_ledger.get("filled_record_count"),
+            "open_position_record_count": strategy_ledger.get("open_position_record_count"),
+            "unresolved_position_record_count": strategy_ledger.get("unresolved_position_record_count"),
+            "unresolved_paper_exposure_usd": strategy_ledger.get("unresolved_paper_exposure_usd"),
+            "record_ids_unique": strategy_ledger.get("idempotency", {}).get("record_ids_unique"),
+            "unresolved_pnl_not_invented": strategy_ledger.get("unresolved_pnl_not_invented"),
+        },
+        "paper_strategy_evaluation_summary": {
+            "summary_id": strategy_summary.get("summary_id"),
+            "performance_readiness_status": strategy_summary.get("performance_readiness_status"),
+            "performance_statement": strategy_summary.get("performance_statement"),
+            "paper_realized_pnl_usd": strategy_summary.get("paper_realized_pnl_usd"),
+            "paper_unrealized_pnl_usd": strategy_summary.get("paper_unrealized_pnl_usd"),
+            "unresolved_pnl_not_invented": strategy_summary.get("unresolved_pnl_not_invented"),
+            "hypotheses_waiting_for_outcome_resolution": strategy_summary.get(
+                "hypotheses_waiting_for_outcome_resolution",
+                [],
+            ),
+            "missing_future_evaluation_data": strategy_summary.get("missing_future_evaluation_data", []),
+        },
+        "risk_prep_config_status": {
+            "present": True,
+            "config_id": risk_prep_config.get("config_id"),
+            "contract_version": risk_prep_config.get("contract_version"),
+            "valid": risk_prep_config.get("validation", {}).get("valid"),
+            "max_total_exposure_usd": risk_prep_config.get("max_total_exposure_usd"),
+            "max_per_market_exposure_usd": risk_prep_config.get("max_per_market_exposure_usd"),
+            "market_allowlist_count": len(risk_prep_config.get("market_allowlist", [])),
+            "market_denylist_count": len(risk_prep_config.get("market_denylist", [])),
+            "per_run_action_cap": risk_prep_config.get("per_run_action_cap"),
+            "kill_switch_enabled": risk_prep_config.get("kill_switch_enabled"),
+            "manual_approval_required": risk_prep_config.get("manual_approval_required"),
+        },
         "open_paper_positions": portfolio_report.get("open_paper_positions", []),
         "carried_forward_positions": rollforward_report.get("carried_forward_positions", []),
         "unresolved_markets": feedback_readiness.get("blocked_items", []),
@@ -797,12 +887,16 @@ def _build_daily_dashboard(
         },
         "safety_flags": _daily_safety_flags(),
         "next_operator_actions": [
+            "Review the paper strategy evaluation ledger before interpreting paper readiness.",
+            "Add saved local outcome resolution evidence before evaluating paper performance.",
             "Review carried-forward open paper positions and exposure before the next local paper run.",
             "Recheck unresolved markets only against saved local outcome artifacts.",
             "Prepare feedback records only for markets with explicit local resolution evidence.",
             "Keep this as an explicit one-shot local command, not a scheduler or autonomous loop.",
         ],
-        "next_operator_action": "Review rollforward, unresolved outcome queue, and feedback readiness artifacts.",
+        "next_operator_action": (
+            "Review strategy ledger, unresolved exposure, risk-prep config, and missing outcome evidence."
+        ),
         "paper_only": True,
         "source_paths": local_source_paths(),
     }
@@ -918,6 +1012,9 @@ def _write_daily_artifacts(
     feedback_readiness: Mapping[str, Any],
     rollforward_report: Mapping[str, Any],
     portfolio_report: Mapping[str, Any],
+    strategy_ledger: Mapping[str, Any],
+    strategy_summary: Mapping[str, Any],
+    risk_prep_config: Mapping[str, Any],
     result: PaperDailyLoopResult,
 ) -> None:
     write_json(paths["config"], config.to_dict())
@@ -932,6 +1029,12 @@ def _write_daily_artifacts(
     write_text(paths["executions_md"], render_simulated_execution_results_markdown(executions))
     write_json(paths["ledger"], ledger)
     write_text(paths["ledger_md"], render_paper_position_ledger_markdown(ledger))
+    write_json(paths["strategy_ledger"], strategy_ledger)
+    write_text(paths["strategy_ledger_md"], render_paper_strategy_evaluation_ledger_markdown(strategy_ledger))
+    write_json(paths["strategy_summary"], strategy_summary)
+    write_text(paths["strategy_summary_md"], render_paper_strategy_evaluation_summary_markdown(strategy_summary))
+    write_json(paths["risk_prep_config"], risk_prep_config)
+    write_text(paths["risk_prep_config_md"], render_future_risk_engine_config_markdown(risk_prep_config))
     write_json(paths["portfolio"], portfolio_state)
     write_text(paths["portfolio_md"], render_portfolio_state_markdown(portfolio_state))
     write_json(paths["rollforward"], rollforward_report)
@@ -994,6 +1097,8 @@ def _render_daily_dashboard_markdown(dashboard: Mapping[str, Any]) -> str:
         f"- Open paper positions: {counts.get('open_paper_position_count')}",
         f"- Carried-forward positions: {counts.get('carried_forward_position_count')}",
         f"- Total paper exposure: `${counts.get('total_paper_exposure_usd')}`",
+        f"- Paper strategy ledger records: {counts.get('paper_strategy_ledger_record_count')}",
+        f"- Unresolved paper exposure: `${counts.get('unresolved_paper_exposure_usd')}`",
         "",
         "## Tracked Markets",
         "",
@@ -1013,6 +1118,43 @@ def _render_daily_dashboard_markdown(dashboard: Mapping[str, Any]) -> str:
             f"`{row.get('market_id')}` `${row.get('paper_exposure_usd')}` `{row.get('outcome_status')}`"
             for row in mapping_rows(dashboard.get("carried_forward_positions"))
         )
+    )
+    strategy_status = dict(dashboard.get("paper_strategy_ledger_status", {}))
+    strategy_summary = dict(dashboard.get("paper_strategy_evaluation_summary", {}))
+    risk_prep = dict(dashboard.get("risk_prep_config_status", {}))
+    lines.extend(
+        [
+            "",
+            "## Paper Strategy Ledger",
+            "",
+            f"- Ledger: `{strategy_status.get('ledger_id')}`",
+            f"- Records: {strategy_status.get('record_count')}",
+            f"- Filled paper records: {strategy_status.get('filled_record_count')}",
+            f"- Open position records: {strategy_status.get('open_position_record_count')}",
+            f"- Unresolved paper exposure: `${strategy_status.get('unresolved_paper_exposure_usd')}`",
+            f"- Record IDs unique: `{str(strategy_status.get('record_ids_unique')).lower()}`",
+            f"- Unresolved PnL not invented: `{str(strategy_status.get('unresolved_pnl_not_invented')).lower()}`",
+            "",
+            "## Paper Evaluation Readiness",
+            "",
+            f"- Readiness: `{strategy_summary.get('performance_readiness_status')}`",
+            f"- Paper realized PnL: `{strategy_summary.get('paper_realized_pnl_usd')}`",
+            f"- Paper unrealized PnL: `{strategy_summary.get('paper_unrealized_pnl_usd')}`",
+            "- Missing future evaluation data:",
+            *bullet_lines(str(item) for item in strategy_summary.get("missing_future_evaluation_data", [])),
+            "",
+            "## Risk Prep Config",
+            "",
+            f"- Present: `{str(risk_prep.get('present')).lower()}`",
+            f"- Valid: `{str(risk_prep.get('valid')).lower()}`",
+            f"- Max total exposure: `${risk_prep.get('max_total_exposure_usd')}`",
+            f"- Max per-market exposure: `${risk_prep.get('max_per_market_exposure_usd')}`",
+            f"- Market allowlist count: {risk_prep.get('market_allowlist_count')}",
+            f"- Market denylist count: {risk_prep.get('market_denylist_count')}",
+            f"- Per-run action cap: {risk_prep.get('per_run_action_cap')}",
+            f"- Kill switch enabled: `{str(risk_prep.get('kill_switch_enabled')).lower()}`",
+            f"- Manual approval required: `{str(risk_prep.get('manual_approval_required')).lower()}`",
+        ]
     )
     lines.extend(["", "## Feedback Readiness", ""])
     readiness = dict(dashboard.get("feedback_readiness", {}))
@@ -1092,6 +1234,9 @@ def _render_daily_run_report(
             f"- Safety OK: `{str(result.get('safety_ok')).lower()}`",
             f"- Dashboard: `{result.get('dashboard_json_path')}`",
             f"- Ledger: `{result.get('ledger_path')}`",
+            f"- Strategy ledger: `{result.get('strategy_ledger_path')}`",
+            f"- Strategy summary: `{result.get('strategy_summary_path')}`",
+            f"- Risk prep config: `{result.get('risk_prep_config_path')}`",
             f"- Portfolio: `{result.get('portfolio_path')}`",
             f"- Safety issues: {safety_scan.get('issue_count')}",
             "",
