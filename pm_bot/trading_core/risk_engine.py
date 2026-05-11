@@ -171,6 +171,7 @@ def evaluate_risk_decision(
     audit_id = _audit_id(normalized_input, config, decision, reason_codes)
     return {
         "contract_version": RISK_DECISION_CONTRACT,
+        "risk_decision_id": _risk_decision_id(audit_id),
         "decision_input": normalized_input,
         "decision": decision,
         "reason_codes": reason_codes,
@@ -334,6 +335,7 @@ def render_risk_decision_ledger_markdown(ledger: Mapping[str, Any]) -> str:
             [
                 f"### `{decision_input.get('market_id')}`",
                 "",
+                f"- Risk decision: `{decision.get('risk_decision_id')}`",
                 f"- Audit: `{decision.get('audit_id')}`",
                 f"- Intent: `{decision_input.get('intent_id')}`",
                 f"- Decision: `{decision.get('decision')}`",
@@ -433,6 +435,11 @@ def _audit_id(
     }
     digest = hashlib.sha256(json.dumps(payload, sort_keys=True).encode("utf-8")).hexdigest()
     return f"risk-audit-v1-{digest[:16]}"
+
+
+def _risk_decision_id(audit_id: str) -> str:
+    suffix = clean_text(audit_id).removeprefix("risk-audit-v1-")
+    return f"risk-decision-v1-{suffix}"
 
 
 def _decision_summary(decision: str, market_id: str, reason_codes: Sequence[str]) -> str:

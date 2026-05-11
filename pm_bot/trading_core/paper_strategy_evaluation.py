@@ -376,6 +376,7 @@ def _strategy_record(
             "warnings": [clean_text(item) for item in risk_result.get("warnings", [])],
         },
         "risk_engine_decision": {
+            "risk_decision_id": clean_text(risk_engine_decision.get("risk_decision_id")),
             "audit_id": clean_text(risk_engine_decision.get("audit_id")),
             "decision": clean_text(risk_engine_decision.get("decision")),
             "reason_codes": [clean_text(item) for item in risk_engine_decision.get("reason_codes", [])],

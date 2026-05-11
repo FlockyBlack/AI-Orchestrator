@@ -60,6 +60,10 @@ from pm_bot.trading_core.risk_prep_config import (
     build_default_future_risk_engine_config,
     render_future_risk_engine_config_markdown,
 )
+from pm_bot.trading_core.wallet_execution_boundary import (
+    build_wallet_boundary_audit_ledger,
+    render_wallet_boundary_audit_ledger_markdown,
+)
 from pm_bot.trading_core.schemas import (
     PAPER_POSITION_LEDGER_CONTRACT,
     PAPER_POSITION_RECORD_CONTRACT,
@@ -153,6 +157,7 @@ class PaperDailyLoopResult:
     source_evidence_pending_approval_path: str
     risk_decision_ledger_path: str
     risk_prep_config_path: str
+    wallet_boundary_audit_ledger_path: str
     portfolio_path: str
     rollforward_path: str
     outcome_recheck_queue_path: str
@@ -215,6 +220,12 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         candidates_batch=candidates,
         risk_config=risk_prep_config,
         source_evidence_refresh_ledger=source_evidence_refresh_ledger,
+        generated_at=generated_at,
+    )
+    wallet_boundary_audit_ledger = build_wallet_boundary_audit_ledger(
+        candidates_batch=candidates,
+        risk_decision_ledger=risk_decision_ledger,
+        risk_config=risk_prep_config,
         generated_at=generated_at,
     )
     limits = _build_daily_risk_limits(active_config, generated_at=generated_at)
@@ -302,6 +313,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         strategy_summary=strategy_summary,
         risk_decision_ledger=risk_decision_ledger,
         risk_prep_config=risk_prep_config,
+        wallet_boundary_audit_ledger=wallet_boundary_audit_ledger,
         source_evidence_refresh_ledger=source_evidence_refresh_ledger,
         generated_at=generated_at,
     )
@@ -329,6 +341,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
             strategy_summary,
             risk_decision_ledger,
             risk_prep_config,
+            wallet_boundary_audit_ledger,
         ],
         generated_at=generated_at,
     )
@@ -349,6 +362,11 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         and risk_decision_ledger.get("outcome_resolution_invented") is False
         and risk_decision_ledger.get("pnl_invented") is False
         and risk_prep_config.get("validation", {}).get("valid") is True
+        and wallet_boundary_audit_ledger.get("external_api_calls_performed") is False
+        and wallet_boundary_audit_ledger.get("outcome_resolution_invented") is False
+        and wallet_boundary_audit_ledger.get("pnl_invented") is False
+        and wallet_boundary_audit_ledger.get("applied_to_paper_execution") is False
+        and wallet_boundary_audit_ledger.get("applied_to_real_execution") is False
         and safety_scan["safety_ok"] is True
     )
     result = PaperDailyLoopResult(
@@ -377,6 +395,9 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         ),
         risk_decision_ledger_path=normalize_path(paths["risk_decision_ledger"]) if active_config.write_artifacts else "",
         risk_prep_config_path=normalize_path(paths["risk_prep_config"]) if active_config.write_artifacts else "",
+        wallet_boundary_audit_ledger_path=(
+            normalize_path(paths["wallet_boundary_audit_ledger"]) if active_config.write_artifacts else ""
+        ),
         portfolio_path=normalize_path(paths["portfolio"]) if active_config.write_artifacts else "",
         rollforward_path=normalize_path(paths["rollforward"]) if active_config.write_artifacts else "",
         outcome_recheck_queue_path=normalize_path(paths["outcome_recheck"]) if active_config.write_artifacts else "",
@@ -417,6 +438,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
             strategy_summary=strategy_summary,
             risk_decision_ledger=risk_decision_ledger,
             risk_prep_config=risk_prep_config,
+            wallet_boundary_audit_ledger=wallet_boundary_audit_ledger,
             result=result,
         )
     return result
@@ -450,6 +472,8 @@ def _daily_paths(output_dir: Path) -> dict[str, Path]:
         "risk_decision_ledger_md": output_dir / "risk_engine_decision_ledger.md",
         "risk_prep_config": output_dir / "future_risk_engine_config.json",
         "risk_prep_config_md": output_dir / "future_risk_engine_config.md",
+        "wallet_boundary_audit_ledger": output_dir / "wallet_boundary_audit_ledger.json",
+        "wallet_boundary_audit_ledger_md": output_dir / "wallet_boundary_audit_ledger.md",
         "portfolio": output_dir / "paper_daily_portfolio_state.json",
         "portfolio_md": output_dir / "paper_daily_portfolio_state.md",
         "rollforward": output_dir / "paper_daily_rollforward.json",
@@ -835,6 +859,7 @@ def _build_daily_dashboard(
     strategy_summary: Mapping[str, Any],
     risk_decision_ledger: Mapping[str, Any],
     risk_prep_config: Mapping[str, Any],
+    wallet_boundary_audit_ledger: Mapping[str, Any],
     source_evidence_refresh_ledger: Mapping[str, Any],
     generated_at: str,
 ) -> dict[str, Any]:
@@ -899,6 +924,21 @@ def _build_daily_dashboard(
             "risk_decision_needs_manual_approval_count": int(
                 risk_decision_ledger.get("needs_manual_approval_count", 0) or 0
             ),
+            "wallet_boundary_packets_created": int(
+                wallet_boundary_audit_ledger.get("boundary_packets_created", 0) or 0
+            ),
+            "wallet_boundary_blocked_packet_count": int(
+                wallet_boundary_audit_ledger.get("blocked_packet_count", 0) or 0
+            ),
+            "wallet_boundary_missing_approval_count": int(
+                wallet_boundary_audit_ledger.get("missing_approval_count", 0) or 0
+            ),
+            "wallet_boundary_missing_risk_decision_count": int(
+                wallet_boundary_audit_ledger.get("missing_risk_decision_count", 0) or 0
+            ),
+            "wallet_boundary_kill_switch_block_count": int(
+                wallet_boundary_audit_ledger.get("kill_switch_block_count", 0) or 0
+            ),
             "source_evidence_refresh_record_count": int(source_counts.get("records", 0) or 0),
             "source_evidence_gap_count": int(
                 dict(source_quality.get("summary_counts", {})).get("missing_evidence_gaps", 0) or 0
@@ -961,6 +1001,24 @@ def _build_daily_dashboard(
             "external_api_calls_performed": risk_decision_ledger.get("external_api_calls_performed") is True,
             "outcome_resolution_invented": risk_decision_ledger.get("outcome_resolution_invented") is True,
             "pnl_invented": risk_decision_ledger.get("pnl_invented") is True,
+        },
+        "wallet_boundary_summary": {
+            "ledger_id": wallet_boundary_audit_ledger.get("ledger_id"),
+            "boundary_packets_created": wallet_boundary_audit_ledger.get("boundary_packets_created"),
+            "blocked_packet_count": wallet_boundary_audit_ledger.get("blocked_packet_count"),
+            "missing_approval_count": wallet_boundary_audit_ledger.get("missing_approval_count"),
+            "missing_risk_decision_count": wallet_boundary_audit_ledger.get("missing_risk_decision_count"),
+            "kill_switch_block_count": wallet_boundary_audit_ledger.get("kill_switch_block_count"),
+            "needs_manual_approval_count": wallet_boundary_audit_ledger.get("needs_manual_approval_count"),
+            "approved_for_future_simulation_count": wallet_boundary_audit_ledger.get(
+                "approved_for_future_simulation_count"
+            ),
+            "reason_code_summary": wallet_boundary_audit_ledger.get("reason_code_summary", {}),
+            "safety_assertion": wallet_boundary_audit_ledger.get("safety_assertion"),
+            "passive_artifact_only": wallet_boundary_audit_ledger.get("passive_artifact_only") is True,
+            "applied_to_paper_execution": wallet_boundary_audit_ledger.get("applied_to_paper_execution") is True,
+            "applied_to_real_execution": wallet_boundary_audit_ledger.get("applied_to_real_execution") is True,
+            "external_api_calls_performed": wallet_boundary_audit_ledger.get("external_api_calls_performed") is True,
         },
         "source_evidence_refresh_status": {
             "refresh_id": source_evidence_refresh_ledger.get("refresh_id"),
@@ -1167,6 +1225,7 @@ def _write_daily_artifacts(
     strategy_summary: Mapping[str, Any],
     risk_decision_ledger: Mapping[str, Any],
     risk_prep_config: Mapping[str, Any],
+    wallet_boundary_audit_ledger: Mapping[str, Any],
     result: PaperDailyLoopResult,
 ) -> None:
     write_json(paths["config"], config.to_dict())
@@ -1187,6 +1246,11 @@ def _write_daily_artifacts(
     write_text(paths["strategy_summary_md"], render_paper_strategy_evaluation_summary_markdown(strategy_summary))
     write_json(paths["risk_decision_ledger"], risk_decision_ledger)
     write_text(paths["risk_decision_ledger_md"], render_risk_decision_ledger_markdown(risk_decision_ledger))
+    write_json(paths["wallet_boundary_audit_ledger"], wallet_boundary_audit_ledger)
+    write_text(
+        paths["wallet_boundary_audit_ledger_md"],
+        render_wallet_boundary_audit_ledger_markdown(wallet_boundary_audit_ledger),
+    )
     write_json(paths["source_evidence_refresh_request"], source_evidence_refresh_request)
     write_json(paths["source_evidence_refresh"], source_evidence_refresh_ledger)
     write_text(paths["source_evidence_refresh_md"], render_public_evidence_refresh_report(source_evidence_refresh_ledger))
@@ -1267,6 +1331,11 @@ def _render_daily_dashboard_markdown(dashboard: Mapping[str, Any]) -> str:
         f"- Unresolved paper exposure: `${counts.get('unresolved_paper_exposure_usd')}`",
         f"- Risk engine blocked: {counts.get('risk_decision_blocked_count')}",
         f"- Risk engine needs manual approval: {counts.get('risk_decision_needs_manual_approval_count')}",
+        f"- Wallet boundary packets: {counts.get('wallet_boundary_packets_created')}",
+        f"- Wallet boundary blocked: {counts.get('wallet_boundary_blocked_packet_count')}",
+        f"- Wallet boundary missing approval: {counts.get('wallet_boundary_missing_approval_count')}",
+        f"- Wallet boundary missing risk decision: {counts.get('wallet_boundary_missing_risk_decision_count')}",
+        f"- Wallet boundary kill switch blocks: {counts.get('wallet_boundary_kill_switch_block_count')}",
         f"- Source evidence records: {counts.get('source_evidence_refresh_record_count')}",
         f"- Source evidence gaps: {counts.get('source_evidence_gap_count')}",
         "",
@@ -1295,6 +1364,7 @@ def _render_daily_dashboard_markdown(dashboard: Mapping[str, Any]) -> str:
     strategy_status = dict(dashboard.get("paper_strategy_ledger_status", {}))
     strategy_summary = dict(dashboard.get("paper_strategy_evaluation_summary", {}))
     risk_decisions = dict(dashboard.get("risk_decision_ledger_status", {}))
+    wallet_boundary = dict(dashboard.get("wallet_boundary_summary", {}))
     risk_prep = dict(dashboard.get("risk_prep_config_status", {}))
     lines.extend(
         [
@@ -1330,6 +1400,26 @@ def _render_daily_dashboard_markdown(dashboard: Mapping[str, Any]) -> str:
             "- Reason code summary:",
             *bullet_lines(
                 f"{key}: `{value}`" for key, value in dict(risk_decisions.get("reason_code_summary", {})).items()
+            ),
+            "",
+            "## Wallet Boundary Summary",
+            "",
+            f"- Ledger: `{wallet_boundary.get('ledger_id')}`",
+            f"- Boundary packets created: {wallet_boundary.get('boundary_packets_created')}",
+            f"- Blocked packets: {wallet_boundary.get('blocked_packet_count')}",
+            f"- Missing approval: {wallet_boundary.get('missing_approval_count')}",
+            f"- Missing risk decision: {wallet_boundary.get('missing_risk_decision_count')}",
+            f"- Kill switch blocks: {wallet_boundary.get('kill_switch_block_count')}",
+            f"- Needs manual approval: {wallet_boundary.get('needs_manual_approval_count')}",
+            f"- Approved for future simulation: {wallet_boundary.get('approved_for_future_simulation_count')}",
+            f"- Passive artifact only: `{str(wallet_boundary.get('passive_artifact_only')).lower()}`",
+            f"- Applied to paper execution: `{str(wallet_boundary.get('applied_to_paper_execution')).lower()}`",
+            f"- Applied to real execution: `{str(wallet_boundary.get('applied_to_real_execution')).lower()}`",
+            f"- External API calls performed: `{str(wallet_boundary.get('external_api_calls_performed')).lower()}`",
+            f"- Safety assertion: {wallet_boundary.get('safety_assertion')}",
+            "- Reason code summary:",
+            *bullet_lines(
+                f"{key}: `{value}`" for key, value in dict(wallet_boundary.get("reason_code_summary", {})).items()
             ),
             "",
             "## Source Evidence Refresh",
@@ -1449,6 +1539,7 @@ def _render_daily_run_report(
             f"- Strategy ledger: `{result.get('strategy_ledger_path')}`",
             f"- Strategy summary: `{result.get('strategy_summary_path')}`",
             f"- Risk decision ledger: `{result.get('risk_decision_ledger_path')}`",
+            f"- Wallet boundary audit ledger: `{result.get('wallet_boundary_audit_ledger_path')}`",
             f"- Source evidence refresh: `{result.get('source_evidence_refresh_path')}`",
             f"- Source evidence quality ledger: `{result.get('source_evidence_quality_ledger_path')}`",
             f"- Source evidence pending approval: `{result.get('source_evidence_pending_approval_path')}`",

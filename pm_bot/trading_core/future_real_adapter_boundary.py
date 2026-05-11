@@ -23,15 +23,19 @@ def build_future_real_adapter_boundary(*, generated_at: str = GENERATED_AT) -> d
         "reconciliation_required": True,
         "manual_approval_required": True,
         "risk_engine_upgrade_required": True,
+        "risk_engine_v1_gate_required": True,
+        "wallet_boundary_design_contract_ready": True,
+        "wallet_boundary_execution_enabled": False,
         "required_before_any_supervised_real_execution": [
             "Separate explicit approval task",
-            "Wallet isolation design not implemented yet",
+            "Wallet isolation runtime not implemented yet",
+            "Wallet boundary design contract is simulation-only and non-executable",
             "Signing isolation design not implemented yet",
             "Order adapter boundary not implemented yet",
             "Hard kill switch",
             "Post-order reconciliation not implemented yet",
             "Manual pre-trade approval gate",
-            "Risk engine upgrade with tested caps and halt states",
+            "Risk Engine v1 gate with tested non-zero caps and halt states",
         ],
         "not_implemented": [
             "real adapter",
@@ -81,6 +85,9 @@ def render_future_real_adapter_boundary_markdown(boundary: Mapping[str, Any]) ->
             f"- reconciliation_required: `{str(boundary.get('reconciliation_required')).lower()}`",
             f"- manual_approval_required: `{str(boundary.get('manual_approval_required')).lower()}`",
             f"- risk_engine_upgrade_required: `{str(boundary.get('risk_engine_upgrade_required')).lower()}`",
+            f"- risk_engine_v1_gate_required: `{str(boundary.get('risk_engine_v1_gate_required')).lower()}`",
+            f"- wallet_boundary_design_contract_ready: `{str(boundary.get('wallet_boundary_design_contract_ready')).lower()}`",
+            f"- wallet_boundary_execution_enabled: `{str(boundary.get('wallet_boundary_execution_enabled')).lower()}`",
         ]
     ) + "\n"
 
