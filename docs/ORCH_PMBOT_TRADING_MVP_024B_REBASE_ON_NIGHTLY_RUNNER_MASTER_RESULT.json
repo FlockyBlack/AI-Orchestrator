@@ -1,0 +1,42 @@
+{
+  "task_id": "ORCH-PMBOT-TRADING-MVP-024B-REBASE-ON-NIGHTLY-RUNNER-MASTER",
+  "status": "completed_branch_pushed",
+  "repo": {
+    "integration_worktree": "C:/oc024b",
+    "base_master_head": "98e0c35a4133f6241701d6c2df58bd254e7dfed3",
+    "pmbot_024_branch": "pmbot/trading-mvp-024-paper-strategy-ledger-risk-prep",
+    "pmbot_024_head": "bca3ecd8af0a92c96f6dc8f52e9d0e61106db167",
+    "integration_branch": "pmbot/integrate-trading-mvp-024-on-nightly-runner-master",
+    "head_before": "98e0c35a4133f6241701d6c2df58bd254e7dfed3",
+    "head_after": "pending_final_commit_hash",
+    "integration_merge_head": "0274b235a0a7b4585a22ab2e4b019154e75352bd",
+    "pushed": true,
+    "pushed_to_master": false,
+    "remote_verified": true
+  },
+  "pmbot_024_integrated_on_current_master": true,
+  "paper_strategy_ledger_ready": true,
+  "ledger_idempotency_passed": true,
+  "unresolved_pnl_not_invented": true,
+  "risk_prep_config_ready": true,
+  "dashboard_update_present": true,
+  "nightly_runner_smoke_tests_passed": true,
+  "pmbot_tests_passed": true,
+  "wallet_or_order_code_added": false,
+  "external_api_calls_performed": false,
+  "safety_ok": true,
+  "blocked_reason": null,
+  "tests_run": [
+    "pytest pm_bot/tests/test_paper_daily_loop_022.py",
+    "pytest pm_bot/tests/test_paper_daily_loop_022.py pm_bot/tests/test_operator_runner_workflow_e2e_020_021.py pm_bot/tests/test_operator_runner_report_safety_020_021.py pm_bot/tests/test_practical_outcome_recheck_queue_013.py pm_bot/tests/test_practical_manual_feedback_packet_outputs_014.py",
+    "pytest pm_bot/tests",
+    "python -m compileall pm_bot",
+    "python -m pytest tests/test_codex_queue_nightly_lane_batch_runner.py tests/test_codex_worktree_lane_manager.py tests/test_subagent_routing.py tests/test_codex_queue_operator_cli.py",
+    "python -m compileall ai_orchestrator"
+  ],
+  "notes": [
+    "PMBOT 024 was merged on top of the automation 030 nightly lane runner head.",
+    "Remote master was verified at the automation 030 head before the final result-artifact commit.",
+    "The evaluation summary remains readiness-only and does not claim paper PnL."
+  ]
+}
