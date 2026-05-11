@@ -1,0 +1,110 @@
+{
+  "acceptance_gates": [
+    "unsafe staging is rejected",
+    "dry-run commit/push verification works",
+    "remote verification path is documented"
+  ],
+  "acceptance_policy": {
+    "expected_artifacts": [
+      "selective staging hardening tests",
+      "commit push verify docs"
+    ],
+    "gates": [
+      "unsafe staging is rejected",
+      "dry-run commit/push verification works",
+      "remote verification path is documented"
+    ],
+    "require_operator_review": true,
+    "require_safety_ok": true,
+    "require_validation": true
+  },
+  "allowed_paths": [
+    "ai_orchestrator/codex_queue/",
+    "docs/",
+    "tests/"
+  ],
+  "dependencies": [
+    "ORCH-CODEX-AUTOMATION-025-WORKTREE-LANE-MANAGER"
+  ],
+  "description": "Harden selective commit and push flow with explicit paths, dry-run support, and remote HEAD verification.",
+  "expected_artifacts": [
+    "selective staging hardening tests",
+    "commit push verify docs"
+  ],
+  "forbidden_actions": [
+    "git add dot",
+    "git add all",
+    "force push"
+  ],
+  "max_retries": 2,
+  "metadata": {
+    "execution_lane": "orch_automation",
+    "execution_mode": "handoff",
+    "milestone_id": ""
+  },
+  "proof_requirements": [
+    {
+      "description": "unsafe staging is rejected",
+      "evidence_paths": [],
+      "proof_id": "acceptance_gate_1",
+      "required": true
+    },
+    {
+      "description": "dry-run commit/push verification works",
+      "evidence_paths": [],
+      "proof_id": "acceptance_gate_2",
+      "required": true
+    },
+    {
+      "description": "remote verification path is documented",
+      "evidence_paths": [],
+      "proof_id": "acceptance_gate_3",
+      "required": true
+    },
+    {
+      "description": "Expected artifact must be produced or explicitly blocked: selective staging hardening tests",
+      "evidence_paths": [
+        "selective staging hardening tests"
+      ],
+      "proof_id": "expected_artifact_1",
+      "required": true
+    },
+    {
+      "description": "Expected artifact must be produced or explicitly blocked: commit push verify docs",
+      "evidence_paths": [
+        "commit push verify docs"
+      ],
+      "proof_id": "expected_artifact_2",
+      "required": true
+    }
+  ],
+  "safety_boundaries": [
+    "local_only_supervised: No daemon, scheduler, uncontrolled background worker, or recursive Codex invocation.",
+    "no_real_trading: All real trading remains forbidden; no wallet, signing, orders, real-money actions, or trading endpoints.",
+    "no_external_live_services: No authenticated endpoints, browser automation, OpenRouter, or Polymarket API usage unless explicitly approved in a separate future task.",
+    "no_market_advice: No recommendation, probability, EV, edge, confidence, or side-selection as a real trading signal.",
+    "selective_git_only: No git add dot, git add -A, git add --all, or force push."
+  ],
+  "schema_version": "symphony_task.v1",
+  "source": {
+    "kind": "ai_orchestrator_plan",
+    "manifest_path": "agent_tasks\\generated\\fake_integration\\symphony_style_app_server_026\\generated\\pmbot_master_plan_to_050\\SYMPHONY_STYLE_APP_SERVER_026\\manifest.json",
+    "source_plan_file": "agent_tasks\\plans\\pmbot_master_plan_to_050.v1.json",
+    "source_plan_id": "pmbot_master_plan_to_050",
+    "source_run_id": "SYMPHONY_STYLE_APP_SERVER_026",
+    "state_path": "agent_tasks\\generated\\fake_integration\\symphony_style_app_server_026\\generated\\pmbot_master_plan_to_050\\SYMPHONY_STYLE_APP_SERVER_026\\state.json",
+    "task_spec_path": "agent_tasks\\generated\\fake_integration\\symphony_style_app_server_026\\generated\\pmbot_master_plan_to_050\\SYMPHONY_STYLE_APP_SERVER_026\\tasks\\ORCH-CODEX-AUTOMATION-026-SELECTIVE-COMMIT-PUSH-HARDENING.json"
+  },
+  "source_plan_id": "pmbot_master_plan_to_050",
+  "source_run_id": "SYMPHONY_STYLE_APP_SERVER_026",
+  "status": {
+    "attempt": 0,
+    "blocked_reasons": [],
+    "dependencies_satisfied": true,
+    "retry_count": 0,
+    "runnable": true,
+    "status": "runnable"
+  },
+  "task_id": "ORCH-CODEX-AUTOMATION-026-SELECTIVE-COMMIT-PUSH-HARDENING",
+  "title": "Selective commit/push hardening"
+}

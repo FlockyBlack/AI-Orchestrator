@@ -2,7 +2,9 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import shutil
+import uuid
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Mapping
@@ -28,6 +30,7 @@ from .codex_result_ingestion import ingest_codex_result, ingest_codex_result_tex
 from .dry_run_runner import run_dry_run
 from .long_run_controller import LongRunController
 from .plan_contract import load_plan_contract, validate_plan_contract
+from .plan_decomposer import get_next_runnable_tasks
 from .plan_recovery import inspect_run as inspect_recovery_run
 from .plan_run_state import create_checkpoint, load_state, record_task_artifacts, save_state, validate_state_consistency
 from .plan_to_queue import create_queue_from_plan, inspect_queue, load_queue_manifest, validate_queue_manifest
@@ -59,6 +62,22 @@ from .schema import default_packet
 from .safety import classify_packet
 from .validator import validate_packet
 from .workspace_planner import plan_workspace_for_task, render_workspace_plan_markdown
+from ai_orchestrator.symphony_adapter import (
+    build_app_server_adapter_plan,
+    build_session_plan,
+    build_workspace_plan_for_task,
+    inspect_schema_dir,
+    map_plan_task_to_symphony_task,
+    map_symphony_task_to_codex_packet,
+    render_app_server_start_command,
+    render_workspace_setup_commands,
+    validate_app_server_adapter_plan,
+    validate_session_plan,
+    validate_workspace_plan,
+)
+
+
+DEFAULT_APP_SERVER_SCHEMA_DIR = Path("C:/Users/OpenC/.openclaw/external_research/codex_app_server_schema")
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -146,6 +165,16 @@ def main(argv: list[str] | None = None) -> int:
     )
     create_packet_parser.add_argument("--task-id", default=None)
     create_packet_parser.set_defaults(func=_cmd_create_codex_packet)
+
+    symphony_task_plan_parser = subparsers.add_parser(
+        "create-symphony-task-plan",
+        help="Create a Symphony-style workspace/session/app-server plan for the next runnable task.",
+    )
+    symphony_task_plan_parser.add_argument("--run-id", required=True)
+    _add_queue_root(symphony_task_plan_parser)
+    symphony_task_plan_parser.add_argument("--workspace-root", required=True)
+    symphony_task_plan_parser.add_argument("--app-server-schema-dir", default=str(DEFAULT_APP_SERVER_SCHEMA_DIR))
+    symphony_task_plan_parser.set_defaults(func=_cmd_create_symphony_task_plan)
 
     ingest_codex_parser = subparsers.add_parser(
         "ingest-codex-result",
@@ -568,6 +597,153 @@ def _cmd_create_codex_packet(args: argparse.Namespace) -> dict[str, Any]:
                 "codex_packets": inspection,
                 "codex_execution_added": False,
                 "codex_invoked": False,
+                "network_calls_performed": 0,
+            },
+        ),
+    )
+
+
+def _cmd_create_symphony_task_plan(args: argparse.Namespace) -> dict[str, Any]:
+    inspection = inspect_queue(args.queue_root, args.run_id)
+    if inspection["status"] not in {"found", "invalid"}:
+        return write_operator_action_report(
+            args.queue_root,
+            _action(
+                "create-symphony-task-plan",
+                "blocked",
+                "",
+                args.queue_root,
+                errors=list(inspection.get("errors", [])),
+                next_operator_action="Create or recover a generated run before building a Symphony task plan.",
+                extra={"run_id": args.run_id, "codex_app_server_used": False, "real_app_server_started": False},
+            ),
+        )
+    manifest = dict(inspection.get("manifest", {}))
+    plan_file = str(manifest.get("source_plan_file") or "")
+    state_path = Path(str(manifest.get("state_path") or inspection.get("state_path") or ""))
+    plan = load_plan_contract(plan_file)
+    state = load_state(state_path)
+    next_tasks = get_next_runnable_tasks(
+        plan.tasks,
+        completed=state.completed_task_ids,
+        blocked=state.blocked_task_ids,
+        failed=state.failed_task_ids,
+    )
+    if not next_tasks:
+        return write_operator_action_report(
+            args.queue_root,
+            _action(
+                "create-symphony-task-plan",
+                "blocked",
+                "",
+                args.queue_root,
+                source_path=state_path,
+                errors=["no runnable task available for Symphony task plan"],
+                next_operator_action="Inspect run state; there is no next runnable task.",
+                extra={"run_id": args.run_id, "plan_id": plan.plan_id, "codex_app_server_used": False},
+            ),
+        )
+
+    task = next_tasks[0]
+    symphony_task = map_plan_task_to_symphony_task(task, state, plan)
+    task_source = dict(symphony_task.source.to_dict())
+    task_source.update(
+        {
+            "source_plan_file": plan_file,
+            "task_spec_path": str(dict(manifest.get("task_paths", {})).get(task.task_id) or ""),
+            "state_path": str(state_path),
+            "manifest_path": str(inspection.get("manifest_path") or ""),
+        }
+    )
+    symphony_task = symphony_task.from_dict({**symphony_task.to_dict(), "source": task_source})
+    repo_root = plan.repo_root or "."
+    workspace_plan = build_workspace_plan_for_task(symphony_task, repo_root, args.workspace_root)
+    session_plan = build_session_plan(symphony_task, workspace_plan, args.app_server_schema_dir)
+    schema_index = inspect_schema_dir(args.app_server_schema_dir)
+    app_server_adapter_plan = build_app_server_adapter_plan(session_plan, schema_index)
+    codex_packet_preview = map_symphony_task_to_codex_packet(symphony_task, workspace_plan, session_plan)
+
+    workspace_validation = validate_workspace_plan(workspace_plan)
+    session_validation = validate_session_plan(session_plan)
+    app_server_validation = validate_app_server_adapter_plan(app_server_adapter_plan)
+    errors = (
+        list(workspace_validation["errors"])
+        + list(session_validation["errors"])
+        + list(app_server_validation["errors"])
+        + list(schema_index.errors)
+    )
+    warnings = (
+        list(workspace_validation["warnings"])
+        + list(session_validation["warnings"])
+        + list(app_server_validation["warnings"])
+        + list(schema_index.warnings)
+    )
+
+    output_dir = Path(str(inspection["run_dir"])) / "symphony_tasks" / task.task_id
+    artifact_paths = {
+        "symphony_task": str(output_dir / "symphony_task.json"),
+        "workspace_plan": str(output_dir / "workspace_plan.json"),
+        "session_plan": str(output_dir / "session_plan.json"),
+        "app_server_adapter_plan": str(output_dir / "app_server_adapter_plan.json"),
+        "codex_packet_preview": str(output_dir / "codex_packet_preview.json"),
+        "readme": str(output_dir / "README.md"),
+    }
+    _write_symphony_json(output_dir / "symphony_task.json", symphony_task.to_dict())
+    _write_symphony_json(output_dir / "workspace_plan.json", workspace_plan.to_dict())
+    _write_symphony_json(output_dir / "session_plan.json", session_plan.to_dict())
+    _write_symphony_json(output_dir / "app_server_adapter_plan.json", app_server_adapter_plan.to_dict())
+    _write_symphony_json(output_dir / "codex_packet_preview.json", codex_packet_preview)
+    _write_symphony_text(
+        output_dir / "README.md",
+        _render_symphony_task_plan_readme(
+            symphony_task.to_dict(),
+            workspace_plan.to_dict(),
+            session_plan.to_dict(),
+            app_server_adapter_plan.to_dict(),
+        ),
+    )
+
+    status = "ok" if not errors else "blocked"
+    return write_operator_action_report(
+        args.queue_root,
+        _action(
+            "create-symphony-task-plan",
+            status,
+            task.task_id,
+            args.queue_root,
+            source_path=task_source["task_spec_path"],
+            destination_path=output_dir,
+            errors=list(dict.fromkeys(errors)),
+            warnings=list(dict.fromkeys(warnings)),
+            next_operator_action=(
+                "Review Symphony task artifacts; app-server command is rendered only and was not executed."
+                if status == "ok"
+                else "Resolve validation errors before using this Symphony task plan."
+            ),
+            extra={
+                "run_id": state.run_id,
+                "plan_id": plan.plan_id,
+                "symphony_task_plan": {
+                    "task_id": task.task_id,
+                    "artifact_dir": str(output_dir),
+                    "artifact_paths": artifact_paths,
+                    "workspace_setup_commands": list(render_workspace_setup_commands(workspace_plan)),
+                    "app_server_start_command": render_app_server_start_command(app_server_adapter_plan)
+                    if app_server_validation["valid"]
+                    else "",
+                    "schema_index_passed": not schema_index.errors,
+                    "symphony_mapping_passed": symphony_task.status.runnable,
+                    "app_server_adapter_boundary_ready": app_server_validation["valid"],
+                },
+                "schema_index_passed": not schema_index.errors,
+                "symphony_mapping_passed": symphony_task.status.runnable,
+                "app_server_adapter_boundary_ready": app_server_validation["valid"],
+                "codex_app_server_used": False,
+                "real_app_server_started": False,
+                "real_codex_self_invocation": False,
+                "daemon_created": False,
+                "scheduler_created": False,
+                "background_worker_created": False,
                 "network_calls_performed": 0,
             },
         ),
@@ -2084,6 +2260,53 @@ def render_operator_action_markdown(report: Mapping[str, Any]) -> str:
     return "\n".join(lines)
 
 
+def _render_symphony_task_plan_readme(
+    symphony_task: Mapping[str, Any],
+    workspace_plan: Mapping[str, Any],
+    session_plan: Mapping[str, Any],
+    app_server_adapter_plan: Mapping[str, Any],
+) -> str:
+    return "\n".join(
+        [
+            f"# Symphony Task Plan: {symphony_task.get('task_id', '')}",
+            "",
+            f"- task_id: `{symphony_task.get('task_id', '')}`",
+            f"- plan_id: `{symphony_task.get('source_plan_id', '')}`",
+            f"- run_id: `{symphony_task.get('source_run_id', '')}`",
+            f"- workspace_path: `{workspace_plan.get('workspace_path', '')}`",
+            f"- session_id: `{session_plan.get('session_id', '')}`",
+            f"- app_server_listen: `{app_server_adapter_plan.get('app_server_listen', '')}`",
+            f"- adapter_mode: `{app_server_adapter_plan.get('mode', '')}`",
+            "",
+            "This directory contains a render-only Symphony-style task/workspace/session plan. It did not create a worktree, start Codex app-server, invoke Codex, create a daemon, register a scheduler, run browser automation, or call external network services.",
+            "",
+        ]
+    )
+
+
+def _write_symphony_json(path: str | Path, payload: Mapping[str, Any]) -> Path:
+    return _write_symphony_text(path, json.dumps(dict(payload), indent=2, sort_keys=True) + "\n")
+
+
+def _write_symphony_text(path: str | Path, content: str) -> Path:
+    target = Path(path)
+    _long_io_path(target.parent).mkdir(parents=True, exist_ok=True)
+    temp_path = target.with_name(f".{target.name}.{os.getpid()}.{uuid.uuid4().hex}.tmp")
+    _long_io_path(temp_path).write_text(content, encoding="utf-8")
+    _long_io_path(temp_path).replace(_long_io_path(target))
+    return target
+
+
+def _long_io_path(path: Path) -> Path:
+    if os.name != "nt":
+        return path
+    resolved = path.resolve(strict=False)
+    text = str(resolved)
+    if text.startswith("\\\\?\\"):
+        return resolved
+    return Path("\\\\?\\" + text)
+
+
 def render_review_markdown(report: Mapping[str, Any]) -> str:
     lines = [
         f"# Task Review: {report['task_id']}",
@@ -2363,6 +2586,11 @@ def _cli_summary(report: Mapping[str, Any]) -> dict[str, Any]:
         "codex_cli_executable",
         "codex_cli_command",
         "command_preview",
+        "symphony_task_plan",
+        "schema_index_passed",
+        "symphony_mapping_passed",
+        "app_server_adapter_boundary_ready",
+        "real_app_server_started",
     ):
         if key in report:
             summary[key] = report[key]

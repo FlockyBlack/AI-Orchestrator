@@ -1,0 +1,28 @@
+{
+  "automatic_merge": false,
+  "base_branch": "master",
+  "base_head": "d1a305ebd0fa89854dcff9c4db1c148f3af460ed",
+  "branch_name": "codex/orch-codex-automation-026-selective-commit-push-hardening",
+  "dry_run_only": true,
+  "errors": [],
+  "external_network_allowed": false,
+  "force_operations_allowed": false,
+  "isolation_mode": "worktree_planned",
+  "repo_root": "C:\\Users\\OpenC\\.openclaw\\workspace",
+  "schema_version": "symphony_workspace_plan.v1",
+  "setup_commands": [
+    "git -C 'C:\\\\Users\\\\OpenC\\\\.openclaw\\\\workspace' status --short",
+    "git -C 'C:\\\\Users\\\\OpenC\\\\.openclaw\\\\workspace' rev-parse HEAD",
+    "git -C 'C:\\\\Users\\\\OpenC\\\\.openclaw\\\\workspace' worktree list",
+    "Write-Output 'DRY RUN: would prepare worktree C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\symphony_style_app_server_026\\workspaces\\ORCH-CODEX-AUTOMATION-026-SELECTIVE-COMMIT-PUSH-HARDENING on branch codex/orch-codex-automation-026-selective-commit-push-hardening; no branch/worktree is created by this plan.'"
+  ],
+  "task_id": "ORCH-CODEX-AUTOMATION-026-SELECTIVE-COMMIT-PUSH-HARDENING",
+  "warnings": [
+    "workspace_path is inside repo_root; keep this as a render-only plan unless a separate task approves workspace materialization"
+  ],
+  "workspace_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\symphony_style_app_server_026\\workspaces\\ORCH-CODEX-AUTOMATION-026-SELECTIVE-COMMIT-PUSH-HARDENING",
+  "workspace_root": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\symphony_style_app_server_026\\workspaces",
+  "worktree_created": false,
+  "would_create_worktree": true,
+  "would_merge": false
+}

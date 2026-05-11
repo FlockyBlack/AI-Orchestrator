@@ -1,0 +1,98 @@
+{
+  "allowed_tools": [
+    "shell_readonly",
+    "apply_patch",
+    "file_read",
+    "targeted_tests"
+  ],
+  "app_server_listen": "stdio://",
+  "app_server_schema_dir": "C:\\Users\\OpenC\\.openclaw\\external_research\\codex_app_server_schema",
+  "app_server_transport": "stdio",
+  "approval_policy": "on-request",
+  "errors": [],
+  "expected_result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\symphony_style_app_server_026\\workspaces\\ORCH-CODEX-AUTOMATION-026-SELECTIVE-COMMIT-PUSH-HARDENING\\.ai_orchestrator\\symphony\\ORCH-CODEX-AUTOMATION-026-SELECTIVE-COMMIT-PUSH-HARDENING\\expected_result.json",
+  "forbidden_tools": [
+    "browser_automation",
+    "web_search",
+    "openrouter",
+    "polymarket_api",
+    "authenticated_endpoint",
+    "wallet",
+    "private_key",
+    "signing",
+    "real_orders",
+    "scheduler",
+    "daemon",
+    "background_worker"
+  ],
+  "initialize_method": "initialize",
+  "prompt_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\symphony_style_app_server_026\\workspaces\\ORCH-CODEX-AUTOMATION-026-SELECTIVE-COMMIT-PUSH-HARDENING\\.ai_orchestrator\\symphony\\ORCH-CODEX-AUTOMATION-026-SELECTIVE-COMMIT-PUSH-HARDENING\\prompt.md",
+  "protocol_version": "v2",
+  "result_contract": {
+    "acceptance_gates": [
+      "unsafe staging is rejected",
+      "dry-run commit/push verification works",
+      "remote verification path is documented"
+    ],
+    "allowed_statuses": [
+      "completed",
+      "blocked",
+      "failed",
+      "needs_retry"
+    ],
+    "expected_artifacts": [
+      "selective staging hardening tests",
+      "commit push verify docs"
+    ],
+    "forbidden_actions": [
+      "git add dot",
+      "git add all",
+      "force push"
+    ],
+    "required_fields": [
+      "task_id",
+      "status",
+      "validation_passed",
+      "safety_ok",
+      "summary"
+    ],
+    "safety_flags_must_be_false": [
+      "real_trading",
+      "real_order_submitted",
+      "wallet_used",
+      "signing_used",
+      "private_key_used",
+      "trading_endpoint_used",
+      "real_money_used",
+      "autonomous_trading_enabled",
+      "openrouter_used",
+      "polymarket_api_used",
+      "authenticated_endpoint_used",
+      "browser_automation_used",
+      "unsafe_git_staging_used",
+      "force_push_used",
+      "daemon_created",
+      "scheduler_created",
+      "background_worker_created",
+      "invented_outcomes"
+    ],
+    "schema_version": "symphony_result_contract.v1",
+    "task_id": "ORCH-CODEX-AUTOMATION-026-SELECTIVE-COMMIT-PUSH-HARDENING"
+  },
+  "sandbox_policy": {
+    "excludeSlashTmp": true,
+    "excludeTmpdirEnvVar": true,
+    "networkAccess": false,
+    "type": "workspaceWrite",
+    "writableRoots": [
+      "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\symphony_style_app_server_026\\workspaces\\ORCH-CODEX-AUTOMATION-026-SELECTIVE-COMMIT-PUSH-HARDENING"
+    ]
+  },
+  "schema_version": "symphony_session_plan.v1",
+  "session_id": "symphony_orch_codex_automation_026_selective_commit_push_hardening",
+  "task_id": "ORCH-CODEX-AUTOMATION-026-SELECTIVE-COMMIT-PUSH-HARDENING",
+  "thread_start_method": "thread/start",
+  "turn_start_method": "turn/start",
+  "warnings": [],
+  "workspace_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\symphony_style_app_server_026\\workspaces\\ORCH-CODEX-AUTOMATION-026-SELECTIVE-COMMIT-PUSH-HARDENING"
+}

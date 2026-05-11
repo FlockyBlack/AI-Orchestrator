@@ -1,0 +1,50 @@
+{
+  "app_server_adapter_boundary_ready": true,
+  "codex_app_server_schema_dir": "C:/Users/OpenC/.openclaw/external_research/codex_app_server_schema",
+  "demonstrated_steps": [
+    "loaded agent_tasks/plans/pmbot_master_plan_to_050.v1.json",
+    "created test generated run SYMPHONY_STYLE_APP_SERVER_026 with fake executor",
+    "selected next runnable task after four fake-completed tasks",
+    "mapped AI-Orchestrator PlanTaskSpec to SymphonyTask",
+    "built render-only workspace plan",
+    "built Codex app-server session plan",
+    "inspected generated local Codex app-server schema directory",
+    "built render-only app-server adapter plan",
+    "wrote Symphony JSON artifacts",
+    "wrote this integration result JSON"
+  ],
+  "fake_executor_used": true,
+  "full_050_completion_claimed": false,
+  "plan_id": "pmbot_master_plan_to_050",
+  "real_app_server_started": false,
+  "real_codex_invocation": false,
+  "run_id": "SYMPHONY_STYLE_APP_SERVER_026",
+  "safety": {
+    "authenticated_endpoints_used": false,
+    "background_worker_created": false,
+    "browser_automation_used": false,
+    "daemon_created": false,
+    "force_push_used": false,
+    "openrouter_used": false,
+    "polymarket_api_used": false,
+    "real_orders_added": false,
+    "real_trading_enabled": false,
+    "scheduler_created": false,
+    "unsafe_git_staging_used": false,
+    "wallet_or_signing_added": false,
+    "worktree_created": false
+  },
+  "schema_index_passed": true,
+  "selected_task_id": "ORCH-CODEX-AUTOMATION-026-SELECTIVE-COMMIT-PUSH-HARDENING",
+  "source_plan_file": "agent_tasks/plans/pmbot_master_plan_to_050.v1.json",
+  "status": "completed_local",
+  "symphony_artifacts": {
+    "app_server_adapter_plan": "agent_tasks/generated/fake_integration/symphony_style_app_server_026/app_server_adapter_plan.json",
+    "codex_packet_preview": "agent_tasks/generated/fake_integration/symphony_style_app_server_026/codex_packet_preview.json",
+    "session_plan": "agent_tasks/generated/fake_integration/symphony_style_app_server_026/session_plan.json",
+    "symphony_task": "agent_tasks/generated/fake_integration/symphony_style_app_server_026/symphony_task.json",
+    "workspace_plan": "agent_tasks/generated/fake_integration/symphony_style_app_server_026/workspace_plan.json"
+  },
+  "symphony_mapping_passed": true,
+  "symphony_style_workspace_ready": true
+}
