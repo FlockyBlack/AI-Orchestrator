@@ -1,0 +1,35 @@
+{
+  "acceptance_gates": [
+    "unresolved market checks block unsafe resolution",
+    "evidence requirements are tested",
+    "dashboard displays unresolved status"
+  ],
+  "allowed_paths": [
+    "pm_bot/practical/automation/",
+    "pm_bot/practical/artifacts/automation/",
+    "docs/",
+    "tests/"
+  ],
+  "dependencies": [
+    "PMBOT-AUTOMATION-037-DAILY-WORKFLOW-RUN-PLAN"
+  ],
+  "description": "Strengthen unresolved market safety checks across PMBOT local workflows.",
+  "execution_lane": "pmbot_automation",
+  "execution_mode": "handoff",
+  "expected_artifacts": [
+    "unresolved market safety tests",
+    "safety dashboard fixture"
+  ],
+  "forbidden_actions": [
+    "invented outcomes",
+    "unresolved market resolved without evidence"
+  ],
+  "max_retries": 2,
+  "metadata": {},
+  "milestone_id": "",
+  "plan_id": "pmbot_master_plan_to_050",
+  "run_id": "R24D",
+  "schema_version": "codex_plan_task.v1",
+  "task_id": "PMBOT-AUTOMATION-038-UNRESOLVED-MARKET-SAFETY-CHECKS",
+  "title": "Unresolved market safety checks"
+}

@@ -187,7 +187,19 @@ def render_git_page(git: dict[str, Any], *, repo_root: str, queue_root: str) -> 
     return render_layout("Git", f"<section class=\"card\"><h1>Git</h1><pre>{_e(json.dumps(git, indent=2, sort_keys=True))}</pre></section>", repo_root=repo_root, queue_root=queue_root)
 
 
-def render_handoff_page(prompt_text: str, handoff_paths: list[str], *, repo_root: str, queue_root: str, task_id: str = "") -> str:
+def render_handoff_page(
+    prompt_text: str,
+    handoff_paths: list[str],
+    *,
+    repo_root: str,
+    queue_root: str,
+    task_id: str = "",
+    packet: dict[str, Any] | None = None,
+    template_text: str = "",
+    ingestion: dict[str, Any] | None = None,
+) -> str:
+    packet = packet or {}
+    ingestion = ingestion or {}
     expected = {
         "task_id": task_id or "<TASK_ID>",
         "status": "completed|blocked|failed",
@@ -203,9 +215,19 @@ def render_handoff_page(prompt_text: str, handoff_paths: list[str], *, repo_root
   <h1>Codex Handoff</h1>
   <p class="muted">Generated prompts are files for manual operator review. The panel does not call Codex.</p>
   <p><strong>task_id:</strong> <code>{_e(task_id or 'unknown')}</code></p>
+  <p><strong>adapter_mode:</strong> <code>{_e(packet.get('adapter_mode', 'manual_handoff'))}</code> | <strong>requires operator approval:</strong> <code>{_e(packet.get('requires_operator_approval', True))}</code></p>
+  <p><strong>latest packet:</strong> <code>{_e(packet.get('packet_path', 'none'))}</code></p>
+  <p><strong>expected result template:</strong> <code>{_e(packet.get('expected_result_template_path', 'none'))}</code></p>
+  <p><strong>ingestion status:</strong> <code>{_e(ingestion.get('ingestion_status', 'none'))}</code></p>
   <p><strong>path:</strong></p>{_list(handoff_paths[-10:])}
   <h2>Expected result JSON</h2>
-  <pre>{_e(json.dumps(expected, indent=2, sort_keys=True))}</pre>
+  <pre>{_e(template_text or json.dumps(expected, indent=2, sort_keys=True))}</pre>
+  <h2>Ingest result JSON</h2>
+  <form method="post" action="/actions/ingest-codex-result">
+    <label>Packet path</label><input name="packet_path" value="{_e(packet.get('packet_path', ''))}">
+    <label>Result JSON text or local result JSON path</label><textarea name="result_json_text" rows="10"></textarea>
+    <button type="submit">Ingest result JSON</button>
+  </form>
   <h2>Prompt</h2>
   <textarea class="copy" rows="28" readonly>{_e(prompt_text)}</textarea>
 </section>
@@ -254,12 +276,38 @@ def _run_action_forms(run_id: str) -> str:
 <form class="inline-form" method="post" action="/actions/continue-run">
   <input type="hidden" name="run_id" value="{_e(run_id)}">
   <input type="hidden" name="max_steps" value="1">
-  <button type="submit">Continue 1 step</button>
+  <input type="hidden" name="executor" value="fake">
+  <button type="submit">Continue 1 step with fake</button>
 </form>
 <form class="inline-form" method="post" action="/actions/continue-run">
   <input type="hidden" name="run_id" value="{_e(run_id)}">
   <input type="hidden" name="max_steps" value="3">
   <button type="submit">Continue 3 steps</button>
+</form>
+<form class="inline-form" method="post" action="/actions/continue-run">
+  <input type="hidden" name="run_id" value="{_e(run_id)}">
+  <input type="hidden" name="max_steps" value="1">
+  <input type="hidden" name="executor" value="codex_packet">
+  <button type="submit">Continue with codex_packet</button>
+</form>
+<form class="inline-form" method="post" action="/actions/create-codex-packet">
+  <input type="hidden" name="run_id" value="{_e(run_id)}">
+  <input type="hidden" name="adapter_mode" value="manual_handoff">
+  <button type="submit">Create Codex packet</button>
+</form>
+<form class="inline-form" method="post" action="/actions/create-codex-packet">
+  <input type="hidden" name="run_id" value="{_e(run_id)}">
+  <input type="hidden" name="adapter_mode" value="codex_cli_dry_run">
+  <button type="submit">Create Codex dry-run packet</button>
+</form>
+<form class="inline-form" method="get" action="/codex-handoff">
+  <button type="submit">Export expected result template</button>
+</form>
+<form method="post" action="/actions/ingest-codex-result">
+  <input type="hidden" name="run_id" value="{_e(run_id)}">
+  <label>Packet path</label><input name="packet_path" value="">
+  <label>Result JSON text or path</label><textarea name="result_json_text" rows="4"></textarea>
+  <button type="submit">Ingest result JSON</button>
 </form>
 <form class="inline-form" method="post" action="/actions/export-codex-prompt">
   <input type="hidden" name="run_id" value="{_e(run_id)}">

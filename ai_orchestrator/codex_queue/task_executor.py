@@ -1,11 +1,22 @@
 from __future__ import annotations
 
 import json
+import os
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Mapping, Protocol
 
+from .codex_execution_packet import (
+    write_execution_packet,
+    write_execution_prompt,
+    write_expected_result_template,
+)
+from .codex_executor_contract import (
+    CodexExecutionMode,
+    build_execution_packet,
+    validate_execution_packet,
+)
 from .plan_contract import PlanContract, PlanTaskSpec
 
 
@@ -159,6 +170,123 @@ class CodexHandoffExecutor:
         )
 
 
+class CodexPacketExecutor:
+    def execute(self, context: TaskExecutionContext) -> TaskExecutionResult:
+        packet, paths = _write_packet_artifacts(context, CodexExecutionMode.MANUAL_HANDOFF.value)
+        validation = validate_execution_packet(packet)
+        payload = _base_payload(context.task_spec, context, status="requiring_operator_handoff")
+        payload.update(
+            {
+                "validation_passed": validation.valid,
+                "safety_ok": validation.safety_ok,
+                "artifacts": list(paths.values()),
+                "commands_run": [],
+                "codex_invoked": False,
+                "adapter_mode": packet.adapter_mode,
+                "requires_operator_handoff": True,
+                "requires_operator_approval": packet.requires_operator_approval,
+                "execution_packet_path": paths["packet"],
+                "execution_prompt_path": paths["prompt"],
+                "expected_result_template_path": paths["expected_result_template"],
+                "readme_path": paths["readme"],
+                "validation_errors": list(validation.errors),
+                "validation_warnings": list(validation.warnings),
+                "next_operator_action": "Open prompt.md, run it manually only if approved, then ingest the returned JSON.",
+                "safety_boundaries_acknowledged": list(packet.safety_boundaries),
+            }
+        )
+        return TaskExecutionResult(
+            "requiring_operator_handoff",
+            payload,
+            (paths["prompt"], paths["packet"], paths["expected_result_template"], paths["readme"]),
+            "Codex execution packet generated; Codex was not invoked.",
+        )
+
+
+class CodexCliDryRunExecutor:
+    def execute(self, context: TaskExecutionContext) -> TaskExecutionResult:
+        packet, paths = _write_packet_artifacts(context, CodexExecutionMode.CODEX_CLI_DRY_RUN.value)
+        command = _future_codex_cli_command(packet.prompt_path, context.repo_root)
+        dry_run_path = Path(packet.prompt_path).parent / "codex_cli_dry_run.json"
+        dry_run_payload = {
+            "schema_version": "codex_cli_dry_run.v1",
+            "created_at": _utc_iso(),
+            "packet_id": packet.packet_id,
+            "task_id": packet.task_id,
+            "run_id": packet.run_id,
+            "adapter_mode": packet.adapter_mode,
+            "future_command": command,
+            "codex_invoked": False,
+            "external_process_started": False,
+            "requires_operator_approval_before_real_execution": True,
+            "safety": {
+                "daemon_created": False,
+                "scheduler_created": False,
+                "background_worker_created": False,
+                "wallet_or_trading_used": False,
+                "openrouter_used": False,
+                "polymarket_api_used": False,
+                "browser_automation_used": False,
+            },
+        }
+        _write_json(dry_run_path, dry_run_payload)
+        validation = validate_execution_packet(packet)
+        artifact_paths = (paths["prompt"], paths["packet"], paths["expected_result_template"], str(dry_run_path), paths["readme"])
+        payload = _base_payload(context.task_spec, context, status="adapter_dry_run_ready")
+        payload.update(
+            {
+                "validation_passed": validation.valid,
+                "safety_ok": validation.safety_ok,
+                "artifacts": list(artifact_paths),
+                "commands_run": [],
+                "codex_invoked": False,
+                "adapter_mode": packet.adapter_mode,
+                "requires_operator_handoff": False,
+                "requires_operator_approval": True,
+                "execution_packet_path": paths["packet"],
+                "execution_prompt_path": paths["prompt"],
+                "expected_result_template_path": paths["expected_result_template"],
+                "codex_cli_dry_run_path": str(dry_run_path),
+                "future_codex_cli_command": command,
+                "validation_errors": list(validation.errors),
+                "validation_warnings": list(validation.warnings),
+                "next_operator_action": "Review dry-run command and packet; no Codex process was started.",
+                "safety_boundaries_acknowledged": list(packet.safety_boundaries),
+            }
+        )
+        return TaskExecutionResult(
+            "adapter_dry_run_ready",
+            payload,
+            artifact_paths,
+            "Codex CLI dry-run artifact generated; Codex was not invoked.",
+        )
+
+
+@dataclass
+class CodexCliOperatorApprovedExecutor:
+    future_approval_marker: str = ""
+
+    def execute(self, context: TaskExecutionContext) -> TaskExecutionResult:
+        if self.future_approval_marker != "ORCH_025_EXPLICIT_CODEX_CLI_INVOCATION_APPROVAL":
+            raise NotImplementedError(
+                "CodexCliOperatorApprovedExecutor is a 024 boundary stub. "
+                "No Codex CLI invocation is implemented without a future explicit approval marker."
+            )
+        payload = _base_payload(context.task_spec, context, status="blocked")
+        payload.update(
+            {
+                "validation_passed": False,
+                "safety_ok": True,
+                "artifacts": [],
+                "commands_run": [],
+                "codex_invoked": False,
+                "adapter_mode": CodexExecutionMode.CODEX_CLI_OPERATOR_APPROVED.value,
+                "blocked_reason": "Future approval marker was present, but actual Codex CLI invocation is intentionally not implemented in 024.",
+            }
+        )
+        return TaskExecutionResult("blocked", payload, (), "Codex CLI invocation remains disabled in 024.")
+
+
 class FutureCodexCliExecutor:
     def execute(self, context: TaskExecutionContext) -> TaskExecutionResult:
         raise NotImplementedError(
@@ -289,8 +417,60 @@ def _fake_behavior_for_task(executor: FakeTaskExecutor, task: PlanTaskSpec) -> s
 
 
 def _write_json(path: Path, payload: dict[str, Any]) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    target = _io_path(path)
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+
+def _write_packet_artifacts(context: TaskExecutionContext, adapter_mode: str) -> tuple[Any, dict[str, str]]:
+    run_dir = Path(context.run_dir)
+    manifest = _read_json(run_dir / "manifest.json")
+    manifest["manifest_path"] = str(run_dir / "manifest.json")
+    state = _read_json(run_dir / "state.json")
+    packet = build_execution_packet(context.task_spec, state, manifest, adapter_mode)
+    output_dir = Path(packet.prompt_path).parent
+    packet_path = write_execution_packet(packet, output_dir)
+    prompt_path = write_execution_prompt(packet, output_dir)
+    template_path = write_expected_result_template(packet, output_dir)
+    readme_path = output_dir / "README.md"
+    return packet, {
+        "packet": str(packet_path),
+        "prompt": str(prompt_path),
+        "expected_result_template": str(template_path),
+        "readme": str(readme_path),
+    }
+
+
+def _future_codex_cli_command(prompt_path: str, repo_root: str | Path) -> list[str]:
+    return [
+        "codex",
+        "exec",
+        "--sandbox",
+        "workspace-write",
+        "--cd",
+        str(repo_root),
+        "--json",
+        "--prompt-file",
+        str(prompt_path),
+    ]
+
+
+def _read_json(path: str | Path) -> dict[str, Any]:
+    try:
+        payload = json.loads(Path(path).read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    return payload if isinstance(payload, dict) else {}
+
+
+def _io_path(path: Path) -> Path:
+    if os.name != "nt":
+        return path
+    resolved = path.resolve(strict=False)
+    text = str(resolved)
+    if text.startswith("\\\\?\\"):
+        return resolved
+    return Path("\\\\?\\" + text)
 
 
 def _bullet_lines(values: tuple[str, ...] | list[str]) -> list[str]:

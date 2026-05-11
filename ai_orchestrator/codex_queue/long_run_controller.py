@@ -31,7 +31,10 @@ from .plan_run_state import (
 from .plan_to_queue import create_queue_from_plan, inspect_queue, validate_queue_manifest
 from .result_acceptance_policy import ACCEPTED, BLOCKED, FAILED, NEEDS_RETRY, evaluate_task_result
 from .task_executor import (
+    CodexCliDryRunExecutor,
+    CodexCliOperatorApprovedExecutor,
     CodexHandoffExecutor,
+    CodexPacketExecutor,
     FakeTaskExecutor,
     LocalNoopExecutor,
     TaskExecutionContext,
@@ -303,9 +306,11 @@ class LongRunController:
         status = "max_steps"
         stop_reason = "max_steps"
         dashboard: dict[str, Any] = {}
+        last_step_result: dict[str, Any] = {}
         try:
             while steps_attempted < max_steps:
                 step_result = self.execute_next_task(plan, state, state_path, run_root, queue_root, executor_instance)
+                last_step_result = step_result
                 steps_attempted += 1
                 if step_result.get("status") == "accepted":
                     steps_completed += 1
@@ -315,7 +320,13 @@ class LongRunController:
                     status = str(step_result["status"])
                     stop_reason = str(step_result["stop_reason"])
                     break
-                if step_result["status"] in {"blocked", "failed", "requiring_operator_handoff", "needs_retry"}:
+                if step_result["status"] in {
+                    "blocked",
+                    "failed",
+                    "requiring_operator_handoff",
+                    "needs_retry",
+                    "adapter_dry_run_ready",
+                }:
                     status = str(step_result["status"])
                     stop_reason = status
                     break
@@ -371,6 +382,7 @@ class LongRunController:
             "handoff_prompt_path": state.latest_handoff_prompt_path,
             "next_runnable_task_ids": next_runnable_ids,
         }
+        payload.update(_adapter_paths_from_step_result(last_step_result))
         result = _controller_result(
             status=status,
             stop_reason=stop_reason,
@@ -390,6 +402,7 @@ class LongRunController:
             safety_ok=True,
             validation_passed=validate_state_consistency(state, plan)["consistent"],
         )
+        result.update(_adapter_paths_from_step_result(last_step_result))
         _write_json(run_root / "result.json", result)
         return result
 
@@ -409,10 +422,40 @@ class LongRunController:
                 result_path=str(execution.artifact_paths[0]) if execution.artifact_paths else "",
             )
             state.latest_handoff_prompt_path = str(execution.artifact_paths[0]) if execution.artifact_paths else ""
-            append_event(state, {"event": "operator_handoff_required", "task_id": task_id, "handoff_prompt_path": state.latest_handoff_prompt_path})
+            append_event(
+                state,
+                {
+                    "event": "operator_handoff_required",
+                    "task_id": task_id,
+                    "handoff_prompt_path": state.latest_handoff_prompt_path,
+                    "execution_packet_path": execution.result_payload.get("execution_packet_path", ""),
+                    "adapter_mode": execution.result_payload.get("adapter_mode", ""),
+                },
+            )
             set_run_status(state, "paused", reason="operator_handoff_required")
             save_state(state, state_path)
             return {"status": "requiring_operator_handoff", "stop": False, "execution": execution.to_dict()}
+        if execution.status == "adapter_dry_run_ready":
+            record_task_artifacts(
+                state,
+                task_id,
+                execution.artifact_paths,
+                result_path=str(execution.result_payload.get("codex_cli_dry_run_path") or ""),
+            )
+            state.latest_handoff_prompt_path = str(execution.result_payload.get("execution_prompt_path") or "")
+            append_event(
+                state,
+                {
+                    "event": "codex_adapter_dry_run_ready",
+                    "task_id": task_id,
+                    "execution_packet_path": execution.result_payload.get("execution_packet_path", ""),
+                    "codex_cli_dry_run_path": execution.result_payload.get("codex_cli_dry_run_path", ""),
+                    "adapter_mode": execution.result_payload.get("adapter_mode", ""),
+                },
+            )
+            set_run_status(state, "paused", reason="codex_adapter_dry_run_ready")
+            save_state(state, state_path)
+            return {"status": "adapter_dry_run_ready", "stop": False, "execution": execution.to_dict()}
         task = next(item for item in plan.tasks if item.task_id == task_id)
         decision = evaluate_task_result(task, execution.result_payload, plan.safety_boundaries)
         if decision.status == ACCEPTED:
@@ -466,7 +509,35 @@ def _executor_for_mode(executor: str) -> TaskExecutor:
         return LocalNoopExecutor()
     if executor == "handoff":
         return CodexHandoffExecutor()
+    if executor == "codex_packet":
+        return CodexPacketExecutor()
+    if executor == "codex_cli_dry_run":
+        return CodexCliDryRunExecutor()
+    if executor == "codex_cli_operator_approved_stub":
+        return CodexCliOperatorApprovedExecutor()
     raise ValueError(f"unsupported executor mode: {executor}")
+
+
+def _adapter_paths_from_step_result(step_result: Mapping[str, Any]) -> dict[str, Any]:
+    execution = step_result.get("execution", {}) if isinstance(step_result, Mapping) else {}
+    if not isinstance(execution, Mapping):
+        return {}
+    payload = execution.get("result_payload", {})
+    if not isinstance(payload, Mapping):
+        return {}
+    keys = (
+        "execution_packet_path",
+        "execution_prompt_path",
+        "expected_result_template_path",
+        "codex_cli_dry_run_path",
+        "adapter_mode",
+        "requires_operator_handoff",
+        "next_operator_action",
+    )
+    result = {key: payload.get(key) for key in keys if key in payload}
+    if result.get("execution_prompt_path"):
+        result.setdefault("handoff_prompt_path", result["execution_prompt_path"])
+    return result
 
 
 def _state_summary_for_handoff(state: PlanRunState) -> dict[str, Any]:

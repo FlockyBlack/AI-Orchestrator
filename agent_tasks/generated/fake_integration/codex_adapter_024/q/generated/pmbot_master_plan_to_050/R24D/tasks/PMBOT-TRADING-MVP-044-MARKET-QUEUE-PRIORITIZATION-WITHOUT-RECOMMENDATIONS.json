@@ -1,0 +1,36 @@
+{
+  "acceptance_gates": [
+    "priority is workflow ordering only",
+    "no recommendation, EV, probability, or side signal",
+    "explanations are non-advisory"
+  ],
+  "allowed_paths": [
+    "pm_bot/",
+    "docs/",
+    "tests/"
+  ],
+  "dependencies": [
+    "PMBOT-TRADING-MVP-043-OPERATOR-REVIEW-UI-ARTIFACTS"
+  ],
+  "description": "Add market queue prioritization for operator workflow ordering without recommendations.",
+  "execution_lane": "paper_mvp",
+  "execution_mode": "handoff",
+  "expected_artifacts": [
+    "workflow priority queue",
+    "non-advisory safety tests"
+  ],
+  "forbidden_actions": [
+    "market recommendation",
+    "probability signal",
+    "EV signal",
+    "side selection"
+  ],
+  "max_retries": 2,
+  "metadata": {},
+  "milestone_id": "",
+  "plan_id": "pmbot_master_plan_to_050",
+  "run_id": "R24D",
+  "schema_version": "codex_plan_task.v1",
+  "task_id": "PMBOT-TRADING-MVP-044-MARKET-QUEUE-PRIORITIZATION-WITHOUT-RECOMMENDATIONS",
+  "title": "Market queue prioritization without recommendations"
+}

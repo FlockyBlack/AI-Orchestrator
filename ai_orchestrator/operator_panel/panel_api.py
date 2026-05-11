@@ -5,9 +5,12 @@ from typing import Any
 
 from .panel_actions import (
     build_panel_dashboard_action,
+    codex_adapter_dry_run_action,
     continue_run_action,
+    create_codex_packet_action,
     create_queue_action,
     export_next_codex_prompt_action,
+    ingest_codex_result_action,
     recover_run_action,
     run_fake_steps_action,
     save_pasted_plan_action,
@@ -36,7 +39,12 @@ def post_run_fake_steps(form: dict[str, str], queue_root: str | Path) -> dict[st
 
 
 def post_continue_run(form: dict[str, str], queue_root: str | Path) -> dict[str, Any]:
-    return continue_run_action(form.get("run_id", ""), queue_root, _int(form.get("max_steps"), 3))
+    return continue_run_action(
+        form.get("run_id", ""),
+        queue_root,
+        _int(form.get("max_steps"), 3),
+        executor=form.get("executor", "fake") or "fake",
+    )
 
 
 def post_recover_run(form: dict[str, str], queue_root: str | Path) -> dict[str, Any]:
@@ -46,6 +54,26 @@ def post_recover_run(form: dict[str, str], queue_root: str | Path) -> dict[str, 
 
 def post_export_handoff_prompt(form: dict[str, str], queue_root: str | Path) -> dict[str, Any]:
     return export_next_codex_prompt_action(form.get("run_id", ""), queue_root)
+
+
+def post_create_codex_packet(form: dict[str, str], queue_root: str | Path) -> dict[str, Any]:
+    return create_codex_packet_action(
+        form.get("run_id", ""),
+        queue_root,
+        form.get("adapter_mode", "manual_handoff") or "manual_handoff",
+    )
+
+
+def post_codex_adapter_dry_run(form: dict[str, str], queue_root: str | Path) -> dict[str, Any]:
+    return codex_adapter_dry_run_action(form.get("run_id", ""), queue_root)
+
+
+def post_ingest_codex_result(form: dict[str, str], queue_root: str | Path) -> dict[str, Any]:
+    return ingest_codex_result_action(
+        form.get("packet_path", ""),
+        form.get("result_json_text", "") or form.get("result_json_path", ""),
+        queue_root,
+    )
 
 
 def _int(value: str | None, default: int) -> int:

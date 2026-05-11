@@ -6,14 +6,23 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Mapping
 
+from .automation_dashboard import build_dashboard
 from .codex_cli_batch_runner import DEFAULT_MAX_TASKS, HARD_MAX_TASKS, run_codex_batch
 from .codex_cli_postprocessor import postprocess_codex_batch
 from .codex_cli_runner import DEFAULT_TIMEOUT_SECONDS, run_codex_once
+from .codex_execution_packet import (
+    create_execution_packet_for_next_task,
+    inspect_execution_packets,
+    write_execution_packet,
+    write_execution_prompt,
+    write_expected_result_template,
+)
+from .codex_result_ingestion import ingest_codex_result, ingest_codex_result_text
 from .dry_run_runner import run_dry_run
 from .long_run_controller import LongRunController
 from .plan_contract import load_plan_contract, validate_plan_contract
 from .plan_recovery import inspect_run as inspect_recovery_run
-from .plan_run_state import create_checkpoint, load_state, save_state, validate_state_consistency
+from .plan_run_state import create_checkpoint, load_state, record_task_artifacts, save_state, validate_state_consistency
 from .plan_to_queue import create_queue_from_plan, inspect_queue, load_queue_manifest, validate_queue_manifest
 from .files import (
     QUEUE_STATE_DIRECTORIES,
@@ -74,7 +83,11 @@ def main(argv: list[str] | None = None) -> int:
     run_plan_parser.add_argument("--push", action="store_true")
     run_plan_parser.add_argument("--dry-run", action="store_true")
     run_plan_parser.add_argument("--continue-until", default="blocked_or_done")
-    run_plan_parser.add_argument("--executor", choices=("fake", "noop", "handoff"), default="fake")
+    run_plan_parser.add_argument(
+        "--executor",
+        choices=("fake", "noop", "handoff", "codex_packet", "codex_cli_dry_run", "codex_cli_operator_approved_stub"),
+        default="fake",
+    )
     run_plan_parser.add_argument("--run-id", default=None)
     run_plan_parser.set_defaults(func=_cmd_run_plan_contract)
 
@@ -83,7 +96,11 @@ def main(argv: list[str] | None = None) -> int:
     _add_queue_root(continue_plan_parser)
     continue_plan_parser.add_argument("--max-steps", type=int, default=50)
     continue_plan_parser.add_argument("--continue-until", default="blocked_or_done")
-    continue_plan_parser.add_argument("--executor", choices=("fake", "noop", "handoff"), default="fake")
+    continue_plan_parser.add_argument(
+        "--executor",
+        choices=("fake", "noop", "handoff", "codex_packet", "codex_cli_dry_run", "codex_cli_operator_approved_stub"),
+        default="fake",
+    )
     continue_plan_parser.add_argument("--stop-after-current", action="store_true")
     continue_plan_parser.set_defaults(func=_cmd_continue_plan_contract)
 
@@ -100,6 +117,47 @@ def main(argv: list[str] | None = None) -> int:
     export_prompt_parser.add_argument("--run-id", required=True)
     _add_queue_root(export_prompt_parser)
     export_prompt_parser.set_defaults(func=_cmd_export_next_codex_prompt)
+
+    create_packet_parser = subparsers.add_parser(
+        "create-codex-packet",
+        help="Create a safe Codex execution packet for the next runnable task without invoking Codex.",
+    )
+    create_packet_parser.add_argument("--run-id", required=True)
+    _add_queue_root(create_packet_parser)
+    create_packet_parser.add_argument(
+        "--adapter-mode",
+        choices=("manual_handoff", "codex_cli_dry_run", "codex_cli_operator_approved"),
+        default="manual_handoff",
+    )
+    create_packet_parser.add_argument("--task-id", default=None)
+    create_packet_parser.set_defaults(func=_cmd_create_codex_packet)
+
+    ingest_codex_parser = subparsers.add_parser(
+        "ingest-codex-result",
+        help="Validate and ingest a Codex adapter result JSON file.",
+    )
+    ingest_codex_parser.add_argument("--packet-path", required=True)
+    ingest_codex_parser.add_argument("--result-json", required=True)
+    _add_queue_root(ingest_codex_parser)
+    ingest_codex_parser.set_defaults(func=_cmd_ingest_codex_result)
+
+    ingest_codex_text_parser = subparsers.add_parser(
+        "ingest-codex-result-text",
+        help="Validate and ingest a Codex adapter result JSON stored in a text file.",
+    )
+    ingest_codex_text_parser.add_argument("--packet-path", required=True)
+    ingest_codex_text_parser.add_argument("--result-text-file", required=True)
+    _add_queue_root(ingest_codex_text_parser)
+    ingest_codex_text_parser.set_defaults(func=_cmd_ingest_codex_result_text)
+
+    adapter_dry_run_parser = subparsers.add_parser(
+        "codex-adapter-dry-run",
+        help="Render the future Codex CLI command and packet without invoking Codex.",
+    )
+    adapter_dry_run_parser.add_argument("--run-id", required=True)
+    _add_queue_root(adapter_dry_run_parser)
+    adapter_dry_run_parser.add_argument("--adapter-mode", choices=("codex_cli_dry_run",), default="codex_cli_dry_run")
+    adapter_dry_run_parser.set_defaults(func=_cmd_codex_adapter_dry_run)
 
     inspect_run_parser = subparsers.add_parser("inspect-run", help="Inspect a generated plan run.")
     inspect_run_parser.add_argument("--run-id", required=True)
@@ -434,6 +492,122 @@ def _cmd_export_next_codex_prompt(args: argparse.Namespace) -> dict[str, Any]:
         continue_until="one_step",
     )
     return _write_plan_runner_action(args.queue_root, "export-next-codex-prompt", result, "")
+
+
+def _cmd_create_codex_packet(args: argparse.Namespace) -> dict[str, Any]:
+    packet = create_execution_packet_for_next_task(
+        args.run_id,
+        args.queue_root,
+        adapter_mode=args.adapter_mode,
+        task_id=args.task_id,
+    )
+    output_dir = Path(packet.prompt_path).parent
+    packet_path = write_execution_packet(packet, output_dir)
+    prompt_path = write_execution_prompt(packet, output_dir)
+    template_path = write_expected_result_template(packet, output_dir)
+    _record_packet_artifacts_for_dashboard(
+        packet,
+        args.queue_root,
+        [str(packet_path), str(prompt_path), str(template_path), str(output_dir / "README.md")],
+    )
+    inspection = inspect_execution_packets(args.run_id, args.queue_root)
+    return write_operator_action_report(
+        args.queue_root,
+        _action(
+            "create-codex-packet",
+            "ok",
+            packet.task_id,
+            args.queue_root,
+            source_path=packet.task_spec_path,
+            destination_path=str(packet_path),
+            next_operator_action="Open prompt.md, run it manually only if approved, then ingest the returned JSON.",
+            extra={
+                "run_id": packet.run_id,
+                "plan_id": packet.plan_id,
+                "packet_id": packet.packet_id,
+                "adapter_mode": packet.adapter_mode,
+                "requires_operator_approval": packet.requires_operator_approval,
+                "execution_packet_path": str(packet_path),
+                "execution_prompt_path": str(prompt_path),
+                "expected_result_template_path": str(template_path),
+                "codex_packets": inspection,
+                "codex_execution_added": False,
+                "codex_invoked": False,
+                "network_calls_performed": 0,
+            },
+        ),
+    )
+
+
+def _cmd_ingest_codex_result(args: argparse.Namespace) -> dict[str, Any]:
+    result = ingest_codex_result(args.packet_path, args.result_json, args.queue_root)
+    status = "ok" if result["status"] in {"accepted", "blocked", "failed", "needs_retry"} else "blocked"
+    return write_operator_action_report(
+        args.queue_root,
+        _action(
+            "ingest-codex-result",
+            status,
+            result.get("task_id", ""),
+            args.queue_root,
+            source_path=args.result_json,
+            destination_path=result.get("report_paths", {}).get("json", ""),
+            errors=list(result.get("errors", [])),
+            warnings=list(result.get("warnings", [])),
+            next_operator_action=result.get("next_operator_action", ""),
+            extra={
+                "codex_result_ingestion": result,
+                "run_id": result.get("run_id", ""),
+                "packet_id": result.get("packet_id", ""),
+                "codex_execution_added": False,
+                "codex_invoked": False,
+                "network_calls_performed": 0,
+            },
+        ),
+    )
+
+
+def _cmd_ingest_codex_result_text(args: argparse.Namespace) -> dict[str, Any]:
+    result_text = Path(args.result_text_file).read_text(encoding="utf-8")
+    result = ingest_codex_result_text(
+        args.packet_path,
+        result_text,
+        args.queue_root,
+        result_json_path=args.result_text_file,
+    )
+    status = "ok" if result["status"] in {"accepted", "blocked", "failed", "needs_retry"} else "blocked"
+    return write_operator_action_report(
+        args.queue_root,
+        _action(
+            "ingest-codex-result-text",
+            status,
+            result.get("task_id", ""),
+            args.queue_root,
+            source_path=args.result_text_file,
+            destination_path=result.get("report_paths", {}).get("json", ""),
+            errors=list(result.get("errors", [])),
+            warnings=list(result.get("warnings", [])),
+            next_operator_action=result.get("next_operator_action", ""),
+            extra={
+                "codex_result_ingestion": result,
+                "packet_id": result.get("packet_id", ""),
+                "codex_execution_added": False,
+                "codex_invoked": False,
+                "network_calls_performed": 0,
+            },
+        ),
+    )
+
+
+def _cmd_codex_adapter_dry_run(args: argparse.Namespace) -> dict[str, Any]:
+    controller = LongRunController(repo_root=".")
+    result = controller.continue_plan(
+        args.run_id,
+        args.queue_root,
+        max_steps=1,
+        executor="codex_cli_dry_run",
+        continue_until="one_step",
+    )
+    return _write_plan_runner_action(args.queue_root, "codex-adapter-dry-run", result, "")
 
 
 def _cmd_inspect_run(args: argparse.Namespace) -> dict[str, Any]:
@@ -1609,7 +1783,7 @@ def _write_plan_runner_action(
     source_path: str | Path,
 ) -> dict[str, Any]:
     run_status = str(result.get("status", "failed"))
-    cli_status = run_status if run_status in {"done", "max_steps", "requiring_operator_handoff", "dry_run"} else (
+    cli_status = run_status if run_status in {"done", "max_steps", "requiring_operator_handoff", "adapter_dry_run_ready", "dry_run"} else (
         "ok" if run_status in {"accepted", "recovered"} else run_status
     )
     payload = result.get("payload", {}) if isinstance(result.get("payload", {}), Mapping) else {}
@@ -1630,6 +1804,10 @@ def _write_plan_runner_action(
                 "run_status": run_status,
                 "run_id": str(payload.get("run_id") or ""),
                 "plan_id": str(payload.get("plan_id") or ""),
+                "execution_packet_path": result.get("execution_packet_path") or payload.get("execution_packet_path", ""),
+                "execution_prompt_path": result.get("execution_prompt_path") or payload.get("execution_prompt_path", ""),
+                "expected_result_template_path": result.get("expected_result_template_path") or payload.get("expected_result_template_path", ""),
+                "adapter_mode": result.get("adapter_mode") or payload.get("adapter_mode", ""),
                 "codex_execution_added": False,
                 "codex_app_server_used": False,
                 "network_calls_performed": 0,
@@ -1645,6 +1823,8 @@ def _next_action_for_plan_runner_status(status: str) -> str:
         return "Run continue-plan to continue the bounded supervised run."
     if status == "requiring_operator_handoff":
         return "Open the generated Codex handoff prompt and run it manually if approved."
+    if status == "adapter_dry_run_ready":
+        return "Review the Codex CLI dry-run artifact; no Codex process was started."
     if status in {"blocked", "failed", "needs_retry"}:
         return "Inspect result details and run recover-plan or retry after review."
     if status == "dry_run":
@@ -1914,6 +2094,23 @@ def _latest_stable_ingestion_report(queue_root: str | Path) -> Path | None:
     return max(candidates, key=_mtime)
 
 
+def _record_packet_artifacts_for_dashboard(packet: Any, queue_root: str | Path, artifact_paths: list[str]) -> None:
+    try:
+        state = load_state(packet.state_path)
+        plan = load_plan_contract(_source_plan_for_packet(packet))
+    except (OSError, json.JSONDecodeError, ValueError):
+        return
+    record_task_artifacts(state, packet.task_id, artifact_paths, result_path=artifact_paths[0] if artifact_paths else "")
+    save_state(state, packet.state_path, updated_by="operator_cli")
+    build_dashboard(state, plan, Path(packet.state_path).parent / "dashboard")
+    save_state(state, packet.state_path, updated_by="operator_cli")
+
+
+def _source_plan_for_packet(packet: Any) -> str:
+    manifest = read_json(packet.queue_manifest_path)
+    return str(manifest.get("source_plan_file") or "")
+
+
 def _mtime(path: Path) -> float:
     try:
         return path.stat().st_mtime
@@ -1937,6 +2134,16 @@ def _cli_summary(report: Mapping[str, Any]) -> dict[str, Any]:
         if key in report:
             summary[key] = report[key]
     for key in (
+        "packet_id",
+        "adapter_mode",
+        "requires_operator_approval",
+        "execution_packet_path",
+        "execution_prompt_path",
+        "expected_result_template_path",
+    ):
+        if key in report:
+            summary[key] = report[key]
+    for key in (
         "runs",
         "run_count",
         "run_inspection",
@@ -1944,6 +2151,8 @@ def _cli_summary(report: Mapping[str, Any]) -> dict[str, Any]:
         "checkpoint",
         "queue_creation",
         "plan_recovery",
+        "codex_packets",
+        "codex_result_ingestion",
     ):
         if key in report:
             summary[key] = report[key]
@@ -1956,7 +2165,7 @@ def _cli_summary(report: Mapping[str, Any]) -> dict[str, Any]:
 def _exit_code_for_report(report: Mapping[str, Any]) -> int:
     status = str(report.get("status", "failed"))
     run_status = str(report.get("run_status", ""))
-    success_statuses = {"ok", "done", "max_steps", "requiring_operator_handoff", "dry_run"}
+    success_statuses = {"ok", "done", "max_steps", "requiring_operator_handoff", "adapter_dry_run_ready", "dry_run"}
     failure_statuses = {"blocked", "failed", "needs_retry", "safety_failure", "validation_failure"}
     if status in failure_statuses or run_status in failure_statuses:
         return 1

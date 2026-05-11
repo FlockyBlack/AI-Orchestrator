@@ -1,0 +1,35 @@
+{
+  "acceptance_gates": [
+    "acceptance gate blocks unsafe claims",
+    "safe fake and handoff paths pass",
+    "operator result schema is stable"
+  ],
+  "allowed_paths": [
+    "ai_orchestrator/codex_queue/",
+    "docs/",
+    "tests/"
+  ],
+  "dependencies": [
+    "ORCH-CODEX-AUTOMATION-029-LONG-SUPERVISED-RUN-UX"
+  ],
+  "description": "Finalize automation acceptance gate for local supervised plan-runner operation.",
+  "execution_lane": "orch_automation",
+  "execution_mode": "handoff",
+  "expected_artifacts": [
+    "acceptance gate report",
+    "result schema tests"
+  ],
+  "forbidden_actions": [
+    "unsafe result acceptance",
+    "wallet",
+    "orders"
+  ],
+  "max_retries": 2,
+  "metadata": {},
+  "milestone_id": "",
+  "plan_id": "pmbot_master_plan_to_050",
+  "run_id": "R24D",
+  "schema_version": "codex_plan_task.v1",
+  "task_id": "ORCH-CODEX-AUTOMATION-030-AUTOMATION-ACCEPTANCE-GATE",
+  "title": "Automation acceptance gate"
+}

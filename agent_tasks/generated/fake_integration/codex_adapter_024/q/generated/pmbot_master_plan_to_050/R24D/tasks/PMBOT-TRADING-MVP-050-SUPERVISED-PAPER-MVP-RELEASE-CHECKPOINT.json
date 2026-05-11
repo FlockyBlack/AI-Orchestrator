@@ -1,0 +1,36 @@
+{
+  "acceptance_gates": [
+    "supervised paper-MVP release checkpoint is local-only",
+    "next real-world blockers are explicit",
+    "no live approval is implied"
+  ],
+  "allowed_paths": [
+    "pm_bot/",
+    "docs/",
+    "tests/"
+  ],
+  "dependencies": [
+    "PMBOT-TRADING-MVP-049-PRODUCT-LEVEL-DRY-RUN-ACCEPTANCE"
+  ],
+  "description": "Finalize supervised paper-MVP release checkpoint and record remaining blockers.",
+  "execution_lane": "paper_mvp",
+  "execution_mode": "handoff",
+  "expected_artifacts": [
+    "supervised paper-MVP checkpoint",
+    "remaining blocker matrix"
+  ],
+  "forbidden_actions": [
+    "live approval",
+    "real trading",
+    "wallet",
+    "orders"
+  ],
+  "max_retries": 2,
+  "metadata": {},
+  "milestone_id": "",
+  "plan_id": "pmbot_master_plan_to_050",
+  "run_id": "R24D",
+  "schema_version": "codex_plan_task.v1",
+  "task_id": "PMBOT-TRADING-MVP-050-SUPERVISED-PAPER-MVP-RELEASE-CHECKPOINT",
+  "title": "Supervised paper-MVP release checkpoint"
+}

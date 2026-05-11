@@ -1,0 +1,177 @@
+{
+  "artifact_paths": [
+    "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\artifacts\\ORCH-CODEX-AUTOMATION-022-OPERATOR-PANEL-AND-PLAN-RUNNER-CONTROL_fake_111212950706.json",
+    "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\codex_packets\\ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING\\prompt.md",
+    "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\codex_packets\\ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING\\packet.json",
+    "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\codex_packets\\ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING\\expected_result_template.json",
+    "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\codex_packets\\ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING\\README.md",
+    "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\simulated_accepted_result.json"
+  ],
+  "blocked_task_ids": [],
+  "checkpoints": [
+    {
+      "artifact_paths": [],
+      "blocked_task_ids": [],
+      "checkpoint_created_at": "2026-05-11T11:12:12Z",
+      "checkpoint_id": "cp_0001_20260511T111212Z",
+      "checkpoint_reason": "before_first_execution",
+      "completed_task_ids": [],
+      "failed_task_ids": [],
+      "latest_handoff_prompt_path": "",
+      "latest_recovery_report_path": "",
+      "retry_counts": {},
+      "skipped_task_ids": [],
+      "status": "queued",
+      "task_id": ""
+    }
+  ],
+  "completed_task_ids": [
+    "ORCH-CODEX-AUTOMATION-022-OPERATOR-PANEL-AND-PLAN-RUNNER-CONTROL",
+    "ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING"
+  ],
+  "created_by": "long_run_controller",
+  "current_task_id": "",
+  "dashboard_paths": [
+    "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\dashboard\\dashboard.json",
+    "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\dashboard\\dashboard.md"
+  ],
+  "events": [
+    {
+      "at": "2026-05-11T11:12:12Z",
+      "event": "run_status_changed",
+      "from": "initialized",
+      "reason": "queue_created",
+      "to": "queued"
+    },
+    {
+      "at": "2026-05-11T11:12:12Z",
+      "checkpoint_id": "cp_0001_20260511T111212Z",
+      "event": "checkpoint_created",
+      "reason": "before_first_execution"
+    },
+    {
+      "at": "2026-05-11T11:12:12Z",
+      "event": "run_status_changed",
+      "from": "queued",
+      "reason": "task_started:ORCH-CODEX-AUTOMATION-022-OPERATOR-PANEL-AND-PLAN-RUNNER-CONTROL",
+      "to": "running"
+    },
+    {
+      "at": "2026-05-11T11:12:12Z",
+      "event": "task_started",
+      "task_id": "ORCH-CODEX-AUTOMATION-022-OPERATOR-PANEL-AND-PLAN-RUNNER-CONTROL"
+    },
+    {
+      "at": "2026-05-11T11:12:12Z",
+      "event": "task_done",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\artifacts\\ORCH-CODEX-AUTOMATION-022-OPERATOR-PANEL-AND-PLAN-RUNNER-CONTROL_fake_111212950706.json",
+      "task_id": "ORCH-CODEX-AUTOMATION-022-OPERATOR-PANEL-AND-PLAN-RUNNER-CONTROL"
+    },
+    {
+      "at": "2026-05-11T11:12:13Z",
+      "event": "run_status_changed",
+      "from": "running",
+      "reason": "one_step",
+      "to": "paused"
+    },
+    {
+      "at": "2026-05-11T11:12:13Z",
+      "event": "run_status_changed",
+      "from": "paused",
+      "reason": "task_started:ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING",
+      "to": "running"
+    },
+    {
+      "at": "2026-05-11T11:12:13Z",
+      "event": "task_started",
+      "task_id": "ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING"
+    },
+    {
+      "artifact_paths": [
+        "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\codex_packets\\ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING\\prompt.md",
+        "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\codex_packets\\ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING\\packet.json",
+        "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\codex_packets\\ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING\\expected_result_template.json",
+        "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\codex_packets\\ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING\\README.md"
+      ],
+      "at": "2026-05-11T11:12:13Z",
+      "event": "task_artifacts_recorded",
+      "task_id": "ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING"
+    },
+    {
+      "adapter_mode": "manual_handoff",
+      "at": "2026-05-11T11:12:13Z",
+      "event": "operator_handoff_required",
+      "execution_packet_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\codex_packets\\ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING\\packet.json",
+      "handoff_prompt_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\codex_packets\\ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING\\prompt.md",
+      "task_id": "ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING"
+    },
+    {
+      "at": "2026-05-11T11:12:13Z",
+      "event": "run_status_changed",
+      "from": "running",
+      "reason": "operator_handoff_required",
+      "to": "paused"
+    },
+    {
+      "at": "2026-05-11T11:12:13Z",
+      "event": "task_done",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\simulated_accepted_result.json",
+      "task_id": "ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING"
+    },
+    {
+      "acceptance_status": "accepted",
+      "at": "2026-05-11T11:12:13Z",
+      "event": "codex_result_ingested",
+      "packet_id": "cpkt_R24D_ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING_20260511T111213Z",
+      "state_action": "marked_done",
+      "task_id": "ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING"
+    }
+  ],
+  "failed_task_ids": [],
+  "git_head_last_verified": "1a2d3c5b13f77b3c4fd09180fa18f0ed9254480b",
+  "git_head_start": "1a2d3c5b13f77b3c4fd09180fa18f0ed9254480b",
+  "last_updated_by": "codex_result_ingestion",
+  "latest_handoff_prompt_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\codex_packets\\ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING\\prompt.md",
+  "latest_recovery_report_path": "",
+  "plan_id": "pmbot_master_plan_to_050",
+  "queue_manifest_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\manifest.json",
+  "retry_counts": {},
+  "run_id": "R24D",
+  "skipped_task_ids": [],
+  "started_at": "2026-05-11T11:12:12Z",
+  "state_schema_version": "codex_plan_run_state.v2",
+  "status": "paused",
+  "task_states": {
+    "ORCH-CODEX-AUTOMATION-022-OPERATOR-PANEL-AND-PLAN-RUNNER-CONTROL": {
+      "artifact_paths": [
+        "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\artifacts\\ORCH-CODEX-AUTOMATION-022-OPERATOR-PANEL-AND-PLAN-RUNNER-CONTROL_fake_111212950706.json"
+      ],
+      "attempts": 1,
+      "errors": [],
+      "finished_at": "2026-05-11T11:12:12Z",
+      "last_event": "task_done",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\artifacts\\ORCH-CODEX-AUTOMATION-022-OPERATOR-PANEL-AND-PLAN-RUNNER-CONTROL_fake_111212950706.json",
+      "started_at": "2026-05-11T11:12:12Z",
+      "status": "done",
+      "task_id": "ORCH-CODEX-AUTOMATION-022-OPERATOR-PANEL-AND-PLAN-RUNNER-CONTROL"
+    },
+    "ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING": {
+      "artifact_paths": [
+        "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\codex_packets\\ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING\\prompt.md",
+        "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\codex_packets\\ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING\\packet.json",
+        "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\codex_packets\\ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING\\expected_result_template.json",
+        "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\codex_packets\\ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING\\README.md",
+        "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\simulated_accepted_result.json"
+      ],
+      "attempts": 1,
+      "errors": [],
+      "finished_at": "2026-05-11T11:12:13Z",
+      "last_event": "task_done",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\simulated_accepted_result.json",
+      "started_at": "2026-05-11T11:12:13Z",
+      "status": "done",
+      "task_id": "ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING"
+    }
+  },
+  "updated_at": "2026-05-11T11:12:13Z"
+}

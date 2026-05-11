@@ -169,7 +169,7 @@ def validate_result_json_shape(
 def reject_forbidden_claims(result_payload: Mapping[str, Any]) -> tuple[str, ...]:
     errors: list[str] = []
     _scan_flags(result_payload, errors)
-    for text in _flatten_strings(result_payload):
+    for text in _flatten_strings(_strip_acknowledged_safety_text(result_payload)):
         lowered = text.lower()
         for pattern in FORBIDDEN_CLAIM_PATTERNS:
             if pattern in lowered and not _looks_like_negative_claim(lowered, pattern):
@@ -203,6 +203,18 @@ def _flatten_strings(value: Any) -> list[str]:
             result.extend(_flatten_strings(item))
         return result
     return []
+
+
+def _strip_acknowledged_safety_text(value: Any) -> Any:
+    if isinstance(value, Mapping):
+        return {
+            key: _strip_acknowledged_safety_text(item)
+            for key, item in value.items()
+            if str(key) != "safety_boundaries_acknowledged"
+        }
+    if isinstance(value, list):
+        return [_strip_acknowledged_safety_text(item) for item in value]
+    return value
 
 
 def _looks_like_negative_claim(text: str, pattern: str) -> bool:

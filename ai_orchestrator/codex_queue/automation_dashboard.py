@@ -56,6 +56,14 @@ def build_dashboard(state: PlanRunState, plan: PlanContract, output_dir: str | P
     manifest = _read_json(state.queue_manifest_path) if state.queue_manifest_path else {}
     manifest_validation = validate_queue_manifest(manifest) if manifest else {"valid": False, "status": "missing", "errors": ["manifest missing"], "warnings": []}
     latest_artifacts = list(state.artifact_paths[-20:])
+    latest_codex_packet_path = _latest_matching_artifact(state.artifact_paths, "/codex_packets/", "packet.json")
+    latest_codex_prompt_path = _latest_matching_artifact(state.artifact_paths, "/codex_packets/", "prompt.md")
+    latest_expected_result_template_path = _latest_matching_artifact(
+        state.artifact_paths,
+        "/codex_packets/",
+        "expected_result_template.json",
+    )
+    latest_codex_ingestion_report_path = _latest_matching_artifact(state.artifact_paths, "/codex_packets/", "ingestion_report.json")
     dashboard = {
         "schema_version": "codex_automation_dashboard.v2",
         "plan_id": plan.plan_id,
@@ -98,6 +106,10 @@ def build_dashboard(state: PlanRunState, plan: PlanContract, output_dir: str | P
         "artifact_paths": list(state.artifact_paths),
         "latest_artifacts": latest_artifacts,
         "latest_handoff_prompt_path": state.latest_handoff_prompt_path,
+        "latest_codex_packet_path": latest_codex_packet_path,
+        "latest_codex_prompt_path": latest_codex_prompt_path,
+        "latest_expected_result_template_path": latest_expected_result_template_path,
+        "latest_codex_ingestion_report_path": latest_codex_ingestion_report_path,
         "latest_recovery_report_path": state.latest_recovery_report_path,
         "dashboard_paths": {
             "json": str(Path(output_dir) / "dashboard.json"),
@@ -175,6 +187,12 @@ def _render_markdown(dashboard: dict[str, Any]) -> str:
     lines.extend(f"- `{path}`" for path in artifacts) if artifacts else lines.append("- None")
     if dashboard.get("latest_handoff_prompt_path"):
         lines.append(f"- latest_handoff_prompt: `{dashboard['latest_handoff_prompt_path']}`")
+    if dashboard.get("latest_codex_packet_path"):
+        lines.append(f"- latest_codex_packet: `{dashboard['latest_codex_packet_path']}`")
+    if dashboard.get("latest_expected_result_template_path"):
+        lines.append(f"- latest_expected_result_template: `{dashboard['latest_expected_result_template_path']}`")
+    if dashboard.get("latest_codex_ingestion_report_path"):
+        lines.append(f"- latest_codex_ingestion_report: `{dashboard['latest_codex_ingestion_report_path']}`")
     lines.extend(["", "## Next Operator Action", "", str(dashboard["next_operator_action"]), ""])
     return "\n".join(lines)
 
@@ -244,6 +262,14 @@ def _git(args: list[str], repo_root: str | Path) -> str:
     except OSError:
         return ""
     return completed.stdout.strip() if completed.returncode == 0 else ""
+
+
+def _latest_matching_artifact(paths: list[str], directory_token: str, suffix: str) -> str:
+    for path in reversed(paths):
+        normalized = path.replace("\\", "/")
+        if directory_token in normalized and normalized.endswith(suffix):
+            return path
+    return ""
 
 
 def _read_json(path: str | Path) -> dict[str, Any]:

@@ -1,0 +1,47 @@
+{
+  "acceptance_gates": [
+    "compile ai_orchestrator",
+    "targeted codex_queue and operator_panel tests pass",
+    "fake integration run writes dashboard and handoff prompt"
+  ],
+  "allowed_paths": [
+    "ai_orchestrator/codex_queue/",
+    "ai_orchestrator/operator_panel/",
+    "agent_tasks/plans/",
+    "agent_tasks/generated/",
+    "agent_tasks/automations/",
+    "docs/",
+    "tests/"
+  ],
+  "dependencies": [],
+  "description": "Create the first local operator panel and plan-runner skeleton with fake executor, state, recovery, dashboards, selective staging planner, tests, master plan, and result docs.",
+  "execution_lane": "orch_automation",
+  "execution_mode": "fake",
+  "expected_artifacts": [
+    "ai_orchestrator/codex_queue/",
+    "ai_orchestrator/operator_panel/",
+    "docs/ORCH_CODEX_AUTOMATION_022_RESULT.json"
+  ],
+  "forbidden_actions": [
+    "daemon",
+    "scheduler",
+    "background worker",
+    "browser automation",
+    "wallet",
+    "signing",
+    "orders",
+    "real trading",
+    "OpenRouter",
+    "Polymarket API",
+    "unsafe git staging",
+    "force push"
+  ],
+  "max_retries": 1,
+  "metadata": {},
+  "milestone_id": "",
+  "plan_id": "pmbot_master_plan_to_050",
+  "run_id": "R24D",
+  "schema_version": "codex_plan_task.v1",
+  "task_id": "ORCH-CODEX-AUTOMATION-022-OPERATOR-PANEL-AND-PLAN-RUNNER-CONTROL",
+  "title": "Operator panel and plan-runner control"
+}

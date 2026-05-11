@@ -1,0 +1,577 @@
+{
+  "artifact_paths": [
+    "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\artifacts\\ORCH-CODEX-AUTOMATION-022-OPERATOR-PANEL-AND-PLAN-RUNNER-CONTROL_fake_111212950706.json",
+    "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\codex_packets\\ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING\\prompt.md",
+    "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\codex_packets\\ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING\\packet.json",
+    "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\codex_packets\\ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING\\expected_result_template.json",
+    "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\codex_packets\\ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING\\README.md",
+    "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\simulated_accepted_result.json"
+  ],
+  "blocked_details": [],
+  "checkpoints": [
+    {
+      "artifact_paths": [],
+      "blocked_task_ids": [],
+      "checkpoint_created_at": "2026-05-11T11:12:12Z",
+      "checkpoint_id": "cp_0001_20260511T111212Z",
+      "checkpoint_reason": "before_first_execution",
+      "completed_task_ids": [],
+      "failed_task_ids": [],
+      "latest_handoff_prompt_path": "",
+      "latest_recovery_report_path": "",
+      "retry_counts": {},
+      "skipped_task_ids": [],
+      "status": "queued",
+      "task_id": ""
+    }
+  ],
+  "counts": {
+    "blocked": 0,
+    "completed": 2,
+    "failed": 0,
+    "pending": 27,
+    "skipped": 0,
+    "total": 29
+  },
+  "current_task": "",
+  "dashboard_paths": {
+    "json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\dashboard\\dashboard.json",
+    "markdown": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\dashboard\\dashboard.md"
+  },
+  "failed_details": [],
+  "git_summary": {
+    "branch": "master",
+    "dirty": true,
+    "head": "1a2d3c5b13f77b3c4fd09180fa18f0ed9254480b"
+  },
+  "lane_summary": {
+    "orch_automation": {
+      "blocked": 0,
+      "completed": 2,
+      "failed": 0,
+      "task_count": 9
+    },
+    "paper_mvp": {
+      "blocked": 0,
+      "completed": 0,
+      "failed": 0,
+      "task_count": 10
+    },
+    "pmbot_automation": {
+      "blocked": 0,
+      "completed": 0,
+      "failed": 0,
+      "task_count": 10
+    }
+  },
+  "last_git_verification": "1a2d3c5b13f77b3c4fd09180fa18f0ed9254480b",
+  "latest_artifacts": [
+    "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\artifacts\\ORCH-CODEX-AUTOMATION-022-OPERATOR-PANEL-AND-PLAN-RUNNER-CONTROL_fake_111212950706.json",
+    "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\codex_packets\\ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING\\prompt.md",
+    "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\codex_packets\\ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING\\packet.json",
+    "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\codex_packets\\ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING\\expected_result_template.json",
+    "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\codex_packets\\ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING\\README.md",
+    "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\simulated_accepted_result.json"
+  ],
+  "latest_checkpoint": {
+    "artifact_paths": [],
+    "blocked_task_ids": [],
+    "checkpoint_created_at": "2026-05-11T11:12:12Z",
+    "checkpoint_id": "cp_0001_20260511T111212Z",
+    "checkpoint_reason": "before_first_execution",
+    "completed_task_ids": [],
+    "failed_task_ids": [],
+    "latest_handoff_prompt_path": "",
+    "latest_recovery_report_path": "",
+    "retry_counts": {},
+    "skipped_task_ids": [],
+    "status": "queued",
+    "task_id": ""
+  },
+  "latest_codex_ingestion_report_path": "",
+  "latest_codex_packet_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\codex_packets\\ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING\\packet.json",
+  "latest_codex_prompt_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\codex_packets\\ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING\\prompt.md",
+  "latest_expected_result_template_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\codex_packets\\ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING\\expected_result_template.json",
+  "latest_handoff_prompt_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\codex_packets\\ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING\\prompt.md",
+  "latest_recovery_report_path": "",
+  "mode": "long_supervised",
+  "next_operator_action": "Run continue-plan when the operator is ready.",
+  "next_runnable_tasks": [
+    "ORCH-CODEX-AUTOMATION-024-CODEX-EXECUTOR-ADAPTER-BOUNDARY"
+  ],
+  "plan_id": "pmbot_master_plan_to_050",
+  "queue_manifest_status": "valid",
+  "recent_events": [
+    {
+      "at": "2026-05-11T11:12:12Z",
+      "event": "task_started",
+      "task_id": "ORCH-CODEX-AUTOMATION-022-OPERATOR-PANEL-AND-PLAN-RUNNER-CONTROL"
+    },
+    {
+      "at": "2026-05-11T11:12:12Z",
+      "event": "task_done",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\artifacts\\ORCH-CODEX-AUTOMATION-022-OPERATOR-PANEL-AND-PLAN-RUNNER-CONTROL_fake_111212950706.json",
+      "task_id": "ORCH-CODEX-AUTOMATION-022-OPERATOR-PANEL-AND-PLAN-RUNNER-CONTROL"
+    },
+    {
+      "at": "2026-05-11T11:12:13Z",
+      "event": "run_status_changed",
+      "from": "running",
+      "reason": "one_step",
+      "to": "paused"
+    },
+    {
+      "at": "2026-05-11T11:12:13Z",
+      "event": "run_status_changed",
+      "from": "paused",
+      "reason": "task_started:ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING",
+      "to": "running"
+    },
+    {
+      "at": "2026-05-11T11:12:13Z",
+      "event": "task_started",
+      "task_id": "ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING"
+    },
+    {
+      "artifact_paths": [
+        "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\codex_packets\\ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING\\prompt.md",
+        "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\codex_packets\\ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING\\packet.json",
+        "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\codex_packets\\ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING\\expected_result_template.json",
+        "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\codex_packets\\ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING\\README.md"
+      ],
+      "at": "2026-05-11T11:12:13Z",
+      "event": "task_artifacts_recorded",
+      "task_id": "ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING"
+    },
+    {
+      "adapter_mode": "manual_handoff",
+      "at": "2026-05-11T11:12:13Z",
+      "event": "operator_handoff_required",
+      "execution_packet_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\codex_packets\\ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING\\packet.json",
+      "handoff_prompt_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\codex_packets\\ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING\\prompt.md",
+      "task_id": "ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING"
+    },
+    {
+      "at": "2026-05-11T11:12:13Z",
+      "event": "run_status_changed",
+      "from": "running",
+      "reason": "operator_handoff_required",
+      "to": "paused"
+    },
+    {
+      "at": "2026-05-11T11:12:13Z",
+      "event": "task_done",
+      "result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\simulated_accepted_result.json",
+      "task_id": "ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING"
+    },
+    {
+      "acceptance_status": "accepted",
+      "at": "2026-05-11T11:12:13Z",
+      "event": "codex_result_ingested",
+      "packet_id": "cpkt_R24D_ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING_20260511T111213Z",
+      "state_action": "marked_done",
+      "task_id": "ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING"
+    }
+  ],
+  "retry_counts": {},
+  "retry_summary": [],
+  "run_id": "R24D",
+  "run_lifecycle_status": "paused",
+  "safety_status": "ok",
+  "schema_version": "codex_automation_dashboard.v2",
+  "state_consistency": {
+    "consistent": true,
+    "errors": [],
+    "known_task_count": 29,
+    "orphan_task_ids": [],
+    "pending_task_ids": [
+      "ORCH-CODEX-AUTOMATION-024-CODEX-EXECUTOR-ADAPTER-BOUNDARY",
+      "ORCH-CODEX-AUTOMATION-025-WORKTREE-LANE-MANAGER",
+      "ORCH-CODEX-AUTOMATION-026-SELECTIVE-COMMIT-PUSH-HARDENING",
+      "ORCH-CODEX-AUTOMATION-027-DASHBOARD-AND-ARTIFACT-INDEX-IMPROVEMENTS",
+      "ORCH-CODEX-AUTOMATION-028-FAILURE-RECOVERY-PLAYBOOKS",
+      "ORCH-CODEX-AUTOMATION-029-LONG-SUPERVISED-RUN-UX",
+      "ORCH-CODEX-AUTOMATION-030-AUTOMATION-ACCEPTANCE-GATE",
+      "PMBOT-AUTOMATION-031-PUBLIC-EVIDENCE-FETCH-CHAIN-RUNNER-OPERATOR-APPROVED-ONLY",
+      "PMBOT-AUTOMATION-032-DASHBOARD-REFRESH-CHAIN",
+      "PMBOT-AUTOMATION-033-SOURCE-LEARNING-UPDATE-CHAIN",
+      "PMBOT-AUTOMATION-034-OUTCOME-RECHECK-CHAIN",
+      "PMBOT-AUTOMATION-035-PAPER-HYPOTHESIS-UPDATE-CHAIN",
+      "PMBOT-AUTOMATION-036-PAPER-PORTFOLIO-SIMULATION-CHAIN",
+      "PMBOT-AUTOMATION-037-DAILY-WORKFLOW-RUN-PLAN",
+      "PMBOT-AUTOMATION-038-UNRESOLVED-MARKET-SAFETY-CHECKS",
+      "PMBOT-AUTOMATION-039-MANUAL-FEEDBACK-INGESTION-CHAIN",
+      "PMBOT-AUTOMATION-040-PMBOT-AUTOMATION-ACCEPTANCE-GATE",
+      "PMBOT-TRADING-MVP-041-PAPER-EXECUTION-MVP-PLAN",
+      "PMBOT-TRADING-MVP-042-PAPER-RISK-ACCOUNTING-MODEL",
+      "PMBOT-TRADING-MVP-043-OPERATOR-REVIEW-UI-ARTIFACTS",
+      "PMBOT-TRADING-MVP-044-MARKET-QUEUE-PRIORITIZATION-WITHOUT-RECOMMENDATIONS",
+      "PMBOT-TRADING-MVP-045-SOURCE-SCORECARD-FEEDBACK-LOOP",
+      "PMBOT-TRADING-MVP-046-PAPER-PORTFOLIO-REPORTS",
+      "PMBOT-TRADING-MVP-047-OUTCOME-FEEDBACK-READINESS",
+      "PMBOT-TRADING-MVP-048-PUBLIC-READ-ONLY-EVIDENCE-REFRESH",
+      "PMBOT-TRADING-MVP-049-PRODUCT-LEVEL-DRY-RUN-ACCEPTANCE",
+      "PMBOT-TRADING-MVP-050-SUPERVISED-PAPER-MVP-RELEASE-CHECKPOINT"
+    ],
+    "status": "consistent",
+    "warnings": []
+  },
+  "state_consistency_status": "consistent",
+  "status": "paused",
+  "task_details": [
+    {
+      "artifact_paths": [
+        "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\artifacts\\ORCH-CODEX-AUTOMATION-022-OPERATOR-PANEL-AND-PLAN-RUNNER-CONTROL_fake_111212950706.json"
+      ],
+      "dependencies": [],
+      "last_event": "task_done",
+      "max_retries": 1,
+      "retry_count": 0,
+      "status": "completed",
+      "task_id": "ORCH-CODEX-AUTOMATION-022-OPERATOR-PANEL-AND-PLAN-RUNNER-CONTROL",
+      "title": "Operator panel and plan-runner control"
+    },
+    {
+      "artifact_paths": [
+        "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\codex_packets\\ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING\\prompt.md",
+        "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\codex_packets\\ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING\\packet.json",
+        "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\codex_packets\\ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING\\expected_result_template.json",
+        "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\codex_packets\\ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING\\README.md",
+        "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\simulated_accepted_result.json"
+      ],
+      "dependencies": [
+        "ORCH-CODEX-AUTOMATION-022-OPERATOR-PANEL-AND-PLAN-RUNNER-CONTROL"
+      ],
+      "last_event": "task_done",
+      "max_retries": 2,
+      "retry_count": 0,
+      "status": "completed",
+      "task_id": "ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING",
+      "title": "Stronger queue/state resume"
+    },
+    {
+      "artifact_paths": [],
+      "dependencies": [
+        "ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING"
+      ],
+      "last_event": "",
+      "max_retries": 2,
+      "retry_count": 0,
+      "status": "pending",
+      "task_id": "ORCH-CODEX-AUTOMATION-024-CODEX-EXECUTOR-ADAPTER-BOUNDARY",
+      "title": "Codex executor adapter boundary"
+    },
+    {
+      "artifact_paths": [],
+      "dependencies": [
+        "ORCH-CODEX-AUTOMATION-024-CODEX-EXECUTOR-ADAPTER-BOUNDARY"
+      ],
+      "last_event": "",
+      "max_retries": 2,
+      "retry_count": 0,
+      "status": "pending",
+      "task_id": "ORCH-CODEX-AUTOMATION-025-WORKTREE-LANE-MANAGER",
+      "title": "Worktree lane manager"
+    },
+    {
+      "artifact_paths": [],
+      "dependencies": [
+        "ORCH-CODEX-AUTOMATION-025-WORKTREE-LANE-MANAGER"
+      ],
+      "last_event": "",
+      "max_retries": 2,
+      "retry_count": 0,
+      "status": "pending",
+      "task_id": "ORCH-CODEX-AUTOMATION-026-SELECTIVE-COMMIT-PUSH-HARDENING",
+      "title": "Selective commit/push hardening"
+    },
+    {
+      "artifact_paths": [],
+      "dependencies": [
+        "ORCH-CODEX-AUTOMATION-026-SELECTIVE-COMMIT-PUSH-HARDENING"
+      ],
+      "last_event": "",
+      "max_retries": 2,
+      "retry_count": 0,
+      "status": "pending",
+      "task_id": "ORCH-CODEX-AUTOMATION-027-DASHBOARD-AND-ARTIFACT-INDEX-IMPROVEMENTS",
+      "title": "Dashboard and artifact index improvements"
+    },
+    {
+      "artifact_paths": [],
+      "dependencies": [
+        "ORCH-CODEX-AUTOMATION-027-DASHBOARD-AND-ARTIFACT-INDEX-IMPROVEMENTS"
+      ],
+      "last_event": "",
+      "max_retries": 2,
+      "retry_count": 0,
+      "status": "pending",
+      "task_id": "ORCH-CODEX-AUTOMATION-028-FAILURE-RECOVERY-PLAYBOOKS",
+      "title": "Failure recovery playbooks"
+    },
+    {
+      "artifact_paths": [],
+      "dependencies": [
+        "ORCH-CODEX-AUTOMATION-028-FAILURE-RECOVERY-PLAYBOOKS"
+      ],
+      "last_event": "",
+      "max_retries": 2,
+      "retry_count": 0,
+      "status": "pending",
+      "task_id": "ORCH-CODEX-AUTOMATION-029-LONG-SUPERVISED-RUN-UX",
+      "title": "Long supervised run UX"
+    },
+    {
+      "artifact_paths": [],
+      "dependencies": [
+        "ORCH-CODEX-AUTOMATION-029-LONG-SUPERVISED-RUN-UX"
+      ],
+      "last_event": "",
+      "max_retries": 2,
+      "retry_count": 0,
+      "status": "pending",
+      "task_id": "ORCH-CODEX-AUTOMATION-030-AUTOMATION-ACCEPTANCE-GATE",
+      "title": "Automation acceptance gate"
+    },
+    {
+      "artifact_paths": [],
+      "dependencies": [
+        "ORCH-CODEX-AUTOMATION-030-AUTOMATION-ACCEPTANCE-GATE"
+      ],
+      "last_event": "",
+      "max_retries": 2,
+      "retry_count": 0,
+      "status": "pending",
+      "task_id": "PMBOT-AUTOMATION-031-PUBLIC-EVIDENCE-FETCH-CHAIN-RUNNER-OPERATOR-APPROVED-ONLY",
+      "title": "Public evidence fetch chain runner, operator-approved only"
+    },
+    {
+      "artifact_paths": [],
+      "dependencies": [
+        "PMBOT-AUTOMATION-031-PUBLIC-EVIDENCE-FETCH-CHAIN-RUNNER-OPERATOR-APPROVED-ONLY"
+      ],
+      "last_event": "",
+      "max_retries": 2,
+      "retry_count": 0,
+      "status": "pending",
+      "task_id": "PMBOT-AUTOMATION-032-DASHBOARD-REFRESH-CHAIN",
+      "title": "Dashboard refresh chain"
+    },
+    {
+      "artifact_paths": [],
+      "dependencies": [
+        "PMBOT-AUTOMATION-032-DASHBOARD-REFRESH-CHAIN"
+      ],
+      "last_event": "",
+      "max_retries": 2,
+      "retry_count": 0,
+      "status": "pending",
+      "task_id": "PMBOT-AUTOMATION-033-SOURCE-LEARNING-UPDATE-CHAIN",
+      "title": "Source learning update chain"
+    },
+    {
+      "artifact_paths": [],
+      "dependencies": [
+        "PMBOT-AUTOMATION-033-SOURCE-LEARNING-UPDATE-CHAIN"
+      ],
+      "last_event": "",
+      "max_retries": 2,
+      "retry_count": 0,
+      "status": "pending",
+      "task_id": "PMBOT-AUTOMATION-034-OUTCOME-RECHECK-CHAIN",
+      "title": "Outcome recheck chain"
+    },
+    {
+      "artifact_paths": [],
+      "dependencies": [
+        "PMBOT-AUTOMATION-034-OUTCOME-RECHECK-CHAIN"
+      ],
+      "last_event": "",
+      "max_retries": 2,
+      "retry_count": 0,
+      "status": "pending",
+      "task_id": "PMBOT-AUTOMATION-035-PAPER-HYPOTHESIS-UPDATE-CHAIN",
+      "title": "Paper hypothesis update chain"
+    },
+    {
+      "artifact_paths": [],
+      "dependencies": [
+        "PMBOT-AUTOMATION-035-PAPER-HYPOTHESIS-UPDATE-CHAIN"
+      ],
+      "last_event": "",
+      "max_retries": 2,
+      "retry_count": 0,
+      "status": "pending",
+      "task_id": "PMBOT-AUTOMATION-036-PAPER-PORTFOLIO-SIMULATION-CHAIN",
+      "title": "Paper portfolio simulation chain"
+    },
+    {
+      "artifact_paths": [],
+      "dependencies": [
+        "PMBOT-AUTOMATION-036-PAPER-PORTFOLIO-SIMULATION-CHAIN"
+      ],
+      "last_event": "",
+      "max_retries": 2,
+      "retry_count": 0,
+      "status": "pending",
+      "task_id": "PMBOT-AUTOMATION-037-DAILY-WORKFLOW-RUN-PLAN",
+      "title": "Daily workflow run plan"
+    },
+    {
+      "artifact_paths": [],
+      "dependencies": [
+        "PMBOT-AUTOMATION-037-DAILY-WORKFLOW-RUN-PLAN"
+      ],
+      "last_event": "",
+      "max_retries": 2,
+      "retry_count": 0,
+      "status": "pending",
+      "task_id": "PMBOT-AUTOMATION-038-UNRESOLVED-MARKET-SAFETY-CHECKS",
+      "title": "Unresolved market safety checks"
+    },
+    {
+      "artifact_paths": [],
+      "dependencies": [
+        "PMBOT-AUTOMATION-038-UNRESOLVED-MARKET-SAFETY-CHECKS"
+      ],
+      "last_event": "",
+      "max_retries": 2,
+      "retry_count": 0,
+      "status": "pending",
+      "task_id": "PMBOT-AUTOMATION-039-MANUAL-FEEDBACK-INGESTION-CHAIN",
+      "title": "Manual feedback ingestion chain"
+    },
+    {
+      "artifact_paths": [],
+      "dependencies": [
+        "PMBOT-AUTOMATION-039-MANUAL-FEEDBACK-INGESTION-CHAIN"
+      ],
+      "last_event": "",
+      "max_retries": 2,
+      "retry_count": 0,
+      "status": "pending",
+      "task_id": "PMBOT-AUTOMATION-040-PMBOT-AUTOMATION-ACCEPTANCE-GATE",
+      "title": "PMBOT automation acceptance gate"
+    },
+    {
+      "artifact_paths": [],
+      "dependencies": [
+        "PMBOT-AUTOMATION-040-PMBOT-AUTOMATION-ACCEPTANCE-GATE"
+      ],
+      "last_event": "",
+      "max_retries": 2,
+      "retry_count": 0,
+      "status": "pending",
+      "task_id": "PMBOT-TRADING-MVP-041-PAPER-EXECUTION-MVP-PLAN",
+      "title": "Paper execution MVP plan"
+    },
+    {
+      "artifact_paths": [],
+      "dependencies": [
+        "PMBOT-TRADING-MVP-041-PAPER-EXECUTION-MVP-PLAN"
+      ],
+      "last_event": "",
+      "max_retries": 2,
+      "retry_count": 0,
+      "status": "pending",
+      "task_id": "PMBOT-TRADING-MVP-042-PAPER-RISK-ACCOUNTING-MODEL",
+      "title": "Paper risk/accounting model"
+    },
+    {
+      "artifact_paths": [],
+      "dependencies": [
+        "PMBOT-TRADING-MVP-042-PAPER-RISK-ACCOUNTING-MODEL"
+      ],
+      "last_event": "",
+      "max_retries": 2,
+      "retry_count": 0,
+      "status": "pending",
+      "task_id": "PMBOT-TRADING-MVP-043-OPERATOR-REVIEW-UI-ARTIFACTS",
+      "title": "Operator review UI artifacts"
+    },
+    {
+      "artifact_paths": [],
+      "dependencies": [
+        "PMBOT-TRADING-MVP-043-OPERATOR-REVIEW-UI-ARTIFACTS"
+      ],
+      "last_event": "",
+      "max_retries": 2,
+      "retry_count": 0,
+      "status": "pending",
+      "task_id": "PMBOT-TRADING-MVP-044-MARKET-QUEUE-PRIORITIZATION-WITHOUT-RECOMMENDATIONS",
+      "title": "Market queue prioritization without recommendations"
+    },
+    {
+      "artifact_paths": [],
+      "dependencies": [
+        "PMBOT-TRADING-MVP-044-MARKET-QUEUE-PRIORITIZATION-WITHOUT-RECOMMENDATIONS"
+      ],
+      "last_event": "",
+      "max_retries": 2,
+      "retry_count": 0,
+      "status": "pending",
+      "task_id": "PMBOT-TRADING-MVP-045-SOURCE-SCORECARD-FEEDBACK-LOOP",
+      "title": "Source scorecard feedback loop"
+    },
+    {
+      "artifact_paths": [],
+      "dependencies": [
+        "PMBOT-TRADING-MVP-045-SOURCE-SCORECARD-FEEDBACK-LOOP"
+      ],
+      "last_event": "",
+      "max_retries": 2,
+      "retry_count": 0,
+      "status": "pending",
+      "task_id": "PMBOT-TRADING-MVP-046-PAPER-PORTFOLIO-REPORTS",
+      "title": "Paper portfolio reports"
+    },
+    {
+      "artifact_paths": [],
+      "dependencies": [
+        "PMBOT-TRADING-MVP-046-PAPER-PORTFOLIO-REPORTS"
+      ],
+      "last_event": "",
+      "max_retries": 2,
+      "retry_count": 0,
+      "status": "pending",
+      "task_id": "PMBOT-TRADING-MVP-047-OUTCOME-FEEDBACK-READINESS",
+      "title": "Outcome feedback readiness"
+    },
+    {
+      "artifact_paths": [],
+      "dependencies": [
+        "PMBOT-TRADING-MVP-047-OUTCOME-FEEDBACK-READINESS"
+      ],
+      "last_event": "",
+      "max_retries": 2,
+      "retry_count": 0,
+      "status": "pending",
+      "task_id": "PMBOT-TRADING-MVP-048-PUBLIC-READ-ONLY-EVIDENCE-REFRESH",
+      "title": "Public-read-only evidence refresh"
+    },
+    {
+      "artifact_paths": [],
+      "dependencies": [
+        "PMBOT-TRADING-MVP-048-PUBLIC-READ-ONLY-EVIDENCE-REFRESH"
+      ],
+      "last_event": "",
+      "max_retries": 2,
+      "retry_count": 0,
+      "status": "pending",
+      "task_id": "PMBOT-TRADING-MVP-049-PRODUCT-LEVEL-DRY-RUN-ACCEPTANCE",
+      "title": "Product-level dry-run acceptance"
+    },
+    {
+      "artifact_paths": [],
+      "dependencies": [
+        "PMBOT-TRADING-MVP-049-PRODUCT-LEVEL-DRY-RUN-ACCEPTANCE"
+      ],
+      "last_event": "",
+      "max_retries": 2,
+      "retry_count": 0,
+      "status": "pending",
+      "task_id": "PMBOT-TRADING-MVP-050-SUPERVISED-PAPER-MVP-RELEASE-CHECKPOINT",
+      "title": "Supervised paper-MVP release checkpoint"
+    }
+  ]
+}

@@ -83,8 +83,24 @@ def route_get(path: str, query: str, repo_root: str | Path, queue_root: str | Pa
         return render_git_page(inspect_git_action(repo_root), repo_root=str(repo_root), queue_root=str(queue_root))
     if path == "/codex-handoff":
         paths = _collect_handoff_paths(queue_root)
-        prompt = Path(paths[-1]).read_text(encoding="utf-8") if paths else ""
-        return render_handoff_page(prompt, paths, repo_root=str(repo_root), queue_root=str(queue_root), task_id=_task_id_from_handoff(paths[-1] if paths else ""))
+        packet = _latest_codex_packet(queue_root)
+        prompt_path = packet.get("prompt_path") or (paths[-1] if paths else "")
+        prompt = Path(prompt_path).read_text(encoding="utf-8") if prompt_path and Path(prompt_path).exists() else ""
+        template_path = packet.get("expected_result_template_path", "")
+        template_text = Path(template_path).read_text(encoding="utf-8") if template_path and Path(template_path).exists() else ""
+        ingestion_path = packet.get("ingestion_report_json_path", "")
+        ingestion = _read_json(ingestion_path) if ingestion_path and Path(ingestion_path).exists() else {}
+        handoff_paths = paths + ([str(packet["packet_path"])] if packet.get("packet_path") else [])
+        return render_handoff_page(
+            prompt,
+            handoff_paths,
+            repo_root=str(repo_root),
+            queue_root=str(queue_root),
+            task_id=str(packet.get("task_id") or _task_id_from_handoff(prompt_path)),
+            packet=packet,
+            template_text=template_text,
+            ingestion=ingestion,
+        )
     return render_result_page({"status": "not_found", "path": path}, repo_root=str(repo_root), queue_root=str(queue_root))
 
 
@@ -100,6 +116,18 @@ def route_post(path: str, form: dict[str, str], repo_root: str | Path, queue_roo
     if path == "/actions/continue-run":
         result = panel_api.post_continue_run(form, queue_root)
         result["redirect_to"] = f"/run?id={form.get('run_id', '')}"
+        return result
+    if path == "/actions/create-codex-packet":
+        result = panel_api.post_create_codex_packet(form, queue_root)
+        result["redirect_to"] = "/codex-handoff"
+        return result
+    if path == "/actions/codex-adapter-dry-run":
+        result = panel_api.post_codex_adapter_dry_run(form, queue_root)
+        result["redirect_to"] = "/codex-handoff"
+        return result
+    if path == "/actions/ingest-codex-result":
+        result = panel_api.post_ingest_codex_result(form, queue_root)
+        result["redirect_to"] = f"/run?id={result.get('run_id', '')}"
         return result
     if path == "/actions/recover-run":
         result = panel_api.post_recover_run(form, queue_root)
@@ -150,17 +178,37 @@ def _collect_artifact_groups(queue_root: str | Path) -> dict[str, list[str]]:
         "dashboard JSON/MD": [path for path in all_files if "/dashboard/" in path.replace("\\", "/")],
         "recovery reports": [path for path in all_files if "/recovery/" in path.replace("\\", "/")],
         "handoff prompts": [path for path in all_files if "/handoff/" in path.replace("\\", "/")],
+        "codex packets": [path for path in all_files if "/codex_packets/" in path.replace("\\", "/")],
         "fake executor artifacts": [path for path in all_files if "/artifacts/" in path.replace("\\", "/")],
         "other": [
             path
             for path in all_files
-            if not any(token in path.replace("\\", "/") for token in ("/dashboard/", "/recovery/", "/handoff/", "/artifacts/"))
+            if not any(token in path.replace("\\", "/") for token in ("/dashboard/", "/recovery/", "/handoff/", "/codex_packets/", "/artifacts/"))
         ],
     }
 
 
 def _collect_handoff_paths(queue_root: str | Path) -> list[str]:
     return [str(path) for path in sorted(Path(queue_root).glob("generated/*/*/handoff/*_codex_prompt.md"))]
+
+
+def _latest_codex_packet(queue_root: str | Path) -> dict[str, Any]:
+    packets = sorted(Path(queue_root).glob("generated/*/*/codex_packets/*/packet.json"))
+    if not packets:
+        return {}
+    packet_path = packets[-1]
+    payload = _read_json(packet_path)
+    task_dir = packet_path.parent
+    payload.update(
+        {
+            "packet_path": str(packet_path),
+            "prompt_path": str(task_dir / "prompt.md"),
+            "expected_result_template_path": str(task_dir / "expected_result_template.json"),
+            "ingestion_report_json_path": str(task_dir / "ingestion_report.json"),
+            "ingestion_report_md_path": str(task_dir / "ingestion_report.md"),
+        }
+    )
+    return payload
 
 
 def _build_run_detail(queue_root: str | Path, run_id: str) -> dict[str, Any]:

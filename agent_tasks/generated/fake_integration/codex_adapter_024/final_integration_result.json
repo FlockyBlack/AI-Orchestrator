@@ -1,0 +1,30 @@
+{
+  "dashboard_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\dashboard\\dashboard.json",
+  "expected_result_template_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\codex_packets\\ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING\\expected_result_template.json",
+  "fake_run_status": "max_steps",
+  "full_050_completion_claimed": false,
+  "ingestion_report_json": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\codex_packets\\ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING\\ingestion_report.json",
+  "ingestion_status": "accepted",
+  "packet_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\codex_packets\\ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING\\packet.json",
+  "packet_run_status": "requiring_operator_handoff",
+  "prompt_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\codex_packets\\ORCH-CODEX-AUTOMATION-023-QUEUE-STATE-RESUME-AND-PANEL-HARDENING\\prompt.md",
+  "queue_root": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q",
+  "run_id": "R24D",
+  "safety": {
+    "background_worker_created": false,
+    "browser_automation_used": false,
+    "codex_cli_invoked": false,
+    "daemon_created": false,
+    "openrouter_used": false,
+    "polymarket_api_used": false,
+    "real_codex_invoked": false,
+    "scheduler_created": false,
+    "wallet_or_trading_used": false
+  },
+  "schema_version": "codex_adapter_024_fake_integration.v1",
+  "simulated_result_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\simulated_accepted_result.json",
+  "source_plan_file": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\plans\\pmbot_master_plan_to_050.v1.json",
+  "state_path": "C:\\Users\\OpenC\\.openclaw\\workspace\\agent_tasks\\generated\\fake_integration\\codex_adapter_024\\q\\generated\\pmbot_master_plan_to_050\\R24D\\state.json",
+  "status": "passed",
+  "task_id": "ORCH-CODEX-AUTOMATION-024-CODEX-EXECUTOR-ADAPTER-BOUNDARY"
+}

@@ -1,0 +1,36 @@
+{
+  "acceptance_gates": [
+    "artifact index renders JSON and Markdown",
+    "panel links latest artifacts",
+    "dashboard handles blocked and failed tasks"
+  ],
+  "allowed_paths": [
+    "ai_orchestrator/codex_queue/",
+    "ai_orchestrator/operator_panel/",
+    "agent_tasks/generated/",
+    "docs/",
+    "tests/"
+  ],
+  "dependencies": [
+    "ORCH-CODEX-AUTOMATION-026-SELECTIVE-COMMIT-PUSH-HARDENING"
+  ],
+  "description": "Improve dashboard and artifact index for operator review and recovery.",
+  "execution_lane": "orch_automation",
+  "execution_mode": "handoff",
+  "expected_artifacts": [
+    "artifact index",
+    "dashboard improvements"
+  ],
+  "forbidden_actions": [
+    "external service call",
+    "browser automation"
+  ],
+  "max_retries": 2,
+  "metadata": {},
+  "milestone_id": "",
+  "plan_id": "pmbot_master_plan_to_050",
+  "run_id": "R24D",
+  "schema_version": "codex_plan_task.v1",
+  "task_id": "ORCH-CODEX-AUTOMATION-027-DASHBOARD-AND-ARTIFACT-INDEX-IMPROVEMENTS",
+  "title": "Dashboard and artifact index improvements"
+}
