@@ -1,0 +1,16 @@
+{
+  "allow_autonomous_execution": false,
+  "allow_real_orders": false,
+  "allow_trading_endpoints": false,
+  "allow_wallet": false,
+  "contract_version": "pmbot_paper_risk_limits.v1",
+  "daily_run_id": "paper-daily-loop-022-2026-05-11",
+  "generated_at": "2026-05-11T00:00:00Z",
+  "max_market_paper_exposure_usd": 100.0,
+  "max_open_paper_positions": 10,
+  "max_single_intent_notional_usd": 25,
+  "max_total_paper_exposure_usd": 1000.0,
+  "require_operator_review": true,
+  "risk_limits_id": "paper-risk-limits-022-2026-05-11",
+  "run_date": "2026-05-11"
+}

@@ -1,0 +1,47 @@
+{
+  "already_applied_count": 2,
+  "checked_execution_count": 6,
+  "contract_version": "pmbot_paper_daily_idempotency_report.v1",
+  "duplicate_existing_key_count": 0,
+  "duplicate_existing_keys": [],
+  "duplicate_fill_prevented_count": 2,
+  "generated_at": "2026-05-11T00:00:00Z",
+  "idempotency_mode": "upsert_by_run_date_market_intent",
+  "idempotency_passed": true,
+  "new_applied_count": 0,
+  "run_date": "2026-05-11",
+  "run_id": "paper-daily-loop-022-2026-05-11",
+  "simulated_fill_count": 2,
+  "status_by_key": [
+    {
+      "idempotency_key": "2026-05-11:563650:paper-intent-020-021-563650",
+      "market_id": "563650",
+      "status": "already_applied"
+    },
+    {
+      "idempotency_key": "2026-05-11:573656:paper-intent-020-021-573656",
+      "market_id": "573656",
+      "status": "no_fill"
+    },
+    {
+      "idempotency_key": "2026-05-11:597964:paper-intent-020-021-597964",
+      "market_id": "597964",
+      "status": "no_fill"
+    },
+    {
+      "idempotency_key": "2026-05-11:598936:paper-intent-020-021-598936",
+      "market_id": "598936",
+      "status": "no_fill"
+    },
+    {
+      "idempotency_key": "2026-05-11:691547:paper-intent-020-021-691547",
+      "market_id": "691547",
+      "status": "already_applied"
+    },
+    {
+      "idempotency_key": "2026-05-11:692258:paper-intent-020-021-692258",
+      "market_id": "692258",
+      "status": "no_fill"
+    }
+  ]
+}

@@ -1,0 +1,142 @@
+from __future__ import annotations
+
+import json
+import socket
+
+import pytest
+
+from pm_bot.operator_runner.paper_daily_config import (
+    PaperDailyConfigError,
+    PaperDailyLoopConfig,
+    attach_outcome_status_to_markets,
+    load_market_outcome_inputs,
+    load_tracked_market_state,
+)
+from pm_bot.operator_runner.paper_daily_loop import run_paper_daily_loop
+from pm_bot.trading_core.paper_portfolio_report import build_paper_portfolio_report
+from pm_bot.trading_core.unresolved_market_guard import (
+    UnresolvedMarketGuardError,
+    reject_invented_outcomes,
+    verify_markets_unresolved,
+)
+
+
+def _config(tmp_path, *, run_date: str = "2026-05-11") -> PaperDailyLoopConfig:
+    return PaperDailyLoopConfig(run_date=run_date, max_markets=6, output_dir=tmp_path)
+
+
+def test_paper_daily_loop_runs_local_only(monkeypatch, tmp_path) -> None:
+    def blocked_socket(*args, **kwargs):  # type: ignore[no-untyped-def]
+        raise AssertionError("network socket should not be used")
+
+    monkeypatch.setattr(socket, "socket", blocked_socket)
+
+    result = run_paper_daily_loop(_config(tmp_path))
+
+    assert result.market_count == 6
+    assert result.unresolved_market_count == 6
+    assert result.feedback_ready_count == 0
+    assert result.safety_ok is True
+
+
+def test_paper_daily_loop_writes_dashboard(tmp_path) -> None:
+    result = run_paper_daily_loop(_config(tmp_path))
+
+    dashboard_path = tmp_path / "paper_daily_dashboard.json"
+    dashboard = json.loads(dashboard_path.read_text(encoding="utf-8"))
+
+    assert dashboard_path.exists()
+    assert (tmp_path / "paper_daily_dashboard.md").exists()
+    assert (tmp_path / "paper_daily_portfolio_state.json").exists()
+    assert (tmp_path / "paper_daily_ledger.json").exists()
+    assert (tmp_path / "paper_daily_audit.json").exists()
+    assert (tmp_path / "paper_daily_safety_scan.json").exists()
+    assert (tmp_path / "paper_daily_idempotency_report.json").exists()
+    assert dashboard["run_id"] == result.run_id
+    assert dashboard["counts"]["market_count"] == 6
+    assert dashboard["counts"]["unresolved_market_count"] == 6
+
+
+def test_paper_daily_loop_idempotent_rerun_no_duplicate_fills(tmp_path) -> None:
+    first = run_paper_daily_loop(_config(tmp_path))
+    second = run_paper_daily_loop(_config(tmp_path))
+    ledger = json.loads((tmp_path / "paper_daily_ledger.json").read_text(encoding="utf-8"))
+    idempotency = json.loads((tmp_path / "paper_daily_idempotency_report.json").read_text(encoding="utf-8"))
+    keys = [row["idempotency_key"] for row in ledger["positions"]]
+
+    assert first.simulated_fill_count == 2
+    assert second.simulated_fill_count == 2
+    assert ledger["open_position_count"] == 2
+    assert len(keys) == len(set(keys))
+    assert idempotency["new_applied_count"] == 0
+    assert idempotency["already_applied_count"] == 2
+    assert idempotency["duplicate_fill_prevented_count"] == 2
+    assert idempotency["idempotency_passed"] is True
+
+
+def test_paper_daily_loop_rejects_network(tmp_path) -> None:
+    with pytest.raises(PaperDailyConfigError):
+        PaperDailyLoopConfig(output_dir=tmp_path, allow_network=True)
+
+
+def test_paper_daily_loop_rejects_real_trading_flag(tmp_path) -> None:
+    with pytest.raises(PaperDailyConfigError):
+        PaperDailyLoopConfig(output_dir=tmp_path, allow_real_trading=True)
+
+
+def test_unresolved_market_guard_preserves_unresolved_status(tmp_path) -> None:
+    config = _config(tmp_path)
+    state = load_tracked_market_state(config)
+    markets = list(state["market_queue"]["items"])
+    outcomes = load_market_outcome_inputs(markets)
+    enriched = attach_outcome_status_to_markets(markets, outcomes)
+
+    report = verify_markets_unresolved(enriched)
+
+    assert report["unresolved_verified"] is True
+    assert report["unresolved_market_count"] == 6
+    assert all(row["outcome_status"] == "unresolved" for row in report["markets"])
+
+
+def test_unresolved_market_guard_rejects_invented_outcome() -> None:
+    markets = [{"market_id": "563650", "market_title": "fixture", "outcome_status": "unresolved"}]
+    invented_outcomes = [{"market_id": "563650", "outcome_status": "resolved", "resolution_source_reference": ""}]
+
+    with pytest.raises(UnresolvedMarketGuardError):
+        reject_invented_outcomes(markets, invented_outcomes)
+
+
+def test_paper_portfolio_report_counts_open_positions(tmp_path) -> None:
+    run_paper_daily_loop(_config(tmp_path))
+    ledger = json.loads((tmp_path / "paper_daily_ledger.json").read_text(encoding="utf-8"))
+    portfolio = json.loads((tmp_path / "paper_daily_portfolio_state.json").read_text(encoding="utf-8"))
+
+    report = build_paper_portfolio_report(ledger, portfolio)
+
+    assert report["exposure_summary"]["open_paper_position_count"] == 2
+    assert report["exposure_summary"]["total_paper_exposure_usd"] == 50.0
+    assert len(report["open_paper_positions"]) == 2
+
+
+def test_daily_loop_result_has_safety_ok_true(tmp_path) -> None:
+    result = run_paper_daily_loop(_config(tmp_path))
+
+    assert result.safety_ok is True
+    assert result.validation_passed is True
+
+
+def test_daily_loop_no_wallet_orders_trading_endpoint_flags(tmp_path) -> None:
+    run_paper_daily_loop(_config(tmp_path))
+    safety = json.loads((tmp_path / "paper_daily_safety_scan.json").read_text(encoding="utf-8"))
+    flags = safety["safety_flags"]
+
+    assert safety["safety_ok"] is True
+    assert flags["real_order_submitted"] is False
+    assert flags["wallet_used"] is False
+    assert flags["private_key_used"] is False
+    assert flags["signing_used"] is False
+    assert flags["trading_endpoint_used"] is False
+    assert flags["real_money_used"] is False
+    assert flags["authenticated_endpoint_used"] is False
+    assert flags["openrouter_used"] is False
+    assert flags["polymarket_api_used"] is False
