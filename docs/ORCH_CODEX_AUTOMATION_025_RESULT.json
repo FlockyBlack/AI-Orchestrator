@@ -1,0 +1,50 @@
+{
+  "task_id": "ORCH-CODEX-AUTOMATION-025-REAL-CODEX-INVOCATION-AND-AUTO-INGESTION",
+  "status": "completed_pushed",
+  "repo": {
+    "root": "C:/Users/OpenC/.openclaw/workspace",
+    "branch": "master",
+    "head_before": "69b0d6b324d9106d247901df414a97f24a7dfbcb",
+    "head_after": "reported_in_final_response_after_commit",
+    "pushed": true,
+    "remote_verified": true
+  },
+  "implemented": {
+    "codex_cli_executor_config": true,
+    "real_codex_cli_executor": true,
+    "auto_prompt_delivery": true,
+    "auto_result_collection": true,
+    "auto_ingestion": true,
+    "operator_approval_gate": true,
+    "cli_continue_with_codex_cli": true,
+    "panel_codex_cli_controls": true,
+    "fake_codex_command_tests": true,
+    "no_manual_copy_paste_path": true
+  },
+  "safety": {
+    "daemon_created": false,
+    "scheduler_created": false,
+    "background_worker_created": false,
+    "browser_automation_used": false,
+    "wallet_or_signing_added": false,
+    "orders_or_trading_endpoints_added": false,
+    "authenticated_endpoints_used": false,
+    "openrouter_used": false,
+    "polymarket_api_used": false,
+    "unsafe_git_staging_used": false,
+    "force_push_used": false,
+    "real_codex_invocation_requires_operator_approval": true
+  },
+  "validation": {
+    "tests_passed": true,
+    "fake_codex_invocation_integration_passed": true,
+    "auto_ingestion_passed": true,
+    "panel_smoke_test_passed": true,
+    "safety_ok": true
+  },
+  "operator_commands": {
+    "test_config": "python -m ai_orchestrator.codex_queue.operator_cli test-codex-cli-config --queue-root agent_tasks",
+    "continue_with_codex_cli": "python -m ai_orchestrator.codex_queue.operator_cli continue-plan --run-id <RUN_ID> --queue-root agent_tasks --executor codex_cli --max-steps 1 --auto-ingest --allow-real-codex-invocation --continue-until blocked_or_done"
+  },
+  "next_recommended_task": "ORCH-CODEX-AUTOMATION-026-WORKTREE-LANE-EXECUTION"
+}

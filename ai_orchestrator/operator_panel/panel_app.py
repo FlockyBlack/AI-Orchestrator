@@ -16,6 +16,7 @@ from .panel_renderer import (
     render_dashboard_page,
     render_git_page,
     render_handoff_page,
+    render_codex_cli_page,
     render_plans_page,
     render_result_page,
     render_run_page,
@@ -101,6 +102,8 @@ def route_get(path: str, query: str, repo_root: str | Path, queue_root: str | Pa
             template_text=template_text,
             ingestion=ingestion,
         )
+    if path == "/codex-cli":
+        return render_codex_cli_page(data, repo_root=str(repo_root), queue_root=str(queue_root))
     return render_result_page({"status": "not_found", "path": path}, repo_root=str(repo_root), queue_root=str(queue_root))
 
 
@@ -115,6 +118,14 @@ def route_post(path: str, form: dict[str, str], repo_root: str | Path, queue_roo
         return panel_api.post_run_fake_steps(form, queue_root)
     if path == "/actions/continue-run":
         result = panel_api.post_continue_run(form, queue_root)
+        result["redirect_to"] = f"/run?id={form.get('run_id', '')}"
+        return result
+    if path == "/actions/test-codex-cli-config":
+        result = panel_api.post_test_codex_cli_config(form, queue_root)
+        result["redirect_to"] = "/codex-cli"
+        return result
+    if path == "/actions/continue-codex-cli":
+        result = panel_api.post_continue_codex_cli(form, queue_root)
         result["redirect_to"] = f"/run?id={form.get('run_id', '')}"
         return result
     if path == "/actions/create-codex-packet":

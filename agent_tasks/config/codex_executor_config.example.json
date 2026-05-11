@@ -1,0 +1,16 @@
+{
+  "enabled": false,
+  "codex_command": "codex",
+  "mode": "cli",
+  "working_directory_mode": "repo_root",
+  "result_contract": "result_json_file",
+  "result_json_relative_path": "agent_tasks/generated/<plan_id>/<run_id>/codex_packets/<task_id>/codex_result.json",
+  "timeout_seconds": 1800,
+  "max_steps_per_invocation": 1,
+  "allow_network": false,
+  "allow_browser": false,
+  "allow_auth": false,
+  "allow_real_trading": false,
+  "require_clean_worktree": false,
+  "write_logs": true
+}

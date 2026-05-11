@@ -2,12 +2,19 @@ from __future__ import annotations
 
 import argparse
 import json
+import shutil
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Mapping
 
 from .automation_dashboard import build_dashboard
 from .codex_cli_batch_runner import DEFAULT_MAX_TASKS, HARD_MAX_TASKS, run_codex_batch
+from .codex_cli_executor import (
+    build_codex_cli_command,
+    load_codex_cli_executor_config,
+    result_json_path_for_packet,
+    validate_codex_cli_executor_config,
+)
 from .codex_cli_postprocessor import postprocess_codex_batch
 from .codex_cli_runner import DEFAULT_TIMEOUT_SECONDS, run_codex_once
 from .codex_execution_packet import (
@@ -85,10 +92,14 @@ def main(argv: list[str] | None = None) -> int:
     run_plan_parser.add_argument("--continue-until", default="blocked_or_done")
     run_plan_parser.add_argument(
         "--executor",
-        choices=("fake", "noop", "handoff", "codex_packet", "codex_cli_dry_run", "codex_cli_operator_approved_stub"),
+        choices=("fake", "noop", "handoff", "codex_packet", "codex_cli_dry_run", "codex_cli_operator_approved_stub", "codex_cli"),
         default="fake",
     )
     run_plan_parser.add_argument("--run-id", default=None)
+    run_plan_parser.add_argument("--auto-ingest", action="store_true")
+    run_plan_parser.add_argument("--allow-real-codex-invocation", action="store_true")
+    run_plan_parser.add_argument("--codex-config", default=None)
+    run_plan_parser.add_argument("--codex-timeout-seconds", type=int, default=None)
     run_plan_parser.set_defaults(func=_cmd_run_plan_contract)
 
     continue_plan_parser = subparsers.add_parser("continue-plan", help="Continue a generated plan run.")
@@ -98,10 +109,14 @@ def main(argv: list[str] | None = None) -> int:
     continue_plan_parser.add_argument("--continue-until", default="blocked_or_done")
     continue_plan_parser.add_argument(
         "--executor",
-        choices=("fake", "noop", "handoff", "codex_packet", "codex_cli_dry_run", "codex_cli_operator_approved_stub"),
+        choices=("fake", "noop", "handoff", "codex_packet", "codex_cli_dry_run", "codex_cli_operator_approved_stub", "codex_cli"),
         default="fake",
     )
     continue_plan_parser.add_argument("--stop-after-current", action="store_true")
+    continue_plan_parser.add_argument("--auto-ingest", action="store_true")
+    continue_plan_parser.add_argument("--allow-real-codex-invocation", action="store_true")
+    continue_plan_parser.add_argument("--codex-config", default=None)
+    continue_plan_parser.add_argument("--codex-timeout-seconds", type=int, default=None)
     continue_plan_parser.set_defaults(func=_cmd_continue_plan_contract)
 
     recover_plan_parser = subparsers.add_parser("recover-plan", help="Inspect or recover a generated plan run.")
@@ -158,6 +173,24 @@ def main(argv: list[str] | None = None) -> int:
     _add_queue_root(adapter_dry_run_parser)
     adapter_dry_run_parser.add_argument("--adapter-mode", choices=("codex_cli_dry_run",), default="codex_cli_dry_run")
     adapter_dry_run_parser.set_defaults(func=_cmd_codex_adapter_dry_run)
+
+    test_codex_cli_config_parser = subparsers.add_parser(
+        "test-codex-cli-config",
+        help="Validate real Codex CLI executor config without invoking Codex.",
+    )
+    _add_queue_root(test_codex_cli_config_parser)
+    test_codex_cli_config_parser.add_argument("--codex-config", default=None)
+    test_codex_cli_config_parser.set_defaults(func=_cmd_test_codex_cli_config)
+
+    print_codex_cli_command_parser = subparsers.add_parser(
+        "print-codex-cli-command",
+        help="Render the real Codex CLI command for the next runnable task without invoking Codex.",
+    )
+    print_codex_cli_command_parser.add_argument("--run-id", required=True)
+    _add_queue_root(print_codex_cli_command_parser)
+    print_codex_cli_command_parser.add_argument("--task-id", default=None)
+    print_codex_cli_command_parser.add_argument("--codex-config", default=None)
+    print_codex_cli_command_parser.set_defaults(func=_cmd_print_codex_cli_command)
 
     inspect_run_parser = subparsers.add_parser("inspect-run", help="Inspect a generated plan run.")
     inspect_run_parser.add_argument("--run-id", required=True)
@@ -439,6 +472,7 @@ def _cmd_run_plan_contract(args: argparse.Namespace) -> dict[str, Any]:
         commit=args.commit,
         push=args.push,
         dry_run=args.dry_run,
+        executor_options=_codex_executor_options(args),
     )
     return _write_plan_runner_action(args.queue_root, "run-plan", result, args.plan_file)
 
@@ -452,6 +486,7 @@ def _cmd_continue_plan_contract(args: argparse.Namespace) -> dict[str, Any]:
         executor=args.executor,
         continue_until=args.continue_until,
         stop_after_current=args.stop_after_current,
+        executor_options=_codex_executor_options(args),
     )
     return _write_plan_runner_action(args.queue_root, "continue-plan", result, "")
 
@@ -608,6 +643,93 @@ def _cmd_codex_adapter_dry_run(args: argparse.Namespace) -> dict[str, Any]:
         continue_until="one_step",
     )
     return _write_plan_runner_action(args.queue_root, "codex-adapter-dry-run", result, "")
+
+
+def _cmd_test_codex_cli_config(args: argparse.Namespace) -> dict[str, Any]:
+    config_path = _codex_config_path(args.queue_root, getattr(args, "codex_config", None))
+    config = load_codex_cli_executor_config(config_path)
+    validation = validate_codex_cli_executor_config(config)
+    command = build_codex_cli_command(_preview_packet_for_config(args.queue_root), config) if _command_can_preview(config) else []
+    executable_status = _executable_status(command)
+    errors = list(validation["errors"])
+    if command and not executable_status["available"]:
+        errors.append(str(executable_status["error"]))
+    status = "ok" if validation["valid"] and executable_status["available"] else "blocked"
+    return write_operator_action_report(
+        args.queue_root,
+        _action(
+            "test-codex-cli-config",
+            status,
+            "",
+            args.queue_root,
+            source_path=config_path,
+            errors=errors,
+            warnings=list(validation["warnings"]),
+            next_operator_action=(
+                "Codex CLI config is enabled and command is resolvable."
+                if status == "ok"
+                else "Enable a safe config and install or configure the Codex command before real invocation."
+            ),
+            extra={
+                "codex_cli_config": config.to_dict(),
+                "codex_cli_config_validation": validation,
+                "codex_cli_executable": executable_status,
+                "command_preview": command,
+                "codex_execution_added": False,
+                "codex_invoked": False,
+                "network_calls_performed": 0,
+            },
+        ),
+    )
+
+
+def _cmd_print_codex_cli_command(args: argparse.Namespace) -> dict[str, Any]:
+    config_path = _codex_config_path(args.queue_root, getattr(args, "codex_config", None))
+    config = load_codex_cli_executor_config(config_path)
+    packet = create_execution_packet_for_next_task(
+        args.run_id,
+        args.queue_root,
+        adapter_mode="codex_cli_operator_approved",
+        task_id=args.task_id,
+    )
+    output_dir = Path(packet.prompt_path).parent
+    packet_path = write_execution_packet(packet, output_dir)
+    prompt_path = write_execution_prompt(packet, output_dir)
+    template_path = write_expected_result_template(packet, output_dir)
+    command = build_codex_cli_command(packet, config)
+    validation = validate_codex_cli_executor_config(config)
+    executable_status = _executable_status(command)
+    return write_operator_action_report(
+        args.queue_root,
+        _action(
+            "print-codex-cli-command",
+            "ok",
+            packet.task_id,
+            args.queue_root,
+            source_path=packet.task_spec_path,
+            destination_path=str(packet_path),
+            warnings=list(validation["warnings"]),
+            next_operator_action="Review the command preview; no Codex process was started.",
+            extra={
+                "run_id": packet.run_id,
+                "plan_id": packet.plan_id,
+                "packet_id": packet.packet_id,
+                "adapter_mode": packet.adapter_mode,
+                "requires_operator_approval": packet.requires_operator_approval,
+                "execution_packet_path": str(packet_path),
+                "execution_prompt_path": str(prompt_path),
+                "expected_result_template_path": str(template_path),
+                "result_json_path": str(result_json_path_for_packet(packet, config)),
+                "codex_cli_config_path": str(config_path),
+                "codex_cli_config_validation": validation,
+                "codex_cli_executable": executable_status,
+                "codex_cli_command": command,
+                "codex_execution_added": False,
+                "codex_invoked": False,
+                "network_calls_performed": 0,
+            },
+        ),
+    )
 
 
 def _cmd_inspect_run(args: argparse.Namespace) -> dict[str, Any]:
@@ -1787,6 +1909,10 @@ def _write_plan_runner_action(
         "ok" if run_status in {"accepted", "recovered"} else run_status
     )
     payload = result.get("payload", {}) if isinstance(result.get("payload", {}), Mapping) else {}
+    executor = str(payload.get("executor") or "")
+    codex_cli_invocation = payload.get("codex_cli_invocation", {})
+    if not isinstance(codex_cli_invocation, Mapping):
+        codex_cli_invocation = {}
     return write_operator_action_report(
         queue_root,
         _action(
@@ -1804,11 +1930,17 @@ def _write_plan_runner_action(
                 "run_status": run_status,
                 "run_id": str(payload.get("run_id") or ""),
                 "plan_id": str(payload.get("plan_id") or ""),
+                "state_path": result.get("state_path") or payload.get("state_path", ""),
+                "dashboard_path": result.get("dashboard_path") or payload.get("dashboard_path", ""),
                 "execution_packet_path": result.get("execution_packet_path") or payload.get("execution_packet_path", ""),
                 "execution_prompt_path": result.get("execution_prompt_path") or payload.get("execution_prompt_path", ""),
                 "expected_result_template_path": result.get("expected_result_template_path") or payload.get("expected_result_template_path", ""),
                 "adapter_mode": result.get("adapter_mode") or payload.get("adapter_mode", ""),
-                "codex_execution_added": False,
+                "result_json_path": result.get("result_json_path") or payload.get("result_json_path", ""),
+                "auto_ingest_status": result.get("auto_ingest_status") or payload.get("auto_ingest_status", ""),
+                "codex_execution_added": executor == "codex_cli",
+                "codex_invoked": bool(codex_cli_invocation.get("codex_invoked", False)),
+                "codex_result_ingestion": payload.get("codex_result_ingestion", {}),
                 "codex_app_server_used": False,
                 "network_calls_performed": 0,
             },
@@ -1827,6 +1959,8 @@ def _next_action_for_plan_runner_status(status: str) -> str:
         return "Review the Codex CLI dry-run artifact; no Codex process was started."
     if status in {"blocked", "failed", "needs_retry"}:
         return "Inspect result details and run recover-plan or retry after review."
+    if status in {"validation_failure", "safety_failure"}:
+        return "Inspect Codex invocation, result validation, and blocker reports before retrying."
     if status == "dry_run":
         return "Review dry-run queue materialization before running."
     return "Inspect generated plan-runner artifacts."
@@ -1925,6 +2059,14 @@ def render_operator_action_markdown(report: Mapping[str, Any]) -> str:
     if report["command"] == "run-codex-once":
         lines.append(
             "This operator action is supervised and one-task only. When dry_run is false and preflight passes, it invokes exactly one local `codex exec` process and captures logs; it does not call Codex app-server, start background workers, add schedulers, approve review, mark tasks done, push git branches, call network services directly, or access credentials."
+        )
+    elif report["command"] in {"test-codex-cli-config", "print-codex-cli-command"}:
+        lines.append(
+            "This operator action only validates or previews the real Codex CLI executor configuration. It does not invoke Codex, start background workers, add schedulers, call browser automation, access credentials, or perform trading actions."
+        )
+    elif report["command"] in {"run-plan", "continue-plan"} and report.get("codex_execution_added") is True:
+        lines.append(
+            "This operator action may invoke the configured Codex CLI only when executor=codex_cli, config.enabled=true, --allow-real-codex-invocation is present, and --auto-ingest is present. It is bounded by max_steps and stops on blocked, failed, safety, or validation outcomes."
         )
     elif report["command"] == "run-codex-batch":
         lines.append(
@@ -2060,6 +2202,68 @@ def _action(
     return payload
 
 
+def _codex_executor_options(args: argparse.Namespace) -> dict[str, Any]:
+    if getattr(args, "executor", "") != "codex_cli":
+        return {}
+    return {
+        "allow_real_codex_invocation": bool(getattr(args, "allow_real_codex_invocation", False)),
+        "auto_ingest": bool(getattr(args, "auto_ingest", False)),
+        "config_path": str(_codex_config_path(args.queue_root, getattr(args, "codex_config", None))),
+        "timeout_seconds": getattr(args, "codex_timeout_seconds", None),
+    }
+
+
+def _codex_config_path(queue_root: str | Path, explicit_path: str | Path | None = None) -> Path:
+    if explicit_path:
+        return Path(explicit_path)
+    return Path(queue_root) / "config" / "codex_executor_config.json"
+
+
+def _command_can_preview(config: Any) -> bool:
+    command = config.codex_command
+    if isinstance(command, tuple):
+        return bool(command)
+    return bool(str(command or "").strip())
+
+
+def _preview_packet_for_config(queue_root: str | Path) -> dict[str, Any]:
+    root = Path(queue_root)
+    return {
+        "packet_id": "preview",
+        "run_id": "<RUN_ID>",
+        "plan_id": "<PLAN_ID>",
+        "task_id": "<TASK_ID>",
+        "created_at": _utc_iso(),
+        "repo_root": ".",
+        "branch": "master",
+        "expected_head": "",
+        "queue_manifest_path": str(root / "generated" / "<PLAN_ID>" / "<RUN_ID>" / "manifest.json"),
+        "state_path": str(root / "generated" / "<PLAN_ID>" / "<RUN_ID>" / "state.json"),
+        "task_spec_path": str(root / "generated" / "<PLAN_ID>" / "<RUN_ID>" / "tasks" / "<TASK_ID>.json"),
+        "allowed_paths": [],
+        "forbidden_actions": [],
+        "acceptance_gates": [],
+        "prompt_path": str(root / "generated" / "<PLAN_ID>" / "<RUN_ID>" / "codex_packets" / "<TASK_ID>" / "prompt.md"),
+        "expected_result_path": str(root / "generated" / "<PLAN_ID>" / "<RUN_ID>" / "codex_packets" / "<TASK_ID>" / "expected_result_template.json"),
+        "adapter_mode": "codex_cli_operator_approved",
+        "requires_operator_approval": True,
+        "safety_boundaries": ["operator_approval_required_for_codex_execution"],
+    }
+
+
+def _executable_status(command: list[str]) -> dict[str, Any]:
+    if not command:
+        return {"available": False, "executable": "", "resolved_path": None, "error": "codex_command is not configured"}
+    executable = str(command[0])
+    resolved = str(Path(executable).resolve(strict=False)) if Path(executable).exists() else shutil.which(executable)
+    return {
+        "available": resolved is not None,
+        "executable": executable,
+        "resolved_path": resolved,
+        "error": "" if resolved else f"Codex CLI executable was not found or configured command is missing: {executable}",
+    }
+
+
 def _append_operator_note(existing: str, note: str) -> str:
     if existing.strip():
         return f"{existing.rstrip()}\n{note}"
@@ -2140,6 +2344,8 @@ def _cli_summary(report: Mapping[str, Any]) -> dict[str, Any]:
         "execution_packet_path",
         "execution_prompt_path",
         "expected_result_template_path",
+        "result_json_path",
+        "auto_ingest_status",
     ):
         if key in report:
             summary[key] = report[key]
@@ -2153,6 +2359,10 @@ def _cli_summary(report: Mapping[str, Any]) -> dict[str, Any]:
         "plan_recovery",
         "codex_packets",
         "codex_result_ingestion",
+        "codex_cli_config_validation",
+        "codex_cli_executable",
+        "codex_cli_command",
+        "command_preview",
     ):
         if key in report:
             summary[key] = report[key]

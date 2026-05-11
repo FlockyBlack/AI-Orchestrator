@@ -1,0 +1,89 @@
+{
+  "acceptance_gates": [
+    {
+      "description": "Fake Codex result is automatically ingested.",
+      "gate_id": "auto_ingestion",
+      "required": true
+    }
+  ],
+  "branch": "master",
+  "commit_policy": {
+    "selective_staging_only": true,
+    "unsafe_staging": false
+  },
+  "continue_until": "blocked_or_done",
+  "created_at": "2026-05-11T00:00:00Z",
+  "dashboard_policy": {
+    "write_json": true
+  },
+  "description": "Fake integration plan proving real Codex CLI executor auto-ingestion without manual copy/paste.",
+  "execution_lanes": [
+    {
+      "allowed_roots": [
+        "docs/",
+        "agent_tasks/generated/fake_integration/real_codex_invocation_025/"
+      ],
+      "lane_id": "fake_codex_cli",
+      "title": "Fake Codex CLI"
+    }
+  ],
+  "expected_head": "",
+  "max_steps_default": 1,
+  "milestones": [
+    {
+      "milestone_id": "REAL_CODEX_INVOCATION_025",
+      "task_ids": [
+        "FAKE-CODEX-CLI-025"
+      ],
+      "title": "Real Codex CLI executor fake integration"
+    }
+  ],
+  "mode": "long_supervised",
+  "owner": "tests",
+  "plan_id": "fake_real_codex_invocation_025",
+  "push_policy": {
+    "allowed": false,
+    "force": false
+  },
+  "repo_root": ".",
+  "safety_boundaries": [
+    {
+      "boundary_id": "fake_codex_cli_only",
+      "description": "Uses the repository fake Codex command script only; no real Codex, network, auth, wallet, orders, or trading.",
+      "required": true
+    }
+  ],
+  "tasks": [
+    {
+      "acceptance_gates": [
+        "Fake command writes codex_result.json.",
+        "Auto-ingestion marks the task done.",
+        "Dashboard is updated."
+      ],
+      "allowed_paths": [
+        "agent_tasks/generated/fake_integration/real_codex_invocation_025/"
+      ],
+      "dependencies": [],
+      "description": "Run the fake Codex command through the real codex_cli executor and automatically ingest its result JSON.",
+      "execution_lane": "fake_codex_cli",
+      "execution_mode": "fake_codex_cli",
+      "expected_artifacts": [
+        "agent_tasks/generated/fake_integration/real_codex_invocation_025/agent_tasks/generated/fake_real_codex_invocation_025/RUN025/codex_packets/FAKE-CODEX-CLI-025/codex_result.json"
+      ],
+      "forbidden_actions": [
+        "Do not use `git add .`, `git add -A`, or `git add --all`.",
+        "Do not force push.",
+        "Do not use wallet files, private keys, signing, orders, trading endpoints, or real-money flows.",
+        "Do not use OpenRouter or Polymarket API.",
+        "Do not use authenticated endpoints.",
+        "Do not use browser automation.",
+        "Do not create daemons, schedulers, or background workers."
+      ],
+      "max_retries": 0,
+      "task_id": "FAKE-CODEX-CLI-025",
+      "title": "Fake real Codex CLI invocation and auto-ingestion"
+    }
+  ],
+  "title": "Fake Real Codex CLI Invocation 025",
+  "version": "1.0"
+}

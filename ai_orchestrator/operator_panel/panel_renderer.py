@@ -43,6 +43,7 @@ def render_layout(title: str, body: str, *, repo_root: str, queue_root: str) -> 
     <a href="/artifacts">Artifacts</a>
     <a href="/git">Git</a>
     <a href="/codex-handoff">Codex Handoff</a>
+    <a href="/codex-cli">Codex CLI</a>
   </nav>
   <div class="muted">repo: {_e(repo_root)} | queue: {_e(queue_root)}</div>
 </header>
@@ -57,6 +58,7 @@ def render_dashboard_page(data: dict[str, Any], *, repo_root: str, queue_root: s
     active = data.get("active_run") or {}
     dashboard = data.get("dashboard") or {}
     git = data.get("git", {})
+    codex_cli = data.get("codex_cli", {})
     counts = dashboard.get("counts", {})
     body = f"""
 <section class="grid">
@@ -64,6 +66,7 @@ def render_dashboard_page(data: dict[str, Any], *, repo_root: str, queue_root: s
   <div class="card"><strong>Active run</strong><br>{_link_run(active.get('run_id', 'none'))}<br><span class="{_status_class(active.get('status', ''))}">{_e(active.get('status', ''))}</span></div>
   <div class="card"><strong>Tasks</strong><br>done {_e(counts.get('completed', 0))} / total {_e(counts.get('total', 0))}<br>blocked {_e(counts.get('blocked', 0))}, failed {_e(counts.get('failed', 0))}, pending {_e(counts.get('pending', active.get('pending_count', 0)))}</div>
   <div class="card"><strong>Safety</strong><br>{_e(dashboard.get('safety_status', 'unknown'))}<br><span class="muted">consistency: {_e(dashboard.get('state_consistency_status', ''))}</span></div>
+  <div class="card"><strong>Codex CLI</strong><br>enabled: <code>{_e(codex_cli.get('enabled', False))}</code><br><span class="{_status_class('ok' if codex_cli.get('ready') else 'blocked')}">{_e('ready' if codex_cli.get('ready') else 'not ready')}</span></div>
 </section>
 <section class="card">
   <h2>Run controls</h2>
@@ -235,6 +238,31 @@ def render_handoff_page(
     return render_layout("Codex Handoff", body, repo_root=repo_root, queue_root=queue_root)
 
 
+def render_codex_cli_page(data: dict[str, Any], *, repo_root: str, queue_root: str) -> str:
+    active = data.get("active_run") or {}
+    run_id = str(active.get("run_id") or "")
+    codex_cli = data.get("codex_cli") or {}
+    validation = codex_cli.get("validation") or {}
+    executable = codex_cli.get("executable") or {}
+    command_preview = codex_cli.get("command_preview") or []
+    body = f"""
+<section class="card">
+  <h1>Codex CLI Executor</h1>
+  <p><strong>enabled:</strong> <code>{_e(codex_cli.get('enabled', False))}</code> | <strong>ready:</strong> <span class="{_status_class('ok' if codex_cli.get('ready') else 'blocked')}">{_e(codex_cli.get('ready', False))}</span></p>
+  <p><strong>config:</strong> <code>{_e(codex_cli.get('config_path', ''))}</code></p>
+  <p><strong>executable:</strong> <code>{_e(executable.get('executable', ''))}</code> | <strong>resolved:</strong> <code>{_e(executable.get('resolved_path', ''))}</code></p>
+  <h2>Command Preview</h2>
+  <pre>{_e(' '.join(str(part) for part in command_preview))}</pre>
+  {_codex_cli_controls(run_id)}
+</section>
+<section class="card">
+  <h2>Config Validation</h2>
+  <pre>{_e(json.dumps(validation, indent=2, sort_keys=True))}</pre>
+</section>
+"""
+    return render_layout("Codex CLI", body, repo_root=repo_root, queue_root=queue_root)
+
+
 def render_plan_forms(plans: list[dict[str, Any]]) -> str:
     options = "".join(f'<option value="{_e(plan["path"])}">{_e(plan["plan_id"] or Path(plan["path"]).name)}</option>' for plan in plans)
     return f"""
@@ -300,6 +328,7 @@ def _run_action_forms(run_id: str) -> str:
   <input type="hidden" name="adapter_mode" value="codex_cli_dry_run">
   <button type="submit">Create Codex dry-run packet</button>
 </form>
+{_codex_cli_controls(run_id)}
 <form class="inline-form" method="get" action="/codex-handoff">
   <button type="submit">Export expected result template</button>
 </form>
@@ -320,6 +349,29 @@ def _run_action_forms(run_id: str) -> str:
 <form class="inline-form" method="get" action="/run">
   <input type="hidden" name="id" value="{_e(run_id)}">
   <button type="submit">Refresh</button>
+</form>
+"""
+
+
+def _codex_cli_controls(run_id: str) -> str:
+    if not run_id:
+        return """
+<form class="inline-form" method="post" action="/actions/test-codex-cli-config">
+  <button type="submit">Test Codex CLI config</button>
+</form>
+<p class="muted">No active run selected for real Codex CLI continuation.</p>
+"""
+    approval = "I approve real Codex CLI invocation for this run"
+    return f"""
+<form class="inline-form" method="post" action="/actions/test-codex-cli-config">
+  <button type="submit">Test Codex CLI config</button>
+</form>
+<form method="post" action="/actions/continue-codex-cli">
+  <input type="hidden" name="run_id" value="{_e(run_id)}">
+  <label><input type="checkbox" name="approval_checked"> {_e(approval)}</label>
+  <label>Confirmation text</label><input name="approval_text" value="">
+  <button type="submit" name="max_steps" value="1">Continue with Codex CLI, max 1 step</button>
+  <button type="submit" name="max_steps" value="3">Continue with Codex CLI, max 3 steps</button>
 </form>
 """
 

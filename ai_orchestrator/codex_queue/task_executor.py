@@ -12,11 +12,21 @@ from .codex_execution_packet import (
     write_execution_prompt,
     write_expected_result_template,
 )
+from .codex_cli_executor import (
+    CodexCliInvocationResult,
+    collect_codex_result,
+    invoke_codex_cli,
+    load_codex_cli_executor_config,
+    result_json_path_for_packet,
+    validate_codex_cli_executor_config,
+    write_invocation_log,
+)
 from .codex_executor_contract import (
     CodexExecutionMode,
     build_execution_packet,
     validate_execution_packet,
 )
+from .codex_result_ingestion import ingest_codex_result
 from .plan_contract import PlanContract, PlanTaskSpec
 
 
@@ -287,6 +297,286 @@ class CodexCliOperatorApprovedExecutor:
         return TaskExecutionResult("blocked", payload, (), "Codex CLI invocation remains disabled in 024.")
 
 
+@dataclass
+class RealCodexCliExecutor:
+    allow_real_codex_invocation: bool = False
+    auto_ingest: bool = False
+    config_path: str | Path | None = None
+    timeout_seconds: int | None = None
+
+    def execute(self, context: TaskExecutionContext) -> TaskExecutionResult:
+        packet, paths = _write_packet_artifacts(context, CodexExecutionMode.CODEX_CLI_OPERATOR_APPROVED.value)
+        config = load_codex_cli_executor_config(self.config_path or Path(context.queue_root) / "config" / "codex_executor_config.json")
+        validation = validate_execution_packet(packet)
+        config_validation = validate_codex_cli_executor_config(config)
+        result_json_path = result_json_path_for_packet(packet, config)
+        artifact_paths = _artifact_paths_from_real_codex(paths, result_json_path)
+
+        if not validation.valid:
+            return self._blocked(
+                context,
+                packet,
+                paths,
+                config,
+                artifact_paths,
+                "Codex execution packet validation failed.",
+                list(validation.errors),
+                validation_warnings=list(validation.warnings),
+            )
+        if not self.allow_real_codex_invocation:
+            return self._blocked(
+                context,
+                packet,
+                paths,
+                config,
+                artifact_paths,
+                "Real Codex CLI invocation requires --allow-real-codex-invocation.",
+                ["operator approval flag --allow-real-codex-invocation is required"],
+            )
+        if not self.auto_ingest:
+            return self._blocked(
+                context,
+                packet,
+                paths,
+                config,
+                artifact_paths,
+                "Real Codex CLI executor requires --auto-ingest.",
+                ["--auto-ingest is required for the codex_cli executor"],
+            )
+        if not config_validation["valid"]:
+            return self._blocked(
+                context,
+                packet,
+                paths,
+                config,
+                artifact_paths,
+                "Codex CLI executor config is not enabled or safe.",
+                list(config_validation["errors"]),
+                validation_warnings=list(config_validation["warnings"]),
+            )
+
+        timeout = int(self.timeout_seconds or config.timeout_seconds)
+        invocation = invoke_codex_cli(packet, config, timeout)
+        artifact_paths = _artifact_paths_from_real_codex(paths, result_json_path, invocation)
+        if invocation.status != "completed":
+            status = "blocked" if invocation.status == "blocked" else "failed"
+            return self._terminal_from_invocation(
+                context,
+                packet,
+                paths,
+                config,
+                invocation,
+                artifact_paths,
+                status=status,
+                message=f"Codex CLI invocation {invocation.status}.",
+            )
+
+        collected = collect_codex_result(packet, config)
+        if collected["status"] == "missing":
+            return self._terminal_from_invocation(
+                context,
+                packet,
+                paths,
+                config,
+                invocation,
+                artifact_paths,
+                status="blocked",
+                message="Codex CLI completed but did not write the required result JSON.",
+                extra={"requires_result": True, "result_collection": collected},
+            )
+        if collected["status"] == "invalid":
+            return self._terminal_from_invocation(
+                context,
+                packet,
+                paths,
+                config,
+                invocation,
+                artifact_paths,
+                status="failed",
+                message="Codex CLI result JSON failed validation.",
+                extra={"result_collection": collected},
+            )
+
+        ingestion = ingest_codex_result(paths["packet"], str(result_json_path), context.queue_root)
+        artifact_paths = _artifact_paths_from_real_codex(paths, result_json_path, invocation)
+        report_json = str(ingestion.get("report_paths", {}).get("json", ""))
+        report_md = str(ingestion.get("report_paths", {}).get("markdown", ""))
+        if report_json:
+            artifact_paths.append(report_json)
+        if report_md:
+            artifact_paths.append(report_md)
+        artifact_paths = list(dict.fromkeys(path for path in artifact_paths if path))
+
+        if ingestion["status"] not in {"accepted", "blocked", "failed", "needs_retry"}:
+            payload = self._base_real_payload(
+                context,
+                packet,
+                paths,
+                config,
+                status="failed",
+                artifact_paths=artifact_paths,
+            )
+            payload.update(
+                {
+                    "validation_passed": False,
+                    "safety_ok": False,
+                    "codex_cli_invocation": invocation.to_dict(),
+                    "result_collection": collected,
+                    "codex_result_ingestion": ingestion,
+                    "failure_reason": "auto-ingestion rejected the Codex result JSON",
+                }
+            )
+            return TaskExecutionResult("failed", payload, tuple(artifact_paths), "Codex result rejected during auto-ingestion.")
+
+        payload_status = "completed" if ingestion["status"] == "accepted" else ingestion["status"]
+        payload = self._base_real_payload(
+            context,
+            packet,
+            paths,
+            config,
+            status=payload_status,
+            artifact_paths=artifact_paths,
+        )
+        payload.update(
+            {
+                "validation_passed": bool(ingestion.get("validation_passed", False)),
+                "safety_ok": bool(ingestion.get("safety_ok", False)),
+                "codex_cli_invocation": invocation.to_dict(),
+                "result_collection": collected,
+                "codex_result_ingestion": ingestion,
+                "auto_ingested": True,
+                "auto_ingest_status": ingestion["status"],
+                "state_updated": bool(ingestion.get("state_updated", False)),
+                "state_action": ingestion.get("state_action", ""),
+                "result_json_path": str(result_json_path),
+            }
+        )
+        return TaskExecutionResult(
+            "auto_ingested",
+            payload,
+            tuple(artifact_paths),
+            f"Codex CLI result auto-ingested with status {ingestion['status']}.",
+        )
+
+    def _blocked(
+        self,
+        context: TaskExecutionContext,
+        packet: Any,
+        paths: dict[str, str],
+        config: Any,
+        artifact_paths: list[str],
+        message: str,
+        errors: list[str],
+        *,
+        validation_warnings: list[str] | None = None,
+    ) -> TaskExecutionResult:
+        result_json_path = result_json_path_for_packet(packet, config)
+        log_result = _blocked_invocation_result(packet, config, errors, validation_warnings or [])
+        write_invocation_log(log_result)
+        artifact_paths = _artifact_paths_from_real_codex(paths, result_json_path, log_result)
+        payload = self._base_real_payload(
+            context,
+            packet,
+            paths,
+            config,
+            status="blocked",
+            artifact_paths=artifact_paths,
+        )
+        payload.update(
+            {
+                "validation_passed": False,
+                "safety_ok": True,
+                "codex_cli_invocation": log_result.to_dict(),
+                "blocked_reason": message,
+                "errors": list(errors),
+                "warnings": list(validation_warnings or []),
+            }
+        )
+        return TaskExecutionResult("blocked", payload, tuple(artifact_paths), message)
+
+    def _terminal_from_invocation(
+        self,
+        context: TaskExecutionContext,
+        packet: Any,
+        paths: dict[str, str],
+        config: Any,
+        invocation: Any,
+        artifact_paths: list[str],
+        *,
+        status: str,
+        message: str,
+        extra: Mapping[str, Any] | None = None,
+    ) -> TaskExecutionResult:
+        payload = self._base_real_payload(
+            context,
+            packet,
+            paths,
+            config,
+            status=status,
+            artifact_paths=artifact_paths,
+        )
+        payload.update(
+            {
+                "validation_passed": False,
+                "safety_ok": status == "blocked",
+                "codex_cli_invocation": invocation.to_dict(),
+                "commands_run": [invocation.display_command] if invocation.command else [],
+            }
+        )
+        if status == "blocked":
+            payload["blocked_reason"] = message
+        else:
+            payload["failure_reason"] = message
+        if extra:
+            payload.update(dict(extra))
+        return TaskExecutionResult(status, payload, tuple(artifact_paths), message)
+
+    def _base_real_payload(
+        self,
+        context: TaskExecutionContext,
+        packet: Any,
+        paths: dict[str, str],
+        config: Any,
+        *,
+        status: str,
+        artifact_paths: list[str],
+    ) -> dict[str, Any]:
+        payload = _base_payload(context.task_spec, context, status=status)
+        payload.update(
+            {
+                "artifacts": list(artifact_paths),
+                "commands_run": [],
+                "codex_invoked": False,
+                "adapter_mode": packet.adapter_mode,
+                "requires_operator_handoff": False,
+                "requires_operator_approval": packet.requires_operator_approval,
+                "real_codex_invocation_requires_operator_approval": True,
+                "operator_approval_flag_present": self.allow_real_codex_invocation,
+                "auto_ingest_requested": self.auto_ingest,
+                "execution_packet_path": paths["packet"],
+                "execution_prompt_path": paths["prompt"],
+                "expected_result_template_path": paths["expected_result_template"],
+                "result_json_path": str(result_json_path_for_packet(packet, config)),
+                "codex_executor_config_path": config.config_path,
+                "safety_boundaries_acknowledged": list(packet.safety_boundaries),
+                "real_order_submitted": False,
+                "wallet_used": False,
+                "signing_used": False,
+                "trading_endpoint_used": False,
+                "authenticated_endpoint_used": False,
+                "browser_automation_used": False,
+                "openrouter_used": False,
+                "polymarket_api_used": False,
+                "unsafe_git_staging_used": False,
+                "force_push_used": False,
+                "daemon_created": False,
+                "scheduler_created": False,
+                "background_worker_created": False,
+            }
+        )
+        return payload
+
+
 class FutureCodexCliExecutor:
     def execute(self, context: TaskExecutionContext) -> TaskExecutionResult:
         raise NotImplementedError(
@@ -439,6 +729,63 @@ def _write_packet_artifacts(context: TaskExecutionContext, adapter_mode: str) ->
         "expected_result_template": str(template_path),
         "readme": str(readme_path),
     }
+
+
+def _artifact_paths_from_real_codex(
+    paths: Mapping[str, str],
+    result_json_path: str | Path,
+    invocation: CodexCliInvocationResult | None = None,
+) -> list[str]:
+    artifact_paths = [
+        str(paths.get("prompt", "")),
+        str(paths.get("packet", "")),
+        str(paths.get("expected_result_template", "")),
+        str(paths.get("readme", "")),
+        str(result_json_path),
+    ]
+    if invocation is not None:
+        artifact_paths.extend(
+            [
+                invocation.stdout_log_path,
+                invocation.stderr_log_path,
+                invocation.invocation_log_path,
+                invocation.invocation_markdown_path,
+            ]
+        )
+    return list(dict.fromkeys(path for path in artifact_paths if path))
+
+
+def _blocked_invocation_result(
+    packet: Any,
+    config: Any,
+    errors: list[str],
+    warnings: list[str],
+) -> CodexCliInvocationResult:
+    result_json_path = result_json_path_for_packet(packet, config)
+    packet_dir = Path(packet.prompt_path).parent
+    return CodexCliInvocationResult(
+        status="blocked",
+        packet_id=packet.packet_id,
+        task_id=packet.task_id,
+        run_id=packet.run_id,
+        plan_id=packet.plan_id,
+        command=[],
+        display_command="",
+        cwd=str(Path(packet.repo_root or ".").resolve(strict=False)),
+        prompt_path=packet.prompt_path,
+        packet_path=str(packet_dir / "packet.json"),
+        result_json_path=str(result_json_path),
+        started_at=_utc_iso(),
+        ended_at=_utc_iso(),
+        timeout_seconds=int(getattr(config, "timeout_seconds", 0) or 0),
+        stdout_log_path=str(packet_dir / "codex_cli_stdout.log"),
+        stderr_log_path=str(packet_dir / "codex_cli_stderr.log"),
+        invocation_log_path=str(packet_dir / "codex_cli_invocation.json"),
+        invocation_markdown_path=str(packet_dir / "codex_cli_invocation.md"),
+        result_json_exists=Path(result_json_path).exists(),
+        errors=tuple(dict.fromkeys(errors)),
+        warnings=tuple(dict.fromkeys(warnings)),
+    )
 
 
 def _future_codex_cli_command(prompt_path: str, repo_root: str | Path) -> list[str]:

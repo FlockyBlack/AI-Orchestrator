@@ -37,6 +37,7 @@ from .task_executor import (
     CodexPacketExecutor,
     FakeTaskExecutor,
     LocalNoopExecutor,
+    RealCodexCliExecutor,
     TaskExecutionContext,
     TaskExecutionResult,
     TaskExecutor,
@@ -61,6 +62,7 @@ class LongRunController:
         push: bool = False,
         dry_run: bool = False,
         stop_after_current: bool = False,
+        executor_options: Mapping[str, Any] | None = None,
     ) -> dict[str, Any]:
         queue = create_queue_from_plan(plan_file, queue_root, run_id=run_id, dry_run=dry_run)
         if queue.status == "blocked":
@@ -113,6 +115,7 @@ class LongRunController:
             commit=commit,
             push=push,
             stop_after_current=stop_after_current,
+            executor_options=executor_options,
         )
 
     def continue_plan(
@@ -124,6 +127,7 @@ class LongRunController:
         executor: str = "fake",
         continue_until: str = "blocked_or_done",
         stop_after_current: bool = False,
+        executor_options: Mapping[str, Any] | None = None,
     ) -> dict[str, Any]:
         inspection = inspect_queue(queue_root, run_id)
         if inspection["status"] not in {"found", "invalid"}:
@@ -197,6 +201,7 @@ class LongRunController:
             commit=False,
             push=False,
             stop_after_current=stop_after_current,
+            executor_options=executor_options,
         )
 
     def recover_plan(
@@ -260,6 +265,7 @@ class LongRunController:
         commit: bool,
         push: bool,
         stop_after_current: bool,
+        executor_options: Mapping[str, Any] | None,
     ) -> dict[str, Any]:
         validation = validate_plan_contract(plan)
         if not validation.valid:
@@ -300,7 +306,7 @@ class LongRunController:
                 safety_ok=True,
                 validation_passed=False,
             )
-        executor_instance = _executor_for_mode(executor)
+        executor_instance = _executor_for_mode(executor, executor_options)
         steps_attempted = 0
         steps_completed = 0
         status = "max_steps"
@@ -456,6 +462,23 @@ class LongRunController:
             set_run_status(state, "paused", reason="codex_adapter_dry_run_ready")
             save_state(state, state_path)
             return {"status": "adapter_dry_run_ready", "stop": False, "execution": execution.to_dict()}
+        if execution.status == "auto_ingested":
+            refreshed = load_state(state_path)
+            _copy_state(state, refreshed)
+            auto_ingest_status = str(execution.result_payload.get("auto_ingest_status") or "")
+            if auto_ingest_status == "accepted":
+                status = "accepted"
+            elif auto_ingest_status in {"blocked", "failed", "needs_retry"}:
+                status = auto_ingest_status
+            else:
+                status = "failed"
+            return {
+                "status": status,
+                "stop": False,
+                "execution": execution.to_dict(),
+                "auto_ingested": True,
+                "auto_ingest_status": auto_ingest_status,
+            }
         task = next(item for item in plan.tasks if item.task_id == task_id)
         decision = evaluate_task_result(task, execution.result_payload, plan.safety_boundaries)
         if decision.status == ACCEPTED:
@@ -502,7 +525,8 @@ def recover_plan(*args: Any, **kwargs: Any) -> dict[str, Any]:
     return LongRunController().recover_plan(*args, **kwargs)
 
 
-def _executor_for_mode(executor: str) -> TaskExecutor:
+def _executor_for_mode(executor: str, options: Mapping[str, Any] | None = None) -> TaskExecutor:
+    options = dict(options or {})
     if executor == "fake":
         return FakeTaskExecutor()
     if executor == "noop":
@@ -515,6 +539,13 @@ def _executor_for_mode(executor: str) -> TaskExecutor:
         return CodexCliDryRunExecutor()
     if executor == "codex_cli_operator_approved_stub":
         return CodexCliOperatorApprovedExecutor()
+    if executor == "codex_cli":
+        return RealCodexCliExecutor(
+            allow_real_codex_invocation=bool(options.get("allow_real_codex_invocation", False)),
+            auto_ingest=bool(options.get("auto_ingest", False)),
+            config_path=options.get("config_path"),
+            timeout_seconds=options.get("timeout_seconds"),
+        )
     raise ValueError(f"unsupported executor mode: {executor}")
 
 
@@ -533,6 +564,10 @@ def _adapter_paths_from_step_result(step_result: Mapping[str, Any]) -> dict[str,
         "adapter_mode",
         "requires_operator_handoff",
         "next_operator_action",
+        "codex_cli_invocation",
+        "codex_result_ingestion",
+        "result_json_path",
+        "auto_ingest_status",
     )
     result = {key: payload.get(key) for key in keys if key in payload}
     if result.get("execution_prompt_path"):
@@ -564,6 +599,10 @@ def _next_runnable_ids(plan: PlanContract, state: PlanRunState) -> list[str]:
             failed=state.failed_task_ids,
         )
     ]
+
+
+def _copy_state(target: PlanRunState, source: PlanRunState) -> None:
+    target.__dict__.update(source.__dict__)
 
 
 def _read_json(path: str | Path) -> dict[str, Any]:

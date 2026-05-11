@@ -1,0 +1,42 @@
+{
+  "created_at": "2026-05-11T12:25:27Z",
+  "dashboard_json_path": "agent_tasks\\generated\\fake_integration\\real_codex_invocation_025\\agent_tasks\\generated\\fake_real_codex_invocation_025\\RUN025\\dashboard\\dashboard.json",
+  "dashboard_md_path": "agent_tasks\\generated\\fake_integration\\real_codex_invocation_025\\agent_tasks\\generated\\fake_real_codex_invocation_025\\RUN025\\dashboard\\dashboard.md",
+  "handoff_dir": "agent_tasks\\generated\\fake_integration\\real_codex_invocation_025\\agent_tasks\\generated\\fake_real_codex_invocation_025\\RUN025\\handoff",
+  "lock_path": "agent_tasks\\generated\\fake_integration\\real_codex_invocation_025\\agent_tasks\\generated\\fake_real_codex_invocation_025\\RUN025\\run.lock",
+  "plan_id": "fake_real_codex_invocation_025",
+  "queue_paths": {
+    "dashboard_json_path": "agent_tasks\\generated\\fake_integration\\real_codex_invocation_025\\agent_tasks\\generated\\fake_real_codex_invocation_025\\RUN025\\dashboard\\dashboard.json",
+    "dashboard_md_path": "agent_tasks\\generated\\fake_integration\\real_codex_invocation_025\\agent_tasks\\generated\\fake_real_codex_invocation_025\\RUN025\\dashboard\\dashboard.md",
+    "handoff_dir": "agent_tasks\\generated\\fake_integration\\real_codex_invocation_025\\agent_tasks\\generated\\fake_real_codex_invocation_025\\RUN025\\handoff",
+    "lock_path": "agent_tasks\\generated\\fake_integration\\real_codex_invocation_025\\agent_tasks\\generated\\fake_real_codex_invocation_025\\RUN025\\run.lock",
+    "manifest": "agent_tasks\\generated\\fake_integration\\real_codex_invocation_025\\agent_tasks\\generated\\fake_real_codex_invocation_025\\RUN025\\manifest.json",
+    "readme": "agent_tasks\\generated\\fake_integration\\real_codex_invocation_025\\agent_tasks\\generated\\fake_real_codex_invocation_025\\RUN025\\README.md",
+    "recovery_dir": "agent_tasks\\generated\\fake_integration\\real_codex_invocation_025\\agent_tasks\\generated\\fake_real_codex_invocation_025\\RUN025\\recovery",
+    "recovery_report_path": "agent_tasks\\generated\\fake_integration\\real_codex_invocation_025\\agent_tasks\\generated\\fake_real_codex_invocation_025\\RUN025\\recovery\\latest_recovery_report.json",
+    "run_root": "agent_tasks\\generated\\fake_integration\\real_codex_invocation_025\\agent_tasks\\generated\\fake_real_codex_invocation_025\\RUN025",
+    "state_path": "agent_tasks\\generated\\fake_integration\\real_codex_invocation_025\\agent_tasks\\generated\\fake_real_codex_invocation_025\\RUN025\\state.json",
+    "task_paths": {
+      "FAKE-CODEX-CLI-025": "agent_tasks\\generated\\fake_integration\\real_codex_invocation_025\\agent_tasks\\generated\\fake_real_codex_invocation_025\\RUN025\\tasks\\FAKE-CODEX-CLI-025.json"
+    },
+    "tasks": {
+      "FAKE-CODEX-CLI-025": "agent_tasks\\generated\\fake_integration\\real_codex_invocation_025\\agent_tasks\\generated\\fake_real_codex_invocation_025\\RUN025\\tasks\\FAKE-CODEX-CLI-025.json"
+    },
+    "tasks_dir": "agent_tasks\\generated\\fake_integration\\real_codex_invocation_025\\agent_tasks\\generated\\fake_real_codex_invocation_025\\RUN025\\tasks"
+  },
+  "recovery_report_path": "agent_tasks\\generated\\fake_integration\\real_codex_invocation_025\\agent_tasks\\generated\\fake_real_codex_invocation_025\\RUN025\\recovery\\latest_recovery_report.json",
+  "run_id": "RUN025",
+  "schema_version": "codex_plan_queue_manifest.v2",
+  "source_plan_file": "agent_tasks\\generated\\fake_integration\\real_codex_invocation_025\\plan.json",
+  "source_plan_sha256": "6857093ccabcad2deeac97dbf48ac710a23a61ec6e1bfa6cc48ce2ea4badad50",
+  "state_path": "agent_tasks\\generated\\fake_integration\\real_codex_invocation_025\\agent_tasks\\generated\\fake_real_codex_invocation_025\\RUN025\\state.json",
+  "status": "created",
+  "task_count": 1,
+  "task_ids": [
+    "FAKE-CODEX-CLI-025"
+  ],
+  "task_paths": {
+    "FAKE-CODEX-CLI-025": "agent_tasks\\generated\\fake_integration\\real_codex_invocation_025\\agent_tasks\\generated\\fake_real_codex_invocation_025\\RUN025\\tasks\\FAKE-CODEX-CLI-025.json"
+  },
+  "updated_at": "2026-05-11T12:25:27Z"
+}

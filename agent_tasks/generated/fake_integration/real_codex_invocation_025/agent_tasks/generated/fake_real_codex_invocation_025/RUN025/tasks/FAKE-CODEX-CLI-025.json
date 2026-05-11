@@ -1,0 +1,34 @@
+{
+  "acceptance_gates": [
+    "Fake command writes codex_result.json.",
+    "Auto-ingestion marks the task done.",
+    "Dashboard is updated."
+  ],
+  "allowed_paths": [
+    "agent_tasks/generated/fake_integration/real_codex_invocation_025/"
+  ],
+  "dependencies": [],
+  "description": "Run the fake Codex command through the real codex_cli executor and automatically ingest its result JSON.",
+  "execution_lane": "fake_codex_cli",
+  "execution_mode": "fake_codex_cli",
+  "expected_artifacts": [
+    "agent_tasks/generated/fake_integration/real_codex_invocation_025/agent_tasks/generated/fake_real_codex_invocation_025/RUN025/codex_packets/FAKE-CODEX-CLI-025/codex_result.json"
+  ],
+  "forbidden_actions": [
+    "Do not use `git add .`, `git add -A`, or `git add --all`.",
+    "Do not force push.",
+    "Do not use wallet files, private keys, signing, orders, trading endpoints, or real-money flows.",
+    "Do not use OpenRouter or Polymarket API.",
+    "Do not use authenticated endpoints.",
+    "Do not use browser automation.",
+    "Do not create daemons, schedulers, or background workers."
+  ],
+  "max_retries": 0,
+  "metadata": {},
+  "milestone_id": "",
+  "plan_id": "fake_real_codex_invocation_025",
+  "run_id": "RUN025",
+  "schema_version": "codex_plan_task.v1",
+  "task_id": "FAKE-CODEX-CLI-025",
+  "title": "Fake real Codex CLI invocation and auto-ingestion"
+}

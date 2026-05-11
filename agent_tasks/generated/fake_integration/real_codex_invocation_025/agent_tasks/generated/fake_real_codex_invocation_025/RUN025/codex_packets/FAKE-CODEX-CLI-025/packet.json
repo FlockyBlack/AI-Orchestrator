@@ -1,0 +1,48 @@
+{
+  "acceptance_gates": [
+    "Fake command writes codex_result.json.",
+    "Auto-ingestion marks the task done.",
+    "Dashboard is updated."
+  ],
+  "adapter_mode": "codex_cli_operator_approved",
+  "allowed_paths": [
+    "agent_tasks/generated/fake_integration/real_codex_invocation_025/"
+  ],
+  "branch": "master",
+  "created_at": "2026-05-11T12:25:32Z",
+  "expected_head": "69b0d6b324d9106d247901df414a97f24a7dfbcb",
+  "expected_result_path": "agent_tasks\\generated\\fake_integration\\real_codex_invocation_025\\agent_tasks\\generated\\fake_real_codex_invocation_025\\RUN025\\codex_packets\\FAKE-CODEX-CLI-025\\expected_result_template.json",
+  "forbidden_actions": [
+    "Do not use `git add .`, `git add -A`, or `git add --all`.",
+    "Do not force push.",
+    "Do not use wallet files, private keys, signing, orders, trading endpoints, or real-money flows.",
+    "Do not use OpenRouter or Polymarket API.",
+    "Do not use authenticated endpoints.",
+    "Do not use browser automation.",
+    "Do not create daemons, schedulers, or background workers.",
+    "Do not use wallet files, private keys, signing, orders, or trading endpoints.",
+    "Do not use OpenRouter or Polymarket API unless a separate task explicitly approves it."
+  ],
+  "packet_id": "cpkt_RUN025_FAKE-CODEX-CLI-025_20260511T122532Z",
+  "plan_id": "fake_real_codex_invocation_025",
+  "prompt_path": "agent_tasks\\generated\\fake_integration\\real_codex_invocation_025\\agent_tasks\\generated\\fake_real_codex_invocation_025\\RUN025\\codex_packets\\FAKE-CODEX-CLI-025\\prompt.md",
+  "queue_manifest_path": "agent_tasks\\generated\\fake_integration\\real_codex_invocation_025\\agent_tasks\\generated\\fake_real_codex_invocation_025\\RUN025\\manifest.json",
+  "repo_root": ".",
+  "requires_operator_approval": true,
+  "run_id": "RUN025",
+  "safety_boundaries": [
+    "fake_codex_cli_only: Uses the repository fake Codex command script only; no real Codex, network, auth, wallet, orders, or trading.",
+    "operator_approval_required_for_codex_execution",
+    "single_task_packet_only",
+    "no_uncontrolled_codex_loop",
+    "no_daemon_scheduler_or_background_worker",
+    "no_wallet_signing_orders_or_trading",
+    "no_openrouter_or_polymarket_api_without_separate_approval",
+    "no_browser_automation_or_authenticated_endpoints",
+    "selective_git_staging_only",
+    "adapter_mode:codex_cli_operator_approved"
+  ],
+  "state_path": "agent_tasks\\generated\\fake_integration\\real_codex_invocation_025\\agent_tasks\\generated\\fake_real_codex_invocation_025\\RUN025\\state.json",
+  "task_id": "FAKE-CODEX-CLI-025",
+  "task_spec_path": "agent_tasks\\generated\\fake_integration\\real_codex_invocation_025\\agent_tasks\\generated\\fake_real_codex_invocation_025\\RUN025\\tasks\\FAKE-CODEX-CLI-025.json"
+}

@@ -1,0 +1,123 @@
+{
+  "artifact_paths": [
+    "agent_tasks\\generated\\fake_integration\\real_codex_invocation_025\\agent_tasks\\generated\\fake_real_codex_invocation_025\\RUN025\\codex_packets\\FAKE-CODEX-CLI-025\\codex_result.json",
+    "agent_tasks\\generated\\fake_integration\\real_codex_invocation_025\\agent_tasks\\generated\\fake_real_codex_invocation_025\\RUN025\\codex_packets\\FAKE-CODEX-CLI-025\\packet.json",
+    "agent_tasks\\generated\\fake_integration\\real_codex_invocation_025\\agent_tasks\\generated\\fake_real_codex_invocation_025\\RUN025\\codex_packets\\FAKE-CODEX-CLI-025\\prompt.md",
+    "agent_tasks\\generated\\fake_integration\\real_codex_invocation_025\\agent_tasks\\generated\\fake_real_codex_invocation_025\\RUN025\\codex_packets\\FAKE-CODEX-CLI-025\\expected_result_template.json"
+  ],
+  "blocked_task_ids": [],
+  "checkpoints": [
+    {
+      "artifact_paths": [],
+      "blocked_task_ids": [],
+      "checkpoint_created_at": "2026-05-11T12:25:27Z",
+      "checkpoint_id": "cp_0001_20260511T122527Z",
+      "checkpoint_reason": "before_first_execution",
+      "completed_task_ids": [],
+      "failed_task_ids": [],
+      "latest_handoff_prompt_path": "",
+      "latest_recovery_report_path": "",
+      "retry_counts": {},
+      "skipped_task_ids": [],
+      "status": "queued",
+      "task_id": ""
+    }
+  ],
+  "completed_task_ids": [
+    "FAKE-CODEX-CLI-025"
+  ],
+  "created_by": "long_run_controller",
+  "current_task_id": "",
+  "dashboard_paths": [
+    "agent_tasks\\generated\\fake_integration\\real_codex_invocation_025\\agent_tasks\\generated\\fake_real_codex_invocation_025\\RUN025\\dashboard\\dashboard.json",
+    "agent_tasks\\generated\\fake_integration\\real_codex_invocation_025\\agent_tasks\\generated\\fake_real_codex_invocation_025\\RUN025\\dashboard\\dashboard.md"
+  ],
+  "events": [
+    {
+      "at": "2026-05-11T12:25:27Z",
+      "event": "run_status_changed",
+      "from": "initialized",
+      "reason": "queue_created",
+      "to": "queued"
+    },
+    {
+      "at": "2026-05-11T12:25:27Z",
+      "checkpoint_id": "cp_0001_20260511T122527Z",
+      "event": "checkpoint_created",
+      "reason": "before_first_execution"
+    },
+    {
+      "at": "2026-05-11T12:25:27Z",
+      "event": "run_status_changed",
+      "from": "queued",
+      "reason": "max_steps",
+      "to": "paused"
+    },
+    {
+      "at": "2026-05-11T12:25:32Z",
+      "event": "run_status_changed",
+      "from": "paused",
+      "reason": "task_started:FAKE-CODEX-CLI-025",
+      "to": "running"
+    },
+    {
+      "at": "2026-05-11T12:25:32Z",
+      "event": "task_started",
+      "task_id": "FAKE-CODEX-CLI-025"
+    },
+    {
+      "at": "2026-05-11T12:25:32Z",
+      "event": "task_done",
+      "result_path": "agent_tasks\\generated\\fake_integration\\real_codex_invocation_025\\agent_tasks\\generated\\fake_real_codex_invocation_025\\RUN025\\codex_packets\\FAKE-CODEX-CLI-025\\codex_result.json",
+      "task_id": "FAKE-CODEX-CLI-025"
+    },
+    {
+      "acceptance_status": "accepted",
+      "at": "2026-05-11T12:25:32Z",
+      "event": "codex_result_ingested",
+      "packet_id": "cpkt_RUN025_FAKE-CODEX-CLI-025_20260511T122532Z",
+      "state_action": "marked_done",
+      "task_id": "FAKE-CODEX-CLI-025"
+    },
+    {
+      "at": "2026-05-11T12:25:32Z",
+      "event": "run_status_changed",
+      "from": "running",
+      "reason": "all_tasks_completed",
+      "to": "completed"
+    }
+  ],
+  "failed_task_ids": [],
+  "git_head_last_verified": "69b0d6b324d9106d247901df414a97f24a7dfbcb",
+  "git_head_start": "69b0d6b324d9106d247901df414a97f24a7dfbcb",
+  "last_updated_by": "long_run_controller",
+  "latest_handoff_prompt_path": "",
+  "latest_recovery_report_path": "",
+  "plan_id": "fake_real_codex_invocation_025",
+  "queue_manifest_path": "agent_tasks\\generated\\fake_integration\\real_codex_invocation_025\\agent_tasks\\generated\\fake_real_codex_invocation_025\\RUN025\\manifest.json",
+  "retry_counts": {},
+  "run_id": "RUN025",
+  "skipped_task_ids": [],
+  "started_at": "2026-05-11T12:25:27Z",
+  "state_schema_version": "codex_plan_run_state.v2",
+  "status": "completed",
+  "task_states": {
+    "FAKE-CODEX-CLI-025": {
+      "artifact_paths": [
+        "agent_tasks\\generated\\fake_integration\\real_codex_invocation_025\\agent_tasks\\generated\\fake_real_codex_invocation_025\\RUN025\\codex_packets\\FAKE-CODEX-CLI-025\\codex_result.json",
+        "agent_tasks\\generated\\fake_integration\\real_codex_invocation_025\\agent_tasks\\generated\\fake_real_codex_invocation_025\\RUN025\\codex_packets\\FAKE-CODEX-CLI-025\\packet.json",
+        "agent_tasks\\generated\\fake_integration\\real_codex_invocation_025\\agent_tasks\\generated\\fake_real_codex_invocation_025\\RUN025\\codex_packets\\FAKE-CODEX-CLI-025\\prompt.md",
+        "agent_tasks\\generated\\fake_integration\\real_codex_invocation_025\\agent_tasks\\generated\\fake_real_codex_invocation_025\\RUN025\\codex_packets\\FAKE-CODEX-CLI-025\\expected_result_template.json"
+      ],
+      "attempts": 1,
+      "errors": [],
+      "finished_at": "2026-05-11T12:25:32Z",
+      "last_event": "task_done",
+      "result_path": "agent_tasks\\generated\\fake_integration\\real_codex_invocation_025\\agent_tasks\\generated\\fake_real_codex_invocation_025\\RUN025\\codex_packets\\FAKE-CODEX-CLI-025\\codex_result.json",
+      "started_at": "2026-05-11T12:25:32Z",
+      "status": "done",
+      "task_id": "FAKE-CODEX-CLI-025"
+    }
+  },
+  "updated_at": "2026-05-11T12:25:32Z"
+}
