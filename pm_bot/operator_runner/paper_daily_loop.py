@@ -60,6 +60,10 @@ from pm_bot.trading_core.risk_prep_config import (
     build_default_future_risk_engine_config,
     render_future_risk_engine_config_markdown,
 )
+from pm_bot.trading_core.signing_simulator import (
+    build_dry_run_execution_receipt_ledger,
+    render_dry_run_execution_receipt_ledger_markdown,
+)
 from pm_bot.trading_core.wallet_execution_boundary import (
     build_wallet_boundary_audit_ledger,
     render_wallet_boundary_audit_ledger_markdown,
@@ -158,6 +162,7 @@ class PaperDailyLoopResult:
     risk_decision_ledger_path: str
     risk_prep_config_path: str
     wallet_boundary_audit_ledger_path: str
+    dry_run_receipt_ledger_path: str
     portfolio_path: str
     rollforward_path: str
     outcome_recheck_queue_path: str
@@ -228,6 +233,10 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         risk_config=risk_prep_config,
         generated_at=generated_at,
     )
+    dry_run_receipt_ledger = build_dry_run_execution_receipt_ledger(
+        wallet_boundary_audit_ledger=wallet_boundary_audit_ledger,
+        generated_at=generated_at,
+    )
     limits = _build_daily_risk_limits(active_config, generated_at=generated_at)
     risk_gate = _build_risk_gate_batch(candidates, limits, generated_at=generated_at)
     executions = _build_execution_batch(candidates, risk_gate, active_config, generated_at=generated_at)
@@ -286,6 +295,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         feedback_readiness=feedback_readiness,
         source_evidence_refresh_ledger=source_evidence_refresh_ledger,
         risk_decision_ledger=risk_decision_ledger,
+        dry_run_receipt_ledger=dry_run_receipt_ledger,
         generated_at=generated_at,
     )
     strategy_summary = build_paper_strategy_evaluation_summary(
@@ -314,6 +324,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         risk_decision_ledger=risk_decision_ledger,
         risk_prep_config=risk_prep_config,
         wallet_boundary_audit_ledger=wallet_boundary_audit_ledger,
+        dry_run_receipt_ledger=dry_run_receipt_ledger,
         source_evidence_refresh_ledger=source_evidence_refresh_ledger,
         generated_at=generated_at,
     )
@@ -342,6 +353,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
             risk_decision_ledger,
             risk_prep_config,
             wallet_boundary_audit_ledger,
+            dry_run_receipt_ledger,
         ],
         generated_at=generated_at,
     )
@@ -367,6 +379,17 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         and wallet_boundary_audit_ledger.get("pnl_invented") is False
         and wallet_boundary_audit_ledger.get("applied_to_paper_execution") is False
         and wallet_boundary_audit_ledger.get("applied_to_real_execution") is False
+        and dry_run_receipt_ledger.get("external_api_calls_performed") is False
+        and dry_run_receipt_ledger.get("network_used") is False
+        and dry_run_receipt_ledger.get("wallet_used") is False
+        and dry_run_receipt_ledger.get("signing_used") is False
+        and dry_run_receipt_ledger.get("real_signing_performed") is False
+        and dry_run_receipt_ledger.get("real_order_submitted") is False
+        and dry_run_receipt_ledger.get("authenticated_endpoint_used") is False
+        and dry_run_receipt_ledger.get("outcome_resolution_invented") is False
+        and dry_run_receipt_ledger.get("pnl_invented") is False
+        and dry_run_receipt_ledger.get("applied_to_paper_execution") is False
+        and dry_run_receipt_ledger.get("applied_to_real_execution") is False
         and safety_scan["safety_ok"] is True
     )
     result = PaperDailyLoopResult(
@@ -397,6 +420,9 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         risk_prep_config_path=normalize_path(paths["risk_prep_config"]) if active_config.write_artifacts else "",
         wallet_boundary_audit_ledger_path=(
             normalize_path(paths["wallet_boundary_audit_ledger"]) if active_config.write_artifacts else ""
+        ),
+        dry_run_receipt_ledger_path=(
+            normalize_path(paths["dry_run_receipts"]) if active_config.write_artifacts else ""
         ),
         portfolio_path=normalize_path(paths["portfolio"]) if active_config.write_artifacts else "",
         rollforward_path=normalize_path(paths["rollforward"]) if active_config.write_artifacts else "",
@@ -439,6 +465,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
             risk_decision_ledger=risk_decision_ledger,
             risk_prep_config=risk_prep_config,
             wallet_boundary_audit_ledger=wallet_boundary_audit_ledger,
+            dry_run_receipt_ledger=dry_run_receipt_ledger,
             result=result,
         )
     return result
@@ -474,6 +501,8 @@ def _daily_paths(output_dir: Path) -> dict[str, Path]:
         "risk_prep_config_md": output_dir / "future_risk_engine_config.md",
         "wallet_boundary_audit_ledger": output_dir / "wallet_boundary_audit_ledger.json",
         "wallet_boundary_audit_ledger_md": output_dir / "wallet_boundary_audit_ledger.md",
+        "dry_run_receipts": output_dir / "dry_run_execution_receipts.json",
+        "dry_run_receipts_md": output_dir / "dry_run_execution_receipts.md",
         "portfolio": output_dir / "paper_daily_portfolio_state.json",
         "portfolio_md": output_dir / "paper_daily_portfolio_state.md",
         "rollforward": output_dir / "paper_daily_rollforward.json",
@@ -860,6 +889,7 @@ def _build_daily_dashboard(
     risk_decision_ledger: Mapping[str, Any],
     risk_prep_config: Mapping[str, Any],
     wallet_boundary_audit_ledger: Mapping[str, Any],
+    dry_run_receipt_ledger: Mapping[str, Any],
     source_evidence_refresh_ledger: Mapping[str, Any],
     generated_at: str,
 ) -> dict[str, Any]:
@@ -939,6 +969,11 @@ def _build_daily_dashboard(
             "wallet_boundary_kill_switch_block_count": int(
                 wallet_boundary_audit_ledger.get("kill_switch_block_count", 0) or 0
             ),
+            "dry_run_receipt_count": int(dry_run_receipt_ledger.get("receipt_count", 0) or 0),
+            "dry_run_receipt_ready_count": int(
+                dry_run_receipt_ledger.get("dry_run_receipt_ready_count", 0) or 0
+            ),
+            "dry_run_receipt_blocked_count": int(dry_run_receipt_ledger.get("blocked_receipt_count", 0) or 0),
             "source_evidence_refresh_record_count": int(source_counts.get("records", 0) or 0),
             "source_evidence_gap_count": int(
                 dict(source_quality.get("summary_counts", {})).get("missing_evidence_gaps", 0) or 0
@@ -1020,6 +1055,26 @@ def _build_daily_dashboard(
             "applied_to_real_execution": wallet_boundary_audit_ledger.get("applied_to_real_execution") is True,
             "external_api_calls_performed": wallet_boundary_audit_ledger.get("external_api_calls_performed") is True,
         },
+        "dry_run_receipt_summary": {
+            "ledger_id": dry_run_receipt_ledger.get("ledger_id"),
+            "mode": dry_run_receipt_ledger.get("mode"),
+            "simulation_mode": dry_run_receipt_ledger.get("simulation_mode"),
+            "receipt_count": dry_run_receipt_ledger.get("receipt_count"),
+            "dry_run_receipt_ready_count": dry_run_receipt_ledger.get("dry_run_receipt_ready_count"),
+            "blocked_receipt_count": dry_run_receipt_ledger.get("blocked_receipt_count"),
+            "receipt_ids_unique": dry_run_receipt_ledger.get("receipt_ids_unique"),
+            "reason_code_summary": dry_run_receipt_ledger.get("reason_code_summary", {}),
+            "gate_enforcement_summary": dry_run_receipt_ledger.get("gate_enforcement_summary", {}),
+            "passive_artifact_only": dry_run_receipt_ledger.get("passive_artifact_only") is True,
+            "applied_to_paper_execution": dry_run_receipt_ledger.get("applied_to_paper_execution") is True,
+            "applied_to_real_execution": dry_run_receipt_ledger.get("applied_to_real_execution") is True,
+            "wallet_used": dry_run_receipt_ledger.get("wallet_used") is True,
+            "signing_used": dry_run_receipt_ledger.get("signing_used") is True,
+            "real_signing_performed": dry_run_receipt_ledger.get("real_signing_performed") is True,
+            "real_order_submitted": dry_run_receipt_ledger.get("real_order_submitted") is True,
+            "authenticated_endpoint_used": dry_run_receipt_ledger.get("authenticated_endpoint_used") is True,
+            "external_api_calls_performed": dry_run_receipt_ledger.get("external_api_calls_performed") is True,
+        },
         "source_evidence_refresh_status": {
             "refresh_id": source_evidence_refresh_ledger.get("refresh_id"),
             "run_mode": source_evidence_refresh_ledger.get("run_mode"),
@@ -1078,6 +1133,7 @@ def _build_daily_dashboard(
         "safety_flags": _daily_safety_flags(),
         "next_operator_actions": [
             "Review the passive risk engine decision ledger before any future execution-layer design work.",
+            "Review the passive dry-run execution receipts before any future execution-layer design work.",
             "Review source evidence freshness and missing evidence gaps before interpreting paper strategy output.",
             "Review the paper strategy evaluation ledger before interpreting paper readiness.",
             "Add saved local outcome resolution evidence before evaluating paper performance.",
@@ -1226,6 +1282,7 @@ def _write_daily_artifacts(
     risk_decision_ledger: Mapping[str, Any],
     risk_prep_config: Mapping[str, Any],
     wallet_boundary_audit_ledger: Mapping[str, Any],
+    dry_run_receipt_ledger: Mapping[str, Any],
     result: PaperDailyLoopResult,
 ) -> None:
     write_json(paths["config"], config.to_dict())
@@ -1251,6 +1308,8 @@ def _write_daily_artifacts(
         paths["wallet_boundary_audit_ledger_md"],
         render_wallet_boundary_audit_ledger_markdown(wallet_boundary_audit_ledger),
     )
+    write_json(paths["dry_run_receipts"], dry_run_receipt_ledger)
+    write_text(paths["dry_run_receipts_md"], render_dry_run_execution_receipt_ledger_markdown(dry_run_receipt_ledger))
     write_json(paths["source_evidence_refresh_request"], source_evidence_refresh_request)
     write_json(paths["source_evidence_refresh"], source_evidence_refresh_ledger)
     write_text(paths["source_evidence_refresh_md"], render_public_evidence_refresh_report(source_evidence_refresh_ledger))
@@ -1336,6 +1395,9 @@ def _render_daily_dashboard_markdown(dashboard: Mapping[str, Any]) -> str:
         f"- Wallet boundary missing approval: {counts.get('wallet_boundary_missing_approval_count')}",
         f"- Wallet boundary missing risk decision: {counts.get('wallet_boundary_missing_risk_decision_count')}",
         f"- Wallet boundary kill switch blocks: {counts.get('wallet_boundary_kill_switch_block_count')}",
+        f"- Dry-run receipts: {counts.get('dry_run_receipt_count')}",
+        f"- Dry-run receipts ready: {counts.get('dry_run_receipt_ready_count')}",
+        f"- Dry-run receipts blocked: {counts.get('dry_run_receipt_blocked_count')}",
         f"- Source evidence records: {counts.get('source_evidence_refresh_record_count')}",
         f"- Source evidence gaps: {counts.get('source_evidence_gap_count')}",
         "",
@@ -1365,6 +1427,8 @@ def _render_daily_dashboard_markdown(dashboard: Mapping[str, Any]) -> str:
     strategy_summary = dict(dashboard.get("paper_strategy_evaluation_summary", {}))
     risk_decisions = dict(dashboard.get("risk_decision_ledger_status", {}))
     wallet_boundary = dict(dashboard.get("wallet_boundary_summary", {}))
+    dry_run_receipts = dict(dashboard.get("dry_run_receipt_summary", {}))
+    dry_run_gates = dict(dry_run_receipts.get("gate_enforcement_summary", {}))
     risk_prep = dict(dashboard.get("risk_prep_config_status", {}))
     lines.extend(
         [
@@ -1420,6 +1484,28 @@ def _render_daily_dashboard_markdown(dashboard: Mapping[str, Any]) -> str:
             "- Reason code summary:",
             *bullet_lines(
                 f"{key}: `{value}`" for key, value in dict(wallet_boundary.get("reason_code_summary", {})).items()
+            ),
+            "",
+            "## Dry-Run Execution Receipts",
+            "",
+            f"- Ledger: `{dry_run_receipts.get('ledger_id')}`",
+            f"- Mode: `{dry_run_receipts.get('mode')}` / `{dry_run_receipts.get('simulation_mode')}`",
+            f"- Receipts: {dry_run_receipts.get('receipt_count')}",
+            f"- Ready receipts: {dry_run_receipts.get('dry_run_receipt_ready_count')}",
+            f"- Blocked receipts: {dry_run_receipts.get('blocked_receipt_count')}",
+            f"- Receipt IDs unique: `{str(dry_run_receipts.get('receipt_ids_unique')).lower()}`",
+            f"- Risk gate enforced: `{str(dry_run_gates.get('risk_decision_required')).lower()}`",
+            f"- Kill switch enforced: `{str(dry_run_gates.get('kill_switch_must_be_disabled')).lower()}`",
+            f"- Manual approval gate enforced: `{str(dry_run_gates.get('manual_approval_gate_required')).lower()}`",
+            f"- Evidence gate enforced: `{str(dry_run_gates.get('evidence_gate_required')).lower()}`",
+            f"- Forbidden fields rejected: `{str(dry_run_gates.get('forbidden_fields_rejected')).lower()}`",
+            f"- Passive artifact only: `{str(dry_run_receipts.get('passive_artifact_only')).lower()}`",
+            f"- Applied to paper execution: `{str(dry_run_receipts.get('applied_to_paper_execution')).lower()}`",
+            f"- Applied to real execution: `{str(dry_run_receipts.get('applied_to_real_execution')).lower()}`",
+            f"- External API calls performed: `{str(dry_run_receipts.get('external_api_calls_performed')).lower()}`",
+            "- Reason code summary:",
+            *bullet_lines(
+                f"{key}: `{value}`" for key, value in dict(dry_run_receipts.get("reason_code_summary", {})).items()
             ),
             "",
             "## Source Evidence Refresh",
@@ -1540,6 +1626,7 @@ def _render_daily_run_report(
             f"- Strategy summary: `{result.get('strategy_summary_path')}`",
             f"- Risk decision ledger: `{result.get('risk_decision_ledger_path')}`",
             f"- Wallet boundary audit ledger: `{result.get('wallet_boundary_audit_ledger_path')}`",
+            f"- Dry-run execution receipts: `{result.get('dry_run_receipt_ledger_path')}`",
             f"- Source evidence refresh: `{result.get('source_evidence_refresh_path')}`",
             f"- Source evidence quality ledger: `{result.get('source_evidence_quality_ledger_path')}`",
             f"- Source evidence pending approval: `{result.get('source_evidence_pending_approval_path')}`",

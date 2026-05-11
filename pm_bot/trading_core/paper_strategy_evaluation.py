@@ -32,6 +32,7 @@ def build_paper_strategy_evaluation_ledger(
     feedback_readiness: Mapping[str, Any] | None = None,
     source_evidence_refresh_ledger: Mapping[str, Any] | None = None,
     risk_decision_ledger: Mapping[str, Any] | None = None,
+    dry_run_receipt_ledger: Mapping[str, Any] | None = None,
     generated_at: str = GENERATED_AT,
 ) -> dict[str, Any]:
     run_id = _first_text(
@@ -122,6 +123,7 @@ def build_paper_strategy_evaluation_ledger(
         "risk_engine_decision_ledger_id": clean_text((risk_decision_ledger or {}).get("ledger_id")),
         "risk_engine_decision_counts": dict((risk_decision_ledger or {}).get("decision_counts", {})),
         "risk_engine_reason_code_summary": dict((risk_decision_ledger or {}).get("reason_code_summary", {})),
+        "dry_run_receipt_summary": _dry_run_receipt_summary(dry_run_receipt_ledger or {}),
         "idempotency": {
             "record_ids_unique": len(record_ids) == len(set(record_ids)),
             "record_order": "market_id_then_intent_id",
@@ -170,6 +172,7 @@ def build_paper_strategy_evaluation_summary(
         ),
         "missing_future_evaluation_data": list(strategy_ledger.get("missing_future_evaluation_data", [])),
         "source_evidence_refresh_status": dict(strategy_ledger.get("source_evidence_refresh_status", {})),
+        "dry_run_receipt_summary": dict(strategy_ledger.get("dry_run_receipt_summary", {})),
         "next_operator_action": "Add saved local outcome resolution evidence before evaluating paper performance.",
         "paper_only": True,
         "analysis_only": True,
@@ -189,6 +192,7 @@ def run_paper_strategy_evaluation(
     portfolio_path: str | Path = ARTIFACT_DIR / "paper_portfolio_state.json",
     feedback_readiness_path: str | Path | None = None,
     risk_decision_ledger_path: str | Path | None = None,
+    dry_run_receipt_ledger_path: str | Path | None = None,
     out_ledger_json_path: str | Path = ARTIFACT_DIR / "paper_strategy_evaluation_ledger.json",
     out_ledger_md_path: str | Path = ARTIFACT_DIR / "paper_strategy_evaluation_ledger.md",
     out_summary_json_path: str | Path = ARTIFACT_DIR / "paper_strategy_evaluation_summary.json",
@@ -205,6 +209,11 @@ def run_paper_strategy_evaluation(
         if risk_decision_ledger_path is not None and Path(risk_decision_ledger_path).exists()
         else {}
     )
+    dry_run_receipt_ledger = (
+        load_json_object(dry_run_receipt_ledger_path, label="dry-run receipt ledger")
+        if dry_run_receipt_ledger_path is not None and Path(dry_run_receipt_ledger_path).exists()
+        else {}
+    )
     portfolio_state = load_json_object(portfolio_path, label="portfolio state")
     strategy_ledger = build_paper_strategy_evaluation_ledger(
         candidates_batch=load_json_object(candidates_path, label="intent candidates"),
@@ -215,6 +224,7 @@ def run_paper_strategy_evaluation(
         feedback_readiness=feedback_readiness,
         source_evidence_refresh_ledger=None,
         risk_decision_ledger=risk_decision_ledger,
+        dry_run_receipt_ledger=dry_run_receipt_ledger,
         generated_at=generated_at,
     )
     summary = build_paper_strategy_evaluation_summary(
@@ -239,6 +249,8 @@ def render_paper_strategy_evaluation_ledger_markdown(ledger: Mapping[str, Any]) 
         f"- Filled paper records: {ledger.get('filled_record_count')}",
         f"- Unresolved paper exposure: `${ledger.get('unresolved_paper_exposure_usd')}`",
         f"- Unresolved PnL invented: `{str(not ledger.get('unresolved_pnl_not_invented')).lower()}`",
+        f"- Dry-run receipts: {dict(ledger.get('dry_run_receipt_summary', {})).get('receipt_count')}",
+        f"- Dry-run receipts blocked: {dict(ledger.get('dry_run_receipt_summary', {})).get('blocked_receipt_count')}",
         "",
         "## Records",
         "",
@@ -277,6 +289,7 @@ def render_paper_strategy_evaluation_ledger_markdown(ledger: Mapping[str, Any]) 
 
 
 def render_paper_strategy_evaluation_summary_markdown(summary: Mapping[str, Any]) -> str:
+    dry_run_summary = dict(summary.get("dry_run_receipt_summary", {}))
     return "\n".join(
         [
             "# PMBOT Paper Strategy Evaluation Summary",
@@ -288,6 +301,8 @@ def render_paper_strategy_evaluation_summary_markdown(summary: Mapping[str, Any]
             f"- Paper realized PnL: `{summary.get('paper_realized_pnl_usd')}`",
             f"- Paper unrealized PnL: `{summary.get('paper_unrealized_pnl_usd')}`",
             f"- Unresolved PnL not invented: `{str(summary.get('unresolved_pnl_not_invented')).lower()}`",
+            f"- Dry-run receipts: {dry_run_summary.get('receipt_count')}",
+            f"- Dry-run receipts blocked: {dry_run_summary.get('blocked_receipt_count')}",
             "",
             "## Waiting Hypotheses",
             "",
@@ -590,6 +605,38 @@ def _source_refresh_ledger_summary(source_evidence_refresh_ledger: Mapping[str, 
     }
 
 
+def _dry_run_receipt_summary(ledger: Mapping[str, Any]) -> dict[str, Any]:
+    if not ledger:
+        return {
+            "ledger_id": "",
+            "mode": "",
+            "receipt_count": 0,
+            "dry_run_receipt_ready_count": 0,
+            "blocked_receipt_count": 0,
+            "receipt_ids_unique": True,
+            "external_api_calls_performed": False,
+            "wallet_used": False,
+            "signing_used": False,
+            "real_order_submitted": False,
+            "authenticated_endpoint_used": False,
+        }
+    return {
+        "ledger_id": clean_text(ledger.get("ledger_id")),
+        "mode": clean_text(ledger.get("mode")),
+        "receipt_count": int(ledger.get("receipt_count", 0) or 0),
+        "dry_run_receipt_ready_count": int(ledger.get("dry_run_receipt_ready_count", 0) or 0),
+        "blocked_receipt_count": int(ledger.get("blocked_receipt_count", 0) or 0),
+        "receipt_ids_unique": ledger.get("receipt_ids_unique") is True,
+        "reason_code_summary": dict(ledger.get("reason_code_summary", {})),
+        "gate_enforcement_summary": dict(ledger.get("gate_enforcement_summary", {})),
+        "external_api_calls_performed": ledger.get("external_api_calls_performed") is True,
+        "wallet_used": ledger.get("wallet_used") is True,
+        "signing_used": ledger.get("signing_used") is True,
+        "real_order_submitted": ledger.get("real_order_submitted") is True,
+        "authenticated_endpoint_used": ledger.get("authenticated_endpoint_used") is True,
+    }
+
+
 def _first_text(*values: Any) -> str:
     for value in values:
         text = clean_text(value)
@@ -616,6 +663,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--portfolio", default=str(ARTIFACT_DIR / "paper_portfolio_state.json"))
     parser.add_argument("--feedback-readiness", default=None)
     parser.add_argument("--risk-decision-ledger", default=None)
+    parser.add_argument("--dry-run-receipts", default=None)
     parser.add_argument("--out-ledger-json", default=str(ARTIFACT_DIR / "paper_strategy_evaluation_ledger.json"))
     parser.add_argument("--out-ledger-md", default=str(ARTIFACT_DIR / "paper_strategy_evaluation_ledger.md"))
     parser.add_argument("--out-summary-json", default=str(ARTIFACT_DIR / "paper_strategy_evaluation_summary.json"))
@@ -629,6 +677,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         portfolio_path=args.portfolio,
         feedback_readiness_path=args.feedback_readiness,
         risk_decision_ledger_path=args.risk_decision_ledger,
+        dry_run_receipt_ledger_path=args.dry_run_receipts,
         out_ledger_json_path=args.out_ledger_json,
         out_ledger_md_path=args.out_ledger_md,
         out_summary_json_path=args.out_summary_json,
