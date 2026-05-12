@@ -219,6 +219,42 @@ def validate_secret_boundary_audit_record(
     return validate_static_secret_boundary(value, artifact_type="audit_record", generated_at=generated_at)
 
 
+def validate_secret_boundary_audit_replay_record(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(value, artifact_type="audit_replay_record", generated_at=generated_at)
+
+
+def validate_secret_boundary_operator_approval_packet(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(value, artifact_type="operator_approval_packet", generated_at=generated_at)
+
+
+def validate_secret_boundary_operator_checklist_item(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        value,
+        artifact_type="operator_approval_checklist_item",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_result_artifact(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(value, artifact_type="result_artifact", generated_at=generated_at)
+
+
 def validate_secret_boundary_doc_example(
     value: Mapping[str, Any],
     *,

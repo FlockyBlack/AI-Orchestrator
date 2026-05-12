@@ -763,12 +763,16 @@ def build_canary_governance_summary(
     *,
     packet: Mapping[str, Any],
     receipt: Mapping[str, Any],
+    audit_replay_result: Mapping[str, Any] | None = None,
+    operator_approval_packet: Mapping[str, Any] | None = None,
     generated_at: str = GENERATED_AT,
 ) -> dict[str, Any]:
     replay_report = build_canary_replay_report(packets=[packet], receipts=[receipt], generated_at=generated_at)
     acceptance_matrix = build_canary_acceptance_matrix(generated_at=generated_at)
     blocker_matrix = build_live_connector_blocker_matrix(generated_at=generated_at)
     checklist = build_operator_live_canary_checklist(generated_at=generated_at)
+    audit_replay = dict(audit_replay_result or {})
+    operator_packet = dict(operator_approval_packet or {})
     passed = (
         replay_report.get("passed") is True
         and acceptance_matrix.get("passed") is True
@@ -793,12 +797,21 @@ def build_canary_governance_summary(
         "critical_blocker_count": blocker_matrix.get("critical_blocker_count"),
         "next_recommended_non_live_task": blocker_matrix.get("next_recommended_non_live_task"),
         "operator_checklist_status": checklist.get("status"),
+        "live_connector_audit_replay_status": clean_text(audit_replay.get("status") or "not_provided"),
+        "operator_approval_packet_status": clean_text(operator_packet.get("operator_packet_status") or "not_provided"),
+        "operator_review_ready": operator_packet.get("operator_review_ready") is True,
+        "operator_review_is_not_live_approval": (
+            operator_packet.get("operator_review_is_not_live_approval") is True if operator_packet else True
+        ),
         "dry_run_only_assertion": checklist.get("dry_run_only_assertion"),
         "passed": passed,
         "status": "passed" if passed else "failed",
         "dry_run_only": True,
         "live_execution_forbidden": True,
         "live_execution_available": False,
+        "live_execution_approved": False,
+        "real_execution_available": False,
+        "live_connector_enabled": False,
         "live_execution_allowed": False,
         "external_api_calls_performed": False,
         "outcome_resolution_invented": False,

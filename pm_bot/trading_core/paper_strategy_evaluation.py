@@ -34,6 +34,8 @@ def build_paper_strategy_evaluation_ledger(
     source_evidence_refresh_ledger: Mapping[str, Any] | None = None,
     risk_decision_ledger: Mapping[str, Any] | None = None,
     dry_run_receipt_ledger: Mapping[str, Any] | None = None,
+    live_connector_audit_replay_status: str = "not_generated",
+    operator_review_packet_status: str = "not_generated",
     generated_at: str = GENERATED_AT,
 ) -> dict[str, Any]:
     run_id = _first_text(
@@ -126,6 +128,10 @@ def build_paper_strategy_evaluation_ledger(
         "risk_engine_reason_code_summary": dict((risk_decision_ledger or {}).get("reason_code_summary", {})),
         "dry_run_receipt_summary": _dry_run_receipt_summary(dry_run_receipt_ledger or {}),
         "disabled_real_connector_status": build_disabled_connector_passive_status(),
+        "live_connector_audit_replay_status": clean_text(live_connector_audit_replay_status),
+        "operator_review_packet_status": clean_text(operator_review_packet_status),
+        "live_execution_approved": False,
+        "real_execution_available": False,
         "idempotency": {
             "record_ids_unique": len(record_ids) == len(set(record_ids)),
             "record_order": "market_id_then_intent_id",
@@ -176,6 +182,12 @@ def build_paper_strategy_evaluation_summary(
         "source_evidence_refresh_status": dict(strategy_ledger.get("source_evidence_refresh_status", {})),
         "dry_run_receipt_summary": dict(strategy_ledger.get("dry_run_receipt_summary", {})),
         "disabled_real_connector_status": dict(strategy_ledger.get("disabled_real_connector_status", {})),
+        "live_connector_audit_replay_status": clean_text(
+            strategy_ledger.get("live_connector_audit_replay_status")
+        ),
+        "operator_review_packet_status": clean_text(strategy_ledger.get("operator_review_packet_status")),
+        "live_execution_approved": False,
+        "real_execution_available": False,
         "next_operator_action": "Add saved local outcome resolution evidence before evaluating paper performance.",
         "paper_only": True,
         "analysis_only": True,
@@ -257,6 +269,9 @@ def render_paper_strategy_evaluation_ledger_markdown(ledger: Mapping[str, Any]) 
         f"- Dry-run receipts blocked: {dict(ledger.get('dry_run_receipt_summary', {})).get('blocked_receipt_count')}",
         f"- Disabled real connector: `{disabled_connector.get('connector_status')}`",
         f"- Real execution available: `{str(disabled_connector.get('real_execution_available')).lower()}`",
+        f"- Live connector audit replay: `{ledger.get('live_connector_audit_replay_status')}`",
+        f"- Operator review packet: `{ledger.get('operator_review_packet_status')}`",
+        f"- Live execution approved: `{str(ledger.get('live_execution_approved')).lower()}`",
         "",
         "## Records",
         "",
@@ -313,6 +328,9 @@ def render_paper_strategy_evaluation_summary_markdown(summary: Mapping[str, Any]
             f"- Disabled real connector: `{disabled_connector.get('connector_status')}`",
             f"- Real execution available: `{str(disabled_connector.get('real_execution_available')).lower()}`",
             f"- Secret boundary: `{disabled_connector.get('secret_boundary_status')}`",
+            f"- Live connector audit replay: `{summary.get('live_connector_audit_replay_status')}`",
+            f"- Operator review packet: `{summary.get('operator_review_packet_status')}`",
+            f"- Live execution approved: `{str(summary.get('live_execution_approved')).lower()}`",
             "",
             "## Waiting Hypotheses",
             "",

@@ -608,6 +608,10 @@ def build_canary_dry_run_acceptance_receipt(
 def build_canary_dashboard_summary(
     packet: Mapping[str, Any],
     receipt: Mapping[str, Any] | None = None,
+    *,
+    live_connector_audit_replay_status: str = "",
+    operator_review_packet_status: str = "",
+    operator_review_ready: bool = False,
 ) -> dict[str, Any]:
     receipt_value = dict(receipt or {})
     return {
@@ -620,6 +624,11 @@ def build_canary_dashboard_summary(
         "wallet_boundary_status": clean_text(packet.get("wallet_boundary_status")),
         "signing_simulator_receipt_status": clean_text(packet.get("signing_simulator_receipt_status")),
         "dry_run_acceptance_status": clean_text(receipt_value.get("acceptance_status")),
+        "live_connector_audit_replay_status": clean_text(live_connector_audit_replay_status),
+        "operator_review_packet_status": clean_text(operator_review_packet_status),
+        "operator_review_ready": operator_review_ready is True,
+        "live_execution_approved": False,
+        "real_execution_available": False,
         "next_operator_action": clean_text(packet.get("next_operator_action")),
         "dry_run_only": True,
         "live_execution_allowed": False,
