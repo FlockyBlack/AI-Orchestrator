@@ -40,6 +40,8 @@ def build_paper_strategy_evaluation_ledger(
     operator_intent_packet_review_ready: bool = False,
     tiny_live_canary_preflight_status: str = "not_generated",
     manual_runbook_status: str = "not_generated",
+    readiness_evidence_bundle_status: str = "not_generated",
+    readiness_evidence_bundle_review_ready: bool = False,
     generated_at: str = GENERATED_AT,
 ) -> dict[str, Any]:
     run_id = _first_text(
@@ -139,9 +141,13 @@ def build_paper_strategy_evaluation_ledger(
         "operator_intent_is_not_live_approval": True,
         "tiny_live_canary_preflight_status": clean_text(tiny_live_canary_preflight_status),
         "manual_runbook_status": clean_text(manual_runbook_status),
+        "readiness_evidence_bundle_status": clean_text(readiness_evidence_bundle_status),
+        "readiness_evidence_bundle_review_ready": readiness_evidence_bundle_review_ready is True,
+        "readiness_evidence_bundle_is_not_live_approval": True,
         "canary_executable_now": False,
         "live_execution_approved": False,
         "real_execution_available": False,
+        "live_connector_enabled": False,
         "idempotency": {
             "record_ids_unique": len(record_ids) == len(set(record_ids)),
             "record_order": "market_id_then_intent_id",
@@ -203,9 +209,17 @@ def build_paper_strategy_evaluation_summary(
             strategy_ledger.get("tiny_live_canary_preflight_status")
         ),
         "manual_runbook_status": clean_text(strategy_ledger.get("manual_runbook_status")),
+        "readiness_evidence_bundle_status": clean_text(
+            strategy_ledger.get("readiness_evidence_bundle_status")
+        ),
+        "readiness_evidence_bundle_review_ready": (
+            strategy_ledger.get("readiness_evidence_bundle_review_ready") is True
+        ),
+        "readiness_evidence_bundle_is_not_live_approval": True,
         "canary_executable_now": False,
         "live_execution_approved": False,
         "real_execution_available": False,
+        "live_connector_enabled": False,
         "next_operator_action": "Add saved local outcome resolution evidence before evaluating paper performance.",
         "paper_only": True,
         "analysis_only": True,
@@ -293,6 +307,8 @@ def render_paper_strategy_evaluation_ledger_markdown(ledger: Mapping[str, Any]) 
         f"- Operator intent review ready: `{str(ledger.get('operator_intent_packet_review_ready')).lower()}`",
         f"- Tiny canary preflight: `{ledger.get('tiny_live_canary_preflight_status')}`",
         f"- Manual runbook: `{ledger.get('manual_runbook_status')}`",
+        f"- Readiness evidence bundle: `{ledger.get('readiness_evidence_bundle_status')}`",
+        f"- Evidence bundle review ready: `{str(ledger.get('readiness_evidence_bundle_review_ready')).lower()}`",
         f"- Canary executable now: `{str(ledger.get('canary_executable_now')).lower()}`",
         f"- Live execution approved: `{str(ledger.get('live_execution_approved')).lower()}`",
         "",
@@ -357,6 +373,8 @@ def render_paper_strategy_evaluation_summary_markdown(summary: Mapping[str, Any]
             f"- Operator intent review ready: `{str(summary.get('operator_intent_packet_review_ready')).lower()}`",
             f"- Tiny canary preflight: `{summary.get('tiny_live_canary_preflight_status')}`",
             f"- Manual runbook: `{summary.get('manual_runbook_status')}`",
+            f"- Readiness evidence bundle: `{summary.get('readiness_evidence_bundle_status')}`",
+            f"- Evidence bundle review ready: `{str(summary.get('readiness_evidence_bundle_review_ready')).lower()}`",
             f"- Canary executable now: `{str(summary.get('canary_executable_now')).lower()}`",
             f"- Live execution approved: `{str(summary.get('live_execution_approved')).lower()}`",
             "",

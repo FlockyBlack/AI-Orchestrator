@@ -64,6 +64,9 @@ class OperatorLiveApprovalPacket:
     latest_manual_runbook_path: str
     latest_operator_intent_packet_path: str
     generated_at: str
+    readiness_evidence_bundle_status: str = "not_generated"
+    readiness_evidence_bundle_review_ready: bool = False
+    readiness_evidence_bundle_reference: str = ""
 
     def to_dict(self) -> dict[str, Any]:
         value = asdict(self)
@@ -88,6 +91,10 @@ class OperatorLiveApprovalPacket:
             self.operator_intent_packet_summary.get("operator_intent_packet_review_ready") is True
         )
         value["operator_intent_is_not_live_approval"] = True
+        value["readiness_evidence_bundle_status"] = clean_text(self.readiness_evidence_bundle_status)
+        value["readiness_evidence_bundle_review_ready"] = self.readiness_evidence_bundle_review_ready is True
+        value["readiness_evidence_bundle_is_not_live_approval"] = True
+        value["readiness_evidence_bundle_reference"] = clean_text(self.readiness_evidence_bundle_reference)
         value["live_execution_approved"] = False
         value["real_execution_available"] = False
         value["live_connector_enabled"] = False
@@ -136,6 +143,8 @@ def build_operator_live_approval_packet(
     tiny_live_canary_manual_runbook: Mapping[str, Any] | None = None,
     tiny_live_canary_preflight_result: Mapping[str, Any] | None = None,
     operator_intent_packet: Mapping[str, Any] | None = None,
+    readiness_evidence_bundle: Mapping[str, Any] | None = None,
+    readiness_evidence_bundle_reference: str = "",
     latest_audit_replay_path: str = "",
     latest_tiny_canary_contract_path: str = "",
     latest_manual_runbook_path: str = "",
@@ -165,6 +174,10 @@ def build_operator_live_approval_packet(
     operator_intent_summary = _operator_intent_packet_summary(
         operator_intent_packet,
         latest_operator_intent_packet_path=latest_operator_intent_packet_path,
+    )
+    readiness_bundle_summary = _readiness_evidence_bundle_summary(
+        readiness_evidence_bundle,
+        readiness_evidence_bundle_reference=readiness_evidence_bundle_reference,
     )
     checklist = tuple(
         _default_checklist(
@@ -229,6 +242,9 @@ def build_operator_live_approval_packet(
         latest_manual_runbook_path=clean_text(latest_manual_runbook_path),
         latest_operator_intent_packet_path=clean_text(latest_operator_intent_packet_path),
         generated_at=generated_at,
+        readiness_evidence_bundle_status=readiness_bundle_summary["readiness_evidence_bundle_status"],
+        readiness_evidence_bundle_review_ready=readiness_bundle_summary["readiness_evidence_bundle_review_ready"],
+        readiness_evidence_bundle_reference=readiness_bundle_summary["readiness_evidence_bundle_reference"],
     ).to_dict()
     validation = validate_operator_live_approval_packet(packet, generated_at=generated_at)
     validation_detail = dict(validation.get("validation", {}))
@@ -275,6 +291,8 @@ def validate_operator_live_approval_packet(
                 errors.append(f"operator_intent_packet_summary.{field} must be false")
     if packet.get("operator_intent_is_not_live_approval") is not True:
         errors.append("operator_intent_is_not_live_approval must be true")
+    if packet.get("readiness_evidence_bundle_is_not_live_approval") is not True:
+        errors.append("readiness evidence bundle must remain distinct from live approval")
     if dict(packet.get("disabled_connector_status", {})).get("connector_status") != CONNECTOR_STATUS_DISABLED:
         errors.append("disabled connector status must remain disabled")
     if dict(packet.get("disabled_connector_status", {})).get("real_execution_available") is not False:
@@ -587,6 +605,26 @@ def _operator_intent_packet_summary(
         "live_execution_approved": False,
         "real_execution_available": False,
         "latest_operator_intent_packet_path": clean_text(latest_operator_intent_packet_path),
+    }
+
+
+def _readiness_evidence_bundle_summary(
+    readiness_evidence_bundle: Mapping[str, Any] | None,
+    *,
+    readiness_evidence_bundle_reference: str,
+) -> dict[str, Any]:
+    value = dict(readiness_evidence_bundle or {})
+    return {
+        "readiness_evidence_bundle_status": clean_text(
+            value.get("bundle_status") or value.get("readiness_evidence_bundle_status") or "not_generated"
+        ),
+        "readiness_evidence_bundle_review_ready": (
+            value.get("evidence_bundle_review_ready") is True
+            or value.get("readiness_evidence_bundle_review_ready") is True
+        ),
+        "readiness_evidence_bundle_reference": clean_text(readiness_evidence_bundle_reference)
+        or clean_text(value.get("bundle_id"))
+        or clean_text(value.get("latest_readiness_evidence_bundle_path")),
     }
 
 

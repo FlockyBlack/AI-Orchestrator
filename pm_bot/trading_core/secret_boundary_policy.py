@@ -94,10 +94,15 @@ SAFE_SECRET_METADATA_FIELD_NAMES = frozenset(
         "forbidden_env_var_patterns",
         "forbidden_env_var_reference_paths",
         "forbidden_payload_keys",
+        "forbidden_secret_or_signing_field_detected",
+        "forbidden_secret_or_signing_field_paths",
         "safe_secret_metadata_field_names",
         "safe_placeholder_markers",
         "static_secret_validation_ready",
         "private_key_or_mnemonic_handling_added",
+        "readiness_evidence_bundle_secret_boundary_validation",
+        "readiness_evidence_bundle_static_validation",
+        "readiness_evidence_bundle_is_not_live_approval",
     }
 )
 
@@ -396,6 +401,66 @@ def validate_secret_boundary_tiny_canary_evidence_requirement_packet(
     return validate_static_secret_boundary(
         value,
         artifact_type="tiny_canary_evidence_requirement_packet",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_readiness_evidence_bundle(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        value,
+        artifact_type="readiness_evidence_bundle",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_readiness_evidence_item(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        value,
+        artifact_type="readiness_evidence_item",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_readiness_evidence_manifest(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        value,
+        artifact_type="readiness_evidence_manifest",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_readiness_evidence_reference(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        value,
+        artifact_type="readiness_evidence_reference",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_readiness_evidence_blocker_summary(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        value,
+        artifact_type="readiness_evidence_blocker_summary",
         generated_at=generated_at,
     )
 

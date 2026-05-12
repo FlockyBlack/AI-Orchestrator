@@ -34,6 +34,7 @@ REQUIRED_EVIDENCE_KEYS = (
     "secret_boundary_validation",
     "live_connector_blocker_matrix",
     "manual_runbook_acknowledgement",
+    "readiness_evidence_bundle",
     "kill_switch_requirement_packet",
     "evidence_capture_packet",
 )
@@ -217,6 +218,9 @@ class TinyLiveCanaryPreflightResult:
     operator_intent_packet_review_ready: bool
     unresolved_live_blocker_count: int
     generated_at: str
+    readiness_evidence_bundle_status: str = "not_provided"
+    readiness_evidence_bundle_review_ready: bool = False
+    readiness_evidence_bundle_is_not_live_approval: bool = True
 
     def to_dict(self) -> dict[str, Any]:
         value = asdict(self)
@@ -232,6 +236,9 @@ class TinyLiveCanaryPreflightResult:
         value["operator_review_is_not_live_approval"] = True
         value["operator_intent_is_not_live_approval"] = True
         value["canary_preflight_is_not_execution_approval"] = True
+        value["readiness_evidence_bundle_status"] = clean_text(self.readiness_evidence_bundle_status)
+        value["readiness_evidence_bundle_review_ready"] = self.readiness_evidence_bundle_review_ready is True
+        value["readiness_evidence_bundle_is_not_live_approval"] = True
         value.update(_preflight_safety_flags())
         return value
 
@@ -275,6 +282,12 @@ def build_tiny_live_canary_preflight_contract(*, generated_at: str = GENERATED_A
                 artifact_key="manual_runbook_acknowledgement",
                 title="Manual runbook acknowledgement",
                 description="Operator must acknowledge the manual runbook and non-execution statement.",
+            ),
+            TinyLiveCanaryEvidenceRequirement(
+                requirement_id="readiness_evidence_bundle_required",
+                artifact_key="readiness_evidence_bundle",
+                title="Readiness evidence bundle",
+                description="Review-only evidence bundle must link readiness, blocker, replay, packet, runbook, and intent artifacts without enabling execution.",
             ),
             TinyLiveCanaryEvidenceRequirement(
                 requirement_id="kill_switch_requirement_packet_required",
@@ -463,6 +476,7 @@ def evaluate_tiny_live_canary_preflight(
     secret_boundary_validation: Mapping[str, Any] | None = None,
     blocker_matrix: Mapping[str, Any] | None = None,
     kill_switch_validation: Mapping[str, Any] | None = None,
+    readiness_evidence_bundle: Mapping[str, Any] | None = None,
     generated_at: str = GENERATED_AT,
 ) -> dict[str, Any]:
     contract_value = dict(contract or build_tiny_live_canary_preflight_contract(generated_at=generated_at))
@@ -659,6 +673,30 @@ def evaluate_tiny_live_canary_preflight(
                 )
             )
 
+    readiness_bundle_status = "not_provided"
+    readiness_bundle_review_ready = False
+    if readiness_evidence_bundle is not None:
+        bundle = dict(readiness_evidence_bundle)
+        readiness_bundle_status = clean_text(bundle.get("bundle_status") or "provided")
+        readiness_bundle_review_ready = bundle.get("evidence_bundle_review_ready") is True
+        if bundle.get("readiness_evidence_bundle_is_not_live_approval") is not True:
+            blockers.append(
+                _blocker(
+                    "TINY-CANARY-READINESS-EVIDENCE-BUNDLE-LIVE-APPROVAL-UNSAFE",
+                    "readiness_evidence_bundle_not_live_approval",
+                    "Readiness evidence bundle must remain distinct from live approval.",
+                )
+            )
+        for field in ("live_execution_approved", "canary_executable_now", "real_execution_available"):
+            if bundle.get(field) is not False:
+                blockers.append(
+                    _blocker(
+                        f"TINY-CANARY-READINESS-EVIDENCE-BUNDLE-{field.upper()}",
+                        "readiness_evidence_bundle_review_only",
+                        f"Readiness evidence bundle field {field} must be false.",
+                    )
+                )
+
     status = PREFLIGHT_STATUS_READY if not blockers and not validation_errors else PREFLIGHT_STATUS_BLOCKED
     result = TinyLiveCanaryPreflightResult(
         result_id=_stable_id(
@@ -683,6 +721,9 @@ def evaluate_tiny_live_canary_preflight(
         operator_intent_packet_review_ready=operator_intent_packet_review_ready,
         unresolved_live_blocker_count=unresolved_live_blocker_count,
         generated_at=generated_at,
+        readiness_evidence_bundle_status=readiness_bundle_status,
+        readiness_evidence_bundle_review_ready=readiness_bundle_review_ready,
+        readiness_evidence_bundle_is_not_live_approval=True,
     ).to_dict()
     return result
 
@@ -747,6 +788,8 @@ def render_tiny_live_canary_preflight_result_markdown(result: Mapping[str, Any])
         f"- Kill-switch verified for live: `{str(result.get('kill_switch_verified_for_live')).lower()}`",
         f"- Operator intent packet status: `{result.get('operator_intent_packet_status')}`",
         f"- Operator intent review ready: `{str(result.get('operator_intent_packet_review_ready')).lower()}`",
+        f"- Readiness evidence bundle: `{result.get('readiness_evidence_bundle_status')}`",
+        f"- Evidence bundle review ready: `{str(result.get('readiness_evidence_bundle_review_ready')).lower()}`",
         f"- Canary executable now: `{str(result.get('canary_executable_now')).lower()}`",
         f"- Live execution approved: `{str(result.get('live_execution_approved')).lower()}`",
         f"- Real execution available: `{str(result.get('real_execution_available')).lower()}`",

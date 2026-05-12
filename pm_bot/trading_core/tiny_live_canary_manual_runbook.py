@@ -31,6 +31,7 @@ REQUIRED_SECTION_IDS = (
     "audit_replay_review",
     "operator_packet_review",
     "operator_intent_packet_review",
+    "readiness_evidence_bundle_review",
     "kill_switch_verification",
     "maximum_exposure_limits",
     "manual_pause_abort_conditions",
@@ -303,6 +304,25 @@ def build_tiny_live_canary_manual_runbook(*, generated_at: str = GENERATED_AT) -
                         "verify_signed_means_human_acknowledgement",
                         "Verify signed means human acknowledgement",
                         "Confirm operator-signed intent terminology is plain human acknowledgement only, not cryptographic signing.",
+                        produces_evidence=True,
+                    ),
+                ],
+            ),
+            _section(
+                "readiness_evidence_bundle_review",
+                "Readiness Evidence Bundle Review",
+                "Confirm the dry-run readiness evidence bundle links artifacts for review only and is not live approval.",
+                [
+                    _step(
+                        "verify_evidence_bundle_review_only",
+                        "Verify evidence bundle is review-only",
+                        "Confirm readiness_evidence_bundle_is_not_live_approval is true and live_execution_approved is false.",
+                        produces_evidence=True,
+                    ),
+                    _step(
+                        "verify_evidence_bundle_does_not_resolve_blockers",
+                        "Verify blockers remain unresolved",
+                        "Confirm the bundle summarizes unresolved live blockers without reducing severity or making the canary executable.",
                         produces_evidence=True,
                     ),
                 ],

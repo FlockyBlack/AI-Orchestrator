@@ -52,6 +52,10 @@ from pm_bot.trading_core.live_canary_operator_intent_packet import (
     render_live_canary_operator_intent_packet_markdown,
     summarize_live_canary_operator_intent_packet,
 )
+from pm_bot.trading_core.live_canary_readiness_evidence_bundle import (
+    build_live_canary_readiness_evidence_bundle,
+    summarize_live_canary_readiness_evidence_bundle,
+)
 from pm_bot.trading_core.operator_live_approval_packet import (
     build_operator_live_approval_packet,
     render_operator_live_approval_packet_markdown,
@@ -225,6 +229,7 @@ class PaperDailyLoopResult:
     live_connector_audit_replay_path: str
     operator_live_approval_packet_path: str
     operator_intent_packet_path: str
+    readiness_evidence_bundle_path: str
     tiny_live_canary_preflight_contract_path: str
     tiny_live_canary_manual_runbook_path: str
     tiny_live_canary_preflight_result_path: str
@@ -452,6 +457,11 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
             if active_config.write_artifacts
             else "live_canary_operator_intent_packet:current-run"
         ],
+        readiness_evidence_bundle_references=[
+            normalize_path(paths["readiness_evidence_bundle"])
+            if active_config.write_artifacts
+            else "live_canary_readiness_evidence_bundle:current-run"
+        ],
         live_connector_blocker_matrix=live_connector_blocker_matrix,
         generated_at=generated_at,
     )
@@ -564,6 +574,89 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         kill_switch_validation=tiny_live_canary_kill_switch_validation,
         generated_at=generated_at,
     )
+    latest_readiness_evidence_bundle_path = (
+        normalize_path(paths["readiness_evidence_bundle"]) if active_config.write_artifacts else ""
+    )
+    readiness_evidence_bundle = build_live_canary_readiness_evidence_bundle(
+        disabled_connector_status=build_disabled_connector_passive_status(
+            result=disabled_connector_result,
+            latest_disabled_connector_audit_path=(
+                normalize_path(paths["disabled_connector_audit"]) if active_config.write_artifacts else ""
+            ),
+            live_canary_replay_acceptance_status="passed",
+        ),
+        disabled_connector_audit=disabled_connector_audit,
+        secret_boundary_validation=live_connector_audit_replay.get("secret_boundary_validation_summary", {}),
+        live_canary_readiness_packet=canary_readiness_packet,
+        canary_replay_acceptance={"status": "passed", "contract_version": "pmbot_live_canary_acceptance_matrix.v1"},
+        live_connector_audit_replay=live_connector_audit_replay,
+        operator_approval_packet=operator_live_approval_packet,
+        tiny_live_canary_preflight_contract=tiny_live_canary_preflight_contract,
+        tiny_live_canary_manual_runbook=tiny_live_canary_manual_runbook,
+        operator_intent_packet=operator_intent_packet,
+        blocker_matrix=live_connector_blocker_matrix,
+        kill_switch_validation=tiny_live_canary_kill_switch_validation,
+        preflight_result=tiny_live_canary_preflight_result,
+        dry_run_receipt_references=[canary_dry_run_receipt.get("receipt_id", "")],
+        result_artifact_references=[
+            normalize_path(paths["result"]) if active_config.write_artifacts else "paper_daily_loop_result:current-run",
+        ],
+        artifact_reference_overrides={
+            "disabled_connector_adapter_status": (
+                normalize_path(paths["disabled_connector_audit"]) if active_config.write_artifacts else ""
+            ),
+            "live_canary_readiness_packet": (
+                normalize_path(paths["canary_readiness_packet"]) if active_config.write_artifacts else ""
+            ),
+            "canary_replay_acceptance": "live_canary_acceptance_matrix:generated-governance-summary",
+            "live_connector_audit_replay": (
+                normalize_path(paths["live_connector_audit_replay"]) if active_config.write_artifacts else ""
+            ),
+            "operator_live_approval_packet": (
+                normalize_path(paths["operator_live_approval_packet"]) if active_config.write_artifacts else ""
+            ),
+            "tiny_live_canary_preflight_contract": (
+                normalize_path(paths["tiny_live_canary_preflight_contract"]) if active_config.write_artifacts else ""
+            ),
+            "tiny_live_canary_manual_runbook": (
+                normalize_path(paths["tiny_live_canary_manual_runbook"]) if active_config.write_artifacts else ""
+            ),
+            "dry_run_operator_intent_packet": latest_operator_intent_packet_path,
+            "live_connector_blocker_matrix": "live_connector_blocker_matrix:all-critical-blockers-unresolved",
+            "kill_switch_requirements": (
+                normalize_path(paths["tiny_live_canary_preflight_contract"]) if active_config.write_artifacts else ""
+            ),
+            "abort_conditions": (
+                normalize_path(paths["tiny_live_canary_manual_runbook"]) if active_config.write_artifacts else ""
+            ),
+            "evidence_capture_checklist": (
+                normalize_path(paths["tiny_live_canary_manual_runbook"]) if active_config.write_artifacts else ""
+            ),
+            "risk_review": canary_readiness_packet.get("risk_decision_id", ""),
+        },
+        generated_at=generated_at,
+    )
+    readiness_evidence_bundle_summary = summarize_live_canary_readiness_evidence_bundle(
+        readiness_evidence_bundle,
+        latest_readiness_evidence_bundle_path=latest_readiness_evidence_bundle_path,
+        generated_at=generated_at,
+    )
+    for review_artifact in (operator_live_approval_packet, operator_intent_packet, live_connector_audit_replay):
+        review_artifact["readiness_evidence_bundle_status"] = readiness_evidence_bundle.get("bundle_status")
+        review_artifact["readiness_evidence_bundle_review_ready"] = (
+            readiness_evidence_bundle.get("evidence_bundle_review_ready") is True
+        )
+        review_artifact["readiness_evidence_bundle_is_not_live_approval"] = True
+        review_artifact["readiness_evidence_bundle_reference"] = (
+            latest_readiness_evidence_bundle_path or readiness_evidence_bundle.get("bundle_id", "")
+        )
+    tiny_live_canary_preflight_result["readiness_evidence_bundle_status"] = readiness_evidence_bundle.get(
+        "bundle_status"
+    )
+    tiny_live_canary_preflight_result["readiness_evidence_bundle_review_ready"] = (
+        readiness_evidence_bundle.get("evidence_bundle_review_ready") is True
+    )
+    tiny_live_canary_preflight_result["readiness_evidence_bundle_is_not_live_approval"] = True
     strategy_ledger["live_connector_audit_replay_status"] = live_connector_audit_replay.get("status")
     strategy_ledger["operator_review_packet_status"] = operator_live_approval_packet.get("operator_packet_status")
     strategy_ledger["operator_intent_packet_status"] = operator_intent_packet.get("intent_packet_status")
@@ -573,9 +666,15 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
     strategy_ledger["operator_intent_is_not_live_approval"] = True
     strategy_ledger["tiny_live_canary_preflight_status"] = tiny_live_canary_preflight_result.get("status")
     strategy_ledger["manual_runbook_status"] = tiny_live_canary_manual_runbook.get("status")
+    strategy_ledger["readiness_evidence_bundle_status"] = readiness_evidence_bundle.get("bundle_status")
+    strategy_ledger["readiness_evidence_bundle_review_ready"] = (
+        readiness_evidence_bundle.get("evidence_bundle_review_ready") is True
+    )
+    strategy_ledger["readiness_evidence_bundle_is_not_live_approval"] = True
     strategy_ledger["canary_executable_now"] = False
     strategy_ledger["live_execution_approved"] = False
     strategy_ledger["real_execution_available"] = False
+    strategy_ledger["live_connector_enabled"] = False
     strategy_summary["live_connector_audit_replay_status"] = live_connector_audit_replay.get("status")
     strategy_summary["operator_review_packet_status"] = operator_live_approval_packet.get("operator_packet_status")
     strategy_summary["operator_intent_packet_status"] = operator_intent_packet.get("intent_packet_status")
@@ -585,9 +684,15 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
     strategy_summary["operator_intent_is_not_live_approval"] = True
     strategy_summary["tiny_live_canary_preflight_status"] = tiny_live_canary_preflight_result.get("status")
     strategy_summary["manual_runbook_status"] = tiny_live_canary_manual_runbook.get("status")
+    strategy_summary["readiness_evidence_bundle_status"] = readiness_evidence_bundle.get("bundle_status")
+    strategy_summary["readiness_evidence_bundle_review_ready"] = (
+        readiness_evidence_bundle.get("evidence_bundle_review_ready") is True
+    )
+    strategy_summary["readiness_evidence_bundle_is_not_live_approval"] = True
     strategy_summary["canary_executable_now"] = False
     strategy_summary["live_execution_approved"] = False
     strategy_summary["real_execution_available"] = False
+    strategy_summary["live_connector_enabled"] = False
     dashboard = _build_daily_dashboard(
         config=active_config,
         tracked_markets=tracked_markets,
@@ -620,6 +725,8 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         tiny_live_canary_preflight_contract=tiny_live_canary_preflight_contract,
         tiny_live_canary_manual_runbook=tiny_live_canary_manual_runbook,
         tiny_live_canary_preflight_result=tiny_live_canary_preflight_result,
+        readiness_evidence_bundle=readiness_evidence_bundle,
+        readiness_evidence_bundle_summary=readiness_evidence_bundle_summary,
         latest_disabled_connector_audit_path=(
             normalize_path(paths["disabled_connector_audit"]) if active_config.write_artifacts else ""
         ),
@@ -636,6 +743,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         latest_manual_runbook_path=(
             normalize_path(paths["tiny_live_canary_manual_runbook"]) if active_config.write_artifacts else ""
         ),
+        latest_readiness_evidence_bundle_path=latest_readiness_evidence_bundle_path,
         source_evidence_refresh_ledger=source_evidence_refresh_ledger,
         generated_at=generated_at,
     )
@@ -674,6 +782,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
             operator_live_approval_packet,
             operator_intent_packet,
             live_connector_blocker_matrix,
+            readiness_evidence_bundle,
             tiny_live_canary_preflight_contract,
             tiny_live_canary_manual_runbook,
             tiny_live_canary_kill_switch_validation,
@@ -788,6 +897,19 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         and dashboard.get("operator_intent_packet_summary", {}).get("canary_executable_now") is False
         and dashboard.get("operator_intent_packet_summary", {}).get("live_execution_approved") is False
         and dashboard.get("operator_intent_packet_summary", {}).get("real_execution_available") is False
+        and readiness_evidence_bundle.get("evidence_bundle_review_ready") is True
+        and readiness_evidence_bundle.get("readiness_evidence_bundle_is_not_live_approval") is True
+        and readiness_evidence_bundle.get("canary_executable_now") is False
+        and readiness_evidence_bundle.get("live_execution_approved") is False
+        and readiness_evidence_bundle.get("real_execution_available") is False
+        and readiness_evidence_bundle.get("live_connector_enabled") is False
+        and dashboard.get("readiness_evidence_bundle_summary", {}).get("readiness_evidence_bundle_review_ready") is True
+        and dashboard.get("readiness_evidence_bundle_summary", {}).get("readiness_evidence_bundle_is_not_live_approval")
+        is True
+        and dashboard.get("readiness_evidence_bundle_summary", {}).get("canary_executable_now") is False
+        and dashboard.get("readiness_evidence_bundle_summary", {}).get("live_execution_approved") is False
+        and dashboard.get("readiness_evidence_bundle_summary", {}).get("real_execution_available") is False
+        and dashboard.get("readiness_evidence_bundle_summary", {}).get("live_connector_enabled") is False
         and dashboard.get("tiny_live_canary_preflight_runbook_summary", {}).get("canary_executable_now") is False
         and dashboard.get("tiny_live_canary_preflight_runbook_summary", {}).get("live_execution_approved") is False
         and dashboard.get("tiny_live_canary_preflight_runbook_summary", {}).get("real_execution_available") is False
@@ -845,6 +967,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         operator_intent_packet_path=(
             normalize_path(paths["operator_intent_packet"]) if active_config.write_artifacts else ""
         ),
+        readiness_evidence_bundle_path=latest_readiness_evidence_bundle_path,
         tiny_live_canary_preflight_contract_path=(
             normalize_path(paths["tiny_live_canary_preflight_contract"]) if active_config.write_artifacts else ""
         ),
@@ -903,6 +1026,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
             live_connector_audit_replay=live_connector_audit_replay,
             operator_live_approval_packet=operator_live_approval_packet,
             operator_intent_packet=operator_intent_packet,
+            readiness_evidence_bundle=readiness_evidence_bundle,
             tiny_live_canary_preflight_contract=tiny_live_canary_preflight_contract,
             tiny_live_canary_manual_runbook=tiny_live_canary_manual_runbook,
             tiny_live_canary_preflight_result=tiny_live_canary_preflight_result,
@@ -957,6 +1081,7 @@ def _daily_paths(output_dir: Path) -> dict[str, Path]:
         "operator_live_approval_packet_md": output_dir / "operator_live_approval_packet.md",
         "operator_intent_packet": output_dir / "live_canary_operator_intent_packet.json",
         "operator_intent_packet_md": output_dir / "live_canary_operator_intent_packet.md",
+        "readiness_evidence_bundle": output_dir / "live_canary_readiness_evidence_bundle.json",
         "tiny_live_canary_preflight_contract": output_dir / "tiny_live_canary_preflight_contract.json",
         "tiny_live_canary_preflight_contract_md": output_dir / "tiny_live_canary_preflight_contract.md",
         "tiny_live_canary_manual_runbook": output_dir / "tiny_live_canary_manual_runbook.json",
@@ -1361,12 +1486,15 @@ def _build_daily_dashboard(
     tiny_live_canary_preflight_contract: Mapping[str, Any],
     tiny_live_canary_manual_runbook: Mapping[str, Any],
     tiny_live_canary_preflight_result: Mapping[str, Any],
+    readiness_evidence_bundle: Mapping[str, Any],
+    readiness_evidence_bundle_summary: Mapping[str, Any],
     latest_disabled_connector_audit_path: str,
     latest_audit_replay_path: str,
     latest_operator_packet_path: str,
     latest_operator_intent_packet_path: str,
     latest_tiny_canary_contract_path: str,
     latest_manual_runbook_path: str,
+    latest_readiness_evidence_bundle_path: str,
     source_evidence_refresh_ledger: Mapping[str, Any],
     generated_at: str,
 ) -> dict[str, Any]:
@@ -1382,6 +1510,7 @@ def _build_daily_dashboard(
         audit_replay_result=live_connector_audit_replay,
         operator_approval_packet=operator_live_approval_packet,
         operator_intent_packet=operator_intent_packet,
+        readiness_evidence_bundle=readiness_evidence_bundle,
         generated_at=generated_at,
     )
     canary_governance_summary["tiny_live_canary_preflight_status"] = tiny_live_canary_preflight_result.get("status")
@@ -1481,6 +1610,11 @@ def _build_daily_dashboard(
                 operator_live_approval_packet.get("required_human_checklist", [])
             ),
             "operator_intent_packet_count": 1 if operator_intent_packet else 0,
+            "readiness_evidence_bundle_count": 1 if readiness_evidence_bundle else 0,
+            "readiness_evidence_item_count": int(readiness_evidence_bundle.get("evidence_item_count", 0) or 0),
+            "readiness_evidence_missing_required_count": int(
+                readiness_evidence_bundle.get("missing_required_evidence_count", 0) or 0
+            ),
             "tiny_live_canary_preflight_blocker_count": int(
                 tiny_live_canary_preflight_result.get("blocker_count", 0) or 0
             ),
@@ -1510,9 +1644,15 @@ def _build_daily_dashboard(
             "operator_intent_is_not_live_approval": True,
             "tiny_live_canary_preflight_status": strategy_ledger.get("tiny_live_canary_preflight_status"),
             "manual_runbook_status": strategy_ledger.get("manual_runbook_status"),
+            "readiness_evidence_bundle_status": strategy_ledger.get("readiness_evidence_bundle_status"),
+            "readiness_evidence_bundle_review_ready": (
+                strategy_ledger.get("readiness_evidence_bundle_review_ready") is True
+            ),
+            "readiness_evidence_bundle_is_not_live_approval": True,
             "canary_executable_now": strategy_ledger.get("canary_executable_now") is True,
             "live_execution_approved": strategy_ledger.get("live_execution_approved") is True,
             "real_execution_available": strategy_ledger.get("real_execution_available") is True,
+            "live_connector_enabled": strategy_ledger.get("live_connector_enabled") is True,
         },
         "paper_strategy_evaluation_summary": {
             "summary_id": strategy_summary.get("summary_id"),
@@ -1528,9 +1668,15 @@ def _build_daily_dashboard(
             "operator_intent_is_not_live_approval": True,
             "tiny_live_canary_preflight_status": strategy_summary.get("tiny_live_canary_preflight_status"),
             "manual_runbook_status": strategy_summary.get("manual_runbook_status"),
+            "readiness_evidence_bundle_status": strategy_summary.get("readiness_evidence_bundle_status"),
+            "readiness_evidence_bundle_review_ready": (
+                strategy_summary.get("readiness_evidence_bundle_review_ready") is True
+            ),
+            "readiness_evidence_bundle_is_not_live_approval": True,
             "canary_executable_now": strategy_summary.get("canary_executable_now") is True,
             "live_execution_approved": strategy_summary.get("live_execution_approved") is True,
             "real_execution_available": strategy_summary.get("real_execution_available") is True,
+            "live_connector_enabled": strategy_summary.get("live_connector_enabled") is True,
             "hypotheses_waiting_for_outcome_resolution": strategy_summary.get(
                 "hypotheses_waiting_for_outcome_resolution",
                 [],
@@ -1619,6 +1765,19 @@ def _build_daily_dashboard(
                 operator_intent_packet_review_ready=(
                     operator_intent_packet.get("operator_intent_packet_review_ready") is True
                 ),
+                readiness_evidence_bundle_status=clean_text(readiness_evidence_bundle.get("bundle_status")),
+                readiness_evidence_bundle_review_ready=(
+                    readiness_evidence_bundle.get("evidence_bundle_review_ready") is True
+                ),
+                readiness_evidence_bundle_is_not_live_approval=True,
+                evidence_item_count=int(readiness_evidence_bundle.get("evidence_item_count", 0) or 0),
+                missing_required_evidence_count=int(
+                    readiness_evidence_bundle.get("missing_required_evidence_count", 0) or 0
+                ),
+                unresolved_live_blocker_count=int(
+                    readiness_evidence_bundle.get("unresolved_live_blocker_count", 0) or 0
+                ),
+                latest_readiness_evidence_bundle_path=latest_readiness_evidence_bundle_path,
             ),
             "canary_replay_status": canary_governance_summary.get("canary_replay_status"),
             "canary_replay_passed": canary_governance_summary.get("canary_replay_passed"),
@@ -1649,6 +1808,16 @@ def _build_daily_dashboard(
                 canary_governance_summary.get("operator_intent_packet_review_ready") is True
             ),
             "operator_intent_is_not_live_approval": True,
+            "readiness_evidence_bundle_status": canary_governance_summary.get(
+                "readiness_evidence_bundle_status"
+            ),
+            "readiness_evidence_bundle_review_ready": (
+                canary_governance_summary.get("readiness_evidence_bundle_review_ready") is True
+            ),
+            "readiness_evidence_bundle_is_not_live_approval": True,
+            "evidence_item_count": canary_governance_summary.get("evidence_item_count"),
+            "missing_required_evidence_count": canary_governance_summary.get("missing_required_evidence_count"),
+            "latest_readiness_evidence_bundle_path": latest_readiness_evidence_bundle_path,
             "tiny_live_canary_preflight_status": tiny_live_canary_preflight_result.get("status"),
             "manual_runbook_status": tiny_live_canary_manual_runbook.get("status"),
             "future_canary_shape_defined": tiny_live_canary_preflight_result.get("future_canary_shape_defined") is True,
@@ -1682,6 +1851,11 @@ def _build_daily_dashboard(
             "runbook_id": clean_text(tiny_live_canary_manual_runbook.get("runbook_id")),
             "preflight_result_id": clean_text(tiny_live_canary_preflight_result.get("result_id")),
             "blocker_ids": list(tiny_live_canary_preflight_result.get("blocker_ids", [])),
+            "readiness_evidence_bundle_status": readiness_evidence_bundle.get("bundle_status"),
+            "readiness_evidence_bundle_review_ready": (
+                readiness_evidence_bundle.get("evidence_bundle_review_ready") is True
+            ),
+            "readiness_evidence_bundle_is_not_live_approval": True,
             "operator_review_is_not_live_approval": True,
             "canary_preflight_is_not_execution_approval": True,
         },
@@ -1711,6 +1885,11 @@ def _build_daily_dashboard(
             ),
             "latest_operator_packet_path": clean_text(latest_operator_packet_path),
             "latest_audit_replay_path": clean_text(latest_audit_replay_path),
+            "readiness_evidence_bundle_status": readiness_evidence_bundle.get("bundle_status"),
+            "readiness_evidence_bundle_review_ready": (
+                readiness_evidence_bundle.get("evidence_bundle_review_ready") is True
+            ),
+            "readiness_evidence_bundle_is_not_live_approval": True,
             "operator_review_is_not_live_approval": operator_live_approval_packet.get(
                 "operator_review_is_not_live_approval"
             )
@@ -1731,6 +1910,26 @@ def _build_daily_dashboard(
             "unresolved_live_blocker_count": int(
                 live_connector_blocker_matrix.get("unresolved_blocker_count", 0) or 0
             ),
+        },
+        "readiness_evidence_bundle_summary": dict(readiness_evidence_bundle_summary)
+        | {
+            "readiness_evidence_bundle_status": readiness_evidence_bundle.get("bundle_status"),
+            "readiness_evidence_bundle_review_ready": (
+                readiness_evidence_bundle.get("evidence_bundle_review_ready") is True
+            ),
+            "readiness_evidence_bundle_is_not_live_approval": True,
+            "evidence_item_count": int(readiness_evidence_bundle.get("evidence_item_count", 0) or 0),
+            "missing_required_evidence_count": int(
+                readiness_evidence_bundle.get("missing_required_evidence_count", 0) or 0
+            ),
+            "unresolved_live_blocker_count": int(
+                readiness_evidence_bundle.get("unresolved_live_blocker_count", 0) or 0
+            ),
+            "latest_readiness_evidence_bundle_path": clean_text(latest_readiness_evidence_bundle_path),
+            "canary_executable_now": False,
+            "live_execution_approved": False,
+            "real_execution_available": False,
+            "live_connector_enabled": False,
         },
         "source_evidence_refresh_status": {
             "refresh_id": source_evidence_refresh_ledger.get("refresh_id"),
@@ -1960,6 +2159,7 @@ def _write_daily_artifacts(
     live_connector_audit_replay: Mapping[str, Any],
     operator_live_approval_packet: Mapping[str, Any],
     operator_intent_packet: Mapping[str, Any],
+    readiness_evidence_bundle: Mapping[str, Any],
     tiny_live_canary_preflight_contract: Mapping[str, Any],
     tiny_live_canary_manual_runbook: Mapping[str, Any],
     tiny_live_canary_preflight_result: Mapping[str, Any],
@@ -2019,6 +2219,7 @@ def _write_daily_artifacts(
         paths["operator_intent_packet_md"],
         render_live_canary_operator_intent_packet_markdown(operator_intent_packet),
     )
+    write_json(paths["readiness_evidence_bundle"], readiness_evidence_bundle)
     write_json(paths["tiny_live_canary_preflight_contract"], tiny_live_canary_preflight_contract)
     write_text(
         paths["tiny_live_canary_preflight_contract_md"],
@@ -2126,6 +2327,8 @@ def _render_daily_dashboard_markdown(dashboard: Mapping[str, Any]) -> str:
         f"- Live canary dry-run ready: {counts.get('live_canary_dry_run_ready_count')}",
         f"- Live canary blocked: {counts.get('live_canary_blocked_count')}",
         f"- Live canary needs operator approval: {counts.get('live_canary_needs_operator_approval_count')}",
+        f"- Readiness evidence items: {counts.get('readiness_evidence_item_count')}",
+        f"- Missing readiness evidence: {counts.get('readiness_evidence_missing_required_count')}",
         f"- Source evidence records: {counts.get('source_evidence_refresh_record_count')}",
         f"- Source evidence gaps: {counts.get('source_evidence_gap_count')}",
         "",
@@ -2162,6 +2365,7 @@ def _render_daily_dashboard_markdown(dashboard: Mapping[str, Any]) -> str:
     disabled_connector = dict(dashboard.get("disabled_real_connector_summary", {}))
     audit_operator = dict(dashboard.get("live_connector_audit_operator_summary", {}))
     operator_intent = dict(dashboard.get("operator_intent_packet_summary", {}))
+    readiness_evidence = dict(dashboard.get("readiness_evidence_bundle_summary", {}))
     risk_prep = dict(dashboard.get("risk_prep_config_status", {}))
     lines.extend(
         [
@@ -2257,6 +2461,10 @@ def _render_daily_dashboard_markdown(dashboard: Mapping[str, Any]) -> str:
             f"- Acceptance matrix failed cases: {canary.get('acceptance_matrix_failed_case_count')}",
             f"- Operator intent packet status: `{canary.get('operator_intent_packet_status')}`",
             f"- Operator intent review ready: `{str(canary.get('operator_intent_packet_review_ready')).lower()}`",
+            f"- Readiness evidence bundle: `{canary.get('readiness_evidence_bundle_status')}`",
+            f"- Evidence bundle review ready: `{str(canary.get('readiness_evidence_bundle_review_ready')).lower()}`",
+            f"- Evidence item count: {canary.get('evidence_item_count')}",
+            f"- Missing required evidence: {canary.get('missing_required_evidence_count')}",
             f"- Tiny preflight status: `{canary.get('tiny_live_canary_preflight_status')}`",
             f"- Manual runbook status: `{canary.get('manual_runbook_status')}`",
             f"- Canary executable now: `{str(canary.get('canary_executable_now')).lower()}`",
@@ -2330,6 +2538,20 @@ def _render_daily_dashboard_markdown(dashboard: Mapping[str, Any]) -> str:
             f"- Unresolved live blockers: {operator_intent.get('unresolved_live_blocker_count')}",
             f"- Kill-switch verified for live: `{str(operator_intent.get('kill_switch_verified_for_live')).lower()}`",
             f"- Latest operator intent packet: `{operator_intent.get('latest_operator_intent_packet_path')}`",
+            "",
+            "## Readiness Evidence Bundle",
+            "",
+            f"- Status: `{readiness_evidence.get('readiness_evidence_bundle_status')}`",
+            f"- Review ready: `{str(readiness_evidence.get('readiness_evidence_bundle_review_ready')).lower()}`",
+            f"- Not live approval: `{str(readiness_evidence.get('readiness_evidence_bundle_is_not_live_approval')).lower()}`",
+            f"- Evidence items: {readiness_evidence.get('evidence_item_count')}",
+            f"- Missing required evidence: {readiness_evidence.get('missing_required_evidence_count')}",
+            f"- Unresolved live blockers: {readiness_evidence.get('unresolved_live_blocker_count')}",
+            f"- Canary executable now: `{str(readiness_evidence.get('canary_executable_now')).lower()}`",
+            f"- Live execution approved: `{str(readiness_evidence.get('live_execution_approved')).lower()}`",
+            f"- Real execution available: `{str(readiness_evidence.get('real_execution_available')).lower()}`",
+            f"- Live connector enabled: `{str(readiness_evidence.get('live_connector_enabled')).lower()}`",
+            f"- Latest evidence bundle: `{readiness_evidence.get('latest_readiness_evidence_bundle_path')}`",
             "",
             "## Source Evidence Refresh",
             "",
@@ -2460,6 +2682,7 @@ def _render_daily_run_report(
             f"- Live connector audit replay: `{result.get('live_connector_audit_replay_path')}`",
             f"- Operator live review packet: `{result.get('operator_live_approval_packet_path')}`",
             f"- Operator intent packet: `{result.get('operator_intent_packet_path')}`",
+            f"- Readiness evidence bundle: `{result.get('readiness_evidence_bundle_path')}`",
             f"- Source evidence refresh: `{result.get('source_evidence_refresh_path')}`",
             f"- Source evidence quality ledger: `{result.get('source_evidence_quality_ledger_path')}`",
             f"- Source evidence pending approval: `{result.get('source_evidence_pending_approval_path')}`",

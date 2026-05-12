@@ -201,6 +201,10 @@ class LiveCanaryOperatorIntentPacket:
     blockers: tuple[Mapping[str, Any], ...]
     acknowledged_unresolved_blocker_ids: tuple[str, ...]
     generated_at: str
+    readiness_evidence_bundle_status: str = "not_generated"
+    readiness_evidence_bundle_review_ready: bool = False
+    readiness_evidence_bundle_is_not_live_approval: bool = True
+    readiness_evidence_bundle_reference: str = ""
 
     def to_dict(self) -> dict[str, Any]:
         value = asdict(self)
@@ -240,6 +244,10 @@ class LiveCanaryOperatorIntentPacket:
         value["operator_intent_is_not_live_approval"] = True
         value["operator_review_is_not_live_approval"] = True
         value["operator_intent_packet_is_dry_run_acknowledgement_only"] = True
+        value["readiness_evidence_bundle_status"] = clean_text(self.readiness_evidence_bundle_status)
+        value["readiness_evidence_bundle_review_ready"] = self.readiness_evidence_bundle_review_ready is True
+        value["readiness_evidence_bundle_is_not_live_approval"] = True
+        value["readiness_evidence_bundle_reference"] = clean_text(self.readiness_evidence_bundle_reference)
         value["manual_runbook_acknowledged"] = True
         value["kill_switch_requirements_acknowledged"] = True
         value["kill_switch_verified_for_live"] = False
@@ -276,6 +284,8 @@ def build_live_canary_operator_intent_packet(
     blocker_matrix_reference: str = "",
     risk_review_reference: str = "",
     acknowledged_unresolved_blocker_ids: Sequence[str] | None = None,
+    readiness_evidence_bundle: Mapping[str, Any] | None = None,
+    readiness_evidence_bundle_reference: str = "",
     operator_acknowledgement_text: str = DEFAULT_OPERATOR_ACKNOWLEDGEMENT_TEXT,
     human_signed_acknowledgement_text: str = DEFAULT_HUMAN_SIGNED_ACKNOWLEDGEMENT_TEXT,
     operator_acknowledged_at: str = "<operator_acknowledged_at>",
@@ -305,6 +315,10 @@ def build_live_canary_operator_intent_packet(
             blocker_matrix=blocker_matrix_value,
             acknowledged_unresolved_blocker_ids=unresolved_ids,
         )
+    )
+    readiness_bundle_summary = _readiness_evidence_bundle_summary(
+        readiness_evidence_bundle,
+        readiness_evidence_bundle_reference=readiness_evidence_bundle_reference,
     )
     acknowledgement = LiveCanaryOperatorIntentAcknowledgement(
         operator_identifier=clean_text(operator_identifier) or "<operator_identifier>",
@@ -399,6 +413,10 @@ def build_live_canary_operator_intent_packet(
         blockers=blockers,
         acknowledged_unresolved_blocker_ids=unresolved_ids,
         generated_at=generated_at,
+        readiness_evidence_bundle_status=readiness_bundle_summary["readiness_evidence_bundle_status"],
+        readiness_evidence_bundle_review_ready=readiness_bundle_summary["readiness_evidence_bundle_review_ready"],
+        readiness_evidence_bundle_is_not_live_approval=True,
+        readiness_evidence_bundle_reference=readiness_bundle_summary["readiness_evidence_bundle_reference"],
     ).to_dict()
     validation = validate_live_canary_operator_intent_packet(packet, generated_at=generated_at)
     packet["validation"] = validation
@@ -488,6 +506,9 @@ def validate_live_canary_operator_intent_packet(
             statuses.append(VALIDATION_STATUS_FORBIDDEN_EXECUTION_APPROVAL)
     if packet.get("operator_intent_is_not_live_approval") is not True:
         errors.append("operator_intent_is_not_live_approval must be true")
+        statuses.append(VALIDATION_STATUS_FORBIDDEN_EXECUTION_APPROVAL)
+    if packet.get("readiness_evidence_bundle_is_not_live_approval") is not True:
+        errors.append("readiness evidence bundle must remain distinct from live approval")
         statuses.append(VALIDATION_STATUS_FORBIDDEN_EXECUTION_APPROVAL)
     if packet.get("manual_runbook_acknowledged") is not True:
         errors.append("manual runbook must be acknowledged")
@@ -594,6 +615,10 @@ def summarize_live_canary_operator_intent_packet(
         "operator_intent_packet_status": clean_text(packet.get("intent_packet_status")),
         "operator_intent_packet_review_ready": validation.get("valid") is True,
         "operator_intent_is_not_live_approval": True,
+        "readiness_evidence_bundle_status": clean_text(packet.get("readiness_evidence_bundle_status")),
+        "readiness_evidence_bundle_review_ready": packet.get("readiness_evidence_bundle_review_ready") is True,
+        "readiness_evidence_bundle_is_not_live_approval": True,
+        "readiness_evidence_bundle_reference": clean_text(packet.get("readiness_evidence_bundle_reference")),
         "operator_signed_intent_is_human_acknowledgement_only": (
             packet.get("operator_signed_intent_is_human_acknowledgement_only") is True
         ),
@@ -814,6 +839,26 @@ def _secret_boundary_summary(
         "secrets_read": False,
         "secrets_printed": False,
         "secrets_persisted": False,
+    }
+
+
+def _readiness_evidence_bundle_summary(
+    readiness_evidence_bundle: Mapping[str, Any] | None,
+    *,
+    readiness_evidence_bundle_reference: str,
+) -> dict[str, Any]:
+    value = dict(readiness_evidence_bundle or {})
+    return {
+        "readiness_evidence_bundle_status": clean_text(
+            value.get("bundle_status") or value.get("readiness_evidence_bundle_status") or "not_generated"
+        ),
+        "readiness_evidence_bundle_review_ready": (
+            value.get("evidence_bundle_review_ready") is True
+            or value.get("readiness_evidence_bundle_review_ready") is True
+        ),
+        "readiness_evidence_bundle_reference": clean_text(readiness_evidence_bundle_reference)
+        or clean_text(value.get("bundle_id"))
+        or clean_text(value.get("latest_readiness_evidence_bundle_path")),
     }
 
 

@@ -104,6 +104,7 @@ class LiveConnectorAuditReplayInput:
     tiny_live_canary_preflight_contract_references: tuple[str, ...] = ()
     tiny_live_canary_manual_runbook_references: tuple[str, ...] = ()
     operator_intent_packet_references: tuple[str, ...] = ()
+    readiness_evidence_bundle_references: tuple[str, ...] = ()
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -124,6 +125,7 @@ class LiveConnectorAuditReplayInput:
                 self.tiny_live_canary_manual_runbook_references
             ),
             "operator_intent_packet_references": list(self.operator_intent_packet_references),
+            "readiness_evidence_bundle_references": list(self.readiness_evidence_bundle_references),
         }
 
 
@@ -169,6 +171,13 @@ class LiveConnectorAuditReplayResult:
         value["operator_intent_packet_status"] = (
             "referenced" if value["artifact_references"].get("operator_intent_packet_references") else "not_provided"
         )
+        value["readiness_evidence_bundle_status"] = (
+            "referenced"
+            if value["artifact_references"].get("readiness_evidence_bundle_references")
+            else "not_provided"
+        )
+        value["readiness_evidence_bundle_review_ready"] = False
+        value["readiness_evidence_bundle_is_not_live_approval"] = True
         value["canary_executable_now"] = False
         value["operator_review_artifact_only"] = True
         value["safety_summary"] = trading_core_safety_summary()
@@ -188,6 +197,7 @@ def build_live_connector_audit_replay(
     tiny_live_canary_preflight_contract_references: Sequence[str] | None = None,
     tiny_live_canary_manual_runbook_references: Sequence[str] | None = None,
     operator_intent_packet_references: Sequence[str] | None = None,
+    readiness_evidence_bundle_references: Sequence[str] | None = None,
     live_connector_blocker_matrix: Mapping[str, Any] | None = None,
     generated_at: str = GENERATED_AT,
 ) -> dict[str, Any]:
@@ -203,6 +213,7 @@ def build_live_connector_audit_replay(
         tiny_live_canary_preflight_contract_references=tiny_live_canary_preflight_contract_references,
         tiny_live_canary_manual_runbook_references=tiny_live_canary_manual_runbook_references,
         operator_intent_packet_references=operator_intent_packet_references,
+        readiness_evidence_bundle_references=readiness_evidence_bundle_references,
     )
     blocker_matrix = dict(live_connector_blocker_matrix or build_live_connector_blocker_matrix(generated_at=generated_at))
     missing_artifacts = _missing_artifacts(replay_value)
@@ -236,6 +247,7 @@ def build_live_connector_audit_replay(
             replay_value.tiny_live_canary_manual_runbook_references
         ),
         "operator_intent_packet_references": list(replay_value.operator_intent_packet_references),
+        "readiness_evidence_bundle_references": list(replay_value.readiness_evidence_bundle_references),
     }
     replay_id = _stable_id(
         "live-connector-audit-replay-032",
@@ -333,6 +345,7 @@ def render_live_connector_audit_replay_markdown(replay_result: Mapping[str, Any]
         f"- Tiny canary preflight: `{replay_result.get('tiny_live_canary_preflight_status')}`",
         f"- Manual runbook: `{replay_result.get('manual_runbook_status')}`",
         f"- Operator intent packet: `{replay_result.get('operator_intent_packet_status')}`",
+        f"- Readiness evidence bundle: `{replay_result.get('readiness_evidence_bundle_status')}`",
         f"- Canary executable now: `{str(replay_result.get('canary_executable_now')).lower()}`",
         f"- Secret boundary: `{secret_summary.get('status')}`",
         f"- Unresolved live blockers: {blocker_summary.get('unresolved_live_connector_blocker_count')}",
@@ -506,6 +519,7 @@ def _coerce_input(
     tiny_live_canary_preflight_contract_references: Sequence[str] | None,
     tiny_live_canary_manual_runbook_references: Sequence[str] | None,
     operator_intent_packet_references: Sequence[str] | None,
+    readiness_evidence_bundle_references: Sequence[str] | None,
 ) -> LiveConnectorAuditReplayInput:
     if isinstance(replay_input, LiveConnectorAuditReplayInput):
         return replay_input
@@ -550,6 +564,11 @@ def _coerce_input(
         ),
         operator_intent_packet_references=tuple(
             _clean_list(operator_intent_packet_references or value.get("operator_intent_packet_references"))
+        ),
+        readiness_evidence_bundle_references=tuple(
+            _clean_list(
+                readiness_evidence_bundle_references or value.get("readiness_evidence_bundle_references")
+            )
         ),
     )
 

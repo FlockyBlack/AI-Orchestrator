@@ -457,6 +457,69 @@ LIVE_CONNECTOR_BLOCKERS = (
         "current_status": "disabled",
         "why_it_blocks_live_execution": "No order adapter can submit, place, or transmit real orders.",
     },
+    {
+        "blocker_id": "PMBOT-LIVE-BLOCKER-032",
+        "blocker_category": "readiness_evidence_bundle_review_only",
+        "blocker_name": "readiness evidence bundle is review-only",
+        "severity": "critical",
+        "required_future_task": "Use the evidence bundle only as review input for a separate future gated task.",
+        "current_status": "review_only",
+        "why_it_blocks_live_execution": "The evidence bundle links artifacts but cannot authorize live execution.",
+    },
+    {
+        "blocker_id": "PMBOT-LIVE-BLOCKER-033",
+        "blocker_category": "readiness_evidence_bundle_not_live_approval",
+        "blocker_name": "readiness evidence bundle is not live approval",
+        "severity": "critical",
+        "required_future_task": "Build a separate dual-control live approval flow after all live blockers are resolved.",
+        "current_status": "not_live_approval",
+        "why_it_blocks_live_execution": "Bundle review readiness is not operator approval for a live canary.",
+    },
+    {
+        "blocker_id": "PMBOT-LIVE-BLOCKER-034",
+        "blocker_category": "readiness_evidence_bundle_not_operator_executed",
+        "blocker_name": "readiness evidence bundle not operator executed",
+        "severity": "critical",
+        "required_future_task": "Collect separate operator execution evidence in a future gated task.",
+        "current_status": "not_operator_executed",
+        "why_it_blocks_live_execution": "The bundle is generated locally and has not been executed as an operator workflow.",
+    },
+    {
+        "blocker_id": "PMBOT-LIVE-BLOCKER-035",
+        "blocker_category": "evidence_bundle_does_not_resolve_live_blockers",
+        "blocker_name": "evidence bundle does not resolve live blockers",
+        "severity": "critical",
+        "required_future_task": "Resolve each live blocker in separately reviewed tasks before any live canary proposal.",
+        "current_status": "blockers_unresolved",
+        "why_it_blocks_live_execution": "The bundle summarizes unresolved blockers without reducing their severity.",
+    },
+    {
+        "blocker_id": "PMBOT-LIVE-BLOCKER-036",
+        "blocker_category": "live_canary_execution_still_disabled",
+        "blocker_name": "live canary execution still disabled",
+        "severity": "critical",
+        "required_future_task": "Design a disabled-first live canary execution adapter in a future gated task.",
+        "current_status": "disabled",
+        "why_it_blocks_live_execution": "No code path may execute a live canary in this build.",
+    },
+    {
+        "blocker_id": "PMBOT-LIVE-BLOCKER-037",
+        "blocker_category": "live_canary_real_funding_still_not_configured",
+        "blocker_name": "live canary real funding still not configured",
+        "severity": "critical",
+        "required_future_task": "Define funding, balance, and exposure reconciliation in a separate future task.",
+        "current_status": "not_configured",
+        "why_it_blocks_live_execution": "No live funding configuration, balance source, or reconciliation path exists.",
+    },
+    {
+        "blocker_id": "PMBOT-LIVE-BLOCKER-038",
+        "blocker_category": "live_canary_order_adapter_still_disabled",
+        "blocker_name": "live canary order adapter still disabled after evidence bundle",
+        "severity": "critical",
+        "required_future_task": "Design an order adapter contract in a separate task without enabling order submission.",
+        "current_status": "disabled",
+        "why_it_blocks_live_execution": "No order adapter can submit, place, or transmit real orders.",
+    },
 )
 
 
@@ -842,6 +905,7 @@ def build_operator_live_canary_checklist(*, generated_at: str = GENERATED_AT) ->
             "pm_bot/trading_core/artifacts/night_020_021/tiny_live_canary_preflight_contract.json",
             "pm_bot/trading_core/artifacts/night_020_021/tiny_live_canary_manual_runbook.json",
             "pm_bot/trading_core/artifacts/night_020_021/live_canary_operator_intent_packet.json",
+            "pm_bot/trading_core/artifacts/night_020_021/live_canary_readiness_evidence_bundle.json",
         ],
         "validations_that_must_pass": [
             "canary readiness dry-run packet validation",
@@ -851,6 +915,7 @@ def build_operator_live_canary_checklist(*, generated_at: str = GENERATED_AT) ->
             "tiny live canary preflight contract validates as review-only",
             "manual runbook includes non-execution, kill-switch, abort, and evidence sections",
             "operator intent packet validates as dry-run human acknowledgement only",
+            "readiness evidence bundle validates as review-only and not live approval",
             "forbidden field scan reports no unsafe field names in relevant PMBOT live-prep artifacts",
             "pytest pm_bot/tests",
             "python -m compileall pm_bot",
@@ -899,6 +964,7 @@ def build_canary_governance_summary(
     audit_replay_result: Mapping[str, Any] | None = None,
     operator_approval_packet: Mapping[str, Any] | None = None,
     operator_intent_packet: Mapping[str, Any] | None = None,
+    readiness_evidence_bundle: Mapping[str, Any] | None = None,
     generated_at: str = GENERATED_AT,
 ) -> dict[str, Any]:
     replay_report = build_canary_replay_report(packets=[packet], receipts=[receipt], generated_at=generated_at)
@@ -908,6 +974,7 @@ def build_canary_governance_summary(
     audit_replay = dict(audit_replay_result or {})
     operator_packet = dict(operator_approval_packet or {})
     operator_intent = dict(operator_intent_packet or {})
+    evidence_bundle = dict(readiness_evidence_bundle or {})
     passed = (
         replay_report.get("passed") is True
         and acceptance_matrix.get("passed") is True
@@ -945,6 +1012,16 @@ def build_canary_governance_summary(
             if operator_intent
             else True
         ),
+        "readiness_evidence_bundle_status": clean_text(
+            evidence_bundle.get("bundle_status") or evidence_bundle.get("readiness_evidence_bundle_status") or "not_provided"
+        ),
+        "readiness_evidence_bundle_review_ready": (
+            evidence_bundle.get("evidence_bundle_review_ready") is True
+            or evidence_bundle.get("readiness_evidence_bundle_review_ready") is True
+        ),
+        "readiness_evidence_bundle_is_not_live_approval": True,
+        "evidence_item_count": int(evidence_bundle.get("evidence_item_count", 0) or 0),
+        "missing_required_evidence_count": int(evidence_bundle.get("missing_required_evidence_count", 0) or 0),
         "tiny_live_canary_preflight_status": clean_text(
             dict(operator_packet.get("tiny_live_canary_preflight_summary", {})).get("preflight_result_status")
             or "not_provided"
@@ -1487,7 +1564,7 @@ def _live_execution_forbidden(packet: Mapping[str, Any], receipt: Mapping[str, A
 
 
 def _is_relevant_canary_live_prep_artifact(path: Path) -> bool:
-    normalized = normalize_path(path).lower()
+    normalized = path.name.lower()
     relevant_names = (
         "live_canary_readiness_packet",
         "live_canary_dry_run_acceptance_receipt",
@@ -1500,6 +1577,7 @@ def _is_relevant_canary_live_prep_artifact(path: Path) -> bool:
         "tiny_live_canary_manual_runbook",
         "tiny_live_canary_preflight_result",
         "live_canary_operator_intent_packet",
+        "live_canary_readiness_evidence_bundle",
     )
     return normalized.endswith(".json") and any(name in normalized for name in relevant_names)
 
