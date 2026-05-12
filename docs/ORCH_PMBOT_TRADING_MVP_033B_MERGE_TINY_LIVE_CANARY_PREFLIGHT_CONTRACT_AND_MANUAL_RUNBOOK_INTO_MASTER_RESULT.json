@@ -1,0 +1,62 @@
+{
+  "task_id": "ORCH-PMBOT-TRADING-MVP-033B-MERGE-TINY-LIVE-CANARY-PREFLIGHT-CONTRACT-AND-MANUAL-RUNBOOK-INTO-MASTER",
+  "status": "completed_pushed",
+  "repo": {
+    "merge_worktree": "C:/oc033b_tiny_live_canary_preflight_merge",
+    "master_head_before": "f27c49b305eee95b7cd602561418e61a4ccf2526",
+    "source_branch": "pmbot/trading-mvp-033-tiny-live-canary-preflight-contract-manual-runbook",
+    "source_head": "9f098cbea10bb75463edc105a2b7a64436da9880",
+    "fast_forward_merge_head": "9f098cbea10bb75463edc105a2b7a64436da9880",
+    "master_head_after": "pending",
+    "pushed": true,
+    "remote_verified": true
+  },
+  "fast_forward_merge": true,
+  "merge_result_artifact_written": true,
+  "pmbot_033_on_master": true,
+  "tiny_live_canary_preflight_contract_ready": true,
+  "manual_runbook_ready": true,
+  "future_canary_shape_defined": true,
+  "kill_switch_requirements_defined": true,
+  "kill_switch_verified_for_live": false,
+  "canary_executable_now": false,
+  "live_execution_approved": false,
+  "real_execution_available": false,
+  "live_connector_blockers": {
+    "critical": 24,
+    "unresolved": 24,
+    "resolved": 0
+  },
+  "validation": {
+    "focused_tests_passed": true,
+    "related_pmbot_tests_passed": true,
+    "pm_bot_tests_passed": true,
+    "compileall_pm_bot_passed": true,
+    "automation_smoke_passed": true,
+    "compileall_ai_orchestrator_passed": true,
+    "git_diff_check_passed": true
+  },
+  "safety": {
+    "external_api_calls_performed": false,
+    "real_wallet_integration_added": false,
+    "private_key_or_mnemonic_handling_added": false,
+    "cryptographic_signing_added": false,
+    "real_order_placement_added": false,
+    "authenticated_endpoint_added": false,
+    "browser_automation_added": false,
+    "scheduler_or_daemon_added": false,
+    "autonomous_live_trading_added": false,
+    "environment_secrets_read": false,
+    "secrets_printed_or_persisted": false,
+    "operator_review_is_not_live_approval": true,
+    "canary_preflight_is_not_execution_approval": true,
+    "canary_executable_now": false,
+    "live_execution_approved": false,
+    "real_live_execution_available": false,
+    "live_connector_blockers_remain_unresolved": true,
+    "outcome_resolution_invented": false,
+    "pnl_invented": false,
+    "safety_ok": true
+  },
+  "next_recommended_task": "ORCH-PMBOT-TRADING-MVP-034-LIVE-CANARY-DRY-RUN-OPERATOR-SIGNED-INTENT-PACKET"
+}
