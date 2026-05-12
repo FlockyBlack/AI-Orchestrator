@@ -114,10 +114,14 @@ def test_acceptance_matrix_all_key_cases() -> None:
 def test_blocker_matrix_contains_required_live_blockers() -> None:
     matrix = build_live_connector_blocker_matrix()
     blocker_names = {row["blocker_name"] for row in matrix["blockers"]}
+    blocker_categories = {row["blocker_category"] for row in matrix["blockers"]}
 
     assert matrix["status"] == "passed"
-    assert matrix["blocker_count"] == 10
-    assert len(matrix["critical_blockers"]) == 10
+    assert matrix["blocker_count"] >= 17
+    assert len(matrix["critical_blockers"]) == matrix["blocker_count"]
+    assert matrix["unresolved_blocker_count"] == matrix["blocker_count"]
+    assert matrix["resolved_blocker_count"] == 0
+    assert matrix["all_blockers_unresolved"] is True
     assert {row["blocker_name"] for row in LIVE_CONNECTOR_BLOCKERS} == blocker_names
     assert "real wallet connector absent" in blocker_names
     assert "secret handling policy absent or incomplete" in blocker_names
@@ -129,6 +133,15 @@ def test_blocker_matrix_contains_required_live_blockers() -> None:
     assert "post-trade audit absent" in blocker_names
     assert "real balance/exposure reconciliation absent" in blocker_names
     assert "emergency halt procedure absent" in blocker_names
+    assert {
+        "real_wallet_connector_disabled",
+        "secret_boundary_not_configured",
+        "authenticated_endpoint_boundary_missing",
+        "real_order_submission_disabled",
+        "live_operator_approval_not_implemented",
+        "production_kill_switch_not_wired_to_live_adapter",
+        "live_connector_audit_sink_not_finalized",
+    }.issubset(blocker_categories)
     assert matrix["live_execution_available"] is False
 
 
@@ -159,12 +172,17 @@ def test_dashboard_report_surfaces_replay_acceptance_and_blockers(tmp_path: Path
     assert summary["canary_replay_status"] == "passed"
     assert summary["acceptance_matrix_status"] == "passed"
     assert summary["acceptance_matrix_failed_case_count"] == 0
-    assert summary["live_connector_blocker_count"] == 10
-    assert summary["critical_blocker_count"] == 10
+    assert summary["live_connector_blocker_count"] >= 17
+    assert summary["critical_blocker_count"] == summary["live_connector_blocker_count"]
+    assert summary["resolved_live_connector_blocker_count"] == 0
+    assert summary["all_live_connector_blockers_unresolved"] is True
     assert summary["next_recommended_non_live_task"]
     assert summary["dry_run_only_assertion"] == "This checklist does not make live execution available."
+    assert dashboard["disabled_real_connector_summary"]["connector_status"] == "disabled"
+    assert dashboard["disabled_real_connector_summary"]["real_execution_available"] is False
     assert "Canary replay status" in dashboard_md
     assert "Live connector blockers" in dashboard_md
+    assert "Disabled Real Connector" in dashboard_md
 
 
 def test_nightly_batch_example_runs_fake_dry_run_only_shape() -> None:

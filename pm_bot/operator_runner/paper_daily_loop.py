@@ -40,6 +40,13 @@ from pm_bot.trading_core.live_canary_readiness import (
     select_canary_market_id,
 )
 from pm_bot.trading_core.live_canary_replay_acceptance import build_canary_governance_summary
+from pm_bot.trading_core.real_wallet_connector_disabled_adapter import (
+    DisabledRealWalletConnectorConfig,
+    RealWalletConnectorDisabledAdapter,
+    build_disabled_connector_passive_status,
+    build_disabled_connector_request,
+    render_disabled_connector_audit_record_markdown,
+)
 from pm_bot.trading_core.paper_portfolio_report import (
     build_paper_portfolio_report,
     render_paper_portfolio_report_markdown,
@@ -130,6 +137,7 @@ UNSAFE_TRUE_FIELDS = {
     "authenticated_endpoint_used",
     "authenticated_endpoints_used",
     "authenticated_endpoint_called",
+    "authenticated_endpoint_call_performed",
     "browser_automation_used",
     "network_used",
     "external_api_calls_performed",
@@ -140,6 +148,9 @@ UNSAFE_TRUE_FIELDS = {
     "live_execution_enabled",
     "live_execution_performed",
     "real_signature_created",
+    "real_wallet_access_performed",
+    "cryptographic_signing_performed",
+    "real_order_placement_performed",
     "real_wallet_used",
     "outcome_invented",
     "outcome_resolution_invented",
@@ -356,6 +367,28 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         canary_readiness_packet,
         generated_at=generated_at,
     )
+    disabled_connector_config = DisabledRealWalletConnectorConfig(
+        require_canary_readiness_packet_reference=True,
+        require_replay_acceptance_reference=True,
+    )
+    disabled_connector_request = build_disabled_connector_request(
+        run_id=active_config.run_id,
+        market_id=canary_market_id,
+        risk_decision_reference=canary_readiness_packet.get("risk_decision_id", ""),
+        wallet_boundary_packet_reference=canary_readiness_packet.get("wallet_boundary_packet_id", ""),
+        canary_readiness_packet_reference=canary_readiness_packet.get("canary_id", ""),
+        replay_acceptance_reference=canary_dry_run_receipt.get("receipt_id", ""),
+        dry_run_only=True,
+    )
+    disabled_connector_adapter = RealWalletConnectorDisabledAdapter(disabled_connector_config)
+    disabled_connector_result = disabled_connector_adapter.build_blocked_result(
+        disabled_connector_request,
+        generated_at=generated_at,
+    )
+    disabled_connector_audit = disabled_connector_adapter.build_audit_record(
+        disabled_connector_request,
+        generated_at=generated_at,
+    )
     dashboard = _build_daily_dashboard(
         config=active_config,
         tracked_markets=tracked_markets,
@@ -379,6 +412,11 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         dry_run_receipt_ledger=dry_run_receipt_ledger,
         canary_readiness_packet=canary_readiness_packet,
         canary_dry_run_receipt=canary_dry_run_receipt,
+        disabled_connector_result=disabled_connector_result,
+        disabled_connector_audit=disabled_connector_audit,
+        latest_disabled_connector_audit_path=(
+            normalize_path(paths["disabled_connector_audit"]) if active_config.write_artifacts else ""
+        ),
         source_evidence_refresh_ledger=source_evidence_refresh_ledger,
         generated_at=generated_at,
     )
@@ -411,6 +449,8 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
             canary_operator_approval_record,
             canary_readiness_packet,
             canary_dry_run_receipt,
+            disabled_connector_result,
+            disabled_connector_audit,
         ],
         generated_at=generated_at,
     )
@@ -465,9 +505,26 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         and canary_dry_run_receipt.get("live_execution_performed") is False
         and canary_dry_run_receipt.get("outcome_resolution_invented") is False
         and canary_dry_run_receipt.get("pnl_invented") is False
+        and disabled_connector_result.get("real_execution_available") is False
+        and disabled_connector_result.get("execution_refused") is True
+        and disabled_connector_result.get("external_api_calls_performed") is False
+        and disabled_connector_result.get("environment_secrets_read") is False
+        and disabled_connector_result.get("secrets_read") is False
+        and disabled_connector_result.get("real_wallet_access_performed") is False
+        and disabled_connector_result.get("cryptographic_signing_performed") is False
+        and disabled_connector_result.get("real_order_placement_performed") is False
+        and disabled_connector_result.get("authenticated_endpoint_call_performed") is False
+        and disabled_connector_audit.get("audit_valid") is True
+        and disabled_connector_audit.get("real_execution_available") is False
+        and disabled_connector_audit.get("external_api_calls_performed") is False
+        and disabled_connector_audit.get("environment_secrets_read") is False
         and dashboard.get("live_canary_readiness_summary", {}).get("canary_replay_passed") is True
         and dashboard.get("live_canary_readiness_summary", {}).get("acceptance_matrix_passed") is True
         and int(dashboard.get("live_canary_readiness_summary", {}).get("live_connector_blocker_count", 0) or 0) >= 10
+        and dashboard.get("disabled_real_connector_summary", {}).get("connector_status") == "disabled"
+        and dashboard.get("disabled_real_connector_summary", {}).get("real_execution_available") is False
+        and dashboard.get("disabled_real_connector_summary", {}).get("secrets_present") == "not_inspected"
+        and dashboard.get("disabled_real_connector_summary", {}).get("secret_boundary_status") == "static_policy_only"
         and dashboard.get("live_canary_readiness_summary", {}).get("dry_run_only_assertion")
         == "This checklist does not make live execution available."
         and safety_scan["safety_ok"] is True
@@ -558,6 +615,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
             canary_operator_approval_record=canary_operator_approval_record,
             canary_readiness_packet=canary_readiness_packet,
             canary_dry_run_receipt=canary_dry_run_receipt,
+            disabled_connector_audit=disabled_connector_audit,
             result=result,
         )
     return result
@@ -601,6 +659,8 @@ def _daily_paths(output_dir: Path) -> dict[str, Path]:
         "canary_readiness_packet_md": output_dir / "live_canary_readiness_packet.md",
         "canary_dry_run_receipt": output_dir / "live_canary_dry_run_acceptance_receipt.json",
         "canary_dry_run_receipt_md": output_dir / "live_canary_dry_run_acceptance_receipt.md",
+        "disabled_connector_audit": output_dir / "disabled_real_wallet_connector_audit.json",
+        "disabled_connector_audit_md": output_dir / "disabled_real_wallet_connector_audit.md",
         "portfolio": output_dir / "paper_daily_portfolio_state.json",
         "portfolio_md": output_dir / "paper_daily_portfolio_state.md",
         "rollforward": output_dir / "paper_daily_rollforward.json",
@@ -990,6 +1050,9 @@ def _build_daily_dashboard(
     dry_run_receipt_ledger: Mapping[str, Any],
     canary_readiness_packet: Mapping[str, Any],
     canary_dry_run_receipt: Mapping[str, Any],
+    disabled_connector_result: Mapping[str, Any],
+    disabled_connector_audit: Mapping[str, Any],
+    latest_disabled_connector_audit_path: str,
     source_evidence_refresh_ledger: Mapping[str, Any],
     generated_at: str,
 ) -> dict[str, Any]:
@@ -1091,6 +1154,7 @@ def _build_daily_dashboard(
             "live_connector_critical_blocker_count": int(
                 canary_governance_summary.get("critical_blocker_count", 0) or 0
             ),
+            "disabled_connector_blocked_reason_count": len(disabled_connector_result.get("blocked_reason_ids", [])),
             "source_evidence_refresh_record_count": int(source_counts.get("records", 0) or 0),
             "source_evidence_gap_count": int(
                 dict(source_quality.get("summary_counts", {})).get("missing_evidence_gaps", 0) or 0
@@ -1206,11 +1270,31 @@ def _build_daily_dashboard(
                 "acceptance_matrix_failed_case_count"
             ),
             "live_connector_blocker_count": canary_governance_summary.get("live_connector_blocker_count"),
+            "unresolved_live_connector_blocker_count": canary_governance_summary.get(
+                "unresolved_live_connector_blocker_count"
+            ),
+            "resolved_live_connector_blocker_count": canary_governance_summary.get(
+                "resolved_live_connector_blocker_count"
+            ),
+            "all_live_connector_blockers_unresolved": canary_governance_summary.get(
+                "all_live_connector_blockers_unresolved"
+            ),
+            "live_connector_blocker_ids": canary_governance_summary.get("live_connector_blocker_ids"),
             "critical_blocker_count": canary_governance_summary.get("critical_blocker_count"),
             "critical_blockers": canary_governance_summary.get("critical_blockers"),
             "next_recommended_non_live_task": canary_governance_summary.get("next_recommended_non_live_task"),
             "dry_run_only_assertion": canary_governance_summary.get("dry_run_only_assertion"),
             "governance_summary": canary_governance_summary,
+        },
+        "disabled_real_connector_summary": build_disabled_connector_passive_status(
+            result=disabled_connector_result,
+            latest_disabled_connector_audit_path=latest_disabled_connector_audit_path,
+            live_canary_replay_acceptance_status=clean_text(canary_governance_summary.get("acceptance_matrix_status")),
+        )
+        | {
+            "audit_id": disabled_connector_audit.get("audit_id"),
+            "audit_valid": disabled_connector_audit.get("audit_valid"),
+            "result_id": disabled_connector_result.get("result_id"),
         },
         "source_evidence_refresh_status": {
             "refresh_id": source_evidence_refresh_ledger.get("refresh_id"),
@@ -1357,8 +1441,11 @@ def _build_daily_safety_scan(
 def _daily_safety_flags() -> dict[str, bool]:
     return {
         "real_order_submitted": False,
+        "real_order_placement_performed": False,
         "real_signature_created": False,
+        "cryptographic_signing_performed": False,
         "real_wallet_used": False,
+        "real_wallet_access_performed": False,
         "wallet_used": False,
         "private_key_used": False,
         "signing_used": False,
@@ -1370,6 +1457,7 @@ def _daily_safety_flags() -> dict[str, bool]:
         "autonomous_trading_enabled": False,
         "authenticated_endpoint_used": False,
         "authenticated_endpoint_called": False,
+        "authenticated_endpoint_call_performed": False,
         "browser_automation_used": False,
         "network_used": False,
         "external_api_calls_performed": False,
@@ -1430,6 +1518,7 @@ def _write_daily_artifacts(
     canary_operator_approval_record: Mapping[str, Any],
     canary_readiness_packet: Mapping[str, Any],
     canary_dry_run_receipt: Mapping[str, Any],
+    disabled_connector_audit: Mapping[str, Any],
     result: PaperDailyLoopResult,
 ) -> None:
     write_json(paths["config"], config.to_dict())
@@ -1466,6 +1555,11 @@ def _write_daily_artifacts(
     write_text(paths["canary_readiness_packet_md"], render_canary_readiness_packet_markdown(canary_readiness_packet))
     write_json(paths["canary_dry_run_receipt"], canary_dry_run_receipt)
     write_text(paths["canary_dry_run_receipt_md"], render_canary_dry_run_receipt_markdown(canary_dry_run_receipt))
+    write_json(paths["disabled_connector_audit"], disabled_connector_audit)
+    write_text(
+        paths["disabled_connector_audit_md"],
+        render_disabled_connector_audit_record_markdown(disabled_connector_audit),
+    )
     write_json(paths["source_evidence_refresh_request"], source_evidence_refresh_request)
     write_json(paths["source_evidence_refresh"], source_evidence_refresh_ledger)
     write_text(paths["source_evidence_refresh_md"], render_public_evidence_refresh_report(source_evidence_refresh_ledger))
@@ -1590,6 +1684,7 @@ def _render_daily_dashboard_markdown(dashboard: Mapping[str, Any]) -> str:
     dry_run_receipts = dict(dashboard.get("dry_run_receipt_summary", {}))
     dry_run_gates = dict(dry_run_receipts.get("gate_enforcement_summary", {}))
     canary = dict(dashboard.get("live_canary_readiness_summary", {}))
+    disabled_connector = dict(dashboard.get("disabled_real_connector_summary", {}))
     risk_prep = dict(dashboard.get("risk_prep_config_status", {}))
     lines.extend(
         [
@@ -1685,6 +1780,8 @@ def _render_daily_dashboard_markdown(dashboard: Mapping[str, Any]) -> str:
             f"- Acceptance matrix failed cases: {canary.get('acceptance_matrix_failed_case_count')}",
             f"- Live connector blockers: {canary.get('live_connector_blocker_count')}",
             f"- Critical live connector blockers: {canary.get('critical_blocker_count')}",
+            f"- Unresolved live connector blockers: {canary.get('unresolved_live_connector_blocker_count')}",
+            f"- Resolved live connector blockers: {canary.get('resolved_live_connector_blocker_count')}",
             f"- Dry-run-only assertion: {canary.get('dry_run_only_assertion')}",
             "- Blocked reason summary:",
             *bullet_lines(str(item) for item in canary.get("blocked_reason_summary", [])),
@@ -1696,6 +1793,18 @@ def _render_daily_dashboard_markdown(dashboard: Mapping[str, Any]) -> str:
             f"- {canary.get('next_recommended_non_live_task')}",
             "- Next operator action:",
             f"- {canary.get('next_operator_action')}",
+            "",
+            "## Disabled Real Connector",
+            "",
+            f"- Connector status: `{disabled_connector.get('connector_status')}`",
+            f"- Real execution available: `{str(disabled_connector.get('real_execution_available')).lower()}`",
+            f"- Secrets present: `{disabled_connector.get('secrets_present')}`",
+            f"- Secret boundary: `{disabled_connector.get('secret_boundary_status')}`",
+            f"- Blocked reasons: {disabled_connector.get('blocked_reason_count')}",
+            f"- Latest audit: `{disabled_connector.get('latest_disabled_connector_audit_path')}`",
+            f"- Replay acceptance status: `{disabled_connector.get('live_canary_replay_acceptance_status')}`",
+            "- Blocker IDs:",
+            *bullet_lines(str(item) for item in disabled_connector.get("blocker_ids", [])),
             "",
             "## Source Evidence Refresh",
             "",
@@ -1819,6 +1928,7 @@ def _render_daily_run_report(
             f"- Live canary operator approval record: `{result.get('canary_operator_approval_record_path')}`",
             f"- Live canary readiness packet: `{result.get('canary_readiness_packet_path')}`",
             f"- Live canary dry-run receipt: `{result.get('canary_dry_run_receipt_path')}`",
+            f"- Disabled real connector audit: `{dict(dashboard.get('disabled_real_connector_summary', {})).get('latest_disabled_connector_audit_path')}`",
             f"- Source evidence refresh: `{result.get('source_evidence_refresh_path')}`",
             f"- Source evidence quality ledger: `{result.get('source_evidence_quality_ledger_path')}`",
             f"- Source evidence pending approval: `{result.get('source_evidence_pending_approval_path')}`",

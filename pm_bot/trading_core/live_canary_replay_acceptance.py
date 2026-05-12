@@ -28,6 +28,7 @@ from pm_bot.trading_core.risk_prep_config import (
     build_default_risk_engine_config,
     validate_risk_engine_config,
 )
+from pm_bot.trading_core.real_wallet_connector_disabled_adapter import DISABLED_CONNECTOR_UNRESOLVED_BLOCKER_IDS
 from pm_bot.trading_core.schemas import (
     ARTIFACT_DIR,
     GENERATED_AT,
@@ -267,6 +268,69 @@ LIVE_CONNECTOR_BLOCKERS = (
         "current_status": "absent",
         "why_it_blocks_live_execution": "Operators have no validated live incident stop procedure or recovery checklist.",
     },
+    {
+        "blocker_id": "PMBOT-LIVE-BLOCKER-011",
+        "blocker_category": "real_wallet_connector_disabled",
+        "blocker_name": "real wallet connector explicitly disabled",
+        "severity": "critical",
+        "required_future_task": "Create a separate operator-approved task before any real wallet connector can move beyond disabled boundary status.",
+        "current_status": "disabled",
+        "why_it_blocks_live_execution": "The only connector-shaped adapter in this build is refusal-only and cannot access wallets.",
+    },
+    {
+        "blocker_id": "PMBOT-LIVE-BLOCKER-012",
+        "blocker_category": "secret_boundary_not_configured",
+        "blocker_name": "secret boundary static policy only",
+        "severity": "critical",
+        "required_future_task": "Design and approve a live credential handling process in a separate task before any secret configuration exists.",
+        "current_status": "static_policy_only",
+        "why_it_blocks_live_execution": "This build validates packet shape only and does not configure, inspect, read, or store secrets.",
+    },
+    {
+        "blocker_id": "PMBOT-LIVE-BLOCKER-013",
+        "blocker_category": "authenticated_endpoint_boundary_missing",
+        "blocker_name": "authenticated endpoint boundary missing",
+        "severity": "critical",
+        "required_future_task": "Define an authenticated endpoint boundary, allowlist, logging, and redaction policy in a separate future task.",
+        "current_status": "missing",
+        "why_it_blocks_live_execution": "No authenticated endpoint boundary exists, so endpoint calls remain blocked.",
+    },
+    {
+        "blocker_id": "PMBOT-LIVE-BLOCKER-014",
+        "blocker_category": "real_order_submission_disabled",
+        "blocker_name": "real order submission disabled",
+        "severity": "critical",
+        "required_future_task": "Design a rejection-first order adapter contract in a future task without enabling submission.",
+        "current_status": "disabled",
+        "why_it_blocks_live_execution": "No real order adapter can submit, place, or send orders in this build.",
+    },
+    {
+        "blocker_id": "PMBOT-LIVE-BLOCKER-015",
+        "blocker_category": "live_operator_approval_not_implemented",
+        "blocker_name": "live operator approval not implemented",
+        "severity": "critical",
+        "required_future_task": "Build dual-control live operator approval packets in a separate future task.",
+        "current_status": "not_implemented",
+        "why_it_blocks_live_execution": "Current approval artifacts are dry-run-only and cannot authorize live execution.",
+    },
+    {
+        "blocker_id": "PMBOT-LIVE-BLOCKER-016",
+        "blocker_category": "production_kill_switch_not_wired_to_live_adapter",
+        "blocker_name": "production kill switch not wired to live adapter",
+        "severity": "critical",
+        "required_future_task": "Wire and test a production kill switch against any future live adapter boundary.",
+        "current_status": "not_wired",
+        "why_it_blocks_live_execution": "The existing kill-switch checks guard dry-run readiness and are not wired to a live adapter.",
+    },
+    {
+        "blocker_id": "PMBOT-LIVE-BLOCKER-017",
+        "blocker_category": "live_connector_audit_sink_not_finalized",
+        "blocker_name": "live connector audit sink not finalized",
+        "severity": "critical",
+        "required_future_task": "Finalize immutable live connector audit records before any live connector implementation task.",
+        "current_status": "not_finalized",
+        "why_it_blocks_live_execution": "The disabled adapter can write local refusal audits only; no live audit sink exists.",
+    },
 )
 
 
@@ -437,6 +501,7 @@ def build_canary_replay_report(
         "rows": rows,
         "dry_run_only": True,
         "live_execution_forbidden": True,
+        "live_execution_available": False,
         "live_execution_allowed": False,
         "external_api_calls_performed": False,
         "outcome_resolution_invented": False,
@@ -494,6 +559,7 @@ def build_canary_acceptance_matrix(*, generated_at: str = GENERATED_AT) -> dict[
         "rows": rows,
         "dry_run_only": True,
         "live_execution_forbidden": True,
+        "live_execution_available": False,
         "live_execution_allowed": False,
         "external_api_calls_performed": False,
         "outcome_resolution_invented": False,
@@ -578,18 +644,35 @@ def build_canary_acceptance_case_artifacts(case_id: str, *, generated_at: str = 
 
 
 def build_live_connector_blocker_matrix(*, generated_at: str = GENERATED_AT) -> dict[str, Any]:
-    blockers = [dict(row) for row in LIVE_CONNECTOR_BLOCKERS]
+    blockers = []
+    for row in LIVE_CONNECTOR_BLOCKERS:
+        blocker = dict(row)
+        blocker.setdefault("blocker_category", clean_text(blocker.get("blocker_name")).replace(" ", "_"))
+        blocker.setdefault("resolution_status", "unresolved")
+        blockers.append(blocker)
     critical_blockers = [row for row in blockers if row.get("severity") == "critical"]
+    unresolved_blockers = [row for row in blockers if row.get("resolution_status") != "resolved"]
+    resolved_blockers = [row for row in blockers if row.get("resolution_status") == "resolved"]
+    required_categories_present = all(
+        category in {clean_text(row.get("blocker_category")) for row in blockers}
+        for category in DISABLED_CONNECTOR_UNRESOLVED_BLOCKER_IDS
+    )
     report = {
         "contract_version": LIVE_CONNECTOR_BLOCKER_MATRIX_CONTRACT,
         "generated_at": generated_at,
         "blocker_count": len(blockers),
         "critical_blocker_count": len(critical_blockers),
+        "unresolved_blocker_count": len(unresolved_blockers),
+        "resolved_blocker_count": len(resolved_blockers),
+        "all_blockers_unresolved": len(resolved_blockers) == 0,
+        "required_disabled_connector_categories_present": required_categories_present,
         "blockers": blockers,
         "critical_blockers": [row["blocker_id"] for row in critical_blockers],
+        "unresolved_blockers": [row["blocker_id"] for row in unresolved_blockers],
+        "disabled_connector_blocker_categories": list(DISABLED_CONNECTOR_UNRESOLVED_BLOCKER_IDS),
         "current_live_connector_status": "blocked",
         "next_recommended_non_live_task": (
-            "Draft local-only connector boundary and credential handling policy review artifacts; "
+            "Build the live connector audit replay and operator approval packet as disabled/local artifacts only; "
             "do not wire wallet, signing, order, or authenticated endpoint code."
         ),
         "dry_run_only": True,
@@ -603,7 +686,12 @@ def build_live_connector_blocker_matrix(*, generated_at: str = GENERATED_AT) -> 
     }
     forbidden_paths = scan_forbidden_fields(report)
     report["forbidden_field_paths"] = forbidden_paths
-    report["passed"] = not forbidden_paths and len(blockers) >= 10
+    report["passed"] = (
+        not forbidden_paths
+        and len(blockers) >= 10
+        and len(resolved_blockers) == 0
+        and required_categories_present
+    )
     report["status"] = "passed" if report["passed"] else "failed"
     return report
 
@@ -697,6 +785,10 @@ def build_canary_governance_summary(
         "acceptance_matrix_case_count": acceptance_matrix.get("case_count"),
         "acceptance_matrix_failed_case_count": acceptance_matrix.get("failed_case_count"),
         "live_connector_blocker_count": blocker_matrix.get("blocker_count"),
+        "unresolved_live_connector_blocker_count": blocker_matrix.get("unresolved_blocker_count"),
+        "resolved_live_connector_blocker_count": blocker_matrix.get("resolved_blocker_count"),
+        "all_live_connector_blockers_unresolved": blocker_matrix.get("all_blockers_unresolved"),
+        "live_connector_blocker_ids": blocker_matrix.get("unresolved_blockers"),
         "critical_blockers": blocker_matrix.get("critical_blockers"),
         "critical_blocker_count": blocker_matrix.get("critical_blocker_count"),
         "next_recommended_non_live_task": blocker_matrix.get("next_recommended_non_live_task"),
@@ -852,6 +944,8 @@ def render_live_connector_blocker_matrix_markdown(matrix: Mapping[str, Any]) -> 
         f"- Status: `{matrix.get('current_live_connector_status')}`",
         f"- Blockers: {matrix.get('blocker_count')}",
         f"- Critical blockers: {matrix.get('critical_blocker_count')}",
+        f"- Unresolved blockers: {matrix.get('unresolved_blocker_count')}",
+        f"- Resolved blockers: {matrix.get('resolved_blocker_count')}",
         f"- Next non-live task: {matrix.get('next_recommended_non_live_task')}",
         "",
         "## Blockers",
@@ -861,6 +955,8 @@ def render_live_connector_blocker_matrix_markdown(matrix: Mapping[str, Any]) -> 
         lines.extend(
             [
                 f"- `{row.get('blocker_id')}` `{row.get('severity')}` {row.get('blocker_name')}",
+                f"  - Category: `{row.get('blocker_category')}`",
+                f"  - Resolution: `{row.get('resolution_status')}`",
                 f"  - Current status: `{row.get('current_status')}`",
                 f"  - Required future task: {row.get('required_future_task')}",
                 f"  - Why it blocks: {row.get('why_it_blocks_live_execution')}",

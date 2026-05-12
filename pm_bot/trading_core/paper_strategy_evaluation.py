@@ -16,6 +16,7 @@ from pm_bot.trading_core.schemas import (
     write_json,
     write_text,
 )
+from pm_bot.trading_core.real_wallet_connector_disabled_adapter import build_disabled_connector_passive_status
 
 PAPER_STRATEGY_EVALUATION_RECORD_CONTRACT = "pmbot_paper_strategy_evaluation_record.v1"
 PAPER_STRATEGY_EVALUATION_LEDGER_CONTRACT = "pmbot_paper_strategy_evaluation_ledger.v1"
@@ -124,6 +125,7 @@ def build_paper_strategy_evaluation_ledger(
         "risk_engine_decision_counts": dict((risk_decision_ledger or {}).get("decision_counts", {})),
         "risk_engine_reason_code_summary": dict((risk_decision_ledger or {}).get("reason_code_summary", {})),
         "dry_run_receipt_summary": _dry_run_receipt_summary(dry_run_receipt_ledger or {}),
+        "disabled_real_connector_status": build_disabled_connector_passive_status(),
         "idempotency": {
             "record_ids_unique": len(record_ids) == len(set(record_ids)),
             "record_order": "market_id_then_intent_id",
@@ -173,6 +175,7 @@ def build_paper_strategy_evaluation_summary(
         "missing_future_evaluation_data": list(strategy_ledger.get("missing_future_evaluation_data", [])),
         "source_evidence_refresh_status": dict(strategy_ledger.get("source_evidence_refresh_status", {})),
         "dry_run_receipt_summary": dict(strategy_ledger.get("dry_run_receipt_summary", {})),
+        "disabled_real_connector_status": dict(strategy_ledger.get("disabled_real_connector_status", {})),
         "next_operator_action": "Add saved local outcome resolution evidence before evaluating paper performance.",
         "paper_only": True,
         "analysis_only": True,
@@ -241,6 +244,7 @@ def run_paper_strategy_evaluation(
 
 
 def render_paper_strategy_evaluation_ledger_markdown(ledger: Mapping[str, Any]) -> str:
+    disabled_connector = dict(ledger.get("disabled_real_connector_status", {}))
     lines = [
         "# PMBOT Paper Strategy Evaluation Ledger",
         "",
@@ -251,6 +255,8 @@ def render_paper_strategy_evaluation_ledger_markdown(ledger: Mapping[str, Any]) 
         f"- Unresolved PnL invented: `{str(not ledger.get('unresolved_pnl_not_invented')).lower()}`",
         f"- Dry-run receipts: {dict(ledger.get('dry_run_receipt_summary', {})).get('receipt_count')}",
         f"- Dry-run receipts blocked: {dict(ledger.get('dry_run_receipt_summary', {})).get('blocked_receipt_count')}",
+        f"- Disabled real connector: `{disabled_connector.get('connector_status')}`",
+        f"- Real execution available: `{str(disabled_connector.get('real_execution_available')).lower()}`",
         "",
         "## Records",
         "",
@@ -290,6 +296,7 @@ def render_paper_strategy_evaluation_ledger_markdown(ledger: Mapping[str, Any]) 
 
 def render_paper_strategy_evaluation_summary_markdown(summary: Mapping[str, Any]) -> str:
     dry_run_summary = dict(summary.get("dry_run_receipt_summary", {}))
+    disabled_connector = dict(summary.get("disabled_real_connector_status", {}))
     return "\n".join(
         [
             "# PMBOT Paper Strategy Evaluation Summary",
@@ -303,6 +310,9 @@ def render_paper_strategy_evaluation_summary_markdown(summary: Mapping[str, Any]
             f"- Unresolved PnL not invented: `{str(summary.get('unresolved_pnl_not_invented')).lower()}`",
             f"- Dry-run receipts: {dry_run_summary.get('receipt_count')}",
             f"- Dry-run receipts blocked: {dry_run_summary.get('blocked_receipt_count')}",
+            f"- Disabled real connector: `{disabled_connector.get('connector_status')}`",
+            f"- Real execution available: `{str(disabled_connector.get('real_execution_available')).lower()}`",
+            f"- Secret boundary: `{disabled_connector.get('secret_boundary_status')}`",
             "",
             "## Waiting Hypotheses",
             "",

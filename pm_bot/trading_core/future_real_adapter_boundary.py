@@ -25,9 +25,15 @@ def build_future_real_adapter_boundary(*, generated_at: str = GENERATED_AT) -> d
         "risk_engine_upgrade_required": True,
         "risk_engine_v1_gate_required": True,
         "wallet_boundary_design_contract_ready": True,
+        "disabled_real_wallet_connector_adapter_present": True,
+        "disabled_real_wallet_connector_adapter_executable": False,
+        "secret_boundary_static_policy_present": True,
+        "secret_boundary_static_policy_reads_environment": False,
         "wallet_boundary_execution_enabled": False,
         "required_before_any_supervised_real_execution": [
             "Separate explicit approval task",
+            "Real-wallet connector boundary remains not executable until a separate future approval task",
+            "Static secret boundary policy must be replaced by an approved live credential handling process",
             "Wallet isolation runtime not implemented yet",
             "Wallet boundary design contract is simulation-only and non-executable",
             "Signing isolation design not implemented yet",
@@ -43,6 +49,14 @@ def build_future_real_adapter_boundary(*, generated_at: str = GENERATED_AT) -> d
             "signing",
             "orders",
             "authenticated endpoints",
+        ],
+        "still_disabled_in_this_build": [
+            "no real wallet connector",
+            "no secret configuration",
+            "no cryptographic signing",
+            "no real order submission",
+            "no authenticated endpoint calls",
+            "no live operator approval",
         ],
     }
 
@@ -87,7 +101,15 @@ def render_future_real_adapter_boundary_markdown(boundary: Mapping[str, Any]) ->
             f"- risk_engine_upgrade_required: `{str(boundary.get('risk_engine_upgrade_required')).lower()}`",
             f"- risk_engine_v1_gate_required: `{str(boundary.get('risk_engine_v1_gate_required')).lower()}`",
             f"- wallet_boundary_design_contract_ready: `{str(boundary.get('wallet_boundary_design_contract_ready')).lower()}`",
+            f"- disabled_real_wallet_connector_adapter_present: `{str(boundary.get('disabled_real_wallet_connector_adapter_present')).lower()}`",
+            f"- disabled_real_wallet_connector_adapter_executable: `{str(boundary.get('disabled_real_wallet_connector_adapter_executable')).lower()}`",
+            f"- secret_boundary_static_policy_present: `{str(boundary.get('secret_boundary_static_policy_present')).lower()}`",
+            f"- secret_boundary_static_policy_reads_environment: `{str(boundary.get('secret_boundary_static_policy_reads_environment')).lower()}`",
             f"- wallet_boundary_execution_enabled: `{str(boundary.get('wallet_boundary_execution_enabled')).lower()}`",
+            "",
+            "## Still disabled in this build",
+            "",
+            *bullet_lines(str(item) for item in boundary.get("still_disabled_in_this_build", [])),
         ]
     ) + "\n"
 

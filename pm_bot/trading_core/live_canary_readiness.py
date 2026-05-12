@@ -56,17 +56,27 @@ DRY_RUN_ACCEPTANCE_BLOCKED = "blocked"
 
 FORBIDDEN_CANARY_FIELD_NAMES = {
     "api_key",
+    "access_token",
     "auth_token",
+    "auth_header",
     "bearer",
+    "bearer_token",
     "clob_order",
+    "client_secret",
     "mnemonic",
     "order_payload",
     "private_key",
+    "privkey",
+    "raw_transaction",
+    "recovery_phrase",
     "secret",
     "seed",
+    "seed_phrase",
     "signature",
     "signed_order",
+    "signed_payload",
     "transaction_hash",
+    "wallet_password",
     "wallet_private_key",
 }
 SAFE_NEGATIVE_FIELD_PREFIXES = ("no_", "no_real_", "not_")
