@@ -120,6 +120,12 @@ BTC_MARKET_READINESS_REVIEW_ONLY_BLOCKER_CATEGORIES = (
     "real_order_adapter_not_enabled",
     "authenticated_order_connector_still_disabled",
     "real_order_submission_still_disabled",
+    "live_order_submission_boundary_review_only",
+    "live_order_submission_boundary_not_live_approval",
+    "authenticated_endpoint_required_but_disabled",
+    "signing_required_but_disabled",
+    "wallet_required_but_disabled",
+    "order_submission_boundary_non_executable",
 )
 
 

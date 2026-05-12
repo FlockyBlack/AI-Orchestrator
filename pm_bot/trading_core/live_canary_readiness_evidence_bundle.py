@@ -53,6 +53,9 @@ VALIDATION_STATUS_BTC_READ_ONLY_CONNECTOR_EVIDENCE_MISSING = "btc_read_only_conn
 VALIDATION_STATUS_BTC_ANALYSIS_ORDER_INTENT_EVIDENCE_MISSING = (
     "btc_market_analysis_to_order_intent_dry_run_evidence_missing"
 )
+VALIDATION_STATUS_LIVE_ORDER_SUBMISSION_BOUNDARY_EVIDENCE_MISSING = (
+    "live_order_submission_boundary_dry_run_adapter_evidence_missing"
+)
 
 NON_EXECUTION_STATEMENTS = (
     "This readiness evidence bundle is review evidence only.",
@@ -80,6 +83,7 @@ REQUIRED_EVIDENCE_TYPES = (
     "risk_limit_control_plane",
     "btc_read_only_market_connector",
     "btc_market_analysis_to_order_intent_dry_run",
+    "live_order_submission_boundary_dry_run_adapter",
 )
 
 OPTIONAL_EVIDENCE_TYPES = (
@@ -317,6 +321,7 @@ def build_live_canary_readiness_evidence_bundle(
     risk_limit_control_plane: Mapping[str, Any] | None = None,
     btc_read_only_market_connector: Mapping[str, Any] | None = None,
     btc_analysis_order_intent_dry_run: Mapping[str, Any] | None = None,
+    live_order_submission_boundary_dry_run_adapter: Mapping[str, Any] | None = None,
     dry_run_receipt_references: Sequence[str] | None = None,
     result_artifact_references: Sequence[str] | None = None,
     artifact_reference_overrides: Mapping[str, str] | None = None,
@@ -344,6 +349,7 @@ def build_live_canary_readiness_evidence_bundle(
     risk_control = dict(risk_limit_control_plane or {})
     btc_connector = dict(btc_read_only_market_connector or {})
     btc_analysis_order_intent = dict(btc_analysis_order_intent_dry_run or {})
+    live_order_boundary = dict(live_order_submission_boundary_dry_run_adapter or {})
     overrides = {clean_text(key): clean_text(value) for key, value in dict(artifact_reference_overrides or {}).items()}
 
     items = _build_evidence_items(
@@ -364,6 +370,7 @@ def build_live_canary_readiness_evidence_bundle(
         risk_limit_control_plane=risk_control,
         btc_read_only_market_connector=btc_connector,
         btc_analysis_order_intent_dry_run=btc_analysis_order_intent,
+        live_order_submission_boundary_dry_run_adapter=live_order_boundary,
         dry_run_receipt_references=dry_run_receipt_references,
         result_artifact_references=result_artifact_references,
         artifact_reference_overrides=overrides,
@@ -440,6 +447,9 @@ def validate_live_canary_readiness_evidence_bundle(
         "btc_read_only_market_connector": VALIDATION_STATUS_BTC_READ_ONLY_CONNECTOR_EVIDENCE_MISSING,
         "btc_market_analysis_to_order_intent_dry_run": (
             VALIDATION_STATUS_BTC_ANALYSIS_ORDER_INTENT_EVIDENCE_MISSING
+        ),
+        "live_order_submission_boundary_dry_run_adapter": (
+            VALIDATION_STATUS_LIVE_ORDER_SUBMISSION_BOUNDARY_EVIDENCE_MISSING
         ),
     }
     statuses.extend(status_by_missing_type[item] for item in missing_required if item in status_by_missing_type)
@@ -726,6 +736,7 @@ def _build_evidence_items(
     risk_limit_control_plane: Mapping[str, Any],
     btc_read_only_market_connector: Mapping[str, Any],
     btc_analysis_order_intent_dry_run: Mapping[str, Any],
+    live_order_submission_boundary_dry_run_adapter: Mapping[str, Any],
     dry_run_receipt_references: Sequence[str] | None,
     result_artifact_references: Sequence[str] | None,
     artifact_reference_overrides: Mapping[str, str],
@@ -1065,6 +1076,45 @@ def _build_evidence_items(
             "execution_enabling": False,
             "live_execution_approved": False,
             "allowed_for_live": False,
+        },
+        _item(
+            "live_order_submission_boundary_dry_run_adapter",
+            "live_order_submission_boundary",
+            _override_or_reference(
+                artifact_reference_overrides,
+                "live_order_submission_boundary_dry_run_adapter",
+                live_order_submission_boundary_dry_run_adapter,
+                ("receipt_id", "summary_id", "boundary_name", "status"),
+                "live_order_submission_boundary-041:review_only_order_submission_disabled",
+            ),
+            clean_text(
+                live_order_submission_boundary_dry_run_adapter.get("status")
+                or "review_only_order_submission_disabled"
+            ),
+            "Live order submission boundary receipt is review-only; order submission, authenticated endpoints, signing, wallet access, and live execution remain disabled.",
+            review_ready=(
+                live_order_submission_boundary_dry_run_adapter.get("order_submission_enabled") is not True
+                and live_order_submission_boundary_dry_run_adapter.get("would_submit_order") is not True
+                and live_order_submission_boundary_dry_run_adapter.get("allowed_for_live") is not True
+                and live_order_submission_boundary_dry_run_adapter.get("live_execution_approved") is not True
+                and live_order_submission_boundary_dry_run_adapter.get("real_execution_available") is not True
+                and live_order_submission_boundary_dry_run_adapter.get("execution_enabling") is not True
+            ),
+        )
+        | {
+            "review_only": True,
+            "execution_enabling": False,
+            "would_submit_order": False,
+            "order_submission_enabled": False,
+            "authenticated_endpoint_enabled": False,
+            "authenticated_endpoints_enabled": False,
+            "signing_enabled": False,
+            "wallet_enabled": False,
+            "allowed_for_live": False,
+            "live_execution_approved": False,
+            "real_execution_available": False,
+            "canary_executable_now": False,
+            "live_connector_enabled": False,
         },
     ]
     receipt_refs = _clean_list(dry_run_receipt_references)

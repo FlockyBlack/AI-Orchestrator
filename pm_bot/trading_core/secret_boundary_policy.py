@@ -165,6 +165,9 @@ SAFE_SECRET_METADATA_FIELD_NAMES = frozenset(
         "raw_secret_values_read_by_tests",
         "raw_secret_values_printed",
         "raw_secret_values_persisted",
+        "live_order_submission_boundary_receipt_secret_boundary_validation",
+        "live_order_submission_boundary_summary_secret_boundary_validation",
+        "would_submit_order",
     }
 )
 
@@ -791,6 +794,30 @@ def validate_secret_boundary_live_credentials_auth_summary(
     return validate_static_secret_boundary(
         value,
         artifact_type="live_credentials_auth_summary",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_live_order_submission_boundary_receipt(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        value,
+        artifact_type="live_order_submission_boundary_receipt",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_live_order_submission_boundary_summary(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        value,
+        artifact_type="live_order_submission_boundary_summary",
         generated_at=generated_at,
     )
 

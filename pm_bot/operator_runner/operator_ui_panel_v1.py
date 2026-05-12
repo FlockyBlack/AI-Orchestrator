@@ -15,6 +15,7 @@ from pm_bot.trading_core.secret_boundary_policy import (
     validate_secret_boundary_btc_analysis_ui_summary,
     validate_secret_boundary_btc_ui_summary,
     validate_secret_boundary_live_credentials_auth_summary,
+    validate_secret_boundary_live_order_submission_boundary_summary,
     validate_secret_boundary_risk_control_ui_summary,
     validate_secret_boundary_operator_ui_panel_action_state,
     validate_secret_boundary_operator_ui_panel_kill_switch_summary,
@@ -25,6 +26,10 @@ from pm_bot.trading_core.secret_boundary_policy import (
     validate_secret_boundary_operator_ui_panel_risk_limit_summary,
 )
 from pm_bot.trading_core.btc_market_analysis_order_intent import summarize_btc_analysis_order_intent
+from pm_bot.trading_core.live_order_submission_boundary import (
+    BOUNDARY_NAME as LIVE_ORDER_SUBMISSION_BOUNDARY_NAME,
+    summarize_live_order_submission_boundary_receipt,
+)
 from pm_bot.trading_core.risk_limit_control_plane import (
     build_default_risk_limit_policy,
     build_risk_control_plane_summary,
@@ -47,6 +52,9 @@ OPERATOR_UI_PANEL_BLOCKER_SUMMARY_CONTRACT = "pmbot_operator_ui_panel_blocker_su
 OPERATOR_UI_PANEL_BTC_MARKET_SUMMARY_CONTRACT = "pmbot_operator_ui_panel_btc_market_summary.v1"
 OPERATOR_UI_PANEL_BTC_ANALYSIS_SUMMARY_CONTRACT = "pmbot_operator_ui_panel_btc_analysis_order_intent_summary.v1"
 OPERATOR_UI_PANEL_LIVE_AUTH_SUMMARY_CONTRACT = "pmbot_operator_ui_panel_live_credentials_auth_summary.v1"
+OPERATOR_UI_PANEL_LIVE_ORDER_BOUNDARY_SUMMARY_CONTRACT = (
+    "pmbot_operator_ui_panel_live_order_submission_boundary_summary.v1"
+)
 OPERATOR_UI_PANEL_VALIDATION_CONTRACT = "pmbot_operator_ui_panel_validation.v1"
 
 TASK_ID = "ORCH-PMBOT-TRADING-MVP-036-OPERATOR-UI-PANEL-V1-READINESS-RISK-LIMITS-KILL-SWITCH"
@@ -62,10 +70,13 @@ FORCED_FALSE_EXECUTION_FIELDS = (
     "real_execution_available",
     "live_connector_enabled",
     "allowed_for_live",
+    "authenticated_endpoint_enabled",
     "authenticated_endpoints_enabled",
     "signing_enabled",
     "cryptographic_signing_enabled",
     "wallet_signing_enabled",
+    "wallet_enabled",
+    "would_submit_order",
     "order_submission_enabled",
 )
 
@@ -76,6 +87,7 @@ REQUIRED_SECTION_IDS = (
     "live_credentials_auth_boundary",
     "btc_market_connector",
     "btc_analysis_order_intent",
+    "live_order_submission_boundary",
     "risk_control_plane",
     "risk_limits",
     "kill_switch",
@@ -330,6 +342,58 @@ class OperatorUIPanelLiveCredentialsAuthSummary:
 
 
 @dataclass(frozen=True)
+class OperatorUIPanelLiveOrderSubmissionBoundarySummary:
+    boundary_name: str
+    status: str
+    dry_run_review_ready: bool
+    market_id: str
+    market_slug: str
+    asset: str
+    side: str
+    outcome: str
+    top_refusal_reasons: tuple[str, ...]
+    top_blocker_reasons: tuple[str, ...]
+    latest_live_order_submission_boundary_path: str
+    would_submit_order: bool = False
+    order_submission_enabled: bool = False
+    authenticated_endpoint_required: bool = False
+    authenticated_endpoint_enabled: bool = False
+    authenticated_endpoints_enabled: bool = False
+    signing_required_for_future_live: bool = False
+    signing_enabled: bool = False
+    wallet_required_for_future_live: bool = False
+    wallet_enabled: bool = False
+    allowed_for_live: bool = False
+    canary_executable_now: bool = False
+    live_execution_approved: bool = False
+    real_execution_available: bool = False
+    live_connector_enabled: bool = False
+
+    def to_dict(self) -> dict[str, Any]:
+        value = asdict(self)
+        value["contract_version"] = OPERATOR_UI_PANEL_LIVE_ORDER_BOUNDARY_SUMMARY_CONTRACT
+        value["top_refusal_reasons"] = list(self.top_refusal_reasons)
+        value["top_blocker_reasons"] = list(self.top_blocker_reasons)
+        value["live_order_submission_boundary_section_ready"] = True
+        value["boundary_is_not_live_approval"] = True
+        value["receipt_is_not_order_submission"] = True
+        value["execution_enabling"] = False
+        value["would_submit_order"] = False
+        value["order_submission_enabled"] = False
+        value["authenticated_endpoint_enabled"] = False
+        value["authenticated_endpoints_enabled"] = False
+        value["signing_enabled"] = False
+        value["wallet_enabled"] = False
+        value["allowed_for_live"] = False
+        value["live_execution_approved"] = False
+        value["canary_executable_now"] = False
+        value["real_execution_available"] = False
+        value["live_connector_enabled"] = False
+        value.update(_panel_safety_flags())
+        return value
+
+
+@dataclass(frozen=True)
 class OperatorUIPanelKillSwitchSummary:
     kill_switch_requirements_defined: bool
     kill_switch_verified_for_live: bool
@@ -418,6 +482,7 @@ class OperatorUIPanelV1:
     live_credentials_auth_boundary_summary: Mapping[str, Any]
     btc_market_summary: Mapping[str, Any]
     btc_analysis_order_intent_summary: Mapping[str, Any]
+    live_order_submission_boundary_summary: Mapping[str, Any]
     risk_control_plane_summary: Mapping[str, Any]
     risk_limit_summary: Mapping[str, Any]
     kill_switch_summary: Mapping[str, Any]
@@ -439,6 +504,7 @@ class OperatorUIPanelV1:
         value["live_credentials_auth_boundary_summary"] = dict(self.live_credentials_auth_boundary_summary)
         value["btc_market_summary"] = dict(self.btc_market_summary)
         value["btc_analysis_order_intent_summary"] = dict(self.btc_analysis_order_intent_summary)
+        value["live_order_submission_boundary_summary"] = dict(self.live_order_submission_boundary_summary)
         value["risk_control_plane_summary"] = dict(self.risk_control_plane_summary)
         value["risk_limit_summary"] = dict(self.risk_limit_summary)
         value["kill_switch_summary"] = dict(self.kill_switch_summary)
@@ -459,6 +525,7 @@ class OperatorUIPanelV1:
         value["live_credentials_auth_boundary_section_ready"] = True
         value["btc_market_section_ready"] = True
         value["btc_analysis_order_intent_section_ready"] = True
+        value["live_order_submission_boundary_section_ready"] = True
         value["static_html_render_ready"] = True
         value["markdown_render_ready"] = True
         value["json_render_ready"] = True
@@ -482,6 +549,8 @@ def build_operator_ui_panel_v1(
     btc_market_snapshot: Mapping[str, Any] | None = None,
     btc_read_only_connector_summary: Mapping[str, Any] | None = None,
     btc_analysis_order_intent_summary: Mapping[str, Any] | None = None,
+    live_order_submission_boundary_receipt: Mapping[str, Any] | None = None,
+    live_order_submission_boundary_summary: Mapping[str, Any] | None = None,
     live_credentials_auth_boundary_summary: Mapping[str, Any] | None = None,
     risk_limits: Mapping[str, Any] | None = None,
     risk_prep_config: Mapping[str, Any] | None = None,
@@ -549,6 +618,20 @@ def build_operator_ui_panel_v1(
         or clean_text(dashboard_value.get("latest_btc_risk_decision_path")),
         generated_at=generated_at,
     )
+    live_order_boundary_summary = _build_live_order_submission_boundary_summary(
+        live_order_submission_boundary_receipt=(
+            live_order_submission_boundary_receipt
+            or dashboard_value.get("live_order_submission_boundary_receipt", {})
+        ),
+        live_order_submission_boundary_summary=(
+            live_order_submission_boundary_summary
+            or dashboard_value.get("live_order_submission_boundary_summary", {})
+            or dashboard_value.get("live_order_submission_boundary_section_feed", {})
+        ),
+        latest_live_order_submission_boundary_path=paths.get("live_order_submission_boundary", "")
+        or clean_text(dashboard_value.get("latest_live_order_submission_boundary_path")),
+        generated_at=generated_at,
+    )
     live_auth_summary = _build_live_credentials_auth_boundary_summary(
         live_credentials_auth_boundary_summary=(
             live_credentials_auth_boundary_summary
@@ -604,6 +687,7 @@ def build_operator_ui_panel_v1(
         live_auth=live_auth_summary,
         btc_market=btc_market_summary,
         btc_analysis_order_intent=btc_analysis_summary,
+        live_order_submission_boundary=live_order_boundary_summary,
         risk_control=risk_control_summary,
         risk=risk_summary,
         kill_switch=kill_switch_summary,
@@ -624,6 +708,7 @@ def build_operator_ui_panel_v1(
             "live_auth": live_auth_summary,
             "btc_market": btc_market_summary,
             "btc_analysis_order_intent": btc_analysis_summary,
+            "live_order_submission_boundary": live_order_boundary_summary,
             "risk_control": risk_control_summary,
             "risk": risk_summary,
             "kill_switch": kill_switch_summary,
@@ -640,6 +725,7 @@ def build_operator_ui_panel_v1(
         live_credentials_auth_boundary_summary=live_auth_summary,
         btc_market_summary=btc_market_summary,
         btc_analysis_order_intent_summary=btc_analysis_summary,
+        live_order_submission_boundary_summary=live_order_boundary_summary,
         risk_control_plane_summary=risk_control_summary,
         risk_limit_summary=risk_summary,
         kill_switch_summary=kill_switch_summary,
@@ -759,6 +845,35 @@ def validate_operator_ui_panel_v1(
     ):
         errors.append("btc_analysis_order_intent_summary.analysis_is_not_live_recommendation must be true")
 
+    live_order_boundary_summary = dict(panel_value.get("live_order_submission_boundary_summary", {}))
+    live_order_boundary_validation = validate_secret_boundary_live_order_submission_boundary_summary(
+        live_order_boundary_summary,
+        generated_at=generated_at,
+    )
+    if live_order_boundary_validation.get("valid") is not True:
+        errors.append("live_order_submission_boundary_summary violates static secret boundary")
+        statuses.append("live_order_boundary_summary_secret_boundary_blocked")
+    for field in (
+        "would_submit_order",
+        "order_submission_enabled",
+        "authenticated_endpoint_enabled",
+        "authenticated_endpoints_enabled",
+        "signing_enabled",
+        "wallet_enabled",
+        "allowed_for_live",
+        "canary_executable_now",
+        "live_execution_approved",
+        "real_execution_available",
+        "live_connector_enabled",
+    ):
+        if live_order_boundary_summary.get(field) is not False:
+            errors.append(f"live_order_submission_boundary_summary.{field} must be false")
+            statuses.append("live_order_boundary_execution_flag_detected")
+    if live_order_boundary_summary.get("boundary_is_not_live_approval") is not True:
+        errors.append("live_order_submission_boundary_summary.boundary_is_not_live_approval must be true")
+    if live_order_boundary_summary.get("receipt_is_not_order_submission") is not True:
+        errors.append("live_order_submission_boundary_summary.receipt_is_not_order_submission must be true")
+
     kill_validation = validate_secret_boundary_operator_ui_panel_kill_switch_summary(
         dict(panel_value.get("kill_switch_summary", {})),
         generated_at=generated_at,
@@ -844,6 +959,7 @@ def validate_operator_ui_panel_v1(
         "btc_market_summary_secret_boundary_validation": btc_ui_validation,
         "btc_analysis_summary_secret_boundary_validation": btc_analysis_ui_validation,
         "live_credentials_auth_summary_secret_boundary_validation": live_auth_validation,
+        "live_order_submission_boundary_summary_secret_boundary_validation": live_order_boundary_validation,
         "rendered_json_secret_boundary_validation": rendered_json_validation,
         "rendered_markdown_secret_boundary_validation": rendered_md_validation,
         "rendered_html_secret_boundary_validation": rendered_html_validation,
@@ -924,6 +1040,21 @@ def summarize_operator_ui_panel_v1(panel: Mapping[str, Any]) -> dict[str, Any]:
         "btc_analysis_allowed_for_dry_run": dict(panel.get("btc_analysis_order_intent_summary", {})).get(
             "allowed_for_dry_run"
         )
+        is True,
+        "live_order_submission_boundary_section_ready": dict(
+            panel.get("live_order_submission_boundary_summary", {})
+        ).get("live_order_submission_boundary_section_ready")
+        is True,
+        "live_order_submission_boundary_status": dict(
+            panel.get("live_order_submission_boundary_summary", {})
+        ).get("status"),
+        "live_order_submission_boundary_dry_run_review_ready": dict(
+            panel.get("live_order_submission_boundary_summary", {})
+        ).get("dry_run_review_ready")
+        is True,
+        "live_order_submission_boundary_order_submission_enabled": dict(
+            panel.get("live_order_submission_boundary_summary", {})
+        ).get("order_submission_enabled")
         is True,
         "latest_risk_limit_decision_status": dict(panel.get("risk_control_plane_summary", {})).get(
             "latest_decision_status"
@@ -1356,6 +1487,53 @@ def _build_live_credentials_auth_boundary_summary(
     return result
 
 
+def _build_live_order_submission_boundary_summary(
+    *,
+    live_order_submission_boundary_receipt: Mapping[str, Any] | None,
+    live_order_submission_boundary_summary: Mapping[str, Any] | None,
+    latest_live_order_submission_boundary_path: str,
+    generated_at: str,
+) -> dict[str, Any]:
+    provided = dict(live_order_submission_boundary_summary or {})
+    if not provided and live_order_submission_boundary_receipt:
+        provided = summarize_live_order_submission_boundary_receipt(
+            live_order_submission_boundary_receipt,
+            latest_live_order_submission_boundary_path=latest_live_order_submission_boundary_path,
+            generated_at=generated_at,
+        )
+    return OperatorUIPanelLiveOrderSubmissionBoundarySummary(
+        boundary_name=clean_text(provided.get("boundary_name") or LIVE_ORDER_SUBMISSION_BOUNDARY_NAME),
+        status=clean_text(provided.get("status") or NOT_AVAILABLE),
+        dry_run_review_ready=provided.get("dry_run_review_ready") is True
+        or provided.get("allowed_for_dry_run_review") is True,
+        market_id=clean_text(provided.get("market_id")),
+        market_slug=clean_text(provided.get("market_slug")),
+        asset=clean_text(provided.get("asset") or "BTC"),
+        side=clean_text(provided.get("side")),
+        outcome=clean_text(provided.get("outcome")),
+        top_refusal_reasons=tuple(clean_text(item) for item in provided.get("top_refusal_reasons", []) if clean_text(item)),
+        top_blocker_reasons=tuple(clean_text(item) for item in provided.get("top_blocker_reasons", []) if clean_text(item)),
+        latest_live_order_submission_boundary_path=clean_text(
+            provided.get("latest_live_order_submission_boundary_path")
+            or latest_live_order_submission_boundary_path
+        ),
+        would_submit_order=False,
+        order_submission_enabled=False,
+        authenticated_endpoint_required=provided.get("authenticated_endpoint_required") is True,
+        authenticated_endpoint_enabled=False,
+        authenticated_endpoints_enabled=False,
+        signing_required_for_future_live=provided.get("signing_required_for_future_live") is True,
+        signing_enabled=False,
+        wallet_required_for_future_live=provided.get("wallet_required_for_future_live") is True,
+        wallet_enabled=False,
+        allowed_for_live=False,
+        canary_executable_now=False,
+        live_execution_approved=False,
+        real_execution_available=False,
+        live_connector_enabled=False,
+    ).to_dict()
+
+
 def _build_risk_control_plane_summary(
     *,
     risk_control_plane_summary: Mapping[str, Any] | None,
@@ -1626,6 +1804,7 @@ def _build_sections(
     live_auth: Mapping[str, Any],
     btc_market: Mapping[str, Any],
     btc_analysis_order_intent: Mapping[str, Any],
+    live_order_submission_boundary: Mapping[str, Any],
     risk_control: Mapping[str, Any],
     risk: Mapping[str, Any],
     kill_switch: Mapping[str, Any],
@@ -1835,6 +2014,57 @@ def _build_sections(
             ],
         ),
         _section(
+            "live_order_submission_boundary",
+            "Live Order Submission Boundary",
+            clean_text(live_order_submission_boundary.get("status") or NOT_AVAILABLE),
+            [
+                _metric("boundary_name", "Boundary", live_order_submission_boundary.get("boundary_name")),
+                _metric("dry_run_review_ready", "Dry-run review ready", live_order_submission_boundary.get("dry_run_review_ready")),
+                _metric("market_id", "Market ID", live_order_submission_boundary.get("market_id")),
+                _metric("market_slug", "Market slug", live_order_submission_boundary.get("market_slug")),
+                _metric("asset", "Asset", live_order_submission_boundary.get("asset")),
+                _metric("side", "Side", live_order_submission_boundary.get("side")),
+                _metric("outcome", "Outcome", live_order_submission_boundary.get("outcome")),
+                _metric("would_submit_order", "Would submit order", False),
+                _metric("order_submission_enabled", "Order submission enabled", False),
+                _metric(
+                    "authenticated_endpoint_required",
+                    "Authenticated endpoint required for future live",
+                    live_order_submission_boundary.get("authenticated_endpoint_required"),
+                ),
+                _metric("authenticated_endpoint_enabled", "Authenticated endpoint enabled", False),
+                _metric(
+                    "signing_required_for_future_live",
+                    "Signing required for future live",
+                    live_order_submission_boundary.get("signing_required_for_future_live"),
+                ),
+                _metric("signing_enabled", "Signing enabled", False),
+                _metric(
+                    "wallet_required_for_future_live",
+                    "Wallet required for future live",
+                    live_order_submission_boundary.get("wallet_required_for_future_live"),
+                ),
+                _metric("wallet_enabled", "Wallet enabled", False),
+                _metric("allowed_for_live", "Allowed for live", False),
+                _metric("live_execution_approved", "Live execution approved", False),
+                _metric(
+                    "top_refusal_reasons",
+                    "Top refusal reasons",
+                    live_order_submission_boundary.get("top_refusal_reasons"),
+                ),
+                _metric(
+                    "top_blocker_reasons",
+                    "Top blocker reasons",
+                    live_order_submission_boundary.get("top_blocker_reasons"),
+                ),
+                _metric(
+                    "latest_live_order_submission_boundary_path",
+                    "Latest boundary receipt",
+                    live_order_submission_boundary.get("latest_live_order_submission_boundary_path"),
+                ),
+            ],
+        ),
+        _section(
             "risk_control_plane",
             "Risk Control Plane",
             clean_text(risk_control.get("risk_control_plane_status") or "ready_no_intent_evaluated"),
@@ -1990,11 +2220,14 @@ def _panel_safety_flags() -> dict[str, Any]:
         "real_order_placement_added": False,
         "real_order_placement_performed": False,
         "authenticated_endpoint_added": False,
+        "authenticated_endpoint_enabled": False,
         "authenticated_endpoints_enabled": False,
         "authenticated_endpoint_call_performed": False,
         "signing_enabled": False,
         "cryptographic_signing_enabled": False,
         "wallet_signing_enabled": False,
+        "wallet_enabled": False,
+        "would_submit_order": False,
         "order_submission_enabled": False,
         "browser_automation_added": False,
         "scheduler_or_daemon_added": False,

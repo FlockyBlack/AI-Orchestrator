@@ -54,6 +54,10 @@ from pm_bot.trading_core.live_credentials_auth_boundary import (
     evaluate_live_auth_boundary_for_tiny_canary,
     summarize_live_credentials_status,
 )
+from pm_bot.trading_core.live_order_submission_boundary import (
+    build_live_order_submission_boundary_receipt,
+    summarize_live_order_submission_boundary_receipt,
+)
 from pm_bot.trading_core.live_connector_audit_replay import (
     build_live_connector_audit_replay,
     render_live_connector_audit_replay_markdown,
@@ -266,6 +270,7 @@ class PaperDailyLoopResult:
     btc_market_analysis_path: str
     btc_order_intent_dry_run_path: str
     btc_risk_decision_path: str
+    live_order_submission_boundary_path: str
     tiny_live_canary_preflight_contract_path: str
     tiny_live_canary_manual_runbook_path: str
     tiny_live_canary_preflight_result_path: str
@@ -627,6 +632,9 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
     latest_live_credentials_auth_boundary_path = (
         normalize_path(paths["live_credentials_auth_boundary"]) if active_config.write_artifacts else ""
     )
+    latest_live_order_submission_boundary_path = (
+        normalize_path(paths["live_order_submission_boundary"]) if active_config.write_artifacts else ""
+    )
     live_credentials_auth_boundary_config = build_default_live_credentials_boundary_config(
         generated_at=generated_at,
     )
@@ -702,6 +710,24 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         latest_btc_risk_decision_path=latest_btc_risk_decision_path,
         generated_at=generated_at,
     )
+    live_order_submission_boundary = build_live_order_submission_boundary_receipt(
+        btc_dry_run_order_intent=btc_analysis_order_intent_result,
+        risk_decision=latest_risk_limit_decision,
+        risk_decision_summary=btc_risk_decision_summary,
+        risk_control_plane_summary=risk_control_plane_summary,
+        live_credentials_auth_boundary=live_credentials_auth_boundary,
+        live_credentials_auth_boundary_summary=live_credentials_auth_boundary_summary,
+        operator_approval_packet=operator_live_approval_packet,
+        operator_intent_packet=operator_intent_packet,
+        kill_switch_context=tiny_live_canary_kill_switch_validation,
+        blocker_matrix=live_connector_blocker_matrix,
+        generated_at=generated_at,
+    )
+    live_order_submission_boundary_summary = summarize_live_order_submission_boundary_receipt(
+        live_order_submission_boundary,
+        latest_live_order_submission_boundary_path=latest_live_order_submission_boundary_path,
+        generated_at=generated_at,
+    )
     readiness_evidence_bundle = build_live_canary_readiness_evidence_bundle(
         disabled_connector_status=build_disabled_connector_passive_status(
             result=disabled_connector_result,
@@ -726,6 +752,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         risk_limit_control_plane=risk_control_plane_summary,
         btc_read_only_market_connector=btc_read_only_connector_summary,
         btc_analysis_order_intent_dry_run=btc_analysis_order_intent_summary,
+        live_order_submission_boundary_dry_run_adapter=live_order_submission_boundary_summary,
         dry_run_receipt_references=[canary_dry_run_receipt.get("receipt_id", "")],
         result_artifact_references=[
             normalize_path(paths["result"]) if active_config.write_artifacts else "paper_daily_loop_result:current-run",
@@ -766,6 +793,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
             "risk_limit_control_plane": risk_control_plane_summary.get("policy_id", ""),
             "btc_read_only_market_connector": latest_btc_market_snapshot_path,
             "btc_market_analysis_to_order_intent_dry_run": latest_btc_order_intent_path,
+            "live_order_submission_boundary_dry_run_adapter": latest_live_order_submission_boundary_path,
         },
         generated_at=generated_at,
     )
@@ -872,6 +900,8 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         btc_order_intent_dry_run=btc_order_intent_dry_run,
         btc_risk_decision_summary=btc_risk_decision_summary,
         btc_analysis_order_intent_summary=btc_analysis_order_intent_summary,
+        live_order_submission_boundary=live_order_submission_boundary,
+        live_order_submission_boundary_summary=live_order_submission_boundary_summary,
         latest_disabled_connector_audit_path=(
             normalize_path(paths["disabled_connector_audit"]) if active_config.write_artifacts else ""
         ),
@@ -894,6 +924,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         latest_btc_analysis_path=latest_btc_analysis_path,
         latest_btc_order_intent_path=latest_btc_order_intent_path,
         latest_btc_risk_decision_path=latest_btc_risk_decision_path,
+        latest_live_order_submission_boundary_path=latest_live_order_submission_boundary_path,
         source_evidence_refresh_ledger=source_evidence_refresh_ledger,
         generated_at=generated_at,
     )
@@ -908,6 +939,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         "btc_market_analysis": latest_btc_analysis_path,
         "btc_order_intent_dry_run": latest_btc_order_intent_path,
         "btc_risk_decision": latest_btc_risk_decision_path,
+        "live_order_submission_boundary": latest_live_order_submission_boundary_path,
         "operator_live_approval_packet": (
             normalize_path(paths["operator_live_approval_packet"]) if active_config.write_artifacts else ""
         ),
@@ -930,6 +962,8 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         btc_market_snapshot=btc_market_snapshot,
         btc_read_only_connector_summary=btc_market_snapshot_summary,
         btc_analysis_order_intent_summary=btc_analysis_order_intent_summary,
+        live_order_submission_boundary_receipt=live_order_submission_boundary,
+        live_order_submission_boundary_summary=live_order_submission_boundary_summary,
         live_credentials_auth_boundary_summary=live_credentials_auth_boundary_summary,
         risk_limits=limits,
         risk_prep_config=risk_prep_config,
@@ -995,6 +1029,8 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
             btc_order_intent_dry_run,
             btc_risk_decision_summary,
             btc_analysis_order_intent_summary,
+            live_order_submission_boundary,
+            live_order_submission_boundary_summary,
             live_credentials_auth_boundary,
             live_credentials_auth_boundary_summary,
             risk_limit_policy,
@@ -1100,6 +1136,46 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         and btc_analysis_order_intent_summary.get("analysis_is_not_live_recommendation") is True
         and btc_analysis_order_intent_summary.get("order_intent_is_not_order_submission") is True
         and btc_analysis_order_intent_summary.get("allowed_for_live") is False
+        and live_order_submission_boundary.get("status") == "dry_run_submission_boundary_review_ready"
+        and live_order_submission_boundary.get("allowed_for_dry_run_review") is True
+        and live_order_submission_boundary.get("dry_run_submission_boundary_ready") is True
+        and live_order_submission_boundary.get("boundary_is_not_live_approval") is True
+        and live_order_submission_boundary.get("receipt_is_not_order_submission") is True
+        and live_order_submission_boundary.get("would_submit_order") is False
+        and live_order_submission_boundary.get("order_submission_enabled") is False
+        and live_order_submission_boundary.get("authenticated_endpoint_required") is True
+        and live_order_submission_boundary.get("authenticated_endpoint_enabled") is False
+        and live_order_submission_boundary.get("authenticated_endpoints_enabled") is False
+        and live_order_submission_boundary.get("signing_required_for_future_live") is True
+        and live_order_submission_boundary.get("signing_enabled") is False
+        and live_order_submission_boundary.get("cryptographic_signing_enabled") is False
+        and live_order_submission_boundary.get("wallet_required_for_future_live") is True
+        and live_order_submission_boundary.get("wallet_enabled") is False
+        and live_order_submission_boundary.get("wallet_signing_enabled") is False
+        and live_order_submission_boundary.get("allowed_for_live") is False
+        and live_order_submission_boundary.get("live_execution_approved") is False
+        and live_order_submission_boundary.get("real_execution_available") is False
+        and live_order_submission_boundary.get("canary_executable_now") is False
+        and live_order_submission_boundary.get("live_connector_enabled") is False
+        and live_order_submission_boundary.get("real_order_submitted") is False
+        and live_order_submission_boundary.get("execution_claimed") is False
+        and live_order_submission_boundary.get("fill_claimed") is False
+        and live_order_submission_boundary.get("network_used") is False
+        and live_order_submission_boundary.get("external_api_calls_performed") is False
+        and live_order_submission_boundary.get("environment_secrets_read") is False
+        and live_order_submission_boundary.get("secrets_read") is False
+        and live_order_submission_boundary.get("actual_secret_values_exposed") is False
+        and live_order_submission_boundary.get("validation", {}).get("valid") is True
+        and live_order_submission_boundary_summary.get("dry_run_review_ready") is True
+        and live_order_submission_boundary_summary.get("order_submission_enabled") is False
+        and live_order_submission_boundary_summary.get("would_submit_order") is False
+        and live_order_submission_boundary_summary.get("authenticated_endpoint_enabled") is False
+        and live_order_submission_boundary_summary.get("signing_enabled") is False
+        and live_order_submission_boundary_summary.get("wallet_enabled") is False
+        and live_order_submission_boundary_summary.get("allowed_for_live") is False
+        and live_order_submission_boundary_summary.get("live_execution_approved") is False
+        and live_order_submission_boundary_summary.get("real_execution_available") is False
+        and live_order_submission_boundary_summary.get("canary_executable_now") is False
         and live_credentials_auth_boundary.get("live_credentials_boundary_ready") is True
         and live_credentials_auth_boundary.get("live_auth_presence_check_ready") is True
         and live_credentials_auth_boundary.get("redacted_credential_status_ready") is True
@@ -1219,6 +1295,13 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         and dashboard.get("btc_risk_decision_summary", {}).get("risk_decision_status") == "ALLOW_DRY_RUN"
         and dashboard.get("btc_analysis_order_intent_summary", {}).get("allowed_for_dry_run") is True
         and dashboard.get("btc_analysis_order_intent_summary", {}).get("allowed_for_live") is False
+        and dashboard.get("live_order_submission_boundary_summary", {}).get("dry_run_review_ready") is True
+        and dashboard.get("live_order_submission_boundary_summary", {}).get("order_submission_enabled") is False
+        and dashboard.get("live_order_submission_boundary_summary", {}).get("would_submit_order") is False
+        and dashboard.get("live_order_submission_boundary_summary", {}).get("allowed_for_live") is False
+        and dashboard.get("live_order_submission_boundary_summary", {}).get("live_execution_approved") is False
+        and dashboard.get("live_order_submission_boundary_summary", {}).get("real_execution_available") is False
+        and dashboard.get("live_order_submission_boundary_summary", {}).get("canary_executable_now") is False
         and dashboard.get("live_credentials_auth_boundary_summary", {}).get("redacted_credential_status_ready")
         is True
         and dashboard.get("live_credentials_auth_boundary_summary", {}).get("actual_secret_values_exposed") is False
@@ -1238,6 +1321,11 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         is True
         and operator_ui_panel_v1.get("btc_analysis_order_intent_summary", {}).get("allowed_for_dry_run") is True
         and operator_ui_panel_v1.get("btc_analysis_order_intent_summary", {}).get("allowed_for_live") is False
+        and operator_ui_panel_v1.get("live_order_submission_boundary_summary", {}).get("dry_run_review_ready") is True
+        and operator_ui_panel_v1.get("live_order_submission_boundary_summary", {}).get("would_submit_order") is False
+        and operator_ui_panel_v1.get("live_order_submission_boundary_summary", {}).get("order_submission_enabled")
+        is False
+        and operator_ui_panel_v1.get("live_order_submission_boundary_summary", {}).get("allowed_for_live") is False
         and operator_ui_panel_v1.get("live_credentials_auth_boundary_summary", {}).get(
             "redacted_credential_status_ready"
         )
@@ -1303,6 +1391,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         btc_market_analysis_path=latest_btc_analysis_path,
         btc_order_intent_dry_run_path=latest_btc_order_intent_path,
         btc_risk_decision_path=latest_btc_risk_decision_path,
+        live_order_submission_boundary_path=latest_live_order_submission_boundary_path,
         tiny_live_canary_preflight_contract_path=(
             normalize_path(paths["tiny_live_canary_preflight_contract"]) if active_config.write_artifacts else ""
         ),
@@ -1374,6 +1463,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
             btc_market_analysis=btc_market_analysis,
             btc_order_intent_dry_run=btc_order_intent_dry_run,
             btc_risk_decision=latest_risk_limit_decision,
+            live_order_submission_boundary=live_order_submission_boundary,
             tiny_live_canary_preflight_contract=tiny_live_canary_preflight_contract,
             tiny_live_canary_manual_runbook=tiny_live_canary_manual_runbook,
             tiny_live_canary_preflight_result=tiny_live_canary_preflight_result,
@@ -1435,6 +1525,7 @@ def _daily_paths(output_dir: Path) -> dict[str, Path]:
         "btc_market_analysis": output_dir / "btc_market_analysis_039.json",
         "btc_order_intent_dry_run": output_dir / "btc_order_intent_dry_run_039.json",
         "btc_risk_decision": output_dir / "btc_risk_decision_039.json",
+        "live_order_submission_boundary": output_dir / "live_order_submission_boundary_041.json",
         "tiny_live_canary_preflight_contract": output_dir / "tiny_live_canary_preflight_contract.json",
         "tiny_live_canary_preflight_contract_md": output_dir / "tiny_live_canary_preflight_contract.md",
         "tiny_live_canary_manual_runbook": output_dir / "tiny_live_canary_manual_runbook.json",
@@ -1955,6 +2046,8 @@ def _build_daily_dashboard(
     btc_order_intent_dry_run: Mapping[str, Any],
     btc_risk_decision_summary: Mapping[str, Any],
     btc_analysis_order_intent_summary: Mapping[str, Any],
+    live_order_submission_boundary: Mapping[str, Any],
+    live_order_submission_boundary_summary: Mapping[str, Any],
     latest_disabled_connector_audit_path: str,
     latest_audit_replay_path: str,
     latest_operator_packet_path: str,
@@ -1967,6 +2060,7 @@ def _build_daily_dashboard(
     latest_btc_analysis_path: str,
     latest_btc_order_intent_path: str,
     latest_btc_risk_decision_path: str,
+    latest_live_order_submission_boundary_path: str,
     source_evidence_refresh_ledger: Mapping[str, Any],
     generated_at: str,
 ) -> dict[str, Any]:
@@ -2093,6 +2187,13 @@ def _build_daily_dashboard(
             "btc_market_analysis_count": 1 if btc_market_analysis else 0,
             "btc_order_intent_dry_run_count": 1 if btc_order_intent_dry_run else 0,
             "btc_risk_decision_count": 1 if btc_risk_decision_summary else 0,
+            "live_order_submission_boundary_count": 1 if live_order_submission_boundary else 0,
+            "live_order_submission_boundary_review_ready_count": (
+                1 if live_order_submission_boundary.get("allowed_for_dry_run_review") is True else 0
+            ),
+            "live_order_submission_boundary_blocked_count": (
+                1 if live_order_submission_boundary.get("status") == "blocked" else 0
+            ),
             "readiness_evidence_item_count": int(readiness_evidence_bundle.get("evidence_item_count", 0) or 0),
             "readiness_evidence_missing_required_count": int(
                 readiness_evidence_bundle.get("missing_required_evidence_count", 0) or 0
@@ -2240,6 +2341,41 @@ def _build_daily_dashboard(
         "latest_btc_analysis_path": clean_text(latest_btc_analysis_path),
         "latest_btc_order_intent_path": clean_text(latest_btc_order_intent_path),
         "latest_btc_risk_decision_path": clean_text(latest_btc_risk_decision_path),
+        "live_order_submission_boundary": dict(live_order_submission_boundary),
+        "live_order_submission_boundary_summary": dict(live_order_submission_boundary_summary)
+        | {
+            "latest_live_order_submission_boundary_path": clean_text(latest_live_order_submission_boundary_path),
+            "order_submission_enabled": False,
+            "would_submit_order": False,
+            "authenticated_endpoint_enabled": False,
+            "signing_enabled": False,
+            "wallet_enabled": False,
+            "allowed_for_live": False,
+            "live_execution_approved": False,
+            "real_execution_available": False,
+            "canary_executable_now": False,
+            "live_connector_enabled": False,
+        },
+        "live_order_submission_boundary_section_feed": dict(live_order_submission_boundary_summary)
+        | {
+            "latest_live_order_submission_boundary_path": clean_text(latest_live_order_submission_boundary_path),
+            "order_submission_enabled": False,
+            "would_submit_order": False,
+            "authenticated_endpoint_enabled": False,
+            "authenticated_endpoints_enabled": False,
+            "signing_enabled": False,
+            "cryptographic_signing_enabled": False,
+            "wallet_enabled": False,
+            "wallet_signing_enabled": False,
+            "allowed_for_live": False,
+            "live_execution_approved": False,
+            "real_execution_available": False,
+            "canary_executable_now": False,
+            "live_connector_enabled": False,
+            "execution_enabling": False,
+            "review_only": True,
+        },
+        "latest_live_order_submission_boundary_path": clean_text(latest_live_order_submission_boundary_path),
         "btc_market_section_feed": {
             "btc_market_connector_status": btc_market_snapshot_summary.get("btc_market_connector_status"),
             "market_id": btc_market_snapshot_summary.get("market_id"),
@@ -2757,6 +2893,7 @@ def _write_daily_artifacts(
     btc_market_analysis: Mapping[str, Any],
     btc_order_intent_dry_run: Mapping[str, Any],
     btc_risk_decision: Mapping[str, Any],
+    live_order_submission_boundary: Mapping[str, Any],
     tiny_live_canary_preflight_contract: Mapping[str, Any],
     tiny_live_canary_manual_runbook: Mapping[str, Any],
     tiny_live_canary_preflight_result: Mapping[str, Any],
@@ -2823,6 +2960,7 @@ def _write_daily_artifacts(
     write_json(paths["btc_market_analysis"], btc_market_analysis)
     write_json(paths["btc_order_intent_dry_run"], btc_order_intent_dry_run)
     write_json(paths["btc_risk_decision"], btc_risk_decision)
+    write_json(paths["live_order_submission_boundary"], live_order_submission_boundary)
     write_json(paths["tiny_live_canary_preflight_contract"], tiny_live_canary_preflight_contract)
     write_text(
         paths["tiny_live_canary_preflight_contract_md"],
@@ -2935,6 +3073,9 @@ def _render_daily_dashboard_markdown(dashboard: Mapping[str, Any]) -> str:
         f"- Live canary needs operator approval: {counts.get('live_canary_needs_operator_approval_count')}",
         f"- Readiness evidence items: {counts.get('readiness_evidence_item_count')}",
         f"- Missing readiness evidence: {counts.get('readiness_evidence_missing_required_count')}",
+        f"- Live order boundary artifacts: {counts.get('live_order_submission_boundary_count')}",
+        f"- Live order boundary review-ready: {counts.get('live_order_submission_boundary_review_ready_count')}",
+        f"- Live order boundary blocked: {counts.get('live_order_submission_boundary_blocked_count')}",
         f"- Source evidence records: {counts.get('source_evidence_refresh_record_count')}",
         f"- Source evidence gaps: {counts.get('source_evidence_gap_count')}",
         "",
@@ -2975,6 +3116,7 @@ def _render_daily_dashboard_markdown(dashboard: Mapping[str, Any]) -> str:
     operator_intent = dict(dashboard.get("operator_intent_packet_summary", {}))
     readiness_evidence = dict(dashboard.get("readiness_evidence_bundle_summary", {}))
     live_auth = dict(dashboard.get("live_credentials_auth_boundary_summary", {}))
+    live_order_boundary = dict(dashboard.get("live_order_submission_boundary_summary", {}))
     operator_ui_panel = dict(dashboard.get("operator_ui_panel_v1_summary", {}))
     operator_ui_panel_paths = dict(dashboard.get("operator_ui_panel_v1_paths", {}))
     risk_prep = dict(dashboard.get("risk_prep_config_status", {}))
@@ -3129,6 +3271,30 @@ def _render_daily_dashboard_markdown(dashboard: Mapping[str, Any]) -> str:
             f"- Live connector enabled: `{str(live_auth.get('live_connector_enabled')).lower()}`",
             f"- Latest auth boundary: `{live_auth.get('latest_live_credentials_auth_boundary_path')}`",
             f"- Warning: {live_auth.get('warning')}",
+            "",
+            "## Live Order Submission Boundary",
+            "",
+            f"- Status: `{live_order_boundary.get('status')}`",
+            f"- Dry-run review ready: `{str(live_order_boundary.get('dry_run_review_ready')).lower()}`",
+            f"- Market: `{live_order_boundary.get('market_id')}` / `{live_order_boundary.get('market_slug')}`",
+            f"- Asset: `{live_order_boundary.get('asset')}`",
+            f"- Side: `{live_order_boundary.get('side')}`",
+            f"- Outcome: `{live_order_boundary.get('outcome')}`",
+            f"- Would submit order: `{str(live_order_boundary.get('would_submit_order')).lower()}`",
+            f"- Order submission enabled: `{str(live_order_boundary.get('order_submission_enabled')).lower()}`",
+            f"- Authenticated endpoint required for future live: `{str(live_order_boundary.get('authenticated_endpoint_required')).lower()}`",
+            f"- Authenticated endpoint enabled: `{str(live_order_boundary.get('authenticated_endpoint_enabled')).lower()}`",
+            f"- Signing required for future live: `{str(live_order_boundary.get('signing_required_for_future_live')).lower()}`",
+            f"- Signing enabled: `{str(live_order_boundary.get('signing_enabled')).lower()}`",
+            f"- Wallet required for future live: `{str(live_order_boundary.get('wallet_required_for_future_live')).lower()}`",
+            f"- Wallet enabled: `{str(live_order_boundary.get('wallet_enabled')).lower()}`",
+            f"- Allowed for live: `{str(live_order_boundary.get('allowed_for_live')).lower()}`",
+            f"- Canary executable now: `{str(live_order_boundary.get('canary_executable_now')).lower()}`",
+            f"- Latest order boundary: `{live_order_boundary.get('latest_live_order_submission_boundary_path')}`",
+            "- Refusal reasons:",
+            *bullet_lines(str(item) for item in live_order_boundary.get("top_refusal_reasons", [])),
+            "- Blocker reasons:",
+            *bullet_lines(str(item) for item in live_order_boundary.get("top_blocker_reasons", [])),
             "",
             "## BTC Read-Only Market Connector",
             "",
@@ -3393,6 +3559,7 @@ def _render_daily_run_report(
             f"- BTC market analysis: `{result.get('btc_market_analysis_path')}`",
             f"- BTC dry-run order intent: `{result.get('btc_order_intent_dry_run_path')}`",
             f"- BTC risk decision: `{result.get('btc_risk_decision_path')}`",
+            f"- Live order submission boundary: `{result.get('live_order_submission_boundary_path')}`",
             f"- Operator UI panel JSON: `{result.get('operator_ui_panel_json_path')}`",
             f"- Operator UI panel Markdown: `{result.get('operator_ui_panel_md_path')}`",
             f"- Operator UI panel HTML: `{result.get('operator_ui_panel_html_path')}`",
