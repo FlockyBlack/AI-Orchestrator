@@ -51,6 +51,17 @@ from pm_bot.trading_core.operator_live_approval_packet import (
     build_operator_live_approval_packet,
     render_operator_live_approval_packet_markdown,
 )
+from pm_bot.trading_core.tiny_live_canary_manual_runbook import (
+    build_tiny_live_canary_manual_runbook,
+    render_tiny_live_canary_manual_runbook_markdown,
+)
+from pm_bot.trading_core.tiny_live_canary_preflight_contract import (
+    build_tiny_live_canary_kill_switch_validation,
+    build_tiny_live_canary_preflight_contract,
+    evaluate_tiny_live_canary_preflight,
+    render_tiny_live_canary_preflight_contract_markdown,
+    render_tiny_live_canary_preflight_result_markdown,
+)
 from pm_bot.trading_core.real_wallet_connector_disabled_adapter import (
     DisabledRealWalletConnectorConfig,
     RealWalletConnectorDisabledAdapter,
@@ -208,6 +219,9 @@ class PaperDailyLoopResult:
     canary_dry_run_receipt_path: str
     live_connector_audit_replay_path: str
     operator_live_approval_packet_path: str
+    tiny_live_canary_preflight_contract_path: str
+    tiny_live_canary_manual_runbook_path: str
+    tiny_live_canary_preflight_result_path: str
     portfolio_path: str
     rollforward_path: str
     outcome_recheck_queue_path: str
@@ -349,6 +363,12 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         portfolio_state=portfolio_state,
         generated_at=generated_at,
     )
+    tiny_live_canary_preflight_contract = build_tiny_live_canary_preflight_contract(generated_at=generated_at)
+    tiny_live_canary_manual_runbook = build_tiny_live_canary_manual_runbook(generated_at=generated_at)
+    tiny_live_canary_kill_switch_validation = build_tiny_live_canary_kill_switch_validation(
+        tiny_live_canary_preflight_contract.get("kill_switch_requirement", {}),
+        generated_at=generated_at,
+    )
     canary_market_id = select_canary_market_id(
         paper_strategy_ledger=strategy_ledger,
         risk_decision_ledger=risk_decision_ledger,
@@ -415,6 +435,12 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
             disabled_connector_result.get("validation", {}).get("config_secret_boundary_validation", {}),
         ],
         dry_run_receipt_references=[canary_dry_run_receipt.get("receipt_id", "")],
+        tiny_live_canary_preflight_contract_references=[
+            tiny_live_canary_preflight_contract.get("contract_id", "")
+        ],
+        tiny_live_canary_manual_runbook_references=[
+            tiny_live_canary_manual_runbook.get("runbook_id", "")
+        ],
         live_connector_blocker_matrix=live_connector_blocker_matrix,
         generated_at=generated_at,
     )
@@ -433,17 +459,41 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         canary_replay_acceptance_references=[canary_dry_run_receipt.get("receipt_id", "")],
         wallet_boundary_references=[canary_readiness_packet.get("wallet_boundary_packet_id", "")],
         risk_decision_references=[canary_readiness_packet.get("risk_decision_id", "")],
+        tiny_live_canary_preflight_contract=tiny_live_canary_preflight_contract,
+        tiny_live_canary_manual_runbook=tiny_live_canary_manual_runbook,
         latest_audit_replay_path=(
             normalize_path(paths["live_connector_audit_replay"]) if active_config.write_artifacts else ""
         ),
+        latest_tiny_canary_contract_path=(
+            normalize_path(paths["tiny_live_canary_preflight_contract"]) if active_config.write_artifacts else ""
+        ),
+        latest_manual_runbook_path=(
+            normalize_path(paths["tiny_live_canary_manual_runbook"]) if active_config.write_artifacts else ""
+        ),
+        generated_at=generated_at,
+    )
+    tiny_live_canary_preflight_result = evaluate_tiny_live_canary_preflight(
+        contract=tiny_live_canary_preflight_contract,
+        manual_runbook=tiny_live_canary_manual_runbook,
+        operator_packet=operator_live_approval_packet,
+        audit_replay_result=live_connector_audit_replay,
+        secret_boundary_validation=live_connector_audit_replay.get("secret_boundary_validation_summary", {}),
+        blocker_matrix=live_connector_blocker_matrix,
+        kill_switch_validation=tiny_live_canary_kill_switch_validation,
         generated_at=generated_at,
     )
     strategy_ledger["live_connector_audit_replay_status"] = live_connector_audit_replay.get("status")
     strategy_ledger["operator_review_packet_status"] = operator_live_approval_packet.get("operator_packet_status")
+    strategy_ledger["tiny_live_canary_preflight_status"] = tiny_live_canary_preflight_result.get("status")
+    strategy_ledger["manual_runbook_status"] = tiny_live_canary_manual_runbook.get("status")
+    strategy_ledger["canary_executable_now"] = False
     strategy_ledger["live_execution_approved"] = False
     strategy_ledger["real_execution_available"] = False
     strategy_summary["live_connector_audit_replay_status"] = live_connector_audit_replay.get("status")
     strategy_summary["operator_review_packet_status"] = operator_live_approval_packet.get("operator_packet_status")
+    strategy_summary["tiny_live_canary_preflight_status"] = tiny_live_canary_preflight_result.get("status")
+    strategy_summary["manual_runbook_status"] = tiny_live_canary_manual_runbook.get("status")
+    strategy_summary["canary_executable_now"] = False
     strategy_summary["live_execution_approved"] = False
     strategy_summary["real_execution_available"] = False
     dashboard = _build_daily_dashboard(
@@ -474,6 +524,9 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         live_connector_audit_replay=live_connector_audit_replay,
         operator_live_approval_packet=operator_live_approval_packet,
         live_connector_blocker_matrix=live_connector_blocker_matrix,
+        tiny_live_canary_preflight_contract=tiny_live_canary_preflight_contract,
+        tiny_live_canary_manual_runbook=tiny_live_canary_manual_runbook,
+        tiny_live_canary_preflight_result=tiny_live_canary_preflight_result,
         latest_disabled_connector_audit_path=(
             normalize_path(paths["disabled_connector_audit"]) if active_config.write_artifacts else ""
         ),
@@ -482,6 +535,12 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         ),
         latest_operator_packet_path=(
             normalize_path(paths["operator_live_approval_packet"]) if active_config.write_artifacts else ""
+        ),
+        latest_tiny_canary_contract_path=(
+            normalize_path(paths["tiny_live_canary_preflight_contract"]) if active_config.write_artifacts else ""
+        ),
+        latest_manual_runbook_path=(
+            normalize_path(paths["tiny_live_canary_manual_runbook"]) if active_config.write_artifacts else ""
         ),
         source_evidence_refresh_ledger=source_evidence_refresh_ledger,
         generated_at=generated_at,
@@ -520,6 +579,10 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
             live_connector_audit_replay,
             operator_live_approval_packet,
             live_connector_blocker_matrix,
+            tiny_live_canary_preflight_contract,
+            tiny_live_canary_manual_runbook,
+            tiny_live_canary_kill_switch_validation,
+            tiny_live_canary_preflight_result,
         ],
         generated_at=generated_at,
     )
@@ -596,6 +659,16 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         and operator_live_approval_packet.get("live_execution_approved") is False
         and operator_live_approval_packet.get("real_execution_available") is False
         and operator_live_approval_packet.get("live_connector_enabled") is False
+        and tiny_live_canary_preflight_contract.get("preflight_contract_ready") is True
+        and tiny_live_canary_manual_runbook.get("manual_runbook_ready") is True
+        and tiny_live_canary_kill_switch_validation.get("requirements_defined") is True
+        and tiny_live_canary_kill_switch_validation.get("verified_for_live") is False
+        and tiny_live_canary_preflight_result.get("preflight_contract_ready") is True
+        and tiny_live_canary_preflight_result.get("manual_runbook_ready") is True
+        and tiny_live_canary_preflight_result.get("future_canary_shape_defined") is True
+        and tiny_live_canary_preflight_result.get("canary_executable_now") is False
+        and tiny_live_canary_preflight_result.get("live_execution_approved") is False
+        and tiny_live_canary_preflight_result.get("real_execution_available") is False
         and dashboard.get("live_canary_readiness_summary", {}).get("canary_replay_passed") is True
         and dashboard.get("live_canary_readiness_summary", {}).get("acceptance_matrix_passed") is True
         and int(dashboard.get("live_canary_readiness_summary", {}).get("live_connector_blocker_count", 0) or 0) >= 10
@@ -607,6 +680,9 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         and dashboard.get("live_connector_audit_operator_summary", {}).get("operator_review_ready") is True
         and dashboard.get("live_connector_audit_operator_summary", {}).get("live_execution_approved") is False
         and dashboard.get("live_connector_audit_operator_summary", {}).get("real_execution_available") is False
+        and dashboard.get("tiny_live_canary_preflight_runbook_summary", {}).get("canary_executable_now") is False
+        and dashboard.get("tiny_live_canary_preflight_runbook_summary", {}).get("live_execution_approved") is False
+        and dashboard.get("tiny_live_canary_preflight_runbook_summary", {}).get("real_execution_available") is False
         and dashboard.get("live_canary_readiness_summary", {}).get("dry_run_only_assertion")
         == "This checklist does not make live execution available."
         and safety_scan["safety_ok"] is True
@@ -658,6 +734,15 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         operator_live_approval_packet_path=(
             normalize_path(paths["operator_live_approval_packet"]) if active_config.write_artifacts else ""
         ),
+        tiny_live_canary_preflight_contract_path=(
+            normalize_path(paths["tiny_live_canary_preflight_contract"]) if active_config.write_artifacts else ""
+        ),
+        tiny_live_canary_manual_runbook_path=(
+            normalize_path(paths["tiny_live_canary_manual_runbook"]) if active_config.write_artifacts else ""
+        ),
+        tiny_live_canary_preflight_result_path=(
+            normalize_path(paths["tiny_live_canary_preflight_result"]) if active_config.write_artifacts else ""
+        ),
         portfolio_path=normalize_path(paths["portfolio"]) if active_config.write_artifacts else "",
         rollforward_path=normalize_path(paths["rollforward"]) if active_config.write_artifacts else "",
         outcome_recheck_queue_path=normalize_path(paths["outcome_recheck"]) if active_config.write_artifacts else "",
@@ -706,6 +791,9 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
             disabled_connector_audit=disabled_connector_audit,
             live_connector_audit_replay=live_connector_audit_replay,
             operator_live_approval_packet=operator_live_approval_packet,
+            tiny_live_canary_preflight_contract=tiny_live_canary_preflight_contract,
+            tiny_live_canary_manual_runbook=tiny_live_canary_manual_runbook,
+            tiny_live_canary_preflight_result=tiny_live_canary_preflight_result,
             result=result,
         )
     return result
@@ -755,6 +843,12 @@ def _daily_paths(output_dir: Path) -> dict[str, Path]:
         "live_connector_audit_replay_md": output_dir / "live_connector_audit_replay.md",
         "operator_live_approval_packet": output_dir / "operator_live_approval_packet.json",
         "operator_live_approval_packet_md": output_dir / "operator_live_approval_packet.md",
+        "tiny_live_canary_preflight_contract": output_dir / "tiny_live_canary_preflight_contract.json",
+        "tiny_live_canary_preflight_contract_md": output_dir / "tiny_live_canary_preflight_contract.md",
+        "tiny_live_canary_manual_runbook": output_dir / "tiny_live_canary_manual_runbook.json",
+        "tiny_live_canary_manual_runbook_md": output_dir / "tiny_live_canary_manual_runbook.md",
+        "tiny_live_canary_preflight_result": output_dir / "tiny_live_canary_preflight_result.json",
+        "tiny_live_canary_preflight_result_md": output_dir / "tiny_live_canary_preflight_result.md",
         "portfolio": output_dir / "paper_daily_portfolio_state.json",
         "portfolio_md": output_dir / "paper_daily_portfolio_state.md",
         "rollforward": output_dir / "paper_daily_rollforward.json",
@@ -1149,9 +1243,14 @@ def _build_daily_dashboard(
     live_connector_audit_replay: Mapping[str, Any],
     operator_live_approval_packet: Mapping[str, Any],
     live_connector_blocker_matrix: Mapping[str, Any],
+    tiny_live_canary_preflight_contract: Mapping[str, Any],
+    tiny_live_canary_manual_runbook: Mapping[str, Any],
+    tiny_live_canary_preflight_result: Mapping[str, Any],
     latest_disabled_connector_audit_path: str,
     latest_audit_replay_path: str,
     latest_operator_packet_path: str,
+    latest_tiny_canary_contract_path: str,
+    latest_manual_runbook_path: str,
     source_evidence_refresh_ledger: Mapping[str, Any],
     generated_at: str,
 ) -> dict[str, Any]:
@@ -1168,6 +1267,9 @@ def _build_daily_dashboard(
         operator_approval_packet=operator_live_approval_packet,
         generated_at=generated_at,
     )
+    canary_governance_summary["tiny_live_canary_preflight_status"] = tiny_live_canary_preflight_result.get("status")
+    canary_governance_summary["manual_runbook_status"] = tiny_live_canary_manual_runbook.get("status")
+    canary_governance_summary["canary_executable_now"] = False
     return {
         "contract_version": PAPER_DAILY_DASHBOARD_CONTRACT,
         "dashboard_id": f"paper-daily-dashboard-022-{config.run_date}",
@@ -1261,6 +1363,9 @@ def _build_daily_dashboard(
             "operator_live_review_checklist_count": len(
                 operator_live_approval_packet.get("required_human_checklist", [])
             ),
+            "tiny_live_canary_preflight_blocker_count": int(
+                tiny_live_canary_preflight_result.get("blocker_count", 0) or 0
+            ),
             "disabled_connector_blocked_reason_count": len(disabled_connector_result.get("blocked_reason_ids", [])),
             "source_evidence_refresh_record_count": int(source_counts.get("records", 0) or 0),
             "source_evidence_gap_count": int(
@@ -1282,6 +1387,9 @@ def _build_daily_dashboard(
             "unresolved_pnl_not_invented": strategy_ledger.get("unresolved_pnl_not_invented"),
             "live_connector_audit_replay_status": strategy_ledger.get("live_connector_audit_replay_status"),
             "operator_review_packet_status": strategy_ledger.get("operator_review_packet_status"),
+            "tiny_live_canary_preflight_status": strategy_ledger.get("tiny_live_canary_preflight_status"),
+            "manual_runbook_status": strategy_ledger.get("manual_runbook_status"),
+            "canary_executable_now": strategy_ledger.get("canary_executable_now") is True,
             "live_execution_approved": strategy_ledger.get("live_execution_approved") is True,
             "real_execution_available": strategy_ledger.get("real_execution_available") is True,
         },
@@ -1294,6 +1402,9 @@ def _build_daily_dashboard(
             "unresolved_pnl_not_invented": strategy_summary.get("unresolved_pnl_not_invented"),
             "live_connector_audit_replay_status": strategy_summary.get("live_connector_audit_replay_status"),
             "operator_review_packet_status": strategy_summary.get("operator_review_packet_status"),
+            "tiny_live_canary_preflight_status": strategy_summary.get("tiny_live_canary_preflight_status"),
+            "manual_runbook_status": strategy_summary.get("manual_runbook_status"),
+            "canary_executable_now": strategy_summary.get("canary_executable_now") is True,
             "live_execution_approved": strategy_summary.get("live_execution_approved") is True,
             "real_execution_available": strategy_summary.get("real_execution_available") is True,
             "hypotheses_waiting_for_outcome_resolution": strategy_summary.get(
@@ -1405,10 +1516,41 @@ def _build_daily_dashboard(
             "next_recommended_non_live_task": canary_governance_summary.get("next_recommended_non_live_task"),
             "operator_approval_packet_status": canary_governance_summary.get("operator_approval_packet_status"),
             "operator_review_ready": canary_governance_summary.get("operator_review_ready") is True,
+            "tiny_live_canary_preflight_status": tiny_live_canary_preflight_result.get("status"),
+            "manual_runbook_status": tiny_live_canary_manual_runbook.get("status"),
+            "future_canary_shape_defined": tiny_live_canary_preflight_result.get("future_canary_shape_defined") is True,
+            "canary_executable_now": False,
             "live_execution_approved": False,
             "real_execution_available": False,
             "dry_run_only_assertion": canary_governance_summary.get("dry_run_only_assertion"),
             "governance_summary": canary_governance_summary,
+        },
+        "tiny_live_canary_preflight_runbook_summary": {
+            "tiny_live_canary_preflight_status": clean_text(tiny_live_canary_preflight_result.get("status")),
+            "manual_runbook_status": clean_text(tiny_live_canary_manual_runbook.get("status")),
+            "future_canary_shape_defined": tiny_live_canary_preflight_result.get("future_canary_shape_defined")
+            is True,
+            "preflight_contract_ready": tiny_live_canary_preflight_result.get("preflight_contract_ready") is True,
+            "manual_runbook_ready": tiny_live_canary_preflight_result.get("manual_runbook_ready") is True,
+            "canary_executable_now": False,
+            "live_execution_approved": False,
+            "real_execution_available": False,
+            "kill_switch_requirements_defined": tiny_live_canary_preflight_result.get(
+                "kill_switch_requirements_defined"
+            )
+            is True,
+            "kill_switch_verified_for_live": False,
+            "unresolved_live_blocker_count": int(
+                tiny_live_canary_preflight_result.get("unresolved_live_blocker_count", 0) or 0
+            ),
+            "latest_tiny_canary_contract_path": clean_text(latest_tiny_canary_contract_path),
+            "latest_manual_runbook_path": clean_text(latest_manual_runbook_path),
+            "contract_id": clean_text(tiny_live_canary_preflight_contract.get("contract_id")),
+            "runbook_id": clean_text(tiny_live_canary_manual_runbook.get("runbook_id")),
+            "preflight_result_id": clean_text(tiny_live_canary_preflight_result.get("result_id")),
+            "blocker_ids": list(tiny_live_canary_preflight_result.get("blocker_ids", [])),
+            "operator_review_is_not_live_approval": True,
+            "canary_preflight_is_not_execution_approval": True,
         },
         "disabled_real_connector_summary": build_disabled_connector_passive_status(
             result=disabled_connector_result,
@@ -1667,6 +1809,9 @@ def _write_daily_artifacts(
     disabled_connector_audit: Mapping[str, Any],
     live_connector_audit_replay: Mapping[str, Any],
     operator_live_approval_packet: Mapping[str, Any],
+    tiny_live_canary_preflight_contract: Mapping[str, Any],
+    tiny_live_canary_manual_runbook: Mapping[str, Any],
+    tiny_live_canary_preflight_result: Mapping[str, Any],
     result: PaperDailyLoopResult,
 ) -> None:
     write_json(paths["config"], config.to_dict())
@@ -1717,6 +1862,21 @@ def _write_daily_artifacts(
     write_text(
         paths["operator_live_approval_packet_md"],
         render_operator_live_approval_packet_markdown(operator_live_approval_packet),
+    )
+    write_json(paths["tiny_live_canary_preflight_contract"], tiny_live_canary_preflight_contract)
+    write_text(
+        paths["tiny_live_canary_preflight_contract_md"],
+        render_tiny_live_canary_preflight_contract_markdown(tiny_live_canary_preflight_contract),
+    )
+    write_json(paths["tiny_live_canary_manual_runbook"], tiny_live_canary_manual_runbook)
+    write_text(
+        paths["tiny_live_canary_manual_runbook_md"],
+        render_tiny_live_canary_manual_runbook_markdown(tiny_live_canary_manual_runbook),
+    )
+    write_json(paths["tiny_live_canary_preflight_result"], tiny_live_canary_preflight_result)
+    write_text(
+        paths["tiny_live_canary_preflight_result_md"],
+        render_tiny_live_canary_preflight_result_markdown(tiny_live_canary_preflight_result),
     )
     write_json(paths["source_evidence_refresh_request"], source_evidence_refresh_request)
     write_json(paths["source_evidence_refresh"], source_evidence_refresh_ledger)
@@ -1842,6 +2002,7 @@ def _render_daily_dashboard_markdown(dashboard: Mapping[str, Any]) -> str:
     dry_run_receipts = dict(dashboard.get("dry_run_receipt_summary", {}))
     dry_run_gates = dict(dry_run_receipts.get("gate_enforcement_summary", {}))
     canary = dict(dashboard.get("live_canary_readiness_summary", {}))
+    tiny_preflight = dict(dashboard.get("tiny_live_canary_preflight_runbook_summary", {}))
     disabled_connector = dict(dashboard.get("disabled_real_connector_summary", {}))
     audit_operator = dict(dashboard.get("live_connector_audit_operator_summary", {}))
     risk_prep = dict(dashboard.get("risk_prep_config_status", {}))
@@ -1937,6 +2098,9 @@ def _render_daily_dashboard_markdown(dashboard: Mapping[str, Any]) -> str:
             f"- Canary replay status: `{canary.get('canary_replay_status')}`",
             f"- Acceptance matrix status: `{canary.get('acceptance_matrix_status')}`",
             f"- Acceptance matrix failed cases: {canary.get('acceptance_matrix_failed_case_count')}",
+            f"- Tiny preflight status: `{canary.get('tiny_live_canary_preflight_status')}`",
+            f"- Manual runbook status: `{canary.get('manual_runbook_status')}`",
+            f"- Canary executable now: `{str(canary.get('canary_executable_now')).lower()}`",
             f"- Live connector blockers: {canary.get('live_connector_blocker_count')}",
             f"- Critical live connector blockers: {canary.get('critical_blocker_count')}",
             f"- Unresolved live connector blockers: {canary.get('unresolved_live_connector_blocker_count')}",
@@ -1952,6 +2116,22 @@ def _render_daily_dashboard_markdown(dashboard: Mapping[str, Any]) -> str:
             f"- {canary.get('next_recommended_non_live_task')}",
             "- Next operator action:",
             f"- {canary.get('next_operator_action')}",
+            "",
+            "## Tiny Live Canary Preflight And Manual Runbook",
+            "",
+            f"- Preflight status: `{tiny_preflight.get('tiny_live_canary_preflight_status')}`",
+            f"- Manual runbook status: `{tiny_preflight.get('manual_runbook_status')}`",
+            f"- Future canary shape defined: `{str(tiny_preflight.get('future_canary_shape_defined')).lower()}`",
+            f"- Preflight contract ready: `{str(tiny_preflight.get('preflight_contract_ready')).lower()}`",
+            f"- Manual runbook ready: `{str(tiny_preflight.get('manual_runbook_ready')).lower()}`",
+            f"- Canary executable now: `{str(tiny_preflight.get('canary_executable_now')).lower()}`",
+            f"- Live execution approved: `{str(tiny_preflight.get('live_execution_approved')).lower()}`",
+            f"- Real execution available: `{str(tiny_preflight.get('real_execution_available')).lower()}`",
+            f"- Kill-switch requirements defined: `{str(tiny_preflight.get('kill_switch_requirements_defined')).lower()}`",
+            f"- Kill-switch verified for live: `{str(tiny_preflight.get('kill_switch_verified_for_live')).lower()}`",
+            f"- Unresolved live blockers: {tiny_preflight.get('unresolved_live_blocker_count')}",
+            f"- Latest preflight contract: `{tiny_preflight.get('latest_tiny_canary_contract_path')}`",
+            f"- Latest manual runbook: `{tiny_preflight.get('latest_manual_runbook_path')}`",
             "",
             "## Disabled Real Connector",
             "",
@@ -2098,6 +2278,9 @@ def _render_daily_run_report(
             f"- Risk decision ledger: `{result.get('risk_decision_ledger_path')}`",
             f"- Wallet boundary audit ledger: `{result.get('wallet_boundary_audit_ledger_path')}`",
             f"- Dry-run execution receipts: `{result.get('dry_run_receipt_ledger_path')}`",
+            f"- Tiny canary preflight contract: `{result.get('tiny_live_canary_preflight_contract_path')}`",
+            f"- Tiny canary manual runbook: `{result.get('tiny_live_canary_manual_runbook_path')}`",
+            f"- Tiny canary preflight result: `{result.get('tiny_live_canary_preflight_result_path')}`",
             f"- Live canary operator approval record: `{result.get('canary_operator_approval_record_path')}`",
             f"- Live canary readiness packet: `{result.get('canary_readiness_packet_path')}`",
             f"- Live canary dry-run receipt: `{result.get('canary_dry_run_receipt_path')}`",

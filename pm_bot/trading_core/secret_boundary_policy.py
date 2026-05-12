@@ -247,6 +247,54 @@ def validate_secret_boundary_operator_checklist_item(
     )
 
 
+def validate_secret_boundary_tiny_canary_preflight_contract(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        value,
+        artifact_type="tiny_canary_preflight_contract",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_tiny_canary_manual_runbook(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        value,
+        artifact_type="tiny_canary_manual_runbook",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_tiny_canary_kill_switch_requirement_packet(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        value,
+        artifact_type="tiny_canary_kill_switch_requirement_packet",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_tiny_canary_evidence_requirement_packet(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        value,
+        artifact_type="tiny_canary_evidence_requirement_packet",
+        generated_at=generated_at,
+    )
+
+
 def validate_secret_boundary_result_artifact(
     value: Mapping[str, Any],
     *,

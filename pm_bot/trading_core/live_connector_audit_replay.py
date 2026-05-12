@@ -101,6 +101,8 @@ class LiveConnectorAuditReplayInput:
     risk_decision_references: tuple[str, ...]
     secret_boundary_validation_summaries: tuple[Mapping[str, Any], ...]
     dry_run_receipt_references: tuple[str, ...] = ()
+    tiny_live_canary_preflight_contract_references: tuple[str, ...] = ()
+    tiny_live_canary_manual_runbook_references: tuple[str, ...] = ()
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -114,6 +116,12 @@ class LiveConnectorAuditReplayInput:
                 dict(row) for row in self.secret_boundary_validation_summaries
             ],
             "dry_run_receipt_references": list(self.dry_run_receipt_references),
+            "tiny_live_canary_preflight_contract_references": list(
+                self.tiny_live_canary_preflight_contract_references
+            ),
+            "tiny_live_canary_manual_runbook_references": list(
+                self.tiny_live_canary_manual_runbook_references
+            ),
         }
 
 
@@ -146,6 +154,17 @@ class LiveConnectorAuditReplayResult:
         value.update(_static_replay_safety_flags())
         value["live_execution_approved"] = False
         value["live_connector_enabled"] = False
+        value["tiny_live_canary_preflight_status"] = (
+            "referenced"
+            if value["artifact_references"].get("tiny_live_canary_preflight_contract_references")
+            else "not_provided"
+        )
+        value["manual_runbook_status"] = (
+            "referenced"
+            if value["artifact_references"].get("tiny_live_canary_manual_runbook_references")
+            else "not_provided"
+        )
+        value["canary_executable_now"] = False
         value["operator_review_artifact_only"] = True
         value["safety_summary"] = trading_core_safety_summary()
         return value
@@ -161,6 +180,8 @@ def build_live_connector_audit_replay(
     risk_decision_references: Sequence[str] | None = None,
     secret_boundary_validation_summaries: Sequence[Mapping[str, Any]] | None = None,
     dry_run_receipt_references: Sequence[str] | None = None,
+    tiny_live_canary_preflight_contract_references: Sequence[str] | None = None,
+    tiny_live_canary_manual_runbook_references: Sequence[str] | None = None,
     live_connector_blocker_matrix: Mapping[str, Any] | None = None,
     generated_at: str = GENERATED_AT,
 ) -> dict[str, Any]:
@@ -173,6 +194,8 @@ def build_live_connector_audit_replay(
         risk_decision_references=risk_decision_references,
         secret_boundary_validation_summaries=secret_boundary_validation_summaries,
         dry_run_receipt_references=dry_run_receipt_references,
+        tiny_live_canary_preflight_contract_references=tiny_live_canary_preflight_contract_references,
+        tiny_live_canary_manual_runbook_references=tiny_live_canary_manual_runbook_references,
     )
     blocker_matrix = dict(live_connector_blocker_matrix or build_live_connector_blocker_matrix(generated_at=generated_at))
     missing_artifacts = _missing_artifacts(replay_value)
@@ -199,6 +222,12 @@ def build_live_connector_audit_replay(
         "wallet_boundary_packet_references": list(replay_value.wallet_boundary_packet_references),
         "risk_decision_references": list(replay_value.risk_decision_references),
         "dry_run_receipt_references": list(replay_value.dry_run_receipt_references),
+        "tiny_live_canary_preflight_contract_references": list(
+            replay_value.tiny_live_canary_preflight_contract_references
+        ),
+        "tiny_live_canary_manual_runbook_references": list(
+            replay_value.tiny_live_canary_manual_runbook_references
+        ),
     }
     replay_id = _stable_id(
         "live-connector-audit-replay-032",
@@ -248,6 +277,8 @@ def validate_live_connector_audit_replay(
         errors.append("live_execution_approved must be false")
     if replay_result.get("live_connector_enabled") is not False:
         errors.append("live_connector_enabled must be false")
+    if replay_result.get("canary_executable_now") is not False:
+        errors.append("canary_executable_now must be false")
     if replay_result.get("external_api_calls_performed") is not False:
         errors.append("external_api_calls_performed must be false")
     if replay_result.get("deterministic") is not True:
@@ -291,6 +322,9 @@ def render_live_connector_audit_replay_markdown(replay_result: Mapping[str, Any]
         f"- Deterministic: `{str(replay_result.get('deterministic')).lower()}`",
         f"- Real execution available: `{str(replay_result.get('real_execution_available')).lower()}`",
         f"- Live execution approved: `{str(replay_result.get('live_execution_approved')).lower()}`",
+        f"- Tiny canary preflight: `{replay_result.get('tiny_live_canary_preflight_status')}`",
+        f"- Manual runbook: `{replay_result.get('manual_runbook_status')}`",
+        f"- Canary executable now: `{str(replay_result.get('canary_executable_now')).lower()}`",
         f"- Secret boundary: `{secret_summary.get('status')}`",
         f"- Unresolved live blockers: {blocker_summary.get('unresolved_live_connector_blocker_count')}",
         "",
@@ -460,6 +494,8 @@ def _coerce_input(
     risk_decision_references: Sequence[str] | None,
     secret_boundary_validation_summaries: Sequence[Mapping[str, Any]] | None,
     dry_run_receipt_references: Sequence[str] | None,
+    tiny_live_canary_preflight_contract_references: Sequence[str] | None,
+    tiny_live_canary_manual_runbook_references: Sequence[str] | None,
 ) -> LiveConnectorAuditReplayInput:
     if isinstance(replay_input, LiveConnectorAuditReplayInput):
         return replay_input
@@ -489,6 +525,18 @@ def _coerce_input(
         ),
         dry_run_receipt_references=tuple(
             _clean_list(dry_run_receipt_references or value.get("dry_run_receipt_references"))
+        ),
+        tiny_live_canary_preflight_contract_references=tuple(
+            _clean_list(
+                tiny_live_canary_preflight_contract_references
+                or value.get("tiny_live_canary_preflight_contract_references")
+            )
+        ),
+        tiny_live_canary_manual_runbook_references=tuple(
+            _clean_list(
+                tiny_live_canary_manual_runbook_references
+                or value.get("tiny_live_canary_manual_runbook_references")
+            )
         ),
     )
 

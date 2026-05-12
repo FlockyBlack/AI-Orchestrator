@@ -36,6 +36,8 @@ def build_paper_strategy_evaluation_ledger(
     dry_run_receipt_ledger: Mapping[str, Any] | None = None,
     live_connector_audit_replay_status: str = "not_generated",
     operator_review_packet_status: str = "not_generated",
+    tiny_live_canary_preflight_status: str = "not_generated",
+    manual_runbook_status: str = "not_generated",
     generated_at: str = GENERATED_AT,
 ) -> dict[str, Any]:
     run_id = _first_text(
@@ -130,6 +132,9 @@ def build_paper_strategy_evaluation_ledger(
         "disabled_real_connector_status": build_disabled_connector_passive_status(),
         "live_connector_audit_replay_status": clean_text(live_connector_audit_replay_status),
         "operator_review_packet_status": clean_text(operator_review_packet_status),
+        "tiny_live_canary_preflight_status": clean_text(tiny_live_canary_preflight_status),
+        "manual_runbook_status": clean_text(manual_runbook_status),
+        "canary_executable_now": False,
         "live_execution_approved": False,
         "real_execution_available": False,
         "idempotency": {
@@ -186,6 +191,11 @@ def build_paper_strategy_evaluation_summary(
             strategy_ledger.get("live_connector_audit_replay_status")
         ),
         "operator_review_packet_status": clean_text(strategy_ledger.get("operator_review_packet_status")),
+        "tiny_live_canary_preflight_status": clean_text(
+            strategy_ledger.get("tiny_live_canary_preflight_status")
+        ),
+        "manual_runbook_status": clean_text(strategy_ledger.get("manual_runbook_status")),
+        "canary_executable_now": False,
         "live_execution_approved": False,
         "real_execution_available": False,
         "next_operator_action": "Add saved local outcome resolution evidence before evaluating paper performance.",
@@ -271,6 +281,9 @@ def render_paper_strategy_evaluation_ledger_markdown(ledger: Mapping[str, Any]) 
         f"- Real execution available: `{str(disabled_connector.get('real_execution_available')).lower()}`",
         f"- Live connector audit replay: `{ledger.get('live_connector_audit_replay_status')}`",
         f"- Operator review packet: `{ledger.get('operator_review_packet_status')}`",
+        f"- Tiny canary preflight: `{ledger.get('tiny_live_canary_preflight_status')}`",
+        f"- Manual runbook: `{ledger.get('manual_runbook_status')}`",
+        f"- Canary executable now: `{str(ledger.get('canary_executable_now')).lower()}`",
         f"- Live execution approved: `{str(ledger.get('live_execution_approved')).lower()}`",
         "",
         "## Records",
@@ -330,6 +343,9 @@ def render_paper_strategy_evaluation_summary_markdown(summary: Mapping[str, Any]
             f"- Secret boundary: `{disabled_connector.get('secret_boundary_status')}`",
             f"- Live connector audit replay: `{summary.get('live_connector_audit_replay_status')}`",
             f"- Operator review packet: `{summary.get('operator_review_packet_status')}`",
+            f"- Tiny canary preflight: `{summary.get('tiny_live_canary_preflight_status')}`",
+            f"- Manual runbook: `{summary.get('manual_runbook_status')}`",
+            f"- Canary executable now: `{str(summary.get('canary_executable_now')).lower()}`",
             f"- Live execution approved: `{str(summary.get('live_execution_approved')).lower()}`",
             "",
             "## Waiting Hypotheses",

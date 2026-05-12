@@ -56,8 +56,11 @@ class OperatorLiveApprovalPacket:
     canary_replay_acceptance_references: tuple[str, ...]
     wallet_boundary_references: tuple[str, ...]
     risk_decision_references: tuple[str, ...]
+    tiny_live_canary_preflight_summary: Mapping[str, Any]
     required_human_checklist: tuple[Mapping[str, Any], ...]
     latest_audit_replay_path: str
+    latest_tiny_canary_contract_path: str
+    latest_manual_runbook_path: str
     generated_at: str
 
     def to_dict(self) -> dict[str, Any]:
@@ -72,11 +75,13 @@ class OperatorLiveApprovalPacket:
         value["canary_replay_acceptance_references"] = list(self.canary_replay_acceptance_references)
         value["wallet_boundary_references"] = list(self.wallet_boundary_references)
         value["risk_decision_references"] = list(self.risk_decision_references)
+        value["tiny_live_canary_preflight_summary"] = dict(self.tiny_live_canary_preflight_summary)
         value["required_human_checklist"] = [dict(row) for row in self.required_human_checklist]
         value["operator_review_ready"] = self.operator_packet_status == OPERATOR_REVIEW_READY
         value["live_execution_approved"] = False
         value["real_execution_available"] = False
         value["live_connector_enabled"] = False
+        value["canary_executable_now"] = False
         value["operator_review_is_not_live_approval"] = True
         value["non_approval_statement"] = NON_APPROVAL_STATEMENT
         value.update(_packet_safety_flags())
@@ -117,7 +122,12 @@ def build_operator_live_approval_packet(
     canary_replay_acceptance_references: Sequence[str] | None = None,
     wallet_boundary_references: Sequence[str] | None = None,
     risk_decision_references: Sequence[str] | None = None,
+    tiny_live_canary_preflight_contract: Mapping[str, Any] | None = None,
+    tiny_live_canary_manual_runbook: Mapping[str, Any] | None = None,
+    tiny_live_canary_preflight_result: Mapping[str, Any] | None = None,
     latest_audit_replay_path: str = "",
+    latest_tiny_canary_contract_path: str = "",
+    latest_manual_runbook_path: str = "",
     generated_at: str = GENERATED_AT,
 ) -> dict[str, Any]:
     replay_refs = dict(audit_replay_result.get("artifact_references", {}))
@@ -133,6 +143,13 @@ def build_operator_live_approval_packet(
     secret_summary = dict(
         secret_boundary_validation_summary or audit_replay_result.get("secret_boundary_validation_summary", {})
     )
+    tiny_preflight_summary = _tiny_live_canary_preflight_summary(
+        contract=tiny_live_canary_preflight_contract,
+        manual_runbook=tiny_live_canary_manual_runbook,
+        preflight_result=tiny_live_canary_preflight_result,
+        latest_tiny_canary_contract_path=latest_tiny_canary_contract_path,
+        latest_manual_runbook_path=latest_manual_runbook_path,
+    )
     checklist = tuple(
         _default_checklist(
             disabled_connector_status=disabled_connector_status,
@@ -142,6 +159,7 @@ def build_operator_live_approval_packet(
             canary_readiness_references=canary_refs,
             wallet_boundary_references=wallet_refs,
             risk_decision_references=risk_refs,
+            tiny_live_canary_preflight_summary=tiny_preflight_summary,
         )
     )
     static_ready = _static_review_ready(
@@ -168,6 +186,7 @@ def build_operator_live_approval_packet(
             "canary_replay_acceptance_references": canary_replay_refs,
             "wallet_boundary_references": wallet_refs,
             "risk_decision_references": risk_refs,
+            "tiny_live_canary_preflight_summary": tiny_preflight_summary,
             "operator_review_ready": static_ready,
         },
     )
@@ -184,8 +203,11 @@ def build_operator_live_approval_packet(
         canary_replay_acceptance_references=tuple(canary_replay_refs),
         wallet_boundary_references=tuple(wallet_refs),
         risk_decision_references=tuple(risk_refs),
+        tiny_live_canary_preflight_summary=tiny_preflight_summary,
         required_human_checklist=checklist,
         latest_audit_replay_path=clean_text(latest_audit_replay_path),
+        latest_tiny_canary_contract_path=clean_text(latest_tiny_canary_contract_path),
+        latest_manual_runbook_path=clean_text(latest_manual_runbook_path),
         generated_at=generated_at,
     ).to_dict()
     validation = validate_operator_live_approval_packet(packet, generated_at=generated_at)
@@ -218,6 +240,12 @@ def validate_operator_live_approval_packet(
     for field in ("live_execution_approved", "real_execution_available", "live_connector_enabled"):
         if packet.get(field) is not False:
             errors.append(f"{field} must be false")
+    if packet.get("canary_executable_now") is not False:
+        errors.append("canary_executable_now must be false")
+    preflight_summary = dict(packet.get("tiny_live_canary_preflight_summary", {}))
+    for field in ("canary_executable_now", "live_execution_approved", "real_execution_available"):
+        if preflight_summary.get(field) is not False:
+            errors.append(f"tiny_live_canary_preflight_summary.{field} must be false")
     if dict(packet.get("disabled_connector_status", {})).get("connector_status") != CONNECTOR_STATUS_DISABLED:
         errors.append("disabled connector status must remain disabled")
     if dict(packet.get("disabled_connector_status", {})).get("real_execution_available") is not False:
@@ -277,6 +305,7 @@ def validate_operator_live_approval_packet(
 
 
 def render_operator_live_approval_packet_markdown(packet: Mapping[str, Any]) -> str:
+    tiny_preflight = dict(packet.get("tiny_live_canary_preflight_summary", {}))
     lines = [
         "# PMBOT Operator Live Review Packet",
         "",
@@ -293,6 +322,9 @@ def render_operator_live_approval_packet_markdown(packet: Mapping[str, Any]) -> 
         f"- Audit replay status: `{packet.get('audit_replay_status')}`",
         f"- Disabled connector: `{dict(packet.get('disabled_connector_status', {})).get('connector_status')}`",
         f"- Unresolved blockers: {len(packet.get('unresolved_blocker_ids', []))}",
+        f"- Tiny canary preflight: `{tiny_preflight.get('preflight_contract_status')}`",
+        f"- Manual runbook: `{tiny_preflight.get('manual_runbook_status')}`",
+        f"- Canary executable now: `{str(tiny_preflight.get('canary_executable_now')).lower()}`",
         "",
         "## Required Human Checklist",
         "",
@@ -344,6 +376,7 @@ def _default_checklist(
     canary_readiness_references: Sequence[str],
     wallet_boundary_references: Sequence[str],
     risk_decision_references: Sequence[str],
+    tiny_live_canary_preflight_summary: Mapping[str, Any],
 ) -> list[dict[str, Any]]:
     rows = [
         OperatorLiveApprovalChecklistItem(
@@ -384,6 +417,19 @@ def _default_checklist(
             evidence_reference="operator_review_only",
         ),
     ]
+    if clean_text(tiny_live_canary_preflight_summary.get("preflight_contract_status")) != "not_generated":
+        rows.append(
+            OperatorLiveApprovalChecklistItem(
+                item_id="review_tiny_live_canary_preflight_runbook",
+                title="Review tiny live canary preflight contract and manual runbook references as non-approval artifacts.",
+                evidence_reference=";".join(
+                    [
+                        clean_text(tiny_live_canary_preflight_summary.get("latest_tiny_canary_contract_path")),
+                        clean_text(tiny_live_canary_preflight_summary.get("latest_manual_runbook_path")),
+                    ]
+                ),
+            )
+        )
     return [row.to_dict() for row in rows]
 
 
@@ -422,8 +468,49 @@ def _packet_safety_flags() -> dict[str, Any]:
         "live_execution_performed": False,
         "live_execution_allowed": False,
         "live_execution_enabled": False,
+        "canary_executable_now": False,
         "outcome_resolution_invented": False,
         "pnl_invented": False,
+    }
+
+
+def _tiny_live_canary_preflight_summary(
+    *,
+    contract: Mapping[str, Any] | None,
+    manual_runbook: Mapping[str, Any] | None,
+    preflight_result: Mapping[str, Any] | None,
+    latest_tiny_canary_contract_path: str,
+    latest_manual_runbook_path: str,
+) -> dict[str, Any]:
+    contract_value = dict(contract or {})
+    runbook_value = dict(manual_runbook or {})
+    result_value = dict(preflight_result or {})
+    return {
+        "preflight_contract_status": clean_text(
+            dict(contract_value.get("validation", {})).get("status")
+            or ("passed" if contract_value.get("preflight_contract_ready") is True else "not_generated")
+        ),
+        "manual_runbook_status": clean_text(
+            runbook_value.get("status") or ("passed" if runbook_value.get("manual_runbook_ready") is True else "not_generated")
+        ),
+        "preflight_result_status": clean_text(result_value.get("status") or "not_generated"),
+        "preflight_contract_ready": contract_value.get("preflight_contract_ready") is True,
+        "manual_runbook_ready": runbook_value.get("manual_runbook_ready") is True,
+        "future_canary_shape_defined": (
+            contract_value.get("future_tiny_canary_defined") is True
+            or result_value.get("future_canary_shape_defined") is True
+        ),
+        "kill_switch_requirements_defined": (
+            dict(contract_value.get("kill_switch_requirement", {})).get("requirements_defined") is True
+            or result_value.get("kill_switch_requirements_defined") is True
+        ),
+        "kill_switch_verified_for_live": False,
+        "canary_executable_now": False,
+        "live_execution_approved": False,
+        "real_execution_available": False,
+        "latest_tiny_canary_contract_path": clean_text(latest_tiny_canary_contract_path),
+        "latest_manual_runbook_path": clean_text(latest_manual_runbook_path),
+        "operator_review_is_not_live_approval": True,
     }
 
 
