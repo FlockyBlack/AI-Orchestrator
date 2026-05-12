@@ -68,6 +68,7 @@ REQUIRED_EVIDENCE_TYPES = (
     "abort_conditions",
     "evidence_capture_checklist",
     "risk_review",
+    "risk_limit_control_plane",
 )
 
 OPTIONAL_EVIDENCE_TYPES = (
@@ -296,6 +297,7 @@ def build_live_canary_readiness_evidence_bundle(
     blocker_matrix: Mapping[str, Any] | None = None,
     kill_switch_validation: Mapping[str, Any] | None = None,
     preflight_result: Mapping[str, Any] | None = None,
+    risk_limit_control_plane: Mapping[str, Any] | None = None,
     dry_run_receipt_references: Sequence[str] | None = None,
     result_artifact_references: Sequence[str] | None = None,
     artifact_reference_overrides: Mapping[str, str] | None = None,
@@ -319,6 +321,7 @@ def build_live_canary_readiness_evidence_bundle(
     matrix = dict(blocker_matrix or {})
     kill_switch = dict(kill_switch_validation or {})
     preflight = dict(preflight_result or {})
+    risk_control = dict(risk_limit_control_plane or {})
     overrides = {clean_text(key): clean_text(value) for key, value in dict(artifact_reference_overrides or {}).items()}
 
     items = _build_evidence_items(
@@ -335,6 +338,7 @@ def build_live_canary_readiness_evidence_bundle(
         blocker_matrix=matrix,
         kill_switch_validation=kill_switch,
         preflight_result=preflight,
+        risk_limit_control_plane=risk_control,
         dry_run_receipt_references=dry_run_receipt_references,
         result_artifact_references=result_artifact_references,
         artifact_reference_overrides=overrides,
@@ -406,6 +410,7 @@ def validate_live_canary_readiness_evidence_bundle(
         "tiny_live_canary_preflight_contract": VALIDATION_STATUS_PREFLIGHT_CONTRACT_EVIDENCE_MISSING,
         "tiny_live_canary_manual_runbook": VALIDATION_STATUS_MANUAL_RUNBOOK_EVIDENCE_MISSING,
         "kill_switch_requirements": VALIDATION_STATUS_KILL_SWITCH_EVIDENCE_MISSING,
+        "risk_limit_control_plane": "risk_limit_control_plane_evidence_missing",
     }
     statuses.extend(status_by_missing_type[item] for item in missing_required if item in status_by_missing_type)
 
@@ -679,6 +684,7 @@ def _build_evidence_items(
     blocker_matrix: Mapping[str, Any],
     kill_switch_validation: Mapping[str, Any],
     preflight_result: Mapping[str, Any],
+    risk_limit_control_plane: Mapping[str, Any],
     dry_run_receipt_references: Sequence[str] | None,
     result_artifact_references: Sequence[str] | None,
     artifact_reference_overrides: Mapping[str, str],
@@ -900,6 +906,24 @@ def _build_evidence_items(
             ),
             clean_text(preflight_result.get("status") or "reviewable"),
             "Risk review reference is non-advisory and not a live trading signal.",
+        ),
+        _item(
+            "risk_limit_control_plane",
+            "risk_limit_control_plane",
+            _override_or_reference(
+                artifact_reference_overrides,
+                "risk_limit_control_plane",
+                risk_limit_control_plane,
+                ("policy_id", "risk_control_plane_status", "contract_version"),
+                "risk_limit_control_plane-037:review_ready_execution_disabled",
+            ),
+            clean_text(risk_limit_control_plane.get("risk_control_plane_status") or "review_ready"),
+            "Risk limit control plane policy is present for review; it does not enable live execution.",
+            review_ready=(
+                risk_limit_control_plane.get("risk_control_plane_ready") is not False
+                and risk_limit_control_plane.get("execution_enabling") is not True
+                and risk_limit_control_plane.get("allowed_for_live") is not True
+            ),
         ),
     ]
     receipt_refs = _clean_list(dry_run_receipt_references)

@@ -520,6 +520,51 @@ LIVE_CONNECTOR_BLOCKERS = (
         "current_status": "disabled",
         "why_it_blocks_live_execution": "No order adapter can submit, place, or transmit real orders.",
     },
+    {
+        "blocker_id": "PMBOT-LIVE-BLOCKER-039",
+        "blocker_category": "risk_limit_control_plane_review_only",
+        "blocker_name": "risk limit control plane is review-only for live",
+        "severity": "critical",
+        "required_future_task": "Review the risk limit control plane against a future disabled-first live adapter before any live proposal.",
+        "current_status": "review_only",
+        "why_it_blocks_live_execution": "Risk limits can evaluate intents, but no real connector or live adapter is wired to enforce them.",
+    },
+    {
+        "blocker_id": "PMBOT-LIVE-BLOCKER-040",
+        "blocker_category": "risk_limits_not_live_enforced_against_real_connector",
+        "blocker_name": "risk limits not live-enforced against a real connector",
+        "severity": "critical",
+        "required_future_task": "Build a separate disabled-first connector integration task that proves every live intent passes through risk limits.",
+        "current_status": "not_live_enforced",
+        "why_it_blocks_live_execution": "This build has no real connector path, so risk limits cannot yet be proven against live execution boundaries.",
+    },
+    {
+        "blocker_id": "PMBOT-LIVE-BLOCKER-041",
+        "blocker_category": "btc_market_connector_not_configured",
+        "blocker_name": "BTC market connector not configured",
+        "severity": "critical",
+        "required_future_task": "Create a read-only BTC/Bitcoin market connector in a separate future task without authenticated endpoints.",
+        "current_status": "not_configured",
+        "why_it_blocks_live_execution": "The future one-market BTC demo still lacks a read-only market data connector and local evidence contract.",
+    },
+    {
+        "blocker_id": "PMBOT-LIVE-BLOCKER-042",
+        "blocker_category": "live_order_adapter_not_enabled",
+        "blocker_name": "live order adapter not enabled",
+        "severity": "critical",
+        "required_future_task": "Design a disabled-first live order adapter in a separate gated task before any order submission can be considered.",
+        "current_status": "disabled",
+        "why_it_blocks_live_execution": "There is still no code path that can create, submit, place, or transmit real orders.",
+    },
+    {
+        "blocker_id": "PMBOT-LIVE-BLOCKER-043",
+        "blocker_category": "real_execution_still_unavailable",
+        "blocker_name": "real execution still unavailable",
+        "severity": "critical",
+        "required_future_task": "Keep real execution unavailable until all connector, approval, audit, secret, and risk gates are separately approved.",
+        "current_status": "unavailable",
+        "why_it_blocks_live_execution": "This build remains dry-run and review-only; no live execution capability exists.",
+    },
 )
 
 
@@ -861,7 +906,7 @@ def build_live_connector_blocker_matrix(*, generated_at: str = GENERATED_AT) -> 
         "disabled_connector_blocker_categories": list(DISABLED_CONNECTOR_UNRESOLVED_BLOCKER_IDS),
         "current_live_connector_status": "blocked",
         "next_recommended_non_live_task": (
-            "Build the live connector audit replay and operator approval packet as disabled/local artifacts only; "
+            "Review the risk limit control plane, then build a read-only BTC market connector as disabled/local artifacts only; "
             "do not wire wallet, signing, order, or authenticated endpoint code."
         ),
         "dry_run_only": True,

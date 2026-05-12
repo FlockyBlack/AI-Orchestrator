@@ -22,11 +22,14 @@ FORBIDDEN_SECRET_FIELD_NAMES = frozenset(
         "bearer_token",
         "signature",
         "signed_payload",
+        "signed_order",
         "raw_transaction",
         "wallet_password",
         "recovery_phrase",
         "client_secret",
         "auth_header",
+        "order_submission_payload",
+        "transaction_payload",
     }
 )
 
@@ -103,6 +106,12 @@ SAFE_SECRET_METADATA_FIELD_NAMES = frozenset(
         "readiness_evidence_bundle_secret_boundary_validation",
         "readiness_evidence_bundle_static_validation",
         "readiness_evidence_bundle_is_not_live_approval",
+        "risk_limit_control_plane_secret_boundary_validation",
+        "risk_limit_policy_secret_boundary_validation",
+        "risk_limit_order_intent_secret_boundary_validation",
+        "risk_limit_decision_secret_boundary_validation",
+        "risk_control_ui_summary_secret_boundary_validation",
+        "risk_control_plane_does_not_submit_orders",
     }
 )
 
@@ -497,6 +506,54 @@ def validate_secret_boundary_operator_ui_panel_risk_limit_summary(
     return validate_static_secret_boundary(
         value,
         artifact_type="operator_ui_panel_risk_limit_summary",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_risk_limit_policy(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        value,
+        artifact_type="risk_limit_policy",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_risk_limit_order_intent(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        value,
+        artifact_type="risk_limit_order_intent",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_risk_limit_decision(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        value,
+        artifact_type="risk_limit_decision",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_risk_control_ui_summary(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        value,
+        artifact_type="risk_control_ui_summary",
         generated_at=generated_at,
     )
 

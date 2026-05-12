@@ -621,6 +621,7 @@ def build_canary_dashboard_summary(
     missing_required_evidence_count: int = 0,
     unresolved_live_blocker_count: int = 0,
     latest_readiness_evidence_bundle_path: str = "",
+    risk_control_plane_status: str = "review_only_not_live_enforced",
 ) -> dict[str, Any]:
     receipt_value = dict(receipt or {})
     return {
@@ -646,6 +647,12 @@ def build_canary_dashboard_summary(
         "missing_required_evidence_count": int(missing_required_evidence_count or 0),
         "unresolved_live_blocker_count": int(unresolved_live_blocker_count or 0),
         "latest_readiness_evidence_bundle_path": clean_text(latest_readiness_evidence_bundle_path),
+        "risk_control_plane_status": clean_text(risk_control_plane_status),
+        "risk_limit_control_plane_review_only": True,
+        "risk_limits_not_live_enforced_against_real_connector": True,
+        "btc_market_connector_not_configured": True,
+        "live_order_adapter_not_enabled": True,
+        "real_execution_still_unavailable": True,
         "live_execution_approved": False,
         "real_execution_available": False,
         "live_connector_enabled": False,

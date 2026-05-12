@@ -8,6 +8,7 @@ from typing import Any, Mapping, Sequence
 
 from pm_bot.trading_core.schemas import GENERATED_AT, bullet_lines, clean_text, mapping_rows
 from pm_bot.trading_core.secret_boundary_policy import (
+    validate_secret_boundary_risk_control_ui_summary,
     validate_secret_boundary_operator_ui_panel_action_state,
     validate_secret_boundary_operator_ui_panel_kill_switch_summary,
     validate_secret_boundary_operator_ui_panel_payload,
@@ -16,6 +17,12 @@ from pm_bot.trading_core.secret_boundary_policy import (
     validate_secret_boundary_operator_ui_panel_rendered_markdown,
     validate_secret_boundary_operator_ui_panel_risk_limit_summary,
 )
+from pm_bot.trading_core.risk_limit_control_plane import (
+    build_default_risk_limit_policy,
+    build_risk_control_plane_summary,
+    summarize_risk_limit_decision,
+    summarize_risk_limit_policy,
+)
 
 OPERATOR_UI_PANEL_V1_CONTRACT = "pmbot_operator_ui_panel.v1"
 OPERATOR_UI_PANEL_SECTION_CONTRACT = "pmbot_operator_ui_panel_section.v1"
@@ -23,6 +30,7 @@ OPERATOR_UI_PANEL_METRIC_CONTRACT = "pmbot_operator_ui_panel_metric.v1"
 OPERATOR_UI_PANEL_WARNING_CONTRACT = "pmbot_operator_ui_panel_warning.v1"
 OPERATOR_UI_PANEL_ACTION_STATE_CONTRACT = "pmbot_operator_ui_panel_action_state.v1"
 OPERATOR_UI_PANEL_RISK_LIMIT_SUMMARY_CONTRACT = "pmbot_operator_ui_panel_risk_limit_summary.v1"
+OPERATOR_UI_PANEL_RISK_CONTROL_SUMMARY_CONTRACT = "pmbot_operator_ui_panel_risk_control_summary.v1"
 OPERATOR_UI_PANEL_KILL_SWITCH_SUMMARY_CONTRACT = "pmbot_operator_ui_panel_kill_switch_summary.v1"
 OPERATOR_UI_PANEL_READINESS_SUMMARY_CONTRACT = "pmbot_operator_ui_panel_readiness_summary.v1"
 OPERATOR_UI_PANEL_EVIDENCE_SUMMARY_CONTRACT = "pmbot_operator_ui_panel_evidence_summary.v1"
@@ -47,6 +55,7 @@ REQUIRED_SECTION_IDS = (
     "header_execution_posture",
     "readiness_evidence_bundle",
     "live_blockers",
+    "risk_control_plane",
     "risk_limits",
     "kill_switch",
     "paper_trading_summary",
@@ -158,6 +167,39 @@ class OperatorUIPanelRiskLimitSummary:
 
 
 @dataclass(frozen=True)
+class OperatorUIPanelRiskControlSummary:
+    risk_control_plane_status: str
+    policy_id: str
+    mode: str
+    max_daily_loss_usd: Any
+    max_total_exposure_usd: Any
+    max_market_exposure_usd: Any
+    max_order_notional_usd: Any
+    max_orders_per_day: Any
+    max_trades_per_day: Any
+    max_active_markets: Any
+    allowed_market_tags: tuple[str, ...]
+    latest_decision_status: str
+    latest_violations_count: int
+    latest_halt_reasons_count: int
+    allowed_for_dry_run: bool
+    allowed_for_live: bool = False
+
+    def to_dict(self) -> dict[str, Any]:
+        value = asdict(self)
+        value["contract_version"] = OPERATOR_UI_PANEL_RISK_CONTROL_SUMMARY_CONTRACT
+        value["allowed_market_tags"] = list(self.allowed_market_tags)
+        value["risk_control_plane_ready"] = True
+        value["risk_limits_enforced_for_order_intents"] = True
+        value["future_btc_live_demo_supported_by_limits"] = True
+        value["risk_control_panel_render_ready"] = True
+        value["execution_enabling"] = False
+        value["allowed_for_live"] = False
+        value.update(_panel_safety_flags())
+        return value
+
+
+@dataclass(frozen=True)
 class OperatorUIPanelKillSwitchSummary:
     kill_switch_requirements_defined: bool
     kill_switch_verified_for_live: bool
@@ -243,6 +285,7 @@ class OperatorUIPanelV1:
     readiness_summary: Mapping[str, Any]
     evidence_summary: Mapping[str, Any]
     blocker_summary: Mapping[str, Any]
+    risk_control_plane_summary: Mapping[str, Any]
     risk_limit_summary: Mapping[str, Any]
     kill_switch_summary: Mapping[str, Any]
     paper_summary: Mapping[str, Any]
@@ -260,6 +303,7 @@ class OperatorUIPanelV1:
         value["readiness_summary"] = dict(self.readiness_summary)
         value["evidence_summary"] = dict(self.evidence_summary)
         value["blocker_summary"] = dict(self.blocker_summary)
+        value["risk_control_plane_summary"] = dict(self.risk_control_plane_summary)
         value["risk_limit_summary"] = dict(self.risk_limit_summary)
         value["kill_switch_summary"] = dict(self.kill_switch_summary)
         value["paper_summary"] = dict(self.paper_summary)
@@ -272,6 +316,7 @@ class OperatorUIPanelV1:
         value["operator_ui_panel_ready"] = True
         value["readiness_panel_render_ready"] = True
         value["risk_limit_panel_render_ready"] = True
+        value["risk_control_panel_render_ready"] = True
         value["kill_switch_panel_render_ready"] = True
         value["paper_summary_panel_ready"] = True
         value["blocker_panel_ready"] = True
@@ -292,6 +337,9 @@ def build_operator_ui_panel_v1(
     readiness_evidence_bundle: Mapping[str, Any] | None = None,
     readiness_evidence_bundle_summary: Mapping[str, Any] | None = None,
     blocker_matrix: Mapping[str, Any] | None = None,
+    risk_limit_policy: Mapping[str, Any] | None = None,
+    latest_risk_limit_decision: Mapping[str, Any] | None = None,
+    risk_control_plane_summary: Mapping[str, Any] | None = None,
     risk_limits: Mapping[str, Any] | None = None,
     risk_prep_config: Mapping[str, Any] | None = None,
     portfolio_summary: Mapping[str, Any] | None = None,
@@ -323,7 +371,21 @@ def build_operator_ui_panel_v1(
         blocker_matrix=blocker_matrix,
         canary_readiness_summary=canary_readiness_summary or dashboard_value.get("live_canary_readiness_summary", {}),
     )
-    risk_summary = _build_risk_limit_summary(risk_limits=risk_limits, risk_prep_config=risk_prep_config)
+    policy = dict(risk_limit_policy or dashboard_value.get("risk_limit_policy", {}) or build_default_risk_limit_policy(generated_at=generated_at))
+    latest_decision = latest_risk_limit_decision or dashboard_value.get("latest_risk_limit_decision")
+    risk_control_summary = _build_risk_control_plane_summary(
+        risk_control_plane_summary=risk_control_plane_summary
+        or dashboard_value.get("risk_control_plane_summary", {}),
+        risk_limit_policy=policy,
+        latest_risk_limit_decision=latest_decision if isinstance(latest_decision, Mapping) else None,
+        generated_at=generated_at,
+    )
+    risk_summary = _build_risk_limit_summary(
+        risk_limits=risk_limits,
+        risk_prep_config=risk_prep_config,
+        risk_limit_policy=policy,
+        risk_control_plane_summary=risk_control_summary,
+    )
     kill_switch_summary = _build_kill_switch_summary(
         preflight_result=tiny_live_canary_preflight_result
         or dashboard_value.get("tiny_live_canary_preflight_runbook_summary", {}),
@@ -361,6 +423,7 @@ def build_operator_ui_panel_v1(
         readiness=readiness,
         evidence=evidence_summary,
         blockers=blocker_summary,
+        risk_control=risk_control_summary,
         risk=risk_summary,
         kill_switch=kill_switch_summary,
         paper=paper_summary,
@@ -377,6 +440,7 @@ def build_operator_ui_panel_v1(
             "missing_required_evidence_count": evidence_summary.get("missing_required_evidence_count"),
             "blocker_count": blocker_summary.get("total_blockers"),
             "unresolved_blocker_count": blocker_summary.get("unresolved_blockers"),
+            "risk_control": risk_control_summary,
             "risk": risk_summary,
             "kill_switch": kill_switch_summary,
             "paper": paper_summary,
@@ -389,6 +453,7 @@ def build_operator_ui_panel_v1(
         readiness_summary=readiness,
         evidence_summary=evidence_summary,
         blocker_summary=blocker_summary,
+        risk_control_plane_summary=risk_control_summary,
         risk_limit_summary=risk_summary,
         kill_switch_summary=kill_switch_summary,
         paper_summary=paper_summary,
@@ -436,6 +501,17 @@ def validate_operator_ui_panel_v1(
     if risk_validation.get("valid") is not True:
         errors.append("risk_limit_summary violates static secret boundary")
         statuses.append("risk_limit_summary_secret_boundary_blocked")
+
+    risk_control_validation = validate_secret_boundary_risk_control_ui_summary(
+        dict(panel_value.get("risk_control_plane_summary", {})),
+        generated_at=generated_at,
+    )
+    if risk_control_validation.get("valid") is not True:
+        errors.append("risk_control_plane_summary violates static secret boundary")
+        statuses.append("risk_control_summary_secret_boundary_blocked")
+    if panel_value.get("risk_control_plane_summary", {}).get("allowed_for_live") is not False:
+        errors.append("risk_control_plane_summary.allowed_for_live must be false")
+        statuses.append("risk_control_live_allowance_detected")
 
     kill_validation = validate_secret_boundary_operator_ui_panel_kill_switch_summary(
         dict(panel_value.get("kill_switch_summary", {})),
@@ -554,6 +630,16 @@ def summarize_operator_ui_panel_v1(panel: Mapping[str, Any]) -> dict[str, Any]:
             "readiness_evidence_bundle_status"
         ),
         "blocker_matrix_status": dict(panel.get("blocker_summary", {})).get("blocker_matrix_status"),
+        "risk_control_plane_status": dict(panel.get("risk_control_plane_summary", {})).get(
+            "risk_control_plane_status"
+        ),
+        "risk_control_plane_ready": dict(panel.get("risk_control_plane_summary", {})).get(
+            "risk_control_plane_ready"
+        )
+        is True,
+        "latest_risk_limit_decision_status": dict(panel.get("risk_control_plane_summary", {})).get(
+            "latest_decision_status"
+        ),
         "risk_limit_status": "review_config_visibility_only",
         "kill_switch_status": dict(panel.get("kill_switch_summary", {})).get("current_kill_switch_state"),
         "live_execution_approved": False,
@@ -790,37 +876,128 @@ def _build_risk_limit_summary(
     *,
     risk_limits: Mapping[str, Any] | None,
     risk_prep_config: Mapping[str, Any] | None,
+    risk_limit_policy: Mapping[str, Any] | None,
+    risk_control_plane_summary: Mapping[str, Any] | None,
 ) -> dict[str, Any]:
     limits = dict(risk_limits or {})
     config = dict(risk_prep_config or {})
+    policy = dict(risk_limit_policy or {})
+    risk_control = dict(risk_control_plane_summary or {})
     return OperatorUIPanelRiskLimitSummary(
-        max_daily_loss_usd=REVIEW_PLACEHOLDER,
+        max_daily_loss_usd=_first_available(
+            policy.get("max_daily_loss_usd"),
+            risk_control.get("max_daily_loss_usd"),
+            REVIEW_PLACEHOLDER,
+        ),
         max_total_exposure_usd=_first_available(
+            policy.get("max_total_exposure_usd"),
+            risk_control.get("max_total_exposure_usd"),
             config.get("max_total_exposure_usd"),
             limits.get("max_total_paper_exposure_usd"),
             REVIEW_PLACEHOLDER,
         ),
         max_market_exposure_usd=_first_available(
+            policy.get("max_market_exposure_usd"),
+            risk_control.get("max_market_exposure_usd"),
             config.get("max_market_exposure_usd"),
             config.get("max_per_market_exposure_usd"),
             limits.get("max_market_paper_exposure_usd"),
             REVIEW_PLACEHOLDER,
         ),
         max_order_notional_usd=_first_available(
+            policy.get("max_order_notional_usd"),
+            risk_control.get("max_order_notional_usd"),
             config.get("max_single_action_notional_usd"),
             limits.get("max_single_intent_notional_usd"),
             REVIEW_PLACEHOLDER,
         ),
-        max_market_count=len(config.get("market_allowlist", []))
-        if isinstance(config.get("market_allowlist"), list) and config.get("market_allowlist")
-        else REVIEW_PLACEHOLDER,
-        max_order_count=_first_available(config.get("per_run_action_cap"), REVIEW_PLACEHOLDER),
-        max_trades_per_day=_first_available(config.get("per_run_action_cap"), REVIEW_PLACEHOLDER),
-        cooldown_after_loss=REVIEW_PLACEHOLDER,
-        halt_on_stale_data=config.get("require_fresh_evidence") is not False,
+        max_market_count=_first_available(
+            policy.get("max_active_markets"),
+            risk_control.get("max_active_markets"),
+            len(config.get("market_allowlist", []))
+            if isinstance(config.get("market_allowlist"), list) and config.get("market_allowlist")
+            else None,
+            REVIEW_PLACEHOLDER,
+        ),
+        max_order_count=_first_available(
+            policy.get("max_orders_per_day"),
+            risk_control.get("max_orders_per_day"),
+            config.get("per_run_action_cap"),
+            REVIEW_PLACEHOLDER,
+        ),
+        max_trades_per_day=_first_available(
+            policy.get("max_trades_per_day"),
+            risk_control.get("max_trades_per_day"),
+            config.get("per_run_action_cap"),
+            REVIEW_PLACEHOLDER,
+        ),
+        cooldown_after_loss=_first_available(
+            policy.get("cooldown_after_loss_minutes"),
+            REVIEW_PLACEHOLDER,
+        ),
+        halt_on_stale_data=policy.get("halt_on_stale_market_data") is True
+        or config.get("require_fresh_evidence") is not False,
         halt_on_audit_mismatch=True,
-        halt_on_kill_switch=config.get("kill_switch_enabled") is not False,
-        halt_on_missing_operator_intent=True,
+        halt_on_kill_switch=policy.get("halt_on_kill_switch") is True
+        or config.get("kill_switch_enabled") is not False,
+        halt_on_missing_operator_intent=policy.get("halt_on_missing_operator_intent") is not False,
+    ).to_dict()
+
+
+def _build_risk_control_plane_summary(
+    *,
+    risk_control_plane_summary: Mapping[str, Any] | None,
+    risk_limit_policy: Mapping[str, Any] | None,
+    latest_risk_limit_decision: Mapping[str, Any] | None,
+    generated_at: str,
+) -> dict[str, Any]:
+    provided = dict(risk_control_plane_summary or {})
+    if provided:
+        return OperatorUIPanelRiskControlSummary(
+            risk_control_plane_status=clean_text(
+                provided.get("risk_control_plane_status") or "ready_no_intent_evaluated"
+            ),
+            policy_id=clean_text(provided.get("policy_id")),
+            mode=clean_text(provided.get("mode")),
+            max_daily_loss_usd=provided.get("max_daily_loss_usd", REVIEW_PLACEHOLDER),
+            max_total_exposure_usd=provided.get("max_total_exposure_usd", REVIEW_PLACEHOLDER),
+            max_market_exposure_usd=provided.get("max_market_exposure_usd", REVIEW_PLACEHOLDER),
+            max_order_notional_usd=provided.get("max_order_notional_usd", REVIEW_PLACEHOLDER),
+            max_orders_per_day=provided.get("max_orders_per_day", REVIEW_PLACEHOLDER),
+            max_trades_per_day=provided.get("max_trades_per_day", REVIEW_PLACEHOLDER),
+            max_active_markets=provided.get("max_active_markets", REVIEW_PLACEHOLDER),
+            allowed_market_tags=tuple(clean_text(item) for item in provided.get("allowed_market_tags", []) if clean_text(item)),
+            latest_decision_status=clean_text(provided.get("latest_decision_status") or "not_evaluated"),
+            latest_violations_count=_int_or_zero(provided.get("latest_violations_count"), 0),
+            latest_halt_reasons_count=_int_or_zero(provided.get("latest_halt_reasons_count"), 0),
+            allowed_for_dry_run=provided.get("allowed_for_dry_run") is True,
+            allowed_for_live=False,
+        ).to_dict()
+    policy = dict(risk_limit_policy or build_default_risk_limit_policy(generated_at=generated_at))
+    summary = build_risk_control_plane_summary(
+        policy=policy,
+        latest_decision=latest_risk_limit_decision,
+        generated_at=generated_at,
+    )
+    decision_summary = summarize_risk_limit_decision(latest_risk_limit_decision)
+    policy_summary = summarize_risk_limit_policy(policy)
+    return OperatorUIPanelRiskControlSummary(
+        risk_control_plane_status=clean_text(summary.get("risk_control_plane_status")),
+        policy_id=clean_text(policy_summary.get("policy_id")),
+        mode=clean_text(policy_summary.get("mode")),
+        max_daily_loss_usd=policy_summary.get("max_daily_loss_usd"),
+        max_total_exposure_usd=policy_summary.get("max_total_exposure_usd"),
+        max_market_exposure_usd=policy_summary.get("max_market_exposure_usd"),
+        max_order_notional_usd=policy_summary.get("max_order_notional_usd"),
+        max_orders_per_day=policy_summary.get("max_orders_per_day"),
+        max_trades_per_day=policy_summary.get("max_trades_per_day"),
+        max_active_markets=policy_summary.get("max_active_markets"),
+        allowed_market_tags=tuple(policy_summary.get("allowed_market_tags", [])),
+        latest_decision_status=clean_text(decision_summary.get("latest_decision_status")),
+        latest_violations_count=_int_or_zero(decision_summary.get("latest_violations_count"), 0),
+        latest_halt_reasons_count=_int_or_zero(decision_summary.get("latest_halt_reasons_count"), 0),
+        allowed_for_dry_run=decision_summary.get("allowed_for_dry_run") is True,
+        allowed_for_live=False,
     ).to_dict()
 
 
@@ -1018,6 +1195,7 @@ def _build_sections(
     readiness: Mapping[str, Any],
     evidence: Mapping[str, Any],
     blockers: Mapping[str, Any],
+    risk_control: Mapping[str, Any],
     risk: Mapping[str, Any],
     kill_switch: Mapping[str, Any],
     paper: Mapping[str, Any],
@@ -1069,6 +1247,29 @@ def _build_sections(
                 _metric("resolved_blockers", "Resolved blockers", blockers.get("resolved_blockers")),
                 _metric("all_blockers_unresolved", "All blockers unresolved", blockers.get("all_blockers_unresolved")),
                 _metric("top_blockers", "Top blocker IDs", [row.get("blocker_id") for row in blockers.get("top_blockers", [])]),
+            ],
+        ),
+        _section(
+            "risk_control_plane",
+            "Risk Control Plane",
+            clean_text(risk_control.get("risk_control_plane_status") or "ready_no_intent_evaluated"),
+            [
+                _metric("risk_control_plane_status", "Control plane status", risk_control.get("risk_control_plane_status")),
+                _metric("policy_id", "Policy ID", risk_control.get("policy_id")),
+                _metric("mode", "Mode", risk_control.get("mode")),
+                _metric("max_daily_loss_usd", "Max daily loss USD", risk_control.get("max_daily_loss_usd")),
+                _metric("max_total_exposure_usd", "Max total exposure USD", risk_control.get("max_total_exposure_usd")),
+                _metric("max_market_exposure_usd", "Max market exposure USD", risk_control.get("max_market_exposure_usd")),
+                _metric("max_order_notional_usd", "Max order notional USD", risk_control.get("max_order_notional_usd")),
+                _metric("max_orders_per_day", "Max orders per day", risk_control.get("max_orders_per_day")),
+                _metric("max_trades_per_day", "Max trades per day", risk_control.get("max_trades_per_day")),
+                _metric("max_active_markets", "Max active markets", risk_control.get("max_active_markets")),
+                _metric("allowed_market_tags", "Allowed market tags", risk_control.get("allowed_market_tags")),
+                _metric("latest_decision_status", "Latest decision status", risk_control.get("latest_decision_status")),
+                _metric("latest_violations_count", "Latest violations", risk_control.get("latest_violations_count")),
+                _metric("latest_halt_reasons_count", "Latest halt reasons", risk_control.get("latest_halt_reasons_count")),
+                _metric("allowed_for_dry_run", "Allowed for dry-run", risk_control.get("allowed_for_dry_run")),
+                _metric("allowed_for_live", "Allowed for live", False),
             ],
         ),
         _section(

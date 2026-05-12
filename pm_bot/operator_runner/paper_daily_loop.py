@@ -106,6 +106,16 @@ from pm_bot.trading_core.risk_gate import (
     evaluate_paper_trade_intent,
     render_risk_gate_results_markdown,
 )
+from pm_bot.trading_core.risk_limit_control_plane import (
+    RiskLimitDailyLossSnapshot,
+    RiskLimitExposureSnapshot,
+    RiskLimitOrderIntent,
+    build_default_risk_limit_policy,
+    build_default_risk_limit_state,
+    build_risk_control_plane_summary,
+    evaluate_risk_limits_for_order_intent,
+    summarize_risk_limit_policy,
+)
 from pm_bot.trading_core.risk_engine import (
     build_risk_decision_ledger,
     render_risk_decision_ledger_markdown,
@@ -586,6 +596,25 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
     latest_readiness_evidence_bundle_path = (
         normalize_path(paths["readiness_evidence_bundle"]) if active_config.write_artifacts else ""
     )
+    risk_limit_policy = build_default_risk_limit_policy(generated_at=generated_at)
+    latest_risk_limit_decision = _build_latest_risk_limit_decision(
+        candidates=candidates,
+        portfolio_state=portfolio_state,
+        live_connector_blocker_matrix=live_connector_blocker_matrix,
+        operator_intent_packet=operator_intent_packet,
+        readiness_evidence_bundle_reference=(
+            latest_readiness_evidence_bundle_path or "live_canary_readiness_evidence_bundle:current-run"
+        ),
+        audit_replay_reference=live_connector_audit_replay.get("replay_id", "live_connector_audit_replay:current-run"),
+        ui_panel_reference=normalize_path(paths["operator_ui_panel_json"]) if active_config.write_artifacts else "",
+        policy=risk_limit_policy,
+        generated_at=generated_at,
+    )
+    risk_control_plane_summary = build_risk_control_plane_summary(
+        policy=risk_limit_policy,
+        latest_decision=latest_risk_limit_decision,
+        generated_at=generated_at,
+    )
     readiness_evidence_bundle = build_live_canary_readiness_evidence_bundle(
         disabled_connector_status=build_disabled_connector_passive_status(
             result=disabled_connector_result,
@@ -606,6 +635,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         blocker_matrix=live_connector_blocker_matrix,
         kill_switch_validation=tiny_live_canary_kill_switch_validation,
         preflight_result=tiny_live_canary_preflight_result,
+        risk_limit_control_plane=risk_control_plane_summary,
         dry_run_receipt_references=[canary_dry_run_receipt.get("receipt_id", "")],
         result_artifact_references=[
             normalize_path(paths["result"]) if active_config.write_artifacts else "paper_daily_loop_result:current-run",
@@ -642,6 +672,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
                 normalize_path(paths["tiny_live_canary_manual_runbook"]) if active_config.write_artifacts else ""
             ),
             "risk_review": canary_readiness_packet.get("risk_decision_id", ""),
+            "risk_limit_control_plane": risk_control_plane_summary.get("policy_id", ""),
         },
         generated_at=generated_at,
     )
@@ -736,6 +767,9 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         tiny_live_canary_preflight_result=tiny_live_canary_preflight_result,
         readiness_evidence_bundle=readiness_evidence_bundle,
         readiness_evidence_bundle_summary=readiness_evidence_bundle_summary,
+        risk_limit_policy=risk_limit_policy,
+        latest_risk_limit_decision=latest_risk_limit_decision,
+        risk_control_plane_summary=risk_control_plane_summary,
         latest_disabled_connector_audit_path=(
             normalize_path(paths["disabled_connector_audit"]) if active_config.write_artifacts else ""
         ),
@@ -778,6 +812,9 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         readiness_evidence_bundle=readiness_evidence_bundle,
         readiness_evidence_bundle_summary=readiness_evidence_bundle_summary,
         blocker_matrix=live_connector_blocker_matrix,
+        risk_limit_policy=risk_limit_policy,
+        latest_risk_limit_decision=latest_risk_limit_decision,
+        risk_control_plane_summary=risk_control_plane_summary,
         risk_limits=limits,
         risk_prep_config=risk_prep_config,
         portfolio_summary=portfolio_report.get("exposure_summary", {}),
@@ -832,6 +869,9 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
             operator_live_approval_packet,
             operator_intent_packet,
             live_connector_blocker_matrix,
+            risk_limit_policy,
+            latest_risk_limit_decision or {},
+            risk_control_plane_summary,
             readiness_evidence_bundle,
             tiny_live_canary_preflight_contract,
             tiny_live_canary_manual_runbook,
@@ -961,6 +1001,20 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         and dashboard.get("readiness_evidence_bundle_summary", {}).get("live_execution_approved") is False
         and dashboard.get("readiness_evidence_bundle_summary", {}).get("real_execution_available") is False
         and dashboard.get("readiness_evidence_bundle_summary", {}).get("live_connector_enabled") is False
+        and risk_limit_policy.get("risk_control_plane_ready") is True
+        and risk_limit_policy.get("risk_limits_enforced_for_order_intents") is True
+        and risk_limit_policy.get("live_execution_approved") is False
+        and risk_limit_policy.get("canary_executable_now") is False
+        and risk_limit_policy.get("real_execution_available") is False
+        and risk_limit_policy.get("live_connector_enabled") is False
+        and risk_control_plane_summary.get("risk_control_plane_ready") is True
+        and risk_control_plane_summary.get("risk_limits_enforced_for_order_intents") is True
+        and risk_control_plane_summary.get("allowed_for_live") is False
+        and risk_control_plane_summary.get("live_execution_approved") is False
+        and risk_control_plane_summary.get("canary_executable_now") is False
+        and risk_control_plane_summary.get("real_execution_available") is False
+        and risk_control_plane_summary.get("live_connector_enabled") is False
+        and (not latest_risk_limit_decision or latest_risk_limit_decision.get("allowed_for_live") is False)
         and dashboard.get("tiny_live_canary_preflight_runbook_summary", {}).get("canary_executable_now") is False
         and dashboard.get("tiny_live_canary_preflight_runbook_summary", {}).get("live_execution_approved") is False
         and dashboard.get("tiny_live_canary_preflight_runbook_summary", {}).get("real_execution_available") is False
@@ -1237,6 +1291,104 @@ def _build_daily_risk_limits(config: PaperDailyLoopConfig, *, generated_at: str)
     limits["daily_run_id"] = config.run_id
     limits["run_date"] = config.run_date
     return limits
+
+
+def _build_latest_risk_limit_decision(
+    *,
+    candidates: Mapping[str, Any],
+    portfolio_state: Mapping[str, Any],
+    live_connector_blocker_matrix: Mapping[str, Any],
+    operator_intent_packet: Mapping[str, Any],
+    readiness_evidence_bundle_reference: str,
+    audit_replay_reference: str,
+    ui_panel_reference: str,
+    policy: Mapping[str, Any],
+    generated_at: str,
+) -> dict[str, Any] | None:
+    intent_candidate = _first_dry_run_intent_candidate(candidates)
+    if intent_candidate is None:
+        return None
+    intent = _risk_limit_intent_from_candidate(
+        intent_candidate,
+        operator_intent_reference=clean_text(operator_intent_packet.get("packet_id"))
+        or "live_canary_operator_intent_packet:current-run",
+        readiness_evidence_reference=readiness_evidence_bundle_reference,
+        audit_replay_reference=audit_replay_reference,
+        ui_panel_reference=ui_panel_reference,
+        generated_at=generated_at,
+    )
+    exposure = _risk_limit_exposure_snapshot_for_candidate(
+        intent_candidate,
+        portfolio_state=portfolio_state,
+        generated_at=generated_at,
+    )
+    daily_loss = RiskLimitDailyLossSnapshot(generated_at=generated_at).to_dict()
+    state = build_default_risk_limit_state(
+        exposure_snapshot=exposure,
+        daily_loss_snapshot=daily_loss,
+        unresolved_critical_blockers=list(live_connector_blocker_matrix.get("critical_blockers", [])),
+        operator_intent_present=True,
+        readiness_evidence_present=True,
+        market_data_age_seconds=0,
+        generated_at=generated_at,
+    )
+    return evaluate_risk_limits_for_order_intent(intent, state=state, policy=policy, generated_at=generated_at)
+
+
+def _first_dry_run_intent_candidate(candidates: Mapping[str, Any]) -> Mapping[str, Any] | None:
+    for candidate in mapping_rows(candidates.get("candidates")):
+        if float(candidate.get("intended_notional_usd", 0) or 0) > 0:
+            return candidate
+    return None
+
+
+def _risk_limit_intent_from_candidate(
+    candidate: Mapping[str, Any],
+    *,
+    operator_intent_reference: str,
+    readiness_evidence_reference: str,
+    audit_replay_reference: str,
+    ui_panel_reference: str,
+    generated_at: str,
+) -> dict[str, Any]:
+    market_id = clean_text(candidate.get("market_id"))
+    return RiskLimitOrderIntent(
+        intent_id=clean_text(candidate.get("intent_id")) or f"risk-limit-intent-{_slug(market_id)}",
+        market_id=market_id,
+        market_slug=_slug(candidate.get("market_slug") or market_id),
+        market_tag=clean_text(candidate.get("market_tag") or candidate.get("market_category") or "PAPER"),
+        market_category=clean_text(candidate.get("market_category") or "paper"),
+        side_label=clean_text(candidate.get("side_label") or "track_yes"),
+        notional_usd=float(candidate.get("intended_notional_usd", 0) or 0),
+        quantity=float(candidate.get("quantity", 0) or 0),
+        limit_price=float(candidate.get("limit_price", 0) or 0),
+        intent_source=clean_text(candidate.get("analysis_source_path") or "paper_daily_loop"),
+        created_at=clean_text(candidate.get("created_at") or generated_at),
+        dry_run_only=True,
+        operator_intent_reference=operator_intent_reference,
+        readiness_evidence_reference=readiness_evidence_reference,
+        audit_replay_reference=audit_replay_reference,
+        ui_panel_reference=ui_panel_reference,
+    ).to_dict()
+
+
+def _risk_limit_exposure_snapshot_for_candidate(
+    candidate: Mapping[str, Any],
+    *,
+    portfolio_state: Mapping[str, Any],
+    generated_at: str,
+) -> dict[str, Any]:
+    market_id = clean_text(candidate.get("market_id"))
+    exposure_by_market = dict(portfolio_state.get("exposure_by_market_usd", {}))
+    market_exposure = round(float(exposure_by_market.get(market_id, 0) or 0), 2)
+    active_market_ids = sorted(clean_text(key) for key, value in exposure_by_market.items() if clean_text(key) and float(value or 0) > 0)
+    return RiskLimitExposureSnapshot(
+        total_exposure_usd=float(portfolio_state.get("total_paper_exposure_usd", 0) or 0),
+        market_exposure_usd=market_exposure,
+        active_market_ids=tuple(active_market_ids),
+        snapshot_reference=clean_text(portfolio_state.get("portfolio_id")) or "paper_daily_portfolio_state",
+        generated_at=generated_at,
+    ).to_dict()
 
 
 def _build_risk_gate_batch(
@@ -1566,6 +1718,9 @@ def _build_daily_dashboard(
     tiny_live_canary_preflight_result: Mapping[str, Any],
     readiness_evidence_bundle: Mapping[str, Any],
     readiness_evidence_bundle_summary: Mapping[str, Any],
+    risk_limit_policy: Mapping[str, Any],
+    latest_risk_limit_decision: Mapping[str, Any] | None,
+    risk_control_plane_summary: Mapping[str, Any],
     latest_disabled_connector_audit_path: str,
     latest_audit_replay_path: str,
     latest_operator_packet_path: str,
@@ -1774,6 +1929,20 @@ def _build_daily_dashboard(
             "kill_switch_enabled": risk_prep_config.get("kill_switch_enabled"),
             "manual_approval_required": risk_prep_config.get("manual_approval_required"),
         },
+        "risk_limit_policy": dict(risk_limit_policy),
+        "default_risk_limit_policy_summary": summarize_risk_limit_policy(risk_limit_policy),
+        "latest_risk_limit_decision": dict(latest_risk_limit_decision or {}),
+        "risk_control_plane_summary": dict(risk_control_plane_summary),
+        "risk_limit_panel_feed": {
+            "risk_control_plane_summary": dict(risk_control_plane_summary),
+            "default_risk_limit_policy_summary": summarize_risk_limit_policy(risk_limit_policy),
+            "latest_risk_limit_decision_present": bool(latest_risk_limit_decision),
+            "allowed_for_live": False,
+            "live_execution_approved": False,
+            "canary_executable_now": False,
+            "real_execution_available": False,
+            "live_connector_enabled": False,
+        },
         "risk_decision_ledger_status": {
             "ledger_id": risk_decision_ledger.get("ledger_id"),
             "decision_count": risk_decision_ledger.get("decision_count"),
@@ -1856,6 +2025,9 @@ def _build_daily_dashboard(
                     readiness_evidence_bundle.get("unresolved_live_blocker_count", 0) or 0
                 ),
                 latest_readiness_evidence_bundle_path=latest_readiness_evidence_bundle_path,
+                risk_control_plane_status=clean_text(
+                    risk_control_plane_summary.get("risk_control_plane_status")
+                ),
             ),
             "canary_replay_status": canary_governance_summary.get("canary_replay_status"),
             "canary_replay_passed": canary_governance_summary.get("canary_replay_passed"),
@@ -2451,6 +2623,7 @@ def _render_daily_dashboard_markdown(dashboard: Mapping[str, Any]) -> str:
     operator_ui_panel = dict(dashboard.get("operator_ui_panel_v1_summary", {}))
     operator_ui_panel_paths = dict(dashboard.get("operator_ui_panel_v1_paths", {}))
     risk_prep = dict(dashboard.get("risk_prep_config_status", {}))
+    risk_control = dict(dashboard.get("risk_control_plane_summary", {}))
     lines.extend(
         [
             "",
@@ -2690,6 +2863,25 @@ def _render_daily_dashboard_markdown(dashboard: Mapping[str, Any]) -> str:
             f"- Per-run action cap: {risk_prep.get('per_run_action_cap')}",
             f"- Kill switch enabled: `{str(risk_prep.get('kill_switch_enabled')).lower()}`",
             f"- Manual approval required: `{str(risk_prep.get('manual_approval_required')).lower()}`",
+            "",
+            "## Risk Limit Control Plane",
+            "",
+            f"- Status: `{risk_control.get('risk_control_plane_status')}`",
+            f"- Policy: `{risk_control.get('policy_id')}`",
+            f"- Mode: `{risk_control.get('mode')}`",
+            f"- Max daily loss: `${risk_control.get('max_daily_loss_usd')}`",
+            f"- Max total exposure: `${risk_control.get('max_total_exposure_usd')}`",
+            f"- Max market exposure: `${risk_control.get('max_market_exposure_usd')}`",
+            f"- Max order notional: `${risk_control.get('max_order_notional_usd')}`",
+            f"- Max orders per day: `{risk_control.get('max_orders_per_day')}`",
+            f"- Max trades per day: `{risk_control.get('max_trades_per_day')}`",
+            f"- Max active markets: `{risk_control.get('max_active_markets')}`",
+            f"- Allowed market tags: `{risk_control.get('allowed_market_tags')}`",
+            f"- Latest decision: `{risk_control.get('latest_decision_status')}`",
+            f"- Latest violations: {risk_control.get('latest_violations_count')}",
+            f"- Latest halt reasons: {risk_control.get('latest_halt_reasons_count')}",
+            f"- Allowed for dry-run: `{str(risk_control.get('allowed_for_dry_run')).lower()}`",
+            f"- Allowed for live: `{str(risk_control.get('allowed_for_live')).lower()}`",
         ]
     )
     lines.extend(["", "## Feedback Readiness", ""])
