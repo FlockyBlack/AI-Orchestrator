@@ -7,6 +7,7 @@ from typing import Any, Mapping, Sequence
 
 from pm_bot.trading_core.schemas import GENERATED_AT, clean_text, trading_core_safety_summary
 from pm_bot.trading_core.secret_boundary_policy import (
+    validate_secret_boundary_btc_evidence_item,
     validate_secret_boundary_readiness_evidence_blocker_summary,
     validate_secret_boundary_readiness_evidence_bundle,
     validate_secret_boundary_readiness_evidence_item,
@@ -45,6 +46,7 @@ VALIDATION_STATUS_OPERATOR_INTENT_EVIDENCE_MISSING = "operator_intent_evidence_m
 VALIDATION_STATUS_PREFLIGHT_CONTRACT_EVIDENCE_MISSING = "preflight_contract_evidence_missing"
 VALIDATION_STATUS_MANUAL_RUNBOOK_EVIDENCE_MISSING = "manual_runbook_evidence_missing"
 VALIDATION_STATUS_KILL_SWITCH_EVIDENCE_MISSING = "kill_switch_evidence_missing"
+VALIDATION_STATUS_BTC_READ_ONLY_CONNECTOR_EVIDENCE_MISSING = "btc_read_only_connector_evidence_missing"
 
 NON_EXECUTION_STATEMENTS = (
     "This readiness evidence bundle is review evidence only.",
@@ -69,6 +71,7 @@ REQUIRED_EVIDENCE_TYPES = (
     "evidence_capture_checklist",
     "risk_review",
     "risk_limit_control_plane",
+    "btc_read_only_market_connector",
 )
 
 OPTIONAL_EVIDENCE_TYPES = (
@@ -298,6 +301,7 @@ def build_live_canary_readiness_evidence_bundle(
     kill_switch_validation: Mapping[str, Any] | None = None,
     preflight_result: Mapping[str, Any] | None = None,
     risk_limit_control_plane: Mapping[str, Any] | None = None,
+    btc_read_only_market_connector: Mapping[str, Any] | None = None,
     dry_run_receipt_references: Sequence[str] | None = None,
     result_artifact_references: Sequence[str] | None = None,
     artifact_reference_overrides: Mapping[str, str] | None = None,
@@ -322,6 +326,7 @@ def build_live_canary_readiness_evidence_bundle(
     kill_switch = dict(kill_switch_validation or {})
     preflight = dict(preflight_result or {})
     risk_control = dict(risk_limit_control_plane or {})
+    btc_connector = dict(btc_read_only_market_connector or {})
     overrides = {clean_text(key): clean_text(value) for key, value in dict(artifact_reference_overrides or {}).items()}
 
     items = _build_evidence_items(
@@ -339,6 +344,7 @@ def build_live_canary_readiness_evidence_bundle(
         kill_switch_validation=kill_switch,
         preflight_result=preflight,
         risk_limit_control_plane=risk_control,
+        btc_read_only_market_connector=btc_connector,
         dry_run_receipt_references=dry_run_receipt_references,
         result_artifact_references=result_artifact_references,
         artifact_reference_overrides=overrides,
@@ -411,6 +417,7 @@ def validate_live_canary_readiness_evidence_bundle(
         "tiny_live_canary_manual_runbook": VALIDATION_STATUS_MANUAL_RUNBOOK_EVIDENCE_MISSING,
         "kill_switch_requirements": VALIDATION_STATUS_KILL_SWITCH_EVIDENCE_MISSING,
         "risk_limit_control_plane": "risk_limit_control_plane_evidence_missing",
+        "btc_read_only_market_connector": VALIDATION_STATUS_BTC_READ_ONLY_CONNECTOR_EVIDENCE_MISSING,
     }
     statuses.extend(status_by_missing_type[item] for item in missing_required if item in status_by_missing_type)
 
@@ -422,6 +429,11 @@ def validate_live_canary_readiness_evidence_bundle(
         if item_validation.get("valid") is not True:
             errors.append(f"evidence_items[{index}] violates static secret boundary")
             statuses.append(VALIDATION_STATUS_FORBIDDEN_SECRET_OR_SIGNING_FIELD)
+        if item.get("evidence_type") == "btc_read_only_market_connector":
+            btc_item_validation = validate_secret_boundary_btc_evidence_item(item, generated_at=generated_at)
+            if btc_item_validation.get("valid") is not True:
+                errors.append(f"evidence_items[{index}] violates BTC evidence static secret boundary")
+                statuses.append(VALIDATION_STATUS_FORBIDDEN_SECRET_OR_SIGNING_FIELD)
 
     references = [dict(row) for row in bundle.get("evidence_references", []) if isinstance(row, Mapping)]
     for index, reference in enumerate(references):
@@ -685,6 +697,7 @@ def _build_evidence_items(
     kill_switch_validation: Mapping[str, Any],
     preflight_result: Mapping[str, Any],
     risk_limit_control_plane: Mapping[str, Any],
+    btc_read_only_market_connector: Mapping[str, Any],
     dry_run_receipt_references: Sequence[str] | None,
     result_artifact_references: Sequence[str] | None,
     artifact_reference_overrides: Mapping[str, str],
@@ -923,6 +936,30 @@ def _build_evidence_items(
                 risk_limit_control_plane.get("risk_control_plane_ready") is not False
                 and risk_limit_control_plane.get("execution_enabling") is not True
                 and risk_limit_control_plane.get("allowed_for_live") is not True
+            ),
+        ),
+        _item(
+            "btc_read_only_market_connector",
+            "polymarket_btc_read_only_connector",
+            _override_or_reference(
+                artifact_reference_overrides,
+                "btc_read_only_market_connector",
+                btc_read_only_market_connector,
+                ("snapshot_id", "result_id", "status"),
+                "polymarket_btc_read_only_connector-038:fixture_snapshot_validated_read_only",
+            ),
+            clean_text(
+                btc_read_only_market_connector.get("btc_market_connector_status")
+                or btc_read_only_market_connector.get("status")
+                or "fixture_snapshot_validated_read_only"
+            ),
+            "BTC read-only market connector is fixture validated, unauthenticated, network-disabled by default, and non-execution enabling.",
+            review_ready=(
+                btc_read_only_market_connector.get("read_only") is not False
+                and btc_read_only_market_connector.get("network_enabled") is not True
+                and btc_read_only_market_connector.get("execution_enabling") is not True
+                and btc_read_only_market_connector.get("order_submission_supported") is not True
+                and btc_read_only_market_connector.get("authenticated_requests_supported") is not True
             ),
         ),
     ]

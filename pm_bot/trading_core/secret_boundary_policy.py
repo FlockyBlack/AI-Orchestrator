@@ -30,6 +30,13 @@ FORBIDDEN_SECRET_FIELD_NAMES = frozenset(
         "auth_header",
         "order_submission_payload",
         "transaction_payload",
+        "authorization",
+        "cookie",
+        "set_cookie",
+        "x_api_key",
+        "clob_api_key",
+        "clob_secret",
+        "clob_passphrase",
     }
 )
 
@@ -40,6 +47,13 @@ FORBIDDEN_PAYLOAD_KEYS = frozenset(
         "order_submission_payload",
         "signed_order",
         "transaction_payload",
+        "authorization",
+        "cookie",
+        "set_cookie",
+        "x_api_key",
+        "clob_api_key",
+        "clob_secret",
+        "clob_passphrase",
         "submit_order",
         "place_order",
         "send_transaction",
@@ -112,6 +126,11 @@ SAFE_SECRET_METADATA_FIELD_NAMES = frozenset(
         "risk_limit_decision_secret_boundary_validation",
         "risk_control_ui_summary_secret_boundary_validation",
         "risk_control_plane_does_not_submit_orders",
+        "btc_connector_config_secret_boundary_validation",
+        "btc_market_snapshot_secret_boundary_validation",
+        "btc_connector_result_secret_boundary_validation",
+        "btc_ui_summary_secret_boundary_validation",
+        "btc_evidence_item_secret_boundary_validation",
     }
 )
 
@@ -554,6 +573,66 @@ def validate_secret_boundary_risk_control_ui_summary(
     return validate_static_secret_boundary(
         value,
         artifact_type="risk_control_ui_summary",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_btc_connector_config(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        value,
+        artifact_type="btc_read_only_connector_config",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_btc_market_snapshot(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        value,
+        artifact_type="btc_market_snapshot",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_btc_connector_result(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        value,
+        artifact_type="btc_read_only_connector_result",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_btc_ui_summary(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        value,
+        artifact_type="btc_read_only_ui_summary",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_btc_evidence_item(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        value,
+        artifact_type="btc_read_only_evidence_item",
         generated_at=generated_at,
     )
 

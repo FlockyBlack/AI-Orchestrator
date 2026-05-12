@@ -8,6 +8,7 @@ from typing import Any, Mapping, Sequence
 
 from pm_bot.trading_core.schemas import GENERATED_AT, bullet_lines, clean_text, mapping_rows
 from pm_bot.trading_core.secret_boundary_policy import (
+    validate_secret_boundary_btc_ui_summary,
     validate_secret_boundary_risk_control_ui_summary,
     validate_secret_boundary_operator_ui_panel_action_state,
     validate_secret_boundary_operator_ui_panel_kill_switch_summary,
@@ -23,6 +24,7 @@ from pm_bot.trading_core.risk_limit_control_plane import (
     summarize_risk_limit_decision,
     summarize_risk_limit_policy,
 )
+from pm_bot.trading_core.polymarket_btc_read_only_connector import summarize_btc_market_snapshot
 
 OPERATOR_UI_PANEL_V1_CONTRACT = "pmbot_operator_ui_panel.v1"
 OPERATOR_UI_PANEL_SECTION_CONTRACT = "pmbot_operator_ui_panel_section.v1"
@@ -35,6 +37,7 @@ OPERATOR_UI_PANEL_KILL_SWITCH_SUMMARY_CONTRACT = "pmbot_operator_ui_panel_kill_s
 OPERATOR_UI_PANEL_READINESS_SUMMARY_CONTRACT = "pmbot_operator_ui_panel_readiness_summary.v1"
 OPERATOR_UI_PANEL_EVIDENCE_SUMMARY_CONTRACT = "pmbot_operator_ui_panel_evidence_summary.v1"
 OPERATOR_UI_PANEL_BLOCKER_SUMMARY_CONTRACT = "pmbot_operator_ui_panel_blocker_summary.v1"
+OPERATOR_UI_PANEL_BTC_MARKET_SUMMARY_CONTRACT = "pmbot_operator_ui_panel_btc_market_summary.v1"
 OPERATOR_UI_PANEL_VALIDATION_CONTRACT = "pmbot_operator_ui_panel_validation.v1"
 
 TASK_ID = "ORCH-PMBOT-TRADING-MVP-036-OPERATOR-UI-PANEL-V1-READINESS-RISK-LIMITS-KILL-SWITCH"
@@ -55,6 +58,7 @@ REQUIRED_SECTION_IDS = (
     "header_execution_posture",
     "readiness_evidence_bundle",
     "live_blockers",
+    "btc_market_connector",
     "risk_control_plane",
     "risk_limits",
     "kill_switch",
@@ -183,6 +187,14 @@ class OperatorUIPanelRiskControlSummary:
     latest_violations_count: int
     latest_halt_reasons_count: int
     allowed_for_dry_run: bool
+    market_data_status: str = "not_evaluated"
+    market_data_market_id: str = ""
+    market_data_market_slug: str = ""
+    market_data_market_status: str = "unknown"
+    market_data_is_btc_related: bool | None = None
+    market_data_stale: bool = False
+    market_data_age_seconds: Any = None
+    market_data_freshness_feed_ready: bool = False
     allowed_for_live: bool = False
 
     def to_dict(self) -> dict[str, Any]:
@@ -195,6 +207,43 @@ class OperatorUIPanelRiskControlSummary:
         value["risk_control_panel_render_ready"] = True
         value["execution_enabling"] = False
         value["allowed_for_live"] = False
+        value.update(_panel_safety_flags())
+        return value
+
+
+@dataclass(frozen=True)
+class OperatorUIPanelBTCMarketSummary:
+    btc_market_connector_status: str
+    market_id: str
+    market_slug: str
+    market_title: str
+    is_btc_related: bool
+    market_status: str
+    is_open: bool
+    is_resolved: bool
+    stale: bool
+    snapshot_age_seconds: Any
+    best_bid: Any
+    best_ask: Any
+    last_price: Any
+    spread: Any
+    liquidity: Any
+    price_status: str
+    risk_control_market_data_status: str
+    read_only_network_enabled: bool
+    latest_btc_market_snapshot_path: str = ""
+
+    def to_dict(self) -> dict[str, Any]:
+        value = asdict(self)
+        value["contract_version"] = OPERATOR_UI_PANEL_BTC_MARKET_SUMMARY_CONTRACT
+        value["btc_market_section_ready"] = True
+        value["read_only"] = True
+        value["execution_enabling"] = False
+        value["allowed_for_live"] = False
+        value["live_execution_approved"] = False
+        value["canary_executable_now"] = False
+        value["real_execution_available"] = False
+        value["live_connector_enabled"] = False
         value.update(_panel_safety_flags())
         return value
 
@@ -285,6 +334,7 @@ class OperatorUIPanelV1:
     readiness_summary: Mapping[str, Any]
     evidence_summary: Mapping[str, Any]
     blocker_summary: Mapping[str, Any]
+    btc_market_summary: Mapping[str, Any]
     risk_control_plane_summary: Mapping[str, Any]
     risk_limit_summary: Mapping[str, Any]
     kill_switch_summary: Mapping[str, Any]
@@ -303,6 +353,7 @@ class OperatorUIPanelV1:
         value["readiness_summary"] = dict(self.readiness_summary)
         value["evidence_summary"] = dict(self.evidence_summary)
         value["blocker_summary"] = dict(self.blocker_summary)
+        value["btc_market_summary"] = dict(self.btc_market_summary)
         value["risk_control_plane_summary"] = dict(self.risk_control_plane_summary)
         value["risk_limit_summary"] = dict(self.risk_limit_summary)
         value["kill_switch_summary"] = dict(self.kill_switch_summary)
@@ -320,6 +371,7 @@ class OperatorUIPanelV1:
         value["kill_switch_panel_render_ready"] = True
         value["paper_summary_panel_ready"] = True
         value["blocker_panel_ready"] = True
+        value["btc_market_section_ready"] = True
         value["static_html_render_ready"] = True
         value["markdown_render_ready"] = True
         value["json_render_ready"] = True
@@ -340,6 +392,8 @@ def build_operator_ui_panel_v1(
     risk_limit_policy: Mapping[str, Any] | None = None,
     latest_risk_limit_decision: Mapping[str, Any] | None = None,
     risk_control_plane_summary: Mapping[str, Any] | None = None,
+    btc_market_snapshot: Mapping[str, Any] | None = None,
+    btc_read_only_connector_summary: Mapping[str, Any] | None = None,
     risk_limits: Mapping[str, Any] | None = None,
     risk_prep_config: Mapping[str, Any] | None = None,
     portfolio_summary: Mapping[str, Any] | None = None,
@@ -379,6 +433,18 @@ def build_operator_ui_panel_v1(
         risk_limit_policy=policy,
         latest_risk_limit_decision=latest_decision if isinstance(latest_decision, Mapping) else None,
         generated_at=generated_at,
+    )
+    btc_market_summary = _build_btc_market_summary(
+        btc_market_snapshot=btc_market_snapshot or dashboard_value.get("btc_market_snapshot", {}),
+        btc_read_only_connector_summary=(
+            btc_read_only_connector_summary
+            or dashboard_value.get("btc_market_snapshot_summary", {})
+            or dashboard_value.get("btc_read_only_connector_summary", {})
+        ),
+        latest_btc_market_snapshot_path=(
+            paths.get("btc_market_snapshot", "")
+            or clean_text(dashboard_value.get("latest_btc_market_snapshot_path"))
+        ),
     )
     risk_summary = _build_risk_limit_summary(
         risk_limits=risk_limits,
@@ -423,6 +489,7 @@ def build_operator_ui_panel_v1(
         readiness=readiness,
         evidence=evidence_summary,
         blockers=blocker_summary,
+        btc_market=btc_market_summary,
         risk_control=risk_control_summary,
         risk=risk_summary,
         kill_switch=kill_switch_summary,
@@ -440,6 +507,7 @@ def build_operator_ui_panel_v1(
             "missing_required_evidence_count": evidence_summary.get("missing_required_evidence_count"),
             "blocker_count": blocker_summary.get("total_blockers"),
             "unresolved_blocker_count": blocker_summary.get("unresolved_blockers"),
+            "btc_market": btc_market_summary,
             "risk_control": risk_control_summary,
             "risk": risk_summary,
             "kill_switch": kill_switch_summary,
@@ -453,6 +521,7 @@ def build_operator_ui_panel_v1(
         readiness_summary=readiness,
         evidence_summary=evidence_summary,
         blocker_summary=blocker_summary,
+        btc_market_summary=btc_market_summary,
         risk_control_plane_summary=risk_control_summary,
         risk_limit_summary=risk_summary,
         kill_switch_summary=kill_switch_summary,
@@ -512,6 +581,20 @@ def validate_operator_ui_panel_v1(
     if panel_value.get("risk_control_plane_summary", {}).get("allowed_for_live") is not False:
         errors.append("risk_control_plane_summary.allowed_for_live must be false")
         statuses.append("risk_control_live_allowance_detected")
+
+    btc_ui_validation = validate_secret_boundary_btc_ui_summary(
+        dict(panel_value.get("btc_market_summary", {})),
+        generated_at=generated_at,
+    )
+    if btc_ui_validation.get("valid") is not True:
+        errors.append("btc_market_summary violates static secret boundary")
+        statuses.append("btc_market_summary_secret_boundary_blocked")
+    if panel_value.get("btc_market_summary", {}).get("execution_enabling") is not False:
+        errors.append("btc_market_summary.execution_enabling must be false")
+        statuses.append("btc_market_execution_enabling_detected")
+    if panel_value.get("btc_market_summary", {}).get("allowed_for_live") is not False:
+        errors.append("btc_market_summary.allowed_for_live must be false")
+        statuses.append("btc_market_live_allowance_detected")
 
     kill_validation = validate_secret_boundary_operator_ui_panel_kill_switch_summary(
         dict(panel_value.get("kill_switch_summary", {})),
@@ -595,6 +678,7 @@ def validate_operator_ui_panel_v1(
         "statuses": _dedupe(statuses) or (["operator_ui_panel_valid"] if valid else ["operator_ui_panel_blocked"]),
         "errors": errors,
         "secret_boundary_validation": payload_validation,
+        "btc_market_summary_secret_boundary_validation": btc_ui_validation,
         "rendered_json_secret_boundary_validation": rendered_json_validation,
         "rendered_markdown_secret_boundary_validation": rendered_md_validation,
         "rendered_html_secret_boundary_validation": rendered_html_validation,
@@ -637,6 +721,13 @@ def summarize_operator_ui_panel_v1(panel: Mapping[str, Any]) -> dict[str, Any]:
             "risk_control_plane_ready"
         )
         is True,
+        "btc_market_section_ready": dict(panel.get("btc_market_summary", {})).get("btc_market_section_ready")
+        is True,
+        "btc_market_connector_status": dict(panel.get("btc_market_summary", {})).get(
+            "btc_market_connector_status"
+        ),
+        "btc_market_status": dict(panel.get("btc_market_summary", {})).get("market_status"),
+        "btc_market_stale": dict(panel.get("btc_market_summary", {})).get("stale") is True,
         "latest_risk_limit_decision_status": dict(panel.get("risk_control_plane_summary", {})).get(
             "latest_decision_status"
         ),
@@ -944,6 +1035,46 @@ def _build_risk_limit_summary(
     ).to_dict()
 
 
+def _build_btc_market_summary(
+    *,
+    btc_market_snapshot: Mapping[str, Any] | None,
+    btc_read_only_connector_summary: Mapping[str, Any] | None,
+    latest_btc_market_snapshot_path: str,
+) -> dict[str, Any]:
+    snapshot = dict(btc_market_snapshot or {})
+    summary = dict(btc_read_only_connector_summary or {})
+    if snapshot:
+        snapshot_summary = summarize_btc_market_snapshot(snapshot)
+        merged = dict(snapshot_summary)
+        merged.update({key: value for key, value in summary.items() if value not in ("", None, [])})
+        summary = merged
+    return OperatorUIPanelBTCMarketSummary(
+        btc_market_connector_status=clean_text(summary.get("btc_market_connector_status") or NOT_AVAILABLE),
+        market_id=clean_text(summary.get("market_id")),
+        market_slug=clean_text(summary.get("market_slug")),
+        market_title=clean_text(summary.get("market_title")),
+        is_btc_related=summary.get("is_btc_related") is True,
+        market_status=clean_text(summary.get("market_status") or NOT_AVAILABLE),
+        is_open=summary.get("is_open") is True,
+        is_resolved=summary.get("is_resolved") is True,
+        stale=summary.get("stale") is True,
+        snapshot_age_seconds=summary.get("snapshot_age_seconds"),
+        best_bid=summary.get("best_bid"),
+        best_ask=summary.get("best_ask"),
+        last_price=summary.get("last_price"),
+        spread=summary.get("spread"),
+        liquidity=summary.get("liquidity"),
+        price_status=clean_text(summary.get("price_status") or NOT_AVAILABLE),
+        risk_control_market_data_status=clean_text(
+            summary.get("risk_control_market_data_status") or NOT_AVAILABLE
+        ),
+        read_only_network_enabled=summary.get("read_only_network_enabled") is True,
+        latest_btc_market_snapshot_path=clean_text(
+            summary.get("latest_btc_market_snapshot_path") or latest_btc_market_snapshot_path
+        ),
+    ).to_dict()
+
+
 def _build_risk_control_plane_summary(
     *,
     risk_control_plane_summary: Mapping[str, Any] | None,
@@ -971,6 +1102,14 @@ def _build_risk_control_plane_summary(
             latest_violations_count=_int_or_zero(provided.get("latest_violations_count"), 0),
             latest_halt_reasons_count=_int_or_zero(provided.get("latest_halt_reasons_count"), 0),
             allowed_for_dry_run=provided.get("allowed_for_dry_run") is True,
+            market_data_status=clean_text(provided.get("market_data_status") or "not_evaluated"),
+            market_data_market_id=clean_text(provided.get("market_data_market_id")),
+            market_data_market_slug=clean_text(provided.get("market_data_market_slug")),
+            market_data_market_status=clean_text(provided.get("market_data_market_status") or "unknown"),
+            market_data_is_btc_related=_bool_or_none(provided.get("market_data_is_btc_related")),
+            market_data_stale=provided.get("market_data_stale") is True,
+            market_data_age_seconds=provided.get("market_data_age_seconds"),
+            market_data_freshness_feed_ready=provided.get("market_data_freshness_feed_ready") is True,
             allowed_for_live=False,
         ).to_dict()
     policy = dict(risk_limit_policy or build_default_risk_limit_policy(generated_at=generated_at))
@@ -997,6 +1136,14 @@ def _build_risk_control_plane_summary(
         latest_violations_count=_int_or_zero(decision_summary.get("latest_violations_count"), 0),
         latest_halt_reasons_count=_int_or_zero(decision_summary.get("latest_halt_reasons_count"), 0),
         allowed_for_dry_run=decision_summary.get("allowed_for_dry_run") is True,
+        market_data_status=clean_text(summary.get("market_data_status") or "not_evaluated"),
+        market_data_market_id=clean_text(summary.get("market_data_market_id")),
+        market_data_market_slug=clean_text(summary.get("market_data_market_slug")),
+        market_data_market_status=clean_text(summary.get("market_data_market_status") or "unknown"),
+        market_data_is_btc_related=_bool_or_none(summary.get("market_data_is_btc_related")),
+        market_data_stale=summary.get("market_data_stale") is True,
+        market_data_age_seconds=summary.get("market_data_age_seconds"),
+        market_data_freshness_feed_ready=summary.get("market_data_freshness_feed_ready") is True,
         allowed_for_live=False,
     ).to_dict()
 
@@ -1195,6 +1342,7 @@ def _build_sections(
     readiness: Mapping[str, Any],
     evidence: Mapping[str, Any],
     blockers: Mapping[str, Any],
+    btc_market: Mapping[str, Any],
     risk_control: Mapping[str, Any],
     risk: Mapping[str, Any],
     kill_switch: Mapping[str, Any],
@@ -1250,6 +1398,40 @@ def _build_sections(
             ],
         ),
         _section(
+            "btc_market_connector",
+            "BTC Market Connector",
+            clean_text(btc_market.get("btc_market_connector_status") or NOT_AVAILABLE),
+            [
+                _metric("btc_market_connector_status", "Connector status", btc_market.get("btc_market_connector_status")),
+                _metric("market_id", "Market ID", btc_market.get("market_id")),
+                _metric("market_slug", "Market slug", btc_market.get("market_slug")),
+                _metric("market_title", "Market title", btc_market.get("market_title")),
+                _metric("is_btc_related", "BTC related", btc_market.get("is_btc_related")),
+                _metric("market_status", "Market status", btc_market.get("market_status")),
+                _metric("is_open", "Open", btc_market.get("is_open")),
+                _metric("is_resolved", "Resolved", btc_market.get("is_resolved")),
+                _metric("stale", "Stale", btc_market.get("stale")),
+                _metric("snapshot_age_seconds", "Snapshot age seconds", btc_market.get("snapshot_age_seconds")),
+                _metric("best_bid", "Best bid", btc_market.get("best_bid")),
+                _metric("best_ask", "Best ask", btc_market.get("best_ask")),
+                _metric("last_price", "Last price", btc_market.get("last_price")),
+                _metric("spread", "Spread", btc_market.get("spread")),
+                _metric("liquidity", "Liquidity", btc_market.get("liquidity")),
+                _metric("price_status", "Price status", btc_market.get("price_status")),
+                _metric(
+                    "risk_control_market_data_status",
+                    "Risk market-data status",
+                    btc_market.get("risk_control_market_data_status"),
+                ),
+                _metric("read_only_network_enabled", "Read-only network enabled", btc_market.get("read_only_network_enabled")),
+                _metric(
+                    "latest_btc_market_snapshot_path",
+                    "Latest BTC market snapshot",
+                    btc_market.get("latest_btc_market_snapshot_path"),
+                ),
+            ],
+        ),
+        _section(
             "risk_control_plane",
             "Risk Control Plane",
             clean_text(risk_control.get("risk_control_plane_status") or "ready_no_intent_evaluated"),
@@ -1265,6 +1447,10 @@ def _build_sections(
                 _metric("max_trades_per_day", "Max trades per day", risk_control.get("max_trades_per_day")),
                 _metric("max_active_markets", "Max active markets", risk_control.get("max_active_markets")),
                 _metric("allowed_market_tags", "Allowed market tags", risk_control.get("allowed_market_tags")),
+                _metric("market_data_status", "Market data status", risk_control.get("market_data_status")),
+                _metric("market_data_market_status", "Market data market status", risk_control.get("market_data_market_status")),
+                _metric("market_data_stale", "Market data stale", risk_control.get("market_data_stale")),
+                _metric("market_data_age_seconds", "Market data age seconds", risk_control.get("market_data_age_seconds")),
                 _metric("latest_decision_status", "Latest decision status", risk_control.get("latest_decision_status")),
                 _metric("latest_violations_count", "Latest violations", risk_control.get("latest_violations_count")),
                 _metric("latest_halt_reasons_count", "Latest halt reasons", risk_control.get("latest_halt_reasons_count")),
@@ -1435,6 +1621,19 @@ def _int_or_zero(*values: Any) -> int:
         except (TypeError, ValueError):
             continue
     return 0
+
+
+def _bool_or_none(value: Any) -> bool | None:
+    if isinstance(value, bool):
+        return value
+    if value is None:
+        return None
+    text = clean_text(value).lower()
+    if text in {"true", "1", "yes", "y"}:
+        return True
+    if text in {"false", "0", "no", "n"}:
+        return False
+    return None
 
 
 def _display_value(value: Any) -> str:

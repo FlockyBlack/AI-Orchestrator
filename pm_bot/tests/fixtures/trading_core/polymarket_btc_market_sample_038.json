@@ -1,0 +1,38 @@
+{
+  "id": "btc-one-market-demo-market",
+  "slug": "btc-one-market-demo",
+  "question": "Will Bitcoin close above the demo threshold on the fixture date?",
+  "tags": [
+    "BTC",
+    "Bitcoin"
+  ],
+  "active": true,
+  "closed": false,
+  "resolved": false,
+  "fetched_at": "2026-05-11T00:00:00Z",
+  "observed_at": "2026-05-11T00:00:00Z",
+  "outcomes": [
+    {
+      "id": "btc-demo-yes",
+      "name": "Yes",
+      "price": 0.52,
+      "bestBid": 0.51,
+      "bestAsk": 0.53,
+      "lastPrice": 0.52,
+      "liquidity": 2500.0
+    },
+    {
+      "id": "btc-demo-no",
+      "name": "No",
+      "price": 0.48,
+      "bestBid": 0.47,
+      "bestAsk": 0.49,
+      "lastPrice": 0.48,
+      "liquidity": 2500.0
+    }
+  ],
+  "bestBid": 0.51,
+  "bestAsk": 0.53,
+  "lastPrice": 0.52,
+  "liquidity": 2500.0
+}

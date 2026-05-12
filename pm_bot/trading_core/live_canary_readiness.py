@@ -104,9 +104,21 @@ REQUIRED_SAFETY_ASSERTIONS = {
     "no_real_execution": True,
 }
 
+BTC_MARKET_READINESS_REVIEW_ONLY_BLOCKER_CATEGORIES = (
+    "btc_read_only_connector_review_only",
+    "btc_market_snapshot_not_live_trade_approval",
+    "btc_market_analysis_not_yet_order_intent",
+    "authenticated_live_order_connector_still_disabled",
+    "real_order_submission_still_disabled",
+)
+
 
 class CanaryReadinessValidationError(ValueError):
     pass
+
+
+def btc_market_readiness_blocker_categories() -> tuple[str, ...]:
+    return BTC_MARKET_READINESS_REVIEW_ONLY_BLOCKER_CATEGORIES
 
 
 def stable_canary_id(*, run_id: str, market_id: str) -> str:

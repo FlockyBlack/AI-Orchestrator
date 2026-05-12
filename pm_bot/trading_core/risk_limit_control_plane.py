@@ -125,6 +125,13 @@ class RiskLimitState:
     orders_submitted_today: int = 0
     trades_executed_today: int = 0
     market_data_age_seconds: int = 0
+    market_data_status: str = "not_evaluated"
+    market_data_snapshot_id: str = ""
+    market_data_market_id: str = ""
+    market_data_market_slug: str = ""
+    market_data_market_status: str = "unknown"
+    market_data_is_btc_related: bool | None = None
+    market_data_stale: bool = False
     audit_mismatch_detected: bool = False
     kill_switch_active: bool = False
     operator_intent_present: bool = True
@@ -309,13 +316,46 @@ def build_default_risk_limit_state(
 ) -> dict[str, Any]:
     exposure = dict(exposure_snapshot or RiskLimitExposureSnapshot(generated_at=generated_at).to_dict())
     daily_loss = dict(daily_loss_snapshot or RiskLimitDailyLossSnapshot(generated_at=generated_at).to_dict())
+    btc_market_snapshot = dict(
+        overrides.pop("btc_market_snapshot", overrides.pop("market_data_snapshot", {})) or {}
+    )
+    market_data_fields = _market_data_fields_from_snapshot(btc_market_snapshot)
     state = RiskLimitState(
         state_id=clean_text(overrides.pop("state_id", "")) or "risk-limit-state-037-default",
         exposure_snapshot=exposure,
         daily_loss_snapshot=daily_loss,
         orders_submitted_today=int(overrides.pop("orders_submitted_today", 0) or 0),
         trades_executed_today=int(overrides.pop("trades_executed_today", 0) or 0),
-        market_data_age_seconds=int(overrides.pop("market_data_age_seconds", 0) or 0),
+        market_data_age_seconds=int(
+            overrides.pop(
+                "market_data_age_seconds",
+                market_data_fields.get("market_data_age_seconds", 0),
+            )
+            or 0
+        ),
+        market_data_status=(
+            clean_text(overrides.pop("market_data_status", market_data_fields.get("market_data_status")))
+            or "not_evaluated"
+        ),
+        market_data_snapshot_id=clean_text(
+            overrides.pop("market_data_snapshot_id", market_data_fields.get("market_data_snapshot_id"))
+        ),
+        market_data_market_id=clean_text(
+            overrides.pop("market_data_market_id", market_data_fields.get("market_data_market_id"))
+        ),
+        market_data_market_slug=clean_text(
+            overrides.pop("market_data_market_slug", market_data_fields.get("market_data_market_slug"))
+        ),
+        market_data_market_status=(
+            clean_text(overrides.pop("market_data_market_status", market_data_fields.get("market_data_market_status")))
+            or "unknown"
+        ),
+        market_data_is_btc_related=_bool_or_none(
+            overrides.pop("market_data_is_btc_related", market_data_fields.get("market_data_is_btc_related"))
+        ),
+        market_data_stale=(
+            overrides.pop("market_data_stale", market_data_fields.get("market_data_stale")) is True
+        ),
         audit_mismatch_detected=bool(overrides.pop("audit_mismatch_detected", False)),
         kill_switch_active=bool(overrides.pop("kill_switch_active", False)),
         operator_intent_present=overrides.pop("operator_intent_present", True) is True,
@@ -442,6 +482,13 @@ def evaluate_risk_limits_for_order_intent(
                 "Order intent market is not in the one-market policy allowlist.",
             )
         )
+    _apply_market_data_snapshot_gates(
+        policy=active_policy,
+        state=active_state,
+        intent=intent,
+        violations=violations,
+        halt_reasons=halt_reasons,
+    )
     if notional > _number(active_policy.get("max_order_notional_usd")):
         violations.append(
             _violation(
@@ -561,7 +608,10 @@ def evaluate_risk_limits_for_order_intent(
         )
     if active_policy.get("halt_on_stale_market_data") is True and int(
         active_state.get("market_data_age_seconds", 0) or 0
-    ) > int(active_policy.get("max_market_data_age_seconds", 0) or 0):
+    ) > int(active_policy.get("max_market_data_age_seconds", 0) or 0) and not _has_code(
+        halt_reasons,
+        "STALE_MARKET_DATA",
+    ):
         halt_reasons.append(
             _halt(
                 "STALE_MARKET_DATA",
@@ -678,6 +728,12 @@ def evaluate_risk_limits_for_order_intent(
 
 def summarize_risk_limit_decision(decision: Mapping[str, Any] | None) -> dict[str, Any]:
     value = dict(decision or {})
+    evaluation_context = value.get("evaluation_context")
+    decision_state = (
+        dict(evaluation_context.get("state", {}))
+        if isinstance(evaluation_context, Mapping) and isinstance(evaluation_context.get("state"), Mapping)
+        else {}
+    )
     return {
         "contract_version": RISK_LIMIT_DECISION_SUMMARY_CONTRACT,
         "decision_id": clean_text(value.get("decision_id")),
@@ -691,6 +747,9 @@ def summarize_risk_limit_decision(decision: Mapping[str, Any] | None) -> dict[st
         "live_block_reason_count": len(value.get("live_block_reasons", []))
         if isinstance(value.get("live_block_reasons"), list)
         else 0,
+        "market_data_status": clean_text(decision_state.get("market_data_status")) or "not_evaluated",
+        "market_data_market_status": clean_text(decision_state.get("market_data_market_status")) or "unknown",
+        "market_data_stale": decision_state.get("market_data_stale") is True,
         "human_summary": clean_text(value.get("human_summary")),
         "remaining_capacity": dict(value.get("remaining_capacity", {}))
         if isinstance(value.get("remaining_capacity"), Mapping)
@@ -734,11 +793,36 @@ def build_risk_control_plane_summary(
     *,
     policy: Mapping[str, Any] | None = None,
     latest_decision: Mapping[str, Any] | None = None,
+    btc_market_snapshot: Mapping[str, Any] | None = None,
     generated_at: str = GENERATED_AT,
 ) -> dict[str, Any]:
     active_policy = dict(policy or build_default_risk_limit_policy(generated_at=generated_at))
     policy_summary = summarize_risk_limit_policy(active_policy)
     decision_summary = summarize_risk_limit_decision(latest_decision)
+    snapshot_fields = _market_data_fields_from_snapshot(dict(btc_market_snapshot or {}))
+    decision_state = {}
+    if isinstance(latest_decision, Mapping):
+        context = latest_decision.get("evaluation_context")
+        if isinstance(context, Mapping) and isinstance(context.get("state"), Mapping):
+            decision_state = dict(context.get("state", {}))
+    market_data_status = clean_text(
+        snapshot_fields.get("market_data_status")
+        or decision_state.get("market_data_status")
+        or decision_summary.get("market_data_status")
+    ) or "not_evaluated"
+    market_data_market_status = clean_text(
+        snapshot_fields.get("market_data_market_status")
+        or decision_state.get("market_data_market_status")
+        or decision_summary.get("market_data_market_status")
+    ) or "unknown"
+    market_data_stale = (
+        snapshot_fields.get("market_data_stale") is True
+        or decision_state.get("market_data_stale") is True
+        or decision_summary.get("market_data_stale") is True
+    )
+    market_data_age_seconds = snapshot_fields.get("market_data_age_seconds")
+    if market_data_age_seconds in (None, 0) and decision_state.get("market_data_age_seconds") is not None:
+        market_data_age_seconds = decision_state.get("market_data_age_seconds")
     decision_status = decision_summary.get("latest_decision_status")
     if decision_status == DECISION_HALT:
         status = "halted"
@@ -770,6 +854,23 @@ def build_risk_control_plane_summary(
         "allowed_market_slugs": policy_summary["allowed_market_slugs"],
         "btc_one_market_demo_policy_supported": policy_summary["btc_one_market_demo_policy_supported"],
         "future_btc_live_demo_supported_by_limits": policy_summary["btc_one_market_demo_policy_supported"],
+        "market_data_status": market_data_status,
+        "market_data_snapshot_id": clean_text(
+            snapshot_fields.get("market_data_snapshot_id") or decision_state.get("market_data_snapshot_id")
+        ),
+        "market_data_market_id": clean_text(
+            snapshot_fields.get("market_data_market_id") or decision_state.get("market_data_market_id")
+        ),
+        "market_data_market_slug": clean_text(
+            snapshot_fields.get("market_data_market_slug") or decision_state.get("market_data_market_slug")
+        ),
+        "market_data_market_status": market_data_market_status,
+        "market_data_is_btc_related": _bool_or_none(
+            snapshot_fields.get("market_data_is_btc_related", decision_state.get("market_data_is_btc_related"))
+        ),
+        "market_data_stale": market_data_stale,
+        "market_data_age_seconds": market_data_age_seconds,
+        "market_data_freshness_feed_ready": market_data_status != "not_evaluated",
         "latest_decision_present": bool(latest_decision),
         "latest_decision_status": decision_summary["latest_decision_status"],
         "latest_violations_count": decision_summary["latest_violations_count"],
@@ -848,6 +949,110 @@ def _live_block_reasons(policy: Mapping[str, Any], state: Mapping[str, Any]) -> 
     if policy.get("halt_on_real_execution_unavailable") is True and state.get("real_execution_available") is not True:
         reasons.append("REAL_EXECUTION_UNAVAILABLE")
     return reasons
+
+
+def _apply_market_data_snapshot_gates(
+    *,
+    policy: Mapping[str, Any],
+    state: Mapping[str, Any],
+    intent: Mapping[str, Any],
+    violations: list[dict[str, Any]],
+    halt_reasons: list[dict[str, Any]],
+) -> None:
+    status = clean_text(state.get("market_data_status"))
+    snapshot_id = clean_text(state.get("market_data_snapshot_id"))
+    market_id = clean_text(state.get("market_data_market_id"))
+    market_slug = clean_text(state.get("market_data_market_slug"))
+    if not any((status, snapshot_id, market_id, market_slug)):
+        return
+    if status == "not_evaluated":
+        return
+
+    intent_market_id = clean_text(intent.get("market_id"))
+    intent_market_slug = clean_text(intent.get("market_slug"))
+    if market_id and intent_market_id and market_id != intent_market_id:
+        violations.append(
+            _violation(
+                "MARKET_DATA_SNAPSHOT_MISMATCH",
+                "market_data_market_id",
+                intent_market_id,
+                market_id,
+                "BTC market snapshot market_id does not match the evaluated intent.",
+            )
+        )
+    if market_slug and intent_market_slug and market_slug != intent_market_slug:
+        violations.append(
+            _violation(
+                "MARKET_DATA_SNAPSHOT_MISMATCH",
+                "market_data_market_slug",
+                intent_market_slug,
+                market_slug,
+                "BTC market snapshot market_slug does not match the evaluated intent.",
+            )
+        )
+    if state.get("market_data_is_btc_related") is False:
+        violations.append(
+            _violation(
+                "BTC_MARKET_SNAPSHOT_NOT_BTC",
+                "market_data_is_btc_related",
+                True,
+                False,
+                "BTC market snapshot does not validate as BTC or Bitcoin related.",
+            )
+        )
+
+    market_status = clean_text(state.get("market_data_market_status"))
+    if policy.get("halt_on_stale_market_data") is True and (
+        state.get("market_data_stale") is True or status == "stale_market_data"
+    ) and not _has_code(halt_reasons, "STALE_MARKET_DATA"):
+        halt_reasons.append(
+            _halt(
+                "STALE_MARKET_DATA",
+                "market_data_status",
+                "fresh_open_btc_market",
+                status,
+                "BTC market snapshot is stale under the risk-control freshness policy.",
+            )
+        )
+    if market_status == "resolved" and not _has_code(halt_reasons, "BTC_MARKET_RESOLVED"):
+        halt_reasons.append(
+            _halt(
+                "BTC_MARKET_RESOLVED",
+                "market_data_market_status",
+                "open",
+                market_status,
+                "BTC market snapshot is resolved and cannot feed even dry-run intent evaluation.",
+            )
+        )
+    if market_status == "closed" and not _has_code(halt_reasons, "BTC_MARKET_CLOSED"):
+        halt_reasons.append(
+            _halt(
+                "BTC_MARKET_CLOSED",
+                "market_data_market_status",
+                "open",
+                market_status,
+                "BTC market snapshot is closed and cannot feed even dry-run intent evaluation.",
+            )
+        )
+
+
+def _market_data_fields_from_snapshot(snapshot: Mapping[str, Any]) -> dict[str, Any]:
+    value = dict(snapshot or {})
+    ui_summary = value.get("ui_summary")
+    ui = dict(ui_summary) if isinstance(ui_summary, Mapping) else {}
+    return {
+        "market_data_status": clean_text(
+            value.get("risk_control_market_data_status") or ui.get("risk_control_market_data_status")
+        )
+        or "not_evaluated",
+        "market_data_snapshot_id": clean_text(value.get("snapshot_id") or ui.get("snapshot_id")),
+        "market_data_market_id": clean_text(value.get("market_id") or ui.get("market_id")),
+        "market_data_market_slug": clean_text(value.get("market_slug") or ui.get("market_slug")),
+        "market_data_market_status": clean_text(value.get("status") or ui.get("market_status")) or "unknown",
+        "market_data_is_btc_related": _bool_or_none(value.get("is_btc_related", ui.get("is_btc_related"))),
+        "market_data_stale": value.get("stale", ui.get("stale")) is True,
+        "market_data_age_seconds": int(value.get("age_seconds", ui.get("snapshot_age_seconds")) or 0),
+    }
 
 
 def _remaining_capacity(
@@ -1009,6 +1214,23 @@ def _number(value: Any) -> float:
         return round(float(value), 2)
     except (TypeError, ValueError):
         return 0.0
+
+
+def _bool_or_none(value: Any) -> bool | None:
+    if isinstance(value, bool):
+        return value
+    if value is None:
+        return None
+    text = clean_text(value).lower()
+    if text in {"true", "1", "yes", "y"}:
+        return True
+    if text in {"false", "0", "no", "n"}:
+        return False
+    return None
+
+
+def _has_code(rows: Sequence[Mapping[str, Any]], code: str) -> bool:
+    return any(clean_text(row.get("code")) == code for row in rows)
 
 
 def _require_positive_number(value: Mapping[str, Any], field: str, errors: list[str]) -> None:
