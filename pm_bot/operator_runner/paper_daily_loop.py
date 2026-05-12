@@ -90,6 +90,10 @@ from pm_bot.trading_core.polymarket_btc_read_only_connector import (
     build_default_btc_read_only_config,
     summarize_btc_market_snapshot,
 )
+from pm_bot.trading_core.btc_market_analysis_order_intent import (
+    evaluate_btc_analysis_to_order_intent,
+    summarize_btc_analysis_order_intent,
+)
 from pm_bot.trading_core.paper_portfolio_report import (
     build_paper_portfolio_report,
     render_paper_portfolio_report_markdown,
@@ -253,6 +257,9 @@ class PaperDailyLoopResult:
     operator_intent_packet_path: str
     readiness_evidence_bundle_path: str
     btc_market_snapshot_path: str
+    btc_market_analysis_path: str
+    btc_order_intent_dry_run_path: str
+    btc_risk_decision_path: str
     tiny_live_canary_preflight_contract_path: str
     tiny_live_canary_manual_runbook_path: str
     tiny_live_canary_preflight_result_path: str
@@ -606,6 +613,11 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
     latest_btc_market_snapshot_path = (
         normalize_path(paths["btc_market_snapshot"]) if active_config.write_artifacts else ""
     )
+    latest_btc_analysis_path = normalize_path(paths["btc_market_analysis"]) if active_config.write_artifacts else ""
+    latest_btc_order_intent_path = (
+        normalize_path(paths["btc_order_intent_dry_run"]) if active_config.write_artifacts else ""
+    )
+    latest_btc_risk_decision_path = normalize_path(paths["btc_risk_decision"]) if active_config.write_artifacts else ""
     btc_read_only_config = build_default_btc_read_only_config(generated_at=generated_at)
     btc_read_only_connector = PolymarketBTCReadOnlyConnector(btc_read_only_config)
     btc_read_only_connector_result = btc_read_only_connector.build_snapshot_from_fixture_payload(
@@ -639,24 +651,31 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         **btc_market_snapshot_summary,
     }
     risk_limit_policy = build_default_risk_limit_policy(generated_at=generated_at)
-    latest_risk_limit_decision = _build_latest_risk_limit_decision(
-        candidates=candidates,
-        portfolio_state=portfolio_state,
-        live_connector_blocker_matrix=live_connector_blocker_matrix,
-        operator_intent_packet=operator_intent_packet,
-        btc_market_snapshot=btc_market_snapshot,
-        readiness_evidence_bundle_reference=(
+    btc_analysis_order_intent_result = evaluate_btc_analysis_to_order_intent(
+        btc_market_snapshot,
+        policy=risk_limit_policy,
+        operator_intent_reference=clean_text(operator_intent_packet.get("packet_id"))
+        or "live_canary_operator_intent_packet:current-run",
+        readiness_evidence_reference=(
             latest_readiness_evidence_bundle_path or "live_canary_readiness_evidence_bundle:current-run"
         ),
         audit_replay_reference=live_connector_audit_replay.get("replay_id", "live_connector_audit_replay:current-run"),
         ui_panel_reference=normalize_path(paths["operator_ui_panel_json"]) if active_config.write_artifacts else "",
-        policy=risk_limit_policy,
+        latest_btc_analysis_path=latest_btc_analysis_path,
+        latest_btc_order_intent_path=latest_btc_order_intent_path,
+        latest_btc_risk_decision_path=latest_btc_risk_decision_path,
         generated_at=generated_at,
     )
-    risk_control_plane_summary = build_risk_control_plane_summary(
-        policy=risk_limit_policy,
-        latest_decision=latest_risk_limit_decision,
-        btc_market_snapshot=btc_market_snapshot,
+    btc_market_analysis = dict(btc_analysis_order_intent_result.get("analysis") or {})
+    btc_order_intent_dry_run = dict(btc_analysis_order_intent_result.get("order_intent_plan") or {})
+    latest_risk_limit_decision = dict(btc_analysis_order_intent_result.get("risk_decision") or {})
+    btc_risk_decision_summary = dict(btc_analysis_order_intent_result.get("risk_decision_summary") or {})
+    risk_control_plane_summary = dict(btc_analysis_order_intent_result.get("risk_control_plane_summary") or {})
+    btc_analysis_order_intent_summary = summarize_btc_analysis_order_intent(
+        btc_analysis_order_intent_result,
+        latest_btc_analysis_path=latest_btc_analysis_path,
+        latest_btc_order_intent_path=latest_btc_order_intent_path,
+        latest_btc_risk_decision_path=latest_btc_risk_decision_path,
         generated_at=generated_at,
     )
     readiness_evidence_bundle = build_live_canary_readiness_evidence_bundle(
@@ -681,6 +700,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         preflight_result=tiny_live_canary_preflight_result,
         risk_limit_control_plane=risk_control_plane_summary,
         btc_read_only_market_connector=btc_read_only_connector_summary,
+        btc_analysis_order_intent_dry_run=btc_analysis_order_intent_summary,
         dry_run_receipt_references=[canary_dry_run_receipt.get("receipt_id", "")],
         result_artifact_references=[
             normalize_path(paths["result"]) if active_config.write_artifacts else "paper_daily_loop_result:current-run",
@@ -719,6 +739,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
             "risk_review": canary_readiness_packet.get("risk_decision_id", ""),
             "risk_limit_control_plane": risk_control_plane_summary.get("policy_id", ""),
             "btc_read_only_market_connector": latest_btc_market_snapshot_path,
+            "btc_market_analysis_to_order_intent_dry_run": latest_btc_order_intent_path,
         },
         generated_at=generated_at,
     )
@@ -819,6 +840,10 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         btc_market_snapshot=btc_market_snapshot,
         btc_market_snapshot_summary=btc_market_snapshot_summary,
         btc_read_only_connector_summary=btc_read_only_connector_summary,
+        btc_market_analysis=btc_market_analysis,
+        btc_order_intent_dry_run=btc_order_intent_dry_run,
+        btc_risk_decision_summary=btc_risk_decision_summary,
+        btc_analysis_order_intent_summary=btc_analysis_order_intent_summary,
         latest_disabled_connector_audit_path=(
             normalize_path(paths["disabled_connector_audit"]) if active_config.write_artifacts else ""
         ),
@@ -837,6 +862,9 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         ),
         latest_readiness_evidence_bundle_path=latest_readiness_evidence_bundle_path,
         latest_btc_market_snapshot_path=latest_btc_market_snapshot_path,
+        latest_btc_analysis_path=latest_btc_analysis_path,
+        latest_btc_order_intent_path=latest_btc_order_intent_path,
+        latest_btc_risk_decision_path=latest_btc_risk_decision_path,
         source_evidence_refresh_ledger=source_evidence_refresh_ledger,
         generated_at=generated_at,
     )
@@ -847,6 +875,9 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         "paper_daily_loop_result": normalize_path(paths["result"]) if active_config.write_artifacts else "",
         "readiness_evidence_bundle": latest_readiness_evidence_bundle_path,
         "btc_market_snapshot": latest_btc_market_snapshot_path,
+        "btc_market_analysis": latest_btc_analysis_path,
+        "btc_order_intent_dry_run": latest_btc_order_intent_path,
+        "btc_risk_decision": latest_btc_risk_decision_path,
         "operator_live_approval_packet": (
             normalize_path(paths["operator_live_approval_packet"]) if active_config.write_artifacts else ""
         ),
@@ -868,6 +899,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         risk_control_plane_summary=risk_control_plane_summary,
         btc_market_snapshot=btc_market_snapshot,
         btc_read_only_connector_summary=btc_market_snapshot_summary,
+        btc_analysis_order_intent_summary=btc_analysis_order_intent_summary,
         risk_limits=limits,
         risk_prep_config=risk_prep_config,
         portfolio_summary=portfolio_report.get("exposure_summary", {}),
@@ -927,6 +959,11 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
             btc_market_snapshot,
             btc_market_snapshot_summary,
             btc_read_only_connector_summary,
+            btc_analysis_order_intent_result,
+            btc_market_analysis,
+            btc_order_intent_dry_run,
+            btc_risk_decision_summary,
+            btc_analysis_order_intent_summary,
             risk_limit_policy,
             latest_risk_limit_decision or {},
             risk_control_plane_summary,
@@ -1020,6 +1057,16 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         and btc_market_snapshot_summary.get("read_only_network_enabled") is False
         and btc_read_only_connector_summary.get("order_submission_supported") is False
         and btc_read_only_connector_summary.get("authenticated_requests_supported") is False
+        and btc_market_analysis.get("analysis_status") == "analysis_ready_for_dry_run_intent"
+        and btc_market_analysis.get("analysis_is_not_live_recommendation") is True
+        and btc_order_intent_dry_run.get("dry_run_order_intent_status") == "dry_run_intent_candidate_ready"
+        and btc_order_intent_dry_run.get("order_intent_is_not_order_submission") is True
+        and btc_risk_decision_summary.get("risk_decision_status") == "ALLOW_DRY_RUN"
+        and btc_risk_decision_summary.get("allowed_for_dry_run") is True
+        and btc_risk_decision_summary.get("allowed_for_live") is False
+        and btc_analysis_order_intent_summary.get("analysis_is_not_live_recommendation") is True
+        and btc_analysis_order_intent_summary.get("order_intent_is_not_order_submission") is True
+        and btc_analysis_order_intent_summary.get("allowed_for_live") is False
         and operator_live_approval_packet.get("operator_packet_status") == "operator_review_ready"
         and operator_live_approval_packet.get("operator_review_ready") is True
         and operator_live_approval_packet.get("live_execution_approved") is False
@@ -1109,11 +1156,24 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         and dashboard.get("btc_market_snapshot_summary", {}).get("is_btc_related") is True
         and dashboard.get("btc_market_snapshot_summary", {}).get("read_only_network_enabled") is False
         and dashboard.get("btc_read_only_connector_summary", {}).get("network_attempted") is False
+        and dashboard.get("btc_market_analysis_summary", {}).get("btc_market_analysis_status")
+        == "analysis_ready_for_dry_run_intent"
+        and dashboard.get("btc_order_intent_dry_run_summary", {}).get("dry_run_order_intent_status")
+        == "dry_run_intent_candidate_ready"
+        and dashboard.get("btc_risk_decision_summary", {}).get("risk_decision_status") == "ALLOW_DRY_RUN"
+        and dashboard.get("btc_analysis_order_intent_summary", {}).get("allowed_for_dry_run") is True
+        and dashboard.get("btc_analysis_order_intent_summary", {}).get("allowed_for_live") is False
         and dashboard.get("btc_market_section_feed", {}).get("risk_control_market_data_status")
         == "fresh_open_btc_market"
         and operator_ui_panel_v1.get("btc_market_summary", {}).get("btc_market_section_ready") is True
         and operator_ui_panel_v1.get("btc_market_summary", {}).get("read_only_network_enabled") is False
         and operator_ui_panel_v1.get("btc_market_summary", {}).get("execution_enabling") is False
+        and operator_ui_panel_v1.get("btc_analysis_order_intent_summary", {}).get(
+            "btc_analysis_order_intent_section_ready"
+        )
+        is True
+        and operator_ui_panel_v1.get("btc_analysis_order_intent_summary", {}).get("allowed_for_dry_run") is True
+        and operator_ui_panel_v1.get("btc_analysis_order_intent_summary", {}).get("allowed_for_live") is False
         and dashboard.get("live_canary_readiness_summary", {}).get("dry_run_only_assertion")
         == "This checklist does not make live execution available."
         and safety_scan["safety_ok"] is True
@@ -1170,6 +1230,9 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         ),
         readiness_evidence_bundle_path=latest_readiness_evidence_bundle_path,
         btc_market_snapshot_path=latest_btc_market_snapshot_path,
+        btc_market_analysis_path=latest_btc_analysis_path,
+        btc_order_intent_dry_run_path=latest_btc_order_intent_path,
+        btc_risk_decision_path=latest_btc_risk_decision_path,
         tiny_live_canary_preflight_contract_path=(
             normalize_path(paths["tiny_live_canary_preflight_contract"]) if active_config.write_artifacts else ""
         ),
@@ -1237,6 +1300,9 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
             operator_intent_packet=operator_intent_packet,
             readiness_evidence_bundle=readiness_evidence_bundle,
             btc_market_snapshot=btc_market_snapshot,
+            btc_market_analysis=btc_market_analysis,
+            btc_order_intent_dry_run=btc_order_intent_dry_run,
+            btc_risk_decision=latest_risk_limit_decision,
             tiny_live_canary_preflight_contract=tiny_live_canary_preflight_contract,
             tiny_live_canary_manual_runbook=tiny_live_canary_manual_runbook,
             tiny_live_canary_preflight_result=tiny_live_canary_preflight_result,
@@ -1294,6 +1360,9 @@ def _daily_paths(output_dir: Path) -> dict[str, Path]:
         "operator_intent_packet_md": output_dir / "live_canary_operator_intent_packet.md",
         "readiness_evidence_bundle": output_dir / "live_canary_readiness_evidence_bundle.json",
         "btc_market_snapshot": output_dir / "btc_market_snapshot_038.json",
+        "btc_market_analysis": output_dir / "btc_market_analysis_039.json",
+        "btc_order_intent_dry_run": output_dir / "btc_order_intent_dry_run_039.json",
+        "btc_risk_decision": output_dir / "btc_risk_decision_039.json",
         "tiny_live_canary_preflight_contract": output_dir / "tiny_live_canary_preflight_contract.json",
         "tiny_live_canary_preflight_contract_md": output_dir / "tiny_live_canary_preflight_contract.md",
         "tiny_live_canary_manual_runbook": output_dir / "tiny_live_canary_manual_runbook.json",
@@ -1808,6 +1877,10 @@ def _build_daily_dashboard(
     btc_market_snapshot: Mapping[str, Any],
     btc_market_snapshot_summary: Mapping[str, Any],
     btc_read_only_connector_summary: Mapping[str, Any],
+    btc_market_analysis: Mapping[str, Any],
+    btc_order_intent_dry_run: Mapping[str, Any],
+    btc_risk_decision_summary: Mapping[str, Any],
+    btc_analysis_order_intent_summary: Mapping[str, Any],
     latest_disabled_connector_audit_path: str,
     latest_audit_replay_path: str,
     latest_operator_packet_path: str,
@@ -1816,6 +1889,9 @@ def _build_daily_dashboard(
     latest_manual_runbook_path: str,
     latest_readiness_evidence_bundle_path: str,
     latest_btc_market_snapshot_path: str,
+    latest_btc_analysis_path: str,
+    latest_btc_order_intent_path: str,
+    latest_btc_risk_decision_path: str,
     source_evidence_refresh_ledger: Mapping[str, Any],
     generated_at: str,
 ) -> dict[str, Any]:
@@ -1933,6 +2009,9 @@ def _build_daily_dashboard(
             "operator_intent_packet_count": 1 if operator_intent_packet else 0,
             "readiness_evidence_bundle_count": 1 if readiness_evidence_bundle else 0,
             "btc_market_snapshot_count": 1 if btc_market_snapshot else 0,
+            "btc_market_analysis_count": 1 if btc_market_analysis else 0,
+            "btc_order_intent_dry_run_count": 1 if btc_order_intent_dry_run else 0,
+            "btc_risk_decision_count": 1 if btc_risk_decision_summary else 0,
             "readiness_evidence_item_count": int(readiness_evidence_bundle.get("evidence_item_count", 0) or 0),
             "readiness_evidence_missing_required_count": int(
                 readiness_evidence_bundle.get("missing_required_evidence_count", 0) or 0
@@ -2026,6 +2105,43 @@ def _build_daily_dashboard(
         "btc_market_snapshot_summary": dict(btc_market_snapshot_summary),
         "btc_read_only_connector_summary": dict(btc_read_only_connector_summary),
         "latest_btc_market_snapshot_path": clean_text(latest_btc_market_snapshot_path),
+        "btc_market_analysis": dict(btc_market_analysis),
+        "btc_order_intent_dry_run": dict(btc_order_intent_dry_run),
+        "btc_risk_decision_summary": dict(btc_risk_decision_summary),
+        "btc_analysis_order_intent_summary": dict(btc_analysis_order_intent_summary),
+        "btc_market_analysis_summary": {
+            "btc_market_analysis_status": btc_analysis_order_intent_summary.get("btc_market_analysis_status"),
+            "analysis_id": btc_market_analysis.get("analysis_id"),
+            "market_id": btc_market_analysis.get("market_id"),
+            "market_slug": btc_market_analysis.get("market_slug"),
+            "analysis_ready_for_dry_run_intent": (
+                btc_market_analysis.get("analysis_ready_for_dry_run_intent") is True
+            ),
+            "analysis_is_not_live_recommendation": True,
+            "allowed_for_live": False,
+            "latest_btc_analysis_path": clean_text(latest_btc_analysis_path),
+        },
+        "btc_order_intent_dry_run_summary": {
+            "btc_intent_candidate_status": btc_analysis_order_intent_summary.get("btc_intent_candidate_status"),
+            "dry_run_order_intent_status": btc_analysis_order_intent_summary.get("dry_run_order_intent_status"),
+            "intent_market_id": btc_analysis_order_intent_summary.get("intent_market_id"),
+            "intent_market_slug": btc_analysis_order_intent_summary.get("intent_market_slug"),
+            "intent_notional_usd": btc_analysis_order_intent_summary.get("intent_notional_usd"),
+            "intent_limit_price": btc_analysis_order_intent_summary.get("intent_limit_price"),
+            "order_intent_is_not_order_submission": True,
+            "allowed_for_live": False,
+            "latest_btc_order_intent_path": clean_text(latest_btc_order_intent_path),
+        },
+        "btc_risk_decision_summary": dict(btc_risk_decision_summary)
+        | {
+            "risk_decision_status": btc_analysis_order_intent_summary.get("risk_decision_status"),
+            "allowed_for_dry_run": btc_analysis_order_intent_summary.get("allowed_for_dry_run") is True,
+            "allowed_for_live": False,
+            "latest_btc_risk_decision_path": clean_text(latest_btc_risk_decision_path),
+        },
+        "latest_btc_analysis_path": clean_text(latest_btc_analysis_path),
+        "latest_btc_order_intent_path": clean_text(latest_btc_order_intent_path),
+        "latest_btc_risk_decision_path": clean_text(latest_btc_risk_decision_path),
         "btc_market_section_feed": {
             "btc_market_connector_status": btc_market_snapshot_summary.get("btc_market_connector_status"),
             "market_id": btc_market_snapshot_summary.get("market_id"),
@@ -2050,6 +2166,13 @@ def _build_daily_dashboard(
             "latest_btc_market_snapshot_path": clean_text(latest_btc_market_snapshot_path),
             "execution_enabling": False,
             "allowed_for_live": False,
+        },
+        "btc_analysis_order_intent_section_feed": dict(btc_analysis_order_intent_summary)
+        | {
+            "execution_enabling": False,
+            "allowed_for_live": False,
+            "analysis_is_not_live_recommendation": True,
+            "order_intent_is_not_order_submission": True,
         },
         "risk_limit_panel_feed": {
             "risk_control_plane_summary": dict(risk_control_plane_summary),
@@ -2532,6 +2655,9 @@ def _write_daily_artifacts(
     operator_intent_packet: Mapping[str, Any],
     readiness_evidence_bundle: Mapping[str, Any],
     btc_market_snapshot: Mapping[str, Any],
+    btc_market_analysis: Mapping[str, Any],
+    btc_order_intent_dry_run: Mapping[str, Any],
+    btc_risk_decision: Mapping[str, Any],
     tiny_live_canary_preflight_contract: Mapping[str, Any],
     tiny_live_canary_manual_runbook: Mapping[str, Any],
     tiny_live_canary_preflight_result: Mapping[str, Any],
@@ -2594,6 +2720,9 @@ def _write_daily_artifacts(
     )
     write_json(paths["readiness_evidence_bundle"], readiness_evidence_bundle)
     write_json(paths["btc_market_snapshot"], btc_market_snapshot)
+    write_json(paths["btc_market_analysis"], btc_market_analysis)
+    write_json(paths["btc_order_intent_dry_run"], btc_order_intent_dry_run)
+    write_json(paths["btc_risk_decision"], btc_risk_decision)
     write_json(paths["tiny_live_canary_preflight_contract"], tiny_live_canary_preflight_contract)
     write_text(
         paths["tiny_live_canary_preflight_contract_md"],
@@ -2741,6 +2870,7 @@ def _render_daily_dashboard_markdown(dashboard: Mapping[str, Any]) -> str:
     tiny_preflight = dict(dashboard.get("tiny_live_canary_preflight_runbook_summary", {}))
     disabled_connector = dict(dashboard.get("disabled_real_connector_summary", {}))
     btc_market = dict(dashboard.get("btc_market_snapshot_summary", {}))
+    btc_analysis = dict(dashboard.get("btc_analysis_order_intent_summary", {}))
     audit_operator = dict(dashboard.get("live_connector_audit_operator_summary", {}))
     operator_intent = dict(dashboard.get("operator_intent_packet_summary", {}))
     readiness_evidence = dict(dashboard.get("readiness_evidence_bundle_summary", {}))
@@ -2901,6 +3031,23 @@ def _render_daily_dashboard_markdown(dashboard: Mapping[str, Any]) -> str:
             f"- Risk market-data status: `{btc_market.get('risk_control_market_data_status')}`",
             f"- Read-only network enabled: `{str(btc_market.get('read_only_network_enabled')).lower()}`",
             f"- Latest BTC snapshot: `{btc_market.get('latest_btc_market_snapshot_path')}`",
+            "",
+            "## BTC Market Analysis And Dry-Run Order Intent",
+            "",
+            f"- Analysis status: `{btc_analysis.get('btc_market_analysis_status')}`",
+            f"- Intent candidate status: `{btc_analysis.get('btc_intent_candidate_status')}`",
+            f"- Dry-run order intent status: `{btc_analysis.get('dry_run_order_intent_status')}`",
+            f"- Intent market: `{btc_analysis.get('intent_market_id')}` / `{btc_analysis.get('intent_market_slug')}`",
+            f"- Intent notional USD: `{btc_analysis.get('intent_notional_usd')}`",
+            f"- Intent limit price: `{btc_analysis.get('intent_limit_price')}`",
+            f"- Risk decision status: `{btc_analysis.get('risk_decision_status')}`",
+            f"- Allowed for dry-run: `{str(btc_analysis.get('allowed_for_dry_run')).lower()}`",
+            f"- Allowed for live: `{str(btc_analysis.get('allowed_for_live')).lower()}`",
+            f"- Analysis is not live recommendation: `{str(btc_analysis.get('analysis_is_not_live_recommendation')).lower()}`",
+            f"- Order intent is not order submission: `{str(btc_analysis.get('order_intent_is_not_order_submission')).lower()}`",
+            f"- Latest BTC analysis: `{btc_analysis.get('latest_btc_analysis_path')}`",
+            f"- Latest BTC order intent: `{btc_analysis.get('latest_btc_order_intent_path')}`",
+            f"- Latest BTC risk decision: `{btc_analysis.get('latest_btc_risk_decision_path')}`",
             "",
             "## Disabled Real Connector",
             "",
@@ -3123,6 +3270,9 @@ def _render_daily_run_report(
             f"- Operator live review packet: `{result.get('operator_live_approval_packet_path')}`",
             f"- Operator intent packet: `{result.get('operator_intent_packet_path')}`",
             f"- Readiness evidence bundle: `{result.get('readiness_evidence_bundle_path')}`",
+            f"- BTC market analysis: `{result.get('btc_market_analysis_path')}`",
+            f"- BTC dry-run order intent: `{result.get('btc_order_intent_dry_run_path')}`",
+            f"- BTC risk decision: `{result.get('btc_risk_decision_path')}`",
             f"- Operator UI panel JSON: `{result.get('operator_ui_panel_json_path')}`",
             f"- Operator UI panel Markdown: `{result.get('operator_ui_panel_md_path')}`",
             f"- Operator UI panel HTML: `{result.get('operator_ui_panel_html_path')}`",

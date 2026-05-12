@@ -131,6 +131,12 @@ SAFE_SECRET_METADATA_FIELD_NAMES = frozenset(
         "btc_connector_result_secret_boundary_validation",
         "btc_ui_summary_secret_boundary_validation",
         "btc_evidence_item_secret_boundary_validation",
+        "btc_market_analysis_config_secret_boundary_validation",
+        "btc_market_analysis_result_secret_boundary_validation",
+        "btc_dry_run_order_intent_plan_secret_boundary_validation",
+        "btc_dry_run_order_intent_result_secret_boundary_validation",
+        "btc_risk_decision_summary_secret_boundary_validation",
+        "btc_analysis_ui_summary_secret_boundary_validation",
     }
 )
 
@@ -633,6 +639,78 @@ def validate_secret_boundary_btc_evidence_item(
     return validate_static_secret_boundary(
         value,
         artifact_type="btc_read_only_evidence_item",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_btc_analysis_config(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        value,
+        artifact_type="btc_market_analysis_config",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_btc_analysis_result(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        value,
+        artifact_type="btc_market_analysis_result",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_btc_dry_run_order_intent_plan(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        value,
+        artifact_type="btc_dry_run_order_intent_plan",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_btc_dry_run_order_intent_result(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        value,
+        artifact_type="btc_dry_run_order_intent_result",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_btc_risk_decision_summary(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        value,
+        artifact_type="btc_risk_decision_summary",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_btc_analysis_ui_summary(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        value,
+        artifact_type="btc_analysis_ui_summary",
         generated_at=generated_at,
     )
 

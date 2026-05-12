@@ -8,6 +8,7 @@ from typing import Any, Mapping, Sequence
 
 from pm_bot.trading_core.schemas import GENERATED_AT, bullet_lines, clean_text, mapping_rows
 from pm_bot.trading_core.secret_boundary_policy import (
+    validate_secret_boundary_btc_analysis_ui_summary,
     validate_secret_boundary_btc_ui_summary,
     validate_secret_boundary_risk_control_ui_summary,
     validate_secret_boundary_operator_ui_panel_action_state,
@@ -18,6 +19,7 @@ from pm_bot.trading_core.secret_boundary_policy import (
     validate_secret_boundary_operator_ui_panel_rendered_markdown,
     validate_secret_boundary_operator_ui_panel_risk_limit_summary,
 )
+from pm_bot.trading_core.btc_market_analysis_order_intent import summarize_btc_analysis_order_intent
 from pm_bot.trading_core.risk_limit_control_plane import (
     build_default_risk_limit_policy,
     build_risk_control_plane_summary,
@@ -38,6 +40,7 @@ OPERATOR_UI_PANEL_READINESS_SUMMARY_CONTRACT = "pmbot_operator_ui_panel_readines
 OPERATOR_UI_PANEL_EVIDENCE_SUMMARY_CONTRACT = "pmbot_operator_ui_panel_evidence_summary.v1"
 OPERATOR_UI_PANEL_BLOCKER_SUMMARY_CONTRACT = "pmbot_operator_ui_panel_blocker_summary.v1"
 OPERATOR_UI_PANEL_BTC_MARKET_SUMMARY_CONTRACT = "pmbot_operator_ui_panel_btc_market_summary.v1"
+OPERATOR_UI_PANEL_BTC_ANALYSIS_SUMMARY_CONTRACT = "pmbot_operator_ui_panel_btc_analysis_order_intent_summary.v1"
 OPERATOR_UI_PANEL_VALIDATION_CONTRACT = "pmbot_operator_ui_panel_validation.v1"
 
 TASK_ID = "ORCH-PMBOT-TRADING-MVP-036-OPERATOR-UI-PANEL-V1-READINESS-RISK-LIMITS-KILL-SWITCH"
@@ -59,6 +62,7 @@ REQUIRED_SECTION_IDS = (
     "readiness_evidence_bundle",
     "live_blockers",
     "btc_market_connector",
+    "btc_analysis_order_intent",
     "risk_control_plane",
     "risk_limits",
     "kill_switch",
@@ -249,6 +253,38 @@ class OperatorUIPanelBTCMarketSummary:
 
 
 @dataclass(frozen=True)
+class OperatorUIPanelBTCAnalysisOrderIntentSummary:
+    btc_market_analysis_status: str
+    btc_intent_candidate_status: str
+    dry_run_order_intent_status: str
+    intent_market_id: str
+    intent_market_slug: str
+    intent_notional_usd: Any
+    intent_limit_price: Any
+    risk_decision_status: str
+    allowed_for_dry_run: bool
+    allowed_for_live: bool
+    analysis_is_not_live_recommendation: bool
+    order_intent_is_not_order_submission: bool
+    latest_btc_analysis_path: str = ""
+    latest_btc_order_intent_path: str = ""
+    latest_btc_risk_decision_path: str = ""
+
+    def to_dict(self) -> dict[str, Any]:
+        value = asdict(self)
+        value["contract_version"] = OPERATOR_UI_PANEL_BTC_ANALYSIS_SUMMARY_CONTRACT
+        value["btc_analysis_order_intent_section_ready"] = True
+        value["execution_enabling"] = False
+        value["allowed_for_live"] = False
+        value["live_execution_approved"] = False
+        value["canary_executable_now"] = False
+        value["real_execution_available"] = False
+        value["live_connector_enabled"] = False
+        value.update(_panel_safety_flags())
+        return value
+
+
+@dataclass(frozen=True)
 class OperatorUIPanelKillSwitchSummary:
     kill_switch_requirements_defined: bool
     kill_switch_verified_for_live: bool
@@ -335,6 +371,7 @@ class OperatorUIPanelV1:
     evidence_summary: Mapping[str, Any]
     blocker_summary: Mapping[str, Any]
     btc_market_summary: Mapping[str, Any]
+    btc_analysis_order_intent_summary: Mapping[str, Any]
     risk_control_plane_summary: Mapping[str, Any]
     risk_limit_summary: Mapping[str, Any]
     kill_switch_summary: Mapping[str, Any]
@@ -354,6 +391,7 @@ class OperatorUIPanelV1:
         value["evidence_summary"] = dict(self.evidence_summary)
         value["blocker_summary"] = dict(self.blocker_summary)
         value["btc_market_summary"] = dict(self.btc_market_summary)
+        value["btc_analysis_order_intent_summary"] = dict(self.btc_analysis_order_intent_summary)
         value["risk_control_plane_summary"] = dict(self.risk_control_plane_summary)
         value["risk_limit_summary"] = dict(self.risk_limit_summary)
         value["kill_switch_summary"] = dict(self.kill_switch_summary)
@@ -372,6 +410,7 @@ class OperatorUIPanelV1:
         value["paper_summary_panel_ready"] = True
         value["blocker_panel_ready"] = True
         value["btc_market_section_ready"] = True
+        value["btc_analysis_order_intent_section_ready"] = True
         value["static_html_render_ready"] = True
         value["markdown_render_ready"] = True
         value["json_render_ready"] = True
@@ -394,6 +433,7 @@ def build_operator_ui_panel_v1(
     risk_control_plane_summary: Mapping[str, Any] | None = None,
     btc_market_snapshot: Mapping[str, Any] | None = None,
     btc_read_only_connector_summary: Mapping[str, Any] | None = None,
+    btc_analysis_order_intent_summary: Mapping[str, Any] | None = None,
     risk_limits: Mapping[str, Any] | None = None,
     risk_prep_config: Mapping[str, Any] | None = None,
     portfolio_summary: Mapping[str, Any] | None = None,
@@ -446,6 +486,20 @@ def build_operator_ui_panel_v1(
             or clean_text(dashboard_value.get("latest_btc_market_snapshot_path"))
         ),
     )
+    btc_analysis_summary = _build_btc_analysis_order_intent_summary(
+        btc_analysis_order_intent_summary=(
+            btc_analysis_order_intent_summary
+            or dashboard_value.get("btc_analysis_order_intent_summary", {})
+            or dashboard_value.get("btc_market_analysis_summary", {})
+        ),
+        latest_btc_analysis_path=paths.get("btc_market_analysis", "")
+        or clean_text(dashboard_value.get("latest_btc_analysis_path")),
+        latest_btc_order_intent_path=paths.get("btc_order_intent_dry_run", "")
+        or clean_text(dashboard_value.get("latest_btc_order_intent_path")),
+        latest_btc_risk_decision_path=paths.get("btc_risk_decision", "")
+        or clean_text(dashboard_value.get("latest_btc_risk_decision_path")),
+        generated_at=generated_at,
+    )
     risk_summary = _build_risk_limit_summary(
         risk_limits=risk_limits,
         risk_prep_config=risk_prep_config,
@@ -490,6 +544,7 @@ def build_operator_ui_panel_v1(
         evidence=evidence_summary,
         blockers=blocker_summary,
         btc_market=btc_market_summary,
+        btc_analysis_order_intent=btc_analysis_summary,
         risk_control=risk_control_summary,
         risk=risk_summary,
         kill_switch=kill_switch_summary,
@@ -508,6 +563,7 @@ def build_operator_ui_panel_v1(
             "blocker_count": blocker_summary.get("total_blockers"),
             "unresolved_blocker_count": blocker_summary.get("unresolved_blockers"),
             "btc_market": btc_market_summary,
+            "btc_analysis_order_intent": btc_analysis_summary,
             "risk_control": risk_control_summary,
             "risk": risk_summary,
             "kill_switch": kill_switch_summary,
@@ -522,6 +578,7 @@ def build_operator_ui_panel_v1(
         evidence_summary=evidence_summary,
         blocker_summary=blocker_summary,
         btc_market_summary=btc_market_summary,
+        btc_analysis_order_intent_summary=btc_analysis_summary,
         risk_control_plane_summary=risk_control_summary,
         risk_limit_summary=risk_summary,
         kill_switch_summary=kill_switch_summary,
@@ -595,6 +652,27 @@ def validate_operator_ui_panel_v1(
     if panel_value.get("btc_market_summary", {}).get("allowed_for_live") is not False:
         errors.append("btc_market_summary.allowed_for_live must be false")
         statuses.append("btc_market_live_allowance_detected")
+
+    btc_analysis_ui_validation = validate_secret_boundary_btc_analysis_ui_summary(
+        dict(panel_value.get("btc_analysis_order_intent_summary", {})),
+        generated_at=generated_at,
+    )
+    if btc_analysis_ui_validation.get("valid") is not True:
+        errors.append("btc_analysis_order_intent_summary violates static secret boundary")
+        statuses.append("btc_analysis_summary_secret_boundary_blocked")
+    if panel_value.get("btc_analysis_order_intent_summary", {}).get("allowed_for_live") is not False:
+        errors.append("btc_analysis_order_intent_summary.allowed_for_live must be false")
+        statuses.append("btc_analysis_live_allowance_detected")
+    if (
+        panel_value.get("btc_analysis_order_intent_summary", {}).get("order_intent_is_not_order_submission")
+        is not True
+    ):
+        errors.append("btc_analysis_order_intent_summary.order_intent_is_not_order_submission must be true")
+    if (
+        panel_value.get("btc_analysis_order_intent_summary", {}).get("analysis_is_not_live_recommendation")
+        is not True
+    ):
+        errors.append("btc_analysis_order_intent_summary.analysis_is_not_live_recommendation must be true")
 
     kill_validation = validate_secret_boundary_operator_ui_panel_kill_switch_summary(
         dict(panel_value.get("kill_switch_summary", {})),
@@ -679,6 +757,7 @@ def validate_operator_ui_panel_v1(
         "errors": errors,
         "secret_boundary_validation": payload_validation,
         "btc_market_summary_secret_boundary_validation": btc_ui_validation,
+        "btc_analysis_summary_secret_boundary_validation": btc_analysis_ui_validation,
         "rendered_json_secret_boundary_validation": rendered_json_validation,
         "rendered_markdown_secret_boundary_validation": rendered_md_validation,
         "rendered_html_secret_boundary_validation": rendered_html_validation,
@@ -728,6 +807,23 @@ def summarize_operator_ui_panel_v1(panel: Mapping[str, Any]) -> dict[str, Any]:
         ),
         "btc_market_status": dict(panel.get("btc_market_summary", {})).get("market_status"),
         "btc_market_stale": dict(panel.get("btc_market_summary", {})).get("stale") is True,
+        "btc_analysis_order_intent_section_ready": dict(
+            panel.get("btc_analysis_order_intent_summary", {})
+        ).get("btc_analysis_order_intent_section_ready")
+        is True,
+        "btc_market_analysis_status": dict(panel.get("btc_analysis_order_intent_summary", {})).get(
+            "btc_market_analysis_status"
+        ),
+        "btc_intent_candidate_status": dict(panel.get("btc_analysis_order_intent_summary", {})).get(
+            "btc_intent_candidate_status"
+        ),
+        "dry_run_order_intent_status": dict(panel.get("btc_analysis_order_intent_summary", {})).get(
+            "dry_run_order_intent_status"
+        ),
+        "btc_analysis_allowed_for_dry_run": dict(panel.get("btc_analysis_order_intent_summary", {})).get(
+            "allowed_for_dry_run"
+        )
+        is True,
         "latest_risk_limit_decision_status": dict(panel.get("risk_control_plane_summary", {})).get(
             "latest_decision_status"
         ),
@@ -1075,6 +1171,45 @@ def _build_btc_market_summary(
     ).to_dict()
 
 
+def _build_btc_analysis_order_intent_summary(
+    *,
+    btc_analysis_order_intent_summary: Mapping[str, Any] | None,
+    latest_btc_analysis_path: str,
+    latest_btc_order_intent_path: str,
+    latest_btc_risk_decision_path: str,
+    generated_at: str,
+) -> dict[str, Any]:
+    provided = dict(btc_analysis_order_intent_summary or {})
+    if not provided:
+        provided = summarize_btc_analysis_order_intent(
+            latest_btc_analysis_path=latest_btc_analysis_path,
+            latest_btc_order_intent_path=latest_btc_order_intent_path,
+            latest_btc_risk_decision_path=latest_btc_risk_decision_path,
+            generated_at=generated_at,
+        )
+    return OperatorUIPanelBTCAnalysisOrderIntentSummary(
+        btc_market_analysis_status=clean_text(provided.get("btc_market_analysis_status") or NOT_AVAILABLE),
+        btc_intent_candidate_status=clean_text(provided.get("btc_intent_candidate_status") or NOT_AVAILABLE),
+        dry_run_order_intent_status=clean_text(provided.get("dry_run_order_intent_status") or NOT_AVAILABLE),
+        intent_market_id=clean_text(provided.get("intent_market_id")),
+        intent_market_slug=clean_text(provided.get("intent_market_slug")),
+        intent_notional_usd=provided.get("intent_notional_usd"),
+        intent_limit_price=provided.get("intent_limit_price"),
+        risk_decision_status=clean_text(provided.get("risk_decision_status") or NOT_AVAILABLE),
+        allowed_for_dry_run=provided.get("allowed_for_dry_run") is True,
+        allowed_for_live=False,
+        analysis_is_not_live_recommendation=True,
+        order_intent_is_not_order_submission=True,
+        latest_btc_analysis_path=clean_text(provided.get("latest_btc_analysis_path") or latest_btc_analysis_path),
+        latest_btc_order_intent_path=clean_text(
+            provided.get("latest_btc_order_intent_path") or latest_btc_order_intent_path
+        ),
+        latest_btc_risk_decision_path=clean_text(
+            provided.get("latest_btc_risk_decision_path") or latest_btc_risk_decision_path
+        ),
+    ).to_dict()
+
+
 def _build_risk_control_plane_summary(
     *,
     risk_control_plane_summary: Mapping[str, Any] | None,
@@ -1343,6 +1478,7 @@ def _build_sections(
     evidence: Mapping[str, Any],
     blockers: Mapping[str, Any],
     btc_market: Mapping[str, Any],
+    btc_analysis_order_intent: Mapping[str, Any],
     risk_control: Mapping[str, Any],
     risk: Mapping[str, Any],
     kill_switch: Mapping[str, Any],
@@ -1428,6 +1564,76 @@ def _build_sections(
                     "latest_btc_market_snapshot_path",
                     "Latest BTC market snapshot",
                     btc_market.get("latest_btc_market_snapshot_path"),
+                ),
+            ],
+        ),
+        _section(
+            "btc_analysis_order_intent",
+            "BTC Analysis / Order Intent",
+            clean_text(btc_analysis_order_intent.get("btc_market_analysis_status") or NOT_AVAILABLE),
+            [
+                _metric(
+                    "btc_market_analysis_status",
+                    "BTC market analysis status",
+                    btc_analysis_order_intent.get("btc_market_analysis_status"),
+                ),
+                _metric(
+                    "btc_intent_candidate_status",
+                    "Intent candidate status",
+                    btc_analysis_order_intent.get("btc_intent_candidate_status"),
+                ),
+                _metric(
+                    "dry_run_order_intent_status",
+                    "Dry-run order intent status",
+                    btc_analysis_order_intent.get("dry_run_order_intent_status"),
+                ),
+                _metric("intent_market_id", "Intent market ID", btc_analysis_order_intent.get("intent_market_id")),
+                _metric("intent_market_slug", "Intent market slug", btc_analysis_order_intent.get("intent_market_slug")),
+                _metric(
+                    "intent_notional_usd",
+                    "Intent notional USD",
+                    btc_analysis_order_intent.get("intent_notional_usd"),
+                ),
+                _metric(
+                    "intent_limit_price",
+                    "Intent limit price",
+                    btc_analysis_order_intent.get("intent_limit_price"),
+                ),
+                _metric(
+                    "risk_decision_status",
+                    "Risk decision status",
+                    btc_analysis_order_intent.get("risk_decision_status"),
+                ),
+                _metric(
+                    "allowed_for_dry_run",
+                    "Allowed for dry-run",
+                    btc_analysis_order_intent.get("allowed_for_dry_run"),
+                ),
+                _metric("allowed_for_live", "Allowed for live", False),
+                _metric(
+                    "analysis_is_not_live_recommendation",
+                    "Analysis is not live recommendation",
+                    True,
+                ),
+                _metric(
+                    "order_intent_is_not_order_submission",
+                    "Order intent is not order submission",
+                    True,
+                ),
+                _metric(
+                    "latest_btc_analysis_path",
+                    "Latest BTC analysis",
+                    btc_analysis_order_intent.get("latest_btc_analysis_path"),
+                ),
+                _metric(
+                    "latest_btc_order_intent_path",
+                    "Latest BTC order intent",
+                    btc_analysis_order_intent.get("latest_btc_order_intent_path"),
+                ),
+                _metric(
+                    "latest_btc_risk_decision_path",
+                    "Latest BTC risk decision",
+                    btc_analysis_order_intent.get("latest_btc_risk_decision_path"),
                 ),
             ],
         ),

@@ -47,6 +47,9 @@ VALIDATION_STATUS_PREFLIGHT_CONTRACT_EVIDENCE_MISSING = "preflight_contract_evid
 VALIDATION_STATUS_MANUAL_RUNBOOK_EVIDENCE_MISSING = "manual_runbook_evidence_missing"
 VALIDATION_STATUS_KILL_SWITCH_EVIDENCE_MISSING = "kill_switch_evidence_missing"
 VALIDATION_STATUS_BTC_READ_ONLY_CONNECTOR_EVIDENCE_MISSING = "btc_read_only_connector_evidence_missing"
+VALIDATION_STATUS_BTC_ANALYSIS_ORDER_INTENT_EVIDENCE_MISSING = (
+    "btc_market_analysis_to_order_intent_dry_run_evidence_missing"
+)
 
 NON_EXECUTION_STATEMENTS = (
     "This readiness evidence bundle is review evidence only.",
@@ -72,6 +75,7 @@ REQUIRED_EVIDENCE_TYPES = (
     "risk_review",
     "risk_limit_control_plane",
     "btc_read_only_market_connector",
+    "btc_market_analysis_to_order_intent_dry_run",
 )
 
 OPTIONAL_EVIDENCE_TYPES = (
@@ -302,6 +306,7 @@ def build_live_canary_readiness_evidence_bundle(
     preflight_result: Mapping[str, Any] | None = None,
     risk_limit_control_plane: Mapping[str, Any] | None = None,
     btc_read_only_market_connector: Mapping[str, Any] | None = None,
+    btc_analysis_order_intent_dry_run: Mapping[str, Any] | None = None,
     dry_run_receipt_references: Sequence[str] | None = None,
     result_artifact_references: Sequence[str] | None = None,
     artifact_reference_overrides: Mapping[str, str] | None = None,
@@ -327,6 +332,7 @@ def build_live_canary_readiness_evidence_bundle(
     preflight = dict(preflight_result or {})
     risk_control = dict(risk_limit_control_plane or {})
     btc_connector = dict(btc_read_only_market_connector or {})
+    btc_analysis_order_intent = dict(btc_analysis_order_intent_dry_run or {})
     overrides = {clean_text(key): clean_text(value) for key, value in dict(artifact_reference_overrides or {}).items()}
 
     items = _build_evidence_items(
@@ -345,6 +351,7 @@ def build_live_canary_readiness_evidence_bundle(
         preflight_result=preflight,
         risk_limit_control_plane=risk_control,
         btc_read_only_market_connector=btc_connector,
+        btc_analysis_order_intent_dry_run=btc_analysis_order_intent,
         dry_run_receipt_references=dry_run_receipt_references,
         result_artifact_references=result_artifact_references,
         artifact_reference_overrides=overrides,
@@ -418,6 +425,9 @@ def validate_live_canary_readiness_evidence_bundle(
         "kill_switch_requirements": VALIDATION_STATUS_KILL_SWITCH_EVIDENCE_MISSING,
         "risk_limit_control_plane": "risk_limit_control_plane_evidence_missing",
         "btc_read_only_market_connector": VALIDATION_STATUS_BTC_READ_ONLY_CONNECTOR_EVIDENCE_MISSING,
+        "btc_market_analysis_to_order_intent_dry_run": (
+            VALIDATION_STATUS_BTC_ANALYSIS_ORDER_INTENT_EVIDENCE_MISSING
+        ),
     }
     statuses.extend(status_by_missing_type[item] for item in missing_required if item in status_by_missing_type)
 
@@ -429,7 +439,10 @@ def validate_live_canary_readiness_evidence_bundle(
         if item_validation.get("valid") is not True:
             errors.append(f"evidence_items[{index}] violates static secret boundary")
             statuses.append(VALIDATION_STATUS_FORBIDDEN_SECRET_OR_SIGNING_FIELD)
-        if item.get("evidence_type") == "btc_read_only_market_connector":
+        if item.get("evidence_type") in {
+            "btc_read_only_market_connector",
+            "btc_market_analysis_to_order_intent_dry_run",
+        }:
             btc_item_validation = validate_secret_boundary_btc_evidence_item(item, generated_at=generated_at)
             if btc_item_validation.get("valid") is not True:
                 errors.append(f"evidence_items[{index}] violates BTC evidence static secret boundary")
@@ -698,6 +711,7 @@ def _build_evidence_items(
     preflight_result: Mapping[str, Any],
     risk_limit_control_plane: Mapping[str, Any],
     btc_read_only_market_connector: Mapping[str, Any],
+    btc_analysis_order_intent_dry_run: Mapping[str, Any],
     dry_run_receipt_references: Sequence[str] | None,
     result_artifact_references: Sequence[str] | None,
     artifact_reference_overrides: Mapping[str, str],
@@ -962,6 +976,45 @@ def _build_evidence_items(
                 and btc_read_only_market_connector.get("authenticated_requests_supported") is not True
             ),
         ),
+        _item(
+            "btc_market_analysis_to_order_intent_dry_run",
+            "btc_market_analysis_order_intent",
+            _override_or_reference(
+                artifact_reference_overrides,
+                "btc_market_analysis_to_order_intent_dry_run",
+                btc_analysis_order_intent_dry_run,
+                ("summary_id", "result_id", "intent_plan_id", "risk_decision_id"),
+                "btc_market_analysis_order_intent-039:dry_run_review_only",
+            ),
+            clean_text(
+                btc_analysis_order_intent_dry_run.get("dry_run_order_intent_status")
+                or btc_analysis_order_intent_dry_run.get("btc_intent_candidate_status")
+                or "dry_run_review_only"
+            ),
+            "BTC analysis can create a risk-checked dry-run intent candidate, but it is not order submission and does not enable live execution.",
+            review_ready=(
+                btc_analysis_order_intent_dry_run.get("analysis_is_not_live_recommendation") is not False
+                and btc_analysis_order_intent_dry_run.get("order_intent_is_not_order_submission") is not False
+                and btc_analysis_order_intent_dry_run.get("allowed_for_live") is not True
+                and btc_analysis_order_intent_dry_run.get("execution_enabling") is not True
+            ),
+        )
+        | {
+            "analysis_ready": (
+                btc_analysis_order_intent_dry_run.get("btc_market_analysis_status")
+                == "analysis_ready_for_dry_run_intent"
+            ),
+            "order_intent_dry_run_ready": (
+                btc_analysis_order_intent_dry_run.get("dry_run_order_intent_status")
+                == "dry_run_intent_candidate_ready"
+            ),
+            "risk_decision_linked": bool(
+                clean_text(btc_analysis_order_intent_dry_run.get("risk_decision_status"))
+            ),
+            "execution_enabling": False,
+            "live_execution_approved": False,
+            "allowed_for_live": False,
+        },
     ]
     receipt_refs = _clean_list(dry_run_receipt_references)
     if receipt_refs:
