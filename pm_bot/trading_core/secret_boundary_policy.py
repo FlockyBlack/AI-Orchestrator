@@ -465,6 +465,104 @@ def validate_secret_boundary_readiness_evidence_blocker_summary(
     )
 
 
+def validate_secret_boundary_operator_ui_panel_payload(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        value,
+        artifact_type="operator_ui_panel_payload",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_operator_ui_panel_action_state(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        value,
+        artifact_type="operator_ui_panel_action_state",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_operator_ui_panel_risk_limit_summary(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        value,
+        artifact_type="operator_ui_panel_risk_limit_summary",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_operator_ui_panel_kill_switch_summary(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        value,
+        artifact_type="operator_ui_panel_kill_switch_summary",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_operator_ui_panel_rendered_json(
+    value: str,
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    try:
+        parsed = json.loads(value)
+    except json.JSONDecodeError:
+        return _rendered_text_boundary_validation(
+            value,
+            artifact_type="operator_ui_panel_rendered_json",
+            generated_at=generated_at,
+        )
+    if isinstance(parsed, Mapping):
+        return validate_static_secret_boundary(
+            parsed,
+            artifact_type="operator_ui_panel_rendered_json",
+            generated_at=generated_at,
+        )
+    return _rendered_text_boundary_validation(
+        value,
+        artifact_type="operator_ui_panel_rendered_json",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_operator_ui_panel_rendered_markdown(
+    value: str,
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return _rendered_text_boundary_validation(
+        value,
+        artifact_type="operator_ui_panel_rendered_markdown",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_operator_ui_panel_rendered_html(
+    value: str,
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return _rendered_text_boundary_validation(
+        value,
+        artifact_type="operator_ui_panel_rendered_html",
+        generated_at=generated_at,
+    )
+
+
 def validate_secret_boundary_result_artifact(
     value: Mapping[str, Any],
     *,
@@ -655,6 +753,59 @@ def _human_operator_signed_context_declared(value: Any) -> bool:
         if flag is True:
             return True
     return "does not authorize live execution" in text or "no cryptographic signing" in text
+
+
+def _rendered_text_boundary_validation(
+    value: str,
+    *,
+    artifact_type: str,
+    generated_at: str,
+) -> dict[str, Any]:
+    text = str(value)
+    forbidden_tokens = []
+    for key in sorted(FORBIDDEN_PAYLOAD_KEYS):
+        if _contains_rendered_forbidden_token(text, key):
+            forbidden_tokens.append(key)
+    validation_id = _stable_id(
+        "static-rendered-secret-boundary-validation-036",
+        {"artifact_type": artifact_type, "forbidden_rendered_tokens": forbidden_tokens},
+    )
+    valid = not forbidden_tokens
+    return {
+        "contract_version": STATIC_SECRET_VALIDATION_CONTRACT,
+        "validation_id": validation_id,
+        "artifact_type": clean_text(artifact_type),
+        "generated_at": generated_at,
+        "valid": valid,
+        "status": "passed" if valid else "blocked",
+        "forbidden_secret_field_paths": [],
+        "forbidden_secret_field_count": 0,
+        "forbidden_rendered_tokens": forbidden_tokens,
+        "forbidden_rendered_token_count": len(forbidden_tokens),
+        "environment_inspected": False,
+        "environment_secrets_read": False,
+        "secrets_read": False,
+        "secrets_printed": False,
+        "secrets_persisted": False,
+        "static_validation_only": True,
+    }
+
+
+def _contains_rendered_forbidden_token(text: str, token: str) -> bool:
+    normalized_text = text.lower()
+    normalized_token = token.lower()
+    delimiters = {'"', "'", "`", "<", ">", ":", "=", " ", "\n", "\t"}
+    start = 0
+    while True:
+        index = normalized_text.find(normalized_token, start)
+        if index < 0:
+            return False
+        before = normalized_text[index - 1] if index > 0 else " "
+        after_index = index + len(normalized_token)
+        after = normalized_text[after_index] if after_index < len(normalized_text) else " "
+        if before in delimiters and after in delimiters:
+            return True
+        start = index + len(normalized_token)
 
 
 def _dedupe_paths(values: Sequence[str]) -> list[str]:

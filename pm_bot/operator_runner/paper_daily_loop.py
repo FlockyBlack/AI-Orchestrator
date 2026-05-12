@@ -12,6 +12,12 @@ from pm_bot.operator_runner.paper_daily_config import (
     load_tracked_market_state,
     local_source_paths,
 )
+from pm_bot.operator_runner.operator_ui_panel_v1 import (
+    build_operator_ui_panel_v1,
+    render_operator_ui_panel_v1_html,
+    render_operator_ui_panel_v1_markdown,
+    summarize_operator_ui_panel_v1,
+)
 from pm_bot.source_quality.public_evidence_refresh import (
     build_public_evidence_refresh_artifacts,
     build_public_evidence_refresh_request_from_candidates,
@@ -239,6 +245,9 @@ class PaperDailyLoopResult:
     feedback_readiness_path: str
     dashboard_json_path: str
     dashboard_md_path: str
+    operator_ui_panel_json_path: str
+    operator_ui_panel_md_path: str
+    operator_ui_panel_html_path: str
     audit_path: str
     unresolved_market_count: int
     feedback_ready_count: int
@@ -747,6 +756,47 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         source_evidence_refresh_ledger=source_evidence_refresh_ledger,
         generated_at=generated_at,
     )
+    latest_operator_ui_panel_paths = {
+        "operator_ui_panel_json": normalize_path(paths["operator_ui_panel_json"]) if active_config.write_artifacts else "",
+        "operator_ui_panel_md": normalize_path(paths["operator_ui_panel_md"]) if active_config.write_artifacts else "",
+        "operator_ui_panel_html": normalize_path(paths["operator_ui_panel_html"]) if active_config.write_artifacts else "",
+        "paper_daily_loop_result": normalize_path(paths["result"]) if active_config.write_artifacts else "",
+        "readiness_evidence_bundle": latest_readiness_evidence_bundle_path,
+        "operator_live_approval_packet": (
+            normalize_path(paths["operator_live_approval_packet"]) if active_config.write_artifacts else ""
+        ),
+        "operator_intent_packet": latest_operator_intent_packet_path,
+        "live_connector_audit_replay": (
+            normalize_path(paths["live_connector_audit_replay"]) if active_config.write_artifacts else ""
+        ),
+        "tiny_live_canary_preflight_contract": (
+            normalize_path(paths["tiny_live_canary_preflight_contract"]) if active_config.write_artifacts else ""
+        ),
+    }
+    operator_ui_panel_v1 = build_operator_ui_panel_v1(
+        dashboard=dashboard,
+        readiness_evidence_bundle=readiness_evidence_bundle,
+        readiness_evidence_bundle_summary=readiness_evidence_bundle_summary,
+        blocker_matrix=live_connector_blocker_matrix,
+        risk_limits=limits,
+        risk_prep_config=risk_prep_config,
+        portfolio_summary=portfolio_report.get("exposure_summary", {}),
+        portfolio_state=portfolio_state,
+        strategy_summary=strategy_summary,
+        canary_readiness_summary=dashboard.get("live_canary_readiness_summary", {}),
+        tiny_live_canary_preflight_result=tiny_live_canary_preflight_result,
+        tiny_live_canary_preflight_contract=tiny_live_canary_preflight_contract,
+        tiny_live_canary_manual_runbook=tiny_live_canary_manual_runbook,
+        operator_live_approval_packet=operator_live_approval_packet,
+        operator_intent_packet=operator_intent_packet,
+        operator_intent_summary=dashboard.get("operator_intent_packet_summary", {}),
+        live_connector_audit_replay=live_connector_audit_replay,
+        live_connector_audit_operator_summary=dashboard.get("live_connector_audit_operator_summary", {}),
+        latest_paths=latest_operator_ui_panel_paths,
+        generated_at=generated_at,
+    )
+    dashboard["operator_ui_panel_v1_summary"] = summarize_operator_ui_panel_v1(operator_ui_panel_v1)
+    dashboard["operator_ui_panel_v1_paths"] = latest_operator_ui_panel_paths
     safety_scan = _build_daily_safety_scan(
         config=active_config,
         artifacts=[
@@ -787,6 +837,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
             tiny_live_canary_manual_runbook,
             tiny_live_canary_kill_switch_validation,
             tiny_live_canary_preflight_result,
+            operator_ui_panel_v1,
         ],
         generated_at=generated_at,
     )
@@ -913,6 +964,22 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         and dashboard.get("tiny_live_canary_preflight_runbook_summary", {}).get("canary_executable_now") is False
         and dashboard.get("tiny_live_canary_preflight_runbook_summary", {}).get("live_execution_approved") is False
         and dashboard.get("tiny_live_canary_preflight_runbook_summary", {}).get("real_execution_available") is False
+        and operator_ui_panel_v1.get("operator_ui_panel_ready") is True
+        and operator_ui_panel_v1.get("readiness_panel_render_ready") is True
+        and operator_ui_panel_v1.get("risk_limit_panel_render_ready") is True
+        and operator_ui_panel_v1.get("kill_switch_panel_render_ready") is True
+        and operator_ui_panel_v1.get("ui_panel_is_not_live_execution_console") is True
+        and operator_ui_panel_v1.get("ui_exposes_no_executable_live_action") is True
+        and operator_ui_panel_v1.get("canary_executable_now") is False
+        and operator_ui_panel_v1.get("live_execution_approved") is False
+        and operator_ui_panel_v1.get("real_execution_available") is False
+        and operator_ui_panel_v1.get("live_connector_enabled") is False
+        and operator_ui_panel_v1.get("validation", {}).get("valid") is True
+        and dashboard.get("operator_ui_panel_v1_summary", {}).get("operator_ui_panel_ready") is True
+        and dashboard.get("operator_ui_panel_v1_summary", {}).get("live_execution_approved") is False
+        and dashboard.get("operator_ui_panel_v1_summary", {}).get("canary_executable_now") is False
+        and dashboard.get("operator_ui_panel_v1_summary", {}).get("real_execution_available") is False
+        and dashboard.get("operator_ui_panel_v1_summary", {}).get("live_connector_enabled") is False
         and dashboard.get("live_canary_readiness_summary", {}).get("dry_run_only_assertion")
         == "This checklist does not make live execution available."
         and safety_scan["safety_ok"] is True
@@ -983,6 +1050,13 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         feedback_readiness_path=normalize_path(paths["feedback_readiness"]) if active_config.write_artifacts else "",
         dashboard_json_path=normalize_path(paths["dashboard_json"]) if active_config.write_artifacts else "",
         dashboard_md_path=normalize_path(paths["dashboard_md"]) if active_config.write_artifacts else "",
+        operator_ui_panel_json_path=(
+            normalize_path(paths["operator_ui_panel_json"]) if active_config.write_artifacts else ""
+        ),
+        operator_ui_panel_md_path=normalize_path(paths["operator_ui_panel_md"]) if active_config.write_artifacts else "",
+        operator_ui_panel_html_path=(
+            normalize_path(paths["operator_ui_panel_html"]) if active_config.write_artifacts else ""
+        ),
         audit_path=normalize_path(paths["audit"]) if active_config.write_artifacts else "",
         unresolved_market_count=int(feedback_readiness.get("unresolved_count", 0) or 0),
         feedback_ready_count=int(feedback_readiness.get("feedback_ready_count", 0) or 0),
@@ -1030,6 +1104,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
             tiny_live_canary_preflight_contract=tiny_live_canary_preflight_contract,
             tiny_live_canary_manual_runbook=tiny_live_canary_manual_runbook,
             tiny_live_canary_preflight_result=tiny_live_canary_preflight_result,
+            operator_ui_panel_v1=operator_ui_panel_v1,
             result=result,
         )
     return result
@@ -1096,6 +1171,9 @@ def _daily_paths(output_dir: Path) -> dict[str, Path]:
         "audit_md": output_dir / "paper_daily_audit.md",
         "dashboard_json": output_dir / "paper_daily_dashboard.json",
         "dashboard_md": output_dir / "paper_daily_dashboard.md",
+        "operator_ui_panel_json": output_dir / "operator_ui_panel_v1.json",
+        "operator_ui_panel_md": output_dir / "operator_ui_panel_v1.md",
+        "operator_ui_panel_html": output_dir / "operator_ui_panel_v1.html",
         "safety": output_dir / "paper_daily_safety_scan.json",
         "idempotency": output_dir / "paper_daily_idempotency_report.json",
         "idempotency_md": output_dir / "paper_daily_idempotency_report.md",
@@ -2163,6 +2241,7 @@ def _write_daily_artifacts(
     tiny_live_canary_preflight_contract: Mapping[str, Any],
     tiny_live_canary_manual_runbook: Mapping[str, Any],
     tiny_live_canary_preflight_result: Mapping[str, Any],
+    operator_ui_panel_v1: Mapping[str, Any],
     result: PaperDailyLoopResult,
 ) -> None:
     write_json(paths["config"], config.to_dict())
@@ -2255,6 +2334,9 @@ def _write_daily_artifacts(
     write_text(paths["audit_md"], render_post_execution_audit_markdown(audit))
     write_json(paths["dashboard_json"], dashboard)
     write_text(paths["dashboard_md"], _render_daily_dashboard_markdown(dashboard))
+    write_json(paths["operator_ui_panel_json"], operator_ui_panel_v1)
+    write_text(paths["operator_ui_panel_md"], render_operator_ui_panel_v1_markdown(operator_ui_panel_v1))
+    write_text(paths["operator_ui_panel_html"], render_operator_ui_panel_v1_html(operator_ui_panel_v1))
     _write_safety_scan(paths, safety_scan)
     write_json(paths["idempotency"], idempotency_report)
     write_text(paths["idempotency_md"], _render_idempotency_markdown(idempotency_report))
@@ -2366,6 +2448,8 @@ def _render_daily_dashboard_markdown(dashboard: Mapping[str, Any]) -> str:
     audit_operator = dict(dashboard.get("live_connector_audit_operator_summary", {}))
     operator_intent = dict(dashboard.get("operator_intent_packet_summary", {}))
     readiness_evidence = dict(dashboard.get("readiness_evidence_bundle_summary", {}))
+    operator_ui_panel = dict(dashboard.get("operator_ui_panel_v1_summary", {}))
+    operator_ui_panel_paths = dict(dashboard.get("operator_ui_panel_v1_paths", {}))
     risk_prep = dict(dashboard.get("risk_prep_config_status", {}))
     lines.extend(
         [
@@ -2553,6 +2637,25 @@ def _render_daily_dashboard_markdown(dashboard: Mapping[str, Any]) -> str:
             f"- Live connector enabled: `{str(readiness_evidence.get('live_connector_enabled')).lower()}`",
             f"- Latest evidence bundle: `{readiness_evidence.get('latest_readiness_evidence_bundle_path')}`",
             "",
+            "## Operator UI Panel v1",
+            "",
+            f"- Panel ready: `{str(operator_ui_panel.get('operator_ui_panel_ready')).lower()}`",
+            f"- Readiness panel render ready: `{str(operator_ui_panel.get('readiness_panel_render_ready')).lower()}`",
+            f"- Risk limit panel render ready: `{str(operator_ui_panel.get('risk_limit_panel_render_ready')).lower()}`",
+            f"- Kill-switch panel render ready: `{str(operator_ui_panel.get('kill_switch_panel_render_ready')).lower()}`",
+            f"- Static HTML render ready: `{str(operator_ui_panel.get('static_html_render_ready')).lower()}`",
+            f"- Markdown render ready: `{str(operator_ui_panel.get('markdown_render_ready')).lower()}`",
+            f"- JSON render ready: `{str(operator_ui_panel.get('json_render_ready')).lower()}`",
+            f"- Not live execution console: `{str(operator_ui_panel.get('ui_panel_is_not_live_execution_console')).lower()}`",
+            f"- Exposes executable live action: `{str(not operator_ui_panel.get('ui_exposes_no_executable_live_action')).lower()}`",
+            f"- Live execution approved: `{str(operator_ui_panel.get('live_execution_approved')).lower()}`",
+            f"- Canary executable now: `{str(operator_ui_panel.get('canary_executable_now')).lower()}`",
+            f"- Real execution available: `{str(operator_ui_panel.get('real_execution_available')).lower()}`",
+            f"- Live connector enabled: `{str(operator_ui_panel.get('live_connector_enabled')).lower()}`",
+            f"- JSON: `{operator_ui_panel_paths.get('operator_ui_panel_json')}`",
+            f"- Markdown: `{operator_ui_panel_paths.get('operator_ui_panel_md')}`",
+            f"- HTML: `{operator_ui_panel_paths.get('operator_ui_panel_html')}`",
+            "",
             "## Source Evidence Refresh",
             "",
             f"- Refresh: `{source_status.get('refresh_id')}`",
@@ -2683,6 +2786,9 @@ def _render_daily_run_report(
             f"- Operator live review packet: `{result.get('operator_live_approval_packet_path')}`",
             f"- Operator intent packet: `{result.get('operator_intent_packet_path')}`",
             f"- Readiness evidence bundle: `{result.get('readiness_evidence_bundle_path')}`",
+            f"- Operator UI panel JSON: `{result.get('operator_ui_panel_json_path')}`",
+            f"- Operator UI panel Markdown: `{result.get('operator_ui_panel_md_path')}`",
+            f"- Operator UI panel HTML: `{result.get('operator_ui_panel_html_path')}`",
             f"- Source evidence refresh: `{result.get('source_evidence_refresh_path')}`",
             f"- Source evidence quality ledger: `{result.get('source_evidence_quality_ledger_path')}`",
             f"- Source evidence pending approval: `{result.get('source_evidence_pending_approval_path')}`",

@@ -540,6 +540,34 @@ def summarize_live_canary_readiness_evidence_bundle(
     return summary
 
 
+def summarize_live_canary_readiness_evidence_bundle_for_operator_ui_panel(
+    bundle: Mapping[str, Any],
+    *,
+    latest_readiness_evidence_bundle_path: str = "",
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    summary = summarize_live_canary_readiness_evidence_bundle(
+        bundle,
+        latest_readiness_evidence_bundle_path=latest_readiness_evidence_bundle_path,
+        generated_at=generated_at,
+    )
+    return {
+        "contract_version": "pmbot_live_canary_readiness_evidence_operator_ui_summary.v1",
+        "readiness_evidence_bundle_status": summary.get("status"),
+        "readiness_evidence_bundle_review_ready": summary.get("readiness_evidence_bundle_review_ready") is True,
+        "readiness_evidence_bundle_is_not_live_approval": True,
+        "evidence_item_count": int(summary.get("evidence_item_count", 0) or 0),
+        "missing_required_evidence_count": int(summary.get("missing_required_evidence_count", 0) or 0),
+        "unresolved_live_blocker_count": int(summary.get("unresolved_live_blocker_count", 0) or 0),
+        "latest_readiness_evidence_bundle_path": summary.get("latest_readiness_evidence_bundle_path", ""),
+        "validation_status": summary.get("validation_status", ""),
+        "canary_executable_now": False,
+        "live_execution_approved": False,
+        "real_execution_available": False,
+        "live_connector_enabled": False,
+    }
+
+
 def build_live_canary_readiness_evidence_manifest(
     bundle: Mapping[str, Any] | None = None,
     *,
