@@ -47,6 +47,11 @@ from pm_bot.trading_core.live_connector_audit_replay import (
     build_live_connector_audit_replay,
     render_live_connector_audit_replay_markdown,
 )
+from pm_bot.trading_core.live_canary_operator_intent_packet import (
+    build_live_canary_operator_intent_packet,
+    render_live_canary_operator_intent_packet_markdown,
+    summarize_live_canary_operator_intent_packet,
+)
 from pm_bot.trading_core.operator_live_approval_packet import (
     build_operator_live_approval_packet,
     render_operator_live_approval_packet_markdown,
@@ -219,6 +224,7 @@ class PaperDailyLoopResult:
     canary_dry_run_receipt_path: str
     live_connector_audit_replay_path: str
     operator_live_approval_packet_path: str
+    operator_intent_packet_path: str
     tiny_live_canary_preflight_contract_path: str
     tiny_live_canary_manual_runbook_path: str
     tiny_live_canary_preflight_result_path: str
@@ -441,6 +447,11 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         tiny_live_canary_manual_runbook_references=[
             tiny_live_canary_manual_runbook.get("runbook_id", "")
         ],
+        operator_intent_packet_references=[
+            normalize_path(paths["operator_intent_packet"])
+            if active_config.write_artifacts
+            else "live_canary_operator_intent_packet:current-run"
+        ],
         live_connector_blocker_matrix=live_connector_blocker_matrix,
         generated_at=generated_at,
     )
@@ -472,10 +483,81 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         ),
         generated_at=generated_at,
     )
+    latest_operator_intent_packet_path = (
+        normalize_path(paths["operator_intent_packet"]) if active_config.write_artifacts else ""
+    )
+    operator_intent_packet = build_live_canary_operator_intent_packet(
+        tiny_live_canary_preflight_contract=tiny_live_canary_preflight_contract,
+        tiny_live_canary_preflight_contract_reference=(
+            normalize_path(paths["tiny_live_canary_preflight_contract"])
+            if active_config.write_artifacts
+            else tiny_live_canary_preflight_contract.get("contract_id", "")
+        ),
+        tiny_live_canary_manual_runbook=tiny_live_canary_manual_runbook,
+        tiny_live_canary_manual_runbook_reference=(
+            normalize_path(paths["tiny_live_canary_manual_runbook"])
+            if active_config.write_artifacts
+            else tiny_live_canary_manual_runbook.get("runbook_id", "")
+        ),
+        operator_approval_packet=operator_live_approval_packet,
+        operator_approval_packet_reference=(
+            normalize_path(paths["operator_live_approval_packet"])
+            if active_config.write_artifacts
+            else "operator_live_review_packet:current-run"
+        ),
+        live_connector_audit_replay=live_connector_audit_replay,
+        live_connector_audit_replay_reference=(
+            normalize_path(paths["live_connector_audit_replay"])
+            if active_config.write_artifacts
+            else live_connector_audit_replay.get("replay_id", "")
+        ),
+        disabled_connector_audit=disabled_connector_audit,
+        disabled_connector_audit_reference=(
+            normalize_path(paths["disabled_connector_audit"])
+            if active_config.write_artifacts
+            else disabled_connector_audit.get("audit_id", "")
+        ),
+        secret_boundary_validation=live_connector_audit_replay.get("secret_boundary_validation_summary", {}),
+        blocker_matrix=live_connector_blocker_matrix,
+        blocker_matrix_reference="live_connector_blocker_matrix:all-critical-blockers-unresolved",
+        risk_review_reference=canary_readiness_packet.get("risk_decision_id", ""),
+        generated_at=generated_at,
+    )
+    operator_live_approval_packet = build_operator_live_approval_packet(
+        audit_replay_result=live_connector_audit_replay,
+        disabled_connector_status=build_disabled_connector_passive_status(
+            result=disabled_connector_result,
+            latest_disabled_connector_audit_path=(
+                normalize_path(paths["disabled_connector_audit"]) if active_config.write_artifacts else ""
+            ),
+            live_canary_replay_acceptance_status="passed",
+        ),
+        blocker_matrix=live_connector_blocker_matrix,
+        dry_run_receipt_references=[canary_dry_run_receipt.get("receipt_id", "")],
+        canary_readiness_references=[canary_readiness_packet.get("canary_id", "")],
+        canary_replay_acceptance_references=[canary_dry_run_receipt.get("receipt_id", "")],
+        wallet_boundary_references=[canary_readiness_packet.get("wallet_boundary_packet_id", "")],
+        risk_decision_references=[canary_readiness_packet.get("risk_decision_id", "")],
+        tiny_live_canary_preflight_contract=tiny_live_canary_preflight_contract,
+        tiny_live_canary_manual_runbook=tiny_live_canary_manual_runbook,
+        operator_intent_packet=operator_intent_packet,
+        latest_audit_replay_path=(
+            normalize_path(paths["live_connector_audit_replay"]) if active_config.write_artifacts else ""
+        ),
+        latest_tiny_canary_contract_path=(
+            normalize_path(paths["tiny_live_canary_preflight_contract"]) if active_config.write_artifacts else ""
+        ),
+        latest_manual_runbook_path=(
+            normalize_path(paths["tiny_live_canary_manual_runbook"]) if active_config.write_artifacts else ""
+        ),
+        latest_operator_intent_packet_path=latest_operator_intent_packet_path,
+        generated_at=generated_at,
+    )
     tiny_live_canary_preflight_result = evaluate_tiny_live_canary_preflight(
         contract=tiny_live_canary_preflight_contract,
         manual_runbook=tiny_live_canary_manual_runbook,
         operator_packet=operator_live_approval_packet,
+        operator_intent_packet=operator_intent_packet,
         audit_replay_result=live_connector_audit_replay,
         secret_boundary_validation=live_connector_audit_replay.get("secret_boundary_validation_summary", {}),
         blocker_matrix=live_connector_blocker_matrix,
@@ -484,6 +566,11 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
     )
     strategy_ledger["live_connector_audit_replay_status"] = live_connector_audit_replay.get("status")
     strategy_ledger["operator_review_packet_status"] = operator_live_approval_packet.get("operator_packet_status")
+    strategy_ledger["operator_intent_packet_status"] = operator_intent_packet.get("intent_packet_status")
+    strategy_ledger["operator_intent_packet_review_ready"] = (
+        operator_intent_packet.get("operator_intent_packet_review_ready") is True
+    )
+    strategy_ledger["operator_intent_is_not_live_approval"] = True
     strategy_ledger["tiny_live_canary_preflight_status"] = tiny_live_canary_preflight_result.get("status")
     strategy_ledger["manual_runbook_status"] = tiny_live_canary_manual_runbook.get("status")
     strategy_ledger["canary_executable_now"] = False
@@ -491,6 +578,11 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
     strategy_ledger["real_execution_available"] = False
     strategy_summary["live_connector_audit_replay_status"] = live_connector_audit_replay.get("status")
     strategy_summary["operator_review_packet_status"] = operator_live_approval_packet.get("operator_packet_status")
+    strategy_summary["operator_intent_packet_status"] = operator_intent_packet.get("intent_packet_status")
+    strategy_summary["operator_intent_packet_review_ready"] = (
+        operator_intent_packet.get("operator_intent_packet_review_ready") is True
+    )
+    strategy_summary["operator_intent_is_not_live_approval"] = True
     strategy_summary["tiny_live_canary_preflight_status"] = tiny_live_canary_preflight_result.get("status")
     strategy_summary["manual_runbook_status"] = tiny_live_canary_manual_runbook.get("status")
     strategy_summary["canary_executable_now"] = False
@@ -523,6 +615,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         disabled_connector_audit=disabled_connector_audit,
         live_connector_audit_replay=live_connector_audit_replay,
         operator_live_approval_packet=operator_live_approval_packet,
+        operator_intent_packet=operator_intent_packet,
         live_connector_blocker_matrix=live_connector_blocker_matrix,
         tiny_live_canary_preflight_contract=tiny_live_canary_preflight_contract,
         tiny_live_canary_manual_runbook=tiny_live_canary_manual_runbook,
@@ -536,6 +629,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         latest_operator_packet_path=(
             normalize_path(paths["operator_live_approval_packet"]) if active_config.write_artifacts else ""
         ),
+        latest_operator_intent_packet_path=latest_operator_intent_packet_path,
         latest_tiny_canary_contract_path=(
             normalize_path(paths["tiny_live_canary_preflight_contract"]) if active_config.write_artifacts else ""
         ),
@@ -578,6 +672,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
             disabled_connector_audit,
             live_connector_audit_replay,
             operator_live_approval_packet,
+            operator_intent_packet,
             live_connector_blocker_matrix,
             tiny_live_canary_preflight_contract,
             tiny_live_canary_manual_runbook,
@@ -659,6 +754,14 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         and operator_live_approval_packet.get("live_execution_approved") is False
         and operator_live_approval_packet.get("real_execution_available") is False
         and operator_live_approval_packet.get("live_connector_enabled") is False
+        and operator_live_approval_packet.get("operator_intent_is_not_live_approval") is True
+        and operator_intent_packet.get("intent_packet_status") == "operator_intent_packet_review_ready"
+        and operator_intent_packet.get("operator_intent_packet_review_ready") is True
+        and operator_intent_packet.get("operator_intent_is_not_live_approval") is True
+        and operator_intent_packet.get("operator_signed_intent_is_human_acknowledgement_only") is True
+        and operator_intent_packet.get("live_execution_approved") is False
+        and operator_intent_packet.get("real_execution_available") is False
+        and operator_intent_packet.get("canary_executable_now") is False
         and tiny_live_canary_preflight_contract.get("preflight_contract_ready") is True
         and tiny_live_canary_manual_runbook.get("manual_runbook_ready") is True
         and tiny_live_canary_kill_switch_validation.get("requirements_defined") is True
@@ -680,6 +783,11 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         and dashboard.get("live_connector_audit_operator_summary", {}).get("operator_review_ready") is True
         and dashboard.get("live_connector_audit_operator_summary", {}).get("live_execution_approved") is False
         and dashboard.get("live_connector_audit_operator_summary", {}).get("real_execution_available") is False
+        and dashboard.get("operator_intent_packet_summary", {}).get("operator_intent_packet_review_ready") is True
+        and dashboard.get("operator_intent_packet_summary", {}).get("operator_intent_is_not_live_approval") is True
+        and dashboard.get("operator_intent_packet_summary", {}).get("canary_executable_now") is False
+        and dashboard.get("operator_intent_packet_summary", {}).get("live_execution_approved") is False
+        and dashboard.get("operator_intent_packet_summary", {}).get("real_execution_available") is False
         and dashboard.get("tiny_live_canary_preflight_runbook_summary", {}).get("canary_executable_now") is False
         and dashboard.get("tiny_live_canary_preflight_runbook_summary", {}).get("live_execution_approved") is False
         and dashboard.get("tiny_live_canary_preflight_runbook_summary", {}).get("real_execution_available") is False
@@ -733,6 +841,9 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         ),
         operator_live_approval_packet_path=(
             normalize_path(paths["operator_live_approval_packet"]) if active_config.write_artifacts else ""
+        ),
+        operator_intent_packet_path=(
+            normalize_path(paths["operator_intent_packet"]) if active_config.write_artifacts else ""
         ),
         tiny_live_canary_preflight_contract_path=(
             normalize_path(paths["tiny_live_canary_preflight_contract"]) if active_config.write_artifacts else ""
@@ -791,6 +902,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
             disabled_connector_audit=disabled_connector_audit,
             live_connector_audit_replay=live_connector_audit_replay,
             operator_live_approval_packet=operator_live_approval_packet,
+            operator_intent_packet=operator_intent_packet,
             tiny_live_canary_preflight_contract=tiny_live_canary_preflight_contract,
             tiny_live_canary_manual_runbook=tiny_live_canary_manual_runbook,
             tiny_live_canary_preflight_result=tiny_live_canary_preflight_result,
@@ -843,6 +955,8 @@ def _daily_paths(output_dir: Path) -> dict[str, Path]:
         "live_connector_audit_replay_md": output_dir / "live_connector_audit_replay.md",
         "operator_live_approval_packet": output_dir / "operator_live_approval_packet.json",
         "operator_live_approval_packet_md": output_dir / "operator_live_approval_packet.md",
+        "operator_intent_packet": output_dir / "live_canary_operator_intent_packet.json",
+        "operator_intent_packet_md": output_dir / "live_canary_operator_intent_packet.md",
         "tiny_live_canary_preflight_contract": output_dir / "tiny_live_canary_preflight_contract.json",
         "tiny_live_canary_preflight_contract_md": output_dir / "tiny_live_canary_preflight_contract.md",
         "tiny_live_canary_manual_runbook": output_dir / "tiny_live_canary_manual_runbook.json",
@@ -1242,6 +1356,7 @@ def _build_daily_dashboard(
     disabled_connector_audit: Mapping[str, Any],
     live_connector_audit_replay: Mapping[str, Any],
     operator_live_approval_packet: Mapping[str, Any],
+    operator_intent_packet: Mapping[str, Any],
     live_connector_blocker_matrix: Mapping[str, Any],
     tiny_live_canary_preflight_contract: Mapping[str, Any],
     tiny_live_canary_manual_runbook: Mapping[str, Any],
@@ -1249,6 +1364,7 @@ def _build_daily_dashboard(
     latest_disabled_connector_audit_path: str,
     latest_audit_replay_path: str,
     latest_operator_packet_path: str,
+    latest_operator_intent_packet_path: str,
     latest_tiny_canary_contract_path: str,
     latest_manual_runbook_path: str,
     source_evidence_refresh_ledger: Mapping[str, Any],
@@ -1265,6 +1381,7 @@ def _build_daily_dashboard(
         receipt=canary_dry_run_receipt,
         audit_replay_result=live_connector_audit_replay,
         operator_approval_packet=operator_live_approval_packet,
+        operator_intent_packet=operator_intent_packet,
         generated_at=generated_at,
     )
     canary_governance_summary["tiny_live_canary_preflight_status"] = tiny_live_canary_preflight_result.get("status")
@@ -1363,6 +1480,7 @@ def _build_daily_dashboard(
             "operator_live_review_checklist_count": len(
                 operator_live_approval_packet.get("required_human_checklist", [])
             ),
+            "operator_intent_packet_count": 1 if operator_intent_packet else 0,
             "tiny_live_canary_preflight_blocker_count": int(
                 tiny_live_canary_preflight_result.get("blocker_count", 0) or 0
             ),
@@ -1387,6 +1505,9 @@ def _build_daily_dashboard(
             "unresolved_pnl_not_invented": strategy_ledger.get("unresolved_pnl_not_invented"),
             "live_connector_audit_replay_status": strategy_ledger.get("live_connector_audit_replay_status"),
             "operator_review_packet_status": strategy_ledger.get("operator_review_packet_status"),
+            "operator_intent_packet_status": strategy_ledger.get("operator_intent_packet_status"),
+            "operator_intent_packet_review_ready": strategy_ledger.get("operator_intent_packet_review_ready") is True,
+            "operator_intent_is_not_live_approval": True,
             "tiny_live_canary_preflight_status": strategy_ledger.get("tiny_live_canary_preflight_status"),
             "manual_runbook_status": strategy_ledger.get("manual_runbook_status"),
             "canary_executable_now": strategy_ledger.get("canary_executable_now") is True,
@@ -1402,6 +1523,9 @@ def _build_daily_dashboard(
             "unresolved_pnl_not_invented": strategy_summary.get("unresolved_pnl_not_invented"),
             "live_connector_audit_replay_status": strategy_summary.get("live_connector_audit_replay_status"),
             "operator_review_packet_status": strategy_summary.get("operator_review_packet_status"),
+            "operator_intent_packet_status": strategy_summary.get("operator_intent_packet_status"),
+            "operator_intent_packet_review_ready": strategy_summary.get("operator_intent_packet_review_ready") is True,
+            "operator_intent_is_not_live_approval": True,
             "tiny_live_canary_preflight_status": strategy_summary.get("tiny_live_canary_preflight_status"),
             "manual_runbook_status": strategy_summary.get("manual_runbook_status"),
             "canary_executable_now": strategy_summary.get("canary_executable_now") is True,
@@ -1491,6 +1615,10 @@ def _build_daily_dashboard(
                     operator_live_approval_packet.get("operator_packet_status")
                 ),
                 operator_review_ready=operator_live_approval_packet.get("operator_review_ready") is True,
+                operator_intent_packet_status=clean_text(operator_intent_packet.get("intent_packet_status")),
+                operator_intent_packet_review_ready=(
+                    operator_intent_packet.get("operator_intent_packet_review_ready") is True
+                ),
             ),
             "canary_replay_status": canary_governance_summary.get("canary_replay_status"),
             "canary_replay_passed": canary_governance_summary.get("canary_replay_passed"),
@@ -1516,6 +1644,11 @@ def _build_daily_dashboard(
             "next_recommended_non_live_task": canary_governance_summary.get("next_recommended_non_live_task"),
             "operator_approval_packet_status": canary_governance_summary.get("operator_approval_packet_status"),
             "operator_review_ready": canary_governance_summary.get("operator_review_ready") is True,
+            "operator_intent_packet_status": canary_governance_summary.get("operator_intent_packet_status"),
+            "operator_intent_packet_review_ready": (
+                canary_governance_summary.get("operator_intent_packet_review_ready") is True
+            ),
+            "operator_intent_is_not_live_approval": True,
             "tiny_live_canary_preflight_status": tiny_live_canary_preflight_result.get("status"),
             "manual_runbook_status": tiny_live_canary_manual_runbook.get("status"),
             "future_canary_shape_defined": tiny_live_canary_preflight_result.get("future_canary_shape_defined") is True,
@@ -1583,6 +1716,22 @@ def _build_daily_dashboard(
             )
             is True,
         },
+        "operator_intent_packet_summary": summarize_live_canary_operator_intent_packet(
+            operator_intent_packet,
+            latest_operator_intent_packet_path=latest_operator_intent_packet_path,
+            generated_at=generated_at,
+        )
+        | {
+            "operator_acknowledgement_model_ready": (
+                operator_intent_packet.get("operator_acknowledgement_model_ready") is True
+            ),
+            "dry_run_intent_validation_ready": (
+                operator_intent_packet.get("dry_run_intent_validation_ready") is True
+            ),
+            "unresolved_live_blocker_count": int(
+                live_connector_blocker_matrix.get("unresolved_blocker_count", 0) or 0
+            ),
+        },
         "source_evidence_refresh_status": {
             "refresh_id": source_evidence_refresh_ledger.get("refresh_id"),
             "run_mode": source_evidence_refresh_ledger.get("run_mode"),
@@ -1643,6 +1792,7 @@ def _build_daily_dashboard(
             "Review the passive risk engine decision ledger before any future execution-layer design work.",
             "Review the passive dry-run execution receipts before any future execution-layer design work.",
             "Review the live connector audit replay and operator review packet as non-approval artifacts only.",
+            "Review the operator intent packet as dry-run human acknowledgement only, not live approval.",
             "Review source evidence freshness and missing evidence gaps before interpreting paper strategy output.",
             "Review the paper strategy evaluation ledger before interpreting paper readiness.",
             "Add saved local outcome resolution evidence before evaluating paper performance.",
@@ -1809,6 +1959,7 @@ def _write_daily_artifacts(
     disabled_connector_audit: Mapping[str, Any],
     live_connector_audit_replay: Mapping[str, Any],
     operator_live_approval_packet: Mapping[str, Any],
+    operator_intent_packet: Mapping[str, Any],
     tiny_live_canary_preflight_contract: Mapping[str, Any],
     tiny_live_canary_manual_runbook: Mapping[str, Any],
     tiny_live_canary_preflight_result: Mapping[str, Any],
@@ -1862,6 +2013,11 @@ def _write_daily_artifacts(
     write_text(
         paths["operator_live_approval_packet_md"],
         render_operator_live_approval_packet_markdown(operator_live_approval_packet),
+    )
+    write_json(paths["operator_intent_packet"], operator_intent_packet)
+    write_text(
+        paths["operator_intent_packet_md"],
+        render_live_canary_operator_intent_packet_markdown(operator_intent_packet),
     )
     write_json(paths["tiny_live_canary_preflight_contract"], tiny_live_canary_preflight_contract)
     write_text(
@@ -2005,6 +2161,7 @@ def _render_daily_dashboard_markdown(dashboard: Mapping[str, Any]) -> str:
     tiny_preflight = dict(dashboard.get("tiny_live_canary_preflight_runbook_summary", {}))
     disabled_connector = dict(dashboard.get("disabled_real_connector_summary", {}))
     audit_operator = dict(dashboard.get("live_connector_audit_operator_summary", {}))
+    operator_intent = dict(dashboard.get("operator_intent_packet_summary", {}))
     risk_prep = dict(dashboard.get("risk_prep_config_status", {}))
     lines.extend(
         [
@@ -2098,6 +2255,8 @@ def _render_daily_dashboard_markdown(dashboard: Mapping[str, Any]) -> str:
             f"- Canary replay status: `{canary.get('canary_replay_status')}`",
             f"- Acceptance matrix status: `{canary.get('acceptance_matrix_status')}`",
             f"- Acceptance matrix failed cases: {canary.get('acceptance_matrix_failed_case_count')}",
+            f"- Operator intent packet status: `{canary.get('operator_intent_packet_status')}`",
+            f"- Operator intent review ready: `{str(canary.get('operator_intent_packet_review_ready')).lower()}`",
             f"- Tiny preflight status: `{canary.get('tiny_live_canary_preflight_status')}`",
             f"- Manual runbook status: `{canary.get('manual_runbook_status')}`",
             f"- Canary executable now: `{str(canary.get('canary_executable_now')).lower()}`",
@@ -2158,6 +2317,19 @@ def _render_daily_dashboard_markdown(dashboard: Mapping[str, Any]) -> str:
             f"- Secret boundary status: `{audit_operator.get('secret_boundary_status')}`",
             f"- Latest audit replay: `{audit_operator.get('latest_audit_replay_path')}`",
             f"- Latest operator packet: `{audit_operator.get('latest_operator_packet_path')}`",
+            "",
+            "## Operator Intent Packet",
+            "",
+            f"- Intent packet status: `{operator_intent.get('operator_intent_packet_status')}`",
+            f"- Review ready: `{str(operator_intent.get('operator_intent_packet_review_ready')).lower()}`",
+            f"- Human acknowledgement only: `{str(operator_intent.get('operator_signed_intent_is_human_acknowledgement_only')).lower()}`",
+            f"- Not live approval: `{str(operator_intent.get('operator_intent_is_not_live_approval')).lower()}`",
+            f"- Canary executable now: `{str(operator_intent.get('canary_executable_now')).lower()}`",
+            f"- Live execution approved: `{str(operator_intent.get('live_execution_approved')).lower()}`",
+            f"- Real execution available: `{str(operator_intent.get('real_execution_available')).lower()}`",
+            f"- Unresolved live blockers: {operator_intent.get('unresolved_live_blocker_count')}",
+            f"- Kill-switch verified for live: `{str(operator_intent.get('kill_switch_verified_for_live')).lower()}`",
+            f"- Latest operator intent packet: `{operator_intent.get('latest_operator_intent_packet_path')}`",
             "",
             "## Source Evidence Refresh",
             "",
@@ -2287,6 +2459,7 @@ def _render_daily_run_report(
             f"- Disabled real connector audit: `{dict(dashboard.get('disabled_real_connector_summary', {})).get('latest_disabled_connector_audit_path')}`",
             f"- Live connector audit replay: `{result.get('live_connector_audit_replay_path')}`",
             f"- Operator live review packet: `{result.get('operator_live_approval_packet_path')}`",
+            f"- Operator intent packet: `{result.get('operator_intent_packet_path')}`",
             f"- Source evidence refresh: `{result.get('source_evidence_refresh_path')}`",
             f"- Source evidence quality ledger: `{result.get('source_evidence_quality_ledger_path')}`",
             f"- Source evidence pending approval: `{result.get('source_evidence_pending_approval_path')}`",

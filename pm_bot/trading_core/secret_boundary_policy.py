@@ -33,7 +33,10 @@ FORBIDDEN_SECRET_FIELD_NAMES = frozenset(
 FORBIDDEN_PAYLOAD_KEYS = frozenset(
     {
         *FORBIDDEN_SECRET_FIELD_NAMES,
+        "order_payload",
+        "order_submission_payload",
         "signed_order",
+        "transaction_payload",
         "submit_order",
         "place_order",
         "send_transaction",
@@ -142,6 +145,31 @@ SAFE_NEGATIVE_SECRET_SUFFIXES = (
     "_added",
 )
 
+ALLOWED_HUMAN_OPERATOR_SIGNED_INTENT_FIELD_NAMES = frozenset(
+    {
+        "operator_signed_intent_acknowledgement",
+        "operator_signed_intent_is_human_acknowledgement_only",
+        "human_signed_acknowledgement_text",
+    }
+)
+
+FORBIDDEN_OPERATOR_INTENT_FIELD_NAMES = frozenset(
+    {
+        "private_key",
+        "mnemonic",
+        "seed_phrase",
+        "signature",
+        "signed_order",
+        "signed_payload",
+        "raw_transaction",
+        "auth_header",
+        "bearer_token",
+        "api_key",
+        "order_submission_payload",
+        "transaction_payload",
+    }
+)
+
 
 def build_secret_boundary_policy(*, generated_at: str = GENERATED_AT) -> dict[str, Any]:
     return {
@@ -245,6 +273,83 @@ def validate_secret_boundary_operator_checklist_item(
         artifact_type="operator_approval_checklist_item",
         generated_at=generated_at,
     )
+
+
+def validate_secret_boundary_operator_intent_packet(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_operator_intent_boundary(
+        value,
+        artifact_type="operator_intent_packet",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_operator_intent_acknowledgement(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_operator_intent_boundary(
+        value,
+        artifact_type="operator_intent_acknowledgement",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_operator_intent_evidence_reference(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_operator_intent_boundary(
+        value,
+        artifact_type="operator_intent_evidence_reference",
+        generated_at=generated_at,
+    )
+
+
+def validate_static_operator_intent_boundary(
+    value: Mapping[str, Any],
+    *,
+    artifact_type: str,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    base_validation = validate_static_secret_boundary(value, artifact_type=artifact_type, generated_at=generated_at)
+    forbidden_operator_paths = find_forbidden_operator_intent_field_paths(value)
+    human_signed_paths = find_human_operator_signed_intent_field_paths(value)
+    if human_signed_paths and not _human_operator_signed_context_declared(value):
+        forbidden_operator_paths.extend(human_signed_paths)
+    forbidden_operator_paths = _dedupe_paths(forbidden_operator_paths)
+    validation_id = _stable_id(
+        "static-operator-intent-boundary-validation-034",
+        {
+            "artifact_type": artifact_type,
+            "base_validation_id": base_validation.get("validation_id"),
+            "forbidden_operator_intent_field_paths": forbidden_operator_paths,
+        },
+    )
+    valid = base_validation.get("valid") is True and not forbidden_operator_paths
+    result = dict(base_validation)
+    result.update(
+        {
+            "validation_id": validation_id,
+            "artifact_type": clean_text(artifact_type),
+            "valid": valid,
+            "status": "passed" if valid else "blocked",
+            "forbidden_operator_intent_field_paths": forbidden_operator_paths,
+            "forbidden_operator_intent_field_count": len(forbidden_operator_paths),
+            "human_operator_signed_intent_field_paths": human_signed_paths,
+            "operator_signed_intent_human_context_required": bool(human_signed_paths),
+            "operator_signed_intent_human_context_present": (
+                _human_operator_signed_context_declared(value) if human_signed_paths else True
+            ),
+            "operator_signed_intent_is_not_cryptographic": True,
+        }
+    )
+    return result
 
 
 def validate_secret_boundary_tiny_canary_preflight_contract(
@@ -370,6 +475,36 @@ def find_unsafe_secret_flag_paths(value: Any, path: str = "$") -> list[str]:
     return paths
 
 
+def find_forbidden_operator_intent_field_paths(value: Any, path: str = "$") -> list[str]:
+    paths: list[str] = []
+    if isinstance(value, Mapping):
+        for key, nested in value.items():
+            key_text = clean_text(key)
+            nested_path = f"{path}.{key_text}"
+            if is_forbidden_operator_intent_field_name(key_text):
+                paths.append(nested_path)
+            paths.extend(find_forbidden_operator_intent_field_paths(nested, nested_path))
+    elif isinstance(value, list):
+        for index, nested in enumerate(value):
+            paths.extend(find_forbidden_operator_intent_field_paths(nested, f"{path}[{index}]"))
+    return paths
+
+
+def find_human_operator_signed_intent_field_paths(value: Any, path: str = "$") -> list[str]:
+    paths: list[str] = []
+    if isinstance(value, Mapping):
+        for key, nested in value.items():
+            key_text = clean_text(key)
+            nested_path = f"{path}.{key_text}"
+            if _normalize_key(key_text) in ALLOWED_HUMAN_OPERATOR_SIGNED_INTENT_FIELD_NAMES:
+                paths.append(nested_path)
+            paths.extend(find_human_operator_signed_intent_field_paths(nested, nested_path))
+    elif isinstance(value, list):
+        for index, nested in enumerate(value):
+            paths.extend(find_human_operator_signed_intent_field_paths(nested, f"{path}[{index}]"))
+    return paths
+
+
 def is_forbidden_secret_field_name(name: str) -> bool:
     normalized = _normalize_key(name)
     if not normalized:
@@ -382,6 +517,25 @@ def is_forbidden_secret_field_name(name: str) -> bool:
         return True
     for suffix in FORBIDDEN_PAYLOAD_KEYS:
         if normalized.endswith(f"_{suffix}"):
+            return True
+    return False
+
+
+def is_forbidden_operator_intent_field_name(name: str) -> bool:
+    normalized = _normalize_key(name)
+    if not normalized:
+        return False
+    if normalized in ALLOWED_HUMAN_OPERATOR_SIGNED_INTENT_FIELD_NAMES:
+        return False
+    if normalized in FORBIDDEN_OPERATOR_INTENT_FIELD_NAMES:
+        return True
+    tokens = [token for token in normalized.split("_") if token]
+    if "signature" in tokens:
+        return True
+    if "signed" in tokens:
+        return True
+    for suffix in FORBIDDEN_OPERATOR_INTENT_FIELD_NAMES:
+        if normalized.endswith(f"_{suffix}") or normalized == suffix:
             return True
     return False
 
@@ -420,6 +574,31 @@ def _normalize_env_name(value: str) -> str:
     while "__" in normalized:
         normalized = normalized.replace("__", "_")
     return normalized.strip("_")
+
+
+def _human_operator_signed_context_declared(value: Any) -> bool:
+    try:
+        text = json.dumps(value, sort_keys=True).lower()
+    except TypeError:
+        text = str(value).lower()
+    if "human acknowledgement only" not in text:
+        return False
+    if "cryptographic signing" not in text:
+        return False
+    if isinstance(value, Mapping):
+        flag = value.get("operator_signed_intent_is_human_acknowledgement_only")
+        if flag is True:
+            return True
+    return "does not authorize live execution" in text or "no cryptographic signing" in text
+
+
+def _dedupe_paths(values: Sequence[str]) -> list[str]:
+    result: list[str] = []
+    for value in values:
+        text = clean_text(value)
+        if text and text not in result:
+            result.append(text)
+    return result
 
 
 def _stable_id(prefix: str, payload: Mapping[str, Any]) -> str:

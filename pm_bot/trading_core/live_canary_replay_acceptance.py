@@ -394,6 +394,69 @@ LIVE_CONNECTOR_BLOCKERS = (
         "current_status": "not_finalized",
         "why_it_blocks_live_execution": "No live market selection has been manually finalized for any executable canary.",
     },
+    {
+        "blocker_id": "PMBOT-LIVE-BLOCKER-025",
+        "blocker_category": "operator_intent_packet_dry_run_only",
+        "blocker_name": "operator intent packet is dry-run only",
+        "severity": "critical",
+        "required_future_task": "Create a separate future gated task before any operator intent can be considered for live-canary authorization.",
+        "current_status": "dry_run_only",
+        "why_it_blocks_live_execution": "The operator intent packet is a human acknowledgement artifact and cannot approve live execution.",
+    },
+    {
+        "blocker_id": "PMBOT-LIVE-BLOCKER-026",
+        "blocker_category": "operator_intent_not_live_approval",
+        "blocker_name": "operator intent is not live approval",
+        "severity": "critical",
+        "required_future_task": "Build a separate dual-control live approval model after all technical blockers are cleared.",
+        "current_status": "not_live_approval",
+        "why_it_blocks_live_execution": "Operator intent records reviewed artifacts only and do not authorize trading.",
+    },
+    {
+        "blocker_id": "PMBOT-LIVE-BLOCKER-027",
+        "blocker_category": "operator_intent_acknowledgement_not_collected_for_live",
+        "blocker_name": "operator intent acknowledgement not collected for live",
+        "severity": "critical",
+        "required_future_task": "Collect live-specific operator acknowledgement in a separate future task after live approval criteria exist.",
+        "current_status": "not_collected_for_live",
+        "why_it_blocks_live_execution": "Any acknowledgement in this build is dry-run review text only.",
+    },
+    {
+        "blocker_id": "PMBOT-LIVE-BLOCKER-028",
+        "blocker_category": "cryptographic_signing_still_unavailable",
+        "blocker_name": "cryptographic signing still unavailable",
+        "severity": "critical",
+        "required_future_task": "Design and review a signing boundary in a separate task before any signing implementation exists.",
+        "current_status": "unavailable",
+        "why_it_blocks_live_execution": "No cryptographic, wallet, transaction, or order signing capability exists in this build.",
+    },
+    {
+        "blocker_id": "PMBOT-LIVE-BLOCKER-029",
+        "blocker_category": "live_canary_execution_still_disabled",
+        "blocker_name": "live canary execution still disabled",
+        "severity": "critical",
+        "required_future_task": "Design a disabled-first live canary execution adapter in a future gated task.",
+        "current_status": "disabled",
+        "why_it_blocks_live_execution": "No code path may execute a live canary in this build.",
+    },
+    {
+        "blocker_id": "PMBOT-LIVE-BLOCKER-030",
+        "blocker_category": "live_canary_funding_still_not_configured",
+        "blocker_name": "live canary funding still not configured",
+        "severity": "critical",
+        "required_future_task": "Define funding, balance, and exposure reconciliation in a separate future task.",
+        "current_status": "not_configured",
+        "why_it_blocks_live_execution": "No live funding configuration, balance source, or reconciliation path exists.",
+    },
+    {
+        "blocker_id": "PMBOT-LIVE-BLOCKER-031",
+        "blocker_category": "live_canary_order_adapter_still_disabled",
+        "blocker_name": "live canary order adapter still disabled",
+        "severity": "critical",
+        "required_future_task": "Design an order adapter contract in a separate task without enabling order submission.",
+        "current_status": "disabled",
+        "why_it_blocks_live_execution": "No order adapter can submit, place, or transmit real orders.",
+    },
 )
 
 
@@ -778,6 +841,7 @@ def build_operator_live_canary_checklist(*, generated_at: str = GENERATED_AT) ->
             "pm_bot/trading_core/artifacts/night_020_021/live_connector_blocker_matrix.json",
             "pm_bot/trading_core/artifacts/night_020_021/tiny_live_canary_preflight_contract.json",
             "pm_bot/trading_core/artifacts/night_020_021/tiny_live_canary_manual_runbook.json",
+            "pm_bot/trading_core/artifacts/night_020_021/live_canary_operator_intent_packet.json",
         ],
         "validations_that_must_pass": [
             "canary readiness dry-run packet validation",
@@ -786,12 +850,14 @@ def build_operator_live_canary_checklist(*, generated_at: str = GENERATED_AT) ->
             "live connector blocker matrix present with all blockers unresolved",
             "tiny live canary preflight contract validates as review-only",
             "manual runbook includes non-execution, kill-switch, abort, and evidence sections",
+            "operator intent packet validates as dry-run human acknowledgement only",
             "forbidden field scan reports no unsafe field names in relevant PMBOT live-prep artifacts",
             "pytest pm_bot/tests",
             "python -m compileall pm_bot",
         ],
         "manual_approvals_required": [
             "dry-run-only operator approval record for the readiness packet",
+            "dry-run-only operator intent acknowledgement packet for future review",
             "separate future operator approval for any live connector design work",
             "separate future operator approval for any real live canary proposal",
         ],
@@ -832,6 +898,7 @@ def build_canary_governance_summary(
     receipt: Mapping[str, Any],
     audit_replay_result: Mapping[str, Any] | None = None,
     operator_approval_packet: Mapping[str, Any] | None = None,
+    operator_intent_packet: Mapping[str, Any] | None = None,
     generated_at: str = GENERATED_AT,
 ) -> dict[str, Any]:
     replay_report = build_canary_replay_report(packets=[packet], receipts=[receipt], generated_at=generated_at)
@@ -840,6 +907,7 @@ def build_canary_governance_summary(
     checklist = build_operator_live_canary_checklist(generated_at=generated_at)
     audit_replay = dict(audit_replay_result or {})
     operator_packet = dict(operator_approval_packet or {})
+    operator_intent = dict(operator_intent_packet or {})
     passed = (
         replay_report.get("passed") is True
         and acceptance_matrix.get("passed") is True
@@ -867,6 +935,16 @@ def build_canary_governance_summary(
         "live_connector_audit_replay_status": clean_text(audit_replay.get("status") or "not_provided"),
         "operator_approval_packet_status": clean_text(operator_packet.get("operator_packet_status") or "not_provided"),
         "operator_review_ready": operator_packet.get("operator_review_ready") is True,
+        "operator_intent_packet_status": clean_text(operator_intent.get("intent_packet_status") or "not_provided"),
+        "operator_intent_packet_review_ready": operator_intent.get("operator_intent_packet_review_ready") is True,
+        "operator_intent_is_not_live_approval": (
+            operator_intent.get("operator_intent_is_not_live_approval") is True if operator_intent else True
+        ),
+        "operator_signed_intent_is_human_acknowledgement_only": (
+            operator_intent.get("operator_signed_intent_is_human_acknowledgement_only") is True
+            if operator_intent
+            else True
+        ),
         "tiny_live_canary_preflight_status": clean_text(
             dict(operator_packet.get("tiny_live_canary_preflight_summary", {})).get("preflight_result_status")
             or "not_provided"
@@ -1421,6 +1499,7 @@ def _is_relevant_canary_live_prep_artifact(path: Path) -> bool:
         "tiny_live_canary_preflight_contract",
         "tiny_live_canary_manual_runbook",
         "tiny_live_canary_preflight_result",
+        "live_canary_operator_intent_packet",
     )
     return normalized.endswith(".json") and any(name in normalized for name in relevant_names)
 

@@ -30,6 +30,7 @@ REQUIRED_SECTION_IDS = (
     "disabled_connector_review",
     "audit_replay_review",
     "operator_packet_review",
+    "operator_intent_packet_review",
     "kill_switch_verification",
     "maximum_exposure_limits",
     "manual_pause_abort_conditions",
@@ -283,6 +284,25 @@ def build_tiny_live_canary_manual_runbook(*, generated_at: str = GENERATED_AT) -
                         "verify_review_not_approval",
                         "Verify review is not approval",
                         "Confirm operator_review_is_not_live_approval is true and live_execution_approved is false.",
+                        produces_evidence=True,
+                    ),
+                ],
+            ),
+            _section(
+                "operator_intent_packet_review",
+                "Operator Intent Packet Review",
+                "Confirm the dry-run operator intent packet is a human acknowledgement artifact only.",
+                [
+                    _step(
+                        "verify_intent_packet_not_live_approval",
+                        "Verify intent packet is not live approval",
+                        "Confirm operator_intent_is_not_live_approval is true and live_execution_approved is false.",
+                        produces_evidence=True,
+                    ),
+                    _step(
+                        "verify_signed_means_human_acknowledgement",
+                        "Verify signed means human acknowledgement",
+                        "Confirm operator-signed intent terminology is plain human acknowledgement only, not cryptographic signing.",
                         produces_evidence=True,
                     ),
                 ],

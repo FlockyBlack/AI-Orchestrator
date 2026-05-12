@@ -57,10 +57,12 @@ class OperatorLiveApprovalPacket:
     wallet_boundary_references: tuple[str, ...]
     risk_decision_references: tuple[str, ...]
     tiny_live_canary_preflight_summary: Mapping[str, Any]
+    operator_intent_packet_summary: Mapping[str, Any]
     required_human_checklist: tuple[Mapping[str, Any], ...]
     latest_audit_replay_path: str
     latest_tiny_canary_contract_path: str
     latest_manual_runbook_path: str
+    latest_operator_intent_packet_path: str
     generated_at: str
 
     def to_dict(self) -> dict[str, Any]:
@@ -76,8 +78,16 @@ class OperatorLiveApprovalPacket:
         value["wallet_boundary_references"] = list(self.wallet_boundary_references)
         value["risk_decision_references"] = list(self.risk_decision_references)
         value["tiny_live_canary_preflight_summary"] = dict(self.tiny_live_canary_preflight_summary)
+        value["operator_intent_packet_summary"] = dict(self.operator_intent_packet_summary)
         value["required_human_checklist"] = [dict(row) for row in self.required_human_checklist]
         value["operator_review_ready"] = self.operator_packet_status == OPERATOR_REVIEW_READY
+        value["operator_intent_packet_status"] = clean_text(
+            self.operator_intent_packet_summary.get("operator_intent_packet_status")
+        )
+        value["operator_intent_packet_review_ready"] = (
+            self.operator_intent_packet_summary.get("operator_intent_packet_review_ready") is True
+        )
+        value["operator_intent_is_not_live_approval"] = True
         value["live_execution_approved"] = False
         value["real_execution_available"] = False
         value["live_connector_enabled"] = False
@@ -125,9 +135,11 @@ def build_operator_live_approval_packet(
     tiny_live_canary_preflight_contract: Mapping[str, Any] | None = None,
     tiny_live_canary_manual_runbook: Mapping[str, Any] | None = None,
     tiny_live_canary_preflight_result: Mapping[str, Any] | None = None,
+    operator_intent_packet: Mapping[str, Any] | None = None,
     latest_audit_replay_path: str = "",
     latest_tiny_canary_contract_path: str = "",
     latest_manual_runbook_path: str = "",
+    latest_operator_intent_packet_path: str = "",
     generated_at: str = GENERATED_AT,
 ) -> dict[str, Any]:
     replay_refs = dict(audit_replay_result.get("artifact_references", {}))
@@ -150,6 +162,10 @@ def build_operator_live_approval_packet(
         latest_tiny_canary_contract_path=latest_tiny_canary_contract_path,
         latest_manual_runbook_path=latest_manual_runbook_path,
     )
+    operator_intent_summary = _operator_intent_packet_summary(
+        operator_intent_packet,
+        latest_operator_intent_packet_path=latest_operator_intent_packet_path,
+    )
     checklist = tuple(
         _default_checklist(
             disabled_connector_status=disabled_connector_status,
@@ -160,6 +176,7 @@ def build_operator_live_approval_packet(
             wallet_boundary_references=wallet_refs,
             risk_decision_references=risk_refs,
             tiny_live_canary_preflight_summary=tiny_preflight_summary,
+            operator_intent_packet_summary=operator_intent_summary,
         )
     )
     static_ready = _static_review_ready(
@@ -187,6 +204,7 @@ def build_operator_live_approval_packet(
             "wallet_boundary_references": wallet_refs,
             "risk_decision_references": risk_refs,
             "tiny_live_canary_preflight_summary": tiny_preflight_summary,
+            "operator_intent_packet_summary": operator_intent_summary,
             "operator_review_ready": static_ready,
         },
     )
@@ -204,10 +222,12 @@ def build_operator_live_approval_packet(
         wallet_boundary_references=tuple(wallet_refs),
         risk_decision_references=tuple(risk_refs),
         tiny_live_canary_preflight_summary=tiny_preflight_summary,
+        operator_intent_packet_summary=operator_intent_summary,
         required_human_checklist=checklist,
         latest_audit_replay_path=clean_text(latest_audit_replay_path),
         latest_tiny_canary_contract_path=clean_text(latest_tiny_canary_contract_path),
         latest_manual_runbook_path=clean_text(latest_manual_runbook_path),
+        latest_operator_intent_packet_path=clean_text(latest_operator_intent_packet_path),
         generated_at=generated_at,
     ).to_dict()
     validation = validate_operator_live_approval_packet(packet, generated_at=generated_at)
@@ -246,6 +266,15 @@ def validate_operator_live_approval_packet(
     for field in ("canary_executable_now", "live_execution_approved", "real_execution_available"):
         if preflight_summary.get(field) is not False:
             errors.append(f"tiny_live_canary_preflight_summary.{field} must be false")
+    intent_summary = dict(packet.get("operator_intent_packet_summary", {}))
+    if intent_summary:
+        if intent_summary.get("operator_intent_is_not_live_approval") is not True:
+            errors.append("operator intent packet must remain distinct from live approval")
+        for field in ("canary_executable_now", "live_execution_approved", "real_execution_available"):
+            if intent_summary.get(field) is not False:
+                errors.append(f"operator_intent_packet_summary.{field} must be false")
+    if packet.get("operator_intent_is_not_live_approval") is not True:
+        errors.append("operator_intent_is_not_live_approval must be true")
     if dict(packet.get("disabled_connector_status", {})).get("connector_status") != CONNECTOR_STATUS_DISABLED:
         errors.append("disabled connector status must remain disabled")
     if dict(packet.get("disabled_connector_status", {})).get("real_execution_available") is not False:
@@ -306,6 +335,7 @@ def validate_operator_live_approval_packet(
 
 def render_operator_live_approval_packet_markdown(packet: Mapping[str, Any]) -> str:
     tiny_preflight = dict(packet.get("tiny_live_canary_preflight_summary", {}))
+    operator_intent = dict(packet.get("operator_intent_packet_summary", {}))
     lines = [
         "# PMBOT Operator Live Review Packet",
         "",
@@ -324,6 +354,7 @@ def render_operator_live_approval_packet_markdown(packet: Mapping[str, Any]) -> 
         f"- Unresolved blockers: {len(packet.get('unresolved_blocker_ids', []))}",
         f"- Tiny canary preflight: `{tiny_preflight.get('preflight_contract_status')}`",
         f"- Manual runbook: `{tiny_preflight.get('manual_runbook_status')}`",
+        f"- Operator intent packet: `{operator_intent.get('operator_intent_packet_status')}`",
         f"- Canary executable now: `{str(tiny_preflight.get('canary_executable_now')).lower()}`",
         "",
         "## Required Human Checklist",
@@ -377,6 +408,7 @@ def _default_checklist(
     wallet_boundary_references: Sequence[str],
     risk_decision_references: Sequence[str],
     tiny_live_canary_preflight_summary: Mapping[str, Any],
+    operator_intent_packet_summary: Mapping[str, Any],
 ) -> list[dict[str, Any]]:
     rows = [
         OperatorLiveApprovalChecklistItem(
@@ -427,6 +459,17 @@ def _default_checklist(
                         clean_text(tiny_live_canary_preflight_summary.get("latest_tiny_canary_contract_path")),
                         clean_text(tiny_live_canary_preflight_summary.get("latest_manual_runbook_path")),
                     ]
+                ),
+            )
+        )
+    if clean_text(operator_intent_packet_summary.get("operator_intent_packet_status")) != "not_generated":
+        rows.append(
+            OperatorLiveApprovalChecklistItem(
+                item_id="review_operator_intent_packet_dry_run_only",
+                title="Review dry-run operator intent packet as a human acknowledgement artifact only.",
+                evidence_reference=clean_text(
+                    operator_intent_packet_summary.get("latest_operator_intent_packet_path")
+                    or operator_intent_packet_summary.get("operator_intent_packet_status")
                 ),
             )
         )
@@ -511,6 +554,39 @@ def _tiny_live_canary_preflight_summary(
         "latest_tiny_canary_contract_path": clean_text(latest_tiny_canary_contract_path),
         "latest_manual_runbook_path": clean_text(latest_manual_runbook_path),
         "operator_review_is_not_live_approval": True,
+    }
+
+
+def _operator_intent_packet_summary(
+    operator_intent_packet: Mapping[str, Any] | None,
+    *,
+    latest_operator_intent_packet_path: str,
+) -> dict[str, Any]:
+    value = dict(operator_intent_packet or {})
+    if not value:
+        return {
+            "operator_intent_packet_status": "not_generated",
+            "operator_intent_packet_review_ready": False,
+            "operator_intent_is_not_live_approval": True,
+            "operator_signed_intent_is_human_acknowledgement_only": True,
+            "canary_executable_now": False,
+            "live_execution_approved": False,
+            "real_execution_available": False,
+            "latest_operator_intent_packet_path": clean_text(latest_operator_intent_packet_path),
+        }
+    return {
+        "operator_intent_packet_status": clean_text(value.get("intent_packet_status")),
+        "operator_intent_packet_review_ready": value.get("operator_intent_packet_review_ready") is True,
+        "operator_intent_is_not_live_approval": value.get("operator_intent_is_not_live_approval") is True,
+        "operator_signed_intent_is_human_acknowledgement_only": (
+            value.get("operator_signed_intent_is_human_acknowledgement_only") is True
+        ),
+        "validation_status": clean_text(dict(value.get("validation", {})).get("status")),
+        "unresolved_live_blocker_count": int(value.get("unresolved_live_blocker_count", 0) or 0),
+        "canary_executable_now": False,
+        "live_execution_approved": False,
+        "real_execution_available": False,
+        "latest_operator_intent_packet_path": clean_text(latest_operator_intent_packet_path),
     }
 
 

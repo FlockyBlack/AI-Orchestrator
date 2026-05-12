@@ -29,6 +29,7 @@ KILL_SWITCH_STATUS_REQUIREMENTS_DEFINED = "requirements_defined_not_live_verifie
 
 REQUIRED_EVIDENCE_KEYS = (
     "operator_review_packet",
+    "operator_intent_packet",
     "disabled_connector_audit_replay",
     "secret_boundary_validation",
     "live_connector_blocker_matrix",
@@ -187,6 +188,7 @@ class TinyLiveCanaryPreflightContract:
         value["required_kill_switch_verified"] = True
         value["required_disabled_connector_audit_replay"] = True
         value["required_operator_packet"] = True
+        value["required_operator_intent_packet"] = True
         value["required_secret_boundary_validation"] = True
         value["required_blocker_review"] = True
         value["required_manual_runbook_acknowledgement"] = True
@@ -211,6 +213,8 @@ class TinyLiveCanaryPreflightResult:
     future_canary_shape_defined: bool
     kill_switch_requirements_defined: bool
     kill_switch_verified_for_live: bool
+    operator_intent_packet_status: str
+    operator_intent_packet_review_ready: bool
     unresolved_live_blocker_count: int
     generated_at: str
 
@@ -226,6 +230,7 @@ class TinyLiveCanaryPreflightResult:
         value["future_tiny_canary_defined"] = self.future_canary_shape_defined
         value["live_connector_blockers_remain_unresolved"] = self.unresolved_live_blocker_count > 0
         value["operator_review_is_not_live_approval"] = True
+        value["operator_intent_is_not_live_approval"] = True
         value["canary_preflight_is_not_execution_approval"] = True
         value.update(_preflight_safety_flags())
         return value
@@ -240,6 +245,12 @@ def build_tiny_live_canary_preflight_contract(*, generated_at: str = GENERATED_A
                 artifact_key="operator_review_packet",
                 title="Operator review packet",
                 description="Review-only packet must exist and must not authorize live execution.",
+            ),
+            TinyLiveCanaryEvidenceRequirement(
+                requirement_id="operator_intent_packet_required",
+                artifact_key="operator_intent_packet",
+                title="Dry-run operator intent packet",
+                description="Human acknowledgement packet must remain dry-run-only and must not authorize live execution.",
             ),
             TinyLiveCanaryEvidenceRequirement(
                 requirement_id="disabled_connector_audit_replay_required",
@@ -383,6 +394,7 @@ def validate_tiny_live_canary_preflight_contract(contract: Mapping[str, Any]) ->
         "required_kill_switch_verified",
         "required_disabled_connector_audit_replay",
         "required_operator_packet",
+        "required_operator_intent_packet",
         "required_secret_boundary_validation",
         "required_blocker_review",
         "required_manual_runbook_acknowledgement",
@@ -446,6 +458,7 @@ def evaluate_tiny_live_canary_preflight(
     contract: Mapping[str, Any] | None = None,
     manual_runbook: Mapping[str, Any] | None = None,
     operator_packet: Mapping[str, Any] | None = None,
+    operator_intent_packet: Mapping[str, Any] | None = None,
     audit_replay_result: Mapping[str, Any] | None = None,
     secret_boundary_validation: Mapping[str, Any] | None = None,
     blocker_matrix: Mapping[str, Any] | None = None,
@@ -516,6 +529,30 @@ def evaluate_tiny_live_canary_preflight(
                     "Operator packet must never approve live execution.",
                 )
             )
+
+    operator_intent_packet_status = "not_provided"
+    operator_intent_packet_review_ready = False
+    if operator_intent_packet is not None:
+        intent_packet = dict(operator_intent_packet)
+        operator_intent_packet_status = clean_text(intent_packet.get("intent_packet_status"))
+        operator_intent_packet_review_ready = intent_packet.get("operator_intent_packet_review_ready") is True
+        if intent_packet.get("operator_intent_is_not_live_approval") is not True:
+            blockers.append(
+                _blocker(
+                    "TINY-CANARY-OPERATOR-INTENT-LIVE-APPROVAL-UNSAFE",
+                    "operator_intent_not_live_approval",
+                    "Operator intent packet must remain distinct from live approval.",
+                )
+            )
+        for field in ("live_execution_approved", "canary_executable_now", "real_execution_available"):
+            if intent_packet.get(field) is not False:
+                blockers.append(
+                    _blocker(
+                        f"TINY-CANARY-OPERATOR-INTENT-{field.upper()}",
+                        "operator_intent_packet_dry_run_only",
+                        f"Operator intent packet field {field} must be false.",
+                    )
+                )
 
     if audit_replay_result is None:
         blockers.append(
@@ -642,6 +679,8 @@ def evaluate_tiny_live_canary_preflight(
         future_canary_shape_defined=contract_validation.get("valid") is True,
         kill_switch_requirements_defined=kill_switch_requirements_defined,
         kill_switch_verified_for_live=kill_switch_verified_for_live,
+        operator_intent_packet_status=operator_intent_packet_status,
+        operator_intent_packet_review_ready=operator_intent_packet_review_ready,
         unresolved_live_blocker_count=unresolved_live_blocker_count,
         generated_at=generated_at,
     ).to_dict()
@@ -706,6 +745,8 @@ def render_tiny_live_canary_preflight_result_markdown(result: Mapping[str, Any])
         f"- Future canary shape defined: `{str(result.get('future_canary_shape_defined')).lower()}`",
         f"- Kill-switch requirements defined: `{str(result.get('kill_switch_requirements_defined')).lower()}`",
         f"- Kill-switch verified for live: `{str(result.get('kill_switch_verified_for_live')).lower()}`",
+        f"- Operator intent packet status: `{result.get('operator_intent_packet_status')}`",
+        f"- Operator intent review ready: `{str(result.get('operator_intent_packet_review_ready')).lower()}`",
         f"- Canary executable now: `{str(result.get('canary_executable_now')).lower()}`",
         f"- Live execution approved: `{str(result.get('live_execution_approved')).lower()}`",
         f"- Real execution available: `{str(result.get('real_execution_available')).lower()}`",

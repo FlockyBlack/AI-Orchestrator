@@ -612,6 +612,8 @@ def build_canary_dashboard_summary(
     live_connector_audit_replay_status: str = "",
     operator_review_packet_status: str = "",
     operator_review_ready: bool = False,
+    operator_intent_packet_status: str = "",
+    operator_intent_packet_review_ready: bool = False,
 ) -> dict[str, Any]:
     receipt_value = dict(receipt or {})
     return {
@@ -627,6 +629,9 @@ def build_canary_dashboard_summary(
         "live_connector_audit_replay_status": clean_text(live_connector_audit_replay_status),
         "operator_review_packet_status": clean_text(operator_review_packet_status),
         "operator_review_ready": operator_review_ready is True,
+        "operator_intent_packet_status": clean_text(operator_intent_packet_status) or "not_generated",
+        "operator_intent_packet_review_ready": operator_intent_packet_review_ready is True,
+        "operator_intent_is_not_live_approval": True,
         "live_execution_approved": False,
         "real_execution_available": False,
         "canary_executable_now": False,
