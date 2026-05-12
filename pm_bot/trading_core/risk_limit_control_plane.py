@@ -5,6 +5,13 @@ import json
 from dataclasses import asdict, dataclass
 from typing import Any, Mapping, Sequence
 
+from pm_bot.trading_core.live_credentials_auth_boundary import (
+    DECISION_AUTHENTICATED_ENDPOINTS_STILL_DISABLED,
+    DECISION_LIVE_MODE_NOT_EXPLICITLY_ENABLED,
+    DECISION_MISSING_REQUIRED_CREDENTIALS,
+    DECISION_ORDER_SUBMISSION_STILL_DISABLED,
+    DECISION_SIGNING_STILL_DISABLED,
+)
 from pm_bot.trading_core.schemas import GENERATED_AT, clean_text, mapping_rows, trading_core_safety_summary
 
 RISK_LIMIT_POLICY_CONTRACT = "pmbot_risk_limit_policy.v1"
@@ -137,6 +144,14 @@ class RiskLimitState:
     operator_intent_present: bool = True
     readiness_evidence_present: bool = True
     unresolved_critical_blockers: tuple[str, ...] = ()
+    live_credentials_boundary_status: str = "not_evaluated"
+    live_credentials_configured: bool = False
+    live_mode_explicitly_requested: bool = False
+    live_auth_ready_for_future_tiny_canary_review: bool = False
+    authenticated_endpoints_enabled: bool = False
+    order_submission_enabled: bool = False
+    cryptographic_signing_enabled: bool = False
+    wallet_signing_enabled: bool = False
     live_connector_enabled: bool = False
     live_execution_approved: bool = False
     canary_executable_now: bool = False
@@ -361,6 +376,19 @@ def build_default_risk_limit_state(
         operator_intent_present=overrides.pop("operator_intent_present", True) is True,
         readiness_evidence_present=overrides.pop("readiness_evidence_present", True) is True,
         unresolved_critical_blockers=_clean_tuple(unresolved_critical_blockers),
+        live_credentials_boundary_status=(
+            clean_text(overrides.pop("live_credentials_boundary_status", "not_evaluated"))
+            or "not_evaluated"
+        ),
+        live_credentials_configured=overrides.pop("live_credentials_configured", False) is True,
+        live_mode_explicitly_requested=overrides.pop("live_mode_explicitly_requested", False) is True,
+        live_auth_ready_for_future_tiny_canary_review=(
+            overrides.pop("live_auth_ready_for_future_tiny_canary_review", False) is True
+        ),
+        authenticated_endpoints_enabled=False,
+        order_submission_enabled=False,
+        cryptographic_signing_enabled=False,
+        wallet_signing_enabled=False,
         live_connector_enabled=False,
         live_execution_approved=False,
         canary_executable_now=False,
@@ -750,6 +778,18 @@ def summarize_risk_limit_decision(decision: Mapping[str, Any] | None) -> dict[st
         "market_data_status": clean_text(decision_state.get("market_data_status")) or "not_evaluated",
         "market_data_market_status": clean_text(decision_state.get("market_data_market_status")) or "unknown",
         "market_data_stale": decision_state.get("market_data_stale") is True,
+        "live_credentials_boundary_status": (
+            clean_text(decision_state.get("live_credentials_boundary_status")) or "not_evaluated"
+        ),
+        "live_credentials_configured": decision_state.get("live_credentials_configured") is True,
+        "live_mode_explicitly_requested": decision_state.get("live_mode_explicitly_requested") is True,
+        "live_auth_ready_for_future_tiny_canary_review": (
+            decision_state.get("live_auth_ready_for_future_tiny_canary_review") is True
+        ),
+        "authenticated_endpoints_enabled": False,
+        "order_submission_enabled": False,
+        "cryptographic_signing_enabled": False,
+        "wallet_signing_enabled": False,
         "human_summary": clean_text(value.get("human_summary")),
         "remaining_capacity": dict(value.get("remaining_capacity", {}))
         if isinstance(value.get("remaining_capacity"), Mapping)
@@ -871,6 +911,16 @@ def build_risk_control_plane_summary(
         "market_data_stale": market_data_stale,
         "market_data_age_seconds": market_data_age_seconds,
         "market_data_freshness_feed_ready": market_data_status != "not_evaluated",
+        "live_credentials_boundary_status": decision_summary["live_credentials_boundary_status"],
+        "live_credentials_configured": decision_summary["live_credentials_configured"],
+        "live_mode_explicitly_requested": decision_summary["live_mode_explicitly_requested"],
+        "live_auth_ready_for_future_tiny_canary_review": decision_summary[
+            "live_auth_ready_for_future_tiny_canary_review"
+        ],
+        "authenticated_endpoints_enabled": False,
+        "order_submission_enabled": False,
+        "cryptographic_signing_enabled": False,
+        "wallet_signing_enabled": False,
         "latest_decision_present": bool(latest_decision),
         "latest_decision_status": decision_summary["latest_decision_status"],
         "latest_violations_count": decision_summary["latest_violations_count"],
@@ -940,6 +990,16 @@ def _market_allowed(policy: Mapping[str, Any], intent: Mapping[str, Any]) -> boo
 
 def _live_block_reasons(policy: Mapping[str, Any], state: Mapping[str, Any]) -> list[str]:
     reasons = []
+    if state.get("live_credentials_configured") is not True:
+        reasons.append(DECISION_MISSING_REQUIRED_CREDENTIALS)
+    if state.get("live_mode_explicitly_requested") is not True:
+        reasons.append(DECISION_LIVE_MODE_NOT_EXPLICITLY_ENABLED)
+    if state.get("authenticated_endpoints_enabled") is not True:
+        reasons.append(DECISION_AUTHENTICATED_ENDPOINTS_STILL_DISABLED)
+    if state.get("cryptographic_signing_enabled") is not True or state.get("wallet_signing_enabled") is not True:
+        reasons.append(DECISION_SIGNING_STILL_DISABLED)
+    if state.get("order_submission_enabled") is not True:
+        reasons.append(DECISION_ORDER_SUBMISSION_STILL_DISABLED)
     if policy.get("halt_on_disabled_live_connector") is True and state.get("live_connector_enabled") is not True:
         reasons.append("LIVE_CONNECTOR_DISABLED")
     if policy.get("halt_on_live_execution_not_approved") is True and state.get("live_execution_approved") is not True:
@@ -1180,7 +1240,11 @@ def _risk_control_safety_flags() -> dict[str, Any]:
         "real_order_placement_added": False,
         "real_order_placement_performed": False,
         "authenticated_endpoint_added": False,
+        "authenticated_endpoints_enabled": False,
         "authenticated_endpoint_call_performed": False,
+        "order_submission_enabled": False,
+        "cryptographic_signing_enabled": False,
+        "wallet_signing_enabled": False,
         "browser_automation_added": False,
         "scheduler_or_daemon_added": False,
         "autonomous_live_trading_added": False,

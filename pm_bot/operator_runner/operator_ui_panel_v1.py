@@ -6,10 +6,15 @@ import json
 from dataclasses import asdict, dataclass
 from typing import Any, Mapping, Sequence
 
+from pm_bot.trading_core.live_credentials_auth_boundary import (
+    UI_REDACTION_WARNING,
+    summarize_live_credentials_status,
+)
 from pm_bot.trading_core.schemas import GENERATED_AT, bullet_lines, clean_text, mapping_rows
 from pm_bot.trading_core.secret_boundary_policy import (
     validate_secret_boundary_btc_analysis_ui_summary,
     validate_secret_boundary_btc_ui_summary,
+    validate_secret_boundary_live_credentials_auth_summary,
     validate_secret_boundary_risk_control_ui_summary,
     validate_secret_boundary_operator_ui_panel_action_state,
     validate_secret_boundary_operator_ui_panel_kill_switch_summary,
@@ -41,6 +46,7 @@ OPERATOR_UI_PANEL_EVIDENCE_SUMMARY_CONTRACT = "pmbot_operator_ui_panel_evidence_
 OPERATOR_UI_PANEL_BLOCKER_SUMMARY_CONTRACT = "pmbot_operator_ui_panel_blocker_summary.v1"
 OPERATOR_UI_PANEL_BTC_MARKET_SUMMARY_CONTRACT = "pmbot_operator_ui_panel_btc_market_summary.v1"
 OPERATOR_UI_PANEL_BTC_ANALYSIS_SUMMARY_CONTRACT = "pmbot_operator_ui_panel_btc_analysis_order_intent_summary.v1"
+OPERATOR_UI_PANEL_LIVE_AUTH_SUMMARY_CONTRACT = "pmbot_operator_ui_panel_live_credentials_auth_summary.v1"
 OPERATOR_UI_PANEL_VALIDATION_CONTRACT = "pmbot_operator_ui_panel_validation.v1"
 
 TASK_ID = "ORCH-PMBOT-TRADING-MVP-036-OPERATOR-UI-PANEL-V1-READINESS-RISK-LIMITS-KILL-SWITCH"
@@ -55,12 +61,19 @@ FORCED_FALSE_EXECUTION_FIELDS = (
     "canary_executable_now",
     "real_execution_available",
     "live_connector_enabled",
+    "allowed_for_live",
+    "authenticated_endpoints_enabled",
+    "signing_enabled",
+    "cryptographic_signing_enabled",
+    "wallet_signing_enabled",
+    "order_submission_enabled",
 )
 
 REQUIRED_SECTION_IDS = (
     "header_execution_posture",
     "readiness_evidence_bundle",
     "live_blockers",
+    "live_credentials_auth_boundary",
     "btc_market_connector",
     "btc_analysis_order_intent",
     "risk_control_plane",
@@ -76,7 +89,7 @@ NEXT_REQUIRED_GATES = (
     "UI reviewed",
     "risk limit control plane implemented",
     "live connector remains disabled until future gated task",
-    "secrets/auth boundary still not configured for live",
+    "live credentials/auth boundary reviewed but not operator verified for live",
     "kill-switch live verification missing",
     "funding not configured",
     "real order adapter disabled",
@@ -285,6 +298,38 @@ class OperatorUIPanelBTCAnalysisOrderIntentSummary:
 
 
 @dataclass(frozen=True)
+class OperatorUIPanelLiveCredentialsAuthSummary:
+    live_credentials_boundary_status: str
+    live_credentials_configured: bool
+    required_credentials_count: int
+    missing_credentials_count: int
+    credential_statuses_redacted: tuple[Mapping[str, Any], ...]
+    live_auth_ready_for_future_tiny_canary_review: bool
+    warning: str
+    authenticated_endpoints_enabled: bool = False
+    signing_enabled: bool = False
+    cryptographic_signing_enabled: bool = False
+    wallet_signing_enabled: bool = False
+    order_submission_enabled: bool = False
+    allowed_for_live: bool = False
+    canary_executable_now: bool = False
+    live_execution_approved: bool = False
+    real_execution_available: bool = False
+    live_connector_enabled: bool = False
+
+    def to_dict(self) -> dict[str, Any]:
+        value = asdict(self)
+        value["contract_version"] = OPERATOR_UI_PANEL_LIVE_AUTH_SUMMARY_CONTRACT
+        value["credential_statuses_redacted"] = [dict(row) for row in self.credential_statuses_redacted]
+        value["live_credentials_auth_boundary_section_ready"] = True
+        value["redacted_credential_status_ready"] = True
+        value["secrets_redacted"] = True
+        value["actual_secret_values_exposed"] = False
+        value.update(_panel_safety_flags())
+        return value
+
+
+@dataclass(frozen=True)
 class OperatorUIPanelKillSwitchSummary:
     kill_switch_requirements_defined: bool
     kill_switch_verified_for_live: bool
@@ -370,6 +415,7 @@ class OperatorUIPanelV1:
     readiness_summary: Mapping[str, Any]
     evidence_summary: Mapping[str, Any]
     blocker_summary: Mapping[str, Any]
+    live_credentials_auth_boundary_summary: Mapping[str, Any]
     btc_market_summary: Mapping[str, Any]
     btc_analysis_order_intent_summary: Mapping[str, Any]
     risk_control_plane_summary: Mapping[str, Any]
@@ -390,6 +436,7 @@ class OperatorUIPanelV1:
         value["readiness_summary"] = dict(self.readiness_summary)
         value["evidence_summary"] = dict(self.evidence_summary)
         value["blocker_summary"] = dict(self.blocker_summary)
+        value["live_credentials_auth_boundary_summary"] = dict(self.live_credentials_auth_boundary_summary)
         value["btc_market_summary"] = dict(self.btc_market_summary)
         value["btc_analysis_order_intent_summary"] = dict(self.btc_analysis_order_intent_summary)
         value["risk_control_plane_summary"] = dict(self.risk_control_plane_summary)
@@ -409,6 +456,7 @@ class OperatorUIPanelV1:
         value["kill_switch_panel_render_ready"] = True
         value["paper_summary_panel_ready"] = True
         value["blocker_panel_ready"] = True
+        value["live_credentials_auth_boundary_section_ready"] = True
         value["btc_market_section_ready"] = True
         value["btc_analysis_order_intent_section_ready"] = True
         value["static_html_render_ready"] = True
@@ -434,6 +482,7 @@ def build_operator_ui_panel_v1(
     btc_market_snapshot: Mapping[str, Any] | None = None,
     btc_read_only_connector_summary: Mapping[str, Any] | None = None,
     btc_analysis_order_intent_summary: Mapping[str, Any] | None = None,
+    live_credentials_auth_boundary_summary: Mapping[str, Any] | None = None,
     risk_limits: Mapping[str, Any] | None = None,
     risk_prep_config: Mapping[str, Any] | None = None,
     portfolio_summary: Mapping[str, Any] | None = None,
@@ -500,6 +549,15 @@ def build_operator_ui_panel_v1(
         or clean_text(dashboard_value.get("latest_btc_risk_decision_path")),
         generated_at=generated_at,
     )
+    live_auth_summary = _build_live_credentials_auth_boundary_summary(
+        live_credentials_auth_boundary_summary=(
+            live_credentials_auth_boundary_summary
+            or dashboard_value.get("live_credentials_auth_boundary_summary", {})
+            or dashboard_value.get("live_credentials_auth_boundary_section_feed", {})
+            or btc_analysis_summary
+        ),
+        generated_at=generated_at,
+    )
     risk_summary = _build_risk_limit_summary(
         risk_limits=risk_limits,
         risk_prep_config=risk_prep_config,
@@ -543,6 +601,7 @@ def build_operator_ui_panel_v1(
         readiness=readiness,
         evidence=evidence_summary,
         blockers=blocker_summary,
+        live_auth=live_auth_summary,
         btc_market=btc_market_summary,
         btc_analysis_order_intent=btc_analysis_summary,
         risk_control=risk_control_summary,
@@ -562,6 +621,7 @@ def build_operator_ui_panel_v1(
             "missing_required_evidence_count": evidence_summary.get("missing_required_evidence_count"),
             "blocker_count": blocker_summary.get("total_blockers"),
             "unresolved_blocker_count": blocker_summary.get("unresolved_blockers"),
+            "live_auth": live_auth_summary,
             "btc_market": btc_market_summary,
             "btc_analysis_order_intent": btc_analysis_summary,
             "risk_control": risk_control_summary,
@@ -577,6 +637,7 @@ def build_operator_ui_panel_v1(
         readiness_summary=readiness,
         evidence_summary=evidence_summary,
         blocker_summary=blocker_summary,
+        live_credentials_auth_boundary_summary=live_auth_summary,
         btc_market_summary=btc_market_summary,
         btc_analysis_order_intent_summary=btc_analysis_summary,
         risk_control_plane_summary=risk_control_summary,
@@ -638,6 +699,30 @@ def validate_operator_ui_panel_v1(
     if panel_value.get("risk_control_plane_summary", {}).get("allowed_for_live") is not False:
         errors.append("risk_control_plane_summary.allowed_for_live must be false")
         statuses.append("risk_control_live_allowance_detected")
+
+    live_auth_validation = validate_secret_boundary_live_credentials_auth_summary(
+        dict(panel_value.get("live_credentials_auth_boundary_summary", {})),
+        generated_at=generated_at,
+    )
+    if live_auth_validation.get("valid") is not True:
+        errors.append("live_credentials_auth_boundary_summary violates static secret boundary")
+        statuses.append("live_credentials_auth_summary_secret_boundary_blocked")
+    live_auth_summary = dict(panel_value.get("live_credentials_auth_boundary_summary", {}))
+    for field in (
+        "authenticated_endpoints_enabled",
+        "signing_enabled",
+        "cryptographic_signing_enabled",
+        "wallet_signing_enabled",
+        "order_submission_enabled",
+        "allowed_for_live",
+        "canary_executable_now",
+        "live_execution_approved",
+        "real_execution_available",
+        "live_connector_enabled",
+    ):
+        if live_auth_summary.get(field) is not False:
+            errors.append(f"live_credentials_auth_boundary_summary.{field} must be false")
+            statuses.append("live_auth_execution_flag_detected")
 
     btc_ui_validation = validate_secret_boundary_btc_ui_summary(
         dict(panel_value.get("btc_market_summary", {})),
@@ -758,6 +843,7 @@ def validate_operator_ui_panel_v1(
         "secret_boundary_validation": payload_validation,
         "btc_market_summary_secret_boundary_validation": btc_ui_validation,
         "btc_analysis_summary_secret_boundary_validation": btc_analysis_ui_validation,
+        "live_credentials_auth_summary_secret_boundary_validation": live_auth_validation,
         "rendered_json_secret_boundary_validation": rendered_json_validation,
         "rendered_markdown_secret_boundary_validation": rendered_md_validation,
         "rendered_html_secret_boundary_validation": rendered_html_validation,
@@ -793,6 +879,21 @@ def summarize_operator_ui_panel_v1(panel: Mapping[str, Any]) -> dict[str, Any]:
             "readiness_evidence_bundle_status"
         ),
         "blocker_matrix_status": dict(panel.get("blocker_summary", {})).get("blocker_matrix_status"),
+        "live_credentials_auth_boundary_section_ready": dict(
+            panel.get("live_credentials_auth_boundary_summary", {})
+        ).get("live_credentials_auth_boundary_section_ready")
+        is True,
+        "live_credentials_boundary_status": dict(panel.get("live_credentials_auth_boundary_summary", {})).get(
+            "live_credentials_boundary_status"
+        ),
+        "live_credentials_configured": dict(panel.get("live_credentials_auth_boundary_summary", {})).get(
+            "live_credentials_configured"
+        )
+        is True,
+        "redacted_credential_status_ready": dict(panel.get("live_credentials_auth_boundary_summary", {})).get(
+            "redacted_credential_status_ready"
+        )
+        is True,
         "risk_control_plane_status": dict(panel.get("risk_control_plane_summary", {})).get(
             "risk_control_plane_status"
         ),
@@ -1210,6 +1311,51 @@ def _build_btc_analysis_order_intent_summary(
     ).to_dict()
 
 
+def _build_live_credentials_auth_boundary_summary(
+    *,
+    live_credentials_auth_boundary_summary: Mapping[str, Any] | None,
+    generated_at: str,
+) -> dict[str, Any]:
+    provided = dict(live_credentials_auth_boundary_summary or {})
+    if not provided or not clean_text(
+        provided.get("live_credentials_boundary_status") or provided.get("decision_status")
+    ):
+        provided = summarize_live_credentials_status(generated_at=generated_at)
+    statuses = [
+        dict(row)
+        for row in mapping_rows(provided.get("credential_statuses_redacted"))
+    ]
+    result = OperatorUIPanelLiveCredentialsAuthSummary(
+        live_credentials_boundary_status=clean_text(
+            provided.get("live_credentials_boundary_status") or provided.get("decision_status") or NOT_AVAILABLE
+        ),
+        live_credentials_configured=provided.get("live_credentials_configured") is True,
+        required_credentials_count=_int_or_zero(provided.get("required_credentials_count"), len(statuses)),
+        missing_credentials_count=_int_or_zero(provided.get("missing_credentials_count"), 0),
+        credential_statuses_redacted=tuple(statuses),
+        live_auth_ready_for_future_tiny_canary_review=(
+            provided.get("live_auth_ready_for_future_tiny_canary_review") is True
+        ),
+        warning=clean_text(provided.get("warning")) or UI_REDACTION_WARNING,
+        authenticated_endpoints_enabled=False,
+        signing_enabled=False,
+        cryptographic_signing_enabled=False,
+        wallet_signing_enabled=False,
+        order_submission_enabled=False,
+        allowed_for_live=False,
+        canary_executable_now=False,
+        live_execution_approved=False,
+        real_execution_available=False,
+        live_connector_enabled=False,
+    ).to_dict()
+    validation = validate_secret_boundary_live_credentials_auth_summary(result, generated_at=generated_at)
+    result["live_credentials_auth_summary_secret_boundary_validation"] = validation
+    if validation.get("valid") is not True:
+        result["live_credentials_boundary_status"] = "SECRET_POLICY_VIOLATION"
+        result["live_auth_ready_for_future_tiny_canary_review"] = False
+    return result
+
+
 def _build_risk_control_plane_summary(
     *,
     risk_control_plane_summary: Mapping[str, Any] | None,
@@ -1477,6 +1623,7 @@ def _build_sections(
     readiness: Mapping[str, Any],
     evidence: Mapping[str, Any],
     blockers: Mapping[str, Any],
+    live_auth: Mapping[str, Any],
     btc_market: Mapping[str, Any],
     btc_analysis_order_intent: Mapping[str, Any],
     risk_control: Mapping[str, Any],
@@ -1531,6 +1678,56 @@ def _build_sections(
                 _metric("resolved_blockers", "Resolved blockers", blockers.get("resolved_blockers")),
                 _metric("all_blockers_unresolved", "All blockers unresolved", blockers.get("all_blockers_unresolved")),
                 _metric("top_blockers", "Top blocker IDs", [row.get("blocker_id") for row in blockers.get("top_blockers", [])]),
+            ],
+        ),
+        _section(
+            "live_credentials_auth_boundary",
+            "Live Credentials / Auth Boundary",
+            clean_text(live_auth.get("live_credentials_boundary_status") or NOT_AVAILABLE),
+            [
+                _metric(
+                    "live_credentials_boundary_status",
+                    "Boundary status",
+                    live_auth.get("live_credentials_boundary_status"),
+                ),
+                _metric(
+                    "live_credentials_configured",
+                    "Live credentials configured",
+                    live_auth.get("live_credentials_configured"),
+                ),
+                _metric(
+                    "required_credentials_count",
+                    "Required credentials",
+                    live_auth.get("required_credentials_count"),
+                ),
+                _metric(
+                    "missing_credentials_count",
+                    "Missing credentials",
+                    live_auth.get("missing_credentials_count"),
+                ),
+                _metric(
+                    "credential_statuses_redacted",
+                    "Credential statuses redacted",
+                    live_auth.get("credential_statuses_redacted"),
+                ),
+                _metric(
+                    "authenticated_endpoints_enabled",
+                    "Authenticated endpoints enabled",
+                    False,
+                ),
+                _metric("signing_enabled", "Signing enabled", False),
+                _metric("order_submission_enabled", "Order submission enabled", False),
+                _metric("allowed_for_live", "Allowed for live", False),
+                _metric("canary_executable_now", "Canary executable now", False),
+                _metric("live_execution_approved", "Live execution approved", False),
+                _metric("warning", "Warning", live_auth.get("warning") or UI_REDACTION_WARNING),
+            ],
+            warnings=[
+                _warning(
+                    "credentials_status_redacted",
+                    "warning",
+                    live_auth.get("warning") or UI_REDACTION_WARNING,
+                )
             ],
         ),
         _section(
@@ -1793,11 +1990,17 @@ def _panel_safety_flags() -> dict[str, Any]:
         "real_order_placement_added": False,
         "real_order_placement_performed": False,
         "authenticated_endpoint_added": False,
+        "authenticated_endpoints_enabled": False,
         "authenticated_endpoint_call_performed": False,
+        "signing_enabled": False,
+        "cryptographic_signing_enabled": False,
+        "wallet_signing_enabled": False,
+        "order_submission_enabled": False,
         "browser_automation_added": False,
         "scheduler_or_daemon_added": False,
         "autonomous_live_trading_added": False,
         "real_execution_available": False,
+        "allowed_for_live": False,
         "live_execution_approved": False,
         "live_connector_enabled": False,
         "live_execution_allowed": False,

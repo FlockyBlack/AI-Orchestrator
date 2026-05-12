@@ -5,6 +5,10 @@ import json
 from dataclasses import asdict, dataclass
 from typing import Any, Mapping, Sequence
 
+from pm_bot.trading_core.live_credentials_auth_boundary import (
+    evaluate_live_auth_boundary_for_tiny_canary,
+    summarize_live_credentials_status,
+)
 from pm_bot.trading_core.polymarket_btc_read_only_connector import (
     MARKET_STATUS_CLOSED,
     MARKET_STATUS_OPEN,
@@ -627,10 +631,15 @@ def evaluate_btc_analysis_to_order_intent(
     latest_btc_analysis_path: str = "",
     latest_btc_order_intent_path: str = "",
     latest_btc_risk_decision_path: str = "",
+    live_auth_boundary_decision: Mapping[str, Any] | None = None,
     generated_at: str = GENERATED_AT,
 ) -> dict[str, Any]:
     active_config = _mapping(config or build_default_btc_market_analysis_config(generated_at=generated_at))
     active_policy = dict(policy or build_default_risk_limit_policy(generated_at=generated_at))
+    active_live_auth_decision = dict(
+        live_auth_boundary_decision or evaluate_live_auth_boundary_for_tiny_canary(generated_at=generated_at)
+    )
+    live_auth_summary = summarize_live_credentials_status(active_live_auth_decision, generated_at=generated_at)
     analysis = analyze_btc_market_snapshot(snapshot, active_config, generated_at=generated_at)
     intent_plan = build_btc_dry_run_order_intent(
         analysis,
@@ -649,15 +658,13 @@ def evaluate_btc_analysis_to_order_intent(
             operator_intent_reference=operator_intent_reference,
             readiness_evidence_reference=readiness_evidence_reference,
             audit_replay_reference=audit_replay_reference,
-            ui_panel_reference=ui_panel_reference,
-            generated_at=generated_at,
-        )
-    state = dict(risk_state) if isinstance(risk_state, Mapping) else build_default_risk_limit_state(
-        exposure_snapshot=RiskLimitExposureSnapshot(generated_at=generated_at).to_dict(),
-        daily_loss_snapshot=RiskLimitDailyLossSnapshot(generated_at=generated_at).to_dict(),
-        btc_market_snapshot=snapshot,
-        operator_intent_present=True,
-        readiness_evidence_present=True,
+        ui_panel_reference=ui_panel_reference,
+        generated_at=generated_at,
+    )
+    state = _risk_state_with_live_auth_boundary(
+        risk_state=risk_state,
+        snapshot=snapshot,
+        live_auth_summary=live_auth_summary,
         generated_at=generated_at,
     )
     risk_decision = evaluate_risk_limits_for_order_intent(
@@ -685,6 +692,7 @@ def evaluate_btc_analysis_to_order_intent(
         latest_btc_analysis_path=latest_btc_analysis_path,
         latest_btc_order_intent_path=latest_btc_order_intent_path,
         latest_btc_risk_decision_path=latest_btc_risk_decision_path,
+        live_credentials_auth_boundary_summary=live_auth_summary,
         generated_at=generated_at,
     )
     result = BTCOrderIntentDryRunResult(
@@ -704,6 +712,15 @@ def evaluate_btc_analysis_to_order_intent(
         summary=summary,
         generated_at=generated_at,
     ).to_dict()
+    result["live_credentials_boundary_status"] = live_auth_summary
+    result["live_auth_ready_for_future_tiny_canary_review"] = (
+        live_auth_summary.get("live_auth_ready_for_future_tiny_canary_review") is True
+    )
+    result["allowed_for_live"] = False
+    result["canary_executable_now"] = False
+    result["live_execution_approved"] = False
+    result["real_execution_available"] = False
+    result["live_connector_enabled"] = False
     boundary_validation = validate_secret_boundary_btc_dry_run_order_intent_result(result, generated_at=generated_at)
     result["result_secret_boundary_validation"] = boundary_validation
     if boundary_validation.get("valid") is not True:
@@ -722,6 +739,7 @@ def summarize_btc_analysis_order_intent(
     latest_btc_analysis_path: str = "",
     latest_btc_order_intent_path: str = "",
     latest_btc_risk_decision_path: str = "",
+    live_credentials_auth_boundary_summary: Mapping[str, Any] | None = None,
     generated_at: str = GENERATED_AT,
 ) -> dict[str, Any]:
     value = dict(result or {})
@@ -729,6 +747,11 @@ def summarize_btc_analysis_order_intent(
     active_plan = dict(order_intent_plan or value.get("order_intent_plan", {}))
     active_risk_summary = dict(risk_decision_summary or value.get("risk_decision_summary", {}))
     active_risk_control = dict(risk_control_plane_summary or value.get("risk_control_plane_summary", {}))
+    active_live_auth = dict(
+        live_credentials_auth_boundary_summary
+        or value.get("live_credentials_boundary_status", {})
+        or active_risk_control
+    )
     order_intent = active_plan.get("order_intent")
     intent = dict(order_intent) if isinstance(order_intent, Mapping) else {}
     summary = {
@@ -761,6 +784,22 @@ def summarize_btc_analysis_order_intent(
         "latest_btc_analysis_path": clean_text(latest_btc_analysis_path),
         "latest_btc_order_intent_path": clean_text(latest_btc_order_intent_path),
         "latest_btc_risk_decision_path": clean_text(latest_btc_risk_decision_path),
+        "live_credentials_boundary_status": (
+            clean_text(
+                active_live_auth.get("live_credentials_boundary_status")
+                or active_live_auth.get("decision_status")
+            )
+            or "not_evaluated"
+        ),
+        "live_credentials_configured": active_live_auth.get("live_credentials_configured") is True,
+        "live_auth_ready_for_future_tiny_canary_review": (
+            active_live_auth.get("live_auth_ready_for_future_tiny_canary_review") is True
+        ),
+        "authenticated_endpoints_enabled": False,
+        "signing_enabled": False,
+        "cryptographic_signing_enabled": False,
+        "wallet_signing_enabled": False,
+        "order_submission_enabled": False,
         "execution_enabling": False,
         "live_execution_approved": False,
         "canary_executable_now": False,
@@ -769,6 +808,52 @@ def summarize_btc_analysis_order_intent(
     }
     summary.update(_analysis_safety_flags())
     return summary
+
+
+def _risk_state_with_live_auth_boundary(
+    *,
+    risk_state: Mapping[str, Any] | None,
+    snapshot: Mapping[str, Any],
+    live_auth_summary: Mapping[str, Any],
+    generated_at: str,
+) -> dict[str, Any]:
+    if isinstance(risk_state, Mapping):
+        state = dict(risk_state)
+    else:
+        state = build_default_risk_limit_state(
+            exposure_snapshot=RiskLimitExposureSnapshot(generated_at=generated_at).to_dict(),
+            daily_loss_snapshot=RiskLimitDailyLossSnapshot(generated_at=generated_at).to_dict(),
+            btc_market_snapshot=snapshot,
+            operator_intent_present=True,
+            readiness_evidence_present=True,
+            generated_at=generated_at,
+        )
+    state.update(
+        {
+            "live_credentials_boundary_status": (
+                clean_text(
+                    live_auth_summary.get("live_credentials_boundary_status")
+                    or live_auth_summary.get("decision_status")
+                )
+                or "not_evaluated"
+            ),
+            "live_credentials_configured": live_auth_summary.get("live_credentials_configured") is True,
+            "live_mode_explicitly_requested": live_auth_summary.get("live_mode_explicitly_requested") is True,
+            "live_auth_ready_for_future_tiny_canary_review": (
+                live_auth_summary.get("live_auth_ready_for_future_tiny_canary_review") is True
+            ),
+            "authenticated_endpoints_enabled": False,
+            "order_submission_enabled": False,
+            "cryptographic_signing_enabled": False,
+            "wallet_signing_enabled": False,
+            "allowed_for_live": False,
+            "canary_executable_now": False,
+            "live_execution_approved": False,
+            "real_execution_available": False,
+            "live_connector_enabled": False,
+        }
+    )
+    return state
 
 
 def _build_btc_risk_decision_summary(
@@ -990,7 +1075,11 @@ def _analysis_safety_flags() -> dict[str, Any]:
         "real_order_placement_added": False,
         "real_order_placement_performed": False,
         "authenticated_endpoint_added": False,
+        "authenticated_endpoints_enabled": False,
         "authenticated_endpoint_call_performed": False,
+        "order_submission_enabled": False,
+        "cryptographic_signing_enabled": False,
+        "wallet_signing_enabled": False,
         "browser_automation_added": False,
         "scheduler_or_daemon_added": False,
         "autonomous_live_trading_added": False,

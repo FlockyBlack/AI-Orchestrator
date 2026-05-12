@@ -111,6 +111,13 @@ BTC_MARKET_READINESS_REVIEW_ONLY_BLOCKER_CATEGORIES = (
     "btc_order_intent_not_order_submission",
     "btc_order_intent_live_execution_still_disabled",
     "live_credentials_not_configured",
+    "live_credentials_boundary_review_only",
+    "live_credentials_not_operator_verified_for_live",
+    "authenticated_endpoints_still_disabled",
+    "signing_still_disabled",
+    "order_submission_still_disabled",
+    "live_wallet_funding_not_verified",
+    "real_order_adapter_not_enabled",
     "authenticated_order_connector_still_disabled",
     "real_order_submission_still_disabled",
 )

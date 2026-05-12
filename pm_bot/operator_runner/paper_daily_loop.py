@@ -49,6 +49,11 @@ from pm_bot.trading_core.live_canary_replay_acceptance import (
     build_canary_governance_summary,
     build_live_connector_blocker_matrix,
 )
+from pm_bot.trading_core.live_credentials_auth_boundary import (
+    build_default_live_credentials_boundary_config,
+    evaluate_live_auth_boundary_for_tiny_canary,
+    summarize_live_credentials_status,
+)
 from pm_bot.trading_core.live_connector_audit_replay import (
     build_live_connector_audit_replay,
     render_live_connector_audit_replay_markdown,
@@ -256,6 +261,7 @@ class PaperDailyLoopResult:
     operator_live_approval_packet_path: str
     operator_intent_packet_path: str
     readiness_evidence_bundle_path: str
+    live_credentials_auth_boundary_path: str
     btc_market_snapshot_path: str
     btc_market_analysis_path: str
     btc_order_intent_dry_run_path: str
@@ -618,6 +624,23 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         normalize_path(paths["btc_order_intent_dry_run"]) if active_config.write_artifacts else ""
     )
     latest_btc_risk_decision_path = normalize_path(paths["btc_risk_decision"]) if active_config.write_artifacts else ""
+    latest_live_credentials_auth_boundary_path = (
+        normalize_path(paths["live_credentials_auth_boundary"]) if active_config.write_artifacts else ""
+    )
+    live_credentials_auth_boundary_config = build_default_live_credentials_boundary_config(
+        generated_at=generated_at,
+    )
+    live_credentials_auth_boundary = evaluate_live_auth_boundary_for_tiny_canary(
+        live_credentials_auth_boundary_config,
+        generated_at=generated_at,
+    )
+    live_credentials_auth_boundary_summary = summarize_live_credentials_status(
+        live_credentials_auth_boundary,
+        generated_at=generated_at,
+    )
+    live_credentials_auth_boundary_summary["latest_live_credentials_auth_boundary_path"] = (
+        latest_live_credentials_auth_boundary_path
+    )
     btc_read_only_config = build_default_btc_read_only_config(generated_at=generated_at)
     btc_read_only_connector = PolymarketBTCReadOnlyConnector(btc_read_only_config)
     btc_read_only_connector_result = btc_read_only_connector.build_snapshot_from_fixture_payload(
@@ -664,6 +687,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         latest_btc_analysis_path=latest_btc_analysis_path,
         latest_btc_order_intent_path=latest_btc_order_intent_path,
         latest_btc_risk_decision_path=latest_btc_risk_decision_path,
+        live_auth_boundary_decision=live_credentials_auth_boundary,
         generated_at=generated_at,
     )
     btc_market_analysis = dict(btc_analysis_order_intent_result.get("analysis") or {})
@@ -688,6 +712,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         ),
         disabled_connector_audit=disabled_connector_audit,
         secret_boundary_validation=live_connector_audit_replay.get("secret_boundary_validation_summary", {}),
+        live_credentials_auth_boundary=live_credentials_auth_boundary_summary,
         live_canary_readiness_packet=canary_readiness_packet,
         canary_replay_acceptance={"status": "passed", "contract_version": "pmbot_live_canary_acceptance_matrix.v1"},
         live_connector_audit_replay=live_connector_audit_replay,
@@ -726,6 +751,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
                 normalize_path(paths["tiny_live_canary_manual_runbook"]) if active_config.write_artifacts else ""
             ),
             "dry_run_operator_intent_packet": latest_operator_intent_packet_path,
+            "live_credentials_auth_boundary": latest_live_credentials_auth_boundary_path,
             "live_connector_blocker_matrix": "live_connector_blocker_matrix:all-critical-blockers-unresolved",
             "kill_switch_requirements": (
                 normalize_path(paths["tiny_live_canary_preflight_contract"]) if active_config.write_artifacts else ""
@@ -834,6 +860,8 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         tiny_live_canary_preflight_result=tiny_live_canary_preflight_result,
         readiness_evidence_bundle=readiness_evidence_bundle,
         readiness_evidence_bundle_summary=readiness_evidence_bundle_summary,
+        live_credentials_auth_boundary=live_credentials_auth_boundary,
+        live_credentials_auth_boundary_summary=live_credentials_auth_boundary_summary,
         risk_limit_policy=risk_limit_policy,
         latest_risk_limit_decision=latest_risk_limit_decision,
         risk_control_plane_summary=risk_control_plane_summary,
@@ -861,6 +889,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
             normalize_path(paths["tiny_live_canary_manual_runbook"]) if active_config.write_artifacts else ""
         ),
         latest_readiness_evidence_bundle_path=latest_readiness_evidence_bundle_path,
+        latest_live_credentials_auth_boundary_path=latest_live_credentials_auth_boundary_path,
         latest_btc_market_snapshot_path=latest_btc_market_snapshot_path,
         latest_btc_analysis_path=latest_btc_analysis_path,
         latest_btc_order_intent_path=latest_btc_order_intent_path,
@@ -874,6 +903,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         "operator_ui_panel_html": normalize_path(paths["operator_ui_panel_html"]) if active_config.write_artifacts else "",
         "paper_daily_loop_result": normalize_path(paths["result"]) if active_config.write_artifacts else "",
         "readiness_evidence_bundle": latest_readiness_evidence_bundle_path,
+        "live_credentials_auth_boundary": latest_live_credentials_auth_boundary_path,
         "btc_market_snapshot": latest_btc_market_snapshot_path,
         "btc_market_analysis": latest_btc_analysis_path,
         "btc_order_intent_dry_run": latest_btc_order_intent_path,
@@ -900,6 +930,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         btc_market_snapshot=btc_market_snapshot,
         btc_read_only_connector_summary=btc_market_snapshot_summary,
         btc_analysis_order_intent_summary=btc_analysis_order_intent_summary,
+        live_credentials_auth_boundary_summary=live_credentials_auth_boundary_summary,
         risk_limits=limits,
         risk_prep_config=risk_prep_config,
         portfolio_summary=portfolio_report.get("exposure_summary", {}),
@@ -964,6 +995,8 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
             btc_order_intent_dry_run,
             btc_risk_decision_summary,
             btc_analysis_order_intent_summary,
+            live_credentials_auth_boundary,
+            live_credentials_auth_boundary_summary,
             risk_limit_policy,
             latest_risk_limit_decision or {},
             risk_control_plane_summary,
@@ -1067,6 +1100,29 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         and btc_analysis_order_intent_summary.get("analysis_is_not_live_recommendation") is True
         and btc_analysis_order_intent_summary.get("order_intent_is_not_order_submission") is True
         and btc_analysis_order_intent_summary.get("allowed_for_live") is False
+        and live_credentials_auth_boundary.get("live_credentials_boundary_ready") is True
+        and live_credentials_auth_boundary.get("live_auth_presence_check_ready") is True
+        and live_credentials_auth_boundary.get("redacted_credential_status_ready") is True
+        and live_credentials_auth_boundary.get("safe_for_artifacts") is True
+        and live_credentials_auth_boundary.get("secrets_redacted") is True
+        and live_credentials_auth_boundary.get("actual_secret_values_exposed") is False
+        and live_credentials_auth_boundary.get("authenticated_endpoints_enabled") is False
+        and live_credentials_auth_boundary.get("order_submission_enabled") is False
+        and live_credentials_auth_boundary.get("cryptographic_signing_enabled") is False
+        and live_credentials_auth_boundary.get("wallet_signing_enabled") is False
+        and live_credentials_auth_boundary.get("allowed_for_live") is False
+        and live_credentials_auth_boundary.get("canary_executable_now") is False
+        and live_credentials_auth_boundary.get("live_execution_approved") is False
+        and live_credentials_auth_boundary.get("real_execution_available") is False
+        and live_credentials_auth_boundary.get("live_connector_enabled") is False
+        and live_credentials_auth_boundary_summary.get("redacted_credential_status_ready") is True
+        and live_credentials_auth_boundary_summary.get("actual_secret_values_exposed") is False
+        and live_credentials_auth_boundary_summary.get("authenticated_endpoints_enabled") is False
+        and live_credentials_auth_boundary_summary.get("order_submission_enabled") is False
+        and live_credentials_auth_boundary_summary.get("cryptographic_signing_enabled") is False
+        and live_credentials_auth_boundary_summary.get("wallet_signing_enabled") is False
+        and live_credentials_auth_boundary_summary.get("allowed_for_live") is False
+        and live_credentials_auth_boundary_summary.get("canary_executable_now") is False
         and operator_live_approval_packet.get("operator_packet_status") == "operator_review_ready"
         and operator_live_approval_packet.get("operator_review_ready") is True
         and operator_live_approval_packet.get("live_execution_approved") is False
@@ -1163,6 +1219,14 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         and dashboard.get("btc_risk_decision_summary", {}).get("risk_decision_status") == "ALLOW_DRY_RUN"
         and dashboard.get("btc_analysis_order_intent_summary", {}).get("allowed_for_dry_run") is True
         and dashboard.get("btc_analysis_order_intent_summary", {}).get("allowed_for_live") is False
+        and dashboard.get("live_credentials_auth_boundary_summary", {}).get("redacted_credential_status_ready")
+        is True
+        and dashboard.get("live_credentials_auth_boundary_summary", {}).get("actual_secret_values_exposed") is False
+        and dashboard.get("live_credentials_auth_boundary_summary", {}).get("authenticated_endpoints_enabled") is False
+        and dashboard.get("live_credentials_auth_boundary_summary", {}).get("order_submission_enabled") is False
+        and dashboard.get("live_credentials_auth_boundary_summary", {}).get("cryptographic_signing_enabled") is False
+        and dashboard.get("live_credentials_auth_boundary_summary", {}).get("wallet_signing_enabled") is False
+        and dashboard.get("live_credentials_auth_boundary_summary", {}).get("allowed_for_live") is False
         and dashboard.get("btc_market_section_feed", {}).get("risk_control_market_data_status")
         == "fresh_open_btc_market"
         and operator_ui_panel_v1.get("btc_market_summary", {}).get("btc_market_section_ready") is True
@@ -1174,6 +1238,11 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         is True
         and operator_ui_panel_v1.get("btc_analysis_order_intent_summary", {}).get("allowed_for_dry_run") is True
         and operator_ui_panel_v1.get("btc_analysis_order_intent_summary", {}).get("allowed_for_live") is False
+        and operator_ui_panel_v1.get("live_credentials_auth_boundary_summary", {}).get(
+            "redacted_credential_status_ready"
+        )
+        is True
+        and operator_ui_panel_v1.get("live_credentials_auth_boundary_summary", {}).get("allowed_for_live") is False
         and dashboard.get("live_canary_readiness_summary", {}).get("dry_run_only_assertion")
         == "This checklist does not make live execution available."
         and safety_scan["safety_ok"] is True
@@ -1229,6 +1298,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
             normalize_path(paths["operator_intent_packet"]) if active_config.write_artifacts else ""
         ),
         readiness_evidence_bundle_path=latest_readiness_evidence_bundle_path,
+        live_credentials_auth_boundary_path=latest_live_credentials_auth_boundary_path,
         btc_market_snapshot_path=latest_btc_market_snapshot_path,
         btc_market_analysis_path=latest_btc_analysis_path,
         btc_order_intent_dry_run_path=latest_btc_order_intent_path,
@@ -1299,6 +1369,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
             operator_live_approval_packet=operator_live_approval_packet,
             operator_intent_packet=operator_intent_packet,
             readiness_evidence_bundle=readiness_evidence_bundle,
+            live_credentials_auth_boundary=live_credentials_auth_boundary,
             btc_market_snapshot=btc_market_snapshot,
             btc_market_analysis=btc_market_analysis,
             btc_order_intent_dry_run=btc_order_intent_dry_run,
@@ -1359,6 +1430,7 @@ def _daily_paths(output_dir: Path) -> dict[str, Path]:
         "operator_intent_packet": output_dir / "live_canary_operator_intent_packet.json",
         "operator_intent_packet_md": output_dir / "live_canary_operator_intent_packet.md",
         "readiness_evidence_bundle": output_dir / "live_canary_readiness_evidence_bundle.json",
+        "live_credentials_auth_boundary": output_dir / "live_credentials_auth_boundary_040.json",
         "btc_market_snapshot": output_dir / "btc_market_snapshot_038.json",
         "btc_market_analysis": output_dir / "btc_market_analysis_039.json",
         "btc_order_intent_dry_run": output_dir / "btc_order_intent_dry_run_039.json",
@@ -1871,6 +1943,8 @@ def _build_daily_dashboard(
     tiny_live_canary_preflight_result: Mapping[str, Any],
     readiness_evidence_bundle: Mapping[str, Any],
     readiness_evidence_bundle_summary: Mapping[str, Any],
+    live_credentials_auth_boundary: Mapping[str, Any],
+    live_credentials_auth_boundary_summary: Mapping[str, Any],
     risk_limit_policy: Mapping[str, Any],
     latest_risk_limit_decision: Mapping[str, Any] | None,
     risk_control_plane_summary: Mapping[str, Any],
@@ -1888,6 +1962,7 @@ def _build_daily_dashboard(
     latest_tiny_canary_contract_path: str,
     latest_manual_runbook_path: str,
     latest_readiness_evidence_bundle_path: str,
+    latest_live_credentials_auth_boundary_path: str,
     latest_btc_market_snapshot_path: str,
     latest_btc_analysis_path: str,
     latest_btc_order_intent_path: str,
@@ -2008,6 +2083,12 @@ def _build_daily_dashboard(
             ),
             "operator_intent_packet_count": 1 if operator_intent_packet else 0,
             "readiness_evidence_bundle_count": 1 if readiness_evidence_bundle else 0,
+            "live_credentials_required_count": int(
+                live_credentials_auth_boundary_summary.get("required_credentials_count", 0) or 0
+            ),
+            "live_credentials_missing_count": int(
+                live_credentials_auth_boundary_summary.get("missing_credentials_count", 0) or 0
+            ),
             "btc_market_snapshot_count": 1 if btc_market_snapshot else 0,
             "btc_market_analysis_count": 1 if btc_market_analysis else 0,
             "btc_order_intent_dry_run_count": 1 if btc_order_intent_dry_run else 0,
@@ -2101,6 +2182,23 @@ def _build_daily_dashboard(
         "default_risk_limit_policy_summary": summarize_risk_limit_policy(risk_limit_policy),
         "latest_risk_limit_decision": dict(latest_risk_limit_decision or {}),
         "risk_control_plane_summary": dict(risk_control_plane_summary),
+        "live_credentials_auth_boundary": dict(live_credentials_auth_boundary),
+        "live_credentials_auth_boundary_summary": dict(live_credentials_auth_boundary_summary),
+        "live_credentials_auth_boundary_section_feed": dict(live_credentials_auth_boundary_summary)
+        | {
+            "latest_live_credentials_auth_boundary_path": clean_text(latest_live_credentials_auth_boundary_path),
+            "authenticated_endpoints_enabled": False,
+            "signing_enabled": False,
+            "cryptographic_signing_enabled": False,
+            "wallet_signing_enabled": False,
+            "order_submission_enabled": False,
+            "allowed_for_live": False,
+            "canary_executable_now": False,
+            "live_execution_approved": False,
+            "real_execution_available": False,
+            "live_connector_enabled": False,
+        },
+        "latest_live_credentials_auth_boundary_path": clean_text(latest_live_credentials_auth_boundary_path),
         "btc_market_snapshot": dict(btc_market_snapshot),
         "btc_market_snapshot_summary": dict(btc_market_snapshot_summary),
         "btc_read_only_connector_summary": dict(btc_read_only_connector_summary),
@@ -2654,6 +2752,7 @@ def _write_daily_artifacts(
     operator_live_approval_packet: Mapping[str, Any],
     operator_intent_packet: Mapping[str, Any],
     readiness_evidence_bundle: Mapping[str, Any],
+    live_credentials_auth_boundary: Mapping[str, Any],
     btc_market_snapshot: Mapping[str, Any],
     btc_market_analysis: Mapping[str, Any],
     btc_order_intent_dry_run: Mapping[str, Any],
@@ -2719,6 +2818,7 @@ def _write_daily_artifacts(
         render_live_canary_operator_intent_packet_markdown(operator_intent_packet),
     )
     write_json(paths["readiness_evidence_bundle"], readiness_evidence_bundle)
+    write_json(paths["live_credentials_auth_boundary"], live_credentials_auth_boundary)
     write_json(paths["btc_market_snapshot"], btc_market_snapshot)
     write_json(paths["btc_market_analysis"], btc_market_analysis)
     write_json(paths["btc_order_intent_dry_run"], btc_order_intent_dry_run)
@@ -2874,6 +2974,7 @@ def _render_daily_dashboard_markdown(dashboard: Mapping[str, Any]) -> str:
     audit_operator = dict(dashboard.get("live_connector_audit_operator_summary", {}))
     operator_intent = dict(dashboard.get("operator_intent_packet_summary", {}))
     readiness_evidence = dict(dashboard.get("readiness_evidence_bundle_summary", {}))
+    live_auth = dict(dashboard.get("live_credentials_auth_boundary_summary", {}))
     operator_ui_panel = dict(dashboard.get("operator_ui_panel_v1_summary", {}))
     operator_ui_panel_paths = dict(dashboard.get("operator_ui_panel_v1_paths", {}))
     risk_prep = dict(dashboard.get("risk_prep_config_status", {}))
@@ -3010,6 +3111,24 @@ def _render_daily_dashboard_markdown(dashboard: Mapping[str, Any]) -> str:
             f"- Unresolved live blockers: {tiny_preflight.get('unresolved_live_blocker_count')}",
             f"- Latest preflight contract: `{tiny_preflight.get('latest_tiny_canary_contract_path')}`",
             f"- Latest manual runbook: `{tiny_preflight.get('latest_manual_runbook_path')}`",
+            "",
+            "## Live Credentials / Auth Boundary",
+            "",
+            f"- Boundary status: `{live_auth.get('live_credentials_boundary_status')}`",
+            f"- Credentials configured: `{str(live_auth.get('live_credentials_configured')).lower()}`",
+            f"- Required credentials: {live_auth.get('required_credentials_count')}",
+            f"- Missing credentials: {live_auth.get('missing_credentials_count')}",
+            f"- Future tiny canary auth review ready: `{str(live_auth.get('live_auth_ready_for_future_tiny_canary_review')).lower()}`",
+            f"- Authenticated endpoints enabled: `{str(live_auth.get('authenticated_endpoints_enabled')).lower()}`",
+            f"- Signing enabled: `{str(live_auth.get('signing_enabled')).lower()}`",
+            f"- Order submission enabled: `{str(live_auth.get('order_submission_enabled')).lower()}`",
+            f"- Allowed for live: `{str(live_auth.get('allowed_for_live')).lower()}`",
+            f"- Canary executable now: `{str(live_auth.get('canary_executable_now')).lower()}`",
+            f"- Live execution approved: `{str(live_auth.get('live_execution_approved')).lower()}`",
+            f"- Real execution available: `{str(live_auth.get('real_execution_available')).lower()}`",
+            f"- Live connector enabled: `{str(live_auth.get('live_connector_enabled')).lower()}`",
+            f"- Latest auth boundary: `{live_auth.get('latest_live_credentials_auth_boundary_path')}`",
+            f"- Warning: {live_auth.get('warning')}",
             "",
             "## BTC Read-Only Market Connector",
             "",
@@ -3270,6 +3389,7 @@ def _render_daily_run_report(
             f"- Operator live review packet: `{result.get('operator_live_approval_packet_path')}`",
             f"- Operator intent packet: `{result.get('operator_intent_packet_path')}`",
             f"- Readiness evidence bundle: `{result.get('readiness_evidence_bundle_path')}`",
+            f"- Live credentials/auth boundary: `{result.get('live_credentials_auth_boundary_path')}`",
             f"- BTC market analysis: `{result.get('btc_market_analysis_path')}`",
             f"- BTC dry-run order intent: `{result.get('btc_order_intent_dry_run_path')}`",
             f"- BTC risk decision: `{result.get('btc_risk_decision_path')}`",

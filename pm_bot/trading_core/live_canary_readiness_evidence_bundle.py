@@ -40,6 +40,9 @@ VALIDATION_STATUS_FORBIDDEN_EXECUTION_APPROVAL = "forbidden_execution_approval_d
 VALIDATION_STATUS_FORBIDDEN_SECRET_OR_SIGNING_FIELD = "forbidden_secret_or_signing_field_detected"
 VALIDATION_STATUS_DISABLED_CONNECTOR_EVIDENCE_MISSING = "disabled_connector_evidence_missing"
 VALIDATION_STATUS_SECRET_BOUNDARY_EVIDENCE_MISSING = "secret_boundary_evidence_missing"
+VALIDATION_STATUS_LIVE_CREDENTIALS_AUTH_BOUNDARY_EVIDENCE_MISSING = (
+    "live_credentials_auth_boundary_evidence_missing"
+)
 VALIDATION_STATUS_AUDIT_REPLAY_EVIDENCE_MISSING = "audit_replay_evidence_missing"
 VALIDATION_STATUS_OPERATOR_PACKET_EVIDENCE_MISSING = "operator_packet_evidence_missing"
 VALIDATION_STATUS_OPERATOR_INTENT_EVIDENCE_MISSING = "operator_intent_evidence_missing"
@@ -61,6 +64,7 @@ NON_EXECUTION_STATEMENTS = (
 REQUIRED_EVIDENCE_TYPES = (
     "disabled_connector_adapter_status",
     "secret_boundary_validation_summary",
+    "live_credentials_auth_boundary",
     "live_canary_readiness_packet",
     "canary_replay_acceptance",
     "live_connector_audit_replay",
@@ -88,6 +92,11 @@ FORCED_FALSE_EXECUTION_FIELDS = (
     "canary_executable_now",
     "real_execution_available",
     "live_connector_enabled",
+    "allowed_for_live",
+    "authenticated_endpoints_enabled",
+    "order_submission_enabled",
+    "cryptographic_signing_enabled",
+    "wallet_signing_enabled",
 )
 
 DEFAULT_035_BLOCKERS = (
@@ -294,6 +303,7 @@ def build_live_canary_readiness_evidence_bundle(
     disabled_connector_status: Mapping[str, Any] | None = None,
     disabled_connector_audit: Mapping[str, Any] | None = None,
     secret_boundary_validation: Mapping[str, Any] | None = None,
+    live_credentials_auth_boundary: Mapping[str, Any] | None = None,
     live_canary_readiness_packet: Mapping[str, Any] | None = None,
     canary_replay_acceptance: Mapping[str, Any] | None = None,
     live_connector_audit_replay: Mapping[str, Any] | None = None,
@@ -320,6 +330,7 @@ def build_live_canary_readiness_evidence_bundle(
         disabled_connector_audit=disabled_audit,
         generated_at=generated_at,
     )
+    live_auth_boundary = dict(live_credentials_auth_boundary or {})
     readiness_packet = dict(live_canary_readiness_packet or {})
     replay_acceptance = dict(canary_replay_acceptance or {})
     audit_replay = dict(live_connector_audit_replay or {})
@@ -339,6 +350,7 @@ def build_live_canary_readiness_evidence_bundle(
         disabled_connector_status=disabled_status,
         disabled_connector_audit=disabled_audit,
         secret_boundary_validation=secret_summary,
+        live_credentials_auth_boundary=live_auth_boundary,
         live_canary_readiness_packet=readiness_packet,
         canary_replay_acceptance=replay_acceptance,
         live_connector_audit_replay=audit_replay,
@@ -417,6 +429,7 @@ def validate_live_canary_readiness_evidence_bundle(
     status_by_missing_type = {
         "disabled_connector_adapter_status": VALIDATION_STATUS_DISABLED_CONNECTOR_EVIDENCE_MISSING,
         "secret_boundary_validation_summary": VALIDATION_STATUS_SECRET_BOUNDARY_EVIDENCE_MISSING,
+        "live_credentials_auth_boundary": VALIDATION_STATUS_LIVE_CREDENTIALS_AUTH_BOUNDARY_EVIDENCE_MISSING,
         "live_connector_audit_replay": VALIDATION_STATUS_AUDIT_REPLAY_EVIDENCE_MISSING,
         "operator_live_approval_packet": VALIDATION_STATUS_OPERATOR_PACKET_EVIDENCE_MISSING,
         "dry_run_operator_intent_packet": VALIDATION_STATUS_OPERATOR_INTENT_EVIDENCE_MISSING,
@@ -699,6 +712,7 @@ def _build_evidence_items(
     disabled_connector_status: Mapping[str, Any],
     disabled_connector_audit: Mapping[str, Any],
     secret_boundary_validation: Mapping[str, Any],
+    live_credentials_auth_boundary: Mapping[str, Any],
     live_canary_readiness_packet: Mapping[str, Any],
     canary_replay_acceptance: Mapping[str, Any],
     live_connector_audit_replay: Mapping[str, Any],
@@ -763,6 +777,43 @@ def _build_evidence_items(
             "Static secret boundary summary is present; no environment secrets are inspected.",
             review_ready=secret_boundary_validation.get("valid") is not False,
         ),
+        _item(
+            "live_credentials_auth_boundary",
+            "live_credentials_auth_boundary",
+            _override_or_reference(
+                artifact_reference_overrides,
+                "live_credentials_auth_boundary",
+                live_credentials_auth_boundary,
+                ("summary_id", "decision_id", "report_id", "live_credentials_boundary_status"),
+                "live_credentials_auth_boundary-040:review_only_execution_disabled",
+            ),
+            clean_text(
+                live_credentials_auth_boundary.get("live_credentials_boundary_status")
+                or live_credentials_auth_boundary.get("decision_status")
+                or "review_only_execution_disabled"
+            ),
+            "Live credentials/auth boundary is present for review with redacted credential status only; it does not enable authenticated endpoints, signing, or order submission.",
+            review_ready=(
+                live_credentials_auth_boundary.get("live_credentials_boundary_ready") is not False
+                and live_credentials_auth_boundary.get("secrets_redacted") is not False
+                and live_credentials_auth_boundary.get("actual_secret_values_exposed") is not True
+            ),
+        )
+        | {
+            "review_ready": live_credentials_auth_boundary.get("live_credentials_boundary_ready") is not False,
+            "execution_enabling": False,
+            "secrets_redacted": True,
+            "authenticated_endpoints_enabled": False,
+            "order_submission_enabled": False,
+            "signing_enabled": False,
+            "cryptographic_signing_enabled": False,
+            "wallet_signing_enabled": False,
+            "allowed_for_live": False,
+            "canary_executable_now": False,
+            "live_execution_approved": False,
+            "real_execution_available": False,
+            "live_connector_enabled": False,
+        },
         _item(
             "live_canary_readiness_packet",
             "live_canary_readiness",
@@ -1253,11 +1304,16 @@ def _evidence_safety_flags() -> dict[str, Any]:
         "real_order_placement_added": False,
         "real_order_placement_performed": False,
         "authenticated_endpoint_added": False,
+        "authenticated_endpoints_enabled": False,
         "authenticated_endpoint_call_performed": False,
+        "order_submission_enabled": False,
+        "cryptographic_signing_enabled": False,
+        "wallet_signing_enabled": False,
         "browser_automation_added": False,
         "scheduler_or_daemon_added": False,
         "autonomous_live_trading_added": False,
         "real_execution_available": False,
+        "allowed_for_live": False,
         "live_execution_approved": False,
         "live_connector_enabled": False,
         "live_execution_allowed": False,

@@ -23,6 +23,9 @@ FORBIDDEN_SECRET_FIELD_NAMES = frozenset(
         "signature",
         "signed_payload",
         "signed_order",
+        "raw_secret",
+        "raw_private_key",
+        "secret_value",
         "raw_transaction",
         "wallet_password",
         "recovery_phrase",
@@ -37,6 +40,8 @@ FORBIDDEN_SECRET_FIELD_NAMES = frozenset(
         "clob_api_key",
         "clob_secret",
         "clob_passphrase",
+        "api_key_value",
+        "access_token_value",
     }
 )
 
@@ -47,6 +52,9 @@ FORBIDDEN_PAYLOAD_KEYS = frozenset(
         "order_submission_payload",
         "signed_order",
         "transaction_payload",
+        "raw_secret",
+        "raw_private_key",
+        "secret_value",
         "authorization",
         "cookie",
         "set_cookie",
@@ -54,6 +62,8 @@ FORBIDDEN_PAYLOAD_KEYS = frozenset(
         "clob_api_key",
         "clob_secret",
         "clob_passphrase",
+        "api_key_value",
+        "access_token_value",
         "submit_order",
         "place_order",
         "send_transaction",
@@ -81,6 +91,8 @@ SAFE_PLACEHOLDER_MARKERS = frozenset(
         "<not_configured>",
         "<disabled>",
         "<redacted>",
+        "<configured:redacted>",
+        "<missing>",
         "not_applicable",
         "dry_run_only",
     }
@@ -137,6 +149,22 @@ SAFE_SECRET_METADATA_FIELD_NAMES = frozenset(
         "btc_dry_run_order_intent_result_secret_boundary_validation",
         "btc_risk_decision_summary_secret_boundary_validation",
         "btc_analysis_ui_summary_secret_boundary_validation",
+        "live_credentials_config_secret_boundary_validation",
+        "live_credentials_status_report_secret_boundary_validation",
+        "live_auth_boundary_decision_secret_boundary_validation",
+        "live_credentials_auth_summary_secret_boundary_validation",
+        "live_credentials_auth_artifact_secret_boundary_validation",
+        "auth_boundary_decision_secret_boundary_validation",
+        "status_report_secret_boundary_validation",
+        "redacted_preview",
+        "credential_statuses_redacted",
+        "redacted_credential_status_ready",
+        "safe_for_artifacts",
+        "secrets_redacted",
+        "actual_secret_values_exposed",
+        "raw_secret_values_read_by_tests",
+        "raw_secret_values_printed",
+        "raw_secret_values_persisted",
     }
 )
 
@@ -236,16 +264,18 @@ def validate_static_secret_boundary(
     generated_at: str = GENERATED_AT,
 ) -> dict[str, Any]:
     forbidden_field_paths = find_forbidden_secret_field_paths(value)
+    forbidden_value_paths = find_actual_secret_value_paths(value)
     unsafe_flag_paths = find_unsafe_secret_flag_paths(value)
     validation_id = _stable_id(
         "static-secret-boundary-validation-031",
         {
             "artifact_type": artifact_type,
             "forbidden_field_paths": forbidden_field_paths,
+            "forbidden_value_paths": forbidden_value_paths,
             "unsafe_flag_paths": unsafe_flag_paths,
         },
     )
-    valid = not forbidden_field_paths and not unsafe_flag_paths
+    valid = not forbidden_field_paths and not forbidden_value_paths and not unsafe_flag_paths
     return {
         "contract_version": STATIC_SECRET_VALIDATION_CONTRACT,
         "validation_id": validation_id,
@@ -255,6 +285,8 @@ def validate_static_secret_boundary(
         "status": "passed" if valid else "blocked",
         "forbidden_secret_field_paths": forbidden_field_paths,
         "forbidden_secret_field_count": len(forbidden_field_paths),
+        "forbidden_secret_value_paths": forbidden_value_paths,
+        "forbidden_secret_value_count": len(forbidden_value_paths),
         "unsafe_active_secret_flag_paths": unsafe_flag_paths,
         "safe_placeholder_markers": sorted(SAFE_PLACEHOLDER_MARKERS),
         "environment_inspected": False,
@@ -715,6 +747,66 @@ def validate_secret_boundary_btc_analysis_ui_summary(
     )
 
 
+def validate_secret_boundary_live_credentials_config(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        value,
+        artifact_type="live_credentials_config",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_live_credentials_status_report(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        value,
+        artifact_type="live_credentials_status_report",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_live_auth_boundary_decision(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        value,
+        artifact_type="live_auth_boundary_decision",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_live_credentials_auth_summary(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        value,
+        artifact_type="live_credentials_auth_summary",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_paper_daily_loop_auth_artifact(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        value,
+        artifact_type="paper_daily_loop_live_credentials_auth_artifact",
+        generated_at=generated_at,
+    )
+
+
 def validate_secret_boundary_operator_ui_panel_kill_switch_summary(
     value: Mapping[str, Any],
     *,
@@ -852,6 +944,25 @@ def find_unsafe_secret_flag_paths(value: Any, path: str = "$") -> list[str]:
     return paths
 
 
+def find_actual_secret_value_paths(value: Any, path: str = "$", parent_key: str = "") -> list[str]:
+    paths: list[str] = []
+    if isinstance(value, Mapping):
+        for key, nested in value.items():
+            key_text = clean_text(key)
+            paths.extend(find_actual_secret_value_paths(nested, f"{path}.{key_text}", key_text))
+    elif isinstance(value, list):
+        for index, nested in enumerate(value):
+            paths.extend(find_actual_secret_value_paths(nested, f"{path}[{index}]", parent_key))
+    elif isinstance(value, str):
+        secret_like = _looks_like_actual_secret_value(value) or (
+            _looks_like_hex_private_key(value)
+            and not _value_allowed_as_public_identifier_metadata(value, parent_key=parent_key)
+        )
+        if secret_like and not _value_allowed_as_symbolic_live_credential_metadata(value, parent_key=parent_key):
+            paths.append(path)
+    return paths
+
+
 def find_forbidden_operator_intent_field_paths(value: Any, path: str = "$") -> list[str]:
     paths: list[str] = []
     if isinstance(value, Mapping):
@@ -937,6 +1048,102 @@ def is_safe_negative_secret_metadata_field(name: str) -> bool:
     if any(normalized.endswith(suffix) for suffix in SAFE_NEGATIVE_SECRET_SUFFIXES):
         return any(secret_name in normalized for secret_name in FORBIDDEN_SECRET_FIELD_NAMES)
     return False
+
+
+def _looks_like_actual_secret_value(value: Any) -> bool:
+    text = clean_text(value)
+    if not text:
+        return False
+    lowered = text.lower()
+    if "-----begin" in lowered and "private key" in lowered:
+        return True
+    if lowered.startswith("bearer "):
+        return True
+    if lowered.startswith(("sk-", "sk_live_", "pk_live_", "sk-proj-")):
+        return True
+    if "authorization: bearer " in lowered:
+        return True
+    if "auth_header=" in lowered:
+        return True
+    if any(
+        marker in lowered
+        for marker in (
+            "mnemonic:",
+            "seed phrase:",
+            "seed_phrase=",
+            "raw_secret=",
+            "raw_private_key=",
+            "secret_value=",
+            "signed_order=",
+            "signed_payload=",
+            "raw_transaction=",
+            "order_submission_payload=",
+            "transaction_payload=",
+        )
+    ):
+        return True
+    return False
+
+
+def _looks_like_hex_private_key(value: str) -> bool:
+    text = clean_text(value)
+    if text.startswith(("0x", "0X")):
+        text = text[2:]
+    if len(text) < 64:
+        return False
+    return all(character in "0123456789abcdefABCDEF" for character in text)
+
+
+def _value_allowed_as_symbolic_live_credential_metadata(value: str, *, parent_key: str) -> bool:
+    text = clean_text(value)
+    if not text:
+        return False
+    normalized_parent = _normalize_key(parent_key)
+    symbolic_parent_names = {
+        "env_var_name",
+        "config_key",
+        "requirement_id",
+        "missing_requirements",
+        "policy_violation_code",
+        "code",
+        "decision_status",
+        "boundary_statuses",
+        "live_credentials_boundary_status",
+    }
+    if normalized_parent not in symbolic_parent_names:
+        return False
+    if text in SAFE_PLACEHOLDER_MARKERS:
+        return True
+    return text.upper() == text and all(character.isalnum() or character == "_" for character in text)
+
+
+def _value_allowed_as_public_identifier_metadata(value: str, *, parent_key: str) -> bool:
+    normalized_parent = _normalize_key(parent_key)
+    if any(
+        normalized_parent.endswith(suffix)
+        for suffix in (
+            "_id",
+            "_ids",
+            "_hash",
+            "_hashes",
+            "_reference",
+            "_references",
+        )
+    ):
+        return True
+    return normalized_parent in {
+        "id",
+        "ids",
+        "hash",
+        "hashes",
+        "condition_id",
+        "token_id",
+        "asset_id",
+        "market_id",
+        "snapshot_id",
+        "source_payload_hash",
+        "payload_hash",
+    }
 
 
 def _normalize_key(value: str) -> str:
