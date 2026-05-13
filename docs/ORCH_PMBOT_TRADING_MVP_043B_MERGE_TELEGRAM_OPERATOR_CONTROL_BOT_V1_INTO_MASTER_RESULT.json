@@ -1,0 +1,128 @@
+{
+  "task_id": "ORCH-PMBOT-TRADING-MVP-043B-MERGE-TELEGRAM-OPERATOR-CONTROL-BOT-V1-INTO-MASTER",
+  "status": "completed_pushed",
+  "worktree": "C:/oc043b_telegram_operator_control_bot_merge",
+  "branch": "master",
+  "master_head_before": "c386220ca89cbd956526b94172992ec825780159",
+  "head_before": "c386220ca89cbd956526b94172992ec825780159",
+  "source_branch": "pmbot/trading-mvp-043-telegram-operator-control-bot-v1",
+  "source_head_expected": "b67e53fce94c00129f85082cfb519acb7eff4272",
+  "source_head_verified": "b67e53fce94c00129f85082cfb519acb7eff4272",
+  "merge_type": "fast-forward",
+  "fast_forward_merge": true,
+  "merge_conflicts": false,
+  "master_head_after_source_merge": "b67e53fce94c00129f85082cfb519acb7eff4272",
+  "master_head_after": "recorded_in_final_response_after_commit_push_verify",
+  "head_after": "recorded_in_final_response_after_commit_push_verify",
+  "head_after_note": "The final master commit cannot be self-recorded inside this committed JSON artifact because embedding the commit's own SHA would change that SHA. The final response records the pushed and remotely verified master HEAD.",
+  "pushed": true,
+  "remote_verified": true,
+  "changed_files": [
+    "docs/ORCH_PMBOT_TRADING_MVP_043_TELEGRAM_OPERATOR_CONTROL_BOT_V1.md",
+    "docs/ORCH_PMBOT_TRADING_MVP_043_TELEGRAM_OPERATOR_CONTROL_BOT_V1_RESULT.json",
+    "docs/ORCH_PMBOT_TRADING_MVP_043B_MERGE_TELEGRAM_OPERATOR_CONTROL_BOT_V1_INTO_MASTER_RESULT.json",
+    "pm_bot/operator_runner/operator_ui_panel_v1.py",
+    "pm_bot/operator_runner/paper_daily_loop.py",
+    "pm_bot/operator_runner/telegram_operator_control_bot.py",
+    "pm_bot/operator_runner/telegram_operator_control_state.py",
+    "pm_bot/tests/test_telegram_operator_control_bot_043.py",
+    "pm_bot/trading_core/live_canary_readiness_evidence_bundle.py",
+    "pm_bot/trading_core/secret_boundary_policy.py"
+  ],
+  "validation": [
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_operator_control_bot_043.py",
+      "status": "passed",
+      "result": "11 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_risk_limit_control_plane_037.py pm_bot/tests/test_polymarket_btc_read_only_connector_038.py pm_bot/tests/test_btc_market_analysis_order_intent_039.py pm_bot/tests/test_live_credentials_auth_boundary_040.py pm_bot/tests/test_live_order_submission_boundary_041.py pm_bot/tests/test_tiny_live_canary_gonogo_gate_042.py pm_bot/tests/test_telegram_operator_control_bot_043.py pm_bot/tests/test_live_canary_readiness_029.py pm_bot/tests/test_live_canary_readiness_evidence_bundle_035.py pm_bot/tests/test_live_canary_replay_acceptance_030.py pm_bot/tests/test_operator_ui_panel_v1_036.py pm_bot/tests/test_paper_daily_loop_022.py",
+      "status": "passed",
+      "result": "173 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests",
+      "status": "passed",
+      "result": "1635 passed"
+    },
+    {
+      "command": "python -m compileall pm_bot",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest tests/test_codex_queue_nightly_lane_batch_runner.py tests/test_codex_worktree_lane_manager.py tests/test_subagent_routing.py tests/test_codex_queue_operator_cli.py",
+      "status": "passed",
+      "result": "41 passed"
+    },
+    {
+      "command": "python -m compileall ai_orchestrator",
+      "status": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    },
+    {
+      "command": "git diff --cached --check",
+      "status": "passed"
+    }
+  ],
+  "safety_results": {
+    "raw_secrets_exposed": false,
+    "telegram_token_exposed": false,
+    "authenticated_endpoints_enabled": false,
+    "authenticated_endpoints_called": false,
+    "polymarket_authenticated_endpoints_called": false,
+    "polymarket_authenticated_calls": false,
+    "polymarket_api_called": false,
+    "order_submission_enabled": false,
+    "live_order_submission_enabled": false,
+    "real_orders_submitted": false,
+    "cryptographic_signing_enabled": false,
+    "cryptographic_signing_performed": false,
+    "wallet_integration_added": false,
+    "wallet_signing_enabled": false,
+    "wallet_signing_performed": false,
+    "transaction_signing_enabled": false,
+    "transaction_signing_performed": false,
+    "signed_payload_generation_enabled": false,
+    "signed_order_generation_enabled": false,
+    "signed_payload_or_order_generation_enabled": false,
+    "browser_automation_added": false,
+    "scheduler_added": false,
+    "daemon_added": false,
+    "background_worker_added": false,
+    "autonomous_live_trading_enabled": false,
+    "real_money_execution_enabled": false,
+    "telegram_pause_kill_local_state_markers_only": true,
+    "allowed_for_live": false,
+    "canary_executable_now": false,
+    "live_execution_approved": false,
+    "real_execution_available": false,
+    "live_connector_enabled": false,
+    "live_blockers_remain_unresolved": true,
+    "resolved_blocker_count": 0,
+    "outcomes_invented": false,
+    "fills_invented": false,
+    "balances_invented": false,
+    "prices_invented": false,
+    "pnl_invented": false,
+    "safety_scan_notes": [
+      "Secret-pattern scan over merged changed files found no raw Telegram token, API key, Slack token, or private key patterns.",
+      "Keyword hits for mnemonic, seed_phrase, and signed_payload were classified as secret-boundary policy detector strings in pm_bot/trading_core/secret_boundary_policy.py, not exposed credentials or generated signed payloads.",
+      "Live-enable pattern scan found no true values for allowed_for_live, canary_executable_now, live_execution_approved, real_execution_available, live_connector_enabled, order_submission_enabled, or nonzero resolved_blocker_count in the merged changed files."
+    ],
+    "safety_ok": true
+  },
+  "notes": [
+    "The primary checkout C:/Users/OpenC/.openclaw/workspace was dirty and was not used for merge work.",
+    "Created the requested merge worktree at C:/oc043b_telegram_operator_control_bot_merge and verified local master and origin/master both started at the expected pre-merge SHA.",
+    "The existing older C:/oc042b_tiny_live_canary_gonogo_gate_merge worktree still had master checked out and was inspected as clean; it was not reused for this merge.",
+    "The remote source branch head matched the expected source SHA before merge.",
+    "The source branch merged into master by fast-forward; no conflicts occurred.",
+    "Validation generated local tracked fixture/artifact rewrites and untracked __pycache__ directories; these were restored or removed before creating this docs-only result artifact.",
+    "No PMBOT functionality was added beyond the source-branch merge and this docs-only merge result artifact.",
+    "No live trading, wallet signing, authenticated Polymarket calls, browser automation, scheduler, daemon, background worker, or autonomous live trading path was enabled."
+  ],
+  "next_recommended_task": "ORCH-PMBOT-TRADING-MVP-044-TELEGRAM-MINI-APP-OPERATOR-PANEL-V1"
+}
