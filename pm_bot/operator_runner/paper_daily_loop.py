@@ -18,6 +18,11 @@ from pm_bot.operator_runner.operator_ui_panel_v1 import (
     render_operator_ui_panel_v1_markdown,
     summarize_operator_ui_panel_v1,
 )
+from pm_bot.operator_runner.telegram_operator_control_bot import (
+    build_telegram_operator_control_config,
+    build_telegram_operator_control_summary,
+)
+from pm_bot.operator_runner.telegram_operator_control_state import build_telegram_operator_control_state
 from pm_bot.source_quality.public_evidence_refresh import (
     build_public_evidence_refresh_artifacts,
     build_public_evidence_refresh_request_from_candidates,
@@ -288,6 +293,7 @@ class PaperDailyLoopResult:
     operator_ui_panel_json_path: str
     operator_ui_panel_md_path: str
     operator_ui_panel_html_path: str
+    telegram_operator_control_state_path: str
     audit_path: str
     unresolved_market_count: int
     feedback_ready_count: int
@@ -643,6 +649,9 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
     latest_tiny_live_canary_gonogo_gate_path = (
         normalize_path(paths["tiny_live_canary_gonogo_gate"]) if active_config.write_artifacts else ""
     )
+    latest_telegram_operator_control_state_path = (
+        normalize_path(paths["telegram_operator_control_state"]) if active_config.write_artifacts else ""
+    )
     live_credentials_auth_boundary_config = build_default_live_credentials_boundary_config(
         generated_at=generated_at,
     )
@@ -761,6 +770,24 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         latest_tiny_live_canary_gonogo_gate_path=latest_tiny_live_canary_gonogo_gate_path,
         generated_at=generated_at,
     )
+    telegram_operator_control_config = build_telegram_operator_control_config(generated_at=generated_at)
+    telegram_operator_control_state = build_telegram_operator_control_state(generated_at=generated_at)
+    provisional_telegram_operator_control_bot_summary = build_telegram_operator_control_summary(
+        config=telegram_operator_control_config,
+        state=telegram_operator_control_state,
+        context={
+            "btc_market_snapshot_summary": btc_market_snapshot_summary,
+            "btc_analysis_order_intent_summary": btc_analysis_order_intent_summary,
+            "risk_control_plane_summary": risk_control_plane_summary,
+            "live_credentials_auth_boundary_summary": live_credentials_auth_boundary_summary,
+            "live_order_submission_boundary_summary": live_order_submission_boundary_summary,
+            "tiny_live_canary_gonogo_gate_summary": provisional_tiny_live_canary_gonogo_gate_summary,
+            "live_connector_blocker_matrix": live_connector_blocker_matrix,
+            "latest_telegram_operator_control_state_path": latest_telegram_operator_control_state_path,
+        },
+        latest_state_path=latest_telegram_operator_control_state_path,
+        generated_at=generated_at,
+    )
     readiness_evidence_bundle = build_live_canary_readiness_evidence_bundle(
         disabled_connector_status=build_disabled_connector_passive_status(
             result=disabled_connector_result,
@@ -787,6 +814,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         btc_analysis_order_intent_dry_run=btc_analysis_order_intent_summary,
         live_order_submission_boundary_dry_run_adapter=live_order_submission_boundary_summary,
         tiny_live_canary_gonogo_gate=provisional_tiny_live_canary_gonogo_gate_summary,
+        telegram_operator_control_bot_v1=provisional_telegram_operator_control_bot_summary,
         dry_run_receipt_references=[canary_dry_run_receipt.get("receipt_id", "")],
         result_artifact_references=[
             normalize_path(paths["result"]) if active_config.write_artifacts else "paper_daily_loop_result:current-run",
@@ -831,6 +859,8 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
             "tiny_live_canary_manual_execution_checklist_and_final_gonogo_gate": (
                 latest_tiny_live_canary_gonogo_gate_path
             ),
+            "telegram_operator_control_bot_v1": latest_telegram_operator_control_state_path
+            or "telegram_operator_control_bot_v1:review_only_non_execution",
         },
         generated_at=generated_at,
     )
@@ -862,6 +892,23 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
     tiny_live_canary_gonogo_gate_summary = summarize_tiny_live_canary_gonogo_gate(
         tiny_live_canary_gonogo_gate,
         latest_tiny_live_canary_gonogo_gate_path=latest_tiny_live_canary_gonogo_gate_path,
+        generated_at=generated_at,
+    )
+    telegram_operator_control_bot_summary = build_telegram_operator_control_summary(
+        config=telegram_operator_control_config,
+        state=telegram_operator_control_state,
+        context={
+            "btc_market_snapshot_summary": btc_market_snapshot_summary,
+            "btc_analysis_order_intent_summary": btc_analysis_order_intent_summary,
+            "risk_control_plane_summary": risk_control_plane_summary,
+            "live_credentials_auth_boundary_summary": live_credentials_auth_boundary_summary,
+            "live_order_submission_boundary_summary": live_order_submission_boundary_summary,
+            "tiny_live_canary_gonogo_gate_summary": tiny_live_canary_gonogo_gate_summary,
+            "readiness_evidence_bundle_summary": readiness_evidence_bundle_summary,
+            "live_connector_blocker_matrix": live_connector_blocker_matrix,
+            "latest_telegram_operator_control_state_path": latest_telegram_operator_control_state_path,
+        },
+        latest_state_path=latest_telegram_operator_control_state_path,
         generated_at=generated_at,
     )
     for review_artifact in (operator_live_approval_packet, operator_intent_packet, live_connector_audit_replay):
@@ -966,6 +1013,8 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         live_order_submission_boundary_summary=live_order_submission_boundary_summary,
         tiny_live_canary_gonogo_gate=tiny_live_canary_gonogo_gate,
         tiny_live_canary_gonogo_gate_summary=tiny_live_canary_gonogo_gate_summary,
+        telegram_operator_control_state=telegram_operator_control_state,
+        telegram_operator_control_bot_summary=telegram_operator_control_bot_summary,
         latest_disabled_connector_audit_path=(
             normalize_path(paths["disabled_connector_audit"]) if active_config.write_artifacts else ""
         ),
@@ -990,6 +1039,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         latest_btc_risk_decision_path=latest_btc_risk_decision_path,
         latest_live_order_submission_boundary_path=latest_live_order_submission_boundary_path,
         latest_tiny_live_canary_gonogo_gate_path=latest_tiny_live_canary_gonogo_gate_path,
+        latest_telegram_operator_control_state_path=latest_telegram_operator_control_state_path,
         source_evidence_refresh_ledger=source_evidence_refresh_ledger,
         generated_at=generated_at,
     )
@@ -1016,6 +1066,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         "tiny_live_canary_preflight_contract": (
             normalize_path(paths["tiny_live_canary_preflight_contract"]) if active_config.write_artifacts else ""
         ),
+        "telegram_operator_control_state": latest_telegram_operator_control_state_path,
     }
     operator_ui_panel_v1 = build_operator_ui_panel_v1(
         dashboard=dashboard,
@@ -1047,6 +1098,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         operator_intent_summary=dashboard.get("operator_intent_packet_summary", {}),
         live_connector_audit_replay=live_connector_audit_replay,
         live_connector_audit_operator_summary=dashboard.get("live_connector_audit_operator_summary", {}),
+        telegram_operator_control_bot_summary=telegram_operator_control_bot_summary,
         latest_paths=latest_operator_ui_panel_paths,
         generated_at=generated_at,
     )
@@ -1107,6 +1159,9 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
             latest_risk_limit_decision or {},
             risk_control_plane_summary,
             readiness_evidence_bundle,
+            telegram_operator_control_config,
+            telegram_operator_control_state,
+            telegram_operator_control_bot_summary,
             tiny_live_canary_preflight_contract,
             tiny_live_canary_manual_runbook,
             tiny_live_canary_kill_switch_validation,
@@ -1355,6 +1410,32 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         and dashboard.get("operator_ui_panel_v1_summary", {}).get("canary_executable_now") is False
         and dashboard.get("operator_ui_panel_v1_summary", {}).get("real_execution_available") is False
         and dashboard.get("operator_ui_panel_v1_summary", {}).get("live_connector_enabled") is False
+        and telegram_operator_control_state.get("operator_pause_requested") is False
+        and telegram_operator_control_state.get("operator_kill_switch_requested") is False
+        and telegram_operator_control_state.get("live_execution_approved") is False
+        and telegram_operator_control_state.get("canary_executable_now") is False
+        and telegram_operator_control_state.get("real_execution_available") is False
+        and telegram_operator_control_state.get("live_connector_enabled") is False
+        and telegram_operator_control_state.get("order_submission_enabled") is False
+        and telegram_operator_control_bot_summary.get("review_only") is True
+        and telegram_operator_control_bot_summary.get("execution_enabling") is False
+        and telegram_operator_control_bot_summary.get("live_approval") is False
+        and telegram_operator_control_bot_summary.get("allowed_for_live") is False
+        and telegram_operator_control_bot_summary.get("canary_executable_now") is False
+        and telegram_operator_control_bot_summary.get("live_execution_approved") is False
+        and telegram_operator_control_bot_summary.get("real_execution_available") is False
+        and telegram_operator_control_bot_summary.get("live_connector_enabled") is False
+        and telegram_operator_control_bot_summary.get("order_submission_enabled") is False
+        and dashboard.get("telegram_operator_control_bot_summary", {}).get("review_only") is True
+        and dashboard.get("telegram_operator_control_bot_summary", {}).get("execution_enabling") is False
+        and dashboard.get("telegram_operator_control_bot_summary", {}).get("live_execution_approved") is False
+        and dashboard.get("telegram_operator_control_bot_summary", {}).get("canary_executable_now") is False
+        and operator_ui_panel_v1.get("telegram_operator_control_bot_summary", {}).get(
+            "telegram_operator_control_bot_section_ready"
+        )
+        is True
+        and operator_ui_panel_v1.get("telegram_operator_control_bot_summary", {}).get("review_only") is True
+        and operator_ui_panel_v1.get("telegram_operator_control_bot_summary", {}).get("execution_enabling") is False
         and dashboard.get("btc_market_snapshot_summary", {}).get("is_btc_related") is True
         and dashboard.get("btc_market_snapshot_summary", {}).get("read_only_network_enabled") is False
         and dashboard.get("btc_read_only_connector_summary", {}).get("network_attempted") is False
@@ -1502,6 +1583,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         operator_ui_panel_html_path=(
             normalize_path(paths["operator_ui_panel_html"]) if active_config.write_artifacts else ""
         ),
+        telegram_operator_control_state_path=latest_telegram_operator_control_state_path,
         audit_path=normalize_path(paths["audit"]) if active_config.write_artifacts else "",
         unresolved_market_count=int(feedback_readiness.get("unresolved_count", 0) or 0),
         feedback_ready_count=int(feedback_readiness.get("feedback_ready_count", 0) or 0),
@@ -1556,6 +1638,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
             tiny_live_canary_preflight_contract=tiny_live_canary_preflight_contract,
             tiny_live_canary_manual_runbook=tiny_live_canary_manual_runbook,
             tiny_live_canary_preflight_result=tiny_live_canary_preflight_result,
+            telegram_operator_control_state=telegram_operator_control_state,
             operator_ui_panel_v1=operator_ui_panel_v1,
             result=result,
         )
@@ -1633,6 +1716,7 @@ def _daily_paths(output_dir: Path) -> dict[str, Path]:
         "operator_ui_panel_json": output_dir / "operator_ui_panel_v1.json",
         "operator_ui_panel_md": output_dir / "operator_ui_panel_v1.md",
         "operator_ui_panel_html": output_dir / "operator_ui_panel_v1.html",
+        "telegram_operator_control_state": output_dir / "telegram_operator_control_state_043.json",
         "safety": output_dir / "paper_daily_safety_scan.json",
         "idempotency": output_dir / "paper_daily_idempotency_report.json",
         "idempotency_md": output_dir / "paper_daily_idempotency_report.md",
@@ -2140,6 +2224,8 @@ def _build_daily_dashboard(
     live_order_submission_boundary_summary: Mapping[str, Any],
     tiny_live_canary_gonogo_gate: Mapping[str, Any],
     tiny_live_canary_gonogo_gate_summary: Mapping[str, Any],
+    telegram_operator_control_state: Mapping[str, Any],
+    telegram_operator_control_bot_summary: Mapping[str, Any],
     latest_disabled_connector_audit_path: str,
     latest_audit_replay_path: str,
     latest_operator_packet_path: str,
@@ -2154,6 +2240,7 @@ def _build_daily_dashboard(
     latest_btc_risk_decision_path: str,
     latest_live_order_submission_boundary_path: str,
     latest_tiny_live_canary_gonogo_gate_path: str,
+    latest_telegram_operator_control_state_path: str,
     source_evidence_refresh_ledger: Mapping[str, Any],
     generated_at: str,
 ) -> dict[str, Any]:
@@ -2293,6 +2380,13 @@ def _build_daily_dashboard(
             ),
             "tiny_live_canary_gonogo_unresolved_blocker_count": int(
                 tiny_live_canary_gonogo_gate_summary.get("unresolved_blocker_count", 0) or 0
+            ),
+            "telegram_operator_control_state_count": 1 if telegram_operator_control_state else 0,
+            "telegram_operator_control_pause_requested_count": (
+                1 if telegram_operator_control_state.get("operator_pause_requested") is True else 0
+            ),
+            "telegram_operator_control_kill_switch_requested_count": (
+                1 if telegram_operator_control_state.get("operator_kill_switch_requested") is True else 0
             ),
             "readiness_evidence_item_count": int(readiness_evidence_bundle.get("evidence_item_count", 0) or 0),
             "readiness_evidence_missing_required_count": int(
@@ -2479,6 +2573,24 @@ def _build_daily_dashboard(
         "tiny_live_canary_gonogo_gate": dict(tiny_live_canary_gonogo_gate),
         "tiny_live_canary_gonogo_gate_summary": dict(tiny_live_canary_gonogo_gate_summary),
         "latest_tiny_live_canary_gonogo_gate_path": clean_text(latest_tiny_live_canary_gonogo_gate_path),
+        "telegram_operator_control_state": dict(telegram_operator_control_state),
+        "telegram_operator_control_bot_summary": dict(telegram_operator_control_bot_summary)
+        | {
+            "latest_telegram_operator_control_state_path": clean_text(
+                latest_telegram_operator_control_state_path
+            ),
+            "review_only": True,
+            "execution_enabling": False,
+            "live_approval": False,
+            "allowed_for_live": False,
+            "canary_executable_now": False,
+            "live_execution_approved": False,
+            "real_execution_available": False,
+            "live_connector_enabled": False,
+            "order_submission_enabled": False,
+            "would_submit_order": False,
+        },
+        "latest_telegram_operator_control_state_path": clean_text(latest_telegram_operator_control_state_path),
         "btc_market_section_feed": {
             "btc_market_connector_status": btc_market_snapshot_summary.get("btc_market_connector_status"),
             "market_id": btc_market_snapshot_summary.get("market_id"),
@@ -2829,6 +2941,7 @@ def _build_daily_dashboard(
             "Review the passive risk engine decision ledger before any future execution-layer design work.",
             "Review the passive dry-run execution receipts before any future execution-layer design work.",
             "Review the live connector audit replay and operator review packet as non-approval artifacts only.",
+            "Review the Telegram operator control bot summary as a passive visibility/local-state surface only.",
             "Review the operator intent packet as dry-run human acknowledgement only, not live approval.",
             "Review the tiny live canary go/no-go gate as final manual review only; it exposes no executable action.",
             "Review source evidence freshness and missing evidence gaps before interpreting paper strategy output.",
@@ -3009,6 +3122,7 @@ def _write_daily_artifacts(
     tiny_live_canary_preflight_contract: Mapping[str, Any],
     tiny_live_canary_manual_runbook: Mapping[str, Any],
     tiny_live_canary_preflight_result: Mapping[str, Any],
+    telegram_operator_control_state: Mapping[str, Any],
     operator_ui_panel_v1: Mapping[str, Any],
     result: PaperDailyLoopResult,
 ) -> None:
@@ -3089,6 +3203,7 @@ def _write_daily_artifacts(
         paths["tiny_live_canary_preflight_result_md"],
         render_tiny_live_canary_preflight_result_markdown(tiny_live_canary_preflight_result),
     )
+    write_json(paths["telegram_operator_control_state"], telegram_operator_control_state)
     write_json(paths["source_evidence_refresh_request"], source_evidence_refresh_request)
     write_json(paths["source_evidence_refresh"], source_evidence_refresh_ledger)
     write_text(paths["source_evidence_refresh_md"], render_public_evidence_refresh_report(source_evidence_refresh_ledger))
@@ -3191,6 +3306,9 @@ def _render_daily_dashboard_markdown(dashboard: Mapping[str, Any]) -> str:
         f"- Live order boundary blocked: {counts.get('live_order_submission_boundary_blocked_count')}",
         f"- Tiny live canary go/no-go gates: {counts.get('tiny_live_canary_gonogo_gate_count')}",
         f"- Tiny go/no-go unresolved blockers: {counts.get('tiny_live_canary_gonogo_unresolved_blocker_count')}",
+        f"- Telegram operator control states: {counts.get('telegram_operator_control_state_count')}",
+        f"- Telegram pause requested: {counts.get('telegram_operator_control_pause_requested_count')}",
+        f"- Telegram kill-switch requested: {counts.get('telegram_operator_control_kill_switch_requested_count')}",
         f"- Source evidence records: {counts.get('source_evidence_refresh_record_count')}",
         f"- Source evidence gaps: {counts.get('source_evidence_gap_count')}",
         "",
@@ -3233,6 +3351,8 @@ def _render_daily_dashboard_markdown(dashboard: Mapping[str, Any]) -> str:
     live_auth = dict(dashboard.get("live_credentials_auth_boundary_summary", {}))
     live_order_boundary = dict(dashboard.get("live_order_submission_boundary_summary", {}))
     tiny_gonogo = dict(dashboard.get("tiny_live_canary_gonogo_gate_summary", {}))
+    telegram_control = dict(dashboard.get("telegram_operator_control_bot_summary", {}))
+    telegram_state = dict(dashboard.get("telegram_operator_control_state", {}))
     operator_ui_panel = dict(dashboard.get("operator_ui_panel_v1_summary", {}))
     operator_ui_panel_paths = dict(dashboard.get("operator_ui_panel_v1_paths", {}))
     risk_prep = dict(dashboard.get("risk_prep_config_status", {}))
@@ -3427,6 +3547,22 @@ def _render_daily_dashboard_markdown(dashboard: Mapping[str, Any]) -> str:
             f"- Latest go/no-go packet: `{tiny_gonogo.get('latest_tiny_live_canary_gonogo_gate_path')}`",
             "- Top no-go reasons:",
             *bullet_lines(str(item) for item in tiny_gonogo.get("top_no_go_reasons", [])),
+            "",
+            "## Telegram Operator Control Bot",
+            "",
+            f"- Configured: `{str(telegram_control.get('configured')).lower()}`",
+            f"- Bot token status: `{telegram_control.get('config', {}).get('telegram_bot_token_status') or telegram_control.get('telegram_bot_token_status')}`",
+            f"- Allowed operator IDs configured: `{str(telegram_control.get('allowed_operator_ids_configured')).lower()}`",
+            f"- Allowed operator ID count: `{telegram_control.get('allowed_operator_id_count')}`",
+            f"- Pause requested: `{str(telegram_control.get('operator_pause_requested')).lower()}`",
+            f"- Kill-switch requested: `{str(telegram_control.get('operator_kill_switch_requested')).lower()}`",
+            f"- Review-only: `{str(telegram_control.get('review_only')).lower()}`",
+            f"- Live approval: `{str(telegram_control.get('live_approval')).lower()}`",
+            f"- Execution enabling: `{str(telegram_control.get('execution_enabling')).lower()}`",
+            f"- Live execution approved: `{str(telegram_control.get('live_execution_approved')).lower()}`",
+            f"- Canary executable now: `{str(telegram_control.get('canary_executable_now')).lower()}`",
+            f"- Order submission enabled: `{str(telegram_control.get('order_submission_enabled')).lower()}`",
+            f"- Latest state artifact: `{telegram_state.get('state_id')}` / `{telegram_control.get('latest_telegram_operator_control_state_path')}`",
             "",
             "## BTC Read-Only Market Connector",
             "",
@@ -3693,6 +3829,7 @@ def _render_daily_run_report(
             f"- BTC risk decision: `{result.get('btc_risk_decision_path')}`",
             f"- Live order submission boundary: `{result.get('live_order_submission_boundary_path')}`",
             f"- Tiny live canary go/no-go gate: `{result.get('tiny_live_canary_gonogo_gate_path')}`",
+            f"- Telegram operator control state: `{result.get('telegram_operator_control_state_path')}`",
             f"- Operator UI panel JSON: `{result.get('operator_ui_panel_json_path')}`",
             f"- Operator UI panel Markdown: `{result.get('operator_ui_panel_md_path')}`",
             f"- Operator UI panel HTML: `{result.get('operator_ui_panel_html_path')}`",

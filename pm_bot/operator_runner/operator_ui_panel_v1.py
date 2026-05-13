@@ -59,6 +59,9 @@ OPERATOR_UI_PANEL_LIVE_ORDER_BOUNDARY_SUMMARY_CONTRACT = (
 OPERATOR_UI_PANEL_TINY_CANARY_GONOGO_SUMMARY_CONTRACT = (
     "pmbot_operator_ui_panel_tiny_live_canary_gonogo_summary.v1"
 )
+OPERATOR_UI_PANEL_TELEGRAM_CONTROL_SUMMARY_CONTRACT = (
+    "pmbot_operator_ui_panel_telegram_operator_control_bot_summary.v1"
+)
 OPERATOR_UI_PANEL_VALIDATION_CONTRACT = "pmbot_operator_ui_panel_validation.v1"
 
 TASK_ID = "ORCH-PMBOT-TRADING-MVP-036-OPERATOR-UI-PANEL-V1-READINESS-RISK-LIMITS-KILL-SWITCH"
@@ -96,6 +99,7 @@ REQUIRED_SECTION_IDS = (
     "risk_control_plane",
     "risk_limits",
     "kill_switch",
+    "telegram_operator_control_bot",
     "paper_trading_summary",
     "operator_packets",
     "audit_replay",
@@ -112,6 +116,7 @@ NEXT_REQUIRED_GATES = (
     "real order adapter disabled",
     "operator live approval not implemented",
     "tiny canary still not executable",
+    "Telegram operator control bot remains review-only and exposes no executable live action",
 )
 
 
@@ -416,6 +421,30 @@ class OperatorUIPanelKillSwitchSummary:
 
 
 @dataclass(frozen=True)
+class OperatorUIPanelTelegramOperatorControlSummary:
+    configured: bool
+    telegram_bot_token_status: str
+    allowed_operator_ids_configured: bool
+    allowed_operator_id_count: int
+    operator_pause_requested: bool
+    operator_kill_switch_requested: bool
+    latest_telegram_operator_control_state_path: str = ""
+
+    def to_dict(self) -> dict[str, Any]:
+        value = asdict(self)
+        value["contract_version"] = OPERATOR_UI_PANEL_TELEGRAM_CONTROL_SUMMARY_CONTRACT
+        value["telegram_operator_control_bot_section_ready"] = True
+        value["review_only"] = True
+        value["execution_enabling"] = False
+        value["live_approval"] = False
+        value["ui_exposes_no_executable_live_action"] = True
+        value["raw_telegram_bot_token_exposed"] = False
+        value["raw_operator_user_ids_exposed"] = False
+        value.update(_panel_safety_flags())
+        return value
+
+
+@dataclass(frozen=True)
 class OperatorUIPanelReadinessSummary:
     mode: str
     current_execution_posture: str
@@ -492,6 +521,7 @@ class OperatorUIPanelV1:
     risk_control_plane_summary: Mapping[str, Any]
     risk_limit_summary: Mapping[str, Any]
     kill_switch_summary: Mapping[str, Any]
+    telegram_operator_control_bot_summary: Mapping[str, Any]
     paper_summary: Mapping[str, Any]
     operator_packet_summary: Mapping[str, Any]
     audit_replay_summary: Mapping[str, Any]
@@ -515,6 +545,7 @@ class OperatorUIPanelV1:
         value["risk_control_plane_summary"] = dict(self.risk_control_plane_summary)
         value["risk_limit_summary"] = dict(self.risk_limit_summary)
         value["kill_switch_summary"] = dict(self.kill_switch_summary)
+        value["telegram_operator_control_bot_summary"] = dict(self.telegram_operator_control_bot_summary)
         value["paper_summary"] = dict(self.paper_summary)
         value["operator_packet_summary"] = dict(self.operator_packet_summary)
         value["audit_replay_summary"] = dict(self.audit_replay_summary)
@@ -527,6 +558,7 @@ class OperatorUIPanelV1:
         value["risk_limit_panel_render_ready"] = True
         value["risk_control_panel_render_ready"] = True
         value["kill_switch_panel_render_ready"] = True
+        value["telegram_operator_control_bot_section_ready"] = True
         value["paper_summary_panel_ready"] = True
         value["blocker_panel_ready"] = True
         value["live_credentials_auth_boundary_section_ready"] = True
@@ -576,6 +608,7 @@ def build_operator_ui_panel_v1(
     operator_intent_summary: Mapping[str, Any] | None = None,
     live_connector_audit_replay: Mapping[str, Any] | None = None,
     live_connector_audit_operator_summary: Mapping[str, Any] | None = None,
+    telegram_operator_control_bot_summary: Mapping[str, Any] | None = None,
     latest_paths: Mapping[str, str] | None = None,
     generated_at: str = GENERATED_AT,
 ) -> dict[str, Any]:
@@ -675,6 +708,12 @@ def build_operator_ui_panel_v1(
         manual_runbook=tiny_live_canary_manual_runbook,
         latest_reference=paths.get("tiny_live_canary_preflight_contract", ""),
     )
+    telegram_control_summary = _build_telegram_operator_control_bot_summary(
+        telegram_operator_control_bot_summary=telegram_operator_control_bot_summary
+        or dashboard_value.get("telegram_operator_control_bot_summary", {}),
+        latest_reference=paths.get("telegram_operator_control_state", "")
+        or clean_text(dashboard_value.get("latest_telegram_operator_control_state_path")),
+    )
     operator_packet_summary = _build_operator_packet_summary(
         operator_live_approval_packet=operator_live_approval_packet,
         operator_intent_packet=operator_intent_packet,
@@ -713,6 +752,7 @@ def build_operator_ui_panel_v1(
         risk_control=risk_control_summary,
         risk=risk_summary,
         kill_switch=kill_switch_summary,
+        telegram_operator_control=telegram_control_summary,
         paper=paper_summary,
         operator_packets=operator_packet_summary,
         audit=audit_summary,
@@ -735,6 +775,7 @@ def build_operator_ui_panel_v1(
             "risk_control": risk_control_summary,
             "risk": risk_summary,
             "kill_switch": kill_switch_summary,
+            "telegram_operator_control": telegram_control_summary,
             "paper": paper_summary,
         },
     )
@@ -753,6 +794,7 @@ def build_operator_ui_panel_v1(
         risk_control_plane_summary=risk_control_summary,
         risk_limit_summary=risk_summary,
         kill_switch_summary=kill_switch_summary,
+        telegram_operator_control_bot_summary=telegram_control_summary,
         paper_summary=paper_summary,
         operator_packet_summary=operator_packet_summary,
         audit_replay_summary=audit_summary,
@@ -944,6 +986,23 @@ def validate_operator_ui_panel_v1(
         errors.append("risk_control_execution_gate_added must be false")
     if panel_value.get("kill_switch_summary", {}).get("kill_switch_verified_for_live") is not False:
         errors.append("kill_switch_verified_for_live must be false")
+    telegram_summary = dict(panel_value.get("telegram_operator_control_bot_summary", {}))
+    if telegram_summary.get("telegram_operator_control_bot_section_ready") is not True:
+        errors.append("telegram_operator_control_bot_section_ready must be true")
+        statuses.append("telegram_operator_control_section_missing")
+    if telegram_summary.get("review_only") is not True:
+        errors.append("telegram_operator_control_bot_summary.review_only must be true")
+        statuses.append("telegram_operator_control_review_only_missing")
+    if telegram_summary.get("execution_enabling") is not False:
+        errors.append("telegram_operator_control_bot_summary.execution_enabling must be false")
+        statuses.append("telegram_operator_control_execution_enabling_detected")
+    if telegram_summary.get("live_approval") is not False:
+        errors.append("telegram_operator_control_bot_summary.live_approval must be false")
+        statuses.append("telegram_operator_control_live_approval_detected")
+    for field in FORCED_FALSE_EXECUTION_FIELDS:
+        if telegram_summary.get(field) is not False:
+            errors.append(f"telegram_operator_control_bot_summary.{field} must be false")
+            statuses.append("telegram_operator_control_execution_flag_detected")
     if panel_value.get("evidence_summary", {}).get("readiness_bundle_is_not_live_approval") is not True:
         errors.append("readiness_bundle_is_not_live_approval must be true")
     if panel_value.get("blocker_summary", {}).get("all_blockers_unresolved") is not True:
@@ -1018,6 +1077,10 @@ def summarize_operator_ui_panel_v1(panel: Mapping[str, Any]) -> dict[str, Any]:
         "readiness_panel_render_ready": panel.get("readiness_panel_render_ready") is True,
         "risk_limit_panel_render_ready": panel.get("risk_limit_panel_render_ready") is True,
         "kill_switch_panel_render_ready": panel.get("kill_switch_panel_render_ready") is True,
+        "telegram_operator_control_bot_section_ready": panel.get(
+            "telegram_operator_control_bot_section_ready"
+        )
+        is True,
         "paper_summary_panel_ready": panel.get("paper_summary_panel_ready") is True,
         "blocker_panel_ready": panel.get("blocker_panel_ready") is True,
         "static_html_render_ready": panel.get("static_html_render_ready") is True,
@@ -1114,6 +1177,22 @@ def summarize_operator_ui_panel_v1(panel: Mapping[str, Any]) -> dict[str, Any]:
         ),
         "risk_limit_status": "review_config_visibility_only",
         "kill_switch_status": dict(panel.get("kill_switch_summary", {})).get("current_kill_switch_state"),
+        "telegram_operator_control_configured": dict(
+            panel.get("telegram_operator_control_bot_summary", {})
+        ).get("configured")
+        is True,
+        "telegram_operator_control_allowed_operator_ids_configured": dict(
+            panel.get("telegram_operator_control_bot_summary", {})
+        ).get("allowed_operator_ids_configured")
+        is True,
+        "telegram_operator_control_pause_requested": dict(
+            panel.get("telegram_operator_control_bot_summary", {})
+        ).get("operator_pause_requested")
+        is True,
+        "telegram_operator_control_kill_switch_requested": dict(
+            panel.get("telegram_operator_control_bot_summary", {})
+        ).get("operator_kill_switch_requested")
+        is True,
         "live_execution_approved": False,
         "canary_executable_now": False,
         "real_execution_available": False,
@@ -1757,6 +1836,45 @@ def _build_kill_switch_summary(
     ).to_dict()
 
 
+def _build_telegram_operator_control_bot_summary(
+    *,
+    telegram_operator_control_bot_summary: Mapping[str, Any] | None,
+    latest_reference: str,
+) -> dict[str, Any]:
+    provided = dict(telegram_operator_control_bot_summary or {})
+    config = dict(provided.get("config", {}))
+    state = dict(provided.get("state_summary", {}))
+    return OperatorUIPanelTelegramOperatorControlSummary(
+        configured=provided.get("configured") is True or config.get("telegram_bot_configured") is True,
+        telegram_bot_token_status=clean_text(
+            config.get("telegram_bot_token_status")
+            or provided.get("telegram_bot_token_status")
+            or "missing"
+        ),
+        allowed_operator_ids_configured=(
+            provided.get("allowed_operator_ids_configured") is True
+            or config.get("allowed_operator_ids_configured") is True
+        ),
+        allowed_operator_id_count=_int_or_zero(
+            provided.get("allowed_operator_id_count"),
+            config.get("allowed_operator_id_count"),
+        ),
+        operator_pause_requested=(
+            provided.get("operator_pause_requested") is True
+            or state.get("operator_pause_requested") is True
+        ),
+        operator_kill_switch_requested=(
+            provided.get("operator_kill_switch_requested") is True
+            or state.get("operator_kill_switch_requested") is True
+        ),
+        latest_telegram_operator_control_state_path=clean_text(
+            provided.get("latest_telegram_operator_control_state_path")
+            or state.get("latest_telegram_operator_control_state_path")
+            or latest_reference
+        ),
+    ).to_dict()
+
+
 def _build_paper_summary(
     *,
     dashboard: Mapping[str, Any],
@@ -1927,6 +2045,7 @@ def _build_sections(
     risk_control: Mapping[str, Any],
     risk: Mapping[str, Any],
     kill_switch: Mapping[str, Any],
+    telegram_operator_control: Mapping[str, Any],
     paper: Mapping[str, Any],
     operator_packets: Mapping[str, Any],
     audit: Mapping[str, Any],
@@ -2284,6 +2403,57 @@ def _build_sections(
                 _metric("kill_switch_blocks_live_execution", "Blocks live execution", kill_switch.get("kill_switch_blocks_live_execution")),
                 _metric("emergency_stop_documented", "Emergency stop documented", kill_switch.get("emergency_stop_documented")),
                 _metric("current_kill_switch_state", "Current state", kill_switch.get("current_kill_switch_state")),
+            ],
+        ),
+        _section(
+            "telegram_operator_control_bot",
+            "Telegram Operator Control Bot",
+            "review_only",
+            [
+                _metric("configured", "Configured", telegram_operator_control.get("configured")),
+                _metric(
+                    "telegram_bot_token_status",
+                    "Bot token status",
+                    telegram_operator_control.get("telegram_bot_token_status"),
+                ),
+                _metric(
+                    "allowed_operator_ids_configured",
+                    "Allowed operator IDs configured",
+                    telegram_operator_control.get("allowed_operator_ids_configured"),
+                ),
+                _metric(
+                    "allowed_operator_id_count",
+                    "Allowed operator ID count",
+                    telegram_operator_control.get("allowed_operator_id_count"),
+                ),
+                _metric(
+                    "operator_pause_requested",
+                    "Pause requested",
+                    telegram_operator_control.get("operator_pause_requested"),
+                ),
+                _metric(
+                    "operator_kill_switch_requested",
+                    "Kill-switch requested",
+                    telegram_operator_control.get("operator_kill_switch_requested"),
+                ),
+                _metric("review_only", "Review-only", True),
+                _metric("live_execution_approved", "Live execution approved", False),
+                _metric("canary_executable_now", "Canary executable now", False),
+                _metric("real_execution_available", "Real execution available", False),
+                _metric("live_connector_enabled", "Live connector enabled", False),
+                _metric("order_submission_enabled", "Order submission enabled", False),
+                _metric(
+                    "latest_telegram_operator_control_state_path",
+                    "Latest Telegram state artifact",
+                    telegram_operator_control.get("latest_telegram_operator_control_state_path"),
+                ),
+            ],
+            warnings=[
+                _warning(
+                    "telegram_control_review_only",
+                    "warning",
+                    "Telegram operator control is passive review/local state only and exposes no executable live action.",
+                )
             ],
         ),
         _section(

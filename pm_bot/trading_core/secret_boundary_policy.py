@@ -169,6 +169,20 @@ SAFE_SECRET_METADATA_FIELD_NAMES = frozenset(
         "live_order_submission_boundary_summary_secret_boundary_validation",
         "tiny_live_canary_gonogo_gate_secret_boundary_validation",
         "tiny_live_canary_gonogo_gate_summary_secret_boundary_validation",
+        "telegram_operator_control_config_secret_boundary_validation",
+        "telegram_operator_control_state_secret_boundary_validation",
+        "telegram_operator_control_summary_secret_boundary_validation",
+        "telegram_bot_token_status",
+        "telegram_bot_configured",
+        "raw_telegram_bot_token_exposed",
+        "raw_telegram_data_persisted",
+        "raw_operator_user_ids_exposed",
+        "raw_operator_user_id_persisted",
+        "operator_user_hash_only",
+        "allowed_operator_ids_redacted",
+        "allowed_operator_ids_configured",
+        "allowed_operator_id_count",
+        "telegram_operator_control_bot_section_ready",
         "no_executable_action",
         "would_submit_order",
     }
@@ -200,7 +214,7 @@ SAFE_NEGATIVE_SECRET_FIELD_NAMES = frozenset(
     }
 )
 
-SAFE_TRUE_SECRET_METADATA_FIELD_NAMES = frozenset({"no_executable_action"})
+SAFE_TRUE_SECRET_METADATA_FIELD_NAMES = frozenset({"no_executable_action", "no_executable_live_action"})
 
 SAFE_NEGATIVE_SECRET_PREFIXES = ("no_", "not_", "without_", "disabled_")
 SAFE_NEGATIVE_SECRET_SUFFIXES = (
@@ -262,6 +276,15 @@ def build_secret_boundary_policy(*, generated_at: str = GENERATED_AT) -> dict[st
         "secrets_printed": False,
         "secrets_persisted": False,
         "static_validation_only": True,
+        "sensitive_redacted_config_keys": [
+            "PMBOT_TELEGRAM_BOT_TOKEN",
+            "PMBOT_TELEGRAM_ALLOWED_OPERATOR_IDS",
+        ],
+        "sensitive_redacted_config_notes": [
+            "Telegram bot tokens are sensitive and may only be surfaced as missing or configured_redacted.",
+            "Telegram allowed operator user IDs are sensitive configuration and should be summarized by presence/count or hashed identifiers only.",
+            "Telegram operator control bot v1 is non-execution: it does not submit orders, sign payloads, connect wallets, or call authenticated endpoints.",
+        ],
     }
 
 
@@ -835,6 +858,42 @@ def validate_secret_boundary_tiny_live_canary_gonogo_gate(
     return validate_static_secret_boundary(
         value,
         artifact_type="tiny_live_canary_gonogo_gate",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_telegram_operator_control_config(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        value,
+        artifact_type="telegram_operator_control_config",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_telegram_operator_control_state(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        value,
+        artifact_type="telegram_operator_control_state",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_telegram_operator_control_summary(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        value,
+        artifact_type="telegram_operator_control_summary",
         generated_at=generated_at,
     )
 
