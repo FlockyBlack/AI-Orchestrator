@@ -1,0 +1,135 @@
+{
+  "task_id": "ORCH-PMBOT-TRADING-MVP-046C-TELEGRAM-RUNTIME-SMOKE-AND-OPERATOR-HANDOFF",
+  "status": "implemented_validated",
+  "worktree": "C:/oc046c_telegram_runtime_smoke_operator_handoff",
+  "branch": "pmbot/trading-mvp-046c-telegram-runtime-smoke-operator-handoff",
+  "base_head": "bce16c4bc96e7833217b21ec46d09df6f9f54bc0",
+  "head_before": "bce16c4bc96e7833217b21ec46d09df6f9f54bc0",
+  "head_after": "recorded_in_final_completion_report_after_commit",
+  "head_after_note": "The exact final commit SHA is recorded in the operator completion report because embedding a commit's own SHA in a committed JSON artifact would change that SHA.",
+  "pushed": true,
+  "remote_verified": true,
+  "pushed_to_master": false,
+  "changed_files": [
+    "docs/ORCH_PMBOT_TRADING_MVP_046C_TELEGRAM_RUNTIME_SMOKE_AND_OPERATOR_HANDOFF.md",
+    "docs/ORCH_PMBOT_TRADING_MVP_046C_TELEGRAM_RUNTIME_SMOKE_AND_OPERATOR_HANDOFF_RESULT.json",
+    "pm_bot/operator_runner/telegram_runtime_smoke.py",
+    "pm_bot/tests/test_telegram_runtime_smoke_046c.py"
+  ],
+  "validation": [
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_runtime_smoke_046c.py",
+      "status": "passed",
+      "result": "12 passed"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.telegram_runtime_smoke",
+      "status": "passed",
+      "result": "no-network CLI completed; current process env reported token and operator IDs missing safely; no Telegram network call requested"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_operator_ux_buttons_046.py",
+      "status": "passed",
+      "result": "12 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_operator_runtime_045.py",
+      "status": "passed",
+      "result": "14 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_operator_control_bot_043.py",
+      "status": "passed",
+      "result": "11 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_mini_app_operator_panel_044.py",
+      "status": "passed",
+      "result": "8 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests",
+      "status": "passed",
+      "result": "1681 passed"
+    },
+    {
+      "command": "python -m compileall pm_bot",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest tests/test_codex_queue_nightly_lane_batch_runner.py tests/test_codex_worktree_lane_manager.py tests/test_subagent_routing.py tests/test_codex_queue_operator_cli.py",
+      "status": "passed",
+      "result": "41 passed"
+    },
+    {
+      "command": "python -m compileall ai_orchestrator",
+      "status": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    },
+    {
+      "command": "git diff --cached --check",
+      "status": "passed"
+    }
+  ],
+  "implementation_summary": [
+    "Added a no-network PMBOT Telegram runtime smoke module at python -m pm_bot.operator_runner.telegram_runtime_smoke.",
+    "Reports Telegram token presence as configured:redacted or missing only.",
+    "Reports allowed Telegram operator IDs by configured count only.",
+    "Reports optional Mini App URL status as configured, missing, or configured_invalid without printing the URL.",
+    "Checks python-telegram-bot dependency availability without requiring Telegram network access.",
+    "Checks that pm_bot.operator_runner.telegram_operator_runtime imports and exposes the runtime entrypoint.",
+    "Lists safe Telegram commands, expected command-menu entries, and expected review-only buttons.",
+    "Adds an explicit --network-check path for Telegram getMe only, with token redaction and safe error categories.",
+    "Adds operator handoff documentation for environment checks, no-network smoke, runtime start/stop, /start and /panel behavior, Mini App URL setup, and troubleshooting."
+  ],
+  "runtime_smoke_command": "python -m pm_bot.operator_runner.telegram_runtime_smoke",
+  "optional_network_smoke_command": "python -m pm_bot.operator_runner.telegram_runtime_smoke --network-check",
+  "runtime_command": "python -m pm_bot.operator_runner.telegram_operator_runtime",
+  "env_vars_needed": [
+    "PMBOT_TELEGRAM_BOT_TOKEN",
+    "PMBOT_TELEGRAM_ALLOWED_OPERATOR_IDS",
+    "PMBOT_TELEGRAM_MINI_APP_URL optional",
+    "PMBOT_ARTIFACT_DIR optional"
+  ],
+  "safety_results": {
+    "live_trading_enabled": false,
+    "real_orders_submitted": false,
+    "wallet_integration_added": false,
+    "cryptographic_signing_added": false,
+    "wallet_signing_added": false,
+    "transaction_signing_added": false,
+    "signed_orders_or_signed_payloads_generated": false,
+    "authenticated_polymarket_endpoint_calls_added": false,
+    "external_api_calls_in_default_smoke": false,
+    "external_api_calls_in_tests": false,
+    "browser_automation_added": false,
+    "scheduler_daemon_or_background_worker_added": false,
+    "autonomous_execution_added": false,
+    "raw_telegram_token_exposed": false,
+    "raw_telegram_init_data_exposed": false,
+    "raw_operator_ids_exposed_in_smoke_output": false,
+    "telegram_pause_kill_are_local_state_markers_only": true,
+    "mini_app_review_only": true,
+    "allowed_for_live": false,
+    "canary_executable_now": false,
+    "live_execution_approved": false,
+    "real_execution_available": false,
+    "live_connector_enabled": false,
+    "order_submission_enabled": false,
+    "resolved_blocker_count": 0
+  },
+  "protected_files_touched": [],
+  "network_notes": [
+    "Default smoke performs no Telegram network call.",
+    "Real Telegram getMe is only available through the explicit --network-check flag.",
+    "The local validation shell did not contain PMBOT_TELEGRAM_BOT_TOKEN or PMBOT_TELEGRAM_ALLOWED_OPERATOR_IDS, so no real Fuzzer-bot network check was run."
+  ],
+  "remaining_risks": [
+    "Operator should run the no-network smoke in a fresh terminal that inherits the actual local Fuzzer-bot environment variables.",
+    "Operator may run --network-check manually to confirm Telegram getMe reachability; this still does not enable trading."
+  ],
+  "next_recommended_task": "ORCH-PMBOT-TRADING-MVP-046D-MERGE-TELEGRAM-RUNTIME-SMOKE-AND-OPERATOR-HANDOFF-INTO-MASTER"
+}
