@@ -1,0 +1,167 @@
+{
+  "task_id": "ORCH-PMBOT-TRADING-MVP-049B-MERGE-WALLET-SIGNING-BOUNDARY-SCAFFOLD-DRY-RUN-ONLY-INTO-MASTER",
+  "status": "completed_pushed",
+  "completed_at_utc": "2026-05-13T19:30:10Z",
+  "worktree": "C:/oc049b_wallet_signing_boundary_scaffold_merge",
+  "branch": "master",
+  "master_head_before": "dbbd66ace91ff6ee8d928783d1ec77612de7de93",
+  "source_branch": "pmbot/trading-mvp-049-wallet-signing-boundary-scaffold-dry-run-only",
+  "source_base_head_before": "c259cc44f6f056c64a7872539475ddb50645f848",
+  "source_head_expected": "95a0e8ca3973842443ecdd48e443ea911de8adde",
+  "source_head_verified": "95a0e8ca3973842443ecdd48e443ea911de8adde",
+  "merge_type": "normal_non_fast_forward_merge_commit",
+  "fast_forward_merge": false,
+  "conflicts_detected": true,
+  "conflicts_resolved": [
+    "pm_bot/operator_runner/operator_ui_panel_v1.py",
+    "pm_bot/operator_runner/paper_daily_loop.py",
+    "pm_bot/trading_core/live_canary_readiness_evidence_bundle.py",
+    "pm_bot/trading_core/live_enablement_config.py",
+    "pm_bot/trading_core/secret_boundary_policy.py"
+  ],
+  "conflict_resolution_notes": [
+    "Resolved pm_bot/operator_runner/operator_ui_panel_v1.py by preserving the 048 authenticated Polymarket connector UI scaffold summary and adding the 049 wallet signing boundary review-only summary, section, gates, and forced-false signing flags.",
+    "Resolved pm_bot/operator_runner/paper_daily_loop.py by preserving 048 authenticated connector daily-loop artifacts and adding 049 wallet signing boundary report, summary, dashboard, UI-panel, and validation artifact wiring.",
+    "Resolved pm_bot/trading_core/live_canary_readiness_evidence_bundle.py by preserving authenticated connector evidence and adding the wallet signing boundary scaffold dry-run-only evidence item and forced-false signing fields.",
+    "Resolved pm_bot/trading_core/live_enablement_config.py by preserving authenticated Polymarket credential-status safe config handling and adding wallet signing safe marker config, summary, blockers, and forced-false signing fields.",
+    "Resolved pm_bot/trading_core/secret_boundary_policy.py by preserving authenticated connector safe metadata allowances and adding wallet signing boundary safe metadata validators.",
+    "No conflict resolution added live trading, wallet integration, signing, signed payload generation, order submission, authenticated endpoint calls, network calls, browser automation, scheduler, daemon, or background worker behavior.",
+    "One narrow validation condition from 049 was restored so a missing-config preflight with requested wallet signing flags remains blocked but still validates as a valid review artifact."
+  ],
+  "master_head_after": "recorded_in_final_response_after_commit_push_verify",
+  "head_after_note": "The final master commit cannot be self-recorded inside this committed JSON artifact because embedding the commit's own SHA would change that SHA. The final response records the pushed and remotely verified master HEAD.",
+  "pushed": true,
+  "remote_verified": true,
+  "changed_files": [
+    "docs/ORCH_PMBOT_TRADING_MVP_049_WALLET_SIGNING_BOUNDARY_SCAFFOLD_DRY_RUN_ONLY.md",
+    "docs/ORCH_PMBOT_TRADING_MVP_049_WALLET_SIGNING_BOUNDARY_SCAFFOLD_DRY_RUN_ONLY_RESULT.json",
+    "docs/ORCH_PMBOT_TRADING_MVP_049B_MERGE_WALLET_SIGNING_BOUNDARY_SCAFFOLD_DRY_RUN_ONLY_INTO_MASTER_RESULT.json",
+    "pm_bot/operator_runner/operator_ui_panel_v1.py",
+    "pm_bot/operator_runner/paper_daily_loop.py",
+    "pm_bot/tests/test_wallet_signing_boundary_049.py",
+    "pm_bot/trading_core/live_canary_readiness.py",
+    "pm_bot/trading_core/live_canary_readiness_evidence_bundle.py",
+    "pm_bot/trading_core/live_canary_replay_acceptance.py",
+    "pm_bot/trading_core/live_enablement_config.py",
+    "pm_bot/trading_core/secret_boundary_policy.py",
+    "pm_bot/trading_core/tiny_live_canary_gonogo_gate.py",
+    "pm_bot/trading_core/wallet_signing_boundary.py"
+  ],
+  "validation": [
+    {
+      "command": "python -m pytest pm_bot/tests/test_wallet_signing_boundary_049.py pm_bot/tests/test_authenticated_polymarket_connector_048.py pm_bot/tests/test_live_enablement_config_047.py",
+      "status": "passed",
+      "result": "27 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_runtime_smoke_046c.py",
+      "status": "passed",
+      "result": "12 passed"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.telegram_runtime_smoke",
+      "status": "passed",
+      "result": "no-network default; token and operator IDs missing/redacted; runtime import ok; safety flags expected false ok"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_operator_ux_buttons_046.py pm_bot/tests/test_telegram_operator_runtime_045.py pm_bot/tests/test_telegram_operator_control_bot_043.py pm_bot/tests/test_telegram_mini_app_operator_panel_044.py",
+      "status": "passed",
+      "result": "45 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_risk_limit_control_plane_037.py pm_bot/tests/test_polymarket_btc_read_only_connector_038.py pm_bot/tests/test_btc_market_analysis_order_intent_039.py pm_bot/tests/test_live_credentials_auth_boundary_040.py pm_bot/tests/test_live_order_submission_boundary_041.py pm_bot/tests/test_tiny_live_canary_gonogo_gate_042.py pm_bot/tests/test_live_enablement_config_047.py pm_bot/tests/test_authenticated_polymarket_connector_048.py pm_bot/tests/test_wallet_signing_boundary_049.py pm_bot/tests/test_live_canary_readiness_029.py pm_bot/tests/test_live_canary_readiness_evidence_bundle_035.py pm_bot/tests/test_live_canary_replay_acceptance_030.py pm_bot/tests/test_tiny_live_canary_preflight_contract_manual_runbook_033.py pm_bot/tests/test_live_canary_operator_intent_packet_034.py pm_bot/tests/test_operator_ui_panel_v1_036.py pm_bot/tests/test_paper_daily_loop_022.py pm_bot/tests/test_supervised_live_readiness_evidence_bundle.py pm_bot/tests/test_local_supervised_live_readiness_dashboard.py",
+      "status": "passed",
+      "result": "256 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests",
+      "status": "passed",
+      "result": "1708 passed"
+    },
+    {
+      "command": "python -m compileall pm_bot",
+      "status": "passed",
+      "result": "compile completed"
+    },
+    {
+      "command": "python -m pytest tests/test_codex_queue_nightly_lane_batch_runner.py tests/test_codex_worktree_lane_manager.py tests/test_subagent_routing.py tests/test_codex_queue_operator_cli.py",
+      "status": "passed",
+      "result": "41 passed"
+    },
+    {
+      "command": "python -m compileall ai_orchestrator",
+      "status": "passed",
+      "result": "compile completed"
+    },
+    {
+      "command": "inline Python safety invariant check",
+      "status": "passed",
+      "result": "safety_invariants_ok"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed",
+      "result": "no whitespace errors"
+    },
+    {
+      "command": "git diff --cached --check",
+      "status": "passed",
+      "result": "no staged whitespace errors"
+    }
+  ],
+  "safety_results": {
+    "telegram_token_hardcoded": false,
+    "telegram_token_printed_or_exposed": false,
+    "telegram_init_data_exposed": false,
+    "raw_operator_ids_exposed": false,
+    "raw_secrets_exposed": false,
+    "telegram_runtime_smoke_no_network_by_default": true,
+    "optional_telegram_network_check_explicit_and_redacted": true,
+    "authenticated_polymarket_calls": false,
+    "polymarket_connector_network_calls": false,
+    "authenticated_polymarket_enabled": false,
+    "order_submission_enabled": false,
+    "live_connector_enabled": false,
+    "wallet_signing_enabled": false,
+    "signing_enabled": false,
+    "transaction_signing_enabled": false,
+    "signed_payload_generation_enabled": false,
+    "signed_order_generation_enabled": false,
+    "real_orders_submitted": false,
+    "wallet_integration": false,
+    "private_key_access": false,
+    "mnemonic_access": false,
+    "seed_phrase_access": false,
+    "wallet_file_access": false,
+    "browser_wallet_access": false,
+    "browser_automation_added": false,
+    "scheduler_added": false,
+    "daemon_added": false,
+    "background_worker_added": false,
+    "autonomous_live_trading_enabled": false,
+    "telegram_runtime_explicit_long_polling_only": true,
+    "telegram_pause_kill_local_markers_only": true,
+    "mini_app_review_only": true,
+    "allowed_for_live": false,
+    "canary_executable_now": false,
+    "live_execution_approved": false,
+    "real_execution_available": false,
+    "resolved_blocker_count": 0,
+    "live_blockers_unresolved": true,
+    "safety_ok": true
+  },
+  "preservation_notes": [
+    "048 authenticated Polymarket connector scaffold behavior was preserved: pm_bot/trading_core/authenticated_polymarket_connector.py and pm_bot/tests/test_authenticated_polymarket_connector_048.py remain present and the focused test passes.",
+    "049 wallet signing boundary scaffold behavior was integrated: pm_bot/trading_core/wallet_signing_boundary.py and pm_bot/tests/test_wallet_signing_boundary_049.py are present and the focused test passes.",
+    "The merged live enablement config includes both the authenticated connector scaffold summary and the wallet signing boundary summary while keeping every live, order, auth, wallet, signing, signed payload, signed order, and execution flag forced false.",
+    "Readiness, evidence bundle, replay acceptance, tiny canary go/no-go, operator UI, and paper daily loop surfaces preserve both 048 authenticated connector review-only evidence and 049 wallet signing boundary review-only evidence.",
+    "Telegram runtime smoke remains no-network by default, optional network check remains explicit and redacted, runtime remains explicit long polling only, pause/kill remain local markers only, and the Mini App remains review-only.",
+    "Live blockers remain unresolved with resolved_blocker_count equal to 0."
+  ],
+  "cleanup_notes": [
+    "Validation-generated tracked artifact rewrites were restored before commit.",
+    "Validation-generated __pycache__ directories were removed before commit.",
+    "Selective staging only was used; git add ., git add -A, and git add --all were not used."
+  ],
+  "next_recommended_task": "ORCH-PMBOT-TRADING-MVP-050-SIGNED-ORDER-PAYLOAD-DRY-RUN-VALIDATION-GATE"
+}
