@@ -649,6 +649,9 @@ def build_canary_dashboard_summary(
     missing_required_evidence_count: int = 0,
     unresolved_live_blocker_count: int = 0,
     latest_readiness_evidence_bundle_path: str = "",
+    tiny_live_canary_gonogo_gate_status: str = "",
+    tiny_live_canary_gonogo_overall_decision: str = "",
+    tiny_live_canary_gonogo_unresolved_blocker_count: int = 0,
     risk_control_plane_status: str = "review_only_not_live_enforced",
 ) -> dict[str, Any]:
     receipt_value = dict(receipt or {})
@@ -675,6 +678,12 @@ def build_canary_dashboard_summary(
         "missing_required_evidence_count": int(missing_required_evidence_count or 0),
         "unresolved_live_blocker_count": int(unresolved_live_blocker_count or 0),
         "latest_readiness_evidence_bundle_path": clean_text(latest_readiness_evidence_bundle_path),
+        "tiny_live_canary_gonogo_gate_status": clean_text(tiny_live_canary_gonogo_gate_status) or "not_generated",
+        "tiny_live_canary_gonogo_overall_decision": clean_text(tiny_live_canary_gonogo_overall_decision)
+        or "NO_GO",
+        "tiny_live_canary_gonogo_unresolved_blocker_count": int(
+            tiny_live_canary_gonogo_unresolved_blocker_count or 0
+        ),
         "risk_control_plane_status": clean_text(risk_control_plane_status),
         "risk_limit_control_plane_review_only": True,
         "risk_limits_not_live_enforced_against_real_connector": True,

@@ -167,6 +167,9 @@ SAFE_SECRET_METADATA_FIELD_NAMES = frozenset(
         "raw_secret_values_persisted",
         "live_order_submission_boundary_receipt_secret_boundary_validation",
         "live_order_submission_boundary_summary_secret_boundary_validation",
+        "tiny_live_canary_gonogo_gate_secret_boundary_validation",
+        "tiny_live_canary_gonogo_gate_summary_secret_boundary_validation",
+        "no_executable_action",
         "would_submit_order",
     }
 )
@@ -196,6 +199,8 @@ SAFE_NEGATIVE_SECRET_FIELD_NAMES = frozenset(
         "recovery_phrase_used",
     }
 )
+
+SAFE_TRUE_SECRET_METADATA_FIELD_NAMES = frozenset({"no_executable_action"})
 
 SAFE_NEGATIVE_SECRET_PREFIXES = ("no_", "not_", "without_", "disabled_")
 SAFE_NEGATIVE_SECRET_SUFFIXES = (
@@ -822,6 +827,18 @@ def validate_secret_boundary_live_order_submission_boundary_summary(
     )
 
 
+def validate_secret_boundary_tiny_live_canary_gonogo_gate(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        value,
+        artifact_type="tiny_live_canary_gonogo_gate",
+        generated_at=generated_at,
+    )
+
+
 def validate_secret_boundary_paper_daily_loop_auth_artifact(
     value: Mapping[str, Any],
     *,
@@ -962,7 +979,11 @@ def find_unsafe_secret_flag_paths(value: Any, path: str = "$") -> list[str]:
         for key, nested in value.items():
             key_text = clean_text(key)
             nested_path = f"{path}.{key_text}"
-            if is_safe_negative_secret_metadata_field(key_text) and nested is True:
+            if (
+                _normalize_key(key_text) not in SAFE_TRUE_SECRET_METADATA_FIELD_NAMES
+                and is_safe_negative_secret_metadata_field(key_text)
+                and nested is True
+            ):
                 paths.append(nested_path)
             paths.extend(find_unsafe_secret_flag_paths(nested, nested_path))
     elif isinstance(value, list):

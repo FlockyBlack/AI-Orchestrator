@@ -56,6 +56,9 @@ VALIDATION_STATUS_BTC_ANALYSIS_ORDER_INTENT_EVIDENCE_MISSING = (
 VALIDATION_STATUS_LIVE_ORDER_SUBMISSION_BOUNDARY_EVIDENCE_MISSING = (
     "live_order_submission_boundary_dry_run_adapter_evidence_missing"
 )
+VALIDATION_STATUS_TINY_LIVE_CANARY_GONOGO_GATE_EVIDENCE_MISSING = (
+    "tiny_live_canary_manual_execution_checklist_and_final_gonogo_gate_evidence_missing"
+)
 
 NON_EXECUTION_STATEMENTS = (
     "This readiness evidence bundle is review evidence only.",
@@ -84,6 +87,7 @@ REQUIRED_EVIDENCE_TYPES = (
     "btc_read_only_market_connector",
     "btc_market_analysis_to_order_intent_dry_run",
     "live_order_submission_boundary_dry_run_adapter",
+    "tiny_live_canary_manual_execution_checklist_and_final_gonogo_gate",
 )
 
 OPTIONAL_EVIDENCE_TYPES = (
@@ -322,6 +326,7 @@ def build_live_canary_readiness_evidence_bundle(
     btc_read_only_market_connector: Mapping[str, Any] | None = None,
     btc_analysis_order_intent_dry_run: Mapping[str, Any] | None = None,
     live_order_submission_boundary_dry_run_adapter: Mapping[str, Any] | None = None,
+    tiny_live_canary_gonogo_gate: Mapping[str, Any] | None = None,
     dry_run_receipt_references: Sequence[str] | None = None,
     result_artifact_references: Sequence[str] | None = None,
     artifact_reference_overrides: Mapping[str, str] | None = None,
@@ -350,6 +355,7 @@ def build_live_canary_readiness_evidence_bundle(
     btc_connector = dict(btc_read_only_market_connector or {})
     btc_analysis_order_intent = dict(btc_analysis_order_intent_dry_run or {})
     live_order_boundary = dict(live_order_submission_boundary_dry_run_adapter or {})
+    gonogo_gate = dict(tiny_live_canary_gonogo_gate or {})
     overrides = {clean_text(key): clean_text(value) for key, value in dict(artifact_reference_overrides or {}).items()}
 
     items = _build_evidence_items(
@@ -371,6 +377,7 @@ def build_live_canary_readiness_evidence_bundle(
         btc_read_only_market_connector=btc_connector,
         btc_analysis_order_intent_dry_run=btc_analysis_order_intent,
         live_order_submission_boundary_dry_run_adapter=live_order_boundary,
+        tiny_live_canary_gonogo_gate=gonogo_gate,
         dry_run_receipt_references=dry_run_receipt_references,
         result_artifact_references=result_artifact_references,
         artifact_reference_overrides=overrides,
@@ -450,6 +457,9 @@ def validate_live_canary_readiness_evidence_bundle(
         ),
         "live_order_submission_boundary_dry_run_adapter": (
             VALIDATION_STATUS_LIVE_ORDER_SUBMISSION_BOUNDARY_EVIDENCE_MISSING
+        ),
+        "tiny_live_canary_manual_execution_checklist_and_final_gonogo_gate": (
+            VALIDATION_STATUS_TINY_LIVE_CANARY_GONOGO_GATE_EVIDENCE_MISSING
         ),
     }
     statuses.extend(status_by_missing_type[item] for item in missing_required if item in status_by_missing_type)
@@ -737,6 +747,7 @@ def _build_evidence_items(
     btc_read_only_market_connector: Mapping[str, Any],
     btc_analysis_order_intent_dry_run: Mapping[str, Any],
     live_order_submission_boundary_dry_run_adapter: Mapping[str, Any],
+    tiny_live_canary_gonogo_gate: Mapping[str, Any],
     dry_run_receipt_references: Sequence[str] | None,
     result_artifact_references: Sequence[str] | None,
     artifact_reference_overrides: Mapping[str, str],
@@ -1114,6 +1125,45 @@ def _build_evidence_items(
             "live_execution_approved": False,
             "real_execution_available": False,
             "canary_executable_now": False,
+            "live_connector_enabled": False,
+        },
+        _item(
+            "tiny_live_canary_manual_execution_checklist_and_final_gonogo_gate",
+            "tiny_live_canary_gonogo_gate",
+            _override_or_reference(
+                artifact_reference_overrides,
+                "tiny_live_canary_manual_execution_checklist_and_final_gonogo_gate",
+                tiny_live_canary_gonogo_gate,
+                ("packet_id", "summary_id", "gate_name", "status"),
+                "tiny_live_canary_gonogo_gate-042:review_only_no_go",
+            ),
+            clean_text(
+                tiny_live_canary_gonogo_gate.get("status")
+                or tiny_live_canary_gonogo_gate.get("review_only_status")
+                or "review_only_no_go"
+            ),
+            "Final manual execution checklist and go/no-go gate is review-only, non-executable, and cannot approve live trading.",
+            review_ready=(
+                tiny_live_canary_gonogo_gate.get("execution_enabling") is not True
+                and tiny_live_canary_gonogo_gate.get("final_live_enablement_present") is not True
+                and tiny_live_canary_gonogo_gate.get("live_execution_approved") is not True
+                and tiny_live_canary_gonogo_gate.get("allowed_for_live") is not True
+                and tiny_live_canary_gonogo_gate.get("canary_executable_now") is not True
+                and tiny_live_canary_gonogo_gate.get("order_submission_enabled") is not True
+                and tiny_live_canary_gonogo_gate.get("real_execution_available") is not True
+                and tiny_live_canary_gonogo_gate.get("live_connector_enabled") is not True
+            ),
+        )
+        | {
+            "review_only": True,
+            "execution_enabling": False,
+            "live_approval": False,
+            "final_live_enablement_present": False,
+            "live_execution_approved": False,
+            "allowed_for_live": False,
+            "canary_executable_now": False,
+            "order_submission_enabled": False,
+            "real_execution_available": False,
             "live_connector_enabled": False,
         },
     ]

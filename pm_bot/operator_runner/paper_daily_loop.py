@@ -58,6 +58,10 @@ from pm_bot.trading_core.live_order_submission_boundary import (
     build_live_order_submission_boundary_receipt,
     summarize_live_order_submission_boundary_receipt,
 )
+from pm_bot.trading_core.tiny_live_canary_gonogo_gate import (
+    build_tiny_live_canary_gonogo_gate,
+    summarize_tiny_live_canary_gonogo_gate,
+)
 from pm_bot.trading_core.live_connector_audit_replay import (
     build_live_connector_audit_replay,
     render_live_connector_audit_replay_markdown,
@@ -271,6 +275,7 @@ class PaperDailyLoopResult:
     btc_order_intent_dry_run_path: str
     btc_risk_decision_path: str
     live_order_submission_boundary_path: str
+    tiny_live_canary_gonogo_gate_path: str
     tiny_live_canary_preflight_contract_path: str
     tiny_live_canary_manual_runbook_path: str
     tiny_live_canary_preflight_result_path: str
@@ -635,6 +640,9 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
     latest_live_order_submission_boundary_path = (
         normalize_path(paths["live_order_submission_boundary"]) if active_config.write_artifacts else ""
     )
+    latest_tiny_live_canary_gonogo_gate_path = (
+        normalize_path(paths["tiny_live_canary_gonogo_gate"]) if active_config.write_artifacts else ""
+    )
     live_credentials_auth_boundary_config = build_default_live_credentials_boundary_config(
         generated_at=generated_at,
     )
@@ -728,6 +736,31 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         latest_live_order_submission_boundary_path=latest_live_order_submission_boundary_path,
         generated_at=generated_at,
     )
+    provisional_tiny_live_canary_gonogo_gate = build_tiny_live_canary_gonogo_gate(
+        market_id=clean_text(btc_market_snapshot_summary.get("market_id")),
+        market_slug=clean_text(btc_market_snapshot_summary.get("market_slug")),
+        btc_market_snapshot_summary=btc_market_snapshot_summary,
+        btc_analysis_summary=btc_analysis_order_intent_summary,
+        dry_run_order_intent_summary=btc_analysis_order_intent_summary,
+        risk_limit_summary=risk_control_plane_summary,
+        auth_boundary_summary=live_credentials_auth_boundary_summary,
+        order_submission_boundary_summary=live_order_submission_boundary_summary,
+        operator_signed_intent_summary=summarize_live_canary_operator_intent_packet(
+            operator_intent_packet,
+            latest_operator_intent_packet_path=latest_operator_intent_packet_path,
+            generated_at=generated_at,
+        ),
+        readiness_evidence_summary={},
+        kill_switch_summary=tiny_live_canary_kill_switch_validation,
+        blocker_matrix=live_connector_blocker_matrix,
+        latest_tiny_live_canary_gonogo_gate_path=latest_tiny_live_canary_gonogo_gate_path,
+        generated_at=generated_at,
+    )
+    provisional_tiny_live_canary_gonogo_gate_summary = summarize_tiny_live_canary_gonogo_gate(
+        provisional_tiny_live_canary_gonogo_gate,
+        latest_tiny_live_canary_gonogo_gate_path=latest_tiny_live_canary_gonogo_gate_path,
+        generated_at=generated_at,
+    )
     readiness_evidence_bundle = build_live_canary_readiness_evidence_bundle(
         disabled_connector_status=build_disabled_connector_passive_status(
             result=disabled_connector_result,
@@ -753,6 +786,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         btc_read_only_market_connector=btc_read_only_connector_summary,
         btc_analysis_order_intent_dry_run=btc_analysis_order_intent_summary,
         live_order_submission_boundary_dry_run_adapter=live_order_submission_boundary_summary,
+        tiny_live_canary_gonogo_gate=provisional_tiny_live_canary_gonogo_gate_summary,
         dry_run_receipt_references=[canary_dry_run_receipt.get("receipt_id", "")],
         result_artifact_references=[
             normalize_path(paths["result"]) if active_config.write_artifacts else "paper_daily_loop_result:current-run",
@@ -794,12 +828,40 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
             "btc_read_only_market_connector": latest_btc_market_snapshot_path,
             "btc_market_analysis_to_order_intent_dry_run": latest_btc_order_intent_path,
             "live_order_submission_boundary_dry_run_adapter": latest_live_order_submission_boundary_path,
+            "tiny_live_canary_manual_execution_checklist_and_final_gonogo_gate": (
+                latest_tiny_live_canary_gonogo_gate_path
+            ),
         },
         generated_at=generated_at,
     )
     readiness_evidence_bundle_summary = summarize_live_canary_readiness_evidence_bundle(
         readiness_evidence_bundle,
         latest_readiness_evidence_bundle_path=latest_readiness_evidence_bundle_path,
+        generated_at=generated_at,
+    )
+    tiny_live_canary_gonogo_gate = build_tiny_live_canary_gonogo_gate(
+        market_id=clean_text(btc_market_snapshot_summary.get("market_id")),
+        market_slug=clean_text(btc_market_snapshot_summary.get("market_slug")),
+        btc_market_snapshot_summary=btc_market_snapshot_summary,
+        btc_analysis_summary=btc_analysis_order_intent_summary,
+        dry_run_order_intent_summary=btc_analysis_order_intent_summary,
+        risk_limit_summary=risk_control_plane_summary,
+        auth_boundary_summary=live_credentials_auth_boundary_summary,
+        order_submission_boundary_summary=live_order_submission_boundary_summary,
+        operator_signed_intent_summary=summarize_live_canary_operator_intent_packet(
+            operator_intent_packet,
+            latest_operator_intent_packet_path=latest_operator_intent_packet_path,
+            generated_at=generated_at,
+        ),
+        readiness_evidence_summary=readiness_evidence_bundle_summary,
+        kill_switch_summary=tiny_live_canary_kill_switch_validation,
+        blocker_matrix=live_connector_blocker_matrix,
+        latest_tiny_live_canary_gonogo_gate_path=latest_tiny_live_canary_gonogo_gate_path,
+        generated_at=generated_at,
+    )
+    tiny_live_canary_gonogo_gate_summary = summarize_tiny_live_canary_gonogo_gate(
+        tiny_live_canary_gonogo_gate,
+        latest_tiny_live_canary_gonogo_gate_path=latest_tiny_live_canary_gonogo_gate_path,
         generated_at=generated_at,
     )
     for review_artifact in (operator_live_approval_packet, operator_intent_packet, live_connector_audit_replay):
@@ -902,6 +964,8 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         btc_analysis_order_intent_summary=btc_analysis_order_intent_summary,
         live_order_submission_boundary=live_order_submission_boundary,
         live_order_submission_boundary_summary=live_order_submission_boundary_summary,
+        tiny_live_canary_gonogo_gate=tiny_live_canary_gonogo_gate,
+        tiny_live_canary_gonogo_gate_summary=tiny_live_canary_gonogo_gate_summary,
         latest_disabled_connector_audit_path=(
             normalize_path(paths["disabled_connector_audit"]) if active_config.write_artifacts else ""
         ),
@@ -925,6 +989,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         latest_btc_order_intent_path=latest_btc_order_intent_path,
         latest_btc_risk_decision_path=latest_btc_risk_decision_path,
         latest_live_order_submission_boundary_path=latest_live_order_submission_boundary_path,
+        latest_tiny_live_canary_gonogo_gate_path=latest_tiny_live_canary_gonogo_gate_path,
         source_evidence_refresh_ledger=source_evidence_refresh_ledger,
         generated_at=generated_at,
     )
@@ -940,6 +1005,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         "btc_order_intent_dry_run": latest_btc_order_intent_path,
         "btc_risk_decision": latest_btc_risk_decision_path,
         "live_order_submission_boundary": latest_live_order_submission_boundary_path,
+        "tiny_live_canary_gonogo_gate": latest_tiny_live_canary_gonogo_gate_path,
         "operator_live_approval_packet": (
             normalize_path(paths["operator_live_approval_packet"]) if active_config.write_artifacts else ""
         ),
@@ -964,6 +1030,8 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         btc_analysis_order_intent_summary=btc_analysis_order_intent_summary,
         live_order_submission_boundary_receipt=live_order_submission_boundary,
         live_order_submission_boundary_summary=live_order_submission_boundary_summary,
+        tiny_live_canary_gonogo_gate=tiny_live_canary_gonogo_gate,
+        tiny_live_canary_gonogo_gate_summary=tiny_live_canary_gonogo_gate_summary,
         live_credentials_auth_boundary_summary=live_credentials_auth_boundary_summary,
         risk_limits=limits,
         risk_prep_config=risk_prep_config,
@@ -1031,6 +1099,8 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
             btc_analysis_order_intent_summary,
             live_order_submission_boundary,
             live_order_submission_boundary_summary,
+            tiny_live_canary_gonogo_gate,
+            tiny_live_canary_gonogo_gate_summary,
             live_credentials_auth_boundary,
             live_credentials_auth_boundary_summary,
             risk_limit_policy,
@@ -1333,6 +1403,23 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         and operator_ui_panel_v1.get("live_credentials_auth_boundary_summary", {}).get("allowed_for_live") is False
         and dashboard.get("live_canary_readiness_summary", {}).get("dry_run_only_assertion")
         == "This checklist does not make live execution available."
+        and tiny_live_canary_gonogo_gate.get("status") == "NO_GO_UNRESOLVED_BLOCKERS"
+        and tiny_live_canary_gonogo_gate.get("overall_decision") == "NO_GO"
+        and tiny_live_canary_gonogo_gate.get("explicit_human_approval_required") is True
+        and tiny_live_canary_gonogo_gate.get("final_live_enablement_present") is False
+        and tiny_live_canary_gonogo_gate.get("live_execution_approved") is False
+        and tiny_live_canary_gonogo_gate.get("allowed_for_live") is False
+        and tiny_live_canary_gonogo_gate.get("canary_executable_now") is False
+        and tiny_live_canary_gonogo_gate.get("order_submission_enabled") is False
+        and tiny_live_canary_gonogo_gate.get("real_execution_available") is False
+        and tiny_live_canary_gonogo_gate.get("live_connector_enabled") is False
+        and tiny_live_canary_gonogo_gate.get("resolved_blocker_count") == 0
+        and tiny_live_canary_gonogo_gate_summary.get("no_executable_action") is True
+        and dashboard.get("tiny_live_canary_gonogo_gate_summary", {}).get("status")
+        == "NO_GO_UNRESOLVED_BLOCKERS"
+        and dashboard.get("tiny_live_canary_gonogo_gate_summary", {}).get("overall_decision") == "NO_GO"
+        and dashboard.get("operator_ui_panel_v1_summary", {}).get("tiny_live_canary_gonogo_no_executable_action")
+        is True
         and safety_scan["safety_ok"] is True
     )
     result = PaperDailyLoopResult(
@@ -1392,6 +1479,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         btc_order_intent_dry_run_path=latest_btc_order_intent_path,
         btc_risk_decision_path=latest_btc_risk_decision_path,
         live_order_submission_boundary_path=latest_live_order_submission_boundary_path,
+        tiny_live_canary_gonogo_gate_path=latest_tiny_live_canary_gonogo_gate_path,
         tiny_live_canary_preflight_contract_path=(
             normalize_path(paths["tiny_live_canary_preflight_contract"]) if active_config.write_artifacts else ""
         ),
@@ -1464,6 +1552,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
             btc_order_intent_dry_run=btc_order_intent_dry_run,
             btc_risk_decision=latest_risk_limit_decision,
             live_order_submission_boundary=live_order_submission_boundary,
+            tiny_live_canary_gonogo_gate=tiny_live_canary_gonogo_gate,
             tiny_live_canary_preflight_contract=tiny_live_canary_preflight_contract,
             tiny_live_canary_manual_runbook=tiny_live_canary_manual_runbook,
             tiny_live_canary_preflight_result=tiny_live_canary_preflight_result,
@@ -1526,6 +1615,7 @@ def _daily_paths(output_dir: Path) -> dict[str, Path]:
         "btc_order_intent_dry_run": output_dir / "btc_order_intent_dry_run_039.json",
         "btc_risk_decision": output_dir / "btc_risk_decision_039.json",
         "live_order_submission_boundary": output_dir / "live_order_submission_boundary_041.json",
+        "tiny_live_canary_gonogo_gate": output_dir / "tiny_live_canary_gonogo_gate_042.json",
         "tiny_live_canary_preflight_contract": output_dir / "tiny_live_canary_preflight_contract.json",
         "tiny_live_canary_preflight_contract_md": output_dir / "tiny_live_canary_preflight_contract.md",
         "tiny_live_canary_manual_runbook": output_dir / "tiny_live_canary_manual_runbook.json",
@@ -2048,6 +2138,8 @@ def _build_daily_dashboard(
     btc_analysis_order_intent_summary: Mapping[str, Any],
     live_order_submission_boundary: Mapping[str, Any],
     live_order_submission_boundary_summary: Mapping[str, Any],
+    tiny_live_canary_gonogo_gate: Mapping[str, Any],
+    tiny_live_canary_gonogo_gate_summary: Mapping[str, Any],
     latest_disabled_connector_audit_path: str,
     latest_audit_replay_path: str,
     latest_operator_packet_path: str,
@@ -2061,6 +2153,7 @@ def _build_daily_dashboard(
     latest_btc_order_intent_path: str,
     latest_btc_risk_decision_path: str,
     latest_live_order_submission_boundary_path: str,
+    latest_tiny_live_canary_gonogo_gate_path: str,
     source_evidence_refresh_ledger: Mapping[str, Any],
     generated_at: str,
 ) -> dict[str, Any]:
@@ -2193,6 +2286,13 @@ def _build_daily_dashboard(
             ),
             "live_order_submission_boundary_blocked_count": (
                 1 if live_order_submission_boundary.get("status") == "blocked" else 0
+            ),
+            "tiny_live_canary_gonogo_gate_count": 1 if tiny_live_canary_gonogo_gate else 0,
+            "tiny_live_canary_gonogo_no_go_reason_count": int(
+                tiny_live_canary_gonogo_gate_summary.get("no_go_reason_count", 0) or 0
+            ),
+            "tiny_live_canary_gonogo_unresolved_blocker_count": int(
+                tiny_live_canary_gonogo_gate_summary.get("unresolved_blocker_count", 0) or 0
             ),
             "readiness_evidence_item_count": int(readiness_evidence_bundle.get("evidence_item_count", 0) or 0),
             "readiness_evidence_missing_required_count": int(
@@ -2376,6 +2476,9 @@ def _build_daily_dashboard(
             "review_only": True,
         },
         "latest_live_order_submission_boundary_path": clean_text(latest_live_order_submission_boundary_path),
+        "tiny_live_canary_gonogo_gate": dict(tiny_live_canary_gonogo_gate),
+        "tiny_live_canary_gonogo_gate_summary": dict(tiny_live_canary_gonogo_gate_summary),
+        "latest_tiny_live_canary_gonogo_gate_path": clean_text(latest_tiny_live_canary_gonogo_gate_path),
         "btc_market_section_feed": {
             "btc_market_connector_status": btc_market_snapshot_summary.get("btc_market_connector_status"),
             "market_id": btc_market_snapshot_summary.get("market_id"),
@@ -2503,6 +2606,13 @@ def _build_daily_dashboard(
                     readiness_evidence_bundle.get("unresolved_live_blocker_count", 0) or 0
                 ),
                 latest_readiness_evidence_bundle_path=latest_readiness_evidence_bundle_path,
+                tiny_live_canary_gonogo_gate_status=tiny_live_canary_gonogo_gate_summary.get("status"),
+                tiny_live_canary_gonogo_overall_decision=tiny_live_canary_gonogo_gate_summary.get(
+                    "overall_decision"
+                ),
+                tiny_live_canary_gonogo_unresolved_blocker_count=tiny_live_canary_gonogo_gate_summary.get(
+                    "unresolved_blocker_count"
+                ),
                 risk_control_plane_status=clean_text(
                     risk_control_plane_summary.get("risk_control_plane_status")
                 ),
@@ -2720,6 +2830,7 @@ def _build_daily_dashboard(
             "Review the passive dry-run execution receipts before any future execution-layer design work.",
             "Review the live connector audit replay and operator review packet as non-approval artifacts only.",
             "Review the operator intent packet as dry-run human acknowledgement only, not live approval.",
+            "Review the tiny live canary go/no-go gate as final manual review only; it exposes no executable action.",
             "Review source evidence freshness and missing evidence gaps before interpreting paper strategy output.",
             "Review the paper strategy evaluation ledger before interpreting paper readiness.",
             "Add saved local outcome resolution evidence before evaluating paper performance.",
@@ -2729,7 +2840,7 @@ def _build_daily_dashboard(
             "Keep this as an explicit one-shot local command, not a scheduler or autonomous loop.",
         ],
         "next_operator_action": (
-            "Review risk decisions, strategy ledger, source evidence gaps, unresolved exposure, risk-prep config, and missing outcome evidence."
+            "Review risk decisions, strategy ledger, source evidence gaps, unresolved exposure, risk-prep config, go/no-go gate, and missing outcome evidence."
         ),
         "paper_only": True,
         "source_paths": local_source_paths(),
@@ -2894,6 +3005,7 @@ def _write_daily_artifacts(
     btc_order_intent_dry_run: Mapping[str, Any],
     btc_risk_decision: Mapping[str, Any],
     live_order_submission_boundary: Mapping[str, Any],
+    tiny_live_canary_gonogo_gate: Mapping[str, Any],
     tiny_live_canary_preflight_contract: Mapping[str, Any],
     tiny_live_canary_manual_runbook: Mapping[str, Any],
     tiny_live_canary_preflight_result: Mapping[str, Any],
@@ -2961,6 +3073,7 @@ def _write_daily_artifacts(
     write_json(paths["btc_order_intent_dry_run"], btc_order_intent_dry_run)
     write_json(paths["btc_risk_decision"], btc_risk_decision)
     write_json(paths["live_order_submission_boundary"], live_order_submission_boundary)
+    write_json(paths["tiny_live_canary_gonogo_gate"], tiny_live_canary_gonogo_gate)
     write_json(paths["tiny_live_canary_preflight_contract"], tiny_live_canary_preflight_contract)
     write_text(
         paths["tiny_live_canary_preflight_contract_md"],
@@ -3076,6 +3189,8 @@ def _render_daily_dashboard_markdown(dashboard: Mapping[str, Any]) -> str:
         f"- Live order boundary artifacts: {counts.get('live_order_submission_boundary_count')}",
         f"- Live order boundary review-ready: {counts.get('live_order_submission_boundary_review_ready_count')}",
         f"- Live order boundary blocked: {counts.get('live_order_submission_boundary_blocked_count')}",
+        f"- Tiny live canary go/no-go gates: {counts.get('tiny_live_canary_gonogo_gate_count')}",
+        f"- Tiny go/no-go unresolved blockers: {counts.get('tiny_live_canary_gonogo_unresolved_blocker_count')}",
         f"- Source evidence records: {counts.get('source_evidence_refresh_record_count')}",
         f"- Source evidence gaps: {counts.get('source_evidence_gap_count')}",
         "",
@@ -3117,6 +3232,7 @@ def _render_daily_dashboard_markdown(dashboard: Mapping[str, Any]) -> str:
     readiness_evidence = dict(dashboard.get("readiness_evidence_bundle_summary", {}))
     live_auth = dict(dashboard.get("live_credentials_auth_boundary_summary", {}))
     live_order_boundary = dict(dashboard.get("live_order_submission_boundary_summary", {}))
+    tiny_gonogo = dict(dashboard.get("tiny_live_canary_gonogo_gate_summary", {}))
     operator_ui_panel = dict(dashboard.get("operator_ui_panel_v1_summary", {}))
     operator_ui_panel_paths = dict(dashboard.get("operator_ui_panel_v1_paths", {}))
     risk_prep = dict(dashboard.get("risk_prep_config_status", {}))
@@ -3295,6 +3411,22 @@ def _render_daily_dashboard_markdown(dashboard: Mapping[str, Any]) -> str:
             *bullet_lines(str(item) for item in live_order_boundary.get("top_refusal_reasons", [])),
             "- Blocker reasons:",
             *bullet_lines(str(item) for item in live_order_boundary.get("top_blocker_reasons", [])),
+            "",
+            "## Tiny Live Canary Go/No-Go Gate",
+            "",
+            f"- Status: `{tiny_gonogo.get('status')}`",
+            f"- Overall decision: `{tiny_gonogo.get('overall_decision')}`",
+            f"- Review-only status: `{tiny_gonogo.get('review_only_status')}`",
+            f"- Manual checklist items: {tiny_gonogo.get('manual_execution_checklist_count')}",
+            f"- Final pre-live checklist items: {tiny_gonogo.get('final_pre_live_checklist_count')}",
+            f"- No-go reasons: {tiny_gonogo.get('no_go_reason_count')}",
+            f"- Unresolved blockers: {tiny_gonogo.get('unresolved_blocker_count')}",
+            f"- Resolved blockers: {tiny_gonogo.get('resolved_blocker_count')}",
+            f"- Explicit human approval required: `{str(tiny_gonogo.get('explicit_human_approval_required')).lower()}`",
+            f"- No executable action: `{str(tiny_gonogo.get('no_executable_action')).lower()}`",
+            f"- Latest go/no-go packet: `{tiny_gonogo.get('latest_tiny_live_canary_gonogo_gate_path')}`",
+            "- Top no-go reasons:",
+            *bullet_lines(str(item) for item in tiny_gonogo.get("top_no_go_reasons", [])),
             "",
             "## BTC Read-Only Market Connector",
             "",
@@ -3560,6 +3692,7 @@ def _render_daily_run_report(
             f"- BTC dry-run order intent: `{result.get('btc_order_intent_dry_run_path')}`",
             f"- BTC risk decision: `{result.get('btc_risk_decision_path')}`",
             f"- Live order submission boundary: `{result.get('live_order_submission_boundary_path')}`",
+            f"- Tiny live canary go/no-go gate: `{result.get('tiny_live_canary_gonogo_gate_path')}`",
             f"- Operator UI panel JSON: `{result.get('operator_ui_panel_json_path')}`",
             f"- Operator UI panel Markdown: `{result.get('operator_ui_panel_md_path')}`",
             f"- Operator UI panel HTML: `{result.get('operator_ui_panel_html_path')}`",

@@ -754,6 +754,15 @@ LIVE_CONNECTOR_BLOCKERS = (
         "current_status": "non_executable",
         "why_it_blocks_live_execution": "The 041 boundary exposes no executable UI action, connector call, wallet access, signing path, or order submission.",
     },
+    {
+        "blocker_id": "PMBOT-LIVE-BLOCKER-065",
+        "blocker_category": "tiny_live_canary_gonogo_gate_review_only",
+        "blocker_name": "tiny live canary go/no-go gate is review-only",
+        "severity": "critical",
+        "required_future_task": "Merge the 042 review-only gate, then use a separate future live-enabling task before any tiny canary execution.",
+        "current_status": "review_only",
+        "why_it_blocks_live_execution": "The final go/no-go gate consolidates evidence for operator review but deliberately returns NO_GO while blockers remain unresolved.",
+    },
 )
 
 
@@ -1140,6 +1149,7 @@ def build_operator_live_canary_checklist(*, generated_at: str = GENERATED_AT) ->
             "pm_bot/trading_core/artifacts/night_020_021/tiny_live_canary_manual_runbook.json",
             "pm_bot/trading_core/artifacts/night_020_021/live_canary_operator_intent_packet.json",
             "pm_bot/trading_core/artifacts/night_020_021/live_canary_readiness_evidence_bundle.json",
+            "pm_bot/trading_core/artifacts/night_020_021/tiny_live_canary_gonogo_gate_042.json",
         ],
         "validations_that_must_pass": [
             "canary readiness dry-run packet validation",
@@ -1150,6 +1160,7 @@ def build_operator_live_canary_checklist(*, generated_at: str = GENERATED_AT) ->
             "manual runbook includes non-execution, kill-switch, abort, and evidence sections",
             "operator intent packet validates as dry-run human acknowledgement only",
             "readiness evidence bundle validates as review-only and not live approval",
+            "tiny live canary go/no-go gate validates as review-only NO_GO while blockers remain unresolved",
             "forbidden field scan reports no unsafe field names in relevant PMBOT live-prep artifacts",
             "pytest pm_bot/tests",
             "python -m compileall pm_bot",
@@ -1812,6 +1823,8 @@ def _is_relevant_canary_live_prep_artifact(path: Path) -> bool:
         "tiny_live_canary_preflight_result",
         "live_canary_operator_intent_packet",
         "live_canary_readiness_evidence_bundle",
+        "tiny_live_canary_gonogo_gate",
+        "tiny_live_canary_gonogo_gate_042",
     )
     return normalized.endswith(".json") and any(name in normalized for name in relevant_names)
 

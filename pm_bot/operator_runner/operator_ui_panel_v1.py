@@ -30,6 +30,7 @@ from pm_bot.trading_core.live_order_submission_boundary import (
     BOUNDARY_NAME as LIVE_ORDER_SUBMISSION_BOUNDARY_NAME,
     summarize_live_order_submission_boundary_receipt,
 )
+from pm_bot.trading_core.tiny_live_canary_gonogo_gate import summarize_tiny_live_canary_gonogo_gate
 from pm_bot.trading_core.risk_limit_control_plane import (
     build_default_risk_limit_policy,
     build_risk_control_plane_summary,
@@ -54,6 +55,9 @@ OPERATOR_UI_PANEL_BTC_ANALYSIS_SUMMARY_CONTRACT = "pmbot_operator_ui_panel_btc_a
 OPERATOR_UI_PANEL_LIVE_AUTH_SUMMARY_CONTRACT = "pmbot_operator_ui_panel_live_credentials_auth_summary.v1"
 OPERATOR_UI_PANEL_LIVE_ORDER_BOUNDARY_SUMMARY_CONTRACT = (
     "pmbot_operator_ui_panel_live_order_submission_boundary_summary.v1"
+)
+OPERATOR_UI_PANEL_TINY_CANARY_GONOGO_SUMMARY_CONTRACT = (
+    "pmbot_operator_ui_panel_tiny_live_canary_gonogo_summary.v1"
 )
 OPERATOR_UI_PANEL_VALIDATION_CONTRACT = "pmbot_operator_ui_panel_validation.v1"
 
@@ -88,6 +92,7 @@ REQUIRED_SECTION_IDS = (
     "btc_market_connector",
     "btc_analysis_order_intent",
     "live_order_submission_boundary",
+    "tiny_live_canary_gonogo_gate",
     "risk_control_plane",
     "risk_limits",
     "kill_switch",
@@ -483,6 +488,7 @@ class OperatorUIPanelV1:
     btc_market_summary: Mapping[str, Any]
     btc_analysis_order_intent_summary: Mapping[str, Any]
     live_order_submission_boundary_summary: Mapping[str, Any]
+    tiny_live_canary_gonogo_gate_summary: Mapping[str, Any]
     risk_control_plane_summary: Mapping[str, Any]
     risk_limit_summary: Mapping[str, Any]
     kill_switch_summary: Mapping[str, Any]
@@ -505,6 +511,7 @@ class OperatorUIPanelV1:
         value["btc_market_summary"] = dict(self.btc_market_summary)
         value["btc_analysis_order_intent_summary"] = dict(self.btc_analysis_order_intent_summary)
         value["live_order_submission_boundary_summary"] = dict(self.live_order_submission_boundary_summary)
+        value["tiny_live_canary_gonogo_gate_summary"] = dict(self.tiny_live_canary_gonogo_gate_summary)
         value["risk_control_plane_summary"] = dict(self.risk_control_plane_summary)
         value["risk_limit_summary"] = dict(self.risk_limit_summary)
         value["kill_switch_summary"] = dict(self.kill_switch_summary)
@@ -526,6 +533,7 @@ class OperatorUIPanelV1:
         value["btc_market_section_ready"] = True
         value["btc_analysis_order_intent_section_ready"] = True
         value["live_order_submission_boundary_section_ready"] = True
+        value["tiny_live_canary_gonogo_gate_section_ready"] = True
         value["static_html_render_ready"] = True
         value["markdown_render_ready"] = True
         value["json_render_ready"] = True
@@ -551,6 +559,8 @@ def build_operator_ui_panel_v1(
     btc_analysis_order_intent_summary: Mapping[str, Any] | None = None,
     live_order_submission_boundary_receipt: Mapping[str, Any] | None = None,
     live_order_submission_boundary_summary: Mapping[str, Any] | None = None,
+    tiny_live_canary_gonogo_gate: Mapping[str, Any] | None = None,
+    tiny_live_canary_gonogo_gate_summary: Mapping[str, Any] | None = None,
     live_credentials_auth_boundary_summary: Mapping[str, Any] | None = None,
     risk_limits: Mapping[str, Any] | None = None,
     risk_prep_config: Mapping[str, Any] | None = None,
@@ -632,6 +642,17 @@ def build_operator_ui_panel_v1(
         or clean_text(dashboard_value.get("latest_live_order_submission_boundary_path")),
         generated_at=generated_at,
     )
+    gonogo_summary = _build_tiny_live_canary_gonogo_gate_summary(
+        tiny_live_canary_gonogo_gate=tiny_live_canary_gonogo_gate
+        or dashboard_value.get("tiny_live_canary_gonogo_gate", {}),
+        tiny_live_canary_gonogo_gate_summary=(
+            tiny_live_canary_gonogo_gate_summary
+            or dashboard_value.get("tiny_live_canary_gonogo_gate_summary", {})
+        ),
+        latest_tiny_live_canary_gonogo_gate_path=paths.get("tiny_live_canary_gonogo_gate", "")
+        or clean_text(dashboard_value.get("latest_tiny_live_canary_gonogo_gate_path")),
+        generated_at=generated_at,
+    )
     live_auth_summary = _build_live_credentials_auth_boundary_summary(
         live_credentials_auth_boundary_summary=(
             live_credentials_auth_boundary_summary
@@ -688,6 +709,7 @@ def build_operator_ui_panel_v1(
         btc_market=btc_market_summary,
         btc_analysis_order_intent=btc_analysis_summary,
         live_order_submission_boundary=live_order_boundary_summary,
+        tiny_live_canary_gonogo_gate=gonogo_summary,
         risk_control=risk_control_summary,
         risk=risk_summary,
         kill_switch=kill_switch_summary,
@@ -709,6 +731,7 @@ def build_operator_ui_panel_v1(
             "btc_market": btc_market_summary,
             "btc_analysis_order_intent": btc_analysis_summary,
             "live_order_submission_boundary": live_order_boundary_summary,
+            "tiny_live_canary_gonogo_gate": gonogo_summary,
             "risk_control": risk_control_summary,
             "risk": risk_summary,
             "kill_switch": kill_switch_summary,
@@ -726,6 +749,7 @@ def build_operator_ui_panel_v1(
         btc_market_summary=btc_market_summary,
         btc_analysis_order_intent_summary=btc_analysis_summary,
         live_order_submission_boundary_summary=live_order_boundary_summary,
+        tiny_live_canary_gonogo_gate_summary=gonogo_summary,
         risk_control_plane_summary=risk_control_summary,
         risk_limit_summary=risk_summary,
         kill_switch_summary=kill_switch_summary,
@@ -873,6 +897,18 @@ def validate_operator_ui_panel_v1(
         errors.append("live_order_submission_boundary_summary.boundary_is_not_live_approval must be true")
     if live_order_boundary_summary.get("receipt_is_not_order_submission") is not True:
         errors.append("live_order_submission_boundary_summary.receipt_is_not_order_submission must be true")
+
+    gonogo_summary = dict(panel_value.get("tiny_live_canary_gonogo_gate_summary", {}))
+    if gonogo_summary.get("no_executable_action") is not True:
+        errors.append("tiny_live_canary_gonogo_gate_summary.no_executable_action must be true")
+        statuses.append("gonogo_gate_executable_action_detected")
+    if gonogo_summary.get("explicit_human_approval_required") is not True:
+        errors.append("tiny_live_canary_gonogo_gate_summary.explicit_human_approval_required must be true")
+        statuses.append("gonogo_gate_missing_human_approval_requirement")
+    for field in FORCED_FALSE_EXECUTION_FIELDS:
+        if gonogo_summary.get(field) is not False:
+            errors.append(f"tiny_live_canary_gonogo_gate_summary.{field} must be false")
+            statuses.append("gonogo_gate_execution_flag_detected")
 
     kill_validation = validate_secret_boundary_operator_ui_panel_kill_switch_summary(
         dict(panel_value.get("kill_switch_summary", {})),
@@ -1056,6 +1092,23 @@ def summarize_operator_ui_panel_v1(panel: Mapping[str, Any]) -> dict[str, Any]:
             panel.get("live_order_submission_boundary_summary", {})
         ).get("order_submission_enabled")
         is True,
+        "tiny_live_canary_gonogo_gate_section_ready": dict(
+            panel.get("tiny_live_canary_gonogo_gate_summary", {})
+        ).get("tiny_live_canary_gonogo_gate_section_ready")
+        is True,
+        "tiny_live_canary_gonogo_gate_status": dict(
+            panel.get("tiny_live_canary_gonogo_gate_summary", {})
+        ).get("status"),
+        "tiny_live_canary_gonogo_overall_decision": dict(
+            panel.get("tiny_live_canary_gonogo_gate_summary", {})
+        ).get("overall_decision"),
+        "tiny_live_canary_gonogo_no_executable_action": dict(
+            panel.get("tiny_live_canary_gonogo_gate_summary", {})
+        ).get("no_executable_action")
+        is True,
+        "tiny_live_canary_gonogo_unresolved_blocker_count": dict(
+            panel.get("tiny_live_canary_gonogo_gate_summary", {})
+        ).get("unresolved_blocker_count"),
         "latest_risk_limit_decision_status": dict(panel.get("risk_control_plane_summary", {})).get(
             "latest_decision_status"
         ),
@@ -1534,6 +1587,64 @@ def _build_live_order_submission_boundary_summary(
     ).to_dict()
 
 
+def _build_tiny_live_canary_gonogo_gate_summary(
+    *,
+    tiny_live_canary_gonogo_gate: Mapping[str, Any] | None,
+    tiny_live_canary_gonogo_gate_summary: Mapping[str, Any] | None,
+    latest_tiny_live_canary_gonogo_gate_path: str,
+    generated_at: str,
+) -> dict[str, Any]:
+    provided = dict(tiny_live_canary_gonogo_gate_summary or {})
+    if not provided and tiny_live_canary_gonogo_gate:
+        provided = summarize_tiny_live_canary_gonogo_gate(
+            tiny_live_canary_gonogo_gate,
+            latest_tiny_live_canary_gonogo_gate_path=latest_tiny_live_canary_gonogo_gate_path,
+            generated_at=generated_at,
+        )
+    summary = {
+        "contract_version": OPERATOR_UI_PANEL_TINY_CANARY_GONOGO_SUMMARY_CONTRACT,
+        "gate_name": clean_text(
+            provided.get("gate_name") or "tiny_live_canary_manual_execution_checklist_and_final_gonogo_gate"
+        ),
+        "status": clean_text(provided.get("status") or NOT_AVAILABLE),
+        "review_only_status": clean_text(
+            provided.get("review_only_status") or provided.get("status") or NOT_AVAILABLE
+        ),
+        "overall_decision": clean_text(provided.get("overall_decision") or "NO_GO"),
+        "decision_level": clean_text(provided.get("decision_level") or "FINAL_MANUAL_REVIEW_ONLY"),
+        "market_id": clean_text(provided.get("market_id")),
+        "market_slug": clean_text(provided.get("market_slug")),
+        "manual_execution_checklist_count": int(provided.get("manual_execution_checklist_count", 0) or 0),
+        "manual_execution_checklist_pending_count": int(
+            provided.get("manual_execution_checklist_pending_count", 0) or 0
+        ),
+        "final_pre_live_checklist_count": int(provided.get("final_pre_live_checklist_count", 0) or 0),
+        "no_go_reason_count": int(provided.get("no_go_reason_count", 0) or 0),
+        "top_no_go_reasons": list(provided.get("top_no_go_reasons", []))[:5],
+        "unresolved_blocker_count": int(provided.get("unresolved_blocker_count", 0) or 0),
+        "resolved_blocker_count": int(provided.get("resolved_blocker_count", 0) or 0),
+        "explicit_human_approval_required": True,
+        "no_executable_action": True,
+        "packet_complete_for_operator_review": provided.get("packet_complete_for_operator_review") is True,
+        "latest_tiny_live_canary_gonogo_gate_path": clean_text(
+            latest_tiny_live_canary_gonogo_gate_path
+            or provided.get("latest_tiny_live_canary_gonogo_gate_path")
+        ),
+        "tiny_live_canary_gonogo_gate_section_ready": True,
+        "final_live_enablement_present": False,
+        "live_execution_approved": False,
+        "allowed_for_live": False,
+        "canary_executable_now": False,
+        "order_submission_enabled": False,
+        "real_execution_available": False,
+        "live_connector_enabled": False,
+        "execution_enabling": False,
+        "review_only": True,
+    }
+    summary.update({field: False for field in FORCED_FALSE_EXECUTION_FIELDS})
+    return summary
+
+
 def _build_risk_control_plane_summary(
     *,
     risk_control_plane_summary: Mapping[str, Any] | None,
@@ -1788,6 +1899,13 @@ def _build_action_states() -> list[dict[str, Any]]:
             notes="Requirements are visible; live verification remains missing.",
         ).to_dict(),
         OperatorUIPanelActionState(
+            action_id="inspect_tiny_live_canary_gonogo_gate",
+            label="Inspect go/no-go gate",
+            state="read_only_available",
+            requires_future_operator_task=False,
+            notes="Final gate is passive review only and exposes no executable action.",
+        ).to_dict(),
+        OperatorUIPanelActionState(
             action_id="future_canary_gate_status",
             label="Future canary gate status",
             state="blocked_not_executable",
@@ -1805,6 +1923,7 @@ def _build_sections(
     btc_market: Mapping[str, Any],
     btc_analysis_order_intent: Mapping[str, Any],
     live_order_submission_boundary: Mapping[str, Any],
+    tiny_live_canary_gonogo_gate: Mapping[str, Any],
     risk_control: Mapping[str, Any],
     risk: Mapping[str, Any],
     kill_switch: Mapping[str, Any],
@@ -2061,6 +2180,51 @@ def _build_sections(
                     "latest_live_order_submission_boundary_path",
                     "Latest boundary receipt",
                     live_order_submission_boundary.get("latest_live_order_submission_boundary_path"),
+                ),
+            ],
+        ),
+        _section(
+            "tiny_live_canary_gonogo_gate",
+            "Tiny Live Canary Go/No-Go Gate",
+            clean_text(tiny_live_canary_gonogo_gate.get("status") or NOT_AVAILABLE),
+            [
+                _metric("overall_decision", "Overall decision", tiny_live_canary_gonogo_gate.get("overall_decision")),
+                _metric("review_only_status", "Review-only status", tiny_live_canary_gonogo_gate.get("review_only_status")),
+                _metric(
+                    "manual_execution_checklist_count",
+                    "Manual checklist items",
+                    tiny_live_canary_gonogo_gate.get("manual_execution_checklist_count"),
+                ),
+                _metric(
+                    "final_pre_live_checklist_count",
+                    "Final pre-live checklist items",
+                    tiny_live_canary_gonogo_gate.get("final_pre_live_checklist_count"),
+                ),
+                _metric("top_no_go_reasons", "Top no-go reasons", tiny_live_canary_gonogo_gate.get("top_no_go_reasons")),
+                _metric(
+                    "unresolved_blocker_count",
+                    "Unresolved blockers",
+                    tiny_live_canary_gonogo_gate.get("unresolved_blocker_count"),
+                ),
+                _metric(
+                    "resolved_blocker_count",
+                    "Resolved blockers",
+                    tiny_live_canary_gonogo_gate.get("resolved_blocker_count"),
+                ),
+                _metric(
+                    "explicit_human_approval_required",
+                    "Explicit human approval required",
+                    True,
+                ),
+                _metric("no_executable_action", "No executable action", True),
+                _metric("final_live_enablement_present", "Final live enablement present", False),
+                _metric("live_execution_approved", "Live execution approved", False),
+                _metric("canary_executable_now", "Canary executable now", False),
+                _metric("order_submission_enabled", "Order submission enabled", False),
+                _metric(
+                    "latest_tiny_live_canary_gonogo_gate_path",
+                    "Latest go/no-go packet",
+                    tiny_live_canary_gonogo_gate.get("latest_tiny_live_canary_gonogo_gate_path"),
                 ),
             ],
         ),
