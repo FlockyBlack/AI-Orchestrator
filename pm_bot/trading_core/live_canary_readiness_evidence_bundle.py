@@ -22,6 +22,10 @@ from pm_bot.trading_core.secret_boundary_policy import (
     validate_secret_boundary_readiness_evidence_manifest,
     validate_secret_boundary_readiness_evidence_reference,
 )
+from pm_bot.trading_core.signed_order_payload_validation_gate import (
+    build_signed_order_payload_validation_gate,
+    summarize_signed_order_payload_validation_gate,
+)
 from pm_bot.trading_core.wallet_signing_boundary import (
     build_wallet_signing_boundary_report,
     summarize_wallet_signing_boundary_report,
@@ -80,6 +84,9 @@ VALIDATION_STATUS_AUTHENTICATED_POLYMARKET_CONNECTOR_SCAFFOLD_EVIDENCE_MISSING =
 VALIDATION_STATUS_WALLET_SIGNING_BOUNDARY_EVIDENCE_MISSING = (
     "wallet_signing_boundary_scaffold_dry_run_only_evidence_missing"
 )
+VALIDATION_STATUS_SIGNED_ORDER_PAYLOAD_VALIDATION_GATE_EVIDENCE_MISSING = (
+    "signed_order_payload_dry_run_validation_gate_evidence_missing"
+)
 VALIDATION_STATUS_TELEGRAM_OPERATOR_CONTROL_BOT_EVIDENCE_MISSING = (
     "telegram_operator_control_bot_v1_evidence_missing"
 )
@@ -118,6 +125,7 @@ REQUIRED_EVIDENCE_TYPES = (
     "live_enablement_config_contract_and_runtime_preflight",
     "authenticated_polymarket_connector_scaffold_dry_run_only",
     "wallet_signing_boundary_scaffold_dry_run_only",
+    "signed_order_payload_dry_run_validation_gate",
     "telegram_operator_control_bot_v1",
     "telegram_mini_app_operator_panel_v1",
 )
@@ -372,6 +380,8 @@ def build_live_canary_readiness_evidence_bundle(
     authenticated_polymarket_connector_scaffold_summary: Mapping[str, Any] | None = None,
     wallet_signing_boundary_report: Mapping[str, Any] | None = None,
     wallet_signing_boundary_summary: Mapping[str, Any] | None = None,
+    signed_order_payload_validation_gate: Mapping[str, Any] | None = None,
+    signed_order_payload_validation_gate_summary: Mapping[str, Any] | None = None,
     telegram_operator_control_bot_v1: Mapping[str, Any] | None = None,
     telegram_mini_app_operator_panel_v1: Mapping[str, Any] | None = None,
     dry_run_receipt_references: Sequence[str] | None = None,
@@ -428,6 +438,20 @@ def build_live_canary_readiness_evidence_bundle(
         wallet_signing_boundary_summary
         or summarize_wallet_signing_boundary_report(wallet_boundary, generated_at=generated_at)
     )
+    signed_payload_gate = dict(
+        signed_order_payload_validation_gate
+        or build_signed_order_payload_validation_gate(
+            connector_capability_report=authenticated_connector_scaffold,
+            connector_capability_summary=authenticated_connector_scaffold_summary,
+            wallet_signing_boundary_report=wallet_boundary,
+            wallet_signing_boundary_summary=wallet_boundary_summary,
+            generated_at=generated_at,
+        )
+    )
+    signed_payload_gate_summary = dict(
+        signed_order_payload_validation_gate_summary
+        or summarize_signed_order_payload_validation_gate(signed_payload_gate, generated_at=generated_at)
+    )
     telegram_control = dict(telegram_operator_control_bot_v1 or {})
     telegram_mini_app = dict(telegram_mini_app_operator_panel_v1 or {})
     overrides = {clean_text(key): clean_text(value) for key, value in dict(artifact_reference_overrides or {}).items()}
@@ -457,6 +481,8 @@ def build_live_canary_readiness_evidence_bundle(
         authenticated_polymarket_connector_scaffold=authenticated_connector_scaffold,
         authenticated_polymarket_connector_scaffold_summary=authenticated_connector_scaffold_summary,
         wallet_signing_boundary_summary=wallet_boundary_summary,
+        signed_order_payload_validation_gate=signed_payload_gate,
+        signed_order_payload_validation_gate_summary=signed_payload_gate_summary,
         telegram_operator_control_bot_v1=telegram_control,
         telegram_mini_app_operator_panel_v1=telegram_mini_app,
         dry_run_receipt_references=dry_run_receipt_references,
@@ -550,6 +576,9 @@ def validate_live_canary_readiness_evidence_bundle(
         ),
         "wallet_signing_boundary_scaffold_dry_run_only": (
             VALIDATION_STATUS_WALLET_SIGNING_BOUNDARY_EVIDENCE_MISSING
+        ),
+        "signed_order_payload_dry_run_validation_gate": (
+            VALIDATION_STATUS_SIGNED_ORDER_PAYLOAD_VALIDATION_GATE_EVIDENCE_MISSING
         ),
         "telegram_operator_control_bot_v1": VALIDATION_STATUS_TELEGRAM_OPERATOR_CONTROL_BOT_EVIDENCE_MISSING,
         "telegram_mini_app_operator_panel_v1": (
@@ -847,6 +876,8 @@ def _build_evidence_items(
     authenticated_polymarket_connector_scaffold: Mapping[str, Any],
     authenticated_polymarket_connector_scaffold_summary: Mapping[str, Any],
     wallet_signing_boundary_summary: Mapping[str, Any],
+    signed_order_payload_validation_gate: Mapping[str, Any],
+    signed_order_payload_validation_gate_summary: Mapping[str, Any],
     telegram_operator_control_bot_v1: Mapping[str, Any],
     telegram_mini_app_operator_panel_v1: Mapping[str, Any],
     dry_run_receipt_references: Sequence[str] | None,
@@ -1391,6 +1422,54 @@ def _build_evidence_items(
             "real_execution_available": False,
             "live_connector_enabled": False,
             "order_submission_enabled": False,
+        },
+        _item(
+            "signed_order_payload_dry_run_validation_gate",
+            "signed_order_payload_validation_gate",
+            _override_or_reference(
+                artifact_reference_overrides,
+                "signed_order_payload_dry_run_validation_gate",
+                signed_order_payload_validation_gate,
+                ("gate_id", "summary_id", "gate_name", "status"),
+                "signed_order_payload_validation_gate_050:review_only_non_execution",
+            ),
+            clean_text(
+                signed_order_payload_validation_gate_summary.get("payload_shape_status")
+                or signed_order_payload_validation_gate_summary.get("status")
+                or signed_order_payload_validation_gate.get("status")
+                or "SIGNING_DISABLED_REVIEW_ONLY"
+            ),
+            "Signed order payload validation gate reviews future payload shape only; it never signs, emits signed payloads, creates signed orders, submits orders, or approves live execution.",
+            review_ready=(
+                signed_order_payload_validation_gate_summary.get("review_only") is not False
+                and signed_order_payload_validation_gate_summary.get("execution_enabling") is not True
+                and signed_order_payload_validation_gate_summary.get("live_approval") is not True
+                and signed_order_payload_validation_gate_summary.get("signing_enabled") is not True
+                and signed_order_payload_validation_gate_summary.get("wallet_signing_enabled") is not True
+                and signed_order_payload_validation_gate_summary.get("signed_payload_generation_enabled") is not True
+                and signed_order_payload_validation_gate_summary.get("signed_order_generation_enabled") is not True
+                and signed_order_payload_validation_gate_summary.get("order_submission_enabled") is not True
+                and signed_order_payload_validation_gate_summary.get("allowed_for_live") is not True
+                and signed_order_payload_validation_gate_summary.get("real_execution_available") is not True
+            ),
+        )
+        | {
+            "review_only": True,
+            "execution_enabling": False,
+            "live_approval": False,
+            "signing_enabled": False,
+            "wallet_signing_enabled": False,
+            "cryptographic_signing_enabled": False,
+            "transaction_signing_enabled": False,
+            "signed_payload_generation_enabled": False,
+            "signed_order_generation_enabled": False,
+            "order_submission_enabled": False,
+            "authenticated_polymarket_enabled": False,
+            "live_connector_enabled": False,
+            "allowed_for_live": False,
+            "canary_executable_now": False,
+            "live_execution_approved": False,
+            "real_execution_available": False,
         },
         _item(
             "telegram_operator_control_bot_v1",

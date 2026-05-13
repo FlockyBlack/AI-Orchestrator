@@ -190,6 +190,10 @@ SAFE_SECRET_METADATA_FIELD_NAMES = frozenset(
         "wallet_address_status",
         "signing_provider_status",
         "signing_dry_run_only_marker_status",
+        "signed_order_payload_validation_gate_secret_boundary_validation",
+        "signed_order_payload_validation_gate_summary_secret_boundary_validation",
+        "operator_ui_panel_signed_order_payload_validation_gate_summary_secret_boundary_validation",
+        "signed_order_payload_validation_gate_section_ready",
         "live_enablement_config_preflight_section_ready",
         "authenticated_polymarket_connector_scaffold_secret_boundary_validation",
         "authenticated_polymarket_connector_scaffold_summary_secret_boundary_validation",
@@ -272,6 +276,15 @@ SAFE_TRUE_SECRET_METADATA_FIELD_NAMES = frozenset(
         "no_signed_order_returned",
         "no_transaction_hash_returned",
         "no_order_id_returned",
+        "no_fill_returned",
+        "no_execution_result_returned",
+        "no_fake_signature_generated",
+        "no_fake_signed_payload_generated",
+        "no_fake_signed_order_generated",
+        "no_fake_order_id_generated",
+        "no_fake_transaction_hash_generated",
+        "no_fake_fill_generated",
+        "no_fake_execution_result_generated",
     }
 )
 
@@ -994,6 +1007,42 @@ def validate_secret_boundary_operator_ui_panel_wallet_signing_boundary_summary(
     return validate_static_secret_boundary(
         value,
         artifact_type="operator_ui_panel_wallet_signing_boundary_summary",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_signed_order_payload_validation_gate(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        value,
+        artifact_type="signed_order_payload_validation_gate",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_signed_order_payload_validation_gate_summary(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        value,
+        artifact_type="signed_order_payload_validation_gate_summary",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_operator_ui_panel_signed_order_payload_validation_gate_summary(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        value,
+        artifact_type="operator_ui_panel_signed_order_payload_validation_gate_summary",
         generated_at=generated_at,
     )
 

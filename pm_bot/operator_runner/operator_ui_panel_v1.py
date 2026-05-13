@@ -13,6 +13,9 @@ from pm_bot.trading_core.wallet_signing_boundary import (
     build_wallet_signing_boundary_report,
     summarize_wallet_signing_boundary_report,
 )
+from pm_bot.trading_core.signed_order_payload_validation_gate import (
+    summarize_signed_order_payload_validation_gate,
+)
 from pm_bot.trading_core.live_credentials_auth_boundary import (
     UI_REDACTION_WARNING,
     summarize_live_credentials_status,
@@ -25,6 +28,7 @@ from pm_bot.trading_core.secret_boundary_policy import (
     validate_secret_boundary_live_credentials_auth_summary,
     validate_secret_boundary_live_order_submission_boundary_summary,
     validate_secret_boundary_operator_ui_panel_authenticated_polymarket_connector_scaffold_summary,
+    validate_secret_boundary_operator_ui_panel_signed_order_payload_validation_gate_summary,
     validate_secret_boundary_operator_ui_panel_wallet_signing_boundary_summary,
     validate_secret_boundary_risk_control_ui_summary,
     validate_secret_boundary_operator_ui_panel_action_state,
@@ -76,6 +80,9 @@ OPERATOR_UI_PANEL_AUTHENTICATED_POLYMARKET_CONNECTOR_SCAFFOLD_SUMMARY_CONTRACT =
 OPERATOR_UI_PANEL_WALLET_SIGNING_BOUNDARY_SUMMARY_CONTRACT = (
     "pmbot_operator_ui_panel_wallet_signing_boundary_summary.v1"
 )
+OPERATOR_UI_PANEL_SIGNED_ORDER_PAYLOAD_VALIDATION_GATE_SUMMARY_CONTRACT = (
+    "pmbot_operator_ui_panel_signed_order_payload_validation_gate_summary.v1"
+)
 OPERATOR_UI_PANEL_TINY_CANARY_GONOGO_SUMMARY_CONTRACT = (
     "pmbot_operator_ui_panel_tiny_live_canary_gonogo_summary.v1"
 )
@@ -125,6 +132,7 @@ REQUIRED_SECTION_IDS = (
     "live_enablement_config_preflight",
     "authenticated_polymarket_connector_scaffold",
     "wallet_signing_boundary",
+    "signed_order_payload_validation_gate",
     "tiny_live_canary_gonogo_gate",
     "risk_control_plane",
     "risk_limits",
@@ -149,6 +157,7 @@ NEXT_REQUIRED_GATES = (
     "tiny canary still not executable",
     "authenticated Polymarket connector scaffold remains dry-run-only and non-executable",
     "wallet signing boundary remains review-only and non-executable",
+    "signed order payload validation gate remains dry-run-only and non-executable",
     "Telegram operator control bot remains review-only and exposes no executable live action",
     "Telegram Mini App operator panel remains static review-only and exposes no executable live action",
 )
@@ -584,6 +593,54 @@ class OperatorUIPanelWalletSigningBoundarySummary:
 
 
 @dataclass(frozen=True)
+class OperatorUIPanelSignedOrderPayloadValidationGateSummary:
+    status: str
+    payload_shape_status: str
+    top_blocked_reasons: tuple[str, ...]
+    latest_signed_order_payload_validation_gate_path: str
+    review_only: bool = True
+    execution_enabling: bool = False
+    live_approval: bool = False
+    no_executable_action: bool = True
+    signing_enabled: bool = False
+    wallet_signing_enabled: bool = False
+    signed_payload_generation_enabled: bool = False
+    signed_order_generation_enabled: bool = False
+    order_submission_enabled: bool = False
+    authenticated_polymarket_enabled: bool = False
+    live_connector_enabled: bool = False
+    allowed_for_live: bool = False
+    canary_executable_now: bool = False
+    live_execution_approved: bool = False
+    real_execution_available: bool = False
+    resolved_blocker_count: int = 0
+
+    def to_dict(self) -> dict[str, Any]:
+        value = asdict(self)
+        value["contract_version"] = OPERATOR_UI_PANEL_SIGNED_ORDER_PAYLOAD_VALIDATION_GATE_SUMMARY_CONTRACT
+        value["top_blocked_reasons"] = list(self.top_blocked_reasons)
+        value["signed_order_payload_validation_gate_section_ready"] = True
+        value["review_only"] = True
+        value["execution_enabling"] = False
+        value["live_approval"] = False
+        value["no_executable_action"] = True
+        value["signing_enabled"] = False
+        value["wallet_signing_enabled"] = False
+        value["signed_payload_generation_enabled"] = False
+        value["signed_order_generation_enabled"] = False
+        value["order_submission_enabled"] = False
+        value["authenticated_polymarket_enabled"] = False
+        value["live_connector_enabled"] = False
+        value["allowed_for_live"] = False
+        value["canary_executable_now"] = False
+        value["live_execution_approved"] = False
+        value["real_execution_available"] = False
+        value["resolved_blocker_count"] = 0
+        value.update(_panel_safety_flags())
+        return value
+
+
+@dataclass(frozen=True)
 class OperatorUIPanelKillSwitchSummary:
     kill_switch_requirements_defined: bool
     kill_switch_verified_for_live: bool
@@ -727,6 +784,7 @@ class OperatorUIPanelV1:
     live_enablement_config_preflight_summary: Mapping[str, Any]
     authenticated_polymarket_connector_scaffold_summary: Mapping[str, Any]
     wallet_signing_boundary_summary: Mapping[str, Any]
+    signed_order_payload_validation_gate_summary: Mapping[str, Any]
     tiny_live_canary_gonogo_gate_summary: Mapping[str, Any]
     risk_control_plane_summary: Mapping[str, Any]
     risk_limit_summary: Mapping[str, Any]
@@ -759,6 +817,9 @@ class OperatorUIPanelV1:
             self.authenticated_polymarket_connector_scaffold_summary
         )
         value["wallet_signing_boundary_summary"] = dict(self.wallet_signing_boundary_summary)
+        value["signed_order_payload_validation_gate_summary"] = dict(
+            self.signed_order_payload_validation_gate_summary
+        )
         value["tiny_live_canary_gonogo_gate_summary"] = dict(self.tiny_live_canary_gonogo_gate_summary)
         value["risk_control_plane_summary"] = dict(self.risk_control_plane_summary)
         value["risk_limit_summary"] = dict(self.risk_limit_summary)
@@ -788,6 +849,7 @@ class OperatorUIPanelV1:
         value["live_enablement_config_preflight_section_ready"] = True
         value["authenticated_polymarket_connector_scaffold_section_ready"] = True
         value["wallet_signing_boundary_section_ready"] = True
+        value["signed_order_payload_validation_gate_section_ready"] = True
         value["tiny_live_canary_gonogo_gate_section_ready"] = True
         value["static_html_render_ready"] = True
         value["markdown_render_ready"] = True
@@ -820,6 +882,8 @@ def build_operator_ui_panel_v1(
     authenticated_polymarket_connector_scaffold_summary: Mapping[str, Any] | None = None,
     wallet_signing_boundary_report: Mapping[str, Any] | None = None,
     wallet_signing_boundary_summary: Mapping[str, Any] | None = None,
+    signed_order_payload_validation_gate: Mapping[str, Any] | None = None,
+    signed_order_payload_validation_gate_summary: Mapping[str, Any] | None = None,
     tiny_live_canary_gonogo_gate: Mapping[str, Any] | None = None,
     tiny_live_canary_gonogo_gate_summary: Mapping[str, Any] | None = None,
     live_credentials_auth_boundary_summary: Mapping[str, Any] | None = None,
@@ -940,6 +1004,17 @@ def build_operator_ui_panel_v1(
         or clean_text(dashboard_value.get("latest_wallet_signing_boundary_path")),
         generated_at=generated_at,
     )
+    signed_order_payload_validation_gate_ui_summary = _build_signed_order_payload_validation_gate_summary(
+        signed_order_payload_validation_gate=signed_order_payload_validation_gate
+        or dashboard_value.get("signed_order_payload_validation_gate", {}),
+        signed_order_payload_validation_gate_summary=(
+            signed_order_payload_validation_gate_summary
+            or dashboard_value.get("signed_order_payload_validation_gate_summary", {})
+        ),
+        latest_signed_order_payload_validation_gate_path=paths.get("signed_order_payload_validation_gate", "")
+        or clean_text(dashboard_value.get("latest_signed_order_payload_validation_gate_path")),
+        generated_at=generated_at,
+    )
     gonogo_summary = _build_tiny_live_canary_gonogo_gate_summary(
         tiny_live_canary_gonogo_gate=tiny_live_canary_gonogo_gate
         or dashboard_value.get("tiny_live_canary_gonogo_gate", {}),
@@ -1024,6 +1099,7 @@ def build_operator_ui_panel_v1(
         live_enablement_config_preflight=live_enablement_config_summary,
         authenticated_polymarket_connector_scaffold=authenticated_connector_summary,
         wallet_signing_boundary=wallet_signing_boundary_ui_summary,
+        signed_order_payload_validation_gate=signed_order_payload_validation_gate_ui_summary,
         tiny_live_canary_gonogo_gate=gonogo_summary,
         risk_control=risk_control_summary,
         risk=risk_summary,
@@ -1051,6 +1127,7 @@ def build_operator_ui_panel_v1(
             "live_enablement_config_preflight": live_enablement_config_summary,
             "authenticated_polymarket_connector_scaffold": authenticated_connector_summary,
             "wallet_signing_boundary": wallet_signing_boundary_ui_summary,
+            "signed_order_payload_validation_gate": signed_order_payload_validation_gate_ui_summary,
             "tiny_live_canary_gonogo_gate": gonogo_summary,
             "risk_control": risk_control_summary,
             "risk": risk_summary,
@@ -1074,6 +1151,7 @@ def build_operator_ui_panel_v1(
         live_enablement_config_preflight_summary=live_enablement_config_summary,
         authenticated_polymarket_connector_scaffold_summary=authenticated_connector_summary,
         wallet_signing_boundary_summary=wallet_signing_boundary_ui_summary,
+        signed_order_payload_validation_gate_summary=signed_order_payload_validation_gate_ui_summary,
         tiny_live_canary_gonogo_gate_summary=gonogo_summary,
         risk_control_plane_summary=risk_control_summary,
         risk_limit_summary=risk_summary,
@@ -1337,6 +1415,33 @@ def validate_operator_ui_panel_v1(
             errors.append(f"wallet_signing_boundary_summary.{field} must be false")
             statuses.append("wallet_signing_boundary_execution_flag_detected")
 
+    signed_payload_gate_summary = dict(panel_value.get("signed_order_payload_validation_gate_summary", {}))
+    signed_payload_gate_validation = (
+        validate_secret_boundary_operator_ui_panel_signed_order_payload_validation_gate_summary(
+            signed_payload_gate_summary,
+            generated_at=generated_at,
+        )
+    )
+    if signed_payload_gate_validation.get("valid") is not True:
+        errors.append("signed_order_payload_validation_gate_summary violates static secret boundary")
+        statuses.append("signed_order_payload_validation_gate_summary_secret_boundary_blocked")
+    if signed_payload_gate_summary.get("signed_order_payload_validation_gate_section_ready") is not True:
+        errors.append("signed_order_payload_validation_gate_section_ready must be true")
+        statuses.append("signed_order_payload_validation_gate_section_missing")
+    if signed_payload_gate_summary.get("review_only") is not True:
+        errors.append("signed_order_payload_validation_gate_summary.review_only must be true")
+        statuses.append("signed_order_payload_validation_gate_review_only_missing")
+    if signed_payload_gate_summary.get("no_executable_action") is not True:
+        errors.append("signed_order_payload_validation_gate_summary.no_executable_action must be true")
+        statuses.append("signed_order_payload_validation_gate_executable_action_detected")
+    if signed_payload_gate_summary.get("resolved_blocker_count") != 0:
+        errors.append("signed_order_payload_validation_gate_summary.resolved_blocker_count must be 0")
+        statuses.append("signed_order_payload_validation_gate_resolved_blocker_detected")
+    for field in FORCED_FALSE_EXECUTION_FIELDS:
+        if signed_payload_gate_summary.get(field) is not False:
+            errors.append(f"signed_order_payload_validation_gate_summary.{field} must be false")
+            statuses.append("signed_order_payload_validation_gate_execution_flag_detected")
+
     gonogo_summary = dict(panel_value.get("tiny_live_canary_gonogo_gate_summary", {}))
     if gonogo_summary.get("no_executable_action") is not True:
         errors.append("tiny_live_canary_gonogo_gate_summary.no_executable_action must be true")
@@ -1479,6 +1584,9 @@ def validate_operator_ui_panel_v1(
             authenticated_connector_validation
         ),
         "operator_ui_panel_wallet_signing_boundary_summary_secret_boundary_validation": wallet_signing_validation,
+        "operator_ui_panel_signed_order_payload_validation_gate_summary_secret_boundary_validation": (
+            signed_payload_gate_validation
+        ),
         "rendered_json_secret_boundary_validation": rendered_json_validation,
         "rendered_markdown_secret_boundary_validation": rendered_md_validation,
         "rendered_html_secret_boundary_validation": rendered_html_validation,
@@ -1629,6 +1737,28 @@ def summarize_operator_ui_panel_v1(panel: Mapping[str, Any]) -> dict[str, Any]:
             panel.get("wallet_signing_boundary_summary", {})
         ).get("no_executable_action")
         is True,
+        "signed_order_payload_validation_gate_section_ready": dict(
+            panel.get("signed_order_payload_validation_gate_summary", {})
+        ).get("signed_order_payload_validation_gate_section_ready")
+        is True,
+        "signed_order_payload_validation_gate_status": dict(
+            panel.get("signed_order_payload_validation_gate_summary", {})
+        ).get("status"),
+        "signed_order_payload_shape_status": dict(
+            panel.get("signed_order_payload_validation_gate_summary", {})
+        ).get("payload_shape_status"),
+        "signed_order_payload_validation_gate_no_executable_action": dict(
+            panel.get("signed_order_payload_validation_gate_summary", {})
+        ).get("no_executable_action")
+        is True,
+        "signed_order_payload_validation_gate_review_only": dict(
+            panel.get("signed_order_payload_validation_gate_summary", {})
+        ).get("review_only")
+        is True,
+        "signed_order_payload_validation_gate_signing_enabled": False,
+        "signed_order_payload_validation_gate_signed_payload_generation_enabled": False,
+        "signed_order_payload_validation_gate_signed_order_generation_enabled": False,
+        "signed_order_payload_validation_gate_order_submission_enabled": False,
         "tiny_live_canary_gonogo_gate_section_ready": dict(
             panel.get("tiny_live_canary_gonogo_gate_summary", {})
         ).get("tiny_live_canary_gonogo_gate_section_ready")
@@ -2268,6 +2398,42 @@ def _build_wallet_signing_boundary_summary(
     ).to_dict()
 
 
+def _build_signed_order_payload_validation_gate_summary(
+    *,
+    signed_order_payload_validation_gate: Mapping[str, Any] | None,
+    signed_order_payload_validation_gate_summary: Mapping[str, Any] | None,
+    latest_signed_order_payload_validation_gate_path: str,
+    generated_at: str,
+) -> dict[str, Any]:
+    provided = dict(signed_order_payload_validation_gate_summary or {})
+    if not provided:
+        provided = summarize_signed_order_payload_validation_gate(
+            signed_order_payload_validation_gate,
+            latest_signed_order_payload_validation_gate_path=latest_signed_order_payload_validation_gate_path,
+            generated_at=generated_at,
+        )
+    return OperatorUIPanelSignedOrderPayloadValidationGateSummary(
+        status=clean_text(provided.get("status") or "SIGNING_DISABLED_REVIEW_ONLY"),
+        payload_shape_status=clean_text(
+            provided.get("payload_shape_status")
+            or provided.get("status")
+            or "SIGNING_DISABLED_REVIEW_ONLY"
+        ),
+        top_blocked_reasons=tuple(
+            clean_text(item)
+            for item in (
+                list(provided.get("top_blocked_reasons", []))
+                or list(provided.get("blocked_reasons", []))
+            )[:5]
+            if clean_text(item)
+        ),
+        latest_signed_order_payload_validation_gate_path=clean_text(
+            provided.get("latest_signed_order_payload_validation_gate_path")
+            or latest_signed_order_payload_validation_gate_path
+        ),
+    ).to_dict()
+
+
 def _build_tiny_live_canary_gonogo_gate_summary(
     *,
     tiny_live_canary_gonogo_gate: Mapping[str, Any] | None,
@@ -2681,6 +2847,7 @@ def _build_sections(
     live_enablement_config_preflight: Mapping[str, Any],
     authenticated_polymarket_connector_scaffold: Mapping[str, Any],
     wallet_signing_boundary: Mapping[str, Any],
+    signed_order_payload_validation_gate: Mapping[str, Any],
     tiny_live_canary_gonogo_gate: Mapping[str, Any],
     risk_control: Mapping[str, Any],
     risk: Mapping[str, Any],
@@ -3088,6 +3255,49 @@ def _build_sections(
                     "wallet_signing_boundary_review_only",
                     "critical",
                     "Wallet signing boundary is passive review only and exposes no executable signing or wallet action.",
+                )
+            ],
+        ),
+        _section(
+            "signed_order_payload_validation_gate",
+            "Signed Order Payload Validation Gate",
+            clean_text(signed_order_payload_validation_gate.get("payload_shape_status") or NOT_AVAILABLE),
+            [
+                _metric("status", "Status", signed_order_payload_validation_gate.get("status")),
+                _metric(
+                    "payload_shape_status",
+                    "Payload shape status",
+                    signed_order_payload_validation_gate.get("payload_shape_status"),
+                ),
+                _metric("signing_enabled", "Signing enabled", False),
+                _metric("wallet_signing_enabled", "Wallet signing enabled", False),
+                _metric(
+                    "signed_payload_generation_enabled",
+                    "Signed payload generation enabled",
+                    False,
+                ),
+                _metric("signed_order_generation_enabled", "Signed order generation enabled", False),
+                _metric("order_submission_enabled", "Order submission enabled", False),
+                _metric("allowed_for_live", "Allowed for live", False),
+                _metric(
+                    "top_blocked_reasons",
+                    "Top blocked reasons",
+                    signed_order_payload_validation_gate.get("top_blocked_reasons"),
+                ),
+                _metric("no_executable_action", "No executable action", True),
+                _metric(
+                    "latest_signed_order_payload_validation_gate_path",
+                    "Latest signed payload gate",
+                    signed_order_payload_validation_gate.get(
+                        "latest_signed_order_payload_validation_gate_path"
+                    ),
+                ),
+            ],
+            warnings=[
+                _warning(
+                    "signed_order_payload_validation_gate_review_only",
+                    "critical",
+                    "Signed order payload validation gate is passive review only and exposes no executable signing or submission action.",
                 )
             ],
         ),
