@@ -781,6 +781,15 @@ LIVE_CONNECTOR_BLOCKERS = (
         "current_status": "blocked_by_design",
         "why_it_blocks_live_execution": "Even fully configured review-only preflight output keeps allowed_for_live and canary_executable_now false.",
     },
+    {
+        "blocker_id": "PMBOT-LIVE-BLOCKER-068",
+        "blocker_category": "authenticated_polymarket_connector_scaffold_dry_run_only",
+        "blocker_name": "authenticated Polymarket connector scaffold is dry-run-only",
+        "severity": "critical",
+        "required_future_task": "Use a separate future operator-approved task before any authenticated connector can call endpoints, sign payloads, connect wallets, or submit orders.",
+        "current_status": "scaffold_review_only",
+        "why_it_blocks_live_execution": "The 048 scaffold defines future connector boundaries but keeps authenticated calls, network calls, signing, wallet access, order submission, and live execution disabled.",
+    },
 )
 
 
@@ -1169,6 +1178,7 @@ def build_operator_live_canary_checklist(*, generated_at: str = GENERATED_AT) ->
             "pm_bot/trading_core/artifacts/night_020_021/live_canary_readiness_evidence_bundle.json",
             "pm_bot/trading_core/artifacts/night_020_021/tiny_live_canary_gonogo_gate_042.json",
             "pm_bot/trading_core/artifacts/night_020_021/live_enablement_config_preflight_047.json",
+            "pm_bot/trading_core/artifacts/night_020_021/authenticated_polymarket_connector_scaffold_048.json",
         ],
         "validations_that_must_pass": [
             "canary readiness dry-run packet validation",
@@ -1181,6 +1191,7 @@ def build_operator_live_canary_checklist(*, generated_at: str = GENERATED_AT) ->
             "readiness evidence bundle validates as review-only and not live approval",
             "tiny live canary go/no-go gate validates as review-only NO_GO while blockers remain unresolved",
             "live enablement config preflight is present as a review-only non-execution artifact",
+            "authenticated Polymarket connector scaffold is present as dry-run-only review evidence",
             "forbidden field scan reports no unsafe field names in relevant PMBOT live-prep artifacts",
             "pytest pm_bot/tests",
             "python -m compileall pm_bot",
@@ -1231,6 +1242,7 @@ def build_canary_governance_summary(
     operator_intent_packet: Mapping[str, Any] | None = None,
     readiness_evidence_bundle: Mapping[str, Any] | None = None,
     live_enablement_config_preflight_summary: Mapping[str, Any] | None = None,
+    authenticated_polymarket_connector_scaffold_summary: Mapping[str, Any] | None = None,
     generated_at: str = GENERATED_AT,
 ) -> dict[str, Any]:
     replay_report = build_canary_replay_report(packets=[packet], receipts=[receipt], generated_at=generated_at)
@@ -1242,6 +1254,7 @@ def build_canary_governance_summary(
     operator_intent = dict(operator_intent_packet or {})
     evidence_bundle = dict(readiness_evidence_bundle or {})
     live_config_preflight = dict(live_enablement_config_preflight_summary or {})
+    authenticated_connector = dict(authenticated_polymarket_connector_scaffold_summary or {})
     passed = (
         replay_report.get("passed") is True
         and acceptance_matrix.get("passed") is True
@@ -1308,6 +1321,17 @@ def build_canary_governance_summary(
             live_config_preflight.get("dry_run_review_allowed") is True
         ),
         "live_enablement_config_allowed_for_live": False,
+        "authenticated_polymarket_connector_scaffold_summary": authenticated_connector,
+        "authenticated_polymarket_connector_scaffold_status": clean_text(
+            authenticated_connector.get("status") or "not_provided"
+        ),
+        "authenticated_polymarket_connector_review_only": (
+            authenticated_connector.get("review_only") is not False
+        ),
+        "authenticated_polymarket_connector_network_calls_enabled": False,
+        "authenticated_polymarket_connector_authenticated_calls_enabled": False,
+        "authenticated_polymarket_connector_order_submission_enabled": False,
+        "authenticated_polymarket_connector_real_execution_available": False,
         "canary_executable_now": False,
         "operator_review_is_not_live_approval": (
             operator_packet.get("operator_review_is_not_live_approval") is True if operator_packet else True
@@ -1860,6 +1884,7 @@ def _is_relevant_canary_live_prep_artifact(path: Path) -> bool:
         "tiny_live_canary_gonogo_gate_042",
         "live_enablement_config_preflight",
         "live_enablement_config_preflight_047",
+        "authenticated_polymarket_connector_scaffold_048",
     )
     return normalized.endswith(".json") and any(name in normalized for name in relevant_names)
 

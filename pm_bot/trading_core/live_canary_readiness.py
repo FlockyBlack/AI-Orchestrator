@@ -656,9 +656,11 @@ def build_canary_dashboard_summary(
     tiny_live_canary_gonogo_unresolved_blocker_count: int = 0,
     risk_control_plane_status: str = "review_only_not_live_enforced",
     live_enablement_config_preflight_summary: Mapping[str, Any] | None = None,
+    authenticated_connector_scaffold_summary: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     receipt_value = dict(receipt or {})
     live_config_preflight = dict(live_enablement_config_preflight_summary or {})
+    authenticated_connector = dict(authenticated_connector_scaffold_summary or {})
     return {
         "canary_id": clean_text(packet.get("canary_id")),
         "canary_readiness_status": clean_text(packet.get("canary_status")),
@@ -699,6 +701,17 @@ def build_canary_dashboard_summary(
             live_config_preflight.get("dry_run_review_allowed") is True
         ),
         "live_enablement_config_allowed_for_live": False,
+        "authenticated_connector_scaffold_summary": authenticated_connector,
+        "authenticated_connector_scaffold_status": clean_text(
+            authenticated_connector.get("status") or "not_generated"
+        ),
+        "authenticated_connector_scaffold_review_only": (
+            authenticated_connector.get("review_only") is not False
+        ),
+        "authenticated_connector_scaffold_network_calls_enabled": False,
+        "authenticated_connector_scaffold_authenticated_calls_enabled": False,
+        "authenticated_connector_scaffold_order_submission_enabled": False,
+        "authenticated_connector_scaffold_real_execution_available": False,
         "risk_control_plane_status": clean_text(risk_control_plane_status),
         "risk_limit_control_plane_review_only": True,
         "risk_limits_not_live_enforced_against_real_connector": True,

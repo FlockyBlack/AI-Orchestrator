@@ -6,6 +6,9 @@ import json
 from dataclasses import asdict, dataclass
 from typing import Any, Mapping, Sequence
 
+from pm_bot.trading_core.authenticated_polymarket_connector import (
+    summarize_authenticated_connector_capability_report,
+)
 from pm_bot.trading_core.live_credentials_auth_boundary import (
     UI_REDACTION_WARNING,
     summarize_live_credentials_status,
@@ -16,11 +19,12 @@ from pm_bot.trading_core.secret_boundary_policy import (
     validate_secret_boundary_btc_analysis_ui_summary,
     validate_secret_boundary_btc_ui_summary,
     validate_secret_boundary_live_credentials_auth_summary,
-    validate_secret_boundary_operator_ui_panel_live_enablement_config_preflight_summary,
     validate_secret_boundary_live_order_submission_boundary_summary,
+    validate_secret_boundary_operator_ui_panel_authenticated_polymarket_connector_scaffold_summary,
     validate_secret_boundary_risk_control_ui_summary,
     validate_secret_boundary_operator_ui_panel_action_state,
     validate_secret_boundary_operator_ui_panel_kill_switch_summary,
+    validate_secret_boundary_operator_ui_panel_live_enablement_config_preflight_summary,
     validate_secret_boundary_operator_ui_panel_payload,
     validate_secret_boundary_operator_ui_panel_rendered_html,
     validate_secret_boundary_operator_ui_panel_rendered_json,
@@ -60,6 +64,9 @@ OPERATOR_UI_PANEL_LIVE_ORDER_BOUNDARY_SUMMARY_CONTRACT = (
 )
 OPERATOR_UI_PANEL_LIVE_ENABLEMENT_CONFIG_PREFLIGHT_SUMMARY_CONTRACT = (
     "pmbot_operator_ui_panel_live_enablement_config_preflight_summary.v1"
+)
+OPERATOR_UI_PANEL_AUTHENTICATED_POLYMARKET_CONNECTOR_SCAFFOLD_SUMMARY_CONTRACT = (
+    "pmbot_operator_ui_panel_authenticated_polymarket_connector_scaffold_summary.v1"
 )
 OPERATOR_UI_PANEL_TINY_CANARY_GONOGO_SUMMARY_CONTRACT = (
     "pmbot_operator_ui_panel_tiny_live_canary_gonogo_summary.v1"
@@ -105,6 +112,7 @@ REQUIRED_SECTION_IDS = (
     "btc_analysis_order_intent",
     "live_order_submission_boundary",
     "live_enablement_config_preflight",
+    "authenticated_polymarket_connector_scaffold",
     "tiny_live_canary_gonogo_gate",
     "risk_control_plane",
     "risk_limits",
@@ -127,6 +135,7 @@ NEXT_REQUIRED_GATES = (
     "real order adapter disabled",
     "operator live approval not implemented",
     "tiny canary still not executable",
+    "authenticated Polymarket connector scaffold remains dry-run-only and non-executable",
     "Telegram operator control bot remains review-only and exposes no executable live action",
     "Telegram Mini App operator panel remains static review-only and exposes no executable live action",
 )
@@ -455,6 +464,62 @@ class OperatorUIPanelLiveEnablementConfigPreflightSummary:
 
 
 @dataclass(frozen=True)
+class OperatorUIPanelAuthenticatedPolymarketConnectorScaffoldSummary:
+    status: str
+    connector_name: str
+    credentials_redacted_or_missing_only: bool
+    configured_redacted_credential_count: int
+    missing_credential_count: int
+    top_blocked_reasons: tuple[str, ...]
+    latest_authenticated_polymarket_connector_scaffold_path: str
+    review_only: bool = True
+    execution_enabling: bool = False
+    live_approval: bool = False
+    no_executable_action: bool = True
+    network_calls_enabled: bool = False
+    authenticated_calls_enabled: bool = False
+    live_connector_enabled: bool = False
+    order_submission_enabled: bool = False
+    signing_enabled: bool = False
+    cryptographic_signing_enabled: bool = False
+    wallet_signing_enabled: bool = False
+    real_execution_available: bool = False
+    allowed_for_live: bool = False
+    canary_executable_now: bool = False
+    live_execution_approved: bool = False
+    authenticated_polymarket_enabled: bool = False
+    resolved_blocker_count: int = 0
+
+    def to_dict(self) -> dict[str, Any]:
+        value = asdict(self)
+        value["contract_version"] = (
+            OPERATOR_UI_PANEL_AUTHENTICATED_POLYMARKET_CONNECTOR_SCAFFOLD_SUMMARY_CONTRACT
+        )
+        value["top_blocked_reasons"] = list(self.top_blocked_reasons)
+        value["authenticated_polymarket_connector_scaffold_section_ready"] = True
+        value["credentials_summary"] = "redacted_or_missing_only"
+        value["review_only"] = True
+        value["execution_enabling"] = False
+        value["live_approval"] = False
+        value["no_executable_action"] = True
+        value["network_calls_enabled"] = False
+        value["authenticated_calls_enabled"] = False
+        value["live_connector_enabled"] = False
+        value["order_submission_enabled"] = False
+        value["signing_enabled"] = False
+        value["cryptographic_signing_enabled"] = False
+        value["wallet_signing_enabled"] = False
+        value["real_execution_available"] = False
+        value["allowed_for_live"] = False
+        value["canary_executable_now"] = False
+        value["live_execution_approved"] = False
+        value["authenticated_polymarket_enabled"] = False
+        value["resolved_blocker_count"] = 0
+        value.update(_panel_safety_flags())
+        return value
+
+
+@dataclass(frozen=True)
 class OperatorUIPanelKillSwitchSummary:
     kill_switch_requirements_defined: bool
     kill_switch_verified_for_live: bool
@@ -596,6 +661,7 @@ class OperatorUIPanelV1:
     btc_analysis_order_intent_summary: Mapping[str, Any]
     live_order_submission_boundary_summary: Mapping[str, Any]
     live_enablement_config_preflight_summary: Mapping[str, Any]
+    authenticated_polymarket_connector_scaffold_summary: Mapping[str, Any]
     tiny_live_canary_gonogo_gate_summary: Mapping[str, Any]
     risk_control_plane_summary: Mapping[str, Any]
     risk_limit_summary: Mapping[str, Any]
@@ -624,6 +690,9 @@ class OperatorUIPanelV1:
         value["live_enablement_config_preflight_summary"] = dict(
             self.live_enablement_config_preflight_summary
         )
+        value["authenticated_polymarket_connector_scaffold_summary"] = dict(
+            self.authenticated_polymarket_connector_scaffold_summary
+        )
         value["tiny_live_canary_gonogo_gate_summary"] = dict(self.tiny_live_canary_gonogo_gate_summary)
         value["risk_control_plane_summary"] = dict(self.risk_control_plane_summary)
         value["risk_limit_summary"] = dict(self.risk_limit_summary)
@@ -651,6 +720,7 @@ class OperatorUIPanelV1:
         value["btc_analysis_order_intent_section_ready"] = True
         value["live_order_submission_boundary_section_ready"] = True
         value["live_enablement_config_preflight_section_ready"] = True
+        value["authenticated_polymarket_connector_scaffold_section_ready"] = True
         value["tiny_live_canary_gonogo_gate_section_ready"] = True
         value["static_html_render_ready"] = True
         value["markdown_render_ready"] = True
@@ -679,6 +749,8 @@ def build_operator_ui_panel_v1(
     live_order_submission_boundary_summary: Mapping[str, Any] | None = None,
     live_enablement_config_preflight: Mapping[str, Any] | None = None,
     live_enablement_config_preflight_summary: Mapping[str, Any] | None = None,
+    authenticated_polymarket_connector_scaffold: Mapping[str, Any] | None = None,
+    authenticated_polymarket_connector_scaffold_summary: Mapping[str, Any] | None = None,
     tiny_live_canary_gonogo_gate: Mapping[str, Any] | None = None,
     tiny_live_canary_gonogo_gate_summary: Mapping[str, Any] | None = None,
     live_credentials_auth_boundary_summary: Mapping[str, Any] | None = None,
@@ -775,6 +847,19 @@ def build_operator_ui_panel_v1(
         or clean_text(dashboard_value.get("latest_live_enablement_config_preflight_path")),
         generated_at=generated_at,
     )
+    authenticated_connector_summary = _build_authenticated_polymarket_connector_scaffold_summary(
+        authenticated_polymarket_connector_scaffold=authenticated_polymarket_connector_scaffold
+        or dashboard_value.get("authenticated_polymarket_connector_scaffold", {}),
+        authenticated_polymarket_connector_scaffold_summary=(
+            authenticated_polymarket_connector_scaffold_summary
+            or dashboard_value.get("authenticated_polymarket_connector_scaffold_summary", {})
+        ),
+        latest_authenticated_polymarket_connector_scaffold_path=(
+            paths.get("authenticated_polymarket_connector_scaffold", "")
+            or clean_text(dashboard_value.get("latest_authenticated_polymarket_connector_scaffold_path"))
+        ),
+        generated_at=generated_at,
+    )
     gonogo_summary = _build_tiny_live_canary_gonogo_gate_summary(
         tiny_live_canary_gonogo_gate=tiny_live_canary_gonogo_gate
         or dashboard_value.get("tiny_live_canary_gonogo_gate", {}),
@@ -857,6 +942,7 @@ def build_operator_ui_panel_v1(
         btc_analysis_order_intent=btc_analysis_summary,
         live_order_submission_boundary=live_order_boundary_summary,
         live_enablement_config_preflight=live_enablement_config_summary,
+        authenticated_polymarket_connector_scaffold=authenticated_connector_summary,
         tiny_live_canary_gonogo_gate=gonogo_summary,
         risk_control=risk_control_summary,
         risk=risk_summary,
@@ -882,6 +968,7 @@ def build_operator_ui_panel_v1(
             "btc_analysis_order_intent": btc_analysis_summary,
             "live_order_submission_boundary": live_order_boundary_summary,
             "live_enablement_config_preflight": live_enablement_config_summary,
+            "authenticated_polymarket_connector_scaffold": authenticated_connector_summary,
             "tiny_live_canary_gonogo_gate": gonogo_summary,
             "risk_control": risk_control_summary,
             "risk": risk_summary,
@@ -903,6 +990,7 @@ def build_operator_ui_panel_v1(
         btc_analysis_order_intent_summary=btc_analysis_summary,
         live_order_submission_boundary_summary=live_order_boundary_summary,
         live_enablement_config_preflight_summary=live_enablement_config_summary,
+        authenticated_polymarket_connector_scaffold_summary=authenticated_connector_summary,
         tiny_live_canary_gonogo_gate_summary=gonogo_summary,
         risk_control_plane_summary=risk_control_summary,
         risk_limit_summary=risk_summary,
@@ -1087,6 +1175,60 @@ def validate_operator_ui_panel_v1(
             errors.append(f"live_enablement_config_preflight_summary.{field} must be false")
             statuses.append("live_enablement_config_preflight_execution_flag_detected")
 
+    authenticated_connector_summary = dict(
+        panel_value.get("authenticated_polymarket_connector_scaffold_summary", {})
+    )
+    authenticated_connector_validation = (
+        validate_secret_boundary_operator_ui_panel_authenticated_polymarket_connector_scaffold_summary(
+            authenticated_connector_summary,
+            generated_at=generated_at,
+        )
+    )
+    if authenticated_connector_validation.get("valid") is not True:
+        errors.append("authenticated_polymarket_connector_scaffold_summary violates static secret boundary")
+        statuses.append("authenticated_polymarket_connector_scaffold_summary_secret_boundary_blocked")
+    if (
+        authenticated_connector_summary.get("authenticated_polymarket_connector_scaffold_section_ready")
+        is not True
+    ):
+        errors.append("authenticated_polymarket_connector_scaffold_section_ready must be true")
+        statuses.append("authenticated_polymarket_connector_scaffold_section_missing")
+    if authenticated_connector_summary.get("review_only") is not True:
+        errors.append("authenticated_polymarket_connector_scaffold_summary.review_only must be true")
+        statuses.append("authenticated_polymarket_connector_scaffold_not_review_only")
+    if authenticated_connector_summary.get("no_executable_action") is not True:
+        errors.append("authenticated_polymarket_connector_scaffold_summary.no_executable_action must be true")
+        statuses.append("authenticated_polymarket_connector_scaffold_executable_action_detected")
+    if authenticated_connector_summary.get("execution_enabling") is not False:
+        errors.append("authenticated_polymarket_connector_scaffold_summary.execution_enabling must be false")
+        statuses.append("authenticated_polymarket_connector_scaffold_execution_enabling_detected")
+    if authenticated_connector_summary.get("live_approval") is not False:
+        errors.append("authenticated_polymarket_connector_scaffold_summary.live_approval must be false")
+        statuses.append("authenticated_polymarket_connector_scaffold_live_approval_detected")
+    if authenticated_connector_summary.get("resolved_blocker_count") != 0:
+        errors.append("authenticated_polymarket_connector_scaffold_summary.resolved_blocker_count must be 0")
+        statuses.append("authenticated_polymarket_connector_scaffold_resolved_blocker_detected")
+    if authenticated_connector_summary.get("credentials_redacted_or_missing_only") is not True:
+        errors.append("authenticated_polymarket_connector_scaffold_summary credentials must be redacted or missing")
+        statuses.append("authenticated_polymarket_connector_scaffold_credential_redaction_missing")
+    for field in (
+        "network_calls_enabled",
+        "authenticated_calls_enabled",
+        "live_connector_enabled",
+        "order_submission_enabled",
+        "signing_enabled",
+        "cryptographic_signing_enabled",
+        "wallet_signing_enabled",
+        "real_execution_available",
+        "allowed_for_live",
+        "canary_executable_now",
+        "live_execution_approved",
+        "authenticated_polymarket_enabled",
+    ):
+        if authenticated_connector_summary.get(field) is not False:
+            errors.append(f"authenticated_polymarket_connector_scaffold_summary.{field} must be false")
+            statuses.append("authenticated_polymarket_connector_scaffold_execution_flag_detected")
+
     gonogo_summary = dict(panel_value.get("tiny_live_canary_gonogo_gate_summary", {}))
     if gonogo_summary.get("no_executable_action") is not True:
         errors.append("tiny_live_canary_gonogo_gate_summary.no_executable_action must be true")
@@ -1225,6 +1367,9 @@ def validate_operator_ui_panel_v1(
         "operator_ui_panel_live_enablement_config_preflight_summary_secret_boundary_validation": (
             live_enablement_config_validation
         ),
+        "operator_ui_panel_authenticated_polymarket_connector_scaffold_summary_secret_boundary_validation": (
+            authenticated_connector_validation
+        ),
         "rendered_json_secret_boundary_validation": rendered_json_validation,
         "rendered_markdown_secret_boundary_validation": rendered_md_validation,
         "rendered_html_secret_boundary_validation": rendered_html_validation,
@@ -1341,6 +1486,21 @@ def summarize_operator_ui_panel_v1(panel: Mapping[str, Any]) -> dict[str, Any]:
         ).get("dry_run_review_allowed")
         is True,
         "live_enablement_config_allowed_for_live": False,
+        "authenticated_polymarket_connector_scaffold_section_ready": dict(
+            panel.get("authenticated_polymarket_connector_scaffold_summary", {})
+        ).get("authenticated_polymarket_connector_scaffold_section_ready")
+        is True,
+        "authenticated_polymarket_connector_scaffold_status": dict(
+            panel.get("authenticated_polymarket_connector_scaffold_summary", {})
+        ).get("status"),
+        "authenticated_polymarket_connector_network_calls_enabled": False,
+        "authenticated_polymarket_connector_authenticated_calls_enabled": False,
+        "authenticated_polymarket_connector_order_submission_enabled": False,
+        "authenticated_polymarket_connector_real_execution_available": False,
+        "authenticated_polymarket_connector_credentials_redacted_or_missing_only": dict(
+            panel.get("authenticated_polymarket_connector_scaffold_summary", {})
+        ).get("credentials_redacted_or_missing_only")
+        is True,
         "tiny_live_canary_gonogo_gate_section_ready": dict(
             panel.get("tiny_live_canary_gonogo_gate_summary", {})
         ).get("tiny_live_canary_gonogo_gate_section_ready")
@@ -1907,6 +2067,46 @@ def _build_live_enablement_config_preflight_summary(
     ).to_dict()
 
 
+def _build_authenticated_polymarket_connector_scaffold_summary(
+    *,
+    authenticated_polymarket_connector_scaffold: Mapping[str, Any] | None,
+    authenticated_polymarket_connector_scaffold_summary: Mapping[str, Any] | None,
+    latest_authenticated_polymarket_connector_scaffold_path: str,
+    generated_at: str,
+) -> dict[str, Any]:
+    provided = dict(authenticated_polymarket_connector_scaffold_summary or {})
+    if not provided:
+        provided = summarize_authenticated_connector_capability_report(
+            authenticated_polymarket_connector_scaffold,
+            latest_authenticated_polymarket_connector_scaffold_path=(
+                latest_authenticated_polymarket_connector_scaffold_path
+            ),
+            generated_at=generated_at,
+        )
+    return OperatorUIPanelAuthenticatedPolymarketConnectorScaffoldSummary(
+        status=clean_text(provided.get("status") or NOT_AVAILABLE),
+        connector_name=clean_text(
+            provided.get("connector_name") or "authenticated_polymarket_connector_scaffold_dry_run_only"
+        ),
+        credentials_redacted_or_missing_only=(
+            provided.get("credentials_redacted_or_missing_only") is not False
+        ),
+        configured_redacted_credential_count=int(
+            provided.get("configured_redacted_credential_count", 0) or 0
+        ),
+        missing_credential_count=int(provided.get("missing_credential_count", 0) or 0),
+        top_blocked_reasons=tuple(
+            clean_text(item)
+            for item in list(provided.get("top_blocked_reasons", []))[:5]
+            if clean_text(item)
+        ),
+        latest_authenticated_polymarket_connector_scaffold_path=clean_text(
+            provided.get("latest_authenticated_polymarket_connector_scaffold_path")
+            or latest_authenticated_polymarket_connector_scaffold_path
+        ),
+    ).to_dict()
+
+
 def _build_tiny_live_canary_gonogo_gate_summary(
     *,
     tiny_live_canary_gonogo_gate: Mapping[str, Any] | None,
@@ -2318,6 +2518,7 @@ def _build_sections(
     btc_analysis_order_intent: Mapping[str, Any],
     live_order_submission_boundary: Mapping[str, Any],
     live_enablement_config_preflight: Mapping[str, Any],
+    authenticated_polymarket_connector_scaffold: Mapping[str, Any],
     tiny_live_canary_gonogo_gate: Mapping[str, Any],
     risk_control: Mapping[str, Any],
     risk: Mapping[str, Any],
@@ -2629,6 +2830,59 @@ def _build_sections(
             ],
         ),
         _section(
+            "authenticated_polymarket_connector_scaffold",
+            "Authenticated Polymarket Connector Scaffold",
+            clean_text(authenticated_polymarket_connector_scaffold.get("status") or NOT_AVAILABLE),
+            [
+                _metric("status", "Status", authenticated_polymarket_connector_scaffold.get("status")),
+                _metric(
+                    "authenticated_calls_enabled",
+                    "Authenticated calls enabled",
+                    False,
+                ),
+                _metric("network_calls_enabled", "Network calls enabled", False),
+                _metric("order_submission_enabled", "Order submission enabled", False),
+                _metric("signing_enabled", "Signing enabled", False),
+                _metric("wallet_signing_enabled", "Wallet signing enabled", False),
+                _metric("real_execution_available", "Real execution available", False),
+                _metric(
+                    "credentials_redacted_or_missing_only",
+                    "Credentials redacted/missing only",
+                    authenticated_polymarket_connector_scaffold.get("credentials_redacted_or_missing_only"),
+                ),
+                _metric(
+                    "configured_redacted_credential_count",
+                    "Configured credential statuses",
+                    authenticated_polymarket_connector_scaffold.get("configured_redacted_credential_count"),
+                ),
+                _metric(
+                    "missing_credential_count",
+                    "Missing credential statuses",
+                    authenticated_polymarket_connector_scaffold.get("missing_credential_count"),
+                ),
+                _metric(
+                    "top_blocked_reasons",
+                    "Top blocked reasons",
+                    authenticated_polymarket_connector_scaffold.get("top_blocked_reasons"),
+                ),
+                _metric("no_executable_action", "No executable action", True),
+                _metric(
+                    "latest_authenticated_polymarket_connector_scaffold_path",
+                    "Latest scaffold artifact",
+                    authenticated_polymarket_connector_scaffold.get(
+                        "latest_authenticated_polymarket_connector_scaffold_path"
+                    ),
+                ),
+            ],
+            warnings=[
+                _warning(
+                    "authenticated_polymarket_connector_scaffold_passive_only",
+                    "critical",
+                    "Authenticated Polymarket connector scaffold is passive review only and exposes no executable live action.",
+                )
+            ],
+        ),
+        _section(
             "tiny_live_canary_gonogo_gate",
             "Tiny Live Canary Go/No-Go Gate",
             clean_text(tiny_live_canary_gonogo_gate.get("status") or NOT_AVAILABLE),
@@ -2910,6 +3164,7 @@ def _panel_safety_flags() -> dict[str, Any]:
         "secrets_printed": False,
         "secrets_persisted": False,
         "network_used": False,
+        "network_calls_enabled": False,
         "external_api_calls_performed": False,
         "real_wallet_integration_added": False,
         "real_wallet_access_performed": False,
@@ -2923,6 +3178,7 @@ def _panel_safety_flags() -> dict[str, Any]:
         "real_order_placement_added": False,
         "real_order_placement_performed": False,
         "authenticated_endpoint_added": False,
+        "authenticated_calls_enabled": False,
         "authenticated_polymarket_enabled": False,
         "authenticated_endpoint_enabled": False,
         "authenticated_endpoints_enabled": False,
