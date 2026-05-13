@@ -1,0 +1,136 @@
+{
+  "task_id": "ORCH-PMBOT-TRADING-MVP-050C-MERGE-SIGNED-ORDER-PAYLOAD-DRY-RUN-VALIDATION-GATE-INTO-CURRENT-MASTER",
+  "status": "completed_validated_pending_commit_push_verify",
+  "completed_at_utc": "2026-05-13T21:56:06Z",
+  "worktree": "C:/oc050c_signed_order_payload_validation_gate_current_master_merge",
+  "branch": "detached_from_origin_master_for_merge_push_to_master",
+  "master_head_before": "483e6b8962c20804e6fa7c2f4fc419e2d5934505",
+  "head_before": "483e6b8962c20804e6fa7c2f4fc419e2d5934505",
+  "source_branch": "pmbot/trading-mvp-050-signed-order-payload-dry-run-validation-gate",
+  "source_head_expected": "629630c284b6e4ba0e7b7f0b8bc993fd3e1247de",
+  "source_head_verified": "629630c284b6e4ba0e7b7f0b8bc993fd3e1247de",
+  "merge_type": "no_ff_no_commit_clean_merge_then_result_commit",
+  "conflicts_detected": false,
+  "conflicts_resolved": [],
+  "preserved_prior_master_changes": [
+    "046H Telegram RU language and local Mini App dev mode files remained present after merge.",
+    "No 046H Telegram i18n, runtime, control, or Mini App dev-mode changes were reverted or repaired.",
+    "050 signed order payload dry-run validation gate files and passive integrations were merged."
+  ],
+  "master_head_after": "recorded_in_final_response_after_commit_push_verify",
+  "head_after": "recorded_in_final_response_after_commit_push_verify",
+  "pushed": "recorded_in_final_response_after_push",
+  "remote_verified": "recorded_in_final_response_after_git_ls_remote",
+  "changed_files": [
+    "docs/ORCH_PMBOT_TRADING_MVP_050_SIGNED_ORDER_PAYLOAD_DRY_RUN_VALIDATION_GATE.md",
+    "docs/ORCH_PMBOT_TRADING_MVP_050_SIGNED_ORDER_PAYLOAD_DRY_RUN_VALIDATION_GATE_RESULT.json",
+    "docs/ORCH_PMBOT_TRADING_MVP_050C_MERGE_SIGNED_ORDER_PAYLOAD_DRY_RUN_VALIDATION_GATE_INTO_CURRENT_MASTER_RESULT.json",
+    "pm_bot/operator_runner/operator_ui_panel_v1.py",
+    "pm_bot/operator_runner/paper_daily_loop.py",
+    "pm_bot/tests/test_signed_order_payload_validation_gate_050.py",
+    "pm_bot/trading_core/authenticated_polymarket_connector.py",
+    "pm_bot/trading_core/live_canary_readiness.py",
+    "pm_bot/trading_core/live_canary_readiness_evidence_bundle.py",
+    "pm_bot/trading_core/live_canary_replay_acceptance.py",
+    "pm_bot/trading_core/secret_boundary_policy.py",
+    "pm_bot/trading_core/signed_order_payload_validation_gate.py",
+    "pm_bot/trading_core/tiny_live_canary_gonogo_gate.py"
+  ],
+  "validation": [
+    {
+      "command": "python -m pytest pm_bot/tests/test_signed_order_payload_validation_gate_050.py",
+      "status": "passed",
+      "result": "8 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_wallet_signing_boundary_049.py",
+      "status": "passed",
+      "result": "8 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_authenticated_polymarket_connector_048.py",
+      "status": "passed",
+      "result": "8 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_live_enablement_config_047.py",
+      "status": "passed",
+      "result": "11 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_ru_language_mini_app_dev_mode_046g.py pm_bot/tests/test_telegram_operator_runtime_ux_smoke_fixes_046e.py pm_bot/tests/test_telegram_runtime_smoke_046c.py pm_bot/tests/test_telegram_operator_ux_buttons_046.py pm_bot/tests/test_telegram_operator_runtime_045.py pm_bot/tests/test_telegram_operator_control_bot_043.py pm_bot/tests/test_telegram_mini_app_operator_panel_044.py",
+      "status": "passed",
+      "result": "71 passed"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.telegram_runtime_smoke",
+      "status": "passed",
+      "result": "no-network default; Telegram token missing; allowed operator IDs missing; runtime import ok; safety flags expected false ok"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests",
+      "status": "passed_with_short_path_alias",
+      "result": "1730 passed",
+      "notes": "Running from the required long worktree path hit Python pathlib false negatives on Windows for a tracked evidence artifact at 266 characters; reran from temporary subst alias O:/ to avoid path-length distortion."
+    },
+    {
+      "command": "python -m compileall pm_bot",
+      "status": "passed",
+      "result": "compile completed"
+    },
+    {
+      "command": "python -m pytest --noconftest tests/test_codex_queue_nightly_lane_batch_runner.py tests/test_codex_worktree_lane_manager.py tests/test_subagent_routing.py tests/test_codex_queue_operator_cli.py",
+      "status": "passed_with_short_path_alias",
+      "result": "41 passed",
+      "notes": "The normal conftest-backed command hit Windows path length in generated lane temp paths under the required long worktree. --noconftest used pytest's normal short tmp_path root for this automation smoke validation."
+    },
+    {
+      "command": "python -m compileall ai_orchestrator",
+      "status": "passed",
+      "result": "compile completed"
+    },
+    {
+      "command": "inline Python safety invariant check covering live/signing/order/auth/wallet flags",
+      "status": "passed",
+      "result": "checked auth report, signed payload gate, evidence bundle, go/no-go gate, operator panel, and changed production files; required false flags false and resolved_blocker_count zero"
+    }
+  ],
+  "safety_results": {
+    "authenticated_polymarket_enabled": false,
+    "live_connector_enabled": false,
+    "order_submission_enabled": false,
+    "wallet_signing_enabled": false,
+    "signing_enabled": false,
+    "signed_payload_generation_enabled": false,
+    "signed_order_generation_enabled": false,
+    "allowed_for_live": false,
+    "canary_executable_now": false,
+    "live_execution_approved": false,
+    "real_execution_available": false,
+    "resolved_blocker_count": 0,
+    "live_trading_enabled": false,
+    "real_orders_submitted": false,
+    "authenticated_polymarket_calls": false,
+    "connector_network_calls": false,
+    "wallet_connected": false,
+    "private_keys_or_wallet_files_read": false,
+    "signing_performed": false,
+    "signed_payloads_generated": false,
+    "signed_orders_generated": false,
+    "fake_signatures_or_order_ids_generated": false,
+    "browser_automation_added": false,
+    "scheduler_daemon_or_background_worker_added": false,
+    "telegram_token_or_init_data_printed_or_committed": false,
+    "telegram_pause_kill_local_markers_only": true,
+    "mini_app_review_only": true,
+    "safety_ok": true
+  },
+  "cleanup_notes": [
+    "Validation-generated tracked artifact rewrites were restored before final staging.",
+    "Validation-generated __pycache__ directories were removed before final staging.",
+    "Temporary subst alias O: was used only for Windows path-length-safe validation and removed before final report.",
+    "Selective staging only was used for the 050C result artifact; git add ., git add -A, and git add --all were not used."
+  ],
+  "leftovers": [],
+  "next_recommended_task": "ORCH-PMBOT-TRADING-MVP-051-SUPERVISED-TINY-CANARY-RUNBOOK-AND-OPERATOR-APPROVAL-PACKET"
+}

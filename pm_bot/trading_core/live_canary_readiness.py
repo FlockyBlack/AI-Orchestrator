@@ -19,6 +19,10 @@ from pm_bot.trading_core.schemas import (
     write_text,
 )
 from pm_bot.trading_core.signing_simulator import STATUS_DRY_RUN_RECEIPT_READY
+from pm_bot.trading_core.signed_order_payload_validation_gate import (
+    build_signed_order_payload_validation_gate,
+    summarize_signed_order_payload_validation_gate,
+)
 from pm_bot.trading_core.wallet_execution_boundary import STATUS_APPROVED_FOR_FUTURE_SIMULATION
 from pm_bot.trading_core.wallet_signing_boundary import (
     build_wallet_signing_boundary_report,
@@ -135,6 +139,8 @@ BTC_MARKET_READINESS_REVIEW_ONLY_BLOCKER_CATEGORIES = (
     "wallet_signing_boundary_scaffold_review_only",
     "wallet_signing_boundary_refuses_all_signing_requests",
     "signed_payload_generation_still_disabled",
+    "signed_order_payload_validation_gate_review_only",
+    "signed_order_payload_shape_review_does_not_enable_signing",
 )
 
 
@@ -290,6 +296,8 @@ def build_canary_readiness_packet(
     wallet_boundary_audit_ledger: Mapping[str, Any] | None = None,
     signing_simulator_receipt_ledger: Mapping[str, Any] | None = None,
     wallet_signing_boundary_report: Mapping[str, Any] | None = None,
+    signed_order_payload_validation_gate: Mapping[str, Any] | None = None,
+    signed_order_payload_validation_gate_summary: Mapping[str, Any] | None = None,
     operator_approval_record: Mapping[str, Any] | None = None,
     run_context: Mapping[str, Any] | None = None,
     canary_market_id: str = "",
@@ -303,6 +311,12 @@ def build_canary_readiness_packet(
     receipt_ledger = dict(signing_simulator_receipt_ledger or {})
     wallet_signing_boundary_summary = summarize_wallet_signing_boundary_report(
         wallet_signing_boundary_report or build_wallet_signing_boundary_report(generated_at=generated_at),
+        generated_at=generated_at,
+    )
+    signed_order_payload_gate_summary = summarize_signed_order_payload_validation_gate(
+        signed_order_payload_validation_gate_summary
+        or signed_order_payload_validation_gate
+        or build_signed_order_payload_validation_gate(generated_at=generated_at),
         generated_at=generated_at,
     )
     context = dict(run_context or {})
@@ -411,6 +425,10 @@ def build_canary_readiness_packet(
         "transaction_signing_enabled": False,
         "signed_payload_generation_enabled": False,
         "signed_order_generation_enabled": False,
+        "signed_order_payload_validation_gate_status": signed_order_payload_gate_summary.get("status"),
+        "signed_order_payload_shape_status": signed_order_payload_gate_summary.get("payload_shape_status"),
+        "signed_order_payload_validation_gate_review_only": True,
+        "signed_order_payload_validation_gate_no_executable_action": True,
         "operator_approval_record_id": "" if approval_record_missing else clean_text(approval.get("approval_record_id")),
         "operator_approval_status": approval_status,
         "kill_switch_status": kill_switch_status or "unknown",
@@ -675,10 +693,12 @@ def build_canary_dashboard_summary(
     risk_control_plane_status: str = "review_only_not_live_enforced",
     live_enablement_config_preflight_summary: Mapping[str, Any] | None = None,
     authenticated_connector_scaffold_summary: Mapping[str, Any] | None = None,
+    signed_order_payload_validation_gate_summary: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     receipt_value = dict(receipt or {})
     live_config_preflight = dict(live_enablement_config_preflight_summary or {})
     authenticated_connector = dict(authenticated_connector_scaffold_summary or {})
+    signed_payload_gate = dict(signed_order_payload_validation_gate_summary or {})
     return {
         "canary_id": clean_text(packet.get("canary_id")),
         "canary_readiness_status": clean_text(packet.get("canary_status")),
@@ -730,6 +750,18 @@ def build_canary_dashboard_summary(
         "authenticated_connector_scaffold_authenticated_calls_enabled": False,
         "authenticated_connector_scaffold_order_submission_enabled": False,
         "authenticated_connector_scaffold_real_execution_available": False,
+        "signed_order_payload_validation_gate_summary": signed_payload_gate,
+        "signed_order_payload_validation_gate_status": clean_text(
+            signed_payload_gate.get("status") or "not_generated"
+        ),
+        "signed_order_payload_shape_status": clean_text(
+            signed_payload_gate.get("payload_shape_status") or "not_generated"
+        ),
+        "signed_order_payload_validation_review_only": (
+            signed_payload_gate.get("review_only") is not False
+        ),
+        "signed_payload_generation_enabled": False,
+        "signed_order_generation_enabled": False,
         "risk_control_plane_status": clean_text(risk_control_plane_status),
         "risk_limit_control_plane_review_only": True,
         "risk_limits_not_live_enforced_against_real_connector": True,
