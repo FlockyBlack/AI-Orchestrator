@@ -39,6 +39,7 @@ from pm_bot.trading_core.secret_boundary_policy import (
     validate_secret_boundary_operator_ui_panel_rendered_json,
     validate_secret_boundary_operator_ui_panel_rendered_markdown,
     validate_secret_boundary_operator_ui_panel_risk_limit_summary,
+    validate_secret_boundary_supervised_tiny_canary_approval_packet_summary,
 )
 from pm_bot.trading_core.btc_market_analysis_order_intent import summarize_btc_analysis_order_intent
 from pm_bot.trading_core.live_order_submission_boundary import (
@@ -46,6 +47,9 @@ from pm_bot.trading_core.live_order_submission_boundary import (
     summarize_live_order_submission_boundary_receipt,
 )
 from pm_bot.trading_core.tiny_live_canary_gonogo_gate import summarize_tiny_live_canary_gonogo_gate
+from pm_bot.trading_core.supervised_tiny_canary_runbook import (
+    summarize_supervised_tiny_canary_approval_packet,
+)
 from pm_bot.trading_core.risk_limit_control_plane import (
     build_default_risk_limit_policy,
     build_risk_control_plane_summary,
@@ -92,6 +96,9 @@ OPERATOR_UI_PANEL_TELEGRAM_CONTROL_SUMMARY_CONTRACT = (
 OPERATOR_UI_PANEL_TELEGRAM_MINI_APP_SUMMARY_CONTRACT = (
     "pmbot_operator_ui_panel_telegram_mini_app_operator_panel_summary.v1"
 )
+OPERATOR_UI_PANEL_SUPERVISED_TINY_CANARY_APPROVAL_PACKET_SUMMARY_CONTRACT = (
+    "pmbot_operator_ui_panel_supervised_tiny_canary_approval_packet_summary.v1"
+)
 OPERATOR_UI_PANEL_VALIDATION_CONTRACT = "pmbot_operator_ui_panel_validation.v1"
 
 TASK_ID = "ORCH-PMBOT-TRADING-MVP-036-OPERATOR-UI-PANEL-V1-READINESS-RISK-LIMITS-KILL-SWITCH"
@@ -134,6 +141,7 @@ REQUIRED_SECTION_IDS = (
     "wallet_signing_boundary",
     "signed_order_payload_validation_gate",
     "tiny_live_canary_gonogo_gate",
+    "supervised_tiny_canary_approval_packet",
     "risk_control_plane",
     "risk_limits",
     "kill_switch",
@@ -158,6 +166,7 @@ NEXT_REQUIRED_GATES = (
     "authenticated Polymarket connector scaffold remains dry-run-only and non-executable",
     "wallet signing boundary remains review-only and non-executable",
     "signed order payload validation gate remains dry-run-only and non-executable",
+    "supervised tiny canary approval packet remains review-only and not live approval",
     "Telegram operator control bot remains review-only and exposes no executable live action",
     "Telegram Mini App operator panel remains static review-only and exposes no executable live action",
 )
@@ -709,6 +718,64 @@ class OperatorUIPanelTelegramMiniAppSummary:
 
 
 @dataclass(frozen=True)
+class OperatorUIPanelSupervisedTinyCanaryApprovalPacketSummary:
+    status: str
+    approval_packet_ready_for_human_review: bool
+    packet_cannot_be_interpreted_as_live_approval: bool
+    operator_must_not_execute_from_this_packet: bool
+    future_live_enabling_task_required: bool
+    section_count: int
+    operator_checklist_count: int
+    future_required_action_count: int
+    unresolved_blocker_count: int
+    latest_supervised_tiny_canary_approval_packet_json_path: str = ""
+    latest_supervised_tiny_canary_approval_packet_md_path: str = ""
+    review_only: bool = True
+    approval_packet_may_be_used_as_live_approval: bool = False
+    live_execution_approved: bool = False
+    canary_executable_now: bool = False
+    real_execution_available: bool = False
+    execution_enabling: bool = False
+    order_submission_enabled: bool = False
+    wallet_signing_enabled: bool = False
+    signing_enabled: bool = False
+    signed_payload_generation_enabled: bool = False
+    signed_order_generation_enabled: bool = False
+    authenticated_polymarket_enabled: bool = False
+    live_connector_enabled: bool = False
+    allowed_for_live: bool = False
+    resolved_blocker_count: int = 0
+    no_executable_action: bool = True
+
+    def to_dict(self) -> dict[str, Any]:
+        value = asdict(self)
+        value["contract_version"] = OPERATOR_UI_PANEL_SUPERVISED_TINY_CANARY_APPROVAL_PACKET_SUMMARY_CONTRACT
+        value["supervised_tiny_canary_approval_packet_section_ready"] = True
+        value["approval_packet_ready_for_human_review"] = self.approval_packet_ready_for_human_review
+        value["packet_cannot_be_interpreted_as_live_approval"] = True
+        value["approval_packet_may_be_used_as_live_approval"] = False
+        value["operator_must_not_execute_from_this_packet"] = True
+        value["future_live_enabling_task_required"] = True
+        value["review_only"] = True
+        value["execution_enabling"] = False
+        value["no_executable_action"] = True
+        value["live_execution_approved"] = False
+        value["canary_executable_now"] = False
+        value["real_execution_available"] = False
+        value["order_submission_enabled"] = False
+        value["wallet_signing_enabled"] = False
+        value["signing_enabled"] = False
+        value["signed_payload_generation_enabled"] = False
+        value["signed_order_generation_enabled"] = False
+        value["authenticated_polymarket_enabled"] = False
+        value["live_connector_enabled"] = False
+        value["allowed_for_live"] = False
+        value["resolved_blocker_count"] = 0
+        value.update(_panel_safety_flags())
+        return value
+
+
+@dataclass(frozen=True)
 class OperatorUIPanelReadinessSummary:
     mode: str
     current_execution_posture: str
@@ -786,6 +853,7 @@ class OperatorUIPanelV1:
     wallet_signing_boundary_summary: Mapping[str, Any]
     signed_order_payload_validation_gate_summary: Mapping[str, Any]
     tiny_live_canary_gonogo_gate_summary: Mapping[str, Any]
+    supervised_tiny_canary_approval_packet_summary: Mapping[str, Any]
     risk_control_plane_summary: Mapping[str, Any]
     risk_limit_summary: Mapping[str, Any]
     kill_switch_summary: Mapping[str, Any]
@@ -821,6 +889,9 @@ class OperatorUIPanelV1:
             self.signed_order_payload_validation_gate_summary
         )
         value["tiny_live_canary_gonogo_gate_summary"] = dict(self.tiny_live_canary_gonogo_gate_summary)
+        value["supervised_tiny_canary_approval_packet_summary"] = dict(
+            self.supervised_tiny_canary_approval_packet_summary
+        )
         value["risk_control_plane_summary"] = dict(self.risk_control_plane_summary)
         value["risk_limit_summary"] = dict(self.risk_limit_summary)
         value["kill_switch_summary"] = dict(self.kill_switch_summary)
@@ -851,6 +922,7 @@ class OperatorUIPanelV1:
         value["wallet_signing_boundary_section_ready"] = True
         value["signed_order_payload_validation_gate_section_ready"] = True
         value["tiny_live_canary_gonogo_gate_section_ready"] = True
+        value["supervised_tiny_canary_approval_packet_section_ready"] = True
         value["static_html_render_ready"] = True
         value["markdown_render_ready"] = True
         value["json_render_ready"] = True
@@ -886,6 +958,8 @@ def build_operator_ui_panel_v1(
     signed_order_payload_validation_gate_summary: Mapping[str, Any] | None = None,
     tiny_live_canary_gonogo_gate: Mapping[str, Any] | None = None,
     tiny_live_canary_gonogo_gate_summary: Mapping[str, Any] | None = None,
+    supervised_tiny_canary_approval_packet: Mapping[str, Any] | None = None,
+    supervised_tiny_canary_approval_packet_summary: Mapping[str, Any] | None = None,
     live_credentials_auth_boundary_summary: Mapping[str, Any] | None = None,
     risk_limits: Mapping[str, Any] | None = None,
     risk_prep_config: Mapping[str, Any] | None = None,
@@ -1026,6 +1100,23 @@ def build_operator_ui_panel_v1(
         or clean_text(dashboard_value.get("latest_tiny_live_canary_gonogo_gate_path")),
         generated_at=generated_at,
     )
+    supervised_tiny_canary_packet_summary = _build_supervised_tiny_canary_approval_packet_summary(
+        supervised_tiny_canary_approval_packet=supervised_tiny_canary_approval_packet
+        or dashboard_value.get("supervised_tiny_canary_approval_packet", {}),
+        supervised_tiny_canary_approval_packet_summary=(
+            supervised_tiny_canary_approval_packet_summary
+            or dashboard_value.get("supervised_tiny_canary_approval_packet_summary", {})
+        ),
+        latest_supervised_tiny_canary_approval_packet_json_path=(
+            paths.get("supervised_tiny_canary_approval_packet", "")
+            or clean_text(dashboard_value.get("latest_supervised_tiny_canary_approval_packet_path"))
+        ),
+        latest_supervised_tiny_canary_approval_packet_md_path=(
+            paths.get("supervised_tiny_canary_approval_packet_md", "")
+            or clean_text(dashboard_value.get("latest_supervised_tiny_canary_approval_packet_md_path"))
+        ),
+        generated_at=generated_at,
+    )
     live_auth_summary = _build_live_credentials_auth_boundary_summary(
         live_credentials_auth_boundary_summary=(
             live_credentials_auth_boundary_summary
@@ -1101,6 +1192,7 @@ def build_operator_ui_panel_v1(
         wallet_signing_boundary=wallet_signing_boundary_ui_summary,
         signed_order_payload_validation_gate=signed_order_payload_validation_gate_ui_summary,
         tiny_live_canary_gonogo_gate=gonogo_summary,
+        supervised_tiny_canary_approval_packet=supervised_tiny_canary_packet_summary,
         risk_control=risk_control_summary,
         risk=risk_summary,
         kill_switch=kill_switch_summary,
@@ -1129,6 +1221,7 @@ def build_operator_ui_panel_v1(
             "wallet_signing_boundary": wallet_signing_boundary_ui_summary,
             "signed_order_payload_validation_gate": signed_order_payload_validation_gate_ui_summary,
             "tiny_live_canary_gonogo_gate": gonogo_summary,
+            "supervised_tiny_canary_approval_packet": supervised_tiny_canary_packet_summary,
             "risk_control": risk_control_summary,
             "risk": risk_summary,
             "kill_switch": kill_switch_summary,
@@ -1153,6 +1246,7 @@ def build_operator_ui_panel_v1(
         wallet_signing_boundary_summary=wallet_signing_boundary_ui_summary,
         signed_order_payload_validation_gate_summary=signed_order_payload_validation_gate_ui_summary,
         tiny_live_canary_gonogo_gate_summary=gonogo_summary,
+        supervised_tiny_canary_approval_packet_summary=supervised_tiny_canary_packet_summary,
         risk_control_plane_summary=risk_control_summary,
         risk_limit_summary=risk_summary,
         kill_switch_summary=kill_switch_summary,
@@ -1454,6 +1548,49 @@ def validate_operator_ui_panel_v1(
             errors.append(f"tiny_live_canary_gonogo_gate_summary.{field} must be false")
             statuses.append("gonogo_gate_execution_flag_detected")
 
+    supervised_packet_summary = dict(panel_value.get("supervised_tiny_canary_approval_packet_summary", {}))
+    supervised_packet_validation = validate_secret_boundary_supervised_tiny_canary_approval_packet_summary(
+        supervised_packet_summary,
+        generated_at=generated_at,
+    )
+    if supervised_packet_validation.get("valid") is not True:
+        errors.append("supervised_tiny_canary_approval_packet_summary violates static secret boundary")
+        statuses.append("supervised_tiny_canary_approval_packet_summary_secret_boundary_blocked")
+    if supervised_packet_summary.get("supervised_tiny_canary_approval_packet_section_ready") is not True:
+        errors.append("supervised_tiny_canary_approval_packet_section_ready must be true")
+        statuses.append("supervised_tiny_canary_approval_packet_section_missing")
+    if supervised_packet_summary.get("review_only") is not True:
+        errors.append("supervised_tiny_canary_approval_packet_summary.review_only must be true")
+        statuses.append("supervised_tiny_canary_approval_packet_not_review_only")
+    if supervised_packet_summary.get("approval_packet_may_be_used_as_live_approval") is not False:
+        errors.append(
+            "supervised_tiny_canary_approval_packet_summary."
+            "approval_packet_may_be_used_as_live_approval must be false"
+        )
+        statuses.append("supervised_tiny_canary_approval_packet_live_approval_interpretation_detected")
+    if supervised_packet_summary.get("packet_cannot_be_interpreted_as_live_approval") is not True:
+        errors.append(
+            "supervised_tiny_canary_approval_packet_summary."
+            "packet_cannot_be_interpreted_as_live_approval must be true"
+        )
+        statuses.append("supervised_tiny_canary_approval_packet_live_approval_interpretation_detected")
+    if supervised_packet_summary.get("operator_must_not_execute_from_this_packet") is not True:
+        errors.append("supervised_tiny_canary_approval_packet_summary.operator_must_not_execute must be true")
+        statuses.append("supervised_tiny_canary_approval_packet_execution_interpretation_detected")
+    if supervised_packet_summary.get("future_live_enabling_task_required") is not True:
+        errors.append("supervised_tiny_canary_approval_packet_summary.future_live_enabling_task_required must be true")
+        statuses.append("supervised_tiny_canary_approval_packet_missing_future_gate")
+    if supervised_packet_summary.get("no_executable_action") is not True:
+        errors.append("supervised_tiny_canary_approval_packet_summary.no_executable_action must be true")
+        statuses.append("supervised_tiny_canary_approval_packet_executable_action_detected")
+    if supervised_packet_summary.get("resolved_blocker_count") != 0:
+        errors.append("supervised_tiny_canary_approval_packet_summary.resolved_blocker_count must be 0")
+        statuses.append("supervised_tiny_canary_approval_packet_resolved_blocker_detected")
+    for field in FORCED_FALSE_EXECUTION_FIELDS:
+        if supervised_packet_summary.get(field) is not False:
+            errors.append(f"supervised_tiny_canary_approval_packet_summary.{field} must be false")
+            statuses.append("supervised_tiny_canary_approval_packet_execution_flag_detected")
+
     kill_validation = validate_secret_boundary_operator_ui_panel_kill_switch_summary(
         dict(panel_value.get("kill_switch_summary", {})),
         generated_at=generated_at,
@@ -1586,6 +1723,9 @@ def validate_operator_ui_panel_v1(
         "operator_ui_panel_wallet_signing_boundary_summary_secret_boundary_validation": wallet_signing_validation,
         "operator_ui_panel_signed_order_payload_validation_gate_summary_secret_boundary_validation": (
             signed_payload_gate_validation
+        ),
+        "supervised_tiny_canary_approval_packet_summary_secret_boundary_validation": (
+            supervised_packet_validation
         ),
         "rendered_json_secret_boundary_validation": rendered_json_validation,
         "rendered_markdown_secret_boundary_validation": rendered_md_validation,
@@ -1776,6 +1916,29 @@ def summarize_operator_ui_panel_v1(panel: Mapping[str, Any]) -> dict[str, Any]:
         "tiny_live_canary_gonogo_unresolved_blocker_count": dict(
             panel.get("tiny_live_canary_gonogo_gate_summary", {})
         ).get("unresolved_blocker_count"),
+        "supervised_tiny_canary_approval_packet_section_ready": dict(
+            panel.get("supervised_tiny_canary_approval_packet_summary", {})
+        ).get("supervised_tiny_canary_approval_packet_section_ready")
+        is True,
+        "supervised_tiny_canary_approval_packet_status": dict(
+            panel.get("supervised_tiny_canary_approval_packet_summary", {})
+        ).get("status"),
+        "supervised_tiny_canary_approval_packet_review_only": dict(
+            panel.get("supervised_tiny_canary_approval_packet_summary", {})
+        ).get("review_only")
+        is True,
+        "supervised_tiny_canary_approval_packet_cannot_approve_live": dict(
+            panel.get("supervised_tiny_canary_approval_packet_summary", {})
+        ).get("packet_cannot_be_interpreted_as_live_approval")
+        is True,
+        "supervised_tiny_canary_approval_packet_no_executable_action": dict(
+            panel.get("supervised_tiny_canary_approval_packet_summary", {})
+        ).get("no_executable_action")
+        is True,
+        "supervised_tiny_canary_approval_packet_live_execution_approved": False,
+        "supervised_tiny_canary_approval_packet_canary_executable_now": False,
+        "supervised_tiny_canary_approval_packet_order_submission_enabled": False,
+        "supervised_tiny_canary_approval_packet_resolved_blocker_count": 0,
         "latest_risk_limit_decision_status": dict(panel.get("risk_control_plane_summary", {})).get(
             "latest_decision_status"
         ),
@@ -2492,6 +2655,67 @@ def _build_tiny_live_canary_gonogo_gate_summary(
     return summary
 
 
+def _build_supervised_tiny_canary_approval_packet_summary(
+    *,
+    supervised_tiny_canary_approval_packet: Mapping[str, Any] | None,
+    supervised_tiny_canary_approval_packet_summary: Mapping[str, Any] | None,
+    latest_supervised_tiny_canary_approval_packet_json_path: str,
+    latest_supervised_tiny_canary_approval_packet_md_path: str,
+    generated_at: str,
+) -> dict[str, Any]:
+    provided = dict(supervised_tiny_canary_approval_packet_summary or {})
+    packet = dict(supervised_tiny_canary_approval_packet or {})
+    if not provided and packet:
+        provided = summarize_supervised_tiny_canary_approval_packet(
+            packet,
+            latest_supervised_tiny_canary_approval_packet_json_path=(
+                latest_supervised_tiny_canary_approval_packet_json_path
+            ),
+            latest_supervised_tiny_canary_approval_packet_md_path=(
+                latest_supervised_tiny_canary_approval_packet_md_path
+            ),
+            generated_at=generated_at,
+        )
+    return OperatorUIPanelSupervisedTinyCanaryApprovalPacketSummary(
+        status=clean_text(
+            provided.get("status")
+            or packet.get("status")
+            or "REVIEW_READY_BLOCKED_FOR_LIVE"
+        ),
+        approval_packet_ready_for_human_review=(
+            provided.get("approval_packet_ready_for_human_review") is True
+            or packet.get("approval_packet_ready_for_human_review") is True
+        ),
+        packet_cannot_be_interpreted_as_live_approval=True,
+        operator_must_not_execute_from_this_packet=True,
+        future_live_enabling_task_required=True,
+        section_count=_int_or_zero(provided.get("section_count"), packet.get("section_count"), 0),
+        operator_checklist_count=_int_or_zero(
+            provided.get("operator_checklist_count"),
+            len(mapping_rows(packet.get("operator_checklist"))),
+            0,
+        ),
+        future_required_action_count=_int_or_zero(
+            provided.get("future_required_action_count"),
+            len(mapping_rows(packet.get("future_required_actions"))),
+            0,
+        ),
+        unresolved_blocker_count=_int_or_zero(
+            provided.get("unresolved_blocker_count"),
+            packet.get("unresolved_blocker_count"),
+            0,
+        ),
+        latest_supervised_tiny_canary_approval_packet_json_path=clean_text(
+            latest_supervised_tiny_canary_approval_packet_json_path
+            or provided.get("latest_supervised_tiny_canary_approval_packet_json_path")
+        ),
+        latest_supervised_tiny_canary_approval_packet_md_path=clean_text(
+            latest_supervised_tiny_canary_approval_packet_md_path
+            or provided.get("latest_supervised_tiny_canary_approval_packet_md_path")
+        ),
+    ).to_dict()
+
+
 def _build_risk_control_plane_summary(
     *,
     risk_control_plane_summary: Mapping[str, Any] | None,
@@ -2827,6 +3051,13 @@ def _build_action_states() -> list[dict[str, Any]]:
             notes="Final gate is passive review only and exposes no executable action.",
         ).to_dict(),
         OperatorUIPanelActionState(
+            action_id="inspect_supervised_tiny_canary_approval_packet",
+            label="Inspect supervised tiny canary approval packet",
+            state="read_only_available",
+            requires_future_operator_task=False,
+            notes="Approval packet is review-only and cannot approve or execute live trading.",
+        ).to_dict(),
+        OperatorUIPanelActionState(
             action_id="future_canary_gate_status",
             label="Future canary gate status",
             state="blocked_not_executable",
@@ -2849,6 +3080,7 @@ def _build_sections(
     wallet_signing_boundary: Mapping[str, Any],
     signed_order_payload_validation_gate: Mapping[str, Any],
     tiny_live_canary_gonogo_gate: Mapping[str, Any],
+    supervised_tiny_canary_approval_packet: Mapping[str, Any],
     risk_control: Mapping[str, Any],
     risk: Mapping[str, Any],
     kill_switch: Mapping[str, Any],
@@ -3344,6 +3576,96 @@ def _build_sections(
                     "Latest go/no-go packet",
                     tiny_live_canary_gonogo_gate.get("latest_tiny_live_canary_gonogo_gate_path"),
                 ),
+            ],
+        ),
+        _section(
+            "supervised_tiny_canary_approval_packet",
+            "Supervised Tiny Canary Approval Packet",
+            clean_text(supervised_tiny_canary_approval_packet.get("status") or "REVIEW_READY_BLOCKED_FOR_LIVE"),
+            [
+                _metric("status", "Status", supervised_tiny_canary_approval_packet.get("status")),
+                _metric(
+                    "approval_packet_ready_for_human_review",
+                    "Ready for human review",
+                    supervised_tiny_canary_approval_packet.get("approval_packet_ready_for_human_review"),
+                ),
+                _metric("review_only", "Review-only", True),
+                _metric(
+                    "packet_cannot_be_interpreted_as_live_approval",
+                    "Cannot be interpreted as live approval",
+                    True,
+                ),
+                _metric(
+                    "approval_packet_may_be_used_as_live_approval",
+                    "May be used as live approval",
+                    False,
+                ),
+                _metric(
+                    "operator_must_not_execute_from_this_packet",
+                    "Operator must not execute from packet",
+                    True,
+                ),
+                _metric(
+                    "future_live_enabling_task_required",
+                    "Future live-enabling task required",
+                    True,
+                ),
+                _metric(
+                    "operator_checklist_count",
+                    "Operator checklist items",
+                    supervised_tiny_canary_approval_packet.get("operator_checklist_count"),
+                ),
+                _metric(
+                    "future_required_action_count",
+                    "Future required actions",
+                    supervised_tiny_canary_approval_packet.get("future_required_action_count"),
+                ),
+                _metric(
+                    "unresolved_blocker_count",
+                    "Unresolved blockers",
+                    supervised_tiny_canary_approval_packet.get("unresolved_blocker_count"),
+                ),
+                _metric("resolved_blocker_count", "Resolved blockers", 0),
+                _metric("live_execution_approved", "Live execution approved", False),
+                _metric("canary_executable_now", "Canary executable now", False),
+                _metric("real_execution_available", "Real execution available", False),
+                _metric("order_submission_enabled", "Order submission enabled", False),
+                _metric("wallet_signing_enabled", "Wallet signing enabled", False),
+                _metric("signing_enabled", "Signing enabled", False),
+                _metric(
+                    "signed_payload_generation_enabled",
+                    "Signed payload generation enabled",
+                    False,
+                ),
+                _metric("signed_order_generation_enabled", "Signed order generation enabled", False),
+                _metric(
+                    "authenticated_polymarket_enabled",
+                    "Authenticated Polymarket enabled",
+                    False,
+                ),
+                _metric("live_connector_enabled", "Live connector enabled", False),
+                _metric("no_executable_action", "No executable action", True),
+                _metric(
+                    "latest_supervised_tiny_canary_approval_packet_json_path",
+                    "Latest approval packet JSON",
+                    supervised_tiny_canary_approval_packet.get(
+                        "latest_supervised_tiny_canary_approval_packet_json_path"
+                    ),
+                ),
+                _metric(
+                    "latest_supervised_tiny_canary_approval_packet_md_path",
+                    "Latest approval packet Markdown",
+                    supervised_tiny_canary_approval_packet.get(
+                        "latest_supervised_tiny_canary_approval_packet_md_path"
+                    ),
+                ),
+            ],
+            warnings=[
+                _warning(
+                    "supervised_tiny_canary_approval_packet_not_live_approval",
+                    "critical",
+                    "Approval packet is review-only; it does not approve or enable live execution.",
+                )
             ],
         ),
         _section(

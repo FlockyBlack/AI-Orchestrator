@@ -198,6 +198,10 @@ SAFE_SECRET_METADATA_FIELD_NAMES = frozenset(
         "authenticated_polymarket_connector_scaffold_secret_boundary_validation",
         "authenticated_polymarket_connector_scaffold_summary_secret_boundary_validation",
         "operator_ui_panel_authenticated_polymarket_connector_scaffold_summary_secret_boundary_validation",
+        "supervised_tiny_canary_approval_packet_secret_boundary_validation",
+        "supervised_tiny_canary_approval_packet_summary_secret_boundary_validation",
+        "supervised_tiny_canary_approval_packet_markdown_secret_boundary_validation",
+        "supervised_tiny_canary_approval_packet_section_ready",
         "authenticated_polymarket_connector_scaffold_section_ready",
         "credentials_redacted_or_missing_only",
         "raw_values_emitted",
@@ -647,6 +651,42 @@ def validate_secret_boundary_readiness_evidence_reference(
     return validate_static_secret_boundary(
         value,
         artifact_type="readiness_evidence_reference",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_supervised_tiny_canary_approval_packet(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        value,
+        artifact_type="supervised_tiny_canary_approval_packet",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_supervised_tiny_canary_approval_packet_summary(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        value,
+        artifact_type="supervised_tiny_canary_approval_packet_summary",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_supervised_tiny_canary_approval_packet_markdown(
+    value: str,
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        {"rendered_markdown": clean_text(value)},
+        artifact_type="supervised_tiny_canary_approval_packet_markdown",
         generated_at=generated_at,
     )
 

@@ -128,6 +128,7 @@ REQUIRED_EVIDENCE_TYPES = (
     "signed_order_payload_dry_run_validation_gate",
     "telegram_operator_control_bot_v1",
     "telegram_mini_app_operator_panel_v1",
+    "supervised_tiny_canary_runbook_operator_approval_packet",
 )
 
 OPTIONAL_EVIDENCE_TYPES = (
@@ -384,6 +385,8 @@ def build_live_canary_readiness_evidence_bundle(
     signed_order_payload_validation_gate_summary: Mapping[str, Any] | None = None,
     telegram_operator_control_bot_v1: Mapping[str, Any] | None = None,
     telegram_mini_app_operator_panel_v1: Mapping[str, Any] | None = None,
+    supervised_tiny_canary_approval_packet: Mapping[str, Any] | None = None,
+    supervised_tiny_canary_approval_packet_summary: Mapping[str, Any] | None = None,
     dry_run_receipt_references: Sequence[str] | None = None,
     result_artifact_references: Sequence[str] | None = None,
     artifact_reference_overrides: Mapping[str, str] | None = None,
@@ -454,6 +457,8 @@ def build_live_canary_readiness_evidence_bundle(
     )
     telegram_control = dict(telegram_operator_control_bot_v1 or {})
     telegram_mini_app = dict(telegram_mini_app_operator_panel_v1 or {})
+    supervised_canary_packet = dict(supervised_tiny_canary_approval_packet or {})
+    supervised_canary_packet_summary = dict(supervised_tiny_canary_approval_packet_summary or {})
     overrides = {clean_text(key): clean_text(value) for key, value in dict(artifact_reference_overrides or {}).items()}
 
     items = _build_evidence_items(
@@ -485,6 +490,8 @@ def build_live_canary_readiness_evidence_bundle(
         signed_order_payload_validation_gate_summary=signed_payload_gate_summary,
         telegram_operator_control_bot_v1=telegram_control,
         telegram_mini_app_operator_panel_v1=telegram_mini_app,
+        supervised_tiny_canary_approval_packet=supervised_canary_packet,
+        supervised_tiny_canary_approval_packet_summary=supervised_canary_packet_summary,
         dry_run_receipt_references=dry_run_receipt_references,
         result_artifact_references=result_artifact_references,
         artifact_reference_overrides=overrides,
@@ -880,6 +887,8 @@ def _build_evidence_items(
     signed_order_payload_validation_gate_summary: Mapping[str, Any],
     telegram_operator_control_bot_v1: Mapping[str, Any],
     telegram_mini_app_operator_panel_v1: Mapping[str, Any],
+    supervised_tiny_canary_approval_packet: Mapping[str, Any],
+    supervised_tiny_canary_approval_packet_summary: Mapping[str, Any],
     dry_run_receipt_references: Sequence[str] | None,
     result_artifact_references: Sequence[str] | None,
     artifact_reference_overrides: Mapping[str, str],
@@ -1545,6 +1554,49 @@ def _build_evidence_items(
             "live_connector_enabled": False,
             "order_submission_enabled": False,
             "would_submit_order": False,
+        },
+        _item(
+            "supervised_tiny_canary_runbook_operator_approval_packet",
+            "supervised_tiny_canary_runbook",
+            _override_or_reference(
+                artifact_reference_overrides,
+                "supervised_tiny_canary_runbook_operator_approval_packet",
+                supervised_tiny_canary_approval_packet or supervised_tiny_canary_approval_packet_summary,
+                ("packet_id", "summary_id", "status"),
+                "supervised_tiny_canary_approval_packet_051:review_only_not_live_approval",
+            ),
+            clean_text(
+                supervised_tiny_canary_approval_packet_summary.get("status")
+                or supervised_tiny_canary_approval_packet.get("status")
+                or "REVIEW_READY_BLOCKED_FOR_LIVE"
+            ),
+            "Supervised tiny canary approval packet consolidates operator review artifacts but does not approve or enable live execution.",
+            review_ready=(
+                supervised_tiny_canary_approval_packet.get("live_execution_approved") is not True
+                and supervised_tiny_canary_approval_packet.get("canary_executable_now") is not True
+                and supervised_tiny_canary_approval_packet.get("order_submission_enabled") is not True
+                and supervised_tiny_canary_approval_packet.get("execution_enabling") is not True
+                and supervised_tiny_canary_approval_packet_summary.get("live_execution_approved") is not True
+            ),
+        )
+        | {
+            "review_only": True,
+            "execution_enabling": False,
+            "live_approval": False,
+            "approval_packet_may_be_used_as_live_approval": False,
+            "packet_cannot_be_interpreted_as_live_approval": True,
+            "future_live_enabling_task_required": True,
+            "allowed_for_live": False,
+            "canary_executable_now": False,
+            "live_execution_approved": False,
+            "real_execution_available": False,
+            "live_connector_enabled": False,
+            "order_submission_enabled": False,
+            "wallet_signing_enabled": False,
+            "signing_enabled": False,
+            "signed_payload_generation_enabled": False,
+            "signed_order_generation_enabled": False,
+            "resolved_blocker_count": 0,
         },
     ]
     receipt_refs = _clean_list(dry_run_receipt_references)

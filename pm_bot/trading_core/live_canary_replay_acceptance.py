@@ -835,6 +835,24 @@ LIVE_CONNECTOR_BLOCKERS = (
         "current_status": "scaffold_review_only",
         "why_it_blocks_live_execution": "The 048 scaffold defines future connector boundaries but keeps authenticated calls, network calls, signing, wallet access, order submission, and live execution disabled.",
     },
+    {
+        "blocker_id": "PMBOT-LIVE-BLOCKER-069",
+        "blocker_category": "supervised_tiny_canary_approval_packet_review_only",
+        "blocker_name": "supervised tiny canary approval packet is review-only",
+        "severity": "critical",
+        "required_future_task": "Use a separate future live-enabling task before any operator approval packet can become executable.",
+        "current_status": "review_only",
+        "why_it_blocks_live_execution": "The 051 approval packet consolidates human review artifacts but explicitly does not approve or enable live execution.",
+    },
+    {
+        "blocker_id": "PMBOT-LIVE-BLOCKER-070",
+        "blocker_category": "supervised_tiny_canary_live_enabling_task_missing",
+        "blocker_name": "separate supervised tiny canary live-enabling task is missing",
+        "severity": "critical",
+        "required_future_task": "Create and approve a separate future task before any tiny live canary can connect wallets, sign, call authenticated endpoints, or submit an order.",
+        "current_status": "missing",
+        "why_it_blocks_live_execution": "No separate operator-approved live-enabling task exists, so the canary remains non-executable.",
+    },
 )
 
 

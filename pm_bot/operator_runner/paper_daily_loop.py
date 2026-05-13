@@ -89,6 +89,11 @@ from pm_bot.trading_core.tiny_live_canary_gonogo_gate import (
     build_tiny_live_canary_gonogo_gate,
     summarize_tiny_live_canary_gonogo_gate,
 )
+from pm_bot.trading_core.supervised_tiny_canary_runbook import (
+    build_supervised_tiny_canary_approval_packet,
+    render_supervised_tiny_canary_approval_packet_markdown,
+    summarize_supervised_tiny_canary_approval_packet,
+)
 from pm_bot.trading_core.live_connector_audit_replay import (
     build_live_connector_audit_replay,
     render_live_connector_audit_replay_markdown,
@@ -311,6 +316,8 @@ class PaperDailyLoopResult:
     wallet_signing_boundary_path: str
     signed_order_payload_validation_gate_path: str
     tiny_live_canary_gonogo_gate_path: str
+    supervised_tiny_canary_approval_packet_path: str
+    supervised_tiny_canary_approval_packet_md_path: str
     tiny_live_canary_preflight_contract_path: str
     tiny_live_canary_manual_runbook_path: str
     tiny_live_canary_preflight_result_path: str
@@ -694,6 +701,12 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
     )
     latest_tiny_live_canary_gonogo_gate_path = (
         normalize_path(paths["tiny_live_canary_gonogo_gate"]) if active_config.write_artifacts else ""
+    )
+    latest_supervised_tiny_canary_approval_packet_path = (
+        normalize_path(paths["supervised_tiny_canary_approval_packet"]) if active_config.write_artifacts else ""
+    )
+    latest_supervised_tiny_canary_approval_packet_md_path = (
+        normalize_path(paths["supervised_tiny_canary_approval_packet_md"]) if active_config.write_artifacts else ""
     )
     live_enablement_config_preflight = build_live_enablement_config_preflight(
         config_source="paper_daily_loop_default_missing_config",
@@ -1081,6 +1094,74 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         latest_state_path=latest_telegram_operator_control_state_path,
         generated_at=generated_at,
     )
+    supervised_tiny_canary_approval_packet = build_supervised_tiny_canary_approval_packet(
+        live_enablement_config_preflight=live_enablement_config_preflight,
+        live_enablement_config_preflight_summary=live_enablement_config_preflight_summary,
+        authenticated_polymarket_connector_scaffold=authenticated_polymarket_connector_scaffold,
+        authenticated_polymarket_connector_scaffold_summary=authenticated_polymarket_connector_scaffold_summary,
+        wallet_signing_boundary_report=wallet_signing_boundary,
+        wallet_signing_boundary_summary=wallet_signing_boundary_summary,
+        signed_order_payload_validation_gate=signed_order_payload_validation_gate,
+        signed_order_payload_validation_gate_summary=signed_order_payload_validation_gate_summary,
+        risk_cap_readiness_summary=risk_control_plane_summary,
+        tiny_live_canary_gonogo_gate=tiny_live_canary_gonogo_gate,
+        tiny_live_canary_gonogo_gate_summary=tiny_live_canary_gonogo_gate_summary,
+        readiness_evidence_bundle=readiness_evidence_bundle,
+        readiness_evidence_bundle_summary=readiness_evidence_bundle_summary,
+        canary_replay_acceptance={
+            "contract_version": "pmbot_live_canary_acceptance_matrix.v1",
+            "status": "passed",
+            "review_only": True,
+            "execution_enabling": False,
+            "live_execution_approved": False,
+            "canary_executable_now": False,
+        },
+        blocker_matrix=live_connector_blocker_matrix,
+        telegram_operator_control_bot_summary=telegram_operator_control_bot_summary,
+        telegram_mini_app_operator_panel_summary=provisional_telegram_mini_app_operator_panel_summary,
+        artifact_paths={
+            "live_enablement_config_preflight": latest_live_enablement_config_preflight_path,
+            "authenticated_polymarket_connector_scaffold": (
+                latest_authenticated_polymarket_connector_scaffold_path
+            ),
+            "wallet_signing_boundary": latest_wallet_signing_boundary_path,
+            "signed_order_payload_validation_gate": latest_signed_order_payload_validation_gate_path,
+            "btc_risk_decision": latest_btc_risk_decision_path,
+            "risk_limit_control_plane": risk_control_plane_summary.get("policy_id", ""),
+            "tiny_live_canary_gonogo_gate": latest_tiny_live_canary_gonogo_gate_path,
+            "readiness_evidence_bundle": latest_readiness_evidence_bundle_path,
+            "live_connector_audit_replay": (
+                normalize_path(paths["live_connector_audit_replay"]) if active_config.write_artifacts else ""
+            ),
+            "live_connector_blocker_matrix": "live_connector_blocker_matrix:all-critical-blockers-unresolved",
+            "telegram_operator_control_state": latest_telegram_operator_control_state_path,
+            "telegram_mini_app_operator_panel_html": latest_telegram_mini_app_operator_panel_html_path,
+            "telegram_mini_app_operator_panel_json": latest_telegram_mini_app_operator_panel_json_path,
+            "supervised_tiny_canary_approval_packet": (
+                latest_supervised_tiny_canary_approval_packet_path
+            ),
+            "supervised_tiny_canary_approval_packet_md": (
+                latest_supervised_tiny_canary_approval_packet_md_path
+            ),
+            "operator_ui_panel_json": (
+                normalize_path(paths["operator_ui_panel_json"]) if active_config.write_artifacts else ""
+            ),
+            "operator_ui_panel_md": (
+                normalize_path(paths["operator_ui_panel_md"]) if active_config.write_artifacts else ""
+            ),
+        },
+        generated_at=generated_at,
+    )
+    supervised_tiny_canary_approval_packet_summary = summarize_supervised_tiny_canary_approval_packet(
+        supervised_tiny_canary_approval_packet,
+        latest_supervised_tiny_canary_approval_packet_json_path=(
+            latest_supervised_tiny_canary_approval_packet_path
+        ),
+        latest_supervised_tiny_canary_approval_packet_md_path=(
+            latest_supervised_tiny_canary_approval_packet_md_path
+        ),
+        generated_at=generated_at,
+    )
     for review_artifact in (operator_live_approval_packet, operator_intent_packet, live_connector_audit_replay):
         review_artifact["readiness_evidence_bundle_status"] = readiness_evidence_bundle.get("bundle_status")
         review_artifact["readiness_evidence_bundle_review_ready"] = (
@@ -1111,6 +1192,11 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         readiness_evidence_bundle.get("evidence_bundle_review_ready") is True
     )
     strategy_ledger["readiness_evidence_bundle_is_not_live_approval"] = True
+    strategy_ledger["supervised_tiny_canary_approval_packet_status"] = (
+        supervised_tiny_canary_approval_packet_summary.get("status")
+    )
+    strategy_ledger["supervised_tiny_canary_approval_packet_review_only"] = True
+    strategy_ledger["supervised_tiny_canary_approval_packet_is_not_live_approval"] = True
     strategy_ledger["canary_executable_now"] = False
     strategy_ledger["live_execution_approved"] = False
     strategy_ledger["real_execution_available"] = False
@@ -1129,6 +1215,11 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         readiness_evidence_bundle.get("evidence_bundle_review_ready") is True
     )
     strategy_summary["readiness_evidence_bundle_is_not_live_approval"] = True
+    strategy_summary["supervised_tiny_canary_approval_packet_status"] = (
+        supervised_tiny_canary_approval_packet_summary.get("status")
+    )
+    strategy_summary["supervised_tiny_canary_approval_packet_review_only"] = True
+    strategy_summary["supervised_tiny_canary_approval_packet_is_not_live_approval"] = True
     strategy_summary["canary_executable_now"] = False
     strategy_summary["live_execution_approved"] = False
     strategy_summary["real_execution_available"] = False
@@ -1191,6 +1282,8 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         live_order_submission_boundary_summary=live_order_submission_boundary_summary,
         tiny_live_canary_gonogo_gate=tiny_live_canary_gonogo_gate,
         tiny_live_canary_gonogo_gate_summary=tiny_live_canary_gonogo_gate_summary,
+        supervised_tiny_canary_approval_packet=supervised_tiny_canary_approval_packet,
+        supervised_tiny_canary_approval_packet_summary=supervised_tiny_canary_approval_packet_summary,
         telegram_operator_control_state=telegram_operator_control_state,
         telegram_operator_control_bot_summary=telegram_operator_control_bot_summary,
         telegram_mini_app_operator_panel_summary=provisional_telegram_mini_app_operator_panel_summary,
@@ -1224,6 +1317,12 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         latest_btc_risk_decision_path=latest_btc_risk_decision_path,
         latest_live_order_submission_boundary_path=latest_live_order_submission_boundary_path,
         latest_tiny_live_canary_gonogo_gate_path=latest_tiny_live_canary_gonogo_gate_path,
+        latest_supervised_tiny_canary_approval_packet_path=(
+            latest_supervised_tiny_canary_approval_packet_path
+        ),
+        latest_supervised_tiny_canary_approval_packet_md_path=(
+            latest_supervised_tiny_canary_approval_packet_md_path
+        ),
         latest_telegram_operator_control_state_path=latest_telegram_operator_control_state_path,
         latest_telegram_mini_app_operator_panel_json_path=latest_telegram_mini_app_operator_panel_json_path,
         latest_telegram_mini_app_operator_panel_html_path=latest_telegram_mini_app_operator_panel_html_path,
@@ -1249,6 +1348,8 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         "btc_risk_decision": latest_btc_risk_decision_path,
         "live_order_submission_boundary": latest_live_order_submission_boundary_path,
         "tiny_live_canary_gonogo_gate": latest_tiny_live_canary_gonogo_gate_path,
+        "supervised_tiny_canary_approval_packet": latest_supervised_tiny_canary_approval_packet_path,
+        "supervised_tiny_canary_approval_packet_md": latest_supervised_tiny_canary_approval_packet_md_path,
         "operator_live_approval_packet": (
             normalize_path(paths["operator_live_approval_packet"]) if active_config.write_artifacts else ""
         ),
@@ -1284,6 +1385,8 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         signed_order_payload_validation_gate_summary=signed_order_payload_validation_gate_summary,
         tiny_live_canary_gonogo_gate=tiny_live_canary_gonogo_gate,
         tiny_live_canary_gonogo_gate_summary=tiny_live_canary_gonogo_gate_summary,
+        supervised_tiny_canary_approval_packet=supervised_tiny_canary_approval_packet,
+        supervised_tiny_canary_approval_packet_summary=supervised_tiny_canary_approval_packet_summary,
         live_credentials_auth_boundary_summary=live_credentials_auth_boundary_summary,
         risk_limits=limits,
         risk_prep_config=risk_prep_config,
@@ -1379,6 +1482,8 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
             signed_order_payload_validation_gate_summary,
             tiny_live_canary_gonogo_gate,
             tiny_live_canary_gonogo_gate_summary,
+            supervised_tiny_canary_approval_packet,
+            supervised_tiny_canary_approval_packet_summary,
             live_credentials_auth_boundary,
             live_credentials_auth_boundary_summary,
             risk_limit_policy,
@@ -1919,6 +2024,45 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         and dashboard.get("tiny_live_canary_gonogo_gate_summary", {}).get("overall_decision") == "NO_GO"
         and dashboard.get("operator_ui_panel_v1_summary", {}).get("tiny_live_canary_gonogo_no_executable_action")
         is True
+        and supervised_tiny_canary_approval_packet.get("review_only") is True
+        and supervised_tiny_canary_approval_packet.get("approval_packet_may_be_used_as_live_approval") is False
+        and supervised_tiny_canary_approval_packet.get("packet_cannot_be_interpreted_as_live_approval") is True
+        and supervised_tiny_canary_approval_packet.get("operator_must_not_execute_from_this_packet") is True
+        and supervised_tiny_canary_approval_packet.get("future_live_enabling_task_required") is True
+        and supervised_tiny_canary_approval_packet.get("live_execution_approved") is False
+        and supervised_tiny_canary_approval_packet.get("canary_executable_now") is False
+        and supervised_tiny_canary_approval_packet.get("real_execution_available") is False
+        and supervised_tiny_canary_approval_packet.get("order_submission_enabled") is False
+        and supervised_tiny_canary_approval_packet.get("wallet_signing_enabled") is False
+        and supervised_tiny_canary_approval_packet.get("signing_enabled") is False
+        and supervised_tiny_canary_approval_packet.get("signed_payload_generation_enabled") is False
+        and supervised_tiny_canary_approval_packet.get("signed_order_generation_enabled") is False
+        and supervised_tiny_canary_approval_packet.get("authenticated_polymarket_enabled") is False
+        and supervised_tiny_canary_approval_packet.get("live_connector_enabled") is False
+        and supervised_tiny_canary_approval_packet.get("allowed_for_live") is False
+        and supervised_tiny_canary_approval_packet.get("resolved_blocker_count") == 0
+        and supervised_tiny_canary_approval_packet.get("validation", {}).get("valid") is True
+        and supervised_tiny_canary_approval_packet_summary.get(
+            "supervised_tiny_canary_approval_packet_section_ready"
+        )
+        is True
+        and dashboard.get("supervised_tiny_canary_approval_packet_summary", {}).get("review_only") is True
+        and dashboard.get("supervised_tiny_canary_approval_packet_summary", {}).get(
+            "live_execution_approved"
+        )
+        is False
+        and dashboard.get("supervised_tiny_canary_approval_packet_summary", {}).get(
+            "canary_executable_now"
+        )
+        is False
+        and dashboard.get("operator_ui_panel_v1_summary", {}).get(
+            "supervised_tiny_canary_approval_packet_section_ready"
+        )
+        is True
+        and dashboard.get("operator_ui_panel_v1_summary", {}).get(
+            "supervised_tiny_canary_approval_packet_no_executable_action"
+        )
+        is True
         and safety_scan["safety_ok"] is True
     )
     result = PaperDailyLoopResult(
@@ -1985,6 +2129,8 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         wallet_signing_boundary_path=latest_wallet_signing_boundary_path,
         signed_order_payload_validation_gate_path=latest_signed_order_payload_validation_gate_path,
         tiny_live_canary_gonogo_gate_path=latest_tiny_live_canary_gonogo_gate_path,
+        supervised_tiny_canary_approval_packet_path=latest_supervised_tiny_canary_approval_packet_path,
+        supervised_tiny_canary_approval_packet_md_path=latest_supervised_tiny_canary_approval_packet_md_path,
         tiny_live_canary_preflight_contract_path=(
             normalize_path(paths["tiny_live_canary_preflight_contract"]) if active_config.write_artifacts else ""
         ),
@@ -2069,6 +2215,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
             wallet_signing_boundary=wallet_signing_boundary,
             signed_order_payload_validation_gate=signed_order_payload_validation_gate,
             tiny_live_canary_gonogo_gate=tiny_live_canary_gonogo_gate,
+            supervised_tiny_canary_approval_packet=supervised_tiny_canary_approval_packet,
             tiny_live_canary_preflight_contract=tiny_live_canary_preflight_contract,
             tiny_live_canary_manual_runbook=tiny_live_canary_manual_runbook,
             tiny_live_canary_preflight_result=tiny_live_canary_preflight_result,
@@ -2140,6 +2287,12 @@ def _daily_paths(output_dir: Path) -> dict[str, Path]:
         "wallet_signing_boundary": output_dir / "wallet_signing_boundary_049.json",
         "signed_order_payload_validation_gate": output_dir / "signed_order_payload_validation_gate_050.json",
         "tiny_live_canary_gonogo_gate": output_dir / "tiny_live_canary_gonogo_gate_042.json",
+        "supervised_tiny_canary_approval_packet": (
+            output_dir / "supervised_tiny_canary_approval_packet_051.json"
+        ),
+        "supervised_tiny_canary_approval_packet_md": (
+            output_dir / "supervised_tiny_canary_approval_packet_051.md"
+        ),
         "tiny_live_canary_preflight_contract": output_dir / "tiny_live_canary_preflight_contract.json",
         "tiny_live_canary_preflight_contract_md": output_dir / "tiny_live_canary_preflight_contract.md",
         "tiny_live_canary_manual_runbook": output_dir / "tiny_live_canary_manual_runbook.json",
@@ -2675,6 +2828,8 @@ def _build_daily_dashboard(
     live_order_submission_boundary_summary: Mapping[str, Any],
     tiny_live_canary_gonogo_gate: Mapping[str, Any],
     tiny_live_canary_gonogo_gate_summary: Mapping[str, Any],
+    supervised_tiny_canary_approval_packet: Mapping[str, Any],
+    supervised_tiny_canary_approval_packet_summary: Mapping[str, Any],
     telegram_operator_control_state: Mapping[str, Any],
     telegram_operator_control_bot_summary: Mapping[str, Any],
     telegram_mini_app_operator_panel_summary: Mapping[str, Any],
@@ -2696,6 +2851,8 @@ def _build_daily_dashboard(
     latest_btc_risk_decision_path: str,
     latest_live_order_submission_boundary_path: str,
     latest_tiny_live_canary_gonogo_gate_path: str,
+    latest_supervised_tiny_canary_approval_packet_path: str,
+    latest_supervised_tiny_canary_approval_packet_md_path: str,
     latest_telegram_operator_control_state_path: str,
     latest_telegram_mini_app_operator_panel_json_path: str,
     latest_telegram_mini_app_operator_panel_html_path: str,
@@ -2862,6 +3019,14 @@ def _build_daily_dashboard(
             ),
             "tiny_live_canary_gonogo_unresolved_blocker_count": int(
                 tiny_live_canary_gonogo_gate_summary.get("unresolved_blocker_count", 0) or 0
+            ),
+            "supervised_tiny_canary_approval_packet_count": (
+                1 if supervised_tiny_canary_approval_packet else 0
+            ),
+            "supervised_tiny_canary_approval_packet_blocked_count": (
+                1
+                if supervised_tiny_canary_approval_packet_summary.get("review_only") is True
+                else 0
             ),
             "telegram_operator_control_state_count": 1 if telegram_operator_control_state else 0,
             "telegram_operator_control_pause_requested_count": (
@@ -3153,6 +3318,41 @@ def _build_daily_dashboard(
         "tiny_live_canary_gonogo_gate": dict(tiny_live_canary_gonogo_gate),
         "tiny_live_canary_gonogo_gate_summary": dict(tiny_live_canary_gonogo_gate_summary),
         "latest_tiny_live_canary_gonogo_gate_path": clean_text(latest_tiny_live_canary_gonogo_gate_path),
+        "supervised_tiny_canary_approval_packet": dict(supervised_tiny_canary_approval_packet),
+        "supervised_tiny_canary_approval_packet_summary": dict(supervised_tiny_canary_approval_packet_summary)
+        | {
+            "latest_supervised_tiny_canary_approval_packet_json_path": clean_text(
+                latest_supervised_tiny_canary_approval_packet_path
+            ),
+            "latest_supervised_tiny_canary_approval_packet_md_path": clean_text(
+                latest_supervised_tiny_canary_approval_packet_md_path
+            ),
+            "review_only": True,
+            "approval_packet_may_be_used_as_live_approval": False,
+            "packet_cannot_be_interpreted_as_live_approval": True,
+            "operator_must_not_execute_from_this_packet": True,
+            "future_live_enabling_task_required": True,
+            "execution_enabling": False,
+            "live_execution_approved": False,
+            "canary_executable_now": False,
+            "real_execution_available": False,
+            "live_connector_enabled": False,
+            "order_submission_enabled": False,
+            "wallet_signing_enabled": False,
+            "signing_enabled": False,
+            "signed_payload_generation_enabled": False,
+            "signed_order_generation_enabled": False,
+            "authenticated_polymarket_enabled": False,
+            "allowed_for_live": False,
+            "resolved_blocker_count": 0,
+            "no_executable_action": True,
+        },
+        "latest_supervised_tiny_canary_approval_packet_path": clean_text(
+            latest_supervised_tiny_canary_approval_packet_path
+        ),
+        "latest_supervised_tiny_canary_approval_packet_md_path": clean_text(
+            latest_supervised_tiny_canary_approval_packet_md_path
+        ),
         "telegram_operator_control_state": dict(telegram_operator_control_state),
         "telegram_operator_control_bot_summary": dict(telegram_operator_control_bot_summary)
         | {
@@ -3345,6 +3545,9 @@ def _build_daily_dashboard(
                 live_enablement_config_preflight_summary=live_enablement_config_preflight_summary,
                 authenticated_connector_scaffold_summary=authenticated_polymarket_connector_scaffold_summary,
                 signed_order_payload_validation_gate_summary=signed_order_payload_validation_gate_summary,
+                supervised_tiny_canary_approval_packet_summary=(
+                    supervised_tiny_canary_approval_packet_summary
+                ),
             ),
             "canary_replay_status": canary_governance_summary.get("canary_replay_status"),
             "canary_replay_passed": canary_governance_summary.get("canary_replay_passed"),
@@ -3742,6 +3945,7 @@ def _write_daily_artifacts(
     wallet_signing_boundary: Mapping[str, Any],
     signed_order_payload_validation_gate: Mapping[str, Any],
     tiny_live_canary_gonogo_gate: Mapping[str, Any],
+    supervised_tiny_canary_approval_packet: Mapping[str, Any],
     tiny_live_canary_preflight_contract: Mapping[str, Any],
     tiny_live_canary_manual_runbook: Mapping[str, Any],
     tiny_live_canary_preflight_result: Mapping[str, Any],
@@ -3819,6 +4023,11 @@ def _write_daily_artifacts(
     write_json(paths["wallet_signing_boundary"], wallet_signing_boundary)
     write_json(paths["signed_order_payload_validation_gate"], signed_order_payload_validation_gate)
     write_json(paths["tiny_live_canary_gonogo_gate"], tiny_live_canary_gonogo_gate)
+    write_json(paths["supervised_tiny_canary_approval_packet"], supervised_tiny_canary_approval_packet)
+    write_text(
+        paths["supervised_tiny_canary_approval_packet_md"],
+        render_supervised_tiny_canary_approval_packet_markdown(supervised_tiny_canary_approval_packet),
+    )
     write_json(paths["tiny_live_canary_preflight_contract"], tiny_live_canary_preflight_contract)
     write_text(
         paths["tiny_live_canary_preflight_contract_md"],
@@ -3950,6 +4159,8 @@ def _render_daily_dashboard_markdown(dashboard: Mapping[str, Any]) -> str:
         f"- Signed order payload validation blocked: {counts.get('signed_order_payload_validation_gate_blocked_count')}",
         f"- Tiny live canary go/no-go gates: {counts.get('tiny_live_canary_gonogo_gate_count')}",
         f"- Tiny go/no-go unresolved blockers: {counts.get('tiny_live_canary_gonogo_unresolved_blocker_count')}",
+        f"- Supervised tiny canary approval packets: {counts.get('supervised_tiny_canary_approval_packet_count')}",
+        f"- Supervised tiny canary approval packets blocked: {counts.get('supervised_tiny_canary_approval_packet_blocked_count')}",
         f"- Telegram operator control states: {counts.get('telegram_operator_control_state_count')}",
         f"- Telegram pause requested: {counts.get('telegram_operator_control_pause_requested_count')}",
         f"- Telegram kill-switch requested: {counts.get('telegram_operator_control_kill_switch_requested_count')}",
@@ -4000,6 +4211,7 @@ def _render_daily_dashboard_markdown(dashboard: Mapping[str, Any]) -> str:
     wallet_signing_boundary = dict(dashboard.get("wallet_signing_boundary_summary", {}))
     signed_order_payload_gate = dict(dashboard.get("signed_order_payload_validation_gate_summary", {}))
     tiny_gonogo = dict(dashboard.get("tiny_live_canary_gonogo_gate_summary", {}))
+    supervised_packet = dict(dashboard.get("supervised_tiny_canary_approval_packet_summary", {}))
     telegram_control = dict(dashboard.get("telegram_operator_control_bot_summary", {}))
     telegram_state = dict(dashboard.get("telegram_operator_control_state", {}))
     telegram_mini_app = dict(dashboard.get("telegram_mini_app_operator_panel_summary", {}))
@@ -4262,6 +4474,30 @@ def _render_daily_dashboard_markdown(dashboard: Mapping[str, Any]) -> str:
             f"- Latest go/no-go packet: `{tiny_gonogo.get('latest_tiny_live_canary_gonogo_gate_path')}`",
             "- Top no-go reasons:",
             *bullet_lines(str(item) for item in tiny_gonogo.get("top_no_go_reasons", [])),
+            "",
+            "## Supervised Tiny Canary Approval Packet",
+            "",
+            f"- Status: `{supervised_packet.get('status')}`",
+            f"- Review-only: `{str(supervised_packet.get('review_only')).lower()}`",
+            f"- Ready for human review: `{str(supervised_packet.get('approval_packet_ready_for_human_review')).lower()}`",
+            f"- Cannot approve live: `{str(supervised_packet.get('packet_cannot_be_interpreted_as_live_approval')).lower()}`",
+            f"- May be used as live approval: `{str(supervised_packet.get('approval_packet_may_be_used_as_live_approval')).lower()}`",
+            f"- Future live-enabling task required: `{str(supervised_packet.get('future_live_enabling_task_required')).lower()}`",
+            f"- Operator checklist items: {supervised_packet.get('operator_checklist_count')}",
+            f"- Future required actions: {supervised_packet.get('future_required_action_count')}",
+            f"- Unresolved blockers: {supervised_packet.get('unresolved_blocker_count')}",
+            f"- Resolved blockers: {supervised_packet.get('resolved_blocker_count')}",
+            f"- Live execution approved: `{str(supervised_packet.get('live_execution_approved')).lower()}`",
+            f"- Canary executable now: `{str(supervised_packet.get('canary_executable_now')).lower()}`",
+            f"- Order submission enabled: `{str(supervised_packet.get('order_submission_enabled')).lower()}`",
+            f"- Wallet signing enabled: `{str(supervised_packet.get('wallet_signing_enabled')).lower()}`",
+            f"- Signing enabled: `{str(supervised_packet.get('signing_enabled')).lower()}`",
+            f"- Signed payload generation enabled: `{str(supervised_packet.get('signed_payload_generation_enabled')).lower()}`",
+            f"- Signed order generation enabled: `{str(supervised_packet.get('signed_order_generation_enabled')).lower()}`",
+            f"- Authenticated Polymarket enabled: `{str(supervised_packet.get('authenticated_polymarket_enabled')).lower()}`",
+            f"- Live connector enabled: `{str(supervised_packet.get('live_connector_enabled')).lower()}`",
+            f"- JSON: `{supervised_packet.get('latest_supervised_tiny_canary_approval_packet_json_path')}`",
+            f"- Markdown: `{supervised_packet.get('latest_supervised_tiny_canary_approval_packet_md_path')}`",
             "",
             "## Telegram Operator Control Bot",
             "",
@@ -4563,6 +4799,8 @@ def _render_daily_run_report(
             f"- Wallet signing boundary: `{result.get('wallet_signing_boundary_path')}`",
             f"- Signed order payload validation gate: `{result.get('signed_order_payload_validation_gate_path')}`",
             f"- Tiny live canary go/no-go gate: `{result.get('tiny_live_canary_gonogo_gate_path')}`",
+            f"- Supervised tiny canary approval packet: `{result.get('supervised_tiny_canary_approval_packet_path')}`",
+            f"- Supervised tiny canary approval packet Markdown: `{result.get('supervised_tiny_canary_approval_packet_md_path')}`",
             f"- Telegram operator control state: `{result.get('telegram_operator_control_state_path')}`",
             f"- Operator UI panel JSON: `{result.get('operator_ui_panel_json_path')}`",
             f"- Operator UI panel Markdown: `{result.get('operator_ui_panel_md_path')}`",
