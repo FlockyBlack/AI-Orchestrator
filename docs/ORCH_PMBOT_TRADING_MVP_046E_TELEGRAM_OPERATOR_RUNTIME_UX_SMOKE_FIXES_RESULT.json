@@ -1,0 +1,145 @@
+{
+  "task_id": "ORCH-PMBOT-TRADING-MVP-046E-TELEGRAM-OPERATOR-RUNTIME-UX-SMOKE-FIXES",
+  "status": "implemented_validated",
+  "worktree": "C:/oc046e_telegram_operator_runtime_ux_smoke_fixes",
+  "branch": "pmbot/trading-mvp-046e-telegram-operator-runtime-ux-smoke-fixes",
+  "base_head": "3dcd0846945ee8ae2abc916fba6c464de0012f76",
+  "head_before": "3dcd0846945ee8ae2abc916fba6c464de0012f76",
+  "head_after": "recorded_in_final_completion_report_after_commit",
+  "head_after_note": "The exact final commit SHA is recorded in the operator completion report because embedding a commit's own SHA in a committed JSON artifact would change that SHA.",
+  "pushed": true,
+  "remote_verified": true,
+  "pushed_to_master": false,
+  "changed_files": [
+    "docs/ORCH_PMBOT_TRADING_MVP_046E_TELEGRAM_OPERATOR_RUNTIME_UX_SMOKE_FIXES.md",
+    "docs/ORCH_PMBOT_TRADING_MVP_046E_TELEGRAM_OPERATOR_RUNTIME_UX_SMOKE_FIXES_RESULT.json",
+    "pm_bot/operator_runner/telegram_operator_control_bot.py",
+    "pm_bot/operator_runner/telegram_operator_runtime.py",
+    "pm_bot/operator_runner/telegram_runtime_smoke.py",
+    "pm_bot/tests/test_telegram_operator_runtime_ux_smoke_fixes_046e.py",
+    "pm_bot/tests/test_telegram_runtime_smoke_046c.py",
+    "pm_bot/tests/test_telegram_operator_ux_buttons_046.py",
+    "pm_bot/tests/test_telegram_operator_runtime_045.py",
+    "pm_bot/tests/test_telegram_operator_control_bot_043.py",
+    "pm_bot/tests/test_telegram_mini_app_operator_panel_044.py"
+  ],
+  "validation": [
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_operator_runtime_ux_smoke_fixes_046e.py",
+      "status": "passed",
+      "result": "11 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_runtime_smoke_046c.py",
+      "status": "passed",
+      "result": "12 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_operator_ux_buttons_046.py",
+      "status": "passed",
+      "result": "12 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_operator_runtime_045.py",
+      "status": "passed",
+      "result": "14 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_operator_control_bot_043.py",
+      "status": "passed",
+      "result": "11 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_mini_app_operator_panel_044.py",
+      "status": "passed",
+      "result": "8 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests",
+      "status": "passed",
+      "result": "1719 passed"
+    },
+    {
+      "command": "python -m compileall pm_bot",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest tests/test_codex_queue_nightly_lane_batch_runner.py tests/test_codex_worktree_lane_manager.py tests/test_subagent_routing.py tests/test_codex_queue_operator_cli.py",
+      "status": "passed",
+      "result": "41 passed"
+    },
+    {
+      "command": "python -m compileall ai_orchestrator",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.telegram_runtime_smoke",
+      "status": "passed",
+      "result": "no-network CLI completed; local shell env reported token and operator IDs missing safely; no Telegram network call requested"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    },
+    {
+      "command": "git diff --cached --check",
+      "status": "passed"
+    }
+  ],
+  "implementation_summary": [
+    "Changed the Telegram runtime smoke report to render clear Environment, Dependency, Runtime module, Mini App, Safety, Network check, and Next run command sections.",
+    "Added fake-testable safe network category helpers for invalid or revoked token, Telegram API timeout, network unreachable, polling conflict, rate limiting, and Telegram HTTP/server errors.",
+    "Improved runtime startup handling for dependency missing, invalid token, timeout, network unreachable, and polling conflict without printing tracebacks or secrets for expected failures.",
+    "Made /start concise and operator-facing: PMBOT Operator Control, Review-only, Live trading disabled, Use buttons below.",
+    "Clarified /panel missing Mini App URL fallback and configured Mini App button behavior while keeping the panel review-only.",
+    "Added 046E operator handoff documentation and focused tests for smoke, runtime UX, buttons, safe categorization, no-network behavior, and safety flags."
+  ],
+  "runtime_smoke_command": "python -m pm_bot.operator_runner.telegram_runtime_smoke",
+  "optional_network_smoke_command": "python -m pm_bot.operator_runner.telegram_runtime_smoke --network-check",
+  "runtime_command": "python -m pm_bot.operator_runner.telegram_operator_runtime",
+  "env_vars_needed": [
+    "PMBOT_TELEGRAM_BOT_TOKEN",
+    "PMBOT_TELEGRAM_ALLOWED_OPERATOR_IDS",
+    "PMBOT_TELEGRAM_MINI_APP_URL optional",
+    "PMBOT_ARTIFACT_DIR optional"
+  ],
+  "safety_results": {
+    "live_trading_enabled": false,
+    "real_orders_submitted": false,
+    "wallet_integration_added": false,
+    "cryptographic_signing_added": false,
+    "wallet_signing_added": false,
+    "transaction_signing_added": false,
+    "signed_orders_or_signed_payloads_generated": false,
+    "authenticated_polymarket_endpoint_calls_added": false,
+    "external_api_calls_in_default_smoke": false,
+    "external_api_calls_in_tests": false,
+    "browser_automation_added": false,
+    "scheduler_daemon_or_background_worker_added": false,
+    "autonomous_execution_added": false,
+    "raw_telegram_token_exposed": false,
+    "raw_telegram_init_data_exposed": false,
+    "raw_operator_ids_exposed_in_smoke_output": false,
+    "telegram_pause_kill_are_local_state_markers_only": true,
+    "mini_app_review_only": true,
+    "allowed_for_live": false,
+    "canary_executable_now": false,
+    "live_execution_approved": false,
+    "real_execution_available": false,
+    "live_connector_enabled": false,
+    "order_submission_enabled": false,
+    "resolved_blocker_count": 0
+  },
+  "protected_files_touched": [],
+  "network_notes": [
+    "Default smoke performs no Telegram network call.",
+    "Real Telegram getMe remains available only through the explicit --network-check flag.",
+    "Tests use injected fake checkers and blocked sockets; no external network calls were made by tests.",
+    "The local validation shell did not contain PMBOT_TELEGRAM_BOT_TOKEN or PMBOT_TELEGRAM_ALLOWED_OPERATOR_IDS, so no real Fuzzer-bot network check was run."
+  ],
+  "remaining_risks": [
+    "Operator should run the no-network smoke in a fresh terminal that inherits the real local Fuzzer-bot environment variables.",
+    "Operator may run --network-check manually to confirm Telegram getMe reachability; this still does not enable trading."
+  ],
+  "next_recommended_task": "ORCH-PMBOT-TRADING-MVP-046F-MERGE-TELEGRAM-OPERATOR-RUNTIME-UX-SMOKE-FIXES-INTO-MASTER"
+}

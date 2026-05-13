@@ -18,15 +18,26 @@ from pm_bot.operator_runner.telegram_operator_control_bot import (
 )
 from pm_bot.trading_core.schemas import GENERATED_AT, clean_text
 
-TASK_ID = "ORCH-PMBOT-TRADING-MVP-046C-TELEGRAM-RUNTIME-SMOKE-AND-OPERATOR-HANDOFF"
-CONTRACT_VERSION = "pmbot_telegram_runtime_smoke_046c.v1"
+TASK_ID = "ORCH-PMBOT-TRADING-MVP-046E-TELEGRAM-OPERATOR-RUNTIME-UX-SMOKE-FIXES"
+CONTRACT_VERSION = "pmbot_telegram_runtime_smoke_046e.v1"
 RUNTIME_MODULE = "pm_bot.operator_runner.telegram_operator_runtime"
 RUNTIME_COMMAND = "python -m pm_bot.operator_runner.telegram_operator_runtime"
 SMOKE_COMMAND = "python -m pm_bot.operator_runner.telegram_runtime_smoke"
 HANDOFF_CHECKLIST_PATH = (
-    "docs/ORCH_PMBOT_TRADING_MVP_046C_TELEGRAM_RUNTIME_SMOKE_AND_OPERATOR_HANDOFF.md"
+    "docs/ORCH_PMBOT_TRADING_MVP_046E_TELEGRAM_OPERATOR_RUNTIME_UX_SMOKE_FIXES.md"
 )
 TELEGRAM_GET_ME_URL_REDACTED = "https://api.telegram.org/bot<redacted>/getMe"
+
+NETWORK_NOT_REQUESTED = "NOT_REQUESTED"
+NETWORK_MISSING_TOKEN = "MISSING_TOKEN"
+NETWORK_INVALID_OR_REVOKED_TOKEN = "INVALID_OR_REVOKED_TOKEN"
+NETWORK_TELEGRAM_API_TIMEOUT = "TELEGRAM_API_TIMEOUT"
+NETWORK_UNREACHABLE = "NETWORK_UNREACHABLE"
+NETWORK_POLLING_CONFLICT = "POLLING_CONFLICT"
+NETWORK_RATE_LIMITED = "TELEGRAM_RATE_LIMITED"
+NETWORK_TELEGRAM_SERVER_ERROR = "TELEGRAM_SERVER_ERROR"
+NETWORK_TELEGRAM_HTTP_ERROR = "TELEGRAM_HTTP_ERROR"
+NETWORK_TELEGRAM_API_ERROR = "TELEGRAM_API_ERROR"
 
 EXPECTED_FALSE_FLAGS = (
     "allowed_for_live",
@@ -87,7 +98,7 @@ def build_telegram_runtime_smoke_report(
             "telegram_api_reachable": None,
             "get_me_ok": None,
             "bot_username": "",
-            "error_category": "not_requested",
+            "error_category": NETWORK_NOT_REQUESTED,
             "api_url": TELEGRAM_GET_ME_URL_REDACTED,
         }
     )
@@ -202,7 +213,7 @@ def run_explicit_network_check(
             "telegram_api_reachable": False,
             "get_me_ok": False,
             "bot_username": "",
-            "error_category": "missing_token",
+            "error_category": NETWORK_MISSING_TOKEN,
             "api_url": TELEGRAM_GET_ME_URL_REDACTED,
         }
     checker = telegram_get_me_checker or telegram_get_me
@@ -233,14 +244,13 @@ def telegram_get_me(
             "api_url": TELEGRAM_GET_ME_URL_REDACTED,
         }
     except (TimeoutError, socket.timeout):
-        return _network_error_result("timeout")
+        return _network_error_result(NETWORK_TELEGRAM_API_TIMEOUT)
     except URLError as exc:
-        reason = getattr(exc, "reason", None)
-        if isinstance(reason, (TimeoutError, socket.timeout)):
-            return _network_error_result("timeout")
-        return _network_error_result("network_error")
-    except Exception:
-        return _network_error_result("network_error")
+        return _network_error_result(categorize_telegram_network_exception(exc))
+    except OSError as exc:
+        return _network_error_result(categorize_telegram_network_exception(exc))
+    except Exception as exc:
+        return _network_error_result(categorize_telegram_network_exception(exc))
 
     result = payload.get("result") if isinstance(payload, Mapping) else {}
     username = clean_text(result.get("username")) if isinstance(result, Mapping) else ""
@@ -250,19 +260,47 @@ def telegram_get_me(
         "telegram_api_reachable": True,
         "get_me_ok": ok,
         "bot_username": username if ok else "",
-        "error_category": "" if ok else "telegram_error",
+        "error_category": "" if ok else NETWORK_TELEGRAM_API_ERROR,
         "api_url": TELEGRAM_GET_ME_URL_REDACTED,
     }
 
 
 def categorize_telegram_get_me_http_error(exc: HTTPError) -> str:
     if exc.code == 401:
-        return "unauthorized"
+        return NETWORK_INVALID_OR_REVOKED_TOKEN
+    if exc.code == 409 or _looks_like_polling_conflict(exc):
+        return NETWORK_POLLING_CONFLICT
     if exc.code == 429:
-        return "rate_limited"
+        return NETWORK_RATE_LIMITED
     if 500 <= exc.code <= 599:
-        return "telegram_server_error"
-    return "telegram_http_error"
+        return NETWORK_TELEGRAM_SERVER_ERROR
+    return NETWORK_TELEGRAM_HTTP_ERROR
+
+
+def categorize_telegram_network_exception(exc: BaseException) -> str:
+    if isinstance(exc, (TimeoutError, socket.timeout)):
+        return NETWORK_TELEGRAM_API_TIMEOUT
+    reason = getattr(exc, "reason", None)
+    if isinstance(reason, (TimeoutError, socket.timeout)):
+        return NETWORK_TELEGRAM_API_TIMEOUT
+    reason_text = clean_text(reason)
+    text = f"{exc.__class__.__name__} {clean_text(exc)} {reason_text}".lower()
+    if "conflict" in text or "terminated by other getupdates request" in text or "409" in text:
+        return NETWORK_POLLING_CONFLICT
+    if "timed out" in text or "timeout" in text:
+        return NETWORK_TELEGRAM_API_TIMEOUT
+    if (
+        "dns" in text
+        or "name resolution" in text
+        or "network is unreachable" in text
+        or "connection refused" in text
+        or "connection reset" in text
+        or "connect" in text
+        or "unreachable" in text
+        or "gaierror" in text
+    ):
+        return NETWORK_UNREACHABLE
+    return NETWORK_UNREACHABLE
 
 
 def mini_app_url_status(value: str) -> str:
@@ -284,25 +322,43 @@ def render_smoke_report_lines(report: Mapping[str, Any]) -> list[str]:
     runtime_import = dict(report.get("runtime_module_import", {}))
     network = dict(report.get("network_check", {}))
     safety = dict(report.get("review_only_safety_flags_expected_false", {}))
+    operator_ids_line = (
+        f"configured count:{int(env_status.get('allowed_operator_id_count', 0) or 0)}"
+        if env_status.get("allowed_operator_ids_configured") is True
+        else "missing"
+    )
+    config_errors = [clean_text(item) for item in report.get("config_errors", []) if clean_text(item)]
     lines = [
         "PMBOT Telegram runtime smoke",
         f"Task: {clean_text(report.get('task_id'))}",
-        f"Network check requested: {str(report.get('network_check_requested') is True).lower()}",
+        "",
+        "Environment",
         f"Telegram token: {clean_text(env_status.get('telegram_token')) or 'missing'}",
-        "Allowed operator IDs: "
-        + (
-            f"configured count:{int(env_status.get('allowed_operator_id_count', 0) or 0)}"
-            if env_status.get("allowed_operator_ids_configured") is True
-            else "missing"
-        ),
-        f"Mini App URL: {clean_text(env_status.get('mini_app_url_status')) or 'missing'}",
+        f"Allowed operator IDs: {operator_ids_line}",
+        f"Artifact directory: {'configured' if env_status.get('artifact_dir_configured') is True else 'not configured'}",
+        "",
+        "Dependency",
         f"python-telegram-bot: {clean_text(dependency.get('status')) or 'missing'}",
+        f"Dependency fix: {dependency_action(dependency)}",
+        "",
+        "Runtime module",
         f"Runtime module import: {clean_text(runtime_import.get('status')) or 'failed'}",
         f"Runtime command: {clean_text(report.get('runtime_command'))}",
-        f"Handoff checklist: {clean_text(report.get('handoff_checklist_path'))}",
-        f"Ready to start runtime: {str(report.get('ready_to_start_runtime') is True).lower()}",
+        "",
+        "Mini App",
+        f"Mini App URL: {clean_text(env_status.get('mini_app_url_status')) or 'missing'}",
+        "Panel fallback: safe review-only buttons are available when the Mini App URL is missing.",
+        "",
+        "Safety",
         "Safety flags expected false: "
         + ("ok" if all(value is False for value in safety.values()) else "blocked"),
+        "Live trading enabled: false",
+        "Real orders submitted: false",
+        "Wallet/signing enabled: false",
+        "Resolved blocker count: 0",
+        "",
+        "Network check",
+        f"Network check requested: {str(report.get('network_check_requested') is True).lower()}",
     ]
     if network.get("requested") is True:
         lines.extend(
@@ -311,13 +367,47 @@ def render_smoke_report_lines(report: Mapping[str, Any]) -> list[str]:
                 f"getMe ok: {str(network.get('get_me_ok') is True).lower()}",
                 f"Bot username: {clean_text(network.get('bot_username')) or 'not_available'}",
                 f"Network error category: {clean_text(network.get('error_category')) or 'none'}",
+                f"Network fix: {network_action(network)}",
             ]
         )
     else:
         lines.append("Network check: not requested")
-    if report.get("config_errors"):
-        lines.append("Config errors: " + ", ".join(clean_text(item) for item in report.get("config_errors", [])))
+    if config_errors:
+        lines.append("Config errors: " + ", ".join(config_errors))
+    lines.extend(
+        [
+            "",
+            "Next run command",
+            f"No-network smoke: {clean_text(report.get('smoke_command'))}",
+            f"Optional network check: {clean_text(report.get('smoke_command'))} --network-check",
+            f"Runtime: {clean_text(report.get('runtime_command'))}",
+            f"Handoff checklist: {clean_text(report.get('handoff_checklist_path'))}",
+            f"Ready to start runtime: {str(report.get('ready_to_start_runtime') is True).lower()}",
+        ]
+    )
     return lines
+
+
+def dependency_action(dependency: Mapping[str, Any]) -> str:
+    if dependency.get("installed") is True:
+        return "none"
+    return "Install python-telegram-bot in the same Python environment, then rerun the smoke."
+
+
+def network_action(network: Mapping[str, Any]) -> str:
+    category = normalize_network_error_category(clean_text(network.get("error_category")))
+    if category in {"", "none"} and network.get("get_me_ok") is True:
+        return "none"
+    actions = {
+        NETWORK_INVALID_OR_REVOKED_TOKEN: "Replace PMBOT_TELEGRAM_BOT_TOKEN from BotFather and open a new terminal.",
+        NETWORK_TELEGRAM_API_TIMEOUT: "Check connectivity and Telegram availability, then retry.",
+        NETWORK_UNREACHABLE: "Check DNS, proxy, firewall, or local network access.",
+        NETWORK_POLLING_CONFLICT: "Stop the other polling runtime that is using this bot token, wait briefly, then rerun.",
+        NETWORK_MISSING_TOKEN: "Set PMBOT_TELEGRAM_BOT_TOKEN locally without printing it.",
+        NETWORK_RATE_LIMITED: "Wait for Telegram rate limiting to clear, then retry.",
+        NETWORK_TELEGRAM_SERVER_ERROR: "Telegram returned a server error; retry later.",
+    }
+    return actions.get(category, "Inspect the safe error category and rerun the no-network smoke.")
 
 
 def main(
@@ -370,15 +460,15 @@ def _normalize_runtime_import_check(value: Mapping[str, Any]) -> dict[str, Any]:
 
 def sanitize_network_check_result(value: Mapping[str, Any], *, bot_token: str) -> dict[str, Any]:
     username = _redact_sensitive_text(clean_text(value.get("bot_username")), bot_token)
+    category = normalize_network_error_category(
+        clean_text(value.get("error_category")) or ("none" if value.get("get_me_ok") is True else NETWORK_UNREACHABLE)
+    )
     return {
         "requested": True,
         "telegram_api_reachable": value.get("telegram_api_reachable") is True,
         "get_me_ok": value.get("get_me_ok") is True,
-        "bot_username": username,
-        "error_category": _redact_sensitive_text(
-            clean_text(value.get("error_category")) or ("none" if value.get("get_me_ok") is True else "network_error"),
-            bot_token,
-        ),
+        "bot_username": username if value.get("get_me_ok") is True else "",
+        "error_category": _redact_sensitive_text(category, bot_token),
         "api_url": TELEGRAM_GET_ME_URL_REDACTED,
     }
 
@@ -389,9 +479,40 @@ def _network_error_result(category: str) -> dict[str, Any]:
         "telegram_api_reachable": False,
         "get_me_ok": False,
         "bot_username": "",
-        "error_category": category,
+        "error_category": normalize_network_error_category(category),
         "api_url": TELEGRAM_GET_ME_URL_REDACTED,
     }
+
+
+def normalize_network_error_category(category: str) -> str:
+    text = clean_text(category)
+    if not text:
+        return ""
+    normalized = text.upper()
+    legacy = {
+        "NOT_REQUESTED": NETWORK_NOT_REQUESTED,
+        "MISSING_TOKEN": NETWORK_MISSING_TOKEN,
+        "UNAUTHORIZED": NETWORK_INVALID_OR_REVOKED_TOKEN,
+        "INVALID_TOKEN": NETWORK_INVALID_OR_REVOKED_TOKEN,
+        "INVALID_OR_REVOKED_TOKEN": NETWORK_INVALID_OR_REVOKED_TOKEN,
+        "TIMEOUT": NETWORK_TELEGRAM_API_TIMEOUT,
+        "TIMED_OUT": NETWORK_TELEGRAM_API_TIMEOUT,
+        "TELEGRAM_API_TIMEOUT": NETWORK_TELEGRAM_API_TIMEOUT,
+        "NETWORK_ERROR": NETWORK_UNREACHABLE,
+        "CONNECT_ERROR": NETWORK_UNREACHABLE,
+        "DNS_ERROR": NETWORK_UNREACHABLE,
+        "NETWORK_UNREACHABLE": NETWORK_UNREACHABLE,
+        "CONFLICT": NETWORK_POLLING_CONFLICT,
+        "POLLING_CONFLICT": NETWORK_POLLING_CONFLICT,
+        "RATE_LIMITED": NETWORK_RATE_LIMITED,
+        "TELEGRAM_RATE_LIMITED": NETWORK_RATE_LIMITED,
+        "TELEGRAM_SERVER_ERROR": NETWORK_TELEGRAM_SERVER_ERROR,
+        "TELEGRAM_HTTP_ERROR": NETWORK_TELEGRAM_HTTP_ERROR,
+        "TELEGRAM_ERROR": NETWORK_TELEGRAM_API_ERROR,
+        "TELEGRAM_API_ERROR": NETWORK_TELEGRAM_API_ERROR,
+        "NONE": "none",
+    }
+    return legacy.get(normalized, normalized)
 
 
 def _button_rows(rows: tuple[tuple[tuple[str, str], ...], ...]) -> list[list[str]]:
@@ -403,6 +524,11 @@ def _redact_sensitive_text(value: str, bot_token: str) -> str:
     if token and token in value:
         return value.replace(token, "<redacted>")
     return value
+
+
+def _looks_like_polling_conflict(exc: HTTPError) -> bool:
+    text = f"{clean_text(exc)} {clean_text(getattr(exc, 'reason', ''))}".lower()
+    return "conflict" in text or "terminated by other getupdates request" in text
 
 
 if __name__ == "__main__":

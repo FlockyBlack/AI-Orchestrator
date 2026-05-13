@@ -251,7 +251,7 @@ def test_panel_with_optional_mini_app_url_uses_button_without_exposing_secrets()
     rendered = json.dumps(reply.to_redacted_dict(), sort_keys=True)
 
     assert reply.authorized is True
-    assert "Telegram Mini App Operator Panel v1" in reply.text
+    assert "Telegram Mini App Operator Panel" in reply.text
     assert "Mini App URL: configured" in reply.text
     assert "Button: Open PMBOT Mini App" in reply.text
     assert reply.panel_button_text == runtime.PANEL_BUTTON_TEXT

@@ -61,7 +61,7 @@ def test_no_network_smoke_reports_token_configured_redacted_only() -> None:
     assert "Telegram token: configured:redacted" in rendered
     assert RAW_TOKEN not in json.dumps(report, sort_keys=True)
     assert RAW_TOKEN not in rendered
-    assert report["network_check"]["error_category"] == "not_requested"
+    assert report["network_check"]["error_category"] == smoke.NETWORK_NOT_REQUESTED
 
 
 def test_no_network_smoke_reports_missing_token_safely() -> None:
@@ -199,7 +199,7 @@ def test_401_unauthorized_is_categorized_safely_without_printing_token() -> None
 
     assert result["telegram_api_reachable"] is True
     assert result["get_me_ok"] is False
-    assert result["error_category"] == "unauthorized"
+    assert result["error_category"] == smoke.NETWORK_INVALID_OR_REVOKED_TOKEN
     assert RAW_TOKEN not in rendered
 
 
@@ -212,7 +212,7 @@ def test_timeout_is_categorized_safely() -> None:
 
     assert result["telegram_api_reachable"] is False
     assert result["get_me_ok"] is False
-    assert result["error_category"] == "timeout"
+    assert result["error_category"] == smoke.NETWORK_TELEGRAM_API_TIMEOUT
     assert RAW_TOKEN not in rendered
 
 

@@ -150,7 +150,8 @@ def test_start_includes_operator_home_screen_and_safe_keyboard_buttons() -> None
 
     assert "PMBOT Operator Control" in reply.text
     assert "Review-only" in reply.text
-    assert "Live blocked" in reply.text
+    assert "Live trading disabled" in reply.text
+    assert "Use buttons below" in reply.text
     assert _label_rows(reply) == HOME_LABEL_ROWS
     assert reply.keyboard.to_dict()["safe_button_labels"] is True
 
@@ -207,7 +208,7 @@ def test_panel_includes_mini_app_url_button_when_configured_without_exposing_url
     first_button = reply.keyboard.rows[0][0]
     redacted = json.dumps(reply.to_redacted_dict(), sort_keys=True)
 
-    assert "Telegram Mini App Operator Panel v1" in reply.text
+    assert "Telegram Mini App Operator Panel" in reply.text
     assert "Mini App URL: configured." in reply.text
     assert reply.panel_button_text == runtime.PANEL_BUTTON_TEXT
     assert reply.panel_button_url == MINI_APP_URL

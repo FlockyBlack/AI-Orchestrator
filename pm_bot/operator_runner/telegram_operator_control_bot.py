@@ -347,9 +347,9 @@ class TelegramOperatorControlBot:
             [
                 "PMBOT Operator Control",
                 "Review-only",
-                "Live blocked",
-                "PMBOT Operator Control Bot v1 does not enable live trading, submit orders, connect wallets, "
-                "sign payloads, or call authenticated Polymarket endpoints.",
+                "Live trading disabled",
+                "Use buttons below",
+                "No orders, wallets, signing, or authenticated Polymarket calls.",
             ]
         )
 
@@ -522,12 +522,10 @@ class TelegramOperatorControlBot:
         panel = dict(self._summary().get("telegram_mini_app_operator_panel_summary", {}))
         return "\n".join(
             [
-                "Telegram Mini App Operator Panel v1: review-only / live blocked",
+                "Telegram Mini App Operator Panel: review-only",
                 f"Panel artifact available: {str(panel.get('panel_artifact_available') is True).lower()}",
-                f"HTML artifact: {clean_text(panel.get('latest_telegram_mini_app_operator_panel_html_path') or 'not_available')}",
-                f"JSON artifact: {clean_text(panel.get('latest_telegram_mini_app_operator_panel_json_path') or 'not_available')}",
                 f"Mini App URL status: {clean_text(panel.get('mini_app_url_status') or 'not_configured_review_placeholder')}",
-                f"Telegram init data status: {clean_text(panel.get('telegram_init_data_status') or 'not_configured_redacted')}",
+                "Telegram init data: not printed",
                 "review_only: true",
                 "live_actions_available: false",
                 "raw_telegram_bot_token_exposed: false",

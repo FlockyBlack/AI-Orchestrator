@@ -42,6 +42,13 @@ PMBOT_ARTIFACT_DIR_ENV = "PMBOT_ARTIFACT_DIR"
 TELEGRAM_RUNTIME_DEPENDENCY_MISSING = "Telegram runtime dependency missing"
 PANEL_BUTTON_TEXT = "Open PMBOT Mini App"
 
+RUNTIME_DEPENDENCY_MISSING = "DEPENDENCY_MISSING"
+RUNTIME_INVALID_OR_REVOKED_TOKEN = "INVALID_OR_REVOKED_TOKEN"
+RUNTIME_TELEGRAM_API_TIMEOUT = "TELEGRAM_API_TIMEOUT"
+RUNTIME_NETWORK_UNREACHABLE = "NETWORK_UNREACHABLE"
+RUNTIME_POLLING_CONFLICT = "POLLING_CONFLICT"
+RUNTIME_UNKNOWN_ERROR = "UNKNOWN_RUNTIME_ERROR"
+
 TELEGRAM_COMMAND_MENU = (
     ("start", "Open operator home"),
     ("status", "PMBOT status"),
@@ -307,7 +314,8 @@ class TelegramOperatorRuntimeAdapter:
             return (
                 response.text
                 + "\nMini App URL: configured.\n"
-                + f"Button: {PANEL_BUTTON_TEXT}",
+                + f"Button: {PANEL_BUTTON_TEXT}\n"
+                + "The Mini App is review-only; it does not enable live trading.",
                 keyboard.with_prepended_row((launch,)),
                 PANEL_BUTTON_TEXT,
                 url,
@@ -315,7 +323,8 @@ class TelegramOperatorRuntimeAdapter:
         if self.config.mini_app_url:
             return (
                 response.text
-                + "\nMini App URL: configured but rejected by runtime URL safety checks; no button attached.",
+                + "\nMini App URL is configured but rejected by runtime URL safety checks.\n"
+                + "Use an https:// or http:// URL without embedded credentials.",
                 build_panel_fallback_keyboard(),
                 "",
                 "",
@@ -323,7 +332,7 @@ class TelegramOperatorRuntimeAdapter:
         return (
             response.text
             + "\nMini App URL is not configured yet.\n"
-            + "Local/static artifact availability is shown above when PMBOT artifacts are configured.",
+            + "Use the fallback buttons below for review-only status and blockers.",
             build_panel_fallback_keyboard(),
             "",
             "",
@@ -467,7 +476,7 @@ def startup_instruction_lines(errors: tuple[str, ...]) -> list[str]:
     if "missing_token" in errors:
         lines.extend(
             [
-                "Set Telegram bot token before starting long polling.",
+                "Set Telegram bot token before starting long polling. Token is not printed.",
                 f'[Environment]::SetEnvironmentVariable("{TELEGRAM_BOT_TOKEN_ENV}", "TOKEN_FROM_BOTFATHER", "User")',
             ]
         )
@@ -479,7 +488,9 @@ def startup_instruction_lines(errors: tuple[str, ...]) -> list[str]:
             ]
         )
     if "invalid_allowed_operator_ids" in errors:
-        lines.append("Allowed Telegram operator user IDs must be numeric IDs separated by commas, semicolons, or spaces.")
+        lines.append(
+            "Allowed Telegram operator user IDs must be numeric IDs separated by commas, semicolons, or spaces."
+        )
     if lines:
         lines.append("After updating Windows User environment variables, open a new terminal and rerun the module.")
     return lines
@@ -556,8 +567,15 @@ def run_runtime(
         printer("Telegram runtime stopped by operator with Ctrl+C.")
         return 0
     except TelegramRuntimeDependencyError:
-        printer(TELEGRAM_RUNTIME_DEPENDENCY_MISSING)
-        printer("Install python-telegram-bot in the local operator environment, then rerun the module.")
+        for line in runtime_expected_error_lines(RUNTIME_DEPENDENCY_MISSING):
+            printer(line)
+        return 2
+    except Exception as exc:
+        category = categorize_runtime_startup_exception(exc)
+        if category == RUNTIME_UNKNOWN_ERROR:
+            raise
+        for line in runtime_expected_error_lines(category):
+            printer(line)
         return 2
     return 0
 
@@ -616,6 +634,60 @@ def runtime_safety_flags() -> dict[str, Any]:
         "browser_automation_added": False,
         "resolved_blocker_count": 0,
     }
+
+
+def categorize_runtime_startup_exception(exc: BaseException) -> str:
+    name = clean_text(exc.__class__.__name__)
+    module = clean_text(getattr(exc.__class__, "__module__", ""))
+    text = f"{module} {name} {clean_text(exc)}".lower()
+    if isinstance(exc, TelegramRuntimeDependencyError):
+        return RUNTIME_DEPENDENCY_MISSING
+    if name in {"InvalidToken", "Unauthorized"} or "unauthorized" in text or "invalid token" in text:
+        return RUNTIME_INVALID_OR_REVOKED_TOKEN
+    if "conflict" in text or "terminated by other getupdates request" in text or "409" in text:
+        return RUNTIME_POLLING_CONFLICT
+    if name in {"TimedOut", "TimeoutError"} or "timed out" in text or "timeout" in text:
+        return RUNTIME_TELEGRAM_API_TIMEOUT
+    if (
+        name in {"NetworkError", "ConnectError"}
+        or "network is unreachable" in text
+        or "connection refused" in text
+        or "connection reset" in text
+        or "name resolution" in text
+        or "dns" in text
+        or "gaierror" in text
+    ):
+        return RUNTIME_NETWORK_UNREACHABLE
+    return RUNTIME_UNKNOWN_ERROR
+
+
+def runtime_expected_error_lines(category: str) -> list[str]:
+    if category == RUNTIME_DEPENDENCY_MISSING:
+        return [
+            "Telegram startup failed: python-telegram-bot is not installed.",
+            "Fix: install python-telegram-bot in this Python environment, then rerun the runtime.",
+        ]
+    if category == RUNTIME_INVALID_OR_REVOKED_TOKEN:
+        return [
+            "Telegram startup failed: invalid or revoked bot token.",
+            "Fix: update PMBOT_TELEGRAM_BOT_TOKEN from BotFather, open a new terminal, and rerun. Token was not printed.",
+        ]
+    if category == RUNTIME_TELEGRAM_API_TIMEOUT:
+        return [
+            "Telegram startup failed: Telegram API timeout.",
+            "Fix: check connectivity and Telegram availability, then rerun. No trading was enabled.",
+        ]
+    if category == RUNTIME_NETWORK_UNREACHABLE:
+        return [
+            "Telegram startup failed: network unreachable.",
+            "Fix: check DNS, proxy, firewall, or local connectivity, then rerun.",
+        ]
+    if category == RUNTIME_POLLING_CONFLICT:
+        return [
+            "Telegram startup failed: another polling instance is already using this bot token.",
+            "Fix: stop the other bot runtime or service, wait briefly, then rerun.",
+        ]
+    return ["Telegram startup failed: unexpected runtime error."]
 
 
 def is_supported_runtime_command(text: str) -> bool:
