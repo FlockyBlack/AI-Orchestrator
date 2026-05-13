@@ -6,6 +6,11 @@ from dataclasses import asdict, dataclass
 from decimal import Decimal, InvalidOperation
 from typing import Any, Mapping, Sequence
 
+from pm_bot.trading_core.authenticated_polymarket_connector import (
+    CREDENTIAL_STATUS_ENV_VARS as AUTHENTICATED_POLYMARKET_CREDENTIAL_STATUS_ENV_VARS,
+    build_authenticated_connector_capability_report,
+    summarize_authenticated_connector_capability_report,
+)
 from pm_bot.trading_core.schemas import GENERATED_AT, clean_text, trading_core_safety_summary
 from pm_bot.trading_core.secret_boundary_policy import validate_static_secret_boundary
 
@@ -62,6 +67,7 @@ KNOWN_CONFIG_ENV_VARS = (
     *REQUIRED_BOOLEAN_ENV_VARS,
     *RISK_LIMIT_ENV_VARS,
     *MARKET_SCOPE_ENV_VARS,
+    *AUTHENTICATED_POLYMARKET_CREDENTIAL_STATUS_ENV_VARS,
 )
 
 FORCED_FALSE_EXECUTION_FIELDS = (
@@ -102,6 +108,7 @@ class LiveEnablementConfigPreflight:
     allowed_market_scope_summary: Mapping[str, Any]
     manual_approval_requirement_summary: Mapping[str, Any]
     kill_switch_requirement_summary: Mapping[str, Any]
+    authenticated_polymarket_connector_scaffold_summary: Mapping[str, Any]
     blocked_reasons: tuple[str, ...]
     violation_reasons: tuple[str, ...]
     operator_required_actions: tuple[str, ...]
@@ -116,6 +123,9 @@ class LiveEnablementConfigPreflight:
         value["allowed_market_scope_summary"] = dict(self.allowed_market_scope_summary)
         value["manual_approval_requirement_summary"] = dict(self.manual_approval_requirement_summary)
         value["kill_switch_requirement_summary"] = dict(self.kill_switch_requirement_summary)
+        value["authenticated_polymarket_connector_scaffold_summary"] = dict(
+            self.authenticated_polymarket_connector_scaffold_summary
+        )
         value["blocked_reasons"] = list(self.blocked_reasons)
         value["violation_reasons"] = list(self.violation_reasons)
         value["operator_required_actions"] = list(self.operator_required_actions)
@@ -143,6 +153,14 @@ def build_live_enablement_config_preflight(
     market_scope = _parse_market_scope(source)
     manual_approval = _manual_approval_summary(flags)
     kill_switch = _kill_switch_summary(flags)
+    authenticated_connector_report = build_authenticated_connector_capability_report(
+        source,
+        generated_at=generated_at,
+    )
+    authenticated_connector_summary = summarize_authenticated_connector_capability_report(
+        authenticated_connector_report,
+        generated_at=generated_at,
+    )
 
     missing = _missing_required_config(flags, risk_limits, market_scope)
     violations = _validation_violations(flags, risk_limits, market_scope)
@@ -198,6 +216,7 @@ def build_live_enablement_config_preflight(
         allowed_market_scope_summary=market_scope,
         manual_approval_requirement_summary=manual_approval,
         kill_switch_requirement_summary=kill_switch,
+        authenticated_polymarket_connector_scaffold_summary=authenticated_connector_summary,
         blocked_reasons=tuple(_dedupe(blocked_reasons)),
         violation_reasons=tuple(_dedupe(violations)),
         operator_required_actions=tuple(
@@ -260,6 +279,7 @@ def summarize_live_enablement_config_preflight(
     market = dict(value.get("allowed_market_scope_summary", {}))
     manual = dict(value.get("manual_approval_requirement_summary", {}))
     kill_switch = dict(value.get("kill_switch_requirement_summary", {}))
+    authenticated_connector = dict(value.get("authenticated_polymarket_connector_scaffold_summary", {}))
     summary = {
         "contract_version": LIVE_ENABLEMENT_CONFIG_PREFLIGHT_SUMMARY_CONTRACT,
         "summary_id": _stable_id(
@@ -286,6 +306,18 @@ def summarize_live_enablement_config_preflight(
         "allowed_market_count": int(market.get("allowed_market_count", 0) or 0),
         "manual_operator_approval_required": manual.get("requirement_satisfied") is True,
         "kill_switch_ready_required": kill_switch.get("requirement_satisfied") is True,
+        "authenticated_polymarket_connector_scaffold_status": clean_text(
+            authenticated_connector.get("status") or "REVIEW_ONLY"
+        ),
+        "authenticated_polymarket_connector_scaffold_review_only": (
+            authenticated_connector.get("review_only") is True
+        ),
+        "authenticated_polymarket_connector_network_calls_enabled": False,
+        "authenticated_polymarket_connector_authenticated_calls_enabled": False,
+        "authenticated_polymarket_connector_order_submission_enabled": False,
+        "authenticated_polymarket_connector_credentials_redacted_or_missing_only": (
+            authenticated_connector.get("credentials_redacted_or_missing_only") is not False
+        ),
         "blocked_reasons": list(value.get("blocked_reasons", []))[:8],
         "top_blocked_reasons": list(value.get("blocked_reasons", []))[:5],
         "violation_reasons": list(value.get("violation_reasons", []))[:8],

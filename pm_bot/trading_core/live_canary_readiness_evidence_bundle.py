@@ -5,6 +5,10 @@ import json
 from dataclasses import asdict, dataclass
 from typing import Any, Mapping, Sequence
 
+from pm_bot.trading_core.authenticated_polymarket_connector import (
+    build_authenticated_connector_capability_report,
+    summarize_authenticated_connector_capability_report,
+)
 from pm_bot.trading_core.live_enablement_config import (
     build_live_enablement_config_preflight,
     summarize_live_enablement_config_preflight,
@@ -66,6 +70,9 @@ VALIDATION_STATUS_TINY_LIVE_CANARY_GONOGO_GATE_EVIDENCE_MISSING = (
 VALIDATION_STATUS_LIVE_ENABLEMENT_CONFIG_PREFLIGHT_EVIDENCE_MISSING = (
     "live_enablement_config_contract_and_runtime_preflight_evidence_missing"
 )
+VALIDATION_STATUS_AUTHENTICATED_POLYMARKET_CONNECTOR_SCAFFOLD_EVIDENCE_MISSING = (
+    "authenticated_polymarket_connector_scaffold_dry_run_only_evidence_missing"
+)
 VALIDATION_STATUS_TELEGRAM_OPERATOR_CONTROL_BOT_EVIDENCE_MISSING = (
     "telegram_operator_control_bot_v1_evidence_missing"
 )
@@ -102,6 +109,7 @@ REQUIRED_EVIDENCE_TYPES = (
     "live_order_submission_boundary_dry_run_adapter",
     "tiny_live_canary_manual_execution_checklist_and_final_gonogo_gate",
     "live_enablement_config_contract_and_runtime_preflight",
+    "authenticated_polymarket_connector_scaffold_dry_run_only",
     "telegram_operator_control_bot_v1",
     "telegram_mini_app_operator_panel_v1",
 )
@@ -117,8 +125,12 @@ FORCED_FALSE_EXECUTION_FIELDS = (
     "real_execution_available",
     "live_connector_enabled",
     "allowed_for_live",
+    "network_calls_enabled",
+    "authenticated_calls_enabled",
+    "authenticated_polymarket_enabled",
     "authenticated_endpoints_enabled",
     "order_submission_enabled",
+    "signing_enabled",
     "cryptographic_signing_enabled",
     "wallet_signing_enabled",
 )
@@ -345,6 +357,8 @@ def build_live_canary_readiness_evidence_bundle(
     tiny_live_canary_gonogo_gate: Mapping[str, Any] | None = None,
     live_enablement_config_preflight: Mapping[str, Any] | None = None,
     live_enablement_config_preflight_summary: Mapping[str, Any] | None = None,
+    authenticated_polymarket_connector_scaffold: Mapping[str, Any] | None = None,
+    authenticated_polymarket_connector_scaffold_summary: Mapping[str, Any] | None = None,
     telegram_operator_control_bot_v1: Mapping[str, Any] | None = None,
     telegram_mini_app_operator_panel_v1: Mapping[str, Any] | None = None,
     dry_run_receipt_references: Sequence[str] | None = None,
@@ -383,6 +397,17 @@ def build_live_canary_readiness_evidence_bundle(
         live_enablement_config_preflight_summary
         or summarize_live_enablement_config_preflight(live_config_preflight, generated_at=generated_at)
     )
+    authenticated_connector_scaffold = dict(
+        authenticated_polymarket_connector_scaffold
+        or build_authenticated_connector_capability_report(generated_at=generated_at)
+    )
+    authenticated_connector_scaffold_summary = dict(
+        authenticated_polymarket_connector_scaffold_summary
+        or summarize_authenticated_connector_capability_report(
+            authenticated_connector_scaffold,
+            generated_at=generated_at,
+        )
+    )
     telegram_control = dict(telegram_operator_control_bot_v1 or {})
     telegram_mini_app = dict(telegram_mini_app_operator_panel_v1 or {})
     overrides = {clean_text(key): clean_text(value) for key, value in dict(artifact_reference_overrides or {}).items()}
@@ -409,6 +434,8 @@ def build_live_canary_readiness_evidence_bundle(
         tiny_live_canary_gonogo_gate=gonogo_gate,
         live_enablement_config_preflight=live_config_preflight,
         live_enablement_config_preflight_summary=live_config_preflight_summary,
+        authenticated_polymarket_connector_scaffold=authenticated_connector_scaffold,
+        authenticated_polymarket_connector_scaffold_summary=authenticated_connector_scaffold_summary,
         telegram_operator_control_bot_v1=telegram_control,
         telegram_mini_app_operator_panel_v1=telegram_mini_app,
         dry_run_receipt_references=dry_run_receipt_references,
@@ -496,6 +523,9 @@ def validate_live_canary_readiness_evidence_bundle(
         ),
         "live_enablement_config_contract_and_runtime_preflight": (
             VALIDATION_STATUS_LIVE_ENABLEMENT_CONFIG_PREFLIGHT_EVIDENCE_MISSING
+        ),
+        "authenticated_polymarket_connector_scaffold_dry_run_only": (
+            VALIDATION_STATUS_AUTHENTICATED_POLYMARKET_CONNECTOR_SCAFFOLD_EVIDENCE_MISSING
         ),
         "telegram_operator_control_bot_v1": VALIDATION_STATUS_TELEGRAM_OPERATOR_CONTROL_BOT_EVIDENCE_MISSING,
         "telegram_mini_app_operator_panel_v1": (
@@ -790,6 +820,8 @@ def _build_evidence_items(
     tiny_live_canary_gonogo_gate: Mapping[str, Any],
     live_enablement_config_preflight: Mapping[str, Any],
     live_enablement_config_preflight_summary: Mapping[str, Any],
+    authenticated_polymarket_connector_scaffold: Mapping[str, Any],
+    authenticated_polymarket_connector_scaffold_summary: Mapping[str, Any],
     telegram_operator_control_bot_v1: Mapping[str, Any],
     telegram_mini_app_operator_panel_v1: Mapping[str, Any],
     dry_run_receipt_references: Sequence[str] | None,
@@ -1254,6 +1286,47 @@ def _build_evidence_items(
             "wallet_signing_enabled": False,
         },
         _item(
+            "authenticated_polymarket_connector_scaffold_dry_run_only",
+            "authenticated_polymarket_connector",
+            _override_or_reference(
+                artifact_reference_overrides,
+                "authenticated_polymarket_connector_scaffold_dry_run_only",
+                authenticated_polymarket_connector_scaffold,
+                ("capability_report_id", "summary_id", "connector_name", "status"),
+                "authenticated_polymarket_connector_scaffold_048:dry_run_only_review",
+            ),
+            clean_text(
+                authenticated_polymarket_connector_scaffold_summary.get("status")
+                or authenticated_polymarket_connector_scaffold.get("status")
+                or "REVIEW_ONLY"
+            ),
+            "Authenticated Polymarket connector scaffold is dry-run-only; authenticated calls, network calls, signing, wallet access, order submission, and live execution are all disabled.",
+            review_ready=(
+                authenticated_polymarket_connector_scaffold.get("review_only") is True
+                and authenticated_polymarket_connector_scaffold.get("network_calls_enabled") is not True
+                and authenticated_polymarket_connector_scaffold.get("authenticated_calls_enabled") is not True
+                and authenticated_polymarket_connector_scaffold.get("order_submission_enabled") is not True
+                and authenticated_polymarket_connector_scaffold.get("wallet_signing_enabled") is not True
+                and authenticated_polymarket_connector_scaffold.get("real_execution_available") is not True
+            ),
+        )
+        | {
+            "review_only": True,
+            "execution_enabling": False,
+            "live_approval": False,
+            "network_calls_enabled": False,
+            "authenticated_calls_enabled": False,
+            "live_connector_enabled": False,
+            "order_submission_enabled": False,
+            "signing_enabled": False,
+            "cryptographic_signing_enabled": False,
+            "wallet_signing_enabled": False,
+            "real_execution_available": False,
+            "allowed_for_live": False,
+            "canary_executable_now": False,
+            "authenticated_polymarket_enabled": False,
+        },
+        _item(
             "telegram_operator_control_bot_v1",
             "telegram_operator_control_bot",
             _override_or_reference(
@@ -1553,6 +1626,7 @@ def _evidence_safety_flags() -> dict[str, Any]:
         "secrets_printed": False,
         "secrets_persisted": False,
         "network_used": False,
+        "network_calls_enabled": False,
         "external_api_calls_performed": False,
         "real_wallet_integration_added": False,
         "real_wallet_access_performed": False,
@@ -1566,9 +1640,12 @@ def _evidence_safety_flags() -> dict[str, Any]:
         "real_order_placement_added": False,
         "real_order_placement_performed": False,
         "authenticated_endpoint_added": False,
+        "authenticated_calls_enabled": False,
+        "authenticated_polymarket_enabled": False,
         "authenticated_endpoints_enabled": False,
         "authenticated_endpoint_call_performed": False,
         "order_submission_enabled": False,
+        "signing_enabled": False,
         "cryptographic_signing_enabled": False,
         "wallet_signing_enabled": False,
         "browser_automation_added": False,

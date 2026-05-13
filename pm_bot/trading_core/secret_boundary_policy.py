@@ -183,6 +183,14 @@ SAFE_SECRET_METADATA_FIELD_NAMES = frozenset(
         "live_enablement_config_preflight_summary_secret_boundary_validation",
         "operator_ui_panel_live_enablement_config_preflight_summary_secret_boundary_validation",
         "live_enablement_config_preflight_section_ready",
+        "authenticated_polymarket_connector_scaffold_secret_boundary_validation",
+        "authenticated_polymarket_connector_scaffold_summary_secret_boundary_validation",
+        "operator_ui_panel_authenticated_polymarket_connector_scaffold_summary_secret_boundary_validation",
+        "authenticated_polymarket_connector_scaffold_section_ready",
+        "credentials_redacted_or_missing_only",
+        "raw_values_emitted",
+        "raw_value_emitted",
+        "raw_credential_values_persisted",
         "no_raw_secrets_parsed_or_emitted",
         "config_values_redacted_where_sensitive",
         "tiny_live_canary_gonogo_gate_secret_boundary_validation",
@@ -241,7 +249,17 @@ SAFE_NEGATIVE_SECRET_FIELD_NAMES = frozenset(
 )
 
 SAFE_TRUE_SECRET_METADATA_FIELD_NAMES = frozenset(
-    {"no_executable_action", "no_executable_live_action", "no_raw_secrets_parsed_or_emitted"}
+    {
+        "no_executable_action",
+        "no_executable_live_action",
+        "no_network_call_performed",
+        "no_order_payload",
+        "no_order_payload_created",
+        "no_payload_body",
+        "no_raw_secrets_parsed_or_emitted",
+        "no_raw_values_emitted",
+        "no_signed_payload_created",
+    }
 )
 
 SAFE_NEGATIVE_SECRET_PREFIXES = ("no_", "not_", "without_", "disabled_")
@@ -309,6 +327,9 @@ def build_secret_boundary_policy(*, generated_at: str = GENERATED_AT) -> dict[st
             "PMBOT_TELEGRAM_ALLOWED_OPERATOR_IDS",
             "PMBOT_TELEGRAM_MINI_APP_URL",
             "PMBOT_TELEGRAM_INIT_DATA",
+            "PMBOT_POLYMARKET_API_KEY",
+            "PMBOT_POLYMARKET_API_SECRET",
+            "PMBOT_POLYMARKET_FUNDER_ADDRESS",
         ],
         "non_secret_live_enablement_config_keys": [
             "PMBOT_LIVE_MODE",
@@ -324,6 +345,9 @@ def build_secret_boundary_policy(*, generated_at: str = GENERATED_AT) -> dict[st
             "PMBOT_ALLOWED_MARKET_IDS",
             "PMBOT_REQUIRE_MANUAL_OPERATOR_APPROVAL",
             "PMBOT_REQUIRE_KILL_SWITCH_READY",
+            "PMBOT_POLYMARKET_API_KEY_CONFIGURED",
+            "PMBOT_POLYMARKET_API_SECRET_CONFIGURED",
+            "PMBOT_POLYMARKET_FUNDER_ADDRESS_CONFIGURED",
         ],
         "sensitive_redacted_config_notes": [
             "Telegram bot tokens are sensitive and may only be surfaced as missing or configured_redacted.",
@@ -332,6 +356,8 @@ def build_secret_boundary_policy(*, generated_at: str = GENERATED_AT) -> dict[st
             "Telegram Mini App URLs and init data are sensitive configuration and may only be surfaced as missing or configured_redacted status.",
             "Telegram Mini App operator panel v1 is non-execution: it is a static review surface and does not submit orders, sign payloads, connect wallets, or call authenticated endpoints.",
             "PMBOT live enablement config keys are non-secret review configuration only; they must not include private keys, tokens, seed phrases, raw credentials, signed payloads, or authorization material.",
+            "Polymarket credential values are sensitive and may only be surfaced as missing or configured_redacted presence metadata.",
+            "The task 048 authenticated Polymarket connector scaffold is dry-run-only and may not call authenticated endpoints, sign payloads, connect wallets, or submit orders.",
             "If future live enablement config adds sensitive categories, artifacts must redact values and expose only missing/configured status.",
         ],
     }
@@ -931,6 +957,42 @@ def validate_secret_boundary_operator_ui_panel_live_enablement_config_preflight_
     return validate_static_secret_boundary(
         value,
         artifact_type="operator_ui_panel_live_enablement_config_preflight_summary",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_authenticated_polymarket_connector_scaffold(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        value,
+        artifact_type="authenticated_polymarket_connector_scaffold",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_authenticated_polymarket_connector_scaffold_summary(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        value,
+        artifact_type="authenticated_polymarket_connector_scaffold_summary",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_operator_ui_panel_authenticated_polymarket_connector_scaffold_summary(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        value,
+        artifact_type="operator_ui_panel_authenticated_polymarket_connector_scaffold_summary",
         generated_at=generated_at,
     )
 

@@ -5,6 +5,9 @@ import json
 from dataclasses import asdict, dataclass
 from typing import Any, Mapping, Sequence
 
+from pm_bot.trading_core.authenticated_polymarket_connector import (
+    summarize_authenticated_connector_capability_report,
+)
 from pm_bot.trading_core.live_enablement_config import summarize_live_enablement_config_preflight
 from pm_bot.trading_core.live_canary_replay_acceptance import build_live_connector_blocker_matrix
 from pm_bot.trading_core.schemas import GENERATED_AT, bullet_lines, clean_text, mapping_rows, trading_core_safety_summary
@@ -209,6 +212,7 @@ class TinyLiveCanaryGoNoGoGate:
     operator_signed_intent_summary: Mapping[str, Any]
     readiness_evidence_summary: Mapping[str, Any]
     live_enablement_config_preflight_summary: Mapping[str, Any]
+    authenticated_polymarket_connector_scaffold_summary: Mapping[str, Any]
     kill_switch_summary: Mapping[str, Any]
     blocker_matrix_summary: Mapping[str, Any]
     manual_execution_checklist: Mapping[str, Any]
@@ -232,6 +236,9 @@ class TinyLiveCanaryGoNoGoGate:
         value["operator_signed_intent_summary"] = dict(self.operator_signed_intent_summary)
         value["readiness_evidence_summary"] = dict(self.readiness_evidence_summary)
         value["live_enablement_config_preflight_summary"] = dict(self.live_enablement_config_preflight_summary)
+        value["authenticated_polymarket_connector_scaffold_summary"] = dict(
+            self.authenticated_polymarket_connector_scaffold_summary
+        )
         value["kill_switch_summary"] = dict(self.kill_switch_summary)
         value["blocker_matrix_summary"] = dict(self.blocker_matrix_summary)
         value["manual_execution_checklist"] = dict(self.manual_execution_checklist)
@@ -281,6 +288,7 @@ def build_tiny_live_canary_gonogo_gate(
     operator_signed_intent_summary: Mapping[str, Any] | None = None,
     readiness_evidence_summary: Mapping[str, Any] | None = None,
     live_enablement_config_preflight_summary: Mapping[str, Any] | None = None,
+    authenticated_polymarket_connector_scaffold_summary: Mapping[str, Any] | None = None,
     kill_switch_summary: Mapping[str, Any] | None = None,
     blocker_matrix: Mapping[str, Any] | None = None,
     blocker_matrix_summary: Mapping[str, Any] | None = None,
@@ -296,6 +304,9 @@ def build_tiny_live_canary_gonogo_gate(
     operator_intent = _operator_signed_intent_summary(operator_signed_intent_summary)
     evidence = _readiness_evidence_summary(readiness_evidence_summary)
     live_config_preflight = _live_enablement_config_preflight_summary(live_enablement_config_preflight_summary)
+    authenticated_connector = _authenticated_polymarket_connector_scaffold_summary(
+        authenticated_polymarket_connector_scaffold_summary
+    )
     kill_switch = _kill_switch_summary(kill_switch_summary)
     matrix = dict(blocker_matrix or {})
     if not matrix and blocker_matrix_summary is None:
@@ -313,6 +324,9 @@ def build_tiny_live_canary_gonogo_gate(
         "operator_signed_intent_summary": operator_signed_intent_summary or {},
         "readiness_evidence_summary": readiness_evidence_summary or {},
         "live_enablement_config_preflight_summary": live_enablement_config_preflight_summary or {},
+        "authenticated_polymarket_connector_scaffold_summary": (
+            authenticated_polymarket_connector_scaffold_summary or {}
+        ),
         "kill_switch_summary": kill_switch_summary or {},
         "blocker_matrix": blocker_matrix or {},
         "blocker_matrix_summary": blocker_matrix_summary or {},
@@ -328,6 +342,7 @@ def build_tiny_live_canary_gonogo_gate(
         operator_intent=operator_intent,
         evidence=evidence,
         live_enablement_config_preflight=live_config_preflight,
+        authenticated_polymarket_connector_scaffold=authenticated_connector,
         kill_switch=kill_switch,
     )
     manual_checklist = _manual_execution_checklist(
@@ -383,6 +398,7 @@ def build_tiny_live_canary_gonogo_gate(
         operator_signed_intent_summary=operator_intent,
         readiness_evidence_summary=evidence,
         live_enablement_config_preflight_summary=live_config_preflight,
+        authenticated_polymarket_connector_scaffold_summary=authenticated_connector,
         kill_switch_summary=kill_switch,
         blocker_matrix_summary=blocker_summary,
         manual_execution_checklist=manual_checklist,
@@ -422,6 +438,7 @@ def summarize_tiny_live_canary_gonogo_gate(
     final_checklist = dict(value.get("final_pre_live_checklist", {}))
     blockers = dict(value.get("blocker_matrix_summary", {}))
     live_config_preflight = dict(value.get("live_enablement_config_preflight_summary", {}))
+    authenticated_connector = dict(value.get("authenticated_polymarket_connector_scaffold_summary", {}))
     summary = {
         "contract_version": TINY_LIVE_CANARY_GONOGO_GATE_SUMMARY_CONTRACT,
         "summary_id": _stable_id(
@@ -463,6 +480,16 @@ def summarize_tiny_live_canary_gonogo_gate(
             live_config_preflight.get("dry_run_review_allowed") is True
         ),
         "live_enablement_config_allowed_for_live": False,
+        "authenticated_polymarket_connector_scaffold_status": clean_text(
+            authenticated_connector.get("status") or "not_available"
+        ),
+        "authenticated_polymarket_connector_scaffold_review_only": (
+            authenticated_connector.get("review_only") is not False
+        ),
+        "authenticated_polymarket_connector_network_calls_enabled": False,
+        "authenticated_polymarket_connector_authenticated_calls_enabled": False,
+        "authenticated_polymarket_connector_order_submission_enabled": False,
+        "authenticated_polymarket_connector_real_execution_available": False,
         "latest_tiny_live_canary_gonogo_gate_path": clean_text(
             latest_tiny_live_canary_gonogo_gate_path
             or value.get("latest_tiny_live_canary_gonogo_gate_path")
@@ -826,6 +853,39 @@ def _live_enablement_config_preflight_summary(summary: Mapping[str, Any] | None)
     }
 
 
+def _authenticated_polymarket_connector_scaffold_summary(summary: Mapping[str, Any] | None) -> dict[str, Any]:
+    value = summarize_authenticated_connector_capability_report(summary)
+    return {
+        "status": clean_text(value.get("status") or "REVIEW_ONLY"),
+        "connector_name": clean_text(value.get("connector_name")),
+        "review_only": True,
+        "dry_run_only": True,
+        "network_calls_enabled": False,
+        "authenticated_calls_enabled": False,
+        "live_connector_enabled": False,
+        "order_submission_enabled": False,
+        "signing_enabled": False,
+        "cryptographic_signing_enabled": False,
+        "wallet_signing_enabled": False,
+        "real_execution_available": False,
+        "allowed_for_live": False,
+        "canary_executable_now": False,
+        "live_execution_approved": False,
+        "authenticated_polymarket_enabled": False,
+        "execution_enabling": False,
+        "live_approval": False,
+        "resolved_blocker_count": 0,
+        "no_executable_action": True,
+        "top_blocked_reasons": list(value.get("top_blocked_reasons", []))[:5],
+        "credentials_redacted_or_missing_only": (
+            value.get("credentials_redacted_or_missing_only") is not False
+        ),
+        "latest_authenticated_polymarket_connector_scaffold_path": clean_text(
+            value.get("latest_authenticated_polymarket_connector_scaffold_path")
+        ),
+    }
+
+
 def _blocker_matrix_summary(summary: Mapping[str, Any] | None) -> dict[str, Any]:
     value = dict(summary or {})
     blockers = mapping_rows(value.get("blockers"))
@@ -937,6 +997,7 @@ def _no_go_reasons(
     operator_intent: Mapping[str, Any],
     evidence: Mapping[str, Any],
     live_enablement_config_preflight: Mapping[str, Any],
+    authenticated_polymarket_connector_scaffold: Mapping[str, Any],
     kill_switch: Mapping[str, Any],
 ) -> list[str]:
     reasons = []
@@ -958,6 +1019,14 @@ def _no_go_reasons(
         reasons.append("live_enablement_config_claimed_allowed_for_live")
     if clean_text(live_enablement_config_preflight.get("status")) != "REVIEW_ONLY_PREFLIGHT_READY":
         reasons.append("live_enablement_config_preflight_not_review_only_ready")
+    if authenticated_polymarket_connector_scaffold.get("review_only") is not True:
+        reasons.append("authenticated_polymarket_connector_scaffold_not_review_only")
+    if authenticated_polymarket_connector_scaffold.get("network_calls_enabled") is not False:
+        reasons.append("authenticated_polymarket_connector_network_calls_claimed_enabled")
+    if authenticated_polymarket_connector_scaffold.get("authenticated_calls_enabled") is not False:
+        reasons.append("authenticated_polymarket_connector_authenticated_calls_claimed_enabled")
+    if authenticated_polymarket_connector_scaffold.get("order_submission_enabled") is not False:
+        reasons.append("authenticated_polymarket_connector_order_submission_claimed_enabled")
     if kill_switch.get("kill_switch_verified_for_live") is not False:
         reasons.append("kill_switch_claimed_live_verified")
     reasons.extend(
@@ -1095,8 +1164,10 @@ def _gate_safety_flags() -> dict[str, Any]:
         "secrets_printed": False,
         "secrets_persisted": False,
         "network_used": False,
+        "network_calls_enabled": False,
         "external_api_calls_performed": False,
         "external_api_call_performed": False,
+        "authenticated_calls_enabled": False,
         "authenticated_endpoints_enabled": False,
         "authenticated_polymarket_enabled": False,
         "authenticated_endpoint_called": False,
