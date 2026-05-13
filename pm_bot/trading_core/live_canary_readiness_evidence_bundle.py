@@ -62,6 +62,9 @@ VALIDATION_STATUS_TINY_LIVE_CANARY_GONOGO_GATE_EVIDENCE_MISSING = (
 VALIDATION_STATUS_TELEGRAM_OPERATOR_CONTROL_BOT_EVIDENCE_MISSING = (
     "telegram_operator_control_bot_v1_evidence_missing"
 )
+VALIDATION_STATUS_TELEGRAM_MINI_APP_OPERATOR_PANEL_EVIDENCE_MISSING = (
+    "telegram_mini_app_operator_panel_v1_evidence_missing"
+)
 
 NON_EXECUTION_STATEMENTS = (
     "This readiness evidence bundle is review evidence only.",
@@ -92,6 +95,7 @@ REQUIRED_EVIDENCE_TYPES = (
     "live_order_submission_boundary_dry_run_adapter",
     "tiny_live_canary_manual_execution_checklist_and_final_gonogo_gate",
     "telegram_operator_control_bot_v1",
+    "telegram_mini_app_operator_panel_v1",
 )
 
 OPTIONAL_EVIDENCE_TYPES = (
@@ -332,6 +336,7 @@ def build_live_canary_readiness_evidence_bundle(
     live_order_submission_boundary_dry_run_adapter: Mapping[str, Any] | None = None,
     tiny_live_canary_gonogo_gate: Mapping[str, Any] | None = None,
     telegram_operator_control_bot_v1: Mapping[str, Any] | None = None,
+    telegram_mini_app_operator_panel_v1: Mapping[str, Any] | None = None,
     dry_run_receipt_references: Sequence[str] | None = None,
     result_artifact_references: Sequence[str] | None = None,
     artifact_reference_overrides: Mapping[str, str] | None = None,
@@ -362,6 +367,7 @@ def build_live_canary_readiness_evidence_bundle(
     live_order_boundary = dict(live_order_submission_boundary_dry_run_adapter or {})
     gonogo_gate = dict(tiny_live_canary_gonogo_gate or {})
     telegram_control = dict(telegram_operator_control_bot_v1 or {})
+    telegram_mini_app = dict(telegram_mini_app_operator_panel_v1 or {})
     overrides = {clean_text(key): clean_text(value) for key, value in dict(artifact_reference_overrides or {}).items()}
 
     items = _build_evidence_items(
@@ -385,6 +391,7 @@ def build_live_canary_readiness_evidence_bundle(
         live_order_submission_boundary_dry_run_adapter=live_order_boundary,
         tiny_live_canary_gonogo_gate=gonogo_gate,
         telegram_operator_control_bot_v1=telegram_control,
+        telegram_mini_app_operator_panel_v1=telegram_mini_app,
         dry_run_receipt_references=dry_run_receipt_references,
         result_artifact_references=result_artifact_references,
         artifact_reference_overrides=overrides,
@@ -469,6 +476,9 @@ def validate_live_canary_readiness_evidence_bundle(
             VALIDATION_STATUS_TINY_LIVE_CANARY_GONOGO_GATE_EVIDENCE_MISSING
         ),
         "telegram_operator_control_bot_v1": VALIDATION_STATUS_TELEGRAM_OPERATOR_CONTROL_BOT_EVIDENCE_MISSING,
+        "telegram_mini_app_operator_panel_v1": (
+            VALIDATION_STATUS_TELEGRAM_MINI_APP_OPERATOR_PANEL_EVIDENCE_MISSING
+        ),
     }
     statuses.extend(status_by_missing_type[item] for item in missing_required if item in status_by_missing_type)
 
@@ -757,6 +767,7 @@ def _build_evidence_items(
     live_order_submission_boundary_dry_run_adapter: Mapping[str, Any],
     tiny_live_canary_gonogo_gate: Mapping[str, Any],
     telegram_operator_control_bot_v1: Mapping[str, Any],
+    telegram_mini_app_operator_panel_v1: Mapping[str, Any],
     dry_run_receipt_references: Sequence[str] | None,
     result_artifact_references: Sequence[str] | None,
     artifact_reference_overrides: Mapping[str, str],
@@ -1203,6 +1214,45 @@ def _build_evidence_items(
             "review_only": True,
             "execution_enabling": False,
             "live_approval": False,
+            "allowed_for_live": False,
+            "canary_executable_now": False,
+            "live_execution_approved": False,
+            "real_execution_available": False,
+            "live_connector_enabled": False,
+            "order_submission_enabled": False,
+            "would_submit_order": False,
+        },
+        _item(
+            "telegram_mini_app_operator_panel_v1",
+            "telegram_mini_app_operator_panel",
+            _override_or_reference(
+                artifact_reference_overrides,
+                "telegram_mini_app_operator_panel_v1",
+                telegram_mini_app_operator_panel_v1,
+                ("panel_id", "summary_id", "contract_version"),
+                "telegram_mini_app_operator_panel_v1-044:review_only_static_artifact",
+            ),
+            clean_text(
+                telegram_mini_app_operator_panel_v1.get("status")
+                or telegram_mini_app_operator_panel_v1.get("validation_status")
+                or telegram_mini_app_operator_panel_v1.get("decision_status")
+                or "review_only_static_artifact"
+            ),
+            "Telegram Mini App operator panel v1 is a static review-only surface; it does not enable live approval, order submission, signing, wallet access, or authenticated endpoints.",
+            review_ready=(
+                telegram_mini_app_operator_panel_v1.get("execution_enabling") is not True
+                and telegram_mini_app_operator_panel_v1.get("live_approval") is not True
+                and telegram_mini_app_operator_panel_v1.get("allowed_for_live") is not True
+                and telegram_mini_app_operator_panel_v1.get("canary_executable_now") is not True
+                and telegram_mini_app_operator_panel_v1.get("order_submission_enabled") is not True
+                and telegram_mini_app_operator_panel_v1.get("live_actions_available") is not True
+            ),
+        )
+        | {
+            "review_only": True,
+            "execution_enabling": False,
+            "live_approval": False,
+            "live_actions_available": False,
             "allowed_for_live": False,
             "canary_executable_now": False,
             "live_execution_approved": False,

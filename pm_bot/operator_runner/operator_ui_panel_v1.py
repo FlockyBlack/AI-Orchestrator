@@ -62,6 +62,9 @@ OPERATOR_UI_PANEL_TINY_CANARY_GONOGO_SUMMARY_CONTRACT = (
 OPERATOR_UI_PANEL_TELEGRAM_CONTROL_SUMMARY_CONTRACT = (
     "pmbot_operator_ui_panel_telegram_operator_control_bot_summary.v1"
 )
+OPERATOR_UI_PANEL_TELEGRAM_MINI_APP_SUMMARY_CONTRACT = (
+    "pmbot_operator_ui_panel_telegram_mini_app_operator_panel_summary.v1"
+)
 OPERATOR_UI_PANEL_VALIDATION_CONTRACT = "pmbot_operator_ui_panel_validation.v1"
 
 TASK_ID = "ORCH-PMBOT-TRADING-MVP-036-OPERATOR-UI-PANEL-V1-READINESS-RISK-LIMITS-KILL-SWITCH"
@@ -100,6 +103,7 @@ REQUIRED_SECTION_IDS = (
     "risk_limits",
     "kill_switch",
     "telegram_operator_control_bot",
+    "telegram_mini_app_operator_panel",
     "paper_trading_summary",
     "operator_packets",
     "audit_replay",
@@ -117,6 +121,7 @@ NEXT_REQUIRED_GATES = (
     "operator live approval not implemented",
     "tiny canary still not executable",
     "Telegram operator control bot remains review-only and exposes no executable live action",
+    "Telegram Mini App operator panel remains static review-only and exposes no executable live action",
 )
 
 
@@ -445,6 +450,33 @@ class OperatorUIPanelTelegramOperatorControlSummary:
 
 
 @dataclass(frozen=True)
+class OperatorUIPanelTelegramMiniAppSummary:
+    panel_artifact_available: bool
+    review_only: bool
+    live_actions_available: bool
+    latest_telegram_mini_app_operator_panel_html_path: str = ""
+    latest_telegram_mini_app_operator_panel_json_path: str = ""
+    mini_app_url_status: str = "not_configured_review_placeholder"
+    telegram_init_data_status: str = "not_configured_redacted"
+
+    def to_dict(self) -> dict[str, Any]:
+        value = asdict(self)
+        value["contract_version"] = OPERATOR_UI_PANEL_TELEGRAM_MINI_APP_SUMMARY_CONTRACT
+        value["telegram_mini_app_operator_panel_section_ready"] = True
+        value["telegram_mini_app_operator_panel_ready"] = self.panel_artifact_available
+        value["review_only"] = True
+        value["live_actions_available"] = False
+        value["execution_enabling"] = False
+        value["live_approval"] = False
+        value["raw_telegram_bot_token_exposed"] = False
+        value["raw_telegram_init_data_exposed"] = False
+        value["raw_operator_user_ids_exposed"] = False
+        value["ui_exposes_no_executable_live_action"] = True
+        value.update(_panel_safety_flags())
+        return value
+
+
+@dataclass(frozen=True)
 class OperatorUIPanelReadinessSummary:
     mode: str
     current_execution_posture: str
@@ -522,6 +554,7 @@ class OperatorUIPanelV1:
     risk_limit_summary: Mapping[str, Any]
     kill_switch_summary: Mapping[str, Any]
     telegram_operator_control_bot_summary: Mapping[str, Any]
+    telegram_mini_app_operator_panel_summary: Mapping[str, Any]
     paper_summary: Mapping[str, Any]
     operator_packet_summary: Mapping[str, Any]
     audit_replay_summary: Mapping[str, Any]
@@ -546,6 +579,7 @@ class OperatorUIPanelV1:
         value["risk_limit_summary"] = dict(self.risk_limit_summary)
         value["kill_switch_summary"] = dict(self.kill_switch_summary)
         value["telegram_operator_control_bot_summary"] = dict(self.telegram_operator_control_bot_summary)
+        value["telegram_mini_app_operator_panel_summary"] = dict(self.telegram_mini_app_operator_panel_summary)
         value["paper_summary"] = dict(self.paper_summary)
         value["operator_packet_summary"] = dict(self.operator_packet_summary)
         value["audit_replay_summary"] = dict(self.audit_replay_summary)
@@ -559,6 +593,7 @@ class OperatorUIPanelV1:
         value["risk_control_panel_render_ready"] = True
         value["kill_switch_panel_render_ready"] = True
         value["telegram_operator_control_bot_section_ready"] = True
+        value["telegram_mini_app_operator_panel_section_ready"] = True
         value["paper_summary_panel_ready"] = True
         value["blocker_panel_ready"] = True
         value["live_credentials_auth_boundary_section_ready"] = True
@@ -609,6 +644,7 @@ def build_operator_ui_panel_v1(
     live_connector_audit_replay: Mapping[str, Any] | None = None,
     live_connector_audit_operator_summary: Mapping[str, Any] | None = None,
     telegram_operator_control_bot_summary: Mapping[str, Any] | None = None,
+    telegram_mini_app_operator_panel_summary: Mapping[str, Any] | None = None,
     latest_paths: Mapping[str, str] | None = None,
     generated_at: str = GENERATED_AT,
 ) -> dict[str, Any]:
@@ -714,6 +750,14 @@ def build_operator_ui_panel_v1(
         latest_reference=paths.get("telegram_operator_control_state", "")
         or clean_text(dashboard_value.get("latest_telegram_operator_control_state_path")),
     )
+    telegram_mini_app_summary = _build_telegram_mini_app_operator_panel_summary(
+        telegram_mini_app_operator_panel_summary=telegram_mini_app_operator_panel_summary
+        or dashboard_value.get("telegram_mini_app_operator_panel_summary", {}),
+        latest_html_reference=paths.get("telegram_mini_app_operator_panel_html", "")
+        or clean_text(dashboard_value.get("latest_telegram_mini_app_operator_panel_html_path")),
+        latest_json_reference=paths.get("telegram_mini_app_operator_panel_json", "")
+        or clean_text(dashboard_value.get("latest_telegram_mini_app_operator_panel_json_path")),
+    )
     operator_packet_summary = _build_operator_packet_summary(
         operator_live_approval_packet=operator_live_approval_packet,
         operator_intent_packet=operator_intent_packet,
@@ -753,6 +797,7 @@ def build_operator_ui_panel_v1(
         risk=risk_summary,
         kill_switch=kill_switch_summary,
         telegram_operator_control=telegram_control_summary,
+        telegram_mini_app=telegram_mini_app_summary,
         paper=paper_summary,
         operator_packets=operator_packet_summary,
         audit=audit_summary,
@@ -776,6 +821,7 @@ def build_operator_ui_panel_v1(
             "risk": risk_summary,
             "kill_switch": kill_switch_summary,
             "telegram_operator_control": telegram_control_summary,
+            "telegram_mini_app": telegram_mini_app_summary,
             "paper": paper_summary,
         },
     )
@@ -795,6 +841,7 @@ def build_operator_ui_panel_v1(
         risk_limit_summary=risk_summary,
         kill_switch_summary=kill_switch_summary,
         telegram_operator_control_bot_summary=telegram_control_summary,
+        telegram_mini_app_operator_panel_summary=telegram_mini_app_summary,
         paper_summary=paper_summary,
         operator_packet_summary=operator_packet_summary,
         audit_replay_summary=audit_summary,
@@ -1003,6 +1050,26 @@ def validate_operator_ui_panel_v1(
         if telegram_summary.get(field) is not False:
             errors.append(f"telegram_operator_control_bot_summary.{field} must be false")
             statuses.append("telegram_operator_control_execution_flag_detected")
+    mini_app_summary = dict(panel_value.get("telegram_mini_app_operator_panel_summary", {}))
+    if mini_app_summary.get("telegram_mini_app_operator_panel_section_ready") is not True:
+        errors.append("telegram_mini_app_operator_panel_section_ready must be true")
+        statuses.append("telegram_mini_app_section_missing")
+    if mini_app_summary.get("review_only") is not True:
+        errors.append("telegram_mini_app_operator_panel_summary.review_only must be true")
+        statuses.append("telegram_mini_app_review_only_missing")
+    if mini_app_summary.get("live_actions_available") is not False:
+        errors.append("telegram_mini_app_operator_panel_summary.live_actions_available must be false")
+        statuses.append("telegram_mini_app_live_action_detected")
+    if mini_app_summary.get("execution_enabling") is not False:
+        errors.append("telegram_mini_app_operator_panel_summary.execution_enabling must be false")
+        statuses.append("telegram_mini_app_execution_enabling_detected")
+    if mini_app_summary.get("live_approval") is not False:
+        errors.append("telegram_mini_app_operator_panel_summary.live_approval must be false")
+        statuses.append("telegram_mini_app_live_approval_detected")
+    for field in FORCED_FALSE_EXECUTION_FIELDS:
+        if mini_app_summary.get(field) is not False:
+            errors.append(f"telegram_mini_app_operator_panel_summary.{field} must be false")
+            statuses.append("telegram_mini_app_execution_flag_detected")
     if panel_value.get("evidence_summary", {}).get("readiness_bundle_is_not_live_approval") is not True:
         errors.append("readiness_bundle_is_not_live_approval must be true")
     if panel_value.get("blocker_summary", {}).get("all_blockers_unresolved") is not True:
@@ -1193,6 +1260,26 @@ def summarize_operator_ui_panel_v1(panel: Mapping[str, Any]) -> dict[str, Any]:
             panel.get("telegram_operator_control_bot_summary", {})
         ).get("operator_kill_switch_requested")
         is True,
+        "telegram_mini_app_operator_panel_section_ready": dict(
+            panel.get("telegram_mini_app_operator_panel_summary", {})
+        ).get("telegram_mini_app_operator_panel_section_ready")
+        is True,
+        "telegram_mini_app_operator_panel_artifact_available": dict(
+            panel.get("telegram_mini_app_operator_panel_summary", {})
+        ).get("panel_artifact_available")
+        is True,
+        "telegram_mini_app_operator_panel_review_only": dict(
+            panel.get("telegram_mini_app_operator_panel_summary", {})
+        ).get("review_only")
+        is True,
+        "telegram_mini_app_operator_panel_live_actions_available": dict(
+            panel.get("telegram_mini_app_operator_panel_summary", {})
+        ).get("live_actions_available")
+        is True,
+        "telegram_mini_app_operator_panel_live_actions_blocked": dict(
+            panel.get("telegram_mini_app_operator_panel_summary", {})
+        ).get("live_actions_available")
+        is False,
         "live_execution_approved": False,
         "canary_executable_now": False,
         "real_execution_available": False,
@@ -1875,6 +1962,41 @@ def _build_telegram_operator_control_bot_summary(
     ).to_dict()
 
 
+def _build_telegram_mini_app_operator_panel_summary(
+    *,
+    telegram_mini_app_operator_panel_summary: Mapping[str, Any] | None,
+    latest_html_reference: str,
+    latest_json_reference: str,
+) -> dict[str, Any]:
+    provided = dict(telegram_mini_app_operator_panel_summary or {})
+    html_reference = clean_text(
+        provided.get("latest_telegram_mini_app_operator_panel_html_path")
+        or latest_html_reference
+    )
+    json_reference = clean_text(
+        provided.get("latest_telegram_mini_app_operator_panel_json_path")
+        or latest_json_reference
+    )
+    artifact_available = (
+        provided.get("panel_artifact_available") is True
+        or provided.get("telegram_mini_app_operator_panel_ready") is True
+        or bool(html_reference or json_reference)
+    )
+    return OperatorUIPanelTelegramMiniAppSummary(
+        panel_artifact_available=artifact_available,
+        review_only=True,
+        live_actions_available=False,
+        latest_telegram_mini_app_operator_panel_html_path=html_reference,
+        latest_telegram_mini_app_operator_panel_json_path=json_reference,
+        mini_app_url_status=clean_text(
+            provided.get("mini_app_url_status") or "not_configured_review_placeholder"
+        ),
+        telegram_init_data_status=clean_text(
+            provided.get("telegram_init_data_status") or "not_configured_redacted"
+        ),
+    ).to_dict()
+
+
 def _build_paper_summary(
     *,
     dashboard: Mapping[str, Any],
@@ -2046,6 +2168,7 @@ def _build_sections(
     risk: Mapping[str, Any],
     kill_switch: Mapping[str, Any],
     telegram_operator_control: Mapping[str, Any],
+    telegram_mini_app: Mapping[str, Any],
     paper: Mapping[str, Any],
     operator_packets: Mapping[str, Any],
     audit: Mapping[str, Any],
@@ -2453,6 +2576,49 @@ def _build_sections(
                     "telegram_control_review_only",
                     "warning",
                     "Telegram operator control is passive review/local state only and exposes no executable live action.",
+                )
+            ],
+        ),
+        _section(
+            "telegram_mini_app_operator_panel",
+            "Telegram Mini App Operator Panel",
+            "static_review_only",
+            [
+                _metric(
+                    "panel_artifact_available",
+                    "Panel artifact available",
+                    telegram_mini_app.get("panel_artifact_available"),
+                ),
+                _metric("review_only", "Review-only", True),
+                _metric("live_actions_available", "Live actions available", False),
+                _metric(
+                    "latest_telegram_mini_app_operator_panel_html_path",
+                    "Local HTML artifact",
+                    telegram_mini_app.get("latest_telegram_mini_app_operator_panel_html_path"),
+                ),
+                _metric(
+                    "latest_telegram_mini_app_operator_panel_json_path",
+                    "Local JSON artifact",
+                    telegram_mini_app.get("latest_telegram_mini_app_operator_panel_json_path"),
+                ),
+                _metric(
+                    "mini_app_url_status",
+                    "Mini App URL status",
+                    telegram_mini_app.get("mini_app_url_status"),
+                ),
+                _metric(
+                    "telegram_init_data_status",
+                    "Telegram init data status",
+                    telegram_mini_app.get("telegram_init_data_status"),
+                ),
+                _metric("execution_enabling", "Execution enabling", False),
+                _metric("live_approval", "Live approval", False),
+            ],
+            warnings=[
+                _warning(
+                    "telegram_mini_app_review_only",
+                    "warning",
+                    "Telegram Mini App panel is a static review artifact and exposes no executable live action.",
                 )
             ],
         ),

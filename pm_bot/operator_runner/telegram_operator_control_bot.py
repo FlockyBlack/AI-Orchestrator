@@ -38,6 +38,7 @@ SUPPORTED_COMMANDS = (
     "/gonogo",
     "/evidence",
     "/blockers",
+    "/panel",
     "/pause",
     "/kill",
 )
@@ -219,6 +220,7 @@ class TelegramOperatorControlBot:
             "/gonogo": self._render_gonogo,
             "/evidence": self._render_evidence,
             "/blockers": self._render_blockers,
+            "/panel": self._render_panel,
         }
         return renderers.get(command, self._render_help)()
 
@@ -393,6 +395,25 @@ class TelegramOperatorControlBot:
             lines.extend(bullet_lines(reasons))
         return "\n".join(lines)
 
+    def _render_panel(self) -> str:
+        panel = dict(self._summary().get("telegram_mini_app_operator_panel_summary", {}))
+        return "\n".join(
+            [
+                "Telegram Mini App Operator Panel v1: review-only / live blocked",
+                f"Panel artifact available: {str(panel.get('panel_artifact_available') is True).lower()}",
+                f"HTML artifact: {clean_text(panel.get('latest_telegram_mini_app_operator_panel_html_path') or 'not_available')}",
+                f"JSON artifact: {clean_text(panel.get('latest_telegram_mini_app_operator_panel_json_path') or 'not_available')}",
+                f"Mini App URL status: {clean_text(panel.get('mini_app_url_status') or 'not_configured_review_placeholder')}",
+                f"Telegram init data status: {clean_text(panel.get('telegram_init_data_status') or 'not_configured_redacted')}",
+                "review_only: true",
+                "live_actions_available: false",
+                "raw_telegram_bot_token_exposed: false",
+                "raw_telegram_init_data_exposed: false",
+                "raw_operator_user_ids_exposed: false",
+                "No live order action is available from this bot or panel.",
+            ]
+        )
+
     def _render_pause(self) -> str:
         return (
             "Pause marker recorded in local Telegram operator-control state only. "
@@ -512,6 +533,10 @@ def build_telegram_operator_control_summary(
         context_value.get("evidence_summary"),
         context_value.get("readiness_evidence_bundle"),
     )
+    mini_panel = _first_mapping(
+        context_value.get("telegram_mini_app_operator_panel_summary"),
+        context_value.get("telegram_mini_app_operator_panel"),
+    )
     blockers = _first_mapping(
         context_value.get("blocker_summary"),
         context_value.get("live_connector_blocker_matrix"),
@@ -546,6 +571,7 @@ def build_telegram_operator_control_summary(
         "live_order_submission_boundary_summary": order,
         "gonogo_summary": gonogo,
         "evidence_summary": evidence,
+        "telegram_mini_app_operator_panel_summary": mini_panel,
         "blocker_summary": _normalize_blocker_summary(blockers),
         "review_only": True,
         "telegram_operator_control_bot_section_ready": True,

@@ -42,6 +42,15 @@ FORBIDDEN_SECRET_FIELD_NAMES = frozenset(
         "clob_passphrase",
         "api_key_value",
         "access_token_value",
+        "telegram_bot_token",
+        "raw_telegram_bot_token",
+        "telegram_init_data",
+        "raw_telegram_init_data",
+        "telegram_web_app_init_data",
+        "operator_user_id",
+        "operator_user_ids",
+        "raw_operator_user_id",
+        "raw_operator_user_ids",
     }
 )
 
@@ -84,6 +93,9 @@ FORBIDDEN_ENV_VAR_NAME_PATTERNS = (
     "AUTH_HEADER",
     "SIGNATURE",
     "RAW_TRANSACTION",
+    "TELEGRAM_BOT_TOKEN",
+    "TELEGRAM_INIT_DATA",
+    "TELEGRAM_WEB_APP_INIT_DATA",
 )
 
 SAFE_PLACEHOLDER_MARKERS = frozenset(
@@ -172,9 +184,17 @@ SAFE_SECRET_METADATA_FIELD_NAMES = frozenset(
         "telegram_operator_control_config_secret_boundary_validation",
         "telegram_operator_control_state_secret_boundary_validation",
         "telegram_operator_control_summary_secret_boundary_validation",
+        "telegram_mini_app_operator_panel_payload_secret_boundary_validation",
+        "telegram_mini_app_operator_panel_rendered_html_secret_boundary_validation",
+        "telegram_mini_app_operator_panel_rendered_json_secret_boundary_validation",
+        "telegram_mini_app_operator_panel_section_ready",
+        "telegram_mini_app_operator_panel_ready",
+        "telegram_mini_app_url_status",
+        "telegram_init_data_status",
         "telegram_bot_token_status",
         "telegram_bot_configured",
         "raw_telegram_bot_token_exposed",
+        "raw_telegram_init_data_exposed",
         "raw_telegram_data_persisted",
         "raw_operator_user_ids_exposed",
         "raw_operator_user_id_persisted",
@@ -279,11 +299,15 @@ def build_secret_boundary_policy(*, generated_at: str = GENERATED_AT) -> dict[st
         "sensitive_redacted_config_keys": [
             "PMBOT_TELEGRAM_BOT_TOKEN",
             "PMBOT_TELEGRAM_ALLOWED_OPERATOR_IDS",
+            "PMBOT_TELEGRAM_MINI_APP_URL",
+            "PMBOT_TELEGRAM_INIT_DATA",
         ],
         "sensitive_redacted_config_notes": [
             "Telegram bot tokens are sensitive and may only be surfaced as missing or configured_redacted.",
             "Telegram allowed operator user IDs are sensitive configuration and should be summarized by presence/count or hashed identifiers only.",
             "Telegram operator control bot v1 is non-execution: it does not submit orders, sign payloads, connect wallets, or call authenticated endpoints.",
+            "Telegram Mini App URLs and init data are sensitive configuration and may only be surfaced as missing or configured_redacted status.",
+            "Telegram Mini App operator panel v1 is non-execution: it is a static review surface and does not submit orders, sign payloads, connect wallets, or call authenticated endpoints.",
         ],
     }
 
@@ -894,6 +918,56 @@ def validate_secret_boundary_telegram_operator_control_summary(
     return validate_static_secret_boundary(
         value,
         artifact_type="telegram_operator_control_summary",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_telegram_mini_app_panel_payload(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        value,
+        artifact_type="telegram_mini_app_operator_panel_payload",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_telegram_mini_app_panel_rendered_json(
+    value: str,
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    try:
+        parsed = json.loads(value)
+    except json.JSONDecodeError:
+        return _rendered_text_boundary_validation(
+            value,
+            artifact_type="telegram_mini_app_operator_panel_rendered_json",
+            generated_at=generated_at,
+        )
+    if isinstance(parsed, Mapping):
+        return validate_static_secret_boundary(
+            parsed,
+            artifact_type="telegram_mini_app_operator_panel_rendered_json",
+            generated_at=generated_at,
+        )
+    return _rendered_text_boundary_validation(
+        value,
+        artifact_type="telegram_mini_app_operator_panel_rendered_json",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_telegram_mini_app_panel_rendered_html(
+    value: str,
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return _rendered_text_boundary_validation(
+        value,
+        artifact_type="telegram_mini_app_operator_panel_rendered_html",
         generated_at=generated_at,
     )
 
