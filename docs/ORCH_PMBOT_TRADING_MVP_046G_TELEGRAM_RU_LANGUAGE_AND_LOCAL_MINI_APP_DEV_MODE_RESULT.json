@@ -1,0 +1,132 @@
+{
+  "task_id": "ORCH-PMBOT-TRADING-MVP-046G-TELEGRAM-RU-LANGUAGE-AND-LOCAL-MINI-APP-DEV-MODE",
+  "status": "implemented_pending_commit_push",
+  "worktree": "C:/oc046g_telegram_ru_language_local_mini_app_dev_mode",
+  "branch": "pmbot/trading-mvp-046g-telegram-ru-language-local-mini-app-dev-mode",
+  "base": "origin/master",
+  "head_before": "3dcd0846945ee8ae2abc916fba6c464de0012f76",
+  "head_after": "POST_PUSH_HEAD_REPORTED_IN_FINAL_CHAT",
+  "implementation_status": {
+    "telegram_i18n_layer_added": true,
+    "supported_languages": [
+      "ru",
+      "en"
+    ],
+    "start_language_selection_added": true,
+    "language_command_added": true,
+    "language_state_storage": "global_local_operator_state",
+    "language_state_raw_operator_ids_stored": false,
+    "russian_home_screen_added": true,
+    "localized_main_buttons_added": true,
+    "callback_data_stable": true,
+    "mini_app_local_tunnel_url_supported": true,
+    "mini_app_env_var": "PMBOT_TELEGRAM_MINI_APP_URL",
+    "local_mini_app_dev_doc_added": true
+  },
+  "changed_files": [
+    "docs/ORCH_PMBOT_TRADING_MVP_046G_TELEGRAM_RU_LANGUAGE_AND_LOCAL_MINI_APP_DEV_MODE.md",
+    "docs/ORCH_PMBOT_TRADING_MVP_046G_TELEGRAM_RU_LANGUAGE_AND_LOCAL_MINI_APP_DEV_MODE_RESULT.json",
+    "pm_bot/operator_runner/telegram_operator_i18n.py",
+    "pm_bot/operator_runner/telegram_operator_control_bot.py",
+    "pm_bot/operator_runner/telegram_operator_control_state.py",
+    "pm_bot/operator_runner/telegram_operator_runtime.py",
+    "pm_bot/tests/test_telegram_ru_language_mini_app_dev_mode_046g.py",
+    "pm_bot/tests/test_telegram_operator_runtime_ux_smoke_fixes_046e.py",
+    "pm_bot/tests/test_telegram_operator_control_bot_043.py",
+    "pm_bot/tests/test_telegram_operator_ux_buttons_046.py"
+  ],
+  "validation": [
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_ru_language_mini_app_dev_mode_046g.py",
+      "status": "passed",
+      "result": "11 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_operator_runtime_ux_smoke_fixes_046e.py",
+      "status": "passed",
+      "result": "3 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_runtime_smoke_046c.py",
+      "status": "passed",
+      "result": "12 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_operator_ux_buttons_046.py",
+      "status": "passed",
+      "result": "12 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_operator_runtime_045.py",
+      "status": "passed",
+      "result": "14 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_operator_control_bot_043.py",
+      "status": "passed",
+      "result": "11 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_mini_app_operator_panel_044.py",
+      "status": "passed",
+      "result": "8 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests",
+      "status": "passed",
+      "result": "1722 passed"
+    },
+    {
+      "command": "python -m compileall pm_bot",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest tests/test_codex_queue_nightly_lane_batch_runner.py tests/test_codex_worktree_lane_manager.py tests/test_subagent_routing.py tests/test_codex_queue_operator_cli.py",
+      "status": "passed",
+      "result": "41 passed"
+    },
+    {
+      "command": "python -m compileall ai_orchestrator",
+      "status": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    },
+    {
+      "command": "git diff --cached --check",
+      "status": "pending_after_selective_staging"
+    }
+  ],
+  "safety": {
+    "telegram_bot_token_hardcoded": false,
+    "telegram_bot_token_printed": false,
+    "raw_telegram_init_data_exposed": false,
+    "raw_operator_ids_exposed": false,
+    "private_keys_or_wallet_material_touched": false,
+    "live_trading_enabled": false,
+    "real_orders_submitted": false,
+    "wallet_integration_added": false,
+    "signing_added": false,
+    "authenticated_polymarket_calls_added": false,
+    "telegram_pause_kill_local_markers_only": true,
+    "mini_app_review_only": true,
+    "all_live_flags_false": true,
+    "resolved_blocker_count": 0,
+    "external_network_calls_in_tests": false
+  },
+  "local_mini_app_dev_summary": [
+    "Preview telegram_mini_app_operator_panel_044.html directly in a local browser.",
+    "Serve artifacts from the artifact directory with python -m http.server 8080.",
+    "Expose the local server with cloudflared tunnel --url http://localhost:8080 or ngrok http 8080.",
+    "Set PMBOT_TELEGRAM_MINI_APP_URL to the temporary HTTPS tunnel URL.",
+    "Restart python -m pm_bot.operator_runner.telegram_operator_runtime after changing the URL.",
+    "Temporary tunnel URLs change and must be updated when restarted.",
+    "The Mini App remains review-only and does not enable trading."
+  ],
+  "remaining_risks": [
+    "Language preference is a global local operator-state value, not a per-operator preference map.",
+    "Temporary tunnel URLs are externally hosted by the chosen tunnel provider and should be treated as short-lived operator configuration."
+  ],
+  "next_recommended_task": "ORCH-PMBOT-TRADING-MVP-046H-MERGE-TELEGRAM-RU-LANGUAGE-AND-LOCAL-MINI-APP-DEV-MODE-INTO-MASTER"
+}

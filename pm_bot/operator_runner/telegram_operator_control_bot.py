@@ -5,12 +5,27 @@ import json
 from dataclasses import dataclass, field
 from typing import Any, Mapping, Protocol, Sequence
 
+from pm_bot.operator_runner.telegram_operator_i18n import (
+    DEFAULT_OPERATOR_LANGUAGE,
+    HOME_BUTTON_ROWS_BY_LANGUAGE,
+    LANGUAGE_SELECTION_BUTTON_ROWS,
+    PANEL_FALLBACK_BUTTON_ROWS_BY_LANGUAGE,
+    all_button_rows,
+    language_from_command_text,
+    normalize_operator_language,
+    operator_language_from_state,
+    operator_language_is_selected,
+    render_home,
+    render_language_selected,
+    render_language_selection_prompt,
+)
 from pm_bot.operator_runner.telegram_operator_control_state import (
     build_telegram_operator_control_state,
     normalize_telegram_command,
     record_telegram_operator_control_command,
     request_telegram_operator_kill_switch,
     request_telegram_operator_pause,
+    set_telegram_operator_language,
     summarize_telegram_operator_control_state,
 )
 from pm_bot.trading_core.schemas import GENERATED_AT, bullet_lines, clean_text, mapping_rows
@@ -41,6 +56,7 @@ SUPPORTED_COMMANDS = (
     "/evidence",
     "/blockers",
     "/panel",
+    "/language",
     "/pause",
     "/kill",
 )
@@ -56,21 +72,18 @@ CALLBACK_COMMAND_MAP = {
     "pmbot:evidence": "/evidence",
     "pmbot:blockers": "/blockers",
     "pmbot:panel": "/panel",
+    "pmbot:language": "/language",
+    "pmbot:lang:ru": "/language",
+    "pmbot:lang:en": "/language",
     "pmbot:pause": "/pause",
     "pmbot:kill": "/kill",
 }
 
-HOME_BUTTON_ROWS = (
-    (("Status", "pmbot:status"), ("Go/No-Go", "pmbot:gonogo")),
-    (("Risk", "pmbot:risk"), ("Blockers", "pmbot:blockers")),
-    (("Evidence", "pmbot:evidence"), ("Panel", "pmbot:panel")),
-    (("Pause", "pmbot:pause"), ("Kill", "pmbot:kill")),
-)
+HOME_BUTTON_ROWS = HOME_BUTTON_ROWS_BY_LANGUAGE["en"]
+RUSSIAN_HOME_BUTTON_ROWS = HOME_BUTTON_ROWS_BY_LANGUAGE["ru"]
 
-PANEL_FALLBACK_BUTTON_ROWS = (
-    (("Status", "pmbot:status"), ("Go/No-Go", "pmbot:gonogo")),
-    (("Blockers", "pmbot:blockers"),),
-)
+PANEL_FALLBACK_BUTTON_ROWS = PANEL_FALLBACK_BUTTON_ROWS_BY_LANGUAGE["en"]
+RUSSIAN_PANEL_FALLBACK_BUTTON_ROWS = PANEL_FALLBACK_BUTTON_ROWS_BY_LANGUAGE["ru"]
 
 FORBIDDEN_BUTTON_LABEL_TERMS = ("BUY", "SELL", "TRADE", "EXECUTE", "APPROVE LIVE")
 
@@ -248,6 +261,7 @@ class TelegramOperatorControlBot:
         command = normalize_telegram_command(text) or "/help"
         if command not in SUPPORTED_COMMANDS:
             command = "/help"
+        requested_language = language_from_command_text(text) if command == "/language" else ""
         authorized = self.config.is_authorized(user_id)
         if not authorized:
             self.state = record_telegram_operator_control_command(
@@ -259,6 +273,49 @@ class TelegramOperatorControlBot:
                 generated_at=self.generated_at,
             )
             response = self._response(command, authorized=False, text=UNAUTHORIZED_DENIAL)
+        elif command == "/start" and not operator_language_is_selected(self.state):
+            self.state = record_telegram_operator_control_command(
+                self.state,
+                command=command,
+                operator_user_id=user_id,
+                authorized=True,
+                command_status="operator_language_selection_prompted",
+                generated_at=self.generated_at,
+            )
+            response = self._response(
+                command,
+                authorized=True,
+                text=render_language_selection_prompt(),
+                keyboard=build_language_selection_keyboard(),
+            )
+        elif command == "/language" and requested_language:
+            self.state = set_telegram_operator_language(
+                self.state,
+                operator_user_id=user_id,
+                language=requested_language,
+                generated_at=self.generated_at,
+            )
+            response = self._response(
+                command,
+                authorized=True,
+                text=render_language_selected(requested_language),
+                keyboard=self._keyboard_for_language(requested_language),
+            )
+        elif command == "/language":
+            self.state = record_telegram_operator_control_command(
+                self.state,
+                command=command,
+                operator_user_id=user_id,
+                authorized=True,
+                command_status="operator_language_selection_prompted",
+                generated_at=self.generated_at,
+            )
+            response = self._response(
+                command,
+                authorized=True,
+                text=render_language_selection_prompt(),
+                keyboard=build_language_selection_keyboard(),
+            )
         elif command == "/pause":
             self.state = request_telegram_operator_pause(
                 self.state,
@@ -339,26 +396,27 @@ class TelegramOperatorControlBot:
             "/evidence": self._render_evidence,
             "/blockers": self._render_blockers,
             "/panel": self._render_panel,
+            "/language": render_language_selection_prompt,
         }
         return renderers.get(command, self._render_help)()
 
     def _render_start(self) -> str:
-        return "\n".join(
-            [
-                "PMBOT Operator Control",
-                "Review-only",
-                "Live blocked",
-                "PMBOT Operator Control Bot v1 does not enable live trading, submit orders, connect wallets, "
-                "sign payloads, or call authenticated Polymarket endpoints.",
-            ]
-        )
+        return render_home(self._language())
 
     def _render_help(self) -> str:
         commands = "\n".join(f"{command}" for command in SUPPORTED_COMMANDS)
+        if self._language() == "ru":
+            return (
+                "PMBOT команды оператора:\n"
+                f"{commands}\n"
+                "Безопасные кнопки: Статус, Go/No-Go, Риски, Блокеры, Evidence, Mini App, Пауза, Kill-switch, Язык.\n"
+                "Ограничения: только обзор, бумажный/dry-run режим, live-торговля выключена, ордера выключены, "
+                "кошелёк/подпись выключены, authenticated endpoints выключены, фонового исполнения нет."
+            )
         return (
             "PMBOT Operator Control commands:\n"
             f"{commands}\n"
-            "Safe controls: Status, Go/No-Go, Risk, Blockers, Evidence, Panel, Pause, Kill.\n"
+            "Safe controls: Status, Go/No-Go, Risk, Blockers, Evidence, Panel, Pause, Kill, Language.\n"
             "Safety limits: review-only, paper/dry-run visibility only, no live trading, no order submission, "
             "no wallet access, no signing, no authenticated endpoint calls, no background execution."
         )
@@ -367,6 +425,20 @@ class TelegramOperatorControlBot:
         summary = self._summary()
         gonogo = dict(summary.get("gonogo_summary", {}))
         state = dict(summary.get("state_summary", {}))
+        if self._language() == "ru":
+            return "\n".join(
+                [
+                    "Статус PMBOT: только обзор / live-торговля выключена",
+                    f"Go/No-Go: {clean_text(gonogo.get('overall_decision') or gonogo.get('status') or 'NO_GO')}",
+                    "allowed_for_live: false",
+                    "canary_executable_now: false",
+                    "live_execution_approved: false",
+                    "real_execution_available: false",
+                    "live_connector_enabled: false",
+                    f"Пауза: {str(state.get('operator_pause_requested') is True).lower()}",
+                    f"Kill-switch: {str(state.get('operator_kill_switch_requested') is True).lower()}",
+                ]
+            )
         return "\n".join(
             [
                 "PMBOT status: review-only / live blocked",
@@ -420,6 +492,19 @@ class TelegramOperatorControlBot:
 
     def _render_risk(self) -> str:
         risk = dict(self._summary().get("risk_summary", {}))
+        if self._language() == "ru":
+            return "\n".join(
+                [
+                    "Риски: только обзор",
+                    f"Макс. размер ордера USD: {_display_known_value(risk.get('max_order_notional_usd'))}",
+                    f"Макс. дневной убыток USD: {_display_known_value(risk.get('max_daily_loss_usd'))}",
+                    f"Макс. общий exposure USD: {_display_known_value(risk.get('max_total_exposure_usd'))}",
+                    f"Макс. market exposure USD: {_display_known_value(risk.get('max_market_exposure_usd'))}",
+                    f"Макс. активных рынков: {_display_known_value(risk.get('max_active_markets') or risk.get('max_market_count'))}",
+                    f"Макс. сделок/день: {_display_known_value(risk.get('max_trades_per_day'))}",
+                    "allowed_for_live: false",
+                ]
+            )
         return "\n".join(
             [
                 "Risk limits summary: review visibility only",
@@ -473,53 +558,100 @@ class TelegramOperatorControlBot:
     def _render_gonogo(self) -> str:
         gonogo = dict(self._summary().get("gonogo_summary", {}))
         reasons = _clean_list(gonogo.get("top_no_go_reasons"))[:5]
-        lines = [
-            "Final go/no-go: review-only NO-GO",
-            f"Status: {clean_text(gonogo.get('status') or 'NO_GO_UNRESOLVED_BLOCKERS')}",
-            f"Overall decision: {clean_text(gonogo.get('overall_decision') or 'NO_GO')}",
-            f"Unresolved blockers: {int(gonogo.get('unresolved_blocker_count', 0) or 0)}",
-            f"Resolved blockers: {int(gonogo.get('resolved_blocker_count', 0) or 0)}",
-            "canary_executable_now: false",
-            "live_execution_approved: false",
-        ]
+        if self._language() == "ru":
+            lines = [
+                "Go/No-Go: только обзор, решение NO-GO",
+                f"Статус: {clean_text(gonogo.get('status') or 'NO_GO_UNRESOLVED_BLOCKERS')}",
+                f"Итог: {clean_text(gonogo.get('overall_decision') or 'NO_GO')}",
+                f"Нерешённые блокеры: {int(gonogo.get('unresolved_blocker_count', 0) or 0)}",
+                f"Решённые блокеры: {int(gonogo.get('resolved_blocker_count', 0) or 0)}",
+                "canary_executable_now: false",
+                "live_execution_approved: false",
+            ]
+        else:
+            lines = [
+                "Final go/no-go: review-only NO-GO",
+                f"Status: {clean_text(gonogo.get('status') or 'NO_GO_UNRESOLVED_BLOCKERS')}",
+                f"Overall decision: {clean_text(gonogo.get('overall_decision') or 'NO_GO')}",
+                f"Unresolved blockers: {int(gonogo.get('unresolved_blocker_count', 0) or 0)}",
+                f"Resolved blockers: {int(gonogo.get('resolved_blocker_count', 0) or 0)}",
+                "canary_executable_now: false",
+                "live_execution_approved: false",
+            ]
         if reasons:
-            lines.append("No-go reasons:")
+            lines.append("Причины NO-GO:" if self._language() == "ru" else "No-go reasons:")
             lines.extend(bullet_lines(reasons))
         return "\n".join(lines)
 
     def _render_evidence(self) -> str:
         evidence = dict(self._summary().get("evidence_summary", {}))
         missing = _clean_list(evidence.get("missing_required_evidence"))[:5]
-        lines = [
-            "Readiness evidence bundle: review-only",
-            f"Status: {clean_text(evidence.get('readiness_evidence_bundle_status') or evidence.get('status') or 'not_available')}",
-            f"Evidence items: {int(evidence.get('evidence_item_count', 0) or 0)}",
-            f"Missing required evidence: {int(evidence.get('missing_required_evidence_count', 0) or 0)}",
-            "readiness_evidence_bundle_is_not_live_approval: true",
-            "execution_enabling: false",
-        ]
+        if self._language() == "ru":
+            lines = [
+                "Evidence: только обзор",
+                f"Статус: {clean_text(evidence.get('readiness_evidence_bundle_status') or evidence.get('status') or 'not_available')}",
+                f"Evidence items: {int(evidence.get('evidence_item_count', 0) or 0)}",
+                f"Недостающие evidence: {int(evidence.get('missing_required_evidence_count', 0) or 0)}",
+                "readiness_evidence_bundle_is_not_live_approval: true",
+                "execution_enabling: false",
+            ]
+        else:
+            lines = [
+                "Readiness evidence bundle: review-only",
+                f"Status: {clean_text(evidence.get('readiness_evidence_bundle_status') or evidence.get('status') or 'not_available')}",
+                f"Evidence items: {int(evidence.get('evidence_item_count', 0) or 0)}",
+                f"Missing required evidence: {int(evidence.get('missing_required_evidence_count', 0) or 0)}",
+                "readiness_evidence_bundle_is_not_live_approval: true",
+                "execution_enabling: false",
+            ]
         if missing:
-            lines.append("Missing evidence:")
+            lines.append("Недостающие evidence:" if self._language() == "ru" else "Missing evidence:")
             lines.extend(bullet_lines(missing))
         return "\n".join(lines)
 
     def _render_blockers(self) -> str:
         blockers = dict(self._summary().get("blocker_summary", {}))
         reasons = _top_blocker_reasons(blockers)[:5]
-        lines = [
-            "Live blockers: unresolved",
-            f"Unresolved blocker count: {int(blockers.get('unresolved_blockers', blockers.get('unresolved_blocker_count', 0)) or 0)}",
-            f"Resolved blocker count: {int(blockers.get('resolved_blockers', blockers.get('resolved_blocker_count', 0)) or 0)}",
-            "resolved_blocker_count remains 0 for live blockers.",
-            "canary_executable_now: false",
-        ]
+        if self._language() == "ru":
+            lines = [
+                "Блокеры live-режима: не решены",
+                f"Нерешённые блокеры: {int(blockers.get('unresolved_blockers', blockers.get('unresolved_blocker_count', 0)) or 0)}",
+                f"Решённые блокеры: {int(blockers.get('resolved_blockers', blockers.get('resolved_blocker_count', 0)) or 0)}",
+                "resolved_blocker_count остаётся 0 для live-блокеров.",
+                "canary_executable_now: false",
+            ]
+        else:
+            lines = [
+                "Live blockers: unresolved",
+                f"Unresolved blocker count: {int(blockers.get('unresolved_blockers', blockers.get('unresolved_blocker_count', 0)) or 0)}",
+                f"Resolved blocker count: {int(blockers.get('resolved_blockers', blockers.get('resolved_blocker_count', 0)) or 0)}",
+                "resolved_blocker_count remains 0 for live blockers.",
+                "canary_executable_now: false",
+            ]
         if reasons:
-            lines.append("Top blocker reasons:")
+            lines.append("Главные причины блокировки:" if self._language() == "ru" else "Top blocker reasons:")
             lines.extend(bullet_lines(reasons))
         return "\n".join(lines)
 
     def _render_panel(self) -> str:
         panel = dict(self._summary().get("telegram_mini_app_operator_panel_summary", {}))
+        if self._language() == "ru":
+            return "\n".join(
+                [
+                    "Telegram Mini App Operator Panel v1: только обзор / live-режим выключен",
+                    f"Panel artifact доступен: {str(panel.get('panel_artifact_available') is True).lower()}",
+                    f"HTML artifact: {clean_text(panel.get('latest_telegram_mini_app_operator_panel_html_path') or 'not_available')}",
+                    f"JSON artifact: {clean_text(panel.get('latest_telegram_mini_app_operator_panel_json_path') or 'not_available')}",
+                    f"Mini App URL status: {clean_text(panel.get('mini_app_url_status') or 'not_configured_review_placeholder')}",
+                    f"Telegram init data status: {clean_text(panel.get('telegram_init_data_status') or 'not_configured_redacted')}",
+                    "review_only: true",
+                    "live_actions_available: false",
+                    "raw_telegram_bot_token_exposed: false",
+                    "raw_telegram_init_data_exposed: false",
+                    "raw_operator_user_ids_exposed: false",
+                    "Live-ордера из бота или Mini App недоступны.",
+                ]
+            )
         return "\n".join(
             [
                 "Telegram Mini App Operator Panel v1: review-only / live blocked",
@@ -538,12 +670,22 @@ class TelegramOperatorControlBot:
         )
 
     def _render_pause(self) -> str:
+        if self._language() == "ru":
+            return (
+                "Пауза записана только как локальный маркер Telegram operator-control state. "
+                "Live-исполнения здесь нет, торговое исполнение не изменялось."
+            )
         return (
             "Pause marker recorded in local Telegram operator-control state only. "
             "No live execution path exists here and no trading execution was modified."
         )
 
     def _render_kill(self) -> str:
+        if self._language() == "ru":
+            return (
+                "Kill-switch записан только как локальный маркер Telegram operator-control state. "
+                "Отмена ордеров, действия с кошельком, подпись, authenticated call и live-исполнение не выполнялись."
+            )
         return (
             "Kill-switch marker recorded in local Telegram operator-control state only. "
             "No order cancellation, wallet action, signing, authenticated call, or live execution was performed."
@@ -559,18 +701,30 @@ class TelegramOperatorControlBot:
 
     def _keyboard_for_command(self, command: str) -> TelegramOperatorKeyboard:
         if command == "/panel":
-            return build_panel_fallback_keyboard()
+            return build_panel_fallback_keyboard(self._language())
+        if command == "/language":
+            return build_language_selection_keyboard()
         if command in SUPPORTED_COMMANDS:
-            return build_operator_home_keyboard()
+            return build_operator_home_keyboard(self._language())
         return TelegramOperatorKeyboard()
 
+    def _keyboard_for_language(self, language: str) -> TelegramOperatorKeyboard:
+        return build_operator_home_keyboard(language)
 
-def build_operator_home_keyboard() -> TelegramOperatorKeyboard:
-    return _keyboard_from_rows(HOME_BUTTON_ROWS)
+    def _language(self) -> str:
+        return operator_language_from_state(self.state, fallback=DEFAULT_OPERATOR_LANGUAGE)
 
 
-def build_panel_fallback_keyboard() -> TelegramOperatorKeyboard:
-    return _keyboard_from_rows(PANEL_FALLBACK_BUTTON_ROWS)
+def build_operator_home_keyboard(language: str = DEFAULT_OPERATOR_LANGUAGE) -> TelegramOperatorKeyboard:
+    return _keyboard_from_rows(HOME_BUTTON_ROWS_BY_LANGUAGE[normalize_operator_language(language, fallback="en")])
+
+
+def build_panel_fallback_keyboard(language: str = DEFAULT_OPERATOR_LANGUAGE) -> TelegramOperatorKeyboard:
+    return _keyboard_from_rows(PANEL_FALLBACK_BUTTON_ROWS_BY_LANGUAGE[normalize_operator_language(language, fallback="en")])
+
+
+def build_language_selection_keyboard() -> TelegramOperatorKeyboard:
+    return _keyboard_from_rows(LANGUAGE_SELECTION_BUTTON_ROWS)
 
 
 def telegram_callback_to_command(callback_data: str) -> str:
@@ -579,7 +733,7 @@ def telegram_callback_to_command(callback_data: str) -> str:
 
 def telegram_button_label_to_command(label: str) -> str:
     normalized = clean_text(label).lower()
-    for row in HOME_BUTTON_ROWS + PANEL_FALLBACK_BUTTON_ROWS:
+    for row in all_button_rows():
         for button_label, callback_data in row:
             if clean_text(button_label).lower() == normalized:
                 return telegram_callback_to_command(callback_data)
@@ -739,6 +893,9 @@ def build_telegram_operator_control_summary(
         "state_summary": state_summary,
         "operator_pause_requested": state_summary.get("operator_pause_requested") is True,
         "operator_kill_switch_requested": state_summary.get("operator_kill_switch_requested") is True,
+        "operator_language": clean_text(state_summary.get("operator_language")),
+        "operator_language_selected": state_summary.get("operator_language_selected") is True,
+        "operator_language_scope": "global_local_operator_state",
         "btc_market_summary": btc,
         "btc_analysis_order_intent_summary": intent,
         "risk_summary": risk,

@@ -8,6 +8,11 @@ from pathlib import Path
 from typing import Any, Callable, Mapping, Protocol
 from urllib.parse import urlsplit
 
+from pm_bot.operator_runner.telegram_operator_i18n import (
+    language_from_callback,
+    operator_language_from_state,
+    panel_launch_button_label,
+)
 from pm_bot.operator_runner.telegram_mini_app_operator_panel import (
     build_telegram_mini_app_panel_artifact_summary,
     summarize_telegram_mini_app_panel_model,
@@ -49,6 +54,7 @@ TELEGRAM_COMMAND_MENU = (
     ("gonogo", "Go/No-Go gate"),
     ("blockers", "Live blockers"),
     ("risk", "Risk limits"),
+    ("language", "Language"),
     ("pause", "Local pause marker"),
     ("kill", "Local kill-switch marker"),
     ("help", "Help"),
@@ -277,7 +283,12 @@ class TelegramOperatorRuntimeAdapter:
         callback_data: str,
         chat_id: Any | None = None,
     ) -> TelegramRuntimeReply:
-        command = telegram_callback_to_command(callback_data) or "/help"
+        selected_language = language_from_callback(callback_data)
+        command = (
+            f"/language {selected_language}"
+            if selected_language
+            else telegram_callback_to_command(callback_data) or "/help"
+        )
         response = self.bot.handle_command(user_id=user_id, text=command, chat_id=chat_id)
         return self._reply_from_response(response)
 
@@ -301,22 +312,48 @@ class TelegramOperatorRuntimeAdapter:
         keyboard = response.keyboard
         if response.command != "/panel" or not response.authorized:
             return response.text, keyboard, "", ""
+        language = operator_language_from_state(response.state)
         url = safe_mini_app_url(self.config.mini_app_url)
         if url:
-            launch = TelegramOperatorButton(label=PANEL_BUTTON_TEXT, url=url, web_app_url=url)
+            button_text = panel_launch_button_label(language)
+            launch = TelegramOperatorButton(label=button_text, url=url, web_app_url=url)
+            if language == "ru":
+                text = response.text + "\nMini App настроен. Открой панель кнопкой ниже."
+            else:
+                text = (
+                    response.text
+                    + "\nMini App URL: configured.\n"
+                    + "Mini App is configured. Open the panel with the button below.\n"
+                    + f"Button: {PANEL_BUTTON_TEXT}"
+                )
             return (
-                response.text
-                + "\nMini App URL: configured.\n"
-                + f"Button: {PANEL_BUTTON_TEXT}",
+                text,
                 keyboard.with_prepended_row((launch,)),
-                PANEL_BUTTON_TEXT,
+                button_text,
                 url,
             )
         if self.config.mini_app_url:
+            if language == "ru":
+                return (
+                    response.text
+                    + "\nMini App URL настроен, но отклонён runtime URL safety checks; кнопка не добавлена.",
+                    build_panel_fallback_keyboard(language),
+                    "",
+                    "",
+                )
             return (
                 response.text
                 + "\nMini App URL: configured but rejected by runtime URL safety checks; no button attached.",
-                build_panel_fallback_keyboard(),
+                build_panel_fallback_keyboard(language),
+                "",
+                "",
+            )
+        if language == "ru":
+            return (
+                response.text
+                + "\nMini App URL пока не настроен.\n"
+                + "Для локального теста подними HTTPS-туннель и запиши URL в PMBOT_TELEGRAM_MINI_APP_URL.",
+                build_panel_fallback_keyboard(language),
                 "",
                 "",
             )
@@ -324,7 +361,7 @@ class TelegramOperatorRuntimeAdapter:
             response.text
             + "\nMini App URL is not configured yet.\n"
             + "Local/static artifact availability is shown above when PMBOT artifacts are configured.",
-            build_panel_fallback_keyboard(),
+            build_panel_fallback_keyboard(language),
             "",
             "",
         )

@@ -35,6 +35,7 @@ HOME_LABEL_ROWS = (
     ("Risk", "Blockers"),
     ("Evidence", "Panel"),
     ("Pause", "Kill"),
+    ("Language",),
 )
 
 
@@ -145,13 +146,11 @@ def _button_labels(reply: runtime.TelegramRuntimeReply) -> tuple[str, ...]:
     return tuple(button.label for row in reply.keyboard.rows for button in row)
 
 
-def test_start_includes_operator_home_screen_and_safe_keyboard_buttons() -> None:
+def test_start_prompts_for_language_when_language_is_not_selected() -> None:
     reply = _adapter().handle_text(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", text="/start")
 
-    assert "PMBOT Operator Control" in reply.text
-    assert "Review-only" in reply.text
-    assert "Live blocked" in reply.text
-    assert _label_rows(reply) == HOME_LABEL_ROWS
+    assert "Choose operator language" in reply.text
+    assert _label_rows(reply) == (("🇷🇺 Русский", "🇬🇧 English"),)
     assert reply.keyboard.to_dict()["safe_button_labels"] is True
 
 
@@ -162,7 +161,7 @@ def test_help_includes_command_overview_and_safe_controls() -> None:
     assert "/status" in reply.text
     assert "/panel" in reply.text
     assert "/gonogo" in reply.text
-    assert "Safe controls: Status, Go/No-Go, Risk, Blockers, Evidence, Panel, Pause, Kill." in reply.text
+    assert "Safe controls: Status, Go/No-Go, Risk, Blockers, Evidence, Panel, Pause, Kill, Language." in reply.text
     assert _label_rows(reply) == HOME_LABEL_ROWS
 
 
@@ -240,7 +239,7 @@ def test_panel_fallback_when_mini_app_url_is_missing() -> None:
     assert "Mini App URL is not configured yet" in reply.text
     assert "Panel artifact available: true" in reply.text
     assert reply.panel_button_url == ""
-    assert _label_rows(reply) == (("Status", "Go/No-Go"), ("Blockers",))
+    assert _label_rows(reply) == (("Status", "Go/No-Go"), ("Blockers",), ("Language",))
 
 
 def test_no_button_label_includes_forbidden_execution_terms() -> None:

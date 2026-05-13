@@ -218,8 +218,8 @@ def test_authorized_start_and_help_work_and_state_no_execution() -> None:
     help_response = bot.handle_command(user_id=AUTHORIZED_USER_ID, text="/help")
 
     assert start.authorized is True
-    assert "PMBOT Operator Control Bot v1" in start.text
-    assert "does not enable live trading" in start.text
+    assert "Choose operator language" in start.text
+    assert "🇷🇺 Русский" in start.text
     assert "/status" in help_response.text
     assert "no order submission" in help_response.text
     assert validate_telegram_operator_control_state(help_response.state)["valid"] is True
