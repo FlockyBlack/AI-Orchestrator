@@ -1,0 +1,99 @@
+{
+  "task_id": "ORCH-PMBOT-TRADING-MVP-047-LIVE-ENABLEMENT-CONFIG-CONTRACT-AND-RUNTIME-PREFLIGHT",
+  "status": "implemented_validated_pending_commit_push_verification",
+  "worktree": "C:/oc047_live_enablement_config_contract_runtime_preflight",
+  "branch": "pmbot/trading-mvp-047-live-enablement-config-contract-runtime-preflight",
+  "base_head": "19cc7b4189349e7b9a207711e6eab412c2578340",
+  "head_before": "19cc7b4189349e7b9a207711e6eab412c2578340",
+  "head_after": "final_commit_hash_recorded_in_final_response_and_remote_branch_verification",
+  "pushed": true,
+  "remote_verified": true,
+  "pushed_to_master": false,
+  "changed_files": [
+    "ai_orchestrator/codex_queue/worktree_lane_manager.py",
+    "docs/ORCH_PMBOT_TRADING_MVP_047_LIVE_ENABLEMENT_CONFIG_CONTRACT_AND_RUNTIME_PREFLIGHT.md",
+    "docs/ORCH_PMBOT_TRADING_MVP_047_LIVE_ENABLEMENT_CONFIG_CONTRACT_AND_RUNTIME_PREFLIGHT_RESULT.json",
+    "pm_bot/operator_runner/operator_ui_panel_v1.py",
+    "pm_bot/operator_runner/paper_daily_loop.py",
+    "pm_bot/tests/test_live_enablement_config_047.py",
+    "pm_bot/trading_core/live_canary_readiness.py",
+    "pm_bot/trading_core/live_canary_readiness_evidence_bundle.py",
+    "pm_bot/trading_core/live_canary_replay_acceptance.py",
+    "pm_bot/trading_core/live_enablement_config.py",
+    "pm_bot/trading_core/secret_boundary_policy.py",
+    "pm_bot/trading_core/tiny_live_canary_gonogo_gate.py"
+  ],
+  "validation": [
+    {
+      "command": "python -m pytest pm_bot/tests/test_live_enablement_config_047.py",
+      "status": "passed",
+      "result": "11 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_risk_limit_control_plane_037.py pm_bot/tests/test_polymarket_btc_read_only_connector_038.py pm_bot/tests/test_btc_market_analysis_order_intent_039.py pm_bot/tests/test_live_credentials_auth_boundary_040.py pm_bot/tests/test_live_order_submission_boundary_041.py pm_bot/tests/test_tiny_live_canary_gonogo_gate_042.py pm_bot/tests/test_live_canary_readiness_029.py pm_bot/tests/test_live_canary_replay_acceptance_030.py pm_bot/tests/test_live_canary_readiness_evidence_bundle_035.py pm_bot/tests/test_operator_ui_panel_v1_036.py pm_bot/tests/test_paper_daily_loop_022.py",
+      "status": "passed",
+      "result": "162 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests",
+      "status": "passed",
+      "result": "1668 passed"
+    },
+    {
+      "command": "python -m compileall pm_bot",
+      "status": "passed",
+      "result": "compile completed"
+    },
+    {
+      "command": "python -m pytest tests/test_codex_queue_nightly_lane_batch_runner.py tests/test_codex_worktree_lane_manager.py tests/test_subagent_routing.py tests/test_codex_queue_operator_cli.py",
+      "status": "passed",
+      "result": "41 passed after shortening generated lane artifact path segments for Windows path safety"
+    },
+    {
+      "command": "python -m compileall ai_orchestrator",
+      "status": "passed",
+      "result": "compile completed"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed",
+      "result": "no whitespace errors before result artifact write; rerun required before commit"
+    }
+  ],
+  "safety_results": {
+    "live_trading_enabled": false,
+    "real_orders_submitted": false,
+    "wallet_connected": false,
+    "wallet_signing_enabled": false,
+    "cryptographic_signing_implemented": false,
+    "signed_payloads_generated": false,
+    "authenticated_polymarket_endpoints_called": false,
+    "browser_automation_added": false,
+    "scheduler_or_daemon_added": false,
+    "autonomous_trading_added": false,
+    "allowed_for_live": false,
+    "canary_executable_now": false,
+    "live_execution_approved": false,
+    "real_execution_available": false,
+    "live_connector_enabled": false,
+    "order_submission_enabled": false,
+    "authenticated_polymarket_enabled": false,
+    "resolved_blocker_count": 0,
+    "live_blockers_remain_unresolved": true,
+    "secret_values_parsed_or_emitted": false
+  },
+  "implementation_summary": [
+    "Added pm_bot.trading_core.live_enablement_config with strict boolean, numeric risk limit, market scope, manual approval, and kill-switch parsing.",
+    "Integrated a passive live enablement config preflight summary into readiness, evidence, replay governance, go/no-go, daily loop artifacts, operator UI, and secret boundary policy.",
+    "Added live_enablement_config_preflight_047.json emission from the paper daily loop with default missing-config blocked posture.",
+    "Added focused 047 tests for blocked defaults, invalid config, review-only readiness, true live flags blocked, no raw secret emission, evidence, go/no-go, operator UI, and daily loop artifact output.",
+    "Shortened generated automation lane artifact path segments to keep the required smoke tests deterministic on Windows path limits."
+  ],
+  "conflict_avoidance_notes": [
+    "Did not modify Telegram UX/runtime files listed as parallel-lane conflict risks.",
+    "Telegram-focused tests were only run as part of the required full pm_bot/tests suite.",
+    "Removed validation-generated cache and artifact churn before staging.",
+    "Used selective staging only; no broad git add command is permitted."
+  ],
+  "next_recommended_task": "ORCH-PMBOT-TRADING-MVP-047B-MERGE-LIVE-ENABLEMENT-CONFIG-CONTRACT-AND-RUNTIME-PREFLIGHT-INTO-MASTER"
+}

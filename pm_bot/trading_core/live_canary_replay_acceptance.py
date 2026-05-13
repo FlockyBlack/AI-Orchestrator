@@ -763,6 +763,24 @@ LIVE_CONNECTOR_BLOCKERS = (
         "current_status": "review_only",
         "why_it_blocks_live_execution": "The final go/no-go gate consolidates evidence for operator review but deliberately returns NO_GO while blockers remain unresolved.",
     },
+    {
+        "blocker_id": "PMBOT-LIVE-BLOCKER-066",
+        "blocker_category": "live_enablement_config_contract_review_only",
+        "blocker_name": "live enablement config contract is review-only",
+        "severity": "critical",
+        "required_future_task": "Use a separate future live-enabling task before any config contract can become an execution approval.",
+        "current_status": "review_only",
+        "why_it_blocks_live_execution": "The 047 config preflight defines required future live inputs but explicitly leaves execution disabled.",
+    },
+    {
+        "blocker_id": "PMBOT-LIVE-BLOCKER-067",
+        "blocker_category": "live_enablement_config_preflight_does_not_enable_execution",
+        "blocker_name": "live enablement config preflight does not enable execution",
+        "severity": "critical",
+        "required_future_task": "Resolve live connector, approval, wallet, signing, order, and kill-switch blockers in separate reviewed tasks.",
+        "current_status": "blocked_by_design",
+        "why_it_blocks_live_execution": "Even fully configured review-only preflight output keeps allowed_for_live and canary_executable_now false.",
+    },
 )
 
 
@@ -1150,6 +1168,7 @@ def build_operator_live_canary_checklist(*, generated_at: str = GENERATED_AT) ->
             "pm_bot/trading_core/artifacts/night_020_021/live_canary_operator_intent_packet.json",
             "pm_bot/trading_core/artifacts/night_020_021/live_canary_readiness_evidence_bundle.json",
             "pm_bot/trading_core/artifacts/night_020_021/tiny_live_canary_gonogo_gate_042.json",
+            "pm_bot/trading_core/artifacts/night_020_021/live_enablement_config_preflight_047.json",
         ],
         "validations_that_must_pass": [
             "canary readiness dry-run packet validation",
@@ -1161,6 +1180,7 @@ def build_operator_live_canary_checklist(*, generated_at: str = GENERATED_AT) ->
             "operator intent packet validates as dry-run human acknowledgement only",
             "readiness evidence bundle validates as review-only and not live approval",
             "tiny live canary go/no-go gate validates as review-only NO_GO while blockers remain unresolved",
+            "live enablement config preflight is present as a review-only non-execution artifact",
             "forbidden field scan reports no unsafe field names in relevant PMBOT live-prep artifacts",
             "pytest pm_bot/tests",
             "python -m compileall pm_bot",
@@ -1210,6 +1230,7 @@ def build_canary_governance_summary(
     operator_approval_packet: Mapping[str, Any] | None = None,
     operator_intent_packet: Mapping[str, Any] | None = None,
     readiness_evidence_bundle: Mapping[str, Any] | None = None,
+    live_enablement_config_preflight_summary: Mapping[str, Any] | None = None,
     generated_at: str = GENERATED_AT,
 ) -> dict[str, Any]:
     replay_report = build_canary_replay_report(packets=[packet], receipts=[receipt], generated_at=generated_at)
@@ -1220,6 +1241,7 @@ def build_canary_governance_summary(
     operator_packet = dict(operator_approval_packet or {})
     operator_intent = dict(operator_intent_packet or {})
     evidence_bundle = dict(readiness_evidence_bundle or {})
+    live_config_preflight = dict(live_enablement_config_preflight_summary or {})
     passed = (
         replay_report.get("passed") is True
         and acceptance_matrix.get("passed") is True
@@ -1275,6 +1297,17 @@ def build_canary_governance_summary(
             dict(operator_packet.get("tiny_live_canary_preflight_summary", {})).get("manual_runbook_status")
             or "not_provided"
         ),
+        "live_enablement_config_preflight_summary": live_config_preflight,
+        "live_enablement_config_preflight_status": clean_text(
+            live_config_preflight.get("status") or "not_provided"
+        ),
+        "live_enablement_config_future_live_requested": (
+            live_config_preflight.get("future_live_requested") is True
+        ),
+        "live_enablement_config_dry_run_review_allowed": (
+            live_config_preflight.get("dry_run_review_allowed") is True
+        ),
+        "live_enablement_config_allowed_for_live": False,
         "canary_executable_now": False,
         "operator_review_is_not_live_approval": (
             operator_packet.get("operator_review_is_not_live_approval") is True if operator_packet else True
@@ -1825,6 +1858,8 @@ def _is_relevant_canary_live_prep_artifact(path: Path) -> bool:
         "live_canary_readiness_evidence_bundle",
         "tiny_live_canary_gonogo_gate",
         "tiny_live_canary_gonogo_gate_042",
+        "live_enablement_config_preflight",
+        "live_enablement_config_preflight_047",
     )
     return normalized.endswith(".json") and any(name in normalized for name in relevant_names)
 

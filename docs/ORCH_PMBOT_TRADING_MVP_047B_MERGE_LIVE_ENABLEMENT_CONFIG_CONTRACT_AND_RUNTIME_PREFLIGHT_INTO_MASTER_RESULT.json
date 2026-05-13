@@ -1,0 +1,148 @@
+{
+  "task_id": "ORCH-PMBOT-TRADING-MVP-047B-MERGE-LIVE-ENABLEMENT-CONFIG-CONTRACT-AND-RUNTIME-PREFLIGHT-INTO-MASTER",
+  "status": "completed_pushed",
+  "completed_at_utc": "2026-05-13T17:31:36Z",
+  "worktree": "C:/oc047b_live_enablement_config_preflight_merge",
+  "branch": "master",
+  "master_head_before": "bce16c4bc96e7833217b21ec46d09df6f9f54bc0",
+  "source_branch": "pmbot/trading-mvp-047-live-enablement-config-contract-runtime-preflight",
+  "source_head_expected": "157618e578d47ae87398a32c91ca9f7e1e49cbba",
+  "source_head_verified": "157618e578d47ae87398a32c91ca9f7e1e49cbba",
+  "merge_type": "normal_non_fast_forward_merge_commit",
+  "fast_forward_merge": false,
+  "conflicts_detected": false,
+  "conflicts_resolved": [],
+  "conflict_resolution_notes": [
+    "Automatic merge completed with no conflicts.",
+    "No conflict-resolution edits were required.",
+    "046B Telegram UX button, Mini App launch, explicit long-polling runtime, and local pause/kill marker behavior were preserved because the 047 source branch did not modify the Telegram files.",
+    "047 live enablement config contract and runtime preflight behavior was integrated unchanged from the verified source branch."
+  ],
+  "master_head_after": "recorded_in_final_response_after_commit_push_verify",
+  "head_after_note": "The final master commit cannot be self-recorded inside this committed JSON artifact because embedding the commit's own SHA would change that SHA. The final response records the pushed and remotely verified master HEAD.",
+  "pushed": true,
+  "remote_verified": true,
+  "changed_files": [
+    "ai_orchestrator/codex_queue/worktree_lane_manager.py",
+    "docs/ORCH_PMBOT_TRADING_MVP_047_LIVE_ENABLEMENT_CONFIG_CONTRACT_AND_RUNTIME_PREFLIGHT.md",
+    "docs/ORCH_PMBOT_TRADING_MVP_047_LIVE_ENABLEMENT_CONFIG_CONTRACT_AND_RUNTIME_PREFLIGHT_RESULT.json",
+    "docs/ORCH_PMBOT_TRADING_MVP_047B_MERGE_LIVE_ENABLEMENT_CONFIG_CONTRACT_AND_RUNTIME_PREFLIGHT_INTO_MASTER_RESULT.json",
+    "pm_bot/operator_runner/operator_ui_panel_v1.py",
+    "pm_bot/operator_runner/paper_daily_loop.py",
+    "pm_bot/tests/test_live_enablement_config_047.py",
+    "pm_bot/trading_core/live_canary_readiness.py",
+    "pm_bot/trading_core/live_canary_readiness_evidence_bundle.py",
+    "pm_bot/trading_core/live_canary_replay_acceptance.py",
+    "pm_bot/trading_core/live_enablement_config.py",
+    "pm_bot/trading_core/secret_boundary_policy.py",
+    "pm_bot/trading_core/tiny_live_canary_gonogo_gate.py"
+  ],
+  "validation": [
+    {
+      "command": "python -m pytest pm_bot/tests/test_live_enablement_config_047.py",
+      "status": "passed",
+      "result": "11 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_operator_ux_buttons_046.py",
+      "status": "passed",
+      "result": "12 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_operator_runtime_045.py",
+      "status": "passed",
+      "result": "14 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_operator_control_bot_043.py",
+      "status": "passed",
+      "result": "11 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_mini_app_operator_panel_044.py",
+      "status": "passed",
+      "result": "8 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_risk_limit_control_plane_037.py pm_bot/tests/test_polymarket_btc_read_only_connector_038.py pm_bot/tests/test_btc_market_analysis_order_intent_039.py pm_bot/tests/test_live_credentials_auth_boundary_040.py pm_bot/tests/test_live_order_submission_boundary_041.py pm_bot/tests/test_tiny_live_canary_gonogo_gate_042.py pm_bot/tests/test_live_enablement_config_047.py pm_bot/tests/test_live_canary_readiness_029.py pm_bot/tests/test_live_canary_readiness_evidence_bundle_035.py pm_bot/tests/test_live_canary_replay_acceptance_030.py pm_bot/tests/test_operator_ui_panel_v1_036.py pm_bot/tests/test_paper_daily_loop_022.py",
+      "status": "passed",
+      "result": "173 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests",
+      "status": "passed",
+      "result": "1680 passed"
+    },
+    {
+      "command": "python -m compileall pm_bot",
+      "status": "passed",
+      "result": "compile completed"
+    },
+    {
+      "command": "python -m pytest tests/test_codex_queue_nightly_lane_batch_runner.py tests/test_codex_worktree_lane_manager.py tests/test_subagent_routing.py tests/test_codex_queue_operator_cli.py",
+      "status": "passed",
+      "result": "41 passed"
+    },
+    {
+      "command": "python -m compileall ai_orchestrator",
+      "status": "passed",
+      "result": "compile completed"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed",
+      "result": "no whitespace errors"
+    },
+    {
+      "command": "git diff --cached --check",
+      "status": "passed",
+      "result": "no staged whitespace errors"
+    }
+  ],
+  "safety_results": {
+    "telegram_token_hardcoded": false,
+    "telegram_token_printed_or_exposed": false,
+    "raw_secrets_exposed": false,
+    "telegram_init_data_exposed": false,
+    "raw_operator_ids_exposed_in_unsafe_outputs": false,
+    "authenticated_polymarket_calls": false,
+    "order_submission_enabled": false,
+    "real_orders_submitted": false,
+    "signing_enabled": false,
+    "wallet_integration": false,
+    "signed_payload_or_order_generation": false,
+    "browser_automation_added": false,
+    "scheduler_added": false,
+    "daemon_added": false,
+    "background_worker_added": false,
+    "autonomous_live_trading_enabled": false,
+    "telegram_runtime_starts_only_from_explicit_command": true,
+    "telegram_pause_kill_local_state_markers_only": true,
+    "mini_app_review_only": true,
+    "button_labels_no_buy_sell_trade_execute_approve_live": true,
+    "allowed_for_live": false,
+    "canary_executable_now": false,
+    "live_execution_approved": false,
+    "real_execution_available": false,
+    "live_connector_enabled": false,
+    "authenticated_polymarket_enabled": false,
+    "wallet_signing_enabled": false,
+    "resolved_blocker_count": 0,
+    "live_blockers_unresolved": true,
+    "safety_ok": true
+  },
+  "implementation_preservation_notes": [
+    "046B Telegram files were not changed by this merge: pm_bot/operator_runner/telegram_operator_control_bot.py, pm_bot/operator_runner/telegram_operator_runtime.py, pm_bot/tests/test_telegram_operator_ux_buttons_046.py, and pm_bot/tests/test_telegram_operator_runtime_045.py remained intact.",
+    "Telegram buttons retain review/status/panel/pause/kill semantics only and are covered by 046 focused tests.",
+    "Telegram runtime remains explicit long polling only, with token and operator IDs redacted in status surfaces.",
+    "Mini App launch remains review-only and does not expose Telegram init data.",
+    "047 live enablement config preflight remains passive and blocked by default with allowed_for_live, canary_executable_now, live_execution_approved, real_execution_available, live_connector_enabled, order_submission_enabled, authenticated_polymarket_enabled, and wallet_signing_enabled forced false.",
+    "Live blockers remain unresolved with resolved_blocker_count equal to 0."
+  ],
+  "cleanup_notes": [
+    "Validation-generated tracked fixture and artifact rewrites were restored before commit.",
+    "Validation-generated __pycache__ directories were removed before commit.",
+    "Selective staging only was used; no git add ., git add -A, or git add --all was used."
+  ],
+  "next_recommended_task": "ORCH-PMBOT-TRADING-MVP-048-AUTHENTICATED-POLYMARKET-CONNECTOR-SCAFFOLD-DRY-RUN-ONLY"
+}

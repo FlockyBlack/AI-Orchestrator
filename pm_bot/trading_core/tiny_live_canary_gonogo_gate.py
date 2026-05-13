@@ -5,6 +5,7 @@ import json
 from dataclasses import asdict, dataclass
 from typing import Any, Mapping, Sequence
 
+from pm_bot.trading_core.live_enablement_config import summarize_live_enablement_config_preflight
 from pm_bot.trading_core.live_canary_replay_acceptance import build_live_connector_blocker_matrix
 from pm_bot.trading_core.schemas import GENERATED_AT, bullet_lines, clean_text, mapping_rows, trading_core_safety_summary
 from pm_bot.trading_core.secret_boundary_policy import (
@@ -36,6 +37,7 @@ FORCED_FALSE_EXECUTION_FIELDS = (
     "allowed_for_live",
     "canary_executable_now",
     "order_submission_enabled",
+    "authenticated_polymarket_enabled",
     "real_execution_available",
     "live_connector_enabled",
     "would_submit_order",
@@ -206,6 +208,7 @@ class TinyLiveCanaryGoNoGoGate:
     order_submission_boundary_summary: Mapping[str, Any]
     operator_signed_intent_summary: Mapping[str, Any]
     readiness_evidence_summary: Mapping[str, Any]
+    live_enablement_config_preflight_summary: Mapping[str, Any]
     kill_switch_summary: Mapping[str, Any]
     blocker_matrix_summary: Mapping[str, Any]
     manual_execution_checklist: Mapping[str, Any]
@@ -228,6 +231,7 @@ class TinyLiveCanaryGoNoGoGate:
         value["order_submission_boundary_summary"] = dict(self.order_submission_boundary_summary)
         value["operator_signed_intent_summary"] = dict(self.operator_signed_intent_summary)
         value["readiness_evidence_summary"] = dict(self.readiness_evidence_summary)
+        value["live_enablement_config_preflight_summary"] = dict(self.live_enablement_config_preflight_summary)
         value["kill_switch_summary"] = dict(self.kill_switch_summary)
         value["blocker_matrix_summary"] = dict(self.blocker_matrix_summary)
         value["manual_execution_checklist"] = dict(self.manual_execution_checklist)
@@ -244,6 +248,7 @@ class TinyLiveCanaryGoNoGoGate:
         value["allowed_for_live"] = False
         value["canary_executable_now"] = False
         value["order_submission_enabled"] = False
+        value["authenticated_polymarket_enabled"] = False
         value["real_execution_available"] = False
         value["live_connector_enabled"] = False
         value["go_for_live_status_emitted"] = False
@@ -275,6 +280,7 @@ def build_tiny_live_canary_gonogo_gate(
     order_submission_boundary_summary: Mapping[str, Any] | None = None,
     operator_signed_intent_summary: Mapping[str, Any] | None = None,
     readiness_evidence_summary: Mapping[str, Any] | None = None,
+    live_enablement_config_preflight_summary: Mapping[str, Any] | None = None,
     kill_switch_summary: Mapping[str, Any] | None = None,
     blocker_matrix: Mapping[str, Any] | None = None,
     blocker_matrix_summary: Mapping[str, Any] | None = None,
@@ -289,6 +295,7 @@ def build_tiny_live_canary_gonogo_gate(
     order_boundary = _order_submission_boundary_summary(order_submission_boundary_summary)
     operator_intent = _operator_signed_intent_summary(operator_signed_intent_summary)
     evidence = _readiness_evidence_summary(readiness_evidence_summary)
+    live_config_preflight = _live_enablement_config_preflight_summary(live_enablement_config_preflight_summary)
     kill_switch = _kill_switch_summary(kill_switch_summary)
     matrix = dict(blocker_matrix or {})
     if not matrix and blocker_matrix_summary is None:
@@ -305,6 +312,7 @@ def build_tiny_live_canary_gonogo_gate(
         "order_submission_boundary_summary": order_submission_boundary_summary or {},
         "operator_signed_intent_summary": operator_signed_intent_summary or {},
         "readiness_evidence_summary": readiness_evidence_summary or {},
+        "live_enablement_config_preflight_summary": live_enablement_config_preflight_summary or {},
         "kill_switch_summary": kill_switch_summary or {},
         "blocker_matrix": blocker_matrix or {},
         "blocker_matrix_summary": blocker_matrix_summary or {},
@@ -319,6 +327,7 @@ def build_tiny_live_canary_gonogo_gate(
         order_boundary=order_boundary,
         operator_intent=operator_intent,
         evidence=evidence,
+        live_enablement_config_preflight=live_config_preflight,
         kill_switch=kill_switch,
     )
     manual_checklist = _manual_execution_checklist(
@@ -373,6 +382,7 @@ def build_tiny_live_canary_gonogo_gate(
         order_submission_boundary_summary=order_boundary,
         operator_signed_intent_summary=operator_intent,
         readiness_evidence_summary=evidence,
+        live_enablement_config_preflight_summary=live_config_preflight,
         kill_switch_summary=kill_switch,
         blocker_matrix_summary=blocker_summary,
         manual_execution_checklist=manual_checklist,
@@ -411,6 +421,7 @@ def summarize_tiny_live_canary_gonogo_gate(
     checklist = dict(value.get("manual_execution_checklist", {}))
     final_checklist = dict(value.get("final_pre_live_checklist", {}))
     blockers = dict(value.get("blocker_matrix_summary", {}))
+    live_config_preflight = dict(value.get("live_enablement_config_preflight_summary", {}))
     summary = {
         "contract_version": TINY_LIVE_CANARY_GONOGO_GATE_SUMMARY_CONTRACT,
         "summary_id": _stable_id(
@@ -442,6 +453,16 @@ def summarize_tiny_live_canary_gonogo_gate(
         "packet_complete_for_operator_review": value.get("packet_complete_for_operator_review") is True,
         "validation_status": clean_text(validation.get("status") or "blocked"),
         "validation_error_count": len(validation.get("errors", [])),
+        "live_enablement_config_preflight_status": clean_text(
+            live_config_preflight.get("status") or "not_available"
+        ),
+        "live_enablement_config_future_live_requested": (
+            live_config_preflight.get("future_live_requested") is True
+        ),
+        "live_enablement_config_dry_run_review_allowed": (
+            live_config_preflight.get("dry_run_review_allowed") is True
+        ),
+        "live_enablement_config_allowed_for_live": False,
         "latest_tiny_live_canary_gonogo_gate_path": clean_text(
             latest_tiny_live_canary_gonogo_gate_path
             or value.get("latest_tiny_live_canary_gonogo_gate_path")
@@ -776,6 +797,35 @@ def _kill_switch_summary(summary: Mapping[str, Any] | None) -> dict[str, Any]:
     }
 
 
+def _live_enablement_config_preflight_summary(summary: Mapping[str, Any] | None) -> dict[str, Any]:
+    value = summarize_live_enablement_config_preflight(summary)
+    return {
+        "status": clean_text(value.get("status") or "not_available"),
+        "future_live_requested": value.get("future_live_requested") is True,
+        "dry_run_review_allowed": value.get("dry_run_review_allowed") is True,
+        "allowed_for_dry_run_review": value.get("allowed_for_dry_run_review") is True,
+        "top_blocked_reasons": list(value.get("top_blocked_reasons", []))[:5],
+        "violation_reasons": list(value.get("violation_reasons", []))[:5],
+        "validation_status": clean_text(value.get("validation_status") or "blocked"),
+        "latest_live_enablement_config_preflight_path": clean_text(
+            value.get("latest_live_enablement_config_preflight_path")
+        ),
+        "review_only": True,
+        "execution_enabling": False,
+        "live_approval": False,
+        "allowed_for_live": False,
+        "canary_executable_now": False,
+        "live_execution_approved": False,
+        "real_execution_available": False,
+        "live_connector_enabled": False,
+        "order_submission_enabled": False,
+        "authenticated_polymarket_enabled": False,
+        "wallet_signing_enabled": False,
+        "resolved_blocker_count": 0,
+        "no_executable_action": True,
+    }
+
+
 def _blocker_matrix_summary(summary: Mapping[str, Any] | None) -> dict[str, Any]:
     value = dict(summary or {})
     blockers = mapping_rows(value.get("blockers"))
@@ -886,6 +936,7 @@ def _no_go_reasons(
     order_boundary: Mapping[str, Any],
     operator_intent: Mapping[str, Any],
     evidence: Mapping[str, Any],
+    live_enablement_config_preflight: Mapping[str, Any],
     kill_switch: Mapping[str, Any],
 ) -> list[str]:
     reasons = []
@@ -903,6 +954,10 @@ def _no_go_reasons(
         reasons.append("operator_intent_not_confirmed_as_non_live_approval")
     if evidence.get("readiness_evidence_bundle_is_not_live_approval") is not True:
         reasons.append("readiness_evidence_bundle_not_confirmed_as_non_live_approval")
+    if live_enablement_config_preflight.get("allowed_for_live") is not False:
+        reasons.append("live_enablement_config_claimed_allowed_for_live")
+    if clean_text(live_enablement_config_preflight.get("status")) != "REVIEW_ONLY_PREFLIGHT_READY":
+        reasons.append("live_enablement_config_preflight_not_review_only_ready")
     if kill_switch.get("kill_switch_verified_for_live") is not False:
         reasons.append("kill_switch_claimed_live_verified")
     reasons.extend(
@@ -1043,6 +1098,7 @@ def _gate_safety_flags() -> dict[str, Any]:
         "external_api_calls_performed": False,
         "external_api_call_performed": False,
         "authenticated_endpoints_enabled": False,
+        "authenticated_polymarket_enabled": False,
         "authenticated_endpoint_called": False,
         "authenticated_endpoint_call_performed": False,
         "real_wallet_integration_added": False,

@@ -179,6 +179,12 @@ SAFE_SECRET_METADATA_FIELD_NAMES = frozenset(
         "raw_secret_values_persisted",
         "live_order_submission_boundary_receipt_secret_boundary_validation",
         "live_order_submission_boundary_summary_secret_boundary_validation",
+        "live_enablement_config_preflight_secret_boundary_validation",
+        "live_enablement_config_preflight_summary_secret_boundary_validation",
+        "operator_ui_panel_live_enablement_config_preflight_summary_secret_boundary_validation",
+        "live_enablement_config_preflight_section_ready",
+        "no_raw_secrets_parsed_or_emitted",
+        "config_values_redacted_where_sensitive",
         "tiny_live_canary_gonogo_gate_secret_boundary_validation",
         "tiny_live_canary_gonogo_gate_summary_secret_boundary_validation",
         "telegram_operator_control_config_secret_boundary_validation",
@@ -234,7 +240,9 @@ SAFE_NEGATIVE_SECRET_FIELD_NAMES = frozenset(
     }
 )
 
-SAFE_TRUE_SECRET_METADATA_FIELD_NAMES = frozenset({"no_executable_action", "no_executable_live_action"})
+SAFE_TRUE_SECRET_METADATA_FIELD_NAMES = frozenset(
+    {"no_executable_action", "no_executable_live_action", "no_raw_secrets_parsed_or_emitted"}
+)
 
 SAFE_NEGATIVE_SECRET_PREFIXES = ("no_", "not_", "without_", "disabled_")
 SAFE_NEGATIVE_SECRET_SUFFIXES = (
@@ -302,12 +310,29 @@ def build_secret_boundary_policy(*, generated_at: str = GENERATED_AT) -> dict[st
             "PMBOT_TELEGRAM_MINI_APP_URL",
             "PMBOT_TELEGRAM_INIT_DATA",
         ],
+        "non_secret_live_enablement_config_keys": [
+            "PMBOT_LIVE_MODE",
+            "PMBOT_LIVE_CANARY_ENABLED",
+            "PMBOT_ORDER_SUBMISSION_ENABLED",
+            "PMBOT_AUTHENTICATED_POLYMARKET_ENABLED",
+            "PMBOT_WALLET_SIGNING_ENABLED",
+            "PMBOT_MAX_ORDER_NOTIONAL_USD",
+            "PMBOT_DAILY_LOSS_CAP_USD",
+            "PMBOT_TOTAL_EXPOSURE_CAP_USD",
+            "PMBOT_MAX_LIVE_TRADES_PER_DAY",
+            "PMBOT_ALLOWED_MARKET_SLUGS",
+            "PMBOT_ALLOWED_MARKET_IDS",
+            "PMBOT_REQUIRE_MANUAL_OPERATOR_APPROVAL",
+            "PMBOT_REQUIRE_KILL_SWITCH_READY",
+        ],
         "sensitive_redacted_config_notes": [
             "Telegram bot tokens are sensitive and may only be surfaced as missing or configured_redacted.",
             "Telegram allowed operator user IDs are sensitive configuration and should be summarized by presence/count or hashed identifiers only.",
             "Telegram operator control bot v1 is non-execution: it does not submit orders, sign payloads, connect wallets, or call authenticated endpoints.",
             "Telegram Mini App URLs and init data are sensitive configuration and may only be surfaced as missing or configured_redacted status.",
             "Telegram Mini App operator panel v1 is non-execution: it is a static review surface and does not submit orders, sign payloads, connect wallets, or call authenticated endpoints.",
+            "PMBOT live enablement config keys are non-secret review configuration only; they must not include private keys, tokens, seed phrases, raw credentials, signed payloads, or authorization material.",
+            "If future live enablement config adds sensitive categories, artifacts must redact values and expose only missing/configured status.",
         ],
     }
 
@@ -870,6 +895,42 @@ def validate_secret_boundary_live_order_submission_boundary_summary(
     return validate_static_secret_boundary(
         value,
         artifact_type="live_order_submission_boundary_summary",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_live_enablement_config_preflight(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        value,
+        artifact_type="live_enablement_config_preflight",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_live_enablement_config_preflight_summary(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        value,
+        artifact_type="live_enablement_config_preflight_summary",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_operator_ui_panel_live_enablement_config_preflight_summary(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        value,
+        artifact_type="operator_ui_panel_live_enablement_config_preflight_summary",
         generated_at=generated_at,
     )
 
