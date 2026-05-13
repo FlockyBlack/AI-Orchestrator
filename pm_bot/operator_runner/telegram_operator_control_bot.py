@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
-from dataclasses import asdict, dataclass
+from dataclasses import dataclass, field
 from typing import Any, Mapping, Protocol, Sequence
 
 from pm_bot.operator_runner.telegram_operator_control_state import (
@@ -23,6 +23,8 @@ TELEGRAM_OPERATOR_CONTROL_BOT_CONTRACT = "pmbot_telegram_operator_control_bot.v1
 TELEGRAM_OPERATOR_CONTROL_CONFIG_CONTRACT = "pmbot_telegram_operator_control_config.v1"
 TELEGRAM_OPERATOR_CONTROL_RESPONSE_CONTRACT = "pmbot_telegram_operator_control_response.v1"
 TELEGRAM_OPERATOR_CONTROL_SUMMARY_CONTRACT = "pmbot_telegram_operator_control_summary.v1"
+TELEGRAM_OPERATOR_BUTTON_CONTRACT = "pmbot_telegram_operator_button.v1"
+TELEGRAM_OPERATOR_KEYBOARD_CONTRACT = "pmbot_telegram_operator_keyboard.v1"
 
 TASK_ID = "ORCH-PMBOT-TRADING-MVP-043-TELEGRAM-OPERATOR-CONTROL-BOT-V1"
 
@@ -42,6 +44,35 @@ SUPPORTED_COMMANDS = (
     "/pause",
     "/kill",
 )
+
+CALLBACK_COMMAND_MAP = {
+    "pmbot:status": "/status",
+    "pmbot:btc": "/btc",
+    "pmbot:intent": "/intent",
+    "pmbot:risk": "/risk",
+    "pmbot:auth": "/auth",
+    "pmbot:order": "/order",
+    "pmbot:gonogo": "/gonogo",
+    "pmbot:evidence": "/evidence",
+    "pmbot:blockers": "/blockers",
+    "pmbot:panel": "/panel",
+    "pmbot:pause": "/pause",
+    "pmbot:kill": "/kill",
+}
+
+HOME_BUTTON_ROWS = (
+    (("Status", "pmbot:status"), ("Go/No-Go", "pmbot:gonogo")),
+    (("Risk", "pmbot:risk"), ("Blockers", "pmbot:blockers")),
+    (("Evidence", "pmbot:evidence"), ("Panel", "pmbot:panel")),
+    (("Pause", "pmbot:pause"), ("Kill", "pmbot:kill")),
+)
+
+PANEL_FALLBACK_BUTTON_ROWS = (
+    (("Status", "pmbot:status"), ("Go/No-Go", "pmbot:gonogo")),
+    (("Blockers", "pmbot:blockers"),),
+)
+
+FORBIDDEN_BUTTON_LABEL_TERMS = ("BUY", "SELL", "TRADE", "EXECUTE", "APPROVE LIVE")
 
 FORCED_FALSE_EXECUTION_FIELDS = (
     "allowed_for_live",
@@ -67,6 +98,64 @@ UNAUTHORIZED_DENIAL = (
 class TelegramTransport(Protocol):
     def send_message(self, chat_id: Any, text: str) -> None:
         ...
+
+
+@dataclass(frozen=True)
+class TelegramOperatorButton:
+    label: str
+    callback_data: str = ""
+    command: str = ""
+    url: str = field(default="", repr=False)
+    web_app_url: str = field(default="", repr=False)
+
+    def to_dict(self, *, redact_urls: bool = False) -> dict[str, Any]:
+        value = {
+            "contract_version": TELEGRAM_OPERATOR_BUTTON_CONTRACT,
+            "label": self.label,
+            "callback_data": self.callback_data,
+            "command": self.command,
+            "has_url": bool(self.url),
+            "has_web_app_url": bool(self.web_app_url),
+            "url": "configured:redacted" if redact_urls and self.url else self.url,
+            "web_app_url": "configured:redacted" if redact_urls and self.web_app_url else self.web_app_url,
+            "safe_label": is_safe_operator_button_label(self.label),
+            "review_only": True,
+            "execution_enabling": False,
+        }
+        value.update(_control_safety_flags())
+        return value
+
+
+@dataclass(frozen=True)
+class TelegramOperatorKeyboard:
+    rows: tuple[tuple[TelegramOperatorButton, ...], ...] = ()
+
+    @property
+    def has_buttons(self) -> bool:
+        return any(self.rows)
+
+    def buttons(self) -> tuple[TelegramOperatorButton, ...]:
+        return tuple(button for row in self.rows for button in row)
+
+    def with_prepended_row(self, buttons: Sequence[TelegramOperatorButton]) -> "TelegramOperatorKeyboard":
+        row = tuple(buttons)
+        if not row:
+            return self
+        return TelegramOperatorKeyboard(rows=(row, *self.rows))
+
+    def to_dict(self, *, redact_urls: bool = False) -> dict[str, Any]:
+        return {
+            "contract_version": TELEGRAM_OPERATOR_KEYBOARD_CONTRACT,
+            "rows": [
+                [button.to_dict(redact_urls=redact_urls) for button in row]
+                for row in self.rows
+            ],
+            "button_count": len(self.buttons()),
+            "safe_button_labels": all(is_safe_operator_button_label(button.label) for button in self.buttons()),
+            "review_only": True,
+            "execution_enabling": False,
+            **_control_safety_flags(),
+        }
 
 
 @dataclass(frozen=True)
@@ -113,12 +202,18 @@ class TelegramOperatorControlResponse:
     text: str
     state: Mapping[str, Any]
     summary: Mapping[str, Any]
+    keyboard: TelegramOperatorKeyboard = field(default_factory=TelegramOperatorKeyboard)
 
     def to_dict(self) -> dict[str, Any]:
-        value = asdict(self)
-        value["contract_version"] = TELEGRAM_OPERATOR_CONTROL_RESPONSE_CONTRACT
-        value["state"] = dict(self.state)
-        value["summary"] = dict(self.summary)
+        value = {
+            "contract_version": TELEGRAM_OPERATOR_CONTROL_RESPONSE_CONTRACT,
+            "command": self.command,
+            "authorized": self.authorized,
+            "text": self.text,
+            "state": dict(self.state),
+            "summary": dict(self.summary),
+            "keyboard": self.keyboard.to_dict(redact_urls=True),
+        }
         value.update(_control_safety_flags())
         return value
 
@@ -170,14 +265,24 @@ class TelegramOperatorControlBot:
                 operator_user_id=user_id,
                 generated_at=self.generated_at,
             )
-            response = self._response(command, authorized=True, text=self._render_pause())
+            response = self._response(
+                command,
+                authorized=True,
+                text=self._render_pause(),
+                keyboard=self._keyboard_for_command(command),
+            )
         elif command == "/kill":
             self.state = request_telegram_operator_kill_switch(
                 self.state,
                 operator_user_id=user_id,
                 generated_at=self.generated_at,
             )
-            response = self._response(command, authorized=True, text=self._render_kill())
+            response = self._response(
+                command,
+                authorized=True,
+                text=self._render_kill(),
+                keyboard=self._keyboard_for_command(command),
+            )
         else:
             self.state = record_telegram_operator_control_command(
                 self.state,
@@ -187,12 +292,24 @@ class TelegramOperatorControlBot:
                 command_status="rendered_review_only_response",
                 generated_at=self.generated_at,
             )
-            response = self._response(command, authorized=True, text=self._render_command(command))
+            response = self._response(
+                command,
+                authorized=True,
+                text=self._render_command(command),
+                keyboard=self._keyboard_for_command(command),
+            )
         if self.transport is not None:
             self.transport.send_message(chat_id if chat_id is not None else user_id, response.text)
         return response
 
-    def _response(self, command: str, *, authorized: bool, text: str) -> TelegramOperatorControlResponse:
+    def _response(
+        self,
+        command: str,
+        *,
+        authorized: bool,
+        text: str,
+        keyboard: TelegramOperatorKeyboard | None = None,
+    ) -> TelegramOperatorControlResponse:
         summary = build_telegram_operator_control_summary(
             config=self.config,
             state=self.state,
@@ -205,6 +322,7 @@ class TelegramOperatorControlBot:
             text=text,
             state=self.state,
             summary=summary,
+            keyboard=keyboard or TelegramOperatorKeyboard(),
         )
 
     def _render_command(self, command: str) -> str:
@@ -225,17 +343,22 @@ class TelegramOperatorControlBot:
         return renderers.get(command, self._render_help)()
 
     def _render_start(self) -> str:
-        return (
-            "PMBOT Operator Control Bot v1\n"
-            "Review-only operator visibility surface. It does not enable live trading, submit orders, "
-            "connect wallets, sign payloads, or call authenticated Polymarket endpoints."
+        return "\n".join(
+            [
+                "PMBOT Operator Control",
+                "Review-only",
+                "Live blocked",
+                "PMBOT Operator Control Bot v1 does not enable live trading, submit orders, connect wallets, "
+                "sign payloads, or call authenticated Polymarket endpoints.",
+            ]
         )
 
     def _render_help(self) -> str:
-        commands = ", ".join(SUPPORTED_COMMANDS)
+        commands = "\n".join(f"{command}" for command in SUPPORTED_COMMANDS)
         return (
-            "PMBOT Operator Control Bot v1 commands:\n"
+            "PMBOT Operator Control commands:\n"
             f"{commands}\n"
+            "Safe controls: Status, Go/No-Go, Risk, Blockers, Evidence, Panel, Pause, Kill.\n"
             "Safety limits: review-only, paper/dry-run visibility only, no live trading, no order submission, "
             "no wallet access, no signing, no authenticated endpoint calls, no background execution."
         )
@@ -433,6 +556,58 @@ class TelegramOperatorControlBot:
             context=self.context,
             generated_at=self.generated_at,
         )
+
+    def _keyboard_for_command(self, command: str) -> TelegramOperatorKeyboard:
+        if command == "/panel":
+            return build_panel_fallback_keyboard()
+        if command in SUPPORTED_COMMANDS:
+            return build_operator_home_keyboard()
+        return TelegramOperatorKeyboard()
+
+
+def build_operator_home_keyboard() -> TelegramOperatorKeyboard:
+    return _keyboard_from_rows(HOME_BUTTON_ROWS)
+
+
+def build_panel_fallback_keyboard() -> TelegramOperatorKeyboard:
+    return _keyboard_from_rows(PANEL_FALLBACK_BUTTON_ROWS)
+
+
+def telegram_callback_to_command(callback_data: str) -> str:
+    return CALLBACK_COMMAND_MAP.get(clean_text(callback_data), "")
+
+
+def telegram_button_label_to_command(label: str) -> str:
+    normalized = clean_text(label).lower()
+    for row in HOME_BUTTON_ROWS + PANEL_FALLBACK_BUTTON_ROWS:
+        for button_label, callback_data in row:
+            if clean_text(button_label).lower() == normalized:
+                return telegram_callback_to_command(callback_data)
+    return ""
+
+
+def is_safe_operator_button_label(label: str) -> bool:
+    normalized = clean_text(label).upper()
+    return bool(normalized) and not any(term in normalized for term in FORBIDDEN_BUTTON_LABEL_TERMS)
+
+
+def _keyboard_from_rows(rows: Sequence[Sequence[tuple[str, str]]]) -> TelegramOperatorKeyboard:
+    keyboard_rows: list[tuple[TelegramOperatorButton, ...]] = []
+    for row in rows:
+        keyboard_row: list[TelegramOperatorButton] = []
+        for label, callback_data in row:
+            if not is_safe_operator_button_label(label):
+                raise ValueError(f"unsafe Telegram operator button label: {label}")
+            command = telegram_callback_to_command(callback_data)
+            keyboard_row.append(
+                TelegramOperatorButton(
+                    label=label,
+                    callback_data=callback_data,
+                    command=command,
+                )
+            )
+        keyboard_rows.append(tuple(keyboard_row))
+    return TelegramOperatorKeyboard(rows=tuple(keyboard_rows))
 
 
 def config_from_mapping(value: Mapping[str, Any] | None = None) -> TelegramOperatorControlConfig:
