@@ -10,11 +10,13 @@ from pm_bot.trading_core.live_credentials_auth_boundary import (
     UI_REDACTION_WARNING,
     summarize_live_credentials_status,
 )
+from pm_bot.trading_core.live_enablement_config import summarize_live_enablement_config_preflight
 from pm_bot.trading_core.schemas import GENERATED_AT, bullet_lines, clean_text, mapping_rows
 from pm_bot.trading_core.secret_boundary_policy import (
     validate_secret_boundary_btc_analysis_ui_summary,
     validate_secret_boundary_btc_ui_summary,
     validate_secret_boundary_live_credentials_auth_summary,
+    validate_secret_boundary_operator_ui_panel_live_enablement_config_preflight_summary,
     validate_secret_boundary_live_order_submission_boundary_summary,
     validate_secret_boundary_risk_control_ui_summary,
     validate_secret_boundary_operator_ui_panel_action_state,
@@ -56,6 +58,9 @@ OPERATOR_UI_PANEL_LIVE_AUTH_SUMMARY_CONTRACT = "pmbot_operator_ui_panel_live_cre
 OPERATOR_UI_PANEL_LIVE_ORDER_BOUNDARY_SUMMARY_CONTRACT = (
     "pmbot_operator_ui_panel_live_order_submission_boundary_summary.v1"
 )
+OPERATOR_UI_PANEL_LIVE_ENABLEMENT_CONFIG_PREFLIGHT_SUMMARY_CONTRACT = (
+    "pmbot_operator_ui_panel_live_enablement_config_preflight_summary.v1"
+)
 OPERATOR_UI_PANEL_TINY_CANARY_GONOGO_SUMMARY_CONTRACT = (
     "pmbot_operator_ui_panel_tiny_live_canary_gonogo_summary.v1"
 )
@@ -80,6 +85,7 @@ FORCED_FALSE_EXECUTION_FIELDS = (
     "real_execution_available",
     "live_connector_enabled",
     "allowed_for_live",
+    "authenticated_polymarket_enabled",
     "authenticated_endpoint_enabled",
     "authenticated_endpoints_enabled",
     "signing_enabled",
@@ -98,6 +104,7 @@ REQUIRED_SECTION_IDS = (
     "btc_market_connector",
     "btc_analysis_order_intent",
     "live_order_submission_boundary",
+    "live_enablement_config_preflight",
     "tiny_live_canary_gonogo_gate",
     "risk_control_plane",
     "risk_limits",
@@ -409,6 +416,45 @@ class OperatorUIPanelLiveOrderSubmissionBoundarySummary:
 
 
 @dataclass(frozen=True)
+class OperatorUIPanelLiveEnablementConfigPreflightSummary:
+    status: str
+    future_live_requested: bool
+    dry_run_review_allowed: bool
+    allowed_for_live: bool
+    top_blocked_reasons: tuple[str, ...]
+    latest_live_enablement_config_preflight_path: str
+    review_only: bool = True
+    execution_enabling: bool = False
+    live_approval: bool = False
+    no_executable_action: bool = True
+    canary_executable_now: bool = False
+    live_execution_approved: bool = False
+    real_execution_available: bool = False
+    live_connector_enabled: bool = False
+    order_submission_enabled: bool = False
+    authenticated_polymarket_enabled: bool = False
+    wallet_signing_enabled: bool = False
+    resolved_blocker_count: int = 0
+
+    def to_dict(self) -> dict[str, Any]:
+        value = asdict(self)
+        value["contract_version"] = OPERATOR_UI_PANEL_LIVE_ENABLEMENT_CONFIG_PREFLIGHT_SUMMARY_CONTRACT
+        value["top_blocked_reasons"] = list(self.top_blocked_reasons)
+        value["live_enablement_config_preflight_section_ready"] = True
+        value["allowed_for_live"] = False
+        value["canary_executable_now"] = False
+        value["live_execution_approved"] = False
+        value["real_execution_available"] = False
+        value["live_connector_enabled"] = False
+        value["order_submission_enabled"] = False
+        value["authenticated_polymarket_enabled"] = False
+        value["wallet_signing_enabled"] = False
+        value["resolved_blocker_count"] = 0
+        value.update(_panel_safety_flags())
+        return value
+
+
+@dataclass(frozen=True)
 class OperatorUIPanelKillSwitchSummary:
     kill_switch_requirements_defined: bool
     kill_switch_verified_for_live: bool
@@ -549,6 +595,7 @@ class OperatorUIPanelV1:
     btc_market_summary: Mapping[str, Any]
     btc_analysis_order_intent_summary: Mapping[str, Any]
     live_order_submission_boundary_summary: Mapping[str, Any]
+    live_enablement_config_preflight_summary: Mapping[str, Any]
     tiny_live_canary_gonogo_gate_summary: Mapping[str, Any]
     risk_control_plane_summary: Mapping[str, Any]
     risk_limit_summary: Mapping[str, Any]
@@ -574,6 +621,9 @@ class OperatorUIPanelV1:
         value["btc_market_summary"] = dict(self.btc_market_summary)
         value["btc_analysis_order_intent_summary"] = dict(self.btc_analysis_order_intent_summary)
         value["live_order_submission_boundary_summary"] = dict(self.live_order_submission_boundary_summary)
+        value["live_enablement_config_preflight_summary"] = dict(
+            self.live_enablement_config_preflight_summary
+        )
         value["tiny_live_canary_gonogo_gate_summary"] = dict(self.tiny_live_canary_gonogo_gate_summary)
         value["risk_control_plane_summary"] = dict(self.risk_control_plane_summary)
         value["risk_limit_summary"] = dict(self.risk_limit_summary)
@@ -600,6 +650,7 @@ class OperatorUIPanelV1:
         value["btc_market_section_ready"] = True
         value["btc_analysis_order_intent_section_ready"] = True
         value["live_order_submission_boundary_section_ready"] = True
+        value["live_enablement_config_preflight_section_ready"] = True
         value["tiny_live_canary_gonogo_gate_section_ready"] = True
         value["static_html_render_ready"] = True
         value["markdown_render_ready"] = True
@@ -626,6 +677,8 @@ def build_operator_ui_panel_v1(
     btc_analysis_order_intent_summary: Mapping[str, Any] | None = None,
     live_order_submission_boundary_receipt: Mapping[str, Any] | None = None,
     live_order_submission_boundary_summary: Mapping[str, Any] | None = None,
+    live_enablement_config_preflight: Mapping[str, Any] | None = None,
+    live_enablement_config_preflight_summary: Mapping[str, Any] | None = None,
     tiny_live_canary_gonogo_gate: Mapping[str, Any] | None = None,
     tiny_live_canary_gonogo_gate_summary: Mapping[str, Any] | None = None,
     live_credentials_auth_boundary_summary: Mapping[str, Any] | None = None,
@@ -711,6 +764,17 @@ def build_operator_ui_panel_v1(
         or clean_text(dashboard_value.get("latest_live_order_submission_boundary_path")),
         generated_at=generated_at,
     )
+    live_enablement_config_summary = _build_live_enablement_config_preflight_summary(
+        live_enablement_config_preflight=live_enablement_config_preflight
+        or dashboard_value.get("live_enablement_config_preflight", {}),
+        live_enablement_config_preflight_summary=(
+            live_enablement_config_preflight_summary
+            or dashboard_value.get("live_enablement_config_preflight_summary", {})
+        ),
+        latest_live_enablement_config_preflight_path=paths.get("live_enablement_config_preflight", "")
+        or clean_text(dashboard_value.get("latest_live_enablement_config_preflight_path")),
+        generated_at=generated_at,
+    )
     gonogo_summary = _build_tiny_live_canary_gonogo_gate_summary(
         tiny_live_canary_gonogo_gate=tiny_live_canary_gonogo_gate
         or dashboard_value.get("tiny_live_canary_gonogo_gate", {}),
@@ -792,6 +856,7 @@ def build_operator_ui_panel_v1(
         btc_market=btc_market_summary,
         btc_analysis_order_intent=btc_analysis_summary,
         live_order_submission_boundary=live_order_boundary_summary,
+        live_enablement_config_preflight=live_enablement_config_summary,
         tiny_live_canary_gonogo_gate=gonogo_summary,
         risk_control=risk_control_summary,
         risk=risk_summary,
@@ -816,6 +881,7 @@ def build_operator_ui_panel_v1(
             "btc_market": btc_market_summary,
             "btc_analysis_order_intent": btc_analysis_summary,
             "live_order_submission_boundary": live_order_boundary_summary,
+            "live_enablement_config_preflight": live_enablement_config_summary,
             "tiny_live_canary_gonogo_gate": gonogo_summary,
             "risk_control": risk_control_summary,
             "risk": risk_summary,
@@ -836,6 +902,7 @@ def build_operator_ui_panel_v1(
         btc_market_summary=btc_market_summary,
         btc_analysis_order_intent_summary=btc_analysis_summary,
         live_order_submission_boundary_summary=live_order_boundary_summary,
+        live_enablement_config_preflight_summary=live_enablement_config_summary,
         tiny_live_canary_gonogo_gate_summary=gonogo_summary,
         risk_control_plane_summary=risk_control_summary,
         risk_limit_summary=risk_summary,
@@ -987,6 +1054,39 @@ def validate_operator_ui_panel_v1(
     if live_order_boundary_summary.get("receipt_is_not_order_submission") is not True:
         errors.append("live_order_submission_boundary_summary.receipt_is_not_order_submission must be true")
 
+    live_enablement_config_summary = dict(panel_value.get("live_enablement_config_preflight_summary", {}))
+    live_enablement_config_validation = (
+        validate_secret_boundary_operator_ui_panel_live_enablement_config_preflight_summary(
+            live_enablement_config_summary,
+            generated_at=generated_at,
+        )
+    )
+    if live_enablement_config_validation.get("valid") is not True:
+        errors.append("live_enablement_config_preflight_summary violates static secret boundary")
+        statuses.append("live_enablement_config_preflight_summary_secret_boundary_blocked")
+    if live_enablement_config_summary.get("live_enablement_config_preflight_section_ready") is not True:
+        errors.append("live_enablement_config_preflight_section_ready must be true")
+        statuses.append("live_enablement_config_preflight_section_missing")
+    if live_enablement_config_summary.get("review_only") is not True:
+        errors.append("live_enablement_config_preflight_summary.review_only must be true")
+        statuses.append("live_enablement_config_preflight_not_review_only")
+    if live_enablement_config_summary.get("no_executable_action") is not True:
+        errors.append("live_enablement_config_preflight_summary.no_executable_action must be true")
+        statuses.append("live_enablement_config_preflight_executable_action_detected")
+    if live_enablement_config_summary.get("execution_enabling") is not False:
+        errors.append("live_enablement_config_preflight_summary.execution_enabling must be false")
+        statuses.append("live_enablement_config_preflight_execution_enabling_detected")
+    if live_enablement_config_summary.get("live_approval") is not False:
+        errors.append("live_enablement_config_preflight_summary.live_approval must be false")
+        statuses.append("live_enablement_config_preflight_live_approval_detected")
+    if live_enablement_config_summary.get("resolved_blocker_count") != 0:
+        errors.append("live_enablement_config_preflight_summary.resolved_blocker_count must be 0")
+        statuses.append("live_enablement_config_preflight_resolved_blocker_detected")
+    for field in FORCED_FALSE_EXECUTION_FIELDS:
+        if live_enablement_config_summary.get(field) is not False:
+            errors.append(f"live_enablement_config_preflight_summary.{field} must be false")
+            statuses.append("live_enablement_config_preflight_execution_flag_detected")
+
     gonogo_summary = dict(panel_value.get("tiny_live_canary_gonogo_gate_summary", {}))
     if gonogo_summary.get("no_executable_action") is not True:
         errors.append("tiny_live_canary_gonogo_gate_summary.no_executable_action must be true")
@@ -1122,6 +1222,9 @@ def validate_operator_ui_panel_v1(
         "btc_analysis_summary_secret_boundary_validation": btc_analysis_ui_validation,
         "live_credentials_auth_summary_secret_boundary_validation": live_auth_validation,
         "live_order_submission_boundary_summary_secret_boundary_validation": live_order_boundary_validation,
+        "operator_ui_panel_live_enablement_config_preflight_summary_secret_boundary_validation": (
+            live_enablement_config_validation
+        ),
         "rendered_json_secret_boundary_validation": rendered_json_validation,
         "rendered_markdown_secret_boundary_validation": rendered_md_validation,
         "rendered_html_secret_boundary_validation": rendered_html_validation,
@@ -1222,6 +1325,22 @@ def summarize_operator_ui_panel_v1(panel: Mapping[str, Any]) -> dict[str, Any]:
             panel.get("live_order_submission_boundary_summary", {})
         ).get("order_submission_enabled")
         is True,
+        "live_enablement_config_preflight_section_ready": dict(
+            panel.get("live_enablement_config_preflight_summary", {})
+        ).get("live_enablement_config_preflight_section_ready")
+        is True,
+        "live_enablement_config_preflight_status": dict(
+            panel.get("live_enablement_config_preflight_summary", {})
+        ).get("status"),
+        "live_enablement_config_future_live_requested": dict(
+            panel.get("live_enablement_config_preflight_summary", {})
+        ).get("future_live_requested")
+        is True,
+        "live_enablement_config_dry_run_review_allowed": dict(
+            panel.get("live_enablement_config_preflight_summary", {})
+        ).get("dry_run_review_allowed")
+        is True,
+        "live_enablement_config_allowed_for_live": False,
         "tiny_live_canary_gonogo_gate_section_ready": dict(
             panel.get("tiny_live_canary_gonogo_gate_summary", {})
         ).get("tiny_live_canary_gonogo_gate_section_ready")
@@ -1753,6 +1872,41 @@ def _build_live_order_submission_boundary_summary(
     ).to_dict()
 
 
+def _build_live_enablement_config_preflight_summary(
+    *,
+    live_enablement_config_preflight: Mapping[str, Any] | None,
+    live_enablement_config_preflight_summary: Mapping[str, Any] | None,
+    latest_live_enablement_config_preflight_path: str,
+    generated_at: str,
+) -> dict[str, Any]:
+    provided = dict(live_enablement_config_preflight_summary or {})
+    if not provided:
+        provided = summarize_live_enablement_config_preflight(
+            live_enablement_config_preflight,
+            latest_live_enablement_config_preflight_path=latest_live_enablement_config_preflight_path,
+            generated_at=generated_at,
+        )
+    return OperatorUIPanelLiveEnablementConfigPreflightSummary(
+        status=clean_text(provided.get("status") or NOT_AVAILABLE),
+        future_live_requested=provided.get("future_live_requested") is True,
+        dry_run_review_allowed=provided.get("dry_run_review_allowed") is True
+        or provided.get("allowed_for_dry_run_review") is True,
+        allowed_for_live=False,
+        top_blocked_reasons=tuple(
+            clean_text(item)
+            for item in (
+                list(provided.get("top_blocked_reasons", []))
+                or list(provided.get("blocked_reasons", []))
+            )[:5]
+            if clean_text(item)
+        ),
+        latest_live_enablement_config_preflight_path=clean_text(
+            provided.get("latest_live_enablement_config_preflight_path")
+            or latest_live_enablement_config_preflight_path
+        ),
+    ).to_dict()
+
+
 def _build_tiny_live_canary_gonogo_gate_summary(
     *,
     tiny_live_canary_gonogo_gate: Mapping[str, Any] | None,
@@ -2163,6 +2317,7 @@ def _build_sections(
     btc_market: Mapping[str, Any],
     btc_analysis_order_intent: Mapping[str, Any],
     live_order_submission_boundary: Mapping[str, Any],
+    live_enablement_config_preflight: Mapping[str, Any],
     tiny_live_canary_gonogo_gate: Mapping[str, Any],
     risk_control: Mapping[str, Any],
     risk: Mapping[str, Any],
@@ -2423,6 +2578,54 @@ def _build_sections(
                     "Latest boundary receipt",
                     live_order_submission_boundary.get("latest_live_order_submission_boundary_path"),
                 ),
+            ],
+        ),
+        _section(
+            "live_enablement_config_preflight",
+            "Live Enablement Config Preflight",
+            clean_text(live_enablement_config_preflight.get("status") or NOT_AVAILABLE),
+            [
+                _metric("status", "Status", live_enablement_config_preflight.get("status")),
+                _metric(
+                    "future_live_requested",
+                    "Future live requested",
+                    live_enablement_config_preflight.get("future_live_requested"),
+                ),
+                _metric(
+                    "dry_run_review_allowed",
+                    "Dry-run review allowed",
+                    live_enablement_config_preflight.get("dry_run_review_allowed"),
+                ),
+                _metric("allowed_for_live", "Allowed for live", False),
+                _metric("canary_executable_now", "Canary executable now", False),
+                _metric("live_execution_approved", "Live execution approved", False),
+                _metric("real_execution_available", "Real execution available", False),
+                _metric("live_connector_enabled", "Live connector enabled", False),
+                _metric("order_submission_enabled", "Order submission enabled", False),
+                _metric(
+                    "authenticated_polymarket_enabled",
+                    "Authenticated Polymarket enabled",
+                    False,
+                ),
+                _metric("wallet_signing_enabled", "Wallet signing enabled", False),
+                _metric(
+                    "top_blocked_reasons",
+                    "Top blocked reasons",
+                    live_enablement_config_preflight.get("top_blocked_reasons"),
+                ),
+                _metric("no_executable_action", "No executable action", True),
+                _metric(
+                    "latest_live_enablement_config_preflight_path",
+                    "Latest config preflight",
+                    live_enablement_config_preflight.get("latest_live_enablement_config_preflight_path"),
+                ),
+            ],
+            warnings=[
+                _warning(
+                    "live_enablement_config_preflight_passive_only",
+                    "critical",
+                    "Live enablement config preflight is passive review only and exposes no executable live action.",
+                )
             ],
         ),
         _section(
@@ -2720,6 +2923,7 @@ def _panel_safety_flags() -> dict[str, Any]:
         "real_order_placement_added": False,
         "real_order_placement_performed": False,
         "authenticated_endpoint_added": False,
+        "authenticated_polymarket_enabled": False,
         "authenticated_endpoint_enabled": False,
         "authenticated_endpoints_enabled": False,
         "authenticated_endpoint_call_performed": False,

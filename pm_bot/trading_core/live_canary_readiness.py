@@ -126,6 +126,8 @@ BTC_MARKET_READINESS_REVIEW_ONLY_BLOCKER_CATEGORIES = (
     "signing_required_but_disabled",
     "wallet_required_but_disabled",
     "order_submission_boundary_non_executable",
+    "live_enablement_config_contract_review_only",
+    "live_enablement_config_preflight_does_not_enable_execution",
 )
 
 
@@ -653,8 +655,10 @@ def build_canary_dashboard_summary(
     tiny_live_canary_gonogo_overall_decision: str = "",
     tiny_live_canary_gonogo_unresolved_blocker_count: int = 0,
     risk_control_plane_status: str = "review_only_not_live_enforced",
+    live_enablement_config_preflight_summary: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     receipt_value = dict(receipt or {})
+    live_config_preflight = dict(live_enablement_config_preflight_summary or {})
     return {
         "canary_id": clean_text(packet.get("canary_id")),
         "canary_readiness_status": clean_text(packet.get("canary_status")),
@@ -684,6 +688,17 @@ def build_canary_dashboard_summary(
         "tiny_live_canary_gonogo_unresolved_blocker_count": int(
             tiny_live_canary_gonogo_unresolved_blocker_count or 0
         ),
+        "live_enablement_config_preflight_summary": live_config_preflight,
+        "live_enablement_config_preflight_status": clean_text(
+            live_config_preflight.get("status") or "not_generated"
+        ),
+        "live_enablement_config_future_live_requested": (
+            live_config_preflight.get("future_live_requested") is True
+        ),
+        "live_enablement_config_dry_run_review_allowed": (
+            live_config_preflight.get("dry_run_review_allowed") is True
+        ),
+        "live_enablement_config_allowed_for_live": False,
         "risk_control_plane_status": clean_text(risk_control_plane_status),
         "risk_limit_control_plane_review_only": True,
         "risk_limits_not_live_enforced_against_real_connector": True,

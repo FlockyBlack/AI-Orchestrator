@@ -508,7 +508,24 @@ def _validate_lane_path(worktree_path: Path, *, repo_root: Path, queue_root: Pat
 
 
 def _lane_artifact_dir(queue_root: Path, task_id: str, run_id: str) -> Path:
-    return safe_queue_path(queue_root, "generated", "worktree_lanes", run_id, task_id)
+    return safe_queue_path(
+        queue_root,
+        "generated",
+        "worktree_lanes",
+        _short_artifact_segment(run_id, max_length=40),
+        _short_artifact_segment(task_id, max_length=48),
+    )
+
+
+def _short_artifact_segment(value: str, *, max_length: int) -> str:
+    safe = "".join(ch if ch.isalnum() else "-" for ch in str(value).lower())
+    while "--" in safe:
+        safe = safe.replace("--", "-")
+    safe = safe.strip("-") or "lane"
+    if len(safe) <= max_length:
+        return safe
+    digest = hashlib.sha1(safe.encode("utf-8")).hexdigest()[:10]
+    return f"{safe[: max_length - 11].rstrip('-')}-{digest}"
 
 
 def _lane_worktree_path(repo: Path, task_id: str, run_id: str, lane_root: str | Path | None) -> Path:

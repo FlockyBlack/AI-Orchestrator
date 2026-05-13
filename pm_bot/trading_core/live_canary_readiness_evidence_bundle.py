@@ -5,6 +5,10 @@ import json
 from dataclasses import asdict, dataclass
 from typing import Any, Mapping, Sequence
 
+from pm_bot.trading_core.live_enablement_config import (
+    build_live_enablement_config_preflight,
+    summarize_live_enablement_config_preflight,
+)
 from pm_bot.trading_core.schemas import GENERATED_AT, clean_text, trading_core_safety_summary
 from pm_bot.trading_core.secret_boundary_policy import (
     validate_secret_boundary_btc_evidence_item,
@@ -59,6 +63,9 @@ VALIDATION_STATUS_LIVE_ORDER_SUBMISSION_BOUNDARY_EVIDENCE_MISSING = (
 VALIDATION_STATUS_TINY_LIVE_CANARY_GONOGO_GATE_EVIDENCE_MISSING = (
     "tiny_live_canary_manual_execution_checklist_and_final_gonogo_gate_evidence_missing"
 )
+VALIDATION_STATUS_LIVE_ENABLEMENT_CONFIG_PREFLIGHT_EVIDENCE_MISSING = (
+    "live_enablement_config_contract_and_runtime_preflight_evidence_missing"
+)
 VALIDATION_STATUS_TELEGRAM_OPERATOR_CONTROL_BOT_EVIDENCE_MISSING = (
     "telegram_operator_control_bot_v1_evidence_missing"
 )
@@ -94,6 +101,7 @@ REQUIRED_EVIDENCE_TYPES = (
     "btc_market_analysis_to_order_intent_dry_run",
     "live_order_submission_boundary_dry_run_adapter",
     "tiny_live_canary_manual_execution_checklist_and_final_gonogo_gate",
+    "live_enablement_config_contract_and_runtime_preflight",
     "telegram_operator_control_bot_v1",
     "telegram_mini_app_operator_panel_v1",
 )
@@ -335,6 +343,8 @@ def build_live_canary_readiness_evidence_bundle(
     btc_analysis_order_intent_dry_run: Mapping[str, Any] | None = None,
     live_order_submission_boundary_dry_run_adapter: Mapping[str, Any] | None = None,
     tiny_live_canary_gonogo_gate: Mapping[str, Any] | None = None,
+    live_enablement_config_preflight: Mapping[str, Any] | None = None,
+    live_enablement_config_preflight_summary: Mapping[str, Any] | None = None,
     telegram_operator_control_bot_v1: Mapping[str, Any] | None = None,
     telegram_mini_app_operator_panel_v1: Mapping[str, Any] | None = None,
     dry_run_receipt_references: Sequence[str] | None = None,
@@ -366,6 +376,13 @@ def build_live_canary_readiness_evidence_bundle(
     btc_analysis_order_intent = dict(btc_analysis_order_intent_dry_run or {})
     live_order_boundary = dict(live_order_submission_boundary_dry_run_adapter or {})
     gonogo_gate = dict(tiny_live_canary_gonogo_gate or {})
+    live_config_preflight = dict(
+        live_enablement_config_preflight or build_live_enablement_config_preflight(generated_at=generated_at)
+    )
+    live_config_preflight_summary = dict(
+        live_enablement_config_preflight_summary
+        or summarize_live_enablement_config_preflight(live_config_preflight, generated_at=generated_at)
+    )
     telegram_control = dict(telegram_operator_control_bot_v1 or {})
     telegram_mini_app = dict(telegram_mini_app_operator_panel_v1 or {})
     overrides = {clean_text(key): clean_text(value) for key, value in dict(artifact_reference_overrides or {}).items()}
@@ -390,6 +407,8 @@ def build_live_canary_readiness_evidence_bundle(
         btc_analysis_order_intent_dry_run=btc_analysis_order_intent,
         live_order_submission_boundary_dry_run_adapter=live_order_boundary,
         tiny_live_canary_gonogo_gate=gonogo_gate,
+        live_enablement_config_preflight=live_config_preflight,
+        live_enablement_config_preflight_summary=live_config_preflight_summary,
         telegram_operator_control_bot_v1=telegram_control,
         telegram_mini_app_operator_panel_v1=telegram_mini_app,
         dry_run_receipt_references=dry_run_receipt_references,
@@ -474,6 +493,9 @@ def validate_live_canary_readiness_evidence_bundle(
         ),
         "tiny_live_canary_manual_execution_checklist_and_final_gonogo_gate": (
             VALIDATION_STATUS_TINY_LIVE_CANARY_GONOGO_GATE_EVIDENCE_MISSING
+        ),
+        "live_enablement_config_contract_and_runtime_preflight": (
+            VALIDATION_STATUS_LIVE_ENABLEMENT_CONFIG_PREFLIGHT_EVIDENCE_MISSING
         ),
         "telegram_operator_control_bot_v1": VALIDATION_STATUS_TELEGRAM_OPERATOR_CONTROL_BOT_EVIDENCE_MISSING,
         "telegram_mini_app_operator_panel_v1": (
@@ -766,6 +788,8 @@ def _build_evidence_items(
     btc_analysis_order_intent_dry_run: Mapping[str, Any],
     live_order_submission_boundary_dry_run_adapter: Mapping[str, Any],
     tiny_live_canary_gonogo_gate: Mapping[str, Any],
+    live_enablement_config_preflight: Mapping[str, Any],
+    live_enablement_config_preflight_summary: Mapping[str, Any],
     telegram_operator_control_bot_v1: Mapping[str, Any],
     telegram_mini_app_operator_panel_v1: Mapping[str, Any],
     dry_run_receipt_references: Sequence[str] | None,
@@ -1185,6 +1209,49 @@ def _build_evidence_items(
             "order_submission_enabled": False,
             "real_execution_available": False,
             "live_connector_enabled": False,
+        },
+        _item(
+            "live_enablement_config_contract_and_runtime_preflight",
+            "live_enablement_config",
+            _override_or_reference(
+                artifact_reference_overrides,
+                "live_enablement_config_contract_and_runtime_preflight",
+                live_enablement_config_preflight,
+                ("preflight_id", "summary_id", "contract_name", "status"),
+                "live_enablement_config_preflight_047:review_only_execution_disabled",
+            ),
+            clean_text(
+                live_enablement_config_preflight_summary.get("status")
+                or live_enablement_config_preflight.get("status")
+                or "CONFIG_MISSING_BLOCKED"
+            ),
+            "Live enablement config preflight is a review-only config contract; it reports missing/invalid/requested flags but cannot approve live execution.",
+            review_ready=(
+                live_enablement_config_preflight.get("execution_enabling") is not True
+                and live_enablement_config_preflight.get("live_approval") is not True
+                and live_enablement_config_preflight.get("allowed_for_live") is not True
+                and live_enablement_config_preflight.get("canary_executable_now") is not True
+                and live_enablement_config_preflight.get("order_submission_enabled") is not True
+                and live_enablement_config_preflight.get("authenticated_polymarket_enabled") is not True
+                and live_enablement_config_preflight.get("wallet_signing_enabled") is not True
+            ),
+        )
+        | {
+            "review_only": True,
+            "execution_enabling": False,
+            "live_approval": False,
+            "future_live_requested": live_enablement_config_preflight_summary.get("future_live_requested")
+            is True,
+            "dry_run_review_allowed": live_enablement_config_preflight_summary.get("dry_run_review_allowed")
+            is True,
+            "allowed_for_live": False,
+            "canary_executable_now": False,
+            "live_execution_approved": False,
+            "real_execution_available": False,
+            "live_connector_enabled": False,
+            "order_submission_enabled": False,
+            "authenticated_polymarket_enabled": False,
+            "wallet_signing_enabled": False,
         },
         _item(
             "telegram_operator_control_bot_v1",
