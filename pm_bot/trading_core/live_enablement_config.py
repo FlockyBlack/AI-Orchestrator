@@ -8,6 +8,11 @@ from typing import Any, Mapping, Sequence
 
 from pm_bot.trading_core.schemas import GENERATED_AT, clean_text, trading_core_safety_summary
 from pm_bot.trading_core.secret_boundary_policy import validate_static_secret_boundary
+from pm_bot.trading_core.wallet_signing_boundary import (
+    SAFE_ENV_CONFIG_KEYS as WALLET_SIGNING_SAFE_ENV_CONFIG_KEYS,
+    build_wallet_signing_boundary_report,
+    summarize_wallet_signing_boundary_report,
+)
 
 LIVE_ENABLEMENT_CONFIG_PREFLIGHT_CONTRACT = "pmbot_live_enablement_config_preflight.v1"
 LIVE_ENABLEMENT_CONFIG_PREFLIGHT_SUMMARY_CONTRACT = (
@@ -58,10 +63,16 @@ MARKET_SCOPE_ENV_VARS = (
     "PMBOT_ALLOWED_MARKET_SLUGS",
     "PMBOT_ALLOWED_MARKET_IDS",
 )
+WALLET_SIGNING_BOUNDARY_MARKER_ENV_VARS = (
+    "PMBOT_WALLET_ADDRESS_CONFIGURED",
+    "PMBOT_SIGNING_PROVIDER_CONFIGURED",
+    "PMBOT_SIGNING_DRY_RUN_ONLY",
+)
 KNOWN_CONFIG_ENV_VARS = (
     *REQUIRED_BOOLEAN_ENV_VARS,
     *RISK_LIMIT_ENV_VARS,
     *MARKET_SCOPE_ENV_VARS,
+    *WALLET_SIGNING_BOUNDARY_MARKER_ENV_VARS,
 )
 
 FORCED_FALSE_EXECUTION_FIELDS = (
@@ -73,6 +84,9 @@ FORCED_FALSE_EXECUTION_FIELDS = (
     "order_submission_enabled",
     "authenticated_polymarket_enabled",
     "wallet_signing_enabled",
+    "transaction_signing_enabled",
+    "signed_payload_generation_enabled",
+    "signed_order_generation_enabled",
     "authenticated_endpoint_enabled",
     "authenticated_endpoints_enabled",
     "signing_enabled",
@@ -102,6 +116,7 @@ class LiveEnablementConfigPreflight:
     allowed_market_scope_summary: Mapping[str, Any]
     manual_approval_requirement_summary: Mapping[str, Any]
     kill_switch_requirement_summary: Mapping[str, Any]
+    wallet_signing_boundary_summary: Mapping[str, Any]
     blocked_reasons: tuple[str, ...]
     violation_reasons: tuple[str, ...]
     operator_required_actions: tuple[str, ...]
@@ -116,6 +131,7 @@ class LiveEnablementConfigPreflight:
         value["allowed_market_scope_summary"] = dict(self.allowed_market_scope_summary)
         value["manual_approval_requirement_summary"] = dict(self.manual_approval_requirement_summary)
         value["kill_switch_requirement_summary"] = dict(self.kill_switch_requirement_summary)
+        value["wallet_signing_boundary_summary"] = dict(self.wallet_signing_boundary_summary)
         value["blocked_reasons"] = list(self.blocked_reasons)
         value["violation_reasons"] = list(self.violation_reasons)
         value["operator_required_actions"] = list(self.operator_required_actions)
@@ -143,6 +159,19 @@ def build_live_enablement_config_preflight(
     market_scope = _parse_market_scope(source)
     manual_approval = _manual_approval_summary(flags)
     kill_switch = _kill_switch_summary(flags)
+    wallet_signing_boundary = build_wallet_signing_boundary_report(
+        {
+            env_var: source[env_var]
+            for env_var in WALLET_SIGNING_SAFE_ENV_CONFIG_KEYS
+            if env_var in source
+        },
+        config_source=f"{clean_text(config_source) or 'provided_mapping'}:wallet_signing_boundary_safe_markers",
+        generated_at=generated_at,
+    )
+    wallet_signing_boundary_summary = summarize_wallet_signing_boundary_report(
+        wallet_signing_boundary,
+        generated_at=generated_at,
+    )
 
     missing = _missing_required_config(flags, risk_limits, market_scope)
     violations = _validation_violations(flags, risk_limits, market_scope)
@@ -174,6 +203,7 @@ def build_live_enablement_config_preflight(
     dry_run_review_allowed = status == STATUS_REVIEW_ONLY_PREFLIGHT_READY
     if dry_run_review_allowed:
         blocked_reasons = ["live_execution_still_disabled_by_task_047_review_only_contract"]
+    blocked_reasons.append("wallet_signing_boundary_scaffold_dry_run_only_review_only")
 
     preflight_id = _stable_id(
         "live-enablement-config-preflight-047",
@@ -198,6 +228,7 @@ def build_live_enablement_config_preflight(
         allowed_market_scope_summary=market_scope,
         manual_approval_requirement_summary=manual_approval,
         kill_switch_requirement_summary=kill_switch,
+        wallet_signing_boundary_summary=wallet_signing_boundary_summary,
         blocked_reasons=tuple(_dedupe(blocked_reasons)),
         violation_reasons=tuple(_dedupe(violations)),
         operator_required_actions=tuple(
@@ -260,6 +291,7 @@ def summarize_live_enablement_config_preflight(
     market = dict(value.get("allowed_market_scope_summary", {}))
     manual = dict(value.get("manual_approval_requirement_summary", {}))
     kill_switch = dict(value.get("kill_switch_requirement_summary", {}))
+    wallet_signing_boundary = dict(value.get("wallet_signing_boundary_summary", {}))
     summary = {
         "contract_version": LIVE_ENABLEMENT_CONFIG_PREFLIGHT_SUMMARY_CONTRACT,
         "summary_id": _stable_id(
@@ -286,6 +318,13 @@ def summarize_live_enablement_config_preflight(
         "allowed_market_count": int(market.get("allowed_market_count", 0) or 0),
         "manual_operator_approval_required": manual.get("requirement_satisfied") is True,
         "kill_switch_ready_required": kill_switch.get("requirement_satisfied") is True,
+        "wallet_signing_boundary_status": clean_text(
+            wallet_signing_boundary.get("status") or "SIGNING_DISABLED_REVIEW_ONLY"
+        ),
+        "wallet_signing_boundary_review_only": wallet_signing_boundary.get("review_only") is not False,
+        "signed_payload_generation_enabled": False,
+        "signed_order_generation_enabled": False,
+        "transaction_signing_enabled": False,
         "blocked_reasons": list(value.get("blocked_reasons", []))[:8],
         "top_blocked_reasons": list(value.get("blocked_reasons", []))[:5],
         "violation_reasons": list(value.get("violation_reasons", []))[:8],
@@ -368,8 +407,10 @@ def validate_live_enablement_config_preflight(
         errors.append("allowed_for_live must remain false")
         statuses.append("allowed_for_live_detected")
     if value.get("future_live_requested") is True and status != STATUS_LIVE_FLAGS_REQUESTED_BUT_BLOCKED:
-        if status != STATUS_CONFIG_INVALID_BLOCKED:
-            errors.append("future_live_requested requires LIVE_FLAGS_REQUESTED_BUT_BLOCKED unless config is invalid")
+        if status not in {STATUS_CONFIG_INVALID_BLOCKED, STATUS_CONFIG_MISSING_BLOCKED}:
+            errors.append(
+                "future_live_requested requires LIVE_FLAGS_REQUESTED_BUT_BLOCKED unless config is missing or invalid"
+            )
             statuses.append("future_live_request_status_mismatch")
 
     secret_validation = validate_static_secret_boundary(
@@ -790,6 +831,9 @@ def _preflight_safety_flags() -> dict[str, Any]:
         "authenticated_endpoint_call_performed": False,
         "signing_enabled": False,
         "cryptographic_signing_enabled": False,
+        "transaction_signing_enabled": False,
+        "signed_payload_generation_enabled": False,
+        "signed_order_generation_enabled": False,
         "cryptographic_signing_performed": False,
         "wallet_enabled": False,
         "wallet_signing_enabled": False,

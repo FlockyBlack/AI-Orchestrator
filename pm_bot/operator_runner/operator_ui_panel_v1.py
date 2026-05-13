@@ -26,6 +26,11 @@ from pm_bot.trading_core.secret_boundary_policy import (
     validate_secret_boundary_operator_ui_panel_rendered_json,
     validate_secret_boundary_operator_ui_panel_rendered_markdown,
     validate_secret_boundary_operator_ui_panel_risk_limit_summary,
+    validate_secret_boundary_operator_ui_panel_wallet_signing_boundary_summary,
+)
+from pm_bot.trading_core.wallet_signing_boundary import (
+    build_wallet_signing_boundary_report,
+    summarize_wallet_signing_boundary_report,
 )
 from pm_bot.trading_core.btc_market_analysis_order_intent import summarize_btc_analysis_order_intent
 from pm_bot.trading_core.live_order_submission_boundary import (
@@ -61,6 +66,9 @@ OPERATOR_UI_PANEL_LIVE_ORDER_BOUNDARY_SUMMARY_CONTRACT = (
 OPERATOR_UI_PANEL_LIVE_ENABLEMENT_CONFIG_PREFLIGHT_SUMMARY_CONTRACT = (
     "pmbot_operator_ui_panel_live_enablement_config_preflight_summary.v1"
 )
+OPERATOR_UI_PANEL_WALLET_SIGNING_BOUNDARY_SUMMARY_CONTRACT = (
+    "pmbot_operator_ui_panel_wallet_signing_boundary_summary.v1"
+)
 OPERATOR_UI_PANEL_TINY_CANARY_GONOGO_SUMMARY_CONTRACT = (
     "pmbot_operator_ui_panel_tiny_live_canary_gonogo_summary.v1"
 )
@@ -91,6 +99,9 @@ FORCED_FALSE_EXECUTION_FIELDS = (
     "signing_enabled",
     "cryptographic_signing_enabled",
     "wallet_signing_enabled",
+    "transaction_signing_enabled",
+    "signed_payload_generation_enabled",
+    "signed_order_generation_enabled",
     "wallet_enabled",
     "would_submit_order",
     "order_submission_enabled",
@@ -105,6 +116,7 @@ REQUIRED_SECTION_IDS = (
     "btc_analysis_order_intent",
     "live_order_submission_boundary",
     "live_enablement_config_preflight",
+    "wallet_signing_boundary",
     "tiny_live_canary_gonogo_gate",
     "risk_control_plane",
     "risk_limits",
@@ -455,6 +467,57 @@ class OperatorUIPanelLiveEnablementConfigPreflightSummary:
 
 
 @dataclass(frozen=True)
+class OperatorUIPanelWalletSigningBoundarySummary:
+    status: str
+    wallet_address_status: str
+    signing_provider_status: str
+    top_blocked_reasons: tuple[str, ...]
+    latest_wallet_signing_boundary_path: str
+    review_only: bool = True
+    execution_enabling: bool = False
+    live_approval: bool = False
+    no_executable_action: bool = True
+    wallet_signing_enabled: bool = False
+    signing_enabled: bool = False
+    cryptographic_signing_enabled: bool = False
+    transaction_signing_enabled: bool = False
+    signed_payload_generation_enabled: bool = False
+    signed_order_generation_enabled: bool = False
+    allowed_for_live: bool = False
+    canary_executable_now: bool = False
+    live_execution_approved: bool = False
+    real_execution_available: bool = False
+    live_connector_enabled: bool = False
+    order_submission_enabled: bool = False
+    resolved_blocker_count: int = 0
+
+    def to_dict(self) -> dict[str, Any]:
+        value = asdict(self)
+        value["contract_version"] = OPERATOR_UI_PANEL_WALLET_SIGNING_BOUNDARY_SUMMARY_CONTRACT
+        value["top_blocked_reasons"] = list(self.top_blocked_reasons)
+        value["wallet_signing_boundary_section_ready"] = True
+        value["review_only"] = True
+        value["execution_enabling"] = False
+        value["live_approval"] = False
+        value["no_executable_action"] = True
+        value["wallet_signing_enabled"] = False
+        value["signing_enabled"] = False
+        value["cryptographic_signing_enabled"] = False
+        value["transaction_signing_enabled"] = False
+        value["signed_payload_generation_enabled"] = False
+        value["signed_order_generation_enabled"] = False
+        value["allowed_for_live"] = False
+        value["canary_executable_now"] = False
+        value["live_execution_approved"] = False
+        value["real_execution_available"] = False
+        value["live_connector_enabled"] = False
+        value["order_submission_enabled"] = False
+        value["resolved_blocker_count"] = 0
+        value.update(_panel_safety_flags())
+        return value
+
+
+@dataclass(frozen=True)
 class OperatorUIPanelKillSwitchSummary:
     kill_switch_requirements_defined: bool
     kill_switch_verified_for_live: bool
@@ -596,6 +659,7 @@ class OperatorUIPanelV1:
     btc_analysis_order_intent_summary: Mapping[str, Any]
     live_order_submission_boundary_summary: Mapping[str, Any]
     live_enablement_config_preflight_summary: Mapping[str, Any]
+    wallet_signing_boundary_summary: Mapping[str, Any]
     tiny_live_canary_gonogo_gate_summary: Mapping[str, Any]
     risk_control_plane_summary: Mapping[str, Any]
     risk_limit_summary: Mapping[str, Any]
@@ -624,6 +688,7 @@ class OperatorUIPanelV1:
         value["live_enablement_config_preflight_summary"] = dict(
             self.live_enablement_config_preflight_summary
         )
+        value["wallet_signing_boundary_summary"] = dict(self.wallet_signing_boundary_summary)
         value["tiny_live_canary_gonogo_gate_summary"] = dict(self.tiny_live_canary_gonogo_gate_summary)
         value["risk_control_plane_summary"] = dict(self.risk_control_plane_summary)
         value["risk_limit_summary"] = dict(self.risk_limit_summary)
@@ -651,6 +716,7 @@ class OperatorUIPanelV1:
         value["btc_analysis_order_intent_section_ready"] = True
         value["live_order_submission_boundary_section_ready"] = True
         value["live_enablement_config_preflight_section_ready"] = True
+        value["wallet_signing_boundary_section_ready"] = True
         value["tiny_live_canary_gonogo_gate_section_ready"] = True
         value["static_html_render_ready"] = True
         value["markdown_render_ready"] = True
@@ -679,6 +745,8 @@ def build_operator_ui_panel_v1(
     live_order_submission_boundary_summary: Mapping[str, Any] | None = None,
     live_enablement_config_preflight: Mapping[str, Any] | None = None,
     live_enablement_config_preflight_summary: Mapping[str, Any] | None = None,
+    wallet_signing_boundary_report: Mapping[str, Any] | None = None,
+    wallet_signing_boundary_summary: Mapping[str, Any] | None = None,
     tiny_live_canary_gonogo_gate: Mapping[str, Any] | None = None,
     tiny_live_canary_gonogo_gate_summary: Mapping[str, Any] | None = None,
     live_credentials_auth_boundary_summary: Mapping[str, Any] | None = None,
@@ -775,6 +843,17 @@ def build_operator_ui_panel_v1(
         or clean_text(dashboard_value.get("latest_live_enablement_config_preflight_path")),
         generated_at=generated_at,
     )
+    wallet_signing_boundary_ui_summary = _build_wallet_signing_boundary_summary(
+        wallet_signing_boundary_report=wallet_signing_boundary_report
+        or dashboard_value.get("wallet_signing_boundary_report", {}),
+        wallet_signing_boundary_summary=(
+            wallet_signing_boundary_summary
+            or dashboard_value.get("wallet_signing_boundary_summary", {})
+        ),
+        latest_wallet_signing_boundary_path=paths.get("wallet_signing_boundary", "")
+        or clean_text(dashboard_value.get("latest_wallet_signing_boundary_path")),
+        generated_at=generated_at,
+    )
     gonogo_summary = _build_tiny_live_canary_gonogo_gate_summary(
         tiny_live_canary_gonogo_gate=tiny_live_canary_gonogo_gate
         or dashboard_value.get("tiny_live_canary_gonogo_gate", {}),
@@ -857,6 +936,7 @@ def build_operator_ui_panel_v1(
         btc_analysis_order_intent=btc_analysis_summary,
         live_order_submission_boundary=live_order_boundary_summary,
         live_enablement_config_preflight=live_enablement_config_summary,
+        wallet_signing_boundary=wallet_signing_boundary_ui_summary,
         tiny_live_canary_gonogo_gate=gonogo_summary,
         risk_control=risk_control_summary,
         risk=risk_summary,
@@ -882,6 +962,7 @@ def build_operator_ui_panel_v1(
             "btc_analysis_order_intent": btc_analysis_summary,
             "live_order_submission_boundary": live_order_boundary_summary,
             "live_enablement_config_preflight": live_enablement_config_summary,
+            "wallet_signing_boundary": wallet_signing_boundary_ui_summary,
             "tiny_live_canary_gonogo_gate": gonogo_summary,
             "risk_control": risk_control_summary,
             "risk": risk_summary,
@@ -903,6 +984,7 @@ def build_operator_ui_panel_v1(
         btc_analysis_order_intent_summary=btc_analysis_summary,
         live_order_submission_boundary_summary=live_order_boundary_summary,
         live_enablement_config_preflight_summary=live_enablement_config_summary,
+        wallet_signing_boundary_summary=wallet_signing_boundary_ui_summary,
         tiny_live_canary_gonogo_gate_summary=gonogo_summary,
         risk_control_plane_summary=risk_control_summary,
         risk_limit_summary=risk_summary,
@@ -1087,6 +1169,31 @@ def validate_operator_ui_panel_v1(
             errors.append(f"live_enablement_config_preflight_summary.{field} must be false")
             statuses.append("live_enablement_config_preflight_execution_flag_detected")
 
+    wallet_signing_summary = dict(panel_value.get("wallet_signing_boundary_summary", {}))
+    wallet_signing_validation = validate_secret_boundary_operator_ui_panel_wallet_signing_boundary_summary(
+        wallet_signing_summary,
+        generated_at=generated_at,
+    )
+    if wallet_signing_validation.get("valid") is not True:
+        errors.append("wallet_signing_boundary_summary violates static secret boundary")
+        statuses.append("wallet_signing_boundary_summary_secret_boundary_blocked")
+    if wallet_signing_summary.get("wallet_signing_boundary_section_ready") is not True:
+        errors.append("wallet_signing_boundary_section_ready must be true")
+        statuses.append("wallet_signing_boundary_section_missing")
+    if wallet_signing_summary.get("review_only") is not True:
+        errors.append("wallet_signing_boundary_summary.review_only must be true")
+        statuses.append("wallet_signing_boundary_review_only_missing")
+    if wallet_signing_summary.get("no_executable_action") is not True:
+        errors.append("wallet_signing_boundary_summary.no_executable_action must be true")
+        statuses.append("wallet_signing_boundary_executable_action_detected")
+    if wallet_signing_summary.get("resolved_blocker_count") != 0:
+        errors.append("wallet_signing_boundary_summary.resolved_blocker_count must be 0")
+        statuses.append("wallet_signing_boundary_resolved_blocker_detected")
+    for field in FORCED_FALSE_EXECUTION_FIELDS:
+        if wallet_signing_summary.get(field) is not False:
+            errors.append(f"wallet_signing_boundary_summary.{field} must be false")
+            statuses.append("wallet_signing_boundary_execution_flag_detected")
+
     gonogo_summary = dict(panel_value.get("tiny_live_canary_gonogo_gate_summary", {}))
     if gonogo_summary.get("no_executable_action") is not True:
         errors.append("tiny_live_canary_gonogo_gate_summary.no_executable_action must be true")
@@ -1225,6 +1332,7 @@ def validate_operator_ui_panel_v1(
         "operator_ui_panel_live_enablement_config_preflight_summary_secret_boundary_validation": (
             live_enablement_config_validation
         ),
+        "operator_ui_panel_wallet_signing_boundary_summary_secret_boundary_validation": wallet_signing_validation,
         "rendered_json_secret_boundary_validation": rendered_json_validation,
         "rendered_markdown_secret_boundary_validation": rendered_md_validation,
         "rendered_html_secret_boundary_validation": rendered_html_validation,
@@ -1341,6 +1449,25 @@ def summarize_operator_ui_panel_v1(panel: Mapping[str, Any]) -> dict[str, Any]:
         ).get("dry_run_review_allowed")
         is True,
         "live_enablement_config_allowed_for_live": False,
+        "wallet_signing_boundary_section_ready": dict(
+            panel.get("wallet_signing_boundary_summary", {})
+        ).get("wallet_signing_boundary_section_ready")
+        is True,
+        "wallet_signing_boundary_status": dict(panel.get("wallet_signing_boundary_summary", {})).get("status"),
+        "wallet_signing_enabled": dict(panel.get("wallet_signing_boundary_summary", {})).get(
+            "wallet_signing_enabled"
+        )
+        is True,
+        "signing_enabled": dict(panel.get("wallet_signing_boundary_summary", {})).get("signing_enabled")
+        is True,
+        "signed_payload_generation_enabled": dict(
+            panel.get("wallet_signing_boundary_summary", {})
+        ).get("signed_payload_generation_enabled")
+        is True,
+        "wallet_signing_boundary_no_executable_action": dict(
+            panel.get("wallet_signing_boundary_summary", {})
+        ).get("no_executable_action")
+        is True,
         "tiny_live_canary_gonogo_gate_section_ready": dict(
             panel.get("tiny_live_canary_gonogo_gate_summary", {})
         ).get("tiny_live_canary_gonogo_gate_section_ready")
@@ -1907,6 +2034,39 @@ def _build_live_enablement_config_preflight_summary(
     ).to_dict()
 
 
+def _build_wallet_signing_boundary_summary(
+    *,
+    wallet_signing_boundary_report: Mapping[str, Any] | None,
+    wallet_signing_boundary_summary: Mapping[str, Any] | None,
+    latest_wallet_signing_boundary_path: str,
+    generated_at: str,
+) -> dict[str, Any]:
+    provided = dict(wallet_signing_boundary_summary or {})
+    if not provided:
+        report = dict(wallet_signing_boundary_report or build_wallet_signing_boundary_report(generated_at=generated_at))
+        provided = summarize_wallet_signing_boundary_report(
+            report,
+            latest_wallet_signing_boundary_path=latest_wallet_signing_boundary_path,
+            generated_at=generated_at,
+        )
+    return OperatorUIPanelWalletSigningBoundarySummary(
+        status=clean_text(provided.get("status") or "SIGNING_DISABLED_REVIEW_ONLY"),
+        wallet_address_status=clean_text(provided.get("wallet_address_status") or "missing"),
+        signing_provider_status=clean_text(provided.get("signing_provider_status") or "missing"),
+        top_blocked_reasons=tuple(
+            clean_text(item)
+            for item in (
+                list(provided.get("top_blocked_reasons", []))
+                or list(provided.get("blocked_reasons", []))
+            )[:5]
+            if clean_text(item)
+        ),
+        latest_wallet_signing_boundary_path=clean_text(
+            provided.get("latest_wallet_signing_boundary_path") or latest_wallet_signing_boundary_path
+        ),
+    ).to_dict()
+
+
 def _build_tiny_live_canary_gonogo_gate_summary(
     *,
     tiny_live_canary_gonogo_gate: Mapping[str, Any] | None,
@@ -2318,6 +2478,7 @@ def _build_sections(
     btc_analysis_order_intent: Mapping[str, Any],
     live_order_submission_boundary: Mapping[str, Any],
     live_enablement_config_preflight: Mapping[str, Any],
+    wallet_signing_boundary: Mapping[str, Any],
     tiny_live_canary_gonogo_gate: Mapping[str, Any],
     risk_control: Mapping[str, Any],
     risk: Mapping[str, Any],
@@ -2629,6 +2790,53 @@ def _build_sections(
             ],
         ),
         _section(
+            "wallet_signing_boundary",
+            "Wallet Signing Boundary",
+            clean_text(wallet_signing_boundary.get("status") or "SIGNING_DISABLED_REVIEW_ONLY"),
+            [
+                _metric("status", "Status", wallet_signing_boundary.get("status")),
+                _metric(
+                    "wallet_address_status",
+                    "Wallet address status",
+                    wallet_signing_boundary.get("wallet_address_status"),
+                ),
+                _metric(
+                    "signing_provider_status",
+                    "Signing provider status",
+                    wallet_signing_boundary.get("signing_provider_status"),
+                ),
+                _metric("wallet_signing_enabled", "Wallet signing enabled", False),
+                _metric("signing_enabled", "Signing enabled", False),
+                _metric(
+                    "signed_payload_generation_enabled",
+                    "Signed payload generation enabled",
+                    False,
+                ),
+                _metric("signed_order_generation_enabled", "Signed order generation enabled", False),
+                _metric("transaction_signing_enabled", "Transaction signing enabled", False),
+                _metric("allowed_for_live", "Allowed for live", False),
+                _metric("real_execution_available", "Real execution available", False),
+                _metric(
+                    "top_blocked_reasons",
+                    "Top blocked reasons",
+                    wallet_signing_boundary.get("top_blocked_reasons"),
+                ),
+                _metric("no_executable_action", "No executable action", True),
+                _metric(
+                    "latest_wallet_signing_boundary_path",
+                    "Latest boundary artifact",
+                    wallet_signing_boundary.get("latest_wallet_signing_boundary_path"),
+                ),
+            ],
+            warnings=[
+                _warning(
+                    "wallet_signing_boundary_review_only",
+                    "critical",
+                    "Wallet signing boundary is passive review only and exposes no executable signing or wallet action.",
+                )
+            ],
+        ),
+        _section(
             "tiny_live_canary_gonogo_gate",
             "Tiny Live Canary Go/No-Go Gate",
             clean_text(tiny_live_canary_gonogo_gate.get("status") or NOT_AVAILABLE),
@@ -2919,7 +3127,12 @@ def _panel_safety_flags() -> dict[str, Any]:
         "wallet_signing_added": False,
         "wallet_signing_performed": False,
         "transaction_signing_added": False,
+        "transaction_signing_enabled": False,
         "transaction_signing_performed": False,
+        "signed_payload_generation_enabled": False,
+        "signed_payload_created": False,
+        "signed_order_generation_enabled": False,
+        "signed_order_created": False,
         "real_order_placement_added": False,
         "real_order_placement_performed": False,
         "authenticated_endpoint_added": False,

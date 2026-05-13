@@ -182,6 +182,14 @@ SAFE_SECRET_METADATA_FIELD_NAMES = frozenset(
         "live_enablement_config_preflight_secret_boundary_validation",
         "live_enablement_config_preflight_summary_secret_boundary_validation",
         "operator_ui_panel_live_enablement_config_preflight_summary_secret_boundary_validation",
+        "wallet_signing_boundary_secret_boundary_validation",
+        "wallet_signing_boundary_summary_secret_boundary_validation",
+        "operator_ui_panel_wallet_signing_boundary_summary_secret_boundary_validation",
+        "wallet_signing_boundary_section_ready",
+        "wallet_readiness_status",
+        "wallet_address_status",
+        "signing_provider_status",
+        "signing_dry_run_only_marker_status",
         "live_enablement_config_preflight_section_ready",
         "no_raw_secrets_parsed_or_emitted",
         "config_values_redacted_where_sensitive",
@@ -241,7 +249,16 @@ SAFE_NEGATIVE_SECRET_FIELD_NAMES = frozenset(
 )
 
 SAFE_TRUE_SECRET_METADATA_FIELD_NAMES = frozenset(
-    {"no_executable_action", "no_executable_live_action", "no_raw_secrets_parsed_or_emitted"}
+    {
+        "no_executable_action",
+        "no_executable_live_action",
+        "no_raw_secrets_parsed_or_emitted",
+        "no_signature_returned",
+        "no_signed_payload_returned",
+        "no_signed_order_returned",
+        "no_transaction_hash_returned",
+        "no_order_id_returned",
+    }
 )
 
 SAFE_NEGATIVE_SECRET_PREFIXES = ("no_", "not_", "without_", "disabled_")
@@ -919,6 +936,42 @@ def validate_secret_boundary_live_enablement_config_preflight_summary(
     return validate_static_secret_boundary(
         value,
         artifact_type="live_enablement_config_preflight_summary",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_wallet_signing_boundary(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        value,
+        artifact_type="wallet_signing_boundary",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_wallet_signing_boundary_summary(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        value,
+        artifact_type="wallet_signing_boundary_summary",
+        generated_at=generated_at,
+    )
+
+
+def validate_secret_boundary_operator_ui_panel_wallet_signing_boundary_summary(
+    value: Mapping[str, Any],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    return validate_static_secret_boundary(
+        value,
+        artifact_type="operator_ui_panel_wallet_signing_boundary_summary",
         generated_at=generated_at,
     )
 

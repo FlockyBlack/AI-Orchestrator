@@ -1,0 +1,127 @@
+{
+  "task_id": "ORCH-PMBOT-TRADING-MVP-049-WALLET-SIGNING-BOUNDARY-SCAFFOLD-DRY-RUN-ONLY",
+  "status": "completed_pushed",
+  "worktree": "C:/oc049_wallet_signing_boundary_scaffold_dry_run",
+  "branch": "pmbot/trading-mvp-049-wallet-signing-boundary-scaffold-dry-run-only",
+  "base_head": "c259cc44f6f056c64a7872539475ddb50645f848",
+  "head_before": "c259cc44f6f056c64a7872539475ddb50645f848",
+  "head_after": "POST_PUSH_HEAD_REPORTED_IN_FINAL_CHAT",
+  "pushed": true,
+  "remote_verified": true,
+  "pushed_to_master": false,
+  "changed_files": [
+    "docs/ORCH_PMBOT_TRADING_MVP_049_WALLET_SIGNING_BOUNDARY_SCAFFOLD_DRY_RUN_ONLY.md",
+    "docs/ORCH_PMBOT_TRADING_MVP_049_WALLET_SIGNING_BOUNDARY_SCAFFOLD_DRY_RUN_ONLY_RESULT.json",
+    "pm_bot/operator_runner/operator_ui_panel_v1.py",
+    "pm_bot/operator_runner/paper_daily_loop.py",
+    "pm_bot/tests/test_wallet_signing_boundary_049.py",
+    "pm_bot/trading_core/live_canary_readiness.py",
+    "pm_bot/trading_core/live_canary_readiness_evidence_bundle.py",
+    "pm_bot/trading_core/live_canary_replay_acceptance.py",
+    "pm_bot/trading_core/live_enablement_config.py",
+    "pm_bot/trading_core/secret_boundary_policy.py",
+    "pm_bot/trading_core/tiny_live_canary_gonogo_gate.py",
+    "pm_bot/trading_core/wallet_signing_boundary.py"
+  ],
+  "validation": {
+    "passed": true,
+    "commands": [
+      {
+        "command": "python -m pytest pm_bot/tests/test_wallet_signing_boundary_049.py",
+        "result": "passed",
+        "summary": "8 passed"
+      },
+      {
+        "command": "python -m pytest pm_bot/tests/test_live_enablement_config_047.py",
+        "result": "passed",
+        "summary": "11 passed"
+      },
+      {
+        "command": "python -m pytest pm_bot/tests/test_authenticated_polymarket_connector_048.py",
+        "result": "skipped",
+        "summary": "test file not present in this branch"
+      },
+      {
+        "command": "python -m pytest pm_bot/tests/test_risk_limit_control_plane_037.py pm_bot/tests/test_polymarket_btc_read_only_connector_038.py pm_bot/tests/test_btc_market_analysis_order_intent_039.py pm_bot/tests/test_live_credentials_auth_boundary_040.py pm_bot/tests/test_live_order_submission_boundary_041.py pm_bot/tests/test_tiny_live_canary_gonogo_gate_042.py pm_bot/tests/test_live_enablement_config_047.py pm_bot/tests/test_live_canary_readiness_029.py pm_bot/tests/test_live_canary_readiness_evidence_bundle_035.py pm_bot/tests/test_live_canary_replay_acceptance_030.py pm_bot/tests/test_operator_ui_panel_v1_036.py pm_bot/tests/test_paper_daily_loop_022.py",
+        "result": "passed",
+        "summary": "173 passed"
+      },
+      {
+        "command": "python -m pytest pm_bot/tests",
+        "result": "passed",
+        "summary": "1700 passed"
+      },
+      {
+        "command": "python -m compileall pm_bot",
+        "result": "passed"
+      },
+      {
+        "command": "python -m pytest tests/test_codex_queue_nightly_lane_batch_runner.py tests/test_codex_worktree_lane_manager.py tests/test_subagent_routing.py tests/test_codex_queue_operator_cli.py",
+        "result": "passed",
+        "summary": "41 passed"
+      },
+      {
+        "command": "python -m compileall ai_orchestrator",
+        "result": "passed"
+      },
+      {
+        "command": "git diff --check",
+        "result": "passed"
+      },
+      {
+        "command": "git diff --cached --check",
+        "result": "passed"
+      }
+    ]
+  },
+  "safety_results": {
+    "paper_mode_only": true,
+    "wallet_signing_enabled": false,
+    "signing_enabled": false,
+    "transaction_signing_enabled": false,
+    "signed_payload_generation_enabled": false,
+    "signed_order_generation_enabled": false,
+    "authenticated_polymarket_enabled": false,
+    "live_connector_enabled": false,
+    "order_submission_enabled": false,
+    "allowed_for_live": false,
+    "canary_executable_now": false,
+    "live_execution_approved": false,
+    "real_execution_available": false,
+    "resolved_blocker_count": 0,
+    "private_keys_read": false,
+    "mnemonics_read": false,
+    "seed_phrases_read": false,
+    "wallet_files_read": false,
+    "browser_wallets_read": false,
+    "api_secrets_or_auth_tokens_read": false,
+    "raw_credentials_printed_or_persisted": false,
+    "cryptographic_signing_implemented": false,
+    "wallet_signing_implemented": false,
+    "transaction_signing_implemented": false,
+    "signed_payloads_generated": false,
+    "signed_orders_generated": false,
+    "external_network_calls_in_tests": false,
+    "browser_automation_added": false,
+    "scheduler_daemon_or_background_worker_added": false,
+    "real_orders_submitted": false,
+    "trading_endpoints_called": false,
+    "force_push_used": false,
+    "broad_git_staging_used": false
+  },
+  "implementation_summary": [
+    "Added a dry-run-only wallet signing boundary report and signing-request refusal validator.",
+    "Added redacted/missing-only safe config marker handling without reading or emitting secrets.",
+    "Threaded passive wallet signing boundary summaries through live enablement, readiness, evidence, replay, go/no-go, paper daily loop, operator UI, and secret boundary validation surfaces.",
+    "Added paper_daily_loop emission of wallet_signing_boundary_049.json.",
+    "Added focused regression tests and operator documentation."
+  ],
+  "conflict_avoidance_notes": [
+    "Used dedicated worktree C:/oc049_wallet_signing_boundary_scaffold_dry_run.",
+    "Did not modify Telegram smoke/runtime UX files listed as restricted.",
+    "Did not touch authenticated connector scaffold files because the 048 connector scaffold test/module is not present in this branch.",
+    "Restored test-written generated artifact and fixture files before staging.",
+    "Used selective staging only."
+  ],
+  "next_recommended_task": "ORCH-PMBOT-TRADING-MVP-049B-MERGE-WALLET-SIGNING-BOUNDARY-SCAFFOLD-DRY-RUN-ONLY-INTO-MASTER"
+}

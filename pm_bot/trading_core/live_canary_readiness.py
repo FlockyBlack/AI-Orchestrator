@@ -20,6 +20,10 @@ from pm_bot.trading_core.schemas import (
 )
 from pm_bot.trading_core.signing_simulator import STATUS_DRY_RUN_RECEIPT_READY
 from pm_bot.trading_core.wallet_execution_boundary import STATUS_APPROVED_FOR_FUTURE_SIMULATION
+from pm_bot.trading_core.wallet_signing_boundary import (
+    build_wallet_signing_boundary_report,
+    summarize_wallet_signing_boundary_report,
+)
 
 LIVE_CANARY_READINESS_PACKET_CONTRACT = "pmbot_live_canary_readiness_packet.v1"
 LIVE_CANARY_OPERATOR_APPROVAL_RECORD_CONTRACT = "pmbot_live_canary_dry_run_operator_approval_record.v1"
@@ -128,6 +132,9 @@ BTC_MARKET_READINESS_REVIEW_ONLY_BLOCKER_CATEGORIES = (
     "order_submission_boundary_non_executable",
     "live_enablement_config_contract_review_only",
     "live_enablement_config_preflight_does_not_enable_execution",
+    "wallet_signing_boundary_scaffold_review_only",
+    "wallet_signing_boundary_refuses_all_signing_requests",
+    "signed_payload_generation_still_disabled",
 )
 
 
@@ -282,6 +289,7 @@ def build_canary_readiness_packet(
     risk_decision_ledger: Mapping[str, Any] | None = None,
     wallet_boundary_audit_ledger: Mapping[str, Any] | None = None,
     signing_simulator_receipt_ledger: Mapping[str, Any] | None = None,
+    wallet_signing_boundary_report: Mapping[str, Any] | None = None,
     operator_approval_record: Mapping[str, Any] | None = None,
     run_context: Mapping[str, Any] | None = None,
     canary_market_id: str = "",
@@ -293,6 +301,10 @@ def build_canary_readiness_packet(
     risk_ledger = dict(risk_decision_ledger or {})
     wallet_ledger = dict(wallet_boundary_audit_ledger or {})
     receipt_ledger = dict(signing_simulator_receipt_ledger or {})
+    wallet_signing_boundary_summary = summarize_wallet_signing_boundary_report(
+        wallet_signing_boundary_report or build_wallet_signing_boundary_report(generated_at=generated_at),
+        generated_at=generated_at,
+    )
     context = dict(run_context or {})
     market_id = clean_text(canary_market_id) or select_canary_market_id(
         paper_strategy_ledger=strategy_ledger,
@@ -393,6 +405,12 @@ def build_canary_readiness_packet(
         "wallet_boundary_status": wallet_status,
         "signing_simulator_receipt_id": clean_text(signing_receipt.get("receipt_id")),
         "signing_simulator_receipt_status": signing_status,
+        "wallet_signing_boundary_status": wallet_signing_boundary_summary.get("status"),
+        "wallet_signing_enabled": False,
+        "signing_enabled": False,
+        "transaction_signing_enabled": False,
+        "signed_payload_generation_enabled": False,
+        "signed_order_generation_enabled": False,
         "operator_approval_record_id": "" if approval_record_missing else clean_text(approval.get("approval_record_id")),
         "operator_approval_status": approval_status,
         "kill_switch_status": kill_switch_status or "unknown",

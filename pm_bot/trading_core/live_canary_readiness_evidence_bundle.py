@@ -10,6 +10,10 @@ from pm_bot.trading_core.live_enablement_config import (
     summarize_live_enablement_config_preflight,
 )
 from pm_bot.trading_core.schemas import GENERATED_AT, clean_text, trading_core_safety_summary
+from pm_bot.trading_core.wallet_signing_boundary import (
+    build_wallet_signing_boundary_report,
+    summarize_wallet_signing_boundary_report,
+)
 from pm_bot.trading_core.secret_boundary_policy import (
     validate_secret_boundary_btc_evidence_item,
     validate_secret_boundary_readiness_evidence_blocker_summary,
@@ -102,6 +106,7 @@ REQUIRED_EVIDENCE_TYPES = (
     "live_order_submission_boundary_dry_run_adapter",
     "tiny_live_canary_manual_execution_checklist_and_final_gonogo_gate",
     "live_enablement_config_contract_and_runtime_preflight",
+    "wallet_signing_boundary_scaffold_dry_run_only",
     "telegram_operator_control_bot_v1",
     "telegram_mini_app_operator_panel_v1",
 )
@@ -121,6 +126,9 @@ FORCED_FALSE_EXECUTION_FIELDS = (
     "order_submission_enabled",
     "cryptographic_signing_enabled",
     "wallet_signing_enabled",
+    "transaction_signing_enabled",
+    "signed_payload_generation_enabled",
+    "signed_order_generation_enabled",
 )
 
 DEFAULT_035_BLOCKERS = (
@@ -345,6 +353,8 @@ def build_live_canary_readiness_evidence_bundle(
     tiny_live_canary_gonogo_gate: Mapping[str, Any] | None = None,
     live_enablement_config_preflight: Mapping[str, Any] | None = None,
     live_enablement_config_preflight_summary: Mapping[str, Any] | None = None,
+    wallet_signing_boundary_report: Mapping[str, Any] | None = None,
+    wallet_signing_boundary_summary: Mapping[str, Any] | None = None,
     telegram_operator_control_bot_v1: Mapping[str, Any] | None = None,
     telegram_mini_app_operator_panel_v1: Mapping[str, Any] | None = None,
     dry_run_receipt_references: Sequence[str] | None = None,
@@ -383,6 +393,13 @@ def build_live_canary_readiness_evidence_bundle(
         live_enablement_config_preflight_summary
         or summarize_live_enablement_config_preflight(live_config_preflight, generated_at=generated_at)
     )
+    wallet_boundary = dict(
+        wallet_signing_boundary_report or build_wallet_signing_boundary_report(generated_at=generated_at)
+    )
+    wallet_boundary_summary = dict(
+        wallet_signing_boundary_summary
+        or summarize_wallet_signing_boundary_report(wallet_boundary, generated_at=generated_at)
+    )
     telegram_control = dict(telegram_operator_control_bot_v1 or {})
     telegram_mini_app = dict(telegram_mini_app_operator_panel_v1 or {})
     overrides = {clean_text(key): clean_text(value) for key, value in dict(artifact_reference_overrides or {}).items()}
@@ -409,6 +426,7 @@ def build_live_canary_readiness_evidence_bundle(
         tiny_live_canary_gonogo_gate=gonogo_gate,
         live_enablement_config_preflight=live_config_preflight,
         live_enablement_config_preflight_summary=live_config_preflight_summary,
+        wallet_signing_boundary_summary=wallet_boundary_summary,
         telegram_operator_control_bot_v1=telegram_control,
         telegram_mini_app_operator_panel_v1=telegram_mini_app,
         dry_run_receipt_references=dry_run_receipt_references,
@@ -790,6 +808,7 @@ def _build_evidence_items(
     tiny_live_canary_gonogo_gate: Mapping[str, Any],
     live_enablement_config_preflight: Mapping[str, Any],
     live_enablement_config_preflight_summary: Mapping[str, Any],
+    wallet_signing_boundary_summary: Mapping[str, Any],
     telegram_operator_control_bot_v1: Mapping[str, Any],
     telegram_mini_app_operator_panel_v1: Mapping[str, Any],
     dry_run_receipt_references: Sequence[str] | None,
@@ -1254,6 +1273,48 @@ def _build_evidence_items(
             "wallet_signing_enabled": False,
         },
         _item(
+            "wallet_signing_boundary_scaffold_dry_run_only",
+            "wallet_signing_boundary",
+            _override_or_reference(
+                artifact_reference_overrides,
+                "wallet_signing_boundary_scaffold_dry_run_only",
+                wallet_signing_boundary_summary,
+                ("boundary_id", "summary_id", "boundary_name", "status"),
+                "wallet_signing_boundary_049:review_only_signing_disabled",
+            ),
+            clean_text(wallet_signing_boundary_summary.get("status") or "SIGNING_DISABLED_REVIEW_ONLY"),
+            "Wallet signing boundary scaffold is review-only and refuses all signing, wallet access, signed payload generation, and live execution.",
+            review_ready=(
+                wallet_signing_boundary_summary.get("review_only") is not False
+                and wallet_signing_boundary_summary.get("execution_enabling") is not True
+                and wallet_signing_boundary_summary.get("live_approval") is not True
+                and wallet_signing_boundary_summary.get("wallet_signing_enabled") is not True
+                and wallet_signing_boundary_summary.get("signing_enabled") is not True
+                and wallet_signing_boundary_summary.get("signed_payload_generation_enabled") is not True
+                and wallet_signing_boundary_summary.get("signed_order_generation_enabled") is not True
+                and wallet_signing_boundary_summary.get("allowed_for_live") is not True
+                and wallet_signing_boundary_summary.get("real_execution_available") is not True
+            ),
+        )
+        | {
+            "review_only": True,
+            "execution_enabling": False,
+            "live_approval": False,
+            "wallet_signing_enabled": False,
+            "signing_enabled": False,
+            "cryptographic_signing_enabled": False,
+            "transaction_signing_enabled": False,
+            "signed_payload_generation_enabled": False,
+            "signed_order_generation_enabled": False,
+            "execution_enabling": False,
+            "allowed_for_live": False,
+            "canary_executable_now": False,
+            "live_execution_approved": False,
+            "real_execution_available": False,
+            "live_connector_enabled": False,
+            "order_submission_enabled": False,
+        },
+        _item(
             "telegram_operator_control_bot_v1",
             "telegram_operator_control_bot",
             _override_or_reference(
@@ -1562,7 +1623,12 @@ def _evidence_safety_flags() -> dict[str, Any]:
         "wallet_signing_added": False,
         "wallet_signing_performed": False,
         "transaction_signing_added": False,
+        "transaction_signing_enabled": False,
         "transaction_signing_performed": False,
+        "signed_payload_generation_enabled": False,
+        "signed_payload_created": False,
+        "signed_order_generation_enabled": False,
+        "signed_order_created": False,
         "real_order_placement_added": False,
         "real_order_placement_performed": False,
         "authenticated_endpoint_added": False,

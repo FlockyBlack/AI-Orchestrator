@@ -69,6 +69,10 @@ from pm_bot.trading_core.live_enablement_config import (
     build_live_enablement_config_preflight,
     summarize_live_enablement_config_preflight,
 )
+from pm_bot.trading_core.wallet_signing_boundary import (
+    build_wallet_signing_boundary_report,
+    summarize_wallet_signing_boundary_report,
+)
 from pm_bot.trading_core.live_order_submission_boundary import (
     build_live_order_submission_boundary_receipt,
     summarize_live_order_submission_boundary_receipt,
@@ -215,6 +219,11 @@ UNSAFE_TRUE_FIELDS = {
     "wallet_used",
     "private_key_used",
     "signing_used",
+    "signing_enabled",
+    "wallet_signing_enabled",
+    "transaction_signing_enabled",
+    "signed_payload_generation_enabled",
+    "signed_order_generation_enabled",
     "trading_endpoint_required",
     "trading_endpoint_used",
     "real_money_used",
@@ -291,6 +300,7 @@ class PaperDailyLoopResult:
     btc_risk_decision_path: str
     live_order_submission_boundary_path: str
     live_enablement_config_preflight_path: str
+    wallet_signing_boundary_path: str
     tiny_live_canary_gonogo_gate_path: str
     tiny_live_canary_preflight_contract_path: str
     tiny_live_canary_manual_runbook_path: str
@@ -662,6 +672,9 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
     latest_live_enablement_config_preflight_path = (
         normalize_path(paths["live_enablement_config_preflight"]) if active_config.write_artifacts else ""
     )
+    latest_wallet_signing_boundary_path = (
+        normalize_path(paths["wallet_signing_boundary"]) if active_config.write_artifacts else ""
+    )
     latest_tiny_live_canary_gonogo_gate_path = (
         normalize_path(paths["tiny_live_canary_gonogo_gate"]) if active_config.write_artifacts else ""
     )
@@ -672,6 +685,15 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
     live_enablement_config_preflight_summary = summarize_live_enablement_config_preflight(
         live_enablement_config_preflight,
         latest_live_enablement_config_preflight_path=latest_live_enablement_config_preflight_path,
+        generated_at=generated_at,
+    )
+    wallet_signing_boundary = build_wallet_signing_boundary_report(
+        config_source="paper_daily_loop_default_missing_wallet_signing_config",
+        generated_at=generated_at,
+    )
+    wallet_signing_boundary_summary = summarize_wallet_signing_boundary_report(
+        wallet_signing_boundary,
+        latest_wallet_signing_boundary_path=latest_wallet_signing_boundary_path,
         generated_at=generated_at,
     )
     latest_telegram_operator_control_state_path = (
@@ -854,6 +876,8 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         tiny_live_canary_gonogo_gate=provisional_tiny_live_canary_gonogo_gate_summary,
         live_enablement_config_preflight=live_enablement_config_preflight,
         live_enablement_config_preflight_summary=live_enablement_config_preflight_summary,
+        wallet_signing_boundary_report=wallet_signing_boundary,
+        wallet_signing_boundary_summary=wallet_signing_boundary_summary,
         telegram_operator_control_bot_v1=provisional_telegram_operator_control_bot_summary,
         telegram_mini_app_operator_panel_v1=provisional_telegram_mini_app_operator_panel_summary,
         dry_run_receipt_references=[canary_dry_run_receipt.get("receipt_id", "")],
@@ -903,6 +927,10 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
             "live_enablement_config_contract_and_runtime_preflight": (
                 latest_live_enablement_config_preflight_path
                 or "live_enablement_config_preflight_047:review_only_non_execution"
+            ),
+            "wallet_signing_boundary_scaffold_dry_run_only": (
+                latest_wallet_signing_boundary_path
+                or "wallet_signing_boundary_049:review_only_signing_disabled"
             ),
             "telegram_operator_control_bot_v1": latest_telegram_operator_control_state_path
             or "telegram_operator_control_bot_v1:review_only_non_execution",
@@ -1050,6 +1078,8 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         live_credentials_auth_boundary_summary=live_credentials_auth_boundary_summary,
         live_enablement_config_preflight=live_enablement_config_preflight,
         live_enablement_config_preflight_summary=live_enablement_config_preflight_summary,
+        wallet_signing_boundary=wallet_signing_boundary,
+        wallet_signing_boundary_summary=wallet_signing_boundary_summary,
         risk_limit_policy=risk_limit_policy,
         latest_risk_limit_decision=latest_risk_limit_decision,
         risk_control_plane_summary=risk_control_plane_summary,
@@ -1086,6 +1116,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         latest_readiness_evidence_bundle_path=latest_readiness_evidence_bundle_path,
         latest_live_credentials_auth_boundary_path=latest_live_credentials_auth_boundary_path,
         latest_live_enablement_config_preflight_path=latest_live_enablement_config_preflight_path,
+        latest_wallet_signing_boundary_path=latest_wallet_signing_boundary_path,
         latest_btc_market_snapshot_path=latest_btc_market_snapshot_path,
         latest_btc_analysis_path=latest_btc_analysis_path,
         latest_btc_order_intent_path=latest_btc_order_intent_path,
@@ -1108,6 +1139,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         "readiness_evidence_bundle": latest_readiness_evidence_bundle_path,
         "live_credentials_auth_boundary": latest_live_credentials_auth_boundary_path,
         "live_enablement_config_preflight": latest_live_enablement_config_preflight_path,
+        "wallet_signing_boundary": latest_wallet_signing_boundary_path,
         "btc_market_snapshot": latest_btc_market_snapshot_path,
         "btc_market_analysis": latest_btc_analysis_path,
         "btc_order_intent_dry_run": latest_btc_order_intent_path,
@@ -1141,6 +1173,8 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         live_order_submission_boundary_summary=live_order_submission_boundary_summary,
         live_enablement_config_preflight=live_enablement_config_preflight,
         live_enablement_config_preflight_summary=live_enablement_config_preflight_summary,
+        wallet_signing_boundary_report=wallet_signing_boundary,
+        wallet_signing_boundary_summary=wallet_signing_boundary_summary,
         tiny_live_canary_gonogo_gate=tiny_live_canary_gonogo_gate,
         tiny_live_canary_gonogo_gate_summary=tiny_live_canary_gonogo_gate_summary,
         live_credentials_auth_boundary_summary=live_credentials_auth_boundary_summary,
@@ -1230,6 +1264,8 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
             live_order_submission_boundary_summary,
             live_enablement_config_preflight,
             live_enablement_config_preflight_summary,
+            wallet_signing_boundary,
+            wallet_signing_boundary_summary,
             tiny_live_canary_gonogo_gate,
             tiny_live_canary_gonogo_gate_summary,
             live_credentials_auth_boundary,
@@ -1398,6 +1434,20 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         and live_enablement_config_preflight_summary.get("status") == "CONFIG_MISSING_BLOCKED"
         and live_enablement_config_preflight_summary.get("allowed_for_live") is False
         and live_enablement_config_preflight_summary.get("no_executable_action") is True
+        and wallet_signing_boundary.get("status") == "SIGNING_DISABLED_REVIEW_ONLY"
+        and wallet_signing_boundary.get("wallet_signing_enabled") is False
+        and wallet_signing_boundary.get("signing_enabled") is False
+        and wallet_signing_boundary.get("transaction_signing_enabled") is False
+        and wallet_signing_boundary.get("signed_payload_generation_enabled") is False
+        and wallet_signing_boundary.get("signed_order_generation_enabled") is False
+        and wallet_signing_boundary.get("allowed_for_live") is False
+        and wallet_signing_boundary.get("real_execution_available") is False
+        and wallet_signing_boundary.get("resolved_blocker_count") == 0
+        and wallet_signing_boundary.get("validation", {}).get("valid") is True
+        and wallet_signing_boundary_summary.get("wallet_signing_enabled") is False
+        and wallet_signing_boundary_summary.get("signing_enabled") is False
+        and wallet_signing_boundary_summary.get("signed_payload_generation_enabled") is False
+        and wallet_signing_boundary_summary.get("no_executable_action") is True
         and live_credentials_auth_boundary.get("live_credentials_boundary_ready") is True
         and live_credentials_auth_boundary.get("live_auth_presence_check_ready") is True
         and live_credentials_auth_boundary.get("redacted_credential_status_ready") is True
@@ -1582,6 +1632,11 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         and dashboard.get("live_enablement_config_preflight_summary", {}).get("live_connector_enabled") is False
         and dashboard.get("live_enablement_config_preflight_summary", {}).get("order_submission_enabled") is False
         and dashboard.get("live_enablement_config_preflight_summary", {}).get("resolved_blocker_count") == 0
+        and dashboard.get("wallet_signing_boundary_summary", {}).get("wallet_signing_enabled") is False
+        and dashboard.get("wallet_signing_boundary_summary", {}).get("signing_enabled") is False
+        and dashboard.get("wallet_signing_boundary_summary", {}).get("signed_payload_generation_enabled") is False
+        and dashboard.get("wallet_signing_boundary_summary", {}).get("no_executable_action") is True
+        and dashboard.get("wallet_signing_boundary_summary", {}).get("resolved_blocker_count") == 0
         and dashboard.get("live_credentials_auth_boundary_summary", {}).get("redacted_credential_status_ready")
         is True
         and dashboard.get("live_credentials_auth_boundary_summary", {}).get("actual_secret_values_exposed") is False
@@ -1612,6 +1667,16 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         is False
         and operator_ui_panel_v1.get("live_enablement_config_preflight_summary", {}).get("no_executable_action")
         is True
+        and operator_ui_panel_v1.get("wallet_signing_boundary_summary", {}).get("wallet_signing_boundary_section_ready")
+        is True
+        and operator_ui_panel_v1.get("wallet_signing_boundary_summary", {}).get("wallet_signing_enabled")
+        is False
+        and operator_ui_panel_v1.get("wallet_signing_boundary_summary", {}).get("signing_enabled") is False
+        and operator_ui_panel_v1.get("wallet_signing_boundary_summary", {}).get(
+            "signed_payload_generation_enabled"
+        )
+        is False
+        and operator_ui_panel_v1.get("wallet_signing_boundary_summary", {}).get("no_executable_action") is True
         and operator_ui_panel_v1.get("live_credentials_auth_boundary_summary", {}).get(
             "redacted_credential_status_ready"
         )
@@ -1696,6 +1761,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
         btc_risk_decision_path=latest_btc_risk_decision_path,
         live_order_submission_boundary_path=latest_live_order_submission_boundary_path,
         live_enablement_config_preflight_path=latest_live_enablement_config_preflight_path,
+        wallet_signing_boundary_path=latest_wallet_signing_boundary_path,
         tiny_live_canary_gonogo_gate_path=latest_tiny_live_canary_gonogo_gate_path,
         tiny_live_canary_preflight_contract_path=(
             normalize_path(paths["tiny_live_canary_preflight_contract"]) if active_config.write_artifacts else ""
@@ -1777,6 +1843,7 @@ def run_paper_daily_loop(config: PaperDailyLoopConfig | None = None) -> PaperDai
             btc_risk_decision=latest_risk_limit_decision,
             live_order_submission_boundary=live_order_submission_boundary,
             live_enablement_config_preflight=live_enablement_config_preflight,
+            wallet_signing_boundary=wallet_signing_boundary,
             tiny_live_canary_gonogo_gate=tiny_live_canary_gonogo_gate,
             tiny_live_canary_preflight_contract=tiny_live_canary_preflight_contract,
             tiny_live_canary_manual_runbook=tiny_live_canary_manual_runbook,
@@ -1843,6 +1910,7 @@ def _daily_paths(output_dir: Path) -> dict[str, Path]:
         "btc_risk_decision": output_dir / "btc_risk_decision_039.json",
         "live_order_submission_boundary": output_dir / "live_order_submission_boundary_041.json",
         "live_enablement_config_preflight": output_dir / "live_enablement_config_preflight_047.json",
+        "wallet_signing_boundary": output_dir / "wallet_signing_boundary_049.json",
         "tiny_live_canary_gonogo_gate": output_dir / "tiny_live_canary_gonogo_gate_042.json",
         "tiny_live_canary_preflight_contract": output_dir / "tiny_live_canary_preflight_contract.json",
         "tiny_live_canary_preflight_contract_md": output_dir / "tiny_live_canary_preflight_contract.md",
@@ -2359,6 +2427,8 @@ def _build_daily_dashboard(
     live_credentials_auth_boundary_summary: Mapping[str, Any],
     live_enablement_config_preflight: Mapping[str, Any],
     live_enablement_config_preflight_summary: Mapping[str, Any],
+    wallet_signing_boundary: Mapping[str, Any],
+    wallet_signing_boundary_summary: Mapping[str, Any],
     risk_limit_policy: Mapping[str, Any],
     latest_risk_limit_decision: Mapping[str, Any] | None,
     risk_control_plane_summary: Mapping[str, Any],
@@ -2385,6 +2455,7 @@ def _build_daily_dashboard(
     latest_readiness_evidence_bundle_path: str,
     latest_live_credentials_auth_boundary_path: str,
     latest_live_enablement_config_preflight_path: str,
+    latest_wallet_signing_boundary_path: str,
     latest_btc_market_snapshot_path: str,
     latest_btc_analysis_path: str,
     latest_btc_order_intent_path: str,
@@ -2754,6 +2825,29 @@ def _build_daily_dashboard(
         "latest_live_enablement_config_preflight_path": clean_text(
             latest_live_enablement_config_preflight_path
         ),
+        "wallet_signing_boundary_report": dict(wallet_signing_boundary),
+        "wallet_signing_boundary_summary": dict(wallet_signing_boundary_summary)
+        | {
+            "latest_wallet_signing_boundary_path": clean_text(latest_wallet_signing_boundary_path),
+            "wallet_signing_enabled": False,
+            "signing_enabled": False,
+            "cryptographic_signing_enabled": False,
+            "transaction_signing_enabled": False,
+            "signed_payload_generation_enabled": False,
+            "signed_order_generation_enabled": False,
+            "allowed_for_live": False,
+            "canary_executable_now": False,
+            "live_execution_approved": False,
+            "real_execution_available": False,
+            "live_connector_enabled": False,
+            "order_submission_enabled": False,
+            "resolved_blocker_count": 0,
+            "no_executable_action": True,
+            "execution_enabling": False,
+            "live_approval": False,
+            "review_only": True,
+        },
+        "latest_wallet_signing_boundary_path": clean_text(latest_wallet_signing_boundary_path),
         "tiny_live_canary_gonogo_gate": dict(tiny_live_canary_gonogo_gate),
         "tiny_live_canary_gonogo_gate_summary": dict(tiny_live_canary_gonogo_gate_summary),
         "latest_tiny_live_canary_gonogo_gate_path": clean_text(latest_tiny_live_canary_gonogo_gate_path),
@@ -3338,6 +3432,7 @@ def _write_daily_artifacts(
     btc_risk_decision: Mapping[str, Any],
     live_order_submission_boundary: Mapping[str, Any],
     live_enablement_config_preflight: Mapping[str, Any],
+    wallet_signing_boundary: Mapping[str, Any],
     tiny_live_canary_gonogo_gate: Mapping[str, Any],
     tiny_live_canary_preflight_contract: Mapping[str, Any],
     tiny_live_canary_manual_runbook: Mapping[str, Any],
@@ -3409,6 +3504,7 @@ def _write_daily_artifacts(
     write_json(paths["btc_risk_decision"], btc_risk_decision)
     write_json(paths["live_order_submission_boundary"], live_order_submission_boundary)
     write_json(paths["live_enablement_config_preflight"], live_enablement_config_preflight)
+    write_json(paths["wallet_signing_boundary"], wallet_signing_boundary)
     write_json(paths["tiny_live_canary_gonogo_gate"], tiny_live_canary_gonogo_gate)
     write_json(paths["tiny_live_canary_preflight_contract"], tiny_live_canary_preflight_contract)
     write_text(
@@ -3494,6 +3590,7 @@ def _render_daily_dashboard_markdown(dashboard: Mapping[str, Any]) -> str:
     counts = dict(dashboard.get("counts", {}))
     source_status = dict(dashboard.get("source_evidence_refresh_status", {}))
     source_counts = dict(source_status.get("summary_counts", {}))
+    wallet_signing_boundary = dict(dashboard.get("wallet_signing_boundary_summary", {}))
     lines = [
         "# PMBOT Paper Daily Dashboard",
         "",
@@ -3782,6 +3879,21 @@ def _render_daily_dashboard_markdown(dashboard: Mapping[str, Any]) -> str:
             f"- Latest preflight: `{live_enablement_config.get('latest_live_enablement_config_preflight_path')}`",
             "- Top blocked reasons:",
             *bullet_lines(str(item) for item in live_enablement_config.get("top_blocked_reasons", [])),
+            "",
+            "## Wallet Signing Boundary",
+            "",
+            f"- Status: `{wallet_signing_boundary.get('status')}`",
+            f"- Wallet signing enabled: `{str(wallet_signing_boundary.get('wallet_signing_enabled')).lower()}`",
+            f"- Signing enabled: `{str(wallet_signing_boundary.get('signing_enabled')).lower()}`",
+            f"- Transaction signing enabled: `{str(wallet_signing_boundary.get('transaction_signing_enabled')).lower()}`",
+            f"- Signed payload generation enabled: `{str(wallet_signing_boundary.get('signed_payload_generation_enabled')).lower()}`",
+            f"- Signed order generation enabled: `{str(wallet_signing_boundary.get('signed_order_generation_enabled')).lower()}`",
+            f"- Allowed for live: `{str(wallet_signing_boundary.get('allowed_for_live')).lower()}`",
+            f"- Real execution available: `{str(wallet_signing_boundary.get('real_execution_available')).lower()}`",
+            f"- No executable action: `{str(wallet_signing_boundary.get('no_executable_action')).lower()}`",
+            f"- Latest boundary: `{wallet_signing_boundary.get('latest_wallet_signing_boundary_path')}`",
+            "- Top blocked reasons:",
+            *bullet_lines(str(item) for item in wallet_signing_boundary.get("top_blocked_reasons", [])),
             "",
             "## Tiny Live Canary Go/No-Go Gate",
             "",
@@ -4095,6 +4207,7 @@ def _render_daily_run_report(
             f"- BTC risk decision: `{result.get('btc_risk_decision_path')}`",
             f"- Live order submission boundary: `{result.get('live_order_submission_boundary_path')}`",
             f"- Live enablement config preflight: `{result.get('live_enablement_config_preflight_path')}`",
+            f"- Wallet signing boundary: `{result.get('wallet_signing_boundary_path')}`",
             f"- Tiny live canary go/no-go gate: `{result.get('tiny_live_canary_gonogo_gate_path')}`",
             f"- Telegram operator control state: `{result.get('telegram_operator_control_state_path')}`",
             f"- Operator UI panel JSON: `{result.get('operator_ui_panel_json_path')}`",
