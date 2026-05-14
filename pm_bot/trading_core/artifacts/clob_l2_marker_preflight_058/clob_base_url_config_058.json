@@ -1,0 +1,23 @@
+{
+  "actual_secret_values_exposed": false,
+  "clob_base_url_configured": false,
+  "clob_base_url_host": "",
+  "clob_base_url_invalid": false,
+  "clob_base_url_missing": true,
+  "clob_base_url_scheme": "",
+  "clob_base_url_status": "missing",
+  "clob_base_url_valid": false,
+  "contract_version": "pmbot_clob_base_url_config_058.v1",
+  "env_var_name": "PMBOT_POLYMARKET_CLOB_BASE_URL",
+  "generated_at": "2026-05-11T00:00:00Z",
+  "is_production_clob_base_url": false,
+  "l1_private_key_material_requested": false,
+  "operator_safe_summary": "PMBOT_POLYMARKET_CLOB_BASE_URL is missing.",
+  "private_key_envs_checked": false,
+  "public_clob_base_url": "",
+  "public_clob_base_url_emitted": false,
+  "raw_credential_values_persisted": false,
+  "raw_values_emitted": false,
+  "status": "missing",
+  "unsafe_sensitive_value_detected": false
+}

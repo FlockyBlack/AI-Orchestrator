@@ -1,0 +1,82 @@
+{
+  "actual_secret_values_exposed": false,
+  "allowed_marker_values": [
+    "1",
+    "present",
+    "true"
+  ],
+  "auth_marker_presence_detected": false,
+  "configured_count": 0,
+  "contract_version": "pmbot_redacted_l2_marker_presence_058.v1",
+  "credential_presence_check_scope": "l2_marker_env_var_presence_only",
+  "env_presence_items": [
+    {
+      "actual_secret_value_exposed": false,
+      "env_var_name": "PMBOT_POLYMARKET_L2_API_KEY_PRESENT",
+      "marker_status": "missing",
+      "presence_status": "missing",
+      "present": false,
+      "raw_value_emitted": false,
+      "safe_for_artifacts": true,
+      "value_allowed_marker": false,
+      "value_hash_emitted": false,
+      "value_prefix_emitted": false,
+      "value_suffix_emitted": false
+    },
+    {
+      "actual_secret_value_exposed": false,
+      "env_var_name": "PMBOT_POLYMARKET_L2_API_SECRET_PRESENT",
+      "marker_status": "missing",
+      "presence_status": "missing",
+      "present": false,
+      "raw_value_emitted": false,
+      "safe_for_artifacts": true,
+      "value_allowed_marker": false,
+      "value_hash_emitted": false,
+      "value_prefix_emitted": false,
+      "value_suffix_emitted": false
+    },
+    {
+      "actual_secret_value_exposed": false,
+      "env_var_name": "PMBOT_POLYMARKET_L2_PASSPHRASE_PRESENT",
+      "marker_status": "missing",
+      "presence_status": "missing",
+      "present": false,
+      "raw_value_emitted": false,
+      "safe_for_artifacts": true,
+      "value_allowed_marker": false,
+      "value_hash_emitted": false,
+      "value_prefix_emitted": false,
+      "value_suffix_emitted": false
+    }
+  ],
+  "environment_presence_checked": true,
+  "environment_values_serialized": false,
+  "expected_marker_count": 3,
+  "generated_at": "2026-05-11T00:00:00Z",
+  "l1_private_key_material_requested": false,
+  "marker_presence_status": "missing",
+  "marker_set_complete": false,
+  "missing_count": 3,
+  "missing_env_vars": [
+    "PMBOT_POLYMARKET_L2_API_KEY_PRESENT",
+    "PMBOT_POLYMARKET_L2_API_SECRET_PRESENT",
+    "PMBOT_POLYMARKET_L2_PASSPHRASE_PRESENT"
+  ],
+  "operator_safe_summary": "L2 marker variables are missing.",
+  "private_key_envs_checked": false,
+  "raw_credential_values_persisted": false,
+  "raw_values_emitted": false,
+  "redacted_presence_only": true,
+  "secrets_persisted": false,
+  "secrets_printed": false,
+  "status": "missing",
+  "supported_marker_env_vars": [
+    "PMBOT_POLYMARKET_L2_API_KEY_PRESENT",
+    "PMBOT_POLYMARKET_L2_API_SECRET_PRESENT",
+    "PMBOT_POLYMARKET_L2_PASSPHRASE_PRESENT"
+  ],
+  "unsafe_raw_value_detected": false,
+  "unsafe_raw_value_env_vars": [],
+  "value_hashes_emitted": false
+}

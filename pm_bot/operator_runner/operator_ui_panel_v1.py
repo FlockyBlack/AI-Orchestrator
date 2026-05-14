@@ -117,6 +117,9 @@ OPERATOR_UI_PANEL_LIVE_CONNECTOR_PREFLIGHT_SUMMARY_CONTRACT = (
 OPERATOR_UI_PANEL_AUTHENTICATED_CLOB_PREFLIGHT_SUMMARY_CONTRACT = (
     "pmbot_operator_ui_panel_authenticated_clob_preflight_summary_057.v1"
 )
+OPERATOR_UI_PANEL_CLOB_L2_MARKER_PREFLIGHT_SUMMARY_CONTRACT = (
+    "pmbot_operator_ui_panel_clob_l2_marker_preflight_summary_058.v1"
+)
 OPERATOR_UI_PANEL_VALIDATION_CONTRACT = "pmbot_operator_ui_panel_validation.v1"
 
 TASK_ID = "ORCH-PMBOT-TRADING-MVP-036-OPERATOR-UI-PANEL-V1-READINESS-RISK-LIMITS-KILL-SWITCH"
@@ -1004,6 +1007,7 @@ def build_operator_ui_panel_v1(
     live_connector_audit_operator_summary: Mapping[str, Any] | None = None,
     live_connector_preflight_status_summary: Mapping[str, Any] | None = None,
     authenticated_clob_preflight_status_summary: Mapping[str, Any] | None = None,
+    clob_l2_marker_preflight_status_summary: Mapping[str, Any] | None = None,
     telegram_operator_control_bot_summary: Mapping[str, Any] | None = None,
     telegram_mini_app_operator_panel_summary: Mapping[str, Any] | None = None,
     latest_paths: Mapping[str, str] | None = None,
@@ -1265,6 +1269,33 @@ def build_operator_ui_panel_v1(
         latest_status_path=paths.get("authenticated_clob_preflight_status", "")
         or clean_text(dashboard_value.get("latest_authenticated_clob_preflight_status_path")),
     )
+    clob_l2_marker_preflight_summary = _build_clob_l2_marker_preflight_summary(
+        clob_l2_marker_preflight_status=(
+            clob_l2_marker_preflight_status_summary
+            or dashboard_value.get("clob_l2_marker_preflight_status_summary")
+            or dashboard_value.get("clob_l2_marker_preflight_status")
+            or dashboard_value.get("latest_clob_l2_marker_preflight_status")
+            or authenticated_clob_preflight_summary.get("clob_l2_marker_preflight_status_summary")
+            or {}
+        ),
+        latest_status_path=paths.get("clob_l2_marker_preflight_status", "")
+        or clean_text(dashboard_value.get("latest_clob_l2_marker_preflight_status_path")),
+    )
+    authenticated_clob_preflight_summary["clob_l2_marker_preflight_status_summary"] = (
+        clob_l2_marker_preflight_summary
+    )
+    authenticated_clob_preflight_summary["clob_l2_marker_preflight_status"] = (
+        clob_l2_marker_preflight_summary.get("status")
+    )
+    authenticated_clob_preflight_summary["auth_marker_presence_detected"] = (
+        clob_l2_marker_preflight_summary.get("auth_marker_presence_detected") is True
+    )
+    authenticated_clob_preflight_summary["l2_marker_set_complete"] = (
+        clob_l2_marker_preflight_summary.get("l2_marker_set_complete") is True
+    )
+    authenticated_clob_preflight_summary["unsafe_l2_marker_detected"] = (
+        clob_l2_marker_preflight_summary.get("unsafe_raw_value_detected") is True
+    )
     readiness = _build_readiness_summary(
         operator_review_ready=operator_packet_summary.get("operator_approval_packet_review_ready") is True,
         evidence_bundle_review_ready=evidence_summary.get("evidence_bundle_review_ready") is True,
@@ -1375,6 +1406,8 @@ def build_operator_ui_panel_v1(
     panel["live_connector_preflight_section_ready"] = True
     panel["authenticated_clob_preflight_status_summary"] = authenticated_clob_preflight_summary
     panel["authenticated_clob_preflight_section_ready"] = True
+    panel["clob_l2_marker_preflight_status_summary"] = clob_l2_marker_preflight_summary
+    panel["clob_l2_marker_preflight_section_ready"] = True
     validation = validate_operator_ui_panel_v1(panel, generated_at=generated_at)
     panel["validation"] = validation
     return panel
@@ -1963,6 +1996,21 @@ def summarize_operator_ui_panel_v1(panel: Mapping[str, Any]) -> dict[str, Any]:
         "authenticated_clob_preflight_clob_base_url_status": dict(
             panel.get("authenticated_clob_preflight_status_summary", {})
         ).get("clob_base_url_status"),
+        "clob_l2_marker_preflight_status": dict(
+            panel.get("clob_l2_marker_preflight_status_summary", {})
+        ).get("status"),
+        "clob_l2_marker_preflight_clob_base_url_configured": dict(
+            panel.get("clob_l2_marker_preflight_status_summary", {})
+        ).get("clob_base_url_configured"),
+        "clob_l2_marker_preflight_l2_marker_set_complete": dict(
+            panel.get("clob_l2_marker_preflight_status_summary", {})
+        ).get("l2_marker_set_complete"),
+        "clob_l2_marker_preflight_unsafe_raw_value_detected": dict(
+            panel.get("clob_l2_marker_preflight_status_summary", {})
+        ).get("unsafe_raw_value_detected"),
+        "clob_l2_marker_preflight_no_order_auth_plan_ready": dict(
+            panel.get("clob_l2_marker_preflight_status_summary", {})
+        ).get("no_order_auth_plan_ready"),
         "authenticated_clob_preflight_order_submission_blocked": dict(
             panel.get("authenticated_clob_preflight_status_summary", {})
         ).get("order_submission_blocked"),
@@ -3408,12 +3456,77 @@ def _build_live_connector_preflight_summary(
     }
 
 
+def _build_clob_l2_marker_preflight_summary(
+    *,
+    clob_l2_marker_preflight_status: Mapping[str, Any] | None,
+    latest_status_path: str,
+) -> dict[str, Any]:
+    status = dict(clob_l2_marker_preflight_status or {})
+    blockers = status.get("blockers") if isinstance(status.get("blockers"), list) else []
+    top_blockers = status.get("top_blocker_reasons")
+    if not isinstance(top_blockers, list):
+        top_blockers = [
+            clean_text(row.get("reason"))
+            for row in mapping_rows(blockers)
+            if clean_text(row.get("reason"))
+        ][:8]
+    return {
+        "contract_version": OPERATOR_UI_PANEL_CLOB_L2_MARKER_PREFLIGHT_SUMMARY_CONTRACT,
+        "status": clean_text(status.get("status") or NOT_AVAILABLE),
+        "market": clean_text(status.get("market") or NOT_AVAILABLE),
+        "mode": clean_text(status.get("mode") or "preflight / review-only"),
+        "execution_mode": clean_text(status.get("execution_mode") or "preflight"),
+        "clob_base_url_configured": status.get("clob_base_url_configured") is True,
+        "clob_base_url_status": clean_text(status.get("clob_base_url_status") or NOT_AVAILABLE),
+        "clob_base_url_valid": status.get("clob_base_url_valid") is True,
+        "clob_base_url_missing": status.get("clob_base_url_missing") is True,
+        "clob_base_url_invalid": status.get("clob_base_url_invalid") is True,
+        "public_clob_base_url": clean_text(status.get("public_clob_base_url")),
+        "is_production_clob_base_url": status.get("is_production_clob_base_url") is True,
+        "auth_marker_presence_detected": status.get("auth_marker_presence_detected") is True,
+        "l2_marker_presence_status": clean_text(status.get("l2_marker_presence_status") or NOT_AVAILABLE),
+        "l2_marker_set_complete": status.get("l2_marker_set_complete") is True,
+        "l2_marker_configured_count": _int_or_zero(status.get("l2_marker_configured_count")),
+        "l2_marker_missing_count": _int_or_zero(status.get("l2_marker_missing_count")),
+        "unsafe_raw_value_detected": status.get("unsafe_raw_value_detected") is True,
+        "auth_boundary_mock_checked": status.get("auth_boundary_mock_checked") is True,
+        "no_order_auth_plan_ready": status.get("no_order_auth_plan_ready") is True,
+        "authenticated_request_skipped_by_default": True,
+        "authenticated_request_performed": False,
+        "blocker_count": _int_or_zero(status.get("blocker_count"), len(blockers)),
+        "top_blocker_reasons": [clean_text(item) for item in top_blockers if clean_text(item)],
+        "artifact_path": clean_text(status.get("artifact_path")),
+        "latest_status_path": clean_text(status.get("latest_status_path") or latest_status_path),
+        "operator_markdown_path": clean_text(status.get("operator_markdown_path")),
+        "clob_base_url_config_path": clean_text(status.get("clob_base_url_config_path")),
+        "redacted_l2_marker_presence_path": clean_text(status.get("redacted_l2_marker_presence_path")),
+        "unsafe_l2_marker_detection_path": clean_text(status.get("unsafe_l2_marker_detection_path")),
+        "no_order_auth_boundary_plan_path": clean_text(status.get("no_order_auth_boundary_plan_path")),
+        "blockers_path": clean_text(status.get("blockers_path")),
+        "review_only": True,
+        "preflight_only": True,
+        "order_submission_blocked": True,
+        "order_cancellation_blocked": True,
+        "signing_blocked": True,
+        "wallet_connection_blocked": True,
+        "balance_read_blocked": True,
+        "position_read_blocked": True,
+        "live_execution_blocked": True,
+        "next_operator_action": clean_text(
+            status.get("next_operator_action")
+            or "configure safe CLOB base URL and redacted L2 marker variables; no live order available"
+        ),
+        **_panel_safety_flags(),
+    }
+
+
 def _build_authenticated_clob_preflight_summary(
     *,
     authenticated_clob_preflight_status: Mapping[str, Any] | None,
     latest_status_path: str,
 ) -> dict[str, Any]:
     status = dict(authenticated_clob_preflight_status or {})
+    marker_summary = dict(status.get("clob_l2_marker_preflight_status_summary") or {})
     blockers = status.get("blockers") if isinstance(status.get("blockers"), list) else []
     top_blockers = status.get("top_blocker_reasons")
     if not isinstance(top_blockers, list):
@@ -3448,6 +3561,22 @@ def _build_authenticated_clob_preflight_summary(
             status.get("no_order_auth_check_status") or NOT_AVAILABLE
         ),
         "no_order_auth_check_performed": status.get("no_order_auth_check_performed") is True,
+        "clob_l2_marker_preflight_status_summary": marker_summary,
+        "clob_l2_marker_preflight_status": clean_text(
+            marker_summary.get("status") or status.get("clob_l2_marker_preflight_status") or NOT_AVAILABLE
+        ),
+        "clob_base_url_configured": marker_summary.get("clob_base_url_configured") is True
+        or status.get("clob_base_url_configured") is True,
+        "clob_base_url_valid": marker_summary.get("clob_base_url_valid") is True,
+        "auth_marker_presence_detected": marker_summary.get("auth_marker_presence_detected") is True
+        or status.get("auth_marker_presence_detected") is True,
+        "l2_marker_presence_status": clean_text(marker_summary.get("l2_marker_presence_status") or NOT_AVAILABLE),
+        "l2_marker_set_complete": marker_summary.get("l2_marker_set_complete") is True,
+        "unsafe_l2_marker_detected": marker_summary.get("unsafe_raw_value_detected") is True,
+        "auth_boundary_mock_checked": marker_summary.get("auth_boundary_mock_checked") is True
+        or status.get("auth_boundary_mock_checked") is True,
+        "no_order_auth_plan_ready": marker_summary.get("no_order_auth_plan_ready") is True
+        or status.get("no_order_auth_plan_ready") is True,
         "authenticated_request_performed": False,
         "blocker_count": _int_or_zero(status.get("blocker_count"), len(blockers)),
         "top_blocker_reasons": [clean_text(item) for item in top_blockers if clean_text(item)],
@@ -3803,6 +3932,41 @@ def _build_sections(
                     "no_order_auth_check_status",
                     "No-order auth check",
                     authenticated_clob_preflight.get("no_order_auth_check_status"),
+                ),
+                _metric(
+                    "clob_l2_marker_preflight_status",
+                    "058 marker preflight",
+                    authenticated_clob_preflight.get("clob_l2_marker_preflight_status"),
+                ),
+                _metric(
+                    "clob_base_url_configured",
+                    "CLOB base URL configured",
+                    authenticated_clob_preflight.get("clob_base_url_configured"),
+                ),
+                _metric(
+                    "auth_marker_presence_detected",
+                    "L2 marker presence detected",
+                    authenticated_clob_preflight.get("auth_marker_presence_detected"),
+                ),
+                _metric(
+                    "l2_marker_set_complete",
+                    "L2 marker set complete",
+                    authenticated_clob_preflight.get("l2_marker_set_complete"),
+                ),
+                _metric(
+                    "unsafe_l2_marker_detected",
+                    "Unsafe L2 marker detected",
+                    authenticated_clob_preflight.get("unsafe_l2_marker_detected"),
+                ),
+                _metric(
+                    "auth_boundary_mock_checked",
+                    "Auth boundary mock checked",
+                    authenticated_clob_preflight.get("auth_boundary_mock_checked"),
+                ),
+                _metric(
+                    "no_order_auth_plan_ready",
+                    "No-order auth plan ready",
+                    authenticated_clob_preflight.get("no_order_auth_plan_ready"),
                 ),
                 _metric("blocker_count", "Blockers", authenticated_clob_preflight.get("blocker_count")),
                 _metric(

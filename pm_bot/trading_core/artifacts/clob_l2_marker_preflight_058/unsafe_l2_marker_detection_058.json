@@ -1,0 +1,15 @@
+{
+  "actual_secret_values_exposed": false,
+  "contract_version": "pmbot_unsafe_l2_marker_detection_058.v1",
+  "generated_at": "2026-05-11T00:00:00Z",
+  "operator_safe_summary": "No unsafe L2 marker values were detected.",
+  "raw_credential_values_persisted": false,
+  "raw_values_emitted": false,
+  "status": "no_unsafe_marker_detected",
+  "unsafe_raw_value_count": 0,
+  "unsafe_raw_value_detected": false,
+  "unsafe_raw_value_env_vars": [],
+  "value_hashes_emitted": false,
+  "value_prefixes_emitted": false,
+  "value_suffixes_emitted": false
+}
