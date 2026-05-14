@@ -9,6 +9,8 @@ from pm_bot.trading_core.authenticated_clob_preflight_models import (
     L2_AUTH_HEADER_ROLES,
     MODE,
     NO_ORDER_BLOCKED_METHODS,
+    STATUS_REAL_GET_CHECKED,
+    LatestNoOrderAuthenticatedGetStatus,
     STATUS_BLOCKED,
     STATUS_CHECKED,
     STATUS_MISSING,
@@ -22,8 +24,13 @@ from pm_bot.trading_core.authenticated_clob_preflight_models import (
     ClobBaseUrlValidation,
     LatestAuthenticatedClobPreflightStatus,
     LiveAuthReadinessBlocker,
+    NoOrderAuthenticatedGetConfig,
+    NoOrderAuthenticatedGetResult,
     NoOrderAuthenticatedRequestPlan,
+    RealAuthReadOnlyOptInStatus,
+    SafeNoOrderEndpointValidation,
     authenticated_clob_preflight_safety_flags,
+    no_order_authenticated_get_safety_flags,
 )
 from pm_bot.trading_core.live_credentials_boundary import (
     PMBOT_POLYMARKET_CLOB_BASE_URL_ENV,
@@ -34,10 +41,11 @@ from pm_bot.trading_core.live_credentials_boundary import (
     l2_marker_presence_blockers,
     validate_safe_clob_base_url_config,
 )
-from pm_bot.trading_core.schemas import GENERATED_AT, bullet_lines, clean_text, normalize_path, write_json, write_text
+from pm_bot.trading_core.schemas import GENERATED_AT, bullet_lines, clean_text, mapping_rows, normalize_path, write_json, write_text
 
 DEFAULT_ARTIFACT_DIR = Path("pm_bot/trading_core/artifacts/authenticated_clob_preflight_057")
 DEFAULT_CLOB_L2_MARKER_ARTIFACT_DIR = Path("pm_bot/trading_core/artifacts/clob_l2_marker_preflight_058")
+DEFAULT_NO_ORDER_AUTH_GET_ARTIFACT_DIR = Path("pm_bot/trading_core/artifacts/no_order_auth_get_preflight_059")
 
 LIVE_AUTH_READINESS_BLOCKERS_CONTRACT = "pmbot_live_auth_readiness_blockers_057.v1"
 CLOB_L2_MARKER_PREFLIGHT_RESULT_CONTRACT = "pmbot_clob_l2_marker_preflight_result_058.v1"
@@ -45,6 +53,33 @@ CLOB_L2_MARKER_STATUS_CONTRACT = "pmbot_latest_clob_l2_marker_preflight_status_0
 NO_ORDER_AUTH_BOUNDARY_PLAN_CONTRACT = "pmbot_no_order_auth_boundary_plan_058.v1"
 CLOB_L2_MARKER_BLOCKERS_CONTRACT = "pmbot_clob_l2_marker_blockers_058.v1"
 TASK_ID_058 = "ORCH-PMBOT-TRADING-MVP-058-CLOB-BASE-URL-AND-REDACTED-L2-MARKER-PREFLIGHT"
+TASK_ID_059 = "ORCH-PMBOT-TRADING-MVP-059-OPTIONAL-NO-ORDER-AUTHENTICATED-GET-PREFLIGHT"
+
+PMBOT_ALLOW_REAL_NO_ORDER_AUTH_GET_ENV = "PMBOT_ALLOW_REAL_NO_ORDER_AUTH_GET"
+
+NO_ORDER_AUTH_GET_REQUEST_PLAN_CONTRACT = "pmbot_no_order_auth_get_request_plan_059.v1"
+NO_ORDER_AUTH_GET_RESPONSE_EVIDENCE_CONTRACT = "pmbot_no_order_auth_get_response_evidence_059.v1"
+NO_ORDER_AUTH_GET_BLOCKERS_CONTRACT = "pmbot_no_order_auth_get_blockers_059.v1"
+NO_ORDER_AUTH_GET_BLOCKER_CONTRACT = "pmbot_no_order_auth_get_blocker_059.v1"
+
+NO_ORDER_AUTH_GET_MOCK_ENDPOINT = "/auth/no-order-boundary/mock-get"
+SAFE_NO_ORDER_AUTH_GET_ENDPOINT_ALLOWLIST = (NO_ORDER_AUTH_GET_MOCK_ENDPOINT,)
+REAL_NO_ORDER_AUTH_GET_ENDPOINT_ALLOWLIST: tuple[str, ...] = ()
+NO_ORDER_AUTH_GET_ENDPOINT_DENYLIST_TERMS = (
+    "order",
+    "cancel",
+    "balance",
+    "position",
+    "fill",
+    "trade",
+    "wallet",
+    "allowance",
+    "approval",
+    "approve",
+    "auth/api-key",
+    "auth/derive-api-key",
+    "heartbeat",
+)
 
 FORBIDDEN_RUNTIME_FLAGS = (
     "--live",
@@ -97,6 +132,22 @@ def clob_l2_marker_preflight_artifact_paths(
         "unsafe_l2_marker_detection": root / "unsafe_l2_marker_detection_058.json",
         "no_order_auth_boundary_plan": root / "no_order_auth_boundary_plan_058.json",
         "blockers": root / "clob_l2_marker_blockers_058.json",
+    }
+
+
+def no_order_auth_get_preflight_artifact_paths(
+    artifact_dir: str | Path | None = None,
+) -> dict[str, Path]:
+    root = Path(artifact_dir) if artifact_dir else DEFAULT_NO_ORDER_AUTH_GET_ARTIFACT_DIR
+    return {
+        "root": root,
+        "result": root / "no_order_auth_get_preflight_059_result.json",
+        "operator_md": root / "no_order_auth_get_preflight_059_operator.md",
+        "latest_status": root / "latest_no_order_auth_get_preflight_status_059.json",
+        "request_plan": root / "no_order_auth_get_request_plan_059.json",
+        "endpoint_validation": root / "no_order_auth_get_endpoint_validation_059.json",
+        "response_evidence": root / "no_order_auth_get_response_evidence_059.json",
+        "blockers": root / "no_order_auth_get_blockers_059.json",
     }
 
 
@@ -262,6 +313,125 @@ def run_clob_l2_marker_preflight(
     return result
 
 
+def run_no_order_auth_get_preflight(
+    *,
+    market: str = "BTC",
+    dry_run: bool = True,
+    no_order_auth_get_requested: bool = False,
+    real_auth_read_only_requested: bool = False,
+    clob_base_url: str = "",
+    endpoint_path: str = NO_ORDER_AUTH_GET_MOCK_ENDPOINT,
+    artifact_dir: str | Path | None = None,
+    environ: Mapping[str, str] | None = None,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    if dry_run is not True:
+        raise ValueError("no-order authenticated GET preflight requires --dry-run; live execution is blocked")
+
+    market_symbol = clean_text(market).upper() or "BTC"
+    active_environ = _active_environ(environ)
+    configured_clob_base_url = clean_text(clob_base_url) or clean_text(
+        active_environ.get(PMBOT_POLYMARKET_CLOB_BASE_URL_ENV)
+    )
+    paths = no_order_auth_get_preflight_artifact_paths(artifact_dir)
+    path_refs = {key: normalize_path(path) for key, path in paths.items() if key != "root"}
+    real_opt_in_present = _env_true(active_environ.get(PMBOT_ALLOW_REAL_NO_ORDER_AUTH_GET_ENV))
+    endpoint_validation = validate_safe_no_order_auth_get_endpoint(
+        endpoint_path,
+        request_method="GET",
+        real_auth_read_only_requested=real_auth_read_only_requested,
+        generated_at=generated_at,
+    )
+    opt_in_status = build_real_auth_read_only_opt_in_status(
+        real_auth_read_only_requested=real_auth_read_only_requested,
+        real_auth_read_only_opt_in_present=real_opt_in_present,
+        generated_at=generated_at,
+    )
+    config = NoOrderAuthenticatedGetConfig(
+        market=market_symbol,
+        dry_run=True,
+        no_order_auth_get_requested=no_order_auth_get_requested is True,
+        real_auth_read_only_requested=real_auth_read_only_requested is True,
+        real_auth_read_only_opt_in_present=real_opt_in_present,
+        request_method="GET",
+        endpoint_path_sanitized=clean_text(endpoint_validation.get("endpoint_path_sanitized")),
+        artifact_dir=normalize_path(paths["root"]),
+        generated_at=generated_at,
+    ).to_dict()
+    request_plan = build_no_order_auth_get_request_plan_059(
+        no_order_auth_get_requested=no_order_auth_get_requested,
+        real_auth_read_only_requested=real_auth_read_only_requested,
+        real_auth_read_only_opt_in_status=opt_in_status,
+        endpoint_validation=endpoint_validation,
+        clob_base_url=configured_clob_base_url,
+        generated_at=generated_at,
+    )
+    response_evidence = build_no_order_auth_get_response_evidence_059(
+        request_plan=request_plan,
+        generated_at=generated_at,
+    )
+    blockers = build_no_order_auth_get_blockers_059(
+        no_order_auth_get_requested=no_order_auth_get_requested,
+        real_auth_read_only_requested=real_auth_read_only_requested,
+        real_auth_read_only_opt_in_status=opt_in_status,
+        endpoint_validation=endpoint_validation,
+        request_plan=request_plan,
+    )
+    blockers_report = build_no_order_auth_get_blockers_report_059(
+        blockers=blockers,
+        generated_at=generated_at,
+    )
+    latest_status = LatestNoOrderAuthenticatedGetStatus(
+        market=market_symbol,
+        status=_no_order_auth_get_overall_status(request_plan),
+        no_order_auth_get_status=clean_text(request_plan.get("status") or STATUS_SKIPPED),
+        no_order_auth_get_requested=no_order_auth_get_requested is True,
+        real_auth_read_only_requested=real_auth_read_only_requested is True,
+        real_auth_read_only_opt_in_present=real_opt_in_present,
+        real_authenticated_get_performed=False,
+        request_method="GET",
+        endpoint_path_sanitized=clean_text(endpoint_validation.get("endpoint_path_sanitized")),
+        endpoint_safe_for_no_order_check=endpoint_validation.get("endpoint_safe_for_no_order_check") is True,
+        endpoint_blocked_reason=clean_text(endpoint_validation.get("endpoint_blocked_reason")),
+        status_code=None,
+        auth_used=False,
+        blocker_count=len(blockers),
+        blockers=tuple(blockers),
+        artifact_path=path_refs["result"],
+        latest_status_path=path_refs["latest_status"],
+        operator_markdown_path=path_refs["operator_md"],
+        request_plan_path=path_refs["request_plan"],
+        endpoint_validation_path=path_refs["endpoint_validation"],
+        response_evidence_path=path_refs["response_evidence"] if response_evidence else "",
+        blockers_path=path_refs["blockers"],
+        generated_at=generated_at,
+    ).to_dict()
+    result = NoOrderAuthenticatedGetResult(
+        market=market_symbol,
+        status=clean_text(latest_status.get("status")),
+        config=config,
+        real_auth_read_only_opt_in_status=opt_in_status,
+        safe_no_order_endpoint_validation=endpoint_validation,
+        request_plan=request_plan,
+        response_evidence=response_evidence,
+        latest_status=latest_status,
+        blockers=tuple(blockers),
+        artifact_paths=path_refs,
+        operator_summary=_no_order_auth_get_operator_summary(latest_status),
+        generated_at=generated_at,
+    ).to_dict()
+
+    write_json(paths["request_plan"], request_plan)
+    write_json(paths["endpoint_validation"], endpoint_validation)
+    if response_evidence:
+        write_json(paths["response_evidence"], response_evidence)
+    write_json(paths["blockers"], blockers_report)
+    write_json(paths["latest_status"], latest_status)
+    write_json(paths["result"], result)
+    write_text(paths["operator_md"], render_no_order_auth_get_preflight_markdown(result))
+    return result
+
+
 def run_authenticated_clob_preflight(
     *,
     market: str = "BTC",
@@ -269,6 +439,8 @@ def run_authenticated_clob_preflight(
     mock_auth: bool = True,
     auth_presence_only: bool = False,
     no_order_auth_check: bool = True,
+    no_order_auth_get_requested: bool = False,
+    real_auth_read_only_requested: bool = False,
     clob_base_url: str = "",
     artifact_dir: str | Path | None = None,
     environ: Mapping[str, str] | None = None,
@@ -297,6 +469,19 @@ def run_authenticated_clob_preflight(
     )
     clob_l2_marker_summary = _clob_l2_marker_status_summary(
         dict(clob_l2_marker_preflight.get("latest_status", {}))
+    )
+    no_order_auth_get_preflight = run_no_order_auth_get_preflight(
+        market=market_symbol,
+        dry_run=True,
+        no_order_auth_get_requested=no_order_auth_get_requested is True,
+        real_auth_read_only_requested=real_auth_read_only_requested is True,
+        clob_base_url=configured_clob_base_url,
+        artifact_dir=_derived_no_order_auth_get_artifact_dir(artifact_dir),
+        environ=active_environ,
+        generated_at=generated_at,
+    )
+    no_order_auth_get_summary = _no_order_auth_get_status_summary(
+        dict(no_order_auth_get_preflight.get("latest_status", {}))
     )
 
     config = AuthenticatedClobPreflightConfig(
@@ -365,8 +550,12 @@ def run_authenticated_clob_preflight(
         generated_at=generated_at,
     ).to_dict()
     latest_status["clob_l2_marker_preflight_status_summary"] = clob_l2_marker_summary
+    latest_status["no_order_auth_get_preflight_status_summary"] = no_order_auth_get_summary
     latest_status["latest_clob_l2_marker_preflight_status_path"] = clean_text(
         clob_l2_marker_summary.get("latest_status_path")
+    )
+    latest_status["latest_no_order_auth_get_preflight_status_path"] = clean_text(
+        no_order_auth_get_summary.get("latest_status_path")
     )
     latest_status["auth_marker_presence_detected"] = (
         clob_l2_marker_summary.get("auth_marker_presence_detected") is True
@@ -377,6 +566,21 @@ def run_authenticated_clob_preflight(
     )
     latest_status["no_order_auth_plan_ready"] = (
         clob_l2_marker_summary.get("no_order_auth_plan_ready") is True
+    )
+    latest_status["no_order_auth_get_requested"] = (
+        no_order_auth_get_summary.get("no_order_auth_get_requested") is True
+    )
+    latest_status["real_auth_read_only_requested"] = (
+        no_order_auth_get_summary.get("real_auth_read_only_requested") is True
+    )
+    latest_status["real_auth_read_only_opt_in_present"] = (
+        no_order_auth_get_summary.get("real_auth_read_only_opt_in_present") is True
+    )
+    latest_status["no_order_auth_get_status"] = clean_text(
+        no_order_auth_get_summary.get("no_order_auth_get_status") or STATUS_SKIPPED
+    )
+    latest_status["real_authenticated_get_performed"] = (
+        no_order_auth_get_summary.get("real_authenticated_get_performed") is True
     )
     result = AuthenticatedClobPreflightResult(
         market=market_symbol,
@@ -393,8 +597,12 @@ def run_authenticated_clob_preflight(
         generated_at=generated_at,
     ).to_dict()
     result["clob_l2_marker_preflight_status_summary"] = clob_l2_marker_summary
+    result["no_order_auth_get_preflight_status_summary"] = no_order_auth_get_summary
     result["latest_clob_l2_marker_preflight_status_path"] = clean_text(
         clob_l2_marker_summary.get("latest_status_path")
+    )
+    result["latest_no_order_auth_get_preflight_status_path"] = clean_text(
+        no_order_auth_get_summary.get("latest_status_path")
     )
     result["auth_marker_presence_detected"] = latest_status["auth_marker_presence_detected"]
     result["clob_base_url_configured"] = latest_status["clob_base_url_configured"]
@@ -403,6 +611,14 @@ def run_authenticated_clob_preflight(
     result["artifact_paths"]["clob_l2_marker_preflight"] = clean_text(
         clob_l2_marker_summary.get("artifact_path")
     )
+    result["artifact_paths"]["no_order_auth_get_preflight"] = clean_text(
+        no_order_auth_get_summary.get("artifact_path")
+    )
+    result["no_order_auth_get_requested"] = latest_status["no_order_auth_get_requested"]
+    result["real_auth_read_only_requested"] = latest_status["real_auth_read_only_requested"]
+    result["real_auth_read_only_opt_in_present"] = latest_status["real_auth_read_only_opt_in_present"]
+    result["no_order_auth_get_status"] = latest_status["no_order_auth_get_status"]
+    result["real_authenticated_get_performed"] = latest_status["real_authenticated_get_performed"]
 
     write_json(paths["credential_presence"], credential_presence)
     write_json(paths["clob_base_url_validation"], clob_validation)
@@ -533,6 +749,326 @@ def build_no_order_authenticated_request_plan(
         authenticated_request_performed=False,
         generated_at=generated_at,
     ).to_dict()
+
+
+def build_real_auth_read_only_opt_in_status(
+    *,
+    real_auth_read_only_requested: bool,
+    real_auth_read_only_opt_in_present: bool,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    if real_auth_read_only_requested is not True:
+        status = STATUS_SKIPPED
+        blocker_reason = ""
+    elif real_auth_read_only_opt_in_present is True:
+        status = STATUS_CHECKED
+        blocker_reason = ""
+    else:
+        status = STATUS_BLOCKED
+        blocker_reason = "real_no_order_auth_get_not_enabled"
+    return RealAuthReadOnlyOptInStatus(
+        status=status,
+        real_auth_read_only_requested=real_auth_read_only_requested is True,
+        real_auth_read_only_opt_in_present=real_auth_read_only_opt_in_present is True,
+        env_var_name=PMBOT_ALLOW_REAL_NO_ORDER_AUTH_GET_ENV,
+        blocker_reason=blocker_reason,
+        generated_at=generated_at,
+    ).to_dict()
+
+
+def validate_safe_no_order_auth_get_endpoint(
+    endpoint_path: str = NO_ORDER_AUTH_GET_MOCK_ENDPOINT,
+    *,
+    request_method: str = "GET",
+    real_auth_read_only_requested: bool = False,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    method = clean_text(request_method).upper() or "GET"
+    raw_endpoint = clean_text(endpoint_path)
+    sanitized = _sanitize_endpoint_path(endpoint_path)
+    raw_parsed = urlsplit(raw_endpoint)
+    has_query_or_fragment = bool(raw_parsed.query or raw_parsed.fragment or "?" in raw_endpoint or "#" in raw_endpoint)
+    lowered = sanitized.lower().strip("/")
+    forbidden_terms = _forbidden_endpoint_terms_for_path(lowered)
+    allowlist = REAL_NO_ORDER_AUTH_GET_ENDPOINT_ALLOWLIST if real_auth_read_only_requested else SAFE_NO_ORDER_AUTH_GET_ENDPOINT_ALLOWLIST
+    allowlist_match = sanitized in allowlist
+    blocked_reason = ""
+    safe = True
+    if method != "GET":
+        safe = False
+        blocked_reason = "non_get_method_blocked"
+    elif not sanitized.startswith("/"):
+        safe = False
+        blocked_reason = "endpoint_path_must_be_relative_absolute_path"
+    elif has_query_or_fragment:
+        safe = False
+        blocked_reason = "query_or_fragment_blocked"
+    elif forbidden_terms:
+        safe = False
+        blocked_reason = "forbidden_endpoint:" + ",".join(forbidden_terms)
+    elif not allowlist_match:
+        safe = False
+        blocked_reason = (
+            "no_clearly_safe_authenticated_get_endpoint"
+            if real_auth_read_only_requested
+            else "endpoint_not_in_no_order_allowlist"
+        )
+    status = STATUS_CHECKED if safe else STATUS_BLOCKED
+    return SafeNoOrderEndpointValidation(
+        status=status,
+        request_method=method,
+        endpoint_path_sanitized=sanitized,
+        endpoint_safe_for_no_order_check=safe,
+        endpoint_blocked_reason=blocked_reason,
+        forbidden_terms_detected=forbidden_terms,
+        allowlist_match=allowlist_match,
+        real_auth_read_only_requested=real_auth_read_only_requested is True,
+        generated_at=generated_at,
+    ).to_dict()
+
+
+def build_no_order_auth_get_request_plan_059(
+    *,
+    no_order_auth_get_requested: bool,
+    real_auth_read_only_requested: bool,
+    real_auth_read_only_opt_in_status: Mapping[str, Any],
+    endpoint_validation: Mapping[str, Any],
+    clob_base_url: str,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    endpoint_safe = endpoint_validation.get("endpoint_safe_for_no_order_check") is True
+    opt_in_present = real_auth_read_only_opt_in_status.get("real_auth_read_only_opt_in_present") is True
+    if no_order_auth_get_requested is not True and real_auth_read_only_requested is True:
+        status = STATUS_BLOCKED
+        blocked_reason = "real_auth_read_only_requires_no_order_auth_get"
+    elif no_order_auth_get_requested is not True:
+        status = STATUS_SKIPPED
+        blocked_reason = ""
+    elif real_auth_read_only_requested is not True:
+        status = STATUS_MOCKED
+        blocked_reason = ""
+    elif opt_in_present is not True:
+        status = STATUS_BLOCKED
+        blocked_reason = "real_no_order_auth_get_not_enabled"
+    elif endpoint_safe is not True:
+        status = STATUS_BLOCKED
+        blocked_reason = clean_text(endpoint_validation.get("endpoint_blocked_reason")) or (
+            "no_clearly_safe_authenticated_get_endpoint"
+        )
+    else:
+        status = STATUS_BLOCKED
+        blocked_reason = "real_authenticated_get_not_implemented_without_safe_endpoint"
+    response_evidence_generated = status == STATUS_MOCKED
+    value = {
+        "contract_version": NO_ORDER_AUTH_GET_REQUEST_PLAN_CONTRACT,
+        "task_id": TASK_ID_059,
+        "status": status,
+        "mode": MODE,
+        "execution_mode": EXECUTION_MODE,
+        "review_only": True,
+        "preflight_only": True,
+        "no_order_auth_get_requested": no_order_auth_get_requested is True,
+        "real_auth_read_only_requested": real_auth_read_only_requested is True,
+        "real_auth_read_only_opt_in_present": opt_in_present,
+        "real_authenticated_get_performed": False,
+        "request_method": "GET",
+        "endpoint_path_sanitized": clean_text(endpoint_validation.get("endpoint_path_sanitized")),
+        "endpoint_safe_for_no_order_check": endpoint_safe,
+        "endpoint_blocked_reason": blocked_reason or clean_text(endpoint_validation.get("endpoint_blocked_reason")),
+        "safe_endpoint_allowlist": list(SAFE_NO_ORDER_AUTH_GET_ENDPOINT_ALLOWLIST),
+        "real_safe_endpoint_allowlist": list(REAL_NO_ORDER_AUTH_GET_ENDPOINT_ALLOWLIST),
+        "clob_base_url_configured": bool(clean_text(clob_base_url)),
+        "clob_base_url_value_emitted": False,
+        "network_request_performed": False,
+        "auth_headers_redacted_boundary_constructed": no_order_auth_get_requested is True,
+        "auth_header_values_emitted": False,
+        "request_headers_materialized": False,
+        "hmac_sha256_signature_generated": False,
+        "auth_used": False,
+        "credentials_used": "redacted_presence_only",
+        "credentials_values_exposed": False,
+        "status_code": None,
+        "mocked_response_evidence_generated": response_evidence_generated,
+        "operator_safe_summary": _no_order_auth_get_plan_summary(status, blocked_reason),
+        "generated_at": generated_at,
+    }
+    value.update(
+        no_order_authenticated_get_safety_flags(
+            no_order_auth_get_requested=no_order_auth_get_requested,
+            real_auth_read_only_requested=real_auth_read_only_requested,
+            real_auth_read_only_opt_in_present=opt_in_present,
+            real_authenticated_get_performed=False,
+            endpoint_safe_for_no_order_check=endpoint_safe,
+            auth_used=False,
+            auth_header_boundary_checked=no_order_auth_get_requested,
+            no_order_auth_check_performed=no_order_auth_get_requested,
+        )
+    )
+    return value
+
+
+def build_no_order_auth_get_response_evidence_059(
+    *,
+    request_plan: Mapping[str, Any],
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any] | None:
+    if request_plan.get("status") != STATUS_MOCKED:
+        return None
+    value = {
+        "contract_version": NO_ORDER_AUTH_GET_RESPONSE_EVIDENCE_CONTRACT,
+        "task_id": TASK_ID_059,
+        "status": "mocked_response_evidence",
+        "mode": MODE,
+        "execution_mode": EXECUTION_MODE,
+        "review_only": True,
+        "preflight_only": True,
+        "no_order_auth_get_requested": request_plan.get("no_order_auth_get_requested") is True,
+        "real_auth_read_only_requested": False,
+        "real_auth_read_only_opt_in_present": False,
+        "real_authenticated_get_performed": False,
+        "request_method": "GET",
+        "endpoint_path_sanitized": clean_text(request_plan.get("endpoint_path_sanitized")),
+        "endpoint_safe_for_no_order_check": request_plan.get("endpoint_safe_for_no_order_check") is True,
+        "endpoint_blocked_reason": "",
+        "status_code": None,
+        "network_request_performed": False,
+        "mock_response_only": True,
+        "auth_used": False,
+        "credentials_used": "redacted_presence_only",
+        "credentials_values_exposed": False,
+        "headers_emitted": False,
+        "body_emitted": False,
+        "operator_safe_summary": "Mocked no-order authenticated GET evidence generated; no network request was sent.",
+        "generated_at": generated_at,
+    }
+    value.update(
+        no_order_authenticated_get_safety_flags(
+            no_order_auth_get_requested=True,
+            real_auth_read_only_requested=False,
+            real_auth_read_only_opt_in_present=False,
+            real_authenticated_get_performed=False,
+            endpoint_safe_for_no_order_check=request_plan.get("endpoint_safe_for_no_order_check") is True,
+            auth_used=False,
+            auth_header_boundary_checked=True,
+            no_order_auth_check_performed=True,
+        )
+    )
+    return value
+
+
+def build_no_order_auth_get_blockers_059(
+    *,
+    no_order_auth_get_requested: bool,
+    real_auth_read_only_requested: bool,
+    real_auth_read_only_opt_in_status: Mapping[str, Any],
+    endpoint_validation: Mapping[str, Any],
+    request_plan: Mapping[str, Any],
+) -> list[dict[str, Any]]:
+    blockers: list[dict[str, Any]] = []
+    if no_order_auth_get_requested is not True and real_auth_read_only_requested is True:
+        blockers.append(
+            _no_order_auth_get_blocker(
+                "real_auth_read_only_requires_no_order_auth_get",
+                "operator_opt_in_boundary",
+                "--real-auth-read-only requires --no-order-auth-get.",
+            )
+        )
+    if request_plan.get("status") == STATUS_SKIPPED:
+        blockers.append(
+            _no_order_auth_get_blocker(
+                "no_order_auth_get_not_requested",
+                "operator_opt_in_boundary",
+                "No-order authenticated GET preflight was not requested.",
+            )
+        )
+    if (
+        real_auth_read_only_requested is True
+        and real_auth_read_only_opt_in_status.get("real_auth_read_only_opt_in_present") is not True
+    ):
+        blockers.append(
+            _no_order_auth_get_blocker(
+                "real_no_order_auth_get_not_enabled",
+                "operator_opt_in_boundary",
+                "PMBOT_ALLOW_REAL_NO_ORDER_AUTH_GET=true is required for a real no-order authenticated GET.",
+            )
+        )
+    if request_plan.get("status") == STATUS_BLOCKED and endpoint_validation.get("endpoint_safe_for_no_order_check") is not True:
+        blockers.append(
+            _no_order_auth_get_blocker(
+                clean_text(endpoint_validation.get("endpoint_blocked_reason")) or "endpoint_not_safe",
+                "safe_endpoint_boundary",
+                "No clearly safe no-order authenticated GET endpoint is available for real network mode.",
+            )
+        )
+    blockers.extend(
+        [
+            _no_order_auth_get_blocker(
+                "order_submission_blocked",
+                "execution_boundary",
+                "Order submission remains blocked.",
+            ),
+            _no_order_auth_get_blocker(
+                "order_cancellation_blocked",
+                "execution_boundary",
+                "Order cancellation remains blocked.",
+            ),
+            _no_order_auth_get_blocker(
+                "signing_blocked",
+                "signing_boundary",
+                "Signing, HMAC generation, and signed payload generation remain blocked.",
+            ),
+            _no_order_auth_get_blocker(
+                "wallet_blocked",
+                "wallet_boundary",
+                "Wallet connection and private-key reads remain blocked.",
+            ),
+            _no_order_auth_get_blocker(
+                "balance_read_blocked",
+                "account_boundary",
+                "Balance reads remain blocked.",
+            ),
+            _no_order_auth_get_blocker(
+                "position_read_blocked",
+                "account_boundary",
+                "Position reads remain blocked.",
+            ),
+            _no_order_auth_get_blocker(
+                "live_execution_blocked",
+                "live_approval_boundary",
+                "Live execution remains blocked and allowed_for_live remains false.",
+            ),
+        ]
+    )
+    return _dedupe_blockers(blockers)
+
+
+def build_no_order_auth_get_blockers_report_059(
+    *,
+    blockers: Sequence[Mapping[str, Any]],
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    value = {
+        "contract_version": NO_ORDER_AUTH_GET_BLOCKERS_CONTRACT,
+        "task_id": TASK_ID_059,
+        "status": "no_order_auth_get_preflight_blocked",
+        "blocker_count": len(blockers),
+        "resolved_blocker_count": 0,
+        "blockers": [dict(row) for row in blockers],
+        "generated_at": generated_at,
+    }
+    value.update(
+        no_order_authenticated_get_safety_flags(
+            no_order_auth_get_requested=True,
+            real_auth_read_only_requested=False,
+            real_auth_read_only_opt_in_present=False,
+            real_authenticated_get_performed=False,
+            endpoint_safe_for_no_order_check=False,
+            auth_used=False,
+            auth_header_boundary_checked=False,
+            no_order_auth_check_performed=True,
+        )
+    )
+    return value
 
 
 def build_live_auth_readiness_blockers(
@@ -879,18 +1415,107 @@ def render_clob_l2_marker_preflight_markdown(result: Mapping[str, Any]) -> str:
     return "\n".join(lines).rstrip() + "\n"
 
 
+def render_no_order_auth_get_preflight_markdown(result: Mapping[str, Any]) -> str:
+    value = dict(result or {})
+    status = dict(value.get("latest_status", {}))
+    request_plan = dict(value.get("request_plan", {}))
+    endpoint = dict(value.get("safe_no_order_endpoint_validation", {}))
+    opt_in = dict(value.get("real_auth_read_only_opt_in_status", {}))
+    blockers = [dict(row) for row in value.get("blockers", []) if isinstance(row, Mapping)]
+    lines = [
+        "# PMBOT Optional No-Order Authenticated GET Preflight 059",
+        "",
+        f"- Status: `{value.get('status')}`",
+        f"- Market: `{value.get('market')}`",
+        "- Mode: `preflight / review-only`",
+        "- execution_mode: `preflight`",
+        "- review_only: `true`",
+        "- preflight_only: `true`",
+        "",
+        "## Request Boundary",
+        "",
+        f"- No-order auth GET status: `{status.get('no_order_auth_get_status')}`",
+        f"- No-order auth GET requested: `{str(status.get('no_order_auth_get_requested') is True).lower()}`",
+        f"- Real auth read-only requested: `{str(status.get('real_auth_read_only_requested') is True).lower()}`",
+        f"- Real auth opt-in present: `{str(status.get('real_auth_read_only_opt_in_present') is True).lower()}`",
+        f"- Request method: `{request_plan.get('request_method')}`",
+        f"- Endpoint path sanitized: `{endpoint.get('endpoint_path_sanitized')}`",
+        f"- Endpoint safe for no-order check: `{str(endpoint.get('endpoint_safe_for_no_order_check') is True).lower()}`",
+        f"- Endpoint blocked reason: `{endpoint.get('endpoint_blocked_reason')}`",
+        f"- Opt-in blocker reason: `{opt_in.get('blocker_reason')}`",
+        "- Allowed method: `GET`",
+        "- Blocked methods: `POST, PUT, PATCH, DELETE`",
+        "",
+        "## Evidence",
+        "",
+        f"- Real authenticated GET performed: `{str(status.get('real_authenticated_get_performed') is True).lower()}`",
+        f"- Status code: `{status.get('status_code')}`",
+        f"- Auth used: `{str(status.get('auth_used') is True).lower()}`",
+        "- Credentials used: `redacted_presence_only`",
+        "- Credential values exposed: `false`",
+        "- Header values stored: `false`",
+        "- Signed payload generated: `false`",
+        "",
+        "## Safety",
+        "",
+        "- order submission blocked",
+        "- order cancellation blocked",
+        "- signing blocked",
+        "- wallet connection blocked",
+        "- balances blocked",
+        "- positions blocked",
+        "- live execution blocked",
+        "- private_key_read: `false`",
+        "- signing_attempted: `false`",
+        "- signed_payload_generated: `false`",
+        "- order_submission_attempted: `false`",
+        "- order_cancellation_attempted: `false`",
+        "- balance_read_attempted: `false`",
+        "- position_read_attempted: `false`",
+        "- wallet_connection_attempted: `false`",
+        "- live_execution_approved: `false`",
+        "- allowed_for_live: `false`",
+        "- resolved_blocker_count: `0`",
+        "",
+        "## Blockers",
+        "",
+        *bullet_lines(row.get("reason") for row in blockers),
+        "",
+        "## Latest Status",
+        "",
+        f"- Latest status path: `{status.get('latest_status_path')}`",
+    ]
+    return "\n".join(lines).rstrip() + "\n"
+
+
 def render_authenticated_clob_preflight_cli_summary(status: Mapping[str, Any]) -> str:
     value = dict(status or {})
     request_status = _authenticated_request_summary(value)
+    no_order_auth_get = dict(value.get("no_order_auth_get_preflight_status_summary", {}))
+    no_order_auth_get_status = clean_text(
+        no_order_auth_get.get("no_order_auth_get_status")
+        or value.get("no_order_auth_get_status")
+        or STATUS_SKIPPED
+    )
+    l2_status = clean_text(
+        value.get("auth_presence_status")
+        or value.get("auth_presence")
+        or dict(value.get("clob_l2_marker_preflight_status_summary", {})).get("l2_marker_presence_status")
+        or STATUS_MISSING
+    )
+    clob_url_status = clean_text(value.get("clob_base_url_status") or value.get("clob_base_url") or STATUS_MISSING)
     return "\n".join(
         [
             "Authenticated CLOB preflight completed.",
             f"Market: {clean_text(value.get('market'))}",
             "Mode: preflight / review-only",
-            f"Auth presence: {clean_text(value.get('auth_presence_status') or value.get('auth_presence') or STATUS_MISSING)}",
-            f"CLOB base URL: {clean_text(value.get('clob_base_url_status') or value.get('clob_base_url') or STATUS_MISSING)}",
+            f"Auth presence: {l2_status}",
+            f"CLOB base URL: {clob_url_status}",
+            f"CLOB URL: {clob_url_status}",
+            f"L2 markers: {l2_status}",
             f"Auth header boundary: {clean_text(value.get('auth_header_boundary_status') or value.get('auth_header_boundary') or STATUS_BLOCKED)}",
             f"Authenticated request: {request_status}",
+            f"No-order auth GET: {no_order_auth_get_status}",
             f"CLOB/L2 marker preflight: {clean_text(dict(value.get('clob_l2_marker_preflight_status_summary', {})).get('status') or 'not_available')}",
             "Order submission: blocked",
             "Signing: blocked",
@@ -908,6 +1533,7 @@ def render_authenticated_clob_preflight_markdown(result: Mapping[str, Any]) -> s
     clob = dict(value.get("clob_base_url_validation", {}))
     auth_header = dict(value.get("auth_header_boundary_check", {}))
     request_plan = dict(value.get("no_order_authenticated_request_plan", {}))
+    no_order_auth_get = dict(value.get("no_order_auth_get_preflight_status_summary", {}))
     blockers = [dict(row) for row in value.get("blockers", []) if isinstance(row, Mapping)]
     lines = [
         "# PMBOT Authenticated No-Order CLOB API Preflight 057",
@@ -944,6 +1570,19 @@ def render_authenticated_clob_preflight_markdown(result: Mapping[str, Any]) -> s
         "- Authenticated request performed: `false`",
         "- Allowed methods in plan: `GET`",
         "- Blocked methods in plan: `POST, PUT, PATCH, DELETE`",
+        "",
+        "## Optional No-Order Auth GET 059",
+        "",
+        f"- 059 status: `{no_order_auth_get.get('status', 'not_available')}`",
+        f"- No-order auth GET: `{no_order_auth_get.get('no_order_auth_get_status', STATUS_SKIPPED)}`",
+        f"- Real auth read-only requested: `{str(no_order_auth_get.get('real_auth_read_only_requested') is True).lower()}`",
+        f"- Real auth opt-in present: `{str(no_order_auth_get.get('real_auth_read_only_opt_in_present') is True).lower()}`",
+        f"- Real authenticated GET performed: `{str(no_order_auth_get.get('real_authenticated_get_performed') is True).lower()}`",
+        f"- Request method: `{no_order_auth_get.get('request_method', 'GET')}`",
+        f"- Endpoint path sanitized: `{no_order_auth_get.get('endpoint_path_sanitized', '')}`",
+        f"- Endpoint blocked reason: `{no_order_auth_get.get('endpoint_blocked_reason', '')}`",
+        "- Credentials used: `redacted_presence_only`",
+        "- Credential values exposed: `false`",
         "",
         "## Safety",
         "",
@@ -1097,6 +1736,89 @@ def _clob_l2_marker_status_summary(status: Mapping[str, Any]) -> dict[str, Any]:
     }
 
 
+def _no_order_auth_get_overall_status(request_plan: Mapping[str, Any]) -> str:
+    status = clean_text(request_plan.get("status") or STATUS_SKIPPED)
+    if status == STATUS_MOCKED:
+        return "no_order_auth_get_preflight_mocked_live_blocked"
+    if status == STATUS_REAL_GET_CHECKED:
+        return "no_order_auth_get_preflight_real_get_checked_live_blocked"
+    if status == STATUS_SKIPPED:
+        return "no_order_auth_get_preflight_skipped_live_blocked"
+    return "no_order_auth_get_preflight_blocked_live_blocked"
+
+
+def _no_order_auth_get_status_summary(status: Mapping[str, Any]) -> dict[str, Any]:
+    value = dict(status or {})
+    blockers = value.get("blockers") if isinstance(value.get("blockers"), list) else []
+    top_blockers = value.get("top_blocker_reasons")
+    if not isinstance(top_blockers, list):
+        top_blockers = [
+            clean_text(row.get("reason"))
+            for row in mapping_rows(blockers)
+            if clean_text(row.get("reason"))
+        ][:8]
+    return {
+        "status": clean_text(value.get("status") or "not_available"),
+        "market": clean_text(value.get("market") or "not_available"),
+        "mode": clean_text(value.get("mode") or MODE),
+        "execution_mode": clean_text(value.get("execution_mode") or EXECUTION_MODE),
+        "no_order_auth_get_status": clean_text(value.get("no_order_auth_get_status") or STATUS_SKIPPED),
+        "no_order_auth_get_requested": value.get("no_order_auth_get_requested") is True,
+        "real_auth_read_only_requested": value.get("real_auth_read_only_requested") is True,
+        "real_auth_read_only_opt_in_present": value.get("real_auth_read_only_opt_in_present") is True,
+        "real_authenticated_get_performed": value.get("real_authenticated_get_performed") is True,
+        "request_method": "GET",
+        "endpoint_path_sanitized": clean_text(value.get("endpoint_path_sanitized")),
+        "endpoint_safe_for_no_order_check": value.get("endpoint_safe_for_no_order_check") is True,
+        "endpoint_blocked_reason": clean_text(value.get("endpoint_blocked_reason")),
+        "status_code": value.get("status_code"),
+        "auth_used": value.get("auth_used") is True,
+        "credentials_used": "redacted_presence_only",
+        "credentials_values_exposed": False,
+        "blocker_count": int(value.get("blocker_count", len(blockers)) or 0),
+        "blockers": [dict(row) for row in mapping_rows(blockers)],
+        "top_blocker_reasons": [clean_text(item) for item in top_blockers if clean_text(item)],
+        "artifact_path": clean_text(value.get("artifact_path")),
+        "latest_status_path": clean_text(value.get("latest_status_path")),
+        "operator_markdown_path": clean_text(value.get("operator_markdown_path")),
+        "request_plan_path": clean_text(value.get("request_plan_path")),
+        "endpoint_validation_path": clean_text(value.get("endpoint_validation_path")),
+        "response_evidence_path": clean_text(value.get("response_evidence_path")),
+        "blockers_path": clean_text(value.get("blockers_path")),
+        "review_only": True,
+        "preflight_only": True,
+        "order_submission_blocked": True,
+        "order_cancellation_blocked": True,
+        "signing_blocked": True,
+        "wallet_connection_blocked": True,
+        "balance_read_blocked": True,
+        "position_read_blocked": True,
+        "live_execution_blocked": True,
+        "authenticated_polymarket_enabled": False,
+        "live_connector_enabled": False,
+        "allowed_for_live": False,
+        "resolved_blocker_count": 0,
+    }
+
+
+def _no_order_auth_get_operator_summary(status: Mapping[str, Any]) -> str:
+    return (
+        "No-order authenticated GET preflight completed as review-only. Status="
+        + clean_text(status.get("no_order_auth_get_status"))
+        + "; method=GET; order submission, cancellation, signing, wallet use, balances, positions, and live execution are blocked."
+    )
+
+
+def _no_order_auth_get_plan_summary(status: str, blocked_reason: str) -> str:
+    if status == STATUS_SKIPPED:
+        return "No-order authenticated GET was not requested; no request was sent."
+    if status == STATUS_MOCKED:
+        return "Mocked no-order authenticated GET boundary checked; no network request was sent."
+    if blocked_reason:
+        return f"No-order authenticated GET is blocked: {clean_text(blocked_reason)}."
+    return "No-order authenticated GET is blocked; no request was sent."
+
+
 def _blocker(blocker_id: str, category: str, reason: str) -> dict[str, Any]:
     return LiveAuthReadinessBlocker(
         blocker_id=clean_text(blocker_id),
@@ -1128,6 +1850,33 @@ def _marker_blocker(blocker_id: str, category: str, reason: str) -> dict[str, An
     return value
 
 
+def _no_order_auth_get_blocker(blocker_id: str, category: str, reason: str) -> dict[str, Any]:
+    value = {
+        "contract_version": NO_ORDER_AUTH_GET_BLOCKER_CONTRACT,
+        "task_id": TASK_ID_059,
+        "blocker_id": clean_text(blocker_id),
+        "blocker_category": clean_text(category),
+        "severity": "critical",
+        "reason": clean_text(reason),
+        "resolution_status": "unresolved",
+        "blocks_live_execution": True,
+        "resolved": False,
+    }
+    value.update(
+        no_order_authenticated_get_safety_flags(
+            no_order_auth_get_requested=True,
+            real_auth_read_only_requested=False,
+            real_auth_read_only_opt_in_present=False,
+            real_authenticated_get_performed=False,
+            endpoint_safe_for_no_order_check=False,
+            auth_used=False,
+            auth_header_boundary_checked=False,
+            no_order_auth_check_performed=True,
+        )
+    )
+    return value
+
+
 def _dedupe_blockers(blockers: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]:
     result: list[dict[str, Any]] = []
     seen: set[tuple[str, str]] = set()
@@ -1140,10 +1889,71 @@ def _dedupe_blockers(blockers: Sequence[Mapping[str, Any]]) -> list[dict[str, An
     return result
 
 
+def _sanitize_endpoint_path(endpoint_path: str) -> str:
+    text = clean_text(endpoint_path) or NO_ORDER_AUTH_GET_MOCK_ENDPOINT
+    parsed = urlsplit(text)
+    if parsed.scheme or parsed.netloc:
+        path = parsed.path
+    else:
+        path = text.split("?", 1)[0].split("#", 1)[0]
+    path = clean_text(path)
+    if not path.startswith("/"):
+        path = "/" + path
+    return path or NO_ORDER_AUTH_GET_MOCK_ENDPOINT
+
+
+def _forbidden_endpoint_terms_for_path(path_without_leading_slash: str) -> tuple[str, ...]:
+    normalized = clean_text(path_without_leading_slash).lower().strip("/")
+    segments = [segment for segment in normalized.split("/") if segment]
+    found: list[str] = []
+    if normalized in {"auth/api-key", "auth/derive-api-key"}:
+        found.append(normalized)
+    segment_terms = {
+        "order",
+        "orders",
+        "cancel",
+        "cancels",
+        "cancellation",
+        "cancellations",
+        "balance",
+        "balances",
+        "position",
+        "positions",
+        "fill",
+        "fills",
+        "trade",
+        "trades",
+        "wallet",
+        "wallets",
+        "allowance",
+        "allowances",
+        "approval",
+        "approvals",
+        "approve",
+        "heartbeat",
+    }
+    found.extend(segment for segment in segments if segment in segment_terms)
+    result: list[str] = []
+    for item in found:
+        if item and item not in result:
+            result.append(item)
+    return tuple(result)
+
+
+def _env_true(value: Any) -> bool:
+    return clean_text(value).lower() in {"true", "1", "yes", "y", "on"}
+
+
 def _derived_clob_l2_marker_artifact_dir(artifact_dir: str | Path | None) -> Path | None:
     if artifact_dir is None:
         return None
     return Path(artifact_dir) / "clob_l2_marker_preflight_058"
+
+
+def _derived_no_order_auth_get_artifact_dir(artifact_dir: str | Path | None) -> Path | None:
+    if artifact_dir is None:
+        return None
+    return Path(artifact_dir) / "no_order_auth_get_preflight_059"
 
 
 def _active_environ(environ: Mapping[str, str] | None) -> Mapping[str, str]:

@@ -120,6 +120,9 @@ OPERATOR_UI_PANEL_AUTHENTICATED_CLOB_PREFLIGHT_SUMMARY_CONTRACT = (
 OPERATOR_UI_PANEL_CLOB_L2_MARKER_PREFLIGHT_SUMMARY_CONTRACT = (
     "pmbot_operator_ui_panel_clob_l2_marker_preflight_summary_058.v1"
 )
+OPERATOR_UI_PANEL_NO_ORDER_AUTH_GET_PREFLIGHT_SUMMARY_CONTRACT = (
+    "pmbot_operator_ui_panel_no_order_auth_get_preflight_summary_059.v1"
+)
 OPERATOR_UI_PANEL_VALIDATION_CONTRACT = "pmbot_operator_ui_panel_validation.v1"
 
 TASK_ID = "ORCH-PMBOT-TRADING-MVP-036-OPERATOR-UI-PANEL-V1-READINESS-RISK-LIMITS-KILL-SWITCH"
@@ -173,6 +176,7 @@ REQUIRED_SECTION_IDS = (
     "paper_decision_ledger",
     "live_connector_preflight",
     "authenticated_clob_preflight",
+    "no_order_auth_get_preflight",
     "paper_trading_summary",
     "operator_packets",
     "audit_replay",
@@ -1008,6 +1012,7 @@ def build_operator_ui_panel_v1(
     live_connector_preflight_status_summary: Mapping[str, Any] | None = None,
     authenticated_clob_preflight_status_summary: Mapping[str, Any] | None = None,
     clob_l2_marker_preflight_status_summary: Mapping[str, Any] | None = None,
+    no_order_auth_get_preflight_status_summary: Mapping[str, Any] | None = None,
     telegram_operator_control_bot_summary: Mapping[str, Any] | None = None,
     telegram_mini_app_operator_panel_summary: Mapping[str, Any] | None = None,
     latest_paths: Mapping[str, str] | None = None,
@@ -1281,8 +1286,23 @@ def build_operator_ui_panel_v1(
         latest_status_path=paths.get("clob_l2_marker_preflight_status", "")
         or clean_text(dashboard_value.get("latest_clob_l2_marker_preflight_status_path")),
     )
+    no_order_auth_get_preflight_summary = _build_no_order_auth_get_preflight_summary(
+        no_order_auth_get_preflight_status=(
+            no_order_auth_get_preflight_status_summary
+            or dashboard_value.get("no_order_auth_get_preflight_status_summary")
+            or dashboard_value.get("no_order_auth_get_preflight_status")
+            or dashboard_value.get("latest_no_order_auth_get_preflight_status")
+            or authenticated_clob_preflight_summary.get("no_order_auth_get_preflight_status_summary")
+            or {}
+        ),
+        latest_status_path=paths.get("no_order_auth_get_preflight_status", "")
+        or clean_text(dashboard_value.get("latest_no_order_auth_get_preflight_status_path")),
+    )
     authenticated_clob_preflight_summary["clob_l2_marker_preflight_status_summary"] = (
         clob_l2_marker_preflight_summary
+    )
+    authenticated_clob_preflight_summary["no_order_auth_get_preflight_status_summary"] = (
+        no_order_auth_get_preflight_summary
     )
     authenticated_clob_preflight_summary["clob_l2_marker_preflight_status"] = (
         clob_l2_marker_preflight_summary.get("status")
@@ -1295,6 +1315,12 @@ def build_operator_ui_panel_v1(
     )
     authenticated_clob_preflight_summary["unsafe_l2_marker_detected"] = (
         clob_l2_marker_preflight_summary.get("unsafe_raw_value_detected") is True
+    )
+    authenticated_clob_preflight_summary["no_order_auth_get_status"] = clean_text(
+        no_order_auth_get_preflight_summary.get("no_order_auth_get_status") or NOT_AVAILABLE
+    )
+    authenticated_clob_preflight_summary["real_authenticated_get_performed"] = (
+        no_order_auth_get_preflight_summary.get("real_authenticated_get_performed") is True
     )
     readiness = _build_readiness_summary(
         operator_review_ready=operator_packet_summary.get("operator_approval_packet_review_ready") is True,
@@ -1327,6 +1353,7 @@ def build_operator_ui_panel_v1(
         paper_decision_ledger=paper_decision_ledger_summary,
         live_connector_preflight=live_connector_preflight_summary,
         authenticated_clob_preflight=authenticated_clob_preflight_summary,
+        no_order_auth_get_preflight=no_order_auth_get_preflight_summary,
         operator_packets=operator_packet_summary,
         audit=audit_summary,
         action_states=action_states,
@@ -1362,6 +1389,7 @@ def build_operator_ui_panel_v1(
             "paper_decision_ledger": paper_decision_ledger_summary,
             "live_connector_preflight": live_connector_preflight_summary,
             "authenticated_clob_preflight": authenticated_clob_preflight_summary,
+            "no_order_auth_get_preflight": no_order_auth_get_preflight_summary,
         },
     )
     panel = OperatorUIPanelV1(
@@ -1408,6 +1436,8 @@ def build_operator_ui_panel_v1(
     panel["authenticated_clob_preflight_section_ready"] = True
     panel["clob_l2_marker_preflight_status_summary"] = clob_l2_marker_preflight_summary
     panel["clob_l2_marker_preflight_section_ready"] = True
+    panel["no_order_auth_get_preflight_status_summary"] = no_order_auth_get_preflight_summary
+    panel["no_order_auth_get_preflight_section_ready"] = True
     validation = validate_operator_ui_panel_v1(panel, generated_at=generated_at)
     panel["validation"] = validation
     return panel
@@ -2011,6 +2041,37 @@ def summarize_operator_ui_panel_v1(panel: Mapping[str, Any]) -> dict[str, Any]:
         "clob_l2_marker_preflight_no_order_auth_plan_ready": dict(
             panel.get("clob_l2_marker_preflight_status_summary", {})
         ).get("no_order_auth_plan_ready"),
+        "no_order_auth_get_preflight_section_ready": panel.get(
+            "no_order_auth_get_preflight_section_ready"
+        )
+        is True,
+        "no_order_auth_get_preflight_status": dict(
+            panel.get("no_order_auth_get_preflight_status_summary", {})
+        ).get("status"),
+        "no_order_auth_get_status": dict(
+            panel.get("no_order_auth_get_preflight_status_summary", {})
+        ).get("no_order_auth_get_status"),
+        "no_order_auth_get_clob_base_url_status": dict(
+            panel.get("authenticated_clob_preflight_status_summary", {})
+        ).get("clob_base_url_status"),
+        "no_order_auth_get_l2_marker_status": dict(
+            panel.get("authenticated_clob_preflight_status_summary", {})
+        ).get("auth_presence_status"),
+        "no_order_auth_get_blocker_count": dict(
+            panel.get("no_order_auth_get_preflight_status_summary", {})
+        ).get("blocker_count"),
+        "no_order_auth_get_order_submission_blocked": dict(
+            panel.get("no_order_auth_get_preflight_status_summary", {})
+        ).get("order_submission_blocked"),
+        "no_order_auth_get_signing_blocked": dict(
+            panel.get("no_order_auth_get_preflight_status_summary", {})
+        ).get("signing_blocked"),
+        "no_order_auth_get_wallet_connection_blocked": dict(
+            panel.get("no_order_auth_get_preflight_status_summary", {})
+        ).get("wallet_connection_blocked"),
+        "no_order_auth_get_live_execution_blocked": dict(
+            panel.get("no_order_auth_get_preflight_status_summary", {})
+        ).get("live_execution_blocked"),
         "authenticated_clob_preflight_order_submission_blocked": dict(
             panel.get("authenticated_clob_preflight_status_summary", {})
         ).get("order_submission_blocked"),
@@ -3520,6 +3581,61 @@ def _build_clob_l2_marker_preflight_summary(
     }
 
 
+def _build_no_order_auth_get_preflight_summary(
+    *,
+    no_order_auth_get_preflight_status: Mapping[str, Any] | None,
+    latest_status_path: str,
+) -> dict[str, Any]:
+    status = dict(no_order_auth_get_preflight_status or {})
+    blockers = status.get("blockers") if isinstance(status.get("blockers"), list) else []
+    top_blockers = status.get("top_blocker_reasons")
+    if not isinstance(top_blockers, list):
+        top_blockers = [
+            clean_text(row.get("reason"))
+            for row in mapping_rows(blockers)
+            if clean_text(row.get("reason"))
+        ][:8]
+    return {
+        "contract_version": OPERATOR_UI_PANEL_NO_ORDER_AUTH_GET_PREFLIGHT_SUMMARY_CONTRACT,
+        "status": clean_text(status.get("status") or NOT_AVAILABLE),
+        "market": clean_text(status.get("market") or NOT_AVAILABLE),
+        "mode": clean_text(status.get("mode") or "preflight / review-only"),
+        "execution_mode": clean_text(status.get("execution_mode") or "preflight"),
+        "no_order_auth_get_status": clean_text(status.get("no_order_auth_get_status") or NOT_AVAILABLE),
+        "no_order_auth_get_requested": status.get("no_order_auth_get_requested") is True,
+        "real_auth_read_only_requested": status.get("real_auth_read_only_requested") is True,
+        "real_auth_read_only_opt_in_present": status.get("real_auth_read_only_opt_in_present") is True,
+        "real_authenticated_get_performed": status.get("real_authenticated_get_performed") is True,
+        "request_method": clean_text(status.get("request_method") or "GET"),
+        "endpoint_path_sanitized": clean_text(status.get("endpoint_path_sanitized")),
+        "endpoint_safe_for_no_order_check": status.get("endpoint_safe_for_no_order_check") is True,
+        "endpoint_blocked_reason": clean_text(status.get("endpoint_blocked_reason")),
+        "status_code": status.get("status_code"),
+        "auth_used": status.get("auth_used") is True,
+        "credentials_used": "redacted_presence_only",
+        "credentials_values_exposed": False,
+        "blocker_count": _int_or_zero(status.get("blocker_count"), len(blockers)),
+        "top_blocker_reasons": [clean_text(item) for item in top_blockers if clean_text(item)],
+        "artifact_path": clean_text(status.get("artifact_path")),
+        "latest_status_path": clean_text(status.get("latest_status_path") or latest_status_path),
+        "operator_markdown_path": clean_text(status.get("operator_markdown_path")),
+        "request_plan_path": clean_text(status.get("request_plan_path")),
+        "endpoint_validation_path": clean_text(status.get("endpoint_validation_path")),
+        "response_evidence_path": clean_text(status.get("response_evidence_path")),
+        "blockers_path": clean_text(status.get("blockers_path")),
+        "review_only": True,
+        "preflight_only": True,
+        "order_submission_blocked": True,
+        "order_cancellation_blocked": True,
+        "signing_blocked": True,
+        "wallet_connection_blocked": True,
+        "balance_read_blocked": True,
+        "position_read_blocked": True,
+        "live_execution_blocked": True,
+        **_panel_safety_flags(),
+    }
+
+
 def _build_authenticated_clob_preflight_summary(
     *,
     authenticated_clob_preflight_status: Mapping[str, Any] | None,
@@ -3527,6 +3643,7 @@ def _build_authenticated_clob_preflight_summary(
 ) -> dict[str, Any]:
     status = dict(authenticated_clob_preflight_status or {})
     marker_summary = dict(status.get("clob_l2_marker_preflight_status_summary") or {})
+    no_order_auth_get_summary = dict(status.get("no_order_auth_get_preflight_status_summary") or {})
     blockers = status.get("blockers") if isinstance(status.get("blockers"), list) else []
     top_blockers = status.get("top_blocker_reasons")
     if not isinstance(top_blockers, list):
@@ -3562,6 +3679,7 @@ def _build_authenticated_clob_preflight_summary(
         ),
         "no_order_auth_check_performed": status.get("no_order_auth_check_performed") is True,
         "clob_l2_marker_preflight_status_summary": marker_summary,
+        "no_order_auth_get_preflight_status_summary": no_order_auth_get_summary,
         "clob_l2_marker_preflight_status": clean_text(
             marker_summary.get("status") or status.get("clob_l2_marker_preflight_status") or NOT_AVAILABLE
         ),
@@ -3578,6 +3696,21 @@ def _build_authenticated_clob_preflight_summary(
         "no_order_auth_plan_ready": marker_summary.get("no_order_auth_plan_ready") is True
         or status.get("no_order_auth_plan_ready") is True,
         "authenticated_request_performed": False,
+        "no_order_auth_get_status": clean_text(
+            no_order_auth_get_summary.get("no_order_auth_get_status")
+            or status.get("no_order_auth_get_status")
+            or NOT_AVAILABLE
+        ),
+        "real_auth_read_only_requested": no_order_auth_get_summary.get("real_auth_read_only_requested") is True
+        or status.get("real_auth_read_only_requested") is True,
+        "real_auth_read_only_opt_in_present": (
+            no_order_auth_get_summary.get("real_auth_read_only_opt_in_present") is True
+            or status.get("real_auth_read_only_opt_in_present") is True
+        ),
+        "real_authenticated_get_performed": (
+            no_order_auth_get_summary.get("real_authenticated_get_performed") is True
+            or status.get("real_authenticated_get_performed") is True
+        ),
         "blocker_count": _int_or_zero(status.get("blocker_count"), len(blockers)),
         "top_blocker_reasons": [clean_text(item) for item in top_blockers if clean_text(item)],
         "artifact_path": clean_text(status.get("artifact_path")),
@@ -3687,6 +3820,7 @@ def _build_sections(
     paper_decision_ledger: Mapping[str, Any],
     live_connector_preflight: Mapping[str, Any],
     authenticated_clob_preflight: Mapping[str, Any],
+    no_order_auth_get_preflight: Mapping[str, Any],
     operator_packets: Mapping[str, Any],
     audit: Mapping[str, Any],
     action_states: Sequence[Mapping[str, Any]],
@@ -4000,6 +4134,88 @@ def _build_sections(
                     "authenticated_clob_preflight_review_only",
                     "critical",
                     "Authenticated CLOB preflight is passive review-only and exposes no executable live action.",
+                )
+            ],
+        ),
+        _section(
+            "no_order_auth_get_preflight",
+            "No-Order Auth GET Preflight",
+            clean_text(no_order_auth_get_preflight.get("status") or NOT_AVAILABLE),
+            [
+                _metric("status", "Status", no_order_auth_get_preflight.get("status")),
+                _metric(
+                    "no_order_auth_get_status",
+                    "No-order auth GET",
+                    no_order_auth_get_preflight.get("no_order_auth_get_status"),
+                ),
+                _metric(
+                    "no_order_auth_get_requested",
+                    "Requested",
+                    no_order_auth_get_preflight.get("no_order_auth_get_requested"),
+                ),
+                _metric(
+                    "real_auth_read_only_requested",
+                    "Real auth read-only requested",
+                    no_order_auth_get_preflight.get("real_auth_read_only_requested"),
+                ),
+                _metric(
+                    "real_auth_read_only_opt_in_present",
+                    "Real auth opt-in present",
+                    no_order_auth_get_preflight.get("real_auth_read_only_opt_in_present"),
+                ),
+                _metric(
+                    "real_authenticated_get_performed",
+                    "Real authenticated GET performed",
+                    no_order_auth_get_preflight.get("real_authenticated_get_performed"),
+                ),
+                _metric("request_method", "Request method", no_order_auth_get_preflight.get("request_method")),
+                _metric(
+                    "endpoint_path_sanitized",
+                    "Endpoint path",
+                    no_order_auth_get_preflight.get("endpoint_path_sanitized"),
+                ),
+                _metric(
+                    "endpoint_safe_for_no_order_check",
+                    "Endpoint safe for no-order",
+                    no_order_auth_get_preflight.get("endpoint_safe_for_no_order_check"),
+                ),
+                _metric(
+                    "endpoint_blocked_reason",
+                    "Endpoint blocked reason",
+                    no_order_auth_get_preflight.get("endpoint_blocked_reason"),
+                ),
+                _metric("status_code", "Status code", no_order_auth_get_preflight.get("status_code")),
+                _metric("auth_used", "Auth used", no_order_auth_get_preflight.get("auth_used")),
+                _metric("credentials_used", "Credentials used", "redacted_presence_only"),
+                _metric("credentials_values_exposed", "Credential values exposed", False),
+                _metric("blocker_count", "Blockers", no_order_auth_get_preflight.get("blocker_count")),
+                _metric(
+                    "top_blocker_reasons",
+                    "Top blockers",
+                    no_order_auth_get_preflight.get("top_blocker_reasons"),
+                ),
+                _metric("order_submission_blocked", "Order submission blocked", True),
+                _metric("order_cancellation_blocked", "Order cancellation blocked", True),
+                _metric("signing_blocked", "Signing blocked", True),
+                _metric("wallet_connection_blocked", "Wallet connection blocked", True),
+                _metric("balance_read_blocked", "Balances blocked", True),
+                _metric("position_read_blocked", "Positions blocked", True),
+                _metric("live_execution_blocked", "Live execution blocked", True),
+                _metric("latest_status_path", "Latest status", no_order_auth_get_preflight.get("latest_status_path")),
+                _metric("review_only", "Review-only", True),
+                _metric("preflight_only", "Preflight-only", True),
+                _metric("order_submission_enabled", "Order submission enabled", False),
+                _metric("wallet_signing_enabled", "Wallet signing enabled", False),
+                _metric("signing_enabled", "Signing enabled", False),
+                _metric("authenticated_polymarket_enabled", "Authenticated trading enabled", False),
+                _metric("live_connector_enabled", "Live connector enabled", False),
+                _metric("allowed_for_live", "Allowed for live", False),
+            ],
+            warnings=[
+                _warning(
+                    "no_order_auth_get_preflight_review_only",
+                    "critical",
+                    "No-order authenticated GET preflight is passive review-only and exposes no executable live action.",
                 )
             ],
         ),

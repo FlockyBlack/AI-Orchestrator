@@ -35,6 +35,19 @@ def build_parser() -> argparse.ArgumentParser:
         help="Build the mocked no-order authenticated GET plan. No request is sent.",
     )
     parser.add_argument(
+        "--no-order-auth-get",
+        action="store_true",
+        help="Run the optional task 059 no-order authenticated GET preflight boundary. Mocked by default.",
+    )
+    parser.add_argument(
+        "--real-auth-read-only",
+        action="store_true",
+        help=(
+            "Request real read-only authenticated GET mode. Requires --no-order-auth-get and "
+            "PMBOT_ALLOW_REAL_NO_ORDER_AUTH_GET=true; fails closed otherwise."
+        ),
+    )
+    parser.add_argument(
         "--clob-base-url",
         default="",
         help="Optional CLOB base URL override. The value is validated in memory and not written to artifacts.",
@@ -63,6 +76,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         mock_auth=True,
         auth_presence_only=args.auth_presence_only,
         no_order_auth_check=args.no_order_auth_check,
+        no_order_auth_get_requested=args.no_order_auth_get,
+        real_auth_read_only_requested=args.real_auth_read_only,
         clob_base_url=args.clob_base_url,
         artifact_dir=Path(args.artifacts_dir) if args.artifacts_dir else None,
     )

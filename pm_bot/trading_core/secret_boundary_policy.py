@@ -233,6 +233,8 @@ SAFE_SECRET_METADATA_FIELD_NAMES = frozenset(
         "allowed_operator_ids_configured",
         "allowed_operator_id_count",
         "telegram_operator_control_bot_section_ready",
+        "no_order_auth_get_preflight_section_ready",
+        "no_order_auth_get_requested",
         "no_executable_action",
         "would_submit_order",
     }
@@ -289,6 +291,7 @@ SAFE_TRUE_SECRET_METADATA_FIELD_NAMES = frozenset(
         "no_fake_transaction_hash_generated",
         "no_fake_fill_generated",
         "no_fake_execution_result_generated",
+        "no_order_auth_get_preflight_section_ready",
     }
 )
 
