@@ -1,0 +1,237 @@
+{
+  "task_id": "ORCH-PMBOT-SAFETY-060QB-MERGE-STATIC-SAFETY-INVARIANT-REPORT-INTO-MASTER",
+  "status": "passed_pending_final_push_verification",
+  "generated_at": "2026-05-15T00:00:00+04:00",
+  "repository": "https://github.com/FlockyBlack/AI-Orchestrator",
+  "worktree": "C:/oc060qb_merge",
+  "integration_method": "merge_commit",
+  "old_master_head": "adb691b4995d889b8a40eac70e8c35f26d5054f6",
+  "head_before": "adb691b4995d889b8a40eac70e8c35f26d5054f6",
+  "source_branch": "pmbot/safety-060q-static-safety-invariant-report",
+  "source_branch_head": "8b42513244781943e3d1b08acc5b9bf86ff71f8b",
+  "merge_base": "762583767ff1e00c654a647b635627f8eb391424",
+  "local_merge_head_before_result_amend": "f48a2de97feff33d7799ff1b48eb1eaa6f20c6f9",
+  "head_after": "recorded_in_final_response_after_commit_push_verify",
+  "head_after_note": "The final master commit cannot be self-recorded inside this committed JSON artifact because embedding the commit's own SHA would change that SHA. The final response records the pushed and remotely verified master HEAD.",
+  "pushed": "recorded_in_final_response_after_push",
+  "remote_verified": "recorded_in_final_response_after_push",
+  "conflict_resolution_summary": [
+    "Merge completed with no textual conflicts.",
+    "060Q branch was add-only relative to its older master base.",
+    "Current master signer-boundary 060 files were not changed by the merge.",
+    "Current master Telegram 060T files were not changed by the merge.",
+    "Added a 060Q-only integration safety-field adjustment so static report artifacts explicitly carry canary_executable_now=false and real_execution_available=false."
+  ],
+  "changed_files": [
+    "docs/ORCH_PMBOT_SAFETY_060Q_STATIC_SAFETY_INVARIANT_REPORT.md",
+    "docs/ORCH_PMBOT_SAFETY_060Q_STATIC_SAFETY_INVARIANT_REPORT_RESULT.json",
+    "docs/ORCH_PMBOT_SAFETY_060QB_MERGE_STATIC_SAFETY_INVARIANT_REPORT_INTO_MASTER_RESULT.json",
+    "pm_bot/operator_runner/static_safety_invariant_report.py",
+    "pm_bot/tests/test_static_safety_invariant_report_060q.py",
+    "pm_bot/trading_core/artifacts/static_safety_invariant_report_060q/latest_static_safety_invariant_report_status_060q.json",
+    "pm_bot/trading_core/artifacts/static_safety_invariant_report_060q/static_safety_invariant_allowlist_060q.json",
+    "pm_bot/trading_core/artifacts/static_safety_invariant_report_060q/static_safety_invariant_findings_060q.json",
+    "pm_bot/trading_core/artifacts/static_safety_invariant_report_060q/static_safety_invariant_report_060q_operator.md",
+    "pm_bot/trading_core/artifacts/static_safety_invariant_report_060q/static_safety_invariant_report_060q_result.json",
+    "pm_bot/trading_core/static_safety_invariant_report.py",
+    "pm_bot/trading_core/static_safety_invariant_report_models.py"
+  ],
+  "preservation_checks": {
+    "signer_boundary_060_files_reverted": false,
+    "telegram_060t_files_reverted": false,
+    "telegram_behavior_altered": false,
+    "signer_boundary_behavior_altered": false,
+    "live_trading_enabled": false,
+    "order_submission_enabled": false,
+    "order_cancellation_enabled": false,
+    "wallet_connection_enabled": false,
+    "signer_instantiation_enabled": false,
+    "signing_enabled": false,
+    "signed_payload_generation_enabled": false,
+    "authenticated_trading_enabled": false,
+    "scheduler_daemon_background_loop_added": false,
+    "browser_automation_used": false
+  },
+  "validation_results": [
+    {
+      "command": "python -m pytest pm_bot/tests/test_static_safety_invariant_report_060q.py",
+      "status": "passed",
+      "result": "9 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_operator_console_060t.py",
+      "status": "passed",
+      "result": "8 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_signer_boundary_preflight_060.py",
+      "status": "passed",
+      "result": "11 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_no_order_auth_get_preflight_059.py",
+      "status": "passed",
+      "result": "12 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_clob_l2_marker_preflight_058.py",
+      "status": "passed",
+      "result": "11 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_authenticated_clob_preflight_057.py",
+      "status": "passed",
+      "result": "8 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_live_connector_preflight_056.py",
+      "status": "passed",
+      "result": "9 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_paper_decision_ledger_055.py",
+      "status": "passed",
+      "result": "12 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_public_market_paper_loop_054.py",
+      "status": "passed",
+      "result": "13 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_paper_trading_loop_053.py",
+      "status": "passed",
+      "result": "9 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_polymarket_agents_reference_adaptation_052.py pm_bot/tests/test_paper_canary_drill_052.py",
+      "status": "passed",
+      "result": "12 passed"
+    },
+    {
+      "command": "python -m pytest <telegram affected subset>",
+      "status": "passed",
+      "result": "79 passed"
+    },
+    {
+      "command": "python -m pytest <readiness/evidence/replay/operator-ui/paper-daily affected subset>",
+      "status": "passed",
+      "result": "228 passed"
+    },
+    {
+      "command": "python -B -m pytest pm_bot/tests",
+      "status": "passed",
+      "result": "1852 passed after final 060Q safety-field adjustment"
+    },
+    {
+      "command": "python -m compileall -q pm_bot",
+      "status": "passed",
+      "result": "exit_code=0"
+    },
+    {
+      "command": "python -m compileall -q ai_orchestrator",
+      "status": "passed",
+      "result": "exit_code=0"
+    }
+  ],
+  "manual_command_outputs": [
+    {
+      "command": "python -m pm_bot.operator_runner.static_safety_invariant_report --scope pm_bot --dry-run",
+      "status": "passed",
+      "stdout_summary": [
+        "Static safety invariant report completed.",
+        "Scope: pm_bot",
+        "Critical findings: 0",
+        "Warnings: 7",
+        "Live execution: blocked",
+        "Order submission: blocked",
+        "Signing: blocked",
+        "Wallet: blocked"
+      ]
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.static_safety_invariant_report --scope pm_bot --dry-run --artifacts --json",
+      "status": "passed",
+      "stdout_summary": {
+        "critical_count": 0,
+        "warning_count": 165,
+        "allowed_reference_count": 0,
+        "safety_ok": true,
+        "artifacts_included": true,
+        "environment_variables_read": false,
+        "user_home_directories_read": false,
+        "wallet_files_read": false,
+        "browser_wallets_inspected": false,
+        "network_access_performed": false,
+        "real_secrets_handled": false
+      }
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.telegram_runtime_smoke",
+      "status": "passed",
+      "stdout_summary": [
+        "Runtime module import: ok",
+        "Ready to start runtime: true",
+        "Safety flags expected false: ok",
+        "Network check: not requested"
+      ]
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.signer_boundary_preflight --market BTC --strategy tiny-momentum --dry-run",
+      "status": "passed",
+      "stdout_summary": [
+        "Signer boundary preflight completed.",
+        "Unsigned payload plan: schema_only_non_executable",
+        "Signer: blocked",
+        "Signed payload: unavailable",
+        "Order submission: blocked",
+        "Live execution: blocked"
+      ]
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.paper_trading_loop --market BTC --strategy tiny-momentum --dry-run",
+      "status": "passed",
+      "stdout_summary": [
+        "Paper trading loop completed.",
+        "Mode: paper / review-only",
+        "Live execution: blocked",
+        "Paper intent: paper_intent_review_ready"
+      ]
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.authenticated_clob_preflight --market BTC --dry-run --no-order-auth-get",
+      "status": "passed",
+      "stdout_summary": [
+        "Authenticated CLOB preflight completed.",
+        "No-order auth GET: mocked",
+        "Order submission: blocked",
+        "Signing: blocked",
+        "Wallet: blocked",
+        "Live execution: blocked"
+      ]
+    }
+  ],
+  "safety_invariant_confirmation": {
+    "live_execution_approved": false,
+    "canary_executable_now": false,
+    "real_execution_available": false,
+    "order_submission_enabled": false,
+    "wallet_signing_enabled": false,
+    "signing_enabled": false,
+    "signed_payload_generation_enabled": false,
+    "signed_order_generation_enabled": false,
+    "authenticated_polymarket_enabled": false,
+    "live_connector_enabled": false,
+    "allowed_for_live": false,
+    "resolved_blocker_count": 0,
+    "static_report_critical_count": 0,
+    "static_report_safety_ok": true,
+    "environment_variables_read": false,
+    "user_home_directories_read": false,
+    "wallet_files_read": false,
+    "browser_wallets_inspected": false,
+    "network_access_performed": false,
+    "real_secrets_handled": false
+  },
+  "remaining_risks_or_blockers": []
+}
