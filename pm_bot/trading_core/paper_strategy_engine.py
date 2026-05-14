@@ -55,6 +55,7 @@ class TinyMomentumPaperStrategy(BasePaperStrategy):
         size = self.default_size
         notional = round(observed_price * size, 6)
         confidence = round(min(0.95, 0.6 + min(price_delta, 0.05) * 4), 6)
+        source_label = _source_label(snapshot)
         return StrategySignal(
             artifact_run_id=artifact_run_id,
             strategy_name=self.name,
@@ -67,7 +68,7 @@ class TinyMomentumPaperStrategy(BasePaperStrategy):
             notional=notional,
             confidence=confidence,
             reason=(
-                f"Fixture primary outcome price moved by {price_delta:.4f}; "
+                f"{source_label} primary outcome price moved by {price_delta:.4f}; "
                 "one-shot paper review signal created for risk gating."
             ),
             price_delta=price_delta,
@@ -80,8 +81,9 @@ class TinyMomentumPaperStrategy(BasePaperStrategy):
         if observed_price is None or previous_price is None:
             return "fixture snapshot has no comparable primary outcome prices"
         price_delta = round(observed_price - previous_price, 6)
+        source_label = _source_label(snapshot)
         return (
-            f"Fixture primary outcome price delta {price_delta:.4f} is below "
+            f"{source_label} primary outcome price delta {price_delta:.4f} is below "
             f"tiny-momentum threshold {self.min_price_delta:.4f}."
         )
 
@@ -100,3 +102,9 @@ def _float_or_none(value: Any) -> float | None:
         return float(value)
     except (TypeError, ValueError):
         return None
+
+
+def _source_label(snapshot: Mapping[str, Any]) -> str:
+    if snapshot.get("public_gamma_read_only") is True:
+        return "Public market"
+    return "Fixture"

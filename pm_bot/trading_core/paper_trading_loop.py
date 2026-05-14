@@ -49,6 +49,7 @@ def run_paper_trading_loop(
     strategy: str = "tiny-momentum",
     dry_run: bool = True,
     fixture: str | Path | None = None,
+    market_snapshot: Mapping[str, Any] | None = None,
     artifact_dir: str | Path | None = None,
     write_artifacts: bool = True,
     generated_at: str = GENERATED_AT,
@@ -70,12 +71,20 @@ def run_paper_trading_loop(
         },
     )
 
-    client = PaperMockMarketClient(fixture_path=fixture)
-    snapshot = client.load_market_snapshot(
-        market=market_symbol,
-        artifact_run_id=artifact_run_id,
-        generated_at=generated_at,
-    )
+    if market_snapshot is not None:
+        snapshot = _supplied_market_snapshot(
+            market_snapshot,
+            market_symbol=market_symbol,
+            artifact_run_id=artifact_run_id,
+            generated_at=generated_at,
+        )
+    else:
+        client = PaperMockMarketClient(fixture_path=fixture)
+        snapshot = client.load_market_snapshot(
+            market=market_symbol,
+            artifact_run_id=artifact_run_id,
+            generated_at=generated_at,
+        )
     engine = build_paper_strategy(strategy_name)
     signal_model = engine.evaluate(snapshot, artifact_run_id=artifact_run_id, generated_at=generated_at)
     signal = signal_model.to_dict() if signal_model is not None else None
@@ -356,3 +365,32 @@ def _loop_status(
     if paper_intent:
         return "paper_loop_completed_paper_intent_ready"
     return "paper_loop_completed_no_intent"
+
+
+def _supplied_market_snapshot(
+    snapshot: Mapping[str, Any],
+    *,
+    market_symbol: str,
+    artifact_run_id: str,
+    generated_at: str,
+) -> dict[str, Any]:
+    value = dict(snapshot or {})
+    if not value:
+        raise ValueError("supplied market_snapshot must be a non-empty mapping")
+    value["artifact_run_id"] = artifact_run_id
+    value["market_symbol"] = market_symbol
+    value["generated_at"] = clean_text(value.get("generated_at")) or generated_at
+    if not clean_text(value.get("normalized_market_ref")):
+        market_id = clean_text(value.get("market_id"))
+        market_slug = clean_text(value.get("market_slug"))
+        value["normalized_market_ref"] = f"{market_id}:{market_slug}" if market_id or market_slug else "not_available"
+    value["snapshot_id"] = stable_id(
+        "paper-trading-loop-market-snapshot-053",
+        {
+            "artifact_run_id": artifact_run_id,
+            "market_id": value.get("market_id"),
+            "observed_price": value.get("observed_price"),
+            "previous_observed_price": value.get("previous_observed_price"),
+        },
+    )
+    return value

@@ -105,6 +105,9 @@ OPERATOR_UI_PANEL_PAPER_CANARY_DRILL_SUMMARY_CONTRACT = (
 OPERATOR_UI_PANEL_PAPER_TRADING_LOOP_SUMMARY_CONTRACT = (
     "pmbot_operator_ui_panel_paper_trading_loop_summary.v1"
 )
+OPERATOR_UI_PANEL_PUBLIC_MARKET_PAPER_LOOP_SUMMARY_CONTRACT = (
+    "pmbot_operator_ui_panel_public_market_paper_loop_summary_054.v1"
+)
 OPERATOR_UI_PANEL_VALIDATION_CONTRACT = "pmbot_operator_ui_panel_validation.v1"
 
 TASK_ID = "ORCH-PMBOT-TRADING-MVP-036-OPERATOR-UI-PANEL-V1-READINESS-RISK-LIMITS-KILL-SWITCH"
@@ -154,6 +157,7 @@ REQUIRED_SECTION_IDS = (
     "telegram_operator_control_bot",
     "telegram_mini_app_operator_panel",
     "paper_trading_loop",
+    "public_market_paper_loop",
     "paper_trading_summary",
     "operator_packets",
     "audit_replay",
@@ -1201,6 +1205,16 @@ def build_operator_ui_panel_v1(
         latest_status_path=paths.get("paper_trading_loop_status", "")
         or clean_text(dashboard_value.get("latest_paper_trading_status_path")),
     )
+    public_market_paper_loop_summary = _build_public_market_paper_loop_summary(
+        public_market_paper_loop_status=(
+            dashboard_value.get("public_market_paper_loop_status_summary")
+            or dashboard_value.get("public_market_paper_loop_status")
+            or dashboard_value.get("latest_public_market_paper_status")
+            or {}
+        ),
+        latest_status_path=paths.get("public_market_paper_loop_status", "")
+        or clean_text(dashboard_value.get("latest_public_market_paper_status_path")),
+    )
     readiness = _build_readiness_summary(
         operator_review_ready=operator_packet_summary.get("operator_approval_packet_review_ready") is True,
         evidence_bundle_review_ready=evidence_summary.get("evidence_bundle_review_ready") is True,
@@ -1228,6 +1242,7 @@ def build_operator_ui_panel_v1(
         paper=paper_summary,
         paper_canary_drill=paper_canary_drill_summary,
         paper_trading_loop=paper_trading_loop_summary,
+        public_market_paper_loop=public_market_paper_loop_summary,
         operator_packets=operator_packet_summary,
         audit=audit_summary,
         action_states=action_states,
@@ -1259,6 +1274,7 @@ def build_operator_ui_panel_v1(
             "paper": paper_summary,
             "paper_canary_drill": paper_canary_drill_summary,
             "paper_trading_loop": paper_trading_loop_summary,
+            "public_market_paper_loop": public_market_paper_loop_summary,
         },
     )
     panel = OperatorUIPanelV1(
@@ -1294,6 +1310,8 @@ def build_operator_ui_panel_v1(
     panel["paper_canary_drill_section_ready"] = True
     panel["paper_trading_loop_status_summary"] = paper_trading_loop_summary
     panel["paper_trading_loop_section_ready"] = True
+    panel["public_market_paper_loop_status_summary"] = public_market_paper_loop_summary
+    panel["public_market_paper_loop_section_ready"] = True
     validation = validate_operator_ui_panel_v1(panel, generated_at=generated_at)
     panel["validation"] = validation
     return panel
@@ -1815,6 +1833,25 @@ def summarize_operator_ui_panel_v1(panel: Mapping[str, Any]) -> dict[str, Any]:
         "paper_trading_loop_latest_status_path": dict(
             panel.get("paper_trading_loop_status_summary", {})
         ).get("latest_status_path"),
+        "public_market_paper_loop_section_ready": panel.get("public_market_paper_loop_section_ready") is True,
+        "public_market_paper_loop_status": dict(
+            panel.get("public_market_paper_loop_status_summary", {})
+        ).get("status"),
+        "public_market_paper_loop_source": dict(
+            panel.get("public_market_paper_loop_status_summary", {})
+        ).get("source"),
+        "public_market_paper_loop_evidence_pack_path": dict(
+            panel.get("public_market_paper_loop_status_summary", {})
+        ).get("evidence_pack_path"),
+        "public_market_paper_loop_live_execution": dict(
+            panel.get("public_market_paper_loop_status_summary", {})
+        ).get("live_execution"),
+        "public_market_paper_loop_risk_decision": dict(
+            panel.get("public_market_paper_loop_status_summary", {})
+        ).get("risk_decision"),
+        "public_market_paper_loop_intent_status": dict(
+            panel.get("public_market_paper_loop_status_summary", {})
+        ).get("paper_intent_status"),
         "paper_summary_panel_ready": panel.get("paper_summary_panel_ready") is True,
         "blocker_panel_ready": panel.get("blocker_panel_ready") is True,
         "static_html_render_ready": panel.get("static_html_render_ready") is True,
@@ -3130,6 +3167,43 @@ def _build_paper_trading_loop_summary(
     }
 
 
+def _build_public_market_paper_loop_summary(
+    *,
+    public_market_paper_loop_status: Mapping[str, Any] | None,
+    latest_status_path: str,
+) -> dict[str, Any]:
+    status = dict(public_market_paper_loop_status or {})
+    return {
+        "contract_version": OPERATOR_UI_PANEL_PUBLIC_MARKET_PAPER_LOOP_SUMMARY_CONTRACT,
+        "public_market_paper_loop_section_ready": True,
+        "status": clean_text(status.get("status") or NOT_AVAILABLE),
+        "market": clean_text(status.get("market") or status.get("market_symbol") or NOT_AVAILABLE),
+        "strategy_name": clean_text(status.get("strategy_name") or NOT_AVAILABLE),
+        "source": clean_text(status.get("source") or NOT_AVAILABLE),
+        "source_type": clean_text(status.get("source_type") or NOT_AVAILABLE),
+        "mode": clean_text(status.get("mode") or "paper / review-only"),
+        "live_execution": clean_text(status.get("live_execution") or "blocked"),
+        "live_execution_blocked": True,
+        "evidence_pack_path": clean_text(status.get("evidence_pack_path")),
+        "normalized_snapshot_path": clean_text(status.get("normalized_snapshot_path")),
+        "signal_status": clean_text(status.get("signal_status") or NOT_AVAILABLE),
+        "risk_decision": clean_text(status.get("risk_decision") or NOT_AVAILABLE),
+        "paper_intent_status": clean_text(status.get("paper_intent_status") or "no_paper_intent"),
+        "paper_intent_summary": clean_text(status.get("paper_intent_summary")),
+        "artifact": clean_text(status.get("artifact_path") or status.get("artifact")),
+        "latest_status_path": clean_text(status.get("latest_status_path") or latest_status_path),
+        "next_operator_action": clean_text(
+            status.get("next_operator_action") or "review only, no live action available"
+        ),
+        "auth_used": False,
+        "credentials_used": False,
+        "wallet_used": False,
+        "signing_used": False,
+        "order_endpoint_used": False,
+        **_panel_safety_flags(),
+    }
+
+
 def _build_action_states() -> list[dict[str, Any]]:
     return [
         OperatorUIPanelActionState(
@@ -3206,6 +3280,7 @@ def _build_sections(
     paper: Mapping[str, Any],
     paper_canary_drill: Mapping[str, Any],
     paper_trading_loop: Mapping[str, Any],
+    public_market_paper_loop: Mapping[str, Any],
     operator_packets: Mapping[str, Any],
     audit: Mapping[str, Any],
     action_states: Sequence[Mapping[str, Any]],
@@ -3301,6 +3376,46 @@ def _build_sections(
                     "paper_trading_loop_review_only",
                     "warning",
                     "Paper trading loop status is review-only and exposes no executable live action.",
+                )
+            ],
+        ),
+        _section(
+            "public_market_paper_loop",
+            "Public Market Paper Loop",
+            clean_text(public_market_paper_loop.get("status") or NOT_AVAILABLE),
+            [
+                _metric("status", "Status", public_market_paper_loop.get("status")),
+                _metric("market", "Market", public_market_paper_loop.get("market")),
+                _metric("strategy_name", "Strategy", public_market_paper_loop.get("strategy_name")),
+                _metric("source", "Source", public_market_paper_loop.get("source")),
+                _metric("source_type", "Source type", public_market_paper_loop.get("source_type")),
+                _metric("mode", "Mode", public_market_paper_loop.get("mode")),
+                _metric("live_execution", "Live execution", public_market_paper_loop.get("live_execution")),
+                _metric("live_execution_blocked", "Live execution blocked", True),
+                _metric("evidence_pack_path", "Evidence pack", public_market_paper_loop.get("evidence_pack_path")),
+                _metric("risk_decision", "Risk decision", public_market_paper_loop.get("risk_decision")),
+                _metric(
+                    "paper_intent_status",
+                    "Paper intent status",
+                    public_market_paper_loop.get("paper_intent_status"),
+                ),
+                _metric(
+                    "paper_intent_summary",
+                    "Paper intent summary",
+                    public_market_paper_loop.get("paper_intent_summary"),
+                ),
+                _metric("artifact", "Artifact", public_market_paper_loop.get("artifact")),
+                _metric("latest_status_path", "Latest status", public_market_paper_loop.get("latest_status_path")),
+                _metric("review_only", "Review-only", True),
+                _metric("order_submission_enabled", "Order submission enabled", False),
+                _metric("wallet_signing_enabled", "Wallet signing enabled", False),
+                _metric("signing_enabled", "Signing enabled", False),
+            ],
+            warnings=[
+                _warning(
+                    "public_market_paper_loop_review_only",
+                    "warning",
+                    "Public market paper loop status is passive review-only and exposes no executable live action.",
                 )
             ],
         ),

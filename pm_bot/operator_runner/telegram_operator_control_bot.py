@@ -426,6 +426,7 @@ class TelegramOperatorControlBot:
         gonogo = dict(summary.get("gonogo_summary", {}))
         paper_canary = dict(summary.get("paper_canary_drill_status_summary", {}))
         paper_loop = dict(summary.get("paper_trading_loop_status_summary", {}))
+        public_market_loop = dict(summary.get("public_market_paper_loop_status_summary", {}))
         state = dict(summary.get("state_summary", {}))
         if self._language() == "ru":
             return "\n".join(
@@ -436,6 +437,9 @@ class TelegramOperatorControlBot:
                     f"Paper trading loop: {clean_text(paper_loop.get('status') or 'not_available')}",
                     f"Paper trading risk: {clean_text(paper_loop.get('risk_decision') or 'not_available')}",
                     f"Paper trading intent: {clean_text(paper_loop.get('paper_intent_status') or 'not_available')}",
+                    f"Public market paper loop: {clean_text(public_market_loop.get('status') or 'not_available')}",
+                    f"Public market source: {clean_text(public_market_loop.get('source') or 'not_available')}",
+                    f"Public market evidence: {clean_text(public_market_loop.get('evidence_pack_path') or 'not_available')}",
                     f"Go/No-Go: {clean_text(gonogo.get('overall_decision') or gonogo.get('status') or 'NO_GO')}",
                     "allowed_for_live: false",
                     "canary_executable_now: false",
@@ -454,6 +458,9 @@ class TelegramOperatorControlBot:
                 f"Paper trading loop: {clean_text(paper_loop.get('status') or 'not_available')}",
                 f"Paper trading risk: {clean_text(paper_loop.get('risk_decision') or 'not_available')}",
                 f"Paper trading intent: {clean_text(paper_loop.get('paper_intent_status') or 'not_available')}",
+                f"Public market paper loop: {clean_text(public_market_loop.get('status') or 'not_available')}",
+                f"Public market source: {clean_text(public_market_loop.get('source') or 'not_available')}",
+                f"Public market evidence: {clean_text(public_market_loop.get('evidence_pack_path') or 'not_available')}",
                 f"Go/no-go: {clean_text(gonogo.get('overall_decision') or gonogo.get('status') or 'NO_GO')}",
                 "allowed_for_live: false",
                 "canary_executable_now: false",
@@ -884,6 +891,11 @@ def build_telegram_operator_control_summary(
         context_value.get("paper_trading_loop_status"),
         context_value.get("latest_paper_trading_status"),
     )
+    public_market_loop = _first_mapping(
+        context_value.get("public_market_paper_loop_status_summary"),
+        context_value.get("public_market_paper_loop_status"),
+        context_value.get("latest_public_market_paper_status"),
+    )
     mini_panel = _first_mapping(
         context_value.get("telegram_mini_app_operator_panel_summary"),
         context_value.get("telegram_mini_app_operator_panel"),
@@ -903,6 +915,7 @@ def build_telegram_operator_control_summary(
                 "gonogo": gonogo,
                 "evidence": evidence,
                 "blockers": blockers,
+                "public_market_loop": public_market_loop,
             },
         ),
         "task_id": TASK_ID,
@@ -927,6 +940,7 @@ def build_telegram_operator_control_summary(
         "evidence_summary": evidence,
         "paper_canary_drill_status_summary": _normalize_paper_canary_summary(paper_canary),
         "paper_trading_loop_status_summary": _normalize_paper_trading_loop_summary(paper_loop),
+        "public_market_paper_loop_status_summary": _normalize_public_market_paper_loop_summary(public_market_loop),
         "telegram_mini_app_operator_panel_summary": mini_panel,
         "blocker_summary": _normalize_blocker_summary(blockers),
         "review_only": True,
@@ -1053,6 +1067,41 @@ def _normalize_paper_trading_loop_summary(status: Mapping[str, Any]) -> dict[str
         "real_execution_available": False,
         "live_connector_enabled": False,
         "allowed_for_live": False,
+    }
+
+
+def _normalize_public_market_paper_loop_summary(status: Mapping[str, Any]) -> dict[str, Any]:
+    value = dict(status or {})
+    return {
+        "status": clean_text(value.get("status") or "not_available"),
+        "market": clean_text(value.get("market") or value.get("market_symbol") or "not_available"),
+        "strategy_name": clean_text(value.get("strategy_name") or "not_available"),
+        "source": clean_text(value.get("source") or "not_available"),
+        "source_type": clean_text(value.get("source_type") or "not_available"),
+        "mode": clean_text(value.get("mode") or "paper / review-only"),
+        "live_execution": clean_text(value.get("live_execution") or "blocked"),
+        "live_execution_blocked": True,
+        "evidence_pack_path": clean_text(value.get("evidence_pack_path")),
+        "risk_decision": clean_text(value.get("risk_decision") or "not_available"),
+        "paper_intent_status": clean_text(value.get("paper_intent_status") or "no_paper_intent"),
+        "paper_intent_summary": clean_text(value.get("paper_intent_summary")),
+        "artifact": clean_text(value.get("artifact_path") or value.get("artifact")),
+        "latest_status_path": clean_text(value.get("latest_status_path")),
+        "review_only": True,
+        "execution_enabling": False,
+        "order_submission_enabled": False,
+        "wallet_signing_enabled": False,
+        "signing_enabled": False,
+        "live_execution_approved": False,
+        "canary_executable_now": False,
+        "real_execution_available": False,
+        "live_connector_enabled": False,
+        "allowed_for_live": False,
+        "auth_used": False,
+        "credentials_used": False,
+        "wallet_used": False,
+        "signing_used": False,
+        "order_endpoint_used": False,
     }
 
 
