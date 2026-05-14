@@ -427,6 +427,7 @@ class TelegramOperatorControlBot:
         paper_canary = dict(summary.get("paper_canary_drill_status_summary", {}))
         paper_loop = dict(summary.get("paper_trading_loop_status_summary", {}))
         public_market_loop = dict(summary.get("public_market_paper_loop_status_summary", {}))
+        decision_ledger = dict(summary.get("paper_decision_ledger_status_summary", {}))
         state = dict(summary.get("state_summary", {}))
         if self._language() == "ru":
             return "\n".join(
@@ -440,6 +441,9 @@ class TelegramOperatorControlBot:
                     f"Public market paper loop: {clean_text(public_market_loop.get('status') or 'not_available')}",
                     f"Public market source: {clean_text(public_market_loop.get('source') or 'not_available')}",
                     f"Public market evidence: {clean_text(public_market_loop.get('evidence_pack_path') or 'not_available')}",
+                    f"Paper decision ledger outcome: {clean_text(decision_ledger.get('last_outcome') or 'not_available')}",
+                    f"Paper decision ledger entries: {clean_text(decision_ledger.get('ledger_entry_count') or '0')}",
+                    f"Paper decision ledger evidence: {clean_text(decision_ledger.get('evidence_pack_path') or 'not_available')}",
                     f"Go/No-Go: {clean_text(gonogo.get('overall_decision') or gonogo.get('status') or 'NO_GO')}",
                     "allowed_for_live: false",
                     "canary_executable_now: false",
@@ -461,6 +465,9 @@ class TelegramOperatorControlBot:
                 f"Public market paper loop: {clean_text(public_market_loop.get('status') or 'not_available')}",
                 f"Public market source: {clean_text(public_market_loop.get('source') or 'not_available')}",
                 f"Public market evidence: {clean_text(public_market_loop.get('evidence_pack_path') or 'not_available')}",
+                f"Paper decision ledger outcome: {clean_text(decision_ledger.get('last_outcome') or 'not_available')}",
+                f"Paper decision ledger entries: {clean_text(decision_ledger.get('ledger_entry_count') or '0')}",
+                f"Paper decision ledger evidence: {clean_text(decision_ledger.get('evidence_pack_path') or 'not_available')}",
                 f"Go/no-go: {clean_text(gonogo.get('overall_decision') or gonogo.get('status') or 'NO_GO')}",
                 "allowed_for_live: false",
                 "canary_executable_now: false",
@@ -896,6 +903,11 @@ def build_telegram_operator_control_summary(
         context_value.get("public_market_paper_loop_status"),
         context_value.get("latest_public_market_paper_status"),
     )
+    paper_decision_ledger = _first_mapping(
+        context_value.get("paper_decision_ledger_status_summary"),
+        context_value.get("paper_decision_ledger_status"),
+        context_value.get("latest_paper_decision_ledger_status"),
+    )
     mini_panel = _first_mapping(
         context_value.get("telegram_mini_app_operator_panel_summary"),
         context_value.get("telegram_mini_app_operator_panel"),
@@ -916,6 +928,7 @@ def build_telegram_operator_control_summary(
                 "evidence": evidence,
                 "blockers": blockers,
                 "public_market_loop": public_market_loop,
+                "paper_decision_ledger": paper_decision_ledger,
             },
         ),
         "task_id": TASK_ID,
@@ -941,6 +954,7 @@ def build_telegram_operator_control_summary(
         "paper_canary_drill_status_summary": _normalize_paper_canary_summary(paper_canary),
         "paper_trading_loop_status_summary": _normalize_paper_trading_loop_summary(paper_loop),
         "public_market_paper_loop_status_summary": _normalize_public_market_paper_loop_summary(public_market_loop),
+        "paper_decision_ledger_status_summary": _normalize_paper_decision_ledger_summary(paper_decision_ledger),
         "telegram_mini_app_operator_panel_summary": mini_panel,
         "blocker_summary": _normalize_blocker_summary(blockers),
         "review_only": True,
@@ -1102,6 +1116,42 @@ def _normalize_public_market_paper_loop_summary(status: Mapping[str, Any]) -> di
         "wallet_used": False,
         "signing_used": False,
         "order_endpoint_used": False,
+    }
+
+
+def _normalize_paper_decision_ledger_summary(status: Mapping[str, Any]) -> dict[str, Any]:
+    value = dict(status or {})
+    counts = value.get("count_by_outcome") if isinstance(value.get("count_by_outcome"), Mapping) else {}
+    return {
+        "status": clean_text(value.get("status") or "not_available"),
+        "market": clean_text(value.get("market") or value.get("market_symbol") or "not_available"),
+        "strategy_name": clean_text(value.get("strategy_name") or "not_available"),
+        "source_type": clean_text(value.get("source_type") or "not_available"),
+        "latest_run_source": clean_text(value.get("latest_run_source") or "not_available"),
+        "last_outcome": clean_text(value.get("last_outcome") or "not_available"),
+        "ledger_entry_count": _int_first(value.get("ledger_entry_count"), 0),
+        "count_by_outcome": dict(counts),
+        "evidence_pack_path": clean_text(value.get("evidence_pack_path")),
+        "latest_ledger_path": clean_text(value.get("latest_ledger_path")),
+        "summary_path": clean_text(value.get("summary_path")),
+        "trace_path": clean_text(value.get("trace_path")),
+        "operator_markdown_path": clean_text(value.get("operator_markdown_path")),
+        "mode": clean_text(value.get("mode") or "paper / review-only"),
+        "live_execution": clean_text(value.get("live_execution") or "blocked"),
+        "live_execution_blocked": True,
+        "next_operator_action": clean_text(
+            value.get("next_operator_action") or "review only; no live action available"
+        ),
+        "review_only": True,
+        "execution_enabling": False,
+        "order_submission_enabled": False,
+        "wallet_signing_enabled": False,
+        "signing_enabled": False,
+        "live_execution_approved": False,
+        "canary_executable_now": False,
+        "real_execution_available": False,
+        "live_connector_enabled": False,
+        "allowed_for_live": False,
     }
 
 

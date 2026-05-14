@@ -108,6 +108,9 @@ OPERATOR_UI_PANEL_PAPER_TRADING_LOOP_SUMMARY_CONTRACT = (
 OPERATOR_UI_PANEL_PUBLIC_MARKET_PAPER_LOOP_SUMMARY_CONTRACT = (
     "pmbot_operator_ui_panel_public_market_paper_loop_summary_054.v1"
 )
+OPERATOR_UI_PANEL_PAPER_DECISION_LEDGER_SUMMARY_CONTRACT = (
+    "pmbot_operator_ui_panel_paper_decision_ledger_summary_055.v1"
+)
 OPERATOR_UI_PANEL_VALIDATION_CONTRACT = "pmbot_operator_ui_panel_validation.v1"
 
 TASK_ID = "ORCH-PMBOT-TRADING-MVP-036-OPERATOR-UI-PANEL-V1-READINESS-RISK-LIMITS-KILL-SWITCH"
@@ -158,6 +161,7 @@ REQUIRED_SECTION_IDS = (
     "telegram_mini_app_operator_panel",
     "paper_trading_loop",
     "public_market_paper_loop",
+    "paper_decision_ledger",
     "paper_trading_summary",
     "operator_packets",
     "audit_replay",
@@ -871,6 +875,7 @@ class OperatorUIPanelV1:
     telegram_operator_control_bot_summary: Mapping[str, Any]
     telegram_mini_app_operator_panel_summary: Mapping[str, Any]
     paper_summary: Mapping[str, Any]
+    paper_decision_ledger_status_summary: Mapping[str, Any]
     operator_packet_summary: Mapping[str, Any]
     audit_replay_summary: Mapping[str, Any]
     next_required_gates: tuple[str, ...]
@@ -909,6 +914,7 @@ class OperatorUIPanelV1:
         value["telegram_operator_control_bot_summary"] = dict(self.telegram_operator_control_bot_summary)
         value["telegram_mini_app_operator_panel_summary"] = dict(self.telegram_mini_app_operator_panel_summary)
         value["paper_summary"] = dict(self.paper_summary)
+        value["paper_decision_ledger_status_summary"] = dict(self.paper_decision_ledger_status_summary)
         value["operator_packet_summary"] = dict(self.operator_packet_summary)
         value["audit_replay_summary"] = dict(self.audit_replay_summary)
         value["next_required_gates"] = list(self.next_required_gates)
@@ -923,6 +929,7 @@ class OperatorUIPanelV1:
         value["telegram_operator_control_bot_section_ready"] = True
         value["telegram_mini_app_operator_panel_section_ready"] = True
         value["paper_summary_panel_ready"] = True
+        value["paper_decision_ledger_section_ready"] = True
         value["blocker_panel_ready"] = True
         value["live_credentials_auth_boundary_section_ready"] = True
         value["btc_market_section_ready"] = True
@@ -1215,6 +1222,16 @@ def build_operator_ui_panel_v1(
         latest_status_path=paths.get("public_market_paper_loop_status", "")
         or clean_text(dashboard_value.get("latest_public_market_paper_status_path")),
     )
+    paper_decision_ledger_summary = _build_paper_decision_ledger_summary(
+        paper_decision_ledger_status=(
+            dashboard_value.get("paper_decision_ledger_status_summary")
+            or dashboard_value.get("paper_decision_ledger_status")
+            or dashboard_value.get("latest_paper_decision_ledger_status")
+            or {}
+        ),
+        latest_status_path=paths.get("paper_decision_ledger_status", "")
+        or clean_text(dashboard_value.get("latest_paper_decision_ledger_status_path")),
+    )
     readiness = _build_readiness_summary(
         operator_review_ready=operator_packet_summary.get("operator_approval_packet_review_ready") is True,
         evidence_bundle_review_ready=evidence_summary.get("evidence_bundle_review_ready") is True,
@@ -1243,6 +1260,7 @@ def build_operator_ui_panel_v1(
         paper_canary_drill=paper_canary_drill_summary,
         paper_trading_loop=paper_trading_loop_summary,
         public_market_paper_loop=public_market_paper_loop_summary,
+        paper_decision_ledger=paper_decision_ledger_summary,
         operator_packets=operator_packet_summary,
         audit=audit_summary,
         action_states=action_states,
@@ -1275,6 +1293,7 @@ def build_operator_ui_panel_v1(
             "paper_canary_drill": paper_canary_drill_summary,
             "paper_trading_loop": paper_trading_loop_summary,
             "public_market_paper_loop": public_market_paper_loop_summary,
+            "paper_decision_ledger": paper_decision_ledger_summary,
         },
     )
     panel = OperatorUIPanelV1(
@@ -1300,6 +1319,7 @@ def build_operator_ui_panel_v1(
         telegram_operator_control_bot_summary=telegram_control_summary,
         telegram_mini_app_operator_panel_summary=telegram_mini_app_summary,
         paper_summary=paper_summary,
+        paper_decision_ledger_status_summary=paper_decision_ledger_summary,
         operator_packet_summary=operator_packet_summary,
         audit_replay_summary=audit_summary,
         next_required_gates=NEXT_REQUIRED_GATES,
@@ -1312,6 +1332,8 @@ def build_operator_ui_panel_v1(
     panel["paper_trading_loop_section_ready"] = True
     panel["public_market_paper_loop_status_summary"] = public_market_paper_loop_summary
     panel["public_market_paper_loop_section_ready"] = True
+    panel["paper_decision_ledger_status_summary"] = paper_decision_ledger_summary
+    panel["paper_decision_ledger_section_ready"] = True
     validation = validate_operator_ui_panel_v1(panel, generated_at=generated_at)
     panel["validation"] = validation
     return panel
@@ -1852,6 +1874,22 @@ def summarize_operator_ui_panel_v1(panel: Mapping[str, Any]) -> dict[str, Any]:
         "public_market_paper_loop_intent_status": dict(
             panel.get("public_market_paper_loop_status_summary", {})
         ).get("paper_intent_status"),
+        "paper_decision_ledger_section_ready": panel.get("paper_decision_ledger_section_ready") is True,
+        "paper_decision_ledger_last_outcome": dict(
+            panel.get("paper_decision_ledger_status_summary", {})
+        ).get("last_outcome"),
+        "paper_decision_ledger_entry_count": dict(
+            panel.get("paper_decision_ledger_status_summary", {})
+        ).get("ledger_entry_count"),
+        "paper_decision_ledger_count_by_outcome": dict(
+            panel.get("paper_decision_ledger_status_summary", {})
+        ).get("count_by_outcome"),
+        "paper_decision_ledger_evidence_pack_path": dict(
+            panel.get("paper_decision_ledger_status_summary", {})
+        ).get("evidence_pack_path"),
+        "paper_decision_ledger_live_execution_blocked": dict(
+            panel.get("paper_decision_ledger_status_summary", {})
+        ).get("live_execution_blocked"),
         "paper_summary_panel_ready": panel.get("paper_summary_panel_ready") is True,
         "blocker_panel_ready": panel.get("blocker_panel_ready") is True,
         "static_html_render_ready": panel.get("static_html_render_ready") is True,
@@ -3204,6 +3242,39 @@ def _build_public_market_paper_loop_summary(
     }
 
 
+def _build_paper_decision_ledger_summary(
+    *,
+    paper_decision_ledger_status: Mapping[str, Any] | None,
+    latest_status_path: str,
+) -> dict[str, Any]:
+    status = dict(paper_decision_ledger_status or {})
+    counts = status.get("count_by_outcome") if isinstance(status.get("count_by_outcome"), Mapping) else {}
+    return {
+        "contract_version": OPERATOR_UI_PANEL_PAPER_DECISION_LEDGER_SUMMARY_CONTRACT,
+        "paper_decision_ledger_section_ready": True,
+        "status": clean_text(status.get("status") or NOT_AVAILABLE),
+        "market": clean_text(status.get("market") or status.get("market_symbol") or NOT_AVAILABLE),
+        "strategy_name": clean_text(status.get("strategy_name") or NOT_AVAILABLE),
+        "source_type": clean_text(status.get("source_type") or NOT_AVAILABLE),
+        "latest_run_source": clean_text(status.get("latest_run_source") or NOT_AVAILABLE),
+        "last_outcome": clean_text(status.get("last_outcome") or NOT_AVAILABLE),
+        "ledger_entry_count": _int_or_zero(status.get("ledger_entry_count")),
+        "count_by_outcome": dict(counts),
+        "evidence_pack_path": clean_text(status.get("evidence_pack_path")),
+        "latest_ledger_path": clean_text(status.get("latest_ledger_path") or latest_status_path),
+        "summary_path": clean_text(status.get("summary_path")),
+        "trace_path": clean_text(status.get("trace_path")),
+        "operator_markdown_path": clean_text(status.get("operator_markdown_path")),
+        "mode": clean_text(status.get("mode") or "paper / review-only"),
+        "live_execution": clean_text(status.get("live_execution") or "blocked"),
+        "live_execution_blocked": True,
+        "next_operator_action": clean_text(
+            status.get("next_operator_action") or "review only; no live action available"
+        ),
+        **_panel_safety_flags(),
+    }
+
+
 def _build_action_states() -> list[dict[str, Any]]:
     return [
         OperatorUIPanelActionState(
@@ -3281,6 +3352,7 @@ def _build_sections(
     paper_canary_drill: Mapping[str, Any],
     paper_trading_loop: Mapping[str, Any],
     public_market_paper_loop: Mapping[str, Any],
+    paper_decision_ledger: Mapping[str, Any],
     operator_packets: Mapping[str, Any],
     audit: Mapping[str, Any],
     action_states: Sequence[Mapping[str, Any]],
@@ -3416,6 +3488,38 @@ def _build_sections(
                     "public_market_paper_loop_review_only",
                     "warning",
                     "Public market paper loop status is passive review-only and exposes no executable live action.",
+                )
+            ],
+        ),
+        _section(
+            "paper_decision_ledger",
+            "Paper Decision Ledger",
+            clean_text(paper_decision_ledger.get("last_outcome") or NOT_AVAILABLE),
+            [
+                _metric("status", "Status", paper_decision_ledger.get("status")),
+                _metric("market", "Market", paper_decision_ledger.get("market")),
+                _metric("strategy_name", "Strategy", paper_decision_ledger.get("strategy_name")),
+                _metric("source_type", "Source type", paper_decision_ledger.get("source_type")),
+                _metric("last_outcome", "Last outcome", paper_decision_ledger.get("last_outcome")),
+                _metric("ledger_entry_count", "Ledger entries", paper_decision_ledger.get("ledger_entry_count")),
+                _metric(
+                    "count_by_outcome",
+                    "Count by outcome",
+                    paper_decision_ledger.get("count_by_outcome"),
+                ),
+                _metric("evidence_pack_path", "Evidence pack", paper_decision_ledger.get("evidence_pack_path")),
+                _metric("latest_ledger_path", "Ledger", paper_decision_ledger.get("latest_ledger_path")),
+                _metric("live_execution_blocked", "Live execution blocked", True),
+                _metric("review_only", "Review-only", True),
+                _metric("order_submission_enabled", "Order submission enabled", False),
+                _metric("wallet_signing_enabled", "Wallet signing enabled", False),
+                _metric("signing_enabled", "Signing enabled", False),
+            ],
+            warnings=[
+                _warning(
+                    "paper_decision_ledger_review_only",
+                    "warning",
+                    "Paper decision ledger status is passive review-only and exposes no executable live action.",
                 )
             ],
         ),
