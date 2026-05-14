@@ -123,6 +123,9 @@ OPERATOR_UI_PANEL_CLOB_L2_MARKER_PREFLIGHT_SUMMARY_CONTRACT = (
 OPERATOR_UI_PANEL_NO_ORDER_AUTH_GET_PREFLIGHT_SUMMARY_CONTRACT = (
     "pmbot_operator_ui_panel_no_order_auth_get_preflight_summary_059.v1"
 )
+OPERATOR_UI_PANEL_SIGNER_BOUNDARY_PREFLIGHT_SUMMARY_CONTRACT = (
+    "pmbot_operator_ui_panel_signer_boundary_preflight_summary_060.v1"
+)
 OPERATOR_UI_PANEL_VALIDATION_CONTRACT = "pmbot_operator_ui_panel_validation.v1"
 
 TASK_ID = "ORCH-PMBOT-TRADING-MVP-036-OPERATOR-UI-PANEL-V1-READINESS-RISK-LIMITS-KILL-SWITCH"
@@ -177,6 +180,7 @@ REQUIRED_SECTION_IDS = (
     "live_connector_preflight",
     "authenticated_clob_preflight",
     "no_order_auth_get_preflight",
+    "signer_boundary_preflight",
     "paper_trading_summary",
     "operator_packets",
     "audit_replay",
@@ -1013,6 +1017,7 @@ def build_operator_ui_panel_v1(
     authenticated_clob_preflight_status_summary: Mapping[str, Any] | None = None,
     clob_l2_marker_preflight_status_summary: Mapping[str, Any] | None = None,
     no_order_auth_get_preflight_status_summary: Mapping[str, Any] | None = None,
+    signer_boundary_preflight_status_summary: Mapping[str, Any] | None = None,
     telegram_operator_control_bot_summary: Mapping[str, Any] | None = None,
     telegram_mini_app_operator_panel_summary: Mapping[str, Any] | None = None,
     latest_paths: Mapping[str, str] | None = None,
@@ -1298,6 +1303,17 @@ def build_operator_ui_panel_v1(
         latest_status_path=paths.get("no_order_auth_get_preflight_status", "")
         or clean_text(dashboard_value.get("latest_no_order_auth_get_preflight_status_path")),
     )
+    signer_boundary_preflight_summary = _build_signer_boundary_preflight_summary(
+        signer_boundary_preflight_status=(
+            signer_boundary_preflight_status_summary
+            or dashboard_value.get("signer_boundary_preflight_status_summary")
+            or dashboard_value.get("signer_boundary_preflight_status")
+            or dashboard_value.get("latest_signer_boundary_preflight_status")
+            or {}
+        ),
+        latest_status_path=paths.get("signer_boundary_preflight_status", "")
+        or clean_text(dashboard_value.get("latest_signer_boundary_preflight_status_path")),
+    )
     authenticated_clob_preflight_summary["clob_l2_marker_preflight_status_summary"] = (
         clob_l2_marker_preflight_summary
     )
@@ -1354,6 +1370,7 @@ def build_operator_ui_panel_v1(
         live_connector_preflight=live_connector_preflight_summary,
         authenticated_clob_preflight=authenticated_clob_preflight_summary,
         no_order_auth_get_preflight=no_order_auth_get_preflight_summary,
+        signer_boundary_preflight=signer_boundary_preflight_summary,
         operator_packets=operator_packet_summary,
         audit=audit_summary,
         action_states=action_states,
@@ -1390,6 +1407,7 @@ def build_operator_ui_panel_v1(
             "live_connector_preflight": live_connector_preflight_summary,
             "authenticated_clob_preflight": authenticated_clob_preflight_summary,
             "no_order_auth_get_preflight": no_order_auth_get_preflight_summary,
+            "signer_boundary_preflight": signer_boundary_preflight_summary,
         },
     )
     panel = OperatorUIPanelV1(
@@ -1438,6 +1456,8 @@ def build_operator_ui_panel_v1(
     panel["clob_l2_marker_preflight_section_ready"] = True
     panel["no_order_auth_get_preflight_status_summary"] = no_order_auth_get_preflight_summary
     panel["no_order_auth_get_preflight_section_ready"] = True
+    panel["signer_boundary_preflight_status_summary"] = signer_boundary_preflight_summary
+    panel["signer_boundary_preflight_section_ready"] = True
     validation = validate_operator_ui_panel_v1(panel, generated_at=generated_at)
     panel["validation"] = validation
     return panel
@@ -2071,6 +2091,34 @@ def summarize_operator_ui_panel_v1(panel: Mapping[str, Any]) -> dict[str, Any]:
         ).get("wallet_connection_blocked"),
         "no_order_auth_get_live_execution_blocked": dict(
             panel.get("no_order_auth_get_preflight_status_summary", {})
+        ).get("live_execution_blocked"),
+        "signer_boundary_preflight_section_ready": panel.get(
+            "signer_boundary_preflight_section_ready"
+        )
+        is True,
+        "signer_boundary_preflight_status": dict(
+            panel.get("signer_boundary_preflight_status_summary", {})
+        ).get("status"),
+        "signer_boundary_live_candidate_intent_status": dict(
+            panel.get("signer_boundary_preflight_status_summary", {})
+        ).get("live_candidate_intent_status"),
+        "signer_boundary_unsigned_plan_status": dict(
+            panel.get("signer_boundary_preflight_status_summary", {})
+        ).get("unsigned_plan_status"),
+        "signer_boundary_unsigned_plan_is_executable": dict(
+            panel.get("signer_boundary_preflight_status_summary", {})
+        ).get("unsigned_plan_is_executable"),
+        "signer_boundary_signer_blocked": dict(
+            panel.get("signer_boundary_preflight_status_summary", {})
+        ).get("signer_blocked"),
+        "signer_boundary_signed_payload_unavailable": dict(
+            panel.get("signer_boundary_preflight_status_summary", {})
+        ).get("signed_payload_unavailable"),
+        "signer_boundary_order_submission_blocked": dict(
+            panel.get("signer_boundary_preflight_status_summary", {})
+        ).get("order_submission_blocked"),
+        "signer_boundary_live_execution_blocked": dict(
+            panel.get("signer_boundary_preflight_status_summary", {})
         ).get("live_execution_blocked"),
         "authenticated_clob_preflight_order_submission_blocked": dict(
             panel.get("authenticated_clob_preflight_status_summary", {})
@@ -3636,6 +3684,85 @@ def _build_no_order_auth_get_preflight_summary(
     }
 
 
+def _build_signer_boundary_preflight_summary(
+    *,
+    signer_boundary_preflight_status: Mapping[str, Any] | None,
+    latest_status_path: str,
+) -> dict[str, Any]:
+    status = dict(signer_boundary_preflight_status or {})
+    blockers = status.get("blockers") if isinstance(status.get("blockers"), list) else []
+    top_blockers = status.get("top_blocker_reasons")
+    if not isinstance(top_blockers, list):
+        top_blockers = [
+            clean_text(row.get("reason"))
+            for row in mapping_rows(blockers)
+            if clean_text(row.get("reason"))
+        ][:8]
+    return {
+        "contract_version": OPERATOR_UI_PANEL_SIGNER_BOUNDARY_PREFLIGHT_SUMMARY_CONTRACT,
+        "status": clean_text(status.get("status") or NOT_AVAILABLE),
+        "market": clean_text(status.get("market") or status.get("market_symbol") or NOT_AVAILABLE),
+        "market_symbol": clean_text(status.get("market_symbol") or status.get("market") or NOT_AVAILABLE),
+        "strategy_name": clean_text(status.get("strategy_name") or NOT_AVAILABLE),
+        "mode": clean_text(status.get("mode") or "preflight / review-only"),
+        "execution_mode": clean_text(status.get("execution_mode") or "preflight"),
+        "source_paper_intent_path": clean_text(status.get("source_paper_intent_path")),
+        "live_candidate_intent_status": clean_text(
+            status.get("live_candidate_intent_status")
+            or status.get("live_candidate_intent")
+            or NOT_AVAILABLE
+        ),
+        "candidate_outcome": clean_text(status.get("candidate_outcome") or NOT_AVAILABLE),
+        "candidate_side": clean_text(status.get("candidate_side") or NOT_AVAILABLE),
+        "candidate_limit_price": status.get("candidate_limit_price"),
+        "candidate_size": status.get("candidate_size"),
+        "candidate_notional": status.get("candidate_notional"),
+        "unsigned_plan_status": clean_text(
+            status.get("unsigned_plan_status")
+            or status.get("unsigned_payload_plan")
+            or NOT_AVAILABLE
+        ),
+        "unsigned_plan_created": status.get("unsigned_plan_created") is True,
+        "unsigned_plan_is_executable": False,
+        "signer_status": clean_text(status.get("signer_status") or status.get("signer") or "blocked"),
+        "signed_payload_status": clean_text(
+            status.get("signed_payload_status") or status.get("signed_payload") or "unavailable"
+        ),
+        "order_submission_status": clean_text(
+            status.get("order_submission_status") or status.get("order_submission") or "blocked"
+        ),
+        "signer_config_present": False,
+        "signed_payload_available": False,
+        "order_submission_available": False,
+        "blocker_count": _int_or_zero(status.get("blocker_count"), len(blockers)),
+        "top_blocker_reasons": [clean_text(item) for item in top_blockers if clean_text(item)],
+        "artifact_path": clean_text(status.get("artifact_path")),
+        "latest_status_path": clean_text(status.get("latest_status_path") or latest_status_path),
+        "operator_markdown_path": clean_text(status.get("operator_markdown_path")),
+        "live_candidate_order_intent_path": clean_text(status.get("live_candidate_order_intent_path")),
+        "unsigned_order_payload_plan_path": clean_text(status.get("unsigned_order_payload_plan_path")),
+        "signing_boundary_status_path": clean_text(status.get("signing_boundary_status_path")),
+        "signed_payload_availability_path": clean_text(status.get("signed_payload_availability_path")),
+        "order_submission_availability_path": clean_text(status.get("order_submission_availability_path")),
+        "blockers_path": clean_text(status.get("blockers_path")),
+        "review_only": True,
+        "preflight_only": True,
+        "signer_blocked": True,
+        "signed_payload_unavailable": True,
+        "order_submission_blocked": True,
+        "order_cancellation_blocked": True,
+        "wallet_connection_blocked": True,
+        "balance_read_blocked": True,
+        "position_read_blocked": True,
+        "live_execution_blocked": True,
+        "next_operator_action": clean_text(
+            status.get("next_operator_action")
+            or "review signer boundary only, no live order available"
+        ),
+        **_panel_safety_flags(),
+    }
+
+
 def _build_authenticated_clob_preflight_summary(
     *,
     authenticated_clob_preflight_status: Mapping[str, Any] | None,
@@ -3821,6 +3948,7 @@ def _build_sections(
     live_connector_preflight: Mapping[str, Any],
     authenticated_clob_preflight: Mapping[str, Any],
     no_order_auth_get_preflight: Mapping[str, Any],
+    signer_boundary_preflight: Mapping[str, Any],
     operator_packets: Mapping[str, Any],
     audit: Mapping[str, Any],
     action_states: Sequence[Mapping[str, Any]],
@@ -4216,6 +4344,95 @@ def _build_sections(
                     "no_order_auth_get_preflight_review_only",
                     "critical",
                     "No-order authenticated GET preflight is passive review-only and exposes no executable live action.",
+                )
+            ],
+        ),
+        _section(
+            "signer_boundary_preflight",
+            "Signer Boundary Preflight",
+            clean_text(signer_boundary_preflight.get("status") or NOT_AVAILABLE),
+            [
+                _metric("status", "Status", signer_boundary_preflight.get("status")),
+                _metric("market", "Market", signer_boundary_preflight.get("market")),
+                _metric("strategy_name", "Strategy", signer_boundary_preflight.get("strategy_name")),
+                _metric("mode", "Mode", signer_boundary_preflight.get("mode")),
+                _metric(
+                    "source_paper_intent_path",
+                    "Source intent path",
+                    signer_boundary_preflight.get("source_paper_intent_path"),
+                ),
+                _metric(
+                    "live_candidate_intent_status",
+                    "Live candidate intent",
+                    signer_boundary_preflight.get("live_candidate_intent_status"),
+                ),
+                _metric(
+                    "candidate_outcome",
+                    "Candidate outcome",
+                    signer_boundary_preflight.get("candidate_outcome"),
+                ),
+                _metric(
+                    "candidate_side",
+                    "Candidate side",
+                    signer_boundary_preflight.get("candidate_side"),
+                ),
+                _metric(
+                    "unsigned_plan_status",
+                    "Unsigned payload plan",
+                    signer_boundary_preflight.get("unsigned_plan_status"),
+                ),
+                _metric(
+                    "unsigned_plan_created",
+                    "Unsigned plan created",
+                    signer_boundary_preflight.get("unsigned_plan_created"),
+                ),
+                _metric("unsigned_plan_is_executable", "Unsigned plan executable", False),
+                _metric("signer_status", "Signer", signer_boundary_preflight.get("signer_status")),
+                _metric(
+                    "signed_payload_status",
+                    "Signed payload",
+                    signer_boundary_preflight.get("signed_payload_status"),
+                ),
+                _metric(
+                    "order_submission_status",
+                    "Order submission",
+                    signer_boundary_preflight.get("order_submission_status"),
+                ),
+                _metric("blocker_count", "Blockers", signer_boundary_preflight.get("blocker_count")),
+                _metric(
+                    "top_blocker_reasons",
+                    "Top blockers",
+                    signer_boundary_preflight.get("top_blocker_reasons"),
+                ),
+                _metric("signer_blocked", "Signer blocked", True),
+                _metric("signed_payload_unavailable", "Signed payload unavailable", True),
+                _metric("order_submission_blocked", "Order submission blocked", True),
+                _metric("order_cancellation_blocked", "Order cancellation blocked", True),
+                _metric("wallet_connection_blocked", "Wallet connection blocked", True),
+                _metric("balance_read_blocked", "Balances blocked", True),
+                _metric("position_read_blocked", "Positions blocked", True),
+                _metric("live_execution_blocked", "Live execution blocked", True),
+                _metric(
+                    "latest_status_path",
+                    "Latest status",
+                    signer_boundary_preflight.get("latest_status_path"),
+                ),
+                _metric("review_only", "Review-only", True),
+                _metric("preflight_only", "Preflight-only", True),
+                _metric("order_submission_enabled", "Order submission enabled", False),
+                _metric("wallet_signing_enabled", "Wallet signing enabled", False),
+                _metric("signing_enabled", "Signing enabled", False),
+                _metric("signed_payload_generation_enabled", "Signed payload generation enabled", False),
+                _metric("signed_order_generation_enabled", "Signed order generation enabled", False),
+                _metric("authenticated_polymarket_enabled", "Authenticated trading enabled", False),
+                _metric("live_connector_enabled", "Live connector enabled", False),
+                _metric("allowed_for_live", "Allowed for live", False),
+            ],
+            warnings=[
+                _warning(
+                    "signer_boundary_preflight_review_only",
+                    "critical",
+                    "Signer boundary preflight is passive review-only and exposes no wallet, signing, or order action.",
                 )
             ],
         ),

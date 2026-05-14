@@ -433,7 +433,7 @@ class TelegramOperatorControlBot:
         authenticated_clob = dict(summary.get("authenticated_clob_preflight_status_summary", {}))
         clob_l2_marker = dict(summary.get("clob_l2_marker_preflight_status_summary", {}))
         no_order_auth_get = dict(summary.get("no_order_auth_get_preflight_status_summary", {}))
-        no_order_auth_get = dict(summary.get("no_order_auth_get_preflight_status_summary", {}))
+        signer_boundary = dict(summary.get("signer_boundary_preflight_status_summary", {}))
         state = dict(summary.get("state_summary", {}))
         if self._language() == "ru":
             return "\n".join(
@@ -461,6 +461,12 @@ class TelegramOperatorControlBot:
                     f"Unsafe L2 marker detected: {str(clob_l2_marker.get('unsafe_raw_value_detected') is True).lower()}",
                     f"No-order auth GET 059: {clean_text(no_order_auth_get.get('no_order_auth_get_status') or 'not_available')}",
                     f"No-order auth GET blockers: {int(no_order_auth_get.get('blocker_count', 0) or 0)}",
+                    f"Signer boundary 060: {clean_text(signer_boundary.get('status') or 'not_available')}",
+                    f"Live candidate intent: {clean_text(signer_boundary.get('live_candidate_intent_status') or 'not_available')}",
+                    f"Unsigned plan: {clean_text(signer_boundary.get('unsigned_plan_status') or 'not_available')}",
+                    "Signer blocked: true",
+                    "Signed payload unavailable: true",
+                    "Order submission blocked: true",
                     f"Go/No-Go: {clean_text(gonogo.get('overall_decision') or gonogo.get('status') or 'NO_GO')}",
                     "allowed_for_live: false",
                     "canary_executable_now: false",
@@ -496,6 +502,12 @@ class TelegramOperatorControlBot:
                 f"Unsafe L2 marker detected: {str(clob_l2_marker.get('unsafe_raw_value_detected') is True).lower()}",
                 f"No-order auth GET 059: {clean_text(no_order_auth_get.get('no_order_auth_get_status') or 'not_available')}",
                 f"No-order auth GET blockers: {int(no_order_auth_get.get('blocker_count', 0) or 0)}",
+                f"Signer boundary 060: {clean_text(signer_boundary.get('status') or 'not_available')}",
+                f"Live candidate intent: {clean_text(signer_boundary.get('live_candidate_intent_status') or 'not_available')}",
+                f"Unsigned plan: {clean_text(signer_boundary.get('unsigned_plan_status') or 'not_available')}",
+                "Signer blocked: true",
+                "Signed payload unavailable: true",
+                "Order submission blocked: true",
                 f"Go/no-go: {clean_text(gonogo.get('overall_decision') or gonogo.get('status') or 'NO_GO')}",
                 "allowed_for_live: false",
                 "canary_executable_now: false",
@@ -580,6 +592,7 @@ class TelegramOperatorControlBot:
         authenticated_clob = dict(summary.get("authenticated_clob_preflight_status_summary", {}))
         clob_l2_marker = dict(summary.get("clob_l2_marker_preflight_status_summary", {}))
         no_order_auth_get = dict(summary.get("no_order_auth_get_preflight_status_summary", {}))
+        signer_boundary = dict(summary.get("signer_boundary_preflight_status_summary", {}))
         return "\n".join(
             [
                 "Auth boundary: redacted/missing states only",
@@ -597,6 +610,9 @@ class TelegramOperatorControlBot:
                 f"Unsafe L2 marker detected: {str(clob_l2_marker.get('unsafe_raw_value_detected') is True).lower()}",
                 f"No-order auth GET 059: {clean_text(no_order_auth_get.get('no_order_auth_get_status') or 'not_available')}",
                 f"No-order auth GET blockers: {int(no_order_auth_get.get('blocker_count', 0) or 0)}",
+                f"Signer boundary 060: {clean_text(signer_boundary.get('status') or 'not_available')}",
+                f"Signer status: {clean_text(signer_boundary.get('signer_status') or 'blocked')}",
+                f"Signed payload status: {clean_text(signer_boundary.get('signed_payload_status') or 'unavailable')}",
                 "secrets_redacted: true",
                 "actual_secret_values_exposed: false",
                 "authenticated_endpoints_enabled: false",
@@ -610,12 +626,15 @@ class TelegramOperatorControlBot:
         order = dict(self._summary().get("live_order_submission_boundary_summary", {}))
         live_preflight = dict(self._summary().get("live_connector_preflight_status_summary", {}))
         authenticated_clob = dict(self._summary().get("authenticated_clob_preflight_status_summary", {}))
+        signer_boundary = dict(self._summary().get("signer_boundary_preflight_status_summary", {}))
         return "\n".join(
             [
                 "Live order submission boundary: disabled",
                 f"Boundary status: {clean_text(order.get('status') or 'not_available')}",
                 f"Preflight status: {clean_text(live_preflight.get('status') or 'not_available')}",
                 f"Authenticated CLOB preflight: {clean_text(authenticated_clob.get('status') or 'not_available')}",
+                f"Signer boundary 060: {clean_text(signer_boundary.get('status') or 'not_available')}",
+                f"Unsigned plan: {clean_text(signer_boundary.get('unsigned_plan_status') or 'not_available')}",
                 "order_submission_enabled: false",
                 "order_submission_blocked: true",
                 "order_cancellation_blocked: true",
@@ -692,11 +711,13 @@ class TelegramOperatorControlBot:
         authenticated_clob = dict(self._summary().get("authenticated_clob_preflight_status_summary", {}))
         clob_l2_marker = dict(self._summary().get("clob_l2_marker_preflight_status_summary", {}))
         no_order_auth_get = dict(self._summary().get("no_order_auth_get_preflight_status_summary", {}))
+        signer_boundary = dict(self._summary().get("signer_boundary_preflight_status_summary", {}))
         reasons = _top_blocker_reasons(blockers)[:5]
         preflight_reasons = _clean_list(live_preflight.get("top_blocker_reasons"))[:5]
         authenticated_clob_reasons = _clean_list(authenticated_clob.get("top_blocker_reasons"))[:5]
         clob_l2_marker_reasons = _clean_list(clob_l2_marker.get("top_blocker_reasons"))[:5]
         no_order_auth_get_reasons = _clean_list(no_order_auth_get.get("top_blocker_reasons"))[:5]
+        signer_boundary_reasons = _clean_list(signer_boundary.get("top_blocker_reasons"))[:5]
         if self._language() == "ru":
             lines = [
                 "Блокеры live-режима: не решены",
@@ -737,6 +758,13 @@ class TelegramOperatorControlBot:
                 else "Блокеры no-order auth GET 059:"
             )
             lines.extend(bullet_lines(no_order_auth_get_reasons))
+        if signer_boundary_reasons:
+            lines.append(
+                "Signer boundary 060 blockers:"
+                if self._language() != "ru"
+                else "Блокеры signer boundary 060:"
+            )
+            lines.extend(bullet_lines(signer_boundary_reasons))
         if reasons:
             lines.append("Главные причины блокировки:" if self._language() == "ru" else "Top blocker reasons:")
             lines.extend(bullet_lines(reasons))
@@ -1013,6 +1041,11 @@ def build_telegram_operator_control_summary(
         context_value.get("latest_no_order_auth_get_preflight_status"),
         authenticated_clob_preflight.get("no_order_auth_get_preflight_status_summary"),
     )
+    signer_boundary_preflight = _first_mapping(
+        context_value.get("signer_boundary_preflight_status_summary"),
+        context_value.get("signer_boundary_preflight_status"),
+        context_value.get("latest_signer_boundary_preflight_status"),
+    )
     mini_panel = _first_mapping(
         context_value.get("telegram_mini_app_operator_panel_summary"),
         context_value.get("telegram_mini_app_operator_panel"),
@@ -1038,6 +1071,7 @@ def build_telegram_operator_control_summary(
                 "authenticated_clob_preflight": authenticated_clob_preflight,
                 "clob_l2_marker_preflight": clob_l2_marker_preflight,
                 "no_order_auth_get_preflight": no_order_auth_get_preflight,
+                "signer_boundary_preflight": signer_boundary_preflight,
             },
         ),
         "task_id": TASK_ID,
@@ -1075,6 +1109,9 @@ def build_telegram_operator_control_summary(
         ),
         "no_order_auth_get_preflight_status_summary": _normalize_no_order_auth_get_preflight_summary(
             no_order_auth_get_preflight
+        ),
+        "signer_boundary_preflight_status_summary": _normalize_signer_boundary_preflight_summary(
+            signer_boundary_preflight
         ),
         "telegram_mini_app_operator_panel_summary": mini_panel,
         "blocker_summary": _normalize_blocker_summary(blockers),
@@ -1437,6 +1474,81 @@ def _normalize_no_order_auth_get_preflight_summary(status: Mapping[str, Any]) ->
         "order_submission_enabled": False,
         "wallet_signing_enabled": False,
         "signing_enabled": False,
+        "live_execution_approved": False,
+        "canary_executable_now": False,
+        "real_execution_available": False,
+        "live_connector_enabled": False,
+        "allowed_for_live": False,
+    }
+
+
+def _normalize_signer_boundary_preflight_summary(status: Mapping[str, Any]) -> dict[str, Any]:
+    value = dict(status or {})
+    blockers = value.get("blockers") if isinstance(value.get("blockers"), list) else []
+    top_blockers = value.get("top_blocker_reasons")
+    if not isinstance(top_blockers, list):
+        top_blockers = [
+            clean_text(row.get("reason"))
+            for row in mapping_rows(blockers)
+            if clean_text(row.get("reason"))
+        ][:8]
+    return {
+        "status": clean_text(value.get("status") or "not_available"),
+        "market": clean_text(value.get("market") or value.get("market_symbol") or "not_available"),
+        "market_symbol": clean_text(value.get("market_symbol") or value.get("market") or "not_available"),
+        "strategy_name": clean_text(value.get("strategy_name") or "not_available"),
+        "mode": clean_text(value.get("mode") or "preflight / review-only"),
+        "execution_mode": clean_text(value.get("execution_mode") or "preflight"),
+        "source_paper_intent_path": clean_text(value.get("source_paper_intent_path")),
+        "live_candidate_intent_status": clean_text(
+            value.get("live_candidate_intent_status")
+            or value.get("live_candidate_intent")
+            or "not_available"
+        ),
+        "candidate_outcome": clean_text(value.get("candidate_outcome") or "not_available"),
+        "candidate_side": clean_text(value.get("candidate_side") or "not_available"),
+        "candidate_limit_price": value.get("candidate_limit_price"),
+        "candidate_size": value.get("candidate_size"),
+        "candidate_notional": value.get("candidate_notional"),
+        "unsigned_plan_status": clean_text(
+            value.get("unsigned_plan_status") or value.get("unsigned_payload_plan") or "not_available"
+        ),
+        "unsigned_plan_created": value.get("unsigned_plan_created") is True,
+        "unsigned_plan_is_executable": False,
+        "signer_status": clean_text(value.get("signer_status") or value.get("signer") or "blocked"),
+        "signed_payload_status": clean_text(
+            value.get("signed_payload_status") or value.get("signed_payload") or "unavailable"
+        ),
+        "order_submission_status": clean_text(
+            value.get("order_submission_status") or value.get("order_submission") or "blocked"
+        ),
+        "signer_config_present": False,
+        "signed_payload_available": False,
+        "order_submission_available": False,
+        "blocker_count": _int_first(value.get("blocker_count"), len(blockers)),
+        "top_blocker_reasons": [clean_text(item) for item in top_blockers if clean_text(item)],
+        "artifact_path": clean_text(value.get("artifact_path")),
+        "latest_status_path": clean_text(value.get("latest_status_path")),
+        "operator_markdown_path": clean_text(value.get("operator_markdown_path")),
+        "review_only": True,
+        "preflight_only": True,
+        "signer_blocked": True,
+        "signed_payload_unavailable": True,
+        "order_submission_blocked": True,
+        "order_cancellation_blocked": True,
+        "wallet_connection_blocked": True,
+        "balance_read_blocked": True,
+        "position_read_blocked": True,
+        "live_execution_blocked": True,
+        "execution_enabling": False,
+        "authenticated_polymarket_enabled": False,
+        "authenticated_endpoint_enabled": False,
+        "authenticated_endpoints_enabled": False,
+        "order_submission_enabled": False,
+        "wallet_signing_enabled": False,
+        "signing_enabled": False,
+        "signed_payload_generation_enabled": False,
+        "signed_order_generation_enabled": False,
         "live_execution_approved": False,
         "canary_executable_now": False,
         "real_execution_available": False,
