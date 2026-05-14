@@ -424,11 +424,14 @@ class TelegramOperatorControlBot:
     def _render_status(self) -> str:
         summary = self._summary()
         gonogo = dict(summary.get("gonogo_summary", {}))
+        paper_canary = dict(summary.get("paper_canary_drill_status_summary", {}))
         state = dict(summary.get("state_summary", {}))
         if self._language() == "ru":
             return "\n".join(
                 [
                     "Статус PMBOT: только обзор / live-торговля выключена",
+                    f"Paper canary: {clean_text(paper_canary.get('status') or 'not_available')}",
+                    f"Paper canary market: {clean_text(paper_canary.get('market') or 'not_available')}",
                     f"Go/No-Go: {clean_text(gonogo.get('overall_decision') or gonogo.get('status') or 'NO_GO')}",
                     "allowed_for_live: false",
                     "canary_executable_now: false",
@@ -442,6 +445,8 @@ class TelegramOperatorControlBot:
         return "\n".join(
             [
                 "PMBOT status: review-only / live blocked",
+                f"Paper canary: {clean_text(paper_canary.get('status') or 'not_available')}",
+                f"Paper canary market: {clean_text(paper_canary.get('market') or 'not_available')}",
                 f"Go/no-go: {clean_text(gonogo.get('overall_decision') or gonogo.get('status') or 'NO_GO')}",
                 "allowed_for_live: false",
                 "canary_executable_now: false",
@@ -862,6 +867,11 @@ def build_telegram_operator_control_summary(
         context_value.get("evidence_summary"),
         context_value.get("readiness_evidence_bundle"),
     )
+    paper_canary = _first_mapping(
+        context_value.get("paper_canary_drill_status_summary"),
+        context_value.get("paper_canary_drill_status"),
+        context_value.get("latest_paper_canary_status"),
+    )
     mini_panel = _first_mapping(
         context_value.get("telegram_mini_app_operator_panel_summary"),
         context_value.get("telegram_mini_app_operator_panel"),
@@ -903,6 +913,7 @@ def build_telegram_operator_control_summary(
         "live_order_submission_boundary_summary": order,
         "gonogo_summary": gonogo,
         "evidence_summary": evidence,
+        "paper_canary_drill_status_summary": _normalize_paper_canary_summary(paper_canary),
         "telegram_mini_app_operator_panel_summary": mini_panel,
         "blocker_summary": _normalize_blocker_summary(blockers),
         "review_only": True,
@@ -978,6 +989,29 @@ def _normalize_blocker_summary(blockers: Mapping[str, Any]) -> dict[str, Any]:
         "live_execution_approved": False,
         "real_execution_available": False,
         "live_connector_enabled": False,
+    }
+
+
+def _normalize_paper_canary_summary(status: Mapping[str, Any]) -> dict[str, Any]:
+    value = dict(status or {})
+    return {
+        "status": clean_text(value.get("status") or "not_available"),
+        "market": clean_text(value.get("market") or "not_available"),
+        "mode": clean_text(value.get("mode") or "paper / review-only"),
+        "live_execution": clean_text(value.get("live_execution") or "blocked"),
+        "overall_decision": clean_text(value.get("overall_decision") or "NO_GO"),
+        "artifact": clean_text(value.get("artifact")),
+        "latest_status_path": clean_text(value.get("latest_status_path")),
+        "review_only": True,
+        "execution_enabling": False,
+        "order_submission_enabled": False,
+        "wallet_signing_enabled": False,
+        "signing_enabled": False,
+        "live_execution_approved": False,
+        "canary_executable_now": False,
+        "real_execution_available": False,
+        "live_connector_enabled": False,
+        "allowed_for_live": False,
     }
 
 

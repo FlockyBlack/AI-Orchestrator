@@ -99,6 +99,9 @@ OPERATOR_UI_PANEL_TELEGRAM_MINI_APP_SUMMARY_CONTRACT = (
 OPERATOR_UI_PANEL_SUPERVISED_TINY_CANARY_APPROVAL_PACKET_SUMMARY_CONTRACT = (
     "pmbot_operator_ui_panel_supervised_tiny_canary_approval_packet_summary.v1"
 )
+OPERATOR_UI_PANEL_PAPER_CANARY_DRILL_SUMMARY_CONTRACT = (
+    "pmbot_operator_ui_panel_paper_canary_drill_summary.v1"
+)
 OPERATOR_UI_PANEL_VALIDATION_CONTRACT = "pmbot_operator_ui_panel_validation.v1"
 
 TASK_ID = "ORCH-PMBOT-TRADING-MVP-036-OPERATOR-UI-PANEL-V1-READINESS-RISK-LIMITS-KILL-SWITCH"
@@ -1174,6 +1177,16 @@ def build_operator_ui_panel_v1(
         strategy_summary=strategy_summary or dashboard_value.get("paper_strategy_evaluation_summary", {}),
         latest_paper_run_reference=paths.get("paper_daily_loop_result", ""),
     )
+    paper_canary_drill_summary = _build_paper_canary_drill_summary(
+        paper_canary_drill_status=(
+            dashboard_value.get("paper_canary_drill_status_summary")
+            or dashboard_value.get("paper_canary_drill_status")
+            or dashboard_value.get("latest_paper_canary_status")
+            or {}
+        ),
+        latest_status_path=paths.get("paper_canary_drill_status", "")
+        or clean_text(dashboard_value.get("latest_paper_canary_status_path")),
+    )
     readiness = _build_readiness_summary(
         operator_review_ready=operator_packet_summary.get("operator_approval_packet_review_ready") is True,
         evidence_bundle_review_ready=evidence_summary.get("evidence_bundle_review_ready") is True,
@@ -1199,6 +1212,7 @@ def build_operator_ui_panel_v1(
         telegram_operator_control=telegram_control_summary,
         telegram_mini_app=telegram_mini_app_summary,
         paper=paper_summary,
+        paper_canary_drill=paper_canary_drill_summary,
         operator_packets=operator_packet_summary,
         audit=audit_summary,
         action_states=action_states,
@@ -1228,6 +1242,7 @@ def build_operator_ui_panel_v1(
             "telegram_operator_control": telegram_control_summary,
             "telegram_mini_app": telegram_mini_app_summary,
             "paper": paper_summary,
+            "paper_canary_drill": paper_canary_drill_summary,
         },
     )
     panel = OperatorUIPanelV1(
@@ -1259,6 +1274,8 @@ def build_operator_ui_panel_v1(
         action_states=action_states,
         sections=tuple(sections),
     ).to_dict()
+    panel["paper_canary_drill_status_summary"] = paper_canary_drill_summary
+    panel["paper_canary_drill_section_ready"] = True
     validation = validate_operator_ui_panel_v1(panel, generated_at=generated_at)
     panel["validation"] = validation
     return panel
@@ -1753,6 +1770,15 @@ def summarize_operator_ui_panel_v1(panel: Mapping[str, Any]) -> dict[str, Any]:
             "telegram_operator_control_bot_section_ready"
         )
         is True,
+        "paper_canary_drill_section_ready": panel.get("paper_canary_drill_section_ready") is True,
+        "paper_canary_drill_status": dict(panel.get("paper_canary_drill_status_summary", {})).get("status"),
+        "paper_canary_drill_market": dict(panel.get("paper_canary_drill_status_summary", {})).get("market"),
+        "paper_canary_drill_live_execution": dict(panel.get("paper_canary_drill_status_summary", {})).get(
+            "live_execution"
+        ),
+        "paper_canary_drill_latest_status_path": dict(
+            panel.get("paper_canary_drill_status_summary", {})
+        ).get("latest_status_path"),
         "paper_summary_panel_ready": panel.get("paper_summary_panel_ready") is True,
         "blocker_panel_ready": panel.get("blocker_panel_ready") is True,
         "static_html_render_ready": panel.get("static_html_render_ready") is True,
@@ -3013,6 +3039,32 @@ def _build_audit_replay_summary(
     }
 
 
+def _build_paper_canary_drill_summary(
+    *,
+    paper_canary_drill_status: Mapping[str, Any] | None,
+    latest_status_path: str,
+) -> dict[str, Any]:
+    status = dict(paper_canary_drill_status or {})
+    return {
+        "contract_version": OPERATOR_UI_PANEL_PAPER_CANARY_DRILL_SUMMARY_CONTRACT,
+        "paper_canary_drill_section_ready": True,
+        "status": clean_text(status.get("status") or NOT_AVAILABLE),
+        "market": clean_text(status.get("market") or NOT_AVAILABLE),
+        "market_id": clean_text(status.get("market_id")),
+        "market_slug": clean_text(status.get("market_slug")),
+        "mode": clean_text(status.get("mode") or "paper / review-only"),
+        "live_execution": clean_text(status.get("live_execution") or "blocked"),
+        "overall_decision": clean_text(status.get("overall_decision") or "NO_GO"),
+        "go_no_go_status": clean_text(status.get("go_no_go_status") or "NO_GO_UNRESOLVED_BLOCKERS"),
+        "paper_order_intent_status": clean_text(
+            status.get("paper_order_intent_status") or "not_available"
+        ),
+        "artifact": clean_text(status.get("artifact")),
+        "latest_status_path": clean_text(status.get("latest_status_path") or latest_status_path),
+        **_panel_safety_flags(),
+    }
+
+
 def _build_action_states() -> list[dict[str, Any]]:
     return [
         OperatorUIPanelActionState(
@@ -3087,6 +3139,7 @@ def _build_sections(
     telegram_operator_control: Mapping[str, Any],
     telegram_mini_app: Mapping[str, Any],
     paper: Mapping[str, Any],
+    paper_canary_drill: Mapping[str, Any],
     operator_packets: Mapping[str, Any],
     audit: Mapping[str, Any],
     action_states: Sequence[Mapping[str, Any]],
@@ -3122,6 +3175,37 @@ def _build_sections(
                 _metric("missing_required_evidence_count", "Missing required evidence", evidence.get("missing_required_evidence_count")),
                 _metric("latest_readiness_evidence_bundle_path", "Latest bundle reference", evidence.get("latest_readiness_evidence_bundle_path")),
                 _metric("readiness_bundle_is_not_live_approval", "Bundle is not live approval", True),
+            ],
+        ),
+        _section(
+            "paper_canary_drill",
+            "Paper Canary Drill",
+            clean_text(paper_canary_drill.get("status") or NOT_AVAILABLE),
+            [
+                _metric("status", "Status", paper_canary_drill.get("status")),
+                _metric("market", "Market", paper_canary_drill.get("market")),
+                _metric("mode", "Mode", paper_canary_drill.get("mode")),
+                _metric("live_execution", "Live execution", paper_canary_drill.get("live_execution")),
+                _metric("overall_decision", "Overall decision", paper_canary_drill.get("overall_decision")),
+                _metric("go_no_go_status", "Go/no-go status", paper_canary_drill.get("go_no_go_status")),
+                _metric(
+                    "paper_order_intent_status",
+                    "Paper order intent status",
+                    paper_canary_drill.get("paper_order_intent_status"),
+                ),
+                _metric("artifact", "Artifact", paper_canary_drill.get("artifact")),
+                _metric("latest_status_path", "Latest status", paper_canary_drill.get("latest_status_path")),
+                _metric("review_only", "Review-only", True),
+                _metric("order_submission_enabled", "Order submission enabled", False),
+                _metric("wallet_signing_enabled", "Wallet signing enabled", False),
+                _metric("signing_enabled", "Signing enabled", False),
+            ],
+            warnings=[
+                _warning(
+                    "paper_canary_review_only",
+                    "warning",
+                    "Paper canary drill status is review-only and cannot approve or enable live execution.",
+                )
             ],
         ),
         _section(

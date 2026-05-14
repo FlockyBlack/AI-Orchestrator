@@ -1,0 +1,176 @@
+{
+  "task_id": "ORCH-PMBOT-TRADING-MVP-052-POLYMARKET-AGENTS-ADAPTED-END-TO-END-PAPER-CANARY-DRILL",
+  "status": "completed_validated_pending_final_commit_hash",
+  "worktree": "C:/oc052_polymarket_agents_adapted_paper_canary_drill",
+  "branch": "pmbot/trading-mvp-052-polymarket-agents-adapted-paper-canary-drill",
+  "base_head": "4fc609b0f84e10014f9d8b06386c2d2b69689301",
+  "head_before": "4fc609b0f84e10014f9d8b06386c2d2b69689301",
+  "head_after": "reported_in_final_response_after_commit; embedding the final commit hash in this committed JSON would change that hash",
+  "pushed": true,
+  "remote_verified": true,
+  "pushed_to_master": false,
+  "donor_reference": {
+    "repository": "https://github.com/Polymarket/agents",
+    "commit": "081f2b5594c37edeb9d3780a778c084d5b6f2743",
+    "license": "MIT",
+    "usage": "reference and field-shape adaptation only; no donor live execution, wallet, signing, or order submission code imported"
+  },
+  "changed_files": [
+    "docs/ORCH_PMBOT_TRADING_MVP_052_POLYMARKET_AGENTS_REFERENCE_AUDIT.md",
+    "docs/ORCH_PMBOT_TRADING_MVP_052_POLYMARKET_AGENTS_ADAPTED_END_TO_END_PAPER_CANARY_DRILL.md",
+    "docs/ORCH_PMBOT_TRADING_MVP_052_POLYMARKET_AGENTS_ADAPTED_END_TO_END_PAPER_CANARY_DRILL_RESULT.json",
+    "pm_bot/operator_runner/operator_ui_panel_v1.py",
+    "pm_bot/operator_runner/paper_canary_drill.py",
+    "pm_bot/operator_runner/telegram_operator_control_bot.py",
+    "pm_bot/tests/test_polymarket_agents_reference_adaptation_052.py",
+    "pm_bot/tests/test_paper_canary_drill_052.py",
+    "pm_bot/trading_core/paper_canary_drill.py",
+    "pm_bot/trading_core/polymarket_market_models.py",
+    "pm_bot/trading_core/polymarket_public_market_data.py",
+    "pm_bot/trading_core/artifacts/paper_canary_drill_052/latest_paper_canary_status_052.json",
+    "pm_bot/trading_core/artifacts/paper_canary_drill_052/latest_paper_canary_status_052.md",
+    "pm_bot/trading_core/artifacts/paper_canary_drill_052/paper_canary_drill_052_operator.md",
+    "pm_bot/trading_core/artifacts/paper_canary_drill_052/paper_canary_drill_052_result.json",
+    "pm_bot/trading_core/artifacts/paper_canary_drill_052/paper_canary_gonogo_052.json",
+    "pm_bot/trading_core/artifacts/paper_canary_drill_052/paper_canary_market_snapshot_052.json",
+    "pm_bot/trading_core/artifacts/paper_canary_drill_052/paper_canary_normalized_market_052.json",
+    "pm_bot/trading_core/artifacts/paper_canary_drill_052/paper_canary_order_intent_052.json",
+    "pm_bot/trading_core/artifacts/paper_canary_drill_052/paper_canary_risk_readiness_052.json",
+    "pm_bot/trading_core/artifacts/paper_canary_drill_052/paper_canary_supervised_approval_packet_052.json",
+    "pm_bot/trading_core/artifacts/paper_canary_drill_052/paper_canary_supervised_approval_packet_052.md"
+  ],
+  "paper_drill_command": "python -m pm_bot.operator_runner.paper_canary_drill --market BTC --dry-run",
+  "example_operator_output": [
+    "Paper canary drill completed.",
+    "Market: BTC fixture",
+    "Mode: paper / review-only",
+    "Live execution: blocked",
+    "Artifact: pm_bot/trading_core/artifacts/paper_canary_drill_052/paper_canary_drill_052_result.json"
+  ],
+  "generated_artifacts": [
+    "pm_bot/trading_core/artifacts/paper_canary_drill_052/paper_canary_normalized_market_052.json",
+    "pm_bot/trading_core/artifacts/paper_canary_drill_052/paper_canary_market_snapshot_052.json",
+    "pm_bot/trading_core/artifacts/paper_canary_drill_052/paper_canary_order_intent_052.json",
+    "pm_bot/trading_core/artifacts/paper_canary_drill_052/paper_canary_risk_readiness_052.json",
+    "pm_bot/trading_core/artifacts/paper_canary_drill_052/paper_canary_gonogo_052.json",
+    "pm_bot/trading_core/artifacts/paper_canary_drill_052/paper_canary_supervised_approval_packet_052.json",
+    "pm_bot/trading_core/artifacts/paper_canary_drill_052/paper_canary_supervised_approval_packet_052.md",
+    "pm_bot/trading_core/artifacts/paper_canary_drill_052/paper_canary_drill_052_result.json",
+    "pm_bot/trading_core/artifacts/paper_canary_drill_052/paper_canary_drill_052_operator.md",
+    "pm_bot/trading_core/artifacts/paper_canary_drill_052/latest_paper_canary_status_052.json",
+    "pm_bot/trading_core/artifacts/paper_canary_drill_052/latest_paper_canary_status_052.md"
+  ],
+  "validation": [
+    {
+      "command": "python -m pytest pm_bot/tests/test_polymarket_agents_reference_adaptation_052.py",
+      "status": "passed",
+      "summary": "5 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_paper_canary_drill_052.py",
+      "status": "passed",
+      "summary": "7 passed"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.paper_canary_drill --market BTC --dry-run",
+      "status": "passed",
+      "summary": "emitted default paper canary artifacts and concise operator output"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_supervised_tiny_canary_runbook_051.py",
+      "status": "passed",
+      "summary": "8 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_signed_order_payload_validation_gate_050.py",
+      "status": "passed",
+      "summary": "8 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_wallet_signing_boundary_049.py",
+      "status": "passed",
+      "summary": "8 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_authenticated_polymarket_connector_048.py",
+      "status": "passed",
+      "summary": "8 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_live_enablement_config_047.py",
+      "status": "passed",
+      "summary": "11 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_operator_ux_buttons_046.py pm_bot/tests/test_telegram_runtime_smoke_046c.py pm_bot/tests/test_telegram_operator_runtime_ux_smoke_fixes_046e.py pm_bot/tests/test_telegram_ru_language_mini_app_dev_mode_046g.py pm_bot/tests/test_telegram_operator_runtime_045.py pm_bot/tests/test_telegram_mini_app_operator_panel_044.py pm_bot/tests/test_telegram_operator_control_bot_043.py",
+      "status": "passed",
+      "summary": "71 passed"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.telegram_runtime_smoke",
+      "status": "passed",
+      "summary": "runtime import ok; network_requested=false; token/operator IDs/Mini App URL missing as expected; safety flags ok"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_risk_limit_control_plane_037.py pm_bot/tests/test_polymarket_btc_read_only_connector_038.py pm_bot/tests/test_btc_market_analysis_order_intent_039.py pm_bot/tests/test_live_credentials_auth_boundary_040.py pm_bot/tests/test_live_order_submission_boundary_041.py pm_bot/tests/test_tiny_live_canary_gonogo_gate_042.py pm_bot/tests/test_live_enablement_config_047.py pm_bot/tests/test_authenticated_polymarket_connector_048.py pm_bot/tests/test_wallet_signing_boundary_049.py pm_bot/tests/test_signed_order_payload_validation_gate_050.py pm_bot/tests/test_supervised_tiny_canary_runbook_051.py pm_bot/tests/test_live_canary_readiness_029.py pm_bot/tests/test_live_canary_readiness_evidence_bundle_035.py pm_bot/tests/test_live_canary_replay_acceptance_030.py pm_bot/tests/test_live_connector_audit_replay_operator_packet_032.py pm_bot/tests/test_operator_ui_panel_v1_036.py pm_bot/tests/test_paper_daily_loop_022.py",
+      "status": "passed",
+      "summary": "217 passed"
+    },
+    {
+      "command": "python -m pytest --rootdir=O:/ pm_bot/tests",
+      "status": "passed",
+      "summary": "1750 passed via temporary subst O: alias for Windows path-length safety; alias removed before final status"
+    },
+    {
+      "command": "python -m compileall -q pm_bot",
+      "status": "passed"
+    },
+    {
+      "command": "PYTHONPATH=C:/oc052_polymarket_agents_adapted_paper_canary_drill python -m pytest --noconftest --basetemp=C:/oc052tmp tests/test_codex_queue_nightly_lane_batch_runner.py tests/test_codex_worktree_lane_manager.py tests/test_subagent_routing.py tests/test_codex_queue_operator_cli.py",
+      "status": "passed",
+      "summary": "41 passed; short validation-only basetemp used for Windows path-length avoidance and removed before final status"
+    },
+    {
+      "command": "python -m compileall -q ai_orchestrator",
+      "status": "passed",
+      "summary": "rerun serially after a parallel pycache permission collision"
+    },
+    {
+      "command": "safety invariant check covering live/signing/order/auth/wallet flags",
+      "status": "passed",
+      "summary": "default paper canary result and latest status keep all required live/auth/signing/order/wallet flags false; resolved_blocker_count=0"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    },
+    {
+      "command": "git diff --cached --check",
+      "status": "passed"
+    }
+  ],
+  "safety_results": {
+    "live_trading_enabled": false,
+    "real_orders_submitted": false,
+    "authenticated_polymarket_enabled": false,
+    "live_connector_enabled": false,
+    "order_submission_enabled": false,
+    "wallet_signing_enabled": false,
+    "signing_enabled": false,
+    "signed_payload_generation_enabled": false,
+    "signed_order_generation_enabled": false,
+    "live_execution_approved": false,
+    "canary_executable_now": false,
+    "real_execution_available": false,
+    "allowed_for_live": false,
+    "resolved_blocker_count": 0,
+    "network_default": "fixture_only",
+    "wallet_or_secret_material_read": false,
+    "fake_execution_artifacts_generated": false
+  },
+  "remaining_risks_or_blockers": [
+    "Optional unauthenticated public Gamma metadata fetch remains a future separately scoped task.",
+    "Live trading, wallet, signing, authenticated connector, and order submission remain blocked."
+  ],
+  "next_recommended_task": "ORCH-PMBOT-TRADING-MVP-052B-MERGE-POLYMARKET-AGENTS-ADAPTED-PAPER-CANARY-DRILL-INTO-MASTER"
+}
