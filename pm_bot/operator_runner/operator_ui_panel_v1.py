@@ -114,6 +114,9 @@ OPERATOR_UI_PANEL_PAPER_DECISION_LEDGER_SUMMARY_CONTRACT = (
 OPERATOR_UI_PANEL_LIVE_CONNECTOR_PREFLIGHT_SUMMARY_CONTRACT = (
     "pmbot_operator_ui_panel_live_connector_preflight_summary_056.v1"
 )
+OPERATOR_UI_PANEL_AUTHENTICATED_CLOB_PREFLIGHT_SUMMARY_CONTRACT = (
+    "pmbot_operator_ui_panel_authenticated_clob_preflight_summary_057.v1"
+)
 OPERATOR_UI_PANEL_VALIDATION_CONTRACT = "pmbot_operator_ui_panel_validation.v1"
 
 TASK_ID = "ORCH-PMBOT-TRADING-MVP-036-OPERATOR-UI-PANEL-V1-READINESS-RISK-LIMITS-KILL-SWITCH"
@@ -166,6 +169,7 @@ REQUIRED_SECTION_IDS = (
     "public_market_paper_loop",
     "paper_decision_ledger",
     "live_connector_preflight",
+    "authenticated_clob_preflight",
     "paper_trading_summary",
     "operator_packets",
     "audit_replay",
@@ -999,6 +1003,7 @@ def build_operator_ui_panel_v1(
     live_connector_audit_replay: Mapping[str, Any] | None = None,
     live_connector_audit_operator_summary: Mapping[str, Any] | None = None,
     live_connector_preflight_status_summary: Mapping[str, Any] | None = None,
+    authenticated_clob_preflight_status_summary: Mapping[str, Any] | None = None,
     telegram_operator_control_bot_summary: Mapping[str, Any] | None = None,
     telegram_mini_app_operator_panel_summary: Mapping[str, Any] | None = None,
     latest_paths: Mapping[str, str] | None = None,
@@ -1249,6 +1254,17 @@ def build_operator_ui_panel_v1(
         latest_status_path=paths.get("live_connector_preflight_status", "")
         or clean_text(dashboard_value.get("latest_live_connector_preflight_status_path")),
     )
+    authenticated_clob_preflight_summary = _build_authenticated_clob_preflight_summary(
+        authenticated_clob_preflight_status=(
+            authenticated_clob_preflight_status_summary
+            or dashboard_value.get("authenticated_clob_preflight_status_summary")
+            or dashboard_value.get("authenticated_clob_preflight_status")
+            or dashboard_value.get("latest_authenticated_clob_preflight_status")
+            or {}
+        ),
+        latest_status_path=paths.get("authenticated_clob_preflight_status", "")
+        or clean_text(dashboard_value.get("latest_authenticated_clob_preflight_status_path")),
+    )
     readiness = _build_readiness_summary(
         operator_review_ready=operator_packet_summary.get("operator_approval_packet_review_ready") is True,
         evidence_bundle_review_ready=evidence_summary.get("evidence_bundle_review_ready") is True,
@@ -1279,6 +1295,7 @@ def build_operator_ui_panel_v1(
         public_market_paper_loop=public_market_paper_loop_summary,
         paper_decision_ledger=paper_decision_ledger_summary,
         live_connector_preflight=live_connector_preflight_summary,
+        authenticated_clob_preflight=authenticated_clob_preflight_summary,
         operator_packets=operator_packet_summary,
         audit=audit_summary,
         action_states=action_states,
@@ -1313,6 +1330,7 @@ def build_operator_ui_panel_v1(
             "public_market_paper_loop": public_market_paper_loop_summary,
             "paper_decision_ledger": paper_decision_ledger_summary,
             "live_connector_preflight": live_connector_preflight_summary,
+            "authenticated_clob_preflight": authenticated_clob_preflight_summary,
         },
     )
     panel = OperatorUIPanelV1(
@@ -1355,6 +1373,8 @@ def build_operator_ui_panel_v1(
     panel["paper_decision_ledger_section_ready"] = True
     panel["live_connector_preflight_status_summary"] = live_connector_preflight_summary
     panel["live_connector_preflight_section_ready"] = True
+    panel["authenticated_clob_preflight_status_summary"] = authenticated_clob_preflight_summary
+    panel["authenticated_clob_preflight_section_ready"] = True
     validation = validate_operator_ui_panel_v1(panel, generated_at=generated_at)
     panel["validation"] = validation
     return panel
@@ -1929,6 +1949,31 @@ def summarize_operator_ui_panel_v1(panel: Mapping[str, Any]) -> dict[str, Any]:
         ).get("signing_blocked"),
         "live_connector_preflight_live_execution_blocked": dict(
             panel.get("live_connector_preflight_status_summary", {})
+        ).get("live_execution_blocked"),
+        "authenticated_clob_preflight_section_ready": panel.get(
+            "authenticated_clob_preflight_section_ready"
+        )
+        is True,
+        "authenticated_clob_preflight_status": dict(
+            panel.get("authenticated_clob_preflight_status_summary", {})
+        ).get("status"),
+        "authenticated_clob_preflight_auth_presence_status": dict(
+            panel.get("authenticated_clob_preflight_status_summary", {})
+        ).get("auth_presence_status"),
+        "authenticated_clob_preflight_clob_base_url_status": dict(
+            panel.get("authenticated_clob_preflight_status_summary", {})
+        ).get("clob_base_url_status"),
+        "authenticated_clob_preflight_order_submission_blocked": dict(
+            panel.get("authenticated_clob_preflight_status_summary", {})
+        ).get("order_submission_blocked"),
+        "authenticated_clob_preflight_signing_blocked": dict(
+            panel.get("authenticated_clob_preflight_status_summary", {})
+        ).get("signing_blocked"),
+        "authenticated_clob_preflight_wallet_connection_blocked": dict(
+            panel.get("authenticated_clob_preflight_status_summary", {})
+        ).get("wallet_connection_blocked"),
+        "authenticated_clob_preflight_live_execution_blocked": dict(
+            panel.get("authenticated_clob_preflight_status_summary", {})
         ).get("live_execution_blocked"),
         "paper_summary_panel_ready": panel.get("paper_summary_panel_ready") is True,
         "blocker_panel_ready": panel.get("blocker_panel_ready") is True,
@@ -3363,6 +3408,76 @@ def _build_live_connector_preflight_summary(
     }
 
 
+def _build_authenticated_clob_preflight_summary(
+    *,
+    authenticated_clob_preflight_status: Mapping[str, Any] | None,
+    latest_status_path: str,
+) -> dict[str, Any]:
+    status = dict(authenticated_clob_preflight_status or {})
+    blockers = status.get("blockers") if isinstance(status.get("blockers"), list) else []
+    top_blockers = status.get("top_blocker_reasons")
+    if not isinstance(top_blockers, list):
+        top_blockers = [
+            clean_text(row.get("reason"))
+            for row in mapping_rows(blockers)
+            if clean_text(row.get("reason"))
+        ][:8]
+    return {
+        "contract_version": OPERATOR_UI_PANEL_AUTHENTICATED_CLOB_PREFLIGHT_SUMMARY_CONTRACT,
+        "authenticated_clob_preflight_section_ready": True,
+        "status": clean_text(status.get("status") or NOT_AVAILABLE),
+        "market": clean_text(status.get("market") or NOT_AVAILABLE),
+        "mode": clean_text(status.get("mode") or "preflight / review-only"),
+        "execution_mode": clean_text(status.get("execution_mode") or "preflight"),
+        "auth_presence_status": clean_text(
+            status.get("auth_presence_status") or status.get("auth_presence") or NOT_AVAILABLE
+        ),
+        "auth_presence_checked": status.get("auth_presence_check_performed") is True,
+        "auth_presence_detected": status.get("auth_presence_detected") is True,
+        "clob_base_url_status": clean_text(
+            status.get("clob_base_url_status") or status.get("clob_base_url") or NOT_AVAILABLE
+        ),
+        "header_boundary_status": clean_text(
+            status.get("auth_header_boundary_status")
+            or status.get("auth_header_boundary")
+            or status.get("header_boundary_status")
+            or NOT_AVAILABLE
+        ),
+        "auth_boundary_checked": status.get("auth_boundary_checked") is True,
+        "no_order_auth_check_status": clean_text(
+            status.get("no_order_auth_check_status") or NOT_AVAILABLE
+        ),
+        "no_order_auth_check_performed": status.get("no_order_auth_check_performed") is True,
+        "authenticated_request_performed": False,
+        "blocker_count": _int_or_zero(status.get("blocker_count"), len(blockers)),
+        "top_blocker_reasons": [clean_text(item) for item in top_blockers if clean_text(item)],
+        "artifact_path": clean_text(status.get("artifact_path")),
+        "latest_status_path": clean_text(status.get("latest_status_path") or latest_status_path),
+        "operator_markdown_path": clean_text(status.get("operator_markdown_path")),
+        "credential_presence_path": clean_text(status.get("credential_presence_path")),
+        "clob_base_url_validation_path": clean_text(status.get("clob_base_url_validation_path")),
+        "header_boundary_check_path": clean_text(status.get("auth_header_boundary_check_path")),
+        "no_order_authenticated_request_plan_path": clean_text(
+            status.get("no_order_authenticated_request_plan_path")
+        ),
+        "blockers_path": clean_text(status.get("blockers_path")),
+        "review_only": True,
+        "preflight_only": True,
+        "order_submission_blocked": True,
+        "order_cancellation_blocked": True,
+        "signing_blocked": True,
+        "wallet_connection_blocked": True,
+        "balance_read_blocked": True,
+        "position_read_blocked": True,
+        "live_execution_blocked": True,
+        "next_operator_action": clean_text(
+            status.get("next_operator_action")
+            or "configure redacted L2 presence markers or review blockers; no live order available"
+        ),
+        **_panel_safety_flags(),
+    }
+
+
 def _build_action_states() -> list[dict[str, Any]]:
     return [
         OperatorUIPanelActionState(
@@ -3442,6 +3557,7 @@ def _build_sections(
     public_market_paper_loop: Mapping[str, Any],
     paper_decision_ledger: Mapping[str, Any],
     live_connector_preflight: Mapping[str, Any],
+    authenticated_clob_preflight: Mapping[str, Any],
     operator_packets: Mapping[str, Any],
     audit: Mapping[str, Any],
     action_states: Sequence[Mapping[str, Any]],
@@ -3657,6 +3773,69 @@ def _build_sections(
                     "live_connector_preflight_review_only",
                     "critical",
                     "Live connector preflight is passive review-only and exposes no executable live action.",
+                )
+            ],
+        ),
+        _section(
+            "authenticated_clob_preflight",
+            "Authenticated CLOB Preflight",
+            clean_text(authenticated_clob_preflight.get("status") or NOT_AVAILABLE),
+            [
+                _metric("status", "Status", authenticated_clob_preflight.get("status")),
+                _metric("market", "Market", authenticated_clob_preflight.get("market")),
+                _metric("mode", "Mode", authenticated_clob_preflight.get("mode")),
+                _metric(
+                    "auth_presence_status",
+                    "Auth presence",
+                    authenticated_clob_preflight.get("auth_presence_status"),
+                ),
+                _metric(
+                    "clob_base_url_status",
+                    "CLOB base URL",
+                    authenticated_clob_preflight.get("clob_base_url_status"),
+                ),
+                _metric(
+                    "header_boundary_status",
+                    "Header boundary",
+                    authenticated_clob_preflight.get("header_boundary_status"),
+                ),
+                _metric(
+                    "no_order_auth_check_status",
+                    "No-order auth check",
+                    authenticated_clob_preflight.get("no_order_auth_check_status"),
+                ),
+                _metric("blocker_count", "Blockers", authenticated_clob_preflight.get("blocker_count")),
+                _metric(
+                    "top_blocker_reasons",
+                    "Top blockers",
+                    authenticated_clob_preflight.get("top_blocker_reasons"),
+                ),
+                _metric("order_submission_blocked", "Order submission blocked", True),
+                _metric("order_cancellation_blocked", "Order cancellation blocked", True),
+                _metric("signing_blocked", "Signing blocked", True),
+                _metric("wallet_connection_blocked", "Wallet connection blocked", True),
+                _metric("balance_read_blocked", "Balances blocked", True),
+                _metric("position_read_blocked", "Positions blocked", True),
+                _metric("live_execution_blocked", "Live execution blocked", True),
+                _metric(
+                    "latest_status_path",
+                    "Latest status",
+                    authenticated_clob_preflight.get("latest_status_path"),
+                ),
+                _metric("review_only", "Review-only", True),
+                _metric("preflight_only", "Preflight-only", True),
+                _metric("order_submission_enabled", "Order submission enabled", False),
+                _metric("wallet_signing_enabled", "Wallet signing enabled", False),
+                _metric("signing_enabled", "Signing enabled", False),
+                _metric("authenticated_polymarket_enabled", "Authenticated trading enabled", False),
+                _metric("live_connector_enabled", "Live connector enabled", False),
+                _metric("allowed_for_live", "Allowed for live", False),
+            ],
+            warnings=[
+                _warning(
+                    "authenticated_clob_preflight_review_only",
+                    "critical",
+                    "Authenticated CLOB preflight is passive review-only and exposes no executable live action.",
                 )
             ],
         ),

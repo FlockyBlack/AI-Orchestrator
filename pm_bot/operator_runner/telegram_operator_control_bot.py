@@ -95,6 +95,7 @@ FORCED_FALSE_EXECUTION_FIELDS = (
     "live_connector_enabled",
     "order_submission_enabled",
     "would_submit_order",
+    "authenticated_polymarket_enabled",
     "authenticated_endpoint_enabled",
     "authenticated_endpoints_enabled",
     "signing_enabled",
@@ -429,6 +430,7 @@ class TelegramOperatorControlBot:
         public_market_loop = dict(summary.get("public_market_paper_loop_status_summary", {}))
         decision_ledger = dict(summary.get("paper_decision_ledger_status_summary", {}))
         live_preflight = dict(summary.get("live_connector_preflight_status_summary", {}))
+        authenticated_clob = dict(summary.get("authenticated_clob_preflight_status_summary", {}))
         state = dict(summary.get("state_summary", {}))
         if self._language() == "ru":
             return "\n".join(
@@ -448,6 +450,9 @@ class TelegramOperatorControlBot:
                     f"Live connector preflight: {clean_text(live_preflight.get('status') or 'not_available')}",
                     f"Live preflight public network: {clean_text(live_preflight.get('public_network_status') or 'not_available')}",
                     f"Live preflight auth boundary: {clean_text(live_preflight.get('auth_boundary_status') or 'not_available')}",
+                    f"Authenticated CLOB preflight: {clean_text(authenticated_clob.get('status') or 'not_available')}",
+                    f"Authenticated CLOB auth presence: {clean_text(authenticated_clob.get('auth_presence_status') or 'not_available')}",
+                    f"Authenticated CLOB base URL: {clean_text(authenticated_clob.get('clob_base_url_status') or 'not_available')}",
                     f"Go/No-Go: {clean_text(gonogo.get('overall_decision') or gonogo.get('status') or 'NO_GO')}",
                     "allowed_for_live: false",
                     "canary_executable_now: false",
@@ -475,6 +480,9 @@ class TelegramOperatorControlBot:
                 f"Live connector preflight: {clean_text(live_preflight.get('status') or 'not_available')}",
                 f"Live preflight public network: {clean_text(live_preflight.get('public_network_status') or 'not_available')}",
                 f"Live preflight auth boundary: {clean_text(live_preflight.get('auth_boundary_status') or 'not_available')}",
+                f"Authenticated CLOB preflight: {clean_text(authenticated_clob.get('status') or 'not_available')}",
+                f"Authenticated CLOB auth presence: {clean_text(authenticated_clob.get('auth_presence_status') or 'not_available')}",
+                f"Authenticated CLOB base URL: {clean_text(authenticated_clob.get('clob_base_url_status') or 'not_available')}",
                 f"Go/no-go: {clean_text(gonogo.get('overall_decision') or gonogo.get('status') or 'NO_GO')}",
                 "allowed_for_live: false",
                 "canary_executable_now: false",
@@ -556,6 +564,7 @@ class TelegramOperatorControlBot:
         config = dict(summary.get("config", {}))
         auth = dict(summary.get("live_credentials_auth_boundary_summary", {}))
         live_preflight = dict(summary.get("live_connector_preflight_status_summary", {}))
+        authenticated_clob = dict(summary.get("authenticated_clob_preflight_status_summary", {}))
         return "\n".join(
             [
                 "Auth boundary: redacted/missing states only",
@@ -565,6 +574,9 @@ class TelegramOperatorControlBot:
                 f"Live credentials configured: {str(auth.get('live_credentials_configured') is True).lower()}",
                 f"Missing live credentials: {int(auth.get('missing_credentials_count', 0) or 0)}",
                 f"Live preflight auth boundary: {clean_text(live_preflight.get('auth_boundary_status') or 'not_available')}",
+                f"Authenticated CLOB auth presence: {clean_text(authenticated_clob.get('auth_presence_status') or 'not_available')}",
+                f"Authenticated CLOB base URL: {clean_text(authenticated_clob.get('clob_base_url_status') or 'not_available')}",
+                f"Authenticated CLOB blockers: {int(authenticated_clob.get('blocker_count', 0) or 0)}",
                 "secrets_redacted: true",
                 "actual_secret_values_exposed: false",
                 "authenticated_endpoints_enabled: false",
@@ -577,18 +589,23 @@ class TelegramOperatorControlBot:
     def _render_order(self) -> str:
         order = dict(self._summary().get("live_order_submission_boundary_summary", {}))
         live_preflight = dict(self._summary().get("live_connector_preflight_status_summary", {}))
+        authenticated_clob = dict(self._summary().get("authenticated_clob_preflight_status_summary", {}))
         return "\n".join(
             [
                 "Live order submission boundary: disabled",
                 f"Boundary status: {clean_text(order.get('status') or 'not_available')}",
                 f"Preflight status: {clean_text(live_preflight.get('status') or 'not_available')}",
+                f"Authenticated CLOB preflight: {clean_text(authenticated_clob.get('status') or 'not_available')}",
                 "order_submission_enabled: false",
                 "order_submission_blocked: true",
+                "order_cancellation_blocked: true",
                 "would_submit_order: false",
                 "authenticated_endpoint_enabled: false",
                 "signing_enabled: false",
                 "signing_blocked: true",
                 "wallet_enabled: false",
+                "balance_read_blocked: true",
+                "position_read_blocked: true",
                 "live_execution_blocked: true",
                 "allowed_for_live: false",
                 "receipt_is_not_order_submission: true",
@@ -652,8 +669,10 @@ class TelegramOperatorControlBot:
     def _render_blockers(self) -> str:
         blockers = dict(self._summary().get("blocker_summary", {}))
         live_preflight = dict(self._summary().get("live_connector_preflight_status_summary", {}))
+        authenticated_clob = dict(self._summary().get("authenticated_clob_preflight_status_summary", {}))
         reasons = _top_blocker_reasons(blockers)[:5]
         preflight_reasons = _clean_list(live_preflight.get("top_blocker_reasons"))[:5]
+        authenticated_clob_reasons = _clean_list(authenticated_clob.get("top_blocker_reasons"))[:5]
         if self._language() == "ru":
             lines = [
                 "Блокеры live-режима: не решены",
@@ -673,6 +692,13 @@ class TelegramOperatorControlBot:
         if preflight_reasons:
             lines.append("Live preflight blockers:" if self._language() != "ru" else "Блокеры live preflight:")
             lines.extend(bullet_lines(preflight_reasons))
+        if authenticated_clob_reasons:
+            lines.append(
+                "Authenticated CLOB preflight blockers:"
+                if self._language() != "ru"
+                else "Блокеры authenticated CLOB preflight:"
+            )
+            lines.extend(bullet_lines(authenticated_clob_reasons))
         if reasons:
             lines.append("Главные причины блокировки:" if self._language() == "ru" else "Top blocker reasons:")
             lines.extend(bullet_lines(reasons))
@@ -932,6 +958,11 @@ def build_telegram_operator_control_summary(
         context_value.get("live_connector_preflight_status"),
         context_value.get("latest_live_connector_preflight_status"),
     )
+    authenticated_clob_preflight = _first_mapping(
+        context_value.get("authenticated_clob_preflight_status_summary"),
+        context_value.get("authenticated_clob_preflight_status"),
+        context_value.get("latest_authenticated_clob_preflight_status"),
+    )
     mini_panel = _first_mapping(
         context_value.get("telegram_mini_app_operator_panel_summary"),
         context_value.get("telegram_mini_app_operator_panel"),
@@ -954,6 +985,7 @@ def build_telegram_operator_control_summary(
                 "public_market_loop": public_market_loop,
                 "paper_decision_ledger": paper_decision_ledger,
                 "live_connector_preflight": live_connector_preflight,
+                "authenticated_clob_preflight": authenticated_clob_preflight,
             },
         ),
         "task_id": TASK_ID,
@@ -982,6 +1014,9 @@ def build_telegram_operator_control_summary(
         "paper_decision_ledger_status_summary": _normalize_paper_decision_ledger_summary(paper_decision_ledger),
         "live_connector_preflight_status_summary": _normalize_live_connector_preflight_summary(
             live_connector_preflight
+        ),
+        "authenticated_clob_preflight_status_summary": _normalize_authenticated_clob_preflight_summary(
+            authenticated_clob_preflight
         ),
         "telegram_mini_app_operator_panel_summary": mini_panel,
         "blocker_summary": _normalize_blocker_summary(blockers),
@@ -1230,6 +1265,71 @@ def _normalize_live_connector_preflight_summary(status: Mapping[str, Any]) -> di
     }
 
 
+def _normalize_authenticated_clob_preflight_summary(status: Mapping[str, Any]) -> dict[str, Any]:
+    value = dict(status or {})
+    blockers = value.get("blockers") if isinstance(value.get("blockers"), list) else []
+    top_blockers = value.get("top_blocker_reasons")
+    if not isinstance(top_blockers, list):
+        top_blockers = [
+            clean_text(row.get("reason"))
+            for row in mapping_rows(blockers)
+            if clean_text(row.get("reason"))
+        ][:8]
+    return {
+        "status": clean_text(value.get("status") or "not_available"),
+        "market": clean_text(value.get("market") or "not_available"),
+        "mode": clean_text(value.get("mode") or "preflight / review-only"),
+        "execution_mode": clean_text(value.get("execution_mode") or "preflight"),
+        "auth_presence_status": clean_text(
+            value.get("auth_presence_status") or value.get("auth_presence") or "not_available"
+        ),
+        "auth_presence_checked": value.get("auth_presence_check_performed") is True,
+        "auth_presence_detected": value.get("auth_presence_detected") is True,
+        "clob_base_url_status": clean_text(
+            value.get("clob_base_url_status") or value.get("clob_base_url") or "not_available"
+        ),
+        "header_boundary_status": clean_text(
+            value.get("auth_header_boundary_status")
+            or value.get("auth_header_boundary")
+            or value.get("header_boundary_status")
+            or "not_available"
+        ),
+        "auth_boundary_checked": value.get("auth_boundary_checked") is True,
+        "no_order_auth_check_status": clean_text(value.get("no_order_auth_check_status") or "not_available"),
+        "no_order_auth_check_performed": value.get("no_order_auth_check_performed") is True,
+        "blocker_count": _int_first(value.get("blocker_count"), len(blockers)),
+        "top_blocker_reasons": [clean_text(item) for item in top_blockers if clean_text(item)],
+        "artifact_path": clean_text(value.get("artifact_path")),
+        "latest_status_path": clean_text(value.get("latest_status_path")),
+        "operator_markdown_path": clean_text(value.get("operator_markdown_path")),
+        "review_only": True,
+        "preflight_only": True,
+        "order_submission_blocked": True,
+        "order_cancellation_blocked": True,
+        "signing_blocked": True,
+        "wallet_connection_blocked": True,
+        "balance_read_blocked": True,
+        "position_read_blocked": True,
+        "live_execution_blocked": True,
+        "next_operator_action": clean_text(
+            value.get("next_operator_action")
+            or "configure redacted L2 presence markers or review blockers; no live order available"
+        ),
+        "execution_enabling": False,
+        "authenticated_polymarket_enabled": False,
+        "authenticated_endpoint_enabled": False,
+        "authenticated_endpoints_enabled": False,
+        "order_submission_enabled": False,
+        "wallet_signing_enabled": False,
+        "signing_enabled": False,
+        "live_execution_approved": False,
+        "canary_executable_now": False,
+        "real_execution_available": False,
+        "live_connector_enabled": False,
+        "allowed_for_live": False,
+    }
+
+
 def _top_blocker_reasons(blockers: Mapping[str, Any]) -> list[str]:
     direct = _clean_list(blockers.get("top_blocker_reasons") or blockers.get("why_live_execution_is_blocked"))
     if direct:
@@ -1288,6 +1388,7 @@ def _control_safety_flags() -> dict[str, Any]:
         "execution_enabling": False,
         "network_used": False,
         "external_api_calls_performed": False,
+        "authenticated_polymarket_enabled": False,
         "authenticated_endpoint_enabled": False,
         "authenticated_endpoints_enabled": False,
         "authenticated_endpoint_call_performed": False,
