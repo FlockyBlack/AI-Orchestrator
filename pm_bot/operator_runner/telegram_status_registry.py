@@ -1,0 +1,861 @@
+from __future__ import annotations
+
+import argparse
+import json
+import re
+import subprocess
+import sys
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Any, Callable, Mapping, Sequence
+
+from pm_bot.trading_core.schemas import GENERATED_AT, clean_text, load_json_object, normalize_path, write_json
+
+TASK_ID = "ORCH-PMBOT-TELEGRAM-060T-OPERATOR-CONSOLE-FOR-PMBOT-STATUS-AND-DRY-RUNS"
+STATUS_REGISTRY_CONTRACT = "pmbot_telegram_operator_console_060t_status_registry.v1"
+STATUS_CARD_CONTRACT = "pmbot_telegram_operator_console_060t_status_card.v1"
+READINESS_SUMMARY_CONTRACT = "pmbot_telegram_operator_console_060t_readiness.v1"
+ACTION_RESULT_CONTRACT = "pmbot_telegram_operator_console_060t_action_result.v1"
+
+DEFAULT_ARTIFACT_ROOT = Path("pm_bot/trading_core/artifacts")
+TELEGRAM_OPERATOR_CONSOLE_ARTIFACT_DIR = DEFAULT_ARTIFACT_ROOT / "telegram_operator_console_060t"
+TELEGRAM_OPERATOR_CONSOLE_RESULT_PATH = (
+    TELEGRAM_OPERATOR_CONSOLE_ARTIFACT_DIR / "telegram_operator_console_060t_result.json"
+)
+TELEGRAM_OPERATOR_CONSOLE_REGISTRY_SNAPSHOT_PATH = (
+    TELEGRAM_OPERATOR_CONSOLE_ARTIFACT_DIR / "telegram_operator_console_060t_status_registry_snapshot.json"
+)
+LATEST_TELEGRAM_OPERATOR_CONSOLE_STATUS_PATH = (
+    TELEGRAM_OPERATOR_CONSOLE_ARTIFACT_DIR / "latest_telegram_operator_console_status_060t.json"
+)
+
+FORCED_FALSE_SAFETY_FLAGS = (
+    "live_execution_approved",
+    "order_submission_enabled",
+    "wallet_signing_enabled",
+    "signing_enabled",
+    "signed_payload_generation_enabled",
+    "signed_order_generation_enabled",
+    "authenticated_polymarket_enabled",
+    "live_connector_enabled",
+    "allowed_for_live",
+)
+
+FORBIDDEN_ACTION_LABEL_TERMS = (
+    "SEND ORDER",
+    "CANCEL ORDER",
+    "SIGN PAYLOAD",
+    "CONNECT WALLET",
+    "APPROVE LIVE",
+    "ENABLE LIVE",
+    "VIEW BALANCE",
+    "VIEW POSITION",
+    "VIEW FILLS",
+    "VIEW FILL",
+    "TRADE NOW",
+)
+
+FORBIDDEN_COMMAND_TERMS = (
+    "--live",
+    "--live-execution",
+    "--execute",
+    "--trade",
+    "--wallet",
+    "--signing",
+    "--sign",
+    "--order",
+    "--submit",
+    "--cancel",
+    "--approve-live",
+    "--balances",
+    "--positions",
+    "--fills",
+)
+
+
+@dataclass(frozen=True)
+class TelegramStatusSource:
+    flow_id: str
+    section: str
+    artifact_dir_name: str
+    latest_status_filename: str
+    context_key: str
+    label_en: str
+    label_ru: str
+
+
+@dataclass(frozen=True)
+class TelegramSafeAction:
+    action_id: str
+    callback_data: str
+    label_en: str
+    label_ru: str
+    module: str
+    args: tuple[str, ...]
+    action_type: str = "dry_run_command"
+
+    @property
+    def command_display(self) -> tuple[str, ...]:
+        return ("python", "-m", self.module, *self.args)
+
+
+STATUS_SOURCES: tuple[TelegramStatusSource, ...] = (
+    TelegramStatusSource(
+        flow_id="paper_canary_drill_052",
+        section="Paper Runs",
+        artifact_dir_name="paper_canary_drill_052",
+        latest_status_filename="latest_paper_canary_status_052.json",
+        context_key="paper_canary_drill_status_summary",
+        label_en="Paper Canary 052",
+        label_ru="Бумажный canary 052",
+    ),
+    TelegramStatusSource(
+        flow_id="paper_trading_loop_053",
+        section="Paper Runs",
+        artifact_dir_name="paper_trading_loop_053",
+        latest_status_filename="latest_paper_trading_status_053.json",
+        context_key="paper_trading_loop_status_summary",
+        label_en="Paper Loop 053",
+        label_ru="Бумажный прогон 053",
+    ),
+    TelegramStatusSource(
+        flow_id="public_market_paper_loop_054",
+        section="Public Market Evidence",
+        artifact_dir_name="public_market_paper_loop_054",
+        latest_status_filename="latest_public_market_paper_status_054.json",
+        context_key="public_market_paper_loop_status_summary",
+        label_en="Public Market Paper Loop 054",
+        label_ru="Публичный рынок 054",
+    ),
+    TelegramStatusSource(
+        flow_id="paper_decision_ledger_055",
+        section="Decision Ledger",
+        artifact_dir_name="paper_decision_ledger_055",
+        latest_status_filename="latest_paper_decision_ledger_status_055.json",
+        context_key="paper_decision_ledger_status_summary",
+        label_en="Decision Ledger 055",
+        label_ru="Журнал решений 055",
+    ),
+    TelegramStatusSource(
+        flow_id="live_connector_preflight_056",
+        section="Live Readiness",
+        artifact_dir_name="live_connector_preflight_056",
+        latest_status_filename="latest_live_connector_preflight_status_056.json",
+        context_key="live_connector_preflight_status_summary",
+        label_en="Live Connector Preflight 056",
+        label_ru="Live-проверка 056",
+    ),
+    TelegramStatusSource(
+        flow_id="authenticated_clob_preflight_057",
+        section="Live Readiness",
+        artifact_dir_name="authenticated_clob_preflight_057",
+        latest_status_filename="latest_authenticated_clob_preflight_status_057.json",
+        context_key="authenticated_clob_preflight_status_summary",
+        label_en="Authenticated CLOB Preflight 057",
+        label_ru="Authenticated CLOB 057",
+    ),
+    TelegramStatusSource(
+        flow_id="clob_l2_marker_preflight_058",
+        section="Live Readiness",
+        artifact_dir_name="clob_l2_marker_preflight_058",
+        latest_status_filename="latest_clob_l2_marker_preflight_status_058.json",
+        context_key="clob_l2_marker_preflight_status_summary",
+        label_en="CLOB L2 Marker Preflight 058",
+        label_ru="CLOB L2 marker 058",
+    ),
+    TelegramStatusSource(
+        flow_id="no_order_auth_get_preflight_059",
+        section="Live Readiness",
+        artifact_dir_name="no_order_auth_get_preflight_059",
+        latest_status_filename="latest_no_order_auth_get_preflight_status_059.json",
+        context_key="no_order_auth_get_preflight_status_summary",
+        label_en="No-Order Auth GET Preflight 059",
+        label_ru="No-order auth GET 059",
+    ),
+)
+
+SAFE_ACTIONS: tuple[TelegramSafeAction, ...] = (
+    TelegramSafeAction(
+        action_id="run_paper_canary_052",
+        callback_data="pmbot:run:paper_canary_052",
+        label_en="Run Paper Canary 052",
+        label_ru="Бумажный canary 052",
+        module="pm_bot.operator_runner.paper_canary_drill",
+        args=("--market", "BTC", "--dry-run"),
+    ),
+    TelegramSafeAction(
+        action_id="run_paper_loop_053",
+        callback_data="pmbot:run:paper_loop_053",
+        label_en="Run Paper Loop 053",
+        label_ru="Бумажный прогон 053",
+        module="pm_bot.operator_runner.paper_trading_loop",
+        args=("--market", "BTC", "--strategy", "tiny-momentum", "--dry-run"),
+    ),
+    TelegramSafeAction(
+        action_id="run_public_market_paper_loop_054",
+        callback_data="pmbot:run:public_market_paper_loop_054",
+        label_en="Run Public Market Paper Loop 054",
+        label_ru="Публичный рынок 054",
+        module="pm_bot.operator_runner.public_market_paper_loop",
+        args=("--market", "BTC", "--strategy", "tiny-momentum", "--dry-run"),
+    ),
+    TelegramSafeAction(
+        action_id="run_decision_ledger_055",
+        callback_data="pmbot:run:decision_ledger_055",
+        label_en="Update Decision Ledger 055",
+        label_ru="Журнал решений 055",
+        module="pm_bot.operator_runner.paper_decision_ledger",
+        args=("--market", "BTC", "--strategy", "tiny-momentum", "--dry-run"),
+    ),
+    TelegramSafeAction(
+        action_id="run_live_connector_preflight_056",
+        callback_data="pmbot:run:live_connector_preflight_056",
+        label_en="Run Live Connector Preflight 056",
+        label_ru="Live-проверка 056",
+        module="pm_bot.operator_runner.live_connector_preflight",
+        args=("--market", "BTC", "--dry-run"),
+    ),
+    TelegramSafeAction(
+        action_id="run_authenticated_clob_preflight_057_058",
+        callback_data="pmbot:run:authenticated_clob_preflight_057_058",
+        label_en="Run Authenticated CLOB Preflight 057/058",
+        label_ru="Authenticated CLOB 057/058",
+        module="pm_bot.operator_runner.authenticated_clob_preflight",
+        args=("--market", "BTC", "--dry-run"),
+    ),
+    TelegramSafeAction(
+        action_id="run_no_order_auth_get_preflight_059",
+        callback_data="pmbot:run:no_order_auth_get_preflight_059",
+        label_en="Run No-Order Auth GET Preflight 059",
+        label_ru="No-order auth GET 059",
+        module="pm_bot.operator_runner.authenticated_clob_preflight",
+        args=("--market", "BTC", "--dry-run", "--no-order-auth-get"),
+    ),
+)
+
+STATUS_READ_BUTTONS = {
+    "pmbot:status": {"label_en": "Show Latest Status", "label_ru": "📊 Статус", "command": "/status"},
+    "pmbot:blockers": {"label_en": "Show Blockers", "label_ru": "🚧 Блокеры", "command": "/blockers"},
+    "pmbot:readiness": {"label_en": "Show Readiness %", "label_ru": "Готовность %", "command": "/readiness"},
+}
+
+_TOKEN_RE = re.compile(r"\b\d{5,}:[A-Za-z0-9_-]{20,}\b")
+_OPENAI_KEY_RE = re.compile(r"\bsk-[A-Za-z0-9_-]{16,}\b|\bsk-proj-[A-Za-z0-9_-]{16,}\b")
+_PRIVATE_KEY_RE = re.compile(
+    r"-----BEGIN [A-Z ]*PRIVATE KEY-----.*?-----END [A-Z ]*PRIVATE KEY-----",
+    flags=re.DOTALL,
+)
+
+
+def build_telegram_status_registry_snapshot(
+    *,
+    artifact_root: str | Path | None = None,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    root = Path(artifact_root) if artifact_root else DEFAULT_ARTIFACT_ROOT
+    cards = [_build_status_card(source, artifact_root=root, generated_at=generated_at) for source in STATUS_SOURCES]
+    cards_by_flow = {card["flow_id"]: card for card in cards}
+    context_fields = {
+        source.context_key: dict(cards_by_flow[source.flow_id]["status_summary"]) for source in STATUS_SOURCES
+    }
+    readiness = build_readiness_summary(cards_by_flow, generated_at=generated_at)
+    blockers = build_blockers_summary(cards_by_flow)
+    latest_artifacts = build_latest_artifacts(cards_by_flow)
+    safety_state = telegram_console_safety_state()
+    snapshot = {
+        "contract_version": STATUS_REGISTRY_CONTRACT,
+        "task_id": TASK_ID,
+        "generated_at": generated_at,
+        "artifact_root": normalize_path(root),
+        "status_cards": cards,
+        "cards_by_flow": cards_by_flow,
+        "status_card_count": len(cards),
+        "available_status_count": sum(1 for card in cards if card["available"] is True),
+        "missing_status_count": sum(1 for card in cards if card["available"] is not True),
+        "readiness_summary": readiness,
+        "blockers_summary": blockers,
+        "latest_artifacts": latest_artifacts,
+        "context_fields": context_fields,
+        "safe_actions": [safe_action_to_dict(action) for action in SAFE_ACTIONS],
+        "status_read_buttons": dict(STATUS_READ_BUTTONS),
+        "safe_action_count": len(SAFE_ACTIONS),
+        "review_only": True,
+        "telegram_safe": True,
+        "raw_telegram_bot_token_exposed": False,
+        "raw_operator_user_ids_exposed": False,
+        "raw_telegram_init_data_exposed": False,
+        "credential_values_exposed": False,
+        "live_trading_available": False,
+        "live_execution_blocked": True,
+        "safety_state": safety_state,
+        **safety_state,
+    }
+    return snapshot
+
+
+def build_telegram_console_context(
+    *,
+    artifact_root: str | Path | None = None,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    snapshot = build_telegram_status_registry_snapshot(artifact_root=artifact_root, generated_at=generated_at)
+    context = dict(snapshot["context_fields"])
+    context.update(
+        {
+            "telegram_operator_console_060t_status_registry": snapshot,
+            "telegram_operator_console_status_registry_snapshot": snapshot,
+            "telegram_operator_console_readiness_summary": snapshot["readiness_summary"],
+            "telegram_operator_console_blockers_summary": snapshot["blockers_summary"],
+            "telegram_operator_console_latest_artifacts": snapshot["latest_artifacts"],
+            "telegram_operator_console_safety_state": snapshot["safety_state"],
+            "telegram_operator_console_artifact_root": snapshot["artifact_root"],
+        }
+    )
+    return context
+
+
+def build_readiness_summary(
+    cards_by_flow: Mapping[str, Mapping[str, Any]],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    paper_ready = _all_available(cards_by_flow, ("paper_canary_drill_052", "paper_trading_loop_053"))
+    public_ready = _available(cards_by_flow, "public_market_paper_loop_054")
+    ledger_ready = _available(cards_by_flow, "paper_decision_ledger_055")
+    live_preflight_ready = _available(cards_by_flow, "live_connector_preflight_056")
+    auth_boundary_ready = any(
+        _available(cards_by_flow, flow_id)
+        for flow_id in (
+            "authenticated_clob_preflight_057",
+            "clob_l2_marker_preflight_058",
+            "no_order_auth_get_preflight_059",
+        )
+    )
+    readiness_items = {
+        "paper_system": "ready" if paper_ready else "blocked",
+        "public_market_data": "ready" if public_ready else "blocked",
+        "decision_ledger": "ready" if ledger_ready else "blocked",
+        "live_connector_preflight": "ready" if live_preflight_ready else "blocked",
+        "auth_boundary": "ready_live_blocked" if auth_boundary_ready else "blocked",
+        "signer_boundary": "not implemented yet",
+        "order_submission": "blocked",
+        "live_execution": "blocked",
+    }
+    countable = (
+        "paper_system",
+        "public_market_data",
+        "decision_ledger",
+        "live_connector_preflight",
+        "auth_boundary",
+    )
+    ready_count = sum(1 for key in countable if readiness_items[key] in {"ready", "ready_live_blocked"})
+    readiness_percent = int(round((ready_count / len(countable)) * 100))
+    return {
+        "contract_version": READINESS_SUMMARY_CONTRACT,
+        "task_id": TASK_ID,
+        "generated_at": generated_at,
+        "readiness_percent": readiness_percent,
+        "readiness_scope": "telegram_review_only_dry_run_and_preflight_console",
+        "items": readiness_items,
+        "labels": [
+            "paper_demo_ready",
+            "pre_live_boundary_ready",
+            "signer_boundary_missing",
+            "live_execution_blocked",
+        ],
+        "paper_demo_ready": paper_ready and public_ready and ledger_ready,
+        "pre_live_boundary_ready": live_preflight_ready or auth_boundary_ready,
+        "signer_boundary_missing": True,
+        "live_execution_blocked": True,
+        "review_only": True,
+        "execution_enabling": False,
+        **telegram_console_safety_state(),
+    }
+
+
+def build_blockers_summary(cards_by_flow: Mapping[str, Mapping[str, Any]]) -> dict[str, Any]:
+    blocker_reasons: list[str] = []
+    unresolved_count = 0
+    for flow_id, card in cards_by_flow.items():
+        summary = dict(card.get("status_summary", {}))
+        blocker_count = _int_or_zero(summary.get("blocker_count"))
+        unresolved_count += blocker_count
+        for reason in _clean_list(summary.get("top_blocker_reasons")):
+            blocker_reasons.append(f"{flow_id}: {reason}")
+    if not blocker_reasons:
+        blocker_reasons.append("Live execution remains blocked by policy; no approval path exists in Telegram.")
+    return {
+        "status": "live_execution_blocked",
+        "unresolved_blocker_count": unresolved_count,
+        "resolved_blocker_count": 0,
+        "top_blocker_reasons": blocker_reasons[:10],
+        "review_only": True,
+        "live_execution_blocked": True,
+        **telegram_console_safety_state(),
+    }
+
+
+def build_latest_artifacts(cards_by_flow: Mapping[str, Mapping[str, Any]]) -> dict[str, Any]:
+    return {
+        flow_id: {
+            "available": card.get("available") is True,
+            "latest_status_path": clean_text(card.get("latest_status_path")),
+            "artifact_path": clean_text(dict(card.get("status_summary", {})).get("artifact_path"))
+            or clean_text(dict(card.get("status_summary", {})).get("artifact")),
+        }
+        for flow_id, card in cards_by_flow.items()
+    }
+
+
+def execute_safe_telegram_operator_action(
+    action_id: str,
+    *,
+    command_runner: Callable[..., Any] | None = None,
+    timeout_seconds: int = 120,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    action = safe_action_by_id(action_id)
+    if action is None:
+        return _action_result(
+            action_id=action_id,
+            status="blocked",
+            returncode=2,
+            stdout="",
+            stderr="Unknown Telegram operator action.",
+            command=(),
+            generated_at=generated_at,
+        )
+    validation_errors = validate_safe_action(action)
+    if validation_errors:
+        return _action_result(
+            action_id=action_id,
+            status="blocked",
+            returncode=2,
+            stdout="",
+            stderr="; ".join(validation_errors),
+            command=action.command_display,
+            generated_at=generated_at,
+        )
+    actual_command = (sys.executable, "-m", action.module, *action.args)
+    runner = command_runner or subprocess.run
+    try:
+        completed = runner(
+            actual_command,
+            capture_output=True,
+            text=True,
+            timeout=timeout_seconds,
+            check=False,
+        )
+        return _action_result(
+            action_id=action.action_id,
+            status="completed" if int(getattr(completed, "returncode", 1) or 0) == 0 else "failed",
+            returncode=int(getattr(completed, "returncode", 1) or 0),
+            stdout=clean_text(getattr(completed, "stdout", "")),
+            stderr=clean_text(getattr(completed, "stderr", "")),
+            command=action.command_display,
+            generated_at=generated_at,
+        )
+    except subprocess.TimeoutExpired as exc:
+        return _action_result(
+            action_id=action.action_id,
+            status="timeout",
+            returncode=124,
+            stdout=clean_text(exc.stdout),
+            stderr=clean_text(exc.stderr) or "Timed out.",
+            command=action.command_display,
+            generated_at=generated_at,
+        )
+
+
+def write_telegram_operator_console_artifacts(
+    *,
+    artifact_root: str | Path | None = None,
+    output_dir: str | Path = TELEGRAM_OPERATOR_CONSOLE_ARTIFACT_DIR,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    snapshot = build_telegram_status_registry_snapshot(artifact_root=artifact_root, generated_at=generated_at)
+    output = Path(output_dir)
+    result = {
+        "contract_version": "pmbot_telegram_operator_console_060t_result.v1",
+        "task_id": TASK_ID,
+        "generated_at": generated_at,
+        "status": "telegram_operator_console_060t_ready",
+        "status_registry_snapshot_path": normalize_path(TELEGRAM_OPERATOR_CONSOLE_REGISTRY_SNAPSHOT_PATH),
+        "latest_status_path": normalize_path(LATEST_TELEGRAM_OPERATOR_CONSOLE_STATUS_PATH),
+        "status_registry": snapshot,
+        "safe_actions": snapshot["safe_actions"],
+        "readiness_summary": snapshot["readiness_summary"],
+        "safety_state": snapshot["safety_state"],
+        "review_only": True,
+        "live_trading_available": False,
+        **telegram_console_safety_state(),
+    }
+    latest_status = {
+        "contract_version": "pmbot_latest_telegram_operator_console_status_060t.v1",
+        "task_id": TASK_ID,
+        "generated_at": generated_at,
+        "status": "telegram_operator_console_ready_review_only",
+        "readiness_summary": snapshot["readiness_summary"],
+        "available_status_count": snapshot["available_status_count"],
+        "missing_status_count": snapshot["missing_status_count"],
+        "latest_status_path": normalize_path(output / LATEST_TELEGRAM_OPERATOR_CONSOLE_STATUS_PATH.name),
+        "result_path": normalize_path(output / TELEGRAM_OPERATOR_CONSOLE_RESULT_PATH.name),
+        "status_registry_snapshot_path": normalize_path(
+            output / TELEGRAM_OPERATOR_CONSOLE_REGISTRY_SNAPSHOT_PATH.name
+        ),
+        "review_only": True,
+        "live_execution_blocked": True,
+        **telegram_console_safety_state(),
+    }
+    write_json(output / TELEGRAM_OPERATOR_CONSOLE_RESULT_PATH.name, result)
+    write_json(output / TELEGRAM_OPERATOR_CONSOLE_REGISTRY_SNAPSHOT_PATH.name, snapshot)
+    write_json(output / LATEST_TELEGRAM_OPERATOR_CONSOLE_STATUS_PATH.name, latest_status)
+    return {
+        "result_path": normalize_path(output / TELEGRAM_OPERATOR_CONSOLE_RESULT_PATH.name),
+        "status_registry_snapshot_path": normalize_path(output / TELEGRAM_OPERATOR_CONSOLE_REGISTRY_SNAPSHOT_PATH.name),
+        "latest_status_path": normalize_path(output / LATEST_TELEGRAM_OPERATOR_CONSOLE_STATUS_PATH.name),
+        "result": result,
+        "status_registry": snapshot,
+        "latest_status": latest_status,
+    }
+
+
+def safe_action_to_dict(action: TelegramSafeAction) -> dict[str, Any]:
+    return {
+        "action_id": action.action_id,
+        "callback_data": action.callback_data,
+        "label_en": action.label_en,
+        "label_ru": action.label_ru,
+        "action_type": action.action_type,
+        "command": list(action.command_display),
+        "safe_label": is_safe_action_label(action.label_en) and is_safe_action_label(action.label_ru),
+        "dry_run_or_preflight_only": True,
+        "review_only": True,
+        "execution_enabling": False,
+        **telegram_console_safety_state(),
+    }
+
+
+def safe_action_by_id(action_id: str) -> TelegramSafeAction | None:
+    normalized = clean_text(action_id)
+    return next((action for action in SAFE_ACTIONS if action.action_id == normalized), None)
+
+
+def safe_action_by_callback(callback_data: str) -> TelegramSafeAction | None:
+    normalized = clean_text(callback_data)
+    return next((action for action in SAFE_ACTIONS if action.callback_data == normalized), None)
+
+
+def safe_action_command_for_callback(callback_data: str) -> str:
+    action = safe_action_by_callback(callback_data)
+    return f"/{action.action_id}" if action is not None else ""
+
+
+def telegram_console_button_rows(language: str) -> tuple[tuple[tuple[str, str], ...], ...]:
+    ru = clean_text(language).lower() == "ru"
+    label_key = "label_ru" if ru else "label_en"
+    rows: list[tuple[tuple[str, str], ...]] = []
+    rows.append(
+        (
+            (STATUS_READ_BUTTONS["pmbot:status"][label_key], "pmbot:status"),
+            (STATUS_READ_BUTTONS["pmbot:blockers"][label_key], "pmbot:blockers"),
+        )
+    )
+    rows.append(((STATUS_READ_BUTTONS["pmbot:readiness"][label_key], "pmbot:readiness"),))
+    action_rows = [
+        ("run_paper_canary_052", "run_paper_loop_053"),
+        ("run_public_market_paper_loop_054", "run_decision_ledger_055"),
+        ("run_live_connector_preflight_056",),
+        ("run_authenticated_clob_preflight_057_058",),
+        ("run_no_order_auth_get_preflight_059",),
+    ]
+    actions_by_id = {action.action_id: action for action in SAFE_ACTIONS}
+    for row in action_rows:
+        rows.append(
+            tuple(
+                (
+                    getattr(actions_by_id[action_id], "label_ru" if ru else "label_en"),
+                    actions_by_id[action_id].callback_data,
+                )
+                for action_id in row
+            )
+        )
+    return tuple(rows)
+
+
+def is_safe_action_label(label: str) -> bool:
+    upper = clean_text(label).upper()
+    return bool(upper) and not any(term in upper for term in FORBIDDEN_ACTION_LABEL_TERMS)
+
+
+def validate_safe_action(action: TelegramSafeAction) -> list[str]:
+    errors: list[str] = []
+    if not is_safe_action_label(action.label_en):
+        errors.append(f"unsafe English action label: {action.label_en}")
+    if not is_safe_action_label(action.label_ru):
+        errors.append(f"unsafe Russian action label: {action.label_ru}")
+    command_terms = {clean_text(item).lower() for item in action.args}
+    for forbidden in FORBIDDEN_COMMAND_TERMS:
+        if forbidden in command_terms:
+            errors.append(f"forbidden command term in Telegram action {action.action_id}: {forbidden}")
+    if "--dry-run" not in command_terms:
+        errors.append(f"Telegram action {action.action_id} must include --dry-run")
+    if action.module not in {
+        "pm_bot.operator_runner.paper_canary_drill",
+        "pm_bot.operator_runner.paper_trading_loop",
+        "pm_bot.operator_runner.public_market_paper_loop",
+        "pm_bot.operator_runner.paper_decision_ledger",
+        "pm_bot.operator_runner.live_connector_preflight",
+        "pm_bot.operator_runner.authenticated_clob_preflight",
+    }:
+        errors.append(f"unsupported module for Telegram action {action.action_id}")
+    return errors
+
+
+def telegram_console_safety_state() -> dict[str, Any]:
+    return {
+        "paper_only": True,
+        "review_only": True,
+        "dry_run_actions_only": True,
+        "preflight_actions_only": True,
+        "live_execution_approved": False,
+        "order_submission_enabled": False,
+        "wallet_signing_enabled": False,
+        "signing_enabled": False,
+        "signed_payload_generation_enabled": False,
+        "signed_order_generation_enabled": False,
+        "authenticated_polymarket_enabled": False,
+        "authenticated_endpoint_enabled": False,
+        "authenticated_endpoints_enabled": False,
+        "live_connector_enabled": False,
+        "allowed_for_live": False,
+        "canary_executable_now": False,
+        "real_execution_available": False,
+        "would_submit_order": False,
+        "real_order_submitted": False,
+        "live_execution_allowed": False,
+        "live_execution_performed": False,
+        "wallet_enabled": False,
+        "wallet_used": False,
+        "wallet_connection_enabled": False,
+        "cryptographic_signing_enabled": False,
+        "cryptographic_signing_performed": False,
+        "raw_telegram_bot_token_exposed": False,
+        "raw_operator_user_ids_exposed": False,
+        "raw_telegram_init_data_exposed": False,
+        "credentials_values_exposed": False,
+        "balance_view_enabled": False,
+        "position_view_enabled": False,
+        "fills_view_enabled": False,
+        "pnl_view_enabled": False,
+        "autonomous_live_trading_added": False,
+        "scheduler_or_daemon_added": False,
+        "browser_automation_added": False,
+        "resolved_blocker_count": 0,
+    }
+
+
+def _build_status_card(
+    source: TelegramStatusSource,
+    *,
+    artifact_root: Path,
+    generated_at: str,
+) -> dict[str, Any]:
+    latest_path = _first_existing_path(_candidate_latest_status_paths(source, artifact_root))
+    load_error = ""
+    payload: dict[str, Any] = {}
+    if latest_path is not None:
+        try:
+            payload = load_json_object(latest_path, label=f"{source.flow_id} latest status")
+        except Exception as exc:
+            load_error = exc.__class__.__name__
+            payload = {}
+    expected_path = _candidate_latest_status_paths(source, artifact_root)[0]
+    status_summary = _status_summary_from_payload(payload)
+    return {
+        "contract_version": STATUS_CARD_CONTRACT,
+        "task_id": TASK_ID,
+        "flow_id": source.flow_id,
+        "section": source.section,
+        "label_en": source.label_en,
+        "label_ru": source.label_ru,
+        "generated_at": generated_at,
+        "available": bool(payload),
+        "status": clean_text(status_summary.get("status") or "missing"),
+        "market": clean_text(status_summary.get("market") or "not_available"),
+        "mode": clean_text(status_summary.get("mode") or "review-only"),
+        "latest_status_path": normalize_path(latest_path or expected_path),
+        "load_error": load_error,
+        "status_summary": status_summary,
+        "telegram_safe": True,
+        "review_only": True,
+        "live_execution": "blocked",
+        "credential_values_exposed": False,
+        **telegram_console_safety_state(),
+    }
+
+
+def _candidate_latest_status_paths(source: TelegramStatusSource, artifact_root: Path) -> tuple[Path, ...]:
+    paths = [
+        artifact_root / source.artifact_dir_name / source.latest_status_filename,
+    ]
+    if artifact_root.name == source.artifact_dir_name:
+        paths.append(artifact_root / source.latest_status_filename)
+    paths.append(
+        artifact_root
+        / "authenticated_clob_preflight_057"
+        / source.artifact_dir_name
+        / source.latest_status_filename
+    )
+    unique: list[Path] = []
+    seen: set[str] = set()
+    for path in paths:
+        normalized = normalize_path(path)
+        if normalized not in seen:
+            seen.add(normalized)
+            unique.append(path)
+    return tuple(unique)
+
+
+def _first_existing_path(paths: Sequence[Path]) -> Path | None:
+    return next((path for path in paths if path.exists()), None)
+
+
+def _status_summary_from_payload(payload: Mapping[str, Any]) -> dict[str, Any]:
+    value = dict(payload or {})
+    blockers = value.get("blockers") if isinstance(value.get("blockers"), list) else []
+    top_blockers = value.get("top_blocker_reasons")
+    if not isinstance(top_blockers, list):
+        top_blockers = [
+            clean_text(row.get("reason"))
+            for row in blockers
+            if isinstance(row, Mapping) and clean_text(row.get("reason"))
+        ][:8]
+    summary = {
+        "status": clean_text(value.get("status") or "not_available"),
+        "market": clean_text(value.get("market") or value.get("market_symbol") or "not_available"),
+        "strategy_name": clean_text(value.get("strategy_name") or "not_available"),
+        "mode": clean_text(value.get("mode") or value.get("execution_mode") or "review-only"),
+        "live_execution": "blocked",
+        "artifact_path": clean_text(value.get("artifact_path") or value.get("artifact")),
+        "latest_status_path": clean_text(value.get("latest_status_path")),
+        "operator_markdown_path": clean_text(value.get("operator_markdown_path")),
+        "evidence_pack_path": clean_text(value.get("evidence_pack_path")),
+        "source": clean_text(value.get("source") or value.get("source_type") or "not_available"),
+        "risk_decision": clean_text(value.get("risk_decision") or "not_available"),
+        "paper_intent_status": clean_text(
+            value.get("paper_intent_status") or value.get("paper_order_intent_status") or "not_available"
+        ),
+        "last_outcome": clean_text(value.get("last_outcome") or value.get("latest_outcome") or "not_available"),
+        "ledger_entry_count": _int_or_zero(value.get("ledger_entry_count")),
+        "public_network_status": clean_text(value.get("public_network_status") or "not_available"),
+        "auth_boundary_status": clean_text(value.get("auth_boundary_status") or "not_available"),
+        "auth_presence_status": clean_text(value.get("auth_presence_status") or "not_available"),
+        "clob_base_url_status": clean_text(value.get("clob_base_url_status") or "not_available"),
+        "l2_marker_presence_status": clean_text(value.get("l2_marker_presence_status") or "not_available"),
+        "l2_marker_set_complete": value.get("l2_marker_set_complete") is True,
+        "unsafe_raw_value_detected": value.get("unsafe_raw_value_detected") is True,
+        "no_order_auth_get_status": clean_text(value.get("no_order_auth_get_status") or "not_available"),
+        "real_authenticated_get_performed": value.get("real_authenticated_get_performed") is True,
+        "blocker_count": _int_or_zero(value.get("blocker_count"), len(blockers)),
+        "top_blocker_reasons": _clean_list(top_blockers),
+        "review_only": True,
+        "execution_enabling": False,
+    }
+    summary.update(telegram_console_safety_state())
+    for field in FORCED_FALSE_SAFETY_FLAGS:
+        summary[field] = False
+    return summary
+
+
+def _action_result(
+    *,
+    action_id: str,
+    status: str,
+    returncode: int,
+    stdout: str,
+    stderr: str,
+    command: Sequence[str],
+    generated_at: str,
+) -> dict[str, Any]:
+    return {
+        "contract_version": ACTION_RESULT_CONTRACT,
+        "task_id": TASK_ID,
+        "generated_at": generated_at,
+        "action_id": clean_text(action_id),
+        "status": clean_text(status),
+        "returncode": returncode,
+        "command": list(command),
+        "stdout_excerpt": _redact_sensitive_text(stdout)[:2000],
+        "stderr_excerpt": _redact_sensitive_text(stderr)[:2000],
+        "review_only": True,
+        "dry_run_or_preflight_only": True,
+        "live_trading_available": False,
+        **telegram_console_safety_state(),
+    }
+
+
+def _redact_sensitive_text(value: str) -> str:
+    text = clean_text(value)
+    text = _PRIVATE_KEY_RE.sub("<redacted-private-key>", text)
+    text = _TOKEN_RE.sub("<redacted-token>", text)
+    text = _OPENAI_KEY_RE.sub("<redacted-api-key>", text)
+    return text
+
+
+def _available(cards_by_flow: Mapping[str, Mapping[str, Any]], flow_id: str) -> bool:
+    return dict(cards_by_flow.get(flow_id, {})).get("available") is True
+
+
+def _all_available(cards_by_flow: Mapping[str, Mapping[str, Any]], flow_ids: Sequence[str]) -> bool:
+    return all(_available(cards_by_flow, flow_id) for flow_id in flow_ids)
+
+
+def _clean_list(values: Any) -> list[str]:
+    if values is None:
+        return []
+    if isinstance(values, str):
+        return [values] if clean_text(values) else []
+    try:
+        return [clean_text(item) for item in values if clean_text(item)]
+    except TypeError:
+        return []
+
+
+def _int_or_zero(*values: Any) -> int:
+    for value in values:
+        if value is None or isinstance(value, bool):
+            continue
+        try:
+            return int(value)
+        except (TypeError, ValueError):
+            continue
+    return 0
+
+
+def main(argv: Sequence[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description="Build Telegram PMBOT operator console 060T status registry.")
+    parser.add_argument("--artifact-root", default="", help="Optional PMBOT artifact root.")
+    parser.add_argument("--generated-at", default=GENERATED_AT, help="Timestamp to record in generated artifacts.")
+    parser.add_argument("--write-artifacts", action="store_true", help="Write 060T registry/result artifacts.")
+    parser.add_argument("--json", action="store_true", help="Print JSON instead of a concise status line.")
+    args = parser.parse_args(argv)
+    artifact_root = Path(args.artifact_root) if args.artifact_root else None
+    if args.write_artifacts:
+        result = write_telegram_operator_console_artifacts(artifact_root=artifact_root, generated_at=args.generated_at)
+        payload = result["latest_status"]
+    else:
+        payload = build_telegram_status_registry_snapshot(artifact_root=artifact_root, generated_at=args.generated_at)
+    if args.json:
+        print(json.dumps(payload, indent=2, sort_keys=True))
+    else:
+        readiness = dict(payload.get("readiness_summary", payload))
+        print(
+            "PMBOT Telegram operator console 060T: review-only; "
+            f"readiness={readiness.get('readiness_percent', 'not_available')}%; live execution blocked."
+        )
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

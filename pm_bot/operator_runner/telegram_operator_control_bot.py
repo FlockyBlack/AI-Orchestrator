@@ -3,7 +3,7 @@ from __future__ import annotations
 import hashlib
 import json
 from dataclasses import dataclass, field
-from typing import Any, Mapping, Protocol, Sequence
+from typing import Any, Callable, Mapping, Protocol, Sequence
 
 from pm_bot.operator_runner.telegram_operator_i18n import (
     DEFAULT_OPERATOR_LANGUAGE,
@@ -13,6 +13,7 @@ from pm_bot.operator_runner.telegram_operator_i18n import (
     all_button_rows,
     language_from_command_text,
     normalize_operator_language,
+    operator_console_button_rows,
     operator_language_from_state,
     operator_language_is_selected,
     render_home,
@@ -28,6 +29,12 @@ from pm_bot.operator_runner.telegram_operator_control_state import (
     set_telegram_operator_language,
     summarize_telegram_operator_control_state,
 )
+from pm_bot.operator_runner.telegram_status_registry import (
+    SAFE_ACTIONS,
+    execute_safe_telegram_operator_action,
+    safe_action_by_id,
+    safe_action_command_for_callback,
+)
 from pm_bot.trading_core.schemas import GENERATED_AT, bullet_lines, clean_text, mapping_rows
 from pm_bot.trading_core.secret_boundary_policy import (
     validate_secret_boundary_telegram_operator_control_config,
@@ -42,6 +49,9 @@ TELEGRAM_OPERATOR_BUTTON_CONTRACT = "pmbot_telegram_operator_button.v1"
 TELEGRAM_OPERATOR_KEYBOARD_CONTRACT = "pmbot_telegram_operator_keyboard.v1"
 
 TASK_ID = "ORCH-PMBOT-TRADING-MVP-043-TELEGRAM-OPERATOR-CONTROL-BOT-V1"
+TASK_ID_060T = "ORCH-PMBOT-TELEGRAM-060T-OPERATOR-CONSOLE-FOR-PMBOT-STATUS-AND-DRY-RUNS"
+
+SAFE_ACTION_COMMANDS = tuple(f"/{action.action_id}" for action in SAFE_ACTIONS)
 
 SUPPORTED_COMMANDS = (
     "/start",
@@ -56,9 +66,11 @@ SUPPORTED_COMMANDS = (
     "/evidence",
     "/blockers",
     "/panel",
+    "/readiness",
     "/language",
     "/pause",
     "/kill",
+    *SAFE_ACTION_COMMANDS,
 )
 
 CALLBACK_COMMAND_MAP = {
@@ -72,6 +84,7 @@ CALLBACK_COMMAND_MAP = {
     "pmbot:evidence": "/evidence",
     "pmbot:blockers": "/blockers",
     "pmbot:panel": "/panel",
+    "pmbot:readiness": "/readiness",
     "pmbot:language": "/language",
     "pmbot:lang:ru": "/language",
     "pmbot:lang:en": "/language",
@@ -102,6 +115,8 @@ FORCED_FALSE_EXECUTION_FIELDS = (
     "cryptographic_signing_enabled",
     "wallet_signing_enabled",
     "wallet_enabled",
+    "signed_payload_generation_enabled",
+    "signed_order_generation_enabled",
 )
 
 UNAUTHORIZED_DENIAL = (
@@ -250,12 +265,16 @@ class TelegramOperatorControlBot:
         context: Mapping[str, Any] | None = None,
         state: Mapping[str, Any] | None = None,
         transport: TelegramTransport | None = None,
+        action_runner: Callable[[str], Mapping[str, Any]] | None = None,
         generated_at: str = GENERATED_AT,
     ) -> None:
         self.config = config if isinstance(config, TelegramOperatorControlConfig) else config_from_mapping(config)
         self.context = dict(context or {})
         self.state = dict(state or build_telegram_operator_control_state(generated_at=generated_at))
         self.transport = transport
+        self.action_runner = action_runner or (
+            lambda action_id: execute_safe_telegram_operator_action(action_id, generated_at=generated_at)
+        )
         self.generated_at = generated_at
 
     def handle_command(self, *, user_id: Any, text: str, chat_id: Any | None = None) -> TelegramOperatorControlResponse:
@@ -384,6 +403,8 @@ class TelegramOperatorControlBot:
         )
 
     def _render_command(self, command: str) -> str:
+        if command in SAFE_ACTION_COMMANDS:
+            return self._render_safe_action(command)
         renderers = {
             "/start": self._render_start,
             "/help": self._render_help,
@@ -397,6 +418,7 @@ class TelegramOperatorControlBot:
             "/evidence": self._render_evidence,
             "/blockers": self._render_blockers,
             "/panel": self._render_panel,
+            "/readiness": self._render_readiness,
             "/language": render_language_selection_prompt,
         }
         return renderers.get(command, self._render_help)()
@@ -743,11 +765,27 @@ class TelegramOperatorControlBot:
         return "\n".join(lines)
 
     def _render_panel(self) -> str:
-        panel = dict(self._summary().get("telegram_mini_app_operator_panel_summary", {}))
+        summary = self._summary()
+        panel = dict(summary.get("telegram_mini_app_operator_panel_summary", {}))
+        readiness = dict(summary.get("telegram_operator_console_readiness_summary", {}))
+        latest = dict(summary.get("telegram_operator_console_latest_artifacts", {}))
+        available = sum(1 for value in latest.values() if isinstance(value, Mapping) and value.get("available") is True)
+        missing = sum(1 for value in latest.values() if isinstance(value, Mapping) and value.get("available") is not True)
         if self._language() == "ru":
             return "\n".join(
                 [
-                    "Telegram Mini App Operator Panel v1: только обзор / live-режим выключен",
+                    "Telegram Mini App Operator Panel v1 / PMBOT Operator Console 060T: только обзор / live-режим выключен",
+                    "Главное меню",
+                    "PMBOT Status",
+                    "Paper Runs / Бумажный прогон",
+                    "Public Market Evidence / Публичный рынок",
+                    "Decision Ledger / Журнал решений",
+                    "Live Readiness / Live-проверка",
+                    "Blockers / Блокеры",
+                    "Latest Artifacts",
+                    "Safety State",
+                    f"Готовность review-only: {int(readiness.get('readiness_percent', 0) or 0)}%",
+                    f"Latest artifacts available/missing: {available}/{missing}",
                     f"Panel artifact доступен: {str(panel.get('panel_artifact_available') is True).lower()}",
                     f"HTML artifact: {clean_text(panel.get('latest_telegram_mini_app_operator_panel_html_path') or 'not_available')}",
                     f"JSON artifact: {clean_text(panel.get('latest_telegram_mini_app_operator_panel_json_path') or 'not_available')}",
@@ -758,12 +796,25 @@ class TelegramOperatorControlBot:
                     "raw_telegram_bot_token_exposed: false",
                     "raw_telegram_init_data_exposed: false",
                     "raw_operator_user_ids_exposed: false",
+                    "Только review-only",
                     "Live-ордера из бота или Mini App недоступны.",
+                    "Live-торговля заблокирована",
                 ]
             )
         return "\n".join(
             [
-                "Telegram Mini App Operator Panel v1: review-only / live blocked",
+                "Telegram Mini App Operator Panel v1 / PMBOT Operator Console 060T: review-only / live blocked",
+                "Main PMBOT menu",
+                "PMBOT Status",
+                "Paper Runs",
+                "Public Market Evidence",
+                "Decision Ledger",
+                "Live Readiness",
+                "Blockers",
+                "Latest Artifacts",
+                "Safety State",
+                f"Review readiness: {int(readiness.get('readiness_percent', 0) or 0)}%",
+                f"Latest artifacts available/missing: {available}/{missing}",
                 f"Panel artifact available: {str(panel.get('panel_artifact_available') is True).lower()}",
                 f"HTML artifact: {clean_text(panel.get('latest_telegram_mini_app_operator_panel_html_path') or 'not_available')}",
                 f"JSON artifact: {clean_text(panel.get('latest_telegram_mini_app_operator_panel_json_path') or 'not_available')}",
@@ -774,9 +825,85 @@ class TelegramOperatorControlBot:
                 "raw_telegram_bot_token_exposed: false",
                 "raw_telegram_init_data_exposed: false",
                 "raw_operator_user_ids_exposed: false",
+                "Review-only actions: dry-run and preflight only.",
                 "No live order action is available from this bot or panel.",
             ]
         )
+
+    def _render_readiness(self) -> str:
+        readiness = dict(self._summary().get("telegram_operator_console_readiness_summary", {}))
+        items = dict(readiness.get("items", {}))
+        if self._language() == "ru":
+            return "\n".join(
+                [
+                    "PMBOT Readiness: только review-only",
+                    f"Готовность: {int(readiness.get('readiness_percent', 0) or 0)}%",
+                    f"Paper system: {clean_text(items.get('paper_system') or 'blocked')}",
+                    f"Public market data: {clean_text(items.get('public_market_data') or 'blocked')}",
+                    f"Decision ledger: {clean_text(items.get('decision_ledger') or 'blocked')}",
+                    f"Live connector preflight: {clean_text(items.get('live_connector_preflight') or 'blocked')}",
+                    f"Auth boundary: {clean_text(items.get('auth_boundary') or 'blocked')}",
+                    f"Signer boundary: {clean_text(items.get('signer_boundary') or 'not implemented yet')}",
+                    f"Order submission: {clean_text(items.get('order_submission') or 'blocked')}",
+                    f"Live execution: {clean_text(items.get('live_execution') or 'blocked')}",
+                    "Labels: paper_demo_ready, pre_live_boundary_ready, signer_boundary_missing, live_execution_blocked",
+                    "Live-торговля заблокирована",
+                ]
+            )
+        return "\n".join(
+            [
+                "PMBOT Readiness: review-only",
+                f"Readiness: {int(readiness.get('readiness_percent', 0) or 0)}%",
+                f"Paper system: {clean_text(items.get('paper_system') or 'blocked')}",
+                f"Public market data: {clean_text(items.get('public_market_data') or 'blocked')}",
+                f"Decision ledger: {clean_text(items.get('decision_ledger') or 'blocked')}",
+                f"Live connector preflight: {clean_text(items.get('live_connector_preflight') or 'blocked')}",
+                f"Auth boundary: {clean_text(items.get('auth_boundary') or 'blocked')}",
+                f"Signer boundary: {clean_text(items.get('signer_boundary') or 'not implemented yet')}",
+                f"Order submission: {clean_text(items.get('order_submission') or 'blocked')}",
+                f"Live execution: {clean_text(items.get('live_execution') or 'blocked')}",
+                "Labels: paper_demo_ready, pre_live_boundary_ready, signer_boundary_missing, live_execution_blocked",
+            ]
+        )
+
+    def _render_safe_action(self, command: str) -> str:
+        action_id = command.lstrip("/")
+        action = safe_action_by_id(action_id)
+        if action is None:
+            return "Unknown PMBOT safe action. No execution was performed."
+        result = dict(self.action_runner(action.action_id))
+        stdout = clean_text(result.get("stdout_excerpt"))
+        stderr = clean_text(result.get("stderr_excerpt"))
+        label = action.label_ru if self._language() == "ru" else action.label_en
+        if self._language() == "ru":
+            lines = [
+                f"{label}: dry-run/preflight action",
+                f"Статус: {clean_text(result.get('status') or 'blocked')}",
+                f"Код возврата: {int(result.get('returncode', 0) or 0)}",
+                "Только review-only; live-торговля заблокирована.",
+                "order_submission_enabled: false",
+                "signing_enabled: false",
+                "wallet_signing_enabled: false",
+            ]
+            if stdout:
+                lines.append(f"Вывод: {stdout}")
+            if stderr:
+                lines.append(f"Ошибка: {stderr}")
+            return "\n".join(lines)
+        lines = [
+            f"{label}: dry-run/preflight action",
+            f"Status: {clean_text(result.get('status') or 'blocked')}",
+            f"Return code: {int(result.get('returncode', 0) or 0)}",
+            "Review-only; live trading remains blocked.",
+            "order_submission_enabled: false",
+            "signing_enabled: false",
+            "wallet_signing_enabled: false",
+        ]
+        if stdout:
+            lines.append(f"Output: {stdout}")
+        if stderr:
+            lines.append(f"Error: {stderr}")
+        return "\n".join(lines)
 
     def _render_pause(self) -> str:
         if self._language() == "ru":
@@ -810,9 +937,14 @@ class TelegramOperatorControlBot:
 
     def _keyboard_for_command(self, command: str) -> TelegramOperatorKeyboard:
         if command == "/panel":
+            if operator_language_is_selected(self.state):
+                return build_operator_console_keyboard(self._language())
             return build_panel_fallback_keyboard(self._language())
         if command == "/language":
             return build_language_selection_keyboard()
+        if command == "/readiness" or command in SAFE_ACTION_COMMANDS:
+            if operator_language_is_selected(self.state):
+                return build_operator_console_keyboard(self._language())
         if command in SUPPORTED_COMMANDS:
             return build_operator_home_keyboard(self._language())
         return TelegramOperatorKeyboard()
@@ -832,12 +964,16 @@ def build_panel_fallback_keyboard(language: str = DEFAULT_OPERATOR_LANGUAGE) -> 
     return _keyboard_from_rows(PANEL_FALLBACK_BUTTON_ROWS_BY_LANGUAGE[normalize_operator_language(language, fallback="en")])
 
 
+def build_operator_console_keyboard(language: str = DEFAULT_OPERATOR_LANGUAGE) -> TelegramOperatorKeyboard:
+    return _keyboard_from_rows(operator_console_button_rows(normalize_operator_language(language, fallback="en")))
+
+
 def build_language_selection_keyboard() -> TelegramOperatorKeyboard:
     return _keyboard_from_rows(LANGUAGE_SELECTION_BUTTON_ROWS)
 
 
 def telegram_callback_to_command(callback_data: str) -> str:
-    return CALLBACK_COMMAND_MAP.get(clean_text(callback_data), "")
+    return CALLBACK_COMMAND_MAP.get(clean_text(callback_data), "") or safe_action_command_for_callback(callback_data)
 
 
 def telegram_button_label_to_command(label: str) -> str:
@@ -1017,8 +1153,26 @@ def build_telegram_operator_control_summary(
         context_value.get("telegram_mini_app_operator_panel_summary"),
         context_value.get("telegram_mini_app_operator_panel"),
     )
+    telegram_operator_console = _first_mapping(
+        context_value.get("telegram_operator_console_060t_status_registry"),
+        context_value.get("telegram_operator_console_status_registry_snapshot"),
+    )
+    telegram_operator_console_readiness = _first_mapping(
+        context_value.get("telegram_operator_console_readiness_summary"),
+        telegram_operator_console.get("readiness_summary"),
+    )
+    telegram_operator_console_latest_artifacts = _first_mapping(
+        context_value.get("telegram_operator_console_latest_artifacts"),
+        telegram_operator_console.get("latest_artifacts"),
+    )
+    telegram_operator_console_safety_state = _first_mapping(
+        context_value.get("telegram_operator_console_safety_state"),
+        telegram_operator_console.get("safety_state"),
+    )
     blockers = _first_mapping(
         context_value.get("blocker_summary"),
+        context_value.get("telegram_operator_console_blockers_summary"),
+        telegram_operator_console.get("blockers_summary"),
         context_value.get("live_connector_blocker_matrix"),
         context_value.get("live_canary_readiness_summary"),
     )
@@ -1077,6 +1231,12 @@ def build_telegram_operator_control_summary(
             no_order_auth_get_preflight
         ),
         "telegram_mini_app_operator_panel_summary": mini_panel,
+        "telegram_operator_console_060t_status_registry": telegram_operator_console,
+        "telegram_operator_console_readiness_summary": _normalize_telegram_console_readiness_summary(
+            telegram_operator_console_readiness
+        ),
+        "telegram_operator_console_latest_artifacts": telegram_operator_console_latest_artifacts,
+        "telegram_operator_console_safety_state": telegram_operator_console_safety_state,
         "blocker_summary": _normalize_blocker_summary(blockers),
         "review_only": True,
         "telegram_operator_control_bot_section_ready": True,
@@ -1121,6 +1281,52 @@ def validate_telegram_operator_control_summary(
         "errors": errors,
         "secret_boundary_validation": secret_validation,
         **_control_safety_flags(),
+    }
+
+
+def _normalize_telegram_console_readiness_summary(readiness: Mapping[str, Any]) -> dict[str, Any]:
+    value = dict(readiness or {})
+    items = value.get("items") if isinstance(value.get("items"), Mapping) else {}
+    normalized_items = {
+        "paper_system": clean_text(dict(items).get("paper_system") or "blocked"),
+        "public_market_data": clean_text(dict(items).get("public_market_data") or "blocked"),
+        "decision_ledger": clean_text(dict(items).get("decision_ledger") or "blocked"),
+        "live_connector_preflight": clean_text(dict(items).get("live_connector_preflight") or "blocked"),
+        "auth_boundary": clean_text(dict(items).get("auth_boundary") or "blocked"),
+        "signer_boundary": clean_text(dict(items).get("signer_boundary") or "not implemented yet"),
+        "order_submission": clean_text(dict(items).get("order_submission") or "blocked"),
+        "live_execution": clean_text(dict(items).get("live_execution") or "blocked"),
+    }
+    return {
+        "status": "telegram_operator_console_readiness_review_only",
+        "readiness_percent": _int_first(value.get("readiness_percent")),
+        "readiness_scope": clean_text(value.get("readiness_scope") or "telegram_review_only_dry_run_and_preflight_console"),
+        "items": normalized_items,
+        "labels": _clean_list(
+            value.get("labels")
+            or (
+                "paper_demo_ready",
+                "pre_live_boundary_ready",
+                "signer_boundary_missing",
+                "live_execution_blocked",
+            )
+        ),
+        "paper_demo_ready": value.get("paper_demo_ready") is True,
+        "pre_live_boundary_ready": value.get("pre_live_boundary_ready") is True,
+        "signer_boundary_missing": True,
+        "live_execution_blocked": True,
+        "review_only": True,
+        "execution_enabling": False,
+        "live_execution_approved": False,
+        "order_submission_enabled": False,
+        "wallet_signing_enabled": False,
+        "signing_enabled": False,
+        "signed_payload_generation_enabled": False,
+        "signed_order_generation_enabled": False,
+        "authenticated_polymarket_enabled": False,
+        "live_connector_enabled": False,
+        "allowed_for_live": False,
+        "resolved_blocker_count": 0,
     }
 
 
@@ -1615,6 +1821,8 @@ def _control_safety_flags() -> dict[str, Any]:
         "signing_enabled": False,
         "cryptographic_signing_enabled": False,
         "cryptographic_signing_performed": False,
+        "signed_payload_generation_enabled": False,
+        "signed_order_generation_enabled": False,
         "real_order_placement_added": False,
         "real_order_placement_performed": False,
         "would_submit_order": False,
@@ -1632,6 +1840,7 @@ def _control_safety_flags() -> dict[str, Any]:
         "browser_automation_added": False,
         "outcome_resolution_invented": False,
         "pnl_invented": False,
+        "resolved_blocker_count": 0,
     }
 
 

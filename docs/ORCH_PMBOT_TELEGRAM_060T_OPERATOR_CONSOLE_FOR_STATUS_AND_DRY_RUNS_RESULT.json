@@ -1,0 +1,120 @@
+{
+  "task_id": "ORCH-PMBOT-TELEGRAM-060T-OPERATOR-CONSOLE-FOR-PMBOT-STATUS-AND-DRY-RUNS",
+  "status": "passed",
+  "worktree": "C:/oc060t_telegram_operator_console",
+  "branch": "pmbot/telegram-060t-operator-console-status-and-dry-runs",
+  "base": "origin/master",
+  "head_before": "762583767ff1e00c654a647b635627f8eb391424",
+  "head_after": "pending_final_commit_self_referential",
+  "head_after_note": "The final pushed commit hash is reported in the operator response; a committed result JSON cannot contain its own final commit hash without changing that hash.",
+  "pushed": "pending_final_git_step",
+  "remote_verified": "pending_final_git_step",
+  "summary": {
+    "telegram_panel_console_added": true,
+    "status_registry_added": true,
+    "safe_dry_run_actions_added": true,
+    "readiness_summary_added": true,
+    "ru_en_labels_preserved": true,
+    "live_trading_enabled": false,
+    "order_submission_added": false,
+    "signing_added": false,
+    "wallet_connection_added": false,
+    "balances_positions_fills_pnl_added": false,
+    "autonomous_trading_added": false
+  },
+  "changed_files": [
+    "docs/ORCH_PMBOT_TELEGRAM_060T_OPERATOR_CONSOLE_FOR_STATUS_AND_DRY_RUNS.md",
+    "docs/ORCH_PMBOT_TELEGRAM_060T_OPERATOR_CONSOLE_FOR_STATUS_AND_DRY_RUNS_RESULT.json",
+    "pm_bot/operator_runner/telegram_operator_control_bot.py",
+    "pm_bot/operator_runner/telegram_operator_i18n.py",
+    "pm_bot/operator_runner/telegram_operator_runtime.py",
+    "pm_bot/operator_runner/telegram_status_registry.py",
+    "pm_bot/tests/test_telegram_operator_console_060t.py",
+    "pm_bot/trading_core/artifacts/telegram_operator_console_060t/latest_telegram_operator_console_status_060t.json",
+    "pm_bot/trading_core/artifacts/telegram_operator_console_060t/telegram_operator_console_060t_result.json",
+    "pm_bot/trading_core/artifacts/telegram_operator_console_060t/telegram_operator_console_060t_status_registry_snapshot.json"
+  ],
+  "generated_artifacts": [
+    "pm_bot/trading_core/artifacts/telegram_operator_console_060t/latest_telegram_operator_console_status_060t.json",
+    "pm_bot/trading_core/artifacts/telegram_operator_console_060t/telegram_operator_console_060t_result.json",
+    "pm_bot/trading_core/artifacts/telegram_operator_console_060t/telegram_operator_console_060t_status_registry_snapshot.json"
+  ],
+  "validation_results": [
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_operator_console_060t.py",
+      "status": "passed",
+      "result": "8 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_operator_control_bot_043.py pm_bot/tests/test_telegram_mini_app_operator_panel_044.py pm_bot/tests/test_telegram_operator_runtime_045.py pm_bot/tests/test_telegram_operator_ux_buttons_046.py pm_bot/tests/test_telegram_runtime_smoke_046c.py pm_bot/tests/test_telegram_operator_runtime_ux_smoke_fixes_046e.py pm_bot/tests/test_telegram_ru_language_mini_app_dev_mode_046g.py pm_bot/tests/test_telegram_operator_console_060t.py",
+      "status": "passed",
+      "result": "79 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_no_order_auth_get_preflight_059.py pm_bot/tests/test_clob_l2_marker_preflight_058.py pm_bot/tests/test_authenticated_clob_preflight_057.py pm_bot/tests/test_live_connector_preflight_056.py pm_bot/tests/test_paper_decision_ledger_055.py pm_bot/tests/test_public_market_paper_loop_054.py pm_bot/tests/test_paper_trading_loop_053.py pm_bot/tests/test_polymarket_agents_reference_adaptation_052.py pm_bot/tests/test_paper_canary_drill_052.py",
+      "status": "passed",
+      "result": "86 passed"
+    },
+    {
+      "command": "python -B -m pytest pm_bot/tests",
+      "status": "passed",
+      "result": "1832 passed"
+    },
+    {
+      "command": "python -m compileall -q pm_bot",
+      "status": "passed",
+      "result": "exit 0"
+    },
+    {
+      "command": "python -m compileall -q ai_orchestrator",
+      "status": "passed",
+      "result": "exit 0"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.telegram_runtime_smoke",
+      "status": "passed",
+      "result": "ready_to_start_runtime true; network check not requested; safety flags expected false ok"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed",
+      "result": "exit 0"
+    },
+    {
+      "command": "git diff --cached --check",
+      "status": "passed",
+      "result": "exit 0 before staging"
+    }
+  ],
+  "manual_telegram_smoke_result": {
+    "runtime_smoke_command": "python -m pm_bot.operator_runner.telegram_runtime_smoke",
+    "status": "passed",
+    "live_runtime_started": false,
+    "reason_live_runtime_not_started": "A local Telegram token is configured, but long-polling would use an external authenticated Telegram service from automation. The safe local smoke was run without network check instead."
+  },
+  "safety_invariant_confirmation": {
+    "live_execution_approved": false,
+    "order_submission_enabled": false,
+    "wallet_signing_enabled": false,
+    "signing_enabled": false,
+    "signed_payload_generation_enabled": false,
+    "signed_order_generation_enabled": false,
+    "authenticated_polymarket_enabled": false,
+    "live_connector_enabled": false,
+    "allowed_for_live": false,
+    "resolved_blocker_count": 0,
+    "send_order_button_added": false,
+    "cancel_order_button_added": false,
+    "sign_payload_button_added": false,
+    "connect_wallet_button_added": false,
+    "approve_live_button_added": false,
+    "enable_live_button_added": false,
+    "view_balance_button_added": false,
+    "view_position_button_added": false,
+    "view_fills_button_added": false,
+    "trade_now_button_added": false,
+    "browser_automation_added": false,
+    "scheduler_or_daemon_added": false
+  },
+  "leftovers": []
+}

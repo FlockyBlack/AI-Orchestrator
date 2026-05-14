@@ -35,6 +35,7 @@ from pm_bot.operator_runner.telegram_operator_control_state import (
     normalize_telegram_command,
     write_telegram_operator_control_state,
 )
+from pm_bot.operator_runner.telegram_status_registry import build_telegram_console_context
 from pm_bot.trading_core.schemas import GENERATED_AT, clean_text, load_json_object, normalize_path
 
 TASK_ID = "ORCH-PMBOT-TRADING-MVP-045-TELEGRAM-BOT-RUNTIME-WIRING-FOR-EXISTING-BOT"
@@ -53,6 +54,7 @@ TELEGRAM_COMMAND_MENU = (
     ("panel", "Mini App panel"),
     ("gonogo", "Go/No-Go gate"),
     ("blockers", "Live blockers"),
+    ("readiness", "Readiness percent"),
     ("risk", "Risk limits"),
     ("language", "Language"),
     ("pause", "Local pause marker"),
@@ -337,14 +339,14 @@ class TelegramOperatorRuntimeAdapter:
                 return (
                     response.text
                     + "\nMini App URL настроен, но отклонён runtime URL safety checks; кнопка не добавлена.",
-                    build_panel_fallback_keyboard(language),
+                    keyboard,
                     "",
                     "",
                 )
             return (
                 response.text
                 + "\nMini App URL: configured but rejected by runtime URL safety checks; no button attached.",
-                build_panel_fallback_keyboard(language),
+                keyboard,
                 "",
                 "",
             )
@@ -353,7 +355,7 @@ class TelegramOperatorRuntimeAdapter:
                 response.text
                 + "\nMini App URL пока не настроен.\n"
                 + "Для локального теста подними HTTPS-туннель и запиши URL в PMBOT_TELEGRAM_MINI_APP_URL.",
-                build_panel_fallback_keyboard(language),
+                keyboard,
                 "",
                 "",
             )
@@ -361,7 +363,7 @@ class TelegramOperatorRuntimeAdapter:
             response.text
             + "\nMini App URL is not configured yet.\n"
             + "Local/static artifact availability is shown above when PMBOT artifacts are configured.",
-            build_panel_fallback_keyboard(language),
+            keyboard,
             "",
             "",
         )
@@ -523,9 +525,18 @@ def startup_instruction_lines(errors: tuple[str, ...]) -> list[str]:
 
 
 def load_runtime_context(artifact_dir: Path | None, *, generated_at: str = GENERATED_AT) -> dict[str, Any]:
-    if artifact_dir is None:
-        return {}
     context: dict[str, Any] = {}
+    try:
+        context.update(
+            build_telegram_console_context(
+                artifact_root=artifact_dir if artifact_dir is not None else None,
+                generated_at=generated_at,
+            )
+        )
+    except Exception:
+        context["telegram_operator_console_060t_status"] = "unavailable"
+    if artifact_dir is None:
+        return context
     dashboard_path = artifact_dir / "paper_daily_dashboard.json"
     if dashboard_path.exists():
         try:
@@ -635,6 +646,8 @@ def runtime_safety_flags() -> dict[str, Any]:
         "signing_enabled": False,
         "cryptographic_signing_enabled": False,
         "cryptographic_signing_performed": False,
+        "signed_payload_generation_enabled": False,
+        "signed_order_generation_enabled": False,
         "real_order_placement_added": False,
         "real_order_placement_performed": False,
         "would_submit_order": False,
