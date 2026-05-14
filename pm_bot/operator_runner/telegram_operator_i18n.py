@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing import Any, Mapping, Sequence
 
+from pm_bot.operator_runner.telegram_status_registry import telegram_console_button_rows
 from pm_bot.trading_core.schemas import clean_text
 
 SUPPORTED_LANGUAGES = ("ru", "en")
@@ -96,6 +97,10 @@ def panel_fallback_button_rows(language: str) -> tuple[tuple[tuple[str, str], ..
     ]
 
 
+def operator_console_button_rows(language: str) -> tuple[tuple[tuple[str, str], ...], ...]:
+    return telegram_console_button_rows(normalize_operator_language(language, fallback=DEFAULT_OPERATOR_LANGUAGE))
+
+
 def language_selection_button_rows() -> tuple[tuple[tuple[str, str], ...], ...]:
     return LANGUAGE_SELECTION_BUTTON_ROWS
 
@@ -111,6 +116,7 @@ def all_button_rows() -> tuple[tuple[tuple[str, str], ...], ...]:
     for language in SUPPORTED_LANGUAGES:
         rows.extend(home_button_rows(language))
         rows.extend(panel_fallback_button_rows(language))
+        rows.extend(operator_console_button_rows(language))
     rows.extend(language_selection_button_rows())
     return tuple(rows)
 
