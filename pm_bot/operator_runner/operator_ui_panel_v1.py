@@ -111,6 +111,9 @@ OPERATOR_UI_PANEL_PUBLIC_MARKET_PAPER_LOOP_SUMMARY_CONTRACT = (
 OPERATOR_UI_PANEL_PAPER_DECISION_LEDGER_SUMMARY_CONTRACT = (
     "pmbot_operator_ui_panel_paper_decision_ledger_summary_055.v1"
 )
+OPERATOR_UI_PANEL_LIVE_CONNECTOR_PREFLIGHT_SUMMARY_CONTRACT = (
+    "pmbot_operator_ui_panel_live_connector_preflight_summary_056.v1"
+)
 OPERATOR_UI_PANEL_VALIDATION_CONTRACT = "pmbot_operator_ui_panel_validation.v1"
 
 TASK_ID = "ORCH-PMBOT-TRADING-MVP-036-OPERATOR-UI-PANEL-V1-READINESS-RISK-LIMITS-KILL-SWITCH"
@@ -162,6 +165,7 @@ REQUIRED_SECTION_IDS = (
     "paper_trading_loop",
     "public_market_paper_loop",
     "paper_decision_ledger",
+    "live_connector_preflight",
     "paper_trading_summary",
     "operator_packets",
     "audit_replay",
@@ -184,6 +188,7 @@ NEXT_REQUIRED_GATES = (
     "supervised tiny canary approval packet remains review-only and not live approval",
     "Telegram operator control bot remains review-only and exposes no executable live action",
     "Telegram Mini App operator panel remains static review-only and exposes no executable live action",
+    "live connector preflight remains review-only and cannot submit orders, sign, or enable live execution",
 )
 
 
@@ -993,6 +998,7 @@ def build_operator_ui_panel_v1(
     operator_intent_summary: Mapping[str, Any] | None = None,
     live_connector_audit_replay: Mapping[str, Any] | None = None,
     live_connector_audit_operator_summary: Mapping[str, Any] | None = None,
+    live_connector_preflight_status_summary: Mapping[str, Any] | None = None,
     telegram_operator_control_bot_summary: Mapping[str, Any] | None = None,
     telegram_mini_app_operator_panel_summary: Mapping[str, Any] | None = None,
     latest_paths: Mapping[str, str] | None = None,
@@ -1232,6 +1238,17 @@ def build_operator_ui_panel_v1(
         latest_status_path=paths.get("paper_decision_ledger_status", "")
         or clean_text(dashboard_value.get("latest_paper_decision_ledger_status_path")),
     )
+    live_connector_preflight_summary = _build_live_connector_preflight_summary(
+        live_connector_preflight_status=(
+            live_connector_preflight_status_summary
+            or dashboard_value.get("live_connector_preflight_status_summary")
+            or dashboard_value.get("live_connector_preflight_status")
+            or dashboard_value.get("latest_live_connector_preflight_status")
+            or {}
+        ),
+        latest_status_path=paths.get("live_connector_preflight_status", "")
+        or clean_text(dashboard_value.get("latest_live_connector_preflight_status_path")),
+    )
     readiness = _build_readiness_summary(
         operator_review_ready=operator_packet_summary.get("operator_approval_packet_review_ready") is True,
         evidence_bundle_review_ready=evidence_summary.get("evidence_bundle_review_ready") is True,
@@ -1261,6 +1278,7 @@ def build_operator_ui_panel_v1(
         paper_trading_loop=paper_trading_loop_summary,
         public_market_paper_loop=public_market_paper_loop_summary,
         paper_decision_ledger=paper_decision_ledger_summary,
+        live_connector_preflight=live_connector_preflight_summary,
         operator_packets=operator_packet_summary,
         audit=audit_summary,
         action_states=action_states,
@@ -1294,6 +1312,7 @@ def build_operator_ui_panel_v1(
             "paper_trading_loop": paper_trading_loop_summary,
             "public_market_paper_loop": public_market_paper_loop_summary,
             "paper_decision_ledger": paper_decision_ledger_summary,
+            "live_connector_preflight": live_connector_preflight_summary,
         },
     )
     panel = OperatorUIPanelV1(
@@ -1334,6 +1353,8 @@ def build_operator_ui_panel_v1(
     panel["public_market_paper_loop_section_ready"] = True
     panel["paper_decision_ledger_status_summary"] = paper_decision_ledger_summary
     panel["paper_decision_ledger_section_ready"] = True
+    panel["live_connector_preflight_status_summary"] = live_connector_preflight_summary
+    panel["live_connector_preflight_section_ready"] = True
     validation = validate_operator_ui_panel_v1(panel, generated_at=generated_at)
     panel["validation"] = validation
     return panel
@@ -1889,6 +1910,25 @@ def summarize_operator_ui_panel_v1(panel: Mapping[str, Any]) -> dict[str, Any]:
         ).get("evidence_pack_path"),
         "paper_decision_ledger_live_execution_blocked": dict(
             panel.get("paper_decision_ledger_status_summary", {})
+        ).get("live_execution_blocked"),
+        "live_connector_preflight_section_ready": panel.get("live_connector_preflight_section_ready") is True,
+        "live_connector_preflight_status": dict(
+            panel.get("live_connector_preflight_status_summary", {})
+        ).get("status"),
+        "live_connector_preflight_public_network_status": dict(
+            panel.get("live_connector_preflight_status_summary", {})
+        ).get("public_network_status"),
+        "live_connector_preflight_auth_boundary_status": dict(
+            panel.get("live_connector_preflight_status_summary", {})
+        ).get("auth_boundary_status"),
+        "live_connector_preflight_order_submission_blocked": dict(
+            panel.get("live_connector_preflight_status_summary", {})
+        ).get("order_submission_blocked"),
+        "live_connector_preflight_signing_blocked": dict(
+            panel.get("live_connector_preflight_status_summary", {})
+        ).get("signing_blocked"),
+        "live_connector_preflight_live_execution_blocked": dict(
+            panel.get("live_connector_preflight_status_summary", {})
         ).get("live_execution_blocked"),
         "paper_summary_panel_ready": panel.get("paper_summary_panel_ready") is True,
         "blocker_panel_ready": panel.get("blocker_panel_ready") is True,
@@ -3275,6 +3315,54 @@ def _build_paper_decision_ledger_summary(
     }
 
 
+def _build_live_connector_preflight_summary(
+    *,
+    live_connector_preflight_status: Mapping[str, Any] | None,
+    latest_status_path: str,
+) -> dict[str, Any]:
+    status = dict(live_connector_preflight_status or {})
+    blockers = status.get("blockers") if isinstance(status.get("blockers"), list) else []
+    top_blockers = status.get("top_blocker_reasons")
+    if not isinstance(top_blockers, list):
+        top_blockers = [
+            clean_text(row.get("reason"))
+            for row in mapping_rows(blockers)
+            if clean_text(row.get("reason"))
+        ][:8]
+    return {
+        "contract_version": OPERATOR_UI_PANEL_LIVE_CONNECTOR_PREFLIGHT_SUMMARY_CONTRACT,
+        "live_connector_preflight_section_ready": True,
+        "status": clean_text(status.get("status") or NOT_AVAILABLE),
+        "market": clean_text(status.get("market") or NOT_AVAILABLE),
+        "mode": clean_text(status.get("mode") or "preflight / review-only"),
+        "execution_mode": clean_text(status.get("execution_mode") or "paper_or_preflight"),
+        "public_network_status": clean_text(
+            status.get("public_network_status") or status.get("public_network") or NOT_AVAILABLE
+        ),
+        "auth_boundary_status": clean_text(
+            status.get("auth_boundary_status") or status.get("auth_boundary") or NOT_AVAILABLE
+        ),
+        "blocker_count": _int_or_zero(status.get("blocker_count"), len(blockers)),
+        "top_blocker_reasons": [clean_text(item) for item in top_blockers if clean_text(item)],
+        "artifact_path": clean_text(status.get("artifact_path")),
+        "latest_status_path": clean_text(status.get("latest_status_path") or latest_status_path),
+        "operator_markdown_path": clean_text(status.get("operator_markdown_path")),
+        "network_evidence_path": clean_text(status.get("network_evidence_path")),
+        "credential_presence_path": clean_text(status.get("credential_presence_path")),
+        "blockers_path": clean_text(status.get("blockers_path")),
+        "review_only": True,
+        "preflight_only": True,
+        "order_submission_blocked": True,
+        "signing_blocked": True,
+        "wallet_connection_blocked": True,
+        "live_execution_blocked": True,
+        "next_operator_action": clean_text(
+            status.get("next_operator_action") or "review preflight only, no live order available"
+        ),
+        **_panel_safety_flags(),
+    }
+
+
 def _build_action_states() -> list[dict[str, Any]]:
     return [
         OperatorUIPanelActionState(
@@ -3353,6 +3441,7 @@ def _build_sections(
     paper_trading_loop: Mapping[str, Any],
     public_market_paper_loop: Mapping[str, Any],
     paper_decision_ledger: Mapping[str, Any],
+    live_connector_preflight: Mapping[str, Any],
     operator_packets: Mapping[str, Any],
     audit: Mapping[str, Any],
     action_states: Sequence[Mapping[str, Any]],
@@ -3520,6 +3609,54 @@ def _build_sections(
                     "paper_decision_ledger_review_only",
                     "warning",
                     "Paper decision ledger status is passive review-only and exposes no executable live action.",
+                )
+            ],
+        ),
+        _section(
+            "live_connector_preflight",
+            "Live Connector Preflight",
+            clean_text(live_connector_preflight.get("status") or NOT_AVAILABLE),
+            [
+                _metric("status", "Status", live_connector_preflight.get("status")),
+                _metric("market", "Market", live_connector_preflight.get("market")),
+                _metric("mode", "Mode", live_connector_preflight.get("mode")),
+                _metric(
+                    "public_network_status",
+                    "Public network",
+                    live_connector_preflight.get("public_network_status"),
+                ),
+                _metric(
+                    "auth_boundary_status",
+                    "Auth boundary",
+                    live_connector_preflight.get("auth_boundary_status"),
+                ),
+                _metric("blocker_count", "Blockers", live_connector_preflight.get("blocker_count")),
+                _metric(
+                    "top_blocker_reasons",
+                    "Top blockers",
+                    live_connector_preflight.get("top_blocker_reasons"),
+                ),
+                _metric("order_submission_blocked", "Order submission blocked", True),
+                _metric("signing_blocked", "Signing blocked", True),
+                _metric("live_execution_blocked", "Live execution blocked", True),
+                _metric(
+                    "latest_status_path",
+                    "Latest status",
+                    live_connector_preflight.get("latest_status_path"),
+                ),
+                _metric("review_only", "Review-only", True),
+                _metric("preflight_only", "Preflight-only", True),
+                _metric("order_submission_enabled", "Order submission enabled", False),
+                _metric("wallet_signing_enabled", "Wallet signing enabled", False),
+                _metric("signing_enabled", "Signing enabled", False),
+                _metric("live_connector_enabled", "Live connector enabled", False),
+                _metric("allowed_for_live", "Allowed for live", False),
+            ],
+            warnings=[
+                _warning(
+                    "live_connector_preflight_review_only",
+                    "critical",
+                    "Live connector preflight is passive review-only and exposes no executable live action.",
                 )
             ],
         ),
