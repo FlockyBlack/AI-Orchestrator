@@ -55,6 +55,7 @@ PRODUCT_COMMANDS = (
     "/home",
     "/connection",
     "/connection_status",
+    "/order_prep_status",
     "/balance",
     "/trades",
     "/pnl",

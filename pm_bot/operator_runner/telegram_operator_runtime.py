@@ -68,6 +68,8 @@ TELEGRAM_COMMAND_MENU = (
     ("start", "Start"),
     ("home", "Menu"),
     ("connection", "Connection"),
+    ("connection_status", "Connection Check"),
+    ("order_prep_status", "Order Prep"),
     ("balance", "Balance"),
     ("trades", "Trades"),
     ("pnl", "PnL"),
