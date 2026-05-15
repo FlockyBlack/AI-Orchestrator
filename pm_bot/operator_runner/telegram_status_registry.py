@@ -10,12 +10,18 @@ from pathlib import Path
 from typing import Any, Callable, Mapping, Sequence
 
 from pm_bot.trading_core.schemas import GENERATED_AT, clean_text, load_json_object, normalize_path, write_json
+from pm_bot.trading_core.telegram_wallet_auth_status_dashboard import (
+    ARTIFACT_DIR_NAME as TELEGRAM_CONNECTION_STATUS_067E_ARTIFACT_DIR_NAME,
+    LATEST_STATUS_FILENAME as TELEGRAM_CONNECTION_STATUS_067E_LATEST_STATUS_FILENAME,
+    TASK_ID as TASK_ID_067E,
+)
 
 TASK_ID = "ORCH-PMBOT-TELEGRAM-060T-OPERATOR-CONSOLE-FOR-PMBOT-STATUS-AND-DRY-RUNS"
 TASK_ID_061T = "ORCH-PMBOT-TELEGRAM-061T-TINY-ORDER-SCAFFOLD-REVIEW-PANEL"
 TASK_ID_062T = "ORCH-PMBOT-TELEGRAM-062T-PRE-LIVE-TINY-ORDER-GATE-REVIEW-PANEL"
 TASK_ID_063T = "ORCH-PMBOT-TELEGRAM-063T-SUPERVISED-LIVE-ENABLEMENT-REVIEW-PANEL"
 TASK_ID_064T = "ORCH-PMBOT-TELEGRAM-064T-CREDENTIALS-READINESS-REVIEW-PANEL"
+TELEGRAM_CONNECTION_STATUS_067E_FLOW_ID = "telegram_connection_status_067e"
 STATUS_REGISTRY_CONTRACT = "pmbot_telegram_operator_console_060t_status_registry.v1"
 STATUS_CARD_CONTRACT = "pmbot_telegram_operator_console_060t_status_card.v1"
 READINESS_SUMMARY_CONTRACT = "pmbot_telegram_operator_console_060t_readiness.v1"
@@ -365,6 +371,15 @@ STATUS_SOURCES: tuple[TelegramStatusSource, ...] = (
         label_en="Credentials readiness review",
         label_ru="Проверка готовности credentials",
     ),
+    TelegramStatusSource(
+        flow_id=TELEGRAM_CONNECTION_STATUS_067E_FLOW_ID,
+        section="Live Readiness",
+        artifact_dir_name=TELEGRAM_CONNECTION_STATUS_067E_ARTIFACT_DIR_NAME,
+        latest_status_filename=TELEGRAM_CONNECTION_STATUS_067E_LATEST_STATUS_FILENAME,
+        context_key="telegram_connection_status_067e_status_summary",
+        label_en="Connection status 067E",
+        label_ru="Подключение 067E",
+    ),
 )
 
 SAFE_ACTIONS: tuple[TelegramSafeAction, ...] = (
@@ -447,6 +462,14 @@ SAFE_ACTIONS: tuple[TelegramSafeAction, ...] = (
         label_ru="Dry-run готовности credentials 064",
         module="pm_bot.operator_runner.explicit_live_credentials_readiness_gate",
         args=("--market", "BTC", "--strategy", "tiny-momentum", "--dry-run"),
+    ),
+    TelegramSafeAction(
+        action_id="run_connection_status_067e",
+        callback_data="pmbot:run:connection_status_067e",
+        label_en="Run read-only status check 067E",
+        label_ru="Запустить read-only проверку",
+        module="pm_bot.operator_runner.telegram_connection_status_dashboard",
+        args=("--dry-run",),
     ),
 )
 
@@ -1426,6 +1449,7 @@ def telegram_console_button_rows(language: str) -> tuple[tuple[tuple[str, str], 
             ),
         )
     )
+    rows.append((("🔐 Подключение" if ru else "Connection status 067E", "pmbot:connection_status"),))
     action_rows = [
         ("run_paper_canary_052", "run_paper_loop_053"),
         ("run_public_market_paper_loop_054", "run_decision_ledger_055"),
@@ -1435,6 +1459,7 @@ def telegram_console_button_rows(language: str) -> tuple[tuple[tuple[str, str], 
         ("run_tiny_order_scaffold_061",),
         ("run_pre_live_tiny_order_gate_062p_review_dry_run",),
         ("run_credentials_readiness_review_064_dry_run",),
+        ("run_connection_status_067e",),
     ]
     actions_by_id = {action.action_id: action for action in SAFE_ACTIONS}
     for row in action_rows:
@@ -1477,6 +1502,7 @@ def validate_safe_action(action: TelegramSafeAction) -> list[str]:
         "pm_bot.operator_runner.tiny_order_scaffold",
         "pm_bot.operator_runner.pre_live_tiny_order_gate",
         "pm_bot.operator_runner.explicit_live_credentials_readiness_gate",
+        "pm_bot.operator_runner.telegram_connection_status_dashboard",
     }:
         errors.append(f"unsupported module for Telegram action {action.action_id}")
     return errors
@@ -1754,6 +1780,27 @@ def _status_summary_from_payload(payload: Mapping[str, Any]) -> dict[str, Any]:
         "values_never_shown": True,
         "redacted_labels_only": True,
         "readiness_status": clean_text(value.get("readiness_status") or "blocked"),
+        "api_keys_added": value.get("api_keys_added") is True,
+        "api_keys_status": clean_text(value.get("api_keys_status") or "not_added"),
+        "api_keys_display_ru": clean_text(value.get("api_keys_display_ru") or "не добавлены"),
+        "api_keys_display_en": clean_text(value.get("api_keys_display_en") or "not added"),
+        "private_key_added": value.get("private_key_added") is True,
+        "private_key_status": clean_text(value.get("private_key_status") or "not_added"),
+        "private_key_display_ru": clean_text(value.get("private_key_display_ru") or "не добавлен"),
+        "private_key_display_en": clean_text(value.get("private_key_display_en") or "not added"),
+        "wallet_display": clean_text(value.get("wallet_display") or "missing"),
+        "signature_type_display": clean_text(value.get("signature_type_display") or "missing"),
+        "funder_display": clean_text(value.get("funder_display") or "missing"),
+        "l2_auth_probe_status": clean_text(value.get("l2_auth_probe_status") or "not_run"),
+        "l2_auth_probe_display": clean_text(value.get("l2_auth_probe_display") or "not run"),
+        "open_orders_status": clean_text(value.get("open_orders_status") or "unknown"),
+        "balance_allowance_status": clean_text(value.get("balance_allowance_status") or "unknown"),
+        "clob_l2_auth_readonly_probe_artifact_available": (
+            value.get("clob_l2_auth_readonly_probe_artifact_available") is True
+        ),
+        "clob_l2_auth_readonly_probe_path": clean_text(value.get("clob_l2_auth_readonly_probe_path")),
+        "dashboard_does_not_run_probe": value.get("dashboard_does_not_run_probe") is True,
+        "latest_067c_probe_artifact_only": value.get("latest_067c_probe_artifact_only") is True,
         "next_operator_action": clean_text(value.get("next_operator_action")),
         "ready_for_future_live_enablement": False,
         "signing_available": False,

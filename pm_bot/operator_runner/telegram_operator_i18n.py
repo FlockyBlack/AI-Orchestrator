@@ -54,6 +54,19 @@ PANEL_LAUNCH_BUTTON_LABELS = {
     "en": "Открыть PMBOT",
 }
 
+CONNECTION_STATUS_BUTTON_ROWS_BY_LANGUAGE = {
+    "ru": (
+        (("Обновить статус", "pmbot:connection_status"),),
+        (("Запустить read-only проверку", "pmbot:run:connection_status_067e"),),
+        (("Назад", "pmbot:home"),),
+    ),
+    "en": (
+        (("Refresh status", "pmbot:connection_status"),),
+        (("Run read-only status check", "pmbot:run:connection_status_067e"),),
+        (("Back", "pmbot:home"),),
+    ),
+}
+
 TINY_ORDER_REVIEW_LABELS = {
     "ru": {
         "section": "Малый ордер",
@@ -267,6 +280,12 @@ def operator_console_button_rows(language: str) -> tuple[tuple[tuple[str, str], 
     return telegram_console_button_rows(normalize_operator_language(language, fallback=DEFAULT_OPERATOR_LANGUAGE))
 
 
+def connection_status_button_rows(language: str) -> tuple[tuple[tuple[str, str], ...], ...]:
+    return CONNECTION_STATUS_BUTTON_ROWS_BY_LANGUAGE[
+        normalize_operator_language(language, fallback=DEFAULT_OPERATOR_LANGUAGE)
+    ]
+
+
 def language_selection_button_rows() -> tuple[tuple[tuple[str, str], ...], ...]:
     return LANGUAGE_SELECTION_BUTTON_ROWS
 
@@ -311,6 +330,7 @@ def all_button_rows() -> tuple[tuple[tuple[str, str], ...], ...]:
         rows.extend(home_button_rows(language))
         rows.extend(panel_fallback_button_rows(language))
         rows.extend(operator_console_button_rows(language))
+        rows.extend(connection_status_button_rows(language))
     rows.extend(language_selection_button_rows())
     return tuple(rows)
 
