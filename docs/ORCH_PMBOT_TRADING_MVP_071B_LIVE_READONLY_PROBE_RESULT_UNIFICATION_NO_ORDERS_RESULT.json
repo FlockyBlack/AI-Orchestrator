@@ -1,0 +1,138 @@
+{
+  "task_id": "ORCH-PMBOT-TRADING-MVP-071B-LIVE-READONLY-PROBE-RESULT-UNIFICATION-NO-ORDERS",
+  "status": "validated_pending_commit_push_verify",
+  "generated_at": "2026-05-15T00:00:00+04:00",
+  "repository": "https://github.com/FlockyBlack/AI-Orchestrator.git",
+  "worktree": "C:/oc071b_live_readonly_probe_result_unification_no_orders",
+  "branch": "pmbot/trading-mvp-071b-live-readonly-probe-result-unification-no-orders",
+  "base_branch": "master",
+  "required_base_head": "010bb351ab17e60275d4d6d0771f95ab8058e255",
+  "head_before": "010bb351ab17e60275d4d6d0771f95ab8058e255",
+  "head_after": "recorded_in_final_response_after_commit_push_verify",
+  "head_after_note": "The committed result artifact cannot self-record its own final commit SHA because changing the artifact would change the SHA. The final response records the committed and remotely verified branch HEAD.",
+  "implementation_summary": [
+    "Added 071B live read-only status models for unified local status fields and safety validation.",
+    "Added a local-only aggregator that reads fixed latest artifact filenames for 067C, 070C when present, and 067E when present.",
+    "Added an operator runner command for dry-run aggregation.",
+    "Added focused tests for missing-artifact unknown defaults, local-only reads, raw-value exclusion, no network/env/submit/cancel/signing call paths, allowed_for_live=false, and artifact emission.",
+    "Generated the required 071B status, source, safety, result, and operator summary artifacts."
+  ],
+  "changed_files": [
+    "pm_bot/trading_core/live_readonly_status_models.py",
+    "pm_bot/trading_core/live_readonly_status_aggregator.py",
+    "pm_bot/operator_runner/live_readonly_status_aggregator.py",
+    "pm_bot/tests/test_live_readonly_status_aggregator_071b.py",
+    "pm_bot/trading_core/artifacts/live_readonly_status_aggregator_071b/live_readonly_status_aggregator_071b_result.json",
+    "pm_bot/trading_core/artifacts/live_readonly_status_aggregator_071b/latest_live_readonly_status_071b.json",
+    "pm_bot/trading_core/artifacts/live_readonly_status_aggregator_071b/live_readonly_status_sources_071b.json",
+    "pm_bot/trading_core/artifacts/live_readonly_status_aggregator_071b/live_readonly_status_safety_snapshot_071b.json",
+    "pm_bot/trading_core/artifacts/live_readonly_status_aggregator_071b/live_readonly_status_operator_summary_071b.md",
+    "docs/ORCH_PMBOT_TRADING_MVP_071B_LIVE_READONLY_PROBE_RESULT_UNIFICATION_NO_ORDERS.md",
+    "docs/ORCH_PMBOT_TRADING_MVP_071B_LIVE_READONLY_PROBE_RESULT_UNIFICATION_NO_ORDERS_RESULT.json"
+  ],
+  "generated_artifacts": [
+    "pm_bot/trading_core/artifacts/live_readonly_status_aggregator_071b/live_readonly_status_aggregator_071b_result.json",
+    "pm_bot/trading_core/artifacts/live_readonly_status_aggregator_071b/latest_live_readonly_status_071b.json",
+    "pm_bot/trading_core/artifacts/live_readonly_status_aggregator_071b/live_readonly_status_sources_071b.json",
+    "pm_bot/trading_core/artifacts/live_readonly_status_aggregator_071b/live_readonly_status_safety_snapshot_071b.json",
+    "pm_bot/trading_core/artifacts/live_readonly_status_aggregator_071b/live_readonly_status_operator_summary_071b.md"
+  ],
+  "aggregated_status_summary": {
+    "command": "python -m pm_bot.operator_runner.live_readonly_status_aggregator --market BTC --strategy tiny-momentum --dry-run",
+    "status": "live_readonly_status_aggregated",
+    "l2_auth_status": "blocked_missing_l2_credentials",
+    "open_orders_status": "not_available",
+    "balance_status": "not_available",
+    "allowance_status": "not_available",
+    "wallet_address_status": "missing",
+    "funder_status": "missing",
+    "signature_type_status": "missing",
+    "source_067c_available": true,
+    "source_070c_available": false,
+    "source_067e_available": true,
+    "allowed_for_live": false
+  },
+  "validation_summary": {
+    "status": "passed",
+    "commands": [
+      {
+        "command": "python -m pytest pm_bot/tests/test_live_readonly_status_aggregator_071b.py",
+        "status": "passed",
+        "summary": "5 passed"
+      },
+      {
+        "command": "python -m pytest pm_bot/tests/test_clob_l2_auth_readonly_probe_067c.py",
+        "status": "passed",
+        "summary": "10 passed"
+      },
+      {
+        "command": "python -m pytest pm_bot/tests/test_live_account_readonly_state_probe_070c.py || echo \"070C may not exist yet\"",
+        "status": "allowed_missing",
+        "summary": "070C test file is not present on this required base; direct pytest run reported file or directory not found."
+      },
+      {
+        "command": "python -m pytest pm_bot/tests/test_telegram_wallet_auth_status_067e.py",
+        "status": "passed",
+        "summary": "5 passed"
+      },
+      {
+        "command": "python -m pytest pm_bot/tests/test_static_safety_invariant_report_060q.py",
+        "status": "passed",
+        "summary": "9 passed"
+      },
+      {
+        "command": "python -B -m pytest pm_bot/tests",
+        "status": "passed",
+        "summary": "2020 passed in 624.42s",
+        "note": "An earlier broad run exited before usable failure details were available; rerun with -x -vv completed 2020 passed, then the exact requested broad command completed 2020 passed."
+      },
+      {
+        "command": "python -m compileall -q pm_bot",
+        "status": "passed",
+        "summary": "compileall completed without errors"
+      },
+      {
+        "command": "python -m compileall -q ai_orchestrator",
+        "status": "passed",
+        "summary": "compileall completed without errors"
+      },
+      {
+        "command": "python -m pm_bot.operator_runner.live_readonly_status_aggregator --market BTC --strategy tiny-momentum --dry-run",
+        "status": "passed",
+        "summary": "runner completed; artifacts emitted under pm_bot/trading_core/artifacts/live_readonly_status_aggregator_071b"
+      },
+      {
+        "command": "python -m pm_bot.operator_runner.static_safety_invariant_report --scope pm_bot --dry-run",
+        "status": "passed",
+        "summary": "runner completed with 0 critical findings and 7 warnings"
+      }
+    ]
+  },
+  "safety_flags": {
+    "schema_model_adapter_only": true,
+    "local_artifact_read_only": true,
+    "no_network_calls_by_default": true,
+    "allowed_for_live": false,
+    "private_key_read": false,
+    "wallet_connection_attempted": false,
+    "signer_instantiated": false,
+    "signing_attempted": false,
+    "signed_payload_generated": false,
+    "order_submission_attempted": false,
+    "order_cancellation_attempted": false,
+    "authenticated_endpoint_call_performed": false,
+    "post_put_patch_delete_attempted": false,
+    "trading_endpoint_write_attempted": false,
+    "fake_balances_emitted": false,
+    "fake_orders_emitted": false,
+    "fake_pnl_emitted": false,
+    "browser_automation_added": false,
+    "scheduler_or_daemon_added": false,
+    "background_worker_added": false,
+    "autonomous_live_trading_added": false
+  },
+  "remaining_risks": [
+    "070C is not present on this required base branch, so the default generated artifact records that source as unavailable.",
+    "The aggregator reports only statuses from local artifacts; it does not verify live account state itself."
+  ]
+}
