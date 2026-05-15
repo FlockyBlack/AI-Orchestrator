@@ -20,6 +20,7 @@ from pm_bot.operator_runner.telegram_operator_i18n import (
     render_home,
     render_language_selected,
     render_language_selection_prompt,
+    supervised_live_enablement_review_label,
     tiny_order_review_label,
 )
 from pm_bot.operator_runner.telegram_operator_control_state import (
@@ -54,6 +55,7 @@ TASK_ID = "ORCH-PMBOT-TRADING-MVP-043-TELEGRAM-OPERATOR-CONTROL-BOT-V1"
 TASK_ID_060T = "ORCH-PMBOT-TELEGRAM-060T-OPERATOR-CONSOLE-FOR-PMBOT-STATUS-AND-DRY-RUNS"
 TASK_ID_061T = "ORCH-PMBOT-TELEGRAM-061T-TINY-ORDER-SCAFFOLD-REVIEW-PANEL"
 TASK_ID_062T = "ORCH-PMBOT-TELEGRAM-062T-PRE-LIVE-TINY-ORDER-GATE-REVIEW-PANEL"
+TASK_ID_063T = "ORCH-PMBOT-TELEGRAM-063T-SUPERVISED-LIVE-ENABLEMENT-REVIEW-PANEL"
 
 SAFE_ACTION_COMMANDS = tuple(f"/{action.action_id}" for action in SAFE_ACTIONS)
 
@@ -73,6 +75,7 @@ SUPPORTED_COMMANDS = (
     "/readiness",
     "/tiny_order_review",
     "/pre_live_gate_review",
+    "/supervised_live_review",
     "/language",
     "/pause",
     "/kill",
@@ -92,6 +95,7 @@ CALLBACK_COMMAND_MAP = {
     "pmbot:panel": "/panel",
     "pmbot:readiness": "/readiness",
     "pmbot:pre_live_gate_review": "/pre_live_gate_review",
+    "pmbot:supervised_live_review": "/supervised_live_review",
     "pmbot:language": "/language",
     "pmbot:lang:ru": "/language",
     "pmbot:lang:en": "/language",
@@ -121,6 +125,7 @@ FORCED_FALSE_EXECUTION_FIELDS = (
     "real_execution_available",
     "live_connector_enabled",
     "order_submission_enabled",
+    "order_cancel_enabled",
     "would_submit_order",
     "authenticated_polymarket_enabled",
     "authenticated_endpoint_enabled",
@@ -435,6 +440,7 @@ class TelegramOperatorControlBot:
             "/readiness": self._render_readiness,
             "/tiny_order_review": self._render_tiny_order_review,
             "/pre_live_gate_review": self._render_pre_live_gate_review,
+            "/supervised_live_review": self._render_supervised_live_review,
             "/language": render_language_selection_prompt,
         }
         return renderers.get(command, self._render_help)()
@@ -474,6 +480,7 @@ class TelegramOperatorControlBot:
         signer_boundary = dict(summary.get("signer_boundary_preflight_status_summary", {}))
         tiny_scaffold = dict(summary.get("tiny_order_scaffold_status_summary", {}))
         pre_live_gate = dict(summary.get("pre_live_tiny_order_gate_status_summary", {}))
+        supervised_gate = dict(summary.get("supervised_tiny_live_enablement_gate_status_summary", {}))
         state = dict(summary.get("state_summary", {}))
         if self._language() == "ru":
             return "\n".join(
@@ -511,6 +518,11 @@ class TelegramOperatorControlBot:
                     f"Предлайв чеклист: {clean_text(pre_live_gate.get('checklist_path') or 'not_available')}",
                     f"Предлайв блокеры: {int(pre_live_gate.get('blocker_count', 0) or 0)}",
                     f"Предлайв readiness: {clean_text(pre_live_gate.get('readiness_status') or 'blocked')}",
+                    f"Гейт supervised live enablement: {clean_text(supervised_gate.get('status') or 'not_available')}",
+                    f"063 чеклист: {clean_text(supervised_gate.get('operator_checklist_path') or 'not_available')}",
+                    f"063 блокеры: {int(supervised_gate.get('blocker_count', 0) or 0)}",
+                    f"063 env readiness: {clean_text(supervised_gate.get('env_readiness_path') or 'not_available')}",
+                    f"063 manual approval packet: {clean_text(supervised_gate.get('manual_approval_packet_path') or 'not_available')}",
                     "Малый ордер",
                     "Пакет ручного подтверждения: "
                     + clean_text(tiny_scaffold.get("approval_packet_path") or "not_available"),
@@ -569,6 +581,11 @@ class TelegramOperatorControlBot:
                 f"Pre-live checklist: {clean_text(pre_live_gate.get('checklist_path') or 'not_available')}",
                 f"Pre-live blockers: {int(pre_live_gate.get('blocker_count', 0) or 0)}",
                 f"Pre-live readiness: {clean_text(pre_live_gate.get('readiness_status') or 'blocked')}",
+                f"Supervised live enablement gate: {clean_text(supervised_gate.get('status') or 'not_available')}",
+                f"063 checklist: {clean_text(supervised_gate.get('operator_checklist_path') or 'not_available')}",
+                f"063 blockers: {int(supervised_gate.get('blocker_count', 0) or 0)}",
+                f"063 env readiness: {clean_text(supervised_gate.get('env_readiness_path') or 'not_available')}",
+                f"063 manual approval packet: {clean_text(supervised_gate.get('manual_approval_packet_path') or 'not_available')}",
                 f"Hard limits: {_render_hard_limits_inline(tiny_scaffold)}",
                 "Candidate is executable: false",
                 "Signing blocked",
@@ -787,6 +804,7 @@ class TelegramOperatorControlBot:
         no_order_auth_get = dict(self._summary().get("no_order_auth_get_preflight_status_summary", {}))
         signer_boundary = dict(self._summary().get("signer_boundary_preflight_status_summary", {}))
         pre_live_gate = dict(self._summary().get("pre_live_tiny_order_gate_status_summary", {}))
+        supervised_gate = dict(self._summary().get("supervised_tiny_live_enablement_gate_status_summary", {}))
         reasons = _top_blocker_reasons(blockers)[:5]
         preflight_reasons = _clean_list(live_preflight.get("top_blocker_reasons"))[:5]
         authenticated_clob_reasons = _clean_list(authenticated_clob.get("top_blocker_reasons"))[:5]
@@ -794,6 +812,7 @@ class TelegramOperatorControlBot:
         no_order_auth_get_reasons = _clean_list(no_order_auth_get.get("top_blocker_reasons"))[:5]
         signer_boundary_reasons = _clean_list(signer_boundary.get("top_blocker_reasons"))[:5]
         pre_live_gate_reasons = _clean_list(pre_live_gate.get("top_blocker_reasons"))[:5]
+        supervised_gate_reasons = _clean_list(supervised_gate.get("top_blocker_reasons"))[:5]
         if self._language() == "ru":
             lines = [
                 "Блокеры live-режима: не решены",
@@ -848,6 +867,13 @@ class TelegramOperatorControlBot:
                 else "Блокеры предлайв-гейта tiny order:"
             )
             lines.extend(bullet_lines(pre_live_gate_reasons))
+        if supervised_gate_reasons:
+            lines.append(
+                "Supervised live enablement blockers:"
+                if self._language() != "ru"
+                else "Блокеры supervised live enablement:"
+            )
+            lines.extend(bullet_lines(supervised_gate_reasons))
         if reasons:
             lines.append("Главные причины блокировки:" if self._language() == "ru" else "Top blocker reasons:")
             lines.extend(bullet_lines(reasons))
@@ -860,6 +886,7 @@ class TelegramOperatorControlBot:
         latest = dict(summary.get("telegram_operator_console_latest_artifacts", {}))
         tiny_scaffold = dict(summary.get("tiny_order_scaffold_status_summary", {}))
         pre_live_gate = dict(summary.get("pre_live_tiny_order_gate_status_summary", {}))
+        supervised_gate = dict(summary.get("supervised_tiny_live_enablement_gate_status_summary", {}))
         available = sum(1 for value in latest.values() if isinstance(value, Mapping) and value.get("available") is True)
         missing = sum(1 for value in latest.values() if isinstance(value, Mapping) and value.get("available") is not True)
         if self._language() == "ru":
@@ -874,6 +901,7 @@ class TelegramOperatorControlBot:
                     "Live Readiness / Live-проверка",
                     "Tiny Order Review / Малый ордер",
                     "Pre-live tiny order gate / Предлайв-гейт tiny order",
+                    "Supervised live enablement gate / Гейт supervised live enablement",
                     "Tiny Candidate: " + clean_text(tiny_scaffold.get("tiny_candidate") or "not_available"),
                     "Пакет ручного подтверждения: "
                     + clean_text(tiny_scaffold.get("approval_packet_path") or "not_available"),
@@ -885,6 +913,18 @@ class TelegramOperatorControlBot:
                     "Блокеры: " + str(int(pre_live_gate.get("blocker_count", 0) or 0)),
                     "Readiness summary: " + clean_text(pre_live_gate.get("readiness_summary_path") or "not_available"),
                     "Dry-run предлайв-гейта 062P",
+                    "063 status: " + clean_text(supervised_gate.get("status") or "not_available"),
+                    "Чеклист оператора: "
+                    + clean_text(supervised_gate.get("operator_checklist_path") or "not_available"),
+                    "Матрица блокеров: " + str(int(supervised_gate.get("blocker_count", 0) or 0)),
+                    "Лимиты риска: " + _render_risk_limits_inline(supervised_gate),
+                    "Kill switch план: " + _render_plan_inline(supervised_gate, "kill_switch_plan_summary"),
+                    "Cancel plan: " + _render_plan_inline(supervised_gate, "cancel_plan_summary"),
+                    "Failure plan: " + _render_plan_inline(supervised_gate, "failure_plan_summary"),
+                    "Готовность окружения: " + _render_env_readiness_inline(supervised_gate),
+                    "Пакет ручного подтверждения: "
+                    + clean_text(supervised_gate.get("manual_approval_packet_path") or "not_available"),
+                    "Dry-run supervised gate 063",
                     "Оператор подтвердил: нет",
                     "Кандидат не исполняемый",
                     "Подписание заблокировано",
@@ -920,6 +960,7 @@ class TelegramOperatorControlBot:
                     "Live Readiness",
                     "Tiny Order Review",
                     "Pre-live tiny order gate",
+                    "Supervised live enablement gate",
                     "Tiny Candidate: " + clean_text(tiny_scaffold.get("tiny_candidate") or "not_available"),
                     "Approval Packet: " + clean_text(tiny_scaffold.get("approval_packet_path") or "not_available"),
                     "Hard Limits: " + _render_hard_limits_inline(tiny_scaffold),
@@ -930,6 +971,18 @@ class TelegramOperatorControlBot:
                     "Blockers: " + str(int(pre_live_gate.get("blocker_count", 0) or 0)),
                     "Readiness summary: " + clean_text(pre_live_gate.get("readiness_summary_path") or "not_available"),
                     "Run Pre-live Gate 062P Dry-Run",
+                    "063 status: " + clean_text(supervised_gate.get("status") or "not_available"),
+                    "Operator checklist: "
+                    + clean_text(supervised_gate.get("operator_checklist_path") or "not_available"),
+                    "Blocker matrix: " + str(int(supervised_gate.get("blocker_count", 0) or 0)),
+                    "Risk limits: " + _render_risk_limits_inline(supervised_gate),
+                    "Kill switch plan: " + _render_plan_inline(supervised_gate, "kill_switch_plan_summary"),
+                    "Cancel plan: " + _render_plan_inline(supervised_gate, "cancel_plan_summary"),
+                    "Failure plan: " + _render_plan_inline(supervised_gate, "failure_plan_summary"),
+                    "Env readiness: " + _render_env_readiness_inline(supervised_gate),
+                    "Manual approval packet: "
+                    + clean_text(supervised_gate.get("manual_approval_packet_path") or "not_available"),
+                    "Run Supervised Gate 063 Dry-Run",
                     "Blockers",
                     "Latest Artifacts",
                 "Safety State",
@@ -1026,6 +1079,63 @@ class TelegramOperatorControlBot:
         ]
         return "\n".join(line for line in lines if clean_text(line))
 
+    def _render_supervised_live_review(self) -> str:
+        supervised_gate = dict(self._summary().get("supervised_tiny_live_enablement_gate_status_summary", {}))
+        command = (
+            "python -m pm_bot.operator_runner.supervised_tiny_live_enablement_gate "
+            "--market BTC --strategy tiny-momentum --dry-run"
+        )
+        language = self._language()
+        lines = [
+            supervised_live_enablement_review_label("section", language),
+            f"{supervised_live_enablement_review_label('status', language)}: "
+            f"{clean_text(supervised_gate.get('status') or 'not_available')}",
+            f"{supervised_live_enablement_review_label('checklist', language)}: "
+            f"{clean_text(supervised_gate.get('operator_checklist_path') or 'not_available')}",
+            f"{supervised_live_enablement_review_label('blockers', language)}: "
+            f"{int(supervised_gate.get('blocker_count', 0) or 0)}",
+            f"{supervised_live_enablement_review_label('risk_limits', language)}: "
+            f"{_render_risk_limits_inline(supervised_gate)}",
+            f"{supervised_live_enablement_review_label('kill_switch', language)}: "
+            f"{_render_plan_inline(supervised_gate, 'kill_switch_plan_summary')}",
+            f"{supervised_live_enablement_review_label('cancel_plan', language)}: "
+            f"{_render_plan_inline(supervised_gate, 'cancel_plan_summary')}",
+            f"{supervised_live_enablement_review_label('failure_plan', language)}: "
+            f"{_render_plan_inline(supervised_gate, 'failure_plan_summary')}",
+            f"{supervised_live_enablement_review_label('env_readiness', language)}: "
+            f"{_render_env_readiness_inline(supervised_gate)}",
+            f"{supervised_live_enablement_review_label('manual_approval_packet', language)}: "
+            f"{clean_text(supervised_gate.get('manual_approval_packet_path') or 'not_available')}",
+            f"{supervised_live_enablement_review_label('run_dry_run', language)}: {command}",
+            supervised_live_enablement_review_label("review_only", language),
+            supervised_live_enablement_review_label("dry_run_only", language),
+            supervised_live_enablement_review_label("not_executable", language),
+            supervised_live_enablement_review_label("operator_approval_required", language),
+            supervised_live_enablement_review_label("operator_approved_false", language),
+            supervised_live_enablement_review_label("candidate_not_executable", language),
+            supervised_live_enablement_review_label("env_presence_only", language),
+            supervised_live_enablement_review_label("resolved_zero", language),
+            supervised_live_enablement_review_label("allowed_live_false", language),
+            "operator_approved: false",
+            "candidate_is_executable: false",
+            "live_execution_approved: false",
+            "canary_executable_now: false",
+            "real_execution_available: false",
+            "order_submission_enabled: false",
+            "order_cancel_enabled: false",
+            "wallet_signing_enabled: false",
+            "signing_enabled: false",
+            "signed_payload_generation_enabled: false",
+            "signed_order_generation_enabled: false",
+            "authenticated_polymarket_enabled: false",
+            "live_connector_enabled: false",
+            "allowed_for_live: false",
+            "review_only: true",
+            "dry_run_only: true",
+            "execution_enabling: false",
+        ]
+        return "\n".join(line for line in lines if clean_text(line))
+
     def _render_readiness(self) -> str:
         readiness = dict(self._summary().get("telegram_operator_console_readiness_summary", {}))
         items = dict(readiness.get("items", {}))
@@ -1042,9 +1152,10 @@ class TelegramOperatorControlBot:
                     f"Signer boundary: {clean_text(items.get('signer_boundary') or 'not implemented yet')}",
                     f"Tiny order scaffold: {clean_text(items.get('tiny_order_scaffold') or 'not implemented yet')}",
                     f"Pre-live tiny order gate: {clean_text(items.get('pre_live_tiny_order_gate') or 'not implemented yet')}",
+                    f"Supervised live enablement gate: {clean_text(items.get('supervised_tiny_live_enablement_gate') or 'not implemented yet')}",
                     f"Order submission: {clean_text(items.get('order_submission') or 'blocked')}",
                     f"Live execution: {clean_text(items.get('live_execution') or 'blocked')}",
-                    "Labels: paper_demo_ready, pre_live_boundary_ready, signer_boundary_missing, tiny_order_scaffold_missing, pre_live_tiny_order_gate_missing, live_execution_blocked",
+                    "Labels: paper_demo_ready, pre_live_boundary_ready, signer_boundary_missing, tiny_order_scaffold_missing, pre_live_tiny_order_gate_missing, supervised_tiny_live_enablement_gate_missing, live_execution_blocked",
                     "Live-торговля заблокирована",
                 ]
             )
@@ -1060,9 +1171,10 @@ class TelegramOperatorControlBot:
                 f"Signer boundary: {clean_text(items.get('signer_boundary') or 'not implemented yet')}",
                 f"Tiny order scaffold: {clean_text(items.get('tiny_order_scaffold') or 'not implemented yet')}",
                 f"Pre-live tiny order gate: {clean_text(items.get('pre_live_tiny_order_gate') or 'not implemented yet')}",
+                f"Supervised live enablement gate: {clean_text(items.get('supervised_tiny_live_enablement_gate') or 'not implemented yet')}",
                 f"Order submission: {clean_text(items.get('order_submission') or 'blocked')}",
                 f"Live execution: {clean_text(items.get('live_execution') or 'blocked')}",
-                "Labels: paper_demo_ready, pre_live_boundary_ready, signer_boundary_missing, tiny_order_scaffold_missing, pre_live_tiny_order_gate_missing, live_execution_blocked",
+                "Labels: paper_demo_ready, pre_live_boundary_ready, signer_boundary_missing, tiny_order_scaffold_missing, pre_live_tiny_order_gate_missing, supervised_tiny_live_enablement_gate_missing, live_execution_blocked",
             ]
         )
 
@@ -1146,7 +1258,12 @@ class TelegramOperatorControlBot:
             return build_panel_fallback_keyboard(self._language())
         if command == "/language":
             return build_language_selection_keyboard()
-        if command in {"/readiness", "/tiny_order_review", "/pre_live_gate_review"} or command in SAFE_ACTION_COMMANDS:
+        if command in {
+            "/readiness",
+            "/tiny_order_review",
+            "/pre_live_gate_review",
+            "/supervised_live_review",
+        } or command in SAFE_ACTION_COMMANDS:
             if operator_language_is_selected(self.state):
                 return build_operator_console_keyboard(self._language())
         if command in SUPPORTED_COMMANDS:
@@ -1368,6 +1485,12 @@ def build_telegram_operator_control_summary(
         context_value.get("pre_live_tiny_order_gate_status"),
         context_value.get("latest_pre_live_tiny_order_gate_status"),
     )
+    supervised_tiny_live_enablement_gate = _first_mapping(
+        context_value.get("supervised_tiny_live_enablement_gate_status_summary"),
+        context_value.get("supervised_tiny_live_enablement_gate_status"),
+        context_value.get("latest_supervised_tiny_live_enablement_status"),
+        context_value.get("telegram_supervised_live_enablement_review_063t_status"),
+    )
     mini_panel = _first_mapping(
         context_value.get("telegram_mini_app_operator_panel_summary"),
         context_value.get("telegram_mini_app_operator_panel"),
@@ -1414,6 +1537,7 @@ def build_telegram_operator_control_summary(
                 "signer_boundary_preflight": signer_boundary_preflight,
                 "tiny_order_scaffold": tiny_order_scaffold,
                 "pre_live_tiny_order_gate": pre_live_tiny_order_gate,
+                "supervised_tiny_live_enablement_gate": supervised_tiny_live_enablement_gate,
             },
         ),
         "task_id": TASK_ID,
@@ -1458,6 +1582,9 @@ def build_telegram_operator_control_summary(
         "tiny_order_scaffold_status_summary": _normalize_tiny_order_scaffold_summary(tiny_order_scaffold),
         "pre_live_tiny_order_gate_status_summary": _normalize_pre_live_tiny_order_gate_summary(
             pre_live_tiny_order_gate
+        ),
+        "supervised_tiny_live_enablement_gate_status_summary": _normalize_supervised_tiny_live_enablement_summary(
+            supervised_tiny_live_enablement_gate
         ),
         "telegram_mini_app_operator_panel_summary": mini_panel,
         "telegram_operator_console_060t_status_registry": telegram_operator_console,
@@ -1527,6 +1654,9 @@ def _normalize_telegram_console_readiness_summary(readiness: Mapping[str, Any]) 
         "pre_live_tiny_order_gate": clean_text(
             dict(items).get("pre_live_tiny_order_gate") or "not implemented yet"
         ),
+        "supervised_tiny_live_enablement_gate": clean_text(
+            dict(items).get("supervised_tiny_live_enablement_gate") or "not implemented yet"
+        ),
         "order_submission": clean_text(dict(items).get("order_submission") or "blocked"),
         "live_execution": clean_text(dict(items).get("live_execution") or "blocked"),
     }
@@ -1543,6 +1673,7 @@ def _normalize_telegram_console_readiness_summary(readiness: Mapping[str, Any]) 
                 "signer_boundary_missing",
                 "tiny_order_scaffold_missing",
                 "pre_live_tiny_order_gate_missing",
+                "supervised_tiny_live_enablement_gate_missing",
                 "live_execution_blocked",
             )
         ),
@@ -1551,11 +1682,13 @@ def _normalize_telegram_console_readiness_summary(readiness: Mapping[str, Any]) 
         "signer_boundary_missing": True,
         "tiny_order_scaffold_missing": True,
         "pre_live_tiny_order_gate_missing": True,
+        "supervised_tiny_live_enablement_gate_missing": True,
         "live_execution_blocked": True,
         "review_only": True,
         "execution_enabling": False,
         "live_execution_approved": False,
         "order_submission_enabled": False,
+        "order_cancel_enabled": False,
         "wallet_signing_enabled": False,
         "signing_enabled": False,
         "signed_payload_generation_enabled": False,
@@ -2174,6 +2307,110 @@ def _normalize_pre_live_tiny_order_gate_summary(status: Mapping[str, Any]) -> di
     }
 
 
+def _normalize_supervised_tiny_live_enablement_summary(status: Mapping[str, Any]) -> dict[str, Any]:
+    value = dict(status or {})
+    review = _first_mapping(value.get("supervised_live_enablement_review_063t_status"))
+    checklist_summary = _first_mapping(value.get("operator_checklist_summary"), review.get("operator_checklist_summary"))
+    blockers_summary = _first_mapping(value.get("blockers_summary"), review.get("blockers_summary"))
+    risk_limits_summary = _first_mapping(value.get("risk_limits_summary"), review.get("risk_limits_summary"))
+    kill_switch_plan_summary = _first_mapping(
+        value.get("kill_switch_plan_summary"),
+        review.get("kill_switch_plan_summary"),
+    )
+    cancel_plan_summary = _first_mapping(value.get("cancel_plan_summary"), review.get("cancel_plan_summary"))
+    failure_plan_summary = _first_mapping(value.get("failure_plan_summary"), review.get("failure_plan_summary"))
+    env_readiness_summary = _first_mapping(value.get("env_readiness_summary"), review.get("env_readiness_summary"))
+    manual_approval_packet_summary = _first_mapping(
+        value.get("manual_approval_packet_summary"),
+        review.get("manual_approval_packet_summary"),
+    )
+    blockers = value.get("blockers") if isinstance(value.get("blockers"), list) else []
+    top_blockers = value.get("top_blocker_reasons") or blockers_summary.get("top_blocker_reasons")
+    if not isinstance(top_blockers, list):
+        top_blockers = [
+            clean_text(row.get("reason"))
+            for row in mapping_rows(blockers)
+            if clean_text(row.get("reason"))
+        ][:10]
+    return {
+        "status": clean_text(
+            value.get("status")
+            or value.get("source_status")
+            or value.get("supervised_live_enablement_status")
+            or "not_available"
+        ),
+        "market": clean_text(value.get("market") or value.get("market_symbol") or "not_available"),
+        "market_symbol": clean_text(value.get("market_symbol") or value.get("market") or "not_available"),
+        "strategy_name": clean_text(value.get("strategy_name") or "not_available"),
+        "mode": clean_text(value.get("mode") or "supervised tiny live enablement preparation / review-only"),
+        "execution_mode": clean_text(value.get("execution_mode") or "preflight"),
+        "source_pre_live_gate_path": clean_text(value.get("source_pre_live_gate_path")),
+        "source_tiny_scaffold_path": clean_text(value.get("source_tiny_scaffold_path")),
+        "operator_checklist_path": clean_text(value.get("operator_checklist_path")),
+        "blockers_path": clean_text(value.get("blockers_path")),
+        "risk_limits_path": clean_text(value.get("risk_limits_path")),
+        "kill_switch_plan_path": clean_text(value.get("kill_switch_plan_path")),
+        "cancel_plan_path": clean_text(value.get("cancel_plan_path")),
+        "failure_plan_path": clean_text(value.get("failure_plan_path")),
+        "env_readiness_path": clean_text(value.get("env_readiness_path")),
+        "manual_approval_packet_path": clean_text(value.get("manual_approval_packet_path")),
+        "operator_markdown_path": clean_text(value.get("operator_markdown_path")),
+        "operator_checklist_summary": checklist_summary,
+        "blockers_summary": blockers_summary,
+        "risk_limits_summary": risk_limits_summary,
+        "kill_switch_plan_summary": kill_switch_plan_summary,
+        "cancel_plan_summary": cancel_plan_summary,
+        "failure_plan_summary": failure_plan_summary,
+        "env_readiness_summary": env_readiness_summary,
+        "manual_approval_packet_summary": manual_approval_packet_summary,
+        "blocker_count": _int_first(
+            value.get("blocker_count"),
+            blockers_summary.get("blocker_count"),
+            len(blockers),
+        ),
+        "resolved_blocker_count": 0,
+        "missing_env_marker_count": _int_first(
+            value.get("missing_env_marker_count"),
+            env_readiness_summary.get("missing_marker_count"),
+        ),
+        "top_blocker_reasons": [clean_text(item) for item in top_blockers if clean_text(item)],
+        "operator_approved": False,
+        "candidate_is_executable": False,
+        "live_execution_approved": False,
+        "canary_executable_now": False,
+        "real_execution_available": False,
+        "order_submission_enabled": False,
+        "order_cancel_enabled": False,
+        "wallet_signing_enabled": False,
+        "signing_enabled": False,
+        "signed_payload_generation_enabled": False,
+        "signed_order_generation_enabled": False,
+        "authenticated_polymarket_enabled": False,
+        "authenticated_endpoint_enabled": False,
+        "authenticated_endpoints_enabled": False,
+        "live_connector_enabled": False,
+        "allowed_for_live": False,
+        "signing_blocked": True,
+        "signed_payload_unavailable": True,
+        "order_submission_blocked": True,
+        "order_cancellation_blocked": True,
+        "wallet_connection_blocked": True,
+        "live_execution_blocked": True,
+        "review_only": True,
+        "preflight_only": True,
+        "preparation_only": True,
+        "gate_only": True,
+        "dry_run_only": True,
+        "execution_enabling": False,
+        "wallet_enabled": False,
+        "wallet_used": False,
+        "browser_automation_added": False,
+        "scheduler_or_daemon_added": False,
+        "background_worker_added": False,
+        "autonomous_live_trading_added": False,
+    }
+
+
 def _normalize_authenticated_clob_preflight_summary(status: Mapping[str, Any]) -> dict[str, Any]:
     value = dict(status or {})
     marker_summary = _normalize_clob_l2_marker_preflight_summary(
@@ -2324,6 +2561,38 @@ def _render_hard_limits_inline(tiny_scaffold: Mapping[str, Any]) -> str:
     )
 
 
+def _render_risk_limits_inline(supervised_gate: Mapping[str, Any]) -> str:
+    value = dict(supervised_gate or {})
+    limits = dict(value.get("risk_limits_summary", {}))
+    return (
+        f"max_order_notional={_display_known_value(limits.get('max_order_notional_usd'))}; "
+        f"max_daily_notional={_display_known_value(limits.get('max_daily_notional_usd'))}; "
+        f"max_orders_per_day={_display_known_value(limits.get('max_orders_per_day'))}; "
+        f"max_market_count={_display_known_value(limits.get('max_market_count'))}; "
+        f"allowed_market={clean_text(limits.get('allowed_market') or 'BTC')}; "
+        f"allowed_strategy={clean_text(limits.get('allowed_strategy') or 'tiny-momentum')}; "
+        "executable=false"
+    )
+
+
+def _render_plan_inline(supervised_gate: Mapping[str, Any], key: str) -> str:
+    plan = dict(dict(supervised_gate or {}).get(key, {}))
+    return (
+        f"available={str(plan.get('available') is True).lower()}; "
+        f"descriptive_only={str(plan.get('plan_is_descriptive_only') is True).lower()}; "
+        "executable=false"
+    )
+
+
+def _render_env_readiness_inline(supervised_gate: Mapping[str, Any]) -> str:
+    env = dict(dict(supervised_gate or {}).get("env_readiness_summary", {}))
+    return (
+        f"markers={_display_known_value(env.get('marker_count'))}; "
+        f"missing={_display_known_value(env.get('missing_marker_count'))}; "
+        "presence_only=true; values_redacted=true; raw_values_emitted=false"
+    )
+
+
 def _int_first(*values: Any) -> int:
     for value in values:
         if value is None or isinstance(value, bool):
@@ -2369,6 +2638,7 @@ def _control_safety_flags() -> dict[str, Any]:
         "real_order_placement_performed": False,
         "would_submit_order": False,
         "order_submission_enabled": False,
+        "order_cancel_enabled": False,
         "real_order_submitted": False,
         "allowed_for_live": False,
         "canary_executable_now": False,

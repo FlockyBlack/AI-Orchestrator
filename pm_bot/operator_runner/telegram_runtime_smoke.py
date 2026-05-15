@@ -56,6 +56,7 @@ EXPECTED_FALSE_FLAGS = (
     "real_order_placement_added",
     "real_order_placement_performed",
     "real_order_submitted",
+    "order_cancel_enabled",
     "live_execution_allowed",
     "live_execution_performed",
     "scheduler_or_daemon_added",

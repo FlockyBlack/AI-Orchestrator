@@ -128,6 +128,53 @@ PRE_LIVE_GATE_REVIEW_LABELS = {
     },
 }
 
+SUPERVISED_LIVE_ENABLEMENT_REVIEW_LABELS = {
+    "ru": {
+        "section": "Гейт supervised live enablement",
+        "status": "Статус 063",
+        "checklist": "Чеклист оператора",
+        "blockers": "Матрица блокеров",
+        "risk_limits": "Лимиты риска",
+        "kill_switch": "Kill switch план",
+        "cancel_plan": "Cancel plan",
+        "failure_plan": "Failure plan",
+        "env_readiness": "Готовность окружения",
+        "manual_approval_packet": "Пакет ручного подтверждения",
+        "run_dry_run": "Dry-run supervised gate 063",
+        "review_only": "Только просмотр",
+        "dry_run_only": "Только dry-run",
+        "not_executable": "Не исполняется",
+        "operator_approval_required": "Требуется подтверждение оператора",
+        "operator_approved_false": "Оператор подтвердил: нет",
+        "candidate_not_executable": "Кандидат не исполняемый",
+        "env_presence_only": "Окружение: только presence/redacted",
+        "resolved_zero": "resolved_blocker_count: 0",
+        "allowed_live_false": "allowed_for_live: false",
+    },
+    "en": {
+        "section": "Supervised live enablement gate",
+        "status": "063 status",
+        "checklist": "Operator checklist",
+        "blockers": "Blocker matrix",
+        "risk_limits": "Risk limits",
+        "kill_switch": "Kill switch plan",
+        "cancel_plan": "Cancel plan",
+        "failure_plan": "Failure plan",
+        "env_readiness": "Env readiness",
+        "manual_approval_packet": "Manual approval packet",
+        "run_dry_run": "Run Supervised Gate 063 Dry-Run",
+        "review_only": "Review only",
+        "dry_run_only": "Dry-run only",
+        "not_executable": "Not executable",
+        "operator_approval_required": "Operator approval required",
+        "operator_approved_false": "Operator approved: false",
+        "candidate_not_executable": "Candidate is executable: false",
+        "env_presence_only": "Env readiness: presence-only/redacted",
+        "resolved_zero": "resolved_blocker_count: 0",
+        "allowed_live_false": "allowed_for_live: false",
+    },
+}
+
 
 def normalize_operator_language(value: Any, *, fallback: str = "") -> str:
     language = clean_text(value).lower()
@@ -194,6 +241,13 @@ def tiny_order_review_label(key: str, language: str) -> str:
 
 def pre_live_gate_review_label(key: str, language: str) -> str:
     labels = PRE_LIVE_GATE_REVIEW_LABELS[
+        normalize_operator_language(language, fallback=DEFAULT_OPERATOR_LANGUAGE)
+    ]
+    return labels.get(clean_text(key), "")
+
+
+def supervised_live_enablement_review_label(key: str, language: str) -> str:
+    labels = SUPERVISED_LIVE_ENABLEMENT_REVIEW_LABELS[
         normalize_operator_language(language, fallback=DEFAULT_OPERATOR_LANGUAGE)
     ]
     return labels.get(clean_text(key), "")
