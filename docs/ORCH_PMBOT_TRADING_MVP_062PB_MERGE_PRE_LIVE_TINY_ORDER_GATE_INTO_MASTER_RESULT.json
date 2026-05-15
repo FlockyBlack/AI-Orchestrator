@@ -13,7 +13,9 @@
   "head_before": "9f4f538c5b0fda47658104e164abf0c14ce7e572",
   "source_merge_base": "9f4f538c5b0fda47658104e164abf0c14ce7e572",
   "prerequisite_merge_base": "9f4f538c5b0fda47658104e164abf0c14ce7e572",
-  "integration_method": "two explicit non-fast-forward merges with the ort strategy",
+  "integration_method": "explicit non-fast-forward merges with the ort strategy; 061T was merged first locally, 062P was merged second, and a late remote 061TB master update was merged before push",
+  "remote_master_moved_before_push": true,
+  "remote_master_observed_before_push": "008756277d6d9d96f475d308c48414c24e546a91",
   "integration_sequence": [
     {
       "branch": "pmbot/telegram-061t-tiny-order-scaffold-review-panel",
@@ -26,11 +28,18 @@
       "head": "f78f7692b38e9cd9de69aede1e1095b182fed698",
       "merge_commit": "ee8459ec0c11da4ac70ee7e452b93be51be4c267",
       "reason": "Merged the requested 062P pre-live tiny order gate and operator checklist."
+    },
+    {
+      "branch": "origin/master",
+      "head": "008756277d6d9d96f475d308c48414c24e546a91",
+      "merge_commit": "7803c713685061062b7a79b8003db9f4fb84f135",
+      "reason": "Remote master moved during validation with the official 061TB merge result doc; merged it before push to avoid overwriting remote work."
     }
   ],
   "head_after": "recorded_in_final_response_after_commit_push_verify",
   "head_after_note": "The final master commit cannot self-record its own SHA inside this committed JSON artifact because embedding the SHA would change that SHA. The final response records the pushed and remotely verified master HEAD.",
   "local_merge_head_before_result_commit": "ee8459ec0c11da4ac70ee7e452b93be51be4c267",
+  "late_remote_master_merge_head_before_result_update": "7803c713685061062b7a79b8003db9f4fb84f135",
   "pushed": "recorded_in_final_response_after_push",
   "remote_verified": "recorded_in_final_response_after_push",
   "conflict_resolution_summary": [
@@ -38,9 +47,11 @@
     "origin/master resolved to 9f4f538c5b0fda47658104e164abf0c14ce7e572 before integration.",
     "Remote master did not already contain 061T, so the 061T branch was merged first to preserve the Telegram tiny order review panel required by validation.",
     "062P was merged after 061T; its changes were add-only relative to the same 9f4f538 merge base.",
+    "Before push, origin/master had advanced to 008756277d6d9d96f475d308c48414c24e546a91 with the official 061TB merge result doc; that remote update was merged with no conflicts.",
     "No safety flag was weakened and no Telegram passive-only behavior was changed into an execution path."
   ],
   "changed_files": [
+    "docs/ORCH_PMBOT_TELEGRAM_061TB_MERGE_TINY_ORDER_SCAFFOLD_REVIEW_PANEL_INTO_MASTER_RESULT.json",
     "docs/ORCH_PMBOT_TELEGRAM_061T_TINY_ORDER_SCAFFOLD_REVIEW_PANEL.md",
     "docs/ORCH_PMBOT_TELEGRAM_061T_TINY_ORDER_SCAFFOLD_REVIEW_PANEL_RESULT.json",
     "docs/ORCH_PMBOT_TRADING_MVP_062P_PRE_LIVE_TINY_ORDER_GATE_AND_OPERATOR_CHECKLIST_NO_SUBMISSION.md",
