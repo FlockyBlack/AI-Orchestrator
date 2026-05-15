@@ -1,0 +1,153 @@
+{
+  "task_id": "ORCH-PMBOT-TELEGRAM-061T-TINY-ORDER-SCAFFOLD-REVIEW-PANEL",
+  "status": "validation_passed_pending_git_push",
+  "worktree": "C:/oc061t_telegram_tiny_order_review",
+  "branch": "pmbot/telegram-061t-tiny-order-scaffold-review-panel",
+  "base": "origin/master",
+  "head_before": "9f4f538c5b0fda47658104e164abf0c14ce7e572",
+  "head_after": "pending_commit",
+  "pushed": false,
+  "remote_verified": false,
+  "changed_files": [
+    "docs/ORCH_PMBOT_TELEGRAM_061T_TINY_ORDER_SCAFFOLD_REVIEW_PANEL.md",
+    "docs/ORCH_PMBOT_TELEGRAM_061T_TINY_ORDER_SCAFFOLD_REVIEW_PANEL_RESULT.json",
+    "pm_bot/operator_runner/telegram_operator_control_bot.py",
+    "pm_bot/operator_runner/telegram_operator_i18n.py",
+    "pm_bot/operator_runner/telegram_operator_runtime.py",
+    "pm_bot/operator_runner/telegram_status_registry.py",
+    "pm_bot/tests/test_telegram_tiny_order_review_061t.py",
+    "pm_bot/trading_core/artifacts/telegram_tiny_order_review_061t/latest_telegram_tiny_order_review_status_061t.json",
+    "pm_bot/trading_core/artifacts/telegram_tiny_order_review_061t/telegram_tiny_order_review_061t_result.json",
+    "pm_bot/trading_core/artifacts/telegram_tiny_order_review_061t/telegram_tiny_order_review_registry_snapshot_061t.json"
+  ],
+  "artifacts": [
+    "pm_bot/trading_core/artifacts/telegram_tiny_order_review_061t/latest_telegram_tiny_order_review_status_061t.json",
+    "pm_bot/trading_core/artifacts/telegram_tiny_order_review_061t/telegram_tiny_order_review_061t_result.json",
+    "pm_bot/trading_core/artifacts/telegram_tiny_order_review_061t/telegram_tiny_order_review_registry_snapshot_061t.json"
+  ],
+  "validation_results": [
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_tiny_order_review_061t.py",
+      "status": "passed",
+      "summary": "8 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_tiny_order_scaffold_061.py",
+      "status": "passed",
+      "summary": "13 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_operator_console_060t.py",
+      "status": "passed",
+      "summary": "8 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_signer_boundary_preflight_060.py",
+      "status": "passed",
+      "summary": "11 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_static_safety_invariant_report_060q.py",
+      "status": "passed",
+      "summary": "9 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_no_order_auth_get_preflight_059.py",
+      "status": "passed",
+      "summary": "12 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram*.py",
+      "status": "passed",
+      "summary": "87 passed"
+    },
+    {
+      "command": "python -B -m pytest pm_bot/tests",
+      "status": "passed",
+      "summary": "1873 passed"
+    },
+    {
+      "command": "python -m compileall -q pm_bot",
+      "status": "passed"
+    },
+    {
+      "command": "python -m compileall -q ai_orchestrator",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.telegram_runtime_smoke",
+      "status": "passed",
+      "summary": "Ready to start runtime: true; Safety flags expected false: ok"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.tiny_order_scaffold --market BTC --strategy tiny-momentum --dry-run",
+      "status": "passed",
+      "summary": "Tiny candidate created; approval packet created; operator approved false; signing/order/live blocked"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.static_safety_invariant_report --scope pm_bot --dry-run",
+      "status": "passed",
+      "summary": "Critical findings: 0; warnings: 7"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    },
+    {
+      "command": "git diff --cached --check",
+      "status": "passed"
+    }
+  ],
+  "telegram_smoke_result": {
+    "status": "passed",
+    "ready_to_start_runtime": true,
+    "network_check_requested": false,
+    "safety_flags_expected_false": "ok"
+  },
+  "safety_invariant_confirmation": {
+    "live_execution_approved": false,
+    "canary_executable_now": false,
+    "real_execution_available": false,
+    "order_submission_enabled": false,
+    "wallet_signing_enabled": false,
+    "signing_enabled": false,
+    "signed_payload_generation_enabled": false,
+    "signed_order_generation_enabled": false,
+    "authenticated_polymarket_enabled": false,
+    "live_connector_enabled": false,
+    "allowed_for_live": false,
+    "resolved_blocker_count": 0
+  },
+  "forbidden_controls_added": {
+    "send_order": false,
+    "submit_order": false,
+    "cancel_order": false,
+    "sign_payload": false,
+    "approve_live": false,
+    "enable_live": false,
+    "connect_wallet": false,
+    "view_balance": false,
+    "view_position": false,
+    "view_fills": false,
+    "execute_trade": false,
+    "trade_now": false
+  },
+  "allowed_run_button": {
+    "label_en": "Run Tiny Scaffold 061",
+    "label_ru": "Малый ордер 061",
+    "command": [
+      "python",
+      "-m",
+      "pm_bot.operator_runner.tiny_order_scaffold",
+      "--market",
+      "BTC",
+      "--strategy",
+      "tiny-momentum",
+      "--dry-run"
+    ]
+  },
+  "remaining_risks": [
+    "The result JSON is committed before push, so final commit hash, push, and remote verification are reported in the operator response."
+  ],
+  "leftovers": []
+}

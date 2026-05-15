@@ -19,6 +19,7 @@ from pm_bot.operator_runner.telegram_operator_i18n import (
     render_home,
     render_language_selected,
     render_language_selection_prompt,
+    tiny_order_review_label,
 )
 from pm_bot.operator_runner.telegram_operator_control_state import (
     build_telegram_operator_control_state,
@@ -50,6 +51,7 @@ TELEGRAM_OPERATOR_KEYBOARD_CONTRACT = "pmbot_telegram_operator_keyboard.v1"
 
 TASK_ID = "ORCH-PMBOT-TRADING-MVP-043-TELEGRAM-OPERATOR-CONTROL-BOT-V1"
 TASK_ID_060T = "ORCH-PMBOT-TELEGRAM-060T-OPERATOR-CONSOLE-FOR-PMBOT-STATUS-AND-DRY-RUNS"
+TASK_ID_061T = "ORCH-PMBOT-TELEGRAM-061T-TINY-ORDER-SCAFFOLD-REVIEW-PANEL"
 
 SAFE_ACTION_COMMANDS = tuple(f"/{action.action_id}" for action in SAFE_ACTIONS)
 
@@ -67,6 +69,7 @@ SUPPORTED_COMMANDS = (
     "/blockers",
     "/panel",
     "/readiness",
+    "/tiny_order_review",
     "/language",
     "/pause",
     "/kill",
@@ -419,6 +422,7 @@ class TelegramOperatorControlBot:
             "/blockers": self._render_blockers,
             "/panel": self._render_panel,
             "/readiness": self._render_readiness,
+            "/tiny_order_review": self._render_tiny_order_review,
             "/language": render_language_selection_prompt,
         }
         return renderers.get(command, self._render_help)()
@@ -490,6 +494,15 @@ class TelegramOperatorControlBot:
                     f"Tiny order scaffold 061: {clean_text(tiny_scaffold.get('status') or 'not_available')}",
                     f"Tiny candidate: {clean_text(tiny_scaffold.get('tiny_candidate') or 'not_available')}",
                     f"Approval packet: {clean_text(tiny_scaffold.get('manual_tiny_order_approval_packet_path') or 'not_available')}",
+                    "Малый ордер",
+                    "Пакет ручного подтверждения: "
+                    + clean_text(tiny_scaffold.get("approval_packet_path") or "not_available"),
+                    "Лимиты: " + _render_hard_limits_inline(tiny_scaffold),
+                    "Оператор подтвердил: нет",
+                    "Кандидат не исполняемый",
+                    "Подписание заблокировано",
+                    "Отправка ордера заблокирована",
+                    "Live-торговля заблокирована",
                     "Operator approved: false",
                     "Signer blocked: true",
                     "Signed payload unavailable: true",
@@ -535,6 +548,10 @@ class TelegramOperatorControlBot:
                 f"Tiny order scaffold 061: {clean_text(tiny_scaffold.get('status') or 'not_available')}",
                 f"Tiny candidate: {clean_text(tiny_scaffold.get('tiny_candidate') or 'not_available')}",
                 f"Approval packet: {clean_text(tiny_scaffold.get('manual_tiny_order_approval_packet_path') or 'not_available')}",
+                f"Hard limits: {_render_hard_limits_inline(tiny_scaffold)}",
+                "Candidate is executable: false",
+                "Signing blocked",
+                "Live execution blocked",
                 "Operator approved: false",
                 "Signer blocked: true",
                 "Signed payload unavailable: true",
@@ -811,6 +828,7 @@ class TelegramOperatorControlBot:
         panel = dict(summary.get("telegram_mini_app_operator_panel_summary", {}))
         readiness = dict(summary.get("telegram_operator_console_readiness_summary", {}))
         latest = dict(summary.get("telegram_operator_console_latest_artifacts", {}))
+        tiny_scaffold = dict(summary.get("tiny_order_scaffold_status_summary", {}))
         available = sum(1 for value in latest.values() if isinstance(value, Mapping) and value.get("available") is True)
         missing = sum(1 for value in latest.values() if isinstance(value, Mapping) and value.get("available") is not True)
         if self._language() == "ru":
@@ -823,6 +841,17 @@ class TelegramOperatorControlBot:
                     "Public Market Evidence / Публичный рынок",
                     "Decision Ledger / Журнал решений",
                     "Live Readiness / Live-проверка",
+                    "Tiny Order Review / Малый ордер",
+                    "Tiny Candidate: " + clean_text(tiny_scaffold.get("tiny_candidate") or "not_available"),
+                    "Пакет ручного подтверждения: "
+                    + clean_text(tiny_scaffold.get("approval_packet_path") or "not_available"),
+                    "Лимиты: " + _render_hard_limits_inline(tiny_scaffold),
+                    "Submission Status: " + clean_text(dict(tiny_scaffold.get("submission_status", {})).get("status") or "blocked"),
+                    "Run Tiny Scaffold Dry-Run",
+                    "Оператор подтвердил: нет",
+                    "Кандидат не исполняемый",
+                    "Подписание заблокировано",
+                    "Отправка ордера заблокирована",
                     "Blockers / Блокеры",
                     "Latest Artifacts",
                     "Safety State",
@@ -849,11 +878,17 @@ class TelegramOperatorControlBot:
                 "Main PMBOT menu",
                 "PMBOT Status",
                 "Paper Runs",
-                "Public Market Evidence",
-                "Decision Ledger",
-                "Live Readiness",
-                "Blockers",
-                "Latest Artifacts",
+                    "Public Market Evidence",
+                    "Decision Ledger",
+                    "Live Readiness",
+                    "Tiny Order Review",
+                    "Tiny Candidate: " + clean_text(tiny_scaffold.get("tiny_candidate") or "not_available"),
+                    "Approval Packet: " + clean_text(tiny_scaffold.get("approval_packet_path") or "not_available"),
+                    "Hard Limits: " + _render_hard_limits_inline(tiny_scaffold),
+                    "Submission Status: " + clean_text(dict(tiny_scaffold.get("submission_status", {})).get("status") or "blocked"),
+                    "Run Tiny Scaffold Dry-Run",
+                    "Blockers",
+                    "Latest Artifacts",
                 "Safety State",
                 f"Review readiness: {int(readiness.get('readiness_percent', 0) or 0)}%",
                 f"Latest artifacts available/missing: {available}/{missing}",
@@ -871,6 +906,36 @@ class TelegramOperatorControlBot:
                 "No live order action is available from this bot or panel.",
             ]
         )
+
+    def _render_tiny_order_review(self) -> str:
+        tiny_scaffold = dict(self._summary().get("tiny_order_scaffold_status_summary", {}))
+        command = "python -m pm_bot.operator_runner.tiny_order_scaffold --market BTC --strategy tiny-momentum --dry-run"
+        language = self._language()
+        lines = [
+            tiny_order_review_label("section", language),
+            f"061 status: {clean_text(tiny_scaffold.get('status') or 'not_available')}",
+            f"{tiny_order_review_label('tiny_candidate', language)}: "
+            f"{clean_text(tiny_scaffold.get('tiny_candidate') or 'not_available')}",
+            f"{tiny_order_review_label('approval_packet', language)}: "
+            f"{clean_text(tiny_scaffold.get('approval_packet_path') or tiny_scaffold.get('manual_tiny_order_approval_packet_path') or 'not_available')}",
+            f"{tiny_order_review_label('hard_limits', language)}: {_render_hard_limits_inline(tiny_scaffold)}",
+            f"{tiny_order_review_label('submission_status', language)}: "
+            f"{clean_text(dict(tiny_scaffold.get('submission_status', {})).get('status') or 'blocked')}",
+            tiny_order_review_label("operator_approved_false", language),
+            tiny_order_review_label("candidate_not_executable", language),
+            tiny_order_review_label("signing_blocked", language),
+            tiny_order_review_label("order_submission_blocked", language),
+            tiny_order_review_label("wallet_blocked", language),
+            tiny_order_review_label("live_blocked", language),
+            f"{tiny_order_review_label('run_dry_run', language)}: {command}",
+            "review_only: true",
+            "execution_enabling: false",
+            "order_submission_enabled: false",
+            "signing_enabled: false",
+            "wallet_signing_enabled: false",
+            "live_execution_approved: false",
+        ]
+        return "\n".join(line for line in lines if clean_text(line))
 
     def _render_readiness(self) -> str:
         readiness = dict(self._summary().get("telegram_operator_console_readiness_summary", {}))
@@ -928,6 +993,8 @@ class TelegramOperatorControlBot:
                 "order_submission_enabled: false",
                 "signing_enabled: false",
                 "wallet_signing_enabled: false",
+                "candidate_is_executable: false",
+                "live_execution_blocked: true",
             ]
             if stdout:
                 lines.append(f"Вывод: {stdout}")
@@ -942,6 +1009,8 @@ class TelegramOperatorControlBot:
             "order_submission_enabled: false",
             "signing_enabled: false",
             "wallet_signing_enabled: false",
+            "candidate_is_executable: false",
+            "live_execution_blocked: true",
         ]
         if stdout:
             lines.append(f"Output: {stdout}")
@@ -986,7 +1055,7 @@ class TelegramOperatorControlBot:
             return build_panel_fallback_keyboard(self._language())
         if command == "/language":
             return build_language_selection_keyboard()
-        if command == "/readiness" or command in SAFE_ACTION_COMMANDS:
+        if command in {"/readiness", "/tiny_order_review"} or command in SAFE_ACTION_COMMANDS:
             if operator_language_is_selected(self.state):
                 return build_operator_console_keyboard(self._language())
         if command in SUPPORTED_COMMANDS:
@@ -1791,6 +1860,17 @@ def _normalize_signer_boundary_preflight_summary(status: Mapping[str, Any]) -> d
 
 def _normalize_tiny_order_scaffold_summary(status: Mapping[str, Any]) -> dict[str, Any]:
     value = dict(status or {})
+    review = _first_mapping(value.get("tiny_order_review"))
+    hard_limits_summary = _first_mapping(
+        value.get("hard_limits_summary"),
+        value.get("tiny_order_hard_limits"),
+        review.get("hard_limits_summary"),
+    )
+    submission_status = _first_mapping(
+        value.get("submission_status"),
+        value.get("tiny_order_submission_availability"),
+        review.get("submission_status"),
+    )
     blockers = value.get("blockers") if isinstance(value.get("blockers"), list) else []
     top_blockers = value.get("top_blocker_reasons")
     if not isinstance(top_blockers, list):
@@ -1809,10 +1889,20 @@ def _normalize_tiny_order_scaffold_summary(status: Mapping[str, Any]) -> dict[st
         "source_intent_path": clean_text(value.get("source_intent_path")),
         "source_signer_boundary_path": clean_text(value.get("source_signer_boundary_path")),
         "tiny_candidate": clean_text(value.get("tiny_candidate") or "not_available"),
+        "tiny_candidate_status": clean_text(value.get("tiny_candidate_status") or value.get("tiny_candidate") or "not_available"),
         "approval_packet": clean_text(value.get("approval_packet") or "not_available"),
-        "manual_tiny_order_approval_packet_path": clean_text(
-            value.get("manual_tiny_order_approval_packet_path")
+        "approval_packet_status": clean_text(
+            value.get("approval_packet_status") or value.get("approval_packet") or "not_available"
         ),
+        "approval_packet_path": clean_text(
+            value.get("approval_packet_path") or value.get("manual_tiny_order_approval_packet_path")
+        ),
+        "manual_tiny_order_approval_packet_path": clean_text(
+            value.get("manual_tiny_order_approval_packet_path") or value.get("approval_packet_path")
+        ),
+        "tiny_order_candidate_path": clean_text(value.get("tiny_order_candidate_path")),
+        "tiny_order_hard_limits_path": clean_text(value.get("tiny_order_hard_limits_path")),
+        "tiny_order_submission_availability_path": clean_text(value.get("tiny_order_submission_availability_path")),
         "operator_approved": False,
         "candidate_outcome": clean_text(value.get("candidate_outcome") or "not_available"),
         "candidate_side": clean_text(value.get("candidate_side") or "not_available"),
@@ -1822,7 +1912,18 @@ def _normalize_tiny_order_scaffold_summary(status: Mapping[str, Any]) -> dict[st
         "max_notional": value.get("max_notional"),
         "max_size": value.get("max_size"),
         "max_price": value.get("max_price"),
-        "hard_limits_passed": value.get("hard_limits_passed") is True,
+        "hard_limits_passed": value.get("hard_limits_passed") is True
+        or hard_limits_summary.get("hard_limits_passed") is True,
+        "hard_limits_summary": {
+            "available": hard_limits_summary.get("available") is True,
+            "status": clean_text(hard_limits_summary.get("status") or "not_available"),
+            "hard_limits_passed": value.get("hard_limits_passed") is True
+            or hard_limits_summary.get("hard_limits_passed") is True,
+            "max_notional": hard_limits_summary.get("max_notional", value.get("max_notional")),
+            "max_size": hard_limits_summary.get("max_size", value.get("max_size")),
+            "max_price": hard_limits_summary.get("max_price", value.get("max_price")),
+            "operator_summary": clean_text(hard_limits_summary.get("operator_summary")),
+        },
         "approval_required": True,
         "approval_packet_created": value.get("approval_packet_created") is True,
         "candidate_is_executable": False,
@@ -1833,6 +1934,18 @@ def _normalize_tiny_order_scaffold_summary(status: Mapping[str, Any]) -> dict[st
         "operator_markdown_path": clean_text(value.get("operator_markdown_path")),
         "order_submission_blocked": True,
         "order_cancellation_blocked": True,
+        "submission_status": {
+            "available": submission_status.get("available") is True,
+            "status": clean_text(submission_status.get("status") or value.get("order_submission") or "blocked"),
+            "signing_blocked": True,
+            "signed_payload_unavailable": True,
+            "order_submission_blocked": True,
+            "order_cancellation_blocked": True,
+            "wallet_connection_blocked": True,
+            "live_execution_blocked": True,
+            "operator_summary": clean_text(submission_status.get("operator_summary")),
+        },
+        "signing_blocked": True,
         "signer_blocked": True,
         "signed_payload_unavailable": True,
         "wallet_connection_blocked": True,
@@ -1996,6 +2109,18 @@ def _display_known_value(value: Any) -> str:
     if isinstance(value, (dict, list, tuple)):
         return json.dumps(value, sort_keys=True)
     return clean_text(value)
+
+
+def _render_hard_limits_inline(tiny_scaffold: Mapping[str, Any]) -> str:
+    value = dict(tiny_scaffold or {})
+    hard_limits = dict(value.get("hard_limits_summary", {}))
+    return (
+        f"status={clean_text(hard_limits.get('status') or 'not_available')}; "
+        f"passed={str((hard_limits.get('hard_limits_passed') is True) or (value.get('hard_limits_passed') is True)).lower()}; "
+        f"max_notional={_display_known_value(hard_limits.get('max_notional', value.get('max_notional')))}; "
+        f"max_size={_display_known_value(hard_limits.get('max_size', value.get('max_size')))}; "
+        f"max_price={_display_known_value(hard_limits.get('max_price', value.get('max_price')))}"
+    )
 
 
 def _int_first(*values: Any) -> int:
