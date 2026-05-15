@@ -1,0 +1,16 @@
+{
+  "bootstrap_retries": 3,
+  "connect_timeout_seconds": 30,
+  "contract_version": "pmbot_latest_telegram_runtime_network_timeout_status_068f.v1",
+  "diagnostic_text_configured": true,
+  "generated_at": "2026-05-15T00:00:00+04:00",
+  "get_me_network_check_optional_only": true,
+  "pool_timeout_seconds": 30,
+  "raw_bot_token_output": false,
+  "read_timeout_seconds": 30,
+  "request_layer_configured": "ApplicationBuilder/HTTPXRequest when supported",
+  "status": "completed_pushed_remote_verified",
+  "task_id": "ORCH-PMBOT-TELEGRAM-068F-RUNTIME-NETWORK-TIMEOUT-RETRY-HARDENING",
+  "telegram_controls_remain_review_status_dry_run_only": true,
+  "write_timeout_seconds": 30
+}

@@ -87,6 +87,7 @@ def build_telegram_runtime_smoke_report(
     network_result = (
         run_explicit_network_check(
             load_result.config.bot_token,
+            timeout_seconds=load_result.config.network.connect_timeout,
             telegram_get_me_checker=telegram_get_me_checker,
         )
         if network_check
@@ -97,10 +98,12 @@ def build_telegram_runtime_smoke_report(
             "bot_username": "",
             "error_category": "not_requested",
             "api_url": TELEGRAM_GET_ME_URL_REDACTED,
+            "timeout_seconds": load_result.config.network.connect_timeout,
         }
     )
 
     config_errors = tuple(clean_text(item) for item in load_result.errors if clean_text(item))
+    config_warnings = tuple(clean_text(item) for item in load_result.warnings if clean_text(item))
     report = {
         "contract_version": CONTRACT_VERSION,
         "task_id": TASK_ID,
@@ -123,7 +126,9 @@ def build_telegram_runtime_smoke_report(
             "artifact_dir_env": runtime.PMBOT_ARTIFACT_DIR_ENV,
             "artifact_dir_configured": load_result.config.artifact_dir is not None,
         },
+        "telegram_network_settings": load_result.config.network.to_redacted_status(),
         "config_errors": list(config_errors),
+        "config_warnings": list(config_warnings),
         "dependency_check": dependency,
         "runtime_module_import": runtime_import,
         "safe_commands": list(SUPPORTED_COMMANDS),
@@ -202,6 +207,7 @@ def check_runtime_module_import(
 def run_explicit_network_check(
     bot_token: str,
     *,
+    timeout_seconds: float = 10.0,
     telegram_get_me_checker: Callable[[str], Mapping[str, Any]] | None = None,
 ) -> dict[str, Any]:
     if not clean_text(bot_token):
@@ -212,9 +218,16 @@ def run_explicit_network_check(
             "bot_username": "",
             "error_category": "missing_token",
             "api_url": TELEGRAM_GET_ME_URL_REDACTED,
+            "timeout_seconds": timeout_seconds,
         }
     checker = telegram_get_me_checker or telegram_get_me
-    return sanitize_network_check_result(checker(bot_token), bot_token=bot_token)
+    if telegram_get_me_checker is not None:
+        return sanitize_network_check_result(checker(bot_token), bot_token=bot_token, timeout_seconds=timeout_seconds)
+    return sanitize_network_check_result(
+        checker(bot_token, timeout_seconds=timeout_seconds),
+        bot_token=bot_token,
+        timeout_seconds=timeout_seconds,
+    )
 
 
 def telegram_get_me(
@@ -239,16 +252,17 @@ def telegram_get_me(
             "bot_username": "",
             "error_category": categorize_telegram_get_me_http_error(exc),
             "api_url": TELEGRAM_GET_ME_URL_REDACTED,
+            "timeout_seconds": timeout_seconds,
         }
     except (TimeoutError, socket.timeout):
-        return _network_error_result("timeout")
+        return _network_error_result("timeout", timeout_seconds=timeout_seconds)
     except URLError as exc:
         reason = getattr(exc, "reason", None)
         if isinstance(reason, (TimeoutError, socket.timeout)):
-            return _network_error_result("timeout")
-        return _network_error_result("network_error")
+            return _network_error_result("timeout", timeout_seconds=timeout_seconds)
+        return _network_error_result("network_error", timeout_seconds=timeout_seconds)
     except Exception:
-        return _network_error_result("network_error")
+        return _network_error_result("network_error", timeout_seconds=timeout_seconds)
 
     result = payload.get("result") if isinstance(payload, Mapping) else {}
     username = clean_text(result.get("username")) if isinstance(result, Mapping) else ""
@@ -260,6 +274,7 @@ def telegram_get_me(
         "bot_username": username if ok else "",
         "error_category": "" if ok else "telegram_error",
         "api_url": TELEGRAM_GET_ME_URL_REDACTED,
+        "timeout_seconds": timeout_seconds,
     }
 
 
@@ -288,6 +303,7 @@ def review_only_safety_flags_expected_false() -> dict[str, bool]:
 
 def render_smoke_report_lines(report: Mapping[str, Any]) -> list[str]:
     env_status = dict(report.get("env_status", {}))
+    network_settings = dict(report.get("telegram_network_settings", {}))
     dependency = dict(report.get("dependency_check", {}))
     runtime_import = dict(report.get("runtime_module_import", {}))
     network = dict(report.get("network_check", {}))
@@ -304,6 +320,14 @@ def render_smoke_report_lines(report: Mapping[str, Any]) -> list[str]:
             else "missing"
         ),
         f"Mini App URL: {clean_text(env_status.get('mini_app_url_status')) or 'missing'}",
+        "Telegram network: "
+        + (
+            f"connect={runtime.format_timeout_seconds(float(network_settings.get('connect_timeout_seconds', 0) or 0))} "
+            f"read={runtime.format_timeout_seconds(float(network_settings.get('read_timeout_seconds', 0) or 0))} "
+            f"write={runtime.format_timeout_seconds(float(network_settings.get('write_timeout_seconds', 0) or 0))} "
+            f"pool={runtime.format_timeout_seconds(float(network_settings.get('pool_timeout_seconds', 0) or 0))} "
+            f"bootstrap_retries={int(network_settings.get('bootstrap_retries', 0) or 0)}"
+        ),
         f"python-telegram-bot: {clean_text(dependency.get('status')) or 'missing'}",
         f"Runtime module import: {clean_text(runtime_import.get('status')) or 'failed'}",
         f"Runtime command: {clean_text(report.get('runtime_command'))}",
@@ -319,12 +343,15 @@ def render_smoke_report_lines(report: Mapping[str, Any]) -> list[str]:
                 f"getMe ok: {str(network.get('get_me_ok') is True).lower()}",
                 f"Bot username: {clean_text(network.get('bot_username')) or 'not_available'}",
                 f"Network error category: {clean_text(network.get('error_category')) or 'none'}",
+                f"Network timeout: {runtime.format_timeout_seconds(float(network.get('timeout_seconds', 0) or 0))}",
             ]
         )
     else:
         lines.append("Network check: not requested")
     if report.get("config_errors"):
         lines.append("Config errors: " + ", ".join(clean_text(item) for item in report.get("config_errors", [])))
+    if report.get("config_warnings"):
+        lines.append("Config warnings: " + ", ".join(clean_text(item) for item in report.get("config_warnings", [])))
     return lines
 
 
@@ -376,7 +403,12 @@ def _normalize_runtime_import_check(value: Mapping[str, Any]) -> dict[str, Any]:
     }
 
 
-def sanitize_network_check_result(value: Mapping[str, Any], *, bot_token: str) -> dict[str, Any]:
+def sanitize_network_check_result(
+    value: Mapping[str, Any],
+    *,
+    bot_token: str,
+    timeout_seconds: float = 10.0,
+) -> dict[str, Any]:
     username = _redact_sensitive_text(clean_text(value.get("bot_username")), bot_token)
     return {
         "requested": True,
@@ -388,10 +420,11 @@ def sanitize_network_check_result(value: Mapping[str, Any], *, bot_token: str) -
             bot_token,
         ),
         "api_url": TELEGRAM_GET_ME_URL_REDACTED,
+        "timeout_seconds": timeout_seconds,
     }
 
 
-def _network_error_result(category: str) -> dict[str, Any]:
+def _network_error_result(category: str, *, timeout_seconds: float = 10.0) -> dict[str, Any]:
     return {
         "requested": True,
         "telegram_api_reachable": False,
@@ -399,6 +432,7 @@ def _network_error_result(category: str) -> dict[str, Any]:
         "bot_username": "",
         "error_category": category,
         "api_url": TELEGRAM_GET_ME_URL_REDACTED,
+        "timeout_seconds": timeout_seconds,
     }
 
 
