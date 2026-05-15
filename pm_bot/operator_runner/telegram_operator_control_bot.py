@@ -18,6 +18,7 @@ from pm_bot.operator_runner.telegram_operator_i18n import (
     operator_console_button_rows,
     operator_language_from_state,
     operator_language_is_selected,
+    order_prep_packet_status_button_rows,
     order_prep_status_button_rows,
     pre_live_gate_review_label,
     render_home,
@@ -42,6 +43,11 @@ from pm_bot.operator_runner.telegram_status_registry import (
     safe_action_command_for_callback,
 )
 from pm_bot.trading_core.schemas import GENERATED_AT, bullet_lines, clean_text, mapping_rows
+from pm_bot.trading_core.telegram_order_prep_packet_status_072b import (
+    STATUS_CONTRACT as TELEGRAM_ORDER_PREP_PACKET_STATUS_072B_CONTRACT,
+    normalize_telegram_order_prep_packet_status_summary,
+    render_telegram_order_prep_packet_status_text,
+)
 from pm_bot.trading_core.telegram_order_prep_status_071e import render_telegram_order_prep_status_text
 from pm_bot.trading_core.secret_boundary_policy import (
     validate_secret_boundary_telegram_operator_control_config,
@@ -64,6 +70,7 @@ TASK_ID_063T = "ORCH-PMBOT-TELEGRAM-063T-SUPERVISED-LIVE-ENABLEMENT-REVIEW-PANEL
 TASK_ID_064T = "ORCH-PMBOT-TELEGRAM-064T-CREDENTIALS-READINESS-REVIEW-PANEL"
 TASK_ID_067E = "ORCH-PMBOT-TELEGRAM-067E-WALLET-AUTH-STATUS-DASHBOARD-NO-LIVE"
 TASK_ID_071E = "ORCH-PMBOT-TELEGRAM-071E-ORDER-PREP-STATUS-SCREEN-NO-LIVE"
+TASK_ID_072B = "ORCH-PMBOT-TELEGRAM-072B-ORDER-PREP-PACKET-SCREEN-NO-LIVE"
 
 SAFE_ACTION_COMMANDS = tuple(f"/{action.action_id}" for action in SAFE_ACTIONS)
 
@@ -959,7 +966,11 @@ class TelegramOperatorControlBot:
         return render_telegram_wallet_auth_status_text(status, language=self._language())
 
     def _render_order_prep_status(self) -> str:
-        status = dict(self._summary().get("telegram_order_prep_status_071e_status_summary", {}))
+        summary = self._summary()
+        packet_status = dict(summary.get("telegram_order_prep_packet_status_072b_status_summary", {}))
+        if _telegram_order_prep_packet_status_072b_active(packet_status):
+            return render_telegram_order_prep_packet_status_text(packet_status, language=self._language())
+        status = dict(summary.get("telegram_order_prep_status_071e_status_summary", {}))
         if not status:
             status = {
                 "market_display_ru": "не найден",
@@ -1503,6 +1514,10 @@ class TelegramOperatorControlBot:
         if command == "/connection_status":
             return build_connection_status_keyboard(self._language())
         if command == "/order_prep_status":
+            if _telegram_order_prep_packet_status_072b_active(
+                self._summary().get("telegram_order_prep_packet_status_072b_status_summary", {})
+            ):
+                return build_order_prep_packet_status_keyboard(self._language())
             return build_order_prep_status_keyboard(self._language())
         if command in {"/start", "/language", "/ru", "/en"}:
             return build_language_selection_keyboard()
@@ -1569,6 +1584,14 @@ def build_connection_status_keyboard(language: str = DEFAULT_OPERATOR_LANGUAGE) 
 def build_order_prep_status_keyboard(language: str = DEFAULT_OPERATOR_LANGUAGE) -> TelegramOperatorKeyboard:
     return _keyboard_from_rows(
         order_prep_status_button_rows(normalize_operator_language(language, fallback=DEFAULT_OPERATOR_LANGUAGE))
+    )
+
+
+def build_order_prep_packet_status_keyboard(language: str = DEFAULT_OPERATOR_LANGUAGE) -> TelegramOperatorKeyboard:
+    return _keyboard_from_rows(
+        order_prep_packet_status_button_rows(
+            normalize_operator_language(language, fallback=DEFAULT_OPERATOR_LANGUAGE)
+        )
     )
 
 
@@ -1806,6 +1829,12 @@ def build_telegram_operator_control_summary(
         context_value.get("telegram_order_prep_status_071e_status"),
         context_value.get("latest_telegram_order_prep_status_071e"),
     )
+    telegram_order_prep_packet_status_072b = _first_mapping(
+        context_value.get("telegram_order_prep_packet_status_072b_status_summary"),
+        context_value.get("telegram_order_prep_packet_status_072b_status"),
+        context_value.get("latest_telegram_order_prep_packet_screen_072b"),
+        context_value.get("latest_telegram_order_prep_packet_status_072b"),
+    )
     mini_panel = _first_mapping(
         context_value.get("telegram_mini_app_operator_panel_summary"),
         context_value.get("telegram_mini_app_operator_panel"),
@@ -1856,6 +1885,7 @@ def build_telegram_operator_control_summary(
                 "explicit_live_credentials_readiness_gate": explicit_live_credentials_readiness_gate,
                 "telegram_connection_status_067e": telegram_connection_status_067e,
                 "telegram_order_prep_status_071e": telegram_order_prep_status_071e,
+                "telegram_order_prep_packet_status_072b": telegram_order_prep_packet_status_072b,
             },
         ),
         "task_id": TASK_ID,
@@ -1912,6 +1942,9 @@ def build_telegram_operator_control_summary(
         ),
         "telegram_order_prep_status_071e_status_summary": _normalize_order_prep_status_071e_summary(
             telegram_order_prep_status_071e
+        ),
+        "telegram_order_prep_packet_status_072b_status_summary": normalize_telegram_order_prep_packet_status_summary(
+            telegram_order_prep_packet_status_072b
         ),
         "telegram_mini_app_operator_panel_summary": mini_panel,
         "telegram_operator_console_060t_status_registry": telegram_operator_console,
@@ -3054,6 +3087,14 @@ def _normalize_order_prep_status_071e_summary(status: Mapping[str, Any]) -> dict
         "autonomous_live_trading_added": False,
         "resolved_blocker_count": 0,
     }
+
+
+def _telegram_order_prep_packet_status_072b_active(status: Mapping[str, Any]) -> bool:
+    value = dict(status or {})
+    return (
+        value.get("screen_available") is True
+        or clean_text(value.get("contract_version")) == TELEGRAM_ORDER_PREP_PACKET_STATUS_072B_CONTRACT
+    )
 
 
 def _normalize_authenticated_clob_preflight_summary(status: Mapping[str, Any]) -> dict[str, Any]:
