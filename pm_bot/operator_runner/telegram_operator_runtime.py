@@ -49,20 +49,20 @@ TELEGRAM_RUNTIME_DEPENDENCY_MISSING = "Telegram runtime dependency missing"
 PANEL_BUTTON_TEXT = "Open PMBOT Mini App"
 
 TELEGRAM_COMMAND_MENU = (
-    ("start", "Open operator home"),
-    ("status", "PMBOT status"),
+    ("start", "Home"),
+    ("home", "Home"),
+    ("connection", "Connection"),
+    ("balance", "Balance"),
+    ("trades", "Trades"),
+    ("pnl", "PnL"),
+    ("bot_status", "Bot Status"),
+    ("limits", "Limits"),
+    ("stop", "Stop"),
+    ("status", "Bot Status"),
     ("panel", "Mini App panel"),
-    ("gonogo", "Go/No-Go gate"),
-    ("blockers", "Live blockers"),
-    ("readiness", "Readiness percent"),
-    ("tiny_order_review", "Tiny order review"),
-    ("pre_live_gate_review", "Pre-live tiny order gate"),
-    ("supervised_live_review", "Supervised readiness review"),
-    ("credentials_readiness_review", "Credentials readiness review"),
-    ("risk", "Risk limits"),
     ("language", "Language"),
-    ("pause", "Local pause marker"),
-    ("kill", "Local kill-switch marker"),
+    ("ru", "Russian"),
+    ("en", "English"),
     ("help", "Help"),
 )
 

@@ -63,7 +63,18 @@ SAFE_ACTION_COMMANDS = tuple(f"/{action.action_id}" for action in SAFE_ACTIONS)
 
 SUPPORTED_COMMANDS = (
     "/start",
+    "/home",
     "/help",
+    "/ru",
+    "/en",
+    "/language",
+    "/connection",
+    "/balance",
+    "/trades",
+    "/pnl",
+    "/bot_status",
+    "/limits",
+    "/stop",
     "/status",
     "/btc",
     "/intent",
@@ -79,13 +90,20 @@ SUPPORTED_COMMANDS = (
     "/pre_live_gate_review",
     "/supervised_live_review",
     "/credentials_readiness_review",
-    "/language",
     "/pause",
     "/kill",
     *SAFE_ACTION_COMMANDS,
 )
 
 CALLBACK_COMMAND_MAP = {
+    "pmbot:home": "/start",
+    "pmbot:connection": "/connection",
+    "pmbot:balance": "/balance",
+    "pmbot:trades": "/trades",
+    "pmbot:pnl": "/pnl",
+    "pmbot:bot_status": "/bot_status",
+    "pmbot:limits": "/limits",
+    "pmbot:stop": "/stop",
     "pmbot:status": "/status",
     "pmbot:btc": "/btc",
     "pmbot:intent": "/intent",
@@ -107,13 +125,13 @@ CALLBACK_COMMAND_MAP = {
     "pmbot:kill": "/kill",
 }
 
-HOME_BUTTON_ROWS = HOME_BUTTON_ROWS_BY_LANGUAGE["en"]
+HOME_BUTTON_ROWS = HOME_BUTTON_ROWS_BY_LANGUAGE["ru"]
 RUSSIAN_HOME_BUTTON_ROWS = HOME_BUTTON_ROWS_BY_LANGUAGE["ru"]
 
-PANEL_FALLBACK_BUTTON_ROWS = PANEL_FALLBACK_BUTTON_ROWS_BY_LANGUAGE["en"]
+PANEL_FALLBACK_BUTTON_ROWS = PANEL_FALLBACK_BUTTON_ROWS_BY_LANGUAGE["ru"]
 RUSSIAN_PANEL_FALLBACK_BUTTON_ROWS = PANEL_FALLBACK_BUTTON_ROWS_BY_LANGUAGE["ru"]
 
-FORBIDDEN_BUTTON_LABEL_TERMS = ("BUY", "SELL", "TRADE", "EXECUTE", "APPROVE LIVE")
+FORBIDDEN_BUTTON_LABEL_TERMS = ("BUY", "SELL", "EXECUTE", "APPROVE LIVE", "LIVE ENABLE")
 
 FORCED_FALSE_EXECUTION_FIELDS = (
     "operator_approved",
@@ -309,7 +327,12 @@ class TelegramOperatorControlBot:
         command = normalize_telegram_command(text) or "/help"
         if command not in SUPPORTED_COMMANDS:
             command = "/help"
-        requested_language = language_from_command_text(text) if command == "/language" else ""
+        if command == "/ru":
+            requested_language = "ru"
+        elif command == "/en":
+            requested_language = "en"
+        else:
+            requested_language = language_from_command_text(text) if command == "/language" else ""
         authorized = self.config.is_authorized(user_id)
         if not authorized:
             self.state = record_telegram_operator_control_command(
@@ -321,22 +344,7 @@ class TelegramOperatorControlBot:
                 generated_at=self.generated_at,
             )
             response = self._response(command, authorized=False, text=UNAUTHORIZED_DENIAL)
-        elif command == "/start" and not operator_language_is_selected(self.state):
-            self.state = record_telegram_operator_control_command(
-                self.state,
-                command=command,
-                operator_user_id=user_id,
-                authorized=True,
-                command_status="operator_language_selection_prompted",
-                generated_at=self.generated_at,
-            )
-            response = self._response(
-                command,
-                authorized=True,
-                text=render_language_selection_prompt(),
-                keyboard=build_language_selection_keyboard(),
-            )
-        elif command == "/language" and requested_language:
+        elif command in {"/ru", "/en"} or (command == "/language" and requested_language):
             self.state = set_telegram_operator_language(
                 self.state,
                 operator_user_id=user_id,
@@ -388,6 +396,18 @@ class TelegramOperatorControlBot:
                 text=self._render_kill(),
                 keyboard=self._keyboard_for_command(command),
             )
+        elif command == "/stop":
+            self.state = request_telegram_operator_kill_switch(
+                self.state,
+                operator_user_id=user_id,
+                generated_at=self.generated_at,
+            )
+            response = self._response(
+                command,
+                authorized=True,
+                text=self._render_stop(),
+                keyboard=self._keyboard_for_command(command),
+            )
         else:
             self.state = record_telegram_operator_control_command(
                 self.state,
@@ -435,12 +455,20 @@ class TelegramOperatorControlBot:
             return self._render_safe_action(command)
         renderers = {
             "/start": self._render_start,
+            "/home": self._render_start,
             "/help": self._render_help,
-            "/status": self._render_status,
+            "/status": self._render_bot_status,
+            "/connection": self._render_connection,
+            "/balance": self._render_balance,
+            "/trades": self._render_trades,
+            "/pnl": self._render_pnl,
+            "/bot_status": self._render_bot_status,
+            "/limits": self._render_limits,
+            "/stop": self._render_stop,
             "/btc": self._render_btc,
             "/intent": self._render_intent,
-            "/risk": self._render_risk,
-            "/auth": self._render_auth,
+            "/risk": self._render_limits,
+            "/auth": self._render_connection,
             "/order": self._render_order,
             "/gonogo": self._render_gonogo,
             "/evidence": self._render_evidence,
@@ -452,6 +480,8 @@ class TelegramOperatorControlBot:
             "/supervised_live_review": self._render_supervised_live_review,
             "/credentials_readiness_review": self._render_credentials_readiness_review,
             "/language": render_language_selection_prompt,
+            "/ru": lambda: render_language_selected("ru"),
+            "/en": lambda: render_language_selected("en"),
         }
         return renderers.get(command, self._render_help)()
 
@@ -459,21 +489,220 @@ class TelegramOperatorControlBot:
         return render_home(self._language())
 
     def _render_help(self) -> str:
-        commands = "\n".join(f"{command}" for command in SUPPORTED_COMMANDS)
         if self._language() == "ru":
             return (
-                "PMBOT команды оператора:\n"
-                f"{commands}\n"
-                "Безопасные кнопки: Статус, Go/No-Go, Риски, Блокеры, Evidence, Mini App, Пауза, Kill-switch, Язык.\n"
-                "Ограничения: только обзор, бумажный/dry-run режим, live-торговля выключена, ордера выключены, "
-                "кошелёк/подпись выключены, authenticated endpoints выключены, фонового исполнения нет."
+                "PMBOT команды:\n"
+                "/start /home — главная\n"
+                "/connection — подключение\n"
+                "/balance — баланс\n"
+                "/trades — сделки\n"
+                "/pnl — PnL\n"
+                "/bot_status или /status — статус бота\n"
+                "/limits — лимиты\n"
+                "/stop — локальный стоп-placeholder\n"
+                "/ru /en /language — язык\n"
+                "Ограничения: только обзор и тестовый dry-run; live-торговля выключена; "
+                "отправка ордеров, отмена ордеров, подпись, исполнение через кошелёк и authenticated endpoints выключены."
             )
         return (
-            "PMBOT Operator Control commands:\n"
-            f"{commands}\n"
-            "Safe controls: Status, Go/No-Go, Risk, Blockers, Evidence, Panel, Pause, Kill, Language.\n"
-            "Safety limits: review-only, paper/dry-run visibility only, no live trading, no order submission, "
-            "no wallet access, no signing, no authenticated endpoint calls, no background execution."
+            "PMBOT commands:\n"
+            "/start /home - home\n"
+            "/connection - connection\n"
+            "/balance - balance\n"
+            "/trades - trades\n"
+            "/pnl - PnL\n"
+            "/bot_status or /status - bot status\n"
+            "/limits - limits\n"
+            "/stop - local stop placeholder\n"
+            "/ru /en /language - language\n"
+            "Safety limits: review-only and test dry-run only; live trading disabled; no order submission, "
+            "order cancellation, wallet execution, signing, authenticated endpoint calls, or background execution."
+        )
+
+    def _render_connection(self) -> str:
+        connection = _build_connection_product_status(self._summary())
+        if self._language() == "ru":
+            return "\n".join(
+                [
+                    "🔐 Подключение",
+                    f"API credentials: {connection['api_credentials']}",
+                    f"private key: {connection['private_key']}",
+                    f"wallet address: {connection['wallet_address']}",
+                    f"signature type: {connection['signature_type']}",
+                    f"funder address: {connection['funder_address']}",
+                    "auth probe: not implemented yet / pending future probe",
+                    "Сырые значения не показываются.",
+                    "Подключение кошелька не выполняется.",
+                    "Подписание выключено.",
+                    "authenticated endpoints выключены.",
+                ]
+            )
+        return "\n".join(
+            [
+                "Connection",
+                f"API credentials: {connection['api_credentials']}",
+                f"private key: {connection['private_key']}",
+                f"wallet address: {connection['wallet_address']}",
+                f"signature type: {connection['signature_type']}",
+                f"funder address: {connection['funder_address']}",
+                "auth probe: not implemented yet / pending future probe",
+                "Raw values are never shown.",
+                "Wallet connection is not performed.",
+                "Signing disabled.",
+                "Authenticated endpoints disabled.",
+            ]
+        )
+
+    def _render_balance(self) -> str:
+        if self._language() == "ru":
+            return "\n".join(
+                [
+                    "💰 Баланс",
+                    "Баланс пока не проверен: read-only CLOB probe ещё не реализован",
+                    "Фейковый баланс не показывается.",
+                    "authenticated endpoints выключены.",
+                    "allowed_for_live=false",
+                ]
+            )
+        return "\n".join(
+            [
+                "Balance",
+                "Balance not checked yet: read-only CLOB probe is not implemented yet.",
+                "No fake balance is shown.",
+                "Authenticated endpoints disabled.",
+                "allowed_for_live=false",
+            ]
+        )
+
+    def _render_trades(self) -> str:
+        if self._language() == "ru":
+            return "\n".join(
+                [
+                    "📊 Сделки",
+                    "Сделок пока нет: live-торговля не запускалась",
+                    "Фейковые сделки или ордера не показываются.",
+                    "Отправка ордеров выключена.",
+                    "allowed_for_live=false",
+                ]
+            )
+        return "\n".join(
+            [
+                "Trades",
+                "No trades yet: live trading has not been started.",
+                "No fake trades or orders are shown.",
+                "Order submission disabled.",
+                "allowed_for_live=false",
+            ]
+        )
+
+    def _render_pnl(self) -> str:
+        if self._language() == "ru":
+            return "\n".join(
+                [
+                    "📈 PnL",
+                    "PnL пока недоступен: live-сделок не было",
+                    "Фейковый PnL не показывается.",
+                    "allowed_for_live=false",
+                ]
+            )
+        return "\n".join(
+            [
+                "PnL",
+                "PnL unavailable yet: there have been no live trades.",
+                "No fake PnL is shown.",
+                "allowed_for_live=false",
+            ]
+        )
+
+    def _render_bot_status(self) -> str:
+        state = dict(self._summary().get("state_summary", {}))
+        if self._language() == "ru":
+            return "\n".join(
+                [
+                    "🤖 Статус бота",
+                    "Режим: dry-run/review-only",
+                    "allowed_for_live=false",
+                    "live trading disabled",
+                    "order submission disabled",
+                    "signing disabled",
+                    "wallet execution disabled",
+                    "Тестовый dry-run: доступен только как локальная проверка.",
+                    f"Локальный стоп-placeholder: {str(state.get('operator_kill_switch_requested') is True).lower()}",
+                    "Проверки безопасности: live-действия выключены.",
+                    "Что мешает запуску: требуется отдельное операторское разрешение и реализация read-only probe.",
+                ]
+            )
+        return "\n".join(
+            [
+                "Bot Status",
+                "Mode: dry-run/review-only",
+                "allowed_for_live=false",
+                "live trading disabled",
+                "order submission disabled",
+                "signing disabled",
+                "wallet execution disabled",
+                "Test dry-run: local review checks only.",
+                f"Emergency stop placeholder: {str(state.get('operator_kill_switch_requested') is True).lower()}",
+                "Safety checks: live actions disabled.",
+                "What blocks start: separate operator approval and read-only probe implementation are required.",
+            ]
+        )
+
+    def _render_limits(self) -> str:
+        risk = dict(self._summary().get("risk_summary", {}))
+        if self._language() == "ru":
+            return "\n".join(
+                [
+                    "⚙️ Лимиты",
+                    "Лимиты показываются только как review/status.",
+                    f"Макс. размер ордера USD: {_display_known_value(risk.get('max_order_notional_usd'))}",
+                    f"Макс. дневной убыток USD: {_display_known_value(risk.get('max_daily_loss_usd'))}",
+                    f"Макс. общий exposure USD: {_display_known_value(risk.get('max_total_exposure_usd'))}",
+                    f"Макс. market exposure USD: {_display_known_value(risk.get('max_market_exposure_usd'))}",
+                    f"Макс. активных рынков: {_display_known_value(risk.get('max_active_markets') or risk.get('max_market_count'))}",
+                    f"Макс. сделок/день: {_display_known_value(risk.get('max_trades_per_day'))}",
+                    "allowed_for_live=false",
+                ]
+            )
+        return "\n".join(
+            [
+                "Limits",
+                "Limits are shown as review/status only.",
+                f"Max order notional USD: {_display_known_value(risk.get('max_order_notional_usd'))}",
+                f"Max daily loss USD: {_display_known_value(risk.get('max_daily_loss_usd'))}",
+                f"Max total exposure USD: {_display_known_value(risk.get('max_total_exposure_usd'))}",
+                f"Max market exposure USD: {_display_known_value(risk.get('max_market_exposure_usd'))}",
+                f"Max active markets: {_display_known_value(risk.get('max_active_markets') or risk.get('max_market_count'))}",
+                f"Max trades/day: {_display_known_value(risk.get('max_trades_per_day'))}",
+                "allowed_for_live=false",
+            ]
+        )
+
+    def _render_stop(self) -> str:
+        if self._language() == "ru":
+            return "\n".join(
+                [
+                    "🚨 Стоп",
+                    "Emergency stop state: local placeholder / live controls not implemented",
+                    "Стоп записан только как локальный статусный маркер.",
+                    "Ордера не отправляются и не отменяются.",
+                    "Кошелёк, подпись и authenticated calls не используются.",
+                    "order_submission_enabled=false",
+                    "order_cancel_enabled=false",
+                    "allowed_for_live=false",
+                ]
+            )
+        return "\n".join(
+            [
+                "Stop",
+                "Emergency stop state: local placeholder / live controls not implemented",
+                "Stop is recorded only as a local status marker.",
+                "No orders are submitted or cancelled.",
+                "No wallet, signing, or authenticated calls are used.",
+                "order_submission_enabled=false",
+                "order_cancel_enabled=false",
+                "allowed_for_live=false",
+            ]
         )
 
     def _render_status(self) -> str:
@@ -1379,8 +1608,20 @@ class TelegramOperatorControlBot:
             if operator_language_is_selected(self.state):
                 return build_operator_console_keyboard(self._language())
             return build_panel_fallback_keyboard(self._language())
-        if command == "/language":
+        if command in {"/language", "/ru", "/en"}:
             return build_language_selection_keyboard()
+        if command in {
+            "/start",
+            "/home",
+            "/connection",
+            "/balance",
+            "/trades",
+            "/pnl",
+            "/bot_status",
+            "/limits",
+            "/stop",
+        }:
+            return build_operator_home_keyboard(self._language())
         if command in {
             "/readiness",
             "/tiny_order_review",
@@ -1402,15 +1643,19 @@ class TelegramOperatorControlBot:
 
 
 def build_operator_home_keyboard(language: str = DEFAULT_OPERATOR_LANGUAGE) -> TelegramOperatorKeyboard:
-    return _keyboard_from_rows(HOME_BUTTON_ROWS_BY_LANGUAGE[normalize_operator_language(language, fallback="en")])
+    return _keyboard_from_rows(
+        HOME_BUTTON_ROWS_BY_LANGUAGE[normalize_operator_language(language, fallback=DEFAULT_OPERATOR_LANGUAGE)]
+    )
 
 
 def build_panel_fallback_keyboard(language: str = DEFAULT_OPERATOR_LANGUAGE) -> TelegramOperatorKeyboard:
-    return _keyboard_from_rows(PANEL_FALLBACK_BUTTON_ROWS_BY_LANGUAGE[normalize_operator_language(language, fallback="en")])
+    return _keyboard_from_rows(
+        PANEL_FALLBACK_BUTTON_ROWS_BY_LANGUAGE[normalize_operator_language(language, fallback=DEFAULT_OPERATOR_LANGUAGE)]
+    )
 
 
 def build_operator_console_keyboard(language: str = DEFAULT_OPERATOR_LANGUAGE) -> TelegramOperatorKeyboard:
-    return _keyboard_from_rows(operator_console_button_rows(normalize_operator_language(language, fallback="en")))
+    return _keyboard_from_rows(operator_console_button_rows(normalize_operator_language(language, fallback=DEFAULT_OPERATOR_LANGUAGE)))
 
 
 def build_language_selection_keyboard() -> TelegramOperatorKeyboard:
@@ -2807,6 +3052,40 @@ def _clean_list(values: Any) -> list[str]:
         return [clean_text(item) for item in values if clean_text(item)]
     except TypeError:
         return []
+
+
+def _build_connection_product_status(summary: Mapping[str, Any]) -> dict[str, str]:
+    credentials = dict(summary.get("explicit_live_credentials_readiness_gate_status_summary", {}))
+    auth = dict(summary.get("live_credentials_auth_boundary_summary", {}))
+    marker_rows = [
+        dict(row)
+        for row in credentials.get("required_marker_presence", [])
+        if isinstance(row, Mapping)
+    ]
+
+    def marker_present(*needles: str) -> bool:
+        normalized_needles = tuple(needle.upper() for needle in needles if needle)
+        for row in marker_rows:
+            label = clean_text(row.get("marker_label")).upper()
+            if row.get("present") is True and any(needle in label for needle in normalized_needles):
+                return True
+        return False
+
+    api_credentials_present = (
+        auth.get("live_credentials_configured") is True
+        or marker_present("L2_API_KEY", "L2_API_SECRET", "L2_PASSPHRASE", "POLYMARKET_AUTH_CONFIG")
+    )
+    private_key_present = marker_present("PRIVATE_KEY")
+    wallet_address_present = marker_present("WALLET_ADDRESS")
+    signature_type_present = marker_present("SIGNATURE_TYPE", "SIGNING_PROVIDER")
+    funder_address_present = marker_present("FUNDER_ADDRESS")
+    return {
+        "api_credentials": "present" if api_credentials_present else "missing",
+        "private_key": "present" if private_key_present else "missing",
+        "wallet_address": "redacted" if wallet_address_present else "missing",
+        "signature_type": "present" if signature_type_present else "missing",
+        "funder_address": "redacted" if funder_address_present else "missing",
+    }
 
 
 def _display_known_value(value: Any) -> str:

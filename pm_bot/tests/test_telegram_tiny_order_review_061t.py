@@ -335,6 +335,7 @@ def test_approval_packet_and_safety_status_render_in_en_and_ru(tmp_path: Path) -
     context = build_telegram_console_context(artifact_root=tmp_path, generated_at=GENERATED_AT)
 
     en_adapter = _adapter(context=context)
+    en_adapter.handle_callback(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", callback_data="pmbot:lang:en")
     en = en_adapter.handle_text(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", text="/tiny_order_review")
 
     ru_adapter = _adapter(context=context)

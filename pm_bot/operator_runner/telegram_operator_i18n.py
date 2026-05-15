@@ -6,7 +6,7 @@ from pm_bot.operator_runner.telegram_status_registry import telegram_console_but
 from pm_bot.trading_core.schemas import clean_text
 
 SUPPORTED_LANGUAGES = ("ru", "en")
-DEFAULT_OPERATOR_LANGUAGE = "en"
+DEFAULT_OPERATOR_LANGUAGE = "ru"
 RECOMMENDED_OPERATOR_LANGUAGE = "ru"
 LANGUAGE_STATE_FIELD = "operator_language"
 
@@ -21,30 +21,30 @@ LANGUAGE_SELECTION_BUTTON_ROWS = (
 
 HOME_BUTTON_ROWS_BY_LANGUAGE = {
     "ru": (
-        (("📊 Статус", "pmbot:status"), ("✅ Go/No-Go", "pmbot:gonogo")),
-        (("⚠️ Риски", "pmbot:risk"), ("🚧 Блокеры", "pmbot:blockers")),
-        (("📦 Evidence", "pmbot:evidence"), ("🧩 Mini App", "pmbot:panel")),
-        (("⏸ Пауза", "pmbot:pause"), ("🛑 Kill-switch", "pmbot:kill")),
+        (("🏠 Главная", "pmbot:home"), ("🔐 Подключение", "pmbot:connection")),
+        (("💰 Баланс", "pmbot:balance"), ("📊 Сделки", "pmbot:trades")),
+        (("📈 PnL", "pmbot:pnl"), ("🤖 Статус бота", "pmbot:bot_status")),
+        (("⚙️ Лимиты", "pmbot:limits"), ("🚨 Стоп", "pmbot:stop")),
         (("🌐 Язык", "pmbot:language"),),
     ),
     "en": (
-        (("Status", "pmbot:status"), ("Go/No-Go", "pmbot:gonogo")),
-        (("Risk", "pmbot:risk"), ("Blockers", "pmbot:blockers")),
-        (("Evidence", "pmbot:evidence"), ("Panel", "pmbot:panel")),
-        (("Pause", "pmbot:pause"), ("Kill", "pmbot:kill")),
+        (("Home", "pmbot:home"), ("Connection", "pmbot:connection")),
+        (("Balance", "pmbot:balance"), ("Trades", "pmbot:trades")),
+        (("PnL", "pmbot:pnl"), ("Bot Status", "pmbot:bot_status")),
+        (("Limits", "pmbot:limits"), ("Stop", "pmbot:stop")),
         (("Language", "pmbot:language"),),
     ),
 }
 
 PANEL_FALLBACK_BUTTON_ROWS_BY_LANGUAGE = {
     "ru": (
-        (("📊 Статус", "pmbot:status"), ("✅ Go/No-Go", "pmbot:gonogo")),
-        (("🚧 Блокеры", "pmbot:blockers"),),
+        (("🏠 Главная", "pmbot:home"), ("🤖 Статус бота", "pmbot:bot_status")),
+        (("🔐 Подключение", "pmbot:connection"), ("🚨 Стоп", "pmbot:stop")),
         (("🌐 Язык", "pmbot:language"),),
     ),
     "en": (
-        (("Status", "pmbot:status"), ("Go/No-Go", "pmbot:gonogo")),
-        (("Blockers", "pmbot:blockers"),),
+        (("Home", "pmbot:home"), ("Bot Status", "pmbot:bot_status")),
+        (("Connection", "pmbot:connection"), ("Stop", "pmbot:stop")),
         (("Language", "pmbot:language"),),
     ),
 }
@@ -322,9 +322,10 @@ def callback_data_values(rows: Sequence[Sequence[tuple[str, str]]]) -> tuple[str
 def render_language_selection_prompt() -> str:
     return "\n".join(
         [
-            "Выбери язык оператора / Choose operator language",
-            "🇷🇺 Русский — рекомендуется для первого запуска",
+            "Выбери язык / Choose language",
+            "🇷🇺 Русский — язык по умолчанию",
             "🇬🇧 English",
+            "Команды: /ru, /en, /language",
         ]
     )
 
@@ -333,21 +334,22 @@ def render_home(language: str) -> str:
     if normalize_operator_language(language, fallback=DEFAULT_OPERATOR_LANGUAGE) == "ru":
         return "\n".join(
             [
-                "PMBOT — операторская панель",
-                "Режим: только обзор",
-                "Live-торговля: выключена",
-                "Ордера: выключены",
-                "Кошелёк/подпись: выключены",
+                "PMBOT — центр управления",
+                "Режим: только обзор и тестовый dry-run",
+                "Live-торговля выключена",
+                "Отправка ордеров выключена",
+                "Подписание и исполнение через кошелёк выключены",
+                "Используй меню ниже: Подключение, Баланс, Сделки, PnL, Статус бота, Лимиты, Стоп, Язык.",
             ]
         )
     return "\n".join(
         [
-            "PMBOT Operator Control",
-            "Review-only",
-            "Live blocked",
+            "PMBOT Control Center",
+            "Review-only and test dry-run mode",
+            "Live trading disabled",
             "Orders disabled",
-            "Wallet/signing disabled",
-            "PMBOT Operator Control Bot v1 does not enable live trading, submit orders, connect wallets, "
+            "Wallet execution and signing disabled",
+            "PMBOT does not enable live trading, submit orders, connect wallets, "
             "sign payloads, or call authenticated Polymarket endpoints.",
         ]
     )

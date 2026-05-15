@@ -31,11 +31,11 @@ FORCED_FALSE_FLAGS = (
 )
 
 HOME_LABEL_ROWS = (
-    ("Status", "Go/No-Go"),
-    ("Risk", "Blockers"),
-    ("Evidence", "Panel"),
-    ("Pause", "Kill"),
-    ("Language",),
+    ("🏠 Главная", "🔐 Подключение"),
+    ("💰 Баланс", "📊 Сделки"),
+    ("📈 PnL", "🤖 Статус бота"),
+    ("⚙️ Лимиты", "🚨 Стоп"),
+    ("🌐 Язык",),
 )
 
 
@@ -146,22 +146,23 @@ def _button_labels(reply: runtime.TelegramRuntimeReply) -> tuple[str, ...]:
     return tuple(button.label for row in reply.keyboard.rows for button in row)
 
 
-def test_start_prompts_for_language_when_language_is_not_selected() -> None:
+def test_start_uses_ru_first_product_home_when_language_is_not_selected() -> None:
     reply = _adapter().handle_text(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", text="/start")
 
-    assert "Choose operator language" in reply.text
-    assert _label_rows(reply) == (("🇷🇺 Русский", "🇬🇧 English"),)
+    assert "PMBOT — центр управления" in reply.text
+    assert "Live-торговля выключена" in reply.text
+    assert _label_rows(reply) == HOME_LABEL_ROWS
     assert reply.keyboard.to_dict()["safe_button_labels"] is True
 
 
 def test_help_includes_command_overview_and_safe_controls() -> None:
     reply = _adapter().handle_text(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", text="/help")
 
-    assert "PMBOT Operator Control commands" in reply.text
+    assert "PMBOT команды" in reply.text
     assert "/status" in reply.text
-    assert "/panel" in reply.text
-    assert "/gonogo" in reply.text
-    assert "Safe controls: Status, Go/No-Go, Risk, Blockers, Evidence, Panel, Pause, Kill, Language." in reply.text
+    assert "/connection" in reply.text
+    assert "/balance" in reply.text
+    assert "/ru /en /language" in reply.text
     assert _label_rows(reply) == HOME_LABEL_ROWS
 
 
@@ -207,10 +208,10 @@ def test_panel_includes_mini_app_url_button_when_configured_without_exposing_url
     redacted = json.dumps(reply.to_redacted_dict(), sort_keys=True)
 
     assert "Telegram Mini App Operator Panel v1" in reply.text
-    assert "Mini App URL: configured." in reply.text
-    assert reply.panel_button_text == runtime.PANEL_BUTTON_TEXT
+    assert "Mini App настроен. Открой панель кнопкой ниже." in reply.text
+    assert reply.panel_button_text == "Открыть PMBOT Mini App"
     assert reply.panel_button_url == MINI_APP_URL
-    assert first_button.label == "Open PMBOT Mini App"
+    assert first_button.label == "Открыть PMBOT Mini App"
     assert first_button.web_app_url == MINI_APP_URL
     assert MINI_APP_URL not in redacted
 
@@ -236,10 +237,14 @@ def test_panel_output_does_not_expose_token_init_data_or_raw_operator_ids() -> N
 def test_panel_fallback_when_mini_app_url_is_missing() -> None:
     reply = _adapter().handle_text(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", text="/panel")
 
-    assert "Mini App URL is not configured yet" in reply.text
-    assert "Panel artifact available: true" in reply.text
+    assert "Mini App URL пока не настроен" in reply.text
+    assert "Panel artifact доступен: true" in reply.text
     assert reply.panel_button_url == ""
-    assert _label_rows(reply) == (("Status", "Go/No-Go"), ("Blockers",), ("Language",))
+    assert _label_rows(reply) == (
+        ("🏠 Главная", "🤖 Статус бота"),
+        ("🔐 Подключение", "🚨 Стоп"),
+        ("🌐 Язык",),
+    )
 
 
 def test_no_button_label_includes_forbidden_execution_terms() -> None:
@@ -262,8 +267,8 @@ def test_pause_and_kill_buttons_remain_local_markers_only(tmp_path: Path) -> Non
     kill = adapter.handle_callback(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", callback_data="pmbot:kill")
     persisted = json.loads((tmp_path / "telegram_operator_control_state_043.json").read_text(encoding="utf-8"))
 
-    assert "local Telegram operator-control state only" in pause.text
-    assert "No order cancellation" in kill.text
+    assert "локальный маркер Telegram operator-control state" in pause.text
+    assert "Отмена ордеров" in kill.text
     assert persisted["operator_pause_requested"] is True
     assert persisted["operator_kill_switch_requested"] is True
     assert persisted["does_not_modify_trading_execution"] is True
@@ -279,7 +284,7 @@ def test_runtime_can_set_command_menu_through_fake_telegram_client() -> None:
 
     assert configured is True
     assert fake_bot.commands == runtime.telegram_command_menu_items()
-    assert fake_bot.commands[0] == ("start", "Open operator home")
+    assert fake_bot.commands[0] == ("start", "Home")
     assert fake_bot.commands[-1] == ("help", "Help")
 
 
