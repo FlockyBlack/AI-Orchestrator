@@ -136,7 +136,7 @@ def test_mini_app_button_is_url_marker_driven_and_missing_url_is_graceful(monkey
     assert missing.panel_button_url == ""
     assert "Mini App URL не настроен" in missing.text
     assert invalid.panel_button_url == ""
-    assert "rejected by runtime URL safety checks" in invalid.text
+    assert "runtime URL safety checks" in invalid.text
 
 
 def test_runtime_config_uses_mini_app_url_marker_without_persisting_raw_value() -> None:

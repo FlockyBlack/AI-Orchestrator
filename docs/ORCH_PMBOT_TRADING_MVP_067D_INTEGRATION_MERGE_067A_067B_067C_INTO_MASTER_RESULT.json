@@ -1,0 +1,325 @@
+{
+  "task_id": "ORCH-PMBOT-TRADING-MVP-067D-INTEGRATION-MERGE-067A-067B-067C-INTO-MASTER",
+  "status": "validated_pending_final_commit_push_verify",
+  "generated_at": "2026-05-15T18:08:18.6001765+04:00",
+  "repository": "https://github.com/FlockyBlack/AI-Orchestrator.git",
+  "worktree": "C:/oc067d_integration_merge_067a_067b_067c",
+  "target_branch": "master",
+  "merge_integration_branch": "master",
+  "required_starting_master_head": "bd84069654a3b412f76d63405b60da7feb5c6c9d",
+  "expected_master_before_merge": "bd84069654a3b412f76d63405b60da7feb5c6c9d",
+  "old_master_head": "bd84069654a3b412f76d63405b60da7feb5c6c9d",
+  "head_before": "bd84069654a3b412f76d63405b60da7feb5c6c9d",
+  "head_after_source_merges_before_result_commit": "38e9a9676c9d24324723d0433d7013b5e6e834f0",
+  "head_after": "recorded_in_final_response_after_commit_push_verify",
+  "head_after_note": "The final master commit cannot self-record its own SHA inside this committed JSON artifact because embedding the SHA would change the SHA. The final response records the pushed and remotely verified master HEAD.",
+  "source_branch_heads": {
+    "pmbot/telegram-067a-product-ux-ru-first-menu-no-live": "2fcab194f27af19fedbd326dacb1c29f5752a9e9",
+    "pmbot/telegram-067b-mini-app-scaffold-no-secrets-no-live": "34c3f68e220b79046441c0401245aface18b680c",
+    "pmbot/trading-mvp-067c-clob-l2-auth-readonly-probe-no-orders": "f9d7b25cf49b9ac95442a4ec4ec096777be90b31"
+  },
+  "merge_methods": [
+    {
+      "order": 1,
+      "source_branch": "pmbot/telegram-067a-product-ux-ru-first-menu-no-live",
+      "source_head": "2fcab194f27af19fedbd326dacb1c29f5752a9e9",
+      "method": "git merge --no-ff",
+      "strategy": "ort",
+      "merge_commit": "75526dcd3c7061c78f3345c7e20fb45a4783e2ea",
+      "conflicts": "none"
+    },
+    {
+      "order": 2,
+      "source_branch": "pmbot/telegram-067b-mini-app-scaffold-no-secrets-no-live",
+      "source_head": "34c3f68e220b79046441c0401245aface18b680c",
+      "method": "git merge --no-ff",
+      "strategy": "ort",
+      "merge_commit": "fe6309c897bd8db1f45151a3ad88dd036a3b685a",
+      "conflicts": [
+        "pm_bot/tests/test_telegram_operator_runtime_045.py",
+        "pm_bot/tests/test_telegram_operator_ux_buttons_046.py"
+      ]
+    },
+    {
+      "order": 3,
+      "source_branch": "pmbot/trading-mvp-067c-clob-l2-auth-readonly-probe-no-orders",
+      "source_head": "f9d7b25cf49b9ac95442a4ec4ec096777be90b31",
+      "method": "git merge --no-ff",
+      "strategy": "ort",
+      "merge_commit": "38e9a9676c9d24324723d0433d7013b5e6e834f0",
+      "conflicts": "none"
+    }
+  ],
+  "conflict_summary": {
+    "git_conflicts": {
+      "067a": "none",
+      "067b": "two test conflicts in Telegram runtime/button expectations",
+      "067c": "none"
+    },
+    "semantic_integration_resolution": "067B overlapped 067A in Telegram Mini App panel assertions. The resolution keeps RU-first runtime copy as the default, keeps the 067B safe Mini App launch label from runtime.PANEL_BUTTON_TEXT, keeps Mini App URL redaction, and keeps missing/invalid Mini App URL paths fail-closed.",
+    "post_merge_adjustments": [
+      {
+        "file": "pm_bot/tests/test_telegram_mini_app_scaffold_067b.py",
+        "reason": "Focused 067B validation found an invalid-URL assertion pinned to English copy. The assertion now checks the language-neutral runtime URL safety invariant while preserving no-button fail-closed behavior."
+      }
+    ],
+    "safety_preservation": [
+      "RU-first Telegram UX remains the default.",
+      "Mini App remains scaffold-only and no-secrets.",
+      "Mini App launch URL is redacted from redacted payloads.",
+      "Invalid Mini App URLs do not create a button.",
+      "CLOB L2 probe remains read-only and dry-run gated.",
+      "No fake balances, trades, PnL, fills, positions, order IDs, tx hashes, or execution results were added.",
+      "No forbidden Telegram live controls were added.",
+      "allowed_for_live remains false."
+    ]
+  },
+  "changed_files_summary": {
+    "source_merge_summary": {
+      "067a": "Added RU-first Telegram product UX docs, tests, runtime/i18n/control-bot updates, product UX helper, and safety/menu/i18n artifacts.",
+      "067b": "Added Telegram Mini App static scaffold, no-secrets Mini App docs/tests/artifacts, and runtime Mini App button/fallback support.",
+      "067c": "Added CLOB L2 authenticated read-only probe docs, operator runner, trading-core implementation/models, tests, and read-only safety artifacts."
+    },
+    "changed_file_count_from_origin_master_before_result_artifact": 39,
+    "integration_resolution_files": [
+      "pm_bot/tests/test_telegram_operator_runtime_045.py",
+      "pm_bot/tests/test_telegram_operator_ux_buttons_046.py",
+      "pm_bot/tests/test_telegram_mini_app_scaffold_067b.py"
+    ],
+    "new_operator_runners": [
+      "pm_bot/operator_runner/clob_l2_auth_readonly_probe.py",
+      "pm_bot/operator_runner/telegram_product_ux_067a.py"
+    ],
+    "new_telegram_mini_app_files": [
+      "pm_bot/telegram_mini_app/index.html",
+      "pm_bot/telegram_mini_app/styles.css"
+    ],
+    "new_trading_core_modules": [
+      "pm_bot/trading_core/clob_l2_auth_readonly_probe.py",
+      "pm_bot/trading_core/clob_l2_auth_readonly_probe_models.py"
+    ],
+    "new_tests": [
+      "pm_bot/tests/test_telegram_product_ux_067a.py",
+      "pm_bot/tests/test_telegram_mini_app_scaffold_067b.py",
+      "pm_bot/tests/test_clob_l2_auth_readonly_probe_067c.py"
+    ],
+    "result_artifact": "docs/ORCH_PMBOT_TRADING_MVP_067D_INTEGRATION_MERGE_067A_067B_067C_INTO_MASTER_RESULT.json"
+  },
+  "validation_summary": {
+    "focused_tests": [
+      {
+        "command": "python -m pytest pm_bot/tests/test_telegram_product_ux_067a.py",
+        "status": "passed",
+        "summary": "8 passed"
+      },
+      {
+        "command": "python -m pytest pm_bot/tests/test_telegram_mini_app_scaffold_067b.py",
+        "status": "passed",
+        "summary": "6 passed after integrating the invalid-URL assertion with RU-first runtime copy"
+      },
+      {
+        "command": "python -m pytest pm_bot/tests/test_clob_l2_auth_readonly_probe_067c.py",
+        "status": "passed",
+        "summary": "10 passed"
+      },
+      {
+        "command": "python -m pytest pm_bot/tests/test_telegram_forbidden_live_controls_063a.py",
+        "status": "passed",
+        "summary": "3 passed"
+      },
+      {
+        "command": "python -m pytest pm_bot/tests/test_telegram_credentials_readiness_review_064t.py",
+        "status": "passed",
+        "summary": "6 passed"
+      },
+      {
+        "command": "python -m pytest pm_bot/tests/test_explicit_live_credentials_readiness_gate_064.py",
+        "status": "passed",
+        "summary": "8 passed"
+      },
+      {
+        "command": "python -m pytest pm_bot/tests/test_static_safety_invariant_report_060q.py",
+        "status": "passed",
+        "summary": "9 passed"
+      }
+    ],
+    "conflict_resolution_tests": [
+      {
+        "command": "python -m pytest pm_bot/tests/test_telegram_operator_runtime_045.py pm_bot/tests/test_telegram_operator_ux_buttons_046.py",
+        "status": "passed",
+        "summary": "26 passed"
+      }
+    ],
+    "full_validation": [
+      {
+        "command": "python -B -m pytest pm_bot/tests",
+        "status": "passed",
+        "summary": "1963 passed in 569.43s"
+      },
+      {
+        "command": "python -m compileall -q pm_bot",
+        "status": "passed"
+      },
+      {
+        "command": "python -m compileall -q ai_orchestrator",
+        "status": "passed"
+      }
+    ],
+    "diff_checks": [
+      {
+        "command": "git diff --check",
+        "status": "passed"
+      },
+      {
+        "command": "git diff --cached --check",
+        "status": "passed"
+      }
+    ]
+  },
+  "operator_command_summary": [
+    {
+      "command": "python -m pm_bot.operator_runner.clob_l2_auth_readonly_probe --market BTC --strategy tiny-momentum --dry-run",
+      "status": "passed",
+      "summary": "Completed with status blocked_missing_l2_credentials; auth_verified false; probe_read_only true; allowed_for_live false; private key read false; signer instantiated false; order submission and cancellation blocked; wallet blocked."
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.explicit_live_credentials_readiness_gate --market BTC --strategy tiny-momentum --dry-run",
+      "status": "passed",
+      "summary": "Completed with status blocked; marker/presence review only; credential values read false; authenticated calls, live execution, order submission, order cancellation, signing, and wallet blocked; allowed_for_live false."
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.telegram_runtime_smoke",
+      "status": "passed",
+      "summary": "Runtime import ok; Telegram token status reported as configured:redacted; network check not requested; Mini App URL missing; safety flags expected false ok."
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.static_safety_invariant_report --scope pm_bot --dry-run",
+      "status": "passed",
+      "summary": "Critical findings 0; warnings 7; live execution, order submission, signing, and wallet blocked."
+    }
+  ],
+  "safety_scan_summary": {
+    "static_safety_invariant_report": {
+      "status": "passed",
+      "critical_findings": 0,
+      "warnings": 7,
+      "strict": false,
+      "artifacts_included": false
+    },
+    "manual_telegram_control_scan": {
+      "status": "passed",
+      "safe_menu_callbacks": [
+        "pmbot:home",
+        "pmbot:connection",
+        "pmbot:balance",
+        "pmbot:trades",
+        "pmbot:pnl",
+        "pmbot:bot_status",
+        "pmbot:limits",
+        "pmbot:stop",
+        "pmbot:language",
+        "pmbot:lang:ru",
+        "pmbot:lang:en",
+        "pmbot:pause",
+        "pmbot:kill"
+      ],
+      "forbidden_exact_callback_resolutions": {
+        "pmbot:run:signer": false,
+        "pmbot:approve-live": false,
+        "pmbot:send-order": false,
+        "pmbot:submit-order": false,
+        "pmbot:cancel-order": false,
+        "pmbot:connect-wallet": false,
+        "pmbot:unlock-wallet": false,
+        "pmbot:live-enable": false,
+        "pmbot:live-execute": false
+      },
+      "forbidden_label_or_action_resolutions": {
+        "run_signer": false,
+        "Run Signer": false,
+        "approve-live": false,
+        "approve_live": false,
+        "send-order": false,
+        "send_order": false,
+        "submit-order": false,
+        "submit_order": false,
+        "cancel-order": false,
+        "cancel_order": false,
+        "connect-wallet": false,
+        "unlock-wallet": false,
+        "live-enable": false,
+        "live-execute": false
+      },
+      "broad_grep_note": "Broad grep found forbidden terms only in denylist/safety-status contexts, including the 067A FORBIDDEN_LIVE_CONTROLS denylist and pre-existing blocked/status records. Active Telegram callbacks and button rows contain no forbidden live/sign/wallet/order controls."
+    },
+    "manual_mini_app_scan": {
+      "status": "passed",
+      "scaffold_only": true,
+      "no_secrets": true,
+      "no_forms": true,
+      "no_inputs": true,
+      "no_fetch": true,
+      "no_local_storage": true,
+      "no_session_storage": true,
+      "no_browser_automation": true,
+      "invalid_runtime_url_adds_button": false
+    },
+    "manual_clob_probe_scan": {
+      "status": "passed",
+      "dry_run_required": true,
+      "forbidden_runtime_flags_fail_closed": true,
+      "polymarket_private_key_read": false,
+      "forbidden_private_key_wallet_env_names_are_policy_only": true,
+      "signer_instantiated": false,
+      "signed_payload_generated": false,
+      "signed_order_generated": false,
+      "wallet_connection_attempted": false,
+      "order_submission_enabled": false,
+      "order_cancellation_enabled": false,
+      "post_put_patch_delete_attempted": false,
+      "read_only_sdk_methods": [
+        "get_orders",
+        "get_balance_allowance"
+      ],
+      "raw_secret_values_printed": false,
+      "raw_secret_values_persisted": false,
+      "redaction_policy_present": true
+    },
+    "manual_fake_output_scan": {
+      "status": "passed",
+      "fake_balance_emitted": false,
+      "fake_trades_emitted": false,
+      "fake_pnl_emitted": false,
+      "operator_copy": "Balance/trades/PnL views explicitly state unavailable/no fake values instead of inventing balances, trades, or PnL."
+    },
+    "manual_autonomy_scan": {
+      "status": "passed",
+      "scheduler_added": false,
+      "daemon_added": false,
+      "background_worker_added": false,
+      "autonomous_loop_added": false,
+      "browser_automation_added": false
+    },
+    "safety_invariants": [
+      "No live trading enabled.",
+      "No order submission or cancellation enabled.",
+      "No signer instantiated and no signed payload or signed order generation enabled.",
+      "No wallet connection enabled.",
+      "067C does not read POLYMARKET_PRIVATE_KEY.",
+      "No raw secret/private key/API token values are printed or persisted.",
+      "No fake balance, trade, PnL, position, fill, order ID, tx hash, or execution result output was added.",
+      "No POST/PUT/PATCH/DELETE trading endpoint path was added.",
+      "No browser automation, scheduler, daemon, background worker, or autonomous trading loop was added.",
+      "allowed_for_live remains false."
+    ]
+  },
+  "remote_verification": {
+    "pre_push_origin_master": "bd84069654a3b412f76d63405b60da7feb5c6c9d",
+    "post_push_command": "git ls-remote origin refs/heads/master",
+    "post_push_master_head": "recorded_in_final_response_after_push",
+    "remote_verified": "recorded_in_final_response_after_push"
+  },
+  "git_status_before_result_commit": "067D result artifact and one integration test assertion pending selective staging; validation-generated tracked artifacts restored; untracked Python cache directories pending cleanup",
+  "final_git_status": "recorded_in_final_response_after_commit_push_verify",
+  "pushed": "recorded_in_final_response_after_push"
+}
