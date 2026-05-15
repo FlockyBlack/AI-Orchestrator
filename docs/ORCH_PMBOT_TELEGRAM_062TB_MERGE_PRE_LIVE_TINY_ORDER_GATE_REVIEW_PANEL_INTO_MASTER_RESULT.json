@@ -1,7 +1,7 @@
 {
   "task_id": "ORCH-PMBOT-TELEGRAM-062TB-MERGE-PRE-LIVE-TINY-ORDER-GATE-REVIEW-PANEL-INTO-MASTER",
   "status": "validated_pending_final_commit_push_verify",
-  "generated_at": "2026-05-15T10:05:28.4056629+04:00",
+  "generated_at": "2026-05-15T10:24:59.1583671+04:00",
   "repository": "https://github.com/FlockyBlack/AI-Orchestrator.git",
   "worktree": "C:/oc062tb_merge_telegram_pre_live_gate_review",
   "target_branch": "master",
@@ -17,6 +17,11 @@
   "merge_method": "fast_forward",
   "merge_commit_created": false,
   "merge_worktree_note": "The merge worktree was created detached at origin/master because local master was already checked out in historical worktrees. The validated result commit is pushed explicitly to refs/heads/master.",
+  "post_merge_safety_hardening": {
+    "applied": true,
+    "reason": "Manual scan found an inherited Telegram signer-boundary dry-run control from accepted master. The hard rule for this merge says signer controls must not be preserved, so the Telegram run action was removed while passive signer-boundary status visibility remains.",
+    "commit_status": "recorded_in_final_response_after_commit_push_verify"
+  },
   "pushed": "recorded_in_final_response_after_push",
   "remote_verified": "recorded_in_final_response_after_push",
   "changed_files_from_source_merge": [
@@ -35,6 +40,14 @@
     "pm_bot/trading_core/artifacts/telegram_pre_live_gate_review_062t/telegram_pre_live_gate_review_registry_snapshot_062t.json"
   ],
   "merge_result_artifact": "docs/ORCH_PMBOT_TELEGRAM_062TB_MERGE_PRE_LIVE_TINY_ORDER_GATE_REVIEW_PANEL_INTO_MASTER_RESULT.json",
+  "changed_files_after_safety_hardening": [
+    "docs/ORCH_PMBOT_TELEGRAM_062TB_MERGE_PRE_LIVE_TINY_ORDER_GATE_REVIEW_PANEL_INTO_MASTER_RESULT.json",
+    "pm_bot/operator_runner/telegram_status_registry.py",
+    "pm_bot/tests/test_telegram_operator_console_060t.py",
+    "pm_bot/tests/test_telegram_pre_live_gate_review_062t.py",
+    "pm_bot/trading_core/artifacts/telegram_pre_live_gate_review_062t/telegram_pre_live_gate_review_062t_result.json",
+    "pm_bot/trading_core/artifacts/telegram_pre_live_gate_review_062t/telegram_pre_live_gate_review_registry_snapshot_062t.json"
+  ],
   "validation_results": [
     {
       "command": "git fetch origin",
@@ -64,42 +77,42 @@
     {
       "command": "python -m pytest pm_bot/tests/test_telegram_pre_live_gate_review_062t.py",
       "status": "passed",
-      "summary": "7 passed in 2.54s"
+      "summary": "7 passed in 2.59s after signer-control hardening."
     },
     {
       "command": "python -m pytest pm_bot/tests/test_pre_live_tiny_order_gate_062p.py",
       "status": "passed",
-      "summary": "10 passed in 20.21s"
+      "summary": "10 passed in 18.86s after signer-control hardening."
     },
     {
       "command": "python -m pytest pm_bot/tests/test_telegram_tiny_order_review_061t.py",
       "status": "passed",
-      "summary": "8 passed in 36.55s"
+      "summary": "8 passed in 37.55s after signer-control hardening."
     },
     {
       "command": "python -m pytest pm_bot/tests/test_tiny_order_scaffold_061.py",
       "status": "passed",
-      "summary": "13 passed in 33.69s"
+      "summary": "13 passed in 34.38s after signer-control hardening."
     },
     {
       "command": "python -m pytest pm_bot/tests/test_telegram_operator_console_060t.py",
       "status": "passed",
-      "summary": "8 passed in 9.54s"
+      "summary": "8 passed in 9.15s after signer-control hardening."
     },
     {
       "command": "python -m pytest pm_bot/tests/test_signer_boundary_preflight_060.py",
       "status": "passed",
-      "summary": "11 passed in 4.47s"
+      "summary": "11 passed in 4.41s after signer-control hardening."
     },
     {
       "command": "python -m pytest pm_bot/tests/test_static_safety_invariant_report_060q.py",
       "status": "passed",
-      "summary": "9 passed in 18.86s"
+      "summary": "9 passed in 19.00s after signer-control hardening."
     },
     {
       "command": "python -B -m pytest pm_bot/tests",
       "status": "passed",
-      "summary": "1890 passed in 486.38s"
+      "summary": "1890 passed in 466.24s after signer-control hardening."
     },
     {
       "command": "python -m compileall -q pm_bot",
@@ -144,9 +157,9 @@
   ],
   "manual_safety_scan": {
     "status": "passed",
-    "summary": "062T-added Telegram controls are limited to the pre-live tiny order gate status view and one safe dry-run command: run_pre_live_tiny_order_gate_062p_review_dry_run -> python -m pm_bot.operator_runner.pre_live_tiny_order_gate --market BTC --strategy tiny-momentum --dry-run.",
-    "exact_forbidden_control_scan": "Exact forbidden strings approve-live, send-order, submit-order, cancel-order, connect-wallet, unlock-wallet, live-enable, and live-execute appeared only in the 062T test denylist, the documentation safety statement, and the registry forbidden-command denylist for --approve-live.",
-    "sign_signer_wallet_scan": "The 062T diff adds false safety flags and blocker text for signing/signed payload/wallet availability; it does not add a live signing, signer, wallet, order-submission, or live-execution Telegram control. An inherited 060 signer-boundary preflight dry-run action already existed on accepted master and remains dry-run/preflight only.",
+    "summary": "Telegram controls are limited to passive status/read buttons and safe dry-run/preflight actions. The pre-live 062T control remains run_pre_live_tiny_order_gate_062p_review_dry_run -> python -m pm_bot.operator_runner.pre_live_tiny_order_gate --market BTC --strategy tiny-momentum --dry-run.",
+    "exact_forbidden_control_scan": "Exact forbidden strings approve-live, send-order, submit-order, cancel-order, connect-wallet, unlock-wallet, live-enable, and live-execute appear only in the 062T test denylist, this result artifact, and the registry forbidden-command denylist for --approve-live.",
+    "sign_signer_wallet_scan": "No Telegram action_id, callback_data, or run label remains for signer/sign/wallet controls. The inherited run_signer_boundary_preflight_060 action was removed from SAFE_ACTIONS, the console button layout, supported Telegram action modules, and regenerated 062T registry artifacts. Passive signer-boundary status source labels remain status-only and are not Telegram run controls.",
     "control_artifact_status": "telegram_pre_live_gate_review_controls_062t.json reports status=safe_review_and_dry_run_controls_only, dry_run_only=true, dry_run_actions_only=true, and the allowed command includes --dry-run."
   },
   "safety_invariant_confirmation": {
@@ -181,6 +194,7 @@
     "order_cancelled": false,
     "balances_positions_fills_pnl_order_ids_or_tx_hashes_fetched_or_faked": false,
     "telegram_062t_live_order_sign_wallet_controls_added": false,
+    "telegram_signer_control_preserved": false,
     "telegram_062t_review_only_or_dry_run_only": true,
     "paper_mode_only": true
   },

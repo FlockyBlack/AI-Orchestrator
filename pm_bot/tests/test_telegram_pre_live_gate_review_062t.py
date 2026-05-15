@@ -71,6 +71,9 @@ FORBIDDEN_LIVE_CONTROL_TERMS = (
     "unlock wallet",
     "live enable",
     "live execute",
+    "sign",
+    "signer",
+    "wallet",
 )
 
 

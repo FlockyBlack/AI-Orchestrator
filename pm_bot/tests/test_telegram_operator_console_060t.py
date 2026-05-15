@@ -243,7 +243,6 @@ def test_telegram_panel_menu_contains_safe_dry_run_and_preflight_actions(tmp_pat
         "Run Live Connector Preflight 056",
         "Run Authenticated CLOB Preflight 057/058",
         "Run No-Order Auth GET Preflight 059",
-        "Run Signer Boundary Preflight 060",
         "Run Pre-live Gate 062P Dry-Run",
         "Show Latest Status",
         "Show Blockers",
@@ -258,12 +257,15 @@ def test_telegram_menu_has_no_live_execution_wallet_balance_position_or_fill_con
     for language in ("en", "ru"):
         rows = telegram_console_button_rows(language)
         labels = tuple(label for row in rows for label, _callback_data in row)
-        rendered = " ".join(labels).lower()
+        callbacks = tuple(callback_data for row in rows for _label, callback_data in row)
+        rendered = " ".join([*labels, *callbacks]).lower()
 
         assert "send order" not in rendered
         assert "cancel order" not in rendered
         assert "sign payload" not in rendered
+        assert "signer" not in rendered
         assert "connect wallet" not in rendered
+        assert "wallet" not in rendered
         assert "approve live" not in rendered
         assert "enable live" not in rendered
         assert "view balance" not in rendered

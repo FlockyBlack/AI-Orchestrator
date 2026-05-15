@@ -315,14 +315,6 @@ SAFE_ACTIONS: tuple[TelegramSafeAction, ...] = (
         args=("--market", "BTC", "--dry-run", "--no-order-auth-get"),
     ),
     TelegramSafeAction(
-        action_id="run_signer_boundary_preflight_060",
-        callback_data="pmbot:run:signer_boundary_preflight_060",
-        label_en="Run Signer Boundary Preflight 060",
-        label_ru="Граница подписи 060",
-        module="pm_bot.operator_runner.signer_boundary_preflight",
-        args=("--market", "BTC", "--strategy", "tiny-momentum", "--dry-run"),
-    ),
-    TelegramSafeAction(
         action_id="run_tiny_order_scaffold_061",
         callback_data="pmbot:run:tiny_order_scaffold_061",
         label_en="Run Tiny Scaffold 061",
@@ -926,7 +918,6 @@ def telegram_console_button_rows(language: str) -> tuple[tuple[tuple[str, str], 
         ("run_live_connector_preflight_056",),
         ("run_authenticated_clob_preflight_057_058",),
         ("run_no_order_auth_get_preflight_059",),
-        ("run_signer_boundary_preflight_060",),
         ("run_tiny_order_scaffold_061",),
         ("run_pre_live_tiny_order_gate_062p_review_dry_run",),
     ]
@@ -968,7 +959,6 @@ def validate_safe_action(action: TelegramSafeAction) -> list[str]:
         "pm_bot.operator_runner.paper_decision_ledger",
         "pm_bot.operator_runner.live_connector_preflight",
         "pm_bot.operator_runner.authenticated_clob_preflight",
-        "pm_bot.operator_runner.signer_boundary_preflight",
         "pm_bot.operator_runner.tiny_order_scaffold",
         "pm_bot.operator_runner.pre_live_tiny_order_gate",
     }:
