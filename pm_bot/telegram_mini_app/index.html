@@ -52,40 +52,48 @@
       </section>
 
       <section class="dashboard-grid" aria-label="PMBOT product dashboard">
-        <article class="card connection-card" id="connection" data-contract="credentials configured: unknown/not connected">
+        <article class="card connection-card" id="connection" data-contract="real check results: local static artifacts only; no live controls">
           <div class="card-header">
             <span class="card-icon" aria-hidden="true">🔐</span>
             <div>
-              <p class="card-label">Подключение</p>
-              <h3>Доступ к аккаунту</h3>
+              <p class="card-label">Проверка подключения</p>
+              <h3>Проверка подключения</h3>
             </div>
           </div>
-          <dl class="status-list">
+          <dl class="status-list real-check-list" aria-label="Статус локальной проверки подключения">
             <div>
               <dt>API ключи</dt>
-              <dd><span class="badge neutral">неизвестно</span><small>добавлены / не добавлены / неизвестно</small></dd>
-            </div>
-            <div>
-              <dt>Private key</dt>
-              <dd><span class="badge neutral">неизвестно</span><small>добавлен / не добавлен / неизвестно</small></dd>
-            </div>
-            <div>
-              <dt>Wallet</dt>
-              <dd><span class="badge muted">не указан</span><small>если есть артефакт: 0x3006...8989</small></dd>
-            </div>
-            <div>
-              <dt>Signature type</dt>
-              <dd><span class="badge muted">не указан</span><small>например 3 только из локального статуса</small></dd>
-            </div>
-            <div>
-              <dt>Funder</dt>
-              <dd><span class="badge muted">не указан</span><small>показывается только как redacted status</small></dd>
+              <dd><span class="badge muted">не найдены</span><small>presence-only из локального artifact</small></dd>
             </div>
             <div>
               <dt>L2 auth</dt>
-              <dd><span class="badge warning">не проверен</span><small>OK / ошибка только при наличии артефакта</small></dd>
+              <dd><span class="badge danger">ошибка</span><small>blocked_missing_l2_credentials</small></dd>
+            </div>
+            <div>
+              <dt>Аккаунт</dt>
+              <dd><span class="badge danger">ошибка</span><small>read-only account check blocked</small></dd>
+            </div>
+            <div>
+              <dt>Signer</dt>
+              <dd><span class="badge warning">не проверен</span><small>diagnostic_not_requested</small></dd>
+            </div>
+            <div>
+              <dt>Рынок</dt>
+              <dd><span class="badge neutral">найден</span><small>source-backed discovery artifact</small></dd>
+            </div>
+            <div>
+              <dt>Token ID</dt>
+              <dd><span class="badge warning">требуется выбор</span><small>raw value не показан</small></dd>
+            </div>
+            <div>
+              <dt>Live</dt>
+              <dd><span class="badge danger">выключен</span><small>allowed_for_live=false</small></dd>
             </div>
           </dl>
+          <div class="empty-state artifact-empty-note">
+            <strong>Если локальных артефактов нет: Проверка ещё не запускалась</strong>
+            <p>Карточка читает только committed local snapshots и не делает network fetch.</p>
+          </div>
         </article>
 
         <article class="card" id="balance" data-contract="balance: not connected">

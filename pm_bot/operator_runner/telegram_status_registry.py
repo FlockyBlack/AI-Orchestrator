@@ -10,6 +10,11 @@ from pathlib import Path
 from typing import Any, Callable, Mapping, Sequence
 
 from pm_bot.trading_core.schemas import GENERATED_AT, clean_text, load_json_object, normalize_path, write_json
+from pm_bot.trading_core.telegram_real_check_results_display_073t import (
+    ARTIFACT_DIR_NAME as TELEGRAM_REAL_CHECK_RESULTS_073T_ARTIFACT_DIR_NAME,
+    LATEST_STATUS_FILENAME as TELEGRAM_REAL_CHECK_RESULTS_073T_LATEST_STATUS_FILENAME,
+    normalize_telegram_real_check_results_status_summary,
+)
 from pm_bot.trading_core.telegram_order_prep_packet_status_072b import (
     ARTIFACT_DIR_NAME as TELEGRAM_ORDER_PREP_PACKET_STATUS_072B_ARTIFACT_DIR_NAME,
     LATEST_STATUS_FILENAME as TELEGRAM_ORDER_PREP_PACKET_STATUS_072B_LATEST_STATUS_FILENAME,
@@ -34,6 +39,7 @@ TASK_ID_064T = "ORCH-PMBOT-TELEGRAM-064T-CREDENTIALS-READINESS-REVIEW-PANEL"
 TELEGRAM_CONNECTION_STATUS_067E_FLOW_ID = "telegram_connection_status_067e"
 TELEGRAM_ORDER_PREP_STATUS_071E_FLOW_ID = "telegram_order_prep_status_071e"
 TELEGRAM_ORDER_PREP_PACKET_STATUS_072B_FLOW_ID = "telegram_order_prep_packet_status_072b"
+TELEGRAM_REAL_CHECK_RESULTS_073T_FLOW_ID = "telegram_real_check_results_073t"
 STATUS_REGISTRY_CONTRACT = "pmbot_telegram_operator_console_060t_status_registry.v1"
 STATUS_CARD_CONTRACT = "pmbot_telegram_operator_console_060t_status_card.v1"
 READINESS_SUMMARY_CONTRACT = "pmbot_telegram_operator_console_060t_readiness.v1"
@@ -393,6 +399,15 @@ STATUS_SOURCES: tuple[TelegramStatusSource, ...] = (
         label_ru="Подключение 067E",
     ),
     TelegramStatusSource(
+        flow_id=TELEGRAM_REAL_CHECK_RESULTS_073T_FLOW_ID,
+        section="Live Readiness",
+        artifact_dir_name=TELEGRAM_REAL_CHECK_RESULTS_073T_ARTIFACT_DIR_NAME,
+        latest_status_filename=TELEGRAM_REAL_CHECK_RESULTS_073T_LATEST_STATUS_FILENAME,
+        context_key="telegram_real_check_results_073t_status_summary",
+        label_en="Real-check results display",
+        label_ru="Проверка подключения",
+    ),
+    TelegramStatusSource(
         flow_id=TELEGRAM_ORDER_PREP_STATUS_071E_FLOW_ID,
         section="Live Readiness",
         artifact_dir_name=TELEGRAM_ORDER_PREP_STATUS_071E_ARTIFACT_DIR_NAME,
@@ -500,6 +515,14 @@ SAFE_ACTIONS: tuple[TelegramSafeAction, ...] = (
         label_ru="Запустить read-only проверку",
         module="pm_bot.operator_runner.telegram_connection_status_dashboard",
         args=("--dry-run",),
+    ),
+    TelegramSafeAction(
+        action_id="run_local_real_check_bundle_072c",
+        callback_data="pmbot:run:local_real_check_bundle_072c",
+        label_en="Run local real-check bundle 072C",
+        label_ru="Запустить локальную проверку",
+        module="pm_bot.operator_runner.local_real_check_bundle",
+        args=("--market", "BTC", "--strategy", "tiny-momentum", "--dry-run"),
     ),
 )
 
@@ -1490,6 +1513,7 @@ def telegram_console_button_rows(language: str) -> tuple[tuple[tuple[str, str], 
         ("run_pre_live_tiny_order_gate_062p_review_dry_run",),
         ("run_credentials_readiness_review_064_dry_run",),
         ("run_connection_status_067e",),
+        ("run_local_real_check_bundle_072c",),
     ]
     actions_by_id = {action.action_id: action for action in SAFE_ACTIONS}
     for row in action_rows:
@@ -1533,6 +1557,7 @@ def validate_safe_action(action: TelegramSafeAction) -> list[str]:
         "pm_bot.operator_runner.pre_live_tiny_order_gate",
         "pm_bot.operator_runner.explicit_live_credentials_readiness_gate",
         "pm_bot.operator_runner.telegram_connection_status_dashboard",
+        "pm_bot.operator_runner.local_real_check_bundle",
     }:
         errors.append(f"unsupported module for Telegram action {action.action_id}")
     return errors
@@ -1660,6 +1685,8 @@ def _build_status_card(
         status_summary.update(_credentials_readiness_review_status_summary(credentials_readiness_review))
     if source.flow_id == TELEGRAM_ORDER_PREP_PACKET_STATUS_072B_FLOW_ID:
         status_summary.update(normalize_telegram_order_prep_packet_status_summary(payload))
+    if source.flow_id == TELEGRAM_REAL_CHECK_RESULTS_073T_FLOW_ID:
+        status_summary.update(normalize_telegram_real_check_results_status_summary(payload))
     return {
         "contract_version": STATUS_CARD_CONTRACT,
         "task_id": TASK_ID,

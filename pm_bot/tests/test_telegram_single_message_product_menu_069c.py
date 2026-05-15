@@ -86,6 +86,31 @@ def _context() -> dict[str, Any]:
             "wallet_connection_attempted": False,
             "signing_enabled": False,
         },
+        "telegram_real_check_results_073t_status_summary": {
+            "contract_version": "pmbot_telegram_real_check_results_status_073t.v1",
+            "source_artifact_available": True,
+            "api_keys_found": True,
+            "api_keys_display_ru": "найдены",
+            "l2_auth_status": "ok",
+            "l2_auth_display_ru": "OK",
+            "account_status": "ok",
+            "account_display_ru": "OK",
+            "signer_status": "ok",
+            "signer_display_ru": "OK",
+            "market_found": True,
+            "market_display_ru": "найден",
+            "token_id_selected": True,
+            "token_id_display_ru": "выбран",
+            "live_enabled": False,
+            "live_display_ru": "выключен",
+            "raw_token_id_exposed": False,
+            "raw_account_values_exposed": False,
+            "raw_secret_output": False,
+            "allowed_for_live": False,
+            "order_submission_enabled": False,
+            "wallet_connection_attempted": False,
+            "signing_attempted": False,
+        },
     }
 
 
@@ -215,7 +240,7 @@ def test_every_product_screen_has_back_button_and_expected_scoped_buttons() -> N
     adapter.handle_callback(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", callback_data="pmbot:lang:ru")
 
     expected = {
-        "pmbot:connection": ("🧪 Проверить подключение", "🖥 Mini App", "⬅️ Назад"),
+        "pmbot:connection": ("🔄 Обновить", "🧪 Запустить локальную проверку", "⬅️ Назад"),
         "pmbot:balance": ("🧪 Проверить подключение", "⬅️ Назад"),
         "pmbot:trades": ("🧪 Проверить подключение", "⬅️ Назад"),
         "pmbot:pnl": ("⬅️ Назад",),
@@ -237,14 +262,14 @@ def test_connection_screen_redacts_all_secrets_and_shows_presence_only_status() 
     reply = adapter.handle_callback(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", callback_data="pmbot:connection")
     rendered = _rendered(reply)
 
-    assert "🔐 Подключение" in reply.text
-    assert "API ключи: добавлены" in reply.text
-    assert "Private key: добавлен" in reply.text
-    assert "Wallet: 0x3006...8989" in reply.text
-    assert "Signature type: 3" in reply.text
-    assert "Funder: 0x1111...5555" in reply.text
+    assert "🔐 Проверка подключения" in reply.text
+    assert "API ключи: найдены" in reply.text
     assert "L2 auth: OK" in reply.text
-    assert "Значения ключей никогда не показываются" in reply.text
+    assert "Аккаунт: OK" in reply.text
+    assert "Signer: OK" in reply.text
+    assert "Рынок: найден" in reply.text
+    assert "Token ID: выбран" in reply.text
+    assert "Live: выключен" in reply.text
     for raw in (RAW_PRIVATE_KEY, RAW_API_SECRET, RAW_PASSPHRASE, RAW_WALLET, RAW_FUNDER):
         assert raw not in rendered
 

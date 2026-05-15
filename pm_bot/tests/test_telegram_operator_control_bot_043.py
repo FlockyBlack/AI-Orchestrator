@@ -265,9 +265,10 @@ def test_btc_intent_risk_auth_order_gonogo_evidence_and_blockers_commands() -> N
     assert "order_intent_is_not_order_submission: true" in intent.text
     assert "Max order: 1" in risk.text
     assert "Max orders/day: 2" in risk.text
+    assert "🔐 Проверка подключения" in auth.text
     assert "API ключи:" in auth.text
     assert AUTHORIZED_USER_ID not in auth.text
-    assert "Значения ключей никогда не показываются." in auth.text
+    assert "Live: выключен" in auth.text
     assert "order_submission_enabled: false" in order.text
     assert "would_submit_order: false" in order.text
     assert "Итог: NO_GO" in gonogo.text
