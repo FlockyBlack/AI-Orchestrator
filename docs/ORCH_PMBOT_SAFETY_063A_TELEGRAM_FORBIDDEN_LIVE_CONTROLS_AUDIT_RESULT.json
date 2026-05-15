@@ -1,0 +1,104 @@
+{
+  "task_id": "ORCH-PMBOT-SAFETY-063A-REBASE-TELEGRAM-FORBIDDEN-LIVE-CONTROLS-AUDIT-ONTO-063B-MASTER",
+  "status": "implemented_validated_pending_commit_push",
+  "worktree": "C:/oc063a_rebase_forbidden_controls_audit_onto_063b_master",
+  "branch": "pmbot/safety-063a-forbidden-controls-audit-on-063b-master",
+  "base": "master",
+  "required_base_head": "ee2363b75209b3ba9375ea0cd6a8dd5780a456e1",
+  "source_branch": "pmbot/safety-063a-telegram-forbidden-live-controls-audit",
+  "source_head": "b9273a37234f16e2304874b2731d32dfad7729a2",
+  "head_before": "ee2363b75209b3ba9375ea0cd6a8dd5780a456e1",
+  "head_after": "POST_PUSH_HEAD_REPORTED_IN_FINAL_CHAT",
+  "pushed": false,
+  "remote_verified": false,
+  "changed_files": [
+    "docs/ORCH_PMBOT_SAFETY_063A_TELEGRAM_FORBIDDEN_LIVE_CONTROLS_AUDIT.md",
+    "docs/ORCH_PMBOT_SAFETY_063A_TELEGRAM_FORBIDDEN_LIVE_CONTROLS_AUDIT_RESULT.json",
+    "pm_bot/tests/test_telegram_forbidden_live_controls_063a.py"
+  ],
+  "validation_results": [
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_forbidden_live_controls_063a.py",
+      "status": "passed",
+      "summary": "3 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_operator_console_060t.py",
+      "status": "passed",
+      "summary": "8 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_pre_live_gate_review_062t.py",
+      "status": "passed",
+      "summary": "7 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_static_safety_invariant_report_060q.py",
+      "status": "passed",
+      "summary": "9 passed"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.telegram_runtime_smoke",
+      "status": "passed",
+      "summary": "Ready to start runtime: true; Safety flags expected false: ok; network check not requested"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.static_safety_invariant_report --scope pm_bot --dry-run",
+      "status": "passed",
+      "summary": "Critical findings: 0; warnings: 7; live execution/order submission/signing/wallet blocked"
+    },
+    {
+      "command": "python -m compileall -q pm_bot",
+      "status": "passed",
+      "summary": "no output"
+    },
+    {
+      "command": "python -m compileall -q ai_orchestrator",
+      "status": "passed",
+      "summary": "no output"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed",
+      "summary": "no output"
+    },
+    {
+      "command": "git diff --cached --check",
+      "status": "passed",
+      "summary": "no output after selective staging"
+    }
+  ],
+  "safety_scan_result": {
+    "focused_telegram_control_scan": "passed",
+    "static_safety_invariant_report": "passed",
+    "critical_findings": 0,
+    "warnings": 7,
+    "forbidden_telegram_control_terms_found": [],
+    "run_signer_action_present": false,
+    "pmbot_run_signer_callback_present": false,
+    "run_signer_label_present": false,
+    "forbidden_062t_control_flags_all_false": true
+  },
+  "safety_confirmation": {
+    "telegram_runtime_features_added": false,
+    "live_execution_added": false,
+    "signing_added": false,
+    "wallet_access_added": false,
+    "order_submission_added": false,
+    "order_cancellation_added": false,
+    "real_trading_enabled": false,
+    "browser_automation_added": false,
+    "scheduler_daemon_background_loop_added": false,
+    "authenticated_endpoint_calls_added": false,
+    "network_check_requested": false,
+    "private_key_seed_or_secret_reads_added": false
+  },
+  "audit_notes": [
+    "The 063A commit was replayed onto required 063B master head ee2363b75209b3ba9375ea0cd6a8dd5780a456e1 without carrying the source branch's older-base deletions.",
+    "Safety prose can still say signing, wallet access, and order submission are blocked; the focused audit scans executable Telegram control surfaces separately from blocked-boundary documentation.",
+    "The static safety report command rewrote generated 060Q artifact snapshots during validation; those validation byproducts were restored and are not part of this audit change."
+  ],
+  "remaining_risks": [
+    "Final push state, remote verification, and final branch head are reported in the operator response after commit and push."
+  ]
+}
