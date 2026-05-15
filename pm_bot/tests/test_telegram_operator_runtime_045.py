@@ -255,7 +255,7 @@ def test_panel_with_optional_mini_app_url_uses_button_without_exposing_secrets()
     assert reply.authorized is True
     assert "Telegram Mini App Operator Panel v1" in reply.text
     assert "Mini App настроен. Открой панель кнопкой ниже." in reply.text
-    assert reply.panel_button_text == "Открыть PMBOT Mini App"
+    assert reply.panel_button_text == runtime.PANEL_BUTTON_TEXT
     assert reply.panel_button_url == MINI_APP_URL
     assert RAW_TOKEN not in rendered
     assert AUTHORIZED_USER_ID not in rendered
@@ -265,7 +265,7 @@ def test_panel_without_mini_app_url_returns_static_artifact_message() -> None:
     reply = _adapter().handle_text(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", text="/panel")
 
     assert "Panel artifact доступен: true" in reply.text
-    assert "Mini App URL пока не настроен" in reply.text
+    assert "Mini App URL не настроен" in reply.text
     assert reply.panel_button_url == ""
 
 

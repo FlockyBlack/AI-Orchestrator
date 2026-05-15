@@ -93,7 +93,7 @@ def test_runtime_panel_missing_url_keeps_local_fallback_review_only() -> None:
     reply = adapter.handle_text(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", text="/panel")
     redacted = reply.to_redacted_dict()
 
-    assert "Mini App URL пока не настроен." in reply.text
+    assert "Mini App URL не настроен." in reply.text
     assert "PMBOT_TELEGRAM_MINI_APP_URL" in reply.text
     assert reply.panel_button_url == ""
     assert redacted["review_only"] is True

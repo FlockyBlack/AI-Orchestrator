@@ -229,7 +229,7 @@ def test_panel_with_mini_app_url_includes_safe_russian_button_without_redacted_u
     redacted = json.dumps(reply.to_redacted_dict(), sort_keys=True)
 
     assert "Mini App настроен. Открой панель кнопкой ниже." in reply.text
-    assert first_button.label == "Открыть PMBOT Mini App"
+    assert first_button.label == "Открыть PMBOT"
     assert first_button.web_app_url == MINI_APP_URL
     assert reply.panel_button_url == MINI_APP_URL
     assert MINI_APP_URL not in redacted
@@ -244,7 +244,7 @@ def test_panel_without_mini_app_url_gives_clear_russian_local_tunnel_fallback() 
 
     reply = adapter.handle_text(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", text="/panel")
 
-    assert "Mini App URL пока не настроен." in reply.text
+    assert "Mini App URL не настроен." in reply.text
     assert "HTTPS-туннель" in reply.text
     assert "PMBOT_TELEGRAM_MINI_APP_URL" in reply.text
     assert reply.panel_button_url == ""

@@ -209,9 +209,9 @@ def test_panel_includes_mini_app_url_button_when_configured_without_exposing_url
 
     assert "Telegram Mini App Operator Panel v1" in reply.text
     assert "Mini App настроен. Открой панель кнопкой ниже." in reply.text
-    assert reply.panel_button_text == "Открыть PMBOT Mini App"
+    assert reply.panel_button_text == runtime.PANEL_BUTTON_TEXT
     assert reply.panel_button_url == MINI_APP_URL
-    assert first_button.label == "Открыть PMBOT Mini App"
+    assert first_button.label == runtime.PANEL_BUTTON_TEXT
     assert first_button.web_app_url == MINI_APP_URL
     assert MINI_APP_URL not in redacted
 
@@ -237,7 +237,7 @@ def test_panel_output_does_not_expose_token_init_data_or_raw_operator_ids() -> N
 def test_panel_fallback_when_mini_app_url_is_missing() -> None:
     reply = _adapter().handle_text(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", text="/panel")
 
-    assert "Mini App URL пока не настроен" in reply.text
+    assert "Mini App URL не настроен" in reply.text
     assert "Panel artifact доступен: true" in reply.text
     assert reply.panel_button_url == ""
     assert _label_rows(reply) == (

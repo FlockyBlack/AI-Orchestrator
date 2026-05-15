@@ -50,8 +50,8 @@ PANEL_FALLBACK_BUTTON_ROWS_BY_LANGUAGE = {
 }
 
 PANEL_LAUNCH_BUTTON_LABELS = {
-    "ru": "Открыть PMBOT Mini App",
-    "en": "Open PMBOT Mini App",
+    "ru": "Открыть PMBOT",
+    "en": "Открыть PMBOT",
 }
 
 TINY_ORDER_REVIEW_LABELS = {

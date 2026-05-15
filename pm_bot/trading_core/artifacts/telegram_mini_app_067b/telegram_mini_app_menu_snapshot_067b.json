@@ -1,0 +1,47 @@
+{
+  "contract_version": "pmbot_telegram_mini_app_menu_snapshot_067b.v1",
+  "generated_at": "2026-05-15T00:00:00+04:00",
+  "launch_button": {
+    "callback_data": "",
+    "env_marker": "PMBOT_TELEGRAM_MINI_APP_URL",
+    "label": "Открыть PMBOT",
+    "url_marker_driven_only": true
+  },
+  "menu_items": [
+    {
+      "id": "home",
+      "label": "Главная"
+    },
+    {
+      "id": "connection",
+      "label": "Подключение"
+    },
+    {
+      "id": "account_view",
+      "label": "Баланс"
+    },
+    {
+      "id": "deal_history",
+      "label": "Сделки"
+    },
+    {
+      "id": "performance_placeholder",
+      "label": "PnL"
+    },
+    {
+      "id": "status",
+      "label": "Статус"
+    },
+    {
+      "id": "limits",
+      "label": "Лимиты"
+    },
+    {
+      "id": "stop",
+      "label": "Стоп"
+    }
+  ],
+  "review_only": true,
+  "safe_menu": true,
+  "task_id": "ORCH-PMBOT-TELEGRAM-067B-MINI-APP-SCAFFOLD-NO-SECRETS-NO-LIVE"
+}
