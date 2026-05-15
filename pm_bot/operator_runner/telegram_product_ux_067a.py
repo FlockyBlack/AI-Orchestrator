@@ -35,6 +35,7 @@ RU_MAIN_MENU_LABELS = (
     "⚙️ Лимиты",
     "🧪 Проверка подключения",
     "🖥 Открыть PMBOT",
+    "🧪 Подготовка ордера",
     "🚨 Стоп",
     "🌐 Язык",
 )
@@ -48,6 +49,7 @@ EN_MAIN_MENU_LABELS = (
     "⚙️ Limits",
     "🧪 Connection Check",
     "🖥 Open PMBOT",
+    "🧪 Order Prep",
     "🚨 Stop",
     "🌐 Language",
 )
@@ -57,6 +59,7 @@ PRODUCT_COMMANDS = (
     "/home",
     "/connection",
     "/connection_status",
+    "/order_prep_status",
     "/balance",
     "/trades",
     "/pnl",

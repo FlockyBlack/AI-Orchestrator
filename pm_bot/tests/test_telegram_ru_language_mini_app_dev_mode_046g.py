@@ -21,6 +21,7 @@ MINI_APP_URL = "https://example.invalid/pmbot-panel"
 REQUIRED_STABLE_CALLBACKS = {
     "pmbot:connection",
     "pmbot:connection_status",
+    "pmbot:order_prep_status",
     "pmbot:balance",
     "pmbot:trades",
     "pmbot:pnl",
@@ -188,6 +189,7 @@ def test_russian_home_keyboard_uses_expected_labels_and_stable_callbacks() -> No
         "⚙️ Лимиты",
         "🧪 Проверка подключения",
         "🖥 Открыть PMBOT",
+        "🧪 Подготовка ордера",
         "🚨 Стоп",
         "🌐 Язык",
     )

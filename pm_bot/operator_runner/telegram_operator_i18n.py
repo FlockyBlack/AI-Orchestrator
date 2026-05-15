@@ -25,6 +25,7 @@ HOME_BUTTON_ROWS_BY_LANGUAGE = {
         (("📊 Сделки", "pmbot:trades"), ("📈 PnL", "pmbot:pnl")),
         (("🤖 Статус бота", "pmbot:bot_status"), ("⚙️ Лимиты", "pmbot:limits")),
         (("🧪 Проверка подключения", "pmbot:connection_status"), ("🖥 Открыть PMBOT", "pmbot:panel")),
+        (("🧪 Подготовка ордера", "pmbot:order_prep_status"),),
         (("🚨 Стоп", "pmbot:stop"), ("🌐 Язык", "pmbot:language")),
     ),
     "en": (
@@ -32,6 +33,7 @@ HOME_BUTTON_ROWS_BY_LANGUAGE = {
         (("📊 Trades", "pmbot:trades"), ("📈 PnL", "pmbot:pnl")),
         (("🤖 Bot Status", "pmbot:bot_status"), ("⚙️ Limits", "pmbot:limits")),
         (("🧪 Connection Check", "pmbot:connection_status"), ("🖥 Open PMBOT", "pmbot:panel")),
+        (("🧪 Order Prep", "pmbot:order_prep_status"),),
         (("🚨 Stop", "pmbot:stop"), ("🌐 Language", "pmbot:language")),
     ),
 }
@@ -63,6 +65,17 @@ CONNECTION_STATUS_BUTTON_ROWS_BY_LANGUAGE = {
     "en": (
         (("Refresh status", "pmbot:connection_status"),),
         (("Run read-only status check", "pmbot:run:connection_status_067e"),),
+        (("Back", "pmbot:home"),),
+    ),
+}
+
+ORDER_PREP_STATUS_BUTTON_ROWS_BY_LANGUAGE = {
+    "ru": (
+        (("Обновить статус", "pmbot:order_prep_status"),),
+        (("Назад", "pmbot:home"),),
+    ),
+    "en": (
+        (("Refresh status", "pmbot:order_prep_status"),),
         (("Back", "pmbot:home"),),
     ),
 }
@@ -286,6 +299,12 @@ def connection_status_button_rows(language: str) -> tuple[tuple[tuple[str, str],
     ]
 
 
+def order_prep_status_button_rows(language: str) -> tuple[tuple[tuple[str, str], ...], ...]:
+    return ORDER_PREP_STATUS_BUTTON_ROWS_BY_LANGUAGE[
+        normalize_operator_language(language, fallback=DEFAULT_OPERATOR_LANGUAGE)
+    ]
+
+
 def language_selection_button_rows() -> tuple[tuple[tuple[str, str], ...], ...]:
     return LANGUAGE_SELECTION_BUTTON_ROWS
 
@@ -331,6 +350,7 @@ def all_button_rows() -> tuple[tuple[tuple[str, str], ...], ...]:
         rows.extend(panel_fallback_button_rows(language))
         rows.extend(operator_console_button_rows(language))
         rows.extend(connection_status_button_rows(language))
+        rows.extend(order_prep_status_button_rows(language))
     rows.extend(language_selection_button_rows())
     return tuple(rows)
 
@@ -361,7 +381,7 @@ def render_home(language: str) -> str:
                 "Подписание и исполнение через кошелёк выключены",
                 (
                     "Используй меню ниже: Подключение, Баланс, Сделки, PnL, Статус бота, "
-                    "Лимиты, Проверка подключения, Открыть PMBOT, Стоп, Язык."
+                    "Лимиты, Проверка подключения, Подготовка ордера, Открыть PMBOT, Стоп, Язык."
                 ),
             ]
         )

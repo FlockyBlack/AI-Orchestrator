@@ -148,6 +148,7 @@ def test_main_menu_contains_product_labels_and_no_primary_debug_labels() -> None
         "pmbot:limits",
         "pmbot:connection_status",
         "pmbot:panel",
+        "pmbot:order_prep_status",
         "pmbot:stop",
         "pmbot:language",
     )

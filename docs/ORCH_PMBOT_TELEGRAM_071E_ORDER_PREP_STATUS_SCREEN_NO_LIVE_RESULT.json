@@ -1,0 +1,130 @@
+{
+  "task_id": "ORCH-PMBOT-TELEGRAM-071E-ORDER-PREP-STATUS-SCREEN-NO-LIVE",
+  "status": "validated_pending_commit_push_verify",
+  "generated_at": "2026-05-15T00:00:00+04:00",
+  "repository": "https://github.com/FlockyBlack/AI-Orchestrator.git",
+  "worktree": "C:/oc071e_telegram_order_prep_status_screen_no_live",
+  "branch": "pmbot/telegram-071e-order-prep-status-screen-no-live",
+  "base_branch": "master",
+  "required_base_head": "010bb351ab17e60275d4d6d0771f95ab8058e255",
+  "head_before": "010bb351ab17e60275d4d6d0771f95ab8058e255",
+  "head_after": "recorded_in_final_response_after_commit_push_verify",
+  "head_after_note": "The final commit cannot self-record its own SHA inside this committed JSON artifact because embedding the SHA would change the SHA. The final response records the pushed and remotely verified feature branch HEAD.",
+  "implementation_summary": [
+    "Added a local-only 071E Telegram order-prep status builder that reads existing discovery/token/account/signed-payload dry-run artifacts when present.",
+    "Added Telegram /order_prep_status command and pmbot:order_prep_status callback with refresh/back-only screen controls.",
+    "Registered the 071E status source in the Telegram status registry without adding a run action.",
+    "Added focused tests for artifact reading, conservative missing-artifact defaults, RU Telegram rendering, safe controls, and registry wiring.",
+    "Added required 071E result/latest/menu/safety artifacts and operator docs."
+  ],
+  "changed_files": [
+    "docs/ORCH_PMBOT_TELEGRAM_071E_ORDER_PREP_STATUS_SCREEN_NO_LIVE.md",
+    "docs/ORCH_PMBOT_TELEGRAM_071E_ORDER_PREP_STATUS_SCREEN_NO_LIVE_RESULT.json",
+    "pm_bot/operator_runner/telegram_operator_control_bot.py",
+    "pm_bot/operator_runner/telegram_operator_i18n.py",
+    "pm_bot/operator_runner/telegram_operator_runtime.py",
+    "pm_bot/operator_runner/telegram_product_ux_067a.py",
+    "pm_bot/operator_runner/telegram_product_ux_068c.py",
+    "pm_bot/operator_runner/telegram_status_registry.py",
+    "pm_bot/tests/test_telegram_operator_ux_buttons_046.py",
+    "pm_bot/tests/test_telegram_order_prep_status_071e.py",
+    "pm_bot/tests/test_telegram_product_ux_067a.py",
+    "pm_bot/tests/test_telegram_ru_language_mini_app_dev_mode_046g.py",
+    "pm_bot/trading_core/artifacts/telegram_order_prep_status_071e/latest_telegram_order_prep_status_071e.json",
+    "pm_bot/trading_core/artifacts/telegram_order_prep_status_071e/telegram_order_prep_status_071e_result.json",
+    "pm_bot/trading_core/artifacts/telegram_order_prep_status_071e/telegram_order_prep_status_menu_snapshot_071e.json",
+    "pm_bot/trading_core/artifacts/telegram_order_prep_status_071e/telegram_order_prep_status_safety_snapshot_071e.json",
+    "pm_bot/trading_core/telegram_order_prep_status_071e.py"
+  ],
+  "artifacts": [
+    "pm_bot/trading_core/artifacts/telegram_order_prep_status_071e/telegram_order_prep_status_071e_result.json",
+    "pm_bot/trading_core/artifacts/telegram_order_prep_status_071e/latest_telegram_order_prep_status_071e.json",
+    "pm_bot/trading_core/artifacts/telegram_order_prep_status_071e/telegram_order_prep_status_menu_snapshot_071e.json",
+    "pm_bot/trading_core/artifacts/telegram_order_prep_status_071e/telegram_order_prep_status_safety_snapshot_071e.json"
+  ],
+  "validation_summary": [
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_order_prep_status_071e.py",
+      "status": "passed",
+      "summary": "4 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_single_message_product_menu_069c.py || echo \"069C may not exist yet\"",
+      "status": "allowed_missing",
+      "summary": "Test file is not present on this required base head; fallback message emitted."
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_public_market_token_discovery_071a.py || echo \"071A may not exist yet\"",
+      "status": "allowed_missing",
+      "summary": "Test file is not present on this required base head; fallback message emitted."
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_signed_order_payload_dry_run_070a.py || echo \"070A may not exist yet\"",
+      "status": "allowed_missing",
+      "summary": "Test file is not present on this required base head; fallback message emitted."
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_forbidden_live_controls_063a.py",
+      "status": "passed",
+      "summary": "3 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_static_safety_invariant_report_060q.py",
+      "status": "passed",
+      "summary": "9 passed"
+    },
+    {
+      "command": "python -B -m pytest pm_bot/tests",
+      "status": "passed",
+      "summary": "2019 passed in 537.95s"
+    },
+    {
+      "command": "python -m compileall -q pm_bot",
+      "status": "passed",
+      "summary": "No compile errors."
+    },
+    {
+      "command": "python -m compileall -q ai_orchestrator",
+      "status": "passed",
+      "summary": "No compile errors."
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.telegram_runtime_smoke",
+      "status": "passed",
+      "summary": "Runtime module import ok; ready_to_start_runtime true; network check not requested."
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.static_safety_invariant_report --scope pm_bot --dry-run",
+      "status": "passed",
+      "summary": "Critical findings: 0; warnings: 7; live execution, order submission, signing, and wallet remain blocked."
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed",
+      "summary": "No whitespace errors."
+    },
+    {
+      "command": "git diff --cached --check",
+      "status": "passed",
+      "summary": "No staged whitespace errors before staging."
+    }
+  ],
+  "safety_statement": {
+    "local_status_screen_only": true,
+    "raw_token_id_shown": false,
+    "raw_account_values_shown": false,
+    "raw_private_key_read": false,
+    "credential_values_read": false,
+    "wallet_connection_attempted": false,
+    "signing_attempted": false,
+    "order_submission_attempted": false,
+    "order_cancellation_attempted": false,
+    "authenticated_calls_performed_from_telegram": false,
+    "live_enabled": false,
+    "fake_balance_pnl_or_trades_added": false
+  },
+  "remaining_risks": [
+    "070A/070B/070C/071A source modules are not present on this required base head, so the committed generated artifacts conservatively report missing/unchecked readiness until local source artifacts exist.",
+    "069C is not present on this base branch; same-message product menu behavior was not modified."
+  ]
+}

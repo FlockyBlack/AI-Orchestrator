@@ -18,6 +18,7 @@ from pm_bot.operator_runner.telegram_operator_i18n import (
     operator_console_button_rows,
     operator_language_from_state,
     operator_language_is_selected,
+    order_prep_status_button_rows,
     pre_live_gate_review_label,
     render_home,
     render_language_selected,
@@ -41,6 +42,7 @@ from pm_bot.operator_runner.telegram_status_registry import (
     safe_action_command_for_callback,
 )
 from pm_bot.trading_core.schemas import GENERATED_AT, bullet_lines, clean_text, mapping_rows
+from pm_bot.trading_core.telegram_order_prep_status_071e import render_telegram_order_prep_status_text
 from pm_bot.trading_core.secret_boundary_policy import (
     validate_secret_boundary_telegram_operator_control_config,
     validate_secret_boundary_telegram_operator_control_summary,
@@ -61,6 +63,7 @@ TASK_ID_062T = "ORCH-PMBOT-TELEGRAM-062T-PRE-LIVE-TINY-ORDER-GATE-REVIEW-PANEL"
 TASK_ID_063T = "ORCH-PMBOT-TELEGRAM-063T-SUPERVISED-LIVE-ENABLEMENT-REVIEW-PANEL"
 TASK_ID_064T = "ORCH-PMBOT-TELEGRAM-064T-CREDENTIALS-READINESS-REVIEW-PANEL"
 TASK_ID_067E = "ORCH-PMBOT-TELEGRAM-067E-WALLET-AUTH-STATUS-DASHBOARD-NO-LIVE"
+TASK_ID_071E = "ORCH-PMBOT-TELEGRAM-071E-ORDER-PREP-STATUS-SCREEN-NO-LIVE"
 
 SAFE_ACTION_COMMANDS = tuple(f"/{action.action_id}" for action in SAFE_ACTIONS)
 
@@ -80,6 +83,7 @@ SUPPORTED_COMMANDS = (
     "/stop",
     "/status",
     "/connection_status",
+    "/order_prep_status",
     "/btc",
     "/intent",
     "/risk",
@@ -110,6 +114,7 @@ CALLBACK_COMMAND_MAP = {
     "pmbot:stop": "/stop",
     "pmbot:status": "/status",
     "pmbot:connection_status": "/connection_status",
+    "pmbot:order_prep_status": "/order_prep_status",
     "pmbot:btc": "/btc",
     "pmbot:intent": "/intent",
     "pmbot:risk": "/risk",
@@ -480,6 +485,7 @@ class TelegramOperatorControlBot:
             "/status": self._render_bot_status,
             "/connection": self._render_connection,
             "/connection_status": self._render_connection_status,
+            "/order_prep_status": self._render_order_prep_status,
             "/balance": self._render_balance,
             "/trades": self._render_trades,
             "/pnl": self._render_pnl,
@@ -994,6 +1000,25 @@ class TelegramOperatorControlBot:
                 "balance_allowance_status": "unknown",
             }
         return render_telegram_wallet_auth_status_text(status, language=self._language())
+
+    def _render_order_prep_status(self) -> str:
+        status = dict(self._summary().get("telegram_order_prep_status_071e_status_summary", {}))
+        if not status:
+            status = {
+                "market_display_ru": "не найден",
+                "market_display_en": "not found",
+                "token_id_display_ru": "требуется выбор",
+                "token_id_display_en": "selection required",
+                "account_display_ru": "не проверен",
+                "account_display_en": "not checked",
+                "signature_display_ru": "не выполнялась",
+                "signature_display_en": "not run",
+                "order_submission_display_ru": "выключена",
+                "order_submission_display_en": "disabled",
+                "live_display_ru": "выключен",
+                "live_display_en": "disabled",
+            }
+        return render_telegram_order_prep_status_text(status, language=self._language())
 
     def _render_order(self) -> str:
         order = dict(self._summary().get("live_order_submission_boundary_summary", {}))
@@ -1658,6 +1683,8 @@ class TelegramOperatorControlBot:
             return build_panel_fallback_keyboard(self._language())
         if command == "/connection_status":
             return build_connection_status_keyboard(self._language())
+        if command == "/order_prep_status":
+            return build_order_prep_status_keyboard(self._language())
         if command in {"/start", "/language", "/ru", "/en"}:
             return build_language_selection_keyboard()
         if command in {
@@ -1709,6 +1736,10 @@ def build_operator_console_keyboard(language: str = DEFAULT_OPERATOR_LANGUAGE) -
 
 def build_connection_status_keyboard(language: str = DEFAULT_OPERATOR_LANGUAGE) -> TelegramOperatorKeyboard:
     return _keyboard_from_rows(connection_status_button_rows(normalize_operator_language(language, fallback="en")))
+
+
+def build_order_prep_status_keyboard(language: str = DEFAULT_OPERATOR_LANGUAGE) -> TelegramOperatorKeyboard:
+    return _keyboard_from_rows(order_prep_status_button_rows(normalize_operator_language(language, fallback="en")))
 
 
 def build_language_selection_keyboard() -> TelegramOperatorKeyboard:
@@ -1924,6 +1955,11 @@ def build_telegram_operator_control_summary(
         context_value.get("telegram_connection_status_067e_status"),
         context_value.get("latest_telegram_wallet_auth_status_067e"),
     )
+    telegram_order_prep_status_071e = _first_mapping(
+        context_value.get("telegram_order_prep_status_071e_status_summary"),
+        context_value.get("telegram_order_prep_status_071e_status"),
+        context_value.get("latest_telegram_order_prep_status_071e"),
+    )
     mini_panel = _first_mapping(
         context_value.get("telegram_mini_app_operator_panel_summary"),
         context_value.get("telegram_mini_app_operator_panel"),
@@ -1973,6 +2009,7 @@ def build_telegram_operator_control_summary(
                 "supervised_tiny_live_enablement_gate": supervised_tiny_live_enablement_gate,
                 "explicit_live_credentials_readiness_gate": explicit_live_credentials_readiness_gate,
                 "telegram_connection_status_067e": telegram_connection_status_067e,
+                "telegram_order_prep_status_071e": telegram_order_prep_status_071e,
             },
         ),
         "task_id": TASK_ID,
@@ -2026,6 +2063,9 @@ def build_telegram_operator_control_summary(
         ),
         "telegram_connection_status_067e_status_summary": _normalize_connection_status_067e_summary(
             telegram_connection_status_067e
+        ),
+        "telegram_order_prep_status_071e_status_summary": _normalize_order_prep_status_071e_summary(
+            telegram_order_prep_status_071e
         ),
         "telegram_mini_app_operator_panel_summary": mini_panel,
         "telegram_operator_console_060t_status_registry": telegram_operator_console,
@@ -3045,6 +3085,102 @@ def _normalize_connection_status_067e_summary(status: Mapping[str, Any]) -> dict
         "canary_executable_now": False,
         "real_execution_available": False,
         "order_submission_enabled": False,
+        "order_cancel_enabled": False,
+        "wallet_signing_enabled": False,
+        "signing_enabled": False,
+        "signed_payload_generation_enabled": False,
+        "signed_order_generation_enabled": False,
+        "authenticated_polymarket_enabled": False,
+        "authenticated_endpoint_enabled": False,
+        "authenticated_endpoints_enabled": False,
+        "live_connector_enabled": False,
+        "signing_blocked": True,
+        "signed_payload_unavailable": True,
+        "order_submission_blocked": True,
+        "order_cancellation_blocked": True,
+        "wallet_connection_blocked": True,
+        "live_execution_blocked": True,
+        "review_only": True,
+        "preflight_only": True,
+        "dry_run_only": True,
+        "execution_enabling": False,
+        "wallet_enabled": False,
+        "wallet_used": False,
+        "browser_automation_added": False,
+        "scheduler_or_daemon_added": False,
+        "background_worker_added": False,
+        "autonomous_live_trading_added": False,
+        "resolved_blocker_count": 0,
+    }
+
+
+def _normalize_order_prep_status_071e_summary(status: Mapping[str, Any]) -> dict[str, Any]:
+    value = dict(status or {})
+    return {
+        "status": clean_text(value.get("status") or "telegram_order_prep_status_missing"),
+        "mode": clean_text(value.get("mode") or "local_artifact_status_screen_only"),
+        "execution_mode": clean_text(value.get("execution_mode") or "local_artifact_read_only"),
+        "latest_status_path": clean_text(value.get("latest_status_path")),
+        "result_path": clean_text(value.get("result_path")),
+        "telegram_screen_title_ru": clean_text(value.get("telegram_screen_title_ru") or "🧪 Подготовка первого ордера"),
+        "telegram_screen_title_en": clean_text(value.get("telegram_screen_title_en") or "First order prep"),
+        "market_discovery_artifact_available": value.get("market_discovery_artifact_available") is True,
+        "market_discovery_artifact_path": clean_text(value.get("market_discovery_artifact_path")),
+        "token_resolver_artifact_available": value.get("token_resolver_artifact_available") is True,
+        "token_resolver_artifact_path": clean_text(value.get("token_resolver_artifact_path")),
+        "account_readonly_artifact_available": value.get("account_readonly_artifact_available") is True,
+        "account_readonly_artifact_path": clean_text(value.get("account_readonly_artifact_path")),
+        "signed_payload_dry_run_artifact_available": value.get("signed_payload_dry_run_artifact_available") is True,
+        "signed_payload_dry_run_artifact_path": clean_text(value.get("signed_payload_dry_run_artifact_path")),
+        "market_found": value.get("market_found") is True,
+        "market_display_ru": clean_text(value.get("market_display_ru") or "не найден"),
+        "market_display_en": clean_text(value.get("market_display_en") or "not found"),
+        "token_id_found": value.get("token_id_found") is True,
+        "token_id_display_ru": clean_text(value.get("token_id_display_ru") or "требуется выбор"),
+        "token_id_display_en": clean_text(value.get("token_id_display_en") or "selection required"),
+        "account_checked": value.get("account_checked") is True,
+        "account_readonly_ok": value.get("account_readonly_ok") is True,
+        "account_display_ru": clean_text(value.get("account_display_ru") or "не проверен"),
+        "account_display_en": clean_text(value.get("account_display_en") or "not checked"),
+        "signature_contract_ready": value.get("signature_contract_ready") is True,
+        "signature_display_ru": clean_text(value.get("signature_display_ru") or "не выполнялась"),
+        "signature_display_en": clean_text(value.get("signature_display_en") or "not run"),
+        "order_submission_display_ru": clean_text(value.get("order_submission_display_ru") or "выключена"),
+        "order_submission_display_en": clean_text(value.get("order_submission_display_en") or "disabled"),
+        "live_display_ru": clean_text(value.get("live_display_ru") or "выключен"),
+        "live_display_en": clean_text(value.get("live_display_en") or "disabled"),
+        "status_text_ru": clean_text(value.get("status_text_ru")),
+        "status_text_en": clean_text(value.get("status_text_en")),
+        "local_artifact_read_only": True,
+        "raw_token_id_exposed": False,
+        "raw_account_values_exposed": False,
+        "credential_values_read": False,
+        "credentials_values_read": False,
+        "raw_values_emitted": False,
+        "actual_secret_values_exposed": False,
+        "authenticated_endpoint_call_performed": False,
+        "authenticated_request_performed": False,
+        "telegram_authenticated_call_performed": False,
+        "wallet_connection_attempted": False,
+        "private_key_read": False,
+        "signing_attempted": False,
+        "signed_payload_available": False,
+        "signed_payload_generated": False,
+        "order_submission_available": False,
+        "order_submission_enabled": False,
+        "order_submission_attempted": False,
+        "order_cancellation_attempted": False,
+        "fake_balance_added": False,
+        "fake_pnl_added": False,
+        "fake_trades_added": False,
+        "live_trading_enabled": False,
+        "allowed_for_live": False,
+        "operator_approved": False,
+        "candidate_is_executable": False,
+        "live_execution_approved": False,
+        "live_execution_performed": False,
+        "canary_executable_now": False,
+        "real_execution_available": False,
         "order_cancel_enabled": False,
         "wallet_signing_enabled": False,
         "signing_enabled": False,
