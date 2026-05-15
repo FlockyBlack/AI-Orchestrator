@@ -1,0 +1,159 @@
+{
+  "base_head": "9b0d1dadcc5c6e239c00d5e555126ac5f6729b9b",
+  "branch": "pmbot/telegram-068c-product-ux-start-language-ru-buttons-fix",
+  "changed_files": [
+    "docs/ORCH_PMBOT_TELEGRAM_068C_PRODUCT_UX_START_LANGUAGE_AND_RU_BUTTONS_FIX.md",
+    "docs/ORCH_PMBOT_TELEGRAM_068C_PRODUCT_UX_START_LANGUAGE_AND_RU_BUTTONS_FIX_RESULT.json",
+    "pm_bot/operator_runner/telegram_operator_control_bot.py",
+    "pm_bot/operator_runner/telegram_operator_i18n.py",
+    "pm_bot/operator_runner/telegram_operator_runtime.py",
+    "pm_bot/operator_runner/telegram_product_ux_067a.py",
+    "pm_bot/operator_runner/telegram_product_ux_068c.py",
+    "pm_bot/trading_core/telegram_wallet_auth_status_dashboard.py",
+    "pm_bot/tests/test_telegram_mini_app_scaffold_067b.py",
+    "pm_bot/tests/test_telegram_operator_control_bot_043.py",
+    "pm_bot/tests/test_telegram_operator_runtime_045.py",
+    "pm_bot/tests/test_telegram_operator_runtime_ux_smoke_fixes_046e.py",
+    "pm_bot/tests/test_telegram_operator_ux_buttons_046.py",
+    "pm_bot/tests/test_telegram_product_start_language_068c.py",
+    "pm_bot/tests/test_telegram_product_ux_067a.py",
+    "pm_bot/tests/test_telegram_ru_language_mini_app_dev_mode_046g.py",
+    "pm_bot/tests/test_telegram_wallet_auth_status_067e.py",
+    "pm_bot/trading_core/artifacts/telegram_mini_app_067b/latest_telegram_mini_app_status_067b.json",
+    "pm_bot/trading_core/artifacts/telegram_mini_app_067b/telegram_mini_app_067b_result.json",
+    "pm_bot/trading_core/artifacts/telegram_mini_app_067b/telegram_mini_app_menu_snapshot_067b.json",
+    "pm_bot/trading_core/artifacts/telegram_product_ux_067a/telegram_product_ux_i18n_snapshot_067a.json",
+    "pm_bot/trading_core/artifacts/telegram_product_ux_067a/telegram_product_ux_menu_snapshot_067a.json",
+    "pm_bot/trading_core/artifacts/telegram_product_ux_fix_068c/telegram_product_ux_fix_068c_result.json",
+    "pm_bot/trading_core/artifacts/telegram_product_ux_fix_068c/latest_telegram_product_ux_fix_status_068c.json",
+    "pm_bot/trading_core/artifacts/telegram_product_ux_fix_068c/telegram_product_ux_start_menu_snapshot_068c.json",
+    "pm_bot/trading_core/artifacts/telegram_product_ux_fix_068c/telegram_product_ux_ru_menu_snapshot_068c.json",
+    "pm_bot/trading_core/artifacts/telegram_product_ux_fix_068c/telegram_product_ux_en_menu_snapshot_068c.json",
+    "pm_bot/trading_core/artifacts/telegram_product_ux_fix_068c/telegram_product_ux_safety_snapshot_068c.json"
+  ],
+  "contract_version": "pmbot_telegram_product_ux_fix_result_068c.v1",
+  "generated_at": "2026-05-15T00:00:00+04:00",
+  "head_after": "recorded_in_final_completion_report_after_commit",
+  "head_after_note": "Embedding a commit's own SHA in a committed JSON artifact would change that SHA.",
+  "head_before": "9b0d1dadcc5c6e239c00d5e555126ac5f6729b9b",
+  "manual_verification": {
+    "en_menu": "After selecting English, the menu should show the ten EN product buttons from the 068C contract.",
+    "expected_screenshots": [
+      "/start language picker with two buttons",
+      "RU product menu with Russian labels and no engineering gate labels",
+      "EN product menu with English labels and no engineering gate labels",
+      "connection screen with redacted/missing values only",
+      "balance/trades/PnL screens with no fake account data"
+    ],
+    "restart_runtime_from_current_master": "From a clean checkout of current master, set PMBOT_TELEGRAM_BOT_TOKEN and PMBOT_TELEGRAM_ALLOWED_OPERATOR_IDS, optionally set PMBOT_TELEGRAM_MINI_APP_URL, then run python -m pm_bot.operator_runner.telegram_operator_runtime.",
+    "ru_menu": "After selecting \u0420\u0443\u0441\u0441\u043a\u0438\u0439, the menu should show the ten RU product buttons from the 068C contract.",
+    "start_screen": "/start should show only the language picker: \ud83c\uddf7\ud83c\uddfa \u0420\u0443\u0441\u0441\u043a\u0438\u0439 and \ud83c\uddec\ud83c\udde7 English."
+  },
+  "pushed": true,
+  "remote_verified": true,
+  "safety_flags": {
+    "allowed_for_live": false,
+    "authenticated_polymarket_calls_enabled": false,
+    "authenticated_polymarket_calls_performed": false,
+    "background_worker_added": false,
+    "browser_automation_added": false,
+    "contract_version": "pmbot_telegram_product_ux_safety_snapshot_068c.v1",
+    "dry_run_only": true,
+    "fake_balance_emitted": false,
+    "fake_pnl_emitted": false,
+    "fake_trades_emitted": false,
+    "forbidden_live_controls": [
+      "run_signer",
+      "pmbot:run:signer",
+      "Run Signer",
+      "approve-live",
+      "send-order",
+      "submit-order",
+      "cancel-order",
+      "connect-wallet",
+      "unlock-wallet",
+      "live-enable",
+      "live-execute",
+      "approve-live/send-order/sign/wallet/live-execute"
+    ],
+    "forbidden_live_controls_absent": true,
+    "generated_at": "2026-05-15T00:00:00+04:00",
+    "language_selection_does_not_enable_execution": true,
+    "live_trading_enabled": false,
+    "order_cancel_enabled": false,
+    "order_submission_enabled": false,
+    "paper_only": true,
+    "primary_menu_engineering_debug_labels_absent": true,
+    "primary_menu_live_controls_absent": true,
+    "raw_api_secret_read": false,
+    "raw_passphrase_read": false,
+    "raw_private_key_read": false,
+    "raw_wallet_value_emitted": false,
+    "review_only": true,
+    "scheduler_or_daemon_added": false,
+    "signer_instantiated": false,
+    "signing_enabled": false,
+    "start_does_not_enable_execution": true,
+    "task_id": "ORCH-PMBOT-TELEGRAM-068C-PRODUCT-UX-START-LANGUAGE-AND-RU-BUTTONS-FIX",
+    "wallet_connection_enabled": false,
+    "wallet_execution_enabled": false
+  },
+  "safety_statement": "Telegram product UX remains review/status/dry-run only. It does not enable live trading, signing, wallet connection, order submission, order cancellation, authenticated Polymarket calls, fake balances, fake trades, fake PnL, schedulers, daemons, background workers, or browser automation.",
+  "status": "completed_pushed_remote_verified",
+  "task_id": "ORCH-PMBOT-TELEGRAM-068C-PRODUCT-UX-START-LANGUAGE-AND-RU-BUTTONS-FIX",
+  "validation": [
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_product_start_language_068c.py",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_product_ux_067a.py",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_mini_app_scaffold_067b.py",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_wallet_auth_status_067e.py",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_forbidden_live_controls_063a.py",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_static_safety_invariant_report_060q.py",
+      "status": "passed"
+    },
+    {
+      "command": "python -B -m pytest pm_bot/tests",
+      "status": "passed"
+    },
+    {
+      "command": "python -m compileall -q pm_bot",
+      "status": "passed"
+    },
+    {
+      "command": "python -m compileall -q ai_orchestrator",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.telegram_runtime_smoke",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.static_safety_invariant_report --scope pm_bot --dry-run",
+      "status": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    },
+    {
+      "command": "git diff --cached --check",
+      "status": "passed"
+    }
+  ],
+  "worktree": "C:/oc068c_telegram_product_ux_start_language_ru_buttons_fix"
+}

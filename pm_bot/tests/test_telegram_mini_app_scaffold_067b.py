@@ -128,10 +128,10 @@ def test_mini_app_button_is_url_marker_driven_and_missing_url_is_graceful(monkey
     first_button = configured.keyboard.rows[0][0]
     redacted = json.dumps(configured.to_redacted_dict(), sort_keys=True)
 
-    assert first_button.label == "Открыть PMBOT"
+    assert first_button.label == "🖥 Открыть PMBOT"
     assert first_button.web_app_url == MINI_APP_URL
     assert configured.panel_button_url == MINI_APP_URL
-    assert configured.panel_button_text == "Открыть PMBOT"
+    assert configured.panel_button_text == "🖥 Открыть PMBOT"
     assert MINI_APP_URL not in redacted
     assert missing.panel_button_url == ""
     assert "Mini App URL не настроен" in missing.text
@@ -203,10 +203,10 @@ def test_menu_and_status_snapshots_match_scaffold_and_webapp_marker_contract() -
     labels = tuple(item["label"] for item in menu["menu_items"])
 
     assert labels == REQUIRED_MENU_LABELS
-    assert menu["launch_button"]["label"] == "Открыть PMBOT"
+    assert menu["launch_button"]["label"] == "🖥 Открыть PMBOT"
     assert menu["launch_button"]["env_marker"] == "PMBOT_TELEGRAM_MINI_APP_URL"
     assert menu["launch_button"]["url_marker_driven_only"] is True
-    assert status["button_label"] == "Открыть PMBOT"
+    assert status["button_label"] == "🖥 Открыть PMBOT"
     assert status["missing_url_message"] == "Mini App URL не настроен"
     assert status["url_marker_driven_only"] is True
     for flag in FORCED_FALSE_FLAGS:
@@ -242,7 +242,7 @@ def test_runtime_smoke_reports_marker_status_and_ru_first_launch_button() -> Non
         generated_at=GENERATED_AT,
     )
 
-    assert configured["expected_telegram_buttons"]["mini_app_launch_button"] == "Открыть PMBOT"
+    assert configured["expected_telegram_buttons"]["mini_app_launch_button"] == "🖥 Открыть PMBOT"
     assert configured["env_status"]["mini_app_url_env"] == "PMBOT_TELEGRAM_MINI_APP_URL"
     assert configured["env_status"]["mini_app_url_status"] == "configured"
     assert missing["env_status"]["mini_app_url_status"] == "missing"

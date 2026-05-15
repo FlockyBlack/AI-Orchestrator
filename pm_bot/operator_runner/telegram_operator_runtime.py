@@ -46,13 +46,13 @@ TELEGRAM_MINI_APP_URL_ENV = "PMBOT_TELEGRAM_MINI_APP_URL"
 PMBOT_ARTIFACT_DIR_ENV = "PMBOT_ARTIFACT_DIR"
 
 TELEGRAM_RUNTIME_DEPENDENCY_MISSING = "Telegram runtime dependency missing"
-PANEL_BUTTON_TEXT = "Открыть PMBOT"
+PANEL_BUTTON_TEXT = "🖥 Открыть PMBOT"
 
 TELEGRAM_COMMAND_MENU = (
-    ("start", "Home"),
-    ("home", "Home"),
+    ("start", "Choose language"),
+    ("home", "Main menu"),
     ("connection", "Connection"),
-    ("connection_status", "Connection status"),
+    ("connection_status", "Connection Check"),
     ("balance", "Balance"),
     ("trades", "Trades"),
     ("pnl", "PnL"),
@@ -60,7 +60,7 @@ TELEGRAM_COMMAND_MENU = (
     ("limits", "Limits"),
     ("stop", "Stop"),
     ("status", "Bot Status"),
-    ("panel", "Mini App panel"),
+    ("panel", "Open PMBOT"),
     ("language", "Language"),
     ("ru", "Russian"),
     ("en", "English"),
@@ -323,8 +323,6 @@ class TelegramOperatorRuntimeAdapter:
         url = safe_mini_app_url(self.config.mini_app_url)
         if url:
             button_text = panel_launch_button_label(language)
-            if response.command == "/connection_status":
-                button_text = "Открыть PMBOT Mini App" if language == "ru" else "Open PMBOT Mini App"
             launch = TelegramOperatorButton(label=button_text, url=url, web_app_url=url)
             if response.command == "/connection_status":
                 return (
@@ -340,7 +338,7 @@ class TelegramOperatorRuntimeAdapter:
                     response.text
                     + "\nMini App URL: configured.\n"
                     + "Mini App is configured. Open the panel with the button below.\n"
-                    + f"Button: {PANEL_BUTTON_TEXT}"
+                    + f"Button: {button_text}"
                 )
             return (
                 text,

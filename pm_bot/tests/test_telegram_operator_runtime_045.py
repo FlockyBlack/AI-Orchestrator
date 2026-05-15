@@ -219,7 +219,7 @@ def test_command_routing_calls_existing_handlers() -> None:
     assert reply.command == "/risk"
     assert reply.authorized is True
     assert "⚙️ Лимиты" in reply.text
-    assert "Лимиты показываются только как review/status." in reply.text
+    assert "Лимиты показываются только как review/status; live enable выключен." in reply.text
     assert reply.summary["review_only"] is True
 
 

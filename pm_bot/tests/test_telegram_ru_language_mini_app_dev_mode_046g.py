@@ -19,13 +19,14 @@ RAW_INIT_DATA = "query_id=abc&user={raw-operator}&auth_date=1&hash=raw-init-data
 MINI_APP_URL = "https://example.invalid/pmbot-panel"
 
 REQUIRED_STABLE_CALLBACKS = {
-    "pmbot:home",
     "pmbot:connection",
+    "pmbot:connection_status",
     "pmbot:balance",
     "pmbot:trades",
     "pmbot:pnl",
     "pmbot:bot_status",
     "pmbot:limits",
+    "pmbot:panel",
     "pmbot:stop",
     "pmbot:language",
     "pmbot:lang:ru",
@@ -135,20 +136,9 @@ def _select_ru(adapter: runtime.TelegramOperatorRuntimeAdapter) -> runtime.Teleg
 def test_start_uses_ru_first_home_when_language_is_not_selected() -> None:
     reply = _adapter().handle_text(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", text="/start")
 
-    assert "PMBOT — центр управления" in reply.text
-    assert "Live-торговля выключена" in reply.text
-    assert _button_labels(reply) == (
-        "🏠 Главная",
-        "🔐 Подключение",
-        "💰 Баланс",
-        "📊 Сделки",
-        "📈 PnL",
-        "🤖 Статус бота",
-        "⚙️ Лимиты",
-        "🚨 Стоп",
-        "🌐 Язык",
-    )
-    assert set(_callback_data(reply)) == REQUIRED_STABLE_CALLBACKS - {"pmbot:lang:ru", "pmbot:lang:en"}
+    assert "Выбери язык" in reply.text
+    assert _button_labels(reply) == ("🇷🇺 Русский", "🇬🇧 English")
+    assert set(_callback_data(reply)) == {"pmbot:lang:ru", "pmbot:lang:en"}
 
 
 def test_russian_and_english_language_can_be_selected_via_callback() -> None:
@@ -190,13 +180,14 @@ def test_russian_home_keyboard_uses_expected_labels_and_stable_callbacks() -> No
     assert "только обзор" in reply.text
     assert "Live-торговля выключена" in reply.text
     assert _button_labels(reply) == (
-        "🏠 Главная",
         "🔐 Подключение",
         "💰 Баланс",
         "📊 Сделки",
         "📈 PnL",
         "🤖 Статус бота",
         "⚙️ Лимиты",
+        "🧪 Проверка подключения",
+        "🖥 Открыть PMBOT",
         "🚨 Стоп",
         "🌐 Язык",
     )
@@ -229,7 +220,7 @@ def test_panel_with_mini_app_url_includes_safe_russian_button_without_redacted_u
     redacted = json.dumps(reply.to_redacted_dict(), sort_keys=True)
 
     assert "Mini App настроен. Открой панель кнопкой ниже." in reply.text
-    assert first_button.label == "Открыть PMBOT"
+    assert first_button.label == "🖥 Открыть PMBOT"
     assert first_button.web_app_url == MINI_APP_URL
     assert reply.panel_button_url == MINI_APP_URL
     assert MINI_APP_URL not in redacted
