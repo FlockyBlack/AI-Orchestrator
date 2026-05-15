@@ -89,7 +89,7 @@ def test_static_scaffold_has_ru_dashboard_shell_and_no_client_side_persistence()
     for label in REQUIRED_MENU_LABELS:
         assert label in html
     for placeholder in (
-        "credentials configured: unknown/not connected",
+        "real check results: local static artifacts only; no live controls",
         "balance: not connected",
         "trades: no live data",
         "PnL: unavailable until live trades exist",

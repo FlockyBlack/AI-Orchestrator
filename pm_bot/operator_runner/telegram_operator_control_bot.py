@@ -20,6 +20,7 @@ from pm_bot.operator_runner.telegram_operator_i18n import (
     operator_language_is_selected,
     order_prep_packet_status_button_rows,
     order_prep_status_button_rows,
+    real_check_results_button_rows,
     pre_live_gate_review_label,
     render_home,
     render_language_selected,
@@ -43,6 +44,10 @@ from pm_bot.operator_runner.telegram_status_registry import (
     safe_action_command_for_callback,
 )
 from pm_bot.trading_core.schemas import GENERATED_AT, bullet_lines, clean_text, mapping_rows
+from pm_bot.trading_core.telegram_real_check_results_display_073t import (
+    normalize_telegram_real_check_results_status_summary,
+    render_telegram_real_check_results_status_text,
+)
 from pm_bot.trading_core.telegram_order_prep_packet_status_072b import (
     STATUS_CONTRACT as TELEGRAM_ORDER_PREP_PACKET_STATUS_072B_CONTRACT,
     normalize_telegram_order_prep_packet_status_summary,
@@ -554,32 +559,8 @@ class TelegramOperatorControlBot:
         )
 
     def _render_connection(self) -> str:
-        connection = _build_connection_product_display_status(self._summary())
-        if self._language() == "ru":
-            return "\n".join(
-                [
-                    "🔐 Подключение",
-                    f"API ключи: {connection['api_keys_ru']}",
-                    f"Private key: {connection['private_key_ru']}",
-                    f"Wallet: {connection['wallet_ru']}",
-                    f"Signature type: {connection['signature_type_ru']}",
-                    f"Funder: {connection['funder_ru']}",
-                    f"L2 auth: {connection['l2_auth_ru']}",
-                    "Значения ключей никогда не показываются.",
-                ]
-            )
-        return "\n".join(
-            [
-                "🔐 Connection",
-                f"API keys: {connection['api_keys_en']}",
-                f"Private key: {connection['private_key_en']}",
-                f"Wallet: {connection['wallet_en']}",
-                f"Signature type: {connection['signature_type_en']}",
-                f"Funder: {connection['funder_en']}",
-                f"L2 auth: {connection['l2_auth_en']}",
-                "Raw values are never shown.",
-            ]
-        )
+        status = dict(self._summary().get("telegram_real_check_results_073t_status_summary", {}))
+        return render_telegram_real_check_results_status_text(status, language=self._language())
 
     def _render_balance(self) -> str:
         if self._language() == "ru":
@@ -1511,6 +1492,8 @@ class TelegramOperatorControlBot:
         )
 
     def _keyboard_for_command(self, command: str) -> TelegramOperatorKeyboard:
+        if command == "/connection":
+            return build_real_check_results_keyboard(self._language())
         if command == "/connection_status":
             return build_connection_status_keyboard(self._language())
         if command == "/order_prep_status":
@@ -1526,7 +1509,6 @@ class TelegramOperatorControlBot:
         }:
             return build_operator_home_keyboard(self._language())
         if command in {
-            "/connection",
             "/balance",
             "/trades",
             "/pnl",
@@ -1579,6 +1561,12 @@ def build_operator_console_keyboard(language: str = DEFAULT_OPERATOR_LANGUAGE) -
 
 def build_connection_status_keyboard(language: str = DEFAULT_OPERATOR_LANGUAGE) -> TelegramOperatorKeyboard:
     return _keyboard_from_rows(connection_status_button_rows(normalize_operator_language(language, fallback=DEFAULT_OPERATOR_LANGUAGE)))
+
+
+def build_real_check_results_keyboard(language: str = DEFAULT_OPERATOR_LANGUAGE) -> TelegramOperatorKeyboard:
+    return _keyboard_from_rows(
+        real_check_results_button_rows(normalize_operator_language(language, fallback=DEFAULT_OPERATOR_LANGUAGE))
+    )
 
 
 def build_order_prep_status_keyboard(language: str = DEFAULT_OPERATOR_LANGUAGE) -> TelegramOperatorKeyboard:
@@ -1835,6 +1823,11 @@ def build_telegram_operator_control_summary(
         context_value.get("latest_telegram_order_prep_packet_screen_072b"),
         context_value.get("latest_telegram_order_prep_packet_status_072b"),
     )
+    telegram_real_check_results_073t = _first_mapping(
+        context_value.get("telegram_real_check_results_073t_status_summary"),
+        context_value.get("telegram_real_check_results_073t_status"),
+        context_value.get("latest_telegram_real_check_results_status_073t"),
+    )
     mini_panel = _first_mapping(
         context_value.get("telegram_mini_app_operator_panel_summary"),
         context_value.get("telegram_mini_app_operator_panel"),
@@ -1884,6 +1877,7 @@ def build_telegram_operator_control_summary(
                 "supervised_tiny_live_enablement_gate": supervised_tiny_live_enablement_gate,
                 "explicit_live_credentials_readiness_gate": explicit_live_credentials_readiness_gate,
                 "telegram_connection_status_067e": telegram_connection_status_067e,
+                "telegram_real_check_results_073t": telegram_real_check_results_073t,
                 "telegram_order_prep_status_071e": telegram_order_prep_status_071e,
                 "telegram_order_prep_packet_status_072b": telegram_order_prep_packet_status_072b,
             },
@@ -1939,6 +1933,9 @@ def build_telegram_operator_control_summary(
         ),
         "telegram_connection_status_067e_status_summary": _normalize_connection_status_067e_summary(
             telegram_connection_status_067e
+        ),
+        "telegram_real_check_results_073t_status_summary": normalize_telegram_real_check_results_status_summary(
+            telegram_real_check_results_073t
         ),
         "telegram_order_prep_status_071e_status_summary": _normalize_order_prep_status_071e_summary(
             telegram_order_prep_status_071e

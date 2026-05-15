@@ -65,6 +65,19 @@ CONNECTION_STATUS_BUTTON_ROWS_BY_LANGUAGE = {
     ),
 }
 
+REAL_CHECK_RESULTS_BUTTON_ROWS_BY_LANGUAGE = {
+    "ru": (
+        (("🔄 Обновить", "pmbot:connection"),),
+        (("🧪 Запустить локальную проверку", "pmbot:run:local_real_check_bundle_072c"),),
+        (("⬅️ Назад", "pmbot:home"),),
+    ),
+    "en": (
+        (("🔄 Refresh", "pmbot:connection"),),
+        (("🧪 Run local check", "pmbot:run:local_real_check_bundle_072c"),),
+        (("⬅️ Back", "pmbot:home"),),
+    ),
+}
+
 ORDER_PREP_STATUS_BUTTON_ROWS_BY_LANGUAGE = {
     "ru": (
         (("Обновить статус", "pmbot:order_prep_status"),),
@@ -310,6 +323,12 @@ def connection_status_button_rows(language: str) -> tuple[tuple[tuple[str, str],
     ]
 
 
+def real_check_results_button_rows(language: str) -> tuple[tuple[tuple[str, str], ...], ...]:
+    return REAL_CHECK_RESULTS_BUTTON_ROWS_BY_LANGUAGE[
+        normalize_operator_language(language, fallback=DEFAULT_OPERATOR_LANGUAGE)
+    ]
+
+
 def order_prep_status_button_rows(language: str) -> tuple[tuple[tuple[str, str], ...], ...]:
     return ORDER_PREP_STATUS_BUTTON_ROWS_BY_LANGUAGE[
         normalize_operator_language(language, fallback=DEFAULT_OPERATOR_LANGUAGE)
@@ -367,6 +386,7 @@ def all_button_rows() -> tuple[tuple[tuple[str, str], ...], ...]:
         rows.extend(panel_fallback_button_rows(language))
         rows.extend(operator_console_button_rows(language))
         rows.extend(connection_status_button_rows(language))
+        rows.extend(real_check_results_button_rows(language))
         rows.extend(order_prep_status_button_rows(language))
         rows.extend(order_prep_packet_status_button_rows(language))
     rows.extend(language_selection_button_rows())

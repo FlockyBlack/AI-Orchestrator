@@ -92,7 +92,7 @@ def build_ru_snapshot(*, generated_at: str = GENERATED_AT) -> dict[str, Any]:
         "primary_menu_is_product_only": _primary_menu_is_product_only(labels),
         "debug_labels_hidden_from_primary_menu": _technical_labels_absent(labels),
         "product_screens": {
-            "connection": ["🧪 Проверить подключение", "🖥 Mini App", RU_BACK_LABEL],
+            "connection": ["🔄 Обновить", "🧪 Запустить локальную проверку", RU_BACK_LABEL],
             "balance": ["🧪 Проверить подключение", RU_BACK_LABEL],
             "trades": ["🧪 Проверить подключение", RU_BACK_LABEL],
             "pnl": [RU_BACK_LABEL],
@@ -120,7 +120,7 @@ def build_en_snapshot(*, generated_at: str = GENERATED_AT) -> dict[str, Any]:
         "primary_menu_is_product_only": _primary_menu_is_product_only(labels),
         "debug_labels_hidden_from_primary_menu": _technical_labels_absent(labels),
         "product_screens": {
-            "connection": ["🧪 Check connection", "🖥 Mini App", EN_BACK_LABEL],
+            "connection": ["🔄 Refresh", "🧪 Run local check", EN_BACK_LABEL],
             "balance": ["🧪 Check connection", EN_BACK_LABEL],
             "trades": ["🧪 Check connection", EN_BACK_LABEL],
             "pnl": [EN_BACK_LABEL],
