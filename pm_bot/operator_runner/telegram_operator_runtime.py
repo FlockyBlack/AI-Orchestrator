@@ -51,6 +51,7 @@ PANEL_BUTTON_TEXT = "Open PMBOT Mini App"
 TELEGRAM_COMMAND_MENU = (
     ("start", "Open operator home"),
     ("status", "PMBOT status"),
+    ("connection_status", "Connection status"),
     ("panel", "Mini App panel"),
     ("gonogo", "Go/No-Go gate"),
     ("blockers", "Live blockers"),
@@ -316,13 +317,20 @@ class TelegramOperatorRuntimeAdapter:
         response: TelegramOperatorControlResponse,
     ) -> tuple[str, TelegramOperatorKeyboard, str, str]:
         keyboard = response.keyboard
-        if response.command != "/panel" or not response.authorized:
+        if response.command not in {"/panel", "/connection_status"} or not response.authorized:
             return response.text, keyboard, "", ""
         language = operator_language_from_state(response.state)
         url = safe_mini_app_url(self.config.mini_app_url)
         if url:
             button_text = panel_launch_button_label(language)
             launch = TelegramOperatorButton(label=button_text, url=url, web_app_url=url)
+            if response.command == "/connection_status":
+                return (
+                    response.text,
+                    keyboard.with_prepended_row((launch,)),
+                    button_text,
+                    url,
+                )
             if language == "ru":
                 text = response.text + "\nMini App настроен. Открой панель кнопкой ниже."
             else:
@@ -338,6 +346,8 @@ class TelegramOperatorRuntimeAdapter:
                 button_text,
                 url,
             )
+        if response.command == "/connection_status":
+            return response.text, keyboard, "", ""
         if self.config.mini_app_url:
             if language == "ru":
                 return (

@@ -1,0 +1,110 @@
+{
+  "task_id": "ORCH-PMBOT-TELEGRAM-067E-WALLET-AUTH-STATUS-DASHBOARD-NO-LIVE",
+  "status": "validated_pending_commit_push_verify",
+  "generated_at": "2026-05-15T00:00:00+04:00",
+  "repository": "https://github.com/FlockyBlack/AI-Orchestrator.git",
+  "worktree": "C:/oc067e_telegram_wallet_auth_status_dashboard_no_live",
+  "branch": "pmbot/telegram-067e-wallet-auth-status-dashboard-no-live",
+  "base_branch": "master",
+  "head_before": "bd84069654a3b412f76d63405b60da7feb5c6c9d",
+  "head_after": "recorded_in_final_response_after_commit_push_verify",
+  "head_after_note": "The final commit cannot self-record its own SHA inside this committed JSON artifact because embedding the SHA would change the SHA. The final response records the pushed and remotely verified feature branch HEAD.",
+  "implementation_summary": [
+    "Added a local-only 067E Telegram connection status dashboard builder that reads redacted credential presence artifacts and latest 067C probe artifacts when present.",
+    "Added a dry-run operator runner for refreshing 067E status artifacts without live calls.",
+    "Added Telegram command, callback, runtime Mini App button decoration, status registry source, and safe dry-run action using connection_status control names.",
+    "Added focused tests for redaction, missing-artifact defaults, RU-first Telegram rendering, Mini App button attachment, and safe action routing.",
+    "Added required 067E result/latest/menu/safety artifacts and operator docs."
+  ],
+  "changed_files": [
+    "docs/ORCH_PMBOT_TELEGRAM_067E_WALLET_AUTH_STATUS_DASHBOARD_NO_LIVE.md",
+    "docs/ORCH_PMBOT_TELEGRAM_067E_WALLET_AUTH_STATUS_DASHBOARD_NO_LIVE_RESULT.json",
+    "pm_bot/operator_runner/telegram_connection_status_dashboard.py",
+    "pm_bot/operator_runner/telegram_operator_control_bot.py",
+    "pm_bot/operator_runner/telegram_operator_i18n.py",
+    "pm_bot/operator_runner/telegram_operator_runtime.py",
+    "pm_bot/operator_runner/telegram_status_registry.py",
+    "pm_bot/tests/test_telegram_wallet_auth_status_067e.py",
+    "pm_bot/trading_core/artifacts/telegram_wallet_auth_status_067e/latest_telegram_wallet_auth_status_067e.json",
+    "pm_bot/trading_core/artifacts/telegram_wallet_auth_status_067e/telegram_wallet_auth_status_067e_result.json",
+    "pm_bot/trading_core/artifacts/telegram_wallet_auth_status_067e/telegram_wallet_auth_status_menu_snapshot_067e.json",
+    "pm_bot/trading_core/artifacts/telegram_wallet_auth_status_067e/telegram_wallet_auth_status_safety_snapshot_067e.json",
+    "pm_bot/trading_core/telegram_wallet_auth_status_dashboard.py"
+  ],
+  "artifacts": [
+    "pm_bot/trading_core/artifacts/telegram_wallet_auth_status_067e/telegram_wallet_auth_status_067e_result.json",
+    "pm_bot/trading_core/artifacts/telegram_wallet_auth_status_067e/latest_telegram_wallet_auth_status_067e.json",
+    "pm_bot/trading_core/artifacts/telegram_wallet_auth_status_067e/telegram_wallet_auth_status_menu_snapshot_067e.json",
+    "pm_bot/trading_core/artifacts/telegram_wallet_auth_status_067e/telegram_wallet_auth_status_safety_snapshot_067e.json"
+  ],
+  "validation_summary": [
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_wallet_auth_status_067e.py",
+      "status": "passed",
+      "summary": "5 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_product_ux_067a.py || echo \"067A may not be merged yet\"",
+      "status": "allowed_missing",
+      "summary": "067A test file is not present on this base branch; fallback message emitted."
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_clob_l2_auth_readonly_probe_067c.py || echo \"067C may not be merged yet\"",
+      "status": "allowed_missing",
+      "summary": "067C test file is not present on this base branch; fallback message emitted."
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_forbidden_live_controls_063a.py",
+      "status": "passed",
+      "summary": "3 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_static_safety_invariant_report_060q.py",
+      "status": "passed",
+      "summary": "9 passed"
+    },
+    {
+      "command": "python -B -m pytest pm_bot/tests",
+      "status": "passed_after_fix",
+      "summary": "1944 passed in 513.13s",
+      "note": "The first broad run exposed that the home keyboard is intentionally stable. The 067E entry was removed from the home keyboard while preserving /connection_status, panel rows, and the 067E screen buttons; the rerun passed."
+    },
+    {
+      "command": "python -m compileall -q pm_bot",
+      "status": "passed",
+      "summary": "No compile errors."
+    },
+    {
+      "command": "python -m compileall -q ai_orchestrator",
+      "status": "passed",
+      "summary": "No compile errors."
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.telegram_runtime_smoke",
+      "status": "passed",
+      "summary": "Runtime module import ok; ready_to_start_runtime true; network check not requested."
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.static_safety_invariant_report --scope pm_bot --dry-run",
+      "status": "passed",
+      "summary": "Critical findings: 0; warnings: 7; live execution, order submission, signing, and wallet remain blocked."
+    }
+  ],
+  "safety_statement": {
+    "dashboard_status_only": true,
+    "raw_secrets_shown": false,
+    "raw_private_key_read": false,
+    "api_secret_or_passphrase_values_read": false,
+    "wallet_connection_attempted": false,
+    "signing_attempted": false,
+    "order_submission_attempted": false,
+    "order_cancellation_attempted": false,
+    "authenticated_calls_performed_by_dashboard": false,
+    "live_enabled": false,
+    "fake_balance_pnl_or_trades_added": false
+  },
+  "remaining_risks": [
+    "067C is not present on this base branch, so the dashboard currently reports the L2 auth probe as not run unless a future local 067C artifact is available.",
+    "Open orders and balance/allowance remain unknown unless a real local read-only probe artifact supplies a status."
+  ]
+}
