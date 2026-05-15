@@ -206,7 +206,8 @@ def test_telegram_client_transport_is_injected_or_faked_without_network(monkeypa
     assert fake_runner.started is True
     assert "fake polling invoked" in lines
     assert fake_runner.reply.authorized is True
-    assert "PMBOT status: review-only / live blocked" in fake_runner.reply.text
+    assert "🤖 Статус бота" in fake_runner.reply.text
+    assert "allowed_for_live=false" in fake_runner.reply.text
 
 
 def test_command_routing_calls_existing_handlers() -> None:
@@ -217,7 +218,8 @@ def test_command_routing_calls_existing_handlers() -> None:
     assert isinstance(reply.response, TelegramOperatorControlResponse)
     assert reply.command == "/risk"
     assert reply.authorized is True
-    assert "Risk limits summary: review visibility only" in reply.text
+    assert "⚙️ Лимиты" in reply.text
+    assert "Лимиты показываются только как review/status." in reply.text
     assert reply.summary["review_only"] is True
 
 
@@ -238,9 +240,9 @@ def test_authorized_status_works_through_runtime_adapter() -> None:
     reply = _adapter().handle_text(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", text="/status")
 
     assert reply.authorized is True
-    assert "allowed_for_live: false" in reply.text
-    assert "canary_executable_now: false" in reply.text
-    assert "live_execution_approved: false" in reply.text
+    assert "allowed_for_live=false" in reply.text
+    assert "live trading disabled" in reply.text
+    assert "order submission disabled" in reply.text
     assert reply.summary["network_used"] is False
 
 
@@ -252,9 +254,8 @@ def test_panel_with_optional_mini_app_url_uses_button_without_exposing_secrets()
 
     assert reply.authorized is True
     assert "Telegram Mini App Operator Panel v1" in reply.text
-    assert "Mini App URL: configured" in reply.text
-    assert "Button: Open PMBOT Mini App" in reply.text
-    assert reply.panel_button_text == runtime.PANEL_BUTTON_TEXT
+    assert "Mini App настроен. Открой панель кнопкой ниже." in reply.text
+    assert reply.panel_button_text == "Открыть PMBOT Mini App"
     assert reply.panel_button_url == MINI_APP_URL
     assert RAW_TOKEN not in rendered
     assert AUTHORIZED_USER_ID not in rendered
@@ -263,8 +264,8 @@ def test_panel_with_optional_mini_app_url_uses_button_without_exposing_secrets()
 def test_panel_without_mini_app_url_returns_static_artifact_message() -> None:
     reply = _adapter().handle_text(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", text="/panel")
 
-    assert "Panel artifact available: true" in reply.text
-    assert "Mini App URL is not configured yet" in reply.text
+    assert "Panel artifact доступен: true" in reply.text
+    assert "Mini App URL пока не настроен" in reply.text
     assert reply.panel_button_url == ""
 
 
@@ -276,8 +277,8 @@ def test_pause_and_kill_remain_local_markers_only(tmp_path: Path) -> None:
     state_path = tmp_path / "telegram_operator_control_state_043.json"
     persisted = json.loads(state_path.read_text(encoding="utf-8"))
 
-    assert "local Telegram operator-control state only" in pause.text
-    assert "No order cancellation" in kill.text
+    assert "локальный маркер Telegram operator-control state" in pause.text
+    assert "Отмена ордеров" in kill.text
     assert kill.state["operator_pause_requested"] is True
     assert kill.state["operator_kill_switch_requested"] is True
     assert persisted["operator_pause_requested"] is True

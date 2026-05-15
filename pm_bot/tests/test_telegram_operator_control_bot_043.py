@@ -218,10 +218,11 @@ def test_authorized_start_and_help_work_and_state_no_execution() -> None:
     help_response = bot.handle_command(user_id=AUTHORIZED_USER_ID, text="/help")
 
     assert start.authorized is True
-    assert "Choose operator language" in start.text
-    assert "🇷🇺 Русский" in start.text
+    assert "PMBOT — центр управления" in start.text
+    assert "Live-торговля выключена" in start.text
+    assert "🔐 Подключение" in [button.label for row in start.keyboard.rows for button in row]
     assert "/status" in help_response.text
-    assert "no order submission" in help_response.text
+    assert "отправка ордеров" in help_response.text
     assert validate_telegram_operator_control_state(help_response.state)["valid"] is True
     for flag in FORCED_FALSE_FLAGS:
         assert help_response.to_dict()[flag] is False
@@ -230,11 +231,11 @@ def test_authorized_start_and_help_work_and_state_no_execution() -> None:
 def test_status_reports_review_only_live_blocked_and_gonogo() -> None:
     response = _bot().handle_command(user_id=AUTHORIZED_USER_ID, text="/status")
 
-    assert "review-only / live blocked" in response.text
-    assert "Go/no-go: NO_GO" in response.text
-    assert "allowed_for_live: false" in response.text
-    assert "canary_executable_now: false" in response.text
-    assert "live_execution_approved: false" in response.text
+    assert "🤖 Статус бота" in response.text
+    assert "Режим: dry-run/review-only" in response.text
+    assert "allowed_for_live=false" in response.text
+    assert "live trading disabled" in response.text
+    assert "order submission disabled" in response.text
 
 
 def test_btc_missing_context_does_not_invent_live_market_data() -> None:
@@ -262,19 +263,19 @@ def test_btc_intent_risk_auth_order_gonogo_evidence_and_blockers_commands() -> N
     assert "Read-only: true" in btc.text
     assert "dry-run only" in intent.text
     assert "order_intent_is_not_order_submission: true" in intent.text
-    assert "Max order notional USD: 1" in risk.text
-    assert "Max daily loss USD: 5" in risk.text
-    assert "Telegram bot token: configured_redacted" in auth.text
+    assert "Макс. размер ордера USD: 1" in risk.text
+    assert "Макс. дневной убыток USD: 5" in risk.text
+    assert "API credentials:" in auth.text
     assert AUTHORIZED_USER_ID not in auth.text
-    assert "actual_secret_values_exposed: false" in auth.text
+    assert "Сырые значения не показываются." in auth.text
     assert "order_submission_enabled: false" in order.text
     assert "would_submit_order: false" in order.text
-    assert "Overall decision: NO_GO" in gonogo.text
-    assert "Resolved blockers: 0" in gonogo.text
+    assert "Итог: NO_GO" in gonogo.text
+    assert "Решённые блокеры: 0" in gonogo.text
     assert "Evidence items: 21" in evidence.text
-    assert "Missing required evidence: 0" in evidence.text
-    assert "Unresolved blocker count: 2" in blockers.text
-    assert "resolved_blocker_count remains 0" in blockers.text
+    assert "Недостающие evidence: 0" in evidence.text
+    assert "Нерешённые блокеры: 2" in blockers.text
+    assert "resolved_blocker_count остаётся 0" in blockers.text
 
 
 def test_pause_and_kill_record_safe_local_markers_only() -> None:
@@ -284,9 +285,9 @@ def test_pause_and_kill_record_safe_local_markers_only() -> None:
     kill = bot.handle_command(user_id=AUTHORIZED_USER_ID, text="/kill")
     state = kill.state
 
-    assert "local Telegram operator-control state only" in pause.text
-    assert "No live execution path exists" in pause.text
-    assert "No order cancellation" in kill.text
+    assert "локальный маркер Telegram operator-control state" in pause.text
+    assert "Live-исполнения здесь нет" in pause.text
+    assert "Отмена ордеров" in kill.text
     assert state["operator_pause_requested"] is True
     assert state["operator_kill_switch_requested"] is True
     assert state["does_not_modify_trading_execution"] is True

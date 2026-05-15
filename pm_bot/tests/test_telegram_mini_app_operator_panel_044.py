@@ -352,7 +352,7 @@ def test_telegram_panel_command_returns_safe_artifact_info_without_secrets() -> 
 
     assert response.authorized is True
     assert "Telegram Mini App Operator Panel v1" in response.text
-    assert "review-only / live blocked" in response.text
+    assert "только обзор / live-режим выключен" in response.text
     assert "live_actions_available: false" in response.text
     assert "raw_telegram_bot_token_exposed: false" in response.text
     assert "raw_telegram_init_data_exposed: false" in response.text

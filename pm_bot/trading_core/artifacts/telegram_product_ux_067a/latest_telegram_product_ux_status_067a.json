@@ -1,0 +1,16 @@
+{
+  "allowed_for_live": false,
+  "contract_version": "pmbot_latest_telegram_product_ux_status_067a.v1",
+  "default_visible_language": "ru",
+  "emergency_stop_placeholder_local_only": true,
+  "generated_at": "2026-05-15T00:00:00+04:00",
+  "i18n_snapshot_path": "pm_bot/trading_core/artifacts/telegram_product_ux_067a/telegram_product_ux_i18n_snapshot_067a.json",
+  "language_switching_ready": true,
+  "menu_snapshot_path": "pm_bot/trading_core/artifacts/telegram_product_ux_067a/telegram_product_ux_menu_snapshot_067a.json",
+  "no_fake_balance_trades_or_pnl": true,
+  "product_screens_ready": true,
+  "ru_first_menu_ready": true,
+  "safety_snapshot_path": "pm_bot/trading_core/artifacts/telegram_product_ux_067a/telegram_product_ux_safety_snapshot_067a.json",
+  "status": "implemented_validated_pending_commit_push",
+  "task_id": "ORCH-PMBOT-TELEGRAM-067A-PRODUCT-UX-RU-FIRST-MENU-NO-LIVE"
+}
