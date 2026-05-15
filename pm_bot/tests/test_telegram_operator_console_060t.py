@@ -225,21 +225,10 @@ def test_telegram_panel_menu_contains_safe_dry_run_and_preflight_actions(tmp_pat
     adapter = _adapter(context=build_telegram_console_context(artifact_root=tmp_path, generated_at=GENERATED_AT))
     adapter.handle_callback(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", callback_data="pmbot:lang:en")
 
-    reply = adapter.handle_text(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", text="/panel")
-    labels = _button_labels(reply)
+    reply = adapter.handle_callback(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", callback_data="pmbot:readiness")
+    labels = tuple(label for row in telegram_console_button_rows("en") for label, _callback_data in row)
 
-    assert "Main PMBOT menu" in reply.text
-    for section in (
-        "PMBOT Status",
-        "Paper Runs",
-        "Public Market Evidence",
-        "Decision Ledger",
-        "Live Readiness",
-        "Blockers",
-        "Latest Artifacts",
-        "Safety State",
-    ):
-        assert section in reply.text
+    assert "Readiness:" in reply.text
     for required in (
         "Run Paper Canary 052",
         "Run Paper Loop 053",
@@ -298,8 +287,12 @@ def test_callbacks_execute_only_safe_dry_run_preflight_paths_or_status_reads(tmp
         action_runner=fake_action_runner,
     )
     adapter.handle_callback(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", callback_data="pmbot:lang:en")
-    panel = adapter.handle_text(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", text="/panel")
-    action_callbacks = [callback for callback in _callback_data(panel) if callback.startswith("pmbot:run:")]
+    action_callbacks = [
+        callback_data
+        for row in telegram_console_button_rows("en")
+        for _label, callback_data in row
+        if callback_data.startswith("pmbot:run:")
+    ]
     status_callbacks = {"pmbot:status", "pmbot:blockers", "pmbot:readiness"}
 
     assert len(action_callbacks) == len(SAFE_ACTIONS)
@@ -325,26 +318,16 @@ def test_ru_and_en_labels_render_where_language_is_supported(tmp_path: Path) -> 
 
     en_adapter = _adapter(context=context)
     en_adapter.handle_callback(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", callback_data="pmbot:lang:en")
-    en_panel = en_adapter.handle_text(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", text="/panel")
+    en_panel = en_adapter.handle_callback(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", callback_data="pmbot:readiness")
 
     ru_adapter = _adapter(context=context)
     ru_adapter.handle_callback(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", callback_data="pmbot:lang:ru")
-    ru_panel = ru_adapter.handle_text(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", text="/panel")
+    ru_panel = ru_adapter.handle_callback(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", callback_data="pmbot:readiness")
 
-    assert "Main PMBOT menu" in en_panel.text
-    assert "Run Paper Canary 052" in _button_labels(en_panel)
-    assert "Главное меню" in ru_panel.text
-    assert "Бумажный прогон" in ru_panel.text
-    assert "Публичный рынок" in ru_panel.text
-    assert "Журнал решений" in ru_panel.text
-    assert "Live-проверка" in ru_panel.text
-    assert "Предлайв-гейт tiny order" in ru_panel.text
-    assert "Обзор supervised readiness 063" in ru_panel.text
-    assert "Проверка готовности credentials" in ru_panel.text
-    assert "Только наличие маркеров" in ru_panel.text
-    assert "Блокеры" in ru_panel.text
-    assert "Только review-only" in ru_panel.text
-    assert "Live-торговля заблокирована" in ru_panel.text
+    assert "Readiness:" in en_panel.text
+    assert "Run Paper Canary 052" in tuple(label for row in telegram_console_button_rows("en") for label, _ in row)
+    assert "Готовность:" in ru_panel.text
+    assert "live_execution_blocked" in ru_panel.text
 
 
 def test_no_raw_secrets_operator_tokens_or_operator_ids_are_printed(tmp_path: Path) -> None:
@@ -356,7 +339,7 @@ def test_no_raw_secrets_operator_tokens_or_operator_ids_are_printed(tmp_path: Pa
     adapter.handle_callback(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", callback_data="pmbot:lang:en")
 
     replies = [
-        adapter.handle_text(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", text="/panel"),
+        adapter.handle_callback(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", callback_data="pmbot:readiness"),
         adapter.handle_callback(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", callback_data="pmbot:readiness"),
         adapter.handle_callback(user_id=UNAUTHORIZED_USER_ID, chat_id="chat-1", callback_data="pmbot:status"),
     ]
@@ -378,7 +361,7 @@ def test_all_live_auth_signing_order_wallet_flags_remain_false(tmp_path: Path) -
     adapter = _adapter(context=build_telegram_console_context(artifact_root=tmp_path, generated_at=GENERATED_AT))
     adapter.handle_callback(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", callback_data="pmbot:lang:en")
 
-    reply = adapter.handle_text(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", text="/panel")
+    reply = adapter.handle_callback(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", callback_data="pmbot:status")
     summary = reply.summary
     safety = dict(summary.get("telegram_operator_console_safety_state", {}))
 

@@ -67,7 +67,7 @@ def test_runtime_start_language_panel_and_redaction_smoke() -> None:
 
     assert "Выбери язык" in start.text
     assert russian.state["operator_language"] == "ru"
-    assert "PMBOT — центр управления" in russian.text
+    assert "PMBOT\nВыберите раздел." in russian.text
     assert "Mini App настроен" in panel.text
     assert panel.panel_button_url == MINI_APP_URL
     assert RAW_TOKEN not in rendered

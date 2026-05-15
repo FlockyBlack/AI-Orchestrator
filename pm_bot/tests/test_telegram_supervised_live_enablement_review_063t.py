@@ -231,8 +231,8 @@ def test_063_controls_have_no_forbidden_live_order_sign_or_wallet_callbacks(tmp_
     adapter = _adapter(context=context)
     adapter.handle_callback(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", callback_data="pmbot:lang:en")
 
-    panel = adapter.handle_text(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", text="/panel")
-    labels = _button_labels(panel)
+    view = adapter.handle_text(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", text="/supervised_live_review")
+    labels = _button_labels(view)
     all_console_controls = tuple(
         (label, callback_data)
         for language in ("en", "ru")
@@ -251,8 +251,8 @@ def test_063_controls_have_no_forbidden_live_order_sign_or_wallet_callbacks(tmp_
     ).lower()
 
     assert "Run Supervised Gate 063 Dry-Run" not in labels
-    assert "Local 063 dry-run command" in panel.text
-    assert "Supervised readiness review 063" in panel.text
+    assert "Local 063 dry-run command" in view.text
+    assert "Supervised readiness review 063" in view.text
     for forbidden in FORBIDDEN_CONTROL_TERMS:
         assert forbidden not in rendered
     assert " sign " not in f" {rendered} "

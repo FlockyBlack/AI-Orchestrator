@@ -1,0 +1,159 @@
+{
+  "base_head": "010bb351ab17e60275d4d6d0771f95ab8058e255",
+  "branch": "pmbot/telegram-069c-single-message-product-menu-no-live",
+  "changed_files": [
+    "docs/ORCH_PMBOT_TELEGRAM_069C_SINGLE_MESSAGE_PRODUCT_MENU_NO_LIVE.md",
+    "docs/ORCH_PMBOT_TELEGRAM_069C_SINGLE_MESSAGE_PRODUCT_MENU_NO_LIVE_RESULT.json",
+    "pm_bot/operator_runner/telegram_operator_control_bot.py",
+    "pm_bot/operator_runner/telegram_operator_i18n.py",
+    "pm_bot/operator_runner/telegram_operator_runtime.py",
+    "pm_bot/operator_runner/telegram_product_ux_067a.py",
+    "pm_bot/operator_runner/telegram_product_ux_068c.py",
+    "pm_bot/operator_runner/telegram_single_message_product_menu_069c.py",
+    "pm_bot/tests/test_telegram_mini_app_operator_panel_044.py",
+    "pm_bot/tests/test_telegram_mini_app_scaffold_067b.py",
+    "pm_bot/tests/test_telegram_operator_console_060t.py",
+    "pm_bot/tests/test_telegram_operator_control_bot_043.py",
+    "pm_bot/tests/test_telegram_product_start_language_068c.py",
+    "pm_bot/tests/test_telegram_product_ux_067a.py",
+    "pm_bot/tests/test_telegram_operator_runtime_045.py",
+    "pm_bot/tests/test_telegram_operator_runtime_ux_smoke_fixes_046e.py",
+    "pm_bot/tests/test_telegram_operator_ux_buttons_046.py",
+    "pm_bot/tests/test_telegram_pre_live_gate_review_062t.py",
+    "pm_bot/tests/test_telegram_ru_language_mini_app_dev_mode_046g.py",
+    "pm_bot/tests/test_telegram_supervised_live_enablement_review_063t.py",
+    "pm_bot/tests/test_telegram_tiny_order_review_061t.py",
+    "pm_bot/tests/test_telegram_wallet_auth_status_067e.py",
+    "pm_bot/tests/test_telegram_single_message_product_menu_069c.py",
+    "pm_bot/trading_core/artifacts/telegram_product_ux_067a/telegram_product_ux_i18n_snapshot_067a.json",
+    "pm_bot/trading_core/artifacts/telegram_product_ux_067a/telegram_product_ux_menu_snapshot_067a.json",
+    "pm_bot/trading_core/artifacts/telegram_product_ux_fix_068c/telegram_product_ux_en_menu_snapshot_068c.json",
+    "pm_bot/trading_core/artifacts/telegram_product_ux_fix_068c/telegram_product_ux_ru_menu_snapshot_068c.json",
+    "pm_bot/trading_core/artifacts/telegram_single_message_product_menu_069c/telegram_single_message_product_menu_069c_result.json",
+    "pm_bot/trading_core/artifacts/telegram_single_message_product_menu_069c/latest_telegram_single_message_product_menu_status_069c.json",
+    "pm_bot/trading_core/artifacts/telegram_single_message_product_menu_069c/telegram_single_message_product_menu_ru_snapshot_069c.json",
+    "pm_bot/trading_core/artifacts/telegram_single_message_product_menu_069c/telegram_single_message_product_menu_en_snapshot_069c.json",
+    "pm_bot/trading_core/artifacts/telegram_single_message_product_menu_069c/telegram_single_message_product_menu_navigation_snapshot_069c.json",
+    "pm_bot/trading_core/artifacts/telegram_single_message_product_menu_069c/telegram_single_message_product_menu_safety_snapshot_069c.json"
+  ],
+  "contract_version": "pmbot_telegram_single_message_product_menu_result_069c.v1",
+  "generated_at": "2026-05-15T00:00:00+04:00",
+  "head_after": "recorded_in_final_completion_report_after_commit",
+  "head_after_note": "Embedding a commit's own SHA in a committed JSON artifact would change that SHA.",
+  "head_before": "010bb351ab17e60275d4d6d0771f95ab8058e255",
+  "manual_verification": {
+    "expected_navigation": "Product callbacks edit the same bot message; old/non-editable messages get one replacement message.",
+    "expected_start_flow": "/start shows the language picker, then RU/EN selection edits that message into the product menu.",
+    "mini_app_url_behavior": "Configured PMBOT_TELEGRAM_MINI_APP_URL adds an Open PMBOT WebApp button; missing URL shows a clear fallback."
+  },
+  "pushed": "recorded_in_final_completion_report_after_push",
+  "remote_verified": "recorded_in_final_completion_report_after_push",
+  "safety_flags": {
+    "allowed_for_live": false,
+    "contract_version": "pmbot_telegram_single_message_product_menu_safety_snapshot_069c.v1",
+    "debug_labels_hidden_from_primary_menu": true,
+    "forbidden_live_control_terms": [
+      "run_signer",
+      "pmbot:run:signer",
+      "Run Signer",
+      "approve-live",
+      "send-order",
+      "submit-order",
+      "cancel-order",
+      "connect-wallet",
+      "unlock-wallet",
+      "live-enable",
+      "live-execute"
+    ],
+    "forbidden_live_controls_absent": true,
+    "generated_at": "2026-05-15T00:00:00+04:00",
+    "no_api_secret_reads": true,
+    "no_authenticated_polymarket_calls": true,
+    "no_fake_balance": true,
+    "no_fake_pnl": true,
+    "no_fake_trades": true,
+    "no_live_trading": true,
+    "no_order_cancellation": true,
+    "no_order_submission": true,
+    "no_private_key_reads": true,
+    "no_raw_secret_output": true,
+    "no_scheduler_daemon_or_background_loop": true,
+    "no_secret_persistence": true,
+    "no_secret_values_emitted": true,
+    "no_signed_payload_generation": true,
+    "no_signer_instantiation": true,
+    "no_signing": true,
+    "no_wallet_connection": true,
+    "order_cancel_enabled": false,
+    "order_submission_enabled": false,
+    "primary_menu_is_product_only": true,
+    "signed_order_generation_enabled": false,
+    "signed_payload_generation_enabled": false,
+    "signing_enabled": false,
+    "single_message_navigation": true,
+    "task_id": "ORCH-PMBOT-TELEGRAM-069C-SINGLE-MESSAGE-PRODUCT-MENU-NO-LIVE",
+    "wallet_connection_enabled": false
+  },
+  "safety_statement": "Telegram controls remain product status/review/dry-run only. This task does not enable live trading, wallet connection, signing, order submission, order cancellation, authenticated Polymarket calls, fake balances, fake trades, fake PnL, schedulers, daemons, or autonomous loops.",
+  "status": "implemented_pending_commit_push",
+  "task_id": "ORCH-PMBOT-TELEGRAM-069C-SINGLE-MESSAGE-PRODUCT-MENU-NO-LIVE",
+  "validation": [
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_single_message_product_menu_069c.py",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_product_start_language_068c.py",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_product_ux_067a.py",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_mini_app_product_dashboard_068d.py",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_wallet_auth_status_067e.py",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_forbidden_live_controls_063a.py",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_static_safety_invariant_report_060q.py",
+      "status": "passed"
+    },
+    {
+      "command": "python -B -m pytest pm_bot/tests",
+      "status": "passed"
+    },
+    {
+      "command": "python -m compileall -q pm_bot",
+      "status": "passed"
+    },
+    {
+      "command": "python -m compileall -q ai_orchestrator",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.telegram_runtime_smoke",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.static_safety_invariant_report --scope pm_bot --dry-run",
+      "status": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    },
+    {
+      "command": "git diff --cached --check",
+      "status": "passed"
+    }
+  ],
+  "worktree": "C:/oc069c_telegram_single_message_product_menu_no_live"
+}

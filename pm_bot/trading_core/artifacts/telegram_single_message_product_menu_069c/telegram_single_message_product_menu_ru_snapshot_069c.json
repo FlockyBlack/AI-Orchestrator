@@ -1,0 +1,54 @@
+{
+  "allowed_for_live": false,
+  "contract_version": "pmbot_telegram_single_message_product_menu_ru_snapshot_069c.v1",
+  "debug_labels_hidden_from_primary_menu": true,
+  "generated_at": "2026-05-15T00:00:00+04:00",
+  "language": "ru",
+  "main_menu_labels": [
+    "\ud83d\udd10 \u041f\u043e\u0434\u043a\u043b\u044e\u0447\u0435\u043d\u0438\u0435",
+    "\ud83d\udcb0 \u0411\u0430\u043b\u0430\u043d\u0441",
+    "\ud83d\udcca \u0421\u0434\u0435\u043b\u043a\u0438",
+    "\ud83d\udcc8 PnL",
+    "\u2699\ufe0f \u041b\u0438\u043c\u0438\u0442\u044b",
+    "\ud83e\udd16 \u0421\u0442\u0430\u0442\u0443\u0441",
+    "\ud83d\udda5 Mini App",
+    "\ud83c\udf10 \u042f\u0437\u044b\u043a",
+    "\ud83d\udea8 \u0421\u0442\u043e\u043f"
+  ],
+  "main_menu_labels_match_required": true,
+  "no_fake_balance": true,
+  "no_fake_pnl": true,
+  "no_fake_trades": true,
+  "primary_menu_is_product_only": true,
+  "product_screens": {
+    "balance": [
+      "\ud83e\uddea \u041f\u0440\u043e\u0432\u0435\u0440\u0438\u0442\u044c \u043f\u043e\u0434\u043a\u043b\u044e\u0447\u0435\u043d\u0438\u0435",
+      "\u2b05\ufe0f \u041d\u0430\u0437\u0430\u0434"
+    ],
+    "connection": [
+      "\ud83e\uddea \u041f\u0440\u043e\u0432\u0435\u0440\u0438\u0442\u044c \u043f\u043e\u0434\u043a\u043b\u044e\u0447\u0435\u043d\u0438\u0435",
+      "\ud83d\udda5 Mini App",
+      "\u2b05\ufe0f \u041d\u0430\u0437\u0430\u0434"
+    ],
+    "limits": [
+      "\u2b05\ufe0f \u041d\u0430\u0437\u0430\u0434"
+    ],
+    "mini_app": [
+      "\u2b05\ufe0f \u041d\u0430\u0437\u0430\u0434"
+    ],
+    "pnl": [
+      "\u2b05\ufe0f \u041d\u0430\u0437\u0430\u0434"
+    ],
+    "status": [
+      "\u2b05\ufe0f \u041d\u0430\u0437\u0430\u0434"
+    ],
+    "stop": [
+      "\u2b05\ufe0f \u041d\u0430\u0437\u0430\u0434"
+    ],
+    "trades": [
+      "\ud83e\uddea \u041f\u0440\u043e\u0432\u0435\u0440\u0438\u0442\u044c \u043f\u043e\u0434\u043a\u043b\u044e\u0447\u0435\u043d\u0438\u0435",
+      "\u2b05\ufe0f \u041d\u0430\u0437\u0430\u0434"
+    ]
+  },
+  "task_id": "ORCH-PMBOT-TELEGRAM-069C-SINGLE-MESSAGE-PRODUCT-MENU-NO-LIVE"
+}

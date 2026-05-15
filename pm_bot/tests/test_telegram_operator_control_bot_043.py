@@ -231,11 +231,11 @@ def test_authorized_start_and_help_work_and_state_no_execution() -> None:
 def test_status_reports_review_only_live_blocked_and_gonogo() -> None:
     response = _bot().handle_command(user_id=AUTHORIZED_USER_ID, text="/status")
 
-    assert "🤖 Статус бота" in response.text
+    assert "🤖 Статус" in response.text
     assert "Режим: review/dry-run" in response.text
     assert "allowed_for_live=false" in response.text
-    assert "live trading disabled" in response.text
-    assert "order submission disabled" in response.text
+    assert "Live trading: выключен" in response.text
+    assert "Отправка ордеров: выключена" in response.text
 
 
 def test_btc_missing_context_does_not_invent_live_market_data() -> None:
@@ -263,8 +263,8 @@ def test_btc_intent_risk_auth_order_gonogo_evidence_and_blockers_commands() -> N
     assert "Read-only: true" in btc.text
     assert "dry-run only" in intent.text
     assert "order_intent_is_not_order_submission: true" in intent.text
-    assert "Макс. размер ордера USD: 1" in risk.text
-    assert "Макс. дневной убыток USD: 5" in risk.text
+    assert "Max order: 1" in risk.text
+    assert "Max orders/day: 2" in risk.text
     assert "API ключи:" in auth.text
     assert AUTHORIZED_USER_ID not in auth.text
     assert "Значения ключей никогда не показываются." in auth.text

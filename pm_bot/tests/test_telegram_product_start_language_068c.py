@@ -139,7 +139,7 @@ def test_ru_language_choice_shows_ru_main_menu() -> None:
     reply = _select_ru(adapter)
 
     assert reply.state["operator_language"] == "ru"
-    assert "PMBOT — центр управления" in reply.text
+    assert "PMBOT\nВыберите раздел." in reply.text
     assert _labels(reply) == RU_MAIN_MENU_LABELS
 
 
@@ -149,7 +149,7 @@ def test_en_language_choice_shows_en_main_menu() -> None:
     reply = _select_en(adapter)
 
     assert reply.state["operator_language"] == "en"
-    assert "PMBOT Control Center" in reply.text
+    assert "PMBOT\nChoose a section." in reply.text
     assert _labels(reply) == EN_MAIN_MENU_LABELS
 
 
@@ -168,7 +168,7 @@ def test_required_ru_and_en_buttons_are_primary_menu_labels() -> None:
 def test_english_buttons_and_engineering_labels_are_not_ru_primary_menu_labels() -> None:
     ru_labels = _labels(_select_ru(_adapter()))
     rendered = "\n".join(ru_labels).lower()
-    en_only = set(EN_MAIN_MENU_LABELS) - {"📈 PnL"}
+    en_only = set(EN_MAIN_MENU_LABELS) - {"📈 PnL", "🖥 Mini App"}
 
     assert not en_only.intersection(ru_labels)
     for label in ENGINEERING_DEBUG_LABELS:
@@ -184,10 +184,10 @@ def test_connection_screen_redacts_values_and_uses_product_copy() -> None:
     assert "🔐 Подключение" in reply.text
     assert "API ключи: добавлены" in reply.text
     assert "Private key: добавлен" in reply.text
-    assert "Wallet: redacted" in reply.text
-    assert "Signature type: present" in reply.text
-    assert "Funder: redacted" in reply.text
-    assert "L2 auth: ok" in reply.text
+    assert "Wallet: 0x3006...8989" in reply.text
+    assert "Signature type: 3" in reply.text
+    assert "Funder: 0x1111...5555" in reply.text
+    assert "L2 auth: OK" in reply.text
     assert "Значения ключей никогда не показываются" in reply.text
     for raw in (RAW_PRIVATE_KEY, RAW_API_SECRET, RAW_PASSPHRASE, RAW_WALLET, RAW_FUNDER):
         assert raw not in rendered
@@ -228,14 +228,14 @@ def test_bot_status_limits_connection_check_mini_app_and_stop_are_safe_product_c
         "Live trading: выключен",
         "Отправка ордеров: выключена",
         "Подписание: выключено",
-        "Кошелёк: live-исполнение выключено",
+        "Wallet execution: выключен",
     ):
         assert line in bot_status.text
-    assert "Плановые лимиты: tiny/supervised." in limits.text
-    assert "Запустить read-only проверку" in _labels(connection_check)
+    assert "Режим: supervised tiny mode" in limits.text
+    assert "🧪 Проверить подключение" in _labels(connection_check)
     assert "Mini App URL не настроен" in panel.text
-    assert "Стоп: локальный статусный placeholder." in stop.text
-    assert "Ордера не отправляются и не отменяются." in stop.text
+    assert "Live-торговля сейчас не запущена." in stop.text
+    assert "Реальные ордера в этой задаче не отменяются." in stop.text
     assert stop.state["operator_kill_switch_requested"] is True
     assert stop.summary["allowed_for_live"] is False
     assert stop.summary["order_submission_enabled"] is False

@@ -144,12 +144,11 @@ def test_main_menu_contains_product_labels_and_no_primary_debug_labels() -> None
         "pmbot:balance",
         "pmbot:trades",
         "pmbot:pnl",
-        "pmbot:bot_status",
         "pmbot:limits",
-        "pmbot:connection_status",
+        "pmbot:bot_status",
         "pmbot:panel",
-        "pmbot:stop",
         "pmbot:language",
+        "pmbot:stop",
     )
     primary_menu_text = json.dumps(HOME_BUTTON_ROWS_BY_LANGUAGE, ensure_ascii=False).lower()
     for debug_label in (
@@ -170,10 +169,10 @@ def test_connection_screen_redacts_all_secret_like_values() -> None:
     assert "🔐 Подключение" in reply.text
     assert "API ключи: добавлены" in reply.text
     assert "Private key: добавлен" in reply.text
-    assert "Wallet: redacted" in reply.text
-    assert "Signature type: present" in reply.text
-    assert "Funder: redacted" in reply.text
-    assert "L2 auth: not run" in reply.text
+    assert "Wallet: не указан" in reply.text
+    assert "Signature type: не указан" in reply.text
+    assert "Funder: не указан" in reply.text
+    assert "L2 auth: не проверен" in reply.text
     assert "Значения ключей никогда не показываются" in reply.text
     for raw in (RAW_PRIVATE_KEY, RAW_API_SECRET, RAW_PASSPHRASE, RAW_WALLET, RAW_FUNDER):
         assert raw not in rendered
@@ -201,14 +200,14 @@ def test_bot_status_and_stop_remain_non_live_local_status_only() -> None:
     assert "Режим: review/dry-run" in status.text
     for line in (
         "allowed_for_live=false",
-        "live trading disabled",
-        "order submission disabled",
-        "signing disabled",
-        "wallet execution disabled",
-    ):
-        assert line in status.text
-    assert "Emergency stop state: local placeholder / live controls not implemented" in stop.text
-    assert "Ордера не отправляются и не отменяются." in stop.text
+            "Live trading: выключен",
+            "Отправка ордеров: выключена",
+            "Подписание: выключено",
+            "Wallet execution: выключен",
+        ):
+            assert line in status.text
+    assert "Emergency Stop пока локальный статус-контроль." in stop.text
+    assert "Реальные ордера в этой задаче не отменяются." in stop.text
     assert stop.state["operator_kill_switch_requested"] is True
     assert stop.summary["allowed_for_live"] is False
     assert stop.summary["order_submission_enabled"] is False

@@ -5,14 +5,13 @@
     "pmbot:balance",
     "pmbot:trades",
     "pmbot:pnl",
-    "pmbot:bot_status",
     "pmbot:limits",
-    "pmbot:connection_status",
+    "pmbot:bot_status",
     "pmbot:panel",
-    "pmbot:stop",
-    "pmbot:language"
+    "pmbot:language",
+    "pmbot:stop"
   ],
-  "connection_check_button_label": "\ud83e\uddea Connection Check",
+  "connection_check_button_label": "\ud83e\uddea Check connection",
   "contract_version": "pmbot_telegram_product_ux_en_menu_snapshot_068c.v1",
   "engineering_debug_labels_are_not_primary_menu_labels": true,
   "generated_at": "2026-05-15T00:00:00+04:00",
@@ -21,15 +20,14 @@
     "\ud83d\udcb0 Balance",
     "\ud83d\udcca Trades",
     "\ud83d\udcc8 PnL",
-    "\ud83e\udd16 Bot Status",
     "\u2699\ufe0f Limits",
-    "\ud83e\uddea Connection Check",
-    "\ud83d\udda5 Open PMBOT",
-    "\ud83d\udea8 Stop",
-    "\ud83c\udf10 Language"
+    "\ud83e\udd16 Status",
+    "\ud83d\udda5 Mini App",
+    "\ud83c\udf10 Language",
+    "\ud83d\udea8 Stop"
   ],
   "labels_match_required": true,
   "language": "en",
-  "mini_app_button_label": "\ud83d\udda5 Open PMBOT",
+  "mini_app_button_label": "\ud83d\udda5 Mini App",
   "task_id": "ORCH-PMBOT-TELEGRAM-068C-PRODUCT-UX-START-LANGUAGE-AND-RU-BUTTONS-FIX"
 }
