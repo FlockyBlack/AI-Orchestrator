@@ -1,0 +1,154 @@
+{
+  "task_id": "ORCH-PMBOT-TRADING-MVP-071C-INTEGRATION-MERGE-069C-071A-INTO-MASTER",
+  "contract_version": "orch_pmbot_trading_mvp_071c_integration_merge_result.v1",
+  "generated_at": "2026-05-15T00:00:00+04:00",
+  "repo": "https://github.com/FlockyBlack/AI-Orchestrator.git",
+  "target_branch": "master",
+  "worktree": "C:/oc071c_integration_merge_069c_071a",
+  "status": "validation_passed_pending_commit_and_push",
+  "head_before": "500a17df38993941f7f75d5712e3273da365b548",
+  "head_after": "473120fa2508078e7d032ad3eaaeec141118af70",
+  "head_after_note": "head_after is the post-merge integration HEAD before adding this result artifact; the final pushed commit is recorded in the operator final report because a committed artifact cannot embed its own final commit hash.",
+  "starting_master": {
+    "required_head": "500a17df38993941f7f75d5712e3273da365b548",
+    "verified_origin_master_head": "500a17df38993941f7f75d5712e3273da365b548",
+    "verified": true
+  },
+  "source_heads": {
+    "pmbot/telegram-069c-single-message-product-menu-no-live": {
+      "expected": "ec7011f4093b0a3f65a585ffc2b6cd8f8a3db092",
+      "verified": "ec7011f4093b0a3f65a585ffc2b6cd8f8a3db092"
+    },
+    "pmbot/trading-mvp-071a-public-market-token-discovery-no-trading": {
+      "expected": "97f69c7dc07b29ef2e21afd96d9e84ce6f3f2c1e",
+      "verified": "97f69c7dc07b29ef2e21afd96d9e84ce6f3f2c1e"
+    }
+  },
+  "merge_methods": [
+    {
+      "branch": "pmbot/telegram-069c-single-message-product-menu-no-live",
+      "order": 1,
+      "command": "git merge --no-ff --no-edit origin/pmbot/telegram-069c-single-message-product-menu-no-live",
+      "result": "merged_cleanly"
+    },
+    {
+      "branch": "pmbot/trading-mvp-071a-public-market-token-discovery-no-trading",
+      "order": 2,
+      "command": "git merge --no-ff --no-edit origin/pmbot/trading-mvp-071a-public-market-token-discovery-no-trading",
+      "result": "merged_cleanly"
+    }
+  ],
+  "conflicts": [],
+  "changed_files": [
+    "docs/ORCH_PMBOT_TELEGRAM_069C_SINGLE_MESSAGE_PRODUCT_MENU_NO_LIVE.md",
+    "docs/ORCH_PMBOT_TELEGRAM_069C_SINGLE_MESSAGE_PRODUCT_MENU_NO_LIVE_RESULT.json",
+    "docs/ORCH_PMBOT_TRADING_MVP_071A_PUBLIC_MARKET_TOKEN_DISCOVERY_NO_TRADING.md",
+    "docs/ORCH_PMBOT_TRADING_MVP_071A_PUBLIC_MARKET_TOKEN_DISCOVERY_NO_TRADING_RESULT.json",
+    "docs/ORCH_PMBOT_TRADING_MVP_071C_INTEGRATION_MERGE_069C_071A_INTO_MASTER_RESULT.json",
+    "pm_bot/operator_runner/public_market_token_discovery.py",
+    "pm_bot/operator_runner/telegram_operator_control_bot.py",
+    "pm_bot/operator_runner/telegram_operator_i18n.py",
+    "pm_bot/operator_runner/telegram_operator_runtime.py",
+    "pm_bot/operator_runner/telegram_product_ux_067a.py",
+    "pm_bot/operator_runner/telegram_product_ux_068c.py",
+    "pm_bot/operator_runner/telegram_single_message_product_menu_069c.py",
+    "pm_bot/tests/test_public_market_token_discovery_071a.py",
+    "pm_bot/tests/test_telegram_single_message_product_menu_069c.py",
+    "pm_bot/trading_core/public_market_token_discovery.py",
+    "pm_bot/trading_core/public_market_token_discovery_models.py"
+  ],
+  "generated_artifacts": [
+    "pm_bot/trading_core/artifacts/public_market_token_discovery_071a/latest_public_market_token_discovery_status_071a.json",
+    "pm_bot/trading_core/artifacts/public_market_token_discovery_071a/public_market_candidates_071a.json",
+    "pm_bot/trading_core/artifacts/public_market_token_discovery_071a/public_market_token_discovery_071a_result.json",
+    "pm_bot/trading_core/artifacts/public_market_token_discovery_071a/public_market_token_discovery_operator_summary_071a.md",
+    "pm_bot/trading_core/artifacts/public_market_token_discovery_071a/public_market_token_discovery_redaction_policy_071a.json",
+    "pm_bot/trading_core/artifacts/public_market_token_discovery_071a/public_outcome_token_candidates_071a.json",
+    "pm_bot/trading_core/artifacts/telegram_single_message_product_menu_069c/latest_telegram_single_message_product_menu_status_069c.json",
+    "pm_bot/trading_core/artifacts/telegram_single_message_product_menu_069c/telegram_single_message_product_menu_069c_result.json",
+    "pm_bot/trading_core/artifacts/telegram_single_message_product_menu_069c/telegram_single_message_product_menu_en_snapshot_069c.json",
+    "pm_bot/trading_core/artifacts/telegram_single_message_product_menu_069c/telegram_single_message_product_menu_navigation_snapshot_069c.json",
+    "pm_bot/trading_core/artifacts/telegram_single_message_product_menu_069c/telegram_single_message_product_menu_ru_snapshot_069c.json",
+    "pm_bot/trading_core/artifacts/telegram_single_message_product_menu_069c/telegram_single_message_product_menu_safety_snapshot_069c.json"
+  ],
+  "validation_summary": {
+    "focused_validation": "passed",
+    "focused_test_commands": [
+      "python -m pytest pm_bot/tests/test_telegram_single_message_product_menu_069c.py",
+      "python -m pytest pm_bot/tests/test_public_market_token_discovery_071a.py",
+      "python -m pytest pm_bot/tests/test_signed_order_payload_dry_run_070a.py",
+      "python -m pytest pm_bot/tests/test_first_order_market_token_resolver_070b.py",
+      "python -m pytest pm_bot/tests/test_live_account_readonly_state_probe_070c.py",
+      "python -m pytest pm_bot/tests/test_guarded_signer_diagnostic_smoke_069a.py",
+      "python -m pytest pm_bot/tests/test_clob_l2_auth_readonly_probe_067c.py",
+      "python -m pytest pm_bot/tests/test_telegram_product_start_language_068c.py",
+      "python -m pytest pm_bot/tests/test_telegram_forbidden_live_controls_063a.py",
+      "python -m pytest pm_bot/tests/test_static_safety_invariant_report_060q.py"
+    ],
+    "full_pm_bot_tests": {
+      "command": "python -B -m pytest pm_bot/tests",
+      "status": "passed",
+      "tests_passed": 2067
+    },
+    "compile_checks": [
+      {
+        "command": "python -m compileall -q pm_bot",
+        "status": "passed"
+      },
+      {
+        "command": "python -m compileall -q ai_orchestrator",
+        "status": "passed"
+      }
+    ],
+    "operator_commands": {
+      "status": "passed",
+      "commands": [
+        "python -m pm_bot.operator_runner.public_market_token_discovery --market BTC --strategy tiny-momentum --dry-run",
+        "python -m pm_bot.operator_runner.first_order_market_token_resolver --market BTC --strategy tiny-momentum --dry-run",
+        "python -m pm_bot.operator_runner.signed_order_payload_dry_run --market BTC --strategy tiny-momentum --dry-run",
+        "python -m pm_bot.operator_runner.live_account_readonly_state_probe --market BTC --strategy tiny-momentum --dry-run",
+        "python -m pm_bot.operator_runner.clob_l2_auth_readonly_probe --market BTC --strategy tiny-momentum --dry-run",
+        "python -m pm_bot.operator_runner.telegram_runtime_smoke",
+        "python -m pm_bot.operator_runner.static_safety_invariant_report --scope pm_bot --dry-run"
+      ]
+    },
+    "diff_checks": {
+      "git_diff_check": "passed",
+      "git_diff_cached_check": "passed"
+    }
+  },
+  "manual_safety_scan": {
+    "status": "passed",
+    "telegram_primary_menu_has_no_technical_labels": true,
+    "telegram_navigation_uses_same_message_edit_flow": true,
+    "telegram_remains_product_status_review_only": true,
+    "public_discovery_is_read_only": true,
+    "no_order_submit_or_cancel_endpoint_calls": true,
+    "no_trading_write_endpoint_calls": true,
+    "no_real_order_signing_by_default": true,
+    "no_signer_instantiation": true,
+    "no_fake_token_id_generation": true,
+    "no_fake_balances_trades_pnl_order_ids_tx_hashes": true,
+    "no_raw_private_key_api_secret_passphrase_output": true,
+    "no_wallet_connection_ui": true,
+    "no_scheduler_daemon_background_autonomous_loop": true,
+    "allowed_for_live": false
+  },
+  "safety_flags": {
+    "live_trading_enabled": false,
+    "order_submission_enabled": false,
+    "order_cancellation_enabled": false,
+    "signing_enabled": false,
+    "signer_instantiated": false,
+    "wallet_connection_enabled": false,
+    "authenticated_trading_write_calls_enabled": false,
+    "fake_token_id_generation_enabled": false,
+    "scheduler_or_daemon_added": false,
+    "allowed_for_live": false
+  },
+  "push": {
+    "pushed": false,
+    "remote_verification": "pending_post_commit"
+  },
+  "final_git_status_at_artifact_creation": "clean_except_this_untracked_result_artifact"
+}
