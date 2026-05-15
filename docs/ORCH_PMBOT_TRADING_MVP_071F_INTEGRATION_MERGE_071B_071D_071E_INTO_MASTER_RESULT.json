@@ -1,0 +1,253 @@
+{
+  "task_id": "ORCH-PMBOT-TRADING-MVP-071F-INTEGRATION-MERGE-071B-071D-071E-INTO-MASTER",
+  "contract_version": "orch_pmbot_trading_mvp_071f_integration_merge_result.v1",
+  "generated_at": "2026-05-16T00:47:52.3368229+04:00",
+  "repo": "https://github.com/FlockyBlack/AI-Orchestrator.git",
+  "target_branch": "master",
+  "worktree": "C:/oc071f_integration_merge_071b_071d_071e",
+  "status": "validation_passed_pending_result_commit_push_verify",
+  "head_before": "d1bcba71a33714a7435ff0f19c84cfe55a88c18d",
+  "head_after_source_replays_before_integration_fix": "98557d6ea51a79d73bb49d8e54638db2fdd333f5",
+  "head_after_integration_fix_before_result_commit": "0290940f098bdd19162053c22f606a6ef11ec863",
+  "head_after": "recorded_in_final_response_after_result_commit_push_verify",
+  "head_after_note": "The final master commit cannot self-record its own SHA inside this committed JSON artifact because embedding the SHA would change the SHA. The final response records the pushed and remotely verified master HEAD.",
+  "starting_master": {
+    "required_head": "d1bcba71a33714a7435ff0f19c84cfe55a88c18d",
+    "verified_origin_master_head": "d1bcba71a33714a7435ff0f19c84cfe55a88c18d",
+    "verified": true
+  },
+  "source_heads": {
+    "pmbot/trading-mvp-071b-live-readonly-probe-result-unification-no-orders": {
+      "expected": "35ae7e1da8eb130f8b361e30c701eaa0f61403bb",
+      "verified": "35ae7e1da8eb130f8b361e30c701eaa0f61403bb"
+    },
+    "pmbot/trading-mvp-071d-discovery-to-token-resolver-bridge-no-trading": {
+      "expected": "4ffe5ed370956547e007ca5094fa440eca5d6d3a",
+      "verified": "4ffe5ed370956547e007ca5094fa440eca5d6d3a"
+    },
+    "pmbot/telegram-071e-order-prep-status-screen-no-live": {
+      "expected": "d873d8cabbdcaa8bf0ff1a07abc0e78df254b765",
+      "verified": "d873d8cabbdcaa8bf0ff1a07abc0e78df254b765"
+    }
+  },
+  "merge_replay_methods": [
+    {
+      "order": 1,
+      "source_branch": "pmbot/trading-mvp-071b-live-readonly-probe-result-unification-no-orders",
+      "source_head": "35ae7e1da8eb130f8b361e30c701eaa0f61403bb",
+      "method": "git cherry-pick",
+      "result_commit": "5ac789b8a6f0bf2222bd3cbb6dc748e59ff4d5ce",
+      "conflicts": []
+    },
+    {
+      "order": 2,
+      "source_branch": "pmbot/trading-mvp-071d-discovery-to-token-resolver-bridge-no-trading",
+      "source_head": "4ffe5ed370956547e007ca5094fa440eca5d6d3a",
+      "method": "git cherry-pick",
+      "result_commit": "374afba462f9c2e454f5cd3cc05277075ff13fdc",
+      "conflicts": []
+    },
+    {
+      "order": 3,
+      "source_branch": "pmbot/telegram-071e-order-prep-status-screen-no-live",
+      "source_head": "d873d8cabbdcaa8bf0ff1a07abc0e78df254b765",
+      "method": "git cherry-pick with manual conflict resolution",
+      "result_commit": "98557d6ea51a79d73bb49d8e54638db2fdd333f5",
+      "conflicts": [
+        "pm_bot/operator_runner/telegram_operator_control_bot.py",
+        "pm_bot/operator_runner/telegram_operator_i18n.py",
+        "pm_bot/operator_runner/telegram_operator_runtime.py",
+        "pm_bot/operator_runner/telegram_product_ux_067a.py",
+        "pm_bot/operator_runner/telegram_product_ux_068c.py",
+        "pm_bot/tests/test_telegram_operator_ux_buttons_046.py",
+        "pm_bot/tests/test_telegram_product_ux_067a.py",
+        "pm_bot/tests/test_telegram_ru_language_mini_app_dev_mode_046g.py",
+        "pm_bot/trading_core/artifacts/telegram_product_ux_067a/telegram_product_ux_menu_snapshot_067a.json"
+      ]
+    },
+    {
+      "order": 4,
+      "source_branch": "integration_fix",
+      "source_head": "local",
+      "method": "small follow-up commit after full-suite failure exposed stale primary-menu expectation",
+      "result_commit": "0290940f098bdd19162053c22f606a6ef11ec863",
+      "conflicts": []
+    }
+  ],
+  "conflict_resolution_summary": {
+    "071b": "Cherry-picked cleanly. The aggregator includes SOURCE_070C and reads live_account_readonly_state_probe_070c artifacts as an optional source.",
+    "071d": "Cherry-picked cleanly. The bridge reads public_market_token_discovery_071a artifacts and emits only a review target contract for the 070B resolver path; it blocks auto-selection when multiple source-backed candidates exist.",
+    "071e": "Resolved Telegram conflicts by preserving the current 069C clean single-message home menu labels and same-message navigation, while adding /order_prep_status callback/command handling and a refresh/back-only status screen.",
+    "integration_fix": "Updated the older 046G Telegram UX test so pmbot:order_prep_status remains a registered stable callback but is intentionally excluded from the primary home menu."
+  },
+  "changed_files": [
+    "docs/ORCH_PMBOT_TELEGRAM_071E_ORDER_PREP_STATUS_SCREEN_NO_LIVE.md",
+    "docs/ORCH_PMBOT_TELEGRAM_071E_ORDER_PREP_STATUS_SCREEN_NO_LIVE_RESULT.json",
+    "docs/ORCH_PMBOT_TRADING_MVP_071B_LIVE_READONLY_PROBE_RESULT_UNIFICATION_NO_ORDERS.md",
+    "docs/ORCH_PMBOT_TRADING_MVP_071B_LIVE_READONLY_PROBE_RESULT_UNIFICATION_NO_ORDERS_RESULT.json",
+    "docs/ORCH_PMBOT_TRADING_MVP_071D_DISCOVERY_TO_TOKEN_RESOLVER_BRIDGE_NO_TRADING.md",
+    "docs/ORCH_PMBOT_TRADING_MVP_071D_DISCOVERY_TO_TOKEN_RESOLVER_BRIDGE_NO_TRADING_RESULT.json",
+    "docs/ORCH_PMBOT_TRADING_MVP_071F_INTEGRATION_MERGE_071B_071D_071E_INTO_MASTER_RESULT.json",
+    "pm_bot/operator_runner/discovery_to_token_resolver_bridge.py",
+    "pm_bot/operator_runner/live_readonly_status_aggregator.py",
+    "pm_bot/operator_runner/telegram_operator_control_bot.py",
+    "pm_bot/operator_runner/telegram_operator_i18n.py",
+    "pm_bot/operator_runner/telegram_operator_runtime.py",
+    "pm_bot/operator_runner/telegram_product_ux_067a.py",
+    "pm_bot/operator_runner/telegram_status_registry.py",
+    "pm_bot/tests/test_discovery_to_token_resolver_bridge_071d.py",
+    "pm_bot/tests/test_live_readonly_status_aggregator_071b.py",
+    "pm_bot/tests/test_telegram_order_prep_status_071e.py",
+    "pm_bot/tests/test_telegram_ru_language_mini_app_dev_mode_046g.py",
+    "pm_bot/trading_core/discovery_to_token_resolver_bridge.py",
+    "pm_bot/trading_core/discovery_to_token_resolver_bridge_models.py",
+    "pm_bot/trading_core/live_readonly_status_aggregator.py",
+    "pm_bot/trading_core/live_readonly_status_models.py",
+    "pm_bot/trading_core/telegram_order_prep_status_071e.py"
+  ],
+  "generated_artifacts": [
+    "pm_bot/trading_core/artifacts/discovery_to_token_resolver_bridge_071d/",
+    "pm_bot/trading_core/artifacts/live_readonly_status_aggregator_071b/",
+    "pm_bot/trading_core/artifacts/telegram_order_prep_status_071e/",
+    "pm_bot/trading_core/artifacts/telegram_product_ux_067a/telegram_product_ux_menu_snapshot_067a.json"
+  ],
+  "validation_summary": {
+    "focused_validation": {
+      "status": "passed",
+      "commands": [
+        "python -m pytest pm_bot/tests/test_live_readonly_status_aggregator_071b.py",
+        "python -m pytest pm_bot/tests/test_discovery_to_token_resolver_bridge_071d.py",
+        "python -m pytest pm_bot/tests/test_telegram_order_prep_status_071e.py",
+        "python -m pytest pm_bot/tests/test_public_market_token_discovery_071a.py",
+        "python -m pytest pm_bot/tests/test_first_order_market_token_resolver_070b.py",
+        "python -m pytest pm_bot/tests/test_live_account_readonly_state_probe_070c.py",
+        "python -m pytest pm_bot/tests/test_signed_order_payload_dry_run_070a.py",
+        "python -m pytest pm_bot/tests/test_telegram_single_message_product_menu_069c.py",
+        "python -m pytest pm_bot/tests/test_static_safety_invariant_report_060q.py"
+      ]
+    },
+    "full_validation": {
+      "status": "passed_after_integration_fix",
+      "initial_full_run": "failed on two stale 046G primary-menu callback expectations; fixed by excluding pmbot:order_prep_status from home menu expectations while keeping it registered.",
+      "final_full_run": {
+        "command": "python -B -m pytest pm_bot/tests",
+        "status": "passed",
+        "tests_passed": 2083
+      },
+      "compile_checks": [
+        {
+          "command": "python -m compileall -q pm_bot",
+          "status": "passed"
+        },
+        {
+          "command": "python -m compileall -q ai_orchestrator",
+          "status": "passed"
+        }
+      ]
+    },
+    "operator_commands": {
+      "status": "passed",
+      "summaries": [
+        {
+          "command": "python -m pm_bot.operator_runner.live_readonly_status_aggregator --market BTC --strategy tiny-momentum --dry-run",
+          "status": "passed",
+          "observed_status": "live_readonly_status_aggregated",
+          "allowed_for_live": false,
+          "network_calls": false
+        },
+        {
+          "command": "python -m pm_bot.operator_runner.discovery_to_token_resolver_bridge --market BTC --strategy tiny-momentum --dry-run",
+          "status": "passed",
+          "observed_status": "operator_selection_required_multiple_source_backed_candidates",
+          "valid_token_candidates": 2,
+          "token_id_generated": false,
+          "allowed_for_live": false
+        },
+        {
+          "command": "python -m pm_bot.operator_runner.public_market_token_discovery --market BTC --strategy tiny-momentum --dry-run",
+          "status": "passed",
+          "observed_status": "source_backed_candidates_ready",
+          "market_candidates": 1,
+          "outcome_token_candidates": 2
+        },
+        {
+          "command": "python -m pm_bot.operator_runner.first_order_market_token_resolver --market BTC --strategy tiny-momentum --dry-run",
+          "status": "passed",
+          "observed_status": "blocked_missing_token_id",
+          "token_id_generated": false,
+          "allowed_for_live": false
+        },
+        {
+          "command": "python -m pm_bot.operator_runner.signed_order_payload_dry_run --market BTC --strategy tiny-momentum --dry-run",
+          "status": "passed",
+          "observed_status": "blocked_non_executable_signed_order_payload_dry_run_no_submit",
+          "signing_attempted": false,
+          "order_submission_enabled": false,
+          "allowed_for_live": false
+        },
+        {
+          "command": "python -m pm_bot.operator_runner.live_account_readonly_state_probe --market BTC --strategy tiny-momentum --dry-run",
+          "status": "passed",
+          "observed_status": "blocked_missing_l2_credentials",
+          "signer_instantiated": false,
+          "order_submission": "blocked",
+          "allowed_for_live": false
+        },
+        {
+          "command": "python -m pm_bot.operator_runner.telegram_runtime_smoke",
+          "status": "passed",
+          "ready_to_start_runtime": true,
+          "network_check_requested": false
+        },
+        {
+          "command": "python -m pm_bot.operator_runner.static_safety_invariant_report --scope pm_bot --dry-run",
+          "status": "passed",
+          "critical_findings": 0,
+          "warnings": 7
+        }
+      ]
+    }
+  },
+  "manual_safety_scan": {
+    "status": "passed",
+    "commands": [
+      "rg -n \"requests\\.|httpx\\.|urllib|Client\\(|create_order\\(|submit_order\\(|cancel_order\\(|cancel_all\\(|post\\(|put\\(|patch\\(|delete\\(|sign_message\\(|sign_order\\(|connect_wallet\\(\" <new 071B/071D/071E runtime files>",
+      "rg -n \"\\\"allowed_for_live\\\"\\s*:\\s*true|allowed_for_live=True|live_execution_allowed\\\"\\s*:\\s*true|order_submission_enabled\\\"\\s*:\\s*true|signing_enabled\\\"\\s*:\\s*true|wallet_connection_enabled\\\"\\s*:\\s*true|fake_token_id_generated\\\"\\s*:\\s*true|token_id_generated\\\"\\s*:\\s*true\" <new 071B/071D/071E runtime files>",
+      "python -m pm_bot.operator_runner.static_safety_invariant_report --scope pm_bot --dry-run"
+    ],
+    "confirmed": {
+      "no_order_submit_cancel_endpoint_calls": true,
+      "no_trading_write_endpoint_calls": true,
+      "no_real_signing_by_default": true,
+      "no_signer_instantiation_added": true,
+      "no_fake_token_id_generation": true,
+      "no_fake_balances_orders_fills_pnl_order_ids_or_tx_hashes": true,
+      "no_raw_private_key_api_secret_or_passphrase_output": true,
+      "no_wallet_connection_ui": true,
+      "no_scheduler_daemon_background_or_autonomous_loop": true,
+      "telegram_primary_menu_remains_clean_product_menu": true,
+      "same_message_navigation_preserved": true,
+      "allowed_for_live_remains_false": true
+    }
+  },
+  "safety_flags": {
+    "paper_only": true,
+    "review_only": true,
+    "dry_run_only": true,
+    "allowed_for_live": false,
+    "real_order_submitted": false,
+    "real_order_cancelled": false,
+    "order_submission_enabled": false,
+    "order_cancel_enabled": false,
+    "signing_enabled": false,
+    "wallet_connection_enabled": false,
+    "authenticated_trading_write_calls_added": false
+  },
+  "remaining_risks_or_blockers": [
+    "071D intentionally blocks with operator_selection_required when multiple source-backed token candidates exist; no token is auto-selected.",
+    "070B and 070A operator dry-runs remain blocked without an explicit source-backed token_id/operator selection.",
+    "Static safety scan reports 7 non-critical warnings and 0 critical findings."
+  ],
+  "push_status": "pending",
+  "remote_verification": "pending"
+}
