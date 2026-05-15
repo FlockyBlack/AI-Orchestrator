@@ -207,7 +207,7 @@ def test_067e_telegram_screen_renders_ru_buttons_and_mini_app_when_configured(tm
     assert "Balance/allowance: known_from_probe" in reply.text
     assert "Обновить статус" in labels
     assert "Запустить read-only проверку" in labels
-    assert "Открыть PMBOT Mini App" in labels
+    assert "🖥 Открыть PMBOT" in labels
     assert "Назад" in labels
     assert "pmbot:connection_status" in callbacks
     assert "pmbot:run:connection_status_067e" in callbacks

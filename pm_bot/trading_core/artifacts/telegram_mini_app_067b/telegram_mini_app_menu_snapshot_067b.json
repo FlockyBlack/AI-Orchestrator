@@ -4,7 +4,7 @@
   "launch_button": {
     "callback_data": "",
     "env_marker": "PMBOT_TELEGRAM_MINI_APP_URL",
-    "label": "Открыть PMBOT",
+    "label": "🖥 Открыть PMBOT",
     "url_marker_driven_only": true
   },
   "menu_items": [

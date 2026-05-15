@@ -21,37 +21,37 @@ LANGUAGE_SELECTION_BUTTON_ROWS = (
 
 HOME_BUTTON_ROWS_BY_LANGUAGE = {
     "ru": (
-        (("🏠 Главная", "pmbot:home"), ("🔐 Подключение", "pmbot:connection")),
-        (("💰 Баланс", "pmbot:balance"), ("📊 Сделки", "pmbot:trades")),
-        (("📈 PnL", "pmbot:pnl"), ("🤖 Статус бота", "pmbot:bot_status")),
-        (("⚙️ Лимиты", "pmbot:limits"), ("🚨 Стоп", "pmbot:stop")),
-        (("🌐 Язык", "pmbot:language"),),
+        (("🔐 Подключение", "pmbot:connection"), ("💰 Баланс", "pmbot:balance")),
+        (("📊 Сделки", "pmbot:trades"), ("📈 PnL", "pmbot:pnl")),
+        (("🤖 Статус бота", "pmbot:bot_status"), ("⚙️ Лимиты", "pmbot:limits")),
+        (("🧪 Проверка подключения", "pmbot:connection_status"), ("🖥 Открыть PMBOT", "pmbot:panel")),
+        (("🚨 Стоп", "pmbot:stop"), ("🌐 Язык", "pmbot:language")),
     ),
     "en": (
-        (("Home", "pmbot:home"), ("Connection", "pmbot:connection")),
-        (("Balance", "pmbot:balance"), ("Trades", "pmbot:trades")),
-        (("PnL", "pmbot:pnl"), ("Bot Status", "pmbot:bot_status")),
-        (("Limits", "pmbot:limits"), ("Stop", "pmbot:stop")),
-        (("Language", "pmbot:language"),),
+        (("🔐 Connection", "pmbot:connection"), ("💰 Balance", "pmbot:balance")),
+        (("📊 Trades", "pmbot:trades"), ("📈 PnL", "pmbot:pnl")),
+        (("🤖 Bot Status", "pmbot:bot_status"), ("⚙️ Limits", "pmbot:limits")),
+        (("🧪 Connection Check", "pmbot:connection_status"), ("🖥 Open PMBOT", "pmbot:panel")),
+        (("🚨 Stop", "pmbot:stop"), ("🌐 Language", "pmbot:language")),
     ),
 }
 
 PANEL_FALLBACK_BUTTON_ROWS_BY_LANGUAGE = {
     "ru": (
-        (("🏠 Главная", "pmbot:home"), ("🤖 Статус бота", "pmbot:bot_status")),
-        (("🔐 Подключение", "pmbot:connection"), ("🚨 Стоп", "pmbot:stop")),
+        (("🤖 Статус бота", "pmbot:bot_status"), ("🔐 Подключение", "pmbot:connection")),
+        (("🧪 Проверка подключения", "pmbot:connection_status"), ("🚨 Стоп", "pmbot:stop")),
         (("🌐 Язык", "pmbot:language"),),
     ),
     "en": (
-        (("Home", "pmbot:home"), ("Bot Status", "pmbot:bot_status")),
-        (("Connection", "pmbot:connection"), ("Stop", "pmbot:stop")),
-        (("Language", "pmbot:language"),),
+        (("🤖 Bot Status", "pmbot:bot_status"), ("🔐 Connection", "pmbot:connection")),
+        (("🧪 Connection Check", "pmbot:connection_status"), ("🚨 Stop", "pmbot:stop")),
+        (("🌐 Language", "pmbot:language"),),
     ),
 }
 
 PANEL_LAUNCH_BUTTON_LABELS = {
-    "ru": "Открыть PMBOT",
-    "en": "Открыть PMBOT",
+    "ru": "🖥 Открыть PMBOT",
+    "en": "🖥 Open PMBOT",
 }
 
 CONNECTION_STATUS_BUTTON_ROWS_BY_LANGUAGE = {
@@ -359,7 +359,10 @@ def render_home(language: str) -> str:
                 "Live-торговля выключена",
                 "Отправка ордеров выключена",
                 "Подписание и исполнение через кошелёк выключены",
-                "Используй меню ниже: Подключение, Баланс, Сделки, PnL, Статус бота, Лимиты, Стоп, Язык.",
+                (
+                    "Используй меню ниже: Подключение, Баланс, Сделки, PnL, Статус бота, "
+                    "Лимиты, Проверка подключения, Открыть PMBOT, Стоп, Язык."
+                ),
             ]
         )
     return "\n".join(

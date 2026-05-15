@@ -100,7 +100,7 @@ SUPPORTED_COMMANDS = (
 )
 
 CALLBACK_COMMAND_MAP = {
-    "pmbot:home": "/start",
+    "pmbot:home": "/home",
     "pmbot:connection": "/connection",
     "pmbot:balance": "/balance",
     "pmbot:trades": "/trades",
@@ -110,7 +110,6 @@ CALLBACK_COMMAND_MAP = {
     "pmbot:stop": "/stop",
     "pmbot:status": "/status",
     "pmbot:connection_status": "/connection_status",
-    "pmbot:home": "/start",
     "pmbot:btc": "/btc",
     "pmbot:intent": "/intent",
     "pmbot:risk": "/risk",
@@ -363,6 +362,21 @@ class TelegramOperatorControlBot:
                 text=render_language_selected(requested_language),
                 keyboard=self._keyboard_for_language(requested_language),
             )
+        elif command == "/start":
+            self.state = record_telegram_operator_control_command(
+                self.state,
+                command=command,
+                operator_user_id=user_id,
+                authorized=True,
+                command_status="operator_language_selection_prompted",
+                generated_at=self.generated_at,
+            )
+            response = self._response(
+                command,
+                authorized=True,
+                text=render_language_selection_prompt(),
+                keyboard=build_language_selection_keyboard(),
+            )
         elif command == "/language":
             self.state = record_telegram_operator_control_command(
                 self.state,
@@ -527,36 +541,38 @@ class TelegramOperatorControlBot:
         )
 
     def _render_connection(self) -> str:
-        connection = _build_connection_product_status(self._summary())
+        connection = _build_connection_product_display_status(self._summary())
         if self._language() == "ru":
             return "\n".join(
                 [
                     "🔐 Подключение",
-                    f"API credentials: {connection['api_credentials']}",
-                    f"private key: {connection['private_key']}",
-                    f"wallet address: {connection['wallet_address']}",
-                    f"signature type: {connection['signature_type']}",
-                    f"funder address: {connection['funder_address']}",
-                    "auth probe: not implemented yet / pending future probe",
-                    "Сырые значения не показываются.",
-                    "Подключение кошелька не выполняется.",
-                    "Подписание выключено.",
-                    "authenticated endpoints выключены.",
+                    f"API ключи: {connection['api_keys_ru']}",
+                    f"Private key: {connection['private_key_ru']}",
+                    f"Wallet: {connection['wallet']}",
+                    f"Signature type: {connection['signature_type']}",
+                    f"Funder: {connection['funder']}",
+                    f"L2 auth: {connection['l2_auth']}",
+                    "Значения ключей никогда не показываются.",
+                    "Live trading: выключен.",
+                    "Отправка ордеров: выключена.",
+                    "Подписание: выключено.",
+                    "Подключение кошелька: выключено.",
                 ]
             )
         return "\n".join(
             [
-                "Connection",
-                f"API credentials: {connection['api_credentials']}",
-                f"private key: {connection['private_key']}",
-                f"wallet address: {connection['wallet_address']}",
-                f"signature type: {connection['signature_type']}",
-                f"funder address: {connection['funder_address']}",
-                "auth probe: not implemented yet / pending future probe",
+                "🔐 Connection",
+                f"API keys: {connection['api_keys_en']}",
+                f"Private key: {connection['private_key_en']}",
+                f"Wallet: {connection['wallet']}",
+                f"Signature type: {connection['signature_type']}",
+                f"Funder: {connection['funder']}",
+                f"L2 auth: {connection['l2_auth']}",
                 "Raw values are never shown.",
-                "Wallet connection is not performed.",
-                "Signing disabled.",
-                "Authenticated endpoints disabled.",
+                "Live trading: disabled.",
+                "Order submission: disabled.",
+                "Signing: disabled.",
+                "Wallet connection: disabled.",
             ]
         )
 
@@ -565,7 +581,7 @@ class TelegramOperatorControlBot:
             return "\n".join(
                 [
                     "💰 Баланс",
-                    "Баланс пока не проверен: read-only CLOB probe ещё не реализован",
+                    "Баланс пока не проверен. Запустите read-only проверку подключения.",
                     "Фейковый баланс не показывается.",
                     "authenticated endpoints выключены.",
                     "allowed_for_live=false",
@@ -573,8 +589,8 @@ class TelegramOperatorControlBot:
             )
         return "\n".join(
             [
-                "Balance",
-                "Balance not checked yet: read-only CLOB probe is not implemented yet.",
+                "💰 Balance",
+                "Balance has not been checked yet. Run the read-only connection check.",
                 "No fake balance is shown.",
                 "Authenticated endpoints disabled.",
                 "allowed_for_live=false",
@@ -586,7 +602,7 @@ class TelegramOperatorControlBot:
             return "\n".join(
                 [
                     "📊 Сделки",
-                    "Сделок пока нет: live-торговля не запускалась",
+                    "Live-сделок пока не было",
                     "Фейковые сделки или ордера не показываются.",
                     "Отправка ордеров выключена.",
                     "allowed_for_live=false",
@@ -594,8 +610,8 @@ class TelegramOperatorControlBot:
             )
         return "\n".join(
             [
-                "Trades",
-                "No trades yet: live trading has not been started.",
+                "📊 Trades",
+                "There have been no live trades yet.",
                 "No fake trades or orders are shown.",
                 "Order submission disabled.",
                 "allowed_for_live=false",
@@ -607,15 +623,15 @@ class TelegramOperatorControlBot:
             return "\n".join(
                 [
                     "📈 PnL",
-                    "PnL пока недоступен: live-сделок не было",
+                    "PnL пока недоступен: live-сделок ещё не было.",
                     "Фейковый PnL не показывается.",
                     "allowed_for_live=false",
                 ]
             )
         return "\n".join(
             [
-                "PnL",
-                "PnL unavailable yet: there have been no live trades.",
+                "📈 PnL",
+                "PnL is unavailable: there have been no live trades yet.",
                 "No fake PnL is shown.",
                 "allowed_for_live=false",
             ]
@@ -627,8 +643,12 @@ class TelegramOperatorControlBot:
             return "\n".join(
                 [
                     "🤖 Статус бота",
-                    "Режим: dry-run/review-only",
+                    "Режим: review/dry-run",
                     "allowed_for_live=false",
+                    "Live trading: выключен",
+                    "Отправка ордеров: выключена",
+                    "Подписание: выключено",
+                    "Кошелёк: live-исполнение выключено",
                     "live trading disabled",
                     "order submission disabled",
                     "signing disabled",
@@ -641,8 +661,8 @@ class TelegramOperatorControlBot:
             )
         return "\n".join(
             [
-                "Bot Status",
-                "Mode: dry-run/review-only",
+                "🤖 Bot Status",
+                "Mode: review/dry-run",
                 "allowed_for_live=false",
                 "live trading disabled",
                 "order submission disabled",
@@ -661,7 +681,8 @@ class TelegramOperatorControlBot:
             return "\n".join(
                 [
                     "⚙️ Лимиты",
-                    "Лимиты показываются только как review/status.",
+                    "Лимиты показываются только как review/status; live enable выключен.",
+                    "Плановые лимиты: tiny/supervised.",
                     f"Макс. размер ордера USD: {_display_known_value(risk.get('max_order_notional_usd'))}",
                     f"Макс. дневной убыток USD: {_display_known_value(risk.get('max_daily_loss_usd'))}",
                     f"Макс. общий exposure USD: {_display_known_value(risk.get('max_total_exposure_usd'))}",
@@ -673,8 +694,9 @@ class TelegramOperatorControlBot:
             )
         return "\n".join(
             [
-                "Limits",
-                "Limits are shown as review/status only.",
+                "⚙️ Limits",
+                "Limits are shown as review/status only; live enable is disabled.",
+                "Planned limits: tiny/supervised.",
                 f"Max order notional USD: {_display_known_value(risk.get('max_order_notional_usd'))}",
                 f"Max daily loss USD: {_display_known_value(risk.get('max_daily_loss_usd'))}",
                 f"Max total exposure USD: {_display_known_value(risk.get('max_total_exposure_usd'))}",
@@ -690,6 +712,7 @@ class TelegramOperatorControlBot:
             return "\n".join(
                 [
                     "🚨 Стоп",
+                    "Стоп: локальный статусный placeholder.",
                     "Emergency stop state: local placeholder / live controls not implemented",
                     "Стоп записан только как локальный статусный маркер.",
                     "Ордера не отправляются и не отменяются.",
@@ -701,7 +724,8 @@ class TelegramOperatorControlBot:
             )
         return "\n".join(
             [
-                "Stop",
+                "🚨 Stop",
+                "Stop is local/status-only.",
                 "Emergency stop state: local placeholder / live controls not implemented",
                 "Stop is recorded only as a local status marker.",
                 "No orders are submitted or cancelled.",
@@ -1634,10 +1658,9 @@ class TelegramOperatorControlBot:
             return build_panel_fallback_keyboard(self._language())
         if command == "/connection_status":
             return build_connection_status_keyboard(self._language())
-        if command in {"/language", "/ru", "/en"}:
+        if command in {"/start", "/language", "/ru", "/en"}:
             return build_language_selection_keyboard()
         if command in {
-            "/start",
             "/home",
             "/connection",
             "/balance",
@@ -3213,6 +3236,56 @@ def _build_connection_product_status(summary: Mapping[str, Any]) -> dict[str, st
         "signature_type": "present" if signature_type_present else "missing",
         "funder_address": "redacted" if funder_address_present else "missing",
     }
+
+
+def _build_connection_product_display_status(summary: Mapping[str, Any]) -> dict[str, str]:
+    status = dict(summary.get("telegram_connection_status_067e_status_summary", {}))
+    fallback = _build_connection_product_status(summary)
+    api_keys_present = (
+        status.get("api_keys_added") is True
+        or clean_text(status.get("api_keys_status")) in {"added", "present"}
+        or fallback["api_credentials"] == "present"
+    )
+    private_key_present = (
+        status.get("private_key_added") is True
+        or clean_text(status.get("private_key_status")) in {"added", "present"}
+        or fallback["private_key"] == "present"
+    )
+    wallet_raw = clean_text(status.get("wallet_display"))
+    funder_raw = clean_text(status.get("funder_display"))
+    signature_raw = clean_text(status.get("signature_type_display"))
+    l2_raw = clean_text(status.get("l2_auth_probe_display") or status.get("l2_auth_probe_status"))
+    wallet_present = wallet_raw not in {"", "missing", "not_available", "unknown"} or fallback["wallet_address"] == "redacted"
+    funder_present = funder_raw not in {"", "missing", "not_available", "unknown"} or fallback["funder_address"] == "redacted"
+    signature_present = (
+        signature_raw not in {"", "missing", "not_available", "unknown"}
+        or fallback["signature_type"] == "present"
+    )
+    return {
+        "api_keys_ru": "добавлены" if api_keys_present else "не добавлены",
+        "api_keys_en": "added" if api_keys_present else "not added",
+        "private_key_ru": "добавлен" if private_key_present else "не добавлен",
+        "private_key_en": "added" if private_key_present else "not added",
+        "wallet": "redacted" if wallet_present else "missing",
+        "signature_type": "present" if signature_present else "missing",
+        "funder": "redacted" if funder_present else "missing",
+        "l2_auth": _normalize_l2_auth_display(l2_raw),
+    }
+
+
+def _normalize_l2_auth_display(value: str) -> str:
+    normalized = clean_text(value).lower().replace("_", " ")
+    if normalized in {"ok", "blocked", "failed"}:
+        return normalized
+    if normalized in {"not run", "not available", "missing", "unknown", ""}:
+        return "not run"
+    if "ok" in normalized or "known" in normalized:
+        return "ok"
+    if "block" in normalized:
+        return "blocked"
+    if "fail" in normalized or "error" in normalized:
+        return "failed"
+    return "not run"
 
 
 def _display_known_value(value: Any) -> str:

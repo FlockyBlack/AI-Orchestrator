@@ -123,8 +123,8 @@ def test_ru_is_default_visible_language_and_language_commands_exist() -> None:
     language = bot.handle_command(user_id=AUTHORIZED_USER_ID, text="/language")
 
     assert DEFAULT_OPERATOR_LANGUAGE == "ru"
-    assert "PMBOT — центр управления" in start.text
-    assert _labels(start) == RU_MAIN_MENU_LABELS
+    assert "Выбери язык" in start.text
+    assert _labels(start) == ("🇷🇺 Русский", "🇬🇧 English")
     assert english.state["operator_language"] == "en"
     assert _labels(english) == EN_MAIN_MENU_LABELS
     assert russian.state["operator_language"] == "ru"
@@ -140,13 +140,14 @@ def test_main_menu_contains_product_labels_and_no_primary_debug_labels() -> None
     assert tuple(button.label for row in ru_keyboard.rows for button in row) == RU_MAIN_MENU_LABELS
     assert tuple(button.label for row in en_keyboard.rows for button in row) == EN_MAIN_MENU_LABELS
     assert _callbacks_for_language("ru") == (
-        "pmbot:home",
         "pmbot:connection",
         "pmbot:balance",
         "pmbot:trades",
         "pmbot:pnl",
         "pmbot:bot_status",
         "pmbot:limits",
+        "pmbot:connection_status",
+        "pmbot:panel",
         "pmbot:stop",
         "pmbot:language",
     )
@@ -167,12 +168,13 @@ def test_connection_screen_redacts_all_secret_like_values() -> None:
     rendered = reply.text + json.dumps(reply.to_dict(), ensure_ascii=False, sort_keys=True)
 
     assert "🔐 Подключение" in reply.text
-    assert "API credentials: present" in reply.text
-    assert "private key: present" in reply.text
-    assert "wallet address: redacted" in reply.text
-    assert "signature type: present" in reply.text
-    assert "funder address: redacted" in reply.text
-    assert "auth probe: not implemented yet / pending future probe" in reply.text
+    assert "API ключи: добавлены" in reply.text
+    assert "Private key: добавлен" in reply.text
+    assert "Wallet: redacted" in reply.text
+    assert "Signature type: present" in reply.text
+    assert "Funder: redacted" in reply.text
+    assert "L2 auth: not run" in reply.text
+    assert "Значения ключей никогда не показываются" in reply.text
     for raw in (RAW_PRIVATE_KEY, RAW_API_SECRET, RAW_PASSPHRASE, RAW_WALLET, RAW_FUNDER):
         assert raw not in rendered
 
@@ -183,9 +185,9 @@ def test_balance_trades_and_pnl_screens_do_not_emit_fake_data() -> None:
     trades = bot.handle_command(user_id=AUTHORIZED_USER_ID, text="/trades")
     pnl = bot.handle_command(user_id=AUTHORIZED_USER_ID, text="/pnl")
 
-    assert "Баланс пока не проверен: read-only CLOB probe ещё не реализован" in balance.text
-    assert "Сделок пока нет: live-торговля не запускалась" in trades.text
-    assert "PnL пока недоступен: live-сделок не было" in pnl.text
+    assert "Баланс пока не проверен. Запустите read-only проверку подключения." in balance.text
+    assert "Live-сделок пока не было" in trades.text
+    assert "PnL пока недоступен: live-сделок ещё не было." in pnl.text
     combined = "\n".join([balance.text, trades.text, pnl.text]).lower()
     for fake_value in ("$0", "0.00", "usdc", "order_id", "filled", "profit:", "loss:"):
         assert fake_value not in combined
@@ -196,7 +198,7 @@ def test_bot_status_and_stop_remain_non_live_local_status_only() -> None:
     status = bot.handle_command(user_id=AUTHORIZED_USER_ID, text="/bot_status")
     stop = bot.handle_command(user_id=AUTHORIZED_USER_ID, text="/stop")
 
-    assert "Режим: dry-run/review-only" in status.text
+    assert "Режим: review/dry-run" in status.text
     for line in (
         "allowed_for_live=false",
         "live trading disabled",

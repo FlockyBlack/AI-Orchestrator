@@ -65,7 +65,7 @@ def test_runtime_start_language_panel_and_redaction_smoke() -> None:
     panel = adapter.handle_text(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", text="/panel")
     rendered = json.dumps(panel.to_redacted_dict(), sort_keys=True)
 
-    assert "PMBOT — центр управления" in start.text
+    assert "Выбери язык" in start.text
     assert russian.state["operator_language"] == "ru"
     assert "PMBOT — центр управления" in russian.text
     assert "Mini App настроен" in panel.text

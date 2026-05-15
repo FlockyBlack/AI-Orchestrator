@@ -31,11 +31,11 @@ FORCED_FALSE_FLAGS = (
 )
 
 HOME_LABEL_ROWS = (
-    ("🏠 Главная", "🔐 Подключение"),
-    ("💰 Баланс", "📊 Сделки"),
-    ("📈 PnL", "🤖 Статус бота"),
-    ("⚙️ Лимиты", "🚨 Стоп"),
-    ("🌐 Язык",),
+    ("🔐 Подключение", "💰 Баланс"),
+    ("📊 Сделки", "📈 PnL"),
+    ("🤖 Статус бота", "⚙️ Лимиты"),
+    ("🧪 Проверка подключения", "🖥 Открыть PMBOT"),
+    ("🚨 Стоп", "🌐 Язык"),
 )
 
 
@@ -149,9 +149,8 @@ def _button_labels(reply: runtime.TelegramRuntimeReply) -> tuple[str, ...]:
 def test_start_uses_ru_first_product_home_when_language_is_not_selected() -> None:
     reply = _adapter().handle_text(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", text="/start")
 
-    assert "PMBOT — центр управления" in reply.text
-    assert "Live-торговля выключена" in reply.text
-    assert _label_rows(reply) == HOME_LABEL_ROWS
+    assert "Выбери язык" in reply.text
+    assert _label_rows(reply) == (("🇷🇺 Русский", "🇬🇧 English"),)
     assert reply.keyboard.to_dict()["safe_button_labels"] is True
 
 
@@ -241,8 +240,8 @@ def test_panel_fallback_when_mini_app_url_is_missing() -> None:
     assert "Panel artifact доступен: true" in reply.text
     assert reply.panel_button_url == ""
     assert _label_rows(reply) == (
-        ("🏠 Главная", "🤖 Статус бота"),
-        ("🔐 Подключение", "🚨 Стоп"),
+        ("🤖 Статус бота", "🔐 Подключение"),
+        ("🧪 Проверка подключения", "🚨 Стоп"),
         ("🌐 Язык",),
     )
 
@@ -284,7 +283,7 @@ def test_runtime_can_set_command_menu_through_fake_telegram_client() -> None:
 
     assert configured is True
     assert fake_bot.commands == runtime.telegram_command_menu_items()
-    assert fake_bot.commands[0] == ("start", "Home")
+    assert fake_bot.commands[0] == ("start", "Choose language")
     assert fake_bot.commands[-1] == ("help", "Help")
 
 

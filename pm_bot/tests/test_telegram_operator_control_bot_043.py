@@ -218,9 +218,9 @@ def test_authorized_start_and_help_work_and_state_no_execution() -> None:
     help_response = bot.handle_command(user_id=AUTHORIZED_USER_ID, text="/help")
 
     assert start.authorized is True
-    assert "PMBOT — центр управления" in start.text
-    assert "Live-торговля выключена" in start.text
-    assert "🔐 Подключение" in [button.label for row in start.keyboard.rows for button in row]
+    assert "Выбери язык" in start.text
+    assert "🇷🇺 Русский" in [button.label for row in start.keyboard.rows for button in row]
+    assert "🇬🇧 English" in [button.label for row in start.keyboard.rows for button in row]
     assert "/status" in help_response.text
     assert "отправка ордеров" in help_response.text
     assert validate_telegram_operator_control_state(help_response.state)["valid"] is True
@@ -232,7 +232,7 @@ def test_status_reports_review_only_live_blocked_and_gonogo() -> None:
     response = _bot().handle_command(user_id=AUTHORIZED_USER_ID, text="/status")
 
     assert "🤖 Статус бота" in response.text
-    assert "Режим: dry-run/review-only" in response.text
+    assert "Режим: review/dry-run" in response.text
     assert "allowed_for_live=false" in response.text
     assert "live trading disabled" in response.text
     assert "order submission disabled" in response.text
@@ -265,9 +265,9 @@ def test_btc_intent_risk_auth_order_gonogo_evidence_and_blockers_commands() -> N
     assert "order_intent_is_not_order_submission: true" in intent.text
     assert "Макс. размер ордера USD: 1" in risk.text
     assert "Макс. дневной убыток USD: 5" in risk.text
-    assert "API credentials:" in auth.text
+    assert "API ключи:" in auth.text
     assert AUTHORIZED_USER_ID not in auth.text
-    assert "Сырые значения не показываются." in auth.text
+    assert "Значения ключей никогда не показываются." in auth.text
     assert "order_submission_enabled: false" in order.text
     assert "would_submit_order: false" in order.text
     assert "Итог: NO_GO" in gonogo.text

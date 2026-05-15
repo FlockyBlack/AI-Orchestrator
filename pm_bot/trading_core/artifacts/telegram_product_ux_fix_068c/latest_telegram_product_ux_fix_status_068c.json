@@ -1,0 +1,19 @@
+{
+  "allowed_for_live": false,
+  "contract_version": "pmbot_latest_telegram_product_ux_fix_status_068c.v1",
+  "en_menu_ready": true,
+  "en_menu_snapshot_path": "pm_bot/trading_core/artifacts/telegram_product_ux_fix_068c/telegram_product_ux_en_menu_snapshot_068c.json",
+  "generated_at": "2026-05-15T00:00:00+04:00",
+  "mini_app_button_marker_driven": true,
+  "no_fake_balance_trades_or_pnl": true,
+  "primary_engineering_menu_hidden": true,
+  "product_buttons_ready": true,
+  "ru_menu_ready": true,
+  "ru_menu_snapshot_path": "pm_bot/trading_core/artifacts/telegram_product_ux_fix_068c/telegram_product_ux_ru_menu_snapshot_068c.json",
+  "safety_snapshot_path": "pm_bot/trading_core/artifacts/telegram_product_ux_fix_068c/telegram_product_ux_safety_snapshot_068c.json",
+  "start_language_picker_first": true,
+  "start_menu_snapshot_path": "pm_bot/trading_core/artifacts/telegram_product_ux_fix_068c/telegram_product_ux_start_menu_snapshot_068c.json",
+  "status": "completed_pushed_remote_verified",
+  "stop_local_status_only": true,
+  "task_id": "ORCH-PMBOT-TELEGRAM-068C-PRODUCT-UX-START-LANGUAGE-AND-RU-BUTTONS-FIX"
+}

@@ -4,7 +4,7 @@
   "authenticated_endpoints_enabled": false,
   "autonomous_live_trading_added": false,
   "browser_automation_added": false,
-  "button_label": "Открыть PMBOT",
+  "button_label": "🖥 Открыть PMBOT",
   "canary_executable_now": false,
   "contract_version": "pmbot_latest_telegram_mini_app_status_067b.v1",
   "credential_value_inputs_present": false,

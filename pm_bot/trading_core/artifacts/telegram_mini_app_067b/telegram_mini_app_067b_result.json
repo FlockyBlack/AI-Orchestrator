@@ -18,7 +18,7 @@
     "required_base_head": "bd84069654a3b412f76d63405b60da7feb5c6c9d"
   },
   "launch_wiring": {
-    "button_label": "Открыть PMBOT",
+    "button_label": "🖥 Открыть PMBOT",
     "env_marker": "PMBOT_TELEGRAM_MINI_APP_URL",
     "missing_url_message": "Mini App URL не настроен",
     "url_marker_driven_only": true,
