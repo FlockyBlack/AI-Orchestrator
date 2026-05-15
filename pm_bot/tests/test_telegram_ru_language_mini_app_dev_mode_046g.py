@@ -189,6 +189,7 @@ def test_russian_home_keyboard_uses_expected_labels_and_stable_callbacks() -> No
     )
     assert set(_callback_data(reply)) == REQUIRED_STABLE_CALLBACKS - {
         "pmbot:connection_status",
+        "pmbot:order_prep_status",
         "pmbot:lang:ru",
         "pmbot:lang:en",
     }
@@ -207,6 +208,7 @@ def test_callback_data_remains_stable_and_language_independent() -> None:
 
     home_callbacks = REQUIRED_STABLE_CALLBACKS - {
         "pmbot:connection_status",
+        "pmbot:order_prep_status",
         "pmbot:lang:ru",
         "pmbot:lang:en",
     }
