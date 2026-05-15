@@ -1,0 +1,164 @@
+{
+  "task_id": "ORCH-PMBOT-TRADING-MVP-074A-REAL-LOCAL-CHECK-EVIDENCE-REVIEW-NO-LIVE",
+  "status": "validated_pending_commit_push_verify",
+  "repository": "https://github.com/FlockyBlack/AI-Orchestrator.git",
+  "base_branch": "master",
+  "required_base_head": "f9e7b4de6ea2afdc110ee5a2387e375f88e46f92",
+  "worktree": "C:/oc074a_real_local_check_evidence_review_no_live",
+  "branch": "pmbot/trading-mvp-074a-real-local-check-evidence-review-no-live",
+  "head_before": "f9e7b4de6ea2afdc110ee5a2387e375f88e46f92",
+  "head_after": "recorded_in_final_response_after_commit_push_verify",
+  "head_after_note": "The committed result JSON cannot include its own final commit SHA without changing that SHA; the final response records the pushed and remotely verified branch HEAD.",
+  "generated_at": "2026-05-16T00:00:00+04:00",
+  "validation_completed_at": "2026-05-16T00:00:00+04:00",
+  "changed_files": [
+    "pm_bot/trading_core/real_local_check_evidence_review_models.py",
+    "pm_bot/trading_core/real_local_check_evidence_review.py",
+    "pm_bot/operator_runner/real_local_check_evidence_review.py",
+    "pm_bot/tests/test_real_local_check_evidence_review_074a.py",
+    "pm_bot/trading_core/artifacts/real_local_check_evidence_review_074a/real_local_check_evidence_review_074a_result.json",
+    "pm_bot/trading_core/artifacts/real_local_check_evidence_review_074a/latest_real_local_check_evidence_review_status_074a.json",
+    "pm_bot/trading_core/artifacts/real_local_check_evidence_review_074a/real_local_check_evidence_review_groups_074a.json",
+    "pm_bot/trading_core/artifacts/real_local_check_evidence_review_074a/real_local_check_evidence_review_blockers_074a.json",
+    "pm_bot/trading_core/artifacts/real_local_check_evidence_review_074a/real_local_check_evidence_review_safety_snapshot_074a.json",
+    "pm_bot/trading_core/artifacts/real_local_check_evidence_review_074a/real_local_check_evidence_review_operator_diagnosis_074a.md",
+    "docs/ORCH_PMBOT_TRADING_MVP_074A_REAL_LOCAL_CHECK_EVIDENCE_REVIEW_NO_LIVE.md",
+    "docs/ORCH_PMBOT_TRADING_MVP_074A_REAL_LOCAL_CHECK_EVIDENCE_REVIEW_NO_LIVE_RESULT.json"
+  ],
+  "generated_artifacts": [
+    "pm_bot/trading_core/artifacts/real_local_check_evidence_review_074a/real_local_check_evidence_review_074a_result.json",
+    "pm_bot/trading_core/artifacts/real_local_check_evidence_review_074a/latest_real_local_check_evidence_review_status_074a.json",
+    "pm_bot/trading_core/artifacts/real_local_check_evidence_review_074a/real_local_check_evidence_review_groups_074a.json",
+    "pm_bot/trading_core/artifacts/real_local_check_evidence_review_074a/real_local_check_evidence_review_blockers_074a.json",
+    "pm_bot/trading_core/artifacts/real_local_check_evidence_review_074a/real_local_check_evidence_review_safety_snapshot_074a.json",
+    "pm_bot/trading_core/artifacts/real_local_check_evidence_review_074a/real_local_check_evidence_review_operator_diagnosis_074a.md"
+  ],
+  "implementation_summary": [
+    "Added 074A models, contracts, safety flags, validation, grouped evidence references, blocker records, latest status, and safety snapshot.",
+    "Added a local-artifact-only reviewer that reads known local JSON status artifacts and the 073A snapshot when present.",
+    "Added a CLI runner that requires --dry-run and fail-closes on live/auth/wallet/sign/order/write/browser/loop flags.",
+    "Added focused tests for grouping, missing evidence, redaction, CLI output, forbidden flags, and runtime safety scanning.",
+    "Generated default 074A review artifacts under pm_bot/trading_core/artifacts/real_local_check_evidence_review_074a/."
+  ],
+  "default_run_summary": {
+    "command": "python -m pm_bot.operator_runner.real_local_check_evidence_review --market BTC --strategy tiny-momentum --dry-run",
+    "status": "blocked_first_supervised_tiny_order_not_ready",
+    "group_count": 7,
+    "blocking_group_count": 7,
+    "unknown_group_count": 5,
+    "remaining_blocker_count": 18,
+    "allowed_for_live": false,
+    "review_executable_for_live": false,
+    "live_execution_authorization": "blocked"
+  },
+  "validation_results": [
+    {
+      "command": "python -m pytest pm_bot/tests/test_real_local_check_evidence_review_074a.py",
+      "status": "passed",
+      "summary": "6 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_local_real_check_snapshot_073a.py || echo \"073A may not exist yet\"",
+      "status": "passed_with_absent_optional_file",
+      "summary": "073A test file absent on required base; fallback message emitted"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_first_live_order_final_blocker_reducer_072d.py",
+      "status": "passed",
+      "summary": "8 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_static_safety_invariant_report_060q.py",
+      "status": "passed",
+      "summary": "9 passed"
+    },
+    {
+      "command": "python -B -m pytest pm_bot/tests",
+      "status": "passed",
+      "summary": "2136 passed in 671.63s"
+    },
+    {
+      "command": "python -m compileall -q pm_bot",
+      "status": "passed",
+      "summary": "compileall completed without errors"
+    },
+    {
+      "command": "python -m compileall -q ai_orchestrator",
+      "status": "passed",
+      "summary": "compileall completed without errors"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.real_local_check_evidence_review --market BTC --strategy tiny-momentum --dry-run",
+      "status": "passed",
+      "summary": "status=blocked_first_supervised_tiny_order_not_ready; remaining_blocker_count=18; allowed_for_live=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.static_safety_invariant_report --scope pm_bot --dry-run",
+      "status": "passed",
+      "summary": "critical_findings=0; warnings=7; live execution blocked; order submission blocked; signing blocked; wallet blocked"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed",
+      "summary": "no whitespace errors"
+    },
+    {
+      "command": "git diff --cached --check",
+      "status": "passed",
+      "summary": "no whitespace errors before staging"
+    }
+  ],
+  "validation_side_effect_cleanup": {
+    "status": "completed",
+    "summary": "Validation rewrote pre-existing generated artifacts and created Python cache directories. Those side effects were removed before staging; only 074A task files and 074A artifacts remain changed."
+  },
+  "safety_flags": {
+    "review_only": true,
+    "diagnosis_only": true,
+    "dry_run_only": true,
+    "local_artifact_only": true,
+    "local_artifact_read_only": true,
+    "non_executable": true,
+    "allowed_for_live": false,
+    "review_executable_for_live": false,
+    "live_execution_authorized": false,
+    "live_execution_approved": false,
+    "first_live_order_authorized": false,
+    "first_live_order_attempted": false,
+    "operator_approved": false,
+    "operator_approval_recorded": false,
+    "selected_token_payload_ready_for_submit": false,
+    "order_payload_generated": false,
+    "signed_payload_generated": false,
+    "signing_enabled": false,
+    "signing_attempted": false,
+    "wallet_connection_attempted": false,
+    "wallet_used": false,
+    "order_submission_enabled": false,
+    "order_submission_attempted": false,
+    "order_cancellation_enabled": false,
+    "order_cancellation_attempted": false,
+    "authenticated_request_performed": false,
+    "network_write_performed": false,
+    "private_key_read": false,
+    "api_secret_read": false,
+    "credential_values_read": false,
+    "environment_values_read": false,
+    "secret_files_read": false,
+    "raw_source_payloads_embedded": false,
+    "raw_values_emitted": false,
+    "actual_secret_values_exposed": false,
+    "fake_evidence_generated": false,
+    "fake_success_inferred": false,
+    "browser_automation_added": false,
+    "scheduler_or_daemon_added": false,
+    "background_worker_added": false,
+    "autonomous_live_trading_added": false,
+    "resolved_blocker_count": 0
+  },
+  "safety_statement": "074A is a dry-run local artifact evidence review. It reads commit-safe local JSON status artifacts, writes grouped diagnosis artifacts, and does not execute, submit, cancel, sign, instantiate signers, connect wallets, call authenticated trading endpoints, read private material, read API secret values, create browser automation, create schedulers, create daemons, or run background workers.",
+  "remaining_risks": [
+    "073A, 073B, and 073C artifacts are absent on the required base head, so those groups remain unknown or missing in the default run.",
+    "074A intentionally does not resolve live execution authorization; a separate operator-approved task would still be required before any future live action."
+  ]
+}
