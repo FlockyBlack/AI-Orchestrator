@@ -272,9 +272,13 @@ def _observe_input_artifacts(
     input_artifact_paths: Mapping[str, str | Path | Sequence[str | Path]] | None,
 ) -> dict[str, dict[str, Any]]:
     overrides = dict(input_artifact_paths or {})
+    overrides_provided = input_artifact_paths is not None
     observed: dict[str, dict[str, Any]] = {}
     for artifact_key, default_candidates in DEFAULT_INPUT_ARTIFACT_CANDIDATES.items():
-        candidates = _candidate_paths(overrides.get(artifact_key), default_candidates)
+        if overrides_provided:
+            candidates = _candidate_paths(overrides.get(artifact_key), ())
+        else:
+            candidates = _candidate_paths(None, default_candidates)
         selected = _first_existing(candidates)
         if selected is None:
             summary = _missing_artifact_summary(artifact_key, candidates)
@@ -355,7 +359,7 @@ def _build_blocker_groups(
             "account_balance",
             "account_state_not_confirmed",
             "Read-only account-state artifact did not report a successful live-blocked probe; no account data is inferred.",
-            evidence_status=_evidence_status_for_payload(account),
+            evidence_status=_incomplete_evidence_status_for_payload(account),
             source_artifact_keys=("account_state",),
         )
     add(
@@ -381,7 +385,7 @@ def _build_blocker_groups(
             "signer",
             "signer_diagnostic_not_ok",
             "Guarded signer diagnostic has not completed with diagnostic_ok.",
-            evidence_status=_evidence_status_for_payload(signer),
+            evidence_status=_incomplete_evidence_status_for_payload(signer),
             source_artifact_keys=("signer_diagnostic",),
         )
     else:
@@ -415,7 +419,7 @@ def _build_blocker_groups(
             "token_selection",
             "token_selection_not_final",
             "Token selection evidence does not show an explicit format-valid token target.",
-            evidence_status=_evidence_status_for_payload(token),
+            evidence_status=_incomplete_evidence_status_for_payload(token),
             source_artifact_keys=("token_selection",),
         )
     else:
@@ -754,6 +758,12 @@ def _evidence_status_for_payload(payload: Mapping[str, Any]) -> str:
     if _field(payload, "allowed_for_live") is True:
         return "blocked_unsafe_activation_observed"
     return STATUS_BLOCKED
+
+
+def _incomplete_evidence_status_for_payload(payload: Mapping[str, Any]) -> str:
+    if _field(payload, "allowed_for_live") is True:
+        return "blocked_unsafe_activation_observed"
+    return STATUS_UNKNOWN
 
 
 def _reference_rows(observed: Mapping[str, Mapping[str, Any]], keys: Sequence[str]) -> list[dict[str, Any]]:

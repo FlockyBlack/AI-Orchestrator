@@ -1,0 +1,245 @@
+{
+  "task_id": "ORCH-PMBOT-TRADING-MVP-072G-INTEGRATION-MERGE-072A-072B-072C-072D-072E-072F-INTO-MASTER",
+  "status": "validated_ready_for_selective_stage_commit_push",
+  "generated_at": "2026-05-16T02:20:55.4597784+04:00",
+  "worktree": "C:/oc072g_integration_merge_072a_072b_072c_072d_072e_072f",
+  "repository": "https://github.com/FlockyBlack/AI-Orchestrator.git",
+  "target_branch": "master",
+  "old_master_head": "96526ac1d9eb6529041da9f5cfc75066cfb3c6cc",
+  "required_starting_master_head": "96526ac1d9eb6529041da9f5cfc75066cfb3c6cc",
+  "source_heads": {
+    "pmbot/trading-mvp-072a-order-prep-packet-from-discovery-no-submit": "8eb3cbd445a2845b8944ec9449cafc7c80d771f8",
+    "pmbot/telegram-072b-order-prep-packet-screen-no-live": "80fec147fd07091dc5f628f1cdbd48fb5472291a",
+    "pmbot/trading-mvp-072c-local-real-check-bundle-no-live": "9d5aced693eff785ea3f0ea1edc490bf91b1dc5c",
+    "pmbot/trading-mvp-072d-first-live-order-final-blocker-reducer-no-execution": "41eefc8827cd9ed4be6ba10d2607b134fbece991",
+    "pmbot/trading-mvp-072e-signed-payload-diagnostic-adapter-scaffold-no-submit": "1e2438df33076deb77d54a601c9db4524cdd030d",
+    "pmbot/telegram-072f-mini-app-order-prep-dashboard-no-secrets-no-live": "480832d97fef3f7486fa29fa6fec89fef6caebb2"
+  },
+  "head_after_ordered_merges_before_result_commit": "437c088ac5fd945ceff1d18e009e6ffd89bda22b",
+  "final_master_head": {
+    "status": "reported_after_commit_push_in_final_operator_report",
+    "note": "A committed JSON file cannot contain the Git hash of the commit that contains that same file. The final pushed master head and ls-remote verification are recorded in the operator final report."
+  },
+  "merge_methods": [
+    {
+      "branch": "pmbot/trading-mvp-072a-order-prep-packet-from-discovery-no-submit",
+      "method": "git merge --no-ff --no-edit origin/pmbot/trading-mvp-072a-order-prep-packet-from-discovery-no-submit",
+      "merge_commit": "cd6dd0c",
+      "conflicts": []
+    },
+    {
+      "branch": "pmbot/trading-mvp-072c-local-real-check-bundle-no-live",
+      "method": "git merge --no-ff --no-edit origin/pmbot/trading-mvp-072c-local-real-check-bundle-no-live",
+      "merge_commit": "9aad87f",
+      "conflicts": []
+    },
+    {
+      "branch": "pmbot/trading-mvp-072d-first-live-order-final-blocker-reducer-no-execution",
+      "method": "git merge --no-ff --no-edit origin/pmbot/trading-mvp-072d-first-live-order-final-blocker-reducer-no-execution",
+      "merge_commit": "a7ed67f",
+      "conflicts": []
+    },
+    {
+      "branch": "pmbot/trading-mvp-072e-signed-payload-diagnostic-adapter-scaffold-no-submit",
+      "method": "git merge --no-ff --no-edit origin/pmbot/trading-mvp-072e-signed-payload-diagnostic-adapter-scaffold-no-submit",
+      "merge_commit": "23fd7bb",
+      "conflicts": []
+    },
+    {
+      "branch": "pmbot/telegram-072b-order-prep-packet-screen-no-live",
+      "method": "git merge --no-ff --no-edit origin/pmbot/telegram-072b-order-prep-packet-screen-no-live",
+      "merge_commit": "bf89cf2",
+      "conflicts": []
+    },
+    {
+      "branch": "pmbot/telegram-072f-mini-app-order-prep-dashboard-no-secrets-no-live",
+      "method": "git merge --no-ff --no-edit origin/pmbot/telegram-072f-mini-app-order-prep-dashboard-no-secrets-no-live",
+      "merge_commit": "437c088",
+      "conflicts": []
+    }
+  ],
+  "conflict_summary": {
+    "status": "none",
+    "files": [],
+    "notes": [
+      "All six source branches merged cleanly with the ort strategy.",
+      "No textual conflict resolution was required."
+    ]
+  },
+  "integration_fix_summary": {
+    "status": "applied_after_focused_validation_failure",
+    "file": "pm_bot/trading_core/first_live_order_final_blocker_reducer.py",
+    "reason": "After 072A and 072C artifacts existed in the integrated tree, 072D needed to keep incomplete present evidence unknown and treat caller-provided input artifact maps as authoritative.",
+    "safety_effect": "Preserves blocked live state and prevents missing upstream evidence from being silently filled from repository defaults during explicit input-map runs."
+  },
+  "changed_files_summary": {
+    "source_merge_changed_files_before_result_doc": 69,
+    "result_artifact_added": "docs/ORCH_PMBOT_TRADING_MVP_072G_INTEGRATION_MERGE_072A_072B_072C_072D_072E_072F_INTO_MASTER_RESULT.json",
+    "integration_fix_files": [
+      "pm_bot/trading_core/first_live_order_final_blocker_reducer.py"
+    ],
+    "categories": [
+      "072A order prep packet runtime, models, tests, docs, and review artifacts",
+      "072C local real-check bundle runtime, models, tests, docs, and review artifacts",
+      "072D first-live-order final blocker reducer runtime, models, tests, docs, and review artifacts",
+      "072E signed payload diagnostic adapter scaffold runtime, models, tests, docs, and review artifacts",
+      "072B Telegram same-message order prep packet status screen updates",
+      "072F static Telegram Mini App order prep dashboard updates"
+    ]
+  },
+  "validation_summary": {
+    "focused_validation": {
+      "status": "passed",
+      "commands": [
+        "python -m pytest pm_bot/tests/test_order_prep_packet_072a.py",
+        "python -m pytest pm_bot/tests/test_telegram_order_prep_packet_screen_072b.py",
+        "python -m pytest pm_bot/tests/test_local_real_check_bundle_072c.py",
+        "python -m pytest pm_bot/tests/test_first_live_order_final_blocker_reducer_072d.py",
+        "python -m pytest pm_bot/tests/test_signed_payload_diagnostic_adapter_072e.py",
+        "python -m pytest pm_bot/tests/test_telegram_mini_app_order_prep_dashboard_072f.py",
+        "python -m pytest pm_bot/tests/test_live_readonly_status_aggregator_071b.py",
+        "python -m pytest pm_bot/tests/test_discovery_to_token_resolver_bridge_071d.py",
+        "python -m pytest pm_bot/tests/test_public_market_token_discovery_071a.py",
+        "python -m pytest pm_bot/tests/test_first_order_market_token_resolver_070b.py",
+        "python -m pytest pm_bot/tests/test_live_account_readonly_state_probe_070c.py",
+        "python -m pytest pm_bot/tests/test_signed_order_payload_dry_run_070a.py",
+        "python -m pytest pm_bot/tests/test_guarded_signer_diagnostic_smoke_069a.py",
+        "python -m pytest pm_bot/tests/test_telegram_single_message_product_menu_069c.py",
+        "python -m pytest pm_bot/tests/test_static_safety_invariant_report_060q.py"
+      ],
+      "notes": [
+        "072D initially failed two focused assertions after integration.",
+        "A scoped reducer fix was applied.",
+        "The failed 072D command was rerun and passed: 8 passed."
+      ]
+    },
+    "full_validation": {
+      "status": "passed",
+      "commands": [
+        "python -B -m pytest pm_bot/tests",
+        "python -m compileall -q pm_bot",
+        "python -m compileall -q ai_orchestrator"
+      ],
+      "pytest_result": "2130 passed in 577.18s"
+    },
+    "diff_checks": {
+      "git_diff_check": "passed",
+      "git_diff_cached_check": "pending_until_after_selective_stage"
+    }
+  },
+  "operator_command_summary": {
+    "status": "passed",
+    "commands": [
+      {
+        "command": "python -m pm_bot.operator_runner.order_prep_packet --market BTC --strategy tiny-momentum --dry-run",
+        "result": "passed",
+        "observed_status": "blocked_order_prep_packet_not_ready"
+      },
+      {
+        "command": "python -m pm_bot.operator_runner.local_real_check_bundle --market BTC --strategy tiny-momentum --dry-run",
+        "result": "passed",
+        "observed_status": "local_real_check_bundle_completed_with_blockers_live_blocked"
+      },
+      {
+        "command": "python -m pm_bot.operator_runner.first_live_order_final_blocker_reducer --market BTC --strategy tiny-momentum --dry-run",
+        "result": "passed",
+        "observed_status": "blocked_remaining_first_live_order_final_blockers"
+      },
+      {
+        "command": "python -m pm_bot.operator_runner.signed_payload_diagnostic_adapter --market BTC --strategy tiny-momentum --dry-run",
+        "result": "passed",
+        "observed_status": "blocked_selected_token_candidate_not_ready"
+      },
+      {
+        "command": "python -m pm_bot.operator_runner.live_readonly_status_aggregator --market BTC --strategy tiny-momentum --dry-run",
+        "result": "passed",
+        "observed_status": "live_readonly_status_aggregated"
+      },
+      {
+        "command": "python -m pm_bot.operator_runner.discovery_to_token_resolver_bridge --market BTC --strategy tiny-momentum --dry-run",
+        "result": "passed",
+        "observed_status": "operator_selection_required_multiple_source_backed_candidates"
+      },
+      {
+        "command": "python -m pm_bot.operator_runner.public_market_token_discovery --market BTC --strategy tiny-momentum --dry-run",
+        "result": "passed",
+        "observed_status": "source_backed_candidates_ready"
+      },
+      {
+        "command": "python -m pm_bot.operator_runner.first_order_market_token_resolver --market BTC --strategy tiny-momentum --dry-run",
+        "result": "passed",
+        "observed_status": "blocked_missing_token_id"
+      },
+      {
+        "command": "python -m pm_bot.operator_runner.signed_order_payload_dry_run --market BTC --strategy tiny-momentum --dry-run",
+        "result": "passed",
+        "observed_status": "blocked_non_executable_signed_order_payload_dry_run_no_submit"
+      },
+      {
+        "command": "python -m pm_bot.operator_runner.live_account_readonly_state_probe --market BTC --strategy tiny-momentum --dry-run",
+        "result": "passed",
+        "observed_status": "blocked_missing_l2_credentials"
+      },
+      {
+        "command": "python -m pm_bot.operator_runner.clob_l2_auth_readonly_probe --market BTC --strategy tiny-momentum --dry-run",
+        "result": "passed",
+        "observed_status": "blocked_missing_l2_credentials"
+      },
+      {
+        "command": "python -m pm_bot.operator_runner.guarded_signer_diagnostic_smoke --market BTC --strategy tiny-momentum --dry-run",
+        "result": "passed",
+        "observed_status": "blocked_diagnostic_not_requested"
+      },
+      {
+        "command": "python -m pm_bot.operator_runner.telegram_runtime_smoke",
+        "result": "passed",
+        "observed_status": "runtime import ok; network check not requested"
+      },
+      {
+        "command": "python -m pm_bot.operator_runner.static_safety_invariant_report --scope pm_bot --dry-run",
+        "result": "passed",
+        "observed_status": "critical findings 0; warnings 7"
+      }
+    ]
+  },
+  "safety_scan_summary": {
+    "status": "passed",
+    "static_safety_invariant_report": {
+      "critical_findings": 0,
+      "warnings": 7
+    },
+    "manual_checks": {
+      "no_order_submit_cancel_endpoint_calls": true,
+      "no_trading_write_endpoint_calls": true,
+      "no_real_signing_by_default": true,
+      "no_signer_instantiation": true,
+      "no_fake_selected_token_id": true,
+      "no_fake_balances_orders_fills_pnl_order_ids_tx_hashes": true,
+      "no_raw_private_key_api_secret_passphrase_output": true,
+      "no_full_signed_payload_output": true,
+      "no_wallet_connection_ui": true,
+      "no_scheduler_daemon_background_autonomous_loop": true,
+      "telegram_primary_menu_clean_product_menu": true,
+      "telegram_same_message_navigation_preserved": true,
+      "mini_app_static_review_only_no_secret_forms_network_fetch_wallet_connect_sign_submit_controls": true,
+      "allowed_for_live_false": true,
+      "order_prep_packet_executable_false": true,
+      "order_submission_enabled_false": true,
+      "bundle_executable_for_live_false": true
+    },
+    "notes": [
+      "Search matches for submit/cancel/sign/wallet/balance/PnL terms were safety flags, labels, blocked-status strings, validators, or read-only product/status surfaces.",
+      "Operator command outputs confirmed allowed_for_live=false and blocked order submission/signing/cancellation states for the 072A-072F path."
+    ]
+  },
+  "remote_verification": {
+    "status": "pending_until_after_commit_and_push",
+    "command": "git ls-remote origin refs/heads/master",
+    "note": "The exact remote verification output is produced after this artifact is committed and master is pushed; it is recorded in the final operator report."
+  },
+  "final_git_status": {
+    "status": "pending_until_after_commit_push_cleanup",
+    "expected": "clean",
+    "note": "Current intended pre-stage worktree has this result JSON plus the 072D reducer integration fix."
+  }
+}
