@@ -175,6 +175,51 @@ SUPERVISED_LIVE_ENABLEMENT_REVIEW_LABELS = {
     },
 }
 
+CREDENTIALS_READINESS_REVIEW_LABELS = {
+    "ru": {
+        "section": "Проверка готовности credentials",
+        "status": "Статус credentials readiness",
+        "readiness": "Readiness status",
+        "markers": "Маркеры",
+        "missing_markers": "Недостающие маркеры",
+        "blockers": "Блокеры маркеров",
+        "operator_boundary": "Граница подтверждения оператора",
+        "safety_policy": "Проверка safety policy",
+        "warning": (
+            "Presence-only не проверяет корректность, funding, permissions или безопасность секретов; "
+            "проверяются только имена маркеров."
+        ),
+        "presence_only": "Только наличие маркеров",
+        "values_never_shown": "Значения не показываются",
+        "not_live_enabled": "Live не включён",
+        "dry_run_only": "Только dry-run",
+        "run_dry_run": "Dry-run credentials readiness 064",
+        "resolved_zero": "resolved_blocker_count: 0",
+        "allowed_live_false": "allowed_for_live: false",
+    },
+    "en": {
+        "section": "Credentials readiness review",
+        "status": "Credentials readiness status",
+        "readiness": "Readiness status",
+        "markers": "Markers",
+        "missing_markers": "Missing markers",
+        "blockers": "Marker blockers",
+        "operator_boundary": "Operator approval boundary",
+        "safety_policy": "Safety policy validation",
+        "warning": (
+            "Presence-only cannot validate correctness, funding, permissions, or safety of secrets; "
+            "it checks marker names only."
+        ),
+        "presence_only": "Presence-only",
+        "values_never_shown": "Values never shown",
+        "not_live_enabled": "Not live-enabled",
+        "dry_run_only": "Dry-run only",
+        "run_dry_run": "Dry-run credentials readiness 064",
+        "resolved_zero": "resolved_blocker_count: 0",
+        "allowed_live_false": "allowed_for_live: false",
+    },
+}
+
 
 def normalize_operator_language(value: Any, *, fallback: str = "") -> str:
     language = clean_text(value).lower()
@@ -248,6 +293,13 @@ def pre_live_gate_review_label(key: str, language: str) -> str:
 
 def supervised_live_enablement_review_label(key: str, language: str) -> str:
     labels = SUPERVISED_LIVE_ENABLEMENT_REVIEW_LABELS[
+        normalize_operator_language(language, fallback=DEFAULT_OPERATOR_LANGUAGE)
+    ]
+    return labels.get(clean_text(key), "")
+
+
+def credentials_readiness_review_label(key: str, language: str) -> str:
+    labels = CREDENTIALS_READINESS_REVIEW_LABELS[
         normalize_operator_language(language, fallback=DEFAULT_OPERATOR_LANGUAGE)
     ]
     return labels.get(clean_text(key), "")
