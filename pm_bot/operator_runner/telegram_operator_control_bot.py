@@ -456,6 +456,7 @@ class TelegramOperatorControlBot:
         clob_l2_marker = dict(summary.get("clob_l2_marker_preflight_status_summary", {}))
         no_order_auth_get = dict(summary.get("no_order_auth_get_preflight_status_summary", {}))
         signer_boundary = dict(summary.get("signer_boundary_preflight_status_summary", {}))
+        tiny_scaffold = dict(summary.get("tiny_order_scaffold_status_summary", {}))
         state = dict(summary.get("state_summary", {}))
         if self._language() == "ru":
             return "\n".join(
@@ -486,6 +487,10 @@ class TelegramOperatorControlBot:
                     f"Signer boundary 060: {clean_text(signer_boundary.get('status') or 'not_available')}",
                     f"Live candidate intent: {clean_text(signer_boundary.get('live_candidate_intent_status') or 'not_available')}",
                     f"Unsigned plan: {clean_text(signer_boundary.get('unsigned_plan_status') or 'not_available')}",
+                    f"Tiny order scaffold 061: {clean_text(tiny_scaffold.get('status') or 'not_available')}",
+                    f"Tiny candidate: {clean_text(tiny_scaffold.get('tiny_candidate') or 'not_available')}",
+                    f"Approval packet: {clean_text(tiny_scaffold.get('manual_tiny_order_approval_packet_path') or 'not_available')}",
+                    "Operator approved: false",
                     "Signer blocked: true",
                     "Signed payload unavailable: true",
                     "Order submission blocked: true",
@@ -527,6 +532,10 @@ class TelegramOperatorControlBot:
                 f"Signer boundary 060: {clean_text(signer_boundary.get('status') or 'not_available')}",
                 f"Live candidate intent: {clean_text(signer_boundary.get('live_candidate_intent_status') or 'not_available')}",
                 f"Unsigned plan: {clean_text(signer_boundary.get('unsigned_plan_status') or 'not_available')}",
+                f"Tiny order scaffold 061: {clean_text(tiny_scaffold.get('status') or 'not_available')}",
+                f"Tiny candidate: {clean_text(tiny_scaffold.get('tiny_candidate') or 'not_available')}",
+                f"Approval packet: {clean_text(tiny_scaffold.get('manual_tiny_order_approval_packet_path') or 'not_available')}",
+                "Operator approved: false",
                 "Signer blocked: true",
                 "Signed payload unavailable: true",
                 "Order submission blocked: true",
@@ -649,6 +658,7 @@ class TelegramOperatorControlBot:
         live_preflight = dict(self._summary().get("live_connector_preflight_status_summary", {}))
         authenticated_clob = dict(self._summary().get("authenticated_clob_preflight_status_summary", {}))
         signer_boundary = dict(self._summary().get("signer_boundary_preflight_status_summary", {}))
+        tiny_scaffold = dict(self._summary().get("tiny_order_scaffold_status_summary", {}))
         return "\n".join(
             [
                 "Live order submission boundary: disabled",
@@ -657,6 +667,10 @@ class TelegramOperatorControlBot:
                 f"Authenticated CLOB preflight: {clean_text(authenticated_clob.get('status') or 'not_available')}",
                 f"Signer boundary 060: {clean_text(signer_boundary.get('status') or 'not_available')}",
                 f"Unsigned plan: {clean_text(signer_boundary.get('unsigned_plan_status') or 'not_available')}",
+                f"Tiny order scaffold 061: {clean_text(tiny_scaffold.get('status') or 'not_available')}",
+                f"Approval packet: {clean_text(tiny_scaffold.get('manual_tiny_order_approval_packet_path') or 'not_available')}",
+                "operator_approved: false",
+                "candidate_is_executable: false",
                 "order_submission_enabled: false",
                 "order_submission_blocked: true",
                 "order_cancellation_blocked: true",
@@ -872,9 +886,10 @@ class TelegramOperatorControlBot:
                     f"Live connector preflight: {clean_text(items.get('live_connector_preflight') or 'blocked')}",
                     f"Auth boundary: {clean_text(items.get('auth_boundary') or 'blocked')}",
                     f"Signer boundary: {clean_text(items.get('signer_boundary') or 'not implemented yet')}",
+                    f"Tiny order scaffold: {clean_text(items.get('tiny_order_scaffold') or 'not implemented yet')}",
                     f"Order submission: {clean_text(items.get('order_submission') or 'blocked')}",
                     f"Live execution: {clean_text(items.get('live_execution') or 'blocked')}",
-                    "Labels: paper_demo_ready, pre_live_boundary_ready, signer_boundary_missing, live_execution_blocked",
+                    "Labels: paper_demo_ready, pre_live_boundary_ready, signer_boundary_missing, tiny_order_scaffold_missing, live_execution_blocked",
                     "Live-торговля заблокирована",
                 ]
             )
@@ -888,9 +903,10 @@ class TelegramOperatorControlBot:
                 f"Live connector preflight: {clean_text(items.get('live_connector_preflight') or 'blocked')}",
                 f"Auth boundary: {clean_text(items.get('auth_boundary') or 'blocked')}",
                 f"Signer boundary: {clean_text(items.get('signer_boundary') or 'not implemented yet')}",
+                f"Tiny order scaffold: {clean_text(items.get('tiny_order_scaffold') or 'not implemented yet')}",
                 f"Order submission: {clean_text(items.get('order_submission') or 'blocked')}",
                 f"Live execution: {clean_text(items.get('live_execution') or 'blocked')}",
-                "Labels: paper_demo_ready, pre_live_boundary_ready, signer_boundary_missing, live_execution_blocked",
+                "Labels: paper_demo_ready, pre_live_boundary_ready, signer_boundary_missing, tiny_order_scaffold_missing, live_execution_blocked",
             ]
         )
 
@@ -1182,6 +1198,11 @@ def build_telegram_operator_control_summary(
         context_value.get("signer_boundary_preflight_status"),
         context_value.get("latest_signer_boundary_preflight_status"),
     )
+    tiny_order_scaffold = _first_mapping(
+        context_value.get("tiny_order_scaffold_status_summary"),
+        context_value.get("tiny_order_scaffold_status"),
+        context_value.get("latest_tiny_order_scaffold_status"),
+    )
     mini_panel = _first_mapping(
         context_value.get("telegram_mini_app_operator_panel_summary"),
         context_value.get("telegram_mini_app_operator_panel"),
@@ -1226,6 +1247,7 @@ def build_telegram_operator_control_summary(
                 "clob_l2_marker_preflight": clob_l2_marker_preflight,
                 "no_order_auth_get_preflight": no_order_auth_get_preflight,
                 "signer_boundary_preflight": signer_boundary_preflight,
+                "tiny_order_scaffold": tiny_order_scaffold,
             },
         ),
         "task_id": TASK_ID,
@@ -1267,6 +1289,7 @@ def build_telegram_operator_control_summary(
         "signer_boundary_preflight_status_summary": _normalize_signer_boundary_preflight_summary(
             signer_boundary_preflight
         ),
+        "tiny_order_scaffold_status_summary": _normalize_tiny_order_scaffold_summary(tiny_order_scaffold),
         "telegram_mini_app_operator_panel_summary": mini_panel,
         "telegram_operator_console_060t_status_registry": telegram_operator_console,
         "telegram_operator_console_readiness_summary": _normalize_telegram_console_readiness_summary(
@@ -1331,6 +1354,7 @@ def _normalize_telegram_console_readiness_summary(readiness: Mapping[str, Any]) 
         "live_connector_preflight": clean_text(dict(items).get("live_connector_preflight") or "blocked"),
         "auth_boundary": clean_text(dict(items).get("auth_boundary") or "blocked"),
         "signer_boundary": clean_text(dict(items).get("signer_boundary") or "not implemented yet"),
+        "tiny_order_scaffold": clean_text(dict(items).get("tiny_order_scaffold") or "not implemented yet"),
         "order_submission": clean_text(dict(items).get("order_submission") or "blocked"),
         "live_execution": clean_text(dict(items).get("live_execution") or "blocked"),
     }
@@ -1345,12 +1369,14 @@ def _normalize_telegram_console_readiness_summary(readiness: Mapping[str, Any]) 
                 "paper_demo_ready",
                 "pre_live_boundary_ready",
                 "signer_boundary_missing",
+                "tiny_order_scaffold_missing",
                 "live_execution_blocked",
             )
         ),
         "paper_demo_ready": value.get("paper_demo_ready") is True,
         "pre_live_boundary_ready": value.get("pre_live_boundary_ready") is True,
         "signer_boundary_missing": True,
+        "tiny_order_scaffold_missing": True,
         "live_execution_blocked": True,
         "review_only": True,
         "execution_enabling": False,
@@ -1746,6 +1772,77 @@ def _normalize_signer_boundary_preflight_summary(status: Mapping[str, Any]) -> d
         "balance_read_blocked": True,
         "position_read_blocked": True,
         "live_execution_blocked": True,
+        "execution_enabling": False,
+        "authenticated_polymarket_enabled": False,
+        "authenticated_endpoint_enabled": False,
+        "authenticated_endpoints_enabled": False,
+        "order_submission_enabled": False,
+        "wallet_signing_enabled": False,
+        "signing_enabled": False,
+        "signed_payload_generation_enabled": False,
+        "signed_order_generation_enabled": False,
+        "live_execution_approved": False,
+        "canary_executable_now": False,
+        "real_execution_available": False,
+        "live_connector_enabled": False,
+        "allowed_for_live": False,
+    }
+
+
+def _normalize_tiny_order_scaffold_summary(status: Mapping[str, Any]) -> dict[str, Any]:
+    value = dict(status or {})
+    blockers = value.get("blockers") if isinstance(value.get("blockers"), list) else []
+    top_blockers = value.get("top_blocker_reasons")
+    if not isinstance(top_blockers, list):
+        top_blockers = [
+            clean_text(row.get("reason"))
+            for row in mapping_rows(blockers)
+            if clean_text(row.get("reason"))
+        ][:8]
+    return {
+        "status": clean_text(value.get("status") or "not_available"),
+        "market": clean_text(value.get("market") or value.get("market_symbol") or "not_available"),
+        "market_symbol": clean_text(value.get("market_symbol") or value.get("market") or "not_available"),
+        "strategy_name": clean_text(value.get("strategy_name") or "not_available"),
+        "mode": clean_text(value.get("mode") or "preflight / review-only"),
+        "execution_mode": clean_text(value.get("execution_mode") or "preflight"),
+        "source_intent_path": clean_text(value.get("source_intent_path")),
+        "source_signer_boundary_path": clean_text(value.get("source_signer_boundary_path")),
+        "tiny_candidate": clean_text(value.get("tiny_candidate") or "not_available"),
+        "approval_packet": clean_text(value.get("approval_packet") or "not_available"),
+        "manual_tiny_order_approval_packet_path": clean_text(
+            value.get("manual_tiny_order_approval_packet_path")
+        ),
+        "operator_approved": False,
+        "candidate_outcome": clean_text(value.get("candidate_outcome") or "not_available"),
+        "candidate_side": clean_text(value.get("candidate_side") or "not_available"),
+        "candidate_limit_price": value.get("candidate_limit_price"),
+        "candidate_size": value.get("candidate_size"),
+        "candidate_notional": value.get("candidate_notional"),
+        "max_notional": value.get("max_notional"),
+        "max_size": value.get("max_size"),
+        "max_price": value.get("max_price"),
+        "hard_limits_passed": value.get("hard_limits_passed") is True,
+        "approval_required": True,
+        "approval_packet_created": value.get("approval_packet_created") is True,
+        "candidate_is_executable": False,
+        "blocker_count": _int_first(value.get("blocker_count"), len(blockers)),
+        "top_blocker_reasons": [clean_text(item) for item in top_blockers if clean_text(item)],
+        "artifact_path": clean_text(value.get("artifact_path")),
+        "latest_status_path": clean_text(value.get("latest_status_path")),
+        "operator_markdown_path": clean_text(value.get("operator_markdown_path")),
+        "order_submission_blocked": True,
+        "order_cancellation_blocked": True,
+        "signer_blocked": True,
+        "signed_payload_unavailable": True,
+        "wallet_connection_blocked": True,
+        "balance_read_blocked": True,
+        "position_read_blocked": True,
+        "fill_read_blocked": True,
+        "live_execution_blocked": True,
+        "review_only": True,
+        "preflight_only": True,
+        "scaffold_only": True,
         "execution_enabling": False,
         "authenticated_polymarket_enabled": False,
         "authenticated_endpoint_enabled": False,

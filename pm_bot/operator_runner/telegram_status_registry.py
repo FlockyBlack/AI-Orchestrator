@@ -181,6 +181,15 @@ STATUS_SOURCES: tuple[TelegramStatusSource, ...] = (
         label_en="Signer Boundary Preflight 060",
         label_ru="Граница подписи 060",
     ),
+    TelegramStatusSource(
+        flow_id="tiny_order_scaffold_061",
+        section="Live Readiness",
+        artifact_dir_name="tiny_order_scaffold_061",
+        latest_status_filename="latest_tiny_order_scaffold_status_061.json",
+        context_key="tiny_order_scaffold_status_summary",
+        label_en="Tiny Order Scaffold 061",
+        label_ru="Tiny order scaffold 061",
+    ),
 )
 
 SAFE_ACTIONS: tuple[TelegramSafeAction, ...] = (
@@ -349,6 +358,7 @@ def build_readiness_summary(
         )
     )
     signer_boundary_ready = _available(cards_by_flow, "signer_boundary_preflight_060")
+    tiny_scaffold_ready = _available(cards_by_flow, "tiny_order_scaffold_061")
     readiness_items = {
         "paper_system": "ready" if paper_ready else "blocked",
         "public_market_data": "ready" if public_ready else "blocked",
@@ -356,6 +366,7 @@ def build_readiness_summary(
         "live_connector_preflight": "ready" if live_preflight_ready else "blocked",
         "auth_boundary": "ready_live_blocked" if auth_boundary_ready else "blocked",
         "signer_boundary": "ready_live_blocked" if signer_boundary_ready else "not implemented yet",
+        "tiny_order_scaffold": "ready_live_blocked" if tiny_scaffold_ready else "not implemented yet",
         "order_submission": "blocked",
         "live_execution": "blocked",
     }
@@ -366,10 +377,12 @@ def build_readiness_summary(
         "live_connector_preflight",
         "auth_boundary",
         "signer_boundary",
+        "tiny_order_scaffold",
     )
     ready_count = sum(1 for key in countable if readiness_items[key] in {"ready", "ready_live_blocked"})
     readiness_percent = int(round((ready_count / len(countable)) * 100))
     signer_boundary_label = "signer_boundary_ready" if signer_boundary_ready else "signer_boundary_missing"
+    tiny_scaffold_label = "tiny_order_scaffold_ready" if tiny_scaffold_ready else "tiny_order_scaffold_missing"
     return {
         "contract_version": READINESS_SUMMARY_CONTRACT,
         "task_id": TASK_ID,
@@ -381,12 +394,15 @@ def build_readiness_summary(
             "paper_demo_ready",
             "pre_live_boundary_ready",
             signer_boundary_label,
+            tiny_scaffold_label,
             "live_execution_blocked",
         ],
         "paper_demo_ready": paper_ready and public_ready and ledger_ready,
         "pre_live_boundary_ready": live_preflight_ready or auth_boundary_ready,
         "signer_boundary_missing": not signer_boundary_ready,
         "signer_boundary_ready": signer_boundary_ready,
+        "tiny_order_scaffold_missing": not tiny_scaffold_ready,
+        "tiny_order_scaffold_ready": tiny_scaffold_ready,
         "live_execution_blocked": True,
         "review_only": True,
         "execution_enabling": False,
@@ -790,6 +806,17 @@ def _status_summary_from_payload(payload: Mapping[str, Any]) -> dict[str, Any]:
         "signer_config_present": value.get("signer_config_present") is True,
         "signed_payload_available": value.get("signed_payload_available") is True,
         "order_submission_available": value.get("order_submission_available") is True,
+        "tiny_candidate": clean_text(value.get("tiny_candidate") or "not_available"),
+        "approval_packet": clean_text(value.get("approval_packet") or "not_available"),
+        "manual_tiny_order_approval_packet_path": clean_text(
+            value.get("manual_tiny_order_approval_packet_path")
+        ),
+        "operator_approved": False,
+        "approval_packet_created": value.get("approval_packet_created") is True,
+        "candidate_is_executable": False,
+        "source_intent_path": clean_text(value.get("source_intent_path")),
+        "source_signer_boundary_path": clean_text(value.get("source_signer_boundary_path")),
+        "hard_limits_passed": value.get("hard_limits_passed") is True,
         "blocker_count": _int_or_zero(value.get("blocker_count"), len(blockers)),
         "top_blocker_reasons": _clean_list(top_blockers),
         "review_only": True,

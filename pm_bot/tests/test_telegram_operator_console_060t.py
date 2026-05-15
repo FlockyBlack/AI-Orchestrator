@@ -102,6 +102,27 @@ def _write_status_artifacts(root: Path) -> None:
                     ],
                 }
             )
+        if source.flow_id == "tiny_order_scaffold_061":
+            payload.update(
+                {
+                    "status": "tiny_order_scaffold_completed_live_blocked",
+                    "tiny_candidate": "created",
+                    "approval_packet": "created",
+                    "manual_tiny_order_approval_packet_path": (
+                        path.parent / "manual_tiny_order_approval_packet_061.json"
+                    ).as_posix(),
+                    "operator_approved": False,
+                    "approval_packet_created": True,
+                    "candidate_is_executable": False,
+                    "source_intent_path": "pm_bot/trading_core/artifacts/paper_trading_loop_053/paper_trading_order_intent_053.json",
+                    "source_signer_boundary_path": "pm_bot/trading_core/artifacts/signer_boundary_preflight_060/latest_signer_boundary_preflight_status_060.json",
+                    "hard_limits_passed": True,
+                    "blocker_count": 7,
+                    "top_blocker_reasons": [
+                        "Manual operator approval is required and operator_approved remains false."
+                    ],
+                }
+            )
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
@@ -145,7 +166,7 @@ def test_status_registry_reads_existing_052_059_latest_artifacts(tmp_path: Path)
 
     snapshot = build_telegram_status_registry_snapshot(artifact_root=tmp_path, generated_at=GENERATED_AT)
 
-    assert snapshot["available_status_count"] == 9
+    assert snapshot["available_status_count"] == 10
     assert snapshot["missing_status_count"] == 0
     for source in STATUS_SOURCES:
         card = snapshot["cards_by_flow"][source.flow_id]
@@ -156,6 +177,12 @@ def test_status_registry_reads_existing_052_059_latest_artifacts(tmp_path: Path)
             assert card["status_summary"]["unsigned_plan_status"] == "schema_only_non_executable"
             assert card["status_summary"]["signer_status"] == "blocked"
             assert card["status_summary"]["signed_payload_status"] == "unavailable"
+        elif source.flow_id == "tiny_order_scaffold_061":
+            assert card["status"] == "tiny_order_scaffold_completed_live_blocked"
+            assert card["status_summary"]["tiny_candidate"] == "created"
+            assert card["status_summary"]["approval_packet"] == "created"
+            assert card["status_summary"]["operator_approved"] is False
+            assert card["status_summary"]["candidate_is_executable"] is False
         else:
             assert card["status"] == f"{source.flow_id}_ready"
         assert card["latest_status_path"].endswith(source.latest_status_filename)
@@ -170,16 +197,18 @@ def test_missing_artifact_paths_do_not_crash_and_readiness_is_produced(tmp_path:
     readiness = snapshot["readiness_summary"]
 
     assert snapshot["available_status_count"] == 0
-    assert snapshot["missing_status_count"] == 9
-    assert len(snapshot["status_cards"]) == 9
+    assert snapshot["missing_status_count"] == 10
+    assert len(snapshot["status_cards"]) == 10
     assert readiness["items"]["paper_system"] == "blocked"
     assert readiness["items"]["signer_boundary"] == "not implemented yet"
+    assert readiness["items"]["tiny_order_scaffold"] == "not implemented yet"
     assert readiness["items"]["order_submission"] == "blocked"
     assert readiness["items"]["live_execution"] == "blocked"
     assert set(readiness["labels"]) == {
         "paper_demo_ready",
         "pre_live_boundary_ready",
         "signer_boundary_missing",
+        "tiny_order_scaffold_missing",
         "live_execution_blocked",
     }
 

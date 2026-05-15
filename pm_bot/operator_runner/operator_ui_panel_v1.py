@@ -126,6 +126,9 @@ OPERATOR_UI_PANEL_NO_ORDER_AUTH_GET_PREFLIGHT_SUMMARY_CONTRACT = (
 OPERATOR_UI_PANEL_SIGNER_BOUNDARY_PREFLIGHT_SUMMARY_CONTRACT = (
     "pmbot_operator_ui_panel_signer_boundary_preflight_summary_060.v1"
 )
+OPERATOR_UI_PANEL_TINY_ORDER_SCAFFOLD_SUMMARY_CONTRACT = (
+    "pmbot_operator_ui_panel_tiny_order_scaffold_summary_061.v1"
+)
 OPERATOR_UI_PANEL_VALIDATION_CONTRACT = "pmbot_operator_ui_panel_validation.v1"
 
 TASK_ID = "ORCH-PMBOT-TRADING-MVP-036-OPERATOR-UI-PANEL-V1-READINESS-RISK-LIMITS-KILL-SWITCH"
@@ -181,6 +184,7 @@ REQUIRED_SECTION_IDS = (
     "authenticated_clob_preflight",
     "no_order_auth_get_preflight",
     "signer_boundary_preflight",
+    "tiny_order_scaffold",
     "paper_trading_summary",
     "operator_packets",
     "audit_replay",
@@ -1018,6 +1022,7 @@ def build_operator_ui_panel_v1(
     clob_l2_marker_preflight_status_summary: Mapping[str, Any] | None = None,
     no_order_auth_get_preflight_status_summary: Mapping[str, Any] | None = None,
     signer_boundary_preflight_status_summary: Mapping[str, Any] | None = None,
+    tiny_order_scaffold_status_summary: Mapping[str, Any] | None = None,
     telegram_operator_control_bot_summary: Mapping[str, Any] | None = None,
     telegram_mini_app_operator_panel_summary: Mapping[str, Any] | None = None,
     latest_paths: Mapping[str, str] | None = None,
@@ -1314,6 +1319,17 @@ def build_operator_ui_panel_v1(
         latest_status_path=paths.get("signer_boundary_preflight_status", "")
         or clean_text(dashboard_value.get("latest_signer_boundary_preflight_status_path")),
     )
+    tiny_order_scaffold_summary = _build_tiny_order_scaffold_summary(
+        tiny_order_scaffold_status=(
+            tiny_order_scaffold_status_summary
+            or dashboard_value.get("tiny_order_scaffold_status_summary")
+            or dashboard_value.get("tiny_order_scaffold_status")
+            or dashboard_value.get("latest_tiny_order_scaffold_status")
+            or {}
+        ),
+        latest_status_path=paths.get("tiny_order_scaffold_status", "")
+        or clean_text(dashboard_value.get("latest_tiny_order_scaffold_status_path")),
+    )
     authenticated_clob_preflight_summary["clob_l2_marker_preflight_status_summary"] = (
         clob_l2_marker_preflight_summary
     )
@@ -1371,6 +1387,7 @@ def build_operator_ui_panel_v1(
         authenticated_clob_preflight=authenticated_clob_preflight_summary,
         no_order_auth_get_preflight=no_order_auth_get_preflight_summary,
         signer_boundary_preflight=signer_boundary_preflight_summary,
+        tiny_order_scaffold=tiny_order_scaffold_summary,
         operator_packets=operator_packet_summary,
         audit=audit_summary,
         action_states=action_states,
@@ -1408,6 +1425,7 @@ def build_operator_ui_panel_v1(
             "authenticated_clob_preflight": authenticated_clob_preflight_summary,
             "no_order_auth_get_preflight": no_order_auth_get_preflight_summary,
             "signer_boundary_preflight": signer_boundary_preflight_summary,
+            "tiny_order_scaffold": tiny_order_scaffold_summary,
         },
     )
     panel = OperatorUIPanelV1(
@@ -1458,6 +1476,8 @@ def build_operator_ui_panel_v1(
     panel["no_order_auth_get_preflight_section_ready"] = True
     panel["signer_boundary_preflight_status_summary"] = signer_boundary_preflight_summary
     panel["signer_boundary_preflight_section_ready"] = True
+    panel["tiny_order_scaffold_status_summary"] = tiny_order_scaffold_summary
+    panel["tiny_order_scaffold_section_ready"] = True
     validation = validate_operator_ui_panel_v1(panel, generated_at=generated_at)
     panel["validation"] = validation
     return panel
@@ -2119,6 +2139,31 @@ def summarize_operator_ui_panel_v1(panel: Mapping[str, Any]) -> dict[str, Any]:
         ).get("order_submission_blocked"),
         "signer_boundary_live_execution_blocked": dict(
             panel.get("signer_boundary_preflight_status_summary", {})
+        ).get("live_execution_blocked"),
+        "tiny_order_scaffold_section_ready": panel.get("tiny_order_scaffold_section_ready") is True,
+        "tiny_order_scaffold_status": dict(
+            panel.get("tiny_order_scaffold_status_summary", {})
+        ).get("status"),
+        "tiny_order_scaffold_tiny_candidate": dict(
+            panel.get("tiny_order_scaffold_status_summary", {})
+        ).get("tiny_candidate"),
+        "tiny_order_scaffold_approval_packet": dict(
+            panel.get("tiny_order_scaffold_status_summary", {})
+        ).get("approval_packet"),
+        "tiny_order_scaffold_approval_packet_path": dict(
+            panel.get("tiny_order_scaffold_status_summary", {})
+        ).get("manual_tiny_order_approval_packet_path"),
+        "tiny_order_scaffold_operator_approved": dict(
+            panel.get("tiny_order_scaffold_status_summary", {})
+        ).get("operator_approved"),
+        "tiny_order_scaffold_order_submission_blocked": dict(
+            panel.get("tiny_order_scaffold_status_summary", {})
+        ).get("order_submission_blocked"),
+        "tiny_order_scaffold_signer_blocked": dict(
+            panel.get("tiny_order_scaffold_status_summary", {})
+        ).get("signer_blocked"),
+        "tiny_order_scaffold_live_execution_blocked": dict(
+            panel.get("tiny_order_scaffold_status_summary", {})
         ).get("live_execution_blocked"),
         "authenticated_clob_preflight_order_submission_blocked": dict(
             panel.get("authenticated_clob_preflight_status_summary", {})
@@ -3763,6 +3808,86 @@ def _build_signer_boundary_preflight_summary(
     }
 
 
+def _build_tiny_order_scaffold_summary(
+    *,
+    tiny_order_scaffold_status: Mapping[str, Any] | None,
+    latest_status_path: str,
+) -> dict[str, Any]:
+    status = dict(tiny_order_scaffold_status or {})
+    blockers = status.get("blockers") if isinstance(status.get("blockers"), list) else []
+    top_blockers = status.get("top_blocker_reasons")
+    if not isinstance(top_blockers, list):
+        top_blockers = [
+            clean_text(row.get("reason"))
+            for row in mapping_rows(blockers)
+            if clean_text(row.get("reason"))
+        ][:8]
+    return {
+        "contract_version": OPERATOR_UI_PANEL_TINY_ORDER_SCAFFOLD_SUMMARY_CONTRACT,
+        "status": clean_text(status.get("status") or NOT_AVAILABLE),
+        "market": clean_text(status.get("market") or status.get("market_symbol") or NOT_AVAILABLE),
+        "market_symbol": clean_text(status.get("market_symbol") or status.get("market") or NOT_AVAILABLE),
+        "strategy_name": clean_text(status.get("strategy_name") or NOT_AVAILABLE),
+        "mode": clean_text(status.get("mode") or "preflight / review-only"),
+        "execution_mode": clean_text(status.get("execution_mode") or "preflight"),
+        "source_intent_path": clean_text(status.get("source_intent_path")),
+        "source_signer_boundary_path": clean_text(status.get("source_signer_boundary_path")),
+        "tiny_candidate": clean_text(status.get("tiny_candidate") or NOT_AVAILABLE),
+        "approval_packet": clean_text(status.get("approval_packet") or "blocked"),
+        "manual_tiny_order_approval_packet_path": clean_text(
+            status.get("manual_tiny_order_approval_packet_path")
+        ),
+        "operator_approved": False,
+        "candidate_outcome": clean_text(status.get("candidate_outcome") or NOT_AVAILABLE),
+        "candidate_side": clean_text(status.get("candidate_side") or NOT_AVAILABLE),
+        "candidate_limit_price": status.get("candidate_limit_price"),
+        "candidate_size": status.get("candidate_size"),
+        "candidate_notional": status.get("candidate_notional"),
+        "max_notional": status.get("max_notional"),
+        "max_size": status.get("max_size"),
+        "max_price": status.get("max_price"),
+        "hard_limits_passed": status.get("hard_limits_passed") is True,
+        "approval_required": True,
+        "approval_packet_created": status.get("approval_packet_created") is True,
+        "candidate_is_executable": False,
+        "signing": clean_text(status.get("signing") or "blocked"),
+        "signed_payload_status": clean_text(status.get("signed_payload_status") or "unavailable"),
+        "order_submission": clean_text(status.get("order_submission") or "blocked"),
+        "wallet": clean_text(status.get("wallet") or "blocked"),
+        "live_execution": clean_text(status.get("live_execution") or "blocked"),
+        "signer_blocked": True,
+        "signed_payload_unavailable": True,
+        "order_submission_blocked": True,
+        "order_cancellation_blocked": True,
+        "wallet_connection_blocked": True,
+        "balance_read_blocked": True,
+        "position_read_blocked": True,
+        "fill_read_blocked": True,
+        "live_execution_blocked": True,
+        "blocker_count": _int_or_zero(status.get("blocker_count"), len(blockers)),
+        "top_blocker_reasons": [clean_text(item) for item in top_blockers if clean_text(item)],
+        "artifact_path": clean_text(status.get("artifact_path")),
+        "latest_status_path": clean_text(status.get("latest_status_path") or latest_status_path),
+        "operator_markdown_path": clean_text(status.get("operator_markdown_path")),
+        "tiny_order_candidate_path": clean_text(status.get("tiny_order_candidate_path")),
+        "tiny_order_hard_limits_path": clean_text(status.get("tiny_order_hard_limits_path")),
+        "tiny_order_scaffold_risk_summary_path": clean_text(
+            status.get("tiny_order_scaffold_risk_summary_path")
+        ),
+        "tiny_order_submission_availability_path": clean_text(
+            status.get("tiny_order_submission_availability_path")
+        ),
+        "blockers_path": clean_text(status.get("blockers_path")),
+        "review_only": True,
+        "preflight_only": True,
+        "scaffold_only": True,
+        "next_operator_action": clean_text(
+            status.get("next_operator_action") or "review packet only; no live order available"
+        ),
+        **_panel_safety_flags(),
+    }
+
+
 def _build_authenticated_clob_preflight_summary(
     *,
     authenticated_clob_preflight_status: Mapping[str, Any] | None,
@@ -3949,6 +4074,7 @@ def _build_sections(
     authenticated_clob_preflight: Mapping[str, Any],
     no_order_auth_get_preflight: Mapping[str, Any],
     signer_boundary_preflight: Mapping[str, Any],
+    tiny_order_scaffold: Mapping[str, Any],
     operator_packets: Mapping[str, Any],
     audit: Mapping[str, Any],
     action_states: Sequence[Mapping[str, Any]],
@@ -4433,6 +4559,101 @@ def _build_sections(
                     "signer_boundary_preflight_review_only",
                     "critical",
                     "Signer boundary preflight is passive review-only and exposes no wallet, signing, or order action.",
+                )
+            ],
+        ),
+        _section(
+            "tiny_order_scaffold",
+            "Tiny Order Scaffold",
+            clean_text(tiny_order_scaffold.get("status") or NOT_AVAILABLE),
+            [
+                _metric("status", "Status", tiny_order_scaffold.get("status")),
+                _metric("market", "Market", tiny_order_scaffold.get("market")),
+                _metric("strategy_name", "Strategy", tiny_order_scaffold.get("strategy_name")),
+                _metric("mode", "Mode", tiny_order_scaffold.get("mode")),
+                _metric(
+                    "source_intent_path",
+                    "Source intent path",
+                    tiny_order_scaffold.get("source_intent_path"),
+                ),
+                _metric(
+                    "source_signer_boundary_path",
+                    "Source signer boundary",
+                    tiny_order_scaffold.get("source_signer_boundary_path"),
+                ),
+                _metric("tiny_candidate", "Tiny candidate", tiny_order_scaffold.get("tiny_candidate")),
+                _metric("approval_packet", "Approval packet", tiny_order_scaffold.get("approval_packet")),
+                _metric(
+                    "manual_tiny_order_approval_packet_path",
+                    "Approval packet path",
+                    tiny_order_scaffold.get("manual_tiny_order_approval_packet_path"),
+                ),
+                _metric("operator_approved", "Operator approved", False),
+                _metric(
+                    "candidate_is_executable",
+                    "Candidate executable",
+                    False,
+                ),
+                _metric("candidate_outcome", "Candidate outcome", tiny_order_scaffold.get("candidate_outcome")),
+                _metric("candidate_side", "Candidate side", tiny_order_scaffold.get("candidate_side")),
+                _metric(
+                    "candidate_limit_price",
+                    "Candidate limit price",
+                    tiny_order_scaffold.get("candidate_limit_price"),
+                ),
+                _metric("candidate_size", "Candidate size", tiny_order_scaffold.get("candidate_size")),
+                _metric(
+                    "candidate_notional",
+                    "Candidate notional",
+                    tiny_order_scaffold.get("candidate_notional"),
+                ),
+                _metric("max_notional", "Max notional", tiny_order_scaffold.get("max_notional")),
+                _metric("max_size", "Max size", tiny_order_scaffold.get("max_size")),
+                _metric("max_price", "Max price", tiny_order_scaffold.get("max_price")),
+                _metric("hard_limits_passed", "Hard limits passed", tiny_order_scaffold.get("hard_limits_passed")),
+                _metric("approval_required", "Approval required", True),
+                _metric(
+                    "approval_packet_created",
+                    "Approval packet created",
+                    tiny_order_scaffold.get("approval_packet_created"),
+                ),
+                _metric("blocker_count", "Blockers", tiny_order_scaffold.get("blocker_count")),
+                _metric(
+                    "top_blocker_reasons",
+                    "Top blockers",
+                    tiny_order_scaffold.get("top_blocker_reasons"),
+                ),
+                _metric("signer_blocked", "Signing blocked", True),
+                _metric("signed_payload_unavailable", "Signed payload unavailable", True),
+                _metric("order_submission_blocked", "Order submission blocked", True),
+                _metric("order_cancellation_blocked", "Order cancellation blocked", True),
+                _metric("wallet_connection_blocked", "Wallet blocked", True),
+                _metric("balance_read_blocked", "Balances blocked", True),
+                _metric("position_read_blocked", "Positions blocked", True),
+                _metric("fill_read_blocked", "Fills blocked", True),
+                _metric("live_execution_blocked", "Live execution blocked", True),
+                _metric(
+                    "latest_status_path",
+                    "Latest status",
+                    tiny_order_scaffold.get("latest_status_path"),
+                ),
+                _metric("review_only", "Review-only", True),
+                _metric("preflight_only", "Preflight-only", True),
+                _metric("scaffold_only", "Scaffold-only", True),
+                _metric("order_submission_enabled", "Order submission enabled", False),
+                _metric("wallet_signing_enabled", "Wallet signing enabled", False),
+                _metric("signing_enabled", "Signing enabled", False),
+                _metric("signed_payload_generation_enabled", "Signed payload generation enabled", False),
+                _metric("signed_order_generation_enabled", "Signed order generation enabled", False),
+                _metric("authenticated_polymarket_enabled", "Authenticated trading enabled", False),
+                _metric("live_connector_enabled", "Live connector enabled", False),
+                _metric("allowed_for_live", "Allowed for live", False),
+            ],
+            warnings=[
+                _warning(
+                    "tiny_order_scaffold_review_only",
+                    "critical",
+                    "Tiny order scaffold is passive review-only and exposes no approval, wallet, signing, or order action.",
                 )
             ],
         ),
