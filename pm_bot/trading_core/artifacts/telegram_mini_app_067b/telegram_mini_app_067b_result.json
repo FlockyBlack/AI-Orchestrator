@@ -1,0 +1,99 @@
+{
+  "allowed_for_live": false,
+  "authenticated_endpoint_enabled": false,
+  "authenticated_endpoints_enabled": false,
+  "autonomous_live_trading_added": false,
+  "browser_automation_added": false,
+  "canary_executable_now": false,
+  "contract_version": "pmbot_telegram_mini_app_067b_result.v1",
+  "credential_value_inputs_present": false,
+  "credential_values_persisted": false,
+  "generated_at": "2026-05-15T00:00:00+04:00",
+  "git": {
+    "base_branch": "master",
+    "branch": "pmbot/telegram-067b-mini-app-scaffold-no-secrets-no-live",
+    "head_after": "recorded_in_final_response_after_commit_push_verify",
+    "head_after_note": "The committed result JSON cannot include its own final commit SHA without changing that SHA; the final operator response records the pushed and remotely verified branch HEAD.",
+    "head_before": "bd84069654a3b412f76d63405b60da7feb5c6c9d",
+    "required_base_head": "bd84069654a3b412f76d63405b60da7feb5c6c9d"
+  },
+  "launch_wiring": {
+    "button_label": "Открыть PMBOT",
+    "env_marker": "PMBOT_TELEGRAM_MINI_APP_URL",
+    "missing_url_message": "Mini App URL не настроен",
+    "url_marker_driven_only": true,
+    "url_value_redacted_in_runtime_payloads": true
+  },
+  "live_connector_enabled": false,
+  "live_execution_approved": false,
+  "live_execution_performed": false,
+  "live_mode_enabled": false,
+  "network_access_performed": false,
+  "order_cancellation_enabled": false,
+  "order_submission_enabled": false,
+  "placeholder_cards": [
+    {
+      "card_id": "credentials_configured",
+      "display_label": "Подключение",
+      "state": "unknown_not_connected"
+    },
+    {
+      "card_id": "account_view",
+      "display_label": "Баланс",
+      "state": "not_connected"
+    },
+    {
+      "card_id": "deal_history",
+      "display_label": "Сделки",
+      "state": "no_live_data"
+    },
+    {
+      "card_id": "performance_placeholder",
+      "display_label": "PnL",
+      "state": "unavailable_until_live_data_exists"
+    },
+    {
+      "card_id": "live_mode",
+      "display_label": "Статус",
+      "state": "disabled"
+    },
+    {
+      "card_id": "risk_limits",
+      "display_label": "Лимиты",
+      "state": "tiny_mode_planned"
+    }
+  ],
+  "real_execution_available": false,
+  "real_order_submitted": false,
+  "resolved_blocker_count": 0,
+  "review_only": true,
+  "scaffold_paths": {
+    "index_html": "pm_bot/telegram_mini_app/index.html",
+    "styles_css": "pm_bot/telegram_mini_app/styles.css"
+  },
+  "scheduler_or_daemon_added": false,
+  "signing_enabled": false,
+  "status": "telegram_mini_app_scaffold_ready_review_only",
+  "task_id": "ORCH-PMBOT-TELEGRAM-067B-MINI-APP-SCAFFOLD-NO-SECRETS-NO-LIVE",
+  "validation": {
+    "commands_passed": [
+      "python -m pytest pm_bot/tests/test_telegram_mini_app_scaffold_067b.py",
+      "python -m pytest pm_bot/tests/test_telegram_forbidden_live_controls_063a.py",
+      "python -m pytest pm_bot/tests/test_telegram_operator_console_060t.py",
+      "python -m pytest pm_bot/tests/test_static_safety_invariant_report_060q.py",
+      "python -B -m pytest pm_bot/tests",
+      "python -m compileall -q pm_bot",
+      "python -m compileall -q ai_orchestrator",
+      "python -m pm_bot.operator_runner.telegram_runtime_smoke",
+      "python -m pm_bot.operator_runner.static_safety_invariant_report --scope pm_bot --dry-run"
+    ],
+    "full_suite": "1945 passed",
+    "static_safety_invariant_report": "0 critical findings; 7 pre-existing warnings outside 067B scope",
+    "status": "passed"
+  },
+  "wallet_connection_enabled": false,
+  "wallet_enabled": false,
+  "wallet_signing_enabled": false,
+  "worktree": "C:/oc067b_telegram_mini_app_scaffold_no_secrets_no_live",
+  "would_submit_order": false
+}

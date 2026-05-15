@@ -46,7 +46,7 @@ TELEGRAM_MINI_APP_URL_ENV = "PMBOT_TELEGRAM_MINI_APP_URL"
 PMBOT_ARTIFACT_DIR_ENV = "PMBOT_ARTIFACT_DIR"
 
 TELEGRAM_RUNTIME_DEPENDENCY_MISSING = "Telegram runtime dependency missing"
-PANEL_BUTTON_TEXT = "Open PMBOT Mini App"
+PANEL_BUTTON_TEXT = "Открыть PMBOT"
 
 TELEGRAM_COMMAND_MENU = (
     ("start", "Open operator home"),
@@ -357,7 +357,7 @@ class TelegramOperatorRuntimeAdapter:
         if language == "ru":
             return (
                 response.text
-                + "\nMini App URL пока не настроен.\n"
+                + "\nMini App URL не настроен.\n"
                 + "Для локального теста подними HTTPS-туннель и запиши URL в PMBOT_TELEGRAM_MINI_APP_URL.",
                 keyboard,
                 "",
@@ -365,7 +365,7 @@ class TelegramOperatorRuntimeAdapter:
             )
         return (
             response.text
-            + "\nMini App URL is not configured yet.\n"
+            + "\nMini App URL не настроен.\n"
             + "Local/static artifact availability is shown above when PMBOT artifacts are configured.",
             keyboard,
             "",

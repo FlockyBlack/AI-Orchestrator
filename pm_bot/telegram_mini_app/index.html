@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10231f">
+  <meta name="pmbot-safety" content="no-secret-inputs; no-live-trading; no-wallet; no-signing; no-orders">
+  <title>PMBOT Mini App</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <p class="eyebrow">Telegram Mini App</p>
+      <h1>PMBOT</h1>
+      <p class="subtitle">Панель статуса для бумажного режима. Live-исполнение отключено.</p>
+    </header>
+
+    <nav class="tabs" aria-label="Разделы PMBOT">
+      <a href="#home">Главная</a>
+      <a href="#connection">Подключение</a>
+      <a href="#balance">Баланс</a>
+      <a href="#trades">Сделки</a>
+      <a href="#pnl">PnL</a>
+      <a href="#status">Статус</a>
+      <a href="#limits">Лимиты</a>
+      <a href="#stop">Стоп</a>
+    </nav>
+
+    <main>
+      <section class="hero-panel" id="home" aria-labelledby="home-title">
+        <div>
+          <p class="section-kicker">Главная</p>
+          <h2 id="home-title">PMBOT dashboard shell</h2>
+          <p>Только обзор. Нет ввода значений, сохранения данных, подключений к счетам или торговых действий.</p>
+        </div>
+        <div class="status-badge" aria-label="Live mode disabled">live mode: disabled</div>
+      </section>
+
+      <section class="grid" aria-label="PMBOT placeholder cards">
+        <article class="card" id="connection">
+          <span class="card-label">Подключение</span>
+          <h3>credentials configured: unknown/not connected</h3>
+          <p>Настройка URL Mini App выполняется только через маркер окружения.</p>
+          <span class="state neutral">не подключено</span>
+        </article>
+
+        <article class="card" id="balance">
+          <span class="card-label">Баланс</span>
+          <h3>balance: not connected</h3>
+          <p>Данные счета не читаются и не имитируются.</p>
+          <span class="state muted">нет подключения</span>
+        </article>
+
+        <article class="card" id="trades">
+          <span class="card-label">Сделки</span>
+          <h3>trades: no live data</h3>
+          <p>История сделок не загружается, не вводится и не подменяется тестовыми значениями.</p>
+          <span class="state muted">нет live-данных</span>
+        </article>
+
+        <article class="card" id="pnl">
+          <span class="card-label">PnL</span>
+          <h3>PnL: unavailable until live trades exist</h3>
+          <p>Показатели PnL скрыты до появления разрешенного будущего источника фактических данных.</p>
+          <span class="state muted">недоступно</span>
+        </article>
+
+        <article class="card" id="status">
+          <span class="card-label">Статус</span>
+          <h3>live mode: disabled</h3>
+          <p>PMBOT остается в режиме статического обзора и бумажной подготовки.</p>
+          <span class="state blocked">live выключен</span>
+        </article>
+
+        <article class="card" id="limits">
+          <span class="card-label">Лимиты</span>
+          <h3>risk limits: tiny mode planned</h3>
+          <p>Лимиты показаны как планируемый раздел без исполняемых переключателей.</p>
+          <span class="state neutral">планируется</span>
+        </article>
+
+        <article class="card" id="stop">
+          <span class="card-label">Стоп</span>
+          <h3>Стоп: только статусный раздел</h3>
+          <p>Этот раздел не отправляет команды и не меняет состояние исполнения.</p>
+          <span class="state blocked">исполнение заблокировано</span>
+        </article>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
