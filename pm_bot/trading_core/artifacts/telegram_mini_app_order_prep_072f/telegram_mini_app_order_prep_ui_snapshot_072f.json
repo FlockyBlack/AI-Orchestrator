@@ -1,0 +1,86 @@
+{
+  "allowed_for_live": false,
+  "authenticated_request_performed": false,
+  "contract_version": "pmbot_telegram_mini_app_order_prep_ui_snapshot_072f.v1",
+  "dry_run_only": true,
+  "generated_at": "2026-05-16T00:00:00+04:00",
+  "layout": {
+    "bottom_navigation": true,
+    "external_scripts": false,
+    "network_required": false,
+    "section_id": "order-prep",
+    "static_single_page": true
+  },
+  "local_artifact_read_only": true,
+  "live_connector_enabled": false,
+  "network_used": false,
+  "no_live_trading": true,
+  "no_network_fetch": true,
+  "no_order_cancel": true,
+  "no_order_submission": true,
+  "no_raw_account_values_displayed": true,
+  "no_raw_token_id_displayed": true,
+  "no_secret_forms": true,
+  "no_secret_inputs": true,
+  "no_secret_persistence": true,
+  "no_signing": true,
+  "no_wallet_connection": true,
+  "order_cancellation_attempted": false,
+  "order_cancellation_enabled": false,
+  "order_submission_attempted": false,
+  "order_submission_enabled": false,
+  "real_order_cancelled": false,
+  "real_order_submitted": false,
+  "resolved_blocker_count": 0,
+  "review_only": true,
+  "section": {
+    "fields": [
+      {
+        "label": "Рынок",
+        "source": "071A local artifact",
+        "value": "BTC"
+      },
+      {
+        "label": "Token ID",
+        "source": "070B local artifact",
+        "value": "не выбран"
+      },
+      {
+        "label": "Аккаунт",
+        "source": "070C local artifact",
+        "value": "не проверен"
+      },
+      {
+        "label": "Signer",
+        "source": "070A local artifact",
+        "value": "выключен"
+      },
+      {
+        "label": "Approval",
+        "source": "070C local artifact",
+        "value": "не проверен"
+      },
+      {
+        "label": "Payload dry-run",
+        "source": "070A local artifact",
+        "value": "artifact есть"
+      },
+      {
+        "label": "Live выключен",
+        "source": "local safety flags",
+        "value": "allowed_for_live=false"
+      }
+    ],
+    "safe_placeholder": "Если локальный artifact отсутствует или поле пустое, UI показывает только не выбран, не проверен или выключен.",
+    "title": "🧪 Подготовка первого ордера"
+  },
+  "signed_order_generation_enabled": false,
+  "signed_payload_generation_enabled": false,
+  "signing_attempted": false,
+  "signing_enabled": false,
+  "static_review_only": true,
+  "status": "telegram_mini_app_order_prep_ui_snapshot_ready",
+  "task_id": "ORCH-PMBOT-TELEGRAM-072F-MINI-APP-ORDER-PREP-DASHBOARD-NO_SECRETS_NO_LIVE",
+  "wallet_connection_attempted": false,
+  "wallet_connection_enabled": false
+}

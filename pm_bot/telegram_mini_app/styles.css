@@ -39,7 +39,7 @@ body {
 .app-shell {
   width: min(100%, 1120px);
   margin: 0 auto;
-  padding: 20px 14px 92px;
+  padding: 20px 14px 150px;
 }
 
 .topbar {
@@ -110,7 +110,7 @@ body {
   top: 0;
   z-index: 3;
   display: grid;
-  grid-template-columns: repeat(8, minmax(0, 1fr));
+  grid-template-columns: repeat(9, minmax(0, 1fr));
   gap: 7px;
   padding: 9px 0 12px;
   background: rgba(11, 17, 16, 0.94);
@@ -220,6 +220,29 @@ body {
 .connection-card {
   grid-column: span 8;
   grid-row: span 2;
+}
+
+.order-prep-card {
+  grid-column: 1 / -1;
+}
+
+.order-prep-list {
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+.order-prep-list div {
+  grid-template-columns: 1fr;
+  align-content: start;
+  min-height: 116px;
+}
+
+.order-prep-list dd {
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.safe-placeholder {
+  max-width: 760px;
 }
 
 .stop-card {
@@ -360,7 +383,7 @@ body {
   bottom: 10px;
   z-index: 4;
   display: grid;
-  grid-template-columns: repeat(8, minmax(0, 1fr));
+  grid-template-columns: repeat(9, minmax(0, 1fr));
   gap: 6px;
   width: min(calc(100% - 20px), 1080px);
   padding: 8px;
@@ -384,12 +407,24 @@ body {
   }
 
   .tabs {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .connection-card,
   .card:not(.connection-card) {
     grid-column: span 6;
+  }
+
+  .order-prep-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .order-prep-card {
+    grid-column: 1 / -1;
+  }
+
+  .bottom-nav {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
@@ -402,13 +437,13 @@ body {
     font-size: 2.45rem;
   }
 
-  .tabs {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
   .connection-card,
   .card:not(.connection-card) {
     grid-column: 1 / -1;
+  }
+
+  .order-prep-list {
+    grid-template-columns: 1fr;
   }
 
   .status-list div,
@@ -426,7 +461,8 @@ body {
     text-align: left;
   }
 
-  .bottom-nav {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+  .bottom-nav,
+  .tabs {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
