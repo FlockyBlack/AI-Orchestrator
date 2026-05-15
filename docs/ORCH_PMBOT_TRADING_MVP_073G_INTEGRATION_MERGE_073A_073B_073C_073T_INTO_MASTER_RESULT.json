@@ -1,0 +1,306 @@
+{
+  "task_id": "ORCH-PMBOT-TRADING-MVP-073G-INTEGRATION-MERGE-073A-073B-073C-073T-INTO-MASTER",
+  "status": "validated_pending_result_commit_push_verify",
+  "repository": "https://github.com/FlockyBlack/AI-Orchestrator.git",
+  "target_branch": "master",
+  "worktree": "C:/oc073g_integration_merge_073a_073b_073c_073t",
+  "generated_at": "2026-05-16T03:43:27+04:00",
+  "old_master_head": "f9e7b4de6ea2afdc110ee5a2387e375f88e46f92",
+  "required_starting_master_head": "f9e7b4de6ea2afdc110ee5a2387e375f88e46f92",
+  "source_heads": {
+    "pmbot/trading-mvp-073a-local-real-check-result-snapshot-pack-no-live": "5e1d080e9b3bc4a1eac137e70cfae556d174f77f",
+    "pmbot/trading-mvp-073b-operator-token-selection-packet-no-trading": "317e79cd0e5f9f83e01fc5dfbfb72904e14353d7",
+    "pmbot/trading-mvp-073c-selected-token-signed-payload-readiness-gate-no-submit": "253683ea72325ccbed0c5ad1331a48c084800f84",
+    "pmbot/telegram-073t-real-check-results-display-no-live": "cdbd80e474c71209d667a4925ae4ba62e1a7cd19"
+  },
+  "head_after_merges_before_result_artifact": "0f246a2523ab07c66357a18f5348632a0bbabadf",
+  "final_master_head": "recorded_in_final_response_after_result_commit_push_verify",
+  "final_master_head_note": "The result JSON cannot embed the final commit SHA that contains this file without changing that SHA. The final operator report records the pushed and remotely verified master head.",
+  "merge_methods": [
+    {
+      "order": 1,
+      "branch": "origin/pmbot/trading-mvp-073a-local-real-check-result-snapshot-pack-no-live",
+      "method": "git merge --no-ff --no-edit",
+      "strategy": "ort",
+      "result": "clean_merge_commit",
+      "merge_commit": "dc2452ae88ebdcb4e596ba09e23e431ae7c3125e"
+    },
+    {
+      "order": 2,
+      "branch": "origin/pmbot/trading-mvp-073b-operator-token-selection-packet-no-trading",
+      "method": "git merge --no-ff --no-edit",
+      "strategy": "ort",
+      "result": "clean_merge_commit",
+      "merge_commit": "e40ac891ed246533cbfc7dc080d02dd96f49303b"
+    },
+    {
+      "order": 3,
+      "branch": "origin/pmbot/trading-mvp-073c-selected-token-signed-payload-readiness-gate-no-submit",
+      "method": "git merge --no-ff --no-edit",
+      "strategy": "ort",
+      "result": "clean_merge_commit",
+      "merge_commit": "52834884be94462c49cd5fe93198963c474f8aa4"
+    },
+    {
+      "order": 4,
+      "branch": "origin/pmbot/telegram-073t-real-check-results-display-no-live",
+      "method": "git merge --no-ff --no-edit",
+      "strategy": "ort",
+      "result": "clean_merge_commit",
+      "merge_commit": "0f246a2523ab07c66357a18f5348632a0bbabadf"
+    }
+  ],
+  "conflict_summary": {
+    "conflicts_detected": false,
+    "conflict_files": [],
+    "resolution_summary": "No merge conflicts were reported by git. The integration preserved 073A local artifact snapshot behavior, 073B non-executable token selection packets, 073C no-submit readiness gating, and 073T same-message Telegram/Mini App display behavior."
+  },
+  "changed_files_summary": {
+    "merged_file_count_before_result_artifact": 58,
+    "result_artifact_added": "docs/ORCH_PMBOT_TRADING_MVP_073G_INTEGRATION_MERGE_073A_073B_073C_073T_INTO_MASTER_RESULT.json",
+    "by_source_branch": {
+      "073A": {
+        "files": 13,
+        "summary": "Added local real-check snapshot models, builder, operator runner, tests, docs, and committed snapshot artifacts."
+      },
+      "073B": {
+        "files": 12,
+        "summary": "Added operator token selection packet models, builder, operator runner, tests, docs, and non-executable selection artifacts."
+      },
+      "073C": {
+        "files": 12,
+        "summary": "Added selected-token signed payload readiness gate models, builder, operator runner, tests, docs, and no-submit readiness artifacts."
+      },
+      "073T": {
+        "files": 21,
+        "summary": "Added Telegram and Mini App real-check results display, status registry/i18n updates, tests, docs, and display artifacts."
+      }
+    }
+  },
+  "validation_summary": {
+    "focused_validation": [
+      {
+        "command": "python -m pytest pm_bot/tests/test_local_real_check_snapshot_073a.py",
+        "status": "passed",
+        "summary": "8 passed"
+      },
+      {
+        "command": "python -m pytest pm_bot/tests/test_operator_token_selection_packet_073b.py",
+        "status": "passed",
+        "summary": "10 passed"
+      },
+      {
+        "command": "python -m pytest pm_bot/tests/test_selected_token_payload_readiness_gate_073c.py",
+        "status": "passed",
+        "summary": "12 passed"
+      },
+      {
+        "command": "python -m pytest pm_bot/tests/test_telegram_real_check_results_display_073t.py",
+        "status": "passed",
+        "summary": "6 passed"
+      },
+      {
+        "command": "python -m pytest pm_bot/tests/test_local_real_check_bundle_072c.py",
+        "status": "passed",
+        "summary": "7 passed"
+      },
+      {
+        "command": "python -m pytest pm_bot/tests/test_order_prep_packet_072a.py",
+        "status": "passed",
+        "summary": "12 passed"
+      },
+      {
+        "command": "python -m pytest pm_bot/tests/test_first_live_order_final_blocker_reducer_072d.py",
+        "status": "passed",
+        "summary": "8 passed"
+      },
+      {
+        "command": "python -m pytest pm_bot/tests/test_signed_payload_diagnostic_adapter_072e.py",
+        "status": "passed",
+        "summary": "9 passed"
+      },
+      {
+        "command": "python -m pytest pm_bot/tests/test_telegram_order_prep_packet_screen_072b.py",
+        "status": "passed",
+        "summary": "6 passed"
+      },
+      {
+        "command": "python -m pytest pm_bot/tests/test_telegram_mini_app_order_prep_dashboard_072f.py",
+        "status": "passed",
+        "summary": "5 passed"
+      },
+      {
+        "command": "python -m pytest pm_bot/tests/test_public_market_token_discovery_071a.py",
+        "status": "passed",
+        "summary": "6 passed"
+      },
+      {
+        "command": "python -m pytest pm_bot/tests/test_discovery_to_token_resolver_bridge_071d.py",
+        "status": "passed",
+        "summary": "7 passed"
+      },
+      {
+        "command": "python -m pytest pm_bot/tests/test_live_readonly_status_aggregator_071b.py",
+        "status": "passed",
+        "summary": "5 passed"
+      },
+      {
+        "command": "python -m pytest pm_bot/tests/test_static_safety_invariant_report_060q.py",
+        "status": "passed",
+        "summary": "9 passed"
+      }
+    ],
+    "full_validation": [
+      {
+        "command": "python -B -m pytest pm_bot/tests",
+        "status": "passed",
+        "summary": "2166 passed in 685.90s"
+      },
+      {
+        "command": "python -m compileall -q pm_bot",
+        "status": "passed",
+        "summary": "exit code 0"
+      },
+      {
+        "command": "python -m compileall -q ai_orchestrator",
+        "status": "passed",
+        "summary": "exit code 0"
+      }
+    ],
+    "diff_checks": [
+      {
+        "command": "git diff --check",
+        "status": "pending_after_result_artifact_stage"
+      },
+      {
+        "command": "git diff --cached --check",
+        "status": "pending_after_result_artifact_stage"
+      }
+    ]
+  },
+  "operator_command_summary": [
+    {
+      "command": "python -m pm_bot.operator_runner.local_real_check_snapshot --market BTC --strategy tiny-momentum --dry-run",
+      "status": "passed",
+      "summary": "status=local_real_check_snapshot_recorded_live_blocked; sources_present=8/8; allowed_for_live=false; snapshot_executable_for_live=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.operator_token_selection_packet --market BTC --strategy tiny-momentum --dry-run",
+      "status": "passed",
+      "summary": "status=selection_required; selected_token_id_present=false; token_selection_executable=false; order payload/signing/submission/cancellation blocked"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.selected_token_payload_readiness_gate --market BTC --strategy tiny-momentum --dry-run",
+      "status": "passed",
+      "summary": "status=blocked_missing_selected_token; selected_token_payload_ready_for_submit=false; signing/submission/cancellation/trading writes blocked"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.local_real_check_bundle --market BTC --strategy tiny-momentum --dry-run",
+      "status": "passed",
+      "summary": "status=local_real_check_bundle_completed_with_blockers_live_blocked; allowed_for_live=false; bundle_executable_for_live=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.order_prep_packet --market BTC --strategy tiny-momentum --dry-run",
+      "status": "passed",
+      "summary": "status=blocked_order_prep_packet_not_ready; selected_token_id_present=false; order submission/cancellation/signing/wallet connection disabled"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.first_live_order_final_blocker_reducer --market BTC --strategy tiny-momentum --dry-run",
+      "status": "passed",
+      "summary": "status=blocked_remaining_first_live_order_final_blockers; remaining_blockers=10; live execution/signing/submission/cancellation blocked"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.signed_payload_diagnostic_adapter --market BTC --strategy tiny-momentum --dry-run",
+      "status": "passed",
+      "summary": "status=blocked_selected_token_candidate_not_ready; private_key_read=false; order_payload_signing_attempted=false; signed_payload_generated=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.public_market_token_discovery --market BTC --strategy tiny-momentum --dry-run",
+      "status": "passed",
+      "summary": "status=source_backed_candidates_ready; live execution blocked; review source-backed candidates only"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.discovery_to_token_resolver_bridge --market BTC --strategy tiny-momentum --dry-run",
+      "status": "passed",
+      "summary": "status=operator_selection_required_multiple_source_backed_candidates; target_token_id=blocked; token_id_generated=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.live_readonly_status_aggregator --market BTC --strategy tiny-momentum --dry-run",
+      "status": "passed",
+      "summary": "status=live_readonly_status_aggregated; local_artifacts_only=true; network_calls=false; allowed_for_live=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.telegram_runtime_smoke",
+      "status": "passed",
+      "summary": "network_check_requested=false; Telegram token presence was printed as configured:redacted; safety flags expected false ok"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.static_safety_invariant_report --scope pm_bot --dry-run",
+      "status": "passed",
+      "summary": "critical_findings=0; warnings=7; live execution/order submission/signing/wallet blocked"
+    }
+  ],
+  "safety_scan_summary": {
+    "manual_scan_status": "passed",
+    "static_safety_invariant_report": {
+      "critical_findings": 0,
+      "warnings": 7,
+      "live_execution": "blocked",
+      "order_submission": "blocked",
+      "signing": "blocked",
+      "wallet": "blocked"
+    },
+    "manual_findings": {
+      "order_submit_or_cancel_endpoint_calls": false,
+      "trading_write_endpoint_calls": false,
+      "http_write_call_matches_in_changed_code": false,
+      "real_signing_by_default": false,
+      "signer_instantiation_added": false,
+      "fake_selected_token_id": false,
+      "fake_balances_orders_fills_pnl_order_ids_tx_hashes": false,
+      "raw_private_key_api_secret_passphrase_output": false,
+      "full_signed_payload_output": false,
+      "wallet_connection_ui": false,
+      "scheduler_daemon_background_autonomous_loop": false,
+      "telegram_primary_menu_clean_product_menu": true,
+      "same_message_navigation_preserved": true,
+      "mini_app_secret_forms_network_fetch_wallet_connect_sign_submit_controls": false,
+      "local_real_check_snapshot_reads_artifacts_only": true,
+      "local_real_check_snapshot_reads_env_secrets": false,
+      "operator_token_selection_invents_token_ids": false,
+      "selected_token_readiness_marks_ready_for_submit": false
+    },
+    "required_false_flags": {
+      "allowed_for_live": false,
+      "snapshot_executable_for_live": false,
+      "token_selection_executable": false,
+      "selected_token_payload_ready_for_submit": false
+    }
+  },
+  "validation_side_effect_cleanup": {
+    "status": "completed",
+    "tracked_artifact_rewrites_restored_count": 35,
+    "line_ending_status_side_effects_restored_count": 53,
+    "pycache_directories_removed": 15,
+    "local_git_config_adjustment": "Set core.autocrlf=false in this integration clone so LF-enforced files match .gitattributes after validation cleanup."
+  },
+  "operator_notes": {
+    "ignored_073t_uncommitted_worktree_side_effects": true,
+    "ignored_073t_note": "073T was merged only from committed remote branch head cdbd80e474c71209d667a4925ae4ba62e1a7cd19. Uncommitted side effects from the old 073T worktree were not copied or merged.",
+    "committer_identity": "Repository-local git identity OpenClaw Codex <codex@openclaw.local> was configured for this fresh clone because no committer identity was available."
+  },
+  "remote_verification": {
+    "pre_push_origin_master_verified": "f9e7b4de6ea2afdc110ee5a2387e375f88e46f92",
+    "post_push_ls_remote_master": "pending_after_push",
+    "remote_verified": false
+  },
+  "final_git_status": {
+    "pre_result_artifact_status": "clean except branch ahead of origin/master by 8 merge/source commits",
+    "post_commit_push_status": "recorded_in_final_response_after_push_verify"
+  },
+  "remaining_risks": [
+    "Static safety invariant report still reports 7 warnings, with 0 critical findings; the warnings are inherited safety review signals and did not block this integration.",
+    "Operator command artifacts were intentionally not committed from validation reruns; the merge includes only the committed source branch artifacts plus this integration result artifact.",
+    "The pushed master head is recorded outside this JSON because a committed file cannot contain the SHA of the commit that includes it."
+  ]
+}
