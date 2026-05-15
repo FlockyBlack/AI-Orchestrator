@@ -1,0 +1,97 @@
+{
+  "allowed_for_live": false,
+  "artifact_dir": "pm_bot/trading_core/artifacts/telegram_mini_app_order_prep_072f",
+  "authenticated_request_performed": false,
+  "contract_version": "pmbot_latest_telegram_mini_app_order_prep_status_072f.v1",
+  "dry_run_only": true,
+  "generated_at": "2026-05-16T00:00:00+04:00",
+  "index_html_path": "pm_bot/telegram_mini_app/index.html",
+  "local_artifact_read_only": true,
+  "live_connector_enabled": false,
+  "network_used": false,
+  "no_live_trading": true,
+  "no_network_fetch": true,
+  "no_order_cancel": true,
+  "no_order_submission": true,
+  "no_raw_account_values_displayed": true,
+  "no_raw_token_id_displayed": true,
+  "no_secret_forms": true,
+  "no_secret_inputs": true,
+  "no_secret_persistence": true,
+  "no_signing": true,
+  "no_wallet_connection": true,
+  "order_cancellation_attempted": false,
+  "order_cancellation_enabled": false,
+  "order_prep_status": {
+    "account": {
+      "artifact_available": true,
+      "display_ru": "не проверен",
+      "raw_value_displayed": false,
+      "source_path": "pm_bot/trading_core/artifacts/live_account_readonly_state_probe_070c/latest_live_account_readonly_state_status_070c.json",
+      "source_status": "blocked_missing_l2_credentials"
+    },
+    "approval": {
+      "artifact_available": true,
+      "display_ru": "не проверен",
+      "raw_value_displayed": false,
+      "source_path": "pm_bot/trading_core/artifacts/live_account_readonly_state_probe_070c/latest_live_account_readonly_state_status_070c.json",
+      "source_status": "not_available"
+    },
+    "live": {
+      "allowed_for_live": false,
+      "display_ru": "выключен",
+      "source_status": "blocked"
+    },
+    "market": {
+      "artifact_available": true,
+      "display_ru": "BTC",
+      "no_fake_value": true,
+      "source_path": "pm_bot/trading_core/artifacts/public_market_token_discovery_071a/latest_public_market_token_discovery_status_071a.json",
+      "source_status": "source_backed_candidates_ready"
+    },
+    "payload_dry_run": {
+      "artifact_available": true,
+      "display_ru": "artifact есть",
+      "executable": false,
+      "source_path": "pm_bot/trading_core/artifacts/signed_order_payload_dry_run_070a/latest_signed_order_payload_dry_run_status_070a.json",
+      "source_status": "blocked_non_executable_signed_order_payload_dry_run_no_submit"
+    },
+    "signer": {
+      "artifact_available": true,
+      "display_ru": "выключен",
+      "signing_attempted": false,
+      "source_path": "pm_bot/trading_core/artifacts/signed_order_payload_dry_run_070a/latest_signed_order_payload_dry_run_status_070a.json",
+      "source_status": "blocked"
+    },
+    "token_id": {
+      "artifact_available": true,
+      "display_ru": "не выбран",
+      "raw_value_displayed": false,
+      "source_path": "pm_bot/trading_core/artifacts/first_order_market_token_resolver_070b/latest_first_order_market_token_status_070b.json",
+      "source_status": "blocked_missing_token_id",
+      "token_id_present": false
+    }
+  },
+  "order_submission_attempted": false,
+  "order_submission_enabled": false,
+  "real_order_cancelled": false,
+  "real_order_submitted": false,
+  "resolved_blocker_count": 0,
+  "review_only": true,
+  "signed_order_generation_enabled": false,
+  "signed_payload_generation_enabled": false,
+  "signing_attempted": false,
+  "signing_enabled": false,
+  "source_artifacts": {
+    "account_readonly_070c": "pm_bot/trading_core/artifacts/live_account_readonly_state_probe_070c/latest_live_account_readonly_state_status_070c.json",
+    "market_discovery_071a": "pm_bot/trading_core/artifacts/public_market_token_discovery_071a/latest_public_market_token_discovery_status_071a.json",
+    "signed_payload_dry_run_070a": "pm_bot/trading_core/artifacts/signed_order_payload_dry_run_070a/latest_signed_order_payload_dry_run_status_070a.json",
+    "token_resolver_070b": "pm_bot/trading_core/artifacts/first_order_market_token_resolver_070b/latest_first_order_market_token_status_070b.json"
+  },
+  "static_review_only": true,
+  "status": "telegram_mini_app_order_prep_dashboard_ready_review_only",
+  "styles_css_path": "pm_bot/telegram_mini_app/styles.css",
+  "task_id": "ORCH-PMBOT-TELEGRAM-072F-MINI-APP-ORDER-PREP-DASHBOARD-NO_SECRETS_NO_LIVE",
+  "wallet_connection_attempted": false,
+  "wallet_connection_enabled": false
+}

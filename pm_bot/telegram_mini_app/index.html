@@ -28,6 +28,7 @@
       <a href="#balance">Баланс</a>
       <a href="#trades">Сделки</a>
       <a href="#pnl">PnL</a>
+      <a href="#order-prep">Ордера</a>
       <a href="#status">Статус</a>
       <a href="#limits">Лимиты</a>
       <a href="#stop">Стоп</a>
@@ -132,6 +133,50 @@
           </div>
         </article>
 
+        <article class="card order-prep-card" id="order-prep" data-contract="order prep: local artifacts only; no live controls">
+          <div class="card-header">
+            <span class="card-icon" aria-hidden="true">🧪</span>
+            <div>
+              <p class="card-label">Подготовка первого ордера</p>
+              <h3>🧪 Подготовка первого ордера</h3>
+            </div>
+          </div>
+          <dl class="status-list order-prep-list" aria-label="Статус подготовки первого ордера">
+            <div>
+              <dt>Рынок</dt>
+              <dd><span class="badge neutral">BTC</span><small>из локального 071A artifact</small></dd>
+            </div>
+            <div>
+              <dt>Token ID</dt>
+              <dd><span class="badge warning">не выбран</span><small>token_id_present=false; raw value не показан</small></dd>
+            </div>
+            <div>
+              <dt>Аккаунт</dt>
+              <dd><span class="badge warning">не проверен</span><small>070C: credentials missing; values redacted</small></dd>
+            </div>
+            <div>
+              <dt>Signer</dt>
+              <dd><span class="badge danger">выключен</span><small>signing_attempted=false</small></dd>
+            </div>
+            <div>
+              <dt>Approval</dt>
+              <dd><span class="badge muted">не проверен</span><small>allowance status: not_available</small></dd>
+            </div>
+            <div>
+              <dt>Payload dry-run</dt>
+              <dd><span class="badge neutral">artifact есть</span><small>070A: non-executable contract-only dry-run</small></dd>
+            </div>
+            <div>
+              <dt>Live выключен</dt>
+              <dd><span class="badge danger">allowed_for_live=false</span><small>review-only; live actions absent</small></dd>
+            </div>
+          </dl>
+          <div class="empty-state safe-placeholder">
+            <strong>Safe placeholder активен для отсутствующих значений</strong>
+            <p>Если локальный artifact отсутствует или поле пустое, панель показывает только "не выбран", "не проверен" или "выключен".</p>
+          </div>
+        </article>
+
         <article class="card" id="status" data-contract="live mode: disabled">
           <div class="card-header">
             <span class="card-icon" aria-hidden="true">🤖</span>
@@ -188,6 +233,7 @@
       <a href="#balance">Баланс</a>
       <a href="#trades">Сделки</a>
       <a href="#pnl">PnL</a>
+      <a href="#order-prep">Ордера</a>
       <a href="#status">Статус</a>
       <a href="#limits">Лимиты</a>
       <a href="#stop">Стоп</a>
