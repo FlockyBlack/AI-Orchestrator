@@ -54,6 +54,37 @@ PANEL_LAUNCH_BUTTON_LABELS = {
     "en": "Open PMBOT Mini App",
 }
 
+TINY_ORDER_REVIEW_LABELS = {
+    "ru": {
+        "section": "Малый ордер",
+        "tiny_candidate": "Tiny Candidate",
+        "approval_packet": "Пакет ручного подтверждения",
+        "hard_limits": "Лимиты",
+        "submission_status": "Submission Status",
+        "run_dry_run": "Run Tiny Scaffold Dry-Run",
+        "operator_approved_false": "Оператор подтвердил: нет",
+        "candidate_not_executable": "Кандидат не исполняемый",
+        "signing_blocked": "Подписание заблокировано",
+        "order_submission_blocked": "Отправка ордера заблокирована",
+        "wallet_blocked": "Кошелёк заблокирован",
+        "live_blocked": "Live-торговля заблокирована",
+    },
+    "en": {
+        "section": "Tiny Order Review",
+        "tiny_candidate": "Tiny Candidate",
+        "approval_packet": "Approval Packet",
+        "hard_limits": "Hard Limits",
+        "submission_status": "Submission Status",
+        "run_dry_run": "Run Tiny Scaffold Dry-Run",
+        "operator_approved_false": "Operator approved: false",
+        "candidate_not_executable": "Candidate is executable: false",
+        "signing_blocked": "Signing blocked",
+        "order_submission_blocked": "Order submission blocked",
+        "wallet_blocked": "Wallet blocked",
+        "live_blocked": "Live execution blocked",
+    },
+}
+
 
 def normalize_operator_language(value: Any, *, fallback: str = "") -> str:
     language = clean_text(value).lower()
@@ -109,6 +140,13 @@ def panel_launch_button_label(language: str) -> str:
     return PANEL_LAUNCH_BUTTON_LABELS[
         normalize_operator_language(language, fallback=DEFAULT_OPERATOR_LANGUAGE)
     ]
+
+
+def tiny_order_review_label(key: str, language: str) -> str:
+    labels = TINY_ORDER_REVIEW_LABELS[
+        normalize_operator_language(language, fallback=DEFAULT_OPERATOR_LANGUAGE)
+    ]
+    return labels.get(clean_text(key), "")
 
 
 def all_button_rows() -> tuple[tuple[tuple[str, str], ...], ...]:

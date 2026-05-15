@@ -55,6 +55,7 @@ TELEGRAM_COMMAND_MENU = (
     ("gonogo", "Go/No-Go gate"),
     ("blockers", "Live blockers"),
     ("readiness", "Readiness percent"),
+    ("tiny_order_review", "Tiny order review"),
     ("risk", "Risk limits"),
     ("language", "Language"),
     ("pause", "Local pause marker"),
