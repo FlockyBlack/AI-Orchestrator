@@ -15,6 +15,8 @@ from pm_bot.trading_core.telegram_wallet_auth_status_dashboard import (
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Build PMBOT Telegram connection status dashboard 067E.")
+    parser.add_argument("--market", default="BTC", help="Accepted review label; no live market call is made.")
+    parser.add_argument("--strategy", default="tiny-momentum", help="Accepted review label; no strategy execution is made.")
     parser.add_argument("--dry-run", action="store_true", help="Required; writes local status artifacts only.")
     parser.add_argument(
         "--artifact-root",

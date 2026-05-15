@@ -1,0 +1,187 @@
+{
+  "task_id": "ORCH-PMBOT-TRADING-MVP-068B-INTEGRATION-MERGE-067E-068A-INTO-MASTER",
+  "status": "validation_passed_ready_for_selective_stage_commit_push",
+  "repo": "https://github.com/FlockyBlack/AI-Orchestrator.git",
+  "target_branch": "master",
+  "worktree": "C:/oc068b_integration_merge_067e_068a",
+  "generated_at": "2026-05-15T19:12:26.8967166+04:00",
+  "head_before": "97b781d0fb48969da5a3cab02db043a3840b311a",
+  "head_after": "7cfc13aa02bea46c5b5611c1f3d8b28c17afac28",
+  "head_after_note": "head_after is the local master merge head after replaying 067E and 068A and before the final result-artifact commit; final pushed head is verified separately in the operator final report.",
+  "required_starting_master_head_verified": true,
+  "origin_master_before": "97b781d0fb48969da5a3cab02db043a3840b311a",
+  "source_heads": {
+    "pmbot/telegram-067e-wallet-auth-status-dashboard-no-live": {
+      "expected": "47c5dc3b1115904a9a014cf90a1f0e36d70737c9",
+      "observed": "47c5dc3b1115904a9a014cf90a1f0e36d70737c9",
+      "verified": true
+    },
+    "pmbot/trading-mvp-068a-signer-smoke-contract-no-order-no-submit": {
+      "expected": "f1dacc731b262a8ba3fc14ebda39fb668bb5ba03",
+      "observed": "f1dacc731b262a8ba3fc14ebda39fb668bb5ba03",
+      "verified": true
+    }
+  },
+  "merge_replay_methods": [
+    {
+      "source_branch": "pmbot/telegram-067e-wallet-auth-status-dashboard-no-live",
+      "method": "git merge --no-ff",
+      "merge_commit": "eee41a7382f6d507fa6d105a5da1cd48ae6eabe5",
+      "conflicts": [
+        "pm_bot/operator_runner/telegram_operator_control_bot.py",
+        "pm_bot/operator_runner/telegram_operator_runtime.py"
+      ],
+      "resolution": "Preserved 067A RU-first Telegram home/status commands, preserved 067B Mini App panel behavior, added 067E connection_status status-only screen and dry-run status action."
+    },
+    {
+      "source_branch": "pmbot/trading-mvp-068a-signer-smoke-contract-no-order-no-submit",
+      "method": "git merge --no-ff",
+      "merge_commit": "7cfc13aa02bea46c5b5611c1f3d8b28c17afac28",
+      "conflicts": [],
+      "resolution": "Clean merge after 067E; added signer smoke contract-only scaffold and artifacts without enabling signer execution."
+    }
+  ],
+  "integration_adjustments": [
+    {
+      "file": "pm_bot/operator_runner/telegram_operator_runtime.py",
+      "reason": "Connection status screen uses explicit Mini App launch label while preserving 067B /panel launch label contract."
+    },
+    {
+      "file": "pm_bot/operator_runner/telegram_connection_status_dashboard.py",
+      "reason": "Accepted --market and --strategy review labels for the required operator command; labels are not used for live calls or execution."
+    }
+  ],
+  "validation_summary": {
+    "focused": [
+      {
+        "command": "python -m pytest pm_bot/tests/test_telegram_wallet_auth_status_067e.py",
+        "status": "passed",
+        "result": "5 passed"
+      },
+      {
+        "command": "python -m pytest pm_bot/tests/test_signer_smoke_contract_068a.py",
+        "status": "passed",
+        "result": "8 passed"
+      },
+      {
+        "command": "python -m pytest pm_bot/tests/test_telegram_product_ux_067a.py",
+        "status": "passed",
+        "result": "8 passed"
+      },
+      {
+        "command": "python -m pytest pm_bot/tests/test_telegram_mini_app_scaffold_067b.py",
+        "status": "passed",
+        "result": "6 passed"
+      },
+      {
+        "command": "python -m pytest pm_bot/tests/test_clob_l2_auth_readonly_probe_067c.py",
+        "status": "passed",
+        "result": "10 passed"
+      },
+      {
+        "command": "python -m pytest pm_bot/tests/test_telegram_forbidden_live_controls_063a.py",
+        "status": "passed",
+        "result": "3 passed"
+      },
+      {
+        "command": "python -m pytest pm_bot/tests/test_static_safety_invariant_report_060q.py",
+        "status": "passed",
+        "result": "9 passed"
+      }
+    ],
+    "full": [
+      {
+        "command": "python -B -m pytest pm_bot/tests",
+        "status": "passed",
+        "result": "1976 passed"
+      },
+      {
+        "command": "python -m compileall -q pm_bot",
+        "status": "passed",
+        "result": "exit 0"
+      },
+      {
+        "command": "python -m compileall -q ai_orchestrator",
+        "status": "passed",
+        "result": "exit 0"
+      }
+    ],
+    "note": "Full test suite and compile checks were rerun after the 067E CLI compatibility adjustment."
+  },
+  "operator_command_summary": [
+    {
+      "command": "python -m pm_bot.operator_runner.clob_l2_auth_readonly_probe --market BTC --strategy tiny-momentum --dry-run",
+      "status": "passed",
+      "summary": "blocked_missing_l2_credentials; read-only true; allowed_for_live false; private key read false; signer instantiated false; order submission and cancellation blocked."
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.telegram_connection_status_dashboard --market BTC --strategy tiny-momentum --dry-run",
+      "status": "passed",
+      "summary": "telegram_wallet_auth_status_ready_review_only; values never shown; no live trading, signing, wallet connection, authenticated call, submit, or cancel action."
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.signer_smoke_contract --market BTC --strategy tiny-momentum --dry-run",
+      "status": "passed",
+      "summary": "blocked_contract_only_no_signer_smoke_execution; allowed_for_live false; private key read false; order payload signing disabled; order submission and cancellation blocked."
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.telegram_runtime_smoke",
+      "status": "passed",
+      "summary": "runtime module import ok; ready to start runtime true; safety flags expected false ok; network check not requested."
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.static_safety_invariant_report --scope pm_bot --dry-run",
+      "status": "passed",
+      "summary": "critical findings 0; warnings 7; live execution, order submission, signing, and wallet blocked."
+    }
+  ],
+  "manual_safety_scan": {
+    "status": "passed",
+    "telegram_control_surface_records_checked": 349,
+    "forbidden_telegram_control_hits": [],
+    "clob_private_key_marker_hits": [],
+    "signer_environment_read_hits": [],
+    "signer_private_key_marker_hits": [
+      "documented future_credential_source_marker only"
+    ],
+    "order_write_call_hits": [],
+    "notes": [
+      "Broad source grep contains pre-existing safety constants and blocker flag names; reviewed integrated control surfaces had no forbidden callbacks or commands.",
+      "CLOB L2 probe files do not reference POLYMARKET_PRIVATE_KEY.",
+      "Signer smoke contract files do not read os.environ or getenv; current safety flags keep all signing, payload generation, wallet, and order paths false.",
+      "No browser automation, scheduler, daemon, background worker, autonomous loop, or POST/PUT/PATCH/DELETE trading call was added by 067E/068A integration."
+    ]
+  },
+  "safety_flags": {
+    "allowed_for_live": false,
+    "live_trading_enabled": false,
+    "order_submission_enabled": false,
+    "order_cancellation_enabled": false,
+    "signing_enabled": false,
+    "signer_instantiated": false,
+    "signed_payload_generation_enabled": false,
+    "signed_order_generation_enabled": false,
+    "wallet_connection_enabled": false,
+    "private_key_read": false,
+    "raw_secret_output_enabled": false,
+    "authenticated_trading_enabled": false,
+    "browser_automation_added": false,
+    "scheduler_or_daemon_added": false,
+    "background_worker_added": false,
+    "autonomous_loop_added": false
+  },
+  "generated_artifacts": [
+    "docs/ORCH_PMBOT_TRADING_MVP_068B_INTEGRATION_MERGE_067E_068A_INTO_MASTER_RESULT.json"
+  ],
+  "operator_command_side_effects": {
+    "tracked_runtime_artifacts_restored_before_commit": true,
+    "pycache_removed_before_commit": true
+  },
+  "push": {
+    "pushed": false,
+    "remote_verification": "pending"
+  },
+  "remaining_risks": [
+    "Result artifact records the pre-result-commit merge head because a commit cannot embed its own final hash; final pushed hash is reported after push verification."
+  ]
+}
