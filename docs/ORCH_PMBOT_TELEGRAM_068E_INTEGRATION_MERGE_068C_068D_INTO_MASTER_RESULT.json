@@ -1,0 +1,238 @@
+{
+  "task_id": "ORCH-PMBOT-TELEGRAM-068E-INTEGRATION-MERGE-068C-068D-INTO-MASTER",
+  "contract_version": "pmbot_telegram_integration_merge_068e_result.v1",
+  "generated_at": "2026-05-15T20:39:47+04:00",
+  "repository": "https://github.com/FlockyBlack/AI-Orchestrator.git",
+  "target_branch": "master",
+  "worktree": "C:/oc068e_integration_merge_068c_068d",
+  "status": "validated_pending_result_commit_push_verify",
+  "head_before": "9b0d1dadcc5c6e239c00d5e555126ac5f6729b9b",
+  "origin_master_verified_before_merge": true,
+  "pre_result_doc_head_after_merges": "f6d35549a2e86dee467da51d326085317b2532b0",
+  "head_after": "recorded_in_final_response_after_commit_push_verify",
+  "head_after_note": "A committed result JSON cannot include its own final commit SHA without changing that SHA; the final operator response records the pushed and remotely verified branch HEAD.",
+  "source_heads": [
+    {
+      "branch": "pmbot/telegram-068c-product-ux-start-language-ru-buttons-fix",
+      "expected_head": "2e2754814adff94e49e9cd492974224be09d7f0b",
+      "verified_head": "2e2754814adff94e49e9cd492974224be09d7f0b"
+    },
+    {
+      "branch": "pmbot/telegram-068d-mini-app-product-dashboard-ru-first-no-secrets-no-live",
+      "expected_head": "563aa954d4e26de1d67e33db1fd4b91edcbccaa7",
+      "verified_head": "563aa954d4e26de1d67e33db1fd4b91edcbccaa7"
+    }
+  ],
+  "merge_methods": [
+    {
+      "order": 1,
+      "source_branch": "origin/pmbot/telegram-068c-product-ux-start-language-ru-buttons-fix",
+      "method": "git merge --no-ff",
+      "merge_commit": "fc3a4ffe51fc46e3036e907be5a8323be6f9ff27",
+      "conflicts": []
+    },
+    {
+      "order": 2,
+      "source_branch": "origin/pmbot/telegram-068d-mini-app-product-dashboard-ru-first-no-secrets-no-live",
+      "method": "git merge --no-ff",
+      "merge_commit": "f6d35549a2e86dee467da51d326085317b2532b0",
+      "conflicts": []
+    }
+  ],
+  "integration_requirements": {
+    "start_language_picker_first": true,
+    "start_language_picker_contains_ru_and_en": true,
+    "ru_product_menu_contains_all_10_required_buttons": true,
+    "en_product_menu_contains_all_10_required_buttons": true,
+    "mini_app_ru_first_dashboard_contains_required_sections": true,
+    "mini_app_no_secrets_no_live_preserved": true,
+    "preserved_current_master_067a_067b_067c_067e_068a_behavior": true
+  },
+  "changed_files": [
+    "docs/ORCH_PMBOT_TELEGRAM_068C_PRODUCT_UX_START_LANGUAGE_AND_RU_BUTTONS_FIX.md",
+    "docs/ORCH_PMBOT_TELEGRAM_068C_PRODUCT_UX_START_LANGUAGE_AND_RU_BUTTONS_FIX_RESULT.json",
+    "docs/ORCH_PMBOT_TELEGRAM_068D_MINI_APP_PRODUCT_DASHBOARD_RU_FIRST_NO_SECRETS_NO_LIVE.md",
+    "docs/ORCH_PMBOT_TELEGRAM_068D_MINI_APP_PRODUCT_DASHBOARD_RU_FIRST_NO_SECRETS_NO_LIVE_RESULT.json",
+    "docs/ORCH_PMBOT_TELEGRAM_068E_INTEGRATION_MERGE_068C_068D_INTO_MASTER_RESULT.json",
+    "pm_bot/operator_runner/telegram_operator_control_bot.py",
+    "pm_bot/operator_runner/telegram_operator_i18n.py",
+    "pm_bot/operator_runner/telegram_operator_runtime.py",
+    "pm_bot/operator_runner/telegram_product_ux_067a.py",
+    "pm_bot/operator_runner/telegram_product_ux_068c.py",
+    "pm_bot/telegram_mini_app/index.html",
+    "pm_bot/telegram_mini_app/styles.css",
+    "pm_bot/tests/test_telegram_mini_app_product_dashboard_068d.py",
+    "pm_bot/tests/test_telegram_mini_app_scaffold_067b.py",
+    "pm_bot/tests/test_telegram_operator_control_bot_043.py",
+    "pm_bot/tests/test_telegram_operator_runtime_045.py",
+    "pm_bot/tests/test_telegram_operator_runtime_ux_smoke_fixes_046e.py",
+    "pm_bot/tests/test_telegram_operator_ux_buttons_046.py",
+    "pm_bot/tests/test_telegram_product_start_language_068c.py",
+    "pm_bot/tests/test_telegram_product_ux_067a.py",
+    "pm_bot/tests/test_telegram_ru_language_mini_app_dev_mode_046g.py",
+    "pm_bot/tests/test_telegram_wallet_auth_status_067e.py",
+    "pm_bot/trading_core/artifacts/telegram_mini_app_067b/latest_telegram_mini_app_status_067b.json",
+    "pm_bot/trading_core/artifacts/telegram_mini_app_067b/telegram_mini_app_067b_result.json",
+    "pm_bot/trading_core/artifacts/telegram_mini_app_067b/telegram_mini_app_menu_snapshot_067b.json",
+    "pm_bot/trading_core/artifacts/telegram_mini_app_product_dashboard_068d/latest_telegram_mini_app_product_dashboard_status_068d.json",
+    "pm_bot/trading_core/artifacts/telegram_mini_app_product_dashboard_068d/telegram_mini_app_product_dashboard_068d_result.json",
+    "pm_bot/trading_core/artifacts/telegram_mini_app_product_dashboard_068d/telegram_mini_app_product_dashboard_menu_snapshot_068d.json",
+    "pm_bot/trading_core/artifacts/telegram_mini_app_product_dashboard_068d/telegram_mini_app_product_dashboard_safety_snapshot_068d.json",
+    "pm_bot/trading_core/artifacts/telegram_mini_app_product_dashboard_068d/telegram_mini_app_product_dashboard_ui_snapshot_068d.json",
+    "pm_bot/trading_core/artifacts/telegram_product_ux_067a/telegram_product_ux_i18n_snapshot_067a.json",
+    "pm_bot/trading_core/artifacts/telegram_product_ux_067a/telegram_product_ux_menu_snapshot_067a.json",
+    "pm_bot/trading_core/artifacts/telegram_product_ux_fix_068c/latest_telegram_product_ux_fix_status_068c.json",
+    "pm_bot/trading_core/artifacts/telegram_product_ux_fix_068c/telegram_product_ux_en_menu_snapshot_068c.json",
+    "pm_bot/trading_core/artifacts/telegram_product_ux_fix_068c/telegram_product_ux_fix_068c_result.json",
+    "pm_bot/trading_core/artifacts/telegram_product_ux_fix_068c/telegram_product_ux_ru_menu_snapshot_068c.json",
+    "pm_bot/trading_core/artifacts/telegram_product_ux_fix_068c/telegram_product_ux_safety_snapshot_068c.json",
+    "pm_bot/trading_core/artifacts/telegram_product_ux_fix_068c/telegram_product_ux_start_menu_snapshot_068c.json",
+    "pm_bot/trading_core/telegram_wallet_auth_status_dashboard.py"
+  ],
+  "generated_artifacts": [
+    "docs/ORCH_PMBOT_TELEGRAM_068E_INTEGRATION_MERGE_068C_068D_INTO_MASTER_RESULT.json",
+    "pm_bot/trading_core/artifacts/telegram_product_ux_fix_068c/telegram_product_ux_fix_068c_result.json",
+    "pm_bot/trading_core/artifacts/telegram_mini_app_product_dashboard_068d/telegram_mini_app_product_dashboard_068d_result.json"
+  ],
+  "validation": [
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_product_start_language_068c.py",
+      "status": "passed",
+      "summary": "10 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_mini_app_product_dashboard_068d.py",
+      "status": "passed",
+      "summary": "7 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_product_ux_067a.py",
+      "status": "passed",
+      "summary": "8 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_mini_app_scaffold_067b.py",
+      "status": "passed",
+      "summary": "6 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_wallet_auth_status_067e.py",
+      "status": "passed",
+      "summary": "5 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_clob_l2_auth_readonly_probe_067c.py",
+      "status": "passed",
+      "summary": "10 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_forbidden_live_controls_063a.py",
+      "status": "passed",
+      "summary": "3 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_static_safety_invariant_report_060q.py",
+      "status": "passed",
+      "summary": "9 passed"
+    },
+    {
+      "command": "python -B -m pytest pm_bot/tests",
+      "status": "passed",
+      "summary": "1993 passed"
+    },
+    {
+      "command": "python -m compileall -q pm_bot",
+      "status": "passed"
+    },
+    {
+      "command": "python -m compileall -q ai_orchestrator",
+      "status": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed_after_result_artifact_creation"
+    },
+    {
+      "command": "git diff --cached --check",
+      "status": "passed_after_selective_stage"
+    }
+  ],
+  "operator_commands": [
+    {
+      "command": "python -m pm_bot.operator_runner.telegram_runtime_smoke",
+      "status": "passed",
+      "summary": "Runtime module import ok; Telegram token and one allowed operator ID configured; Mini App URL missing; ready_to_start_runtime true; network check not requested."
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.telegram_connection_status_dashboard --market BTC --strategy tiny-momentum --dry-run",
+      "status": "passed",
+      "summary": "Status telegram_wallet_auth_status_ready_review_only; API keys/private key not_added; L2 auth probe blocked; open orders and balance/allowance unknown; values never shown."
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.clob_l2_auth_readonly_probe --market BTC --strategy tiny-momentum --dry-run",
+      "status": "passed",
+      "summary": "Status blocked_missing_l2_credentials; probe read-only true; allowed_for_live false; private_key_read false; signer_instantiated false; order submission/cancellation and wallet blocked."
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.static_safety_invariant_report --scope pm_bot --dry-run",
+      "status": "passed",
+      "summary": "Critical findings 0; warnings 7; live execution, order submission, signing, and wallet blocked."
+    }
+  ],
+  "manual_safety_scan": {
+    "result": "passed",
+    "start_language_picker_exists": true,
+    "ru_product_menu_all_10_required_buttons_present": true,
+    "en_product_menu_all_10_required_buttons_present": true,
+    "mini_app_ru_first_required_sections_present": true,
+    "mini_app_raw_secret_input_fields": false,
+    "private_key_api_secret_passphrase_collection": false,
+    "wallet_connect_controls": false,
+    "order_submit_cancel_controls": false,
+    "signing_or_signer_controls": false,
+    "live_enable_or_live_execute_controls": false,
+    "fake_balance_trade_pnl_values": false,
+    "run_signer_reintroduced": false,
+    "pmbot_run_signer_reintroduced": false,
+    "run_signer_label_reintroduced": false,
+    "clob_probe_readonly_no_orders": true,
+    "signer_smoke_contract_only_no_order_no_submit": true,
+    "mini_app_forms_storage_network_scripts_absent": true,
+    "forbidden_telegram_or_mini_app_control_ids_absent": true
+  },
+  "safety_flags": {
+    "paper_only": true,
+    "live_trading_enabled": false,
+    "order_submission_enabled": false,
+    "order_cancel_enabled": false,
+    "signing_enabled": false,
+    "signer_instantiated": false,
+    "signed_payload_generation_enabled": false,
+    "signed_order_generation_enabled": false,
+    "wallet_connection_enabled": false,
+    "authenticated_polymarket_calls_performed": false,
+    "raw_private_key_read": false,
+    "raw_api_secret_read": false,
+    "raw_passphrase_read": false,
+    "raw_secret_output": false,
+    "secret_persistence_in_mini_app": false,
+    "fake_balance_emitted": false,
+    "fake_trades_emitted": false,
+    "fake_pnl_emitted": false,
+    "scheduler_or_daemon_added": false,
+    "background_autonomous_loop_added": false,
+    "browser_automation_added": false
+  },
+  "cleanup": {
+    "validation_generated_pycache_removed": true,
+    "validation_regenerated_tracked_artifacts_restored_to_integration_head": true,
+    "reason": "Keep final integration diff reviewable and limited to source branch merges plus the required 068E result artifact."
+  },
+  "pushed": "recorded_in_final_response_after_push",
+  "remote_verification": "recorded_in_final_response_after_git_ls_remote",
+  "remaining_risks": [
+    "Telegram runtime smoke reported Mini App URL missing, matching a configuration gap rather than an integration failure.",
+    "Static safety invariant report reported 7 warnings and 0 critical findings.",
+    "Balance, trades, and PnL remain unavailable/unknown until future approved read-only factual data sources exist; no fake values were added."
+  ]
+}
