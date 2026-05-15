@@ -3,17 +3,23 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#10231f">
-  <meta name="pmbot-safety" content="no-secret-inputs; no-live-trading; no-wallet; no-signing; no-orders">
+  <meta name="theme-color" content="#0b1110">
+  <meta name="pmbot-safety" content="no-secret-inputs; no-live-trading; no-wallet-connect; no-signing; no-orders">
   <title>PMBOT Mini App</title>
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
   <div class="app-shell">
     <header class="topbar">
-      <p class="eyebrow">Telegram Mini App</p>
-      <h1>PMBOT</h1>
-      <p class="subtitle">Панель статуса для бумажного режима. Live-исполнение отключено.</p>
+      <div>
+        <p class="eyebrow">Telegram Mini App</p>
+        <h1>PMBOT</h1>
+        <p class="subtitle">AI-ассистент для Polymarket</p>
+      </div>
+      <div class="mode-card" aria-label="Текущий режим PMBOT">
+        <span class="mode-label">Статус защиты</span>
+        <strong>Режим: безопасный / dry-run / review-only</strong>
+      </div>
     </header>
 
     <nav class="tabs" aria-label="Разделы PMBOT">
@@ -31,63 +37,161 @@
       <section class="hero-panel" id="home" aria-labelledby="home-title">
         <div>
           <p class="section-kicker">Главная</p>
-          <h2 id="home-title">PMBOT dashboard shell</h2>
-          <p>Только обзор. Нет ввода значений, сохранения данных, подключений к счетам или торговых действий.</p>
+          <h2 id="home-title">Рабочая панель PMBOT</h2>
+          <p>
+            Статический обзор подключения, баланса, сделок, PnL, режима бота и лимитов.
+            Секреты не вводятся, live-действия недоступны.
+          </p>
         </div>
-        <div class="status-badge" aria-label="Live mode disabled">live mode: disabled</div>
+        <div class="hero-status" aria-label="Live execution disabled">
+          <span class="pulse-dot"></span>
+          <strong>Live trading выключен</strong>
+          <small>allowed_for_live=false</small>
+        </div>
       </section>
 
-      <section class="grid" aria-label="PMBOT placeholder cards">
-        <article class="card" id="connection">
-          <span class="card-label">Подключение</span>
-          <h3>credentials configured: unknown/not connected</h3>
-          <p>Настройка URL Mini App выполняется только через маркер окружения.</p>
-          <span class="state neutral">не подключено</span>
+      <section class="dashboard-grid" aria-label="PMBOT product dashboard">
+        <article class="card connection-card" id="connection" data-contract="credentials configured: unknown/not connected">
+          <div class="card-header">
+            <span class="card-icon" aria-hidden="true">🔐</span>
+            <div>
+              <p class="card-label">Подключение</p>
+              <h3>Доступ к аккаунту</h3>
+            </div>
+          </div>
+          <dl class="status-list">
+            <div>
+              <dt>API ключи</dt>
+              <dd><span class="badge neutral">неизвестно</span><small>добавлены / не добавлены / неизвестно</small></dd>
+            </div>
+            <div>
+              <dt>Private key</dt>
+              <dd><span class="badge neutral">неизвестно</span><small>добавлен / не добавлен / неизвестно</small></dd>
+            </div>
+            <div>
+              <dt>Wallet</dt>
+              <dd><span class="badge muted">не указан</span><small>если есть артефакт: 0x3006...8989</small></dd>
+            </div>
+            <div>
+              <dt>Signature type</dt>
+              <dd><span class="badge muted">не указан</span><small>например 3 только из локального статуса</small></dd>
+            </div>
+            <div>
+              <dt>Funder</dt>
+              <dd><span class="badge muted">не указан</span><small>показывается только как redacted status</small></dd>
+            </div>
+            <div>
+              <dt>L2 auth</dt>
+              <dd><span class="badge warning">не проверен</span><small>OK / ошибка только при наличии артефакта</small></dd>
+            </div>
+          </dl>
         </article>
 
-        <article class="card" id="balance">
-          <span class="card-label">Баланс</span>
-          <h3>balance: not connected</h3>
-          <p>Данные счета не читаются и не имитируются.</p>
-          <span class="state muted">нет подключения</span>
+        <article class="card" id="balance" data-contract="balance: not connected">
+          <div class="card-header">
+            <span class="card-icon" aria-hidden="true">💰</span>
+            <div>
+              <p class="card-label">Баланс</p>
+              <h3>Средства</h3>
+            </div>
+          </div>
+          <div class="empty-state">
+            <strong>Баланс пока не проверен</strong>
+            <p>Запустите read-only проверку подключения в Telegram или CLI.</p>
+            <span class="badge muted">фейковый баланс не показывается</span>
+          </div>
         </article>
 
-        <article class="card" id="trades">
-          <span class="card-label">Сделки</span>
-          <h3>trades: no live data</h3>
-          <p>История сделок не загружается, не вводится и не подменяется тестовыми значениями.</p>
-          <span class="state muted">нет live-данных</span>
+        <article class="card" id="trades" data-contract="trades: no live data">
+          <div class="card-header">
+            <span class="card-icon" aria-hidden="true">📊</span>
+            <div>
+              <p class="card-label">Сделки</p>
+              <h3>История и ордера</h3>
+            </div>
+          </div>
+          <div class="empty-state">
+            <strong>Live-сделок пока не было</strong>
+            <p>Открытые ордера: неизвестно. Статус может появиться только из read-only probe artifact.</p>
+            <span class="badge muted">фейковые сделки не показываются</span>
+          </div>
         </article>
 
-        <article class="card" id="pnl">
-          <span class="card-label">PnL</span>
-          <h3>PnL: unavailable until live trades exist</h3>
-          <p>Показатели PnL скрыты до появления разрешенного будущего источника фактических данных.</p>
-          <span class="state muted">недоступно</span>
+        <article class="card" id="pnl" data-contract="PnL: unavailable until live trades exist">
+          <div class="card-header">
+            <span class="card-icon" aria-hidden="true">📈</span>
+            <div>
+              <p class="card-label">PnL</p>
+              <h3>Результат</h3>
+            </div>
+          </div>
+          <div class="empty-state">
+            <strong>PnL пока недоступен: live-сделок ещё не было</strong>
+            <p>Панель не подставляет тестовую доходность и не считает результат без фактической сверки.</p>
+            <span class="badge muted">фейковый PnL не показывается</span>
+          </div>
         </article>
 
-        <article class="card" id="status">
-          <span class="card-label">Статус</span>
-          <h3>live mode: disabled</h3>
-          <p>PMBOT остается в режиме статического обзора и бумажной подготовки.</p>
-          <span class="state blocked">live выключен</span>
+        <article class="card" id="status" data-contract="live mode: disabled">
+          <div class="card-header">
+            <span class="card-icon" aria-hidden="true">🤖</span>
+            <div>
+              <p class="card-label">Статус бота</p>
+              <h3>Исполнение</h3>
+            </div>
+          </div>
+          <ul class="check-list">
+            <li><span>Live trading</span><strong>выключен</strong></li>
+            <li><span>Отправка ордеров</span><strong>выключена</strong></li>
+            <li><span>Подписание</span><strong>выключено</strong></li>
+            <li><span>Кошелёк</span><strong>live-исполнение выключено</strong></li>
+            <li><span>allowed_for_live</span><strong>false</strong></li>
+          </ul>
         </article>
 
-        <article class="card" id="limits">
-          <span class="card-label">Лимиты</span>
-          <h3>risk limits: tiny mode planned</h3>
-          <p>Лимиты показаны как планируемый раздел без исполняемых переключателей.</p>
-          <span class="state neutral">планируется</span>
+        <article class="card" id="limits" data-contract="risk limits: tiny mode planned">
+          <div class="card-header">
+            <span class="card-icon" aria-hidden="true">⚙️</span>
+            <div>
+              <p class="card-label">Лимиты</p>
+              <h3>План безопасного режима</h3>
+            </div>
+          </div>
+          <ul class="check-list">
+            <li><span>Режим</span><strong>supervised tiny mode planned</strong></li>
+            <li><span>Max order</span><strong>&lt;= $1 planned</strong></li>
+            <li><span>Max orders/day</span><strong>1 planned</strong></li>
+            <li><span>Автоторговля</span><strong>выключена</strong></li>
+          </ul>
         </article>
 
-        <article class="card" id="stop">
-          <span class="card-label">Стоп</span>
-          <h3>Стоп: только статусный раздел</h3>
-          <p>Этот раздел не отправляет команды и не меняет состояние исполнения.</p>
-          <span class="state blocked">исполнение заблокировано</span>
+        <article class="card stop-card" id="stop">
+          <div class="card-header">
+            <span class="card-icon" aria-hidden="true">🚨</span>
+            <div>
+              <p class="card-label">Стоп</p>
+              <h3>Emergency Stop</h3>
+            </div>
+          </div>
+          <div class="empty-state">
+            <strong>Локальный placeholder</strong>
+            <p>Live отмены ордеров в Mini App пока нет. Раздел ничего не отправляет и не меняет.</p>
+            <span class="badge danger">live cancel недоступен</span>
+          </div>
         </article>
       </section>
     </main>
+
+    <nav class="bottom-nav" aria-label="Быстрая навигация">
+      <a href="#home">Главная</a>
+      <a href="#connection">Подключение</a>
+      <a href="#balance">Баланс</a>
+      <a href="#trades">Сделки</a>
+      <a href="#pnl">PnL</a>
+      <a href="#status">Статус</a>
+      <a href="#limits">Лимиты</a>
+      <a href="#stop">Стоп</a>
+    </nav>
   </div>
 </body>
 </html>

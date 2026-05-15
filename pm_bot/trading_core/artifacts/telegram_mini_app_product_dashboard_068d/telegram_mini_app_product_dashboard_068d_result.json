@@ -1,0 +1,78 @@
+{
+  "artifacts": [
+    "pm_bot/trading_core/artifacts/telegram_mini_app_product_dashboard_068d/telegram_mini_app_product_dashboard_068d_result.json",
+    "pm_bot/trading_core/artifacts/telegram_mini_app_product_dashboard_068d/latest_telegram_mini_app_product_dashboard_status_068d.json",
+    "pm_bot/trading_core/artifacts/telegram_mini_app_product_dashboard_068d/telegram_mini_app_product_dashboard_menu_snapshot_068d.json",
+    "pm_bot/trading_core/artifacts/telegram_mini_app_product_dashboard_068d/telegram_mini_app_product_dashboard_safety_snapshot_068d.json",
+    "pm_bot/trading_core/artifacts/telegram_mini_app_product_dashboard_068d/telegram_mini_app_product_dashboard_ui_snapshot_068d.json"
+  ],
+  "branch": "pmbot/telegram-068d-mini-app-product-dashboard-ru-first-no-secrets-no-live",
+  "changed_files_expected": [
+    "docs/ORCH_PMBOT_TELEGRAM_068D_MINI_APP_PRODUCT_DASHBOARD_RU_FIRST_NO_SECRETS_NO_LIVE.md",
+    "docs/ORCH_PMBOT_TELEGRAM_068D_MINI_APP_PRODUCT_DASHBOARD_RU_FIRST_NO_SECRETS_NO_LIVE_RESULT.json",
+    "pm_bot/telegram_mini_app/index.html",
+    "pm_bot/telegram_mini_app/styles.css",
+    "pm_bot/tests/test_telegram_mini_app_product_dashboard_068d.py",
+    "pm_bot/trading_core/artifacts/telegram_mini_app_product_dashboard_068d/latest_telegram_mini_app_product_dashboard_status_068d.json",
+    "pm_bot/trading_core/artifacts/telegram_mini_app_product_dashboard_068d/telegram_mini_app_product_dashboard_068d_result.json",
+    "pm_bot/trading_core/artifacts/telegram_mini_app_product_dashboard_068d/telegram_mini_app_product_dashboard_menu_snapshot_068d.json",
+    "pm_bot/trading_core/artifacts/telegram_mini_app_product_dashboard_068d/telegram_mini_app_product_dashboard_safety_snapshot_068d.json",
+    "pm_bot/trading_core/artifacts/telegram_mini_app_product_dashboard_068d/telegram_mini_app_product_dashboard_ui_snapshot_068d.json"
+  ],
+  "contract_version": "pmbot_telegram_mini_app_product_dashboard_068d_result.v1",
+  "dashboard_summary": {
+    "bottom_navigation": true,
+    "dark_fintech_style": true,
+    "ru_first": true,
+    "static_single_page": true
+  },
+  "generated_at": "2026-05-15T00:00:00+04:00",
+  "git": {
+    "base_branch": "master",
+    "branch": "pmbot/telegram-068d-mini-app-product-dashboard-ru-first-no-secrets-no-live",
+    "head_after": "recorded_in_final_response_after_commit_push_verify",
+    "head_after_note": "The committed result JSON cannot include its own final commit SHA without changing that SHA; the final operator response records the pushed and remotely verified branch HEAD.",
+    "head_before": "9b0d1dadcc5c6e239c00d5e555126ac5f6729b9b",
+    "required_base_head": "9b0d1dadcc5c6e239c00d5e555126ac5f6729b9b"
+  },
+  "implementation_summary": [
+    "Upgraded the static Telegram Mini App scaffold into a RU-first PMBOT product dashboard shell.",
+    "Added product cards for connection, balance, trades, PnL, bot status, limits, and stop controls.",
+    "Kept the Mini App static, form-free, script-free, and network-free.",
+    "Added focused 068D regression tests, operator docs, and required safety/status/menu/UI artifacts."
+  ],
+  "no_fake_balance": true,
+  "no_fake_pnl": true,
+  "no_fake_trades": true,
+  "no_live_trading": true,
+  "no_order_cancel": true,
+  "no_order_submission": true,
+  "no_secret_inputs": true,
+  "no_secret_persistence": true,
+  "no_signing": true,
+  "no_wallet_connection": true,
+  "repository": "https://github.com/FlockyBlack/AI-Orchestrator.git",
+  "safety_statement": {
+    "authenticated_polymarket_calls_performed": false,
+    "browser_automation_added": false,
+    "live_trading_enabled": false,
+    "order_cancellation_attempted": false,
+    "order_submission_attempted": false,
+    "private_key_or_api_secret_inputs_added": false,
+    "raw_secret_values_read": false,
+    "raw_secret_values_stored": false,
+    "scheduler_or_daemon_added": false,
+    "signing_attempted": false,
+    "wallet_connection_attempted": false
+  },
+  "status": "validated_pending_commit_push_verify",
+  "task_id": "ORCH-PMBOT-TELEGRAM-068D-MINI-APP-PRODUCT-DASHBOARD-RU-FIRST-NO-SECRETS-NO-LIVE",
+  "validation": {
+    "focused_tests": "passed",
+    "full_suite": "1983 passed via short subst worktree path O:/ mapped to the requested worktree, avoiding Windows MAX_PATH on a pre-existing practical evidence fixture.",
+    "static_safety_invariant_report": "0 critical findings; 7 warnings",
+    "status": "passed",
+    "summary": "Full command validation is recorded in docs/ORCH_PMBOT_TELEGRAM_068D_MINI_APP_PRODUCT_DASHBOARD_RU_FIRST_NO_SECRETS_NO_LIVE_RESULT.json and the final operator response."
+  },
+  "worktree": "C:/oc068d_mini_app_product_dashboard_ru_first_no_secrets_no_live"
+}

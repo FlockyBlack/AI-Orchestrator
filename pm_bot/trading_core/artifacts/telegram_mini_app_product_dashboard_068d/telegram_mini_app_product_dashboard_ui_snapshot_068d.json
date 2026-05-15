@@ -1,0 +1,98 @@
+{
+  "cards": [
+    {
+      "id": "connection",
+      "primary_label_ru": "Подключение",
+      "shows": [
+        "API ключи: неизвестно",
+        "Private key: неизвестно",
+        "Wallet: не указан",
+        "Signature type: не указан",
+        "Funder: не указан",
+        "L2 auth: не проверен"
+      ]
+    },
+    {
+      "id": "balance",
+      "primary_label_ru": "Баланс",
+      "shows": [
+        "Баланс пока не проверен",
+        "Запустите read-only проверку подключения в Telegram или CLI",
+        "фейковый баланс не показывается"
+      ]
+    },
+    {
+      "id": "trades",
+      "primary_label_ru": "Сделки",
+      "shows": [
+        "Live-сделок пока не было",
+        "Открытые ордера: неизвестно",
+        "фейковые сделки не показываются"
+      ]
+    },
+    {
+      "id": "pnl",
+      "primary_label_ru": "PnL",
+      "shows": [
+        "PnL пока недоступен: live-сделок ещё не было",
+        "фейковый PnL не показывается"
+      ]
+    },
+    {
+      "id": "status",
+      "primary_label_ru": "Статус",
+      "shows": [
+        "Live trading: выключен",
+        "Отправка ордеров: выключена",
+        "Подписание: выключено",
+        "Кошелёк: live-исполнение выключено",
+        "allowed_for_live=false"
+      ]
+    },
+    {
+      "id": "limits",
+      "primary_label_ru": "Лимиты",
+      "shows": [
+        "Режим: supervised tiny mode planned",
+        "Max order: <= $1 planned",
+        "Max orders/day: 1 planned",
+        "Автоторговля: выключена"
+      ]
+    },
+    {
+      "id": "stop",
+      "primary_label_ru": "Стоп",
+      "shows": [
+        "Emergency Stop: локальный placeholder",
+        "Live отмены ордеров в Mini App пока нет",
+        "live cancel недоступен"
+      ]
+    }
+  ],
+  "contract_version": "pmbot_telegram_mini_app_product_dashboard_ui_snapshot_068d.v1",
+  "generated_at": "2026-05-15T00:00:00+04:00",
+  "header": {
+    "mode_ru": "Режим: безопасный / dry-run / review-only",
+    "subtitle_ru": "AI-ассистент для Polymarket",
+    "title": "PMBOT"
+  },
+  "layout": {
+    "bottom_navigation": true,
+    "dark_fintech_style": true,
+    "external_scripts": false,
+    "network_required": false,
+    "static_single_page": true
+  },
+  "no_fake_balance": true,
+  "no_fake_pnl": true,
+  "no_fake_trades": true,
+  "no_live_trading": true,
+  "no_order_cancel": true,
+  "no_order_submission": true,
+  "no_secret_inputs": true,
+  "no_secret_persistence": true,
+  "no_signing": true,
+  "no_wallet_connection": true,
+  "review_only": true,
+  "task_id": "ORCH-PMBOT-TELEGRAM-068D-MINI-APP-PRODUCT-DASHBOARD-RU-FIRST-NO-SECRETS-NO-LIVE"
+}
