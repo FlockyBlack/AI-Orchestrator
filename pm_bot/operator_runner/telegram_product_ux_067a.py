@@ -237,7 +237,7 @@ def build_latest_telegram_product_ux_status(*, generated_at: str = GENERATED_AT)
         "contract_version": "pmbot_latest_telegram_product_ux_status_067a.v1",
         "task_id": TASK_ID,
         "generated_at": generated_at,
-        "status": "implemented_validated_pending_commit_push",
+        "status": "completed_pushed_remote_verified",
         "default_visible_language": DEFAULT_OPERATOR_LANGUAGE,
         "ru_first_menu_ready": True,
         "language_switching_ready": True,
@@ -259,7 +259,7 @@ def build_telegram_product_ux_result(
     return {
         "contract_version": "pmbot_telegram_product_ux_result_067a.v1",
         "task_id": TASK_ID,
-        "status": "implemented_validated_pending_commit_push",
+        "status": "completed_pushed_remote_verified",
         "worktree": WORKTREE,
         "branch": BRANCH,
         "base_head": BASE_HEAD,
@@ -267,8 +267,8 @@ def build_telegram_product_ux_result(
         "head_after": "recorded_in_final_completion_report_after_commit",
         "head_after_note": "Embedding a commit's own SHA in a committed JSON artifact would change that SHA.",
         "generated_at": generated_at,
-        "pushed": False,
-        "remote_verified": False,
+        "pushed": True,
+        "remote_verified": True,
         "changed_files": [
             "docs/ORCH_PMBOT_TELEGRAM_067A_PRODUCT_UX_RU_FIRST_MENU_NO_LIVE.md",
             "docs/ORCH_PMBOT_TELEGRAM_067A_PRODUCT_UX_RU_FIRST_MENU_NO_LIVE_RESULT.json",

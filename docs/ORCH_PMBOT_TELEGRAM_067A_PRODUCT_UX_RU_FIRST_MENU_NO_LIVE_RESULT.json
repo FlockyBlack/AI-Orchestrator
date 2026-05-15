@@ -27,8 +27,8 @@
   "head_after": "recorded_in_final_completion_report_after_commit",
   "head_after_note": "Embedding a commit's own SHA in a committed JSON artifact would change that SHA.",
   "head_before": "bd84069654a3b412f76d63405b60da7feb5c6c9d",
-  "pushed": false,
-  "remote_verified": false,
+  "pushed": true,
+  "remote_verified": true,
   "safety_flags": {
     "allowed_for_live": false,
     "authenticated_polymarket_calls_enabled": false,
@@ -72,7 +72,7 @@
     "wallet_execution_enabled": false
   },
   "safety_statement": "Telegram product UX remains review/status/dry-run only. It does not enable live trading, wallet connection, signing, order submission, order cancellation, authenticated Polymarket calls, or fake balance/trade/PnL output.",
-  "status": "implemented_validated_pending_commit_push",
+  "status": "completed_pushed_remote_verified",
   "task_id": "ORCH-PMBOT-TELEGRAM-067A-PRODUCT-UX-RU-FIRST-MENU-NO-LIVE",
   "validation": [
     {
