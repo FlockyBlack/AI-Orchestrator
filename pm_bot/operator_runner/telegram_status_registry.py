@@ -15,6 +15,7 @@ TASK_ID = "ORCH-PMBOT-TELEGRAM-060T-OPERATOR-CONSOLE-FOR-PMBOT-STATUS-AND-DRY-RU
 TASK_ID_061T = "ORCH-PMBOT-TELEGRAM-061T-TINY-ORDER-SCAFFOLD-REVIEW-PANEL"
 TASK_ID_062T = "ORCH-PMBOT-TELEGRAM-062T-PRE-LIVE-TINY-ORDER-GATE-REVIEW-PANEL"
 TASK_ID_063T = "ORCH-PMBOT-TELEGRAM-063T-SUPERVISED-LIVE-ENABLEMENT-REVIEW-PANEL"
+TASK_ID_064T = "ORCH-PMBOT-TELEGRAM-064T-CREDENTIALS-READINESS-REVIEW-PANEL"
 STATUS_REGISTRY_CONTRACT = "pmbot_telegram_operator_console_060t_status_registry.v1"
 STATUS_CARD_CONTRACT = "pmbot_telegram_operator_console_060t_status_card.v1"
 READINESS_SUMMARY_CONTRACT = "pmbot_telegram_operator_console_060t_readiness.v1"
@@ -32,6 +33,15 @@ SUPERVISED_LIVE_ENABLEMENT_REVIEW_063T_RESULT_CONTRACT = (
 )
 SUPERVISED_LIVE_ENABLEMENT_REVIEW_063T_CONTROLS_CONTRACT = (
     "pmbot_telegram_supervised_live_enablement_review_063t_controls.v1"
+)
+CREDENTIALS_READINESS_REVIEW_064T_STATUS_CONTRACT = (
+    "pmbot_telegram_credentials_readiness_review_064t_status.v1"
+)
+CREDENTIALS_READINESS_REVIEW_064T_RESULT_CONTRACT = (
+    "pmbot_telegram_credentials_readiness_review_064t_result.v1"
+)
+CREDENTIALS_READINESS_REVIEW_064T_CONTROLS_CONTRACT = (
+    "pmbot_telegram_credentials_readiness_review_064t_controls.v1"
 )
 
 DEFAULT_ARTIFACT_ROOT = Path("pm_bot/trading_core/artifacts")
@@ -87,6 +97,25 @@ TELEGRAM_SUPERVISED_LIVE_ENABLEMENT_REVIEW_CONTROLS_PATH = (
     TELEGRAM_SUPERVISED_LIVE_ENABLEMENT_REVIEW_ARTIFACT_DIR
     / "telegram_supervised_live_enablement_review_controls_063t.json"
 )
+TELEGRAM_CREDENTIALS_READINESS_REVIEW_ARTIFACT_DIR = (
+    DEFAULT_ARTIFACT_ROOT / "telegram_credentials_readiness_review_064t"
+)
+TELEGRAM_CREDENTIALS_READINESS_REVIEW_RESULT_PATH = (
+    TELEGRAM_CREDENTIALS_READINESS_REVIEW_ARTIFACT_DIR
+    / "telegram_credentials_readiness_review_064t_result.json"
+)
+LATEST_TELEGRAM_CREDENTIALS_READINESS_REVIEW_STATUS_PATH = (
+    TELEGRAM_CREDENTIALS_READINESS_REVIEW_ARTIFACT_DIR
+    / "latest_telegram_credentials_readiness_review_status_064t.json"
+)
+TELEGRAM_CREDENTIALS_READINESS_REVIEW_REGISTRY_SNAPSHOT_PATH = (
+    TELEGRAM_CREDENTIALS_READINESS_REVIEW_ARTIFACT_DIR
+    / "telegram_credentials_readiness_review_registry_snapshot_064t.json"
+)
+TELEGRAM_CREDENTIALS_READINESS_REVIEW_CONTROLS_PATH = (
+    TELEGRAM_CREDENTIALS_READINESS_REVIEW_ARTIFACT_DIR
+    / "telegram_credentials_readiness_review_controls_064t.json"
+)
 
 TINY_ORDER_SCAFFOLD_061_FLOW_ID = "tiny_order_scaffold_061"
 TINY_ORDER_SCAFFOLD_061_ARTIFACT_DIR_NAME = "tiny_order_scaffold_061"
@@ -121,6 +150,21 @@ SUPERVISED_TINY_LIVE_ENABLEMENT_GATE_063_ARTIFACT_FILENAMES = {
     "env_readiness": "supervised_tiny_live_env_readiness_063.json",
     "manual_approval_packet": "supervised_tiny_live_manual_approval_packet_063.json",
     "operator_md": "supervised_tiny_live_enablement_gate_063_operator.md",
+}
+EXPLICIT_LIVE_CREDENTIALS_READINESS_GATE_064_FLOW_ID = "explicit_live_credentials_readiness_gate_064"
+EXPLICIT_LIVE_CREDENTIALS_READINESS_GATE_064_ARTIFACT_DIR_NAME = (
+    "explicit_live_credentials_readiness_gate_064"
+)
+EXPLICIT_LIVE_CREDENTIALS_READINESS_GATE_064_ARTIFACT_FILENAMES = {
+    "latest_status": "latest_explicit_live_credentials_readiness_gate_status_064.json",
+    "marker_presence": "redacted_marker_presence_064.json",
+    "operator_approval_boundary": "operator_approval_boundary_064.json",
+    "safety_policy_validation": "credential_safety_policy_validation_064.json",
+    "blockers": "live_credentials_readiness_blockers_064.json",
+    "operator_checklist": "explicit_live_credentials_operator_checklist_064.json",
+    "readiness_summary": "explicit_live_credentials_readiness_summary_064.json",
+    "result": "explicit_live_credentials_readiness_gate_064_result.json",
+    "operator_md": "explicit_live_credentials_readiness_gate_064_operator.md",
 }
 
 FORCED_FALSE_SAFETY_FLAGS = (
@@ -312,6 +356,15 @@ STATUS_SOURCES: tuple[TelegramStatusSource, ...] = (
         label_en="Supervised readiness review 063",
         label_ru="Обзор supervised readiness 063",
     ),
+    TelegramStatusSource(
+        flow_id=EXPLICIT_LIVE_CREDENTIALS_READINESS_GATE_064_FLOW_ID,
+        section="Live Readiness",
+        artifact_dir_name=EXPLICIT_LIVE_CREDENTIALS_READINESS_GATE_064_ARTIFACT_DIR_NAME,
+        latest_status_filename=EXPLICIT_LIVE_CREDENTIALS_READINESS_GATE_064_ARTIFACT_FILENAMES["latest_status"],
+        context_key="explicit_live_credentials_readiness_gate_status_summary",
+        label_en="Credentials readiness review",
+        label_ru="Проверка готовности credentials",
+    ),
 )
 
 SAFE_ACTIONS: tuple[TelegramSafeAction, ...] = (
@@ -387,6 +440,14 @@ SAFE_ACTIONS: tuple[TelegramSafeAction, ...] = (
         module="pm_bot.operator_runner.pre_live_tiny_order_gate",
         args=("--market", "BTC", "--strategy", "tiny-momentum", "--dry-run"),
     ),
+    TelegramSafeAction(
+        action_id="run_credentials_readiness_review_064_dry_run",
+        callback_data="pmbot:run:credentials_readiness_review_064_dry_run",
+        label_en="Dry-run credentials readiness 064",
+        label_ru="Dry-run готовности credentials 064",
+        module="pm_bot.operator_runner.explicit_live_credentials_readiness_gate",
+        args=("--market", "BTC", "--strategy", "tiny-momentum", "--dry-run"),
+    ),
 )
 
 STATUS_READ_BUTTONS = {
@@ -424,6 +485,10 @@ def build_telegram_status_registry_snapshot(
         cards_by_flow,
         generated_at=generated_at,
     )
+    credentials_readiness_review = build_credentials_readiness_review_064t_status(
+        cards_by_flow,
+        generated_at=generated_at,
+    )
     snapshot = {
         "contract_version": STATUS_REGISTRY_CONTRACT,
         "task_id": TASK_ID,
@@ -440,6 +505,7 @@ def build_telegram_status_registry_snapshot(
         "tiny_order_review_061t": tiny_order_review,
         "pre_live_tiny_order_gate_review_062t": pre_live_gate_review,
         "supervised_live_enablement_review_063t": supervised_live_enablement_review,
+        "credentials_readiness_review_064t": credentials_readiness_review,
         "context_fields": context_fields,
         "safe_actions": [safe_action_to_dict(action) for action in SAFE_ACTIONS],
         "status_read_buttons": dict(STATUS_READ_BUTTONS),
@@ -479,6 +545,9 @@ def build_telegram_console_context(
             "telegram_supervised_live_enablement_review_063t_status": snapshot[
                 "supervised_live_enablement_review_063t"
             ],
+            "telegram_credentials_readiness_review_064t_status": snapshot[
+                "credentials_readiness_review_064t"
+            ],
         }
     )
     return context
@@ -505,6 +574,7 @@ def build_readiness_summary(
     tiny_scaffold_ready = _available(cards_by_flow, "tiny_order_scaffold_061")
     pre_live_gate_ready = _available(cards_by_flow, "pre_live_tiny_order_gate_062p")
     supervised_live_enablement_ready = _available(cards_by_flow, "supervised_tiny_live_enablement_gate_063")
+    credentials_readiness_ready = _available(cards_by_flow, EXPLICIT_LIVE_CREDENTIALS_READINESS_GATE_064_FLOW_ID)
     readiness_items = {
         "paper_system": "ready" if paper_ready else "blocked",
         "public_market_data": "ready" if public_ready else "blocked",
@@ -516,6 +586,9 @@ def build_readiness_summary(
         "pre_live_tiny_order_gate": "ready_live_blocked" if pre_live_gate_ready else "not implemented yet",
         "supervised_tiny_live_enablement_gate": (
             "ready_live_blocked" if supervised_live_enablement_ready else "not implemented yet"
+        ),
+        "explicit_live_credentials_readiness_gate": (
+            "ready_live_blocked" if credentials_readiness_ready else "not implemented yet"
         ),
         "order_submission": "blocked",
         "live_execution": "blocked",
@@ -530,6 +603,7 @@ def build_readiness_summary(
         "tiny_order_scaffold",
         "pre_live_tiny_order_gate",
         "supervised_tiny_live_enablement_gate",
+        "explicit_live_credentials_readiness_gate",
     )
     ready_count = sum(1 for key in countable if readiness_items[key] in {"ready", "ready_live_blocked"})
     readiness_percent = int(round((ready_count / len(countable)) * 100))
@@ -540,6 +614,11 @@ def build_readiness_summary(
         "supervised_tiny_live_enablement_gate_ready"
         if supervised_live_enablement_ready
         else "supervised_tiny_live_enablement_gate_missing"
+    )
+    credentials_readiness_label = (
+        "credentials_readiness_review_ready"
+        if credentials_readiness_ready
+        else "credentials_readiness_review_missing"
     )
     return {
         "contract_version": READINESS_SUMMARY_CONTRACT,
@@ -555,6 +634,7 @@ def build_readiness_summary(
             tiny_scaffold_label,
             pre_live_gate_label,
             supervised_live_enablement_label,
+            credentials_readiness_label,
             "live_execution_blocked",
         ],
         "paper_demo_ready": paper_ready and public_ready and ledger_ready,
@@ -567,6 +647,8 @@ def build_readiness_summary(
         "pre_live_tiny_order_gate_ready": pre_live_gate_ready,
         "supervised_tiny_live_enablement_gate_missing": not supervised_live_enablement_ready,
         "supervised_tiny_live_enablement_gate_ready": supervised_live_enablement_ready,
+        "credentials_readiness_review_missing": not credentials_readiness_ready,
+        "credentials_readiness_review_ready": credentials_readiness_ready,
         "live_execution_blocked": True,
         "review_only": True,
         "execution_enabling": False,
@@ -643,6 +725,21 @@ def build_latest_artifacts(cards_by_flow: Mapping[str, Mapping[str, Any]]) -> di
                 "env_readiness_path": clean_text(supervised.get("env_readiness_path")),
                 "manual_approval_packet_path": clean_text(supervised.get("manual_approval_packet_path")),
                 "operator_markdown_path": clean_text(supervised.get("operator_markdown_path")),
+            }
+        )
+    credentials = dict(
+        cards_by_flow.get(EXPLICIT_LIVE_CREDENTIALS_READINESS_GATE_064_FLOW_ID, {}).get("status_summary", {})
+    )
+    if credentials:
+        latest[EXPLICIT_LIVE_CREDENTIALS_READINESS_GATE_064_FLOW_ID].update(
+            {
+                "marker_presence_path": clean_text(credentials.get("marker_presence_path")),
+                "operator_approval_boundary_path": clean_text(credentials.get("operator_approval_boundary_path")),
+                "safety_policy_validation_path": clean_text(credentials.get("safety_policy_validation_path")),
+                "blockers_path": clean_text(credentials.get("blockers_path")),
+                "operator_checklist_path": clean_text(credentials.get("operator_checklist_path")),
+                "readiness_summary_path": clean_text(credentials.get("readiness_summary_path")),
+                "operator_markdown_path": clean_text(credentials.get("operator_markdown_path")),
             }
         )
     return latest
@@ -806,6 +903,80 @@ def build_supervised_live_enablement_review_063t_status(
         "run_supervised_gate_action_id": action.action_id if action is not None else "",
         "run_supervised_gate_callback_data": action.callback_data if action is not None else "",
         "run_supervised_gate_command": list(action.command_display) if action is not None else [],
+        "allowed_button_label": action.label_en if action is not None else "",
+        "allowed_ru_button_label": action.label_ru if action is not None else "",
+        "forbidden_live_controls_added": False,
+        "review_only": True,
+        "dry_run_only": True,
+        "execution_enabling": False,
+        **telegram_console_safety_state(),
+    }
+
+
+def build_credentials_readiness_review_064t_status(
+    cards_by_flow: Mapping[str, Mapping[str, Any]],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    card = dict(cards_by_flow.get(EXPLICIT_LIVE_CREDENTIALS_READINESS_GATE_064_FLOW_ID, {}))
+    summary = dict(card.get("status_summary", {}))
+    action = safe_action_by_id("run_credentials_readiness_review_064_dry_run")
+    return {
+        "contract_version": CREDENTIALS_READINESS_REVIEW_064T_STATUS_CONTRACT,
+        "task_id": TASK_ID_064T,
+        "generated_at": generated_at,
+        "status": "telegram_credentials_readiness_review_ready_review_only",
+        "source_flow_id": EXPLICIT_LIVE_CREDENTIALS_READINESS_GATE_064_FLOW_ID,
+        "source_status_available": card.get("available") is True,
+        "label_en": "Credentials readiness review",
+        "label_ru": "Проверка готовности credentials",
+        "source_status": clean_text(summary.get("status") or "not_available"),
+        "readiness_status": clean_text(summary.get("readiness_status") or "blocked"),
+        "marker_presence_path": clean_text(summary.get("marker_presence_path")),
+        "operator_approval_boundary_path": clean_text(summary.get("operator_approval_boundary_path")),
+        "safety_policy_validation_path": clean_text(summary.get("safety_policy_validation_path")),
+        "blockers_path": clean_text(summary.get("blockers_path")),
+        "operator_checklist_path": clean_text(summary.get("operator_checklist_path")),
+        "readiness_summary_path": clean_text(summary.get("readiness_summary_path")),
+        "operator_markdown_path": clean_text(summary.get("operator_markdown_path")),
+        "marker_summary": dict(summary.get("marker_summary", {})),
+        "required_marker_presence": [
+            dict(row) for row in summary.get("required_marker_presence", []) if isinstance(row, Mapping)
+        ],
+        "missing_required_markers": _clean_list(summary.get("missing_required_markers")),
+        "missing_marker_blockers": [
+            dict(row) for row in summary.get("missing_marker_blockers", []) if isinstance(row, Mapping)
+        ],
+        "operator_approval_boundary_summary": dict(summary.get("operator_approval_boundary_summary", {})),
+        "safety_policy_validation_summary": dict(summary.get("safety_policy_validation_summary", {})),
+        "blockers_summary": dict(summary.get("blockers_summary", {})),
+        "blocker_count": _int_or_zero(summary.get("blocker_count")),
+        "resolved_blocker_count": 0,
+        "marker_count": _int_or_zero(summary.get("marker_count")),
+        "required_marker_count": _int_or_zero(summary.get("required_marker_count")),
+        "missing_required_marker_count": _int_or_zero(summary.get("missing_required_marker_count")),
+        "present_execution_flag_count": _int_or_zero(summary.get("present_execution_flag_count")),
+        "top_blocker_reasons": _clean_list(summary.get("top_blocker_reasons")),
+        "redacted_presence_review_ready": summary.get("redacted_presence_review_ready") is True,
+        "presence_only_warning": (
+            "Presence-only review cannot validate whether credential values are correct, usable, funded, "
+            "authorized, or safe. It checks marker names only. Live execution remains blocked."
+        ),
+        "presence_only": True,
+        "values_never_shown": True,
+        "redacted_labels_only": True,
+        "raw_values_emitted": False,
+        "credential_values_read": False,
+        "credentials_values_read": False,
+        "broad_environment_scan_performed": False,
+        "environment_values_read": False,
+        "live_ready": False,
+        "allowed_for_live": False,
+        "operator_approved": False,
+        "candidate_is_executable": False,
+        "run_credentials_readiness_action_id": action.action_id if action is not None else "",
+        "run_credentials_readiness_callback_data": action.callback_data if action is not None else "",
+        "run_credentials_readiness_command": list(action.command_display) if action is not None else [],
         "allowed_button_label": action.label_en if action is not None else "",
         "allowed_ru_button_label": action.label_ru if action is not None else "",
         "forbidden_live_controls_added": False,
@@ -1106,6 +1277,89 @@ def write_telegram_supervised_live_enablement_review_063t_artifacts(
     }
 
 
+def write_telegram_credentials_readiness_review_064t_artifacts(
+    *,
+    artifact_root: str | Path | None = None,
+    output_dir: str | Path = TELEGRAM_CREDENTIALS_READINESS_REVIEW_ARTIFACT_DIR,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    snapshot = build_telegram_status_registry_snapshot(artifact_root=artifact_root, generated_at=generated_at)
+    output = Path(output_dir)
+    latest_status = dict(snapshot["credentials_readiness_review_064t"])
+    action = safe_action_by_id("run_credentials_readiness_review_064_dry_run")
+    controls = {
+        "contract_version": CREDENTIALS_READINESS_REVIEW_064T_CONTROLS_CONTRACT,
+        "task_id": TASK_ID_064T,
+        "generated_at": generated_at,
+        "status": "safe_review_and_dry_run_controls_only",
+        "safe_status_view_command": "/credentials_readiness_review",
+        "safe_status_view_callback_data": "pmbot:credentials_readiness_review",
+        "allowed_dry_run_action": safe_action_to_dict(action) if action is not None else {},
+        "allowed_dry_run_command": list(action.command_display) if action is not None else [],
+        "forbidden_live_controls_added": False,
+        "approve_live_control_added": False,
+        "send_order_control_added": False,
+        "submit_order_control_added": False,
+        "cancel_order_control_added": False,
+        "sign_control_added": False,
+        "wallet_control_added": False,
+        "connect_wallet_control_added": False,
+        "unlock_wallet_control_added": False,
+        "live_enable_control_added": False,
+        "live_execute_control_added": False,
+        "credential_values_read": False,
+        "raw_values_emitted": False,
+        "broad_environment_scan_performed": False,
+        "allowed_for_live": False,
+        "resolved_blocker_count": 0,
+        "review_only": True,
+        "dry_run_only": True,
+        "execution_enabling": False,
+        **telegram_console_safety_state(),
+    }
+    result = {
+        "contract_version": CREDENTIALS_READINESS_REVIEW_064T_RESULT_CONTRACT,
+        "task_id": TASK_ID_064T,
+        "generated_at": generated_at,
+        "status": "completed_review_only",
+        "latest_status_path": normalize_path(output / LATEST_TELEGRAM_CREDENTIALS_READINESS_REVIEW_STATUS_PATH.name),
+        "registry_snapshot_path": normalize_path(
+            output / TELEGRAM_CREDENTIALS_READINESS_REVIEW_REGISTRY_SNAPSHOT_PATH.name
+        ),
+        "controls_path": normalize_path(output / TELEGRAM_CREDENTIALS_READINESS_REVIEW_CONTROLS_PATH.name),
+        "status_registry": snapshot,
+        "credentials_readiness_review_064t": latest_status,
+        "controls": controls,
+        "credential_values_read": False,
+        "raw_values_emitted": False,
+        "broad_environment_scan_performed": False,
+        "allowed_for_live": False,
+        "resolved_blocker_count": 0,
+        "review_only": True,
+        "dry_run_only": True,
+        "execution_enabling": False,
+        **telegram_console_safety_state(),
+    }
+    write_json(output / TELEGRAM_CREDENTIALS_READINESS_REVIEW_RESULT_PATH.name, result)
+    write_json(output / LATEST_TELEGRAM_CREDENTIALS_READINESS_REVIEW_STATUS_PATH.name, latest_status)
+    write_json(output / TELEGRAM_CREDENTIALS_READINESS_REVIEW_REGISTRY_SNAPSHOT_PATH.name, snapshot)
+    write_json(output / TELEGRAM_CREDENTIALS_READINESS_REVIEW_CONTROLS_PATH.name, controls)
+    return {
+        "result_path": normalize_path(output / TELEGRAM_CREDENTIALS_READINESS_REVIEW_RESULT_PATH.name),
+        "latest_status_path": normalize_path(
+            output / LATEST_TELEGRAM_CREDENTIALS_READINESS_REVIEW_STATUS_PATH.name
+        ),
+        "registry_snapshot_path": normalize_path(
+            output / TELEGRAM_CREDENTIALS_READINESS_REVIEW_REGISTRY_SNAPSHOT_PATH.name
+        ),
+        "controls_path": normalize_path(output / TELEGRAM_CREDENTIALS_READINESS_REVIEW_CONTROLS_PATH.name),
+        "result": result,
+        "latest_status": latest_status,
+        "status_registry": snapshot,
+        "controls": controls,
+    }
+
+
 def safe_action_to_dict(action: TelegramSafeAction) -> dict[str, Any]:
     return {
         "action_id": action.action_id,
@@ -1164,6 +1418,14 @@ def telegram_console_button_rows(language: str) -> tuple[tuple[tuple[str, str], 
             ),
         )
     )
+    rows.append(
+        (
+            (
+                "Проверка готовности credentials" if ru else "Credentials readiness review",
+                "pmbot:credentials_readiness_review",
+            ),
+        )
+    )
     action_rows = [
         ("run_paper_canary_052", "run_paper_loop_053"),
         ("run_public_market_paper_loop_054", "run_decision_ledger_055"),
@@ -1172,6 +1434,7 @@ def telegram_console_button_rows(language: str) -> tuple[tuple[tuple[str, str], 
         ("run_no_order_auth_get_preflight_059",),
         ("run_tiny_order_scaffold_061",),
         ("run_pre_live_tiny_order_gate_062p_review_dry_run",),
+        ("run_credentials_readiness_review_064_dry_run",),
     ]
     actions_by_id = {action.action_id: action for action in SAFE_ACTIONS}
     for row in action_rows:
@@ -1213,6 +1476,7 @@ def validate_safe_action(action: TelegramSafeAction) -> list[str]:
         "pm_bot.operator_runner.authenticated_clob_preflight",
         "pm_bot.operator_runner.tiny_order_scaffold",
         "pm_bot.operator_runner.pre_live_tiny_order_gate",
+        "pm_bot.operator_runner.explicit_live_credentials_readiness_gate",
     }:
         errors.append(f"unsupported module for Telegram action {action.action_id}")
     return errors
@@ -1257,7 +1521,19 @@ def telegram_console_safety_state() -> dict[str, Any]:
         "raw_telegram_bot_token_exposed": False,
         "raw_operator_user_ids_exposed": False,
         "raw_telegram_init_data_exposed": False,
+        "credential_values_read": False,
+        "credentials_values_read": False,
+        "credential_values_serialized": False,
+        "credentials_values_serialized": False,
+        "credential_values_printed": False,
+        "credential_values_stored": False,
         "credentials_values_exposed": False,
+        "raw_values_emitted": False,
+        "broad_environment_scan_performed": False,
+        "environment_values_read": False,
+        "environment_values_serialized": False,
+        "environment_values_printed": False,
+        "environment_values_stored": False,
         "balance_view_enabled": False,
         "position_view_enabled": False,
         "fills_view_enabled": False,
@@ -1295,6 +1571,7 @@ def _build_status_card(
     tiny_order_review: dict[str, Any] = {}
     pre_live_gate_review: dict[str, Any] = {}
     supervised_live_enablement_review: dict[str, Any] = {}
+    credentials_readiness_review: dict[str, Any] = {}
     if source.flow_id == TINY_ORDER_SCAFFOLD_061_FLOW_ID:
         tiny_order_review = _tiny_order_review_from_artifacts(
             artifact_root=artifact_root,
@@ -1318,6 +1595,13 @@ def _build_status_card(
         status_summary.update(
             _supervised_live_enablement_review_status_summary(supervised_live_enablement_review)
         )
+    if source.flow_id == EXPLICIT_LIVE_CREDENTIALS_READINESS_GATE_064_FLOW_ID:
+        credentials_readiness_review = _credentials_readiness_review_from_artifacts(
+            artifact_root=artifact_root,
+            latest_payload=payload,
+            generated_at=generated_at,
+        )
+        status_summary.update(_credentials_readiness_review_status_summary(credentials_readiness_review))
     return {
         "contract_version": STATUS_CARD_CONTRACT,
         "task_id": TASK_ID,
@@ -1336,6 +1620,7 @@ def _build_status_card(
         "tiny_order_review": tiny_order_review,
         "pre_live_gate_review": pre_live_gate_review,
         "supervised_live_enablement_review": supervised_live_enablement_review,
+        "credentials_readiness_review": credentials_readiness_review,
         "telegram_safe": True,
         "review_only": True,
         "live_execution": "blocked",
@@ -1452,6 +1737,22 @@ def _status_summary_from_payload(payload: Mapping[str, Any]) -> dict[str, Any]:
         "source_pre_live_gate_path": clean_text(value.get("source_pre_live_gate_path")),
         "source_tiny_scaffold_path": clean_text(value.get("source_tiny_scaffold_path")),
         "missing_env_marker_count": _int_or_zero(value.get("missing_env_marker_count")),
+        "marker_presence_path": clean_text(value.get("marker_presence_path")),
+        "operator_approval_boundary_path": clean_text(value.get("operator_approval_boundary_path")),
+        "safety_policy_validation_path": clean_text(value.get("safety_policy_validation_path")),
+        "missing_required_marker_count": _int_or_zero(value.get("missing_required_marker_count")),
+        "present_execution_flag_count": _int_or_zero(value.get("present_execution_flag_count")),
+        "required_marker_count": _int_or_zero(value.get("required_marker_count")),
+        "marker_count": _int_or_zero(value.get("marker_count")),
+        "redacted_presence_review_ready": value.get("redacted_presence_review_ready") is True,
+        "live_ready": False,
+        "credential_values_read": False,
+        "credentials_values_read": False,
+        "raw_values_emitted": False,
+        "broad_environment_scan_performed": False,
+        "environment_values_read": False,
+        "values_never_shown": True,
+        "redacted_labels_only": True,
         "readiness_status": clean_text(value.get("readiness_status") or "blocked"),
         "next_operator_action": clean_text(value.get("next_operator_action")),
         "ready_for_future_live_enablement": False,
@@ -1965,6 +2266,278 @@ def _candidate_supervised_tiny_live_enablement_gate_063_paths(
             seen.add(normalized)
             unique.append(path)
     return tuple(unique)
+
+
+def _credentials_readiness_review_from_artifacts(
+    *,
+    artifact_root: Path,
+    latest_payload: Mapping[str, Any],
+    generated_at: str,
+) -> dict[str, Any]:
+    paths = _explicit_live_credentials_readiness_gate_064_paths(artifact_root)
+    marker_presence = _load_optional_json(paths["marker_presence"], label="explicit live credentials marker presence 064")
+    blockers = _load_optional_json(paths["blockers"], label="explicit live credentials blockers 064")
+    operator_boundary = _load_optional_json(
+        paths["operator_approval_boundary"],
+        label="explicit live credentials operator approval boundary 064",
+    )
+    safety_policy = _load_optional_json(
+        paths["safety_policy_validation"],
+        label="explicit live credentials safety policy validation 064",
+    )
+    readiness = _load_optional_json(paths["readiness_summary"], label="explicit live credentials readiness summary 064")
+    latest = dict(latest_payload or {})
+    marker_rows = _safe_marker_presence_rows(marker_presence)
+    required_rows = [row for row in marker_rows if row.get("required_for_redacted_review") is True]
+    missing_required = _clean_list(marker_presence.get("missing_required_markers")) or [
+        clean_text(row.get("marker_label")) for row in required_rows if row.get("present") is not True
+    ]
+    blocker_rows = _safe_blocker_rows(blockers)
+    missing_marker_blockers = [
+        row for row in blocker_rows if clean_text(row.get("blocker_id")).startswith("missing_required_marker:")
+    ]
+    top_blockers = blockers.get("top_blocker_reasons") or latest.get("top_blocker_reasons")
+    if not isinstance(top_blockers, list):
+        top_blockers = [row["reason"] for row in blocker_rows if clean_text(row.get("reason"))][:10]
+    marker_count = _int_or_zero(marker_presence.get("marker_count"), len(marker_rows))
+    required_marker_count = _int_or_zero(marker_presence.get("required_marker_count"), len(required_rows))
+    missing_required_marker_count = _int_or_zero(
+        marker_presence.get("missing_required_marker_count"),
+        latest.get("missing_required_marker_count"),
+        len(missing_required),
+    )
+    present_execution_flag_count = _int_or_zero(
+        marker_presence.get("present_execution_flag_count"),
+        latest.get("present_execution_flag_count"),
+    )
+    return {
+        "contract_version": CREDENTIALS_READINESS_REVIEW_064T_STATUS_CONTRACT + ".registry_detail",
+        "task_id": TASK_ID_064T,
+        "generated_at": generated_at,
+        "source_flow_id": EXPLICIT_LIVE_CREDENTIALS_READINESS_GATE_064_FLOW_ID,
+        "latest_status_path": normalize_path(paths["latest_status"]),
+        "marker_presence_path": normalize_path(paths["marker_presence"]),
+        "operator_approval_boundary_path": normalize_path(paths["operator_approval_boundary"]),
+        "safety_policy_validation_path": normalize_path(paths["safety_policy_validation"]),
+        "blockers_path": normalize_path(paths["blockers"]),
+        "operator_checklist_path": normalize_path(paths["operator_checklist"]),
+        "readiness_summary_path": normalize_path(paths["readiness_summary"]),
+        "operator_markdown_path": normalize_path(paths["operator_md"]),
+        "operator_markdown_available": paths["operator_md"].exists(),
+        "source_status": clean_text(latest.get("status") or readiness.get("readiness_status") or "not_available"),
+        "readiness_status": clean_text(readiness.get("readiness_status") or latest.get("readiness_status") or "blocked"),
+        "redacted_presence_review_ready": readiness.get("redacted_presence_review_ready") is True
+        or latest.get("redacted_presence_review_ready") is True,
+        "marker_summary": {
+            "available": bool(marker_presence),
+            "marker_count": marker_count,
+            "required_marker_count": required_marker_count,
+            "present_marker_count": _int_or_zero(marker_presence.get("present_marker_count")),
+            "missing_required_marker_count": missing_required_marker_count,
+            "present_execution_flag_count": present_execution_flag_count,
+            "all_required_markers_present": marker_presence.get("all_required_markers_present") is True,
+            "execution_flags_absent": marker_presence.get("execution_flags_absent") is True,
+            "presence_only": True,
+            "presence_booleans_only": True,
+            "values_redacted": True,
+            "raw_values_emitted": False,
+        },
+        "required_marker_presence": required_rows,
+        "missing_required_markers": missing_required,
+        "missing_marker_blockers": missing_marker_blockers,
+        "blockers_summary": {
+            "available": bool(blockers),
+            "status": clean_text(blockers.get("status") or "unresolved_blockers_present"),
+            "blocker_count": _int_or_zero(blockers.get("blocker_count"), latest.get("blocker_count"), len(blocker_rows)),
+            "resolved_blocker_count": 0,
+            "top_blocker_reasons": _clean_list(top_blockers)[:10],
+        },
+        "operator_approval_boundary_summary": {
+            "available": bool(operator_boundary),
+            "operator_review_marker_present": operator_boundary.get("operator_review_marker_present") is True,
+            "dual_control_review_marker_present": operator_boundary.get("dual_control_review_marker_present") is True,
+            "operator_approved": False,
+            "allowed_for_live": False,
+            "operator_review_does_not_enable_live": True,
+            "separate_live_enabling_task_required": True,
+            "separate_wallet_signing_task_required": True,
+            "separate_authenticated_request_task_required": True,
+            "separate_order_submission_or_cancel_task_required": True,
+        },
+        "safety_policy_validation_summary": {
+            "available": bool(safety_policy),
+            "valid": safety_policy.get("valid") is True,
+            "status": clean_text(safety_policy.get("status") or "not_available"),
+            "presence_check_count": _int_or_zero(safety_policy.get("presence_check_count")),
+            "forbidden_field_count": _int_or_zero(safety_policy.get("forbidden_field_count")),
+            "explicit_allowlist_only": safety_policy.get("explicit_allowlist_only") is True,
+            "presence_booleans_only": safety_policy.get("presence_booleans_only") is True,
+            "broad_environment_scan_performed": False,
+            "credential_values_read": False,
+            "credential_values_serialized": False,
+            "credential_values_printed": False,
+            "credential_values_stored": False,
+            "credential_values_hashed": False,
+            "credential_values_transformed": False,
+        },
+        "blocker_count": _int_or_zero(blockers.get("blocker_count"), latest.get("blocker_count"), len(blocker_rows)),
+        "resolved_blocker_count": 0,
+        "missing_required_marker_count": missing_required_marker_count,
+        "present_execution_flag_count": present_execution_flag_count,
+        "allowed_for_live": False,
+        "live_ready": False,
+        "operator_approved": False,
+        "candidate_is_executable": False,
+        "presence_only": True,
+        "values_never_shown": True,
+        "redacted_labels_only": True,
+        "credential_values_read": False,
+        "credentials_values_read": False,
+        "raw_values_emitted": False,
+        "broad_environment_scan_performed": False,
+        "environment_values_read": False,
+        "review_only": True,
+        "dry_run_only": True,
+        "execution_enabling": False,
+        **telegram_console_safety_state(),
+    }
+
+
+def _credentials_readiness_review_status_summary(review: Mapping[str, Any]) -> dict[str, Any]:
+    value = dict(review or {})
+    marker_summary = dict(value.get("marker_summary", {}))
+    blockers_summary = dict(value.get("blockers_summary", {}))
+    operator_boundary = dict(value.get("operator_approval_boundary_summary", {}))
+    safety_policy = dict(value.get("safety_policy_validation_summary", {}))
+    return {
+        "credentials_readiness_status": clean_text(value.get("source_status") or "not_available"),
+        "readiness_status": clean_text(value.get("readiness_status") or "blocked"),
+        "latest_status_path": clean_text(value.get("latest_status_path")),
+        "marker_presence_path": clean_text(value.get("marker_presence_path")),
+        "operator_approval_boundary_path": clean_text(value.get("operator_approval_boundary_path")),
+        "safety_policy_validation_path": clean_text(value.get("safety_policy_validation_path")),
+        "blockers_path": clean_text(value.get("blockers_path")),
+        "operator_checklist_path": clean_text(value.get("operator_checklist_path")),
+        "readiness_summary_path": clean_text(value.get("readiness_summary_path")),
+        "operator_markdown_path": clean_text(value.get("operator_markdown_path")),
+        "operator_markdown_available": value.get("operator_markdown_available") is True,
+        "marker_summary": marker_summary,
+        "required_marker_presence": [
+            dict(row) for row in value.get("required_marker_presence", []) if isinstance(row, Mapping)
+        ],
+        "missing_required_markers": _clean_list(value.get("missing_required_markers")),
+        "missing_marker_blockers": [
+            dict(row) for row in value.get("missing_marker_blockers", []) if isinstance(row, Mapping)
+        ],
+        "operator_approval_boundary_summary": operator_boundary,
+        "safety_policy_validation_summary": safety_policy,
+        "blockers_summary": blockers_summary,
+        "blocker_count": _int_or_zero(blockers_summary.get("blocker_count"), value.get("blocker_count")),
+        "resolved_blocker_count": 0,
+        "marker_count": _int_or_zero(marker_summary.get("marker_count")),
+        "required_marker_count": _int_or_zero(marker_summary.get("required_marker_count")),
+        "missing_required_marker_count": _int_or_zero(
+            marker_summary.get("missing_required_marker_count"),
+            value.get("missing_required_marker_count"),
+        ),
+        "present_execution_flag_count": _int_or_zero(
+            marker_summary.get("present_execution_flag_count"),
+            value.get("present_execution_flag_count"),
+        ),
+        "top_blocker_reasons": _clean_list(blockers_summary.get("top_blocker_reasons")),
+        "redacted_presence_review_ready": value.get("redacted_presence_review_ready") is True,
+        "presence_only": True,
+        "values_never_shown": True,
+        "redacted_labels_only": True,
+        "raw_values_emitted": False,
+        "credential_values_read": False,
+        "credentials_values_read": False,
+        "broad_environment_scan_performed": False,
+        "environment_values_read": False,
+        "live_ready": False,
+        "allowed_for_live": False,
+        "operator_approved": False,
+        "candidate_is_executable": False,
+        "live_execution_approved": False,
+        "canary_executable_now": False,
+        "real_execution_available": False,
+        "order_submission_enabled": False,
+        "order_cancel_enabled": False,
+        "wallet_signing_enabled": False,
+        "signing_enabled": False,
+        "signed_payload_generation_enabled": False,
+        "signed_order_generation_enabled": False,
+        "authenticated_polymarket_enabled": False,
+        "live_connector_enabled": False,
+    }
+
+
+def _explicit_live_credentials_readiness_gate_064_paths(artifact_root: Path) -> dict[str, Path]:
+    return {
+        key: _first_existing_path(_candidate_explicit_live_credentials_readiness_gate_064_paths(filename, artifact_root))
+        or _candidate_explicit_live_credentials_readiness_gate_064_paths(filename, artifact_root)[0]
+        for key, filename in EXPLICIT_LIVE_CREDENTIALS_READINESS_GATE_064_ARTIFACT_FILENAMES.items()
+    }
+
+
+def _candidate_explicit_live_credentials_readiness_gate_064_paths(
+    filename: str,
+    artifact_root: Path,
+) -> tuple[Path, ...]:
+    paths = [
+        artifact_root / EXPLICIT_LIVE_CREDENTIALS_READINESS_GATE_064_ARTIFACT_DIR_NAME / filename,
+    ]
+    if artifact_root.name == EXPLICIT_LIVE_CREDENTIALS_READINESS_GATE_064_ARTIFACT_DIR_NAME:
+        paths.append(artifact_root / filename)
+    unique: list[Path] = []
+    seen: set[str] = set()
+    for path in paths:
+        normalized = normalize_path(path)
+        if normalized not in seen:
+            seen.add(normalized)
+            unique.append(path)
+    return tuple(unique)
+
+
+def _safe_marker_presence_rows(marker_presence: Mapping[str, Any]) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    source_rows = marker_presence.get("marker_checks") if isinstance(marker_presence.get("marker_checks"), list) else []
+    for row in source_rows:
+        if not isinstance(row, Mapping):
+            continue
+        rows.append(
+            {
+                "marker_label": clean_text(row.get("marker_label")),
+                "marker_group": clean_text(row.get("marker_group")),
+                "required_for_redacted_review": row.get("required_for_redacted_review") is True,
+                "present": row.get("present") is True,
+                "result_category": clean_text(row.get("result_category") or "missing"),
+                "presence_boolean_only": True,
+                "value_redacted": True,
+                "value_read": False,
+                "raw_value_emitted": False,
+            }
+        )
+    return rows
+
+
+def _safe_blocker_rows(blockers: Mapping[str, Any]) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    source_rows = blockers.get("blockers") if isinstance(blockers.get("blockers"), list) else []
+    for row in source_rows:
+        if not isinstance(row, Mapping):
+            continue
+        rows.append(
+            {
+                "blocker_id": clean_text(row.get("blocker_id")),
+                "blocker_category": clean_text(row.get("blocker_category")),
+                "severity": clean_text(row.get("severity") or "critical"),
+                "resolution_status": "unresolved",
+                "reason": clean_text(row.get("reason")),
+                "blocks_live_execution": True,
+            }
+        )
+    return rows
 
 
 def _review_plan_summary(plan: Mapping[str, Any]) -> dict[str, Any]:
