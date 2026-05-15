@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import inspect
+import math
 import os
 import re
 from dataclasses import dataclass, field
@@ -44,8 +45,23 @@ TELEGRAM_BOT_TOKEN_ENV = "PMBOT_TELEGRAM_BOT_TOKEN"
 ALLOWED_OPERATOR_IDS_ENV = "PMBOT_TELEGRAM_ALLOWED_OPERATOR_IDS"
 TELEGRAM_MINI_APP_URL_ENV = "PMBOT_TELEGRAM_MINI_APP_URL"
 PMBOT_ARTIFACT_DIR_ENV = "PMBOT_ARTIFACT_DIR"
+TELEGRAM_CONNECT_TIMEOUT_ENV = "PMBOT_TELEGRAM_CONNECT_TIMEOUT_SECONDS"
+TELEGRAM_READ_TIMEOUT_ENV = "PMBOT_TELEGRAM_READ_TIMEOUT_SECONDS"
+TELEGRAM_WRITE_TIMEOUT_ENV = "PMBOT_TELEGRAM_WRITE_TIMEOUT_SECONDS"
+TELEGRAM_POOL_TIMEOUT_ENV = "PMBOT_TELEGRAM_POOL_TIMEOUT_SECONDS"
+TELEGRAM_BOOTSTRAP_RETRIES_ENV = "PMBOT_TELEGRAM_BOOTSTRAP_RETRIES"
+
+DEFAULT_TELEGRAM_CONNECT_TIMEOUT_SECONDS = 30.0
+DEFAULT_TELEGRAM_READ_TIMEOUT_SECONDS = 30.0
+DEFAULT_TELEGRAM_WRITE_TIMEOUT_SECONDS = 30.0
+DEFAULT_TELEGRAM_POOL_TIMEOUT_SECONDS = 30.0
+DEFAULT_TELEGRAM_BOOTSTRAP_RETRIES = 3
 
 TELEGRAM_RUNTIME_DEPENDENCY_MISSING = "Telegram runtime dependency missing"
+TELEGRAM_BOOTSTRAP_TIMEOUT_DIAGNOSTIC = (
+    "Telegram API timed out during bootstrap/getMe. Check VPN/firewall/proxy/api.telegram.org "
+    "or increase PMBOT_TELEGRAM_* timeout env vars."
+)
 PANEL_BUTTON_TEXT = "🖥 Открыть PMBOT"
 
 TELEGRAM_COMMAND_MENU = (
@@ -71,11 +87,43 @@ _OPERATOR_ID_SPLIT_RE = re.compile(r"[,;\s]+")
 
 
 @dataclass(frozen=True)
+class TelegramRuntimeNetworkConfig:
+    connect_timeout: float = DEFAULT_TELEGRAM_CONNECT_TIMEOUT_SECONDS
+    read_timeout: float = DEFAULT_TELEGRAM_READ_TIMEOUT_SECONDS
+    write_timeout: float = DEFAULT_TELEGRAM_WRITE_TIMEOUT_SECONDS
+    pool_timeout: float = DEFAULT_TELEGRAM_POOL_TIMEOUT_SECONDS
+    bootstrap_retries: int = DEFAULT_TELEGRAM_BOOTSTRAP_RETRIES
+
+    def to_request_kwargs(self) -> dict[str, float]:
+        return {
+            "connect_timeout": self.connect_timeout,
+            "read_timeout": self.read_timeout,
+            "write_timeout": self.write_timeout,
+            "pool_timeout": self.pool_timeout,
+        }
+
+    def to_redacted_status(self) -> dict[str, Any]:
+        return {
+            "connect_timeout_seconds": self.connect_timeout,
+            "read_timeout_seconds": self.read_timeout,
+            "write_timeout_seconds": self.write_timeout,
+            "pool_timeout_seconds": self.pool_timeout,
+            "bootstrap_retries": self.bootstrap_retries,
+            "connect_timeout_env": TELEGRAM_CONNECT_TIMEOUT_ENV,
+            "read_timeout_env": TELEGRAM_READ_TIMEOUT_ENV,
+            "write_timeout_env": TELEGRAM_WRITE_TIMEOUT_ENV,
+            "pool_timeout_env": TELEGRAM_POOL_TIMEOUT_ENV,
+            "bootstrap_retries_env": TELEGRAM_BOOTSTRAP_RETRIES_ENV,
+        }
+
+
+@dataclass(frozen=True)
 class TelegramRuntimeConfig:
     bot_token: str = field(default="", repr=False)
     allowed_operator_ids: tuple[str, ...] = field(default_factory=tuple, repr=False)
     mini_app_url: str = field(default="", repr=False)
     artifact_dir: Path | None = None
+    network: TelegramRuntimeNetworkConfig = field(default_factory=TelegramRuntimeNetworkConfig)
     generated_at: str = GENERATED_AT
 
     @property
@@ -102,6 +150,7 @@ class TelegramRuntimeConfig:
             "mini_app_url_status": self.mini_app_url_status,
             "artifact_dir_configured": self.artifact_dir is not None,
             "artifact_dir": normalize_path(self.artifact_dir) if self.artifact_dir is not None else "",
+            "telegram_network_settings": self.network.to_redacted_status(),
             "raw_telegram_bot_token_exposed": False,
             "raw_operator_user_ids_exposed": False,
             "raw_telegram_init_data_exposed": False,
@@ -113,6 +162,7 @@ class TelegramRuntimeConfig:
 class TelegramRuntimeConfigLoadResult:
     config: TelegramRuntimeConfig
     errors: tuple[str, ...] = ()
+    warnings: tuple[str, ...] = ()
 
     @property
     def ok(self) -> bool:
@@ -192,6 +242,10 @@ class PythonTelegramBotPollingRunner:
             from telegram import WebAppInfo
         except ImportError:  # pragma: no cover - depends on installed python-telegram-bot version.
             WebAppInfo = None  # type: ignore[assignment]
+        try:
+            from telegram.request import HTTPXRequest
+        except ImportError:  # pragma: no cover - depends on installed python-telegram-bot version.
+            HTTPXRequest = None  # type: ignore[assignment]
 
         async def post_init(application: Any) -> None:
             await configure_telegram_command_menu(
@@ -200,6 +254,11 @@ class PythonTelegramBotPollingRunner:
             )
 
         builder = Application.builder().token(config.bot_token)
+        builder = configure_telegram_application_builder_network(
+            builder,
+            config.network,
+            request_factory=HTTPXRequest if HTTPXRequest is not None else None,
+        )
         if hasattr(builder, "post_init"):
             builder = builder.post_init(post_init)
         application = builder.build()
@@ -252,7 +311,13 @@ class PythonTelegramBotPollingRunner:
         application.add_handler(MessageHandler(filters.TEXT, handle_text))
         printer("Telegram long polling: starting")
         printer("Telegram runtime safety: review-only; no live trading; no order submission; no wallet/signing.")
-        application.run_polling(allowed_updates=Update.ALL_TYPES)
+        application.run_polling(
+            **build_telegram_run_polling_kwargs(
+                application.run_polling,
+                allowed_updates=Update.ALL_TYPES,
+                network=config.network,
+            )
+        )
 
 
 class TelegramOperatorRuntimeAdapter:
@@ -392,6 +457,66 @@ def telegram_command_menu_items() -> tuple[tuple[str, str], ...]:
     return TELEGRAM_COMMAND_MENU
 
 
+def configure_telegram_application_builder_network(
+    builder: Any,
+    network: TelegramRuntimeNetworkConfig,
+    *,
+    request_factory: Callable[..., Any] | None = None,
+) -> Any:
+    if request_factory is not None:
+        request_kwargs = network.to_request_kwargs()
+        request_configured = False
+        if hasattr(builder, "request"):
+            builder = builder.request(request_factory(**request_kwargs))
+            request_configured = True
+        if hasattr(builder, "get_updates_request"):
+            builder = builder.get_updates_request(request_factory(**request_kwargs))
+            request_configured = True
+        if request_configured:
+            return builder
+
+    for method_name, value in (
+        ("connect_timeout", network.connect_timeout),
+        ("read_timeout", network.read_timeout),
+        ("write_timeout", network.write_timeout),
+        ("pool_timeout", network.pool_timeout),
+        ("get_updates_connect_timeout", network.connect_timeout),
+        ("get_updates_read_timeout", network.read_timeout),
+        ("get_updates_write_timeout", network.write_timeout),
+        ("get_updates_pool_timeout", network.pool_timeout),
+    ):
+        if hasattr(builder, method_name):
+            builder = getattr(builder, method_name)(value)
+    return builder
+
+
+def build_telegram_run_polling_kwargs(
+    run_polling: Callable[..., Any],
+    *,
+    allowed_updates: Any,
+    network: TelegramRuntimeNetworkConfig,
+) -> dict[str, Any]:
+    kwargs: dict[str, Any] = {"allowed_updates": allowed_updates}
+    optional_kwargs: dict[str, Any] = {
+        "bootstrap_retries": network.bootstrap_retries,
+        "connect_timeout": network.connect_timeout,
+        "read_timeout": network.read_timeout,
+        "write_timeout": network.write_timeout,
+        "pool_timeout": network.pool_timeout,
+    }
+    try:
+        signature = inspect.signature(run_polling)
+    except (TypeError, ValueError):
+        kwargs.update(optional_kwargs)
+        return kwargs
+    parameters = signature.parameters
+    accepts_var_kwargs = any(param.kind is inspect.Parameter.VAR_KEYWORD for param in parameters.values())
+    for name, value in optional_kwargs.items():
+        if accepts_var_kwargs or name in parameters:
+            kwargs[name] = value
+    return kwargs
+
+
 async def configure_telegram_command_menu(
     bot_client: Any,
     *,
@@ -456,6 +581,7 @@ def load_runtime_config(env: Mapping[str, str] | None = None, *, generated_at: s
     mini_app_url = clean_text(source.get(TELEGRAM_MINI_APP_URL_ENV))
     artifact_dir_raw = clean_text(source.get(PMBOT_ARTIFACT_DIR_ENV))
     errors: list[str] = []
+    warnings: list[str] = []
 
     if not token:
         errors.append("missing_token")
@@ -468,15 +594,99 @@ def load_runtime_config(env: Mapping[str, str] | None = None, *, generated_at: s
         except ValueError:
             operator_ids = ()
             errors.append("invalid_allowed_operator_ids")
+    network = load_telegram_network_config(source, warnings=warnings)
 
     config = TelegramRuntimeConfig(
         bot_token=token,
         allowed_operator_ids=operator_ids,
         mini_app_url=mini_app_url,
         artifact_dir=Path(artifact_dir_raw) if artifact_dir_raw else None,
+        network=network,
         generated_at=generated_at,
     )
-    return TelegramRuntimeConfigLoadResult(config=config, errors=tuple(errors))
+    return TelegramRuntimeConfigLoadResult(config=config, errors=tuple(errors), warnings=tuple(warnings))
+
+
+def load_telegram_network_config(
+    env: Mapping[str, str],
+    *,
+    warnings: list[str] | None = None,
+) -> TelegramRuntimeNetworkConfig:
+    warning_sink = warnings if warnings is not None else []
+    return TelegramRuntimeNetworkConfig(
+        connect_timeout=_parse_positive_float_env(
+            env,
+            TELEGRAM_CONNECT_TIMEOUT_ENV,
+            DEFAULT_TELEGRAM_CONNECT_TIMEOUT_SECONDS,
+            warnings=warning_sink,
+        ),
+        read_timeout=_parse_positive_float_env(
+            env,
+            TELEGRAM_READ_TIMEOUT_ENV,
+            DEFAULT_TELEGRAM_READ_TIMEOUT_SECONDS,
+            warnings=warning_sink,
+        ),
+        write_timeout=_parse_positive_float_env(
+            env,
+            TELEGRAM_WRITE_TIMEOUT_ENV,
+            DEFAULT_TELEGRAM_WRITE_TIMEOUT_SECONDS,
+            warnings=warning_sink,
+        ),
+        pool_timeout=_parse_positive_float_env(
+            env,
+            TELEGRAM_POOL_TIMEOUT_ENV,
+            DEFAULT_TELEGRAM_POOL_TIMEOUT_SECONDS,
+            warnings=warning_sink,
+        ),
+        bootstrap_retries=_parse_nonnegative_int_env(
+            env,
+            TELEGRAM_BOOTSTRAP_RETRIES_ENV,
+            DEFAULT_TELEGRAM_BOOTSTRAP_RETRIES,
+            warnings=warning_sink,
+        ),
+    )
+
+
+def _parse_positive_float_env(
+    env: Mapping[str, str],
+    env_name: str,
+    default: float,
+    *,
+    warnings: list[str],
+) -> float:
+    raw_value = clean_text(env.get(env_name))
+    if not raw_value:
+        return default
+    try:
+        parsed = float(raw_value)
+    except ValueError:
+        warnings.append(f"invalid_{env_name.lower()}_using_default")
+        return default
+    if not math.isfinite(parsed) or parsed <= 0:
+        warnings.append(f"invalid_{env_name.lower()}_using_default")
+        return default
+    return parsed
+
+
+def _parse_nonnegative_int_env(
+    env: Mapping[str, str],
+    env_name: str,
+    default: int,
+    *,
+    warnings: list[str],
+) -> int:
+    raw_value = clean_text(env.get(env_name))
+    if not raw_value:
+        return default
+    try:
+        parsed = int(raw_value)
+    except ValueError:
+        warnings.append(f"invalid_{env_name.lower()}_using_default")
+        return default
+    if parsed < 0:
+        warnings.append(f"invalid_{env_name.lower()}_using_default")
+        return default
+    return parsed
 
 
 def parse_allowed_operator_ids(raw_value: str) -> tuple[str, ...]:
@@ -505,6 +715,14 @@ def startup_status_lines(load_result: TelegramRuntimeConfigLoadResult) -> list[s
         f"Telegram token: {config.token_status}",
         operator_line,
         f"Mini App URL: {config.mini_app_url_status}",
+        "Telegram network: "
+        + (
+            f"connect={format_timeout_seconds(config.network.connect_timeout)} "
+            f"read={format_timeout_seconds(config.network.read_timeout)} "
+            f"write={format_timeout_seconds(config.network.write_timeout)} "
+            f"pool={format_timeout_seconds(config.network.pool_timeout)} "
+            f"bootstrap_retries={config.network.bootstrap_retries}"
+        ),
         "Runtime mode: explicit long polling only",
         "Runtime safety: review-only; live trading disabled; order submission disabled; wallet/signing disabled.",
     ]
@@ -512,7 +730,16 @@ def startup_status_lines(load_result: TelegramRuntimeConfigLoadResult) -> list[s
         lines.append(f"Artifact directory: {normalize_path(config.artifact_dir)}")
     else:
         lines.append("Artifact directory: not configured")
+    if load_result.warnings:
+        lines.append("Telegram network config warnings: " + ", ".join(load_result.warnings))
     return lines
+
+
+def format_timeout_seconds(value: float) -> str:
+    number = float(value)
+    if number.is_integer():
+        return f"{int(number)}s"
+    return f"{number:g}s"
 
 
 def startup_instruction_lines(errors: tuple[str, ...]) -> list[str]:
@@ -604,6 +831,26 @@ def safe_mini_app_url(value: str) -> str:
     return text
 
 
+def is_telegram_timeout_exception(exc: BaseException) -> bool:
+    current: BaseException | None = exc
+    seen: set[int] = set()
+    while current is not None and id(current) not in seen:
+        seen.add(id(current))
+        class_name = current.__class__.__name__.lower()
+        module_name = current.__class__.__module__.lower()
+        text = clean_text(current).lower()
+        if class_name in {"timedout", "connecttimeout", "readtimeout", "writetimeout", "pooltimeout"}:
+            return True
+        if module_name.startswith("httpx") and "timeout" in class_name:
+            return True
+        if module_name.startswith("telegram") and "timeout" in class_name:
+            return True
+        if "connecttimeout" in text or "timed out" in text:
+            return True
+        current = current.__cause__ if current.__cause__ is not None else current.__context__
+    return False
+
+
 def run_runtime(
     *,
     config: TelegramRuntimeConfig,
@@ -621,6 +868,11 @@ def run_runtime(
         printer(TELEGRAM_RUNTIME_DEPENDENCY_MISSING)
         printer("Install python-telegram-bot in the local operator environment, then rerun the module.")
         return 2
+    except Exception as exc:
+        if is_telegram_timeout_exception(exc):
+            printer(TELEGRAM_BOOTSTRAP_TIMEOUT_DIAGNOSTIC)
+            return 2
+        raise
     return 0
 
 

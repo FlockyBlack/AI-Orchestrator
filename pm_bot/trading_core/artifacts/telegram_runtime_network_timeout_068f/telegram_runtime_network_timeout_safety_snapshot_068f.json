@@ -1,0 +1,22 @@
+{
+  "authenticated_polymarket_calls_added": false,
+  "authenticated_polymarket_calls_performed": false,
+  "autonomous_live_trading_added": false,
+  "background_worker_added": false,
+  "browser_automation_added": false,
+  "contract_version": "pmbot_telegram_runtime_network_timeout_safety_snapshot_068f.v1",
+  "cryptographic_signing_added": false,
+  "generated_at": "2026-05-15T00:00:00+04:00",
+  "live_trading_enabled": false,
+  "order_cancellation_added": false,
+  "order_submission_added": false,
+  "paper_only": true,
+  "raw_bot_token_output": false,
+  "raw_secret_output": false,
+  "review_only": true,
+  "scheduler_or_daemon_added": false,
+  "signer_instantiation_added": false,
+  "task_id": "ORCH-PMBOT-TELEGRAM-068F-RUNTIME-NETWORK-TIMEOUT-RETRY-HARDENING",
+  "telegram_controls_remain_review_status_dry_run_only": true,
+  "wallet_connection_added": false
+}

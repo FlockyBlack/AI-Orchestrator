@@ -1,0 +1,113 @@
+{
+  "base_head": "7741cb2e71e37a84533457d21d15d03bacaae5c4",
+  "branch": "pmbot/telegram-068f-runtime-network-timeout-retry-hardening",
+  "changed_files": [
+    "docs/ORCH_PMBOT_TELEGRAM_068F_RUNTIME_NETWORK_TIMEOUT_RETRY_HARDENING.md",
+    "docs/ORCH_PMBOT_TELEGRAM_068F_RUNTIME_NETWORK_TIMEOUT_RETRY_HARDENING_RESULT.json",
+    "pm_bot/operator_runner/telegram_operator_runtime.py",
+    "pm_bot/operator_runner/telegram_runtime_smoke.py",
+    "pm_bot/tests/test_telegram_runtime_network_timeout_068f.py",
+    "pm_bot/trading_core/artifacts/telegram_runtime_network_timeout_068f/telegram_runtime_network_timeout_068f_result.json",
+    "pm_bot/trading_core/artifacts/telegram_runtime_network_timeout_068f/latest_telegram_runtime_network_timeout_status_068f.json",
+    "pm_bot/trading_core/artifacts/telegram_runtime_network_timeout_068f/telegram_runtime_network_timeout_config_snapshot_068f.json",
+    "pm_bot/trading_core/artifacts/telegram_runtime_network_timeout_068f/telegram_runtime_network_timeout_safety_snapshot_068f.json"
+  ],
+  "contract_version": "pmbot_telegram_runtime_network_timeout_068f_result.v1",
+  "generated_at": "2026-05-15T00:00:00+04:00",
+  "head_after": "recorded_in_final_completion_report_after_commit",
+  "head_after_note": "Embedding a commit's own SHA in a committed JSON artifact would change that SHA.",
+  "head_before": "7741cb2e71e37a84533457d21d15d03bacaae5c4",
+  "manual_operator_note": "From current master worktree, run: python -m pm_bot.operator_runner.telegram_operator_runtime",
+  "pushed": true,
+  "remote_verified": true,
+  "safety_flags": {
+    "authenticated_polymarket_calls_added": false,
+    "authenticated_polymarket_calls_performed": false,
+    "autonomous_live_trading_added": false,
+    "background_worker_added": false,
+    "browser_automation_added": false,
+    "cryptographic_signing_added": false,
+    "live_trading_enabled": false,
+    "order_cancellation_added": false,
+    "order_submission_added": false,
+    "paper_only": true,
+    "raw_bot_token_output": false,
+    "raw_secret_output": false,
+    "review_only": true,
+    "scheduler_or_daemon_added": false,
+    "signer_instantiation_added": false,
+    "wallet_connection_added": false
+  },
+  "safety_statement": "Telegram runtime startup timeout/retry handling was hardened without enabling live trading, order submission, order cancellation, signing, signer instantiation, wallet connection, authenticated Polymarket calls, browser automation, schedulers, daemons, or background trading loops. Telegram controls remain review/status/dry-run only.",
+  "status": "completed_pushed_remote_verified",
+  "task_id": "ORCH-PMBOT-TELEGRAM-068F-RUNTIME-NETWORK-TIMEOUT-RETRY-HARDENING",
+  "timeout_retry_defaults": {
+    "bootstrap_retries": 3,
+    "connect_timeout_seconds": 30,
+    "pool_timeout_seconds": 30,
+    "read_timeout_seconds": 30,
+    "write_timeout_seconds": 30
+  },
+  "timeout_retry_env_overrides": [
+    "PMBOT_TELEGRAM_CONNECT_TIMEOUT_SECONDS",
+    "PMBOT_TELEGRAM_READ_TIMEOUT_SECONDS",
+    "PMBOT_TELEGRAM_WRITE_TIMEOUT_SECONDS",
+    "PMBOT_TELEGRAM_POOL_TIMEOUT_SECONDS",
+    "PMBOT_TELEGRAM_BOOTSTRAP_RETRIES"
+  ],
+  "validation": [
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_runtime_network_timeout_068f.py",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_product_start_language_068c.py",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_operator_runtime_045.py",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_operator_ux_buttons_046.py",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_forbidden_live_controls_063a.py",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_static_safety_invariant_report_060q.py",
+      "status": "passed"
+    },
+    {
+      "command": "python -B -m pytest pm_bot/tests",
+      "status": "passed"
+    },
+    {
+      "command": "python -m compileall -q pm_bot",
+      "status": "passed"
+    },
+    {
+      "command": "python -m compileall -q ai_orchestrator",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.telegram_runtime_smoke",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.static_safety_invariant_report --scope pm_bot --dry-run",
+      "status": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    },
+    {
+      "command": "git diff --cached --check",
+      "status": "passed"
+    }
+  ],
+  "worktree": "C:/oc068f_telegram_runtime_network_timeout_retry_hardening"
+}

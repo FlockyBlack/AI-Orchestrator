@@ -1,0 +1,31 @@
+{
+  "config_warnings_on_invalid_env": "invalid PMBOT_TELEGRAM_* timeout/retry values fall back to defaults and print config warnings",
+  "contract_version": "pmbot_telegram_runtime_network_timeout_config_snapshot_068f.v1",
+  "defaults": {
+    "bootstrap_retries": 3,
+    "connect_timeout_seconds": 30,
+    "pool_timeout_seconds": 30,
+    "read_timeout_seconds": 30,
+    "write_timeout_seconds": 30
+  },
+  "env_overrides": {
+    "bootstrap_retries": "PMBOT_TELEGRAM_BOOTSTRAP_RETRIES",
+    "connect_timeout_seconds": "PMBOT_TELEGRAM_CONNECT_TIMEOUT_SECONDS",
+    "pool_timeout_seconds": "PMBOT_TELEGRAM_POOL_TIMEOUT_SECONDS",
+    "read_timeout_seconds": "PMBOT_TELEGRAM_READ_TIMEOUT_SECONDS",
+    "write_timeout_seconds": "PMBOT_TELEGRAM_WRITE_TIMEOUT_SECONDS"
+  },
+  "generated_at": "2026-05-15T00:00:00+04:00",
+  "network_check_default": "not_requested",
+  "network_check_optional_flag": "--network-check",
+  "raw_bot_token_output": false,
+  "request_layer": "telegram.request.HTTPXRequest through ApplicationBuilder.request and ApplicationBuilder.get_updates_request when supported",
+  "run_polling_kwargs": [
+    "bootstrap_retries",
+    "connect_timeout",
+    "read_timeout",
+    "write_timeout",
+    "pool_timeout"
+  ],
+  "task_id": "ORCH-PMBOT-TELEGRAM-068F-RUNTIME-NETWORK-TIMEOUT-RETRY-HARDENING"
+}
