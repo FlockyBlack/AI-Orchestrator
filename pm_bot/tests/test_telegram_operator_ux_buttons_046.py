@@ -33,9 +33,9 @@ FORCED_FALSE_FLAGS = (
 HOME_LABEL_ROWS = (
     ("🔐 Подключение", "💰 Баланс"),
     ("📊 Сделки", "📈 PnL"),
-    ("🤖 Статус бота", "⚙️ Лимиты"),
-    ("🧪 Проверка подключения", "🖥 Открыть PMBOT"),
-    ("🚨 Стоп", "🌐 Язык"),
+    ("⚙️ Лимиты", "🤖 Статус"),
+    ("🖥 Mini App", "🌐 Язык"),
+    ("🚨 Стоп",),
 )
 
 
@@ -206,8 +206,8 @@ def test_panel_includes_mini_app_url_button_when_configured_without_exposing_url
     first_button = reply.keyboard.rows[0][0]
     redacted = json.dumps(reply.to_redacted_dict(), sort_keys=True)
 
-    assert "Telegram Mini App Operator Panel v1" in reply.text
-    assert "Mini App настроен. Открой панель кнопкой ниже." in reply.text
+    assert "🖥 Mini App" in reply.text
+    assert "Mini App настроен. Откройте PMBOT кнопкой ниже." in reply.text
     assert reply.panel_button_text == runtime.PANEL_BUTTON_TEXT
     assert reply.panel_button_url == MINI_APP_URL
     assert first_button.label == runtime.PANEL_BUTTON_TEXT
@@ -229,20 +229,17 @@ def test_panel_output_does_not_expose_token_init_data_or_raw_operator_ids() -> N
     assert RAW_TOKEN not in rendered
     assert RAW_INIT_DATA not in rendered
     assert AUTHORIZED_USER_ID not in rendered
-    assert "raw_telegram_bot_token_exposed: false" in reply.text
-    assert "raw_telegram_init_data_exposed: false" in reply.text
+    assert reply.to_redacted_dict()["raw_telegram_bot_token_exposed"] is False
+    assert reply.to_redacted_dict()["raw_telegram_init_data_exposed"] is False
 
 
 def test_panel_fallback_when_mini_app_url_is_missing() -> None:
     reply = _adapter().handle_text(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", text="/panel")
 
     assert "Mini App URL не настроен" in reply.text
-    assert "Panel artifact доступен: true" in reply.text
     assert reply.panel_button_url == ""
     assert _label_rows(reply) == (
-        ("🤖 Статус бота", "🔐 Подключение"),
-        ("🧪 Проверка подключения", "🚨 Стоп"),
-        ("🌐 Язык",),
+        ("⬅️ Назад",),
     )
 
 
@@ -283,8 +280,8 @@ def test_runtime_can_set_command_menu_through_fake_telegram_client() -> None:
 
     assert configured is True
     assert fake_bot.commands == runtime.telegram_command_menu_items()
-    assert fake_bot.commands[0] == ("start", "Choose language")
-    assert fake_bot.commands[-1] == ("help", "Help")
+    assert fake_bot.commands[0] == ("start", "Start")
+    assert fake_bot.commands[-1] == ("en", "English")
 
 
 def test_no_external_network_calls_for_buttons_callbacks_and_command_menu(monkeypatch) -> None:

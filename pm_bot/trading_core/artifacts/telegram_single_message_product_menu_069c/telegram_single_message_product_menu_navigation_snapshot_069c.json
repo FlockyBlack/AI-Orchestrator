@@ -1,0 +1,19 @@
+{
+  "back_button_edits_same_message": true,
+  "contract_version": "pmbot_telegram_single_message_product_menu_navigation_snapshot_069c.v1",
+  "fallback_if_message_not_editable": "send_one_replacement_message",
+  "generated_at": "2026-05-15T00:00:00+04:00",
+  "language_selection_edits_same_message": true,
+  "language_switching_edits_same_message": true,
+  "normal_callback_renderer": "telegram_callback_edit_renderer",
+  "normal_callbacks_send_new_message": false,
+  "normal_callbacks_use_edit_message_text": true,
+  "single_message_navigation": true,
+  "start_command_first_screen": "language_selection",
+  "start_language_labels": [
+    "\ud83c\uddf7\ud83c\uddfa \u0420\u0443\u0441\u0441\u043a\u0438\u0439",
+    "\ud83c\uddec\ud83c\udde7 English"
+  ],
+  "start_language_labels_match_required": true,
+  "task_id": "ORCH-PMBOT-TELEGRAM-069C-SINGLE-MESSAGE-PRODUCT-MENU-NO-LIVE"
+}

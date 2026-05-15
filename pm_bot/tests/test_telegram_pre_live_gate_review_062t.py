@@ -304,8 +304,8 @@ def test_pre_live_gate_controls_have_no_forbidden_live_callbacks(tmp_path: Path)
     adapter = _adapter(context=context)
     adapter.handle_callback(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", callback_data="pmbot:lang:en")
 
-    panel = adapter.handle_text(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", text="/panel")
-    labels = _button_labels(panel)
+    view = adapter.handle_text(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", text="/pre_live_gate_review")
+    labels = tuple(label for row in telegram_console_button_rows("en") for label, _callback_data in row)
     all_console_controls = tuple(
         (label, callback_data)
         for language in ("en", "ru")
@@ -330,7 +330,7 @@ def test_pre_live_gate_controls_have_no_forbidden_live_callbacks(tmp_path: Path)
     ).lower()
 
     assert "Run Pre-live Gate 062P Dry-Run" in labels
-    assert "Pre-live tiny order gate" in panel.text
+    assert "Pre-live tiny order gate" in view.text
     for forbidden in FORBIDDEN_LIVE_CONTROL_TERMS:
         assert forbidden not in rendered
 

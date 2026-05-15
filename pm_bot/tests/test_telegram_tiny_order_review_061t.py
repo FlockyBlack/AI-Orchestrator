@@ -279,17 +279,17 @@ def test_telegram_menu_includes_tiny_order_review_and_no_forbidden_controls(tmp_
     adapter = _adapter(context=context)
     adapter.handle_callback(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", callback_data="pmbot:lang:en")
 
-    panel = adapter.handle_text(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", text="/panel")
-    labels = _button_labels(panel)
+    view = adapter.handle_text(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", text="/tiny_order_review")
+    labels = tuple(label for row in telegram_console_button_rows("en") for label, _ in row)
     all_console_labels = tuple(label for row in telegram_console_button_rows("en") for label, _ in row)
     rendered_labels = " ".join((*labels, *all_console_labels))
 
-    assert "Tiny Order Review" in panel.text
-    assert "Tiny Candidate" in panel.text
-    assert "Approval Packet" in panel.text
-    assert "Hard Limits" in panel.text
-    assert "Submission Status" in panel.text
-    assert "Run Tiny Scaffold Dry-Run" in panel.text
+    assert "Tiny Order Review" in view.text
+    assert "Tiny Candidate" in view.text
+    assert "Approval Packet" in view.text
+    assert "Hard Limits" in view.text
+    assert "Submission Status" in view.text
+    assert "Run Tiny Scaffold Dry-Run" in view.text
     assert "Run Tiny Scaffold 061" in labels
     for forbidden in FORBIDDEN_BUTTON_TEXT:
         assert forbidden not in rendered_labels

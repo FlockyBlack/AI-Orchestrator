@@ -1,0 +1,54 @@
+{
+  "allowed_for_live": false,
+  "contract_version": "pmbot_telegram_single_message_product_menu_en_snapshot_069c.v1",
+  "debug_labels_hidden_from_primary_menu": true,
+  "generated_at": "2026-05-15T00:00:00+04:00",
+  "language": "en",
+  "main_menu_labels": [
+    "\ud83d\udd10 Connection",
+    "\ud83d\udcb0 Balance",
+    "\ud83d\udcca Trades",
+    "\ud83d\udcc8 PnL",
+    "\u2699\ufe0f Limits",
+    "\ud83e\udd16 Status",
+    "\ud83d\udda5 Mini App",
+    "\ud83c\udf10 Language",
+    "\ud83d\udea8 Stop"
+  ],
+  "main_menu_labels_match_required": true,
+  "no_fake_balance": true,
+  "no_fake_pnl": true,
+  "no_fake_trades": true,
+  "primary_menu_is_product_only": true,
+  "product_screens": {
+    "balance": [
+      "\ud83e\uddea Check connection",
+      "\u2b05\ufe0f Back"
+    ],
+    "connection": [
+      "\ud83e\uddea Check connection",
+      "\ud83d\udda5 Mini App",
+      "\u2b05\ufe0f Back"
+    ],
+    "limits": [
+      "\u2b05\ufe0f Back"
+    ],
+    "mini_app": [
+      "\u2b05\ufe0f Back"
+    ],
+    "pnl": [
+      "\u2b05\ufe0f Back"
+    ],
+    "status": [
+      "\u2b05\ufe0f Back"
+    ],
+    "stop": [
+      "\u2b05\ufe0f Back"
+    ],
+    "trades": [
+      "\ud83e\uddea Check connection",
+      "\u2b05\ufe0f Back"
+    ]
+  },
+  "task_id": "ORCH-PMBOT-TELEGRAM-069C-SINGLE-MESSAGE-PRODUCT-MENU-NO-LIVE"
+}

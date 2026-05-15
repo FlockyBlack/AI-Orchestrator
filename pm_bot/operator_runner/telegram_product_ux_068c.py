@@ -33,24 +33,22 @@ RU_MAIN_MENU_LABELS = (
     "💰 Баланс",
     "📊 Сделки",
     "📈 PnL",
-    "🤖 Статус бота",
     "⚙️ Лимиты",
-    "🧪 Проверка подключения",
-    "🖥 Открыть PMBOT",
-    "🚨 Стоп",
+    "🤖 Статус",
+    "🖥 Mini App",
     "🌐 Язык",
+    "🚨 Стоп",
 )
 EN_MAIN_MENU_LABELS = (
     "🔐 Connection",
     "💰 Balance",
     "📊 Trades",
     "📈 PnL",
-    "🤖 Bot Status",
     "⚙️ Limits",
-    "🧪 Connection Check",
-    "🖥 Open PMBOT",
-    "🚨 Stop",
+    "🤖 Status",
+    "🖥 Mini App",
     "🌐 Language",
+    "🚨 Stop",
 )
 
 ENGINEERING_PRIMARY_LABEL_BLOCKLIST = (
@@ -130,8 +128,8 @@ def build_ru_menu_snapshot(*, generated_at: str = GENERATED_AT) -> dict[str, Any
             label not in labels for label in set(EN_MAIN_MENU_LABELS) - set(RU_MAIN_MENU_LABELS)
         ),
         "engineering_debug_labels_are_not_primary_menu_labels": _engineering_labels_absent(labels),
-        "mini_app_button_label": "🖥 Открыть PMBOT",
-        "connection_check_button_label": "🧪 Проверка подключения",
+        "mini_app_button_label": "🖥 Mini App",
+        "connection_check_button_label": "🧪 Проверить подключение",
         "allowed_for_live": False,
     }
 
@@ -148,8 +146,8 @@ def build_en_menu_snapshot(*, generated_at: str = GENERATED_AT) -> dict[str, Any
         "callbacks": callbacks,
         "labels_match_required": tuple(labels) == EN_MAIN_MENU_LABELS,
         "engineering_debug_labels_are_not_primary_menu_labels": _engineering_labels_absent(labels),
-        "mini_app_button_label": "🖥 Open PMBOT",
-        "connection_check_button_label": "🧪 Connection Check",
+        "mini_app_button_label": "🖥 Mini App",
+        "connection_check_button_label": "🧪 Check connection",
         "allowed_for_live": False,
     }
 

@@ -62,25 +62,22 @@ TELEGRAM_BOOTSTRAP_TIMEOUT_DIAGNOSTIC = (
     "Telegram API timed out during bootstrap/getMe. Check VPN/firewall/proxy/api.telegram.org "
     "or increase PMBOT_TELEGRAM_* timeout env vars."
 )
-PANEL_BUTTON_TEXT = "🖥 Открыть PMBOT"
+PANEL_BUTTON_TEXT = "Открыть PMBOT"
 
 TELEGRAM_COMMAND_MENU = (
-    ("start", "Choose language"),
-    ("home", "Main menu"),
+    ("start", "Start"),
+    ("home", "Menu"),
     ("connection", "Connection"),
-    ("connection_status", "Connection Check"),
     ("balance", "Balance"),
     ("trades", "Trades"),
     ("pnl", "PnL"),
-    ("bot_status", "Bot Status"),
     ("limits", "Limits"),
+    ("status", "Status"),
     ("stop", "Stop"),
-    ("status", "Bot Status"),
-    ("panel", "Open PMBOT"),
+    ("panel", "Mini App"),
     ("language", "Language"),
     ("ru", "Russian"),
     ("en", "English"),
-    ("help", "Help"),
 )
 
 _OPERATOR_ID_SPLIT_RE = re.compile(r"[,;\s]+")
@@ -304,8 +301,12 @@ class PythonTelegramBotPollingRunner:
                 inline_markup_factory=InlineKeyboardMarkup,
                 web_app_info_factory=WebAppInfo,
             )
-            if message is not None and hasattr(message, "reply_text"):
-                await message.reply_text(reply.text, reply_markup=reply_markup, disable_web_page_preview=True)
+            await telegram_callback_edit_renderer(
+                query=query,
+                message=message,
+                reply=reply,
+                reply_markup=reply_markup,
+            )
 
         application.add_handler(CallbackQueryHandler(handle_callback))
         application.add_handler(MessageHandler(filters.TEXT, handle_text))
@@ -382,70 +383,44 @@ class TelegramOperatorRuntimeAdapter:
         response: TelegramOperatorControlResponse,
     ) -> tuple[str, TelegramOperatorKeyboard, str, str]:
         keyboard = response.keyboard
-        if response.command not in {"/panel", "/connection_status"} or not response.authorized:
+        if response.command != "/panel" or not response.authorized:
             return response.text, keyboard, "", ""
         language = operator_language_from_state(response.state)
         url = safe_mini_app_url(self.config.mini_app_url)
         if url:
             button_text = panel_launch_button_label(language)
             launch = TelegramOperatorButton(label=button_text, url=url, web_app_url=url)
-            if response.command == "/connection_status":
-                return (
-                    response.text,
-                    keyboard.with_prepended_row((launch,)),
-                    button_text,
-                    url,
-                )
             if language == "ru":
-                text = response.text + "\nMini App настроен. Открой панель кнопкой ниже."
+                text = "🖥 Mini App\nMini App настроен. Откройте PMBOT кнопкой ниже."
             else:
-                text = (
-                    response.text
-                    + "\nMini App URL: configured.\n"
-                    + "Mini App is configured. Open the panel with the button below.\n"
-                    + f"Button: {button_text}"
-                )
+                text = "🖥 Mini App\nMini App is configured. Open PMBOT with the button below."
             return (
                 text,
                 keyboard.with_prepended_row((launch,)),
                 button_text,
                 url,
             )
-        if response.command == "/connection_status":
-            return response.text, keyboard, "", ""
         if self.config.mini_app_url:
             if language == "ru":
                 return (
-                    response.text
-                    + "\nMini App URL настроен, но отклонён runtime URL safety checks; кнопка не добавлена.",
+                    "🖥 Mini App\n"
+                    "Mini App URL настроен, но не прошёл проверку безопасности. "
+                    "Нужно задать PMBOT_TELEGRAM_MINI_APP_URL.",
                     keyboard,
                     "",
                     "",
                 )
             return (
-                response.text
-                + "\nMini App URL: configured but rejected by runtime URL safety checks; no button attached.",
+                "🖥 Mini App\n"
+                "Mini App URL is configured but failed runtime URL safety checks. "
+                "Set PMBOT_TELEGRAM_MINI_APP_URL.",
                 keyboard,
                 "",
                 "",
             )
         if language == "ru":
-            return (
-                response.text
-                + "\nMini App URL не настроен.\n"
-                + "Для локального теста подними HTTPS-туннель и запиши URL в PMBOT_TELEGRAM_MINI_APP_URL.",
-                keyboard,
-                "",
-                "",
-            )
-        return (
-            response.text
-            + "\nMini App URL не настроен.\n"
-            + "Local/static artifact availability is shown above when PMBOT artifacts are configured.",
-            keyboard,
-            "",
-            "",
-        )
+            return response.text, keyboard, "", ""
+        return response.text, keyboard, "", ""
 
     def _persist_state(self, state: Mapping[str, Any]) -> None:
         if self.config.artifact_dir is None:
@@ -532,6 +507,59 @@ async def configure_telegram_command_menu(
     if inspect.isawaitable(result):
         await result
     return True
+
+
+async def telegram_callback_edit_renderer(
+    *,
+    query: Any,
+    message: Any,
+    reply: TelegramRuntimeReply,
+    reply_markup: Any,
+) -> str:
+    render_kwargs = {
+        "text": reply.text,
+        "reply_markup": reply_markup,
+        "disable_web_page_preview": True,
+    }
+    try:
+        if query is not None and hasattr(query, "edit_message_text"):
+            await _maybe_await(_call_telegram_render_method(query.edit_message_text, **render_kwargs))
+            return "edited"
+        if message is not None and hasattr(message, "edit_text"):
+            await _maybe_await(_call_telegram_render_method(message.edit_text, **render_kwargs))
+            return "edited"
+    except Exception as exc:
+        if _telegram_edit_noop(exc):
+            return "edit_noop"
+        if message is not None and hasattr(message, "reply_text"):
+            await _maybe_await(_call_telegram_render_method(message.reply_text, **render_kwargs))
+            return "replacement_sent"
+        return "edit_failed_no_message"
+
+    if message is not None and hasattr(message, "reply_text"):
+        await _maybe_await(_call_telegram_render_method(message.reply_text, **render_kwargs))
+        return "replacement_sent"
+    return "no_message"
+
+
+def _call_telegram_render_method(method: Callable[..., Any], **kwargs: Any) -> Any:
+    try:
+        return method(**kwargs)
+    except TypeError:
+        fallback_kwargs = dict(kwargs)
+        fallback_kwargs.pop("disable_web_page_preview", None)
+        return method(**fallback_kwargs)
+
+
+async def _maybe_await(value: Any) -> Any:
+    if inspect.isawaitable(value):
+        return await value
+    return value
+
+
+def _telegram_edit_noop(exc: BaseException) -> bool:
+    text = clean_text(exc).lower()
+    return "message is not modified" in text
 
 
 def build_inline_keyboard_markup(

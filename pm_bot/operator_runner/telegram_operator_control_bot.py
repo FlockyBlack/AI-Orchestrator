@@ -548,15 +548,11 @@ class TelegramOperatorControlBot:
                     "🔐 Подключение",
                     f"API ключи: {connection['api_keys_ru']}",
                     f"Private key: {connection['private_key_ru']}",
-                    f"Wallet: {connection['wallet']}",
-                    f"Signature type: {connection['signature_type']}",
-                    f"Funder: {connection['funder']}",
-                    f"L2 auth: {connection['l2_auth']}",
+                    f"Wallet: {connection['wallet_ru']}",
+                    f"Signature type: {connection['signature_type_ru']}",
+                    f"Funder: {connection['funder_ru']}",
+                    f"L2 auth: {connection['l2_auth_ru']}",
                     "Значения ключей никогда не показываются.",
-                    "Live trading: выключен.",
-                    "Отправка ордеров: выключена.",
-                    "Подписание: выключено.",
-                    "Подключение кошелька: выключено.",
                 ]
             )
         return "\n".join(
@@ -564,15 +560,11 @@ class TelegramOperatorControlBot:
                 "🔐 Connection",
                 f"API keys: {connection['api_keys_en']}",
                 f"Private key: {connection['private_key_en']}",
-                f"Wallet: {connection['wallet']}",
-                f"Signature type: {connection['signature_type']}",
-                f"Funder: {connection['funder']}",
-                f"L2 auth: {connection['l2_auth']}",
+                f"Wallet: {connection['wallet_en']}",
+                f"Signature type: {connection['signature_type_en']}",
+                f"Funder: {connection['funder_en']}",
+                f"L2 auth: {connection['l2_auth_en']}",
                 "Raw values are never shown.",
-                "Live trading: disabled.",
-                "Order submission: disabled.",
-                "Signing: disabled.",
-                "Wallet connection: disabled.",
             ]
         )
 
@@ -582,18 +574,12 @@ class TelegramOperatorControlBot:
                 [
                     "💰 Баланс",
                     "Баланс пока не проверен. Запустите read-only проверку подключения.",
-                    "Фейковый баланс не показывается.",
-                    "authenticated endpoints выключены.",
-                    "allowed_for_live=false",
                 ]
             )
         return "\n".join(
             [
                 "💰 Balance",
                 "Balance has not been checked yet. Run the read-only connection check.",
-                "No fake balance is shown.",
-                "Authenticated endpoints disabled.",
-                "allowed_for_live=false",
             ]
         )
 
@@ -602,19 +588,15 @@ class TelegramOperatorControlBot:
             return "\n".join(
                 [
                     "📊 Сделки",
-                    "Live-сделок пока не было",
-                    "Фейковые сделки или ордера не показываются.",
-                    "Отправка ордеров выключена.",
-                    "allowed_for_live=false",
+                    "Live-сделок пока не было.",
+                    "Открытые ордера: неизвестно",
                 ]
             )
         return "\n".join(
             [
                 "📊 Trades",
                 "There have been no live trades yet.",
-                "No fake trades or orders are shown.",
-                "Order submission disabled.",
-                "allowed_for_live=false",
+                "Open orders: unknown",
             ]
         )
 
@@ -624,86 +606,71 @@ class TelegramOperatorControlBot:
                 [
                     "📈 PnL",
                     "PnL пока недоступен: live-сделок ещё не было.",
-                    "Фейковый PnL не показывается.",
-                    "allowed_for_live=false",
                 ]
             )
         return "\n".join(
             [
                 "📈 PnL",
                 "PnL is unavailable: there have been no live trades yet.",
-                "No fake PnL is shown.",
-                "allowed_for_live=false",
             ]
         )
 
     def _render_bot_status(self) -> str:
-        state = dict(self._summary().get("state_summary", {}))
         if self._language() == "ru":
             return "\n".join(
                 [
-                    "🤖 Статус бота",
+                    "🤖 Статус",
                     "Режим: review/dry-run",
-                    "allowed_for_live=false",
                     "Live trading: выключен",
                     "Отправка ордеров: выключена",
                     "Подписание: выключено",
-                    "Кошелёк: live-исполнение выключено",
-                    "live trading disabled",
-                    "order submission disabled",
-                    "signing disabled",
-                    "wallet execution disabled",
-                    "Тестовый dry-run: доступен только как локальная проверка.",
-                    f"Локальный стоп-placeholder: {str(state.get('operator_kill_switch_requested') is True).lower()}",
-                    "Проверки безопасности: live-действия выключены.",
-                    "Что мешает запуску: требуется отдельное операторское разрешение и реализация read-only probe.",
+                    "Wallet execution: выключен",
+                    "allowed_for_live=false",
                 ]
             )
         return "\n".join(
             [
-                "🤖 Bot Status",
+                "🤖 Status",
                 "Mode: review/dry-run",
-                "allowed_for_live=false",
                 "live trading disabled",
                 "order submission disabled",
                 "signing disabled",
                 "wallet execution disabled",
-                "Test dry-run: local review checks only.",
-                f"Emergency stop placeholder: {str(state.get('operator_kill_switch_requested') is True).lower()}",
-                "Safety checks: live actions disabled.",
-                "What blocks start: separate operator approval and read-only probe implementation are required.",
+                "allowed_for_live=false",
             ]
         )
 
     def _render_limits(self) -> str:
         risk = dict(self._summary().get("risk_summary", {}))
+        max_order = _display_limit_value(
+            risk.get("max_order_notional_usd"),
+            planned_ru="<= $1 planned",
+            planned_en="<= $1 planned",
+        )
+        max_orders_day = _display_limit_value(
+            risk.get("max_orders_per_day", risk.get("max_trades_per_day")),
+            planned_ru="1 planned",
+            planned_en="1 planned",
+        )
         if self._language() == "ru":
             return "\n".join(
                 [
                     "⚙️ Лимиты",
-                    "Лимиты показываются только как review/status; live enable выключен.",
-                    "Плановые лимиты: tiny/supervised.",
-                    f"Макс. размер ордера USD: {_display_known_value(risk.get('max_order_notional_usd'))}",
-                    f"Макс. дневной убыток USD: {_display_known_value(risk.get('max_daily_loss_usd'))}",
-                    f"Макс. общий exposure USD: {_display_known_value(risk.get('max_total_exposure_usd'))}",
-                    f"Макс. market exposure USD: {_display_known_value(risk.get('max_market_exposure_usd'))}",
-                    f"Макс. активных рынков: {_display_known_value(risk.get('max_active_markets') or risk.get('max_market_count'))}",
-                    f"Макс. сделок/день: {_display_known_value(risk.get('max_trades_per_day'))}",
-                    "allowed_for_live=false",
+                    "Режим: supervised tiny mode",
+                    f"Max order: {max_order}",
+                    f"Max orders/day: {max_orders_day}",
+                    "Автоторговля: выключена",
+                    "Live: выключен",
                 ]
             )
         return "\n".join(
             [
                 "⚙️ Limits",
-                "Limits are shown as review/status only; live enable is disabled.",
-                "Planned limits: tiny/supervised.",
-                f"Max order notional USD: {_display_known_value(risk.get('max_order_notional_usd'))}",
-                f"Max daily loss USD: {_display_known_value(risk.get('max_daily_loss_usd'))}",
-                f"Max total exposure USD: {_display_known_value(risk.get('max_total_exposure_usd'))}",
-                f"Max market exposure USD: {_display_known_value(risk.get('max_market_exposure_usd'))}",
-                f"Max active markets: {_display_known_value(risk.get('max_active_markets') or risk.get('max_market_count'))}",
-                f"Max trades/day: {_display_known_value(risk.get('max_trades_per_day'))}",
-                "allowed_for_live=false",
+                "Mode: supervised tiny mode",
+                f"Max order: {max_order}",
+                f"Max orders/day: {max_orders_day}",
+                "Autotrading: off",
+                "Live: off",
             ]
         )
 
@@ -712,27 +679,17 @@ class TelegramOperatorControlBot:
             return "\n".join(
                 [
                     "🚨 Стоп",
-                    "Стоп: локальный статусный placeholder.",
-                    "Emergency stop state: local placeholder / live controls not implemented",
-                    "Стоп записан только как локальный статусный маркер.",
-                    "Ордера не отправляются и не отменяются.",
-                    "Кошелёк, подпись и authenticated calls не используются.",
-                    "order_submission_enabled=false",
-                    "order_cancel_enabled=false",
-                    "allowed_for_live=false",
+                    "Live-торговля сейчас не запущена.",
+                    "Emergency Stop пока локальный статус-контроль.",
+                    "Реальные ордера в этой задаче не отменяются.",
                 ]
             )
         return "\n".join(
             [
                 "🚨 Stop",
-                "Stop is local/status-only.",
-                "Emergency stop state: local placeholder / live controls not implemented",
-                "Stop is recorded only as a local status marker.",
-                "No orders are submitted or cancelled.",
-                "No wallet, signing, or authenticated calls are used.",
-                "order_submission_enabled=false",
-                "order_cancel_enabled=false",
-                "allowed_for_live=false",
+                "Live trading is not running.",
+                "Emergency Stop is local status control for now.",
+                "No real orders are cancelled in this task.",
             ]
         )
 
@@ -1176,151 +1133,17 @@ class TelegramOperatorControlBot:
         return "\n".join(lines)
 
     def _render_panel(self) -> str:
-        summary = self._summary()
-        panel = dict(summary.get("telegram_mini_app_operator_panel_summary", {}))
-        readiness = dict(summary.get("telegram_operator_console_readiness_summary", {}))
-        latest = dict(summary.get("telegram_operator_console_latest_artifacts", {}))
-        tiny_scaffold = dict(summary.get("tiny_order_scaffold_status_summary", {}))
-        pre_live_gate = dict(summary.get("pre_live_tiny_order_gate_status_summary", {}))
-        supervised_gate = dict(summary.get("supervised_tiny_live_enablement_gate_status_summary", {}))
-        credentials_gate = dict(summary.get("explicit_live_credentials_readiness_gate_status_summary", {}))
-        available = sum(1 for value in latest.values() if isinstance(value, Mapping) and value.get("available") is True)
-        missing = sum(1 for value in latest.values() if isinstance(value, Mapping) and value.get("available") is not True)
         if self._language() == "ru":
             return "\n".join(
                 [
-                    "Telegram Mini App Operator Panel v1 / PMBOT Operator Console 060T: только обзор / live-режим выключен",
-                    "Главное меню",
-                    "PMBOT Status",
-                    "Paper Runs / Бумажный прогон",
-                    "Public Market Evidence / Публичный рынок",
-                    "Decision Ledger / Журнал решений",
-                    "Live Readiness / Live-проверка",
-                    "Tiny Order Review / Малый ордер",
-                    "Pre-live tiny order gate / Предлайв-гейт tiny order",
-                    "Supervised readiness review 063 / Обзор supervised readiness 063",
-                    "Credentials readiness review / Проверка готовности credentials",
-                    "Tiny Candidate: " + clean_text(tiny_scaffold.get("tiny_candidate") or "not_available"),
-                    "Пакет ручного подтверждения: "
-                    + clean_text(tiny_scaffold.get("approval_packet_path") or "not_available"),
-                    "Лимиты: " + _render_hard_limits_inline(tiny_scaffold),
-                    "Submission Status: " + clean_text(dict(tiny_scaffold.get("submission_status", {})).get("status") or "blocked"),
-                    "Run Tiny Scaffold Dry-Run",
-                    "062P status: " + clean_text(pre_live_gate.get("status") or "not_available"),
-                    "Чеклист: " + clean_text(pre_live_gate.get("checklist_path") or "not_available"),
-                    "Блокеры: " + str(int(pre_live_gate.get("blocker_count", 0) or 0)),
-                    "Readiness summary: " + clean_text(pre_live_gate.get("readiness_summary_path") or "not_available"),
-                    "Dry-run предлайв-гейта 062P",
-                    "063 status: " + clean_text(supervised_gate.get("status") or "not_available"),
-                    "Чеклист оператора: "
-                    + clean_text(supervised_gate.get("operator_checklist_path") or "not_available"),
-                    "Матрица блокеров: " + str(int(supervised_gate.get("blocker_count", 0) or 0)),
-                    "Лимиты риска: " + _render_risk_limits_inline(supervised_gate),
-                    "Kill switch план: " + _render_plan_inline(supervised_gate, "kill_switch_plan_summary"),
-                    "Cancel plan: " + _render_plan_inline(supervised_gate, "cancel_plan_summary"),
-                    "Failure plan: " + _render_plan_inline(supervised_gate, "failure_plan_summary"),
-                    "Готовность окружения: " + _render_env_readiness_inline(supervised_gate),
-                    "Пакет ручного подтверждения: "
-                    + clean_text(supervised_gate.get("manual_approval_packet_path") or "not_available"),
-                    "Dry-run supervised gate 063",
-                    "Credentials readiness status: "
-                    + clean_text(credentials_gate.get("status") or "not_available"),
-                    "Только наличие маркеров",
-                    "Значения не показываются",
-                    "Live не включён",
-                    "Только dry-run",
-                    "Missing credential markers: "
-                    + str(int(credentials_gate.get("missing_required_marker_count", 0) or 0)),
-                    "Credential marker blockers: "
-                    + str(int(credentials_gate.get("blocker_count", 0) or 0)),
-                    "Dry-run credentials readiness 064",
-                    "Оператор подтвердил: нет",
-                    "Кандидат не исполняемый",
-                    "Подписание заблокировано",
-                    "Отправка ордера заблокирована",
-                    "Blockers / Блокеры",
-                    "Latest Artifacts",
-                    "Safety State",
-                    f"Готовность review-only: {int(readiness.get('readiness_percent', 0) or 0)}%",
-                    f"Latest artifacts available/missing: {available}/{missing}",
-                    f"Panel artifact доступен: {str(panel.get('panel_artifact_available') is True).lower()}",
-                    f"HTML artifact: {clean_text(panel.get('latest_telegram_mini_app_operator_panel_html_path') or 'not_available')}",
-                    f"JSON artifact: {clean_text(panel.get('latest_telegram_mini_app_operator_panel_json_path') or 'not_available')}",
-                    f"Mini App URL status: {clean_text(panel.get('mini_app_url_status') or 'not_configured_review_placeholder')}",
-                    f"Telegram init data status: {clean_text(panel.get('telegram_init_data_status') or 'not_configured_redacted')}",
-                    "review_only: true",
-                    "live_actions_available: false",
-                    "raw_telegram_bot_token_exposed: false",
-                    "raw_telegram_init_data_exposed: false",
-                    "raw_operator_user_ids_exposed: false",
-                    "Только review-only",
-                    "Live-ордера из бота или Mini App недоступны.",
-                    "Live-торговля заблокирована",
+                    "🖥 Mini App",
+                    "Mini App URL не настроен. Нужно задать PMBOT_TELEGRAM_MINI_APP_URL.",
                 ]
             )
         return "\n".join(
             [
-                "Telegram Mini App Operator Panel v1 / PMBOT Operator Console 060T: review-only / live blocked",
-                "Main PMBOT menu",
-                "PMBOT Status",
-                "Paper Runs",
-                    "Public Market Evidence",
-                    "Decision Ledger",
-                    "Live Readiness",
-                    "Tiny Order Review",
-                    "Pre-live tiny order gate",
-                    "Supervised readiness review 063",
-                    "Credentials readiness review",
-                    "Tiny Candidate: " + clean_text(tiny_scaffold.get("tiny_candidate") or "not_available"),
-                    "Approval Packet: " + clean_text(tiny_scaffold.get("approval_packet_path") or "not_available"),
-                    "Hard Limits: " + _render_hard_limits_inline(tiny_scaffold),
-                    "Submission Status: " + clean_text(dict(tiny_scaffold.get("submission_status", {})).get("status") or "blocked"),
-                    "Run Tiny Scaffold Dry-Run",
-                    "062P status: " + clean_text(pre_live_gate.get("status") or "not_available"),
-                    "Checklist: " + clean_text(pre_live_gate.get("checklist_path") or "not_available"),
-                    "Blockers: " + str(int(pre_live_gate.get("blocker_count", 0) or 0)),
-                    "Readiness summary: " + clean_text(pre_live_gate.get("readiness_summary_path") or "not_available"),
-                    "Run Pre-live Gate 062P Dry-Run",
-                    "063 status: " + clean_text(supervised_gate.get("status") or "not_available"),
-                    "Operator checklist: "
-                    + clean_text(supervised_gate.get("operator_checklist_path") or "not_available"),
-                    "Blocker matrix: " + str(int(supervised_gate.get("blocker_count", 0) or 0)),
-                    "Risk limits: " + _render_risk_limits_inline(supervised_gate),
-                    "Kill switch plan: " + _render_plan_inline(supervised_gate, "kill_switch_plan_summary"),
-                    "Cancel plan: " + _render_plan_inline(supervised_gate, "cancel_plan_summary"),
-                    "Failure plan: " + _render_plan_inline(supervised_gate, "failure_plan_summary"),
-                    "Env readiness: " + _render_env_readiness_inline(supervised_gate),
-                    "Manual approval packet: "
-                    + clean_text(supervised_gate.get("manual_approval_packet_path") or "not_available"),
-                    "Local 063 dry-run command",
-                    "Credentials readiness status: "
-                    + clean_text(credentials_gate.get("status") or "not_available"),
-                    "Presence-only",
-                    "Values never shown",
-                    "Not live-enabled",
-                    "Dry-run only",
-                    "Missing credential markers: "
-                    + str(int(credentials_gate.get("missing_required_marker_count", 0) or 0)),
-                    "Credential marker blockers: "
-                    + str(int(credentials_gate.get("blocker_count", 0) or 0)),
-                    "Dry-run credentials readiness 064",
-                    "Blockers",
-                    "Latest Artifacts",
-                "Safety State",
-                f"Review readiness: {int(readiness.get('readiness_percent', 0) or 0)}%",
-                f"Latest artifacts available/missing: {available}/{missing}",
-                f"Panel artifact available: {str(panel.get('panel_artifact_available') is True).lower()}",
-                f"HTML artifact: {clean_text(panel.get('latest_telegram_mini_app_operator_panel_html_path') or 'not_available')}",
-                f"JSON artifact: {clean_text(panel.get('latest_telegram_mini_app_operator_panel_json_path') or 'not_available')}",
-                f"Mini App URL status: {clean_text(panel.get('mini_app_url_status') or 'not_configured_review_placeholder')}",
-                f"Telegram init data status: {clean_text(panel.get('telegram_init_data_status') or 'not_configured_redacted')}",
-                "review_only: true",
-                "live_actions_available: false",
-                "raw_telegram_bot_token_exposed: false",
-                "raw_telegram_init_data_exposed: false",
-                "raw_operator_user_ids_exposed: false",
-                "Review-only actions: dry-run and preflight only.",
-                "No live order action is available from this bot or panel.",
+                "🖥 Mini App",
+                "Mini App URL is not configured. Set PMBOT_TELEGRAM_MINI_APP_URL.",
             ]
         )
 
@@ -1652,25 +1475,25 @@ class TelegramOperatorControlBot:
         )
 
     def _keyboard_for_command(self, command: str) -> TelegramOperatorKeyboard:
-        if command == "/panel":
-            if operator_language_is_selected(self.state):
-                return build_operator_console_keyboard(self._language())
-            return build_panel_fallback_keyboard(self._language())
         if command == "/connection_status":
             return build_connection_status_keyboard(self._language())
-        if command in {"/start", "/language", "/ru", "/en"}:
+        if command in {"/start", "/language"}:
             return build_language_selection_keyboard()
         if command in {
             "/home",
+        }:
+            return build_operator_home_keyboard(self._language())
+        if command in {
             "/connection",
             "/balance",
             "/trades",
             "/pnl",
             "/bot_status",
             "/limits",
+            "/panel",
             "/stop",
         }:
-            return build_operator_home_keyboard(self._language())
+            return build_product_screen_keyboard(command, self._language())
         if command in {
             "/readiness",
             "/tiny_order_review",
@@ -1703,12 +1526,17 @@ def build_panel_fallback_keyboard(language: str = DEFAULT_OPERATOR_LANGUAGE) -> 
     )
 
 
+def build_product_screen_keyboard(command: str, language: str = DEFAULT_OPERATOR_LANGUAGE) -> TelegramOperatorKeyboard:
+    normalized_language = normalize_operator_language(language, fallback=DEFAULT_OPERATOR_LANGUAGE)
+    return _keyboard_from_rows(_product_screen_button_rows(command, normalized_language))
+
+
 def build_operator_console_keyboard(language: str = DEFAULT_OPERATOR_LANGUAGE) -> TelegramOperatorKeyboard:
     return _keyboard_from_rows(operator_console_button_rows(normalize_operator_language(language, fallback=DEFAULT_OPERATOR_LANGUAGE)))
 
 
 def build_connection_status_keyboard(language: str = DEFAULT_OPERATOR_LANGUAGE) -> TelegramOperatorKeyboard:
-    return _keyboard_from_rows(connection_status_button_rows(normalize_operator_language(language, fallback="en")))
+    return _keyboard_from_rows(connection_status_button_rows(normalize_operator_language(language, fallback=DEFAULT_OPERATOR_LANGUAGE)))
 
 
 def build_language_selection_keyboard() -> TelegramOperatorKeyboard:
@@ -1750,6 +1578,22 @@ def _keyboard_from_rows(rows: Sequence[Sequence[tuple[str, str]]]) -> TelegramOp
             )
         keyboard_rows.append(tuple(keyboard_row))
     return TelegramOperatorKeyboard(rows=tuple(keyboard_rows))
+
+
+def _product_screen_button_rows(command: str, language: str) -> tuple[tuple[tuple[str, str], ...], ...]:
+    if language == "ru":
+        check = ("🧪 Проверить подключение", "pmbot:run:connection_status_067e")
+        mini_app = ("🖥 Mini App", "pmbot:panel")
+        back = ("⬅️ Назад", "pmbot:home")
+    else:
+        check = ("🧪 Check connection", "pmbot:run:connection_status_067e")
+        mini_app = ("🖥 Mini App", "pmbot:panel")
+        back = ("⬅️ Back", "pmbot:home")
+    if command == "/connection":
+        return ((check,), (mini_app,), (back,))
+    if command in {"/balance", "/trades"}:
+        return ((check,), (back,))
+    return ((back,),)
 
 
 def config_from_mapping(value: Mapping[str, Any] | None = None) -> TelegramOperatorControlConfig:
@@ -3255,21 +3099,31 @@ def _build_connection_product_display_status(summary: Mapping[str, Any]) -> dict
     funder_raw = clean_text(status.get("funder_display"))
     signature_raw = clean_text(status.get("signature_type_display"))
     l2_raw = clean_text(status.get("l2_auth_probe_display") or status.get("l2_auth_probe_status"))
-    wallet_present = wallet_raw not in {"", "missing", "not_available", "unknown"} or fallback["wallet_address"] == "redacted"
-    funder_present = funder_raw not in {"", "missing", "not_available", "unknown"} or fallback["funder_address"] == "redacted"
+    wallet_display = _safe_public_abbrev(wallet_raw)
+    funder_display = _safe_public_abbrev(funder_raw)
     signature_present = (
         signature_raw not in {"", "missing", "not_available", "unknown"}
         or fallback["signature_type"] == "present"
     )
+    signature_display = (
+        signature_raw
+        if signature_present and signature_raw not in {"", "present", "missing", "not_available", "unknown"}
+        else ""
+    )
+    l2_display = _normalize_l2_auth_display(l2_raw)
     return {
         "api_keys_ru": "добавлены" if api_keys_present else "не добавлены",
         "api_keys_en": "added" if api_keys_present else "not added",
         "private_key_ru": "добавлен" if private_key_present else "не добавлен",
         "private_key_en": "added" if private_key_present else "not added",
-        "wallet": "redacted" if wallet_present else "missing",
-        "signature_type": "present" if signature_present else "missing",
-        "funder": "redacted" if funder_present else "missing",
-        "l2_auth": _normalize_l2_auth_display(l2_raw),
+        "wallet_ru": wallet_display if wallet_display else "не указан",
+        "wallet_en": wallet_display if wallet_display else "not specified",
+        "signature_type_ru": signature_display if signature_display else "не указан",
+        "signature_type_en": signature_display if signature_display else "not specified",
+        "funder_ru": funder_display if funder_display else "не указан",
+        "funder_en": funder_display if funder_display else "not specified",
+        "l2_auth_ru": _l2_auth_ru(l2_display),
+        "l2_auth_en": _l2_auth_en(l2_display),
     }
 
 
@@ -3288,12 +3142,52 @@ def _normalize_l2_auth_display(value: str) -> str:
     return "not run"
 
 
+def _safe_public_abbrev(value: str) -> str:
+    text = clean_text(value)
+    if text.lower() in {"", "missing", "not_available", "unknown", "redacted"}:
+        return ""
+    if "..." not in text:
+        return ""
+    if len(text) > 32:
+        return ""
+    if not text.startswith("0x"):
+        return ""
+    return text
+
+
+def _l2_auth_ru(value: str) -> str:
+    return {
+        "ok": "OK",
+        "failed": "ошибка",
+        "blocked": "blocked",
+        "not run": "не проверен",
+    }.get(value, "не проверен")
+
+
+def _l2_auth_en(value: str) -> str:
+    return {
+        "ok": "OK",
+        "failed": "error",
+        "blocked": "blocked",
+        "not run": "not checked",
+    }.get(value, "not checked")
+
+
 def _display_known_value(value: Any) -> str:
     if value is None or value == "":
         return "not_available"
     if isinstance(value, (dict, list, tuple)):
         return json.dumps(value, sort_keys=True)
     return clean_text(value)
+
+
+def _display_limit_value(value: Any, *, planned_ru: str, planned_en: str) -> str:
+    if value is None or isinstance(value, bool):
+        return planned_ru
+    text = clean_text(value)
+    if not text or text.lower() in {"missing", "unknown", "not_available"}:
+        return planned_ru
+    return text
 
 
 def _render_hard_limits_inline(tiny_scaffold: Mapping[str, Any]) -> str:

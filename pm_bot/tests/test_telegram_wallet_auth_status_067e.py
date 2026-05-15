@@ -205,14 +205,11 @@ def test_067e_telegram_screen_renders_ru_buttons_and_mini_app_when_configured(tm
     assert "L2 auth probe: ok" in reply.text
     assert "Open orders: known_from_probe" in reply.text
     assert "Balance/allowance: known_from_probe" in reply.text
-    assert "Обновить статус" in labels
-    assert "Запустить read-only проверку" in labels
-    assert "🖥 Открыть PMBOT" in labels
-    assert "Назад" in labels
-    assert "pmbot:connection_status" in callbacks
+    assert "🧪 Проверить подключение" in labels
+    assert "⬅️ Назад" in labels
     assert "pmbot:run:connection_status_067e" in callbacks
     assert "pmbot:home" in callbacks
-    assert reply.panel_button_url == "https://example.com/pmbot"
+    assert reply.panel_button_url == ""
 
 
 def test_067e_safe_action_is_dry_run_status_only_and_callback_renders_result(tmp_path: Path) -> None:
