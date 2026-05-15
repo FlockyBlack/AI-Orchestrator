@@ -10,6 +10,11 @@ from pathlib import Path
 from typing import Any, Callable, Mapping, Sequence
 
 from pm_bot.trading_core.schemas import GENERATED_AT, clean_text, load_json_object, normalize_path, write_json
+from pm_bot.trading_core.telegram_order_prep_packet_status_072b import (
+    ARTIFACT_DIR_NAME as TELEGRAM_ORDER_PREP_PACKET_STATUS_072B_ARTIFACT_DIR_NAME,
+    LATEST_STATUS_FILENAME as TELEGRAM_ORDER_PREP_PACKET_STATUS_072B_LATEST_STATUS_FILENAME,
+    normalize_telegram_order_prep_packet_status_summary,
+)
 from pm_bot.trading_core.telegram_order_prep_status_071e import (
     ARTIFACT_DIR_NAME as TELEGRAM_ORDER_PREP_STATUS_071E_ARTIFACT_DIR_NAME,
     LATEST_STATUS_FILENAME as TELEGRAM_ORDER_PREP_STATUS_071E_LATEST_STATUS_FILENAME,
@@ -28,6 +33,7 @@ TASK_ID_063T = "ORCH-PMBOT-TELEGRAM-063T-SUPERVISED-LIVE-ENABLEMENT-REVIEW-PANEL
 TASK_ID_064T = "ORCH-PMBOT-TELEGRAM-064T-CREDENTIALS-READINESS-REVIEW-PANEL"
 TELEGRAM_CONNECTION_STATUS_067E_FLOW_ID = "telegram_connection_status_067e"
 TELEGRAM_ORDER_PREP_STATUS_071E_FLOW_ID = "telegram_order_prep_status_071e"
+TELEGRAM_ORDER_PREP_PACKET_STATUS_072B_FLOW_ID = "telegram_order_prep_packet_status_072b"
 STATUS_REGISTRY_CONTRACT = "pmbot_telegram_operator_console_060t_status_registry.v1"
 STATUS_CARD_CONTRACT = "pmbot_telegram_operator_console_060t_status_card.v1"
 READINESS_SUMMARY_CONTRACT = "pmbot_telegram_operator_console_060t_readiness.v1"
@@ -394,6 +400,15 @@ STATUS_SOURCES: tuple[TelegramStatusSource, ...] = (
         context_key="telegram_order_prep_status_071e_status_summary",
         label_en="Order prep status 071E",
         label_ru="Подготовка ордера 071E",
+    ),
+    TelegramStatusSource(
+        flow_id=TELEGRAM_ORDER_PREP_PACKET_STATUS_072B_FLOW_ID,
+        section="Live Readiness",
+        artifact_dir_name=TELEGRAM_ORDER_PREP_PACKET_STATUS_072B_ARTIFACT_DIR_NAME,
+        latest_status_filename=TELEGRAM_ORDER_PREP_PACKET_STATUS_072B_LATEST_STATUS_FILENAME,
+        context_key="telegram_order_prep_packet_status_072b_status_summary",
+        label_en="Order prep packet screen",
+        label_ru="Подготовка первого ордера",
     ),
 )
 
@@ -1643,6 +1658,8 @@ def _build_status_card(
             generated_at=generated_at,
         )
         status_summary.update(_credentials_readiness_review_status_summary(credentials_readiness_review))
+    if source.flow_id == TELEGRAM_ORDER_PREP_PACKET_STATUS_072B_FLOW_ID:
+        status_summary.update(normalize_telegram_order_prep_packet_status_summary(payload))
     return {
         "contract_version": STATUS_CARD_CONTRACT,
         "task_id": TASK_ID,
