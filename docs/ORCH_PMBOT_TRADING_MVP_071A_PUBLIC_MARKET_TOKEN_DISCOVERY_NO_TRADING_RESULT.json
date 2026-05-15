@@ -1,0 +1,100 @@
+{
+  "task_id": "ORCH-PMBOT-TRADING-MVP-071A-PUBLIC-MARKET-TOKEN-DISCOVERY-NO-TRADING",
+  "status": "validated_pending_commit_push_verify",
+  "repository": "https://github.com/FlockyBlack/AI-Orchestrator.git",
+  "base_branch": "master",
+  "required_base_head": "010bb351ab17e60275d4d6d0771f95ab8058e255",
+  "worktree": "C:/oc071a_public_market_token_discovery_no_trading",
+  "branch": "pmbot/trading-mvp-071a-public-market-token-discovery-no-trading",
+  "head_before": "010bb351ab17e60275d4d6d0771f95ab8058e255",
+  "head_after": "recorded_in_final_response_after_commit_push_verify",
+  "head_after_note": "The committed result JSON cannot include its own final commit SHA without changing that SHA; the final operator response records the pushed and remotely verified branch HEAD.",
+  "generated_at": "2026-05-15T00:00:00+04:00",
+  "changed_files": [
+    "docs/ORCH_PMBOT_TRADING_MVP_071A_PUBLIC_MARKET_TOKEN_DISCOVERY_NO_TRADING.md",
+    "docs/ORCH_PMBOT_TRADING_MVP_071A_PUBLIC_MARKET_TOKEN_DISCOVERY_NO_TRADING_RESULT.json",
+    "pm_bot/trading_core/public_market_token_discovery_models.py",
+    "pm_bot/trading_core/public_market_token_discovery.py",
+    "pm_bot/operator_runner/public_market_token_discovery.py",
+    "pm_bot/tests/test_public_market_token_discovery_071a.py"
+  ],
+  "generated_artifacts": [
+    "pm_bot/trading_core/artifacts/public_market_token_discovery_071a/public_market_token_discovery_071a_result.json",
+    "pm_bot/trading_core/artifacts/public_market_token_discovery_071a/latest_public_market_token_discovery_status_071a.json",
+    "pm_bot/trading_core/artifacts/public_market_token_discovery_071a/public_market_candidates_071a.json",
+    "pm_bot/trading_core/artifacts/public_market_token_discovery_071a/public_outcome_token_candidates_071a.json",
+    "pm_bot/trading_core/artifacts/public_market_token_discovery_071a/public_market_token_discovery_redaction_policy_071a.json",
+    "pm_bot/trading_core/artifacts/public_market_token_discovery_071a/public_market_token_discovery_operator_summary_071a.md"
+  ],
+  "implementation_summary": [
+    "Added 071A public market/token discovery contracts and safety flags.",
+    "Added a strict adapter that uses public Gamma reads or source-backed local artifacts.",
+    "Rejected fixture, fake, placeholder, sample, mock, and generated token IDs.",
+    "Added a dry-run operator runner and focused regression tests."
+  ],
+  "validation_results": [
+    {
+      "command": "python -m pytest pm_bot/tests/test_public_market_token_discovery_071a.py",
+      "status": "passed",
+      "summary": "6 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_first_order_market_token_resolver_070b.py || echo \"070B may not exist yet\"",
+      "status": "accepted_absent",
+      "summary": "070B test file does not exist on required base; fallback message emitted"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_static_safety_invariant_report_060q.py",
+      "status": "passed",
+      "summary": "9 passed"
+    },
+    {
+      "command": "python -B -m pytest pm_bot/tests -q",
+      "status": "passed",
+      "summary": "2021 passed"
+    },
+    {
+      "command": "python -m compileall -q pm_bot",
+      "status": "passed",
+      "summary": "no output"
+    },
+    {
+      "command": "python -m compileall -q ai_orchestrator",
+      "status": "passed",
+      "summary": "no output"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.public_market_token_discovery --market BTC --strategy tiny-momentum --dry-run",
+      "status": "passed",
+      "summary": "status=source_backed_candidates_ready; market candidates=1; outcome token candidates=2; live execution blocked"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.static_safety_invariant_report --scope pm_bot --dry-run",
+      "status": "passed",
+      "summary": "critical findings=0; warnings=7; live/order/signing/wallet blocked"
+    }
+  ],
+  "safety_statement": {
+    "public_read_only": true,
+    "dry_run_only": true,
+    "private_key_read": false,
+    "wallet_connection_attempted": false,
+    "signing_attempted": false,
+    "signed_payload_generated": false,
+    "order_submission_attempted": false,
+    "order_cancellation_attempted": false,
+    "authenticated_request_performed": false,
+    "browser_automation_added": false,
+    "scheduler_or_daemon_added": false,
+    "autonomous_live_trading_added": false,
+    "allowed_for_live": false,
+    "fake_token_ids_allowed": false,
+    "token_id_generation_enabled": false
+  },
+  "remaining_risks": [
+    "A live public discovery run can return zero candidates if public Gamma is unavailable or omits source-backed token IDs.",
+    "This task intentionally does not approve or enable any live trading action."
+  ],
+  "pushed": "recorded_in_final_response_after_push",
+  "remote_verification": "recorded_in_final_response_after_push"
+}
