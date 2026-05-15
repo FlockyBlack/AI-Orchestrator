@@ -1,0 +1,112 @@
+# PMBOT Signed Order Payload Dry-Run 070A
+
+- Status: `blocked_non_executable_signed_order_payload_dry_run_no_submit`
+- Local signing diagnostic status: `diagnostic_not_requested`
+- Market: `BTC`
+- Strategy: `tiny-momentum`
+- Token id present: `false`
+- Max notional USD: `1.0`
+- Default mode reads private key: `false`
+- Order payload contract executable: `false`
+- Local payload signing attempted: `false`
+- Signed payload submit enabled: `false`
+- Order submission enabled: `false`
+- Order cancellation enabled: `false`
+- Authenticated trading enabled: `false`
+- Network writes performed: `false`
+- Allowed for live: `false`
+
+## Contract Scope
+
+- deterministic field contract only
+- token id value is represented only by presence and SHA-256 fingerprint
+- no private key, API secret, passphrase, wallet file, or browser wallet is read
+- no real SDK signing path is enabled in this task
+- optional local order payload signing diagnostic fails closed as `signing_not_implemented` once guards pass
+- no signed material is printed, stored, submitted, or canceled
+
+## Artifacts
+
+- `pm_bot/trading_core/artifacts/signed_order_payload_dry_run_070a/signed_order_payload_dry_run_070a_result.json`
+- `pm_bot/trading_core/artifacts/signed_order_payload_dry_run_070a/latest_signed_order_payload_dry_run_status_070a.json`
+- `pm_bot/trading_core/artifacts/signed_order_payload_dry_run_070a/signed_order_payload_contract_070a.json`
+- `pm_bot/trading_core/artifacts/signed_order_payload_dry_run_070a/signed_order_payload_redaction_policy_070a.json`
+- `pm_bot/trading_core/artifacts/signed_order_payload_dry_run_070a/signed_order_payload_safety_contract_070a.json`
+- `pm_bot/trading_core/artifacts/signed_order_payload_dry_run_070a/signed_order_payload_operator_summary_070a.md`
+
+## Required False Flags
+
+- `allowed_for_live=false`
+- `live_execution_approved=false`
+- `live_execution_allowed=false`
+- `live_execution_performed=false`
+- `real_execution_available=false`
+- `real_order_submitted=false`
+- `real_order_cancelled=false`
+- `order_submission_enabled=false`
+- `order_submission_attempted=false`
+- `order_submission_performed=false`
+- `order_submitted=false`
+- `order_cancel_enabled=false`
+- `order_cancel_attempted=false`
+- `order_cancel_performed=false`
+- `order_cancellation_enabled=false`
+- `order_cancellation_attempted=false`
+- `order_cancellation_performed=false`
+- `signed_payload_submit_enabled=false`
+- `signed_payload_submit_attempted=false`
+- `signed_payload_submitted=false`
+- `order_payload_signing_enabled=false`
+- `order_payload_signing_attempted=false`
+- `order_payload_signed=false`
+- `signed_order_generation_enabled=false`
+- `signed_order_generation_attempted=false`
+- `signed_order_generated=false`
+- `signed_order_payload_generated=false`
+- `signed_payload_generated=false`
+- `signed_payload_fingerprint_stored=false`
+- `full_signed_payload_emitted=false`
+- `raw_signed_payload_emitted=false`
+- `full_signed_order_emitted=false`
+- `raw_signed_order_emitted=false`
+- `authenticated_trading_enabled=false`
+- `authenticated_endpoint_enabled=false`
+- `authenticated_request_performed=false`
+- `authenticated_trading_call_performed=false`
+- `network_write_performed=false`
+- `network_post_performed=false`
+- `network_put_performed=false`
+- `network_patch_performed=false`
+- `network_delete_performed=false`
+- `private_key_read=false`
+- `seed_phrase_read=false`
+- `mnemonic_read=false`
+- `api_secret_read=false`
+- `auth_token_read=false`
+- `passphrase_read=false`
+- `credential_value_read=false`
+- `credential_values_read=false`
+- `environment_values_read=false`
+- `secret_files_read=false`
+- `private_key_value_emitted=false`
+- `raw_private_key_emitted=false`
+- `raw_secret_values_emitted=false`
+- `credential_value_serialized=false`
+- `credential_values_serialized=false`
+- `credential_values_printed=false`
+- `credential_values_stored=false`
+- `credential_values_hashed=false`
+- `credential_values_transformed=false`
+- `wallet_connection_enabled=false`
+- `wallet_connection_attempted=false`
+- `wallet_enabled=false`
+- `wallet_used=false`
+- `wallet_signing_enabled=false`
+- `wallet_signing_attempted=false`
+- `cryptographic_signing_enabled=false`
+- `cryptographic_signing_performed=false`
+- `local_payload_signing_attempted=false`
+- `local_payload_signed=false`
+- `scheduler_or_daemon_added=false`
+- `background_worker_added=false`
+- `autonomous_live_trading_added=false`

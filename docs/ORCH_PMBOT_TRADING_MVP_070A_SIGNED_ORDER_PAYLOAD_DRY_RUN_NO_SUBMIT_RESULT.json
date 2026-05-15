@@ -1,0 +1,172 @@
+{
+  "task_id": "ORCH-PMBOT-TRADING-MVP-070A-SIGNED-ORDER-PAYLOAD-DRY-RUN-NO-SUBMIT",
+  "status": "validated_pending_commit_push_verify",
+  "generated_at": "2026-05-15T00:00:00+04:00",
+  "repository": "https://github.com/FlockyBlack/AI-Orchestrator.git",
+  "worktree": "C:/oc070a_signed_order_payload_dry_run_no_submit",
+  "branch": "pmbot/trading-mvp-070a-signed-order-payload-dry-run-no-submit",
+  "base_branch": "master",
+  "required_base_head": "010bb351ab17e60275d4d6d0771f95ab8058e255",
+  "head_before": "010bb351ab17e60275d4d6d0771f95ab8058e255",
+  "head_after": "recorded_in_final_response_after_commit_push_verify",
+  "head_after_note": "The committed result artifact cannot self-record its own final commit SHA because changing the artifact would change the SHA. The final response records the committed and remotely verified branch HEAD.",
+  "changed_files": [
+    "pm_bot/trading_core/signed_order_payload_dry_run_models.py",
+    "pm_bot/trading_core/signed_order_payload_dry_run.py",
+    "pm_bot/operator_runner/signed_order_payload_dry_run.py",
+    "pm_bot/tests/test_signed_order_payload_dry_run_070a.py",
+    "pm_bot/trading_core/artifacts/signed_order_payload_dry_run_070a/signed_order_payload_dry_run_070a_result.json",
+    "pm_bot/trading_core/artifacts/signed_order_payload_dry_run_070a/latest_signed_order_payload_dry_run_status_070a.json",
+    "pm_bot/trading_core/artifacts/signed_order_payload_dry_run_070a/signed_order_payload_contract_070a.json",
+    "pm_bot/trading_core/artifacts/signed_order_payload_dry_run_070a/signed_order_payload_redaction_policy_070a.json",
+    "pm_bot/trading_core/artifacts/signed_order_payload_dry_run_070a/signed_order_payload_safety_contract_070a.json",
+    "pm_bot/trading_core/artifacts/signed_order_payload_dry_run_070a/signed_order_payload_operator_summary_070a.md",
+    "docs/ORCH_PMBOT_TRADING_MVP_070A_SIGNED_ORDER_PAYLOAD_DRY_RUN_NO_SUBMIT.md",
+    "docs/ORCH_PMBOT_TRADING_MVP_070A_SIGNED_ORDER_PAYLOAD_DRY_RUN_NO_SUBMIT_RESULT.json"
+  ],
+  "implementation_summary": {
+    "prerequisite_065d_context_restored_from_existing_branch": true,
+    "prerequisite_065d_commit_on_feature_branch": "5209625cd4544f47692611ad0f26fbe48c2ad49f",
+    "prerequisite_065d_reason": "The required base did not contain the 065D test/module named by the validation checklist, so the existing local 065D no-execution contract commit was cherry-picked before 070A validation.",
+    "models_added": true,
+    "builder_added": true,
+    "operator_runner_added": true,
+    "focused_tests_added": true,
+    "operator_docs_added": true,
+    "default_artifacts_generated": true,
+    "deterministic_non_executable_payload_contract": true,
+    "default_mode_reads_private_key": false,
+    "default_mode_signs_payload": false,
+    "optional_local_signing_diagnostic_flag_added": true,
+    "optional_local_signing_diagnostic_real_sdk_signing_implemented": false,
+    "optional_local_signing_diagnostic_fail_closed_status": "signing_not_implemented",
+    "max_notional_guard_usd": 1.0,
+    "signed_payload_submit_enabled": false,
+    "order_submission_enabled": false,
+    "allowed_for_live": false
+  },
+  "safety_flags": {
+    "paper_only": true,
+    "review_only": true,
+    "preflight_only": true,
+    "dry_run_only": true,
+    "non_executable": true,
+    "local_artifact_only": true,
+    "private_key_read": false,
+    "private_key_value_emitted": false,
+    "raw_private_key_emitted": false,
+    "raw_secret_values_emitted": false,
+    "local_payload_signing_attempted": false,
+    "local_payload_signed": false,
+    "signed_payload_generated": false,
+    "signed_payload_submit_enabled": false,
+    "order_submission_enabled": false,
+    "order_cancel_enabled": false,
+    "authenticated_trading_enabled": false,
+    "network_write_performed": false,
+    "network_post_performed": false,
+    "network_put_performed": false,
+    "network_patch_performed": false,
+    "network_delete_performed": false,
+    "allowed_for_live": false,
+    "real_order_submitted": false,
+    "real_order_cancelled": false,
+    "scheduler_or_daemon_added": false,
+    "background_worker_added": false,
+    "autonomous_live_trading_added": false,
+    "resolved_blocker_count": 0
+  },
+  "artifact_inventory": {
+    "artifact_dir": "pm_bot/trading_core/artifacts/signed_order_payload_dry_run_070a",
+    "files": [
+      "signed_order_payload_dry_run_070a_result.json",
+      "latest_signed_order_payload_dry_run_status_070a.json",
+      "signed_order_payload_contract_070a.json",
+      "signed_order_payload_redaction_policy_070a.json",
+      "signed_order_payload_safety_contract_070a.json",
+      "signed_order_payload_operator_summary_070a.md"
+    ],
+    "default_run_status": "blocked_non_executable_signed_order_payload_dry_run_no_submit",
+    "default_run_local_signing_diagnostic_status": "diagnostic_not_requested",
+    "default_run_private_key_read": false,
+    "default_run_local_payload_signing_attempted": false,
+    "default_run_signed_payload_submit_enabled": false,
+    "default_run_order_submission_enabled": false,
+    "default_run_allowed_for_live": false
+  },
+  "validation_results": [
+    {
+      "command": "python -m pytest pm_bot/tests/test_signed_order_payload_dry_run_070a.py",
+      "status": "passed",
+      "result": "8 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_guarded_signer_diagnostic_smoke_069a.py",
+      "status": "passed",
+      "result": "14 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_live_order_boundary_contract_065b.py",
+      "status": "passed",
+      "result": "8 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_first_live_order_approval_contract_065d.py",
+      "status": "passed",
+      "result": "8 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_static_safety_invariant_report_060q.py",
+      "status": "passed",
+      "result": "9 passed"
+    },
+    {
+      "command": "python -B -m pytest pm_bot/tests",
+      "status": "passed",
+      "result": "2031 passed"
+    },
+    {
+      "command": "python -m compileall -q pm_bot",
+      "status": "passed",
+      "result": "exit_code=0"
+    },
+    {
+      "command": "python -m compileall -q ai_orchestrator",
+      "status": "passed",
+      "result": "exit_code=0"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.signed_order_payload_dry_run --market BTC --strategy tiny-momentum --dry-run",
+      "status": "passed",
+      "result": "status=blocked_non_executable_signed_order_payload_dry_run_no_submit; local_signing_diagnostic_status=diagnostic_not_requested; private_key_read=false; local_payload_signing_attempted=false; signed_payload_submit_enabled=false; order_submission_enabled=false; allowed_for_live=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.guarded_signer_diagnostic_smoke --market BTC --strategy tiny-momentum --dry-run",
+      "status": "passed",
+      "result": "status=blocked_diagnostic_not_requested; private_key_read=false; diagnostic_challenge_signed=false; allowed_for_live=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.static_safety_invariant_report --scope pm_bot --dry-run",
+      "status": "passed",
+      "result": "critical_findings=0; warnings=7"
+    }
+  ],
+  "manual_safety_scan": {
+    "status": "passed",
+    "summary": "The focused 070A tests scan the new runtime source for submit/cancel/write endpoint calls, signing calls, scheduler/daemon/background loop markers, raw private key output, full signed payload output, and fake order/tx/fill/PnL artifacts. Static safety reported zero critical findings."
+  },
+  "validation_notes": [
+    "The feature branch includes a prerequisite cherry-pick of the existing 065D no-execution approval contract because the required validation command referenced a file absent from the specified base head.",
+    "Default committed artifacts are generated from no-key-read, no-signing, no-submit dry-run mode.",
+    "The optional local signing diagnostic flag is intentionally fail-closed because real SDK signing is not implemented in this task.",
+    "Validation runners rewrote several pre-existing generated artifacts as side effects; those unrelated tracked files were restored before staging.",
+    "Compile and test commands created Python cache directories; generated caches were removed before staging.",
+    "The final response records the committed and remotely verified branch HEAD."
+  ],
+  "remaining_risks": [
+    "070A defines a contract scaffold only; it cannot verify real SDK order signing.",
+    "A separate future operator-approved task is required before any local signing implementation or live order path.",
+    "Token id values supplied to 070A artifacts are fingerprinted rather than stored raw."
+  ],
+  "final_git_status": "intended_070a_changes_only_pending_selective_staging_commit_push_remote_verify"
+}
