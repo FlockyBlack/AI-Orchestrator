@@ -1,0 +1,243 @@
+{
+  "task_id": "ORCH-PMBOT-TRADING-MVP-064B-INTEGRATION-MERGE-063T-063A-064-INTO-MASTER",
+  "status": "validated_pending_final_commit_push_verify",
+  "generated_at": "2026-05-15T12:43:17.4892824+04:00",
+  "repository": "https://github.com/FlockyBlack/AI-Orchestrator.git",
+  "worktree": "C:/oc064b_integration_merge_063t_063a_064",
+  "target_branch": "master",
+  "merge_integration_branch": "master",
+  "expected_master_before_merge": "ee2363b75209b3ba9375ea0cd6a8dd5780a456e1",
+  "old_master_head": "ee2363b75209b3ba9375ea0cd6a8dd5780a456e1",
+  "head_before": "ee2363b75209b3ba9375ea0cd6a8dd5780a456e1",
+  "head_after_source_merges_before_result_commit": "b0a7901c1384b47ded54c794d80a929a2450b780",
+  "head_after": "recorded_in_final_response_after_commit_push_verify",
+  "head_after_note": "The final master commit cannot self-record its own SHA inside this committed JSON artifact because embedding the SHA would change the SHA. The final response records the pushed and remotely verified master HEAD.",
+  "source_branch_heads": {
+    "pmbot/safety-063a-forbidden-controls-audit-on-063b-master": "e84a6e77ba3409932a937e638a41b5ea86439efe",
+    "pmbot/telegram-063t-supervised-live-enablement-review-panel": "8aa83939e52e473f9213b7b252a9065f25076c05",
+    "pmbot/trading-mvp-064-explicit-live-credentials-readiness-gate-no-secrets": "dcfdd69ce564dd8cf5e48918266da55a6be56bf9"
+  },
+  "merge_methods": [
+    {
+      "order": 1,
+      "source_branch": "pmbot/safety-063a-forbidden-controls-audit-on-063b-master",
+      "source_head": "e84a6e77ba3409932a937e638a41b5ea86439efe",
+      "method": "git merge --no-ff",
+      "strategy": "ort",
+      "merge_commit": "4898c3cd02c184372884c26c901f47e24db40c86",
+      "conflicts": "none"
+    },
+    {
+      "order": 2,
+      "source_branch": "pmbot/telegram-063t-supervised-live-enablement-review-panel",
+      "source_head": "8aa83939e52e473f9213b7b252a9065f25076c05",
+      "method": "git merge --no-ff",
+      "strategy": "ort",
+      "merge_commit": "f6a112c6e768a378ee25a3da41e12fe38261d73e",
+      "conflicts": "none"
+    },
+    {
+      "order": 3,
+      "source_branch": "pmbot/trading-mvp-064-explicit-live-credentials-readiness-gate-no-secrets",
+      "source_head": "dcfdd69ce564dd8cf5e48918266da55a6be56bf9",
+      "method": "git merge --no-ff",
+      "strategy": "ort",
+      "merge_commit": "b0a7901c1384b47ded54c794d80a929a2450b780",
+      "conflicts": "none"
+    }
+  ],
+  "conflict_summary": {
+    "git_conflicts": "none",
+    "semantic_integration_resolution": "063A forbids live-enable/live-execute/sign/wallet Telegram controls, while 063T had introduced a Telegram dry-run trigger for the 063 supervised gate. The integration removed that Telegram trigger action, kept only the passive /supervised_live_review view, and renamed control-facing labels to supervised readiness review wording.",
+    "safety_preservation": [
+      "Telegram remains review-only and dry-run-only.",
+      "No approve-live, send-order, submit-order, cancel-order, sign, signer, wallet, connect-wallet, unlock-wallet, live-enable, or live-execute Telegram control was retained.",
+      "064 remains marker-only, presence-only, and redacted-only.",
+      "allowed_for_live remains false.",
+      "resolved_blocker_count remains 0 for 064."
+    ]
+  },
+  "changed_files_summary": {
+    "source_merge_summary": {
+      "063a": "Added Telegram forbidden live-control audit documentation/result artifact and pm_bot/tests/test_telegram_forbidden_live_controls_063a.py.",
+      "063t": "Added Telegram supervised readiness review panel docs, tests, status registry updates, runtime/menu wiring, and generated 063T artifacts.",
+      "064": "Added explicit live credentials readiness gate docs, operator runner, trading-core implementation/models, tests, and redacted marker-only artifacts."
+    },
+    "integration_resolution_files": [
+      "pm_bot/operator_runner/telegram_operator_control_bot.py",
+      "pm_bot/operator_runner/telegram_operator_i18n.py",
+      "pm_bot/operator_runner/telegram_operator_runtime.py",
+      "pm_bot/operator_runner/telegram_status_registry.py",
+      "pm_bot/tests/test_telegram_operator_console_060t.py",
+      "pm_bot/tests/test_telegram_supervised_live_enablement_review_063t.py",
+      "pm_bot/trading_core/artifacts/telegram_supervised_live_enablement_review_063t/latest_telegram_supervised_live_enablement_review_status_063t.json",
+      "pm_bot/trading_core/artifacts/telegram_supervised_live_enablement_review_063t/telegram_supervised_live_enablement_review_063t_result.json",
+      "pm_bot/trading_core/artifacts/telegram_supervised_live_enablement_review_063t/telegram_supervised_live_enablement_review_controls_063t.json",
+      "pm_bot/trading_core/artifacts/telegram_supervised_live_enablement_review_063t/telegram_supervised_live_enablement_review_registry_snapshot_063t.json"
+    ],
+    "result_artifact": "docs/ORCH_PMBOT_TRADING_MVP_064B_INTEGRATION_MERGE_063T_063A_064_INTO_MASTER_RESULT.json"
+  },
+  "validation_summary": {
+    "focused_tests": [
+      {
+        "command": "python -m pytest pm_bot/tests/test_telegram_forbidden_live_controls_063a.py",
+        "status": "passed",
+        "summary": "3 passed"
+      },
+      {
+        "command": "python -m pytest pm_bot/tests/test_telegram_supervised_live_enablement_review_063t.py",
+        "status": "passed",
+        "summary": "8 passed"
+      },
+      {
+        "command": "python -m pytest pm_bot/tests/test_explicit_live_credentials_readiness_gate_064.py",
+        "status": "passed",
+        "summary": "8 passed"
+      },
+      {
+        "command": "python -m pytest pm_bot/tests/test_supervised_tiny_live_enablement_gate_063.py",
+        "status": "passed",
+        "summary": "9 passed"
+      },
+      {
+        "command": "python -m pytest pm_bot/tests/test_telegram_pre_live_gate_review_062t.py",
+        "status": "passed",
+        "summary": "7 passed"
+      },
+      {
+        "command": "python -m pytest pm_bot/tests/test_pre_live_tiny_order_gate_062p.py",
+        "status": "passed",
+        "summary": "10 passed"
+      },
+      {
+        "command": "python -m pytest pm_bot/tests/test_telegram_tiny_order_review_061t.py",
+        "status": "passed",
+        "summary": "8 passed"
+      },
+      {
+        "command": "python -m pytest pm_bot/tests/test_tiny_order_scaffold_061.py",
+        "status": "passed",
+        "summary": "13 passed"
+      },
+      {
+        "command": "python -m pytest pm_bot/tests/test_telegram_operator_console_060t.py",
+        "status": "passed",
+        "summary": "8 passed"
+      },
+      {
+        "command": "python -m pytest pm_bot/tests/test_static_safety_invariant_report_060q.py",
+        "status": "passed",
+        "summary": "9 passed"
+      }
+    ],
+    "full_validation": [
+      {
+        "command": "python -B -m pytest pm_bot/tests",
+        "status": "passed",
+        "summary": "1918 passed in 485.00s"
+      },
+      {
+        "command": "python -m compileall -q pm_bot",
+        "status": "passed"
+      },
+      {
+        "command": "python -m compileall -q ai_orchestrator",
+        "status": "passed"
+      }
+    ],
+    "diff_checks": [
+      {
+        "command": "git diff --check",
+        "status": "passed"
+      },
+      {
+        "command": "git diff --cached --check",
+        "status": "passed"
+      }
+    ]
+  },
+  "operator_command_summary": [
+    {
+      "command": "python -m pm_bot.operator_runner.tiny_order_scaffold --market BTC --strategy tiny-momentum --dry-run",
+      "status": "passed",
+      "summary": "Completed in preflight/review-only mode; operator approved false; signing, order submission, and live execution blocked."
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.pre_live_tiny_order_gate --market BTC --strategy tiny-momentum --dry-run",
+      "status": "passed",
+      "summary": "Completed in preflight/review-only mode; candidate executable false; signing, order submission, wallet, and live execution blocked."
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.supervised_tiny_live_enablement_gate --market BTC --strategy tiny-momentum --dry-run",
+      "status": "passed",
+      "summary": "Completed in supervised preparation/review-only mode; operator approved false; candidate executable false; live execution, order submission, order cancellation, signing, and wallet blocked; resolved blockers 0."
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.explicit_live_credentials_readiness_gate --market BTC --strategy tiny-momentum --dry-run",
+      "status": "passed",
+      "summary": "Completed with status blocked; marker presence only; credential values read false; allowed_for_live false; resolved blockers 0."
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.telegram_runtime_smoke",
+      "status": "passed",
+      "summary": "Runtime import ok; network check not requested; safety flags expected false ok."
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.static_safety_invariant_report --scope pm_bot --dry-run",
+      "status": "passed",
+      "summary": "Critical findings 0; warnings 7; live execution, order submission, signing, and wallet blocked."
+    }
+  ],
+  "safety_scan_summary": {
+    "static_safety_invariant_report": {
+      "status": "passed",
+      "critical_findings": 0,
+      "warnings": 7,
+      "strict": false,
+      "artifacts_included": false
+    },
+    "manual_telegram_control_scan": {
+      "status": "passed",
+      "telegram_control_records_scanned": 328,
+      "forbidden_control_violations": 0,
+      "removed_063t_trigger_action_by_id": true,
+      "removed_063t_trigger_action_by_callback": true,
+      "telegram_063t_allowed_dry_run_action_empty": true,
+      "telegram_063t_allowed_dry_run_command_empty": true,
+      "telegram_063t_forbidden_flags_false": true
+    },
+    "manual_credentials_064_scan": {
+      "status": "passed",
+      "allowed_for_live": false,
+      "resolved_blocker_count": 0,
+      "credential_values_read": false,
+      "raw_values_emitted": false
+    },
+    "manual_diff_greps": {
+      "status": "passed",
+      "changed_files_post_put_patch_delete_trading_endpoint_scan": "no matches",
+      "changed_files_browser_scheduler_daemon_autonomy_scan": "no enabled matches",
+      "changed_files_true_execution_flag_scan": "no matches",
+      "changed_files_raw_secret_value_scan": "no matches"
+    },
+    "safety_invariants": [
+      "No live trading enabled.",
+      "No order submission or cancellation enabled.",
+      "No signer instantiated and no signed payload or signed order generation enabled.",
+      "No wallet connection enabled.",
+      "No credential values printed, stored, or used.",
+      "No balance, position, fill, PnL, order ID, tx hash, or execution artifact fetch/fake path added.",
+      "No authenticated trading calls or POST/PUT/PATCH/DELETE trading endpoints added.",
+      "No browser automation, scheduler, daemon, background worker, or autonomous trading loop added."
+    ]
+  },
+  "remote_verification": {
+    "pre_push_origin_master": "ee2363b75209b3ba9375ea0cd6a8dd5780a456e1",
+    "post_push_command": "git ls-remote origin refs/heads/master",
+    "post_push_master_head": "recorded_in_final_response_after_push",
+    "remote_verified": "recorded_in_final_response_after_push"
+  },
+  "git_status_before_result_commit": "modified integration files plus this result artifact pending selective staging",
+  "final_git_status": "recorded_in_final_response_after_commit_push_verify",
+  "pushed": "recorded_in_final_response_after_push"
+}

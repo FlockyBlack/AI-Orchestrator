@@ -518,7 +518,7 @@ class TelegramOperatorControlBot:
                     f"Предлайв чеклист: {clean_text(pre_live_gate.get('checklist_path') or 'not_available')}",
                     f"Предлайв блокеры: {int(pre_live_gate.get('blocker_count', 0) or 0)}",
                     f"Предлайв readiness: {clean_text(pre_live_gate.get('readiness_status') or 'blocked')}",
-                    f"Гейт supervised live enablement: {clean_text(supervised_gate.get('status') or 'not_available')}",
+                    f"Обзор supervised readiness 063: {clean_text(supervised_gate.get('status') or 'not_available')}",
                     f"063 чеклист: {clean_text(supervised_gate.get('operator_checklist_path') or 'not_available')}",
                     f"063 блокеры: {int(supervised_gate.get('blocker_count', 0) or 0)}",
                     f"063 env readiness: {clean_text(supervised_gate.get('env_readiness_path') or 'not_available')}",
@@ -581,7 +581,7 @@ class TelegramOperatorControlBot:
                 f"Pre-live checklist: {clean_text(pre_live_gate.get('checklist_path') or 'not_available')}",
                 f"Pre-live blockers: {int(pre_live_gate.get('blocker_count', 0) or 0)}",
                 f"Pre-live readiness: {clean_text(pre_live_gate.get('readiness_status') or 'blocked')}",
-                f"Supervised live enablement gate: {clean_text(supervised_gate.get('status') or 'not_available')}",
+                f"Supervised readiness review 063: {clean_text(supervised_gate.get('status') or 'not_available')}",
                 f"063 checklist: {clean_text(supervised_gate.get('operator_checklist_path') or 'not_available')}",
                 f"063 blockers: {int(supervised_gate.get('blocker_count', 0) or 0)}",
                 f"063 env readiness: {clean_text(supervised_gate.get('env_readiness_path') or 'not_available')}",
@@ -869,9 +869,9 @@ class TelegramOperatorControlBot:
             lines.extend(bullet_lines(pre_live_gate_reasons))
         if supervised_gate_reasons:
             lines.append(
-                "Supervised live enablement blockers:"
+                "Supervised readiness blockers:"
                 if self._language() != "ru"
-                else "Блокеры supervised live enablement:"
+                else "Блокеры supervised readiness:"
             )
             lines.extend(bullet_lines(supervised_gate_reasons))
         if reasons:
@@ -901,7 +901,7 @@ class TelegramOperatorControlBot:
                     "Live Readiness / Live-проверка",
                     "Tiny Order Review / Малый ордер",
                     "Pre-live tiny order gate / Предлайв-гейт tiny order",
-                    "Supervised live enablement gate / Гейт supervised live enablement",
+                    "Supervised readiness review 063 / Обзор supervised readiness 063",
                     "Tiny Candidate: " + clean_text(tiny_scaffold.get("tiny_candidate") or "not_available"),
                     "Пакет ручного подтверждения: "
                     + clean_text(tiny_scaffold.get("approval_packet_path") or "not_available"),
@@ -960,7 +960,7 @@ class TelegramOperatorControlBot:
                     "Live Readiness",
                     "Tiny Order Review",
                     "Pre-live tiny order gate",
-                    "Supervised live enablement gate",
+                    "Supervised readiness review 063",
                     "Tiny Candidate: " + clean_text(tiny_scaffold.get("tiny_candidate") or "not_available"),
                     "Approval Packet: " + clean_text(tiny_scaffold.get("approval_packet_path") or "not_available"),
                     "Hard Limits: " + _render_hard_limits_inline(tiny_scaffold),
@@ -982,7 +982,7 @@ class TelegramOperatorControlBot:
                     "Env readiness: " + _render_env_readiness_inline(supervised_gate),
                     "Manual approval packet: "
                     + clean_text(supervised_gate.get("manual_approval_packet_path") or "not_available"),
-                    "Run Supervised Gate 063 Dry-Run",
+                    "Local 063 dry-run command",
                     "Blockers",
                     "Latest Artifacts",
                 "Safety State",
@@ -1152,7 +1152,7 @@ class TelegramOperatorControlBot:
                     f"Signer boundary: {clean_text(items.get('signer_boundary') or 'not implemented yet')}",
                     f"Tiny order scaffold: {clean_text(items.get('tiny_order_scaffold') or 'not implemented yet')}",
                     f"Pre-live tiny order gate: {clean_text(items.get('pre_live_tiny_order_gate') or 'not implemented yet')}",
-                    f"Supervised live enablement gate: {clean_text(items.get('supervised_tiny_live_enablement_gate') or 'not implemented yet')}",
+                    f"Supervised readiness review 063: {clean_text(items.get('supervised_tiny_live_enablement_gate') or 'not implemented yet')}",
                     f"Order submission: {clean_text(items.get('order_submission') or 'blocked')}",
                     f"Live execution: {clean_text(items.get('live_execution') or 'blocked')}",
                     "Labels: paper_demo_ready, pre_live_boundary_ready, signer_boundary_missing, tiny_order_scaffold_missing, pre_live_tiny_order_gate_missing, supervised_tiny_live_enablement_gate_missing, live_execution_blocked",
@@ -1171,7 +1171,7 @@ class TelegramOperatorControlBot:
                 f"Signer boundary: {clean_text(items.get('signer_boundary') or 'not implemented yet')}",
                 f"Tiny order scaffold: {clean_text(items.get('tiny_order_scaffold') or 'not implemented yet')}",
                 f"Pre-live tiny order gate: {clean_text(items.get('pre_live_tiny_order_gate') or 'not implemented yet')}",
-                f"Supervised live enablement gate: {clean_text(items.get('supervised_tiny_live_enablement_gate') or 'not implemented yet')}",
+                f"Supervised readiness review 063: {clean_text(items.get('supervised_tiny_live_enablement_gate') or 'not implemented yet')}",
                 f"Order submission: {clean_text(items.get('order_submission') or 'blocked')}",
                 f"Live execution: {clean_text(items.get('live_execution') or 'blocked')}",
                 "Labels: paper_demo_ready, pre_live_boundary_ready, signer_boundary_missing, tiny_order_scaffold_missing, pre_live_tiny_order_gate_missing, supervised_tiny_live_enablement_gate_missing, live_execution_blocked",

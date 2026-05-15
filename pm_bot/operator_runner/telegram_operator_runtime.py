@@ -57,7 +57,7 @@ TELEGRAM_COMMAND_MENU = (
     ("readiness", "Readiness percent"),
     ("tiny_order_review", "Tiny order review"),
     ("pre_live_gate_review", "Pre-live tiny order gate"),
-    ("supervised_live_review", "Supervised live enablement gate"),
+    ("supervised_live_review", "Supervised readiness review"),
     ("risk", "Risk limits"),
     ("language", "Language"),
     ("pause", "Local pause marker"),

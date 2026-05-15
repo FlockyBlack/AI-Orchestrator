@@ -130,7 +130,7 @@ PRE_LIVE_GATE_REVIEW_LABELS = {
 
 SUPERVISED_LIVE_ENABLEMENT_REVIEW_LABELS = {
     "ru": {
-        "section": "Гейт supervised live enablement",
+        "section": "Обзор supervised readiness 063",
         "status": "Статус 063",
         "checklist": "Чеклист оператора",
         "blockers": "Матрица блокеров",
@@ -140,7 +140,7 @@ SUPERVISED_LIVE_ENABLEMENT_REVIEW_LABELS = {
         "failure_plan": "Failure plan",
         "env_readiness": "Готовность окружения",
         "manual_approval_packet": "Пакет ручного подтверждения",
-        "run_dry_run": "Dry-run supervised gate 063",
+        "run_dry_run": "Локальная dry-run команда 063",
         "review_only": "Только просмотр",
         "dry_run_only": "Только dry-run",
         "not_executable": "Не исполняется",
@@ -152,7 +152,7 @@ SUPERVISED_LIVE_ENABLEMENT_REVIEW_LABELS = {
         "allowed_live_false": "allowed_for_live: false",
     },
     "en": {
-        "section": "Supervised live enablement gate",
+        "section": "Supervised readiness review 063",
         "status": "063 status",
         "checklist": "Operator checklist",
         "blockers": "Blocker matrix",
@@ -162,7 +162,7 @@ SUPERVISED_LIVE_ENABLEMENT_REVIEW_LABELS = {
         "failure_plan": "Failure plan",
         "env_readiness": "Env readiness",
         "manual_approval_packet": "Manual approval packet",
-        "run_dry_run": "Run Supervised Gate 063 Dry-Run",
+        "run_dry_run": "Local 063 dry-run command",
         "review_only": "Review only",
         "dry_run_only": "Dry-run only",
         "not_executable": "Not executable",

@@ -1,7 +1,7 @@
 {
-  "allowed_button_label": "Run Supervised Gate 063 Dry-Run",
+  "allowed_button_label": "",
   "allowed_for_live": false,
-  "allowed_ru_button_label": "Dry-run supervised gate 063",
+  "allowed_ru_button_label": "",
   "authenticated_endpoint_enabled": false,
   "authenticated_endpoints_enabled": false,
   "authenticated_polymarket_enabled": false,
@@ -83,7 +83,7 @@
   },
   "fills_view_enabled": false,
   "forbidden_live_controls_added": false,
-  "generated_at": "2026-05-15T00:00:00+04:00",
+  "generated_at": "2026-05-11T00:00:00Z",
   "kill_switch_plan_path": "pm_bot/trading_core/artifacts/supervised_tiny_live_enablement_gate_063/supervised_tiny_live_kill_switch_plan_063.json",
   "kill_switch_plan_summary": {
     "available": true,
@@ -93,8 +93,8 @@
     "plan_is_executable": false,
     "status": "descriptive_only"
   },
-  "label_en": "Supervised live enablement gate",
-  "label_ru": "\u0413\u0435\u0439\u0442 supervised live enablement",
+  "label_en": "Supervised readiness review 063",
+  "label_ru": "\u041e\u0431\u0437\u043e\u0440 supervised readiness 063",
   "live_connector_enabled": false,
   "live_execution_allowed": false,
   "live_execution_approved": false,
@@ -158,18 +158,9 @@
     "max_orders_per_day": 1,
     "status": "preparation_constraints_only"
   },
-  "run_supervised_gate_action_id": "run_supervised_tiny_gate_063_review_dry_run",
-  "run_supervised_gate_callback_data": "pmbot:run:supervised_tiny_gate_063_review_dry_run",
-  "run_supervised_gate_command": [
-    "python",
-    "-m",
-    "pm_bot.operator_runner.supervised_tiny_live_enablement_gate",
-    "--market",
-    "BTC",
-    "--strategy",
-    "tiny-momentum",
-    "--dry-run"
-  ],
+  "run_supervised_gate_action_id": "",
+  "run_supervised_gate_callback_data": "",
+  "run_supervised_gate_command": [],
   "scheduler_or_daemon_added": false,
   "signed_order_generation_enabled": false,
   "signed_payload_available": false,

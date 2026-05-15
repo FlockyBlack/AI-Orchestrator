@@ -309,8 +309,8 @@ STATUS_SOURCES: tuple[TelegramStatusSource, ...] = (
         artifact_dir_name=SUPERVISED_TINY_LIVE_ENABLEMENT_GATE_063_ARTIFACT_DIR_NAME,
         latest_status_filename=SUPERVISED_TINY_LIVE_ENABLEMENT_GATE_063_ARTIFACT_FILENAMES["latest_status"],
         context_key="supervised_tiny_live_enablement_gate_status_summary",
-        label_en="Supervised live enablement gate",
-        label_ru="Гейт supervised live enablement",
+        label_en="Supervised readiness review 063",
+        label_ru="Обзор supervised readiness 063",
     ),
 )
 
@@ -385,14 +385,6 @@ SAFE_ACTIONS: tuple[TelegramSafeAction, ...] = (
         label_en="Run Pre-live Gate 062P Dry-Run",
         label_ru="Dry-run предлайв-гейта 062P",
         module="pm_bot.operator_runner.pre_live_tiny_order_gate",
-        args=("--market", "BTC", "--strategy", "tiny-momentum", "--dry-run"),
-    ),
-    TelegramSafeAction(
-        action_id="run_supervised_tiny_gate_063_review_dry_run",
-        callback_data="pmbot:run:supervised_tiny_gate_063_review_dry_run",
-        label_en="Run Supervised Gate 063 Dry-Run",
-        label_ru="Dry-run supervised gate 063",
-        module="pm_bot.operator_runner.supervised_tiny_live_enablement_gate",
         args=("--market", "BTC", "--strategy", "tiny-momentum", "--dry-run"),
     ),
 )
@@ -757,7 +749,7 @@ def build_supervised_live_enablement_review_063t_status(
 ) -> dict[str, Any]:
     card = dict(cards_by_flow.get(SUPERVISED_TINY_LIVE_ENABLEMENT_GATE_063_FLOW_ID, {}))
     summary = dict(card.get("status_summary", {}))
-    action = safe_action_by_id("run_supervised_tiny_gate_063_review_dry_run")
+    action = None
     checklist = dict(summary.get("operator_checklist_summary", {}))
     blockers = dict(summary.get("blockers_summary", {}))
     risk_limits = dict(summary.get("risk_limits_summary", {}))
@@ -773,8 +765,8 @@ def build_supervised_live_enablement_review_063t_status(
         "status": "telegram_supervised_live_enablement_review_ready_review_only",
         "source_flow_id": SUPERVISED_TINY_LIVE_ENABLEMENT_GATE_063_FLOW_ID,
         "source_status_available": card.get("available") is True,
-        "label_en": "Supervised live enablement gate",
-        "label_ru": "Гейт supervised live enablement",
+        "label_en": "Supervised readiness review 063",
+        "label_ru": "Обзор supervised readiness 063",
         "source_status": clean_text(summary.get("status") or "not_available"),
         "operator_checklist_path": clean_text(summary.get("operator_checklist_path")),
         "blockers_path": clean_text(summary.get("blockers_path")),
@@ -1048,7 +1040,7 @@ def write_telegram_supervised_live_enablement_review_063t_artifacts(
     snapshot = build_telegram_status_registry_snapshot(artifact_root=artifact_root, generated_at=generated_at)
     output = Path(output_dir)
     latest_status = dict(snapshot["supervised_live_enablement_review_063t"])
-    action = safe_action_by_id("run_supervised_tiny_gate_063_review_dry_run")
+    action = None
     controls = {
         "contract_version": SUPERVISED_LIVE_ENABLEMENT_REVIEW_063T_CONTROLS_CONTRACT,
         "task_id": TASK_ID_063T,
@@ -1167,7 +1159,7 @@ def telegram_console_button_rows(language: str) -> tuple[tuple[tuple[str, str], 
     rows.append(
         (
             (
-                "Гейт supervised live enablement" if ru else "Supervised live enablement gate",
+                "Обзор supervised readiness 063" if ru else "Supervised readiness review 063",
                 "pmbot:supervised_live_review",
             ),
         )
@@ -1180,7 +1172,6 @@ def telegram_console_button_rows(language: str) -> tuple[tuple[tuple[str, str], 
         ("run_no_order_auth_get_preflight_059",),
         ("run_tiny_order_scaffold_061",),
         ("run_pre_live_tiny_order_gate_062p_review_dry_run",),
-        ("run_supervised_tiny_gate_063_review_dry_run",),
     ]
     actions_by_id = {action.action_id: action for action in SAFE_ACTIONS}
     for row in action_rows:
@@ -1222,7 +1213,6 @@ def validate_safe_action(action: TelegramSafeAction) -> list[str]:
         "pm_bot.operator_runner.authenticated_clob_preflight",
         "pm_bot.operator_runner.tiny_order_scaffold",
         "pm_bot.operator_runner.pre_live_tiny_order_gate",
-        "pm_bot.operator_runner.supervised_tiny_live_enablement_gate",
     }:
         errors.append(f"unsupported module for Telegram action {action.action_id}")
     return errors

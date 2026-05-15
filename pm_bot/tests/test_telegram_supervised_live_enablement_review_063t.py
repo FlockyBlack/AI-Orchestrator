@@ -35,16 +35,6 @@ RAW_TOKEN = "123456:raw-telegram-token-value"
 SUPERVISED_ACTION_ID = "run_supervised_tiny_gate_063_review_dry_run"
 SUPERVISED_CALLBACK = "pmbot:run:supervised_tiny_gate_063_review_dry_run"
 SUPERVISED_VIEW_CALLBACK = "pmbot:supervised_live_review"
-SUPERVISED_COMMAND_DISPLAY = (
-    "python",
-    "-m",
-    "pm_bot.operator_runner.supervised_tiny_live_enablement_gate",
-    "--market",
-    "BTC",
-    "--strategy",
-    "tiny-momentum",
-    "--dry-run",
-)
 
 REQUIRED_FALSE_FLAGS = (
     "live_execution_approved",
@@ -160,8 +150,8 @@ def test_063_panel_appears_in_telegram_status_registry(tmp_path: Path) -> None:
     card = snapshot["cards_by_flow"][SUPERVISED_TINY_LIVE_ENABLEMENT_GATE_063_FLOW_ID]
     review = snapshot["supervised_live_enablement_review_063t"]
 
-    assert source.label_en == "Supervised live enablement gate"
-    assert source.label_ru == "Гейт supervised live enablement"
+    assert source.label_en == "Supervised readiness review 063"
+    assert source.label_ru == "Обзор supervised readiness 063"
     assert card["available"] is True
     assert card["status"] == "supervised_tiny_live_enablement_prepared_live_blocked"
     assert card["status_summary"]["operator_checklist_path"].endswith(
@@ -179,27 +169,19 @@ def test_063_panel_appears_in_telegram_status_registry(tmp_path: Path) -> None:
         "supervised_tiny_live_manual_approval_packet_063.json"
     )
     assert review["source_status_available"] is True
-    assert review["label_en"] == "Supervised live enablement gate"
-    assert review["label_ru"] == "Гейт supervised live enablement"
+    assert review["label_en"] == "Supervised readiness review 063"
+    assert review["label_ru"] == "Обзор supervised readiness 063"
     assert review["env_readiness_summary"]["presence_only"] is True
     assert review["env_readiness_summary"]["values_redacted"] is True
     assert review["env_readiness_summary"]["raw_values_emitted"] is False
     _assert_required_false_flags(review)
 
 
-def test_063_dry_run_action_points_only_to_supervised_gate_command() -> None:
-    action = safe_action_by_id(SUPERVISED_ACTION_ID)
-    callback_action = safe_action_by_callback(SUPERVISED_CALLBACK)
-
-    assert action is not None
-    assert callback_action is action
-    assert action.command_display == SUPERVISED_COMMAND_DISPLAY
-    assert action.module == "pm_bot.operator_runner.supervised_tiny_live_enablement_gate"
-    assert action.args == ("--market", "BTC", "--strategy", "tiny-momentum", "--dry-run")
-    assert validate_safe_action(action) == []
-    assert "--dry-run" in action.args
-    for forbidden in ("--live", "--execute", "--trade", "--wallet", "--sign", "--submit", "--cancel"):
-        assert forbidden not in action.args
+def test_063_review_panel_does_not_add_telegram_trigger_action() -> None:
+    assert safe_action_by_id(SUPERVISED_ACTION_ID) is None
+    assert safe_action_by_callback(SUPERVISED_CALLBACK) is None
+    assert all(action.callback_data != SUPERVISED_CALLBACK for action in SAFE_ACTIONS)
+    assert all(action.module != "pm_bot.operator_runner.supervised_tiny_live_enablement_gate" for action in SAFE_ACTIONS)
 
 
 def test_supervised_live_review_renders_en_ru_labels_and_safe_command(tmp_path: Path) -> None:
@@ -218,7 +200,7 @@ def test_supervised_live_review_renders_en_ru_labels_and_safe_command(tmp_path: 
         "python -m pm_bot.operator_runner.supervised_tiny_live_enablement_gate "
         "--market BTC --strategy tiny-momentum --dry-run"
     )
-    assert "Supervised live enablement gate" in en.text
+    assert "Supervised readiness review 063" in en.text
     assert "Review only" in en.text
     assert "Dry-run only" in en.text
     assert "Not executable" in en.text
@@ -235,7 +217,7 @@ def test_supervised_live_review_renders_en_ru_labels_and_safe_command(tmp_path: 
     assert "operator_approved: false" in en.text
     assert "candidate_is_executable: false" in en.text
     assert "resolved_blocker_count: 0" in en.text
-    assert "Гейт supervised live enablement" in ru.text
+    assert "Обзор supervised readiness 063" in ru.text
     assert "Только просмотр" in ru.text
     assert "Только dry-run" in ru.text
     assert "Не исполняется" in ru.text
@@ -260,22 +242,17 @@ def test_063_controls_have_no_forbidden_live_order_sign_or_wallet_callbacks(tmp_
     supervised_controls = [
         f"{label} {callback_data}"
         for label, callback_data in all_console_controls
-        if callback_data in {SUPERVISED_CALLBACK, SUPERVISED_VIEW_CALLBACK}
+        if callback_data == SUPERVISED_VIEW_CALLBACK
     ]
-    action = safe_action_by_id(SUPERVISED_ACTION_ID)
-    assert action is not None
     rendered = " ".join(
         [
             *supervised_controls,
-            action.action_id,
-            action.callback_data,
-            action.label_en,
-            action.label_ru,
         ]
     ).lower()
 
-    assert "Run Supervised Gate 063 Dry-Run" in labels
-    assert "Supervised live enablement gate" in panel.text
+    assert "Run Supervised Gate 063 Dry-Run" not in labels
+    assert "Local 063 dry-run command" in panel.text
+    assert "Supervised readiness review 063" in panel.text
     for forbidden in FORBIDDEN_CONTROL_TERMS:
         assert forbidden not in rendered
     assert " sign " not in f" {rendered} "
@@ -298,8 +275,9 @@ def test_063t_generated_artifacts_preserve_false_flags_and_resolved_zero(tmp_pat
 
     for key in ("result_path", "latest_status_path", "registry_snapshot_path", "controls_path"):
         assert Path(generated[key]).exists()
-    assert latest["run_supervised_gate_command"] == list(SUPERVISED_COMMAND_DISPLAY)
-    assert controls["allowed_dry_run_command"] == list(SUPERVISED_COMMAND_DISPLAY)
+    assert latest["run_supervised_gate_command"] == []
+    assert controls["allowed_dry_run_action"] == {}
+    assert controls["allowed_dry_run_command"] == []
     assert controls["forbidden_live_controls_added"] is False
     assert controls["approve_live_control_added"] is False
     assert controls["send_order_control_added"] is False
@@ -331,10 +309,11 @@ def test_063_panel_emits_no_raw_secrets_or_fake_execution_values(tmp_path: Path)
         assert fake_execution not in rendered
 
 
-def test_safe_action_registry_contains_only_dry_run_063t_action_once() -> None:
+def test_safe_action_registry_does_not_add_063t_trigger_action() -> None:
     matches = [action for action in SAFE_ACTIONS if action.action_id == SUPERVISED_ACTION_ID]
 
-    assert len(matches) == 1
+    assert matches == []
+    assert safe_action_by_callback(SUPERVISED_CALLBACK) is None
     for action in SAFE_ACTIONS:
         assert validate_safe_action(action) == []
         assert "--dry-run" in action.args

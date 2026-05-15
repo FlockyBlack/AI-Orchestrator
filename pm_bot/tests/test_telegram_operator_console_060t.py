@@ -247,7 +247,6 @@ def test_telegram_panel_menu_contains_safe_dry_run_and_preflight_actions(tmp_pat
         "Run Authenticated CLOB Preflight 057/058",
         "Run No-Order Auth GET Preflight 059",
         "Run Pre-live Gate 062P Dry-Run",
-        "Run Supervised Gate 063 Dry-Run",
         "Show Latest Status",
         "Show Blockers",
         "Show Readiness %",
@@ -337,7 +336,7 @@ def test_ru_and_en_labels_render_where_language_is_supported(tmp_path: Path) -> 
     assert "Журнал решений" in ru_panel.text
     assert "Live-проверка" in ru_panel.text
     assert "Предлайв-гейт tiny order" in ru_panel.text
-    assert "Гейт supervised live enablement" in ru_panel.text
+    assert "Обзор supervised readiness 063" in ru_panel.text
     assert "Блокеры" in ru_panel.text
     assert "Только review-only" in ru_panel.text
     assert "Live-торговля заблокирована" in ru_panel.text
