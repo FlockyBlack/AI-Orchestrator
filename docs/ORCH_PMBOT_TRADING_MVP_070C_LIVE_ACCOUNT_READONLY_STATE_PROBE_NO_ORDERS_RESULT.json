@@ -1,0 +1,128 @@
+{
+  "task_id": "ORCH-PMBOT-TRADING-MVP-070C-LIVE-ACCOUNT-READONLY-STATE-PROBE-NO-ORDERS",
+  "status": "validated_pending_commit_push_verify",
+  "generated_at": "2026-05-15T00:00:00+04:00",
+  "repository": "https://github.com/FlockyBlack/AI-Orchestrator.git",
+  "worktree": "C:/oc070c_live_account_readonly_state_probe_no_orders",
+  "branch": "pmbot/trading-mvp-070c-live-account-readonly-state-probe-no-orders",
+  "base_branch": "master",
+  "required_base_head": "010bb351ab17e60275d4d6d0771f95ab8058e255",
+  "head_before": "010bb351ab17e60275d4d6d0771f95ab8058e255",
+  "head_after": "recorded_in_final_response_after_commit_push_verify",
+  "head_after_note": "The final commit cannot self-record its own SHA inside this committed JSON artifact because embedding the SHA would change the SHA. The final response records the pushed and remotely verified feature-branch HEAD.",
+  "implementation_summary": [
+    "Added live account read-only state probe models.",
+    "Added SDK-backed account state probe with redacted wallet/funder/signature diagnostics.",
+    "Added operator runner command.",
+    "Added focused tests for private-key read boundaries, missing L2 credentials, SDK/method failure states, redaction, read-only flags, and dry-run runner behavior."
+  ],
+  "changed_files": [
+    "pm_bot/trading_core/live_account_readonly_state_models.py",
+    "pm_bot/trading_core/live_account_readonly_state_probe.py",
+    "pm_bot/operator_runner/live_account_readonly_state_probe.py",
+    "pm_bot/tests/test_live_account_readonly_state_probe_070c.py",
+    "pm_bot/trading_core/artifacts/live_account_readonly_state_probe_070c/live_account_readonly_state_probe_070c_result.json",
+    "pm_bot/trading_core/artifacts/live_account_readonly_state_probe_070c/latest_live_account_readonly_state_status_070c.json",
+    "pm_bot/trading_core/artifacts/live_account_readonly_state_probe_070c/live_account_readonly_state_diagnostics_070c.json",
+    "pm_bot/trading_core/artifacts/live_account_readonly_state_probe_070c/live_account_readonly_state_redaction_policy_070c.json",
+    "pm_bot/trading_core/artifacts/live_account_readonly_state_probe_070c/live_account_readonly_state_operator_summary_070c.md",
+    "docs/ORCH_PMBOT_TRADING_MVP_070C_LIVE_ACCOUNT_READONLY_STATE_PROBE_NO_ORDERS.md",
+    "docs/ORCH_PMBOT_TRADING_MVP_070C_LIVE_ACCOUNT_READONLY_STATE_PROBE_NO_ORDERS_RESULT.json"
+  ],
+  "generated_artifacts": [
+    "pm_bot/trading_core/artifacts/live_account_readonly_state_probe_070c/live_account_readonly_state_probe_070c_result.json",
+    "pm_bot/trading_core/artifacts/live_account_readonly_state_probe_070c/latest_live_account_readonly_state_status_070c.json",
+    "pm_bot/trading_core/artifacts/live_account_readonly_state_probe_070c/live_account_readonly_state_diagnostics_070c.json",
+    "pm_bot/trading_core/artifacts/live_account_readonly_state_probe_070c/live_account_readonly_state_redaction_policy_070c.json",
+    "pm_bot/trading_core/artifacts/live_account_readonly_state_probe_070c/live_account_readonly_state_operator_summary_070c.md"
+  ],
+  "live_probe_result_summary": {
+    "command": "python -m pm_bot.operator_runner.live_account_readonly_state_probe --market BTC --strategy tiny-momentum --dry-run",
+    "status": "blocked_missing_l2_credentials",
+    "account_state_probe_attempted": false,
+    "account_state_probe_performed": false,
+    "probe_is_readonly": true,
+    "allowed_for_live": false,
+    "note": "The shell used for validation did not expose the three L2 credential env vars, so no SDK dependency check or authenticated account-state read was performed."
+  },
+  "validation_summary": {
+    "status": "passed",
+    "commands": [
+      {
+        "command": "python -m pytest pm_bot/tests/test_live_account_readonly_state_probe_070c.py",
+        "status": "passed",
+        "summary": "9 passed"
+      },
+      {
+        "command": "python -m pytest pm_bot/tests/test_clob_l2_auth_readonly_probe_067c.py",
+        "status": "passed",
+        "summary": "10 passed"
+      },
+      {
+        "command": "python -m pytest pm_bot/tests/test_static_safety_invariant_report_060q.py",
+        "status": "passed",
+        "summary": "9 passed"
+      },
+      {
+        "command": "python -B -m pytest pm_bot/tests",
+        "status": "passed",
+        "summary": "2024 passed in 726.60s"
+      },
+      {
+        "command": "python -m compileall -q pm_bot",
+        "status": "passed",
+        "summary": "compileall completed without errors"
+      },
+      {
+        "command": "python -m compileall -q ai_orchestrator",
+        "status": "passed",
+        "summary": "compileall completed without errors"
+      },
+      {
+        "command": "python -m pm_bot.operator_runner.live_account_readonly_state_probe --market BTC --strategy tiny-momentum --dry-run",
+        "status": "passed",
+        "summary": "runner completed with status blocked_missing_l2_credentials; account_state_probe_performed=false"
+      },
+      {
+        "command": "python -m pm_bot.operator_runner.clob_l2_auth_readonly_probe --market BTC --strategy tiny-momentum --dry-run",
+        "status": "passed",
+        "summary": "runner completed with status blocked_missing_l2_credentials; auth_verified=false"
+      },
+      {
+        "command": "python -m pm_bot.operator_runner.static_safety_invariant_report --scope pm_bot --dry-run",
+        "status": "passed",
+        "summary": "runner completed with 0 critical findings and 7 warnings"
+      },
+      {
+        "command": "git diff --check",
+        "status": "passed",
+        "summary": "no whitespace errors"
+      },
+      {
+        "command": "git diff --cached --check",
+        "status": "passed",
+        "summary": "no whitespace errors before staging"
+      }
+    ]
+  },
+  "safety_flags": {
+    "allowed_for_live": false,
+    "probe_is_readonly": true,
+    "private_key_read": false,
+    "wallet_connection_attempted": false,
+    "signer_instantiated": false,
+    "signing_attempted": false,
+    "signed_payload_generated": false,
+    "order_submission_attempted": false,
+    "order_cancellation_attempted": false,
+    "post_put_patch_delete_attempted": false,
+    "browser_automation_added": false,
+    "scheduler_or_daemon_added": false,
+    "background_worker_added": false,
+    "autonomous_live_trading_added": false
+  },
+  "remaining_risks": [
+    "A real authenticated read-only probe depends on the operator shell exposing L2 credentials and an installed supported CLOB SDK.",
+    "The official Python CLOB SDK is not added as a dependency by this task; unsupported or missing SDKs fail closed."
+  ]
+}
