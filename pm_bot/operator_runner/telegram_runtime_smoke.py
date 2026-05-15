@@ -29,6 +29,13 @@ HANDOFF_CHECKLIST_PATH = (
 TELEGRAM_GET_ME_URL_REDACTED = "https://api.telegram.org/bot<redacted>/getMe"
 
 EXPECTED_FALSE_FLAGS = (
+    "operator_approved",
+    "candidate_is_executable",
+    "signing_available",
+    "signed_payload_available",
+    "order_submission_available",
+    "wallet_available",
+    "ready_for_future_live_enablement",
     "allowed_for_live",
     "canary_executable_now",
     "live_execution_approved",

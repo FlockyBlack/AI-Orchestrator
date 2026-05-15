@@ -1,0 +1,142 @@
+{
+  "task_id": "ORCH-PMBOT-TELEGRAM-062T-PRE-LIVE-TINY-ORDER-GATE-REVIEW-PANEL",
+  "status": "validation_passed_pending_git_push",
+  "worktree": "C:/oc062t_telegram_pre_live_gate_review",
+  "branch": "pmbot/telegram-062t-pre-live-tiny-order-gate-review-panel",
+  "base": "origin/master",
+  "head_before": "ae6c3e72ccd6fe8a4a4cf6db3f7a8cb39aee21c5",
+  "head_after": "pending_commit",
+  "pushed": false,
+  "remote_verified": false,
+  "changed_files": [
+    "docs/ORCH_PMBOT_TELEGRAM_062T_PRE_LIVE_TINY_ORDER_GATE_REVIEW_PANEL.md",
+    "docs/ORCH_PMBOT_TELEGRAM_062T_PRE_LIVE_TINY_ORDER_GATE_REVIEW_PANEL_RESULT.json",
+    "pm_bot/operator_runner/telegram_operator_control_bot.py",
+    "pm_bot/operator_runner/telegram_operator_i18n.py",
+    "pm_bot/operator_runner/telegram_operator_runtime.py",
+    "pm_bot/operator_runner/telegram_runtime_smoke.py",
+    "pm_bot/operator_runner/telegram_status_registry.py",
+    "pm_bot/tests/test_telegram_operator_console_060t.py",
+    "pm_bot/tests/test_telegram_pre_live_gate_review_062t.py",
+    "pm_bot/trading_core/artifacts/telegram_pre_live_gate_review_062t/latest_telegram_pre_live_gate_review_status_062t.json",
+    "pm_bot/trading_core/artifacts/telegram_pre_live_gate_review_062t/telegram_pre_live_gate_review_062t_result.json",
+    "pm_bot/trading_core/artifacts/telegram_pre_live_gate_review_062t/telegram_pre_live_gate_review_controls_062t.json",
+    "pm_bot/trading_core/artifacts/telegram_pre_live_gate_review_062t/telegram_pre_live_gate_review_registry_snapshot_062t.json"
+  ],
+  "generated_artifacts": [
+    "pm_bot/trading_core/artifacts/telegram_pre_live_gate_review_062t/latest_telegram_pre_live_gate_review_status_062t.json",
+    "pm_bot/trading_core/artifacts/telegram_pre_live_gate_review_062t/telegram_pre_live_gate_review_062t_result.json",
+    "pm_bot/trading_core/artifacts/telegram_pre_live_gate_review_062t/telegram_pre_live_gate_review_controls_062t.json",
+    "pm_bot/trading_core/artifacts/telegram_pre_live_gate_review_062t/telegram_pre_live_gate_review_registry_snapshot_062t.json"
+  ],
+  "validation_results": [
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_pre_live_gate_review_062t.py",
+      "status": "passed",
+      "summary": "7 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_pre_live_tiny_order_gate_062p.py",
+      "status": "passed",
+      "summary": "10 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_tiny_order_review_061t.py",
+      "status": "passed",
+      "summary": "8 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_tiny_order_scaffold_061.py",
+      "status": "passed",
+      "summary": "13 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_operator_console_060t.py",
+      "status": "passed",
+      "summary": "8 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_signer_boundary_preflight_060.py",
+      "status": "passed",
+      "summary": "11 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_static_safety_invariant_report_060q.py",
+      "status": "passed",
+      "summary": "9 passed"
+    },
+    {
+      "command": "python -B -m pytest pm_bot/tests",
+      "status": "passed",
+      "summary": "1890 passed"
+    },
+    {
+      "command": "python -m compileall -q pm_bot",
+      "status": "passed"
+    },
+    {
+      "command": "python -m compileall -q ai_orchestrator",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.pre_live_tiny_order_gate --market BTC --strategy tiny-momentum --dry-run",
+      "status": "passed",
+      "summary": "Pre-live tiny order gate completed; operator approved false; candidate executable false; signing/order/wallet/live blocked"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.telegram_runtime_smoke",
+      "status": "passed",
+      "summary": "Ready to start runtime: true; Safety flags expected false: ok"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.static_safety_invariant_report --scope pm_bot --dry-run",
+      "status": "passed",
+      "summary": "Critical findings: 0; warnings: 7"
+    }
+  ],
+  "manual_safety_scan": {
+    "status": "passed",
+    "summary": "062T control scan passed; allowed dry-run command points only to pm_bot.operator_runner.pre_live_tiny_order_gate with --dry-run; forbidden control flags remain false.",
+    "rg_followup": "Forbidden terms only appeared in denylist/test constants and the documentation safety statement, not as Telegram approve/live/order/sign/wallet controls."
+  },
+  "safety_confirmation": {
+    "live_trading_enabled": false,
+    "order_submission_enabled": false,
+    "signing_enabled": false,
+    "signer_instantiated": false,
+    "wallet_connection_added": false,
+    "private_key_seed_or_secret_reads_added": false,
+    "balance_position_fill_pnl_fetches_added": false,
+    "scheduler_daemon_background_loop_added": false,
+    "browser_automation_added": false,
+    "operator_approved": false,
+    "candidate_is_executable": false,
+    "signing_available": false,
+    "signed_payload_available": false,
+    "order_submission_available": false,
+    "wallet_available": false,
+    "live_execution_approved": false,
+    "ready_for_future_live_enablement": false,
+    "allowed_for_live": false,
+    "resolved_blocker_count": 0
+  },
+  "allowed_run_button": {
+    "label_en": "Run Pre-live Gate 062P Dry-Run",
+    "label_ru": "Dry-run \u043f\u0440\u0435\u0434\u043b\u0430\u0439\u0432-\u0433\u0435\u0439\u0442\u0430 062P",
+    "action_id": "run_pre_live_tiny_order_gate_062p_review_dry_run",
+    "callback_data": "pmbot:run:pre_live_tiny_order_gate_062p_review_dry_run",
+    "command": [
+      "python",
+      "-m",
+      "pm_bot.operator_runner.pre_live_tiny_order_gate",
+      "--market",
+      "BTC",
+      "--strategy",
+      "tiny-momentum",
+      "--dry-run"
+    ]
+  },
+  "remaining_risks": [
+    "The result JSON is committed before push, so final commit hash, push, and remote verification are reported in the operator response."
+  ]
+}

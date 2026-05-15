@@ -85,6 +85,49 @@ TINY_ORDER_REVIEW_LABELS = {
     },
 }
 
+PRE_LIVE_GATE_REVIEW_LABELS = {
+    "ru": {
+        "section": "Предлайв-гейт tiny order",
+        "status": "Статус 062P",
+        "checklist": "Чеклист",
+        "blockers": "Блокеры",
+        "readiness": "Readiness summary",
+        "operator_md": "Операторский markdown",
+        "run_dry_run": "Dry-run предлайв-гейта 062P",
+        "review_only": "Только обзор",
+        "dry_run_only": "Только dry-run",
+        "operator_approved_false": "Оператор подтвердил: нет",
+        "candidate_not_executable": "Кандидат не исполняемый",
+        "signing_unavailable": "Подписание недоступно",
+        "order_submission_unavailable": "Отправка ордера недоступна",
+        "wallet_unavailable": "Кошелёк недоступен",
+        "live_blocked": "Live-торговля заблокирована",
+        "ready_future_false": "Готовность к future live enablement: false",
+        "allowed_live_false": "allowed_for_live: false",
+        "resolved_zero": "resolved_blocker_count: 0",
+    },
+    "en": {
+        "section": "Pre-live tiny order gate",
+        "status": "062P status",
+        "checklist": "Checklist",
+        "blockers": "Blockers",
+        "readiness": "Readiness summary",
+        "operator_md": "Operator markdown",
+        "run_dry_run": "Run Pre-live Gate 062P Dry-Run",
+        "review_only": "Review-only",
+        "dry_run_only": "Dry-run only",
+        "operator_approved_false": "Operator approved: false",
+        "candidate_not_executable": "Candidate is executable: false",
+        "signing_unavailable": "Signing unavailable",
+        "order_submission_unavailable": "Order submission unavailable",
+        "wallet_unavailable": "Wallet unavailable",
+        "live_blocked": "Live execution blocked",
+        "ready_future_false": "Ready for future live enablement: false",
+        "allowed_live_false": "allowed_for_live: false",
+        "resolved_zero": "resolved_blocker_count: 0",
+    },
+}
+
 
 def normalize_operator_language(value: Any, *, fallback: str = "") -> str:
     language = clean_text(value).lower()
@@ -144,6 +187,13 @@ def panel_launch_button_label(language: str) -> str:
 
 def tiny_order_review_label(key: str, language: str) -> str:
     labels = TINY_ORDER_REVIEW_LABELS[
+        normalize_operator_language(language, fallback=DEFAULT_OPERATOR_LANGUAGE)
+    ]
+    return labels.get(clean_text(key), "")
+
+
+def pre_live_gate_review_label(key: str, language: str) -> str:
+    labels = PRE_LIVE_GATE_REVIEW_LABELS[
         normalize_operator_language(language, fallback=DEFAULT_OPERATOR_LANGUAGE)
     ]
     return labels.get(clean_text(key), "")

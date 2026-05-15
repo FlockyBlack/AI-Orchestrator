@@ -166,7 +166,7 @@ def test_status_registry_reads_existing_052_059_latest_artifacts(tmp_path: Path)
 
     snapshot = build_telegram_status_registry_snapshot(artifact_root=tmp_path, generated_at=GENERATED_AT)
 
-    assert snapshot["available_status_count"] == 10
+    assert snapshot["available_status_count"] == len(STATUS_SOURCES)
     assert snapshot["missing_status_count"] == 0
     for source in STATUS_SOURCES:
         card = snapshot["cards_by_flow"][source.flow_id]
@@ -197,11 +197,12 @@ def test_missing_artifact_paths_do_not_crash_and_readiness_is_produced(tmp_path:
     readiness = snapshot["readiness_summary"]
 
     assert snapshot["available_status_count"] == 0
-    assert snapshot["missing_status_count"] == 10
-    assert len(snapshot["status_cards"]) == 10
+    assert snapshot["missing_status_count"] == len(STATUS_SOURCES)
+    assert len(snapshot["status_cards"]) == len(STATUS_SOURCES)
     assert readiness["items"]["paper_system"] == "blocked"
     assert readiness["items"]["signer_boundary"] == "not implemented yet"
     assert readiness["items"]["tiny_order_scaffold"] == "not implemented yet"
+    assert readiness["items"]["pre_live_tiny_order_gate"] == "not implemented yet"
     assert readiness["items"]["order_submission"] == "blocked"
     assert readiness["items"]["live_execution"] == "blocked"
     assert set(readiness["labels"]) == {
@@ -209,6 +210,7 @@ def test_missing_artifact_paths_do_not_crash_and_readiness_is_produced(tmp_path:
         "pre_live_boundary_ready",
         "signer_boundary_missing",
         "tiny_order_scaffold_missing",
+        "pre_live_tiny_order_gate_missing",
         "live_execution_blocked",
     }
 
@@ -242,6 +244,7 @@ def test_telegram_panel_menu_contains_safe_dry_run_and_preflight_actions(tmp_pat
         "Run Authenticated CLOB Preflight 057/058",
         "Run No-Order Auth GET Preflight 059",
         "Run Signer Boundary Preflight 060",
+        "Run Pre-live Gate 062P Dry-Run",
         "Show Latest Status",
         "Show Blockers",
         "Show Readiness %",
@@ -327,6 +330,7 @@ def test_ru_and_en_labels_render_where_language_is_supported(tmp_path: Path) -> 
     assert "Публичный рынок" in ru_panel.text
     assert "Журнал решений" in ru_panel.text
     assert "Live-проверка" in ru_panel.text
+    assert "Предлайв-гейт tiny order" in ru_panel.text
     assert "Блокеры" in ru_panel.text
     assert "Только review-only" in ru_panel.text
     assert "Live-торговля заблокирована" in ru_panel.text

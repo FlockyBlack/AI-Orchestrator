@@ -13,12 +13,16 @@ from pm_bot.trading_core.schemas import GENERATED_AT, clean_text, load_json_obje
 
 TASK_ID = "ORCH-PMBOT-TELEGRAM-060T-OPERATOR-CONSOLE-FOR-PMBOT-STATUS-AND-DRY-RUNS"
 TASK_ID_061T = "ORCH-PMBOT-TELEGRAM-061T-TINY-ORDER-SCAFFOLD-REVIEW-PANEL"
+TASK_ID_062T = "ORCH-PMBOT-TELEGRAM-062T-PRE-LIVE-TINY-ORDER-GATE-REVIEW-PANEL"
 STATUS_REGISTRY_CONTRACT = "pmbot_telegram_operator_console_060t_status_registry.v1"
 STATUS_CARD_CONTRACT = "pmbot_telegram_operator_console_060t_status_card.v1"
 READINESS_SUMMARY_CONTRACT = "pmbot_telegram_operator_console_060t_readiness.v1"
 ACTION_RESULT_CONTRACT = "pmbot_telegram_operator_console_060t_action_result.v1"
 TINY_ORDER_REVIEW_061T_STATUS_CONTRACT = "pmbot_telegram_tiny_order_review_061t_status.v1"
 TINY_ORDER_REVIEW_061T_RESULT_CONTRACT = "pmbot_telegram_tiny_order_review_061t_result.v1"
+PRE_LIVE_GATE_REVIEW_062T_STATUS_CONTRACT = "pmbot_telegram_pre_live_gate_review_062t_status.v1"
+PRE_LIVE_GATE_REVIEW_062T_RESULT_CONTRACT = "pmbot_telegram_pre_live_gate_review_062t_result.v1"
+PRE_LIVE_GATE_REVIEW_062T_CONTROLS_CONTRACT = "pmbot_telegram_pre_live_gate_review_062t_controls.v1"
 
 DEFAULT_ARTIFACT_ROOT = Path("pm_bot/trading_core/artifacts")
 TELEGRAM_OPERATOR_CONSOLE_ARTIFACT_DIR = DEFAULT_ARTIFACT_ROOT / "telegram_operator_console_060t"
@@ -41,6 +45,19 @@ LATEST_TELEGRAM_TINY_ORDER_REVIEW_STATUS_PATH = (
 TELEGRAM_TINY_ORDER_REVIEW_REGISTRY_SNAPSHOT_PATH = (
     TELEGRAM_TINY_ORDER_REVIEW_ARTIFACT_DIR / "telegram_tiny_order_review_registry_snapshot_061t.json"
 )
+TELEGRAM_PRE_LIVE_GATE_REVIEW_ARTIFACT_DIR = DEFAULT_ARTIFACT_ROOT / "telegram_pre_live_gate_review_062t"
+TELEGRAM_PRE_LIVE_GATE_REVIEW_RESULT_PATH = (
+    TELEGRAM_PRE_LIVE_GATE_REVIEW_ARTIFACT_DIR / "telegram_pre_live_gate_review_062t_result.json"
+)
+LATEST_TELEGRAM_PRE_LIVE_GATE_REVIEW_STATUS_PATH = (
+    TELEGRAM_PRE_LIVE_GATE_REVIEW_ARTIFACT_DIR / "latest_telegram_pre_live_gate_review_status_062t.json"
+)
+TELEGRAM_PRE_LIVE_GATE_REVIEW_REGISTRY_SNAPSHOT_PATH = (
+    TELEGRAM_PRE_LIVE_GATE_REVIEW_ARTIFACT_DIR / "telegram_pre_live_gate_review_registry_snapshot_062t.json"
+)
+TELEGRAM_PRE_LIVE_GATE_REVIEW_CONTROLS_PATH = (
+    TELEGRAM_PRE_LIVE_GATE_REVIEW_ARTIFACT_DIR / "telegram_pre_live_gate_review_controls_062t.json"
+)
 
 TINY_ORDER_SCAFFOLD_061_FLOW_ID = "tiny_order_scaffold_061"
 TINY_ORDER_SCAFFOLD_061_ARTIFACT_DIR_NAME = "tiny_order_scaffold_061"
@@ -51,8 +68,23 @@ TINY_ORDER_SCAFFOLD_061_ARTIFACT_FILENAMES = {
     "hard_limits": "tiny_order_hard_limits_061.json",
     "submission_availability": "tiny_order_submission_availability_061.json",
 }
+PRE_LIVE_TINY_ORDER_GATE_062P_FLOW_ID = "pre_live_tiny_order_gate_062p"
+PRE_LIVE_TINY_ORDER_GATE_062P_ARTIFACT_DIR_NAME = "pre_live_tiny_order_gate_062p"
+PRE_LIVE_TINY_ORDER_GATE_062P_ARTIFACT_FILENAMES = {
+    "latest_status": "latest_pre_live_tiny_order_gate_status_062p.json",
+    "checklist": "pre_live_tiny_order_checklist_062p.json",
+    "blockers": "pre_live_tiny_order_blockers_062p.json",
+    "readiness_summary": "pre_live_tiny_order_readiness_summary_062p.json",
+    "operator_md": "pre_live_tiny_order_gate_062p_operator.md",
+}
 
 FORCED_FALSE_SAFETY_FLAGS = (
+    "operator_approved",
+    "candidate_is_executable",
+    "signing_available",
+    "signed_payload_available",
+    "order_submission_available",
+    "wallet_available",
     "live_execution_approved",
     "order_submission_enabled",
     "wallet_signing_enabled",
@@ -62,6 +94,7 @@ FORCED_FALSE_SAFETY_FLAGS = (
     "authenticated_polymarket_enabled",
     "live_connector_enabled",
     "allowed_for_live",
+    "ready_for_future_live_enablement",
 )
 
 FORBIDDEN_ACTION_LABEL_TERMS = (
@@ -213,6 +246,15 @@ STATUS_SOURCES: tuple[TelegramStatusSource, ...] = (
         label_en="Tiny Order Scaffold 061",
         label_ru="Малый ордер 061",
     ),
+    TelegramStatusSource(
+        flow_id=PRE_LIVE_TINY_ORDER_GATE_062P_FLOW_ID,
+        section="Live Readiness",
+        artifact_dir_name=PRE_LIVE_TINY_ORDER_GATE_062P_ARTIFACT_DIR_NAME,
+        latest_status_filename=PRE_LIVE_TINY_ORDER_GATE_062P_ARTIFACT_FILENAMES["latest_status"],
+        context_key="pre_live_tiny_order_gate_status_summary",
+        label_en="Pre-live tiny order gate",
+        label_ru="Предлайв-гейт tiny order",
+    ),
 )
 
 SAFE_ACTIONS: tuple[TelegramSafeAction, ...] = (
@@ -288,6 +330,14 @@ SAFE_ACTIONS: tuple[TelegramSafeAction, ...] = (
         module="pm_bot.operator_runner.tiny_order_scaffold",
         args=("--market", "BTC", "--strategy", "tiny-momentum", "--dry-run"),
     ),
+    TelegramSafeAction(
+        action_id="run_pre_live_tiny_order_gate_062p_review_dry_run",
+        callback_data="pmbot:run:pre_live_tiny_order_gate_062p_review_dry_run",
+        label_en="Run Pre-live Gate 062P Dry-Run",
+        label_ru="Dry-run предлайв-гейта 062P",
+        module="pm_bot.operator_runner.pre_live_tiny_order_gate",
+        args=("--market", "BTC", "--strategy", "tiny-momentum", "--dry-run"),
+    ),
 )
 
 STATUS_READ_BUTTONS = {
@@ -320,6 +370,7 @@ def build_telegram_status_registry_snapshot(
     latest_artifacts = build_latest_artifacts(cards_by_flow)
     safety_state = telegram_console_safety_state()
     tiny_order_review = build_tiny_order_review_061t_status(cards_by_flow, generated_at=generated_at)
+    pre_live_gate_review = build_pre_live_gate_review_062t_status(cards_by_flow, generated_at=generated_at)
     snapshot = {
         "contract_version": STATUS_REGISTRY_CONTRACT,
         "task_id": TASK_ID,
@@ -334,6 +385,7 @@ def build_telegram_status_registry_snapshot(
         "blockers_summary": blockers,
         "latest_artifacts": latest_artifacts,
         "tiny_order_review_061t": tiny_order_review,
+        "pre_live_tiny_order_gate_review_062t": pre_live_gate_review,
         "context_fields": context_fields,
         "safe_actions": [safe_action_to_dict(action) for action in SAFE_ACTIONS],
         "status_read_buttons": dict(STATUS_READ_BUTTONS),
@@ -369,6 +421,7 @@ def build_telegram_console_context(
             "telegram_operator_console_safety_state": snapshot["safety_state"],
             "telegram_operator_console_artifact_root": snapshot["artifact_root"],
             "telegram_tiny_order_review_061t_status": snapshot["tiny_order_review_061t"],
+            "telegram_pre_live_gate_review_062t_status": snapshot["pre_live_tiny_order_gate_review_062t"],
         }
     )
     return context
@@ -393,6 +446,7 @@ def build_readiness_summary(
     )
     signer_boundary_ready = _available(cards_by_flow, "signer_boundary_preflight_060")
     tiny_scaffold_ready = _available(cards_by_flow, "tiny_order_scaffold_061")
+    pre_live_gate_ready = _available(cards_by_flow, "pre_live_tiny_order_gate_062p")
     readiness_items = {
         "paper_system": "ready" if paper_ready else "blocked",
         "public_market_data": "ready" if public_ready else "blocked",
@@ -401,6 +455,7 @@ def build_readiness_summary(
         "auth_boundary": "ready_live_blocked" if auth_boundary_ready else "blocked",
         "signer_boundary": "ready_live_blocked" if signer_boundary_ready else "not implemented yet",
         "tiny_order_scaffold": "ready_live_blocked" if tiny_scaffold_ready else "not implemented yet",
+        "pre_live_tiny_order_gate": "ready_live_blocked" if pre_live_gate_ready else "not implemented yet",
         "order_submission": "blocked",
         "live_execution": "blocked",
     }
@@ -412,11 +467,13 @@ def build_readiness_summary(
         "auth_boundary",
         "signer_boundary",
         "tiny_order_scaffold",
+        "pre_live_tiny_order_gate",
     )
     ready_count = sum(1 for key in countable if readiness_items[key] in {"ready", "ready_live_blocked"})
     readiness_percent = int(round((ready_count / len(countable)) * 100))
     signer_boundary_label = "signer_boundary_ready" if signer_boundary_ready else "signer_boundary_missing"
     tiny_scaffold_label = "tiny_order_scaffold_ready" if tiny_scaffold_ready else "tiny_order_scaffold_missing"
+    pre_live_gate_label = "pre_live_tiny_order_gate_ready" if pre_live_gate_ready else "pre_live_tiny_order_gate_missing"
     return {
         "contract_version": READINESS_SUMMARY_CONTRACT,
         "task_id": TASK_ID,
@@ -429,6 +486,7 @@ def build_readiness_summary(
             "pre_live_boundary_ready",
             signer_boundary_label,
             tiny_scaffold_label,
+            pre_live_gate_label,
             "live_execution_blocked",
         ],
         "paper_demo_ready": paper_ready and public_ready and ledger_ready,
@@ -437,6 +495,8 @@ def build_readiness_summary(
         "signer_boundary_ready": signer_boundary_ready,
         "tiny_order_scaffold_missing": not tiny_scaffold_ready,
         "tiny_order_scaffold_ready": tiny_scaffold_ready,
+        "pre_live_tiny_order_gate_missing": not pre_live_gate_ready,
+        "pre_live_tiny_order_gate_ready": pre_live_gate_ready,
         "live_execution_blocked": True,
         "review_only": True,
         "execution_enabling": False,
@@ -488,6 +548,16 @@ def build_latest_artifacts(cards_by_flow: Mapping[str, Mapping[str, Any]]) -> di
                 ),
             }
         )
+    pre_live = dict(cards_by_flow.get(PRE_LIVE_TINY_ORDER_GATE_062P_FLOW_ID, {}).get("status_summary", {}))
+    if pre_live:
+        latest[PRE_LIVE_TINY_ORDER_GATE_062P_FLOW_ID].update(
+            {
+                "checklist_path": clean_text(pre_live.get("checklist_path")),
+                "blockers_path": clean_text(pre_live.get("blockers_path")),
+                "readiness_summary_path": clean_text(pre_live.get("readiness_summary_path")),
+                "operator_markdown_path": clean_text(pre_live.get("operator_markdown_path")),
+            }
+        )
     return latest
 
 
@@ -527,6 +597,59 @@ def build_tiny_order_review_061t_status(
         "allowed_ru_button_label": action.label_ru if action is not None else "",
         "forbidden_live_buttons_added": False,
         "review_only": True,
+        "execution_enabling": False,
+        **telegram_console_safety_state(),
+    }
+
+
+def build_pre_live_gate_review_062t_status(
+    cards_by_flow: Mapping[str, Mapping[str, Any]],
+    *,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    card = dict(cards_by_flow.get(PRE_LIVE_TINY_ORDER_GATE_062P_FLOW_ID, {}))
+    summary = dict(card.get("status_summary", {}))
+    action = safe_action_by_id("run_pre_live_tiny_order_gate_062p_review_dry_run")
+    checklist = dict(summary.get("checklist_summary", {}))
+    blockers = dict(summary.get("blockers_summary", {}))
+    readiness = dict(summary.get("readiness_summary", {}))
+    return {
+        "contract_version": PRE_LIVE_GATE_REVIEW_062T_STATUS_CONTRACT,
+        "task_id": TASK_ID_062T,
+        "generated_at": generated_at,
+        "status": "telegram_pre_live_gate_review_ready_review_only",
+        "source_flow_id": PRE_LIVE_TINY_ORDER_GATE_062P_FLOW_ID,
+        "source_status_available": card.get("available") is True,
+        "label_en": "Pre-live tiny order gate",
+        "label_ru": "Предлайв-гейт tiny order",
+        "source_status": clean_text(summary.get("status") or "not_available"),
+        "checklist_path": clean_text(summary.get("checklist_path")),
+        "blockers_path": clean_text(summary.get("blockers_path")),
+        "readiness_summary_path": clean_text(summary.get("readiness_summary_path")),
+        "operator_markdown_path": clean_text(summary.get("operator_markdown_path")),
+        "checklist_summary": checklist,
+        "blockers_summary": blockers,
+        "readiness_summary": readiness,
+        "blocker_count": _int_or_zero(summary.get("blocker_count")),
+        "resolved_blocker_count": 0,
+        "top_blocker_reasons": _clean_list(summary.get("top_blocker_reasons"))[:10],
+        "operator_approved": False,
+        "candidate_is_executable": False,
+        "signing_available": False,
+        "signed_payload_available": False,
+        "order_submission_available": False,
+        "wallet_available": False,
+        "live_execution_approved": False,
+        "ready_for_future_live_enablement": False,
+        "allowed_for_live": False,
+        "run_pre_live_gate_action_id": action.action_id if action is not None else "",
+        "run_pre_live_gate_callback_data": action.callback_data if action is not None else "",
+        "run_pre_live_gate_command": list(action.command_display) if action is not None else [],
+        "allowed_button_label": action.label_en if action is not None else "",
+        "allowed_ru_button_label": action.label_ru if action is not None else "",
+        "forbidden_live_buttons_added": False,
+        "review_only": True,
+        "dry_run_only": True,
         "execution_enabling": False,
         **telegram_console_safety_state(),
     }
@@ -680,6 +803,73 @@ def write_telegram_tiny_order_review_061t_artifacts(
     }
 
 
+def write_telegram_pre_live_gate_review_062t_artifacts(
+    *,
+    artifact_root: str | Path | None = None,
+    output_dir: str | Path = TELEGRAM_PRE_LIVE_GATE_REVIEW_ARTIFACT_DIR,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    snapshot = build_telegram_status_registry_snapshot(artifact_root=artifact_root, generated_at=generated_at)
+    output = Path(output_dir)
+    latest_status = dict(snapshot["pre_live_tiny_order_gate_review_062t"])
+    action = safe_action_by_id("run_pre_live_tiny_order_gate_062p_review_dry_run")
+    controls = {
+        "contract_version": PRE_LIVE_GATE_REVIEW_062T_CONTROLS_CONTRACT,
+        "task_id": TASK_ID_062T,
+        "generated_at": generated_at,
+        "status": "safe_review_and_dry_run_controls_only",
+        "safe_status_view_command": "/pre_live_gate_review",
+        "safe_status_view_callback_data": "pmbot:pre_live_gate_review",
+        "allowed_dry_run_action": safe_action_to_dict(action) if action is not None else {},
+        "allowed_dry_run_command": list(action.command_display) if action is not None else [],
+        "forbidden_live_controls_added": False,
+        "approve_live_control_added": False,
+        "send_order_control_added": False,
+        "submit_order_control_added": False,
+        "cancel_order_control_added": False,
+        "sign_control_added": False,
+        "wallet_control_added": False,
+        "connect_wallet_control_added": False,
+        "unlock_wallet_control_added": False,
+        "live_enable_control_added": False,
+        "live_execute_control_added": False,
+        "review_only": True,
+        "dry_run_only": True,
+        "execution_enabling": False,
+        **telegram_console_safety_state(),
+    }
+    result = {
+        "contract_version": PRE_LIVE_GATE_REVIEW_062T_RESULT_CONTRACT,
+        "task_id": TASK_ID_062T,
+        "generated_at": generated_at,
+        "status": "completed_review_only",
+        "latest_status_path": normalize_path(output / LATEST_TELEGRAM_PRE_LIVE_GATE_REVIEW_STATUS_PATH.name),
+        "registry_snapshot_path": normalize_path(output / TELEGRAM_PRE_LIVE_GATE_REVIEW_REGISTRY_SNAPSHOT_PATH.name),
+        "controls_path": normalize_path(output / TELEGRAM_PRE_LIVE_GATE_REVIEW_CONTROLS_PATH.name),
+        "status_registry": snapshot,
+        "pre_live_tiny_order_gate_review_062t": latest_status,
+        "controls": controls,
+        "review_only": True,
+        "dry_run_only": True,
+        "execution_enabling": False,
+        **telegram_console_safety_state(),
+    }
+    write_json(output / TELEGRAM_PRE_LIVE_GATE_REVIEW_RESULT_PATH.name, result)
+    write_json(output / LATEST_TELEGRAM_PRE_LIVE_GATE_REVIEW_STATUS_PATH.name, latest_status)
+    write_json(output / TELEGRAM_PRE_LIVE_GATE_REVIEW_REGISTRY_SNAPSHOT_PATH.name, snapshot)
+    write_json(output / TELEGRAM_PRE_LIVE_GATE_REVIEW_CONTROLS_PATH.name, controls)
+    return {
+        "result_path": normalize_path(output / TELEGRAM_PRE_LIVE_GATE_REVIEW_RESULT_PATH.name),
+        "latest_status_path": normalize_path(output / LATEST_TELEGRAM_PRE_LIVE_GATE_REVIEW_STATUS_PATH.name),
+        "registry_snapshot_path": normalize_path(output / TELEGRAM_PRE_LIVE_GATE_REVIEW_REGISTRY_SNAPSHOT_PATH.name),
+        "controls_path": normalize_path(output / TELEGRAM_PRE_LIVE_GATE_REVIEW_CONTROLS_PATH.name),
+        "result": result,
+        "latest_status": latest_status,
+        "status_registry": snapshot,
+        "controls": controls,
+    }
+
+
 def safe_action_to_dict(action: TelegramSafeAction) -> dict[str, Any]:
     return {
         "action_id": action.action_id,
@@ -722,6 +912,14 @@ def telegram_console_button_rows(language: str) -> tuple[tuple[tuple[str, str], 
         )
     )
     rows.append(((STATUS_READ_BUTTONS["pmbot:readiness"][label_key], "pmbot:readiness"),))
+    rows.append(
+        (
+            (
+                "Предлайв-гейт tiny order" if ru else "Pre-live tiny order gate",
+                "pmbot:pre_live_gate_review",
+            ),
+        )
+    )
     action_rows = [
         ("run_paper_canary_052", "run_paper_loop_053"),
         ("run_public_market_paper_loop_054", "run_decision_ledger_055"),
@@ -730,6 +928,7 @@ def telegram_console_button_rows(language: str) -> tuple[tuple[tuple[str, str], 
         ("run_no_order_auth_get_preflight_059",),
         ("run_signer_boundary_preflight_060",),
         ("run_tiny_order_scaffold_061",),
+        ("run_pre_live_tiny_order_gate_062p_review_dry_run",),
     ]
     actions_by_id = {action.action_id: action for action in SAFE_ACTIONS}
     for row in action_rows:
@@ -771,6 +970,7 @@ def validate_safe_action(action: TelegramSafeAction) -> list[str]:
         "pm_bot.operator_runner.authenticated_clob_preflight",
         "pm_bot.operator_runner.signer_boundary_preflight",
         "pm_bot.operator_runner.tiny_order_scaffold",
+        "pm_bot.operator_runner.pre_live_tiny_order_gate",
     }:
         errors.append(f"unsupported module for Telegram action {action.action_id}")
     return errors
@@ -782,6 +982,12 @@ def telegram_console_safety_state() -> dict[str, Any]:
         "review_only": True,
         "dry_run_actions_only": True,
         "preflight_actions_only": True,
+        "operator_approved": False,
+        "candidate_is_executable": False,
+        "signing_available": False,
+        "signed_payload_available": False,
+        "order_submission_available": False,
+        "wallet_available": False,
         "live_execution_approved": False,
         "order_submission_enabled": False,
         "wallet_signing_enabled": False,
@@ -793,6 +999,7 @@ def telegram_console_safety_state() -> dict[str, Any]:
         "authenticated_endpoints_enabled": False,
         "live_connector_enabled": False,
         "allowed_for_live": False,
+        "ready_for_future_live_enablement": False,
         "canary_executable_now": False,
         "real_execution_available": False,
         "would_submit_order": False,
@@ -843,6 +1050,7 @@ def _build_status_card(
     expected_path = _candidate_latest_status_paths(source, artifact_root)[0]
     status_summary = _status_summary_from_payload(payload)
     tiny_order_review: dict[str, Any] = {}
+    pre_live_gate_review: dict[str, Any] = {}
     if source.flow_id == TINY_ORDER_SCAFFOLD_061_FLOW_ID:
         tiny_order_review = _tiny_order_review_from_artifacts(
             artifact_root=artifact_root,
@@ -850,6 +1058,13 @@ def _build_status_card(
             generated_at=generated_at,
         )
         status_summary.update(_tiny_order_review_status_summary(tiny_order_review))
+    if source.flow_id == PRE_LIVE_TINY_ORDER_GATE_062P_FLOW_ID:
+        pre_live_gate_review = _pre_live_gate_review_from_artifacts(
+            artifact_root=artifact_root,
+            latest_payload=payload,
+            generated_at=generated_at,
+        )
+        status_summary.update(_pre_live_gate_review_status_summary(pre_live_gate_review))
     return {
         "contract_version": STATUS_CARD_CONTRACT,
         "task_id": TASK_ID,
@@ -866,6 +1081,7 @@ def _build_status_card(
         "load_error": load_error,
         "status_summary": status_summary,
         "tiny_order_review": tiny_order_review,
+        "pre_live_gate_review": pre_live_gate_review,
         "telegram_safe": True,
         "review_only": True,
         "live_execution": "blocked",
@@ -959,6 +1175,24 @@ def _status_summary_from_payload(payload: Mapping[str, Any]) -> dict[str, Any]:
         "tiny_order_submission_availability_path": clean_text(
             value.get("tiny_order_submission_availability_path")
         ),
+        "pre_live_gate_status": clean_text(value.get("status") or "not_available"),
+        "checklist_path": clean_text(value.get("checklist_path")),
+        "blockers_path": clean_text(value.get("blockers_path")),
+        "readiness_summary_path": clean_text(value.get("readiness_summary_path")),
+        "source_tiny_scaffold_path": clean_text(value.get("source_tiny_scaffold_path")),
+        "source_auth_preflight_path": clean_text(value.get("source_auth_preflight_path")),
+        "source_safety_scan_path": clean_text(value.get("source_safety_scan_path")),
+        "tiny_candidate_present": value.get("tiny_candidate_present") is True,
+        "approval_packet_present": value.get("approval_packet_present") is True,
+        "market_whitelisted": value.get("market_whitelisted") is True,
+        "signer_boundary_present": value.get("signer_boundary_present") is True,
+        "auth_preflight_present": value.get("auth_preflight_present") is True,
+        "safety_scan_present": value.get("safety_scan_present") is True,
+        "readiness_status": clean_text(value.get("readiness_status") or "blocked"),
+        "next_operator_action": clean_text(value.get("next_operator_action")),
+        "ready_for_future_live_enablement": False,
+        "signing_available": False,
+        "wallet_available": False,
         "operator_approved": False,
         "approval_packet_created": value.get("approval_packet_created") is True,
         "candidate_is_executable": False,
@@ -1120,6 +1354,141 @@ def _candidate_tiny_order_scaffold_061_paths(filename: str, artifact_root: Path)
         / TINY_ORDER_SCAFFOLD_061_ARTIFACT_DIR_NAME
         / filename
     )
+    unique: list[Path] = []
+    seen: set[str] = set()
+    for path in paths:
+        normalized = normalize_path(path)
+        if normalized not in seen:
+            seen.add(normalized)
+            unique.append(path)
+    return tuple(unique)
+
+
+def _pre_live_gate_review_from_artifacts(
+    *,
+    artifact_root: Path,
+    latest_payload: Mapping[str, Any],
+    generated_at: str,
+) -> dict[str, Any]:
+    paths = _pre_live_tiny_order_gate_062p_paths(artifact_root)
+    checklist = _load_optional_json(paths["checklist"], label="pre-live tiny order checklist 062P")
+    blockers = _load_optional_json(paths["blockers"], label="pre-live tiny order blockers 062P")
+    readiness = _load_optional_json(paths["readiness_summary"], label="pre-live tiny order readiness summary 062P")
+    latest = dict(latest_payload or {})
+    return {
+        "contract_version": PRE_LIVE_GATE_REVIEW_062T_STATUS_CONTRACT + ".registry_detail",
+        "task_id": TASK_ID_062T,
+        "generated_at": generated_at,
+        "source_flow_id": PRE_LIVE_TINY_ORDER_GATE_062P_FLOW_ID,
+        "latest_status_path": normalize_path(paths["latest_status"]),
+        "checklist_path": normalize_path(paths["checklist"]),
+        "blockers_path": normalize_path(paths["blockers"]),
+        "readiness_summary_path": normalize_path(paths["readiness_summary"]),
+        "operator_markdown_path": normalize_path(paths["operator_md"]),
+        "operator_markdown_available": paths["operator_md"].exists(),
+        "source_status": clean_text(latest.get("status") or "not_available"),
+        "checklist_summary": {
+            "available": bool(checklist),
+            "status": clean_text(checklist.get("status") or latest.get("status") or "not_available"),
+            "checklist_item_count": len(checklist.get("checklist_items", []))
+            if isinstance(checklist.get("checklist_items"), list)
+            else 0,
+            "tiny_candidate_present": checklist.get("tiny_candidate_present") is True
+            or latest.get("tiny_candidate_present") is True,
+            "approval_packet_present": checklist.get("approval_packet_present") is True
+            or latest.get("approval_packet_present") is True,
+            "hard_limits_passed": checklist.get("hard_limits_passed") is True
+            or latest.get("hard_limits_passed") is True,
+            "market_whitelisted": checklist.get("market_whitelisted") is True
+            or latest.get("market_whitelisted") is True,
+            "operator_approved": False,
+            "candidate_is_executable": False,
+        },
+        "blockers_summary": {
+            "available": bool(blockers),
+            "status": clean_text(blockers.get("status") or "unresolved_blockers_present"),
+            "blocker_count": _int_or_zero(blockers.get("blocker_count"), latest.get("blocker_count")),
+            "resolved_blocker_count": 0,
+            "top_blocker_reasons": _clean_list(
+                blockers.get("top_blocker_reasons") or latest.get("top_blocker_reasons")
+            )[:10],
+        },
+        "readiness_summary": {
+            "available": bool(readiness),
+            "status": clean_text(readiness.get("readiness_status") or "blocked"),
+            "ready_for_future_live_enablement": False,
+            "allowed_for_live": False,
+            "next_operator_action": clean_text(
+                readiness.get("next_operator_action") or latest.get("next_operator_action")
+            ),
+            "operator_summary": clean_text(readiness.get("operator_summary")),
+        },
+        "operator_approved": False,
+        "candidate_is_executable": False,
+        "signing_available": False,
+        "signed_payload_available": False,
+        "order_submission_available": False,
+        "wallet_available": False,
+        "live_execution_approved": False,
+        "ready_for_future_live_enablement": False,
+        "allowed_for_live": False,
+        "review_only": True,
+        "dry_run_only": True,
+        "execution_enabling": False,
+        **telegram_console_safety_state(),
+    }
+
+
+def _pre_live_gate_review_status_summary(review: Mapping[str, Any]) -> dict[str, Any]:
+    value = dict(review or {})
+    checklist = dict(value.get("checklist_summary", {}))
+    blockers = dict(value.get("blockers_summary", {}))
+    readiness = dict(value.get("readiness_summary", {}))
+    return {
+        "pre_live_gate_status": clean_text(value.get("source_status") or "not_available"),
+        "checklist_path": clean_text(value.get("checklist_path")),
+        "blockers_path": clean_text(value.get("blockers_path")),
+        "readiness_summary_path": clean_text(value.get("readiness_summary_path")),
+        "operator_markdown_path": clean_text(value.get("operator_markdown_path")),
+        "operator_markdown_available": value.get("operator_markdown_available") is True,
+        "checklist_summary": checklist,
+        "blockers_summary": blockers,
+        "readiness_summary": readiness,
+        "tiny_candidate_present": checklist.get("tiny_candidate_present") is True,
+        "approval_packet_present": checklist.get("approval_packet_present") is True,
+        "hard_limits_passed": checklist.get("hard_limits_passed") is True,
+        "market_whitelisted": checklist.get("market_whitelisted") is True,
+        "blocker_count": _int_or_zero(blockers.get("blocker_count")),
+        "resolved_blocker_count": 0,
+        "top_blocker_reasons": _clean_list(blockers.get("top_blocker_reasons")),
+        "readiness_status": clean_text(readiness.get("status") or "blocked"),
+        "next_operator_action": clean_text(readiness.get("next_operator_action")),
+        "operator_approved": False,
+        "candidate_is_executable": False,
+        "signing_available": False,
+        "signed_payload_available": False,
+        "order_submission_available": False,
+        "wallet_available": False,
+        "live_execution_approved": False,
+        "ready_for_future_live_enablement": False,
+        "allowed_for_live": False,
+    }
+
+
+def _pre_live_tiny_order_gate_062p_paths(artifact_root: Path) -> dict[str, Path]:
+    return {
+        key: _first_existing_path(_candidate_pre_live_tiny_order_gate_062p_paths(filename, artifact_root))
+        or _candidate_pre_live_tiny_order_gate_062p_paths(filename, artifact_root)[0]
+        for key, filename in PRE_LIVE_TINY_ORDER_GATE_062P_ARTIFACT_FILENAMES.items()
+    }
+
+
+def _candidate_pre_live_tiny_order_gate_062p_paths(filename: str, artifact_root: Path) -> tuple[Path, ...]:
+    paths = [
+        artifact_root / PRE_LIVE_TINY_ORDER_GATE_062P_ARTIFACT_DIR_NAME / filename,
+    ]
+    if artifact_root.name == PRE_LIVE_TINY_ORDER_GATE_062P_ARTIFACT_DIR_NAME:
+        paths.append(artifact_root / filename)
     unique: list[Path] = []
     seen: set[str] = set()
     for path in paths:
