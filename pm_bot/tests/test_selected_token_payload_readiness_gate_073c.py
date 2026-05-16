@@ -281,6 +281,7 @@ def _run_gate_with_sources(tmp_path: Path, paths: Mapping[str, Path]) -> dict[st
         dry_run=True,
         selected_candidate_artifact_path=paths.get("selected_candidate", tmp_path / "missing_selected_candidate.json"),
         operator_token_selection_packet_path=paths.get("selection", tmp_path / "missing_selection.json"),
+        selected_token_verification_bridge_path=paths.get("verification_bridge", tmp_path / "missing_verification_bridge.json"),
         first_order_market_token_contract_path=paths["resolver"],
         signer_diagnostic_status_path=paths.get("signer", tmp_path / "missing_signer.json"),
         approval_contract_status_path=paths.get("approval", tmp_path / "missing_approval.json"),
@@ -451,6 +452,69 @@ def test_selected_candidate_artifact_supplies_hash_only_selected_token(tmp_path:
     assert selected_token["selected_token_fingerprint_sha256"] == hashlib.sha256(
         VALID_TOKEN_ID.encode("utf-8")
     ).hexdigest()
+    assert result["selected_token_payload_ready_for_submit"] is False
+    assert result["allowed_for_live"] is False
+    _assert_required_false_flags(result)
+
+
+def test_selected_token_verification_bridge_moves_gate_past_unverified_selected_token(tmp_path: Path) -> None:
+    paths = _ready_source_paths(
+        tmp_path,
+        token_id="",
+        verified=False,
+        include_selection=False,
+        include_signer=False,
+        include_approval=False,
+        include_dry_run=False,
+        include_adapter=False,
+    )
+    paths["selected_candidate"] = _write_selected_candidate_artifact(tmp_path)
+    token_hash = hashlib.sha256(VALID_TOKEN_ID.encode("utf-8")).hexdigest()
+    paths["verification_bridge"] = _write_json(
+        tmp_path / "sources" / "selected_token_verification_076a_result.json",
+        {
+            "contract_version": "pmbot_selected_token_verification_bridge_076a_result.v1",
+            "status": "selected_token_verified_for_payload_dry_run",
+            "market_symbol": "BTC",
+            "strategy_name": "tiny-momentum",
+            "selected_candidate_artifact_present": True,
+            "candidate_index_exists": True,
+            "selected_candidate_index": 0,
+            "selected_by_operator": True,
+            "source_backed": True,
+            "token_id_short": "123456...7890",
+            "token_id_hash": token_hash,
+            "token_hash_match": True,
+            "token_short_match": True,
+            "candidate_index_match": True,
+            "market_match": True,
+            "strategy_match": True,
+            "market_title_match": True,
+            "outcome_label_match": True,
+            "selected_candidate_in_known_candidate_set": True,
+            "selected_token_verified_for_payload_dry_run": True,
+            "selected_token_payload_ready_for_submit": False,
+            "ready_for_submit": False,
+            "submit_ready": False,
+            "allowed_for_live": False,
+            "order_payload_generated": False,
+            "signed_payload_generated": False,
+            "order_submission_enabled": False,
+            "order_cancellation_enabled": False,
+            "private_key_read": False,
+            "signing_attempted": False,
+            "wallet_connection_attempted": False,
+        },
+    )
+
+    result = _run_gate_with_sources(tmp_path, paths)
+    selected_token = result["readiness_summaries"]["selected_token"]
+
+    assert result["status"] == STATUS_BLOCKED_MISSING_SIGNER_DIAGNOSTIC
+    assert result["status"] != STATUS_BLOCKED_UNVERIFIED_SELECTED_TOKEN
+    assert selected_token["selected_token_verified"] is True
+    assert selected_token["selected_token_verification_bridge_verified"] is True
+    assert result["latest_status"]["selected_token_verification_bridge_verified"] is True
     assert result["selected_token_payload_ready_for_submit"] is False
     assert result["allowed_for_live"] is False
     _assert_required_false_flags(result)

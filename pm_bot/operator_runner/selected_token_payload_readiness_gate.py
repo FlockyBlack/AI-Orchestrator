@@ -29,6 +29,11 @@ def build_parser() -> argparse.ArgumentParser:
         help="Optional local operator token selection packet 073B artifact path.",
     )
     parser.add_argument(
+        "--selected-token-verification-bridge-path",
+        default="",
+        help="Optional local selected token verification bridge 076A artifact path.",
+    )
+    parser.add_argument(
         "--first-order-market-token-contract-path",
         default="",
         help="Optional local first order market token resolver 070B contract artifact path.",
@@ -80,6 +85,9 @@ def main(argv: Sequence[str] | None = None) -> int:
         else None,
         operator_token_selection_packet_path=Path(args.operator_token_selection_packet_path)
         if args.operator_token_selection_packet_path
+        else None,
+        selected_token_verification_bridge_path=Path(args.selected_token_verification_bridge_path)
+        if args.selected_token_verification_bridge_path
         else None,
         first_order_market_token_contract_path=Path(args.first_order_market_token_contract_path)
         if args.first_order_market_token_contract_path
