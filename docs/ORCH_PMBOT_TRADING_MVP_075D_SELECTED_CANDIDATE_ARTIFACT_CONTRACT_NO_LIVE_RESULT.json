@@ -1,0 +1,159 @@
+{
+  "task_id": "ORCH-PMBOT-TRADING-MVP-075D-SELECTED-CANDIDATE-ARTIFACT-CONTRACT-NO-LIVE",
+  "branch": "pmbot/trading-mvp-075d-selected-candidate-artifact-contract-no-live",
+  "base": "origin/master",
+  "base_head": "59f87a32ef0dc2c899611ad0caa198b7da8f2942",
+  "head_before": "59f87a32ef0dc2c899611ad0caa198b7da8f2942",
+  "head_after": "POST_PUSH_HEAD_REPORTED_IN_FINAL_CHAT",
+  "status": "implemented_validated_pending_commit_push",
+  "summary": {
+    "selected_candidate_artifact_075d": "Added a review-only selected candidate artifact contract and CLI that records only an existing source-backed 073B candidate index.",
+    "token_id_handling": "Raw full token IDs are read only from local 073B artifacts in memory, then persisted as token_id_short and token_id_hash only.",
+    "instruction_flow": "Updated 075A safe CLI instructions to point to the 075D artifact runner.",
+    "readiness_flow": "Updated 073C to recognize the 075D hash-only selected candidate artifact as the selected-token source while still blocking live/submit/signing paths."
+  },
+  "changed_files": [
+    "pm_bot/trading_core/selected_candidate_artifact_models.py",
+    "pm_bot/trading_core/selected_candidate_artifact.py",
+    "pm_bot/operator_runner/selected_candidate_artifact.py",
+    "pm_bot/tests/test_selected_candidate_artifact_075d.py",
+    "pm_bot/trading_core/artifacts/selected_candidate_artifact_075d/latest_selected_candidate_artifact_075d.json",
+    "pm_bot/trading_core/artifacts/selected_candidate_artifact_075d/selected_candidate_artifact_075d.json",
+    "pm_bot/trading_core/artifacts/selected_candidate_artifact_075d/selected_candidate_artifact_075d.md",
+    "pm_bot/trading_core/artifacts/selected_candidate_artifact_075d/selected_candidate_artifact_075d_result.json",
+    "pm_bot/trading_core/artifacts/selected_candidate_artifact_075d/selected_candidate_artifact_safety_snapshot_075d.json",
+    "pm_bot/trading_core/artifacts/selected_candidate_artifact_075d/selected_candidate_artifact_source_snapshot_075d.json",
+    "docs/ORCH_PMBOT_TRADING_MVP_075A_SELECTED_CANDIDATE_OPERATOR_INSTRUCTION_PACKET_NO_LIVE_RESULT.json",
+    "pm_bot/operator_runner/selected_candidate_instruction_packet.py",
+    "pm_bot/trading_core/selected_candidate_instruction_models.py",
+    "pm_bot/trading_core/selected_candidate_instruction_packet.py",
+    "pm_bot/operator_runner/selected_token_payload_readiness_gate.py",
+    "pm_bot/trading_core/selected_token_payload_readiness_gate.py",
+    "pm_bot/tests/test_selected_candidate_instruction_packet_075a.py",
+    "pm_bot/tests/test_selected_token_payload_readiness_gate_073c.py",
+    "pm_bot/trading_core/artifacts/selected_candidate_instruction_packet_075a/latest_selected_candidate_instruction_packet_075a.json",
+    "pm_bot/trading_core/artifacts/selected_candidate_instruction_packet_075a/selected_candidate_instruction_candidates_075a.json",
+    "pm_bot/trading_core/artifacts/selected_candidate_instruction_packet_075a/selected_candidate_instruction_packet_075a.json",
+    "pm_bot/trading_core/artifacts/selected_candidate_instruction_packet_075a/selected_candidate_instruction_packet_075a.md",
+    "pm_bot/trading_core/artifacts/selected_candidate_instruction_packet_075a/selected_candidate_instruction_packet_075a_result.json",
+    "pm_bot/trading_core/artifacts/selected_token_payload_readiness_gate_073c/latest_selected_token_payload_readiness_status_073c.json",
+    "pm_bot/trading_core/artifacts/selected_token_payload_readiness_gate_073c/selected_token_payload_readiness_blockers_073c.json",
+    "pm_bot/trading_core/artifacts/selected_token_payload_readiness_gate_073c/selected_token_payload_readiness_gate_073c_result.json",
+    "pm_bot/trading_core/artifacts/selected_token_payload_readiness_gate_073c/selected_token_payload_readiness_operator_summary_073c.md",
+    "pm_bot/trading_core/artifacts/selected_token_payload_readiness_gate_073c/selected_token_payload_readiness_sources_073c.json",
+    "docs/ORCH_PMBOT_TRADING_MVP_075D_SELECTED_CANDIDATE_ARTIFACT_CONTRACT_NO_LIVE_RESULT.json"
+  ],
+  "validation": [
+    {
+      "command": "python -m pytest pm_bot/tests/test_selected_candidate_artifact_075d.py",
+      "result": "passed",
+      "details": "9 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_operator_token_selection_packet_073b.py",
+      "result": "passed",
+      "details": "10 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_selected_candidate_instruction_packet_075a.py",
+      "result": "passed",
+      "details": "8 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_selected_token_payload_readiness_gate_073c.py",
+      "result": "passed",
+      "details": "13 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_static_safety_invariant_report_060q.py",
+      "result": "passed",
+      "details": "9 passed"
+    },
+    {
+      "command": "python -B -m pytest pm_bot/tests",
+      "result": "passed",
+      "details": "2205 passed in 781.38s"
+    },
+    {
+      "command": "python -m compileall -q pm_bot",
+      "result": "passed"
+    },
+    {
+      "command": "python -m compileall -q ai_orchestrator",
+      "result": "passed"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.selected_candidate_artifact --market BTC --strategy tiny-momentum --dry-run",
+      "result": "passed",
+      "summary": "status=operator_selection_required; selected_by_operator=false; allowed_for_live=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.selected_candidate_artifact --market BTC --strategy tiny-momentum --dry-run --candidate-index 0",
+      "result": "passed",
+      "summary": "status=selected_candidate_artifact_recorded; selected_by_operator=true; token_id_short=111128...7287; allowed_for_live=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.static_safety_invariant_report --scope pm_bot --dry-run",
+      "result": "passed_with_warnings",
+      "summary": "critical_count=0; warning_count=7; warnings are credential-name references in existing boundary/fixture files"
+    },
+    {
+      "command": "git diff --check",
+      "result": "passed",
+      "details": "No whitespace errors; Git reported CRLF normalization warnings on generated artifact files."
+    },
+    {
+      "command": "git diff --cached --check",
+      "result": "passed",
+      "details": "No staged diff at time of check."
+    }
+  ],
+  "runner_output_summaries": {
+    "no_candidate": {
+      "status": "operator_selection_required",
+      "selected_by_operator": false,
+      "allowed_for_live": false,
+      "selected_candidate_executable_for_live": false
+    },
+    "candidate_index_0": {
+      "status": "selected_candidate_artifact_recorded",
+      "selected_by_operator": true,
+      "source_backed": true,
+      "token_id_short": "111128...7287",
+      "allowed_for_live": false,
+      "selected_candidate_executable_for_live": false,
+      "warnings": [
+        "not live approval",
+        "not trading authorization",
+        "not submit-ready"
+      ]
+    },
+    "selected_token_payload_readiness_gate": {
+      "status_after_075d_artifact": "blocked_unverified_selected_token",
+      "selected_token_payload_ready_for_submit": false,
+      "allowed_for_live": false
+    }
+  },
+  "safety_flags": {
+    "no_live_trade": true,
+    "no_order_submit": true,
+    "no_order_cancel": true,
+    "no_signing": true,
+    "no_wallet_connection": true,
+    "no_secret_read_or_print": true,
+    "no_polymarket_api_call": true,
+    "no_network_call_from_075d": true,
+    "raw_full_token_id_persisted_by_075d": false,
+    "allowed_for_live": false,
+    "selected_candidate_executable_for_live": false,
+    "selected_candidate_submit_ready": false
+  },
+  "remaining_risks_or_blockers": [
+    "075D records a selected source-backed candidate for review only; it does not authorize live trading or submit readiness.",
+    "073C still blocks downstream readiness because resolver/signer readiness must be satisfied separately."
+  ],
+  "push": {
+    "pushed": false,
+    "remote_verified": false
+  }
+}

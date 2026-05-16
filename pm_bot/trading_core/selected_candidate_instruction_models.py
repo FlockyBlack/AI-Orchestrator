@@ -130,7 +130,8 @@ class SelectedCandidateInstructionCandidate:
         value["operator_selectable"] = True
         value["requires_manual_operator_selection"] = True
         value["selection_command_writes_075a_artifacts"] = False
-        value["selection_command_reuses_073b_contract"] = True
+        value["selection_command_reuses_073b_contract"] = False
+        value["selection_command_writes_075d_artifact"] = True
         value.update(selected_candidate_instruction_safety_flags())
         return value
 
