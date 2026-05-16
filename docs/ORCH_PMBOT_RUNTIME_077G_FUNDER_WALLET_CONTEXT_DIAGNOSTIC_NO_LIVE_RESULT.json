@@ -1,0 +1,178 @@
+{
+  "contract_version": "orch_pmbot_runtime_077g_result.v1",
+  "task_id": "ORCH-PMBOT-RUNTIME-077G-FUNDER-WALLET-CONTEXT-DIAGNOSTIC-NO-LIVE",
+  "status": "validated_pending_commit_push_verify",
+  "repo": "https://github.com/FlockyBlack/AI-Orchestrator.git",
+  "base": "origin/master",
+  "base_head": "eb2313c7f292361bf7aa2d686a882062b064309e",
+  "head_before": "eb2313c7f292361bf7aa2d686a882062b064309e",
+  "head_after": "pending_final_commit_hash_reported_after_commit",
+  "head_after_note": "Embedding this result artifact commit's own SHA in the committed JSON would change that SHA; final local and remote feature branch heads are reported in the operator final report.",
+  "branch": "pmbot/runtime-077g-funder-wallet-context-diagnostic-no-live",
+  "worktree": "C:/oc077g_funder_wallet_context_diagnostic_no_live",
+  "generated_at": "2026-05-16T00:00:00+04:00",
+  "implementation_summary": [
+    "Added a no-live 077G funder wallet context diagnostic that reads only POLYMARKET_WALLET_ADDRESS, POLYMARKET_FUNDER_ADDRESS, POLYMARKET_SIGNATURE_TYPE, and POLYMARKET_PRIVATE_KEY presence.",
+    "Added a dry-run-only operator runner for python -m pm_bot.operator_runner.funder_wallet_context_diagnostic --market BTC --strategy tiny-momentum --dry-run.",
+    "Added focused tests covering missing wallet, missing funder with the required suggested safe action, missing signature type, equal wallet/funder, different wallet/funder, redaction, CLI behavior, and static runtime safety."
+  ],
+  "changed_files_summary": {
+    "core": [
+      "pm_bot/trading_core/funder_wallet_context_077g.py"
+    ],
+    "operator_runners": [
+      "pm_bot/operator_runner/funder_wallet_context_diagnostic.py"
+    ],
+    "tests": [
+      "pm_bot/tests/test_funder_wallet_context_077g.py"
+    ],
+    "artifacts": [
+      "pm_bot/trading_core/artifacts/funder_wallet_context_077g/latest_funder_wallet_context_077g_status.json",
+      "pm_bot/trading_core/artifacts/funder_wallet_context_077g/funder_wallet_context_077g_result.json",
+      "pm_bot/trading_core/artifacts/funder_wallet_context_077g/funder_wallet_context_077g_operator_summary.md"
+    ],
+    "docs": [
+      "docs/ORCH_PMBOT_RUNTIME_077G_FUNDER_WALLET_CONTEXT_DIAGNOSTIC_NO_LIVE_RESULT.json"
+    ]
+  },
+  "funder_wallet_context_diagnostic": {
+    "artifact_dir": "pm_bot/trading_core/artifacts/funder_wallet_context_077g/",
+    "latest_status_path": "pm_bot/trading_core/artifacts/funder_wallet_context_077g/latest_funder_wallet_context_077g_status.json",
+    "result_path": "pm_bot/trading_core/artifacts/funder_wallet_context_077g/funder_wallet_context_077g_result.json",
+    "operator_summary_path": "pm_bot/trading_core/artifacts/funder_wallet_context_077g/funder_wallet_context_077g_operator_summary.md",
+    "status": "blocked_missing_wallet_address",
+    "statuses": [
+      "blocked_missing_wallet_address"
+    ],
+    "wallet_address_present": false,
+    "funder_address_present": false,
+    "signature_type_present": false,
+    "private_key_present": false,
+    "wallet_context_visible": false,
+    "funder_relationship_status": "unknown_not_compared",
+    "funder_required_by_account_setup": "unknown_not_inferred",
+    "funder_required_by_account_setup_inferred": false,
+    "funder_required_for_complete_wallet_context": true,
+    "suggested_safe_action": "set POLYMARKET_WALLET_ADDRESS before evaluating funder context",
+    "funder_auto_inferred": false,
+    "funder_auto_copied_from_wallet": false,
+    "raw_values_emitted": false,
+    "raw_secret_values_emitted": false,
+    "private_key_raw_value_emitted": false,
+    "allowed_for_live": false
+  },
+  "runner_smokes": [
+    {
+      "command": "python -m pm_bot.operator_runner.funder_wallet_context_diagnostic --market BTC --strategy tiny-momentum --dry-run",
+      "result": "passed",
+      "summary": "status=blocked_missing_wallet_address; wallet_present=false; funder_present=false; signature_type_present=false; private_key_present=false; wallet_context_visible=false; auto_inferred=false; auto_copied=false; allowed_for_live=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.runtime_credential_visibility_diagnostic --market BTC --strategy tiny-momentum --dry-run",
+      "result": "passed",
+      "summary": "status=blocked_missing_private_key; Polymarket wallet context visible=false; raw secret output=false; signer instantiated=false; order submission enabled=false; allowed_for_live=false; validation-generated 077C artifact rewrites were restored"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.static_safety_invariant_report --scope pm_bot --dry-run",
+      "result": "passed",
+      "summary": "status=passed_with_warnings; critical_findings=0; warnings=9; scanned_files=382; validation-generated 060Q artifact rewrites were restored"
+    }
+  ],
+  "validation_commands": [
+    {
+      "command": "python -m pytest pm_bot/tests/test_funder_wallet_context_077g.py",
+      "result": "passed",
+      "summary": "8 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_runtime_credential_visibility_077c.py",
+      "result": "passed",
+      "summary": "9 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_signer_diagnostic_evidence_bridge_076c.py",
+      "result": "passed",
+      "summary": "7 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_static_safety_invariant_report_060q.py",
+      "result": "passed",
+      "summary": "9 passed"
+    },
+    {
+      "command": "python -B -m pytest pm_bot/tests",
+      "result": "passed",
+      "summary": "2275 passed in 760.77s"
+    },
+    {
+      "command": "python -m compileall -q pm_bot",
+      "result": "passed"
+    },
+    {
+      "command": "python -m compileall -q ai_orchestrator",
+      "result": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "result": "passed",
+      "summary": "no whitespace errors; Git reported pre-existing CRLF normalization warnings on validation-touched files before those non-077G rewrites were restored"
+    },
+    {
+      "command": "git diff --cached --check",
+      "result": "passed"
+    }
+  ],
+  "static_safety_report_summary": {
+    "command": "python -m pm_bot.operator_runner.static_safety_invariant_report --scope pm_bot --dry-run",
+    "status": "passed_with_warnings",
+    "critical_count": 0,
+    "warning_count": 9,
+    "scanned_file_count": 382,
+    "safety_ok": true,
+    "allowed_for_live": false,
+    "order_submission_enabled": false,
+    "signing_enabled": false,
+    "wallet_signing_enabled": false
+  },
+  "manual_safety_scan": {
+    "status": "passed",
+    "unsafe_true_state_matches": 0,
+    "runtime_call_matches": 0,
+    "safe_false_or_blocked_text_matches": 201,
+    "test_forbidden_literal_matches": 22,
+    "summary": "Staged added-line scans found no unsafe true-state activation and no runtime order/signing/network/wallet/background call additions. Broad matches were false safety flags, blocked/no-live operator text, artifact safety metadata, or negative test literals."
+  },
+  "safety_flags": {
+    "pmbot_remains_not_live_autonomous_trader": true,
+    "paper_only": true,
+    "no_wallet_private_keys": true,
+    "no_real_orders": true,
+    "no_trading_endpoints": true,
+    "no_order_submission": true,
+    "no_order_cancellation": true,
+    "no_signing_by_default": true,
+    "no_signer_instantiation_by_default": true,
+    "no_wallet_connection_ui": true,
+    "no_in_chat_secret_collection": true,
+    "no_private_key_raw_output": true,
+    "no_api_secret_passphrase_raw_output": true,
+    "no_full_signed_payload_output": true,
+    "no_fake_balances_orders_fills_pnl_order_ids_tx_hashes": true,
+    "no_scheduler_daemon_background_autonomous_loop": true,
+    "environment_modified": false,
+    "funder_auto_inferred": false,
+    "funder_auto_copied_from_wallet": false,
+    "allowed_for_live": false,
+    "trading_requested": false
+  },
+  "remote_verification": {
+    "pushed": false,
+    "remote_verified": false,
+    "status": "pending_final_commit_push_verify"
+  },
+  "remaining_risks": [
+    "The default local runner status is blocked_missing_wallet_address because this process has no wallet context env visible.",
+    "This diagnostic intentionally does not decide whether the operator's account setup requires a separate funder; it reports required_by_account_setup as unknown_not_inferred and asks the operator to set POLYMARKET_FUNDER_ADDRESS only if required by account/proxy wallet setup.",
+    "Live execution, signing, submit, cancel, signer instantiation, env modification, and wallet UI remain blocked."
+  ]
+}
