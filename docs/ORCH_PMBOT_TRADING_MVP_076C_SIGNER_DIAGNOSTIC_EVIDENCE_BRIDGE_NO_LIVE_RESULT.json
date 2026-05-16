@@ -1,0 +1,253 @@
+{
+  "task_id": "ORCH-PMBOT-TRADING-MVP-076C-SIGNER-DIAGNOSTIC-EVIDENCE-BRIDGE-NO-LIVE",
+  "branch": "pmbot/trading-mvp-076c-signer-diagnostic-evidence-bridge-no-live",
+  "base": "origin/master",
+  "base_head": "8abfdb77df9c30244f66fa0d0dbee9f0717e95cf",
+  "head_before": "d1fd1356bd209b95387995a82450716e5d049565",
+  "head_after": "b689c30dddeb650d2c743f347e7d270261456be0",
+  "generated_at": "2026-05-16T00:00:00+04:00",
+  "worktree": "C:/oc076c_signer_diagnostic_evidence_bridge_no_live",
+  "origin_master_at_branch_creation": "8abfdb77df9c30244f66fa0d0dbee9f0717e95cf",
+  "prerequisite_notes": {
+    "076b_merged_to_origin_master": false,
+    "076a_present_on_origin_master_at_branch_creation": false,
+    "076a_remote_branch_used": "origin/pmbot/trading-mvp-076a-selected-token-verification-bridge-no-live",
+    "076a_remote_head": "d1fd1356bd209b95387995a82450716e5d049565",
+    "076a_incorporation": "fast-forwarded feature branch through the 076A remote branch because origin/master lacked 076A and 076B was not present"
+  },
+  "implementation_summary": [
+    "Added a local artifact-only signer diagnostic evidence bridge for 076C.",
+    "The bridge reads guarded_signer_diagnostic_smoke 069A artifacts and emits redacted 076C status/result/operator summary artifacts.",
+    "selected_token_payload_readiness_gate now consumes 076C signer diagnostic evidence by default instead of treating raw 069A diagnostic status as readiness evidence.",
+    "Added missing/failed/OK signer evidence statuses: blocked_missing_signer_diagnostic_evidence, blocked_signer_diagnostic_failed, signer_diagnostic_evidence_ok_for_payload_dry_run.",
+    "Kept live, submit, cancel, signer-ready, signer-instantiated, signing-by-default, and full-signed-payload-output flags false.",
+    "Adjusted 072E signed payload diagnostic adapter summary so an explicitly generated source diagnostic artifact does not make the adapter report private_key_read=true for itself."
+  ],
+  "changed_files_summary": {
+    "core": [
+      "pm_bot/trading_core/signer_diagnostic_evidence_models.py",
+      "pm_bot/trading_core/signer_diagnostic_evidence_bridge.py",
+      "pm_bot/trading_core/selected_token_payload_readiness_models.py",
+      "pm_bot/trading_core/selected_token_payload_readiness_gate.py",
+      "pm_bot/trading_core/signed_payload_diagnostic_adapter.py"
+    ],
+    "operator_runners": [
+      "pm_bot/operator_runner/signer_diagnostic_evidence_bridge.py",
+      "pm_bot/operator_runner/selected_token_payload_readiness_gate.py"
+    ],
+    "tests": [
+      "pm_bot/tests/test_signer_diagnostic_evidence_bridge_076c.py",
+      "pm_bot/tests/test_selected_token_payload_readiness_gate_073c.py",
+      "pm_bot/tests/test_selected_token_verification_bridge_076a.py"
+    ],
+    "artifacts": [
+      "pm_bot/trading_core/artifacts/signer_diagnostic_evidence_bridge_076c/latest_signer_diagnostic_evidence_076c_status.json",
+      "pm_bot/trading_core/artifacts/signer_diagnostic_evidence_bridge_076c/signer_diagnostic_evidence_076c_result.json",
+      "pm_bot/trading_core/artifacts/signer_diagnostic_evidence_bridge_076c/signer_diagnostic_evidence_076c_operator_summary.md",
+      "pm_bot/trading_core/artifacts/selected_token_payload_readiness_gate_073c/",
+      "pm_bot/trading_core/artifacts/guarded_signer_diagnostic_smoke_069a/",
+      "pm_bot/trading_core/artifacts/operator_token_selection_packet_073b/",
+      "pm_bot/trading_core/artifacts/selected_candidate_artifact_075d/"
+    ],
+    "docs": [
+      "docs/ORCH_PMBOT_TRADING_MVP_076C_SIGNER_DIAGNOSTIC_EVIDENCE_BRIDGE_NO_LIVE_RESULT.json"
+    ]
+  },
+  "artifact_outputs": {
+    "signer_diagnostic_evidence_bridge_076c": {
+      "latest_status_path": "pm_bot/trading_core/artifacts/signer_diagnostic_evidence_bridge_076c/latest_signer_diagnostic_evidence_076c_status.json",
+      "result_path": "pm_bot/trading_core/artifacts/signer_diagnostic_evidence_bridge_076c/signer_diagnostic_evidence_076c_result.json",
+      "operator_summary_path": "pm_bot/trading_core/artifacts/signer_diagnostic_evidence_bridge_076c/signer_diagnostic_evidence_076c_operator_summary.md",
+      "current_status": "blocked_signer_diagnostic_failed",
+      "current_source_diagnostic_status": "missing_private_key",
+      "validation_valid": true
+    }
+  },
+  "expected_behavior_coverage": {
+    "missing_evidence_status": "blocked_missing_signer_diagnostic_evidence",
+    "failed_evidence_status": "blocked_signer_diagnostic_failed",
+    "ok_evidence_status": "signer_diagnostic_evidence_ok_for_payload_dry_run",
+    "ok_evidence_readiness_progression_test_status": "blocked_signed_payload_dry_run_not_ready",
+    "selected_token_payload_ready_for_submit": false,
+    "allowed_for_live": false,
+    "live": false,
+    "signing_by_default": false,
+    "signer_ready_for_live": false,
+    "order_submit_ready": false,
+    "full_signed_payload_output": false
+  },
+  "runner_summaries": {
+    "guarded_signer_diagnostic_smoke": {
+      "command": "python -m pm_bot.operator_runner.guarded_signer_diagnostic_smoke --market BTC --strategy tiny-momentum --dry-run --allow-private-key-diagnostic",
+      "exit_code": 0,
+      "status": "blocked_missing_private_key",
+      "diagnostic_requested": true,
+      "private_key_read": true,
+      "diagnostic_challenge_signed": false,
+      "allowed_for_live": false,
+      "raw_secret_output": false,
+      "summary": "The explicit guarded diagnostic path failed closed because POLYMARKET_PRIVATE_KEY was absent. No raw key or signed payload was emitted."
+    },
+    "signer_diagnostic_evidence_bridge": {
+      "command": "python -m pm_bot.operator_runner.signer_diagnostic_evidence_bridge --market BTC --strategy tiny-momentum --dry-run",
+      "exit_code": 0,
+      "status": "blocked_signer_diagnostic_failed",
+      "source_diagnostic_status": "missing_private_key",
+      "evidence_ok_for_payload_dry_run": false,
+      "signer_ready_for_live": false,
+      "order_submit_ready": false,
+      "full_signed_payload_output": false,
+      "allowed_for_live": false
+    },
+    "operator_token_selection_packet": {
+      "command": "python -m pm_bot.operator_runner.operator_token_selection_packet --market BTC --strategy tiny-momentum --dry-run",
+      "exit_code": 0,
+      "status": "selection_required",
+      "source_backed_candidates": 2,
+      "allowed_for_live": false
+    },
+    "selected_candidate_artifact": {
+      "command": "python -m pm_bot.operator_runner.selected_candidate_artifact --market BTC --strategy tiny-momentum --dry-run --candidate-index 0",
+      "exit_code": 0,
+      "status": "selected_candidate_artifact_recorded",
+      "selected_by_operator": true,
+      "selected_candidate_executable_for_live": false,
+      "allowed_for_live": false
+    },
+    "selected_token_verification_bridge": {
+      "command": "python -m pm_bot.operator_runner.selected_token_verification_bridge --market BTC --strategy tiny-momentum --dry-run",
+      "exit_code": 0,
+      "status": "selected_token_verified_for_payload_dry_run",
+      "selected_token_verified_for_payload_dry_run": true,
+      "selected_token_payload_ready_for_submit": false,
+      "allowed_for_live": false
+    },
+    "selected_token_payload_readiness_gate": {
+      "command": "python -m pm_bot.operator_runner.selected_token_payload_readiness_gate --market BTC --strategy tiny-momentum --dry-run",
+      "exit_code": 0,
+      "before_076c_status_from_076a_head": "blocked_signer_diagnostic_not_ok",
+      "after_076c_actual_runner_status": "blocked_signer_diagnostic_failed",
+      "after_076c_actual_runner_reason": "guarded diagnostic source was present but failed closed with missing_private_key",
+      "after_076c_ok_evidence_test_status": "blocked_signed_payload_dry_run_not_ready",
+      "selected_token_verified": true,
+      "selected_token_payload_ready_for_submit": false,
+      "allowed_for_live": false,
+      "signing_by_default": false
+    },
+    "risk_engine_v2_review": {
+      "command": "python -m pm_bot.operator_runner.risk_engine_v2_review --market BTC --strategy tiny-momentum --dry-run",
+      "exit_code": 0,
+      "status": "blocked_risk_engine_v2_review",
+      "gate_count": 14,
+      "blockers": 14,
+      "allowed_for_live": false,
+      "risk_engine_v2_executable_for_live": false
+    },
+    "first_live_order_final_blocker_reducer": {
+      "command": "python -m pm_bot.operator_runner.first_live_order_final_blocker_reducer --market BTC --strategy tiny-momentum --dry-run",
+      "exit_code": 0,
+      "status": "blocked_remaining_first_live_order_final_blockers",
+      "remaining_blockers": 10,
+      "allowed_for_live": false,
+      "signing": "blocked",
+      "order_submission": "blocked",
+      "order_cancellation": "blocked"
+    },
+    "static_safety_invariant_report": {
+      "command": "python -m pm_bot.operator_runner.static_safety_invariant_report --scope pm_bot --dry-run",
+      "exit_code": 0,
+      "critical_findings": 0,
+      "warnings": 7,
+      "live_execution": "blocked",
+      "order_submission": "blocked",
+      "signing": "blocked",
+      "wallet": "blocked"
+    }
+  },
+  "validation": [
+    {
+      "command": "python -m pytest pm_bot/tests/test_signer_diagnostic_evidence_bridge_076c.py",
+      "result": "passed",
+      "details": "7 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_selected_token_verification_bridge_076a.py",
+      "result": "passed",
+      "details": "7 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_selected_token_payload_readiness_gate_073c.py",
+      "result": "passed",
+      "details": "14 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_selected_candidate_artifact_075d.py",
+      "result": "passed",
+      "details": "9 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_guarded_signer_diagnostic_smoke_069a.py pm_bot/tests/test_signed_order_payload_dry_run_070a.py pm_bot/tests/test_signed_payload_diagnostic_adapter_072e.py pm_bot/tests/test_signer_boundary_preflight_060.py pm_bot/tests/test_signer_smoke_contract_068a.py pm_bot/tests/test_wallet_signing_boundary_049.py pm_bot/tests/test_live_order_boundary_contract_065b.py",
+      "result": "passed",
+      "details": "66 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_operator_token_selection_packet_073b.py pm_bot/tests/test_risk_engine_v2_074d.py pm_bot/tests/test_first_live_order_final_blocker_reducer_072d.py pm_bot/tests/test_static_safety_invariant_report_060q.py",
+      "result": "passed",
+      "details": "37 passed"
+    },
+    {
+      "command": "python -B -m pytest pm_bot/tests",
+      "result": "passed",
+      "details": "2224 passed in 662.57s; an earlier full run exposed a 072E artifact-summary issue after the explicit diagnostic smoke, which was fixed and rerun successfully"
+    },
+    {
+      "command": "python -m compileall -q pm_bot",
+      "result": "passed"
+    },
+    {
+      "command": "python -m compileall -q ai_orchestrator",
+      "result": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "result": "passed"
+    },
+    {
+      "command": "git diff --cached --check",
+      "result": "passed"
+    }
+  ],
+  "manual_safety_scan": {
+    "result": "passed",
+    "summary": "No staged added lines enable allowed_for_live=true, live execution, order submission/cancellation, signer instantiation by default, wallet UI, raw private key/API secret/passphrase output, full signed payload output, fake execution IDs, scheduler/daemon/background worker, or autonomous loop.",
+    "notes": [
+      "The staged grep found forbidden API/order/signing terms only as literal strings in negative tests that assert they are absent from runtime code.",
+      "The 076C bridge runner rejects --allow-private-key-diagnostic and only suggests the guarded diagnostic command for an explicit separate operator action.",
+      "No raw private key, API secret, passphrase, full signed payload, order ID, fill, balance, PnL, or transaction hash is emitted by 076C artifacts."
+    ]
+  },
+  "safety_flags": {
+    "paper_only": true,
+    "no_wallet_private_keys": true,
+    "no_real_orders": true,
+    "no_trading_endpoints": true,
+    "no_order_submission": true,
+    "no_order_cancellation": true,
+    "no_signing_by_default": true,
+    "no_signer_instantiation_by_default": true,
+    "no_wallet_connection_ui": true,
+    "no_full_signed_payload_output": true,
+    "allowed_for_live": false,
+    "selected_token_payload_ready_for_submit": false,
+    "order_submit_ready": false,
+    "signer_ready_for_live": false
+  },
+  "pushed": true,
+  "remote_verified": true,
+  "final_git_status_expected_clean": true,
+  "remaining_risks": [
+    "The actual local guarded diagnostic did not produce OK evidence because POLYMARKET_PRIVATE_KEY was absent; this is an honest fail-closed diagnostic state.",
+    "The OK signer-evidence readiness progression is covered by deterministic tests with safe synthetic 069A diagnostic evidence.",
+    "076A was not on origin/master at branch creation; it was incorporated from the remote 076A branch as a prerequisite because 076B was absent."
+  ]
+}
