@@ -1,0 +1,278 @@
+{
+  "task_id": "ORCH-PMBOT-TELEGRAM-RUNTIME-077I-INTEGRATE-CONNECTION-BALANCE-FUNDER-MINIAPP-INTO-MASTER",
+  "status": "validation_passed_result_recorded_ready_to_push",
+  "generated_at": "2026-05-17T03:04:41+04:00",
+  "repo": "https://github.com/FlockyBlack/AI-Orchestrator.git",
+  "worktree": "C:/oc077i_integrate_connection_balance_funder_miniapp_into_master",
+  "base_branch": "master",
+  "head_before": "eb2313c7f292361bf7aa2d686a882062b064309e",
+  "head_after": "c7f81e3681b47a49c1894cbd97b4334e6da0860b",
+  "head_after_note": "head_after is the validated code integration head before adding this result artifact commit; the final pushed master head is recorded in the operator report.",
+  "source_branches": [
+    {
+      "task": "077G",
+      "branch": "pmbot/runtime-077g-funder-wallet-context-diagnostic-no-live",
+      "head": "cccfe1fa38768eb951974825771ecf7a0064f32e"
+    },
+    {
+      "task": "077E",
+      "branch": "pmbot/telegram-077e-connection-credential-visibility-no-live",
+      "head": "9105c05265fc836675761aeef488a3aa280ffd90"
+    },
+    {
+      "task": "077F",
+      "branch": "pmbot/telegram-077f-balance-readonly-account-integration-no-live",
+      "head": "3507e1f0c94fb1148d7f3f6d4bff5a7793e9964d"
+    },
+    {
+      "task": "077H",
+      "branch": "pmbot/miniapp-077h-connection-balance-readiness-dashboard-no-live",
+      "head": "159a1ad16b35c43075fdb772828f6b4bc8678030"
+    }
+  ],
+  "merge_commits": [
+    {
+      "head": "db25f76",
+      "summary": "Integrated 077G funder/wallet context diagnostic."
+    },
+    {
+      "head": "95c771d",
+      "summary": "Integrated 077E Telegram credential visibility."
+    },
+    {
+      "head": "4e3e84b",
+      "summary": "Integrated 077F Telegram read-only balance with conflict resolution."
+    },
+    {
+      "head": "f444d86",
+      "summary": "Integrated 077H Mini App readiness dashboard."
+    },
+    {
+      "head": "c7f81e3",
+      "summary": "Added integrated Telegram funder diagnostic text and updated the 077E regression expectation for 077F balance behavior."
+    }
+  ],
+  "conflict_resolutions": [
+    {
+      "file": "pm_bot/operator_runner/telegram_operator_control_bot.py",
+      "resolution": "Kept both 077E and 077F task IDs, preserved the 077E connection display as the 077C runtime credential visibility source of truth, used the 077F read-only balance renderer, and added the 077G dry-run diagnostic command as text only for missing-funder copy."
+    },
+    {
+      "file": "pm_bot/operator_runner/telegram_status_registry.py",
+      "resolution": "Preserved the existing 077C runtime credential and 076C signer diagnostic sources and added the 077F read-only balance status source."
+    },
+    {
+      "file": "pm_bot/tests/test_telegram_single_message_product_menu_069c.py",
+      "resolution": "Kept 077E's clean same-message connection buttons and 077F's balance buttons that route back to Connection."
+    },
+    {
+      "file": "pm_bot/tests/test_telegram_connection_credential_visibility_077e.py",
+      "resolution": "Updated the integrated missing-funder balance expectation to the 077F specific message while still requiring the Connection route."
+    }
+  ],
+  "changed_files": [
+    "docs/ORCH_PMBOT_MINIAPP_077H_CONNECTION_BALANCE_READINESS_DASHBOARD_NO_LIVE_RESULT.json",
+    "docs/ORCH_PMBOT_RUNTIME_077G_FUNDER_WALLET_CONTEXT_DIAGNOSTIC_NO_LIVE_RESULT.json",
+    "docs/ORCH_PMBOT_TELEGRAM_077E_CONNECTION_CREDENTIAL_VISIBILITY_NO_LIVE_RESULT.json",
+    "docs/ORCH_PMBOT_TELEGRAM_077F_BALANCE_READONLY_ACCOUNT_INTEGRATION_NO_LIVE_RESULT.json",
+    "docs/ORCH_PMBOT_TELEGRAM_RUNTIME_077I_INTEGRATE_CONNECTION_BALANCE_FUNDER_MINIAPP_RESULT.json",
+    "pm_bot/operator_runner/funder_wallet_context_diagnostic.py",
+    "pm_bot/operator_runner/telegram_operator_control_bot.py",
+    "pm_bot/operator_runner/telegram_operator_i18n.py",
+    "pm_bot/operator_runner/telegram_operator_runtime.py",
+    "pm_bot/operator_runner/telegram_product_ux_068c.py",
+    "pm_bot/operator_runner/telegram_single_message_product_menu_069c.py",
+    "pm_bot/operator_runner/telegram_status_registry.py",
+    "pm_bot/telegram_mini_app/index.html",
+    "pm_bot/telegram_mini_app/styles.css",
+    "pm_bot/tests/test_funder_wallet_context_077g.py",
+    "pm_bot/tests/test_miniapp_connection_balance_readiness_077h.py",
+    "pm_bot/tests/test_telegram_balance_readonly_account_077f.py",
+    "pm_bot/tests/test_telegram_connection_credential_visibility_077e.py",
+    "pm_bot/tests/test_telegram_product_start_language_068c.py",
+    "pm_bot/tests/test_telegram_product_ux_067a.py",
+    "pm_bot/tests/test_telegram_product_ux_076t.py",
+    "pm_bot/tests/test_telegram_real_check_results_display_073t.py",
+    "pm_bot/tests/test_telegram_single_message_product_menu_069c.py",
+    "pm_bot/trading_core/artifacts/funder_wallet_context_077g/funder_wallet_context_077g_operator_summary.md",
+    "pm_bot/trading_core/artifacts/funder_wallet_context_077g/funder_wallet_context_077g_result.json",
+    "pm_bot/trading_core/artifacts/funder_wallet_context_077g/latest_funder_wallet_context_077g_status.json",
+    "pm_bot/trading_core/funder_wallet_context_077g.py",
+    "pm_bot/trading_core/telegram_balance_readonly_status_077f.py"
+  ],
+  "validation": [
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_connection_credential_visibility_077e.py pm_bot/tests/test_telegram_balance_readonly_account_077f.py pm_bot/tests/test_funder_wallet_context_077g.py pm_bot/tests/test_miniapp_connection_balance_readiness_077h.py",
+      "result": "pass",
+      "summary": "24 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_runtime_credential_visibility_077c.py pm_bot/tests/test_first_supervised_tiny_order_readiness_packet_077a.py pm_bot/tests/test_payload_dry_run_readiness_076d.py pm_bot/tests/test_signer_diagnostic_evidence_bridge_076c.py pm_bot/tests/test_telegram_product_ux_076t.py pm_bot/tests/test_telegram_single_message_product_menu_069c.py pm_bot/tests/test_telegram_forbidden_live_controls_063a.py pm_bot/tests/test_static_safety_invariant_report_060q.py",
+      "result": "pass",
+      "summary": "74 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_live_account_readonly_state_probe_070c.py pm_bot/tests/test_local_real_check_bundle_072c.py pm_bot/tests/test_local_real_check_snapshot_073a.py pm_bot/tests/test_live_readonly_status_aggregator_071b.py pm_bot/tests/test_telegram_mini_app_scaffold_067b.py pm_bot/tests/test_telegram_mini_app_product_dashboard_068d.py pm_bot/tests/test_telegram_mini_app_order_prep_dashboard_072f.py",
+      "result": "pass",
+      "summary": "47 passed"
+    },
+    {
+      "command": "python -B -m pytest -q pm_bot/tests",
+      "result": "pass",
+      "summary": "2291 passed in 613.05s from O:/"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_connection_credential_visibility_077e.py",
+      "result": "pass",
+      "summary": "5 passed after final formatting cleanup"
+    },
+    {
+      "command": "python -m compileall -q pm_bot && python -m compileall -q ai_orchestrator",
+      "result": "pass",
+      "summary": "compileall passed for both packages"
+    }
+  ],
+  "max_path_handling": {
+    "used_short_drive_mapping": true,
+    "drive": "O:/",
+    "target": "C:/oc077i_integrate_connection_balance_funder_miniapp_into_master",
+    "reason": "The public evidence packet absolute path was 264 characters from C:/ and Python failed to open it; the same tests passed from the short drive mapping.",
+    "cleanup_required": "subst O: /D after final validation and push"
+  },
+  "runner_smokes": [
+    {
+      "command": "python -m pm_bot.operator_runner.telegram_runtime_smoke --json",
+      "result": "pass",
+      "summary": "ready_to_start_runtime=true; review_only_safety_flags_ok=true; no network requested; live_trading_enabled=false; wallet_integration_added=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.runtime_credential_visibility_diagnostic --market BTC --strategy tiny-momentum --dry-run",
+      "result": "pass",
+      "summary": "status=blocked_missing_private_key; Polymarket L2 visible=false; wallet context visible=false; Telegram runtime visible=true; raw secret output=false; signer instantiated=false; order submission enabled=false; allowed for live=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.funder_wallet_context_diagnostic --market BTC --strategy tiny-momentum --dry-run",
+      "result": "pass",
+      "summary": "status=blocked_missing_wallet_address; wallet/funder/signature/private key all absent; funder auto inferred=false; funder copied from wallet=false; signer instantiated=false; order submission enabled=false; allowed for live=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.live_account_readonly_state_probe --market BTC --strategy tiny-momentum --dry-run",
+      "result": "pass",
+      "summary": "status=blocked_missing_l2_credentials; read-only=true; private key read=false; signer instantiated=false; order submission/cancellation/wallet connection blocked"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.local_real_check_bundle --market BTC --strategy tiny-momentum --dry-run --allow-private-key-diagnostic",
+      "result": "pass",
+      "summary": "completed with live blocked blockers; subchecks 6/6 completed, 0 failed, 4 blocked; L2/account/signer blockers are explicit; order submission/cancel/signing/trading writes blocked"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.local_real_check_snapshot --market BTC --strategy tiny-momentum --dry-run",
+      "result": "pass",
+      "summary": "status=local_real_check_snapshot_recorded_live_blocked; no network calls; no environment secret reads; account read-only config not detected; final blocker remains"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.first_supervised_tiny_order_readiness_packet --market BTC --strategy tiny-momentum --dry-run",
+      "result": "pass",
+      "summary": "status=blocked_signer_diagnostic_not_ok; explicit live authorization present=false; ready for execution=false; allowed for live=false; order submission/cancel disabled; signing by default=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.static_safety_invariant_report --scope pm_bot --dry-run",
+      "result": "pass",
+      "summary": "critical findings=0; warnings=7; live execution/order submission/signing/wallet all blocked"
+    }
+  ],
+  "runtime_credential_visibility_summary": {
+    "source_of_truth": "077C runtime credential visibility",
+    "telegram_connection_display": "Shows Polymarket credential presence, lengths, and safe fingerprints only; also shows Telegram runtime alias visibility.",
+    "raw_values_emitted": false
+  },
+  "funder_wallet_diagnostic_summary": {
+    "runner_added": "python -m pm_bot.operator_runner.funder_wallet_context_diagnostic --market BTC --strategy tiny-momentum --dry-run",
+    "telegram_copy": "Missing-funder copy now includes the 077G dry-run diagnostic command as text only.",
+    "does_not_infer_or_set_funder": true,
+    "does_not_modify_env": true
+  },
+  "telegram_connection_behavior_summary": {
+    "shows_polymarket_credential_visibility": true,
+    "shows_telegram_alias_visibility": true,
+    "explains_missing_polymarket_funder_address": true,
+    "raw_secrets_displayed": false,
+    "asks_user_to_paste_secrets_in_chat": false,
+    "same_message_navigation_preserved": true
+  },
+  "telegram_balance_behavior_summary": {
+    "missing_credentials_routes_to_connection": true,
+    "missing_funder_routes_to_connection": true,
+    "missing_account_artifact_shows_safe_read_only_command": true,
+    "read_only_artifact_display_uses_real_fields_only": true,
+    "fake_balance_pnl_orders_added": false
+  },
+  "mini_app_behavior_summary": {
+    "static_product_dashboard_added": true,
+    "sections": [
+      "connection",
+      "balance",
+      "analytics",
+      "launch",
+      "readiness",
+      "stop"
+    ],
+    "fetch_or_network_added": false,
+    "wallet_connect_added": false,
+    "secret_forms_added": false,
+    "submit_cancel_sign_controls_added": false,
+    "fake_balances_or_pnl_added": false
+  },
+  "readiness_packet_status": {
+    "status": "blocked_signer_diagnostic_not_ok",
+    "ready_for_execution": false,
+    "allowed_for_live": false,
+    "order_submission_enabled": false,
+    "signing_by_default": false
+  },
+  "static_safety_summary": {
+    "critical_findings": 0,
+    "warnings": 7,
+    "live_execution": "blocked",
+    "order_submission": "blocked",
+    "signing": "blocked",
+    "wallet": "blocked"
+  },
+  "manual_safety_scan_summary": {
+    "raw_secret_output": false,
+    "private_key_output": false,
+    "api_secret_or_passphrase_output": false,
+    "full_signed_payload_output": false,
+    "submit_cancel_order_post_added": false,
+    "signer_creation_by_default_added": false,
+    "wallet_connect_ui_added": false,
+    "in_chat_secret_collection_added": false,
+    "fake_balance_pnl_orders_added": false,
+    "scheduler_daemon_background_loop_added": false,
+    "allowed_for_live_true_added": false,
+    "trading_requested_true_added": false,
+    "notes": "Search hits were limited to guard/test/doc literals and false-valued safety fields; no enabling code or UI controls were found."
+  },
+  "safety_flags": {
+    "pmbot_live_autonomous_trader": false,
+    "live_trading_added": false,
+    "order_submission_added": false,
+    "order_cancel_added": false,
+    "signing_by_default_added": false,
+    "signer_instantiation_by_default_added": false,
+    "wallet_connection_ui_added": false,
+    "private_key_or_api_secret_raw_output_added": false,
+    "full_signed_payload_output_added": false,
+    "fake_balance_orders_fills_pnl_order_ids_tx_hashes_added": false,
+    "scheduler_daemon_background_autonomous_loop_added": false,
+    "in_chat_secret_collection_added": false
+  },
+  "remote_verification": {
+    "performed": false,
+    "status": "pending_push_and_final_operator_report"
+  },
+  "final_git_status_clean": true,
+  "remaining_risks": [
+    "Local environment intentionally lacked Polymarket L2/private-key/funder wallet context; read-only/live-account probes therefore reported explicit blocked statuses rather than balances."
+  ]
+}
