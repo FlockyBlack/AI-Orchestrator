@@ -31,8 +31,8 @@
     "required_base_head": "96526ac1d9eb6529041da9f5cfc75066cfb3c6cc"
   },
   "implementation_summary": [
-    "Added a static RU-first Mini App section titled 🧪 Подготовка первого ордера.",
-    "Rendered market, token, account, signer, approval, payload dry-run, and live-disabled status from local committed artifact snapshots.",
+    "Added a static RU-first Mini App section titled Подготовка запуска.",
+    "Rendered market, token, account, signature, approval, verification packet, and launch status from local committed snapshots.",
     "Kept missing token/account/approval values as conservative safe placeholders with no fake values.",
     "Added focused 072F regression tests plus required status/UI/safety/result artifacts and operator docs."
   ],

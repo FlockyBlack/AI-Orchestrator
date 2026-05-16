@@ -218,11 +218,11 @@ def test_authorized_start_and_help_work_and_state_no_execution() -> None:
     help_response = bot.handle_command(user_id=AUTHORIZED_USER_ID, text="/help")
 
     assert start.authorized is True
-    assert "Выбери язык" in start.text
+    assert start.text == "Выберите язык"
     assert "🇷🇺 Русский" in [button.label for row in start.keyboard.rows for button in row]
     assert "🇬🇧 English" in [button.label for row in start.keyboard.rows for button in row]
-    assert "/status" in help_response.text
-    assert "отправка ордеров" in help_response.text
+    assert "/analytics" in help_response.text
+    assert "/launch" in help_response.text
     assert validate_telegram_operator_control_state(help_response.state)["valid"] is True
     for flag in FORCED_FALSE_FLAGS:
         assert help_response.to_dict()[flag] is False
@@ -265,10 +265,10 @@ def test_btc_intent_risk_auth_order_gonogo_evidence_and_blockers_commands() -> N
     assert "order_intent_is_not_order_submission: true" in intent.text
     assert "Max order: 1" in risk.text
     assert "Max orders/day: 2" in risk.text
-    assert "🔐 Проверка подключения" in auth.text
-    assert "API ключи:" in auth.text
+    assert "🔌 Подключение" in auth.text
+    assert "API Key:" in auth.text
     assert AUTHORIZED_USER_ID not in auth.text
-    assert "Live: выключен" in auth.text
+    assert "Ключи должны быть доступны процессу Telegram-бота" in auth.text
     assert "order_submission_enabled: false" in order.text
     assert "would_submit_order: false" in order.text
     assert "Итог: NO_GO" in gonogo.text

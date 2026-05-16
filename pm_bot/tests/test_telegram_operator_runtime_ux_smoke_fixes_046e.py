@@ -65,10 +65,10 @@ def test_runtime_start_language_panel_and_redaction_smoke() -> None:
     panel = adapter.handle_text(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", text="/panel")
     rendered = json.dumps(panel.to_redacted_dict(), sort_keys=True)
 
-    assert "Выбери язык" in start.text
+    assert start.text == "Выберите язык"
     assert russian.state["operator_language"] == "ru"
-    assert "PMBOT\nВыберите раздел." in russian.text
-    assert "Mini App настроен" in panel.text
+    assert "PMBOT — торговый помощник для Polymarket." in russian.text
+    assert "Mini App — расширенная панель PMBOT" in panel.text
     assert panel.panel_button_url == MINI_APP_URL
     assert RAW_TOKEN not in rendered
     assert RAW_INIT_DATA not in rendered
@@ -82,7 +82,7 @@ def test_runtime_language_command_and_menu_include_language() -> None:
     menu = runtime.telegram_command_menu_items()
 
     assert [button.callback_data for button in language.keyboard.rows[0]] == ["pmbot:lang:ru", "pmbot:lang:en"]
-    assert ("language", "Language") in menu
+    assert ("settings", "Settings") in menu
     assert runtime.is_supported_runtime_command("/language") is True
 
 
@@ -93,8 +93,7 @@ def test_runtime_panel_missing_url_keeps_local_fallback_review_only() -> None:
     reply = adapter.handle_text(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", text="/panel")
     redacted = reply.to_redacted_dict()
 
-    assert "Mini App URL не настроен." in reply.text
-    assert "PMBOT_TELEGRAM_MINI_APP_URL" in reply.text
+    assert "Mini App — расширенная панель PMBOT" in reply.text
     assert reply.panel_button_url == ""
     assert redacted["review_only"] is True
     assert redacted["live_execution_approved"] is False

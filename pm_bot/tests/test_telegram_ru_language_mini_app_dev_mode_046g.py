@@ -20,16 +20,12 @@ MINI_APP_URL = "https://example.invalid/pmbot-panel"
 
 REQUIRED_STABLE_CALLBACKS = {
     "pmbot:connection",
-    "pmbot:connection_status",
-    "pmbot:order_prep_status",
     "pmbot:balance",
-    "pmbot:trades",
-    "pmbot:pnl",
-    "pmbot:bot_status",
-    "pmbot:limits",
+    "pmbot:analytics",
+    "pmbot:launch",
     "pmbot:panel",
     "pmbot:stop",
-    "pmbot:language",
+    "pmbot:settings",
     "pmbot:lang:ru",
     "pmbot:lang:en",
 }
@@ -137,7 +133,7 @@ def _select_ru(adapter: runtime.TelegramOperatorRuntimeAdapter) -> runtime.Teleg
 def test_start_uses_ru_first_home_when_language_is_not_selected() -> None:
     reply = _adapter().handle_text(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", text="/start")
 
-    assert "Выбери язык" in reply.text
+    assert reply.text == "Выберите язык"
     assert _button_labels(reply) == ("🇷🇺 Русский", "🇬🇧 English")
     assert set(_callback_data(reply)) == {"pmbot:lang:ru", "pmbot:lang:en"}
 
@@ -155,10 +151,9 @@ def test_russian_and_english_language_can_be_selected_via_callback() -> None:
     )
 
     assert russian.state["operator_language"] == "ru"
-    assert "PMBOT\nВыберите раздел." in russian.text
+    assert "PMBOT — торговый помощник для Polymarket." in russian.text
     assert english.state["operator_language"] == "en"
-    assert "Language: English" in english.text
-    assert "PMBOT\nChoose a section." in english.text
+    assert "PMBOT is a trading assistant for Polymarket." in english.text
 
 
 def test_language_command_shows_both_language_choices() -> None:
@@ -167,51 +162,41 @@ def test_language_command_shows_both_language_choices() -> None:
 
     reply = adapter.handle_text(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", text="/language")
 
-    assert "Выбери язык" in reply.text
+    assert reply.text == "Выберите язык"
     assert _button_labels(reply) == ("🇷🇺 Русский", "🇬🇧 English")
     assert _callback_data(reply) == ("pmbot:lang:ru", "pmbot:lang:en")
 
 
 def test_russian_home_keyboard_uses_expected_labels_and_stable_callbacks() -> None:
-    reply = _select_ru(_adapter())
+    adapter = _adapter()
+    _select_ru(adapter)
+    reply = adapter.handle_callback(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", callback_data="pmbot:home")
 
-    assert "PMBOT\nВыберите раздел." in reply.text
+    assert "PMBOT\nГлавное меню" in reply.text
     assert _button_labels(reply) == (
-        "🔐 Подключение",
+        "🔌 Подключение",
         "💰 Баланс",
-        "📊 Сделки",
-        "📈 PnL",
-        "⚙️ Лимиты",
-        "🤖 Статус",
-        "🖥 Mini App",
-        "🌐 Язык",
-        "🚨 Стоп",
+        "📊 Аналитика",
+        "🚀 Запуск",
+        "⛔ Остановить",
+        "🌐 Mini App",
+        "⚙️ Настройки",
     )
-    assert set(_callback_data(reply)) == REQUIRED_STABLE_CALLBACKS - {
-        "pmbot:connection_status",
-        "pmbot:order_prep_status",
-        "pmbot:lang:ru",
-        "pmbot:lang:en",
-    }
+    assert set(_callback_data(reply)) == REQUIRED_STABLE_CALLBACKS - {"pmbot:lang:ru", "pmbot:lang:en"}
 
 
 def test_callback_data_remains_stable_and_language_independent() -> None:
     assert REQUIRED_STABLE_CALLBACKS.issubset(set(CALLBACK_COMMAND_MAP))
 
-    ru_home = _select_ru(_adapter())
-    en_home = _adapter().handle_callback(
-        user_id=AUTHORIZED_USER_ID,
-        chat_id="chat-1",
-        callback_data="pmbot:lang:en",
-    )
+    ru_adapter = _adapter()
+    _select_ru(ru_adapter)
+    ru_home = ru_adapter.handle_callback(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", callback_data="pmbot:home")
+    en_adapter = _adapter()
+    en_adapter.handle_callback(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", callback_data="pmbot:lang:en")
+    en_home = en_adapter.handle_callback(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", callback_data="pmbot:home")
     ru_language = _adapter().handle_text(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", text="/language")
 
-    home_callbacks = REQUIRED_STABLE_CALLBACKS - {
-        "pmbot:connection_status",
-        "pmbot:order_prep_status",
-        "pmbot:lang:ru",
-        "pmbot:lang:en",
-    }
+    home_callbacks = REQUIRED_STABLE_CALLBACKS - {"pmbot:lang:ru", "pmbot:lang:en"}
     assert set(_callback_data(ru_home)) == home_callbacks
     assert set(_callback_data(en_home)) == home_callbacks
     assert set(_callback_data(ru_language)) == {"pmbot:lang:ru", "pmbot:lang:en"}
@@ -225,8 +210,8 @@ def test_panel_with_mini_app_url_includes_safe_russian_button_without_redacted_u
     first_button = reply.keyboard.rows[0][0]
     redacted = json.dumps(reply.to_redacted_dict(), sort_keys=True)
 
-    assert "Mini App настроен. Откройте PMBOT кнопкой ниже." in reply.text
-    assert first_button.label == "Открыть PMBOT"
+    assert "Mini App — расширенная панель PMBOT" in reply.text
+    assert first_button.label == "Открыть Mini App"
     assert first_button.web_app_url == MINI_APP_URL
     assert reply.panel_button_url == MINI_APP_URL
     assert MINI_APP_URL not in redacted
@@ -241,10 +226,9 @@ def test_panel_without_mini_app_url_gives_clear_russian_local_tunnel_fallback() 
 
     reply = adapter.handle_text(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", text="/panel")
 
-    assert "Mini App URL не настроен." in reply.text
-    assert "PMBOT_TELEGRAM_MINI_APP_URL" in reply.text
+    assert "Mini App — расширенная панель PMBOT" in reply.text
     assert reply.panel_button_url == ""
-    assert _button_labels(reply) == ("⬅️ Назад",)
+    assert _button_labels(reply) == ("⬅️ Главное меню",)
 
 
 def test_no_token_init_data_raw_operator_id_or_forbidden_execution_button_labels_are_exposed() -> None:

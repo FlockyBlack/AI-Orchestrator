@@ -4,13 +4,13 @@
   "generated_at": "2026-05-15T00:00:00+04:00",
   "launch_button": {
     "env_marker": "PMBOT_TELEGRAM_MINI_APP_URL",
-    "label": "Открыть PMBOT",
+    "label": "Открыть Mini App",
     "url_marker_driven_only": true
   },
   "menu_items": [
     {
-      "id": "home",
-      "label": "Главная"
+      "id": "dashboard",
+      "label": "Дашборд"
     },
     {
       "id": "connection",
@@ -21,24 +21,28 @@
       "label": "Баланс"
     },
     {
-      "id": "trades",
-      "label": "Сделки"
+      "id": "analytics",
+      "label": "Аналитика"
     },
     {
-      "id": "pnl",
-      "label": "PnL"
+      "id": "positions",
+      "label": "Позиции"
     },
     {
-      "id": "status",
-      "label": "Статус"
+      "id": "markets",
+      "label": "Рынки"
+    },
+    {
+      "id": "order-prep",
+      "label": "Подготовка"
     },
     {
       "id": "limits",
       "label": "Лимиты"
     },
     {
-      "id": "stop",
-      "label": "Стоп"
+      "id": "launch-stop",
+      "label": "Запуск"
     }
   ],
   "no_fake_balance": true,

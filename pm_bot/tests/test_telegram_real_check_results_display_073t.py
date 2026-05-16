@@ -228,16 +228,27 @@ def test_073t_telegram_connection_screen_uses_same_message_safe_controls(tmp_pat
     reply = adapter.handle_callback(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", callback_data="pmbot:connection")
     rendered = reply.text + "\n" + json.dumps(reply.to_redacted_dict(), sort_keys=True, ensure_ascii=False)
 
-    assert "🔐 Проверка подключения" in reply.text
-    assert "API ключи: не найдены" in reply.text
-    assert "L2 auth: ошибка" in reply.text
-    assert "Аккаунт: ошибка" in reply.text
-    assert "Signer: не проверен" in reply.text
-    assert "Рынок: найден" in reply.text
-    assert "Token ID: требуется выбор" in reply.text
-    assert "Live: выключен" in reply.text
-    assert _button_labels(reply) == ("🔄 Обновить", "🧪 Запустить локальную проверку", "⬅️ Назад")
-    assert _callback_data(reply) == ("pmbot:connection", "pmbot:run:local_real_check_bundle_072c", "pmbot:home")
+    assert "🔌 Подключение" in reply.text
+    assert "API Key: не подключен" in reply.text
+    assert "API Secret: не подключен" in reply.text
+    assert "Passphrase: не подключен" in reply.text
+    assert "Wallet address: не подключен" in reply.text
+    assert "Signature type: не подключен" in reply.text
+    assert "Funder address: не подключен" in reply.text
+    assert _button_labels(reply) == (
+        "➕ Подключить API-ключи",
+        "🔍 Проверить подключение",
+        "📘 Инструкция",
+        "🗑 Удалить подключение",
+        "⬅️ Главное меню",
+    )
+    assert _callback_data(reply) == (
+        "pmbot:connection:setup",
+        "pmbot:connection:check",
+        "pmbot:connection:instruction",
+        "pmbot:connection:remove",
+        "pmbot:home",
+    )
     for raw in (RAW_TOKEN, RAW_TOKEN_ID, RAW_ACCOUNT, RAW_SECRET):
         assert raw not in rendered
 
@@ -287,22 +298,19 @@ def test_073t_mini_app_card_and_artifacts_are_static_safe() -> None:
     html = MINI_APP_INDEX.read_text(encoding="utf-8")
     rendered = (html + "\n" + MINI_APP_STYLES.read_text(encoding="utf-8")).lower()
 
-    assert "Проверка подключения" in html
+    assert "Подключение" in html
     for phrase in (
-        "API ключи",
-        "не найдены",
-        "L2 auth",
-        "ошибка",
-        "Аккаунт",
-        "Signer",
-        "не проверен",
-        "Рынок",
-        "найден",
-        "Token ID",
-        "требуется выбор",
-        "Live",
-        "выключен",
-        "Проверка ещё не запускалась",
+        "API Key",
+        "API Secret",
+        "Passphrase",
+        "Signature type",
+        "Funder",
+        "Баланс недоступен",
+        "Аналитика",
+        "Позиции",
+        "Выбор рынков",
+        "Контроль риска",
+        "Запуск пока недоступен",
     ):
         assert phrase in html
 

@@ -176,14 +176,14 @@ body {
   gap: 6px;
   align-content: center;
   min-height: 94px;
-  border: 1px solid rgba(239, 98, 98, 0.24);
+  border: 1px solid rgba(242, 184, 75, 0.28);
   border-radius: 8px;
   padding: 14px;
-  background: var(--red-soft);
+  background: var(--amber-soft);
 }
 
 .hero-status strong {
-  color: #ffd8d8;
+  color: #ffe2a6;
   line-height: 1.25;
 }
 
@@ -224,6 +224,11 @@ body {
 
 .order-prep-card {
   grid-column: 1 / -1;
+}
+
+.analytics-card,
+.launch-card {
+  grid-column: span 8;
 }
 
 .risk-engine-card {
@@ -274,6 +279,57 @@ body {
   text-align: left;
 }
 
+.analytics-list {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.analytics-list div {
+  grid-template-columns: 1fr;
+}
+
+.analytics-list dd {
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.chart-placeholder {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+  align-items: end;
+  min-height: 120px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.chart-placeholder span {
+  display: block;
+  border-radius: 6px 6px 0 0;
+  background: linear-gradient(180deg, var(--green), rgba(32, 201, 151, 0.18));
+}
+
+.chart-placeholder span:nth-child(1) {
+  height: 36px;
+}
+
+.chart-placeholder span:nth-child(2) {
+  height: 70px;
+}
+
+.chart-placeholder span:nth-child(3) {
+  height: 48px;
+}
+
+.chart-placeholder span:nth-child(4) {
+  height: 92px;
+}
+
+.chart-placeholder span:nth-child(5) {
+  height: 58px;
+}
+
 .command-line {
   display: block;
   width: 100%;
@@ -292,6 +348,10 @@ body {
 
 .stop-card {
   border-color: rgba(239, 98, 98, 0.26);
+}
+
+.launch-card {
+  border-color: rgba(242, 184, 75, 0.26);
 }
 
 .card-header {
@@ -468,11 +528,24 @@ body {
     grid-column: 1 / -1;
   }
 
+  .analytics-card,
+  .launch-card {
+    grid-column: 1 / -1;
+  }
+
   .real-check-list {
     grid-template-columns: 1fr;
   }
 
+  .analytics-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .risk-engine-list {
+    grid-template-columns: 1fr;
+  }
+
+  .analytics-list {
     grid-template-columns: 1fr;
   }
 

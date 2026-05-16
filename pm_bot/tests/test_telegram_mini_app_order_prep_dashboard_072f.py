@@ -77,7 +77,7 @@ def test_072f_order_prep_section_is_static_ru_first_and_visible() -> None:
 
     assert 'id="order-prep"' in html
     assert 'href="#order-prep"' in html
-    assert "🧪 Подготовка первого ордера" in html
+    assert "Подготовка запуска" in html
     assert "order-prep-card" in html
     assert "order-prep-list" in css
     assert "grid-template-columns: repeat(9" in css
@@ -85,21 +85,22 @@ def test_072f_order_prep_section_is_static_ru_first_and_visible() -> None:
     for phrase in (
         "Рынок",
         "BTC",
-        "из локального 071A artifact",
-        "Token ID",
+        "выбранный рынок",
+        "Токен",
         "не выбран",
-        "token_id_present=false",
         "Аккаунт",
         "не проверен",
-        "Signer",
-        "Approval",
-        "Payload dry-run",
-        "artifact есть",
-        "Live выключен",
-        "allowed_for_live=false",
-        "Safe placeholder активен для отсутствующих значений",
+        "Подпись",
+        "Подтверждение",
+        "Пакет проверки",
+        "готово",
+        "Запуск",
+        "выключен",
+        "Mini App показывает только безопасные статусы",
     ):
         assert phrase in html
+    for internal_copy in ("allowed_for_live=false", "token_id_present=false", "из локального 071A artifact"):
+        assert internal_copy not in html
 
 
 def test_072f_section_has_no_forms_scripts_network_fetch_or_live_controls() -> None:
@@ -139,7 +140,8 @@ def test_072f_section_does_not_expose_raw_token_account_or_secret_values() -> No
     assert "api secret" not in rendered.lower()
     assert "mnemonic" not in rendered.lower()
     assert "seed phrase" not in rendered.lower()
-    assert "raw value не показан" in rendered
+    assert "raw-значение не показывается" in rendered
+    assert "raw-значения не показываются" in rendered
 
 
 def test_072f_artifacts_exist_and_match_dashboard_status() -> None:
@@ -158,7 +160,7 @@ def test_072f_artifacts_exist_and_match_dashboard_status() -> None:
     assert status["account"]["display_ru"] == "не проверен"
     assert status["signer"]["display_ru"] == "выключен"
     assert status["approval"]["display_ru"] == "не проверен"
-    assert status["payload_dry_run"]["display_ru"] == "artifact есть"
+    assert status["payload_dry_run"]["display_ru"] == "готово"
     assert status["live"]["display_ru"] == "выключен"
 
     for item in status.values():

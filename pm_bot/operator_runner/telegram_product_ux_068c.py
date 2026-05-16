@@ -29,26 +29,22 @@ SAFETY_SNAPSHOT_PATH = ARTIFACT_DIR / "telegram_product_ux_safety_snapshot_068c.
 
 START_LANGUAGE_LABELS = ("🇷🇺 Русский", "🇬🇧 English")
 RU_MAIN_MENU_LABELS = (
-    "🔐 Подключение",
+    "🔌 Подключение",
     "💰 Баланс",
-    "📊 Сделки",
-    "📈 PnL",
-    "⚙️ Лимиты",
-    "🤖 Статус",
-    "🖥 Mini App",
-    "🌐 Язык",
-    "🚨 Стоп",
+    "📊 Аналитика",
+    "🚀 Запуск",
+    "⛔ Остановить",
+    "🌐 Mini App",
+    "⚙️ Настройки",
 )
 EN_MAIN_MENU_LABELS = (
-    "🔐 Connection",
+    "🔌 Connection",
     "💰 Balance",
-    "📊 Trades",
-    "📈 PnL",
-    "⚙️ Limits",
-    "🤖 Status",
-    "🖥 Mini App",
-    "🌐 Language",
-    "🚨 Stop",
+    "📊 Analytics",
+    "🚀 Launch",
+    "⛔ Stop",
+    "🌐 Mini App",
+    "⚙️ Settings",
 )
 
 ENGINEERING_PRIMARY_LABEL_BLOCKLIST = (
@@ -128,8 +124,8 @@ def build_ru_menu_snapshot(*, generated_at: str = GENERATED_AT) -> dict[str, Any
             label not in labels for label in set(EN_MAIN_MENU_LABELS) - set(RU_MAIN_MENU_LABELS)
         ),
         "engineering_debug_labels_are_not_primary_menu_labels": _engineering_labels_absent(labels),
-        "mini_app_button_label": "🖥 Mini App",
-        "connection_check_button_label": "🧪 Проверить подключение",
+        "mini_app_button_label": "🌐 Mini App",
+        "connection_check_button_label": "🔍 Проверить подключение",
         "allowed_for_live": False,
     }
 
@@ -146,8 +142,8 @@ def build_en_menu_snapshot(*, generated_at: str = GENERATED_AT) -> dict[str, Any
         "callbacks": callbacks,
         "labels_match_required": tuple(labels) == EN_MAIN_MENU_LABELS,
         "engineering_debug_labels_are_not_primary_menu_labels": _engineering_labels_absent(labels),
-        "mini_app_button_label": "🖥 Mini App",
-        "connection_check_button_label": "🧪 Check connection",
+        "mini_app_button_label": "🌐 Mini App",
+        "connection_check_button_label": "🔍 Check connection",
         "allowed_for_live": False,
     }
 

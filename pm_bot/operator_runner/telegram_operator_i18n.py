@@ -21,37 +21,193 @@ LANGUAGE_SELECTION_BUTTON_ROWS = (
 
 HOME_BUTTON_ROWS_BY_LANGUAGE = {
     "ru": (
-        (("🔐 Подключение", "pmbot:connection"), ("💰 Баланс", "pmbot:balance")),
-        (("📊 Сделки", "pmbot:trades"), ("📈 PnL", "pmbot:pnl")),
-        (("⚙️ Лимиты", "pmbot:limits"), ("🤖 Статус", "pmbot:bot_status")),
-        (("🖥 Mini App", "pmbot:panel"), ("🌐 Язык", "pmbot:language")),
-        (("🚨 Стоп", "pmbot:stop"),),
+        (("🔌 Подключение", "pmbot:connection"), ("💰 Баланс", "pmbot:balance")),
+        (("📊 Аналитика", "pmbot:analytics"), ("🚀 Запуск", "pmbot:launch")),
+        (("⛔ Остановить", "pmbot:stop"), ("🌐 Mini App", "pmbot:panel")),
+        (("⚙️ Настройки", "pmbot:settings"),),
     ),
     "en": (
-        (("🔐 Connection", "pmbot:connection"), ("💰 Balance", "pmbot:balance")),
-        (("📊 Trades", "pmbot:trades"), ("📈 PnL", "pmbot:pnl")),
-        (("⚙️ Limits", "pmbot:limits"), ("🤖 Status", "pmbot:bot_status")),
-        (("🖥 Mini App", "pmbot:panel"), ("🌐 Language", "pmbot:language")),
-        (("🚨 Stop", "pmbot:stop"),),
+        (("🔌 Connection", "pmbot:connection"), ("💰 Balance", "pmbot:balance")),
+        (("📊 Analytics", "pmbot:analytics"), ("🚀 Launch", "pmbot:launch")),
+        (("⛔ Stop", "pmbot:stop"), ("🌐 Mini App", "pmbot:panel")),
+        (("⚙️ Settings", "pmbot:settings"),),
     ),
 }
 
 PANEL_FALLBACK_BUTTON_ROWS_BY_LANGUAGE = {
     "ru": (
-        (("🤖 Статус бота", "pmbot:bot_status"), ("🔐 Подключение", "pmbot:connection")),
-        (("🧪 Проверка подключения", "pmbot:connection_status"), ("🚨 Стоп", "pmbot:stop")),
-        (("🌐 Язык", "pmbot:language"),),
+        (("🔌 Подключение", "pmbot:connection"), ("💰 Баланс", "pmbot:balance")),
+        (("📊 Аналитика", "pmbot:analytics"), ("🚀 Запуск", "pmbot:launch")),
+        (("⚙️ Настройки", "pmbot:settings"),),
     ),
     "en": (
-        (("🤖 Bot Status", "pmbot:bot_status"), ("🔐 Connection", "pmbot:connection")),
-        (("🧪 Connection Check", "pmbot:connection_status"), ("🚨 Stop", "pmbot:stop")),
-        (("🌐 Language", "pmbot:language"),),
+        (("🔌 Connection", "pmbot:connection"), ("💰 Balance", "pmbot:balance")),
+        (("📊 Analytics", "pmbot:analytics"), ("🚀 Launch", "pmbot:launch")),
+        (("⚙️ Settings", "pmbot:settings"),),
     ),
 }
 
 PANEL_LAUNCH_BUTTON_LABELS = {
-    "ru": "Открыть PMBOT",
-    "en": "Open PMBOT",
+    "ru": "Открыть Mini App",
+    "en": "Open Mini App",
+}
+
+PRODUCT_DESCRIPTION_BUTTON_ROWS_BY_LANGUAGE = {
+    "ru": (
+        (("Главное меню", "pmbot:home"),),
+    ),
+    "en": (
+        (("Main menu", "pmbot:home"),),
+    ),
+}
+
+CONNECTION_PRODUCT_BUTTON_ROWS_BY_LANGUAGE = {
+    "ru": (
+        (("➕ Подключить API-ключи", "pmbot:connection:setup"),),
+        (("🔍 Проверить подключение", "pmbot:connection:check"),),
+        (("📘 Инструкция", "pmbot:connection:instruction"),),
+        (("🗑 Удалить подключение", "pmbot:connection:remove"),),
+        (("⬅️ Главное меню", "pmbot:home"),),
+    ),
+    "en": (
+        (("➕ Connect API keys", "pmbot:connection:setup"),),
+        (("🔍 Check connection", "pmbot:connection:check"),),
+        (("📘 Guide", "pmbot:connection:instruction"),),
+        (("🗑 Delete connection", "pmbot:connection:remove"),),
+        (("⬅️ Main menu", "pmbot:home"),),
+    ),
+}
+
+BALANCE_MISSING_BUTTON_ROWS_BY_LANGUAGE = {
+    "ru": (
+        (("🔌 Перейти к подключению", "pmbot:connection"),),
+    ),
+    "en": (
+        (("🔌 Go to connection", "pmbot:connection"),),
+    ),
+}
+
+BALANCE_PRODUCT_BUTTON_ROWS_BY_LANGUAGE = {
+    "ru": (
+        (("🔄 Обновить", "pmbot:balance"),),
+        (("📌 Позиции", "pmbot:positions"), ("📜 Ордера", "pmbot:orders")),
+        (("⬅️ Главное меню", "pmbot:home"),),
+    ),
+    "en": (
+        (("🔄 Refresh", "pmbot:balance"),),
+        (("📌 Positions", "pmbot:positions"), ("📜 Orders", "pmbot:orders")),
+        (("⬅️ Main menu", "pmbot:home"),),
+    ),
+}
+
+ANALYTICS_PRODUCT_BUTTON_ROWS_BY_LANGUAGE = {
+    "ru": (
+        (("🔄 Обновить", "pmbot:analytics"),),
+        (("📈 Подробнее", "pmbot:analytics:details"),),
+        (("⬅️ Главное меню", "pmbot:home"),),
+    ),
+    "en": (
+        (("🔄 Refresh", "pmbot:analytics"),),
+        (("📈 Details", "pmbot:analytics:details"),),
+        (("⬅️ Main menu", "pmbot:home"),),
+    ),
+}
+
+LAUNCH_PRODUCT_BUTTON_ROWS_BY_LANGUAGE = {
+    "ru": (
+        (("💵 Лимит на день", "pmbot:launch:limit"),),
+        (("📉 Максимальный убыток", "pmbot:launch:max_loss"),),
+        (("🎯 Выбор рынков", "pmbot:launch:markets"),),
+        (("▶️ Запустить", "pmbot:launch:start"),),
+        (("⬅️ Главное меню", "pmbot:home"),),
+    ),
+    "en": (
+        (("💵 Daily limit", "pmbot:launch:limit"),),
+        (("📉 Max loss", "pmbot:launch:max_loss"),),
+        (("🎯 Market selection", "pmbot:launch:markets"),),
+        (("▶️ Launch", "pmbot:launch:start"),),
+        (("⬅️ Main menu", "pmbot:home"),),
+    ),
+}
+
+LAUNCH_LIMIT_BUTTON_ROWS_BY_LANGUAGE = {
+    "ru": (
+        (("$5", "pmbot:launch:limit:5"), ("$10", "pmbot:launch:limit:10")),
+        (("$25", "pmbot:launch:limit:25"), ("$50", "pmbot:launch:limit:50")),
+        (("Ввести вручную", "pmbot:launch:limit:manual"),),
+        (("⬅️ Запуск", "pmbot:launch"),),
+    ),
+    "en": (
+        (("$5", "pmbot:launch:limit:5"), ("$10", "pmbot:launch:limit:10")),
+        (("$25", "pmbot:launch:limit:25"), ("$50", "pmbot:launch:limit:50")),
+        (("Enter manually", "pmbot:launch:limit:manual"),),
+        (("⬅️ Launch", "pmbot:launch"),),
+    ),
+}
+
+LAUNCH_MAX_LOSS_BUTTON_ROWS_BY_LANGUAGE = {
+    "ru": (
+        (("$1", "pmbot:launch:max_loss:1"), ("$2", "pmbot:launch:max_loss:2")),
+        (("$5", "pmbot:launch:max_loss:5"),),
+        (("10% от дневного лимита", "pmbot:launch:max_loss:10pct"),),
+        (("Ввести вручную", "pmbot:launch:max_loss:manual"),),
+        (("⬅️ Запуск", "pmbot:launch"),),
+    ),
+    "en": (
+        (("$1", "pmbot:launch:max_loss:1"), ("$2", "pmbot:launch:max_loss:2")),
+        (("$5", "pmbot:launch:max_loss:5"),),
+        (("10% of daily limit", "pmbot:launch:max_loss:10pct"),),
+        (("Enter manually", "pmbot:launch:max_loss:manual"),),
+        (("⬅️ Launch", "pmbot:launch"),),
+    ),
+}
+
+LAUNCH_MARKET_BUTTON_ROWS_BY_LANGUAGE = {
+    "ru": (
+        (("BTC", "pmbot:launch:market:btc"), ("ETH", "pmbot:launch:market:eth")),
+        (("Politics", "pmbot:launch:market:politics"), ("Sports", "pmbot:launch:market:sports")),
+        (("Esports", "pmbot:launch:market:esports"),),
+        (("Добавить рынок", "pmbot:launch:market:add"),),
+        (("⬅️ Запуск", "pmbot:launch"),),
+    ),
+    "en": (
+        (("BTC", "pmbot:launch:market:btc"), ("ETH", "pmbot:launch:market:eth")),
+        (("Politics", "pmbot:launch:market:politics"), ("Sports", "pmbot:launch:market:sports")),
+        (("Esports", "pmbot:launch:market:esports"),),
+        (("Add market", "pmbot:launch:market:add"),),
+        (("⬅️ Launch", "pmbot:launch"),),
+    ),
+}
+
+STOP_PRODUCT_BUTTON_ROWS_BY_LANGUAGE = {
+    "ru": (
+        (("🚀 Перейти к запуску", "pmbot:launch"),),
+        (("⬅️ Главное меню", "pmbot:home"),),
+    ),
+    "en": (
+        (("🚀 Go to launch", "pmbot:launch"),),
+        (("⬅️ Main menu", "pmbot:home"),),
+    ),
+}
+
+MINI_APP_PRODUCT_BUTTON_ROWS_BY_LANGUAGE = {
+    "ru": (
+        (("⬅️ Главное меню", "pmbot:home"),),
+    ),
+    "en": (
+        (("⬅️ Main menu", "pmbot:home"),),
+    ),
+}
+
+SETTINGS_PRODUCT_BUTTON_ROWS_BY_LANGUAGE = {
+    "ru": (
+        (("🌐 Изменить язык", "pmbot:language"),),
+        (("⬅️ Главное меню", "pmbot:home"),),
+    ),
+    "en": (
+        (("🌐 Change language", "pmbot:language"),),
+        (("⬅️ Main menu", "pmbot:home"),),
+    ),
 }
 
 CONNECTION_STATUS_BUTTON_ROWS_BY_LANGUAGE = {
@@ -360,6 +516,78 @@ def operator_token_selection_button_rows(language: str) -> tuple[tuple[tuple[str
     ]
 
 
+def product_description_button_rows(language: str) -> tuple[tuple[tuple[str, str], ...], ...]:
+    return PRODUCT_DESCRIPTION_BUTTON_ROWS_BY_LANGUAGE[
+        normalize_operator_language(language, fallback=DEFAULT_OPERATOR_LANGUAGE)
+    ]
+
+
+def connection_product_button_rows(language: str) -> tuple[tuple[tuple[str, str], ...], ...]:
+    return CONNECTION_PRODUCT_BUTTON_ROWS_BY_LANGUAGE[
+        normalize_operator_language(language, fallback=DEFAULT_OPERATOR_LANGUAGE)
+    ]
+
+
+def balance_missing_button_rows(language: str) -> tuple[tuple[tuple[str, str], ...], ...]:
+    return BALANCE_MISSING_BUTTON_ROWS_BY_LANGUAGE[
+        normalize_operator_language(language, fallback=DEFAULT_OPERATOR_LANGUAGE)
+    ]
+
+
+def balance_product_button_rows(language: str) -> tuple[tuple[tuple[str, str], ...], ...]:
+    return BALANCE_PRODUCT_BUTTON_ROWS_BY_LANGUAGE[
+        normalize_operator_language(language, fallback=DEFAULT_OPERATOR_LANGUAGE)
+    ]
+
+
+def analytics_product_button_rows(language: str) -> tuple[tuple[tuple[str, str], ...], ...]:
+    return ANALYTICS_PRODUCT_BUTTON_ROWS_BY_LANGUAGE[
+        normalize_operator_language(language, fallback=DEFAULT_OPERATOR_LANGUAGE)
+    ]
+
+
+def launch_product_button_rows(language: str) -> tuple[tuple[tuple[str, str], ...], ...]:
+    return LAUNCH_PRODUCT_BUTTON_ROWS_BY_LANGUAGE[
+        normalize_operator_language(language, fallback=DEFAULT_OPERATOR_LANGUAGE)
+    ]
+
+
+def launch_limit_button_rows(language: str) -> tuple[tuple[tuple[str, str], ...], ...]:
+    return LAUNCH_LIMIT_BUTTON_ROWS_BY_LANGUAGE[
+        normalize_operator_language(language, fallback=DEFAULT_OPERATOR_LANGUAGE)
+    ]
+
+
+def launch_max_loss_button_rows(language: str) -> tuple[tuple[tuple[str, str], ...], ...]:
+    return LAUNCH_MAX_LOSS_BUTTON_ROWS_BY_LANGUAGE[
+        normalize_operator_language(language, fallback=DEFAULT_OPERATOR_LANGUAGE)
+    ]
+
+
+def launch_market_button_rows(language: str) -> tuple[tuple[tuple[str, str], ...], ...]:
+    return LAUNCH_MARKET_BUTTON_ROWS_BY_LANGUAGE[
+        normalize_operator_language(language, fallback=DEFAULT_OPERATOR_LANGUAGE)
+    ]
+
+
+def stop_product_button_rows(language: str) -> tuple[tuple[tuple[str, str], ...], ...]:
+    return STOP_PRODUCT_BUTTON_ROWS_BY_LANGUAGE[
+        normalize_operator_language(language, fallback=DEFAULT_OPERATOR_LANGUAGE)
+    ]
+
+
+def mini_app_product_button_rows(language: str) -> tuple[tuple[tuple[str, str], ...], ...]:
+    return MINI_APP_PRODUCT_BUTTON_ROWS_BY_LANGUAGE[
+        normalize_operator_language(language, fallback=DEFAULT_OPERATOR_LANGUAGE)
+    ]
+
+
+def settings_product_button_rows(language: str) -> tuple[tuple[tuple[str, str], ...], ...]:
+    return SETTINGS_PRODUCT_BUTTON_ROWS_BY_LANGUAGE[
+        normalize_operator_language(language, fallback=DEFAULT_OPERATOR_LANGUAGE)
+    ]
+
+
 def language_selection_button_rows() -> tuple[tuple[tuple[str, str], ...], ...]:
     return LANGUAGE_SELECTION_BUTTON_ROWS
 
@@ -402,6 +630,18 @@ def all_button_rows() -> tuple[tuple[tuple[str, str], ...], ...]:
     rows: list[tuple[tuple[str, str], ...]] = []
     for language in SUPPORTED_LANGUAGES:
         rows.extend(home_button_rows(language))
+        rows.extend(product_description_button_rows(language))
+        rows.extend(connection_product_button_rows(language))
+        rows.extend(balance_missing_button_rows(language))
+        rows.extend(balance_product_button_rows(language))
+        rows.extend(analytics_product_button_rows(language))
+        rows.extend(launch_product_button_rows(language))
+        rows.extend(launch_limit_button_rows(language))
+        rows.extend(launch_max_loss_button_rows(language))
+        rows.extend(launch_market_button_rows(language))
+        rows.extend(stop_product_button_rows(language))
+        rows.extend(mini_app_product_button_rows(language))
+        rows.extend(settings_product_button_rows(language))
         rows.extend(panel_fallback_button_rows(language))
         rows.extend(operator_console_button_rows(language))
         rows.extend(connection_status_button_rows(language))
@@ -418,14 +658,7 @@ def callback_data_values(rows: Sequence[Sequence[tuple[str, str]]]) -> tuple[str
 
 
 def render_language_selection_prompt() -> str:
-    return "\n".join(
-        [
-            "Выбери язык / Choose language",
-            "🇷🇺 Русский — язык по умолчанию",
-            "🇬🇧 English",
-            "Команды: /ru, /en, /language",
-        ]
-    )
+    return "Выберите язык"
 
 
 def render_home(language: str) -> str:
@@ -433,18 +666,42 @@ def render_home(language: str) -> str:
         return "\n".join(
             [
                 "PMBOT",
-                "Выберите раздел.",
+                "Главное меню",
             ]
         )
     return "\n".join(
         [
             "PMBOT",
-            "Choose a section.",
+            "Main menu",
         ]
     )
 
 
 def render_language_selected(language: str) -> str:
     if normalize_operator_language(language, fallback=DEFAULT_OPERATOR_LANGUAGE) == "ru":
-        return "Язык: русский.\n\n" + render_home("ru")
-    return "Language: English.\n\n" + render_home("en")
+        return "\n\n".join(
+            [
+                "PMBOT — торговый помощник для Polymarket.",
+                (
+                    "Он помогает подключить аккаунт, выбрать рынки, настроить лимиты, "
+                    "отслеживать баланс, аналитику и запускать торговлю под вашим контролем."
+                ),
+                (
+                    "Вы можете пользоваться быстрым Telegram-меню или открыть Mini App "
+                    "с расширенной панелью, графиками и подробной статистикой."
+                ),
+            ]
+        )
+    return "\n\n".join(
+        [
+            "PMBOT is a trading assistant for Polymarket.",
+            (
+                "It helps connect your account, choose markets, set limits, monitor balance and analytics, "
+                "and launch trading under your control."
+            ),
+            (
+                "You can use the quick Telegram menu or open the Mini App with an expanded dashboard, "
+                "charts, and detailed statistics."
+            ),
+        ]
+    )

@@ -4,7 +4,7 @@ import hashlib
 import json
 from dataclasses import asdict, dataclass
 from pathlib import Path
-from typing import Any, Mapping
+from typing import Any, Mapping, Sequence
 
 from pm_bot.operator_runner.telegram_operator_i18n import normalize_operator_language
 from pm_bot.trading_core.schemas import GENERATED_AT, clean_text, load_json_object, write_json
@@ -40,6 +40,11 @@ class TelegramOperatorControlState:
     operator_pause_requested: bool = False
     operator_kill_switch_requested: bool = False
     operator_language: str = ""
+    launch_daily_limit: str = ""
+    launch_max_loss: str = ""
+    launch_selected_markets: tuple[str, ...] = ()
+    trading_requested: bool = False
+    operator_stop_requested: bool = False
     last_command_summary: Mapping[str, Any] | None = None
     last_operator_user_hash: str = ""
     state_source: str = "local_operator_state_artifact"
@@ -52,6 +57,21 @@ class TelegramOperatorControlState:
         value["operator_language"] = language
         value["operator_language_selected"] = bool(language)
         value["operator_language_scope"] = "global_local_operator_state"
+        value["launch_daily_limit"] = clean_text(self.launch_daily_limit)
+        value["launch_max_loss"] = clean_text(self.launch_max_loss)
+        value["launch_selected_markets"] = _normalize_market_list(self.launch_selected_markets)
+        value["telegram_launch_config"] = {
+            "daily_limit": value["launch_daily_limit"],
+            "max_loss": value["launch_max_loss"],
+            "selected_markets": value["launch_selected_markets"],
+            "trading_requested": False,
+            "operator_stop_requested": self.operator_stop_requested is True,
+            "order_submission_enabled": False,
+            "signing_enabled": False,
+            "wallet_enabled": False,
+        }
+        value["trading_requested"] = False
+        value["operator_stop_requested"] = self.operator_stop_requested is True
         value["last_command_summary"] = dict(self.last_command_summary or _empty_command_summary())
         value["review_only"] = True
         value["local_operator_state_only"] = True
@@ -70,6 +90,11 @@ def build_telegram_operator_control_state(
     operator_pause_requested: bool = False,
     operator_kill_switch_requested: bool = False,
     operator_language: str = "",
+    launch_daily_limit: str = "",
+    launch_max_loss: str = "",
+    launch_selected_markets: Sequence[Any] | None = None,
+    trading_requested: bool = False,
+    operator_stop_requested: bool = False,
     last_command_summary: Mapping[str, Any] | None = None,
     last_operator_user_hash: str = "",
     generated_at: str = GENERATED_AT,
@@ -83,6 +108,11 @@ def build_telegram_operator_control_state(
                 "operator_pause_requested": operator_pause_requested,
                 "operator_kill_switch_requested": operator_kill_switch_requested,
                 "operator_language": normalize_operator_language(operator_language),
+                "launch_daily_limit": clean_text(launch_daily_limit),
+                "launch_max_loss": clean_text(launch_max_loss),
+                "launch_selected_markets": _normalize_market_list(launch_selected_markets or ()),
+                "trading_requested": False,
+                "operator_stop_requested": operator_stop_requested,
                 "last_command_summary": command_summary,
                 "last_operator_user_hash": clean_text(last_operator_user_hash),
             },
@@ -91,6 +121,11 @@ def build_telegram_operator_control_state(
         operator_pause_requested=operator_pause_requested,
         operator_kill_switch_requested=operator_kill_switch_requested,
         operator_language=normalize_operator_language(operator_language),
+        launch_daily_limit=clean_text(launch_daily_limit),
+        launch_max_loss=clean_text(launch_max_loss),
+        launch_selected_markets=tuple(_normalize_market_list(launch_selected_markets or ())),
+        trading_requested=False,
+        operator_stop_requested=operator_stop_requested is True,
         last_command_summary=command_summary,
         last_operator_user_hash=clean_text(last_operator_user_hash),
     ).to_dict()
@@ -125,6 +160,7 @@ def record_telegram_operator_control_command(
         operator_pause_requested=current.get("operator_pause_requested") is True,
         operator_kill_switch_requested=current.get("operator_kill_switch_requested") is True,
         operator_language=clean_text(current.get("operator_language")),
+        **_launch_state_kwargs(current),
         last_command_summary=command_summary,
         last_operator_user_hash=hash_operator_identifier(operator_user_id),
         generated_at=generated_at,
@@ -142,6 +178,7 @@ def request_telegram_operator_pause(
         operator_pause_requested=True,
         operator_kill_switch_requested=current.get("operator_kill_switch_requested") is True,
         operator_language=clean_text(current.get("operator_language")),
+        **_launch_state_kwargs(current),
         last_command_summary={
             "contract_version": "pmbot_telegram_operator_control_command_summary.v1",
             "generated_at": generated_at,
@@ -171,6 +208,7 @@ def request_telegram_operator_kill_switch(
         operator_pause_requested=current.get("operator_pause_requested") is True,
         operator_kill_switch_requested=True,
         operator_language=clean_text(current.get("operator_language")),
+        **_launch_state_kwargs(current),
         last_command_summary={
             "contract_version": "pmbot_telegram_operator_control_command_summary.v1",
             "generated_at": generated_at,
@@ -202,6 +240,7 @@ def set_telegram_operator_language(
         operator_pause_requested=current.get("operator_pause_requested") is True,
         operator_kill_switch_requested=current.get("operator_kill_switch_requested") is True,
         operator_language=normalized_language,
+        **_launch_state_kwargs(current),
         last_command_summary={
             "contract_version": "pmbot_telegram_operator_control_command_summary.v1",
             "generated_at": generated_at,
@@ -209,6 +248,83 @@ def set_telegram_operator_language(
             "authorized": True,
             "command_status": "operator_language_selected",
             "operator_language": normalized_language,
+            "review_only": True,
+            "execution_enabling": False,
+            "live_execution_approved": False,
+            "canary_executable_now": False,
+            "order_submission_enabled": False,
+            "would_submit_order": False,
+        },
+        last_operator_user_hash=hash_operator_identifier(operator_user_id),
+        generated_at=generated_at,
+    )
+
+
+def update_telegram_operator_launch_config(
+    state: Mapping[str, Any] | None,
+    *,
+    operator_user_id: Any,
+    daily_limit: str | None = None,
+    max_loss: str | None = None,
+    market: str | None = None,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    current = dict(state or {})
+    markets = _normalize_market_list(current.get("launch_selected_markets") or ())
+    normalized_market = _normalize_market(market)
+    if normalized_market and normalized_market not in markets:
+        markets.append(normalized_market)
+    return build_telegram_operator_control_state(
+        operator_pause_requested=current.get("operator_pause_requested") is True,
+        operator_kill_switch_requested=current.get("operator_kill_switch_requested") is True,
+        operator_language=clean_text(current.get("operator_language")),
+        launch_daily_limit=clean_text(daily_limit) if daily_limit is not None else clean_text(current.get("launch_daily_limit")),
+        launch_max_loss=clean_text(max_loss) if max_loss is not None else clean_text(current.get("launch_max_loss")),
+        launch_selected_markets=markets,
+        trading_requested=False,
+        operator_stop_requested=current.get("operator_stop_requested") is True,
+        last_command_summary={
+            "contract_version": "pmbot_telegram_operator_control_command_summary.v1",
+            "generated_at": generated_at,
+            "command": "/launch",
+            "authorized": True,
+            "command_status": "local_no_live_launch_config_updated",
+            "review_only": True,
+            "execution_enabling": False,
+            "live_execution_approved": False,
+            "canary_executable_now": False,
+            "order_submission_enabled": False,
+            "would_submit_order": False,
+        },
+        last_operator_user_hash=hash_operator_identifier(operator_user_id),
+        generated_at=generated_at,
+    )
+
+
+def request_telegram_operator_stop(
+    state: Mapping[str, Any] | None,
+    *,
+    operator_user_id: Any,
+    generated_at: str = GENERATED_AT,
+) -> dict[str, Any]:
+    current = dict(state or {})
+    return build_telegram_operator_control_state(
+        operator_pause_requested=current.get("operator_pause_requested") is True,
+        operator_kill_switch_requested=current.get("operator_kill_switch_requested") is True,
+        operator_language=clean_text(current.get("operator_language")),
+        launch_daily_limit=clean_text(current.get("launch_daily_limit")),
+        launch_max_loss=clean_text(current.get("launch_max_loss")),
+        launch_selected_markets=_normalize_market_list(current.get("launch_selected_markets") or ()),
+        trading_requested=False,
+        operator_stop_requested=True,
+        last_command_summary={
+            "contract_version": "pmbot_telegram_operator_control_command_summary.v1",
+            "generated_at": generated_at,
+            "command": "/stop",
+            "authorized": True,
+            "command_status": "local_no_live_stop_marker_recorded",
+            "trading_requested": False,
+            "operator_stop_requested": True,
             "review_only": True,
             "execution_enabling": False,
             "live_execution_approved": False,
@@ -246,6 +362,12 @@ def summarize_telegram_operator_control_state(
         "operator_language": normalize_operator_language(state_value.get("operator_language")),
         "operator_language_selected": bool(normalize_operator_language(state_value.get("operator_language"))),
         "operator_language_scope": "global_local_operator_state",
+        "launch_daily_limit": clean_text(state_value.get("launch_daily_limit")),
+        "launch_max_loss": clean_text(state_value.get("launch_max_loss")),
+        "launch_selected_markets": _normalize_market_list(state_value.get("launch_selected_markets") or ()),
+        "telegram_launch_config": dict(state_value.get("telegram_launch_config") or {}),
+        "trading_requested": False,
+        "operator_stop_requested": state_value.get("operator_stop_requested") is True,
         "latest_telegram_operator_control_state_path": clean_text(latest_state_path),
         "last_command_summary": dict(state_value.get("last_command_summary", {})),
         "validation_status": clean_text(validation.get("status")),
@@ -281,6 +403,11 @@ def validate_telegram_operator_control_state(
         state_value.get("operator_language")
     ):
         errors.append("operator_language must be empty, ru, or en")
+    if state_value.get("trading_requested", False) is not False:
+        errors.append("trading_requested must be false")
+    launch_config = state_value.get("telegram_launch_config")
+    if isinstance(launch_config, Mapping) and launch_config.get("trading_requested") is not False:
+        errors.append("telegram_launch_config.trading_requested must be false")
     if state_value.get("raw_telegram_data_persisted") is not False:
         errors.append("raw_telegram_data_persisted must be false")
     if state_value.get("raw_operator_user_id_persisted") is not False:
@@ -327,6 +454,44 @@ def normalize_telegram_command(value: Any) -> str:
     if "@" in text:
         text = text.split("@", 1)[0]
     return text if text.startswith("/") else ""
+
+
+def _launch_state_kwargs(current: Mapping[str, Any]) -> dict[str, Any]:
+    return {
+        "launch_daily_limit": clean_text(current.get("launch_daily_limit")),
+        "launch_max_loss": clean_text(current.get("launch_max_loss")),
+        "launch_selected_markets": _normalize_market_list(current.get("launch_selected_markets") or ()),
+        "trading_requested": False,
+        "operator_stop_requested": current.get("operator_stop_requested") is True,
+    }
+
+
+def _normalize_market_list(values: Any) -> list[str]:
+    if values is None or isinstance(values, (str, bytes)):
+        source = [values] if values else []
+    else:
+        try:
+            source = list(values)
+        except TypeError:
+            source = []
+    normalized: list[str] = []
+    for item in source:
+        market = _normalize_market(item)
+        if market and market not in normalized:
+            normalized.append(market)
+    return normalized
+
+
+def _normalize_market(value: Any) -> str:
+    text = clean_text(value)
+    aliases = {
+        "btc": "BTC",
+        "eth": "ETH",
+        "politics": "Politics",
+        "sports": "Sports",
+        "esports": "Esports",
+    }
+    return aliases.get(text.lower(), "")
 
 
 def _empty_command_summary(*, generated_at: str = GENERATED_AT) -> dict[str, Any]:

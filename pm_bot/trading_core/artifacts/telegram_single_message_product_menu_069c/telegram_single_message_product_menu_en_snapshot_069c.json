@@ -5,15 +5,13 @@
   "generated_at": "2026-05-15T00:00:00+04:00",
   "language": "en",
   "main_menu_labels": [
-    "\ud83d\udd10 Connection",
+    "\ud83d\udd0c Connection",
     "\ud83d\udcb0 Balance",
-    "\ud83d\udcca Trades",
-    "\ud83d\udcc8 PnL",
-    "\u2699\ufe0f Limits",
-    "\ud83e\udd16 Status",
-    "\ud83d\udda5 Mini App",
-    "\ud83c\udf10 Language",
-    "\ud83d\udea8 Stop"
+    "\ud83d\udcca Analytics",
+    "\ud83d\ude80 Launch",
+    "\u26d4 Stop",
+    "\ud83c\udf10 Mini App",
+    "\u2699\ufe0f Settings"
   ],
   "main_menu_labels_match_required": true,
   "no_fake_balance": true,
@@ -21,33 +19,45 @@
   "no_fake_trades": true,
   "primary_menu_is_product_only": true,
   "product_screens": {
+    "analytics": [
+      "\ud83d\udd04 Refresh",
+      "\ud83d\udcc8 Details",
+      "\u2b05\ufe0f Main menu"
+    ],
     "balance": [
-      "\ud83e\uddea Check connection",
-      "\u2b05\ufe0f Back"
+      "\ud83d\udd04 Refresh",
+      "\ud83d\udccc Positions",
+      "\ud83d\udcdc Orders",
+      "\u2b05\ufe0f Main menu"
+    ],
+    "balance_missing": [
+      "\ud83d\udd0c Go to connection"
     ],
     "connection": [
-      "\ud83e\uddea Check connection",
-      "\ud83d\udda5 Mini App",
-      "\u2b05\ufe0f Back"
+      "\u2795 Connect API keys",
+      "\ud83d\udd0d Check connection",
+      "\ud83d\udcd8 Guide",
+      "\ud83d\uddd1 Delete connection",
+      "\u2b05\ufe0f Main menu"
     ],
-    "limits": [
-      "\u2b05\ufe0f Back"
+    "launch": [
+      "\ud83d\udcb5 Daily limit",
+      "\ud83d\udcc9 Max loss",
+      "\ud83c\udfaf Market selection",
+      "\u25b6\ufe0f Launch",
+      "\u2b05\ufe0f Main menu"
     ],
     "mini_app": [
-      "\u2b05\ufe0f Back"
+      "Open Mini App",
+      "\u2b05\ufe0f Main menu"
     ],
-    "pnl": [
-      "\u2b05\ufe0f Back"
-    ],
-    "status": [
-      "\u2b05\ufe0f Back"
+    "settings": [
+      "\ud83c\udf10 Change language",
+      "\u2b05\ufe0f Main menu"
     ],
     "stop": [
-      "\u2b05\ufe0f Back"
-    ],
-    "trades": [
-      "\ud83e\uddea Check connection",
-      "\u2b05\ufe0f Back"
+      "\ud83d\ude80 Go to launch",
+      "\u2b05\ufe0f Main menu"
     ]
   },
   "task_id": "ORCH-PMBOT-TELEGRAM-069C-SINGLE-MESSAGE-PRODUCT-MENU-NO-LIVE"

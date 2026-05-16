@@ -162,15 +162,13 @@ def test_075b_telegram_status_details_flow_reaches_risk_engine_without_primary_m
 
     ru_primary = tuple(label for row in HOME_BUTTON_ROWS_BY_LANGUAGE["ru"] for label, _callback in row)
     assert ru_primary == (
-        "🔐 Подключение",
+        "🔌 Подключение",
         "💰 Баланс",
-        "📊 Сделки",
-        "📈 PnL",
-        "⚙️ Лимиты",
-        "🤖 Статус",
-        "🖥 Mini App",
-        "🌐 Язык",
-        "🚨 Стоп",
+        "📊 Аналитика",
+        "🚀 Запуск",
+        "⛔ Остановить",
+        "🌐 Mini App",
+        "⚙️ Настройки",
     )
     assert "🛡 Risk Engine v2" not in ru_primary
     assert CALLBACK_COMMAND_MAP["pmbot:risk_engine_v2"] == "/risk_engine_v2"
@@ -189,9 +187,9 @@ def test_075b_registry_console_and_mini_app_static_section_remain_safe() -> None
     assert "🛡 Risk Engine v2" in console_labels
     assert safe_action_by_id("run_risk_engine_v2_review") is None
     assert safe_action_by_callback("pmbot:run:risk_engine_v2_review") is None
-    assert 'id="risk-engine-v2"' in html
-    assert "first_supervised_tiny_order_blocked" in html
-    assert SAFE_CLI_COMMAND in html
+    assert 'id="limits"' in html
+    assert "Риск-статус" in html
+    assert "требуется проверка" in html
     assert "<form" not in rendered
     assert "<input" not in rendered
     assert "<script" not in rendered

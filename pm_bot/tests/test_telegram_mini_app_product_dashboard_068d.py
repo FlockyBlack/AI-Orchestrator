@@ -19,13 +19,15 @@ REQUIRED_ARTIFACTS = (
 )
 
 REQUIRED_SECTIONS = (
+    "Дашборд",
     "Подключение",
     "Баланс",
-    "Сделки",
-    "PnL",
-    "Статус",
+    "Аналитика",
+    "Позиции",
+    "Рынки",
+    "Подготовка",
     "Лимиты",
-    "Стоп",
+    "Запуск",
 )
 
 REQUIRED_SAFETY_TRUE_FLAGS = (
@@ -78,8 +80,8 @@ def test_static_dashboard_files_exist_and_have_ru_product_shell() -> None:
     css = STYLES_CSS.read_text(encoding="utf-8")
 
     assert "PMBOT" in html
-    assert "AI-ассистент для Polymarket" in html
-    assert "Режим: безопасный / dry-run / review-only" in html
+    assert "Торговый помощник для Polymarket" in html
+    assert "Панель готова для настройки и наблюдения" in html
     assert "dashboard-grid" in html
     assert "bottom-nav" in html
     assert "color-scheme: dark" in css
@@ -87,38 +89,27 @@ def test_static_dashboard_files_exist_and_have_ru_product_shell() -> None:
         assert label in html
 
 
-def test_dashboard_connection_balance_trades_pnl_status_limits_and_stop_copy() -> None:
+def test_dashboard_connection_balance_analytics_markets_limits_and_launch_copy() -> None:
     html = INDEX_HTML.read_text(encoding="utf-8")
 
     for phrase in (
-        "Проверка подключения",
-        "API ключи",
-        "не найдены",
-        "L2 auth",
-        "ошибка",
-        "Аккаунт",
-        "Signer",
-        "не проверен",
-        "Рынок",
-        "найден",
-        "Token ID",
-        "требуется выбор",
-        "Проверка ещё не запускалась",
-        "Баланс пока не проверен",
-        "Запустите read-only проверку подключения",
-        "Live-сделок пока не было",
-        "Открытые ордера: неизвестно",
-        "PnL пока недоступен: live-сделок ещё не было",
-        "Live trading",
-        "Отправка ордеров",
-        "Подписание",
-        "allowed_for_live",
-        "Max order",
-        "&lt;= $1 planned",
-        "Max orders/day",
-        "Автоторговля",
-        "Emergency Stop",
-        "Live отмены ордеров в Mini App пока нет",
+        "Подключение",
+        "API Key",
+        "API Secret",
+        "Passphrase",
+        "Signature type",
+        "Funder",
+        "Баланс недоступен",
+        "Сегодня",
+        "7 дней",
+        "30 дней",
+        "Winrate",
+        "Открытые позиции",
+        "Выбор рынков",
+        "Лимит на день",
+        "Максимальный убыток",
+        "Риск-статус",
+        "Запуск пока недоступен",
     ):
         assert phrase in html
 
@@ -157,24 +148,18 @@ def test_dashboard_does_not_render_fake_balance_trades_or_pnl_values() -> None:
         "loss:",
     ):
         assert forbidden_value not in rendered
-    assert "фейковый баланс не показывается" in rendered
-    assert "фейковые сделки не показываются" in rendered
-    assert "фейковый pnl не показывается" in rendered
+    assert "данные не подставляются" in rendered
+    assert "нет данных" in rendered
 
 
-def test_dashboard_shows_disabled_review_only_dry_run_status_without_live_controls() -> None:
+def test_dashboard_shows_product_risk_status_without_live_controls() -> None:
     html = INDEX_HTML.read_text(encoding="utf-8")
     rendered = html.lower()
 
     for phrase in (
-        "live trading выключен",
-        "review-only",
-        "dry-run",
-        "allowed_for_live=false",
-        "отправка ордеров",
-        "выключена",
-        "подписание",
-        "выключено",
+        "финальная проверка требуется",
+        "требуется финальная проверка и подтверждение",
+        "остановка показывает локальный статус",
     ):
         assert phrase.lower() in rendered
     assert "<button" not in rendered
@@ -212,8 +197,8 @@ def test_menu_snapshot_matches_static_navigation_and_mini_app_launch_contract() 
     menu = _read_json(ARTIFACT_DIR / "telegram_mini_app_product_dashboard_menu_snapshot_068d.json")
     labels = tuple(item["label"] for item in menu["menu_items"])
 
-    assert labels == ("Главная", *REQUIRED_SECTIONS)
-    assert menu["launch_button"]["label"] == "Открыть PMBOT"
+    assert labels == REQUIRED_SECTIONS
+    assert menu["launch_button"]["label"] == "Открыть Mini App"
     assert menu["launch_button"]["env_marker"] == "PMBOT_TELEGRAM_MINI_APP_URL"
     assert menu["launch_button"]["url_marker_driven_only"] is True
     for item in menu["menu_items"]:

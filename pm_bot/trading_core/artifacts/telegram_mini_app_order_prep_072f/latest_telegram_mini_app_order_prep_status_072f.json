@@ -51,7 +51,7 @@
     },
     "payload_dry_run": {
       "artifact_available": true,
-      "display_ru": "artifact есть",
+      "display_ru": "готово",
       "executable": false,
       "source_path": "pm_bot/trading_core/artifacts/signed_order_payload_dry_run_070a/latest_signed_order_payload_dry_run_status_070a.json",
       "source_status": "blocked_non_executable_signed_order_payload_dry_run_no_submit"
