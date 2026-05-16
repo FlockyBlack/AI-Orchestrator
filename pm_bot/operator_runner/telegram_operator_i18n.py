@@ -63,17 +63,15 @@ PRODUCT_DESCRIPTION_BUTTON_ROWS_BY_LANGUAGE = {
 
 CONNECTION_PRODUCT_BUTTON_ROWS_BY_LANGUAGE = {
     "ru": (
-        (("➕ Подключить API-ключи", "pmbot:connection:setup"),),
-        (("🔍 Проверить подключение", "pmbot:connection:check"),),
+        (("🔄 Проверить снова", "pmbot:connection:check"),),
         (("📘 Инструкция", "pmbot:connection:instruction"),),
-        (("🗑 Удалить подключение", "pmbot:connection:remove"),),
+        (("💰 Перейти к балансу", "pmbot:balance"),),
         (("⬅️ Главное меню", "pmbot:home"),),
     ),
     "en": (
-        (("➕ Connect API keys", "pmbot:connection:setup"),),
-        (("🔍 Check connection", "pmbot:connection:check"),),
+        (("🔄 Check again", "pmbot:connection:check"),),
         (("📘 Guide", "pmbot:connection:instruction"),),
-        (("🗑 Delete connection", "pmbot:connection:remove"),),
+        (("💰 Go to balance", "pmbot:balance"),),
         (("⬅️ Main menu", "pmbot:home"),),
     ),
 }

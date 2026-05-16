@@ -92,7 +92,7 @@ def build_ru_snapshot(*, generated_at: str = GENERATED_AT) -> dict[str, Any]:
         "primary_menu_is_product_only": _primary_menu_is_product_only(labels),
         "debug_labels_hidden_from_primary_menu": _technical_labels_absent(labels),
         "product_screens": {
-            "connection": ["➕ Подключить API-ключи", "🔍 Проверить подключение", "📘 Инструкция", "🗑 Удалить подключение", "⬅️ Главное меню"],
+            "connection": ["🔄 Проверить снова", "📘 Инструкция", "💰 Перейти к балансу", "⬅️ Главное меню"],
             "balance_missing": ["🔌 Перейти к подключению"],
             "balance": ["🔄 Обновить", "📌 Позиции", "📜 Ордера", "⬅️ Главное меню"],
             "analytics": ["🔄 Обновить", "📈 Подробнее", "⬅️ Главное меню"],
@@ -120,7 +120,7 @@ def build_en_snapshot(*, generated_at: str = GENERATED_AT) -> dict[str, Any]:
         "primary_menu_is_product_only": _primary_menu_is_product_only(labels),
         "debug_labels_hidden_from_primary_menu": _technical_labels_absent(labels),
         "product_screens": {
-            "connection": ["➕ Connect API keys", "🔍 Check connection", "📘 Guide", "🗑 Delete connection", "⬅️ Main menu"],
+            "connection": ["🔄 Check again", "📘 Guide", "💰 Go to balance", "⬅️ Main menu"],
             "balance_missing": ["🔌 Go to connection"],
             "balance": ["🔄 Refresh", "📌 Positions", "📜 Orders", "⬅️ Main menu"],
             "analytics": ["🔄 Refresh", "📈 Details", "⬅️ Main menu"],

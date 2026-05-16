@@ -190,15 +190,14 @@ def test_connection_screen_redacts_secrets_and_shows_statuses() -> None:
     assert "API Key: подключен" in reply.text
     assert "API Secret: подключен" in reply.text
     assert "Passphrase: подключен" in reply.text
-    assert "Wallet address: подключен (0x3006...0760)" in reply.text
-    assert "Signature type: подключен (3)" in reply.text
-    assert "Funder address: подключен (0x1111...0760)" in reply.text
-    assert "Ключи должны быть доступны процессу Telegram-бота" in reply.text
+    assert "Wallet Address: подключен (0x3006...0760)" in reply.text
+    assert "Signature Type: подключен (3)" in reply.text
+    assert "Funder Address: подключен (0x1111...0760)" in reply.text
+    assert "Подключение Polymarket" in reply.text
     assert _labels(reply) == (
-        "➕ Подключить API-ключи",
-        "🔍 Проверить подключение",
+        "🔄 Проверить снова",
         "📘 Инструкция",
-        "🗑 Удалить подключение",
+        "💰 Перейти к балансу",
         "⬅️ Главное меню",
     )
     for raw in (RAW_API_SECRET, RAW_PASSPHRASE, RAW_WALLET, RAW_FUNDER):
@@ -210,7 +209,7 @@ def test_connection_setup_is_guided_and_does_not_collect_chat_secrets() -> None:
 
     assert "Безопасное подключение выполняется через переменные окружения" in reply.text
     assert "Значения не вводятся в чат" in reply.text
-    assert "зашифрованное хранилище" in reply.text.lower()
+    assert "POLYMARKET_API_KEY" in reply.text
     assert "<input" not in reply.text.lower()
 
 
@@ -221,8 +220,7 @@ def test_balance_missing_connection_routes_to_connection() -> None:
         callback_data="pmbot:balance",
     )
 
-    assert "Баланс недоступен." in reply.text
-    assert "Сначала подключите API-ключи и кошелёк Polymarket." in reply.text
+    assert "Баланс недоступен: сначала завершите подключение." in reply.text
     assert _labels(reply) == ("🔌 Перейти к подключению",)
     assert _callbacks(reply) == ("pmbot:connection",)
 
@@ -280,7 +278,7 @@ def test_launch_flow_exposes_limits_markets_and_prelaunch_summary() -> None:
     assert "Баланс/аккаунт: недоступен" in prelaunch.text
     assert "Риск: требуется финальная проверка" in prelaunch.text
     assert "Token ID: требуется выбор" in prelaunch.text
-    assert "Запуск пока недоступен: требуется финальная проверка и подтверждение." in prelaunch.text
+    assert "Запуск пока недоступен: требуется завершить подключение и проверку подписи." in prelaunch.text
     assert "allowed_for_live" not in prelaunch.text
     assert prelaunch.summary["order_submission_enabled"] is False
     assert prelaunch.summary["signing_enabled"] is False

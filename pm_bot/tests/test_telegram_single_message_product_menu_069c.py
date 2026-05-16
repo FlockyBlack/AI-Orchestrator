@@ -242,7 +242,7 @@ def test_every_product_screen_has_back_button_and_expected_scoped_buttons() -> N
     adapter.handle_callback(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", callback_data="pmbot:lang:ru")
 
     expected = {
-        "pmbot:connection": ("➕ Подключить API-ключи", "🔍 Проверить подключение", "📘 Инструкция", "🗑 Удалить подключение", "⬅️ Главное меню"),
+        "pmbot:connection": ("🔄 Проверить снова", "📘 Инструкция", "💰 Перейти к балансу", "⬅️ Главное меню"),
         "pmbot:balance": ("🔄 Обновить", "📌 Позиции", "📜 Ордера", "⬅️ Главное меню"),
         "pmbot:analytics": ("🔄 Обновить", "📈 Подробнее", "⬅️ Главное меню"),
         "pmbot:launch": ("💵 Лимит на день", "📉 Максимальный убыток", "🎯 Выбор рынков", "▶️ Запустить", "⬅️ Главное меню"),
@@ -267,9 +267,9 @@ def test_connection_screen_redacts_all_secrets_and_shows_presence_only_status() 
     assert "API Key: подключен" in reply.text
     assert "API Secret: подключен" in reply.text
     assert "Passphrase: подключен" in reply.text
-    assert "Wallet address: подключен (0x3006...8989)" in reply.text
-    assert "Signature type: подключен (3)" in reply.text
-    assert "Funder address: подключен (0x1111...5555)" in reply.text
+    assert "Wallet Address: подключен (0x3006...8989)" in reply.text
+    assert "Signature Type: подключен (3)" in reply.text
+    assert "Funder Address: подключен (0x1111...5555)" in reply.text
     for raw in (RAW_PRIVATE_KEY, RAW_API_SECRET, RAW_PASSPHRASE, RAW_WALLET, RAW_FUNDER):
         assert raw not in rendered
 
