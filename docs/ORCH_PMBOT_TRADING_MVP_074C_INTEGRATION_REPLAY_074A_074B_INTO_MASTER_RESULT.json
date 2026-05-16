@@ -1,0 +1,174 @@
+{
+  "task_id": "ORCH-PMBOT-TRADING-MVP-074C-INTEGRATION-REPLAY-074A-074B-INTO-MASTER",
+  "status": "validated_pending_final_commit_push_remote_verify",
+  "worktree": "C:/oc074c_integration_replay_074a_074b_into_master",
+  "repo": "https://github.com/FlockyBlack/AI-Orchestrator.git",
+  "base_branch": "master",
+  "old_master_head": "21dede35d750311e81d31051eff60fb9902dd17c",
+  "head_before": "21dede35d750311e81d31051eff60fb9902dd17c",
+  "head_after": "pending_final_commit_push_remote_verify",
+  "source_feature_base_head": "f9e7b4de6ea2afdc110ee5a2387e375f88e46f92",
+  "source_branch_heads": {
+    "074a": {
+      "branch": "pmbot/trading-mvp-074a-real-local-check-evidence-review-no-live",
+      "head": "fa11eaae3b4fcb6985ace8f8a53b0dd4720aeb1a"
+    },
+    "074b": {
+      "branch": "pmbot/telegram-074b-operator-token-selection-ux-no-trading",
+      "head": "fc7612640ebdd8513463a8d07d2e281092a1794f"
+    }
+  },
+  "replay_method": {
+    "method": "git cherry-pick --no-commit for 074A then 074B, followed by manual conflict resolution and 074C metadata/artifact updates",
+    "074a": "applied cleanly",
+    "074b": "content conflicts resolved in Telegram control bot and status registry",
+    "old_missing_artifact_assumptions_removed": true,
+    "primary_telegram_menu_preserved": [
+      "Подключение",
+      "Баланс",
+      "Сделки",
+      "PnL",
+      "Лимиты",
+      "Статус",
+      "Mini App",
+      "Язык",
+      "Стоп"
+    ]
+  },
+  "conflicts_and_resolutions": [
+    {
+      "file": "pm_bot/operator_runner/telegram_operator_control_bot.py",
+      "resolution": "Kept existing 073T real-check results display routing and summary fields; added 074B token-selection routing, candidate callbacks, keyboard, and normalized summary alongside it."
+    },
+    {
+      "file": "pm_bot/operator_runner/telegram_status_registry.py",
+      "resolution": "Kept existing 073T status source and normalizer; added 074B token-selection status source and normalizer alongside it without adding a safe action that mutates artifacts."
+    }
+  ],
+  "changed_files": [
+    "docs/ORCH_PMBOT_TELEGRAM_074B_OPERATOR_TOKEN_SELECTION_UX_NO_TRADING_RESULT.json",
+    "docs/ORCH_PMBOT_TRADING_MVP_074A_REAL_LOCAL_CHECK_EVIDENCE_REVIEW_NO_LIVE.md",
+    "docs/ORCH_PMBOT_TRADING_MVP_074A_REAL_LOCAL_CHECK_EVIDENCE_REVIEW_NO_LIVE_RESULT.json",
+    "docs/ORCH_PMBOT_TRADING_MVP_074C_INTEGRATION_REPLAY_074A_074B_INTO_MASTER_RESULT.json",
+    "pm_bot/operator_runner/real_local_check_evidence_review.py",
+    "pm_bot/operator_runner/telegram_operator_control_bot.py",
+    "pm_bot/operator_runner/telegram_operator_i18n.py",
+    "pm_bot/operator_runner/telegram_operator_runtime.py",
+    "pm_bot/operator_runner/telegram_status_registry.py",
+    "pm_bot/tests/test_real_local_check_evidence_review_074a.py",
+    "pm_bot/tests/test_telegram_operator_token_selection_074b.py",
+    "pm_bot/trading_core/artifacts/real_local_check_evidence_review_074a/latest_real_local_check_evidence_review_status_074a.json",
+    "pm_bot/trading_core/artifacts/real_local_check_evidence_review_074a/real_local_check_evidence_review_074a_result.json",
+    "pm_bot/trading_core/artifacts/real_local_check_evidence_review_074a/real_local_check_evidence_review_blockers_074a.json",
+    "pm_bot/trading_core/artifacts/real_local_check_evidence_review_074a/real_local_check_evidence_review_groups_074a.json",
+    "pm_bot/trading_core/artifacts/real_local_check_evidence_review_074a/real_local_check_evidence_review_operator_diagnosis_074a.md",
+    "pm_bot/trading_core/artifacts/real_local_check_evidence_review_074a/real_local_check_evidence_review_safety_snapshot_074a.json",
+    "pm_bot/trading_core/real_local_check_evidence_review.py",
+    "pm_bot/trading_core/real_local_check_evidence_review_models.py",
+    "pm_bot/trading_core/telegram_operator_token_selection_074b.py"
+  ],
+  "validation": [
+    {
+      "command": "git rev-parse HEAD",
+      "status": "passed",
+      "summary": "started from 21dede35d750311e81d31051eff60fb9902dd17c on master"
+    },
+    {
+      "command": "git ls-remote origin refs/heads/pmbot/trading-mvp-074a-real-local-check-evidence-review-no-live refs/heads/pmbot/telegram-074b-operator-token-selection-ux-no-trading",
+      "status": "passed",
+      "summary": "074A matched fa11eaae3b4fcb6985ace8f8a53b0dd4720aeb1a; 074B matched fc7612640ebdd8513463a8d07d2e281092a1794f"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_real_local_check_evidence_review_074a.py pm_bot/tests/test_telegram_operator_token_selection_074b.py",
+      "status": "passed",
+      "summary": "11 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_local_real_check_snapshot_073a.py pm_bot/tests/test_operator_token_selection_packet_073b.py pm_bot/tests/test_selected_token_payload_readiness_gate_073c.py pm_bot/tests/test_telegram_forbidden_live_controls_063a.py pm_bot/tests/test_telegram_single_message_product_menu_069c.py pm_bot/tests/test_telegram_product_start_language_068c.py pm_bot/tests/test_telegram_real_check_results_display_073t.py",
+      "status": "passed",
+      "summary": "61 passed"
+    },
+    {
+      "command": "python -B -m pytest pm_bot/tests",
+      "status": "passed",
+      "summary": "2177 passed in 609.02s"
+    },
+    {
+      "command": "python -m compileall -q pm_bot && python -m compileall -q ai_orchestrator",
+      "status": "passed",
+      "summary": "compileall completed without errors; generated __pycache__ directories were removed before staging"
+    }
+  ],
+  "operator_dry_runs": [
+    {
+      "command": "python -m pm_bot.operator_runner.telegram_runtime_smoke --json",
+      "status": "passed",
+      "summary": "ready_to_start_runtime=true; network_check_requested=false; review_only_safety_flags_ok=true"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.local_real_check_bundle --market BTC --strategy tiny-momentum --dry-run --allow-private-key-diagnostic",
+      "status": "passed",
+      "summary": "status=local_real_check_bundle_completed_with_blockers_live_blocked; blockers=11; allowed_for_live=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.local_real_check_snapshot --market BTC --strategy tiny-momentum --dry-run",
+      "status": "passed",
+      "summary": "status=local_real_check_snapshot_recorded_live_blocked; sources_present=8; sources_missing=0; allowed_for_live=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.operator_token_selection_packet --market BTC --strategy tiny-momentum --dry-run",
+      "status": "passed",
+      "summary": "status=selection_required; source_backed_candidates=2; selected_token_id_present=false; allowed_for_live=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.selected_token_payload_readiness_gate --market BTC --strategy tiny-momentum --dry-run",
+      "status": "passed",
+      "summary": "status=blocked_missing_selected_token; ready_for_signed_payload_diagnostic=false; selected_token_payload_ready_for_submit=false; allowed_for_live=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.real_local_check_evidence_review --market BTC --strategy tiny-momentum --dry-run",
+      "status": "passed",
+      "summary": "status=blocked_first_supervised_tiny_order_not_ready; groups=7; unknown_group_count=0; remaining_blocker_count=12; allowed_for_live=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.first_live_order_final_blocker_reducer --market BTC --strategy tiny-momentum --dry-run",
+      "status": "passed",
+      "summary": "status=blocked_remaining_first_live_order_final_blockers; remaining_blockers=10; allowed_for_live=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.static_safety_invariant_report --scope pm_bot --dry-run",
+      "status": "passed",
+      "summary": "critical_findings=0; warnings=7; live execution blocked; order submission blocked; signing blocked; wallet blocked"
+    }
+  ],
+  "safety": {
+    "paper_only": true,
+    "live_trading_added": false,
+    "order_submission_added": false,
+    "order_cancellation_added": false,
+    "signing_by_default_added": false,
+    "signer_instantiation_by_default_added": false,
+    "wallet_connection_ui_added": false,
+    "raw_private_key_output_added": false,
+    "raw_api_secret_output_added": false,
+    "full_signed_payload_output_added": false,
+    "fake_balances_orders_fills_pnl_ids_or_hashes_added": false,
+    "scheduler_daemon_background_loop_added": false,
+    "allowed_for_live_true_added": false,
+    "telegram_candidate_buttons_mutate_artifacts": false,
+    "telegram_candidate_buttons_submit_cancel_sign_or_trade": false
+  },
+  "static_safety_scan": {
+    "status": "passed",
+    "summary": "Staged added-line scan found no true-valued allowed_for_live entries or enabled live/sign/wallet/order flags. Runtime module scan found no network/order/sign/wallet/browser/scheduler APIs. Broad keyword hits were reviewed as blocked/false safety fields, forbidden flag lists, or redaction tests."
+  },
+  "diff_checks": {
+    "git_diff_check": "passed",
+    "git_diff_cached_check": "passed"
+  },
+  "remote_verification": {
+    "status": "pending_push",
+    "command": "git ls-remote origin refs/heads/master"
+  },
+  "final_git_status": "staged_pending_commit_push"
+}

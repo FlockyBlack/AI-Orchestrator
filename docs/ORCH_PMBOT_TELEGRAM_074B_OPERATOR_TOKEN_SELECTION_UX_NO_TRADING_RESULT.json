@@ -1,0 +1,113 @@
+{
+  "task_id": "ORCH-PMBOT-TELEGRAM-074B-OPERATOR-TOKEN-SELECTION-UX-NO-TRADING",
+  "status": "integrated_on_master_pending_final_commit_push_verify",
+  "repo": {
+    "root": "C:/oc074c_integration_replay_074a_074b_into_master",
+    "branch": "master",
+    "base_branch": "master",
+    "source_feature_base_head": "f9e7b4de6ea2afdc110ee5a2387e375f88e46f92",
+    "head_before": "21dede35d750311e81d31051eff60fb9902dd17c",
+    "head_after": "recorded_in_074c_result_after_commit_push_verify",
+    "required_base_head_verified": "21dede35d750311e81d31051eff60fb9902dd17c",
+    "pushed": "pending",
+    "remote_verified": "pending"
+  },
+  "implemented": {
+    "telegram_token_selection_screen_074b": true,
+    "local_artifact_candidate_reader": true,
+    "candidate_token_id_redaction": true,
+    "candidate_buttons_show_cli_instruction_only": true,
+    "telegram_runtime_routing": true,
+    "status_registry_integration": true,
+    "focused_telegram_tests": true
+  },
+  "changed_files": [
+    "docs/ORCH_PMBOT_TELEGRAM_074B_OPERATOR_TOKEN_SELECTION_UX_NO_TRADING_RESULT.json",
+    "pm_bot/operator_runner/telegram_operator_control_bot.py",
+    "pm_bot/operator_runner/telegram_operator_i18n.py",
+    "pm_bot/operator_runner/telegram_operator_runtime.py",
+    "pm_bot/operator_runner/telegram_status_registry.py",
+    "pm_bot/tests/test_telegram_operator_token_selection_074b.py",
+    "pm_bot/trading_core/telegram_operator_token_selection_074b.py"
+  ],
+  "operator_ux": {
+    "screen_title_ru": "🎯 Выбор рынка / Token ID",
+    "buttons_ru": [
+      "Обновить",
+      "Кандидат 1",
+      "Кандидат 2",
+      "Назад"
+    ],
+    "candidate_selection_behavior": "Telegram candidate buttons render the local CLI instruction only; they do not write selection artifacts.",
+    "cli_instruction_template": "python -m pm_bot.operator_runner.operator_token_selection_packet --market BTC --strategy tiny-momentum --dry-run --candidate-index N"
+  },
+  "validation": {
+    "focused_telegram_test": {
+      "command": "python -m pytest pm_bot/tests/test_telegram_operator_token_selection_074b.py -q",
+      "status": "passed",
+      "summary": "5 passed"
+    },
+    "073b_test_if_present": {
+      "command": "python -m pytest pm_bot/tests/test_operator_token_selection_packet_073b.py",
+      "status": "passed",
+      "summary": "10 passed"
+    },
+    "063a_forbidden_controls_test": {
+      "command": "python -m pytest pm_bot/tests/test_telegram_forbidden_live_controls_063a.py -q",
+      "status": "passed",
+      "summary": "3 passed"
+    },
+    "adjacent_telegram_tests": {
+      "command": "python -m pytest pm_bot/tests/test_telegram_forbidden_live_controls_063a.py pm_bot/tests/test_telegram_order_prep_packet_screen_072b.py pm_bot/tests/test_telegram_operator_console_060t.py -q",
+      "status": "passed",
+      "summary": "17 passed"
+    },
+    "full_pm_bot_tests": {
+      "command": "python -m pytest pm_bot/tests -q",
+      "status": "passed",
+      "summary": "2177 passed in 633.11s"
+    },
+    "compileall": {
+      "command": "python -m compileall pm_bot",
+      "status": "passed"
+    },
+    "telegram_runtime_smoke": {
+      "command": "python -m pm_bot.operator_runner.telegram_runtime_smoke --json",
+      "status": "passed",
+      "network_check_requested": false,
+      "ready_to_start_runtime": true,
+      "review_only_safety_flags_ok": true
+    },
+    "static_safety": {
+      "command": "git diff -U0 -- <changed files> | rg added-line forbidden runtime/network/order/signing/browser patterns",
+      "status": "passed",
+      "matches": 0
+    },
+    "diff_checks": {
+      "git_diff_check": "passed",
+      "test_byproducts_cleaned": true
+    }
+  },
+  "safety": {
+    "paper_only": true,
+    "local_artifact_read_only": true,
+    "selection_artifact_write_from_telegram": false,
+    "wallet_or_private_key_access": false,
+    "signing_added": false,
+    "order_submission_added": false,
+    "order_cancellation_added": false,
+    "live_controls_added": false,
+    "trading_endpoint_added": false,
+    "authenticated_endpoint_added": false,
+    "polymarket_api_used": false,
+    "browser_automation_used": false,
+    "scheduler_or_daemon_added": false,
+    "background_worker_added": false,
+    "unsafe_git_staging_used": false,
+    "force_push_used": false
+  },
+  "remaining_risks": [
+    "074B is integrated with the existing 073B operator token selection packet code and tests on master.",
+    "Telegram candidate buttons intentionally do not mutate selection artifacts; operators must run the displayed local CLI command for a selection packet."
+  ]
+}

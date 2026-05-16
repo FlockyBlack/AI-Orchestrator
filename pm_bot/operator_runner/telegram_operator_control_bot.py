@@ -18,6 +18,7 @@ from pm_bot.operator_runner.telegram_operator_i18n import (
     operator_console_button_rows,
     operator_language_from_state,
     operator_language_is_selected,
+    operator_token_selection_button_rows,
     order_prep_packet_status_button_rows,
     order_prep_status_button_rows,
     real_check_results_button_rows,
@@ -54,6 +55,10 @@ from pm_bot.trading_core.telegram_order_prep_packet_status_072b import (
     render_telegram_order_prep_packet_status_text,
 )
 from pm_bot.trading_core.telegram_order_prep_status_071e import render_telegram_order_prep_status_text
+from pm_bot.trading_core.telegram_operator_token_selection_074b import (
+    normalize_telegram_operator_token_selection_summary,
+    render_telegram_operator_token_selection_text,
+)
 from pm_bot.trading_core.secret_boundary_policy import (
     validate_secret_boundary_telegram_operator_control_config,
     validate_secret_boundary_telegram_operator_control_summary,
@@ -76,6 +81,7 @@ TASK_ID_064T = "ORCH-PMBOT-TELEGRAM-064T-CREDENTIALS-READINESS-REVIEW-PANEL"
 TASK_ID_067E = "ORCH-PMBOT-TELEGRAM-067E-WALLET-AUTH-STATUS-DASHBOARD-NO-LIVE"
 TASK_ID_071E = "ORCH-PMBOT-TELEGRAM-071E-ORDER-PREP-STATUS-SCREEN-NO-LIVE"
 TASK_ID_072B = "ORCH-PMBOT-TELEGRAM-072B-ORDER-PREP-PACKET-SCREEN-NO-LIVE"
+TASK_ID_074B = "ORCH-PMBOT-TELEGRAM-074B-OPERATOR-TOKEN-SELECTION-UX-NO-TRADING"
 
 SAFE_ACTION_COMMANDS = tuple(f"/{action.action_id}" for action in SAFE_ACTIONS)
 
@@ -96,6 +102,9 @@ SUPPORTED_COMMANDS = (
     "/status",
     "/connection_status",
     "/order_prep_status",
+    "/token_selection",
+    "/token_candidate_1",
+    "/token_candidate_2",
     "/btc",
     "/intent",
     "/risk",
@@ -127,6 +136,9 @@ CALLBACK_COMMAND_MAP = {
     "pmbot:status": "/status",
     "pmbot:connection_status": "/connection_status",
     "pmbot:order_prep_status": "/order_prep_status",
+    "pmbot:token_selection": "/token_selection",
+    "pmbot:token_selection:candidate:0": "/token_candidate_1",
+    "pmbot:token_selection:candidate:1": "/token_candidate_2",
     "pmbot:btc": "/btc",
     "pmbot:intent": "/intent",
     "pmbot:risk": "/risk",
@@ -498,6 +510,9 @@ class TelegramOperatorControlBot:
             "/connection": self._render_connection,
             "/connection_status": self._render_connection_status,
             "/order_prep_status": self._render_order_prep_status,
+            "/token_selection": self._render_operator_token_selection,
+            "/token_candidate_1": lambda: self._render_operator_token_selection(selected_candidate_index=0),
+            "/token_candidate_2": lambda: self._render_operator_token_selection(selected_candidate_index=1),
             "/balance": self._render_balance,
             "/trades": self._render_trades,
             "/pnl": self._render_pnl,
@@ -968,6 +983,33 @@ class TelegramOperatorControlBot:
                 "live_display_en": "disabled",
             }
         return render_telegram_order_prep_status_text(status, language=self._language())
+
+    def _render_operator_token_selection(self, selected_candidate_index: int | None = None) -> str:
+        status = dict(self._summary().get("telegram_operator_token_selection_074b_status_summary", {}))
+        if not status:
+            status = {
+                "source_backed_candidate_count": 0,
+                "candidate_list": [],
+                "operator_selection_required": True,
+                "explicit_operator_selection_required": True,
+                "requires_explicit_operator_selection": True,
+                "selected_candidate_index": selected_candidate_index,
+                "selected_candidate_available": False,
+                "candidate_cli_instruction": "",
+            }
+        elif selected_candidate_index is not None:
+            status["selected_candidate_index"] = selected_candidate_index
+            status["selected_candidate_available"] = any(
+                _int_first(dict(row).get("candidate_index"), -1) == selected_candidate_index
+                for row in status.get("candidate_list", [])
+                if isinstance(row, Mapping)
+            )
+            status["candidate_cli_instruction"] = (
+                "python -m pm_bot.operator_runner.operator_token_selection_packet "
+                "--market BTC --strategy tiny-momentum --dry-run "
+                f"--candidate-index {selected_candidate_index}"
+            )
+        return render_telegram_operator_token_selection_text(status, language=self._language())
 
     def _render_order(self) -> str:
         order = dict(self._summary().get("live_order_submission_boundary_summary", {}))
@@ -1502,6 +1544,8 @@ class TelegramOperatorControlBot:
             ):
                 return build_order_prep_packet_status_keyboard(self._language())
             return build_order_prep_status_keyboard(self._language())
+        if command in {"/token_selection", "/token_candidate_1", "/token_candidate_2"}:
+            return build_operator_token_selection_keyboard(self._language())
         if command in {"/start", "/language", "/ru", "/en"}:
             return build_language_selection_keyboard()
         if command in {
@@ -1578,6 +1622,14 @@ def build_order_prep_status_keyboard(language: str = DEFAULT_OPERATOR_LANGUAGE) 
 def build_order_prep_packet_status_keyboard(language: str = DEFAULT_OPERATOR_LANGUAGE) -> TelegramOperatorKeyboard:
     return _keyboard_from_rows(
         order_prep_packet_status_button_rows(
+            normalize_operator_language(language, fallback=DEFAULT_OPERATOR_LANGUAGE)
+        )
+    )
+
+
+def build_operator_token_selection_keyboard(language: str = DEFAULT_OPERATOR_LANGUAGE) -> TelegramOperatorKeyboard:
+    return _keyboard_from_rows(
+        operator_token_selection_button_rows(
             normalize_operator_language(language, fallback=DEFAULT_OPERATOR_LANGUAGE)
         )
     )
@@ -1828,6 +1880,11 @@ def build_telegram_operator_control_summary(
         context_value.get("telegram_real_check_results_073t_status"),
         context_value.get("latest_telegram_real_check_results_status_073t"),
     )
+    telegram_operator_token_selection_074b = _first_mapping(
+        context_value.get("telegram_operator_token_selection_074b_status_summary"),
+        context_value.get("telegram_operator_token_selection_074b_status"),
+        context_value.get("latest_telegram_operator_token_selection_074b"),
+    )
     mini_panel = _first_mapping(
         context_value.get("telegram_mini_app_operator_panel_summary"),
         context_value.get("telegram_mini_app_operator_panel"),
@@ -1880,6 +1937,7 @@ def build_telegram_operator_control_summary(
                 "telegram_real_check_results_073t": telegram_real_check_results_073t,
                 "telegram_order_prep_status_071e": telegram_order_prep_status_071e,
                 "telegram_order_prep_packet_status_072b": telegram_order_prep_packet_status_072b,
+                "telegram_operator_token_selection_074b": telegram_operator_token_selection_074b,
             },
         ),
         "task_id": TASK_ID,
@@ -1942,6 +2000,9 @@ def build_telegram_operator_control_summary(
         ),
         "telegram_order_prep_packet_status_072b_status_summary": normalize_telegram_order_prep_packet_status_summary(
             telegram_order_prep_packet_status_072b
+        ),
+        "telegram_operator_token_selection_074b_status_summary": normalize_telegram_operator_token_selection_summary(
+            telegram_operator_token_selection_074b
         ),
         "telegram_mini_app_operator_panel_summary": mini_panel,
         "telegram_operator_console_060t_status_registry": telegram_operator_console,

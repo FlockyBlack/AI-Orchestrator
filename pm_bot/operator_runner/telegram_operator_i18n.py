@@ -104,6 +104,19 @@ ORDER_PREP_PACKET_STATUS_BUTTON_ROWS_BY_LANGUAGE = {
     ),
 }
 
+OPERATOR_TOKEN_SELECTION_BUTTON_ROWS_BY_LANGUAGE = {
+    "ru": (
+        (("Обновить", "pmbot:token_selection"),),
+        (("Кандидат 1", "pmbot:token_selection:candidate:0"), ("Кандидат 2", "pmbot:token_selection:candidate:1")),
+        (("Назад", "pmbot:home"),),
+    ),
+    "en": (
+        (("Refresh", "pmbot:token_selection"),),
+        (("Candidate 1", "pmbot:token_selection:candidate:0"), ("Candidate 2", "pmbot:token_selection:candidate:1")),
+        (("Back", "pmbot:home"),),
+    ),
+}
+
 TINY_ORDER_REVIEW_LABELS = {
     "ru": {
         "section": "Малый ордер",
@@ -341,6 +354,12 @@ def order_prep_packet_status_button_rows(language: str) -> tuple[tuple[tuple[str
     ]
 
 
+def operator_token_selection_button_rows(language: str) -> tuple[tuple[tuple[str, str], ...], ...]:
+    return OPERATOR_TOKEN_SELECTION_BUTTON_ROWS_BY_LANGUAGE[
+        normalize_operator_language(language, fallback=DEFAULT_OPERATOR_LANGUAGE)
+    ]
+
+
 def language_selection_button_rows() -> tuple[tuple[tuple[str, str], ...], ...]:
     return LANGUAGE_SELECTION_BUTTON_ROWS
 
@@ -389,6 +408,7 @@ def all_button_rows() -> tuple[tuple[tuple[str, str], ...], ...]:
         rows.extend(real_check_results_button_rows(language))
         rows.extend(order_prep_status_button_rows(language))
         rows.extend(order_prep_packet_status_button_rows(language))
+        rows.extend(operator_token_selection_button_rows(language))
     rows.extend(language_selection_button_rows())
     return tuple(rows)
 
