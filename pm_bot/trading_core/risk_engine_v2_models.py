@@ -324,11 +324,13 @@ class RiskEngineV2ReviewResult:
     safety_snapshot: Mapping[str, Any]
     latest_status: Mapping[str, Any]
     artifact_paths: Mapping[str, str]
+    source_artifacts: tuple[Mapping[str, Any], ...] = ()
     generated_at: str = GENERATED_AT
 
     def to_dict(self) -> dict[str, Any]:
         blockers = [dict(row) for row in self.blockers]
         gates = [dict(row) for row in self.gate_evaluations]
+        source_artifacts = [dict(row) for row in self.source_artifacts]
         blocker_ids = [clean_text(row.get("blocker_id")) for row in blockers if clean_text(row.get("blocker_id"))]
         unknown_blockers = [
             clean_text(row.get("blocker_id"))
@@ -366,6 +368,11 @@ class RiskEngineV2ReviewResult:
             "safety_snapshot": dict(self.safety_snapshot),
             "latest_status": dict(self.latest_status),
             "artifact_paths": dict(self.artifact_paths),
+            "source_artifacts": source_artifacts,
+            "source_artifact_ids": [
+                clean_text(row.get("source_id")) for row in source_artifacts if clean_text(row.get("source_id"))
+            ],
+            "observed_source_artifact_count": len([row for row in source_artifacts if row.get("present") is True]),
             "operator_summary": (
                 "Risk Engine v2 review remains no-live and blocks the first supervised tiny order until all "
                 "review evidence, caps, duplicate guard, halt state, operator approval, and explicit live "

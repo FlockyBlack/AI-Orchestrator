@@ -25,6 +25,16 @@ def build_parser() -> argparse.ArgumentParser:
         default="",
         help="Optional output directory. Defaults to the 074D Risk Engine v2 artifact directory.",
     )
+    parser.add_argument(
+        "--artifact-root",
+        default="",
+        help="Optional input artifact root for 073A/073B/073C/074A local evidence context.",
+    )
+    parser.add_argument(
+        "--no-local-artifact-context",
+        action="store_true",
+        help="Disable local 073A/073B/073C/074A artifact context lookup.",
+    )
     parser.add_argument("--json", action="store_true", help="Print latest Risk Engine v2 review status JSON.")
     return parser
 
@@ -40,6 +50,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         market=args.market,
         strategy=args.strategy,
         dry_run=True,
+        artifact_root=Path(args.artifact_root) if args.artifact_root else None,
+        consume_local_artifacts=args.no_local_artifact_context is not True,
         artifact_dir=Path(args.artifacts_dir) if args.artifacts_dir else None,
     )
     status = dict(result.get("latest_status", {}))

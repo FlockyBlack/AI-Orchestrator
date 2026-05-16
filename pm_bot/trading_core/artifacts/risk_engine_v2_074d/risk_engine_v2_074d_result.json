@@ -64,7 +64,7 @@
       "cryptographic_signing_performed": false,
       "dry_run_only": true,
       "environment_values_read": false,
-      "evidence_status": "missing_evidence",
+      "evidence_status": "local_real_check_snapshot_recorded_live_blocked",
       "execution_mode": "risk_engine_v2_review",
       "explicit_live_authorization_required": true,
       "external_api_calls_performed": false,
@@ -125,7 +125,7 @@
       "real_execution_available": false,
       "real_order_cancelled": false,
       "real_order_submitted": false,
-      "reason": "Data freshness evidence is missing; stale or unknown data blocks the review.",
+      "reason": "Data freshness evidence is stale or not review-ready.",
       "resolution_status": "unresolved",
       "resolved": false,
       "resolved_blocker_count": 0,
@@ -148,7 +148,7 @@
       "signing_attempted": false,
       "signing_enabled": false,
       "source_keys": [
-        "data_freshness"
+        "local_real_check_snapshot_073a"
       ],
       "task_id": "ORCH-PMBOT-RISK-074D-RISK-ENGINE-V2-SCAFFOLD-NO-LIVE",
       "trading_write_call_performed": false,
@@ -314,7 +314,7 @@
       "cryptographic_signing_performed": false,
       "dry_run_only": true,
       "environment_values_read": false,
-      "evidence_status": "missing_evidence",
+      "evidence_status": "selection_required",
       "execution_mode": "risk_engine_v2_review",
       "explicit_live_authorization_required": true,
       "external_api_calls_performed": false,
@@ -375,7 +375,7 @@
       "real_execution_available": false,
       "real_order_cancelled": false,
       "real_order_submitted": false,
-      "reason": "A source-backed token candidate is missing; the engine must not invent one.",
+      "reason": "Token candidate evidence is present but not source-backed and verified.",
       "resolution_status": "unresolved",
       "resolved": false,
       "resolved_blocker_count": 0,
@@ -398,7 +398,7 @@
       "signing_attempted": false,
       "signing_enabled": false,
       "source_keys": [
-        "source_backed_token_candidate"
+        "operator_token_selection_packet_073b"
       ],
       "task_id": "ORCH-PMBOT-RISK-074D-RISK-ENGINE-V2-SCAFFOLD-NO-LIVE",
       "trading_write_call_performed": false,
@@ -439,7 +439,7 @@
       "cryptographic_signing_performed": false,
       "dry_run_only": true,
       "environment_values_read": false,
-      "evidence_status": "missing_evidence",
+      "evidence_status": "blocked_first_supervised_tiny_order_not_ready",
       "execution_mode": "risk_engine_v2_review",
       "explicit_live_authorization_required": true,
       "external_api_calls_performed": false,
@@ -500,7 +500,7 @@
       "real_execution_available": false,
       "real_order_cancelled": false,
       "real_order_submitted": false,
-      "reason": "Read-only account evidence is missing; account readiness remains unknown.",
+      "reason": "Read-only account evidence is not review-ready.",
       "resolution_status": "unresolved",
       "resolved": false,
       "resolved_blocker_count": 0,
@@ -523,7 +523,8 @@
       "signing_attempted": false,
       "signing_enabled": false,
       "source_keys": [
-        "account_readonly"
+        "real_local_check_evidence_review_074a",
+        "local_real_check_snapshot_073a"
       ],
       "task_id": "ORCH-PMBOT-RISK-074D-RISK-ENGINE-V2-SCAFFOLD-NO-LIVE",
       "trading_write_call_performed": false,
@@ -564,7 +565,7 @@
       "cryptographic_signing_performed": false,
       "dry_run_only": true,
       "environment_values_read": false,
-      "evidence_status": "missing_evidence",
+      "evidence_status": "blocked_first_supervised_tiny_order_not_ready",
       "execution_mode": "risk_engine_v2_review",
       "explicit_live_authorization_required": true,
       "external_api_calls_performed": false,
@@ -625,7 +626,7 @@
       "real_execution_available": false,
       "real_order_cancelled": false,
       "real_order_submitted": false,
-      "reason": "Signer diagnostic evidence is missing; signer readiness remains unknown.",
+      "reason": "Signer diagnostic evidence is present but not diagnostic_ok.",
       "resolution_status": "unresolved",
       "resolved": false,
       "resolved_blocker_count": 0,
@@ -648,7 +649,8 @@
       "signing_attempted": false,
       "signing_enabled": false,
       "source_keys": [
-        "signer_diagnostic"
+        "real_local_check_evidence_review_074a",
+        "local_real_check_snapshot_073a"
       ],
       "task_id": "ORCH-PMBOT-RISK-074D-RISK-ENGINE-V2-SCAFFOLD-NO-LIVE",
       "trading_write_call_performed": false,
@@ -689,7 +691,7 @@
       "cryptographic_signing_performed": false,
       "dry_run_only": true,
       "environment_values_read": false,
-      "evidence_status": "missing_evidence",
+      "evidence_status": "blocked_missing_selected_token",
       "execution_mode": "risk_engine_v2_review",
       "explicit_live_authorization_required": true,
       "external_api_calls_performed": false,
@@ -750,7 +752,7 @@
       "real_execution_available": false,
       "real_order_cancelled": false,
       "real_order_submitted": false,
-      "reason": "Selected-token payload readiness evidence is missing.",
+      "reason": "Selected-token payload readiness is not review-ready.",
       "resolution_status": "unresolved",
       "resolved": false,
       "resolved_blocker_count": 0,
@@ -773,7 +775,7 @@
       "signing_attempted": false,
       "signing_enabled": false,
       "source_keys": [
-        "selected_token_payload_readiness"
+        "selected_token_payload_readiness_gate_073c"
       ],
       "task_id": "ORCH-PMBOT-RISK-074D-RISK-ENGINE-V2-SCAFFOLD-NO-LIVE",
       "trading_write_call_performed": false,
@@ -1526,12 +1528,7 @@
       "signing_attempted": false,
       "signing_enabled": false,
       "source_keys": [
-        "stale_data",
         "liquidity_evidence",
-        "source_backed_token_candidate",
-        "account_readonly_evidence",
-        "signer_diagnostic_evidence",
-        "selected_token_payload_readiness",
         "exposure_cap",
         "per_market_cap",
         "daily_loss_cap",
@@ -1848,7 +1845,7 @@
       "detail": "",
       "dry_run_only": true,
       "environment_values_read": false,
-      "evidence_status": "missing_evidence",
+      "evidence_status": "local_real_check_snapshot_recorded_live_blocked",
       "execution_mode": "risk_engine_v2_review",
       "explicit_live_authorization_required": true,
       "external_api_calls_performed": false,
@@ -1910,7 +1907,7 @@
       "real_execution_available": false,
       "real_order_cancelled": false,
       "real_order_submitted": false,
-      "reason": "Data freshness evidence is missing; stale or unknown data blocks the review.",
+      "reason": "Data freshness evidence is stale or not review-ready.",
       "resolved_blocker_count": 0,
       "review_only": true,
       "risk_engine_v2_executable_for_live": false,
@@ -1930,7 +1927,7 @@
       "signing_attempted": false,
       "signing_enabled": false,
       "source_keys": [
-        "data_freshness"
+        "local_real_check_snapshot_073a"
       ],
       "task_id": "ORCH-PMBOT-RISK-074D-RISK-ENGINE-V2-SCAFFOLD-NO-LIVE",
       "trading_write_call_performed": false,
@@ -2092,7 +2089,7 @@
       "detail": "",
       "dry_run_only": true,
       "environment_values_read": false,
-      "evidence_status": "missing_evidence",
+      "evidence_status": "selection_required",
       "execution_mode": "risk_engine_v2_review",
       "explicit_live_authorization_required": true,
       "external_api_calls_performed": false,
@@ -2154,7 +2151,7 @@
       "real_execution_available": false,
       "real_order_cancelled": false,
       "real_order_submitted": false,
-      "reason": "A source-backed token candidate is missing; the engine must not invent one.",
+      "reason": "Token candidate evidence is present but not source-backed and verified.",
       "resolved_blocker_count": 0,
       "review_only": true,
       "risk_engine_v2_executable_for_live": false,
@@ -2174,7 +2171,7 @@
       "signing_attempted": false,
       "signing_enabled": false,
       "source_keys": [
-        "source_backed_token_candidate"
+        "operator_token_selection_packet_073b"
       ],
       "task_id": "ORCH-PMBOT-RISK-074D-RISK-ENGINE-V2-SCAFFOLD-NO-LIVE",
       "trading_write_call_performed": false,
@@ -2214,7 +2211,7 @@
       "detail": "",
       "dry_run_only": true,
       "environment_values_read": false,
-      "evidence_status": "missing_evidence",
+      "evidence_status": "blocked_first_supervised_tiny_order_not_ready",
       "execution_mode": "risk_engine_v2_review",
       "explicit_live_authorization_required": true,
       "external_api_calls_performed": false,
@@ -2276,7 +2273,7 @@
       "real_execution_available": false,
       "real_order_cancelled": false,
       "real_order_submitted": false,
-      "reason": "Read-only account evidence is missing; account readiness remains unknown.",
+      "reason": "Read-only account evidence is not review-ready.",
       "resolved_blocker_count": 0,
       "review_only": true,
       "risk_engine_v2_executable_for_live": false,
@@ -2296,7 +2293,8 @@
       "signing_attempted": false,
       "signing_enabled": false,
       "source_keys": [
-        "account_readonly"
+        "real_local_check_evidence_review_074a",
+        "local_real_check_snapshot_073a"
       ],
       "task_id": "ORCH-PMBOT-RISK-074D-RISK-ENGINE-V2-SCAFFOLD-NO-LIVE",
       "trading_write_call_performed": false,
@@ -2336,7 +2334,7 @@
       "detail": "",
       "dry_run_only": true,
       "environment_values_read": false,
-      "evidence_status": "missing_evidence",
+      "evidence_status": "blocked_first_supervised_tiny_order_not_ready",
       "execution_mode": "risk_engine_v2_review",
       "explicit_live_authorization_required": true,
       "external_api_calls_performed": false,
@@ -2398,7 +2396,7 @@
       "real_execution_available": false,
       "real_order_cancelled": false,
       "real_order_submitted": false,
-      "reason": "Signer diagnostic evidence is missing; signer readiness remains unknown.",
+      "reason": "Signer diagnostic evidence is present but not diagnostic_ok.",
       "resolved_blocker_count": 0,
       "review_only": true,
       "risk_engine_v2_executable_for_live": false,
@@ -2418,7 +2416,8 @@
       "signing_attempted": false,
       "signing_enabled": false,
       "source_keys": [
-        "signer_diagnostic"
+        "real_local_check_evidence_review_074a",
+        "local_real_check_snapshot_073a"
       ],
       "task_id": "ORCH-PMBOT-RISK-074D-RISK-ENGINE-V2-SCAFFOLD-NO-LIVE",
       "trading_write_call_performed": false,
@@ -2458,7 +2457,7 @@
       "detail": "",
       "dry_run_only": true,
       "environment_values_read": false,
-      "evidence_status": "missing_evidence",
+      "evidence_status": "blocked_missing_selected_token",
       "execution_mode": "risk_engine_v2_review",
       "explicit_live_authorization_required": true,
       "external_api_calls_performed": false,
@@ -2520,7 +2519,7 @@
       "real_execution_available": false,
       "real_order_cancelled": false,
       "real_order_submitted": false,
-      "reason": "Selected-token payload readiness evidence is missing.",
+      "reason": "Selected-token payload readiness is not review-ready.",
       "resolved_blocker_count": 0,
       "review_only": true,
       "risk_engine_v2_executable_for_live": false,
@@ -2540,7 +2539,7 @@
       "signing_attempted": false,
       "signing_enabled": false,
       "source_keys": [
-        "selected_token_payload_readiness"
+        "selected_token_payload_readiness_gate_073c"
       ],
       "task_id": "ORCH-PMBOT-RISK-074D-RISK-ENGINE-V2-SCAFFOLD-NO-LIVE",
       "trading_write_call_performed": false,
@@ -3275,12 +3274,7 @@
       "signing_attempted": false,
       "signing_enabled": false,
       "source_keys": [
-        "stale_data",
         "liquidity_evidence",
-        "source_backed_token_candidate",
-        "account_readonly_evidence",
-        "signer_diagnostic_evidence",
-        "selected_token_payload_readiness",
         "exposure_cap",
         "per_market_cap",
         "daily_loss_cap",
@@ -3623,6 +3617,7 @@
     "no_submit": true,
     "no_wallet": true,
     "non_executable": true,
+    "observed_source_artifact_count": 4,
     "openrouter_calls_performed": 0,
     "operator_approval": "required",
     "operator_approval_recorded": false,
@@ -3674,18 +3669,19 @@
     "signed_payload_generation_enabled": false,
     "signing_attempted": false,
     "signing_enabled": false,
+    "source_artifact_ids": [
+      "local_real_check_snapshot_073a",
+      "operator_token_selection_packet_073b",
+      "selected_token_payload_readiness_gate_073c",
+      "real_local_check_evidence_review_074a"
+    ],
     "status": "blocked_risk_engine_v2_review",
     "strategy_name": "tiny-momentum",
     "task_id": "ORCH-PMBOT-RISK-074D-RISK-ENGINE-V2-SCAFFOLD-NO-LIVE",
     "trading_write_call_performed": false,
-    "unknown_blocker_count": 12,
+    "unknown_blocker_count": 7,
     "unknown_blocker_ids": [
-      "risk_v2_stale_data_or_freshness_unknown",
       "risk_v2_liquidity_evidence_missing_or_weak",
-      "risk_v2_source_backed_token_candidate_missing",
-      "risk_v2_account_readonly_evidence_missing",
-      "risk_v2_signer_diagnostic_evidence_missing",
-      "risk_v2_selected_token_payload_readiness_missing",
       "risk_v2_total_exposure_cap_unknown_or_exceeded",
       "risk_v2_per_market_cap_unknown_or_exceeded",
       "risk_v2_daily_loss_cap_unknown_or_exceeded",
@@ -3727,6 +3723,7 @@
   "no_submit": true,
   "no_wallet": true,
   "non_executable": true,
+  "observed_source_artifact_count": 4,
   "openrouter_calls_performed": 0,
   "operator_approval_recorded": false,
   "operator_approval_required_before_live": true,
@@ -3912,18 +3909,57 @@
   "signed_payload_generation_enabled": false,
   "signing_attempted": false,
   "signing_enabled": false,
+  "source_artifact_ids": [
+    "local_real_check_snapshot_073a",
+    "operator_token_selection_packet_073b",
+    "selected_token_payload_readiness_gate_073c",
+    "real_local_check_evidence_review_074a"
+  ],
+  "source_artifacts": [
+    {
+      "contract_version": "pmbot_latest_local_real_check_snapshot_status_073a.v1",
+      "generated_at": "2026-05-11T00:00:00Z",
+      "path": "pm_bot/trading_core/artifacts/local_real_check_snapshot_073a/latest_local_real_check_snapshot_status_073a.json",
+      "present": true,
+      "source_id": "local_real_check_snapshot_073a",
+      "source_safe": true,
+      "status": "local_real_check_snapshot_recorded_live_blocked"
+    },
+    {
+      "contract_version": "pmbot_latest_operator_token_selection_status_073b.v1",
+      "generated_at": "2026-05-11T00:00:00Z",
+      "path": "pm_bot/trading_core/artifacts/operator_token_selection_packet_073b/latest_operator_token_selection_status_073b.json",
+      "present": true,
+      "source_id": "operator_token_selection_packet_073b",
+      "source_safe": true,
+      "status": "selection_required"
+    },
+    {
+      "contract_version": "pmbot_latest_selected_token_payload_readiness_status_073c.v1",
+      "generated_at": "2026-05-11T00:00:00Z",
+      "path": "pm_bot/trading_core/artifacts/selected_token_payload_readiness_gate_073c/latest_selected_token_payload_readiness_status_073c.json",
+      "present": true,
+      "source_id": "selected_token_payload_readiness_gate_073c",
+      "source_safe": true,
+      "status": "blocked_missing_selected_token"
+    },
+    {
+      "contract_version": "pmbot_latest_real_local_check_evidence_review_074a.v1",
+      "generated_at": "2026-05-11T00:00:00Z",
+      "path": "pm_bot/trading_core/artifacts/real_local_check_evidence_review_074a/latest_real_local_check_evidence_review_status_074a.json",
+      "present": true,
+      "source_id": "real_local_check_evidence_review_074a",
+      "source_safe": true,
+      "status": "blocked_first_supervised_tiny_order_not_ready"
+    }
+  ],
   "status": "blocked_risk_engine_v2_review",
   "strategy_name": "tiny-momentum",
   "task_id": "ORCH-PMBOT-RISK-074D-RISK-ENGINE-V2-SCAFFOLD-NO-LIVE",
   "trading_write_call_performed": false,
-  "unknown_blocker_count": 12,
+  "unknown_blocker_count": 7,
   "unknown_blocker_ids": [
-    "risk_v2_stale_data_or_freshness_unknown",
     "risk_v2_liquidity_evidence_missing_or_weak",
-    "risk_v2_source_backed_token_candidate_missing",
-    "risk_v2_account_readonly_evidence_missing",
-    "risk_v2_signer_diagnostic_evidence_missing",
-    "risk_v2_selected_token_payload_readiness_missing",
     "risk_v2_total_exposure_cap_unknown_or_exceeded",
     "risk_v2_per_market_cap_unknown_or_exceeded",
     "risk_v2_daily_loss_cap_unknown_or_exceeded",

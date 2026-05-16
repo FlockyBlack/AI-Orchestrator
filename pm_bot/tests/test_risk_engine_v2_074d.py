@@ -60,6 +60,12 @@ def _minimal_env(extra: Mapping[str, str] | None = None) -> dict[str, str]:
     return env
 
 
+def _write_json(path: Path, payload: Mapping[str, Any]) -> Path:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(dict(payload), indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    return path
+
+
 def _good_evidence() -> dict[str, dict[str, Any]]:
     safe_false = {
         "allowed_for_live": False,
@@ -187,6 +193,83 @@ def test_default_review_writes_artifacts_and_blocks_all_unknowns(tmp_path: Path)
     for key, path in paths.items():
         if key != "root":
             assert path.exists(), key
+    _assert_forced_false_flags(result)
+
+
+def test_local_artifact_context_references_073_074_layers_without_unblocking(tmp_path: Path) -> None:
+    artifact_root = tmp_path / "source_artifacts"
+    _write_json(
+        artifact_root / "local_real_check_snapshot_073a" / "latest_local_real_check_snapshot_status_073a.json",
+        {
+            "contract_version": "fixture.latest_local_real_check_snapshot_073a.v1",
+            "status": "local_real_check_snapshot_recorded_live_blocked",
+            "allowed_for_live": False,
+        },
+    )
+    _write_json(
+        artifact_root / "operator_token_selection_packet_073b" / "latest_operator_token_selection_status_073b.json",
+        {
+            "contract_version": "fixture.latest_operator_token_selection_status_073b.v1",
+            "status": "selection_required",
+            "selected_token_id_present": False,
+            "selected_token_source_backed": False,
+            "allowed_for_live": False,
+        },
+    )
+    _write_json(
+        artifact_root
+        / "selected_token_payload_readiness_gate_073c"
+        / "latest_selected_token_payload_readiness_status_073c.json",
+        {
+            "contract_version": "fixture.latest_selected_token_payload_readiness_status_073c.v1",
+            "status": "blocked_missing_selected_token",
+            "ready_for_signed_payload_diagnostic": False,
+            "selected_token_payload_ready_for_submit": False,
+            "allowed_for_live": False,
+        },
+    )
+    _write_json(
+        artifact_root
+        / "real_local_check_evidence_review_074a"
+        / "latest_real_local_check_evidence_review_status_074a.json",
+        {
+            "contract_version": "fixture.latest_real_local_check_evidence_review_status_074a.v1",
+            "status": "blocked_first_supervised_tiny_order_not_ready",
+            "remaining_blocker_count": 12,
+            "unknown_group_count": 0,
+            "allowed_for_live": False,
+        },
+    )
+
+    result = run_risk_engine_v2_review(
+        market="BTC",
+        strategy="tiny-momentum",
+        dry_run=True,
+        artifact_root=artifact_root,
+        consume_local_artifacts=True,
+        artifact_dir=tmp_path / "artifacts",
+        generated_at=GENERATED_AT,
+    )
+    status_by_gate = {row["gate_id"]: row["evidence_status"] for row in result["gate_evaluations"]}
+    source_keys_by_gate = {row["gate_id"]: set(row["source_keys"]) for row in result["gate_evaluations"]}
+
+    assert result["validation"]["valid"] is True
+    assert result["observed_source_artifact_count"] == 4
+    assert set(result["source_artifact_ids"]) == {
+        "local_real_check_snapshot_073a",
+        "operator_token_selection_packet_073b",
+        "selected_token_payload_readiness_gate_073c",
+        "real_local_check_evidence_review_074a",
+    }
+    assert status_by_gate["source_backed_token_candidate"] == "selection_required"
+    assert status_by_gate["selected_token_payload_readiness"] == "blocked_missing_selected_token"
+    assert status_by_gate["account_readonly_evidence"] == "blocked_first_supervised_tiny_order_not_ready"
+    assert "operator_token_selection_packet_073b" in source_keys_by_gate["source_backed_token_candidate"]
+    assert "selected_token_payload_readiness_gate_073c" in source_keys_by_gate["selected_token_payload_readiness"]
+    assert result["allowed_for_live"] is False
+    assert result["risk_engine_v2_executable_for_live"] is False
+    assert result["first_supervised_tiny_order_blocked"] is True
+    assert result["remaining_blocker_count"] > 0
     _assert_forced_false_flags(result)
 
 

@@ -28,9 +28,18 @@ from pm_bot.trading_core.risk_engine_v2_models import (
     risk_engine_v2_gate_label,
     risk_engine_v2_safety_flags,
 )
-from pm_bot.trading_core.schemas import GENERATED_AT, bullet_lines, clean_text, normalize_path, write_json, write_text
+from pm_bot.trading_core.schemas import (
+    GENERATED_AT,
+    bullet_lines,
+    clean_text,
+    load_json_object,
+    normalize_path,
+    write_json,
+    write_text,
+)
 
 DEFAULT_ARTIFACT_DIR = Path("pm_bot/trading_core/artifacts/risk_engine_v2_074d")
+DEFAULT_SOURCE_ARTIFACT_ROOT = Path("pm_bot/trading_core/artifacts")
 
 FRESH_DATA_STATUSES = {"fresh", "fresh_enough", "review_fresh"}
 STRONG_LIQUIDITY_STATUSES = {"strong", "sufficient", "source_backed", "review_ready"}
@@ -39,6 +48,26 @@ ACCOUNT_READONLY_STATUSES = {"present", "read_only_ok", "readonly_ok", "account_
 SIGNER_DIAGNOSTIC_STATUSES = {"present", "diagnostic_ok"}
 SELECTED_TOKEN_PAYLOAD_STATUSES = {"ready_for_signed_payload_diagnostic", "review_ready"}
 APPROVED_OPERATOR_STATUSES = {"operator_approved", "operator_approved_review_only"}
+
+SOURCE_ARTIFACT_CANDIDATES: dict[str, tuple[Path, ...]] = {
+    "local_real_check_snapshot_073a": (
+        Path("local_real_check_snapshot_073a/latest_local_real_check_snapshot_status_073a.json"),
+        Path("local_real_check_snapshot_073a/local_real_check_snapshot_073a_result.json"),
+    ),
+    "operator_token_selection_packet_073b": (
+        Path("operator_token_selection_packet_073b/latest_operator_token_selection_status_073b.json"),
+        Path("operator_token_selection_packet_073b/operator_token_selection_packet_073b_result.json"),
+        Path("operator_token_selection_packet_073b/operator_token_selection_packet_073b.json"),
+    ),
+    "selected_token_payload_readiness_gate_073c": (
+        Path("selected_token_payload_readiness_gate_073c/latest_selected_token_payload_readiness_status_073c.json"),
+        Path("selected_token_payload_readiness_gate_073c/selected_token_payload_readiness_gate_073c_result.json"),
+    ),
+    "real_local_check_evidence_review_074a": (
+        Path("real_local_check_evidence_review_074a/latest_real_local_check_evidence_review_status_074a.json"),
+        Path("real_local_check_evidence_review_074a/real_local_check_evidence_review_074a_result.json"),
+    ),
+}
 
 FORBIDDEN_RUNTIME_FLAGS = (
     "--live",
@@ -87,6 +116,8 @@ def run_risk_engine_v2_review(
     risk_state: Mapping[str, Any] | None = None,
     risk_limits: Mapping[str, Any] | None = None,
     review_controls: Mapping[str, Any] | None = None,
+    artifact_root: str | Path | None = None,
+    consume_local_artifacts: bool = False,
     artifact_dir: str | Path | None = None,
     generated_at: str = GENERATED_AT,
 ) -> dict[str, Any]:
@@ -95,7 +126,15 @@ def run_risk_engine_v2_review(
 
     market_symbol = clean_text(market).upper() or DEFAULT_ALLOWED_MARKET
     strategy_name = clean_text(strategy) or DEFAULT_ALLOWED_STRATEGY
-    evidence_rows = {clean_text(key): dict(value) for key, value in dict(evidence or {}).items() if isinstance(value, Mapping)}
+    source_artifacts = (
+        _observe_source_artifacts(artifact_root=artifact_root, generated_at=generated_at)
+        if consume_local_artifacts
+        else []
+    )
+    evidence_rows = _merge_evidence_rows(
+        artifact_evidence=_evidence_from_source_artifacts(source_artifacts),
+        explicit_evidence=evidence,
+    )
     state = dict(risk_state or {})
     limits = dict(risk_limits or _default_risk_limits())
     controls = dict(review_controls or {})
@@ -284,6 +323,7 @@ def run_risk_engine_v2_review(
         gate_evaluations=gate_evaluations,
         blockers=blockers,
         path_refs=path_refs,
+        source_artifacts=source_artifacts,
         generated_at=generated_at,
     )
     result = RiskEngineV2ReviewResult(
@@ -294,6 +334,7 @@ def run_risk_engine_v2_review(
         safety_snapshot=safety_snapshot,
         latest_status=latest_status,
         artifact_paths=path_refs,
+        source_artifacts=tuple(source_artifacts),
         generated_at=generated_at,
     ).to_dict()
 
@@ -333,6 +374,7 @@ def render_risk_engine_v2_review_markdown(result: Mapping[str, Any]) -> str:
     paths = dict(value.get("artifact_paths", {}))
     blockers = [dict(row) for row in value.get("blockers", []) if isinstance(row, Mapping)]
     gates = [dict(row) for row in value.get("gate_evaluations", []) if isinstance(row, Mapping)]
+    source_artifacts = [dict(row) for row in value.get("source_artifacts", []) if isinstance(row, Mapping)]
     lines = [
         "# PMBOT Risk Engine v2 Review 074D",
         "",
@@ -361,6 +403,14 @@ def render_risk_engine_v2_review_markdown(result: Mapping[str, Any]) -> str:
         "## Artifacts",
         "",
         *bullet_lines(f"`{path}`" for path in paths.values()),
+        "",
+        "## Source Context",
+        "",
+        *bullet_lines(
+            f"`{row.get('source_id')}` present={str(row.get('present') is True).lower()} "
+            f"status=`{row.get('status')}`"
+            for row in source_artifacts
+        ),
         "",
         "## Safety Statement",
         "",
@@ -394,8 +444,9 @@ def _add_evidence_gate(
     evidence = dict(evidence_rows.get(evidence_key, {}))
     source_safe = _source_safety_ok(evidence)
     status = _evidence_status(evidence)
+    source_keys = _evidence_source_keys(evidence, evidence_key)
     if not evidence:
-        add_gate(gate_id, False, STATUS_MISSING, missing_reason, source_keys=(evidence_key,))
+        add_gate(gate_id, False, STATUS_MISSING, missing_reason, source_keys=source_keys)
         return
     if not source_safe:
         add_gate(
@@ -403,7 +454,7 @@ def _add_evidence_gate(
             False,
             "unsafe_source_flag",
             "Source evidence contains an activation flag that is not safely false.",
-            source_keys=(evidence_key,),
+            source_keys=source_keys,
         )
         return
     if status in allowed_statuses:
@@ -412,11 +463,11 @@ def _add_evidence_gate(
             True,
             STATUS_PASSED_REVIEW_CHECK,
             f"{risk_engine_v2_gate_label(gate_id)} evidence is present for review only.",
-            source_keys=(evidence_key,),
+            source_keys=source_keys,
         )
         return
     evidence_status = STATUS_UNKNOWN if status in {"", "unknown"} else status
-    add_gate(gate_id, False, evidence_status, rejected_reason, source_keys=(evidence_key,))
+    add_gate(gate_id, False, evidence_status, rejected_reason, source_keys=source_keys)
 
 
 def _add_cap_gate(
@@ -666,10 +717,12 @@ def _build_latest_status(
     gate_evaluations: Sequence[Mapping[str, Any]],
     blockers: Sequence[Mapping[str, Any]],
     path_refs: Mapping[str, str],
+    source_artifacts: Sequence[Mapping[str, Any]],
     generated_at: str,
 ) -> dict[str, Any]:
     gates = [dict(row) for row in gate_evaluations]
     rows = [dict(row) for row in blockers]
+    source_rows = [dict(row) for row in source_artifacts]
     unknown_blockers = [
         clean_text(row.get("blocker_id"))
         for row in rows
@@ -697,6 +750,10 @@ def _build_latest_status(
         "first_supervised_tiny_order_blocked": True,
         "live_authorization": "blocked",
         "operator_approval": "required",
+        "source_artifact_ids": [
+            clean_text(row.get("source_id")) for row in source_rows if clean_text(row.get("source_id"))
+        ],
+        "observed_source_artifact_count": len([row for row in source_rows if row.get("present") is True]),
         "artifact_path": clean_text(path_refs.get("result")),
         "latest_status_path": clean_text(path_refs.get("latest_status")),
         "blockers_path": clean_text(path_refs.get("blockers")),
@@ -707,6 +764,167 @@ def _build_latest_status(
     }
     value.update(risk_engine_v2_safety_flags())
     return value
+
+
+def _observe_source_artifacts(
+    *,
+    artifact_root: str | Path | None,
+    generated_at: str,
+) -> list[dict[str, Any]]:
+    root = Path(artifact_root) if artifact_root else DEFAULT_SOURCE_ARTIFACT_ROOT
+    rows: list[dict[str, Any]] = []
+    for source_id, candidates in SOURCE_ARTIFACT_CANDIDATES.items():
+        path = _select_existing_path(root, candidates)
+        if path is None:
+            rows.append(
+                {
+                    "source_id": source_id,
+                    "present": False,
+                    "status": STATUS_MISSING,
+                    "source_safe": False,
+                    "path": normalize_path(root / candidates[0]),
+                    "generated_at": generated_at,
+                }
+            )
+            continue
+        try:
+            payload = load_json_object(path, label=source_id)
+        except (OSError, ValueError):
+            rows.append(
+                {
+                    "source_id": source_id,
+                    "present": True,
+                    "status": "unreadable_evidence",
+                    "source_safe": False,
+                    "path": normalize_path(path),
+                    "generated_at": generated_at,
+                }
+            )
+            continue
+        rows.append(_source_artifact_summary(source_id=source_id, path=path, payload=payload, generated_at=generated_at))
+    return rows
+
+
+def _select_existing_path(root: Path, candidates: Sequence[Path]) -> Path | None:
+    for relative in candidates:
+        path = root / relative
+        if path.exists():
+            return path
+    return None
+
+
+def _source_artifact_summary(
+    *,
+    source_id: str,
+    path: Path,
+    payload: Mapping[str, Any],
+    generated_at: str,
+) -> dict[str, Any]:
+    status = clean_text(payload.get("status")).lower() or STATUS_UNKNOWN
+    return {
+        "source_id": clean_text(source_id),
+        "present": True,
+        "status": status,
+        "source_safe": _source_safety_ok(payload),
+        "contract_version": clean_text(payload.get("contract_version")),
+        "path": normalize_path(path),
+        "generated_at": generated_at,
+    }
+
+
+def _merge_evidence_rows(
+    *,
+    artifact_evidence: Mapping[str, Mapping[str, Any]],
+    explicit_evidence: Mapping[str, Mapping[str, Any]] | None,
+) -> dict[str, dict[str, Any]]:
+    rows = {clean_text(key): dict(value) for key, value in artifact_evidence.items() if isinstance(value, Mapping)}
+    rows.update(
+        {
+            clean_text(key): dict(value)
+            for key, value in dict(explicit_evidence or {}).items()
+            if isinstance(value, Mapping)
+        }
+    )
+    return {key: value for key, value in rows.items() if key}
+
+
+def _evidence_from_source_artifacts(source_artifacts: Sequence[Mapping[str, Any]]) -> dict[str, dict[str, Any]]:
+    sources = {clean_text(row.get("source_id")): dict(row) for row in source_artifacts if isinstance(row, Mapping)}
+    rows: dict[str, dict[str, Any]] = {}
+
+    snapshot = sources.get("local_real_check_snapshot_073a", {})
+    if snapshot.get("present") is True:
+        rows["data_freshness"] = _artifact_evidence_row(
+            status=clean_text(snapshot.get("status")) or STATUS_UNKNOWN,
+            source_keys=("local_real_check_snapshot_073a",),
+            source_safe=snapshot.get("source_safe") is True,
+        )
+
+    selection = sources.get("operator_token_selection_packet_073b", {})
+    if selection.get("present") is True:
+        rows["source_backed_token_candidate"] = _artifact_evidence_row(
+            status=clean_text(selection.get("status")) or STATUS_UNKNOWN,
+            source_keys=("operator_token_selection_packet_073b",),
+            source_safe=selection.get("source_safe") is True,
+        )
+
+    readiness = sources.get("selected_token_payload_readiness_gate_073c", {})
+    if readiness.get("present") is True:
+        rows["selected_token_payload_readiness"] = _artifact_evidence_row(
+            status=clean_text(readiness.get("status")) or STATUS_UNKNOWN,
+            source_keys=("selected_token_payload_readiness_gate_073c",),
+            source_safe=readiness.get("source_safe") is True,
+        )
+
+    evidence_review = sources.get("real_local_check_evidence_review_074a", {})
+    if evidence_review.get("present") is True:
+        review_status = clean_text(evidence_review.get("status")) or STATUS_UNKNOWN
+        source_safe = evidence_review.get("source_safe") is True
+        rows.setdefault(
+            "account_readonly",
+            _artifact_evidence_row(
+                status=review_status,
+                source_keys=("real_local_check_evidence_review_074a", "local_real_check_snapshot_073a"),
+                source_safe=source_safe,
+            ),
+        )
+        rows.setdefault(
+            "signer_diagnostic",
+            _artifact_evidence_row(
+                status=review_status,
+                source_keys=("real_local_check_evidence_review_074a", "local_real_check_snapshot_073a"),
+                source_safe=source_safe,
+            ),
+        )
+    return rows
+
+
+def _artifact_evidence_row(
+    *,
+    status: str,
+    source_keys: Sequence[str],
+    source_safe: bool,
+) -> dict[str, Any]:
+    return {
+        "status": clean_text(status).lower() or STATUS_UNKNOWN,
+        "source_keys": [clean_text(item) for item in source_keys if clean_text(item)],
+        "allowed_for_live": False,
+        "order_submission_enabled": False,
+        "order_cancellation_enabled": False,
+        "signing_enabled": False,
+        "wallet_connection_attempted": False,
+        "private_key_read": False,
+        "source_safe": source_safe is True,
+    }
+
+
+def _evidence_source_keys(evidence: Mapping[str, Any], evidence_key: str) -> tuple[str, ...]:
+    source_keys = evidence.get("source_keys")
+    if isinstance(source_keys, (list, tuple)):
+        values = tuple(clean_text(item) for item in source_keys if clean_text(item))
+        if values:
+            return values
+    return (evidence_key,)
 
 
 def _default_risk_limits() -> dict[str, Any]:
@@ -725,6 +943,8 @@ def _evidence_status(evidence: Mapping[str, Any]) -> str:
 
 
 def _source_safety_ok(evidence: Mapping[str, Any]) -> bool:
+    if evidence.get("source_safe") is False:
+        return False
     for field in FORCED_FALSE_EXECUTION_FIELDS:
         if field in evidence and evidence.get(field) is not False:
             return False
