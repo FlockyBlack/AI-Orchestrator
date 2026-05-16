@@ -147,7 +147,7 @@ def _rendered(reply: runtime.TelegramRuntimeReply) -> str:
 def test_start_shows_only_language_picker_first() -> None:
     reply = _adapter().handle_text(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", text="/start")
 
-    assert "Выбери язык" in reply.text
+    assert reply.text == "Выберите язык"
     assert _labels(reply) == START_LANGUAGE_LABELS
     assert not set(RU_MAIN_MENU_LABELS).intersection(_labels(reply))
     assert reply.state["operator_language_selected"] is False
@@ -158,14 +158,16 @@ def test_selecting_ru_and_en_switches_to_clean_main_menu() -> None:
     adapter.handle_text(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", text="/start")
 
     ru = adapter.handle_callback(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", callback_data="pmbot:lang:ru")
-    en = adapter.handle_callback(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", callback_data="pmbot:lang:en")
-
     assert ru.state["operator_language"] == "ru"
-    assert "PMBOT\nВыберите раздел." in ru.text
-    assert _labels(ru) == RU_MAIN_MENU_LABELS
+    assert "PMBOT — торговый помощник для Polymarket." in ru.text
+    assert _labels(ru) == ("Главное меню",)
+    ru_menu = adapter.handle_callback(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", callback_data="pmbot:home")
+    assert "PMBOT\nГлавное меню" in ru_menu.text
+    assert _labels(ru_menu) == RU_MAIN_MENU_LABELS
+    en = adapter.handle_callback(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", callback_data="pmbot:lang:en")
     assert en.state["operator_language"] == "en"
-    assert "PMBOT\nChoose a section." in en.text
-    assert _labels(en) == EN_MAIN_MENU_LABELS
+    assert "PMBOT is a trading assistant for Polymarket." in en.text
+    assert _labels(en) == ("Main menu",)
 
 
 def test_ru_and_en_primary_menus_have_only_required_product_buttons() -> None:
@@ -240,14 +242,13 @@ def test_every_product_screen_has_back_button_and_expected_scoped_buttons() -> N
     adapter.handle_callback(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", callback_data="pmbot:lang:ru")
 
     expected = {
-        "pmbot:connection": ("🔄 Обновить", "🧪 Запустить локальную проверку", "⬅️ Назад"),
-        "pmbot:balance": ("🧪 Проверить подключение", "⬅️ Назад"),
-        "pmbot:trades": ("🧪 Проверить подключение", "⬅️ Назад"),
-        "pmbot:pnl": ("⬅️ Назад",),
-        "pmbot:limits": ("⬅️ Назад",),
-        "pmbot:bot_status": ("⬅️ Назад",),
-        "pmbot:panel": ("⬅️ Назад",),
-        "pmbot:stop": ("⬅️ Назад",),
+        "pmbot:connection": ("➕ Подключить API-ключи", "🔍 Проверить подключение", "📘 Инструкция", "🗑 Удалить подключение", "⬅️ Главное меню"),
+        "pmbot:balance": ("🔄 Обновить", "📌 Позиции", "📜 Ордера", "⬅️ Главное меню"),
+        "pmbot:analytics": ("🔄 Обновить", "📈 Подробнее", "⬅️ Главное меню"),
+        "pmbot:launch": ("💵 Лимит на день", "📉 Максимальный убыток", "🎯 Выбор рынков", "▶️ Запустить", "⬅️ Главное меню"),
+        "pmbot:panel": ("⬅️ Главное меню",),
+        "pmbot:settings": ("🌐 Изменить язык", "⬅️ Главное меню"),
+        "pmbot:stop": ("🚀 Перейти к запуску", "⬅️ Главное меню"),
     }
     for callback_data, labels in expected.items():
         reply = adapter.handle_callback(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", callback_data=callback_data)
@@ -262,14 +263,13 @@ def test_connection_screen_redacts_all_secrets_and_shows_presence_only_status() 
     reply = adapter.handle_callback(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", callback_data="pmbot:connection")
     rendered = _rendered(reply)
 
-    assert "🔐 Проверка подключения" in reply.text
-    assert "API ключи: найдены" in reply.text
-    assert "L2 auth: OK" in reply.text
-    assert "Аккаунт: OK" in reply.text
-    assert "Signer: OK" in reply.text
-    assert "Рынок: найден" in reply.text
-    assert "Token ID: выбран" in reply.text
-    assert "Live: выключен" in reply.text
+    assert "🔌 Подключение" in reply.text
+    assert "API Key: подключен" in reply.text
+    assert "API Secret: подключен" in reply.text
+    assert "Passphrase: подключен" in reply.text
+    assert "Wallet address: подключен (0x3006...8989)" in reply.text
+    assert "Signature type: подключен (3)" in reply.text
+    assert "Funder address: подключен (0x1111...5555)" in reply.text
     for raw in (RAW_PRIVATE_KEY, RAW_API_SECRET, RAW_PASSPHRASE, RAW_WALLET, RAW_FUNDER):
         assert raw not in rendered
 
@@ -283,7 +283,8 @@ def test_balance_trades_and_pnl_do_not_fake_account_values() -> None:
     pnl = adapter.handle_callback(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", callback_data="pmbot:pnl")
     combined = "\n".join([balance.text, trades.text, pnl.text]).lower()
 
-    assert "Баланс пока не проверен. Запустите read-only проверку подключения." in balance.text
+    assert "Кошелёк: 0x3006...8989" in balance.text
+    assert "Баланс: нет данных" in balance.text
     assert "Live-сделок пока не было." in trades.text
     assert "Открытые ордера: неизвестно" in trades.text
     assert "PnL пока недоступен: live-сделок ещё не было." in pnl.text
@@ -322,13 +323,14 @@ def test_status_limits_mini_app_and_stop_remain_status_only() -> None:
         "Live: выключен",
     ):
         assert line in limits.text
-    assert "Mini App URL не настроен. Нужно задать PMBOT_TELEGRAM_MINI_APP_URL." in missing_panel.text
-    assert "Mini App настроен. Откройте PMBOT кнопкой ниже." in configured_panel.text
-    assert "Открыть PMBOT" in _labels(configured_panel)
+    assert "Mini App — расширенная панель PMBOT" in missing_panel.text
+    assert "Mini App — расширенная панель PMBOT" in configured_panel.text
+    assert "Открыть Mini App" in _labels(configured_panel)
     assert configured_panel.keyboard.rows[0][0].web_app_url == "https://example.com/pmbot"
-    assert "Live-торговля сейчас не запущена." in stop.text
-    assert "Emergency Stop пока локальный статус-контроль." in stop.text
-    assert "Реальные ордера в этой задаче не отменяются." in stop.text
+    assert "Бот сейчас не запущен." in stop.text
+    assert "trading_requested=false" in stop.text
+    assert "operator_stop_requested=true" in stop.text
+    assert stop.state["operator_stop_requested"] is True
     assert stop.summary["order_cancel_enabled"] is False
     assert stop.summary["order_submission_enabled"] is False
 

@@ -62,25 +62,18 @@ TELEGRAM_BOOTSTRAP_TIMEOUT_DIAGNOSTIC = (
     "Telegram API timed out during bootstrap/getMe. Check VPN/firewall/proxy/api.telegram.org "
     "or increase PMBOT_TELEGRAM_* timeout env vars."
 )
-PANEL_BUTTON_TEXT = "Открыть PMBOT"
+PANEL_BUTTON_TEXT = "Открыть Mini App"
 
 TELEGRAM_COMMAND_MENU = (
     ("start", "Start"),
-    ("home", "Menu"),
+    ("home", "Main menu"),
     ("connection", "Connection"),
-    ("connection_status", "Connection Check"),
-    ("order_prep_status", "Order Prep"),
-    ("token_selection", "Token Selection"),
     ("balance", "Balance"),
-    ("trades", "Trades"),
-    ("pnl", "PnL"),
-    ("limits", "Limits"),
-    ("status", "Status"),
+    ("analytics", "Analytics"),
+    ("launch", "Launch"),
     ("stop", "Stop"),
     ("panel", "Mini App"),
-    ("language", "Language"),
-    ("ru", "Russian"),
-    ("en", "English"),
+    ("settings", "Settings"),
 )
 
 _OPERATOR_ID_SPLIT_RE = re.compile(r"[,;\s]+")
@@ -394,9 +387,17 @@ class TelegramOperatorRuntimeAdapter:
             button_text = panel_launch_button_label(language)
             launch = TelegramOperatorButton(label=button_text, url=url, web_app_url=url)
             if language == "ru":
-                text = "🖥 Mini App\nMini App настроен. Откройте PMBOT кнопкой ниже."
+                text = (
+                    "🌐 Mini App\n"
+                    "Mini App — расширенная панель PMBOT с графиками, настройками, "
+                    "аналитикой и подробной статистикой."
+                )
             else:
-                text = "🖥 Mini App\nMini App is configured. Open PMBOT with the button below."
+                text = (
+                    "🌐 Mini App\n"
+                    "Mini App is the expanded PMBOT panel with charts, settings, analytics, "
+                    "and detailed statistics."
+                )
             return (
                 text,
                 keyboard.with_prepended_row((launch,)),
@@ -406,7 +407,7 @@ class TelegramOperatorRuntimeAdapter:
         if self.config.mini_app_url:
             if language == "ru":
                 return (
-                    "🖥 Mini App\n"
+                    "🌐 Mini App\n"
                     "Mini App URL настроен, но не прошёл проверку безопасности. "
                     "Нужно задать PMBOT_TELEGRAM_MINI_APP_URL.",
                     keyboard,
@@ -414,7 +415,7 @@ class TelegramOperatorRuntimeAdapter:
                     "",
                 )
             return (
-                "🖥 Mini App\n"
+                "🌐 Mini App\n"
                 "Mini App URL is configured but failed runtime URL safety checks. "
                 "Set PMBOT_TELEGRAM_MINI_APP_URL.",
                 keyboard,

@@ -3,32 +3,28 @@
   "callbacks": [
     "pmbot:connection",
     "pmbot:balance",
-    "pmbot:trades",
-    "pmbot:pnl",
-    "pmbot:limits",
-    "pmbot:bot_status",
+    "pmbot:analytics",
+    "pmbot:launch",
+    "pmbot:stop",
     "pmbot:panel",
-    "pmbot:language",
-    "pmbot:stop"
+    "pmbot:settings"
   ],
-  "connection_check_button_label": "\ud83e\uddea \u041f\u0440\u043e\u0432\u0435\u0440\u0438\u0442\u044c \u043f\u043e\u0434\u043a\u043b\u044e\u0447\u0435\u043d\u0438\u0435",
+  "connection_check_button_label": "\ud83d\udd0d \u041f\u0440\u043e\u0432\u0435\u0440\u0438\u0442\u044c \u043f\u043e\u0434\u043a\u043b\u044e\u0447\u0435\u043d\u0438\u0435",
   "contract_version": "pmbot_telegram_product_ux_ru_menu_snapshot_068c.v1",
   "engineering_debug_labels_are_not_primary_menu_labels": true,
   "english_buttons_absent": true,
   "generated_at": "2026-05-15T00:00:00+04:00",
   "labels": [
-    "\ud83d\udd10 \u041f\u043e\u0434\u043a\u043b\u044e\u0447\u0435\u043d\u0438\u0435",
+    "\ud83d\udd0c \u041f\u043e\u0434\u043a\u043b\u044e\u0447\u0435\u043d\u0438\u0435",
     "\ud83d\udcb0 \u0411\u0430\u043b\u0430\u043d\u0441",
-    "\ud83d\udcca \u0421\u0434\u0435\u043b\u043a\u0438",
-    "\ud83d\udcc8 PnL",
-    "\u2699\ufe0f \u041b\u0438\u043c\u0438\u0442\u044b",
-    "\ud83e\udd16 \u0421\u0442\u0430\u0442\u0443\u0441",
-    "\ud83d\udda5 Mini App",
-    "\ud83c\udf10 \u042f\u0437\u044b\u043a",
-    "\ud83d\udea8 \u0421\u0442\u043e\u043f"
+    "\ud83d\udcca \u0410\u043d\u0430\u043b\u0438\u0442\u0438\u043a\u0430",
+    "\ud83d\ude80 \u0417\u0430\u043f\u0443\u0441\u043a",
+    "\u26d4 \u041e\u0441\u0442\u0430\u043d\u043e\u0432\u0438\u0442\u044c",
+    "\ud83c\udf10 Mini App",
+    "\u2699\ufe0f \u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438"
   ],
   "labels_match_required": true,
   "language": "ru",
-  "mini_app_button_label": "\ud83d\udda5 Mini App",
+  "mini_app_button_label": "\ud83c\udf10 Mini App",
   "task_id": "ORCH-PMBOT-TELEGRAM-068C-PRODUCT-UX-START-LANGUAGE-AND-RU-BUTTONS-FIX"
 }

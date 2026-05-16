@@ -351,8 +351,8 @@ def test_telegram_panel_command_returns_safe_artifact_info_without_secrets() -> 
     response = bot.handle_command(user_id=AUTHORIZED_USER_ID, text="/panel")
 
     assert response.authorized is True
-    assert "🖥 Mini App" in response.text
-    assert "Mini App URL не настроен" in response.text
+    assert "🌐 Mini App" in response.text
+    assert "Mini App — расширенная панель PMBOT" in response.text
     assert RAW_TELEGRAM_TOKEN not in response.text
     assert RAW_INIT_DATA not in response.text
     assert RAW_SECRET not in response.text

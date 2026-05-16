@@ -31,11 +31,10 @@ FORCED_FALSE_FLAGS = (
 )
 
 HOME_LABEL_ROWS = (
-    ("🔐 Подключение", "💰 Баланс"),
-    ("📊 Сделки", "📈 PnL"),
-    ("⚙️ Лимиты", "🤖 Статус"),
-    ("🖥 Mini App", "🌐 Язык"),
-    ("🚨 Стоп",),
+    ("🔌 Подключение", "💰 Баланс"),
+    ("📊 Аналитика", "🚀 Запуск"),
+    ("⛔ Остановить", "🌐 Mini App"),
+    ("⚙️ Настройки",),
 )
 
 
@@ -149,7 +148,7 @@ def _button_labels(reply: runtime.TelegramRuntimeReply) -> tuple[str, ...]:
 def test_start_uses_ru_first_product_home_when_language_is_not_selected() -> None:
     reply = _adapter().handle_text(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", text="/start")
 
-    assert "Выбери язык" in reply.text
+    assert reply.text == "Выберите язык"
     assert _label_rows(reply) == (("🇷🇺 Русский", "🇬🇧 English"),)
     assert reply.keyboard.to_dict()["safe_button_labels"] is True
 
@@ -158,10 +157,10 @@ def test_help_includes_command_overview_and_safe_controls() -> None:
     reply = _adapter().handle_text(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", text="/help")
 
     assert "PMBOT команды" in reply.text
-    assert "/status" in reply.text
+    assert "/analytics" in reply.text
+    assert "/launch" in reply.text
     assert "/connection" in reply.text
     assert "/balance" in reply.text
-    assert "/ru /en /language" in reply.text
     assert _label_rows(reply) == HOME_LABEL_ROWS
 
 
@@ -206,8 +205,8 @@ def test_panel_includes_mini_app_url_button_when_configured_without_exposing_url
     first_button = reply.keyboard.rows[0][0]
     redacted = json.dumps(reply.to_redacted_dict(), sort_keys=True)
 
-    assert "🖥 Mini App" in reply.text
-    assert "Mini App настроен. Откройте PMBOT кнопкой ниже." in reply.text
+    assert "🌐 Mini App" in reply.text
+    assert "Mini App — расширенная панель PMBOT" in reply.text
     assert reply.panel_button_text == runtime.PANEL_BUTTON_TEXT
     assert reply.panel_button_url == MINI_APP_URL
     assert first_button.label == runtime.PANEL_BUTTON_TEXT
@@ -236,10 +235,10 @@ def test_panel_output_does_not_expose_token_init_data_or_raw_operator_ids() -> N
 def test_panel_fallback_when_mini_app_url_is_missing() -> None:
     reply = _adapter().handle_text(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", text="/panel")
 
-    assert "Mini App URL не настроен" in reply.text
+    assert "Mini App — расширенная панель PMBOT" in reply.text
     assert reply.panel_button_url == ""
     assert _label_rows(reply) == (
-        ("⬅️ Назад",),
+        ("⬅️ Главное меню",),
     )
 
 
@@ -281,7 +280,7 @@ def test_runtime_can_set_command_menu_through_fake_telegram_client() -> None:
     assert configured is True
     assert fake_bot.commands == runtime.telegram_command_menu_items()
     assert fake_bot.commands[0] == ("start", "Start")
-    assert fake_bot.commands[-1] == ("en", "English")
+    assert fake_bot.commands[-1] == ("settings", "Settings")
 
 
 def test_no_external_network_calls_for_buttons_callbacks_and_command_menu(monkeypatch) -> None:

@@ -41,38 +41,38 @@
         "value": "BTC"
       },
       {
-        "label": "Token ID",
-        "source": "070B local artifact",
+        "label": "Токен",
+        "source": "local status snapshot",
         "value": "не выбран"
       },
       {
         "label": "Аккаунт",
-        "source": "070C local artifact",
+        "source": "local status snapshot",
         "value": "не проверен"
       },
       {
-        "label": "Signer",
-        "source": "070A local artifact",
+        "label": "Подпись",
+        "source": "local status snapshot",
         "value": "выключен"
       },
       {
-        "label": "Approval",
-        "source": "070C local artifact",
+        "label": "Подтверждение",
+        "source": "local status snapshot",
         "value": "не проверен"
       },
       {
-        "label": "Payload dry-run",
-        "source": "070A local artifact",
-        "value": "artifact есть"
+        "label": "Пакет проверки",
+        "source": "local status snapshot",
+        "value": "готово"
       },
       {
-        "label": "Live выключен",
+        "label": "Запуск",
         "source": "local safety flags",
-        "value": "allowed_for_live=false"
+        "value": "выключен"
       }
     ],
-    "safe_placeholder": "Если локальный artifact отсутствует или поле пустое, UI показывает только не выбран, не проверен или выключен.",
-    "title": "🧪 Подготовка первого ордера"
+    "safe_placeholder": "Если локальный статус отсутствует или поле пустое, UI показывает только не выбран, не проверен или выключен.",
+    "title": "Подготовка запуска"
   },
   "signed_order_generation_enabled": false,
   "signed_payload_generation_enabled": false,

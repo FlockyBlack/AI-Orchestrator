@@ -148,13 +148,13 @@ def test_ru_is_default_visible_language_and_language_commands_exist() -> None:
     language = bot.handle_command(user_id=AUTHORIZED_USER_ID, text="/language")
 
     assert DEFAULT_OPERATOR_LANGUAGE == "ru"
-    assert "Выбери язык" in start.text
+    assert start.text == "Выберите язык"
     assert _labels(start) == ("🇷🇺 Русский", "🇬🇧 English")
     assert english.state["operator_language"] == "en"
-    assert _labels(english) == EN_MAIN_MENU_LABELS
+    assert _labels(english) == ("Main menu",)
     assert russian.state["operator_language"] == "ru"
-    assert _labels(russian) == RU_MAIN_MENU_LABELS
-    assert "Команды: /ru, /en, /language" in language.text
+    assert _labels(russian) == ("Главное меню",)
+    assert language.text == "Выберите язык"
     assert {"/ru", "/en", "/language"}.issubset(set(SUPPORTED_COMMANDS))
 
 
@@ -167,13 +167,11 @@ def test_main_menu_contains_product_labels_and_no_primary_debug_labels() -> None
     assert _callbacks_for_language("ru") == (
         "pmbot:connection",
         "pmbot:balance",
-        "pmbot:trades",
-        "pmbot:pnl",
-        "pmbot:limits",
-        "pmbot:bot_status",
-        "pmbot:panel",
-        "pmbot:language",
+        "pmbot:analytics",
+        "pmbot:launch",
         "pmbot:stop",
+        "pmbot:panel",
+        "pmbot:settings",
     )
     primary_menu_text = json.dumps(HOME_BUTTON_ROWS_BY_LANGUAGE, ensure_ascii=False).lower()
     for debug_label in (
@@ -191,14 +189,13 @@ def test_connection_screen_redacts_all_secret_like_values() -> None:
     reply = _bot().handle_command(user_id=AUTHORIZED_USER_ID, text="/connection")
     rendered = reply.text + json.dumps(reply.to_dict(), ensure_ascii=False, sort_keys=True)
 
-    assert "🔐 Проверка подключения" in reply.text
-    assert "API ключи: найдены" in reply.text
-    assert "L2 auth: OK" in reply.text
-    assert "Аккаунт: OK" in reply.text
-    assert "Signer: OK" in reply.text
-    assert "Рынок: найден" in reply.text
-    assert "Token ID: выбран" in reply.text
-    assert "Live: выключен" in reply.text
+    assert "🔌 Подключение" in reply.text
+    assert "API Key: подключен" in reply.text
+    assert "API Secret: подключен" in reply.text
+    assert "Passphrase: подключен" in reply.text
+    assert "Wallet address: подключен" in reply.text
+    assert "Signature type: подключен" in reply.text
+    assert "Funder address: подключен" in reply.text
     for raw in (RAW_PRIVATE_KEY, RAW_API_SECRET, RAW_PASSPHRASE, RAW_WALLET, RAW_FUNDER):
         assert raw not in rendered
 
@@ -209,7 +206,7 @@ def test_balance_trades_and_pnl_screens_do_not_emit_fake_data() -> None:
     trades = bot.handle_command(user_id=AUTHORIZED_USER_ID, text="/trades")
     pnl = bot.handle_command(user_id=AUTHORIZED_USER_ID, text="/pnl")
 
-    assert "Баланс пока не проверен. Запустите read-only проверку подключения." in balance.text
+    assert "Баланс: нет данных" in balance.text
     assert "Live-сделок пока не было" in trades.text
     assert "PnL пока недоступен: live-сделок ещё не было." in pnl.text
     combined = "\n".join([balance.text, trades.text, pnl.text]).lower()
@@ -231,9 +228,9 @@ def test_bot_status_and_stop_remain_non_live_local_status_only() -> None:
             "Wallet execution: выключен",
         ):
             assert line in status.text
-    assert "Emergency Stop пока локальный статус-контроль." in stop.text
-    assert "Реальные ордера в этой задаче не отменяются." in stop.text
-    assert stop.state["operator_kill_switch_requested"] is True
+    assert "Бот сейчас не запущен." in stop.text
+    assert "operator_stop_requested=true" in stop.text
+    assert stop.state["operator_stop_requested"] is True
     assert stop.summary["allowed_for_live"] is False
     assert stop.summary["order_submission_enabled"] is False
     assert stop.summary["wallet_enabled"] is False

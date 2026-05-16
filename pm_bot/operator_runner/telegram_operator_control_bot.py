@@ -6,10 +6,22 @@ from dataclasses import dataclass, field
 from typing import Any, Callable, Mapping, Protocol, Sequence
 
 from pm_bot.operator_runner.telegram_operator_i18n import (
+    analytics_product_button_rows,
+    balance_missing_button_rows,
+    balance_product_button_rows,
+    connection_product_button_rows,
     DEFAULT_OPERATOR_LANGUAGE,
     HOME_BUTTON_ROWS_BY_LANGUAGE,
+    launch_limit_button_rows,
+    launch_market_button_rows,
+    launch_max_loss_button_rows,
+    launch_product_button_rows,
     LANGUAGE_SELECTION_BUTTON_ROWS,
+    mini_app_product_button_rows,
     PANEL_FALLBACK_BUTTON_ROWS_BY_LANGUAGE,
+    product_description_button_rows,
+    settings_product_button_rows,
+    stop_product_button_rows,
     all_button_rows,
     connection_status_button_rows,
     credentials_readiness_review_label,
@@ -35,8 +47,10 @@ from pm_bot.operator_runner.telegram_operator_control_state import (
     record_telegram_operator_control_command,
     request_telegram_operator_kill_switch,
     request_telegram_operator_pause,
+    request_telegram_operator_stop,
     set_telegram_operator_language,
     summarize_telegram_operator_control_state,
+    update_telegram_operator_launch_config,
 )
 from pm_bot.operator_runner.telegram_status_registry import (
     SAFE_ACTIONS,
@@ -98,12 +112,42 @@ SUPPORTED_COMMANDS = (
     "/en",
     "/language",
     "/connection",
+    "/connection_setup",
+    "/connection_check",
+    "/connection_instruction",
+    "/connection_remove",
     "/balance",
+    "/positions",
+    "/orders",
+    "/analytics",
+    "/analytics_details",
+    "/launch",
+    "/launch_daily_limit",
+    "/launch_max_loss",
+    "/launch_markets",
+    "/launch_start",
+    "/launch_limit_5",
+    "/launch_limit_10",
+    "/launch_limit_25",
+    "/launch_limit_50",
+    "/launch_limit_manual",
+    "/launch_max_loss_1",
+    "/launch_max_loss_2",
+    "/launch_max_loss_5",
+    "/launch_max_loss_10pct",
+    "/launch_max_loss_manual",
+    "/launch_market_btc",
+    "/launch_market_eth",
+    "/launch_market_politics",
+    "/launch_market_sports",
+    "/launch_market_esports",
+    "/launch_market_add",
     "/trades",
     "/pnl",
     "/bot_status",
     "/limits",
     "/stop",
+    "/settings",
     "/status",
     "/connection_status",
     "/order_prep_status",
@@ -133,12 +177,42 @@ SUPPORTED_COMMANDS = (
 CALLBACK_COMMAND_MAP = {
     "pmbot:home": "/home",
     "pmbot:connection": "/connection",
+    "pmbot:connection:setup": "/connection_setup",
+    "pmbot:connection:check": "/connection_check",
+    "pmbot:connection:instruction": "/connection_instruction",
+    "pmbot:connection:remove": "/connection_remove",
     "pmbot:balance": "/balance",
+    "pmbot:positions": "/positions",
+    "pmbot:orders": "/orders",
+    "pmbot:analytics": "/analytics",
+    "pmbot:analytics:details": "/analytics_details",
+    "pmbot:launch": "/launch",
+    "pmbot:launch:limit": "/launch_daily_limit",
+    "pmbot:launch:max_loss": "/launch_max_loss",
+    "pmbot:launch:markets": "/launch_markets",
+    "pmbot:launch:start": "/launch_start",
+    "pmbot:launch:limit:5": "/launch_limit_5",
+    "pmbot:launch:limit:10": "/launch_limit_10",
+    "pmbot:launch:limit:25": "/launch_limit_25",
+    "pmbot:launch:limit:50": "/launch_limit_50",
+    "pmbot:launch:limit:manual": "/launch_limit_manual",
+    "pmbot:launch:max_loss:1": "/launch_max_loss_1",
+    "pmbot:launch:max_loss:2": "/launch_max_loss_2",
+    "pmbot:launch:max_loss:5": "/launch_max_loss_5",
+    "pmbot:launch:max_loss:10pct": "/launch_max_loss_10pct",
+    "pmbot:launch:max_loss:manual": "/launch_max_loss_manual",
+    "pmbot:launch:market:btc": "/launch_market_btc",
+    "pmbot:launch:market:eth": "/launch_market_eth",
+    "pmbot:launch:market:politics": "/launch_market_politics",
+    "pmbot:launch:market:sports": "/launch_market_sports",
+    "pmbot:launch:market:esports": "/launch_market_esports",
+    "pmbot:launch:market:add": "/launch_market_add",
     "pmbot:trades": "/trades",
     "pmbot:pnl": "/pnl",
     "pmbot:bot_status": "/bot_status",
     "pmbot:limits": "/limits",
     "pmbot:stop": "/stop",
+    "pmbot:settings": "/settings",
     "pmbot:status": "/status",
     "pmbot:connection_status": "/connection_status",
     "pmbot:order_prep_status": "/order_prep_status",
@@ -205,6 +279,28 @@ FORCED_FALSE_EXECUTION_FIELDS = (
     "signed_payload_generation_enabled",
     "signed_order_generation_enabled",
 )
+
+DAILY_LIMIT_COMMAND_VALUES = {
+    "/launch_limit_5": "$5",
+    "/launch_limit_10": "$10",
+    "/launch_limit_25": "$25",
+    "/launch_limit_50": "$50",
+}
+
+MAX_LOSS_COMMAND_VALUES = {
+    "/launch_max_loss_1": "$1",
+    "/launch_max_loss_2": "$2",
+    "/launch_max_loss_5": "$5",
+    "/launch_max_loss_10pct": "10%",
+}
+
+MARKET_COMMAND_VALUES = {
+    "/launch_market_btc": "BTC",
+    "/launch_market_eth": "ETH",
+    "/launch_market_politics": "Politics",
+    "/launch_market_sports": "Sports",
+    "/launch_market_esports": "Esports",
+}
 
 UNAUTHORIZED_DENIAL = (
     "Access denied. This PMBOT operator surface is review-only and only configured operator IDs may use it."
@@ -452,8 +548,47 @@ class TelegramOperatorControlBot:
                 text=self._render_kill(),
                 keyboard=self._keyboard_for_command(command),
             )
+        elif command in DAILY_LIMIT_COMMAND_VALUES:
+            self.state = update_telegram_operator_launch_config(
+                self.state,
+                operator_user_id=user_id,
+                daily_limit=DAILY_LIMIT_COMMAND_VALUES[command],
+                generated_at=self.generated_at,
+            )
+            response = self._response(
+                command,
+                authorized=True,
+                text=self._render_launch_limit_selected(DAILY_LIMIT_COMMAND_VALUES[command]),
+                keyboard=self._keyboard_for_command("/launch"),
+            )
+        elif command in MAX_LOSS_COMMAND_VALUES:
+            self.state = update_telegram_operator_launch_config(
+                self.state,
+                operator_user_id=user_id,
+                max_loss=MAX_LOSS_COMMAND_VALUES[command],
+                generated_at=self.generated_at,
+            )
+            response = self._response(
+                command,
+                authorized=True,
+                text=self._render_launch_max_loss_selected(MAX_LOSS_COMMAND_VALUES[command]),
+                keyboard=self._keyboard_for_command("/launch"),
+            )
+        elif command in MARKET_COMMAND_VALUES:
+            self.state = update_telegram_operator_launch_config(
+                self.state,
+                operator_user_id=user_id,
+                market=MARKET_COMMAND_VALUES[command],
+                generated_at=self.generated_at,
+            )
+            response = self._response(
+                command,
+                authorized=True,
+                text=self._render_launch_market_selected(MARKET_COMMAND_VALUES[command]),
+                keyboard=self._keyboard_for_command("/launch"),
+            )
         elif command == "/stop":
-            self.state = request_telegram_operator_kill_switch(
+            self.state = request_telegram_operator_stop(
                 self.state,
                 operator_user_id=user_id,
                 generated_at=self.generated_at,
@@ -521,12 +656,29 @@ class TelegramOperatorControlBot:
             "/token_candidate_1": lambda: self._render_operator_token_selection(selected_candidate_index=0),
             "/token_candidate_2": lambda: self._render_operator_token_selection(selected_candidate_index=1),
             "/risk_engine_v2": self._render_risk_engine_v2,
+            "/connection_setup": self._render_connection_setup,
+            "/connection_check": self._render_connection_check,
+            "/connection_instruction": self._render_connection_instruction,
+            "/connection_remove": self._render_connection_remove,
             "/balance": self._render_balance,
+            "/positions": self._render_positions,
+            "/orders": self._render_orders,
+            "/analytics": self._render_analytics,
+            "/analytics_details": self._render_analytics_details,
+            "/launch": self._render_launch,
+            "/launch_daily_limit": self._render_launch_daily_limit,
+            "/launch_max_loss": self._render_launch_max_loss,
+            "/launch_markets": self._render_launch_markets,
+            "/launch_start": self._render_launch_start,
+            "/launch_limit_manual": self._render_launch_manual_limit,
+            "/launch_max_loss_manual": self._render_launch_manual_max_loss,
+            "/launch_market_add": self._render_launch_add_market,
             "/trades": self._render_trades,
             "/pnl": self._render_pnl,
             "/bot_status": self._render_bot_status,
             "/limits": self._render_limits,
             "/stop": self._render_stop,
+            "/settings": self._render_settings,
             "/btc": self._render_btc,
             "/intent": self._render_intent,
             "/risk": self._render_limits,
@@ -554,49 +706,315 @@ class TelegramOperatorControlBot:
         if self._language() == "ru":
             return (
                 "PMBOT команды:\n"
-                "/start /home — главная\n"
+                "/start — выбор языка\n"
+                "/home — главное меню\n"
                 "/connection — подключение\n"
                 "/balance — баланс\n"
-                "/trades — сделки\n"
-                "/pnl — PnL\n"
-                "/bot_status или /status — статус бота\n"
-                "/limits — лимиты\n"
-                "/stop — локальный стоп-placeholder\n"
-                "/ru /en /language — язык\n"
-                "Ограничения: только обзор и тестовый dry-run; live-торговля выключена; "
-                "отправка ордеров, отмена ордеров, подпись, исполнение через кошелёк и authenticated endpoints выключены."
+                "/analytics — аналитика\n"
+                "/launch — запуск\n"
+                "/stop — остановить\n"
+                "/panel — Mini App\n"
+                "/settings — настройки"
             )
         return (
             "PMBOT commands:\n"
-            "/start /home - home\n"
+            "/start - language selection\n"
+            "/home - main menu\n"
             "/connection - connection\n"
             "/balance - balance\n"
-            "/trades - trades\n"
-            "/pnl - PnL\n"
-            "/bot_status or /status - bot status\n"
-            "/limits - limits\n"
-            "/stop - local stop placeholder\n"
-            "/ru /en /language - language\n"
-            "Safety limits: review-only and test dry-run only; live trading disabled; no order submission, "
-            "order cancellation, wallet execution, signing, authenticated endpoint calls, or background execution."
+            "/analytics - analytics\n"
+            "/launch - launch\n"
+            "/stop - stop\n"
+            "/panel - Mini App\n"
+            "/settings - settings"
         )
 
     def _render_connection(self) -> str:
-        status = dict(self._summary().get("telegram_real_check_results_073t_status_summary", {}))
-        return render_telegram_real_check_results_status_text(status, language=self._language())
+        status = _build_connection_product_display_status(self._summary())
+        if self._language() == "ru":
+            return "\n".join(
+                [
+                    "🔌 Подключение",
+                    f"API Key: {_ru_connected(status['api_key_connected'])}",
+                    f"API Secret: {_ru_connected(status['api_secret_connected'])}",
+                    f"Passphrase: {_ru_connected(status['passphrase_connected'])}",
+                    f"Wallet address: {_ru_connected(status['wallet_address_connected'])}{_safe_detail(status['wallet_display'])}",
+                    f"Signature type: {_ru_connected(status['signature_type_connected'])}{_safe_detail(status['signature_type_display'])}",
+                    f"Funder address: {_ru_connected(status['funder_address_connected'])}{_safe_detail(status['funder_display'])}",
+                    "",
+                    "Ключи должны быть доступны процессу Telegram-бота через переменные окружения.",
+                ]
+            )
+        return "\n".join(
+            [
+                "🔌 Connection",
+                f"API Key: {_en_connected(status['api_key_connected'])}",
+                f"API Secret: {_en_connected(status['api_secret_connected'])}",
+                f"Passphrase: {_en_connected(status['passphrase_connected'])}",
+                f"Wallet address: {_en_connected(status['wallet_address_connected'])}{_safe_detail(status['wallet_display'])}",
+                f"Signature type: {_en_connected(status['signature_type_connected'])}{_safe_detail(status['signature_type_display'])}",
+                f"Funder address: {_en_connected(status['funder_address_connected'])}{_safe_detail(status['funder_display'])}",
+                "",
+                "Keys must be available to the Telegram bot runtime process through environment variables.",
+            ]
+        )
+
+    def _render_connection_setup(self) -> str:
+        if self._language() == "ru":
+            return "\n".join(
+                [
+                    "➕ Подключить API-ключи",
+                    "Безопасное подключение выполняется через переменные окружения процесса Telegram-бота.",
+                    "Нужны: POLYMARKET_L2_API_KEY, POLYMARKET_L2_API_SECRET, POLYMARKET_L2_PASSPHRASE, POLYMARKET_WALLET_ADDRESS, POLYMARKET_SIGNATURE_TYPE и POLYMARKET_FUNDER_ADDRESS.",
+                    "Значения не вводятся в чат. Зашифрованное хранилище прямо в Telegram будет добавлено отдельно.",
+                    "После настройки перезапустите runtime и нажмите «Проверить подключение».",
+                ]
+            )
+        return "\n".join(
+            [
+                "➕ Connect API keys",
+                "Safe setup is done with environment variables available to the Telegram bot runtime process.",
+                "Required: POLYMARKET_L2_API_KEY, POLYMARKET_L2_API_SECRET, POLYMARKET_L2_PASSPHRASE, POLYMARKET_WALLET_ADDRESS, POLYMARKET_SIGNATURE_TYPE, and POLYMARKET_FUNDER_ADDRESS.",
+                "Do not paste values into chat. Direct encrypted Telegram credential storage will be added separately.",
+                "After setup, restart the runtime and tap Check connection.",
+            ]
+        )
+
+    def _render_connection_check(self) -> str:
+        return self._render_connection()
+
+    def _render_connection_instruction(self) -> str:
+        if self._language() == "ru":
+            return "\n".join(
+                [
+                    "📘 Инструкция",
+                    "1. Добавьте переменные окружения в окружение, из которого запускается Telegram runtime.",
+                    "2. Перезапустите процесс Telegram-бота.",
+                    "3. Откройте «Подключение» и нажмите «Проверить подключение».",
+                    "4. Проверяйте только статусы подключено / не подключено; секретные значения не выводятся.",
+                ]
+            )
+        return "\n".join(
+            [
+                "📘 Guide",
+                "1. Add environment variables to the environment that starts the Telegram runtime.",
+                "2. Restart the Telegram bot process.",
+                "3. Open Connection and tap Check connection.",
+                "4. Check only connected / not connected statuses; secret values are never printed.",
+            ]
+        )
+
+    def _render_connection_remove(self) -> str:
+        if self._language() == "ru":
+            return "\n".join(
+                [
+                    "🗑 Удалить подключение",
+                    "Telegram-бот не хранит API-секреты в чате, поэтому удалять здесь нечего.",
+                    "Удалите или измените переменные окружения в runtime-среде и перезапустите процесс.",
+                ]
+            )
+        return "\n".join(
+            [
+                "🗑 Delete connection",
+                "The Telegram bot does not store API secrets in chat, so there is nothing to delete here.",
+                "Remove or change the runtime environment variables and restart the process.",
+            ]
+        )
 
     def _render_balance(self) -> str:
+        summary = self._summary()
+        connection = _build_connection_product_display_status(summary)
+        if not _balance_connection_available(connection):
+            if self._language() == "ru":
+                return "\n".join(
+                    [
+                        "💰 Баланс",
+                        "Баланс недоступен.",
+                        "Сначала подключите API-ключи и кошелёк Polymarket.",
+                    ]
+                )
+            return "\n".join(
+                [
+                    "💰 Balance",
+                    "Balance is unavailable.",
+                    "Connect Polymarket API keys and wallet first.",
+                ]
+            )
+        status = dict(summary.get("telegram_connection_status_067e_status_summary", {}))
+        wallet = connection.get("wallet_display") or _safe_public_abbrev(clean_text(status.get("wallet_display")))
+        balance = _optional_product_value(status, "balance_display", "balance_status")
+        positions = _optional_product_value(status, "open_positions_display", "open_positions_status")
+        orders = _optional_product_value(status, "open_orders_display", "open_orders_status")
+        last_check = _optional_product_value(status, "last_check_timestamp", "generated_at")
         if self._language() == "ru":
             return "\n".join(
                 [
                     "💰 Баланс",
-                    "Баланс пока не проверен. Запустите read-only проверку подключения.",
+                    f"Кошелёк: {wallet or 'не указан'}",
+                    f"Баланс: {balance or 'нет данных'}",
+                    f"Открытые позиции: {positions or 'нет данных'}",
+                    f"Открытые ордера: {orders or 'нет данных'}",
+                    f"Последняя проверка: {last_check or 'нет данных'}",
                 ]
             )
         return "\n".join(
             [
                 "💰 Balance",
-                "Balance has not been checked yet. Run the read-only connection check.",
+                f"Wallet: {wallet or 'not specified'}",
+                f"Balance: {balance or 'no data'}",
+                f"Open positions: {positions or 'no data'}",
+                f"Open orders: {orders or 'no data'}",
+                f"Last check: {last_check or 'no data'}",
+            ]
+        )
+
+    def _render_positions(self) -> str:
+        if self._language() == "ru":
+            return "📌 Позиции\nОткрытые позиции появятся после подключения read-only истории аккаунта."
+        return "📌 Positions\nOpen positions will appear after read-only account history is connected."
+
+    def _render_orders(self) -> str:
+        if self._language() == "ru":
+            return "📜 Ордера\nОткрытые ордера появятся после подключения read-only истории аккаунта."
+        return "📜 Orders\nOpen orders will appear after read-only account history is connected."
+
+    def _render_analytics(self) -> str:
+        if self._language() == "ru":
+            return "\n".join(
+                [
+                    "📊 Аналитика",
+                    "Сегодня: нет данных",
+                    "7 дней: нет данных",
+                    "30 дней: нет данных",
+                    "Сделок: нет данных",
+                    "Winrate: нет данных",
+                    "Максимальная просадка: нет данных",
+                    "",
+                    "Данных пока нет. Аналитика появится после первых сделок или после подключения истории аккаунта.",
+                ]
+            )
+        return "\n".join(
+            [
+                "📊 Analytics",
+                "Today: no data",
+                "7 days: no data",
+                "30 days: no data",
+                "Trades: no data",
+                "Winrate: no data",
+                "Maximum drawdown: no data",
+                "",
+                "No data yet. Analytics will appear after the first trades or after account history is connected.",
+            ]
+        )
+
+    def _render_analytics_details(self) -> str:
+        if self._language() == "ru":
+            return "📈 Подробнее\nПодробная аналитика появится после появления данных аккаунта."
+        return "📈 Details\nDetailed analytics will appear after account data is available."
+
+    def _render_launch(self) -> str:
+        config = _launch_config_from_state(self.state)
+        if self._language() == "ru":
+            return "\n".join(
+                [
+                    "🚀 Запуск торговли",
+                    "",
+                    "Настройте лимиты и выберите рынки, на которых бот сможет работать.",
+                    "",
+                    f"Лимит на день: {config['daily_limit_ru']}",
+                    f"Максимальный убыток: {config['max_loss_ru']}",
+                    f"Рынки: {config['markets_ru']}",
+                ]
+            )
+        return "\n".join(
+            [
+                "🚀 Launch trading",
+                "",
+                "Set limits and choose the markets where the bot can operate.",
+                "",
+                f"Daily limit: {config['daily_limit_en']}",
+                f"Max loss: {config['max_loss_en']}",
+                f"Markets: {config['markets_en']}",
+            ]
+        )
+
+    def _render_launch_daily_limit(self) -> str:
+        if self._language() == "ru":
+            return "💵 Лимит на день\nВыберите дневной лимит."
+        return "💵 Daily limit\nChoose a daily limit."
+
+    def _render_launch_max_loss(self) -> str:
+        if self._language() == "ru":
+            return "📉 Максимальный убыток\nВыберите максимальный убыток."
+        return "📉 Max loss\nChoose the maximum loss."
+
+    def _render_launch_markets(self) -> str:
+        if self._language() == "ru":
+            return "🎯 Выбор рынков\nВыберите рынки для локальной конфигурации."
+        return "🎯 Market selection\nChoose markets for the local configuration."
+
+    def _render_launch_limit_selected(self, value: str) -> str:
+        if self._language() == "ru":
+            return f"💵 Лимит на день выбран: {value}\nЛокальная конфигурация обновлена."
+        return f"💵 Daily limit selected: {value}\nLocal configuration updated."
+
+    def _render_launch_max_loss_selected(self, value: str) -> str:
+        if self._language() == "ru":
+            return f"📉 Максимальный убыток выбран: {value}\nЛокальная конфигурация обновлена."
+        return f"📉 Max loss selected: {value}\nLocal configuration updated."
+
+    def _render_launch_market_selected(self, value: str) -> str:
+        if self._language() == "ru":
+            return f"🎯 Рынок добавлен: {value}\nЛокальная конфигурация обновлена."
+        return f"🎯 Market added: {value}\nLocal configuration updated."
+
+    def _render_launch_manual_limit(self) -> str:
+        if self._language() == "ru":
+            return "💵 Ввести вручную\nРучной ввод будет доступен после добавления безопасного мастера настроек. Сейчас выберите пресет."
+        return "💵 Enter manually\nManual entry will be available after a safe settings wizard is added. Choose a preset for now."
+
+    def _render_launch_manual_max_loss(self) -> str:
+        if self._language() == "ru":
+            return "📉 Ввести вручную\nРучной ввод будет доступен после добавления безопасного мастера настроек. Сейчас выберите пресет."
+        return "📉 Enter manually\nManual entry will be available after a safe settings wizard is added. Choose a preset for now."
+
+    def _render_launch_add_market(self) -> str:
+        if self._language() == "ru":
+            return "🎯 Добавить рынок\nДобавление произвольного рынка будет доступно после безопасного мастера выбора. Сейчас выберите пресет."
+        return "🎯 Add market\nAdding a custom market will be available after a safe selection wizard is added. Choose a preset for now."
+
+    def _render_launch_start(self) -> str:
+        config = _launch_config_from_state(self.state)
+        connection = _build_connection_product_display_status(self._summary())
+        connection_ready = _balance_connection_available(connection)
+        token_status = _product_token_status(self._summary(), language=self._language())
+        if self._language() == "ru":
+            return "\n".join(
+                [
+                    "🚀 Предзапусковая проверка",
+                    f"Лимит на день: {config['daily_limit_ru']}",
+                    f"Максимальный убыток: {config['max_loss_ru']}",
+                    f"Рынки: {config['markets_ru']}",
+                    f"Подключение: {'готово' if connection_ready else 'не готово'}",
+                    f"Баланс/аккаунт: {'доступен' if connection_ready else 'недоступен'}",
+                    "Риск: требуется финальная проверка",
+                    f"Token ID: {token_status}",
+                    "",
+                    "Запуск пока недоступен: требуется финальная проверка и подтверждение.",
+                ]
+            )
+        return "\n".join(
+            [
+                "🚀 Pre-launch check",
+                f"Daily limit: {config['daily_limit_en']}",
+                f"Max loss: {config['max_loss_en']}",
+                f"Markets: {config['markets_en']}",
+                f"Connection: {'ready' if connection_ready else 'not ready'}",
+                f"Balance/account: {'available' if connection_ready else 'unavailable'}",
+                "Risk: final review required",
+                f"Token ID: {token_status}",
+                "",
+                "Launch is currently unavailable: final review and confirmation are required.",
             ]
         )
 
@@ -697,18 +1115,32 @@ class TelegramOperatorControlBot:
         if self._language() == "ru":
             return "\n".join(
                 [
-                    "🚨 Стоп",
-                    "Live-торговля сейчас не запущена.",
-                    "Emergency Stop пока локальный статус-контроль.",
-                    "Реальные ордера в этой задаче не отменяются.",
+                    "⛔ Остановить",
+                    "Бот сейчас не запущен.",
+                    "Локальный стоп-маркер записан: trading_requested=false, operator_stop_requested=true.",
                 ]
             )
         return "\n".join(
             [
-                "🚨 Stop",
-                "Live trading is not running.",
-                "Emergency Stop is local status control for now.",
-                "No real orders are cancelled in this task.",
+                "⛔ Stop",
+                "The bot is not running.",
+                "Local stop marker recorded: trading_requested=false, operator_stop_requested=true.",
+            ]
+        )
+
+    def _render_settings(self) -> str:
+        language = self._language()
+        if language == "ru":
+            return "\n".join(
+                [
+                    "⚙️ Настройки",
+                    "Язык: русский",
+                ]
+            )
+        return "\n".join(
+            [
+                "⚙️ Settings",
+                "Language: English",
             ]
         )
 
@@ -1211,14 +1643,14 @@ class TelegramOperatorControlBot:
         if self._language() == "ru":
             return "\n".join(
                 [
-                    "🖥 Mini App",
-                    "Mini App URL не настроен. Нужно задать PMBOT_TELEGRAM_MINI_APP_URL.",
+                    "🌐 Mini App",
+                    "Mini App — расширенная панель PMBOT с графиками, настройками, аналитикой и подробной статистикой.",
                 ]
             )
         return "\n".join(
             [
-                "🖥 Mini App",
-                "Mini App URL is not configured. Set PMBOT_TELEGRAM_MINI_APP_URL.",
+                "🌐 Mini App",
+                "Mini App is the expanded PMBOT panel with charts, settings, analytics, and detailed statistics.",
             ]
         )
 
@@ -1551,7 +1983,9 @@ class TelegramOperatorControlBot:
 
     def _keyboard_for_command(self, command: str) -> TelegramOperatorKeyboard:
         if command == "/connection":
-            return build_real_check_results_keyboard(self._language())
+            return build_connection_product_keyboard(self._language())
+        if command in {"/connection_setup", "/connection_check", "/connection_instruction", "/connection_remove"}:
+            return build_connection_product_keyboard(self._language())
         if command == "/connection_status":
             return build_connection_status_keyboard(self._language())
         if command == "/order_prep_status":
@@ -1562,14 +1996,35 @@ class TelegramOperatorControlBot:
             return build_order_prep_status_keyboard(self._language())
         if command in {"/token_selection", "/token_candidate_1", "/token_candidate_2"}:
             return build_operator_token_selection_keyboard(self._language())
-        if command in {"/start", "/language", "/ru", "/en"}:
+        if command == "/launch_daily_limit":
+            return build_launch_limit_keyboard(self._language())
+        if command == "/launch_max_loss":
+            return build_launch_max_loss_keyboard(self._language())
+        if command == "/launch_markets":
+            return build_launch_market_keyboard(self._language())
+        if command in {"/launch_limit_manual", "/launch_max_loss_manual", "/launch_market_add"}:
+            return build_product_screen_keyboard("/launch", self._language())
+        if command == "/balance" and not _balance_connection_available(
+            _build_connection_product_display_status(self._summary())
+        ):
+            return build_balance_missing_keyboard(self._language())
+        if command in {"/start", "/language"}:
             return build_language_selection_keyboard()
+        if command in {"/ru", "/en"}:
+            return build_product_description_keyboard(self._language())
         if command in {
             "/home",
         }:
             return build_operator_home_keyboard(self._language())
         if command in {
             "/balance",
+            "/positions",
+            "/orders",
+            "/analytics",
+            "/analytics_details",
+            "/launch",
+            "/launch_start",
+            "/settings",
             "/trades",
             "/pnl",
             "/bot_status",
@@ -1594,7 +2049,7 @@ class TelegramOperatorControlBot:
         return TelegramOperatorKeyboard()
 
     def _keyboard_for_language(self, language: str) -> TelegramOperatorKeyboard:
-        return build_operator_home_keyboard(language)
+        return build_product_description_keyboard(language)
 
     def _language(self) -> str:
         return operator_language_from_state(self.state, fallback=DEFAULT_OPERATOR_LANGUAGE)
@@ -1606,15 +2061,51 @@ def build_operator_home_keyboard(language: str = DEFAULT_OPERATOR_LANGUAGE) -> T
     )
 
 
+def build_product_description_keyboard(language: str = DEFAULT_OPERATOR_LANGUAGE) -> TelegramOperatorKeyboard:
+    return _keyboard_from_rows(
+        product_description_button_rows(normalize_operator_language(language, fallback=DEFAULT_OPERATOR_LANGUAGE))
+    )
+
+
 def build_panel_fallback_keyboard(language: str = DEFAULT_OPERATOR_LANGUAGE) -> TelegramOperatorKeyboard:
     return _keyboard_from_rows(
         PANEL_FALLBACK_BUTTON_ROWS_BY_LANGUAGE[normalize_operator_language(language, fallback=DEFAULT_OPERATOR_LANGUAGE)]
     )
 
 
+def build_connection_product_keyboard(language: str = DEFAULT_OPERATOR_LANGUAGE) -> TelegramOperatorKeyboard:
+    return _keyboard_from_rows(
+        connection_product_button_rows(normalize_operator_language(language, fallback=DEFAULT_OPERATOR_LANGUAGE))
+    )
+
+
+def build_balance_missing_keyboard(language: str = DEFAULT_OPERATOR_LANGUAGE) -> TelegramOperatorKeyboard:
+    return _keyboard_from_rows(
+        balance_missing_button_rows(normalize_operator_language(language, fallback=DEFAULT_OPERATOR_LANGUAGE))
+    )
+
+
 def build_product_screen_keyboard(command: str, language: str = DEFAULT_OPERATOR_LANGUAGE) -> TelegramOperatorKeyboard:
     normalized_language = normalize_operator_language(language, fallback=DEFAULT_OPERATOR_LANGUAGE)
     return _keyboard_from_rows(_product_screen_button_rows(command, normalized_language))
+
+
+def build_launch_limit_keyboard(language: str = DEFAULT_OPERATOR_LANGUAGE) -> TelegramOperatorKeyboard:
+    return _keyboard_from_rows(
+        launch_limit_button_rows(normalize_operator_language(language, fallback=DEFAULT_OPERATOR_LANGUAGE))
+    )
+
+
+def build_launch_max_loss_keyboard(language: str = DEFAULT_OPERATOR_LANGUAGE) -> TelegramOperatorKeyboard:
+    return _keyboard_from_rows(
+        launch_max_loss_button_rows(normalize_operator_language(language, fallback=DEFAULT_OPERATOR_LANGUAGE))
+    )
+
+
+def build_launch_market_keyboard(language: str = DEFAULT_OPERATOR_LANGUAGE) -> TelegramOperatorKeyboard:
+    return _keyboard_from_rows(
+        launch_market_button_rows(normalize_operator_language(language, fallback=DEFAULT_OPERATOR_LANGUAGE))
+    )
 
 
 def build_operator_console_keyboard(language: str = DEFAULT_OPERATOR_LANGUAGE) -> TelegramOperatorKeyboard:
@@ -1695,18 +2186,31 @@ def _keyboard_from_rows(rows: Sequence[Sequence[tuple[str, str]]]) -> TelegramOp
 
 
 def _product_screen_button_rows(command: str, language: str) -> tuple[tuple[tuple[str, str], ...], ...]:
-    if language == "ru":
-        check = ("🧪 Проверить подключение", "pmbot:run:connection_status_067e")
-        mini_app = ("🖥 Mini App", "pmbot:panel")
-        back = ("⬅️ Назад", "pmbot:home")
-    else:
-        check = ("🧪 Check connection", "pmbot:run:connection_status_067e")
-        mini_app = ("🖥 Mini App", "pmbot:panel")
-        back = ("⬅️ Back", "pmbot:home")
+    if command == "/balance":
+        return tuple(balance_product_button_rows(language))
+    if command in {"/positions", "/orders"}:
+        return tuple(balance_product_button_rows(language))
+    if command in {"/analytics", "/analytics_details"}:
+        return tuple(analytics_product_button_rows(language))
+    if command in {
+        "/launch",
+        "/launch_start",
+        "/launch_limit_manual",
+        "/launch_max_loss_manual",
+        "/launch_market_add",
+    }:
+        return tuple(launch_product_button_rows(language))
+    if command == "/stop":
+        return tuple(stop_product_button_rows(language))
+    if command == "/panel":
+        return tuple(mini_app_product_button_rows(language))
+    if command == "/settings":
+        return tuple(settings_product_button_rows(language))
+    back = ("⬅️ Главное меню", "pmbot:home") if language == "ru" else ("⬅️ Main menu", "pmbot:home")
     if command == "/connection":
-        return ((check,), (mini_app,), (back,))
+        return tuple(connection_product_button_rows(language))
     if command in {"/balance", "/trades"}:
-        return ((check,), (back,))
+        return tuple(balance_missing_button_rows(language))
     if command in {"/bot_status", "/status"}:
         risk = ("🛡 Risk Engine v2", "pmbot:risk_engine_v2")
         return ((risk,), (back,))
@@ -1983,6 +2487,12 @@ def build_telegram_operator_control_summary(
         "operator_language": clean_text(state_summary.get("operator_language")),
         "operator_language_selected": state_summary.get("operator_language_selected") is True,
         "operator_language_scope": "global_local_operator_state",
+        "telegram_launch_config": dict(state_summary.get("telegram_launch_config") or {}),
+        "launch_daily_limit": clean_text(state_summary.get("launch_daily_limit")),
+        "launch_max_loss": clean_text(state_summary.get("launch_max_loss")),
+        "launch_selected_markets": _clean_list(state_summary.get("launch_selected_markets")),
+        "trading_requested": False,
+        "operator_stop_requested": state_summary.get("operator_stop_requested") is True,
         "btc_market_summary": btc,
         "btc_analysis_order_intent_summary": intent,
         "risk_summary": risk,
@@ -3024,7 +3534,13 @@ def _normalize_connection_status_067e_summary(status: Mapping[str, Any]) -> dict
         "l2_auth_probe_status": clean_text(value.get("l2_auth_probe_status") or "not_run"),
         "l2_auth_probe_display": clean_text(value.get("l2_auth_probe_display") or "not run"),
         "open_orders_status": clean_text(value.get("open_orders_status") or "unknown"),
+        "open_orders_display": clean_text(value.get("open_orders_display")),
+        "open_positions_status": clean_text(value.get("open_positions_status") or "unknown"),
+        "open_positions_display": clean_text(value.get("open_positions_display")),
+        "balance_status": clean_text(value.get("balance_status") or "unknown"),
+        "balance_display": clean_text(value.get("balance_display")),
         "balance_allowance_status": clean_text(value.get("balance_allowance_status") or "unknown"),
+        "last_check_timestamp": clean_text(value.get("last_check_timestamp") or value.get("generated_at")),
         "values_never_shown": True,
         "redacted_presence_only": True,
         "local_artifact_read_only": True,
@@ -3318,7 +3834,7 @@ def _clean_list(values: Any) -> list[str]:
         return []
 
 
-def _build_connection_product_status(summary: Mapping[str, Any]) -> dict[str, str]:
+def _build_connection_product_status(summary: Mapping[str, Any]) -> dict[str, bool]:
     credentials = dict(summary.get("explicit_live_credentials_readiness_gate_status_summary", {}))
     auth = dict(summary.get("live_credentials_auth_boundary_summary", {}))
     marker_rows = [
@@ -3335,66 +3851,115 @@ def _build_connection_product_status(summary: Mapping[str, Any]) -> dict[str, st
                 return True
         return False
 
-    api_credentials_present = (
-        auth.get("live_credentials_configured") is True
-        or marker_present("L2_API_KEY", "L2_API_SECRET", "L2_PASSPHRASE", "POLYMARKET_AUTH_CONFIG")
-    )
-    private_key_present = marker_present("PRIVATE_KEY")
-    wallet_address_present = marker_present("WALLET_ADDRESS")
-    signature_type_present = marker_present("SIGNATURE_TYPE", "SIGNING_PROVIDER")
-    funder_address_present = marker_present("FUNDER_ADDRESS")
     return {
-        "api_credentials": "present" if api_credentials_present else "missing",
-        "private_key": "present" if private_key_present else "missing",
-        "wallet_address": "redacted" if wallet_address_present else "missing",
-        "signature_type": "present" if signature_type_present else "missing",
-        "funder_address": "redacted" if funder_address_present else "missing",
+        "api_key_connected": (
+            auth.get("live_credentials_configured") is True
+            or marker_present("L2_API_KEY", "API_KEY", "POLYMARKET_AUTH_CONFIG")
+        ),
+        "api_secret_connected": (
+            auth.get("live_credentials_configured") is True
+            or marker_present("L2_API_SECRET", "API_SECRET", "POLYMARKET_AUTH_CONFIG")
+        ),
+        "passphrase_connected": (
+            auth.get("live_credentials_configured") is True
+            or marker_present("L2_PASSPHRASE", "PASSPHRASE", "POLYMARKET_AUTH_CONFIG")
+        ),
+        "wallet_address_connected": marker_present("WALLET_ADDRESS"),
+        "signature_type_connected": marker_present("SIGNATURE_TYPE", "SIGNING_PROVIDER"),
+        "funder_address_connected": marker_present("FUNDER_ADDRESS"),
     }
 
 
-def _build_connection_product_display_status(summary: Mapping[str, Any]) -> dict[str, str]:
+def _build_connection_product_display_status(summary: Mapping[str, Any]) -> dict[str, Any]:
     status = dict(summary.get("telegram_connection_status_067e_status_summary", {}))
     fallback = _build_connection_product_status(summary)
     api_keys_present = (
         status.get("api_keys_added") is True
         or clean_text(status.get("api_keys_status")) in {"added", "present"}
-        or fallback["api_credentials"] == "present"
-    )
-    private_key_present = (
-        status.get("private_key_added") is True
-        or clean_text(status.get("private_key_status")) in {"added", "present"}
-        or fallback["private_key"] == "present"
+        or (
+            fallback["api_key_connected"]
+            and fallback["api_secret_connected"]
+            and fallback["passphrase_connected"]
+        )
     )
     wallet_raw = clean_text(status.get("wallet_display"))
     funder_raw = clean_text(status.get("funder_display"))
     signature_raw = clean_text(status.get("signature_type_display"))
-    l2_raw = clean_text(status.get("l2_auth_probe_display") or status.get("l2_auth_probe_status"))
     wallet_display = _safe_public_abbrev(wallet_raw)
     funder_display = _safe_public_abbrev(funder_raw)
     signature_present = (
         signature_raw not in {"", "missing", "not_available", "unknown"}
-        or fallback["signature_type"] == "present"
+        or fallback["signature_type_connected"]
     )
     signature_display = (
         signature_raw
         if signature_present and signature_raw not in {"", "present", "missing", "not_available", "unknown"}
         else ""
     )
-    l2_display = _normalize_l2_auth_display(l2_raw)
     return {
-        "api_keys_ru": "добавлены" if api_keys_present else "не добавлены",
-        "api_keys_en": "added" if api_keys_present else "not added",
-        "private_key_ru": "добавлен" if private_key_present else "не добавлен",
-        "private_key_en": "added" if private_key_present else "not added",
-        "wallet_ru": wallet_display if wallet_display else "не указан",
-        "wallet_en": wallet_display if wallet_display else "not specified",
-        "signature_type_ru": signature_display if signature_display else "не указан",
-        "signature_type_en": signature_display if signature_display else "not specified",
-        "funder_ru": funder_display if funder_display else "не указан",
-        "funder_en": funder_display if funder_display else "not specified",
-        "l2_auth_ru": _l2_auth_ru(l2_display),
-        "l2_auth_en": _l2_auth_en(l2_display),
+        "api_key_connected": api_keys_present or fallback["api_key_connected"],
+        "api_secret_connected": api_keys_present or fallback["api_secret_connected"],
+        "passphrase_connected": api_keys_present or fallback["passphrase_connected"],
+        "wallet_address_connected": bool(wallet_display) or fallback["wallet_address_connected"],
+        "signature_type_connected": signature_present,
+        "funder_address_connected": bool(funder_display) or fallback["funder_address_connected"],
+        "wallet_display": wallet_display,
+        "signature_type_display": signature_display,
+        "funder_display": funder_display,
     }
+
+
+def _ru_connected(value: Any) -> str:
+    return "подключен" if value is True else "не подключен"
+
+
+def _en_connected(value: Any) -> str:
+    return "connected" if value is True else "not connected"
+
+
+def _safe_detail(value: Any) -> str:
+    text = clean_text(value)
+    return f" ({text})" if text else ""
+
+
+def _balance_connection_available(status: Mapping[str, Any]) -> bool:
+    return (
+        status.get("api_key_connected") is True
+        and status.get("api_secret_connected") is True
+        and status.get("passphrase_connected") is True
+        and status.get("wallet_address_connected") is True
+    )
+
+
+def _optional_product_value(status: Mapping[str, Any], *keys: str) -> str:
+    for key in keys:
+        text = clean_text(status.get(key))
+        if text and text.lower() not in {"unknown", "missing", "not_available", "none", "null"}:
+            return text
+    return ""
+
+
+def _launch_config_from_state(state: Mapping[str, Any]) -> dict[str, str]:
+    daily_limit = clean_text(state.get("launch_daily_limit"))
+    max_loss = clean_text(state.get("launch_max_loss"))
+    markets = _clean_list(state.get("launch_selected_markets"))
+    markets_text = ", ".join(markets)
+    return {
+        "daily_limit_ru": daily_limit or "не выбран",
+        "daily_limit_en": daily_limit or "not selected",
+        "max_loss_ru": max_loss or "не выбран",
+        "max_loss_en": max_loss or "not selected",
+        "markets_ru": markets_text or "не выбраны",
+        "markets_en": markets_text or "not selected",
+    }
+
+
+def _product_token_status(summary: Mapping[str, Any], *, language: str) -> str:
+    status = dict(summary.get("telegram_operator_token_selection_074b_status_summary", {}))
+    selected = status.get("selected_candidate_available") is True or status.get("token_id_selected") is True
+    if language == "ru":
+        return "выбран" if selected else "требуется выбор"
+    return "selected" if selected else "selection required"
 
 
 def _normalize_l2_auth_display(value: str) -> str:

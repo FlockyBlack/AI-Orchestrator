@@ -44,7 +44,7 @@
   "manual_verification": {
     "expected_navigation": "Product callbacks edit the same bot message; old/non-editable messages get one replacement message.",
     "expected_start_flow": "/start shows the language picker, then RU/EN selection edits that message into the product menu.",
-    "mini_app_url_behavior": "Configured PMBOT_TELEGRAM_MINI_APP_URL adds an Open PMBOT WebApp button; missing URL shows a clear fallback."
+    "mini_app_url_behavior": "Configured PMBOT_TELEGRAM_MINI_APP_URL adds an Open Mini App WebApp button; missing URL keeps the informational screen."
   },
   "pushed": "recorded_in_final_completion_report_after_push",
   "remote_verified": "recorded_in_final_completion_report_after_push",
