@@ -20,6 +20,11 @@ from pm_bot.trading_core.telegram_order_prep_status_071e import (
     LATEST_STATUS_FILENAME as TELEGRAM_ORDER_PREP_STATUS_071E_LATEST_STATUS_FILENAME,
     TASK_ID as TASK_ID_071E,
 )
+from pm_bot.trading_core.telegram_operator_token_selection_074b import (
+    ARTIFACT_DIR_NAME as TELEGRAM_OPERATOR_TOKEN_SELECTION_074B_ARTIFACT_DIR_NAME,
+    LATEST_STATUS_FILENAME as TELEGRAM_OPERATOR_TOKEN_SELECTION_074B_LATEST_STATUS_FILENAME,
+    normalize_telegram_operator_token_selection_summary,
+)
 from pm_bot.trading_core.telegram_wallet_auth_status_dashboard import (
     ARTIFACT_DIR_NAME as TELEGRAM_CONNECTION_STATUS_067E_ARTIFACT_DIR_NAME,
     LATEST_STATUS_FILENAME as TELEGRAM_CONNECTION_STATUS_067E_LATEST_STATUS_FILENAME,
@@ -34,6 +39,7 @@ TASK_ID_064T = "ORCH-PMBOT-TELEGRAM-064T-CREDENTIALS-READINESS-REVIEW-PANEL"
 TELEGRAM_CONNECTION_STATUS_067E_FLOW_ID = "telegram_connection_status_067e"
 TELEGRAM_ORDER_PREP_STATUS_071E_FLOW_ID = "telegram_order_prep_status_071e"
 TELEGRAM_ORDER_PREP_PACKET_STATUS_072B_FLOW_ID = "telegram_order_prep_packet_status_072b"
+TELEGRAM_OPERATOR_TOKEN_SELECTION_074B_FLOW_ID = "telegram_operator_token_selection_074b"
 STATUS_REGISTRY_CONTRACT = "pmbot_telegram_operator_console_060t_status_registry.v1"
 STATUS_CARD_CONTRACT = "pmbot_telegram_operator_console_060t_status_card.v1"
 READINESS_SUMMARY_CONTRACT = "pmbot_telegram_operator_console_060t_readiness.v1"
@@ -409,6 +415,15 @@ STATUS_SOURCES: tuple[TelegramStatusSource, ...] = (
         context_key="telegram_order_prep_packet_status_072b_status_summary",
         label_en="Order prep packet screen",
         label_ru="Подготовка первого ордера",
+    ),
+    TelegramStatusSource(
+        flow_id=TELEGRAM_OPERATOR_TOKEN_SELECTION_074B_FLOW_ID,
+        section="Live Readiness",
+        artifact_dir_name=TELEGRAM_OPERATOR_TOKEN_SELECTION_074B_ARTIFACT_DIR_NAME,
+        latest_status_filename=TELEGRAM_OPERATOR_TOKEN_SELECTION_074B_LATEST_STATUS_FILENAME,
+        context_key="telegram_operator_token_selection_074b_status_summary",
+        label_en="Token selection review",
+        label_ru="Выбор рынка / Token ID",
     ),
 )
 
@@ -1480,6 +1495,7 @@ def telegram_console_button_rows(language: str) -> tuple[tuple[tuple[str, str], 
         )
     )
     rows.append((("🔐 Подключение" if ru else "Connection status 067E", "pmbot:connection_status"),))
+    rows.append((("Выбор рынка / Token ID" if ru else "Token selection review", "pmbot:token_selection"),))
     action_rows = [
         ("run_paper_canary_052", "run_paper_loop_053"),
         ("run_public_market_paper_loop_054", "run_decision_ledger_055"),
@@ -1660,6 +1676,8 @@ def _build_status_card(
         status_summary.update(_credentials_readiness_review_status_summary(credentials_readiness_review))
     if source.flow_id == TELEGRAM_ORDER_PREP_PACKET_STATUS_072B_FLOW_ID:
         status_summary.update(normalize_telegram_order_prep_packet_status_summary(payload))
+    if source.flow_id == TELEGRAM_OPERATOR_TOKEN_SELECTION_074B_FLOW_ID:
+        status_summary.update(normalize_telegram_operator_token_selection_summary(payload))
     return {
         "contract_version": STATUS_CARD_CONTRACT,
         "task_id": TASK_ID,

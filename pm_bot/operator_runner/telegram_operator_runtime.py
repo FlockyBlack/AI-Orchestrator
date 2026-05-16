@@ -70,6 +70,7 @@ TELEGRAM_COMMAND_MENU = (
     ("connection", "Connection"),
     ("connection_status", "Connection Check"),
     ("order_prep_status", "Order Prep"),
+    ("token_selection", "Token Selection"),
     ("balance", "Balance"),
     ("trades", "Trades"),
     ("pnl", "PnL"),
