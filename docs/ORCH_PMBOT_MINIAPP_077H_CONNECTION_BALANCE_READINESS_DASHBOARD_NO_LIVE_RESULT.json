@@ -1,0 +1,118 @@
+{
+  "task_id": "ORCH-PMBOT-MINIAPP-077H-CONNECTION-BALANCE-READINESS-DASHBOARD-NO-LIVE",
+  "status": "validated_pending_commit_push_verify",
+  "generated_at": "2026-05-17T01:20:16+04:00",
+  "repository": "https://github.com/FlockyBlack/AI-Orchestrator.git",
+  "worktree": "C:/oc077h_miniapp_connection_balance_readiness_dashboard_no_live",
+  "branch": "pmbot/miniapp-077h-connection-balance-readiness-dashboard-no-live",
+  "base": "origin/master",
+  "base_head": "eb2313c7f292361bf7aa2d686a882062b064309e",
+  "head_before": "eb2313c7f292361bf7aa2d686a882062b064309e",
+  "head_after": "recorded_in_final_response_after_commit_push_verify",
+  "head_after_note": "The committed result JSON cannot contain its own final commit SHA without changing that SHA. The final response records the pushed and remotely verified feature branch HEAD.",
+  "temporary_windows_drive_mapping": {
+    "used": true,
+    "drive": "O:",
+    "target": "C:/oc077h_miniapp_connection_balance_readiness_dashboard_no_live",
+    "reason": "The required long Windows worktree path made Python direct Path.exists checks fail for an existing 263-character public-evidence fixture path during the full suite.",
+    "initial_c_path_full_suite_result": "failed due unrelated Windows MAX_PATH fixture access: 4 failed, 2267 passed",
+    "rerun_from_mapped_drive_result": "passed: 2271 passed",
+    "removed_after_validation": true
+  },
+  "changed_files": [
+    "docs/ORCH_PMBOT_MINIAPP_077H_CONNECTION_BALANCE_READINESS_DASHBOARD_NO_LIVE_RESULT.json",
+    "pm_bot/telegram_mini_app/index.html",
+    "pm_bot/telegram_mini_app/styles.css",
+    "pm_bot/tests/test_miniapp_connection_balance_readiness_077h.py"
+  ],
+  "mini_app_before_after_summary": {
+    "before": "The static Mini App already had a broad product dashboard with connection, balance, analytics, positions, markets, order prep, limits, and a combined launch/stop placeholder.",
+    "after": [
+      "Connection now shows API key, API secret, passphrase, wallet, signature type, and funder placeholders with the exact Telegram / CLI check copy.",
+      "Balance explicitly remains unavailable until a read-only account check and does not show fake balance values.",
+      "Analytics shows today, 7d, and 30d placeholders without fake PnL.",
+      "Launch shows daily limit, max loss, selected markets, and final-review-required status without controls.",
+      "Readiness shows selected token verified, signer diagnostic, payload readiness, risk status, and final readiness placeholders.",
+      "Stop is split into a no-live marker card that explains local stop status only."
+    ],
+    "navigation_contract_preserved": true
+  },
+  "validation": [
+    {
+      "command": "python -m pytest pm_bot/tests/test_miniapp_connection_balance_readiness_077h.py",
+      "result": "passed",
+      "summary": "4 passed in 0.18s"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_mini_app_scaffold_067b.py pm_bot/tests/test_telegram_mini_app_product_dashboard_068d.py pm_bot/tests/test_telegram_mini_app_order_prep_dashboard_072f.py pm_bot/tests/test_telegram_product_ux_076t.py pm_bot/tests/test_telegram_forbidden_live_controls_063a.py",
+      "result": "passed",
+      "summary": "35 passed in 3.17s"
+    },
+    {
+      "command": "python -B -m pytest pm_bot/tests",
+      "workdir": "C:/oc077h_miniapp_connection_balance_readiness_dashboard_no_live",
+      "result": "failed_unrelated_environment_path_length",
+      "summary": "4 public-evidence tests failed because Python direct path access did not handle an existing 263-character fixture path under the required long worktree; 2267 tests passed."
+    },
+    {
+      "command": "python -B -m pytest pm_bot/tests",
+      "workdir": "O:/ mapped to the required worktree",
+      "result": "passed",
+      "summary": "2271 passed in 738.13s"
+    },
+    {
+      "command": "python -m compileall -q pm_bot",
+      "result": "passed",
+      "summary": "No compile errors."
+    },
+    {
+      "command": "python -m compileall -q ai_orchestrator",
+      "result": "passed",
+      "summary": "No compile errors."
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.telegram_runtime_smoke --json",
+      "result": "passed",
+      "summary": "ready_to_start_runtime=true; review_only_safety_flags_ok=true; network_check_requested=false; live_trading_enabled=false; real_orders_submitted=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.static_safety_invariant_report --scope pm_bot --dry-run",
+      "result": "passed",
+      "summary": "Scanned files: 380; critical findings: 0; warnings: 9; live execution, order submission, signing, and wallet blocked."
+    },
+    {
+      "command": "rg -n -i \"fetch\\(|XMLHttpRequest|wallet|connect wallet|private key|API secret input|submit order|cancel order|sign|trading_requested=true|allowed_for_live=true\" pm_bot/telegram_mini_app/index.html pm_bot/telegram_mini_app/styles.css",
+      "result": "passed_with_expected_contextual_matches",
+      "summary": "Only existing safe context matched: pmbot-safety meta no-wallet-connect/no-signing and the required Signature type status label. No fetch, XMLHttpRequest, connect wallet, private key, API secret input, submit order, cancel order, trading_requested=true, or allowed_for_live=true matches."
+    },
+    {
+      "command": "git diff --check",
+      "result": "passed",
+      "summary": "No whitespace errors."
+    },
+    {
+      "command": "git diff --cached --check",
+      "result": "passed",
+      "summary": "No staged whitespace errors."
+    }
+  ],
+  "safety_scan_summary": {
+    "static_no_live": true,
+    "network_fetch_added": false,
+    "scripts_added": false,
+    "wallet_connect_ui_added": false,
+    "secret_forms_added": false,
+    "submit_cancel_sign_controls_added": false,
+    "fake_balance_added": false,
+    "fake_pnl_added": false,
+    "live_trading_controls_added": false,
+    "allowed_for_live_true_added": false,
+    "trading_requested_true_added": false,
+    "static_safety_critical_findings": 0,
+    "static_safety_warnings": 9
+  },
+  "remaining_risks": [
+    "The Mini App remains a static/no-live dashboard; future live account data still requires a separate approved read-only integration task.",
+    "The required long Windows worktree path can trigger Python MAX_PATH failures in unrelated fixture tests unless validation uses a temporary shorter drive mapping."
+  ]
+}
