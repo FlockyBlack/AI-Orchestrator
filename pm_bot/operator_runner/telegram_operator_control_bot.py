@@ -116,6 +116,11 @@ TASK_ID_075B = "ORCH-PMBOT-TELEGRAM-075B-RISK-ENGINE-V2-OVERVIEW-NO-LIVE"
 TASK_ID_077E = "ORCH-PMBOT-TELEGRAM-077E-CONNECTION-CREDENTIAL-VISIBILITY-NO-LIVE"
 TASK_ID_077F = "ORCH-PMBOT-TELEGRAM-077F-BALANCE-READONLY-ACCOUNT-INTEGRATION-NO-LIVE"
 
+FUNDER_WALLET_CONTEXT_DIAGNOSTIC_COMMAND = (
+    "python -m pm_bot.operator_runner.funder_wallet_context_diagnostic "
+    "--market BTC --strategy tiny-momentum --dry-run"
+)
+
 SAFE_ACTION_COMMANDS = tuple(f"/{action.action_id}" for action in SAFE_ACTIONS)
 
 SUPPORTED_COMMANDS = (
@@ -4263,6 +4268,7 @@ def _missing_funder_address_copy(status: Mapping[str, Any], *, language: str) ->
                 "Funder Address не указан.",
                 "Для некоторых проверок Polymarket может потребоваться funder/proxy wallet address.",
                 "Если funder совпадает с wallet address, можно временно использовать тот же адрес.",
+                f"Безопасная диагностика funder/wallet: {FUNDER_WALLET_CONTEXT_DIAGNOSTIC_COMMAND}",
             ]
         )
     return "\n".join(
@@ -4270,6 +4276,7 @@ def _missing_funder_address_copy(status: Mapping[str, Any], *, language: str) ->
             "Funder Address is not set.",
             "Some Polymarket checks may require the funder/proxy wallet address.",
             "If the funder is the same as the wallet address, you can temporarily use the same address.",
+            f"Safe funder/wallet diagnostic: {FUNDER_WALLET_CONTEXT_DIAGNOSTIC_COMMAND}",
         ]
     )
 

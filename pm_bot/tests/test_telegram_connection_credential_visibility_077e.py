@@ -168,8 +168,10 @@ def test_missing_funder_address_is_clear_and_balance_routes_to_connection(tmp_pa
     assert "Funder Address не указан." in connection.text
     assert "Для некоторых проверок Polymarket может потребоваться funder/proxy wallet address." in connection.text
     assert "Если funder совпадает с wallet address, можно временно использовать тот же адрес." in connection.text
-    assert "Баланс недоступен: сначала завершите подключение." in balance.text
-    assert _labels(balance) == ("🔌 Перейти к подключению",)
+    assert "python -m pm_bot.operator_runner.funder_wallet_context_diagnostic --market BTC --strategy tiny-momentum --dry-run" in connection.text
+    assert "Баланс может быть недоступен: не указан Funder Address." in balance.text
+    assert "Проверьте раздел Подключение." in balance.text
+    assert _labels(balance) == ("🔌 Подключение",)
     assert _callbacks(balance) == ("pmbot:connection",)
 
 
