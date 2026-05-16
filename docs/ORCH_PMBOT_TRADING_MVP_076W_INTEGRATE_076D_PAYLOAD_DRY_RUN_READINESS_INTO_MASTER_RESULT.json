@@ -1,0 +1,279 @@
+{
+  "contract_version": "orch_pmbot_trading_mvp_076w_integration_result.v1",
+  "task_id": "ORCH-PMBOT-TRADING-MVP-076W-INTEGRATE-076D-PAYLOAD-DRY-RUN-READINESS-INTO-MASTER",
+  "status": "validated_pending_commit_push_verify",
+  "repo": "https://github.com/FlockyBlack/AI-Orchestrator.git",
+  "base_branch": "master",
+  "worktree": "C:/oc076w_integrate_076d_payload_dry_run_readiness_into_master",
+  "head_before": "a3128bccab7fe27f68b439a8417e509eb88c36ef",
+  "head_after": "pending_final_commit_hash_reported_after_commit",
+  "head_after_note": "Embedding this result artifact commit's own SHA in the committed JSON would change that SHA; final local and remote master heads are reported in the operator final report.",
+  "source_branch": "pmbot/trading-mvp-076d-payload-dry-run-readiness-consolidation-no-live",
+  "source_head": "3773a05f7ec6b5aab7e16ecc81bf3977e5a14ad9",
+  "source_base": "8abfdb77df9c30244f66fa0d0dbee9f0717e95cf",
+  "source_head_remote_verified": true,
+  "accepted_master_head_remote_verified": true,
+  "accepted_master_head": "a3128bccab7fe27f68b439a8417e509eb88c36ef",
+  "076c_present_on_master_before_replay": true,
+  "duplicate_076a_handling": {
+    "076d_source_included_076a_prerequisite_commit": "863414f90",
+    "076a_replayed": false,
+    "reason": "Current master already contained 076B/076A selected token verification bridge; only the 076D commit 3773a05f7ec6b5aab7e16ecc81bf3977e5a14ad9 was cherry-picked.",
+    "preserved_behavior": "selected_token_payload_readiness_gate still recognizes selected token verification before signer evidence evaluation."
+  },
+  "replay_method": {
+    "method": "git cherry-pick -n of the 076D source commit only, followed by scoped adaptation for current master's 076C signer diagnostic evidence status.",
+    "commands": [
+      "git cherry-pick -n 3773a05f7ec6b5aab7e16ecc81bf3977e5a14ad9"
+    ],
+    "conflicts": [],
+    "conflict_resolutions": []
+  },
+  "implementation_summary": [
+    "Integrated the consolidated payload dry-run readiness review runner and core review model.",
+    "Adapted signer diagnostic handling so the current 076C bridge is recognized as present and blocked_signer_diagnostic_failed is propagated when signer evidence fails.",
+    "Kept the review no-live/no-submit/no-cancel/no-wallet/no-signing-by-default and local-artifact-only.",
+    "Preserved current master 076U Telegram Product UX and 076C signer diagnostic bridge behavior."
+  ],
+  "changed_files_summary": {
+    "core": [
+      "pm_bot/trading_core/payload_dry_run_readiness.py",
+      "pm_bot/trading_core/payload_dry_run_readiness_models.py"
+    ],
+    "operator_runners": [
+      "pm_bot/operator_runner/payload_dry_run_readiness_review.py"
+    ],
+    "tests": [
+      "pm_bot/tests/test_payload_dry_run_readiness_076d.py"
+    ],
+    "artifacts": [
+      "pm_bot/trading_core/artifacts/payload_dry_run_readiness_076d/latest_payload_dry_run_readiness_076d_status.json",
+      "pm_bot/trading_core/artifacts/payload_dry_run_readiness_076d/payload_dry_run_readiness_076d_blockers.json",
+      "pm_bot/trading_core/artifacts/payload_dry_run_readiness_076d/payload_dry_run_readiness_076d_operator_summary.md",
+      "pm_bot/trading_core/artifacts/payload_dry_run_readiness_076d/payload_dry_run_readiness_076d_result.json"
+    ],
+    "docs": [
+      "docs/ORCH_PMBOT_TRADING_MVP_076D_PAYLOAD_DRY_RUN_READINESS_CONSOLIDATION_NO_LIVE_RESULT.json",
+      "docs/ORCH_PMBOT_TRADING_MVP_076W_INTEGRATE_076D_PAYLOAD_DRY_RUN_READINESS_INTO_MASTER_RESULT.json"
+    ]
+  },
+  "validation_commands": [
+    {
+      "command": "python -m pytest pm_bot/tests/test_payload_dry_run_readiness_076d.py",
+      "result": "passed",
+      "summary": "10 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_signer_diagnostic_evidence_bridge_076c.py",
+      "result": "passed",
+      "summary": "7 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_selected_token_verification_bridge_076a.py",
+      "result": "passed",
+      "summary": "7 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_selected_candidate_artifact_075d.py",
+      "result": "passed",
+      "summary": "9 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_selected_token_payload_readiness_gate_073c.py",
+      "result": "passed",
+      "summary": "14 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_operator_token_selection_packet_073b.py",
+      "result": "passed",
+      "summary": "10 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_signed_payload_diagnostic_adapter_072e.py pm_bot/tests/test_signed_order_payload_dry_run_070a.py pm_bot/tests/test_order_prep_packet_072a.py pm_bot/tests/test_first_order_market_token_resolver_070b.py pm_bot/tests/test_first_live_order_final_blocker_reducer_072d.py",
+      "result": "passed",
+      "summary": "46 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_risk_engine_v2_074d.py",
+      "result": "passed",
+      "summary": "10 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_static_safety_invariant_report_060q.py",
+      "result": "passed",
+      "summary": "9 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_product_ux_076t.py",
+      "result": "passed",
+      "summary": "14 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_single_message_product_menu_069c.py",
+      "result": "passed",
+      "summary": "12 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_forbidden_live_controls_063a.py",
+      "result": "passed",
+      "summary": "3 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_operator_token_selection_074b.py",
+      "result": "passed",
+      "summary": "5 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_risk_engine_v2_status_075b.py",
+      "result": "passed",
+      "summary": "4 passed"
+    },
+    {
+      "command": "python -B -m pytest pm_bot/tests",
+      "result": "passed",
+      "summary": "2248 passed in 725.91s from W:/ short-path mapping; the first C:/ run reached 2244 passed and failed 4 MAX_PATH-sensitive fixture checks at a 261-character resolved path"
+    },
+    {
+      "command": "python -m compileall -q pm_bot",
+      "result": "passed",
+      "summary": "compileall completed without errors"
+    },
+    {
+      "command": "python -m compileall -q ai_orchestrator",
+      "result": "passed",
+      "summary": "compileall completed without errors"
+    }
+  ],
+  "runner_smokes": [
+    {
+      "command": "python -m pm_bot.operator_runner.payload_dry_run_readiness_review --market BTC --strategy tiny-momentum --dry-run",
+      "result": "passed",
+      "summary": "status=blocked_signer_diagnostic_failed; current_top_blocker=blocked_signer_diagnostic_failed; signer_diagnostic_bridge_present=true; submit_ready=false; live_ready=false; allowed_for_live=false; order_submission_enabled=false; signing_by_default=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.guarded_signer_diagnostic_smoke --market BTC --strategy tiny-momentum --dry-run --allow-private-key-diagnostic",
+      "result": "passed",
+      "summary": "status=blocked_missing_private_key; diagnostic_challenge_signed=false; order submission/cancellation blocked; allowed_for_live=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.signer_diagnostic_evidence_bridge --market BTC --strategy tiny-momentum --dry-run",
+      "result": "passed",
+      "summary": "status=blocked_signer_diagnostic_failed; source_diagnostic_status=missing_private_key; evidence_ok_for_payload_dry_run=false; signer_ready_for_live=false; order_submit_ready=false; full_signed_payload_output=false; allowed_for_live=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.operator_token_selection_packet --market BTC --strategy tiny-momentum --dry-run",
+      "result": "passed",
+      "summary": "status=selection_required; source_backed_candidates=2; selected_token_id_present=false; allowed_for_live=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.selected_candidate_artifact --market BTC --strategy tiny-momentum --dry-run --candidate-index 0",
+      "result": "passed",
+      "summary": "status=selected_candidate_artifact_recorded; selected_by_operator=true; source_backed=true; selected_candidate_executable_for_live=false; allowed_for_live=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.selected_token_verification_bridge --market BTC --strategy tiny-momentum --dry-run",
+      "result": "passed",
+      "summary": "status=selected_token_verified_for_payload_dry_run; selected_token_payload_ready_for_submit=false; allowed_for_live=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.selected_token_payload_readiness_gate --market BTC --strategy tiny-momentum --dry-run",
+      "result": "passed",
+      "summary": "status=blocked_signer_diagnostic_failed; selected_token_verified=true; ready_for_signed_payload_diagnostic=false; allowed_for_live=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.risk_engine_v2_review --market BTC --strategy tiny-momentum --dry-run",
+      "result": "passed",
+      "summary": "status=blocked_risk_engine_v2_review; blockers=14; allowed_for_live=false; first supervised tiny order blocked=true"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.first_live_order_final_blocker_reducer --market BTC --strategy tiny-momentum --dry-run",
+      "result": "passed",
+      "summary": "status=blocked_remaining_first_live_order_final_blockers; remaining_blockers=10; signing/order submission/order cancellation blocked; allowed_for_live=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.telegram_runtime_smoke --json",
+      "result": "passed",
+      "summary": "ready_to_start_runtime=true; review_only_safety_flags_ok=true; network_check_requested=false; live_trading_enabled=false; real_orders_submitted=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.static_safety_invariant_report --scope pm_bot --dry-run",
+      "result": "passed",
+      "summary": "critical_findings=0; warnings=9; live execution/order submission/signing/wallet blocked"
+    }
+  ],
+  "temporary_short_drive_mapping": {
+    "used": true,
+    "drive": "W:",
+    "target": "C:/oc076w_integrate_076d_payload_dry_run_readiness_into_master",
+    "reason": "The full test suite hit Windows MAX_PATH from the long C:/ worktree on a tracked saved evidence fixture with a 261-character resolved path.",
+    "cleanup_status": "removed_after_successful_full_test_rerun"
+  },
+  "payload_dry_run_readiness_review_summary": {
+    "status": "blocked_signer_diagnostic_failed",
+    "current_top_blocker": "blocked_signer_diagnostic_failed",
+    "selected_candidate_status": "selected_candidate_artifact_recorded",
+    "selected_token_verification_status": "selected_token_verified_for_payload_dry_run",
+    "signer_diagnostic_status": "blocked_signer_diagnostic_failed",
+    "payload_dry_run_status": "selected_token_payload_readiness_not_ready:blocked_signer_diagnostic_failed",
+    "risk_status": "blocked_risk_engine_or_final_reducer",
+    "final_blocker_reducer_status": "blocked_remaining_first_live_order_final_blockers",
+    "next_recommended_safe_action": "Run signer_diagnostic_evidence_bridge after guarded signer diagnostic evidence can become OK; do not fake OK evidence."
+  },
+  "telegram_product_ux_preservation": {
+    "status": "preserved",
+    "validated_by": [
+      "test_telegram_product_ux_076t.py",
+      "test_telegram_single_message_product_menu_069c.py",
+      "test_telegram_forbidden_live_controls_063a.py",
+      "test_telegram_operator_token_selection_074b.py",
+      "test_telegram_risk_engine_v2_status_075b.py"
+    ],
+    "summary": "076U/076T product UX tests passed, covering first launch language selection, product description/menu behavior, same-message navigation, and forbidden live controls."
+  },
+  "risk_engine_v2_status": {
+    "runner_status": "blocked_risk_engine_v2_review",
+    "blockers": 14,
+    "allowed_for_live": false,
+    "summary": "Risk Engine v2 remains fail-closed and does not authorize live execution."
+  },
+  "final_blocker_reducer_status": {
+    "runner_status": "blocked_remaining_first_live_order_final_blockers",
+    "remaining_blockers": 10,
+    "allowed_for_live": false,
+    "summary": "Final blocker reducer still blocks live execution, signing, submission, and cancellation."
+  },
+  "static_safety_report_summary": {
+    "critical_findings": 0,
+    "warnings": 9,
+    "live_execution": "blocked",
+    "order_submission": "blocked",
+    "signing": "blocked",
+    "wallet": "blocked"
+  },
+  "manual_safety_scan_summary": {
+    "status": "passed",
+    "summary": "Added-line scans found broad safety keyword hits only in false flags, forbidden flag rejection tests, status strings, artifact summaries, and negative assertion text. Exact enabling-pattern scan found no executable true assignment; the only match was negative test assertion text containing allowed_for_live equals True."
+  },
+  "safety_flags": {
+    "paper_only": true,
+    "submit_ready": false,
+    "live_ready": false,
+    "allowed_for_live": false,
+    "order_submission_enabled": false,
+    "order_cancellation_enabled": false,
+    "signing_by_default": false,
+    "wallet_connected": false,
+    "full_signed_payload_output": false,
+    "fake_balances_emitted": false,
+    "fake_orders_emitted": false,
+    "fake_fills_emitted": false,
+    "fake_pnl_emitted": false,
+    "scheduler_or_daemon_added": false,
+    "background_worker_added": false
+  },
+  "remote_verification": {
+    "pre_push_master": "a3128bccab7fe27f68b439a8417e509eb88c36ef",
+    "post_push_master": "pending_push"
+  },
+  "final_git_status": "pending_commit_push_verify"
+}
