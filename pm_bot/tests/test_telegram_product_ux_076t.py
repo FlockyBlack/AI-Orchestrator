@@ -225,18 +225,16 @@ def test_balance_missing_connection_routes_to_connection() -> None:
     assert _callbacks(reply) == ("pmbot:connection",)
 
 
-def test_connected_balance_shows_only_available_readonly_fields() -> None:
+def test_connected_balance_without_account_artifact_shows_safe_readonly_probe_command() -> None:
     reply = _adapter(connected=True).handle_callback(
         user_id=AUTHORIZED_USER_ID,
         chat_id="chat-1",
         callback_data="pmbot:balance",
     )
 
-    assert "Кошелёк: 0x3006...0760" in reply.text
-    assert "Баланс: нет данных" in reply.text
-    assert "Открытые позиции: нет данных" in reply.text
-    assert "Открытые ордера: нет данных" in reply.text
-    assert "Последняя проверка: 2026-05-16T00:00:00+04:00" in reply.text
+    assert "Ключи видны, но проверка аккаунта ещё не выполнена." in reply.text
+    assert "python -m pm_bot.operator_runner.live_account_readonly_state_probe --market BTC --strategy tiny-momentum --dry-run" in reply.text
+    assert _labels(reply) == ("🔄 Обновить", "🔌 Подключение", "⬅️ Главное меню")
     for fake_value in ("$0", "0.00", "order_id", "filled", "profit:", "loss:"):
         assert fake_value.lower() not in reply.text.lower()
 

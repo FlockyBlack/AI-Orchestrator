@@ -206,7 +206,8 @@ def test_balance_trades_and_pnl_screens_do_not_emit_fake_data() -> None:
     trades = bot.handle_command(user_id=AUTHORIZED_USER_ID, text="/trades")
     pnl = bot.handle_command(user_id=AUTHORIZED_USER_ID, text="/pnl")
 
-    assert "Баланс: нет данных" in balance.text
+    assert "Ключи видны, но проверка аккаунта ещё не выполнена." in balance.text
+    assert "python -m pm_bot.operator_runner.live_account_readonly_state_probe --market BTC --strategy tiny-momentum --dry-run" in balance.text
     assert "Live-сделок пока не было" in trades.text
     assert "PnL пока недоступен: live-сделок ещё не было." in pnl.text
     combined = "\n".join([balance.text, trades.text, pnl.text]).lower()

@@ -85,15 +85,24 @@ BALANCE_MISSING_BUTTON_ROWS_BY_LANGUAGE = {
     ),
 }
 
+BALANCE_CONNECTION_BUTTON_ROWS_BY_LANGUAGE = {
+    "ru": (
+        (("🔌 Подключение", "pmbot:connection"),),
+    ),
+    "en": (
+        (("🔌 Connection", "pmbot:connection"),),
+    ),
+}
+
 BALANCE_PRODUCT_BUTTON_ROWS_BY_LANGUAGE = {
     "ru": (
         (("🔄 Обновить", "pmbot:balance"),),
-        (("📌 Позиции", "pmbot:positions"), ("📜 Ордера", "pmbot:orders")),
+        (("🔌 Подключение", "pmbot:connection"),),
         (("⬅️ Главное меню", "pmbot:home"),),
     ),
     "en": (
         (("🔄 Refresh", "pmbot:balance"),),
-        (("📌 Positions", "pmbot:positions"), ("📜 Orders", "pmbot:orders")),
+        (("🔌 Connection", "pmbot:connection"),),
         (("⬅️ Main menu", "pmbot:home"),),
     ),
 }
@@ -532,6 +541,12 @@ def balance_missing_button_rows(language: str) -> tuple[tuple[tuple[str, str], .
     ]
 
 
+def balance_connection_button_rows(language: str) -> tuple[tuple[tuple[str, str], ...], ...]:
+    return BALANCE_CONNECTION_BUTTON_ROWS_BY_LANGUAGE[
+        normalize_operator_language(language, fallback=DEFAULT_OPERATOR_LANGUAGE)
+    ]
+
+
 def balance_product_button_rows(language: str) -> tuple[tuple[tuple[str, str], ...], ...]:
     return BALANCE_PRODUCT_BUTTON_ROWS_BY_LANGUAGE[
         normalize_operator_language(language, fallback=DEFAULT_OPERATOR_LANGUAGE)
@@ -631,6 +646,7 @@ def all_button_rows() -> tuple[tuple[tuple[str, str], ...], ...]:
         rows.extend(product_description_button_rows(language))
         rows.extend(connection_product_button_rows(language))
         rows.extend(balance_missing_button_rows(language))
+        rows.extend(balance_connection_button_rows(language))
         rows.extend(balance_product_button_rows(language))
         rows.extend(analytics_product_button_rows(language))
         rows.extend(launch_product_button_rows(language))
