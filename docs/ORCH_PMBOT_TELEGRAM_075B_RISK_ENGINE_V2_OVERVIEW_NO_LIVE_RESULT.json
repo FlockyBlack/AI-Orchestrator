@@ -1,0 +1,148 @@
+{
+  "task_id": "ORCH-PMBOT-TELEGRAM-075B-RISK-ENGINE-V2-OVERVIEW-NO-LIVE",
+  "branch": "pmbot/telegram-075b-risk-engine-v2-overview-no-live",
+  "base": "origin/master",
+  "head_before": "044d0dccd2f065e09f4dedfac504638d907facc8",
+  "head_after": "recorded_in_final_response_after_commit_push_verify",
+  "pushed": "recorded_in_final_response_after_push",
+  "remote_verified": "recorded_in_final_response_after_push",
+  "status": "completed_review_only",
+  "changed_files": [
+    "docs/ORCH_PMBOT_TELEGRAM_075B_RISK_ENGINE_V2_OVERVIEW_NO_LIVE_RESULT.json",
+    "pm_bot/operator_runner/risk_engine_v2_review.py",
+    "pm_bot/operator_runner/telegram_operator_control_bot.py",
+    "pm_bot/operator_runner/telegram_status_registry.py",
+    "pm_bot/telegram_mini_app/index.html",
+    "pm_bot/telegram_mini_app/styles.css",
+    "pm_bot/tests/test_risk_engine_v2_074d.py",
+    "pm_bot/tests/test_telegram_risk_engine_v2_status_075b.py",
+    "pm_bot/trading_core/risk_engine_v2_review.py",
+    "pm_bot/trading_core/telegram_risk_engine_v2_status_075b.py"
+  ],
+  "safe_cli_command": "python -m pm_bot.operator_runner.risk_engine_v2_review --market BTC --strategy tiny-momentum --dry-run",
+  "validation": [
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_risk_engine_v2_status_075b.py",
+      "result": "pass",
+      "details": "4 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_risk_engine_v2_074d.py",
+      "result": "pass",
+      "details": "3 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_forbidden_live_controls_063a.py",
+      "result": "pass",
+      "details": "3 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_single_message_product_menu_069c.py",
+      "result": "pass",
+      "details": "12 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_real_check_results_display_073t.py",
+      "result": "pass",
+      "details": "6 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_operator_token_selection_074b.py",
+      "result": "pass",
+      "details": "5 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_mini_app_product_dashboard_068d.py",
+      "result": "pass",
+      "details": "7 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_mini_app_order_prep_dashboard_072f.py",
+      "result": "pass",
+      "details": "5 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_mini_app_scaffold_067b.py",
+      "result": "pass",
+      "details": "6 passed"
+    },
+    {
+      "command": "python -B -m pytest pm_bot/tests",
+      "result": "pass",
+      "details": "2184 passed"
+    },
+    {
+      "command": "python -m compileall -q pm_bot",
+      "result": "pass",
+      "details": "exit code 0"
+    },
+    {
+      "command": "python -m compileall -q ai_orchestrator",
+      "result": "pass",
+      "details": "exit code 0"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.telegram_runtime_smoke --json",
+      "result": "pass",
+      "details": "ready_to_start_runtime=true; review_only_safety_flags_ok=true; network_check_requested=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.static_safety_invariant_report --scope pm_bot --dry-run",
+      "result": "pass",
+      "details": "critical findings 0; warnings 7; live execution/order submission/signing/wallet blocked"
+    },
+    {
+      "command": "git diff --check",
+      "result": "pass",
+      "details": "exit code 0"
+    }
+  ],
+  "telegram_behavior": {
+    "screen_title": "Risk Engine v2",
+    "reachable_from": "status/details flow",
+    "primary_menu_preserved": [
+      "Подключение",
+      "Баланс",
+      "Сделки",
+      "PnL",
+      "Лимиты",
+      "Статус",
+      "Mini App",
+      "Язык",
+      "Стоп"
+    ],
+    "same_message_navigation_preserved": true,
+    "shows": [
+      "allowed_for_live=false",
+      "first_supervised_tiny_order_blocked=true",
+      "gate_count",
+      "remaining_blocker_count",
+      "top blockers",
+      "unknown evidence groups",
+      "last artifact timestamp/path when available",
+      "safe local dry-run command"
+    ]
+  },
+  "mini_app_behavior": {
+    "static_review_only_section_added": true,
+    "network_fetches_added": false,
+    "secret_forms_added": false,
+    "wallet_or_signing_controls_added": false,
+    "submit_or_cancel_controls_added": false
+  },
+  "safety": {
+    "review_only": true,
+    "allowed_for_live": false,
+    "real_orders_submitted": false,
+    "polymarket_api_calls_added": false,
+    "wallet_connect_ui_added": false,
+    "private_key_or_api_secret_reads_added": false,
+    "background_workers_added": false,
+    "fake_balances_orders_fills_pnl_order_ids_or_tx_hashes_added": false,
+    "static_safety_summary": "0 critical findings; live execution, order submission, signing, and wallet remain blocked"
+  },
+  "remaining_risks": [
+    "The screen is intentionally artifact/local-review based; missing evidence groups remain blockers until local review artifacts exist.",
+    "Final commit hash, push state, and remote verification are reported in the final response because embedding the final commit hash in this committed JSON is self-referential."
+  ]
+}

@@ -59,6 +59,10 @@ from pm_bot.trading_core.telegram_operator_token_selection_074b import (
     normalize_telegram_operator_token_selection_summary,
     render_telegram_operator_token_selection_text,
 )
+from pm_bot.trading_core.telegram_risk_engine_v2_status_075b import (
+    normalize_telegram_risk_engine_v2_status_summary,
+    render_telegram_risk_engine_v2_status_text,
+)
 from pm_bot.trading_core.secret_boundary_policy import (
     validate_secret_boundary_telegram_operator_control_config,
     validate_secret_boundary_telegram_operator_control_summary,
@@ -82,6 +86,7 @@ TASK_ID_067E = "ORCH-PMBOT-TELEGRAM-067E-WALLET-AUTH-STATUS-DASHBOARD-NO-LIVE"
 TASK_ID_071E = "ORCH-PMBOT-TELEGRAM-071E-ORDER-PREP-STATUS-SCREEN-NO-LIVE"
 TASK_ID_072B = "ORCH-PMBOT-TELEGRAM-072B-ORDER-PREP-PACKET-SCREEN-NO-LIVE"
 TASK_ID_074B = "ORCH-PMBOT-TELEGRAM-074B-OPERATOR-TOKEN-SELECTION-UX-NO-TRADING"
+TASK_ID_075B = "ORCH-PMBOT-TELEGRAM-075B-RISK-ENGINE-V2-OVERVIEW-NO-LIVE"
 
 SAFE_ACTION_COMMANDS = tuple(f"/{action.action_id}" for action in SAFE_ACTIONS)
 
@@ -105,6 +110,7 @@ SUPPORTED_COMMANDS = (
     "/token_selection",
     "/token_candidate_1",
     "/token_candidate_2",
+    "/risk_engine_v2",
     "/btc",
     "/intent",
     "/risk",
@@ -139,6 +145,7 @@ CALLBACK_COMMAND_MAP = {
     "pmbot:token_selection": "/token_selection",
     "pmbot:token_selection:candidate:0": "/token_candidate_1",
     "pmbot:token_selection:candidate:1": "/token_candidate_2",
+    "pmbot:risk_engine_v2": "/risk_engine_v2",
     "pmbot:btc": "/btc",
     "pmbot:intent": "/intent",
     "pmbot:risk": "/risk",
@@ -513,6 +520,7 @@ class TelegramOperatorControlBot:
             "/token_selection": self._render_operator_token_selection,
             "/token_candidate_1": lambda: self._render_operator_token_selection(selected_candidate_index=0),
             "/token_candidate_2": lambda: self._render_operator_token_selection(selected_candidate_index=1),
+            "/risk_engine_v2": self._render_risk_engine_v2,
             "/balance": self._render_balance,
             "/trades": self._render_trades,
             "/pnl": self._render_pnl,
@@ -635,6 +643,7 @@ class TelegramOperatorControlBot:
                     "Подписание: выключено",
                     "Wallet execution: выключен",
                     "allowed_for_live=false",
+                    "Risk Engine v2: allowed_for_live=false; first_supervised_tiny_order_blocked=true",
                 ]
             )
         return "\n".join(
@@ -646,6 +655,7 @@ class TelegramOperatorControlBot:
                 "signing disabled",
                 "wallet execution disabled",
                 "allowed_for_live=false",
+                "Risk Engine v2: allowed_for_live=false; first_supervised_tiny_order_blocked=true",
             ]
         )
 
@@ -1010,6 +1020,12 @@ class TelegramOperatorControlBot:
                 f"--candidate-index {selected_candidate_index}"
             )
         return render_telegram_operator_token_selection_text(status, language=self._language())
+
+    def _render_risk_engine_v2(self) -> str:
+        status = normalize_telegram_risk_engine_v2_status_summary(
+            self._summary().get("telegram_risk_engine_v2_status_075b_status_summary", {})
+        )
+        return render_telegram_risk_engine_v2_status_text(status, language=self._language())
 
     def _render_order(self) -> str:
         order = dict(self._summary().get("live_order_submission_boundary_summary", {}))
@@ -1557,6 +1573,8 @@ class TelegramOperatorControlBot:
             "/trades",
             "/pnl",
             "/bot_status",
+            "/status",
+            "/risk_engine_v2",
             "/limits",
             "/panel",
             "/stop",
@@ -1689,6 +1707,12 @@ def _product_screen_button_rows(command: str, language: str) -> tuple[tuple[tupl
         return ((check,), (mini_app,), (back,))
     if command in {"/balance", "/trades"}:
         return ((check,), (back,))
+    if command in {"/bot_status", "/status"}:
+        risk = ("🛡 Risk Engine v2", "pmbot:risk_engine_v2")
+        return ((risk,), (back,))
+    if command == "/risk_engine_v2":
+        status = ("🤖 Статус" if language == "ru" else "🤖 Status", "pmbot:bot_status")
+        return ((status,), (back,))
     return ((back,),)
 
 
@@ -1885,6 +1909,11 @@ def build_telegram_operator_control_summary(
         context_value.get("telegram_operator_token_selection_074b_status"),
         context_value.get("latest_telegram_operator_token_selection_074b"),
     )
+    telegram_risk_engine_v2_status_075b = _first_mapping(
+        context_value.get("telegram_risk_engine_v2_status_075b_status_summary"),
+        context_value.get("telegram_risk_engine_v2_status_075b_status"),
+        context_value.get("latest_telegram_risk_engine_v2_status_075b"),
+    )
     mini_panel = _first_mapping(
         context_value.get("telegram_mini_app_operator_panel_summary"),
         context_value.get("telegram_mini_app_operator_panel"),
@@ -1938,6 +1967,7 @@ def build_telegram_operator_control_summary(
                 "telegram_order_prep_status_071e": telegram_order_prep_status_071e,
                 "telegram_order_prep_packet_status_072b": telegram_order_prep_packet_status_072b,
                 "telegram_operator_token_selection_074b": telegram_operator_token_selection_074b,
+                "telegram_risk_engine_v2_status_075b": telegram_risk_engine_v2_status_075b,
             },
         ),
         "task_id": TASK_ID,
@@ -2003,6 +2033,9 @@ def build_telegram_operator_control_summary(
         ),
         "telegram_operator_token_selection_074b_status_summary": normalize_telegram_operator_token_selection_summary(
             telegram_operator_token_selection_074b
+        ),
+        "telegram_risk_engine_v2_status_075b_status_summary": normalize_telegram_risk_engine_v2_status_summary(
+            telegram_risk_engine_v2_status_075b
         ),
         "telegram_mini_app_operator_panel_summary": mini_panel,
         "telegram_operator_console_060t_status_registry": telegram_operator_console,

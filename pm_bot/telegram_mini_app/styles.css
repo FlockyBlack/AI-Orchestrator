@@ -226,6 +226,10 @@ body {
   grid-column: 1 / -1;
 }
 
+.risk-engine-card {
+  grid-column: span 8;
+}
+
 .real-check-list {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
@@ -253,6 +257,33 @@ body {
 .order-prep-list dd {
   justify-content: flex-start;
   text-align: left;
+}
+
+.risk-engine-list {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.risk-engine-list div {
+  grid-template-columns: 1fr;
+  align-content: start;
+  min-height: 104px;
+}
+
+.risk-engine-list dd {
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.command-line {
+  display: block;
+  width: 100%;
+  overflow-wrap: anywhere;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px;
+  color: var(--silver);
+  background: rgba(0, 0, 0, 0.18);
+  font: 0.82rem/1.35 Consolas, "Liberation Mono", monospace;
 }
 
 .safe-placeholder {
@@ -433,7 +464,15 @@ body {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .risk-engine-card {
+    grid-column: 1 / -1;
+  }
+
   .real-check-list {
+    grid-template-columns: 1fr;
+  }
+
+  .risk-engine-list {
     grid-template-columns: 1fr;
   }
 
@@ -461,6 +500,10 @@ body {
   }
 
   .order-prep-list {
+    grid-template-columns: 1fr;
+  }
+
+  .risk-engine-list {
     grid-template-columns: 1fr;
   }
 

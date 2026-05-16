@@ -30,6 +30,12 @@ from pm_bot.trading_core.telegram_operator_token_selection_074b import (
     LATEST_STATUS_FILENAME as TELEGRAM_OPERATOR_TOKEN_SELECTION_074B_LATEST_STATUS_FILENAME,
     normalize_telegram_operator_token_selection_summary,
 )
+from pm_bot.trading_core.telegram_risk_engine_v2_status_075b import (
+    ARTIFACT_DIR_NAME as TELEGRAM_RISK_ENGINE_V2_STATUS_075B_ARTIFACT_DIR_NAME,
+    LATEST_STATUS_FILENAME as TELEGRAM_RISK_ENGINE_V2_STATUS_075B_LATEST_STATUS_FILENAME,
+    build_telegram_risk_engine_v2_status,
+    normalize_telegram_risk_engine_v2_status_summary,
+)
 from pm_bot.trading_core.telegram_wallet_auth_status_dashboard import (
     ARTIFACT_DIR_NAME as TELEGRAM_CONNECTION_STATUS_067E_ARTIFACT_DIR_NAME,
     LATEST_STATUS_FILENAME as TELEGRAM_CONNECTION_STATUS_067E_LATEST_STATUS_FILENAME,
@@ -46,6 +52,7 @@ TELEGRAM_ORDER_PREP_STATUS_071E_FLOW_ID = "telegram_order_prep_status_071e"
 TELEGRAM_ORDER_PREP_PACKET_STATUS_072B_FLOW_ID = "telegram_order_prep_packet_status_072b"
 TELEGRAM_REAL_CHECK_RESULTS_073T_FLOW_ID = "telegram_real_check_results_073t"
 TELEGRAM_OPERATOR_TOKEN_SELECTION_074B_FLOW_ID = "telegram_operator_token_selection_074b"
+TELEGRAM_RISK_ENGINE_V2_STATUS_075B_FLOW_ID = "telegram_risk_engine_v2_status_075b"
 STATUS_REGISTRY_CONTRACT = "pmbot_telegram_operator_console_060t_status_registry.v1"
 STATUS_CARD_CONTRACT = "pmbot_telegram_operator_console_060t_status_card.v1"
 READINESS_SUMMARY_CONTRACT = "pmbot_telegram_operator_console_060t_readiness.v1"
@@ -440,6 +447,15 @@ STATUS_SOURCES: tuple[TelegramStatusSource, ...] = (
         label_en="Token selection review",
         label_ru="Выбор рынка / Token ID",
     ),
+    TelegramStatusSource(
+        flow_id=TELEGRAM_RISK_ENGINE_V2_STATUS_075B_FLOW_ID,
+        section="Live Readiness",
+        artifact_dir_name=TELEGRAM_RISK_ENGINE_V2_STATUS_075B_ARTIFACT_DIR_NAME,
+        latest_status_filename=TELEGRAM_RISK_ENGINE_V2_STATUS_075B_LATEST_STATUS_FILENAME,
+        context_key="telegram_risk_engine_v2_status_075b_status_summary",
+        label_en="Risk Engine v2",
+        label_ru="Risk Engine v2",
+    ),
 )
 
 SAFE_ACTIONS: tuple[TelegramSafeAction, ...] = (
@@ -638,6 +654,9 @@ def build_telegram_console_context(
             ],
             "telegram_credentials_readiness_review_064t_status": snapshot[
                 "credentials_readiness_review_064t"
+            ],
+            "telegram_risk_engine_v2_status_075b_status": snapshot["context_fields"][
+                "telegram_risk_engine_v2_status_075b_status_summary"
             ],
         }
     )
@@ -1519,6 +1538,7 @@ def telegram_console_button_rows(language: str) -> tuple[tuple[tuple[str, str], 
     )
     rows.append((("🔐 Подключение" if ru else "Connection status 067E", "pmbot:connection_status"),))
     rows.append((("Выбор рынка / Token ID" if ru else "Token selection review", "pmbot:token_selection"),))
+    rows.append((("🛡 Risk Engine v2", "pmbot:risk_engine_v2"),))
     action_rows = [
         ("run_paper_canary_052", "run_paper_loop_053"),
         ("run_public_market_paper_loop_054", "run_decision_ledger_055"),
@@ -1705,6 +1725,21 @@ def _build_status_card(
         status_summary.update(normalize_telegram_real_check_results_status_summary(payload))
     if source.flow_id == TELEGRAM_OPERATOR_TOKEN_SELECTION_074B_FLOW_ID:
         status_summary.update(normalize_telegram_operator_token_selection_summary(payload))
+    risk_engine_explicit_payload_available = False
+    if source.flow_id == TELEGRAM_RISK_ENGINE_V2_STATUS_075B_FLOW_ID:
+        risk_engine_explicit_payload_available = latest_path is not None and bool(payload) and not load_error
+        if not payload:
+            payload = build_telegram_risk_engine_v2_status(
+                artifact_root=artifact_root,
+                generated_at=generated_at,
+            )
+        status_summary.update(normalize_telegram_risk_engine_v2_status_summary(payload))
+    available = bool(payload)
+    if source.flow_id == TELEGRAM_RISK_ENGINE_V2_STATUS_075B_FLOW_ID:
+        available = (
+            risk_engine_explicit_payload_available
+            or status_summary.get("source_artifact_available") is True
+        )
     return {
         "contract_version": STATUS_CARD_CONTRACT,
         "task_id": TASK_ID,
@@ -1713,7 +1748,7 @@ def _build_status_card(
         "label_en": source.label_en,
         "label_ru": source.label_ru,
         "generated_at": generated_at,
-        "available": bool(payload),
+        "available": available,
         "status": clean_text(status_summary.get("status") or "missing"),
         "market": clean_text(status_summary.get("market") or "not_available"),
         "mode": clean_text(status_summary.get("mode") or "review-only"),

@@ -202,6 +202,47 @@
           </ul>
         </article>
 
+        <article class="card risk-engine-card" id="risk-engine-v2" data-contract="risk engine v2: local static review only; no live controls">
+          <div class="card-header">
+            <span class="card-icon" aria-hidden="true">🛡</span>
+            <div>
+              <p class="card-label">Risk Engine v2</p>
+              <h3>🛡 Risk Engine v2</h3>
+            </div>
+          </div>
+          <dl class="status-list risk-engine-list" aria-label="Risk Engine v2 review-only status">
+            <div>
+              <dt>allowed_for_live</dt>
+              <dd><span class="badge danger">false</span><small>live execution stays blocked</small></dd>
+            </div>
+            <div>
+              <dt>first_supervised_tiny_order_blocked</dt>
+              <dd><span class="badge danger">true</span><small>review-only overview</small></dd>
+            </div>
+            <div>
+              <dt>gate_count</dt>
+              <dd><span class="badge neutral">7</span><small>local evidence groups</small></dd>
+            </div>
+            <div>
+              <dt>remaining_blocker_count</dt>
+              <dd><span class="badge warning">12</span><small>from local review artifact when available</small></dd>
+            </div>
+            <div>
+              <dt>unknown evidence groups</dt>
+              <dd><span class="badge muted">none in latest committed 074A snapshot</span><small>unknown stays blocked if artifacts are missing</small></dd>
+            </div>
+            <div>
+              <dt>last artifact</dt>
+              <dd><span class="badge muted">local</span><small>pm_bot/trading_core/artifacts/real_local_check_evidence_review_074a/latest_real_local_check_evidence_review_status_074a.json</small></dd>
+            </div>
+          </dl>
+          <div class="empty-state safe-placeholder">
+            <strong>Top blockers stay unresolved</strong>
+            <p>Operator approval, final live authorization, submit/cancel/signing boundaries, and source completeness remain review blockers.</p>
+            <code class="command-line">python -m pm_bot.operator_runner.risk_engine_v2_review --market BTC --strategy tiny-momentum --dry-run</code>
+          </div>
+        </article>
+
         <article class="card" id="limits" data-contract="risk limits: tiny mode planned">
           <div class="card-header">
             <span class="card-icon" aria-hidden="true">⚙️</span>
