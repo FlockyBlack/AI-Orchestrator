@@ -5,7 +5,7 @@
   "base_head": "59f87a32ef0dc2c899611ad0caa198b7da8f2942",
   "head_before": "59f87a32ef0dc2c899611ad0caa198b7da8f2942",
   "head_after": "POST_PUSH_HEAD_REPORTED_IN_FINAL_CHAT",
-  "status": "implemented_validated_pending_commit_push",
+  "status": "implemented_validated_committed_pushed",
   "summary": {
     "selected_candidate_artifact_075d": "Added a review-only selected candidate artifact contract and CLI that records only an existing source-backed 073B candidate index.",
     "token_id_handling": "Raw full token IDs are read only from local 073B artifacts in memory, then persisted as token_id_short and token_id_hash only.",
@@ -36,6 +36,7 @@
     "pm_bot/trading_core/artifacts/selected_candidate_instruction_packet_075a/selected_candidate_instruction_packet_075a.json",
     "pm_bot/trading_core/artifacts/selected_candidate_instruction_packet_075a/selected_candidate_instruction_packet_075a.md",
     "pm_bot/trading_core/artifacts/selected_candidate_instruction_packet_075a/selected_candidate_instruction_packet_075a_result.json",
+    "pm_bot/trading_core/artifacts/selected_candidate_instruction_packet_075a/selected_candidate_instruction_safety_snapshot_075a.json",
     "pm_bot/trading_core/artifacts/selected_token_payload_readiness_gate_073c/latest_selected_token_payload_readiness_status_073c.json",
     "pm_bot/trading_core/artifacts/selected_token_payload_readiness_gate_073c/selected_token_payload_readiness_blockers_073c.json",
     "pm_bot/trading_core/artifacts/selected_token_payload_readiness_gate_073c/selected_token_payload_readiness_gate_073c_result.json",
@@ -153,7 +154,7 @@
     "073C still blocks downstream readiness because resolver/signer readiness must be satisfied separately."
   ],
   "push": {
-    "pushed": false,
-    "remote_verified": false
+    "pushed": true,
+    "remote_verified": true
   }
 }
