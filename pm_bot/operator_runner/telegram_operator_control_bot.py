@@ -77,6 +77,12 @@ from pm_bot.trading_core.telegram_risk_engine_v2_status_075b import (
     normalize_telegram_risk_engine_v2_status_summary,
     render_telegram_risk_engine_v2_status_text,
 )
+from pm_bot.trading_core.runtime_credential_visibility_077c import (
+    DEFAULT_ARTIFACT_DIR as RUNTIME_CREDENTIAL_VISIBILITY_077C_ARTIFACT_DIR,
+    DEFAULT_MARKET as RUNTIME_CREDENTIAL_VISIBILITY_DEFAULT_MARKET,
+    DEFAULT_STRATEGY as RUNTIME_CREDENTIAL_VISIBILITY_DEFAULT_STRATEGY,
+    run_runtime_credential_visibility_diagnostic,
+)
 from pm_bot.trading_core.secret_boundary_policy import (
     validate_secret_boundary_telegram_operator_control_config,
     validate_secret_boundary_telegram_operator_control_summary,
@@ -101,6 +107,7 @@ TASK_ID_071E = "ORCH-PMBOT-TELEGRAM-071E-ORDER-PREP-STATUS-SCREEN-NO-LIVE"
 TASK_ID_072B = "ORCH-PMBOT-TELEGRAM-072B-ORDER-PREP-PACKET-SCREEN-NO-LIVE"
 TASK_ID_074B = "ORCH-PMBOT-TELEGRAM-074B-OPERATOR-TOKEN-SELECTION-UX-NO-TRADING"
 TASK_ID_075B = "ORCH-PMBOT-TELEGRAM-075B-RISK-ENGINE-V2-OVERVIEW-NO-LIVE"
+TASK_ID_077E = "ORCH-PMBOT-TELEGRAM-077E-CONNECTION-CREDENTIAL-VISIBILITY-NO-LIVE"
 
 SAFE_ACTION_COMMANDS = tuple(f"/{action.action_id}" for action in SAFE_ACTIONS)
 
@@ -732,32 +739,62 @@ class TelegramOperatorControlBot:
     def _render_connection(self) -> str:
         status = _build_connection_product_display_status(self._summary())
         if self._language() == "ru":
-            return "\n".join(
+            lines = [
+                "🔌 Подключение",
+                "",
+                "Подключение Polymarket",
+                "",
+                "Статус ключей:",
+                _render_connection_status_line("API Key", status, "api_key", language="ru"),
+                _render_connection_status_line("API Secret", status, "api_secret", language="ru"),
+                _render_connection_status_line("Passphrase", status, "passphrase", language="ru"),
+                _render_connection_status_line("Private Key", status, "private_key", language="ru"),
+                _render_connection_status_line("Wallet Address", status, "wallet_address", language="ru"),
+                _render_connection_status_line("Signature Type", status, "signature_type", language="ru"),
+                _render_connection_status_line("Funder Address", status, "funder_address", language="ru"),
+                "",
+                "Telegram:",
+                _render_connection_status_line("Bot Token", status, "telegram_bot_token", language="ru"),
+                _render_connection_status_line("Operator IDs", status, "telegram_operator_ids", language="ru"),
+            ]
+            missing_funder_copy = _missing_funder_address_copy(status, language="ru")
+            if missing_funder_copy:
+                lines.extend(["", missing_funder_copy])
+            lines.extend(
                 [
-                    "🔌 Подключение",
-                    f"API Key: {_ru_connected(status['api_key_connected'])}",
-                    f"API Secret: {_ru_connected(status['api_secret_connected'])}",
-                    f"Passphrase: {_ru_connected(status['passphrase_connected'])}",
-                    f"Wallet address: {_ru_connected(status['wallet_address_connected'])}{_safe_detail(status['wallet_display'])}",
-                    f"Signature type: {_ru_connected(status['signature_type_connected'])}{_safe_detail(status['signature_type_display'])}",
-                    f"Funder address: {_ru_connected(status['funder_address_connected'])}{_safe_detail(status['funder_display'])}",
                     "",
                     "Ключи должны быть доступны процессу Telegram-бота через переменные окружения.",
+                    "Показываются только статус, длина и безопасный отпечаток, если они доступны.",
+                    "Секретные значения в Telegram не выводятся.",
                 ]
             )
+            return "\n".join(lines)
         return "\n".join(
             [
                 "🔌 Connection",
-                f"API Key: {_en_connected(status['api_key_connected'])}",
-                f"API Secret: {_en_connected(status['api_secret_connected'])}",
-                f"Passphrase: {_en_connected(status['passphrase_connected'])}",
-                f"Wallet address: {_en_connected(status['wallet_address_connected'])}{_safe_detail(status['wallet_display'])}",
-                f"Signature type: {_en_connected(status['signature_type_connected'])}{_safe_detail(status['signature_type_display'])}",
-                f"Funder address: {_en_connected(status['funder_address_connected'])}{_safe_detail(status['funder_display'])}",
+                "",
+                "Polymarket connection",
+                "",
+                "Key status:",
+                _render_connection_status_line("API Key", status, "api_key", language="en"),
+                _render_connection_status_line("API Secret", status, "api_secret", language="en"),
+                _render_connection_status_line("Passphrase", status, "passphrase", language="en"),
+                _render_connection_status_line("Private Key", status, "private_key", language="en"),
+                _render_connection_status_line("Wallet Address", status, "wallet_address", language="en"),
+                _render_connection_status_line("Signature Type", status, "signature_type", language="en"),
+                _render_connection_status_line("Funder Address", status, "funder_address", language="en"),
+                "",
+                "Telegram:",
+                _render_connection_status_line("Bot Token", status, "telegram_bot_token", language="en"),
+                _render_connection_status_line("Operator IDs", status, "telegram_operator_ids", language="en"),
+                "",
+                _missing_funder_address_copy(status, language="en"),
                 "",
                 "Keys must be available to the Telegram bot runtime process through environment variables.",
+                "Only status, length, and safe fingerprint are shown when available.",
+                "Secret values are never printed in Telegram.",
             ]
-        )
+        ).replace("\n\n\n", "\n\n").rstrip()
 
     def _render_connection_setup(self) -> str:
         if self._language() == "ru":
@@ -765,22 +802,23 @@ class TelegramOperatorControlBot:
                 [
                     "➕ Подключить API-ключи",
                     "Безопасное подключение выполняется через переменные окружения процесса Telegram-бота.",
-                    "Нужны: POLYMARKET_L2_API_KEY, POLYMARKET_L2_API_SECRET, POLYMARKET_L2_PASSPHRASE, POLYMARKET_WALLET_ADDRESS, POLYMARKET_SIGNATURE_TYPE и POLYMARKET_FUNDER_ADDRESS.",
-                    "Значения не вводятся в чат. Зашифрованное хранилище прямо в Telegram будет добавлено отдельно.",
-                    "После настройки перезапустите runtime и нажмите «Проверить подключение».",
+                    "Нужны: POLYMARKET_API_KEY, POLYMARKET_API_SECRET, POLYMARKET_API_PASSPHRASE, POLYMARKET_PRIVATE_KEY, POLYMARKET_WALLET_ADDRESS, POLYMARKET_SIGNATURE_TYPE, POLYMARKET_FUNDER_ADDRESS.",
+                    "Значения не вводятся в чат.",
+                    "После настройки перезапустите runtime и нажмите «Проверить снова».",
                 ]
             )
         return "\n".join(
             [
                 "➕ Connect API keys",
                 "Safe setup is done with environment variables available to the Telegram bot runtime process.",
-                "Required: POLYMARKET_L2_API_KEY, POLYMARKET_L2_API_SECRET, POLYMARKET_L2_PASSPHRASE, POLYMARKET_WALLET_ADDRESS, POLYMARKET_SIGNATURE_TYPE, and POLYMARKET_FUNDER_ADDRESS.",
-                "Do not paste values into chat. Direct encrypted Telegram credential storage will be added separately.",
-                "After setup, restart the runtime and tap Check connection.",
+                "Required: POLYMARKET_API_KEY, POLYMARKET_API_SECRET, POLYMARKET_API_PASSPHRASE, POLYMARKET_PRIVATE_KEY, POLYMARKET_WALLET_ADDRESS, POLYMARKET_SIGNATURE_TYPE, and POLYMARKET_FUNDER_ADDRESS.",
+                "Do not paste values into chat.",
+                "After setup, restart the runtime and tap Check again.",
             ]
         )
 
     def _render_connection_check(self) -> str:
+        self._refresh_runtime_credential_visibility_context()
         return self._render_connection()
 
     def _render_connection_instruction(self) -> str:
@@ -788,19 +826,45 @@ class TelegramOperatorControlBot:
             return "\n".join(
                 [
                     "📘 Инструкция",
-                    "1. Добавьте переменные окружения в окружение, из которого запускается Telegram runtime.",
-                    "2. Перезапустите процесс Telegram-бота.",
-                    "3. Откройте «Подключение» и нажмите «Проверить подключение».",
-                    "4. Проверяйте только статусы подключено / не подключено; секретные значения не выводятся.",
+                    "Настройте переменные окружения в том же окружении, из которого запускается Telegram runtime:",
+                    "POLYMARKET_API_KEY",
+                    "POLYMARKET_API_SECRET",
+                    "POLYMARKET_API_PASSPHRASE",
+                    "POLYMARKET_PRIVATE_KEY",
+                    "POLYMARKET_WALLET_ADDRESS",
+                    "POLYMARKET_SIGNATURE_TYPE",
+                    "POLYMARKET_FUNDER_ADDRESS",
+                    "",
+                    "Telegram aliases:",
+                    "PMBOT_TELEGRAM_BOT_TOKEN",
+                    "PMBOT_TELEGRAM_ALLOWED_OPERATOR_IDS",
+                    "",
+                    "Проверка в PowerShell без вывода секретов:",
+                    "python -m pm_bot.operator_runner.runtime_credential_visibility_diagnostic --market BTC --strategy tiny-momentum --dry-run",
+                    "",
+                    "Никогда не отправляйте private key/API secret/passphrase в Telegram chat.",
                 ]
             )
         return "\n".join(
             [
                 "📘 Guide",
-                "1. Add environment variables to the environment that starts the Telegram runtime.",
-                "2. Restart the Telegram bot process.",
-                "3. Open Connection and tap Check connection.",
-                "4. Check only connected / not connected statuses; secret values are never printed.",
+                "Set these environment variables in the same environment that starts the Telegram runtime:",
+                "POLYMARKET_API_KEY",
+                "POLYMARKET_API_SECRET",
+                "POLYMARKET_API_PASSPHRASE",
+                "POLYMARKET_PRIVATE_KEY",
+                "POLYMARKET_WALLET_ADDRESS",
+                "POLYMARKET_SIGNATURE_TYPE",
+                "POLYMARKET_FUNDER_ADDRESS",
+                "",
+                "Telegram aliases:",
+                "PMBOT_TELEGRAM_BOT_TOKEN",
+                "PMBOT_TELEGRAM_ALLOWED_OPERATOR_IDS",
+                "",
+                "PowerShell check without printing secrets:",
+                "python -m pm_bot.operator_runner.runtime_credential_visibility_diagnostic --market BTC --strategy tiny-momentum --dry-run",
+                "",
+                "Never send a private key, API secret, or passphrase in Telegram chat.",
             ]
         )
 
@@ -829,15 +893,13 @@ class TelegramOperatorControlBot:
                 return "\n".join(
                     [
                         "💰 Баланс",
-                        "Баланс недоступен.",
-                        "Сначала подключите API-ключи и кошелёк Polymarket.",
+                        "Баланс недоступен: сначала завершите подключение.",
                     ]
                 )
             return "\n".join(
                 [
                     "💰 Balance",
-                    "Balance is unavailable.",
-                    "Connect Polymarket API keys and wallet first.",
+                    "Balance is unavailable: finish the connection first.",
                 ]
             )
         status = dict(summary.get("telegram_connection_status_067e_status_summary", {}))
@@ -914,29 +976,34 @@ class TelegramOperatorControlBot:
 
     def _render_launch(self) -> str:
         config = _launch_config_from_state(self.state)
+        summary = self._summary()
+        connection_ready = _balance_connection_available(_build_connection_product_display_status(summary))
+        signer_ready = _launch_signer_evidence_ready(summary)
         if self._language() == "ru":
-            return "\n".join(
-                [
-                    "🚀 Запуск торговли",
-                    "",
-                    "Настройте лимиты и выберите рынки, на которых бот сможет работать.",
-                    "",
-                    f"Лимит на день: {config['daily_limit_ru']}",
-                    f"Максимальный убыток: {config['max_loss_ru']}",
-                    f"Рынки: {config['markets_ru']}",
-                ]
-            )
-        return "\n".join(
-            [
-                "🚀 Launch trading",
+            lines = [
+                "🚀 Запуск торговли",
                 "",
-                "Set limits and choose the markets where the bot can operate.",
+                "Настройте лимиты и выберите рынки, на которых бот сможет работать.",
                 "",
-                f"Daily limit: {config['daily_limit_en']}",
-                f"Max loss: {config['max_loss_en']}",
-                f"Markets: {config['markets_en']}",
+                f"Лимит на день: {config['daily_limit_ru']}",
+                f"Максимальный убыток: {config['max_loss_ru']}",
+                f"Рынки: {config['markets_ru']}",
             ]
-        )
+            if not (connection_ready and signer_ready):
+                lines.extend(["", "Запуск пока недоступен: требуется завершить подключение и проверку подписи."])
+            return "\n".join(lines)
+        lines = [
+            "🚀 Launch trading",
+            "",
+            "Set limits and choose the markets where the bot can operate.",
+            "",
+            f"Daily limit: {config['daily_limit_en']}",
+            f"Max loss: {config['max_loss_en']}",
+            f"Markets: {config['markets_en']}",
+        ]
+        if not (connection_ready and signer_ready):
+            lines.extend(["", "Launch is currently unavailable: finish connection and signature verification first."])
+        return "\n".join(lines)
 
     def _render_launch_daily_limit(self) -> str:
         if self._language() == "ru":
@@ -985,9 +1052,11 @@ class TelegramOperatorControlBot:
 
     def _render_launch_start(self) -> str:
         config = _launch_config_from_state(self.state)
-        connection = _build_connection_product_display_status(self._summary())
+        summary = self._summary()
+        connection = _build_connection_product_display_status(summary)
         connection_ready = _balance_connection_available(connection)
-        token_status = _product_token_status(self._summary(), language=self._language())
+        signer_ready = _launch_signer_evidence_ready(summary)
+        token_status = _product_token_status(summary, language=self._language())
         if self._language() == "ru":
             return "\n".join(
                 [
@@ -1000,7 +1069,11 @@ class TelegramOperatorControlBot:
                     "Риск: требуется финальная проверка",
                     f"Token ID: {token_status}",
                     "",
-                    "Запуск пока недоступен: требуется финальная проверка и подтверждение.",
+                    (
+                        "Запуск пока недоступен: требуется финальная проверка и подтверждение."
+                        if connection_ready and signer_ready
+                        else "Запуск пока недоступен: требуется завершить подключение и проверку подписи."
+                    ),
                 ]
             )
         return "\n".join(
@@ -1014,7 +1087,11 @@ class TelegramOperatorControlBot:
                 "Risk: final review required",
                 f"Token ID: {token_status}",
                 "",
-                "Launch is currently unavailable: final review and confirmation are required.",
+                (
+                    "Launch is currently unavailable: final review and confirmation are required."
+                    if connection_ready and signer_ready
+                    else "Launch is currently unavailable: finish connection and signature verification first."
+                ),
             ]
         )
 
@@ -1973,6 +2050,35 @@ class TelegramOperatorControlBot:
             "No order cancellation, wallet action, signing, authenticated call, or live execution was performed."
         )
 
+    def _refresh_runtime_credential_visibility_context(self) -> None:
+        if self.context.get("runtime_credential_visibility_refresh_enabled") is not True:
+            return
+        artifact_dir = clean_text(self.context.get("runtime_credential_visibility_artifact_dir"))
+        try:
+            result = run_runtime_credential_visibility_diagnostic(
+                market=RUNTIME_CREDENTIAL_VISIBILITY_DEFAULT_MARKET,
+                strategy=RUNTIME_CREDENTIAL_VISIBILITY_DEFAULT_STRATEGY,
+                dry_run=True,
+                artifact_dir=artifact_dir or RUNTIME_CREDENTIAL_VISIBILITY_077C_ARTIFACT_DIR,
+                generated_at=self.generated_at,
+            )
+        except Exception as exc:
+            self.context["runtime_credential_visibility_077c_status_summary"] = {
+                "task_id": TASK_ID_077E,
+                "status": "runtime_credential_visibility_unavailable",
+                "runtime_visibility_available": False,
+                "refresh_error": exc.__class__.__name__,
+                "raw_values_emitted": False,
+                "allowed_for_live": False,
+                "order_submission_enabled": False,
+                "signing_enabled": False,
+            }
+            return
+        self.context["runtime_credential_visibility_077c_result"] = result
+        self.context["runtime_credential_visibility_077c_status_summary"] = _normalize_runtime_credential_visibility_summary(
+            result
+        )
+
     def _summary(self) -> dict[str, Any]:
         return build_telegram_operator_control_summary(
             config=self.config,
@@ -2418,6 +2524,17 @@ def build_telegram_operator_control_summary(
         context_value.get("telegram_risk_engine_v2_status_075b_status"),
         context_value.get("latest_telegram_risk_engine_v2_status_075b"),
     )
+    runtime_credential_visibility_077c = _first_mapping(
+        context_value.get("runtime_credential_visibility_077c_status_summary"),
+        context_value.get("runtime_credential_visibility_077c_result"),
+        context_value.get("runtime_credential_visibility_status_summary"),
+        context_value.get("latest_runtime_credential_visibility_077c_status"),
+    )
+    signer_diagnostic_evidence_076c = _first_mapping(
+        context_value.get("signer_diagnostic_evidence_076c_status_summary"),
+        context_value.get("signer_diagnostic_evidence_bridge_076c_status_summary"),
+        context_value.get("latest_signer_diagnostic_evidence_076c_status"),
+    )
     mini_panel = _first_mapping(
         context_value.get("telegram_mini_app_operator_panel_summary"),
         context_value.get("telegram_mini_app_operator_panel"),
@@ -2472,6 +2589,8 @@ def build_telegram_operator_control_summary(
                 "telegram_order_prep_packet_status_072b": telegram_order_prep_packet_status_072b,
                 "telegram_operator_token_selection_074b": telegram_operator_token_selection_074b,
                 "telegram_risk_engine_v2_status_075b": telegram_risk_engine_v2_status_075b,
+                "runtime_credential_visibility_077c": runtime_credential_visibility_077c,
+                "signer_diagnostic_evidence_076c": signer_diagnostic_evidence_076c,
             },
         ),
         "task_id": TASK_ID,
@@ -2546,6 +2665,12 @@ def build_telegram_operator_control_summary(
         ),
         "telegram_risk_engine_v2_status_075b_status_summary": normalize_telegram_risk_engine_v2_status_summary(
             telegram_risk_engine_v2_status_075b
+        ),
+        "runtime_credential_visibility_077c_status_summary": _normalize_runtime_credential_visibility_summary(
+            runtime_credential_visibility_077c
+        ),
+        "signer_diagnostic_evidence_076c_status_summary": _normalize_signer_diagnostic_evidence_summary(
+            signer_diagnostic_evidence_076c
         ),
         "telegram_mini_app_operator_panel_summary": mini_panel,
         "telegram_operator_console_060t_status_registry": telegram_operator_console,
@@ -3834,6 +3959,156 @@ def _clean_list(values: Any) -> list[str]:
         return []
 
 
+RUNTIME_VISIBILITY_FIELD_ENV_NAMES = {
+    "l2_key_status": "POLYMARKET_API_KEY",
+    "l2_secret_status": "POLYMARKET_API_SECRET",
+    "l2_passphrase_status": "POLYMARKET_API_PASSPHRASE",
+    "signer_key_status": "POLYMARKET_PRIVATE_KEY",
+    "wallet_address_status": "POLYMARKET_WALLET_ADDRESS",
+    "signature_type_status": "POLYMARKET_SIGNATURE_TYPE",
+    "funder_address_status": "POLYMARKET_FUNDER_ADDRESS",
+    "telegram_bot_status": "PMBOT_TELEGRAM_BOT_TOKEN",
+    "telegram_operator_ids_status": "PMBOT_TELEGRAM_ALLOWED_OPERATOR_IDS",
+}
+
+RUNTIME_VISIBILITY_DISPLAY_FIELD_KEYS = {
+    "api_key": "l2_key_status",
+    "api_secret": "l2_secret_status",
+    "passphrase": "l2_passphrase_status",
+    "private_key": "signer_key_status",
+    "wallet_address": "wallet_address_status",
+    "signature_type": "signature_type_status",
+    "funder_address": "funder_address_status",
+    "telegram_bot_token": "telegram_bot_status",
+    "telegram_operator_ids": "telegram_operator_ids_status",
+}
+
+
+def _normalize_runtime_credential_visibility_summary(value: Mapping[str, Any]) -> dict[str, Any]:
+    data = dict(value or {})
+    latest = dict(data.get("latest_status", {})) if isinstance(data.get("latest_status"), Mapping) else data
+    requested_rows = data.get("requested_env_var_statuses", [])
+    alias_rows = data.get("runtime_alias_env_var_statuses", [])
+    rows = [
+        dict(row)
+        for row in (
+            list(requested_rows if isinstance(requested_rows, list) else [])
+            + list(alias_rows if isinstance(alias_rows, list) else [])
+        )
+        if isinstance(row, Mapping)
+    ]
+    rows_by_name = {clean_text(row.get("env_var_name")): row for row in rows if clean_text(row.get("env_var_name"))}
+    runtime_available = bool(data) and clean_text(latest.get("status") or data.get("status")) not in {
+        "",
+        "not_available",
+        "missing",
+    }
+    fallback_group_flags = {
+        "l2_key_status": latest.get("polymarket_l2_visible") is True,
+        "l2_secret_status": latest.get("polymarket_l2_visible") is True,
+        "l2_passphrase_status": latest.get("polymarket_l2_visible") is True,
+        "signer_key_status": latest.get("private_key_visible") is True,
+        "wallet_address_status": latest.get("wallet_context_visible") is True,
+        "signature_type_status": latest.get("wallet_context_visible") is True,
+        "funder_address_status": latest.get("wallet_context_visible") is True,
+        "telegram_bot_status": (
+            latest.get("telegram_runtime_alias_visible") is True
+            or latest.get("telegram_credentials_visible") is True
+        ),
+        "telegram_operator_ids_status": (
+            latest.get("telegram_runtime_alias_visible") is True
+            or latest.get("telegram_credentials_visible") is True
+        ),
+    }
+    fields = {
+        field: _runtime_visibility_field(
+            rows_by_name.get(env_name, {}),
+            env_name=env_name,
+            fallback_present=fallback_group_flags[field],
+        )
+        for field, env_name in RUNTIME_VISIBILITY_FIELD_ENV_NAMES.items()
+    }
+    return {
+        "task_id": TASK_ID_077E,
+        "status": clean_text(latest.get("status") or data.get("status") or "not_available"),
+        "runtime_visibility_available": runtime_available,
+        "credential_fields": fields,
+        "connection_complete": all(fields[field]["connected"] for field in fields),
+        "polymarket_connection_complete": all(
+            fields[field]["connected"]
+            for field in (
+                "l2_key_status",
+                "l2_secret_status",
+                "l2_passphrase_status",
+                "signer_key_status",
+                "wallet_address_status",
+                "signature_type_status",
+                "funder_address_status",
+            )
+        ),
+        "telegram_connection_complete": fields["telegram_bot_status"]["connected"]
+        and fields["telegram_operator_ids_status"]["connected"],
+        "missing_required_env_vars": [
+            clean_text(item)
+            for item in data.get("missing_required_env_vars", [])
+            if clean_text(item)
+        ],
+        "missing_runtime_alias_env_vars": [
+            clean_text(item)
+            for item in data.get("missing_runtime_alias_env_vars", [])
+            if clean_text(item)
+        ],
+        "raw_values_emitted": False,
+        "raw_secret_values_emitted": False,
+        "private_key_raw_value_emitted": False,
+        "api_secret_raw_value_emitted": False,
+        "passphrase_raw_value_emitted": False,
+        "telegram_token_raw_value_emitted": False,
+        "allowed_for_live": False,
+        "order_submission_enabled": False,
+        "signing_enabled": False,
+        "wallet_connection_ui_added": False,
+    }
+
+
+def _runtime_visibility_field(
+    row: Mapping[str, Any],
+    *,
+    env_name: str,
+    fallback_present: bool,
+) -> dict[str, Any]:
+    present = row.get("present") is True or (not row and fallback_present)
+    return {
+        "env_var_name": env_name,
+        "connected": present,
+        "length": int(row.get("length", 0) or 0) if row else 0,
+        "fingerprint": clean_text(row.get("redacted_fingerprint_sha256_12")) if row else "",
+        "raw_value_emitted": False,
+        "safe_for_telegram": True,
+    }
+
+
+def _normalize_signer_diagnostic_evidence_summary(value: Mapping[str, Any]) -> dict[str, Any]:
+    data = dict(value or {})
+    status = clean_text(data.get("signer_diagnostic_evidence_status") or data.get("status"))
+    ok = data.get("signer_diagnostic_evidence_ok_for_payload_dry_run") is True or (
+        status == "signer_diagnostic_evidence_ok_for_payload_dry_run"
+    )
+    return {
+        "task_id": TASK_ID_077E,
+        "status": status or "not_available",
+        "signer_diagnostic_evidence_ok_for_payload_dry_run": ok,
+        "signer_ready_for_live": False,
+        "order_submit_ready": False,
+        "full_signed_payload_output": False,
+        "signer_instantiated": False,
+        "signer_instantiation_attempted": False,
+        "allowed_for_live": False,
+        "order_submission_enabled": False,
+        "signing_enabled": False,
+    }
+
+
 def _build_connection_product_status(summary: Mapping[str, Any]) -> dict[str, bool]:
     credentials = dict(summary.get("explicit_live_credentials_readiness_gate_status_summary", {}))
     auth = dict(summary.get("live_credentials_auth_boundary_summary", {}))
@@ -3871,6 +4146,31 @@ def _build_connection_product_status(summary: Mapping[str, Any]) -> dict[str, bo
 
 
 def _build_connection_product_display_status(summary: Mapping[str, Any]) -> dict[str, Any]:
+    runtime_visibility = dict(summary.get("runtime_credential_visibility_077c_status_summary", {}))
+    runtime_fields = dict(runtime_visibility.get("credential_fields", {}))
+    if runtime_visibility.get("runtime_visibility_available") is True and runtime_fields:
+        def connected(field: str) -> bool:
+            field_key = RUNTIME_VISIBILITY_DISPLAY_FIELD_KEYS[field]
+            return dict(runtime_fields.get(field_key, {})).get("connected") is True
+
+        return {
+            "runtime_visibility_available": True,
+            "runtime_visibility_status": clean_text(runtime_visibility.get("status")),
+            "credential_fields": runtime_fields,
+            "connection_complete": runtime_visibility.get("connection_complete") is True,
+            "api_key_connected": connected("api_key"),
+            "api_secret_connected": connected("api_secret"),
+            "passphrase_connected": connected("passphrase"),
+            "private_key_connected": connected("private_key"),
+            "wallet_address_connected": connected("wallet_address"),
+            "signature_type_connected": connected("signature_type"),
+            "funder_address_connected": connected("funder_address"),
+            "telegram_bot_token_connected": connected("telegram_bot_token"),
+            "telegram_operator_ids_connected": connected("telegram_operator_ids"),
+            "wallet_display": "",
+            "signature_type_display": "",
+            "funder_display": "",
+        }
     status = dict(summary.get("telegram_connection_status_067e_status_summary", {}))
     fallback = _build_connection_product_status(summary)
     api_keys_present = (
@@ -3897,12 +4197,20 @@ def _build_connection_product_display_status(summary: Mapping[str, Any]) -> dict
         else ""
     )
     return {
+        "runtime_visibility_available": False,
+        "runtime_visibility_status": "",
+        "credential_fields": {},
+        "connection_complete": False,
         "api_key_connected": api_keys_present or fallback["api_key_connected"],
         "api_secret_connected": api_keys_present or fallback["api_secret_connected"],
         "passphrase_connected": api_keys_present or fallback["passphrase_connected"],
+        "private_key_connected": status.get("private_key_added") is True
+        or clean_text(status.get("private_key_status")) in {"added", "present"},
         "wallet_address_connected": bool(wallet_display) or fallback["wallet_address_connected"],
         "signature_type_connected": signature_present,
         "funder_address_connected": bool(funder_display) or fallback["funder_address_connected"],
+        "telegram_bot_token_connected": False,
+        "telegram_operator_ids_connected": False,
         "wallet_display": wallet_display,
         "signature_type_display": signature_display,
         "funder_display": funder_display,
@@ -3917,12 +4225,77 @@ def _en_connected(value: Any) -> str:
     return "connected" if value is True else "not connected"
 
 
+def _render_connection_status_line(
+    label: str,
+    status: Mapping[str, Any],
+    field: str,
+    *,
+    language: str,
+) -> str:
+    connected = status.get(f"{field}_connected") is True
+    word = _ru_connected(connected) if language == "ru" else _en_connected(connected)
+    detail = _runtime_field_safe_detail(status, field, language=language)
+    if detail:
+        return f"{label}: {word} ({detail})"
+    legacy_display = {
+        "wallet_address": status.get("wallet_display"),
+        "signature_type": status.get("signature_type_display"),
+        "funder_address": status.get("funder_display"),
+    }.get(field)
+    return f"{label}: {word}{_safe_detail(legacy_display)}"
+
+
+def _runtime_field_safe_detail(status: Mapping[str, Any], field: str, *, language: str) -> str:
+    fields = dict(status.get("credential_fields", {}))
+    field_key = RUNTIME_VISIBILITY_DISPLAY_FIELD_KEYS.get(field, field)
+    row = dict(fields.get(field_key, {}))
+    if not row:
+        return ""
+    parts: list[str] = []
+    length = int(row.get("length", 0) or 0)
+    if length > 0:
+        parts.append(f"длина {length}" if language == "ru" else f"length {length}")
+    fingerprint = clean_text(row.get("fingerprint"))
+    if fingerprint:
+        parts.append(
+            f"отпечаток {fingerprint}"
+            if language == "ru"
+            else f"fingerprint {fingerprint}"
+        )
+    return ", ".join(parts)
+
+
+def _missing_funder_address_copy(status: Mapping[str, Any], *, language: str) -> str:
+    if not (
+        status.get("wallet_address_connected") is True
+        and status.get("funder_address_connected") is not True
+    ):
+        return ""
+    if language == "ru":
+        return "\n".join(
+            [
+                "Funder Address не указан.",
+                "Для некоторых проверок Polymarket может потребоваться funder/proxy wallet address.",
+                "Если funder совпадает с wallet address, можно временно использовать тот же адрес.",
+            ]
+        )
+    return "\n".join(
+        [
+            "Funder Address is not set.",
+            "Some Polymarket checks may require the funder/proxy wallet address.",
+            "If the funder is the same as the wallet address, you can temporarily use the same address.",
+        ]
+    )
+
+
 def _safe_detail(value: Any) -> str:
     text = clean_text(value)
     return f" ({text})" if text else ""
 
 
 def _balance_connection_available(status: Mapping[str, Any]) -> bool:
+    if status.get("runtime_visibility_available") is True:
+        return status.get("connection_complete") is True
     return (
         status.get("api_key_connected") is True
         and status.get("api_secret_connected") is True
@@ -3960,6 +4333,11 @@ def _product_token_status(summary: Mapping[str, Any], *, language: str) -> str:
     if language == "ru":
         return "выбран" if selected else "требуется выбор"
     return "selected" if selected else "selection required"
+
+
+def _launch_signer_evidence_ready(summary: Mapping[str, Any]) -> bool:
+    status = dict(summary.get("signer_diagnostic_evidence_076c_status_summary", {}))
+    return status.get("signer_diagnostic_evidence_ok_for_payload_dry_run") is True
 
 
 def _normalize_l2_auth_display(value: str) -> str:

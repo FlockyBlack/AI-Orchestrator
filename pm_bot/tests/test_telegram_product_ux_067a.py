@@ -193,9 +193,9 @@ def test_connection_screen_redacts_all_secret_like_values() -> None:
     assert "API Key: подключен" in reply.text
     assert "API Secret: подключен" in reply.text
     assert "Passphrase: подключен" in reply.text
-    assert "Wallet address: подключен" in reply.text
-    assert "Signature type: подключен" in reply.text
-    assert "Funder address: подключен" in reply.text
+    assert "Wallet Address: подключен" in reply.text
+    assert "Signature Type: подключен" in reply.text
+    assert "Funder Address: подключен" in reply.text
     for raw in (RAW_PRIVATE_KEY, RAW_API_SECRET, RAW_PASSPHRASE, RAW_WALLET, RAW_FUNDER):
         assert raw not in rendered
 

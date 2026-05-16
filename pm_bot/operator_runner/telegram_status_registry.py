@@ -53,6 +53,8 @@ TELEGRAM_ORDER_PREP_PACKET_STATUS_072B_FLOW_ID = "telegram_order_prep_packet_sta
 TELEGRAM_REAL_CHECK_RESULTS_073T_FLOW_ID = "telegram_real_check_results_073t"
 TELEGRAM_OPERATOR_TOKEN_SELECTION_074B_FLOW_ID = "telegram_operator_token_selection_074b"
 TELEGRAM_RISK_ENGINE_V2_STATUS_075B_FLOW_ID = "telegram_risk_engine_v2_status_075b"
+RUNTIME_CREDENTIAL_VISIBILITY_077C_FLOW_ID = "runtime_credential_visibility_077c"
+SIGNER_DIAGNOSTIC_EVIDENCE_076C_FLOW_ID = "signer_diagnostic_evidence_bridge_076c"
 STATUS_REGISTRY_CONTRACT = "pmbot_telegram_operator_console_060t_status_registry.v1"
 STATUS_CARD_CONTRACT = "pmbot_telegram_operator_console_060t_status_card.v1"
 READINESS_SUMMARY_CONTRACT = "pmbot_telegram_operator_console_060t_readiness.v1"
@@ -410,6 +412,24 @@ STATUS_SOURCES: tuple[TelegramStatusSource, ...] = (
         context_key="telegram_connection_status_067e_status_summary",
         label_en="Connection status 067E",
         label_ru="Подключение 067E",
+    ),
+    TelegramStatusSource(
+        flow_id=RUNTIME_CREDENTIAL_VISIBILITY_077C_FLOW_ID,
+        section="Live Readiness",
+        artifact_dir_name="runtime_credential_visibility_077c",
+        latest_status_filename="latest_runtime_credential_visibility_077c_status.json",
+        context_key="runtime_credential_visibility_077c_status_summary",
+        label_en="Runtime credential visibility",
+        label_ru="Runtime credential visibility",
+    ),
+    TelegramStatusSource(
+        flow_id=SIGNER_DIAGNOSTIC_EVIDENCE_076C_FLOW_ID,
+        section="Live Readiness",
+        artifact_dir_name="signer_diagnostic_evidence_bridge_076c",
+        latest_status_filename="latest_signer_diagnostic_evidence_076c_status.json",
+        context_key="signer_diagnostic_evidence_076c_status_summary",
+        label_en="Signer diagnostic evidence",
+        label_ru="Проверка подписи",
     ),
     TelegramStatusSource(
         flow_id=TELEGRAM_REAL_CHECK_RESULTS_073T_FLOW_ID,

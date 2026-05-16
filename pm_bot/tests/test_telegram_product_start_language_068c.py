@@ -214,9 +214,9 @@ def test_connection_screen_redacts_values_and_uses_product_copy() -> None:
     assert "API Key: подключен" in reply.text
     assert "API Secret: подключен" in reply.text
     assert "Passphrase: подключен" in reply.text
-    assert "Wallet address: подключен (0x3006...8989)" in reply.text
-    assert "Signature type: подключен (3)" in reply.text
-    assert "Funder address: подключен (0x1111...5555)" in reply.text
+    assert "Wallet Address: подключен (0x3006...8989)" in reply.text
+    assert "Signature Type: подключен (3)" in reply.text
+    assert "Funder Address: подключен (0x1111...5555)" in reply.text
     for raw in (RAW_PRIVATE_KEY, RAW_API_SECRET, RAW_PASSPHRASE, RAW_WALLET, RAW_FUNDER):
         assert raw not in rendered
 

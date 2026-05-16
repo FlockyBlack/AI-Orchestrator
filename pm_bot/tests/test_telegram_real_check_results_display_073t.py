@@ -232,21 +232,19 @@ def test_073t_telegram_connection_screen_uses_same_message_safe_controls(tmp_pat
     assert "API Key: не подключен" in reply.text
     assert "API Secret: не подключен" in reply.text
     assert "Passphrase: не подключен" in reply.text
-    assert "Wallet address: не подключен" in reply.text
-    assert "Signature type: не подключен" in reply.text
-    assert "Funder address: не подключен" in reply.text
+    assert "Wallet Address: не подключен" in reply.text
+    assert "Signature Type: не подключен" in reply.text
+    assert "Funder Address: не подключен" in reply.text
     assert _button_labels(reply) == (
-        "➕ Подключить API-ключи",
-        "🔍 Проверить подключение",
+        "🔄 Проверить снова",
         "📘 Инструкция",
-        "🗑 Удалить подключение",
+        "💰 Перейти к балансу",
         "⬅️ Главное меню",
     )
     assert _callback_data(reply) == (
-        "pmbot:connection:setup",
         "pmbot:connection:check",
         "pmbot:connection:instruction",
-        "pmbot:connection:remove",
+        "pmbot:balance",
         "pmbot:home",
     )
     for raw in (RAW_TOKEN, RAW_TOKEN_ID, RAW_ACCOUNT, RAW_SECRET):

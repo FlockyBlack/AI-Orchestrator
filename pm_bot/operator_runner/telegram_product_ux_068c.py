@@ -125,7 +125,7 @@ def build_ru_menu_snapshot(*, generated_at: str = GENERATED_AT) -> dict[str, Any
         ),
         "engineering_debug_labels_are_not_primary_menu_labels": _engineering_labels_absent(labels),
         "mini_app_button_label": "🌐 Mini App",
-        "connection_check_button_label": "🔍 Проверить подключение",
+        "connection_check_button_label": "🔄 Проверить снова",
         "allowed_for_live": False,
     }
 
@@ -143,7 +143,7 @@ def build_en_menu_snapshot(*, generated_at: str = GENERATED_AT) -> dict[str, Any
         "labels_match_required": tuple(labels) == EN_MAIN_MENU_LABELS,
         "engineering_debug_labels_are_not_primary_menu_labels": _engineering_labels_absent(labels),
         "mini_app_button_label": "🌐 Mini App",
-        "connection_check_button_label": "🔍 Check connection",
+        "connection_check_button_label": "🔄 Check again",
         "allowed_for_live": False,
     }
 
