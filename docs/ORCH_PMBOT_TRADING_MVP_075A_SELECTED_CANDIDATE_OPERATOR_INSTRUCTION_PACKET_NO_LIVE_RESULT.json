@@ -1,0 +1,142 @@
+{
+  "task_id": "ORCH-PMBOT-TRADING-MVP-075A-SELECTED-CANDIDATE-OPERATOR-INSTRUCTION-PACKET-NO-LIVE",
+  "status": "validated_pending_final_commit_push_remote_verify",
+  "repo": {
+    "url": "https://github.com/FlockyBlack/AI-Orchestrator.git",
+    "worktree": "C:/oc075a_selected_candidate_operator_instruction_packet_no_live",
+    "branch": "pmbot/trading-mvp-075a-selected-candidate-operator-instruction-packet-no-live",
+    "base": "origin/master",
+    "base_head": "044d0dccd2f065e09f4dedfac504638d907facc8",
+    "head_before": "044d0dccd2f065e09f4dedfac504638d907facc8",
+    "head_after": "recorded_in_final_report_after_commit_push_verify",
+    "pushed": "pending",
+    "remote_verified": "pending"
+  },
+  "implemented": {
+    "selected_candidate_instruction_models": true,
+    "selected_candidate_instruction_packet": true,
+    "operator_runner": true,
+    "focused_tests": true,
+    "deterministic_artifacts": true,
+    "selection_artifact_created_by_075a": false,
+    "selected_token_artifact_created_by_075a": false,
+    "raw_token_ids_emitted_by_075a": false
+  },
+  "behavior": {
+    "reads_local_artifact_candidates_only": true,
+    "network_calls_performed": false,
+    "polymarket_api_calls_performed": 0,
+    "secrets_read": false,
+    "signing_attempted": false,
+    "submit_cancel_trade_attempted": false,
+    "multiple_candidates_status": "operator_selection_required",
+    "no_candidates_status": "blocked_missing_source_backed_candidates",
+    "allowed_for_live": false,
+    "instruction_packet_executable_for_live": false,
+    "safe_cli_command_template": "python -m pm_bot.operator_runner.operator_token_selection_packet --market BTC --strategy tiny-momentum --dry-run --candidate-index N",
+    "safe_cli_reuses_existing_073b_contract": true
+  },
+  "artifacts": {
+    "directory": "pm_bot/trading_core/artifacts/selected_candidate_instruction_packet_075a",
+    "result": "pm_bot/trading_core/artifacts/selected_candidate_instruction_packet_075a/selected_candidate_instruction_packet_075a_result.json",
+    "latest_status": "pm_bot/trading_core/artifacts/selected_candidate_instruction_packet_075a/latest_selected_candidate_instruction_packet_075a.json",
+    "candidates": "pm_bot/trading_core/artifacts/selected_candidate_instruction_packet_075a/selected_candidate_instruction_candidates_075a.json",
+    "packet": "pm_bot/trading_core/artifacts/selected_candidate_instruction_packet_075a/selected_candidate_instruction_packet_075a.json",
+    "operator_markdown": "pm_bot/trading_core/artifacts/selected_candidate_instruction_packet_075a/selected_candidate_instruction_packet_075a.md",
+    "safety_snapshot": "pm_bot/trading_core/artifacts/selected_candidate_instruction_packet_075a/selected_candidate_instruction_safety_snapshot_075a.json",
+    "default_runner_status": "operator_selection_required",
+    "default_source_backed_candidate_count": 2,
+    "default_selected_token_id_present": false
+  },
+  "changed_files": [
+    "docs/ORCH_PMBOT_TRADING_MVP_075A_SELECTED_CANDIDATE_OPERATOR_INSTRUCTION_PACKET_NO_LIVE_RESULT.json",
+    "pm_bot/operator_runner/selected_candidate_instruction_packet.py",
+    "pm_bot/tests/test_selected_candidate_instruction_packet_075a.py",
+    "pm_bot/trading_core/artifacts/selected_candidate_instruction_packet_075a/latest_selected_candidate_instruction_packet_075a.json",
+    "pm_bot/trading_core/artifacts/selected_candidate_instruction_packet_075a/selected_candidate_instruction_candidates_075a.json",
+    "pm_bot/trading_core/artifacts/selected_candidate_instruction_packet_075a/selected_candidate_instruction_packet_075a.json",
+    "pm_bot/trading_core/artifacts/selected_candidate_instruction_packet_075a/selected_candidate_instruction_packet_075a.md",
+    "pm_bot/trading_core/artifacts/selected_candidate_instruction_packet_075a/selected_candidate_instruction_packet_075a_result.json",
+    "pm_bot/trading_core/artifacts/selected_candidate_instruction_packet_075a/selected_candidate_instruction_safety_snapshot_075a.json",
+    "pm_bot/trading_core/selected_candidate_instruction_models.py",
+    "pm_bot/trading_core/selected_candidate_instruction_packet.py"
+  ],
+  "validation": [
+    {
+      "command": "python -m pytest pm_bot/tests/test_selected_candidate_instruction_packet_075a.py",
+      "status": "passed",
+      "summary": "8 passed in 1.03s"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_operator_token_selection_packet_073b.py",
+      "status": "passed",
+      "summary": "10 passed in 0.89s"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_selected_token_payload_readiness_gate_073c.py",
+      "status": "passed",
+      "summary": "12 passed in 0.99s"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_static_safety_invariant_report_060q.py",
+      "status": "passed",
+      "summary": "9 passed in 29.92s"
+    },
+    {
+      "command": "python -B -m pytest pm_bot/tests",
+      "status": "passed_with_short_path_alias",
+      "summary": "2185 passed in 631.84s via temporary O: subst alias to the required worktree",
+      "initial_required_path_attempt": "failed because the required long worktree path made existing tracked evidence fixture paths exceed Python/Windows MAX_PATH; the same command passed through the short alias"
+    },
+    {
+      "command": "python -m compileall -q pm_bot",
+      "status": "passed",
+      "summary": "compileall completed without errors"
+    },
+    {
+      "command": "python -m compileall -q ai_orchestrator",
+      "status": "passed",
+      "summary": "compileall completed without errors"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.selected_candidate_instruction_packet --market BTC --strategy tiny-momentum --dry-run",
+      "status": "passed",
+      "summary": "status=operator_selection_required; source_backed_candidates=2; selected_token_id_present=false; selected_candidate_artifact_written=false; allowed_for_live=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.static_safety_invariant_report --scope pm_bot --dry-run",
+      "status": "passed",
+      "summary": "critical_findings=0; warnings=7; live execution blocked; order submission blocked; signing blocked; wallet blocked"
+    }
+  ],
+  "diff_checks": {
+    "git_diff_check": "passed",
+    "git_diff_cached_check": "passed"
+  },
+  "safety": {
+    "paper_only": true,
+    "review_only": true,
+    "live_trading_added": false,
+    "real_order_submitted": false,
+    "order_cancellation_added": false,
+    "signing_added": false,
+    "wallet_or_private_key_access": false,
+    "authenticated_endpoint_added": false,
+    "polymarket_api_used": false,
+    "browser_automation_used": false,
+    "scheduler_or_daemon_added": false,
+    "background_worker_added": false,
+    "selection_artifact_write_by_075a": false,
+    "selected_token_artifact_write_by_075a": false,
+    "fake_token_id_generated": false,
+    "raw_token_id_exposed": false,
+    "allowed_for_live_true_added": false,
+    "instruction_packet_executable_for_live": false,
+    "unsafe_git_staging_used": false,
+    "force_push_used": false
+  },
+  "remaining_risks": [
+    "075A intentionally does not choose a candidate. Operators must manually inspect the shortened-token candidate list and run the displayed 073B dry-run command for the intended zero-based candidate index.",
+    "The full test suite must be run through a shorter path alias on this Windows machine because the required worktree path makes existing practical evidence fixture paths exceed Python's default MAX_PATH handling."
+  ]
+}
