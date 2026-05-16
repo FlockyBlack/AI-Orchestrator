@@ -121,7 +121,7 @@
     "operator_token_selection_packet_073b"
   ],
   "source_paths": [
-    "pm_bot/trading_core/artifacts/public_market_token_discovery_071a/public_market_token_discovery_071a_result.json",
+    "pm_bot/trading_core/artifacts/public_market_token_discovery_071a/public_outcome_token_candidates_071a.json",
     "pm_bot/trading_core/artifacts/operator_token_selection_packet_073b/operator_token_selection_candidates_073b.json"
   ],
   "strategy": "tiny-momentum",

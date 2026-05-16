@@ -1,12 +1,12 @@
 # PMBOT Guarded Signer Diagnostic Smoke 069A
 
-- Status: `blocked_diagnostic_not_requested`
-- Diagnostic status: `diagnostic_not_requested`
+- Status: `blocked_missing_private_key`
+- Diagnostic status: `missing_private_key`
 - Market: `BTC`
 - Strategy: `tiny-momentum`
 - Default mode reads private key: `false`
-- Diagnostic requested: `false`
-- Private key read: `false`
+- Diagnostic requested: `true`
+- Private key read: `true`
 - Private key present: `false`
 - Private key format valid: `false`
 - Wallet address present: `false`

@@ -18,8 +18,8 @@ from pm_bot.trading_core.selected_token_payload_readiness_models import (
     STATUS_BLOCKED_MISSING_APPROVAL_CONTRACT,
     STATUS_BLOCKED_MISSING_SELECTED_TOKEN,
     STATUS_BLOCKED_MISSING_SIGNED_PAYLOAD_DRY_RUN,
-    STATUS_BLOCKED_MISSING_SIGNER_DIAGNOSTIC,
-    STATUS_BLOCKED_SIGNER_DIAGNOSTIC_NOT_OK,
+    STATUS_BLOCKED_MISSING_SIGNER_DIAGNOSTIC_EVIDENCE,
+    STATUS_BLOCKED_SIGNER_DIAGNOSTIC_FAILED,
     STATUS_BLOCKED_UNVERIFIED_SELECTED_TOKEN,
     STATUS_READY,
 )
@@ -163,22 +163,35 @@ def _ready_source_paths(
     )
     if include_signer:
         paths["signer"] = _write_json(
-            source_dir / "latest_guarded_signer_diagnostic_status_069a.json",
+            source_dir / "latest_signer_diagnostic_evidence_076c_status.json",
             {
-                "contract_version": "pmbot_latest_guarded_signer_diagnostic_status_069a.v1",
-                "status": "diagnostic_ok" if signer_ok else "blocked_diagnostic_not_requested",
-                "diagnostic_status": "diagnostic_ok" if signer_ok else "diagnostic_not_requested",
-                "diagnostic_challenge_signed": signer_ok,
-                "private_key_read": signer_ok,
+                "contract_version": "pmbot_latest_signer_diagnostic_evidence_bridge_076c_status.v1",
+                "status": "signer_diagnostic_evidence_ok_for_payload_dry_run"
+                if signer_ok
+                else "blocked_signer_diagnostic_failed",
+                "signer_diagnostic_evidence_status": "signer_diagnostic_evidence_ok_for_payload_dry_run"
+                if signer_ok
+                else "blocked_signer_diagnostic_failed",
+                "source_diagnostic_status": "diagnostic_ok" if signer_ok else "diagnostic_not_requested",
+                "signer_diagnostic_evidence_ok_for_payload_dry_run": signer_ok,
+                "signer_ready_for_live": False,
+                "order_submit_ready": False,
+                "full_signed_payload_output": False,
+                "signing_by_default": False,
+                "live": False,
                 "order_payload_signing_enabled": False,
                 "order_payload_signing_attempted": False,
                 "order_submission_enabled": False,
                 "order_cancellation_enabled": False,
+                "private_key_read": False,
                 "private_key_value_emitted": False,
                 "raw_private_key_emitted": False,
                 "raw_secret_values_emitted": False,
                 "raw_diagnostic_signature_emitted": False,
                 "full_diagnostic_signature_emitted": False,
+                "signer_instantiated": False,
+                "signer_instantiation_attempted": False,
+                "signer_diagnostic_executed_by_bridge": False,
                 "authenticated_trading_enabled": False,
                 "authenticated_trading_call_performed": False,
                 "allowed_for_live": False,
@@ -283,7 +296,7 @@ def _run_gate_with_sources(tmp_path: Path, paths: Mapping[str, Path]) -> dict[st
         operator_token_selection_packet_path=paths.get("selection", tmp_path / "missing_selection.json"),
         selected_token_verification_bridge_path=paths.get("verification_bridge", tmp_path / "missing_verification_bridge.json"),
         first_order_market_token_contract_path=paths["resolver"],
-        signer_diagnostic_status_path=paths.get("signer", tmp_path / "missing_signer.json"),
+        signer_diagnostic_evidence_path=paths.get("signer", tmp_path / "missing_signer_evidence.json"),
         approval_contract_status_path=paths.get("approval", tmp_path / "missing_approval.json"),
         signed_payload_dry_run_status_path=paths.get("dry_run", tmp_path / "missing_dry_run.json"),
         signed_payload_diagnostic_adapter_status_path=paths.get("adapter", tmp_path / "missing_adapter.json"),
@@ -365,10 +378,10 @@ def test_missing_signer_diagnostic_blocks(tmp_path: Path) -> None:
     paths = _ready_source_paths(tmp_path, include_signer=False)
     result = _run_gate_with_sources(tmp_path, paths)
 
-    assert result["status"] == STATUS_BLOCKED_MISSING_SIGNER_DIAGNOSTIC
-    assert result["latest_status"]["signer_diagnostic_artifact_available"] is False
+    assert result["status"] == STATUS_BLOCKED_MISSING_SIGNER_DIAGNOSTIC_EVIDENCE
+    assert result["latest_status"]["signer_diagnostic_evidence_artifact_available"] is False
     assert result["selected_token_payload_ready_for_submit"] is False
-    _assert_blocker(result, "signer_diagnostic_missing")
+    _assert_blocker(result, "signer_diagnostic_evidence_missing")
     _assert_required_false_flags(result)
 
 
@@ -376,10 +389,10 @@ def test_signer_diagnostic_not_ok_blocks(tmp_path: Path) -> None:
     paths = _ready_source_paths(tmp_path, signer_ok=False)
     result = _run_gate_with_sources(tmp_path, paths)
 
-    assert result["status"] == STATUS_BLOCKED_SIGNER_DIAGNOSTIC_NOT_OK
+    assert result["status"] == STATUS_BLOCKED_SIGNER_DIAGNOSTIC_FAILED
     assert result["readiness_summaries"]["signer_diagnostic"]["diagnostic_ok"] is False
     assert result["selected_token_payload_ready_for_submit"] is False
-    _assert_blocker(result, "signer_diagnostic_not_ok")
+    _assert_blocker(result, "signer_diagnostic_failed")
     _assert_required_false_flags(result)
 
 
@@ -510,7 +523,7 @@ def test_selected_token_verification_bridge_moves_gate_past_unverified_selected_
     result = _run_gate_with_sources(tmp_path, paths)
     selected_token = result["readiness_summaries"]["selected_token"]
 
-    assert result["status"] == STATUS_BLOCKED_MISSING_SIGNER_DIAGNOSTIC
+    assert result["status"] == STATUS_BLOCKED_MISSING_SIGNER_DIAGNOSTIC_EVIDENCE
     assert result["status"] != STATUS_BLOCKED_UNVERIFIED_SELECTED_TOKEN
     assert selected_token["selected_token_verified"] is True
     assert selected_token["selected_token_verification_bridge_verified"] is True
@@ -578,7 +591,7 @@ def test_runner_emits_required_artifacts_only_and_no_execution_objects(tmp_path:
             str(paths["selection"]),
             "--first-order-market-token-contract-path",
             str(paths["resolver"]),
-            "--signer-diagnostic-status-path",
+            "--signer-diagnostic-evidence-path",
             str(paths["signer"]),
             "--approval-contract-status-path",
             str(paths["approval"]),

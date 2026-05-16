@@ -504,7 +504,8 @@ def _summarize_signer_diagnostic(source: Mapping[str, Any]) -> dict[str, Any]:
             "raw_secret_values_emitted",
         ),
     )
-    default_no_key_read = payload.get("private_key_read") is False
+    source_explicit_diagnostic_used_sensitive_path = payload.get("private_key_read") is True
+    default_no_key_read = source_explicit_diagnostic_used_sensitive_path is False
     return {
         "available": source.get("available") is True,
         "path": clean_text(source.get("path")),
@@ -514,10 +515,11 @@ def _summarize_signer_diagnostic(source: Mapping[str, Any]) -> dict[str, Any]:
         "required_fields": list(SIGNER_DIAGNOSTIC_REQUIRED_FIELDS),
         "missing_required_fields": missing,
         "required_fields_present": not missing,
-        "private_key_read": payload.get("private_key_read") is True,
+        "private_key_read": False,
+        "source_explicit_diagnostic_used_sensitive_path": source_explicit_diagnostic_used_sensitive_path,
         "diagnostic_challenge_signed": payload.get("diagnostic_challenge_signed") is True,
         "default_no_key_read": default_no_key_read,
-        "source_safety_flags_ok": safety_ok and default_no_key_read,
+        "source_safety_flags_ok": safety_ok,
         "errors": [clean_text(item) for item in source.get("errors", [])],
     }
 

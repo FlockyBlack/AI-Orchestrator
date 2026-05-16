@@ -39,9 +39,14 @@ def build_parser() -> argparse.ArgumentParser:
         help="Optional local first order market token resolver 070B contract artifact path.",
     )
     parser.add_argument(
+        "--signer-diagnostic-evidence-path",
+        default="",
+        help="Optional local signer diagnostic evidence bridge 076C artifact path.",
+    )
+    parser.add_argument(
         "--signer-diagnostic-status-path",
         default="",
-        help="Optional local guarded signer diagnostic 069A status artifact path.",
+        help="Deprecated alias for --signer-diagnostic-evidence-path.",
     )
     parser.add_argument(
         "--approval-contract-status-path",
@@ -91,6 +96,9 @@ def main(argv: Sequence[str] | None = None) -> int:
         else None,
         first_order_market_token_contract_path=Path(args.first_order_market_token_contract_path)
         if args.first_order_market_token_contract_path
+        else None,
+        signer_diagnostic_evidence_path=Path(args.signer_diagnostic_evidence_path)
+        if args.signer_diagnostic_evidence_path
         else None,
         signer_diagnostic_status_path=Path(args.signer_diagnostic_status_path)
         if args.signer_diagnostic_status_path
