@@ -32,6 +32,9 @@ from pm_bot.trading_core.selected_token_payload_readiness_models import (
     selected_token_payload_readiness_safety_flags,
     validate_selected_token_payload_readiness_gate_result,
 )
+from pm_bot.trading_core.selected_token_verification_models import (
+    STATUS_SELECTED_TOKEN_VERIFIED_FOR_PAYLOAD_DRY_RUN,
+)
 
 DEFAULT_ARTIFACT_DIR = Path("pm_bot/trading_core/artifacts/selected_token_payload_readiness_gate_073c")
 DEFAULT_SELECTED_CANDIDATE_ARTIFACT_PATHS = (
@@ -43,6 +46,11 @@ DEFAULT_OPERATOR_TOKEN_SELECTION_PACKET_PATHS = (
     Path("pm_bot/trading_core/artifacts/operator_token_selection_packet_073b/latest_operator_token_selection_packet_073b.json"),
     Path("pm_bot/trading_core/artifacts/operator_token_selection_packet_073b/operator_token_selection_packet_073b_result.json"),
     Path("pm_bot/trading_core/artifacts/operator_token_selection_packet_073b/operator_token_selection_packet_073b.json"),
+)
+DEFAULT_SELECTED_TOKEN_VERIFICATION_BRIDGE_PATHS = (
+    Path("pm_bot/trading_core/artifacts/selected_token_verification_bridge_076a/latest_selected_token_verification_076a_status.json"),
+    Path("pm_bot/trading_core/artifacts/selected_token_verification_bridge_076a/selected_token_verification_076a_result.json"),
+    Path("pm_bot/trading_core/artifacts/selected_token_verification_bridge_076a/selected_token_verification_076a_evidence.json"),
 )
 DEFAULT_FIRST_ORDER_MARKET_TOKEN_CONTRACT_PATH = Path(
     "pm_bot/trading_core/artifacts/first_order_market_token_resolver_070b/first_order_market_token_contract_070b.json"
@@ -112,6 +120,7 @@ def run_selected_token_payload_readiness_gate(
     dry_run: bool = True,
     selected_candidate_artifact_path: str | Path | None = None,
     operator_token_selection_packet_path: str | Path | None = None,
+    selected_token_verification_bridge_path: str | Path | None = None,
     first_order_market_token_contract_path: str | Path | None = None,
     signer_diagnostic_status_path: str | Path | None = None,
     approval_contract_status_path: str | Path | None = None,
@@ -136,6 +145,10 @@ def run_selected_token_payload_readiness_gate(
         explicit_path=selected_candidate_artifact_path,
         default_paths=DEFAULT_SELECTED_CANDIDATE_ARTIFACT_PATHS,
     )
+    verification_bridge_path = _select_first_existing_path(
+        explicit_path=selected_token_verification_bridge_path,
+        default_paths=DEFAULT_SELECTED_TOKEN_VERIFICATION_BRIDGE_PATHS,
+    )
     source_artifacts = {
         "selected_candidate_artifact_075d": _load_source_artifact(
             selected_candidate_path,
@@ -144,6 +157,10 @@ def run_selected_token_payload_readiness_gate(
         "operator_token_selection_packet_073b": _load_source_artifact(
             selection_path,
             "operator token selection packet 073B",
+        ),
+        "selected_token_verification_bridge_076a": _load_source_artifact(
+            verification_bridge_path,
+            "selected token verification bridge 076A",
         ),
         "first_order_market_token_resolver_070b": _load_source_artifact(
             Path(first_order_market_token_contract_path)
@@ -180,6 +197,7 @@ def run_selected_token_payload_readiness_gate(
     selected_token = _summarize_selected_token(
         selected_candidate_source=source_artifacts["selected_candidate_artifact_075d"],
         selection_source=source_artifacts["operator_token_selection_packet_073b"],
+        verification_bridge_source=source_artifacts["selected_token_verification_bridge_076a"],
         resolver_source=source_artifacts["first_order_market_token_resolver_070b"],
         market_symbol=market_symbol,
         strategy_name=strategy_name,
@@ -320,6 +338,8 @@ def render_selected_token_payload_readiness_markdown(result: Mapping[str, Any]) 
         f"- selected_token_status: `{latest.get('selected_token_status')}`",
         f"- selected_token_verified: `{str(latest.get('selected_token_verified') is True).lower()}`",
         f"- selected_token_fingerprint_sha256: `{latest.get('selected_token_fingerprint_sha256') or 'missing'}`",
+        f"- selected_token_verification_bridge_status: `{latest.get('selected_token_verification_bridge_status') or 'missing'}`",
+        f"- selected_token_verification_bridge_verified: `{str(latest.get('selected_token_verification_bridge_verified') is True).lower()}`",
         f"- signer_diagnostic_status: `{latest.get('signer_diagnostic_status')}`",
         f"- approval_contract_status: `{latest.get('approval_contract_status')}`",
         f"- signed_payload_dry_run_status: `{latest.get('signed_payload_dry_run_status')}`",
@@ -420,6 +440,7 @@ def _summarize_selected_token(
     *,
     selected_candidate_source: Mapping[str, Any],
     selection_source: Mapping[str, Any],
+    verification_bridge_source: Mapping[str, Any],
     resolver_source: Mapping[str, Any],
     market_symbol: str,
     strategy_name: str,
@@ -431,6 +452,11 @@ def _summarize_selected_token(
     )
     selection_payload = (
         dict(selection_source.get("payload", {})) if isinstance(selection_source.get("payload"), Mapping) else {}
+    )
+    verification_payload = (
+        dict(verification_bridge_source.get("payload", {}))
+        if isinstance(verification_bridge_source.get("payload"), Mapping)
+        else {}
     )
     resolver_payload = (
         dict(resolver_source.get("payload", {})) if isinstance(resolver_source.get("payload"), Mapping) else {}
@@ -460,6 +486,7 @@ def _summarize_selected_token(
         else selected_candidate_valid
     )
     selection_available = selection_source.get("available") is True
+    verification_bridge_available = verification_bridge_source.get("available") is True
     resolver_available = resolver_source.get("available") is True
     selected_candidate_scope_matches = (
         _scope_matches(selected_candidate_payload, market_symbol, strategy_name)
@@ -472,6 +499,59 @@ def _summarize_selected_token(
         else selected_candidate_scope_matches
     )
     resolver_scope_matches = _scope_matches(resolver_payload, market_symbol, strategy_name) if resolver_available else False
+    verification_bridge_scope_matches = (
+        _scope_matches(verification_payload, market_symbol, strategy_name)
+        if verification_bridge_available
+        else False
+    )
+    verification_bridge_fingerprint = clean_text(
+        verification_payload.get("token_id_hash")
+        or verification_payload.get("selected_token_fingerprint_sha256")
+    )
+    verification_bridge_safety_flags_ok = (
+        True
+        if not verification_bridge_available
+        else _source_false_flags_ok(
+            verification_payload,
+            (
+                "allowed_for_live",
+                "selected_token_payload_ready_for_submit",
+                "ready_for_submit",
+                "submit_ready",
+                "order_payload_generated",
+                "signed_payload_generated",
+                "order_submission_enabled",
+                "order_cancellation_enabled",
+                "private_key_read",
+                "signing_attempted",
+                "wallet_connection_attempted",
+            ),
+        )
+    )
+    token_matches_verification_bridge = (
+        bool(verification_bridge_fingerprint)
+        and (
+            not selected_candidate_hash
+            or selected_candidate_hash == verification_bridge_fingerprint
+        )
+    )
+    verification_bridge_verified = (
+        verification_bridge_available
+        and clean_text(verification_payload.get("status"))
+        == STATUS_SELECTED_TOKEN_VERIFIED_FOR_PAYLOAD_DRY_RUN
+        and verification_payload.get("selected_token_verified_for_payload_dry_run") is True
+        and verification_payload.get("selected_token_payload_ready_for_submit") is False
+        and verification_payload.get("allowed_for_live") is False
+        and verification_payload.get("token_hash_match") is True
+        and verification_payload.get("candidate_index_match") is True
+        and verification_payload.get("market_match") is True
+        and verification_payload.get("strategy_match") is True
+        and verification_payload.get("outcome_label_match") is True
+        and verification_payload.get("selected_candidate_in_known_candidate_set") is True
+        and verification_bridge_scope_matches
+        and token_matches_verification_bridge
+        and verification_bridge_safety_flags_ok
+    )
     resolver_ready = (
         resolver_available
         and resolver_payload.get("token_id_present") is True
@@ -541,9 +621,10 @@ def _summarize_selected_token(
                 "private_key_read",
             ),
         )
+        and verification_bridge_safety_flags_ok
     )
-    selected_token_present = bool(selected_token) or selected_candidate_valid
-    verified = (
+    selected_token_present = bool(selected_token) or selected_candidate_valid or verification_bridge_verified
+    verified_without_bridge = (
         selected_token_present
         and (selection_available or selected_candidate_valid)
         and operator_verified
@@ -555,7 +636,10 @@ def _summarize_selected_token(
         and resolver_scope_matches
         and source_safety_flags_ok
     )
+    verified = verified_without_bridge or verification_bridge_verified
     fingerprint = selected_candidate_hash if selected_candidate_valid else ""
+    if verification_bridge_verified and verification_bridge_fingerprint:
+        fingerprint = verification_bridge_fingerprint
     if not fingerprint and selected_token and token_format_valid:
         fingerprint = _sha256_text(selected_token)
     return {
@@ -564,17 +648,26 @@ def _summarize_selected_token(
         "selected_candidate_artifact_verified": selected_candidate_valid,
         "selection_packet_available": selection_available,
         "selection_packet_path": clean_text(selection_source.get("path")),
+        "selected_token_verification_bridge_available": verification_bridge_available,
+        "selected_token_verification_bridge_path": clean_text(verification_bridge_source.get("path")),
+        "selected_token_verification_bridge_status": clean_text(verification_payload.get("status")) or "missing",
+        "selected_token_verification_bridge_verified": verification_bridge_verified,
+        "selected_token_verification_bridge_scope_matches": verification_bridge_scope_matches,
+        "selected_token_verification_bridge_safety_flags_ok": verification_bridge_safety_flags_ok,
         "resolver_contract_available": resolver_available,
         "resolver_contract_path": clean_text(resolver_source.get("path")),
         "selection_contract_version": clean_text(selection_payload.get("contract_version")),
         "selection_status": clean_text(selection_payload.get("status")) or "missing",
+        "verification_bridge_contract_version": clean_text(verification_payload.get("contract_version")),
         "resolver_contract_version": clean_text(resolver_payload.get("contract_version")),
         "resolver_status": clean_text(resolver_payload.get("status")) or "missing",
         "selected_token_present": selected_token_present,
         "selected_token_verified": verified,
         "operator_selection_verified": operator_verified,
+        "verified_without_bridge": verified_without_bridge,
         "resolver_token_ready": resolver_ready,
         "selection_scope_matches": selection_scope_matches,
+        "verification_bridge_token_match": token_matches_verification_bridge,
         "resolver_scope_matches": resolver_scope_matches,
         "token_id_format_valid": token_format_valid,
         "token_matches_resolver": token_matches_resolver,
@@ -585,6 +678,7 @@ def _summarize_selected_token(
         "errors": [
             *[clean_text(item) for item in selected_candidate_source.get("errors", [])],
             *[clean_text(item) for item in selection_source.get("errors", [])],
+            *[clean_text(item) for item in verification_bridge_source.get("errors", [])],
             *[clean_text(item) for item in resolver_source.get("errors", [])],
         ],
     }
@@ -850,6 +944,11 @@ def _build_latest_status(
         "selected_candidate_artifact_available": selected_token.get("selected_candidate_artifact_available") is True,
         "selected_candidate_artifact_verified": selected_token.get("selected_candidate_artifact_verified") is True,
         "operator_selection_packet_available": selected_token.get("selection_packet_available") is True,
+        "selected_token_verification_bridge_available": selected_token.get("selected_token_verification_bridge_available") is True,
+        "selected_token_verification_bridge_status": clean_text(selected_token.get("selected_token_verification_bridge_status")),
+        "selected_token_verification_bridge_verified": selected_token.get("selected_token_verification_bridge_verified") is True,
+        "selected_token_verification_bridge_scope_matches": selected_token.get("selected_token_verification_bridge_scope_matches") is True,
+        "selected_token_verification_bridge_safety_flags_ok": selected_token.get("selected_token_verification_bridge_safety_flags_ok") is True,
         "resolver_contract_available": selected_token.get("resolver_contract_available") is True,
         "signer_diagnostic_status": "ok" if signer.get("diagnostic_ok") is True else clean_text(signer.get("diagnostic_status")),
         "signer_diagnostic_artifact_available": signer.get("available") is True,

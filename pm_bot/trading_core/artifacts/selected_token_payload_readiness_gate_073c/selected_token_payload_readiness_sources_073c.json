@@ -114,7 +114,13 @@
       "selected_candidate_artifact_verified": true,
       "selected_token_fingerprint_sha256": "d348e2a7d5d7c9f7084272c64ea704a8c5e82e183b04688937df777aef31e43a",
       "selected_token_present": true,
-      "selected_token_verified": false,
+      "selected_token_verification_bridge_available": true,
+      "selected_token_verification_bridge_path": "pm_bot/trading_core/artifacts/selected_token_verification_bridge_076a/latest_selected_token_verification_076a_status.json",
+      "selected_token_verification_bridge_safety_flags_ok": true,
+      "selected_token_verification_bridge_scope_matches": true,
+      "selected_token_verification_bridge_status": "selected_token_verified_for_payload_dry_run",
+      "selected_token_verification_bridge_verified": true,
+      "selected_token_verified": true,
       "selection_contract_version": "pmbot_operator_token_selection_packet_073b_result.v1",
       "selection_packet_available": true,
       "selection_packet_path": "pm_bot/trading_core/artifacts/operator_token_selection_packet_073b/operator_token_selection_packet_073b_result.json",
@@ -123,7 +129,10 @@
       "source_safety_flags_ok": true,
       "token_generation_safe": true,
       "token_id_format_valid": true,
-      "token_matches_resolver": true
+      "token_matches_resolver": true,
+      "verification_bridge_contract_version": "pmbot_latest_selected_token_verification_bridge_076a_status.v1",
+      "verification_bridge_token_match": true,
+      "verified_without_bridge": false
     },
     "signed_payload_dry_run": {
       "available": true,
@@ -220,6 +229,15 @@
       "payload_values_embedded": false,
       "status": ""
     },
+    "selected_token_verification_bridge_076a": {
+      "available": true,
+      "contract_version": "pmbot_latest_selected_token_verification_bridge_076a_status.v1",
+      "errors": [],
+      "label": "selected token verification bridge 076A",
+      "path": "pm_bot/trading_core/artifacts/selected_token_verification_bridge_076a/latest_selected_token_verification_076a_status.json",
+      "payload_values_embedded": false,
+      "status": "selected_token_verified_for_payload_dry_run"
+    },
     "signed_order_payload_dry_run_070a": {
       "available": true,
       "contract_version": "pmbot_latest_signed_order_payload_dry_run_status_070a.v1",
@@ -239,7 +257,7 @@
       "status": "blocked_selected_token_candidate_not_ready"
     }
   },
-  "status": "blocked_unverified_selected_token",
+  "status": "blocked_signer_diagnostic_not_ok",
   "strategy_name": "tiny-momentum",
   "submit_call_performed": false,
   "task_id": "ORCH-PMBOT-TRADING-MVP-073C-SELECTED-TOKEN-SIGNED-PAYLOAD-READINESS-GATE-NO-SUBMIT",

@@ -1,6 +1,6 @@
 # PMBOT Selected Token Payload Readiness Gate 073C
 
-- Status: `blocked_unverified_selected_token`
+- Status: `blocked_signer_diagnostic_not_ok`
 - Market: `BTC`
 - Strategy: `tiny-momentum`
 - Mode: `selected token signed payload readiness gate / dry-run / no-submit`
@@ -9,9 +9,11 @@
 
 ## Readiness
 
-- selected_token_status: `blocked`
-- selected_token_verified: `false`
+- selected_token_status: `verified`
+- selected_token_verified: `true`
 - selected_token_fingerprint_sha256: `d348e2a7d5d7c9f7084272c64ea704a8c5e82e183b04688937df777aef31e43a`
+- selected_token_verification_bridge_status: `selected_token_verified_for_payload_dry_run`
+- selected_token_verification_bridge_verified: `true`
 - signer_diagnostic_status: `diagnostic_not_requested`
 - approval_contract_status: `defined`
 - signed_payload_dry_run_status: `ready`
@@ -38,7 +40,6 @@
 
 ## Blockers
 
-- Selected token is present but is not operator-verified against the resolver contract.
 - Guarded signer diagnostic is missing, stale, or not diagnostic_ok.
 
 ## Required False Flags
